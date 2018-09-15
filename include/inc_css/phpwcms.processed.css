@@ -144,7 +144,8 @@
 
 #statusMessage {
   background-color: #E3EED7;
-  border-radius: 7px;
+  -webkit-border-radius: 7px;
+          border-radius: 7px;
   color: #52970D;
   display: none;
   float: left;
@@ -247,9 +248,11 @@
 .backend-search-button {
   background: #f9f9f9 -webkit-gradient(linear, left top, left bottom, color-stop(top, center), color-stop(5%, #f9f9f9), to(#e9e9e9));
   background: #f9f9f9 -webkit-linear-gradient(center top, #f9f9f9 5%, #e9e9e9 100%);
+  background: #f9f9f9 -o-linear-gradient(center top, #f9f9f9 5%, #e9e9e9 100%);
   background: #f9f9f9 linear-gradient(center top, #f9f9f9 5%, #e9e9e9 100%);
   border: 1px solid #dcdcdc;
-  border-radius: 4px;
+  -webkit-border-radius: 4px;
+          border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 0 0 #fff;
           box-shadow: inset 0 1px 0 0 #fff;
   height: 16px;
@@ -261,6 +264,7 @@
 .backend-search-button:hover {
   background: #e9e9e9 -webkit-gradient(linear, left top, left bottom, color-stop(top, center), color-stop(5%, #e9e9e9), to(#f9f9f9));
   background: #e9e9e9 -webkit-linear-gradient(center top, #e9e9e9 5%, #f9f9f9 100%);
+  background: #e9e9e9 -o-linear-gradient(center top, #e9e9e9 5%, #f9f9f9 100%);
   background: #e9e9e9 linear-gradient(center top, #e9e9e9 5%, #f9f9f9 100%); }
 
 .backend-search-input {
@@ -553,7 +557,8 @@
 .grey_button {
   background: #DDD url(../../img/button/bg_button_grey.gif) repeat-x 0 center;
   border: 1px solid #707070;
-  border-radius: 3px;
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
   color: #000;
   text-decoration: none; }
 
@@ -607,7 +612,8 @@
 
 .incell-tabs a {
   border: 1px solid #9BBECA;
-  border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+          border-radius: 5px 5px 0 0;
   display: inline-block;
   float: left;
   height: 18px;
@@ -794,7 +800,8 @@
 
 .overflow-ellipsis {
   overflow: hidden;
-  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
   white-space: nowrap; }
 
 .overflow-ellipsis.home-article {
@@ -1254,6 +1261,7 @@ abbr {
 body {
   background: -webkit-gradient(linear, left top, left bottom, from(#347199), to(#c1d2e2));
   background: -webkit-linear-gradient(top, #347199, #c1d2e2);
+  background: -o-linear-gradient(top, #347199, #c1d2e2);
   background: linear-gradient(to bottom, #347199, #c1d2e2);
   background-attachment: fixed;
   background-color: #c1d2e2;
@@ -1813,3 +1821,22 @@ ul.radio-list {
 ul.checkbox-list ul,
 ul.radio-list ul {
   margin-left: 20px; }
+
+.backend-menu {
+  position: relative;
+  padding-top: 9px;
+  width: auto;
+  min-width: 800px;
+  background-image: url(../../img/backend/backend_r3_c4.jpg);
+  background-repeat: repeat-x;
+  padding-right: 1px; }
+
+.backend-menu > a {
+  display: inline-block; }
+
+.backend-menu > a + a {
+  margin-left: 1.5em; }
+
+.backend-menu .backend-menu-logout {
+  position: relative;
+  float: right; }

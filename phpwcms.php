@@ -268,29 +268,22 @@ if($BE['LANG'] == 'ar') {
         </td>
     </tr>
     <tr>
-     <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
-      <td colspan="4" valign="top" style="background:url(img/backend/backend_r3_c4.jpg) repeat-x; "><table style="width:100%;min-width:800px" border="0" cellpadding="0" cellspacing="0" summary="sub structure">
-        <tr>
-          <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="9"></td>
-        </tr>
-        <tr>
-          <td valign="top" class="navtext"><?php
+        <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
+        <td colspan="4" valign="top" class="backend-menu navtext"><?php
 
-          // create backend main navigation
-          if($do == 'default') {
-            echo '<strong class="navtexta"><a href="phpwcms.php">HOME</a></strong>&nbsp;&nbsp;&nbsp;';
-          } else {
-            echo '<a href="phpwcms.php">HOME</a>&nbsp;&nbsp;&nbsp;';
-          }
-          echo implode('&nbsp;&nbsp;&nbsp;', $wcsnav);
+            // create backend main navigation
+            if($do == 'default') {
+                echo '<a href="phpwcms.php"><strong>HOME</strong></a>';
+            } else {
+                echo '<a href="phpwcms.php">HOME</a>';
+            }
+            echo implode('', $wcsnav);
 
 
-                ?></td>
-          <td align="right" valign="top" class="navtext"><a href="phpwcms.php?do=logout" target="_top"><?php echo $BL['be_nav_logout'] ?></a></td>
-        </tr>
-      </table></td>
-      <td valign="top"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
-  </tr>
+            ?><a href="phpwcms.php?do=logout" target="_top" class="backend-menu-logout"><?php echo $BL['be_nav_logout'] ?></a>
+        </td>
+        <td valign="top"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
+    </tr>
     <tr bgcolor="#FFFFFF">
       <td width="15" bgcolor="#FFFFFF" style="background: url(img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>
         <td width="175" valign="top" bgcolor="#FFFFFF"><?php

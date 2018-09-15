@@ -2204,3 +2204,23 @@ ul.checkbox-list ul,
 ul.radio-list ul {
     margin-left:20px;
 }
+
+.backend-menu {
+    position: relative;
+    padding-top: 9px;
+    width: auto;
+    min-width: 800px;
+    background-image: url(../../img/backend/backend_r3_c4.jpg);
+    background-repeat: repeat-x;
+    padding-right: 1px;
+}
+.backend-menu > a {
+    display: inline-block;
+}
+.backend-menu > a + a {
+    margin-left: 1.5em;
+}
+.backend-menu .backend-menu-logout {
+    position: relative;
+    float: right;
+}
