@@ -163,7 +163,7 @@ if(isset($result[0]['template_id'])) {
             $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
         }
         if(!empty($_POST['template_cc_link'])) {
-            $template['cookie_consent']['link'] = clean_slweg($_POST['template_cc_link']);
+            $template['cookie_consent']['link'] = slweg($_POST['template_cc_link']);
         }
         if(isset($_POST['template_cc_theme'])) {
             $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
@@ -482,7 +482,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
                     </tr>
                     <tr>
                         <td class="chatlist">&nbsp;</td>
-                        <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'], 1); ?> /></td>
+                        <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked(isset($template['tracking_ga']['optout']) ? $template['tracking_ga']['optout'] : 0, 1); ?> /></td>
                         <td class="chatlist nowrap"><label for="template_ga_optout">&nbsp;<?php echo $BL['be_tracking_optout']; ?></label></td>
                     </tr>
                 </table>
@@ -515,19 +515,20 @@ foreach($phpwcms['js_lib'] as $key => $value) {
         </tr>
         <tr id="cookie-consent"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
             <td>&nbsp;</td>
-            <td class="tdtop3 tdbottom5">
-                <table cellpadding="0" cellspacing="0" border="0">
+            <td class="tdbottom5">
+                <?php if(count($phpwcms['allowed_lang'])): ?><div class="chatlist wrap tdbottom3 tdright10"><?php echo $BL['be_cookie_consent_translatable']; ?></div><?php endif; ?>
+                <table cellpadding="0" cellspacing="0" border="0" class="tdtop3">
                     <tr>
                         <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_cookie_consent_message']; ?>:&nbsp;</td>
-                        <td class="tdbottom3"><textarea name="template_cc_message" rows="3" class="width400 autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea></td>
+                        <td class="tdbottom3"><textarea name="template_cc_message" rows="3" class="width400 autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html_entities($template['cookie_consent']['message']) ?></textarea></td>
                     </tr>
                     <tr>
                         <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_dismiss']; ?>:&nbsp;</td>
-                        <td class="tdbottom3"><input type="text" name="template_cc_dismiss" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>" value="<?php echo html($template['cookie_consent']['dismiss']) ?>" /></td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_dismiss" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>" value="<?php echo html_entities($template['cookie_consent']['dismiss']) ?>" /></td>
                     </tr>
                     <tr>
                         <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_more']; ?>:&nbsp;</td>
-                        <td class="tdbottom3"><input type="text" name="template_cc_more" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_more']; ?>" value="<?php echo html($template['cookie_consent']['more']) ?>" /></td>
+                        <td class="tdbottom3"><input type="text" name="template_cc_more" maxlength="100" class="width400" placeholder="<?php echo $BL['cookie_consent_more']; ?>" value="<?php echo html_entities($template['cookie_consent']['more']) ?>" /></td>
                     </tr>
                     <tr>
                         <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_cookie_consent_link']; ?>:&nbsp;</td>

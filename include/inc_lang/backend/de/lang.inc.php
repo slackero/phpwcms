@@ -945,6 +945,9 @@ $BL['be_cnt_field'] = array(
     'recaptchainv' => 'Unsichtbares reCAPTCHA',
 );
 
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = 'aktiviere Double Opt-In gem&auml;&szlig; der <a href="https://de.wikipedia.org/wiki/Datenschutz-Grundverordnung" target="_blank">Datenschutzgrundverordnung</a> (DSGVO)';
+
 $BL['be_cnt_access'] = 'Zugriff';
 $BL['be_cnt_activated'] = 'aktiviert';
 $BL['be_cnt_available'] = 'verf&uuml;gbar';
@@ -1405,6 +1408,7 @@ $BL['be_attr_alt'] = 'Alternativer Text';
 $BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';
 $BL['be_cookie_consent_enable'] = 'Cookie Consent Plugin aktivieren';
 $BL['be_cookie_consent_message'] = 'Zustimmungstext';
+$BL['be_cookie_consent_translatable'] = 'Diese Installation unterst&uuml;tzt mehrere Sprachen (&#36;phpwcms[&#39;allowed_lang&#39;]). Mittels <b>@@Text@@</b> Syntax k&ouml;nnen Cookie Consent Texte &uuml;bersetzt werden. Nach dem Rendern `template/template_lang` pr&uuml;fen.';
 $BL['cookie_consent_message'] = 'Diese Website benutzt Cookies, um eine umfassende Darstellung sowie die Funktionalit&auml;t der Webseite sicherzustellen';
 $BL['be_cookie_consent_dismiss'] = 'Best&auml;tigungs-Button';
 $BL['cookie_consent_dismiss'] = 'Verstanden!';

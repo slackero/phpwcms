@@ -1169,18 +1169,18 @@ if($content['opengraph']['render']) {
 	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
 		foreach($content['images']['shop'] as $og_img) {
 				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
+				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['news']) && count($content['images']['news'])) {
 		foreach($content['images']['news'] as $og_img) {
 				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
+				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
 		$content['opengraph']['has_image'] = true;
-		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
+		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'].'/'.rawurlencode($content['images']['article']['name']), 'property');
 	}
 	if(!$content['opengraph']['has_image'] && is_file(PHPWCMS_TEMPLATE.'img/opengraph-default.png')) {
 		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
@@ -1529,14 +1529,16 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
     $block['cookie_consent']['options'] = array();
     if(!empty($block['cookie_consent']['message'])) {
         $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+        $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
     }
     if(!empty($block['cookie_consent']['dismiss'])) {
         $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+        $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
     }
     if(!empty($block['cookie_consent']['link'])) {
 
         $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
-        $block['cookie_consent']['link'][0] = trim($block['cookie_consent']['link'][0]);
+        $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
         $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
         if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
             $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
@@ -1544,6 +1546,7 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
 
         if(!empty($block['cookie_consent']['more'])) {
             $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+            $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
         }
     }
 

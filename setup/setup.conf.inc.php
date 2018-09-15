@@ -22,7 +22,7 @@ $phpwcms['db_charset'] = 'utf8';
 $phpwcms['db_collation'] = 'utf8_general_ci';
 $phpwcms['db_version'] = 0;
 $phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$phpwcms['db_sql_mode'] = null; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
 
 // site values
 $phpwcms['site'] = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/'
@@ -105,7 +105,7 @@ $phpwcms['JW_FLV_License'] = ''; // insert your JW FLV Media Player License Code
 $phpwcms['feuser_regkey'] = 'FEUSER';
 $phpwcms['login.php'] = 'login.php';
 $phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.19/)
+$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)
 $phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB

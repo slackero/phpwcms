@@ -953,7 +953,7 @@ function parse_images($matches) {
 
     }
 
-    return '<img src="'.PHPWCMS_URL.'img/leer.gif" alt="" />';
+    return '';
 
 }
 

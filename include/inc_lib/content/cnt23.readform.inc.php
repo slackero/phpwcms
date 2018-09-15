@@ -81,6 +81,26 @@ $content["form"]["labelpos"]        = intval($_POST["cform_labelpos"]);
 $content['form']["sendcopy"]        = empty($_POST["cform_sendcopy"]) ? 0 : 1;
 $content['form']["copyto"]          = isset($_POST["cform_copyto"]) ? clean_slweg($_POST["cform_copyto"]) : '';
 
+//double opt-in
+$content['form']["doubleoptin"] = empty($_POST["cform_doubleoptin"]) ? 0 : 1;
+$content["form"]["doubleoptin_targettype"] = clean_slweg($_POST["cform_targettype_doubleoptin"]);
+
+$content['form']["onsuccess_redirect_doubleoptin"] = empty($_POST["cform_onsuccess_redirect_doubleoptin"]) ? 0 : intval($_POST["cform_onsuccess_redirect_doubleoptin"]);
+if($content['form']["onsuccess_redirect_doubleoptin"] !== 1 && $content['form']["onsuccess_redirect_doubleoptin"] !== 2) {
+    $content['form']["onsuccess_redirect_doubleoptin"] = 0;
+}
+
+$content['form']["onerror_redirect_doubleoptin"]   = empty($_POST["cform_onerror_redirect_doubleoptin"]) ? 0 : intval($_POST["cform_onerror_redirect_doubleoptin"]);
+if($content['form']["onerror_redirect_doubleoptin"] !== 1 && $content['form']["onerror_redirect_doubleoptin"] !== 2) {
+    $content['form']["onerror_redirect_doubleoptin"] = 0;
+}
+
+$content['form']['onsuccess_doubleoptin'] = $content['form']["onsuccess_redirect_doubleoptin"] === 2 ? slweg($_POST["cform_onsuccess_doubleoptin"]) : clean_slweg($_POST["cform_onsuccess_doubleoptin"]);
+$content['form']['onerror_doubleoptin']   = $content['form']["onerror_redirect_doubleoptin"]   === 2 ? slweg($_POST["cform_onerror_doubleoptin"])   : clean_slweg($_POST["cform_onerror_doubleoptin"]);
+
+$content['form']["template_format_doubleoptin"] = intval($_POST["cform_template_format_doubleoptin"]) ? 1 : 0;
+$content['form']["template_doubleoptin"]        = slweg($_POST["cform_template_doubleoptin"]);
+
 // disable formtracking as recommend for "send a friend" forms
 $content['form']['formtracking_off'] = empty($_POST["cform_tracking_off"]) ? 0 : 1;
 
@@ -103,8 +123,8 @@ switch($content['form']["onerror_redirect"]) {
     default:
         $content['form']["onerror_redirect"] = 0;
 }
-$content['form']["onsuccess"] = $content['form']["onsuccess_redirect"] == 2 ? slweg($_POST["cform_onsuccess"]) : clean_slweg($_POST["cform_onsuccess"]);
-$content['form']["onerror"]   = $content['form']["onerror_redirect"]   == 2 ? slweg($_POST["cform_onerror"])   : clean_slweg($_POST["cform_onerror"]);
+$content['form']["onsuccess"] = $content['form']["onsuccess_redirect"] === 2 ? slweg($_POST["cform_onsuccess"]) : clean_slweg($_POST["cform_onsuccess"]);
+$content['form']["onerror"]   = $content['form']["onerror_redirect"]   === 2 ? slweg($_POST["cform_onerror"])   : clean_slweg($_POST["cform_onerror"]);
 
 $content['form']["template_format"] = intval($_POST["cform_template_format"]) ? 1 : 0;
 $content['form']["template"]        = slweg($_POST["cform_template"]);

@@ -20,7 +20,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301  USA
  *
  * @Author  Konstantin Riabitsev <icon@linux.duke.edu>
@@ -30,7 +30,7 @@
 /**
  * This is a debugging function used throughout the code. To enable
  * debugging you have to specify a global variable called "debug" before
- * calling sanitize() and set it to true. 
+ * calling sanitize() and set it to true.
  *
  * Note: Although insignificantly, debugging does slow you down even
  * when $debug is set to false. If you wish to get rid of all
@@ -55,7 +55,7 @@ function htmlfilter_debug($message){
 
 /**
  * This function returns the final tag out of the tag name, an array
- * of attributes, and the type of the tag. This function is called by 
+ * of attributes, and the type of the tag. This function is called by
  * sanitize internally.
  *
  * @param  $tagname  the name of the tag.
@@ -99,7 +99,7 @@ function casenormalize(&$val){
 /**
  * This function skips any whitespace from the current position within
  * a string and to the next non-whitespace value.
- * 
+ *
  * @param  $body   the string
  * @param  $offset the offset within the string where we should start
  *                 looking for the next non-whitespace character.
@@ -108,11 +108,8 @@ function casenormalize(&$val){
  */
 function skipspace($body, $offset){
     $me = 'skipspace';
-    preg_match('/^(\s*)/s', substr($body, $offset), $matches);
-    if (sizeof($matches{1})){
-        $count = strlen($matches{1});
-        //htmlfilter_debug("$me: skipped $count chars\n");
-        $offset += $count;
+    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {;
+        $offset += strlen($matches[1]);
     }
     return $offset;
 }
@@ -157,15 +154,14 @@ function findnxreg($body, $offset, $reg){
     $matches = array();
     $retarr = array();
     $preg_rule = '%^(.*?)(' . $reg . ')%s';
-    preg_match($preg_rule, substr($body, $offset), $matches);
-    if (!isset($matches{0})){
+    if(preg_match($preg_rule, substr($body, $offset), $matches)) {
+        $retarr[0] = $offset + strlen($matches[1]);
+        $retarr[1] = $matches[1];
+        $retarr[2] = $matches[2];
+        //htmlfilter_debug("$me: '$reg' found at pos $offset matching '".$matches[2]."'\n");
+    } else {
         //htmlfilter_debug("$me: No matches found.\n");
         $retarr = false;
-    } else {
-        $retarr{0} = $offset + strlen($matches{1});
-        $retarr{1} = $matches{1};
-        $retarr{2} = $matches{2};
-        //htmlfilter_debug("$me: '$reg' found at pos $offset matching '".$matches{2}."'\n");
     }
     return $retarr;
 }
@@ -249,7 +245,7 @@ function getnxtag($body, $offset){
         $tagtype = 1;
         break;
     }
-    
+
     $tag_start = $pos;
     $tagname = '';
     /**
@@ -262,13 +258,13 @@ function getnxtag($body, $offset){
     }
     list($pos, $tagname, $match) = $regary;
     $tagname = strtolower($tagname);
-    
+
     /**
      * $match can be either of these:
      * '>'  indicating the end of the tag entirely.
      * '\s' indicating the end of the tag name.
      * '/'  indicating that this is type-3 xhtml tag.
-     * 
+     *
      * Whatever else we find there indicates an invalid tag.
      */
     switch ($match){
@@ -311,7 +307,7 @@ function getnxtag($body, $offset){
             return array(false, false, false, $lt, $gt);
         }
     }
-    
+
     /**
      * At this point we're here:
      * <tagname  attribute='blah'>
@@ -322,7 +318,7 @@ function getnxtag($body, $offset){
     $attname = '';
     $atttype = false;
     $attary = array();
-    
+
     while ($pos <= strlen($body)){
         $pos = skipspace($body, $pos);
         if ($pos == strlen($body)){
@@ -337,20 +333,19 @@ function getnxtag($body, $offset){
          * the end of the tag.
          */
         $matches = array();
-        preg_match('%^(\s*)(>|/>)%s', substr($body, $pos), $matches);
-        if (isset($matches{0}) && $matches{0}){
+        if(preg_match('%^(\s*)(>|/>)%s', substr($body, $pos), $matches)) {
             /**
              * Yep. So we did.
              */
             //htmlfilter_debug("$me: Arrived at the end of the tag.\n");
-            $pos += strlen($matches{1});
-            if ($matches{2} == '/>'){
+            $pos += strlen($matches[1]);
+            if ($matches[2] == '/>'){
                 $tagtype = 3;
                 $pos++;
             }
             return array($tagname, $attary, $tagtype, $lt, $pos);
         }
-        
+
         /**
          * There are several types of attributes, with optional
          * [:space:] between members.
@@ -525,8 +520,7 @@ function deent(&$attvalue, $regex, $hex=false){
     $me = 'deent';
     //htmlfilter_debug("$me: matching '$regex' against: $attvalue\n");
     $ret_match = false;
-    preg_match_all($regex, $attvalue, $matches);
-    if (is_array($matches) && sizeof($matches[0]) > 0){
+    if(preg_match_all($regex, $attvalue, $matches)){
         //htmlfilter_debug("$me: found " . sizeof($matches[0]) . " matches\n");
         $repl = array();
         for ($i = 0; $i < sizeof($matches[0]); $i++){
@@ -582,7 +576,7 @@ function defang(&$attvalue){
  * Kill any tabs, newlines, or carriage returns. Our friends the
  * makers of the browser with 95% market value decided that it'd
  * be funny to make "java[tab]script" be just as good as "javascript".
- * 
+ *
  * @param  attvalue  The attribute value before extraneous spaces removed.
  * @return attvalue  Nothing, modifies a reference value.
  */
@@ -590,7 +584,7 @@ function unspace(&$attvalue){
     $me = 'unspace';
     if (strcspn($attvalue, "\t\r\n\0 ") != strlen($attvalue)){
         //htmlfilter_debug("$me: Killing whitespace.\n");
-        $attvalue = str_replace(array("\t", "\r", "\n", "\0", " "), 
+        $attvalue = str_replace(array("\t", "\r", "\n", "\0", " "),
                                 array('',   '',   '',   '',   ''), $attvalue);
     }
     //htmlfilter_debug("$me: after unspace: $attvalue\n");
@@ -606,8 +600,8 @@ function unspace(&$attvalue){
  * @param  $add_attr_to_tag See description for sanitize
  * @return                  Array with modified attributes.
  */
-function fixatts($tagname, 
-                 $attary, 
+function fixatts($tagname,
+                 $attary,
                  $rm_attnames,
                  $bad_attvals,
                  $add_attr_to_tag
@@ -635,7 +629,7 @@ function fixatts($tagname,
          */
         defang($attvalue);
         unspace($attvalue);
-        
+
         /**
          * Now let's run checks on the attvalues.
          * I don't expect anyone to comprehend this. If you do,
@@ -692,8 +686,8 @@ function fixatts($tagname,
  *
  * Examples:
  * $tag_list = array(
- *                   false,   
- *                   "blink", 
+ *                   false,
+ *                   "blink",
  *                   "link",
  *		     "object",
  *		     "meta",
@@ -701,17 +695,17 @@ function fixatts($tagname,
  *                   "html"
  *		            );
  *
- * This will allow all tags except for blink, link, object, meta, marquee, 
+ * This will allow all tags except for blink, link, object, meta, marquee,
  * and html.
  *
  * $tag_list = array(
- *                   true, 
- *                   "b", 
- *                   "a", 
- *                   "i", 
- *                   "img", 
- *                   "strong", 
- *                   "em", 
+ *                   true,
+ *                   "b",
+ *                   "a",
+ *                   "i",
+ *                   "img",
+ *                   "strong",
+ *                   "em",
  *                   "p"
  *                  );
  *
@@ -726,7 +720,7 @@ function fixatts($tagname,
  * Example:
  * $rm_tags_with_content = array(
  *                               "script",
- *                               "style", 
+ *                               "style",
  *                               "applet",
  *                               "embed"
  *                              );
@@ -735,7 +729,7 @@ function fixatts($tagname,
  * <script>
  *  window.alert("Isn't cross-site-scripting fun?!");
  * </script>
- * 
+ *
  * $self_closing_tags
  * ------------------
  * This is a simple one-dimentional array of strings, which specifies which
@@ -744,10 +738,10 @@ function fixatts($tagname,
  * Example:
  * $self_closing_tags =  array(
  *                             "img",
- *                             "br", 
+ *                             "br",
  *                             "hr",
  *                             "input"
- *                            );    
+ *                            );
  *
  * $force_tag_closing
  * ------------------
@@ -760,7 +754,7 @@ function fixatts($tagname,
  * Now we come to parameters that are more obscure. This parameter is
  * a nested array which is used to specify which attributes should be
  * removed. It goes like so:
- * 
+ *
  * $rm_attnames = array(
  *   "PCRE regex to match tag name" =>
  *     array(
@@ -773,7 +767,7 @@ function fixatts($tagname,
  *   "|.*|" =>
  *     array(
  *           "|target|i",
- *           "|^on.*|i"  
+ *           "|^on.*|i"
  *          )
  *   );
  *
@@ -832,33 +826,33 @@ function fixatts($tagname,
  *  );
  *
  * This will take care of nearly all known cross-site scripting exploits,
- * plus some (see my filter sample at 
+ * plus some (see my filter sample at
  * http://www.mricon.com/html/phpfilter.html for a working version).
  *
  * $add_attr_to_tag
  * ----------------
- * This is a useful little feature which lets you add attributes to 
+ * This is a useful little feature which lets you add attributes to
  * certain tags. It is a nested array as well, but not at all like
  * the previous one. It goes like so:
- * 
+ *
  * $add_attr_to_tag = array(
  *   "PCRE regex to match tag name" =>
  *     array(
  *           "attribute name"=>'"attribute value"'
  *          )
  *   );
- * 
+ *
  * Note: don't forget quotes around attribute value.
- * 
+ *
  * Example:
- * 
+ *
  * $add_attr_to_tag = array(
- *   "/^a$/si" => 
+ *   "/^a$/si" =>
  *     array(
  *           'target'=>'"_new"'
  *          )
  *   );
- * 
+ *
  * This will change all <a> tags and add target="_new" to them so all links
  * open in a new window.
  *
@@ -874,8 +868,8 @@ function fixatts($tagname,
  * @param $add_attr_to_tag      see description above
  * @return                      sanitized html safe to show on your pages.
  */
-function htmlfilter_sanitize($body, 
-                  $tag_list = array(), 
+function htmlfilter_sanitize($body,
+                  $tag_list = array(),
                   $rm_tags_with_content = array(),
                   $self_closing_tags = array(),
                   $force_tag_closing = true,
@@ -930,7 +924,7 @@ function htmlfilter_sanitize($body,
                     $skip_content = false;
                 } else {
                     if ($skip_content == false){
-                        if (isset($open_tags{$tagname}) && 
+                        if (isset($open_tags{$tagname}) &&
                             $open_tags{$tagname} > 0){
                             //htmlfilter_debug("$me: popping '$tagname' from open_tags\n");
                             $open_tags{$tagname}--;
@@ -961,14 +955,14 @@ function htmlfilter_sanitize($body,
                      * See if we should skip this tag and any content
                      * inside it.
                      */
-                    if ($tagtype == 1 
+                    if ($tagtype == 1
                         && in_array($tagname, $rm_tags_with_content)){
                         //htmlfilter_debug("$me: removing this tag with content\n");
                         $skip_content = $tagname;
                     } else {
-                        if (($rm_tags == false 
+                        if (($rm_tags == false
                              && in_array($tagname, $tag_list)) ||
-                            ($rm_tags == true 
+                            ($rm_tags == true
                              && !in_array($tagname, $tag_list))){
                             //htmlfilter_debug("$me: Removing this tag.\n");
                             $tagname = false;
