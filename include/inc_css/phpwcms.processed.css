@@ -1831,10 +1831,14 @@ ul.radio-list ul {
   background-repeat: repeat-x;
   padding-right: 1px; }
 
-.backend-menu > a {
+.backend-menu > a,
+.backend-menu > strong,
+.backend-menu > strong > a {
   display: inline-block; }
 
-.backend-menu > a + a {
+.backend-menu > a + a,
+.backend-menu > strong + a,
+.backend-menu > a + strong {
   margin-left: 1.5em; }
 
 .backend-menu .backend-menu-logout {
