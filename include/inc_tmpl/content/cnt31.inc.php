@@ -307,8 +307,11 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
                 </em>
             </div>
+            <div class="col-auto">
+              <div id="img_previewsmall_<?php echo $key ?>" class="backend_previewsmall_img"></div>
+            </div>
             <div class="col">
-                <h2># <?php echo $key ?></h2>
+                <h2># <?php echo $key ?> - <?php echo html($value['caption']) ?></h2>
             </div>
             <div class="col-sm-auto text-right">
                 <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>">
@@ -693,6 +696,7 @@ function updatePreviewImage(image_number) {
         preview += getBackendImgSrc( cimage_id_zoom );
     }
     $('#img_preview_'+image_number).html(preview);
+    $('#img_previewsmall_'+image_number).html(preview);
 }
 
 function getBackendImgSrc(image_file_id) {
