@@ -126,6 +126,10 @@ select.form-control-sm:not([size]):not([multiple]) {
   background-color: #EDF0F6;
 }
 
+.backend_previewsmall_img img{
+  width: 50px;
+}
+
 .dashboard .smalltext {
   font-size: 1rem;
 }
