@@ -226,6 +226,30 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
+    // Try to catch file name from database
+    if(empty($val['img_filename']) && CMSGO_PRESERVE_IMAGENAME) {
+
+        $hash = cut_ext($val['image_name']);
+
+        $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+
+        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+        $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
+        $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public. ' AND ';
+        if(substr($GLOBALS['cmsgo']['image_library'], 0, 2) === 'gd') {
+            $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp')";
+        }
+        $imagedetail = _dbQuery($sql);
+
+        if(isset($imagedetail[0]['f_hash'])) {
+
+            $val['img_filename'] = $imagedetail[0]['f_name'];
+            $thumb_filename_basis = cut_ext($imagedetail[0]['f_name']);
+
+        }
+
+    }
+
     if(empty($val['img_filename'])) {
 
         // now check if thumbnail was created - proof for GIF, PNG, JPG
@@ -233,7 +257,6 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     } else {
 
-        $thumb_size_dir = $val['max_width'] . '-' . $val['max_height'] . '-' . $val['jpg_quality'];
         $thumb_spec_info = '';
         if($val['crop_image']) {
             $thumb_spec_info .= 'c' . $val['crop_image'];
@@ -244,19 +267,19 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         if($val['sharpen_level']) {
             $thumb_spec_info .= 's' . $val['sharpen_level'];
         }
+        if($val['target_ext'] === 'jpg') {
+            $thumb_spec_info .= 'q' . $val['jpg_quality'];
+        }
+        if(!isset($thumb_filename_basis)) {
+            $thumb_filename_basis = cut_ext($val['img_filename']);
+        }
 
-        $thumb_filename_ext = which_ext($val['img_filename']);
-        $thumb_filename_basis = cut_ext($val['img_filename']);
+        $val['thumb_name'] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
         if($thumb_spec_info) {
-            $thumb_filename_basis .= '_' . $thumb_spec_info;
-        }
-        $val['thumb_name'] = $thumb_filename_basis . '.' . ($thumb_filename_ext ? $thumb_filename_ext : $val['target_ext']);
-
-        if(!is_dir($val['thumb_dir'] . $thumb_size_dir) && _mkdir($val['thumb_dir'] . $thumb_size_dir)) {
-            $val['thumb_dir'] = $val['thumb_dir'] . $thumb_size_dir . '/';
+            $val['thumb_name'] .= '-' . $thumb_spec_info;
         }
 
-        $thumb_check = $val['thumb_dir'] . $thumb_filename_basis;
+        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
     }
 
@@ -278,9 +301,9 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         // check if current file's extension is handable by ImageMagick or GD
     } elseif($val["target_ext"] = is_ext_true($val["target_ext"])) {
 
-        $create_preview = image_manipulate( $val );
+        $create_preview = image_manipulate($val);
 
-        if( is_file( $val['thumb_dir'] . $create_preview["thumb_name"] ) ) {
+        if(is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
             $thumb_image_info[0] = $create_preview["thumb_name"];
             $imgCache = true; // insert/update information in db image cache
         };

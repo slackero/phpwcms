@@ -188,6 +188,7 @@ define('CMSGO_STORAGE', CMSGO_ROOT.$cmsgo["file_path"]);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($cmsgo['feuser_regkey']) ? 'FEUSER' : $cmsgo['feuser_regkey']);
 define('RESPONSIVE_MODE', empty($cmsgo['responsive']) ? false : true);
+define('CMSGO_PRESERVE_IMAGENAME', empty($cmsgo['preserve_image_name']) ? false : true);
 define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
 define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
 
