@@ -149,8 +149,8 @@ if(empty($cmsgo['rewrite_url'])) {
     define('CMSGO_RESIZE_IMAGE', 'im');
 }
 define('CMSGO_REWRITE_EXT', isset($cmsgo['rewrite_ext']) ? $cmsgo['rewrite_ext'] : '.html');
-define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
 define('CMSGO_ALIAS_WSLASH', empty($cmsgo['alias_allow_slash']) ? false : true);
+define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
@@ -271,6 +271,9 @@ $cmsgo['default_lang']    = strtolower($cmsgo['default_lang']);
 $cmsgo['DOCTYPE_LANG']    = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] : strtolower(trim($cmsgo['DOCTYPE_LANG']));
 
 $cmsgo['js_lib_default'] = array(
+    'jquery-3.3'            => 'jQuery 3.3.1',
+    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.0.0',
+    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.0.0',
     'jquery-3.2'            => 'jQuery 3.2.1',
     'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.0',
     'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.0',
@@ -347,6 +350,7 @@ $cmsgo['default_template_classes'] = array(
     'navlist-asub_no'               => 'asub_no',
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
+    'navlist-link-class'            => 'nav-link',
     'navlist-navLevel'              => 'navLevel-',
     'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
@@ -734,6 +738,25 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
         }
     }
 
+    // always remove the following GET parameters,
+    // must be set explicity in $add
+    unset(
+        $_getVarTemp['page'],
+        $_getVarTemp['listpage'],
+        $_getVarTemp['newsdetail'],
+        $_getVarTemp['newspage'],
+        $_getVarTemp['glossary'],
+        $_getVarTemp['glossaryid'],
+        $_getVarTemp['glossarytitle'],
+        $_getVarTemp['shop_detail'],
+        $_getVarTemp['shop_cat'],
+        $_getVarTemp['shop_cart'],
+        $_getVarTemp['searchstart'],
+        $_getVarTemp['searchwords'],
+        $_getVarTemp['gallery'],
+        $_getVarTemp['subgallery']
+    );
+
     $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
     switch($format) {
@@ -772,7 +795,10 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
 
             if($c === 1 && CMSGO_REWRITE) {
 
-                $rewrite = $funct($key, $value, $bind) . CMSGO_REWRITE_EXT;
+                if($key !== '') {
+                    $rewrite = $funct($key, $value, $bind) . CMSGO_REWRITE_EXT;
+                }
+
 
                 continue;
             }
@@ -1301,29 +1327,28 @@ function get_login_file() {
 /**
  * Encrypt string
  */
-function cmsgo_encrypt($plaintext, $key=CMSGO_USER_KEY, $cypher='blowfish', $mode='cfb') {
-    $td = mcrypt_module_open($cypher, '', $mode, '');
-    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);
-    mcrypt_generic_init($td, $key, $iv);
-    $crypttext = mcrypt_generic($td, $plaintext);
-    mcrypt_generic_deinit($td);
-    return $iv.$crypttext;
+function cmsgo_encrypt($plaintext, $passwordCMSGO_USER_KEY) {
+    $key = hash('sha256', $password, true);
+    $iv = openssl_random_pseudo_bytes(16);
+    $ciphertext = openssl_encrypt($plaintext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+    $hash = hash_hmac('sha256', $ciphertext, $key, true);
+    return $iv . $hash . $ciphertext;
 }
 
 /**
  * Decrypt string
  */
-function cmsgo_decrypt($crypttext, $key=CMSGO_USER_KEY, $cypher='blowfish', $mode='cfb') {
-    $plaintext = '';
-    $td = mcrypt_module_open($cypher, '', $mode, '');
-    $ivsize = mcrypt_enc_get_iv_size($td);
-    $iv = substr($crypttext, 0, $ivsize);
-    $crypttext = substr($crypttext, $ivsize);
-    if ($iv) {
-        mcrypt_generic_init($td, $key, $iv);
-        $plaintext = mdecrypt_generic($td, $crypttext);
+function cmsgo_decrypt($crypttext, $password=CMSGO_USER_KEY) {
+    $iv = substr($ivHashCiphertext, 0, 16);
+    $hash = substr($ivHashCiphertext, 16, 32);
+    $ciphertext = substr($ivHashCiphertext, 48);
+    $key = hash('sha256', $password, true);
+
+    if (hash_hmac('sha256', $ciphertext, $key, true) !== $hash) {
+        return null;
     }
-    return $plaintext;
+
+    return openssl_decrypt($ciphertext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
 }
 
 /**
