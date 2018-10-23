@@ -97,12 +97,11 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 		// now try to build caption and if neccessary add alt to image or set external link for image
 		$caption	= getImageCaption(array('caption' => $img['caption'], 'file' => $img['f_id']));
 		// set caption and ALT Image Text for imagelist
-		$capt_cur	= html($caption[0]);
-		$caption[3] = empty($caption[3]) ? '' : ' title="'.html($caption[3]).'"'; //title
+		$caption[3] = empty($caption[3]) ? $title : ' title="'.html($caption[3]).'"'; //title
 		$caption[1] = html(empty($caption[1]) ? $img['f_name'] : $caption[1]);
 
 		$list_img_temp  = '<img src="'.$thumb_image['src'].'" ';
-		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].$title.' />';
+		$list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' />';
 
 		// use lightbox effect
 		if($config['image_'.$config['mode'].'_lightbox']) {
@@ -110,7 +109,7 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
 			$a  = '<a href="'.PHPWCMS_RESIZE_IMAGE.'/';
 			$a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
 			$a .= $img['f_hash'] . '.' . $img['f_ext'] . '/' . rawurlencode($img['f_name']) . '" ';
-            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '') . $caption[3] . $title . '>';
+            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '') . $caption[3] . '>';
 
 			$list_img_temp = $a . $list_img_temp . '</a>';
 		}
