@@ -1,13 +1,13 @@
 <?php
 /**
- * phpwcms content management system
+ * cmsGo!
  *
- * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2017, Oliver Georgi
- * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
+
 // Language: Polish
 // Language Code: pl
 // charset UTF-8 for ver.1.6.519  Zibi http://www.krynica.malopolska.pl
