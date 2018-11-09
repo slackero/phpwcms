@@ -86,8 +86,10 @@ if(isset($data[1])) {
                         headerRedirect(CMSGO_URL.CMSGO_IMAGES.$target_image, 301);
                     }
 
+                    $filename = empty($data[2]) ? '' : '; filename="'.rawurlencode($data[2]).'"';
+
                     header('Content-Type: ' . get_mimetype_by_extension($ext));
-                    header('Content-Disposition: inline');
+                    header('Content-Disposition: inline' . $filename);
                     @readfile(CMSGO_THUMB.$target_image);
                     exit;
 
@@ -155,7 +157,7 @@ if(isset($data[1])) {
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
-            if(substr($cmsgo['image_library'], 0, 2) == 'gd') {
+            if(substr($cmsgo['image_library'], 0, 2) === 'gd') {
                 $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
