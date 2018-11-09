@@ -235,9 +235,9 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
         $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
-        $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public. ' AND ';
+        $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
         if(substr($GLOBALS['cmsgo']['image_library'], 0, 2) === 'gd') {
-            $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp')";
+            $sql .= " AND f_ext IN ('jpg','jpeg','png','gif','bmp')";
         }
         $imagedetail = _dbQuery($sql);
 

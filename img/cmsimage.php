@@ -9,12 +9,13 @@
  **/
 
 
-$cmsgo    = array();
-$root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require $root.'/include/config/conf.inc.php';
-require $root.'/include/inc_lib/default.inc.php';
-require $root.'/include/inc_lib/general.inc.php';
-require $root.'/include/inc_lib/imagick.convert.inc.php';
+$cmsgo = array();
+$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/');
+require_once $root.'/include/config/conf.inc.php';
+require_once $root.'/include/inc_lib/default.inc.php';
+require_once $root.'/include/inc_lib/general.inc.php';
+require_once $root.'/include/inc_lib/dbcon.inc.php';
+require_once $root.'/include/inc_lib/imagick.convert.inc.php';
 
 // get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
 // ...xGS will convert image to GrayScale
