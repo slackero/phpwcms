@@ -229,6 +229,8 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     // Try to catch file name from database
     if(empty($val['img_filename']) && CMSGO_PRESERVE_IMAGENAME) {
 
+        require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+
         $hash = cut_ext($val['image_name']);
 
         $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
