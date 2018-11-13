@@ -154,7 +154,7 @@ function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
 }
 
 function nav_table_struct_callback($matches) {
-	return nav_table_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matchs[1], $GLOBALS['template_default']["nav_table_struct"]);
+	return nav_table_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $GLOBALS['template_default']["nav_table_struct"]);
 }
 
 function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
@@ -177,11 +177,7 @@ function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $li
 		$total_levels++;
 	}
 
-	if(is_array($data) && count($data)) {
-		$temp_tree = array_reverse($data, 1);
-	} else {
-		$temp_tree = false;
-	}
+	$temp_tree = is_array($data) && count($data) ? array_reverse($data, 1) : array();
 
 	foreach($struct as $key => $value) {
 		if($struct[$key]["acat_struct"] == $act_cat_id && $key && (!$struct[$key]["acat_hidden"] || isset($GLOBALS['LEVEL_KEY'][$key]))) {
