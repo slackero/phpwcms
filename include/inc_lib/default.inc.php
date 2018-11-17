@@ -742,8 +742,6 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
         $_getVarTemp['shop_detail'],
         $_getVarTemp['shop_cat'],
         $_getVarTemp['shop_cart'],
-        $_getVarTemp['searchstart'],
-        $_getVarTemp['searchwords'],
         $_getVarTemp['gallery'],
         $_getVarTemp['subgallery']
     );
