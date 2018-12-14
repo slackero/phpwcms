@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -32,7 +32,7 @@ if($_SESSION["wcs_user_admin"] == 1) { //If user has admin rights
   }
 
   if(isset($_GET["aktiv"])) {
-    $sql = "UPDATE ".DB_PREPEND."cmsgo_usergroup SET group_active= (CASE group_active WHEN 1 THEN 0 ELSE 1 END) WHERE group_id=".intval($_GET["aktiv"]).";";
+    $sql = "UPDATE ".DB_PREPEND."cmsgo_usergroup SET group_active= (CASE group_active WHEN 1 THEN 0 ELSE 1 END) WHERE group_id=".intval($_GET["aktiv"]);
     _dbQuery($sql, 'UPDATE');
   }
 

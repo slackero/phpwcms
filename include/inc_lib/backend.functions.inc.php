@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -85,12 +85,14 @@ function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
         echo "timer = chat_reload(20000); function chat_reload(zeit) {";
         echo "timer=setTimeout(\"write_cookie(1);self.location.href='cmsgo.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
         echo "return timer;\n} function restart_reload(timer) {";
-        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>\n";
+        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
     }
 }
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
-    if($to) echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>\n";
+    if($to) {
+        echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>";
+    }
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {

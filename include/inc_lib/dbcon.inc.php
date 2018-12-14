@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -16,7 +16,7 @@ if(!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // build the database table prepend part
-define('DB_PREPEND', $cmsgo["db_prepend"] ? $cmsgo["db_prepend"] . '_' : '');
+define ('DB_PREPEND', empty($cmsgo["db_prepend"]) ? '' : $cmsgo["db_prepend"].'_');
 
 // open the connection to MySQL database
 if(!empty($cmsgo["db_pers"]) && substr($cmsgo["db_host"], 0, 2) !== 'p:') {

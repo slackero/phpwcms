@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -853,6 +853,7 @@ class Cmsgo_Image_lib {
         }
         elseif ($action == 'rotate')
         {
+            $angle = 'r90';
             switch ($this->rotation_angle)
             {
                 case 90     :   $angle = 'r270';

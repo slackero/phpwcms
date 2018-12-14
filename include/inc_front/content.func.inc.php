@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -1475,6 +1475,10 @@ if(!empty($block['tracking_ga']['enable'])) {
         $template_default['settings']['tracking']['ga']['anonymize'] = '';
     }
 
+    if(!empty($template_default['settings']['tracking']['ga']['optout'])) {
+        $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+    }
+
     if($template_default['settings']['tracking']['ga']['position'] === 'head') {
         $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
     } else {
@@ -1522,14 +1526,16 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
     $block['cookie_consent']['options'] = array();
     if(!empty($block['cookie_consent']['message'])) {
         $block['cookie_consent']['options']['message'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+        $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
     }
     if(!empty($block['cookie_consent']['dismiss'])) {
         $block['cookie_consent']['options']['dismiss'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+        $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
     }
     if(!empty($block['cookie_consent']['link'])) {
 
         $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
-        $block['cookie_consent']['link'][0] = trim($block['cookie_consent']['link'][0]);
+        $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
         $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
         if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
             $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
@@ -1537,6 +1543,7 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
 
         if(!empty($block['cookie_consent']['more'])) {
             $block['cookie_consent']['options']['learnMore'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+            $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
         }
     }
 

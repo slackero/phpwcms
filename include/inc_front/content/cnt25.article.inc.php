@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -192,7 +192,7 @@ if(isset($fmp_data['fmp_template'])) {
 
             }
 
-            $fmp_data['preview'] = CMSGO_URL . 'img/cmsimage.php/' . $fmp_data['fmp_width'].'x'.$fmp_data['fmp_height'].'x1x85/'.$fmp_data['fmp_preview'];
+            $fmp_data['preview'] = CMSGO_URL . CMSGO_RESIZE_IMAGE . '/' . $fmp_data['fmp_width'].'x'.$fmp_data['fmp_height'].'x1x85/'.$fmp_data['fmp_preview'].'/'.rawurlencode($fmp_data['preview']['f_name']);
 
         } else {
 

@@ -1,7 +1,7 @@
 #####################################################
 #
 #  CMSGO SQL Update
-#  
+#
 #  Upgrade release 27-08-2004 to 1.2.6-DEV
 #
 #####################################################
@@ -180,7 +180,7 @@ INSERT INTO `cmsgo_country` VALUES (10, 'AR', 'Argentina', 'Argentinien');
 INSERT INTO `cmsgo_country` VALUES (11, 'AM', 'Armenia', 'Armenien');
 INSERT INTO `cmsgo_country` VALUES (12, 'AW', 'Aruba', 'Aruba');
 INSERT INTO `cmsgo_country` VALUES (13, 'AU', 'Australia', 'Australien');
-INSERT INTO `cmsgo_country` VALUES (14, 'AT', 'Austria', '�sterreich');
+INSERT INTO `cmsgo_country` VALUES (14, 'AT', 'Austria', 'Österreich');
 INSERT INTO `cmsgo_country` VALUES (15, 'AZ', 'Azerbaijan', 'Aserbaidschan');
 INSERT INTO `cmsgo_country` VALUES (16, 'BS', 'Bahamas', 'Bahamas');
 INSERT INTO `cmsgo_country` VALUES (17, 'BH', 'Bahrain', 'Bahrain');
@@ -219,31 +219,31 @@ INSERT INTO `cmsgo_country` VALUES (49, 'CG', 'Congo', 'Kongo');
 INSERT INTO `cmsgo_country` VALUES (50, 'CD', 'Congo, The Democratic Republic Of The', 'Kongo, Demokratische Republik');
 INSERT INTO `cmsgo_country` VALUES (51, 'CK', 'Cook Islands', 'Cook-Inseln');
 INSERT INTO `cmsgo_country` VALUES (52, 'CR', 'Costa Rica', 'Costa Rica');
-INSERT INTO `cmsgo_country` VALUES (53, 'CI', 'C�te D''Ivoire', 'C�te D''Ivoire');
+INSERT INTO `cmsgo_country` VALUES (53, 'CI', 'Côte D''Ivoire', 'Côte D''Ivoire');
 INSERT INTO `cmsgo_country` VALUES (54, 'HR', 'Croatia', 'Kroatien');
 INSERT INTO `cmsgo_country` VALUES (55, 'CU', 'Cuba', 'Kuba');
 INSERT INTO `cmsgo_country` VALUES (56, 'CY', 'Cyprus', 'Zypern');
 INSERT INTO `cmsgo_country` VALUES (57, 'CZ', 'Czech Republic', 'Tschechische Republik');
-INSERT INTO `cmsgo_country` VALUES (58, 'DK', 'Denmark', 'D�nemark');
+INSERT INTO `cmsgo_country` VALUES (58, 'DK', 'Denmark', 'Dänemark');
 INSERT INTO `cmsgo_country` VALUES (59, 'DJ', 'Djibouti', 'Dschibuti');
 INSERT INTO `cmsgo_country` VALUES (60, 'DM', 'Dominica', 'Dominica');
 INSERT INTO `cmsgo_country` VALUES (61, 'DO', 'Dominican Republic', 'Dominikanische Republik');
 INSERT INTO `cmsgo_country` VALUES (62, 'TP', 'East Timor', 'Ost-Timor');
 INSERT INTO `cmsgo_country` VALUES (63, 'EC', 'Ecuador', 'Ecuador');
-INSERT INTO `cmsgo_country` VALUES (64, 'EG', 'Egypt', '�gypten');
+INSERT INTO `cmsgo_country` VALUES (64, 'EG', 'Egypt', 'Ägypten');
 INSERT INTO `cmsgo_country` VALUES (65, 'SV', 'El Salvador', 'El Salvador');
-INSERT INTO `cmsgo_country` VALUES (66, 'GQ', 'Equatorial Guinea', '�quatorialguinea');
+INSERT INTO `cmsgo_country` VALUES (66, 'GQ', 'Equatorial Guinea', 'Äquatorialguinea');
 INSERT INTO `cmsgo_country` VALUES (67, 'ER', 'Eritrea', 'Eritrea');
 INSERT INTO `cmsgo_country` VALUES (68, 'EE', 'Estonia', 'Estland');
 INSERT INTO `cmsgo_country` VALUES (69, 'ET', 'Ethiopia', '�thiopien');
 INSERT INTO `cmsgo_country` VALUES (70, 'FK', 'Falkland Islands (Malvinas)', 'Falkland-Inseln (Malvinen)');
-INSERT INTO `cmsgo_country` VALUES (71, 'FO', 'Faroe Islands', 'F�r�er');
+INSERT INTO `cmsgo_country` VALUES (71, 'FO', 'Faroe Islands', 'Färöer');
 INSERT INTO `cmsgo_country` VALUES (72, 'FJ', 'Fiji', 'Fidschi');
 INSERT INTO `cmsgo_country` VALUES (73, 'FI', 'Finland', 'Finnland');
 INSERT INTO `cmsgo_country` VALUES (74, 'FR', 'France', 'Frankreich');
-INSERT INTO `cmsgo_country` VALUES (75, 'GF', 'French Guiana', 'Franz�sisch Guayana');
-INSERT INTO `cmsgo_country` VALUES (76, 'PF', 'French Polynesia', 'Franz�sisch Polynesien');
-INSERT INTO `cmsgo_country` VALUES (77, 'TF', 'French Southern Territories', 'Franz�sische S�dgebiete');
+INSERT INTO `cmsgo_country` VALUES (75, 'GF', 'French Guiana', 'Französisch Guayana');
+INSERT INTO `cmsgo_country` VALUES (76, 'PF', 'French Polynesia', 'Französisch Polynesien');
+INSERT INTO `cmsgo_country` VALUES (77, 'TF', 'French Southern Territories', 'Französische Südgebiete');
 INSERT INTO `cmsgo_country` VALUES (78, 'GA', 'Gabon', 'Gabun');
 INSERT INTO `cmsgo_country` VALUES (79, 'GM', 'Gambia', 'Gambia');
 INSERT INTO `cmsgo_country` VALUES (80, 'GE', 'Georgia', 'Georgien');
@@ -251,7 +251,7 @@ INSERT INTO `cmsgo_country` VALUES (81, 'DE', 'Germany', 'Deutschland');
 INSERT INTO `cmsgo_country` VALUES (82, 'GH', 'Ghana', 'Ghana');
 INSERT INTO `cmsgo_country` VALUES (83, 'GI', 'Gibraltar', 'Gibraltar');
 INSERT INTO `cmsgo_country` VALUES (84, 'GR', 'Greece', 'Griechenland');
-INSERT INTO `cmsgo_country` VALUES (85, 'GL', 'Greenland', 'Gr�nland');
+INSERT INTO `cmsgo_country` VALUES (85, 'GL', 'Greenland', 'Grönland');
 INSERT INTO `cmsgo_country` VALUES (86, 'GD', 'Grenada', 'Grenada');
 INSERT INTO `cmsgo_country` VALUES (87, 'GP', 'Guadeloupe', 'Guadeloupe');
 INSERT INTO `cmsgo_country` VALUES (88, 'GU', 'Guam', 'Guam');
@@ -306,7 +306,7 @@ INSERT INTO `cmsgo_country` VALUES (136, 'MR', 'Mauritania', 'Mauretanien');
 INSERT INTO `cmsgo_country` VALUES (137, 'MU', 'Mauritius', 'Mauritius');
 INSERT INTO `cmsgo_country` VALUES (138, 'YT', 'Mayotte', 'Mayotte');
 INSERT INTO `cmsgo_country` VALUES (139, 'MX', 'Mexico', 'Mexiko');
-INSERT INTO `cmsgo_country` VALUES (140, 'FM', 'Micronesia, Federated States Of', 'Mikronesien, F�derierte Staaten Von');
+INSERT INTO `cmsgo_country` VALUES (140, 'FM', 'Micronesia, Federated States Of', 'Mikronesien, Föderierte Staaten Von');
 INSERT INTO `cmsgo_country` VALUES (141, 'MD', 'Moldova, Republic Of', 'Moldau, Republik');
 INSERT INTO `cmsgo_country` VALUES (142, 'MC', 'Monaco', 'Monaco');
 INSERT INTO `cmsgo_country` VALUES (143, 'MN', 'Mongolia', 'Mongolei');
@@ -318,7 +318,7 @@ INSERT INTO `cmsgo_country` VALUES (148, 'NA', 'Namibia', 'Namibia');
 INSERT INTO `cmsgo_country` VALUES (149, 'NR', 'Nauru', 'Nauru');
 INSERT INTO `cmsgo_country` VALUES (150, 'NP', 'Nepal', 'Nepal');
 INSERT INTO `cmsgo_country` VALUES (151, 'NL', 'Netherlands', 'Niederlande');
-INSERT INTO `cmsgo_country` VALUES (152, 'AN', 'Netherlands Antilles', 'Niederl�ndische Antillen');
+INSERT INTO `cmsgo_country` VALUES (152, 'AN', 'Netherlands Antilles', 'Niederländische Antillen');
 INSERT INTO `cmsgo_country` VALUES (153, 'NC', 'New Caledonia', 'Neukaledonien');
 INSERT INTO `cmsgo_country` VALUES (154, 'NZ', 'New Zealand', 'Neuseeland');
 INSERT INTO `cmsgo_country` VALUES (155, 'NI', 'Nicaragua', 'Nicaragua');
@@ -326,12 +326,12 @@ INSERT INTO `cmsgo_country` VALUES (156, 'NE', 'Niger', 'Niger');
 INSERT INTO `cmsgo_country` VALUES (157, 'NG', 'Nigeria', 'Nigeria');
 INSERT INTO `cmsgo_country` VALUES (158, 'NU', 'Niue', 'Niue');
 INSERT INTO `cmsgo_country` VALUES (159, 'NF', 'Norfolk Island', 'Norfolk-Insel');
-INSERT INTO `cmsgo_country` VALUES (160, 'MP', 'Northern Mariana Islands', 'N�rdliche Marianen');
+INSERT INTO `cmsgo_country` VALUES (160, 'MP', 'Northern Mariana Islands', 'Nördliche Marianen');
 INSERT INTO `cmsgo_country` VALUES (161, 'NO', 'Norway', 'Norwegen');
 INSERT INTO `cmsgo_country` VALUES (162, 'OM', 'Oman', 'Oman');
 INSERT INTO `cmsgo_country` VALUES (163, 'PK', 'Pakistan', 'Pakistan');
 INSERT INTO `cmsgo_country` VALUES (164, 'PW', 'Palau', 'Palau');
-INSERT INTO `cmsgo_country` VALUES (165, 'PS', 'Palestinian Territory, Occupied', 'Pal�stina');
+INSERT INTO `cmsgo_country` VALUES (165, 'PS', 'Palestinian Territory, Occupied', 'Palästina');
 INSERT INTO `cmsgo_country` VALUES (166, 'PA', 'Panama', 'Panama');
 INSERT INTO `cmsgo_country` VALUES (167, 'PG', 'Papua New Guinea', 'Papua-Neuguinea');
 INSERT INTO `cmsgo_country` VALUES (168, 'PY', 'Paraguay', 'Paraguay');
@@ -342,9 +342,9 @@ INSERT INTO `cmsgo_country` VALUES (172, 'PL', 'Poland', 'Polen');
 INSERT INTO `cmsgo_country` VALUES (173, 'PT', 'Portugal', 'Portugal');
 INSERT INTO `cmsgo_country` VALUES (174, 'PR', 'Puerto Rico', 'Puerto Rico');
 INSERT INTO `cmsgo_country` VALUES (175, 'QA', 'Qatar', 'Katar');
-INSERT INTO `cmsgo_country` VALUES (176, 'RE', 'R�union', 'R�union');
-INSERT INTO `cmsgo_country` VALUES (177, 'RO', 'Romania', 'Rum�nien');
-INSERT INTO `cmsgo_country` VALUES (178, 'RU', 'Russian Federation', 'Russische F�deration');
+INSERT INTO `cmsgo_country` VALUES (176, 'RE', 'Réunion', 'Réunion');
+INSERT INTO `cmsgo_country` VALUES (177, 'RO', 'Romania', 'Rumänien');
+INSERT INTO `cmsgo_country` VALUES (178, 'RU', 'Russian Federation', 'Russische Föderation');
 INSERT INTO `cmsgo_country` VALUES (179, 'RW', 'Rwanda', 'Ruanda');
 INSERT INTO `cmsgo_country` VALUES (180, 'SH', 'Saint Helena', 'St. Helena');
 INSERT INTO `cmsgo_country` VALUES (181, 'KN', 'Saint Kitts and Nevis', 'Saint Kitts und Nevis');
@@ -353,7 +353,7 @@ INSERT INTO `cmsgo_country` VALUES (183, 'PM', 'Saint Pierre and Miquelon', 'Sai
 INSERT INTO `cmsgo_country` VALUES (184, 'VC', 'Saint Vincent and The Grenadines', 'Saint Vincent und die Grenadinen');
 INSERT INTO `cmsgo_country` VALUES (185, 'WS', 'Samoa', 'Samoa');
 INSERT INTO `cmsgo_country` VALUES (186, 'SM', 'San Marino', 'San Marino');
-INSERT INTO `cmsgo_country` VALUES (187, 'ST', 'Sao Tome and Principe', 'S�o Tom� und Pr�ncipe');
+INSERT INTO `cmsgo_country` VALUES (187, 'ST', 'Sao Tome and Principe', 'São Tomé und Príncipe');
 INSERT INTO `cmsgo_country` VALUES (188, 'SA', 'Saudi Arabia', 'Saudi-Arabien');
 INSERT INTO `cmsgo_country` VALUES (189, 'SN', 'Senegal', 'Senegal');
 INSERT INTO `cmsgo_country` VALUES (190, 'SC', 'Seychelles', 'Seychellen');
@@ -364,7 +364,7 @@ INSERT INTO `cmsgo_country` VALUES (194, 'SI', 'Slovenia', 'Slowenien');
 INSERT INTO `cmsgo_country` VALUES (195, 'SB', 'Solomon Islands', 'Salomonen');
 INSERT INTO `cmsgo_country` VALUES (196, 'SO', 'Somalia', 'Somalia');
 INSERT INTO `cmsgo_country` VALUES (197, 'ZA', 'South Africa', 'S�dafrika');
-INSERT INTO `cmsgo_country` VALUES (198, 'GS', 'South Georgia and The South Sandwich Islands', 'S�dgeorgien und S�dliche Sandwichinseln');
+INSERT INTO `cmsgo_country` VALUES (198, 'GS', 'South Georgia and The South Sandwich Islands', 'Südgeorgien und Südliche Sandwichinseln');
 INSERT INTO `cmsgo_country` VALUES (199, 'ES', 'Spain', 'Spanien');
 INSERT INTO `cmsgo_country` VALUES (200, 'LK', 'Sri Lanka', 'Sri Lanka');
 INSERT INTO `cmsgo_country` VALUES (201, 'SD', 'Sudan', 'Sudan');
@@ -383,7 +383,7 @@ INSERT INTO `cmsgo_country` VALUES (213, 'TK', 'Tokelau', 'Tokelau');
 INSERT INTO `cmsgo_country` VALUES (214, 'TO', 'Tonga', 'Tonga');
 INSERT INTO `cmsgo_country` VALUES (215, 'TT', 'Trinidad and Tobago', 'Trinidad und Tobago');
 INSERT INTO `cmsgo_country` VALUES (216, 'TN', 'Tunisia', 'Tunesien');
-INSERT INTO `cmsgo_country` VALUES (217, 'TR', 'Turkey', 'T�rkei');
+INSERT INTO `cmsgo_country` VALUES (217, 'TR', 'Turkey', 'Türkei');
 INSERT INTO `cmsgo_country` VALUES (218, 'TM', 'Turkmenistan', 'Turkmenistan');
 INSERT INTO `cmsgo_country` VALUES (219, 'TC', 'Turks Aand Caicos Islands', 'Turks- und Caicosinseln');
 INSERT INTO `cmsgo_country` VALUES (220, 'TV', 'Tuvalu', 'Tuvalu');
@@ -406,7 +406,7 @@ INSERT INTO `cmsgo_country` VALUES (236, 'YE', 'Yemen', 'Jemen');
 INSERT INTO `cmsgo_country` VALUES (237, 'YU', 'Yugoslavia', 'Jugoslawien');
 INSERT INTO `cmsgo_country` VALUES (238, 'ZM', 'Zambia', 'Sambia');
 INSERT INTO `cmsgo_country` VALUES (239, 'ZW', 'Zimbabwe', 'Simbabwe');
-INSERT INTO `cmsgo_country` VALUES (240, 'AX', '�land Islands', '�land Inseln');
+INSERT INTO `cmsgo_country` VALUES (240, 'AX', 'Åland Islands', 'Åland Inseln');
 
 #####################################################
 
@@ -427,8 +427,6 @@ CREATE TABLE `cmsgo_formtracking` (
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)
 );
-
-
 
 
 #####################################################

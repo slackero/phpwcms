@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -288,12 +288,12 @@ if(isset($data[1])) {
                 }
 
                 if(empty($name)) {
-                    $name = $value['image_name'];
+                    $name = empty($data[2]) ? $value['image_name'] : $data[2];
                 }
 
                 header('Content-Type: image/svg+xml');
                 header('Content-length: '.$svg_length);
-                header('Content-Disposition: inline; filename="'.$name.'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
 
                 echo $svg;
                 exit();
@@ -351,12 +351,12 @@ if(isset($data[1])) {
                 }
 
                 if(empty($name)) {
-                    $name = $image[0];
+                    $name = empty($data[2]) ? $image[0] : $data[2];
                 }
 
                 header('Content-Type: ' . $image['type']);
                 header('Content-length: '.filesize(CMSGO_THUMB.$image[0]));
-                header('Content-Disposition: inline; filename="'.$name.'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
                 @readfile(CMSGO_THUMB.$image[0]);
                 exit;
             }

@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -68,7 +68,7 @@ if($media["media_src"]) {
 if(!empty($media["image_id"])) {
 
     $media["alt"] .= '<div class="alt-image">';
-    $media["alt"] .= '<img src="'.CMSGO_RESIZE_IMAGE.'/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '" ';
+    $media["alt"] .= '<img src="' . CMSGO_RESIZE_IMAGE . '/' . $media["media_width"] . 'x' . $media["media_height"] . 'x1/' . $media["image_id"] . '/' . rawurlencode($media["image_name"]) . '" ';
     $media["alt"] .= 'alt="'.html_specialchars($media["image_name"]).'" />';
     $media["alt"] .= '</div>';
 

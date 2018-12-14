@@ -23,7 +23,7 @@
 * @link http://www.cmsgo.org/
 * @copyright 2005 New Digital Group, Inc.
 * @author Monte Ohrt <monte at ohrt dot com>
-* @author Oliver Georgi <oliver at cmsgo dot de>
+* @author Oliver Georgi <slackero@gmail.com>
 * @package GoogleMapAPI
 * @version 2.5
 */

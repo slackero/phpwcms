@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -351,7 +351,7 @@ $cmsgo['default_template_classes'] = array(
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
     'navlist-link-class'            => 'nav-link',
-    'navlist-navLevel'              => 'navLevel-',
+    'navlist-navLevel'              => 'nav-level-',
     'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
@@ -593,6 +593,8 @@ $cmsgo["revision"] = CMSGO_REVISION;
 // We need a global var for callback functions, mainly dates
 $cmsgo['callback'] = null;
 
+$translate = array();
+
 // -------------------------------------------------------------
 
 function removeSessionName($str='') {
@@ -796,7 +798,6 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
                 if($key !== '') {
                     $rewrite = $funct($key, $value, $bind) . CMSGO_REWRITE_EXT;
                 }
-
 
                 continue;
             }
@@ -1325,7 +1326,7 @@ function get_login_file() {
 /**
  * Encrypt string
  */
-function cmsgo_encrypt($plaintext, $passwordCMSGO_USER_KEY) {
+function cmsgo_encrypt($plaintext, $password=CMSGO_USER_KEY) {
     $key = hash('sha256', $password, true);
     $iv = openssl_random_pseudo_bytes(16);
     $ciphertext = openssl_encrypt($plaintext, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);

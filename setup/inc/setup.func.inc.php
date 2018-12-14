@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -131,7 +131,6 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['db_timezone'] = '".trim($val["db_timezone"])."'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
 
-
     $conf_file .= "\n// site values\n";
     if(rtrim($val["site"], '/') == 'http://'.$_SERVER['SERVER_NAME']) {
         $conf_file .= "\$cmsgo['site'] = '';";
@@ -188,6 +187,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['rewrite_url'] = ".$val["rewrite_url"]."; // whether URL should be rewritable\n";
     $conf_file .= "\$cmsgo['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$cmsgo['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
+    $conf_file .= "\$cmsgo['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
     $conf_file .= "\$cmsgo['wysiwyg_editor'] = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
     $conf_file .= "\$cmsgo['allowed_lang'] = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$cmsgo['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
@@ -232,7 +232,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$cmsgo['edit.php'] = 'edit.php';\n";
     $conf_file .= "\$cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.19/)\n";
+    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)\n";
     $conf_file .= "\$cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
@@ -247,7 +247,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['reserved_alias'] = array(); // use this to block custom alias\n";
     $conf_file .= "\$cmsgo['canonical_off'] = false; // disable canonical link tag\n";
     $conf_file .= "\$cmsgo['viewport'] = ''; // set viewport like \"width=device-width, initial-scale=1.0, user-scalable=no\"\n";
-    $conf_file .= "\$cmsgo['X-UA-Compatible'] = 'IE=Edge'; // set browser compatibility mode using meta tag X-UA-Compatible\n";
+    $conf_file .= "\$cmsgo['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...\n";
     $conf_file .= "\$cmsgo['base_href'] = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
     $conf_file .= "\$cmsgo['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
     $conf_file .= "\$cmsgo['js_in_body'] = 0; // add <script> direct before </body> instead inside of <head>\n";
@@ -266,6 +266,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render\n";
     $conf_file .= "\$cmsgo['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied\n";
     $conf_file .= "\$cmsgo['cmsimage_settings'] = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only array('500x500x0', '1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif\n";
+    $conf_file .= "\$cmsgo['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum\n";
+    $conf_file .= "\$cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '".str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"])."'; // reply/from email address\n";

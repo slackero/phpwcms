@@ -1,13 +1,13 @@
 #####################################################
 #
 #  CMSGO SQL Update
-#  
+#
 #  08.06.2004
 #
 #####################################################
 
 #
-# Tabellenstruktur f�r Tabelle `cmsgo_fonts`
+# Tabellenstruktur für Tabelle `cmsgo_fonts`
 #
 
 CREATE TABLE `cmsgo_fonts` (
@@ -21,7 +21,7 @@ CREATE TABLE `cmsgo_fonts` (
 # --------------------------------------------------------
 
 #
-# Tabellenstruktur f�r Tabelle `cmsgo_fonts_colors`
+# Tabellenstruktur für Tabelle `cmsgo_fonts_colors`
 #
 
 CREATE TABLE `cmsgo_fonts_colors` (
@@ -34,7 +34,7 @@ CREATE TABLE `cmsgo_fonts_colors` (
 # --------------------------------------------------------
 
 #
-# Tabellenstruktur f�r Tabelle `cmsgo_fonts_styles`
+# Tabellenstruktur für Tabelle `cmsgo_fonts_styles`
 #
 
 CREATE TABLE `cmsgo_fonts_styles` (

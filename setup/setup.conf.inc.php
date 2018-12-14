@@ -61,6 +61,7 @@ $cmsgo['library_path'] = ''; // Path to ImageMagick or NetPBM
 $cmsgo['rewrite_url'] = 1; // whether URL should be rewritable
 $cmsgo['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/
 $cmsgo['alias_allow_slash'] = 1; // Allow slashes / in ALIAS
+$cmsgo['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking
 $cmsgo['wysiwyg_editor'] = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
 $cmsgo['default_lang'] = 'en'; // default language
 $cmsgo['DOCTYPE_LANG'] = ''; // by default same as $cmsgo['default_lang'], but can be injected by whatever you like
@@ -105,7 +106,7 @@ $cmsgo['JW_FLV_License'] = ''; // insert your JW FLV Media Player License Code h
 $cmsgo['feuser_regkey'] = 'FEUSER';
 $cmsgo['edit.php'] = 'edit.php';
 $cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.19/)
+$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)
 $cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -120,7 +121,7 @@ $cmsgo['reserved_alias'] = array(); // use this to block custom alias
 $cmsgo['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things
 $cmsgo['canonical_off'] = false; // disable canonical link tag
 $cmsgo['viewport'] = ''; // set viewport like "width=device-width, initial-scale=1.0, user-scalable=no"
-$cmsgo['X-UA-Compatible'] = 'IE=Edge'; // set browser compatibility mode using meta tag X-UA-Compatible
+$cmsgo['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...
 $cmsgo['base_href'] = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $cmsgo['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 $cmsgo['js_in_body'] = 0; // add <script> direct before </body> instead inside of <head>
@@ -139,6 +140,8 @@ $cmsgo['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default
 $cmsgo['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $cmsgo['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied
 $cmsgo['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
+$cmsgo['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
+$cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

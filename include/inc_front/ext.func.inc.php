@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -952,7 +952,7 @@ function parse_images($matches) {
 
     }
 
-    return '<img src="'.CMSGO_URL.'img/leer.gif" alt="" />';
+    return '';
 
 }
 

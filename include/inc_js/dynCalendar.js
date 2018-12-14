@@ -107,11 +107,11 @@
 		var ret, row, i, cssClass, linkHTML, previousMonth, previousYear;
 		var nextMonth, nextYear, prevImgHTML, prevLinkHTML, nextImgHTML, nextLinkHTML;
 		var monthComboOptions, monthCombo, yearComboOptions, yearCombo, html;
-		
+
 		this.currentMonth = month = arguments[0] != null ? arguments[0] : this.currentMonth;
 		this.currentYear  = year  = arguments[1] != null ? arguments[1] : this.currentYear;
-		
-		var browserLang   = navigator.language ? navigator.language : navigator.userLanguage;
+
+		var browserLang   = navigator.language || navigator.userLanguage;
 		if(browserLang) {
 			browserLang = browserLang.substr(0,2);
 			browserLang = browserLang.toLowerCase();
@@ -119,7 +119,7 @@
 			browserLang = 'en';
 		}
 		switch(browserLang) {
-			
+
 			case 'de': // German
 				monthnames = new Array('Januar','Februar','M&auml;rz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember');
 				daynames   = new Array('So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa');
@@ -163,9 +163,9 @@
 			default: //english
 				monthnames = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 				daynames   = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
-			
+
 		}
-		
+
 		numdays    = this._getDaysInMonth(month, year);
 
 		thisMonth    = new Date(year, month, 1);
@@ -204,7 +204,7 @@
 			previousMonth = 11;
 			previousYear--;
 		}
-		
+
 		nextYear  = thisMonth.getFullYear();
 		nextMonth = thisMonth.getMonth() + 1;
 		if(nextMonth > 11){
@@ -230,7 +230,7 @@
 		} else {
 			monthCombo = monthnames[thisMonth.getMonth()];
 		}
-		
+
 		/**
         * Build year combo
         */
@@ -320,7 +320,7 @@
 	{
 		this.offsetY = Yoffset;
 	}
-	
+
 /**
 * Sets the images path
 *
@@ -433,11 +433,11 @@
 */
 	function dynCalendar_setLayerPosition()
 	{
-		
+
 		//alert(document.getElementById(this.imgID).style.top);
 		this._getLayer().style.top  = (dynCalendar_mouseY + this.offsetY) + 'px';
 		this._getLayer().style.left = (dynCalendar_mouseX + this.offsetX) + 'px';
-		
+
 	}
 
 /**
@@ -497,7 +497,7 @@
 				dynCalendar_mouseY = event.clientY + document.body.scrollTop;
 				arguments[0] = null;
 			}
-	
+
 			dynCalendar_oldOnmousemove();
 		//}
 	};
@@ -516,7 +516,7 @@
 					dynCalendar_layers[i]._hideLayer();
 				}
 			}
-	
+
 			dynCalendar_oldOnclick(arguments[0] ? arguments[0] : null);
 		//}
 	};

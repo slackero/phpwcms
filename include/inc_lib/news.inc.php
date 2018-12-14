@@ -3,8 +3,9 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -164,8 +165,6 @@ class cmsgoNews {
     }
 
     public function getPagination() {
-
-        //initMootools();
 
         $paginate = '<input type="hidden" name="page" id="filterPage" value="' . $this->filter_page . '" />';
 
@@ -386,12 +385,12 @@ class cmsgoNews {
                 case 'end_desc':    $sort_class['end'] = 'sort-desc'; break;
             }
 
-            $list[] = '<th class="column news"><span class="'.$sort_class['name'].'">'.$this->BL['be_title'].'</span></th>';
+            $list[] = '<th class="column colfirst news"><span class="'.$sort_class['name'].'">'.$this->BL['be_title'].'</span></th>';
             $list[] = '<th class="column"><span class="'.$sort_class['start'].'">'.$this->BL['be_article_cnt_start'].'</span></th>';
             $list[] = '<th class="column"><span class="'.$sort_class['end'].'">'.$this->BL['be_article_cnt_end'].'</span></th>';
             $list[] = '<th class="column"><span class="'.$sort_class['sort'].'">'.$this->BL['be_sort_date'].'</span></th>';
             $list[] = '<th class="column"><span class="'.$sort_class['prio'].'">Prio</span></th>';
-            $list[] = '<th class="column">&nbsp;</th>';
+            $list[] = '<th class="column collast">&nbsp;</th>';
 
             $list[] = '</tr>';
 
@@ -404,14 +403,14 @@ class cmsgoNews {
                 $news['kill']       = cmsgo_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
                 $news['sort']       = $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
 
-                $list[] = '<td class="column news"><span class="flag-icon flag-icon-'.(!$news['cnt_lang'] ? 'eu' : $news['cnt_lang']).'"></span>';
+                $list[] = '<td class="column colfirst news"><span class="flag-icon flag-icon-'.(!$news['cnt_lang'] ? 'eu' : $news['cnt_lang']).'"></span>';
                 $list[] = html($news['cnt_name']);
                 $list[] = '</td>';
                 $list[] = '<td class="column text-nowrap">'.$news['live'].'</td>';
                 $list[] = '<td class="column text-nowrap">'.$news['kill'].'</td>';
                 $list[] = '<td class="column text-nowrap">'.$news['sort'].'</td>';
                 $list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
-                $list[] = '<td class="column text-nowrap text-right">
+                $list[] = '<td class="column collast text-nowrap text-right">
 
                     <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
 

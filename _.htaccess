@@ -41,6 +41,9 @@
 
     DirectoryIndex index.html index.php
 
+    # Redirect /en and /en/ to english home
+    #RewriteRule ^(en|de)(/{0,1})$ ./index.php?$1/index [L,QSA]
+
     # Use RewriteBase - always start in Document Root
     RewriteBase /
     # If installed in a subfolder
@@ -51,7 +54,7 @@
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^(.+) - [PT,L]
 
-    # In case of config setting `cmsgo['rewrite_url']=1` (Default)
+    # In case of config setting `$cmsgo['rewrite_url']=1` (Default)
     # ===============================================================
 
     # Resized image /img/cmsimage.php/… -> /im/…
@@ -60,7 +63,7 @@
     # File download /dl/… -> /download.php?…
     RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING} [L]
 
-    # In case of config setting `cmsgo['rewrite_ext']='.html'` -> /alias.html (Default)
+    # In case of config setting `$cmsgo['rewrite_ext']='.html'` -> /alias.html (Default)
     RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING} [L]
     RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
 

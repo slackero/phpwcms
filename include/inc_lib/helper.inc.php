@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -31,10 +31,15 @@ function i18n_get_language($complex=false) {
 	if($complex) {
 		$lang = explode(';', trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 2);
 		$lang = explode(',', $lang[0], 2);
-		$cmsgo['i18_lang'] = preg_replace('/[^a-z0-9\-_\.]/', '', strtolower(trim($lang[0])));
+		$cmsgo['i18_lang'] = trim($lang[0]);
 	} else {
-		$cmsgo['i18_lang'] = strtolower(substr( trim($_SERVER['HTTP_ACCEPT_LANGUAGE']) , 0, 2));
+		$cmsgo['i18_lang'] = substr(trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 0, 2);
 	}
+	if($cmsgo['i18_lang'] === '*') { // Any language
+    	$cmsgo['i18_lang'] = $cmsgo['default_lang'];
+    	return $cmsgo['i18_lang'];
+	}
+	$cmsgo['i18_lang'] = preg_replace('/[^a-z\-_]/', '', strtolower($cmsgo['i18_lang']));
 	if(empty($cmsgo['i18_lang'])) {
 		$cmsgo['i18_lang'] = $cmsgo['default_lang'];
 	}

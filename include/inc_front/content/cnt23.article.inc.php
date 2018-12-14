@@ -3,8 +3,9 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -56,6 +57,8 @@ $default_formtracking_value = $cmsgo['form_tracking'];
 $cmsgo['form_tracking'] = empty($cnt_form['formtracking_off']) ? 1 : 0;
 
 $form_error_text = '';
+$doubleoptin_error = false;
+$doubleoptin_values = null;
 
 $form_cnt = $cnt_form['labelpos'] == 2 ? render_device( $cnt_form['customform'] ) : '';
 
@@ -101,6 +104,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     $cnt_form['label_wrap'][0] = !empty($cnt_form['label_wrap'][0]) ? trim($cnt_form['label_wrap'][0]) : '';
     $cnt_form['label_wrap'][1] = !empty($cnt_form['label_wrap'][1]) ? trim($cnt_form['label_wrap'][1]) : '';
     $form_field_hidden = '';
+    $GET_DO = false;
+    $POST_DO = false;
 
     $cnt_form['regx_pattern'] = array(
             'A-Z'           => '/^[A-Z]+$/',
@@ -114,11 +119,30 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     );
 
     if(!empty($_POST['cpID'.$crow["acontent_id"]]) && intval($_POST['cpID'.$crow["acontent_id"]]) == $crow["acontent_id"]) {
+
         $POST_DO = true;
         $POST_val = array();
         $cache_nosave = true;
-    } else {
-        $POST_DO = false;
+
+    } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
+
+        $GET_DO = true;
+        $cache_nosave = true;
+
+        $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
+
+        if(!isset($doubleoptin_values[0]['formresult_content'])) {
+            $doubleoptin_values = null;
+            $doubleoptin_error = true;
+        } else {
+            $doubleoptin_values = $doubleoptin_values[0];
+            $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content']);
+            if(empty($doubleoptin_values['formresult_content']['hash']) || $doubleoptin_values['formresult_content']['hash'] !== $_GET['hash']) {
+                $doubleoptin_error = true;
+            } else {
+                $doubleoptin_values = null;
+            }
+        }
     }
 
     // make spam check
@@ -228,7 +252,18 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $recaptcha = new cmsgoRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
 
-                if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+                if($POST_DO) {
+                    /***
+                     * CAUTION: spambots may bypass g-recaptcha by removing
+                     * g-recaptcha-response from posted values prior to submitting
+                     *
+                     * Thanks to Thomas Mooshammer to report this
+                     */
+                    if(empty($_POST['g-recaptcha-response'])) {
+                        $_POST['g-recaptcha-response'] = generic_string(10);
+                    }
+
+                    if(isset($_POST['g-recaptcha-response'])) {
 
                     $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
 
@@ -241,6 +276,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
+                }
                 }
 
                 $form_field  = '<div class="g-recaptcha"';
@@ -276,7 +312,18 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $recaptcha = new cmsgoRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
 
-                if($POST_DO && isset($_POST['g-recaptcha-response'])) {
+                if($POST_DO) {
+                    /***
+                     * CAUTION: spambots may bypass g-recaptcha by removing
+                     * g-recaptcha-response from posted values prior to submitting
+                     *
+                     * Thanks to Thomas Mooshammer to report this
+                     */
+                    if(empty($_POST['g-recaptcha-response'])) {
+                        $_POST['g-recaptcha-response'] = generic_string(10);
+                    }
+
+                    if(isset($_POST['g-recaptcha-response'])) {
 
                     $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
 
@@ -289,6 +336,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
+                }
                 }
 
                 $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
@@ -434,19 +482,24 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
                 }
                 // check if message should be delivered to email address of this field
-                if($POST_DO && ($cnt_form['targettype'] == 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
+                if($POST_DO && ($cnt_form['targettype'] === 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
                     if(empty($cnt_form['target'])) {
                         $cnt_form['target'] = $cnt_form["fields"][$key]['value'];
                     } else {
                         $cnt_form['target'] = $cnt_form["fields"][$key]['value'].';'.$cnt_form['target'];
                     }
                 }
-                //
+
+                //check if message should be delivered to email address of this field doubleoptin
+                if($POST_DO && empty($POST_ERR[$key]) && !empty($cnt_form['doubleoptin_targettype']) && ($cnt_form['doubleoptin_targettype'] === 'emailfield_'.$POST_name) && is_valid_email($cnt_form["fields"][$key]['value'])) {
+                    $cnt_form['doubleoptin_target'] = $cnt_form["fields"][$key]['value'];
+                }
+
                 // check if message should be sent by email address of this field
-                if($POST_DO && ($cnt_form['sendertype'] == 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
+                if($POST_DO && ($cnt_form['sendertype'] === 'emailfield_'.$POST_name) && empty($POST_ERR[$key]) && is_valid_email($cnt_form["fields"][$key]['value'])) {
                     $cnt_form['sender'] = $cnt_form["fields"][$key]['value'];
                 }
-                //
+
                 $form_field .= '<input type="'.(HTML5_MODE ? 'email' : 'text').'" name="'.$form_name.'" id="'.$form_name.'" ';
                 $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
                 if($cnt_form["fields"][$key]['size']) {
@@ -559,7 +612,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 if($cnt_form["fields"][$key]['required']) {
                     $form_field .= ' required="required"';
                 }
-                $form_field .= ' autocomplete="off" />';
+                $form_field .= ' autocomplete="new-password" />';
                 break;
 
             case 'country':
@@ -637,7 +690,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     // build value/option select menu
                 } else {
-
 
                     $form_value = explode("\n", $cnt_form["fields"][$key]['value']);
                     $form_value = array_map('trim', $form_value);
@@ -1702,10 +1754,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     }
 }
 
-if(!empty($POST_DO) && empty($POST_ERR)) {
+if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
     $POST_attach = array();
     $POST_savedb = array();
+
+    if(!empty($doubleoptin_values)) {
+        $POST_val = $doubleoptin_values;
+    }
 
     // now prepare form values for sending or storing
     if(isset($POST_val) && is_array($POST_val) && count($POST_val)) {
@@ -1832,6 +1888,15 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
         }
 
+        if(!empty($cnt_form['doubleoptin'])) {
+            $POST_savedb['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash($cnt_form['doubleoptin_target'].time() ) );
+            $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', abs_url(array('hash' => $POST_savedb['hash']), array(), '', 'rawurlencode'), $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
+        }
+
         $cnt_form['template']   = preg_replace('/\{(.*?)\}/', '', $cnt_form['template']);
 
         // check if "copy to" email template is equal recipient
@@ -1841,6 +1906,10 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
             $cnt_form['template_format_copy']   = $cnt_form['template_format'];
             $cnt_form['template_copy']          = $cnt_form['template'];
 
+        }
+
+        if(!empty($doubleoptin_values)) {
+            $POST_savedb = array();
         }
     }
 
@@ -1882,18 +1951,86 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
 // do $POST_ERR test again to handle possible duplicates
 // in case 'checktofrom' = 1
-if(!empty($POST_DO) && empty($POST_ERR)) {
+if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$doubleoptin_error)) {
 
     // check if there are form values which should be saved in db
     if(count($POST_savedb)) {
-
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'cmsgo_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(getRemoteIP()).", ";
         $POST_savedb_sql .= _dbEscape(serialize($POST_savedb)) . ")";
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
-
     }
+
+    if(!empty($cnt_form["doubleoptin"]) && $POST_DO) {
+
+        if(!empty($cnt_form["onsuccess"])) {
+            $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
+        }
+
+        if (is_valid_email($cnt_form['doubleoptin_target'])) {
+            // send mail, include phpmailer class
+            require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+
+            $mail = new PHPMailer();
+            $mail->Mailer           = $cmsgo['SMTP_MAILER'];
+            $mail->Host             = $cmsgo['SMTP_HOST'];
+            $mail->Port             = $cmsgo['SMTP_PORT'];
+            if($cmsgo['SMTP_AUTH']) {
+                $mail->SMTPAuth     = 1;
+                $mail->Username     = $cmsgo['SMTP_USER'];
+                $mail->Password     = $cmsgo['SMTP_PASS'];
+            }
+            if(!empty($cmsgo['SMTP_SECURE'])) {
+                $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
+            }
+            if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
+                $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
+                if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
+                    if(!empty($cmsgo['SMTP_REALM'])) {
+                        $mail->Realm = $cmsgo['SMTP_REALM'];
+                    }
+                    if(!empty($cmsgo['SMTP_WORKSTATION'])) {
+                        $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
+                    }
+                }
+            }
+            $mail->CharSet          = $cmsgo["charset"];
+
+            $mail->isHTML($cnt_form['template_format_doubleoptin']);
+            $mail->Subject          = $cnt_form["subject"];
+            $mail->Body             = $cnt_form['template_doubleoptin'];
+            if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
+                $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+            }
+
+            $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+            $mail->AddReplyTo($cnt_form['sender']);
+
+            $cnt_form["copytoError"] = array();
+
+           // foreach($cnt_form['cc'] as $cc_email) {
+
+                $mail->addAddress($cnt_form['doubleoptin_target']);
+
+                if(!$mail->send()) {
+                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+                }
+
+                $mail->clearAddresses();
+
+            //}
+
+            if(count($cnt_form["copytoError"])) {
+                $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
+            } else {
+                unset($cnt_form["copytoError"]);
+            }
+
+            unset($mail);
+        }
+
+    } else {
 
     // send mail, include phpmailer class
     require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
@@ -2111,19 +2248,40 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
                     if(empty($form_newletter_setting['sender_name']))  $form_newletter_setting['sender_name']  = $cnt_form['sendername'];
 
                     // now send verification email
-                    @sendEmail(array(   'recipient' => $form_newletter_setting['email_field'],
+                        @sendEmail(array(
+                           'recipient' => $form_newletter_setting['email_field'],
                             'toName'    => $form_newletter_setting['name_field'],
                             'subject'   => $form_newletter_setting['subject'],
                             'text'      => $cnt_form['verifyemail'],
                             'from'      => $form_newletter_setting['sender_email'],
                             'fromName'  => $form_newletter_setting['sender_name'],
-                            'sender'    => $form_newletter_setting['sender_email']   ));
+                            'sender'    => $form_newletter_setting['sender_email']
+                        ));
+                    }
 
                 }
 
             }
 
-        }
+            if (!empty($cnt_form["doubleoptin"]) && !empty($doubleoptin_values)) {
+
+                $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_formresult ';
+                $sql .= 'SET formresult_content=' . _dbEscape(serialize($doubleoptin_values['formresult_content']));
+                $sql .= ' WHERE formresult_id=' . intval($doubleoptin_values['formresult_id']);
+                $result  = _dbQuery($sql, 'UPDATE');
+
+                if($cnt_form["onsuccess_doubleoptin_redirect"] === 1) {
+                    // redirect on success
+                    headerRedirect(str_replace('{SITE}', CMSGO_URL, $cnt_form["onsuccess_doubleoptin"]));
+
+                } elseif($cnt_form["onsuccess_doubleoptin"]) {
+                    // success
+                    $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">';
+                    $CNT_TMP .= !$cnt_form["onsuccess_doubleoptin_redirect"] ? plaintext_htmlencode($cnt_form["onsuccess_doubleoptin"]) : $cnt_form["onsuccess_doubleoptin"];
+                    $CNT_TMP .= '</div>';
+                }
+
+            } else {
 
         if($cnt_form["onsuccess_redirect"] === 1) {
             // redirect on success
@@ -2133,21 +2291,33 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
             // success
 
             $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
-
-            if($cnt_form["onsuccess_redirect"] === 0) {
-                $CNT_TMP .= plaintext_htmlencode($cnt_form["onsuccess"]);
-            } else {
-                $CNT_TMP .= $cnt_form["onsuccess"];
+                    $CNT_TMP .= !$cnt_form["onsuccess_redirect"] ? plaintext_htmlencode($cnt_form["onsuccess"]) : $cnt_form["onsuccess"];
+                    $CNT_TMP .= '</div>';
+                }
             }
-            $CNT_TMP .= LF . '</div>' . LF;
-        }
 
+        }
     }
     if(!empty($cnt_form["copytoError"])) {
         $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["copytoError"].'</p>';
     }
 
     unset($mail);
+
+    $form_cnt = '';
+
+} elseif($doubleoptin_error) {
+
+    if($cnt_form["onerror_doubleoptin_redirect"] === 1) {
+        // redirect on success
+        headerRedirect(str_replace('{SITE}', CMSGO_URL, $cnt_form["onerror_doubleoptin"]));
+
+    } elseif($cnt_form["onerror_doubleoptin"]) {
+        // success
+        $CNT_TMP .= '<div class="' . trim('form-error ' . $cnt_form["class"]) . '">';
+        $CNT_TMP .= !$cnt_form["onerror_doubleoptin_redirect"] ? plaintext_htmlencode($cnt_form["onerror_doubleoptin"]) : $cnt_form["onerror_doubleoptin"];
+        $CNT_TMP .= '</div>';
+    }
 
     $form_cnt = '';
 
@@ -2187,19 +2357,18 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
             if($cnt_form['labelpos'] == 3) {
 
-                $form_error  = '<div class="' . trim('form-error ' . $cnt_form["error_class"]) . '">' . LF;
-                $form_error .= '    <p>' . implode('</p>'.LF.'  <p>', $POST_ERR) . '</p>' . LF;
-                $form_error .= '</div>' . LF;
+                $form_error  = '<div class="' . trim('form-error ' . $cnt_form["error_class"]) . '">';
+                $form_error .= '<p>' . implode('</p><p>', $POST_ERR) . '</p></div>';
 
             } else {
 
-                $form_error = "<tr>\n";
+                $form_error = "<tr>";
                 if($cnt_form['labelpos'] == 0) { // label: field
-                    $form_error .= '<td class="form-label">'."&nbsp;</td>\n";
+                    $form_error .= '<td class="form-label">'."&nbsp;</td>";
                 }
                 $form_error .= '<td'.(!empty($cnt_form["error_class"]) ? ' class="'.$cnt_form["error_class"].'"' : '').'>';
                 $form_error .= implode("<br />", $POST_ERR);
-                $form_error .= "</td>\n</tr>\n";
+                $form_error .= "</td></tr>";
 
             }
 
@@ -2219,11 +2388,11 @@ if(!empty($POST_DO) && empty($POST_ERR)) {
 
         if(empty($cnt_form['startup_html'])) {
 
-            $CNT_TMP .= LF . '<div class="form-intro">' . LF . plaintext_htmlencode($cnt_form['startup']) . LF . '</div>' . LF;
+            $CNT_TMP .= '<div class="form-intro">' . plaintext_htmlencode($cnt_form['startup']) . '</div>';
 
         } else {
 
-            $CNT_TMP .= LF . $cnt_form['startup'] . LF;
+            $CNT_TMP .= $cnt_form['startup'];
 
         }
 
@@ -2266,11 +2435,11 @@ if($form_cnt) {
             $form_cnt = preg_replace('/\[IF_ERROR\].*?\[\/IF_ERROR\]/s', '', $form_cnt);
             $form_cnt = preg_replace('/\[ELSE_ERROR\](.*?)\[\/ELSE_ERROR\]/s', '$1', $form_cnt);
         }
-        $CNT_TMP .= "\n". $form_cnt ."\n";
+        $CNT_TMP .= $form_cnt;
 
     } elseif($cnt_form['labelpos'] == 3) {
 
-        $CNT_TMP .= LF . $form_cnt;
+        $CNT_TMP .= $form_cnt;
 
     } else {
 
@@ -2279,10 +2448,10 @@ if($form_cnt) {
 
     }
 
-    $CNT_TMP .= LF . '<div><input type="hidden" name="cpID'.$crow["acontent_id"].'" value="'.$crow["acontent_id"].'" />';
+    $CNT_TMP .= '<div><input type="hidden" name="cpID'.$crow["acontent_id"].'" value="'.$crow["acontent_id"].'" />';
     $CNT_TMP .= $form_field_hidden;
     $CNT_TMP .= getFormTrackingValue(); //hidden form tracking field
-    $CNT_TMP .= '</div>' . LF . '</form>' . LF . $cnt_form["class_close"];
+    $CNT_TMP .= '</div></form>' . $cnt_form["class_close"];
 }
 
 $CNT_TMP .= $crow['attr_class_id_close'];

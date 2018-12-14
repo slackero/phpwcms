@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -67,6 +67,7 @@ require CMSGO_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 require CMSGO_ROOT.'/include/inc_front/front.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/ext.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/content.func.inc.php';
+
 
 // SEO logging
 if(!empty($cmsgo['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
@@ -167,7 +168,9 @@ if(CMSGO_REWRITE) {
     $content['all'] = str_replace('img/cmsimage.php', 'im', $content['all']);
     $content['page_start'] = str_replace('img/cmsimage.php', 'im', $content['page_start']);
 }
+
 $content['all'] = str_replace('{CMSGO_RESIZE_IMAGE}', CMSGO_RESIZE_IMAGE, $content['all']);
+
 // real page ending
 if(count($block['bodyjs'])) {
     $content['page_end'] .= implode(LF, $block['bodyjs']);

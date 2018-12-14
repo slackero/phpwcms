@@ -3,7 +3,7 @@
  * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
  *
  **/
@@ -146,7 +146,7 @@ function initVideoJs() {
         if(IE8_CC) {
             $GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="'.CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script><![endif]-->';
         }
-        $GLOBALS['cmsgo']['video-js'] = CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/5.19/';
+        $GLOBALS['cmsgo']['video-js'] = CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/7.1.0/';
     } else {
         $GLOBALS['cmsgo']['video-js'] = rtrim($GLOBALS['cmsgo']['video-js'], '/') . '/';
     }
