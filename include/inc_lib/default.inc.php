@@ -189,6 +189,7 @@ define('PHPWCMS_STORAGE', PHPWCMS_ROOT.$phpwcms["file_path"]);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
 define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
+define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
 
@@ -352,6 +353,7 @@ $phpwcms['default_template_classes'] = array(
     'navlist-asub_last'             => 'asub_last',
     'navlist-link-class'            => 'nav-link',
     'navlist-navLevel'              => 'nav-level-',
+    'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
     'breadcrumb-active'             => 'active',
@@ -740,8 +742,6 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
         $_getVarTemp['shop_detail'],
         $_getVarTemp['shop_cat'],
         $_getVarTemp['shop_cart'],
-        $_getVarTemp['searchstart'],
-        $_getVarTemp['searchwords'],
         $_getVarTemp['gallery'],
         $_getVarTemp['subgallery']
     );

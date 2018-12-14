@@ -14,6 +14,7 @@ body {
   background: #c1d2e2;
   background: -webkit-gradient(linear, left top, left bottom, from(#347199), to(#c1d2e2));
   background: -webkit-linear-gradient(top, #347199 0%, #c1d2e2 100%);
+  background: -o-linear-gradient(top, #347199 0%, #c1d2e2 100%);
   background: linear-gradient(to bottom, #347199 0%, #c1d2e2 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0);
   background-attachment: fixed; }
@@ -56,7 +57,8 @@ hr {
   padding: 10px 13px;
   margin-bottom: 12px;
   border: 1px solid #c1d2e2;
-  border-radius: 4px; }
+  -webkit-border-radius: 4px;
+          border-radius: 4px; }
 
 .alert-success {
   background-color: #18bc9c;

@@ -12,10 +12,10 @@
 
 $phpwcms    = array();
 $root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require $root.'/include/config/conf.inc.php';
-require $root.'/include/inc_lib/default.inc.php';
-require $root.'/include/inc_lib/general.inc.php';
-require $root.'/include/inc_lib/imagick.convert.inc.php';
+require_once $root.'/include/config/conf.inc.php';
+require_once $root.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
 // get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
 // ...xGS will convert image to GrayScale
@@ -128,7 +128,7 @@ if(isset($data[1])) {
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
-            if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
+            if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
                 $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
@@ -158,7 +158,7 @@ if(isset($data[1])) {
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
-            if(substr($phpwcms['image_library'], 0, 2) == 'gd') {
+            if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
                 $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;

@@ -30,7 +30,7 @@ foreach($cart_data as $item_key => $row) {
 
 	$prod_id = $row['shopprod_id'];
 
-	$row_shopprod_price = $row['shopprod_price']; //initial prize
+	$row_shopprod_price = (float) $row['shopprod_price']; //initial prize
 	$row_shopprod_numbr = $row['shopprod_ordernumber']; //initial odernr
 
 	foreach($_SESSION[CART_KEY]['products'][$prod_id] as $item_key1 => $value_opt1) {
@@ -49,7 +49,7 @@ foreach($cart_data as $item_key => $row) {
 				foreach($_cart_opt_1 as $key => $value){
 					if($key && $_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key){
 						$value = get_shop_option_value($value);
-						$value_opt1_float = $value[1];
+						$value_opt1_float = (float) $value[1];
 						$opt1_txt = $value[0] . $value['option'];
 						$opt1_numbr = $value[2];
 					}
@@ -64,7 +64,7 @@ foreach($cart_data as $item_key => $row) {
 				foreach ($_cart_opt_2 as $key => $value){
 					if($key && $_SESSION[CART_KEY]['options2'][$prod_id][$opt1_id][$opt2_id] == $key){
 						$value = get_shop_option_value($value);
-						$value_opt2_float = $value[1];
+						$value_opt2_float = (float) $value[1];
 						$opt2_txt = $value[0] . $value['option'];
 						$opt2_numbr = $value[2];
 					}

@@ -9,36 +9,49 @@
  *
  **/
 
-// load external GD image handling class
-include_once PHPWCMS_ROOT.'/include/inc_lib/helper.image.php';
+/**
+ * Load external GD image handling class
+ */
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.image.php';
 
-// Deprecated function, use for 3rd party fallback usage
+/**
+ * Deprecated function, used for 3rd party fallback
+ *
+ * @param array $config
+ * @return array
+ */
 function imagick_converting($config=array()) {
     return image_manipulate($config);
 }
 
-// Resize, Crop and other image manipulation
+/**
+ * Resize, crop and other image manipulation
+ *
+ * @param array $config
+ * @return array
+ */
 function image_manipulate($config=array()) {
 
     global $phpwcms;
 
     // Merge config values with default
-    $config = array_merge(array(
-            "max_width"     => $phpwcms["img_list_width"],
-            "max_height"    => $phpwcms["img_list_height"],
-            "error"         => '',
-            "image_name"    => '',
-            "thumb_name"    => '',
-            "target_ext"    => 'jpg',
-            "image_dir"     => PHPWCMS_ROOT.'/'.PHPWCMS_FILES,
-            "thumb_dir"     => PHPWCMS_THUMB,
-            'jpg_quality'   => 85,
+    $config = array_merge(
+        array(
+            "max_width" => $phpwcms["img_list_width"],
+            "max_height" => $phpwcms["img_list_height"],
+            "error" => '',
+            "image_name" => '',
+            "thumb_name" => '',
+            "target_ext" => 'jpg',
+            "image_dir" => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
+            "thumb_dir" => PHPWCMS_THUMB,
+            'jpg_quality' => 85,
             'sharpen_level' => 0,
-            'density'       => 72,
-            'add_command'   => '',
-            'crop_image'    => false,
-            'crop_pos'      => '',
-            'master_dim'    => 'auto'
+            'density' => 72,
+            'add_command' => '',
+            'crop_image' => false,
+            'crop_pos' => '',
+            'master_dim' => 'auto'
         ),
         $config
     );
@@ -46,43 +59,43 @@ function image_manipulate($config=array()) {
     // Test width and height and set correct dimensions
     if(!intval($config["max_width"]) && !intval($config["max_height"])) {
         // Should not happen, but better have a fallback
-        $config["max_width"]    = $phpwcms["img_list_width"];
-        $config["max_height"]   = $phpwcms["img_list_height"];
-        $config['master_dim']   = 'auto';
+        $config["max_width"] = $phpwcms["img_list_width"];
+        $config["max_height"] = $phpwcms["img_list_height"];
+        $config['master_dim'] = 'auto';
     } elseif(!intval($config["max_width"])) {
         // No width given, recalculate final image size based on height
-        $config["max_width"]    = $phpwcms["img_prev_width"];
-        $config['crop_image']   = false;
-        $config['master_dim']   = 'height';
+        $config["max_width"] = $phpwcms["img_prev_width"];
+        $config['crop_image'] = false;
+        $config['master_dim'] = 'height';
     } elseif(!intval($config["max_height"])) {
         // No height given, recalculate final image size based on width
-        $config["max_height"]   = $phpwcms["img_prev_height"];
-        $config['crop_image']   = false;
-        $config['master_dim']   = 'width';
+        $config["max_height"] = $phpwcms["img_prev_height"];
+        $config['crop_image'] = false;
+        $config['master_dim'] = 'width';
     }
 
     // Check if source image is accessible
     // otherwise use placeholder image "filestorage/image_placeholder.png"
-    if(!is_file($config["image_dir"].$config["image_name"])) {
-        $config["image_name"]  = 'image_placeholder.png';
-        $config["thumb_name"]  = 'temp_'.$config["thumb_name"];
+    if(!is_file($config["image_dir"] . $config["image_name"])) {
+        $config["image_name"] = 'image_placeholder.png';
+        $config["thumb_name"] = 'temp_' .$config["thumb_name"];
     }
 
     // Doubled config setting but especially for Image manipulation class
     $image_config = array(
-        'image_library'     => $phpwcms['image_library'],
-        'library_path'      => $phpwcms['library_path'],
-        'source_image'      => $config["image_dir"].$config["image_name"],
-        'new_image'         => $config["thumb_dir"].$config["thumb_name"].'.'.$config["target_ext"],
-        'maintain_ratio'    => true,
-        'width'             => $config['max_width'],
-        'height'            => $config['max_height'],
-        'master_dim'        => $config['master_dim'],
-        'sharpen'           => $config['sharpen_level'],
-        'quality'           => $config['jpg_quality'],
-        'create_thumb'      => false,
-        'target_ext'        => $config["target_ext"],
-        'colorspace'        => $phpwcms['colorspace']
+        'image_library' => $phpwcms['image_library'],
+        'library_path' => $phpwcms['library_path'],
+        'source_image' => $config["image_dir"] . $config["image_name"],
+        'new_image' => $config["thumb_dir"] . $config["thumb_name"] . '.' . $config["target_ext"],
+        'maintain_ratio' => true,
+        'width' => $config['max_width'],
+        'height' => $config['max_height'],
+        'master_dim' => $config['master_dim'],
+        'sharpen' => $config['sharpen_level'],
+        'quality' => $config['jpg_quality'],
+        'create_thumb' => false,
+        'target_ext' => $config["target_ext"],
+        'colorspace' => $phpwcms['colorspace']
     );
 
     $IMG = new Phpwcms_Image_lib($image_config);
@@ -90,8 +103,8 @@ function image_manipulate($config=array()) {
     // try to handle limited PHP memory
     if(empty($GLOBALS['phpwcms']['gd_memcheck_off']) && ($phpwcms['image_library'] === 'gd2' || $phpwcms['image_library'] === 'gd')) {
 
-        $php_memory = getBytes( @ini_get('memory_limit') );
-        $img_memory = getRealImageSize( $IMG->image_current_vals );
+        $php_memory = getBytes(@ini_get('memory_limit'));
+        $img_memory = getRealImageSize($IMG->image_current_vals);
 
         // do memory checks only when PHP's memory limit
         // and "real" image size is known
@@ -102,31 +115,29 @@ function image_manipulate($config=array()) {
                 @ini_set('memory_limit', $img_memory * 3);
             }
 
-            $php_memory = getBytes( @ini_get('memory_limit') );
+            $php_memory = getBytes(@ini_get('memory_limit'));
 
             // still not enough, use fallback memory warning image
             if($php_memory / 3 < $img_memory) {
-                $config["image_name"]           = 'image_memoryinfo.png';
-                $config["thumb_name"]           = 'mem_'.$config["thumb_name"];
+                $config["image_name"] = 'image_memoryinfo.png';
+                $config["thumb_name"] = 'mem_' . $config["thumb_name"];
 
-                $image_config['source_image']   = $config["image_dir"].$config["image_name"];
-                $image_config['new_image']      = $config["thumb_dir"].$config["thumb_name"].'.'.$config["target_ext"];
+                $image_config['source_image'] = $config["image_dir"] . $config["image_name"];
+                $image_config['new_image'] = $config["thumb_dir"] . $config["thumb_name"] . '.' . $config["target_ext"];
 
                 $IMG->initialize($image_config);
-
             }
-
         }
     }
 
     // do not resize if image is smaller than target sizes
-    if(!$config['crop_image'] && substr($phpwcms['image_library'], 0, 2) == 'gd' && !empty($IMG->orig_width) && !empty($IMG->orig_height) && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
-        $config['max_width']        = $IMG->orig_width;
-        $config['max_height']       = $IMG->orig_height;
-        $image_config['width']      = $IMG->orig_width;
-        $image_config['height']     = $IMG->orig_height;
-        $IMG->width                 = $IMG->orig_width;
-        $IMG->height                = $IMG->orig_height;
+    if(!$config['crop_image'] && substr($phpwcms['image_library'], 0, 2) === 'gd' && !empty($IMG->orig_width) && !empty($IMG->orig_height) && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
+        $config['max_width'] = $IMG->orig_width;
+        $config['max_height'] = $IMG->orig_height;
+        $image_config['width'] = $IMG->orig_width;
+        $image_config['height'] = $IMG->orig_height;
+        $IMG->width = $IMG->orig_width;
+        $IMG->height = $IMG->orig_height;
     }
 
     if($config['crop_image']) {
@@ -136,15 +147,15 @@ function image_manipulate($config=array()) {
         if( $image_config['do_cropping'] ) {
 
             // first resize width recalculated height/width
-            $IMG->width     = $image_config['resize_width'];
-            $IMG->height    = $image_config['resize_height'];
-            $IMG->quality   = 100;
+            $IMG->width = $image_config['resize_width'];
+            $IMG->height = $image_config['resize_height'];
+            $IMG->quality = 100;
             $IMG->resize();
 
-            $image_config['sharpen']        = 0;
-            $image_config['maintain_ratio'] = FALSE;
-            $image_config['create_thumb']   = FALSE;
-            $image_config['source_image']   = $image_config['new_image'];
+            $image_config['sharpen'] = 0;
+            $image_config['maintain_ratio'] = false;
+            $image_config['create_thumb'] = false;
+            $image_config['source_image'] = $image_config['new_image'];
 
             $IMG->initialize( $image_config );
             $IMG->crop();
@@ -161,57 +172,83 @@ function image_manipulate($config=array()) {
 
     }
 
-    $config["thumb_name"]   = $IMG->dest_image;
-    $config['error']        = $IMG->display_errors('<li>', '</li>', '<ul class="error">', '</ul>');
+    $config["thumb_name"] = $IMG->dest_image;
+    $config['error'] = $IMG->display_errors('<li>', '</li>', '<ul class="error">', '</ul>');
 
     return $config;
 }
 
-// ========================================================================================================================
-
-
-// build thumbnail image name
+/**
+ * Build thumbnail image name
+ *
+ * @param array $val
+ * @param bool $db_track
+ * @param bool $return_all_imageinfo
+ * @return array|bool
+ */
 function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=true) {
 
-    $val = array_merge(array(
-        'max_width'     => $GLOBALS['phpwcms']['img_list_width'],
-        'max_height'    => $GLOBALS['phpwcms']['img_list_height'],
-        'image_dir'     => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
-        'thumb_dir'     => PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
-        'jpg_quality'   => $GLOBALS['phpwcms']['jpg_quality'],
-        'sharpen_level' => $GLOBALS['phpwcms']['sharpen_level'],
-        'crop_image'    => false,
-        'crop_pos'      => '',
-        'img_filename'  => ''
-    ), $val);
-
-    $imgCache = false; //do not insert file information in db image cache
-    $thumb_image_info = array(
-        0 => false,
-        'svg' => false
+    $val = array_merge(
+        array(
+            'max_width' => $GLOBALS['phpwcms']['img_list_width'],
+            'max_height' => $GLOBALS['phpwcms']['img_list_height'],
+            'image_dir' => PHPWCMS_ROOT . '/' . PHPWCMS_FILES,
+            'thumb_dir' => PHPWCMS_ROOT . '/' . PHPWCMS_IMAGES,
+            'jpg_quality' => $GLOBALS['phpwcms']['jpg_quality'],
+            'sharpen_level' => $GLOBALS['phpwcms']['sharpen_level'],
+            'crop_image'  => false,
+            'crop_pos' => '',
+            'img_filename' => ''
+        ),
+        $val
     );
 
-    if($val['target_ext'] === 'svg') {
+    $imgCache = false; //do not insert file information in db image cache
+    $thumb_image_info = array(0 => false, 'svg' => false);
 
-        if(is_file($val['image_dir'].$val['image_name'])) {
+    if($val['target_ext'] === 'svg' && is_file($val['image_dir'].$val['image_name'])) {
 
-            $thumb_image_info['svg'] = true;
-            $thumb_image_info[0] = $val['image_name'];
-            $thumb_image_info[1] = $val['max_width'];
-            $thumb_image_info[2] = $val['max_height'];
-            $thumb_image_info[3] = '';
-            $thumb_image_info['type'] = 'image/svg+xml';
-            $thumb_image_info['src'] = PHPWCMS_RESIZE_IMAGE . '/'.$val['max_width'].'x'.$val['max_height'];
-            if($val['crop_image']) {
-                $thumb_image_info['src'] .= 'x1';
-            }
-            $thumb_image_info['src'] .= '/'.$val['image_name'];
+        $thumb_image_info['svg'] = true;
+        $thumb_image_info[0] = $val['image_name'];
+        $thumb_image_info[1] = $val['max_width'];
+        $thumb_image_info[2] = $val['max_height'];
+        $thumb_image_info[3] = '';
+        $thumb_image_info['type'] = 'image/svg+xml';
+        $thumb_image_info['src'] = PHPWCMS_RESIZE_IMAGE . '/' . $val['max_width'] . 'x' . $val['max_height'];
+        if($val['crop_image']) {
+            $thumb_image_info['src'] .= 'x1';
+        }
+        $thumb_image_info['src'] .= '/' . $val['image_name'];
 
-            if(!empty($val['img_filename'])) {
-                $thumb_image_info['src'] .= '/' . rawurlencode($val['img_filename']);
-            }
+        if(!empty($val['img_filename'])) {
+            $thumb_image_info['src'] .= '/' . rawurlencode($val['img_filename']);
+        }
 
-            return $thumb_image_info;
+        return $thumb_image_info;
+
+    }
+
+    // Try to catch file name from database
+    if(empty($val['img_filename']) && PHPWCMS_PRESERVE_IMAGENAME) {
+
+        require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+
+        $hash = cut_ext($val['image_name']);
+
+        $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
+
+        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
+        $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
+        $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
+        if(substr($GLOBALS['phpwcms']['image_library'], 0, 2) === 'gd') {
+            $sql .= " AND f_ext IN ('jpg','jpeg','png','gif','bmp')";
+        }
+        $imagedetail = _dbQuery($sql);
+
+        if(isset($imagedetail[0]['f_hash'])) {
+
+            $val['img_filename'] = $imagedetail[0]['f_name'];
+            $thumb_filename_basis = cut_ext($imagedetail[0]['f_name']);
 
         }
 
@@ -224,61 +261,57 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     } else {
 
-        $thumb_size_dir = $val['max_width'].'-'.$val['max_height'].'-'.$val['jpg_quality'];
         $thumb_spec_info = '';
         if($val['crop_image']) {
-            $thumb_spec_info .= 'c'.$val['crop_image'];
+            $thumb_spec_info .= 'c' . $val['crop_image'];
             if($val['crop_pos']) {
                 $thumb_spec_info .= $val['crop_pos'];
             }
         }
         if($val['sharpen_level']) {
-            $thumb_spec_info .= 's'.$val['sharpen_level'];
+            $thumb_spec_info .= 's' . $val['sharpen_level'];
+        }
+        if($val['target_ext'] === 'jpg') {
+            $thumb_spec_info .= 'q' . $val['jpg_quality'];
+        }
+        if(!isset($thumb_filename_basis)) {
+            $thumb_filename_basis = cut_ext($val['img_filename']);
         }
 
-        $thumb_filename_ext = which_ext($val['img_filename']);
-        $thumb_filename_basis = cut_ext($val['img_filename']);
+        $val['thumb_name'] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
         if($thumb_spec_info) {
-            $thumb_filename_basis .= '_'.$thumb_spec_info;
-        }
-        $val['thumb_name'] = $thumb_filename_basis . '.' . ($thumb_filename_ext ? $thumb_filename_ext : $val['target_ext']);
-
-        if(!is_dir($val['thumb_dir'].$thumb_size_dir) && _mkdir($val['thumb_dir'].$thumb_size_dir)) {
-            $val['thumb_dir'] = $val['thumb_dir'].$thumb_size_dir.'/';
+            $val['thumb_name'] .= '-' . $thumb_spec_info;
         }
 
-        $thumb_check = $val['thumb_dir'] . $thumb_filename_basis;
+        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
     }
 
-    if(is_file($thumb_check .'.jpg')) {
+    if(is_file($thumb_check . '.jpg')) {
 
-        $thumb_image_info[0] = $val['thumb_name'] .'.jpg';
+        $thumb_image_info[0] = $val['thumb_name'] . '.jpg';
         $thumb_image_info['type'] = 'image/jpeg';
 
-    } elseif(is_file($thumb_check .'.png')) {
+    } elseif(is_file($thumb_check . '.png')) {
 
-        $thumb_image_info[0] = $val['thumb_name'] .'.png';
+        $thumb_image_info[0] = $val['thumb_name'] . '.png';
         $thumb_image_info['type'] = 'image/png';
 
-    } elseif(is_file($thumb_check .'.gif')) {
+    } elseif(is_file($thumb_check . '.gif')) {
 
-        $thumb_image_info[0] = $val['thumb_name'] .'.gif';
+        $thumb_image_info[0] = $val['thumb_name'] . '.gif';
         $thumb_image_info['type'] = 'image/gif';
 
-    } else {
-
         // check if current file's extension is handable by ImageMagick or GD
-        if( $val["target_ext"] = is_ext_true($val["target_ext"]) ) {
+    } elseif($val["target_ext"] = is_ext_true($val["target_ext"])) {
 
-            $create_preview = image_manipulate( $val );
+        $create_preview = image_manipulate($val);
 
-            if( is_file( $val['thumb_dir'] . $create_preview["thumb_name"] ) ) {
-                $thumb_image_info[0] = $create_preview["thumb_name"];
-                $imgCache = true; // insert/update information in db image cache
-            };
+        if(is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
+            $thumb_image_info[0] = $create_preview["thumb_name"];
+            $imgCache = true; // insert/update information in db image cache
+        };
 
-        }
     }
 
     if($thumb_image_info[0] !== false) {
@@ -287,13 +320,13 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             return $thumb_image_info;
         }
 
-        $thumb_info = @getimagesize($val['thumb_dir'].$thumb_image_info[0]);
+        $thumb_info = @getimagesize($val['thumb_dir'] . $thumb_image_info[0]);
         if(is_array($thumb_info)) {
 
             $thumb_image_info[1] = $thumb_info[0]; // width
             $thumb_image_info[2] = $thumb_info[1]; // height
             $thumb_image_info[3] = $thumb_info[3]; // HTML width & height attribute
-            $thumb_image_info['src'] = PHPWCMS_IMAGES.$thumb_image_info[0];
+            $thumb_image_info['src'] = PHPWCMS_IMAGES . $thumb_image_info[0];
 
         } else {
 
@@ -303,8 +336,10 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         }
 
     } else {
+
         // if wrong - no result, return false
         return false;
+
     }
 
     // Return cached thumbnail image info
@@ -315,12 +350,22 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     return $thumb_image_info;
 }
 
+/**
+ * Set cropped image size
+ *
+ * @param $config
+ * @param int $orig_width
+ * @param int $orig_height
+ * @param string $crop_pos
+ * @return mixed
+ */
 function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos='') {
-    $config['resize_width']     = $config['width'];
-    $config['resize_height']    = $config['height'];
-    $config['x_axis']           = 0;
-    $config['y_axis']           = 0;
-    $config['do_cropping']      = false;
+
+    $config['resize_width'] = $config['width'];
+    $config['resize_height'] = $config['height'];
+    $config['x_axis'] = 0;
+    $config['y_axis'] = 0;
+    $config['do_cropping'] = false;
 
     if($orig_width && $orig_height) {
 
@@ -338,34 +383,34 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos
         }
 
         // compare original image sizes against cropped image size
-        $ratio_width    = $orig_width / $config['width'];
-        $ratio_height   = $orig_height / $config['height'];
+        $ratio_width = $orig_width / $config['width'];
+        $ratio_height = $orig_height / $config['height'];
 
         // check if cropping is necessary
-        if( $ratio_width !== $ratio_height ) {
+        if($ratio_width !== $ratio_height) {
 
             $config['do_cropping'] = true;
 
             // source image dimensions are both larger than target
-            if( $ratio_width >= 1 && $ratio_height >= 1 ) {
+            if($ratio_width >= 1 && $ratio_height >= 1) {
 
-                if( $ratio_width <= $ratio_height ) {
-                    $config['resize_height']    = ceil( $orig_height / $ratio_width );
-                    $config['y_axis']           = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']); //round( ( $config['resize_height'] - $config['height'] ) / 2 );
+                if($ratio_width <= $ratio_height) {
+                    $config['resize_height'] = ceil($orig_height / $ratio_width);
+                    $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
                 } else {
-                    $config['resize_width']     = ceil( $orig_width / $ratio_height );
-                    $config['x_axis']           = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']); //round( ( $config['resize_width'] - $config['width'] ) / 2 );
+                    $config['resize_width'] = ceil($orig_width / $ratio_height);
+                    $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
                 }
 
-            // source image dimensions width and/or height is smaller than target
+                // source image dimensions width and/or height is smaller than target
             } else {
 
-                if( $ratio_width <= $ratio_height ) {
-                    $config['resize_width']     = ceil( $orig_width + ( $orig_width * ( 1 - $ratio_height ) ) );
-                    $config['x_axis']           = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']); //round( ( $config['resize_width'] - $config['width'] ) / 2 );
+                if($ratio_width <= $ratio_height) {
+                    $config['resize_width'] = ceil($orig_width + ($orig_width * (1 - $ratio_height)));
+                    $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
                 } else {
-                    $config['resize_height']    = ceil( $orig_height + ( $orig_height * ( 1 - $ratio_width ) ) );
-                    $config['y_axis']           = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']); //round( ( $config['resize_height'] - $config['height'] ) / 2 );
+                    $config['resize_height'] = ceil($orig_height + ($orig_height * (1 - $ratio_width)));
+                    $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
                 }
             }
         }
@@ -374,49 +419,72 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos
     return $config;
 }
 
-// set croppy x/y axis values
+/**
+ * Set cropped X/Y axis values
+ *
+ * @param $axis
+ * @param $pos
+ * @param $default_size
+ * @param $crop_value
+ * @return float|int
+ */
 function get_cropped_pos($axis, $pos, $default_size, $crop_value) {
 
     // tl, tc, tr, cl, cc, cr , bl, bc, br
     $distance = $default_size - $crop_value;
-    $pos = $axis == 'y' ? substr($pos, 0, 1) : substr($pos, -1);
+    $pos = $axis === 'y' ? substr($pos, 0, 1) : substr($pos, -1);
 
-    if($pos == 't' || $pos == 'l') {
+    if($pos === 't' || $pos === 'l') {
         return 0;
-    } elseif($pos == 'b' || $pos == 'r') {
+    } elseif($pos === 'b' || $pos === 'r') {
         return $distance;
     } else {
         return round($distance / 2);
     }
-
 }
 
-// something did not work - return transparent 1x1px GIF
+/**
+ * Return transparent 1x1px GIF and stop rendering
+ *
+ * @param bool $cache
+ */
 function phpwcms_empty_gif($cache=false) {
+
     if(!$cache) {
         headerAvoidPageCaching();
     }
+
     header('Content-Type: image/gif');
-    echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+    echo base64_decode('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
     exit();
 }
 
-// convert existing temp image into grayscale
+/**
+ * Convert existing temporary image to grayscale
+ *
+ * @param string $source_img
+ * @param string $target_img
+ * @param array $config
+ * @return array
+ */
 function phpwcms_convertimage_gs($source_img='', $target_img='', $config=array()) {
 
     global $phpwcms;
 
-    $config = array_merge(array(
-        'image_library'     => $phpwcms['image_library'],
-        'library_path'      => $phpwcms['library_path'],
-        'source_image'      => $source_img,
-        'new_image'         => $target_img,
-        'sharpen'           => 0,
-        'quality'           => $phpwcms['jpg_quality'],
-        'create_thumb'      => false,
-        'colorspace'        => 'GRAY',
-        'density'           => 72
-    ), $config);
+    $config = array_merge(
+        array(
+            'image_library' => $phpwcms['image_library'],
+            'library_path' => $phpwcms['library_path'],
+            'source_image' => $source_img,
+            'new_image' => $target_img,
+            'sharpen' => 0,
+            'quality' => $phpwcms['jpg_quality'],
+            'create_thumb' => false,
+            'colorspace' => 'GRAY',
+            'density' => 72
+        ),
+        $config
+    );
 
     $IMG = new Phpwcms_Image_lib($config);
     $IMG->resize();
@@ -427,6 +495,12 @@ function phpwcms_convertimage_gs($source_img='', $target_img='', $config=array()
     );
 }
 
+/**
+ * Get SVG image size
+ *
+ * @param $svg_file
+ * @return array|null
+ */
 function phpwcms_svg_getimagesize($svg_file) {
 
     if(empty($svg_file) || !is_file($svg_file) || !($svg = @simplexml_load_file($svg_file))) {
@@ -439,5 +513,4 @@ function phpwcms_svg_getimagesize($svg_file) {
         'width' => empty($svg_attributes->width) ? 0 : (string) $svg_attributes->width,
         'height' => empty($svg_attributes->height) ? 0 : (string) $svg_attributes->height
     );
-
 }

@@ -35,8 +35,8 @@ require_once('inc/setup.func.inc.php');
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
           <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
         </tr>
@@ -45,7 +45,7 @@ require_once('inc/setup.func.inc.php');
           <td align="right" valign="top" class="navtext"><a href="../index.php" target="_top">HOME</a> | <a href="index.php" target="_top">LICENCE</a></td>
         </tr>
     </table></td>
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
+    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
@@ -55,13 +55,13 @@ require_once('inc/setup.func.inc.php');
 	<p><strong>phpwcms</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
 	  General Public License</strong></a> (GPL). Before you continue setting
 	  up phpwcms  read the license very careful.</p>
-	<div id="license"> 
+	<div id="license">
       <p align="center"><strong style="font-size:17px;">The GNU General Public License (GPL)</strong><br />Version 2, June 1991</p>
       <p align="center">Copyright (C) 1989, 1991 Free Software Foundation, Inc.<br />
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p>
       <p align="center">Everyone is permitted to copy and distribute verbatim copies<br />
   of this license document, but changing it is not allowed.</p>
-	 
+
       <p align="center"><strong>Preamble</strong></p>
       <p>The licenses for most software are designed to take away your freedom
         to share and change it. By contrast, the GNU General Public License is
