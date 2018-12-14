@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // build the database table prepend part
-define ('DB_PREPEND', $phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '');
+define ('DB_PREPEND', empty($phpwcms["db_prepend"]) ? '' : $phpwcms["db_prepend"].'_');
 
 // open the connection to MySQL database
 if(!empty($phpwcms["db_pers"]) && substr($phpwcms["db_host"], 0, 2) !== 'p:') {
