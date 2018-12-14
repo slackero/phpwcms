@@ -1,13 +1,13 @@
 #####################################################
 #
 #  PHPWCMS SQL Update
-#  
+#
 #  08.06.2004
 #
 #####################################################
 
 #
-# Tabellenstruktur für Tabelle `phpwcms_fonts`
+# Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts`
 #
 
 CREATE TABLE `phpwcms_fonts` (
@@ -21,7 +21,7 @@ CREATE TABLE `phpwcms_fonts` (
 # --------------------------------------------------------
 
 #
-# Tabellenstruktur für Tabelle `phpwcms_fonts_colors`
+# Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts_colors`
 #
 
 CREATE TABLE `phpwcms_fonts_colors` (
@@ -34,7 +34,7 @@ CREATE TABLE `phpwcms_fonts_colors` (
 # --------------------------------------------------------
 
 #
-# Tabellenstruktur für Tabelle `phpwcms_fonts_styles`
+# Tabellenstruktur fÃ¼r Tabelle `phpwcms_fonts_styles`
 #
 
 CREATE TABLE `phpwcms_fonts_styles` (

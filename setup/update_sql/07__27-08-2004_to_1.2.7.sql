@@ -1,7 +1,7 @@
 #####################################################
 #
 #  PHPWCMS SQL Update
-#  
+#
 #  Upgrade release 27-08-2004 to 1.2.6-DEV
 #
 #####################################################
@@ -180,7 +180,7 @@ INSERT INTO `phpwcms_country` VALUES (10, 'AR', 'Argentina', 'Argentinien');
 INSERT INTO `phpwcms_country` VALUES (11, 'AM', 'Armenia', 'Armenien');
 INSERT INTO `phpwcms_country` VALUES (12, 'AW', 'Aruba', 'Aruba');
 INSERT INTO `phpwcms_country` VALUES (13, 'AU', 'Australia', 'Australien');
-INSERT INTO `phpwcms_country` VALUES (14, 'AT', 'Austria', 'Österreich');
+INSERT INTO `phpwcms_country` VALUES (14, 'AT', 'Austria', 'Ã–sterreich');
 INSERT INTO `phpwcms_country` VALUES (15, 'AZ', 'Azerbaijan', 'Aserbaidschan');
 INSERT INTO `phpwcms_country` VALUES (16, 'BS', 'Bahamas', 'Bahamas');
 INSERT INTO `phpwcms_country` VALUES (17, 'BH', 'Bahrain', 'Bahrain');
@@ -219,31 +219,31 @@ INSERT INTO `phpwcms_country` VALUES (49, 'CG', 'Congo', 'Kongo');
 INSERT INTO `phpwcms_country` VALUES (50, 'CD', 'Congo, The Democratic Republic Of The', 'Kongo, Demokratische Republik');
 INSERT INTO `phpwcms_country` VALUES (51, 'CK', 'Cook Islands', 'Cook-Inseln');
 INSERT INTO `phpwcms_country` VALUES (52, 'CR', 'Costa Rica', 'Costa Rica');
-INSERT INTO `phpwcms_country` VALUES (53, 'CI', 'Côte D''Ivoire', 'Côte D''Ivoire');
+INSERT INTO `phpwcms_country` VALUES (53, 'CI', 'CÃ´te D''Ivoire', 'CÃ´te D''Ivoire');
 INSERT INTO `phpwcms_country` VALUES (54, 'HR', 'Croatia', 'Kroatien');
 INSERT INTO `phpwcms_country` VALUES (55, 'CU', 'Cuba', 'Kuba');
 INSERT INTO `phpwcms_country` VALUES (56, 'CY', 'Cyprus', 'Zypern');
 INSERT INTO `phpwcms_country` VALUES (57, 'CZ', 'Czech Republic', 'Tschechische Republik');
-INSERT INTO `phpwcms_country` VALUES (58, 'DK', 'Denmark', 'Dänemark');
+INSERT INTO `phpwcms_country` VALUES (58, 'DK', 'Denmark', 'DÃ¤nemark');
 INSERT INTO `phpwcms_country` VALUES (59, 'DJ', 'Djibouti', 'Dschibuti');
 INSERT INTO `phpwcms_country` VALUES (60, 'DM', 'Dominica', 'Dominica');
 INSERT INTO `phpwcms_country` VALUES (61, 'DO', 'Dominican Republic', 'Dominikanische Republik');
 INSERT INTO `phpwcms_country` VALUES (62, 'TP', 'East Timor', 'Ost-Timor');
 INSERT INTO `phpwcms_country` VALUES (63, 'EC', 'Ecuador', 'Ecuador');
-INSERT INTO `phpwcms_country` VALUES (64, 'EG', 'Egypt', 'Ägypten');
+INSERT INTO `phpwcms_country` VALUES (64, 'EG', 'Egypt', 'Ã„gypten');
 INSERT INTO `phpwcms_country` VALUES (65, 'SV', 'El Salvador', 'El Salvador');
-INSERT INTO `phpwcms_country` VALUES (66, 'GQ', 'Equatorial Guinea', 'Äquatorialguinea');
+INSERT INTO `phpwcms_country` VALUES (66, 'GQ', 'Equatorial Guinea', 'Ã„quatorialguinea');
 INSERT INTO `phpwcms_country` VALUES (67, 'ER', 'Eritrea', 'Eritrea');
 INSERT INTO `phpwcms_country` VALUES (68, 'EE', 'Estonia', 'Estland');
-INSERT INTO `phpwcms_country` VALUES (69, 'ET', 'Ethiopia', 'Äthiopien');
+INSERT INTO `phpwcms_country` VALUES (69, 'ET', 'Ethiopia', 'ï¿½thiopien');
 INSERT INTO `phpwcms_country` VALUES (70, 'FK', 'Falkland Islands (Malvinas)', 'Falkland-Inseln (Malvinen)');
-INSERT INTO `phpwcms_country` VALUES (71, 'FO', 'Faroe Islands', 'Färöer');
+INSERT INTO `phpwcms_country` VALUES (71, 'FO', 'Faroe Islands', 'FÃ¤rÃ¶er');
 INSERT INTO `phpwcms_country` VALUES (72, 'FJ', 'Fiji', 'Fidschi');
 INSERT INTO `phpwcms_country` VALUES (73, 'FI', 'Finland', 'Finnland');
 INSERT INTO `phpwcms_country` VALUES (74, 'FR', 'France', 'Frankreich');
-INSERT INTO `phpwcms_country` VALUES (75, 'GF', 'French Guiana', 'Französisch Guayana');
-INSERT INTO `phpwcms_country` VALUES (76, 'PF', 'French Polynesia', 'Französisch Polynesien');
-INSERT INTO `phpwcms_country` VALUES (77, 'TF', 'French Southern Territories', 'Französische Südgebiete');
+INSERT INTO `phpwcms_country` VALUES (75, 'GF', 'French Guiana', 'FranzÃ¶sisch Guayana');
+INSERT INTO `phpwcms_country` VALUES (76, 'PF', 'French Polynesia', 'FranzÃ¶sisch Polynesien');
+INSERT INTO `phpwcms_country` VALUES (77, 'TF', 'French Southern Territories', 'FranzÃ¶sische SÃ¼dgebiete');
 INSERT INTO `phpwcms_country` VALUES (78, 'GA', 'Gabon', 'Gabun');
 INSERT INTO `phpwcms_country` VALUES (79, 'GM', 'Gambia', 'Gambia');
 INSERT INTO `phpwcms_country` VALUES (80, 'GE', 'Georgia', 'Georgien');
@@ -251,7 +251,7 @@ INSERT INTO `phpwcms_country` VALUES (81, 'DE', 'Germany', 'Deutschland');
 INSERT INTO `phpwcms_country` VALUES (82, 'GH', 'Ghana', 'Ghana');
 INSERT INTO `phpwcms_country` VALUES (83, 'GI', 'Gibraltar', 'Gibraltar');
 INSERT INTO `phpwcms_country` VALUES (84, 'GR', 'Greece', 'Griechenland');
-INSERT INTO `phpwcms_country` VALUES (85, 'GL', 'Greenland', 'Grönland');
+INSERT INTO `phpwcms_country` VALUES (85, 'GL', 'Greenland', 'GrÃ¶nland');
 INSERT INTO `phpwcms_country` VALUES (86, 'GD', 'Grenada', 'Grenada');
 INSERT INTO `phpwcms_country` VALUES (87, 'GP', 'Guadeloupe', 'Guadeloupe');
 INSERT INTO `phpwcms_country` VALUES (88, 'GU', 'Guam', 'Guam');
@@ -306,7 +306,7 @@ INSERT INTO `phpwcms_country` VALUES (136, 'MR', 'Mauritania', 'Mauretanien');
 INSERT INTO `phpwcms_country` VALUES (137, 'MU', 'Mauritius', 'Mauritius');
 INSERT INTO `phpwcms_country` VALUES (138, 'YT', 'Mayotte', 'Mayotte');
 INSERT INTO `phpwcms_country` VALUES (139, 'MX', 'Mexico', 'Mexiko');
-INSERT INTO `phpwcms_country` VALUES (140, 'FM', 'Micronesia, Federated States Of', 'Mikronesien, Föderierte Staaten Von');
+INSERT INTO `phpwcms_country` VALUES (140, 'FM', 'Micronesia, Federated States Of', 'Mikronesien, FÃ¶derierte Staaten Von');
 INSERT INTO `phpwcms_country` VALUES (141, 'MD', 'Moldova, Republic Of', 'Moldau, Republik');
 INSERT INTO `phpwcms_country` VALUES (142, 'MC', 'Monaco', 'Monaco');
 INSERT INTO `phpwcms_country` VALUES (143, 'MN', 'Mongolia', 'Mongolei');
@@ -318,7 +318,7 @@ INSERT INTO `phpwcms_country` VALUES (148, 'NA', 'Namibia', 'Namibia');
 INSERT INTO `phpwcms_country` VALUES (149, 'NR', 'Nauru', 'Nauru');
 INSERT INTO `phpwcms_country` VALUES (150, 'NP', 'Nepal', 'Nepal');
 INSERT INTO `phpwcms_country` VALUES (151, 'NL', 'Netherlands', 'Niederlande');
-INSERT INTO `phpwcms_country` VALUES (152, 'AN', 'Netherlands Antilles', 'Niederländische Antillen');
+INSERT INTO `phpwcms_country` VALUES (152, 'AN', 'Netherlands Antilles', 'NiederlÃ¤ndische Antillen');
 INSERT INTO `phpwcms_country` VALUES (153, 'NC', 'New Caledonia', 'Neukaledonien');
 INSERT INTO `phpwcms_country` VALUES (154, 'NZ', 'New Zealand', 'Neuseeland');
 INSERT INTO `phpwcms_country` VALUES (155, 'NI', 'Nicaragua', 'Nicaragua');
@@ -326,12 +326,12 @@ INSERT INTO `phpwcms_country` VALUES (156, 'NE', 'Niger', 'Niger');
 INSERT INTO `phpwcms_country` VALUES (157, 'NG', 'Nigeria', 'Nigeria');
 INSERT INTO `phpwcms_country` VALUES (158, 'NU', 'Niue', 'Niue');
 INSERT INTO `phpwcms_country` VALUES (159, 'NF', 'Norfolk Island', 'Norfolk-Insel');
-INSERT INTO `phpwcms_country` VALUES (160, 'MP', 'Northern Mariana Islands', 'Nördliche Marianen');
+INSERT INTO `phpwcms_country` VALUES (160, 'MP', 'Northern Mariana Islands', 'NÃ¶rdliche Marianen');
 INSERT INTO `phpwcms_country` VALUES (161, 'NO', 'Norway', 'Norwegen');
 INSERT INTO `phpwcms_country` VALUES (162, 'OM', 'Oman', 'Oman');
 INSERT INTO `phpwcms_country` VALUES (163, 'PK', 'Pakistan', 'Pakistan');
 INSERT INTO `phpwcms_country` VALUES (164, 'PW', 'Palau', 'Palau');
-INSERT INTO `phpwcms_country` VALUES (165, 'PS', 'Palestinian Territory, Occupied', 'Palästina');
+INSERT INTO `phpwcms_country` VALUES (165, 'PS', 'Palestinian Territory, Occupied', 'PalÃ¤stina');
 INSERT INTO `phpwcms_country` VALUES (166, 'PA', 'Panama', 'Panama');
 INSERT INTO `phpwcms_country` VALUES (167, 'PG', 'Papua New Guinea', 'Papua-Neuguinea');
 INSERT INTO `phpwcms_country` VALUES (168, 'PY', 'Paraguay', 'Paraguay');
@@ -342,9 +342,9 @@ INSERT INTO `phpwcms_country` VALUES (172, 'PL', 'Poland', 'Polen');
 INSERT INTO `phpwcms_country` VALUES (173, 'PT', 'Portugal', 'Portugal');
 INSERT INTO `phpwcms_country` VALUES (174, 'PR', 'Puerto Rico', 'Puerto Rico');
 INSERT INTO `phpwcms_country` VALUES (175, 'QA', 'Qatar', 'Katar');
-INSERT INTO `phpwcms_country` VALUES (176, 'RE', 'Réunion', 'Réunion');
-INSERT INTO `phpwcms_country` VALUES (177, 'RO', 'Romania', 'Rumänien');
-INSERT INTO `phpwcms_country` VALUES (178, 'RU', 'Russian Federation', 'Russische Föderation');
+INSERT INTO `phpwcms_country` VALUES (176, 'RE', 'RÃ©union', 'RÃ©union');
+INSERT INTO `phpwcms_country` VALUES (177, 'RO', 'Romania', 'RumÃ¤nien');
+INSERT INTO `phpwcms_country` VALUES (178, 'RU', 'Russian Federation', 'Russische FÃ¶deration');
 INSERT INTO `phpwcms_country` VALUES (179, 'RW', 'Rwanda', 'Ruanda');
 INSERT INTO `phpwcms_country` VALUES (180, 'SH', 'Saint Helena', 'St. Helena');
 INSERT INTO `phpwcms_country` VALUES (181, 'KN', 'Saint Kitts and Nevis', 'Saint Kitts und Nevis');
@@ -353,7 +353,7 @@ INSERT INTO `phpwcms_country` VALUES (183, 'PM', 'Saint Pierre and Miquelon', 'S
 INSERT INTO `phpwcms_country` VALUES (184, 'VC', 'Saint Vincent and The Grenadines', 'Saint Vincent und die Grenadinen');
 INSERT INTO `phpwcms_country` VALUES (185, 'WS', 'Samoa', 'Samoa');
 INSERT INTO `phpwcms_country` VALUES (186, 'SM', 'San Marino', 'San Marino');
-INSERT INTO `phpwcms_country` VALUES (187, 'ST', 'Sao Tome and Principe', 'São Tomé und Príncipe');
+INSERT INTO `phpwcms_country` VALUES (187, 'ST', 'Sao Tome and Principe', 'SÃ£o TomÃ© und PrÃ­ncipe');
 INSERT INTO `phpwcms_country` VALUES (188, 'SA', 'Saudi Arabia', 'Saudi-Arabien');
 INSERT INTO `phpwcms_country` VALUES (189, 'SN', 'Senegal', 'Senegal');
 INSERT INTO `phpwcms_country` VALUES (190, 'SC', 'Seychelles', 'Seychellen');
@@ -363,8 +363,8 @@ INSERT INTO `phpwcms_country` VALUES (193, 'SK', 'Slovakia', 'Slowakei (Slowakis
 INSERT INTO `phpwcms_country` VALUES (194, 'SI', 'Slovenia', 'Slowenien');
 INSERT INTO `phpwcms_country` VALUES (195, 'SB', 'Solomon Islands', 'Salomonen');
 INSERT INTO `phpwcms_country` VALUES (196, 'SO', 'Somalia', 'Somalia');
-INSERT INTO `phpwcms_country` VALUES (197, 'ZA', 'South Africa', 'Südafrika');
-INSERT INTO `phpwcms_country` VALUES (198, 'GS', 'South Georgia and The South Sandwich Islands', 'Südgeorgien und Südliche Sandwichinseln');
+INSERT INTO `phpwcms_country` VALUES (197, 'ZA', 'South Africa', 'Sï¿½dafrika');
+INSERT INTO `phpwcms_country` VALUES (198, 'GS', 'South Georgia and The South Sandwich Islands', 'SÃ¼dgeorgien und SÃ¼dliche Sandwichinseln');
 INSERT INTO `phpwcms_country` VALUES (199, 'ES', 'Spain', 'Spanien');
 INSERT INTO `phpwcms_country` VALUES (200, 'LK', 'Sri Lanka', 'Sri Lanka');
 INSERT INTO `phpwcms_country` VALUES (201, 'SD', 'Sudan', 'Sudan');
@@ -383,7 +383,7 @@ INSERT INTO `phpwcms_country` VALUES (213, 'TK', 'Tokelau', 'Tokelau');
 INSERT INTO `phpwcms_country` VALUES (214, 'TO', 'Tonga', 'Tonga');
 INSERT INTO `phpwcms_country` VALUES (215, 'TT', 'Trinidad and Tobago', 'Trinidad und Tobago');
 INSERT INTO `phpwcms_country` VALUES (216, 'TN', 'Tunisia', 'Tunesien');
-INSERT INTO `phpwcms_country` VALUES (217, 'TR', 'Turkey', 'Türkei');
+INSERT INTO `phpwcms_country` VALUES (217, 'TR', 'Turkey', 'TÃ¼rkei');
 INSERT INTO `phpwcms_country` VALUES (218, 'TM', 'Turkmenistan', 'Turkmenistan');
 INSERT INTO `phpwcms_country` VALUES (219, 'TC', 'Turks Aand Caicos Islands', 'Turks- und Caicosinseln');
 INSERT INTO `phpwcms_country` VALUES (220, 'TV', 'Tuvalu', 'Tuvalu');
@@ -406,7 +406,7 @@ INSERT INTO `phpwcms_country` VALUES (236, 'YE', 'Yemen', 'Jemen');
 INSERT INTO `phpwcms_country` VALUES (237, 'YU', 'Yugoslavia', 'Jugoslawien');
 INSERT INTO `phpwcms_country` VALUES (238, 'ZM', 'Zambia', 'Sambia');
 INSERT INTO `phpwcms_country` VALUES (239, 'ZW', 'Zimbabwe', 'Simbabwe');
-INSERT INTO `phpwcms_country` VALUES (240, 'AX', 'Åland Islands', 'Åland Inseln');
+INSERT INTO `phpwcms_country` VALUES (240, 'AX', 'Ã…land Islands', 'Ã…land Inseln');
 
 #####################################################
 
@@ -427,8 +427,6 @@ CREATE TABLE `phpwcms_formtracking` (
   `formtracking_sent` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`formtracking_id`)
 );
-
-
 
 
 #####################################################

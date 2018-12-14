@@ -854,6 +854,7 @@ class Phpwcms_Image_lib {
         }
         elseif ($action == 'rotate')
         {
+            $angle = 'r90';
             switch ($this->rotation_angle)
             {
                 case 90     :   $angle = 'r270';

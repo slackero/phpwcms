@@ -488,12 +488,15 @@ function copy_article_to_level($do) {
             $row["article_username"] = $_SESSION["wcs_user_name"];
         }
 
+        $keys = '';
+        $values = '';
+
         foreach($row as $key => $value) {
             if($key === "article_id" ){
-                $keys   = $key;
+                $keys = $key;
                 $values = "''";
             } else {
-                $keys   .= ", ".$key;
+                $keys .= ", ".$key;
                 $values .= ", "._dbEscape($value);
             }
         }
@@ -517,12 +520,15 @@ function copy_article_to_level($do) {
                         $row["acontent_uid"] = $_SESSION["wcs_user_id"];
                     }
 
+                    $key1s = '';
+                    $value1s = '';
+
                     foreach($row as $key1 => $value1) {
                         if($key1 === "acontent_id" ){
-                            $key1s   = $key1;
+                            $key1s = $key1;
                             $value1s = "''";
                         } else {
-                            $key1s   .= ", ".$key1;
+                            $key1s .= ", ".$key1;
                             $value1s .= ", "._dbEscape($value1);
                         }
                     }
@@ -562,9 +568,12 @@ function copy_level_to_level($do) {
             $row["acat_uid"] = $_SESSION["wcs_user_id"];
         }
 
+        $keys = '';
+        $values = '';
+
         foreach($row as $key => $value) {
             if($key === 'acat_id' ) {
-                $keys   = $key;
+                $keys = $key;
                 $values = "''";
             } else {
                 $keys   .= ", ".$key;
