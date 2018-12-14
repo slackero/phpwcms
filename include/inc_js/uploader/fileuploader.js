@@ -257,7 +257,7 @@ qq.obj2url = function(obj, temp, prefixDone){
     } else {
         return uristrings.join(prefix)
                          .replace(/^&/, '')
-                         .replace(/%20/g, '+');                      
+                         .replace(/%20/g, '+');
     }
 };
 
@@ -1430,7 +1430,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
         // var iframe = document.createElement('iframe');
         // iframe.setAttribute('name', id);
 
-        var iframe = qq.toElement('<iframe src="javascript:false;" name="' + id + '" />');
+        var iframe = qq.toElement('<iframe src="javascript:false;" name="' + id + '"></iframe>');
         // src="javascript:false;" removes ie6 prompt on https
 
         iframe.setAttribute('id', id);

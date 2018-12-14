@@ -244,7 +244,7 @@ if(!$temp_count) {
         echo getContentPartOptionTag($key, $value, $article['article_cpdefault']);
     }
 }
-                    ?>
+?>
                     </select></td>
                   <td><img src="img/leer.gif" alt="" width="5" height="1" /></td>
                   <td><input type="submit" name="image" value="<?php echo  $BL['be_article_cnt_add'] ?>" class="v12" title="<?php echo  $BL['be_article_cnt_addtitle'] ?>" /></td>
@@ -257,6 +257,8 @@ if(!$temp_count) {
             // Sorting
             $sc = 0;
             $scc = 0;
+            $sbutton = array();
+            $sbutton_string = array();
 
             $sql  = "SELECT acontent_id, acontent_sorting, acontent_trash, acontent_block FROM ".DB_PREPEND."phpwcms_articlecontent ";
             $sql .= "WHERE acontent_aid=".$article["article_id"]." ORDER BY acontent_block, acontent_sorting, acontent_id";

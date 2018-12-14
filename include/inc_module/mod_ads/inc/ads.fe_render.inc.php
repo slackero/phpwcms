@@ -35,6 +35,7 @@ function renderAds($match) {
 	$sql .= '(ac.adcampaign_maxclick=0 OR (ac.adcampaign_maxclick > 0 AND ac.adcampaign_maxclick >= ac.adcampaign_curclick))';
 
 	$ads  = _dbQuery($sql);
+    $ad = array();
 
 	if(is_array($ads) && count($ads) ) {
 

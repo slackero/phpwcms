@@ -25,7 +25,7 @@ Autocompleter.Ajax = {};
 		options - (object) key/value set of options.
 		
 		Options:
-		postVar - String, default ‘value’. Post variable name for the query string
+		postVar - String, default `value`. Post variable name for the query string
 		postData - Object, optional. Additional request data
 		ajaxOptions - optional Options Object. For the Ajax instance
 		onRequest - Event Function.

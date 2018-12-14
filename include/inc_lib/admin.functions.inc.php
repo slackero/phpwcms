@@ -353,6 +353,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         //Sort counter
         $sc = 0;
         $scc = 0;
+        $sbutton = array();
 
         if(isset($result[0]['acontent_id'])) {
             foreach($result as $row) {

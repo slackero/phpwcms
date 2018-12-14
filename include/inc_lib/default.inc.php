@@ -584,6 +584,8 @@ $phpwcms["revision"] = PHPWCMS_REVISION;
 // We need a global var for callback functions, mainly dates
 $phpwcms['callback'] = null;
 
+$translate = array();
+
 // -------------------------------------------------------------
 
 function removeSessionName($str='') {
