@@ -268,7 +268,7 @@ if($BE['LANG'] == 'ar') {
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
+        <td valign="top" class="backend-menu-left"><img src="img/backend/backend_r3_c1.png" alt="" width="15" height="40"></td>
         <td colspan="4" valign="top" class="backend-menu navtext"><?php
 
             // create backend main navigation
@@ -282,7 +282,7 @@ if($BE['LANG'] == 'ar') {
 
             ?><a href="phpwcms.php?do=logout" target="_top" class="backend-menu-logout"><?php echo $BL['be_nav_logout'] ?></a>
         </td>
-        <td valign="top"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
+        <td valign="top" class="backend-menu-right"><img src="img/backend/backend_r3_c7.png" alt="" width="15" height="40"></td>
     </tr>
     <tr bgcolor="#FFFFFF">
       <td width="15" bgcolor="#FFFFFF" style="background: url(img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="img/leer.gif" alt="" width="15" height="1"></td>

@@ -2210,9 +2210,19 @@ ul.radio-list ul {
     padding-top: 9px;
     width: auto;
     min-width: 800px;
-    background-image: url(../../img/backend/backend_r3_c4.jpg);
-    background-repeat: repeat-x;
+    background: #fff url(../../img/backend/backend_r3_c4.gif) repeat-x center top;
     padding-right: 1px;
+}
+.backend-menu-left,
+.backend-menu-right {
+    background-image: url(../../img/backend/backend_r3_c4.gif);
+    background-repeat: no-repeat;
+}
+.backend-menu-left {
+    background-position: right top;
+}
+.backend-menu-right {
+    background-position: left top;
 }
 .backend-menu > a,
 .backend-menu > strong,
