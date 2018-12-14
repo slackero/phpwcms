@@ -1,5 +1,6 @@
 <?php
 $indexpage['acat_name'] = 'Home';
+$indexpage['acat_title'] = '';
 $indexpage['acat_info'] = '';
 $indexpage['acat_alias'] = 'index';
 $indexpage['acat_aktiv'] = 1;
