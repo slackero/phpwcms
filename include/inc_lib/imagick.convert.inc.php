@@ -231,7 +231,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     // Try to catch file name from database
     if(empty($val['img_filename']) && PHPWCMS_PRESERVE_IMAGENAME) {
 
-        require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+        require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
         $hash = cut_ext($val['image_name']);
 
@@ -310,7 +310,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         if(is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
             $thumb_image_info[0] = $create_preview["thumb_name"];
             $imgCache = true; // insert/update information in db image cache
-        };
+        }
 
     }
 
@@ -327,6 +327,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             $thumb_image_info[2] = $thumb_info[1]; // height
             $thumb_image_info[3] = $thumb_info[3]; // HTML width & height attribute
             $thumb_image_info['src'] = PHPWCMS_IMAGES . $thumb_image_info[0];
+            $thumb_image_info['type'] = $thumb_info['mime'];
 
         } else {
 

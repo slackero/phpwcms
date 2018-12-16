@@ -154,7 +154,7 @@ if(isset($data[1])) {
             @session_start();
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
-            require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
+            require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
@@ -178,7 +178,6 @@ if(isset($data[1])) {
                 $_h   = '';
                 $name = '';
             }
-
         }
 
         if(strlen($hash) === 32 && $ext) {
