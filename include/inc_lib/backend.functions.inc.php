@@ -957,7 +957,7 @@ function setItemsPerPage($default=25) {
     return $ipp;
 }
 
-function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $separator=' ') {
+function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='') {
 
     $ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
 
@@ -966,21 +966,17 @@ function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $se
     }
 
     $menu = array();
-    $x = 0;
-    foreach($steps as $item) {
-
-        $menu[$x]  = '<a href="'.$base_url.'&amp;showipp='.$item.'"';
+    foreach($steps as $x => $item) {
+        $menu[$x]  = '<option value="'.$item.'"';
         if($ipp == $item) {
-            $menu[$x] .= ' class="active"';
+            $menu[$x] .= ' selected="selected"';
         }
         $menu[$x] .= '>';
         $menu[$x] .= $item == 0 ? $GLOBALS['BL']['be_ftptakeover_all'] : $item;
-        $menu[$x] .= '</a>';
-
-        $x++;
+        $menu[$x] .= '</option>';
     }
 
-    return implode($separator, $menu);
+    return '<select class="custom-select form-control-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
 }
 
 function initJsCalendar() {

@@ -100,15 +100,14 @@ $news = new cmsgoNews();
         </div>
 
         <div class="col-sm-auto text-sm-right">
-            <select class="custom-select form-control-sm">
-                <option selected><?php echo $BL['be_article_rendering'] ?></option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=5'">5</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=10'">10</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=25'">25</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=50'">50</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=100'">100</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=all'"><?php echo $BL['be_ftptakeover_all'] ?></option>
-            </select>
+            <?php echo getItemsPerPageMenu(); ?>
+            <script>
+                $(function(){
+                    $('#news-paginate').on('change', function() {
+                        window.location = '<?php echo $news->base_url_decoded; ?>&showipp=' + $(this).val();
+                    });
+                });
+            </script>
         </div>
 
       </div>
