@@ -58,7 +58,10 @@ foreach($crow["acontent_files"] as $fkey => $fkey_value) {
 
     if($fkey_value) {
         $content['files'][$fkey]['file_id'] = $fkey_value;
-        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey]);
+        $content['files'][$fkey]['file_info'] = '';
+        if(isset($crow['acontent_text'][$fkey])) {
+            $content['files'][$fkey]['file_info'] = is_array($crow['acontent_text'][$fkey]) ? $crow['acontent_text'][$fkey] : trim($crow['acontent_text'][$fkey]);
+        }
         $content['files_sql'][$fkey] = $fkey_value;
     }
 }
