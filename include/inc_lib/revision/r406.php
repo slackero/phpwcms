@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -12,13 +12,13 @@
 
 // Revision 406 Update Check
 function phpwcms_revision_r406() {
-		
+
 	$status = true;
-	
+
 
     // upgrade sysvalue fields +KH:24.11.2011 if no field exists
     $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_vartype'");
- 
+
     // sysvalue_vartype
     if(empty($result)) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD sysvalue_vartype VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');

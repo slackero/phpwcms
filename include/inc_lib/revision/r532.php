@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -12,18 +12,18 @@
 
 // Revision 532 Update Check
 function phpwcms_revision_r532() {
-	
+
 	$status = true;
-	
+
 	// do former revision check – fallback to r529
 	if(phpwcms_revision_check_temp('529') !== true) {
 		$status = phpwcms_revision_check('529');
 	}
-	
+
 	$result = _dbQuery('SHOW TABLES LIKE '._dbEscape(DB_PREPEND.'phpwcms_redirect'));
-	
+
 	if(!isset($result[0])) {
-	
+
 		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."phpwcms_redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
 					`changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -42,18 +42,18 @@ function phpwcms_revision_r532() {
 					KEY `active` (`active`),
 					KEY `link` (`link`)
 				) ENGINE=MyISAM";
-		if(!empty($GLOBALS['phpwcms']['db_charset'])) { 
+		if(!empty($GLOBALS['phpwcms']['db_charset'])) {
 			$sql .= ' DEFAULT CHARSET='.$GLOBALS['phpwcms']['db_charset'];
 		}
-		if(!empty($GLOBALS['phpwcms']['db_collation'])) { 
+		if(!empty($GLOBALS['phpwcms']['db_collation'])) {
 			$sql .= ' COLLATE='.$GLOBALS['phpwcms']['db_collation'];
 		}
-		
+
 		$result = _dbQuery($sql, 'CREATE');
 		if(!$result) {
-			$status = false;	
+			$status = false;
 		}
 	}
-	
+
 	return $status;
 }

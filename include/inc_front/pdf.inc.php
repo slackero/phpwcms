@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -41,11 +41,11 @@ $_PDF_temp = md5($_print_settings['PDF_filename'].microtime()).'.html';
 
 // Output -> use file save and redirect
 if(write_textfile( PHPWCMS_CONTENT.'tmp/'.$_PDF_temp, $_PDF_page )) {
-	
+
 		$cmd = $phpwcms['wkhtmltopdf_path'] . ' ' . escapeshellarg(PHPWCMS_URL.CONTENT_PATH.'tmp/'.$_PDF_temp) . ' ' . escapeshellarg(PHPWCMS_CONTENT.'tmp/'.$_print_settings['PDF_filename']);
-				
+
 		@exec($cmd, $output, $retval);
-		
+
 		if(is_file(PHPWCMS_CONTENT.'tmp/'.$_print_settings['PDF_filename'])) {
 
 			// Set the file to 777

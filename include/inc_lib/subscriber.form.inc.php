@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -44,12 +44,12 @@ if(empty($_POST['subscribe_all']) && !empty($_POST['subscribe_to']) && is_array(
 	// check special subscriptions
 	$_userInfo['subscriber_data']['address_subscription'] = array();
 	foreach($_POST['subscribe_to'] as $subscriptions) {
-	
+
 		$subscription = intval($subscriptions);
 		if($subscription) {
 			$_userInfo['subscriber_data']['address_subscription'][$subscription] = $subscription;
 		}
-	
+
 	}
 	if(count($_userInfo['subscriber_data']['address_subscription'])) {
 		$_userInfo['subscriber_data']['address_subscription'] = serialize($_userInfo['subscriber_data']['address_subscription']);
@@ -74,9 +74,9 @@ if($_userInfo['error']['email'] == 0) {
 		$sql .= " AND address_id != ".$_userInfo['subscriber_data']['address_id'];
 	}
 	$_userInfo['count'] = _dbQuery($sql, 'COUNT');
-	
+
 	if($_userInfo['subscriber_data']['address_id'] || $_userInfo['count']) {
-	
+
 		// update
 		$sql  = 'UPDATE '.DB_PREPEND.'phpwcms_address SET ';
 		$sql .= "address_email			= '".aporeplace($_userInfo['subscriber_data']['address_email'])."', ";
@@ -92,11 +92,11 @@ if($_userInfo['error']['email'] == 0) {
 			$sql .= 'address_id='.$_userInfo['subscriber_data']['address_id'];
 			$sql .= ' LIMIT 1';
 		}
-		
+
 		_dbQuery($sql, 'UPDATE');
-	
+
 	} else {
-	
+
 		// insert
 		$sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_address ';
 		$sql .= '(address_key, address_email, address_name, address_verified, address_subscription) VALUES (';
@@ -105,13 +105,13 @@ if($_userInfo['error']['email'] == 0) {
 		$sql .= "'".aporeplace($_userInfo['subscriber_data']['address_name'])."', ";
 		$sql .= $_userInfo['subscriber_data']['address_verified'].", ";
 		$sql .= "'".aporeplace($_userInfo['subscriber_data']['address_subscription'])."')";
-		
+
 		$_userInfo['result'] = _dbQuery($sql, 'INSERT');
 		if(!empty($_userInfo['result']['INSERT_ID'])) {
 			$_userInfo['subscriber_id'] 				= $_userInfo['result']['INSERT_ID'];
 			$_userInfo['subscriber_data']['address_id']	= $_userInfo['result']['INSERT_ID'];
 		}
-		
+
 	}
 
 }

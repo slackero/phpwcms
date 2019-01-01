@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -27,9 +27,9 @@ if($row["acontent_subtitle"]) {
 	$cinfo[] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 }
 if($row["acontent_text"]) {
-	$cinfo[] = str_replace("\n", " ", '<span class="code">'.html(cut_string($row["acontent_text"],'&#8230;', 150)).'</span>');	
+	$cinfo[] = str_replace("\n", " ", '<span class="code">'.html(cut_string($row["acontent_text"],'&#8230;', 150)).'</span>');
 }
-				
+
 if(count($cinfo)) { //Zeige Inhaltinfo
 	$cinfo = implode(" / ", $cinfo);
 	echo "<tr><td>&nbsp;</td><td class=\"v10\">";

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -22,7 +22,7 @@ $files_folder = (isset($_GET["f"])) ? intval($_GET["f"]) : 0; //Ermitteln, welch
 // if cut/paste is active
 $add_paste_icon = '<a href="phpwcms.php?do=files&amp;f=0&amp;mkdir=0" title="'.$BL['be_ftab_createnew'].
 				  '"><img src="img/button/add_13x13.gif" border="0"></a>';
-if(isset($_GET["cut"])) { 
+if(isset($_GET["cut"])) {
 	$cutID = intval($_GET["cut"]);
 	$add_paste_icon = '<a href="include/inc_act/act_file.php?paste='.$cutID.'|0" title="'.$BL['be_ftab_paste'].
 					  '"><img src="img/button/paste_13x13.gif" border="0"></a>';
@@ -36,7 +36,7 @@ if($_SESSION["wcs_user_thumb"]) {
 	$change_thumbnail_icon .= '1" title="'.$BL['be_ftab_enablethumb'].'">';
 	$change_thumbnail_icon .= '<img src="img/button/thumbnail_13x13_1.gif" border="0"></a>';
 }
-		
+
 ?>
 <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
 <tr><td class="title"><?php echo $BL['be_ftab_title'] ?></td></tr>

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -131,7 +131,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 }
 
 if($success) {
-	
+
     if(!empty($download["f_hash"])) {
         $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_dlfinal=f_dlfinal+1 ";
         $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";

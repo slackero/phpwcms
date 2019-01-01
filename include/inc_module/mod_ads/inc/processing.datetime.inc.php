@@ -4,7 +4,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -49,7 +49,7 @@ if(empty($plugin['data']['adcampaign_date_start'][1]) || $plugin['data']['adcamp
 $plugin['data']['adcampaign_date_start'][2]	= empty($plugin['data']['adcampaign_date_start'][2]) ? 0 : intval($plugin['data']['adcampaign_date_start'][2]);
 if(empty($plugin['data']['adcampaign_date_start'][2])) {
 	$plugin['data']['adcampaign_date_start'][2] = gmdate('Y');
-}	
+}
 
 
 
@@ -83,7 +83,7 @@ if(empty($plugin['data']['adcampaign_date_end'][1]) || $plugin['data']['adcampai
 $plugin['data']['adcampaign_date_end'][2]	= empty($plugin['data']['adcampaign_date_end'][2]) ? 0 : intval($plugin['data']['adcampaign_date_end'][2]);
 if(empty($plugin['data']['adcampaign_date_end'][2])) {
 	$plugin['data']['adcampaign_date_end'][2] = gmdate('Y');
-}	
+}
 
 
 // build start / date
