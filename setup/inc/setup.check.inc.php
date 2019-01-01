@@ -97,7 +97,7 @@ if(!empty($step)) {
             if(!empty($phpwcms["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
                 $db_host = 'p:'.$db_host;
             }
-            $db = @mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
+            $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
 
             if($db) {;
 
@@ -115,7 +115,7 @@ if(!empty($step)) {
                     }
                     mysqli_free_result($result);
 
-                    if($result = @mysqli_query($db, 'SELECT * FROM '. ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '').'phpwcms_user')) {
+                    if($result = mysqli_query($db, 'SELECT * FROM '. ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '').'phpwcms_user')) {
 
                         $_db_prepend_error = true;
                         mysqli_free_result($result);
@@ -173,12 +173,12 @@ if(!empty($step)) {
 
                                 $db_create_err = array();
 
-                                @mysqli_query($db, 'SET storage_engine=MYISAM');
-                                @mysqli_query($db, "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'");
+                                mysqli_query($db, 'SET storage_engine=MYISAM');
+                                mysqli_query($db, "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'");
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";
-                                @mysqli_query($db, $value);
+                                mysqli_query($db, $value);
 
                                 $db_create_sql = explode(';', $sql_data);
                                 foreach($db_create_sql as $key => $value) {

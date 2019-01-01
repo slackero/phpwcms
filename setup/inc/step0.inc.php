@@ -60,10 +60,10 @@ $setup_recommend = true;
   ?></li>
   <li>MySQLi version: <?php
 
-  	$mysql_version = @mysqli_get_server_info();
+  	$mysql_version = mysqli_get_server_info();
   	$mysqlnd = false;
   	if(!$mysql_version) {
-		$mysql_version = @mysqli_get_client_info();
+		$mysql_version = mysqli_get_client_info();
 	}
 
 	if(strpos($mysql_version, 'mysqlnd') !== false) {

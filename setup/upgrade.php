@@ -225,7 +225,7 @@ if($do) {
 				$value = utf8_encode($value);
 			}
 
-			if(!@mysqli_query($GLOBALS['db'], $value)) {
+			if(!mysqli_query($GLOBALS['db'], $value)) {
     			echo '<span class="error">ERROR: '.html_entities(_dbError())." -&gt; </span>";
             }
 			echo html_specialchars($value).";\n";

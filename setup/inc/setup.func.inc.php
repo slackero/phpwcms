@@ -430,7 +430,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
     $queryResult = array();
     $queryCount  = 0;
 
-    if($result = @mysqli_query($db, $query)) {
+    if($result = mysqli_query($db, $query)) {
 
         switch($_queryMode) {
 

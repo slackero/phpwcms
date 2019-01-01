@@ -135,7 +135,7 @@ if(!empty($db_additional)) {
             if(!empty($phpwcms["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
                 $db_host = 'p:'.$db_host;
             }
-            $db = @mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
+            $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
         }
         if($result = mysqli_query($db, "SHOW COLLATION")) {
 
