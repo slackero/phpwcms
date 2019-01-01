@@ -231,7 +231,9 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     // Try to catch file name from database
     if(empty($val['img_filename']) && PHPWCMS_PRESERVE_IMAGENAME) {
 
-        require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+        if(!defined('PHPWCMS_DB_VERSION')) {
+            require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+        }
 
         $hash = cut_ext($val['image_name']);
 

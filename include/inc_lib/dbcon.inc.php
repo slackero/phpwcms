@@ -17,13 +17,13 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // build the database table prepend part
-define ('DB_PREPEND', empty($phpwcms["db_prepend"]) ? '' : $phpwcms["db_prepend"].'_');
+define ('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : $GLOBALS['phpwcms']["db_prepend"].'_');
 
 // open the connection to MySQL database
-if(!empty($phpwcms["db_pers"]) && substr($phpwcms["db_host"], 0, 2) !== 'p:') {
-    $phpwcms["db_host"] = 'p:'.$phpwcms["db_host"];
+if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host"], 0, 2) !== 'p:') {
+    $GLOBALS['phpwcms']["db_host"] = 'p:'.$GLOBALS['phpwcms']["db_host"];
 }
-$db = @mysqli_connect($phpwcms["db_host"], $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
+$GLOBALS['db'] = mysqli_connect($GLOBALS['phpwcms']["db_host"], $GLOBALS['phpwcms']["db_user"], $GLOBALS['phpwcms']["db_pass"], $GLOBALS['phpwcms']["db_table"]);
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
 
@@ -31,8 +31,8 @@ if($is_mysql_error === false) {
 
     // set DB to compatible mode
     // for compatibility issues try to check for MySQL version and charset
-    $phpwcms['db_version'] = _dbInitialize();
-    define('PHPWCMS_DB_VERSION', $phpwcms['db_version']);
+    $GLOBALS['phpwcms']['db_version'] = _dbInitialize();
+    define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
 
 } elseif($is_mysql_error !== 'dbdown.php') {
 
@@ -55,14 +55,14 @@ function _dbSelect($db_table='') {
         $db_table = $GLOBALS['phpwcms']["db_table"];
     }
 
-    if(isset($GLOBALS['phpwcms']["db_table_selected"]) && $GLOBALS['phpwcms']["db_table_selected"] == $db_table) {
+    if(isset($GLOBALS['phpwcms']["db_table_selected"]) && $GLOBALS['phpwcms']["db_table_selected"] === $db_table) {
         return true;
     }
 
     // Set current selected DB Table
     $GLOBALS['phpwcms']["db_table_selected"] = $db_table;
 
-    return @mysqli_select_db($GLOBALS['db'], $db_table);
+    return mysqli_select_db($GLOBALS['db'], $db_table);
 
 }
 
@@ -72,28 +72,27 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
         return false;
     }
 
-    global $db;
     $queryResult = array();
     $queryCount  = 0;
 
-    if($result = @mysqli_query($db, $query)) {
+    if($result = mysqli_query($GLOBALS['db'], $query)) {
 
         switch($_queryMode) {
 
             // INSERT, UPDATE, DELETE
             case 'INSERT':
-                $queryResult['INSERT_ID'] = mysqli_insert_id($db);
+                $queryResult['INSERT_ID'] = mysqli_insert_id($GLOBALS['db']);
                 // do not break here, go on
             case 'DELETE':
             case 'UPDATE':
-                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
+                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($GLOBALS['db']);
                 return $queryResult;
                 break;
 
             // INSERT ... ON DUPLICATE KEY
             case 'ON_DUPLICATE':
-                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
-                $queryResult['INSERT_ID'] = mysqli_insert_id($db);
+                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($GLOBALS['db']);
+                $queryResult['INSERT_ID'] = mysqli_insert_id($GLOBALS['db']);
                 if($queryResult['AFFECTED_ROWS'] == 2) {
                     $queryResult['INSERT_ID'] = 0;
                     $queryResult['AFFECTED_ROWS'] = 1;
@@ -165,7 +164,7 @@ function _dbCount($query='') {
 }
 
 // function for simplified insert
-function _dbInsert($table='', $data=array(), $special='', $prefix=NULL) {
+function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -201,13 +200,11 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=NULL) {
 
 }
 
-function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
+function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
 
     // INSERT ... ON DUPLICATE KEY UPDATE is available for MySQL >= 4.1.0
     // $where is necessary OR if $where is empty first array $data element
     // have to be the primary OR a unique key otherwise this will fail
-
-    global $phpwcms;
 
     if(empty($table)) {
         return false;
@@ -232,7 +229,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 
     $insert  = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
 
-    if($phpwcms['db_version'] < 40100) {
+    if($GLOBALS['phpwcms']['db_version'] < 40100) {
         // the old way
 
         // 1st send INSERT
@@ -271,7 +268,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=NULL) {
 }
 
 // simplified db select
-function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=NULL, $_queryMode='ASSOC') {
+function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=null, $_queryMode='ASSOC') {
 
     if(empty($table)) {
         return false;
@@ -331,7 +328,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 }
 
 // function for simplified update
-function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NULL) {
+function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -368,15 +365,16 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=NUL
 }
 
 function _dbGetCreateCharsetCollation() {
-    global $phpwcms;
+
     $value = '';
-    if($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']) {
+    if($GLOBALS['phpwcms']['db_version'] > 40100 && $GLOBALS['phpwcms']['db_charset']) {
         $value .= ' DEFAULT';
-        $value .= ' CHARACTER SET '.$phpwcms['db_charset'];
-        if(!empty($phpwcms['db_collation'])) {
-            $value .= ' COLLATE '.$phpwcms['db_collation'];
+        $value .= ' CHARACTER SET '.$GLOBALS['phpwcms']['db_charset'];
+        if(!empty($GLOBALS['phpwcms']['db_collation'])) {
+            $value .= ' COLLATE '.$GLOBALS['phpwcms']['db_collation'];
         }
     }
+
     return $value;
 }
 
@@ -401,30 +399,28 @@ function _dbErrorNum() {
 
 function _dbInitialize() {
 
-    global $phpwcms;
-
     // check if mysql version is set
-    if(empty($phpwcms['db_version'])) {
+    if(empty($GLOBALS['phpwcms']['db_version'])) {
         $version = _dbQuery('SELECT VERSION()', 'ROW');
         if(isset($version[0][0])) {
             $version = explode('.', $version[0][0]);
             $version[0] = intval($version[0]);
             $version[1] = empty($version[1]) ? 0 : intval($version[1]);
             $version[2] = empty($version[2]) ? 0 : intval($version[2]);
-            $phpwcms["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
+            $GLOBALS['phpwcms']["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
         } else {
             return 0;
         }
     }
-    if($phpwcms['db_version'] > 40000) {
+    if($GLOBALS['phpwcms']['db_version'] > 40000) {
 
         $mysql_set = array();
 
-        if(isset($phpwcms['db_sql_mode']) && is_string($phpwcms['db_sql_mode'])) {
-            $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($phpwcms['db_sql_mode']);
+        if(isset($GLOBALS['phpwcms']['db_sql_mode']) && is_string($GLOBALS['phpwcms']['db_sql_mode'])) {
+            $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['phpwcms']['db_sql_mode']);
         }
 
-        if(empty($phpwcms['db_charset'])) {
+        if(empty($GLOBALS['phpwcms']['db_charset'])) {
             $mysql_charset_map = array(
                 'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
                 'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
@@ -435,25 +431,25 @@ function _dbInitialize() {
                 'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
                 'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
             );
-            $phpwcms['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : '';
+            $GLOBALS['phpwcms']['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : '';
         }
 
-        if(IS_PHP523 && $phpwcms['db_version'] > 50000 && $phpwcms['db_charset']) {
+        if(IS_PHP523 && $GLOBALS['phpwcms']['db_version'] > 50000 && $GLOBALS['phpwcms']['db_charset']) {
 
-            @mysqli_set_charset($GLOBALS['db'], $phpwcms['db_charset']);
+            mysqli_set_charset($GLOBALS['db'], $GLOBALS['phpwcms']['db_charset']);
 
-        } elseif($phpwcms['db_charset']) {
+        } elseif($GLOBALS['phpwcms']['db_charset']) {
 
             // Send charset used in phpwcms for every query
-            $mysql_set['NAMES'] = 'NAMES '._dbEscape($phpwcms['db_charset']);
-            if($phpwcms['db_version'] > 40100 && !empty($phpwcms['db_collation'])) {
-                $mysql_set['NAMES'] .= ' COLLATE '._dbEscape($phpwcms['db_collation']);
+            $mysql_set['NAMES'] = 'NAMES '._dbEscape($GLOBALS['phpwcms']['db_charset']);
+            if($GLOBALS['phpwcms']['db_version'] > 40100 && !empty($GLOBALS['phpwcms']['db_collation'])) {
+                $mysql_set['NAMES'] .= ' COLLATE '._dbEscape($GLOBALS['phpwcms']['db_collation']);
             }
 
         }
 
-        if(!empty($phpwcms['db_timezone'])) {
-            $mysql_set['time_zone'] = 'time_zone = '._dbEscape($phpwcms['db_timezone']);
+        if(!empty($GLOBALS['phpwcms']['db_timezone'])) {
+            $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['phpwcms']['db_timezone']);
         }
 
         if(count($mysql_set)) {
@@ -462,11 +458,11 @@ function _dbInitialize() {
 
     }
 
-    return $phpwcms['db_version'];
+    return $GLOBALS['phpwcms']['db_version'];
 }
 
 // duplicate a DB record based on 1 unique column
-function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=array(), $prefix=NULL) {
+function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=array(), $prefix=null) {
 
     // use exceptions to define duplicate values: 'field_name' => 'value' (INT/STRING)
     // to avoid problems with UNIQUE/auto increment columns set 'field_name' => '--UNIQUE--'
@@ -556,7 +552,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
  *
  * 2008/03/13 Thiemo Mättig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
  */
-function _setConfig($key, $value=NULL, $group='', $status=1) {
+function _setConfig($key, $value=null, $group='', $status=1) {
 
     $time       = now();
     $group      = trim($group);
@@ -688,14 +684,14 @@ function _getConfig($key, $set_global='phpwcms') {
  * MySQL connection can get lost. This fixes this and set it
  * to a global default value of 16M
  */
-function _dbSetVar($var='', $value=NULL, $compare=false) {
+function _dbSetVar($var='', $value=null, $compare=false) {
 
     $var = trim($var);
 
     // stop if this was set yet. can be defined as
     // additional  config value in conf.inc.php
 
-    if(!is_string($var) || !$var || $value === NULL) {
+    if(!is_string($var) || !$var || $value === null) {
 
         return false;
 
@@ -708,14 +704,14 @@ function _dbSetVar($var='', $value=NULL, $compare=false) {
     // check if it is a valid MySQL var
     $_var       = _dbEscape($var, false);
     $result     = _dbQuery('SELECT @@'.$_var.' AS mysqlvar');
-    $default    = NULL;
+    $default    = null;
 
     if(isset($result[0]['mysqlvar'])) {
 
         // check if the given MySQL var exists
         $default = $result[0]['mysqlvar'];
 
-        if($default !== NULL) {
+        if($default !== null) {
 
             $GLOBALS['phpwcms']['mysql_'.$var] = $default;
 
