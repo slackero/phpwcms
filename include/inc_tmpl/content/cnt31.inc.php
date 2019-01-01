@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -680,7 +680,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     }
 
     function getBackendImgSrc(image_file_id) {
-        var image_file_id = parseInt(image_file_id, 10);
+        image_file_id = parseInt(image_file_id, 10);
         if(image_file_id) {
             return '<img src="'+site_url+'<?php echo PHPWCMS_RESIZE_IMAGE; ?>/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" border="0" alt=""> ';
         }

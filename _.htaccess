@@ -33,11 +33,13 @@
 
     RewriteEngine On
 
-    # Force everything to www. and keep SSL status too
+    # Force everything to www. and keep or force SSL status too
     #RewriteCond %{HTTP_HOST} !^$
+    #RewriteCond %{HTTPS} off [OR]
     #RewriteCond %{HTTP_HOST} !^www\. [NC]
     #RewriteCond %{HTTPS}s ^on(s)|
     #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     DirectoryIndex index.html index.php
 

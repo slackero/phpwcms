@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -60,10 +60,10 @@ $setup_recommend = true;
   ?></li>
   <li>MySQLi version: <?php
 
-  	$mysql_version = @mysqli_get_server_info();
+  	$mysql_version = mysqli_get_server_info();
   	$mysqlnd = false;
   	if(!$mysql_version) {
-		$mysql_version = @mysqli_get_client_info();
+		$mysql_version = mysqli_get_client_info();
 	}
 
 	if(strpos($mysql_version, 'mysqlnd') !== false) {

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -395,7 +395,7 @@ window.addEvent('domready', function(){
     $('calendar_form').addEvent('submit', function(r) {
         var calendar_title = $('calendar_title');
         calendar_title.value = calendar_title.value.clean();
-        if( calendar_title.value == '' ) {
+        if( calendar_title.value === '' ) {
             var r = new Event(r).stop();
             alert('<?php echo $BLM['alert_empty_title'] ?>');
         }

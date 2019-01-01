@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -53,7 +53,7 @@ $phpwcms['img_prev_width']      = 978; // max width of the large preview image
 $phpwcms['img_prev_height']     = 734; // max height of the large preview image
 $phpwcms['max_time']            = 1800; // logout after max_time/60 seconds
 $phpwcms['responsive']          = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
-$phpwcms['preserve_image_name'] = 1; // keep file name for resized versions of the image
+$phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image
 
 // other stuff
 $phpwcms['image_library']       = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM

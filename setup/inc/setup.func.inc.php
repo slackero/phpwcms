@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -178,7 +178,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['img_prev_height'] = ".intval($val["img_prev_height"])."; //max height of the large preview image\n";
     $conf_file .= "\$phpwcms['max_time'] = ".intval($val["max_time"])."; //logout after max_time/60 seconds\n";
     $conf_file .= "\$phpwcms['responsive'] = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
-    $conf_file .= "\$phpwcms['preserve_image_name'] = 1; // keep file name for resized versions of the image\n";
+    $conf_file .= "\$phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image\n";
 
     $val["rewrite_url"] = check_htaccess($val);
 
@@ -430,7 +430,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
     $queryResult = array();
     $queryCount  = 0;
 
-    if($result = @mysqli_query($db, $query)) {
+    if($result = mysqli_query($db, $query)) {
 
         switch($_queryMode) {
 

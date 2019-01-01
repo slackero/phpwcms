@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -26,10 +26,12 @@ $content["file_template"]			= clean_slweg($_POST['cfile_template']);
 $content['file']['direct_download']	= empty($_POST['cfile_direct']) ? 0 : 1;
 $content["html"]					= slweg($_POST["chtml"]);
 
+/*
 preg_match_all('/<\/p/is', $content["html"], $matches);
 if(isset($matches[0]) && is_array($matches[0]) && count($matches[0]) == 1) {
 	//$content["html"] = strip_selected_tags($content["html"], array('p'));
 }
+*/
 
 //
 // first get all file IDs
@@ -40,14 +42,14 @@ if (count($content["file_list"])) {
 			$content["file_list"][$key] = intval($value);
 		} else {
 			unset($content["file_list"][$key]);
-		} 
-	} 
+		}
+	}
 	if (count($content["file_list"])) {
 		$content["file_id_list"] = implode(":", $content["file_list"]);
 	} else {
 		$content["file_id_list"] = '';
-	} 
-} 
+	}
+}
 
 $content["file_descr"] = explode("\n", slweg($_POST["cfile_descr"], 0, false));
 
@@ -63,19 +65,19 @@ $content["file_descr"] = explode("\n", slweg($_POST["cfile_descr"], 0, false));
 if(count($content["file_descr"])) {
 
 	foreach($content["file_descr"] as $key => $value) {
-	
+
 		$value = explode('|', $value, 5);
-		
+
 		$value[0] = trim($value[0], ' ');
 		$value[1] = empty($value[1]) ? '' : trim($value[1]);
 		$value[2] = empty($value[2]) ? '' : trim($value[2]);
 		$value[3] = empty($value[3]) ? '' : trim($value[3]);
 		$value[4] = empty($value[4]) ? '' : strtolower(trim($value[4]));
-		
+
 		$value[4] = explode('x', $value[4]);
 		$value[4][0] = intval($value[4][0]);
 		if(empty($value[4][0])) $value[4][0] = '';
-		
+
 		if(empty($value[4][1])) {
 			$value[4][1] = '';
 		} else {
@@ -103,7 +105,7 @@ if(count($content["file_descr"])) {
 		}
 		$content["file_descr"][$key] = implode('|', $value);
 		$value = '';
-	} 
+	}
 
 	$content["file_descr"] = implode("\n", $content["file_descr"]);
 

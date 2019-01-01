@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -559,7 +559,6 @@ function get_actcat_articles_data($act_cat_id) {
     //so it is reusable by many functions -> lower db access
 
     global $content;
-    global $db;
 
     $data               = array();
     if(isset($content['struct'][ $act_cat_id ])) {
@@ -2013,7 +2012,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=
     return $new_links;
 }
 
-function get_article_idlink($article_id=0, $link_text="", $db=null) {
+function get_article_idlink($article_id=0, $link_text="", $dbcon=null) {
     // returns the internal article link to given article ID/category
     $article_id     = intval($article_id);
     $article_cid    = 0;

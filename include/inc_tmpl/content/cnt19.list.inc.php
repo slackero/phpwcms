@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 $cinfo["result"] = "";
-				
+
 foreach($cinfo as $value) {
 	if($value) $cinfo["result"] .= $value."\n";
 }

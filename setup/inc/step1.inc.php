@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -135,7 +135,7 @@ if(!empty($db_additional)) {
             if(!empty($phpwcms["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
                 $db_host = 'p:'.$db_host;
             }
-            $db = @mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
+            $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
         }
         if($result = mysqli_query($db, "SHOW COLLATION")) {
 

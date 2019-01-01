@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -111,8 +111,12 @@ $news = new phpwcmsNews();
 <script type="text/javascript">
 
 function setImgIdName(file_id, file_name) {
-	if(file_id == null) var file_id=0;
-	if(file_name == null) var file_name='';
+	if(typeof file_id === 'undefined' || file_id === null) {
+	    file_id = 0;
+    }
+	if(typeof file_name === 'undefined' || file_name === null) {
+	    file_name = '';
+    }
 	$('#cnt_image_id').val(file_id);
 	$('#cnt_image_name').val(file_name);
 

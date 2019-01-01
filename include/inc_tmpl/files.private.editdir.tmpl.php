@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -60,9 +60,10 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
                 if(empty($_SESSION["wcs_user_admin"])) {
                     $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
                 }
-        if($result = _dbQuery($sql, 'UPDATE')) {
+        _dbQuery($sql, 'UPDATE');
+        //if($result = _dbQuery($sql, 'UPDATE')) {
             //headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
-        }
+        //}
     }
 
 } else {

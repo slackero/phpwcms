@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -92,11 +92,10 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
     $sn .= '>'.$text.'</a></td></tr>';
     $sn .= "\n";
 
-    if(!$getback) {
-        return $sn;
-    } else {
+    if($getback) {
         echo $sn;
     }
+    return $sn;
 }
 
 function subnavback($text, $link, $h_before=0, $h_after=0) {
@@ -126,7 +125,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
  * @param mixed $file
  * @param string $filename (default: '')
  * @param mixed &$file_image_size
- * @return void
+ * @return string
  */
 function check_image_extension($file, $filename='', &$file_image_size) {
 
@@ -1383,7 +1382,7 @@ function correct_charset($text='', $js=false) {
  *
  * @access public
  * @param mixed $iptc_data
- * @return void
+ * @return array
  */
 function render_iptc_fileinfo($iptc_data) {
 
@@ -1415,7 +1414,7 @@ function render_iptc_fileinfo($iptc_data) {
                     $iptc_value = $iptc_value[0];
                 } else {
                     $iptc_value = implode($GLOBALS['phpwcms']['iptc_separator'], $iptc_value);
-    }
+                }
 
             }
 
@@ -1426,7 +1425,6 @@ function render_iptc_fileinfo($iptc_data) {
 
             unset($iptc_keys[$iptc_key]);
         }
-
     }
 
     if(count($iptc_keys)) {
@@ -1443,11 +1441,8 @@ function render_iptc_fileinfo($iptc_data) {
 
                     $fileinfo[$field] = trim( render_custom_tag($fileinfo[$field], $iptc_key, $iptc_value) );
                 }
-
             }
-
         }
-
     }
 
     return $fileinfo;

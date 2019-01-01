@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -30,18 +30,18 @@ function initEditor (edit_field, cw, ch) {
 	if(ch == "") { ch = "550px"; }
 	config.width = cw;
 	config.height = ch;
-	
+
 	// [	"fontname", "space", "fontsize", "space", "formatblock", "space" ],
 	config.toolbar = [
 		[	"fontname", "space", "fontsize", "space", "formatblock"],
-		[	"bold", "italic", "underline", "separator", "strikethrough", "subscript", "superscript", "separator", 
+		[	"bold", "italic", "underline", "separator", "strikethrough", "subscript", "superscript", "separator",
 			"copy", "cut", "paste", "space", "undo", "redo", "separator", "htmlmode", "separator",  "about" ],
 		[	"lefttoright", "righttoleft", "separator", "justifyleft", "justifycenter", "justifyright", "justifyfull", "separator",
 			"orderedlist", "unorderedlist", "outdent", "indent", "separator",
-			"forecolor", "hilitecolor", "textindicator", "separator", "inserthorizontalrule", 
+			"forecolor", "hilitecolor", "textindicator", "separator", "inserthorizontalrule",
 			"createlink", "insertimage", "inserttable" ]
 	];
-	
+
 	editor = new HTMLArea(edit_field, config); // create an editor for the "ta" textbox
     editor.registerPlugin(ContextMenu);
     editor.registerPlugin(TableOperations);
@@ -49,7 +49,7 @@ function initEditor (edit_field, cw, ch) {
 	//editor.config.pageStyle = "@import url(htmlarea_phpwcms.css);";
 	//editor.registerPlugin(FullPage);
 	//editor.registerPlugin(ListType);
-	
+
 	editor.generate();
 	return false;
 }
