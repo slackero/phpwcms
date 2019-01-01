@@ -439,7 +439,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                         $content['alink']['caption'][1]         = html($content['alink']['caption'][1]);
                     } else {
                         $row['article_image']['list_caption']   = '';
-                        $content['alink']['caption']            = array('', '', '', '', '');
+                        $content['alink']['caption']            = array('', '', array('', ''), '', '');
                     }
 
                     // article list image
