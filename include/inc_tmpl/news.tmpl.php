@@ -111,8 +111,12 @@ $news = new phpwcmsNews();
 <script type="text/javascript">
 
 function setImgIdName(file_id, file_name) {
-	if(file_id == null) var file_id=0;
-	if(file_name == null) var file_name='';
+	if(typeof file_id === 'undefined' || file_id === null) {
+	    file_id = 0;
+    }
+	if(typeof file_name === 'undefined' || file_name === null) {
+	    file_name = '';
+    }
 	$('#cnt_image_id').val(file_id);
 	$('#cnt_image_name').val(file_name);
 

@@ -395,7 +395,7 @@ window.addEvent('domready', function(){
     $('calendar_form').addEvent('submit', function(r) {
         var calendar_title = $('calendar_title');
         calendar_title.value = calendar_title.value.clean();
-        if( calendar_title.value == '' ) {
+        if( calendar_title.value === '' ) {
             var r = new Event(r).stop();
             alert('<?php echo $BLM['alert_empty_title'] ?>');
         }

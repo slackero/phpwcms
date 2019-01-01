@@ -294,7 +294,7 @@ $GLOBALS['BE']['HEADER']['exif.js'] = getJavaScriptSourceLink('include/inc_js/ex
 $GLOBALS['BE']['BODY_CLOSE']['exif.js.upload'] = '<script type="text/javascript">
 document.getElementById("file").onchange = function(e) {
     var iptcdata = document.getElementById("iptc-info");
-    iptcdata.innerHTML = "";
+    iptcdata.innerHTML = '';
     EXIF.getData(e.target.files[0], function() {
         //alert(EXIF.pretty(this));
         var iptctags = {
@@ -306,19 +306,19 @@ document.getElementById("file").onchange = function(e) {
             Writer: EXIF.getIptcTag(this, "captionWriter"),
             Creator: EXIF.getIptcTag(this, "byline"),
             Profession: EXIF.getIptcTag(this, "bylineTitle")
-        }, iptctable = "";
+        }, iptctable = '';
         for(var a in iptctags) {
             if(iptctags.hasOwnProperty(a)) {
                 if(typeof iptctags[a] === "string") {
                     var val = iptctags[a].trim();
                     if(val !== "") {
-                        iptctable += "<tr><td class=\"chatlist tdtop3\" width=\"5%\">" + a + "&nbsp;</td><td class=\"tdtop3\">" + val + "</td></tr>";
+                        iptctable += '<tr><td class="chatlist tdtop3" width="5%">' + a + '&nbsp;</td><td class="tdtop3">' + val + '</td></tr>';
                     }
                 }
             }
     }
         if(iptctable !== "") {
-            iptctable = "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;\">" + iptctable + "</table>";
+            iptctable = '<table cellspacing="0" cellpadding="0" border="0" style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">' + iptctable + '</table>';
         }
         iptcdata.innerHTML = iptctable;
     });
