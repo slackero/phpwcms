@@ -766,6 +766,28 @@ if($content['overwrite_canonical']) {
 
 }
 
+define('PHPWCMS_TEMPLATE_SECTIONS', PHPWCMS_TEMPLATE . 'inc_cntpart/template-sections/');
+
+// Test against file based template sections
+$content['template_sections'] = array(
+    'htmlhead' => 'head',
+    "headertext" => 'header',
+    "maintext" => 'main',
+    "footertext" => 'footer',
+    "lefttext" => 'left',
+    "righttext" => 'right',
+    "errortext" => 'left'
+);
+
+foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
+    $block_name_file = $block_name . '_file';
+    if(!empty($block[$block_name_file]) && is_file(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+        if($block[$block_name_file] = file_get_contents(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            $block[$block_name] = $block[$block_name_file];
+        }
+    }
+}
+
 //check for no content error
 $content["main"] = trim($content["main"]);
 if($content['404error']['status'] === true) {
@@ -778,7 +800,7 @@ if($content['404error']['status'] === true) {
 	$content["main"] .= render_cnt_template($block["errortext"], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
 }
 
-//check if one of needed block texts and values are empty and if then fill with content
+// Or force main content
 if(empty($block["maintext"])) {
 	$block["maintext"] = $content["main"];
 }
@@ -892,9 +914,18 @@ $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
 // put in custom rendered content
 foreach($content['CB'] as $key => $value) {
 	//first check content of custom block in current template
-	if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '' && $value !== '') {
-		$value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
-	}
+    if($value !== '') {
+        $block_name_file = 'customblock_' . $key . '_file';
+        $tmpl_section_dir = strtolower($key);
+        if(!empty($block[$block_name_file]) && is_file(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            if($block[$block_name_file] = file_get_contents(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                $block['customblock_'.$key] = $block[$block_name_file];
+            }
+        }
+        if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '') {
+            $value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
+        }
+    }
 	//$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
 	// Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
 	$content["all"] = render_cnt_template($content["all"], $key, $value);

@@ -577,14 +577,14 @@ function get_tmpl_files($dir='', $ext='', $sort=true) {
     if($ext) {
         $ext = explode(',', $ext);
         if(count($ext)) {
-            $c = '';
+            $c = array();
             foreach($ext as $value) {
-                if($c) $c .= '|';
-                $c .= '\.'.$value;
+                $c[] = '\.'.$value;
             }
+            $c = implode('|', $c);
         }
     }
-    $regexp = '/('.$c.')$/i';
+    $regexp = '/('. $c .')$/i';
     $fa = array(); //file array
     if(is_dir($dir)) {
         $ph = opendir($dir);
@@ -656,13 +656,8 @@ function get_order_sort($order=0, $resort=0) {
 }
 
 function getRefererURL() {
-    if(strtolower(substr($GLOBALS['phpwcms']['site'],0,5)) != 'https') {
-        $url = 'http://';
-    } else {
-        $url = 'https://';
-    }
-    $url .= $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    return $url;
+    $url = strtolower(substr($GLOBALS['phpwcms']['site'],0,5)) !== 'https' ? 'http://' : 'https://';
+    return $url . $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 }
 
 function build_QueryString() {

@@ -1473,3 +1473,5 @@ $BL['be_extensions_copyright'] = 'Erweiterungen sind urheberrechtlich gesch&uuml
 
 $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
+
+$BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';

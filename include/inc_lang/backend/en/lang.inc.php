@@ -1490,3 +1490,5 @@ $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective o
 
 $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
+
+$BL['be_admin_template_choose_file'] = 'text template, alternatively select file template';
