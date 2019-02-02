@@ -420,7 +420,7 @@ foreach($unselected_css as $value) {
 
     <tr bgcolor="#F3F5F8">
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_head'] ?>:&nbsp;<br />&lt;head&gt; &nbsp;</td>
-        <td><textarea name="template_htmlhead" cols="35" rows="5" class="code width600 autosize" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea></td>
+        <td><textarea name="template_htmlhead" cols="35" rows="3" class="code width600 autosize" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea></td>
     </tr>
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
@@ -582,31 +582,31 @@ foreach($phpwcms['js_lib'] as $key => $value) {
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_header'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_header" cols="35" rows="5" class="code width600 autosize" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea></td>
+        <td><textarea name="template_block_header" cols="35" rows="3" class="code width600 autosize" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_main'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_main" cols="35" rows="10" class="code width600 autosize" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea></td>
+        <td><textarea name="template_block_main" cols="35" rows="3" class="code width600 autosize" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_footer'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_footer" cols="35" rows="5" class="code width600 autosize" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea></td>
+        <td><textarea name="template_block_footer" cols="35" rows="3" class="code width600 autosize" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_left'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_left" cols="35" rows="5" class="code width600 autosize" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea></td>
+        <td><textarea name="template_block_left" cols="35" rows="3" class="code width600 autosize" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_right" cols="35" rows="5" class="code width600 autosize" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea></td>
+        <td><textarea name="template_block_right" cols="35" rows="3" class="code width600 autosize" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea></td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
@@ -627,7 +627,7 @@ if(!empty($jsOnChange))  {
         echo '<td class="chatlist" valign="top">'.$custom_block." {".$custom_block."}</td>\n</tr>\n";
         echo '<tr bgcolor="#F3F5F8"><td>&nbsp;</td>';
         echo '<td><textarea name="template_customblock_'.$custom_block;
-        echo '" cols="35" rows="4" class="code width600 autosize">';
+        echo '" cols="35" rows="3" class="code width600 autosize">';
         echo isset($template['customblock_'.$value]) ? html_entities($template['customblock_'.$value]) : '';
         echo "</textarea></td>\n</tr>\n";
         echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>'."\n";
@@ -642,7 +642,7 @@ if(!empty($jsOnChange))  {
 ?>
     <tr>
       <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_error'] ?>:&nbsp;</td>
-      <td><textarea name="template_block_error" cols="35" rows="5" class="code width600 autosize" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea></td>
+      <td><textarea name="template_block_error" cols="35" rows="3" class="code width600 autosize" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea></td>
     </tr>
 
     <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
