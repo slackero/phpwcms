@@ -18,25 +18,22 @@ $setup_recommend = true;
   which <strong>phpwcms</strong> is released you can continue to install or upgrade <strong>phpwcms</strong>.</p>
 
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 5.3+, MySQL 5.1+).</p>
+<p>Please proof all information about your system (recommend PHP 7.1+, MySQL 5.5+).</p>
 <ol>
   <li>WWW server: <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong></li>
   <li>PHP version: <?php
 
 	echo '<strong>'.html_specialchars(phpversion()).'</strong>';
 
-	switch(version_compare('5.2.0', phpversion())) {
+	switch(version_compare('5.6', phpversion())) {
 
 		case -1:	// current used PHP is > OK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					if(version_compare('5.6', phpversion()) == 1) {
-						echo ' (it is recommend to update your PHP version)';
-					}
 					break;
 
 		case  0:	// the same version - HM not recommend
 					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-					echo ' (your version of PHP is older - update recommend)';
+					echo ' (your version of PHP is OK but update to 7.x is recommend)';
 					$setup_recommend = false;
 					break;
 
@@ -110,7 +107,7 @@ $setup_recommend = true;
 
 		  ?>
       </li>
-<?php if(version_compare(phpversion(), '5.4.0', '<')): ?>
+<?php if(version_compare(phpversion(), '5.6.0', '<')): ?>
       <li><strong>safe_mode </strong><?php
 
 		if(ini_get('safe_mode')) {
