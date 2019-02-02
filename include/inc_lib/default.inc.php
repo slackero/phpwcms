@@ -192,6 +192,7 @@ define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
 define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
+define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : true);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -943,6 +944,16 @@ function getRemoteIP() {
     }
     define('REMOTE_IP', $IP);
     return $IP;
+}
+
+// source: https://gist.github.com/svrnm/3a124d2af18a6726f66e
+// anonymize_ip('76.97.51.109') => 76.97.0.0
+// anonymize_ip('2601:c2:4004:57d0:257d:b9ba:4b1e:baac') => 2601:c2:4004:57d0::
+function getAnonymizedIp() {
+    if($ip = @inet_pton(getRemoteIP())) {
+        return inet_ntop(substr($ip, 0, strlen($ip)/2) . str_repeat(chr(0), strlen($ip)/2));
+    }
+    return '0.0.0.0';
 }
 
 // Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers

@@ -143,6 +143,7 @@ $phpwcms['cmsimage_settings']   = array(); // to prevent flooding dynamic image 
 $phpwcms['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
 $phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
 $phpwcms['preserve_getVar']     = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/phpwcms/blob/master/include/inc_lib/default.inc.php#L520
+$phpwcms['enable_GDPR']         = true; // Try to handle GDPR inside of phpwcms by default (anonymize IP...)
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address

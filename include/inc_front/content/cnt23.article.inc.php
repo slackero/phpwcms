@@ -148,7 +148,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     // make spam check
     if($phpwcms['form_tracking'] && $POST_DO && !checkFormTrackingValue()) {
-        $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.getRemoteIP().' is not allowed to send form![/class]';
+        $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).' is not allowed to send form![/class]';
     }
 
     foreach($cnt_form["fields"] as $key => $value) {
@@ -1889,7 +1889,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $phpwcms['callback'] = now();
 
-        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
+        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form["onsuccess"]);
 
         if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
             if($cnt_form["onsuccess_redirect"] === 1) {
@@ -1905,13 +1905,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $GLOBALS['phpwcms']['callback'] = now();
         $cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
-        $cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
+        $cnt_form['template'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template']);
         $cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);
 
         if( !$cnt_form['template_equal'] ) {
 
             $cnt_form['template_copy'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template_copy']);
-            $cnt_form['template_copy'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_copy']);
+            $cnt_form['template_copy'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_copy']);
 
@@ -1920,7 +1920,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
         if(!empty($cnt_form['doubleoptin'])) {
             $POST_savedb['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash($cnt_form['doubleoptin_target'].time() ) );
             $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', abs_url(array('hash' => $POST_savedb['hash']), array(), '', 'rawurlencode'), $cnt_form['template_doubleoptin']);
-            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
@@ -1986,7 +1986,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
     if(count($POST_savedb)) {
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
-        $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(getRemoteIP()).", ";
+        $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
         $POST_savedb_sql .= _dbEscape(serialize($POST_savedb)) . ")";
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
     }

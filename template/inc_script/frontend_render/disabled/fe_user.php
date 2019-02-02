@@ -423,7 +423,9 @@ if($fe_action) {
                 $fe_text1 .= 'E-Mail:  ' . $udata['user_email'] . LF;
 
                 $fe_text1 .= LF . '-----------------------------------------------------------' . LF;
-                $fe_text1 .= 'IP: '. getRemoteIP();
+                if(!PHPWCMS_GDPR_MODE) {
+                    $fe_text1 .= 'IP: ' . getRemoteIP();
+                }
 
                 $fe_csv_attach  = implode(';', array_keys($fe_csv) );
                 $fe_csv_attach .= LF;

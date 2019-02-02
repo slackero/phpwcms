@@ -28,7 +28,7 @@ if(!empty($_SESSION["wcs_user"])) {
 	$sql .= "WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND ";
 	$sql .= "logged_in=1";
 
-	if(!empty($phpwcms['Login_IPcheck'])) {
+	if(!PHPWCMS_GDPR_MODE && !empty($phpwcms['Login_IPcheck'])) {
 		$sql .= " AND logged_ip="._dbEscape(getRemoteIP());
 	}
 

@@ -837,7 +837,7 @@ function getFormTrackingValue() {
     $ip         = getRemoteIP();
     $hash       = md5($ip.$GLOBALS['phpwcms']["db_pass"].date('G'));
     $entry_id   = time();
-    if(!empty($GLOBALS['phpwcms']["form_tracking"])) {
+    if(!empty($GLOBALS['phpwcms']["form_tracking"]) && !PHPWCMS_GDPR_MODE) {
         $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_formtracking SET formtracking_hash="._dbEscape($hash).", formtracking_ip="._dbEscape($ip);
         $result = _dbQuery($sql, 'INSERT');
         if(isset($result['INSERT_ID'])) {
@@ -1264,7 +1264,7 @@ function shortHash($string='', $_Hash_function='md5') {
 function replaceGlobalRT($string='') {
     $string = str_replace(array('{SITE}', '{PHPWCMS_URL}'), PHPWCMS_URL, $string);
     $string = str_replace('{PHPWCMS_TEMPLATE}', TEMPLATE_PATH, $string);
-    $string = str_replace('{IP}', getRemoteIP(), $string);
+    $string = str_replace('{IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $string);
     $string = renderRTDate($string);
     return $string;
 }
@@ -1815,7 +1815,7 @@ function checkLogin($mode='REDIRECT') {
 
             // check again if user was logged in and this is a valid redirect request
             $sql  = 'SELECT COUNT(*)  FROM '.DB_PREPEND.'phpwcms_userlog WHERE ';
-            $sql .= "logged_ip="._dbEscape(getRemoteIP())." AND ";
+            $sql .= "logged_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP())." AND ";
             $sql .= '( '.time().' - logged_change ) < 3600';
             $ref_url = _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
 

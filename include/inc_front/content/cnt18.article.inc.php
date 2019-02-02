@@ -306,7 +306,7 @@ if($guestbook['visible']) {
             $guestbook['sql']  = "SELECT MAX(guestbook_created) AS dbcreate FROM ".DB_PREPEND."phpwcms_guestbook WHERE ";
             $guestbook['sql'] .= "guestbook_cid="._dbEscape($guestbook['cid'])." AND ";
             $guestbook['sql'] .= "guestbook_trashed != '9' AND ";
-            $guestbook['sql'] .= "guestbook_ip="._dbEscape(getRemoteIP())." AND ";
+            $guestbook['sql'] .= "guestbook_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP())." AND ";
             $guestbook['sql'] .= "guestbook_useragent=MD5("._dbEscape($_SERVER['HTTP_USER_AGENT']).")";
 
             $guestbook['result'] = _dbQuery($guestbook['sql']);
@@ -349,7 +349,7 @@ if($guestbook['visible']) {
         if(!checkFormTrackingValue()) {
             $guestbook['flooding']  = 1;
             $guestbook['readform']  = 1;
-            $guestbook['spamalert'] = '<div class="spamFormAlert">Your IP '.getRemoteIP().' is not allowed to send form!</div>';
+            $guestbook['spamalert'] = '<div class="spamFormAlert">Your IP '.(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).' is not allowed to send form!</div>';
         }
     }
 
@@ -381,7 +381,7 @@ if($guestbook['visible']) {
             $guestbook['sql'] .= "guestbook_created='".time()."', ";
             $guestbook['sql'] .= "guestbook_url="._dbEscape($guestbook['post']['url']).", ";
             $guestbook['sql'] .= "guestbook_show='".$guestbook['post']['show']."', ";
-            $guestbook['sql'] .= "guestbook_ip="._dbEscape(getRemoteIP()).", ";
+            $guestbook['sql'] .= "guestbook_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
             $guestbook['sql'] .= "guestbook_useragent=MD5("._dbEscape($_SERVER['HTTP_USER_AGENT']).")";
 
             if(!empty($guestbook["image_upload"]) && !empty($guestbook['image']['file']) && !empty($guestbook['image']['name'])) {
@@ -416,7 +416,7 @@ if($guestbook['visible']) {
                         array(
                             PHPWCMS_URL.'index.php?id='.implode(',', $aktion),
                             PHPWCMS_URL.'phpwcms.php?do=articles&p=2&s=1&aktion=2&id='.$aktion[1].'&acid='.$guestbook['cid'],
-                            getRemoteIP(),  $_SERVER['HTTP_USER_AGENT'], date('Y/m/d H:i:s'),
+                            PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(),  $_SERVER['HTTP_USER_AGENT'], date('Y/m/d H:i:s'),
                             $guestbook['post']['name'], $guestbook['post']['email'],
                             $guestbook['post']['url'], $guestbook['post']['msg'],
                             empty($guestbook['image']['name']) ? '' : $guestbook['image']['name'],
@@ -457,7 +457,7 @@ if($guestbook['visible']) {
 
         $guestbook['sql']  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_guestbook ';
         $guestbook['sql'] .= 'WHERE guestbook_id='.intval($GLOBALS['_getVar']['guestbookentry']);
-        $guestbook['sql'] .= " AND guestbook_ip="._dbEscape(getRemoteIP());
+        $guestbook['sql'] .= " AND guestbook_ip="._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP());
 
         $guestbook['new_entry'] = _dbQuery($guestbook['sql']);
 

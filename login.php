@@ -191,7 +191,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
         if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
             // User not yet logged in, create new
             $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (";
-            $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(getRemoteIP()).")";
+            $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).")";
             _dbQuery($sql, 'INSERT');
         }
 

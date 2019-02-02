@@ -56,8 +56,8 @@ $template = array(
     'tracking_ga' => array(
         'enable' => 0,
         'id' => '',
-        'anonymize' => 0,
-        'optout' => 0,
+        'anonymize' => PHPWCMS_GDPR_MODE  ? 1 : 0,
+        'optout' => PHPWCMS_GDPR_MODE  ? 1 : 0,
     ),
     'tracking_piwik' => array(
         'enable' => 0,
