@@ -51,6 +51,10 @@ if(isset($data[1])) {
         $value      = array();
         $svg        = 0;
 
+        if($ext === '' && isset($data[2])) {
+            $ext = which_ext($data[2]);
+        }
+
         if(substr($data[0], 0, 7) === 'convert') {
             // get image convert function but limit to max of 5 chars
             $convert_function = substr(substr($data[0], 8), 0, 5);

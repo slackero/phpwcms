@@ -1168,19 +1168,19 @@ if($content['opengraph']['render']) {
 	$content['opengraph']['has_image'] = false;
 	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
 		foreach($content['images']['shop'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $content['opengraph']['has_image'] = true;
+            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['news']) && count($content['images']['news'])) {
 		foreach($content['images']['news'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $content['opengraph']['has_image'] = true;
+            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
 		$content['opengraph']['has_image'] = true;
-		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'].'/'.rawurlencode($content['images']['article']['name']), 'property');
+		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'/'.rawurlencode($content['images']['article']['name']), 'property');
 	}
 	if(!$content['opengraph']['has_image'] && is_file(PHPWCMS_TEMPLATE.'img/opengraph-default.png')) {
 		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
