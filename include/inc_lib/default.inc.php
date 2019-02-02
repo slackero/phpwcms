@@ -1346,9 +1346,9 @@ function phpwcms_encrypt($plaintext, $password=PHPWCMS_USER_KEY) {
  * Decrypt string
  */
 function phpwcms_decrypt($crypttext, $password=PHPWCMS_USER_KEY) {
-    $iv = substr($ivHashCiphertext, 0, 16);
-    $hash = substr($ivHashCiphertext, 16, 32);
-    $ciphertext = substr($ivHashCiphertext, 48);
+    $iv = substr($crypttext, 0, 16);
+    $hash = substr($crypttext, 16, 32);
+    $ciphertext = substr($crypttext, 48);
     $key = hash('sha256', $password, true);
 
     if (hash_hmac('sha256', $ciphertext, $key, true) !== $hash) {
