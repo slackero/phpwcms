@@ -510,6 +510,32 @@ if(empty($phpwcms['allowed_upload_ext'])) {
     );
 }
 
+if(!isset($phpwcms['preserve_getVar'])) {
+    $phpwcms['preserve_getVar'] = array();
+}
+if(!isset($phpwcms['global_unregister_getVar'])) {
+    /**
+     * This var can be overwritten in conf.inc.php
+     */
+    $phpwcms['global_unregister_getVar'] = array(
+        'page',
+        'listpage',
+        'newsdetail',
+        'newspage',
+        'glossary',
+        'glossaryid',
+        'glossarytitle',
+        'shop_detail',
+        'shop_cat',
+        'shop_cart',
+        'gallery',
+        'subgallery'
+    );
+}
+if(is_array($phpwcms['preserve_getVar']) && count($phpwcms['preserve_getVar'])) {
+    $phpwcms['global_unregister_getVar'] = array_diff($phpwcms['global_unregister_getVar'], $phpwcms['preserve_getVar']);
+}
+
 /**
  * HTML Mode and document type
  */
@@ -726,27 +752,18 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
     }
 
     if(is_array($remove) && count($remove)) {
+        if(count($GLOBALS['phpwcms']['global_unregister_getVar'])) {
+            $remove = array_merge($remove, $GLOBALS['phpwcms']['global_unregister_getVar']);
+        }
+    } else {
+        $remove = $GLOBALS['phpwcms']['global_unregister_getVar'];
+    }
+
+    if(count($remove)) {
         foreach($remove as $value) {
             unset($_getVarTemp[$value]);
         }
     }
-
-    // always remove the following GET parameters,
-    // must be set explicity in $add
-    unset(
-        $_getVarTemp['page'],
-        $_getVarTemp['listpage'],
-        $_getVarTemp['newsdetail'],
-        $_getVarTemp['newspage'],
-        $_getVarTemp['glossary'],
-        $_getVarTemp['glossaryid'],
-        $_getVarTemp['glossarytitle'],
-        $_getVarTemp['shop_detail'],
-        $_getVarTemp['shop_cat'],
-        $_getVarTemp['shop_cart'],
-        $_getVarTemp['gallery'],
-        $_getVarTemp['subgallery']
-    );
 
     $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 

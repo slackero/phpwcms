@@ -142,6 +142,7 @@ $phpwcms['trash_delete_files']  = false; // set to true if files should be delet
 $phpwcms['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
 $phpwcms['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
 $phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$phpwcms['preserve_getVar']     = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/phpwcms/blob/master/include/inc_lib/default.inc.php#L520
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address
