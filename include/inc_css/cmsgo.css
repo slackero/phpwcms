@@ -284,7 +284,7 @@
 .backend-search {
     margin: 0;
     position: relative;
-    width: 300px;
+    width: 300px !important;
 }
 
 .backend-search-button {
@@ -306,7 +306,7 @@
 .backend-search-input {
     margin: 0;
     vertical-align: middle;
-    width: 140px;
+    width: 290px !important;
 }
 
 .bold {

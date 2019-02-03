@@ -144,7 +144,7 @@ header('Content-Type: text/html; charset='.CMSGO_CHARSET);
 	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
 	<link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 <?php
