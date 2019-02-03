@@ -194,15 +194,16 @@ class qqFileUploader {
         }
     }
 
-    private function toBytes($str){
-        $val = trim($str);
-        $last = strtolower($str[strlen($str)-1]);
-        switch($last) {
-            case 'g': $val *= 1024;
-            case 'm': $val *= 1024;
-            case 'k': $val *= 1024;
+    private function toBytes($size_str){
+        $size_str = trim($size_str);
+        $size = (float)$size_str;
+        $size_str = substr($size_str, -1);
+        switch ($size_str) {
+            case 'G': case 'g': $size *= 1024;
+            case 'M': case 'm': $size *= 1024;
+            case 'K': case 'k': $size *= 1024;
         }
-        return $val;
+        return (int)$size;
     }
 
     /**
