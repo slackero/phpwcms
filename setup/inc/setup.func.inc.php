@@ -59,8 +59,8 @@ function check_path_status($path) {
 
 function check_file_status($path) {
     $path = $_SERVER['DOCUMENT_ROOT'] . $path;
-    if (is_file($path) && is_writable($path)) {
-        return 1;
+    if (is_file($path) || is_dir($path)) {
+        return is_writable($path) ? 2 : 1;
     }
     return 0;
 }
@@ -182,8 +182,8 @@ function write_conf_file($val) {
     $val["rewrite_url"] = check_htaccess($val);
 
     $conf_file .= "\n// other stuff\n";
-    $conf_file .= "\$phpwcms['image_library'] = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
-    $conf_file .= "\$phpwcms['library_path'] = '';       //Path to ImageMagick or NetPBM\n";
+    $conf_file .= "\$phpwcms['image_library'] = 'GD2'; //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
+    $conf_file .= "\$phpwcms['library_path'] = ''; //Path to ImageMagick or NetPBM\n";
     $conf_file .= "\$phpwcms['rewrite_url'] = " . $val["rewrite_url"] . "; // whether URL should be rewritable\n";
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
@@ -191,7 +191,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['wysiwyg_editor'] = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
     $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
-    $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = '';       //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
+    $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
     $conf_file .= "\$phpwcms['default_lang'] = '" . $val["default_lang"] . "';  //default language\n";
     $conf_file .= "\$phpwcms['charset'] = '" . $val["charset"] . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
@@ -200,11 +200,11 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['sharpen_level'] = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
     $conf_file .= "\$phpwcms['allow_ext_init'] = 1;  //allow including of custom external scripts at frontend initialization\n";
     $conf_file .= "\$phpwcms['allow_ext_render'] = 1;  //allow including of custom external scripts at frontend rendering\n";
-    $conf_file .= "\$phpwcms['cache_enabled'] = 0;        //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
+    $conf_file .= "\$phpwcms['cache_enabled'] = 0; //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
     $conf_file .= "\$phpwcms['cache_timeout'] = 0;  //default cache timeout setting in seconds - 0 = caching Off\n";
-    $conf_file .= "\$phpwcms['imgext_disabled'] = '';  //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
+    $conf_file .= "\$phpwcms['imgext_disabled'] = ''; //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
     $conf_file .= "\$phpwcms['multimedia_ext'] = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
-    $conf_file .= "\$phpwcms['inline_download'] = 1;  //1 = try to display download documents in new window; 0 = show safe under dialog\n";
+    $conf_file .= "\$phpwcms['inline_download'] = 1; //1 = try to display download documents in new window; 0 = show safe under dialog\n";
     $conf_file .= "\$phpwcms['sanitize_dlname'] = 0; // if there are problems downloading files with special chars in name try to enable this setting\n";
     $conf_file .= "\$phpwcms['form_tracking'] = 1; //make a db entry for each form\n";
     $conf_file .= "\$phpwcms['formmailer_set'] = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
