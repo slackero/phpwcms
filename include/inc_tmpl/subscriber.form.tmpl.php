@@ -4,7 +4,7 @@
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -26,25 +26,25 @@ if (!defined('CMSGO_ROOT')) {
          <?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?>
         </div>
       </div>
-      
+
       <div class="form-group form-row align-items-center">
         <label for="subscribe_email" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
         <div class="col">
           <input type="email" class="form-control form-control-sm" name="subscribe_email" id="subscribe_email" value="<?php echo html($_userInfo['subscriber_data']['address_email']) ?>" maxlength="250" required />
         </div>
       </div>
-      
+
       <div class="form-group form-row align-items-center">
         <label for="subscribe_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_name'] ?></label>
         <div class="col">
           <input type="text" class="form-control form-control-sm" name="subscribe_name" id="subscribe_name" value="<?php echo html($_userInfo['subscriber_data']['address_name']) ?>" maxlength="250" required />
         </div>
       </div>
-      
+
       <div class="form-group form-row">
         <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
         <div class="col">
- 
+
 				<?php
 					//retrieve available subscriptions
 					$_userInfo['select_subscr'] = '';
@@ -65,7 +65,7 @@ if (!defined('CMSGO_ROOT')) {
 								$_userInfo['subscr_all']   = 0;
 
 							}
-							$_userInfo['select_subscr'] .= ' /><label class="form-check-label">'. 
+							$_userInfo['select_subscr'] .= ' /><label class="form-check-label">'.
 								html($value['subscription_name']).
 								'</label>
 							</div>
@@ -73,7 +73,7 @@ if (!defined('CMSGO_ROOT')) {
 						}
 					}
 				?>
-				
+
          <div class="form-check">
             <label class="form-check-label align-items-center">
               <input class="form-check-input" name="subscribe_all" type="checkbox" id="subscribe_all" value="1"<?php is_checked($_userInfo['subscr_all'], 1) ?> />
@@ -99,7 +99,7 @@ if (!defined('CMSGO_ROOT')) {
 				<input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
 				<input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='cmsgo.php?do=messages&p=4';return false;" />
 			</div>
-      
+
     </div>
   </div>
 </form>

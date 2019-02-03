@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -29,18 +29,18 @@ function initEditor (edit_field, cw, ch) {
 	if(ch == "") { ch = "550px"; }
 	config.width = cw;
 	config.height = ch;
-	
+
 	// [	"fontname", "space", "fontsize", "space", "formatblock", "space" ],
 	config.toolbar = [
 		[	"fontname", "space", "fontsize", "space", "formatblock"],
-		[	"bold", "italic", "underline", "separator", "strikethrough", "subscript", "superscript", "separator", 
+		[	"bold", "italic", "underline", "separator", "strikethrough", "subscript", "superscript", "separator",
 			"copy", "cut", "paste", "space", "undo", "redo", "separator", "htmlmode", "separator",  "about" ],
 		[	"lefttoright", "righttoleft", "separator", "justifyleft", "justifycenter", "justifyright", "justifyfull", "separator",
 			"orderedlist", "unorderedlist", "outdent", "indent", "separator",
-			"forecolor", "hilitecolor", "textindicator", "separator", "inserthorizontalrule", 
+			"forecolor", "hilitecolor", "textindicator", "separator", "inserthorizontalrule",
 			"createlink", "insertimage", "inserttable" ]
 	];
-	
+
 	editor = new HTMLArea(edit_field, config); // create an editor for the "ta" textbox
     editor.registerPlugin(ContextMenu);
     editor.registerPlugin(TableOperations);
@@ -48,7 +48,7 @@ function initEditor (edit_field, cw, ch) {
 	//editor.config.pageStyle = "@import url(htmlarea_cmsgo.css);";
 	//editor.registerPlugin(FullPage);
 	//editor.registerPlugin(ListType);
-	
+
 	editor.generate();
 	return false;
 }

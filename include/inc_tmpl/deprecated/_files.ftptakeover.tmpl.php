@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -110,7 +110,7 @@ $GLOBALS['BE']['HEADER']['fileuploaderaa.js'] = '
         #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
             width: 50%;
         }
-        
+
         .qq-uploader {
           min-height: 200px;
         }

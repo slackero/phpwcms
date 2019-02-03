@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -33,7 +33,7 @@ if(!$content["page_file"]['source']) {
 	$content["page_file"]['pfile'] = clean_slweg($_POST['cpage_custom']);
 
 	if(!file_exists($content["page_file"]['pfile'])) {
-	
+
 		list($content["page_file"]['checkurl']) = explode('?', $content["page_file"]['pfile']);
 
 		if(!file_get_contents($content["page_file"]['checkurl'])) {

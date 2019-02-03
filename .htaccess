@@ -35,11 +35,16 @@
 
     # Force everything to www. and keep SSL status too
     #RewriteCond %{HTTP_HOST} !^$
+    #RewriteCond %{HTTPS} off [OR]
     #RewriteCond %{HTTP_HOST} !^www\. [NC]
     #RewriteCond %{HTTPS}s ^on(s)|
     #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
     DirectoryIndex index.html index.php
+
+    # Redirect /en and /en/ to english home
+    #RewriteRule ^(en|de)(/{0,1})$ ./index.php?$1/index [L,QSA]
 
     # Use RewriteBase - always start in Document Root
     RewriteBase /

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -100,7 +100,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <td bgcolor="#E7E8EB"><label for="cguestbook_listing1"><?php echo $BL['be_cnt_guestbook_list'] ?>&nbsp;</label></td>
         <td bgcolor="#E7E8EB"><input name="cguestbook_listcount" type="text" class="form-control" id="cguestbook_listcount" style="width: 40px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo  isset($content["guestbook"]["listcount"]) ? $content["guestbook"]["listcount"] : '' ?>" /></td>
         <td bgcolor="#E7E8EB">&nbsp;<?php echo $BL['be_cnt_guestbook_perpage'] ?>&nbsp;</td>
-        
+
       </tr>
     </table></td>
 </tr>
@@ -159,7 +159,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
        <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_filesize'] ?>:&nbsp;</td>
        <td ><input name="cguestbook_maximgsize" type="text" class="form-control" id="cguestbook_maximgsize" style="width: 100px;" size="20" maxlength="20" value="<?php echo $content["guestbook"]["max_image_filesize"] ?>" /></td>
        <td>&nbsp;(<?php echo return_bytes($content["guestbook"]["max_image_filesize"]) ?> Byte)</td>
-       
+
       </tr>
       </table></td>
 </tr>
@@ -205,7 +205,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
        <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_captchalength'] ?>:&nbsp;</td>
        <td><input name="cguestbook_captchamaxchar" type="text" class="form-control" id="cguestbook_captchamaxchar" style="width: 25px;" size="3" maxlength="2" value="<?php echo $content["guestbook"]["captcha_maxchar"] ?>" /></td>
        <td>&nbsp;<?php echo $BL['be_cnt_chars'] ?></td>
-       
+
       </tr>
       </table></td>
 </tr>

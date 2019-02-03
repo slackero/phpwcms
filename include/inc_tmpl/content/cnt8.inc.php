@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -168,7 +168,7 @@ initJsAutocompleter();
 			</div>
 		</div>
   </div>
-  
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -179,8 +179,8 @@ initJsAutocompleter();
 				<span class="input-group-text">px</span>
 			</div>
 		</div>
-  </div>  
-  
+  </div>
+
   <div class="col my-2 my-sm-0 ml-sm-3">
     <div class="form-check form-check-inline">
 			<input class="form-check-input ml-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
@@ -410,7 +410,7 @@ $(function(){
         neverSubmit: true,
         asHtmlID: 'keyword-autosuggest'
     });
-    
+
     $('#articlecontent').submit(function(event){
         $("#calink_category").val($('#as-values-keyword-autosuggest').val());
     });

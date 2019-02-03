@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -77,7 +77,7 @@ if(!isset($_GET["edit"])) {
             } else {
               echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_list'].': '.html_specialchars($row["subscription_name"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;del='.$row["subscription_id"]. '" onclick="return confirm(\''.$BL['be_mailinglist_delete_list'].' '.js_singlequote($row["subscription_name"]).'\');"><i class="fa fa-trash"></i></a>';
             }
-            
+
             echo "</td>\n</tr>\n";
             $row_count++;
         }

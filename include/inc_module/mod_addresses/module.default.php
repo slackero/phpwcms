@@ -1,6 +1,6 @@
 <?php
 
-// Module/Plug-in cmsGo! Addresses
+// Module/Plug-in cmsGO! Addresses
 
 // register module name
 //DO NOT USE SPECIAL CHARS HERE, NO WHITE SPACES, USE LOWER CASE!!!

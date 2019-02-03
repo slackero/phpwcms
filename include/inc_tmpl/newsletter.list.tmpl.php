@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  */
- 
+
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
@@ -119,7 +119,7 @@ if($_SESSION['newsletter_page'] < 1) {
 			?>
 
       <div class="col"></div>
-      
+
       <div class="col-12 col-sm-auto text-right">
           <select class="form-control form-control-sm custom-select">
               <option <?php echo ($_SESSION['list_newsletter_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_article_rendering'] ?></option>
@@ -170,7 +170,7 @@ if($_SESSION['newsletter_page'] < 1) {
           $count_queue      = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_newsletterqueue WHERE queue_status=0 AND queue_pid='.$row["newsletter_id"], 'COUNT');
           $count_recipient  = countNewsletterRecipients($row['newsletter_vars']['subscription']);
           $count_opener     = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_newsletterqueue WHERE queue_status=1 AND queue_opener=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
-          
+
           if(empty($row["newsletter_active"]) || !$count_queue) {
             echo '<i class="far fa-newspaper fa-fw" aria-hidden="true"></i>';
           } else {

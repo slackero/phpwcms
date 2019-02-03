@@ -1,15 +1,15 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
- 
+
  //$output = div/js
- 
+
   //custom field code for input text
 function get_customfield_str($output, $key, $custom_field ,$fields, $value, $custom_field_placeholder) {
   if ($output == 'div') {
@@ -30,17 +30,17 @@ function get_customfield_str($output, $key, $custom_field ,$fields, $value, $cus
 
   } else {
     //build javascript code
-  
+
     $srccode = "  new_entry += '<input type=\"text\" name=\"customfield[' + entry_number + '][".$custom_field."]\" value=\"\"";
     if(!empty($fields['maxlength'])) {
       $srccode .= " maxlength=\"".$fields['maxlength']."\"";
     }
     $srccode .= " class=\"form-control\" ". $custom_field_placeholder." '+'/>';";
-    
+
   }
   return $srccode;
 }
- 
+
  //custom field code for single checkbox (visible)
 function get_customfield_bool($output, $key, $custom_field ,$fields, $value, $custom_field_placeholder) {
   if ($output == 'div') {
@@ -61,7 +61,7 @@ function get_customfield_bool($output, $key, $custom_field ,$fields, $value, $cu
     $srccode = "  new_entry += '<label class=\"form-check-label\">';";
     $srccode .= "  new_entry += '<input class=\"form-check-input\" type=\"checkbox\" name=\"customfield[' + entry_number + '][".$custom_field."]\" value=\"1\"";
     if(!empty($fields['default'])) {
-      $srccode .= ' checked="checked" '; 
+      $srccode .= ' checked="checked" ';
     }
     $srccode .= "'+'/> ".html($fields['legend'])."</label>';";
   }

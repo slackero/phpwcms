@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -216,7 +216,7 @@ if(isset($search["result"])) {
     } //Ende Liste Dateien
 
     echo "</table>\n"; //Ende Tabelle
-    echo "</div>\n"; 
+    echo "</div>\n";
 
 } else {
     //kein gültiges Suchergebnis

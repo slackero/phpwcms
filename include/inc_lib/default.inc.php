@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -599,10 +599,10 @@ define('CMSGO_HEADER_COMMENT', '
 
         Ihre Neugier hat sich gelohnt.
 
-        Auch hier wurde wieder ein Spitzenprodukt mit cmsGo! erstellt, dem
+        Auch hier wurde wieder ein Spitzenprodukt mit cmsGO! erstellt, dem
         Redaktionssystem von pixels & points GmbH, CH-8302 Kloten.
 
-        Möchten Sie mehr über cmsGo! erfahren?
+        Möchten Sie mehr über cmsGO! erfahren?
         Zögern Sie nicht und lassen Sie sich von einer kompetenten und designstarken
         Firma beraten. Wir würden uns über Ihren Anruf freuen: +41 43 500 33 55
 

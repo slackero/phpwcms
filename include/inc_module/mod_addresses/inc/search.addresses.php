@@ -1,5 +1,5 @@
 <?php
-// Handle cmsGo! Addresses
+// Handle cmsGO! Addresses
 function sanitize_phone_number($text) {
     $text = str_replace('(0)', ' ', $text);
     $text = str_replace('/', ' ', $text);
@@ -23,7 +23,7 @@ $_filter_zip        = isset($_POST['filter_zip']) && $_POST['filter_zip'] !== ''
 // 1) Kontinente
 // 2) Länder
 // 3) Stadt
-// veränderte Logik bei cmsGo! – hier läuft alles über die Länder
+// veränderte Logik bei cmsGO! – hier läuft alles über die Länder
 // eine Adresse kann auch Zuständigkeit für andere Länder haben
 // deswegen zuerst einmal alle möglichen Länder holen
 // benötigt wird:
@@ -633,7 +633,7 @@ if(isset($result[0])) {
     $dealer[]   = '<div class="sr-only">';
     foreach($data_link as $row) {
         //$dealer[] = LF.'    <!-- ' . $data_title[ 'continent_'.$row['sar1'] ] . ' / ' . $data_title[ 'country_'.$row['sar2'] ] . ' = ' . abs_url($row, array(), '', 'urlencode') . ' -->';
-        $dealer[] = '   <a href="'.rel_url($row).'">@@Your cmsGo! contacts in@@ ' . html($data_title[ 'continent_'.$row['sar1'] ] . ' > ' . $data_title[ 'country_'.$row['sar2'] ]) . '</a>';
+        $dealer[] = '   <a href="'.rel_url($row).'">@@Your cmsGO! contacts in@@ ' . html($data_title[ 'continent_'.$row['sar1'] ] . ' > ' . $data_title[ 'country_'.$row['sar2'] ]) . '</a>';
     }
     $dealer[]   = '</div>';
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -62,7 +62,7 @@ $cmsgo['rewrite_ext']         = '.html'; // The extension for URL ReWrite, '.htm
 $cmsgo['alias_allow_slash']   = 1; // Allow slashes / in ALIAS
 $cmsgo['alias_allow_utf8']    = 1; // If charset is utf-8 special chars will survive alias checking
 $cmsgo['wysiwyg_editor']      = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
-$cmsgo['default_lang']        = 'en'; // default language
+$cmsgo['default_lang']        = 'de'; // default language
 $cmsgo['DOCTYPE_LANG']        = ''; // by default same as $cmsgo['default_lang'], but can be injected by whatever you like
 $cmsgo['allowed_lang']        = array('en', 'de', 'fr', 'es'); //array of allowed languages
 $cmsgo['be_lang_parse']       = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'

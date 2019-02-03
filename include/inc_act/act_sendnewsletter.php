@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
- 
+
 session_start();
 $cmsgo = array();
 require_once '../../include/config/conf.inc.php';
@@ -288,7 +288,7 @@ function build_email_text($text, &$value) {
 	$text = str_replace('src="img/cmsimage.php', 'src="'.CMSGO_URL.'img/cmsimage.php', $text);
 	$text = str_replace('href="http://download.php', 'href="'.CMSGO_URL.'download.php', $text);
 	$text = str_replace('src="http://img/cmsimage.php', 'src="'.CMSGO_URL.'img/cmsimage.php', $text);
-	// end	
+	// end
     return $text;
 
 }

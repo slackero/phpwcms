@@ -33,7 +33,7 @@
 /*
 
 ************
-Enhanced by Oliver Georgi, 2009-06-29 for use with cmsGo! Content Management System
+Enhanced by Oliver Georgi, 2009-06-29 for use with cmsGO! Content Management System
 ************
 
 For best results with GoogleMaps, use XHTML compliant web pages with this header:
