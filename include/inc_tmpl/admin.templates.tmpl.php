@@ -685,7 +685,7 @@ if(!empty($jsOnChange))  {
         echo '<td class="chatlist" valign="top">'.$custom_block." {".$custom_block."}</td>\n</tr>\n";
         echo '<tr bgcolor="#F3F5F8"><td>&nbsp;</td>';
         echo '<td>';
-        echo get_template_file_select(strtolower($custom_block), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
+        echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
         echo '<textarea name="template_customblock_'.$custom_block;
         echo '" cols="35" rows="3" class="code width600 autosize">';
         echo isset($template['customblock_'.$value]) ? html_entities($template['customblock_'.$value]) : '';

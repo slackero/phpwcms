@@ -16,7 +16,7 @@ if (!defined('PHPWCMS_INCLUDE_CHECK')) {
 }
 // ----------------------------------------------------------------
 
-if(PHPWCMS_CHARSET == 'utf-8') {
+if(PHPWCMS_CHARSET === 'utf-8') {
     require_once PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php';
 } else {
     require_once PHPWCMS_ROOT.'/include/inc_lib/lib.php_special_entities.php';
@@ -195,7 +195,9 @@ function is_checked($c, $chkvalue, $xhtml=1, $echoit=1) {
 function check_checkbox($c) {
     //Prüft, ob korrekte Werte via Checkbox übergeben wurden
     $c = intval($c);
-    if($c != 0 && $c != 1) $c = 0;
+    if($c !== 0 && $c !== 1) {
+        $c = 0;
+    }
     return $c;
 }
 
@@ -502,7 +504,9 @@ function read_textfile($filename, $mode='rb') {
 
 function write_textfile($filename, $text, $mode='w+b') {
     if($fp = @fopen($filename, $mode)) {
-        if(empty($text)) $text = "\n";
+        if(empty($text)) {
+            $text = "\n";
+        }
         fwrite($fp, $text);
         fclose($fp);
         return true;
@@ -534,10 +538,10 @@ function check_cache($file, $cache_timeout=0) {
 function add_keywords_to_search ($list_of_keywords, $keywords, $spacer=" ", $start_spacer=1) {
     //adds available keywords to the values used by search engine in file section
     //returns a string
-    $kw_string = "";
-    if(sizeof($list_of_keywords) && $keywords) {
+    $kw_string = '';
+    if(is_array($list_of_keywords) && count($list_of_keywords) && $keywords) {
         $kw = explode(":", $keywords);
-        if(sizeof($kw)) {
+        if(count($kw)) {
             foreach($kw as $value) {
                 list($kw_cat, $kw_id) = explode("_", $value);
                 $kw_id = intval($kw_id);
@@ -551,7 +555,7 @@ function add_keywords_to_search ($list_of_keywords, $keywords, $spacer=" ", $sta
             }
         }
     }
-    return (($start_spacer) ? $spacer : "") . $kw_string;
+    return (($start_spacer) ? $spacer : '') . $kw_string;
 }
 
 function get_list_of_file_keywords() {
@@ -1003,22 +1007,22 @@ function headerAvoidPageCaching() {
 
 function getFileInformation($fileID) {
 
-    if(empty($fileID)) return false;
+    if(empty($fileID)) {
+        return false;
+    }
 
     $f = '';
     if(is_array($fileID)) {
 
-        if(count($fileID) == 0) return false;
-
-        $x      = 0;
-        foreach($fileID as $value) {
-            if($x) {
-                $f .= ' OR ';
-            }
-            $f .= 'f_id='.intval($value);
-            $x++;
+        if(!count($fileID)) {
+            return false;
         }
 
+        $f = array();
+        foreach($fileID as $value) {
+            $f[] = 'f_id='.intval($value);
+        }
+        $f = implode(' OR ', $f);
 
     } elseif(intval($fileID)) {
 
@@ -1060,7 +1064,9 @@ function convertStringToArray($string='', $seperator=',', $mode='UNIQUE', $rmvDb
 
 function decode_entities($text) {
     $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
-    if(strpos($text, '&') === false) return $text;
+    if(strpos($text, '&') === false) {
+        return $text;
+    }
     $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
     $text = preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
     return $text;
@@ -1469,14 +1475,20 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
 
                 case '#':   break;
 
-                case '[':   if (!$ProcessSections) break;
+                case '[':   if (!$ProcessSections) {
+                                break;
+                            }
                             $Pos = strpos($Temp,'[');
                             $Section = mb_substr($Temp,$Pos+1,strpos($Temp,']',$Pos)-1);
-                            if($Section) $Data[$Section] = array();
+                            if($Section) {
+                                $Data[$Section] = array();
+                            }
                             break;
 
                 default:    $Pos = strpos($Temp,'=');
-                            if ($Pos === FALSE) break;
+                            if ($Pos === FALSE) {
+                                break;
+                            }
                             if(!$SplitInNameValue) {
                                 $key = trim(mb_substr($Temp,0,$Pos));
                                 $val = str_replace($Escape['search'], $Escape['replace'], trim(mb_substr($Temp,$Pos+1),' "'));
