@@ -1,7 +1,7 @@
-cmsGo! FancyBox
+cmsGO! FancyBox
 ===============
 
-**cmsGo!** jQuery FancyBox is a replacement of the default Lightbox (SlimBox) integration enhanced by with Swipe support for touch devices. Swipe support options are enabled  when more than one fancyBox item is detected only.
+**cmsGO!** jQuery FancyBox is a replacement of the default Lightbox (SlimBox) integration enhanced by with Swipe support for touch devices. Swipe support options are enabled  when more than one fancyBox item is detected only.
 
 Copyright (c) 2012-2016 Oliver Georgi — <info@pixels-points.ch>
 
@@ -16,12 +16,12 @@ Copyright (c) 2012-2016 Oliver Georgi — <info@pixels-points.ch>
 
 ### Installation
 
-Download related files and place the content of the folder **template** into the template folder of your **cmsGo!** installation.
+Download related files and place the content of the folder **template** into the template folder of your **cmsGO!** installation.
 
 
 ### Requires
 
-**cmsGo!** with jQuery support Version 1.6 (recommend jQuery 1.12.4) or newer.
+**cmsGO!** with jQuery support Version 1.6 (recommend jQuery 1.12.4) or newer.
 
 
 ### Configuration
@@ -45,7 +45,7 @@ Have a bug? Please email the issue to us.
 
 ### Thanks
 
-That little enhancement for cmsGo! would not be possible without:
+That little enhancement for cmsGO! would not be possible without:
 
 - **[fancyBox](http://fancyapps.com/fancybox)** Copyright (c) 2012 Janis Skarnelis - <janis@fancyapps.com>
 - **[TouchSwipe](http://labs.rampinteractive.co.uk/touchSwipe/)** Copyright (c) 2010-2015 Matt Bryson

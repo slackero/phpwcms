@@ -1,7 +1,7 @@
-cmsGo! template_lang
+cmsGO! template_lang
 ====================
 
-cmsGo! supports special replacement tag which can be used for
+cmsGO! supports special replacement tag which can be used for
 easy internationalization.
 
 Every `@@Replacer@@` will be rendered based on current active

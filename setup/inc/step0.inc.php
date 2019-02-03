@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -14,7 +14,7 @@ $setup_recommend = true;
 ?>
 <h1><span class="number">1.</span> Thanks! You have agreed to the GPL.</h1>
 <p>Now that you know the <a href="http://www.gnu.org/licenses/licenses.html#GPL" target="_blank"><strong>licence</strong></a> under
-  which <strong>cmsGo!</strong> is released you can continue to install or upgrade <strong>cmsGo!</strong>.</p>
+  which <strong>cmsGO!</strong> is released you can continue to install or upgrade <strong>cmsGO!</strong>.</p>
 
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
 <p>Please proof all information about your system (recommend PHP 7.1+, MySQL 5.5+).</p>
@@ -179,7 +179,7 @@ $setup_recommend = true;
   	</ul>
   </li>
 </ol>
-<p><strong>cmsGo!</strong> has
+<p><strong>cmsGO!</strong> has
   automatic image resizing capabilities. This works very well for standard graphics
   file formats like JPEG, GIF and PNG as long as your PHP installation has built-in
   support for <a href="http://en.wikipedia.org/wiki/GD_Graphics_Library" target="_blank">GD</a> &#8212; <strong>GD2</strong> with

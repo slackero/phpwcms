@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -24,7 +24,7 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
             <strong>Your configuration is placed at the wrong position.</strong>
         </h4>
         <p>
-            Beginning with <strong>cmsGo! v1.7.8</strong> base config files were moved from
+            Beginning with <strong>cmsGO! v1.7.8</strong> base config files were moved from
             directory <code>config/cmsgo</code> to directory <code>include/config</code>. The fallback
             to do it automatically has failed. Please do it manually before you continue.
         </p>

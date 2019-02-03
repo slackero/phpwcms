@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -50,8 +50,8 @@ require_once('inc/setup.func.inc.php');
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top" bgcolor="#FFFFFF"><h1>Welcome to the setup of cmsgo </h1>
 	<p>This is the semi automatic setup script to install a new release of
-      the web cms <strong>cmsGo!</strong>.</p>
-	<p><strong>cmsGo!</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
+      the web cms <strong>cmsGO!</strong>.</p>
+	<p><strong>cmsGO!</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
 	  General Public License</strong></a> (GPL). Before you continue setting
 	  up cmsgo  read the license very careful.</p>
 	<div id="license">
@@ -303,7 +303,7 @@ require_once('inc/setup.func.inc.php');
   </tr>
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
-    <td colspan="2" valign="bottom" class="navtext"><a href="https://www.pixels-points.ch" target="_blank">cmsGo!</a> &copy; 2003&#8212;<?php echo date('Y') ?> <a title="info at pixels-points dot ch" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Pixels &amp; Points</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
+    <td colspan="2" valign="bottom" class="navtext"><a href="https://www.pixels-points.ch" target="_blank">cmsGO!</a> &copy; 2003&#8212;<?php echo date('Y') ?> <a title="info at pixels-points dot ch" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Pixels &amp; Points</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.</td>
   </tr>
   <tr>

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -27,7 +27,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $cmsgo['charset'] ?>" />
-<title>cmsgo Install</title>
+<title>cmsGO! Install</title>
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -96,9 +96,9 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
     <td colspan="2" valign="bottom" class="navtext">
-		<a href="https://www.pixels-points.ch" target="_blank">cmsGo!</a>
+		<a href="https://www.pixels-points.ch" target="_blank">cmsGO!</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
-		<a title="info at pixels-points dot ch" onclick="location.href='mailto:info'+'@'+'pixels-points'+'.'+'ch';return false;" href="#">Pixels &amp; Points</a>.
+		<a title="info@pixels-points.ch" onclick="location.href='mailto:info'+'@'+'pixels-points'+'.'+'ch';return false;" href="#">Pixels &amp; Points</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.
 	</td>

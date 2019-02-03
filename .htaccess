@@ -22,7 +22,7 @@
 #   Options +FollowSymlinks
 #   AcceptPathInfo On
 
-# All 404 error should link to cmsGo! then
+# All 404 error should link to cmsGO! then
 # it is easy to define internal routing/redirection
 #   ErrorDocument 404 /index.php?r404
 # Installed in Subfolder www.example.com/subfolder/
@@ -69,7 +69,7 @@
     RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING} [L]
     RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
 
-    # Rewrite anything else and link it against cmsGo!
+    # Rewrite anything else and link it against cmsGO!
     # Check redirect settings under admin in the backend
     RewriteRule ^(.+)/?$ ./index.php?$1&%{QUERY_STRING}
 

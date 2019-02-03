@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -36,9 +36,9 @@ $do = 0;
 if($img_info) {
 
 	$img_file = CMSGO_TEMPLATE.'inc_cntpart/map/map_img/'.$img_file;
-	
+
 	switch($img_info[2]) {
-	
+
 		case 1:	// GIF
 				if(function_exists('imagegif')) {
 					$img_mimetype = 'image/gif';
@@ -50,29 +50,29 @@ if($img_info) {
 				$img_source = imagecreatefromgif($img_file);
 				$do = 1;
 				break;
-		
+
 		case 2:	// JPG
 				$img_mimetype = 'image/jpeg';
 				$img_target = 'jpg';
 				$img_source = imagecreatefromjpeg($img_file);
 				$do = 1;
 				break;
-		
+
 		case 3:	// PNG
 				$img_mimetype = 'image/png';
 				$img_target = 'png';
 				$img_source = imagecreatefrompng($img_file);
 				$do = 1;
 				break;
-	
+
 	}
-	
+
 	// fill image with points
 	$img_point = imagecreate($img_val[1], $img_val[2]);
 	$background_color = imagecolorallocate($img_point, $img_val[3]['r'], $img_val[3]['g'], $img_val[3]['b']);
 	$fill_color = imagecolorallocate($img_point,  $img_val[4]['r'], $img_val[4]['g'], $img_val[4]['b']);
 	imagefilledrectangle($img_point,$img_val[0], $img_val[0], $img_val[7], $img_val[8], $fill_color);
-	
+
 	if(isset($_GET['xy'])) {
 		$points = explode(',', trim($_GET['xy']));
 		if(count($points)) {
@@ -81,29 +81,29 @@ if($img_info) {
 				imagecopymerge($img_source, $img_point, $point[0]-$img_val[5], $point[1]-$img_val[6], 0, 0, $img_val[1], $img_val[2], 100);
 			}
 		}
-	}	
+	}
 	imagedestroy($img_point);
 }
 
 if($do) {
-	
+
 	header('Content-type: '.$img_mimetype);
-	
+
 	switch($img_target) {
 
 		case 'jpg':		imagejpeg($img_source, NULL, $img_quality);
 						break;
-	
+
 		case 'png':		imagepng($img_source, NULL, 9);
 						break;
-	
+
 		case 'gif':		imagegif($img_source);
 						break;
 
 	}
-	
+
 	imagedestroy($img_source);
-	
+
 } else {
 
 	// error / no image
