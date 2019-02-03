@@ -5,7 +5,7 @@
  * Licensed under the terms of the GNU Lesser General Public License
  * (http://www.opensource.org/licenses/lgpl-license.php)
  *
- * For further information go to http://www.fredck.com/FCKeditor/ 
+ * For further information go to http://www.fredck.com/FCKeditor/
  * or contact fckeditor@fredck.com.
  *
  * fck_editorarea.css: Styles used in the editor area. The final user
@@ -41,7 +41,7 @@ a:hover {
 .articleText { /*text-align: justify;*/ }
 
 .articleCode {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 	font-size: 12px;
 }
 
