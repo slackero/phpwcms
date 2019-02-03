@@ -294,7 +294,7 @@ $GLOBALS['BE']['HEADER']['exif.js'] = getJavaScriptSourceLink('include/inc_js/ex
 $GLOBALS['BE']['BODY_CLOSE']['exif.js.upload'] = '<script type="text/javascript">
 document.getElementById("file").onchange = function(e) {
     var iptcdata = document.getElementById("iptc-info");
-    iptcdata.innerHTML = '';
+    iptcdata.innerHTML = "";
     EXIF.getData(e.target.files[0], function() {
         //alert(EXIF.pretty(this));
         var iptctags = {
@@ -306,7 +306,7 @@ document.getElementById("file").onchange = function(e) {
             Writer: EXIF.getIptcTag(this, "captionWriter"),
             Creator: EXIF.getIptcTag(this, "byline"),
             Profession: EXIF.getIptcTag(this, "bylineTitle")
-        }, iptctable = '';
+        }, iptctable = "";
         for(var a in iptctags) {
             if(iptctags.hasOwnProperty(a)) {
                 if(typeof iptctags[a] === "string") {
