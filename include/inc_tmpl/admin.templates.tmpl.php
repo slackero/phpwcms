@@ -43,8 +43,10 @@ if (!isset($_GET["s"])) {
                         echo "<tr>\n";
                         echo '<td><a href="cmsgo.php?' . $edit_link;
                         echo '"><strong>' . html($row["template_name"]) . "</strong>";
-                        echo ($row["template_default"]) ? " (" . $BL['be_admin_tmpl_default'] . ")" : "";
-                        echo "</a></td>\n" . '<td class="text-right text-nowrap">';
+                        if($row["template_default"]) {
+                            echo " (" . $BL['be_admin_tmpl_default'] . ")";
+                        }
+                        echo "</a></td>" . '<td class="text-right text-nowrap">';
                         echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="cmsgo.php?' . $edit_link;
                         echo '"><i class="fa fa-pencil"></i></a>';
 
@@ -399,7 +401,7 @@ if (!isset($_GET["s"])) {
                         }
                         echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
                         ?>
-                        <textarea name="template_htmlhead" rows="5" class="form-control form-control-sm"
+                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize"
                                   id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
                     </div>
                 </div>
@@ -501,19 +503,19 @@ if (!isset($_GET["s"])) {
                                 <?php echo $BL['be_cookie_consent_enable'] ?>
                             </label>
 
-                            <h5 id="cookie-consent"<?php if (!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
+                            <div id="cookie-consent"<?php if (!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
                                 <?php if (count($cmsgo['allowed_lang'])): ?>
-                                    <h6><?php echo $BL['be_cookie_consent_translatable']; ?></h6>
+                                    <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></em></small>
                                 <?php endif; ?>
-                                <div class="form-group form-row mt-3">
+                                <div class="form-group form-row my-2">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
                                     <div class="col"><textarea name="template_cc_message" rows="3"
-                                                               class="form-control form-control-sm"
+                                                               class="form-control form-control-sm autosize"
                                                                placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group form-row">
+                                <div class="form-group form-row mt-2 mb-0">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
                                     <div class="col"><input type="text" name="cookie_consent_dismiss"
@@ -522,7 +524,7 @@ if (!isset($_GET["s"])) {
                                                             value="<?php echo html($template['cookie_consent']['dismiss']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row">
+                                <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_more']; ?></label>
                                     <div class="col"><input type="text" name="be_cookie_consent_more"
@@ -531,7 +533,7 @@ if (!isset($_GET["s"])) {
                                                             value="<?php echo html($template['cookie_consent']['more']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row">
+                                <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_link']; ?></label>
                                     <div class="col"><input type="text" name="be_cookie_consent_link"
@@ -540,7 +542,7 @@ if (!isset($_GET["s"])) {
                                                             value="<?php echo html($template['cookie_consent']['link']) ?>"/>
                                     </div>
                                 </div>
-                                <div class="form-group form-row">
+                                <div class="form-group form-row mt-0">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
                                     <div class="col">
@@ -551,14 +553,15 @@ if (!isset($_GET["s"])) {
                                                value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-check">
-                        <input class="form-check-input" name="template_frontendjs" id="template_frontendjs"
-                               type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
-                        <label class="form-check-label"
-                               for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
+                        <div class="form-check">
+                            <input class="form-check-input" name="template_frontendjs" id="template_frontendjs"
+                                   type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
+                            <label class="form-check-label"
+                                   for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -593,7 +596,7 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
                     ?>
-                    <textarea name="template_block_header" rows="5" class="form-control form-control-sm"
+                    <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                 </div>
             </div>
@@ -607,7 +610,7 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
                     ?>
-                    <textarea name="template_block_main" rows="15" class="form-control form-control-sm"
+                    <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                 </div>
             </div>
@@ -621,7 +624,7 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
                     ?>
-                    <textarea name="template_block_footer" rows="5" class="form-control form-control-sm"
+                    <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                 </div>
             </div>
@@ -635,7 +638,7 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
                     ?>
-                    <textarea name="template_block_left" rows="5" class="form-control form-control-sm"
+                    <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                 </div>
             </div>
@@ -649,7 +652,7 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
                     ?>
-                    <textarea name="template_block_right" rows="5" class="form-control form-control-sm"
+                    <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
                 </div>
             </div>
@@ -670,7 +673,7 @@ if (!isset($_GET["s"])) {
                     echo '<div class="col">';
                     echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
                     echo '<textarea name="template_customblock_' . $custom_block;
-                    echo '" rows="5" class="form-control form-control-sm">';
+                    echo '" rows="3" class="form-control form-control-sm autosize">';
                     echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
                     echo "</textarea>\n";
                     echo '  </div>';
@@ -689,13 +692,12 @@ if (!isset($_GET["s"])) {
                     }
                     echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
                     ?>
-                    <textarea name="template_block_error" rows="5" class="form-control form-control-sm"
+                    <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize"
                               id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                 </div>
             </div>
         </div>
-        </div>
-        <div class="form-group align-items-center text-center text-sm-right mt-4 mb-0">
+        <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
             <input name="Submit" type="submit" class="btn btn-sm btn-blue"
                    value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>

@@ -1309,7 +1309,7 @@ function get_template_file_select($block='', $name='', $selected='', $path='') {
         if(is_dir($path)) {
             $files = get_tmpl_files($path, 'tmpl,html,tpl');
             if(count($files)) {
-                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm">';
+                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm mb-1">';
                 $select .= '<option value=""';
                 if($selected === '') {
                     $select .= ' selected="selected"';
