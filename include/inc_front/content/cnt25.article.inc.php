@@ -182,8 +182,8 @@ if(isset($fmp_data['fmp_template'])) {
 
         if(isset($fmp_data['preview'][0])) {
 
-            $fmp_data['preview']        = $fmp_data['preview'][0];
-            $fmp_data['fmp_preview']    = $fmp_data['preview']['f_hash'];
+            $fmp_data['preview']     = $fmp_data['preview'][0];
+            $fmp_data['fmp_preview'] = $fmp_data['preview']['f_hash'];
 
             if($fmp_data['preview']['f_ext']) {
 

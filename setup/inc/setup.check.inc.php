@@ -47,44 +47,17 @@ if(!empty($step)) {
         $cmsgo["db_prepend"] = slweg($_POST["db_prepend"]);
         $cmsgo["db_pers"]    = empty($_POST["db_pers"]) ? 0 : 1;
 
-        if(isset($_POST["charset"])) {
-
-            $_POST["charset"]           = clean_slweg($_POST["charset"]);
-
-            $cmsgo["charset"]         = explode('-', $available_languages[ $_POST["charset"] ][1], 2);
-            $cmsgo["charset"]         = $cmsgo["charset"][1];
-            $cmsgo['db_charset']      = $mysql_charset_map[$cmsgo["charset"]];
-            $cmsgo['default_lang']    = substr($_POST["charset"], 0, 2);
-            $cmsgo['db_collation']    = $cmsgo['db_charset'].'_bin';
-
-            if(isset($_POST['collation'])) {
-
-                $_POST['collation']         = clean_slweg($_POST['collation']);
-                $cmsgo['db_collation']    = $_POST['collation'];
-
-                // if collation is not part of the db charset set to "_bin" default
-                if(strpos($cmsgo['db_collation'], $cmsgo['db_charset'].'_') !== 0) {
-                    $cmsgo['db_collation']    = $cmsgo['db_charset'].'_bin';
-                }
-
-                // check if there is a difference!! and warn again
-                if($cmsgo['db_collation'] != $_POST['collation']) {
-                    $_collation_warning = true;
-                    $_SESSION['admin_save'] = 0;
-                } else {
-                    $_collation_warning = false;
-                    $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
-
-                }
-
-            } else {
-
-                $_collation_warning = false;
-                $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
-
-            }
-
+        $cmsgo["charset"]         = 'utf-8'; // Fixed
+        $cmsgo['db_charset']      = 'utf8';
+        if (!empty($_POST["charset"])) {
+            $cmsgo['default_lang'] = substr($_POST["charset"], 0, 2);
+            $_collation_warning = false;
+        } elseif (empty($cmsgo['default_lang'])) {
+            $cmsgo['default_lang'] = 'en';
         }
+        $cmsgo['db_collation']    = 'utf8_general_ci';
+        $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
+
         write_conf_file($cmsgo);
         $err = 0;
 
@@ -97,7 +70,7 @@ if(!empty($step)) {
             if(!empty($cmsgo["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
                 $db_host = 'p:'.$db_host;
             }
-            $db = @mysqli_connect($db_host, $cmsgo["db_user"], $cmsgo["db_pass"], $cmsgo["db_table"]);
+            $db = mysqli_connect($db_host, $cmsgo["db_user"], $cmsgo["db_pass"], $cmsgo["db_table"]);
 
             if($db) {;
 
@@ -115,7 +88,7 @@ if(!empty($step)) {
                     }
                     mysqli_free_result($result);
 
-                    if($result = @mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '').'cmsgo_user')) {
+                    if($result = mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '').'cmsgo_user')) {
 
                         $_db_prepend_error = true;
                         mysqli_free_result($result);
@@ -173,12 +146,12 @@ if(!empty($step)) {
 
                                 $db_create_err = array();
 
-                                @mysqli_query($db, 'SET storage_engine=MYISAM');
-                                @mysqli_query($db, "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'");
+                                mysqli_query($db, 'SET storage_engine=MYISAM');
+                                mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $cmsgo['db_charset'])."'";
                                 $value .= empty($cmsgo['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $cmsgo['db_collation'])."'";
-                                @mysqli_query($db, $value);
+                                mysqli_query($db, $value);
 
                                 $db_create_sql = explode(';', $sql_data);
                                 foreach($db_create_sql as $key => $value) {
@@ -247,6 +220,7 @@ if(!empty($step)) {
             if(mysqli_connect_error()) {
                 $err = 1;
             } else {
+                mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
                 mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $cmsgo["charset"])."'");
                 $cmsgo["db_prepend"] = ($cmsgo["db_prepend"]) ? $cmsgo["db_prepend"]."_" : "";
                 $sql =  "INSERT INTO ".$cmsgo["db_prepend"]."cmsgo_user (usr_login, usr_pass, usr_email, ".

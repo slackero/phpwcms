@@ -291,7 +291,6 @@ function is_float_ex($pNum) {
 function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
     global $template_default;
-    global $db;
     global $content;
     global $block;
     global $cmsgo;

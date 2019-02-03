@@ -81,7 +81,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
         // write index page config to flat file
         $sql  = "<?php\n";
-        $sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"]))."';\n";
+        $sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"], 2000))."';\n";
         $sql .= "\$indexpage['acat_title'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_title"], 2000))."';\n";
         $sql .= "\$indexpage['acat_info'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_info"], 32000))."';\n";
         $sql .= "\$indexpage['acat_alias'] = '". proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
@@ -487,12 +487,15 @@ function copy_article_to_level($do) {
             $row["article_username"] = $_SESSION["wcs_user_name"];
         }
 
+        $keys = '';
+        $values = '';
+
         foreach($row as $key => $value) {
             if($key === "article_id" ){
-                $keys   = $key;
+                $keys = $key;
                 $values = "''";
             } else {
-                $keys   .= ", ".$key;
+                $keys .= ", ".$key;
                 $values .= ", "._dbEscape($value);
             }
         }
@@ -516,12 +519,15 @@ function copy_article_to_level($do) {
                         $row["acontent_uid"] = $_SESSION["wcs_user_id"];
                     }
 
+                    $key1s = '';
+                    $value1s = '';
+
                     foreach($row as $key1 => $value1) {
                         if($key1 === "acontent_id" ){
-                            $key1s   = $key1;
+                            $key1s = $key1;
                             $value1s = "''";
                         } else {
-                            $key1s   .= ", ".$key1;
+                            $key1s .= ", ".$key1;
                             $value1s .= ", "._dbEscape($value1);
                         }
                     }
@@ -561,9 +567,12 @@ function copy_level_to_level($do) {
             $row["acat_uid"] = $_SESSION["wcs_user_id"];
         }
 
+        $keys = '';
+        $values = '';
+
         foreach($row as $key => $value) {
             if($key === 'acat_id' ) {
-                $keys   = $key;
+                $keys = $key;
                 $values = "''";
             } else {
                 $keys   .= ", ".$key;

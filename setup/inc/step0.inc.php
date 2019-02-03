@@ -14,28 +14,25 @@ $setup_recommend = true;
 ?>
 <h1><span class="number">1.</span> Thanks! You have agreed to the GPL.</h1>
 <p>Now that you know the <a href="http://www.gnu.org/licenses/licenses.html#GPL" target="_blank"><strong>licence</strong></a> under
-  which <strong>cmsgo</strong> is released you can continue to install or upgrade <strong>cmsgo</strong>.</p>
+  which <strong>cmsGo!</strong> is released you can continue to install or upgrade <strong>cmsGo!</strong>.</p>
 
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 5.3+, MySQL 5.1+).</p>
+<p>Please proof all information about your system (recommend PHP 7.1+, MySQL 5.5+).</p>
 <ol>
   <li>WWW server: <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong></li>
   <li>PHP version: <?php
 
 	echo '<strong>'.html_specialchars(phpversion()).'</strong>';
 
-	switch(version_compare('5.2.0', phpversion())) {
+	switch(version_compare('5.6', phpversion())) {
 
 		case -1:	// current used PHP is > OK
 					echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
-					if(version_compare('5.6', phpversion()) == 1) {
-						echo ' (it is recommend to update your PHP version)';
-					}
 					break;
 
 		case  0:	// the same version - HM not recommend
 					echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-					echo ' (your version of PHP is older - update recommend)';
+					echo ' (your version of PHP is OK but update to 7.x is recommend)';
 					$setup_recommend = false;
 					break;
 
@@ -59,10 +56,10 @@ $setup_recommend = true;
   ?></li>
   <li>MySQLi version: <?php
 
-  	$mysql_version = @mysqli_get_server_info();
+  	$mysql_version = mysqli_get_server_info();
   	$mysqlnd = false;
   	if(!$mysql_version) {
-		$mysql_version = @mysqli_get_client_info();
+		$mysql_version = mysqli_get_client_info();
 	}
 
 	if(strpos($mysql_version, 'mysqlnd') !== false) {
@@ -109,7 +106,7 @@ $setup_recommend = true;
 
 		  ?>
       </li>
-<?php if(version_compare(phpversion(), '5.4.0', '<')): ?>
+<?php if(version_compare(phpversion(), '5.6.0', '<')): ?>
       <li><strong>safe_mode </strong><?php
 
 		if(ini_get('safe_mode')) {
@@ -182,7 +179,7 @@ $setup_recommend = true;
   	</ul>
   </li>
 </ol>
-<p><strong>cmsgo</strong> has
+<p><strong>cmsGo!</strong> has
   automatic image resizing capabilities. This works very well for standard graphics
   file formats like JPEG, GIF and PNG as long as your PHP installation has built-in
   support for <a href="http://en.wikipedia.org/wiki/GD_Graphics_Library" target="_blank">GD</a> &#8212; <strong>GD2</strong> with

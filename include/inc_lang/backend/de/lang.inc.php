@@ -964,6 +964,9 @@ $BL['be_cnt_field'] = array(
     'recaptchainv'         => 'Unsichtbares reCAPTCHA',
 );
 
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = 'aktiviere Double Opt-In gem&auml;&szlig; der <a href="https://de.wikipedia.org/wiki/Datenschutz-Grundverordnung" target="_blank">Datenschutzgrundverordnung</a> (DSGVO)';
+
 $BL['be_cnt_access'] = 'Zugriff';
 $BL['be_cnt_activated'] = 'aktiviert';
 $BL['be_cnt_available'] = 'verf&uuml;gbar';
@@ -1030,7 +1033,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie ausserst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie äusserst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["cmsgo_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;cmsgo_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
 
 $BL['be_ctype_poll'] = 'Poll';
@@ -1424,6 +1427,7 @@ $BL['be_attr_alt'] = 'Alternativer Text';
 $BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';
 $BL['be_cookie_consent_enable'] = 'Cookie Consent Plugin aktivieren';
 $BL['be_cookie_consent_message'] = 'Zustimmungstext';
+$BL['be_cookie_consent_translatable'] = 'Diese Installation unterst&uuml;tzt mehrere Sprachen (&#36;cmsgo[&#39;allowed_lang&#39;]). Mittels <b>@@Text@@</b> Syntax k&ouml;nnen Cookie Consent Texte &uuml;bersetzt werden. Nach dem Rendern `template/template_lang` pr&uuml;fen.';
 $BL['cookie_consent_message'] = 'Diese Website benutzt Cookies, um eine umfassende Darstellung sowie die Funktionalit&auml;t der Webseite sicherzustellen';
 $BL['be_cookie_consent_dismiss'] = 'Best&auml;tigungs-Button';
 $BL['cookie_consent_dismiss'] = 'Verstanden!';
@@ -1437,7 +1441,8 @@ $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
 $BL['be_piwik_url'] = 'Piwik URL';
-$BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">&nbsp;.htaccess</abbr>';
+$BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
+$BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';
@@ -1490,3 +1495,4 @@ $BL['be_password_hide'] = 'Password verstecken';
 
 $BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
 $BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
+$BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';

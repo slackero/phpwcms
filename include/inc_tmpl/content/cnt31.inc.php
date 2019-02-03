@@ -691,7 +691,7 @@ function updatePreviewImage(image_number) {
     var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
     var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
     if(cimage_id_thumb) {
-        preview += getBackendImgSrc( cimage_id_thumb );
+            preview += getBackendImgSrc( cimage_id_thumb.value );
     }
     if(cimage_id_zoom) {
         preview += getBackendImgSrc( cimage_id_zoom );

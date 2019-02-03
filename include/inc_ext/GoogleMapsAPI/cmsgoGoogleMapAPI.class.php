@@ -20,10 +20,10 @@
 *
 *
 * @link http://www.phpinsider.com/php/code/GoogleMapAPI/
-* @link http://www.cmsgo.org/
+* @link https://www.pixels-points.ch/
 * @copyright 2005 New Digital Group, Inc.
 * @author Monte Ohrt <monte at ohrt dot com>
-* @author Oliver Georgi <slackero@gmail.com>
+* @author Oliver Georgi <info at pixels-points dot ch>
 * @package GoogleMapAPI
 * @version 2.5
 */
@@ -33,7 +33,7 @@
 /*
 
 ************
-Enhanced by Oliver Georgi, 2009-06-29 for use with cmsgo Content Management System
+Enhanced by Oliver Georgi, 2009-06-29 for use with cmsGo! Content Management System
 ************
 
 For best results with GoogleMaps, use XHTML compliant web pages with this header:

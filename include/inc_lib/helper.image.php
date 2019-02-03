@@ -16,7 +16,7 @@
  * @author      EllisLab Dev Team
  * @copyright   Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @author      Oliver Georgi <info@pixels-points.ch>
- * @copyright   Copyright (c) 2012, Oliver Georgi (http://cmsgo.org/)
+ * @copyright   Copyright (c) 2012, Oliver Georgi (https://www.pixels-points.ch)
  */
 class Cmsgo_Image_lib {
 

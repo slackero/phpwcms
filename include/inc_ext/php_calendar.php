@@ -7,7 +7,7 @@
 // see example at http://keithdevens.com/weblog
 // License: http://keithdevens.com/software/license
 
-// enhanced by Oliver Georgi for cmsGO!
+// enhanced by Oliver Georgi for cmsGo!
 
 
 function generate_calendar($param=array()){

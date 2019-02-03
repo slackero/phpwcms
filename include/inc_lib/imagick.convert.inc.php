@@ -230,13 +230,15 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     // Try to catch file name from database
     if(empty($val['img_filename']) && CMSGO_PRESERVE_IMAGENAME) {
 
-        require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+        if(!defined('CMSGO_DB_VERSION')) {
+            require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+        }
 
         $hash = cut_ext($val['image_name']);
 
         $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
-        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
+        $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM ' . DB_PREPEND . 'cmsgo_file WHERE ';
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
         $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
         if(substr($GLOBALS['cmsgo']['image_library'], 0, 2) === 'gd') {
@@ -309,7 +311,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         if(is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
             $thumb_image_info[0] = $create_preview["thumb_name"];
             $imgCache = true; // insert/update information in db image cache
-        };
+        }
 
     }
 
@@ -326,6 +328,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             $thumb_image_info[2] = $thumb_info[1]; // height
             $thumb_image_info[3] = $thumb_info[3]; // HTML width & height attribute
             $thumb_image_info['src'] = CMSGO_IMAGES . $thumb_image_info[0];
+            $thumb_image_info['type'] = $thumb_info['mime'];
 
         } else {
 

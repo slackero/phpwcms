@@ -10,7 +10,6 @@
 
 // cmsgo base values -> needed in any document
 
-
 // database values
 $cmsgo['db_host'] = 'localhost';
 $cmsgo['db_user'] = 'db_user';
@@ -141,7 +140,9 @@ $cmsgo['parse_html_mode'] = 'before'; // when to parse html: [null|before, after
 $cmsgo['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied
 $cmsgo['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
 $cmsgo['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
-$cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$cmsgo['unregister_getVar'] = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$cmsgo['preserve_getVar'] = array(); // cmsgo removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/cmsgo/blob/master/include/inc_lib/default.inc.php#L520
+$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsgo by default (anonymize IP...)
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

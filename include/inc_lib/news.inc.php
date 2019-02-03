@@ -1,6 +1,6 @@
 <?php
 /**
- * cmsGO!
+ * cmsGo!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
  * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH

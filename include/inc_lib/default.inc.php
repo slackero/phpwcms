@@ -191,6 +191,7 @@ define('RESPONSIVE_MODE', empty($cmsgo['responsive']) ? false : true);
 define('CMSGO_PRESERVE_IMAGENAME', empty($cmsgo['preserve_image_name']) ? false : true);
 define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
 define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
+define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : true);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -509,6 +510,32 @@ if(empty($cmsgo['allowed_upload_ext'])) {
     );
 }
 
+if(!isset($cmsgo['preserve_getVar'])) {
+    $cmsgo['preserve_getVar'] = array();
+}
+if(!isset($cmsgo['global_unregister_getVar'])) {
+    /**
+     * This var can be overwritten in conf.inc.php
+     */
+    $cmsgo['global_unregister_getVar'] = array(
+        'page',
+        'listpage',
+        'newsdetail',
+        'newspage',
+        'glossary',
+        'glossaryid',
+        'glossarytitle',
+        'shop_detail',
+        'shop_cat',
+        'shop_cart',
+        'gallery',
+        'subgallery'
+    );
+}
+if(is_array($cmsgo['preserve_getVar']) && count($cmsgo['preserve_getVar'])) {
+    $cmsgo['global_unregister_getVar'] = array_diff($cmsgo['global_unregister_getVar'], $cmsgo['preserve_getVar']);
+}
+
 /**
  * HTML Mode and document type
  */
@@ -579,7 +606,7 @@ define('CMSGO_HEADER_COMMENT', '
         Zögern Sie nicht und lassen Sie sich von einer kompetenten und designstarken
         Firma beraten. Wir würden uns über Ihren Anruf freuen: +41 43 500 33 55
 
-        http://www.pixels-points.ch
+        https://www.pixels-points.ch
 
         *****************************************************************************
   -->
@@ -735,27 +762,18 @@ function returnGlobalGET_QueryString($format='', $add=array(), $remove=array(), 
     }
 
     if(is_array($remove) && count($remove)) {
+        if(count($GLOBALS['cmsgo']['global_unregister_getVar'])) {
+            $remove = array_merge($remove, $GLOBALS['cmsgo']['global_unregister_getVar']);
+        }
+    } else {
+        $remove = $GLOBALS['cmsgo']['global_unregister_getVar'];
+    }
+
+    if(count($remove)) {
         foreach($remove as $value) {
             unset($_getVarTemp[$value]);
         }
     }
-
-    // always remove the following GET parameters,
-    // must be set explicity in $add
-    unset(
-        $_getVarTemp['page'],
-        $_getVarTemp['listpage'],
-        $_getVarTemp['newsdetail'],
-        $_getVarTemp['newspage'],
-        $_getVarTemp['glossary'],
-        $_getVarTemp['glossaryid'],
-        $_getVarTemp['glossarytitle'],
-        $_getVarTemp['shop_detail'],
-        $_getVarTemp['shop_cat'],
-        $_getVarTemp['shop_cart'],
-        $_getVarTemp['gallery'],
-        $_getVarTemp['subgallery']
-    );
 
     $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
@@ -935,6 +953,16 @@ function getRemoteIP() {
     }
     define('REMOTE_IP', $IP);
     return $IP;
+}
+
+// source: https://gist.github.com/svrnm/3a124d2af18a6726f66e
+// anonymize_ip('76.97.51.109') => 76.97.0.0
+// anonymize_ip('2601:c2:4004:57d0:257d:b9ba:4b1e:baac') => 2601:c2:4004:57d0::
+function getAnonymizedIp() {
+    if($ip = @inet_pton(getRemoteIP())) {
+        return inet_ntop(substr($ip, 0, strlen($ip)/2) . str_repeat(chr(0), strlen($ip)/2));
+    }
+    return '0.0.0.0';
 }
 
 // Get user agent informations, based on concepts of OpenAds 2.0 (c) 2000-2007 by the OpenAds developers
@@ -1338,9 +1366,9 @@ function cmsgo_encrypt($plaintext, $password=CMSGO_USER_KEY) {
  * Decrypt string
  */
 function cmsgo_decrypt($crypttext, $password=CMSGO_USER_KEY) {
-    $iv = substr($ivHashCiphertext, 0, 16);
-    $hash = substr($ivHashCiphertext, 16, 32);
-    $ciphertext = substr($ivHashCiphertext, 48);
+    $iv = substr($crypttext, 0, 16);
+    $hash = substr($crypttext, 16, 32);
+    $ciphertext = substr($crypttext, 48);
     $key = hash('sha256', $password, true);
 
     if (hash_hmac('sha256', $ciphertext, $key, true) !== $hash) {

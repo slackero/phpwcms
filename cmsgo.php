@@ -149,7 +149,7 @@ header('Content-Type: text/html; charset='.CMSGO_CHARSET);
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 <?php
 
-$BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
+$BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
 $BE['HEADER']['cmsgo.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo.js');
 $BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
 

@@ -121,15 +121,15 @@ We wish to convert a whole URI into the IDNA form, but leave the path or query s
 
 ```php
 <?php  
-// Include the class  
-require_once('idna_convert.class.php');  
-// Instantiate it  
-$IDN = new idna_convert();  
-// The input string, a whole URI in UTF-8 (!)  
-$input = 'http://nörgler:secret@nörgler.com/my_päth_is_not_ÄSCII/');  
-// Encode it to its punycode presentation  
-$output = $IDN->encode_uri($input);  
-// Output, what we got now  
+// Include the class
+require_once('idna_convert.class.php');
+// Instantiate it
+$IDN = new idna_convert();
+// The input string, a whole URI in UTF-8 (!)
+$input = 'http://nörgler:secret@nörgler.com/my_päth_is_not_ÄSCII/';
+// Encode it to its punycode presentation
+$output = $IDN->encode_uri($input);
+// Output, what we got now
 echo $output; // http://nörgler:secret@xn--nrgler-wxa.com/my_päth_is_not_ÄSCII/
 ```
 
@@ -141,22 +141,22 @@ To support IDNA 2008, the class needs to be invoked with an additional parameter
 ```php
 <?php  
 // Include the class  
-require_once('idna_convert.class.php');  
-// Instantiate it  
-$IDN = new idna_convert(array('idn_version' => 2008));  
-// Sth. containing the German letter ß  
-$input = 'meine-straße.de');  
-// Encode it to its punycode presentation  
-$output = $IDN->encode_uri($input);  
-// Output, what we got now  
-echo $output; // xn--meine-strae-46a.de  
-// Switch back to old IDNA 2003, the original standard  
-$IDN->set_parameter('idn_version', 2003);  
-// Sth. containing the German letter ß  
-$input = 'meine-straße.de');  
-// Encode it to its punycode presentation  
-$output = $IDN->encode_uri($input);  
-// Output, what we got now  
+require_once('idna_convert.class.php');
+// Instantiate it
+$IDN = new idna_convert(array('idn_version' => 2008));
+// Sth. containing the German letter ß
+$input = 'meine-straße.de');
+// Encode it to its punycode presentation
+$output = $IDN->encode_uri($input);
+// Output, what we got now
+echo $output; // xn--meine-strae-46a.de
+// Switch back to old IDNA 2003, the original standard
+$IDN->set_parameter('idn_version', 2003);
+// Sth. containing the German letter ß
+$input = 'meine-straße.de';
+// Encode it to its punycode presentation
+$output = $IDN->encode_uri($input);
+// Output, what we got now
 echo $output; // meine-strasse.de
 ```
 

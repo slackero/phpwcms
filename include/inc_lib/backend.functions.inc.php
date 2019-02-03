@@ -133,7 +133,7 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
  * @param mixed $file
  * @param string $filename (default: '')
  * @param mixed &$file_image_size
- * @return void
+ * @return string
  */
 function check_image_extension($file, $filename='', &$file_image_size) {
 
@@ -342,11 +342,8 @@ function cmsgoversionCheck() {
         $version_time       = strtotime(CMSGO_RELEASE_DATE.' 00:00:00');
 
         if($latest_revision <= $cmsgo['revision'] || $latest_time <= $version_time)   {
-
             $version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
-
         } else {
-
             $version_info  = '<p class="error">' . $BL['Version_not_up_to_date'] . '</p>';
         }
 
@@ -449,7 +446,6 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
     $table .= ' '.$option_object.'.saveNewLeftOptions("'.$id_left.'");'.LF;
     $table .= ' '.$option_object.'.saveNewRightOptions("'.$id_right.'");'.LF;
     $table .= ' '.$option_object.'.init('.$option['formname'].');'.LF;
-
     $table .= LF.SCRIPT_CDATA_END.LF;
     $table .= '</script>'.LF;
 
@@ -466,14 +462,16 @@ function countNewsletterRecipients($target) {
             $counter++;
             continue;
         } elseif($check) {
-            $value['address_subscription'] = unserialize($value['address_subscription']);
-            if(is_array($value['address_subscription'])) {
+            $value['address_subscription'] = @unserialize($value['address_subscription']);
+            if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
                 foreach($value['address_subscription'] as $subscr) {
                     if(in_array(intval($subscr), $target)) {
                         $counter++;
                         break;
                     }
                 }
+            } else {
+                $counter++;
             }
         }
     }
@@ -1219,7 +1217,7 @@ function correct_charset($text='', $js=false) {
  *
  * @access public
  * @param mixed $iptc_data
- * @return void
+ * @return array
  */
 function render_iptc_fileinfo($iptc_data) {
 
@@ -1262,7 +1260,6 @@ function render_iptc_fileinfo($iptc_data) {
 
             unset($iptc_keys[$iptc_key]);
         }
-
     }
 
     if(count($iptc_keys)) {
@@ -1279,11 +1276,8 @@ function render_iptc_fileinfo($iptc_data) {
 
                     $fileinfo[$field] = trim( render_custom_tag($fileinfo[$field], $iptc_key, $iptc_value) );
                 }
-
             }
-
         }
-
     }
 
     return $fileinfo;
@@ -1302,4 +1296,37 @@ function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_s
     }
     $text = str_replace('{'.$tag.'}', $value, $text);
     return $text;
+}
+
+function get_template_file_select($block='', $name='', $selected='', $path='') {
+    if($block) {
+        if($name === '') {
+            $name = 'template_' . $block . '_file';
+        }
+        if($path === '') {
+            $path = CMSGO_TEMPLATE . 'inc_cntpart/template-sections/' . $block;
+        }
+        if(is_dir($path)) {
+            $files = get_tmpl_files($path, 'tmpl,html,tpl');
+            if(count($files)) {
+                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm">';
+                $select .= '<option value=""';
+                if($selected === '') {
+                    $select .= ' selected="selected"';
+                }
+                $select .= '>' . $GLOBALS['BL']['be_admin_template_choose_file'] . '</option>';
+                foreach($files as $file) {
+                    $select .= '<option value="' . html($file) . '"';
+                    if($selected === $file) {
+                        $select .= ' selected="selected"';
+                    }
+                    $select .= '>inc_cntpart/template-sections/' . html($block.'/'.$file) . '</option>';
+                }
+                $select .= '</select><br />';
+                return $select;
+            }
+        }
+        return '<input type="hidden" name="' . $name . '" value="" />';
+    }
+    return '';
 }

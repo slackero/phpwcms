@@ -33,9 +33,9 @@
  * @copyright 2010-2012 Brad wedell
  * @author Brad Wedell
  *
- * @link http://www.cmsgo.org/
+ * @link https://www.pixels-points.ch/
  * @copyright 2009-2013 Oliver Georgi
- * @author Oliver Georgi <slackero@gmail.com>
+ * @author Oliver Georgi <info at pixels-points dot ch>
  * @package GoogleMapAPI (version 3) for cmsgo
  * @version 3.1beta
 */

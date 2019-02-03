@@ -10,19 +10,19 @@
 
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
-if(!defined('CMSGO_ROOT')) {
+if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 // build the database table prepend part
-define ('DB_PREPEND', empty($cmsgo["db_prepend"]) ? '' : $cmsgo["db_prepend"].'_');
+define ('DB_PREPEND', empty($GLOBALS['cmsgo']["db_prepend"]) ? '' : $GLOBALS['cmsgo']["db_prepend"].'_');
 
 // open the connection to MySQL database
-if(!empty($cmsgo["db_pers"]) && substr($cmsgo["db_host"], 0, 2) !== 'p:') {
-    $cmsgo["db_host"] = 'p:' . $cmsgo["db_host"];
+if(!empty($GLOBALS['cmsgo']["db_pers"]) && substr($GLOBALS['cmsgo']["db_host"], 0, 2) !== 'p:') {
+    $GLOBALS['cmsgo']["db_host"] = 'p:'.$GLOBALS['cmsgo']["db_host"];
 }
-$db = @mysqli_connect($cmsgo["db_host"], $cmsgo["db_user"], $cmsgo["db_pass"], $cmsgo["db_table"]);
+$GLOBALS['db'] = mysqli_connect($GLOBALS['cmsgo']["db_host"], $GLOBALS['cmsgo']["db_user"], $GLOBALS['cmsgo']["db_pass"], $GLOBALS['cmsgo']["db_table"]);
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
 
@@ -30,12 +30,12 @@ if($is_mysql_error === false) {
 
     // set DB to compatible mode
     // for compatibility issues try to check for MySQL version and charset
-    $cmsgo['db_version'] = _dbInitialize();
-    define('CMSGO_DB_VERSION', $cmsgo['db_version']);
+    $GLOBALS['cmsgo']['db_version'] = _dbInitialize();
+    define('CMSGO_DB_VERSION', $GLOBALS['cmsgo']['db_version']);
 
 } elseif($is_mysql_error !== 'dbdown.php') {
 
-    headerRedirect(CMSGO_URL . 'dbdown.php', 503, false); // keep session
+    headerRedirect(CMSGO_URL.'dbdown.php', 503, false); // keep session
 
 } else {
 
@@ -44,55 +44,54 @@ if($is_mysql_error === false) {
 }
 
 // deprecated function for escaping db items
-function aporeplace($value = '') {
+function aporeplace($value='') {
     return mysqli_real_escape_string($GLOBALS['db'], $value);
 }
 
-function _dbSelect($db_table = '') {
+function _dbSelect($db_table='') {
 
     if(empty($db_table)) {
         $db_table = $GLOBALS['cmsgo']["db_table"];
     }
 
-    if(isset($GLOBALS['cmsgo']["db_table_selected"]) && $GLOBALS['cmsgo']["db_table_selected"] == $db_table) {
+    if(isset($GLOBALS['cmsgo']["db_table_selected"]) && $GLOBALS['cmsgo']["db_table_selected"] === $db_table) {
         return true;
     }
 
     // Set current selected DB Table
     $GLOBALS['cmsgo']["db_table_selected"] = $db_table;
 
-    return @mysqli_select_db($GLOBALS['db'], $db_table);
+    return mysqli_select_db($GLOBALS['db'], $db_table);
 
 }
 
-function _dbQuery($query = '', $_queryMode = 'ASSOC') {
+function _dbQuery($query='', $_queryMode='ASSOC') {
 
     if(empty($query)) {
         return false;
     }
 
-    global $db;
     $queryResult = array();
-    $queryCount = 0;
+    $queryCount  = 0;
 
-    if($result = @mysqli_query($db, $query)) {
+    if($result = mysqli_query($GLOBALS['db'], $query)) {
 
         switch($_queryMode) {
 
             // INSERT, UPDATE, DELETE
             case 'INSERT':
-                $queryResult['INSERT_ID'] = mysqli_insert_id($db);
-            // do not break here, go on
+                $queryResult['INSERT_ID'] = mysqli_insert_id($GLOBALS['db']);
+                // do not break here, go on
             case 'DELETE':
             case 'UPDATE':
-                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
+                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($GLOBALS['db']);
                 return $queryResult;
                 break;
 
             // INSERT ... ON DUPLICATE KEY
             case 'ON_DUPLICATE':
-                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
-                $queryResult['INSERT_ID'] = mysqli_insert_id($db);
+                $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($GLOBALS['db']);
+                $queryResult['INSERT_ID'] = mysqli_insert_id($GLOBALS['db']);
                 if($queryResult['AFFECTED_ROWS'] == 2) {
                     $queryResult['INSERT_ID'] = 0;
                     $queryResult['AFFECTED_ROWS'] = 1;
@@ -115,7 +114,7 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
                 $query = substr(strtoupper($query), 0, 30);
                 if(strpos($query, 'SELECT COUNT(') !== false) {
                     $row = mysqli_fetch_row($result);
-                    return $row ? (int)$row[0] : 0;
+                    return $row ? (int) $row[0] : 0;
                 } else {
                     return mysqli_num_rows($result);
                 }
@@ -159,12 +158,12 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
 
 }
 
-function _dbCount($query = '') {
+function _dbCount($query='') {
     return _dbQuery($query, 'COUNT');
 }
 
 // function for simplified insert
-function _dbInsert($table = '', $data = array(), $special = '', $prefix = NULL) {
+function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -174,13 +173,13 @@ function _dbInsert($table = '', $data = array(), $special = '', $prefix = NULL) 
         return false;
     }
 
-    $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
     $fields = array();
     $values = array();
-    $x = 0;
+    $x      = 0;
 
     foreach($data as $key => $value) {
-        $fields[$x] = '`' . $key . '`';
+        $fields[$x] = '`'.$key.'`';
         $values[$x] = _dbEscape($value);
         $x++;
     }
@@ -193,20 +192,18 @@ function _dbInsert($table = '', $data = array(), $special = '', $prefix = NULL) 
         $special .= ' ';
     }
 
-    $query = 'INSERT ' . $special . 'INTO ' . $table . ' (';
+    $query  = 'INSERT '.$special.'INTO ' . $table . ' (';
     $query .= implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
 
     return _dbQuery($query, 'INSERT');
 
 }
 
-function _dbInsertOrUpdate($table = '', $data = array(), $where = '', $prefix = NULL) {
+function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
 
     // INSERT ... ON DUPLICATE KEY UPDATE is available for MySQL >= 4.1.0
     // $where is necessary OR if $where is empty first array $data element
     // have to be the primary OR a unique key otherwise this will fail
-
-    global $cmsgo;
 
     if(empty($table)) {
         return false;
@@ -216,22 +213,22 @@ function _dbInsertOrUpdate($table = '', $data = array(), $where = '', $prefix = 
         return false;
     }
 
-    $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
     $fields = array();
     $values = array();
-    $set = array();
-    $x = 0;
+    $set    = array();
+    $x      = 0;
 
     foreach($data as $key => $value) {
-        $fields[$x] = '`' . $key . '`';
+        $fields[$x] = '`'.$key.'`';
         $values[$x] = _dbEscape($value);
-        $set[$x] = $fields[$x] . '=' . $values[$x];
+        $set[$x]    = $fields[$x].'='.$values[$x];
         $x++;
     }
 
-    $insert = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
+    $insert  = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
 
-    if($cmsgo['db_version'] < 40100) {
+    if($GLOBALS['cmsgo']['db_version'] < 40100) {
         // the old way
 
         // 1st send INSERT
@@ -240,13 +237,13 @@ function _dbInsertOrUpdate($table = '', $data = array(), $where = '', $prefix = 
         if($result === false) {
 
             // INSERT was false, now try UPDATE
-            $update = 'UPDATE ' . $table . ' SET ';
+            $update  = 'UPDATE ' . $table . ' SET ';
             $update .= implode(',', $set) . ' WHERE ';
             if($where === '' || strpos($where, '=') === false) {
                 reset($data);
-                $key = key($data);
-                $value = current($data);
-                $update .= '`' . $key . '`=';
+                $key    = key($data);
+                $value  = current($data);
+                $update .= '`'.$key.'`=';
                 $update .= _dbEscape($value);
             } else {
                 $update .= trim($where);
@@ -270,18 +267,18 @@ function _dbInsertOrUpdate($table = '', $data = array(), $where = '', $prefix = 
 }
 
 // simplified db select
-function _dbGet($table = '', $select = '*', $where = '', $group_by = '', $order_by = '', $limit = '', $prefix = NULL, $_queryMode = 'ASSOC') {
+function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $limit='', $prefix=null, $_queryMode='ASSOC') {
 
     if(empty($table)) {
         return false;
     }
 
-    $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
-    $sets = array();
-    $select = trim($select);
-    $limit = trim($limit);
-    $group_by = trim($group_by);
-    $order_by = trim($order_by);
+    $table      = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
+    $sets       = array();
+    $select     = trim($select);
+    $limit      = trim($limit);
+    $group_by   = trim($group_by);
+    $order_by   = trim($order_by);
 
     if($select === '') {
         $select = '*';
@@ -305,32 +302,32 @@ function _dbGet($table = '', $select = '*', $where = '', $group_by = '', $order_
         }
     }
     if($group_by !== '') {
-        $group_by = ' GROUP BY ' . _dbEscape($group_by, false);
+        $group_by = ' GROUP BY '._dbEscape($group_by, false);
     } else {
         $group_by = '';
     }
 
     if($order_by !== '') {
-        $order_by = ' ORDER BY ' . _dbEscape($order_by, false);
+        $order_by = ' ORDER BY '._dbEscape($order_by, false);
     } else {
         $order_by = '';
     }
 
     if($where != '') {
         $where = trim($where);
-        if(substr(strtoupper($where), 0, 5) !== 'WHERE') {
-            $where = 'WHERE ' . $where;
+        if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+            $where = 'WHERE '.$where;
         }
-        $where = ' ' . $where;
+        $where = ' '.$where;
     }
 
-    $query = trim('SELECT ' . $select . ' FROM ' . $table . $where . $group_by . $order_by . $limit);
+    $query = trim( 'SELECT ' . $select . ' FROM ' . $table . $where . $group_by . $order_by . $limit);
 
     return _dbQuery($query, $_queryMode);
 }
 
 // function for simplified update
-function _dbUpdate($table = '', $data = array(), $where = '', $special = '', $prefix = NULL) {
+function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -340,11 +337,11 @@ function _dbUpdate($table = '', $data = array(), $where = '', $special = '', $pr
         return false;
     }
 
-    $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
-    $sets = array();
+    $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
+    $sets   = array();
 
     foreach($data as $key => $value) {
-        $sets[] = '`' . $key . '`=' . _dbEscape($value);
+        $sets[] = '`'.$key.'`=' . _dbEscape($value);
     }
 
     if($special) {
@@ -355,37 +352,38 @@ function _dbUpdate($table = '', $data = array(), $where = '', $special = '', $pr
 
     if($where != '') {
         $where = trim($where);
-        if(substr(strtoupper($where), 0, 5) !== 'WHERE') {
-            $where = 'WHERE ' . $where;
+        if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+            $where = 'WHERE '.$where;
         }
     }
 
-    $query = trim('UPDATE ' . $special . $table . ' SET ' . implode(',', $sets) . ' ' . $where);
+    $query = trim( 'UPDATE ' . $special . $table . ' SET ' . implode(',', $sets) . ' ' . $where );
 
     return _dbQuery($query, 'UPDATE');
 
 }
 
 function _dbGetCreateCharsetCollation() {
-    global $cmsgo;
+
     $value = '';
-    if($cmsgo['db_version'] > 40100 && $cmsgo['db_charset']) {
+    if($GLOBALS['cmsgo']['db_version'] > 40100 && $GLOBALS['cmsgo']['db_charset']) {
         $value .= ' DEFAULT';
-        $value .= ' CHARACTER SET ' . $cmsgo['db_charset'];
-        if(!empty($cmsgo['db_collation'])) {
-            $value .= ' COLLATE ' . $cmsgo['db_collation'];
+        $value .= ' CHARACTER SET '.$GLOBALS['cmsgo']['db_charset'];
+        if(!empty($GLOBALS['cmsgo']['db_collation'])) {
+            $value .= ' COLLATE '.$GLOBALS['cmsgo']['db_collation'];
         }
     }
+
     return $value;
 }
 
-function _dbError($error_type = 'DB', $query = '') {
+function _dbError($error_type='DB', $query='') {
 
     $error = mysqli_error($GLOBALS['db']);
 
     if($query) {
-        $query = str_replace(',', ",\n", $query);
-        $error .= '<pre>' . $query . '</pre>';
+        $query  = str_replace(',', ",\n", $query);
+        $error .= '<pre>' . $query .'</pre>';
     }
 
     return $error;
@@ -400,72 +398,70 @@ function _dbErrorNum() {
 
 function _dbInitialize() {
 
-    global $cmsgo;
-
     // check if mysql version is set
-    if(empty($cmsgo['db_version'])) {
+    if(empty($GLOBALS['cmsgo']['db_version'])) {
         $version = _dbQuery('SELECT VERSION()', 'ROW');
         if(isset($version[0][0])) {
             $version = explode('.', $version[0][0]);
             $version[0] = intval($version[0]);
             $version[1] = empty($version[1]) ? 0 : intval($version[1]);
             $version[2] = empty($version[2]) ? 0 : intval($version[2]);
-            $cmsgo["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
+            $GLOBALS['cmsgo']["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
         } else {
             return 0;
         }
     }
-    if($cmsgo['db_version'] > 40000) {
+    if($GLOBALS['cmsgo']['db_version'] > 40000) {
 
         $mysql_set = array();
 
-        if(isset($cmsgo['db_sql_mode']) && is_string($cmsgo['db_sql_mode'])) {
-            $mysql_set['mode'] = 'SESSION sql_mode = ' . _dbEscape($cmsgo['db_sql_mode']);
+        if(isset($GLOBALS['cmsgo']['db_sql_mode']) && is_string($GLOBALS['cmsgo']['db_sql_mode'])) {
+            $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['cmsgo']['db_sql_mode']);
         }
 
-        if(empty($cmsgo['db_charset'])) {
+        if(empty($GLOBALS['cmsgo']['db_charset'])) {
             $mysql_charset_map = array(
-                'big5' => 'big5', 'cp-866' => 'cp866', 'euc-jp' => 'ujis',
-                'euc-kr' => 'euckr', 'gb2312' => 'gb2312', 'gbk' => 'gbk',
-                'iso-8859-1' => 'latin1', 'iso-8859-2' => 'latin2', 'iso-8859-7' => 'greek',
-                'iso-8859-8' => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9' => 'latin5',
-                'iso-8859-13' => 'latin7', 'iso-8859-15' => 'latin1', 'koi8-r' => 'koi8r',
-                'shift_jis' => 'sjis', 'tis-620' => 'tis620', 'utf-8' => 'utf8',
+                'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
+                'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
+                'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
+                'iso-8859-8'   => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9'   => 'latin5',
+                'iso-8859-13'  => 'latin7', 'iso-8859-15'  => 'latin1', 'koi8-r'       => 'koi8r',
+                'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
                 'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
                 'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
             );
-            $cmsgo['db_charset'] = isset($mysql_charset_map[CMSGO_CHARSET]) ? $mysql_charset_map[CMSGO_CHARSET] : '';
+            $GLOBALS['cmsgo']['db_charset'] = isset($mysql_charset_map[CMSGO_CHARSET]) ? $mysql_charset_map[CMSGO_CHARSET] : '';
         }
 
-        if(IS_PHP523 && $cmsgo['db_version'] > 50000 && $cmsgo['db_charset']) {
+        if(IS_PHP523 && $GLOBALS['cmsgo']['db_version'] > 50000 && $GLOBALS['cmsgo']['db_charset']) {
 
-            @mysqli_set_charset($GLOBALS['db'], $cmsgo['db_charset']);
+            mysqli_set_charset($GLOBALS['db'], $GLOBALS['cmsgo']['db_charset']);
 
-        } elseif($cmsgo['db_charset']) {
+        } elseif($GLOBALS['cmsgo']['db_charset']) {
 
             // Send charset used in cmsgo for every query
-            $mysql_set['NAMES'] = 'NAMES ' . _dbEscape($cmsgo['db_charset']);
-            if($cmsgo['db_version'] > 40100 && !empty($cmsgo['db_collation'])) {
-                $mysql_set['NAMES'] .= ' COLLATE ' . _dbEscape($cmsgo['db_collation']);
+            $mysql_set['NAMES'] = 'NAMES '._dbEscape($GLOBALS['cmsgo']['db_charset']);
+            if($GLOBALS['cmsgo']['db_version'] > 40100 && !empty($GLOBALS['cmsgo']['db_collation'])) {
+                $mysql_set['NAMES'] .= ' COLLATE '._dbEscape($GLOBALS['cmsgo']['db_collation']);
             }
 
         }
 
-        if(!empty($cmsgo['db_timezone'])) {
-            $mysql_set['time_zone'] = 'time_zone = ' . _dbEscape($cmsgo['db_timezone']);
+        if(!empty($GLOBALS['cmsgo']['db_timezone'])) {
+            $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['cmsgo']['db_timezone']);
         }
 
         if(count($mysql_set)) {
-            _dbQuery('SET ' . implode(', ', $mysql_set), 'SET');
+            _dbQuery('SET '.implode(', ', $mysql_set), 'SET');
         }
 
     }
 
-    return $cmsgo['db_version'];
+    return $GLOBALS['cmsgo']['db_version'];
 }
 
 // duplicate a DB record based on 1 unique column
-function _dbDuplicateRow($table = '', $unique_field = '', $id_value = 0, $exception = array(), $prefix = NULL) {
+function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=array(), $prefix=null) {
 
     // use exceptions to define duplicate values: 'field_name' => 'value' (INT/STRING)
     // to avoid problems with UNIQUE/auto increment columns set 'field_name' => '--UNIQUE--'
@@ -485,7 +481,7 @@ function _dbDuplicateRow($table = '', $unique_field = '', $id_value = 0, $except
     $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
 
     $where_value = is_string($id_value) ? _dbEscape($id_value) : $id_value;
-    $row = _dbQuery('SELECT * FROM ' . $table . ' WHERE ' . $unique_field . '=' . $where_value . ' LIMIT 1');
+    $row = _dbQuery('SELECT * FROM '.$table.' WHERE '.$unique_field.'='.$where_value.' LIMIT 1');
 
     // check against result
     if(isset($row[0]) && is_array($row[0]) && count($row[0])) {
@@ -510,8 +506,8 @@ function _dbDuplicateRow($table = '', $unique_field = '', $id_value = 0, $except
     }
 
     $_VALUE = array();
-    $_SET = array();
-    $c = 0;
+    $_SET   = array();
+    $c      = 0;
 
     // build INSERT query
     foreach($row as $key => $value) {
@@ -555,35 +551,35 @@ function _dbDuplicateRow($table = '', $unique_field = '', $id_value = 0, $except
  *
  * 2008/03/13 Thiemo Mättig, fixed for MySQL 4.0, use _dbInsertOrUpdate()
  */
-function _setConfig($key, $value = NULL, $group = '', $status = 1) {
+function _setConfig($key, $value=null, $group='', $status=1) {
 
-    $time = now();
-    $group = trim($group);
-    $status = intval($status);
+    $time       = now();
+    $group      = trim($group);
+    $status     = intval($status);
 
-    if(!is_array($key)) {
+    if (! is_array($key)) {
         $key = array($key => $value);
     }
 
     foreach($key as $k => $value) {
 
-        if(is_string($value)) {
+        if( is_string($value) ) {
             $vartype = 'string';
-        } elseif(is_int($value)) {
+        } elseif( is_int($value) ) {
             $vartype = 'int';
-        } elseif(is_float($value)) {
+        } elseif( is_float($value) ) {
             $vartype = 'float';
-        } elseif(is_bool($value)) {
+        } elseif( is_bool($value) ) {
             $vartype = 'bool';
-        } elseif(is_array($value)) {
+        } elseif( is_array($value) ) {
             $vartype = 'array';
-            $value = serialize($value);
-        } elseif(is_object($value)) {
+            $value   = serialize($value);
+        } elseif( is_object($value) ) {
             $vartype = 'object';
-            $value = serialize($value);
+            $value   = serialize($value);
         } else {
             $vartype = '';
-            $value = '';
+            $value   = '';
         }
 
         $data = array(
@@ -595,9 +591,9 @@ function _setConfig($key, $value = NULL, $group = '', $status = 1) {
             'sysvalue_value' => $value
         );
 
-        if(!_dbInsertOrUpdate('cmsgo_sysvalue', $data)) {
+        if ( ! _dbInsertOrUpdate('cmsgo_sysvalue', $data) ) {
             $mysql_error = _dbError();
-            trigger_error("_setConfig failed" . (empty($mysql_error) ? '' : ' with MySQL error: ' . $mysql_error), E_USER_WARNING);
+            trigger_error("_setConfig failed".(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_WARNING);
         }
 
     }
@@ -605,7 +601,7 @@ function _setConfig($key, $value = NULL, $group = '', $status = 1) {
     return true;
 }
 
-function _dbEscape($value = '', $quoted = true, $prefix = '', $suffix = '') {
+function _dbEscape($value='', $quoted=true, $prefix='', $suffix='') {
     if(!is_string($value) && !is_numeric($value)) {
         if(is_array($value) || is_object($value)) {
             $value = serialize($value);
@@ -632,7 +628,7 @@ function _dbEscape($value = '', $quoted = true, $prefix = '', $suffix = '') {
  * If $set_global is set config value will be registered in $GLOBALS[$set_global],
  * set $set_global = false and var will not be registered in $GLOBALS
  */
-function _getConfig($key, $set_global = 'cmsgo') {
+function _getConfig($key, $set_global='cmsgo') {
     $return = 'array';
     $string = '';
     if(is_string($key)) {
@@ -647,33 +643,20 @@ function _getConfig($key, $set_global = 'cmsgo') {
         $result = array();
         foreach($key as $value) {
             if($set_global && isset($GLOBALS[$set_global][$value])) {
-                $result[$value] = $GLOBALS[$set_global][$value];
+                $result[ $value ] = $GLOBALS[$set_global][$value];
                 continue;
             }
-            $sql = 'SELECT * FROM ' . DB_PREPEND . "cmsgo_sysvalue WHERE sysvalue_status=1 AND sysvalue_key='" . mysqli_real_escape_string($GLOBALS['db'], $value) . "'";
+            $sql = 'SELECT * FROM '.DB_PREPEND."cmsgo_sysvalue WHERE sysvalue_status=1 AND sysvalue_key='".mysqli_real_escape_string($GLOBALS['db'], $value)."'";
             $row = _dbQuery($sql);
             if(isset($row[0]['sysvalue_vartype'])) {
                 switch($row[0]['sysvalue_vartype']) {
-                    case 'string':
-                        $result[$value] = (string)$row[0]['sysvalue_value'];
-                        break;
-                    case 'int':
-                        $result[$value] = (int)$row[0]['sysvalue_value'];
-                        break;
-                    case 'float':
-                        $result[$value] = (float)$row[0]['sysvalue_value'];
-                        break;
-                    case 'bool':
-                        $result[$value] = (bool)$row[0]['sysvalue_value'];
-                        break;
-                    case 'array':
-                        $result[$value] = (array)@unserialize($row[0]['sysvalue_value']);
-                        break;
-                    case 'object':
-                        $result[$value] = (object)@unserialize($row[0]['sysvalue_value']);
-                        break;
-                    default:
-                        $result[$value] = $row[0]['sysvalue_value'];
+                    case 'string':  $result[ $value ] = (string) $row[0]['sysvalue_value'];                 break;
+                    case 'int':     $result[ $value ] = (int) $row[0]['sysvalue_value'];                    break;
+                    case 'float':   $result[ $value ] = (float) $row[0]['sysvalue_value'];                  break;
+                    case 'bool':    $result[ $value ] = (bool) $row[0]['sysvalue_value'];                   break;
+                    case 'array':   $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value']);    break;
+                    case 'object':  $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value']);   break;
+                    default:        $result[ $value ] = $row[0]['sysvalue_value'];
                 }
             }
         }
@@ -700,36 +683,36 @@ function _getConfig($key, $set_global = 'cmsgo') {
  * MySQL connection can get lost. This fixes this and set it
  * to a global default value of 16M
  */
-function _dbSetVar($var = '', $value = NULL, $compare = false) {
+function _dbSetVar($var='', $value=null, $compare=false) {
 
     $var = trim($var);
 
     // stop if this was set yet. can be defined as
     // additional  config value in conf.inc.php
 
-    if(!is_string($var) || !$var || $value === NULL) {
+    if(!is_string($var) || !$var || $value === null) {
 
         return false;
 
-    } elseif(isset($GLOBALS['cmsgo']['mysql_' . $var]) && $GLOBALS['cmsgo']['mysql_' . $var] == $value) {
+    } elseif(isset($GLOBALS['cmsgo']['mysql_'.$var]) && $GLOBALS['cmsgo']['mysql_'.$var] == $value) {
 
         return true;
 
     }
 
     // check if it is a valid MySQL var
-    $_var = _dbEscape($var, false);
-    $result = _dbQuery('SELECT @@' . $_var . ' AS mysqlvar');
-    $default = NULL;
+    $_var       = _dbEscape($var, false);
+    $result     = _dbQuery('SELECT @@'.$_var.' AS mysqlvar');
+    $default    = null;
 
     if(isset($result[0]['mysqlvar'])) {
 
         // check if the given MySQL var exists
         $default = $result[0]['mysqlvar'];
 
-        if($default !== NULL) {
+        if($default !== null) {
 
-            $GLOBALS['cmsgo']['mysql_' . $var] = $default;
+            $GLOBALS['cmsgo']['mysql_'.$var] = $default;
 
             switch($compare) {
 
@@ -753,14 +736,14 @@ function _dbSetVar($var = '', $value = NULL, $compare = false) {
             // change MySQL var setting
             if($set) {
 
-                $value = _dbEscape($value, is_numeric($default) ? false : true);
+                $value  = _dbEscape($value, is_numeric($default) ? false : true);
 
                 // try SET SESSION first
-                if(!_dbQuery('SET @@' . $_var . '=' . $value, 'SET')) {
+                if(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
 
-                    if(!_dbQuery('SET @@session.' . $_var . '=' . $value, 'SET')) {
+                    if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
 
-                        if(!_dbQuery('SET @@global.' . $_var . '=' . $value, 'SET')) {
+                        if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
 
                             return false;
 
@@ -770,7 +753,7 @@ function _dbSetVar($var = '', $value = NULL, $compare = false) {
 
                 }
 
-                $GLOBALS['cmsgo']['mysql_' . $var] = $value;
+                $GLOBALS['cmsgo']['mysql_'.$var] = $value;
                 return true;
 
             }

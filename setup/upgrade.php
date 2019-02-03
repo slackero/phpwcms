@@ -53,7 +53,7 @@ td.chatlist {
     <td colspan="3"><img src="../img/leer.gif" alt="[beliebiger Wert]" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.pixels-points.ch" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
+    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="https://www.pixels-points.ch" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
@@ -224,7 +224,7 @@ if($do) {
 				$value = utf8_encode($value);
 			}
 
-			if(!@mysqli_query($GLOBALS['db'], $value)) {
+			if(!mysqli_query($GLOBALS['db'], $value)) {
     			echo '<span class="error">ERROR: '.html_entities(_dbError())." -&gt; </span>";
             }
 			echo html_specialchars($value).";\n";
@@ -332,9 +332,9 @@ if(is_dir($dir)) {
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
     <td colspan="2" valign="bottom" class="navtext">
-		<a href="http://www.pixels-points.ch" target="_blank">cmsgo</a>
+		<a href="https://www.pixels-points.ch" target="_blank">cmsGo!</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
-		<a title="oliver at cmsgo dot de" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
+		<a title="info at pixels-points dot ch" onclick="location.href='mailto:info'+'@'+'pixels-points'+'.'+'ch';return false;" href="#">Pixels &amp; Points</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.</td>
   </tr>

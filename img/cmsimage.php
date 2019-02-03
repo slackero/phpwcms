@@ -9,8 +9,8 @@
  **/
 
 
-$cmsgo = array();
-$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/');
+$cmsgo    = array();
+$root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
 require_once $root.'/include/config/conf.inc.php';
 require_once $root.'/include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
@@ -49,6 +49,10 @@ if(isset($data[1])) {
         $ext        = which_ext($data[1]);
         $value      = array();
         $svg        = 0;
+
+        if($ext === '' && isset($data[2])) {
+            $ext = which_ext($data[2]);
+        }
 
         if(substr($data[0], 0, 7) === 'convert') {
             // get image convert function but limit to max of 5 chars
@@ -153,7 +157,7 @@ if(isset($data[1])) {
             @session_start();
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
-            require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
+            require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
@@ -177,7 +181,6 @@ if(isset($data[1])) {
                 $_h   = '';
                 $name = '';
             }
-
         }
 
         if(strlen($hash) === 32 && $ext) {

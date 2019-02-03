@@ -59,9 +59,10 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
                 if(empty($_SESSION["wcs_user_admin"])) {
                     $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
                 }
-        if($result = _dbQuery($sql, 'UPDATE')) {
+        _dbQuery($sql, 'UPDATE');
+        //if($result = _dbQuery($sql, 'UPDATE')) {
             //headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
-        }
+        //}
     }
 
 } else {

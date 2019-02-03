@@ -25,10 +25,12 @@ $content["file_template"]			= clean_slweg($_POST['cfile_template']);
 $content['file']['direct_download']	= empty($_POST['cfile_direct']) ? 0 : 1;
 $content["html"]					= slweg($_POST["chtml"]);
 
+/*
 preg_match_all('/<\/p/is', $content["html"], $matches);
 if(isset($matches[0]) && is_array($matches[0]) && count($matches[0]) == 1) {
 	//$content["html"] = strip_selected_tags($content["html"], array('p'));
 }
+*/
 
 //
 // first get all file IDs

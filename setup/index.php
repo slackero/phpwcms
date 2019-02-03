@@ -28,7 +28,7 @@ require_once('inc/setup.func.inc.php');
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.pixels-points.ch" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
+    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="https://www.pixels-points.ch" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
@@ -50,17 +50,17 @@ require_once('inc/setup.func.inc.php');
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top" bgcolor="#FFFFFF"><h1>Welcome to the setup of cmsgo </h1>
 	<p>This is the semi automatic setup script to install a new release of
-      the web cms <strong>cmsgo</strong>.</p>
-	<p><strong>cmsgo</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
+      the web cms <strong>cmsGo!</strong>.</p>
+	<p><strong>cmsGo!</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
 	  General Public License</strong></a> (GPL). Before you continue setting
 	  up cmsgo  read the license very careful.</p>
-	<div id="license"> 
+	<div id="license">
       <p align="center"><strong style="font-size:17px;">The GNU General Public License (GPL)</strong><br />Version 2, June 1991</p>
       <p align="center">Copyright (C) 1989, 1991 Free Software Foundation, Inc.<br />
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p>
       <p align="center">Everyone is permitted to copy and distribute verbatim copies<br />
   of this license document, but changing it is not allowed.</p>
-	 
+
       <p align="center"><strong>Preamble</strong></p>
       <p>The licenses for most software are designed to take away your freedom
         to share and change it. By contrast, the GNU General Public License is
@@ -303,7 +303,7 @@ require_once('inc/setup.func.inc.php');
   </tr>
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
-    <td colspan="2" valign="bottom" class="navtext"><a href="http://www.pixels-points.ch" target="_blank">cmsgo</a> &copy; 2003&#8212;<?php echo date('Y') ?> <a title="oliver at cmsgo dot de" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Oliver Georgi</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
+    <td colspan="2" valign="bottom" class="navtext"><a href="https://www.pixels-points.ch" target="_blank">cmsGo!</a> &copy; 2003&#8212;<?php echo date('Y') ?> <a title="info at pixels-points dot ch" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Pixels &amp; Points</a>. Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.</td>
   </tr>
   <tr>

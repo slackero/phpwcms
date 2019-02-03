@@ -42,7 +42,9 @@ if(!checkFormTrackingValue()) {
 	echo '<html><head><title>cmsgo Formmailer</title></head>';
 	echo '<body><pre>';
 	echo 'You are not allowed to send form!'.LF;
-	echo 'Your IP: '.getRemoteIP().LF;
+	if(!CMSGO_GDPR_MODE) {
+        echo 'Your IP: ' . getRemoteIP() . LF;
+    }
 	echo 'HTTP-REFERER: '.(empty($ref) ? 'unknown' : $ref);
 	echo '</pre></body></html>';
 	exit();
@@ -257,7 +259,7 @@ if(isset($form_error)) {
 	$body = $translate[$lang]["bodyLine1"]."\n";
 	$body.= $translate[$lang]["bodyLine2"]."\n";
 	$body.= $_SERVER['HTTP_REFERER']." \n";
-	$body.= "IP: ".getRemoteIP()." \n\n";
+	$body .= CMSGO_GDPR_MODE ?  : "IP: " . getRemoteIP() . " \n\n";
 	$body.= "====================================================================\n\n";
 	$body.= $translate[$lang]["bodyRecipient"];
 	if($recipient_name) {
