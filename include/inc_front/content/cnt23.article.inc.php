@@ -1555,18 +1555,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 break;
 
                             default:
-                                if( ($form_value_nl[0] = intval($form_value_nl[0])) ) {
+                                if($form_value_nl[0] = intval($form_value_nl[0])) {
                                     $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
                                     if(isset($query[0])) {
-                                        if($form_value_nl[1] == '') {
+                                        if($form_value_nl[1] === '') {
                                             $form_value_nl[1] = $query[0]['subscription_name'];
                                         }
-                                        $form_value[ $form_value_nl[0] ] = $form_value_nl[1];
-                                    } else {
-                                        continue;
+                                        $form_value[$form_value_nl[0]] = $form_value_nl[1];
                                     }
-                                } else {
-                                    continue;
                                 }
                         }
                     }
