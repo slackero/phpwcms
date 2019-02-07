@@ -1498,68 +1498,61 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_value_nl[1]   = empty($form_value_nl[1]) ? '' : trim($form_value_nl[1]);
 
                     if(empty($form_value_nl[0]) || empty($form_value_nl[1])) {
-
                         continue;
+                    }
 
-                    } else {
+                    switch($form_value_nl[0]) {
 
-                        switch($form_value_nl[0]) {
+                        case 'all':
+                            $form_value[0] = $form_value_nl[1];
+                            break;
 
-                            case 'all':
-                                $form_value[0] = $form_value_nl[1];
-                                break;
+                        case 'email_field':
+                            $form_newletter_setting['email_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'email_field':
-                                $form_newletter_setting['email_field'] = $form_value_nl[1];
-                                break;
+                        case 'name_field':
+                            $form_newletter_setting['name_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'name_field':
-                                $form_newletter_setting['name_field'] = $form_value_nl[1];
-                                break;
+                        case 'sender_email':
+                            $form_newletter_setting['sender_email'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_email':
-                                $form_newletter_setting['sender_email'] = $form_value_nl[1];
-                                break;
+                        case 'sender_name':
+                            $form_newletter_setting['sender_name'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_name':
-                                $form_newletter_setting['sender_name'] = $form_value_nl[1];
-                                break;
+                        case 'url_subscribe':
+                            $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_subscribe':
-                                $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
-                                break;
+                        case 'url_unsubscribe':
+                            $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_unsubscribe':
-                                $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
-                                break;
+                        case 'subject':
+                            $form_newletter_setting['subject'] = $form_value_nl[1];
+                            break;
 
-                            case 'subject':
-                                $form_newletter_setting['subject'] = $form_value_nl[1];
-                                break;
+                        case 'double_optin':
+                            $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
+                            break;
 
-                            case 'double_optin':
-                                $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
-                                break;
+                        case 'optin_template':
+                            $form_newletter_setting['optin_template'] = $form_value_nl[1];
+                            break;
 
-                            case 'optin_template':
-                                $form_newletter_setting['optin_template'] = $form_value_nl[1];
-                                break;
-
-                            default:
-                                if( ($form_value_nl[0] = intval($form_value_nl[0])) ) {
-                                    $query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
-                                    if(isset($query[0])) {
-                                        if($form_value_nl[1] == '') {
-                                            $form_value_nl[1] = $query[0]['subscription_name'];
-                                        }
-                                        $form_value[ $form_value_nl[0] ] = $form_value_nl[1];
-                                    } else {
-                                        continue;
+                        default:
+                            if($form_value_nl[0] = intval($form_value_nl[0])) {
+                                $query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+                                if(isset($query[0])) {
+                                    if($form_value_nl[1] === '') {
+                                        $form_value_nl[1] = $query[0]['subscription_name'];
                                     }
-                                } else {
-                                    continue;
+                                    $form_value[$form_value_nl[0]] = $form_value_nl[1];
                                 }
-                        }
+                            }
                     }
                 }
 
@@ -2198,7 +2191,9 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                         foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
 
                             // empty - continue
-                            if(empty($form_value_nl)) continue;
+                            if(empty($form_value_nl)) {
+                                continue;
+                            }
 
                             // now check if field name exists and build corresponding name value
                             if(empty($POST_val[ trim($form_value_nl) ])) {
