@@ -1,20 +1,22 @@
 phpwcms
 =======
 
-phpwcms is a very flexible, fast, robust, customer and developer friendly but yet powerful web
-based content management system and cms framework running under PHP and MySQL.
-phpwcms is created and maintained by [Oliver Georgi](http://twitter.com/slackero).
+**phpwcms** is a very flexible, fast, robust, customer and developer friendly
+but yet powerful web based content management system and cms framework running
+under PHP and MySQL/MariaDB. phpwcms is created and maintained by 
+[Oliver Georgi](http://twitter.com/slackero).
 
-To get started, checkout <http://phpwcms.org> or the community
-driven [HowTo Wiki](http://www.phpwcms-howto.de/wiki/).
+To get started, checkout <https://phpwcms.org> or the community driven 
+[HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet 
+answered on the [phpwcms support forum](https://forum.phpwcms.org).
 
 
 Quick start
 -----------
 
-Clone the repo, `git clone -b v1.9-dev git://github.com/slackero/phpwcms.git`,
+Clone the repo, `git clone -b v1.9-php7-dev git://github.com/slackero/phpwcms.git`,
 [download the latest release](https://github.com/slackero/phpwcms/releases) or
-[download the latest revision](https://github.com/slackero/phpwcms/archive/v1.9-dev.zip).
+[download the latest development version](https://github.com/slackero/phpwcms/archive/v1.9-php7-dev.zip).
 Then unarchive and copy the files to your web document root or subfolder.
 Link your browser to the related URL and follow the install instructions.
 
@@ -22,17 +24,15 @@ Link your browser to the related URL and follow the install instructions.
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9 requires a web server with PHP (minimum version 5.3 up to 7.x)
+**phpwcms** version 1.9.6 requires a web server with PHP (minimum version 5.3 up to 7.x)
 and a MySQL database (minimum version 5.1, recommend 5.5+).
-**This branch is compatible to PHP 7.**
 
 
 Bug tracker
 -----------
 
-Have a bug? Please create an [issue here](https://github.com/slackero/phpwcms/issues) on GitHub
+Have a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
 that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
-Older issues can be found on [Google Code](http://code.google.com/p/phpwcms/issues/list).
 
 <https://github.com/slackero/phpwcms/issues>
 
@@ -40,7 +40,11 @@ Older issues can be found on [Google Code](http://code.google.com/p/phpwcms/issu
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter [@phpwcms](http://twitter.com/phpwcms) or on [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
+Keep up to date on announcements and more by following **phpwcms** on Twitter 
+[@phpwcms](https://twitter.com/phpwcms) or on 
+[Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
+*(We are no longer active there, better you stay in touch with phpwcms on 
+[Github](https://github.com/slackero/phpwcms))*
 
 
 Author
@@ -48,21 +52,21 @@ Author
 
 **Oliver Georgi**
 
-+ <http://webverbund.de>
-+ <http://twitter.com/slackero>
-+ <http://github.com/slackero>
++ <https://webverbund.de>
++ <https://twitter.com/slackero>
++ <https://github.com/slackero>
 
 
 Copyright and license
 ---------------------
 
-Copyright 2002–2017 Oliver Georgi
+Copyright 2002–2019 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
 You may obtain a copy of the License in the LICENSE file, or at:
 
-   <http://opensource.org/licenses/GPL-2.0>
+   <https://opensource.org/licenses/GPL-2.0>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
