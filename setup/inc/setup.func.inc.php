@@ -127,12 +127,13 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['db_pers'] = " . intval($val["db_pers"]) . ";\n";
     $conf_file .= "\$phpwcms['db_charset'] = '" . $val["db_charset"] . "';\n";
     $conf_file .= "\$phpwcms['db_collation'] = '" . $val["db_collation"] . "';\n";
-    $conf_file .= "\$phpwcms['db_version'] = " . intval($val["db_version"]) . ";\n";
+    $conf_file .= "\$phpwcms['db_version'] = '" . $val["db_version"] . "';\n";
     $conf_file .= "\$phpwcms['db_timezone'] = '" . trim($val["db_timezone"]) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
 
     $conf_file .= "\n// site values\n";
-    if (rtrim($val["site"], '/') == 'http://' . $_SERVER['SERVER_NAME']) {
+    $check_url = rtrim($val["site"], '/');
+    if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$phpwcms['site'] = '';";
     } else {
         $conf_file .= "\$phpwcms['site'] = '" . $val["site"] . "';";

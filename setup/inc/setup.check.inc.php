@@ -77,15 +77,12 @@ if(!empty($step)) {
                 if($result = mysqli_query($db, "SELECT VERSION()")) {
 
                     if($row = mysqli_fetch_row($result)) {
-                        $phpwcms["db_version"]      = explode('.', $row[0]);
-                        $phpwcms["db_version"][0]   = intval($phpwcms["db_version"][0]);
-                        $phpwcms["db_version"][1]   = empty($phpwcms["db_version"][1]) ? '00' : intval($phpwcms["db_version"][1]);
-                        $phpwcms["db_version"][2]   = empty($phpwcms["db_version"][2]) ? '00' : intval($phpwcms["db_version"][2]);
-                        $phpwcms["db_version"]      = (int)sprintf('%d%02d%02d', $phpwcms["db_version"][0], $phpwcms["db_version"][1], $phpwcms["db_version"][2]);
 
+                        $phpwcms["db_version"] = $row[0];
                         write_conf_file($phpwcms);
 
                     }
+
                     mysqli_free_result($result);
 
                     if($result = mysqli_query($db, 'SELECT * FROM '. ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '').'phpwcms_user')) {

@@ -82,27 +82,12 @@ if(!empty($db_additional)) {
     <tr>
             <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
             <td><select name="charset">
-
             <?php
-
-            if($phpwcms['db_version'] < 40100) {
-                $_availableCharsets = _dbQuery("SHOW VARIABLES LIKE 'character_sets'", 'ROW');
-                if(isset($_availableCharsets[0][1])) {
-                    $_availableCharsets = $_availableCharsets[0][1];
-                    $_availableCharsets = str_replace('_', '', $_availableCharsets);
-                    $_availableCharsets = strtolower($_availableCharsets);
-                    $_availableCharsets = explode(' ', $_availableCharsets);
-                }
-            }
 
             foreach($available_languages as $key => $value) {
 
                 list(, $_lang_charset)  = explode('-', $value[1], 2);
                 list(, $_lang_en)       = explode('|', $value[0]);
-
-                if($phpwcms['db_version'] < 40100 && !in_array($mysql_charset_map[$_lang_charset], $_availableCharsets)) {
-                    continue;
-                }
 
                 echo '<option value="'.$key.'"';
 
@@ -232,7 +217,7 @@ if(!empty($db_init)) {
             }
             $sql_data[$key] .= '"><p>'.$value;
 
-            if($phpwcms['db_version'] > 40100 && strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
+            if(strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
                 $sql_data[$key] .= ' DEFAULT';
                 $sql_data[$key] .= ' CHARACTER SET '.$phpwcms['db_charset'];
                 $sql_data[$key] .= ' COLLATE '.$phpwcms['db_collation'];

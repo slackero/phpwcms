@@ -157,37 +157,14 @@ if(isset($_GET["id"])) {
 
 		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-			// we have to check against MySQL < 4.0 -> UNION unknown
-			// so use a workaround
+            $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+            $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+            $sql .= " UNION ";
+            $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+            $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+            $sql .= "LIMIT 1";
 
-			if(PHPWCMS_DB_VERSION < 40000) {
-
-				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-				$row = _dbQuery($sql);
-
-				if(!isset($row[0]['acat_id'])) {
-
-					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-				}
-
-			} else {
-
-				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-				$sql .= " UNION ";
-				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-				$sql .= "LIMIT 1";
-
-				$row = _dbQuery($sql);
-
-			}
+            $row = _dbQuery($sql);
 
 			if(isset($row[0]['acat_id'])) {
 
@@ -254,34 +231,14 @@ if($content['404error']['status'] === true) {
 
 				$alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
 
-				if(PHPWCMS_DB_VERSION < 40000) {
+                $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+                $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+                $sql .= " UNION ";
+                $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+                $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+                $sql .= "LIMIT 1";
 
-					$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-					if(!isset($row[0]['acat_id'])) {
-
-						$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-						$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-						$row = _dbQuery($sql);
-
-					}
-
-				} else {
-
-					$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-					$sql .= " UNION ";
-					$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-					$sql .= "LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-				}
+                $row = _dbQuery($sql);
 
 				if(isset($row[0]['acat_id'])) {
 
