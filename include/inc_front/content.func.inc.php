@@ -776,7 +776,7 @@ $content['template_sections'] = array(
     "footertext" => 'footer',
     "lefttext" => 'left',
     "righttext" => 'right',
-    "errortext" => 'left'
+    "errortext" => 'error'
 );
 
 foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
