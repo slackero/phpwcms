@@ -293,7 +293,14 @@ header .dropdown-toggle::after {
     border-right: 1px solid #eee;
 }
 
-.input-group .btn .fa, .btn .fa {
+.input-group .btn .fa,
+.input-group .btn .far,
+.input-group .btn .fab,
+.input-group .btn .fas,
+.btn .fa,
+.btn .far,
+.btn .fab,
+.btn .fas {
     line-height: 1.5;
     width: 1.25em;
 }
@@ -386,9 +393,9 @@ header .dropdown-toggle::after {
 }
 
 .trash:before {
-    content: "\f1f8";
+    content: "\f2ed";
     font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+    font-weight: 400;
 }
 
 .insert:before {
