@@ -8,6 +8,6 @@
  *
  **/
 
-define('CMSGO_VERSION', '2.0.3');
+define('CMSGO_VERSION', '2.0.4');
 define('CMSGO_RELEASE_DATE', '2019/02/09');
 define('CMSGO_REVISION', '549');
