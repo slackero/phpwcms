@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -78,7 +78,7 @@ if (!defined('CMSGO_ROOT')) {
         }
         ?></strong>
     </label>
-  <div class="col"> 
+  <div class="col">
     <select name="cnewsletter_pos" id="cnewsletter_pos" class="custom-select form-control form-control-sm">
       <option value="0" <?php is_selected(0, $content["newsletter"]["pos"]) ?>><?php echo $BL['be_cnt_default'] ?></option>
       <option value="1" <?php is_selected(1, $content["newsletter"]["pos"]) ?>><?php echo $BL['be_cnt_left'] ?></option>

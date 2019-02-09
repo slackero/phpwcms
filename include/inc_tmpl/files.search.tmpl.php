@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -93,7 +93,7 @@ if(isset($_POST["file_search"])) {
 ?>
 
 <div class="card mt-4">
-  <div class="card-header"><h2><i class="fa fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
+  <div class="card-header"><h2><i class="far fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
   <div class="card-body">
     <div class="alert alert-info"><?php echo $BL['be_fsearch_infotext'] ?></div>
     <?php if(isset($search["error"])) { //fehler suche anfang ?>

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -85,7 +85,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                 </tr>
               </table></td>
               </tr>
-          
+
 </tr>
             <tr>
               <td align="right"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>

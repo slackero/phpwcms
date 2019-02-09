@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -40,11 +40,11 @@ $_PDF_temp = md5($_print_settings['PDF_filename'].microtime()).'.html';
 
 // Output -> use file save and redirect
 if(write_textfile( CMSGO_CONTENT.'tmp/'.$_PDF_temp, $_PDF_page )) {
-	
+
 		$cmd = $cmsgo['wkhtmltopdf_path'] . ' ' . escapeshellarg(CMSGO_URL.CONTENT_PATH.'tmp/'.$_PDF_temp) . ' ' . escapeshellarg(CMSGO_CONTENT.'tmp/'.$_print_settings['PDF_filename']);
-				
+
 		@exec($cmd, $output, $retval);
-		
+
 		if(is_file(CMSGO_CONTENT.'tmp/'.$_print_settings['PDF_filename'])) {
 
 			// Set the file to 777

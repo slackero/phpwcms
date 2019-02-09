@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -40,12 +40,12 @@ $result = _dbQuery($sql);
     // now add article URL
     echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
       echo '		<td width="80%"><a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
-    
 
-    
+
+
     echo '		<td>'._dbQuery("SELECT guestbook_id FROM ".DB_PREPEND."cmsgo_guestbook  WHERE guestbook_trashed=0 AND guestbook_cid=".$data['acontent_id'], 'COUNT')."&nbsp;</td>" . LF;
-    echo '		</tr>' . LF;  
-    
+    echo '		</tr>' . LF;
+
     $x++;
   }
   ?>

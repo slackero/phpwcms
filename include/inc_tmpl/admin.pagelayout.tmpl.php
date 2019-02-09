@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -322,7 +322,7 @@ if(!isset($_GET["s"])) {
       </div>
       <div class="col-sm-3 mt-2 mt-sm-0">
       	<div class="form-check">
-					<input class="form-check-input" name="layout_default" type="checkbox" id="layout_default" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>> 
+					<input class="form-check-input" name="layout_default" type="checkbox" id="layout_default" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>>
 					<label class="form-check-label" for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label>
 				</div>
       </div>

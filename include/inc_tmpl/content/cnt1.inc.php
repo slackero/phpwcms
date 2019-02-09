@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -139,7 +139,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 			</div>
 		</div>
   </div>
-  
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -149,8 +149,8 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 				<span class="input-group-text">px</span>
 			</div>
 		</div>
-  </div>  
-  
+  </div>
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="form-check form-check-inline">
 			<input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['cimage']['cimage_crop']); ?> />
@@ -185,7 +185,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     <div class="col">
       <textarea name="cimage_caption_title" cols="30" rows="2" class="form-control form-control-sm" id="cimage_caption_title" ><?php echo  isset($image_caption[0]) ? html_specialchars($image_caption[0]) : '' ?></textarea>
     </div>
-		<div class="col-sm-auto">    
+		<div class="col-sm-auto">
 			<?php
 				if(isset($content["image_hash"])) {
 						$thumb_image = get_cached_image(array(
@@ -193,7 +193,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 										"image_name"    =>  $content["image_hash"] . '.' . $content["image_ext"],
 										"thumb_name"    =>  md5($content["image_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
 						));
-	
+
 						if($thumb_image != false) {
 								echo '<img class="p-1" src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
 						}

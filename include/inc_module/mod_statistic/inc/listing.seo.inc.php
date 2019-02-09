@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -34,10 +34,10 @@ if(empty($_SESSION['list_user_count'])) {
 
 // paginate and search form processing
 if(isset($_POST['do_pagination'])) {
-    
+
     $_SESSION['list_active']  = empty($_POST['showactive']) ? 0 : 1;
     $_SESSION['list_inactive']  = empty($_POST['showinactive']) ? 0 : 1;
-    
+
     $_SESSION['seo_filter']     = clean_slweg($_POST['filter']);
     if(empty($_SESSION['seo_filter'])) {
         unset($_SESSION['seo_filter']);
@@ -45,9 +45,9 @@ if(isset($_POST['do_pagination'])) {
         $_SESSION['seo_filter'] = convertStringToArray($_SESSION['seo_filter'], ' ');
         $_POST['filter']  = $_SESSION['seo_filter'];
     }
-    
+
     $_SESSION['seolog_page'] = intval($_POST['page']);
-    
+
 }
 
 if(empty($_SESSION['seolog_page'])) {
@@ -61,24 +61,24 @@ $_entry['list_inactive']  = isset($_SESSION['list_inactive']) ? $_SESSION['list_
 $_entry['query'] = '1=1';
 
 if(isset($_SESSION['seo_filter']) && is_array($_SESSION['seo_filter']) && count($_SESSION['seo_filter'])) {
-    
+
     $_entry['filter_array'] = array();
-    
+
     foreach($_SESSION['seo_filter'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
         $_entry['filter_array'][] = "CONCAT(domain,query) LIKE '%".aporeplace($_entry['filter'])."%'";
     }
     if(count($_entry['filter_array'])) {
-        
+
         $_SESSION['seo_filter'] = ' AND ('.implode(' OR ', $_entry['filter_array']).')';
         $_entry['query'] .= $_SESSION['seo_filter'];
-        
+
     }
-    
+
 } elseif(isset($_SESSION['seo_filter']) && is_string($_SESSION['seo_filter'])) {
-    
+
     $_entry['query'] .= $_SESSION['seo_filter'];
-    
+
 }
 
 
@@ -99,7 +99,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
     <form action="<?php echo $_controller_link ?>" method="post" name="paginate" id="paginate">
       <input type="hidden" name="do_pagination" value="1" />
       <div class="row align-items-center mb-4">
-          
+
           <?php
           if($_entry['pages_total'] > 1) {
             echo '<div class="col-sm-auto text-right">';
@@ -131,7 +131,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
           <div class="col-sm-auto">
               <div class="input-group">
-                  <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php 
+                  <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php
                   if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
                     echo htmlentities(implode(' ', $_POST['filter']));
                   }

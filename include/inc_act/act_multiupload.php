@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -51,8 +51,8 @@ $output_dir = CMSGO_ROOT.$cmsgo["ftp_path"];
 if(isset($_FILES["myfile"]))
 {
   $ret = array();
-  
-//  This is for custom errors;  
+
+//  This is for custom errors;
 /*  $custom_error= array();
   $custom_error['jquery-upload-file-error']="File already exists";
   echo json_encode($custom_error);
@@ -60,7 +60,7 @@ if(isset($_FILES["myfile"]))
 */
   $error =$_FILES["myfile"]["error"];
   //You need to handle  both cases
-  //If Any browser does not support serializing of multiple files using FormData() 
+  //If Any browser does not support serializing of multiple files using FormData()
   if(!is_array($_FILES["myfile"]["name"])) //single file
   {
     $retf[0]["fileName"] = $_FILES["myfile"]["name"];
@@ -83,12 +83,12 @@ if(isset($_FILES["myfile"]))
       $ret[]= $_FILES["myfile"]["name"][$i];
 
     }
-  
+
   }
     echo json_encode($ret);
  }
- 
- 
+
+
 
 if (!empty($_GET['filepublic'])) {
 	require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';

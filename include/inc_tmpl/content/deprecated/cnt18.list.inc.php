@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -21,7 +21,7 @@ if (!defined('CMSGO_ROOT')) {
 $cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 $cinfo["result"] = "";
-				
+
 foreach($cinfo as $value) {
 	 if($value) $cinfo["result"] .= $value."\n";
 }

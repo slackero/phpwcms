@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -39,7 +39,7 @@ function pp_subnavtextext($text, $link, $target='_blank', $getback=1) {
     $id  = 'subnavid'.generic_string(5);
     $sn  = '<li class="subnavinactive"><a href="'.$link.'" target="'.$target.'" >'.$text.'</a></li>';
     $sn .= "\n";
-    
+
     if(!$getback) {
         return $sn;
     } else {

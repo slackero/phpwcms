@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -90,7 +90,7 @@ if($custom['template']) {
         $custom['field_render'] = array('html', 'markdown', 'plain');
         $custom['fieldgroup'] =& $template_default['settings']['customctp_custom_fields'][ $custom['fieldgroup'] ]['fields'];
     }
-    
+
 print_r($custom);
     if(is_array($custom['fieldgroup']) && ($custom['count'] = count($custom['fieldgroup']))) {
 
@@ -98,13 +98,13 @@ print_r($custom);
         $col    = 0;
         $total  = 0;
         $hasimage = false;
-        
+
         foreach ($custom['fieldgroup'] as $key => $customfiled) {
           if ($custom['fieldgroup'][$key]['type'] === 'image') {
             $hasimage = true;
           }
-        } 
-        
+        }
+
         if ($hasimage) {
           if(empty($custom['lightbox'])) {
             $custom['lightbox'] = false;
@@ -147,7 +147,7 @@ print_r($custom);
 
           }
         }
-        
+
         foreach($custom['custom_elements'] as $values) {
             $custom_a = $custom['tmpl_entry'];
             if($custom['custom_elements']) {
@@ -222,12 +222,12 @@ print_r($custom);
                           "thumb_name"    =>  md5($custom_field_value['f_hash'].$custom['width'].$custom['height'].$cmsgo["sharpen_level"].$custom['crop_zoom'].$cmsgo['colorspace']),
                           'crop_image'    =>  $custom['crop_zoom']
                         ));
-                        
+
                         if(!$custom_field_value['f_hash'] || !$thumb_image) {
                             $custom_a = render_cnt_template($custom_a, $custom_field_replacer, '');
                             continue;
                         }
-                        
+
                         if($custom['zoom']) {
 
                           $zoom_image = get_cached_image(array(
@@ -239,10 +239,10 @@ print_r($custom);
                             'crop_image'    =>  $custom['crop_zoom']
                           ));
                         }
-                        
+
                         $thumb_img  = '<img src="' . $thumb_image['src'] .'" data-image-ext="'.$custom_field_value['f_ext'].'" ';
                         $thumb_img .= 'data-image-id="'.$custom_field_value['id'].'" data-image-hash="'.$custom_field_value['f_hash'].'" '.$thumb_image[3];
-                        
+
                         if($custom['center']) {
 
                           $img_margin_left    = 0;
@@ -268,14 +268,14 @@ print_r($custom);
                             $list_img_style     = '';
                             $list_ahref_style   = '';
                         }
-                        
-                        
+
+
                         $thumb_img .= ' alt="'.$custom_field_value['alt'].'"';
                         if($custom_field_value['title']) {
                             $thumb_img .= ' title="'.$custom_field_value['title'].'"';
                         }
                         $thumb_img .= ' class="'.$custom['thumb_class'].'"'.HTML_TAG_CLOSE;
-                        
+
                         $img_a          = '';
                         $lightbox_capt  = '';
 

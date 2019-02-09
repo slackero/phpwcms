@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -163,7 +163,7 @@ if (!isset($plugin['data']['shopprod_overwrite_meta'])) {
     		</div>
     	</div>
     </div>
-    
+
     <div class="col-sm-auto px-3 py-3 py-sm-0">
     	<div class="input-group input-group-sm align-items-center">
 				<label class="col-form-label mr-2"><?php echo $BLM['shopprod_vat'] ?></label>

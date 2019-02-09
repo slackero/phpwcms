@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -20,7 +20,7 @@ $acat_lang_mode     = $_GET['struct'] != 'index' && count($cmsgo['allowed_lang']
 $acat_struct        = intval($_GET["struct"]);
 
 if($_GET['struct'] === 'index') {
-    
+
     $acat_title         = $indexpage['acat_name'];
     $acat_title_alt     = $indexpage['acat_title'];
     $acat_info          = $indexpage['acat_info'];
@@ -57,13 +57,13 @@ if($_GET['struct'] === 'index') {
     $acat_canonical     = empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'];
     $acat_breadcrumb    = empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']);
     $acat_onepage       = empty($indexpage['acat_onepage']) ? 0 : 1;
-    
+
     $acat_struct_mode = 'INDEX';
-    
+
 } elseif(!isset($acat_title)) {
-    
+
     $parentStructData   = getParentStructArray($_GET["struct"]);
-    
+
     $acat_title         = '';
     $acat_title_alt     = '';
     $acat_info          = '';
@@ -95,22 +95,22 @@ if($_GET['struct'] === 'index') {
     $acat_canonical     = '';
     $acat_breadcrumb    = 0;
     $acat_onepage       = 0;
-    
+
 }
 
 switch($acat_hidden) {
-    
+
     case 1:     $acat_hidden        = 1;
                 $acat_hiddenactive  = 0;
                 break;
-    
+
     case 2:     $acat_hidden        = 1;
                 $acat_hiddenactive  = 1;
                 break;
-    
+
     default:    $acat_hidden        = 0;
                 $acat_hiddenactive  = 0;
-    
+
 }
 
 ?>
@@ -198,7 +198,7 @@ switch($acat_hidden) {
 					<input class="form-check-input lang-default" type="radio" name="acat_lang" id="acat_lang" value="" <?php is_checked('', $acat_lang); ?> />
 					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) ?>"></span><?php echo $lang_default ?></label>
         </div>
-        
+
         <?php foreach($cmsgo['allowed_lang'] as $key => $lang):
 					$lang = strtolower($lang);
 					if($lang == $cmsgo['default_lang']) {
@@ -210,7 +210,7 @@ switch($acat_hidden) {
 					<input class="form-check-input lang-opt" type="radio" name="acat_lang" id="acat_lang2" value="<?php echo $lang ?>"<?php is_checked($lang, $acat_lang); ?> />
 					<label class="form-check-label"><span class="flag-icon flag-icon-<?php echo $lang ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span></label>
         </div>
-        
+
         <?php endforeach; ?>
 
         <div class="row align-items-center" style="margin:5px 0;border-top:1px solid #D9DEE3;border-bottom:1px solid #D9DEE3;padding:10px 0;<?php if($acat_lang == ''): ?>display:none;<?php endif; ?>" id="lang-id-select">
@@ -339,7 +339,7 @@ switch($acat_hidden) {
       <div class="form-check">
         <input class="form-check-input" name="acat_paginate" type="checkbox" id="acat_paginate" value="1" <?php if($acat_paginate == 1) echo "checked"; ?> />
         <label for="acat_paginate" class="form-check-label"><?php echo $BL['be_article_pagination'] ?></label>
-      </div>  
+      </div>
     </div>
     <div class="form-group col-sm-auto mr-sm-3">
       <label for="be_admin_struct_topcount"><strong><?php echo  $BL['be_admin_struct_topcount'] ?></strong></label>
@@ -538,7 +538,7 @@ switch($acat_hidden) {
        </select>
     </div>
   </div>
-  
+
    <div class="form-group align-items-center form-row">
       <label for="be_structform_selected_cp" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
       <div class="col-sm-auto">
@@ -551,7 +551,7 @@ switch($acat_hidden) {
         </select>
     </div>
   </div>
- 
+
   <hr />
 
   <div class="form-group align-items-center form-row">
@@ -582,7 +582,7 @@ switch($acat_hidden) {
 					echo '<option value="2592000"'.is_selected($acat_timeout, '2592000', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_month']."</option>\n";
 					?>
         </select>
-        
+
         <div class="input-group-append">
           <span class="input-group-text form-control-sm py-1"><?php echo $BL['be_cache_timeout'] ?></span>
         </div>
@@ -660,7 +660,7 @@ switch($acat_hidden) {
       <div class="form-check form-check-inline">
 				<input class="form-check-input" type="checkbox" name="acat_breadcrumb_nolink" id="acat_breadcrumb_nolink" value="2"<?php is_checked($acat_breadcrumb_nolink_checked, 1); ?> />
 				<label class="form-check-label" for="acat_breadcrumb_nolink"><?php echo $BL['be_breadcrumb_nolink'] ?></label>
-      </div> 
+      </div>
     </div>
   </div>
 
@@ -699,7 +699,7 @@ switch($acat_hidden) {
 			<input name="donotsubmit" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=articles&amp;p=0';" />
     </div>
   </div>
-  
+
 </form>
 
 <?php

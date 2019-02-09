@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2018, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -70,7 +70,7 @@ if($subscription["id"]) {
   <div class="card mb-2">
     <div class="card-header"><h2><?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_titleedit']) ?></h2></div>
     <div class="card-body">
-    
+
       <div class="form-group form-row align-items-center">
           <label for="subscription_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_name'] ?></label>
           <div class="col-sm-10">
@@ -84,7 +84,7 @@ if($subscription["id"]) {
             <textarea name="subscription_info" cols="35" rows="6" class="form-control form-control-sm autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea>
           </div>
       </div>
-      
+
       <div class="form-group row">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
@@ -92,7 +92,7 @@ if($subscription["id"]) {
           <input type="button" class="btn btn-sm btn-blue mt-1" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=messages&amp;p=2';" />
         </div>
       </div>
-         
+
     </div>
   </div>
 </form>
