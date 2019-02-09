@@ -16,7 +16,6 @@ if(!empty($step)) {
             exit();
         }
 
-
         //superuser settings
         if(isset($_POST['admin_name'])) {
 
@@ -77,15 +76,12 @@ if(!empty($step)) {
                 if($result = mysqli_query($db, "SELECT VERSION()")) {
 
                     if($row = mysqli_fetch_row($result)) {
-                        $cmsgo["db_version"]      = explode('.', $row[0]);
-                        $cmsgo["db_version"][0]   = intval($cmsgo["db_version"][0]);
-                        $cmsgo["db_version"][1]   = empty($cmsgo["db_version"][1]) ? '00' : intval($cmsgo["db_version"][1]);
-                        $cmsgo["db_version"][2]   = empty($cmsgo["db_version"][2]) ? '00' : intval($cmsgo["db_version"][2]);
-                        $cmsgo["db_version"]      = (int)sprintf('%d%02d%02d', $cmsgo["db_version"][0], $cmsgo["db_version"][1], $cmsgo["db_version"][2]);
 
+                        $cmsgo["db_version"] = $row[0];
                         write_conf_file($cmsgo);
 
                     }
+
                     mysqli_free_result($result);
 
                     if($result = mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '').'cmsgo_user')) {

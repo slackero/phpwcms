@@ -110,8 +110,6 @@ td.chatlist {
 		    echo 'register_globals = Off -&gt; that\'s good :)';
 		  }
 
-
-
 		  ?></td>
         </tr>
         <tr>
@@ -130,15 +128,13 @@ td.chatlist {
           <td align="right" class="chatlist">&nbsp;</td>
           <td class="chatlist">GD = <?php
 
-				$_phpinfo = parsePHPModules();
-				if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled') {
-					echo 'On';
-					echo isset($_phpinfo['gd']['GD Version']) ? ' -&gt; '.$_phpinfo['gd']['GD Version'] : '';
-				} else {
-					echo 'Off';
-				}
-
-
+            $_phpinfo = parsePHPModules();
+            if(isset($_phpinfo['gd']['GD Support']) && $_phpinfo['gd']['GD Support'] == 'enabled') {
+                echo 'On';
+                echo isset($_phpinfo['gd']['GD Version']) ? ' -&gt; '.$_phpinfo['gd']['GD Version'] : '';
+            } else {
+                echo 'Off';
+            }
 
 		?></td>
         </tr>
@@ -158,8 +154,6 @@ td.chatlist {
           <td colspan="4"><img src="../img/leer.gif" alt="" width="1" height="6" /></td>
         </tr>
     </table>
-
-
 
   <h1>When upgrading from releases older than 1.1.9:</h1>
      <p>
@@ -197,13 +191,8 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 if($do) {
 
 	_dbQuery('SET storage_engine=MYISAM', 'SET');
-
-	if($cmsgo['db_version'] > 40100) {
-		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
-		_dbQuery($value, 'SET');
-		$value = "SET NAMES '".$cmsgo['db_charset']."'".(empty($cmsgo['db_collation']) ? '' : " COLLATE '".$cmsgo['db_collation']."'");
-		_dbQuery($value, 'SET');
-	}
+	_dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
+	_dbQuery("SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'"), 'SET');
 
 	$sql_data = read_textfile("update_sql/".$file);
 	$sql_data = preg_replace("/#.*.\n/", "", $sql_data );
@@ -220,7 +209,7 @@ if($do) {
 			unset($sql[$key]);
 		} else {
 
-			if($cmsgo['db_version'] > 40100 && $cmsgo['db_charset']=='utf8') {
+			if($cmsgo['db_charset'] === 'utf8') {
 				$value = utf8_encode($value);
 			}
 
@@ -242,7 +231,7 @@ if($do) {
 
 <?php
 
-if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation']) || empty($cmsgo['db_version'])) {
+if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation']))) {
 
 ?>
   <tr bgcolor="#FFFFFF">
@@ -251,7 +240,6 @@ if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation']) || empty($cmsgo[
 		<strong>Before you continue proof the following config settings:</strong><br />
 		$cmsgo['db_charset']<br />
 		$cmsgo['db_collation']<br />
-		$cmsgo['db_version']<br />
 		If you are not sure how to handle this <br />
 		try to start setup process! <br />
 		<strong>But STOP SETUP BEFORE SQL IMPORT!!!</strong> </td>
@@ -276,10 +264,6 @@ if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation']) || empty($cmsgo[
     <td align="right">DB table prefix:</td>
     <td style="font-weight:bold; "><?php echo $cmsgo["db_prepend"] ?>&nbsp;</td>
   </tr>
-
-
-
-
 
   <tr bgcolor="#FFFFFF">
     <td align="right">&nbsp;select&nbsp;SQL&nbsp;file:</td>
@@ -334,7 +318,7 @@ if(is_dir($dir)) {
     <td colspan="2" valign="bottom" class="navtext">
 		<a href="https://www.pixels-points.ch" target="_blank">cmsGO!</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
-		<a title="info at pixels-points dot ch" onclick="location.href='mailto:info'+'@'+'pixels-points'+'.'+'ch';return false;" href="#">Pixels &amp; Points</a>.
+		<a title="info@pixels-points.ch?subject=cmsGO!+Setup" href="mailto:info@pixels-points.ch">Pixels &amp; Points</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.</td>
   </tr>

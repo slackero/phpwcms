@@ -25,6 +25,7 @@ if(!empty($GLOBALS['cmsgo']["db_pers"]) && substr($GLOBALS['cmsgo']["db_host"], 
 $GLOBALS['db'] = mysqli_connect($GLOBALS['cmsgo']["db_host"], $GLOBALS['cmsgo']["db_user"], $GLOBALS['cmsgo']["db_pass"], $GLOBALS['cmsgo']["db_table"]);
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
+$GLOBALS['cmsgo']['db_version'] = 'unknown';
 
 if($is_mysql_error === false) {
 
@@ -39,7 +40,7 @@ if($is_mysql_error === false) {
 
 } else {
 
-    define('CMSGO_DB_VERSION', 'unknown');
+    define('CMSGO_DB_VERSION', $GLOBALS['cmsgo']['db_version']);
 
 }
 
@@ -227,42 +228,9 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
     }
 
     $insert  = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
+    $insert .= ' ON DUPLICATE KEY UPDATE ' . implode(',', $set);
 
-    if($GLOBALS['cmsgo']['db_version'] < 40100) {
-        // the old way
-
-        // 1st send INSERT
-        $result = _dbQuery($insert, 'INSERT');
-
-        if($result === false) {
-
-            // INSERT was false, now try UPDATE
-            $update  = 'UPDATE ' . $table . ' SET ';
-            $update .= implode(',', $set) . ' WHERE ';
-            if($where === '' || strpos($where, '=') === false) {
-                reset($data);
-                $key    = key($data);
-                $value  = current($data);
-                $update .= '`'.$key.'`=';
-                $update .= _dbEscape($value);
-            } else {
-                $update .= trim($where);
-            }
-
-            return _dbQuery($update, 'UPDATE');
-
-        } else {
-
-            return $result;
-        }
-
-    } else {
-        // the new way
-        $insert .= ' ON DUPLICATE KEY UPDATE ';
-        $insert .= implode(',', $set);
-
-        return _dbQuery($insert, 'ON_DUPLICATE');
-    }
+    return _dbQuery($insert, 'ON_DUPLICATE');
 
 }
 
@@ -366,7 +334,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
 function _dbGetCreateCharsetCollation() {
 
     $value = '';
-    if($GLOBALS['cmsgo']['db_version'] > 40100 && $GLOBALS['cmsgo']['db_charset']) {
+    if($GLOBALS['cmsgo']['db_charset']) {
         $value .= ' DEFAULT';
         $value .= ' CHARACTER SET '.$GLOBALS['cmsgo']['db_charset'];
         if(!empty($GLOBALS['cmsgo']['db_collation'])) {
@@ -395,69 +363,43 @@ function _dbErrorNum() {
 
 }
 
-
 function _dbInitialize() {
 
-    // check if mysql version is set
-    if(empty($GLOBALS['cmsgo']['db_version'])) {
-        $version = _dbQuery('SELECT VERSION()', 'ROW');
-        if(isset($version[0][0])) {
-            $version = explode('.', $version[0][0]);
-            $version[0] = intval($version[0]);
-            $version[1] = empty($version[1]) ? 0 : intval($version[1]);
-            $version[2] = empty($version[2]) ? 0 : intval($version[2]);
-            $GLOBALS['cmsgo']["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
-        } else {
-            return 0;
-        }
-    }
-    if($GLOBALS['cmsgo']['db_version'] > 40000) {
+    $mysql_set = array();
 
-        $mysql_set = array();
-
-        if(isset($GLOBALS['cmsgo']['db_sql_mode']) && is_string($GLOBALS['cmsgo']['db_sql_mode'])) {
-            $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['cmsgo']['db_sql_mode']);
-        }
-
-        if(empty($GLOBALS['cmsgo']['db_charset'])) {
-            $mysql_charset_map = array(
-                'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
-                'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
-                'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
-                'iso-8859-8'   => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9'   => 'latin5',
-                'iso-8859-13'  => 'latin7', 'iso-8859-15'  => 'latin1', 'koi8-r'       => 'koi8r',
-                'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
-                'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
-                'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
-            );
-            $GLOBALS['cmsgo']['db_charset'] = isset($mysql_charset_map[CMSGO_CHARSET]) ? $mysql_charset_map[CMSGO_CHARSET] : '';
-        }
-
-        if(IS_PHP523 && $GLOBALS['cmsgo']['db_version'] > 50000 && $GLOBALS['cmsgo']['db_charset']) {
-
-            mysqli_set_charset($GLOBALS['db'], $GLOBALS['cmsgo']['db_charset']);
-
-        } elseif($GLOBALS['cmsgo']['db_charset']) {
-
-            // Send charset used in cmsgo for every query
-            $mysql_set['NAMES'] = 'NAMES '._dbEscape($GLOBALS['cmsgo']['db_charset']);
-            if($GLOBALS['cmsgo']['db_version'] > 40100 && !empty($GLOBALS['cmsgo']['db_collation'])) {
-                $mysql_set['NAMES'] .= ' COLLATE '._dbEscape($GLOBALS['cmsgo']['db_collation']);
-            }
-
-        }
-
-        if(!empty($GLOBALS['cmsgo']['db_timezone'])) {
-            $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['cmsgo']['db_timezone']);
-        }
-
-        if(count($mysql_set)) {
-            _dbQuery('SET '.implode(', ', $mysql_set), 'SET');
-        }
-
+    if(isset($GLOBALS['cmsgo']['db_sql_mode']) && is_string($GLOBALS['cmsgo']['db_sql_mode'])) {
+        $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['cmsgo']['db_sql_mode']);
     }
 
-    return $GLOBALS['cmsgo']['db_version'];
+    if(empty($GLOBALS['cmsgo']['db_charset'])) {
+        $mysql_charset_map = array(
+            'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
+            'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
+            'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
+            'iso-8859-8'   => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9'   => 'latin5',
+            'iso-8859-13'  => 'latin7', 'iso-8859-15'  => 'latin1', 'koi8-r'       => 'koi8r',
+            'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
+            'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
+            'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
+        );
+        $GLOBALS['cmsgo']['db_charset'] = isset($mysql_charset_map[CMSGO_CHARSET]) ? $mysql_charset_map[CMSGO_CHARSET] : 'utf8';
+    }
+
+    mysqli_set_charset($GLOBALS['db'], $GLOBALS['cmsgo']['db_charset']);
+
+    if(!empty($GLOBALS['cmsgo']['db_collation'])) {
+        $mysql_set['COLLATION'] = 'collation_connection = ' . _dbEscape($GLOBALS['cmsgo']['db_collation']);
+    }
+
+    if(!empty($GLOBALS['cmsgo']['db_timezone'])) {
+        $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['cmsgo']['db_timezone']);
+    }
+
+    if(count($mysql_set)) {
+        _dbQuery('SET '.implode(', ', $mysql_set), 'SET');
+    }
+
+    return mysqli_get_server_info($GLOBALS['db']);
 }
 
 // duplicate a DB record based on 1 unique column

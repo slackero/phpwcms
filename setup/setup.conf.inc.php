@@ -19,7 +19,7 @@ $cmsgo['db_prepend'] = '';
 $cmsgo['db_pers'] = 0;
 $cmsgo['db_charset'] = 'utf8';
 $cmsgo['db_collation'] = 'utf8_general_ci';
-$cmsgo['db_version'] = 0;
+$cmsgo['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
 $cmsgo['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 $cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
 
