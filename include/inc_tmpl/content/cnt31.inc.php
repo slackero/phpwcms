@@ -319,7 +319,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <a class="btn btn-sm btn-danger" href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');">
-                    <i class="fa fa-trash"></i>
+                    <i class="far fa-trash-alt"></i>
                 </a>
             </div>
         </div>
@@ -734,7 +734,7 @@ function addNewImage(where) {
     new_entry += '<'+'a class="btn btn-sm btn-blue mr-1" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<'+'i class="fa fa-ellipsis-h" aria-hidden="true"><'+'/i>';
     new_entry += '<'+'/a>';
-    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="fa fa-trash"><'+'/i><'+'/a><'+'/div>';
+    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';

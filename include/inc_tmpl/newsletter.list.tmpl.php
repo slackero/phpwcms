@@ -205,13 +205,13 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<td class="text-right text-nowrap">';
 
           // edit
-          echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 
           // duplicate
           echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_duplicate'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa fa-copy fa-fw"></i></a>';
 
           // delete
-          echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_profile_delete_entry'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="fa fa-trash fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_profile_delete_entry'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
 
           echo "</td>\n</tr>\n";
 

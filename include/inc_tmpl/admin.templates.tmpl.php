@@ -48,7 +48,7 @@ if (!isset($_GET["s"])) {
                         }
                         echo "</a></td>" . '<td class="text-right text-nowrap">';
                         echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="cmsgo.php?' . $edit_link;
-                        echo '"><i class="fa fa-pencil"></i></a>';
+                        echo '"><i class="fa fa-pencil-alt"></i></a>';
 
                         echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="cmsgo.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
                         echo '"><i class="fa fa-copy"></i></a>';
@@ -56,7 +56,7 @@ if (!isset($_GET["s"])) {
                         echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
                         echo 'title="' . $BL['be_cnt_delete'] . ': ' . html($row["template_name"]) . '" ';
                         echo 'onclick="return confirm(\'' . js_singlequote($BL['be_cnt_delete'] . ': ' . html($row["template_name"])) . '\');">';
-                        echo '<i class="fa fa-trash" aria-hidden="true"></i></a>';
+                        echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
                         echo "</td>\n</tr>\n";
 
                         $row_count++;

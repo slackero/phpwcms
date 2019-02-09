@@ -310,7 +310,7 @@ initJsAutocompleter();
     <br />
     <a class="btn btn-secondary btn-sm mb-3" href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></a></td>
     <br />
-    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
+    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -345,7 +345,7 @@ initJsAutocompleter();
   <div class="col">
     <div class="form-inline">
 			<input class="form-check-input ml-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
-			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="far fa-search"></i></button></label>
+			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="fa fa-search"></i></button></label>
     </div>
   </div>
 </div>

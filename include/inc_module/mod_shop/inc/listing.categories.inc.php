@@ -187,14 +187,14 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 				echo '<td width="10%" class="text-right text-nowrap">';
 
 					echo '<a class="btn btn-sm btn-blue mr-1" href="'.$_controller_link.'&amp;edit='.$row["cat_id"].'">';
-					echo '<i class="fa fa-pencil"></i></a>';
+					echo '<i class="fa fa-pencil-alt"></i></a>';
 
 							echo '<button id="abtnshop'.$row['cat_id'].'" class="btn fa btn-sm visible '.($row["cat_status"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row['cat_id'].'" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
 
 					echo '<a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$row["cat_id"];
 					echo '" title="delete: '.html_specialchars($row['cat_name']).'"';
 					echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row['cat_name']).'\');">';
-					echo '<i class="fa fa-trash"></i></a>';
+					echo '<i class="far fa-trash-alt"></i></a>';
 
 				echo '</td>'.LF;
 

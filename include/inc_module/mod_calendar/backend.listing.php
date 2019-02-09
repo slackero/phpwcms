@@ -366,12 +366,12 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 
             echo '<p class="mb-1"><a class="btn btn-sm btn-blue" data-toggle="tooltip" title="'.$BLM['be_tt_edit'].'" href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
-            echo '><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+            echo '><i class="fa fa-pencil-alt" aria-hidden="true"></i></a>';
 
             echo '<a class="btn btn-sm btn-danger ml-1 mr-2" href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'];
             echo '" data-toggle="tooltip" title="'.$BLM['delete'].': '. $_entry['link '] .'"';
             echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
-            echo '<i class="fa fa-trash" aria-hidden="true"></i></a>';
+            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo '<a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';

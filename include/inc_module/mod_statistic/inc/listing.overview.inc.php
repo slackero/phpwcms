@@ -197,7 +197,7 @@ if (!defined('CMSGO_ROOT')) {
         echo '  <td style="padding:3px;" nowrap="nowrap">';
 
         echo '<button class="btn fa btn-sm visible '.($value["article_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['article_id'].'" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-        echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil"></i></a>';
+        echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
 
         echo '</td>'.LF;
         echo '</tr>'.LF;

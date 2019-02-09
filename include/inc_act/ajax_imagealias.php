@@ -129,6 +129,6 @@ if($file_id && $file_alias) {
    _dbQuery($sql_alias, 'UPDATE');
 
   echo '<div class="col">'.$file_alias;
-  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>';
+  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a></div>';
 }
 ?>

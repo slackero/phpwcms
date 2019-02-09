@@ -348,7 +348,7 @@ header .dropdown-toggle::after {
 
 .btn-calender:before {
     content: "\f073";
-    font-family: Font Awesome\ 5 Pro;
+    font-family: "Font Awesome 5 Free";
 }
 
 .nav .btn-sm {
@@ -375,48 +375,53 @@ header .dropdown-toggle::after {
 
 .folder-open:before {
     content: "\f07c";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
 .sitemap-open:before {
     content: "\f0e8";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
 .trash:before {
     content: "\f1f8";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
 }
 
 .insert:before {
     content: "\f105";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
+}
+
+.visible.btn-success,
+.visible.btn-danger {
+    min-width: 32px !important;
 }
 
 .visible.btn-success:before {
     content: "\f06e";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     line-height: 1.5;
 }
 
 .visible.btn-danger:before {
     content: "\f070";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     line-height: 1.5;
 }
 
 .public.btn-success:before {
     content: "\f09c";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     line-height: 1.5;
 }
 
 .public.btn-danger:before {
     content: "\f023";
-    font-family: "Font Awesome 5 Pro";
+    font-family: "Font Awesome 5 Free";
     line-height: 1.5;
 }
 
@@ -551,10 +556,11 @@ a.filein {
 #side-menu li li a::before {
     content: "\f101";
     font-size: 13px;
-    font-family: Font Awesome\ 5 Pro;
+    font-family: "Font Awesome 5 Free";
     margin-left: 30px;
     margin-right: 5px;
     transition: margin ease 0.5s;
+    font-weight: 900;
 }
 
 #side-menu .fa {

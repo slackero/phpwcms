@@ -98,7 +98,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/cmsgobrowser.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
+  <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 
   <script src="include/inc_js/jquery/jquery.min.js"></script>

@@ -93,7 +93,7 @@ if(isset($_POST["file_search"])) {
 ?>
 
 <div class="card mt-4">
-  <div class="card-header"><h2><i class="far fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
+  <div class="card-header"><h2><i class="fa fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
   <div class="card-body">
     <div class="alert alert-info"><?php echo $BL['be_fsearch_infotext'] ?></div>
     <?php if(isset($search["error"])) { //fehler suche anfang ?>
@@ -195,7 +195,7 @@ if(isset($search["result"])) {
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo '<i class="btn btn-sm btn-blue fa fa-pencil mr-1"></i></a>';
+                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt mr-1"></i></a>';
             }
 
             echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';

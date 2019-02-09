@@ -41,12 +41,12 @@ if(!isset($_GET["s"])) {
             echo "</a></td>\n".'<td class="text-right" nowrap="nowrap">';
 
             echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
-            echo '<i class="fa fa-pencil"></i></a>';
+            echo '<i class="fa fa-pencil-alt"></i></a>';
 
             echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
             echo ' onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
-            echo '<i class="fa fa-trash" aria-hidden="true"></i></a>';
+            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo "</td>\n</tr>\n";
 

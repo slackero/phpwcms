@@ -132,7 +132,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 					<input class="form-check-input" name="showbefe" id="showbefe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?>>
 					<label for="showbefe" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-success"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
 				</div>
-				<div class="col-sm-auto form-check form-check-inline">	
+				<div class="col-sm-auto form-check form-check-inline">
 					<input class="form-check-input" name="shownorm" id="shownorm" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?>>
 					<label for="shownorm" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
 				</div>
@@ -252,8 +252,8 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
           <?php
 
           echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-          echo '<a class="btn btn-sm btn-blue '.($userlist["usr_aktiv"]==0 ? "btn-info" : "btn-success").' mr-1" role="button" aria-disabled="true" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil"></i></a>';
-          echo '<a class="btn btn-sm btn-danger" data-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" onclick="return confirm(\''. $BL['be_admin_usr_ldel'].' \n'.js_singlequote($userlist['usr_login']).'\');"><i class="fa fa-trash"></i></a>';
+          echo '<a class="btn btn-sm btn-blue '.($userlist["usr_aktiv"]==0 ? "btn-info" : "btn-success").' mr-1" role="button" aria-disabled="true" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-danger" data-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" onclick="return confirm(\''. $BL['be_admin_usr_ldel'].' \n'.js_singlequote($userlist['usr_login']).'\');"><i class="far fa-trash-alt"></i></a>';
             ?>
 
           </td>

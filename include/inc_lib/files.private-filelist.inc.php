@@ -59,7 +59,7 @@ if(isset($file_result[0]['f_id'])) {
         echo '<div class="btn-group" role="group">'.LF;
 
         //Button zum Bearbeiten der Dateiinformationn
-        echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+        echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
         echo '<div class="btn-group" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -83,9 +83,9 @@ if(isset($file_result[0]['f_id'])) {
              '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"return confirm('".
              $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
              "');\">".
-             '<i class="fa-fw ml-1 fa fa-trash" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
+             '<i class="fa-fw ml-1 far fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
         } else {
-            echo '<div class="dropdown-item"><i class="fa-fw ml-1 fa fa-trash disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+            echo '<div class="dropdown-item"><i class="fa-fw ml-1 far fa-trash-alt disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
         }
         echo "</div></div></div>";
 

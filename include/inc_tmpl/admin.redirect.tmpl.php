@@ -262,7 +262,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     echo '    <td>'.date($BL['default_date'], $data["timestamp"])."</td>" . LF;
     echo '    <td class="text-right text-nowrap">';
 
-    echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil"></i></a>';
+    echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
 
     echo '<button id="abtnredirect'.$data['aid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$data['aid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="aid" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
     $x++;

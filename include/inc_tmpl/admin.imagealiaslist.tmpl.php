@@ -118,7 +118,7 @@ if(isset($result[0]['f_id'])) {
     $f_count2 = _dbCount($sql_count);
     $sql_count  = "SELECT COUNT(cnt_object) FROM ".DB_PREPEND."cmsgo_content WHERE cnt_object LIKE '%".$files['f_hash']."%'";
     $f_count3 = _dbCount($sql_count);
-    echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$files['f_id']."', '".$files['f_id']."');".'"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>';
+    echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$files['f_id']."', '".$files['f_id']."');".'"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a></div>';
     echo "</div><hr class=\"my-1\">";
   }
 }

@@ -415,7 +415,7 @@ class cmsgoNews {
                     <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
 
                     <a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">
-                    <i class="fa fa-pencil"></i></a>'.
+                    <i class="fa fa-pencil-alt"></i></a>'.
 
                     '<a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit&button=copy">'.
                     '<i class="fa fa-copy"></i></a>'.
@@ -423,7 +423,7 @@ class cmsgoNews {
                     '<a class="btn btn-sm btn-danger" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
                     '" data-toggle="tooltip" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
                     $this->BL['be_delete_dataset'].' \n'.js_singlequote($news['cnt_name']).'\');">'.
-                    '<i class="fa fa-trash"></i></a>
+                    '<i class="far fa-trash-alt"></i></a>
 
                 </td>';
 

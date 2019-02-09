@@ -147,7 +147,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
             </div>
             <div class="col text-right">
               <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-              <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');"><i class="fa fa-trash"></i></a>
+              <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');"><i class="far fa-trash-alt"></i></a>
             </div>
           </div>
         </div>
