@@ -1,5 +1,5 @@
 cmsGO!
-=======
+======
 
 cmsGO! is a very flexible, fast, robust, customer and developer friendly
 but yet powerful web based content management system and cms framework running
