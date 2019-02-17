@@ -979,7 +979,7 @@ function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separato
 
 function initJsCalendar() {
     $GLOBALS['BE']['HEADER']['bootstrap-datetimepicker.min.css']    = '<link href="include/inc_css/bootstrap-datetimepicker.css" rel="stylesheet">';
-    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.js');
+    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.min.js');
     $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker.js']     = getJavaScriptSourceLink('include/inc_js/bootstrap-datetimepicker.js');
 }
 /*function initMootools($mode='1.1', $more=array()) {
