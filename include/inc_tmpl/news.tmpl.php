@@ -153,7 +153,7 @@ function showImage() {
   var id  = parseInt($('#cnt_image_id').val(), 10);
   var img = $('#cnt_image');
   if(id) {
-    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
     img.show();
   } else {
     img.hide();
