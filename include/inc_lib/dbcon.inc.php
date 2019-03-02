@@ -631,7 +631,7 @@ function _dbSetVar($var='', $value=null, $compare=false) {
     $var = trim($var);
 
     // stop if this was set yet. can be defined as
-    // additional  config value in conf.inc.php
+    // additional config value in conf.inc.php
 
     if(!is_string($var) || !$var || $value === null) {
 
