@@ -23,6 +23,7 @@ $phpwcms['db_collation']        = 'utf8_general_ci';
 $phpwcms['db_version']          = ''; // Version of MySQL Server at the time phpwcms was installed
 $phpwcms['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
 $phpwcms['db_sql_mode']         = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_errorlog']         = false; // Log DB queries - false|true
 
 // site values
 $phpwcms['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
@@ -43,6 +44,7 @@ $phpwcms['templates']           = 'template';
 $phpwcms['content_path']        = 'content';
 $phpwcms['cimage_path']         = 'images';
 $phpwcms['ftp_path']            = 'upload';
+$phpwcms['ads_path']            = 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $phpwcms['file_maxsize']        = 52428800; // Bytes (50 x 1024 x 1024)

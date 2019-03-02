@@ -44,6 +44,8 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/code.lang.inc.php';
 
+logdir_exists();
+
 $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
 // make compatibility check

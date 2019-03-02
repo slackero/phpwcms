@@ -193,6 +193,7 @@ define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? fa
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
 define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : true);
+define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT.'log');
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -1408,4 +1409,15 @@ function get_base_url($use_forwarded_host = false, $set_protocol = true) {
     $script_name = basename($_SERVER['SCRIPT_FILENAME']);
     $uri_path = explode($script_name, $_SERVER['PHP_SELF'], 2);
     return rtrim(get_url_origin($use_forwarded_host, $set_protocol) . $uri_path[0], '/');
+}
+
+function logdir_exists() {
+    // always check if the log dir exists
+    if(@!is_dir(PHPWCMS_LOGDIR)) {
+        if(_mkdir(PHPWCMS_LOGDIR)) {
+            @file_put_contents(PHPWCMS_LOGDIR.'/.htaccess', 'Deny from all');
+            @file_put_contents(PHPWCMS_LOGDIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
+        }
+    }
+
 }

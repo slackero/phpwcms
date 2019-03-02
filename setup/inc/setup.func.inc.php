@@ -130,6 +130,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['db_version'] = '" . $val["db_version"] . "';\n";
     $conf_file .= "\$phpwcms['db_timezone'] = '" . trim($val["db_timezone"]) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
+    $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
     $check_url = rtrim($val["site"], '/');
@@ -153,7 +154,7 @@ function write_conf_file($val) {
     if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
         $conf_file .= "\$phpwcms['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . $val["DOC_ROOT"] . "';         //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . $val["DOC_ROOT"] . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
@@ -162,12 +163,13 @@ function write_conf_file($val) {
         $real_doc = rtrim($real_doc[0], '/');
     }
     $conf_file .= "// current DOC_ROOT seems to be: '" . $real_doc . "' \n";
-    $conf_file .= "\$phpwcms['root'] = '" . $val["root"] . "';         //default: ''\n";
-    $conf_file .= "\$phpwcms['file_path'] = '" . $val["file_path"] . "';    //default: 'filearchive'\n";
-    $conf_file .= "\$phpwcms['templates'] = '" . $val["templates"] . "';    //default: 'template'\n";
+    $conf_file .= "\$phpwcms['root'] = '" . $val["root"] . "'; //default: ''\n";
+    $conf_file .= "\$phpwcms['file_path'] = '" . $val["file_path"] . "'; //default: 'filearchive'\n";
+    $conf_file .= "\$phpwcms['templates'] = '" . $val["templates"] . "'; //default: 'template'\n";
     $conf_file .= "\$phpwcms['content_path'] = '" . $val["content_path"] . "'; //default: 'content'\n";
     $conf_file .= "\$phpwcms['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$phpwcms['ftp_path'] = '" . $val["ftp_path"] . "';     //default: 'upload'\n";
+    $conf_file .= "\$phpwcms['ftp_path'] = '" . $val["ftp_path"] . "'; //default: 'upload'\n";
+    $conf_file .= "\$phpwcms['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
     $conf_file .= "\$phpwcms['file_maxsize'] = " . intval($val["file_maxsize"]) . "; //Bytes (50 x 1024 x 1024)\n";
@@ -189,8 +191,8 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
-    $conf_file .= "\$phpwcms['wysiwyg_editor'] = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
-    $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+    $conf_file .= "\$phpwcms['wysiwyg_editor'] = 1; //0 = no wysiwyg editor, 1 = CKEditor 4\n";
+    $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
     $conf_file .= "\$phpwcms['default_lang'] = '" . $val["default_lang"] . "';  //default language\n";
@@ -198,11 +200,11 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$phpwcms['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
-    $conf_file .= "\$phpwcms['sharpen_level'] = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
-    $conf_file .= "\$phpwcms['allow_ext_init'] = 1;  //allow including of custom external scripts at frontend initialization\n";
-    $conf_file .= "\$phpwcms['allow_ext_render'] = 1;  //allow including of custom external scripts at frontend rendering\n";
+    $conf_file .= "\$phpwcms['sharpen_level'] = 1; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
+    $conf_file .= "\$phpwcms['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
+    $conf_file .= "\$phpwcms['allow_ext_render'] = 1; //allow including of custom external scripts at frontend rendering\n";
     $conf_file .= "\$phpwcms['cache_enabled'] = 0; //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
-    $conf_file .= "\$phpwcms['cache_timeout'] = 0;  //default cache timeout setting in seconds - 0 = caching Off\n";
+    $conf_file .= "\$phpwcms['cache_timeout'] = 0; //default cache timeout setting in seconds - 0 = caching Off\n";
     $conf_file .= "\$phpwcms['imgext_disabled'] = ''; //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
     $conf_file .= "\$phpwcms['multimedia_ext'] = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
     $conf_file .= "\$phpwcms['inline_download'] = 1; //1 = try to display download documents in new window; 0 = show safe under dialog\n";
