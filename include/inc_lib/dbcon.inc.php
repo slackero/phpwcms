@@ -19,6 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 // build the database table prepend part
 define ('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : $GLOBALS['phpwcms']["db_prepend"].'_');
 
+// Log DB errors
+define ('DB_LOG_ERRORS', empty($GLOBALS['phpwcms']["db_errorlog"]) ? false : true);
+
 // open the connection to MySQL database
 if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host"], 0, 2) !== 'p:') {
     $GLOBALS['phpwcms']["db_host"] = 'p:'.$GLOBALS['phpwcms']["db_host"];
@@ -153,6 +156,8 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
         return $queryResult;
 
     } else {
+
+        _dbLogError(_dbError('LOG', $query));
 
         return false;
 
@@ -352,7 +357,13 @@ function _dbError($error_type='DB', $query='') {
 
     if($query) {
         $query  = str_replace(',', ",\n", $query);
-        $error .= '<pre>' . $query .'</pre>';
+        switch($error_type) {
+            case 'LOG':
+                $error  .= ', QUERY: "' . $query . '"';
+                break;
+            default:
+                $error .= '<pre>' . $query .'</pre>';
+        }
     }
 
     return $error;
@@ -361,6 +372,20 @@ function _dbError($error_type='DB', $query='') {
 function _dbErrorNum() {
 
     return mysqli_errno($GLOBALS['db']);
+
+}
+
+function _dbLogError($log_msg='') {
+
+    if(DB_LOG_ERRORS && $log_msg) {
+
+        if(@is_dir(PHPWCMS_LOGDIR)) {
+            $log_msg = '[' . date('Y-m-d H:i:s') . '] ' . $log_msg . LF;
+
+            @file_put_contents(PHPWCMS_LOGDIR . '/phpwcms_db_error.log', $log_msg, FILE_APPEND);
+        }
+
+    }
 
 }
 
