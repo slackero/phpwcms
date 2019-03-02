@@ -11,10 +11,10 @@
 
 // tracking pixel
 
-$phpwcms				= array();
-$phpwcms['THIS_ROOT']	= realpath(dirname(__FILE__).'/../../');
-require $phpwcms['THIS_ROOT'].'/include/config/conf.inc.php';
-require $phpwcms['THIS_ROOT'].'/include/inc_lib/default.inc.php';
+$phpwcms = array();
+$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
+require_once $root.'/include/config/conf.inc.php';
+require_once $root.'/include/inc_lib/default.inc.php';
 
 // first check
 if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
