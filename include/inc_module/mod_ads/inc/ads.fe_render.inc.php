@@ -81,8 +81,8 @@ function renderAds($match) {
 	}
 
 	$ad['adcampaign_data']	= @unserialize($ad['adcampaign_data']);
-	$ad['dir']				= PHPWCMS_CONTENT.'ads/'.$ad['adcampaign_id'];
-	$ad['content_dir']		= CONTENT_PATH.'ads/'.$ad['adcampaign_id'].'/';
+	$ad['dir']				= PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$ad['adcampaign_id'];
+	$ad['content_dir']		= CONTENT_PATH.PHPWCMS_ADS_DIR.'/'.$ad['adcampaign_id'].'/';
 	if($ad['adcampaign_type']!=2 && $ad['adcampaign_type']!=4 && !is_dir($ad['dir'])) {
 		return '';
 	}
