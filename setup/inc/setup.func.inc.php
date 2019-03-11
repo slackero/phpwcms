@@ -126,9 +126,10 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['db_pers'] = " . intval($val["db_pers"]) . ";\n";
     $conf_file .= "\$cmsgo['db_charset'] = '" . $val["db_charset"] . "';\n";
     $conf_file .= "\$cmsgo['db_collation'] = '" . $val["db_collation"] . "';\n";
-    $conf_file .= "\$cmsgo['db_version'] = '" . $val["db_version"] . "'; // Version of MySQL Server at the time phpwcms was installed\n";
+    $conf_file .= "\$cmsgo['db_version'] = '" . $val["db_version"] . "'; // Version of MySQL Server at the time cmsGO! was installed\n";
     $conf_file .= "\$cmsgo['db_timezone'] = '" . trim($val["db_timezone"]) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
+    $conf_file .= "\$cmsgo['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
     $check_url = rtrim($val["site"], '/');
@@ -152,7 +153,7 @@ function write_conf_file($val) {
     if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
         $conf_file .= "\$cmsgo['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . $val["DOC_ROOT"] . "';         //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . $val["DOC_ROOT"] . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
@@ -161,12 +162,13 @@ function write_conf_file($val) {
         $real_doc = rtrim($real_doc[0], '/');
     }
     $conf_file .= "// current DOC_ROOT seems to be: '" . $real_doc . "' \n";
-    $conf_file .= "\$cmsgo['root'] = '" . $val["root"] . "';         //default: ''\n";
-    $conf_file .= "\$cmsgo['file_path'] = '" . $val["file_path"] . "';    //default: 'filearchive'\n";
-    $conf_file .= "\$cmsgo['templates'] = '" . $val["templates"] . "';    //default: 'template'\n";
+    $conf_file .= "\$cmsgo['root'] = '" . $val["root"] . "'; //default: ''\n";
+    $conf_file .= "\$cmsgo['file_path'] = '" . $val["file_path"] . "'; //default: 'filearchive'\n";
+    $conf_file .= "\$cmsgo['templates'] = '" . $val["templates"] . "'; //default: 'template'\n";
     $conf_file .= "\$cmsgo['content_path'] = '" . $val["content_path"] . "'; //default: 'content'\n";
     $conf_file .= "\$cmsgo['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$cmsgo['ftp_path'] = '" . $val["ftp_path"] . "';     //default: 'upload'\n";
+    $conf_file .= "\$cmsgo['ftp_path'] = '" . $val["ftp_path"] . "'; //default: 'upload'\n";
+    $conf_file .= "\$cmsgo['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
     $conf_file .= "\$cmsgo['file_maxsize'] = " . intval($val["file_maxsize"]) . "; //Bytes (50 x 1024 x 1024)\n";
@@ -182,29 +184,29 @@ function write_conf_file($val) {
     $val["rewrite_url"] = check_htaccess($val);
 
     $conf_file .= "\n// other stuff\n";
-    $conf_file .= "\$cmsgo['image_library'] = 'GD2';    //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
-    $conf_file .= "\$cmsgo['library_path'] = '';       //Path to ImageMagick or NetPBM\n";
+    $conf_file .= "\$cmsgo['image_library'] = 'GD2'; //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
+    $conf_file .= "\$cmsgo['library_path'] = ''; //Path to ImageMagick or NetPBM\n";
     $conf_file .= "\$cmsgo['rewrite_url'] = " . $val["rewrite_url"] . "; // whether URL should be rewritable\n";
     $conf_file .= "\$cmsgo['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$cmsgo['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$cmsgo['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
-    $conf_file .= "\$cmsgo['wysiwyg_editor'] = 1;  //0 = no wysiwyg editor, 1 = CKEditor 4\n";
-    $conf_file .= "\$cmsgo['allowed_lang'] = array('en','de','fr','es');     //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+    $conf_file .= "\$cmsgo['wysiwyg_editor'] = 1; //0 = no wysiwyg editor, 1 = CKEditor 4\n";
+    $conf_file .= "\$cmsgo['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$cmsgo['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
-    $conf_file .= "\$cmsgo['DOCTYPE_LANG'] = '';       //by default same as \$cmsgo['default_lang'], but can be injected by whatever you like\n";
+    $conf_file .= "\$cmsgo['DOCTYPE_LANG'] = ''; //by default same as \$cmsgo['default_lang'], but can be injected by whatever you like\n";
     $conf_file .= "\$cmsgo['default_lang'] = '" . $val["default_lang"] . "';  //default language\n";
     $conf_file .= "\$cmsgo['charset'] = '" . $val["charset"] . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$cmsgo['php_charset'] = false; // set PHP default charset to \$cmsgo['charset']\n";
     $conf_file .= "\$cmsgo['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$cmsgo['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
-    $conf_file .= "\$cmsgo['sharpen_level'] = 1;  //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
-    $conf_file .= "\$cmsgo['allow_ext_init'] = 1;  //allow including of custom external scripts at frontend initialization\n";
-    $conf_file .= "\$cmsgo['allow_ext_render'] = 1;  //allow including of custom external scripts at frontend rendering\n";
-    $conf_file .= "\$cmsgo['cache_enabled'] = 0;        //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
-    $conf_file .= "\$cmsgo['cache_timeout'] = 0;  //default cache timeout setting in seconds - 0 = caching Off\n";
-    $conf_file .= "\$cmsgo['imgext_disabled'] = '';  //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
+    $conf_file .= "\$cmsgo['sharpen_level'] = 1; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
+    $conf_file .= "\$cmsgo['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
+    $conf_file .= "\$cmsgo['allow_ext_render'] = 1; //allow including of custom external scripts at frontend rendering\n";
+    $conf_file .= "\$cmsgo['cache_enabled'] = 0; //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
+    $conf_file .= "\$cmsgo['cache_timeout'] = 0; //default cache timeout setting in seconds - 0 = caching Off\n";
+    $conf_file .= "\$cmsgo['imgext_disabled'] = ''; //comma seperated list of imagetypes which should not be handled 'pdf,ps'\n";
     $conf_file .= "\$cmsgo['multimedia_ext'] = 'aif,aiff,mov,movie,mp3,mpeg,mpeg4,mpeg2,wav,swf,swc,ram,ra,wma,wmv,avi,au,midi,moov,rm,rpm,mid,midi'; //comma seperated list of file extensiosn allowed for multimedia\n";
-    $conf_file .= "\$cmsgo['inline_download'] = 1;  //1 = try to display download documents in new window; 0 = show safe under dialog\n";
+    $conf_file .= "\$cmsgo['inline_download'] = 1; //1 = try to display download documents in new window; 0 = show safe under dialog\n";
     $conf_file .= "\$cmsgo['sanitize_dlname'] = 0; // if there are problems downloading files with special chars in name try to enable this setting\n";
     $conf_file .= "\$cmsgo['form_tracking'] = 1; //make a db entry for each form\n";
     $conf_file .= "\$cmsgo['formmailer_set'] = array('allow_send_copy' => 0, 'global_recipient_email' => 'mail@example.com'); //for better security handling\n";
@@ -232,7 +234,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$cmsgo['edit.php'] = 'edit.php';\n";
     $conf_file .= "\$cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)\n";
+    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.4.1/)\n";
     $conf_file .= "\$cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";

@@ -10,10 +10,10 @@
 
 // tracking pixel
 
-$cmsgo				= array();
-$cmsgo['THIS_ROOT']	= realpath(dirname(__FILE__).'/../../');
-require $cmsgo['THIS_ROOT'].'/include/config/conf.inc.php';
-require $cmsgo['THIS_ROOT'].'/include/inc_lib/default.inc.php';
+$cmsgo = array();
+$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
+require_once $root.'/include/config/conf.inc.php';
+require_once $root.'/include/inc_lib/default.inc.php';
 
 // first check
 if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == CMSGO_USER_KEY) {

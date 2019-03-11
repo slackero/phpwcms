@@ -18,6 +18,9 @@ if (!defined('CMSGO_ROOT')) {
 // build the database table prepend part
 define ('DB_PREPEND', empty($GLOBALS['cmsgo']["db_prepend"]) ? '' : $GLOBALS['cmsgo']["db_prepend"].'_');
 
+// Log DB errors
+define ('DB_LOG_ERRORS', empty($GLOBALS['cmsgo']["db_errorlog"]) ? false : true);
+
 // open the connection to MySQL database
 if(!empty($GLOBALS['cmsgo']["db_pers"]) && substr($GLOBALS['cmsgo']["db_host"], 0, 2) !== 'p:') {
     $GLOBALS['cmsgo']["db_host"] = 'p:'.$GLOBALS['cmsgo']["db_host"];
@@ -152,6 +155,8 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
         return $queryResult;
 
     } else {
+
+        _dbLogError(_dbError('LOG', $query));
 
         return false;
 
@@ -351,7 +356,13 @@ function _dbError($error_type='DB', $query='') {
 
     if($query) {
         $query  = str_replace(',', ",\n", $query);
-        $error .= '<pre>' . $query .'</pre>';
+        switch($error_type) {
+            case 'LOG':
+                $error  .= ', QUERY: "' . $query . '"';
+                break;
+            default:
+                $error .= '<pre>' . $query .'</pre>';
+        }
     }
 
     return $error;
@@ -360,6 +371,20 @@ function _dbError($error_type='DB', $query='') {
 function _dbErrorNum() {
 
     return mysqli_errno($GLOBALS['db']);
+
+}
+
+function _dbLogError($log_msg='') {
+
+    if(DB_LOG_ERRORS && $log_msg) {
+
+        if(@is_dir(CMSGO_LOGDIR)) {
+            $log_msg = '[' . date('Y-m-d H:i:s') . '] ' . $log_msg . LF;
+
+            @file_put_contents(CMSGO_LOGDIR . '/cmsgo_db_error.log', $log_msg, FILE_APPEND);
+        }
+
+    }
 
 }
 
@@ -630,7 +655,7 @@ function _dbSetVar($var='', $value=null, $compare=false) {
     $var = trim($var);
 
     // stop if this was set yet. can be defined as
-    // additional  config value in conf.inc.php
+    // additional config value in conf.inc.php
 
     if(!is_string($var) || !$var || $value === null) {
 

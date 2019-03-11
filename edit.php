@@ -43,6 +43,8 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lang/code.lang.inc.php';
 
+logdir_exists();
+
 $_SESSION['REFERER_URL'] = CMSGO_URL.get_login_file();
 
 // make compatibility check

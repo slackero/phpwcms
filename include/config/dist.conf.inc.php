@@ -19,9 +19,10 @@ $cmsgo['db_prepend']          = '';
 $cmsgo['db_pers']             = 0;
 $cmsgo['db_charset']          = 'utf8';
 $cmsgo['db_collation']        = 'utf8_general_ci';
-$cmsgo['db_version']          = ''; // Version of MySQL Server at the time phpwcms was installed
+$cmsgo['db_version']          = ''; // Version of MySQL Server at the time cmsGO! was installed
 $cmsgo['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
 $cmsgo['db_sql_mode']         = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
+$cmsgo['db_errorlog']         = false; // Log DB queries - false|true
 
 // site values
 $cmsgo['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
@@ -42,6 +43,7 @@ $cmsgo['templates']           = 'template';
 $cmsgo['content_path']        = 'content';
 $cmsgo['cimage_path']         = 'images';
 $cmsgo['ftp_path']            = 'upload';
+$cmsgo['ads_path']            = 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $cmsgo['file_maxsize']        = 52428800; // Bytes (50 x 1024 x 1024)
@@ -105,7 +107,7 @@ $cmsgo['JW_FLV_License']      = ''; // insert your JW FLV Media Player License C
 $cmsgo['feuser_regkey']       = 'FEUSER';
 $cmsgo['edit.php']           = 'edit.php';
 $cmsgo['js_lib']              = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)
+$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.4.1/)
 $cmsgo['render_device']       = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $cmsgo['detect_pixelratio']   = 0; // will inject the page with JavaScript to detect Retina devices
 $cmsgo['im_fix_colorspace']   = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
