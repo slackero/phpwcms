@@ -31,6 +31,13 @@ $template = array(
     "lefttext" => '',
     "righttext" => '',
     "errortext" => '',
+    "htmlhead_file" => '',
+    "headertext_file" => '',
+    "maintext_file" => '',
+    "footertext_file" => '',
+    "lefttext_file" => '',
+    "righttext_file" => '',
+    "errortext_file" => '',
     'feloginurl' => '',
     'jslib' => key($phpwcms['js_lib']), // take the most current
     'jslibload' => 0,
@@ -49,8 +56,8 @@ $template = array(
     'tracking_ga' => array(
         'enable' => 0,
         'id' => '',
-        'anonymize' => 0,
-        'optout' => 0,
+        'anonymize' => PHPWCMS_GDPR_MODE  ? 1 : 0,
+        'optout' => PHPWCMS_GDPR_MODE  ? 1 : 0,
     ),
     'tracking_piwik' => array(
         'enable' => 0,
@@ -124,34 +131,37 @@ if(isset($result[0]['template_id'])) {
         $createcopy = empty($_POST["c"]) ? 0 : intval($_POST["c"]); // ERICH COPY TEMPLATE 08.06.2005
 
         // read the create or edit template form data
-        $template["id"]         = intval($_POST["template_id"]);
-        $template["default"]    = empty($_POST["template_setdefault"]) ? 0 : 1;
-        $template["layout"]     = intval($_POST["template_layout"]);
-        $template["name"]       = clean_slweg($_POST["template_name"], 150);
+        $template["id"] = intval($_POST["template_id"]);
+        $template["default"] = empty($_POST["template_setdefault"]) ? 0 : 1;
+        $template["layout"] = intval($_POST["template_layout"]);
+        $template["name"] = clean_slweg($_POST["template_name"], 150);
         if(empty($template["name"])) {
             $template["name"] = "template_".generic_string(3);
         }
-        if(isset($_POST["template_css"]) && is_array($_POST["template_css"])) {
-            $template["css"] = $_POST["template_css"];
-        } else {
-            $template["css"] = array();
-        }
-        $template["htmlhead"]   = slweg($_POST["template_htmlhead"]);
-        $template["jsonload"]   = slweg($_POST["template_jsonload"]);
+        $template["css"] = isset($_POST["template_css"]) && is_array($_POST["template_css"]) ? $_POST["template_css"] : array();
+        $template["htmlhead"] = slweg($_POST["template_htmlhead"]);
+        $template["htmlhead_file"] = clean_slweg($_POST["template_htmlhead_file"]);
+        $template["jsonload"] = slweg($_POST["template_jsonload"]);
         $template["headertext"] = slweg($_POST["template_block_header"]);
-        $template["maintext"]   = slweg($_POST["template_block_main"]);
+        $template["headertext_file"] = clean_slweg($_POST["template_block_header_file"]);
+        $template["maintext"] = slweg($_POST["template_block_main"]);
+        $template["maintext_file"] = clean_slweg($_POST["template_block_main_file"]);
         $template["footertext"] = slweg($_POST["template_block_footer"]);
-        $template["lefttext"]   = slweg($_POST["template_block_left"]);
-        $template["righttext"]  = slweg($_POST["template_block_right"]);
-        $template["errortext"]  = slweg($_POST["template_block_error"]);
+        $template["footertext_file"] = clean_slweg($_POST["template_block_footer_file"]);
+        $template["lefttext"] = slweg($_POST["template_block_left"]);
+        $template["lefttext_file"] = clean_slweg($_POST["template_block_left_file"]);
+        $template["righttext"] = slweg($_POST["template_block_right"]);
+        $template["righttext_file"] = clean_slweg($_POST["template_block_right_file"]);
+        $template["errortext"] = slweg($_POST["template_block_error"]);
+        $template["errortext_file"] = clean_slweg($_POST["template_block_error_file"]);
         $template["feloginurl"] = slweg($_POST["template_felogin_url"]);
-        $template["overwrite"]  = clean_slweg($_POST["template_overwrite"]);
-        $template['jslib']      = clean_slweg($_POST["template_jslib"]);
-        $template['jslibload']  = empty($_POST["template_jslibload"]) ? 0 : 1;
+        $template["overwrite"] = clean_slweg($_POST["template_overwrite"]);
+        $template['jslib'] = clean_slweg($_POST["template_jslib"]);
+        $template['jslibload'] = empty($_POST["template_jslibload"]) ? 0 : 1;
         $template['frontendjs'] = empty($_POST["template_frontendjs"]) ? 0 : 1;
-        $template['googleapi']  = empty($_POST["template_googleapi"]) ? 0 : 1;
-        $template['onepage']    = empty($_POST["template_onepage"]) ? 0 : 1;
-        $template['ie8ignore']  = empty($_POST["template_ie8ignore"]) ? 0 : 1;
+        $template['googleapi'] = empty($_POST["template_googleapi"]) ? 0 : 1;
+        $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
+        $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
         if(!empty($_POST['template_cc_message'])) {
             $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
@@ -193,6 +203,7 @@ if(isset($result[0]['template_id'])) {
             foreach($temp_customblock as $value) {
 
                 $template['customblock_'.$value] = slweg($_POST['template_customblock_'.$value]);
+                $template['customblock_'.$value.'_file'] = slweg($_POST['template_customblock_'.$value.'_file']);
 
             }
         }
@@ -339,7 +350,6 @@ if($opt) {
         <td class="chatlist tdbottom3"><?php echo $BL['be_overwrite_default'] ?><br/><strong>include/config/conf.template_default.inc.php</strong></td>
     </tr>
 
-
     <tr bgcolor="#E6EAED">
         <td align="right" class="chatlist" style="padding-left:2px"><?php echo $BL['be_settings'] ?>:&nbsp;</td>
         <td><select name="template_overwrite" id="template_overwrite">
@@ -366,7 +376,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
     <tr bgcolor="#F3F5F8">
         <td align="right" class="chatlist" valign="top"><?php echo $BL['be_admin_tmpl_css'] ?>:<img src="img/leer.gif" alt="" width="4" height="14" /></td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+        <td class="tdbottom5"><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr>
             <td valign="top"><select name="template_css[]" size="6" multiple="multiple" class="code" id="template_css">
 <?php
@@ -416,14 +426,18 @@ foreach($unselected_css as $value) {
           </table></td>
     </tr>
 
-    <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-
     <tr bgcolor="#F3F5F8">
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_head'] ?>:&nbsp;<br />&lt;head&gt; &nbsp;</td>
-        <td><textarea name="template_htmlhead" cols="35" rows="5" class="code width600 autosize" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["htmlhead_file"])) {
+                $template["htmlhead_file"] = '';
+            }
+            echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
+            ?>
+            <textarea name="template_htmlhead" cols="35" rows="3" class="code width600 autosize mb-5"><?php echo html_entities($template["htmlhead"]); ?></textarea>
+        </td>
     </tr>
-    <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
 
     <tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist"><?php echo $BL['js_lib'] ?>:&nbsp;</td>
@@ -582,31 +596,71 @@ foreach($phpwcms['js_lib'] as $key => $value) {
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_header'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_header" cols="35" rows="5" class="code width600 autosize" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["headertext_file"])) {
+                $template["headertext_file"] = '';
+            }
+            echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
+            ?>
+            <textarea name="template_block_header" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["headertext"]); ?></textarea>
+        </td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_main'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_main" cols="35" rows="10" class="code width600 autosize" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["maintext_file"])) {
+                $template["maintext_file"] = '';
+            }
+            echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
+            ?>
+            <textarea name="template_block_main" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["maintext"]); ?></textarea>
+        </td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_footer'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_footer" cols="35" rows="5" class="code width600 autosize" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["footertext_file"])) {
+                $template["footertext_file"] = '';
+            }
+            echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
+            ?>
+            <textarea name="template_block_footer" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["footertext"]); ?></textarea>
+        </td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_left'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_left" cols="35" rows="5" class="code width600 autosize" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["lefttext_file"])) {
+                $template["lefttext_file"] = '';
+            }
+            echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
+            ?>
+            <textarea name="template_block_left" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["lefttext"]); ?></textarea>
+        </td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td>
     </tr>
     <tr>
         <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
-        <td><textarea name="template_block_right" cols="35" rows="5" class="code width600 autosize" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea></td>
+        <td>
+            <?php
+            if(!isset($template["righttext_file"])) {
+                $template["righttext_file"] = '';
+            }
+            echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
+            ?>
+            <textarea name="template_block_right" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["righttext"]); ?></textarea>
+        </td>
     </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
@@ -623,13 +677,19 @@ if(!empty($jsOnChange))  {
 
         $custom_block = html($value);
 
+        if(!isset($template['customblock_'.$value.'_file'])) {
+            $template['customblock_'.$value.'_file'] = '';
+        }
+
         echo '<tr bgcolor="#F3F5F8"><td><img src="img/leer.gif" width="1" height="14" alt="" /></td>';
         echo '<td class="chatlist" valign="top">'.$custom_block." {".$custom_block."}</td>\n</tr>\n";
         echo '<tr bgcolor="#F3F5F8"><td>&nbsp;</td>';
-        echo '<td><textarea name="template_customblock_'.$custom_block;
-        echo '" cols="35" rows="4" class="code width600 autosize">';
+        echo '<td>';
+        echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
+        echo '<textarea name="template_customblock_'.$custom_block;
+        echo '" cols="35" rows="3" class="code width600 autosize">';
         echo isset($template['customblock_'.$value]) ? html_entities($template['customblock_'.$value]) : '';
-        echo "</textarea></td>\n</tr>\n";
+        echo "</textarea></td></tr>";
         echo '<tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" width="1" height="3" alt="" /></td></tr>'."\n";
 
     }
@@ -642,7 +702,15 @@ if(!empty($jsOnChange))  {
 ?>
     <tr>
       <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_admin_tmpl_error'] ?>:&nbsp;</td>
-      <td><textarea name="template_block_error" cols="35" rows="5" class="code width600 autosize" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea></td>
+      <td>
+          <?php
+          if(!isset($template["errortext_file"])) {
+              $template["errortext_file"] = '';
+          }
+          echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
+          ?>
+          <textarea name="template_block_error" cols="35" rows="3" class="code width600 autosize"><?php echo html_entities($template["errortext"]); ?></textarea>
+      </td>
     </tr>
 
     <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>

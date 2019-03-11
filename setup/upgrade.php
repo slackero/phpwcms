@@ -198,13 +198,8 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 if($do) {
 
 	_dbQuery('SET storage_engine=MYISAM', 'SET');
-
-	if($phpwcms['db_version'] > 40100) {
-		$value = "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'";
-		_dbQuery($value, 'SET');
-		$value = "SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'");
-		_dbQuery($value, 'SET');
-	}
+    _dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
+    _dbQuery("SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'"), 'SET');
 
 	$sql_data = read_textfile("update_sql/".$file);
 	$sql_data = preg_replace("/#.*.\n/", "", $sql_data );
@@ -221,7 +216,7 @@ if($do) {
 			unset($sql[$key]);
 		} else {
 
-			if($phpwcms['db_version'] > 40100 && $phpwcms['db_charset']=='utf8') {
+			if($phpwcms['db_charset'] === 'utf8') {
 				$value = utf8_encode($value);
 			}
 
@@ -243,7 +238,7 @@ if($do) {
 
 <?php
 
-if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']) || empty($phpwcms['db_version'])) {
+if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']))) {
 
 ?>
   <tr bgcolor="#FFFFFF">
@@ -252,7 +247,6 @@ if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']) || empty($ph
 		<strong>Before you continue proof the following config settings:</strong><br />
 		$phpwcms['db_charset']<br />
 		$phpwcms['db_collation']<br />
-		$phpwcms['db_version']<br />
 		If you are not sure how to handle this <br />
 		try to start setup process! <br />
 		<strong>But STOP SETUP BEFORE SQL IMPORT!!!</strong> </td>

@@ -32,13 +32,23 @@ if (!defined('PHPWCMS_ROOT')) {
  */
 
 // first check if neccessary db exists
-if(isset($phpwcms['modules'][$module]['path']) && file_exists($phpwcms['modules'][$module]['path'].'setup/setup.php')) {
-
-	include_once $phpwcms['modules'][$module]['path'].'setup/setup.php';
-
-} elseif(isset($phpwcms['modules'][$module]['path'])) {
+if(isset($phpwcms['modules'][$module]['path'])) {
 
 	// module default stuff
+
+    // Initial check against 'content/%ads_dir%'
+    if(@!is_dir(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR)) {
+        // Check older 'ads' static dir and try to rename
+        if(@is_dir(PHPWCMS_CONTENT.'ads')) {
+            @rename( PHPWCMS_CONTENT.'ads', PHPWCMS_CONTENT.PHPWCMS_ADS_DIR);
+        }
+        // Create new if not existing
+        if(_mkdir(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR)) {
+            if(!is_file(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR.'/index.html')) {
+                @file_put_contents(PHPWCMS_CONTENT . PHPWCMS_ADS_DIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
+            }
+        }
+    }
 
 	// load special backend CSS
 	$BE['HEADER']['module_ads.css'] = '	<link href="'.$phpwcms['modules'][$module]['dir'].'template/backend.ads.css" rel="stylesheet" type="text/css">';
@@ -78,7 +88,7 @@ if(isset($phpwcms['modules'][$module]['path']) && file_exists($phpwcms['modules'
 			@_dbQuery($sql, 'UPDATE');
 
 			//rename deleted campaign
-			@rename(PHPWCMS_CONTENT.'ads/'.$adcampaign_id, PHPWCMS_CONTENT.'ads/_deleted_'.time().'_'.$adcampaign_id);
+			@rename(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$adcampaign_id, PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/_deleted_'.time().'_'.$adcampaign_id);
 
 			headerRedirect(decode_entities(MODULE_HREF).'&listcampaign=1');
 

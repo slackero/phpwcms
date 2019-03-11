@@ -70,7 +70,7 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
     } else {
         $sn .= "<tr><td><img name=\"".$id."\" src=\"img/subnav/subnav_A.gif\" width=\"15\" height=\"13\" border=\"0\" alt=\"\" /></td>";
         $sn .= "<td class=\"subnavinactive\"><a href=\"".$link."\" ".$js;
-        $sn .= "onMouseOver=\"".$id.".src='img/subnav/subnav_B.gif'\" onMouseOut=\"".$id;
+        $sn .= "onmouseover=\"".$id.".src='img/subnav/subnav_B.gif'\" onmouseout=\"".$id;
         $sn .= ".src='img/subnav/subnav_A.gif'\">".$text."</a></td></tr>";
     }
     $sn .= "\n";
@@ -88,7 +88,7 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
     $id  = 'subnavid'.generic_string(5);
     $sn  = '<tr><td><img src="img/subnav/subnav_A.gif" width="15" height="13" border="0" name="'.$id.'" alt="" /></td>';
     $sn .= '<td class="subnavinactive"><a href="'.$link.'" target="'.$target.'" ';
-    $sn .= "onMouseOver=\"".$id.".src='img/subnav/subnav_B.gif'\" onMouseOut=\"".$id.".src='img/subnav/subnav_A.gif'\"";
+    $sn .= "onmouseover=\"".$id.".src='img/subnav/subnav_B.gif'\" onmouseout=\"".$id.".src='img/subnav/subnav_A.gif'\"";
     $sn .= '>'.$text.'</a></td></tr>';
     $sn .= "\n";
 
@@ -106,8 +106,8 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
     }
     $sn .= "<tr>";
     $sn .= "<td><img name=\"".$id."\" src=\"img/subnav/subnav_back_0.gif\" width=\"9\" height=\"9\" border=\"0\" alt=\"\" /></td>";
-    $sn .= "<td class=\"subnavinactive\">&nbsp;<a href=\"".$link."\" onMouseOver=\"".$id.".src='img/subnav/subnav_back_1.gif'\" ";
-    $sn .= "onMouseOut=\"".$id.".src='img/subnav/subnav_back_0.gif'\"><strong>".$text."</strong></a></td>";
+    $sn .= "<td class=\"subnavinactive\">&nbsp;<a href=\"".$link."\" onmouseover=\"".$id.".src='img/subnav/subnav_back_1.gif'\" ";
+    $sn .= "onmouseout=\"".$id.".src='img/subnav/subnav_back_0.gif'\"><strong>".$text."</strong></a></td>";
     $sn .= "</tr>";
     if(intval($h_after)) {
         $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>";
@@ -334,11 +334,8 @@ function phpwcmsversionCheck() {
         $version_time       = strtotime(PHPWCMS_RELEASE_DATE.' 00:00:00');
 
         if($latest_revision <= $phpwcms['revision'] || $latest_time <= $version_time)   {
-
             $version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
-
         } else {
-
             $version_info  = '<p class="error">' . $BL['Version_not_up_to_date'] . '</p>';
         }
 
@@ -1461,4 +1458,37 @@ function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_s
     }
     $text = str_replace('{'.$tag.'}', $value, $text);
     return $text;
+}
+
+function get_template_file_select($block='', $name='', $selected='', $path='') {
+    if($block) {
+        if($name === '') {
+            $name = 'template_' . $block . '_file';
+        }
+        if($path === '') {
+            $path = PHPWCMS_TEMPLATE . 'inc_cntpart/template-sections/' . $block;
+        }
+        if(is_dir($path)) {
+            $files = get_tmpl_files($path, 'tmpl,html,tpl');
+            if(count($files)) {
+                $select = '<select name="' . $name .'" class="mb-3">';
+                $select .= '<option value=""';
+                if($selected === '') {
+                    $select .= ' selected="selected"';
+                }
+                $select .= '>' . $GLOBALS['BL']['be_admin_template_choose_file'] . '</option>';
+                foreach($files as $file) {
+                    $select .= '<option value="' . html($file) . '"';
+                    if($selected === $file) {
+                        $select .= ' selected="selected"';
+                    }
+                    $select .= '>inc_cntpart/template-sections/' . html($block.'/'.$file) . '</option>';
+                }
+                $select .= '</select><br />';
+                return $select;
+            }
+        }
+        return '<input type="hidden" name="' . $name . '" value="" />';
+    }
+    return '';
 }

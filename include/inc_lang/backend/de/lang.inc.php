@@ -1014,7 +1014,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie au&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;phpwcms_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
 
 $BL['be_ctype_poll'] = 'Poll';
@@ -1031,7 +1031,7 @@ $BL['be_admin_struct_acat_hiddenactive'] = 'sichtbar, wenn aktiv';
 $BL['be_login_jsinfo'] = 'JavaScript wird im Backend ben&ouml;tigt!';
 
 $BL['be_admin_struct_maxlist'] = 'max. Artikel im Listenmodus';
-$BL['be_admin_optgroup_label'] = [1 => 'Text', 2 => 'Bild', 3 => 'Formular', 4 => 'Admin', 5 => 'Spezial'];
+$BL['be_admin_optgroup_label'] = array(1 => 'Text', 2 => 'Bild', 3 => 'Formular', 4 => 'Admin', 5 => 'Spezial');
 $BL['be_cnt_articlemenu_maxchar'] = 'max. Zeichen';
 
 $BL['be_cnt_sysadmin_system'] = 'System';
@@ -1473,3 +1473,5 @@ $BL['be_extensions_copyright'] = 'Erweiterungen sind urheberrechtlich gesch&uuml
 
 $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
+
+$BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';

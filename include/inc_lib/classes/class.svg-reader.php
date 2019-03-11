@@ -22,7 +22,7 @@
  * @author "Derk-Jan Hartman <hartman _at_ videolan d0t org>"
  * @author Brion Vibber
  * @copyright Copyright © 2010-2010 Brion Vibber, Derk-Jan Hartman
- * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @license GPL-2.0-or-later
  */
 
 /**
@@ -43,17 +43,21 @@ class SVGReader {
 	const DEFAULT_WIDTH = PHPWCMS_IMAGE_WIDTH;
 	const DEFAULT_HEIGHT = PHPWCMS_IMAGE_HEIGHT;
 	const NS_SVG = 'http://www.w3.org/2000/svg';
+	const LANG_PREFIX_MATCH = 1;
+	const LANG_FULL_MATCH = 2;
 
 	/** @var null|XMLReader */
 	private $reader = null;
 
+	/** @var bool */
+	private $mDebug = false;
+
 	/** @var array */
 	private $metadata = array();
-    private $error = array();
+	private $languages = array();
+	private $languagePrefixes = array();
 
 	/**
-	 * Constructor
-	 *
 	 * Creates an SVGReader drawing from the source provided
 	 * @param string $source URI from which to read
 	 * @throws MWException|Exception
@@ -61,20 +65,21 @@ class SVGReader {
 	function __construct( $source ) {
 		$this->reader = new XMLReader();
 
-        $filesize = filesize( $source );
-
 		// Don't use $file->getSize() since file object passed to SVGHandler::getMetadata is bogus.
-		if ( $filesize !== false ) {
-			$this->reader->open( $source, null, LIBXML_NOERROR | LIBXML_NOWARNING );
+		$size = filesize( $source );
+		if ( $size !== false ) {
 
-            // Expand entities, since Adobe Illustrator uses them for xmlns
-    		// attributes (bug 31719). Note that libxml2 has some protection
+			$this->reader->open( $source, null, LIBXML_NOERROR | LIBXML_NOWARNING );
+		}
+
+		// Expand entities, since Adobe Illustrator uses them for xmlns
+		// attributes (T33719). Note that libxml2 has some protection
     		// against large recursive entity expansions so this is not as
     		// insecure as it might appear to be. However, it is still extremely
     		// insecure. It's necessary to wrap any read() calls with
     		// libxml_disable_entity_loader() to avoid arbitrary local file
     		// inclusion, or even arbitrary code execution if the expect
-    		// extension is installed (bug 46859).
+		// extension is installed (T48859).
     		$oldDisable = libxml_disable_entity_loader( true );
     		$this->reader->setParserProperty( XMLReader::SUBST_ENTITIES, true );
 
@@ -91,8 +96,7 @@ class SVGReader {
     		// try catch thing to make sure warnings get restored. Seems like there should
     		// be a better way.
     		$this->read();
-            libxml_disable_entity_loader( $oldDisable );
-		}
+    		libxml_disable_entity_loader( $oldDisable );
 	}
 
 	/**
@@ -141,6 +145,9 @@ class SVGReader {
 				// However its possible to configure MW to let them
 				// in, and such files should be considered animated.
 				$this->metadata['animated'] = true;
+			} elseif ( $tag !== '#text' ) {
+				// Recurse into children of current tag, looking for animation and languages.
+				$this->animateFilterAndLang( $tag );
 			}
 
 			// Goto next element, which is sibling of current (Skip children).
@@ -148,6 +155,8 @@ class SVGReader {
 		}
 
 		$this->reader->close();
+
+		$this->metadata['translations'] = $this->languages + $this->languagePrefixes;
 
 		return true;
 	}
@@ -193,6 +202,80 @@ class SVGReader {
 	}
 
 	/**
+	 * Filter all children, looking for animated elements.
+	 * Also get a list of languages that can be targeted.
+	 *
+	 * @param string $name Name of the element that we are reading from
+	 */
+	private function animateFilterAndLang( $name ) {
+		if ( $this->reader->nodeType != XMLReader::ELEMENT ) {
+			return;
+		}
+		if ( $this->reader->isEmptyElement ) {
+			return;
+		}
+		$exitDepth = $this->reader->depth;
+		$keepReading = $this->reader->read();
+		while ( $keepReading ) {
+			if ( $this->reader->localName == $name && $this->reader->depth <= $exitDepth
+				&& $this->reader->nodeType == XMLReader::END_ELEMENT
+			) {
+				break;
+			} elseif ( $this->reader->namespaceURI == self::NS_SVG
+				&& $this->reader->nodeType == XMLReader::ELEMENT
+			) {
+				$sysLang = $this->reader->getAttribute( 'systemLanguage' );
+				if ( !is_null( $sysLang ) && $sysLang !== '' ) {
+					// See https://www.w3.org/TR/SVG/struct.html#SystemLanguageAttribute
+					$langList = explode( ',', $sysLang );
+					foreach ( $langList as $langItem ) {
+						$langItem = trim( $langItem );
+						if ( Language::isWellFormedLanguageTag( $langItem ) ) {
+							$this->languages[$langItem] = self::LANG_FULL_MATCH;
+						}
+						// Note, the standard says that any prefix should work,
+						// here we do only the initial prefix, since that will catch
+						// 99% of cases, and we are going to compare against fallbacks.
+						// This differs mildly from how the spec says languages should be
+						// handled, however it matches better how the MediaWiki language
+						// preference is generally handled.
+						$dash = strpos( $langItem, '-' );
+						// Intentionally checking both !false and > 0 at the same time.
+						if ( $dash ) {
+							$itemPrefix = substr( $langItem, 0, $dash );
+							if ( Language::isWellFormedLanguageTag( $itemPrefix ) ) {
+								$this->languagePrefixes[$itemPrefix] = self::LANG_PREFIX_MATCH;
+							}
+						}
+					}
+				}
+				switch ( $this->reader->localName ) {
+					case 'script':
+						// Normally we disallow files with
+						// <script>, but its possible
+						// to configure MW to disable
+						// such checks.
+					case 'animate':
+					case 'set':
+					case 'animateMotion':
+					case 'animateColor':
+					case 'animateTransform':
+						$this->debug( "HOUSTON WE HAVE ANIMATION" );
+						$this->metadata['animated'] = true;
+						break;
+				}
+			}
+			$keepReading = $this->reader->read();
+		}
+	}
+
+	private function debug( $data ) {
+		if ( $this->mDebug ) {
+			wfDebug( "SVGReader: $data\n" );
+		}
+	}
+
+	/**
 	 * Parse the attributes of an SVG element
 	 *
 	 * The parser has to be in the start element of "<svg>"
@@ -206,7 +289,7 @@ class SVGReader {
 
 		if ( $this->reader->getAttribute( 'viewBox' ) ) {
 			// min-x min-y width height
-			$viewBox = preg_split( '/\s+/', trim( $this->reader->getAttribute( 'viewBox' ) ) );
+			$viewBox = preg_split( '/\s*[\s,]\s*/', trim( $this->reader->getAttribute( 'viewBox' ) ) );
 			if ( count( $viewBox ) == 4 ) {
 				$viewWidth = $this->scaleSVGUnit( $viewBox[2] );
 				$viewHeight = $this->scaleSVGUnit( $viewBox[3] );
@@ -242,14 +325,14 @@ class SVGReader {
 
 	/**
 	 * Return a rounded pixel equivalent for a labeled CSS/SVG length.
-	 * http://www.w3.org/TR/SVG11/coords.html#UnitIdentifiers
+	 * https://www.w3.org/TR/SVG11/coords.html#Units
 	 *
 	 * @param string $length CSS/SVG length.
 	 * @param float|int $viewportSize Optional scale for percentage units...
 	 * @return float Length in pixels
 	 */
 	static function scaleSVGUnit( $length, $viewportSize = 512 ) {
-		static $unitLength = [
+		static $unitLength = array(
 			'px' => 1.0,
 			'pt' => 1.25,
 			'pc' => 15.0,
@@ -259,9 +342,9 @@ class SVGReader {
 			'em' => 16.0, // fake it?
 			'ex' => 12.0, // fake it?
 			'' => 1.0, // "User units" pixels by default
-		];
-		$matches = [];
-		if ( preg_match( '/^\s*(\d+(?:\.\d+)?)(em|ex|px|pt|pc|cm|mm|in|%|)\s*$/', $length, $matches ) ) {
+		);
+		$matches = array();
+		if ( preg_match( '/^\s*([-+]?\d*(?:\.\d+|\d+)(?:[Ee][-+]?\d+)?)\s*(em|ex|px|pt|pc|cm|mm|in|%|)\s*$/', $length, $matches ) ) {
 			$length = floatval( $matches[1] );
 			$unit = $matches[2];
 			if ( $unit == '%' ) {

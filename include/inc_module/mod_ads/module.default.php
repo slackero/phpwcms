@@ -27,3 +27,8 @@ $_module_fe_render		= true;
 $_module_fe_init		= true;
 $_module_fe_search		= false;
 $_module_fe_setting		= false;
+
+// Register ADS_DIR constant based on $phpwcms['ads_path']
+// mainly used to handle adblocking more flexible
+// Fallback to 'ads' - the default value in previous versions
+define('PHPWCMS_ADS_DIR', empty($phpwcms['ads_path']) ? 'ads' : $phpwcms['ads_path']);

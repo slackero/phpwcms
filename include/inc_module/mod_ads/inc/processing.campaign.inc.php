@@ -86,7 +86,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_image']['name'])) {
 
         // image upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_image', PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', '', '1,2,3', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_image', PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', '', '1,2,3', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['image'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);
@@ -98,7 +98,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_flash']['name'])) {
 
         // flash upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', 'swf', '', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'swf', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['flash'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);
@@ -110,7 +110,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_css']['name'])) {
 
         // css upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_css', PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', 'css', '', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_css', PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'css', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['css'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);

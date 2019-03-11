@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -28,23 +28,20 @@ if (!defined('PHPWCMS_ROOT')) {
 // $_module_root = PHPWCMS_ROOT.'/include/inc_module/mod_ads';
 // but OK too as long mods folder is not renamed:
 
-if(strpos($content['all'], '{ADS_')) {
+if (strpos($content['all'], '{ADS_')) {
 
-	// OK ADS TAG found and now do the rest :)
-	include_once dirname($value).'/inc/ads.fe_render.inc.php';
+    // OK ADS TAG found and now do the rest :)
+    include_once dirname($value) . '/inc/ads.fe_render.inc.php';
 
-	$content['ADS_ALL'] = array();
-	$content['all'] = preg_replace_callback('/\{ADS_(\d+)\}/','renderAds', $content["all"]);
+    $content['ADS_ALL'] = array();
+    $content['all'] = preg_replace_callback('/\{ADS_(\d+)\}/', 'renderAds', $content["all"]);
 
-	if(count($content['ADS_ALL'])) {
+    if (count($content['ADS_ALL'])) {
 
-		//render ads tracking image here.
-		$content['all'] .=	'<img src="'.CONTENT_PATH.'ads/adtracking.php?'.
-							't='.implode('%2C', $content['ADS_ALL']).'&amp;'.
-							'u='.PHPWCMS_USER_KEY.'&amp;r='.(empty($_SERVER['HTTP_REFERER']) ? '' : urlencode($_SERVER['HTTP_REFERER'])).
-							'&amp;c='.$aktion[0].'&amp;a='.$aktion[1].'&amp;k='.md5(microtime()).
-							'" alt="" width="0" height="0" />';
-
-	}
-
+        //render ads tracking image here.
+        $content['all'] .= '<img alt="blank" width="0" height="0" src="img/blank.php?t=';
+        $content['all'] .= implode('%2C', $content['ADS_ALL']) . '&amp;u=' . PHPWCMS_USER_KEY;
+        $content['all'] .= '&amp;r=' . (empty($_SERVER['HTTP_REFERER']) ? '' : urlencode($_SERVER['HTTP_REFERER']));
+        $content['all'] .= '&amp;c=' . $aktion[0] . '&amp;a=' . $aktion[1] . '&amp;k=' . md5(microtime()) . '" />';
+    }
 }

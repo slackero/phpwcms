@@ -148,7 +148,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     // make spam check
     if($phpwcms['form_tracking'] && $POST_DO && !checkFormTrackingValue()) {
-        $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.getRemoteIP().' is not allowed to send form![/class]';
+        $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).' is not allowed to send form![/class]';
     }
 
     foreach($cnt_form["fields"] as $key => $value) {
@@ -356,11 +356,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  * Special
                  */
                 $cnt_form['special_attribute'] = array(
-                            'default'       => '',
-                            'type'          => 'MIX',
-                            'dateformat'    => 'm/d/Y',
-                            'pattern'       => '/.*?/'
-                        );
+                    'default'       => '',
+                    'type'          => 'MIX',
+                    'dateformat'    => 'm/d/Y',
+                    'pattern'       => '/.*?/'
+                );
                 //
                 if($cnt_form["fields"][$key]['value']) {
                     $cnt_form['special_value'] = str_replace( array('"', "'", "\r'"), '', $cnt_form["fields"][$key]['value'] );
@@ -371,14 +371,18 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         foreach($cnt_form['special_value'] as $cnt_form['special_key'] => $cnt_form['special_val']) {
                             $temp_array = explode('=', $cnt_form['special_val']);
                             switch($temp_array[0]) {
-                                case 'default':     $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
-                                                    break;
-                                case 'type':        $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
-                                                    break;
-                                case 'dateformat':  $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
-                                                    break;
-                                case 'pattern':     $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
-                                                    break;
+                                case 'default':
+                                    $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
+                                    break;
+                                case 'type':
+                                    $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
+                                    break;
+                                case 'dateformat':
+                                    $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
+                                    break;
+                                case 'pattern':
+                                    $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
+                                    break;
                             }
                         }
                     }
@@ -394,44 +398,46 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
                         $cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
                         // try to check for special value
-                        if(isset($cnt_form['special_attribute']['type'])) {
-                            switch($cnt_form['special_attribute']['type']) {
+                        switch($cnt_form['special_attribute']['type']) {
+                            case 'A-Z':
+                            case 'a-Z':
+                            case 'a-z':
+                            case '0-9':
+                            case 'WORD':
+                            case 'LETTER+SPACE':
+                            case 'PHONE':
+                            case 'INT':
+                                if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], $cnt_form["fields"][$key]['value'])) {
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                }
+                                break;
 
-                                case 'A-Z':
-                                case 'a-Z':
-                                case 'a-z':
-                                case '0-9':
-                                case 'WORD':
-                                case 'LETTER+SPACE':
-                                case 'PHONE':
-                                case 'INT':     if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], $cnt_form["fields"][$key]['value'])) {
-                                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                                                }
-                                                break;
+                            case 'REGEX':
+                                if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['special_attribute']['pattern'], $cnt_form["fields"][$key]['value'])) {
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                }
+                                break;
 
-                                case 'REGEX':   if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['special_attribute']['pattern'], $cnt_form["fields"][$key]['value'])) {
-                                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                                                }
-                                                break;
+                            case 'DEC':
+                            case 'FLOAT':
+                                if($cnt_form["fields"][$key]['value'] !== '' && !is_float_ex($cnt_form["fields"][$key]['value'])) {
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                }
+                                break;
 
-                                case 'DEC':
-                                case 'FLOAT':   if($cnt_form["fields"][$key]['value'] !== '' && !is_float_ex($cnt_form["fields"][$key]['value'])) {
-                                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                                                }
-                                                break;
+                            case 'IDENT':
+                                if(isset($cnt_form['special_attribute']['default']) &&
+                                    decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                }
+                                break;
 
-                                case 'IDENT':   if(isset($cnt_form['special_attribute']['default']) &&
-                                                    decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
-                                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                                                }
-                                                break;
-
-                                case 'DATE':    if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) &&
-                                                    !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
-                                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                                                }
-                                                break;
-                            }
+                            case 'DATE':
+                                if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) &&
+                                    !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                }
+                                break;
                         }
                     }
                 } else {
@@ -446,8 +452,40 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         }
                     }
                 }
-                //
-                $form_field .= '<input type="text" name="'.$form_name.'" id="'.$form_name.'" ';
+
+                $form_field_type = 'text';
+                $form_field_attributes = '';
+
+                switch($cnt_form['special_attribute']['type']) {
+                    case 'A-Z':
+                    case 'a-Z':
+                    case 'a-z':
+                    case '0-9':
+                    case 'WORD':
+                    case 'LETTER+SPACE':
+                        $form_field_attributes = ' pattern="' . $cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ] . '"';
+                        break;
+
+                    case 'PHONE':
+                        $form_field_type = 'phone';
+                        break;
+
+                    case 'INT':
+                        $form_field_type = 'number';
+                        $form_field_attributes = ' step="1" pattern="\d+"';
+                        break;
+
+                    case 'DEC':
+                        $form_field_type = 'number';
+                        $form_field_attributes = ' step=".01" pattern="^\d+(\.\d{1,2})?$"';
+                        break;
+
+                    case 'REGEX':
+                        $form_field_attributes = ' pattern="'.$cnt_form['special_attribute']['pattern'].'"';
+                        break;
+                }
+
+                $form_field .= '<input type="' . $form_field_type . '" name="'.$form_name.'" id="'.$form_name.'" ';
                 $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
@@ -467,7 +505,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 if($cnt_form["fields"][$key]['required']) {
                     $form_field .= ' required="required"';
                 }
-                $form_field .= ' />';
+                $form_field .= $form_field_attributes . ' />';
                 break;
 
             case 'email':
@@ -1460,68 +1498,61 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_value_nl[1]   = empty($form_value_nl[1]) ? '' : trim($form_value_nl[1]);
 
                     if(empty($form_value_nl[0]) || empty($form_value_nl[1])) {
-
                         continue;
+                    }
 
-                    } else {
+                    switch($form_value_nl[0]) {
 
-                        switch($form_value_nl[0]) {
+                        case 'all':
+                            $form_value[0] = $form_value_nl[1];
+                            break;
 
-                            case 'all':
-                                $form_value[0] = $form_value_nl[1];
-                                break;
+                        case 'email_field':
+                            $form_newletter_setting['email_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'email_field':
-                                $form_newletter_setting['email_field'] = $form_value_nl[1];
-                                break;
+                        case 'name_field':
+                            $form_newletter_setting['name_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'name_field':
-                                $form_newletter_setting['name_field'] = $form_value_nl[1];
-                                break;
+                        case 'sender_email':
+                            $form_newletter_setting['sender_email'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_email':
-                                $form_newletter_setting['sender_email'] = $form_value_nl[1];
-                                break;
+                        case 'sender_name':
+                            $form_newletter_setting['sender_name'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_name':
-                                $form_newletter_setting['sender_name'] = $form_value_nl[1];
-                                break;
+                        case 'url_subscribe':
+                            $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_subscribe':
-                                $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
-                                break;
+                        case 'url_unsubscribe':
+                            $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_unsubscribe':
-                                $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
-                                break;
+                        case 'subject':
+                            $form_newletter_setting['subject'] = $form_value_nl[1];
+                            break;
 
-                            case 'subject':
-                                $form_newletter_setting['subject'] = $form_value_nl[1];
-                                break;
+                        case 'double_optin':
+                            $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
+                            break;
 
-                            case 'double_optin':
-                                $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
-                                break;
+                        case 'optin_template':
+                            $form_newletter_setting['optin_template'] = $form_value_nl[1];
+                            break;
 
-                            case 'optin_template':
-                                $form_newletter_setting['optin_template'] = $form_value_nl[1];
-                                break;
-
-                            default:
-                                if( ($form_value_nl[0] = intval($form_value_nl[0])) ) {
-                                    $query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
-                                    if(isset($query[0])) {
-                                        if($form_value_nl[1] == '') {
-                                            $form_value_nl[1] = $query[0]['subscription_name'];
-                                        }
-                                        $form_value[ $form_value_nl[0] ] = $form_value_nl[1];
-                                    } else {
-                                        continue;
+                        default:
+                            if($form_value_nl[0] = intval($form_value_nl[0])) {
+                                $query = _dbGet('phpwcms_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+                                if(isset($query[0])) {
+                                    if($form_value_nl[1] === '') {
+                                        $form_value_nl[1] = $query[0]['subscription_name'];
                                     }
-                                } else {
-                                    continue;
+                                    $form_value[$form_value_nl[0]] = $form_value_nl[1];
                                 }
-                        }
+                            }
                     }
                 }
 
@@ -1851,7 +1882,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $phpwcms['callback'] = now();
 
-        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
+        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form["onsuccess"]);
 
         if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
             if($cnt_form["onsuccess_redirect"] === 1) {
@@ -1867,13 +1898,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $GLOBALS['phpwcms']['callback'] = now();
         $cnt_form['template'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template']);
-        $cnt_form['template'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template']);
+        $cnt_form['template'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template']);
         $cnt_form['template'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template']);
 
         if( !$cnt_form['template_equal'] ) {
 
             $cnt_form['template_copy'] = str_replace('{FORM_URL}', $cnt_form['fe_current_url'], $cnt_form['template_copy']);
-            $cnt_form['template_copy'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_copy']);
+            $cnt_form['template_copy'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_copy']);
             $cnt_form['template_copy'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_copy']);
 
@@ -1882,7 +1913,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
         if(!empty($cnt_form['doubleoptin'])) {
             $POST_savedb['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash($cnt_form['doubleoptin_target'].time() ) );
             $cnt_form['template_doubleoptin'] = str_replace('{FORM_URL}', abs_url(array('hash' => $POST_savedb['hash']), array(), '', 'rawurlencode'), $cnt_form['template_doubleoptin']);
-            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form['template_doubleoptin']);
+            $cnt_form['template_doubleoptin'] = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace_callback('/\{DATE:(.*?)\}/', 'date_callback', $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
             $cnt_form['template_doubleoptin'] = preg_replace('/\{(.*?)\}/', '', $cnt_form['template_doubleoptin']);
@@ -1948,7 +1979,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
     if(count($POST_savedb)) {
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
-        $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(getRemoteIP()).", ";
+        $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
         $POST_savedb_sql .= _dbEscape(serialize($POST_savedb)) . ")";
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
     }
@@ -2160,7 +2191,9 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                         foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
 
                             // empty - continue
-                            if(empty($form_value_nl)) continue;
+                            if(empty($form_value_nl)) {
+                                continue;
+                            }
 
                             // now check if field name exists and build corresponding name value
                             if(empty($POST_val[ trim($form_value_nl) ])) {

@@ -47,44 +47,17 @@ if(!empty($step)) {
         $phpwcms["db_prepend"] = slweg($_POST["db_prepend"]);
         $phpwcms["db_pers"]    = empty($_POST["db_pers"]) ? 0 : 1;
 
-        if(isset($_POST["charset"])) {
-
-            $_POST["charset"]           = clean_slweg($_POST["charset"]);
-
-            $phpwcms["charset"]         = explode('-', $available_languages[ $_POST["charset"] ][1], 2);
-            $phpwcms["charset"]         = $phpwcms["charset"][1];
-            $phpwcms['db_charset']      = $mysql_charset_map[$phpwcms["charset"]];
-            $phpwcms['default_lang']    = substr($_POST["charset"], 0, 2);
-            $phpwcms['db_collation']    = $phpwcms['db_charset'].'_bin';
-
-            if(isset($_POST['collation'])) {
-
-                $_POST['collation']         = clean_slweg($_POST['collation']);
-                $phpwcms['db_collation']    = $_POST['collation'];
-
-                // if collation is not part of the db charset set to "_bin" default
-                if(strpos($phpwcms['db_collation'], $phpwcms['db_charset'].'_') !== 0) {
-                    $phpwcms['db_collation']    = $phpwcms['db_charset'].'_bin';
-                }
-
-                // check if there is a difference!! and warn again
-                if($phpwcms['db_collation'] != $_POST['collation']) {
-                    $_collation_warning = true;
-                    $_SESSION['admin_save'] = 0;
-                } else {
-                    $_collation_warning = false;
-                    $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
-
-                }
-
-            } else {
-
-                $_collation_warning = false;
-                $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
-
-            }
-
+        $phpwcms["charset"]         = 'utf-8'; // Fixed
+        $phpwcms['db_charset']      = 'utf8';
+        if (!empty($_POST["charset"])) {
+            $phpwcms['default_lang'] = substr($_POST["charset"], 0, 2);
+            $_collation_warning = false;
+        } elseif (empty($phpwcms['default_lang'])) {
+            $phpwcms['default_lang'] = 'en';
         }
+        $phpwcms['db_collation']    = 'utf8_general_ci';
+        $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
+
         write_conf_file($phpwcms);
         $err = 0;
 
@@ -104,15 +77,12 @@ if(!empty($step)) {
                 if($result = mysqli_query($db, "SELECT VERSION()")) {
 
                     if($row = mysqli_fetch_row($result)) {
-                        $phpwcms["db_version"]      = explode('.', $row[0]);
-                        $phpwcms["db_version"][0]   = intval($phpwcms["db_version"][0]);
-                        $phpwcms["db_version"][1]   = empty($phpwcms["db_version"][1]) ? '00' : intval($phpwcms["db_version"][1]);
-                        $phpwcms["db_version"][2]   = empty($phpwcms["db_version"][2]) ? '00' : intval($phpwcms["db_version"][2]);
-                        $phpwcms["db_version"]      = (int)sprintf('%d%02d%02d', $phpwcms["db_version"][0], $phpwcms["db_version"][1], $phpwcms["db_version"][2]);
 
+                        $phpwcms["db_version"] = $row[0];
                         write_conf_file($phpwcms);
 
                     }
+
                     mysqli_free_result($result);
 
                     if($result = mysqli_query($db, 'SELECT * FROM '. ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '').'phpwcms_user')) {
@@ -174,7 +144,7 @@ if(!empty($step)) {
                                 $db_create_err = array();
 
                                 mysqli_query($db, 'SET storage_engine=MYISAM');
-                                mysqli_query($db, "SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'");
+                                mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";
@@ -247,6 +217,7 @@ if(!empty($step)) {
             if(mysqli_connect_error()) {
                 $err = 1;
             } else {
+                mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
                 mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $phpwcms["charset"])."'");
                 $phpwcms["db_prepend"] = ($phpwcms["db_prepend"]) ? $phpwcms["db_prepend"]."_" : "";
                 $sql =  "INSERT INTO ".$phpwcms["db_prepend"]."phpwcms_user (usr_login, usr_pass, usr_email, ".

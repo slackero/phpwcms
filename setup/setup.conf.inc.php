@@ -20,9 +20,10 @@ $phpwcms['db_prepend'] = '';
 $phpwcms['db_pers'] = 0;
 $phpwcms['db_charset'] = 'utf8';
 $phpwcms['db_collation'] = 'utf8_general_ci';
-$phpwcms['db_version'] = 0;
+$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
 $phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
 $phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_errorlog'] = false; // Log DB queries - false|true
 
 // site values
 $phpwcms['site'] = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/'
@@ -43,6 +44,7 @@ $phpwcms['templates'] = 'template';
 $phpwcms['content_path'] = 'content';
 $phpwcms['cimage_path'] = 'images';
 $phpwcms['ftp_path'] = 'upload';
+$phpwcms['ads_path']= 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $phpwcms['file_maxsize'] = 52428800; // Bytes (50 x 1024 x 1024)
@@ -106,7 +108,7 @@ $phpwcms['JW_FLV_License'] = ''; // insert your JW FLV Media Player License Code
 $phpwcms['feuser_regkey'] = 'FEUSER';
 $phpwcms['login.php'] = 'login.php';
 $phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.1.0/)
+$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.4.1/)
 $phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -141,7 +143,9 @@ $phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, aft
 $phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied
 $phpwcms['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
 $phpwcms['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
-$phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$phpwcms['unregister_getVar'] = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$phpwcms['preserve_getVar'] = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/phpwcms/blob/master/include/inc_lib/default.inc.php#L520
+$phpwcms['enable_GDPR'] = true; // Try to handle GDPR inside of phpwcms by default (anonymize IP...)
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

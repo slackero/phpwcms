@@ -16,7 +16,7 @@ body {
   background: -webkit-gradient(linear, left top, left bottom, from(#347199), to(#c1d2e2));
   background: -webkit-linear-gradient(top, #347199 0%, #c1d2e2 100%);
   background: linear-gradient(to bottom, #347199 0%, #c1d2e2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#347199', endColorstr='#c1d2e2', GradientType=0);
   background-attachment: fixed;
 }
 

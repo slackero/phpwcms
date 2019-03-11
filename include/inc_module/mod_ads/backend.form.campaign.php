@@ -127,7 +127,7 @@ if(empty($plugin['data']['adcampaign_place']) && count($plugin['ad_place_js'])) 
 
 // set JavaScript sourcePath
 if(!empty($plugin['data']['adcampaign_id'])) {
-	echo LF.LF.'	 	var adsPath = "'.$phpwcms["content_path"].'ads/'.$plugin['data']['adcampaign_id'].'/";'.LF.LF;
+	echo LF.LF.'	 	var adsPath = "'.CONTENT_PATH.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/";'.LF.LF;
 }
 ?>
 
@@ -310,7 +310,7 @@ if(!empty($plugin['data']['adcampaign_id'])) {
 // now check media
 
 // try to load image files
-$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'], 'gif,jpg,png');
+$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'gif,jpg,png');
 $plugin['data']['image'] = '';
 if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 
@@ -326,7 +326,7 @@ if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 	}
 }
 // try to load flash files
-$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'], 'swf');
+$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'swf');
 $plugin['data']['flash'] = '';
 if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 
@@ -342,7 +342,7 @@ if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 	}
 }
 // try to load css files
-$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.'ads/'.$plugin['data']['adcampaign_id'], 'css');
+$plugin['data']['files'] = returnFileListAsArray(PHPWCMS_CONTENT.PHPWCMS_ADS_DIR.'/'.$plugin['data']['adcampaign_id'], 'css');
 $plugin['data']['css'] = '';
 if(is_array($plugin['data']['files']) && count($plugin['data']['files'])) {
 

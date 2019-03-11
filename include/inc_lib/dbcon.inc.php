@@ -19,6 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 // build the database table prepend part
 define ('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : $GLOBALS['phpwcms']["db_prepend"].'_');
 
+// Log DB errors
+define ('DB_LOG_ERRORS', empty($GLOBALS['phpwcms']["db_errorlog"]) ? false : true);
+
 // open the connection to MySQL database
 if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host"], 0, 2) !== 'p:') {
     $GLOBALS['phpwcms']["db_host"] = 'p:'.$GLOBALS['phpwcms']["db_host"];
@@ -26,6 +29,7 @@ if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host
 $GLOBALS['db'] = mysqli_connect($GLOBALS['phpwcms']["db_host"], $GLOBALS['phpwcms']["db_user"], $GLOBALS['phpwcms']["db_pass"], $GLOBALS['phpwcms']["db_table"]);
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
+$GLOBALS['phpwcms']['db_version'] = 'unknown';
 
 if($is_mysql_error === false) {
 
@@ -40,7 +44,7 @@ if($is_mysql_error === false) {
 
 } else {
 
-    define('PHPWCMS_DB_VERSION', 'unknown');
+    define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
 
 }
 
@@ -153,6 +157,8 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 
     } else {
 
+        _dbLogError(_dbError('LOG', $query));
+
         return false;
 
     }
@@ -228,42 +234,9 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
     }
 
     $insert  = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
+    $insert .= ' ON DUPLICATE KEY UPDATE ' . implode(',', $set);
 
-    if($GLOBALS['phpwcms']['db_version'] < 40100) {
-        // the old way
-
-        // 1st send INSERT
-        $result = _dbQuery($insert, 'INSERT');
-
-        if($result === false) {
-
-            // INSERT was false, now try UPDATE
-            $update  = 'UPDATE ' . $table . ' SET ';
-            $update .= implode(',', $set) . ' WHERE ';
-            if($where === '' || strpos($where, '=') === false) {
-                reset($data);
-                $key    = key($data);
-                $value  = current($data);
-                $update .= '`'.$key.'`=';
-                $update .= _dbEscape($value);
-            } else {
-                $update .= trim($where);
-            }
-
-            return _dbQuery($update, 'UPDATE');
-
-        } else {
-
-            return $result;
-        }
-
-    } else {
-        // the new way
-        $insert .= ' ON DUPLICATE KEY UPDATE ';
-        $insert .= implode(',', $set);
-
-        return _dbQuery($insert, 'ON_DUPLICATE');
-    }
+    return _dbQuery($insert, 'ON_DUPLICATE');
 
 }
 
@@ -367,7 +340,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
 function _dbGetCreateCharsetCollation() {
 
     $value = '';
-    if($GLOBALS['phpwcms']['db_version'] > 40100 && $GLOBALS['phpwcms']['db_charset']) {
+    if($GLOBALS['phpwcms']['db_charset']) {
         $value .= ' DEFAULT';
         $value .= ' CHARACTER SET '.$GLOBALS['phpwcms']['db_charset'];
         if(!empty($GLOBALS['phpwcms']['db_collation'])) {
@@ -384,7 +357,13 @@ function _dbError($error_type='DB', $query='') {
 
     if($query) {
         $query  = str_replace(',', ",\n", $query);
-        $error .= '<pre>' . $query .'</pre>';
+        switch($error_type) {
+            case 'LOG':
+                $error  .= ', QUERY: "' . $query . '"';
+                break;
+            default:
+                $error .= '<pre>' . $query .'</pre>';
+        }
     }
 
     return $error;
@@ -396,69 +375,57 @@ function _dbErrorNum() {
 
 }
 
+function _dbLogError($log_msg='') {
+
+    if(DB_LOG_ERRORS && $log_msg) {
+
+        if(@is_dir(PHPWCMS_LOGDIR)) {
+            $log_msg = '[' . date('Y-m-d H:i:s') . '] ' . $log_msg . LF;
+
+            @file_put_contents(PHPWCMS_LOGDIR . '/phpwcms_db_error.log', $log_msg, FILE_APPEND);
+        }
+
+    }
+
+}
 
 function _dbInitialize() {
 
-    // check if mysql version is set
-    if(empty($GLOBALS['phpwcms']['db_version'])) {
-        $version = _dbQuery('SELECT VERSION()', 'ROW');
-        if(isset($version[0][0])) {
-            $version = explode('.', $version[0][0]);
-            $version[0] = intval($version[0]);
-            $version[1] = empty($version[1]) ? 0 : intval($version[1]);
-            $version[2] = empty($version[2]) ? 0 : intval($version[2]);
-            $GLOBALS['phpwcms']["db_version"] = (int)sprintf('%d%02d%02d', $version[0], $version[1], $version[2]);
-        } else {
-            return 0;
-        }
-    }
-    if($GLOBALS['phpwcms']['db_version'] > 40000) {
+    $mysql_set = array();
 
-        $mysql_set = array();
-
-        if(isset($GLOBALS['phpwcms']['db_sql_mode']) && is_string($GLOBALS['phpwcms']['db_sql_mode'])) {
-            $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['phpwcms']['db_sql_mode']);
-        }
-
-        if(empty($GLOBALS['phpwcms']['db_charset'])) {
-            $mysql_charset_map = array(
-                'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
-                'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
-                'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
-                'iso-8859-8'   => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9'   => 'latin5',
-                'iso-8859-13'  => 'latin7', 'iso-8859-15'  => 'latin1', 'koi8-r'       => 'koi8r',
-                'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
-                'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
-                'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
-            );
-            $GLOBALS['phpwcms']['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : '';
-        }
-
-        if(IS_PHP523 && $GLOBALS['phpwcms']['db_version'] > 50000 && $GLOBALS['phpwcms']['db_charset']) {
-
-            mysqli_set_charset($GLOBALS['db'], $GLOBALS['phpwcms']['db_charset']);
-
-        } elseif($GLOBALS['phpwcms']['db_charset']) {
-
-            // Send charset used in phpwcms for every query
-            $mysql_set['NAMES'] = 'NAMES '._dbEscape($GLOBALS['phpwcms']['db_charset']);
-            if($GLOBALS['phpwcms']['db_version'] > 40100 && !empty($GLOBALS['phpwcms']['db_collation'])) {
-                $mysql_set['NAMES'] .= ' COLLATE '._dbEscape($GLOBALS['phpwcms']['db_collation']);
-            }
-
-        }
-
-        if(!empty($GLOBALS['phpwcms']['db_timezone'])) {
-            $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['phpwcms']['db_timezone']);
-        }
-
-        if(count($mysql_set)) {
-            _dbQuery('SET '.implode(', ', $mysql_set), 'SET');
-        }
-
+    if(isset($GLOBALS['phpwcms']['db_sql_mode']) && is_string($GLOBALS['phpwcms']['db_sql_mode'])) {
+        $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['phpwcms']['db_sql_mode']);
     }
 
-    return $GLOBALS['phpwcms']['db_version'];
+    if(empty($GLOBALS['phpwcms']['db_charset'])) {
+        $mysql_charset_map = array(
+            'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
+            'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
+            'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
+            'iso-8859-8'   => 'hebrew', 'iso-8859-8-i' => 'hebrew', 'iso-8859-9'   => 'latin5',
+            'iso-8859-13'  => 'latin7', 'iso-8859-15'  => 'latin1', 'koi8-r'       => 'koi8r',
+            'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
+            'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
+            'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
+        );
+        $GLOBALS['phpwcms']['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : 'utf8';
+    }
+
+    mysqli_set_charset($GLOBALS['db'], $GLOBALS['phpwcms']['db_charset']);
+
+    if(!empty($GLOBALS['phpwcms']['db_collation'])) {
+        $mysql_set['COLLATION'] = 'collation_connection = ' . _dbEscape($GLOBALS['phpwcms']['db_collation']);
+    }
+
+    if(!empty($GLOBALS['phpwcms']['db_timezone'])) {
+        $mysql_set['time_zone'] = 'time_zone = '._dbEscape($GLOBALS['phpwcms']['db_timezone']);
+    }
+
+    if(count($mysql_set)) {
+        _dbQuery('SET '.implode(', ', $mysql_set), 'SET');
+    }
+
+    return mysqli_get_server_info($GLOBALS['db']);
 }
 
 // duplicate a DB record based on 1 unique column
@@ -689,7 +656,7 @@ function _dbSetVar($var='', $value=null, $compare=false) {
     $var = trim($var);
 
     // stop if this was set yet. can be defined as
-    // additional  config value in conf.inc.php
+    // additional config value in conf.inc.php
 
     if(!is_string($var) || !$var || $value === null) {
 

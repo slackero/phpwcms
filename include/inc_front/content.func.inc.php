@@ -157,37 +157,14 @@ if(isset($_GET["id"])) {
 
 		if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-			// we have to check against MySQL < 4.0 -> UNION unknown
-			// so use a workaround
+            $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+            $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+            $sql .= " UNION ";
+            $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+            $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+            $sql .= "LIMIT 1";
 
-			if(PHPWCMS_DB_VERSION < 40000) {
-
-				$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-				$row = _dbQuery($sql);
-
-				if(!isset($row[0]['acat_id'])) {
-
-					$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-				}
-
-			} else {
-
-				$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-				$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-				$sql .= " UNION ";
-				$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-				$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-				$sql .= "LIMIT 1";
-
-				$row = _dbQuery($sql);
-
-			}
+            $row = _dbQuery($sql);
 
 			if(isset($row[0]['acat_id'])) {
 
@@ -254,34 +231,14 @@ if($content['404error']['status'] === true) {
 
 				$alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
 
-				if(PHPWCMS_DB_VERSION < 40000) {
+                $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
+                $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+                $sql .= " UNION ";
+                $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
+                $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+                $sql .= "LIMIT 1";
 
-					$sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-					if(!isset($row[0]['acat_id'])) {
-
-						$sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-						$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-						$row = _dbQuery($sql);
-
-					}
-
-				} else {
-
-					$sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "phpwcms_articlecat ";
-					$sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-					$sql .= " UNION ";
-					$sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "phpwcms_article ";
-					$sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-					$sql .= "LIMIT 1";
-
-					$row = _dbQuery($sql);
-
-				}
+                $row = _dbQuery($sql);
 
 				if(isset($row[0]['acat_id'])) {
 
@@ -766,6 +723,28 @@ if($content['overwrite_canonical']) {
 
 }
 
+define('PHPWCMS_TEMPLATE_SECTIONS', PHPWCMS_TEMPLATE . 'inc_cntpart/template-sections/');
+
+// Test against file based template sections
+$content['template_sections'] = array(
+    'htmlhead' => 'head',
+    "headertext" => 'header',
+    "maintext" => 'main',
+    "footertext" => 'footer',
+    "lefttext" => 'left',
+    "righttext" => 'right',
+    "errortext" => 'error'
+);
+
+foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
+    $block_name_file = $block_name . '_file';
+    if(!empty($block[$block_name_file]) && is_file(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+        if($block[$block_name_file] = file_get_contents(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            $block[$block_name] = $block[$block_name_file];
+        }
+    }
+}
+
 //check for no content error
 $content["main"] = trim($content["main"]);
 if($content['404error']['status'] === true) {
@@ -778,7 +757,7 @@ if($content['404error']['status'] === true) {
 	$content["main"] .= render_cnt_template($block["errortext"], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
 }
 
-//check if one of needed block texts and values are empty and if then fill with content
+// Or force main content
 if(empty($block["maintext"])) {
 	$block["maintext"] = $content["main"];
 }
@@ -892,9 +871,18 @@ $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
 // put in custom rendered content
 foreach($content['CB'] as $key => $value) {
 	//first check content of custom block in current template
-	if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '' && $value !== '') {
-		$value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
-	}
+    if($value !== '') {
+        $block_name_file = 'customblock_' . $key . '_file';
+        $tmpl_section_dir = strtolower($key);
+        if(!empty($block[$block_name_file]) && is_file(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            if($block[$block_name_file] = file_get_contents(PHPWCMS_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                $block['customblock_'.$key] = $block[$block_name_file];
+            }
+        }
+        if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '') {
+            $value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
+        }
+    }
 	//$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
 	// Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
 	$content["all"] = render_cnt_template($content["all"], $key, $value);
@@ -1168,19 +1156,19 @@ if($content['opengraph']['render']) {
 	$content['opengraph']['has_image'] = false;
 	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
 		foreach($content['images']['shop'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $content['opengraph']['has_image'] = true;
+            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['news']) && count($content['images']['news'])) {
 		foreach($content['images']['news'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $content['opengraph']['has_image'] = true;
+            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'/'.rawurlencode($og_img['name']), 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
 		$content['opengraph']['has_image'] = true;
-		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'].'/'.rawurlencode($content['images']['article']['name']), 'property');
+		set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'/'.rawurlencode($content['images']['article']['name']), 'property');
 	}
 	if(!$content['opengraph']['has_image'] && is_file(PHPWCMS_TEMPLATE.'img/opengraph-default.png')) {
 		set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');

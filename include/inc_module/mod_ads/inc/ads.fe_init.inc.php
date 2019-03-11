@@ -33,7 +33,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 	if(!empty($ad_data[0]['adcampaign_data'])) {
 		$ad_data = @unserialize($ad_data[0]['adcampaign_data']);
 
-		$ads_userip		= getRemoteIP();
+		$ads_userip		= PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP();
 		$ads_useragent	= $_SERVER['HTTP_USER_AGENT'];
 		$ads_ref		= isset($_GET['r']) ? trim($_GET['r']) : '';
 		$ads_cat		= empty($_GET['c']) ? 0 : intval($_GET['c']);

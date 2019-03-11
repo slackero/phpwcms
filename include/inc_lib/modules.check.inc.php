@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-// make all neccessary module checks
+// make all necessary module checks
 
 $phpwcms_modules	= returnSubdirListAsArray(PHPWCMS_ROOT.'/include/inc_module');
 $value				= '';
