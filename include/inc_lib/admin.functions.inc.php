@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // get article details
@@ -276,7 +277,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<div class="btn-group" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
         //edit article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+          $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_func_struct_edit'].' ['.$at.']" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$article[$akey]["article_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
         }
         $a .= '<div class="btn-group" role="group">';
         $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -296,7 +297,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         //delete article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"><i class="fa fa-trash fa-fw" aria-hidden="true"';
+          $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"';
           $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ')\">";
           $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
         }
@@ -412,7 +413,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
             $a .= '<div class="btn-group" role="group" aria-label="group'.$article_content["acontent_id"].'">';
             //edit content part
             if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-              $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+              $a .= '<a class="btn btn-xs btn-blue" role="button" type="button" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_edit'].' ['.$at.']" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article[$akey]["article_id"].'&amp;acid='.$article_content["acontent_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
             }
             $a .= '<div class="btn-group" role="group">';
             $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -422,7 +423,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
             $a .= '<a class="dropdown-item" href="cmsgo.php?do=articles&amp;accopy='.$article_content["acontent_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_copy'].' ['.$at.'] </a>';
             //cut content part
             $a .= '<a class="dropdown-item" href="cmsgo.php?do=articles&amp;accut='.$article_content["acontent_id"].'"><i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_cut'].' ['.$at.'] </a>';
-            $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"><i class="fa fa-trash fa-fw" aria-hidden="true"';
+            $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"';
             $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ')\">";
             $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
             $a .= '</div></div>';
@@ -493,7 +494,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 } else {
                     $a .= 'index';
                 }
-                $a .= '"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+                $a .= '"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
                 $a .= '<div class="btn-group" role="group">';
                 $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownStrucLink'.$struct[$key]["acat_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -521,7 +522,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 }
                 //delete structur
                 if($struct[$key]["acat_id"]) {
-                  $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"].'"><i class="fa fa-trash fa-fw" aria-hidden="true" ';
+                  $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true" ';
                   $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_struct']." \\n[".js_singlequote($an)."] ')\">";
                   $a .= '</i> '.$GLOBALS['BL']['be_func_struct_del_struct'].' ['.$an.']</a>';
                 }

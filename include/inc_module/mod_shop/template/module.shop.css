@@ -112,7 +112,7 @@ input.rt {
 	background-color: #F7F7F7;
 }
 textarea.code {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 	font-size: 12px;
 }
 

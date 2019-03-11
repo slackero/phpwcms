@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -46,13 +46,13 @@ function buildCalendarGETValue($value=array(), $spacer='-') {
 function getCurrentCalendarDate() {
 
 	global $_getVar;
-	
+
 	$_date = array();
-	
+
 	$_date['year']	= date('Y');
 	$_date['month']	= date('n');
 	$_date['day']	= date('j');
-	
+
 	if(!empty($_getVar['calendardate'])) {
 		$d = explode('-', $_getVar['calendardate']);
 		if(!empty($d[0]) && intval($d[0]))	$_date['year']	= intval($d[0]);
@@ -68,32 +68,32 @@ function getCurrentCalendarDate() {
 			$_date['day']	= date('j', $int_time);
 		}
 	}
-		
+
 	define('THIS_YEAR',		$_date['year']);
 	define('THIS_MONTH',	$_date['month']);
 	define('THIS_DAY',		$_date['day']);
-	
+
 
 	$_date['next_month']['month']	= ($_date['month'] == 12)				? 1						: $_date['month'] + 1;
 	$_date['prev_month']['month']	= ($_date['month'] == 1)				? 12					: $_date['month'] - 1;
 	$_date['next_month']['year']	= ($_date['next_month']['month'] == 1)	? $_date['year'] + 1	: $_date['year'];
 	$_date['prev_month']['year']	= ($_date['prev_month']['month'] == 12)	? $_date['year'] - 1	: $_date['year'];
-	
+
 	$_date['next_year']['month']	= $_date['month'];
 	$_date['prev_year']['month']	= $_date['month'];
 	$_date['next_year']['year']		= $_date['year'] + 1;
 	$_date['prev_year']['year']		= $_date['year'] - 1;
-	
+
 	$_date['next_month']['day']		= $_date['day'];
 	$_date['prev_month']['day']		= $_date['day'];
 	$_date['next_year']['day']		= $_date['day'];
 	$_date['prev_year']['day']		= $_date['day'];
-	
+
 	$_date['next_link']	= buildCalendarLink( buildCalendarGETValue($_date['next_month']) );
 	$_date['prev_link']	= buildCalendarLink( buildCalendarGETValue($_date['prev_month']) );
-	
+
 	$_date['current_month'] = THIS_YEAR.substr('0'.THIS_MONTH, -2);
-	
+
 	return $_date;
 
 }

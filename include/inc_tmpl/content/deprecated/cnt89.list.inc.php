@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -23,8 +24,8 @@ $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtit
 
 $poll_text = unserialize($row["acontent_text"]);
 
-if($cinfo["result"]) 
-{ 
+if($cinfo["result"])
+{
 	echo "<div class=\"col-sm-auto\">";
 	echo "<a href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
 	echo $cinfo["result"]."</a></div>";

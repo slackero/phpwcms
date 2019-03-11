@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -82,7 +82,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
 
         echo '<div class="btn-group" role="group" aria-label="group'.$row["f_id"].'">';
         //Button zum Bearbeiten des Verzeichnisses
-        echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+        echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_edit'].": ".$dirname.'" href="'.$zieldatei."&amp;editdir=".$row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
         echo '<div class="btn-group" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -103,9 +103,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
         if(!$count_wert) {
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?delete='.$row["f_id"].'%7C'.'9'.
                  '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname."\" onclick=\"return confirm('".$GLOBALS['BL']['be_fprivfunc_jsdeldir'] ." \\n[".$dirname."]? ');\">";
-            echo '<i class="ml-1 disabled fa fa-fw fa-trash" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'</a>';
+            echo '<i class="ml-1 disabled far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'</a>';
         } else {
-            echo '<div class="dropdown-item"><i class="ml-1 disabled fa fa-fw fa-trash text-muted" aria-hidden="true" data-toggle="tooltip" title="';
+            echo '<div class="dropdown-item"><i class="ml-1 disabled far fa-fw fa-trash-alt text-muted" aria-hidden="true" data-toggle="tooltip" title="';
             echo str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'"></i> '.str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'</div>';
         }
         echo '</div></div></div>';
@@ -165,7 +165,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
                     echo '<div class="btn-group" role="group">'.LF;
 
                     //Button zum Bearbeiten der Dateiinformationn
-                    echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil fa-fw mt-1"></i></a>';
+                    echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'" data-toggle="tooltip" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
                     echo '<div class="btn-group" role="group">';
                     echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
@@ -189,9 +189,9 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
                          '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"return confirm('".
                          $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
                          "');\">".
-                         '<i class="ml-1 fa fa-fw fa-trash" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
+                         '<i class="ml-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
                     } else {
-                        echo '<div class="dropdown-item"><i class="ml-1 fa fa-fw fa-trash text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+                        echo '<div class="dropdown-item"><i class="ml-1 far fa-fw fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
                     }
                     echo "</div></div></div>";
 

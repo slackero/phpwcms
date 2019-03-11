@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -193,14 +193,14 @@ if($data) {
     echo '<td class="text-right text-nowrap">';
 
       echo '<a class="btn btn-sm btn-blue mr-1" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
-      echo '<i class="fa fa-pencil"></i></a>';
+      echo '<i class="fa fa-pencil-alt"></i></a>';
 
       echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible '.($row["shopprod_status"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
 
       echo '<a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
       echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
-      echo '<i class="fa fa-trash"></i></a>';
+      echo '<i class="far fa-trash-alt"></i></a>';
 
     echo '</td>'.LF;
 

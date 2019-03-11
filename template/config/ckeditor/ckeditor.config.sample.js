@@ -1,9 +1,9 @@
 /**
- * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  *
- * Adopted for cmsGo!, http://pixels-points.ch
- * Default CKEditor configuration in cmsgo backend
+ * Adopted for cmsGO!, Oliver Georgi
+ * Default CKEditor configuration in cmsGO! backend
  */
 
 CKEDITOR.editorConfig = function( config ) {

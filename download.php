@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -130,7 +130,7 @@ if(!empty($hash) && strlen($hash) === 32) {
 }
 
 if($success) {
-	
+
     if(!empty($download["f_hash"])) {
         $sql  = "UPDATE ".DB_PREPEND."cmsgo_file SET f_dlfinal=f_dlfinal+1 ";
         $sql .= "WHERE f_hash="._dbEscape($download["f_hash"])." LIMIT 1";

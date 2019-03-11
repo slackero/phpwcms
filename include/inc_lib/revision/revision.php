@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
-define('CMSGO_VERSION', '2.0.0');
-define('CMSGO_RELEASE_DATE', '2018/09/05');
-define('CMSGO_REVISION', '550');
+define('CMSGO_VERSION', '2.0.6');
+define('CMSGO_RELEASE_DATE', '2019/03/11');
+define('CMSGO_REVISION', '549');

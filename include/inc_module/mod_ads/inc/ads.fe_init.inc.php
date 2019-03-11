@@ -1,11 +1,11 @@
 <?php
 
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -32,7 +32,7 @@ if(isset($_GET['u']) && $_GET['u'] == CMSGO_USER_KEY) {
 	if(!empty($ad_data[0]['adcampaign_data'])) {
 		$ad_data = @unserialize($ad_data[0]['adcampaign_data']);
 
-		$ads_userip		= getRemoteIP();
+		$ads_userip		= CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP();
 		$ads_useragent	= $_SERVER['HTTP_USER_AGENT'];
 		$ads_ref		= isset($_GET['r']) ? trim($_GET['r']) : '';
 		$ads_cat		= empty($_GET['c']) ? 0 : intval($_GET['c']);

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -38,5 +38,5 @@ $content["image_caption"]		= isset($content["image_info"][6]) ? base64_decode($c
 
 $content["image_pos"]			= isset($content["image_info"][7]) ? $content["image_info"][7] : 0;
 $content["image_zoom"]			= isset($content["image_info"][8]) ? $content["image_info"][8] : 0;
-								 
+
 unset($content["image_info"]);

@@ -13,33 +13,33 @@ class ConvertCharset {
     function __construct($FromCharset, $ToCharset, $TurnOnEntities = false)
     {
 
-        $this -> FromCharset = strtolower($FromCharset);
-        $this -> ToCharset = strtolower($ToCharset);
-        $this -> Entities = $TurnOnEntities;
+        $this->FromCharset = strtolower($FromCharset);
+        $this->ToCharset = strtolower($ToCharset);
+        $this->Entities = $TurnOnEntities;
 
 
-        if ($this -> FromCharset == $this -> ToCharset)
+        if ($this->FromCharset == $this->ToCharset)
         {
-            print $this -> DebugOutput(1, 0, $this -> FromCharset);
+            print $this->DebugOutput(1, 0, $this->FromCharset);
         }
-        if (($this -> FromCharset == $this -> ToCharset) AND ($this -> FromCharset == "utf-8"))
+        if (($this->FromCharset == $this->ToCharset) AND ($this->FromCharset == "utf-8"))
         {
-            print $this -> DebugOutput(0, 4, $this -> FromCharset);
+            print $this->DebugOutput(0, 4, $this->FromCharset);
             exit;
         }
 
 
-        if ($this -> FromCharset == "utf-8")
+        if ($this->FromCharset == "utf-8")
         {
-            $this -> CharsetTable = $this -> MakeConvertTable ($this -> ToCharset);
+            $this->CharsetTable = $this->MakeConvertTable ($this->ToCharset);
         }
-        else if ($this -> ToCharset == "utf-8")
+        elseif ($this->ToCharset == "utf-8")
         {
-            $this -> CharsetTable = $this -> MakeConvertTable ($this -> FromCharset);
+            $this->CharsetTable = $this->MakeConvertTable ($this->FromCharset);
         }
         else
         {
-            $this -> CharsetTable = $this -> MakeConvertTable ($this -> FromCharset, $this -> ToCharset);
+            $this->CharsetTable = $this->MakeConvertTable ($this->FromCharset, $this->ToCharset);
         }
 
     }
@@ -70,7 +70,7 @@ class ConvertCharset {
             $FileName = func_get_arg($i);
             if (!is_file(CONVERT_TABLES_DIR . $FileName))
             {
-                print $this -> DebugOutput(0, 0, CONVERT_TABLES_DIR . $FileName); //Print an error message
+                print $this->DebugOutput(0, 0, CONVERT_TABLES_DIR . $FileName); //Print an error message
                 exit;
             }
             $FileWithEncTabe = fopen(CONVERT_TABLES_DIR . $FileName, "r") or die(); //This die(); is just to make sure...
@@ -100,7 +100,7 @@ class ConvertCharset {
 
         if ((func_num_args() > 1) && (count($ConvertTable[$FromCharset]) == count($ConvertTable[$ToCharset])) && (count(array_diff_assoc($ConvertTable[$FromCharset], $ConvertTable[$ToCharset])) == 0))
         {
-            print $this -> DebugOutput(1, 1, "$FromCharset, $ToCharset");
+            print $this->DebugOutput(1, 1, "$FromCharset, $ToCharset");
         }
         return $ConvertTable;
     }
@@ -109,12 +109,12 @@ class ConvertCharset {
     {
         if (!is_array($array))
         {
-            $array = $this -> Convert($array);
+            $array = $this->Convert($array);
             return;
         }
-        while(list($k, $v) = each($array))
+        foreach($array as $k => $v)
         {
-            $this -> ConvertArray($v);
+            $this->ConvertArray($v);
             $array[$k] = $v;
         }
     }
@@ -124,12 +124,11 @@ class ConvertCharset {
         if(!strlen($StringToChange)) return '';
         $StringToChange = (string)($StringToChange);
 
-        if($this -> FromCharset == $this -> ToCharset) return $StringToChange;
+        if($this->FromCharset == $this->ToCharset) return $StringToChange;
 
         $NewString = "";
 
-
-        if ($this -> FromCharset != "utf-8")
+        if ($this->FromCharset != "utf-8")
         {
 
             for ($i = 0; $i < strlen($StringToChange); $i++)
@@ -138,82 +137,82 @@ class ConvertCharset {
                 $UnicodeHexChar = "";
                 $HexChar = strtoupper(dechex(ord($StringToChange[$i])));
                 if (strlen($HexChar) == 1) $HexChar = "0" . $HexChar;
-                if (($this -> FromCharset == "gsm0338") && ($HexChar == '1B')){
+                if (($this->FromCharset == "gsm0338") && ($HexChar == '1B')){
                     $i++;
                     $HexChar .= strtoupper(dechex(ord($StringToChange[$i])));
                 }
-                if ($this -> ToCharset != "utf-8")
+                if ($this->ToCharset != "utf-8")
                 {
-                    if (in_array($HexChar, $this -> CharsetTable[$this -> FromCharset]))
+                    if (in_array($HexChar, $this->CharsetTable[$this->FromCharset]))
                     {
-                        $UnicodeHexChar = array_search($HexChar, $this -> CharsetTable[$this -> FromCharset]);
+                        $UnicodeHexChar = array_search($HexChar, $this->CharsetTable[$this->FromCharset]);
                         $UnicodeHexChars = explode("+", $UnicodeHexChar);
                         for($UnicodeHexCharElement = 0; $UnicodeHexCharElement < count($UnicodeHexChars); $UnicodeHexCharElement++)
                         {
-                            if (array_key_exists($UnicodeHexChars[$UnicodeHexCharElement], $this -> CharsetTable[$this -> ToCharset]))
+                            if (array_key_exists($UnicodeHexChars[$UnicodeHexCharElement], $this->CharsetTable[$this->ToCharset]))
                             {
-                                if ($this -> Entities == true)
+                                if ($this->Entities == true)
                                 {
-                                    $NewString .= $this -> UnicodeEntity($this -> HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]));
+                                    $NewString .= $this->UnicodeEntity($this->HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]));
                                 }
                                 else
                                 {
-                                    $NewString .= chr(hexdec($this -> CharsetTable[$this -> ToCharset][$UnicodeHexChars[$UnicodeHexCharElement]]));
+                                    $NewString .= chr(hexdec($this->CharsetTable[$this->ToCharset][$UnicodeHexChars[$UnicodeHexCharElement]]));
                                 }
                             }
                             else
                             {
-                                print $this -> DebugOutput(0, 1, $StringToChange[$i]);
+                                print $this->DebugOutput(0, 1, $StringToChange[$i]);
                             }
                         } //for($UnicodeH...
                     }
                     else
                     {
-                        print $this -> DebugOutput(0, 2, $StringToChange[$i]);
+                        print $this->DebugOutput(0, 2, $StringToChange[$i]);
                     }
                 }
                 else
                 {
-                    if (in_array("$HexChar", $this -> CharsetTable[$this -> FromCharset]))
+                    if (in_array("$HexChar", $this->CharsetTable[$this->FromCharset]))
                     {
-                        $UnicodeHexChar = array_search($HexChar, $this -> CharsetTable[$this -> FromCharset]);
+                        $UnicodeHexChar = array_search($HexChar, $this->CharsetTable[$this->FromCharset]);
 
                         $UnicodeHexChars = explode("+", $UnicodeHexChar);
                         for($UnicodeHexCharElement = 0; $UnicodeHexCharElement < count($UnicodeHexChars); $UnicodeHexCharElement++)
                         {
-                            if ($this -> Entities == true)
+                            if ($this->Entities == true)
                             {
-                                $NewString .= $this -> UnicodeEntity($this -> HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]));
+                                $NewString .= $this->UnicodeEntity($this->HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]));
                             }
                             else
                             {
-                                $NewString .= $this -> HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]);
+                                $NewString .= $this->HexToUtf($UnicodeHexChars[$UnicodeHexCharElement]);
                             }
                         } // for
                     }
                     else
                     {
-                        print $this -> DebugOutput(0, 2, $StringToChange[$i]);
+                        print $this->DebugOutput(0, 2, $StringToChange[$i]);
                     }
                 }
             }
         }
 
-        else if($this -> FromCharset == "utf-8")
+        elseif($this->FromCharset == "utf-8")
         {
             $HexChar = "";
             $UnicodeHexChar = "";
-            $this -> CharsetTable = $this -> MakeConvertTable ($this -> ToCharset);
-            foreach ($this -> CharsetTable[$this -> ToCharset] as $UnicodeHexChar => $HexChar)
+            $this->CharsetTable = $this->MakeConvertTable ($this->ToCharset);
+            foreach ($this->CharsetTable[$this->ToCharset] as $UnicodeHexChar => $HexChar)
             {
-                if ($this -> Entities == true){
-                    $EntitieOrChar = $this -> UnicodeEntity($this -> HexToUtf($UnicodeHexChar));
+                if ($this->Entities == true){
+                    $EntitieOrChar = $this->UnicodeEntity($this->HexToUtf($UnicodeHexChar));
                 }
                 else
                 {
                     $EntitieOrChar = chr(hexdec($HexChar));
                 }
-                $StringToChange = str_replace($this -> HexToUtf($UnicodeHexChar), $EntitieOrChar, $StringToChange);
+                $StringToChange = str_replace($this->HexToUtf($UnicodeHexChar), $EntitieOrChar, $StringToChange);
             }
             $NewString = $StringToChange;
         }
@@ -233,7 +232,7 @@ class ConvertCharset {
             if ($AsciiChar < 128){
                 $OutString .= $Char;
             }
-            else if ($AsciiChar >> 5 == 6){
+            elseif ($AsciiChar >> 5 == 6){
                 $FirstByte = ($AsciiChar & 31);
                 $CharPosition++;
                 $Char = $UnicodeString [$CharPosition];
@@ -243,7 +242,7 @@ class ConvertCharset {
                 $Entity = sprintf ("&#%d;", $AsciiChar);
                 $OutString .= $Entity;
             }
-            else if ($AsciiChar >> 4 == 14){
+            elseif ($AsciiChar >> 4 == 14){
                 $FirstByte = ($AsciiChar & 31);
                 $CharPosition++;
                 $Char = $UnicodeString [$CharPosition];
@@ -258,7 +257,7 @@ class ConvertCharset {
                 $Entity = sprintf ("&#%d;", $AsciiChar);
                 $OutString .= $Entity;
             }
-            else if ($AsciiChar >> 3 == 30){
+            elseif ($AsciiChar >> 3 == 30){
                 $FirstByte = ($AsciiChar & 31);
                 $CharPosition++;
                 $Char = $UnicodeString [$CharPosition];
@@ -285,10 +284,20 @@ class ConvertCharset {
     {
         $OutputChar = "";
         $UtfCharInDec = hexdec($UtfCharInHex);
-        if($UtfCharInDec < 128) $OutputChar .= chr($UtfCharInDec);
-        else if($UtfCharInDec < 2048)$OutputChar .= chr(($UtfCharInDec >> 6) + 192) . chr(($UtfCharInDec & 63) + 128);
-        else if($UtfCharInDec < 65536)$OutputChar .= chr(($UtfCharInDec >> 12) + 224) . chr((($UtfCharInDec >> 6) & 63) + 128) . chr(($UtfCharInDec & 63) + 128);
-        else if($UtfCharInDec < 2097152)$OutputChar .= chr($UtfCharInDec >> 18 + 240) . chr((($UtfCharInDec >> 12) & 63) + 128) . chr(($UtfCharInDec >> 6) & 63 + 128) . chr($UtfCharInDec & 63 + 128);
+        if($UtfCharInDec < 128)
+        {
+            $OutputChar .= chr($UtfCharInDec);
+        }
+        elseif($UtfCharInDec < 2048) {
+            $OutputChar .= chr(($UtfCharInDec >> 6) + 192) . chr(($UtfCharInDec & 63) + 128);
+        }
+        elseif($UtfCharInDec < 65536) {
+            $OutputChar .= chr(($UtfCharInDec >> 12) + 224) . chr((($UtfCharInDec >> 6) & 63) + 128) . chr(($UtfCharInDec & 63) + 128);
+        }
+        elseif($UtfCharInDec < 2097152) {
+            $OutputChar .= chr($UtfCharInDec >> 18 + 240) . chr((($UtfCharInDec >> 12) & 63) + 128) . chr(($UtfCharInDec >> 6) & 63 + 128) . chr($UtfCharInDec & 63 + 128);
+        }
+
         return $OutputChar;
     } // function DebugOutput
 

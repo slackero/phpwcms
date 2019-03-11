@@ -1,11 +1,11 @@
 <?php
 
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -48,7 +48,7 @@ if(empty($plugin['data']['adcampaign_date_start'][1]) || $plugin['data']['adcamp
 $plugin['data']['adcampaign_date_start'][2]	= empty($plugin['data']['adcampaign_date_start'][2]) ? 0 : intval($plugin['data']['adcampaign_date_start'][2]);
 if(empty($plugin['data']['adcampaign_date_start'][2])) {
 	$plugin['data']['adcampaign_date_start'][2] = gmdate('Y');
-}	
+}
 
 
 
@@ -82,7 +82,7 @@ if(empty($plugin['data']['adcampaign_date_end'][1]) || $plugin['data']['adcampai
 $plugin['data']['adcampaign_date_end'][2]	= empty($plugin['data']['adcampaign_date_end'][2]) ? 0 : intval($plugin['data']['adcampaign_date_end'][2]);
 if(empty($plugin['data']['adcampaign_date_end'][2])) {
 	$plugin['data']['adcampaign_date_end'][2] = gmdate('Y');
-}	
+}
 
 
 // build start / date

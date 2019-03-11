@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -263,8 +263,8 @@ if($crow['is_imagetext']) {
         $crow["acontent_template"] = str_replace('{IMAGE_EXT}', $image[3], $crow["acontent_template"]);
         $crow["acontent_template"] = str_replace('{IMAGE_NAME}', html($image[1]), $crow["acontent_template"]);
 
-        $crow['image_tag']  = '<img src="img/cmsimage.php/'.$crow["settings"]['width'].'x'.$crow["settings"]['height'].'x'.$crow["settings"]['crop'].'/';
-        $crow['image_tag'] .= $image[2].'.'.$image[3].'" alt="';
+        $crow['image_tag']  = '<img src="' . CMSGO_RESIZE_IMAGE . '/' . $crow["settings"]['width'].'x'.$crow["settings"]['height'].'x'.$crow["settings"]['crop'] . '/';
+        $crow['image_tag'] .= $image[2].'.'.$image[3].'/'.rawurlencode($image[1]).'" alt="';
 
         $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
         $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);

@@ -3,8 +3,8 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -100,15 +100,14 @@ $news = new cmsgoNews();
         </div>
 
         <div class="col-sm-auto text-sm-right">
-            <select class="custom-select form-control-sm">
-                <option selected><?php echo $BL['be_article_rendering'] ?></option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=5'">5</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=10'">10</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=25'">25</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=50'">50</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=100'">100</option>
-                <option onclick="window.location='cmsgo.php?do=articles&p=3&c=all'"><?php echo $BL['be_ftptakeover_all'] ?></option>
-            </select>
+            <?php echo getItemsPerPageMenu(); ?>
+            <script>
+                $(function(){
+                    $('#news-paginate').on('change', function() {
+                        window.location = '<?php echo $news->base_url_decoded; ?>&showipp=' + $(this).val();
+                    });
+                });
+            </script>
         </div>
 
       </div>
@@ -138,8 +137,12 @@ $news = new cmsgoNews();
 <script>
 
 function setImgIdName(file_id, file_name) {
-  if(file_id == null) var file_id=0;
-  if(file_name == null) var file_name='';
+	if(typeof file_id === 'undefined' || file_id === null) {
+	    file_id = 0;
+    }
+	if(typeof file_name === 'undefined' || file_name === null) {
+	    file_name = '';
+    }
   $('#cnt_image_id').val(file_id);
   $('#cnt_image_name').val(file_name);
 
@@ -150,7 +153,7 @@ function showImage() {
   var id  = parseInt($('#cnt_image_id').val(), 10);
   var img = $('#cnt_image');
   if(id) {
-    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+    img.html('<img src="<?php echo CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['img_list_width'].'x'.$cmsgo['img_list_height'] ?>/'+id+'" alt="" border="0" />');
     img.show();
   } else {
     img.hide();
@@ -596,7 +599,7 @@ if($news->data['cnt_id']) {
         <button class="modalButton btn btn-sm btn-blue mb-1" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
         <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(getObjectById('cfile_list'));return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
         <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(getObjectById('cfile_list'));return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(getObjectById('cfile_list'));return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(getObjectById('cfile_list'));return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -195,7 +195,7 @@ if(isset($search["result"])) {
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo '<i class="btn btn-sm btn-blue fa fa-pencil mr-1"></i></a>';
+                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt mr-1"></i></a>';
             }
 
             echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
@@ -216,7 +216,7 @@ if(isset($search["result"])) {
     } //Ende Liste Dateien
 
     echo "</table>\n"; //Ende Tabelle
-    echo "</div>\n"; 
+    echo "</div>\n";
 
 } else {
     //kein gültiges Suchergebnis

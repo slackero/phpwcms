@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // set page processiong start time
@@ -142,13 +143,13 @@ header('Content-Type: text/html; charset='.CMSGO_CHARSET);
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
 	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-	<link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 <?php
 
-$BE['HEADER']['alias_slah_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
+$BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
 $BE['HEADER']['cmsgo.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo.js');
 $BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
 
@@ -180,7 +181,7 @@ if ($BE['LANG'] == 'ar') {
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="far fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
+        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<form action="cmsgo.php" method="POST" class="backend-search">
 						<div class="input-group">
@@ -191,8 +192,8 @@ if ($BE['LANG'] == 'ar') {
 							if (!empty($_SESSION['cmsgo_backend_search'])) {
 									echo html_specialchars($_SESSION['cmsgo_backend_search']);
 							}
-						?>" class="form-control form-control-sm" aria-describedby="basic-search" />
-						<div class="input-group-append" id="basic-search"><button class="btn btn-blue"><i class="far fa-search fw"></i></button></div>
+						?>" class="form-control" aria-describedby="basic-search" />
+						<div class="input-group-append" id="basic-search"><button class="btn btn-blue"><i class="fa fa-search fw"></i></button></div>
 						</div>
 					</form>
 					</ul>
@@ -201,7 +202,7 @@ if ($BE['LANG'] == 'ar') {
           $active = ($do == 'profile') ? ' class="active"' : '';
           echo '<li><a href="cmsgo.php?do=profile"'.$active.'><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
-        <li><a href="cmsgo.php?do=logout" target="_top"><i class="menu-image far fa-sign-out fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
+        <li><a href="cmsgo.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
       </ul>
     </div>
   </header>

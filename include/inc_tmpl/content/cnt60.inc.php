@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -167,7 +168,7 @@ if(isset($template_default['settings']['customctp_custom_fields']) && is_array($
               <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
               </a>
-              <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement('custom_element_<?php echo $key ?>');"><i class="fa fa-trash"></i></a></div>
+              <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement('custom_element_<?php echo $key ?>');"><i class="far fa-trash-alt"></i></a></div>
       </div>
     </div>
 
@@ -529,7 +530,7 @@ function addNewElement(where) {
     new_entry += '<'+'a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<'+'i class="fa fa-ellipsis-h" aria-hidden="true"><'+'/i>';
     new_entry += '<'+'/a>';
-    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="fa fa-trash"><'+'/i><'+'/a><'+'/div>';
+    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
 

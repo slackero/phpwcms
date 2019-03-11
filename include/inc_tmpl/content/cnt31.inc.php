@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -307,15 +308,18 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
                 </em>
             </div>
+            <div class="col-auto">
+              <div id="img_previewsmall_<?php echo $key ?>" class="backend_previewsmall_img"></div>
+            </div>
             <div class="col">
-                <h2># <?php echo $key ?></h2>
+                <h2># <?php echo $key ?> - <?php echo html($value['caption']) ?></h2>
             </div>
             <div class="col-sm-auto text-right">
                 <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>">
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <a class="btn btn-sm btn-danger" href="#" onclick="return deleteImgElement('image_<?php echo $key ?>');">
-                    <i class="fa fa-trash"></i>
+                    <i class="far fa-trash-alt"></i>
                 </a>
             </div>
         </div>
@@ -687,12 +691,13 @@ function updatePreviewImage(image_number) {
     var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
     var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
     if(cimage_id_thumb) {
-        preview += getBackendImgSrc( cimage_id_thumb );
+            preview += getBackendImgSrc( cimage_id_thumb.value );
     }
     if(cimage_id_zoom) {
         preview += getBackendImgSrc( cimage_id_zoom );
     }
     $('#img_preview_'+image_number).html(preview);
+    $('#img_previewsmall_'+image_number).html(preview);
 }
 
 function getBackendImgSrc(image_file_id) {
@@ -729,7 +734,7 @@ function addNewImage(where) {
     new_entry += '<'+'a class="btn btn-sm btn-blue mr-1" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<'+'i class="fa fa-ellipsis-h" aria-hidden="true"><'+'/i>';
     new_entry += '<'+'/a>';
-    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="fa fa-trash"><'+'/i><'+'/a><'+'/div>';
+    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';

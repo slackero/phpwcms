@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // general wrapper for ajax based queries
@@ -33,17 +34,17 @@ $value    = isset($_POST['value']) ? $_POST['value'] : 'json';
 
 // do charset conversions for value
 if(CMSGO_CHARSET != 'utf-8') {
-    
+
     if(function_exists('mb_convert_encoding')) {
-        
+
         $value = @mb_convert_encoding( $value, CMSGO_CHARSET, 'utf-8' );
-        
+
     } else {
-        
+
         $value = utf8_decode($value);
-        
+
     }
-    
+
 }
 
 if($file_id && !$file_alias) {
@@ -70,7 +71,7 @@ if($file_id && !$file_alias) {
         $file_granted     = $result[0]["f_granted"];
         $file_gallerydownload = $result[0]["f_gallerystatus"];
         $file_sort        = $result[0]["f_sort"];
-        
+
         if($file_keys) {
             $file_keys_temp = explode(":", $file_keys);
             if(count($file_keys_temp)) {
@@ -81,7 +82,7 @@ if($file_id && !$file_alias) {
                 }
             }
         }
-        
+
         if(isset($result[0]["f_hash"])) {
             $thumb_image = get_cached_image(
                     array(  "target_ext"  =>  $result[0]["f_ext"],
@@ -121,13 +122,13 @@ if($file_id && $file_alias) {
 
   $f_count = _dbCount("SELECT COUNT(f_alias) FROM ".DB_PREPEND."cmsgo_file WHERE f_alias='".aporeplace($file_alias)."'");
   if ($f_count > 0) {
-    $file_alias = $file_alias."-".$f_count;   
+    $file_alias = $file_alias."-".$f_count;
   }
 
   $sql_alias =  "UPDATE ".DB_PREPEND."cmsgo_file SET f_alias = '".$file_alias."' WHERE f_id = ".$file_id;
    _dbQuery($sql_alias, 'UPDATE');
 
   echo '<div class="col">'.$file_alias;
-  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil" aria-hidden="true"></i></a></div>';
+  echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a></div>';
 }
 ?>

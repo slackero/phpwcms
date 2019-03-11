@@ -1,6 +1,6 @@
 <?php
 
-// define cmsGo! Google Maps API Key
+// define cmsGO! Google Maps API Key
 if(strpos(CMSGO_URL, 'pixel-points.ch')) {
 
 	// http://pixel-points.ch

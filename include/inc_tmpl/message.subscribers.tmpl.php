@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -203,7 +203,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 
     <div class="mb-3 text-center text-sm-left">
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" aria-disabled="true" href="cmsgo.php?do=messages&amp;p=4&amp;s=0&amp;edit=1"><i class="fa fa-user-plus"></i> <?php echo $BL['be_cnt_new_recipient'] ?></a>
-        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" aria-disabled="true" href="cmsgo.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('<?php echo $BL['be_cnt_delete_duplicates'] ?>?');"><i class="fa fa-trash"></i> <?php echo $BL['be_cnt_delete_duplicates'] ?></a>
+        <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" aria-disabled="true" href="cmsgo.php?do=messages&amp;p=4&amp;duplicate=remove" onclick="return confirm('<?php echo $BL['be_cnt_delete_duplicates'] ?>?');"><i class="far fa-trash-alt"></i> <?php echo $BL['be_cnt_delete_duplicates'] ?></a>
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" aria-disabled="true" href="cmsgo.php?do=messages&amp;p=4&amp;import=1" target="_blank"><i class="fa fa-download" aria-hidden="true"></i> <?php echo $BL['be_newsletter_newimport'] ?></a>
         <a class="btn btn-sm btn-blue my-1 my-md-0" role="button" aria-disabled="true" href="include/inc_act/act_export.php?<?php echo CSRF_GET_TOKEN; ?>&amp;action=exportsubscriber" target="_blank" ><i class="fa fa-upload" aria-hidden="true"></i> <?php echo $BL['be_cnt_export_selection'] ?></a>
     </div>
@@ -368,11 +368,11 @@ if($_userInfo['list_channel']) {
 		echo '<td class="dir" width="95%">'.html($row["address_name"])."</td>".LF;
 		echo '<td align="right" nowrap="nowrap" class="button_td">'.LF;
 
-		echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil"></i></a>';
+		echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
 
 		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" aria-disabled="true" data-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
 
-		echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="fa fa-trash"></i></a>'.LF;
+		echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="far fa-trash-alt"></i></a>'.LF;
 
 		echo "</td>\n</tr>".LF;
 

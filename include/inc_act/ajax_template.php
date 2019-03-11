@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // general wrapper for ajax based queries
@@ -47,7 +48,7 @@ if ($action == 'form') {
   } else {
     $sql .= " acontent_template ="._dbEscape($ctntemplate);
   }
-  
+
 
   $data = _dbQuery($sql);
   if(isset($data[0]['article_id'])) {

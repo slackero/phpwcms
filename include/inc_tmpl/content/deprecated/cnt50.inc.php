@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -18,7 +19,7 @@ if (!defined('CMSGO_ROOT')) {
 // Reference
 
 if(!isset($content['reference'])) {
-    
+
     $content['reference']["text"] = '';
     $content["reference"]['tmpl'] = '';
     $content['reference']["select"] = array();
@@ -34,7 +35,7 @@ if(!isset($content['reference'])) {
     $content['reference']["space"] = '';
     $content['reference']["listborder"] = '';
     $content["reference"]["basis"] = 0;
-    
+
 }
 
 $imgx=0;

@@ -33,9 +33,9 @@
  * @copyright 2010-2012 Brad wedell
  * @author Brad Wedell
  *
- * @link http://www.cmsgo.org/
+ * @link https://www.pixels-points.ch/
  * @copyright 2009-2013 Oliver Georgi
- * @author Oliver Georgi <oliver at cmsgo dot de>
+ * @author Oliver Georgi <info at pixels-points dot ch>
  * @package GoogleMapAPI (version 3) for cmsgo
  * @version 3.1beta
 */
@@ -677,7 +677,7 @@ class GoogleMapAPI {
      * @param string $map_id the DOM element ID for the map
      * @param string $app_id YOUR Yahoo App ID
      */
-    function GoogleMapAPI($map_id = 'map', $app_id = 'MyMapApp') {
+    function __construct($map_id = 'map', $app_id = 'MyMapApp') {
         $this->map_id = md5($map_id);
         $this->element_id = $map_id;
         $this->sidebar_id = 'sidebar_' . $map_id;

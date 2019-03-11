@@ -3,8 +3,8 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  **/
 
 // ----------------------------------------------------------------
@@ -292,7 +292,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 
             <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php
                 echo $BL['be_admin_group_edit'].": ".html($grouplist["group_name"])
-            ?>" data-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil fa-fw"></i></a>
+            ?>" data-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
 
             <?php if ($grouplist["group_syskey"]) {
             echo '<span class="btn btn-sm btn-default"><i class="fa fa-fw"></i></span>';
@@ -300,7 +300,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             ?>
             <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
-            ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><i class="fa fa-trash fa-fw"></i></a>
+            ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><i class="far fa-trash-alt fa-fw"></i></a>
 
             <?php }  ?></td>
         </tr>

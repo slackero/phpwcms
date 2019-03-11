@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -214,7 +214,7 @@ function showAction() {
         </div>
       </div>
     </div>
-    
+
     <?php
     //if files available
     if($fx) {
@@ -287,7 +287,7 @@ function showAction() {
 						<div id="div_button" style="display: none;"><input name="Submit" type="submit" class="btn btn-blue btn-sm ml-2" value="<?php echo $BL['file_actions_button'] ?>" /></div>
           </div>
         </div>
-        
+
     <?php } ?>
       </div>
     </div>

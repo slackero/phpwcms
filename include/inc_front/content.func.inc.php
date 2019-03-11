@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -156,37 +156,14 @@ if(isset($_GET["id"])) {
 
     if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-      // we have to check against MySQL < 4.0 -> UNION unknown
-      // so use a workaround
+      $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
+      $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+      $sql .= " UNION ";
+      $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
+      $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+      $sql .= "LIMIT 1";
 
-      if(CMSGO_DB_VERSION < 40000) {
-
-        $sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-        $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-        $row = _dbQuery($sql);
-
-        if(!isset($row[0]['acat_id'])) {
-
-          $sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-          $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-          $row = _dbQuery($sql);
-
-        }
-
-      } else {
-
-        $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-        $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-        $sql .= " UNION ";
-        $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-        $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-        $sql .= "LIMIT 1";
-
-        $row = _dbQuery($sql);
-
-      }
+      $row = _dbQuery($sql);
 
       if(isset($row[0]['acat_id'])) {
 
@@ -253,34 +230,14 @@ if($content['404error']['status'] === true) {
 
         $alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
 
-        if(CMSGO_DB_VERSION < 40000) {
+        $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
+        $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
+        $sql .= " UNION ";
+        $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
+        $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
+        $sql .= "LIMIT 1";
 
-          $sql  = "SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-          $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-          $row = _dbQuery($sql);
-
-          if(!isset($row[0]['acat_id'])) {
-
-            $sql  = "SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-            $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . " LIMIT 1";
-
-            $row = _dbQuery($sql);
-
-          }
-
-        } else {
-
-          $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-          $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-          $sql .= " UNION ";
-          $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-          $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-          $sql .= "LIMIT 1";
-
-          $row = _dbQuery($sql);
-
-        }
+        $row = _dbQuery($sql);
 
         if(isset($row[0]['acat_id'])) {
 
@@ -765,6 +722,28 @@ if($content['overwrite_canonical']) {
 
 }
 
+define('CMSGO_TEMPLATE_SECTIONS', CMSGO_TEMPLATE . 'inc_cntpart/template-sections/');
+
+// Test against file based template sections
+$content['template_sections'] = array(
+    'htmlhead' => 'head',
+    "headertext" => 'header',
+    "maintext" => 'main',
+    "footertext" => 'footer',
+    "lefttext" => 'left',
+    "righttext" => 'right',
+    "errortext" => 'error'
+);
+
+foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
+    $block_name_file = $block_name . '_file';
+    if(!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+        if($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            $block[$block_name] = $block[$block_name_file];
+        }
+    }
+}
+
 //check for no content error
 $content["main"] = trim($content["main"]);
 if($content['404error']['status'] === true) {
@@ -777,7 +756,7 @@ if($content['404error']['status'] === true) {
   $content["main"] .= render_cnt_template($block["errortext"], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
 }
 
-//check if one of needed block texts and values are empty and if then fill with content
+// Or force main content
 if(empty($block["maintext"])) {
   $block["maintext"] = $content["main"];
 }
@@ -891,8 +870,17 @@ $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
 // put in custom rendered content
 foreach($content['CB'] as $key => $value) {
   //first check content of custom block in current template
-  if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '' && $value !== '') {
+    if($value !== '') {
+        $block_name_file = 'customblock_' . $key . '_file';
+        $tmpl_section_dir = strtolower($key);
+        if(!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            if($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                $block['customblock_'.$key] = $block[$block_name_file];
+            }
+        }
+        if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '') {
     $value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
+        }
   }
   //$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
   // Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
@@ -1148,9 +1136,11 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
 
 // Built-in Open Graph rendering
 if($content['opengraph']['render']) {
+
   if(empty($cmsgo['opengraph_imagesize'])) {
     $cmsgo['opengraph_imagesize'] = '1200x630x1';
   }
+
   set_meta('og:type', $content['opengraph']['type'], 'property');
   set_meta('og:title', sanitize_replacement_tags($content['opengraph']['title']), 'property');
   if(empty($content['opengraph']['url'])) {
@@ -1166,18 +1156,18 @@ if($content['opengraph']['render']) {
   if(isset($content['images']['shop']) && count($content['images']['shop'])) {
     foreach($content['images']['shop'] as $og_img) {
         $content['opengraph']['has_image'] = true;
-        set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
+            set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['hash'].'/'.rawurlencode($og_img['name']), 'property', false, true);
     }
   }
   if(isset($content['images']['news']) && count($content['images']['news'])) {
     foreach($content['images']['news'] as $og_img) {
         $content['opengraph']['has_image'] = true;
-        set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
+            set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['id'].'/'.rawurlencode($og_img['name']), 'property', false, true);
     }
   }
   if(isset($content['images']['article']['image'])) {
     $content['opengraph']['has_image'] = true;
-    set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
+		set_meta('og:image', CMSGO_URL . CMSGO_RESIZE_IMAGE . '/'.$cmsgo['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'/'.rawurlencode($content['images']['article']['name']), 'property');
   }
   if(!$content['opengraph']['has_image'] && is_file(CMSGO_TEMPLATE.'img/opengraph-default.png')) {
     set_meta('og:image', CMSGO_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
@@ -1475,6 +1465,10 @@ if(!empty($block['tracking_ga']['enable'])) {
         $template_default['settings']['tracking']['ga']['anonymize'] = '';
     }
 
+    if(!empty($template_default['settings']['tracking']['ga']['optout'])) {
+        $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+    }
+
     if($template_default['settings']['tracking']['ga']['position'] === 'head') {
         $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
     } else {
@@ -1522,14 +1516,16 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
     $block['cookie_consent']['options'] = array();
     if(!empty($block['cookie_consent']['message'])) {
         $block['cookie_consent']['options']['message'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+        $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
     }
     if(!empty($block['cookie_consent']['dismiss'])) {
         $block['cookie_consent']['options']['dismiss'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+        $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
     }
     if(!empty($block['cookie_consent']['link'])) {
 
         $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
-        $block['cookie_consent']['link'][0] = trim($block['cookie_consent']['link'][0]);
+        $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
         $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
         if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
             $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
@@ -1537,6 +1533,7 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
 
         if(!empty($block['cookie_consent']['more'])) {
             $block['cookie_consent']['options']['learnMore'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+            $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
         }
     }
 

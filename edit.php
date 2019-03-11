@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -24,7 +24,7 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
             <strong>Your configuration is placed at the wrong position.</strong>
         </h4>
         <p>
-            Beginning with <strong>cmsGo! v1.7.8</strong> base config files were moved from
+            Beginning with <strong>cmsGO! v1.7.8</strong> base config files were moved from
             directory <code>config/cmsgo</code> to directory <code>include/config</code>. The fallback
             to do it automatically has failed. Please do it manually before you continue.
         </p>
@@ -42,6 +42,8 @@ require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lang/code.lang.inc.php';
+
+logdir_exists();
 
 $_SESSION['REFERER_URL'] = CMSGO_URL.get_login_file();
 
@@ -192,12 +194,11 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
         if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."cmsgo_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
             // User not yet logged in, create new
             $sql  = "INSERT INTO ".DB_PREPEND."cmsgo_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (";
-            $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(getRemoteIP()).")";
+            $sql .= _dbEscape($wcs_user).", "._dbEscape($_SESSION["wcs_user_name"]).", ".time().", ".time().", 1, "._dbEscape(CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).")";
             _dbQuery($sql, 'INSERT');
         }
 
         $_SESSION['CMSGO_ROOT'] = CMSGO_ROOT;
-
         set_status_message($BL["login_welcome"].', '.$wcs_user.'!');
 
         if($ref_url) {
@@ -247,8 +248,8 @@ $reason_types = array(
 	<meta name="robots" content="noindex, nofollow">
 	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/login.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($cmsgo['default_lang'] == 'ar' || $cmsgo['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>
 <?php endif; ?>

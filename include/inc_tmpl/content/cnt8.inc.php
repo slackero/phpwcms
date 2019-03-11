@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -168,7 +168,7 @@ initJsAutocompleter();
 			</div>
 		</div>
   </div>
-  
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -179,8 +179,8 @@ initJsAutocompleter();
 				<span class="input-group-text">px</span>
 			</div>
 		</div>
-  </div>  
-  
+  </div>
+
   <div class="col my-2 my-sm-0 ml-sm-3">
     <div class="form-check form-check-inline">
 			<input class="form-check-input ml-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
@@ -310,7 +310,7 @@ initJsAutocompleter();
     <br />
     <a class="btn btn-secondary btn-sm mb-3" href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></a></td>
     <br />
-    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></a>
+    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
   </div>
 </div>
 
@@ -345,7 +345,7 @@ initJsAutocompleter();
   <div class="col">
     <div class="form-inline">
 			<input class="form-check-input ml-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
-			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="far fa-search"></i></button></label>
+			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="fa fa-search"></i></button></label>
     </div>
   </div>
 </div>
@@ -410,7 +410,7 @@ $(function(){
         neverSubmit: true,
         asHtmlID: 'keyword-autosuggest'
     });
-    
+
     $('#articlecontent').submit(function(event){
         $("#calink_category").val($('#as-values-keyword-autosuggest').val());
     });

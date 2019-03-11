@@ -342,6 +342,7 @@ class IPTC {
 				// 2:200, 2:201, 2:202
 				// or the audio stuff (2:150 to 2:154)
 
+				case '2#070':
 				case '2#060':
 				case '2#063':
 				case '2#085':

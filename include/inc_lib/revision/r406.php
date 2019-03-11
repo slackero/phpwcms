@@ -1,23 +1,23 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 
 // Revision 406 Update Check
 function cmsgo_revision_r406() {
-		
+
 	$status = true;
-	
+
 
     // upgrade sysvalue fields +KH:24.11.2011 if no field exists
     $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."cmsgo_sysvalue LIKE 'sysvalue_vartype'");
- 
+
     // sysvalue_vartype
     if(empty($result)) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."cmsgo_sysvalue ADD sysvalue_vartype VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -16,7 +16,7 @@
  * @author      EllisLab Dev Team
  * @copyright   Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @author      Oliver Georgi <info@pixels-points.ch>
- * @copyright   Copyright (c) 2012, Oliver Georgi (http://cmsgo.org/)
+ * @copyright   Copyright (c) 2012, Oliver Georgi (https://www.pixels-points.ch)
  */
 class Cmsgo_Image_lib {
 
@@ -853,6 +853,7 @@ class Cmsgo_Image_lib {
         }
         elseif ($action == 'rotate')
         {
+            $angle = 'r90';
             switch ($this->rotation_angle)
             {
                 case 90     :   $angle = 'r270';

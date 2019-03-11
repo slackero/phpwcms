@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -65,9 +66,9 @@ $(function  () {
           <?php endif; ?>
         </div>
         <div class="col text-right">
-          <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil"></i></a>
+          <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil-alt"></i></a>
           <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-danger" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
-          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="'<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><i class="fa fa-trash"></i></a>
+          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="'<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
@@ -607,7 +608,7 @@ $(function  () {
 
           <div class="col-sm-auto align-self-center justify-content-end" >
             <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_edit'] ?>" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article["article_id"]."&amp;acid=".$row["acontent_id"]; ?>">
-              <i class="fa fa-pencil"></i>
+              <i class="fa fa-pencil-alt"></i>
             </a>
             <?php
             // duplicate content part
@@ -616,7 +617,7 @@ $(function  () {
             echo '<a id="abtnacontent'.$row["acontent_id"].'" class="btn fa btn-sm visible '.($row["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$row["acontent_id"].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
 
             ?>
-            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" onclick="return confirm('<?php echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]?>]\n ');"><i class="fa fa-trash"></i></a>
+            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" onclick="return confirm('<?php echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]?>]\n ');"><i class="far fa-trash-alt"></i></a>
           </div>
         </div>
         <?php

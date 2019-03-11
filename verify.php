@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
- 
+
 // redirect verify to correct newsletter action
 $cmsgo = array();
 require_once 'include/config/conf.inc.php';
@@ -61,12 +61,12 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
         switch($type) {
 
             case 'subscribe':       $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_address ';
-                                    $sql .= 'SET address_verified=1 ';
+                                    $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
                                     $sql .= "WHERE address_key='".aporeplace($hash)."'";
                                     // Logfile Subscription verified
                                     log_message('3', $data[0]['address_email']." ".$data[0]['address_name'] , $data[0]['address_id']);
                                     // end
-                                    if(empty($data[0]['address_verified'])) {
+                                    if(isset($data[0]['address_verified'])) {
                                         $result = _dbQuery($sql, 'UPDATE');
                                     }
                                     if(!empty($data[0]['address_url1'])) {

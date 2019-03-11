@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -438,7 +438,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                         $content['alink']['caption'][1]         = html($content['alink']['caption'][1]);
                     } else {
                         $row['article_image']['list_caption']   = '';
-                        $content['alink']['caption']            = array('', '', '', '', '');
+                        $content['alink']['caption']            = array('', '', array('', ''), '', '');
                     }
 
                     // article list image
@@ -687,6 +687,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_SUPPRESS', empty($row['article_image']['list_caption_suppress']) ? '' : ' ');
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION', $row['article_image']['list_caption']);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_ALT', $content['alink']['caption'][1]);
+                    $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_URL', $content['alink']['caption'][2][0]);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);
 
                     // article class based on keyword *CSS-classname*

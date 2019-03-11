@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -132,7 +132,7 @@ if($_SESSION["wcs_user_thumb"]) {
 							<?php echo $BL['be_ftabhelp_enablethumb'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-pencil"></i></button>
+							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-penci-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_edit'] ?>
 						</li>
 						<li class="list-group-item p-1">
@@ -152,15 +152,15 @@ if($_SESSION["wcs_user_thumb"]) {
 							<?php echo $BL['be_ftabhelp_download'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" href="#"><i class="fa fa-fw fa-trash"></i></button>
+							<button class="btn btn-link text-dark btn-sm mr-2" href="#"><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_delete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-link text-dark btn-sm mr-2" disabled href="#"><i class="fa fa-fw fa-trash"></i></button>
+							<button class="btn btn-link text-dark btn-sm mr-2" disabled href="#"><i class="far fa-fw fa-trash-alt"></i></button>
 							<?php echo $BL['be_ftabhelp_cantdelete'] ?>
 						</li>
 						<li class="list-group-item p-1">
-							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-arrow-alt-from-bottom"></i></button>
+							<button class="btn btn-blue btn-sm mr-2" href="#"><i class="fa fa-fw fa-arrow-up"></i></button>
 							<?php echo $BL['be_ftabhelp_restore'] ?>
 						</li>
 						<li class="list-group-item p-1">

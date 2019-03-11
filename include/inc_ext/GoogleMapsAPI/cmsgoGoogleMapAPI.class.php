@@ -20,10 +20,10 @@
 *
 *
 * @link http://www.phpinsider.com/php/code/GoogleMapAPI/
-* @link http://www.cmsgo.org/
+* @link https://www.pixels-points.ch/
 * @copyright 2005 New Digital Group, Inc.
 * @author Monte Ohrt <monte at ohrt dot com>
-* @author Oliver Georgi <oliver at cmsgo dot de>
+* @author Oliver Georgi <info at pixels-points dot ch>
 * @package GoogleMapAPI
 * @version 2.5
 */
@@ -33,7 +33,7 @@
 /*
 
 ************
-Enhanced by Oliver Georgi, 2009-06-29 for use with cmsgo Content Management System
+Enhanced by Oliver Georgi, 2009-06-29 for use with cmsGO! Content Management System
 ************
 
 For best results with GoogleMaps, use XHTML compliant web pages with this header:
@@ -410,7 +410,7 @@ class GoogleMapAPI
 	* @param string $map_id the id for this map
 	* @param string $app_id YOUR Yahoo App ID
 	*/
-	function GoogleMapAPI( $map_id = 'map', $app_id = 'MyMapApp' )
+	function __construct($map_id = 'map', $app_id = 'MyMapApp' )
 	{
 		$this->map_id = $map_id;
 		$this->sidebar_id = 'sidebar_' . $map_id;

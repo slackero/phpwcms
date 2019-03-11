@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -85,12 +85,14 @@ function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
         echo "timer = chat_reload(20000); function chat_reload(zeit) {";
         echo "timer=setTimeout(\"write_cookie(1);self.location.href='cmsgo.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
         echo "return timer;\n} function restart_reload(timer) {";
-        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>\n";
+        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
     }
 }
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
-    if($to) echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>\n";
+    if($to) {
+        echo "<script type=\"text/javascript\"> setTimeout(\"document.location.href='".$link."'\", ".(intval($time))."); </script>";
+    }
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
@@ -131,7 +133,7 @@ function subnavtextext($text, $link, $target='_blank', $getback=1) {
  * @param mixed $file
  * @param string $filename (default: '')
  * @param mixed &$file_image_size
- * @return void
+ * @return string
  */
 function check_image_extension($file, $filename='', &$file_image_size) {
 
@@ -340,11 +342,8 @@ function cmsgoversionCheck() {
         $version_time       = strtotime(CMSGO_RELEASE_DATE.' 00:00:00');
 
         if($latest_revision <= $cmsgo['revision'] || $latest_time <= $version_time)   {
-
             $version_info  = '<p class="valid">' . $BL['Version_up_to_date'] . '</p>';
-
         } else {
-
             $version_info  = '<p class="error">' . $BL['Version_not_up_to_date'] . '</p>';
         }
 
@@ -447,7 +446,6 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
     $table .= ' '.$option_object.'.saveNewLeftOptions("'.$id_left.'");'.LF;
     $table .= ' '.$option_object.'.saveNewRightOptions("'.$id_right.'");'.LF;
     $table .= ' '.$option_object.'.init('.$option['formname'].');'.LF;
-
     $table .= LF.SCRIPT_CDATA_END.LF;
     $table .= '</script>'.LF;
 
@@ -464,14 +462,16 @@ function countNewsletterRecipients($target) {
             $counter++;
             continue;
         } elseif($check) {
-            $value['address_subscription'] = unserialize($value['address_subscription']);
-            if(is_array($value['address_subscription'])) {
+            $value['address_subscription'] = @unserialize($value['address_subscription']);
+            if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
                 foreach($value['address_subscription'] as $subscr) {
                     if(in_array(intval($subscr), $target)) {
                         $counter++;
                         break;
                     }
                 }
+            } else {
+                $counter++;
             }
         }
     }
@@ -955,7 +955,7 @@ function setItemsPerPage($default=25) {
     return $ipp;
 }
 
-function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $separator=' ') {
+function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='') {
 
     $ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
 
@@ -964,26 +964,22 @@ function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $se
     }
 
     $menu = array();
-    $x = 0;
-    foreach($steps as $item) {
-
-        $menu[$x]  = '<a href="'.$base_url.'&amp;showipp='.$item.'"';
+    foreach($steps as $x => $item) {
+        $menu[$x]  = '<option value="'.$item.'"';
         if($ipp == $item) {
-            $menu[$x] .= ' class="active"';
+            $menu[$x] .= ' selected="selected"';
         }
         $menu[$x] .= '>';
         $menu[$x] .= $item == 0 ? $GLOBALS['BL']['be_ftptakeover_all'] : $item;
-        $menu[$x] .= '</a>';
-
-        $x++;
+        $menu[$x] .= '</option>';
     }
 
-    return implode($separator, $menu);
+    return '<select class="custom-select form-control-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
 }
 
 function initJsCalendar() {
     $GLOBALS['BE']['HEADER']['bootstrap-datetimepicker.min.css']    = '<link href="include/inc_css/bootstrap-datetimepicker.css" rel="stylesheet">';
-    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.js');
+    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.min.js');
     $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker.js']     = getJavaScriptSourceLink('include/inc_js/bootstrap-datetimepicker.js');
 }
 /*function initMootools($mode='1.1', $more=array()) {
@@ -1221,7 +1217,7 @@ function correct_charset($text='', $js=false) {
  *
  * @access public
  * @param mixed $iptc_data
- * @return void
+ * @return array
  */
 function render_iptc_fileinfo($iptc_data) {
 
@@ -1264,7 +1260,6 @@ function render_iptc_fileinfo($iptc_data) {
 
             unset($iptc_keys[$iptc_key]);
         }
-
     }
 
     if(count($iptc_keys)) {
@@ -1281,11 +1276,8 @@ function render_iptc_fileinfo($iptc_data) {
 
                     $fileinfo[$field] = trim( render_custom_tag($fileinfo[$field], $iptc_key, $iptc_value) );
                 }
-
             }
-
         }
-
     }
 
     return $fileinfo;
@@ -1304,4 +1296,37 @@ function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_s
     }
     $text = str_replace('{'.$tag.'}', $value, $text);
     return $text;
+}
+
+function get_template_file_select($block='', $name='', $selected='', $path='') {
+    if($block) {
+        if($name === '') {
+            $name = 'template_' . $block . '_file';
+        }
+        if($path === '') {
+            $path = CMSGO_TEMPLATE . 'inc_cntpart/template-sections/' . $block;
+        }
+        if(is_dir($path)) {
+            $files = get_tmpl_files($path, 'tmpl,html,tpl');
+            if(count($files)) {
+                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm mb-1">';
+                $select .= '<option value=""';
+                if($selected === '') {
+                    $select .= ' selected="selected"';
+                }
+                $select .= '>' . $GLOBALS['BL']['be_admin_template_choose_file'] . '</option>';
+                foreach($files as $file) {
+                    $select .= '<option value="' . html($file) . '"';
+                    if($selected === $file) {
+                        $select .= ' selected="selected"';
+                    }
+                    $select .= '>inc_cntpart/template-sections/' . html($block.'/'.$file) . '</option>';
+                }
+                $select .= '</select><br />';
+                return $select;
+            }
+        }
+        return '<input type="hidden" name="' . $name . '" value="" />';
+    }
+    return '';
 }

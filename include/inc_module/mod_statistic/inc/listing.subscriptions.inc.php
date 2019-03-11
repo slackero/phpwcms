@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -31,7 +32,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
 ?>
 
 
- 
+
 <div class="card mt-4">
   <div class="card-header"><h2><?php echo $BLM['listing_subscriptions'] ?></h2></div>
   <div class="card-body">
@@ -88,7 +89,7 @@ echo '  </tr>' . LF;
     </table>
   </div>
 </div>
-  
+
 <div class="card mt-4">
   <div class="card-header"><h2><?php echo $BLM['listing_subscriptions2'] ?></h2></div>
   <div class="card-body">

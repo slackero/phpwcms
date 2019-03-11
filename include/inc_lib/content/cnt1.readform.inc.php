@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -22,7 +23,7 @@ $content["text"] = slweg($_POST["ctext"]);
 
 $content["image_id"] = intval($_POST["cimage_id"]);
 $content["image_pos"] = intval($_POST["cimage_pos"]);
-// collect image caption 
+// collect image caption
 $content["image_caption"] = (isset($_POST["cimage_caption_title"]) ? str_replace(array('  ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_title"])) : '') . '|';
 $content["image_caption"] .= (isset($_POST["cimage_caption_alt"]) ? str_replace(array(' ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_alt"])) : '') . '|';
 $content["image_caption"] .= (isset($_POST["cimage_caption_url"]) ? str_replace(array(' ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_url"])) : '');

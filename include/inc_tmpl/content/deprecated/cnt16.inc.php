@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -21,9 +21,9 @@ $img_thumbs = '';
 $caption_box = '';
 
 if(!isset($content["ecard"])) {
-    
+
     $content["ecard"] = array(
-            
+
             "subject"   => '',
             "selector"  => 0,
             "onover"    => '',
@@ -40,9 +40,9 @@ if(!isset($content["ecard"])) {
             'col'       => 1,
             'space'     => '',
             'zoom'  => 0
-            
+
     );
-    
+
 }
 
 ?>

@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -199,10 +199,10 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article_err = array();
 
         $article["article_catid"] = intval($_POST["article_cid"]);
-        $article["article_title"] = clean_slweg($_POST["article_title"], 255);
+        $article["article_title"] = clean_slweg($_POST["article_title"], 2000);
         $article["article_alias"] = proof_alias($article["article_id"], $_POST["article_alias"], 'ARTICLE');
-        $article["article_subtitle"] = clean_slweg($_POST["article_subtitle"], 255);
-        $article["article_menutitle"] = clean_slweg($_POST["article_menutitle"], 255);
+        $article["article_subtitle"] = clean_slweg($_POST["article_subtitle"], 2000);
+        $article["article_menutitle"] = clean_slweg($_POST["article_menutitle"], 2000);
         $article["article_description"] = clean_slweg($_POST["article_description"]);
         $article["article_summary"] = str_replace('<p></p>', '<p>&nbsp;</p>', slweg($_POST["article_summary"]));
         $article["article_notitle"] = empty($_POST["article_notitle"]) ? 0 : 1;
@@ -242,7 +242,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         if(empty($article["article_uid"])) {
             $article["article_uid"] = $_SESSION["wcs_user_id"];
         }
-        $article["article_username"] = clean_slweg($_POST["article_username"],100);
+        $article["article_username"] = clean_slweg($_POST["article_username"], 200);
         if(!$article["article_username"]) {
             $article["article_username"] = $_SESSION["wcs_user_name"];
         }
@@ -487,7 +487,6 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
     } elseif( (isset($_GET["aktion"]) && intval($_GET["aktion"]) == 1) || isset($_GET['struct']) ) {
 
         include_once CMSGO_ROOT."/include/inc_tmpl/article.editsummary.tmpl.php";
-
 
     } elseif(intval($_GET["aktion"]) == 2) { //Neuen Artikelcontent erstellen
 

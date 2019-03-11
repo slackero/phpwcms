@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
- 
+
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
@@ -120,22 +120,30 @@ if(isset($_POST["newsletter_id"])) {
                     // check against "all"
                     if(empty($value['address_subscription'])) {
 
-                        $queue[] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
+                        $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                     } else {
 
-                        $value['address_subscription']      = unserialize($value['address_subscription']);
+                        $value['address_subscription'] = @unserialize($value['address_subscription']);
+
+                        if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
 
                         // run all
                         foreach($value['address_subscription'] as $subscr) {
 
-                            $subscr = intval($subscr);
-                            if(in_array($subscr, $newsletter['newsletter_vars']['subscription'])) {
+                                if(isset($newsletter['newsletter_vars']['subscription'][intval($subscr)])) {
 
-                                $queue[] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
+                                    $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                                 break;
                             }
+
+                        }
+
+                        // Fallback
+                        } else {
+
+                            $queue[$value['address_id']] = '(NOW(), NOW(), 0, '.$newsletter["newsletter_id"].', '.$value['address_id'].')';
 
                         }
 
@@ -161,7 +169,8 @@ if(isset($_POST["newsletter_id"])) {
                 _dbQuery($sql, 'UPDATE');
 
                 // now insert queue entries into db
-                $queue = array_chunk($queue, 2);
+                $queue = array_chunk($queue, 100, true);
+
                 foreach($queue as $value) {
 
                     $sql  = 'INSERT INTO '.DB_PREPEND.'cmsgo_newsletterqueue ';

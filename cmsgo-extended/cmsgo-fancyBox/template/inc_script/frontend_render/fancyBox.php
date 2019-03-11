@@ -1,6 +1,6 @@
 <?php
 /**
- * cmsGo! jQuery FancyBox replacement for Lightbox (SlimBox)
+ * cmsGO! jQuery FancyBox replacement for Lightbox (SlimBox)
  * version: 29 Nov 2016
  * @requires jQuery v1.6 or later
  *

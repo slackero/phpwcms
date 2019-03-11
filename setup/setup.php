@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -27,7 +27,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $cmsgo['charset'] ?>" />
-<title>cmsgo Install</title>
+<title>cmsGO! Install</title>
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -37,7 +37,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
     <td colspan="3"><img src="../img/leer.gif" alt="[beliebiger Wert]" width="1" height="7" /></td>
   </tr>
   <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.cmsgo.org" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
+    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="https://www.pixels-points.ch" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="cmsgo" width="95" height="24" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
@@ -59,9 +59,9 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
   <tr bgcolor="#FFFFFF">
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
     <td valign="top" bgcolor="#FFFFFF"><?php
-		
+
 		if(empty($NO_ACCESS)) {
-		
+
 			switch($step) {
 				case  1:	include $DOCROOT.'/setup/inc/step1.inc.php'; break;
 				case  2:	include $DOCROOT.'/setup/inc/step2.inc.php'; break;
@@ -70,11 +70,11 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 				case  5:	include $DOCROOT.'/setup/inc/step5.inc.php'; break;
 				default:	include $DOCROOT.'/setup/inc/step0.inc.php';
 			}
-			
+
 		} else {
-		
-			
-		
+
+
+
 			?>
     <h1><img src="../img/famfamfam/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
       stopped </h1>
@@ -82,9 +82,9 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 			<p class="code">$NO_ACCESS = true;</p>
 			<p>in setup.conf.inc.php.</p>
 			<?php
-		
+
 		}
-		
+
 		?></td>
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>
@@ -96,9 +96,9 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
   <tr>
     <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
     <td colspan="2" valign="bottom" class="navtext">
-		<a href="http://www.cmsgo.org" target="_blank">cmsgo</a>
+		<a href="https://www.pixels-points.ch" target="_blank">cmsGO!</a>
 		&copy; 2003&#8212;<?php echo date('Y') ?>
-		<a title="oliver at cmsgo dot de" onclick="location.href='mailto:oliver'+'@'+'cmsgo'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
+		<a title="info@pixels-points.ch" onclick="location.href='mailto:info'+'@'+'pixels-points'+'.'+'ch';return false;" href="#">Pixels &amp; Points</a>.
 		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
         Extensions are copyright of their respective owners.
 	</td>

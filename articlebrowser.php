@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -98,8 +98,8 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/cmsgobrowser.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="include/inc_css/fontawesome-all.min.css" rel="stylesheet" type="text/css">
-  <link href="include/inc_css/cmsgospecial.css" rel="stylesheet" type="text/css">
+  <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+  <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 
   <script src="include/inc_js/jquery/jquery.min.js"></script>
   <script src="include/inc_js/autosize.min.js"></script>
@@ -428,7 +428,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
       $a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';\"  class=\"structarticle\" data-aid=\"".$article_content['acontent_id']."\" data-idtype=\"acontent\">\n";
 
       $a .= '<td width="30"><i class="far fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'" /></td>';
-      $a .= '<td class="" style="color:#727889;width: 60%">';  
+      $a .= '<td class="" style="color:#727889;width: 60%">';
       $ab  = '[ID:'.$article_content["acontent_id"].'] ';
       $ab .= $article_content["acontent_title"].' - ';
       $ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];

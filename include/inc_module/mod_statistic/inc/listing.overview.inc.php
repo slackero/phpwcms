@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -78,7 +79,7 @@ if (!defined('CMSGO_ROOT')) {
   <div class="card-header"><h2><?php echo $BLM['listing_overview_cnt'] ?></h2></div>
   <div class="card-body">
     <table class="table table-sm mb-0">
-   <?php  
+   <?php
   $wcs_content_type = array(
      0 => $BL['be_ctype_plaintext'] ,
      6 => $BL['be_ctype_html'],
@@ -142,18 +143,18 @@ if (!defined('CMSGO_ROOT')) {
       <td><a href="<?php echo statistic_url('controller=overview')."&cid=".$key ?>"><?php echo $BLM['overview_mit'].$value ?></a></td>
       <td align="right"><?php echo $counter;?></td>
     </tr>
-  <?php 
+  <?php
     $row_count++;
     }
   }
   ?>
     </table>
 
-  <?php 
+  <?php
   if(isset($_GET['cid'])) {
 
     echo "<h3>".$BLM['searcharticle'].$wcs_content_type[$_GET['cid']]."</h3>";
-    
+
     $sql =  "SELECT DISTINCT ar.article_title, ar.article_id FROM ".DB_PREPEND."cmsgo_articlecontent ac ";
     $sql .= "INNER JOIN " . DB_PREPEND . "cmsgo_article ar ON ar.article_id = ac.acontent_aid ";
     $sql .= "WHERE acontent_type=".intval($_GET['cid'])." AND acontent_trash=0 AND article_deleted = 0 AND acontent_visible = 1";
@@ -188,19 +189,19 @@ if (!defined('CMSGO_ROOT')) {
 
       $row_count = 0;
       foreach($_last10_article as $value) {
-      
+
         echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow" style="cursor:pointer" ';
         echo 'onclick="document.location.href=\'cmsgo.php?do=articles&p=2&s=1&id='.$value['article_id'].'\'" title="'.$BL['be_func_struct_edit'].'">'.LF;
         echo '  <td width="80%"><strong>'.html_specialchars($value['article_title']).'</strong></td>'.LF;
         echo '  <td align="center" nowrap="nowrap">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
         echo '  <td style="padding:3px;" nowrap="nowrap">';
-        
+
         echo '<button class="btn fa btn-sm visible '.($value["article_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['article_id'].'" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-        echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil"></i></a>';
+        echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
 
         echo '</td>'.LF;
         echo '</tr>'.LF;
-      
+
         $row_count++;
       }
     ?>

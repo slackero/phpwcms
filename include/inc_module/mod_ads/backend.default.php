@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -31,13 +31,23 @@ if (!defined('CMSGO_ROOT')) {
  */
 
 // first check if neccessary db exists
-if(isset($cmsgo['modules'][$module]['path']) && file_exists($cmsgo['modules'][$module]['path'].'setup/setup.php')) {
-
-	include_once $cmsgo['modules'][$module]['path'].'setup/setup.php';
-
-} elseif(isset($cmsgo['modules'][$module]['path'])) {
+if(isset($cmsgo['modules'][$module]['path'])) {
 
 	// module default stuff
+
+	// Initial check against 'content/%ads_dir%'
+	if(@!is_dir(CMSGO_CONTENT.CMSGO_ADS_DIR)) {
+		// Check older 'ads' static dir and try to rename
+		if(@is_dir(CMSGO_CONTENT.'ads')) {
+			@rename( CMSGO_CONTENT.'ads', CMSGO_CONTENT.CMSGO_ADS_DIR);
+		}
+		// Create new if not existing
+		if(_mkdir(CMSGO_CONTENT . CMSGO_ADS_DIR)) {
+			if(!is_file(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html')) {
+				@file_put_contents(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
+			}
+		}
+	}
 
 	// load special backend CSS
 	$BE['HEADER']['module_ads.css'] = '	<link href="'.$cmsgo['modules'][$module]['dir'].'template/backend.ads.css" rel="stylesheet" type="text/css">';
@@ -77,7 +87,7 @@ if(isset($cmsgo['modules'][$module]['path']) && file_exists($cmsgo['modules'][$m
 			@_dbQuery($sql, 'UPDATE');
 
 			//rename deleted campaign
-			@rename(CMSGO_CONTENT.'ads/'.$adcampaign_id, CMSGO_CONTENT.'ads/_deleted_'.time().'_'.$adcampaign_id);
+			@rename(CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$adcampaign_id, CMSGO_CONTENT.CMSGO_ADS_DIR.'/_deleted_'.time().'_'.$adcampaign_id);
 
 			headerRedirect(decode_entities(MODULE_HREF).'&listcampaign=1');
 

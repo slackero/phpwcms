@@ -3,8 +3,8 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -81,12 +81,12 @@ if(!isset($content['sitemap'])) {
 			<input class="form-check-input" name="csitemap_display" id="csitemap_display1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["display"]) ?>>
 			<label class="form-check-label" for="csitemap_display1"><?php echo $BL['be_cnt_sitemap_structurarticle'] ?>
 		</label>
-	</div>  
+	</div>
   	<div class="form-check form-check-inline">
 			<input class="form-check-input" name="csitemap_without_parent" id="csitemap_without_parent" type="checkbox" value="1" <?php is_checked(1, $content["sitemap"]["without_parent"]) ?>>
 			<label class="form-check-label" for="csitemap_without_parent"><?php echo $BL['be_cnt_sitemap_without_parent'] ?>
 		</label>
-	</div>  
+	</div>
   </div>
 </div>
 
@@ -115,6 +115,6 @@ if(!isset($content['sitemap'])) {
   	<div class="form-check form-check-inline">
 			<input class="form-check-input" name="csitemap_classcount" id="csitemap_classcount1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["classcount"]) ?>>
 			<label class="form-check-label" for="csitemap_classcount1"><?php echo $BL['be_cnt_sitemap_classcount'] ?></label>
-	</div>  
+	</div>
   </div>
 </div>

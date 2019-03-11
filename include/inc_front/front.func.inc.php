@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -465,7 +465,7 @@ function get_struct_data($root_name='', $root_info='') {
     $data = array();
 
     $data[0] = array(
-        "acat_id"       => 0,
+        "acat_id"           => 0,
         "acat_name"         => $indexpage['acat_name'],
         "acat_info"         => $indexpage['acat_info'],
         "acat_struct"       => 0,
@@ -536,7 +536,10 @@ function get_struct_data($root_name='', $root_info='') {
                 "acat_opengraph"    => $row["acat_opengraph"],
                 "acat_canonical"    => $row["acat_canonical"],
                 "acat_breadcrumb"   => intval($row["acat_breadcrumb"]),
-                "acat_onepage"      => $row["acat_onepage"]
+                "acat_onepage"      => $row["acat_onepage"],
+                "acat_lang"         => $row["acat_lang"],
+                "acat_lang_type"    => $row["acat_lang_type"],
+                "acat_lang_id"      => intval($row["acat_lang_id"])
             );
         }
     }
@@ -555,7 +558,6 @@ function get_actcat_articles_data($act_cat_id) {
     //so it is reusable by many functions -> lower db access
 
     global $content;
-    global $db;
 
     $data               = array();
     if(isset($content['struct'][ $act_cat_id ])) {
@@ -977,7 +979,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
         // next page link
         if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
             $_getVar['listpage'] = $page_next;
-            $page_next_link = '<a href="' . rel_url() . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
+            $page_next_link = '<a href="' . rel_url( array('listpage'=>$page_next) ) . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
         } else {
             $page_next_link = $GLOBALS['paginate_temp']['next'];
         }
@@ -985,7 +987,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
         // previous page link
         if($GLOBALS['paginate_temp']['prev'] && $page_current > 1) {
             $_getVar['listpage'] = $page_prev;
-            $page_prev_link = '<a href="' . rel_url() . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
+            $page_prev_link = '<a href="' . rel_url( array('listpage'=>$page_prev) ) . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
         } else {
             $page_prev_link = $GLOBALS['paginate_temp']['prev'];
         }
@@ -1539,6 +1541,9 @@ function html_parser($string) {
 }
 
 function html_parse_idlink($matches) {
+    $matches[1] = explode(' ', $matches[1], 2);
+    $target = empty($matches[1][1]) ? '' : ' target="' . $matches[1][1] . '"';
+    $matches[1] = $matches[1][0];
     if(strpos($matches[1], '#') !== false) {
         list($matches[1], $anchor) = explode('#', $matches[1], 2);
         if($anchor) {
@@ -1554,7 +1559,7 @@ function html_parse_idlink($matches) {
     if(!empty($GLOBALS['template_default']['classes']['link-internal'])) {
         $replace .= ' class="'.$GLOBALS['template_default']['classes']['link-internal'].'"';
     }
-    $replace .= '>' . $matches[2] . '</a>';
+    $replace .= $target . '>' . $matches[2] . '</a>';
     return $replace;
 }
 
@@ -2006,7 +2011,7 @@ function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=
     return $new_links;
 }
 
-function get_article_idlink($article_id=0, $link_text="", $db=null) {
+function get_article_idlink($article_id=0, $link_text="", $dbcon=null) {
     // returns the internal article link to given article ID/category
     $article_id     = intval($article_id);
     $article_cid    = 0;
@@ -3116,7 +3121,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         }
 
         $li_a_title = html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-        $li_a_class = ($active_class[1] && $key == $GLOBALS['aktion'][0]) ? $active_class[1] : ''; // set active link class
+        $li_a_class = $GLOBALS['template_default']['classes']['navlist-link-class'];
+        if($active_class[1] && $key == $GLOBALS['aktion'][0]) {
+            $li_a_class = trim($li_a_class . ' ' . $active_class[1]); // set active link class
+        }
         if($bs_toggle) {
             $li_a_class     = trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
             $bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
@@ -3280,7 +3288,7 @@ function get_level_ahref($key=0, $custom_link_add='') {
         $link .= $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'opid'.$key;
         $link .= '"';
     } else {
-        $link .= rel_url(array(), array('newsdetail'), $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key);
+        $link .= rel_url(array(), array('newsdetail', 'profile_manage', 'profile_reminder', 'profile_register'), $GLOBALS['content']['struct'][$key]['acat_alias'] ? $GLOBALS['content']['struct'][$key]['acat_alias'] : 'id='.$key);
         $link .= '"';
     }
     return $link.$custom_link_add.'>';
@@ -3919,7 +3927,7 @@ function getArticleMenu($data=array()) {
                 }
                 if($item['img_src']) {
                     $item['img_src'] = 'x'.$data['articlemenu_options']['height'].'x'.$data['articlemenu_options']['crop'].'/'.$item['img_src'];
-                    $item['img_src'] = CMSGO_RESIZE_IMAGE.'/'.$data['articlemenu_options']['width'].$item['img_src'];
+                    $item['img_src'] = CMSGO_RESIZE_IMAGE . '/'.$data['articlemenu_options']['width'].$item['img_src'].'/'.rawurlencode($item['article_image']['name']);
                 }
             }
             if($data['articlemenu_options']['text']) {
@@ -4144,7 +4152,7 @@ function render_CKEDitor_resized_images($match) {
         return $match[0];
     }
 
-    $src = CMSGO_RESIZE_IMAGE.'/'.$width.'x'.$height.'/'.$src[1];
+    $src = CMSGO_RESIZE_IMAGE . '/' . $width . 'x' . $height . '/' . $src[1];
     if(strpos($match[0], 'alt="')) {
         preg_match('/alt="(.*?)"/', $match[0], $alt);
         $alt = empty($alt[1]) ? '' : ' alt="'.$alt[1].'"';

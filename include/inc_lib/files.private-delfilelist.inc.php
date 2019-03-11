@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -39,12 +39,12 @@ if(isset($file_result[0]['f_id'])) {
         echo '<a class="btn btn-sm btn-blue mr-1" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|0'.
              '" data-toggle="tooltip" title="'.$BL['be_ftrash_undo'].': '.$filename."\" onclick=\"return confirm('".
              str_replace('{VAL}', $filename, $BL['be_ftrash_restore'])."');\">".
-             '<i class="fa fa-arrow-alt-from-bottom fa-fw"></i></a>';
+             '<i class="fa fa-arrow-up fa-fw"></i></a>';
 
         echo '<a class="btn btn-sm btn-danger" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|9'.
              '" data-toggle="tooltip" title="'.$BL['be_ftrash_delfinal'].': '.$filename."\" onclick=\"return confirm('".
              str_replace('{VAL}', $filename, $BL['be_ftrash_delete'])."');\">".
-             '<i class="fa fa-trash fa-fw"></i></a>';
+             '<i class="far fa-trash-alt fa-fw"></i></a>';
         echo "</td>\n";
         echo "</tr>\n";
 

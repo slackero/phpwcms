@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -125,7 +126,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
     </table>
   </div>
 </div>
-  
+
 <div class="form-group align-items-center form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo  $BL['be_cnt_position'] ?></label>
   <div class="col-sm-auto">

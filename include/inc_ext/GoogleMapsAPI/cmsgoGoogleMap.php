@@ -583,7 +583,7 @@ class GoogleMapAPI {
      * @param string $map_id the DOM element ID for the map
      * @param string $app_id YOUR Yahoo App ID
      */
-    function GoogleMapAPI($map_id = 'map', $app_id = 'MyMapApp') {
+    function __construct($map_id = 'map', $app_id = 'MyMapApp') {
         $this->map_id = $map_id;
         $this->sidebar_id = 'sidebar_' . $map_id;
         $this->app_id = $app_id;

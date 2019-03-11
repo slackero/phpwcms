@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -138,55 +138,55 @@ if(empty($user_ok)) {
 				<label for="be_admin_usr_realname" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> /> 
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
 					<label class="form-check-label" for="form_feuser"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> /> 
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> />
 					<label class="form-check-label" for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> /> 
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> />
 					<label class="form-check-label" for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label>
 				</div>
-				</div>  
-			</div>  
+				</div>
+			</div>
 
 			<div class="form-row align-items-center">
 				<label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> /> 
+					<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
 					<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
 				</div>
-				</div>  
+				</div>
 			</div>
 
 			<div class="form-row align-items-center">
 				<label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> /> 
+					<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
 					<label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
 				</div>
-				</div>  
+				</div>
 			</div>
-	
+
 			<div class="form-row align-items-center">
 				<label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
 				<div class="col">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> /> 
+					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
 					<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
 				</div>
-				</div>  
+				</div>
 			</div>
-	
+
 			<div class="text-right">
 				<input name="form_aktion" type="hidden" value="create_account" />
 				<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_usr_button'] ?>" />
 			</div>
-     
+
     </div>
   </div>
 </form>

@@ -1,8 +1,8 @@
 <?php
 
 // first define main language vars
-$BLM['backend_menu'] = 'cmsGo! Adressen';
-$BLM['listing_title'] = 'cmsGo! Adressverwaltung';
+$BLM['backend_menu'] = 'cmsGO! Adressen';
+$BLM['listing_title'] = 'cmsGO! Adressverwaltung';
 $BLM['create_new'] = 'Neuer Eintrag';
 $BLM['dealer_entry'] = 'Adresseintrag';
 $BLM['dealer_title'] = 'Titel';

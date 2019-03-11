@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -15,7 +15,7 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 ?>
-<h1><?php 
+<h1><?php
 	echo $BLM['cat_edit'];
 	if($plugin['data']['cat_id'] && empty($plugin['data']['cat_pid']) ) {
 		echo ' [ID: ' . $plugin['data']['cat_id'] . ']';
@@ -44,7 +44,7 @@ if (!defined('CMSGO_ROOT')) {
 	<div class="form-group form-row align-items-center">
     	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_category'] ?></label>
     	<div class="col-sm-4">
-			<input name="cat_name" class="form-control form-control-sm" type="text" id="cat_name" class="v12<?php 
+			<input name="cat_name" class="form-control form-control-sm" type="text" id="cat_name" class="v12<?php
 			//error class
 			if(!empty($plugin['error']['cat_name'])) echo ' errorInputText'; ?>" value="<?php echo html_specialchars($plugin['data']['cat_name']) ?>" size="30"  />
     	</div>
@@ -63,7 +63,7 @@ if (!defined('CMSGO_ROOT')) {
 			$sql .= "cat_id != " . $plugin['data']['cat_id'];
 			$plugin['data']['subcat'] = _dbQuery($sql);
 			foreach($plugin['data']['subcat'] as $value) {
-		
+
 				echo '<option value="' . $value['cat_id'] . '"';
 				is_selected($plugin['data']['cat_pid'], $value['cat_id']);
 				if($value['cat_status'] = 0) {

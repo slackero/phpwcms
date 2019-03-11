@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -26,3 +26,8 @@ $_module_fe_render		= true;
 $_module_fe_init		= true;
 $_module_fe_search		= false;
 $_module_fe_setting		= false;
+
+// Register ADS_DIR constant based on $cmsgo['ads_path']
+// mainly used to handle adblocking more flexible
+// Fallback to 'ads' - the default value in previous versions
+define('CMSGO_ADS_DIR', empty($cmsgo['ads_path']) ? 'ads' : $cmsgo['ads_path']);

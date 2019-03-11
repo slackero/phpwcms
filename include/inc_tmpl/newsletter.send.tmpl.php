@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -28,12 +28,12 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_newsletterqueu
       <form action="include/inc_act/act_sendnewsletter.php" method="get" target="sendframe" id="sendnewsletter" data-csrf="off">
         <input type="hidden" name="csrftoken" value="<?php echo get_token_get_value('csrftoken'); ?>" />
         <input type="hidden" name="newsletter_id" value="<?php echo intval($newsletter['newsletter_id']) ?>" />
-          
+
         <div class="form-group form-row align-items-center">
             <label for="newsletter_subject" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
             <div class="col-sm-10"><?php echo html($newsletter["newsletter_subject"]) ?></div>
         </div>
-          
+
         <div class="form-group form-row align-items-center">
             <label for="send_testemail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_testemail'] ?></label>
             <div class="col-sm-10">

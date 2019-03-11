@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -69,35 +69,28 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
 if(!empty($db_additional)) {
 
 ?>
-    <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">4.</span> Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> collation
-          settings <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a></h1></td></tr>
+    <tr>
+        <td colspan="3" style="padding: 10px 0 10px 0;">
+            <h1>
+                <span class="number">4.</span>
+                Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> settings
+                <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
+            </h1>
+        </td>
+    </tr>
     <tr>
             <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
-            <td><select class="custom-select" name="charset">
-
+            <td><select name="charset">
             <?php
-
-            if($cmsgo['db_version'] < 40100) {
-                $_availableCharsets = _dbQuery("SHOW VARIABLES LIKE 'character_sets'", 'ROW');
-                if(isset($_availableCharsets[0][1])) {
-                    $_availableCharsets = $_availableCharsets[0][1];
-                    $_availableCharsets = str_replace('_', '', $_availableCharsets);
-                    $_availableCharsets = strtolower($_availableCharsets);
-                    $_availableCharsets = explode(' ', $_availableCharsets);
-                }
-            }
-
 
             foreach($available_languages as $key => $value) {
 
                 list(, $_lang_charset)  = explode('-', $value[1], 2);
                 list(, $_lang_en)       = explode('|', $value[0]);
 
-                if($cmsgo['db_version'] < 40100 && !in_array($mysql_charset_map[$_lang_charset], $_availableCharsets)) continue;
-
                 echo '<option value="'.$key.'"';
 
-                if($key == strtolower(str_replace('-', '', $cmsgo['default_lang'])  .'-'. $cmsgo['charset'])) {
+                if($key === strtolower(str_replace('-', '', $cmsgo['default_lang']) .'-'. $cmsgo['charset'])) {
                     echo ' selected="selected"';
                 }
 
@@ -109,97 +102,15 @@ if(!empty($db_additional)) {
                     echo ' / '.$mysql_charset_map[$_lang_charset];
                 }
                 echo ']';
-                echo "</option>\n";
-
-
+                echo "</option>";
             }
 
             ?>
-            </select></td>
-            <td class="chatlist"><em>&nbsp;recommend: <strong>UTF-8</strong></em></td>
-          </tr>
-<?php
-
-    // collation setting
-    if($cmsgo['db_version'] > 40100) {
-
-        $_collation             = array();
-        $_collation_selected    = false;
-
-        echo '<tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="6"></td></tr>';
-
-        // make db connect
-        if(empty($db)) {
-            $db_host = $cmsgo["db_host"];
-            if(!empty($cmsgo["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
-                $db_host = 'p:'.$db_host;
-            }
-            $db = @mysqli_connect($db_host, $cmsgo["db_user"], $cmsgo["db_pass"], $cmsgo["db_table"]);
-        }
-        if($result = mysqli_query($db, "SHOW COLLATION")) {
-
-            while($row = mysqli_fetch_assoc($result)) {
-
-                if($row['Charset'] == 'utf8' && in_array($row['Charset'], $mysql_charset_map)) {
-                    if($cmsgo['db_collation']==$row['Collation']) {
-                        $_collation_selected = true;
-                        $_collation[ $row['Charset'] ][ $row['Collation'] ] = true;
-                    } else {
-                        $_collation[ $row['Charset'] ][ $row['Collation'] ] = false;
-                    }
-                }
-
-            }
-
-            ksort($_collation);
-
-        }
-
-
-        // warn again
-        if(isset($_collation_warning) && $_collation_warning === true) {
-
-            echo '<tr><td>&nbsp;</td><td colspan="2">'.errorWarning('Proof collation again!').'</td></tr>';
-            $_SESSION['admin_set'] = false;
-
-        }
-
-?>
-        <tr>
-            <td align="right" class="v10 nowrap">MySQL Collation:&nbsp;</td>
-            <td><select class="custom-select" name="collation">
-<?php
-
-        foreach($_collation as $key => $value) {
-
-            ksort($value);
-
-            echo '      <optgroup label="'.$key.'" style="margin-bottom:5px;">'. "\n";
-
-            foreach($value as $colkey => $status) {
-
-                echo '          <option value="'.$colkey.'"';
-                if($status) {
-                    echo ' selected="selected" style="color:#009900;font-weight:bold;"';
-                }
-                echo '>'.$colkey.'</option>'. "\n";
-
-            }
-
-            echo '      </optgroup>' . "\n";
-
-        }
-
-?>
-            </select></td>
-            <td class="chatlist"><em>&nbsp;recommend: <strong>utf8_unicode_ci</strong></em></td>
+            </select><input type="hidden" name="collation" value="utf8_general_ci" /></td>
+            <td class="chatlist"></td>
           </tr>
 
-
-
 <?php
-
-    }
 
 }
 
@@ -209,8 +120,6 @@ if(!empty($db_init)) {
 ?>
     <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default cmsgo database schema</h1></td></tr>
 <?php
-
-
 
     if(empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
         echo '<tr><td>&nbsp;</td><td colspan="2">';
@@ -262,10 +171,8 @@ if(!empty($db_init)) {
 
     }
 
-
     if(empty($db_fine)) {
         // show info
-
 ?>
       <tr>
         <td align="right" class="v10">&nbsp;</td>
@@ -305,7 +212,7 @@ if(!empty($db_init)) {
             }
             $sql_data[$key] .= '"><p>'.$value;
 
-            if($cmsgo['db_version'] > 40100 && strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
+            if(strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
                 $sql_data[$key] .= ' DEFAULT';
                 $sql_data[$key] .= ' CHARACTER SET '.$cmsgo['db_charset'];
                 $sql_data[$key] .= ' COLLATE '.$cmsgo['db_collation'];
@@ -328,7 +235,6 @@ if(!empty($db_init)) {
 
     }
 }
-
 
 //  OK now lets create superuser
 if(!empty($_SESSION['admin_set'])) {

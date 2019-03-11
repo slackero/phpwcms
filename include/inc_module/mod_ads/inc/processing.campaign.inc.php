@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -85,7 +85,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_image']['name'])) {
 
         // image upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_image', CMSGO_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', '', '1,2,3', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_image', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', '', '1,2,3', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['image'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);
@@ -97,7 +97,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_flash']['name'])) {
 
         // flash upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', CMSGO_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', 'swf', '', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'swf', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['flash'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);
@@ -109,7 +109,7 @@ if(isset($_POST['adcampaign_title'])) {
     if($plugin['data']['adcampaign_id'] && !empty($_FILES['adcampaign_upload_css']['name'])) {
 
         // css upload
-        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_css', CMSGO_CONTENT.'ads/'.$plugin['data']['adcampaign_id'].'/', 'css', '', '1,4');
+        $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_css', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'css', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['css'] = $plugin['data']['upload']['rename'];
             unset($_POST['save']);

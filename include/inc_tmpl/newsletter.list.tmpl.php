@@ -1,13 +1,13 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  */
- 
+
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
@@ -119,7 +119,7 @@ if($_SESSION['newsletter_page'] < 1) {
 			?>
 
       <div class="col"></div>
-      
+
       <div class="col-12 col-sm-auto text-right">
           <select class="form-control form-control-sm custom-select">
               <option <?php echo ($_SESSION['list_newsletter_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_article_rendering'] ?></option>
@@ -170,7 +170,7 @@ if($_SESSION['newsletter_page'] < 1) {
           $count_queue      = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_newsletterqueue WHERE queue_status=0 AND queue_pid='.$row["newsletter_id"], 'COUNT');
           $count_recipient  = countNewsletterRecipients($row['newsletter_vars']['subscription']);
           $count_opener     = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_newsletterqueue WHERE queue_status=1 AND queue_opener=1 AND queue_pid='.$row["newsletter_id"], 'COUNT');
-          
+
           if(empty($row["newsletter_active"]) || !$count_queue) {
             echo '<i class="far fa-newspaper fa-fw" aria-hidden="true"></i>';
           } else {
@@ -205,13 +205,13 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<td class="text-right text-nowrap">';
 
           // edit
-          echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;edit=1"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 
           // duplicate
           echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_duplicate'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;duplicate_nl='.$row["newsletter_id"].'"><i class="fa fa-copy fa-fw"></i></a>';
 
           // delete
-          echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_profile_delete_entry'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="fa fa-trash fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_profile_delete_entry'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
 
           echo "</td>\n</tr>\n";
 

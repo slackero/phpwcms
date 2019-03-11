@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -41,12 +41,12 @@ if(!isset($_GET["s"])) {
             echo "</a></td>\n".'<td class="text-right" nowrap="nowrap">';
 
             echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
-            echo '<i class="fa fa-pencil"></i></a>';
+            echo '<i class="fa fa-pencil-alt"></i></a>';
 
             echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
             echo ' onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
-            echo '<i class="fa fa-trash" aria-hidden="true"></i></a>';
+            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo "</td>\n</tr>\n";
 
@@ -322,7 +322,7 @@ if(!isset($_GET["s"])) {
       </div>
       <div class="col-sm-3 mt-2 mt-sm-0">
       	<div class="form-check">
-					<input class="form-check-input" name="layout_default" type="checkbox" id="layout_default" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>> 
+					<input class="form-check-input" name="layout_default" type="checkbox" id="layout_default" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>>
 					<label class="form-check-label" for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label>
 				</div>
       </div>

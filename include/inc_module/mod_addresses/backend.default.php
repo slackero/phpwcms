@@ -8,7 +8,7 @@ if (!defined('CMSGO_ROOT')) {
 
 
 /*
- * cmsGo! Addresses
+ * cmsGO! Addresses
  * ================
  */
 

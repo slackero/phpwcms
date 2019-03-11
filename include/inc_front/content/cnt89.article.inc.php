@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -21,7 +21,7 @@ $poll_image         = @unserialize($crow["acontent_image"]);
 $poll_text          = @unserialize($crow["acontent_text"]);
 $poll_form          = @unserialize($crow["acontent_form"]);
 $poll_choice_count  = 0;
-$remoteIP           = getRemoteIP();
+$remoteIP           = CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP();
 
 if(!isset($poll_form["ip"])) {
     $poll_form["ip"] = array();

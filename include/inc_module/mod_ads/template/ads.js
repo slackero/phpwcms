@@ -99,7 +99,7 @@ function showFlashAds() {
 		tmp.write('\n</style></head><body>');
 		tmp.write('<div id="box">');
 
-		tmp.write('<object width="'+boxw+'" height="'+boxh+'"><param name="movie" value="'+adsPath+val+'"></param><param name="wmode" value="transparent"></param><embed src="'+adsPath+val+'" type="application/x-shockwave-flash" wmode="transparent" width="'+boxw+'" height="'+boxh+'"></embed></object>');
+		tmp.write('<object width="'+boxw+'" height="'+boxh+'"><param name="movie" value="'+adsPath+val+'" /><param name="wmode" value="transparent" /><embed src="'+adsPath+val+'" type="application/x-shockwave-flash" wmode="transparent" width="'+boxw+'" height="'+boxh+'" /></object>');
 
 		tmp.write('</div>');
 		tmp.write('<p align="center"><a href="javascript:self.close()">close</a> the popup.</p>');

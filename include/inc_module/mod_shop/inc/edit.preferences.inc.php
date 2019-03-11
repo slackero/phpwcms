@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -61,7 +61,7 @@ if (!defined('CMSGO_ROOT')) {
 				</textarea>
 		</div>
 		<div class="col-sm-auto align-items-top text-left">&nbsp;%</div>
-  </div>  	
+  </div>
 
 	<div class="form-group form-row align-items-center">
 		<label for="shopprod_email_to" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_to'] ?></label>
@@ -246,7 +246,7 @@ if (!defined('CMSGO_ROOT')) {
 					<input class="form-check-input mr-sm-3" type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" />
 					<label class="form-check-label"><?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?></label>
 				</div>
-			</div>		
+			</div>
 			<div class="col-sm-auto">
 				<input name="pref_loworder_under" type="text" id="pref_loworder_under" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
@@ -256,12 +256,12 @@ if (!defined('CMSGO_ROOT')) {
 			<div class="col-sm-auto">
 				<input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
-			<div class="col-sm-auto py-2 py-sm-0">		
+			<div class="col-sm-auto py-2 py-sm-0">
 				<?php echo $BLM['shopprod_vat'] ?>
 			</div>
 			<div class="col-sm-auto">
 				<input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
-			</div>	
+			</div>
 			&nbsp;%
     </div>
 
@@ -274,7 +274,7 @@ if (!defined('CMSGO_ROOT')) {
 						<input class="form-check-input" type="checkbox" name="pref_discount" id="pref_discount" value="1"<?php is_checked('1', $plugin['data']['shop_pref_discount']['discount']) ?> onchange="enableSubmit();" />
 					</label>
 				</div>
-			</div>		
+			</div>
 			<div class="col-sm-auto">
 				<input name="pref_discount_percent" type="text" id="pref_discount_percent" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
@@ -301,7 +301,7 @@ if (!defined('CMSGO_ROOT')) {
 						<input class="form-check-input" type="checkbox" name="pref_discount_1" id="pref_discount_1" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_1']) ?> onchange="enableSubmit();" />
 					</label>
 				</div>
-			</div>		
+			</div>
 			<div class="col-sm-auto">
 				<input name="pref_discount_percent_1" type="text" id="pref_discount_percent_1" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent_1'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
@@ -328,7 +328,7 @@ if (!defined('CMSGO_ROOT')) {
 						<input class="form-check-input" type="checkbox" name="pref_discount_2" id="pref_discount_2" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_2']) ?> onchange="enableSubmit();" />
 					</label>
 				</div>
-			</div>		
+			</div>
 			<div class="col-sm-auto">
 				<input name="pref_discount_percent_2" type="text" id="pref_discount_percent_2" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent_2'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
@@ -347,7 +347,7 @@ if (!defined('CMSGO_ROOT')) {
 				 </div>
 			</div>
     </div>
-    
+
 <hr />
 
 	<!-- Payment methods -->
@@ -366,7 +366,7 @@ if (!defined('CMSGO_ROOT')) {
 			<input name="pref_email_paypal" type="text" id="pref_email_paypal" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shop_pref_email_paypal']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
 		</div>
     </div>
-    
+
     <div class="form-group form-row align-items-center">
 		<label for="shopprod_payment_method" class="col-sm-2 col-form-label text-sm-right"></label>
 		<div class="col-sm-2">
@@ -385,7 +385,7 @@ if (!defined('CMSGO_ROOT')) {
 				<option value="visa"<?php if(in_array('visa', $plugin['data']['shop_pref_payment']['accepted_ccard'])) echo ' selected="selected"'; ?> style="margin-bottom:1px">Visa</option>
 			</select>
 		</div>
-    </div>    
+    </div>
 
 	<div class="form-group form-row">
 		<div class="col-sm-2"></div>

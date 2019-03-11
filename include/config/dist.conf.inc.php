@@ -1,15 +1,14 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 // cmsgo base values -> needed in any document
-
 
 // database values
 $cmsgo['db_host']             = 'localhost';
@@ -20,9 +19,10 @@ $cmsgo['db_prepend']          = '';
 $cmsgo['db_pers']             = 0;
 $cmsgo['db_charset']          = 'utf8';
 $cmsgo['db_collation']        = 'utf8_general_ci';
-$cmsgo['db_version']          = 0;
-$cmsgo['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$cmsgo['db_sql_mode']         = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$cmsgo['db_version']          = ''; // Version of MySQL Server at the time cmsGO! was installed
+$cmsgo['db_timezone']         = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
+$cmsgo['db_sql_mode']         = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
+$cmsgo['db_errorlog']         = false; // Log DB queries - false|true
 
 // site values
 $cmsgo['site']                = ''; // leave empty to auto configure or try 'http://'.$_SERVER['SERVER_NAME'].'/';
@@ -43,6 +43,7 @@ $cmsgo['templates']           = 'template';
 $cmsgo['content_path']        = 'content';
 $cmsgo['cimage_path']         = 'images';
 $cmsgo['ftp_path']            = 'upload';
+$cmsgo['ads_path']            = 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $cmsgo['file_maxsize']        = 52428800; // Bytes (50 x 1024 x 1024)
@@ -53,6 +54,7 @@ $cmsgo['img_prev_width']      = 978; // max width of the large preview image
 $cmsgo['img_prev_height']     = 734; // max height of the large preview image
 $cmsgo['max_time']            = 1800; // logout after max_time/60 seconds
 $cmsgo['responsive']          = 1; // 0 max. image width = $cmsgo['content_width'], 1 = as given
+$cmsgo['preserve_image_name'] = 1; // keep file name for resized versions of the image
 
 // other stuff
 $cmsgo['image_library']       = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
@@ -62,7 +64,7 @@ $cmsgo['rewrite_ext']         = '.html'; // The extension for URL ReWrite, '.htm
 $cmsgo['alias_allow_slash']   = 1; // Allow slashes / in ALIAS
 $cmsgo['alias_allow_utf8']    = 1; // If charset is utf-8 special chars will survive alias checking
 $cmsgo['wysiwyg_editor']      = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
-$cmsgo['default_lang']        = 'en'; // default language
+$cmsgo['default_lang']        = 'de'; // default language
 $cmsgo['DOCTYPE_LANG']        = ''; // by default same as $cmsgo['default_lang'], but can be injected by whatever you like
 $cmsgo['allowed_lang']        = array('en', 'de', 'fr', 'es'); //array of allowed languages
 $cmsgo['be_lang_parse']       = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
@@ -105,7 +107,7 @@ $cmsgo['JW_FLV_License']      = ''; // insert your JW FLV Media Player License C
 $cmsgo['feuser_regkey']       = 'FEUSER';
 $cmsgo['edit.php']           = 'edit.php';
 $cmsgo['js_lib']              = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/5.19/)
+$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.4.1/)
 $cmsgo['render_device']       = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $cmsgo['detect_pixelratio']   = 0; // will inject the page with JavaScript to detect Retina devices
 $cmsgo['im_fix_colorspace']   = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -120,7 +122,7 @@ $cmsgo['reserved_alias']      = array(); // use this to block custom alias
 $cmsgo['enable_deprecated']   = false; // enable/disable deprecated functionality, enable if you miss things
 $cmsgo['canonical_off']       = false; // disable canonical link tag
 $cmsgo['viewport']            = ''; // set viewport like "width=device-width, initial-scale=1.0, user-scalable=no"
-$cmsgo['X-UA-Compatible']     = 'IE=Edge'; // set browser compatibility mode using meta tag X-UA-Compatible
+$cmsgo['X-UA-Compatible']     = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...
 $cmsgo['base_href']           = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $cmsgo['cp_default']          = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
 $cmsgo['js_in_body']          = 0; // add <script> direct before </body> instead inside of <head>
@@ -139,7 +141,10 @@ $cmsgo['enable_inline_php']   = false; // disable [PHP] {PHP…} … by default
 $cmsgo['parse_html_mode']     = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $cmsgo['trash_delete_files']  = false; // set to true if files should be deleted if trash is emptied
 $cmsgo['cmsimage_settings']   = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only: array('500x500x0', 'default'=>'1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif
+$cmsgo['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum
 $cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()
+$cmsgo['preserve_getVar']     = array(); // cmsgo removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/cmsgo/blob/master/include/inc_lib/default.inc.php#L520
+$cmsgo['enable_GDPR']         = true; // Try to handle GDPR inside of cmsgo by default (anonymize IP...)
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address

@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // general wrapper for ajax based queries
@@ -110,13 +111,13 @@ switch($action) {
 			$data['status'] = '';
 		}
 		break;
-    
+
   //deleting article ajax
   case 'atitle':
     $where  = "article_deleted=0 AND ";
     $where .= "article_title LIKE '%" ._dbEscape( $value, false ) . "%'";
-    $result = _dbGet('phpwcms_article', 'article_title', $where, 'article_title', 'article_title', 20);
-    
+    $result = _dbGet('cmsgo_article', 'article_title', $where, 'article_title', 'article_title', 20);
+
     if(isset($result[0])) {
       foreach($result as $key => $value) {
         $data[] = array('article_title' => utf8_encode($value['cat_name']));

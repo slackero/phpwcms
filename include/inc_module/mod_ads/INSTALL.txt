@@ -2,7 +2,7 @@
 
    Copyright notice
    
-   (c) 2007 Oliver Georgi <slackero@gmail.com> // All rights reserved.
+   (c) 2007 Oliver Georgi (info@pixels-points.ch) // All rights reserved.
  
    This script is part of MODULE "BANNER ADS" FOR CMSGO. The CMSGO web 
    content management system is free software; you can redistribute it and/or 

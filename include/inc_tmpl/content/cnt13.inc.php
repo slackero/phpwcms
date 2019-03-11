@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -203,7 +203,7 @@ if(empty($content['search']['type'])) {
 		<label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
 		<input type="text" id="news_lang_autosuggest" class="form-control form-control-sm" /><input type="hidden" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="form-control" />
 	</div>
-    
+
     <div class="form-group">
       <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
         <div class="form-row">
@@ -219,7 +219,7 @@ if(empty($content['search']['type'])) {
           </div>
         </div>
     </div>
-    
+
     <div class="form-group">
         <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_cnt_target'].' ('.$BL['be_alias'] ?>/aid=1/id=3)</label>
         <div class="input-group">
@@ -244,7 +244,7 @@ if(empty($content['search']['type'])) {
       neverSubmit: true,
       asHtmlID: 'keyword-autosuggest1'
     });
-    
+
     $("#news_lang_autosuggest").autoSuggest('<?php echo CMSGO_URL ?>include/inc_act/ajax_connector.php', {
       selectedItemProp: "allowed_lang",
       selectedValuesProp: 'allowed_lang',
@@ -261,7 +261,7 @@ if(empty($content['search']['type'])) {
       $("#news_category").val($('#as-values-keyword-autosuggest1').val());
       $("#news_lang").val($('#as-values-keyword-autosuggest2').val());
     });
-    
+
     $("#keyword-autosuggest2").keyup(function(event) {
       $(this).val( $(this).val().replace(/[^a-z]/g,'') );
     });
@@ -314,8 +314,8 @@ if(count($content['search']['module_search'])) {
   <label for="be_cnt_input" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_input'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_input" type="text" class="form-control form-control-sm" id="csearch_label_input" value="<?php echo  isset($content["search"]["label_input"]) ? $content["search"]["label_input"] : '' ?>" maxlength="250" />
-    </div>     
-  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>      
+    </div>
+  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_style_input" type="text" id="csearch_style_input" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_input"]) ? $content["search"]["style_input"] : '' ?>" />
     </div>
@@ -325,8 +325,8 @@ if(count($content['search']['module_search'])) {
   <label for="be_cnt_buttontext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_buttontext'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_button" type="text" id="csearch_label_button" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["label_button"]) ? $content["search"]["label_button"] : '' ?>" maxlength="75" />
-    </div>     
-  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>      
+    </div>
+  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
     	<input name="csearch_style_button" type="text" id="csearch_style_button" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_button"]) ? $content["search"]["style_button"] : '' ?>" />
     </div>
@@ -336,8 +336,8 @@ if(count($content['search']['module_search'])) {
   <label for="be_cnt_result" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_result'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_label_result" type="text" id="csearch_label_result" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["label_result"]) ? html($content["search"]["label_result"]) : '' ?>" maxlength="250" />
-    </div>     
-  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>      
+    </div>
+  <label for="be_cnt_css_class" class="col-sm-2 col-form-label text-right font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></label>
     <div class="col-sm-4">
       <input name="csearch_style_result" type="text" id="csearch_style_result" class="form-control form-control-sm" value="<?php echo  isset($content["search"]["style_result"]) ? $content["search"]["style_result"] : '' ?>" />
     </div>
@@ -376,7 +376,7 @@ if(count($content['search']['module_search'])) {
 				<input class="form-check-input" name="csearch_show_next" type="checkbox" id="csearch_show_next" value="1" <?php is_checked(1, $content["search"]["show_next"]) ?> />
 				<label class="form-check-label" for="csearch_show_next"><?php echo $BL['be_cnt_search_show_next'] ?></label>
 			</div>
-    </div>  
+    </div>
   </div>
 </div>
 

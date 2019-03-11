@@ -3,8 +3,8 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  **/
 
 // ----------------------------------------------------------------
@@ -133,7 +133,7 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
         <button class="modalButton btn btn-sm btn-blue mb-1" type="button" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
         <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
         <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
-        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="fa fa-trash fa-fw" aria-hidden="true"></i></button>
+        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
     </div>
 </div>
 
@@ -195,7 +195,7 @@ if($img_thumbs) {
 			</div>
 		</div>
   </div>
-  
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -206,8 +206,8 @@ if($img_thumbs) {
 				<span class="input-group-text">px</span>
 			</div>
 		</div>
-  </div>  
-  
+  </div>
+
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="form-check form-check-inline">
 			<input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> />
@@ -234,7 +234,7 @@ if($img_thumbs) {
 					is_selected($max_image_limit, $content['image_list']['limit']);
 					echo '>'.$max_image_limit."</option>\n";
 			}
-			?>            
+			?>
 		</select>
 	</div>
 	<div class="col">
@@ -269,7 +269,7 @@ if($img_thumbs) {
 				<span class="input-group-text">px</span>
 			</div>
 		</div>
-  </div> 
+  </div>
 </div>
 
 <div class="form-group align-items-center form-row">

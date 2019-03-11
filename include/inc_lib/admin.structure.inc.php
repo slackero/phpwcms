@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -32,6 +32,7 @@ if($acat_id) {
         $row_acat = $row_acat[0];
 
         $acat_title         = $row_acat["acat_name"];
+        $acat_title_alt     = $row_acat["acat_title"];
         $acat_info          = $row_acat["acat_info"];
         $acat_id            = $row_acat["acat_id"];
         $acat_new           = 0;

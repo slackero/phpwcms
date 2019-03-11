@@ -7,15 +7,15 @@
  ------------------------------------------------------------------------------
   Form validation class
  --------------------------------------------------------------------------- */
- 
+
 class SPAF_FormValidator {
   // {{{
   // !!! EDITABLE CONFIGURATION ===============================================
   var $lib_dir      = 'lib/';
-  var $backgrounds  = array('01.png', '02.png', '03.png', '04.png', '05.png', 
-                            '06.png', '07.png', '08.png', '09.png', '10.png', 
+  var $backgrounds  = array('01.png', '02.png', '03.png', '04.png', '05.png',
+                            '06.png', '07.png', '08.png', '09.png', '10.png',
                             '11.png', '12.png');
-  var $fonts        = array('solmetra1.ttf', 'solmetra2.ttf', 'solmetra3.ttf', 
+  var $fonts        = array('solmetra1.ttf', 'solmetra2.ttf', 'solmetra3.ttf',
                             'solmetra4.ttf');
   var $font_sizes   = array(13, 14, 15);
   var $colors       = array(
@@ -28,53 +28,53 @@ class SPAF_FormValidator {
   var $shadow_color = array(255, 255, 255);
   var $hide_shadow  = false;
   var $char_num     = 5;
-  var $chars        = array('A', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M', 
-                            'N', 'O', 'P', 'R', 'S', 'T', 'Y', '3', '4', '6', 
+  var $chars        = array('A', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M',
+                            'N', 'O', 'P', 'R', 'S', 'T', 'Y', '3', '4', '6',
                             '7', '9');
   var $session_var  = 'spaf_form_validator_tag';
-  
-  var $no_session   = false;  // If this is set to true following config 
+
+  var $no_session   = false;  // If this is set to true following config
                               // variables must also be set
-  
+
   var $work_dir     = 'work'; // If $no_session is set to true set this variable
-                              // to the directory in which FormValidator will 
+                              // to the directory in which FormValidator will
                               // create its temporary files.
-                              // If path begins with a backslash (i.e. /tmp), 
+                              // If path begins with a backslash (i.e. /tmp),
                               // FormValidator will assume it's an absolute path
                               // Otherwise path will be treated as relative to
-                              // FormValidator class location. 
-                              // Please note that this directory must be 
+                              // FormValidator class location.
+                              // Please note that this directory must be
                               // writable to PHP scripts.
-  
+
   var $work_ext     = 'spaf'; // An extention to use for temporary work files
-  
-  var $tag_ttl      = 120;    // Number of minutes to consider user tag valid  
-                              // Used only in conjunction with: 
+
+  var $tag_ttl      = 120;    // Number of minutes to consider user tag valid
+                              // Used only in conjunction with:
                               // $no_session = true
-  
-  var $tag_cookie   = 'spaf_formvalidator'; // the name of cookie to be used 
-                                            // for tagging a user 
-  
+
+  var $tag_cookie   = 'spaf_formvalidator'; // the name of cookie to be used
+                                            // for tagging a user
+
   var $gc_prob      = 1;      // Percental probability for garbage collector to
-                              // launch per each instance of FormValidator 
+                              // launch per each instance of FormValidator
                               // class. Garbage collector is needed to remove
-                              // old user tag files from disk if you use 
+                              // old user tag files from disk if you use
                               // $no_session = true
                               // 0 means GC will never launch
-                              // 100 means GC will launch everytime you 
-                              // instantiate this class 
-  
+                              // 100 means GC will launch everytime you
+                              // instantiate this class
+
   // !!! DO NOT CHANGE ANYTHING BELOW THIS LINE ===============================
   // }}}
   // {{{
   var $img_func_suffix = 'png';
   // }}}
   // {{{
-  function SPAF_FormValidator () {
+  function __construct() {
     // set properties that might have been accidentally removed
     if (!isset($this->session_var)) { $this->session_var = 'spaf_formvalidator'; }
     if (!isset($this->no_session))  { $this->no_session = false; }
-    
+
     // below tasks are only required if $no_session is set to true
     if (isset($this->no_session) && $this->no_session) {
       // set class directory if none specified
@@ -85,12 +85,12 @@ class SPAF_FormValidator {
       elseif (substr($this->work_dir, 0, 1) != '/') {
         $this->work_dir = dirname(__FILE__).'/'.$this->work_dir;
       }
-      
+
       // add backslash at the end of path if necessary
       if (substr($this->work_dir, -1) != '/') {
         $this->work_dir .= '/';
       }
-      
+
       // launch garbage collector
       if (mt_rand(1, 100) < $this->gc_prob) {
         $this->launchGC();
@@ -116,11 +116,11 @@ class SPAF_FormValidator {
       // generate validation word and secret identity cookie
       $tag = $this->getRandomString($this->char_num);
       $cookie = md5(microtime().$_SERVER['REMOTE_ADDR']);
-      
+
       // set cookie
       setcookie($this->tag_cookie, $cookie, 0, '/');
       $_COOKIE[$this->tag_cookie] = $cookie;
-      
+
       // write to a file
       $this->writeFile($this->work_dir.$cookie.'.'.$this->work_ext, $tag);
     }
@@ -140,7 +140,7 @@ class SPAF_FormValidator {
         // user is not tagged - issue new tag
         $this->tagUser();
       }
-      
+
       // get the work file
       if (!file_exists($this->work_dir.$_COOKIE[$this->tag_cookie].'.'.$this->work_ext)) {
         // file does not exist - reissue the tag once again to recreate the file
@@ -160,7 +160,7 @@ class SPAF_FormValidator {
   // {{{
   function validRequest ($req) {
     return strtolower($this->getUserTag()) == strtolower($req)
-      ? true 
+      ? true
       : false;
   }
   // }}}
@@ -178,31 +178,31 @@ class SPAF_FormValidator {
   function streamImage () {
     // select random background
     $background = $this->backgrounds[mt_rand(0, sizeof($this->backgrounds)-1)];
-    
+
     // set proper image format according to selected background image
     $this->setImageFormat($background);
-    
+
     // create image resource
     $function = "imagecreatefrom".$this->img_func_suffix;
     $image = $function($this->lib_dir.$background);
-	
+
     // create color resources
     $colors = array();
     $color_count = sizeof($this->colors);
     for ($i = 0; $i < $color_count; $i++) {
-      $colors[] = imagecolorallocate($image, 
-                                     $this->colors[$i][0], 
-                                     $this->colors[$i][1], 
+      $colors[] = imagecolorallocate($image,
+                                     $this->colors[$i][0],
+                                     $this->colors[$i][1],
                                      $this->colors[$i][2]);
     }
-    $shadow = imagecolorallocate($image, 
-                                 $this->shadow_color[0], 
-                                 $this->shadow_color[1], 
+    $shadow = imagecolorallocate($image,
+                                 $this->shadow_color[0],
+                                 $this->shadow_color[1],
                                  $this->shadow_color[2]);
-    
+
     // get secret word from session
     $word = $this->getUserTag();
-	
+
     // calculate geometrics
     $width  = imagesx($image);
     $height = imagesy($image);
@@ -224,48 +224,48 @@ class SPAF_FormValidator {
         'color' => $colors[mt_rand(0, $color_count-1)],
         'font'  => $this->lib_dir.$this->fonts[mt_rand(0, sizeof($this->fonts)-1)]
       );
-	  
+
       // put a shadow
       if (!isset($this->hide_shadow) || !$this->hide_shadow) {
-	  
-        imagettftext($image, 
-                     $font_size, 
-                     $data['angle'], 
-                     $data['x'] + 1, 
-                     $data['y'] + 1, 
-                     $shadow, 
-                     $data['font'], 
+
+        imagettftext($image,
+                     $font_size,
+                     $data['angle'],
+                     $data['x'] + 1,
+                     $data['y'] + 1,
+                     $shadow,
+                     $data['font'],
                      $char);
 
       }
 
       // put a letter
-      imagettftext($image, 
-                   $font_size, 
-                   $data['angle'], 
-                   $data['x'], 
-                   $data['y'], 
-                   $data['color'], 
-                   $data['font'], 
+      imagettftext($image,
+                   $font_size,
+                   $data['angle'],
+                   $data['x'],
+                   $data['y'],
+                   $data['color'],
+                   $data['font'],
                    $char);
     }
-    
+
     // stream image to browser
     $function = "image".$this->img_func_suffix;
 
 	header('Content-Type: image/'.$this->img_func_suffix);
     $function($image);
     imagedestroy($image);
-    
+
     return true;
-  } 
+  }
   // }}}
   // {{{
   function setImageFormat ($file) {
     // get extention
     $arr = explode('.', $file);
     $ext = strtolower($arr[sizeof($arr) - 1]);
-    
+
     // set appropriate formats
     switch ($ext) {
       case 'gif':
@@ -303,7 +303,7 @@ class SPAF_FormValidator {
     // open work directory
     if ($dir = @opendir($this->work_dir)) {
       // check each file
-      while (false !== ($file = @readdir($dir))) { 
+      while (false !== ($file = @readdir($dir))) {
         $fdata = pathinfo($file);
         if (
             $fdata['extension'] == $this->work_ext
@@ -315,7 +315,7 @@ class SPAF_FormValidator {
           @unlink($this->work_dir.$file);
         }
       }
-      @closedir($dir); 
+      @closedir($dir);
     }
     return true;
   }
@@ -328,4 +328,4 @@ class SPAF_FormValidator {
     return $ret;
   }
   // }}}
-}   
+}

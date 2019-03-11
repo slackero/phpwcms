@@ -1,10 +1,11 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -34,7 +35,7 @@ $sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() AND ar.article_end>NOW(
       if ($counter > 0 ) {
     ?>
         <li class="nav-item"><a class="nav-link<?php if($controller == 'downloads') echo ' active'; ?>" href="<?php echo statistic_url('controller=downloads') ?>"><?php echo $BLM['tab_downloads'] ?></a></li>
-    <?php 
+    <?php
       }
       $counter = _dbQuery("SELECT address_id FROM ".DB_PREPEND."cmsgo_address", "COUNT");
       if ($counter > 0 ) {

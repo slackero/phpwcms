@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -44,21 +44,22 @@ if( empty($IS_NEWS_CP) ) {
     $crow['acontent_id']        = 0;
     $crow['acontent_attr_class'] = '';
     $crow['acontent_attr_id']   = '';
+    $news['files_result']       = '';
 
 }
 
-$content['files']           = array();
-$content['files_sql']       = array();
+$content['files'] = array();
+$content['files_sql'] = array();
 
 // build file id query first
-foreach($crow["acontent_files"] as $fkey => $value) {
+foreach($crow["acontent_files"] as $fkey => $fkey_value) {
 
-    $value = intval($value);
+    $fkey_value = intval($fkey_value);
 
-    if($value) {
-        $content['files'][$fkey]['file_id'] = $value;
-        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : trim($crow["acontent_text"][$fkey]);
-        $content['files_sql'][$fkey] = $value;
+    if($fkey_value) {
+        $content['files'][$fkey]['file_id'] = $fkey_value;
+        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey]);
+        $content['files_sql'][$fkey] = $fkey_value;
     }
 }
 
@@ -145,17 +146,19 @@ if($content['files_sql']) {
         $_files_entries = array();
         $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === FALSE ? false : true; // check if necessary to check for image type and sizes
 
-        foreach($content['files'] as $fkey => $value) {
+        foreach($content['files'] as $fkey => $file_item) {
 
             for($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
+
+                // compare query result against content part file IDs
+                if(intval($content['files_result'][ $_files_x ]['f_id']) === intval($file_item['file_id'])) {
 
                 $_file_current = CMSGO_ROOT.$cmsgo["file_path"].$content['files_result'][ $_files_x ]['f_hash'];
                 if($content['files_result'][ $_files_x ]['f_ext']) {
                     $_file_current .= '.'.$content['files_result'][ $_files_x ]['f_ext'];
                 }
 
-                // compare query result against content part file IDs
-                if($content['files_result'][ $_files_x ]['f_id'] == $value['file_id'] && is_file($_file_current) ) {
+                    if(is_file($_file_current) ) {
 
                     // check if info for the file is available
                     // [0] = normal file description like before
@@ -166,14 +169,28 @@ if($content['files_sql']) {
                     // [5] = copyright information
                     // [6] = custom URL
 
-                    if($value['file_info']) {
+                        if($file_item['file_info']) {
 
-                        $_file_info = explode('|', $value['file_info']);
+                            // If file info is just an array
+                                if(is_array($file_item['file_info'])) {
+
+                                $_file_info = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
+                                    if(count($file_item['file_info'])) {
+                                        foreach($file_item['file_info'] as $finfo_key => $finfo_value) {
+                                        $_file_info[$finfo_key] = $finfo_value;
+                                    }
+                                }
+
+                            } else {
+
+                            $_file_info = explode('|', $file_item['file_info']);
 
                         $_file_info[0] = trim($_file_info[0]);
                         $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
                         $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
                         $_file_info[6] = '';
+
+                            }
 
                         // Custom URL and target
                         $_file_info[3] = empty($_file_info[3]) ? array(0 => '', 1 => '') : explode(' ', trim($_file_info[3]), 2);
@@ -229,8 +246,7 @@ if($content['files_sql']) {
                             0 => '',
                             1 => '',
                             2 => '',
-                            3 =>
-                            ' target="_blank"',
+                                3 => ' target="_blank"',
                             4 => '',
                             5 => '',
                             6 => ''
@@ -406,10 +422,9 @@ if($content['files_sql']) {
                     $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_ICON', str_replace('{FILE_EXT}', $content['files_result'][ $_files_x ]['f_ext'], $_files_settings['icon_path'].$_files_settings['icon_name']));
 
                     break;
-
+                    }
                 }
             }
-
         }
 
         $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));

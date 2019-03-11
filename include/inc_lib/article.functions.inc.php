@@ -1,23 +1,20 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 // build structure level menu
 function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='option') {
 
-	$struct_id		= intval($struct_id);
-	$selected_id	= intval($selected_id);
-	$counter		= intval($counter) + 1;
-
-	if($return === 'array') {
+	$struct_id = intval($struct_id);
+	$selected_id = intval($selected_id);
+	$counter = intval($counter) + 1;
 		$structure = array();
-	}
 
 	$sql  = 'SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM '.DB_PREPEND.'cmsgo_articlecat ';
 	$sql .= 'WHERE acat_trash=0 AND acat_struct='.$struct_id.' ORDER BY acat_sort';

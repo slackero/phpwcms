@@ -1,28 +1,28 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 
 // Revision 532 Update Check
 function cmsgo_revision_r532() {
-	
+
 	$status = true;
-	
+
 	// do former revision check – fallback to r529
 	if(cmsgo_revision_check_temp('529') !== true) {
 		$status = cmsgo_revision_check('529');
 	}
-	
+
 	$result = _dbQuery('SHOW TABLES LIKE '._dbEscape(DB_PREPEND.'cmsgo_redirect'));
-	
+
 	if(!isset($result[0])) {
-	
+
 		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."cmsgo_redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
 					`changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -41,18 +41,18 @@ function cmsgo_revision_r532() {
 					KEY `active` (`active`),
 					KEY `link` (`link`)
 				) ENGINE=MyISAM";
-		if(!empty($GLOBALS['cmsgo']['db_charset'])) { 
+		if(!empty($GLOBALS['cmsgo']['db_charset'])) {
 			$sql .= ' DEFAULT CHARSET='.$GLOBALS['cmsgo']['db_charset'];
 		}
-		if(!empty($GLOBALS['cmsgo']['db_collation'])) { 
+		if(!empty($GLOBALS['cmsgo']['db_collation'])) {
 			$sql .= ' COLLATE='.$GLOBALS['cmsgo']['db_collation'];
 		}
-		
+
 		$result = _dbQuery($sql, 'CREATE');
 		if(!$result) {
-			$status = false;	
+			$status = false;
 		}
 	}
-	
+
 	return $status;
 }

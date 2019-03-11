@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -59,7 +59,7 @@ if($data) {
 
 		echo '<td class="text-right text-nowrap" width="15%">';
 		echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;show='.$row["order_id"].'" data-toggle="tooltip" title="'.$BLM['order_edit'].'">';
-		echo '<i class="fa fa-pencil fa-fw"></i>';
+		echo '<i class="fa fa-pencil-alt fa-fw"></i>';
 		echo '</a>'.LF;
 
 		echo '<a class="btn btn-sm btn-blue" href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'" data-toggle="tooltip" title="'.$BLM['shopprod_email_customer'].'">';
@@ -69,7 +69,7 @@ if($data) {
 
 		echo '<a class="btn btn-sm btn-danger" href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" data-toggle="tooltip" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
 		echo ' onclick="return confirm(\''.$BLM['delete_order'].js_singlequote($row['order_number']).'\');">';
-		echo '<i class="fa fa-trash fa-fw"></i></a>';
+		echo '<i class="far fa-trash-alt fa-fw"></i></a>';
 
 		echo '</td>'.LF;
 		echo '</tr>'.LF;

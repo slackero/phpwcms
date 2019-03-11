@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -69,10 +69,10 @@ $BL['file_rename']     = 'Template umbenennen';
 $BL['file_delete']     = 'Template l&ouml;schen';
 $BL['list_files']      = 'Artikel mit diesem Template auflisten';
 $BL['show_code']       = 'Zeige Quellcode des Templates';
-$BL['label_default']   = 'Default Template (/inc_default)';
+$BL['label_default']   = 'Standardvorlage (/inc_default)';
 $BL['label_folder']    = 'Fileordner';
 $BL['label_custom']    = 'Templates';
-$BL['label_sample']    = 'Sample Ordner';
+$BL['label_sample']    = 'Beispielordner';
 $BL['success_msg']     = ' Template erfolgreich kopiert. Bitte das Template umbenennen und anpassen.';
 $BL['success_msg_error'] = ' Template konnte nicht kopiert werden.';
 $BL['deleted_msg']     = ' Template erfolgreich entfernt.';
@@ -84,7 +84,7 @@ $BL['rename_msg_error'] = ' Template konnte nicht umbenannt werden.';
 $BL['be_acat_urlalias'] = 'Seitenstruktur Alias';
 $BL['be_acat_pagetitle'] = 'Seitentitel vorhanden';
 $BL['be_acat_alias'] = 'Alias vorhanden';
-$BL['be_article_description'] = 'Description (Beschreibung) vorhanden';
+$BL['be_article_description'] = 'Beschreibung (Description) vorhanden';
 
 $BL['be_func_struct_more_action'] = 'Aktionen';
 $BL['be_func_open_articlebrowser'] = 'Artikelbrowser öffnen';

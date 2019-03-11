@@ -2467,7 +2467,7 @@
           previous: 'fa fa-chevron-left',
           next: 'fa fa-chevron-right',
           today: 'glyphicon glyphicon-screenshot',
-          clear: 'fa fa-trash',
+          clear: 'far fa-trash-alt',
           close: 'fa fa-times'
         },
         tooltips: {

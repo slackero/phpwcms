@@ -1,10 +1,10 @@
 <?php
 /**
- * cmsGo!
+ * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2017, Pixels & Points GmbH
- * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGo! license
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -1440,6 +1440,7 @@ $BL['be_attr_alt'] = 'alternative text';
 $BL['be_ie8ignore'] = 'disable <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">conditional comments</a> for IE8';
 $BL['be_cookie_consent_enable'] = 'enable Cookie Consent plugin';
 $BL['be_cookie_consent_message'] = 'consent message';
+$BL['be_cookie_consent_translatable'] = 'This installation has support for multiple languages (&#36;cmsgo[&#39;allowed_lang&#39;]) enabled. For translated cookie consent texts use the <b>@@Text@@</b> syntax and check `template/template_lang` after rendering.';
 $BL['cookie_consent_message'] = 'This website uses cookies to ensure you get the best experience on our website';
 $BL['be_cookie_consent_dismiss'] = 'dismiss button text';
 $BL['cookie_consent_dismiss'] = 'Got it!';
@@ -1454,6 +1455,7 @@ $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
+$BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
@@ -1503,3 +1505,8 @@ $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective o
 
 $BL['be_allowed_filetypes'] = 'Allowed file types';
 $BL['be_imagediv_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
+
+$BL['be_password_show'] = 'Show password';
+$BL['be_password_hide'] = 'Hide password';
+
+$BL['be_admin_template_choose_file'] = 'Text template, alternatively select file template';
