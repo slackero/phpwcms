@@ -238,7 +238,7 @@ if($do) {
 
 <?php
 
-if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation']))) {
+if(empty($phpwcms['db_charset']) || empty($phpwcms['db_collation'])) {
 
 ?>
   <tr bgcolor="#FFFFFF">
