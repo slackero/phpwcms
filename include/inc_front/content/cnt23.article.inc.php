@@ -105,7 +105,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     $cnt_form['label_wrap'][0] = !empty($cnt_form['label_wrap'][0]) ? trim($cnt_form['label_wrap'][0]) : '';
     $cnt_form['label_wrap'][1] = !empty($cnt_form['label_wrap'][1]) ? trim($cnt_form['label_wrap'][1]) : '';
     $form_field_hidden = '';
-    $GET_DO = false;
     $POST_DO = false;
 
     $cnt_form['regx_pattern'] = array(
@@ -127,10 +126,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
 
-        $GET_DO = true;
         $cache_nosave = true;
-
-        $doubleoptin_values = _dbGet('phpwcms_formresult', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
+        $doubleoptin_values = _dbGet('phpwcms_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
             $doubleoptin_values = null;
@@ -139,9 +136,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             $doubleoptin_values = $doubleoptin_values[0];
             $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content']);
             if(empty($doubleoptin_values['formresult_content']['hash']) || $doubleoptin_values['formresult_content']['hash'] !== $_GET['hash']) {
-                $doubleoptin_error = true;
-            } else {
                 $doubleoptin_values = null;
+                $doubleoptin_error = true;
             }
         }
     }
@@ -1781,8 +1777,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     $POST_attach = array();
     $POST_savedb = array();
 
-    if(!empty($doubleoptin_values)) {
-        $POST_val = $doubleoptin_values;
+    if(!empty($doubleoptin_values['formresult_content'])) {
+        $POST_val = $doubleoptin_values['formresult_content'];
     }
 
     // now prepare form values for sending or storing
