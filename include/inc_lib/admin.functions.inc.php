@@ -529,7 +529,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
                 $a .= '</div></div>'.LF;
 
-                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
+                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
                 $a .= '</div>'.LF;
                 break;

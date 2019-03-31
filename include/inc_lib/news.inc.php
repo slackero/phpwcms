@@ -412,7 +412,7 @@ class cmsgoNews {
                 $list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
                 $list[] = '<td class="column collast text-nowrap text-right">
 
-                    <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
+                    <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
 
                     <a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">
                     <i class="fa fa-pencil-alt"></i></a>'.
