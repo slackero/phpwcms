@@ -31,7 +31,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if($table && $field && $fieldid && $id) {
 
-    //check if both fileds are existing
+    //check if both fields are existing
     $result1 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . "cmsgo_" . $table . " LIKE '" . $field . "'");
     $result2 = _dbQuery("SHOW COLUMNS FROM " . DB_PREPEND . "cmsgo_" . $table . " LIKE '" . $fieldid . "'");
 
