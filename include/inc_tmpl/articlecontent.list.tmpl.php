@@ -324,7 +324,10 @@ $(function  () {
             </select>
           </div>
           <div class="col">
-            <button type="submit" class="btn btn-sm btn-blue" value="<?php echo  $BL['be_article_cnt_add'] ?>"><i class="fa fa-plus" aria-hidden="true"></i><span class="d-none d-sm-inline"> <?php echo  $BL['be_article_cnt_addtitle'] ?></span></button>
+            <button type="submit" class="btn btn-sm btn-blue" value="<?php echo  $BL['be_article_cnt_add'] ?>">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                <span class="d-none d-sm-inline"><?php echo  $BL['be_article_cnt_addtitle'] ?></span>
+            </button>
           </div>
         </div>
       </div>

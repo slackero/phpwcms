@@ -302,7 +302,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
           $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
         }
         $a .= '</div></div>'.LF;
-        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
+        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
         $a .= '</div></td></tr>'.LF;
         echo $a;
 
