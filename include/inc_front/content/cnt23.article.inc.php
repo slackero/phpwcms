@@ -104,7 +104,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     $cnt_form['label_wrap'][0] = !empty($cnt_form['label_wrap'][0]) ? trim($cnt_form['label_wrap'][0]) : '';
     $cnt_form['label_wrap'][1] = !empty($cnt_form['label_wrap'][1]) ? trim($cnt_form['label_wrap'][1]) : '';
     $form_field_hidden = '';
-    $GET_DO = false;
     $POST_DO = false;
 
     $cnt_form['regx_pattern'] = array(
@@ -126,10 +125,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
 
-        $GET_DO = true;
         $cache_nosave = true;
 
-        $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
+        $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
             $doubleoptin_values = null;
@@ -138,9 +136,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             $doubleoptin_values = $doubleoptin_values[0];
             $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content']);
             if(empty($doubleoptin_values['formresult_content']['hash']) || $doubleoptin_values['formresult_content']['hash'] !== $_GET['hash']) {
-                $doubleoptin_error = true;
-            } else {
                 $doubleoptin_values = null;
+                $doubleoptin_error = true;
             }
         }
     }
@@ -1507,64 +1504,61 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_value_nl[1]   = empty($form_value_nl[1]) ? '' : trim($form_value_nl[1]);
 
                     if(empty($form_value_nl[0]) || empty($form_value_nl[1])) {
-
                         continue;
+                    }
 
-                    } else {
+                    switch($form_value_nl[0]) {
 
-                        switch($form_value_nl[0]) {
+                        case 'all':
+                            $form_value[0] = $form_value_nl[1];
+                            break;
 
-                            case 'all':
-                                $form_value[0] = $form_value_nl[1];
-                                break;
+                        case 'email_field':
+                            $form_newletter_setting['email_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'email_field':
-                                $form_newletter_setting['email_field'] = $form_value_nl[1];
-                                break;
+                        case 'name_field':
+                            $form_newletter_setting['name_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'name_field':
-                                $form_newletter_setting['name_field'] = $form_value_nl[1];
-                                break;
+                        case 'sender_email':
+                            $form_newletter_setting['sender_email'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_email':
-                                $form_newletter_setting['sender_email'] = $form_value_nl[1];
-                                break;
+                        case 'sender_name':
+                            $form_newletter_setting['sender_name'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_name':
-                                $form_newletter_setting['sender_name'] = $form_value_nl[1];
-                                break;
+                        case 'url_subscribe':
+                            $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_subscribe':
-                                $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
-                                break;
+                        case 'url_unsubscribe':
+                            $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_unsubscribe':
-                                $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
-                                break;
+                        case 'subject':
+                            $form_newletter_setting['subject'] = $form_value_nl[1];
+                            break;
 
-                            case 'subject':
-                                $form_newletter_setting['subject'] = $form_value_nl[1];
-                                break;
+                        case 'double_optin':
+                            $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
+                            break;
 
-                            case 'double_optin':
-                                $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
-                                break;
+                        case 'optin_template':
+                            $form_newletter_setting['optin_template'] = $form_value_nl[1];
+                            break;
 
-                            case 'optin_template':
-                                $form_newletter_setting['optin_template'] = $form_value_nl[1];
-                                break;
-
-                            default:
-                                if($form_value_nl[0] = intval($form_value_nl[0])) {
-                                    $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
-                                    if(isset($query[0])) {
-                                        if($form_value_nl[1] === '') {
-                                            $form_value_nl[1] = $query[0]['subscription_name'];
-                                        }
-                                        $form_value[$form_value_nl[0]] = $form_value_nl[1];
+                        default:
+                            if($form_value_nl[0] = intval($form_value_nl[0])) {
+                                $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+                                if(isset($query[0])) {
+                                    if($form_value_nl[1] === '') {
+                                        $form_value_nl[1] = $query[0]['subscription_name'];
                                     }
+                                    $form_value[$form_value_nl[0]] = $form_value_nl[1];
                                 }
-                        }
+                            }
                     }
                 }
 
@@ -1793,8 +1787,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     $POST_attach = array();
     $POST_savedb = array();
 
-    if(!empty($doubleoptin_values)) {
-        $POST_val = $doubleoptin_values;
+    if(!empty($doubleoptin_values['formresult_content'])) {
+        $POST_val = $doubleoptin_values['formresult_content'];
     }
 
     // now prepare form values for sending or storing
@@ -1894,7 +1888,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $cmsgo['callback'] = now();
 
-        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
+        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form["onsuccess"]);
 
         if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
             if($cnt_form["onsuccess_redirect"] === 1) {
@@ -2203,7 +2197,9 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                     foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
 
                         // empty - continue
-                        if(empty($form_value_nl)) continue;
+                            if(empty($form_value_nl)) {
+                                continue;
+                            }
 
                         // now check if field name exists and build corresponding name value
                         if(empty($POST_val[ trim($form_value_nl) ])) {
