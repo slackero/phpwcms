@@ -1609,7 +1609,7 @@ function include_ext_php($inc_file, $t=0) {
 function international_date_format_callback($matches) {
     $matches[1] = trim($matches[1]);
     if($matches[1] && strpos($matches[1], ' set=') !== false) {
-        $set = explode(' set=');
+        $set = explode(' set=', $matches[1]);
         $matches[1] = trim($set[0]);
         if(!empty($set[1])) {
             $set[1] = trim($set[1]);
@@ -1621,7 +1621,7 @@ function international_date_format_callback($matches) {
 function date_callback($matches) {
     $matches[1] = trim($matches[1]);
     if($matches[1] && strpos($matches[1], ' set=') !== false) {
-        $set = explode(' set=');
+        $set = explode(' set=', $matches[1]);
         $matches[1] = trim($set[0]);
         if(!empty($set[1])) {
             $set[1] = trim($set[1]);
