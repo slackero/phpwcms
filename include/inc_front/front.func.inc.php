@@ -1606,9 +1606,27 @@ function include_ext_php($inc_file, $t=0) {
 
 // callback wrapper functions
 function international_date_format_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=');
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['cmsgo']['callback'] = is_intval($set[1]) ? intval($set[1]) : cmsgo_strtotime($set[1], NULL, now());
+        }
+    }
     return international_date_format($matches[2], $matches[1], $GLOBALS['cmsgo']['callback']);
 }
 function date_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=');
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['cmsgo']['callback'] = is_intval($set[1]) ? intval($set[1]) : cmsgo_strtotime($set[1], NULL, now());
+        }
+    }
     if($GLOBALS['cmsgo']['DOCTYPE_LANG'] !== 'en' && preg_match('/[MFDl]/', $matches[1])) {
         return international_date_format($GLOBALS['cmsgo']['default_lang'], $matches[1], $GLOBALS['cmsgo']['callback']);
     }
