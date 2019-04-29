@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2019, Oliver Georgi
+ * @copyright Copyright (c) 2002-2018, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -19,6 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // tabs
 
+$the_id=$crow['acontent_id'];
 $tabs           = array();
 $tabs['tabs']   = @unserialize($crow["acontent_form"]);
 unset($tabs['tabs']['tabwysiwygoff']);
@@ -108,6 +109,33 @@ if($tabs['template']) {
                 } elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'int' || $tabs['fieldgroup'][$custom_field_key]['type'] === 'float') {
 
                     $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $custom_field_value);
+                } elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'file') {
+
+                    $news['files_result'] = '';
+
+                    if(!empty($custom_field_value['id'])) {
+
+                        $IS_NEWS_CP = true;
+                        if (!is_array($value)) {
+                            $value=array();
+                        }
+
+                        $value['cnt_object']['cnt_files'] = array(
+                            'id' => array(0 => $custom_field_value['id']),
+                            'caption' => array(0 => $custom_field_value['description']),
+                        );
+                        $value['files_direct_download'] = empty($tabs['fieldgroup'][$custom_field_key]['direct']) ? 0 : 1;
+                        $value['files_template'] = empty($tabs['fieldgroup'][$custom_field_key]['template']) ? '' : $tabs['fieldgroup'][$custom_field_key]['template'];
+
+                        // include content part files renderer
+                        include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
+
+                        unset($IS_NEWS_CP);
+
+                    }
+                    $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer,  $news['files_result']);
+
+                    $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
 
                 } elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
 
@@ -140,7 +168,7 @@ if($tabs['template']) {
     $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
 
-    $CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
+    $CNT_TMP .= str_replace('{ID}',$the_id, $tabs['template']);
 
 } else {
 
