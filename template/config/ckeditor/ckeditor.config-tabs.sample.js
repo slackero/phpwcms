@@ -73,8 +73,8 @@ CKEDITOR.editorConfig = function( config ) {
     //config.format_uppercase = { element: 'span', attributes: {'class': 'uppercase'}, name: 'UPPERCASE' };
     //config.format_blockquote = { element: 'blockquote', name: 'Blockquote' };
 
-     //config.image2_altRequired = true;
-     //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
-     //config.image2_captionedClass = 'image-captioned';
+    //config.image2_altRequired = true;
+    //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
+    //config.image2_captionedClass = 'image-captioned';
 
 };
