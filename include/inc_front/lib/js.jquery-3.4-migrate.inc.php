@@ -11,10 +11,10 @@
 
 require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('PHPWCMS_JSLIB', 'jquery-3.2-migrate');
+define('PHPWCMS_JSLIB', 'jquery-3.4-migrate');
 
 /**
- * Init jQuery 3.2.x + jQuery Migrate 3.0.x Library
+ * Init jQuery 3.4.x + jQuery Migrate 3.0.x Library
  */
 function initJSLib() {
     if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
@@ -22,17 +22,17 @@ function initJSLib() {
             // use jQuery CDN
             if(IE8_CC) {
                 $GLOBALS['block']['custom_htmlhead']['jquery-1.12.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-1.12.4.min.js', '') . '<![endif]-->';
-                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-3.2.1.min.js', '') . '<!--<![endif]-->';
+                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-3.4.0.min.js', '') . '<!--<![endif]-->';
             } else {
-                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-3.2.1.min.js');
+                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-3.4.0.min.js');
             }
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-migrate-3.0.1.min.js');
         } elseif(IE8_CC) {
             $GLOBALS['block']['custom_htmlhead']['jquery-1.12.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.12.4.min.js', '') . '<![endif]-->';
-            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.2.1.min.js', '') . '<!--<![endif]-->';
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.4.0.min.js', '') . '<!--<![endif]-->';
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.0.1.min.js');
         } else {
-            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.2.1.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.4.0.min.js');
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.0.1.min.js');
         }
     }
