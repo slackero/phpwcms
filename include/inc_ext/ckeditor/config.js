@@ -27,6 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
     //config.removeButtons = 'Underline,Subscript,Superscript';
 
     // set some recommend defaults
+    config.extraPlugins = 'magicline,image2';
     config.extraAllowedContent = 'div;p;span;ul;ol;li;table;td;style;*[id];*(*);*{*}';
     config.forcePasteAsPlainText = true;
     config.pasteFromWordRemoveFontStyles = true;
