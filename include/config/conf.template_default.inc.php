@@ -518,7 +518,7 @@ $template_default['settings'] = array(
                 ),
                 // [TAB_IMAGE]{TAB_IMAGE}[/TAB_IMAGE]
                 'image' => array(
-                    'legend' => 'Bild',
+                    'legend' => 'image',
                     'type' => 'file',
                     'template' => 'tab-image.html', // if empty the default file list template is used
                     'filetypes' => 'jpg,png,jpeg', // comma separated allowed filetypes 'xls,docx,vcf'

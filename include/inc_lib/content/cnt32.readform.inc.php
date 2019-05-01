@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -57,18 +57,26 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		if(!empty($tab_fieldgroup_fields)) {
 			foreach($tab_fieldgroup_fields as $custom_field => $custom_field_definition) {
 				$custom_field_value = isset($_POST['customfield'][$key][$custom_field]) ? $_POST['customfield'][$key][$custom_field] : null;
-			
+
 				$_POST['customfield'][$key][$custom_field] = null;
 				unset($_POST['customfield'][$key][$custom_field]);
 
 				if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
-					$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
+
+				    $content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
+
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
-					$content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
+
+				    $content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
+
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
-					$content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
+
+				    $content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
+
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
-					$content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
+
+				    $content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
+
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'file') {
 
                     $content["tabs"][$x]['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
@@ -84,7 +92,9 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
                     }
 
                 } else {
-					$content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
+
+				    $content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
+
 				}
 			}
 		}
@@ -124,11 +134,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 
 $content['search'] = trim($content['search']);
 
-if(count($content['html'])) {
-	$content['html'] = '<dl>' . LF . implode(LF, $content['html']) . LF . '</dl>';
-} else {
-	$content['html'] = '';
-}
+$content['html'] = count($content['html']) ? '<dl>' . implode(LF, $content['html']) . '</dl>' : '';
 
 $content['tabs']['tabwysiwygoff'] = $content['tabwysiwygoff'];
 $content['tabs']['tab_fieldgroup'] = $content['tab_fieldgroup'];

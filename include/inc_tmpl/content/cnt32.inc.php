@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -345,17 +345,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	var entries = 0;
 
     function setIdName(field, file_id, file_name) {
-        if(file_id == null || file_name == null || field == null) {
+        if(typeof file_id === 'undefined' || typeof file_name === 'undefined' || typeof field === 'undefined') {
             return null;
         }
         var field_id = $('customfield_'+field+'_id');
         if(!field_id) {
-             return null;
+            return null;
         }
         field_id.value = file_id;
         $('customfield_'+field+'_name').value = file_name;
     }
-        
+
 	window.addEvent('domready', function() {
 
 		var $tabs = $('tabs');
@@ -432,7 +432,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
         var entry_number = 1;
-            
+
         entry += '<table border="0" cellpadding="0" cellspacing="0">';
         entry += '  <tr>';
         entry += '      <td>';

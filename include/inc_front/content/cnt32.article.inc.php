@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2018, Oliver Georgi
+ * @copyright Copyright (c) 2002-2019, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -18,10 +18,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // tabs
-
-$the_id=$crow['acontent_id'];
-$tabs           = array();
-$tabs['tabs']   = @unserialize($crow["acontent_form"]);
+$tabs = array();
+$tabs['tabs'] = @unserialize($crow["acontent_form"]);
 unset($tabs['tabs']['tabwysiwygoff']);
 
 $tabs['tab_fieldgroup'] = empty($tabs['tabs']['tab_fieldgroup']) ? '' : $tabs['tabs']['tab_fieldgroup'];
@@ -109,6 +107,7 @@ if($tabs['template']) {
                 } elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'int' || $tabs['fieldgroup'][$custom_field_key]['type'] === 'float') {
 
                     $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $custom_field_value);
+
                 } elseif($tabs['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
                     $news['files_result'] = '';
@@ -117,7 +116,7 @@ if($tabs['template']) {
 
                         $IS_NEWS_CP = true;
                         if (!is_array($value)) {
-                            $value=array();
+                            $value = array();
                         }
 
                         $value['cnt_object']['cnt_files'] = array(
@@ -133,16 +132,15 @@ if($tabs['template']) {
                         unset($IS_NEWS_CP);
 
                     }
-                    $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer,  $news['files_result']);
 
-                    $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
+                    $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $news['files_result']);
 
                 } elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
 
                     if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
                         if(!isset($phpwcms['parsedown_class'])) {
-                            require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                            require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+                            require_once PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php';
+                            require_once PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php';
                             $phpwcms['parsedown_class'] = new ParsedownExtra();
                         }
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
@@ -168,13 +166,13 @@ if($tabs['template']) {
     $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
 
-    $CNT_TMP .= str_replace('{ID}',$the_id, $tabs['template']);
-
 } else {
 
     $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
     $CNT_TMP .= LF . $crow["acontent_html"];
 
 }
+
+$CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 unset($tabs);
