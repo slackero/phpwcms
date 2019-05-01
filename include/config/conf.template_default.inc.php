@@ -516,6 +516,14 @@ $template_default['settings'] = array(
                     'step' => .1,
                     'placeholder' => ''
                 ),
+                // [TAB_IMAGE]{TAB_IMAGE}[/TAB_IMAGE]
+                'image' => array(
+                    'legend' => 'image',
+                    'type' => 'file',
+                    'template' => 'tab-image.html', // if empty the default file list template is used
+                    'filetypes' => 'jpg,png,jpeg', // comma separated allowed filetypes 'xls,docx,vcf'
+                    'direct' => 0 // direct file download 1 or not 0
+                ),
                 // [TAB_SELECT1]
                 //    Will be the selected value {TAB_SELECT1}
                 //    [TAB_SELECT1_OPTION1]{TAB_SELECT1_OPTION1}[/TAB_SELECT1_OPTION1]
