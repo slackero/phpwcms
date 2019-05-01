@@ -118,10 +118,10 @@ if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_
         </select>
     </div>
       <div class="col-sm-auto">
-        <button class="modalButton btn btn-sm btn-blue mb-1" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 
@@ -165,4 +165,3 @@ $wysiwyg_editor = array(
 );
 
 include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-?>

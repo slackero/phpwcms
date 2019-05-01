@@ -418,7 +418,7 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
     $table .= '</select>'.LF;
     $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
     $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
-     $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
     $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
     $table .= '</div>'.LF;
 
