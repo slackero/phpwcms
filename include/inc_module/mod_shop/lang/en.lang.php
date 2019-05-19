@@ -132,3 +132,6 @@ $BLM['shopprod_distance_base'] = 'Starting address';
 $BLM['shopprod_api'] = 'API';
 $BLM['shopprod_api_access'] = 'enable access';
 $BLM['shopprod_api_key'] = 'API key';
+
+$BLM['shopprod_inventory'] = 'Inventory';
+$BLM['shopprod_autosubtract_off'] = 'do NOT reduce inventory on order';

@@ -251,8 +251,20 @@ if (!defined('PHPWCMS_ROOT')) {
 				<td class="chatlist">&nbsp;%</td>
 			</tr>
 		</table></td>
-
 	</tr>
+
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+    <tr>
+        <td align="right" class="chatlist"><?php echo $BLM['shopprod_inventory'] ?>:&nbsp;</td>
+        <td><table summary="" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td><input type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" /></td>
+                <td align="right" class="chatlist">&nbsp;<?php echo $BLM['shopprod_autosubtract_off'] ?></td>
+            </tr>
+        </table></td>
+    </tr>
+
 
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 

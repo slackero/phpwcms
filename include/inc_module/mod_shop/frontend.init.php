@@ -167,7 +167,6 @@ function get_payment_options() {
 	return $available;
 }
 
-
 function get_category_products($selected_product_cat, $shop_detail_id, $shop_cat_selected, $shop_subcat_selected, $shop_alias) {
 
 	$shop_cat_prods = '';
