@@ -30,21 +30,23 @@ if(empty($_SESSION['list_product_count'])) {
   $_SESSION['list_product_count'] = 25;
 }
 
+$_entry['post_filter'] = '';
+
 // paginate and search form processing
 if(isset($_POST['do_pagination'])) {
 
   $_SESSION['list_active']  = empty($_POST['showactive']) ? 0 : 1;
   $_SESSION['list_inactive']  = empty($_POST['showinactive']) ? 0 : 1;
 
-  $_SESSION['filter_shop_products'] = clean_slweg($_POST['filter']);
-  if(empty($_SESSION['filter_shop_products'])) {
+  $_entry['post_filter'] = clean_slweg($_POST['filter']);
+
+  if(empty($_entry['post_filter'])) {
     unset($_SESSION['filter_shop_products']);
   } else {
-    $_SESSION['filter_shop_products'] = convertStringToArray($_SESSION['filter_shop_products'], ' ');
-    $_POST['filter'] = $_SESSION['filter_shop_products'];
+    $_SESSION['filter_shop_products'] = convertStringToArray($_entry['post_filter'], ' ');
   }
 
-  $_SESSION['detail_page'] = intval($_POST['page']);
+  $_SESSION['detail_page'] = empty($_POST['page']) ? 0 : intval($_POST['page']);
 
 }
 
@@ -127,7 +129,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 		<div class="col-12 col-sm-auto">
 			<div class="input-group my-3 my-sm-0">
-				<input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php echo html($news->filter) ?>" type="search">
+				<input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php echo html($_entry['post_filter']); ?>" type="search">
 				<span class="input-group-append">
 					<input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
 				</span>
@@ -148,7 +150,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
   </div>
 </form>
 <div class ="table-responsive">
-<table class="table table-sm mb-0 mt-2" border="0" >
+<table class="table table-sm mb-0 mt-2" border="0">
 
   <tr bgcolor="#f3f3f3">
     <th>&nbsp;</th>
@@ -156,6 +158,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
     <th>&nbsp;<?php echo $BLM['th_modnr'] ?></th>
     <th>&nbsp;<?php echo $BLM['th_product'] ?></th>
     <th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['th_price'] ?>&nbsp;</th>
+    <th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['shopprod_inventory'] ?>&nbsp;</th>
     <th>&nbsp;</th>
   </tr>
 
@@ -189,6 +192,7 @@ if($data) {
     echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
     echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
     echo '<td class="dir listNumber text-right">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
+    echo '<td class="dir listNumber">&nbsp;'.$row['shopprod_inventory']."&nbsp;</td>\n";
 
     echo '<td class="text-right text-nowrap">';
 
@@ -210,7 +214,7 @@ if($data) {
   }
 
 } else {
-  echo '<tr><td colspan="6" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
+  echo '<tr><td colspan="7" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
 }
 ?>
 

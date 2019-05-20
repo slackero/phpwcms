@@ -265,6 +265,16 @@ if (!defined('CMSGO_ROOT')) {
 			&nbsp;%
     </div>
 
+    <div class="form-group form-row align-items-center">
+        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_inventory'] ?></label>
+        <div class="col-sm-auto">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
+                <label class="form-check-label"><?php echo $BLM['shopprod_autosubtract_off'] ?></label>
+            </div>
+        </div>
+    </div>
+
 	<!-- Discount -->
     <div class="form-group form-row align-items-center">
 		<label for="shopprod_discount" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_discount'] ?></label>
