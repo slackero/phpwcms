@@ -312,6 +312,14 @@ if($BE['LANG'] == 'ar') {
 
         <?php echo online_users('<br />', '<span class="subnavinactive">|</span>'); ?>
 
+<?php /* TSF Mod by Thomas Blenkers TB START
+		 requires setting in /config(phpwcms(conf.inc.php:
+         $phpwcms['img_backend_logo']  = 'picture/upload/image/tsf-grau-100px.png';
+      */
+		if (isset($phpwcms['img_backend_logo']) && !empty($phpwcms['img_backend_logo'])) {			
+				echo  '<br><img src="/' .$phpwcms['root'].$phpwcms['img_backend_logo'] . '"  border="0" alt="Logo" />';
+		   } 
+/* TSF Mod by Thomas Blenkers TB ENDE*/?>																					   
         </td>
       <td width="10" bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="10" height="1"></td>
       <td width="15" bgcolor="#FFFFFF" style="background:url(img/backend/dividerA.gif) repeat-y;"><img src="img/leer.gif" alt="" width="15" height="200"></td>
