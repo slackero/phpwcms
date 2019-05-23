@@ -130,7 +130,7 @@ if($news['list_mode']) {
         } else {
 
             // no category is allowed
-            $news['sql_where_cat'] .= 'SELECT pcat.cat_pid ';
+            $news['sql_where_cat']  = 'SELECT pcat.cat_pid ';
             $news['sql_where_cat'] .= 'FROM '.DB_PREPEND.'phpwcms_categories pcat WHERE ';
             $news['sql_where_cat'] .= "pcat.cat_type='news' AND (";
             $news['sql_where_cat'] .= implode(' OR ', $news['news_category_sql']);
