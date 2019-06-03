@@ -1,0 +1,103 @@
+<!--IMAGE_SETTINGS_START//-->
+
+ 
+<!--IMAGE_SETTINGS_END//-->
+ 
+ 
+<!--IMAGES_HEADER_START//-->
+
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+
+<div class="imageWallRelative" id="imageWall{ID}" style="position:relative; clear:both;">
+[PHP]
+//
+// initialisiere Array für top y Koordinaten der Columns
+$GLOBALS['arrColumnTop'] = array_fill(1, {THUMB_COLUMNS}, 0);
+//
+[/PHP]
+<!--   This data is available
+
+General data: 
+        CntPartId         {ID}
+        height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
+        columns:          {THUMB_COLUMNS}
+		Space:			  {SPACE}
+		Zoom:			  {ZOOM}
+		
+		
+Individual image data inide IMAGES_ENTRY Block
+        image ID:         {IMAGE_ID}
+        image Hash:       {IMAGE_HASH}
+		EntryID:          {ENTRY_ID}
+		Entry#:           {ENTRY_NUM}
+		Thumbnail image:  {THUMB_NAME}
+        relative:         {THUMB_REL}
+        absolute:         {THUMB_ABS}
+        height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+		Image:            {IMAGE} (complete img tag with lightbox script)
+		Name:             {IMGNAME}
+		Class:			  {IMAGE_CLASS_CENTER}
+		Alt: 			  {ALT}
+		File extension:   {IMAGE_EXT}
+		Caption:          [CAPTION]{CAPTION}[/CAPTION] 
+		Image Link:		  [URL]{URL}[/URL]
+		
+      [ZOOM]
+      Zoomed (big) image: {IMAGE_NAME}
+        relative:         {IMAGE_REL}
+        absolute:         {IMAGE_ABS}
+        height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+		Lightbox:         {LIGHTBOX}
+      [/ZOOM]
+-->
+<!--IMAGES_HEADER_END//-->
+
+ 
+
+<!--IMAGES_ENTRY_START//-->[COPYRIGHT]copyr:{COPYRIGHT}[/COPYRIGHT][PHP]
+// suche die kleinste Spalte
+$nextColumnIndex = array_keys($GLOBALS['arrColumnTop'], min($GLOBALS['arrColumnTop']));
+$GLOBALS['nextColumnIndex'] = $nextColumnIndex[0];
+//
+[/PHP]
+	<div class='imageOfWall' id='imageId{IMAGE_ID}' style='position: absolute; left: [PHP]
+echo(($GLOBALS['nextColumnIndex'] -1) * ({THUMB_WIDTH_MAX} + {SPACE}));
+[/PHP]px; top:[PHP]
+
+echo $GLOBALS['arrColumnTop'][$GLOBALS['nextColumnIndex']]."px;'>";
+
+// addiere Image-Höhe auf kleinste Spalte
+$GLOBALS['arrColumnTop'][$GLOBALS['nextColumnIndex']] += {THUMB_HEIGHT} + {SPACE};[/PHP]
+[ZOOM]		<a class="image-lightbox" title="" rel="lightbox{ID}" data-gallery="1" data-gallerygroup="cp{ID}" target="_blank" href="{IMAGE_REL}"><!-- or href="/img/cmsimage.php/1200x900x0x100/{IMAGE_ID}.{IMAGE_EXT}"-->
+	[/ZOOM]		<img src="{THUMB_REL}" data-image-ext="{IMAGE_EXT}" data-image-id="{IMAGE_ID}" data-image-hash="{IMAGE_HASH}" alt="{ALT}" class="image-thumb {IMAGE_CLASS_CENTER}" width="{THUMB_WIDTH}" height="{THUMB_HEIGHT}" />[ZOOM]
+	</a>[/ZOOM][CAPTION]
+		<div class='imageOfWallCaption' id="imageCaption{IMAGE_ID}">{CAPTION}</div>
+[/CAPTION]
+	</div><!--IMAGES_ENTRY_END//-->
+
+
+<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
+
+
+<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
+
+
+<!--IMAGES_FOOTER_START//-->
+</div>
+[PHP]
+// suche die längste Spalte
+$longestColumn = array_keys($GLOBALS['arrColumnTop'], max($GLOBALS['arrColumnTop']));
+$longestColumn = $longestColumn[0];
+$longestHeight = $GLOBALS['arrColumnTop'][$longestColumn];
+echo("<!--longestColumn=${longestColumn} longest column height = ${longestHeight}-->");
+//
+echo("<!-- correct imageWall div height -->
+<script>
+	document.getElementById(\"imageWall{ID}\").style.height = \"${longestHeight}px\"; 
+</script>");
+[/PHP]
+
+
+<!--IMAGES_FOOTER_END//-->
