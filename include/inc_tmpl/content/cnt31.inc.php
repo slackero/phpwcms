@@ -682,7 +682,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     function getBackendImgSrc(image_file_id) {
         image_file_id = parseInt(image_file_id, 10);
         if(image_file_id) {
-            return '<img src="'+site_url+'<?php echo PHPWCMS_RESIZE_IMAGE; ?>/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" border="0" alt=""> ';
+            return '<img src="'+site_url+'<?php echo PHPWCMS_RESIZE_IMAGE; ?>/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" alt="" style="width:auto" height="'+max_img_h+'"> ';
         }
         return '';
     }
