@@ -431,60 +431,58 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			entry += '<?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-        var entry_number = 1;
-
-        entry += '<table border="0" cellpadding="0" cellspacing="0">';
-        entry += '  <tr>';
-        entry += '      <td>';
-        entry += '          <input';
-        entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]"';
-        entry += '              type="hidden"';
-        entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_id"';
-        entry += '              value=""';
-        entry += '          />';
-        entry += '          <input';
-        entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][name]"';
-        entry += '              type="text"';
-        entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_name"';
-        entry += '              class="width375 greyed"';
-        entry += '              value=""';
-        entry += '              size="40"';
-        entry += '              onfocus="this.blur()"';
-        entry += '          />';
-        entry += '      </td>';
-        entry += '      <td><a';
-        entry += '              href="#"';
-        entry += '              title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"';
-        entry += '              onclick="openFileBrowser(\'filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>\');return false;"';
-        entry += '          ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /><'+'/a><'+'/td>';
-        entry += '      <td><a';
-        entry += '              href="#"';
-        entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-        entry += '              onclick="getObjectById(\'customfield_<?php
-                                    echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
-                                    echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
-                                    echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
-        entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
-        entry += '  <'+'/tr>';
-        entry += '  <tr>';
-        entry += '      <td colspan="3" class="tdtop5">';
-        entry += '          <textarea';
-        entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]"';
-        entry += '              cols="40"';
-        entry += '              rows="2"';
-        entry += '              class="width375 autosize"';
-        entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
-        entry += '          <span class="caption width400">';
-        entry += '              <?php echo $BL['be_cnt_description']; ?> |';
-        entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
-        entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
-        entry += '              <?php echo $BL['be_cnt_target']; ?> |';
-        entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
-        entry += '              <?php echo $BL['be_copyright']; ?>';
-        entry += '          <'+'/span>';
-        entry += '      <'+'/td>';
-        entry += '  <'+'/tr>';
-        entry += '<'+'/table>';
+            entry += '<table border="0" cellpadding="0" cellspacing="0">';
+            entry += '  <tr>';
+            entry += '      <td>';
+            entry += '          <input';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][id]"';
+            entry += '              type="hidden"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_id"';
+            entry += '              value=""';
+            entry += '          />';
+            entry += '          <input';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][name]"';
+            entry += '              type="text"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_name"';
+            entry += '              class="width375 greyed"';
+            entry += '              value=""';
+            entry += '              size="40"';
+            entry += '              onfocus="this.blur()"';
+            entry += '          />';
+            entry += '      </td>';
+            entry += '      <td><a';
+            entry += '              href="#"';
+            entry += '              title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"';
+            entry += '              onclick="openFileBrowser(\'filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entries + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>\');return false;"';
+            entry += '          ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /><'+'/a><'+'/td>';
+            entry += '      <td><a';
+            entry += '              href="#"';
+            entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
+            entry += '              onclick="getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_name\').value=\'\';getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_id\').value=\'\';getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_description\').value=\'\';this.blur();return false;"';
+            entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
+            entry += '  <'+'/tr>';
+            entry += '  <tr>';
+            entry += '      <td colspan="3" class="tdtop5">';
+            entry += '          <textarea';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][description]"';
+            entry += '              cols="40"';
+            entry += '              rows="2"';
+            entry += '              class="width375 autosize"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_description"></textarea>';
+            entry += '          <span class="caption width400">';
+            entry += '              <?php echo $BL['be_cnt_description']; ?> |';
+            entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
+            entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
+            entry += '              <?php echo $BL['be_cnt_target']; ?> |';
+            entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
+            entry += '              <?php echo $BL['be_copyright']; ?>';
+            entry += '          <'+'/span>';
+            entry += '      <'+'/td>';
+            entry += '  <'+'/tr>';
+            entry += '<'+'/table>';
 
 <?php   endif; ?>
 			entry += '<'+'/td><'+'/tr>';
