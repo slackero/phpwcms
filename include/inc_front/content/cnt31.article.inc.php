@@ -458,6 +458,8 @@ if($image['template']) {
 
                     } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
+                        $tempHtml = $crow['acontent_html']; 
+
                         $news['files_result'] = '';
 
                         if(!empty($custom_field_value['id'])) {
@@ -479,6 +481,9 @@ if($image['template']) {
                         }
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
+
+                        $crow['acontent_html'] = $tempHtml; 
+                        unset($tempHtml);
 
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 

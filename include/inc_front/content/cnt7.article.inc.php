@@ -341,6 +341,7 @@ if($content['files_sql']) {
 
                                 case 'gif':
                                 case 'jpg':
+                                case 'jpeg':
                                 case 'png':
                                 case 'svg':
                                     $_files_image = get_cached_image(array(
