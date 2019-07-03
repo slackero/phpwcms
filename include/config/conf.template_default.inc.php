@@ -346,6 +346,7 @@ $template_default['classes'] = array(
     'image-link'                    => 'image-link',
     'image-zoom'                    => 'image-zoom',
     'image-lightbox'                => 'image-lightbox',
+    'image-parse-inline'            => 'img-bbcode',
     'imgtxt-top-left'               => 'imgtxt-top-left',
     'imgtxt-top-center'             => 'imgtxt-top-center',
     'imgtxt-top-right'              => 'imgtxt-top-right',

@@ -910,6 +910,13 @@ function convert2htmlspecialchars($matches) {
     return '';
 }
 
+/**
+ * Parse BBCode style [img] tags
+ * [img=123.pngx200x100x1x85 alt Text]Title[/img]
+ *
+ * @param $matches
+ * @return string
+ */
 function parse_images($matches) {
 
     if(isset($matches[1])) {
@@ -939,6 +946,12 @@ function parse_images($matches) {
             $image .= 'x'.$quality;
         }
         $image     .= '/'.$img_id.$ext.'" alt="'.$alt.'"';
+        if($width) {
+            $image .= ' width="' . $width . '"';
+        }
+        if($height) {
+            $image .= ' height="' . $height . '"';
+        }
         if(isset($matches[3])) {
 
             $title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
@@ -946,7 +959,9 @@ function parse_images($matches) {
                 $image .= ' title="'.$title.'"';
             }
         }
-        $image     .= ' />';
+
+        $class = empty($GLOBALS['template_default']['classes']['image-parse-inline'])  ? 'img-bbcode' : $GLOBALS['template_default']['classes']['image-parse-inline'];
+        $image     .= ' class="' . $class . ' ' . $class . '-' .$img_id . '" />';
 
         return $image;
 
