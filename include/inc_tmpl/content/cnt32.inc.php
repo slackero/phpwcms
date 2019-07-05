@@ -511,7 +511,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		}
 <?php endif; ?>
 
-		var s = new Sortables( $tabs, { handles: 'em' } );
+		new Sortables($tabs, {
+            handles: 'em.handle'
+		});
 	});
 
 <?php if($content['wysiwyg']):
