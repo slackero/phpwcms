@@ -341,7 +341,7 @@ function rand_uniqid($in, $to_num=false, $pad_up=false, $passkey=null) {
  */
 function tokenize_forms($html) {
 
-	return preg_replace_callback('/<form(.*?)>(.*?)<\\/form>/s', 'get_tokenized_form', $html);
+    return preg_replace_callback('/<form(.*?)>/s', 'get_tokenized_form', $html);
 
 }
 
@@ -356,7 +356,7 @@ function tokenize_forms($html) {
  */
 function get_tokenized_form($match, $token_prefix='csrf_') {
 
-	$form  = '<form'.$match[1].'>';
+	$form = $match[0];
 
 	if(strpos($match[1], 'data-csrf="off"') === false) {
 
@@ -368,11 +368,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
 
 	}
 
-	$form .= $match[2];
-	$form .= '</form>';
-
 	return $form;
-
 }
 
 /**
