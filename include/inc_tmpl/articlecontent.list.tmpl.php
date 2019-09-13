@@ -400,7 +400,7 @@ if(!$temp_count) {
                     if($row['acontent_tab'] && $contentpart_tab != $row['acontent_tab']) {
                         $contentpart_tab        = $row['acontent_tab'];
                         $contentpart_tabbed     = explode('_', $contentpart_tab, 2);
-                        $contentpart_tab_title  = empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
+                        $contentpart_tab_title  = isset($contentpart_tabbed[1]) ? trim($contentpart_tabbed[1]) : '';
                         $contentpart_tab_number = explode('|', $contentpart_tabbed[0]);
                         $contentpart_tab_type   = empty($contentpart_tab_number[1]) ? 1 : $contentpart_tab_number[1];
                         $contentpart_tab_number = intval($contentpart_tab_number[0]);
@@ -418,7 +418,10 @@ if(!$temp_count) {
                             echo $BL['be_ctype_tabs'];
                         }
                         echo ' / ' . $BL['be_cnt_paginate_subsection'] . ': ';
-                        echo empty($contentpart_tab_title) ? '[' . $contentpart_tab_number . ']' : html($contentpart_tab_title);
+                        if($contentpart_tab_title !== '') {
+                            echo html($contentpart_tab_title) . ' ';
+                        }
+                        echo '[' . $contentpart_tab_number . ']';
 
                  ?>&nbsp;</td>
                 <td><img src="img/leer.gif" alt="" width="1" height="15" /></td>
