@@ -274,18 +274,21 @@ $phpwcms['default_lang']    = strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG']    = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
+    'jquery-3.4'            => 'jQuery 3.4.0',
+    'jquery-3.4-migrate'    => 'jQuery 3.4.0 + Migrate 3.0.1',
+    'jquery-3.4-migrate-1'  => 'jQuery 3.4.0 + Migrate 1.4.1 + 3.0.1',
     'jquery-3.3'            => 'jQuery 3.3.1',
-    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.0.0',
-    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.0.1',
+    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.0.1',
     'jquery-3.2'            => 'jQuery 3.2.1',
-    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.0',
-    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.1',
+    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.1',
     'jquery-3.1'            => 'jQuery 3.1.1',
-    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.0',
-    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.1',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.0.1',
     'jquery-3.0'            => 'jQuery 3.1.0',
-    'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.0',
-    'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 + 3.0.0',
+    'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.1',
+    'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 + 3.0.1',
     'jquery-2.2'            => 'jQuery 2.2.4',
     'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
     'jquery-1.12'           => 'jQuery 1.12.4',
@@ -1187,19 +1190,19 @@ function now($format=NULL) {
 function log_message($type='UNDEFINED', $message='', $userid=0) {
 
     $log = array(
-            'log_created'       => date('Y-m-d H:i:s', now()),
-            'log_type'          => 'UNDEFINED',
-            'log_ip'            => getRemoteIP(),
-            'log_user_agent'    => '',
-            'log_user_id'       => 0,
-            'log_user_name'     => '',
-            'log_referrer_id'   => 0,
-            'log_referrer_url'  => '',
-            'log_data1'         => '',
-            'log_data2'         => '',
-            'log_data3'         => '',
-            'log_msg'           => ''
-        );
+        'log_created'       => date('Y-m-d H:i:s', now()),
+        'log_type'          => 'UNDEFINED',
+        'log_ip'            => getRemoteIP(),
+        'log_user_agent'    => '',
+        'log_user_id'       => 0,
+        'log_user_name'     => '',
+        'log_referrer_id'   => 0,
+        'log_referrer_url'  => '',
+        'log_data1'         => '',
+        'log_data2'         => '',
+        'log_data3'         => '',
+        'log_msg'           => ''
+    );
 
     if(is_array($type)) {
         foreach($type as $key => $value) {

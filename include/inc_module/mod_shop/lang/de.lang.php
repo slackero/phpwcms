@@ -133,3 +133,6 @@ $BLM['shopprod_distance_base'] = 'Ausgangsadresse';
 $BLM['shopprod_api'] = 'API Schnittstelle';
 $BLM['shopprod_api_access'] = 'Zugriff gestatten';
 $BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
+
+$BLM['shopprod_inventory'] = 'Bestand';
+$BLM['shopprod_autosubtract_off'] = 'bei Bestellung NICHT um die Bestellmenge verringern';

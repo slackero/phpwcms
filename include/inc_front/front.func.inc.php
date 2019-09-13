@@ -1607,9 +1607,27 @@ function include_ext_php($inc_file, $t=0) {
 
 // callback wrapper functions
 function international_date_format_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=', $matches[1]);
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['phpwcms']['callback'] = is_intval($set[1]) ? intval($set[1]) : phpwcms_strtotime($set[1], NULL, now());
+        }
+    }
     return international_date_format($matches[2], $matches[1], $GLOBALS['phpwcms']['callback']);
 }
 function date_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=', $matches[1]);
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['phpwcms']['callback'] = is_intval($set[1]) ? intval($set[1]) : phpwcms_strtotime($set[1], NULL, now());
+        }
+    }
     if($GLOBALS['phpwcms']['DOCTYPE_LANG'] !== 'en' && preg_match('/[MFDl]/', $matches[1])) {
         return international_date_format($GLOBALS['phpwcms']['default_lang'], $matches[1], $GLOBALS['phpwcms']['callback']);
     }
@@ -3865,6 +3883,7 @@ function getArticleMenu($data=array()) {
         'wrap_tag'              => 'ul',
         'attribute_wrap_tag'    => '',
         'class_item_tag'        => '',
+        'class_item_link'       => '',
         'class_first_item_tag'  => '',
         'class_last_item_tag'   => '',
         'return_format'         => 'string', // string or array
@@ -3893,6 +3912,9 @@ function getArticleMenu($data=array()) {
         if($data['class_item_tag']) {
             $class .= $data['class_item_tag'].' ';
         }
+        if($data['class_item_link']) {
+            $class_a .= $data['class_item_link'].' ';
+        }
         if($key === 0 && $data['class_first_item_tag']) {
             $class .= $data['class_first_item_tag'].' ';
         } elseif($key === $total && $data['class_last_item_tag']) {
@@ -3903,7 +3925,7 @@ function getArticleMenu($data=array()) {
                 $class .= $data['class_active'][0].' ';
             }
             if(!empty($data['class_active'][1])) {
-                $class_a = ' class="'.$data['class_active'][1].'"'; // set active link class
+                $class_a .= $data['class_active'][1]; // set active link class
             }
         }
         $class = trim($class);
@@ -3962,8 +3984,8 @@ function getArticleMenu($data=array()) {
             $item['target'] = '';
         }
 
-        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-        $li[$key] .= '<a href="'.$item['href'].'"'.$class_a.$item['target'].'>';
+        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class ? ' class="' . $class . '"' : '' ) . '>';
+        $li[$key] .= '<a href="'.$item['href'].'"' . ($class_a ? ' class="' . $class_a . '"' : '') . $item['target'] . '>';
         $li[$key] .= $data['wrap_title_prefix'];
         $li[$key] .= html(getArticleMenuTitle($item));
         $li[$key] .= $data['wrap_title_suffix'];

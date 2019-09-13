@@ -125,8 +125,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
         $cache_nosave = true;
 
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
-        $cache_nosave = true;
 
+        $cache_nosave = true;
         $doubleoptin_values = _dbGet('phpwcms_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
@@ -1777,7 +1777,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     $POST_attach = array();
     $POST_savedb = array();
 
-    if(!empty($doubleoptin_values)) {
+    if(!empty($doubleoptin_values['formresult_content'])) {
         $POST_val = $doubleoptin_values['formresult_content'];
     }
 

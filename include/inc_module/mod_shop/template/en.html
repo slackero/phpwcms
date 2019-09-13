@@ -8,7 +8,10 @@ cat_all = "All products"
 ; Define where the "All products" should be positioned
 ; Possible values are: bottom, top, none
 cat_all_pos = bottom
-cat_list_products = Off
+cat_list_products = 0
+cat_count_products = 1
+cat_count_products_prefix = " ("
+cat_count_products_suffix = ")"
 
 ; sort list by fieldnames, check DB
 ; sort by Name - "shopprod_name1 ASC"
@@ -120,9 +123,11 @@ class_form_cart = shop-cart
         [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
             Send price inquiry
         </a>[/ON_REQUEST][ON_REQUEST_ELSE]
-            [CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD]
+            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
         [/ON_REQUEST_ELSE]
             [VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
+            [PRODUCT_INVENTORY]<em>Inventory: {PRODUCT_INVENTORY}</em>[/PRODUCT_INVENTORY]
+            <em>[PRODUCT_INVENTORY_AVAILABLE]Can be ordered[/PRODUCT_INVENTORY_AVAILABLE][PRODUCT_INVENTORY_AVAILABLE_ELSE]Not available[/PRODUCT_INVENTORY_AVAILABLE_ELSE]</em>
         </div>
 
     </div>
@@ -162,7 +167,7 @@ class_form_cart = shop-cart
         [VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
         [PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-        [ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/ON_REQUEST_ELSE]
+        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
     </div>
     <div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 

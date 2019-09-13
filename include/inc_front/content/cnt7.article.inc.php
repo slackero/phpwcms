@@ -59,7 +59,7 @@ foreach($crow["acontent_files"] as $fkey => $fkey_value) {
 
     if($fkey_value) {
         $content['files'][$fkey]['file_id'] = $fkey_value;
-        $content['files'][$fkey]['file_info'] = empty($crow["acontent_text"][$fkey]) ? '' : is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey]);
+        $content['files'][$fkey]['file_info'] = isset($crow["acontent_text"][$fkey]) ? (is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey])) : '';
         $content['files_sql'][$fkey] = $fkey_value;
     }
 }
@@ -173,23 +173,24 @@ if($content['files_sql']) {
                         if($file_item['file_info']) {
 
                             // If file info is just an array
-                                if(is_array($file_item['file_info'])) {
+                            if(is_array($file_item['file_info'])) {
 
                                 $_file_info = array(0 => '', 1 => '', 2 => '', 3 => '', 4 => '', 5 => '', 6 => '');
-                                    if(count($file_item['file_info'])) {
-                                        foreach($file_item['file_info'] as $finfo_key => $finfo_value) {
+
+                                if (count($file_item['file_info'])) {
+                                    foreach ($file_item['file_info'] as $finfo_key => $finfo_value) {
                                         $_file_info[$finfo_key] = $finfo_value;
                                     }
                                 }
 
                             } else {
 
-                            $_file_info = explode('|', $file_item['file_info']);
+                                $_file_info = explode('|', $file_item['file_info']);
 
-                            $_file_info[0] = trim($_file_info[0]);
-                            $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
-                            $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
-                            $_file_info[6] = '';
+                                $_file_info[0] = trim($_file_info[0]);
+                                $_file_info[1] = empty($_file_info[1]) ? '' : trim($_file_info[1]);
+                                $_file_info[2] = empty($_file_info[2]) ? '' : trim($_file_info[2]);
+                                $_file_info[6] = '';
 
                             }
 
@@ -332,7 +333,7 @@ if($content['files_sql']) {
                                 case 'pdf':
                                 case 'psd':
                                 case 'eps':
-                                    if($GLOBALS['phpwcms']['image_library'] == 'gd2' || $GLOBALS['phpwcms']['image_library'] == 'gd') {
+                                    if($GLOBALS['phpwcms']['image_library'] === 'gd2' || $GLOBALS['phpwcms']['image_library'] === 'gd') {
                                         break;
                                     }
 
@@ -345,15 +346,14 @@ if($content['files_sql']) {
                                 case 'png':
                                 case 'svg':
                                     $_files_image = get_cached_image(array(
-                                        "target_ext"    =>  $target_ext,
-                                        "image_name"    =>  $content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
-                                        "max_width"     =>  $_file_info[4][0],
-                                        "max_height"    =>  $_file_info[4][1],
-                                        "thumb_name"    =>  md5($content['files_result'][ $_files_x ]['f_hash'].$_file_info[4][0].$_file_info[4][1].$phpwcms["sharpen_level"].$_file_info[4][2].$phpwcms['colorspace']),
-                                        'crop_image'    =>  $_file_info[4][2]
+                                        "target_ext" =>  $target_ext,
+                                        "image_name" =>  $content['files_result'][ $_files_x ]['f_hash'] . '.' . $content['files_result'][ $_files_x ]['f_ext'],
+                                        "max_width"  =>  $_file_info[4][0],
+                                        "max_height" =>  $_file_info[4][1],
+                                        "thumb_name" =>  md5($content['files_result'][ $_files_x ]['f_hash'].$_file_info[4][0].$_file_info[4][1].$phpwcms["sharpen_level"].$_file_info[4][2].$phpwcms['colorspace']),
+                                        'crop_image' =>  $_file_info[4][2]
                                     ));
                                     break;
-
                             }
 
                         }

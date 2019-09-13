@@ -121,7 +121,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 	$value['custom_field_items'] = $custom_tab_fields;
 	$custom_tab_fields_hidden = array();
-	$custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool');
+    $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
 
 	if(!empty($content['tabs'])):
 		foreach($content['tabs'] as $key => $value):
@@ -245,7 +245,79 @@ if(is_array($tmpllist) && count($tmpllist)) {
 									if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
 								?> checked="checked"<?php endif; ?> /> <?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?>
 							</label>
-			<?php	endif; ?>
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <input
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
+                                            type="hidden"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_id"
+                                            value="<?php
+                                            if(isset($value['custom_fields'][$custom_field]['id'])) {
+                                                echo $value['custom_fields'][$custom_field]['id'];
+                                            }
+                                            ?>"
+                                        />
+                                        <input
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
+                                            type="text"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
+                                            class="width375 greyed"
+                                            value="<?php
+                                            if(isset($value['custom_fields'][$custom_field]['name'])) {
+                                                echo html($value['custom_fields'][$custom_field]['name']);
+                                            }
+                                            ?>"
+                                            size="40"
+                                            onfocus="this.blur()"
+                                        />
+                                    </td>
+                                    <td><a
+                                        href="#"
+                                        title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"
+                                        onclick="openFileBrowser('filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>');return false;"
+                                        ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /></a></td>
+                                    <td><a
+                                        href="#"
+                                        title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                                        onclick="getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                                            echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
+                                        ><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="tdtop5">
+                                        <textarea
+                                            name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
+                                            cols="40"
+                                            rows="2"
+                                            class="width375 autosize"
+                                            id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
+                                            if(isset($value['custom_fields'][$custom_field]['description'])) {
+                                                echo html($value['custom_fields'][$custom_field]['description']);
+                                            }
+                                            ?></textarea>
+                                        <span class="caption width400">
+                                            <?php echo $BL['be_cnt_description']; ?>
+                                            |
+                                            <?php echo $BL['be_fprivedit_filename']; ?>
+                                            |
+                                            <?php echo $BL['be_caption_file_title']; ?>
+                                            |
+                                            <?php echo $BL['be_cnt_target']; ?>
+                                            |
+                                            <?php echo $BL['be_caption_file_imagesize']; ?>
+                                            |
+                                            <?php echo $BL['be_copyright']; ?>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+
+            <?php   endif; ?>
 						</td>
 					</tr>
 <?php
@@ -271,6 +343,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		?><script type="text/javascript">
 
 	var entries = 0;
+
+    function setIdName(field, file_id, file_name) {
+        if(typeof file_id === 'undefined' || typeof file_name === 'undefined' || typeof field === 'undefined') {
+            return null;
+        }
+        var field_id = $('customfield_'+field+'_id');
+        if(!field_id) {
+            return null;
+        }
+        field_id.value = file_id;
+        $('customfield_'+field+'_name').value = file_name;
+    }
 
 	window.addEvent('domready', function() {
 
@@ -345,7 +429,62 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			entry += '<label class="checkbox tab-option-checkbox">';
 			entry += '<input type="checkbox" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>'+'/> ';
 			entry += '<?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
-<?php	endif; ?>
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+
+            entry += '<table border="0" cellpadding="0" cellspacing="0">';
+            entry += '  <tr>';
+            entry += '      <td>';
+            entry += '          <input';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][id]"';
+            entry += '              type="hidden"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_id"';
+            entry += '              value=""';
+            entry += '          />';
+            entry += '          <input';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][name]"';
+            entry += '              type="text"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_name"';
+            entry += '              class="width375 greyed"';
+            entry += '              value=""';
+            entry += '              size="40"';
+            entry += '              onfocus="this.blur()"';
+            entry += '          />';
+            entry += '      </td>';
+            entry += '      <td><a';
+            entry += '              href="#"';
+            entry += '              title="<?php echo $BL['be_cnt_openmediabrowser'] ?>"';
+            entry += '              onclick="openFileBrowser(\'filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entries + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>\');return false;"';
+            entry += '          ><img src="img/button/open_image_button.gif" alt="" border="0" hspace="3" /><'+'/a><'+'/td>';
+            entry += '      <td><a';
+            entry += '              href="#"';
+            entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
+            entry += '              onclick="getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_name\').value=\'\';getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_id\').value=\'\';getObjectById(\'customfield_<?php
+                                        echo $custom_field; ?>_' + entries + '_description\').value=\'\';this.blur();return false;"';
+            entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
+            entry += '  <'+'/tr>';
+            entry += '  <tr>';
+            entry += '      <td colspan="3" class="tdtop5">';
+            entry += '          <textarea';
+            entry += '              name="customfield[' + entries + '][<?php echo $custom_field; ?>][description]"';
+            entry += '              cols="40"';
+            entry += '              rows="2"';
+            entry += '              class="width375 autosize"';
+            entry += '              id="customfield_<?php echo $custom_field; ?>_' + entries + '_description"></textarea>';
+            entry += '          <span class="caption width400">';
+            entry += '              <?php echo $BL['be_cnt_description']; ?> |';
+            entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
+            entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
+            entry += '              <?php echo $BL['be_cnt_target']; ?> |';
+            entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
+            entry += '              <?php echo $BL['be_copyright']; ?>';
+            entry += '          <'+'/span>';
+            entry += '      <'+'/td>';
+            entry += '  <'+'/tr>';
+            entry += '<'+'/table>';
+
+<?php   endif; ?>
 			entry += '<'+'/td><'+'/tr>';
 <?php
 				endforeach;
@@ -372,7 +511,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		}
 <?php endif; ?>
 
-		var s = new Sortables( $tabs, { handles: 'em' } );
+		new Sortables($tabs, {
+            handles: 'em.handle'
+		});
 	});
 
 <?php if($content['wysiwyg']):

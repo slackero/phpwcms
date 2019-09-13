@@ -50,6 +50,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.width = 800;
     config.height = 400;
 
+    config.extraPlugins = 'magicline,image2';
     //config.extraPlugins = 'magicline';
     //config.removePlugins = 'resize';
 
@@ -74,8 +75,8 @@ CKEDITOR.editorConfig = function( config ) {
     //config.format_uppercase = { element: 'span', attributes: {'class': 'uppercase'}, name: 'UPPERCASE' };
     //config.format_blockquote = { element: 'blockquote', name: 'Blockquote' };
 
-     //config.image2_altRequired = true;
-     //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
-     //config.image2_captionedClass = 'image-captioned';
+    //config.image2_altRequired = true;
+    //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
+    //config.image2_captionedClass = 'image-captioned';
 
 };

@@ -77,10 +77,11 @@ if(isset($_SESSION['filter_shop_products']) && is_array($_SESSION['filter_shop_p
 
 	foreach($_SESSION['filter_shop_products'] as $_entry['filter']) {
 		//usr_name, usr_login, usr_email
-		$_entry['filter_array'][] = "CONCAT(	shopprod_ordernumber, 	shopprod_model,			shopprod_name1,
-												shopprod_name2,			shopprod_tag,			(shopprod_price+' '),
-												shopprod_description1,	shopprod_description2,	shopprod_description3
-											) LIKE '%".aporeplace($_entry['filter'])."%'";
+		$_entry['filter_array'][] = "CONCAT(
+			shopprod_ordernumber, 	shopprod_model,			shopprod_name1,
+			shopprod_name2,			shopprod_tag,			(shopprod_price+' '),
+			shopprod_description1,	shopprod_description2,	shopprod_description3
+		) LIKE '%".aporeplace($_entry['filter'])."%'";
 	}
 	if(count($_entry['filter_array'])) {
 
@@ -95,15 +96,12 @@ if(isset($_SESSION['filter_shop_products']) && is_array($_SESSION['filter_shop_p
 
 }
 
-
 // paginating values
 $_entry['count_total'] = _dbCount('SELECT COUNT(shopprod_id) FROM '.DB_PREPEND.'phpwcms_shop_products WHERE '.$_entry['query']);
 $_entry['pages_total'] = ceil($_entry['count_total'] / $_SESSION['list_count']);
 if($_SESSION['detail_page'] > $_entry['pages_total']) {
 	$_SESSION['detail_page'] = empty($_entry['pages_total']) ? 1 : $_entry['pages_total'];
 }
-
-
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
@@ -188,6 +186,7 @@ if($_entry['pages_total'] > 1) {
 		<th>&nbsp;<?php echo $BLM['th_modnr'] ?></th>
 		<th>&nbsp;<?php echo $BLM['th_product'] ?></th>
 		<th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['th_price'] ?>&nbsp;</th>
+        <th style="text-align:right;padding-right:5px;">&nbsp;<?php echo $BLM['shopprod_inventory'] ?>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
 
@@ -221,6 +220,7 @@ if($data) {
 		echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";
 		echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_name1'])."</td>\n";
 		echo '<td class="dir listNumber">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
+        echo '<td class="dir listNumber">&nbsp;'.$row['shopprod_inventory']."&nbsp;</td>\n";
 
 		echo '<td align="right" nowrap="nowrap" class="button_td">';
 
@@ -243,11 +243,11 @@ if($data) {
 	}
 
 
-	echo '<tr><td colspan="6" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
+	echo '<tr><td colspan="7" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 
 } else {
 
-	echo '<tr><td colspan="6" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
+	echo '<tr><td colspan="7" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
 
 }
 

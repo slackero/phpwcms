@@ -152,8 +152,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
     <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_unit'] ?>:&nbsp;</td>
-        <td><input name="shopprod_unit" type="text" id="shopprod_unit" class="v12 width125" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" /></td>
+        <td align="right" class="chatlist"><?php echo $BLM['shopprod_inventory'] ?>:&nbsp;</td>
+        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
+                <tr>
+                    <td><input name="shopprod_inventory" type="text" id="shopprod_inventory" class="v12 width125 right" value="<?php echo $plugin['data']['shopprod_inventory'] ?>" size="30" maxlength="11" /></td>
+                    <td align="right" class="chatlist width100"><?php echo $BLM['shopprod_unit'] ?>:&nbsp;</td>
+                    <td><input name="shopprod_unit" type="text" id="shopprod_unit" class="v12 width170" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" /></td>
+                </tr>
+        </table></td>
     </tr>
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
