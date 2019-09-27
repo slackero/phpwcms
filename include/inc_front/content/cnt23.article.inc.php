@@ -366,19 +366,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if(is_array($cnt_form['special_value']) && count($cnt_form['special_value'])) {
                         foreach($cnt_form['special_value'] as $cnt_form['special_key'] => $cnt_form['special_val']) {
                             $temp_array = explode('=', $cnt_form['special_val']);
-                            switch($temp_array[0]) {
-                                case 'default':
-                                    $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
-                                    break;
-                                case 'type':
-                                    $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
-                                    break;
-                                case 'dateformat':
-                                    $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
-                                    break;
-                                case 'pattern':
-                                    $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
-                                    break;
+                            if($temp_array[0] === 'default') {
+                                $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
+                            } elseif($temp_array[0] === 'type') {
+                                $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
+                            } elseif($temp_array[0] === 'dateformat') {
+                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
+                            } elseif($temp_array[0] === 'pattern') {
+                                $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
                             }
                         }
                     }
@@ -528,6 +523,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 //check if message should be delivered to email address of this field doubleoptin
                 if($POST_DO && empty($POST_ERR[$key]) && !empty($cnt_form['doubleoptin_targettype']) && ($cnt_form['doubleoptin_targettype'] === 'emailfield_'.$POST_name) && is_valid_email($cnt_form["fields"][$key]['value'])) {
                     $cnt_form['doubleoptin_target'] = $cnt_form["fields"][$key]['value'];
+                } else {
+                    $cnt_form['doubleoptin_target'] = $cnt_form['target'];
                 }
 
                 // check if message should be sent by email address of this field
@@ -886,8 +883,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
                 $form_field .= '</select>';
                 break;
-
-
 
             case 'checkboxcopy':
             case 'checkbox':
@@ -1980,7 +1975,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
     }
 
-    if(!empty($cnt_form["doubleoptin"]) && $POST_DO) {
+    if(!empty($cnt_form["doubleoptin"]) && !empty($cnt_form['doubleoptin_target']) && $POST_DO) {
 
         if(!empty($cnt_form["onsuccess"])) {
             $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
@@ -2027,17 +2022,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
             $cnt_form["copytoError"] = array();
 
-           // foreach($cnt_form['cc'] as $cc_email) {
+            $mail->addAddress($cnt_form['doubleoptin_target']);
 
-                $mail->addAddress($cnt_form['doubleoptin_target']);
+            if(!$mail->send()) {
+                $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+            }
 
-                if(!$mail->send()) {
-                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
-                }
-
-                $mail->clearAddresses();
-
-            //}
+            $mail->clearAddresses();
 
             if(count($cnt_form["copytoError"])) {
                 $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
