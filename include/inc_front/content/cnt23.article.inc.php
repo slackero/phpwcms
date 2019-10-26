@@ -1179,7 +1179,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $form_field .= '<input type="file" name="'.$form_name.'" id="'.$form_name.'"';
                 if(!empty($cnt_form['upload_value']['accept']) ) {
-                    $form_field .= ' accept=".'.str_replace('|', '.,', $cnt_form['upload_value']['accept']).'"';
+                    $form_field .= ' accept=".'.str_replace('|', ',.', $cnt_form['upload_value']['accept']).'"';
                 }
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
