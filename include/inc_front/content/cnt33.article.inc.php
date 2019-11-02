@@ -367,7 +367,7 @@ if($news['template']) {
     // start parsing news entries
     $news['row_count'] = 1;
     $news['total_count'] = 1;
-    $news['entry_count'] = count($news['result']);
+    $news['entry_count'] = is_array($news['result']) ? count($news['result']) : 0;
 
     // set new target if necessary
     if(empty($news['news_detail_link'])) {
