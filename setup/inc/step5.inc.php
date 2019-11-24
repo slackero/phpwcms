@@ -261,6 +261,47 @@ if($result): ?>
 	The conf.inc.php could not placed at the right position by the setup script.
 </p>
 <?php endif; ?>
+<?php
+// Create default .htaccess
+
+if(is_file($this_root.'/.htaccess')):
+?>
+<p style="font-weight:bold;color:#FF3300;">
+    A <strong>.htaccess</strong> file exists. Compare against the <a href="../_.htaccess" target="_blank">default</a>.
+    If you want to use segmented URLs it is necessary to configure the Rewrite process.
+</p>
+<?php else:
+    $result = false;
+    // Try to copy
+    if(!@copy($this_root.'/_.htaccess', $this_root.'/.htaccess')) {
+        // Try to move
+        if(@rename($this_root.'/_.htaccess', $this_root.'/.htaccess')) {
+            // moved successfully
+            $result = true;
+        }
+    } else {
+        $result = true;
+    }
+    if($result): ?>
+        <p style="font-weight:bold;color:#99CC00;">
+            A default <strong>.htaccess</strong> file was placed in the document root of your installation.
+            This file usually is hidden because of the leading <strong>.</strong> in the file name.
+            <?php
+            if($phpwcms["root"] && $htaccess = @read_textfile($this_root.'/.htaccess')) {
+                $htaccess = str_replace('RewriteBase /', '#RewriteBase /', $htaccess);
+                $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($phpwcms["root"], '/') . '/', $htaccess);
+                write_textfile($this_root.'/.htaccess', $htaccess);
+            }
+            ?>
+        </p>
+    <?php else: ?>
+        <p style="font-weight:bold;color:#FF3300;">
+            Writing the <strong>.htaccess</strong> file to the document root of your installation failed.
+            If you want to use Rewrite please configure it manually. See the file
+            <a href="../_.htaccess" target="_blank">_.htaccess</a>.
+        </p>
+    <?php endif; ?>
+<?php endif; ?>
 <h4>The manual way to finish setup</h4>
 <p>
 	Download the config file <a href="get_conf_file.php"><strong>here</strong></a> and copy it to ./include/config/<strong>conf.inc.php</strong>

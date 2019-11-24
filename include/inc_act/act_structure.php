@@ -464,7 +464,7 @@ function get_struct_del_id($s_id=0) {
     if(isset($result[0]['acat_id'])) {
         foreach($result as $row) {
             $GLOBALS["struct_del"][] = $row['acat_id'];
-            get_struct_del_id('acat_id');
+            get_struct_del_id($row['acat_id']);
         }
     }
 }

@@ -443,6 +443,8 @@ class phpwcmsNews {
 
     public function getFiles($mode='backend') {
 
+        $data = array();
+
         if( is_array($this->data['cnt_files']['id']) && count($this->data['cnt_files']['id'])) {
 
             $where  = 'f_id IN (' . implode(',', $this->data['cnt_files']['id']) . ') AND ';
@@ -453,31 +455,20 @@ class phpwcmsNews {
 
             $result = _dbGet('phpwcms_file', '*', $where);
 
-            // now sort result
+            // Link results and keep sorting
             if(isset($result[0])) {
-
-                $data = array();
-                foreach($this->data['cnt_files']['id'] as $value) {
-                    $value = intval($value);
-                    $data[$value] = array();
+                foreach($this->data['cnt_files']['id'] as $key => $file_id) {
+                    foreach($result as $file_data) {
+                        if(intval($file_data['f_id']) === intval($file_id)) {
+                            $data[$key] = $file_data;
+                            continue;
+                        }
+                    }
                 }
-                foreach($result as $value) {
-                    $id = intval($value['f_id']);
-                    $data[ $id ] = $value;
-                }
-                return $data;
-
-            } else {
-
-                return array();
-
             }
-
-        } else {
-
-            return array();
-
         }
+
+        return $data;
     }
 
     public function edit() {

@@ -9,7 +9,7 @@ if(!empty($step)) {
             // fine continue with step 2
             session_write_close();
             if(!empty($_SERVER['HTTP_HOST']) && !empty($_SERVER['REQUEST_URI'])) {
-                header('Location: http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).'/setup.php?step=2');
+                header('Location: http'.($_SERVER['HTTPS'] ? 's' : '').'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['REQUEST_URI']).'/setup.php?step=2');
             } else {
                 header("Location: setup.php?step=2");
             }
