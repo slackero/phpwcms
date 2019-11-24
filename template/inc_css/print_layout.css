@@ -1,126 +1,181 @@
 body {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 10px;
-	margin: 15mm;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 10pt;
+    margin: 15mm;
+}
+
+input, select, textarea {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+code, pre, tt {
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 td, tr, th, p {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 10px
+    font-size: 10pt
 }
 
-ul { margin: 0 0 0 20px; }
-li { font-size: 11px; list-style: disc; }
+ul {
+    margin: 0 0 0 20px;
+}
+
+li {
+    font-size: 11pt;
+    list-style: disc;
+}
 
 a, a:link, a:visited, a:active {
-	color: #000000;
-	text-decoration: underline
-}
-a:hover {
-	color: #000000;
-	text-decoration: underline;
+    color: #000000;
+    text-decoration: underline
 }
 
-.articleText { 
-	text-align: normal;
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+.articleText {
+    text-align: initial;
 }
 
 .articleHead, .articleList_tophead, h1, h2 {
-	font-weight: bold;
-	font-size: 21px;
-	font-family: "Arial Narrow", "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
-	text-decoration: none;
-	line-height : 120%;
-	color : #000000;
+    font-weight: bold;
+    font-size: 21pt;
+    text-decoration: none;
+    line-height: 120%;
+    color: #000000;
 }
 
 .articleSubHead, .articleList_topsubhead, h3, h4 {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 15px;
-	font-weight: bold;
-	color: #6D7983;
-	line-height: 110%;
-	margin-bottom: 0;
+
+    font-size: 15pt;
+    font-weight: bold;
+    color: #6D7983;
+    line-height: 110%;
+    margin-bottom: 0;
 }
 
 .articleSummary {
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #000000;
-	line-height: 125%;
-	text-align: normal;
+    font-size: 12pt;
+    color: #000000;
+    line-height: 125%;
+    text-align: initial;
 }
 
 .contentHead {
-	font-family: "Trebuchet MS",Verdana, Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-weight: bold;
-	color: #6D7983;
-	line-height: 110%;
+    font-size: 18pt;
+    font-weight: bold;
+    color: #6D7983;
+    line-height: 110%;
 }
 
 .contentSubHead {
-	font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	color: #000000;
-	line-height: 110%;
+    font-size: 13pt;
+    color: #000000;
+    line-height: 110%;
 }
 
 .tableHead {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
-	color: #6D7983;
-	line-height: 13px;
+    font-size: 11pt;
+    font-weight: bold;
+    color: #6D7983;
+    line-height: 13px;
 }
 
 .tableSubHead {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 11px;
-	color: #000000;
+    font-size: 11pt;
+    color: #000000;
 }
 
-.v09 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 9px; }
-.v10 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; }
-.v11 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; }
-.v12 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 12px; }
-.v13 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 13px; }
-.v14 {  font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 14px; }
+.v09 {
+    font-size: 9pt;
+}
 
+.v10 {
+    font-size: 10pt;
+}
 
-.formButton	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold; color: #FFFFFF; background-color: #92A1AF; }
-.formLabel	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; }
-.checkLabel	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold;}
-.radioLabel	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 10px; font-weight: bold;}
-.formTextArea	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px;	}
-.inputText	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
-.inputPass	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
-.selectMenu	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
-.selectList	{ font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; font-weight: bold;}
+.v11 {
+    font-size: 11pt;
+}
+
+.v12 {
+    font-size: 12pt;
+}
+
+.v13 {
+    font-size: 13pt;
+}
+
+.v14 {
+    font-size: 14pt;
+}
+
+.formButton {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #92A1AF;
+}
+
+.formLabel {
+    font-size: 10pt;
+}
+
+.checkLabel {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.radioLabel {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.formTextArea {
+    font-size: 11pt;
+}
+
+.inputText {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.inputPass {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.selectMenu {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.selectList {
+    font-size: 11pt;
+    font-weight: bold;
+}
 
 .nav_table, .nav_table a, .nav_table a:link, .nav_table a:active, .nav_table a:visited, .nav_table a:hover {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 10px;
-	color: #4A5966;
-	font-weight: normal;
-	text-decoration: none;
+    font-size: 10pt;
+    color: #4A5966;
+    font-weight: normal;
+    text-decoration: none;
 }
 
 .nav_table_active, .nav_table_active a, .nav_table_active a:link, .nav_table_active a:active, .nav_table_active a:visited, .nav_table_active a:hover {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 10px;
-	color: #4A5966;
-	font-weight: bold;
-	text-decoration: none;
+    font-size: 10pt;
+    color: #4A5966;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .articleList_toptext {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 10px;
+    font-size: 10pt;
 }
 
 .articleList_listhead {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
-	font-size: 11px;
-	font-weight: bold;
+    font-size: 11pt;
+    font-weight: bold;
 }
