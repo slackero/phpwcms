@@ -3064,6 +3064,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $parameter[12]['item_tag']              = 'li';
             $parameter[12]['wrap_tag']              = '';
             $parameter[12]['attribute_wrap_tag']    = '';
+            $parameter[12]['class_item_link']       = $GLOBALS['template_default']['classes']['navlist-link-class'];
             $parameter[12]['class_item_tag']        = $GLOBALS['template_default']['classes']['navlist-asub_no'];
             $parameter[12]['class_first_item_tag']  = $GLOBALS['template_default']['classes']['navlist-asub_first'];
             $parameter[12]['class_last_item_tag']   = $GLOBALS['template_default']['classes']['navlist-asub_last'];
