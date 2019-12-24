@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/7ef23cbcb01ceb96990d5a492bd839e6
+ * (2) https://ckeditor.com/cke4/builder/cbb4fcf6fc5ecf1eb1ba7131b93a95d0
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/7ef23cbcb01ceb96990d5a492bd839e6
+ * (3) https://ckeditor.com/cke4/builder/download/cbb4fcf6fc5ecf1eb1ba7131b93a95d0
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -93,6 +93,7 @@ var CKBUILDER_CONFIG = {
 		'pagebreak' : 1,
 		'pastefromword' : 1,
 		'pastetext' : 1,
+		'pastetools' : 1,
 		'preview' : 1,
 		'print' : 1,
 		'removeformat' : 1,
