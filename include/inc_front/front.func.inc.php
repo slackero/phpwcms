@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2019, Oliver Georgi
+ * @copyright Copyright (c) 2002-2020, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -3064,6 +3064,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $parameter[12]['item_tag']              = 'li';
             $parameter[12]['wrap_tag']              = '';
             $parameter[12]['attribute_wrap_tag']    = '';
+            $parameter[12]['class_item_link']       = $GLOBALS['template_default']['classes']['navlist-link-class'];
             $parameter[12]['class_item_tag']        = $GLOBALS['template_default']['classes']['navlist-asub_no'];
             $parameter[12]['class_first_item_tag']  = $GLOBALS['template_default']['classes']['navlist-asub_first'];
             $parameter[12]['class_last_item_tag']   = $GLOBALS['template_default']['classes']['navlist-asub_last'];
