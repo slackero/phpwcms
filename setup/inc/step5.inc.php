@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2019, Oliver Georgi
+ * @copyright Copyright (c) 2002-2020, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -14,8 +14,6 @@ $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
 
 ?>
-
-
 
 <p><span class="title"><strong>Ready to start phpwcms?</strong> Some &quot;problems&quot;
     maybe OK - you can check by testing phpwcms installation.</span></p>
@@ -252,6 +250,9 @@ if(!is_file($this_root.'/include/config/conf.inc.php')) {
 	}
 }
 
+// Try to secure setup folder
+@write_textfile($this_root.'/setup/.htaccess', 'Deny from all');
+
 if($result): ?>
 <p style="font-weight:bold;color:#99CC00;">
 	The conf.inc.php was created successfully and placed at the right position by the setup script.
@@ -263,7 +264,6 @@ if($result): ?>
 <?php endif; ?>
 <?php
 // Create default .htaccess
-
 if(is_file($this_root.'/.htaccess')):
 ?>
 <p style="font-weight:bold;color:#FF3300;">
