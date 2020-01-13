@@ -25,19 +25,20 @@ $buttonAction .= '<input class="btn btn-sm btn-blue" type="button" value="'.$BL[
 $buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');return false;\">";
 
 ?>
-<script type="text/javascript">
-$(function  () {
-  $("ul.dropable-list").sortable({
-  group: 'no-drop',
-  handle: 'span.handle',
-  onDrop: function ($item, container, _super, event) {
-    $item.removeClass(container.group.options.draggedClass).removeAttr("style")
-    $("body").removeClass(container.group.options.bodyClass)
-    var sort_order = '';
-    $('#sortable-list-0 li').each(function(element) { sort_order = sort_order +  $(this).attr('id')  + '|'; });
-    var sUrl = 'include/inc_act/act_articlesort.php?sortid=' + sort_order;
-    $.ajax({url: sUrl});
-  }
+<script>
+$(function() {
+    $("ul.dropable-list").sortable({
+        group: 'no-drop',
+        handle: 'span.handle',
+        onDrop: function ($item, container, _super, event) {
+            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+            $("body").removeClass(container.group.options.bodyClass);
+            var sort_order = '';
+            $('#sortable-list-0 li').each(function() {
+                sort_order = sort_order + $(this).attr('id') + '|';
+            });
+            $.ajax({url: 'include/inc_act/act_articlesort.php?sortid=' + sort_order});
+        }
   });
 });
 </script>
@@ -135,7 +136,7 @@ $(function  () {
           <?php
             } ?>
 
-            <?php   if($article["article_subtitle"]) { ?>
+            <?php if($article["article_subtitle"]) { ?>
             <tr>
               <td class="text-secondary"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
               <td><strong><?php echo html($article["article_subtitle"]); ?></strong></td>
@@ -342,7 +343,6 @@ $(function  () {
             $result = _dbQuery($sql);
 
             if(isset($result[0]['acontent_id'])) {
-
                 foreach($result as $row) {
                     $scc++;
                     if($row['acontent_trash'] == 0) {
@@ -400,7 +400,7 @@ $(function  () {
             $contentpart_tab    = '';
             $contentpart_tab_close  = '';
 
-            $sql =  "SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."cmsgo_articlecontent ".
+            $sql = "SELECT *, UNIX_TIMESTAMP(acontent_tstamp) as acontent_date FROM ".DB_PREPEND."cmsgo_articlecontent ".
                 "WHERE acontent_aid=".$article["article_id"]." AND acontent_trash=0 ".
                 "ORDER BY acontent_block, acontent_sorting, acontent_tab, acontent_id";
 
@@ -475,15 +475,13 @@ $(function  () {
           ?>
       <div class="card articlelist rounded-0 my-3">
         <div class="card-header border-0 py-1" style="background-color:<?php echo $contentpart_block_color ?>;">
-          <span style="font-size:0.875em;font-weight:bold;"><i class="fa <?php echo $contentpart_block == 'CPSET' ? 'fa-list-ul ' : 'fa-columns' ?>" aria-hidden="true"></i> <?php echo  $contentpart_block_name ?></span>
+          <span style="font-size:0.875em;font-weight:bold;"><i class="fa fa-<?php echo $contentpart_block === 'CPSET' ? 'list-ul ' : 'columns' ?>" aria-hidden="true"></i> <?php echo $contentpart_block_name ?></span>
         </div>
-
     <?php
     if ($listingflag == 0) {
       echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0">';
     } else {
-      echo '<script type="text/javascript">
-
+      echo '<script>
       $(function() {
         $("ul.dropable-list'. $listingflag .'").sortable({
         group: \'no-drop'. $listingflag .'\',
@@ -492,9 +490,10 @@ $(function  () {
           $item.removeClass(container.group.options.draggedClass).removeAttr("style");
           $("body").removeClass(container.group.options.bodyClass);
           var sort_order = \'\';
-          $(\'#sortable-list-'. $listingflag .' li\').each(function(element) { sort_order = sort_order +  $(this).attr(\'id\')  + \'|\'; });
-          var sUrl = \'include/inc_act/act_articlesort.php?sortid=\' + sort_order;
-          $.ajax({url: sUrl});
+          $(\'#sortable-list-'. $listingflag .' li\').each(function() {
+            sort_order = sort_order +  $(this).attr(\'id\')  + \'|\';
+          });
+          $.ajax({url: \'include/inc_act/act_articlesort.php?sortid=\' + sort_order});
         }
 
         });
@@ -507,9 +506,9 @@ $(function  () {
 
     // now check if content part is tabbed
     if($row['acontent_tab'] && $contentpart_tab != $row['acontent_tab']) {
-      $contentpart_tab    = $row['acontent_tab'];
-      $contentpart_tabbed   = explode('_', $contentpart_tab, 2);
-      $contentpart_tab_title  = empty($contentpart_tabbed[1]) ? '' : $contentpart_tabbed[1];
+      $contentpart_tab = $row['acontent_tab'];
+      $contentpart_tabbed = explode('_', $contentpart_tab, 2);
+      $contentpart_tab_title = isset($contentpart_tabbed[1]) ? trim($contentpart_tabbed[1]) : '';
       $contentpart_tab_number = explode('|', $contentpart_tabbed[0]);
       $contentpart_tab_type = empty($contentpart_tab_number[1]) ? 1 : $contentpart_tab_number[1];
       $contentpart_tab_number = intval($contentpart_tab_number[0]);
@@ -524,11 +523,12 @@ $(function  () {
               echo $BL['be_ctype_tabs'];
             }
             echo ' / ' . $BL['be_cnt_paginate_subsection'] . ': ';
-            echo empty($contentpart_tab_title) ? '[' . $contentpart_tab_number . ']' : html($contentpart_tab_title);
+              if($contentpart_tab_title !== '') {
+                  echo html($contentpart_tab_title) . ' ';
+              }
+              echo '[' . $contentpart_tab_number . ']';
 
       ?>}</small></div>
-
-
 <?php
     } elseif($contentpart_tab && empty($row['acontent_tab'])) {
       // not the same tab but following cp is not tabbed
