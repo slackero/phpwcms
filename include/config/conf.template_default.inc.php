@@ -329,7 +329,8 @@ $template_default['classes'] = array(
     'navlist-asub_no'               => 'asub_no',
     'navlist-asub_first'            => 'asub_first',
     'navlist-asub_last'             => 'asub_last',
-    'navlist-navLevel'              => 'navLevel-',
+    'navlist-link-class'            => 'nav-link',
+    'navlist-navLevel'              => 'nav-level-',
     'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
@@ -346,6 +347,7 @@ $template_default['classes'] = array(
     'image-link'                    => 'image-link',
     'image-zoom'                    => 'image-zoom',
     'image-lightbox'                => 'image-lightbox',
+    'image-parse-inline'            => 'img-bbcode',
     'imgtxt-top-left'               => 'imgtxt-top-left',
     'imgtxt-top-center'             => 'imgtxt-top-center',
     'imgtxt-top-right'              => 'imgtxt-top-right',
@@ -514,6 +516,14 @@ $template_default['settings'] = array(
                     'min' => -1000,
                     'step' => .1,
                     'placeholder' => ''
+                ),
+                // [TAB_IMAGE]{TAB_IMAGE}[/TAB_IMAGE]
+                'image' => array(
+                    'legend' => 'image',
+                    'type' => 'file',
+                    'template' => 'tab-image.html', // if empty the default file list template is used
+                    'filetypes' => 'jpg,png,jpeg', // comma separated allowed filetypes 'xls,docx,vcf'
+                    'direct' => 0 // direct file download 1 or not 0
                 ),
                 // [TAB_SELECT1]
                 //    Will be the selected value {TAB_SELECT1}

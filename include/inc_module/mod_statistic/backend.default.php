@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -36,26 +36,26 @@ $BLM = & $BL['modules'][$module];
 $controller = empty($_GET['controller']) ? 'overview' : strtolower($_GET['controller']);
 
 switch($controller) {
-    
+
     case 'overview':  $controller = 'overview';
     break;
-    
+
     case 'downloads': $controller = 'downloads';
     break;
-    
+
     case 'polls':   $controller = 'polls';
     break;
-    
+
     case 'subscriptions': $controller = 'subscriptions';
     break;
-    
+
     case 'guestbook': $controller = 'guestbook';
     break;
     case 'user':  $controller = 'user';
     break;
     case 'seo': $controller = 'seo';
     break;
-    
+
     default:    $controller = 'overview';
 }
 // header

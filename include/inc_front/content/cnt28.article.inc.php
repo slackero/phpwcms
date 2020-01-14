@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -84,7 +84,7 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
 			//entry logfile login user
 			log_message('INFO', 'Login',intval($_loginData['query_result']['detail_id']));
 			//end
-			
+
             if($_loginData['remember'] && !empty($_loginData['felogin_cookie_expire'])) {
 
                 setcookie(  'cmsgoFeLoginRemember',

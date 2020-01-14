@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -103,7 +103,6 @@ $cmsgo['enable_seolog']       = 1; // enable or disable logging of search engine
 $cmsgo['i18n_parse']          = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
 $cmsgo['i18n_complex']        = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
 $cmsgo['FCK_FileBrowser']     = 1; // enable|disable cmsgo Filebrowser in FCKeditor instead of built-in FCK file bowser support
-$cmsgo['JW_FLV_License']      = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed
 $cmsgo['feuser_regkey']       = 'FEUSER';
 $cmsgo['edit.php']           = 'edit.php';
 $cmsgo['js_lib']              = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
