@@ -331,6 +331,7 @@ $template_default['classes'] = array(
     'navlist-asub_last'             => 'asub_last',
     'navlist-link-class'            => 'nav-link',
     'navlist-navLevel'              => 'nav-level-',
+    'navlist-bs-link'               => 'nav-link',
     'navlist-bs-dropdown'           => 'dropdown',
     'navlist-bs-dropdown-toggle'    => 'dropdown-toggle',
     'breadcrumb-active'             => 'active',
