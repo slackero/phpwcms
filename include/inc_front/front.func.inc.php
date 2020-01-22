@@ -3684,9 +3684,11 @@ function sanitize_replacement_tags( $string, $rt='', $bracket=array('{}', '[]') 
     }
     if( is_array($bracket) && count($bracket) && count($tag) ) {
         foreach($bracket as $value) {
-            if(strlen($value) < 2) continue;
-            $prefix = preg_quote($value{0}, '/');
-            $suffix = preg_quote($value{1}, '/');
+            if(strlen($value) < 2) {
+                continue;
+            }
+            $prefix = preg_quote(substr($value, 0, 1), '/');
+            $suffix = preg_quote(substr($value, 1, 1), '/');
             foreach($tag as $row) {
                 $string = preg_replace('/' . $prefix . $row[0] . $suffix . '(.*?)' . $prefix . '\/' . $row[1] . $suffix . '/si', '$1', $string);
             }

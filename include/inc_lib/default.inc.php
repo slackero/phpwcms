@@ -155,6 +155,7 @@ define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHAR
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php';
@@ -694,7 +695,7 @@ function buildGlobalGET($return = '') {
     $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
     $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
 
-    if(get_magic_quotes_gpc()) {
+    if(!IS_PHP7 && get_magic_quotes_gpc()) {
         foreach($GLOBALS['_getVar'] as $key => $value) {
             $GLOBALS['_getVar'][$key] = stripslashes($value);
         }

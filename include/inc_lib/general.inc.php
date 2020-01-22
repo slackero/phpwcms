@@ -31,7 +31,7 @@ function str_empty($string) {
 }
 
 function slweg($text='', $maxlen=0, $trim=true) {
-    if(get_magic_quotes_gpc()) {
+    if(!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
     if($text && substr($text, -1) === '>') {
@@ -47,7 +47,7 @@ function slweg($text='', $maxlen=0, $trim=true) {
 }
 
 function clean_slweg($text, $maxlen=0, $trim=true) {
-    if(get_magic_quotes_gpc()) {
+    if(!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
     $text = strip_tags($text);
@@ -1136,7 +1136,8 @@ function optimizeForSearch() {
 }
 
 function return_bytes_shorten($val, $round=2, $return_bytes=0) {
-    $last = strtolower($val{strlen(trim($val))-1});
+    $val = strtolower(trim($val));
+    $last = substr($val, -1);
     if(empty($return_bytes)) {
         $space  = '';
         $byte   = '';
@@ -1144,9 +1145,10 @@ function return_bytes_shorten($val, $round=2, $return_bytes=0) {
         $space  = $return_bytes === '1' ? ' ' : $return_bytes;
         $byte   = 'B';
     }
-    if($last == 'k' || $last == 'm' || $last == 'g' || $last == 't') {
-        $val = trim($val);
-        if($byte) $val .= $space.'Byte';
+    if($last === 'k' || $last === 'm' || $last === 'g' || $last === 't') {
+        if($byte) {
+            $val .= $space.'Byte';
+        };
         return $val;
     }
     $val = ceil($val);
@@ -1176,14 +1178,14 @@ function return_bytes_shorten($val, $round=2, $return_bytes=0) {
 
 function return_bytes($val) {
     // taken from: http://de3.php.net/manual/en/function.ini-get.php
-    $val    = trim($val);
-    $last   = strtolower($val{strlen($val)-1});
-    $val    = floatval($val);
+    $val = strtolower(trim($val));
+    $last = substr($val, -1);
+    $val = floatval($val);
     switch($last) {
-        case 't':   $val *= 1024;
-        case 'g':   $val *= 1024;
-        case 'm':   $val *= 1024;
-        case 'k':   $val *= 1024;
+        case 't': $val *= 1024;
+        case 'g': $val *= 1024;
+        case 'm': $val *= 1024;
+        case 'k': $val *= 1024;
    }
    return ceil($val);
 }
@@ -1467,9 +1469,9 @@ function parse_ini_str($Str, $ProcessSections=true, $SplitInNameValue=false) {
         'search'    => array('\t', '\r', '\n', '\;', '\#', '\=', '\:', "\\\\"),
         'replace'   => array("\t", "\r", "\n", ';', '#', '=', ':', "\\")
     );
-    if ($Temp = strtok($Str,"\r\n")) {
+    if ($Temp = strtok($Str, "\r\n")) {
         do {
-            switch ($Temp{0}) {
+            switch (substr($Temp, 0, 1)) {
 
                 case ';':
 
@@ -1545,7 +1547,7 @@ function _mkdir($target) {
 
 function sanitize_filename($filename) {
     //Filename anpassen und säubern
-    if(get_magic_quotes_gpc()) {
+    if(!IS_PHP7 && get_magic_quotes_gpc()) {
         $filename = stripslashes($filename);
     }
     $remove = array("?", "[", "]", "/", "\\", "=", "<", ">", ":", ";", ",", "'", '"', "&", "$", "#", "*", "(", ")", "|", "~", "`", "!", "{", "}", chr(0));
