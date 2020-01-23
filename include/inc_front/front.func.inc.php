@@ -3686,9 +3686,11 @@ function sanitize_replacement_tags( $string, $rt='', $bracket=array('{}', '[]') 
     }
     if( is_array($bracket) && count($bracket) && count($tag) ) {
         foreach($bracket as $value) {
-            if(strlen($value) < 2) continue;
-            $prefix = preg_quote($value{0}, '/');
-            $suffix = preg_quote($value{1}, '/');
+            if(strlen($value) < 2) {
+                continue;
+            }
+            $prefix = preg_quote(substr($value, 0, 1), '/');
+            $suffix = preg_quote(substr($value, 1, 1), '/');
             foreach($tag as $row) {
                 $string = preg_replace('/' . $prefix . $row[0] . $suffix . '(.*?)' . $prefix . '\/' . $row[1] . $suffix . '/si', '$1', $string);
             }
@@ -3886,6 +3888,7 @@ function getArticleMenu($data=array()) {
         'wrap_tag'              => 'ul',
         'attribute_wrap_tag'    => '',
         'class_item_tag'        => '',
+        'class_item_link'       => '',
         'class_first_item_tag'  => '',
         'class_last_item_tag'   => '',
         'return_format'         => 'string', // string or array
@@ -3914,6 +3917,9 @@ function getArticleMenu($data=array()) {
         if($data['class_item_tag']) {
             $class .= $data['class_item_tag'].' ';
         }
+        if($data['class_item_link']) {
+            $class_a .= $data['class_item_link'].' ';
+        }
         if($key === 0 && $data['class_first_item_tag']) {
             $class .= $data['class_first_item_tag'].' ';
         } elseif($key === $total && $data['class_last_item_tag']) {
@@ -3924,7 +3930,7 @@ function getArticleMenu($data=array()) {
                 $class .= $data['class_active'][0].' ';
             }
             if(!empty($data['class_active'][1])) {
-                $class_a = ' class="'.$data['class_active'][1].'"'; // set active link class
+                $class_a .= $data['class_active'][1]; // set active link class
             }
         }
         $class = trim($class);
@@ -3983,8 +3989,8 @@ function getArticleMenu($data=array()) {
             $item['target'] = '';
         }
 
-        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-        $li[$key] .= '<a href="'.$item['href'].'"'.$class_a.$item['target'].'>';
+        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class ? ' class="' . $class . '"' : '' ) . '>';
+        $li[$key] .= '<a href="'.$item['href'].'"' . ($class_a ? ' class="' . $class_a . '"' : '') . $item['target'] . '>';
         $li[$key] .= $data['wrap_title_prefix'];
         $li[$key] .= html(getArticleMenuTitle($item));
         $li[$key] .= $data['wrap_title_suffix'];

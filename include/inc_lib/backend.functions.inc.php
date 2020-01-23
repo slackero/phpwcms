@@ -786,39 +786,36 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
     $second         = 0;
 
     for($x=0; $x<=2; $x++) {
-
         if(isset($timeformat[$x])) {
-
-            $value = trim($timeformat[$x]);
-            switch( $value{0} ) {
-
-                case 'H':   if(isset($time[$x])) {
-                    $hour = intval($time[$x]);
-                    if($hour < 0 || $hour > 23) {
-                        $hour = 0;
+            switch(substr(trim($timeformat[$x]), 0, 1)) {
+                case 'H':
+                    if(isset($time[$x])) {
+                        $hour = intval($time[$x]);
+                        if($hour < 0 || $hour > 23) {
+                            $hour = 0;
+                        }
                     }
-                }
                     break;
 
-                case 'i':   if(isset($time[$x])) {
-                    $minute = intval($time[$x]);
-                    if($minute < 0 || $minute > 59) {
-                        $minute = 0;
+                case 'i':
+                    if(isset($time[$x])) {
+                        $minute = intval($time[$x]);
+                        if($minute < 0 || $minute > 59) {
+                            $minute = 0;
+                        }
                     }
-                }
                     break;
 
-                case 's':   if(isset($time[$x])) {
-                    $second = intval($time[$x]);
-                    if($second < 0 || $second > 59) {
-                        $second = 0;
+                case 's':
+                    if(isset($time[$x])) {
+                        $second = intval($time[$x]);
+                        if($second < 0 || $second > 59) {
+                            $second = 0;
+                        }
                     }
-                }
                     break;
             }
-
         }
-
     }
 
     $time = str_replace($delimeter, ':', $default_time);
@@ -847,38 +844,37 @@ function _getDate($date='', $delimeter='', $default_date='') {
 
         if(isset($dateformat[$x])) {
 
-            $value = trim($dateformat[$x]);
-            $value = strtolower($value);
-            switch( $value{0} ) {
+            switch(substr(strtolower(trim($dateformat[$x])), 0, 1)) {
 
-                case 'y':   if(isset($date[$x])) {
-                    $year = intval($date[$x]);
-                    if($year < 0) {
-                        $year = '';
+                case 'y':
+                    if(isset($date[$x])) {
+                        $year = intval($date[$x]);
+                        if($year < 0) {
+                            $year = '';
+                        }
                     }
-                }
                     break;
 
-                case 'd':   if(isset($date[$x])) {
-                    $day = intval($date[$x]);
-                    if($day < 1 || $day > 31) {
-                        $day = '';
+                case 'd':
+                    if(isset($date[$x])) {
+                        $day = intval($date[$x]);
+                        if($day < 1 || $day > 31) {
+                            $day = '';
+                        }
                     }
-                }
                     break;
 
-                case 'm':   if(isset($date[$x])) {
-                    $month = intval($date[$x]);
-                    if($month < 1 || $month > 12) {
-                        $month = '';
+                case 'm':
+                    if(isset($date[$x])) {
+                        $month = intval($date[$x]);
+                        if($month < 1 || $month > 12) {
+                            $month = '';
+                        }
                     }
-                }
                     break;
 
             }
-
         }
-
     }
 
     if($year && $month && $day) {

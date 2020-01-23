@@ -407,7 +407,7 @@ function getnxtag($body, $offset){
             //htmlfilter_debug("$me: Additionally, end of tag found at $pos\n");
             //htmlfilter_debug("$me: Attname is '$attname'\n");
             //htmlfilter_debug("$me: Setting attvalue to 'yes'\n");
-            $attary{$attname} = '"yes"';
+            $attary[$attname] = '"yes"';
             return array($tagname, $attary, $tagtype, $lt, $pos);
             break;
         default:
@@ -447,7 +447,7 @@ function getnxtag($body, $offset){
                     list($pos, $attval, $match) = $regary;
                     //htmlfilter_debug("$me: Attvalue is '$attval'\n");
                     $pos++;
-                    $attary{$attname} = '\'' . $attval . '\'';
+                    $attary[$attname] = '\'' . $attval . '\'';
                 } else if ($quot == '"'){
                     //htmlfilter_debug("$me: In fact, this is attribute type 2\n");
                     //htmlfilter_debug("$me: looking for closing quote\n");
@@ -460,7 +460,7 @@ function getnxtag($body, $offset){
                     list($pos, $attval, $match) = $regary;
                     //htmlfilter_debug("$me: Attvalue is \"$attval\"\n");
                     $pos++;
-                    $attary{$attname} = '"' . $attval . '"';
+                    $attary[$attname] = '"' . $attval . '"';
                 } else {
                     //htmlfilter_debug("$me: This looks like attribute type 3\n");
                     /**
@@ -480,7 +480,7 @@ function getnxtag($body, $offset){
                     //htmlfilter_debug("$me: translating '\"' into &quot;\n");
                     $attval = preg_replace('/\"/s', '&quot;', $attval);
                     //htmlfilter_debug("$me: wrapping in quotes\n");
-                    $attary{$attname} = '"' . $attval . '"';
+                    $attary[$attname] = '"' . $attval . '"';
                 }
             } else if (preg_match('|[\w/>]|', $char)) {
                 /**
@@ -488,7 +488,7 @@ function getnxtag($body, $offset){
                  */
                 //htmlfilter_debug("$me: attribute type 4 found.\n");
                 //htmlfilter_debug("$me: Setting value to 'yes'\n");
-                $attary{$attname} = '"yes"';
+                $attary[$attname] = '"yes"';
             } else {
                 /**
                  * An illegal character. Find next '>' and return.
@@ -530,7 +530,7 @@ function deent(&$attvalue, $regex, $hex=false){
                 $numval = hexdec($numval);
                 //htmlfilter_debug("$me: hex! Numval is now $numval\n");
             }
-            $repl{$matches[0][$i]} = chr($numval);
+            $repl[$matches[0][$i]] = chr($numval);
         }
         $attvalue = strtr($attvalue, $repl);
         //htmlfilter_debug("$me: attvalue after translation: $attvalue\n");
@@ -618,7 +618,7 @@ function fixatts($tagname,
                     if (preg_match($matchattr, $attname)){
                         //htmlfilter_debug("$me: Attribute '$attname' defined as bad.\n");
                         //htmlfilter_debug("$me: Removing.\n");
-                        unset($attary{$attname});
+                        unset($attary[$attname]);
                         continue;
                     }
                 }
@@ -649,7 +649,7 @@ function fixatts($tagname,
                         $newvalue = preg_replace($valmatch,$valrepl,$attvalue);
                         if ($newvalue != $attvalue){
                             //htmlfilter_debug("$me: attvalue is now $newvalue\n");
-                            $attary{$attname} = $newvalue;
+                            $attary[$attname] = $newvalue;
                         }
                     }
                 }
@@ -924,10 +924,9 @@ function htmlfilter_sanitize($body,
                     $skip_content = false;
                 } else {
                     if ($skip_content == false){
-                        if (isset($open_tags{$tagname}) &&
-                            $open_tags{$tagname} > 0){
+                        if (isset($open_tags[$tagname]) && $open_tags[$tagname] > 0) {
                             //htmlfilter_debug("$me: popping '$tagname' from open_tags\n");
-                            $open_tags{$tagname}--;
+                            $open_tags[$tagname]--;
                         } else {
                             //htmlfilter_debug("$me: '$tagname' was never opened\n");
                             //htmlfilter_debug("$me: removing\n");
@@ -969,10 +968,10 @@ function htmlfilter_sanitize($body,
                         } else {
                             if ($tagtype == 1){
                                 //htmlfilter_debug("$me: adding '$tagname' to open_tags\n");
-                                if (isset($open_tags{$tagname})){
-                                    $open_tags{$tagname}++;
+                                if (isset($open_tags[$tagname])){
+                                    $open_tags[$tagname]++;
                                 } else {
-                                    $open_tags{$tagname} = 1;
+                                    $open_tags[$tagname] = 1;
                                 }
                             }
                             /**

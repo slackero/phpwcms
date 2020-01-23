@@ -251,6 +251,9 @@ if(!is_file($this_root.'/include/config/conf.inc.php')) {
 	}
 }
 
+// Try to secure setup folder
+@write_textfile($this_root.'/setup/.htaccess', 'Deny from all');
+
 if($result): ?>
 <p style="font-weight:bold;color:#99CC00;">
 	The conf.inc.php was created successfully and placed at the right position by the setup script.
@@ -262,8 +265,8 @@ if($result): ?>
 <?php endif; ?>
 <?php
 // Create default .htaccess
-
-if(is_file($this_root.'/.htaccess')): ?>
+if(is_file($this_root.'/.htaccess')):
+?>
     <p style="font-weight:bold;color:#FF3300;">
         A <strong>.htaccess</strong> file exists. Compare against the <a href="../_.htaccess" target="_blank">default</a>.
         If you want to use segmented URLs it is necessary to configure the Rewrite process.
@@ -300,7 +303,6 @@ if(is_file($this_root.'/.htaccess')): ?>
         </p>
     <?php endif; ?>
 <?php endif; ?>
-
 <h4>The manual way to finish setup</h4>
 <p>
 	Download the config file <a href="get_conf_file.php"><strong>here</strong></a> and copy it to ./include/config/<strong>conf.inc.php</strong>
