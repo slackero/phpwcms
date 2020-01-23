@@ -3153,6 +3153,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $bs_data_toggle = '';
             $bs_caret       = '';
         }
+        if($bootstrap && $GLOBALS['template_default']['classes']['navlist-bs-link']) {
+            $li_a_class = trim($li_a_class.' '.$GLOBALS['template_default']['classes']['navlist-bs-link']);
+        }
         if($li_a_class) {
             $li_a_class = ' class="'.$li_a_class.'"';
         }
