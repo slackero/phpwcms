@@ -108,7 +108,7 @@ function casenormalize(&$val){
  */
 function skipspace($body, $offset){
     $me = 'skipspace';
-    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {;
+    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {
         $offset += strlen($matches[1]);
     }
     return $offset;
@@ -283,8 +283,7 @@ function getnxtag($body, $offset){
             //htmlfilter_debug("$me: Found invalid character '/'.\n");
             $gt = findnxstr($body, $pos, '>');
             //htmlfilter_debug("$me: Tag is invalid. Returning.\n");
-            $retary = array(false, false, false, $lt, $gt);
-            return $retary;
+            return array(false, false, false, $lt, $gt);
         }
     case '>':
         //htmlfilter_debug("$me: End of tag found at $pos\n");

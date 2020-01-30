@@ -130,17 +130,17 @@ class SVGReader {
 		while ( $keepReading ) {
 			$tag = $this->reader->localName;
 			$type = $this->reader->nodeType;
-			$isSVG = ( $this->reader->namespaceURI == self::NS_SVG );
+			$isSVG = $this->reader->namespaceURI === self::NS_SVG;
 
-			if ( $isSVG && $tag == 'svg' && $type == XMLReader::END_ELEMENT && $this->reader->depth <= $exitDepth) {
+			if ( $isSVG && $tag === 'svg' && $type === XMLReader::END_ELEMENT && $this->reader->depth <= $exitDepth) {
 				break;
-			} elseif ( $isSVG && $tag == 'title' ) {
+			} elseif ( $isSVG && $tag === 'title' ) {
 				$this->readField( $tag, 'title' );
-			} elseif ( $isSVG && $tag == 'desc' ) {
+			} elseif ( $isSVG && $tag === 'desc' ) {
 				$this->readField( $tag, 'description' );
-			} elseif ( $isSVG && $tag == 'metadata' && $type == XMLReader::ELEMENT ) {
-				$this->readXml( $tag, 'metadata' );
-			} elseif ( $isSVG && $tag == 'script' ) {
+			} elseif ( $isSVG && $tag === 'metadata' && $type === XMLReader::ELEMENT ) {
+				$this->readXml( $tag );
+			} elseif ( $isSVG && $tag === 'script' ) {
 				// We normally do not allow scripted svgs.
 				// However its possible to configure MW to let them
 				// in, and such files should be considered animated.
@@ -173,9 +173,9 @@ class SVGReader {
 		}
 		$keepReading = $this->reader->read();
 		while ( $keepReading ) {
-			if ( $this->reader->localName == $name && $this->reader->namespaceURI == self::NS_SVG && $this->reader->nodeType == XMLReader::END_ELEMENT) {
+			if ( $this->reader->localName === $name && $this->reader->namespaceURI === self::NS_SVG && $this->reader->nodeType === XMLReader::END_ELEMENT) {
 				break;
-			} elseif ( $this->reader->nodeType == XMLReader::TEXT ) {
+			} elseif ( $this->reader->nodeType === XMLReader::TEXT ) {
 				$this->metadata[$metafield] = trim( $this->reader->value );
 			}
 			$keepReading = $this->reader->read();
@@ -208,7 +208,7 @@ class SVGReader {
 	 * @param string $name Name of the element that we are reading from
 	 */
 	private function animateFilterAndLang( $name ) {
-		if ( $this->reader->nodeType != XMLReader::ELEMENT ) {
+		if ( $this->reader->nodeType !== XMLReader::ELEMENT ) {
 			return;
 		}
 		if ( $this->reader->isEmptyElement ) {
@@ -217,12 +217,10 @@ class SVGReader {
 		$exitDepth = $this->reader->depth;
 		$keepReading = $this->reader->read();
 		while ( $keepReading ) {
-			if ( $this->reader->localName == $name && $this->reader->depth <= $exitDepth
-				&& $this->reader->nodeType == XMLReader::END_ELEMENT
+			if ( $this->reader->localName === $name && $this->reader->depth <= $exitDepth && $this->reader->nodeType === XMLReader::END_ELEMENT
 			) {
 				break;
-			} elseif ( $this->reader->namespaceURI == self::NS_SVG
-				&& $this->reader->nodeType == XMLReader::ELEMENT
+			} elseif ( $this->reader->namespaceURI === self::NS_SVG && $this->reader->nodeType === XMLReader::ELEMENT
 			) {
 				$sysLang = $this->reader->getAttribute( 'systemLanguage' );
 				if ( !is_null( $sysLang ) && $sysLang !== '' ) {
@@ -290,7 +288,7 @@ class SVGReader {
 		if ( $this->reader->getAttribute( 'viewBox' ) ) {
 			// min-x min-y width height
 			$viewBox = preg_split( '/\s*[\s,]\s*/', trim( $this->reader->getAttribute( 'viewBox' ) ) );
-			if ( count( $viewBox ) == 4 ) {
+			if ( count( $viewBox ) === 4 ) {
 				$viewWidth = $this->scaleSVGUnit( $viewBox[2] );
 				$viewHeight = $this->scaleSVGUnit( $viewBox[3] );
 				if ( $viewWidth > 0 && $viewHeight > 0 ) {
@@ -347,7 +345,7 @@ class SVGReader {
 		if ( preg_match( '/^\s*([-+]?\d*(?:\.\d+|\d+)(?:[Ee][-+]?\d+)?)\s*(em|ex|px|pt|pc|cm|mm|in|%|)\s*$/', $length, $matches ) ) {
 			$length = floatval( $matches[1] );
 			$unit = $matches[2];
-			if ( $unit == '%' ) {
+			if ( $unit === '%' ) {
 				return $length * 0.01 * $viewportSize;
 			} else {
 				return $length * $unitLength[$unit];

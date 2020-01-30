@@ -551,7 +551,7 @@ class phpwcmsCalendar {
                     $this->group_by = 'calendar_id';
                 }
 
-            };
+            }
         }
 
         $this->where            = implode(' AND ', $where);

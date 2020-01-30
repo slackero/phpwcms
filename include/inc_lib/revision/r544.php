@@ -28,7 +28,7 @@ function phpwcms_revision_r544() {
 
             _dbUpdate('phpwcms_calendar', array('calendar_refid' => ''), "calendar_refid='0'");
 
-        };
+        }
 
     }
 

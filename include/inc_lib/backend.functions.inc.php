@@ -111,7 +111,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
     $sn .= "</tr>";
     if(intval($h_after)) {
         $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>";
-    };
+    }
     $sn .= "</table>";
     echo $sn;
 }

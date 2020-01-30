@@ -26,9 +26,9 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 	<title>Choose Location</title>
 	<script type="text/javascript">
-		var ie4 = document.all&&navigator.userAgent.indexOf("Opera")==-1;
-		var ns6 = document.getElementById&&!document.all;
-		var ns4 = document.layers;
+		var ie4 = document.all && navigator.userAgent.indexOf("Opera") === -1,
+            ns6 = document.getElementById && !document.all,
+            ns4 = document.layers;
 
 		function setLocationXY(kx,ky) {
 			window.opener.document.articlecontent.cmap_location_x.value=kx;

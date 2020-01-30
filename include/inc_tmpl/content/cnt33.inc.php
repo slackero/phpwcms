@@ -220,16 +220,10 @@ initJsAutocompleter();
 <script type="text/javascript">
 
 	function setPaginateBasis() {
-
-		if($('#news_paginate_basis').prop('selectedIndex') == 0) {
-			$('#news_paginate_count').css('visibility', 'visible');
-		} else {
-			$('#news_paginate_count').css('visibility', 'hidden');
-		}
+		$('#news_paginate_count').css('visibility', $('#news_paginate_basis').prop('selectedIndex') ? 'hidden' : 'visible');
 	}
 
 	$(function(){
-
 		$("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
 			selectedItemProp: "cat_name",
 			selectedValuesProp: 'cat_name',
@@ -248,8 +242,8 @@ initJsAutocompleter();
 
 		setPaginateBasis();
 
-		var allowedLang = $('input.allowedLang');
-		var langAll = $('#langAll');
+		var allowedLang = $('input.allowedLang'),
+            langAll = $('#langAll');
 
 		langAll.change(function(){
 			if($(this).is(':checked')) {

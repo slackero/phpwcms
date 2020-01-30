@@ -64,7 +64,7 @@ if(isset($_POST["file_search"])) {
                     foreach($search["key"] as $value) {
                         if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
                             if($search["andor"]) {
-                                if(!isset($search["result"][$row["f_id"]])) {; //AND clause
+                                if(!isset($search["result"][$row["f_id"]])) {
                                     $search["result"][$row["f_id"]] = 1;
                                 } else {
                                     $search["result"][$row["f_id"]]++;

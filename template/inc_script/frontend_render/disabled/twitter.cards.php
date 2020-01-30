@@ -36,9 +36,8 @@ if(!$content['list_mode']) {
         );
         if(($match_twitter_cards = trim(strtolower($match_twitter_cards[1]))) && isset($twitter_cards[ $match_twitter_cards ])) {
             $twitter_card = $match_twitter_cards;
-        };
-
-    };
+        }
+    }
 
     set_meta('twitter:card', $twitter_card);
 

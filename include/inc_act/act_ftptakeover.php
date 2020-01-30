@@ -171,7 +171,7 @@ if(!$ftp["error"]) {
 
             $file_type      = '';
             $file_size      = filesize($file_path);
-            if(false === ($file_ext = check_image_extension($file_path, $file, $file_image_size))) {;
+            if(false === ($file_ext = check_image_extension($file_path, $file, $file_image_size))) {
                 $file_ext = which_ext($file);
             }
             $file_name      = sanitize_filename($ftp["filename"][$key]);

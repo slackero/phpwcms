@@ -164,7 +164,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
     } else {
 
         $fileName = sanitize_filename($_FILES["file"]["name"]);
-        if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {;
+        if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {
             $fileExt = which_ext($fileName);
         }
         $fileHash = md5( $fileName . microtime() );
@@ -204,7 +204,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
                 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
 
-                if($file_svg = @SVGMetadataExtractor::getMetadata($_FILES["file"]["tmp_name"])) {;
+                if($file_svg = @SVGMetadataExtractor::getMetadata($_FILES["file"]["tmp_name"])) {
                     $fileType = 'image/svg+xml';
                     $file_image_size = array(
                         0 => $file_svg['width'],
@@ -254,7 +254,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 }
             } else {
                 $oldumask = umask(0);
-                if(@mkdir($useruploadpath, 0777)) {;
+                if(@mkdir($useruploadpath, 0777)) {
                     if(!@move_uploaded_file($_FILES["file"]["tmp_name"], $usernewfile)) {
                         $file_error["upload"] = $BL['be_fprivup_err3'].' (2)';
                     }

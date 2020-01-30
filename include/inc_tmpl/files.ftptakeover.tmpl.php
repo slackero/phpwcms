@@ -399,7 +399,7 @@ $(function() {
             onComplete: function(id, fileName, responseJSON) {
                 if(responseJSON.success) {
                     uploadFileCount--;
-                    if(uploadFileCount == 0) {
+                    if(!uploadFileCount) {
                         document.location.reload(true);
                     }
                 }
