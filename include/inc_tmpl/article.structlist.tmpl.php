@@ -67,7 +67,7 @@ $a  = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#F
 $a .= '<td width="461">';
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
-$a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
+$a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
 $a .= "<img src=\"img/symbole/plus_".(($child_count) ? (($_SESSION["structure"][0]) ? "close" : "open") : "empty");
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count) ? "</a>" : "");
 
@@ -93,7 +93,7 @@ echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_arti
 
 echo "</td>\n</tr>\n";
 
-if($_SESSION["structure"][0]) {
+if(!empty($_SESSION["structure"][0])) {
     struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
     struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
