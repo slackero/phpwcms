@@ -36,7 +36,7 @@ function initMathSpam() {
     '";
 }
 function setFieldValue(el) {
-    if(el.options[el.selectedIndex].value == "mathspam") {
+    if(el.options[el.selectedIndex].value === "mathspam") {
         initMathSpam();
     }
 }

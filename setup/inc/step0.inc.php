@@ -61,14 +61,14 @@ $setup_recommend = true;
             $mysqlnd = false;
             $mysql_version = mysqli_get_client_info();
 
-            if (strpos($mysql_version, 'mysqlnd') !== false) {
+            if (strpos($mysql_version, 'mysqlnd') !== false) {                
                 $mysql_version = preg_replace('/^.*?\s(\d.+?)\s.*?$/', '$1', $mysql_version) . ' (client lib)';
                 $mysqlnd = true;
             }
 
             echo '<strong>' . $mysql_version . '</strong>';
 
-            $mysql_version = explode('.', $mysql_version);
+            $mysql_version = explode('.', preg_replace('/[^0-9.]/', '', str_replace(array('mysqlnd ', ' (client lib)'), '', strtolower($mysql_version))));
             $mysql_version[0] = (int)$mysql_version[0];
             $mysql_version[1] = empty($mysql_version[1]) ? 0 : (int)$mysql_version[1];
 

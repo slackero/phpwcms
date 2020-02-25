@@ -242,8 +242,8 @@ function tln_getnxtag($body, $offset)
             $tagtype = 3;
         } else {
             $gt = tln_findnxstr($body, $pos, '>');
-            $retary = array(false, false, false, $lt, $gt);
-            return $retary;
+
+            return array(false, false, false, $lt, $gt);
         }
             //intentional fall-through
     case '>':
@@ -1143,7 +1143,7 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
             array('target' => '"_blank"')
     );
 
-    $trusted = tln_sanitize(
+    return tln_sanitize(
         $body,
         $tag_list,
         $rm_tags_with_content,
@@ -1155,5 +1155,4 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
         $trans_image_path,
         $block_external_images
     );
-    return $trusted;
 }

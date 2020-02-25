@@ -20,7 +20,7 @@ if(!function_exists('dec_num_count')) {
     }
 }
 
-// In case shop module is used in  an older release
+// In case shop module is used in an older release
 if(!function_exists('phpwcms_boolval')) {
     function phpwcms_boolval(&$BOOL, &$STRICT=false) {
         return version_compare(PHP_VERSION, '5.5.0', '>=') ? boolval($BOOL) : boolval($BOOL, $STRICT);

@@ -2,7 +2,7 @@
 
 function showHide_TeaserArticleSelection(value) {
 
-    if(value == 0) {
+    if(!value) {
 
         toggleDisplayById('calink_auto_0', 'none');
         toggleDisplayById('calink_auto_1', 'none');
@@ -31,7 +31,7 @@ function showHide_CntFormfieldRow(whichLayer, status, rowplus) {
 
     var innerLink = '<a href="#" onclick="return showHide_CntFormfieldRow(\''+whichLayer+'\', ';
 
-    if(status == 'block') {
+    if(status === 'block') {
         innerLink += "'none'";
         if(rowplus == 5) {
             innerLink += ', 5';
@@ -58,7 +58,7 @@ function showHide_CntFormfieldRow(whichLayer, status, rowplus) {
 
         document.getElementById(whichLayer).innerHTML = innerLink;
 
-        if(status == 'block') {
+        if(status === 'block') {
             document.getElementById(whichLayer+'_1').style.display = 'table-row';
             document.getElementById(whichLayer+'_2').style.display = 'table-row';
             document.getElementById(whichLayer+'_3').style.display = 'table-row';

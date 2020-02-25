@@ -623,21 +623,21 @@ $(function() {
         },
         disableDefaultDropzone: false,
         onSubmit: function(id, fileName) {
-            if(uploadFileCount == 0) {
+            if(!uploadFileCount) {
                 fileBrowserForm.show();
             }
             uploadFileCount++;
         },
         onCancel: function(id, fileName) {
             uploadFileCount--;
-            if(uploadFileCount == 0) {
+            if(!uploadFileCount) {
                 fileBrowserForm.hide();
             }
         },
         onComplete: function(id, fileName, responseJSON) {
             if(responseJSON.success) {
                 uploadFileCount--;
-                if(uploadFileCount == 0) {
+                if(!uploadFileCount) {
                     document.location.reload(true);
                 }
             }

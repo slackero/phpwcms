@@ -227,7 +227,7 @@ function switchToggleFTP(field) {
 
 function toggleAllFTP(field, proof) {
     for (var i = 0; i < field.length; i++) {
-        field[i].checked = proof ? true : false;
+        field[i].checked = !!proof;
     }
 }
 
@@ -318,22 +318,23 @@ function getObjectById(fld) {
 }
 
 function switchDisabled(fld) {
-    fld.disabled = fld.disabled ? false : true;
+    fld.disabled = !fld.disabled;
     return false;
 }
 
 function enableStatusMessage(fld, showHide, text) {
+    var obj;
     if (document.getElementById && document.getElementById(fld) != null) {
-        var obj = document.getElementById(fld);
+        obj = document.getElementById(fld);
     } else if (document.layers && document.layers[fld] != null) {
-        var obj = document.layers[fld];
+        obj = document.layers[fld];
     } else {
         return true;
     }
     if (text) {
         obj.innerHTML = text;
     }
-    obj.style.display = (showHide == true) ? 'block' : 'none';
+    obj.style.display = showHide ? 'block' : 'none';
     return true;
 }
 

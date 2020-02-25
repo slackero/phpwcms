@@ -333,7 +333,7 @@ function nav_level_row($show_id, $show_home=1) {
 				$nav .= '<a href="'.$redirect['link'].'"'.$redirect['target'].$class.'>';
 			}
 			$nav .= $direct_before;
-			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);;
+			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			$nav .= $direct_after.'</a>'.$after;
 		}
 	}

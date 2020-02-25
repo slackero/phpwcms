@@ -62,12 +62,12 @@ function utf2html($str) {
     $max = strlen($str);
     $last = 0;  // keeps the index of the last regular character
     for ($i=0; $i < $max; $i++) {
-        $c = $str{$i};
+        $c = substr($str, $i, 1);
         $c1 = ord($c);
         if ($c1>>5 == 6) {  // 110x xxxx, 110 prefix for 2 bytes unicode
             $ret .= substr($str, $last, $i-$last); // append all the regular characters we've passed
             $c1 &= 31; // remove the 3 bit two bytes prefix
-            $c2 = ord($str{++$i}); // the next byte
+            $c2 = ord(substr($str, ++$i, 1)); // the next byte
             $c2 &= 63;  // remove the 2 bit trailing byte prefix
             $c2 |= (($c1 & 3) << 6); // last 2 bits of c1 become first 2 of c2
             $c1 >>= 2; // c1 shifts 2 to the right

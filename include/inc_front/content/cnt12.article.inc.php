@@ -27,7 +27,7 @@ if($crow['acontent_attr_id']) {
     $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
 }
 
-if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {;
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
     $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
     $crow['attr_class_id_close'] = '</div>';
 } else {
@@ -134,7 +134,7 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
 
         }
 
-    };
+    }
 
     if(empty($content["newsletter"]["newsletter_error"]) && is_valid_email($content["newsletter"]["email_address"]) && $content["newsletter"]["email_subscription"]) {
         //Success

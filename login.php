@@ -164,6 +164,19 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             $_SESSION["pklapp"]         = @unserialize($result[0]["usr_var_publicfile"]);
             $result[0]["usr_vars"]      = @unserialize($result[0]["usr_vars"]);
 
+            if(!is_array($_SESSION["structure"])) {
+                $_SESSION["structure"] = array();
+            }
+            if(!is_array($_SESSION["klapp"])) {
+                $_SESSION["klapp"] = array();
+            }
+            if(!is_array($_SESSION["pklapp"])) {
+                $_SESSION["pklapp"] = array();
+            }
+            if(!is_array($result[0]["usr_vars"])) {
+                $result[0]["usr_vars"]  = array();
+            }
+
             // Fallback to CKeditor?
             $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? false : true;
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();

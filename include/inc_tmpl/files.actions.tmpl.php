@@ -108,27 +108,27 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 <script type=text/javascript>
 function showAction() {
     divid = document.filetakeover.file_action.value;
-    if (divid == '0') {
+    if (divid === '0') {
         document.getElementById("div_button").style.display='none';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid == '1') {
+    } else if (divid === '1') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid == '2') {
+    } else if (divid === '2') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='block';
         document.getElementById("div_user").style.display='none';
-    } else if (divid == '3') {
+    } else if (divid === '3') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='block';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid == '4') {
+    } else if (divid === '4') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';

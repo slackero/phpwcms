@@ -72,7 +72,7 @@ if(!empty($step)) {
             }
             $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
 
-            if($db) {;
+            if($db) {
 
                 if($result = mysqli_query($db, "SELECT VERSION()")) {
 

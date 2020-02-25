@@ -408,7 +408,7 @@ window.addEvent('domready', function(){
 function setCalendarAllDay() {
 
     var calendarAllDay = $('calendar_allday');
-    if(calendarAllDay.checked == true) {
+    if(calendarAllDay.checked) {
         toggleDisplayById('endDate0', 'none');
         toggleDisplayById('endDate1', 'none');
         toggleDisplayById('endDate2', 'none');

@@ -21,6 +21,7 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $phpwcms_version = PHPWCMS_VERSION;
 $phpwcms_release_date = PHPWCMS_RELEASE_DATE;
 $phpwcms_revision = PHPWCMS_REVISION;
+define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
@@ -93,7 +94,7 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (get_magic_quotes_gpc()) {
+    if (!PHP7 && get_magic_quotes_gpc()) {
         $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
     }
     if ($string_laenge) {
@@ -106,7 +107,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (get_magic_quotes_gpc()) {
+    if (!PHP7 && get_magic_quotes_gpc()) {
         $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
     }
     $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);

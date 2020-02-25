@@ -225,10 +225,10 @@ $(function(){
 			change_alias_value	= $('#cnt_alias').val().trim();
 		},
 		keyup: function() {
-			if(change_name_value == ''){
+			if(change_name_value === ''){
 				$('#cnt_name').val(cnt_title.val());
 			}
-			if(change_alias_value == '') {
+			if(change_alias_value === '') {
 				$('#cnt_alias').val(create_alias( $('#cnt_name').val() ));
 			}
 		}

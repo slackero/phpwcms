@@ -111,7 +111,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
     $sn .= "</tr>";
     if(intval($h_after)) {
         $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>";
-    };
+    }
     $sn .= "</table>";
     echo $sn;
 }
@@ -798,11 +798,8 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
     $second         = 0;
 
     for($x=0; $x<=2; $x++) {
-
         if(isset($timeformat[$x])) {
-
-            $value = trim($timeformat[$x]);
-            switch( $value{0} ) {
+            switch(substr(trim($timeformat[$x]), 0, 1)) {
 
                 case 'H':   if(isset($time[$x])) {
                                 $hour = intval($time[$x]);
@@ -828,9 +825,7 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
                             }
                             break;
             }
-
         }
-
     }
 
     $time = str_replace($delimeter, ':', $default_time);
@@ -856,12 +851,8 @@ function _getDate($date='', $delimeter='', $default_date='') {
     $year           = '';
 
     for($x=0; $x<=2; $x++) {
-
         if(isset($dateformat[$x])) {
-
-            $value = trim($dateformat[$x]);
-            $value = strtolower($value);
-            switch( $value{0} ) {
+            switch(substr(strtolower(trim($dateformat[$x])), 0, 1)) {
 
                 case 'y':   if(isset($date[$x])) {
                                 $year = intval($date[$x]);
@@ -888,9 +879,7 @@ function _getDate($date='', $delimeter='', $default_date='') {
                             break;
 
             }
-
         }
-
     }
 
     if($year && $month && $day) {

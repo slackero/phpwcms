@@ -57,11 +57,11 @@ qq.getUniqueId = (function(){
 //
 // Browsers and platforms detection
 
-qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') != -1; };
-qq.safari   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf("Apple") != -1; };
-qq.chrome   = function(){ return navigator.vendor != undefined && navigator.vendor.indexOf('Google') != -1; };
-qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') != -1 && navigator.vendor != undefined && navigator.vendor == ''); };
-qq.windows  = function(){ return navigator.platform == "Win32"; };
+qq.ie       = function(){ return navigator.userAgent.indexOf('MSIE') !== -1; };
+qq.safari   = function(){ return navigator.vendor !== undefined && navigator.vendor.indexOf("Apple") !== -1; };
+qq.chrome   = function(){ return navigator.vendor !== undefined && navigator.vendor.indexOf('Google') !== -1; };
+qq.firefox  = function(){ return (navigator.userAgent.indexOf('Mozilla') !== -1 && navigator.vendor !== undefined && navigator.vendor === ''); };
+qq.windows  = function(){ return navigator.platform === "Win32"; };
 
 //
 // Events
@@ -108,7 +108,7 @@ qq.remove = function(element){
 
 qq.contains = function(parent, descendant){
     // compareposition returns false in this case
-    if (parent == descendant) return true;
+    if (parent === descendant) return true;
 
     if (parent.contains){
         return parent.contains(descendant);
@@ -140,7 +140,7 @@ qq.toElement = (function(){
  */
 qq.css = function(element, styles){
     if (styles.opacity != null){
-        if (typeof element.style.opacity != 'string' && typeof(element.filters) != 'undefined'){
+        if (typeof element.style.opacity !== 'string' && typeof(element.filters) !== 'undefined'){
             styles.filter = 'alpha(opacity=' + Math.round(100 * styles.opacity) + ')';
         }
     }

@@ -163,7 +163,7 @@ if(PHPWCMS_REWRITE) {
     $content["all"] = preg_replace_callback('/onclick="location.href=\'index.php\?([a-zA-Z0-9@,\.\+\-_\*#\/%=&;]+?)\'/', 'js_url_search', $content["all"]);
     if(PHPWCMS_REWRITE_EXT && strpos($content["all"], PHPWCMS_REWRITE_EXT.'&amp;')) {
         $content['all'] = str_replace(PHPWCMS_REWRITE_EXT.'&amp;', PHPWCMS_REWRITE_EXT.'?', $content["all"]);
-    };
+    }
 
     $content['all'] = str_replace('img/cmsimage.php', 'im', $content['all']);
     $content['page_start'] = str_replace('img/cmsimage.php', 'im', $content['page_start']);

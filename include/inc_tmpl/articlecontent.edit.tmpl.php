@@ -382,7 +382,7 @@ if($content['cp_setting_mode']):
     if(isset($template_default['attributes']['cpgroup_custom']) && is_array($template_default['attributes']['cpgroup_custom']) && count($template_default['attributes']['cpgroup_custom'])):
         foreach($template_default['attributes']['cpgroup_custom'] as $tab_type_value => $value):
 ?>
-                        <option value="<?php echo $tab_type_value ?>"<?php is_selected($tab_type_value, $content["tab_type"]); ?>><?php echo html($value['title']) ?></option>
+            <option value="<?php echo $tab_type_value ?>"<?php is_selected($tab_type_value, $content["tab_type"]); ?>><?php echo html($value['title']) ?></option>
 <?php
         endforeach;
     endif;
@@ -390,15 +390,14 @@ if($content['cp_setting_mode']):
                     </select>
                     <script>
 
-                        var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>, loadblock = true;
+                        var cTabStatus = <?php echo $content["tab_type"] ? 'true' : 'false' ?>,
+                            loadblock = true;
 
                         function checkTabStatus(tabVal) {
 
-                            var tabValue = tabVal.options[tabVal.selectedIndex].value;
+                            cTabStatus = tabVal.options[tabVal.selectedIndex].value !== '0';
 
-                            cTabStatus = tabValue !== '0';
-
-                            if(cTabStatus == false) {
+                            if(!cTabStatus) {
                                 document.getElementById('ctab1').style.display = 'none';
                                 document.getElementById('ctab2').style.display = 'none';
                             } else {
@@ -414,12 +413,12 @@ if($content['cp_setting_mode']):
                         }
 
                         function checkCntBlockPaginate(obj) {
-                            var paginate = document.getElementById("cpaginate_page");
-                            var block = obj.options[obj.selectedIndex].value;
-                            var system1 = document.getElementById('system1');
-                            var ctab = document.getElementById('ctab');
+                            var paginate = document.getElementById("cpaginate_page"),
+                                block = obj.options[obj.selectedIndex].value,
+                                system1 = document.getElementById('system1'),
+                                ctab = document.getElementById('ctab');
 
-                            if(block == 'SYSTEM') {
+                            if(block === 'SYSTEM') {
                                 system1.style.display = 'table-row';
                                 ctab.value = '0';
                                 ctab.disabled = true;
@@ -435,8 +434,8 @@ if($content['cp_setting_mode']):
 
                             }
 
-                            if(block != "CONTENT") {
-                                if(paginate.value != "0" && loadblock == false) {
+                            if(block !== 'CONTENT') {
+                                if(paginate.value !== "0" && !loadblock) {
                                     if(!confirm("<?php echo $BL['be_cnt_subsection_warning'] ?>")) {
                                         obj.selectedIndex = 0;
                                         return false;
@@ -450,9 +449,9 @@ if($content['cp_setting_mode']):
 
                         function checkCp() {
 
-                            var ctab = document.getElementById('ctab');
-                            var ctab_title = document.getElementById('ctab_title');
-                            var ctab_number = document.getElementById('ctab_number');
+                            var ctab = document.getElementById('ctab'),
+                                ctab_title = document.getElementById('ctab_title'),
+                                ctab_number = document.getElementById('ctab_number');
 
                             if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
                                 return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : utf8_decode($BL['confirm_cp_tab_warning']); ?>');
@@ -647,11 +646,11 @@ echo $_save_close_buttons;
         <table summary="" border="0" cellspacing="0" cellpadding="0" bgcolor="#E7E8EB">
             <tr>
                 <td class="v10"><label for="ccb">&nbsp;<?php echo $BL['be_article_cnt_before'] ?></label></td>
-                <td><input name="ccb" type="checkbox" id="ccb" value="1" <?php if($content["before"] !== '') echo "checked"; ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" /></td>
+                <td><input name="ccb" type="checkbox" id="ccb" value="1" <?php if($content["before"] !== '') echo "checked"; ?> onclick="if(!this.checked){this.form.cbefore.value='';}else if(this.form.cbefore.value===''){this.checked=false;}" /></td>
                 <td><input name="cbefore" type="text" id="cbefore" class="width40" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" /></td>
                 <td class="chatlist">&nbsp;<?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?>&nbsp;&nbsp;</td>
                 <td class="v10"><label for="cca">&nbsp;<?php echo $BL['be_article_cnt_after'] ?></label></td>
-                <td><input name="cca" type="checkbox" id="cca" value="1" <?php if($content["after"] !== '') echo "checked"; ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" /></td>
+                <td><input name="cca" type="checkbox" id="cca" value="1" <?php if($content["after"] !== '') echo "checked"; ?> onclick="if(!this.checked){this.form.cafter.value='';}else if(this.form.cafter.value===''){this.checked=false;}" /></td>
                 <td class="tdtop1 tdbottom1"><input name="cafter" type="text" id="cafter" class="width40" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" /></td>
                 <td class="chatlist">&nbsp;<?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?>&nbsp;</td>
                 <td bgcolor="#ffffff">&nbsp;</td>
