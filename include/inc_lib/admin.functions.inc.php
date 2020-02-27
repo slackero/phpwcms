@@ -55,7 +55,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td nowrap="nowrap" class="text-right here">'.LF;
     $a .= ($child_count) ? "<a href=\"cmsgo.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 
-    $a .= '<i class="fa fa-caret-'.(($child_count) ? ($_SESSION["structure"][ $struct[$key]["acat_id"] ]==0 ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+    $a .= '<i class="fa fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
     $info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
     $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';

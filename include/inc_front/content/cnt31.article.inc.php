@@ -145,8 +145,9 @@ if($image['template']) {
             $thumb_image        = false;
             $zoominfo           = false;
 
-            if($value['thumb_hash']) {
-
+            if(empty($value['thumb_hash'])) {
+                continue;
+            } else {
                 $thumb_image = get_cached_image(array(
                     "target_ext"    =>  $value['thumb_ext'],
                     "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
@@ -157,7 +158,7 @@ if($image['template']) {
                 ));
             }
 
-            if(!$value['thumb_hash'] || !$thumb_image) {
+            if(!$thumb_image) {
                 continue;
             }
 
