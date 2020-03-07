@@ -41,6 +41,11 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/ta
 }
 
 if($tabs['template']) {
+    
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 
     $tabs['entries']        = array();
 
@@ -160,10 +165,6 @@ if($tabs['template']) {
 
     }
 
-    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
 
 } else {
