@@ -26,7 +26,7 @@ function init_frontend_edit_js() {
 
     initJSPlugin('switchClass');
     // based on work and idea by markus@localhorst (http://forum.phpwcms.org/viewtopic.php?f=8&t=19551)
-    $GLOBALS['block']['js_ondomready'][] = '        $("a.fe-link").toggle();$("#fe-link").click(function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
+    $GLOBALS['block']['js_ondomready'][] = '        $("a.fe-link").toggle();$(document).on("click","#fe-link",function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
 
 }
 
