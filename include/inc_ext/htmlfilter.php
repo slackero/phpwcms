@@ -69,14 +69,12 @@ function tagprint($tagname, $attary, $tagtype){
         $fulltag = '</' . $tagname . '>';
     } else {
         $fulltag = '<' . $tagname;
-        if (is_array($attary) && sizeof($attary)){
-            $atts = array();
-            while (list($attname, $attvalue) = each($attary)){
-                array_push($atts, "$attname=$attvalue");
+        if (is_array($attary) && count($attary)) {
+            foreach ($attary as $attname => $attvalue) {
+                $fulltag .= ' ' . $attname . '=' . $attvalue;
             }
-            $fulltag .= ' ' . join(' ', $atts);
         }
-        if ($tagtype == 3){
+        if ($tagtype == 3) {
             $fulltag .= ' /';
         }
         $fulltag .= '>';
@@ -607,48 +605,50 @@ function fixatts($tagname,
                  ){
     $me = 'fixatts';
     //htmlfilter_debug("$me: Fixing attributes\n");
-    while (list($attname, $attvalue) = each($attary)){
-        /**
-         * See if this attribute should be removed.
-         */
-        foreach ($rm_attnames as $matchtag=>$matchattrs){
-            if (preg_match($matchtag, $tagname)){
-                foreach ($matchattrs as $matchattr){
-                    if (preg_match($matchattr, $attname)){
-                        //htmlfilter_debug("$me: Attribute '$attname' defined as bad.\n");
-                        //htmlfilter_debug("$me: Removing.\n");
-                        unset($attary[$attname]);
-                        continue;
+    if (is_array($attary) && count($attary)) {
+        foreach ($attary as $attname => $attvalue) {
+            /**
+             * See if this attribute should be removed.
+             */
+            foreach ($rm_attnames as $matchtag=>$matchattrs){
+                if (preg_match($matchtag, $tagname)){
+                    foreach ($matchattrs as $matchattr){
+                        if (preg_match($matchattr, $attname)){
+                            //htmlfilter_debug("$me: Attribute '$attname' defined as bad.\n");
+                            //htmlfilter_debug("$me: Removing.\n");
+                            unset($attary[$attname]);
+                            continue;
+                        }
                     }
                 }
             }
-        }
-        /**
-         * Remove any backslashes, entities, or extraneous whitespace.
-         */
-        defang($attvalue);
-        unspace($attvalue);
+            /**
+             * Remove any backslashes, entities, or extraneous whitespace.
+             */
+            defang($attvalue);
+            unspace($attvalue);
 
-        /**
-         * Now let's run checks on the attvalues.
-         * I don't expect anyone to comprehend this. If you do,
-         * get in touch with me so I can drive to where you live and
-         * shake your hand personally. :)
-         */
-        foreach ($bad_attvals as $matchtag=>$matchattrs){
-            if (preg_match($matchtag, $tagname)){
-                foreach ($matchattrs as $matchattr=>$valary){
-                    if (preg_match($matchattr, $attname)){
-                        /**
-                         * There are two arrays in valary.
-                         * First is matches.
-                         * Second one is replacements
-                         */
-                        list($valmatch, $valrepl) = $valary;
-                        $newvalue = preg_replace($valmatch,$valrepl,$attvalue);
-                        if ($newvalue != $attvalue){
-                            //htmlfilter_debug("$me: attvalue is now $newvalue\n");
-                            $attary[$attname] = $newvalue;
+            /**
+             * Now let's run checks on the attvalues.
+             * I don't expect anyone to comprehend this. If you do,
+             * get in touch with me so I can drive to where you live and
+             * shake your hand personally. :)
+             */
+            foreach ($bad_attvals as $matchtag=>$matchattrs){
+                if (preg_match($matchtag, $tagname)){
+                    foreach ($matchattrs as $matchattr=>$valary){
+                        if (preg_match($matchattr, $attname)){
+                            /**
+                             * There are two arrays in valary.
+                             * First is matches.
+                             * Second one is replacements
+                             */
+                            list($valmatch, $valrepl) = $valary;
+                            $newvalue = preg_replace($valmatch,$valrepl,$attvalue);
+                            if ($newvalue != $attvalue){
+                                //htmlfilter_debug("$me: attvalue is now $newvalue\n");
+                                $attary[$attname] = $newvalue;
+                            }
                         }
                     }
                 }
