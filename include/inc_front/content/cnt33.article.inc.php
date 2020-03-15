@@ -698,12 +698,12 @@ if($news['template']) {
                                     }
 
                                     // render gallery item
-                                    $ivalue =& $value['cnt_object']['cnt_files']['images'][ $value['gallery_id'][ $ivalue ] ];
+                                    $ivalue = $value['cnt_object']['cnt_files']['images'][ $value['gallery_id'][ $ivalue ] ];
 
                                     // check for caption and copyright
                                     if($news['config']['gallery_filecenter_info'] && !isset($value['gallery_captions'][$ikey])) {
 
-                                        if($news['config']['check_lang'] && $ivalue['f_vars']) {
+                                        if($news['config']['check_lang'] && !empty($ivalue['f_vars'])) {
 
                                             $ivalue['f_vars'] = @unserialize($ivalue['f_vars']);
 
@@ -716,8 +716,8 @@ if($news['template']) {
                                         }
 
                                         $value['gallery_captions'][$ikey] = array(
-                                            'caption' => $ivalue['f_longinfo'],
-                                            'copyright' => $ivalue['f_copyright']
+                                            'caption' => isset($ivalue['f_longinfo']) ? $ivalue['f_longinfo'] : '',
+                                            'copyright' => isset($ivalue['f_copyright']) ? $ivalue['f_copyright'] : ''
                                         );
                                     }
 

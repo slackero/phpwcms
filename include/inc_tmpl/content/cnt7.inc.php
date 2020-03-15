@@ -146,7 +146,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
   <td valign="top">
   	<textarea name="cfile_descr" cols="40" rows="5" class="width440 autosize" id="cfile_descr"><?php
 
-	if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
+	if(!empty($content["file_descr"]) && (substr($content["file_descr"], 0, 1) === "\r" || substr($content["file_descr"], 0, 1) === "\n")) {
 		echo ' ';
 	}
 	echo html($content["file_descr"]);

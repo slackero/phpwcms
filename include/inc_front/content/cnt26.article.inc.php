@@ -45,7 +45,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 	foreach($crow["acontent_form"]['ingredients'] as $temp_val) {
 		$temp_val = html_specialchars($temp_val);
 
-		if($temp_val{0} == '*') {	//headline
+		if(substr($temp_val, 0, 1) === '*') {	//headline
 			if(isset($crow["acontent_form"]['temp'][$ingrediens_counter]['h'])) {
 				$ingrediens_counter++;
 			}
