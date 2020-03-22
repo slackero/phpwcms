@@ -72,5 +72,3 @@ $BLM['tab_seo']					= 'SEO';
 
 $BLM['username']				= 'Benutzer';
 $BLM['userdatum']				= 'Login';
-
-?>

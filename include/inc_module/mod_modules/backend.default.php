@@ -36,5 +36,3 @@ $BLM = & $BL['modules'][$module];
 
 // listing
 include_once($cmsgo['modules'][$module]['path'].'backend.listing.php');
-
-?>

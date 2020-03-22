@@ -3,16 +3,14 @@
 // first define main language vars
 $BLM['backend_menu']  = 'CMSGO Module';
 $BLM['listing_title'] = 'CMSGO Module';
-$BLM['listing_intro'] = 'Für CMSGO stehen viele leistungsstarke Module für spezielle Anforderungen zur Verfügung. Wir möchten Ihnen einige dieser Module hier vorstellen. Kundenspezifische Module für komplexe Anforderungen können natürlich auch entwickelt werden.';
+$BLM['listing_intro'] = 'Fï¿½r CMSGO stehen viele leistungsstarke Module fï¿½r spezielle Anforderungen zur Verfï¿½gung. Wir mï¿½chten Ihnen einige dieser Module hier vorstellen. Kundenspezifische Module fï¿½r komplexe Anforderungen kï¿½nnen natï¿½rlich auch entwickelt werden.';
 
 $BLM['listing_shop'] = 'CMSGO Shop Modul';
-$BLM['promotext_shop'] = 'Das Shop Modul von CMSGO ermöglich den Aufbau eines einfachen Online Shops.';
+$BLM['promotext_shop'] = 'Das Shop Modul von CMSGO ermï¿½glich den Aufbau eines einfachen Online Shops.';
 
 $BLM['listing_calendar'] = 'CMSGO Kalender Modul';
-$BLM['promotext_calendar'] = 'Das Kalender Modul von CMSGO ermöglich den Aufbau eines umfangreichen Kalenders. Das Modul eigent sich für ..';
+$BLM['promotext_calendar'] = 'Das Kalender Modul von CMSGO ermï¿½glich den Aufbau eines umfangreichen Kalenders. Das Modul eigent sich fï¿½r ..';
 
 
 $BLM['listing_user'] = 'CMSGO Benutzerverwaltung Modul';
-$BLM['promotext_user'] = 'Das Benutzerverwaltungs Modul von CMSGO ermöglich die Verwaltung von Benutzerdaten wie zB von Kunden, Verbandsmitgliedern. Das Modul kann für die Mitlgiederverwaltung von Vereinen, für die zugangssteuerung von Kundenbereichen  usw. genutzt werden.';
-
-?>
+$BLM['promotext_user'] = 'Das Benutzerverwaltungs Modul von CMSGO ermï¿½glich die Verwaltung von Benutzerdaten wie zB von Kunden, Verbandsmitgliedern. Das Modul kann fï¿½r die Mitlgiederverwaltung von Vereinen, fï¿½r die zugangssteuerung von Kundenbereichen  usw. genutzt werden.';

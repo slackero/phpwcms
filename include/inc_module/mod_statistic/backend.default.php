@@ -63,5 +63,3 @@ include_once($cmsgo['modules'][$module]['path'].'inc/tabs.inc.php');
 
 // listing
 include_once($cmsgo['modules'][$module]['path'].'inc/listing.' . $controller . '.inc.php');
-
-?>

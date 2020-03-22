@@ -190,7 +190,7 @@ if (!isset($_GET["s"])) {
         if (isset($result[0]['template_id'])) {
             if (($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
                 $template = array_merge($template, $result[0]["template_var"]);
-            };
+            }
             $template["id"] = intval($result[0]["template_id"]);
             $template["default"] = $result[0]["template_default"];
 

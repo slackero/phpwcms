@@ -157,6 +157,6 @@ if($action == 'close' && $acat_id) {
     echo empty($content['current_acat'][0]["acat_alias"]) ? 'no alias' : $content['current_acat'][0]["acat_alias"];
     echo '<a href="#" class="btn btn-sm btn-blue float-right" onClick="'."AjaxLink('catalias-".$acat_id."', '".$acat_id."','');".'"><i class="fa fa-pencil-alt"></i></a>';
 }
-?>
+
 
 

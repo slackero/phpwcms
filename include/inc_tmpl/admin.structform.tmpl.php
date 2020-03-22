@@ -501,7 +501,7 @@ switch($acat_hidden) {
       $temp_count = 0;
       foreach($acat_cntpart as $value) {
           if(isset($wcs_content_type[$value])) {
-              echo '<option value="'.$value.'">'.$wcs_content_type[$value]."</option>\n";;
+              echo '<option value="'.$value.'">'.$wcs_content_type[$value]."</option>\n";
               unset($wcs_content_type[$value]);
           }
           $value1 = $value * (-1);

@@ -1175,7 +1175,7 @@ function return_bytes_shorten($val, $round = 2, $return_bytes = 0) {
     if($last === 'k' || $last === 'm' || $last === 'g' || $last === 't') {
         if($byte) {
             $val .= $space.'Byte';
-        };
+        }
         return $val;
     }
     $val = ceil($val);

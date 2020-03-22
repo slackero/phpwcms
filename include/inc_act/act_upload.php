@@ -98,7 +98,7 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
         require_once CMSGO_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
 
-        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$result['filename'])) {;
+        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$result['filename'])) {
             $data['f_type'] = 'image/svg+xml';
             $data['f_svg'] = 1;
             $data['f_image_width'] = $file_svg['width'];

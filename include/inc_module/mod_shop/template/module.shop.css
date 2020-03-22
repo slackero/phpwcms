@@ -117,8 +117,8 @@ textarea.code {
 }
 
 .show {
-	border-top: 0px solid #92A1AF;
-	border-bottom: 0px solid #92A1AF;
+	border-top: 0 solid #92A1AF;
+	border-bottom: 0 solid #92A1AF;
 }
 .show td.chatlist {
 	color: #406C94;

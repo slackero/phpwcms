@@ -32,7 +32,7 @@ hr {
 }
 
 ul {
-    margin: 0px 0px 0px 20px;
+    margin: 0 0 0 20px;
 }
 
 li {
@@ -69,7 +69,7 @@ a:hover {
     font-weight: bold;
     color: #000000;
     line-height: 110%;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .articleSummary {

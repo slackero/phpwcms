@@ -79,10 +79,10 @@ if ($method == "POST") {
     else {
         // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
         $result = $uploader->handleUpload("../../../content/tmp");
-        
+
         // To return a name used for uploaded file you can use the following line.
         $result["uploadName"] = $uploader->getUploadName();
-        
+
         rename('../../../content/tmp/'.$result["uuid"].'/'.$result["uploadName"], '../../../upload/'.$result["uploadName"]);
     }
     //echo $result["uploadName"];
@@ -97,4 +97,3 @@ else {
     header("HTTP/1.0 405 Method Not Allowed");
 }
 
-?>

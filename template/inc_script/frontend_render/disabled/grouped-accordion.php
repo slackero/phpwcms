@@ -1,7 +1,7 @@
 <?php
 // Load Accordion for grouped sections
 if(strpos($content['all'], $template_default['classes']['cpgroup-container'])) {
-	
+
 	// This is just a possible example of how to handle over class options
 	// which then could be used for other custom scripts
 	/*
@@ -14,13 +14,13 @@ if(strpos($content['all'], $template_default['classes']['cpgroup-container'])) {
 	};
 	');
 	*/
-	
+
 	// Hide all Accordion Content elements
 	// Better define this in your default CSS
 	renderHeadCSS('.'.$template_default['classes']['cpgroup-content'].' {
 		display: none;
 	}');
-	
+
 	// Load the slightly enhanced Accordion class
 	renderHeadJS('zebra_accordion.min');
 	renderHeadJS('
@@ -47,10 +47,7 @@ if(strpos($content['all'], $template_default['classes']['cpgroup-container'])) {
 		}
 		
 	});'
-	
+
 	);
 
 }
-
-
-?>

@@ -67,7 +67,7 @@ class cmsgoCalendar {
     /**
      * Initialize class
      */
-    function cmsgoCalendar() {
+    function __construct() {
 
         // current
         $this->current_date     = getdate();
@@ -551,7 +551,7 @@ class cmsgoCalendar {
                     $this->group_by = 'calendar_id';
                 }
 
-            };
+            }
         }
 
         $this->where            = implode(' AND ', $where);

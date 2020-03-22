@@ -27,7 +27,7 @@ function cmsgo_revision_r544() {
 
             _dbUpdate('cmsgo_calendar', array('calendar_refid' => ''), "calendar_refid='0'");
 
-        };
+        }
 
     }
 
@@ -97,7 +97,7 @@ function cmsgo_revision_r544() {
                 }
             }
 
-        };
+        }
     }
     // end
 

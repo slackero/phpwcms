@@ -71,7 +71,7 @@ if(!empty($step)) {
             }
             $db = mysqli_connect($db_host, $cmsgo["db_user"], $cmsgo["db_pass"], $cmsgo["db_table"]);
 
-            if($db) {;
+            if($db) {
 
                 if($result = mysqli_query($db, "SELECT VERSION()")) {
 

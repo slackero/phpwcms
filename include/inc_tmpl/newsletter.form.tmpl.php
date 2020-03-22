@@ -171,7 +171,7 @@ function showNewsletterTemplateData(tvar) {
 									if(!empty($newsletter["newsletter_vars"]["subscription"]) && count($newsletter["newsletter_vars"]["subscription"])) {
 											foreach($newsletter["newsletter_vars"]["subscription"] as $value) {
 													if($value == $row['subscription_id']): ?>
-							checked="checked"<?php;
+							checked="checked"<?php
 															break;
 													endif;
 											}

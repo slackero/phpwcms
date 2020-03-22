@@ -29,10 +29,3 @@ function roundAll($a) {
     $a = floatval($a);
     return round($a, 2);
 }
-
-
-
-
-
-
-?>
