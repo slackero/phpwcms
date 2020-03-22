@@ -2592,7 +2592,7 @@ function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $ta
     return $data;
 }
 
-function include_url($url) {
+function include_url($url, $ignore_ssl=false) {
     // include given URL but only take content between <body></body>
 
     global $include_urlparts;
@@ -2636,7 +2636,17 @@ function include_url($url) {
             $include_urlparts['path'] = dirname($include_urlparts['path']);
             $include_urlparts['path'] = str_replace('\\', '/', $include_urlparts['path']);
         }
-        $k = @file_get_contents($url);
+        if($ignore_ssl && function_exists('stream_context_create')) {
+            $context = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ),
+            );
+            $k = @file_get_contents($url, false, stream_context_create($context));
+        } else {
+            $k = @file_get_contents($url);
+        }
 
         if($k) {
             // now check against charset
@@ -2657,6 +2667,7 @@ function include_url($url) {
             if(preg_match('/<body[^>]*?'.'>(.*)<\/body>/is', $k, $match)) {
                 $k = $match[1];
             }
+
             $k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
             $k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
             $k = htmlfilter_sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
@@ -3153,7 +3164,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $bs_caret       = '';
         }
         if($bootstrap && $GLOBALS['template_default']['classes']['navlist-bs-link']) {
-            $li_a_class = trim($GLOBALS['template_default']['classes']['navlist-bs-link'].' '.$li_a_class);
+            $li_a_class = trim($li_a_class.' '.$GLOBALS['template_default']['classes']['navlist-bs-link']);
         }
         if($li_a_class) {
             $li_a_class = ' class="'.$li_a_class.'"';
