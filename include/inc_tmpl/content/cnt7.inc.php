@@ -130,7 +130,7 @@ if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_
   <div class="col">
     <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php
 
-    if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
+    if(!empty($content["file_descr"]) && (substr($content["file_descr"], 0, 1) === "\r" || substr($content["file_descr"], 0, 1) === "\n")) {
         echo ' ';
     }
     echo html($content["file_descr"]);

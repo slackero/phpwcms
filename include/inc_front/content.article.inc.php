@@ -367,10 +367,10 @@ if(isset($result[0]['article_id'])) {
                 // set content part pagination title
                 if(!isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ])) {
 
-                    $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] == '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
+                    $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] === '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
 
                 // check if content part title is set but starts with '#'
-                } elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] != '' && $content['CpPageTitles'][ $crow['acontent_paginate_page'] ]{0} == '#') {
+                } elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] !== '' && substr($content['CpPageTitles'][ $crow['acontent_paginate_page'] ], 0, 1) === '#') {
 
                     $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'];
 
