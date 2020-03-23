@@ -25,6 +25,7 @@ class Phpwcms_Image_lib {
     var $library_path = '';
     var $dynamic_output = false;    // Whether to send to browser or write to disk
     var $source_image = '';
+    var $dest_image = '';
     var $new_image = '';
     var $width = '';
     var $height = '';
@@ -1479,7 +1480,7 @@ class Phpwcms_Image_lib {
         // For now we require GD but we should
         // find a way to determine this using IM or NetPBM
 
-        if ( $path == '' ) {
+        if ( $path === '' ) {
             $path = $this->full_src_path;
         }
 
@@ -1493,8 +1494,12 @@ class Phpwcms_Image_lib {
 
         if ( ! isset( $this->image_cache[ $cache ] ) ) {
             $vals  = getimagesize( $path );
+
+            if ( ! isset($val[2]) ) {
+                return false;
+            }
             $types = array( 1 => 'gif', 2 => 'jpeg', 3 => 'png' );
-            $mime  = ( isset( $types[ $vals[2] ] ) ) ? 'image/' . $types[ $vals[2] ] : 'image/jpg';
+            $mime  = isset( $types[ $vals[2] ] ) ? 'image/' . $types[ $vals[2] ] : 'image/jpg';
 
             $this->image_current_vals = $vals;
 
@@ -1507,7 +1512,7 @@ class Phpwcms_Image_lib {
             );
         }
 
-        if ( $return == true ) {
+        if ( $return ) {
             return $this->image_cache[ $cache ];
         }
 
