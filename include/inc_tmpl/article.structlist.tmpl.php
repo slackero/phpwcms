@@ -68,7 +68,7 @@ $a .= '<td width="461">';
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
 $a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
-$a .= "<img src=\"img/symbole/plus_".(($child_count) ? (($_SESSION["structure"][0]) ? "close" : "open") : "empty");
+$a .= "<img src=\"img/symbole/plus_".($child_count ? (empty($_SESSION["structure"][0]) ? "open" : "close") : "empty");
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count) ? "</a>" : "");
 
 $a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" ";
