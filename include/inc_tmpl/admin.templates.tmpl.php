@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -190,7 +190,7 @@ if (!isset($_GET["s"])) {
         if (isset($result[0]['template_id'])) {
             if (($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
                 $template = array_merge($template, $result[0]["template_var"]);
-            }
+            };
             $template["id"] = intval($result[0]["template_id"]);
             $template["default"] = $result[0]["template_default"];
 
@@ -564,7 +564,6 @@ if (!isset($_GET["s"])) {
                         </div>
                     </div>
                 </div>
-            </div>
 
             <div class="form-group form-row align-items-center">
                 <label for="be_admin_tmpl_js"
@@ -696,7 +695,7 @@ if (!isset($_GET["s"])) {
                               id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                 </div>
             </div>
-        </div>
+        
         <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
             <input name="Submit" type="submit" class="btn btn-sm btn-blue"
@@ -704,7 +703,7 @@ if (!isset($_GET["s"])) {
             <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>"
                    onclick="location.href='cmsgo.php?do=admin&amp;p=11';"/>
         </div>
-    </form>
+        </form>
 
     <script type="text/javascript">
         $(function () {
