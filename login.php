@@ -269,7 +269,11 @@ $reason_types = array(
 <body>
 <div style="margin:0 auto;width:500px;padding-top:50px;">
 
-    <h2><a href="index.php" target="_top"><img src="img/backend/phpwcms-signet-be.png" alt="phpwcms" style="margin:0 18px 12px 18px;border:0;" /></a></h2>
+    <h2>
+        <a href="index.php" target="_top" class="d-inline-block" style="padding:0 18px 12px 15px;">
+            <img src="img/backend/phpwcms-logo.png" srcset="img/backend/phpwcms-logo.svg" alt="phpwcms" width="202" height="56" />
+        </a>
+    </h2>
 
     <div style="border-radius:15px;background:#fff;padding:15px;box-shadow:2px 2px 10px rgba(0,0,0,.25);">
 

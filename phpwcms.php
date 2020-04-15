@@ -262,7 +262,7 @@ if($BE['LANG'] == 'ar') {
     <tr>
         <td colspan="6">
         <div style="position:relative;margin:15px 15px 7px 15px;">
-            <a href="phpwcms.php" target="_top"><img src="img/backend/phpwcms-signet-be-small.png" alt="phpwcms v<?php echo  html_specialchars(PHPWCMS_VERSION); ?>" width="104" height="26" border="0" /></a>
+            <a href="phpwcms.php" target="_top" class="d-inline-block"><img src="img/backend/phpwcms-logo.png" srcset="img/backend/phpwcms-logo.svg" alt="phpwcms v<?php echo html_specialchars(PHPWCMS_VERSION); ?>" width="112" height="31" class="img-fluid" /></a>
             <a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:0;bottom:5px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
         </div>
         </td>
