@@ -47,7 +47,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td width="461">';
     $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
     $a .= '<td nowrap="nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
-    $a .= ($child_count) ? "<a href=\"phpwcms.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
+    $a .= $child_count ? '<a href="phpwcms.php?'.$page_val.'&amp;open='.rawurlencode($struct[$key]["acat_id"].':'.(empty($_SESSION["structure"][$struct[$key]["acat_id"]])?1:0)).'>' : '';
     $a .= "<img src=\"img/symbole/plus_".(($child_count) ? ((!empty($_SESSION["structure"][ $struct[$key]["acat_id"] ])) ? "close" : "open") : "empty");
     $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
     $a .= "<img src=\"img/symbole/page_".(!$struct[$key]["acat_hidden"]?1:7);

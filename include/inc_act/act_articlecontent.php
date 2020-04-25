@@ -71,12 +71,12 @@ if(isset($_GET["sort"])) {
         $sort2 = $sort1+10;
     }
 
-    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort1.
+    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort1.',acontent_tstamp=acontent_tstamp'.
            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
            " AND acontent_id=".$id1;
     _dbQuery($sql, 'UPDATE');
 
-    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort2.
+    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort2.',acontent_tstamp=acontent_tstamp'.
            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
            " AND acontent_id=".$id2;
     _dbQuery($sql, 'UPDATE');

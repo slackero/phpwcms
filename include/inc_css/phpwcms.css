@@ -1115,6 +1115,7 @@
     width: 100%;
 }
 
+.d-block,
 .tab-option-radio {
     display: block;
 }
@@ -1508,6 +1509,15 @@
     width: 85px;
 }
 
+img {
+    border: 0;
+}
+
+img.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
 a {
     background-color: transparent;
     color: #325676;
@@ -1526,6 +1536,8 @@ abbr {
     display: inline-block;
     text-decoration: none;
 }
+
+
 
 body {
     background: -webkit-gradient(linear, left top, left bottom, from(#347199), to(#c1d2e2));
@@ -1833,6 +1845,7 @@ div.tab {
     padding: 7px 0;
 }
 
+.d-inline-block,
 div.tab .tab-delete {
     display: inline-block;
 }

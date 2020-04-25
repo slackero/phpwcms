@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //file list
 
-// if $IS_NEWS_CP = true then file list content part rendere is
+// if $IS_NEWS_CP = true then file list content part render is
 // included by news content part
 
 // default cp rendering
@@ -53,19 +53,23 @@ $content['files'] = array();
 $content['files_sql'] = array();
 
 // build file id query first
-foreach($crow["acontent_files"] as $fkey => $fkey_value) {
+if(is_array($crow["acontent_files"]) && count($crow["acontent_files"])) {
+    foreach($crow["acontent_files"] as $fkey => $fkey_value) {
 
-    $fkey_value = intval($fkey_value);
+        $fkey_value = intval($fkey_value);
 
-    if($fkey_value) {
-        $content['files'][$fkey]['file_id'] = $fkey_value;
-        $content['files'][$fkey]['file_info'] = isset($crow["acontent_text"][$fkey]) ? (is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey])) : '';
-        $content['files_sql'][$fkey] = $fkey_value;
+        if($fkey_value) {
+            $content['files'][$fkey]['file_id'] = $fkey_value;
+            $content['files'][$fkey]['file_info'] = isset($crow["acontent_text"][$fkey]) ? (is_array($crow["acontent_text"][$fkey]) ? $crow["acontent_text"][$fkey] : trim($crow["acontent_text"][$fkey])) : '';
+            $content['files_sql'][$fkey] = $fkey_value;
+        }
     }
-}
 
-// create where query part for file ID
-$content['files_sql'] = is_array($content['files_sql']) && count($content['files_sql']) ? 'f_id IN(' . implode(',', $content['files_sql']).')' : '';
+    // create where query part for file ID
+    $content['files_sql'] = is_array($content['files_sql']) && count($content['files_sql']) ? 'f_id IN(' . implode(',', $content['files_sql']).')' : '';
+} else {
+    $content['files_sql'] = '';
+}
 
 // if $content['files_sql'] is empty makes no sense to continue
 if($content['files_sql']) {
@@ -85,68 +89,79 @@ if($content['files_sql']) {
 
     }
 
-    if(is_array($content['files_result']) && count($content['files_result'])) {
+} else {
 
-        if($crow["acontent_template"] == 'download-inline' && !is_file(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl')) {
-            $crow["acontent_template"] = '';
-        }
+    $content['files_result'] = array();
 
-        // get filelist template
-        if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl')) {
+}
 
-            $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
 
-        } elseif($crow["acontent_template"] == 'download-inline') {
+if($crow["acontent_template"] == 'download-inline' && !is_file(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl')) {
+    $crow["acontent_template"] = '';
+}
 
-            $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl') );
+// get filelist template
+if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl')) {
 
-        } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"])) {
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist.tmpl') );
 
-            $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"]) );
+} elseif($crow["acontent_template"] == 'download-inline') {
 
-        } else {
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/filelist_inline.tmpl') );
 
-            $crow["acontent_template"]  = '[TITLE]<h4>{TITLE}</h4>[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>[/SUBTITLE][TEXT]{TEXT}[/TEXT]'.LF;
-            $crow["acontent_template"] .= '<ul class="fileDownload">' . LF . '<!--FILE_ENTRY_START//-->' . LF;
-            $crow["acontent_template"] .= ' <li><a href="{FILE_LINK}"{FILE_TARGET}>{FILE_NAME}</a></li>' . LF;
-            $crow["acontent_template"] .= '<!--FILE_ENTRY_END//-->' . LF . '</ul>' . LF;
+} elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"])) {
 
-        }
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/filelist/'.$crow["acontent_template"]) );
 
-        $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
-        $_files_settings = parse_ini_str($_files_settings, false);
-        $_files_settings = array_merge(
-            array(
-                'icon_path' => 'img/icons/',
-                'icon_name' => 'small_icon_{FILE_EXT}.gif',
-                'thumbnail' => 0,
-                'thumbnail_width' => 50,
-                'thumbnail_height' => 50,
-                'thumbnail_crop' => 1,
-                'lightbox_init' => 0,
-                'file_size_round' => 3,
-                'file_size_space' => ' ',
-                'date_format' => "%m/%d/%y",
-                'set_locale' => ''
-            ),
-            $_files_settings
-        );
+} else {
 
-        $crow["acontent_template"]  = replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
-        $content['template_file']   = get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
+    $crow["acontent_template"]  = '[HAS_FILES][TITLE]<h4>{TITLE}</h4>[/TITLE][SUBTITLE]<h5>{SUBTITLE}</h5>[/SUBTITLE][TEXT]{TEXT}[/TEXT]';
+    $crow["acontent_template"] .= '<ul class="fileDownload"><!--FILE_ENTRY_START//-->';
+    $crow["acontent_template"] .= '<li><a href="{FILE_LINK}"{FILE_TARGET}>{FILE_NAME}</a></li>';
+    $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
 
-        if($_files_settings['set_locale']) {
-            $_files_old_locale = setlocale(LC_ALL, "0");
-            setlocale(LC_ALL, $_files_settings['set_locale']);
-        }
-        if(!empty($_files_settings['lightbox_init'])) {
-            initSlimbox();
-        }
+}
 
-        $_files_count = count($content['files_result']);
-        $_files_entries = array();
-        $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === FALSE ? false : true; // check if necessary to check for image type and sizes
+$_files_has = is_array($content['files_result']) ? count($content['files_result']) : 0;
+$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0 ? true : false;
 
+if($_files_force_rendering || $_files_has) {
+
+    $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
+    $_files_settings = parse_ini_str($_files_settings, false);
+    $_files_settings = array_merge(
+        array(
+            'icon_path' => 'img/icons/',
+            'icon_name' => 'small_icon_{FILE_EXT}.gif',
+            'thumbnail' => 0,
+            'thumbnail_width' => 50,
+            'thumbnail_height' => 50,
+            'thumbnail_crop' => 1,
+            'lightbox_init' => 0,
+            'file_size_round' => 3,
+            'file_size_space' => ' ',
+            'date_format' => "%m/%d/%y",
+            'set_locale' => ''
+        ),
+        $_files_settings
+    );
+
+    $crow["acontent_template"]  = replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
+    $content['template_file']   = get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
+
+    if($_files_settings['set_locale']) {
+        $_files_old_locale = setlocale(LC_ALL, "0");
+        setlocale(LC_ALL, $_files_settings['set_locale']);
+    }
+    if($_files_has && !empty($_files_settings['lightbox_init'])) {
+        initSlimbox();
+    }
+
+    $_files_count = count($content['files_result']);
+    $_files_entries = array();
+    $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === FALSE ? false : true; // check if necessary to check for image type and sizes
+
+    if($_files_has) {
         foreach($content['files'] as $fkey => $file_item) {
 
             for($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
@@ -428,32 +443,34 @@ if($content['files_sql']) {
                 }
             }
         }
-
-        $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['file_cp_title']));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['file_cp_subtitle']));
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
-        $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
-
-        // cleanup left over FILE_IMAGE sections
-        $crow["acontent_template"] = replace_cnt_template($crow["acontent_template"], 'FILE_IMAGE', '');
-
-        // return result
-        if( empty($IS_NEWS_CP) ) {
-            $CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
-        } else {
-            $news['files_result'] = trim($crow["acontent_template"]);
-        }
-
-        // reset locale settings
-        if(!empty($_files_old_locale)) {
-            setlocale(LC_ALL, $_files_old_locale);
-        }
-
-        unset($_files_count, $_files_entries, $_files_old_locale);
-
     }
 
+    $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
+    if($_files_force_rendering) {
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HAS_FILES', $_files_has ? $_files_has : '');
+    }
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['file_cp_title']));
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['file_cp_subtitle']));
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
+    $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
+
+    // cleanup left over FILE_IMAGE sections
+    $crow["acontent_template"] = replace_cnt_template($crow["acontent_template"], 'FILE_IMAGE', '');
+
+    // return result
+    if(empty($IS_NEWS_CP)) {
+        $CNT_TMP .= LF.trim($crow["acontent_template"]).LF;
+    } else {
+        $news['files_result'] = trim($crow["acontent_template"]);
+    }
+
+    // reset locale settings
+    if(!empty($_files_old_locale)) {
+        setlocale(LC_ALL, $_files_old_locale);
+    }
+
+    unset($_files_count, $_files_entries, $_files_old_locale);
 }
+

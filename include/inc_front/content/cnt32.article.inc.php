@@ -42,10 +42,15 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/ta
 
 if($tabs['template']) {
 
-    $tabs['entries']        = array();
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
+    $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 
-    $tabs['tmpl_entry']     = get_tmpl_section('TABS_ENTRY', $tabs['template']);
-    $tabs['template']       = get_tmpl_section('TABS', $tabs['template']);
+    $tabs['entries'] = array();
+
+    $tabs['tmpl_entry'] = get_tmpl_section('TABS_ENTRY', $tabs['template']);
+    $tabs['template'] = get_tmpl_section('TABS', $tabs['template']);
 
     if($tabs['tab_fieldgroup'] === '' || empty($template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields'])) {
         $tabs['custom_tab_fields'] = array();
@@ -160,10 +165,6 @@ if($tabs['template']) {
 
     }
 
-    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'ATTR_ID', html($crow['acontent_attr_id']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'TITLE', html_specialchars($crow['acontent_title']));
-    $tabs['template'] = render_cnt_template($tabs['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
 
 } else {

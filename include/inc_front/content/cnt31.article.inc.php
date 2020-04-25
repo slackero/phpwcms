@@ -146,19 +146,20 @@ if($image['template']) {
             $thumb_image        = false;
             $zoominfo           = false;
 
-            if($value['thumb_hash']) {
-
+            if(empty($value['thumb_hash'])) {
+                continue;
+            } else {
                 $thumb_image = get_cached_image(array(
-                    "target_ext"    =>  $value['thumb_ext'],
-                    "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
-                    "max_width"     =>  $image['width'],
-                    "max_height"    =>  $image['height'],
-                    "thumb_name"    =>  md5($value['thumb_hash'].$image['width'].$image['height'].$phpwcms["sharpen_level"].$image['crop'].$phpwcms['colorspace']),
-                    'crop_image'    =>  $image['crop']
+                    "target_ext" => $value['thumb_ext'],
+                    "image_name" => $value['thumb_hash'] . '.' . $value['thumb_ext'],
+                    "max_width" => $image['width'],
+                    "max_height" => $image['height'],
+                    "thumb_name" => md5($value['thumb_hash'].$image['width'].$image['height'].$phpwcms["sharpen_level"].$image['crop'].$phpwcms['colorspace']),
+                    'crop_image' => $image['crop']
                 ));
             }
 
-            if(!$value['thumb_hash'] || !$thumb_image) {
+            if(!$thumb_image) {
                 continue;
             }
 
