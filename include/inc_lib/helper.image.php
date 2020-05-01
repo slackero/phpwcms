@@ -376,16 +376,12 @@ class Phpwcms_Image_lib {
         $this->y_axis = ( $this->y_axis == '' || ! preg_match( '/^[0-9]+$/', $this->y_axis ) ) ? 0 : $this->y_axis;
 
         // Watermark-related Stuff...
-        if ( $this->wm_font_color != '' ) {
-            if ( strlen( $this->wm_font_color ) == 6 ) {
-                $this->wm_font_color = '#' . $this->wm_font_color;
-            }
+        if ( $this->wm_font_color != '' && strlen( $this->wm_font_color ) == 6 ) {
+            $this->wm_font_color = '#' . $this->wm_font_color;
         }
 
-        if ( $this->wm_shadow_color != '' ) {
-            if ( strlen( $this->wm_shadow_color ) == 6 ) {
-                $this->wm_shadow_color = '#' . $this->wm_shadow_color;
-            }
+        if ( $this->wm_shadow_color != '' && strlen( $this->wm_shadow_color ) == 6 ) {
+            $this->wm_shadow_color = '#' . $this->wm_shadow_color;
         }
 
         if ( $this->wm_overlay_path != '' ) {
@@ -1436,7 +1432,7 @@ class Phpwcms_Image_lib {
      */
     function image_reproportion() {
         if ( ( $this->width == 0 && $this->height == 0 ) || $this->orig_width == 0 || $this->orig_height == 0 || ( ! preg_match( '/^[0-9]+$/',
-                    $this->width ) && ! preg_match( '/^[0-9]+$/', $this->height ) ) || ! preg_match( '/^[0-9]+$/',
+                $this->width ) && ! preg_match( '/^[0-9]+$/', $this->height ) ) || ! preg_match( '/^[0-9]+$/',
                 $this->orig_width ) || ! preg_match( '/^[0-9]+$/', $this->orig_height ) ) {
             return;
         }
@@ -1495,7 +1491,7 @@ class Phpwcms_Image_lib {
         if ( ! isset( $this->image_cache[ $cache ] ) ) {
             $vals  = getimagesize( $path );
 
-            if ( ! isset($val[2]) ) {
+            if ( ! isset($vals[2]) ) {
                 return false;
             }
             $types = array( 1 => 'gif', 2 => 'jpeg', 3 => 'png' );
