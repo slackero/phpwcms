@@ -978,20 +978,40 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
         $paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_PaginateNavigate', $paginate_navi);
 
         // next page link
+        $page_next_link = '<a';
         if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
             $_getVar['listpage'] = $page_next;
-            $page_next_link = '<a href="' . rel_url( array('listpage'=>$page_next) ) . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
+            $page_next_link .= ' href="' . rel_url( array('listpage'=>$page_next) ) . '"';
+            if ($template_default['classes']['cp-paginate-link']) {
+                $page_next_link .= ' class="' . $template_default['classes']['cp-paginate-link'] . '"';
+            }
         } else {
-            $page_next_link = $GLOBALS['paginate_temp']['next'];
+            if ($template_default['attributes']['cp-paginate']['href-disabled']) {
+                $page_next_link .= ' href="' . $template_default['attributes']['cp-paginate']['href-disabled'] . '" data-disabled="true" tabindex="-1" aria-disabled="true"';
+            }
+            if ($template_default['classes']['cp-paginate-link-disabled']) {
+                $page_next_link .= ' class="' . $template_default['classes']['cp-paginate-link-disabled'] . '"';
+            }
         }
+        $page_next_link .= '>' . $GLOBALS['paginate_temp']['next'] . '</a>';
 
         // previous page link
+        $page_prev_link = '<a';
         if($GLOBALS['paginate_temp']['prev'] && $page_current > 1) {
             $_getVar['listpage'] = $page_prev;
-            $page_prev_link = '<a href="' . rel_url( array('listpage'=>$page_prev) ) . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
+            $page_prev_link .= ' href="' . rel_url( array('listpage'=>$page_prev) ) . '"';
+            if ($template_default['classes']['cp-paginate-link']) {
+                $page_prev_link .= ' class="' . $template_default['classes']['cp-paginate-link'] . '"';
+            }
         } else {
-            $page_prev_link = $GLOBALS['paginate_temp']['prev'];
+            if ($template_default['attributes']['cp-paginate']['href-disabled']) {
+                $page_prev_link .= ' href="' . $template_default['attributes']['cp-paginate']['href-disabled'] . '" data-disabled="true" tabindex="-1" aria-disabled="true"';
+            }
+            if ($template_default['classes']['cp-paginate-link-disabled']) {
+                $page_prev_link .= ' class="' . $template_default['classes']['cp-paginate-link-disabled'] . '"';
+            }
         }
+        $page_prev_link .= '>' . $GLOBALS['paginate_temp']['prev'] . '</a>';
 
         // set listpage value to current page
 
@@ -1012,13 +1032,20 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
             $navi['suffix'] = empty($navi[1][2]) ? ''  : $navi[1][2]; //suffix
 
             $navi['navi']   = $navi['prefix'];
+            $navi['link_class'] = $template_default['classes']['search-paginate-link'] ? ' class="' . $template_default['classes']['search-paginate-link'] .'"' : '';
+            $navi['link_active_class'] = $template_default['classes']['search-paginate-link-active'] ? ' class="' . $template_default['classes']['search-paginate-link-active'] .'"' : '';
 
             if($navi[0] == '123') {
 
                 for($i = 1; $i <= $max_pages; $i++) {
 
-                    if($i > 1) $navi['navi'] .= $navi['spacer'];
-                    $navi['navi'] .= ($i == $page_current) ? $i : '<a href="' . rel_url( array('listpage'=>$i) ) . '">'.$i.'</a>';
+                    if($i > 1) {
+                        $navi['navi'] .= $navi['spacer'];
+                    }
+
+                    $navi['navi'] .= '<a href="' . rel_url( array('listpage' => $i) ) . '"';
+                    $navi['navi'] .= ($i === $page_current) ? $navi['link_active_class'] : $navi['link_class'];
+                    $navi['navi'] .= '>' . $i . '</a>';
 
                 }
 
@@ -1028,12 +1055,18 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
                     $i_start    = $i * $content['struct'][ $content['cat_id'] ]['acat_maxlist'] + 1;
                     $i_end      = $i_start - 1 + $content['struct'][ $content['cat_id'] ]['acat_maxlist'];
-                    if($i_end > $max_articles) $i_end = $max_articles;
+                    if($i_end > $max_articles) {
+                        $i_end = $max_articles;
+                    }
 
-                    if($i > 0) $navi['navi'] .= $navi['spacer'];
+                    if($i > 0) {
+                        $navi['navi'] .= $navi['spacer'];
+                    }
                     $i_entry    = $i_start.'&ndash;'.$i_end;
                     $i_page     = $i+1;
-                    $navi['navi'] .= ($i_page == $page_current) ? $i_entry : '<a href="' . rel_url( array('listpage'=>$i_page) ) . '">'.$i_entry.'</a>';
+                    $navi['navi'] .= '<a href="' . rel_url( array('listpage' => $i_page) ) . '"';
+                    $navi['navi'] .= ($i_page === $page_current) ? $navi['link_active_class'] : $navi['link_class'];
+                    $navi['navi'] .= '>' . $i_entry . '</a>';
 
                 }
 

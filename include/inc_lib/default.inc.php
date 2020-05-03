@@ -71,7 +71,7 @@ $phpwcms['charsets'] = array(
     'shift_jis',
 );
 
-define('PHPWCMS_CHARSET',  empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
+define('PHPWCMS_CHARSET', empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
 
 if(!empty($phpwcms['php_charset'])) {
     @ini_set('default_charset', PHPWCMS_CHARSET);
@@ -93,16 +93,8 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 
 }
 
-if($phpwcms["site"] === '') {
-    $phpwcms["site"] = get_url_origin(true);
-} else {
-    $phpwcms["site"] = rtrim($phpwcms["site"], '/');
-}
-if(empty($phpwcms['site_ssl_url'])) {
-    $phpwcms['site_ssl_url'] = $phpwcms["site"];
-} else {
-    $phpwcms["site_ssl_url"] = rtrim($phpwcms["site_ssl_url"], '/');
-}
+$phpwcms["site"] = $phpwcms["site"] === '' ? get_url_origin(true) : rtrim($phpwcms["site"], '/');
+$phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms["site"] : rtrim($phpwcms["site_ssl_url"], '/');
 if(substr($phpwcms['site_ssl_url'], 0, 5) == 'http:') {
     $phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
 }
@@ -166,9 +158,7 @@ define('BROWSER_NAME', $phpwcms['USER_AGENT']['agent']);
 define('BROWSER_NUMBER', $phpwcms['USER_AGENT']['version']);
 define('BROWSER_OS', $phpwcms['USER_AGENT']['platform']);
 define('BROWSER_MOBILE', $phpwcms['USER_AGENT']['mobile']);
-
 $phpwcms["file_path"] =   '/'.$phpwcms["file_path"].'/' ;  // "/phpwcms_filestorage/"
-
 define('TEMPLATE_PATH', $phpwcms["templates"].'/');
 $phpwcms["templates"] = '/'.$phpwcms["templates"].'/' ;  // "/phpwcms_template/"
 $phpwcms["content_path"] = $phpwcms["content_path"].'/'  ;  // "content/"
@@ -203,17 +193,11 @@ if(function_exists('mb_substr')) {
 
     function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
         if($length !== NULL) {
-            if(phpwcms_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start, $length));
-            } else {
-                return substr($str, $start, $length);
-            }
+            return phpwcms_seems_utf8($str) ? utf8_encode(substr(utf8_decode($str), $start, $length)) : substr($str, $start, $length);
+        } elseif(phpwcms_seems_utf8($str)) {
+            return utf8_encode(substr(utf8_decode($str), $start));
         } else {
-            if(phpwcms_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start));
-            } else {
-                return substr($str, $start);
-            }
+            return substr($str, $start);
         }
     }
     function mb_strlen($str='', $encoding='') {
@@ -317,11 +301,8 @@ $phpwcms['js_lib_deprecated'] = array(
     'jquery'                => 'jQuery 1.3.2',
 );
 
-if(isset($phpwcms['js_lib'])) {
-    $phpwcms['js_lib'] = array_merge($phpwcms['js_lib_default'], $phpwcms['js_lib']);
-} else {
-    $phpwcms['js_lib'] = $phpwcms['js_lib_default'];
-}
+$phpwcms['js_lib'] = isset($phpwcms['js_lib']) ? array_merge($phpwcms['js_lib_default'], $phpwcms['js_lib']) : $phpwcms['js_lib_default'];
+
 if(!empty($phpwcms['enable_deprecated'])) {
     $phpwcms['js_lib'] = array_merge($phpwcms['js_lib'], $phpwcms['js_lib_deprecated']);
 }
@@ -416,6 +397,9 @@ $phpwcms['default_template_classes'] = array(
     'shop-products-menu'            => 'shop-products',
     'cp-paginate-link'              => 'paginate-link',
     'cp-paginate-link-active'       => 'paginate-link active',
+    'search-paginate-link'          => 'paginate-link',
+    'search-paginate-link-active'   => 'paginate-link active',
+    'search-paginate-link-disabled' => 'paginate-link disabled',
     'newsletter-table'              => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email'        => 'form-control',
@@ -437,7 +421,8 @@ $phpwcms['default_template_attributes'] = array(
         'link-prefix' => ' ',
         'link-suffix' => ' ',
         'value-prefix' => '',
-        'value-suffix' => ''
+        'value-suffix' => '',
+        'href-disabled' => '#'
     ),
     'data-gallery' => 'gallery',
 );
@@ -1395,13 +1380,9 @@ function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w',
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
     $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
-    if($set_protocol) {
-        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
-    } else {
-        $protocol = '';
-    }
+    $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
-    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
     $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
@@ -1426,5 +1407,4 @@ function logdir_exists() {
             @file_put_contents(PHPWCMS_LOGDIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
         }
     }
-
 }
