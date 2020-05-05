@@ -418,8 +418,10 @@ $phpwcms['default_template_attributes'] = array(
     'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
     'cpgroup'                   => 'data', // data = <span>, href = <a>
     'cp-paginate' => array(
-        'link-prefix' => ' ',
-        'link-suffix' => ' ',
+        'wrap-prefix' => '<ul>',
+        'wrap-suffix' => '</ul>',
+        'link-prefix' => '<li>',
+        'link-suffix' => '</li>',
         'value-prefix' => '',
         'value-suffix' => '',
         'href-disabled' => '#'

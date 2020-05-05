@@ -420,8 +420,10 @@ $template_default['attributes'] = array(
         ) */
     ),
     'cp-paginate' => array(
-        'link-prefix' => ' ',
-        'link-suffix' => ' ',
+        'wrap-prefix' => '<ul>',
+        'wrap-suffix' => '</ul>',
+        'link-prefix' => '<li>',
+        'link-suffix' => '</li>',
         'value-prefix' => '',
         'value-suffix' => '',
         'href-disabled' => ''
