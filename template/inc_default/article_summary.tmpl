@@ -3,12 +3,13 @@
     [SUB]<h2>{SUB}</h2>[/SUB]
     [IMAGE]
         <div class="article-summary-image">
-        [IMAGE_URL]<a href="{IMAGE_URL}"[IMAGE_TARGET] target="{IMAGE_TARGET}"[/IMAGE_TARGET]>[/IMAGE_URL]
-            {IMAGE}[CAPTION_SUPPRESS_ELSE][CAPTION]<span class="caption">
-                {CAPTION}[COPYRIGHT]
-                <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
-            </span>[/CAPTION][/CAPTION_SUPPRESS_ELSE]
-        [IMAGE_URL]</a>[/IMAGE_URL]
+            {IMAGE}
+            [IMAGE_URL]<a href="{IMAGE_URL}"[IMAGE_TARGET] target="{IMAGE_TARGET}"[/IMAGE_TARGET]>[/IMAGE_URL]
+                [CAPTION_SUPPRESS_ELSE][CAPTION]<span class="caption">
+                    {CAPTION}[COPYRIGHT]
+                    <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </span>[/CAPTION][/CAPTION_SUPPRESS_ELSE]
+            [IMAGE_URL]</a>[/IMAGE_URL]
         </div>
     [/IMAGE]
     [SUMMARY]

@@ -217,7 +217,7 @@ if(isset($result[0]['article_id'])) {
     $img_thumb_alt      = $caption[1];
     $img_thumb_title    = $caption[3];
     $img_thumb_url      = $caption[2][0];
-    $img_thumb_target   = $caption[2][1];
+    $img_thumb_target   = $caption[2][2];
 
     $img_zoom_name      = empty($row["article_image"]['name']) ? '' : $row["article_image"]['name'];
     $img_zoom_rel       = '';
@@ -431,7 +431,7 @@ if(isset($result[0]['article_id'])) {
         } else {
             $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>'.LF.'[/TITLE][SUB]<h3>{SUB}</h3>'.LF.'[/SUB]';
             $row["article_image"]['tmplfull'] .= '[SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}';
-                $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
+            $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
         }
 
     }
@@ -490,7 +490,7 @@ if(isset($result[0]['article_id'])) {
             // Search for all system related content parts
             $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
             $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
-                $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
+            $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
             if(!FEUSER_LOGIN_STATUS) {
                 $sql_cnt .= 'AND acontent_granted=0 ';
             }
@@ -501,7 +501,7 @@ if(isset($result[0]['article_id'])) {
         }
 
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'IMAGE', $thumb_img);
-            $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION_SUPPRESS', empty($row['article_image']['caption_suppress']) ? '' : ' ');
+        $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION_SUPPRESS', empty($row['article_image']['caption_suppress']) ? '' : ' ');
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CAPTION', nl2br(html_specialchars($row["article_image"]["caption"])));
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'COPYRIGHT', html_specialchars($row["article_image"]["copyright"]));
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'ALT', html($img_thumb_alt));
@@ -529,8 +529,8 @@ if(isset($result[0]['article_id'])) {
 
     // render content parts
     $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
-        $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
-        $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
+    $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
+    $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
     if( !FEUSER_LOGIN_STATUS ) {
         $sql_cnt .= 'AND acontent_granted=0 ';
     }
@@ -591,11 +591,11 @@ if(isset($result[0]['article_id'])) {
             $CNT_TMP .= 'id="cpid'.$crow["acontent_id"].'" class="'.$template_default['classes']['cp-anchor'].'"></a>';
         }
 
-            // set CP space before and after or wrap if both
-            $content['cp_spacers'] = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
+        // set CP space before and after or wrap if both
+        $content['cp_spacers'] = getContentPartSpacer($crow["acontent_before"], $crow["acontent_after"]);
 
         // Space before
-            $CNT_TMP .= $content['cp_spacers']['before'];
+        $CNT_TMP .= $content['cp_spacers']['before'];
 
         // set frontend edit link
         if($content['article_frontend_edit']) {
@@ -621,9 +621,9 @@ if(isset($result[0]['article_id'])) {
         $CNT_TMP .= getContentPartTopLink($crow["acontent_top"]);
 
         // Space after
-            $CNT_TMP .= $content['cp_spacers']['after'];
+        $CNT_TMP .= $content['cp_spacers']['after'];
 
-            // Maybe content part ID should be used inside templates or for something different
+        // Maybe content part ID should be used inside templates or for something different
         $CNT_TMP = str_replace( array('[%CPID%]', '{CPID}'), $crow["acontent_id"], $CNT_TMP );
 
         // trigger content part functions

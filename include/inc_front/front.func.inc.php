@@ -3413,7 +3413,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             return array(
                 0 => '',
                 1 => '',
-                2 => array('', ''),
+                2 => array('', '', ''),
                 3 => '',
                 4 => '',
                 'caption_text' => '',
@@ -3427,7 +3427,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         return array(
             0 => '',
             1 => '',
-            2 => array('', ''),
+            2 => array('', '', ''),
             3 => '',
             4 => ''
         );
@@ -3463,13 +3463,17 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         );
     }
 
-    $caption[2]     = isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
-    $caption[2][0]  = trim($caption[2][0]);
+    $caption[2]    = isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
+    $caption[2][0] = trim($caption[2][0]);
+    $caption[2][2] = '';
     if(empty($caption[2][0]) || empty($caption[2][1])) {
-        $caption[2][1]  = '';
+        $caption[2][1] = '';
     } else {
-        $caption[2][1]  = trim($caption[2][1]);
-        $caption[2][1]  = empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
+        $caption[2][1] = trim($caption[2][1]);
+        if(!empty($caption[2][1])) {
+            $caption[2][2] = $caption[2][1];
+            $caption[2][1] = ' target="' . $caption[2][1] . '"';
+        }
     }
 
     $caption[4] = isset($caption[4]) ? trim($caption[4]) : (isset($filedata['f_copyright']) ? $filedata['f_copyright'] : '');
@@ -3489,7 +3493,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             'caption_text' => $caption[0],
             'caption_alt' => $caption[1],
             'caption_link' => $caption[2][0],
-            'caption_target' => $caption[2][1],
+            'caption_target' => $caption[2][2],
             'caption_title' => $caption[3],
             'caption_copyright' => $caption[4]
         );
