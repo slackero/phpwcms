@@ -386,6 +386,10 @@ $template_default['classes'] = array(
     'shop-products-menu'            => 'shop-products',
     'cp-paginate-link'              => 'paginate-link',
     'cp-paginate-link-active'       => 'paginate-link active',
+    'cp-paginate-link-disabled'     => 'paginate-link disabled',
+    'search-paginate-link'          => 'paginate-link',
+    'search-paginate-link-active'   => 'paginate-link active',
+    'search-paginate-link-disabled' => 'paginate-link disabled',
     'newsletter-table'              => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email'        => 'form-control',
@@ -416,10 +420,13 @@ $template_default['attributes'] = array(
         ) */
     ),
     'cp-paginate' => array(
-        'link-prefix' => ' ',
-        'link-suffix' => ' ',
+        'wrap-prefix' => '<ul>',
+        'wrap-suffix' => '</ul>',
+        'link-prefix' => '<li>',
+        'link-suffix' => '</li>',
         'value-prefix' => '',
-        'value-suffix' => ''
+        'value-suffix' => '',
+        'href-disabled' => ''
     ),
     /*
      * The deprecated solution is using `lightbox` in combination with attribute `rel`

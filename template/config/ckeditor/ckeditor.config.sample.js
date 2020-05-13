@@ -50,6 +50,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.width = 800;
     config.height = 400;
 
+    config.extraPlugins = 'magicline,image2';
     //config.extraPlugins = 'magicline';
     //config.removePlugins = 'resize';
 

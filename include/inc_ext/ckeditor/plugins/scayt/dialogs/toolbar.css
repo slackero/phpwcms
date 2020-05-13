@@ -5,7 +5,7 @@ a
 	display : block;
 	border-width: 1px;
 	border-style: solid;
-	margin : 0;
+	margin : 0px;
 }
 
 a.cke_scayt_toogle:hover,
@@ -16,7 +16,7 @@ a.cke_scayt_toogle:active
 	background-color: #dff1ff;
 	color : #000;
 	cursor: pointer;
-	margin : 0;
+	margin : 0px;
 }
 a.cke_scayt_toogle {
 	color : #316ac5;
@@ -25,7 +25,7 @@ a.cke_scayt_toogle {
 .scayt_enabled a.cke_scayt_item {
 	color : #316ac5;
 	border-color: #fff;
-	margin : 0;
+	margin : 0px;
 }
 .scayt_disabled a.cke_scayt_item {
 	color : gray;
