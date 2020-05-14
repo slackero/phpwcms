@@ -1242,7 +1242,11 @@ $content['all'] = str_replace(array('<!--SEARCH_HIGHLIGHT_START//-->', '<!--SEAR
 // render content part pagination
 if(!empty($_CpPaginate)) {
 
-    $content['all'] = str_replace(array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->'), '', $content['all']);
+    $content['all'] = str_replace(
+        array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->', '{CP_PAGINATE_CLASS}'),
+        array('', '', $template_default['classes']['cp-paginate-link']),
+        $content['all']
+    );
 
     unset($_getVar['aid'], $_getVar['id']);
 
@@ -1254,7 +1258,7 @@ if(!empty($_CpPaginate)) {
 
             $content['CpPaginateNavi'][ $key ]  = $template_default['attributes']['cp-paginate']['link-prefix'];
             $content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS) . '" class="';
-            $content['CpPaginateNavi'][ $key ] .= $key == $content['aId_CpPage'] ? $template_default['classes']['cp-paginate-link'] : $template_default['classes']['cp-paginate-link-active'];
+            $content['CpPaginateNavi'][ $key ] .= $key === $content['aId_CpPage'] ? $template_default['classes']['cp-paginate-link-active'] : $template_default['classes']['cp-paginate-link'];
             $content['CpPaginateNavi'][ $key ] .= '">' . $template_default['attributes']['cp-paginate']['value-prefix'] . $value . $template_default['attributes']['cp-paginate']['value-suffix'] . '</a>';
             $content['CpPaginateNavi'][ $key ] .= $template_default['attributes']['cp-paginate']['link-suffix'];
 
@@ -1293,7 +1297,7 @@ if(!empty($_CpPaginate)) {
     }
 
     // search for content part pagination title menu
-    if(strpos($content['all'], '[CP_PAGINATE_MENU')) {
+    if(strpos($content['all'], '[CP_PAGINATE_MENU') !== false) {
 
         /**
          * search for custom cp menu parameters
@@ -1307,24 +1311,24 @@ if(!empty($_CpPaginate)) {
          */
         if( preg_match('/\[CP_PAGINATE_MENU:(.*?)\]/', $content['all'], $match) ) {
 
-            $content['all']                 = str_replace($match[0], '[CP_PAGINATE_MENU]', $content['all']);
-            $content['CpTitleParams']       = explode('|', $match[1]);
+            $content['all'] = str_replace($match[0], '[CP_PAGINATE_MENU]', $content['all']);
+            $content['CpTitleParams'] = explode('|', $match[1]);
             if(!isset($content['CpTitleParams'][1])) {
                 $content['CpTitleParams'][1] = '';
             }
             $content['CpTitleParams'][2] = empty($content['CpTitleParams'][2]) ? '' : trim($content['CpTitleParams'][2]);
-            $content['CpTitleParams'][3] = empty($content['CpTitleParams'][3]) ? 0 : 1 ;
-            $content['CpTitleParams'][4]    = '';
-            $content['CpTitleParams'][5]    = '';
+            $content['CpTitleParams'][3] = empty($content['CpTitleParams'][3]) ? 0 : 1;
+            $content['CpTitleParams'][4] = '';
+            $content['CpTitleParams'][5] = '';
 
         } else {
 
-            $content['CpTitleParams'][0]    = '<li>';
-            $content['CpTitleParams'][1]    = '</li>';
-            $content['CpTitleParams'][2]    = 'active';
-            $content['CpTitleParams'][3]    = 0;
-            $content['CpTitleParams'][4]    = '<ul class="cpmenu">';
-            $content['CpTitleParams'][5]    = '</ul>';
+            $content['CpTitleParams'][0] = $template_default['attributes']['cp-paginate']['link-prefix'];
+            $content['CpTitleParams'][1] = $template_default['attributes']['cp-paginate']['link-suffix'];
+            $content['CpTitleParams'][2] = $template_default['classes']['cp-paginate-link-active'];
+            $content['CpTitleParams'][3] = 0;
+            $content['CpTitleParams'][4] = $template_default['attributes']['cp-paginate']['wrap-prefix'];
+            $content['CpTitleParams'][5] = $template_default['attributes']['cp-paginate']['wrap-suffix'];
 
         }
 
@@ -1333,21 +1337,27 @@ if(!empty($_CpPaginate)) {
         // cp menu items
         foreach($content['CpPageTitles'] as $key => $value) {
 
-            $content['CpItem']  = '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS) . '"';
+            $content['CpItem'] = '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : PHPWCMS_ALIAS) . '"';
 
-            if($key == $content['aId_CpPage']) {
+            if($key === $content['aId_CpPage']) {
 
-                if(!empty($content['CpTitleParams'][3])) {
+                if($content['CpTitleParams'][3] === 1) {
                     continue;
                 }
 
                 if(!empty($content['CpTitleParams'][2])) {
-                    $content['CpItem'] .= ' class="'.$content['CpTitleParams'][2].'"';
+                    $content['CpItem'] .= ' class="' . $content['CpTitleParams'][2] . '"';
+                } elseif(!empty($template_default['classes']['cp-paginate-link-active'])) {
+                    $content['CpItem'] .= ' class="' . $template_default['classes']['cp-paginate-link-active'] . '"';
                 }
+
+            } elseif(!empty($template_default['classes']['cp-paginate-link'])) {
+
+                $content['CpItem'] .= ' class="' . $template_default['classes']['cp-paginate-link'] . '"';
 
             }
 
-            $content['CpItem'] .= '>'.html_specialchars($value).'</a>';
+            $content['CpItem'] .= '>' . html_specialchars($value) . '</a>';
             $content['CpTitleMenu'][] = $content['CpTitleParams'][0] . $content['CpItem'] . $content['CpTitleParams'][1];
         }
 
@@ -1359,7 +1369,6 @@ if(!empty($_CpPaginate)) {
 
         $content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_MENU', implode(LF, $content['CpTitleMenu']));
     }
-
 
 } elseif(strpos($content['all'], 'CP_PAGINATE')) {
 
@@ -1373,7 +1382,7 @@ if(strpos($content['all'], '--NO_PRINT')) {
     if($aktion[2] == 1) {
 
         $content['all'] = replace_tmpl_section('NO_PRINT', $content['all']);
-        $block['css']   = array('print_layout.css');
+        $block['css'] = array('print_layout.css');
 
     } else {
 
