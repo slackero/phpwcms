@@ -72,13 +72,13 @@ if ($content['files_sql']) {
 } else {
     $content['files_result'] = array();
 }
-if ($crow["acontent_template"] == 'download-inline' && !is_file(PHPWCMS_TEMPLATE . 'inc_default/filelist_inline.tmpl')) {
+if ($crow["acontent_template"] === 'download-inline' && !is_file(PHPWCMS_TEMPLATE . 'inc_default/filelist_inline.tmpl')) {
     $crow["acontent_template"] = '';
 }
 // get filelist template
 if (empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE . 'inc_default/filelist.tmpl')) {
     $crow["acontent_template"] = render_device(@file_get_contents(PHPWCMS_TEMPLATE . 'inc_default/filelist.tmpl'));
-} elseif ($crow["acontent_template"] == 'download-inline') {
+} elseif ($crow["acontent_template"] === 'download-inline') {
     $crow["acontent_template"] = render_device(@file_get_contents(PHPWCMS_TEMPLATE . 'inc_default/filelist_inline.tmpl'));
 } elseif (is_file(PHPWCMS_TEMPLATE . 'inc_cntpart/filelist/' . $crow["acontent_template"])) {
     $crow["acontent_template"] = render_device(@file_get_contents(PHPWCMS_TEMPLATE . 'inc_cntpart/filelist/' . $crow["acontent_template"]));
@@ -105,6 +105,7 @@ if ($_files_force_rendering || $_files_has) {
         'file_size_space'  => ' ',
         'date_format'      => "%m/%d/%y",
         'set_locale'       => '',
+        'inline_download'  => empty($GLOBALS['phpwcms']['inline_download']) ? 0 : 1
     ), $_files_settings);
     $crow["acontent_template"] = replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $content['template_file'] = get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
@@ -241,9 +242,17 @@ if ($_files_force_rendering || $_files_has) {
                             $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($content['files_result'][$_files_x]['f_name']), $_files_entries[$fkey]);
                         }
                         if ($content['files_direct'] && $content['files_result'][$_files_x]['f_ext']) {
-                            $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][$_files_x]['f_hash'], $content['files_result'][$_files_x]['f_name'], true), $_files_entries[$fkey]);
+                            $_files_entries[$fkey] = str_replace(
+                                '{FILE_LINK}',
+                                rel_download($content['files_result'][$_files_x]['f_hash'], $content['files_result'][$_files_x]['f_name'], true, $_files_settings['inline_download']),
+                                $_files_entries[$fkey]
+                            );
                         } else {
-                            $_files_entries[$fkey] = str_replace('{FILE_LINK}', rel_download($content['files_result'][$_files_x]['f_hash'], $content['files_result'][$_files_x]['f_name'], false), $_files_entries[$fkey]);
+                            $_files_entries[$fkey] = str_replace(
+                                '{FILE_LINK}',
+                                rel_download($content['files_result'][$_files_x]['f_hash'], $content['files_result'][$_files_x]['f_name'], false, $_files_settings['inline_download']),
+                                $_files_entries[$fkey]
+                            );
                         }
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_TITLE', html($_file_info[2]));
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_LONGINFO', empty($content['files_result'][$_files_x]['f_longinfo']) ? '' : plaintext_htmlencode($content['files_result'][$_files_x]['f_longinfo']));

@@ -4504,26 +4504,38 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
-function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true) {
+/**
+ * Render the relative download URL
+ *
+ * @param   string  $hash
+ * @param   string  $filename
+ * @param   bool    $countonly
+ * @param   bool    $htmlencode
+ * @param   null    $inline
+ *
+ * @return string
+ */
+function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
 
     $href = '';
+    $get = array();
 
-    if(PHPWCMS_REWRITE) {
-
+    if (PHPWCMS_REWRITE) {
         $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
-
-        if($countonly) {
-            $href .= '?countonly=1';
-        }
-
     } else {
+        $href .= 'download.php';
+        $get[] = 'f=' . $hash;
+    }
 
-        $href .= 'download.php?f='.$hash;
+    if ($countonly) {
+        $get[] = 'countonly=1';
+    }
+    if ($inline || ($inline === null && !empty($GLOBALS['phpwcms']['inline_download']))) {
+        $get[] = 'target=1';
+    }
 
-        if($countonly) {
-            $href .= ($htmlencode ? '&amp;' : '&') . 'countonly=1';
-        }
-
+    if (count($get)) {
+        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
     }
 
     return $href;
