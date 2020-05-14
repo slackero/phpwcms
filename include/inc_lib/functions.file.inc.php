@@ -61,14 +61,14 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
     // Gather relevent info about file
     $filename     = empty($fileinfo['realfname']) ? basename($file) : $fileinfo['realfname'];
-    $disposition  = empty($fileinfo['method']) ? 'attachment' : $fileinfo['method'];
+    $disposition  = empty($fileinfo['method']) || $fileinfo['method'] !== 'inline' ? 'attachment' : 'inline';
     $force_mimetype_check = array(
         'application/octet-stream',
         'application/force-download'
     );
 
     // Fileinfo method
-    if(extension_loaded('fileinfo') && (empty($fileinfo['mimetype']) || in_array($fileinfo['mimetype'], $force_mimetype_check)) && ($finfo = finfo_open(FILEINFO_MIME))) {
+    if(extension_loaded('fileinfo') && (empty($fileinfo['mimetype']) || ($disposition === 'inline' && in_array($fileinfo['mimetype'], $force_mimetype_check))) && ($finfo = finfo_open(FILEINFO_MIME))) {
         $fileinfo['mimetype'] = finfo_file($finfo, $file);
         finfo_close($finfo);
     }
