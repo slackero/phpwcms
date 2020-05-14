@@ -345,8 +345,8 @@ if(isset($result[0]['article_id'])) {
         $sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
         $sql_cnt .= "acontent_paginate_title ";
         $sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
-            $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 AND ";
-            $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
+        $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 AND ";
+        $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
 
         if( !FEUSER_LOGIN_STATUS ) {
             $sql_cnt .= 'AND acontent_granted=0 ';
@@ -368,7 +368,7 @@ if(isset($result[0]['article_id'])) {
                 // set content part pagination title
                 if(!isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ])) {
 
-                    $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] == '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
+                    $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] === '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
 
                 // check if content part title is set but starts with '#'
                 } elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] !== '' && substr($content['CpPageTitles'][ $crow['acontent_paginate_page'] ], 0, 1) === '#') {
