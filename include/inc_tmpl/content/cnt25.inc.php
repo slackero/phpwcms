@@ -267,7 +267,6 @@ if(!isset($fmp_data['fmp_set_loop'])) {
 
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 
-
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['be_flashplayer_thumbnail'] ?>:&nbsp;</td>
 
@@ -282,6 +281,24 @@ if(!isset($fmp_data['fmp_set_loop'])) {
         </tr>
 
     </table></td>
+</tr>
+
+<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+
+<tr>
+    <td align="right" class="chatlist tdtop3"><?php echo $BL['be_flashplayer_marker'] ?>:&nbsp;</td>
+    <td>
+        <textarea name="fmp_marker" cols="40" rows="2" class="width440 autosize" id="fmp_caption"><?php echo html($fmp_data['fmp_marker']) ?></textarea>
+        <span class="caption width440">
+            <?php echo $BL['be_marker_time']; ?>
+            |
+            <?php echo $BL['be_marker_text']; ?>
+            |
+            <?php echo $BL['be_marker_overlaytext']; ?>
+            |
+            <?php echo $BL['be_cnt_css_class']; ?>&nbsp;&crarr;&nbsp;&hellip;
+        </span>
+    </td>
 </tr>
 
 

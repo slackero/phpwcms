@@ -246,6 +246,27 @@ if(isset($fmp_data['fmp_template'])) {
 
         }
 
+        if($fmp_data['fmp_marker']) {
+            $_fmp_marker = explode(LF, $fmp_data['fmp_marker']);
+            $fmp_data['fmp_marker'] = array();
+            if(count($_fmp_marker)) {
+                foreach($_fmp_marker as $_marker) {
+                    $_marker = convertStringToArray($_marker, '|', '');
+                    if(!empty($_marker[0]) && $_marker[0] = floatval($_marker[0])) {
+                        $fmp_data['fmp_marker'][] = array(
+                            'time' => $_marker[0],
+                            'text' => isset($_marker[1]) ? $_marker[1] : '',
+                            'overlayText' => isset($_marker[2]) ? $_marker[2] : '',
+                            'class' => isset($_marker[3]) ? $_marker[3] : ''
+                        );
+                    }
+                }
+            }
+            $fmp_data['fmp_marker'] = json_encode($fmp_data['fmp_marker']);
+        } else {
+            $fmp_data['fmp_marker'] = '{}';
+        }
+
         $fmp_data['attributes'][] = 'id: "'.$fmp_data['id'].'"';
         $fmp_data['attributes'][] = 'name: "'.$fmp_data['id'].'"';
         $fmp_data['attributes'][] = 'bgcolor: "#'.$fmp_data['fmp_set_bgcolor'].'"';
@@ -271,7 +292,6 @@ if(isset($fmp_data['fmp_template'])) {
         }
 
         $fmp_data['fallback']['flashvars'] = '      <param name="flashvars" value="'.implode('&amp;', $fmp_data['fallback']['flashvars']).'" />';
-
 
         if(!empty($fmp_data['fmp_preview'])) {
             $fmp_data['fallback']['poster']  = '        <img alt="Poster Image" title="@@No video playback capabilities.@@" src="'.$fmp_data['preview'].'" ';
@@ -384,7 +404,10 @@ if(isset($fmp_data['fmp_template'])) {
             $fmp_data['video_js_attributes'] = 'id="video-js-'.$fmp_data['id'].'" class="video-js '.$fmp_data['fmp_set_skin_video'].'" ';
 
             $fmp_data['init_videojs']  = '<script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-            $fmp_data['init_videojs'] .= '  var videoJS_' . $fmp_data['id'] . ' = videojs("video-js-' . $fmp_data['id'] . '");';
+            $fmp_data['init_videojs'] .= '  var videoJS_' . $fmp_data['id'] . ' = videojs("video-js-' . $fmp_data['id'] . '"),' . LF;
+            $fmp_data['init_videojs'] .= '      videoJS_' . $fmp_data['id'] . '_marker = ' . $fmp_data['fmp_marker'] . ';' . LF;
+            $fmp_data['init_videojs'] .= '  if(typeof videoJsInstances === "undefined") {var videoJsInstances = [];}' . LF;
+            $fmp_data['init_videojs'] .= '  videoJsInstances.push({id: "'. $fmp_data['id'] . '", instance: "videoJS_' . $fmp_data['id']  . '"});';
 
             if(isset($fmp_data['fmp_set_volume'])) {
                 $fmp_data['init_videojs'] .= LF . '  videoJS_' . $fmp_data['id'] . '.ready(function(){this.volume(' . ($fmp_data['fmp_set_volume'] / 100) . ');});';
@@ -475,6 +498,9 @@ if(isset($fmp_data['fmp_template'])) {
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'ATTR_ID', html($crow['acontent_attr_id']));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TITLE',    html_specialchars($crow['acontent_title']));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
+    $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'CAPTION', html_specialchars($fmp_data['fmp_caption']));
+    $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'TARGET', empty($fmp_data['fmp_link'][1]) ? '' : html_specialchars($fmp_data['fmp_link'][1]));
+    $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'LINK', empty($fmp_data['fmp_link'][0]) ? '' : html_specialchars($fmp_data['fmp_link'][0]));
     $fmp_data['fmp_template']  = render_cnt_template($fmp_data['fmp_template'], 'PLAYER', $fmp_data['fallback']);
     $CNT_TMP                  .= str_replace('{ID}', $fmp_data['id'], $fmp_data['fmp_template']);
 

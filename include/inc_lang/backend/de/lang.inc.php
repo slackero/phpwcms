@@ -1168,7 +1168,7 @@ $BL['be_image_cropit'] = 'Bild auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
 $BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
-$BL['be_flashplayer_caption'] = 'Titel';
+$BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
 $BL['be_flashplayer_selectsize'] = 'Playergr&ouml;&szlig;e w&auml;hlen';
 $BL['be_flash_media'] = 'Flash';
@@ -1475,3 +1475,8 @@ $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
 
 $BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';
+
+$BL['be_flashplayer_marker'] = 'Markierung';
+$BL['be_marker_time'] = 'Zeit (Sekunden, z.B. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';

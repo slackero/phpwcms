@@ -946,6 +946,7 @@ $BL['be_cnt_field']                     = array(
     'subtract'=>'subtract',
     'divide'=>'divide', 'multiply'=>'multiply',
     'calculation'=>'calculation:',
+    'calculation'=>'cmarkeralculation:',
     'formtracking_off'=>'disable form tracking',
     'checktofrom'=>'email of recipient must be different from sender',
     'recaptcha'=>'reCAPTCHA',
@@ -1492,3 +1493,8 @@ $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
 
 $BL['be_admin_template_choose_file'] = 'text template, alternatively select file template';
+
+$BL['be_flashplayer_marker'] = 'Marker';
+$BL['be_marker_time'] = 'Time (seconds, i.e. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = 'Overlay text';

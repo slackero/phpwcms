@@ -52,6 +52,7 @@ $fmp_data = array(
 
     'fmp_caption'               => clean_slweg($_POST['fmp_caption']),
     'fmp_link'                  => clean_slweg($_POST['fmp_link']),
+    'fmp_marker'                => clean_slweg($_POST['fmp_marker']),
     'fmp_img_id'                => intval($_POST['fmp_img_id']),
     'fmp_img_name'              => clean_slweg($_POST['fmp_img_name']),
     'fmp_set_logo'              => clean_slweg($_POST['fmp_set_logo']),
