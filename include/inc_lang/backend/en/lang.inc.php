@@ -946,7 +946,6 @@ $BL['be_cnt_field']                     = array(
     'subtract'=>'subtract',
     'divide'=>'divide', 'multiply'=>'multiply',
     'calculation'=>'calculation:',
-    'calculation'=>'cmarkeralculation:',
     'formtracking_off'=>'disable form tracking',
     'checktofrom'=>'email of recipient must be different from sender',
     'recaptcha'=>'reCAPTCHA',
