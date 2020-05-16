@@ -206,6 +206,13 @@ if(isset($fmp_data['fmp_template'])) {
     // set ID
     $fmp_data['id'] = 'fmp'.$crow["acontent_id"];
 
+    if(empty($fmp_data['fmp_link'])) {
+        $fmp_data['fmp_link'] = '';
+    } else {
+        $fmp_data['fmp_link'] = explode(' ', trim($fmp_data['fmp_link']));
+        $fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
+    }
+
     if($fmp_data['file']) {
         // Define Flash Vars
 
@@ -238,36 +245,6 @@ if(isset($fmp_data['fmp_template'])) {
         $fmp_data['params']['menu']                 = 'false';
         $fmp_data['params']['wmode']                = 'opaque';
         $fmp_data['params']['allowScriptAccess']    = 'always';
-
-        if($fmp_data['fmp_link']) {
-
-            $fmp_data['fmp_link'] = explode(' ', trim($fmp_data['fmp_link']));
-            $fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
-
-        }
-
-        if($fmp_data['fmp_marker']) {
-            $_fmp_marker = explode(LF, $fmp_data['fmp_marker']);
-            $fmp_data['fmp_marker'] = array();
-            if(count($_fmp_marker)) {
-                foreach($_fmp_marker as $_marker) {
-                    $_marker = convertStringToArray($_marker, '|', '');
-                    if(!empty($_marker[0]) && $_marker[0] = floatval($_marker[0])) {
-                        $fmp_data['fmp_marker'][] = array(
-                            'time' => $_marker[0],
-                            'text' => isset($_marker[1]) ? $_marker[1] : '',
-                            'overlayText' => isset($_marker[2]) ? $_marker[2] : '',
-                            'class' => isset($_marker[3]) ? $_marker[3] : ''
-                        );
-                    }
-                }
-            }
-            $_fmp_marker = $fmp_data['fmp_marker'];
-            $fmp_data['fmp_marker'] = json_encode($fmp_data['fmp_marker']);
-        } else {
-            $_fmp_marker = array();
-            $fmp_data['fmp_marker'] = '{}';
-        }
 
         $fmp_data['attributes'][] = 'id: "'.$fmp_data['id'].'"';
         $fmp_data['attributes'][] = 'name: "'.$fmp_data['id'].'"';
@@ -398,6 +375,29 @@ if(isset($fmp_data['fmp_template'])) {
             } else {
                 $fmp_data['fmp_set_skin_html5'] = '';
                 $fmp_data['fmp_set_skin_video'] = 'vjs-default-skin';
+            }
+
+            if(empty($fmp_data['fmp_marker'])) {
+                $_fmp_marker = array();
+                $fmp_data['fmp_marker'] = '{}';
+            } else {
+                $_fmp_marker = explode(LF, $fmp_data['fmp_marker']);
+                $fmp_data['fmp_marker'] = array();
+                if(count($_fmp_marker)) {
+                    foreach($_fmp_marker as $_marker) {
+                        $_marker = convertStringToArray($_marker, '|', '');
+                        if(!empty($_marker[0]) && $_marker[0] = floatval($_marker[0])) {
+                            $fmp_data['fmp_marker'][] = array(
+                                'time' => $_marker[0],
+                                'text' => isset($_marker[1]) ? $_marker[1] : '',
+                                'overlayText' => isset($_marker[2]) ? $_marker[2] : '',
+                                'class' => isset($_marker[3]) ? $_marker[3] : ''
+                            );
+                        }
+                    }
+                }
+                $_fmp_marker = $fmp_data['fmp_marker'];
+                $fmp_data['fmp_marker'] = json_encode($fmp_data['fmp_marker']);
             }
 
             // Put Video JS scripts to the body end
