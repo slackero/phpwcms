@@ -1497,3 +1497,6 @@ $BL['be_flashplayer_marker'] = 'Marker';
 $BL['be_marker_time'] = 'Time (seconds, i.e. 10.5)';
 $BL['be_marker_text'] = 'Text';
 $BL['be_marker_overlaytext'] = 'Overlay text';
+
+$BL['copy_to_clipboard'] = 'Copy to Clipboard';
+$BL['url_parameter'] = 'URL parameter';

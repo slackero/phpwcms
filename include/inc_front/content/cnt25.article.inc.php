@@ -262,8 +262,10 @@ if(isset($fmp_data['fmp_template'])) {
                     }
                 }
             }
+            $_fmp_marker = $fmp_data['fmp_marker'];
             $fmp_data['fmp_marker'] = json_encode($fmp_data['fmp_marker']);
         } else {
+            $_fmp_marker = array();
             $fmp_data['fmp_marker'] = '{}';
         }
 
@@ -408,13 +410,39 @@ if(isset($fmp_data['fmp_template'])) {
             $fmp_data['init_videojs'] .= '      videoJS_' . $fmp_data['id'] . '_marker = ' . $fmp_data['fmp_marker'] . ';' . LF;
             $fmp_data['init_videojs'] .= '  if(typeof videoJsInstances === "undefined") {var videoJsInstances = [];}' . LF;
             $fmp_data['init_videojs'] .= '  videoJsInstances.push({id: "'. $fmp_data['id'] . '", instance: "videoJS_' . $fmp_data['id']  . '"});';
+            $fmp_data['init_ready'] = array();
+
+            if(isset($_getVar['fmp'])) {
+                $_fmp_time = explode('-', $_getVar['fmp']);
+                $_fmp_time[0] = intval($_fmp_time[0]);
+                if ($_fmp_time[0] && isset($_fmp_time[1]) && $_fmp_time[0] == $crow["acontent_id"]) {
+                    if (substr($_fmp_time[1], 0, 1) === 'm') {
+                        $_fmp_time[1] = intval(substr($_fmp_time[1], 1));
+                        if ($_fmp_time[1] && count($_fmp_marker) >= $_fmp_time[1]) {
+                            $_fmp_time[1] = $_fmp_marker[ $_fmp_time[1] - 1 ]['time'];
+                        } else {
+                            $_fmp_time[1] = 0;
+                        }
+                        //$_fmp_marker
+                    } else {
+                        $_fmp_time[1] = floatval($_fmp_time[1]);
+                    }
+                    if ($_fmp_time[1]) {
+                        $fmp_data['init_ready'][] = 'this.currentTime(' . $_fmp_time[1] . ');';
+                    }
+                }
+            }
 
             if(isset($fmp_data['fmp_set_volume'])) {
-                $fmp_data['init_videojs'] .= LF . '  videoJS_' . $fmp_data['id'] . '.ready(function(){this.volume(' . ($fmp_data['fmp_set_volume'] / 100) . ');});';
+                $fmp_data['init_ready'][] = 'this.volume(' . ($fmp_data['fmp_set_volume'] / 100) . ');';
 
                 if(!$fmp_data['fmp_set_volume']) {
                     $fmp_data['video_tag']['header'] .= 'muted ';
                 }
+            }
+
+            if(count($fmp_data['init_ready'])) {
+                $fmp_data['init_videojs'] .= LF . '  videoJS_' . $fmp_data['id'] . '.ready(function(){' . implode('', $fmp_data['init_ready']) . '});';
             }
 
             $fmp_data['init_videojs'] .= LF . '  </script>';

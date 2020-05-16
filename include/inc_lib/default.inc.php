@@ -526,7 +526,8 @@ if(!isset($phpwcms['global_unregister_getVar'])) {
         'shop_cat',
         'shop_cart',
         'gallery',
-        'subgallery'
+        'subgallery',
+        'fmp'
     );
 }
 if(is_array($phpwcms['preserve_getVar']) && count($phpwcms['preserve_getVar'])) {

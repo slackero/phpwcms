@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Flash Media Player
 
-initMootools('1.2'); // We use MooTools here
+initJQuery(); // We use jQuery here
 
 if(!$content["id"]) {
     include PHPWCMS_ROOT.'/include/inc_lib/content/cnt25.takeval.inc.php';
@@ -132,10 +132,10 @@ if(!isset($fmp_data['fmp_set_loop'])) {
 
             <td>&nbsp;&nbsp;</td>
 
-            <td><input name="fmp_width" type="text" class="width30" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']; ?>" /></td>
+            <td><input name="fmp_width" type="text" class="width35 center-text" id="fmp_width" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_width']; ?>" /></td>
             <td class="chatlist">&nbsp;x&nbsp;</td>
 
-            <td><input name="fmp_height" type="text" class="width30" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']; ?>" /></td>
+            <td><input name="fmp_height" type="text" class="width35 center-text" id="fmp_height" size="4" maxlength="4" value="<?php echo $fmp_data['fmp_height']; ?>" /></td>
             <td class="chatlist">&nbsp;px</td>
 
         </tr>
@@ -288,7 +288,7 @@ if(!isset($fmp_data['fmp_set_loop'])) {
 <tr>
     <td align="right" class="chatlist tdtop3"><?php echo $BL['be_flashplayer_marker'] ?>:&nbsp;</td>
     <td>
-        <textarea name="fmp_marker" cols="40" rows="2" class="width440 autosize" id="fmp_caption"><?php echo html($fmp_data['fmp_marker']) ?></textarea>
+        <textarea name="fmp_marker" cols="40" rows="2" class="width440 autosize" id="fmp_marker"><?php echo html($fmp_data['fmp_marker']) ?></textarea>
         <span class="caption width440">
             <?php echo $BL['be_marker_time']; ?>
             |
@@ -298,6 +298,7 @@ if(!isset($fmp_data['fmp_set_loop'])) {
             |
             <?php echo $BL['be_cnt_css_class']; ?>&nbsp;&crarr;&nbsp;&hellip;
         </span>
+        <div id="fmp_marker_links" style="display:none;" class="tdtop5"></div>
     </td>
 </tr>
 
@@ -411,38 +412,111 @@ if(!isset($fmp_data['fmp_set_loop'])) {
 <script type="text/javascript">
 
     function setIdName(file_id, file_name, file_type) {
-        if(file_id == null) file_id=0;
-        if(file_name == null) file_name='';
+        if(!file_id) {
+            file_id = 0;
+        }
+        if(!file_name) {
+            file_name = '';
+        }
         if(file_type == 6 || file_type == null) {
-            $('fmp_internal_id').value = file_id;
-            $('fmp_internal_name').value = file_name;
+            $('#fmp_internal_id').val(file_id);
+            $('#fmp_internal_name').val(file_name);
         } else if(file_type == 12) { // H.264
-            $('fmp_internal_id_h264').value = file_id;
-            $('fmp_internal_name_h264').value = file_name;
+            $('#fmp_internal_id_h264').val(file_id);
+            $('#fmp_internal_name_h264').val(file_name);
         } else if(file_type == 13) { // WebM
-            $('fmp_internal_id_webm').value = file_id;
-            $('fmp_internal_name_webm').value = file_name;
+            $('#fmp_internal_id_webm').val(file_id);
+            $('#fmp_internal_name_webm').val(file_name);
         } else if(file_type == 14) { // Ogg
-            $('fmp_internal_id_ogg').value = file_id;
-            $('fmp_internal_name_ogg').value = file_name;
+            $('#fmp_internal_id_ogg').val(file_id);
+            $('#fmp_internal_name_ogg').val(file_name);
         }
     }
     function setImgIdName(file_id, file_name) {
-        if(file_id == null) file_id=0;
-        if(file_name == null) file_name='';
-        $('fmp_img_id').value = file_id;
-        $('fmp_img_name').value = file_name;
+        if(!file_id) {
+            file_id = 0;
+        }
+        if(!file_name) {
+            file_name = '';
+        }
+        $('#fmp_img_id').val(file_id);
+        $('#fmp_img_name').val(file_name);
     }
     function setPlayerSize(sval) {
         var indx = sval.selectedIndex;
         if(indx > 0) {
             var val = sval.options[indx].value.split('x');
-            $('fmp_width').value = parseInt(val[0],10);
-            $('fmp_height').value = parseInt(val[1],10);
+            $('#fmp_width').val(parseInt(val[0], 10) || 426);
+            $('#fmp_height').val(parseInt(val[1], 10) || 240);
         }
         sval.options[0].selected = true;
         sval.blur();
     }
+
+    $(function () {
+        let cid = $('#cid');
+
+        if (cid.length) {
+            let fmpMarker = $('#fmp_marker'),
+                fmpMarkerLinks = $('#fmp_marker_links'),
+                fmpId = cid.val(),
+                eventLastTime = 0,
+                eventDelay = 750,
+                setMarkerLinks = function (str) {
+                    if (str) {
+                        let marker = $.trim(str).split('\n'),
+                            markerLinks = [];
+                        if (marker.length) {
+                            for (let i = 0; i < marker.length; i++) {
+                                let item = $.trim(marker[i]);
+                                if (item) {
+                                    item = item.split('|');
+                                    if (item.length) {
+                                        if (typeof item[0] !== 'undefined') {
+                                            let timer = parseFloat($.trim(item[0]));
+                                            if (timer) {
+                                                let anchor = '#fmp' + fmpId + '-',
+                                                    get = 'fmp=' + fmpId + '-',
+                                                    markerNum = markerLinks.length + 1;
+                                                    link = '<strong class="chatlist"><?php echo $BL['be_flashplayer_marker']; ?> ' + markerNum + ':</strong><br>';
+
+                                                link += '<?php echo $BL['be_article_cnt_anchor']; ?> ';
+                                                link += '<a href="#" onclick="copyToClipboard(\'' + anchor + timer + '\');return false;" title="<?php echo $BL['copy_to_clipboard']; ?>">' + anchor + timer + '</a>, ';
+                                                link += '<a href="#" onclick="copyToClipboard(\'' + anchor + 'm' + markerNum + '\');return false;" title="<?php echo $BL['copy_to_clipboard']; ?>">' + anchor + 'm' + markerNum + '</a><br>';
+                                                link += '<?php echo $BL['url_parameter']; ?> ';
+                                                link += '<a href="#" onclick="copyToClipboard(\'' + get + timer + '\');return false;" title="<?php echo $BL['copy_to_clipboard']; ?>">' + get + timer + '</a>, ';
+                                                link += '<a href="#" onclick="copyToClipboard(\'' + get + 'm' + markerNum + '\');return false;" title="<?php echo $BL['copy_to_clipboard']; ?>">' + get + 'm' + markerNum + '</a>';
+
+                                                markerLinks.push(link);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        fmpMarkerLinks.html(markerLinks.join('<br>'));
+                        fmpMarkerLinks.show();
+                    } else {
+                        fmpMarkerLinks.html('');
+                        fmpMarkerLinks.hide();
+                    }
+                };
+
+            fmpMarker.on('change keyup', function (event) {
+                if (event.type === 'keyup') {
+                    let dateObject = new Date();
+                    if ((dateObject.getTime() - eventLastTime) > eventDelay) {
+                        eventLastTime = dateObject.getTime();
+                        setMarkerLinks($(this).val());
+                    }
+                } else {
+                    setMarkerLinks($(this).val());
+                }
+            });
+
+            setMarkerLinks(fmpMarker.val());
+        }
+    });
 
  </script>
 
