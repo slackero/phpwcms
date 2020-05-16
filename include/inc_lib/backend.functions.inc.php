@@ -623,6 +623,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         'r404',
         'cmsgo-preview',
         'dl',
+        'fmp'
     );
 
     if($alias === '') {
