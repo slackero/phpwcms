@@ -1483,3 +1483,9 @@ $BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';
 
 $BL['copy_to_clipboard'] = 'In die Zwischenablage kopieren';
 $BL['url_parameter'] = 'URL-Parameter';
+$BL['file_extension'] = 'Erweiterung';
+$BL['download_link'] = 'Download-Link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direkt laden';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'im Browser anzeigen';

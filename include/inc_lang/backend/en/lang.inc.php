@@ -1500,3 +1500,9 @@ $BL['be_marker_overlaytext'] = 'Overlay text';
 
 $BL['copy_to_clipboard'] = 'Copy to Clipboard';
 $BL['url_parameter'] = 'URL parameter';
+$BL['file_extension'] = 'Extension';
+$BL['download_link'] = 'Download link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direct download';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'display in browser';
