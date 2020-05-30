@@ -113,12 +113,12 @@ if ($_files_force_rendering || $_files_count) {
         $_files_old_locale = setlocale(LC_ALL, "0");
         setlocale(LC_ALL, $_files_settings['set_locale']);
     }
-    if ($_files_count && !empty($_files_settings['lightbox_init'])) {
-        initSlimbox();
-    }
     $_files_entries = array();
     $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
     if ($_files_count) {
+        if (!empty($_files_settings['lightbox_init'])) {
+            initSlimbox();
+        }
         foreach ($content['files'] as $fkey => $file_item) {
             for ($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
                 // compare query result against content part file IDs
