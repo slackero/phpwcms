@@ -765,13 +765,13 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_form_class'] ?>:&nbsp;</td>
                 <td><input type="text" name="cform_class" class="width120" value="<?php echo html($content['form']["class"]) ?>"/></td>
                 <td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_label_wrap'] ?>:&nbsp;</td>
-                <td colspan="4"><input type="text" name="cform_label_wrap" class="v10 width85" value="<?php echo html($content['form']["label_wrap"]) ?>"/></td>
+                <td colspan="4"><input type="text" name="cform_label_wrap" class="width120" value="<?php echo html($content['form']["label_wrap"]) ?>"/></td>
             </tr>
             <tr>
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_req_mark'] ?>:&nbsp;</td>
                 <td><input type="text" name="cform_reqmark" class="width120" value="<?php echo html($content['form']["cform_reqmark"]) ?>"/></td>
                 <td class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_error_class'] ?>:&nbsp;</td>
-                <td colspan="4"><input type="text" name="cform_error_class" class="v10 width85" value="<?php echo html($content['form']["error_class"]) ?>"/></td>
+                <td colspan="4"><input type="text" name="cform_error_class" class="width120" value="<?php echo html($content['form']["error_class"]) ?>"/></td>
             </tr>
             <tr>
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
@@ -779,7 +779,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td class="chatlist" align="right" class="nowrap">
                     <?php echo $BL['be_article_cnt_anchor'] . ' &ndash; ' . $BL['be_cnt_target']; ?>:<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
                 </td>
-                <td colspan="4"><input type="text" name="cform_anchor_name" class="v10 width85" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>
+                <td colspan="4"><input type="text" name="cform_anchor_name" class="width120" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>
             </tr>
             <tr>
                 <td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3"/></td>
@@ -1044,10 +1044,10 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                     echo '<td colspan="2" class="chatlist" align="right">&nbsp;' . $BL['be_cnt_css_class'] . ':&nbsp;</td>';
                     echo '<td><input type="text" name="cform_field_class[' . $field_counter . ']" value="';
                     echo html($content['form']["fields"][$key]['class']) . '" class="width120"></td>';
-                    echo '<td colspan="5"><table summary="" cellpadding="0" cellspacing="0" border="0" style="width:202px;"><tr>';
-                    echo '<td class="chatlist" style="width:82px;" align="right">&nbsp;' . $BL['be_cnt_css_style'] . ':&nbsp;</td>';
-                    echo '<td class="width120"><input type="text" name="cform_field_style[' . $field_counter . ']" value="';
-                    echo html($content['form']["fields"][$key]['style']) . '" class="width120"></td></tr></table></td>';
+                    echo '<td colspan="5"><table summary="" cellpadding="0" cellspacing="0" border="0"><tr>';
+                    echo '<td class="chatlist" align="right">&nbsp;&nbsp;' . $BL['be_cnt_css_style'] . ':&nbsp;</td>';
+                    echo '<td><input type="text" name="cform_field_style[' . $field_counter . ']" value="';
+                    echo html($content['form']["fields"][$key]['style']) . '" class="width150"></td></tr></table></td>';
                     echo "</tr>";
 
                     // if field row 4
@@ -1132,12 +1132,12 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
             </tr>
             <tr bgcolor="#E7E8EB">
                 <td colspan="2" class="chatlist" align="right">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>:&nbsp;</td>
-                <td><input type="text" name="cform_field_class[0]" class="width120"/></td>
+                <td><input type="text" name="cform_field_class[0]" class="width120" /></td>
                 <td colspan="5">
-                    <table summary="" cellpadding="0" cellspacing="0" border="0" style="width:202px;">
+                    <table summary="" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td class="chatlist" style="width:82px;" align="right">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>:&nbsp;</td>
-                            <td class="width120"><input type="text" name="cform_field_style[0]" class="width120"/></td>
+                            <td class="chatlist" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_css_style'] ?>:&nbsp;</td>
+                            <td class="width120"><input type="text" name="cform_field_style[0]" class="width150"/></td>
                         </tr>
                     </table>
                 </td>
