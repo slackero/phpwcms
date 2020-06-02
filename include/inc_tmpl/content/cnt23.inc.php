@@ -554,7 +554,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                     echo 'document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);" style="margin:3px;" /></td>';
                 }
                 ?>
-                <td bgcolor="#FFFFFF">&nbsp;</td>
+                <td bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="4" height="23" /></td>
                 <td><input type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect1" value="1"<?php echo is_checked('1', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success"/></td>
                 <td class="v10"><label for="cform_onsuccess_redirect1">Redirect</label>&nbsp;&nbsp;</td>
             </tr>
@@ -574,7 +574,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td class="v10"><label for="cform_onerror_redirect0">Text&nbsp;</label>&nbsp;</td>
                 <td><input type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect2" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect"], 0, 0) ?> title="redirect on success"/></td>
                 <td class="v10"><label for="cform_onerror_redirect2">HTML&nbsp;</label>&nbsp;</td>
-                <td bgcolor="#FFFFFF" style="padding-bottom: 5px;">&nbsp;</td>
+                <td bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="4" height="23" /></td>
                 <td><input type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect1" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect"], 0, 0) ?> title="redirect on success"/></td>
                 <td class="v10"><label for="cform_onerror_redirect1">Redirect</label>&nbsp;&nbsp;
                 </td>
@@ -620,11 +620,11 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td colspan="2" class="tdtop5"><table summary="" cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB">
                     <tr>
                         <td><input type="radio" name="cform_template_format_doubleoptin" id="cform_template_text_doubleoptin" value="0"<?php is_checked(0, $content['form']["template_format_doubleoptin"]) ?> onchange="this.form.submit();" /></td>
-                        <td class="f10"><label for="cform_template_text_copy">TEXT&nbsp;&nbsp;</label></td>
+                        <td class="f10"><label for="cform_template_text_copy">TEXT&nbsp;</label></td>
                         <td><input type="radio" name="cform_template_format_doubleoptin" id="cform_template_html_doubleoptin" value="1"<?php is_checked(1, $content['form']["template_format_doubleoptin"]) ?> onchange="this.form.submit();" /></td>
                         <td class="f10"><label for="cform_template_html_doubleoptin">HTML&nbsp;</label></td>
                         <?php
-                        if(!$content['form']["template_format_doubleoptin"] && $for_select != '') {
+                        if(!$content['form']["template_format_doubleoptin"] && $for_select !== '') {
                             echo '<td style="padding:2px;"><select name="phc_doubleoptin" id="phc_doubleoptin" class="v10 width200" ';
                             echo 'onchange="insertAtCursorPos(document.articlecontent.cform_template_doubleoptin, ';
                             echo 'document.articlecontent.phc_doubleoptin.options[document.articlecontent.phc_doubleoptin.selectedIndex].value);">';
@@ -638,12 +638,12 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                             echo 'document.articlecontent.phc_doubleoptin.options[document.articlecontent.phc_doubleoptin.selectedIndex].value);" style="margin:3px;" alt="" /></td>';
                         }
                         ?>
+                        <td><img src="img/leer.gif" alt="" width="1" height="23" /></td>
                     </tr>
                 </table></td>
             </tr>
-            <tr id="optintemplate2"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
             <tr id="optintemplate3">
-                <td colspan="2"><?php
+                <td colspan="2" class="tdbottom3"><?php
                     if($content['form']["template_format_doubleoptin"]) {
                         $wysiwyg_editor = array(
                             'value'     => $content['form']["template_doubleoptin"],
@@ -688,7 +688,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                     echo 'document.articlecontent.successInfo.options[document.articlecontent.successInfo.selectedIndex].value);" style="margin:3px;" /></td>';
                 }
                 ?>
-                <td bgcolor="#FFFFFF">&nbsp;</td>
+                <td bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="4" height="23" /></td>
                 <td><input type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect1" value="1"<?php echo is_checked('1', $content['form']["onsuccess_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
                 <td class="v10"><label for="cform_onsuccess_redirect1">Redirect</label>&nbsp;&nbsp;</td>
             </tr>
@@ -708,7 +708,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td class="v10"><label for="cform_onerror_redirect_doubleoptin0">Text&nbsp;</label>&nbsp;</td>
                 <td><input type="radio" name="cform_onerror_redirect_doubleoptin" id="cform_onerror_redirect_doubleoptin2" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
                 <td class="v10"><label for="cform_onerror_redirect_doubleoptin2">HTML&nbsp;</label>&nbsp;</td>
-                <td bgcolor="#FFFFFF" style="padding-bottom: 5px;">&nbsp;</td>
+                <td bgcolor="#FFFFFF"><img src="img/leer.gif" alt="" width="4" height="23" /></td>
                 <td><input type="radio" name="cform_onerror_redirect_doubleoptin" id="cform_onerror_redirect_doubleoptin1" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect_doubleoptin"], 0, 0) ?> title="redirect on success" /></td>
                 <td class="v10"><label for="cform_onerror_redirect_doubleoptin1">Redirect</label>&nbsp;&nbsp;</td>
             </tr>
@@ -1262,7 +1262,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
     <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"/></td>
 </tr>
 <tr>
-    <td colspan="2"><?php
+    <td colspan="2" class="tdbottom3"><?php
         if ($content['form']["template_format"]) {
             $wysiwyg_editor = array(
                 'value' => $content['form']["template"],
@@ -1282,9 +1282,6 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
         }
 
         ?></td>
-</tr>
-<tr>
-    <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"/></td>
 </tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['php_function'] ?>:&nbsp;</td>
@@ -1350,7 +1347,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
     <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"/></td>
 </tr>
 <tr id="copytemplate3">
-    <td colspan="2"><?php
+    <td colspan="2" class="tdbottom3"><?php
         if ($content['form']["template_format_copy"]) {
             $wysiwyg_editor = array(
                 'value' => $content['form']["template_copy"],
@@ -1369,9 +1366,6 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 
         }
     ?></td>
-</tr>
-<tr>
-    <td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"/></td>
 </tr>
 <tr>
     <td align="right" class="chatlist"><?php echo $BL['php_function'] ?>:&nbsp;</td>
@@ -1399,7 +1393,7 @@ if ($for_select_2 != '') {
 
 ?>
 <tr>
-    <td colspan="2">
+    <td colspan="2" class="tdbottom3">
         <textarea name="cform_customform" id="cform_customform" rows="5" class="code width540 autosize"><?php echo html($content['form']["customform"]) ?></textarea>
         <script type="text/javascript">
             function toggleDoubleOptInOptions() {
