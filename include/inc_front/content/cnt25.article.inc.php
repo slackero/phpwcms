@@ -416,6 +416,7 @@ if(isset($fmp_data['fmp_template'])) {
                 $_fmp_time = explode('-', $_getVar['fmp']);
                 $_fmp_time[0] = intval($_fmp_time[0]);
                 if ($_fmp_time[0] && isset($_fmp_time[1]) && $_fmp_time[0] == $crow["acontent_id"]) {
+                    $fmp_data['init_videojs'] .= LF . "  var videoJS_scrollTo = '" . $fmp_data['id'] ."';";
                     if (substr($_fmp_time[1], 0, 1) === 'm') {
                         $_fmp_time[1] = intval(substr($_fmp_time[1], 1));
                         if ($_fmp_time[1] && count($_fmp_marker) >= $_fmp_time[1]) {

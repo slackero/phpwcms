@@ -2935,9 +2935,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
             wrap_link_text(<em>|</em>),
             articlemenu_start_level|articlemenu_list_image_size (WxHxCROP OR WxHxCROP)|_
-                articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
-                articlemenu_position (inside|outside)|_
-                <custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
+            articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
+            articlemenu_position (inside|outside)|_
+            <custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
     */
 
     if($param === 'string') {
