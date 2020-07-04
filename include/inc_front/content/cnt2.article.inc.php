@@ -12,11 +12,10 @@
 //images (gallery)
 $image = @unserialize($crow["acontent_form"]);
 
-if(is_array($image) && count($image)) {
+if(is_array($image) && ($image_count = count($image))) {
 
     // load special functions
     require_once(PHPWCMS_ROOT.'/include/inc_front/img.func.inc.php');
-
 
     // read template
     if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/imagetable.tmpl')) {
@@ -38,6 +37,7 @@ if(is_array($image) && count($image)) {
     $crow["acontent_template"] = replace_tmpl_section('IMAGETABLE_SETTINGS', $crow["acontent_template"]);
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
+    $crow["acontent_template"] = str_replace('{IMAGE_COUNT}', $image_count, $crow["acontent_template"]);
 
     if(strpos($crow["acontent_template"], 'TITLE')) {
         $crow["acontent_template"]  = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));

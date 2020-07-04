@@ -31,7 +31,7 @@ class PHPMailer
      * The PHPMailer Version number.
      * @var string
      */
-    public $Version = '5.2.27';
+    public $Version = '5.2.28';
 
     /**
      * Email priority.
@@ -2711,6 +2711,12 @@ class PHPMailer
             if (!self::isPermittedPath($path) or !file_exists($path)) {
                 throw new phpmailerException($this->lang('file_open') . $path, self::STOP_CONTINUE);
             }
+            /*
+            $magic_quotes = false;
+            if( version_compare(PHP_VERSION, '7.4.0', '<') ) {
+                $magic_quotes = get_magic_quotes_runtime();
+            }
+            */
             $magic_quotes = !IS_PHP7 && get_magic_quotes_runtime();
             if ($magic_quotes) {
                 if (version_compare(PHP_VERSION, '5.3.0', '<')) {

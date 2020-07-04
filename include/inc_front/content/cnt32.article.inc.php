@@ -165,7 +165,9 @@ if($tabs['template']) {
 
     }
 
-    $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', count($tabs['entries']) ? implode('', $tabs['entries']) : '');
+    $tabs['entries_count'] = count($tabs['entries']);
+    $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', $tabs['entries_count'] ? implode('', $tabs['entries']) : '');
+    $tabs['template'] = str_replace('{TAB_COUNT}', $tabs['entries_count'], $tabs['template']);
 
 } else {
 

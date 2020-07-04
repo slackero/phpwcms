@@ -11,11 +11,21 @@
 
 // wysiwyg editor
 
-if(empty($wysiwyg_editor['value']))		$wysiwyg_editor['value']	= '';
-if(!isset($wysiwyg_editor['field']))	$wysiwyg_editor['field']	= 'wysiwyg_editor';
-if(empty($wysiwyg_editor['height']))	$wysiwyg_editor['height']	= '400px';
-if(empty($wysiwyg_editor['width']))		$wysiwyg_editor['width']	= '440px';
-if(empty($wysiwyg_editor['rows']))		$wysiwyg_editor['rows']		= '15';
+if(empty($wysiwyg_editor['value'])) {
+    $wysiwyg_editor['value'] = '';
+}
+if(!isset($wysiwyg_editor['field'])) {
+    $wysiwyg_editor['field'] = 'wysiwyg_editor';
+}
+if(empty($wysiwyg_editor['height'])) {
+    $wysiwyg_editor['height'] = '400px';
+}
+if(empty($wysiwyg_editor['width'])) {
+    $wysiwyg_editor['width'] = '440px';
+}
+if(empty($wysiwyg_editor['rows'])) {
+    $wysiwyg_editor['rows'] = '15';
+}
 
 if(!isset($wysiwyg_editor['editor'])) {
 	$wysiwyg_editor['editor'] = 1;
@@ -40,7 +50,8 @@ if($wysiwyg_editor['editor']) {
 
 	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
 
-		echo '		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
+		echo '
+		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
 
 	} else {
 
@@ -70,7 +81,6 @@ if($wysiwyg_editor['editor']) {
 		pasteFromWordRemoveStyles: true,
 		pasteFromWordPromptCleanup: true,
 		language: '".$wysiwyg_editor['lang']."'";
-
 	}
 
 	if (!empty($phpwcms['FCK_FileBrowser'])) {

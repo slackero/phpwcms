@@ -1168,7 +1168,7 @@ $BL['be_image_cropit'] = 'Bild auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
 $BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
-$BL['be_flashplayer_caption'] = 'Titel';
+$BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
 $BL['be_flashplayer_selectsize'] = 'Playergr&ouml;&szlig;e w&auml;hlen';
 $BL['be_flash_media'] = 'Flash';
@@ -1318,7 +1318,7 @@ $BL['file_actions_step1'] = "Schritt 1: Verzeichnis ausw&auml;hlen";
 $BL['file_actions_step2'] = "Schritt 2: Dateien ausw&auml;hlen";
 $BL['file_actions_step3'] = "Schritt 3: Gew&uuml;nschte Aktion ausw&auml;hlen";
 $BL['file_actions_button'] = 'Aktion ausf&uuml;hren';
-$BL['file_actions_no'] = 'Keine Datein zum Bearbeiten. Bitte anderen Ordner ausw&auml;hlen';
+$BL['file_actions_no'] = 'Keine Dateien zum Bearbeiten. Bitte anderen Ordner ausw&auml;hlen';
 $BL['file_actions_delete'] = 'Sind sie sicher, dass die gew&auml;hlten Dateien gel&ouml;schen werden sollen?';
 $BL['file_actions_bemuser'] = 'Die ausgew&auml;hlten Dateien werden dem neuen Benutzer zugeordnet und in dessen Wurzelverzeichnis verschoben.';
 $BL['file_actions_bemfolder'] = 'Bitte w&auml;hlen sie den Zielordner. Die ausgew&auml;hlten Dateien werden in diesen Order verschoben.';
@@ -1475,3 +1475,17 @@ $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
 
 $BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';
+
+$BL['be_flashplayer_marker'] = 'Markierung';
+$BL['be_marker_time'] = 'Zeit (Sekunden, z.B. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';
+
+$BL['copy_to_clipboard'] = 'In die Zwischenablage kopieren';
+$BL['url_parameter'] = 'URL-Parameter';
+$BL['file_extension'] = 'Erweiterung';
+$BL['download_link'] = 'Download-Link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direkt laden';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'im Browser anzeigen';

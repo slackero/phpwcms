@@ -2562,3 +2562,42 @@ function convert_rel2abs( $text, $base ) {
 
     return $text;
 }
+
+
+/**
+ * Render the relative download URL
+ *
+ * @param   string  $hash
+ * @param   string  $filename
+ * @param   bool    $countonly
+ * @param   bool    $htmlencode
+ * @param   null    $inline
+ *
+ * @return string
+ */
+function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
+
+    $href = '';
+    $get = array();
+
+    if (PHPWCMS_REWRITE) {
+        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
+    } else {
+        $href .= 'download.php';
+        $get[] = 'f=' . $hash;
+    }
+
+    if ($countonly) {
+        $get[] = 'countonly=1';
+    }
+    if ($inline || ($inline === null && !empty($GLOBALS['phpwcms']['inline_download']))) {
+        $get[] = 'target=1';
+    }
+
+    if (count($get)) {
+        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
+    }
+
+    return $href;
+
+}

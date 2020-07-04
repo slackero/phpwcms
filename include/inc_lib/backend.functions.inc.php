@@ -635,6 +635,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         'r404',
         'phpwcms-preview',
         'dl',
+        'fmp'
     );
 
     if($alias === '') {

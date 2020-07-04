@@ -1491,4 +1491,18 @@ $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective o
 $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
 
-$BL['be_admin_template_choose_file'] = 'text template, alternatively select file template';
+$BL['be_admin_template_choose_file'] = 'Text template, alternatively select file template';
+
+$BL['be_flashplayer_marker'] = 'Marker';
+$BL['be_marker_time'] = 'Time (seconds, i.e. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = 'Overlay text';
+
+$BL['copy_to_clipboard'] = 'Copy to Clipboard';
+$BL['url_parameter'] = 'URL parameter';
+$BL['file_extension'] = 'Extension';
+$BL['download_link'] = 'Download link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direct download';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'display in browser';

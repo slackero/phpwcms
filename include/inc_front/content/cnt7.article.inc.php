@@ -88,9 +88,9 @@ if (empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE . 'inc_default
     $crow["acontent_template"] .= '<li><a href="{FILE_LINK}"{FILE_TARGET}>{FILE_NAME}</a></li>';
     $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
 }
-$_files_has = is_array($content['files_result']) ? count($content['files_result']) : 0;
+$_files_count = is_array($content['files_result']) ? count($content['files_result']) : 0;
 $_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0 ? true : false;
-if ($_files_force_rendering || $_files_has) {
+if ($_files_force_rendering || $_files_count) {
     $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $_files_settings = parse_ini_str($_files_settings, false);
     $_files_settings = array_merge(array(
@@ -113,13 +113,12 @@ if ($_files_force_rendering || $_files_has) {
         $_files_old_locale = setlocale(LC_ALL, "0");
         setlocale(LC_ALL, $_files_settings['set_locale']);
     }
-    if ($_files_has && !empty($_files_settings['lightbox_init'])) {
-        initSlimbox();
-    }
-    $_files_count = count($content['files_result']);
     $_files_entries = array();
     $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
-    if ($_files_has) {
+    if ($_files_count) {
+        if (!empty($_files_settings['lightbox_init'])) {
+            initSlimbox();
+        }
         foreach ($content['files'] as $fkey => $file_item) {
             for ($_files_x = 0; $_files_x < $_files_count; $_files_x++) {
                 // compare query result against content part file IDs
@@ -349,7 +348,7 @@ if ($_files_force_rendering || $_files_has) {
     }
     $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
     if ($_files_force_rendering) {
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HAS_FILES', $_files_has ? $_files_has : '');
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HAS_FILES', $_files_count ? $_files_count : '');
     }
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));
@@ -357,6 +356,7 @@ if ($_files_force_rendering || $_files_has) {
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['file_cp_subtitle']));
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_html"]);
     $crow["acontent_template"] = str_replace('{ID}', $crow['acontent_id'], $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{FILE_COUNT}', $_files_count, $crow["acontent_template"]);
     // cleanup left over FILE_IMAGE sections
     $crow["acontent_template"] = replace_cnt_template($crow["acontent_template"], 'FILE_IMAGE', '');
     // return result

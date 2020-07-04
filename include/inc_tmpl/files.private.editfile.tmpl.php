@@ -115,12 +115,11 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
                 }
                 if($file_vars[$lang]['copyright'] === '') {
                     $file_vars[$lang]['copyright'] = $file_iptc_info['copyright'];
-        }
+                }
                 if($file_vars[$lang]['alt'] === '') {
                     $file_vars[$lang]['alt'] = $file_iptc_info['alt'];
-    }
+                }
             }
-
         }
     }
 
@@ -270,47 +269,84 @@ if($file_id) {
 if($ja) {
 ?>
 <form action="phpwcms.php?do=files&amp;f=0" method="post" name="editfileinfo" id="editfileinfo">
-<table border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
+<table border="0" cellpadding="0" cellspacing="0" bgcolor="#EBF2F4" summary="">
     <tr>
         <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0"></a></td>
         <td><img src="img/leer.gif" alt="" width="1" height="6"></td>
     </tr>
     <tr><td class="title"><?php echo $BL['be_fprivedit_title'] ?></td></tr>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+    <?php if(isset($file_error["name"])):
+        $file_name = $file_oldname;
+    ?>
+        <tr>
+            <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1"></td>
+            <td class="v10"><strong style="color:#FF3300"><?php echo $BL['be_fprivedit_err1'] ?></strong></td>
+        </tr>
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <?php endif; ?>
     <tr>
-      <td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td>
-      </tr>
-    <tr>
-      <td align="right" class="v09">&nbsp;</td>
-      <td class="v11"><?php
+        <td align="right" class="v09"><?php echo $BL['be_fprivedit_filename'] ?>:&nbsp;</td>
+        <td><input name="file_name" type="text" class="width400 v12" id="file_name" value="<?php echo html($file_name) ?>" size="40" maxlength="230" placeholder="<?php echo html($file_name) ?>"></td>
+    </tr>
 
-            if($file_thumb_small) {
-                echo $file_thumb_small;
-            } else {
-                echo '<img src="img/icons/small_'.extimg($file_ext).'" border="0" alt="" style="position:relative;top:1px" /> ';
-                echo html($file_name);
-            }
-
-
-        ?></td>
-      </tr>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
     <tr>
-      <td><img src="img/leer.gif" alt="" width="1" height="1"></td>
-      <td class="v09">
-        ID: <strong class="v10"><?php echo $file_id ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;Hash: <strong class="v10"><?php echo $file_hash ?></strong><br />
-      <?php
-        echo $BL['be_fprivedit_size'], ': <strong class="v10">', fsizelong($file_size), '</strong>', '&nbsp;&nbsp;&nbsp;';
-        echo 'EXT: <strong class="v10">', strtoupper($file_ext), '</strong>';
+        <td align="right" class="v09">ID:&nbsp;</td>
+        <td class="v10"><strong><?php echo $file_id ?></strong></td>
+    </tr>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <tr>
+        <td align="right" class="v09">Hash:&nbsp;</td>
+        <td class="v10"><strong><?php echo $file_hash ?></strong></td>
+    </tr>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['be_fprivedit_size']; ?>:&nbsp;</td>
+        <td class="v10"><strong><?php echo fsizelong($file_size); ?></strong></td>
+    </tr>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['download_link']; ?>:&nbsp;</td>
+        <td class="v10"><?php
+            $file_href_inline = rel_download($file_hash, $file_name, false, true, true);
+            $file_href_attachment = rel_download($file_hash, $file_name, false, true, false);
+            echo '<button type="button" onclick="copyToClipboard(\'' . $file_href_inline . '\');return false;" title="' . $BL['copy_to_clipboard'] . ': ' . $file_href_inline . '">';
+            echo '<img src="img/button/copy_11x11_0.gif" alt="" class="tdright5">' . $BL['disposition_inline'] . '</button> ';
+            echo '<button type="button" onclick="copyToClipboard(\'' . $file_href_attachment . '\');return false;" title="' . $BL['copy_to_clipboard'] . ': ' . $file_href_attachment . '">';
+            echo '<img src="img/button/copy_11x11_0.gif" alt="" class="tdright5">' . $BL['disposition_attachment'] . '</button>';
+        ?></td>
+    </tr>
 
-        if($file_thumb_small) {
-            echo '&nbsp;&nbsp;&nbsp;';
-            echo $BL['be_admin_page_width'], ': <strong class="v10">', $file_image_width, '</strong>px', '&nbsp;&nbsp;&nbsp;';
-            echo $BL['be_admin_page_height'], ': <strong class="v10">', $file_image_height, '</strong>px';
-        }
-
-        echo '<br />';
-        echo $BL['be_fprivedit_created'], ': <strong class="v10">', date($BL['be_fprivedit_dateformat'], $file_created), '</strong>'
-      ?></td>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+    <?php if($file_thumb_small): ?>
+        <tr>
+            <td>&nbsp;</td>
+            <td><?php echo $file_thumb_small; ?></td>
+        </tr>
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
+        <tr>
+            <td align="right" class="v09"><?php echo $BL['be_admin_page_width']; ?>:&nbsp;</td>
+            <td class="v10"><strong><?php echo $file_image_width; ?></strong> px</td>
+        </tr>
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+        <tr>
+            <td align="right" class="v09"><?php echo $BL['be_admin_page_height']; ?>:&nbsp;</td>
+            <td class="v10"><strong><?php echo $file_image_height; ?></strong> px</td>
+        </tr>
+        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <?php endif; ?>
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['file_extension']; ?>:&nbsp;</td>
+        <td class="v10">
+            <img src="img/icons/small_<?php echo extimg($file_ext); ?>" alt="" style="position:relative;top:1px" />
+            <strong><?php echo strtoupper($file_ext); ?></strong>
+        </td>
+    </tr>
+    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <tr>
+        <td align="right" class="v09"><?php echo $BL['be_fprivedit_created']; ?>:&nbsp;</td>
+        <td class="v10"><strong><?php echo date($BL['be_fprivedit_dateformat'], $file_created); ?></strong></td>
     </tr>
     <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
     <tr>
@@ -320,28 +356,11 @@ if($ja) {
             <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
         </select></td>
     </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+
+<?php if(count($phpwcms['allowed_lang']) > 1): ?>
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
     <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <?php if(isset($file_error["name"])) {
-            $file_name = $file_oldname;
-    ?>
-    <tr>
-      <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1"></td>
-      <td class="v10"><strong style="color:#FF3300"><?php echo $BL['be_fprivedit_err1'] ?></strong></td>
-    </tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-    <?php } ?>
-    <tr>
-      <td align="right" class="v09"><?php echo $BL['be_fprivedit_filename'] ?>:&nbsp;</td>
-      <td><input name="file_name" type="text" class="width400 v12" id="file_name" value="<?php echo html($file_name) ?>" size="40" maxlength="230"></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-
-<?php   if(count($phpwcms['allowed_lang']) > 1): ?>
-
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 
     <tr>
         <td>&nbsp;</td>
@@ -388,7 +407,6 @@ if($ja) {
         <td align="right" class="v09">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
         <td><input name="file_alt" type="text" id="file_alt" size="40" class="width400" maxlength="1000" value="<?php echo html($file_alt) ?>" /></td>
     </tr>
-
 
 <?php   if(count($phpwcms['allowed_lang']) > 1):
 

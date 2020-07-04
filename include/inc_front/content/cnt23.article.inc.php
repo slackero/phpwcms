@@ -373,7 +373,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             } elseif($temp_array[0] === 'dateformat') {
                                 $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
                             } elseif($temp_array[0] === 'pattern') {
-                                $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
+                                $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? ('/' . trim($temp_array[1], '/') . '/') : '/.*?/'; //#%+~
                             }
                         }
                     }

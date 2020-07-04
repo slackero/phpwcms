@@ -50,6 +50,7 @@ $fmp_data = array(
 
     'fmp_caption'               => '',
     'fmp_link'                  => '',
+    'fmp_marker'                => '',
     'fmp_img_id'                => 0,
     'fmp_img_name'              => '',
     'fmp_set_logo'              => '',

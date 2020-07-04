@@ -239,7 +239,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                 case 'dateformat':  $special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
                                                     break;
 
-                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim($_special[1]) : '/.*?/';
+                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim(trim($_special[1]), '/') : '/.*?/';
                                                     break;
                             }
                         }

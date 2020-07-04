@@ -276,8 +276,13 @@ if(isset($data[1])) {
                     $doc = new DOMDocument();
                     $doc->load(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$value['image_name']);
                     $svg_tag = $doc->getElementsByTagName('svg')->item(0);
-                    $svg_tag->setAttribute('width', $value['max_width']);
-                    $svg_tag->setAttribute('height', $value['max_height']);
+                    $svg_tag->setAttribute('width', round($value['max_width']) . 'px');
+                    $svg_tag->setAttribute('height', round($value['max_height']) . 'px');
+                    // Fix Affinity related SVG attribute error
+                    $svg_viewBox = $svg_tag->getAttribute('viewBox');
+                    if($svg_viewBox === '' && ($svg_viewbox = $svg_tag->getAttribute('viewbox')) !== '') {
+                        $svg_tag->setAttribute('viewBox', $svg_viewbox);
+                    }
                     if($svg_preserveAspectRatio) {
                         $svg_tag->setAttribute('preserveAspectRatio', $svg_preserveAspectRatio);
                     }

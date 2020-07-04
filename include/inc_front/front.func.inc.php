@@ -2935,9 +2935,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             wrap_ul_div(0 = off, 1 = <div>, 2 = <div id="">, 3 = <div class="navLevel-0">),
             wrap_link_text(<em>|</em>),
             articlemenu_start_level|articlemenu_list_image_size (WxHxCROP OR WxHxCROP)|_
-                articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
-                articlemenu_position (inside|outside)|_
-                <custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
+            articlemenu_use_text (take text from: description:MAXLEN OR menutitle:MAXLEN OR teaser:MAXLEN OR teaser:HTML)|_
+            articlemenu_position (inside|outside)|_
+            <custom>[TEXT]{TEXT}[/TEXT][IMAGE]<img src="{IMAGE}" alt="{IMAGE_NAME}">[/IMAGE]</custom>
     */
 
     if($param === 'string') {
@@ -4504,40 +4504,3 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
-/**
- * Render the relative download URL
- *
- * @param   string  $hash
- * @param   string  $filename
- * @param   bool    $countonly
- * @param   bool    $htmlencode
- * @param   null    $inline
- *
- * @return string
- */
-function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
-
-    $href = '';
-    $get = array();
-
-    if (PHPWCMS_REWRITE) {
-        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
-    } else {
-        $href .= 'download.php';
-        $get[] = 'f=' . $hash;
-    }
-
-    if ($countonly) {
-        $get[] = 'countonly=1';
-    }
-    if ($inline || ($inline === null && !empty($GLOBALS['phpwcms']['inline_download']))) {
-        $get[] = 'target=1';
-    }
-
-    if (count($get)) {
-        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
-    }
-
-    return $href;
-
-}

@@ -155,74 +155,56 @@ function tmt_winControl(id, c) {
 
 function get_cookie(Name) {
     var search = Name + "=";
-    var returnvalue = "";
     if (document.cookie.length > 0) {
         var offset = document.cookie.indexOf(search);
         // if cookie exists
-        if (offset != -1) {
+        if (offset !== -1) {
             offset += search.length; // set index of beginning of value
             var end = document.cookie.indexOf(";", offset); // set index of end of cookie value
-            if (end == -1) end = document.cookie.length;
-            returnvalue = decodeURIComponent(document.cookie.substring(offset, end));
+            if (end === -1) {
+                end = document.cookie.length;
+            }
+            return decodeURIComponent(document.cookie.substring(offset, end));
         }
     }
-    return returnvalue;
+    return '';
 }
 
 function write_cookie(wert) {
-    if (wert) {
-        window.document.cookie = "chatstring=" + window.document.sendchatmessage.chatmsg.value;
-    } else {
-        window.document.cookie = "chatstring=";
-    }
+    window.document.cookie = "chatstring=" + (wert ? window.document.sendchatmessage.chatmsg.value : '');
 }
 
 function cut(objekt, len) {
-    if (objekt.value.length > len) objekt.value = objekt.value.substr(0, len);
+    if (objekt.value.length > len) {
+        objekt.value = objekt.value.substr(0, len);
+    }
 }
 
 function changeImagePos(x, f) {
-    if (!f) {
-        document.articlecontent.cimage_pos.selectedIndex = x;
-    } else {
+    if (f) {
         document.article.cimage_pos.selectedIndex = x;
+    } else {
+        document.articlecontent.cimage_pos.selectedIndex = x;
     }
     for (var i = 0; i <= 9; i++) {
-        if (i == x) {
-            MM_swapImage('imgpos' + i, '', 'img/symbole/content_selected.gif', 0);
-        } else {
-            MM_swapImage('imgpos' + i, '', 'img/leer.gif', 0);
-        }
+        MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
 }
 
 function changeImagePosMenu(f) {
-    if (!f) {
-        var x = document.articlecontent.cimage_pos.selectedIndex;
-    } else {
-        var x = document.article.cimage_pos.selectedIndex;
-    }
+    var x = f ? document.article.cimage_pos.selectedIndex : document.articlecontent.cimage_pos.selectedIndex;
     for (var i = 0; i <= 9; i++) {
-        if (i == x) {
-            MM_swapImage('imgpos' + i, '', 'img/symbole/content_selected.gif', 0);
-        } else {
-            MM_swapImage('imgpos' + i, '', 'img/leer.gif', 0);
-        }
+        MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
-    if (!f) {
-        document.articlecontent.cimage_pos.focus();
-    } else {
+    if (f) {
         document.article.cimage_pos.focus();
+    } else {
+        document.articlecontent.cimage_pos.focus();
     }
 }
 
 function switchToggleFTP(field) {
-    if (field.value == '0') {
-        field.value = '1';
-    } else {
-        field.value = '0';
-    }
-    return parseInt(field.value, 10);
+    return parseInt(field.value, 10) ? 0 : 1;
 }
 
 function toggleAllFTP(field, proof) {
@@ -232,9 +214,11 @@ function toggleAllFTP(field, proof) {
 }
 
 function int_only(value) {
-    value = parseInt(value);
-    if (value < 0) value = value * -1;
-    return (value) ? value + "" : "";
+    value = parseInt(value, 10);
+    if (value < 0) {
+        value = value * -1;
+    }
+    return value.toString(10);
 }
 
 function hideLayer(whichLayer) {
@@ -262,8 +246,8 @@ function doMapChange() {
 function subrstr(str, nbr) {
     return str.substr(str.length - nbr);
 }
-// for placing text at position
 
+// for placing text at position
 function setCursorPos(textObj) {
     if (textObj.createTextRange) {
         textObj.cursorPos = document.selection.createRange().duplicate();
@@ -275,7 +259,7 @@ function insertAtCursorPos(textObj, textFieldValue) {
     if (document.all) {
         if (textObj.createTextRange && textObj.cursorPos) {
             var cursorPos = textObj.cursorPos;
-            cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) == ' ' ? textFieldValue + ' ' : textFieldValue;
+            cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) === ' ' ? textFieldValue + ' ' : textFieldValue;
         } else {
             textObj.value = textObj.value + textFieldValue;
         }
@@ -293,7 +277,6 @@ function insertAtCursorPos(textObj, textFieldValue) {
 }
 
 function getFieldById(fld) {
-    var thisdetail;
     if (document.getElementById && document.getElementById(fld) != null) {
         return document.getElementById(fld);
     } else if (document.layers && document.layers[fld] != null) {
@@ -339,14 +322,14 @@ function enableStatusMessage(fld, showHide, text) {
 }
 
 function create_alias(str, encoding, ucfirst) {
-    var str = str.toUpperCase();
+    str = str.toUpperCase();
     str = str.toLowerCase();
     str = str.replace(/\[br\]/g, ' ');
     str = str.replace(/__/g, ' ');
     str = str.replace(/\s+/g, '-');
     str = str.replace(/[\?\+#=]/g, '-');
     str = str.replace(/-+\/+-+/g, '/');
-    if(aliasUtf8) {
+    if (aliasUtf8) {
         if (aliasAllowSlashes) {
             str = str.replace(/[^a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF0-9_\-\/\.]+/g, '');
         } else {
@@ -385,6 +368,7 @@ function create_alias(str, encoding, ucfirst) {
     }
     return str;
 }
+
 var fbw = 450,
     fbh = 575;
 if (screen.width !== undefined) {
@@ -395,8 +379,8 @@ if (screen.height !== undefined) {
 }
 
 function openFileBrowser(url) {
-    if (url != null && url != '') {
-        if (window.imageBrowser && temp_url != url) {
+    if (url != null && url !== '') {
+        if (window.imageBrowser && temp_url !== url) {
             tmt_winControl('imageBrowser', 'close()');
         }
         tmt_winOpen(url, 'imageBrowser', 'width=' + fbw + ',height=' + fbh + ',left=8,top=8,scrollbars=yes,resizable=yes', 1);
@@ -405,13 +389,14 @@ function openFileBrowser(url) {
 }
 
 function set_article_alias(onempty_only, alias_type, category) {
-    if (alias_type == 'struct') {
-        var alias_basis = 'acat_name', alias_target = 'acat_alias';
-    } else {
-        var alias_basis = 'article_title', alias_target = 'article_alias';
+    var alias_basis = 'article_title',
+        alias_target = 'article_alias';
+    if (alias_type === 'struct') {
+        alias_basis = 'acat_name';
+        alias_target = 'acat_alias';
     }
     var aalias = getObjectById(alias_target);
-    if (onempty_only && aalias.value != '') {
+    if (onempty_only && aalias.value !== '') {
         return false;
     }
     var atitle = getObjectById(alias_basis);
@@ -423,7 +408,7 @@ function flush_image_cache(link, url) {
     link.addClass('ajax-running');
     new Ajax(url, {
         method: 'get',
-        onComplete: function() {
+        onComplete: function () {
             link.removeClass('ajax-running');
         }
     }).request();
@@ -433,14 +418,14 @@ function flush_image_cache(link, url) {
 // Autosize textarea
 var autosizeTextareas = [];
 if (typeof jQuery == 'undefined') { // still mootools
-    window.addEvent('domready', function() {
+    window.addEvent('domready', function () {
         autosizeTextareas = $$('textarea.autosize');
         if (autosizeTextareas.length) {
             autosize(autosizeTextareas);
         }
     });
 } else {
-    $(function() {
+    $(function () {
         autosizeTextareas = $('textarea.autosize');
         if (autosizeTextareas.length) {
             autosize(autosizeTextareas);
@@ -450,22 +435,22 @@ if (typeof jQuery == 'undefined') { // still mootools
 
 
 var validation = {
-    isEmailAddress:function(str) {
-        var pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    isEmailAddress: function (str) {
+        var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isNotEmpty:function(str) {
-        var pattern =/\S+/;
+    isNotEmpty: function (str) {
+        var pattern = /\S+/;
         return pattern.test(str);  // returns a boolean
     },
-    isNumber:function(str) {
+    isNumber: function (str) {
         var pattern = /^\d+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isSame:function(str1,str2){
+    isSame: function (str1, str2) {
         return str1 === str2;
     },
-    isInt:function(str) {
+    isInt: function (str) {
         var pattern = /^(\-?|\+?)\d+$/;
         return pattern.test(str);  // returns a boolean
     },
@@ -475,4 +460,21 @@ function togglePasswordVisibility(id) {
     var pwdField = document.getElementById(id);
     pwdField.type = pwdField.type === "password" ? "text" : "password";
     return pwdField.type === 'text' ? 'hide' : 'show';
+}
+
+function copyToClipboard(str) {
+    var el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    if (selected) {
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(selected);
+    }
 }
