@@ -16,12 +16,29 @@ $BL         = array();
 $basepath   = str_replace('\\', '/', dirname(__FILE__));
 
 // Check if config is still at the old position
-if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/phpwcms/conf.inc.php')) {
-
+if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/phpwcms/conf.inc.php')):
     if(!@rename($basepath.'/config/phpwcms', $basepath.'/include/config')):
-?>
-    <html><body>
-        <h4 style="color:#cc3300">
+
+?><!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>phpwcms configuration error</title>
+        <style>
+            body {
+                background-color: #fff;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-size: 18px;
+                color: #000;
+            }
+            h1 {
+                font-size: 28px;
+                color:#cc3300;
+            }
+        </style>
+    </head>
+    <body>
+        <h4 style="">
             <strong>Your configuration is placed at the wrong position.</strong>
         </h4>
         <p>
@@ -29,12 +46,12 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
             directory <code>config/phpwcms</code> to directory <code>include/config</code>. The fallback
             to do it automatically has failed. Please do it manually before you continue.
         </p>
-    </body></html>
+    </body>
+</html>
 <?php
         die();
-
     endif;
-}
+endif;
 
 require_once $basepath.'/include/config/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
@@ -67,18 +84,13 @@ if(!empty($_POST['ref_url'])) {
     $ref_url = '';
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken')) {
-    $csrf_error = true;
-} else {
-    $csrf_error = false;
-}
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken');
 
 define('LOGIN_TOKEN', generate_get_token('csrftoken'));
 
 // reset all inactive users
-$sql  = "UPDATE ".DB_PREPEND."phpwcms_userlog SET ";
-$sql .= "logged_in = 0, logged_change = '".time()."' ";
-$sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($phpwcms["max_time"]);
+$sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
+$sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > ".intval($phpwcms["max_time"]);
 _dbQuery($sql, 'UPDATE');
 
 //load default language EN
@@ -90,7 +102,7 @@ if(isset($_COOKIE['phpwcmsBELang'])) {
     if( isset( $BL[ $temp_lang ] ) ) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
-        setcookie('phpwcmsBELang', '', time()-3600 );
+        setcookie('phpwcmsBELang', '', time() - 3600);
     }
 }
 if(isset($_POST['form_lang'])) {
@@ -105,8 +117,8 @@ if(empty($_SESSION["wcs_user_lang"])) {
 if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
     $_SESSION["wcs_user_lang_custom"] = 1;
 } else {
-    $_SESSION["wcs_user_lang"]          = 'en'; //by ono
-    $_SESSION["wcs_user_lang_custom"]   = 0;
+    $_SESSION["wcs_user_lang"] = 'en'; //by ono
+    $_SESSION["wcs_user_lang_custom"] = 0;
 }
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
     //use custom lang if available -> was set in login.php
@@ -120,7 +132,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-$phpwcms["wysiwyg_editor"]  = empty($phpwcms["wysiwyg_editor"]) ? 0 : 1;
+$phpwcms["wysiwyg_editor"] = empty($phpwcms["wysiwyg_editor"]) ? 0 : 1;
 $_SESSION["WYSIWYG_EDITOR"] = $phpwcms["wysiwyg_editor"];
 
 destroyBackendSessionData();
@@ -134,8 +146,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
     $wcs_user           = slweg($_POST['form_loginname']);
     $wcs_pass           = slweg($_POST['md5pass']);
 
-    $sql_query  = "SELECT * FROM ".DB_PREPEND."phpwcms_user WHERE usr_login="._dbEscape($wcs_user)." AND ";
-    $sql_query .= "usr_pass="._dbEscape($wcs_pass)." AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
+    $sql_query  = "SELECT * FROM " . DB_PREPEND . "phpwcms_user WHERE usr_login=" . _dbEscape($wcs_user) . " AND ";
+    $sql_query .= "usr_pass=" . _dbEscape($wcs_pass) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
     if(!$csrf_error) {
 
@@ -159,10 +171,10 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
             set_language_cookie();
 
-            $_SESSION["structure"]      = @unserialize($result[0]["usr_var_structure"]);
-            $_SESSION["klapp"]          = @unserialize($result[0]["usr_var_privatefile"]);
-            $_SESSION["pklapp"]         = @unserialize($result[0]["usr_var_publicfile"]);
-            $result[0]["usr_vars"]      = @unserialize($result[0]["usr_vars"]);
+            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
+            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
+            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"]);
+            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"]);
 
             if(!is_array($_SESSION["structure"])) {
                 $_SESSION["structure"] = array();
@@ -174,7 +186,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 $_SESSION["pklapp"] = array();
             }
             if(!is_array($result[0]["usr_vars"])) {
-                $result[0]["usr_vars"]  = array();
+                $result[0]["usr_vars"] = array();
             }
 
             // Fallback to CKeditor?
@@ -281,15 +293,17 @@ $reason_types = array(
 
 <?php if(isset($_GET['reason'])): ?>
         <div class="alert <?php echo $reason_types[ (isset($_GET['type']) && isset($reason_types[$_GET['type']])) ? $_GET['type'] : 'default' ]; ?>">
-            <?php if($_GET['reason'] === 'csrf-post-failed'): ?>
-                <?php echo $BL['CSRF_POST_FAILED']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-post-invalid'): ?>
-                <?php echo $BL['CSRF_POST_INVALID']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-get-failed'): ?>
-                <?php echo $BL['CSRF_GET_FAILED']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-get-invalid'): ?>
-                <?php echo $BL['CSRF_GET_INVALID']; ?>
-            <?php endif; ?>
+            <?php
+                if($_GET['reason'] === 'csrf-post-failed') {
+                    echo $BL['CSRF_POST_FAILED'];
+                } elseif($_GET['reason'] === 'csrf-post-invalid') {
+                    echo $BL['CSRF_POST_INVALID'];
+                } elseif($_GET['reason'] === 'csrf-get-failed') {
+                    echo $BL['CSRF_GET_FAILED'];
+                } elseif($_GET['reason'] === 'csrf-get-invalid') {
+                    echo $BL['CSRF_GET_INVALID'];
+                }
+            ?>
         </div>
 <?php endif; ?>
 
@@ -300,7 +314,7 @@ $reason_types = array(
             <strong><a href="http://www.phpwcms.org" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
             Copyright &copy; 2002&#8212;<?php echo date('Y'); ?>
             Oliver Georgi. Extensions are copyright of their respective owners.
-            Visit <a href="http://www.phpwcms.org" target="_blank">http://www.phpwcms.org</a> for
+            Visit <a href="https://www.phpwcms.org" target="_blank">phpwcms.org</a> for
             details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
             and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law.
         </p>
@@ -312,7 +326,7 @@ $reason_types = array(
 ob_start();
 
 ?>
-<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" onsubmit="return login(this);" autocomplete="off">
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="login_formular" onsubmit="return login(this);"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="off"<?php endif; ?>>
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="customlang" id="customlang" value="<?php if(!empty($_POST['customlang'])): ?>1<?php endif; ?>" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
@@ -332,21 +346,28 @@ ob_start();
         $err = 0;
     }
 
-    echo '<div class="alert alert-danger"'.($err ? '' : ' style="display:none;"') . ' id="jserr">'.$BL["login_error"].'</div>';
+    echo '<div class="alert alert-danger"';
+    if(!$err) {
+        echo ' style="display:none;"';
+    }
+    echo ' id="jserr">';
+    echo $BL["login_error"];
+    echo '</div>';
 
 ?>
     <table border="0" cellpadding="0" cellspacing="0" summary="Login Form" style="margin:15px 0 20px 10px">
         <tr>
-          <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_username"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_loginname" type="text" id="form_loginname" class="width250" size="30" maxlength="30" value="<?php echo html_specialchars($wcs_user); ?>" required="required" /></td>
-          </tr>
+            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_username"] ?>:&nbsp;</td>
+            <td class="v10"><input name="form_loginname" type="text" id="form_loginname" class="width250" size="30" maxlength="30" value="<?php echo html_specialchars($wcs_user); ?>" required="required" /></td>
+        </tr>
         <tr>
-          <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-          <td class="v10"><input name="form_password" type="password" id="form_password" class="width250" size="30" maxlength="40" required="required" autocomplete="new-password" /></td>
-          </tr>
+            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
+            <td class="v10"><input name="form_password" type="password" id="form_password" class="width250" size="30" maxlength="40" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> /></td>
+        </tr>
         <tr>
-          <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
-          <td class="v10"><select name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
+            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
+            <td class="v10">
+                <select name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
 <?php
 
 // check available languages installed and build language selector menu
@@ -368,12 +389,13 @@ ksort($lang_options);
 echo implode('', $lang_options);
 
 ?>
-          </select></td>
-          </tr>
+                </select>
+            </td>
+        </tr>
         <tr>
-          <td>&nbsp;</td>
-          <td><input name="submit_form" type="submit" value="<?php echo $BL["login_button"] ?>" class="button" /></td>
-          </tr>
+            <td>&nbsp;</td>
+            <td><input name="submit_form" type="submit" value="<?php echo $BL["login_button"] ?>" class="button" /></td>
+        </tr>
     </table>
     </form>
 <?php
@@ -388,7 +410,7 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 <script>
     $buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) { echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
 </script>
-<script src="//browser-update.org/update.js"></script>
+<script src="https://browser-update.org/update.js"></script>
 <?php endif; ?>
 </body>
 </html>
