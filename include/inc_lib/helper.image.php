@@ -1301,7 +1301,7 @@ class Phpwcms_Image_lib {
         $cache = md5($path);
         if (!isset($this->image_cache[$cache])) {
             $vals = getimagesize($path);
-            if (!isset($vals[2])) {
+            if ($this->image_library === 'gd2' && !isset($vals[2])) {
                 return false;
             }
             $types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
