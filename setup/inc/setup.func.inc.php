@@ -276,6 +276,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()\n";
     $conf_file .= "\$cmsgo['preserve_getVar'] = array(); // cmsGo! removes some internal GET vars by default, add the ones that should be preserved\n";
     $conf_file .= "\$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsGo! by default (anonymize IP...)\n";
+    $conf_file .= "\$cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
