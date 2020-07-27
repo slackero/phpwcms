@@ -48,6 +48,7 @@ foreach($cart_data as $item_key => $row) {
 				foreach($_cart_opt_1 as $key => $value){
 					if($key && $_SESSION[CART_KEY]['options1'][$prod_id][$opt1_id][$opt2_id] == $key){
 						$value = get_shop_option_value($value);
+						$value_opt0_float = (float) $value[0];
 						$value_opt1_float = (float) $value[1];
 						$opt1_txt = $value[0] . $value['option'];
 						$opt1_numbr = $value[2];

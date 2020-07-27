@@ -55,11 +55,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 	$_shop_parsed = true;
 
 	// load template
-	$_tmpl = array(
-	    'config' => array(),
-        'source' => '',
-        'lang' => $cmsgo['default_lang']
-    );
+	$_tmpl = array( 'config' => array(), 'source' => '', 'lang' => $cmsgo['default_lang'] );
 
 	// Check against language specific shop template
 	if(is_file($cmsgo['modules']['shop']['path'].'template/'.$cmsgo['default_lang'].'.html')) {
@@ -76,7 +72,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 
 		$_tmpl['config'] = parse_ini_str(get_tmpl_section('CONFIG', $_tmpl['source']), false);
 		$_tmpl['config']['cat_list_products'] = empty($_tmpl['config']['cat_list_products']) ? false : cmsgo_boolval($_tmpl['config']['cat_list_products']);
-        $_tmpl['config']['cat_count_products'] = empty($_tmpl['config']['cat_count_products']) ? false : cmsgo_boolval($_tmpl['config']['cat_count_products']);
+		$_tmpl['config']['cat_count_products'] = empty($_tmpl['config']['cat_count_products']) ? false : cmsgo_boolval($_tmpl['config']['cat_count_products']);
 		$_tmpl['config']['image_list_lightbox'] = empty($_tmpl['config']['image_list_lightbox']) ? false : cmsgo_boolval($_tmpl['config']['image_list_lightbox']);
 		$_tmpl['config']['image_detail_lightbox'] = empty($_tmpl['config']['image_detail_lightbox']) ? false : cmsgo_boolval($_tmpl['config']['image_detail_lightbox']);
 		$_tmpl['config']['image_detail_crop'] = empty($_tmpl['config']['image_detail_crop']) ? false : cmsgo_boolval($_tmpl['config']['image_detail_crop']);
@@ -167,9 +163,9 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			'cat_all_pos'				=> 'bottom',
 			'cat_list_products'			=> false,
 			'cat_subcat_spacer'			=> ' / ',
-            'cat_count_products'        => true,
-            'cat_count_products_prefix' => ' (',
-            'cat_count_products_suffix' => ')',
+			'cat_count_products'        => true,
+			'cat_count_products_prefix' => ' (',
+			'cat_count_products_suffix' => ')',
 			'price_decimals'			=> 2,
 			'vat_decimals'				=> 1,
 			'weight_decimals'			=> 1,
@@ -339,7 +335,7 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 					$_SESSION[CART_KEY]['total'][$shop_prod_id.$opt_1.$opt_2]  = $shop_prod_amount;
 				}
 
-                $_SESSION[CART_KEY]['amount'][$shop_prod_id] = $_SESSION[CART_KEY]['products'][$shop_prod_id][$opt_1][$opt_2];
+				$_SESSION[CART_KEY]['amount'][$shop_prod_id] = $_SESSION[CART_KEY]['products'][$shop_prod_id][$opt_1][$opt_2];
 			}
 
 		}
@@ -555,19 +551,19 @@ if( $_shop_load_cat !== false ) {
 						$shop_subcat[$z] .= '><a href="' . rel_url(array('shop_cat' => $srow['cat_pid'] . '_' . $srow['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">';
 						$shop_subcat[$z] .= '@@' . html($srow['cat_name']) . '@@';
 						if ($_tmpl['config']['cat_count_products']) {
-                            $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'cmsgo_shop_products WHERE ';
-                            $count_cat_products_sql .= "shopprod_status=1 AND (";
-                            $count_cat_products_sql .= "shopprod_category = '" . $srow['cat_id'] . "' OR ";
-                            $count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . ",%' OR ";
-                            $count_cat_products_sql .= "shopprod_category LIKE '" . $srow['cat_id'] . ",%' OR ";
-                            $count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . "')";
-                            $count_cat_products_sql .= SHOP_FELANG_SQL; // FE language
-                            $count_cat_products = _dbCount($count_cat_products_sql);
+							$count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'cmsgo_shop_products WHERE ';
+							$count_cat_products_sql .= "shopprod_status=1 AND (";
+							$count_cat_products_sql .= "shopprod_category = '" . $srow['cat_id'] . "' OR ";
+							$count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . ",%' OR ";
+							$count_cat_products_sql .= "shopprod_category LIKE '" . $srow['cat_id'] . ",%' OR ";
+							$count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . "')";
+							$count_cat_products_sql .= SHOP_FELANG_SQL; // FE language
+							$count_cat_products = _dbCount($count_cat_products_sql);
 
-                            $shop_subcat[$z] .= ' ' . $_tmpl['config']['cat_count_products_prefix'];
-                            $shop_subcat[$z] .= $count_cat_products;
-                            $shop_subcat[$z] .= $_tmpl['config']['cat_count_products_suffix'];
-                        }
+							$shop_subcat[$z] .= ' ' . $_tmpl['config']['cat_count_products_prefix'];
+							$shop_subcat[$z] .= $count_cat_products;
+							$shop_subcat[$z] .= $_tmpl['config']['cat_count_products_suffix'];
+						}
 						$shop_subcat[$z] .= '</a>';
 						if($srow['cat_id'] == $shop_subcat_selected && $_tmpl['config']['cat_list_products']) {
 							$shop_subcat[$z] .= get_category_products($srow['cat_id'], $shop_detail_id, $shop_cat_selected, $shop_subcat_selected, $_tmpl['config']['shop_url']);
@@ -590,20 +586,20 @@ if( $_shop_load_cat !== false ) {
 			}
 			$shop_cat[$x] .= '><a href="' . rel_url(array('shop_cat' => $row['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">';
 			$shop_cat[$x] .= '@@' . html($row['cat_name']) . '@@';
-            if ($_tmpl['config']['cat_count_products']) {
-                $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'cmsgo_shop_products WHERE ';
-                $count_cat_products_sql .= "shopprod_status=1 AND (";
-                $count_cat_products_sql .= "shopprod_category = '" . $row['cat_id'] . "' OR ";
-                $count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . ",%' OR ";
-                $count_cat_products_sql .= "shopprod_category LIKE '" . $row['cat_id'] . ",%' OR ";
-                $count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . "')";
-                $count_cat_products_sql .= SHOP_FELANG_SQL; // FE language
-                $count_cat_products = _dbCount($count_cat_products_sql);
+			if ($_tmpl['config']['cat_count_products']) {
+				$count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'cmsgo_shop_products WHERE ';
+				$count_cat_products_sql .= "shopprod_status=1 AND (";
+				$count_cat_products_sql .= "shopprod_category = '" . $row['cat_id'] . "' OR ";
+				$count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . ",%' OR ";
+				$count_cat_products_sql .= "shopprod_category LIKE '" . $row['cat_id'] . ",%' OR ";
+				$count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . "')";
+				$count_cat_products_sql .= SHOP_FELANG_SQL; // FE language
+				$count_cat_products = _dbCount($count_cat_products_sql);
 
-                $shop_cat[$x] .= ' ' . $_tmpl['config']['cat_count_products_prefix'];
-                $shop_cat[$x] .= $count_cat_products;
-                $shop_cat[$x] .= $_tmpl['config']['cat_count_products_suffix'];
-            }
+				$shop_cat[$x] .= ' ' . $_tmpl['config']['cat_count_products_prefix'];
+				$shop_cat[$x] .= $count_cat_products;
+				$shop_cat[$x] .= $_tmpl['config']['cat_count_products_suffix'];
+			}
 			$shop_cat[$x] .= '</a>' . $shop_cat_prods;
 			$shop_cat[$x] .= '</li>';
 
@@ -825,13 +821,7 @@ if( $_shop_load_list !== false ) {
 				$_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" method="post">';
 				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
 				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
-				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
-					// user has set amount manually
-					$_cart_add .= '<input type="text" name="shop_prod_amount" id="shop_prod_amount_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_shop_amount'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" value="1" size="2" />';
-					$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
-				} else {
-					$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
-				}
+
 
 				if(strpos($_cart, '{PRODUCT_OPT1}') !== false) {
 					$_cart_add .= $_cart_prod_opt1;
@@ -842,11 +832,24 @@ if( $_shop_load_list !== false ) {
 					$_cart = str_replace('{PRODUCT_OPT2}', '', $_cart);
 				}
 
+				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
+					// user has set amount manually
+					$_cart_add .= '<div class="col">';
+					$_cart_add .= '<input type="text" name="shop_prod_amount" id="shop_prod_amount_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_shop_amount'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" value="1" size="2" />';
+					$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
+					$_cart_add .= '</div>';
+				} else {
+					$_cart_add .= '<div class="col-12">';
+					$_cart_add .= '<div class="input-group"><input type="visible" class="form-control" name="shop_prod_amount" value="1" />';
+				}
+
 				if(strpos($_cart, 'input ') !== false) {
 					// user has set input button
 					$_cart_add .= $_cart;
 				} else {
-					$_cart_add .= '<input type="submit" name="shop_cart_add" id="shop_cart_add_'.$row['shopprod_id'].'" value="' . html($_cart) . '" class="'.trim($_tmpl['config']['class_cart_add_button'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" />';
+					$_cart_add .= '<div class="input-group-append"><button type="submit" name="shop_cart_add" id="shop_cart_add_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_cart_add_button'].' '.$_tmpl['config']['class_prefix_shop_mode']).'"><i class="fas fa-shopping-cart fa-fw"></i>' . html($_cart) . '</button></div>';
+					$_cart_add .= '</div>';
+					$_cart_add .= '</div>';
 				}
 
 				$_cart_add .= '</form>';
@@ -868,8 +871,8 @@ if( $_shop_load_list !== false ) {
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_VAT', $row['vat']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_URL', $row['prod_url']['link']);
 			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_UNIT', html($row['shopprod_unit']));
-            $entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_INVENTORY', html($row['shopprod_inventory']));
-            $entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_INVENTORY_AVAILABLE', intval($row['shopprod_inventory']) > 0 ? ' ' : '');
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_INVENTORY', html($row['shopprod_inventory']));
+			$entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_INVENTORY_AVAILABLE', intval($row['shopprod_inventory']) > 0 ? ' ' : '');
 
 			if(empty($_shopPref['shop_pref_discount']['discount']) || empty($_shopPref['shop_pref_discount']['percent'])) {
 				$row['discount'] = '';
@@ -1191,8 +1194,8 @@ if( $_shop_load_order !== false ) {
 		// some error handling
 		$order_process = render_cnt_template($order_process, 'ERROR_PAYMENT', isset($ERROR['inv_address']['payment']) ? ' ' : '');
 		$order_process = render_cnt_template($order_process, 'IF_ERROR', isset($ERROR['inv_address']) ? ' ' : '');
-
-		$order_process = '<form action="' . rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']) . '" class="'.$_tmpl['config']['class_form_cart'].'" method="post">' . LF . trim($order_process) . LF . '</form>';
+		//pwmod: add id to form
+		$order_process = '<form action="' . rel_url(array('shop_cart' => 'show'), array('shop_detail'), $_tmpl['config']['cart_url']) . '" class="'.$_tmpl['config']['class_form_cart'].'" id="'.$_tmpl['config']['class_form_id'].'" method="post">' . LF . trim($order_process) . LF . '</form>';
 
 
 	} elseif( isset($_POST['shop_order_step1']) || isset($ERROR['terms']) || isset($_SESSION[CART_KEY]['error']['step2']) ) {
@@ -1400,13 +1403,13 @@ if( $_shop_load_order !== false ) {
 			$shop_pref_autosubtract_off = _getConfig( 'shop_pref_autosubtract_off', '_shopPref' );
 
 			if (empty($shop_pref_autosubtract_off)) {
-			    foreach($_SESSION[CART_KEY]['amount'] as $update_product_id => $subtract_amount) {
-			        $subtract_query = 'UPDATE `' . DB_PREPEND . 'cmsgo_shop_products` SET ';
-			        $subtract_query .= '`shopprod_inventory`=`shopprod_inventory`-' . intval($subtract_amount) . ' ';
-			        $subtract_query .= 'WHERE `shopprod_id`=' . _dbEscape($update_product_id);
-                    _dbQuery($subtract_query, 'UPDATE');
-                }
-            }
+			    	foreach($_SESSION[CART_KEY]['amount'] as $update_product_id => $subtract_amount) {
+			        	$subtract_query = 'UPDATE `' . DB_PREPEND . 'cmsgo_shop_products` SET ';
+			        	$subtract_query .= '`shopprod_inventory`=`shopprod_inventory`-' . intval($subtract_amount) . ' ';
+			        	$subtract_query .= 'WHERE `shopprod_id`=' . _dbEscape($update_product_id);
+                    			_dbQuery($subtract_query, 'UPDATE');
+                		}
+            		}
 
 			foreach($_SESSION[CART_KEY]['step1'] as $item_key => $row) {
 				$order_process = render_cnt_template($order_process, $item_key, html($row));
@@ -1442,24 +1445,26 @@ if( $_shop_load_order !== false ) {
 		include $cmsgo['modules']['shop']['path'].'inc/cart.parse.inc.php';
 
 		// Update Cart Button
+		//ppmodyw: input replace with button
 		$_cart_button = preg_match("/\[UPDATE\](.*?)\[\/UPDATE\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_update" value="' . html($_cart_button) . '" class="cart-update-button" />';
+			$_cart_button = '<button type="submit" name="shop_cart_update" value="' . html($_cart_button) . '" class="btn btn-primary cart-update-button"><i class="fas fa-sync fa-fw"></i> <span class="d-none d-md-inline-block"> ' . html($_cart_button) . '</div></button>';
 		}
 		$order_process  = preg_replace('/\[UPDATE\](.*?)\[\/UPDATE\]/s', $_cart_button , $order_process);
 
 		// Checkout Button
 		$_cart_button = preg_match("/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_checkout" value="' . html($_cart_button) . '" class="cart-checkout-button" />';
+			$_cart_button = '<button type="submit" name="shop_cart_checkout" value="' . html($_cart_button) . '" class="btn btn-primary cart-checkout-button">' . html($_cart_button) . '</button>';
 		}
 		$order_process  = preg_replace('/\[CHECKOUT\](.*?)\[\/CHECKOUT\]/s', $_cart_button , $order_process);
 
 		// Empty Cart Button
 		$_cart_button = preg_match("/\[DELETE\](.*?)\[\/DELETE\]/s", $order_process, $g) ? $g[1] : '';
 		if(strpos($_cart_button, 'input ') === false) {
-			$_cart_button = '<input type="submit" name="shop_cart_delete" value="' . html($_cart_button) . '" class="cart-delete-button" />';
+			$_cart_button = '<button type="submit" name="shop_cart_delete" class="btn btn-primary cart-delete-button">' . html($_cart_button) . '</button>';
 		}
+		//ppmodyw end
 		$order_process  = preg_replace('/\[DELETE\](.*?)\[\/DELETE\]/s', $_cart_button , $order_process);
 
 		include $cmsgo['modules']['shop']['path'].'inc/shipping.parse.inc.php';
