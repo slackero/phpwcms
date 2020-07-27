@@ -24,7 +24,7 @@ $add_paste_icon = '<a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f
 if(isset($_GET["cut"])) {
   $cutID = intval($_GET["cut"]);
   $add_paste_icon = '<a class="btn btn-danger btn-sm" data-toggle="tooltip" href="include/inc_act/act_file.php?paste='.$cutID.'|0" title="'.$BL['be_ftab_paste'].
-            '"><i class="fa fa-fw fa-fw fa-arrow-to-bottom"></i></a>';
+            '"><i class="fa fa-fw fa-arrow-down"></i></a>';
 } else { $cutID=0; }
 
 $change_thumbnail_icon = '<a class="btn btn-blue btn-sm" data-toggle="tooltip" href="include/inc_act/act_file.php?thumbnail=';
@@ -144,7 +144,7 @@ if($_SESSION["wcs_user_thumb"]) {
 							<?php echo $BL['be_ftabhelp_cutmark'] ?>
 						</li>-->
 						<li class="list-group-item p-1">
-							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-fw fa-arrow-to-bottom"></i></button>
+							<button class="btn btn-danger btn-sm mr-2" href="#"><i class="fa fa-fw fa-arrow-down"></i></button>
 							<?php echo $BL['be_ftabhelp_paste'] ?>
 						</li>
 						<li class="list-group-item p-1">
