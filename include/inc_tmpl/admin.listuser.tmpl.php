@@ -157,7 +157,7 @@ if($_userInfo['pages_total'] > 1) {
     }
 
     ?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-    <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" /></td>
+    <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" alt="" /></td>
             </table></td>
             <td class="chatlist" align="right">
                 <a href="phpwcms.php?do=admin&amp;c=10">10</a>
@@ -167,7 +167,6 @@ if($_userInfo['pages_total'] > 1) {
                 <a href="phpwcms.php?do=admin&amp;c=250">250</a>
                 <a href="phpwcms.php?do=admin&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
             </td>
-
         </tr>
     </table>
     </form></td></tr>
@@ -179,13 +178,15 @@ if($_userInfo['pages_total'] > 1) {
     $bg_color1 = "#FFFFFF";
     $bg_color2 = "#F3F5F8";
     $zaehler = 0;
-    if(!isset($new_user_id)) $new_user_id = 0;
-    //Liste aller User erzeugen
+    if(!isset($new_user_id)) {
+        $new_user_id = 0;
+    }
+    // Generate list of all users
     $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_user ".$_userInfo['where_query'].' ';
     $sql .= "ORDER BY usr_aktiv DESC, usr_fe DESC, usr_admin DESC, usr_name ASC ";
     $sql .= "LIMIT ".(($_SESSION['list_user_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
     $result = _dbQuery($sql);
-    if($result[0]['usr_id']) {
+    if(isset($result[0]['usr_id'])) {
         foreach($result as $userlist) {
             $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
             if($userlist["usr_id"] == $new_user_id) {
