@@ -1,0 +1,1 @@
+RewriteRule ^(setup\.conf\.inc\.php) - [F,L,NC]

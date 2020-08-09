@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -412,7 +412,7 @@ class cmsgoNews {
                 $list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
                 $list[] = '<td class="column collast text-nowrap text-right">
 
-                    <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
+                    <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
 
                     <a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">
                     <i class="fa fa-pencil-alt"></i></a>'.
@@ -440,6 +440,8 @@ class cmsgoNews {
 
     public function getFiles($mode='backend') {
 
+        $data = array();
+
         if( is_array($this->data['cnt_files']['id']) && count($this->data['cnt_files']['id'])) {
 
             $where  = 'f_id IN (' . implode(',', $this->data['cnt_files']['id']) . ') AND ';
@@ -450,31 +452,20 @@ class cmsgoNews {
 
             $result = _dbGet('cmsgo_file', '*', $where);
 
-            // now sort result
+            // Link results and keep sorting
             if(isset($result[0])) {
-
-                $data = array();
-                foreach($this->data['cnt_files']['id'] as $value) {
-                    $value = intval($value);
-                    $data[$value] = array();
+                foreach($this->data['cnt_files']['id'] as $key => $file_id) {
+                    foreach($result as $file_data) {
+                        if(intval($file_data['f_id']) === intval($file_id)) {
+                            $data[$key] = $file_data;
+                            continue;
+                        }
+                    }
                 }
-                foreach($result as $value) {
-                    $id = intval($value['f_id']);
-                    $data[ $id ] = $value;
-                }
-                return $data;
-
-            } else {
-
-                return array();
-
             }
-
-        } else {
-
-            return array();
-
         }
+
+        return $data;
     }
 
     public function edit() {

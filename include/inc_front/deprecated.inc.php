@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -332,7 +332,7 @@ function nav_level_row($show_id, $show_home=1) {
 				$nav .= '<a href="'.$redirect['link'].'"'.$redirect['target'].$class.'>';
 			}
 			$nav .= $direct_before;
-			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);;
+			$nav .= html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
 			$nav .= $direct_after.'</a>'.$after;
 		}
 	}

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -44,7 +44,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 	foreach($crow["acontent_form"]['ingredients'] as $temp_val) {
 		$temp_val = html_specialchars($temp_val);
 
-		if($temp_val{0} == '*') {	//headline
+		if(substr($temp_val, 0, 1) === '*') {	//headline
 			if(isset($crow["acontent_form"]['temp'][$ingrediens_counter]['h'])) {
 				$ingrediens_counter++;
 			}

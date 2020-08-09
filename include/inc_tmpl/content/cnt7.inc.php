@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  **/
 
@@ -118,10 +118,10 @@ if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_
         </select>
     </div>
       <div class="col-sm-auto">
-        <button class="modalButton btn btn-sm btn-blue mb-1" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=4&amp;target=nolist" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cfile_list)"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cfile_list)"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cfile_list)" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 
@@ -130,7 +130,7 @@ if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_
   <div class="col">
     <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php
 
-    if(!empty($content["file_descr"]) && ($content["file_descr"]{0} == "\r" || $content["file_descr"]{0} == "\n")) {
+    if(!empty($content["file_descr"]) && (substr($content["file_descr"], 0, 1) === "\r" || substr($content["file_descr"], 0, 1) === "\n")) {
         echo ' ';
     }
     echo html($content["file_descr"]);
@@ -165,4 +165,3 @@ $wysiwyg_editor = array(
 );
 
 include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-?>

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -66,7 +66,7 @@ $BL['be_func_struct_edit']              = 'editar artigo';
 $BL['be_func_struct_sedit']             = 'editar o nível da estrutura';
 $BL['be_func_struct_cut']               = 'cortar artigo';
 $BL['be_func_struct_nocut']             = 'desligar cortar artigo';
-$BL['be_func_struct_svisible']          = 'mudar visível/invisível';;
+$BL['be_func_struct_svisible']          = 'mudar visível/invisível';
 $BL['be_func_struct_spublic']           = 'mudar público/privado';
 $BL['be_func_struct_sort_up']           = 'ordenar para cima';
 $BL['be_func_struct_sort_down']         = 'ordenar para baixo';

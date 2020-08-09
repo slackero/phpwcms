@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -418,7 +418,7 @@ function createOptionTransferSelectList($id='', $leftData, $rightData, $option =
     $table .= '</select>'.LF;
     $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
     $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
-     $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
     $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
     $table .= '</div>'.LF;
 
@@ -623,6 +623,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         'r404',
         'cmsgo-preview',
         'dl',
+        'fmp'
     );
 
     if($alias === '') {
@@ -786,39 +787,36 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
     $second         = 0;
 
     for($x=0; $x<=2; $x++) {
-
         if(isset($timeformat[$x])) {
-
-            $value = trim($timeformat[$x]);
-            switch( $value{0} ) {
-
-                case 'H':   if(isset($time[$x])) {
-                    $hour = intval($time[$x]);
-                    if($hour < 0 || $hour > 23) {
-                        $hour = 0;
+            switch(substr(trim($timeformat[$x]), 0, 1)) {
+                case 'H':
+                    if(isset($time[$x])) {
+                        $hour = intval($time[$x]);
+                        if($hour < 0 || $hour > 23) {
+                            $hour = 0;
+                        }
                     }
-                }
                     break;
 
-                case 'i':   if(isset($time[$x])) {
-                    $minute = intval($time[$x]);
-                    if($minute < 0 || $minute > 59) {
-                        $minute = 0;
+                case 'i':
+                    if(isset($time[$x])) {
+                        $minute = intval($time[$x]);
+                        if($minute < 0 || $minute > 59) {
+                            $minute = 0;
+                        }
                     }
-                }
                     break;
 
-                case 's':   if(isset($time[$x])) {
-                    $second = intval($time[$x]);
-                    if($second < 0 || $second > 59) {
-                        $second = 0;
+                case 's':
+                    if(isset($time[$x])) {
+                        $second = intval($time[$x]);
+                        if($second < 0 || $second > 59) {
+                            $second = 0;
+                        }
                     }
-                }
                     break;
             }
-
         }
-
     }
 
     $time = str_replace($delimeter, ':', $default_time);
@@ -847,38 +845,37 @@ function _getDate($date='', $delimeter='', $default_date='') {
 
         if(isset($dateformat[$x])) {
 
-            $value = trim($dateformat[$x]);
-            $value = strtolower($value);
-            switch( $value{0} ) {
+            switch(substr(strtolower(trim($dateformat[$x])), 0, 1)) {
 
-                case 'y':   if(isset($date[$x])) {
-                    $year = intval($date[$x]);
-                    if($year < 0) {
-                        $year = '';
+                case 'y':
+                    if(isset($date[$x])) {
+                        $year = intval($date[$x]);
+                        if($year < 0) {
+                            $year = '';
+                        }
                     }
-                }
                     break;
 
-                case 'd':   if(isset($date[$x])) {
-                    $day = intval($date[$x]);
-                    if($day < 1 || $day > 31) {
-                        $day = '';
+                case 'd':
+                    if(isset($date[$x])) {
+                        $day = intval($date[$x]);
+                        if($day < 1 || $day > 31) {
+                            $day = '';
+                        }
                     }
-                }
                     break;
 
-                case 'm':   if(isset($date[$x])) {
-                    $month = intval($date[$x]);
-                    if($month < 1 || $month > 12) {
-                        $month = '';
+                case 'm':
+                    if(isset($date[$x])) {
+                        $month = intval($date[$x]);
+                        if($month < 1 || $month > 12) {
+                            $month = '';
+                        }
                     }
-                }
                     break;
 
             }
-
         }
-
     }
 
     if($year && $month && $day) {
@@ -1023,7 +1020,7 @@ function initJsAutocompleter() {
 function initJQuery() {
 //  unset($GLOBALS['BE']['HEADER']['mootools.js']);
     // add jQuery at first position and keep the key
-    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.3.1.min.js')) + $GLOBALS['BE']['HEADER'];
+    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.4.1.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
 // make cmsgo compatibility and upgrade check

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -38,7 +38,7 @@ if($crow['acontent_attr_id']) {
     $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
 }
 
-if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {;
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
 $crow['attr_class_id_close'] = '</div>';
 } else {
@@ -104,7 +104,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     $cnt_form['label_wrap'][0] = !empty($cnt_form['label_wrap'][0]) ? trim($cnt_form['label_wrap'][0]) : '';
     $cnt_form['label_wrap'][1] = !empty($cnt_form['label_wrap'][1]) ? trim($cnt_form['label_wrap'][1]) : '';
     $form_field_hidden = '';
-    $GET_DO = false;
     $POST_DO = false;
 
     $cnt_form['regx_pattern'] = array(
@@ -126,10 +125,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
 
-        $GET_DO = true;
         $cache_nosave = true;
 
-        $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
+        $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
             $doubleoptin_values = null;
@@ -138,9 +136,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             $doubleoptin_values = $doubleoptin_values[0];
             $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content']);
             if(empty($doubleoptin_values['formresult_content']['hash']) || $doubleoptin_values['formresult_content']['hash'] !== $_GET['hash']) {
-                $doubleoptin_error = true;
-            } else {
                 $doubleoptin_values = null;
+                $doubleoptin_error = true;
             }
         }
     }
@@ -369,19 +366,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if(is_array($cnt_form['special_value']) && count($cnt_form['special_value'])) {
                         foreach($cnt_form['special_value'] as $cnt_form['special_key'] => $cnt_form['special_val']) {
                             $temp_array = explode('=', $cnt_form['special_val']);
-                            switch($temp_array[0]) {
-                                case 'default':
-                                    $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
-                                break;
-                                case 'type':
-                                    $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
-                                break;
-                                case 'dateformat':
-                                    $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
-                                break;
-                                case 'pattern':
-                                    $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? $temp_array[1] : '/.*?/';
-                                break;
+                            if($temp_array[0] === 'default') {
+                                $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
+                            } elseif($temp_array[0] === 'type') {
+                                $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
+                            } elseif($temp_array[0] === 'dateformat') {
+                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
+                            } elseif($temp_array[0] === 'pattern') {
+                                $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? ('/' . trim($temp_array[1], '/') . '/') : '/.*?/'; //#%+~
                             }
                         }
                     }
@@ -397,14 +389,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
                         $cnt_form["fields"][$key]['value'] = $POST_val[$POST_name];
                         // try to check for special value
-                            switch($cnt_form['special_attribute']['type']) {
-                                case 'A-Z':
-                                case 'a-Z':
-                                case 'a-z':
-                                case '0-9':
-                                case 'WORD':
-                                case 'LETTER+SPACE':
-                                case 'PHONE':
+                        switch($cnt_form['special_attribute']['type']) {
+                            case 'A-Z':
+                            case 'a-Z':
+                            case 'a-z':
+                            case '0-9':
+                            case 'WORD':
+                            case 'LETTER+SPACE':
+                            case 'PHONE':
                             case 'INT':
                                 if($cnt_form["fields"][$key]['value'] !== '' && !preg_match($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], $cnt_form["fields"][$key]['value'])) {
                                     $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
@@ -441,15 +433,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 } else {
 
-                    if(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) &&
-                            $cnt_form['special_attribute']['type'] == 'DATE' && $cnt_form['special_attribute']['default'] == 'NOW') {
-                                echo 'ja';
-                                if(isset($cnt_form['special_attribute']['dateformat'])) {
-                                    $cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
-                                } else {
-                                    $cnt_form["fields"][$key]['value'] = date('m/d/Y');
-                                }
-                            }
+                    if(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) && $cnt_form['special_attribute']['type'] == 'DATE' && $cnt_form['special_attribute']['default'] == 'NOW') {
+                        echo 'ja';
+                        if(isset($cnt_form['special_attribute']['dateformat'])) {
+                            $cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
+                        } else {
+                            $cnt_form["fields"][$key]['value'] = date('m/d/Y');
+                        }
+                    }
                 }
 
                 $form_field_type = 'text';
@@ -531,6 +522,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 //check if message should be delivered to email address of this field doubleoptin
                 if($POST_DO && empty($POST_ERR[$key]) && !empty($cnt_form['doubleoptin_targettype']) && ($cnt_form['doubleoptin_targettype'] === 'emailfield_'.$POST_name) && is_valid_email($cnt_form["fields"][$key]['value'])) {
                     $cnt_form['doubleoptin_target'] = $cnt_form["fields"][$key]['value'];
+                } else {
+                    $cnt_form['doubleoptin_target'] = $cnt_form['target'];
                 }
 
                 // check if message should be sent by email address of this field
@@ -1197,7 +1190,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                 $form_field .= '<input type="file" name="'.$form_name.'" id="'.$form_name.'"';
                 if(!empty($cnt_form['upload_value']['accept']) ) {
-                    $form_field .= ' accept=".'.str_replace('|', '.,', $cnt_form['upload_value']['accept']).'"';
+                    $form_field .= ' accept=".'.str_replace('|', ',.', $cnt_form['upload_value']['accept']).'"';
                 }
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
@@ -1507,64 +1500,61 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_value_nl[1]   = empty($form_value_nl[1]) ? '' : trim($form_value_nl[1]);
 
                     if(empty($form_value_nl[0]) || empty($form_value_nl[1])) {
-
                         continue;
+                    }
 
-                    } else {
+                    switch($form_value_nl[0]) {
 
-                        switch($form_value_nl[0]) {
+                        case 'all':
+                            $form_value[0] = $form_value_nl[1];
+                            break;
 
-                            case 'all':
-                                $form_value[0] = $form_value_nl[1];
-                                break;
+                        case 'email_field':
+                            $form_newletter_setting['email_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'email_field':
-                                $form_newletter_setting['email_field'] = $form_value_nl[1];
-                                break;
+                        case 'name_field':
+                            $form_newletter_setting['name_field'] = $form_value_nl[1];
+                            break;
 
-                            case 'name_field':
-                                $form_newletter_setting['name_field'] = $form_value_nl[1];
-                                break;
+                        case 'sender_email':
+                            $form_newletter_setting['sender_email'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_email':
-                                $form_newletter_setting['sender_email'] = $form_value_nl[1];
-                                break;
+                        case 'sender_name':
+                            $form_newletter_setting['sender_name'] = $form_value_nl[1];
+                            break;
 
-                            case 'sender_name':
-                                $form_newletter_setting['sender_name'] = $form_value_nl[1];
-                                break;
+                        case 'url_subscribe':
+                            $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_subscribe':
-                                $form_newletter_setting['url_subscribe'] = $form_value_nl[1];
-                                break;
+                        case 'url_unsubscribe':
+                            $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
+                            break;
 
-                            case 'url_unsubscribe':
-                                $form_newletter_setting['url_unsubscribe'] = $form_value_nl[1];
-                                break;
+                        case 'subject':
+                            $form_newletter_setting['subject'] = $form_value_nl[1];
+                            break;
 
-                            case 'subject':
-                                $form_newletter_setting['subject'] = $form_value_nl[1];
-                                break;
+                        case 'double_optin':
+                            $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
+                            break;
 
-                            case 'double_optin':
-                                $form_newletter_setting['double_optin'] = intval($form_value_nl[1]) ? 1 : 0;
-                                break;
+                        case 'optin_template':
+                            $form_newletter_setting['optin_template'] = $form_value_nl[1];
+                            break;
 
-                            case 'optin_template':
-                                $form_newletter_setting['optin_template'] = $form_value_nl[1];
-                                break;
-
-                            default:
-                                if($form_value_nl[0] = intval($form_value_nl[0])) {
-                                    $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
-                                    if(isset($query[0])) {
-                                        if($form_value_nl[1] === '') {
-                                            $form_value_nl[1] = $query[0]['subscription_name'];
-                                        }
-                                        $form_value[$form_value_nl[0]] = $form_value_nl[1];
+                        default:
+                            if($form_value_nl[0] = intval($form_value_nl[0])) {
+                                $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$form_value_nl[0].' AND subscription_active=1');
+                                if(isset($query[0])) {
+                                    if($form_value_nl[1] === '') {
+                                        $form_value_nl[1] = $query[0]['subscription_name'];
                                     }
+                                    $form_value[$form_value_nl[0]] = $form_value_nl[1];
                                 }
-                        }
+                            }
                     }
                 }
 
@@ -1793,8 +1783,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     $POST_attach = array();
     $POST_savedb = array();
 
-    if(!empty($doubleoptin_values)) {
-        $POST_val = $doubleoptin_values;
+    if(!empty($doubleoptin_values['formresult_content'])) {
+        $POST_val = $doubleoptin_values['formresult_content'];
     }
 
     // now prepare form values for sending or storing
@@ -1894,7 +1884,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $cmsgo['callback'] = now();
 
-        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', getRemoteIP(), $cnt_form["onsuccess"]);
+        $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form["onsuccess"]);
 
         if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
             if($cnt_form["onsuccess_redirect"] === 1) {
@@ -1996,7 +1986,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         $POST_savedb_sql  = _dbQuery($POST_savedb_sql, 'INSERT');
     }
 
-    if(!empty($cnt_form["doubleoptin"]) && $POST_DO) {
+    if(!empty($cnt_form["doubleoptin"]) && !empty($cnt_form['doubleoptin_target']) && $POST_DO) {
 
         if(!empty($cnt_form["onsuccess"])) {
             $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["onsuccess"].'</p>';
@@ -2043,17 +2033,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
             $cnt_form["copytoError"] = array();
 
-           // foreach($cnt_form['cc'] as $cc_email) {
+            $mail->addAddress($cnt_form['doubleoptin_target']);
 
-                $mail->addAddress($cnt_form['doubleoptin_target']);
+            if(!$mail->send()) {
+                $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+            }
 
-                if(!$mail->send()) {
-                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
-                }
-
-                $mail->clearAddresses();
-
-            //}
+            $mail->clearAddresses();
 
             if(count($cnt_form["copytoError"])) {
                 $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
@@ -2066,12 +2052,75 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     } else {
 
-    // send mail, include phpmailer class
-    require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+        // send mail, include phpmailer class
+        require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
-    // now run all CC -> but sent as full email to each CC recipient
-    if(count($cnt_form['cc'])) {
+        // now run all CC -> but sent as full email to each CC recipient
+        if(count($cnt_form['cc'])) {
 
+            $mail = new PHPMailer();
+            $mail->Mailer           = $cmsgo['SMTP_MAILER'];
+            $mail->Host             = $cmsgo['SMTP_HOST'];
+            $mail->Port             = $cmsgo['SMTP_PORT'];
+            if($cmsgo['SMTP_AUTH']) {
+                $mail->SMTPAuth     = 1;
+                $mail->Username     = $cmsgo['SMTP_USER'];
+                $mail->Password     = $cmsgo['SMTP_PASS'];
+            }
+            if(!empty($cmsgo['SMTP_SECURE'])) {
+                $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
+            }
+            if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
+                $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
+                if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
+                    if(!empty($cmsgo['SMTP_REALM'])) {
+                        $mail->Realm = $cmsgo['SMTP_REALM'];
+                    }
+                    if(!empty($cmsgo['SMTP_WORKSTATION'])) {
+                        $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
+                    }
+                }
+            }
+            $mail->CharSet          = $cmsgo["charset"];
+
+            if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
+                @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
+            }
+
+            $mail->isHTML($cnt_form['template_format_copy']);
+            $mail->Subject          = $cnt_form["subject"];
+            $mail->Body             = $cnt_form['template_copy'];
+            if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
+                $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+            }
+
+            $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
+            $mail->AddReplyTo($cnt_form['sender']);
+
+            $cnt_form["copytoError"] = array();
+
+            foreach($cnt_form['cc'] as $cc_email) {
+
+                $mail->addAddress($cc_email);
+
+                if(!$mail->send()) {
+                    $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+                }
+
+                $mail->clearAddresses();
+
+            }
+
+            if(count($cnt_form["copytoError"])) {
+                $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
+            } else {
+                unset($cnt_form["copytoError"]);
+            }
+
+            unset($mail);
+        }
+
+        // now send original message
         $mail = new PHPMailer();
         $mail->Mailer           = $cmsgo['SMTP_MAILER'];
         $mail->Host             = $cmsgo['SMTP_HOST'];
@@ -2081,207 +2130,152 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             $mail->Username     = $cmsgo['SMTP_USER'];
             $mail->Password     = $cmsgo['SMTP_PASS'];
         }
-        if(!empty($cmsgo['SMTP_SECURE'])) {
-            $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
-        }
-        if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-            if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                if(!empty($cmsgo['SMTP_REALM'])) {
-                    $mail->Realm = $cmsgo['SMTP_REALM'];
-                }
-                if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-                    $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                }
-            }
-        }
         $mail->CharSet          = $cmsgo["charset"];
 
-        if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
-            @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
+        if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
+            @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
-        $mail->isHTML($cnt_form['template_format_copy']);
+        $mail->isHTML($cnt_form['template_format']);
         $mail->Subject          = $cnt_form["subject"];
-        $mail->Body             = $cnt_form['template_copy'];
+        $mail->Body             = $cnt_form['template'];
+
         if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
             $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+        }
+        if(empty($cnt_form["fromEmail"])) {
+            $cnt_form["fromEmail"] = $cmsgo['SMTP_FROM_EMAIL'];
         }
 
         $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
         $mail->AddReplyTo($cnt_form['sender']);
 
-        $cnt_form["copytoError"] = array();
+        if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 
-        foreach($cnt_form['cc'] as $cc_email) {
-
-            $mail->addAddress($cc_email);
-
-            if(!$mail->send()) {
-                $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+            foreach($cnt_form["target"] as $e_value) {
+                $mail->addAddress(trim($e_value));
             }
 
-            $mail->clearAddresses();
-
-        }
-
-        if(count($cnt_form["copytoError"])) {
-            $cnt_form["copytoError"] = implode('<br />', $cnt_form["copytoError"]);
         } else {
-            unset($cnt_form["copytoError"]);
+            // use default email address
+            $mail->addAddress($cmsgo['SMTP_FROM_EMAIL']);
         }
 
-        unset($mail);
-    }
-
-    // now send original message
-    $mail = new PHPMailer();
-    $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-    $mail->Host             = $cmsgo['SMTP_HOST'];
-    $mail->Port             = $cmsgo['SMTP_PORT'];
-    if($cmsgo['SMTP_AUTH']) {
-        $mail->SMTPAuth     = 1;
-        $mail->Username     = $cmsgo['SMTP_USER'];
-        $mail->Password     = $cmsgo['SMTP_PASS'];
-    }
-    $mail->CharSet          = $cmsgo["charset"];
-
-    if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
-        @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
-    }
-
-    $mail->isHTML($cnt_form['template_format']);
-    $mail->Subject          = $cnt_form["subject"];
-    $mail->Body             = $cnt_form['template'];
-
-    if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-        $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
-    }
-    if(empty($cnt_form["fromEmail"])) {
-        $cnt_form["fromEmail"] = $cmsgo['SMTP_FROM_EMAIL'];
-    }
-
-    $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-    $mail->AddReplyTo($cnt_form['sender']);
-
-    if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
-
-        foreach($cnt_form["target"] as $e_value) {
-            $mail->addAddress(trim($e_value));
+        if(count($POST_attach)) {
+            foreach($POST_attach as $attach_file) {
+                $mail->addAttachment($attach_file);
+            }
         }
 
-    } else {
-        // use default email address
-        $mail->addAddress($cmsgo['SMTP_FROM_EMAIL']);
-    }
+        if(!$mail->send()) {
+            $CNT_TMP .= '<p>'.html_specialchars($mail->ErrorInfo).'</p>';
+        } else {
 
-    if(count($POST_attach)) {
-        foreach($POST_attach as $attach_file) {
-            $mail->addAttachment($attach_file);
-        }
-    }
+            // check if user should be registered for newsletter
+            if(isset($form_newletter_setting['selection']) && count($form_newletter_setting['selection'])) {
 
-    if(!$mail->send()) {
-        $CNT_TMP .= '<p>'.html_specialchars($mail->ErrorInfo).'</p>';
-    } else {
+                // first check if neccessary form field is valid email
+                if(isset($POST_val[ $form_newletter_setting['email_field'] ]) && is_valid_email($POST_val[ $form_newletter_setting['email_field'] ])) {
 
-        // check if user should be registered for newsletter
-        if(isset($form_newletter_setting['selection']) && count($form_newletter_setting['selection'])) {
+                    // ok now I know we can store email as newsletter recipient
+                    $form_newletter_setting['email_field'] = $POST_val[ $form_newletter_setting['email_field'] ];
 
-            // first check if neccessary form field is valid email
-            if(isset($POST_val[ $form_newletter_setting['email_field'] ]) && is_valid_email($POST_val[ $form_newletter_setting['email_field'] ])) {
+                    // now try to find fields to build recipient's name, if empty name is same as email
+                    if(!empty($form_newletter_setting['name_field'])) {
 
-                // ok now I know we can store email as newsletter recipient
-                $form_newletter_setting['email_field'] = $POST_val[ $form_newletter_setting['email_field'] ];
+                        // split by "+"
+                        $form_newletter_setting['name_field_tmp'] = explode('+', $form_newletter_setting['name_field']);
+                        $form_newletter_setting['name_field'] = '';
+                        foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
 
-                // now try to find fields to build recipient's name, if empty name is same as email
-                if(!empty($form_newletter_setting['name_field'])) {
+                            // empty - continue
+                            if(empty($form_value_nl)) {
+                                continue;
+                            }
 
-                    // split by "+"
-                    $form_newletter_setting['name_field_tmp'] = explode('+', $form_newletter_setting['name_field']);
-                    $form_newletter_setting['name_field'] = '';
-                    foreach($form_newletter_setting['name_field_tmp'] as $form_value_nl) {
+                            // now check if field name exists and build corresponding name value
+                            if(empty($POST_val[ trim($form_value_nl) ])) {
+                                $form_newletter_setting['name_field'] .= $form_value_nl;
+                            } else {
+                                $form_value_nl = trim($form_value_nl);
+                                $form_newletter_setting['name_field'] .= $POST_val[ $form_value_nl ];
+                            }
 
-                        // empty - continue
-                        if(empty($form_value_nl)) continue;
-
-                        // now check if field name exists and build corresponding name value
-                        if(empty($POST_val[ trim($form_value_nl) ])) {
-                            $form_newletter_setting['name_field'] .= $form_value_nl;
-                        } else {
-                            $form_value_nl = trim($form_value_nl);
-                            $form_newletter_setting['name_field'] .= $POST_val[ $form_value_nl ];
                         }
+                        $form_newletter_setting['name_field'] = trim($form_newletter_setting['name_field']);
 
                     }
-                    $form_newletter_setting['name_field'] = trim($form_newletter_setting['name_field']);
 
-                }
+                    if(empty($form_newletter_setting['name_field'])) {
+                        $form_newletter_setting['name_field'] = $form_newletter_setting['email_field'];
+                    }
 
-                if(empty($form_newletter_setting['name_field'])) {
-                    $form_newletter_setting['name_field'] = $form_newletter_setting['email_field'];
-                }
+                    $form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
 
-                $form_newletter_setting['hash'] = preg_replace('/[^a-z0-9]/i', '', shortHash( $form_newletter_setting['email_field'].time() ) );
+                    // create SQL query to populate recipient into recipients db
+                    $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'cmsgo_address ';
+                    $form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
+                    $form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['email_field']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['name_field']).", ";
+                    $form_newletter_setting['sql'] .= (empty($form_newletter_setting['double_optin']) ? 1 : 0) .", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(serialize($form_newletter_setting['selection'])).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe']).", ";
+                    $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe']);
+                    $form_newletter_setting['sql'] .= ')';
 
-                // create SQL query to populate recipient into recipients db
-                $form_newletter_setting['sql']  = 'INSERT INTO '.DB_PREPEND.'cmsgo_address ';
-                $form_newletter_setting['sql'] .= '(address_key, address_email, address_name, address_verified, ';
-                $form_newletter_setting['sql'] .= 'address_subscription, address_url1, address_url2) VALUES (';
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['hash']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['email_field']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape($form_newletter_setting['name_field']).", ";
-                $form_newletter_setting['sql'] .= (empty($form_newletter_setting['double_optin']) ? 1 : 0) .", ";
-                $form_newletter_setting['sql'] .= _dbEscape(serialize($form_newletter_setting['selection'])).", ";
-                $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_subscribe']) ? '' : $form_newletter_setting['url_subscribe']).", ";
-                $form_newletter_setting['sql'] .= _dbEscape(empty($form_newletter_setting['url_unsubscribe']) ? '' : $form_newletter_setting['url_unsubscribe']);
-                $form_newletter_setting['sql'] .= ')';
+                    // save recipient in db and send verify message in case of double opt-in
+                    $form_newletter_setting['query_result'] = @_dbQuery($form_newletter_setting['sql'], 'INSERT');
 
-                // save recipient in db and send verify message in case of double opt-in
-                $form_newletter_setting['query_result'] = @_dbQuery($form_newletter_setting['sql'], 'INSERT');
+                    // now send opt-in email
+                    if(!empty($form_newletter_setting['double_optin'])) {
 
-                // now send opt-in email
-                if(!empty($form_newletter_setting['double_optin'])) {
-
-                    if(empty($cnt_form['verifyemail'])) {
-                        if(empty($form_newletter_setting['optin_template']) || !is_file(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']))) {
-                            $cnt_form['verifyemail'] = file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
-                        } else {
-                            $cnt_form['verifyemail'] = file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']));
-                            if(trim($cnt_form['verifyemail']) === '') {
+                        if(empty($cnt_form['verifyemail'])) {
+                            if(empty($form_newletter_setting['optin_template']) || !is_file(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']))) {
                                 $cnt_form['verifyemail'] = file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+                            } else {
+                                $cnt_form['verifyemail'] = file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/'.trim($form_newletter_setting['optin_template']));
+                                if(trim($cnt_form['verifyemail']) === '') {
+                                    $cnt_form['verifyemail'] = file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/newsletter/email/default.opt-in.txt');
+                                }
+                            }
+                            if(trim($cnt_form['verifyemail']) === '') {
+                                $cnt_form['verifyemail']  = 'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE}'.LF.'subscribed to these newsletters:'.LF;
+                                $cnt_form['verifyemail'] .= '{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription'.LF.'{NEWSLETTER_EMAIL}'.LF.LF;
+                                $cnt_form['verifyemail'] .= 'If you requested this subscription, visit the following URL'.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
+                                $cnt_form['verifyemail'] .= 'Ignore the message or visit the following URL'.LF.'{NEWSLETTER_DELETE}'.LF.'and nothing will happen.'.LF.LF.LF;
+                                $cnt_form['verifyemail'] .= 'With best regards'.LF.'Webmaster'.LF.LF.'--'.LF.'{DATE:m/d/Y H:i:s}, IP: {IP}'.LF;
                             }
                         }
-                        if(trim($cnt_form['verifyemail']) === '') {
-                            $cnt_form['verifyemail']  = 'Hi {NEWSLETTER_NAME},'.LF.LF.'Someone (presumably you) on {SITE}'.LF.'subscribed to these newsletters:'.LF;
-                            $cnt_form['verifyemail'] .= '{SUBSCRIPTIONS}'.LF.LF.'The following email was requested for subscription'.LF.'{NEWSLETTER_EMAIL}'.LF.LF;
-                            $cnt_form['verifyemail'] .= 'If you requested this subscription, visit the following URL'.LF.'{NEWSLETTER_VERIFY}'.LF.'to verify and activate it.'.LF.LF;
-                            $cnt_form['verifyemail'] .= 'Ignore the message or visit the following URL'.LF.'{NEWSLETTER_DELETE}'.LF.'and nothing will happen.'.LF.LF.LF;
-                            $cnt_form['verifyemail'] .= 'With best regards'.LF.'Webmaster'.LF.LF.'--'.LF.'{DATE:m/d/Y H:i:s}, IP: {IP}'.LF;
+
+                        $form_newletter_setting['hash'] = rawurlencode($form_newletter_setting['hash']);
+
+                        $form_newletter_setting['selection_text'] = array();
+                        foreach($form_newletter_setting['selection'] as $form_value_nl) {
+                            $form_newletter_setting['subscr_text'][] = '[X] '.$form_newletter_setting['subscriptions'][$form_value_nl];
                         }
-                    }
 
-                    $form_newletter_setting['hash'] = rawurlencode($form_newletter_setting['hash']);
+                        if($form_newletter_setting['email_field'] == $form_newletter_setting['name_field']) {
+                            $form_newletter_setting['name_field'] = '';
+                        }
 
-                    $form_newletter_setting['selection_text'] = array();
-                    foreach($form_newletter_setting['selection'] as $form_value_nl) {
-                        $form_newletter_setting['subscr_text'][] = '[X] '.$form_newletter_setting['subscriptions'][$form_value_nl];
-                    }
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_NAME}', $form_newletter_setting['name_field'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{SUBSCRIPTIONS}', implode(LF, $form_newletter_setting['subscr_text']), $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', CMSGO_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', CMSGO_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
+                        $cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
 
-                    if($form_newletter_setting['email_field'] == $form_newletter_setting['name_field']) $form_newletter_setting['name_field'] = '';
+                        if(empty($form_newletter_setting['sender_email'])) {
+                            $form_newletter_setting['sender_email'] = $cnt_form['sender'];
+                        }
+                        if(empty($form_newletter_setting['sender_name'])) {
+                            $form_newletter_setting['sender_name']  = $cnt_form['sendername'];
+                        }
 
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_NAME}', $form_newletter_setting['name_field'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{SUBSCRIPTIONS}', implode(LF, $form_newletter_setting['subscr_text']), $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_EMAIL}', $form_newletter_setting['email_field'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_VERIFY}', CMSGO_URL.'verify.php?s='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace('{NEWSLETTER_DELETE}', CMSGO_URL.'verify.php?u='.$form_newletter_setting['hash'], $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = str_replace(array('[br]', '[BR]'), LF, $cnt_form['verifyemail']);
-                    $cnt_form['verifyemail'] = replaceGlobalRT($cnt_form['verifyemail']);
-
-                    if(empty($form_newletter_setting['sender_email'])) $form_newletter_setting['sender_email'] = $cnt_form['sender'];
-                    if(empty($form_newletter_setting['sender_name']))  $form_newletter_setting['sender_name']  = $cnt_form['sendername'];
-
-                    // now send verification email
+                        // now send verification email
                         @sendEmail(array(
                            'recipient' => $form_newletter_setting['email_field'],
                             'toName'    => $form_newletter_setting['name_field'],
@@ -2292,9 +2286,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                             'sender'    => $form_newletter_setting['sender_email']
                         ));
                     }
-
                 }
-
             }
 
             if (!empty($cnt_form["doubleoptin"]) && !empty($doubleoptin_values)) {
@@ -2317,21 +2309,20 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
             } else {
 
-        if($cnt_form["onsuccess_redirect"] === 1) {
-            // redirect on success
-            headerRedirect(str_replace('{SITE}', CMSGO_URL, $cnt_form["onsuccess"]));
+                if($cnt_form["onsuccess_redirect"] === 1) {
+                    // redirect on success
+                    headerRedirect(str_replace('{SITE}', CMSGO_URL, $cnt_form["onsuccess"]));
 
-        } elseif($cnt_form["onsuccess"]) {
-            // success
-
-            $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
+                } elseif($cnt_form["onsuccess"]) {
+                    // success
+                    $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
                     $CNT_TMP .= !$cnt_form["onsuccess_redirect"] ? plaintext_htmlencode($cnt_form["onsuccess"]) : $cnt_form["onsuccess"];
                     $CNT_TMP .= '</div>';
                 }
             }
-
         }
     }
+
     if(!empty($cnt_form["copytoError"])) {
         $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["copytoError"].'</p>';
     }

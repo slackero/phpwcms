@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -145,8 +145,9 @@ if($image['template']) {
             $thumb_image        = false;
             $zoominfo           = false;
 
-            if($value['thumb_hash']) {
-
+            if(empty($value['thumb_hash'])) {
+                continue;
+            } else {
                 $thumb_image = get_cached_image(array(
                     "target_ext"    =>  $value['thumb_ext'],
                     "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
@@ -157,7 +158,7 @@ if($image['template']) {
                 ));
             }
 
-            if(!$value['thumb_hash'] || !$thumb_image) {
+            if(!$thumb_image) {
                 continue;
             }
 
@@ -457,6 +458,7 @@ if($image['template']) {
 
                     } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
+                        $_preserve_acontent_html = $crow['acontent_html'];
                         $news['files_result'] = '';
 
                         if(!empty($custom_field_value['id'])) {
@@ -478,6 +480,8 @@ if($image['template']) {
                         }
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
+                        $crow['acontent_html'] = $_preserve_acontent_html;
+                        unset($_preserve_acontent_html);
 
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
@@ -541,6 +545,7 @@ if($image['template']) {
     $image['template'] = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
+    $image['template'] = str_replace('{IMAGE_COUNT}', $total, $image['template']);
 
     $image['template'] = render_cnt_template($image['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $image['template'] = render_cnt_template($image['template'], 'ATTR_ID', html($crow['acontent_attr_id']));

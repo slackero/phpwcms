@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -109,7 +109,7 @@ if(empty($content["alist"]["label"])) {
 		<div class="form-group align-items-center form-row mb-0 ml-sm-3">
   			<div class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></div>
     		<div class="col-sm-auto"><input type="text" name="calist_class" id="calist_class" class="form-control form-control-sm" value="<?php echo html($content["alist"]["class"]) ?>" ></div>
-  		</div>	
+  		</div>
 	</div>
 </div>
 
@@ -121,18 +121,18 @@ if(empty($content["alist"]["label"])) {
 				<input name="calist_titleasnumber" id="calist_titleasnumber" class="form-check-input" type="checkbox" value="1" <?php is_checked(1, intval($content["alist"]["titleasnumber"])) ?> >
 				<label class="form-check-label" for="calist_titleasnumber" ><?php echo $BL['numerize_title'] ?></label>
      	</div>
-    </div> 	
+    </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
 			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_label'] ?></label>
 			<input type="text" name="calist_label" id="calist_label" class="form-control form-control-sm" value="<?php echo html($content["alist"]["label"]) ?>">
-		</div>	
+		</div>
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
 			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_field']['break'] ?></label>
 			<input type="text" name="calist_break" id="calist_break" class="form-control form-control-sm" value="<?php echo html($content["alist"]["break"]) ?>">
-		</div>	
+		</div>
     </div>
 </div>
 
@@ -143,18 +143,18 @@ if(empty($content["alist"]["label"])) {
 				<input name="calist_headertext" id="calist_headertext" class="form-check-input" type="checkbox" value="1" <?php is_checked(1, intval($content["alist"]["headertext"])) ?> >
 				<label class="form-check-label" for="calist_headertext"><?php echo $BL['be_article_asummary'] ?></label>
      	</div>
-    </div> 	
+    </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
 			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
 			<input type="text" name="calist_maxchar" id="calist_maxchar" class="form-control form-control-sm" value="<?php echo $content["alist"]["maxchar"] ?>">
-		</div>	
+		</div>
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
 			<label class="col-form-label font-weight-normal"><?php echo $BL['be_article_morelink'] ?></label>
 			<input type="text" name="calist_morelink" id="calist_morelink" class="form-control form-control-sm" value="<?php echo html($content["alist"]["morelink"]) ?>">
-		</div>	
+		</div>
     </div>
 </div>
 
@@ -180,7 +180,7 @@ if(empty($content["alist"]["label"])) {
 		<div class="form-check mt-3 mt-sm-0">
 			<input name="calist_hideactive" id="calist_hideactive" class="form-check-input" type="checkbox" value="1" <?php is_checked(1, intval($content["alist"]["hideactive"])) ?> >
 			<label class="form-check-label" for="calist_hideactive"><?php echo $BL['be_hide_active_articlelink'] ?></label>
-		</div>	
+		</div>
 	</div>
 
 </div>

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -55,7 +55,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td nowrap="nowrap" class="text-right here">'.LF;
     $a .= ($child_count) ? "<a href=\"cmsgo.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 
-    $a .= '<i class="fa fa-caret-'.(($child_count) ? ($_SESSION["structure"][ $struct[$key]["acat_id"] ]==0 ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+    $a .= '<i class="fa fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
     $info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
     $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
@@ -302,7 +302,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
           $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
         }
         $a .= '</div></div>'.LF;
-        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
+        $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
         $a .= '</div></td></tr>'.LF;
         echo $a;
 
@@ -529,7 +529,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
 
                 $a .= '</div></div>'.LF;
 
-                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
+                $a .= '<button id="abtnstruct'.$struct[$key]["acat_id"].'" class="btn fa btn-xs visible '.($struct[$key]["acat_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$struct[$key]["acat_id"].'" data-type="struct" data-table="articlecat" data-field="acat_aktiv" data-fieldid="acat_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
                 $a .= '</div>'.LF;
                 break;

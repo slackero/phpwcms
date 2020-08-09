@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -67,7 +67,7 @@ $setup_recommend = true;
 
         echo '<strong>' . $mysql_version . '</strong>';
 
-        $mysql_version = explode('.', $mysql_version);
+        $mysql_version = explode('.', preg_replace('/[^0-9.]/', '', str_replace(array('mysqlnd ', ' (client lib)'), '', strtolower($mysql_version))));
         $mysql_version[0] = (int)$mysql_version[0];
         $mysql_version[1] = empty($mysql_version[1]) ? 0 : (int)$mysql_version[1];
 

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -1187,7 +1187,7 @@ $BL['be_image_cropit'] = 'Bild auf Gr&ouml;sse schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
 $BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
-$BL['be_flashplayer_caption'] = 'Titel';
+$BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
 $BL['be_flashplayer_selectsize'] = 'Playergr&ouml;sse w&auml;hlen';
 $BL['be_flash_media'] = 'Flash';
@@ -1218,7 +1218,7 @@ $BL['be_image_zoom'] = 'Grossansicht';
 $BL['be_image_delete_js'] = 'Soll der Bildeintrag wirklich entfernt werden?';
 
 $BL['be_news'] = 'Newsverwaltung';
-$BL['be_news_create'] = 'neue News erstellen';
+$BL['be_news_create'] = 'Neue News erstellen';
 $BL['be_tags'] = 'Tag/Schlagwort';
 $BL['be_title'] = 'Bezeichnung';
 $BL['be_delete_dataset'] = 'Gew&auml;hlten Eintrag l&ouml;schen?';
@@ -1496,3 +1496,11 @@ $BL['be_password_hide'] = 'Password verstecken';
 $BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
 $BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
 $BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';
+
+$BL['be_flashplayer_marker'] = 'Markierung';
+$BL['be_marker_time'] = 'Zeit (Sekunden, z.B. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';
+
+$BL['copy_to_clipboard'] = 'In die Zwischenablage kopieren';
+$BL['url_parameter'] = 'URL-Parameter';

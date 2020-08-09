@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -1510,3 +1510,11 @@ $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
 
 $BL['be_admin_template_choose_file'] = 'Text template, alternatively select file template';
+
+$BL['be_flashplayer_marker'] = 'Marker';
+$BL['be_marker_time'] = 'Time (seconds, i.e. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = 'Overlay text';
+
+$BL['copy_to_clipboard'] = 'Copy to Clipboard';
+$BL['url_parameter'] = 'URL parameter';

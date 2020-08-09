@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -20,6 +20,7 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $cmsgo_version = CMSGO_VERSION;
 $cmsgo_release_date = CMSGO_RELEASE_DATE;
 $cmsgo_revision = CMSGO_REVISION;
+define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
@@ -92,7 +93,7 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (get_magic_quotes_gpc()) {
+    if (!PHP7 && get_magic_quotes_gpc()) {
         $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
     }
     if ($string_laenge) {
@@ -105,7 +106,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (get_magic_quotes_gpc()) {
+    if (!PHP7 && get_magic_quotes_gpc()) {
         $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
     }
     $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
@@ -115,19 +116,23 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     return $string_wo_slashes_weg;
 }
 
+function escape_quote($text='') {
+    return str_replace("'", "\'", $text);
+}
+
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$cmsgo['db_host'] = '" . $val["db_host"] . "';\n";
-    $conf_file .= "\$cmsgo['db_user'] = '" . $val["db_user"] . "';\n";
-    $conf_file .= "\$cmsgo['db_pass'] = '" . $val["db_pass"] . "';\n";
-    $conf_file .= "\$cmsgo['db_table'] = '" . $val["db_table"] . "';\n";
-    $conf_file .= "\$cmsgo['db_prepend'] = '" . $val["db_prepend"] . "';\n";
+    $conf_file .= "\$cmsgo['db_host'] = '" . escape_quote($val["db_host"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_user'] = '" . escape_quote($val["db_user"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_pass'] = '" . escape_quote($val["db_pass"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_table'] = '" . escape_quote($val["db_table"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_prepend'] = '" . escape_quote($val["db_prepend"]) . "';\n";
     $conf_file .= "\$cmsgo['db_pers'] = " . intval($val["db_pers"]) . ";\n";
-    $conf_file .= "\$cmsgo['db_charset'] = '" . $val["db_charset"] . "';\n";
-    $conf_file .= "\$cmsgo['db_collation'] = '" . $val["db_collation"] . "';\n";
-    $conf_file .= "\$cmsgo['db_version'] = '" . $val["db_version"] . "'; // Version of MySQL Server at the time cmsGO! was installed\n";
-    $conf_file .= "\$cmsgo['db_timezone'] = '" . trim($val["db_timezone"]) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
+    $conf_file .= "\$cmsgo['db_charset'] = '" . escape_quote($val["db_charset"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_collation'] = '" . escape_quote($val["db_collation"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_version'] = '" . escape_quote($val["db_version"]) . "';\n";
+    $conf_file .= "\$cmsgo['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$cmsgo['db_errorlog'] = false; // Log DB queries - false|true\n";
 
@@ -136,7 +141,7 @@ function write_conf_file($val) {
     if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$cmsgo['site'] = '';";
     } else {
-        $conf_file .= "\$cmsgo['site'] = '" . $val["site"] . "';";
+        $conf_file .= "\$cmsgo['site'] = '" . escape_quote($val["site"]) . "';";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
@@ -144,16 +149,16 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$cmsgo['site_ssl_port'] = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
 
-    $conf_file .= "\$cmsgo['admin_name'] = '" . $val["admin_name"] . "'; //default: Webmaster\n";
-    $conf_file .= "\$cmsgo['admin_user'] = '" . $val["admin_user"] . "'; //default: admin\n";
-    $conf_file .= "\$cmsgo['admin_pass'] = '" . $val["admin_pass"] . "'; //MD5(cmsgo)\n";
-    $conf_file .= "\$cmsgo['admin_email'] = '" . $val["admin_email"] . "'; //default: noreplay@host\n";
+    $conf_file .= "\$cmsgo['admin_name'] = '" . escape_quote($val["admin_name"]) . "'; //default: Webmaster\n";
+    $conf_file .= "\$cmsgo['admin_user'] = '" . escape_quote($val["admin_user"]) . "'; //default: admin\n";
+    $conf_file .= "\$cmsgo['admin_pass'] = '" . escape_quote($val["admin_pass"]) . "'; //MD5(cmsgo)\n";
+    $conf_file .= "\$cmsgo['admin_email'] = '" . escape_quote($val["admin_email"]) . "'; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";
     if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
         $conf_file .= "\$cmsgo['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . $val["DOC_ROOT"] . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . escape_quote($val["DOC_ROOT"]) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
@@ -161,13 +166,13 @@ function write_conf_file($val) {
         $real_doc = explode($val["root"], $real_doc);
         $real_doc = rtrim($real_doc[0], '/');
     }
-    $conf_file .= "// current DOC_ROOT seems to be: '" . $real_doc . "' \n";
-    $conf_file .= "\$cmsgo['root'] = '" . $val["root"] . "'; //default: ''\n";
-    $conf_file .= "\$cmsgo['file_path'] = '" . $val["file_path"] . "'; //default: 'filearchive'\n";
-    $conf_file .= "\$cmsgo['templates'] = '" . $val["templates"] . "'; //default: 'template'\n";
-    $conf_file .= "\$cmsgo['content_path'] = '" . $val["content_path"] . "'; //default: 'content'\n";
+    $conf_file .= "// current DOC_ROOT seems to be: '" . escape_quote($real_doc) . "' \n";
+    $conf_file .= "\$cmsgo['root'] = '" . escape_quote($val["root"]) . "'; //default: ''\n";
+    $conf_file .= "\$cmsgo['file_path'] = '" . escape_quote($val["file_path"]) . "'; //default: 'filearchive'\n";
+    $conf_file .= "\$cmsgo['templates'] = '" . escape_quote($val["templates"]) . "'; //default: 'template'\n";
+    $conf_file .= "\$cmsgo['content_path'] = '" . escape_quote($val["content_path"]) . "'; //default: 'content'\n";
     $conf_file .= "\$cmsgo['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$cmsgo['ftp_path'] = '" . $val["ftp_path"] . "'; //default: 'upload'\n";
+    $conf_file .= "\$cmsgo['ftp_path'] = '" . escape_quote($val["ftp_path"]) . "'; //default: 'upload'\n";
     $conf_file .= "\$cmsgo['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
@@ -194,8 +199,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$cmsgo['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$cmsgo['DOCTYPE_LANG'] = ''; //by default same as \$cmsgo['default_lang'], but can be injected by whatever you like\n";
-    $conf_file .= "\$cmsgo['default_lang'] = '" . $val["default_lang"] . "';  //default language\n";
-    $conf_file .= "\$cmsgo['charset'] = '" . $val["charset"] . "';  //default charset 'utf-8'\n";
+    $conf_file .= "\$cmsgo['default_lang'] = '" . escape_quote($val["default_lang"]) . "';  //default language\n";
+    $conf_file .= "\$cmsgo['charset'] = '" . escape_quote($val["charset"]) . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$cmsgo['php_charset'] = false; // set PHP default charset to \$cmsgo['charset']\n";
     $conf_file .= "\$cmsgo['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$cmsgo['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
@@ -219,7 +224,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['php_timezone'] = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
     $conf_file .= "\$cmsgo['wysiwyg_template'] = array(); // deprecated\n";
     $conf_file .= "\$cmsgo['GET_pageinfo'] = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
-    $conf_file .= "\$cmsgo['version_check'] = 1; // checks for current release of cmsgo online \n";
+    $conf_file .= "\$cmsgo['version_check'] = 1; // checks for current release of cmsGo! online \n";
     $conf_file .= "\$cmsgo['SESSION_FEinit'] = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
     $conf_file .= "\$cmsgo['Login_IPcheck'] = 0; \n";
     $conf_file .= "\$cmsgo['frontend_edit'] = 0; // enable content specific direct links - linking direct into the backend \n";
@@ -229,12 +234,11 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['enable_seolog'] = 1; // enable or disable logging of search engine referrer data \n";
     $conf_file .= "\$cmsgo['i18n_parse'] = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement\n";
     $conf_file .= "\$cmsgo['i18n_complex'] = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars 'en'), true - 'en-gb'...\n";
-    $conf_file .= "\$cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsgo Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
-    $conf_file .= "\$cmsgo['JW_FLV_License'] = ''; // insert your JW FLV Media Player License Code here - License warning will no longer displayed\n";
+    $conf_file .= "\$cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsGo! Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
     $conf_file .= "\$cmsgo['feuser_regkey'] = 'FEUSER';\n";
-    $conf_file .= "\$cmsgo['edit.php'] = 'edit.php';\n";
+    $conf_file .= "\$cmsgo['login.php'] = 'login.php';\n";
     $conf_file .= "\$cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.4.1/)\n";
+    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.6/)\n";
     $conf_file .= "\$cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
@@ -270,25 +274,25 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['cmsimage_settings'] = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only array('500x500x0', '1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif\n";
     $conf_file .= "\$cmsgo['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum\n";
     $conf_file .= "\$cmsgo['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()\n";
-    $conf_file .= "\$cmsgo['preserve_getVar'] = array(); // cmsgo removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/cmsgo/blob/master/include/inc_lib/default.inc.php#L520\n";
-    $conf_file .= "\$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsgo by default (anonymize IP...)\n";
+    $conf_file .= "\$cmsgo['preserve_getVar'] = array(); // cmsGo! removes some internal GET vars by default, add the ones that should be preserved\n";
+    $conf_file .= "\$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsGo! by default (anonymize IP...)\n";
+    $conf_file .= "\$cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
-    $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . str_replace("'", "\\'", $val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
-    $conf_file .= "\$cmsgo['SMTP_FROM_NAME'] = '" . str_replace("'", "\\'", $val["SMTP_FROM_NAME"]) . "'; // reply/from name\n";
-    $conf_file .= "\$cmsgo['SMTP_HOST'] = '" . $val["SMTP_HOST"] . "'; // SMTP server (host/IP)\n";
+    $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
+    $conf_file .= "\$cmsgo['SMTP_FROM_NAME'] = '" . escape_quote($val["SMTP_FROM_NAME"]) . "'; // reply/from name\n";
+    $conf_file .= "\$cmsgo['SMTP_HOST'] = '" . escape_quote($val["SMTP_HOST"]) . "'; // SMTP server (host/IP)\n";
     $conf_file .= "\$cmsgo['SMTP_PORT'] = " . intval($val["SMTP_PORT"]) . "; // SMTP server port (default 25)\n";
-    $conf_file .= "\$cmsgo['SMTP_MAILER'] = '" . $val["SMTP_MAILER"] . "'; // mail method: mail (default), smtp, sendmail\n";
-    $conf_file .= "\$cmsgo['SMTP_USER'] = '" . str_replace("'", "\\'", $val["SMTP_USER"]) . "'; // default SMTP login (user) name\n";
-    $conf_file .= "\$cmsgo['SMTP_PASS'] = '" . str_replace("'", "\\'", $val["SMTP_PASS"]) . "'; // default SMTP password\n";
-    $conf_file .= "\$cmsgo['SMTP_SECURE'] = '" . $val["SMTP_SECURE"] . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+    $conf_file .= "\$cmsgo['SMTP_MAILER'] = '" . escape_quote($val["SMTP_MAILER"]) . "'; // mail method: mail (default), smtp, sendmail\n";
+    $conf_file .= "\$cmsgo['SMTP_USER'] = '" . escape_quote($val["SMTP_USER"]) . "'; // default SMTP login (user) name\n";
+    $conf_file .= "\$cmsgo['SMTP_PASS'] = '" . escape_quote($val["SMTP_PASS"]) . "'; // default SMTP password\n";
+    $conf_file .= "\$cmsgo['SMTP_SECURE'] = '" . escape_quote($val["SMTP_SECURE"]) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
     $conf_file .= "\$cmsgo['SMTP_AUTH'] = " . intval($val["SMTP_AUTH"]) . "; // SMTP authentication, ON=1/OFF=0\n";
-    $conf_file .= "\$cmsgo['SMTP_AUTH_TYPE'] = '" . $val["SMTP_AUTH_TYPE"] . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
-    $conf_file .= "\$cmsgo['SMTP_REALM'] = '" . $val["SMTP_REALM"] . "'; // SMTP realm, used for NTLM auth type\n";
-    $conf_file .= "\$cmsgo['SMTP_WORKSTATION'] = '" . $val["SMTP_WORKSTATION"] . "'; // SMTP workstation, used for NTLM auth type\n";
+    $conf_file .= "\$cmsgo['SMTP_AUTH_TYPE'] = '" . escape_quote($val["SMTP_AUTH_TYPE"]) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
+    $conf_file .= "\$cmsgo['SMTP_REALM'] = '" . escape_quote($val["SMTP_REALM"]) . "'; // SMTP realm, used for NTLM auth type\n";
+    $conf_file .= "\$cmsgo['SMTP_WORKSTATION'] = '" . escape_quote($val["SMTP_WORKSTATION"]) . "'; // SMTP workstation, used for NTLM auth type\n";
 
     $conf_file .= "\ndefine('CMSGO_INCLUDE_CHECK', true);\n";
-    $conf_file .= "\n?>";
 
     write_textfile("setup.conf.inc.php", $conf_file);
 }

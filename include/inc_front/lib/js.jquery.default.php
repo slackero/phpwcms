@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -24,8 +24,7 @@ function initSlimbox() {
 function init_frontend_edit_js() {
 
     initJSPlugin('switchClass');
-    // based on work and idea by markus@localhorst (http://forum.cmsgo.org/viewtopic.php?f=8&t=19551)
-    $GLOBALS['block']['js_ondomready'][] = '        $("a.fe-link").toggle();$("#fe-link").click(function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
+    $GLOBALS['block']['js_ondomready'][] = '$("a.fe-link").toggle();$("#fe-link").on("click", function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
 
 }
 

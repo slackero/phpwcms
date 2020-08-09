@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -63,7 +63,7 @@ if(isset($_POST["file_search"])) {
                     foreach($search["key"] as $value) {
                         if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
                             if($search["andor"]) {
-                                if(!isset($search["result"][$row["f_id"]])) {; //AND clause
+                                if(!isset($search["result"][$row["f_id"]])) { //AND clause
                                     $search["result"][$row["f_id"]] = 1;
                                 } else {
                                     $search["result"][$row["f_id"]]++;

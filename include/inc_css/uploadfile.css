@@ -6,19 +6,19 @@
 
 .ajax-file-upload-filename {
     height: auto;
-    margin: 0 5px 5px 0px;
+    margin: 0 5px 5px 0;
 }
 
 .ajax-file-upload-filesize {
     width: 50px;
     height: auto;
-    margin: 0 5px 5px 0px;
+    margin: 0 5px 5px 0;
     display: inline-block;
     vertical-align: middle;
 }
 
 .ajax-file-upload-progress {
-    margin: 5px 10px 5px 0px;
+    margin: 5px 10px 5px 0;
     position: relative;
     width: 50%;
     border: 1px solid #ddd;
@@ -133,7 +133,7 @@
     color: #000;
     text-align: left;
     vertical-align: middle;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 10px 0 10px;
 }
 
 .state-hover {

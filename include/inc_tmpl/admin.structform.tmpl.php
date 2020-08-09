@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -501,7 +501,7 @@ switch($acat_hidden) {
       $temp_count = 0;
       foreach($acat_cntpart as $value) {
           if(isset($wcs_content_type[$value])) {
-              echo '<option value="'.$value.'">'.$wcs_content_type[$value]."</option>\n";;
+              echo '<option value="'.$value.'">'.$wcs_content_type[$value]."</option>\n";
               unset($wcs_content_type[$value]);
           }
           $value1 = $value * (-1);

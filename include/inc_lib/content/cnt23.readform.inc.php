@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -238,7 +238,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                 case 'dateformat':  $special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
                                                     break;
 
-                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim($_special[1]) : '/.*?/';
+                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim(trim($_special[1]), '/') : '/.*?/';
                                                     break;
                             }
                         }

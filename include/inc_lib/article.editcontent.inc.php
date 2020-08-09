@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -212,7 +212,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article["article_end"] = clean_slweg($_POST["article_end"]);
         $article["article_keyword"] = implode(', ', convertStringToArray( clean_slweg($_POST["article_keyword"]) , ',') );
         $article["article_lang"] = isset($_POST["article_lang"]) ? clean_slweg($_POST["article_lang"]) : '';
-        $article['article_lang_type'] = $article["article_lang"] == '' || empty($_POST["article_lang_type"]) ? '' : in_array($_POST["article_lang_type"], array('category', 'article')) ? $_POST["article_lang_type"] : '';
+        $article['article_lang_type'] = $article["article_lang"] === '' || empty($_POST["article_lang_type"]) ? '' : (in_array($_POST["article_lang_type"], array('category', 'article')) ? $_POST["article_lang_type"] : '');
         $article['article_lang_id'] = $article['article_lang_type'] == '' || empty($_POST["article_lang_id"]) ? 0 : intval($_POST["article_lang_id"]);
         $article["article_redirect"] = clean_slweg($_POST["article_redirect"]);
         $set_begin = empty($_POST["set_begin"]) ? 0 : 1;

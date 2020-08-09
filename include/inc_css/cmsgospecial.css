@@ -1,10 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
-
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     text-rendering: optimizeLegibility;
     font-size: 14px;
     color: #333;
@@ -35,11 +33,11 @@ td label {
 
 .tooltip {
     font-size: .75rem;
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .h1, h1, .h2, h2 {
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 300;
     font-size: 1.75rem;
     margin-bottom: 20px;
@@ -80,7 +78,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 }
 
 .modal-header h1, .modal-header h2, .card-header h1, .card-header h2 {
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 400;
     font-size: 1.125rem;
     margin: 0;
@@ -163,12 +161,12 @@ select.form-control-sm:not([size]):not([multiple]) {
 }
 
 #column-left.active {
-    left: 0px;
+    left: 0;
 }
 
 #column-left + #content, #column-left + #content + #footer {
     position: relative;
-    left: 0px;
+    left: 0;
 }
 
 #content {
@@ -183,7 +181,7 @@ select.form-control-sm:not([size]):not([multiple]) {
     border-bottom: 1px solid #d8d8d8;
     margin: 0;
     padding: 0;
-    box-shadow: 0px 0px 3px #ccc;
+    box-shadow: 0 0 3px #ccc;
     z-index: 11;
 }
 
@@ -204,7 +202,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 
 #header .navbar-right {
     margin-right: 0;
-    margin: 0px 0px 0px 0px;
+    margin: 0 0 0 0;
     float: right;
 }
 
@@ -216,7 +214,7 @@ select.form-control-sm:not([size]):not([multiple]) {
 }
 
 #header .nav > li > a {
-    padding: 0px 15px;
+    padding: 0 15px;
     line-height: 60px;
     cursor: pointer;
     color: #6D6D6D;
@@ -337,7 +335,7 @@ header .dropdown-toggle::after {
 
 .dropdown-menu {
     font-size: .938rem;
-    border-radius: 0rem;
+    border-radius: 0;
 }
 
 .dropdown-item {
@@ -514,7 +512,7 @@ a.filein {
 #login .input-group .form-control {
     margin: 0;
     font-size: .875rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: #222;
 }
 
@@ -551,7 +549,7 @@ a.filein {
 #side-menu > li > a {
     color: #b3cbdd;
     padding-left: 20px;
-    border-bottom: 0px solid #585858;
+    border-bottom: 0 solid #585858;
 }
 
 #side-menu li a {
@@ -741,7 +739,7 @@ li.sortme {
 /*Artikel listing*/
 
 .slist-0 {
-    margin-left: 0rem;
+    margin-left: 0;
 }
 
 .slist-1 {
@@ -769,7 +767,7 @@ li.sortme {
 }
 
 .fslist-0 {
-    margin-left: 0rem;
+    margin-left: 0;
 }
 
 .fslist-1 {
@@ -912,11 +910,11 @@ li.sortme {
 
 @media (min-width: 768px) {
     #column-left {
-        left: 0px;
+        left: 0;
     }
 
     #column-left + #content, #column-left + #content + #footer {
-        left: 0px;
+        left: 0;
         margin-left: 250px;
     }
 

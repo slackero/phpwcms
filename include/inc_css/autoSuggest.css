@@ -18,7 +18,7 @@ ul.as-selections.loading {
 
 ul.as-selections li {
     float: left;
-    margin: 0px 2px 0px 2px;
+    margin: 0 2px 0 2px;
     list-style: none;
     padding: 0;
     font-size: 12px;

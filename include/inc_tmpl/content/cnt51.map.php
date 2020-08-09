@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -123,9 +123,8 @@ if($do) {
 
 function hex2rgb($hex) {
   $color = trim(str_replace('#','',$hex));
-  $rgb = array('r' => intval(hexdec(substr($color,0,2))),
-               'g' => intval(hexdec(substr($color,2,2))),
-               'b' => intval(hexdec(substr($color,4,2)))
-               );
-  return $rgb;
+    return array('r' => intval(hexdec(substr($color,0,2))),
+                   'g' => intval(hexdec(substr($color,2,2))),
+                   'b' => intval(hexdec(substr($color,4,2)))
+                 );
 }

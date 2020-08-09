@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -27,7 +27,7 @@ if($crow['acontent_attr_id']) {
     $crow['attr_class_id'][] = 'id="'.html($crow['acontent_attr_id']).'"';
 }
 
-if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {;
+if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
     $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
     $crow['attr_class_id_close'] = '</div>';
 } else {

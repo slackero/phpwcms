@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -70,7 +70,7 @@ $cmsgo['charsets'] = array(
     'shift_jis',
 );
 
-define('CMSGO_CHARSET',  empty($cmsgo["charset"]) ? 'utf-8' : strtolower($cmsgo["charset"]));
+define('CMSGO_CHARSET', empty($cmsgo["charset"]) ? 'utf-8' : strtolower($cmsgo["charset"]));
 
 if(!empty($cmsgo['php_charset'])) {
     @ini_set('default_charset', CMSGO_CHARSET);
@@ -92,16 +92,8 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 
 }
 
-if($cmsgo["site"] === '') {
-    $cmsgo["site"] = get_url_origin(true);
-} else {
-    $cmsgo["site"] = rtrim($cmsgo["site"], '/');
-}
-if(empty($cmsgo['site_ssl_url'])) {
-    $cmsgo['site_ssl_url'] = $cmsgo["site"];
-} else {
-    $cmsgo["site_ssl_url"] = rtrim($cmsgo["site_ssl_url"], '/');
-}
+$cmsgo["site"] = $cmsgo["site"] === '' ? get_url_origin(true) : rtrim($cmsgo["site"], '/');
+$cmsgo['site_ssl_url'] = empty($cmsgo['site_ssl_url']) ? $cmsgo["site"] : rtrim($cmsgo["site_ssl_url"], '/');
 if(substr($cmsgo['site_ssl_url'], 0, 5) == 'http:') {
     $cmsgo['site_ssl_url'] = 'https' . substr($cmsgo['site_ssl_url'], 4);
 }
@@ -154,6 +146,7 @@ define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !=
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
 
 // Mime-Type definitions
 require_once CMSGO_ROOT.'/include/inc_lib/mimetype.inc.php';
@@ -164,9 +157,7 @@ define('BROWSER_NAME', $cmsgo['USER_AGENT']['agent']);
 define('BROWSER_NUMBER', $cmsgo['USER_AGENT']['version']);
 define('BROWSER_OS', $cmsgo['USER_AGENT']['platform']);
 define('BROWSER_MOBILE', $cmsgo['USER_AGENT']['mobile']);
-
 $cmsgo["file_path"] =   '/'.$cmsgo["file_path"].'/' ;  // "/cmsgo_filestorage/"
-
 define('TEMPLATE_PATH', $cmsgo["templates"].'/');
 $cmsgo["templates"] = '/'.$cmsgo["templates"].'/' ;  // "/cmsgo_template/"
 $cmsgo["content_path"] = $cmsgo["content_path"].'/'  ;  // "content/"
@@ -201,17 +192,11 @@ if(function_exists('mb_substr')) {
 
     function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
         if($length !== NULL) {
-            if(cmsgo_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start, $length));
-            } else {
-                return substr($str, $start, $length);
-            }
+            return cmsgo_seems_utf8($str) ? utf8_encode(substr(utf8_decode($str), $start, $length)) : substr($str, $start, $length);
+        } elseif(cmsgo_seems_utf8($str)) {
+            return utf8_encode(substr(utf8_decode($str), $start));
         } else {
-            if(cmsgo_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start));
-            } else {
-                return substr($str, $start);
-            }
+            return substr($str, $start);
         }
     }
     function mb_strlen($str='', $encoding='') {
@@ -273,28 +258,35 @@ $cmsgo['default_lang']    = strtolower($cmsgo['default_lang']);
 $cmsgo['DOCTYPE_LANG']    = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] : strtolower(trim($cmsgo['DOCTYPE_LANG']));
 
 $cmsgo['js_lib_default'] = array(
-    'jquery-3.3'            => 'jQuery 3.3.1',
-    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.0.0',
-    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.2'            => 'jQuery 3.2.1',
-    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.0',
-    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.1'            => 'jQuery 3.1.1',
-    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.0',
-    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.0'            => 'jQuery 3.1.0',
-    'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.0',
-    'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 + 3.0.0',
-    'jquery-2.2'            => 'jQuery 2.2.4',
-    'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
+    'jquery-3.5'            => 'jQuery 3.5.1',
+    'jquery-3.5-migrate'    => 'jQuery 3.5.1 + Migrate 3.1.0',
+    'jquery-3.5-migrate-1'  => 'jQuery 3.5.1 + Migrate 1.4.1 + 3.1.0',
     'jquery-1.12'           => 'jQuery 1.12.4',
     'jquery-1.12-migrate'   => 'jQuery 1.12.4 + Migrate 1.4.1',
+    'jquery-2.2'            => 'jQuery 2.2.4',
+    'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
+    // ----
+    'jquery-3.4'            => 'jQuery 3.4.1',
+    'jquery-3.4-migrate'    => 'jQuery 3.4.1 + Migrate 3.1.0',
+    'jquery-3.4-migrate-1'  => 'jQuery 3.4.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.3'            => 'jQuery 3.3.1',
+    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.1.0',
+    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.2'            => 'jQuery 3.2.1',
+    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.1.0',
+    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.1'            => 'jQuery 3.1.1',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.1.0',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.0'            => 'jQuery 3.0.0',
+    'jquery-3.0-migrate'    => 'jQuery 3.0.0 + Migrate 3.1.0',
+    'jquery-3.0-migrate-1'  => 'jQuery 3.0.0 + Migrate 1.4.1 + 3.1.0',
     'jquery-2.1'            => 'jQuery 2.1.4',
     'jquery-2.1-migrate'    => 'jQuery 2.1.4 + Migrate 1.2.1',
-    'jquery-1.11'           => 'jQuery 1.11.3',
-    'jquery-1.11-migrate'   => 'jQuery 1.11.3 + Migrate 1.2.1',
     'jquery-2.0'            => 'jQuery 2.0.3',
     'jquery-2.0-migrate'    => 'jQuery 2.0.3 + Migrate 1.2.1',
+    'jquery-1.11'           => 'jQuery 1.11.3',
+    'jquery-1.11-migrate'   => 'jQuery 1.11.3 + Migrate 1.2.1',
     'jquery-1.10'           => 'jQuery 1.10.2',
     'jquery-1.10-migrate'   => 'jQuery 1.10.2 + Migrate 1.2.1',
     'jquery-1.9'            => 'jQuery 1.9.1',
@@ -309,11 +301,8 @@ $cmsgo['js_lib_deprecated'] = array(
     'jquery'                => 'jQuery 1.3.2',
 );
 
-if(isset($cmsgo['js_lib'])) {
-    $cmsgo['js_lib'] = array_merge($cmsgo['js_lib_default'], $cmsgo['js_lib']);
-} else {
-    $cmsgo['js_lib'] = $cmsgo['js_lib_default'];
-}
+$cmsgo['js_lib'] = isset($cmsgo['js_lib']) ? array_merge($cmsgo['js_lib_default'], $cmsgo['js_lib']) : $cmsgo['js_lib_default'];
+
 if(!empty($cmsgo['enable_deprecated'])) {
     $cmsgo['js_lib'] = array_merge($cmsgo['js_lib'], $cmsgo['js_lib_deprecated']);
 }
@@ -408,6 +397,9 @@ $cmsgo['default_template_classes'] = array(
     'shop-products-menu'            => 'shop-products',
     'cp-paginate-link'              => 'paginate-link',
     'cp-paginate-link-active'       => 'paginate-link active',
+    'search-paginate-link'          => 'paginate-link',
+    'search-paginate-link-active'   => 'paginate-link active',
+    'search-paginate-link-disabled' => 'paginate-link disabled',
     'newsletter-table'              => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email'        => 'form-control',
@@ -426,10 +418,13 @@ $cmsgo['default_template_attributes'] = array(
     'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
     'cpgroup'                   => 'data', // data = <span>, href = <a>
     'cp-paginate' => array(
-        'link-prefix' => ' ',
-        'link-suffix' => ' ',
+        'wrap-prefix' => '<ul>',
+        'wrap-suffix' => '</ul>',
+        'link-prefix' => '<li>',
+        'link-suffix' => '</li>',
         'value-prefix' => '',
-        'value-suffix' => ''
+        'value-suffix' => '',
+        'href-disabled' => '#'
     ),
     'data-gallery' => 'gallery',
 );
@@ -530,7 +525,8 @@ if(!isset($cmsgo['global_unregister_getVar'])) {
         'shop_cat',
         'shop_cart',
         'gallery',
-        'subgallery'
+        'subgallery',
+        'fmp'
     );
 }
 if(is_array($cmsgo['preserve_getVar']) && count($cmsgo['preserve_getVar'])) {
@@ -700,7 +696,7 @@ function buildGlobalGET($return = '') {
     $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
     $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
 
-    if(get_magic_quotes_gpc()) {
+    if(!IS_PHP7 && get_magic_quotes_gpc()) {
         foreach($GLOBALS['_getVar'] as $key => $value) {
             $GLOBALS['_getVar'][$key] = stripslashes($value);
         }
@@ -1397,13 +1393,9 @@ function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w',
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
     $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
-    if($set_protocol) {
-        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
-    } else {
-        $protocol = '';
-    }
+    $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
-    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
     $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 

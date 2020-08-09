@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @description Classes are taken from MediaWiki and changed for phpwcms.
+ * @description Classes are taken from MediaWiki and changed for cmsGo!.
  * @file Defines classes to read SVG metadata
  * @author "Derk-Jan Hartman <hartman _at_ videolan d0t org>"
  * @author Brion Vibber

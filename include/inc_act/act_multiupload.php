@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -130,7 +130,7 @@ if (!empty($_GET['filepublic'])) {
 
         require_once CMSGO_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
 
-        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$retf[0]["fileName"])) {;
+        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$retf[0]["fileName"])) {
             $data['f_type'] = 'image/svg+xml';
             $data['f_svg'] = 1;
             $data['f_image_width'] = $file_svg['width'];
@@ -179,4 +179,3 @@ if (!empty($_GET['filepublic'])) {
 	}
 
 }
- ?>

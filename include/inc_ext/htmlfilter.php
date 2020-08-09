@@ -69,14 +69,12 @@ function tagprint($tagname, $attary, $tagtype){
         $fulltag = '</' . $tagname . '>';
     } else {
         $fulltag = '<' . $tagname;
-        if (is_array($attary) && sizeof($attary)){
-            $atts = array();
-            while (list($attname, $attvalue) = each($attary)){
-                array_push($atts, "$attname=$attvalue");
+        if (is_array($attary) && count($attary)) {
+            foreach ($attary as $attname => $attvalue) {
+                $fulltag .= ' ' . $attname . '=' . $attvalue;
             }
-            $fulltag .= ' ' . join(' ', $atts);
         }
-        if ($tagtype == 3){
+        if ($tagtype == 3) {
             $fulltag .= ' /';
         }
         $fulltag .= '>';
@@ -108,7 +106,7 @@ function casenormalize(&$val){
  */
 function skipspace($body, $offset){
     $me = 'skipspace';
-    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {;
+    if (preg_match('/^(\s*)/s', substr($body, $offset), $matches)) {
         $offset += strlen($matches[1]);
     }
     return $offset;
@@ -283,8 +281,7 @@ function getnxtag($body, $offset){
             //htmlfilter_debug("$me: Found invalid character '/'.\n");
             $gt = findnxstr($body, $pos, '>');
             //htmlfilter_debug("$me: Tag is invalid. Returning.\n");
-            $retary = array(false, false, false, $lt, $gt);
-            return $retary;
+            return array(false, false, false, $lt, $gt);
         }
     case '>':
         //htmlfilter_debug("$me: End of tag found at $pos\n");
@@ -407,7 +404,7 @@ function getnxtag($body, $offset){
             //htmlfilter_debug("$me: Additionally, end of tag found at $pos\n");
             //htmlfilter_debug("$me: Attname is '$attname'\n");
             //htmlfilter_debug("$me: Setting attvalue to 'yes'\n");
-            $attary{$attname} = '"yes"';
+            $attary[$attname] = '"yes"';
             return array($tagname, $attary, $tagtype, $lt, $pos);
             break;
         default:
@@ -447,7 +444,7 @@ function getnxtag($body, $offset){
                     list($pos, $attval, $match) = $regary;
                     //htmlfilter_debug("$me: Attvalue is '$attval'\n");
                     $pos++;
-                    $attary{$attname} = '\'' . $attval . '\'';
+                    $attary[$attname] = '\'' . $attval . '\'';
                 } else if ($quot == '"'){
                     //htmlfilter_debug("$me: In fact, this is attribute type 2\n");
                     //htmlfilter_debug("$me: looking for closing quote\n");
@@ -460,7 +457,7 @@ function getnxtag($body, $offset){
                     list($pos, $attval, $match) = $regary;
                     //htmlfilter_debug("$me: Attvalue is \"$attval\"\n");
                     $pos++;
-                    $attary{$attname} = '"' . $attval . '"';
+                    $attary[$attname] = '"' . $attval . '"';
                 } else {
                     //htmlfilter_debug("$me: This looks like attribute type 3\n");
                     /**
@@ -480,7 +477,7 @@ function getnxtag($body, $offset){
                     //htmlfilter_debug("$me: translating '\"' into &quot;\n");
                     $attval = preg_replace('/\"/s', '&quot;', $attval);
                     //htmlfilter_debug("$me: wrapping in quotes\n");
-                    $attary{$attname} = '"' . $attval . '"';
+                    $attary[$attname] = '"' . $attval . '"';
                 }
             } else if (preg_match('|[\w/>]|', $char)) {
                 /**
@@ -488,7 +485,7 @@ function getnxtag($body, $offset){
                  */
                 //htmlfilter_debug("$me: attribute type 4 found.\n");
                 //htmlfilter_debug("$me: Setting value to 'yes'\n");
-                $attary{$attname} = '"yes"';
+                $attary[$attname] = '"yes"';
             } else {
                 /**
                  * An illegal character. Find next '>' and return.
@@ -530,7 +527,7 @@ function deent(&$attvalue, $regex, $hex=false){
                 $numval = hexdec($numval);
                 //htmlfilter_debug("$me: hex! Numval is now $numval\n");
             }
-            $repl{$matches[0][$i]} = chr($numval);
+            $repl[$matches[0][$i]] = chr($numval);
         }
         $attvalue = strtr($attvalue, $repl);
         //htmlfilter_debug("$me: attvalue after translation: $attvalue\n");
@@ -608,48 +605,50 @@ function fixatts($tagname,
                  ){
     $me = 'fixatts';
     //htmlfilter_debug("$me: Fixing attributes\n");
-    while (list($attname, $attvalue) = each($attary)){
-        /**
-         * See if this attribute should be removed.
-         */
-        foreach ($rm_attnames as $matchtag=>$matchattrs){
-            if (preg_match($matchtag, $tagname)){
-                foreach ($matchattrs as $matchattr){
-                    if (preg_match($matchattr, $attname)){
-                        //htmlfilter_debug("$me: Attribute '$attname' defined as bad.\n");
-                        //htmlfilter_debug("$me: Removing.\n");
-                        unset($attary{$attname});
-                        continue;
+    if (is_array($attary) && count($attary)) {
+        foreach ($attary as $attname => $attvalue) {
+            /**
+             * See if this attribute should be removed.
+             */
+            foreach ($rm_attnames as $matchtag=>$matchattrs){
+                if (preg_match($matchtag, $tagname)){
+                    foreach ($matchattrs as $matchattr){
+                        if (preg_match($matchattr, $attname)){
+                            //htmlfilter_debug("$me: Attribute '$attname' defined as bad.\n");
+                            //htmlfilter_debug("$me: Removing.\n");
+                            unset($attary[$attname]);
+                            continue;
+                        }
                     }
                 }
             }
-        }
-        /**
-         * Remove any backslashes, entities, or extraneous whitespace.
-         */
-        defang($attvalue);
-        unspace($attvalue);
+            /**
+             * Remove any backslashes, entities, or extraneous whitespace.
+             */
+            defang($attvalue);
+            unspace($attvalue);
 
-        /**
-         * Now let's run checks on the attvalues.
-         * I don't expect anyone to comprehend this. If you do,
-         * get in touch with me so I can drive to where you live and
-         * shake your hand personally. :)
-         */
-        foreach ($bad_attvals as $matchtag=>$matchattrs){
-            if (preg_match($matchtag, $tagname)){
-                foreach ($matchattrs as $matchattr=>$valary){
-                    if (preg_match($matchattr, $attname)){
-                        /**
-                         * There are two arrays in valary.
-                         * First is matches.
-                         * Second one is replacements
-                         */
-                        list($valmatch, $valrepl) = $valary;
-                        $newvalue = preg_replace($valmatch,$valrepl,$attvalue);
-                        if ($newvalue != $attvalue){
-                            //htmlfilter_debug("$me: attvalue is now $newvalue\n");
-                            $attary{$attname} = $newvalue;
+            /**
+             * Now let's run checks on the attvalues.
+             * I don't expect anyone to comprehend this. If you do,
+             * get in touch with me so I can drive to where you live and
+             * shake your hand personally. :)
+             */
+            foreach ($bad_attvals as $matchtag=>$matchattrs){
+                if (preg_match($matchtag, $tagname)){
+                    foreach ($matchattrs as $matchattr=>$valary){
+                        if (preg_match($matchattr, $attname)){
+                            /**
+                             * There are two arrays in valary.
+                             * First is matches.
+                             * Second one is replacements
+                             */
+                            list($valmatch, $valrepl) = $valary;
+                            $newvalue = preg_replace($valmatch,$valrepl,$attvalue);
+                            if ($newvalue != $attvalue){
+                                //htmlfilter_debug("$me: attvalue is now $newvalue\n");
+                                $attary[$attname] = $newvalue;
+                            }
                         }
                     }
                 }
@@ -924,10 +923,9 @@ function htmlfilter_sanitize($body,
                     $skip_content = false;
                 } else {
                     if ($skip_content == false){
-                        if (isset($open_tags{$tagname}) &&
-                            $open_tags{$tagname} > 0){
+                        if (isset($open_tags[$tagname]) && $open_tags[$tagname] > 0) {
                             //htmlfilter_debug("$me: popping '$tagname' from open_tags\n");
-                            $open_tags{$tagname}--;
+                            $open_tags[$tagname]--;
                         } else {
                             //htmlfilter_debug("$me: '$tagname' was never opened\n");
                             //htmlfilter_debug("$me: removing\n");
@@ -969,10 +967,10 @@ function htmlfilter_sanitize($body,
                         } else {
                             if ($tagtype == 1){
                                 //htmlfilter_debug("$me: adding '$tagname' to open_tags\n");
-                                if (isset($open_tags{$tagname})){
-                                    $open_tags{$tagname}++;
+                                if (isset($open_tags[$tagname])){
+                                    $open_tags[$tagname]++;
                                 } else {
-                                    $open_tags{$tagname} = 1;
+                                    $open_tags[$tagname] = 1;
                                 }
                             }
                             /**

@@ -291,7 +291,7 @@
 .qq-gallery .qq-progress-bar {
     display: block;
     background: #00abc7;
-    width: 0%;
+    width: 0;
     height: 15px;
     border-radius: 6px;
     margin-bottom: 3px;

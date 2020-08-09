@@ -3,13 +3,13 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 // vn.date.lang.php
-// dev 1.2.1; 
+// dev 1.2.1;
 
 // language: VN
 // created by Nguyen Viet Son : nguyenvietson at gmail dot com

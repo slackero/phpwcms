@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -60,32 +60,29 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
     // Gather relevent info about file
     $filename     = empty($fileinfo['realfname']) ? basename($file) : $fileinfo['realfname'];
-    $disposition  = empty($fileinfo['method']) ? 'attachment' : $fileinfo['method'];
+    $disposition  = empty($fileinfo['method']) || $fileinfo['method'] !== 'inline' ? 'attachment' : 'inline';
+    $force_mimetype_check = array(
+        'application/octet-stream',
+        'application/force-download'
+    );
 
     // Fileinfo method
-    if(empty($fileinfo['mimetype']) && extension_loaded('fileinfo') && ($finfo = finfo_open(FILEINFO_MIME))) {
-
+    if(extension_loaded('fileinfo') && (empty($fileinfo['mimetype']) || ($disposition === 'inline' && in_array($fileinfo['mimetype'], $force_mimetype_check))) && ($finfo = finfo_open(FILEINFO_MIME))) {
         $fileinfo['mimetype'] = finfo_file($finfo, $file);
         finfo_close($finfo);
-
     }
 
     if(empty($fileinfo['extension'])) {
-
         $fileinfo['extension'] = strtolower(substr(strrchr($filename, '.'), 1));
-
     }
 
     if(empty($fileinfo['mimetype'])) {
-
         $fileinfo['mimetype'] = isset($GLOBALS['cmsgo']['mime_types'][$fileinfo['extension']]) ? $GLOBALS['cmsgo']['mime_types'][$fileinfo['extension']] : 'application/force-download';
-
     }
 
     // Disable output compression.
     //@apache_setenv('no-gzip', 1); // disabled because using this the download fails
     @ini_set('zlib.output_compression', 'Off');
-
 
     // Prevent caching.
     header('Pragma: public'); // Fix IE6 Content-Disposition
@@ -100,7 +97,6 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
 
     //Use the switch-generated Content-Type
     header('Content-Type: '.$fileinfo['mimetype']);
-
 
     if(isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtoupper($_SERVER['HTTP_USER_AGENT']), 'MSIE')) {
         // Workaround for IE filename bug with multiple periods / multiple

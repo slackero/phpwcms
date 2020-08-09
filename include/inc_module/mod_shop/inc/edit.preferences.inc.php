@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -263,6 +263,16 @@ if (!defined('CMSGO_ROOT')) {
 				<input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
 			</div>
 			&nbsp;%
+    </div>
+
+    <div class="form-group form-row align-items-center">
+        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_inventory'] ?></label>
+        <div class="col-sm-auto">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
+                <label class="form-check-label"><?php echo $BLM['shopprod_autosubtract_off'] ?></label>
+            </div>
+        </div>
     </div>
 
 	<!-- Discount -->

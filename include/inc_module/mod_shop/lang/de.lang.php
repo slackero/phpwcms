@@ -20,6 +20,8 @@ $BLM['cat_edit']                = 'Shop Produktkategorie bearbeiten';
 $BLM['prod_edit']               = 'Shop Produkt bearbeiten';
 $BLM['pref_edit']               = 'Einstellungen &auml;ndern';
 $BLM['delete_entry']            = 'Soll die gew&auml;hlte Kategorie wirklich gelöscht werden?\nAlle Unterkategorien werden ebenfalls gelöscht!\nGelöscht wird: ';
+$BLM['delete_product']          = 'Folgendes Produkt wirklich löschen?\n';
+$BLM['delete_order']            = 'Folgende Bestellung wirklich löschen?\n';
 
 $BLM['th_ordnr']                = 'Best.Nr.';
 $BLM['th_modnr']                = 'Mod.Nr.';
@@ -131,6 +133,9 @@ $BLM['shopprod_distance_base'] = 'Ausgangsadresse';
 $BLM['shopprod_api'] = 'API Schnittstelle';
 $BLM['shopprod_api_access'] = 'Zugriff gestatten';
 $BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
+
+$BLM['shopprod_inventory'] = 'Bestand';
+$BLM['shopprod_autosubtract_off'] = 'bei Bestellung NICHT um die Bestellmenge verringern';
 
 //NEW entries PPMO
 $BLM['order_edit']              = 'Bestellung bearbeiten';

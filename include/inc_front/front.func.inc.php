@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -1606,9 +1606,27 @@ function include_ext_php($inc_file, $t=0) {
 
 // callback wrapper functions
 function international_date_format_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=', $matches[1]);
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['cmsgo']['callback'] = is_intval($set[1]) ? intval($set[1]) : cmsgo_strtotime($set[1], NULL, now());
+        }
+    }
     return international_date_format($matches[2], $matches[1], $GLOBALS['cmsgo']['callback']);
 }
 function date_callback($matches) {
+    $matches[1] = trim($matches[1]);
+    if($matches[1] && strpos($matches[1], ' set=') !== false) {
+        $set = explode(' set=', $matches[1]);
+        $matches[1] = trim($set[0]);
+        if(!empty($set[1])) {
+            $set[1] = trim($set[1]);
+            $GLOBALS['cmsgo']['callback'] = is_intval($set[1]) ? intval($set[1]) : cmsgo_strtotime($set[1], NULL, now());
+        }
+    }
     if($GLOBALS['cmsgo']['DOCTYPE_LANG'] !== 'en' && preg_match('/[MFDl]/', $matches[1])) {
         return international_date_format($GLOBALS['cmsgo']['default_lang'], $matches[1], $GLOBALS['cmsgo']['callback']);
     }
@@ -2574,7 +2592,7 @@ function returnTagContent($string='', $tag='', $findall=false, $tagOpen='[', $ta
     return $data;
 }
 
-function include_url($url) {
+function include_url($url, $ignore_ssl=false) {
     // include given URL but only take content between <body></body>
 
     global $include_urlparts;
@@ -2618,7 +2636,17 @@ function include_url($url) {
             $include_urlparts['path'] = dirname($include_urlparts['path']);
             $include_urlparts['path'] = str_replace('\\', '/', $include_urlparts['path']);
         }
-        $k = @file_get_contents($url);
+        if($ignore_ssl && function_exists('stream_context_create')) {
+            $context = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ),
+            );
+            $k = @file_get_contents($url, false, stream_context_create($context));
+        } else {
+            $k = @file_get_contents($url);
+        }
 
         if($k) {
             // now check against charset
@@ -2639,6 +2667,7 @@ function include_url($url) {
             if(preg_match('/<body[^>]*?'.'>(.*)<\/body>/is', $k, $match)) {
                 $k = $match[1];
             }
+
             $k = str_replace(array('<?', '?>', '<%', '%>'), array('&lt;?', '?&gt;', '&lt;&#37;', '&#37;&gt;'), $k);
             $k = preg_replace_callback('/(href|src|action)=[\'|"]{0,1}(.*?)[\'|"]{0,1}( .*?){0,1}>/i', 'make_absoluteURL', $k);
             $k = htmlfilter_sanitize( trim($k) , array(false, 'link', 'meta'), array(), array('img', 'br', 'hr', 'input'), true);
@@ -3045,6 +3074,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $parameter[12]['item_tag']              = 'li';
             $parameter[12]['wrap_tag']              = '';
             $parameter[12]['attribute_wrap_tag']    = '';
+            $parameter[12]['class_item_link']       = $GLOBALS['template_default']['classes']['navlist-link-class'];
             $parameter[12]['class_item_tag']        = $GLOBALS['template_default']['classes']['navlist-asub_no'];
             $parameter[12]['class_first_item_tag']  = $GLOBALS['template_default']['classes']['navlist-asub_first'];
             $parameter[12]['class_last_item_tag']   = $GLOBALS['template_default']['classes']['navlist-asub_last'];
@@ -3134,7 +3164,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $bs_caret       = '';
         }
         if($bootstrap && $GLOBALS['template_default']['classes']['navlist-bs-link']) {
-            $li_a_class = trim($GLOBALS['template_default']['classes']['navlist-bs-link'].' '.$li_a_class);
+            $li_a_class = trim($li_a_class.' '.$GLOBALS['template_default']['classes']['navlist-bs-link']);
         }
         if($li_a_class) {
             $li_a_class = ' class="'.$li_a_class.'"';
@@ -3349,7 +3379,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             return array(
                 0 => '',
                 1 => '',
-                2 => array('', ''),
+                2 => array('', '', ''),
                 3 => '',
                 4 => '',
                 'caption_text' => '',
@@ -3363,7 +3393,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         return array(
             0 => '',
             1 => '',
-            2 => array('', ''),
+            2 => array('', '', ''),
             3 => '',
             4 => ''
         );
@@ -3399,13 +3429,17 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         );
     }
 
-    $caption[2]     = isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
-    $caption[2][0]  = trim($caption[2][0]);
+    $caption[2]    = isset($caption[2]) ? explode(' ', trim($caption[2])) : array(0 => '', 1 => '');
+    $caption[2][0] = trim($caption[2][0]);
+    $caption[2][2] = '';
     if(empty($caption[2][0]) || empty($caption[2][1])) {
-        $caption[2][1]  = '';
+        $caption[2][1] = '';
     } else {
-        $caption[2][1]  = trim($caption[2][1]);
-        $caption[2][1]  = empty($caption[2][1]) ? '' : ' target="'.$caption[2][1].'"';
+        $caption[2][1] = trim($caption[2][1]);
+        if(!empty($caption[2][1])) {
+            $caption[2][2] = $caption[2][1];
+            $caption[2][1] = ' target="' . $caption[2][1] . '"';
+        }
     }
 
     $caption[4] = isset($caption[4]) ? trim($caption[4]) : (isset($filedata['f_copyright']) ? $filedata['f_copyright'] : '');
@@ -3425,7 +3459,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
             'caption_text' => $caption[0],
             'caption_alt' => $caption[1],
             'caption_link' => $caption[2][0],
-            'caption_target' => $caption[2][1],
+            'caption_target' => $caption[2][2],
             'caption_title' => $caption[3],
             'caption_copyright' => $caption[4]
         );
@@ -3667,9 +3701,11 @@ function sanitize_replacement_tags( $string, $rt='', $bracket=array('{}', '[]') 
     }
     if( is_array($bracket) && count($bracket) && count($tag) ) {
         foreach($bracket as $value) {
-            if(strlen($value) < 2) continue;
-            $prefix = preg_quote($value{0}, '/');
-            $suffix = preg_quote($value{1}, '/');
+            if(strlen($value) < 2) {
+                continue;
+            }
+            $prefix = preg_quote(substr($value, 0, 1), '/');
+            $suffix = preg_quote(substr($value, 1, 1), '/');
             foreach($tag as $row) {
                 $string = preg_replace('/' . $prefix . $row[0] . $suffix . '(.*?)' . $prefix . '\/' . $row[1] . $suffix . '/si', '$1', $string);
             }
@@ -3867,6 +3903,7 @@ function getArticleMenu($data=array()) {
         'wrap_tag'              => 'ul',
         'attribute_wrap_tag'    => '',
         'class_item_tag'        => '',
+        'class_item_link'       => '',
         'class_first_item_tag'  => '',
         'class_last_item_tag'   => '',
         'return_format'         => 'string', // string or array
@@ -3895,6 +3932,9 @@ function getArticleMenu($data=array()) {
         if($data['class_item_tag']) {
             $class .= $data['class_item_tag'].' ';
         }
+        if($data['class_item_link']) {
+            $class_a .= $data['class_item_link'].' ';
+        }
         if($key === 0 && $data['class_first_item_tag']) {
             $class .= $data['class_first_item_tag'].' ';
         } elseif($key === $total && $data['class_last_item_tag']) {
@@ -3905,7 +3945,7 @@ function getArticleMenu($data=array()) {
                 $class .= $data['class_active'][0].' ';
             }
             if(!empty($data['class_active'][1])) {
-                $class_a = ' class="'.$data['class_active'][1].'"'; // set active link class
+                $class_a .= $data['class_active'][1]; // set active link class
             }
         }
         $class = trim($class);
@@ -3964,8 +4004,8 @@ function getArticleMenu($data=array()) {
             $item['target'] = '';
         }
 
-        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class != '' ? ' class="' . $class . '"' : '' ) . '>';
-        $li[$key] .= '<a href="'.$item['href'].'"'.$class_a.$item['target'].'>';
+        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class ? ' class="' . $class . '"' : '' ) . '>';
+        $li[$key] .= '<a href="'.$item['href'].'"' . ($class_a ? ' class="' . $class_a . '"' : '') . $item['target'] . '>';
         $li[$key] .= $data['wrap_title_prefix'];
         $li[$key] .= html(getArticleMenuTitle($item));
         $li[$key] .= $data['wrap_title_suffix'];
@@ -4430,26 +4470,38 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
-function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true) {
+/**
+ * Render the relative download URL
+ *
+ * @param   string  $hash
+ * @param   string  $filename
+ * @param   bool    $countonly
+ * @param   bool    $htmlencode
+ * @param   null    $inline
+ *
+ * @return string
+ */
+function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
 
     $href = '';
+    $get = array();
 
-    if(CMSGO_REWRITE) {
-
+    if (CMSGO_REWRITE) {
         $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
-
-        if($countonly) {
-            $href .= '?countonly=1';
-        }
-
     } else {
+        $href .= 'download.php';
+        $get[] = 'f=' . $hash;
+    }
 
-        $href .= 'download.php?f='.$hash;
-
-        if($countonly) {
-            $href .= ($htmlencode ? '&amp;' : '&') . 'countonly=1';
+    if ($countonly) {
+        $get[] = 'countonly=1';
+    }
+    if ($inline || ($inline === null && !empty($GLOBALS['cmsgo']['inline_download']))) {
+        $get[] = 'target=1';
         }
 
+    if (count($get)) {
+        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
     }
 
     return $href;

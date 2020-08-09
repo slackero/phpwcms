@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -71,7 +71,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
     } else {
 
-      if($content["text"]{0} == LF || $content["text"]{0} == "\r") {
+      if(substr($content["text"], 0, 1) === LF || substr($content["text"], 0, 1) === "\r") {
         echo ' '; // keep 1st linebreak;
       }
       echo html($content["text"]);

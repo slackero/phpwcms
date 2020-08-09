@@ -34,7 +34,7 @@ class POP3
      * @var string
      * @access public
      */
-    public $Version = '5.2.27';
+    public $Version = '5.2.28';
 
     /**
      * Default POP3 port number.
@@ -302,7 +302,7 @@ class POP3
             @fclose($this->pop_conn);
         } catch (Exception $e) {
             //Do nothing
-        };
+        }
     }
 
     /**

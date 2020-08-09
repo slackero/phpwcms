@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2019, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -190,7 +190,7 @@ if (!isset($_GET["s"])) {
         if (isset($result[0]['template_id'])) {
             if (($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
                 $template = array_merge($template, $result[0]["template_var"]);
-            };
+            }
             $template["id"] = intval($result[0]["template_id"]);
             $template["default"] = $result[0]["template_default"];
 

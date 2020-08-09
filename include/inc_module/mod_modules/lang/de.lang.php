@@ -14,5 +14,3 @@ $BLM['promotext_calendar'] = 'Das Kalender Modul von cmsGO! ermöglich den Aufba
 
 $BLM['listing_user'] = 'cmsGO! Benutzerverwaltung Modul';
 $BLM['promotext_user'] = 'Das Benutzerverwaltungs Modul von CMSGO ermöglich die Verwaltung von Benutzerdaten wie zB. von Kunden, Verbandsmitgliedern. Das Modul kann für die Mitlgiederverwaltung von Vereinen, für die zugangssteuerung von Kundenbereichen  usw. genutzt werden.';
-
-?>
