@@ -103,7 +103,7 @@ if($phpwcms['site_ssl_port'] !== 443) {
     $phpwcms['site_ssl_url'] .= ':' . $phpwcms['site_ssl_port'];
 }
 
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
     if(substr($phpwcms['site'], 0, 5) == 'http:') {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
     }
@@ -1382,7 +1382,7 @@ function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w',
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
