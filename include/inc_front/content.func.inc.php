@@ -673,6 +673,11 @@ if($content['struct'][$content['cat_id']]['acat_timeout'] != '') {
 if(!$content['struct'][$content['cat_id']]['acat_opengraph']) {
     $content['opengraph']['support'] = false;
 }
+// overwrite doctype language if enabled
+if(!empty($cmsgo['use_content_lang']) && !empty($content['struct'][$content['cat_id']]['acat_lang']) && $content['struct'][$content['cat_id']]['acat_lang'] !== $cmsgo['DOCTYPE_LANG']) {
+    $cmsgo['DOCTYPE_LANG'] = $content['struct'][$content['cat_id']]['acat_lang'];
+    $cmsgo['default_lang'] = $content['struct'][$content['cat_id']]['acat_lang'];
+}
 // set search status for current category
 $cache_searchable = $content['struct'][$content['cat_id']]['acat_nosearch'];
 

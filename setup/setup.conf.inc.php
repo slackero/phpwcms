@@ -67,6 +67,7 @@ $cmsgo['wysiwyg_editor'] = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
 $cmsgo['default_lang'] = 'en'; // default language
 $cmsgo['DOCTYPE_LANG'] = ''; // by default same as $cmsgo['default_lang'], but can be injected by whatever you like
 $cmsgo['allowed_lang'] = array('en', 'de', 'fr', 'es'); //array of allowed languages
+$cmsgo['use_content_lang'] = false; // if true use content language based on article and/or structure level
 $cmsgo['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $cmsgo['charset'] = 'utf-8'; // default charset 'utf-8' do not use soemthing different any longer
 $cmsgo['php_charset'] = false; // set PHP default charset to $cmsgo['charset']

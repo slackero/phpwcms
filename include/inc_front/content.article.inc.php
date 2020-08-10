@@ -81,6 +81,12 @@ if(isset($result[0]['article_id'])) {
         }
     }
 
+    // overwrite doctype language if enabled
+    if(!empty($cmsgo['use_content_lang']) && !empty($row["article_lang"]) && $row["article_lang"] !== $cmsgo['DOCTYPE_LANG']) {
+        $cmsgo['DOCTYPE_LANG'] = $row["article_lang"];
+        $cmsgo['default_lang'] = $row["article_lang"];
+    }
+
     //Kategoriebezeichner
     $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'];
 
