@@ -68,6 +68,7 @@ $phpwcms['wysiwyg_editor'] = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
 $phpwcms['default_lang'] = 'en'; // default language
 $phpwcms['DOCTYPE_LANG'] = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang'] = array('en', 'de', 'fr', 'es'); //array of allowed languages
+$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level
 $phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['charset'] = 'utf-8'; // default charset 'utf-8' do not use soemthing different any longer
 $phpwcms['php_charset'] = false; // set PHP default charset to $phpwcms['charset']
