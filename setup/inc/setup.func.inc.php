@@ -468,7 +468,7 @@ if (!function_exists('decode_entities')) {
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enable_port = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
     if ($set_protocol) {
         $protocol = substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://';

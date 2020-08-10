@@ -102,7 +102,7 @@ if($cmsgo['site_ssl_port'] !== 443) {
     $cmsgo['site_ssl_url'] .= ':' . $cmsgo['site_ssl_port'];
 }
 
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
     if(substr($cmsgo['site'], 0, 5) == 'http:') {
         $cmsgo['site'] = $cmsgo['site_ssl_url'];
     }
