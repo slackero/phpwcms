@@ -147,6 +147,7 @@ $phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - i
 $phpwcms['preserve_getVar']     = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/phpwcms/blob/master/include/inc_lib/default.inc.php#L520
 $phpwcms['enable_GDPR']         = true; // Try to handle GDPR inside of phpwcms by default (anonymize IP...)
 $phpwcms['login_autocomplete']  = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
+$phpwcms['lazy_loading']        = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address

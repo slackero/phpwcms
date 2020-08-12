@@ -600,6 +600,12 @@ define('PHPWCMS_HEADER_COMMENT', '
   -->
 ');
 
+if(empty($phpwcms['lazy_loading']) || !in_array($phpwcms['lazy_loading'], array('lazy', 'eager', 'auto'))) {
+    define('PHPWCMS_LAZY_LOADING', '');
+} else {
+    define('PHPWCMS_LAZY_LOADING', ' loading="' . $phpwcms['lazy_loading'] . '"');
+}
+
 // Todo: Later remove these
 $phpwcms["release"] = PHPWCMS_VERSION;
 $phpwcms["release_date"] = PHPWCMS_RELEASE_DATE;

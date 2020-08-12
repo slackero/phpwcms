@@ -271,7 +271,7 @@ if($image['template']) {
                 $caption[3] = html($caption[3]);
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
             $lightbox_capt  = '';
 

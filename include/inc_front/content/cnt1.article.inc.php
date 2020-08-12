@@ -289,7 +289,7 @@ if($crow['is_imagetext']) {
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', empty($caption[4]) ? '' : html($caption[4]));
         }
 
-        $crow['image_tag'] .= '" />';
+        $crow['image_tag'] .= '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', $crow['image_tag']);
     }

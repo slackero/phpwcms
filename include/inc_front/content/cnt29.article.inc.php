@@ -264,7 +264,7 @@ if($image['template']) {
             if($caption[3]) {
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {

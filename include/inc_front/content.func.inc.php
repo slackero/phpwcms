@@ -1107,6 +1107,9 @@ if(strpos($content['all'],'PHP') !== false) {
     $content['all'] = render_PHPcode($content["all"]);
 }
 
+// Replace Lazy Loading attribute
+$content['all'] = str_replace('{LAZY_LOADING}', PHPWCMS_LAZY_LOADING, $content['all']);
+
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {
 

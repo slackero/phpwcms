@@ -126,7 +126,7 @@ function renderAds($match) {
 				}
 				$ad_media	.= ' id="'.$ad_so.'">';
 				if(is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
-					$ad_media	.= '<img src="'. html_specialchars($ad_imgsrc) .'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
+					$ad_media	.= '<img src="'. html_specialchars($ad_imgsrc) .'" '.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
 				} else {
 					$ad_media	.= $ad_title;
 				}

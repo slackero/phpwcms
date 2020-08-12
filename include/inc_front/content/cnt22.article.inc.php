@@ -107,7 +107,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 		if( $rss_obj->get_image_url() ) {
 
 			$rss['temp_feedinfo']  = '<a href="'. ( $rss_obj->get_image_link() ? $rss_obj->get_image_link() : $rss_obj->get_permalink() ) .'" target="_blank">';
-			$rss['temp_feedinfo'] .= '<img src="' . $rss_obj->get_image_url() . '" alt="' . $rss_obj->get_image_title() . '" />';
+			$rss['temp_feedinfo'] .= '<img src="' . $rss_obj->get_image_url() . '" alt="' . $rss_obj->get_image_title() . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 			$rss['temp_feedinfo'] .= '</a>';
 
 			$rss['template_FEEDINFO'] = render_cnt_template($rss['template_FEEDINFO'], 'IMAGE', $rss['temp_feedinfo']);

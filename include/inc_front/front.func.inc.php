@@ -78,7 +78,7 @@ function plugin_size($mediatype, $player, $width, $height) {
 function must_filled($c) {
     //spaceholder for form fields that have to be filled
     //with some content or has to be marked or like that
-    return intval($c) ? '<img src="img/article/fill_in_here.gif" alt=""'.HTML_TAG_CLOSE : '';
+    return intval($c) ? ('<img src="img/article/fill_in_here.gif" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE) : '';
 }
 
 //to add all relevant attributes that contains values to a string maybe a html tag
@@ -1184,7 +1184,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                     $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"';
                     $caption[1] = html_specialchars($caption[1]);
 
-                    $thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-article-list'].'"'.HTML_TAG_CLOSE;
+                    $thumb_img = '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-article-list'].'"'.PHPWCMS_LAZY_LOADING.HTML_TAG_CLOSE;
 
                     if($article["article_image"]["list_zoom"]) {
 
@@ -4234,7 +4234,7 @@ function render_CKEDitor_resized_images($match) {
         $alt = '';
     }
 
-    return '<img src="'.$src.'"'.$alt;
+    return '<img src="'.$src.'"'.$alt.PHPWCMS_LAZY_LOADING;
 }
 
 function get_structurelevel_single_article_alias($article_cid=0) {

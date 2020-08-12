@@ -782,8 +782,9 @@ if($guestbook['visible']) {
 
                     if($thumb_image != false) {
 
-                        $guestbook['entry_image']  = '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3];
-                        $guestbook['entry_image'] .= ' alt="'.html_specialchars($guestbook['row']['guestbook_imagename']).'" />';
+                        $guestbook['entry_image']  = '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3];
+                        $guestbook['entry_image'] .= ' alt="' . html($guestbook['row']['guestbook_imagename']) . '"';
+                        $guestbook['entry_image'] .= PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
                         //zoom
                         if($guestbook['imgdata'][2]) {
@@ -799,9 +800,9 @@ if($guestbook['visible']) {
                             if($zoominfo != false) {
 
                                 $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
-                                $guestbook['entry_image']   =   '<a href="'.$popup_img.'" onclick="window.open(\''.$popup_img.
-                                                                "','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;".
-                                                                '">'.$guestbook['entry_image'].'</a>';
+                                $guestbook['entry_image'] = '<a href="'.$popup_img.'" onclick="window.open(\''.$popup_img.
+                                                            "','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;".
+                                                            '">'.$guestbook['entry_image'].'</a>';
                             }
                         }
                     }
