@@ -240,7 +240,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$phpwcms['login.php'] = 'login.php';\n";
     $conf_file .= "\$phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.7/)\n";
+    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.8/)\n";
     $conf_file .= "\$phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
@@ -258,10 +258,10 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...\n";
     $conf_file .= "\$phpwcms['base_href'] = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
     $conf_file .= "\$phpwcms['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
-    $conf_file .= "\$phpwcms['js_in_body'] = 0; // add <script> direct before </body> instead inside of <head>\n";
+    $conf_file .= "\$phpwcms['js_in_body'] = 0; // add <script /> direct before </body> instead inside of <head>\n";
     $conf_file .= "\$phpwcms['set_article_active'] = 1; // activate (1) or disable (0) article by default on create\n";
     $conf_file .= "\$phpwcms['set_category_active'] = 1; // activate (1) or disable (0) category/structure level by default on create\n";
-    $conf_file .= "\$phpwcms['set_file_active'] = 1; // activate (1) or disable (0) files and folders by default on create\n";
+    $conf_file .= "\$phpwcms['set_file_active'] = 1; // activate (1) sor disable (0) files and folders by default on create\n";
     $conf_file .= "\$phpwcms['set_news_active'] = 1; // activate (1) or disable (0) news by default on create\n";
     $conf_file .= "\$phpwcms['log_404error'] = false; // log each 404 for redirect edit\n";
     $conf_file .= "\$phpwcms['set_sociallink'] = array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true); // TRUE/FALSE to enable status for article/articlecat/news/shop by default, render TRUE/FALSE to enable/disable in frontend\n";
