@@ -670,6 +670,11 @@ if($content['struct'][$content['cat_id']]['acat_timeout'] != '') {
 if(!$content['struct'][$content['cat_id']]['acat_opengraph']) {
     $content['opengraph']['support'] = false;
 }
+// overwrite doctype language if enabled
+if(!empty($phpwcms['use_content_lang']) && !empty($content['struct'][$content['cat_id']]['acat_lang']) && $content['struct'][$content['cat_id']]['acat_lang'] !== $phpwcms['DOCTYPE_LANG']) {
+    $phpwcms['DOCTYPE_LANG'] = $content['struct'][$content['cat_id']]['acat_lang'];
+    $phpwcms['default_lang'] = $content['struct'][$content['cat_id']]['acat_lang'];
+}
 // set search status for current category
 $cache_searchable = $content['struct'][$content['cat_id']]['acat_nosearch'];
 
@@ -1101,6 +1106,9 @@ $content['all'] = render_device($content['all']);
 if(strpos($content['all'],'PHP') !== false) {
     $content['all'] = render_PHPcode($content["all"]);
 }
+
+// Replace Lazy Loading attribute
+$content['all'] = str_replace('{LAZY_LOADING}', PHPWCMS_LAZY_LOADING, $content['all']);
 
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {

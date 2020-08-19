@@ -52,7 +52,7 @@ function get_random_image_tag($path) {
 
 	if(count($imgArray) && ($imageinfo = is_random_image($imgArray, $imgpath))) {
 		if($tag) {
-			return '<img src="'.$path.'/'.urlencode($imageinfo['imagename']).'" '.$imageinfo[3].' border="0" alt="'.html_specialchars($imageinfo["imagename"]).'"'.HTML_TAG_CLOSE;
+			return '<img src="' . $path . '/'. urlencode($imageinfo['imagename']) . '" ' . $imageinfo[3] . ' alt="' . html($imageinfo["imagename"]) . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 		} else {
 			return PHPWCMS_URL . $path . '/' . urlencode($imageinfo['imagename']);
 		}
@@ -83,31 +83,31 @@ function html_parser_deprecated($string='') {
 
 	// random GIF Image
 	$search[0]		= '/\{RANDOM_GIF:(.*?)\}/';
-	$replace[0]		= '<img src="img/random_image.php?type=0&imgdir=$1" border="0" alt="" />';
+	$replace[0]		= '<img src="img/random_image.php?type=0&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// random JPEG Image
 	$search[1]		= '/\{RANDOM_JPEG:(.*?)\}/';
-	$replace[1]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" border="0" alt="" />';
+	$replace[1]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// random PNG Image
 	$search[2]		= '/\{RANDOM_PNG:(.*?)\}/';
-	$replace[2]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" border="0" alt="" />';
+	$replace[2]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image standard
 	$search[3]		= '/\{IMAGE:(.*?)\}/';
-	$replace[3]		= '<img src="picture/$1" border="0" alt="" />';
+	$replace[3]		= '<img src="picture/$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image left
 	$search[4]		= '/\{IMAGE_LEFT:(.*?)\}/';
-	$replace[4]		= '<img src="picture/$1" border="0" align="left" alt="" />';
+	$replace[4]		= '<img src="picture/$1" align="left" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image right
 	$search[5]		= '/\{IMAGE_RIGHT:(.*?)\}/';
-	$replace[5]		= '<img src="picture/$1" border="0" align="right" alt="" />';
+	$replace[5]		= '<img src="picture/$1" align="right" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image center
 	$search[6]		= '/\{IMAGE_CENTER:(.*?)\}/';
-	$replace[6]		= '<div style="text-align:center;"><img src="picture/$1" border="0" alt="" /></div>';
+	$replace[6]		= '<div style="text-align:center;"><img src="picture/$1" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE . '</div>';
 
 	// random Image Tag
 	$string			= preg_replace_callback('/\{RANDOM:(.*?)\}/', 'get_random_image_tag', $string);

@@ -68,6 +68,7 @@ $phpwcms['wysiwyg_editor'] = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
 $phpwcms['default_lang'] = 'en'; // default language
 $phpwcms['DOCTYPE_LANG'] = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang'] = array('en', 'de', 'fr', 'es'); //array of allowed languages
+$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level
 $phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['charset'] = 'utf-8'; // default charset 'utf-8' do not use soemthing different any longer
 $phpwcms['php_charset'] = false; // set PHP default charset to $phpwcms['charset']
@@ -107,7 +108,7 @@ $phpwcms['FCK_FileBrowser'] = 1; // enable|disable phpwcms Filebrowser in FCKedi
 $phpwcms['feuser_regkey'] = 'FEUSER';
 $phpwcms['login.php'] = 'login.php';
 $phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.7/)
+$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.8/)
 $phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -146,6 +147,7 @@ $phpwcms['unregister_getVar'] = array(); // array('myvar1', 'myvar2', …) - if 
 $phpwcms['preserve_getVar'] = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved https://github.com/slackero/phpwcms/blob/master/include/inc_lib/default.inc.php#L520
 $phpwcms['enable_GDPR'] = true; // Try to handle GDPR inside of phpwcms by default (anonymize IP...)
 $phpwcms['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
+$phpwcms['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

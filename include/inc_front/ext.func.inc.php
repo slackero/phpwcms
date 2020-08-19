@@ -37,7 +37,7 @@ function showPollImage($image, $zoom = 0) {
         ));
     }
 
-    $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
+    $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.PHPWCMS_LAZY_LOADING.HTML_TAG_CLOSE;
 
     if($zoom && !empty($zoominfo)) {
         // if click enlarge the image
@@ -954,14 +954,14 @@ function parse_images($matches) {
         }
         if(isset($matches[3])) {
 
-            $title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
+            $title = html( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
             if($title) {
                 $image .= ' title="'.$title.'"';
             }
         }
 
         $class = empty($GLOBALS['template_default']['classes']['image-parse-inline'])  ? 'img-bbcode' : $GLOBALS['template_default']['classes']['image-parse-inline'];
-        $image     .= ' class="' . $class . ' ' . $class . '-' .$img_id . '" />';
+        $image     .= ' class="' . $class . ' ' . $class . '-' .$img_id . '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
         return $image;
 

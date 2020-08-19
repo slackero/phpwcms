@@ -82,6 +82,12 @@ if(isset($result[0]['article_id'])) {
         }
     }
 
+    // overwrite doctype language if enabled
+    if(!empty($phpwcms['use_content_lang']) && !empty($row["article_lang"]) && $row["article_lang"] !== $phpwcms['DOCTYPE_LANG']) {
+        $phpwcms['DOCTYPE_LANG'] = $row["article_lang"];
+        $phpwcms['default_lang'] = $row["article_lang"];
+    }
+
     //Kategoriebezeichner
     $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'];
 
@@ -243,7 +249,8 @@ if(isset($result[0]['article_id'])) {
             if($img_thumb_title) {
                 $thumb_img .= ' title="'.html($img_thumb_title).'"';
             }
-            $thumb_img .= ' class="'.$template_default['classes']['image-article-summary'].'"'.HTML_TAG_CLOSE;
+            $thumb_img .= ' class="' . $template_default['classes']['image-article-summary'] . '"';
+            $thumb_img .= PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
             $img_thumb_name     = $thumb_image[0];
             $img_thumb_rel      = $thumb_image['src'];

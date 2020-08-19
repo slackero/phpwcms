@@ -86,10 +86,11 @@ if($content['reference']['ref_count']) {
 	));
 
 	if($thumb_image != false) {
-		$content['reference']['ref_image']  = '<img src="' . $thumb_image['src'] ;
-		$content['reference']['ref_image'] .= '" border="'.$content['reference']['border'].'" '; //.$thumb_image[3]
-		$content['reference']['ref_image'] .= ' alt="" ';//title="'.$img_name.'"
-		$content['reference']['ref_image'] .= 'id="'.$content['reference']['ref_id'].'" name="'.$content['reference']['ref_id'].'" />';
+		$content['reference']['ref_image']  = '<img src="' . $thumb_image['src'] . '"';
+		$content['reference']['ref_image'] .= ' border="' . $content['reference']['border'] . '" ';
+		$content['reference']['ref_image'] .= ' alt=""';
+		$content['reference']['ref_image'] .= ' id="' . $content['reference']['ref_id'] . '" name="'.$content['reference']['ref_id'] . '"';
+		$content['reference']['ref_image'] .= PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 	}
 
 	if($content['reference']['ref_count'] > 1) {
@@ -194,8 +195,8 @@ if($content['reference']['ref_count']) {
 				} else {
 					$img_name = html_specialchars($content['reference']["list"][$captkey][1]);
 				}
-				$content['reference']['ref_list'] .= '<img src="' . $thumb_image['src'] ;
-				$content['reference']['ref_list'] .= '" border="'.$content['reference']['border'].'" ';
+				$content['reference']['ref_list'] .= '<img src="' . $thumb_image['src'] . '"' ;
+				$content['reference']['ref_list'] .= ' border="'.$content['reference']['border'].'" ';
 				$content['reference']['ref_list'] .= $thumb_image[3].' alt="'.$img_name.'" title="'.$img_name;
 				$content['reference']['ref_list'] .= '" id="'.$content['reference']['ref_id'].'a'.$captkey;
 				$content['reference']['ref_list'] .= '" name="'.$content['reference']['ref_id'].'a'.$captkey.'" ';
@@ -214,8 +215,8 @@ if($content['reference']['ref_count']) {
 					$content['reference']['ref_list'] .= $content['reference']['x7']."');";
 				}
 				$content['reference']['ref_list'] .= "MM_displayStatusMsg('".$content['reference']['x7']."');return ";
-				$content['reference']['ref_list'] .= 'document.MM_returnValue;" />'.$content['reference']['x6']."</td>\n";
-				$content['reference']['ref_list'] .= $content['reference']['x4'];
+				$content['reference']['ref_list'] .= 'document.MM_returnValue;"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+				$content['reference']['ref_list'] .= $content['reference']['x6'] . "</td>\n" . $content['reference']['x4'];
 
 			}
 			$ci++;
