@@ -551,11 +551,11 @@ if(empty($pagelayout["layout_title"])) {
 $colspan = get_colspan($pagelayout);
 
 // now initialize content blocks like CONTENT, HEADER, LEFT, RIGHT, FOOTER
-$content['main']      = ''; // {CONTENT}
-$content['CB']['LEFT']    = ''; // {LEFT}
-$content['CB']['RIGHT']   = ''; // {RIGHT}
-$content['CB']['HEADER']  = ''; // {HEADER}
-$content['CB']['FOOTER']  = ''; // {FOOTER}
+$content['main']            = ''; // {CONTENT}
+$content['CB']['LEFT']      = ''; // {LEFT}
+$content['CB']['RIGHT']     = ''; // {RIGHT}
+$content['CB']['HEADER']    = ''; // {HEADER}
+$content['CB']['FOOTER']    = ''; // {FOOTER}
 // and try to add and initialize custom blocks
 if(!empty($pagelayout['layout_customblocks'])) {
     $custom_blocks = explode(', ', $pagelayout['layout_customblocks']);
@@ -875,18 +875,24 @@ $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
 foreach($content['CB'] as $key => $value) {
     //first check content of custom block in current template
     if($value !== '') {
-        $block_name_file = 'customblock_' . $key . '_file';
-        $tmpl_section_dir = strtolower($key);
-        if(!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
-            if($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
-                $block['customblock_'.$key] = $block[$block_name_file];
+        if(isset($block['customblock_'.$key])) {
+            $block_name_file = 'customblock_' . $key . '_file';
+            $tmpl_section_dir = strtolower($key);
+            if(!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                if($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                    $block['customblock_' . $key] = $block[$block_name_file];
+                }
+            }
+            if ($block['customblock_' . $key] !== '') {
+                $value = str_replace('{' . $key . '}', $value, $block['customblock_' . $key]);
+            }
+        } else {
+            $keytext = strtolower($key) . 'text';
+            if(isset($block[$keytext]) && $block[$keytext] !== '') {
+                $value = str_replace('{' . $key . '}', $value, $block[$keytext]);
             }
         }
-        if(isset($block['customblock_'.$key]) && $block['customblock_'.$key] !== '') {
-            $value = str_replace('{'.$key.'}', $value, $block['customblock_'.$key]);
-        }
     }
-    //$content["all"] = str_replace('{'.$key.'}', $value, $content["all"]);
     // Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
     $content["all"] = render_cnt_template($content["all"], $key, $value);
 }
