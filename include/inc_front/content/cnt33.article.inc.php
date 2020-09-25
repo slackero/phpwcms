@@ -783,12 +783,17 @@ if($news['template']) {
                         $value['files_template'] = $news['config']['files_template_detail'] == 'default' ? '' : $news['config']['files_template_detail'];
                     }
 
+                    // Preserve current content part values, might be overwritten by files CP
+                    $_crow = $crow;
+
                     // include content part files renderer
                     include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
                     $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
 
-                    unset($IS_NEWS_CP);
+                    // Restore content part values
+                    $crow = $_crow;
+                    unset($IS_NEWS_CP, $_crow);
 
                 } else {
 
