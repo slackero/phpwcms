@@ -32,33 +32,30 @@ $template_default['imagegallery_default_height'] = isset($template_default['imag
 $template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
 
 $content['image_default'] = array(
-
-        'pos'           => 0,
-        'width'         => $template_default['imagegallery_default_width'],
-        'height'        => $template_default['imagegallery_default_height'],
-        'width_zoom'    => $cmsgo['img_prev_width'],
-        'height_zoom'   => $cmsgo['img_prev_height'],
-        'col'           => $template_default['imagegallery_default_column'],
-        'space'         => $template_default['imagegallery_default_space'],
-        'zoom'          => 0,
-        'caption'       => '',
-        'lightbox'      => 0,
-        'nocaption'     => 0,
-        'center'        => 0,
-        'crop'          => 0,
-        'crop_zoom'     => 0,
-        'fx1'           => 0,
-        'fx2'           => 0,
-        'fx3'           => 0,
-        'freetext'      => '',
-        'images'        => array()
-
+    'pos'           => 0,
+    'width'         => $template_default['imagegallery_default_width'],
+    'height'        => $template_default['imagegallery_default_height'],
+    'width_zoom'    => $cmsgo['img_prev_width'],
+    'height_zoom'   => $cmsgo['img_prev_height'],
+    'col'           => $template_default['imagegallery_default_column'],
+    'space'         => $template_default['imagegallery_default_space'],
+    'zoom'          => 0,
+    'caption'       => '',
+    'lightbox'      => 0,
+    'nocaption'     => 0,
+    'center'        => 0,
+    'crop'          => 0,
+    'crop_zoom'     => 0,
+    'fx1'           => 0,
+    'fx2'           => 0,
+    'fx3'           => 0,
+    'freetext'      => '',
+    'images'        => array()
 );
 
 $content['image_special'] = isset($content['image_special']) ? array_merge($content['image_default'], $content['image_special']) : $content['image_default'];
 
 $tab_fieldgroup_templates = array();
-
 
 if(isset($template_default['settings']['imagespecial_custom_fields']) && is_array($template_default['settings']['imagespecial_custom_fields']) && count($template_default['settings']['imagespecial_custom_fields'])) {
     $tab_fieldgroups = $template_default['settings']['imagespecial_custom_fields'];
@@ -408,10 +405,11 @@ if($value['custom_field_items']):
         }
 
         $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+        $is_wysiwyg = $tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($tab_fieldgroup['fields'][$custom_field]['render']) && $tab_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
 ?>
 
       <div class="form-group align-items-center form-row">
-        <label class="col-sm-2 col-form-label text-right"><?php
+        <label class="col-sm-2 col-form-label text-right align-self-start"><?php
             if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                     echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -451,12 +449,27 @@ if($value['custom_field_items']):
                 <?php endif; ?>
                 />
 
-<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'):
+
+            if ($is_wysiwyg):
+                $wysiwyg_editor = array(
+                    'value' => isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : '',
+                    'field' => 'customfield[' . $key . '][' . $custom_field . ']',
+                    'height' => empty($tab_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $tab_fieldgroup['fields'][$custom_field]['height'],
+                    'width' => '100%',
+                    'rows' => empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $tab_fieldgroup['fields'][$custom_field]['rows'],
+                    'editor' => $_SESSION["WYSIWYG_EDITOR"],
+                    'lang' => 'en'
+                );
+
+                include CMSGO_ROOT . '/include/inc_lib/wysiwyg.editor.inc.php';
+            else: ?>
                 <textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="form-control form-control-sm"<?php echo $custom_field_placeholder; ?> rows="<?php
                     echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
-                ?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
+                ?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea><?php
+            endif;
 
-<?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+        elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
             foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                 <div class="form-check form-check-inline pt-1 col-sm-auto">
 									<input type="radio" class="form-check-input" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
@@ -517,43 +530,42 @@ if($value['custom_field_items']):
                   size="40"
                   onfocus="this.blur()"
               />
-            <span class="input-group-append ">
-            <a class="btn btn-sm btn-danger trash"
-                href="#"
-                type="button"
-                data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                onclick="getObjectById('customfield_<?php
-                    echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
-                    echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
-                    echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
-                ></a>
-              </span>
+                <span class="input-group-append ">
+                    <a class="btn btn-sm btn-danger trash"
+                        href="#"
+                        type="button"
+                        data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                        onclick="getObjectById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
+                        ></a>
+                </span>
             </div>
 
-						<textarea
-								name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
-								cols="40"
-								rows="2"
-								class="form-control form-control-sm mb-2"
-								id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
-								if(isset($value['custom_fields'][$custom_field]['description'])) {
-										echo html($value['custom_fields'][$custom_field]['description']);
-								}
-								?></textarea>
-						<span class="small">
-								<?php echo $BL['be_cnt_description']; ?>
-								|
-								<?php echo $BL['be_fprivedit_filename']; ?>
-								|
-								<?php echo $BL['be_caption_file_title']; ?>
-								|
-								<?php echo $BL['be_cnt_target']; ?>
-								|
-								<?php echo $BL['be_caption_file_imagesize']; ?>
-								|
-								<?php echo $BL['be_copyright']; ?>
-						</span>
-
+            <textarea
+                    name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
+                    cols="40"
+                    rows="2"
+                    class="form-control form-control-sm mb-2"
+                    id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
+                    if(isset($value['custom_fields'][$custom_field]['description'])) {
+                            echo html($value['custom_fields'][$custom_field]['description']);
+                    }
+                    ?></textarea>
+            <span class="small">
+                    <?php echo $BL['be_cnt_description']; ?>
+                    |
+                    <?php echo $BL['be_fprivedit_filename']; ?>
+                    |
+                    <?php echo $BL['be_caption_file_title']; ?>
+                    |
+                    <?php echo $BL['be_cnt_target']; ?>
+                    |
+                    <?php echo $BL['be_caption_file_imagesize']; ?>
+                    |
+                    <?php echo $BL['be_copyright']; ?>
+            </span>
 
           <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
 					<?php echo $custom_field; ?>
@@ -806,7 +818,7 @@ function addNewImage(where) {
 
 ?>
     new_entry += '<div class="form-group align-items-center form-row">';
-    new_entry += '<label class="col-sm-2 col-form-label text-right"><?php
+    new_entry += '<label class="col-sm-2 col-form-label text-right align-self-start"><?php
             if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                     echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -849,7 +861,6 @@ function addNewImage(where) {
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-
     new_entry += '  <div class="input-group mb-3">';
     new_entry += '    <span class="input-group-prepend">';
     new_entry += '      <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"  /></button>';
@@ -870,8 +881,7 @@ function addNewImage(where) {
     new_entry += '              onfocus="this.blur()"';
     new_entry += '          />';
     new_entry += '      <span class="input-group-append">';
-
-    new_entry += '      <a class="btn btn-sm btn-danger trash"';
+    new_entry += '          <a class="btn btn-sm btn-danger trash"';
     new_entry += '              href="#" type="button"';
     new_entry += '              data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"';
     new_entry += '              onclick="getObjectById(\'customfield_<?php
@@ -879,27 +889,21 @@ function addNewImage(where) {
                                 echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
                                 echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
     new_entry += '          ></a>';
-    new_entry += '  </span>';
+    new_entry += '      </span>';
     new_entry += '  </div>';
-    new_entry += '          <textarea';
-    new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]"';
-    new_entry += '              cols="40"';
-    new_entry += '              rows="2"';
-    new_entry += '              class="form-control form-control-sm"';
-    new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
-    new_entry += '          <span class="small mt-3">';
-    new_entry += '              <?php echo $BL['be_cnt_description']; ?> |';
-    new_entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
-    new_entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
-    new_entry += '              <?php echo $BL['be_cnt_target']; ?> |';
-    new_entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
-    new_entry += '              <?php echo $BL['be_copyright']; ?>';
-    new_entry += '          </span>';
+    new_entry += '  <textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]" cols="40" rows="2"';
+    new_entry += '      class="form-control form-control-sm" id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
+    new_entry += '  <div class="small mt-3">';
+    new_entry += '      <?php echo $BL['be_cnt_description']; ?> |';
+    new_entry += '      <?php echo $BL['be_fprivedit_filename']; ?> |';
+    new_entry += '      <?php echo $BL['be_caption_file_title']; ?> |';
+    new_entry += '      <?php echo $BL['be_cnt_target']; ?> |';
+    new_entry += '      <?php echo $BL['be_caption_file_imagesize']; ?> |';
+    new_entry += '      <?php echo $BL['be_copyright']; ?>';
     new_entry += '  </div>';
-
 
 <?php   endif; ?>
-    new_entry += '</div><'+'/div>';
+    new_entry += '</div></div>';
 <?php
         endforeach;
     endif;

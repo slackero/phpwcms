@@ -44,7 +44,7 @@ $content['image_special']   = array(
 );
 
 $tab_fieldgroup_fields = null;
-$tab_fieldgroup_field_render = array('html', 'markdown');
+$tab_fieldgroup_field_render = array('html', 'markdown', 'wysiwyg');
 if(empty($_POST['tab_fieldgroup'])) {
     $content['tab_fieldgroup'] = '';
 } else {
