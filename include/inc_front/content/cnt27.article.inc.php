@@ -78,7 +78,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 			if($zoominfo != false) {
 
-				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $crow["acontent_image"][1]);
 
 				if(!empty($caption[2][0])) {
 					$open_link = $caption[2][0];

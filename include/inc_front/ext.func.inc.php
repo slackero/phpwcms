@@ -41,7 +41,7 @@ function showPollImage($image, $zoom = 0) {
 
     if($zoom && !empty($zoominfo)) {
         // if click enlarge the image
-        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
         $open_link = $open_popup_link;
         $return_false = 'return false;';
 

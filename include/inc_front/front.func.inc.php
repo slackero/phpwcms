@@ -1204,7 +1204,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                             $img_zoom_width     = $zoominfo[1];
                             $img_zoom_height    = $zoominfo[2];
 
-                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $article["article_image"]['list_name']);
 
                             if(!empty($caption[2][0])) {
                                 $open_link = $caption[2][0];
@@ -3551,10 +3551,8 @@ function getFileDetails($file) {
 
 }
 
-function getClickZoomImageParameter($string='', $getvar='show') {
-    $string = base64_encode($string);
-    $string = rawurlencode($string);
-    return $getvar.'='.$string;
+function getClickZoomImageParameter($src='', $size='', $name='') {
+    return 'show='.rawurlencode(base64_encode(serialize(array('src' => $src, 'attr' => $size, 'name' => $name))));
 }
 
 function getPageInfoGetValue($type='string') {

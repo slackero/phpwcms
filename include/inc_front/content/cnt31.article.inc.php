@@ -277,7 +277,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['name_zoom']);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';

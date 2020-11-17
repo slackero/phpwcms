@@ -799,7 +799,7 @@ if($guestbook['visible']) {
 
                             if($zoominfo != false) {
 
-                                $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                                $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $guestbook['row']['guestbook_image']);
                                 $guestbook['entry_image'] = '<a href="'.$popup_img.'" onclick="window.open(\''.$popup_img.
                                                             "','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;".
                                                             '">'.$guestbook['entry_image'].'</a>';
