@@ -1,5 +1,6 @@
 *.esproj
 .idea
+.nova
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*
