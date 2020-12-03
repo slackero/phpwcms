@@ -19,3 +19,4 @@ include/config.codekit3
 /template/template_lang/*.*
 !/template/template_lang/.htaccess
 !/template/template_lang/README.md
+/.nova
