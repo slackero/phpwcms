@@ -270,13 +270,13 @@ if($image['template']) {
                 $caption[3] = html($caption[3]);
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
             $lightbox_capt  = '';
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['name_zoom']);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';

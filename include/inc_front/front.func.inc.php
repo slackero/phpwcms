@@ -77,7 +77,7 @@ function plugin_size($mediatype, $player, $width, $height) {
 function must_filled($c) {
     //spaceholder for form fields that have to be filled
     //with some content or has to be marked or like that
-    return intval($c) ? '<img src="img/article/fill_in_here.gif" alt=""'.HTML_TAG_CLOSE : '';
+    return intval($c) ? ('<img src="img/article/fill_in_here.gif" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE) : '';
 }
 
 //to add all relevant attributes that contains values to a string maybe a html tag
@@ -977,20 +977,40 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
         $paginate_navi = preg_replace_callback('/\{NAVI:(.*?)\}/', 'get_PaginateNavigate', $paginate_navi);
 
         // next page link
+        $page_next_link = '<a';
         if($GLOBALS['paginate_temp']['next'] && $page_current < $max_pages) {
             $_getVar['listpage'] = $page_next;
-            $page_next_link = '<a href="' . rel_url( array('listpage'=>$page_next) ) . '">' . $GLOBALS['paginate_temp']['next'] . '</a>';
+            $page_next_link .= ' href="' . rel_url( array('listpage'=>$page_next) ) . '"';
+            if ($template_default['classes']['cp-paginate-link']) {
+                $page_next_link .= ' class="' . $template_default['classes']['cp-paginate-link'] . '"';
+            }
         } else {
-            $page_next_link = $GLOBALS['paginate_temp']['next'];
+            if ($template_default['attributes']['cp-paginate']['href-disabled']) {
+                $page_next_link .= ' href="' . $template_default['attributes']['cp-paginate']['href-disabled'] . '" data-disabled="true" tabindex="-1" aria-disabled="true"';
+            }
+            if ($template_default['classes']['cp-paginate-link-disabled']) {
+                $page_next_link .= ' class="' . $template_default['classes']['cp-paginate-link-disabled'] . '"';
+            }
         }
+        $page_next_link .= '>' . $GLOBALS['paginate_temp']['next'] . '</a>';
 
         // previous page link
+        $page_prev_link = '<a';
         if($GLOBALS['paginate_temp']['prev'] && $page_current > 1) {
             $_getVar['listpage'] = $page_prev;
-            $page_prev_link = '<a href="' . rel_url( array('listpage'=>$page_prev) ) . '">' . $GLOBALS['paginate_temp']['prev'] . '</a>';
+            $page_prev_link .= ' href="' . rel_url( array('listpage'=>$page_prev) ) . '"';
+            if ($template_default['classes']['cp-paginate-link']) {
+                $page_prev_link .= ' class="' . $template_default['classes']['cp-paginate-link'] . '"';
+            }
         } else {
-            $page_prev_link = $GLOBALS['paginate_temp']['prev'];
+            if ($template_default['attributes']['cp-paginate']['href-disabled']) {
+                $page_prev_link .= ' href="' . $template_default['attributes']['cp-paginate']['href-disabled'] . '" data-disabled="true" tabindex="-1" aria-disabled="true"';
+            }
+            if ($template_default['classes']['cp-paginate-link-disabled']) {
+                $page_prev_link .= ' class="' . $template_default['classes']['cp-paginate-link-disabled'] . '"';
+            }
         }
+        $page_prev_link .= '>' . $GLOBALS['paginate_temp']['prev'] . '</a>';
 
         // set listpage value to current page
 
@@ -1011,13 +1031,20 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
             $navi['suffix'] = empty($navi[1][2]) ? ''  : $navi[1][2]; //suffix
 
             $navi['navi']   = $navi['prefix'];
+            $navi['link_class'] = $template_default['classes']['search-paginate-link'] ? ' class="' . $template_default['classes']['search-paginate-link'] .'"' : '';
+            $navi['link_active_class'] = $template_default['classes']['search-paginate-link-active'] ? ' class="' . $template_default['classes']['search-paginate-link-active'] .'"' : '';
 
             if($navi[0] == '123') {
 
                 for($i = 1; $i <= $max_pages; $i++) {
 
-                    if($i > 1) $navi['navi'] .= $navi['spacer'];
-                    $navi['navi'] .= ($i == $page_current) ? $i : '<a href="' . rel_url( array('listpage'=>$i) ) . '">'.$i.'</a>';
+                    if($i > 1) {
+                        $navi['navi'] .= $navi['spacer'];
+                    }
+
+                    $navi['navi'] .= '<a href="' . rel_url( array('listpage' => $i) ) . '"';
+                    $navi['navi'] .= ($i === $page_current) ? $navi['link_active_class'] : $navi['link_class'];
+                    $navi['navi'] .= '>' . $i . '</a>';
 
                 }
 
@@ -1027,12 +1054,18 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
                     $i_start    = $i * $content['struct'][ $content['cat_id'] ]['acat_maxlist'] + 1;
                     $i_end      = $i_start - 1 + $content['struct'][ $content['cat_id'] ]['acat_maxlist'];
-                    if($i_end > $max_articles) $i_end = $max_articles;
+                    if($i_end > $max_articles) {
+                        $i_end = $max_articles;
+                    }
 
-                    if($i > 0) $navi['navi'] .= $navi['spacer'];
+                    if($i > 0) {
+                        $navi['navi'] .= $navi['spacer'];
+                    }
                     $i_entry    = $i_start.'&ndash;'.$i_end;
                     $i_page     = $i+1;
-                    $navi['navi'] .= ($i_page == $page_current) ? $i_entry : '<a href="' . rel_url( array('listpage'=>$i_page) ) . '">'.$i_entry.'</a>';
+                    $navi['navi'] .= '<a href="' . rel_url( array('listpage' => $i_page) ) . '"';
+                    $navi['navi'] .= ($i_page === $page_current) ? $navi['link_active_class'] : $navi['link_class'];
+                    $navi['navi'] .= '>' . $i_entry . '</a>';
 
                 }
 
@@ -1150,7 +1183,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                     $caption[3] = empty($caption[3]) ? '' : ' title="'.html_specialchars($caption[3]).'"';
                     $caption[1] = html_specialchars($caption[1]);
 
-                    $thumb_img = '<img src="'.CMSGO_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-article-list'].'"'.HTML_TAG_CLOSE;
+                    $thumb_img = '<img src="'.CMSGO_IMAGES . $thumb_image[0] .'" '.$thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' class="'.$GLOBALS['template_default']['classes']['image-article-list'].'"'.CMSGO_LAZY_LOADING.HTML_TAG_CLOSE;
 
                     if($article["article_image"]["list_zoom"]) {
 
@@ -1170,7 +1203,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                             $img_zoom_width     = $zoominfo[1];
                             $img_zoom_height    = $zoominfo[2];
 
-                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $article["article_image"]['list_name']);
 
                             if(!empty($caption[2][0])) {
                                 $open_link = $caption[2][0];
@@ -3517,10 +3550,8 @@ function getFileDetails($file) {
 
 }
 
-function getClickZoomImageParameter($string='', $getvar='show') {
-    $string = base64_encode($string);
-    $string = rawurlencode($string);
-    return $getvar.'='.$string;
+function getClickZoomImageParameter($src='', $size='', $name='') {
+    return 'show='.rawurlencode(base64_encode(serialize(array('src' => $src, 'attr' => $size, 'name' => $name))));
 }
 
 function getPageInfoGetValue($type='string') {
@@ -4200,7 +4231,7 @@ function render_CKEDitor_resized_images($match) {
         $alt = '';
     }
 
-    return '<img src="'.$src.'"'.$alt;
+    return '<img src="'.$src.'"'.$alt.CMSGO_LAZY_LOADING;
 }
 
 function get_structurelevel_single_article_alias($article_cid=0) {
@@ -4470,40 +4501,3 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
-/**
- * Render the relative download URL
- *
- * @param   string  $hash
- * @param   string  $filename
- * @param   bool    $countonly
- * @param   bool    $htmlencode
- * @param   null    $inline
- *
- * @return string
- */
-function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
-
-    $href = '';
-    $get = array();
-
-    if (CMSGO_REWRITE) {
-        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
-    } else {
-        $href .= 'download.php';
-        $get[] = 'f=' . $hash;
-    }
-
-    if ($countonly) {
-        $get[] = 'countonly=1';
-    }
-    if ($inline || ($inline === null && !empty($GLOBALS['cmsgo']['inline_download']))) {
-        $get[] = 'target=1';
-        }
-
-    if (count($get)) {
-        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
-    }
-
-    return $href;
-
-}

@@ -126,7 +126,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     } elseif(!empty($_GET['hash']) && !empty($cnt_form['doubleoptin'])) {
 
         $cache_nosave = true;
-
         $doubleoptin_values = _dbGet('cmsgo_formresult', 'formresult_content', 'formresult_content LIKE ' . _dbEscape($_GET['hash'], true, '%', '%'));
 
         if(!isset($doubleoptin_values[0]['formresult_content'])) {
@@ -433,7 +432,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 } else {
 
-                    if(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) && $cnt_form['special_attribute']['type'] == 'DATE' && $cnt_form['special_attribute']['default'] == 'NOW') {
+                    if(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) &&
+                       $cnt_form['special_attribute']['type'] == 'DATE' && $cnt_form['special_attribute']['default'] == 'NOW') {
                         echo 'ja';
                         if(isset($cnt_form['special_attribute']['dateformat'])) {
                             $cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
@@ -882,8 +882,6 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
                 $form_field .= '</select>';
                 break;
-
-
 
             case 'checkboxcopy':
             case 'checkbox':

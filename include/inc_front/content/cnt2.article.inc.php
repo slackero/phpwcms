@@ -11,11 +11,10 @@
 //images (gallery)
 $image = @unserialize($crow["acontent_form"]);
 
-if(is_array($image) && count($image)) {
+if(is_array($image) && ($image_count = count($image))) {
 
     // load special functions
     require_once(CMSGO_ROOT.'/include/inc_front/img.func.inc.php');
-
 
     // read template
     if(empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_default/imagetable.tmpl')) {

@@ -166,6 +166,8 @@ if($image['template']) {
 
             }
 
+            $this_image_name = $image['images'][$key][2] . '.' . $image['images'][$key][3];
+
             $thumb_image = get_cached_image(array(
                 "target_ext"    =>  $image['images'][$key][3],
                 "image_name"    =>  $image['images'][$key][2] . '.' . $image['images'][$key][3],
@@ -263,12 +265,12 @@ if($image['template']) {
             if($caption[3]) {
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['images'][$key][1]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';

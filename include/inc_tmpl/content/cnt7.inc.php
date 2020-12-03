@@ -62,7 +62,7 @@ if(is_file(CMSGO_ROOT.'/'.CMSGO_FILES.'.htaccess') && ($content['file']['direct_
 	<div class="col-sm-auto form-check form-check-inline">
 		<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
 					is_checked(1, $content['file']['direct_download']);
-					if($content['file']['direct_download_deny']) {
+					if($content['file']['direct_download_deny'] && !$content['file']['direct_download']) {
 							echo ' disabled="disabled"';
 					}
 			?> />

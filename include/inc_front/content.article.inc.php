@@ -248,7 +248,8 @@ if(isset($result[0]['article_id'])) {
             if($img_thumb_title) {
                 $thumb_img .= ' title="'.html($img_thumb_title).'"';
             }
-            $thumb_img .= ' class="'.$template_default['classes']['image-article-summary'].'"'.HTML_TAG_CLOSE;
+            $thumb_img .= ' class="' . $template_default['classes']['image-article-summary'] . '"';
+            $thumb_img .= CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
             $img_thumb_name     = $thumb_image[0];
             $img_thumb_rel      = $thumb_image['src'];
@@ -292,7 +293,7 @@ if(isset($result[0]['article_id'])) {
                         'src' => $img_zoom_rel
                     );
 
-                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
 
                     if(!empty($caption[2][0])) {
                         $open_link = $caption[2][0];

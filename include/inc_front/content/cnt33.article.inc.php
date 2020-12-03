@@ -100,15 +100,15 @@ if($news['list_mode']) {
     // choose by category
     if(count($news['news_category'])) {
 
-        $news['news_joined_sql']        = true;
-        $news['news_category_sql']      = array();
+        $news['news_joined_sql']    = true;
+        $news['news_category_sql']  = array();
 
         foreach($news['news_category'] as $value) {
             $news['news_category_sql'][] = 'pcat.cat_name LIKE ' . _dbEscape($value);
         }
 
         // use sub query instead of JOIN to compare against AND / OR / NOT
-        if($news['news_andor'] != 'NOT') {
+        if($news['news_andor'] !== 'NOT') {
 
             $news['sql_where_cat']  = '(';
             $news['sql_where_cat'] .=   'SELECT COUNT(pcat.cat_pid) ';
@@ -129,7 +129,7 @@ if($news['list_mode']) {
         } else {
 
             // no category is allowed
-            $news['sql_where_cat'] .= 'SELECT pcat.cat_pid ';
+            $news['sql_where_cat']  = 'SELECT pcat.cat_pid ';
             $news['sql_where_cat'] .= 'FROM '.DB_PREPEND.'cmsgo_categories pcat WHERE ';
             $news['sql_where_cat'] .= "pcat.cat_type='news' AND (";
             $news['sql_where_cat'] .= implode(' OR ', $news['news_category_sql']);
@@ -697,12 +697,12 @@ if($news['template']) {
                                     }
 
                                     // render gallery item
-                                    $ivalue =& $value['cnt_object']['cnt_files']['images'][ $value['gallery_id'][ $ivalue ] ];
+                                    $ivalue = $value['cnt_object']['cnt_files']['images'][ $value['gallery_id'][ $ivalue ] ];
 
                                     // check for caption and copyright
                                     if($news['config']['gallery_filecenter_info'] && !isset($value['gallery_captions'][$ikey])) {
 
-                                        if($news['config']['check_lang'] && $ivalue['f_vars']) {
+                                        if($news['config']['check_lang'] && !empty($ivalue['f_vars'])) {
 
                                             $ivalue['f_vars'] = @unserialize($ivalue['f_vars']);
 
@@ -715,8 +715,8 @@ if($news['template']) {
                                         }
 
                                         $value['gallery_captions'][$ikey] = array(
-                                            'caption' => $ivalue['f_longinfo'],
-                                            'copyright' => $ivalue['f_copyright']
+                                            'caption' => isset($ivalue['f_longinfo']) ? $ivalue['f_longinfo'] : '',
+                                            'copyright' => isset($ivalue['f_copyright']) ? $ivalue['f_copyright'] : ''
                                         );
                                     }
 
@@ -782,12 +782,17 @@ if($news['template']) {
                         $value['files_template'] = $news['config']['files_template_detail'] == 'default' ? '' : $news['config']['files_template_detail'];
                     }
 
+                    // Preserve current content part values, might be overwritten by files CP
+                    $_crow = $crow;
+
                     // include content part files renderer
                     include CMSGO_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
                     $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
 
-                    unset($IS_NEWS_CP);
+                    // Restore content part values
+                    $crow = $_crow;
+                    unset($IS_NEWS_CP, $_crow);
 
                 } else {
 

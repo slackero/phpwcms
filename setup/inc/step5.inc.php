@@ -14,8 +14,6 @@ $cmsgo["root"] = !empty($cmsgo["root"]) ? "/".$cmsgo["root"] : "";
 
 ?>
 
-
-
 <p><span class="title"><strong>Ready to start cmsgo?</strong> Some &quot;problems&quot;
     maybe OK - you can check by testing cmsgo installation.</span></p>
 <table border="0" cellpadding="0" cellspacing="0" summary="">
@@ -288,9 +286,9 @@ if(is_file($this_root.'/.htaccess')):
             A default <strong>.htaccess</strong> file was placed in the document root of your installation.
             This file usually is hidden because of the leading <strong>.</strong> in the file name.
             <?php
-            if($phpwcms["root"] && $htaccess = @read_textfile($this_root.'/.htaccess')) {
+            if($cmsgo["root"] && $htaccess = @read_textfile($this_root.'/.htaccess')) {
                 $htaccess = str_replace('RewriteBase /', '#RewriteBase /', $htaccess);
-                $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($phpwcms["root"], '/') . '/', $htaccess);
+                $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($cmsgo["root"], '/') . '/', $htaccess);
                 write_textfile($this_root.'/.htaccess', $htaccess);
             }
             ?>

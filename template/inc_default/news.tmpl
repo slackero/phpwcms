@@ -24,20 +24,22 @@ gallery_filecenter_info = 1
 
 
 <!--NEWS_LIST_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 [NEWS_ENTRIES]{NEWS_ENTRIES}[/NEWS_ENTRIES]
 [PAGINATE]
 <div class="news-pagination">
-	[PAGE_PREV]<a href="{PAGE_PREV}">previous</a>[/PAGE_PREV]
+	[PAGE_PREV]<a href="{PAGE_PREV}[ATTR_ID]#{ATTR_ID}[/ATTR_ID]">previous</a>[/PAGE_PREV]
 	[PAGE_PREV_ELSE]<span class="inactive">previous</span>[/PAGE_PREV_ELSE]
 	|
-	[PAGE_NEXT]<a href="{PAGE_NEXT}">next</a>[/PAGE_NEXT]
+	[PAGE_NEXT]<a href="{PAGE_NEXT}[ATTR_ID]#{ATTR_ID}[/ATTR_ID]">next</a>[/PAGE_NEXT]
 	[PAGE_NEXT_ELSE]<span class="inactive">next</span>[/PAGE_NEXT_ELSE]
 	|
 	page {PAGE_CURRENT}/{PAGE_TOTAL}
 </div>
 [/PAGINATE]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--NEWS_LIST_END//-->
 
 
@@ -109,6 +111,7 @@ gallery_filecenter_info = 1
 <!--NEWS_LIST_ROW_SPACE_END//-->
 
 <!--NEWS_DETAIL_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 <div class="news">
 	<div class="news-header">
 		[TITLE]<h3>{TITLE}</h3>[/TITLE]
@@ -164,4 +167,5 @@ gallery_filecenter_info = 1
 	[/NEWS_LIST_LINK]
 
 </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--NEWS_DETAIL_END//-->

@@ -294,6 +294,9 @@ $cmsgo['js_lib_default'] = array(
     'jquery-1.8'            => 'jQuery 1.8.3',
     'jquery-1.7'            => 'jQuery 1.7.2',
     'jquery-1.6'            => 'jQuery 1.6.4',
+    // ----
+    'mootools-1.2'          => 'MooTools 1.2.6',
+    'mootools-1.1'          => 'MooTools 1.12'
 );
 $cmsgo['js_lib_deprecated'] = array(
     'jquery-1.5'            => 'jQuery 1.5.2',
@@ -608,6 +611,12 @@ define('CMSGO_HEADER_COMMENT', '
         *****************************************************************************
   -->
 ');
+
+if(empty($cmsgo['lazy_loading']) || !in_array($cmsgo['lazy_loading'], array('lazy', 'eager', 'auto'))) {
+    define('CMSGO_LAZY_LOADING', '');
+} else {
+    define('CMSGO_LAZY_LOADING', ' loading="' . $cmsgo['lazy_loading'] . '"');
+}
 
 // Todo: Later remove these
 $cmsgo["release"] = CMSGO_VERSION;
@@ -1391,7 +1400,7 @@ function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w',
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);

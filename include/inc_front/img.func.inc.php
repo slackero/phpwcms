@@ -115,7 +115,7 @@ function imagetable(& $cmsgo, & $image, $rand="0:0:0:0", $align=0) {
         $table .= ($rand[2]) ? '<td>'.spacer($rand[2],1).'</td>' : '';
         if($image[8]) {
 
-            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
             $table .= '<td'.$image_align.$image_valign.$image_bgcolor.$image_class.">";
             if($caption[2][0]) {
                 $open_link = $caption[2][0];
@@ -229,7 +229,7 @@ function imagediv(& $cmsgo, & $image, $classname='') {
 
         if($image[8]) {
 
-            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0], $zoominfo[3], $image[1]);
             $image_block .= '<div class="'.$image_class.'">';
             if($caption[2][0]) {
                 $open_link = $caption[2][0];
@@ -465,7 +465,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 
             if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $imagelist['images'][$key][1]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';

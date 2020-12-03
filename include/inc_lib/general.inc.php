@@ -205,10 +205,32 @@ function fsize($zahl, $spacer = '&nbsp;', $short = 1) {
     //$short 0 = ultrashort = B, K, M, G, T
     //$short 1 = short = B, KB, MB, GB, TB
     //$short 2 = long = Byte, KiloByte, MegaByte, GigaByte, TeraByte
-    $_unit = array(0 => array("B" => "B", "K" => "K", "M" => "M", "G" => "G", "T" => "T"), 1 => array("B" => "Byte", "K" => "KB", "M" => "MB", "G" => "GB", "T" => "TB"), 2 => array("B" => "Byte", "K" => "KiloByte", "M" => "MegaByte", "G" => "GigaByte", "T" => "TeraByte"));
-    $zahl = intval($zahl);
-    if ($zahl < 1024) {
-        $zahl = number_format($zahl, 0, '.', '.');
+    $_unit = array(
+        0 => array(
+            "B" => "B",
+            "K" => "K",
+            "M" => "M",
+            "G" => "G",
+            "T" => "T",
+        ),
+        1 => array(
+            "B" => "Byte",
+            "K" => "KB",
+            "M" => "MB",
+            "G" => "GB",
+            "T" => "TB",
+        ),
+        2 => array(
+            "B" => "Byte",
+            "K" => "KiloByte",
+            "M" => "MegaByte",
+            "G" => "GigaByte",
+            "T" => "TeraByte",
+        ),
+    );
+    $zahl  = intval( $zahl );
+    if ( $zahl < 1024 ) {
+        $zahl = number_format( $zahl, 0, '.', '.' );
         $unit = "B";
     } elseif ($zahl < 1048576) {
         $zahl = number_format($zahl / 1024, 2, '.', '.');
@@ -2155,4 +2177,43 @@ function convert_rel2abs($text, $base) {
     $text = preg_replace($pattern, $replace, $text);
 
     return $text;
+}
+
+
+/**
+ * Render the relative download URL
+ *
+ * @param   string  $hash
+ * @param   string  $filename
+ * @param   bool    $countonly
+ * @param   bool    $htmlencode
+ * @param   null    $inline
+ *
+ * @return string
+ */
+function rel_download($hash='', $filename='', $countonly=false, $htmlencode=true, $inline=null) {
+
+    $href = '';
+    $get = array();
+
+    if (CMSGO_REWRITE) {
+        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
+    } else {
+        $href .= 'download.php';
+        $get[] = 'f=' . $hash;
+    }
+
+    if ($countonly) {
+        $get[] = 'countonly=1';
+    }
+    if ($inline || ($inline === null && !empty($GLOBALS['cmsgo']['inline_download']))) {
+        $get[] = 'target=1';
+    }
+
+    if (count($get)) {
+        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
+    }
+
+    return $href;
+
 }

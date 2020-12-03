@@ -71,7 +71,7 @@ if ($content['files_sql']) {
 } else {
     $content['files_result'] = array();
 }
-if ($crow["acontent_template"] == 'download-inline' && !is_file(CMSGO_TEMPLATE . 'inc_default/filelist_inline.tmpl')) {
+if ($crow["acontent_template"] === 'download-inline' && !is_file(CMSGO_TEMPLATE . 'inc_default/filelist_inline.tmpl')) {
     $crow["acontent_template"] = '';
 }
 // get filelist template
