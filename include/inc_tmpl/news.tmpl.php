@@ -436,7 +436,7 @@ $(function(){
             'value'     => $news->data['cnt_text'],
             'field'     => 'cnt_text',
             'height'    => '250px',
-            'width'     => '536px',
+            'width'     => '100%',
             'rows'      => '10',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'

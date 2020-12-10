@@ -81,7 +81,7 @@ if (!defined('PHPWCMS_ROOT')) {
 			'value'		=> $glossary['data']['glossary_text'],
 			'field'		=> 'glossary_text',
 			'height'	=> '400px',
-			'width'		=> '524px',
+			'width'		=> '100%',
 			'rows'		=> '15',
 			'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 			'lang'		=> 'en'

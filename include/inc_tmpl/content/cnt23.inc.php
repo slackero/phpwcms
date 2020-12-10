@@ -649,7 +649,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                             'value'     => $content['form']["template_doubleoptin"],
                             'field'     => 'cform_template_doubleoptin',
                             'height'    => '200px',
-                            'width'     => '536px',
+                            'width'     => '100%',
                             'rows'      => '10',
                             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
                             'lang'      => 'en'
@@ -1268,7 +1268,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 'value' => $content['form']["template"],
                 'field' => 'cform_template',
                 'height' => '200px',
-                'width' => '536px',
+                'width' => '100%',
                 'rows' => '10',
                 'editor' => $_SESSION["WYSIWYG_EDITOR"],
                 'lang' => 'en'
@@ -1353,7 +1353,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 'value' => $content['form']["template_copy"],
                 'field' => 'cform_template_copy',
                 'height' => '200px',
-                'width' => '536px',
+                'width' => '100%',
                 'rows' => '10',
                 'editor' => $_SESSION["WYSIWYG_EDITOR"],
                 'lang' => 'en'

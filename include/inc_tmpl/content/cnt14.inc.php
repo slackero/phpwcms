@@ -73,7 +73,7 @@ $wysiwyg_editor = array(
     'value'     => isset($content["html"]) ? $content["html"] : '',
     'field'     => 'chtml',
     'height'    => '400px',
-    'width'     => '800px',
+    'width'     => '100%',
     'rows'      => '15',
     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
     'lang'      => 'en'
@@ -186,7 +186,7 @@ if($content['custom_field_items']): ?>
                     'value'     => isset($content['custom_fields'][$custom_field]) ? $content['custom_fields'][$custom_field] : '',
                     'field'     => 'customfield['.$custom_field.']',
                     'height'    => empty($cnt_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $cnt_fieldgroup['fields'][$custom_field]['height'],
-                    'width'     => '536px',
+                    'width'     => '100%',
                     'rows'      => empty($cnt_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $cnt_fieldgroup['fields'][$custom_field]['rows'],
                     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
                     'lang'      => 'en'

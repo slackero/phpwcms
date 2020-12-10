@@ -244,7 +244,7 @@ initMootoolsAutocompleter();
             'value'     => $plugin['data']['calendar_text'],
             'field'     => 'calendar_text',
             'height'    => '400px',
-            'width'     => '524px',
+            'width'     => '100%',
             'rows'      => '15',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'
