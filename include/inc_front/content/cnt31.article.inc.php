@@ -89,7 +89,7 @@ if($image['template']) {
         $image['custom_tab_fields'] = array();
     } else {
         $image['custom_tab_fields'] = array_keys($template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields']);
-        $image['field_render'] = array('html', 'markdown', 'plain');
+        $image['field_render'] = array('html', 'markdown', 'plain', 'wysiwyg');
         $image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
     }
 

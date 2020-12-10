@@ -616,7 +616,6 @@ $template_default['settings'] = array(
             )
         ),
     ),
-
     'imagespecial_custom_fields' => array(
         // Enable and customise to enable additional input fields for each image special item:
         /*
@@ -704,6 +703,15 @@ $template_default['settings'] = array(
                     'template' => '', // if empty the default file list template is used
                     'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
                     'direct' => 0 // direct file download 1 or not 0
+                ),
+                // [IMGSPCL_WYSIWYG1]{IMGSPCL_WYSIWYG1}[/IMGSPCL_WYSIWYG1][IMGSPCL_WYSIWYG1_ELSE]<!--nada-->[/IMGSPCL_WYSIWYG1_ELSE]
+                'wysiwyg1' => array(
+                    'legend' => 'WYSIWYG editor',
+                    'type' => 'textarea',
+                    'render' => 'wysiwyg',
+                    'rows' => 5,
+                    'height' => '75px',
+                    'placeholder' => ''
                 )
             )
         ),
