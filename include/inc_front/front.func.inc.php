@@ -601,7 +601,8 @@ function get_actcat_articles_data($act_cat_id) {
 
     if(isset($result[0]['article_id'])) {
         foreach($result as $row) {
-            $data[$row["article_id"]] = array(
+            $aid = $row["article_id"];
+            $data[$aid] = array(
                 "article_id"            => $row["article_id"],
                 "article_cid"           => $row["article_cid"],
                 "article_title"         => $row["article_title"],
@@ -628,11 +629,11 @@ function get_actcat_articles_data($act_cat_id) {
                 'article_livedate'      => $row["article_livedate"],
                 'article_killdate'      => $row["article_killdate"],
                 'article_uid'           => $row["article_uid"],
-                'article_description'   => $row["article_description"]
+                'article_description'   => $row["article_description"],
+                'article_meta'          => $row["article_meta"]
             );
             // now check for article alias ID
             if($row["article_aliasid"]) {
-                $aid = $row["article_id"];
                 $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
@@ -674,8 +675,18 @@ function get_actcat_articles_data($act_cat_id) {
                         $data[$aid]['article_killdate']     = $alias_result[0]["article_killdate"];
                         $data[$aid]['article_menutitle']    = $alias_result[0]["article_menutitle"];
                         $data[$aid]['article_description']  = $alias_result[0]["article_description"];
+                        $data[$aid]['article_meta']         = $alias_result[0]["article_meta"];
                     }
                 }
+            }
+
+            if($data[$aid]['article_meta']) {
+                $data[$aid]['article_meta'] = json_decode($data[$aid]['article_meta'], true);
+            }
+            if(is_array($data[$aid]['article_meta'])) {
+                $data[$aid]['article_meta'] = array_merge(get_default_article_meta(), $data[$aid]['article_meta']);
+            } else {
+                $data[$aid]['article_meta'] = get_default_article_meta();
             }
         }
     }
@@ -1358,10 +1369,19 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                     $tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
                 }
 
+                if (!empty($article['article_meta'])) {
+                    if (is_string($article['article_meta'])) {
+                        $article['article_meta'] = json_decode($article['article_meta'], true);
+                    }
+                    $article['article_meta'] = is_array($article['article_meta']) ? array_merge(get_default_article_meta(), $article['article_meta']) : get_default_article_meta();
+                } else {
+                    $article['article_meta'] = get_default_article_meta();
+                }
+
+                $article['article_meta']['class'] = trim(get_css_keywords($article['article_keyword']) . ' ' . $article['article_meta']['class']);
+
                 // article class based on keyword *CSS-classname*
-                $article['article_class'] = get_css_keywords($article['article_keyword']);
-                $article['article_class'] = count($article['article_class']) ? implode(' ', $article['article_class']) : '';
-                $tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
+                $tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_meta']['class']);
                 $tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
                 $tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
                 $tmpl = render_cnt_template($tmpl, 'CAPTION_SUPPRESS', empty($article["article_image"]["list_caption_suppress"]) ? '' : ' ');
@@ -1422,7 +1442,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
     // restore original articles
     if(isset($_old_articles)) {
-        $content["articles"]    = $_old_articles;
+        $content["articles"] = $_old_articles;
     }
 
     $listing .= $template_default["space_bottom"]; //ends with space at bottom
@@ -4478,18 +4498,18 @@ function render_if_not_category($matches) {
     return $return === true ? str_replace('{IF_NOTCAT_ID}', $current, $matches[2]) : '';
 }
 
-function get_css_keywords($text) {
+function get_css_keywords($text, $return_as_string=true) {
 
     if(empty($text) || !is_string($text) || strpos($text, '*CSS-') === false) {
-        return array();
+        return $return_as_string ? '' : array();
     }
 
     preg_match_all('/\*CSS\-(.+?)\*/', $text, $css);
     if(isset($css[1]) && is_array($css[1])) {
-        return $css[1];
+        return $return_as_string ? implode(' ', $css[1]) : $css[1];
     }
 
-    return array();
+    return $return_as_string ? '' : array();
 }
 
 function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {

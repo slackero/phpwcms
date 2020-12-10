@@ -21,20 +21,21 @@ $set_livedate = 0;
 $set_end = 0;
 $set_killdate = 0;
 
-if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
+if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { //Show single article information
 
-    //Artikel editieren
+    // Edit articles
     $article = array(
-        "article_id" => empty($_GET["id"]) ? 0 : intval($_GET["id"]),
-        "article_timeout" => '',
+        'article_id' => empty($_GET['id']) ? 0 : intval($_GET['id']),
+        'article_timeout' => '',
         'article_nosearch' => '',
         'article_nositemap' => 1,
         'article_morelink' => 1,
-        "article_cntpart" => array(),
+        'article_cntpart' => array(),
+        'article_meta' => get_default_article_meta()
     );
 
     // check if in POST mode (form submitted) and NOT add new article
-    if((!isset($_POST["article_update"]) || !intval($_POST["article_update"])) && !isset($_GET['struct'])) {
+    if((!isset($_POST['article_update']) || !intval($_POST['article_update'])) && !isset($_GET['struct'])) {
 
         $read_done = false;
 
@@ -86,39 +87,45 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
             $article['article_nosearch']    = $row['article_nosearch'];
             $article['article_nositemap']   = $row['article_nositemap'];
 
-                if($article["article_begin"] === '0000-00-00 00:00:00') {
-                    $article["article_begin"] = '';
-                    $set_begin = 0;
-                } else {
-                    $set_begin = 1;
-                }
+            if($article["article_begin"] === '0000-00-00 00:00:00') {
+                $article["article_begin"] = '';
+                $set_begin = 0;
+            } else {
+                $set_begin = 1;
+            }
 
-                if($article["article_end"] === '0000-00-00 00:00:00') {
-                    $article["article_end"] = '';
-                    $set_end = 0;
-                } else {
-                    $set_end = 1;
-                }
+            if($article["article_end"] === '0000-00-00 00:00:00') {
+                $article["article_end"] = '';
+                $set_end = 0;
+            } else {
+                $set_end = 1;
+            }
 
-            $article['article_aliasid']     = $row['article_aliasid'];
-            $article['article_headerdata']  = $row['article_headerdata'];
-            $article['article_morelink']    = $row['article_morelink'];
-            $article['article_noteaser']    = $row['article_noteaser'];
-            $article['article_pagetitle']   = $row['article_pagetitle'];
-            $article['article_paginate']    = $row['article_paginate'];
-            $article['article_sort']        = $row['article_sort'];
-            $article['article_priorize']    = $row['article_priorize'];
-            $article['article_created']     = $row['article_created'];
-            $article['article_norss']       = $row['article_norss'];
-            $article['article_menutitle']   = $row['article_menutitle'];
-            $article['article_description'] = $row['article_description'];
-            $article['article_lang']        = $row['article_lang'];
-            $article['article_lang_type']   = $row['article_lang_type'];
-            $article['article_lang_id']     = $row['article_lang_id'];
-            $article['article_opengraph']   = $row['article_opengraph'];
-            $article['article_canonical']   = $row['article_canonical'];
-
+            $article['article_aliasid']         = $row['article_aliasid'];
+            $article['article_headerdata']      = $row['article_headerdata'];
+            $article['article_morelink']        = $row['article_morelink'];
+            $article['article_noteaser']        = $row['article_noteaser'];
+            $article['article_pagetitle']       = $row['article_pagetitle'];
+            $article['article_paginate']        = $row['article_paginate'];
+            $article['article_sort']            = $row['article_sort'];
+            $article['article_priorize']        = $row['article_priorize'];
+            $article['article_created']         = $row['article_created'];
+            $article['article_norss']           = $row['article_norss'];
+            $article['article_menutitle']       = $row['article_menutitle'];
+            $article['article_description']     = $row['article_description'];
+            $article['article_lang']            = $row['article_lang'];
+            $article['article_lang_type']       = $row['article_lang_type'];
+            $article['article_lang_id']         = $row['article_lang_id'];
+            $article['article_opengraph']       = $row['article_opengraph'];
+            $article['article_canonical']       = $row['article_canonical'];
             $article['article_archive_status']  = $row['article_archive_status'];
+
+            if ($row['article_meta']) {
+                $row['article_meta'] = json_decode($row['article_meta'], true);
+                if (is_array($row['article_meta']) && count($row['article_meta'])) {
+                    $article['article_meta'] = array_merge($article['article_meta'], $row['article_meta']);
+                }
+            }
 
             $article["acat_overwrite"] = $row['acat_overwrite'];
 
@@ -233,6 +240,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article["article_timeout"] = clean_slweg($_POST["article_timeout"]);
         $article['article_opengraph'] = empty($_POST["article_opengraph"]) ? 0 : 1;
         $article['article_canonical'] = clean_slweg($_POST["article_canonical"], 2000);
+        $article['article_meta']['class'] = clean_slweg($_POST["article_meta_class"], 250);
 
         if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
             $article["article_timeout"] = 0; //check if cache = Off
@@ -387,7 +395,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                     'article_lang_type'     => $article["article_lang_type"],
                     'article_lang_id'       => $article["article_lang_id"],
                     'article_opengraph'     => $article["article_opengraph"],
-                    'article_canonical'     => $article["article_canonical"]
+                    'article_canonical'     => $article["article_canonical"],
+                    'article_meta'          => json_encode($article['article_meta'])
                 );
 
                 $result = _dbInsert('phpwcms_article', $data);
@@ -436,7 +445,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                         "article_lang_type="._dbEscape($article["article_lang_type"]).", ".
                         "article_lang_id="._dbEscape($article["article_lang_id"]).", ".
                         "article_opengraph=".$article["article_opengraph"].', '.
-                        "article_canonical="._dbEscape($article["article_canonical"]);
+                        "article_canonical="._dbEscape($article["article_canonical"]).', '.
+                        "article_meta="._dbEscape(json_encode($article['article_meta']));
 
                         if($_SESSION["wcs_user_admin"]) {
                             $sql .= ", article_uid=".$article["article_uid"];

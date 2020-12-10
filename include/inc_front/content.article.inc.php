@@ -78,8 +78,18 @@ if(isset($result[0]['article_id'])) {
                 $row['article_menutitle']   = $alias_result[0]['article_menutitle'];
                 $row['article_opengraph']   = $alias_result[0]['article_opengraph'];
                 $row['article_canonical']   = $alias_result[0]['article_canonical'];
+                $row['article_meta']        = $alias_result[0]['article_meta'];
             }
         }
+    }
+
+    if($row['article_meta']) {
+        $row['article_meta'] = json_decode($row['article_meta'], true);
+    }
+    if(is_array($row['article_meta'])) {
+        $row['article_meta'] = array_merge(get_default_article_meta(), $row['article_meta']);
+    } else {
+        $row['article_meta'] = get_default_article_meta();
     }
 
     // overwrite doctype language if enabled
@@ -487,10 +497,10 @@ if(isset($result[0]['article_id'])) {
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'MORE', $row["article_morelink"] ? ' ' : '');
 
+        $row['article_meta']['class'] = trim(get_css_keywords($row['article_keyword']) . ' ' . $row['article_meta']['class']);
+
         // article class based on keyword *CSS-classname*
-        $row['article_class'] = get_css_keywords($row['article_keyword']);
-        $row['article_class'] = count($row['article_class']) ? implode(' ', $row['article_class']) : '';
-        $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_class']);
+        $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_meta']['class']);
 
         // Render SYSTEM
         if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {

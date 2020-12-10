@@ -340,9 +340,7 @@ if(count($tmpllist)) {
                   </select></td>
                   </tr>
 
-    <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-    </tr>
+    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
     <tr>
         <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr>
@@ -381,6 +379,11 @@ if(count($tmpllist)) {
                 </table></td>
             </tr>
 
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+            <tr>
+                <td align="right" class="chatlist"><?php echo $BL['be_cnt_css_class']; ?>:&nbsp;</td>
+                <td><input name="article_meta_class" type="text" id="article_meta_class" class="width440" value="<?php echo html($article["article_meta"]['class']) ?>" size="40" maxlength="250" /></td>
+            </tr>
 
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
             </tr>

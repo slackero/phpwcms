@@ -1421,3 +1421,9 @@ function logdir_exists() {
         }
     }
 }
+
+function get_default_article_meta() {
+    return array(
+        'class' => ''
+    );
+}
