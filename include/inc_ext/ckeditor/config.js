@@ -28,6 +28,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     // set some recommend defaults
     config.extraPlugins = 'magicline,image2';
+    config.removePlugins = 'image';
     config.extraAllowedContent = 'div;p;span;ul;ol;li;table;td;style;*[id];*(*);*{*}';
     config.forcePasteAsPlainText = true;
     config.pasteFromWordRemoveFontStyles = true;

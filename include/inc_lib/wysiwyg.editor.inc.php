@@ -21,7 +21,7 @@ if(empty($wysiwyg_editor['height'])) {
     $wysiwyg_editor['height'] = '400px';
 }
 if(empty($wysiwyg_editor['width'])) {
-    $wysiwyg_editor['width'] = '440px';
+    $wysiwyg_editor['width'] = '100%';
 }
 if(empty($wysiwyg_editor['rows'])) {
     $wysiwyg_editor['rows'] = '15';
@@ -48,14 +48,18 @@ if($wysiwyg_editor['editor']) {
 	echo '<script type="text/javascript">' . LF;
 	echo '	CKEDITOR.replace("'.$wysiwyg_editor['id'].'", {';
 
-	if(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
+    if(!empty($wysiwyg_editor['config']) && $wysiwyg_editor['config'] === 'tabs' && is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
+
+        echo '
+		customConfig: "' . PHPWCMS_URL . TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+
+    } elseif(is_file(PHPWCMS_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
 
 		echo '
 		customConfig: "'.PHPWCMS_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
 
 	} else {
 
-    	$wysiwyg_editor['js_height'] = intval(str_replace(array('px', '%', 'em'), '', $wysiwyg_editor['height']));
     	if($wysiwyg_editor['height'] < 100) {
         	$wysiwyg_editor['height'] = 100;
     	}
@@ -71,9 +75,10 @@ if($wysiwyg_editor['editor']) {
 			{name: 'styles', items: ['Styles', 'Format', 'Font']},
 			{name: 'about', items: ['About']}
 		],
-		width: 538,
-		height: ".$wysiwyg_editor['js_height'].",
+		width: '" . $wysiwyg_editor['width'] . "',
+		height: '" . $wysiwyg_editor['height'] . "',
 		extraPlugins: 'magicline,image2',
+		removePlugins: 'image',
 		toolbarCanCollapse: true,
 		toolbarStartupExpanded: true,
 		forcePasteAsPlainText: true,
