@@ -94,11 +94,8 @@ if(!empty($crow["acontent_image"][2])) {
 
 
 			}
-		} else {
-
-			if($caption[2][0]) {
-				$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
-			}
+		} elseif($caption[2][0]) {
+		    $thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
 		}
 	}
 }

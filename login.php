@@ -84,9 +84,9 @@ if(!empty($_POST['ref_url'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken');
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
 
-define('LOGIN_TOKEN', generate_get_token('csrftoken'));
+define('LOGIN_TOKEN', generate_get_token());
 
 // reset all inactive users
 $sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
@@ -241,7 +241,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
         }
 
-        headerRedirect($backend_redirect . get_token_get_string('csrftoken') . '&' . session_name().'='.session_id());
+        headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
 
     } else {
 

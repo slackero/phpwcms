@@ -27,7 +27,7 @@ if($action == 'delete') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
 } elseif($action == 'show') {
 
@@ -72,7 +72,7 @@ if($action == 'delete') {
 
 	} else {
 
-		headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+		headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
 	}
 

@@ -321,14 +321,11 @@ if($image['template']) {
                 $img_zoom_height    = $zoominfo[2];
                 $img_zoom_filename  = $value['zoom_name'];
 
+            } elseif($caption[2][0]) { // if not click enlarge
+                $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
+                $img_a .= $img_thumb_link.$list_img_temp.'</a>';
             } else {
-                // if not click enlarge
-                if($caption[2][0]) {
-                    $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
-                    $img_a .= $img_thumb_link.$list_img_temp.'</a>';
-                } else {
-                    $img_a .= $list_img_temp;
-                }
+                $img_a .= $list_img_temp;
             }
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);

@@ -184,7 +184,7 @@ class search_News {
 			}
 			$search_replace_newsdetail = true;
 		} else {
-			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false ? true : false;
+			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false;
 			$this->search_target_url = html_specialchars($this->search_target_url);
 		}
 

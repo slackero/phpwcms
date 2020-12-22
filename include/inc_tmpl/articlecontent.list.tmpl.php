@@ -209,7 +209,7 @@ $buttonAction .= '</tr></table>';
 <?php
 
 $temp_count = 0;
-$user_selected_cp = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"])  ? true : false;
+$user_selected_cp = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"]);
 
 if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) {
 

@@ -83,10 +83,10 @@ function change_articledate($article_id=0) {
 	}
 }
 
-function struct_select_list($counter=0, $struct_id=0, & $selected_id, $add_alias=false) {
+function struct_select_list($counter, $struct_id, $selected_id, $add_alias=false) {
 
 	$struct_id	= intval($struct_id);
-	$counter	= $counter + 1;
+	$counter	= intval($counter) + 1;
 
 	$struct = _dbGet('phpwcms_articlecat', 'acat_id,acat_name,acat_alias,acat_aktiv,acat_regonly', 'acat_trash=0 AND acat_struct='.$struct_id);
 

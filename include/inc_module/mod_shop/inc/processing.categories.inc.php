@@ -26,7 +26,7 @@ if($action == 'edit') {
 
 		// check if form should be closed only -> and back to listing mode
 		if( isset($_POST['close']) ) {
-			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
+			headerRedirect( shop_url(get_token_get_string().'&controller=cat', '') );
 		}
 
 		$plugin['data']['cat_changedate']	= time();
@@ -89,9 +89,9 @@ if($action == 'edit') {
 
 			// save and back to listing mode
 			if( isset($_POST['save']) ) {
-				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
+				headerRedirect( shop_url(get_token_get_string().'&controller=cat', '') );
 			} else {
-				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat&edit='.$plugin['data']['cat_id'], '') );
+				headerRedirect( shop_url(get_token_get_string().'&controller=cat&edit='.$plugin['data']['cat_id'], '') );
 			}
 
 		}
@@ -120,7 +120,7 @@ if($action == 'edit') {
 			$plugin['data']['cat_changedate'] = strtotime($plugin['data']['cat_changedate']);
 
 		} else {
-			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
+			headerRedirect( shop_url(get_token_get_string().'&controller=cat', '') );
 		}
 
 	}
@@ -138,7 +138,7 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=cat', '') );
 
 } elseif($action == 'delete') {
 
@@ -151,6 +151,6 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=cat', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=cat', '') );
 
 }

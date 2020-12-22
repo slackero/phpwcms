@@ -96,7 +96,7 @@ if(isset($result[0]['forum_id'])) {
             $forum["id"] = $result['INSERT_ID'];
         }
         if($forum["id"]) {
-            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
+            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
         }
     }
 

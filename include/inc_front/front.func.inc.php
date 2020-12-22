@@ -23,7 +23,7 @@ function spacer($width=1, $height=1) {
     return '<span style="display:inline-block;width:'.intval($width).'px;height:'.intval($height).'px" class="'.$GLOBALS['template_default']['classes']['spaceholder'].'"></span>';
 }
 
-function headline(& $head, & $subhead, & $layout) {
+function headline($head, $subhead, $layout) {
     $c = '';
     if($head) {
         $c .= $layout["content_head_before"];
@@ -111,7 +111,7 @@ function html_height_attribute($val=0) {
     return ' style="height:'.intval($val).'px;" ';
 }
 
-function get_body_attributes(& $values) {
+function get_body_attributes($values) {
     //return a standard list of standard html body attributes
     //based on the pagelayout definitions
     $body_class = '';
@@ -164,15 +164,15 @@ function align_base_layout($value) {
 
 function get_colspan($value) {
     //returns colspan value back to table row
-    if(empty($value["layout_type"])) {
+    if (empty($value["layout_type"])) {
         $value["layout_type"] = 0;
     }
-    switch($value["layout_type"]) {
-        case 0:     $col=3; break;
-        case 1:     $col=2; break;
-        case 2:     $col=2; break;
-        case 3:     $col=0; break;
-        default:    $col=3;
+    if ($value["layout_type"] === 1 || $value["layout_type"] === 2) {
+        $col = 2;
+    } elseif ($value["layout_type"] === 3) {
+        $col = 0;
+    } else {
+        $col = 3;
     }
     if(!empty($value["layout_leftspace_width"])) {
         $col++;
@@ -273,7 +273,7 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
     return $td_attrib;
 }
 
-function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
+function get_breadcrumb($start_id, $struct_array, $key="acat_name") {
     //returns the breadcrumb path starting with given start_id
     $hash = 'breadcrumbdata_'.md5($start_id.$key);
 
@@ -310,7 +310,7 @@ function breadcrumb_wrapper($match) {
     );
 }
 
-function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ', $cat_only=false) {
+function breadcrumb($start_id, $struct_array, $end_id=0, $spacer=' &gt; ', $cat_only=false) {
     //builds the breadcrumb menu based on given values
     //$link_to = the page on which the breadcrum part links
     //$root_name = name of the breadcrumb part if empty/false/0 $start_id
@@ -781,12 +781,10 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
         $left_cell  = "<td width=\"".$nav_table_struct["space_left"]."\"".$colspan.">";
         $left_cell .= spacer($nav_table_struct["space_left"], $cell_height)."</td>\n";
         $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
-    } else {
-        if($count > 1) {
-            $colspan    = ($count > 2) ? " colspan=\"".($count-1)."\"" : "";
-            $left_cell  = "<td ".$colspan.">".spacer(1, 1)."</td>\n";
-            $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
-        }
+    } elseif($count > 1) {
+        $colspan    = ($count > 2) ? " colspan=\"".($count-1)."\"" : "";
+        $left_cell  = "<td ".$colspan.">".spacer(1, 1)."</td>\n";
+        $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
     }
     if($nav_table_struct["space_celltop"]) $cell_top = spacer(1, $nav_table_struct["space_celltop"])."<br />";
     if($nav_table_struct["space_cellbottom"]) $cell_bottom = "<br />".spacer(1, $nav_table_struct["space_cellbottom"]);
@@ -1757,7 +1755,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
     return date($format, $date_now);
 }
 
-function return_struct_level(&$struct, $struct_id) {
+function return_struct_level($struct, $struct_id) {
     // walk through the given struct level and returns an array with available levels
     $level_entry = array();
     if(is_array($struct)) {
@@ -1990,7 +1988,7 @@ function get_new_articles_callback($matches) {
     return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
 }
 
-function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
+function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
     // find all new articles
 
     $max_cnt_links = intval($max_cnt_links);
@@ -2444,7 +2442,7 @@ function include_int_phpcode($string) {
     return ob_get_clean();
 }
 
-function build_sitemap($start=0, $counter=0, & $sitemap) {
+function build_sitemap($start=0, $counter=0, $sitemap=array()) {
     // create sitemap
 
     $s = '';
@@ -2492,7 +2490,7 @@ function build_sitemap($start=0, $counter=0, & $sitemap) {
     return $s;
 }
 
-function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
+function build_sitemap_articlelist($cat, $counter=0, $sitemap=array()) {
     // create list of articles for given category
 
     $ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
@@ -2578,7 +2576,7 @@ function render_urlencode($match) {
     return rawurlencode(decode_entities($match));
 }
 // render date by replacing placeholder tags by value
-function render_cnt_date($text='', $date, $livedate=null, $killdate=null) {
+function render_cnt_date($text='', $date=0, $livedate=null, $killdate=null) {
     if(!($date = intval($date))) {
         $date = now();
     }
@@ -2599,7 +2597,7 @@ function render_cnt_date($text='', $date, $livedate=null, $killdate=null) {
     return $text;
 }
 // render date by replacing placeholder tags by value
-function render_date($text='', $date, $rt='DATE') {
+function render_date($text='', $date=0, $rt='DATE') {
     $rt = preg_quote($rt, '/');
     $GLOBALS['phpwcms']['callback'] = $date;
     $text = preg_replace_callback('/\{'.$rt.':(.*?) lang=(..)\}/', 'international_date_format_callback', $text);
@@ -3162,7 +3160,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
     $ul             = '';
     $TAB            = str_repeat('  ', $counter);
     $_menu_type     = strtolower($menu_type);
-    $max_depth      = ($max_depth == 0 || $max_depth-1 > $counter) ? true : false;
+    $max_depth      = $max_depth == 0 || $max_depth - 1 > $counter;
     $x              = 0;
     $items          = array();
     $last_item      = 0;
@@ -3620,7 +3618,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     return (isset($result[0]) && is_array($result)) ? $result[0] : false;
 }
 
-function _getFrontendUserBaseData(& $data) {
+function _getFrontendUserBaseData($data) {
     // use vaid user data to set some base fe user data
     // like name, login, email
     $userdata = array('login'=>'', 'name'=>'', 'email'=>'', 'url'=>'', 'source'=>'', 'id'=>0);
@@ -3677,7 +3675,7 @@ function _checkFrontendUserAutoLogin() {
     define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
 }
 
-function _getStructureLevelDisplayStatus(&$level_ID, &$current_ID) {
+function _getStructureLevelDisplayStatus($level_ID, $current_ID) {
     if($GLOBALS['content']['struct'][$level_ID]['acat_struct'] == $current_ID && $level_ID) {
         if($GLOBALS['content']['struct'][$level_ID]['acat_regonly'] && !FEUSER_LOGIN_STATUS) {
             return false;
@@ -3872,7 +3870,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
     return $link;
 }
 
-function setGetArticleAid(&$data) {
+function setGetArticleAid($data) {
 
     if(!empty($data['article_alias'])) {
         return $data['article_alias'];
@@ -4087,7 +4085,7 @@ function getArticleMenu($data=array()) {
  * @return string
  * @param array article data
  **/
-function getArticleMenuTitle(& $data) {
+function getArticleMenuTitle($data) {
     return empty($data['article_menutitle']) ? $data['article_title'] : $data['article_menutitle'];
 }
 

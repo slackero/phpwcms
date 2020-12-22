@@ -209,7 +209,7 @@ if(!isset($_GET["s"])) {
         update_cache();
 
         if($pagelayout["id"]) {
-            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=8&s='.$pagelayout["id"]);
+            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=8&s='.$pagelayout["id"]);
         }
 
     }

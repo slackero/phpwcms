@@ -45,6 +45,6 @@ if($_SESSION["wcs_user_admin"] == 1) {
 	}
 }
 
-$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 
 headerRedirect($ref);

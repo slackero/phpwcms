@@ -183,7 +183,7 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 
 
     /*******************************************************************************/
-    function createDeluxeMenuJSCode($start_id=0, $counter=0, & $param) {
+    function createDeluxeMenuJSCode($start_id=0, $counter=0, $param=array()) {
 
         $li             = '';
         $TAB            = str_repeat('  ', $counter);

@@ -74,7 +74,7 @@ if(isset($_GET["open"])) {
                             $fcat["id"] = $result['INSERT_ID'];
                         }
 
-                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
+                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=7');
                     }
                 }
 
@@ -191,7 +191,7 @@ if(isset($_GET["open"])) {
                             $fkey["id"] = $result['INSERT_ID'];
                         }
 
-                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
+                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=7');
                     }
                 }
 

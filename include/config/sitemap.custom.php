@@ -21,7 +21,7 @@ function phpwcms_getCustomSitemap(&$struct) {
     //$phpwcms['sitemap_set_default'] = false;
 
     $url = array(
-    //  array('url' => 'http://www.webverbund.de', 'date' => '')
+        // array('url' => 'http://www.webverbund.de', 'date' => '')
     );
 
     // Do everything here needed to build your custom sitemap links

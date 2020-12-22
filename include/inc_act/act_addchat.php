@@ -28,4 +28,4 @@ if($chat_message) {
 	_dbQuery($sql, 'INSERT');
 }
 
-headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=chat&p=1&l='.$chatlist.'&'.get_token_get_string('csrftoken'));
+headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=chat&p=1&l='.$chatlist);

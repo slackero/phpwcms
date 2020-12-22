@@ -263,17 +263,12 @@ if(isset($search["result"])) {
 
     echo "</table>\n"; //Ende Tabelle
 
+} elseif(isset($search["string"])) { //kein gültiges Suchergebnis
+    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
+    echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 } else {
-    //kein gültiges Suchergebnis
-    if(isset($search["string"])) {
-        echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
-        echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
-    } else {
-        echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_fillin'];
-        echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
-    }
+    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_fillin'];
+    echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
-
-?>

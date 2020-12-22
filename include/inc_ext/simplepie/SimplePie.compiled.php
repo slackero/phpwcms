@@ -3213,7 +3213,7 @@ class SimplePie
 	 * @param string $hub
 	 * @param string $self
 	 */
-	private function store_links(&$file, $hub, $self) {
+	private function store_links($file, $hub, $self) {
 		if (isset($file->headers['link']['hub']) ||
 			  (isset($file->headers['link']) &&
 			   preg_match('/rel=hub/', $file->headers['link'])))
@@ -4742,7 +4742,7 @@ class SimplePie_Category
 
 	/**
 	 * Category type
-	 * 
+	 *
 	 * category for <category>
 	 * subject for <dc:subject>
 	 *
@@ -14544,7 +14544,7 @@ function embed_wmedia(width, height, link) {
 	/**
 	 * Format debugging information
 	 */
-	public static function debug(&$sp)
+	public static function debug($sp)
 	{
 		$info = 'SimplePie ' . SIMPLEPIE_VERSION . ' Build ' . SIMPLEPIE_BUILD . "\n";
 		$info .= 'PHP ' . PHP_VERSION . "\n";
@@ -15097,7 +15097,7 @@ class SimplePie_Parse_Date
 		'Σεπ' => 9,
 		'Οκτ' => 10,
 		'Νοέ' => 11,
-		'Δεκ' => 12,		
+		'Δεκ' => 12,
 		// Russian
 		'Янв' => 1,
 		'января' => 1,
@@ -15943,7 +15943,7 @@ class SimplePie_Parser
 
 		libxml_clear_errors();
 		$xml = new XMLReader();
-		$xml->xml($data);
+		$xml->XML($data);
 		while (@$xml->read())
 		{
 			switch ($xml->nodeType)

@@ -28,11 +28,11 @@ if(empty($content['search']["text_html"])) {
     $content['search']['text_html'] = 0;
 }
 
-$content['search']['search_filename'] = empty($content['search']["no_filenames"]) ? true : false;   // search/list for file/imagenames
-$content['search']['search_username'] = empty($content['search']["no_username"]) ? true : false;
-$content['search']['search_caption'] = empty($content['search']["no_caption"]) ? true : false;
-$content['search']['search_keyword'] = empty($content['search']["no_keyword"]) ? true : false;
-$content['search']['show_summary'] = empty($content['search']["hide_summary"]) ? true : false; // show search tester text
+$content['search']['search_filename'] = empty($content['search']["no_filenames"]); // search/list for file/imagenames
+$content['search']['search_username'] = empty($content['search']["no_username"]);
+$content['search']['search_caption'] = empty($content['search']["no_caption"]);
+$content['search']['search_keyword'] = empty($content['search']["no_keyword"]);
+$content['search']['show_summary'] = empty($content['search']["hide_summary"]); // show search tester text
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/search.tmpl')) {

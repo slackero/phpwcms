@@ -307,23 +307,12 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 
                                 // parallel building of the placeholder tag menu for the template
                                 switch ($content['form']["fields"][$key]['type']) {
-
                                     case 'submit':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'reset':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'break':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'breaktext':
                                         $for_placeholder = false;
                                         break;
-
                                 }
 
                                 $for_select_2 .= '<option value="';

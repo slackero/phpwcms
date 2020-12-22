@@ -236,7 +236,7 @@ if(isset($result[0]['template_id'])) {
             _dbQuery("UPDATE ".DB_PREPEND."phpwcms_template SET template_default=0 WHERE template_id != ".$template["id"], 'UPDATE');
         }
         update_cache();
-        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=11&s='.$template["id"]);
+        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=11&s='.$template["id"]);
     }
 
     if($template["id"]) {

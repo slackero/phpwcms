@@ -583,7 +583,7 @@ $(function() {
     // File Uploading
     var uploader = new qq.FileUploader({
         element: $('#upload-file-select')[0],
-        action: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_upload.php?<?php echo get_token_get_string('csrftoken'); ?>',
+        action: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_upload.php?<?php echo get_token_get_string(); ?>',
         multiple: true,
         autoUpload: false,
         allowedExtensions: [<?php echo $fileuploaderAllowedExtensions; ?>],

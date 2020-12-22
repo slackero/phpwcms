@@ -85,7 +85,7 @@ $count_user_files = _dbCount($sql);
 if($count_user_files) {
     echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
     echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\"></td></tr>";
-    list_private(0, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $phpwcms);
+    list_private(0, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], 0, $phpwcms);
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-filelist.inc.php";
     echo "</table>";
 } else {

@@ -49,7 +49,7 @@ if(isset($_POST["subscription_id"])) {
     }
 
     if($subscription["id"]) {
-        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=2&s='.$subscription["id"]);
+        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=messages&p=2&s='.$subscription["id"]);
     }
 }
 

@@ -35,8 +35,8 @@ require_once "include/inc_lib/backend.functions.inc.php";
 require_once "include/inc_lib/imagick.convert.inc.php";
 require_once "include/inc_lib/autolink.inc.php";
 
-$file_id    = (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
-$public     = (isset($_GET["public"])) ? true : false;
+$file_id    = isset($_GET["fid"]) ? intval($_GET["fid"]) : 0;
+$public     = isset($_GET["public"]);
 $error      = 1;
 
 if($file_id) {

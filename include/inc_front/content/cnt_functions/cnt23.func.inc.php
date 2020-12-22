@@ -18,7 +18,7 @@ function getFieldErrorClass($field_class, $error_class) {
 }
 
 
-function block_comment_spam(&$POST_val, $field_names=NULL) {
+function block_comment_spam($POST_val, $field_names=NULL) {
 
 	global $cnt_form;
 

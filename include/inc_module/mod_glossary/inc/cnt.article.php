@@ -145,11 +145,8 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 
             }
 
-        } else {
-
-            if($content['glossary']['glossary_filter_active'] != '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
-                $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
-            }
+        } elseif($content['glossary']['glossary_filter_active'] !== '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
+            $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
         }
     }
 

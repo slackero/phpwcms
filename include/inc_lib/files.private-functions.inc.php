@@ -10,8 +10,17 @@
  **/
 
 //Funktionen zum Listen der privaten Dateien
-
-function list_private($pid, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, $phpwcms) {
+/**
+ * @param $pid
+ * @param $vor
+ * @param $zieldatei
+ * @param $userID
+ * @param $cutID
+ * @param $phpwcms
+ *
+ * @return mixed
+ */
+function list_private($pid, $vor, $zieldatei, $userID, $cutID, $phpwcms) {
     $cutID = intval($cutID);
     $pid = intval($pid);
     $sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file f ";
@@ -123,7 +132,7 @@ function list_private($pid, $vor, $zieldatei, $userID, $cutID=0, $show_thumb=1, 
 
         //Weiter, wenn Unterstruktur
         if(!$klapp_status && $count_wert) { //$vor."<img src='img/leer.gif' height=1 width=18 border=0>"
-            list_private($row["f_id"], $vor+18, $zieldatei, $userID, $cutID, $show_thumb, $phpwcms);
+            list_private($row["f_id"], $vor+18, $zieldatei, $userID, $cutID, $phpwcms);
 
             //Listing eventuell im Verzeichnis enthaltener Dateien
             $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"];

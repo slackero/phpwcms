@@ -69,7 +69,7 @@ function is_feed_available($url, $timeout = 30) {
 
 	curl_close($ch); // close handle
 
-	return $retval == 200 ? true : false;
+	return $retval == 200; // true | false
 }
 
 function feedimport_article_authors() {

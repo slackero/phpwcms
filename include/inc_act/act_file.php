@@ -124,10 +124,8 @@ if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
                         if(@unlink($default_path.$filename)) {
                             $delstatus = true;
                         }
-                    } else {
-                        if(@rename($default_path.$filename, $default_path.'can_be_deleted/'.$filename)) {
-                            $delstatus = true;
-                        }
+                    } elseif(@rename($default_path.$filename, $default_path.'can_be_deleted/'.$filename)) {
+                        $delstatus = true;
                     }
 
                 } else {
@@ -159,6 +157,6 @@ if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
     }
 }
 
-$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+$ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 
 headerRedirect($ref);

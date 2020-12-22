@@ -487,7 +487,7 @@ class Phpwcms_Image_lib {
             // GD 2.0 has a cropping bug so we'll test for it
             if ($this->gd_version() !== false) {
                 $gd_version = str_replace('0', '', $this->gd_version());
-                $v2_override = ($gd_version == 2) ? true : false;
+                $v2_override = $gd_version == 2;
             }
         } else {
             // If resizing the x/y axis must be zero
@@ -1198,7 +1198,6 @@ class Phpwcms_Image_lib {
             default     :
                 $this->set_error('imglib_unsupported_imagecreate');
                 return false;
-                break;
         }
         return true;
     }
@@ -1301,11 +1300,15 @@ class Phpwcms_Image_lib {
         $cache = md5($path);
         if (!isset($this->image_cache[$cache])) {
             $vals = getimagesize($path);
-            if ($this->image_library === 'gd2' && !isset($vals[2])) {
+            if ($this->image_library === 'gd2') {
+                if (!isset($vals[2])) {
+                    return false;
+                }
+            } elseif(!isset($vals[2])) {
                 return false;
             }
             $types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
-            $mime = isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
+            $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
             $this->image_current_vals = $vals;
             $this->image_cache[$cache] = array(
                 'orig_width'  => $vals[0],

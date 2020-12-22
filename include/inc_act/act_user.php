@@ -53,4 +53,4 @@ if(!empty($_SESSION["wcs_user_admin"])) { // With admin permissions only
 
 }
 
-headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin');
+headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin');

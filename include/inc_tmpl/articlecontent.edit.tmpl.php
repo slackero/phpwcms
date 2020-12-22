@@ -202,7 +202,7 @@ initJsCalendar();
     $temp_select                = '';
     $temp_count                 = 0;
     $contentpart_temp_selected  = 0;
-    $user_selected_cp           = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"])  ? true : false;
+    $user_selected_cp           = isset($_SESSION["wcs_user_cp"]) && count($_SESSION["wcs_user_cp"]);
 
     if(is_array($article["article_cntpart"]) && count($article["article_cntpart"])) {
 

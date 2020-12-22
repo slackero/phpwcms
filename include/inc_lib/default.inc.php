@@ -147,7 +147,7 @@ define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHAR
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php';
@@ -634,19 +634,19 @@ function removeSessionName($str='') {
 
 function dumpVar($var, $commented=false) {
     //just a simple funcction returning formatted print_r()
-    switch($commented) {
-        case 1:     echo "\n<!--\n";
-                    print_r($var);
-                    echo "\n//-->\n";
-                    return NULL;
-                    break;
-        case 2:     return '<pre>'.html(print_r($var, true)).'</pre>';
-                    break;
-        default:    echo '<pre>';
-                    echo html(print_r($var, true));
-                    echo '</pre>';
-                    return NULL;
+    if ($commented === 1) {
+        echo LF . '<!--' . LF;
+        print_r($var);
+        echo LF . '//-->' . LF;
+        return null;
+    } elseif ($commented === 2) {
+        return '<pre>' . html(print_r($var, true)) . '</pre>';
     }
+
+    echo '<pre>';
+    echo html(print_r($var, true));
+    echo '</pre>';
+    return null;
 }
 
 function buildGlobalGET($return = '') {
@@ -1379,11 +1379,12 @@ function phpwcms_decrypt($crypttext, $password=PHPWCMS_USER_KEY) {
  * Get current user visual mode
  */
 function get_user_vmode() {
-    switch(VISIBLE_MODE) {
-        case 1:     return 'editor';    break;
-        case 2:     return 'admin';     break;
-        default:    return 'all';
+    if (VISIBLE_MODE === 1) {
+        return 'editor';
+    } elseif (VISIBLE_MODE === 2) {
+        return 'admin';
     }
+    return 'all';
 }
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {

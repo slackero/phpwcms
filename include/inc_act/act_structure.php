@@ -11,6 +11,7 @@
 
 //19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
+use JetBrains\PhpStorm\Pure;
 
 session_start();
 $phpwcms = array();
@@ -26,7 +27,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 if(empty($_SESSION['REFERER_URL'])) {
     die('Goood bye.');
 } else {
-    $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+    $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
 if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
@@ -440,7 +441,7 @@ _setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
 _setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 
 if(isset($_POST['SubmitClose'])) {
-    headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=6&'.get_token_get_string('csrftoken'));
+    headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=6&'.get_token_get_string('csrftoken'));
 } else {
     headerRedirect($ref);
 }
@@ -539,7 +540,7 @@ function copy_article_to_level($do) {
 
             if(empty($GLOBALS['phpwcms']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open') {
 
-                headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$article_insert_id);
+                headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$article_insert_id);
 
             }
 

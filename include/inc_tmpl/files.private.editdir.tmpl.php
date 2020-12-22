@@ -62,7 +62,7 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) {
                 }
         _dbQuery($sql, 'UPDATE');
         //if($result = _dbQuery($sql, 'UPDATE')) {
-            //headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
+            //headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=files&f=0');
         //}
     }
 

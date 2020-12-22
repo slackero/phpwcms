@@ -43,7 +43,7 @@ if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
 			}
 		}
 	}
-	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=messages&p=4');
+	headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=messages&p=4');
 }
 
 

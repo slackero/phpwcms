@@ -166,9 +166,6 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
                         $i++; // Move in string pointer forward 1
                         switch ($dte_frmt_lstchr) {
                             case "A":
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
-                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
-                                break;
                             case "a":
                                 if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
                                 else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
@@ -232,9 +229,8 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
             if (isset($store_arr['ampm'])) {
                 if ($store_arr['ampm']=="PM") { // Is it PM? If so test to see if hour is set
                     $store_arr['hours']=$store_arr['hours']+12; // The 12 hour date was in PM. Example 11 pm really is 11+12 or 23!
-                }
-                else { // This is AM. Only 1 test needs to be done: 12 am!
-                    if ($store_arr['hours']==12) { $store_arr['hours']=0; } // 12am in 24 cycle is really 0 (0-23!)
+                } elseif ($store_arr['hours']==12) { // This is AM. Only 1 test needs to be done: 12 am!
+                    $store_arr['hours']=0; // 12am in 24 cycle is really 0 (0-23!)
                 }
             }
         }
@@ -630,24 +626,20 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
             $spacers['before'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
         }
 
+    } elseif(empty($template_default["article"]["div_spacer"])) {
+        $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
     } else {
-
-        if(empty($template_default["article"]["div_spacer"])) {
-            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+         $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+        if($template_default['article']['div_spacer_style'] === 'padding') {
+            $spacers['after'] .= 'padding-bottom';
+        } elseif($template_default['article']['div_spacer_style'] === 'height') {
+            $spacers['after'] .= 'height';
         } else {
-             $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
-            if($template_default['article']['div_spacer_style'] === 'padding') {
-                $spacers['after'] .= 'padding-bottom';
-            } elseif($template_default['article']['div_spacer_style'] === 'height') {
-                $spacers['after'] .= 'height';
-            } else {
-                $spacers['after'] .= 'margin-bottom';
-            }
-            $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
-            $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
-            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+            $spacers['after'] .= 'margin-bottom';
         }
-
+        $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
+        $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
+        $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
     }
 
     return $spacers;

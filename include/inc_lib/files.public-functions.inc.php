@@ -10,15 +10,16 @@
  **/
 
 //Funktionen zum Listen der privaten Dateien
-function list_public($pid, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
+function list_public($pid, $vor, $zieldatei, $userID, $phpwcms) {
 
     $pid = intval($pid);
+    $userID = intval($userID);
 
     //Folder Listing für Public files
     $sql = "SELECT f_id, f_name FROM ".DB_PREPEND."phpwcms_file WHERE ".
-           "f_pid=".intval($pid)." AND ".
+           "f_pid=".$pid." AND ".
            "f_public=1 AND f_aktiv=1 AND ".
-           "f_uid=".intval($userID)." AND ".
+           "f_uid=".$userID." AND ".
            "f_kid=0 AND f_trash=0 ORDER BY f_sort, f_name";
 
     $result = _dbQuery($sql);
@@ -35,7 +36,7 @@ function list_public($pid, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
 
         //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
         $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".
-                     "f_pid=".$row["f_id"]." AND f_uid=".intval($userID)." AND ".
+                     "f_pid=".$row["f_id"]." AND f_uid=".$userID." AND ".
                      "f_public=1 AND f_aktiv=1 AND f_trash=0";
 
         if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
@@ -64,10 +65,10 @@ function list_public($pid, $vor, $zieldatei, $userID, $show_thumb=1, $phpwcms) {
 
         //Weiter, wenn Unterstruktur
         if(!$klapp_status && $count_wert) {
-            list_public($row["f_id"], $vor+18, $zieldatei, $userID, $show_thumb, $phpwcms);
+            list_public($row["f_id"], $vor+18, $zieldatei, $userID, $phpwcms);
 
             //Listing eventuell im Verzeichnis enthaltener Dateien
-            $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".intval($userID);
+            $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_uid=".$userID;
             $file_sql .= " AND f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 ORDER BY f_sort, f_name";
 
             $file_result = _dbQuery($file_sql);

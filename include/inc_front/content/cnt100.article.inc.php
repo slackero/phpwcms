@@ -141,21 +141,18 @@ if(substr_count ($crow["acontent_text"], '~')) {
                     //entry close tag
                     $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
 
-            } else {
-
-                if($clist_diff_next > 0) {
-                    //entry close tag and list close tag
-                    $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF . '</'.$clist_listmain.'>' . LF;
-                    if($clist_diff_next >= 1) {
-                        for($i=0; $i < (abs($clist_diff_next)-1); $i++) {
-                            //entry close tag
-                            if(!$i) $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
-                            //list close tag
-                            $crow["acontent_text"] .= '</'.$clist_listmain.'>' . LF;
-                        }
+            } elseif($clist_diff_next > 0) {
+                //entry close tag and list close tag
+                $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF . '</'.$clist_listmain.'>' . LF;
+                if($clist_diff_next >= 1) {
+                    for($i=0; $i < (abs($clist_diff_next)-1); $i++) {
                         //entry close tag
-                        $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
+                        if(!$i) $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
+                        //list close tag
+                        $crow["acontent_text"] .= '</'.$clist_listmain.'>' . LF;
                     }
+                    //entry close tag
+                    $crow["acontent_text"] .= '</'.$clist_listentry.'>' . LF;
                 }
             }
         }

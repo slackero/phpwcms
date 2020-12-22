@@ -136,7 +136,7 @@ if($content['custom_field_items']): ?>
         }
 
         $custom_field_placeholder = isset($cnt_fieldgroup['fields'][$custom_field]['placeholder']) && $cnt_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($cnt_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
-        $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
+        $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg';
 ?>
         <tr class="tab-collapsable-row">
             <td class="chatlist tdtop8" <?php if($is_wysiwyg): ?>colspan="2"<?php else: ?>align="right"<?php endif; ?> nowrap="nowrap">&nbsp;<?php

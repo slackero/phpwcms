@@ -127,7 +127,7 @@ function subnavback($text, $link, $h_before=0, $h_after=0) {
  * @param mixed &$file_image_size
  * @return string
  */
-function check_image_extension($file, $filename='', &$file_image_size) {
+function check_image_extension($file, $filename, $file_image_size) {
 
     $result = false;
     if(empty($file_image_size[2])) {
@@ -213,7 +213,7 @@ function getArticleSortValue($cat_id=0) {
  * Make a re-sort for given structure ID and
  * return new sorted articles as array
  */
-function getArticleReSorted(& $cat_id, & $ordered_by) {
+function getArticleReSorted($cat_id, $ordered_by) {
 
     // get all articles including deleted and update sorting
     // in correct sort order by adding sort + 10
@@ -267,7 +267,6 @@ function getArticleReSorted(& $cat_id, & $ordered_by) {
     }
 
     return $article;
-
 }
 
 function phpwcmsversionCheck() {
@@ -376,7 +375,7 @@ function phpwcmsversionCheck() {
 }
 
 
-function createOptionTransferSelectList($id='', $leftData, $rightData, $option = array()) {
+function createOptionTransferSelectList($id, $leftData, $rightData, $option = array()) {
     // used to create
 
     global $BL;

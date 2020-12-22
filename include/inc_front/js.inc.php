@@ -90,7 +90,7 @@ function renderHeadJS($js) {
     }
 
     // detect remote if `http://example.com`, `https://example.com` or `//example.com`
-    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//' ? true : false;
+    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//';
 
     if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
 

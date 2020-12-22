@@ -196,7 +196,7 @@ if(isset($_GET["id"])) {
 if(isset($_GET['print'])) {
 
     $aktion[2] = 1;
-    define('PRINT_PDF', $_GET['print'] == 2 && !empty($phpwcms['wkhtmltopdf_path']) ? true : false);
+    define('PRINT_PDF', $_GET['print'] == 2 && !empty($phpwcms['wkhtmltopdf_path']));
     unset($_getVar['print'], $_GET['print']);
 
 }
@@ -389,7 +389,7 @@ if(!empty($_GET['phpwcms_output_action']) || !empty($_POST['phpwcms_output_actio
             }
         }
 
-        $phpwcms['output_action'] = count($phpwcms['output_function']) || count($phpwcms['output_section']) ? true : false;
+        $phpwcms['output_action'] = count($phpwcms['output_function']) || count($phpwcms['output_section']);
     } else {
         $phpwcms['output_action'] = false;
     }

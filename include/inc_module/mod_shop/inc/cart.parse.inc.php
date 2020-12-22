@@ -21,8 +21,8 @@ $subtotal['float_gross']	= $subtotal['gross'];
 $subtotal['float_weight']	= $subtotal['weight'];
 
 // calculate discount
-$_shopPref['shop_pref_discount_invalid'] = empty($_shopPref['shop_pref_discount']['discount']) && empty($_shopPref['shop_pref_discount']['discount_1']) && empty($_shopPref['shop_pref_discount']['discount_2']) ? true : false;
-$_shopPref['shop_pref_discount_percent_invalid'] = empty($_shopPref['shop_pref_discount']['percent']) && empty($_shopPref['shop_pref_discount']['percent_1']) && empty($_shopPref['shop_pref_discount']['percent_2']) ? true : false;
+$_shopPref['shop_pref_discount_invalid'] = empty($_shopPref['shop_pref_discount']['discount']) && empty($_shopPref['shop_pref_discount']['discount_1']) && empty($_shopPref['shop_pref_discount']['discount_2']);
+$_shopPref['shop_pref_discount_percent_invalid'] = empty($_shopPref['shop_pref_discount']['percent']) && empty($_shopPref['shop_pref_discount']['percent_1']) && empty($_shopPref['shop_pref_discount']['percent_2']);
 
 $_shopPref['shop_discount_use'] = array(
 	'percent' => 0,

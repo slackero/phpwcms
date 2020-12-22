@@ -536,26 +536,19 @@ if($guestbook['visible']) {
             }
             $guestbook['form'] .= getFormTrackingValue().'</form>';
 
-
+        } elseif(!$guestbook['flooding']) {
+            // if successfully signed show signed info
+            $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'EMAIL',   html_specialchars($guestbook['post']['email']));
+            $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'NAME',    html_specialchars($guestbook['post']['name']));
+            $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'URL',     html_specialchars($guestbook['post']['url']));
+            $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'MSG',     html_specialchars($guestbook['post']['msg']));
+            $guestbook['form'] = $guestbook['signed'];
         } else {
-
-            if(!$guestbook['flooding']) {
-                // if successfully signed show signed info
-                $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'EMAIL',   html_specialchars($guestbook['post']['email']));
-                $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'NAME',    html_specialchars($guestbook['post']['name']));
-                $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'URL',     html_specialchars($guestbook['post']['url']));
-                $guestbook['signed'] = render_cnt_template($guestbook['signed'], 'MSG',     html_specialchars($guestbook['post']['msg']));
-                $guestbook['form'] = $guestbook['signed'];
-            } else {
-                $guestbook['form'] = $guestbook['spamalert'];
-            }
-
+            $guestbook['form'] = $guestbook['spamalert'];
         }
 
     }
     // end guestbook form
-
-
 
     // start guestbook listing
 

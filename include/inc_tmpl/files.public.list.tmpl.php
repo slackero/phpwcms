@@ -92,7 +92,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
             echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Trennlinie
 
             if(!$pklapp_status) {
-                list_public(0, 18, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
+                list_public(0, 18, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $phpwcms);
 
                 //Root files anzeigen
                 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.

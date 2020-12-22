@@ -198,7 +198,7 @@ if ($action == 'edit') {
             _setConfig('shop_pref_autosubtract_off', $plugin['data']['shop_pref_autosubtract_off'], 'module_shop');
 
             // save and back to listing mode
-            headerRedirect(shop_url(get_token_get_string('csrftoken') . '&controller=pref', ''));
+            headerRedirect(shop_url(get_token_get_string() . '&controller=pref', ''));
         }
     }
 

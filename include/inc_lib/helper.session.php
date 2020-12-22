@@ -380,7 +380,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
  */
 function tokenize_urls($html) {
 
-	$get_token = get_token_get_string('csrftoken');
+	$get_token = get_token_get_string();
 
 	if($get_token) {
 
@@ -440,7 +440,7 @@ function validate_csrf_tokens($token_prefix='csrf_') {
 
 	} else {
 
-		validate_csrf_get_token('csrftoken');
+		validate_csrf_get_token();
 
 	}
 

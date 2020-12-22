@@ -23,7 +23,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 ?>
 <div id="messagesend" style="display:block;">
 <form action="include/inc_act/act_sendnewsletter.php" method="get" target="sendframe" id="sendnewsletter" onsubmit="hideLayer('messagesend');showLayer('sendjobnow');" data-csrf="off">
-	<input type="hidden" name="csrftoken" value="<?php echo get_token_get_value('csrftoken'); ?>" />
+	<input type="hidden" name="csrftoken" value="<?php echo get_token_get_value(); ?>" />
 	<input type="hidden" name="newsletter_id" value="<?php echo intval($newsletter['newsletter_id']) ?>" />
 <table border="0" cellpadding="0" cellspacing="0" summary="">
 	<tr><td colspan="2" class="title" style="padding-bottom:5px"><?php echo $BL['be_newsletter_sendnow'] ?></td></tr>

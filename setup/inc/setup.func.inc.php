@@ -21,7 +21,7 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $phpwcms_version = PHPWCMS_VERSION;
 $phpwcms_release_date = PHPWCMS_RELEASE_DATE;
 $phpwcms_revision = PHPWCMS_REVISION;
-define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
@@ -429,7 +429,6 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
             case 'UPDATE':
                 $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
                 return $queryResult;
-                break;
 
             // SELECT Queries
             case 'ROW':

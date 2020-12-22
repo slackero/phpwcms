@@ -22,7 +22,7 @@ require '../../include/config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 
-if(!validate_csrf_get_token('csrftoken')) {
+if(!validate_csrf_get_token()) {
 	die('{"success":false}');
 }
 

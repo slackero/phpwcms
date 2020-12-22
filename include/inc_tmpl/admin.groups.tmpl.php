@@ -163,7 +163,7 @@ $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/i
                     $result = $group["id"] ? _dbUpdate('phpwcms_usergroup', $data, 'group_id='.$group["id"]) : _dbInsert('phpwcms_usergroup', $data);
 
                     if(isset($result['AFFECTED_ROWS']) || isset($result['INSERT_ID'])) {
-                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=admin&p=1');
+                        headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=1');
                     } else {
                         echo _dbError();
                     }
@@ -234,7 +234,7 @@ if(isset($result[0]['usr_id'])) {
                     echo '<option value="'.$key.'"';
                     if(!$_temp_usr[$key]['active']) {
                         echo ' style="color:#999999;"';
-                    } else if($_temp_usr[$key]['admin']) {
+                    } elseif($_temp_usr[$key]['admin']) {
                         echo ' style="color:#3F61BF;"';
                     }
                     echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
@@ -256,7 +256,7 @@ if(isset($result[0]['usr_id'])) {
             echo '<option value="'.$key.'"';
             if(!$_temp_usr[$key]['active']) {
                 echo ' style="color:#999999"';
-            } else if($_temp_usr[$key]['admin']) {
+            } elseif($_temp_usr[$key]['admin']) {
                 echo ' style="color:#3F61BF"';
             }
             echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";

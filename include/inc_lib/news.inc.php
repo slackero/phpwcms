@@ -55,7 +55,7 @@ class phpwcmsNews {
 
         $this->BL               = &$BL;
         $this->phpwcms          = &$phpwcms;
-        $this->csrf_token       = get_token_get_string('csrftoken');
+        $this->csrf_token       = get_token_get_string();
         $this->base_url         = PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
         $this->base_url_decoded = PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&do=articles&p=3';
 

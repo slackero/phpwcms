@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 $acat_struct_mode   = 'STRUCT';
-$acat_lang_mode     = $_GET['struct'] != 'index' && count($phpwcms['allowed_lang']) > 1 ? true : false;
+$acat_lang_mode     = $_GET['struct'] !== 'index' && count($phpwcms['allowed_lang']) > 1;
 
 if($_GET['struct'] === 'index') {
 
