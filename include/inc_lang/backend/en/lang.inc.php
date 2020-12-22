@@ -1393,6 +1393,7 @@ $BL['be_caption_file_title']            = 'file title';
 $BL['be_caption_descr.']                = 'descr.';
 $BL['be_display_html5_only']            = 'HTML5 only';
 $BL['be_audio_only']                    = 'audio only';
+$BL['be_hide_downloadbutton']           = 'hide HTML5 download button';
 
 $BL['be_filter']                        = 'filter';
 $BL['be_filter_with_tags']              = 'by tag';

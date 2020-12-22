@@ -466,14 +466,18 @@ if(isset($fmp_data['fmp_template'])) {
                 $fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
             }
         }
-        if($fmp_data['fmp_set_showcontrols'] !== 'none') {
-            $fmp_data['video_tag']['header'] .= 'controls="controls" ';
-        }
         if($fmp_data['fmp_set_autostart']) {
             $fmp_data['video_tag']['header'] .= 'autoplay="autoplay" ';
         }
         if(!empty($fmp_data['fmp_set_loop'])) {
             $fmp_data['video_tag']['header'] .= 'loop="loop" ';
+        }
+        if($fmp_data['fmp_set_showcontrols'] !== 'none') {
+            $fmp_data['video_tag']['header'] .= 'controls="controls" ';
+
+            if(!empty($fmp_data['fmp_set_downloadbutton'])) {
+                $fmp_data['video_tag']['header'] .= 'controlsList="nodownload" ';
+            }
         }
 
         $fmp_data['video_tag']['header'] .= 'preload="' . (isset($fmp_data['fmp_set_preload']) ? $fmp_data['fmp_set_preload'] : 'auto') . '">';

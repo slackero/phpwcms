@@ -1376,6 +1376,7 @@ $BL['be_caption_file_title'] = 'Dateititel';
 $BL['be_caption_descr.'] = 'Beschr.';
 $BL['be_display_html5_only'] = 'ausschlie&szlig;lich HTML5';
 $BL['be_audio_only'] = 'nur Audio';
+$BL['be_hide_downloadbutton'] = 'HTML5 Download-Button ausblenden';
 
 $BL['be_filter'] = 'Filter';
 $BL['be_filter_with_tags'] = 'nach Schlagwort';
