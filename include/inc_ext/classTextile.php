@@ -1448,7 +1448,7 @@ class Textile
 
     protected function parseAttribsToArray($in, $element = '', $include_id = true, $autoclass = '')
     {
-        $style = '';
+        $style = array();
         $class = '';
         $lang = '';
         $colspan = '';
