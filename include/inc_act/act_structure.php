@@ -122,7 +122,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     $acat_sort_fallback = isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;
     $acat_sort_temp     = isset($_POST["acat_sort_temp"]) ? intval($_POST["acat_sort_temp"]) : 0;
     $acat_lang          = empty($_POST["acat_lang"]) ? '' : clean_slweg($_POST["acat_lang"]);
-    $acat_lang_type     = $acat_lang == '' || empty($_POST["acat_lang_type"]) ? '' : in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : '';
+    $acat_lang_type     = $acat_lang === '' || empty($_POST["acat_lang_type"]) ? '' : (in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : '');
     $acat_lang_id       = $acat_lang_type == '' || empty($_POST["acat_lang_id"]) ? 0 : intval($_POST["acat_lang_id"]);
 
     if($acat_sort_fallback === 0 && $acat_sort_temp > 0) {
