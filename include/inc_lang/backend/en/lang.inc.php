@@ -1028,6 +1028,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
 $BL['be_func_switch_contentpart'] = 'Do you really want to switch content part? \n\nBe very careful doing so! \nImportant settings might be overwritten! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ATTENTION!</strong> The &quot;CODE-SNIPPETS&quot; directory still exists! Delete directory <strong>phpwcms_code_snippets</strong> - this is a potential security problem.';
+$BL['gd_not_loaded'] = '<strong>No GD functionality available!</strong> Please make sure that the PHP GD library is activated, otherwise the processing of images will not work reliably.';
 
 $BL['be_ctype_poll'] = 'poll';
 $BL['be_cnt_pos8']                      = 'table, left';

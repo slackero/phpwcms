@@ -338,12 +338,17 @@ ob_start();
     if(file_exists(PHPWCMS_ROOT.'/setup')) {
         echo '<div class="alert alert-warning">'.$BL["setup_dir_exists"].'</div>';
     }
+
+    if(isset($_POST['json']) && $_POST['json'] == 2) {
+        $err = 0;
+    }
+
     if(file_exists(PHPWCMS_ROOT.'/phpwcms_code_snippets')) {
         echo '<div class="alert alert-danger">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
     }
 
-    if(isset($_POST['json']) && $_POST['json'] == 2) {
-        $err = 0;
+    if(($phpwcms['image_library'] === 'gd' || $phpwcms['image_library'] === 'gd2') && (!extension_loaded('gd') || !function_exists('gd_info'))) {
+        echo '<div class="alert alert-danger" style="font-weight:normal;">'.$BL['gd_not_loaded'].'</div>';
     }
 
     echo '<div class="alert alert-danger"';
