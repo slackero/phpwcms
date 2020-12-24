@@ -1305,7 +1305,7 @@ class Phpwcms_Image_lib {
                     return false;
                 }
             } elseif(!isset($vals[2])) {
-                return false;
+                return true; // the image lib might handle this format
             }
             $types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
             $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
