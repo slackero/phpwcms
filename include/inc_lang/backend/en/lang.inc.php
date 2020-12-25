@@ -1436,11 +1436,11 @@ $BL['cookie_consent_more'] = 'More info';
 $BL['be_cookie_consent_link'] = 'cookie policy url/alias';
 $BL['be_cookie_consent_theme'] = 'theme (empty = no CSS)';
 $BL['be_google_analytics_enable'] = 'use Google Analytics';
-$BL['be_piwik_enable'] = 'use Piwik';
+$BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 

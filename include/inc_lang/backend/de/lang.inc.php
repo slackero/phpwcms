@@ -1419,11 +1419,11 @@ $BL['cookie_consent_more'] = 'Weitere Informationen';
 $BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
-$BL['be_piwik_enable'] = 'Piwik benutzen';
+$BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 

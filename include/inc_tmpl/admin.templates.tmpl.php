@@ -527,7 +527,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
             <td><input type="checkbox" name="template_cookie_consent" id="template_cookie_consent" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_cookie_consent"><?php echo $BL['be_cookie_consent_enable'] ?></label></td>
         </tr>
-        <tr id="cookie-consent"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
+        <tr id="template-cc-form"<?php if(!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
             <td>&nbsp;</td>
             <td class="tdbottom5">
                 <?php if(count($phpwcms['allowed_lang'])): ?><div class="chatlist wrap tdbottom3 tdright10"><?php echo $BL['be_cookie_consent_translatable']; ?></div><?php endif; ?>
@@ -728,21 +728,21 @@ if(!empty($jsOnChange))  {
 <script type="text/javascript">
 
     $(function(){
-        $('#template_cookie_consent').change(function(){
+        $('#template_cookie_consent').on('change', function(){
             if($(this).is(':checked')) {
-                $('#cookie-consent').show();
+                $('#template-cc-form').show();
             } else {
-                $('#cookie-consent').hide();
+                $('#template-cc-form').hide();
             }
         });
-        $('#template_ga').change(function(){
+        $('#template_ga').on('change', function(){
             if($(this).is(':checked')) {
                 $('#ga-tracking').show();
             } else {
                 $('#ga-tracking').hide();
             }
         });
-        $('#template_piwik').change(function(){
+        $('#template_piwik').on('change', function(){
             if($(this).is(':checked')) {
                 $('#piwik-tracking').show();
             } else {

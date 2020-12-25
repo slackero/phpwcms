@@ -818,36 +818,45 @@ $template_default['settings'] = array(
         // Tracking code and/or position can be overwritten, not recommend!!!
         // You should know what you are doing here!
 
-        // Google Analytics Tracking Code https://support.google.com/analytics/answer/1008080
+        // Google Analytics Tracking Code
         /*
         'ga' => array(
             'position' => 'head',
-            'code' => "<script".SCRIPT_ATTRIBUTE_TYPE.">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', '%s', 'auto'%s);
-  ga('send', 'pageview');
-</script>",
-           'anonymize' => ', {anonymizeIp: true}'
+            'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE." src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
+  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '%1\$s'%2\$s);
+  </script>",
+           'anonymize' => ', {anonymizeIp: true}',
+           'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    var gaOptOutCookie = 'ga-disable-%s';
+    if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
+        window[gaOptOutCookie] = true;
+    }
+    function gaOptout() {
+        document.cookie = gaOptOutCookie + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+        window[gaOptOutCookie] = true;
+    }
+  </script>"
         ),
         */
 
-        // Piwik Tracking Code http://developer.piwik.org/guides/tracking-javascript-guide
+        // Matomo/Piwik Tracking Code http://developer.piwik.org/guides/tracking-javascript-guide
         /*
         'piwik' => array(
             'position' => 'head',
             'code' => '<script'.SCRIPT_ATTRIBUTE_TYPE.'>
-  var _paq = _paq || [];
+  var _paq = window._paq = window._paq || [];
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
   (function() {
     var u="//%1$s/";
-    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setTrackerUrl", u+"matomo.php"]);
     _paq.push(["setSiteId", %2$d]);
     var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
-    g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+    g.type="text/javascript"; g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
   })();
 </script>'
         ),

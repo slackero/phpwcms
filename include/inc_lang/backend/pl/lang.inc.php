@@ -1415,11 +1415,11 @@ $BL['cookie_consent_more'] = 'Więcej informacji';
 $BL['be_cookie_consent_link'] = 'Polityka Cookie url/alias';
 $BL['be_cookie_consent_theme'] = 'Motyw (puste = brak CSS)';
 $BL['be_google_analytics_enable'] = 'Użyj Google Analytics';
-$BL['be_piwik_enable'] = 'Użyj Piwik';
+$BL['be_piwik_enable'] = 'Użyj Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'Utajnij IP';
 $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'wsparcie dla pliku Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 

@@ -1496,21 +1496,21 @@ if(!empty($block['tracking_ga']['enable'])) {
 
 }
 
-// Piwik Tracking Code
+// Matomo/Piwik Tracking Code
 if(!empty($block['tracking_piwik']['enable'])) {
 
     $template_default['settings']['tracking']['piwik_default'] = array(
         'position' => 'head',
         'code' => '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>
-    var _paq = _paq || [];
+    var _paq = window._paq = window._paq || [];
     _paq.push(["trackPageView"]);
     _paq.push(["enableLinkTracking"]);
     (function() {
         var u="//%1$s/";
-        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setTrackerUrl", u+"matomo.php"]);
         _paq.push(["setSiteId", %2$d]);
         var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
-        g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+        g.type="text/javascript"; g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
     })();
   </script>'
     );
