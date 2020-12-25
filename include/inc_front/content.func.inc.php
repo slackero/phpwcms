@@ -564,6 +564,36 @@ if(!empty($pagelayout['layout_customblocks'])) {
     unset($custom_blocks);
 }
 
+$phpwcms['donottrack'] = empty($block['donottrack']) ? false : (isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1');
+$phpwcms['cookie_consent'] = false;
+$phpwcms['cookie_consent_dismiss'] = false;
+if (empty($block['require_consent']['cookie_name'])) {
+    if (empty($phpwcms['cookie_consent_name'])) {
+        $phpwcms['cookie_consent_name'] = 'cookieconsent_dismissed';
+    }
+} else {
+    $phpwcms['cookie_consent_name'] = $block['require_consent']['cookie_name'];
+}
+if (empty($block['require_consent']['cookie_value'])) {
+    if (empty($phpwcms['cookie_consent_value'])) {
+        $phpwcms['cookie_consent_value'] = 'yes';
+    }
+} else {
+    $phpwcms['cookie_consent_value'] = $block['require_consent']['cookie_value'];
+}
+if (!empty($block['require_consent']['enable'])) {
+    if (isset($_COOKIE[$phpwcms['cookie_consent_name']])) {
+        $phpwcms['cookie_consent'] = true;
+        if (strpos($_COOKIE[$phpwcms['cookie_consent_name']], $phpwcms['cookie_consent_value']) !== false) {
+            $phpwcms['cookie_consent_dismiss'] = true;
+        } else {
+            $phpwcms['donottrack'] = true;
+        }
+    } else {
+        $phpwcms['donottrack'] = true;
+    }
+}
+
 // try to include custom functions or what ever you want to do at this point of the script
 // default dir: "phpwcms_template/inc_script/frontend_init"; only *.php files are allowed there
 if($phpwcms["allow_ext_init"]) {
@@ -1449,20 +1479,21 @@ if(HTML5_MODE && IE8_CC) {
 
 }
 
-// Google Analytics Tracking Code
-if(!empty($block['tracking_ga']['enable'])) {
+if(!$phpwcms['donottrack']) {
 
-    $template_default['settings']['tracking']['ga_default'] = array(
-        'position' => 'head',
-        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE." src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
-  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    // Google Analytics Tracking Code
+    if (!empty($block['tracking_ga']['enable'])) {
+        $template_default['settings']['tracking']['ga_default'] = array(
+            'position' => 'head',
+            'code' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
+  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-       'anonymize' => ", {'anonymize_ip': true}",
-       'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
+            'anonymize' => ", {'anonymize_ip': true}",
+            'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     var gaOptOutCookie = 'ga-disable-%s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
@@ -1472,36 +1503,30 @@ if(!empty($block['tracking_ga']['enable'])) {
         window[gaOptOutCookie] = true;
     }
   </script>"
-    );
-
-    if(isset($template_default['settings']['tracking']['ga'])) {
-        $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
-    } else {
-        $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+        );
+        if (isset($template_default['settings']['tracking']['ga'])) {
+            $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
+        } else {
+            $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+        }
+        if (empty($block['tracking_ga']['anonymize'])) {
+            $template_default['settings']['tracking']['ga']['anonymize'] = '';
+        }
+        if (!empty($template_default['settings']['tracking']['ga']['optout'])) {
+            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+        }
+        if ($template_default['settings']['tracking']['ga']['position'] === 'head') {
+            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+        } else {
+            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+        }
     }
 
-    if(empty($block['tracking_ga']['anonymize'])) {
-        $template_default['settings']['tracking']['ga']['anonymize'] = '';
-    }
-
-    if(!empty($template_default['settings']['tracking']['ga']['optout'])) {
-        $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
-    }
-
-    if($template_default['settings']['tracking']['ga']['position'] === 'head') {
-        $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
-    } else {
-        $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
-    }
-
-}
-
-// Matomo/Piwik Tracking Code
-if(!empty($block['tracking_piwik']['enable'])) {
-
-    $template_default['settings']['tracking']['piwik_default'] = array(
-        'position' => 'head',
-        'code' => '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>
+    // Matomo/Piwik Tracking Code
+    if (!empty($block['tracking_piwik']['enable'])) {
+        $template_default['settings']['tracking']['piwik_default'] = array(
+            'position' => 'head',
+            'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . '>
     var _paq = window._paq = window._paq || [];
     _paq.push(["trackPageView"]);
     _paq.push(["enableLinkTracking"]);
@@ -1513,24 +1538,23 @@ if(!empty($block['tracking_piwik']['enable'])) {
         g.type="text/javascript"; g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
     })();
   </script>'
-    );
-
-    if(isset($template_default['settings']['tracking']['piwik'])) {
-        $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
-    } else {
-        $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
-    }
-
-    if($template_default['settings']['tracking']['piwik']['position'] === 'head') {
-        $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
-    } else {
-        $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        );
+        if (isset($template_default['settings']['tracking']['piwik'])) {
+            $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
+        } else {
+            $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
+        }
+        if ($template_default['settings']['tracking']['piwik']['position'] === 'head') {
+            $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        } else {
+            $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        }
     }
 
 }
 
 // internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
-if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_dismissed']) || strtolower($_COOKIE['cookieconsent_dismissed']) !== 'yes')) {
+if(!empty($block['cookie_consent']['enable']) && !$phpwcms['cookie_consent']) {
 
     $block['cookie_consent']['options'] = array();
     if(!empty($block['cookie_consent']['message'])) {

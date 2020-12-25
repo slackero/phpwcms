@@ -1426,6 +1426,12 @@ $BL['be_site_id'] = 'Site-ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Tracking-Code ohne Consent nicht aktivieren';
+$BL['be_consent_cookie_name'] = 'Name des Consent-Cookies';
+$BL['be_consent_cookie_value'] = 'Wert des Consent-Cookies';
+$BL['be_respect_donottrack'] = 'Browser-Einstellung Do-Not-Track respektieren';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';

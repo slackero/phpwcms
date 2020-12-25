@@ -64,6 +64,12 @@ $template = array(
         'id' => '',
         'url' => ''
     ),
+    'donottrack' => 0,
+    'require_consent' => array(
+        'enable' => 0,
+        'cookie_name' => 'cookieconsent_dismissed',
+        'cookie_value' => 'yes'
+    ),
 );
 
 initJQuery();
@@ -194,6 +200,12 @@ if(isset($result[0]['template_id'])) {
         if(empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['enable'] = 0;
         }
+        $template['donottrack'] = empty($_POST["template_donottrack"]) ? 0 : 1;
+        $template['require_consent'] = array(
+            'enable' => empty($_POST["template_require_consent"]) ? 0 : 1,
+            'cookie_name' => clean_slweg($_POST['template_require_cookie_name']),
+            'cookie_value' => clean_slweg($_POST['template_require_cookie_value'])
+        );
 
         // now browse custom blocks if available
         if(!empty($_POST['customblock'])) {
@@ -478,6 +490,11 @@ foreach($phpwcms['js_lib'] as $key => $value) {
         </tr>
 
         <tr>
+          <td><input type="checkbox" name="template_donottrack" id="template_donottrack" value="1"<?php is_checked($template['donottrack'], 1); ?> /></td>
+          <td class="v10"><label for="template_donottrack"><?php echo $BL['be_respect_donottrack']; ?></label></td>
+        </tr>
+
+        <tr>
             <td><input type="checkbox" name="template_ga" id="template_ga" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_ga"><?php echo $BL['be_google_analytics_enable']; ?></label></td>
         </tr>
@@ -557,6 +574,26 @@ foreach($phpwcms['js_lib'] as $key => $value) {
                     </tr>
                 </table>
             </td>
+        </tr>
+
+        <tr>
+          <td><input type="checkbox" name="template_require_consent" id="template_require_consent" value="1"<?php is_checked($template['require_consent']['enable'], 1); ?> /></td>
+          <td class="v10"><label for="template_require_consent"><?php echo $BL['be_require_consent']; ?></label></td>
+        </tr>
+        <tr id="template-cr-form">
+          <td>&nbsp;</td>
+          <td class="tdbottom5">
+              <table cellpadding="0" cellspacing="0" border="0" class="tdtop3">
+                  <tr>
+                      <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_consent_cookie_name']; ?>:&nbsp;</td>
+                      <td class="tdbottom3"><input type="text" name="template_require_cookie_name" maxlength="255"  class="width400" placeholder="<?php echo $BL['placeholder_require_cookie_name']; ?>" value="<?php echo html($template['require_consent']['cookie_name']) ?>" /></td>
+                  </tr>
+                  <tr>
+                      <td align="right" class="chatlist tdtop4 nowrap"><?php echo $BL['be_consent_cookie_value']; ?>:&nbsp;</td>
+                      <td class="tdbottom3"><input type="text" name="template_require_cookie_value" maxlength="255" class="width400" placeholder="<?php echo $BL['placeholder_require_cookie_value']; ?>" value="<?php echo html($template['require_consent']['cookie_value']) ?>" /></td>
+                  </tr>
+              </table>
+          </td>
         </tr>
 
         <tr>

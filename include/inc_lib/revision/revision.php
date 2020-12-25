@@ -10,5 +10,5 @@
  **/
 
 define('PHPWCMS_VERSION', '1.9.22-dev');
-define('PHPWCMS_RELEASE_DATE', '2020/12/24');
+define('PHPWCMS_RELEASE_DATE', '2020/12/25');
 define('PHPWCMS_REVISION', '551');

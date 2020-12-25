@@ -1443,6 +1443,12 @@ $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Deactivate tracking code widthout consent';
+$BL['be_consent_cookie_name'] = 'Consent cookie name';
+$BL['be_consent_cookie_value'] = 'Consent cookie value';
+$BL['be_respect_donottrack'] = 'Respect the Do-Not-Track browser setting';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
