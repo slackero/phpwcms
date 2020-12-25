@@ -633,9 +633,14 @@ class GoogleMapAPI {
     /**
      * JSON class path
      *
+     * @deprecated
      * @var string
      */
-    var $class_json_path = 'JSON.php';
+    var $class_json_path = null;
+    /**
+     * @deprecated
+     * @var bool
+     */
     var $use_json_class = false;
 
     /**
@@ -745,15 +750,12 @@ class GoogleMapAPI {
         $this->jslibSelectorDefault();
     }
 
+    /**
+     * @deprecated
+     * @param null $path
+     */
     function useJsonClass($path=NULL) {
-        if($path != NULL) {
-            $this->class_json_path = $path;
-        }
-        if( require_once( $this->class_json_path ) ) {
-            $this->use_json_class = true;
-        } else {
-            $this->use_json_class = false;
-        }
+        $this->use_json_class = false;
     }
 
     /**
@@ -773,15 +775,13 @@ class GoogleMapAPI {
      * @return string|false Width or false if not a valid value
      */
     function setWidth($width) {
-        if(!preg_match('!^(\d+)(.*)$!',$width,$_match))
+        if(!preg_match('!^(\d+)(.*)$!',$width,$_match)) {
             return false;
+        }
 
         $_width = $_match[1];
         $_type = $_match[2];
-        if($_type == '%')
-            $this->width = $_width . '%';
-        else
-            $this->width = $_width . 'px';
+        $this->width = $_width . ($_type == '%' ? '%' : 'px');
 
         return true;
     }
@@ -793,15 +793,13 @@ class GoogleMapAPI {
      * @return string|false Height or false if not a valid value
      */
     function setHeight($height) {
-        if(!preg_match('!^(\d+)(.*)$!',$height,$_match))
+        if(!preg_match('!^(\d+)(.*)$!',$height,$_match)) {
             return false;
+        }
 
         $_height = $_match[1];
         $_type = $_match[2];
-        if($_type == '%')
-            $this->height = $_height . '%';
-        else
-            $this->height = $_height . 'px';
+        $this->height = $_height . ($_type == '%' ? '%' : 'px');
 
         return true;
     }
@@ -2750,16 +2748,10 @@ class GoogleMapAPI {
             case 'GOOGLE':
 
                 $_url = sprintf('%s/maps/api/geocode/json?sensor=%s&address=%s', $this->lookup_server['GOOGLE'], $this->mobile==true ? "true" : "false", rawurlencode($address));
-                $_result = $this->fetchURL($_url);
 
-                if($_result) {
+                if($_result = $this->fetchURL($_url)) {
 
-                    if($this->use_json_class) {
-                        $json = new Services_JSON();
-                        $_result_parts = $json->decode($_result);
-                    } else {
-                        $_result_parts = json_decode($_result);
-                    }
+                    $_result_parts = json_decode($_result);
 
                     if($_result_parts->status != 'OK'){
                         return false;
@@ -2776,12 +2768,12 @@ class GoogleMapAPI {
             case 'YAHOO':
             default:
                 $_url = sprintf('%s/MapsService/V1/geocode?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id, rawurlencode($address));
-                $_result = false;
 
                 if($_result = $this->fetchURL($_url)) {
-                    preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match);
-                    $_coords['lon'] = $_match[2];
-                    $_coords['lat'] = $_match[1];
+                    if(preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                        $_coords['lon'] = $_match[2];
+                        $_coords['lat'] = $_match[1];
+                    }
                 }
 
                 break;
@@ -2796,32 +2788,28 @@ class GoogleMapAPI {
      * a lot of data in a full geocode response to cache.
      *
      * @param string $address
-     * @return bool|array false if can't be geocoded, array or geocdoes if successful
+     * @return bool|array false if can't be geocoded, array or geocodes if successful
      */
     function geoGetCoordsFull($address, $depth=0) {
         switch($this->lookup_service) {
             case 'GOOGLE':
                 $_url = sprintf('%s/maps/api/geocode/json?sensor=%s&address=%s', $this->lookup_server['GOOGLE'], $this->mobile==true ? "true" : "false", rawurlencode($address));
-                $_result = $this->fetchURL($_url);
-                if($_result) {
-                    if($this->use_json_class) {
-                        $json = new Services_JSON();
-                        return $json->decode($_result);
-                    } else {
-                        return json_decode($_result);
-                    }
+                if($_result = $this->fetchURL($_url)) {
+                    return json_decode($_result);
                 }
                 break;
 
             case 'YAHOO':
             default:
                 $_url = sprintf('%s/MapsService/V1/geocode?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id,rawurlencode($address));
-                $_result = false;
                 if($_result = $this->fetchURL($_url)) {
-                    return $_match;
+                    if (preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                        return array('lon' => $_match[2], 'lat' => $_match[1]);
+                    }
                 }
                 break;
         }
+        return false;
     }
 
     /**

@@ -367,9 +367,13 @@ class GoogleMapAPI
 	/**
 	* JSON class path
 	*
+    * @deprecated
 	* @var string
 	*/
-	var $class_json_path = 'JSON.php';
+	var $class_json_path = null;
+    /**
+     * @var bool
+     */
 	var $use_json = false;
 
 	/**
@@ -447,14 +451,7 @@ class GoogleMapAPI
 	}
 
 	function useJson($path=NULL) {
-		if($path != NULL) {
-			$this->class_json_path = $path;
-		}
-		if( require_once( $this->class_json_path ) ) {
-			$this->use_json = true;
-		} else {
-			$this->use_json = false;
-		}
+		$this->use_json = true;
 	}
 
 	function useCSV() {
@@ -1573,8 +1570,6 @@ class GoogleMapAPI
 
             case 'GOOGLE':
 
-				$_result = false;
-
 				// use JSON
 				if($this->use_json) {
 
@@ -1584,8 +1579,7 @@ class GoogleMapAPI
 
 					if ( $_result ) {
 
-						$json = new Services_JSON();
-						$_result_parts = $json->decode( $_result );
+						$_result_parts = json_decode( $_result );
 
 						if(!isset($_result_parts->Placemark[0]) || !isset($_result_parts->Status->code) || $_result_parts->Status->code != 200) {
 							return false;
@@ -1623,15 +1617,11 @@ class GoogleMapAPI
                 $_url = 'http://%s/MapsService/V1/geocode';
                 $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
 
-                $_result = false;
-
                 if($_result = $this->fetchURL($_url)) {
-
-                    preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match);
-
-                    $_coords['lon'] = $_match[2];
-                    $_coords['lat'] = $_match[1];
-
+                    if (preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                        $_coords['lon'] = $_match[2];
+                        $_coords['lat'] = $_match[1];
+                    }
                 }
 
                 break;

@@ -111,20 +111,9 @@ switch($action) {
 		break;
 }
 
-if($method == 'json') {
+if($method === 'json') {
 
 	header('Content-type: application/json');
-	if(!function_exists('json_encode')) {
-
-		require(PHPWCMS_ROOT.'/include/inc_ext/JSON.php');
-		$json = new Services_JSON();
-
-		echo $json->encode( $data );
-
-	} else {
-
-		echo json_encode( $data );
-
-	}
+	echo json_encode($data);
 
 }
