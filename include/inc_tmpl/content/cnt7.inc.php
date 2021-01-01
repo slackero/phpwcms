@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -72,7 +72,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
         <tr>
             <td bgcolor="#E7E8EB"><input name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
                 is_checked(1, $content['file']['direct_download']);
-                if($content['file']['direct_download_deny']) {
+                if($content['file']['direct_download_deny'] && !$content['file']['direct_download']) {
                     echo ' disabled="disabled"';
                 }
             ?> /></td>
@@ -176,7 +176,7 @@ $wysiwyg_editor = array(
 	'value'		=> isset($content["html"]) ? $content["html"] : '',
 	'field'		=> 'chtml',
 	'height'	=> '250px',
-	'width'		=> '536px',
+	'width'		=> '100%',
 	'rows'		=> '15',
 	'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 	'lang'		=> 'en'

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -27,7 +27,7 @@ if($action == 'delete') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
 } elseif($action == 'show') {
 
@@ -72,7 +72,7 @@ if($action == 'delete') {
 
 	} else {
 
-		headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+		headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
 	}
 

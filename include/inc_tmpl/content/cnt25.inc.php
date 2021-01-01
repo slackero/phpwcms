@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -62,6 +62,9 @@ if(!isset($fmp_data['fmp_set_audio'])) {
 }
 if(!isset($fmp_data['fmp_set_loop'])) {
     $fmp_data['fmp_set_loop'] = 0;
+}
+if(!isset($fmp_data['fmp_set_downloadbutton'])) {
+    $fmp_data['fmp_set_downloadbutton'] = 0;
 }
 
 ?>
@@ -329,6 +332,11 @@ if(!isset($fmp_data['fmp_set_loop'])) {
         <tr>
             <td class="chatlist" align="right"><label for="fmp_set_loop">Loop:&nbsp;</label></td>
             <td><input type="checkbox" name="fmp_set_loop" id="fmp_set_loop" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> /></td>
+        </tr>
+
+        <tr>
+            <td class="chatlist" align="right"><label for="fmp_set_downloadbutton"><?php echo $BL['be_hide_downloadbutton'] ?>:&nbsp;</label></td>
+            <td><input type="checkbox" name="fmp_set_downloadbutton" id="fmp_set_downloadbutton" value="1"<?php is_checked(1, $fmp_data['fmp_set_downloadbutton']) ?> /></td>
         </tr>
 
         <tr>

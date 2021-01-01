@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -90,7 +90,7 @@ function renderHeadJS($js) {
     }
 
     // detect remote if `http://example.com`, `https://example.com` or `//example.com`
-    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//' ? true : false;
+    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//';
 
     if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
 

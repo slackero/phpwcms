@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -43,7 +43,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['is_imagetext']       = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false ? true : false;
+$crow['is_imagetext']       = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
 $crow['has_image']          = false;
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8

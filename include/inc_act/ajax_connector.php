@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -111,20 +111,9 @@ switch($action) {
 		break;
 }
 
-if($method == 'json') {
+if($method === 'json') {
 
 	header('Content-type: application/json');
-	if(!function_exists('json_encode')) {
-
-		require(PHPWCMS_ROOT.'/include/inc_ext/JSON.php');
-		$json = new Services_JSON();
-
-		echo $json->encode( $data );
-
-	} else {
-
-		echo json_encode( $data );
-
-	}
+	echo json_encode($data);
 
 }

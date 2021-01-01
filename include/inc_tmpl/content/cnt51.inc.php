@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -187,7 +187,7 @@ $wysiwyg_editor = array(
     'value'     => empty($content['location']["entry"]) ? '' : $content['location']["entry"],
     'field'     => 'cmap_location_entry',
     'height'    => '250px',
-    'width'     => '440px',
+    'width'     => '100%',
     'rows'      => '7',
     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
     'lang'      => 'en'

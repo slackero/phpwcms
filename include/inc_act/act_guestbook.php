@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -123,7 +123,7 @@ if(isset($result[0]['guestbook_cid'])) {
 
         foreach($result as $row) {
 
-            $action_basis = get_token_get_string('csrftoken').'&amp;cid='.$row['guestbook_cid'].'&amp;';
+            $action_basis = get_token_get_string().'&amp;cid='.$row['guestbook_cid'].'&amp;';
 
 ?>
   <tr bgcolor="#E7E8EB">
@@ -159,7 +159,7 @@ if(isset($result[0]['guestbook_cid'])) {
         foreach($result as $row) {
 ?>
   <tr bgcolor="#E7E8EB">
-    <td>[<a href="act_guestbook.php?<?php echo get_token_get_string('csrftoken'); ?>&amp;cid=<?php echo $row['guestbook_cid'] ?>" target="_self">close</a>]<br /><img src="../../img/leer.gif" alt="" width="1" height="2" /></td>
+    <td>[<a href="act_guestbook.php?<?php echo get_token_get_string(); ?>&amp;cid=<?php echo $row['guestbook_cid'] ?>" target="_self">close</a>]<br /><img src="../../img/leer.gif" alt="" width="1" height="2" /></td>
     <td><strong><?php echo date('Y-m-d H:i', intval($row['guestbook_created'])).' | IP: <a href="http://www.dnsstuff.com/tools/ptr.ch?ip='.$row['guestbook_ip'].'" target="_blank">'.$row['guestbook_ip'].'</a> | <a href="http://www.dnsstuff.com/tools/whois.ch?ip='.$row['guestbook_ip'].'" target="_blank">WHOIS</a>' ?></strong></td>
   </tr>
   <tr><td colspan="2"><img src="../../img/leer.gif" alt="" width="1" height="1" /></td></tr>
@@ -177,7 +177,7 @@ if(isset($result[0]['guestbook_cid'])) {
     $token_value = generate_session_token($token_name);
 
   ?>
-  <form name="editguestbook" action="act_guestbook.php?<?php echo get_token_get_string('csrftoken').'&amp;cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
+  <form name="editguestbook" action="act_guestbook.php?<?php echo get_token_get_string().'&amp;cid='.$row['guestbook_cid'].'&amp;edit='.$row['guestbook_id'] ?>" target="_self" method="post">
 
   <tr>
       <td>name:&nbsp;</td>
@@ -207,7 +207,7 @@ if(isset($result[0]['guestbook_cid'])) {
         <input type="hidden" name="csrf_token_name" value="<?php echo $token_name; ?>" />
         <input type="hidden" name="csrf_token_value" value="<?php echo $token_value; ?>" />
         <input name="gbsubmit" type="submit" id="gbsubmit" value="submit changes" />
-        <input name="gbcancel" type="button" id="gbcancel" value="close" onclick="location.href='act_guestbook.php?<?php echo get_token_get_string('csrftoken'); ?>&amp;cid=<?php echo $row['guestbook_cid']; ?>';" />
+        <input name="gbcancel" type="button" id="gbcancel" value="close" onclick="location.href='act_guestbook.php?<?php echo get_token_get_string(); ?>&amp;cid=<?php echo $row['guestbook_cid']; ?>';" />
     </td>
   </tr>
   </form>

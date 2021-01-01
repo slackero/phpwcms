@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -263,17 +263,12 @@ if(isset($search["result"])) {
 
     echo "</table>\n"; //Ende Tabelle
 
+} elseif(isset($search["string"])) { //kein gültiges Suchergebnis
+    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
+    echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 } else {
-    //kein gültiges Suchergebnis
-    if(isset($search["string"])) {
-        echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
-        echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
-    } else {
-        echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
-        echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_fillin'];
-        echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
-    }
+    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_fillin'];
+    echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
 }
-
-?>

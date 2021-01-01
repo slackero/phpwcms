@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -21,7 +21,8 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $phpwcms_version = PHPWCMS_VERSION;
 $phpwcms_release_date = PHPWCMS_RELEASE_DATE;
 $phpwcms_revision = PHPWCMS_REVISION;
-define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
+define('PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
@@ -429,7 +430,6 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
             case 'UPDATE':
                 $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
                 return $queryResult;
-                break;
 
             // SELECT Queries
             case 'ROW':

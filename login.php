@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -84,9 +84,9 @@ if(!empty($_POST['ref_url'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken');
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
 
-define('LOGIN_TOKEN', generate_get_token('csrftoken'));
+define('LOGIN_TOKEN', generate_get_token());
 
 // reset all inactive users
 $sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
@@ -241,7 +241,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
         }
 
-        headerRedirect($backend_redirect . get_token_get_string('csrftoken') . '&' . session_name().'='.session_id());
+        headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
 
     } else {
 
@@ -338,12 +338,17 @@ ob_start();
     if(file_exists(PHPWCMS_ROOT.'/setup')) {
         echo '<div class="alert alert-warning">'.$BL["setup_dir_exists"].'</div>';
     }
+
+    if(isset($_POST['json']) && $_POST['json'] == 2) {
+        $err = 0;
+    }
+
     if(file_exists(PHPWCMS_ROOT.'/phpwcms_code_snippets')) {
         echo '<div class="alert alert-danger">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
     }
 
-    if(isset($_POST['json']) && $_POST['json'] == 2) {
-        $err = 0;
+    if(($phpwcms['image_library'] === 'gd' || $phpwcms['image_library'] === 'gd2') && (!extension_loaded('gd') || !function_exists('gd_info'))) {
+        echo '<div class="alert alert-danger" style="font-weight:normal;">'.$BL['gd_not_loaded'].'</div>';
     }
 
     echo '<div class="alert alert-danger"';

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -92,7 +92,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
             echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Trennlinie
 
             if(!$pklapp_status) {
-                list_public(0, 18, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $_SESSION["wcs_user_thumb"], $phpwcms);
+                list_public(0, 18, "phpwcms.php?do=files&amp;f=1", $row["f_uid"], $phpwcms);
 
                 //Root files anzeigen
                 $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_uid=".$root_user_id.

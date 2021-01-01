@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -72,8 +72,8 @@ $fmp_data = array(
 
     'fmp_set_html5only'         => empty($_POST['fmp_set_html5only']) ? 0 : 1,
     'fmp_set_audio'             => empty($_POST['fmp_set_audio']) ? 0 : 1,
-    'fmp_set_loop'              => empty($_POST['fmp_set_loop']) ? 0 : 1
-
+    'fmp_set_loop'              => empty($_POST['fmp_set_loop']) ? 0 : 1,
+    'fmp_set_downloadbutton'    => empty($_POST['fmp_set_downloadbutton']) ? 0 : 1
 );
 
 // make some checks

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -35,7 +35,6 @@ $template_default['imagegallery_default_height'] = isset($template_default['imag
 $template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
 
 $content['image_default'] = array(
-
     'pos'           => 0,
     'width'         => $template_default['imagegallery_default_width'],
     'height'        => $template_default['imagegallery_default_height'],
@@ -55,7 +54,6 @@ $content['image_default'] = array(
     'fx3'           => 0,
     'freetext'      => '',
     'images'        => array()
-
 );
 
 $content['image_special'] = isset($content['image_special']) ? array_merge($content['image_default'], $content['image_special']) : $content['image_default'];
@@ -117,12 +115,10 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
          <td>
             <select name="cimage_center" id="cimage_center" class="v11 width150">
-
                 <option value="0"<?php is_selected(0, $content['image_special']['center']); ?>><?php echo $BL['be_cnt_imagenocenter'] ?></option>
                 <option value="1"<?php is_selected(1, $content['image_special']['center']); ?>><?php echo $BL['be_cnt_imagecenter'] ?></option>
                 <option value="2"<?php is_selected(2, $content['image_special']['center']); ?>><?php echo $BL['be_cnt_imagecenterh'] ?></option>
                 <option value="3"<?php is_selected(3, $content['image_special']['center']); ?>><?php echo $BL['be_cnt_imagecenterv'] ?></option>
-
             </select>
         </td>
 
@@ -138,7 +134,6 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
     <td align="right" class="chatlist"><?php echo $BL['be_flashplayer_thumbnail'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
-
             <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onkeyup="setCimageCenterInactive();" value="<?php echo $content['image_special']['width']; ?>" /></td>
             <td class="chatlist">&nbsp;x&nbsp;</td>
 
@@ -147,7 +142,6 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
             <td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_special']['crop']); ?> /></td>
             <td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
-
         </tr>
     </table></td>
 </tr>
@@ -187,7 +181,6 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_zoom'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
-
             <td><input name="cimage_width_zoom" type="text" class="f11b" id="cimage_width_zoom" style="width: 50px;" size="4" maxlength="4" value="<?php echo $content['image_special']['width_zoom']; ?>" /></td>
             <td class="chatlist">&nbsp;x&nbsp;</td>
 
@@ -196,7 +189,6 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
             <td><input type="checkbox" name="cimage_crop_zoom" id="cimage_crop_zoom" value="1" <?php is_checked(1, $content['image_special']['crop_zoom']); ?> /></td>
             <td class="v10"><label for="cimage_crop_zoom" class="checkbox"><?php echo $BL['be_image_cropit'] ?></label></td>
-
         </tr>
     </table></td>
 </tr>
@@ -217,9 +209,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                 <td>&nbsp;</td>
                 <td><input name="cimage_nocaption" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_special']['nocaption']); ?> /></td>
                 <td class="v10"><label for="cimage_nocaption" class="checkbox"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label></td>
-
             </tr>
-
             <tr>
                 <td><input name="cimage_fx1" type="checkbox" id="cimage_fx1" value="1" <?php is_checked(1, $content['image_special']['fx1']); ?> /></td>
                 <td class="v10"><label for="cimage_fx1" class="checkbox"><?php echo $BL['be_fx_1'] ?></label></td>
@@ -231,26 +221,20 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                 <td>&nbsp;</td>
                 <td><input name="cimage_fx3" type="checkbox" id="cimage_fx3" value="1" <?php is_checked(1, $content['image_special']['fx3']); ?> /></td>
                 <td class="v10"><label for="cimage_fx3" class="checkbox"><?php echo $BL['be_fx_3'] ?></label></td>
-
             </tr>
-
         </table>
     </td>
 </tr>
-
 
 <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
     <td class="chatlist tdtop5" align="right"><?php echo $BL['be_ctype_images'] ?>:&nbsp;</td>
     <td class="tdbottom4">
-
-    <button onclick="return addNewImage('top');">
-        <span class="btn_image_add"><?php echo $BL['be_article_cnt_add'] ?></span>
-    </button>
-
+        <button onclick="return addNewImage('top');">
+            <span class="btn_image_add"><?php echo $BL['be_article_cnt_add'] ?></span>
+        </button>
     </td>
-
 </tr>
 
 <tr>
@@ -383,6 +367,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                     }
 
                     $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+                    $is_wysiwyg = $tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($tab_fieldgroup['fields'][$custom_field]['render']) && $tab_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg';
 ?>
                     <tr>
                         <td class="chatlist right tdtop8" nowrap="nowrap"><?php
@@ -426,12 +411,29 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                             <?php endif; ?>
                             />
 
-            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'):
+
+                        if ($is_wysiwyg):
+                            $wysiwyg_editor = array(
+                                'value' => isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : '',
+                                'field' => 'customfield[' . $key . '][' . $custom_field . ']',
+                                'height' => empty($tab_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $tab_fieldgroup['fields'][$custom_field]['height'],
+                                'width' => '100%',
+                                'rows' => empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $tab_fieldgroup['fields'][$custom_field]['rows'],
+                                'editor' => $_SESSION["WYSIWYG_EDITOR"],
+                                'lang' => 'en',
+                                'config' => 'tabs'
+                            );
+
+                            include PHPWCMS_ROOT . '/include/inc_lib/wysiwyg.editor.inc.php';
+
+                        else: ?>
                             <textarea name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" class="v11 width400 autosize"<?php echo $custom_field_placeholder; ?> rows="<?php
                                 echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows'];
-                            ?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea>
+                            ?>"><?php if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); } ?></textarea><?php
+                        endif;
 
-            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+                    elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
                         foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                             <label class="radio tab-option-radio">
                                 <input type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
@@ -581,7 +583,7 @@ $wysiwyg_editor = array(
     'value'     => isset($content["image_html"]) ? $content["image_html"] : '',
     'field'     => 'image_html',
     'height'    => '300px',
-    'width'     => '536px',
+    'width'     => '100%',
     'rows'      => '15',
     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
     'lang'      => 'en'

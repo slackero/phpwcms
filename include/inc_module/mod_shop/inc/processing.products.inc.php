@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -25,7 +25,7 @@ if($action == 'edit') {
 
 		// check if form should be closed only -> and back to listing mode
 		if( isset($_POST['close']) ) {
-			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
+			headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );
 		}
 
 		$plugin['data']['shopprod_changedate']		= time();
@@ -307,9 +307,9 @@ if($action == 'edit') {
 
 			// save and back to listing mode
 			if( isset($_POST['save']) ) {
-				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
+				headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );
 			} else {
-				headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod&edit='.$plugin['data']['shopprod_id'], '') );
+				headerRedirect( shop_url(get_token_get_string().'&controller=prod&edit='.$plugin['data']['shopprod_id'], '') );
 			}
 
 		}
@@ -381,7 +381,7 @@ if($action == 'edit') {
 			$plugin['data']['shopprod_overwrite_meta']	= empty($plugin['data']['shopprod_overwrite_meta']) ? 0 : 1;
 
 		} else {
-			headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
+			headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );
 		}
 
 	}
@@ -408,7 +408,7 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );
 
 } elseif($action == 'delete') {
 
@@ -420,6 +420,6 @@ if($action == 'edit') {
 
 	_dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=prod', '') );
+	headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );
 
 }

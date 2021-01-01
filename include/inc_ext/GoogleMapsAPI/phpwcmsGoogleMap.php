@@ -2507,9 +2507,10 @@ class GoogleMapAPI {
                 $_url = sprintf('http://%s/MapsService/V1/geocode?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
                 $_result = false;
                 if($_result = $this->fetchURL($_url)) {
-                    preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match);
-                    $_coords['lon'] = $_match[2];
-                    $_coords['lat'] = $_match[1];
+                    if(preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                        $_coords['lon'] = $_match[2];
+                        $_coords['lat'] = $_match[1];
+                    }
                 }
                 break;
         }
@@ -2528,7 +2529,6 @@ class GoogleMapAPI {
         switch($this->lookup_service) {
             case 'GOOGLE':
                 $_url = sprintf('http://%s/maps/api/geocode/json?sensor=%s&address=%s',$this->lookup_server['GOOGLE'], $this->mobile==true?"true":"false", rawurlencode($address));
-                $_result = false;
                 if($_result = $this->fetchURL($_url)) {
                     return json_decode($_result);
                 }
@@ -2537,12 +2537,14 @@ class GoogleMapAPI {
             default:
                 $_url = 'http://%s/MapsService/V1/geocode';
                 $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
-                $_result = false;
                 if($_result = $this->fetchURL($_url)) {
-                    return $_match;
+                    if(preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                        return array('lon' => $_match[2], 'lat' => $_match[1]);
+                    }
                 }
                 break;
         }
+        return false;
     }
 
     /**

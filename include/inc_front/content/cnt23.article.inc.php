@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -431,17 +431,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 break;
                         }
                     }
-                } else {
-
-                    if(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) &&
-                       $cnt_form['special_attribute']['type'] == 'DATE' && $cnt_form['special_attribute']['default'] == 'NOW') {
-                        echo 'ja';
-                        if(isset($cnt_form['special_attribute']['dateformat'])) {
-                            $cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat']);
-                        } else {
-                            $cnt_form["fields"][$key]['value'] = date('m/d/Y');
-                        }
-                    }
+                } elseif(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) && $cnt_form['special_attribute']['type'] === 'DATE' && $cnt_form['special_attribute']['default'] === 'NOW') {
+                    $cnt_form["fields"][$key]['value'] = date(isset($cnt_form['special_attribute']['dateformat']) ? $cnt_form['special_attribute']['dateformat'] : 'm/d/Y');
                 }
 
                 $form_field_type = 'text';
@@ -903,16 +894,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         if(!count($POST_val[$POST_name])) {
                             $POST_val[$POST_name] = '';
                         }
-                    } else {
-
-                        if(isset($_POST[$POST_name])) {
-                            $POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
-                            if($checkbox_copy) {
-                                $cnt_form['option_email_copy'] = true;
-                            }
-                        } else {
-                            $POST_val[$POST_name] = '';
+                    } elseif(isset($_POST[$POST_name])) {
+                        $POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
+                        if($checkbox_copy) {
+                            $cnt_form['option_email_copy'] = true;
                         }
+                    } else {
+                        $POST_val[$POST_name] = '';
                     }
                     if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
                         $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
@@ -1630,79 +1618,74 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $form_cnt = str_replace('{'.$POST_name.'}', $form_field, $form_cnt);
                 $form_cnt = str_replace('{LABEL:'.$POST_name.'}', html_specialchars($cnt_form["fields"][$key]['label']), $form_cnt);
 
+            } elseif($cnt_form["fields"][$key]['type'] === 'reset' && strpos($form_cnt, '###RESET###')) { // default table
+
+                $form_cnt = str_replace('###RESET###', $form_field, $form_cnt);
+
             } else {
 
-                // default table
-                if($cnt_form["fields"][$key]['type'] === 'reset' && strpos($form_cnt, '###RESET###')) {
-
-                    $form_cnt = str_replace('###RESET###', $form_field, $form_cnt);
-
+                if($cnt_form["fields"][$key]['required']) {
+                    $cnt_form['labelReqMark']  = $cnt_form["cform_reqmark"];
+                    $cnt_form['requiredClass'] = ' required';
                 } else {
+                    $cnt_form['labelReqMark']  = '';
+                    $cnt_form['requiredClass'] = '';
+                }
 
-                    if($cnt_form["fields"][$key]['required']) {
-                        $cnt_form['labelReqMark']  = $cnt_form["cform_reqmark"];
-                        $cnt_form['requiredClass'] = ' required';
-                    } else {
-                        $cnt_form['labelReqMark']  = '';
-                        $cnt_form['requiredClass'] = '';
-                    }
+                $cnt_form['typeClass'] = 'form-type-'.$cnt_form["fields"][$key]['type'];
 
-                    $cnt_form['typeClass'] = 'form-type-'.$cnt_form["fields"][$key]['type'];
+                if($cnt_form["fields"][$key]['class']) {
+                    $cnt_form['typeClass'] .= ' ftc-'.$cnt_form["fields"][$key]['class'];
+                }
 
-                    if($cnt_form["fields"][$key]['class']) {
-                        $cnt_form['typeClass'] .= ' ftc-'.$cnt_form["fields"][$key]['class'];
-                    }
+                if($cnt_form['labelpos'] == 0) {
 
-                    if($cnt_form['labelpos'] == 0) {
-
-                        // label: field
-                        if($cnt_form["fields"][$key]['type'] != 'break') {
-                            $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'">'.'<td class="form-label'.$cnt_form['requiredClass'].'">';
-                            if($cnt_form["fields"][$key]['label'] != '') {
-                                $form_cnt .= $cnt_form['label_wrap'][0];
-                                $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
-                                $form_cnt .= $cnt_form['labelReqMark'];
-                                $form_cnt .= $cnt_form['label_wrap'][1];
-                            } else {
-                                $form_cnt .= '&nbsp;';
-                            }
-                            $form_cnt .= "</td>\n";
-                            $form_cnt .= '<td class="form-field">'.$form_field."</td>\n</tr>\n";
-                        } else {
-                            // colspan for break
-                            $form_cnt .= '<tr><td colspan="2">'.$form_field."</td></tr>\n";
-                        }
-
-                    } elseif($cnt_form['labelpos'] == 3) {
-
-                        // DIV based
-                        $form_cnt .= '<div class="'.$cnt_form['typeClass'].' form-field'.$cnt_form['requiredClass'];
-                        if($cnt_form["fields"][$key]['label'] !== '') {
-                            $form_cnt .= '">' . LF . '  <label class="form-label'.$cnt_form['requiredClass'].'">';
+                    // label: field
+                    if($cnt_form["fields"][$key]['type'] != 'break') {
+                        $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'">'.'<td class="form-label'.$cnt_form['requiredClass'].'">';
+                        if($cnt_form["fields"][$key]['label'] != '') {
                             $form_cnt .= $cnt_form['label_wrap'][0];
                             $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
                             $form_cnt .= $cnt_form['labelReqMark'];
                             $form_cnt .= $cnt_form['label_wrap'][1];
-                            $form_cnt .= '</label>';
                         } else {
-                            $form_cnt .= ' no-label">';
+                            $form_cnt .= '&nbsp;';
                         }
-                        $form_cnt .= LF . ' ' . $form_field . LF . '</div>' . LF;
-
+                        $form_cnt .= "</td>\n";
+                        $form_cnt .= '<td class="form-field">'.$form_field."</td>\n</tr>\n";
                     } else {
-
-                        // label:field
-                        if($cnt_form["fields"][$key]['label'] !== '') {
-                            $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
-                            $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
-                            $form_cnt .= $cnt_form['labelReqMark'];
-                            $form_cnt .= $cnt_form['label_wrap'][1]."</td></tr>\n";
-                        }
-                        $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-field">'.$form_field."</td></tr>\n";
-
+                        // colspan for break
+                        $form_cnt .= '<tr><td colspan="2">'.$form_field."</td></tr>\n";
                     }
-                }
 
+                } elseif($cnt_form['labelpos'] == 3) {
+
+                    // DIV based
+                    $form_cnt .= '<div class="'.$cnt_form['typeClass'].' form-field'.$cnt_form['requiredClass'];
+                    if($cnt_form["fields"][$key]['label'] !== '') {
+                        $form_cnt .= '">' . LF . '  <label class="form-label'.$cnt_form['requiredClass'].'">';
+                        $form_cnt .= $cnt_form['label_wrap'][0];
+                        $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
+                        $form_cnt .= $cnt_form['labelReqMark'];
+                        $form_cnt .= $cnt_form['label_wrap'][1];
+                        $form_cnt .= '</label>';
+                    } else {
+                        $form_cnt .= ' no-label">';
+                    }
+                    $form_cnt .= LF . ' ' . $form_field . LF . '</div>' . LF;
+
+                } else {
+
+                    // label:field
+                    if($cnt_form["fields"][$key]['label'] !== '') {
+                        $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
+                        $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
+                        $form_cnt .= $cnt_form['labelReqMark'];
+                        $form_cnt .= $cnt_form['label_wrap'][1]."</td></tr>\n";
+                    }
+                    $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-field">'.$form_field."</td></tr>\n";
+
+                }
             }
         }
 
@@ -2018,7 +2001,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-            $mail->AddReplyTo($cnt_form['sender']);
+            $mail->addReplyTo($cnt_form['sender']);
 
             $cnt_form["copytoError"] = array();
 
@@ -2084,7 +2067,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-            $mail->AddReplyTo($cnt_form['sender']);
+            $mail->addReplyTo($cnt_form['sender']);
 
             $cnt_form["copytoError"] = array();
 
@@ -2137,7 +2120,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
-        $mail->AddReplyTo($cnt_form['sender']);
+        $mail->addReplyTo($cnt_form['sender']);
 
         if(!empty($cnt_form["target"]) && is_array($cnt_form["target"]) && count($cnt_form["target"])) {
 
@@ -2292,21 +2275,16 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                     $CNT_TMP .= '</div>';
                 }
 
-            } else {
+            } elseif($cnt_form["onsuccess_redirect"] === 1) {
+                // redirect on success
+                headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onsuccess"]));
 
-                if($cnt_form["onsuccess_redirect"] === 1) {
-                    // redirect on success
-                    headerRedirect(str_replace('{SITE}', PHPWCMS_URL, $cnt_form["onsuccess"]));
-
-                } elseif($cnt_form["onsuccess"]) {
-                    // success
-
-                    $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
-                    $CNT_TMP .= !$cnt_form["onsuccess_redirect"] ? plaintext_htmlencode($cnt_form["onsuccess"]) : $cnt_form["onsuccess"];
-                    $CNT_TMP .= '</div>';
-                }
+            } elseif($cnt_form["onsuccess"]) {
+                // success
+                $CNT_TMP .= '<div class="' . trim('form-success ' . $cnt_form["class"]) . '">' . LF;
+                $CNT_TMP .= !$cnt_form["onsuccess_redirect"] ? plaintext_htmlencode($cnt_form["onsuccess"]) : $cnt_form["onsuccess"];
+                $CNT_TMP .= '</div>';
             }
-
         }
     }
     if(!empty($cnt_form["copytoError"])) {
@@ -2387,27 +2365,11 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
             unset($form_error);
         }
-
     }
 
-} else {
+} elseif(!empty($cnt_form['startup'])) { // form was not send yet, display startup text
 
-    // form was not send yet
-    // display startup text
-
-    if(!empty($cnt_form['startup'])) {
-
-        if(empty($cnt_form['startup_html'])) {
-
-            $CNT_TMP .= '<div class="form-intro">' . plaintext_htmlencode($cnt_form['startup']) . '</div>';
-
-        } else {
-
-            $CNT_TMP .= $cnt_form['startup'];
-
-        }
-
-    }
+    $CNT_TMP .= empty($cnt_form['startup_html']) ? '<div class="form-intro">' . plaintext_htmlencode($cnt_form['startup']) . '</div>' : $cnt_form['startup'];
 
 }
 

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -436,7 +436,7 @@ $(function(){
             'value'     => $news->data['cnt_text'],
             'field'     => 'cnt_text',
             'height'    => '250px',
-            'width'     => '536px',
+            'width'     => '100%',
             'rows'      => '10',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'

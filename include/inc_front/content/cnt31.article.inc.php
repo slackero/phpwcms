@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -89,7 +89,7 @@ if($image['template']) {
         $image['custom_tab_fields'] = array();
     } else {
         $image['custom_tab_fields'] = array_keys($template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields']);
-        $image['field_render'] = array('html', 'markdown', 'plain');
+        $image['field_render'] = array('html', 'markdown', 'plain', 'wysiwyg');
         $image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
     }
 
@@ -277,7 +277,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['name_zoom']);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -321,14 +321,11 @@ if($image['template']) {
                 $img_zoom_height    = $zoominfo[2];
                 $img_zoom_filename  = $value['zoom_name'];
 
+            } elseif($caption[2][0]) { // if not click enlarge
+                $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
+                $img_a .= $img_thumb_link.$list_img_temp.'</a>';
             } else {
-                // if not click enlarge
-                if($caption[2][0]) {
-                    $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
-                    $img_a .= $img_thumb_link.$list_img_temp.'</a>';
-                } else {
-                    $img_a .= $list_img_temp;
-                }
+                $img_a .= $list_img_temp;
             }
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);

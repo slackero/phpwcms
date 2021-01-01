@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -406,15 +406,12 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos
                 }
 
                 // source image dimensions width and/or height is smaller than target
+            } elseif($ratio_width <= $ratio_height) {
+                $config['resize_width'] = ceil($orig_width + ($orig_width * (1 - $ratio_height)));
+                $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
             } else {
-
-                if($ratio_width <= $ratio_height) {
-                    $config['resize_width'] = ceil($orig_width + ($orig_width * (1 - $ratio_height)));
-                    $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
-                } else {
-                    $config['resize_height'] = ceil($orig_height + ($orig_height * (1 - $ratio_width)));
-                    $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
-                }
+                $config['resize_height'] = ceil($orig_height + ($orig_height * (1 - $ratio_width)));
+                $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
             }
         }
     }

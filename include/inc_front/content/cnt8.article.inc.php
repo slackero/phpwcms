@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -691,10 +691,19 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_URL', $content['alink']['caption'][2][0]);
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'CAPTION_TITLE', $content['alink']['caption'][3]);
 
+                    if (!empty($row['article_meta'])) {
+                        if (is_string($row['article_meta'])) {
+                            $row['article_meta'] = json_decode($row['article_meta'], true);
+                        }
+                        $row['article_meta'] = is_array($row['article_meta']) ? array_merge(get_default_article_meta(), $row['article_meta']) : get_default_article_meta();
+                    } else {
+                        $row['article_meta'] = get_default_article_meta();
+                    }
+
+                    $row['article_meta']['class'] = trim(get_css_keywords($row['article_keyword']) . ' ' . $row['article_meta']['class']);
+
                     // article class based on keyword *CSS-classname*
-                    $row['article_class'] = get_css_keywords($row['article_keyword']);
-                    $row['article_class'] = count($row['article_class']) ? implode(' ', $row['article_class']) : '';
-                    $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_class']);
+                    $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'CLASS', $row['article_meta']['class']);
 
                     break;
 

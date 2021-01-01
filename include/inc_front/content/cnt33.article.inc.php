@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -353,7 +353,7 @@ if($news['template']) {
     $news['config']['news_per_row']             = abs(intval($news['config']['news_per_row']));
     $news['config']['news_teaser_limit_chars']  = intval($news['config']['news_teaser_limit_chars']);
     $news['config']['news_teaser_limit_words']  = intval($news['config']['news_teaser_limit_words']);
-    $news['config']['check_lang']               = (count($phpwcms['allowed_lang']) > 1) ? true : false;
+    $news['config']['check_lang']               = count($phpwcms['allowed_lang']) > 1;
     $news['config']['gallery_allowed_ext']      = convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
     if(count($news['config']['gallery_allowed_ext'])) {
         foreach($news['config']['gallery_allowed_ext'] as $ikey => $ivalue) {
@@ -783,12 +783,17 @@ if($news['template']) {
                         $value['files_template'] = $news['config']['files_template_detail'] == 'default' ? '' : $news['config']['files_template_detail'];
                     }
 
+                    // Preserve current content part values, might be overwritten by files CP
+                    $_crow = $crow;
+
                     // include content part files renderer
                     include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
                     $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'FILES', $news['files_result'] );
 
-                    unset($IS_NEWS_CP);
+                    // Restore content part values
+                    $crow = $_crow;
+                    unset($IS_NEWS_CP, $_crow);
 
                 } else {
 

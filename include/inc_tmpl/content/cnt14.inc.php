@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -73,7 +73,7 @@ $wysiwyg_editor = array(
     'value'     => isset($content["html"]) ? $content["html"] : '',
     'field'     => 'chtml',
     'height'    => '400px',
-    'width'     => '800px',
+    'width'     => '100%',
     'rows'      => '15',
     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
     'lang'      => 'en'
@@ -136,7 +136,7 @@ if($content['custom_field_items']): ?>
         }
 
         $custom_field_placeholder = isset($cnt_fieldgroup['fields'][$custom_field]['placeholder']) && $cnt_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($cnt_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
-        $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
+        $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg';
 ?>
         <tr class="tab-collapsable-row">
             <td class="chatlist tdtop8" <?php if($is_wysiwyg): ?>colspan="2"<?php else: ?>align="right"<?php endif; ?> nowrap="nowrap">&nbsp;<?php
@@ -186,7 +186,7 @@ if($content['custom_field_items']): ?>
                     'value'     => isset($content['custom_fields'][$custom_field]) ? $content['custom_fields'][$custom_field] : '',
                     'field'     => 'customfield['.$custom_field.']',
                     'height'    => empty($cnt_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $cnt_fieldgroup['fields'][$custom_field]['height'],
-                    'width'     => '536px',
+                    'width'     => '100%',
                     'rows'      => empty($cnt_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $cnt_fieldgroup['fields'][$custom_field]['rows'],
                     'editor'    => $_SESSION["WYSIWYG_EDITOR"],
                     'lang'      => 'en'

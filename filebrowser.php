@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -583,7 +583,7 @@ $(function() {
     // File Uploading
     var uploader = new qq.FileUploader({
         element: $('#upload-file-select')[0],
-        action: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_upload.php?<?php echo get_token_get_string('csrftoken'); ?>',
+        action: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_upload.php?<?php echo get_token_get_string(); ?>',
         multiple: true,
         autoUpload: false,
         allowedExtensions: [<?php echo $fileuploaderAllowedExtensions; ?>],

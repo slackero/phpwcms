@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -307,23 +307,12 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 
                                 // parallel building of the placeholder tag menu for the template
                                 switch ($content['form']["fields"][$key]['type']) {
-
                                     case 'submit':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'reset':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'break':
-                                        $for_placeholder = false;
-                                        break;
-
                                     case 'breaktext':
                                         $for_placeholder = false;
                                         break;
-
                                 }
 
                                 $for_select_2 .= '<option value="';
@@ -649,7 +638,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                             'value'     => $content['form']["template_doubleoptin"],
                             'field'     => 'cform_template_doubleoptin',
                             'height'    => '200px',
-                            'width'     => '536px',
+                            'width'     => '100%',
                             'rows'      => '10',
                             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
                             'lang'      => 'en'
@@ -1268,7 +1257,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 'value' => $content['form']["template"],
                 'field' => 'cform_template',
                 'height' => '200px',
-                'width' => '536px',
+                'width' => '100%',
                 'rows' => '10',
                 'editor' => $_SESSION["WYSIWYG_EDITOR"],
                 'lang' => 'en'
@@ -1353,7 +1342,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 'value' => $content['form']["template_copy"],
                 'field' => 'cform_template_copy',
                 'height' => '200px',
-                'width' => '536px',
+                'width' => '100%',
                 'rows' => '10',
                 'editor' => $_SESSION["WYSIWYG_EDITOR"],
                 'lang' => 'en'

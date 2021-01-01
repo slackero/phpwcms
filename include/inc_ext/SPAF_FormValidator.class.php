@@ -190,7 +190,7 @@ class SPAF_FormValidator {
     }
 
     function validRequest( $req ) {
-        return strtolower( $this->getUserTag() ) == strtolower( $req ) ? true : false;
+        return strtolower( $this->getUserTag() ) === strtolower( $req );
     }
 
     function getRandomString( $chars = 5 ) {

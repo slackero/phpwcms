@@ -171,7 +171,7 @@ class ConvertibleTimestamp {
 	 * @param string $ts Timestamp
 	 * @return string|bool Formatted timestamp or false on failure
 	 */
-	public static function convert( $style = TS_UNIX, $ts ) {
+	public static function convert( $style = TS_UNIX, $ts=0 ) {
 		try {
 			$ct = new static( $ts );
 			return $ct->getTimestamp( $style );

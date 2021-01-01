@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -117,7 +117,7 @@ function html_parser_deprecated($string='') {
 }
 
 //menu creating
-function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
+function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 	//returns a simple table based navigation menu of possible
 	//structure levels based on current structure level
 	$nav_table  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" summary=\"\">\n<tr>\n";
@@ -157,7 +157,7 @@ function nav_table_struct_callback($matches) {
 	return nav_table_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $GLOBALS['template_default']["nav_table_struct"]);
 }
 
-function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
+function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
 	// start with home directory for the listing = top nav structure
 	// 1. Build the recursive tree for given actual article category ID
 
@@ -348,7 +348,7 @@ function nav_list_struct_callback($matches) {
 	return nav_list_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $matches[2]);
 }
 
-function nav_list_struct(&$struct, $act_cat_id, $level, $class='') {
+function nav_list_struct($struct, $act_cat_id, $level, $class='') {
 	// start with home directory for the listing = top nav structure
 	// 1. Build the recursive tree for given actual article category ID
 

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -78,7 +78,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 			if($zoominfo != false) {
 
-				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $crow["acontent_image"][1]);
 
 				if(!empty($caption[2][0])) {
 					$open_link = $caption[2][0];
@@ -94,11 +94,8 @@ if(!empty($crow["acontent_image"][2])) {
 
 
 			}
-		} else {
-
-			if($caption[2][0]) {
-				$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
-			}
+		} elseif($caption[2][0]) {
+		    $thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
 		}
 	}
 }

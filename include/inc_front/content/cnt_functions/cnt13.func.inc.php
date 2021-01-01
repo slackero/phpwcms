@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -184,7 +184,7 @@ class search_News {
 			}
 			$search_replace_newsdetail = true;
 		} else {
-			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false ? true : false;
+			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false;
 			$this->search_target_url = html_specialchars($this->search_target_url);
 		}
 

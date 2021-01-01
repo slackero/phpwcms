@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -1415,11 +1415,11 @@ $BL['cookie_consent_more'] = 'Więcej informacji';
 $BL['be_cookie_consent_link'] = 'Polityka Cookie url/alias';
 $BL['be_cookie_consent_theme'] = 'Motyw (puste = brak CSS)';
 $BL['be_google_analytics_enable'] = 'Użyj Google Analytics';
-$BL['be_piwik_enable'] = 'Użyj Piwik';
+$BL['be_piwik_enable'] = 'Użyj Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'Utajnij IP';
 $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'wsparcie dla pliku Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
 

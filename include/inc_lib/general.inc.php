@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -27,7 +27,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_ext/rfc822.php';
 
 function str_empty( $string ) {
-    return ( $string === null || $string === '' ) ? true : false;
+    return $string === null || $string === '';
 }
 
 function slweg( $text = '', $maxlen = 0, $trim = true ) {
@@ -413,8 +413,6 @@ function is_ext_true( $extension ) {
         // if GD is used
         switch ( $extension ) {
             case "jpg":
-                $ext = "jpg";
-                break;
             case "jpeg":
                 $ext = "jpg";
                 break;
@@ -1111,7 +1109,7 @@ function cleanUpForEmailHeader( $text = '' ) {
     return trim( $text );
 }
 
-function getCleanSubString( $cutString = '', $maxLength, $moreChar = '', $cutMode = 'char', $sanitize = null ) {
+function getCleanSubString( $cutString = '', $maxLength = 0, $moreChar = '', $cutMode = 'char', $sanitize = null ) {
     // used to cut a string by words or chars
     if ( empty( $maxLength ) || $maxLength < 0 ) {
         return $cutString;
@@ -2436,7 +2434,7 @@ function getBytes( $size ) {
  * handle the image in RAM to avoid
  * errors based on memory limit.
  */
-function getRealImageSize( &$imginfo ) {
+function getRealImageSize( $imginfo ) {
     $size = 0;
 
     // check image width and height

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -145,11 +145,8 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 
             }
 
-        } else {
-
-            if($content['glossary']['glossary_filter_active'] != '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
-                $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
-            }
+        } elseif($content['glossary']['glossary_filter_active'] !== '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
+            $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
         }
     }
 

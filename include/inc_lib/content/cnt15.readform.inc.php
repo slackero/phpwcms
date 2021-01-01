@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -34,9 +34,11 @@ $content["alist"]["break"]			= slweg($_POST['calist_break'], 0, false);
 $content["alist"]["label"]			= slweg($_POST['calist_label']);
 
 switch($content["alist"]["ul"]) {
-	case 4:		break;							// SPAN
-	case 3:		break;							// DL
-	case 2:		break;							// DIV
-	case 1:		break;							// UL
-	default:	$content["alist"]["ul"] = 0;	// TABLE
+	case 4:	// SPAN
+	case 3:	// DL
+	case 2:	// DIV
+	case 1: // UL
+	    break;
+	default: // TABLE
+	    $content["alist"]["ul"] = 0;
 }

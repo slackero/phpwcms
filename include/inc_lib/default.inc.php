@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -147,7 +147,8 @@ define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHAR
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
+define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT.'/include/inc_lib/mimetype.inc.php';
@@ -295,6 +296,9 @@ $phpwcms['js_lib_default'] = array(
     'jquery-1.8'            => 'jQuery 1.8.3',
     'jquery-1.7'            => 'jQuery 1.7.2',
     'jquery-1.6'            => 'jQuery 1.6.4',
+    // ----
+    'mootools-1.2'          => 'MooTools 1.2.6',
+    'mootools-1.1'          => 'MooTools 1.12'
 );
 $phpwcms['js_lib_deprecated'] = array(
     'jquery-1.5'            => 'jQuery 1.5.2',
@@ -631,19 +635,19 @@ function removeSessionName($str='') {
 
 function dumpVar($var, $commented=false) {
     //just a simple funcction returning formatted print_r()
-    switch($commented) {
-        case 1:     echo "\n<!--\n";
-                    print_r($var);
-                    echo "\n//-->\n";
-                    return NULL;
-                    break;
-        case 2:     return '<pre>'.html(print_r($var, true)).'</pre>';
-                    break;
-        default:    echo '<pre>';
-                    echo html(print_r($var, true));
-                    echo '</pre>';
-                    return NULL;
+    if ($commented === 1) {
+        echo LF . '<!--' . LF;
+        print_r($var);
+        echo LF . '//-->' . LF;
+        return null;
+    } elseif ($commented === 2) {
+        return '<pre>' . html(print_r($var, true)) . '</pre>';
     }
+
+    echo '<pre>';
+    echo html(print_r($var, true));
+    echo '</pre>';
+    return null;
 }
 
 function buildGlobalGET($return = '') {
@@ -1376,11 +1380,12 @@ function phpwcms_decrypt($crypttext, $password=PHPWCMS_USER_KEY) {
  * Get current user visual mode
  */
 function get_user_vmode() {
-    switch(VISIBLE_MODE) {
-        case 1:     return 'editor';    break;
-        case 2:     return 'admin';     break;
-        default:    return 'all';
+    if (VISIBLE_MODE === 1) {
+        return 'editor';
+    } elseif (VISIBLE_MODE === 2) {
+        return 'admin';
     }
+    return 'all';
 }
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
@@ -1417,4 +1422,10 @@ function logdir_exists() {
             @file_put_contents(PHPWCMS_LOGDIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
         }
     }
+}
+
+function get_default_article_meta() {
+    return array(
+        'class' => ''
+    );
 }

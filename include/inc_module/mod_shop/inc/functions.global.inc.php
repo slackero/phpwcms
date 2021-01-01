@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <oliver@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -22,7 +22,7 @@ if(!function_exists('dec_num_count')) {
 
 // In case shop module is used in an older release
 if(!function_exists('phpwcms_boolval')) {
-    function phpwcms_boolval(&$BOOL, &$STRICT=false) {
+    function phpwcms_boolval($BOOL, $STRICT=false) {
         return version_compare(PHP_VERSION, '5.5.0', '>=') ? boolval($BOOL) : boolval($BOOL, $STRICT);
     }
 }

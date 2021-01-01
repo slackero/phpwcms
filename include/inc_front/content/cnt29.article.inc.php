@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -167,6 +167,8 @@ if($image['template']) {
 
             }
 
+            $this_image_name = $image['images'][$key][2] . '.' . $image['images'][$key][3];
+
             $thumb_image = get_cached_image(array(
                 "target_ext"    =>  $image['images'][$key][3],
                 "image_name"    =>  $image['images'][$key][2] . '.' . $image['images'][$key][3],
@@ -269,7 +271,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['images'][$key][1]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';

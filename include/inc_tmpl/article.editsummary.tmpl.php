@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -340,9 +340,7 @@ if(count($tmpllist)) {
                   </select></td>
                   </tr>
 
-    <tr>
-    <td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-    </tr>
+    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
     <tr>
         <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr>
@@ -381,6 +379,11 @@ if(count($tmpllist)) {
                 </table></td>
             </tr>
 
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+            <tr>
+                <td align="right" class="chatlist"><?php echo $BL['be_cnt_css_class']; ?>:&nbsp;</td>
+                <td><input name="article_meta_class" type="text" id="article_meta_class" class="width440" value="<?php echo html($article["article_meta"]['class']) ?>" size="40" maxlength="250" /></td>
+            </tr>
 
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
             </tr>
@@ -393,7 +396,7 @@ $wysiwyg_editor = array(
     'value' => $article["article_summary"],
     'field' => 'article_summary',
     'height' => '450px',
-    'width' => '536px',
+    'width' => '100%',
     'rows' => '15',
     'editor' => $_SESSION["WYSIWYG_EDITOR"],
     'lang' => 'en'

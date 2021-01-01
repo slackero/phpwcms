@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -78,8 +78,18 @@ if(isset($result[0]['article_id'])) {
                 $row['article_menutitle']   = $alias_result[0]['article_menutitle'];
                 $row['article_opengraph']   = $alias_result[0]['article_opengraph'];
                 $row['article_canonical']   = $alias_result[0]['article_canonical'];
+                $row['article_meta']        = $alias_result[0]['article_meta'];
             }
         }
+    }
+
+    if($row['article_meta']) {
+        $row['article_meta'] = json_decode($row['article_meta'], true);
+    }
+    if(is_array($row['article_meta'])) {
+        $row['article_meta'] = array_merge(get_default_article_meta(), $row['article_meta']);
+    } else {
+        $row['article_meta'] = get_default_article_meta();
     }
 
     // overwrite doctype language if enabled
@@ -294,7 +304,7 @@ if(isset($result[0]['article_id'])) {
                         'src' => $img_zoom_rel
                     );
 
-                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
 
                     if(!empty($caption[2][0])) {
                         $open_link = $caption[2][0];
@@ -425,22 +435,17 @@ if(isset($result[0]['article_id'])) {
             $row["article_image"]['tmplfull'] = file_get_contents(PHPWCMS_TEMPLATE.'inc_default/article_summary.tmpl');
         }
 
+    } elseif($_CpPaginate && $content['aId_CpPage'] > 1) { // template fallback
+        $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>[/TITLE]'.LF.'<!--CP_PAGINATE_START//-->'.LF;
+        $row["article_image"]['tmplfull'] .= '<div class="cpPagination">'.LF;
+        $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE_PREV]<a href="{CP_PAGINATE_PREV}" class="cpPaginationPrev">Previous</a>[/CP_PAGINATE_PREV]'.LF;
+        $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]'.LF;
+        $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE_NEXT]<a href="{CP_PAGINATE_NEXT}" class="cpPaginationNext">Previous</a>[/CP_PAGINATE_NEXT]'.LF;
+        $row["article_image"]['tmplfull'] .= '</div><!--CP_PAGINATE_END//-->';
     } else {
-
-        // template fallback
-        if($_CpPaginate && $content['aId_CpPage'] > 1) {
-            $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>[/TITLE]'.LF.'<!--CP_PAGINATE_START//-->'.LF;
-            $row["article_image"]['tmplfull'] .= '<div class="cpPagination">'.LF;
-            $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE_PREV]<a href="{CP_PAGINATE_PREV}" class="cpPaginationPrev">Previous</a>[/CP_PAGINATE_PREV]'.LF;
-            $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]'.LF;
-            $row["article_image"]['tmplfull'] .= '  [CP_PAGINATE_NEXT]<a href="{CP_PAGINATE_NEXT}" class="cpPaginationNext">Previous</a>[/CP_PAGINATE_NEXT]'.LF;
-            $row["article_image"]['tmplfull'] .= '</div><!--CP_PAGINATE_END//-->';
-        } else {
-            $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>'.LF.'[/TITLE][SUB]<h3>{SUB}</h3>'.LF.'[/SUB]';
-            $row["article_image"]['tmplfull'] .= '[SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}';
-            $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
-        }
-
+        $row["article_image"]['tmplfull']  = '[TITLE]<h1>{TITLE}</h1>'.LF.'[/TITLE][SUB]<h3>{SUB}</h3>'.LF.'[/SUB]';
+        $row["article_image"]['tmplfull'] .= '[SUMMARY][IMAGE]<span style="float:left;margin:2px 10px 5px 0;">{IMAGE}';
+        $row["article_image"]['tmplfull'] .= '[CAPTION_SUPPRESS_ELSE][CAPTION]<br />'.LF.'{CAPTION}[/CAPTION][/CAPTION_SUPPRESS_ELSE]</span>'.LF.'[/IMAGE]{SUMMARY}</div>'.LF.'[/SUMMARY]';
     }
 
     //rendering
@@ -487,10 +492,10 @@ if(isset($result[0]['article_id'])) {
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SUMMARY', $row["article_hidesummary"] ? '' : $row["article_summary"]);
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'MORE', $row["article_morelink"] ? ' ' : '');
 
+        $row['article_meta']['class'] = trim(get_css_keywords($row['article_keyword']) . ' ' . $row['article_meta']['class']);
+
         // article class based on keyword *CSS-classname*
-        $row['article_class'] = get_css_keywords($row['article_keyword']);
-        $row['article_class'] = count($row['article_class']) ? implode(' ', $row['article_class']) : '';
-        $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_class']);
+        $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_meta']['class']);
 
         // Render SYSTEM
         if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -89,7 +89,7 @@ if (empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE . 'inc_default
     $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
 }
 $_files_count = is_array($content['files_result']) ? count($content['files_result']) : 0;
-$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0 ? true : false;
+$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0;
 if ($_files_force_rendering || $_files_count) {
     $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $_files_settings = parse_ini_str($_files_settings, false);

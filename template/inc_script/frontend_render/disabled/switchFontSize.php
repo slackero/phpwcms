@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -17,7 +17,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 $userFontSize = 'default';
 if(!empty($_GET['switchFontSize'])) {
 
@@ -25,23 +24,14 @@ if(!empty($_GET['switchFontSize'])) {
     // try to write FontSizeCookie
     setcookie('switchFontSize', $userFontSize, time()+86400);
 
-} else {
-
-    if(isset($_SESSION['FontSize'])) {
-        $userFontSize = $_SESSION['FontSize'];
-    } else {
-
-        if(!empty($_COOKIE['switchFontSize'])) {
-            $userFontSize = $_COOKIE['switchFontSize'];
-        }
-
-    }
+} elseif(isset($_SESSION['FontSize'])) {
+    $userFontSize = $_SESSION['FontSize'];
+} elseif(!empty($_COOKIE['switchFontSize'])) {
+    $userFontSize = $_COOKIE['switchFontSize'];
 }
 
 if(session_id()) {
-
     $_SESSION['FontSize'] = $userFontSize;
-
 }
 
 switch($userFontSize) {

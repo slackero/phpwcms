@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -1028,6 +1028,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
 $BL['be_func_switch_contentpart'] = 'Do you really want to switch content part? \n\nBe very careful doing so! \nImportant settings might be overwritten! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ATTENTION!</strong> The &quot;CODE-SNIPPETS&quot; directory still exists! Delete directory <strong>phpwcms_code_snippets</strong> - this is a potential security problem.';
+$BL['gd_not_loaded'] = '<strong>No GD functionality available!</strong> Please make sure that the PHP GD library is activated, otherwise the processing of images will not work reliably.';
 
 $BL['be_ctype_poll'] = 'poll';
 $BL['be_cnt_pos8']                      = 'table, left';
@@ -1393,6 +1394,7 @@ $BL['be_caption_file_title']            = 'file title';
 $BL['be_caption_descr.']                = 'descr.';
 $BL['be_display_html5_only']            = 'HTML5 only';
 $BL['be_audio_only']                    = 'audio only';
+$BL['be_hide_downloadbutton']           = 'hide HTML5 download button';
 
 $BL['be_filter']                        = 'filter';
 $BL['be_filter_with_tags']              = 'by tag';
@@ -1434,13 +1436,19 @@ $BL['cookie_consent_more'] = 'More info';
 $BL['be_cookie_consent_link'] = 'cookie policy url/alias';
 $BL['be_cookie_consent_theme'] = 'theme (empty = no CSS)';
 $BL['be_google_analytics_enable'] = 'use Google Analytics';
-$BL['be_piwik_enable'] = 'use Piwik';
+$BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Deactivate tracking code widthout consent';
+$BL['be_consent_cookie_name'] = 'Consent cookie name';
+$BL['be_consent_cookie_value'] = 'Consent cookie value';
+$BL['be_respect_donottrack'] = 'Respect the Do-Not-Track browser setting';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';

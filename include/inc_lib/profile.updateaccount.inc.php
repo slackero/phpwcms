@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -117,7 +117,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 
             set_language_cookie();
 
-            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&do=profile');
+            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=profile');
         }
     }
 } //Ende Prüfung Gastzugang

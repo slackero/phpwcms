@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -1016,6 +1016,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
 $BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;phpwcms_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
+$BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
 $BL['be_ctype_poll'] = 'Poll';
 $BL['be_cnt_pos8'] = 'Tabelle, links';
@@ -1376,6 +1377,7 @@ $BL['be_caption_file_title'] = 'Dateititel';
 $BL['be_caption_descr.'] = 'Beschr.';
 $BL['be_display_html5_only'] = 'ausschlie&szlig;lich HTML5';
 $BL['be_audio_only'] = 'nur Audio';
+$BL['be_hide_downloadbutton'] = 'HTML5 Download-Button ausblenden';
 
 $BL['be_filter'] = 'Filter';
 $BL['be_filter_with_tags'] = 'nach Schlagwort';
@@ -1417,13 +1419,19 @@ $BL['cookie_consent_more'] = 'Weitere Informationen';
 $BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
-$BL['be_piwik_enable'] = 'Piwik benutzen';
+$BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Tracking-Code ohne Consent nicht aktivieren';
+$BL['be_consent_cookie_name'] = 'Name des Consent-Cookies';
+$BL['be_consent_cookie_value'] = 'Wert des Consent-Cookies';
+$BL['be_respect_donottrack'] = 'Browser-Einstellung Do-Not-Track respektieren';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';

@@ -188,12 +188,10 @@ if (!defined('PHPWCMS_ROOT')) {
 					$_option_remember[] = $row;
 					$_selected = true;
 				}
-			} else {
-				if( $plugin['data'][$key] == $item ) {
-					$_option .= ' selected="selected"';
-					$_selected = true;
-				}
-			}
+			} elseif( $plugin['data'][$key] == $item ) {
+                $_option .= ' selected="selected"';
+                $_selected = true;
+            }
 			$_option .= '>' . html(trim($row)) . '</option>';
 
 			if($value == 'MULTISELECT' && $_selected) {

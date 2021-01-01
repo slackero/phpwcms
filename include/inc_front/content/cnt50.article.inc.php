@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -160,7 +160,7 @@ if($content['reference']['ref_count']) {
 
 
 				if($zoominfo != false) {
-					$popup_link  = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+					$popup_link  = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $content['reference']["list"][$captkey][1]);
 
 					$content['reference']['x5'] = '<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link."','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;\">";
 					$content['reference']['x6'] = '</a>';

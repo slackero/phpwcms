@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -380,7 +380,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
  */
 function tokenize_urls($html) {
 
-	$get_token = get_token_get_string('csrftoken');
+	$get_token = get_token_get_string();
 
 	if($get_token) {
 
@@ -440,7 +440,7 @@ function validate_csrf_tokens($token_prefix='csrf_') {
 
 	} else {
 
-		validate_csrf_get_token('csrftoken');
+		validate_csrf_get_token();
 
 	}
 

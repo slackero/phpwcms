@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -466,14 +466,18 @@ if(isset($fmp_data['fmp_template'])) {
                 $fmp_data['video_tag']['header'] .= 'poster="'.$fmp_data['preview'].'" ';
             }
         }
-        if($fmp_data['fmp_set_showcontrols'] !== 'none') {
-            $fmp_data['video_tag']['header'] .= 'controls="controls" ';
-        }
         if($fmp_data['fmp_set_autostart']) {
             $fmp_data['video_tag']['header'] .= 'autoplay="autoplay" ';
         }
         if(!empty($fmp_data['fmp_set_loop'])) {
             $fmp_data['video_tag']['header'] .= 'loop="loop" ';
+        }
+        if($fmp_data['fmp_set_showcontrols'] !== 'none') {
+            $fmp_data['video_tag']['header'] .= 'controls="controls" ';
+
+            if(!empty($fmp_data['fmp_set_downloadbutton'])) {
+                $fmp_data['video_tag']['header'] .= 'controlsList="nodownload" ';
+            }
         }
 
         $fmp_data['video_tag']['header'] .= 'preload="' . (isset($fmp_data['fmp_set_preload']) ? $fmp_data['fmp_set_preload'] : 'auto') . '">';

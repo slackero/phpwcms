@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -96,7 +96,7 @@ if(isset($result[0]['forum_id'])) {
             $forum["id"] = $result['INSERT_ID'];
         }
         if($forum["id"]) {
-            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string('csrftoken').'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
+            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&'.build_QueryString('&', 'do=messages', 'p=6', 's='.$forum["id"]));
         }
     }
 

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -115,19 +115,16 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     @set_time_limit(0);
 
     //open the file
-    $fp = fopen($file, 'rb');
-
-    //start buffered download
-    while(!feof($fp) && !connection_status()){
-
-        echo fread($fp, 1024*8);
-        flush();
-
+    if ($fp = fopen($file, 'rb')) {
+        //start buffered download
+        while (!feof($fp) && !connection_status()) {
+            echo fread($fp, 1024 * 8);
+            flush();
+        }
+        fclose($fp);
     }
 
-    fclose($fp);
-
-    return ($onsuccess && !connection_status() && !connection_aborted()) ? true : false;
+    return $onsuccess && !connection_status() && !connection_aborted();
 }
 
 // http://www.thomthom.net/blog/2007/09/php-resumable-download-server/
@@ -175,7 +172,7 @@ function rangeDownload($file) {
         // If the range starts with an '-' we start from the beginning
         // If not, we forward the file pointer
         // And make sure to get the end byte if spesified
-        if ($range0 == '-') {
+        if (substr($range, 0, 1) === '-') {
 
             // The n-number of the last bytes is requested
             $c_start = $size - substr($range, 1);

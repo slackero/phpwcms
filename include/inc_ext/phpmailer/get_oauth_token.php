@@ -134,7 +134,7 @@ $provider = new Google(
         'clientSecret' => $clientSecret,
         'redirectUri' => $redirectUri,
         'scope' => array('https://mail.google.com/'),
-	'accessType' => 'offline'
+	    'accessType' => 'offline'
     )
 );
 
