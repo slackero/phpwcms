@@ -1,19 +1,16 @@
 <?php
-
-use JetBrains\PhpStorm\ArrayShape;
-
 /**
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2020, Oliver Georgi
+ * @copyright Copyright (c) 2002-2021, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
  **/
 
 //26-04-2004 Oliver Georgi -> $level seems to be unused
-//19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
+//19-11-2004 Fernando Batista -> Copy article, Copy structures http://fernandobatista.net
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0) {
