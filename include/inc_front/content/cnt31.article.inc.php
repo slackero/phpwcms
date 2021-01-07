@@ -61,13 +61,10 @@ if($image['template']) {
     if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
         $image = array_merge($image, $image['tmpl_settings']);
 
-        if($image['text_render'] === 'markdown' && !isset($phpwcms['parsedown_class'])) {
-            require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-            require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $phpwcms['parsedown_class'] = new ParsedownExtra();
-        } elseif($image['text_render'] === 'textile' && !isset($phpwcms['textile_class'])) {
-            require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
-            $phpwcms['textile_class'] = new Textile();
+        if($image['text_render'] === 'markdown') {
+            init_markdown();
+        } elseif($image['text_render'] === 'textile') {
+            init_textile();
         }
     }
 
@@ -484,11 +481,7 @@ if($image['template']) {
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                            if(!isset($phpwcms['parsedown_class'])) {
-                                require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                                require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                                $phpwcms['parsedown_class'] = new ParsedownExtra();
-                            }
+                            init_markdown();
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
                         } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));

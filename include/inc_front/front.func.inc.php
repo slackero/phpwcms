@@ -4520,3 +4520,31 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
+/**
+ * Init Parsedown or ParsedownExtra Class
+ */
+function init_markdown() {
+
+    if(!isset($GLOBALS['phpwcms']['parsedown_class'])) {
+        require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown/Parsedown.php');
+        if (empty($GLOBALS['phpwcms']['markdown_extra'])) {
+            $GLOBALS['phpwcms']['parsedown_class'] = new Parsedown();
+        } else {
+            require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+            $GLOBALS['phpwcms']['parsedown_class'] = new ParsedownExtra();
+        }
+    }
+
+}
+
+/**
+ * Init Textile Class
+ */
+function init_textile() {
+
+    if(!isset($GLOBALS['phpwcms']['textile_class'])) {
+        require_once(PHPWCMS_ROOT . '/include/inc_ext/classTextile.php');
+        $GLOBALS['phpwcms']['textile_class'] = new Textile();
+    }
+
+}
