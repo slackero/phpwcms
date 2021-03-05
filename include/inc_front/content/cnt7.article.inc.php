@@ -213,12 +213,16 @@ if ($_files_force_rendering || $_files_count) {
                         }
                         // language specific long description and copyright
                         if ($content['files_result'][$_files_x]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
-                            $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars']);
-                            if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'])) {
-                                $content['files_result'][$_files_x]['f_longinfo'] = $content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'];
+                            if (is_string($content['files_result'][$_files_x]['f_vars'])) {
+                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars']);
                             }
-                            if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['copyright'])) {
-                                $content['files_result'][$_files_x]['f_copyright'] = $content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['copyright'];
+                            if (is_array($content['files_result'][$_files_x]['f_vars'])) {
+                                if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'])) {
+                                    $content['files_result'][$_files_x]['f_longinfo'] = $content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'];
+                                }
+                                if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['copyright'])) {
+                                    $content['files_result'][$_files_x]['f_copyright'] = $content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['copyright'];
+                                }
                             }
                         }
                         $_file_info[5] = empty($_file_info[5]) ? $content['files_result'][$_files_x]['f_copyright'] : trim($_file_info[5]);
