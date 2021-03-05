@@ -264,44 +264,76 @@ if($news['list_mode']) {
     switch($news['news_sort']) {
 
         case 1:     // create date, DESC
-                    $sql .= 'pc.cnt_created DESC';
-                    break;
+            $sql .= 'pc.cnt_created DESC';
+            break;
 
         case 2:     // create date, ASC
-                    $sql .= 'pc.cnt_created ASC';
-                    break;
+            $sql .= 'pc.cnt_created ASC';
+            break;
 
         case 3:     // change date, DESC
-                    $sql .= 'pc.cnt_changed DESC';
-                    break;
+            $sql .= 'pc.cnt_changed DESC';
+            break;
 
         case 4:     // change date, ASC
-                    $sql .= 'pc.cnt_changed ASC';
-                    break;
+            $sql .= 'pc.cnt_changed ASC';
+            break;
 
         case 5:     // live date, DESC
-                    $sql .= 'cnt_ts_livedate DESC';
-                    break;
+            $sql .= 'cnt_ts_livedate DESC';
+            break;
 
         case 6:     // live date, ASC
-                    $sql .= 'cnt_ts_livedate ASC';
-                    break;
+            $sql .= 'cnt_ts_livedate ASC';
+            break;
 
         case 7:     // kill date, DESC
-                    $sql .= 'cnt_ts_killdate DESC';
-                    break;
+            $sql .= 'cnt_ts_killdate DESC';
+            break;
 
         case 8:     // kill date, ASC
-                    $sql .= 'cnt_ts_killdate ASC';
-                    break;
+            $sql .= 'cnt_ts_killdate ASC';
+            break;
 
         case 10:    // sort date, ASC
-                    $sql .= 'cnt_ts_sortdate ASC';
-                    break;
+            $sql .= 'cnt_ts_sortdate ASC';
+            break;
+
+        case 17:    // title, DESC
+            $sql .= 'pc.cnt_title DESC';
+            break;
+
+        case 18:    // title, ASC
+            $sql .= 'pc.cnt_title ASC';
+            break;
+
+        case 11:    // editor, DESC
+            $sql .= 'pc.cnt_editor DESC, cnt_ts_sortdate DESC';
+            break;
+
+        case 12:    // editor, ASC
+            $sql .= 'pc.cnt_editor ASC, cnt_ts_sortdate ASC';
+            break;
+
+        case 15:    // place, DESC
+            $sql .= 'pc.cnt_place DESC, cnt_ts_sortdate DESC';
+            break;
+
+        case 16:    // place, ASC
+            $sql .= 'pc.cnt_place ASC, cnt_ts_sortdate ASC';
+            break;
+
+        case 14:    // title alt, DESC
+            $sql .= 'pc.cnt_name DESC';
+            break;
+
+        case 15:    // title alt, ASC
+            $sql .= 'pc.cnt_name ASC';
+            break;
 
         case 9:
         default:    // sort date, DESC
-                    $sql .= 'cnt_ts_sortdate DESC';
+            $sql .= 'cnt_ts_sortdate DESC';
 
     }
 
