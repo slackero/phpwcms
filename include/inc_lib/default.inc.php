@@ -184,7 +184,7 @@ define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
 define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
-define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : true);
+define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : false);
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT.'log');
 
 if(function_exists('mb_substr')) {
