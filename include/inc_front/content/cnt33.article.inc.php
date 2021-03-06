@@ -323,11 +323,11 @@ if($news['list_mode']) {
             $sql .= 'pc.cnt_place ASC, cnt_ts_sortdate ASC';
             break;
 
-        case 14:    // title alt, DESC
+        case 13:    // title alt, DESC
             $sql .= 'pc.cnt_name DESC';
             break;
 
-        case 15:    // title alt, ASC
+        case 14:    // title alt, ASC
             $sql .= 'pc.cnt_name ASC';
             break;
 
