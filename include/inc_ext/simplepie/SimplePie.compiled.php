@@ -52,13 +52,13 @@ define('SIMPLEPIE_NAME', 'SimplePie');
 /**
  * SimplePie Version
  */
-define('SIMPLEPIE_VERSION', '1.5.5');
+define('SIMPLEPIE_VERSION', '1.5.6');
 
 /**
  * SimplePie Build
  * @todo Hardcode for release (there's no need to have to call SimplePie_Misc::get_build() only every load of simplepie.inc)
  */
-define('SIMPLEPIE_BUILD', '20200819124158');
+define('SIMPLEPIE_BUILD', '20210307091043');
 
 /**
  * SimplePie Website URL
@@ -3213,7 +3213,7 @@ class SimplePie
 	 * @param string $hub
 	 * @param string $self
 	 */
-	private function store_links($file, $hub, $self) {
+	private function store_links(&$file, $hub, $self) {
 		if (isset($file->headers['link']['hub']) ||
 			  (isset($file->headers['link']) &&
 			   preg_match('/rel=hub/', $file->headers['link'])))
@@ -4932,7 +4932,7 @@ class SimplePie_Content_Type_Sniffer
 		}
 		elseif (preg_match('/[\x00-\x08\x0E-\x1A\x1C-\x1F]/', $this->file->body))
 		{
-			return 'application/octect-stream';
+			return 'application/octet-stream';
 		}
 
 		return 'text/plain';
@@ -7207,11 +7207,6 @@ class SimplePie_File
 				curl_setopt($fp, CURLOPT_REFERER, $url);
 				curl_setopt($fp, CURLOPT_USERAGENT, $useragent);
 				curl_setopt($fp, CURLOPT_HTTPHEADER, $headers2);
-				if (!ini_get('open_basedir') && version_compare(SimplePie_Misc::get_curl_version(), '7.15.2', '>='))
-				{
-					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
-					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
-				}
 				foreach ($curl_options as $curl_param => $curl_value) {
 					curl_setopt($fp, $curl_param, $curl_value);
 				}
@@ -7246,7 +7241,7 @@ class SimplePie_File
 							$this->redirects++;
 							$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 							$previousStatusCode = $this->status_code;
-							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+							$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
 							$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 							return;
 						}
@@ -7331,7 +7326,7 @@ class SimplePie_File
 								$this->redirects++;
 								$location = SimplePie_Misc::absolutize_url($this->headers['location'], $url);
 								$previousStatusCode = $this->status_code;
-								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen);
+								$this->__construct($location, $timeout, $redirects, $headers, $useragent, $force_fsockopen, $curl_options);
 								$this->permanent_url = ($previousStatusCode == 301) ? $location : $url;
 								return;
 							}
@@ -10832,7 +10827,7 @@ class SimplePie_Item
 							}
 							if (isset($content['attribs']['']['fileSize']))
 							{
-								$length = ceil($content['attribs']['']['fileSize']);
+								$length = intval($content['attribs']['']['fileSize']);
 							}
 							if (isset($content['attribs']['']['medium']))
 							{
@@ -11454,7 +11449,7 @@ class SimplePie_Item
 						}
 						if (isset($content['attribs']['']['fileSize']))
 						{
-							$length = ceil($content['attribs']['']['fileSize']);
+							$length = intval($content['attribs']['']['fileSize']);
 						}
 						if (isset($content['attribs']['']['medium']))
 						{
@@ -11819,7 +11814,7 @@ class SimplePie_Item
 					}
 					if (isset($link['attribs']['']['length']))
 					{
-						$length = ceil($link['attribs']['']['length']);
+						$length = intval($link['attribs']['']['length']);
 					}
 					if (isset($link['attribs']['']['title']))
 					{
@@ -11862,7 +11857,7 @@ class SimplePie_Item
 					}
 					if (isset($link['attribs']['']['length']))
 					{
-						$length = ceil($link['attribs']['']['length']);
+						$length = intval($link['attribs']['']['length']);
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
@@ -11897,7 +11892,7 @@ class SimplePie_Item
 					}
 					if (isset($enclosure[0]['attribs']['']['length']))
 					{
-						$length = ceil($enclosure[0]['attribs']['']['length']);
+						$length = intval($enclosure[0]['attribs']['']['length']);
 					}
 
 					// Since we don't have group or content for these, we'll just pass the '*_parent' variables directly to the constructor
@@ -14544,7 +14539,7 @@ function embed_wmedia(width, height, link) {
 	/**
 	 * Format debugging information
 	 */
-	public static function debug($sp)
+	public static function debug(&$sp)
 	{
 		$info = 'SimplePie ' . SIMPLEPIE_VERSION . ' Build ' . SIMPLEPIE_BUILD . "\n";
 		$info .= 'PHP ' . PHP_VERSION . "\n";
@@ -15928,12 +15923,30 @@ class SimplePie_Parser
 			xml_set_element_handler($xml, 'tag_open', 'tag_close');
 
 			// Parse!
-			if (!xml_parse($xml, $data, true))
+			$wrapper = @is_writable(sys_get_temp_dir()) ? 'php://temp' : 'php://memory';
+			if (($stream = fopen($wrapper, 'r+')) &&
+				fwrite($stream, $data) &&
+				rewind($stream))
 			{
-				$this->error_code = xml_get_error_code($xml);
-				$this->error_string = xml_error_string($this->error_code);
+				//Parse by chunks not to use too much memory
+				do
+				{
+					$stream_data = fread($stream, 1048576);
+					if (!xml_parse($xml, $stream_data === false ? '' : $stream_data, feof($stream)))
+					{
+						$this->error_code = xml_get_error_code($xml);
+						$this->error_string = xml_error_string($this->error_code);
+						$return = false;
+						break;
+					}
+				} while (!feof($stream));
+				fclose($stream);
+			}
+			else
+			{
 				$return = false;
 			}
+
 			$this->current_line = xml_get_current_line_number($xml);
 			$this->current_column = xml_get_current_column_number($xml);
 			$this->current_byte = xml_get_current_byte_index($xml);
@@ -15943,7 +15956,7 @@ class SimplePie_Parser
 
 		libxml_clear_errors();
 		$xml = new XMLReader();
-		$xml->XML($data);
+		$xml->xml($data);
 		while (@$xml->read())
 		{
 			switch ($xml->nodeType)
