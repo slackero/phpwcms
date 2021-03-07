@@ -1522,6 +1522,31 @@ if(!$phpwcms['donottrack']) {
         }
     }
 
+    if (!empty($block['tracking_gtm']['enable'])) {
+        $template_default['settings']['tracking']['gtm_default'] = array(
+            'position' => 'head',
+            'code' => "  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','%1\$s');
+  </script>",
+            'body' => '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
+        );
+        if (isset($template_default['settings']['tracking']['gtm'])) {
+            $template_default['settings']['tracking']['gtm'] = array_merge($template_default['settings']['tracking']['gtm_default'], $template_default['settings']['tracking']['gtm']);
+        } else {
+            $template_default['settings']['tracking']['gtm'] = $template_default['settings']['tracking']['gtm_default'];
+        }
+        if ($template_default['settings']['tracking']['gtm']['position'] === 'head') {
+            $block['custom_htmlhead']['head_gtm.js'] = sprintf($template_default['settings']['tracking']['gtm']['code'], $block['tracking_gtm']['id']);
+        } else {
+            $block['custom_htmlhead']['gtm.js'] = sprintf($template_default['settings']['tracking']['gtm']['code'], $block['tracking_gtm']['id']);
+        }
+        $content['all'] = sprintf($template_default['settings']['tracking']['gtm']['body'], $block['tracking_gtm']['id']) . $content['all'];
+    }
+
     // Matomo/Piwik Tracking Code
     if (!empty($block['tracking_piwik']['enable'])) {
         $template_default['settings']['tracking']['piwik_default'] = array(

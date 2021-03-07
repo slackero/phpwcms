@@ -59,6 +59,10 @@ $template = array(
         'anonymize' => PHPWCMS_GDPR_MODE  ? 1 : 0,
         'optout' => PHPWCMS_GDPR_MODE  ? 1 : 0,
     ),
+    'tracking_gtm' => array(
+        'enable' => 0,
+        'id' => '',
+    ),
     'tracking_piwik' => array(
         'enable' => 0,
         'id' => '',
@@ -190,6 +194,11 @@ if(isset($result[0]['template_id'])) {
         $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
         if(empty($template['tracking_ga']['id'])) {
             $template['tracking_ga']['enable'] = 0;
+        }
+        $template['tracking_gtm']['enable'] = empty($_POST['template_gtm']) ? 0 : 1;
+        $template['tracking_gtm']['id'] = clean_slweg($_POST["template_gtm_id"]);
+        if(empty($template['tracking_gtm']['id'])) {
+            $template['tracking_gtm']['enable'] = 0;
         }
         $template['tracking_piwik']['enable'] = empty($_POST['template_piwik']) ? 0 : 1;
         $template['tracking_piwik']['id'] = intval($_POST["template_piwik_id"]);
@@ -521,6 +530,22 @@ foreach($phpwcms['js_lib'] as $key => $value) {
         </tr>
 
         <tr>
+            <td><input type="checkbox" name="template_gtm" id="template_gtm" value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?> /></td>
+            <td class="v10"><label for="template_gtm"><?php echo $BL['be_google_tag_manager_enable']; ?></label></td>
+        </tr>
+        <tr id="gtm-tracking"<?php if(empty($template['tracking_gtm']['enable'])): ?> style="display:none;"<?php endif; ?>>
+            <td>&nbsp;</td>
+            <td class="tdtop3 tdbottom5">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap"><?php echo $BL['be_tracking_id']; ?>:&nbsp;</td>
+                        <td class="tdbottom3" colspan="2"><input type="text" name="template_gtm_id" maxlength="15" class="width150" placeholder="GTM-XXXXXXX" value="<?php echo html($template['tracking_gtm']['id']) ?>" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
             <td><input type="checkbox" name="template_piwik" id="template_piwik" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_piwik"><?php echo $BL['be_piwik_enable']; ?></label></td>
         </tr>
@@ -777,6 +802,13 @@ if(!empty($jsOnChange))  {
                 $('#ga-tracking').show();
             } else {
                 $('#ga-tracking').hide();
+            }
+        });
+        $('#template_gtm').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#gtm-tracking').show();
+            } else {
+                $('#gtm-tracking').hide();
             }
         });
         $('#template_piwik').on('change', function(){

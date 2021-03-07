@@ -1436,6 +1436,7 @@ $BL['cookie_consent_more'] = 'More info';
 $BL['be_cookie_consent_link'] = 'cookie policy url/alias';
 $BL['be_cookie_consent_theme'] = 'theme (empty = no CSS)';
 $BL['be_google_analytics_enable'] = 'use Google Analytics';
+$BL['be_google_tag_manager_enable'] = 'use Google Tag Manager';
 $BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
 $BL['be_tracking_id'] = 'tracking ID';

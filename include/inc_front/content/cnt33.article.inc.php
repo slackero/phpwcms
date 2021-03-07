@@ -264,44 +264,76 @@ if($news['list_mode']) {
     switch($news['news_sort']) {
 
         case 1:     // create date, DESC
-                    $sql .= 'pc.cnt_created DESC';
-                    break;
+            $sql .= 'pc.cnt_created DESC';
+            break;
 
         case 2:     // create date, ASC
-                    $sql .= 'pc.cnt_created ASC';
-                    break;
+            $sql .= 'pc.cnt_created ASC';
+            break;
 
         case 3:     // change date, DESC
-                    $sql .= 'pc.cnt_changed DESC';
-                    break;
+            $sql .= 'pc.cnt_changed DESC';
+            break;
 
         case 4:     // change date, ASC
-                    $sql .= 'pc.cnt_changed ASC';
-                    break;
+            $sql .= 'pc.cnt_changed ASC';
+            break;
 
         case 5:     // live date, DESC
-                    $sql .= 'cnt_ts_livedate DESC';
-                    break;
+            $sql .= 'cnt_ts_livedate DESC';
+            break;
 
         case 6:     // live date, ASC
-                    $sql .= 'cnt_ts_livedate ASC';
-                    break;
+            $sql .= 'cnt_ts_livedate ASC';
+            break;
 
         case 7:     // kill date, DESC
-                    $sql .= 'cnt_ts_killdate DESC';
-                    break;
+            $sql .= 'cnt_ts_killdate DESC';
+            break;
 
         case 8:     // kill date, ASC
-                    $sql .= 'cnt_ts_killdate ASC';
-                    break;
+            $sql .= 'cnt_ts_killdate ASC';
+            break;
 
         case 10:    // sort date, ASC
-                    $sql .= 'cnt_ts_sortdate ASC';
-                    break;
+            $sql .= 'cnt_ts_sortdate ASC';
+            break;
+
+        case 17:    // title, DESC
+            $sql .= 'pc.cnt_title DESC';
+            break;
+
+        case 18:    // title, ASC
+            $sql .= 'pc.cnt_title ASC';
+            break;
+
+        case 11:    // editor, DESC
+            $sql .= 'pc.cnt_editor DESC, cnt_ts_sortdate DESC';
+            break;
+
+        case 12:    // editor, ASC
+            $sql .= 'pc.cnt_editor ASC, cnt_ts_sortdate ASC';
+            break;
+
+        case 15:    // place, DESC
+            $sql .= 'pc.cnt_place DESC, cnt_ts_sortdate DESC';
+            break;
+
+        case 16:    // place, ASC
+            $sql .= 'pc.cnt_place ASC, cnt_ts_sortdate ASC';
+            break;
+
+        case 13:    // title alt, DESC
+            $sql .= 'pc.cnt_name DESC';
+            break;
+
+        case 14:    // title alt, ASC
+            $sql .= 'pc.cnt_name ASC';
+            break;
 
         case 9:
         default:    // sort date, DESC
-                    $sql .= 'cnt_ts_sortdate DESC';
+            $sql .= 'cnt_ts_sortdate DESC';
 
     }
 
@@ -406,25 +438,18 @@ if($news['template']) {
                     $value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
                 }
 
-                if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] == 'plain') {
+                if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] === 'plain') {
                     $value['cnt_teasertext'] = plaintext_htmlencode($value['cnt_teasertext']);
                     $value['cnt_description'] = plaintext_htmlencode($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'br') {
+                } elseif($value['cnt_object']['cnt_textformat'] === 'br') {
                     $value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
                     $value['cnt_description'] = br_htmlencode($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
-                    if(!isset($phpwcms['parsedown_class'])) {
-                        require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                        require_once(PHPWCMS_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                        $phpwcms['parsedown_class'] = new ParsedownExtra();
-                    }
+                } elseif($value['cnt_object']['cnt_textformat'] === 'markdown') {
+                    init_markdown();
                     $value['cnt_teasertext'] = $phpwcms['parsedown_class']->text($value['cnt_teasertext']);
                     $value['cnt_description'] = $phpwcms['parsedown_class']->text($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
-                    if(!isset($phpwcms['textile_class'])) {
-                        require_once(PHPWCMS_ROOT.'/include/inc_ext/classTextile.php');
-                        $phpwcms['textile_class'] = new Textile();
-                    }
+                } elseif($value['cnt_object']['cnt_textformat'] === 'textile') {
+                    init_textile();
                     $value['cnt_teasertext'] = $phpwcms['textile_class']->textileThis($value['cnt_teasertext']);
                     $value['cnt_description'] = $phpwcms['textile_class']->textileThis($value['cnt_description']);
                 } else {

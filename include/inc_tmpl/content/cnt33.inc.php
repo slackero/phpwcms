@@ -69,20 +69,28 @@ initJsAutocompleter();
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
 	<td><table cellpadding="0" cellspacing="0" border="0" summary="">
 		<tr>
-			<td><select name="news_sort" id="calink_type">
-
-		<option value="9"<?php is_selected(9, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
-		<option value="10"<?php is_selected(10, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
-		<option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
-		<option value="2"<?php is_selected(2, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
-		<option value="3"<?php is_selected(3, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
-		<option value="4"<?php is_selected(4, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
-		<option value="5"<?php is_selected(5, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
-		<option value="6"<?php is_selected(6, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderasc'] ?></option>
-		<option value="7"<?php is_selected(7, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
-		<option value="8"<?php is_selected(8, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>
-
-	</select></td>
+			<td>
+                <select name="news_sort" id="calink_type">
+                    <option value="9"<?php is_selected(9, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="10"<?php is_selected(10, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="2"<?php is_selected(2, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="3"<?php is_selected(3, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="4"<?php is_selected(4, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderchangedate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="5"<?php is_selected(5, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="6"<?php is_selected(6, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_start'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="7"<?php is_selected(7, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="8"<?php is_selected(8, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_end'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="17"<?php is_selected(17, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_ctitle'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="18"<?php is_selected(18, $content['news']['news_sort']) ?>><?php echo $BL['be_article_cnt_ctitle'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="11"<?php is_selected(11, $content['news']['news_sort']) ?>><?php echo $BL['be_article_username'].'/'.$BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="12"<?php is_selected(12, $content['news']['news_sort']) ?>><?php echo $BL['be_article_username'].'/'.$BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="13"<?php is_selected(13, $content['news']['news_sort']) ?>><?php echo $BL['be_title'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="14"<?php is_selected(14, $content['news']['news_sort']) ?>><?php echo $BL['be_title'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                    <option value="15"<?php is_selected(15, $content['news']['news_sort']) ?>><?php echo $BL['be_place'].'/'.$BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
+                    <option value="16"<?php is_selected(16, $content['news']['news_sort']) ?>><?php echo $BL['be_place'].'/'.$BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
+                </select>
+            </td>
 			<td>&nbsp;&nbsp;</td>
 			<td bgcolor="#e7e8eb"><input type="checkbox" name="news_prio" id="news_prio" value="1"<?php is_checked(1, $content['news']['news_prio']) ?> /></td>
 			<td bgcolor="#e7e8eb"><label for="news_prio">&nbsp;<?php echo $BL['be_use_prio'] ?>&nbsp;&nbsp;</label></td>
