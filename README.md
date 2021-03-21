@@ -3,11 +3,11 @@ phpwcms
 
 **phpwcms** is a very flexible, fast, robust, customer and developer friendly
 but yet powerful web based content management system and cms framework running
-under PHP and MySQL/MariaDB. phpwcms is created and maintained by 
+under PHP and MySQL/MariaDB. phpwcms is created and maintained by
 [Oliver Georgi](http://twitter.com/slackero).
 
-To get started, checkout <https://phpwcms.org> or the community driven 
-[HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet 
+To get started, checkout <https://phpwcms.org> or the community driven
+[HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet
 answered on the [phpwcms support forum](https://forum.phpwcms.org).
 
 
@@ -16,7 +16,7 @@ Quick start
 
 Clone the repo, `git clone -b v1.9-php7-dev git://github.com/slackero/phpwcms.git`,
 [download the latest release](https://github.com/slackero/phpwcms/releases) or
-[download the latest development version](https://github.com/slackero/phpwcms/archive/v1.9-php7-dev.zip).
+[download the latest development version](https://github.com/slackero/phpwcms/archive/refs/heads/v1.9-dev.zip).
 Then unarchive and copy the files to your web document root or subfolder.
 Link your browser to the related URL and follow the install instructions.
 
@@ -40,10 +40,10 @@ that conforms with [necolas's guidelines](https://github.com/necolas/issue-guide
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter 
-[@phpwcms](https://twitter.com/phpwcms) or on 
+Keep up to date on announcements and more by following **phpwcms** on Twitter
+[@phpwcms](https://twitter.com/phpwcms) or on
 [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-*(We are no longer active there, better you stay in touch with phpwcms on 
+*(We are no longer active there, better you stay in touch with phpwcms on
 [Github](https://github.com/slackero/phpwcms))*
 
 
