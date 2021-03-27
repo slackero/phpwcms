@@ -3488,7 +3488,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         $caption[2][1] = '';
     } else {
         $caption[2][1] = trim($caption[2][1]);
-        if(!empty($caption[2][1])) {
+        if($caption[2][1] !== '') {
             $caption[2][2] = $caption[2][1];
             $caption[2][1] = ' target="' . $caption[2][1] . '"';
         }
