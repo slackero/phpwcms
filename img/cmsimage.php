@@ -9,9 +9,8 @@
  *
  **/
 
-
-$phpwcms    = array();
-$root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
+$phpwcms = array();
+$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
 require_once $root.'/include/config/conf.inc.php';
 require_once $root.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -346,6 +345,10 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
+            if (PHPWCMS_WEBP && !$svg) {
+                $value['target_ext'] = 'webp';
+            }
+
             $image = get_cached_image($value, false, false);
 
             if(!empty($image[0])) {
@@ -359,13 +362,9 @@ if(isset($data[1])) {
                     $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
                 }
 
-                if(empty($name)) {
-                    $name = empty($data[2]) ? $image[0] : $data[2];
-                }
-
                 header('Content-Type: ' . $image['type']);
                 header('Content-length: '.filesize(PHPWCMS_THUMB.$image[0]));
-                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($image[0]).'"');
                 @readfile(PHPWCMS_THUMB.$image[0]);
                 exit;
             }
