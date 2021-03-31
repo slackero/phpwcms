@@ -78,6 +78,7 @@ class Phpwcms_Image_lib {
     var $image_current_vals = array();
     var $graphicsmagick = '';
     var $colorspace = 'RGB';
+    var $animated_gif = false;
 
     // Language strings
     var $lang = array(
@@ -112,7 +113,7 @@ class Phpwcms_Image_lib {
      * @return  void
      */
     public function __construct($props = array()) {
-        if (count($props) > 0) {
+        if (count($props)) {
             $this->initialize($props);
         }
     }
@@ -179,6 +180,7 @@ class Phpwcms_Image_lib {
         $this->wm_use_truetype = false;
         $this->sharpen = false;
         $this->colorspace = 'RGB';
+        $this->animated_gif = false;
     }
 
     // --------------------------------------------------------------------
@@ -574,7 +576,7 @@ class Phpwcms_Image_lib {
             $cmd .= ' -colorspace ' . $this->colorspace;
         } elseif ($this->target_ext === 'gif') {
             // Check if it is an animated GIF an coalesce the image
-            if (($gif_content = @file_get_contents($this->full_src_path)) && preg_match('/\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)/s', $gif_content)) {
+            if ($this->animated_gif) {
                 // The coalesce command
                 $coalesce = $this->library_path . ' ' . escapeshellarg($this->full_src_path) . ' -coalesce ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
                 // Run the command

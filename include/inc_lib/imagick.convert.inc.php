@@ -95,7 +95,8 @@ function image_manipulate($config=array()) {
         'quality' => $config['quality'],
         'create_thumb' => false,
         'target_ext' => $config["target_ext"],
-        'colorspace' => $phpwcms['colorspace']
+        'colorspace' => $phpwcms['colorspace'],
+        'animated_gif' => $config["animated_gif"]
     );
 
     $IMG = new Phpwcms_Image_lib($image_config);
@@ -198,7 +199,8 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             'sharpen_level' => $GLOBALS['phpwcms']['sharpen_level'],
             'crop_image'  => false,
             'crop_pos' => '',
-            'img_filename' => ''
+            'img_filename' => '',
+            'animated_gif' => false
         ),
         $val
     );
@@ -228,8 +230,10 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
-    // Test against WebP support
-    if (PHPWCMS_WEBP) {
+    // Check if animated GIF
+    if ($val['target_ext'] === 'gif' && in_array($GLOBALS['phpwcms']['image_library'], array('imagemagick', 'gm', 'graphicsmagick')) && is_animated_gif($val['image_dir'].$val['image_name'])) {
+        $val['animated_gif'] = true; // Try to preserve animated GIF
+    } elseif (PHPWCMS_WEBP) { // Test against WebP support
         $val['target_ext'] = 'webp';
     } elseif ($val['target_ext'] === 'webp') {
         $val['target_ext'] = 'jpg';
@@ -513,4 +517,38 @@ function phpwcms_svg_getimagesize($svg_file) {
         'width' => empty($svg_attributes->width) ? 0 : (string) $svg_attributes->width,
         'height' => empty($svg_attributes->height) ? 0 : (string) $svg_attributes->height
     );
+}
+
+function is_animated_gif($file) {
+    $fp = null;
+
+    if (is_string($file)) {
+        $fp = fopen($file, "rb");
+    } else {
+        $fp = $file;
+
+        /* Make sure that we are at the beginning of the file */
+        fseek($fp, 0);
+    }
+
+    if (fread($fp, 3) !== "GIF") {
+        fclose($fp);
+
+        return false;
+    }
+
+    $frames = 0;
+
+    while (!feof($fp) && $frames < 2) {
+        if (fread($fp, 1) === "\x00") {
+            /* Some of the animated GIFs do not contain graphic control extension (starts with 21 f9) */
+            if (fread($fp, 1) === "\x21" || fread($fp, 2) === "\x21\xf9") {
+                $frames++;
+            }
+        }
+    }
+
+    fclose($fp);
+
+    return $frames > 1;
 }
