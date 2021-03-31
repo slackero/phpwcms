@@ -133,7 +133,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -163,7 +163,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
+                $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -213,7 +213,7 @@ if(isset($data[1])) {
                 if($quality < 10 || $quality > 100) {
                     $quality = '';
                 } else {
-                    $value['jpg_quality'] = $quality;
+                    $value['quality'] = $quality;
                 }
             } else {
                 $quality = '';

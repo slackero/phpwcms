@@ -332,7 +332,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             $entry_id  = empty($_SESSION['filebrowser_image_entry_id']) ? '' : $_SESSION['filebrowser_image_entry_id'];
             // no break here
         case 7:
-            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif', 'svg'";
+            $file_sql .= "f_ext IN ('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp'";
             if($phpwcms['image_library'] !== 'gd2') {
                 $file_sql .= ", 'pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps', 'webp'";
             }

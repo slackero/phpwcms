@@ -18,6 +18,7 @@ $ci_lang['imglib_unsupported_imagecreate'] = 'Der Server muss die GD-Bibliothek 
 $ci_lang['imglib_gif_not_supported'] = 'GIF-Dateien werden h&auml;ufig wegen Lizenzbeschr&auml;nkungen nicht unterst&uuml;tzt. Mouml;glicherweise m&uuml;ssen Sie stattdessen JPEG- oder PNG-Dateien verwenden.';
 $ci_lang['imglib_jpg_not_supported'] = 'JPEG-Dateien werden nicht unterst&uuml;tzt.';
 $ci_lang['imglib_png_not_supported'] = 'PNG-Dateien werden nicht unterst&uuml;tzt.';
+$ci_lang['imglib_webp_not_supported'] = 'WebP-Dateien werden nicht unterst&uuml;tzt.';
 $ci_lang['imglib_jpg_or_png_required'] = 'Nur JPEG- und PNG-Dateien kouml;nnen mit der festgelegten Methode verkleinert und vergrouml;ssert werden.';
 $ci_lang['imglib_copy_error'] = 'Die Datei konnte nicht &uuml;berschrieben werden. Mouml;glicherweise ist das Verzeichnis schreibgesch&uuml;tzt.';
 $ci_lang['imglib_rotate_unsupported'] = 'Der Server unterst&uuml;tzt das Drehen von Bildern nicht';

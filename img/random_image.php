@@ -53,9 +53,10 @@ if($imageinfo != false && isset($imageinfo[2])) {
 
 	switch($imageinfo[2]) {
 		//1 = GIF, 2 = JPG, 3 = PNG
-		case 1: header("Content-Type: image/gif"); break;
-		case 2: header("Content-Type: image/jpeg"); break;
-		case 3: header("Content-Type: image/png"); break;
+		case IMAGETYPE_GIF: header("Content-Type: image/gif"); break;
+		case IMAGETYPE_JPEG: header("Content-Type: image/jpeg"); break;
+		case IMAGETYPE_PNG: header("Content-Type: image/png"); break;
+		case IMAGETYPE_WEBP: header("Content-Type: image/webp"); break;
 		default: header("Content-Type: image/gif");
 	}
 
