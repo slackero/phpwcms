@@ -21,23 +21,31 @@ $img_file   = str_replace(array('http://', 'https://'), '', $img_file);
 
 switch($img_target) {
 
-    case 'png':     $img_mimetype   = 'image/png';
-                    $img_target     = 'jpg';
-                    break;
+    case 'png':
+        $img_mimetype   = 'image/png';
+        $img_target     = 'jpg';
+        break;
 
-    case 'gif':     if(function_exists('imagegif')) {
-                        $img_mimetype = 'image/gif';
-                        $img_target   = 'gif';
-                    } else {
-                        $img_target   = 'png';
-                        $img_mimetype = 'image/png';
-                    }
-                    break;
+    case 'gif':
+        if(function_exists('imagegif')) {
+            $img_mimetype = 'image/gif';
+            $img_target   = 'gif';
+        } else {
+            $img_target   = 'png';
+            $img_mimetype = 'image/png';
+        }
+        break;
+
+    case 'webp':
+        $img_mimetype   = 'image/webp';
+        $img_target     = 'webp';
+        break;
 
     case 'jpeg':
     case 'jpg':
-    default:        $img_mimetype   = 'image/jpeg';
-                    $img_target     = 'jpg';
+    default:
+        $img_mimetype   = 'image/jpeg';
+        $img_target     = 'jpg';
 
 }
 
@@ -63,38 +71,38 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
         $percent = $percent_width;
     }
 
-
-    $img_width  = ($img_info[0] * $percent);
-    $img_height = ($img_info[1] * $percent);
-
+    $img_width  = $img_info[0] * $percent;
+    $img_height = $img_info[1] * $percent;
 
     switch($img_target) {
+        case 'jpg':
+        case 'png':
+        case 'webp':
+            $new_img = imagecreatetruecolor($img_width, $img_height);
+            break;
 
-        case 'jpg':     $new_img = imagecreatetruecolor($img_width, $img_height);
-                        break;
-
-        case 'png':     $new_img = imagecreatetruecolor($img_width, $img_height);
-                        break;
-
-        case 'gif':     $new_img = imagecreate($img_width, $img_height);
-                        break;
-
+        case 'gif':
+            $new_img = imagecreate($img_width, $img_height);
+            break;
     }
 
     switch($img_info[2]) {
 
-        case 1: // GIF
-                $img_source = imagecreatefromgif($img_file);
-                break;
+        case IMAGETYPE_GIF: // GIF
+            $img_source = imagecreatefromgif($img_file);
+            break;
 
-        case 2: // JPG
-                $img_source = imagecreatefromjpeg($img_file);
-                break;
+        case IMAGETYPE_JPEG: // JPG
+            $img_source = imagecreatefromjpeg($img_file);
+            break;
 
-        case 3: // PNG
-                $img_source = imagecreatefrompng($img_file);
-                break;
+        case IMAGETYPE_PNG: // PNG
+            $img_source = imagecreatefrompng($img_file);
+            break;
 
+        case IMAGETYPE_WEBP: // WEBP
+            $img_source = imagecreatefromwebp($img_file);
+            break;
     }
 
     imagecopyresized($new_img, $img_source, 0, 0, 0, 0, $img_width, $img_height, $img_info[0], $img_info[1]);
@@ -103,14 +111,21 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
 
     switch($img_target) {
 
-        case 'jpg':     imagejpeg($new_img, NULL, $img_quality);
-                        break;
+        case 'jpg':
+            imagejpeg($new_img, NULL, $img_quality);
+            break;
 
-        case 'png':     imagepng($new_img, NULL, 9);
-                        break;
+        case 'webp':
+            imagewebp($new_img, NULL, $img_quality);
+            break;
 
-        case 'gif':     imagegif($new_img);
-                        break;
+        case 'png':
+            imagepng($new_img, NULL, 9);
+            break;
+
+        case 'gif':
+            imagegif($new_img);
+            break;
 
     }
 

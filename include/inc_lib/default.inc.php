@@ -186,6 +186,8 @@ define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
 define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : false);
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT.'log');
+define('PHPWCMS_WEBP', empty($phpwcms['webp_enable']) ? false : $phpwcms['USER_AGENT']['webp']);
+define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -442,6 +444,7 @@ if(empty($phpwcms['allowed_upload_ext'])) {
         'jpg',
         'jpeg',
         'png',
+        'webp',
         'gif',
         'tif',
         'tiff',
@@ -991,6 +994,12 @@ function phpwcms_getUserAgent($USER_AGENT='') {
         $pixelratio = 1;
     }
 
+    if(strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/' ) !== false)) {
+        $webp = true;
+    } else {
+        $webp = false;
+    }
+
     if(empty($USER_AGENT)) {
         return $GLOBALS['phpwcms'][$index] = array(
             'agent'         => 'Other',
@@ -1000,7 +1009,8 @@ function phpwcms_getUserAgent($USER_AGENT='') {
             'device'        => 'Default',
             'bot'           => 0,
             'engine'        => 'Other',
-            'pixelratio'    => $pixelratio
+            'pixelratio'    => $pixelratio,
+            'webp'          => $webp
         );
     }
 
@@ -1176,7 +1186,8 @@ function phpwcms_getUserAgent($USER_AGENT='') {
         'device'        => $device,
         'bot'           => $bot,
         'engine'        => $engine,
-        'pixelratio'    => $pixelratio
+        'pixelratio'    => $pixelratio,
+        'webp'          => $webp
     );
 }
 

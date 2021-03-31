@@ -74,6 +74,8 @@ $phpwcms['charset']             = 'utf-8'; // default charset 'utf-8' do not use
 $phpwcms['php_charset']         = false; // set PHP default charset to $phpwcms['charset']
 $phpwcms['allow_remote_URL']    = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality']         = 85; // JPG Quality Range 25-100
+$phpwcms['webp_enable']         = 1; // Render all images as WebP if the client browser supports it
+$phpwcms['webp_quality']        = 85; // Set the WebP quality
 $phpwcms['sharpen_level']       = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init']      = 1; // allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render']    = 1; // allow including of custom external scripts at frontend rendering
@@ -137,7 +139,7 @@ $phpwcms['header_comment']      = '';
 $phpwcms['cnt_sort']            = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
 $phpwcms['cmsimage_redirect']   = false; // redirect to the resized/cropped image if true
 $phpwcms['disable_next_prev']   = false; // https://support.google.com/webmasters/answer/1663744
-$phpwcms['allowed_upload_ext']  = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
+$phpwcms['allowed_upload_ext']  = 'jpg,jpeg,png,webp,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
 $phpwcms['enable_inline_php']   = false; // disable [PHP] {PHP…} … by default
 $phpwcms['parse_html_mode']     = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $phpwcms['trash_delete_files']  = false; // set to true if files should be deleted if trash is emptied
