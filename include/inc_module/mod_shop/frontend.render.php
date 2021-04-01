@@ -878,9 +878,11 @@ if( $_shop_load_list !== false ) {
                 }
 
                 if(strpos($_cart, '{PRODUCT_OPT1}') !== false) {
-                    $_cart_add .= $_tmpl['config']['product_option_1_prefix'];
-                    $_cart_add .= $_cart_prod_opt1;
-                    $_cart_add .= $_tmpl['config']['product_option_1_suffix'];
+                    if ($_cart_prod_opt1) {
+                        $_cart_add .= $_tmpl['config']['product_option_1_prefix'];
+                        $_cart_add .= $_cart_prod_opt1;
+                        $_cart_add .= $_tmpl['config']['product_option_1_suffix'];
+                    }
                     $_cart = str_replace('{PRODUCT_OPT1}', '', $_cart);
                 }
 
@@ -889,9 +891,11 @@ if( $_shop_load_list !== false ) {
                 }
 
                 if(strpos($_cart, '{PRODUCT_OPT2}') !== false) {
-                    $_cart_add .= $_tmpl['config']['product_option_2_prefix'];
-                    $_cart_add .= $_cart_prod_opt2;
-                    $_cart_add .= $_tmpl['config']['product_option_2_suffix'];
+                    if ($_cart_prod_opt2) {
+                        $_cart_add .= $_tmpl['config']['product_option_2_prefix'];
+                        $_cart_add .= $_cart_prod_opt2;
+                        $_cart_add .= $_tmpl['config']['product_option_2_suffix'];
+                    }
                     $_cart = str_replace('{PRODUCT_OPT2}', '', $_cart);
                 }
 
