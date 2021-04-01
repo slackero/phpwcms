@@ -171,6 +171,14 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
             'cat_count_products'        => true,
             'cat_count_products_prefix' => ' (',
             'cat_count_products_suffix' => ')',
+            'cat_class_menu'            => 'shop-categories',
+            'cat_class_item'            => 'shop-category ',
+            'cat_class_item_active'     => 'active',
+            'cat_class_submenu'         => 'shop-sub-categories',
+            'cat_class_subitem'         => 'shop-sub-category ',
+            'cat_class_subitem_active'  => 'active',
+            'cat_class_item_link'       => 'shop-cat-link',
+            'cat_class_subitem_link'    => 'shop-subcat-link',
 			'price_decimals'			=> 2,
 			'vat_decimals'				=> 1,
 			'weight_decimals'			=> 1,
@@ -529,9 +537,10 @@ if( $_shop_load_cat !== false ) {
 			}
 
 			$shop_cat_prods = '';
-			$shop_cat[$x]   = '<li id="shopcat-'.$row['cat_id'].'"';
+			$shop_cat[$x] = '<li id="shopcat-'.$row['cat_id'].'"';
+            $shop_cat_class = $_tmpl['config']['cat_class_item'];
 			if($row['cat_id'] == $shop_cat_selected) {
-				$shop_cat[$x] .= ' class="active"';
+                $shop_cat_class .= ' ' . $_tmpl['config']['cat_class_item_active'];
 
 				// now try to retrieve sub categories for active category
 				$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_categories WHERE ';
@@ -549,12 +558,14 @@ if( $_shop_load_cat !== false ) {
 					$z = 0;
 					foreach($sdata as $srow) {
 
-						$shop_subcat[$z]   = '<li id="shopsubcat-'.$row['cat_id'].'"';
+						$shop_subcat[$z]   = '<li id="shopsubcat-'.$row['cat_id'].'" ';
+                        $shop_subcat_class = $_tmpl['config']['cat_class_subitem'];
 						if($srow['cat_id'] == $shop_subcat_selected) {
-							$shop_subcat[$z] .= ' class="active"';
+                            $shop_subcat_class .= ' ' . $_tmpl['config']['cat_class_subitem_active'];
 						}
-
-						$shop_subcat[$z] .= '><a href="' . rel_url(array('shop_cat' => $srow['cat_pid'] . '_' . $srow['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">';
+                        $shop_subcat[$z] .= 'class="' . trim($shop_subcat_class) . '">';
+						$shop_subcat[$z] .= '<a href="' . rel_url(array('shop_cat' => $srow['cat_pid'] . '_' . $srow['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '" ';
+						$shop_subcat[$z] .= 'class="' .  $_tmpl['config']['cat_class_subitem_link'] . '">';
 						$shop_subcat[$z] .= '@@' . html($srow['cat_name']) . '@@';
 						if ($_tmpl['config']['cat_count_products']) {
                             $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
@@ -580,7 +591,7 @@ if( $_shop_load_cat !== false ) {
 					}
 
 					if(count($shop_subcat)) {
-						$shop_cat_prods = '<ul>' . implode('', $shop_subcat) . '</ul>';
+						$shop_cat_prods = '<ul class="' . $_tmpl['config']['cat_class_submenu'] . '">' . implode('', $shop_subcat) . '</ul>';
 					}
 
 				}
@@ -590,7 +601,9 @@ if( $_shop_load_cat !== false ) {
 				}
 
 			}
-			$shop_cat[$x] .= '><a href="' . rel_url(array('shop_cat' => $row['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">';
+			$shop_cat[$x] .= ' class="' . trim($shop_cat_class) . '">';
+			$shop_cat[$x] .= '<a href="' . rel_url(array('shop_cat' => $row['cat_id']), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '" ';
+            $shop_cat[$x] .= 'class="' . $_tmpl['config']['cat_class_item_link'] . '">';
 			$shop_cat[$x] .= '@@' . html($row['cat_name']) . '@@';
             if ($_tmpl['config']['cat_count_products']) {
                 $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
@@ -627,11 +640,14 @@ if( $_shop_load_cat !== false ) {
 	}
 
 	if( ! $shop_limited_cat && $_tmpl['config']['cat_all_pos'] != 'none') {
-		$shop_cat_all .= '<li id="shopcat-all"';
+		$shop_cat_all .= '<li id="shopcat-all" ';
+        $shop_cat_class = $_tmpl['config']['cat_class_item'];
 		if($shop_cat_selected == 'all') {
-			$shop_cat_all .= ' class="active"';
+            $shop_cat_class .= ' ' . $_tmpl['config']['cat_class_item_active'];
 		}
-		$shop_cat_all .= '><a href="' . rel_url(array('shop_cat' => 'all'), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '">@@';
+        $shop_cat_all .= 'class="' . trim($shop_cat_class) . '">';
+		$shop_cat_all .= '<a href="' . rel_url(array('shop_cat' => 'all'), array('shop_detail', 'shop_cart'), $_tmpl['config']['shop_url']) . '" ';
+        $shop_cat_all .= 'class="' . $_tmpl['config']['cat_class_item_link'] . '">@@';
 		$shop_cat_all .= html($_tmpl['config']['cat_all']);
 		$shop_cat_all .= '@@</a>';
 		$shop_cat_all .= '</li>';
@@ -644,7 +660,7 @@ if( $_shop_load_cat !== false ) {
 	}
 
 	if($shop_cat !== '') {
-		$shop_cat = '<ul class="'.$template_default['classes']['shop-category-menu'].'">' . $shop_cat . '</ul>';
+		$shop_cat = '<ul class="' . trim($template_default['classes']['shop-category-menu'] . ' ' . $_tmpl['config']['cat_class_menu']) . '">' . $shop_cat . '</ul>';
 	}
 
 	$content['all'] = str_replace('{SHOP_CATEGORIES}', $shop_cat, $content['all']);
