@@ -227,7 +227,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 					//opt_1
 					if(isset($_cart_opt_1[$key][1])) {
-						$value_opt1_float = $_cart_opt_1[$key][1];
+					    if ($_cart_opt_1[$key]['type'] === '=') {
+                            $plugin['product']['shopprod_price'] = $_cart_opt_1[$key][1];
+                            $value_opt1_float = 0;
+                        } else {
+                            $value_opt1_float = $_cart_opt_1[$key][1];
+                        }
 						$opt1_txt = $_cart_opt_1[$key]['option'];
 						$opt1_numbr = $_cart_opt_1[$key][2];
 					} else {
@@ -238,7 +243,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 					//opt_2
 					if(isset($_cart_opt_2[$key][1])) {
-						$value_opt2_float = $_cart_opt_2[$key][1];
+					    if ($_cart_opt_2[$key]['type'] === '=') {
+                            $plugin['product']['shopprod_price'] = $_cart_opt_2[$key][1];
+                            $value_opt2_float = 0;
+                        } else {
+                            $value_opt2_float = $_cart_opt_2[$key][1];
+                        }
 						$opt2_txt = $_cart_opt_2[$key]['option'];
 						$opt2_numbr = $_cart_opt_2[$key][2];
 					} else {

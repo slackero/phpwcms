@@ -31,8 +31,10 @@ thousands_sep = "."
 ; enclose the string by | => "| |" or just | |
 ; {$} is an alias for {CURRENCY_SYMBOL}
 price_option_null = 0
-price_option_prefix = | |
+price_option_prefix = |, |
 price_option_suffix = | {$}|
+; If there is a price option, set to 1 to hide it
+price_option_hide = 0
 
 ; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
 ; for leading and trailing spaces use replacer %S

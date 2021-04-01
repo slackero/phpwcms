@@ -252,6 +252,7 @@ function get_shop_option_value_config() {
 		'thousands_sep' => $GLOBALS['_tmpl']['config']['thousands_sep'],
 		'null' => $GLOBALS['_tmpl']['config']['price_option_null'],
 		'prefix' => $GLOBALS['_tmpl']['config']['price_option_prefix'],
-		'suffix' => $GLOBALS['_tmpl']['config']['price_option_suffix']
+		'suffix' => $GLOBALS['_tmpl']['config']['price_option_suffix'],
+		'hide' => $GLOBALS['_tmpl']['config']['price_option_hide'] ? true : false,
 	);
 }
