@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -25,63 +25,63 @@ $_shopPref['shop_pref_discount_invalid'] = empty($_shopPref['shop_pref_discount'
 $_shopPref['shop_pref_discount_percent_invalid'] = empty($_shopPref['shop_pref_discount']['percent']) && empty($_shopPref['shop_pref_discount']['percent_1']) && empty($_shopPref['shop_pref_discount']['percent_2']);
 
 $_shopPref['shop_discount_use'] = array(
-	'percent' => 0,
-	'freeshipping' => 0,
-	'amount' => -1
+    'percent' => 0,
+    'freeshipping' => 0,
+    'amount' => -1
 );
 
 if($_shopPref['shop_pref_discount_invalid'] || $_shopPref['shop_pref_discount_percent_invalid']) {
 
-	$subtotal['float_discount_net']		= 0;
-	$subtotal['float_discount_vat']		= 0;
-	$subtotal['float_discount_gross']	= 0;
+    $subtotal['float_discount_net']		= 0;
+    $subtotal['float_discount_vat']		= 0;
+    $subtotal['float_discount_gross']	= 0;
 
 } else {
 
-	$_shopPref['shop_discount_cur'] = array(
-		0 => empty($_shopPref['shop_pref_discount']['discount']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount']) && $_shopPref['shop_pref_discount']['amount'] > 0 ? $_shopPref['shop_pref_discount']['amount'] : 0),
-		1 => empty($_shopPref['shop_pref_discount']['discount_1']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount_1']) && $_shopPref['shop_pref_discount']['amount_1'] > 0 ? $_shopPref['shop_pref_discount']['amount_1'] : 0),
-		2 => empty($_shopPref['shop_pref_discount']['discount_2']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount_2']) && $_shopPref['shop_pref_discount']['amount_2'] > 0 ? $_shopPref['shop_pref_discount']['amount_2'] : 0)
-	);
+    $_shopPref['shop_discount_cur'] = array(
+        0 => empty($_shopPref['shop_pref_discount']['discount']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount']) && $_shopPref['shop_pref_discount']['amount'] > 0 ? $_shopPref['shop_pref_discount']['amount'] : 0),
+        1 => empty($_shopPref['shop_pref_discount']['discount_1']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount_1']) && $_shopPref['shop_pref_discount']['amount_1'] > 0 ? $_shopPref['shop_pref_discount']['amount_1'] : 0),
+        2 => empty($_shopPref['shop_pref_discount']['discount_2']) ? -1 : (isset($_shopPref['shop_pref_discount']['amount_2']) && $_shopPref['shop_pref_discount']['amount_2'] > 0 ? $_shopPref['shop_pref_discount']['amount_2'] : 0)
+    );
 
-	// sort by highest discount amount
-	asort($_shopPref['shop_discount_cur'], SORT_NUMERIC);
+    // sort by highest discount amount
+    asort($_shopPref['shop_discount_cur'], SORT_NUMERIC);
 
-	// delete all
-	foreach($_shopPref['shop_discount_cur'] as $_dk => $_dv) {
-		if($_dv > -1) {
-			if($_dv > $_shopPref['shop_discount_use']['amount'] && ($_dv == 0 || $subtotal['float_net'] >= $_dv)) {
-				if($_dk === 0) {
-					$_shopPref['shop_discount_use'] = array(
-						'percent' => $_shopPref['shop_pref_discount']['percent'],
-						'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping'],
-						'amount' => $_dv
-					);
-				} elseif($_dk === 1) {
-					$_shopPref['shop_discount_use'] = array(
-						'percent' => $_shopPref['shop_pref_discount']['percent_1'],
-						'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping_1'],
-						'amount' => $_dv
-					);
-				} else {
-					$_shopPref['shop_discount_use'] = array(
-						'percent' => $_shopPref['shop_pref_discount']['percent_2'],
-						'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping_2'],
-						'amount' => $_dv
-					);
-				}
-			}
-		}
-	}
+    // delete all
+    foreach($_shopPref['shop_discount_cur'] as $_dk => $_dv) {
+        if($_dv > -1) {
+            if($_dv > $_shopPref['shop_discount_use']['amount'] && ($_dv == 0 || $subtotal['float_net'] >= $_dv)) {
+                if($_dk === 0) {
+                    $_shopPref['shop_discount_use'] = array(
+                        'percent' => $_shopPref['shop_pref_discount']['percent'],
+                        'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping'],
+                        'amount' => $_dv
+                    );
+                } elseif($_dk === 1) {
+                    $_shopPref['shop_discount_use'] = array(
+                        'percent' => $_shopPref['shop_pref_discount']['percent_1'],
+                        'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping_1'],
+                        'amount' => $_dv
+                    );
+                } else {
+                    $_shopPref['shop_discount_use'] = array(
+                        'percent' => $_shopPref['shop_pref_discount']['percent_2'],
+                        'freeshipping' => $_shopPref['shop_pref_discount']['freeshipping_2'],
+                        'amount' => $_dv
+                    );
+                }
+            }
+        }
+    }
 
-	$subtotal['float_discount_net']		= round($subtotal['float_net'] * $_shopPref['shop_discount_use']['percent'] / 100, 2);
-	$subtotal['float_discount_gross']	= round($subtotal['float_gross'] * $_shopPref['shop_discount_use']['percent'] / 100, 2);
-	$subtotal['float_discount_vat']		= $subtotal['float_discount_gross'] - $subtotal['float_discount_net'];
-	if(!empty($_shopPref['shop_discount_use']['freeshipping'])) {
-		$subtotal['shipping_net']	= 0;
-		$subtotal['shipping_gross']	= 0;
-		$subtotal['shipping_vat']	= 0;
-	}
+    $subtotal['float_discount_net']		= round($subtotal['float_net'] * $_shopPref['shop_discount_use']['percent'] / 100, 2);
+    $subtotal['float_discount_gross']	= round($subtotal['float_gross'] * $_shopPref['shop_discount_use']['percent'] / 100, 2);
+    $subtotal['float_discount_vat']		= $subtotal['float_discount_gross'] - $subtotal['float_discount_net'];
+    if(!empty($_shopPref['shop_discount_use']['freeshipping'])) {
+        $subtotal['shipping_net']	= 0;
+        $subtotal['shipping_gross']	= 0;
+        $subtotal['shipping_vat']	= 0;
+    }
 }
 
 $subtotal['float_shipping_net']		= $subtotal['shipping_net'];
@@ -90,13 +90,13 @@ $subtotal['float_shipping_gross']	= $subtotal['shipping_gross'];
 // calculate low or surcharge
 $_shopPref['shop_pref_loworder']['under'] = floatval($_shopPref['shop_pref_loworder']['under']);
 if(empty($_shopPref['shop_pref_loworder']['loworder']) || empty($_shopPref['shop_pref_loworder']['charge']) || $subtotal['float_net'] > $_shopPref['shop_pref_loworder']['under']) {
-	$subtotal['float_loworder_net']		= 0;
-	$subtotal['float_loworder_vat']		= 0;
-	$subtotal['float_loworder_gross']	= 0;
+    $subtotal['float_loworder_net']		= 0;
+    $subtotal['float_loworder_vat']		= 0;
+    $subtotal['float_loworder_gross']	= 0;
 } else {
-	$subtotal['float_loworder_net']		= $_shopPref['shop_pref_loworder']['charge'];
-	$subtotal['float_loworder_gross']	= round( $subtotal['float_loworder_net'] * ( 1 + ($_shopPref['shop_pref_loworder']['vat'] / 100) ), 2 );
-	$subtotal['float_loworder_vat']		= $subtotal['float_loworder_gross'] - $subtotal['float_loworder_net'];
+    $subtotal['float_loworder_net']		= $_shopPref['shop_pref_loworder']['charge'];
+    $subtotal['float_loworder_gross']	= round( $subtotal['float_loworder_net'] * ( 1 + ($_shopPref['shop_pref_loworder']['vat'] / 100) ), 2 );
+    $subtotal['float_loworder_vat']		= $subtotal['float_loworder_gross'] - $subtotal['float_loworder_net'];
 }
 
 // now sum everything
