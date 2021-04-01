@@ -172,8 +172,9 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			'dec_point'					=> '.',
 			'thousands_sep'				=> ',',
 			'price_option_null'			=> false,
-			'price_option_prefix'		=> ' ',
+			'price_option_prefix'		=> ', ',
 			'price_option_suffix'		=> ' {$}',
+			'price_option_hide'		    => false,
 			'image_list_width'			=> 200,
 			'image_list_height'			=> 200,
 			'image_detail_width'		=> 200,
@@ -745,6 +746,13 @@ if( $_shop_load_list !== false ) {
 				$row['gross']	= $row['shopprod_price'] * (1 + $row['vat'] / 100);
 			}
 
+			$row['prices'] = array(
+				'vat' => $row['vat'],
+				'net' => $row['net'],
+				'gross' => $row['gross'],
+				'weight' => $row['shopprod_weight']
+			);
+
 			$row['vat']		= number_format($row['vat'],   $row['vat_decimals'],   $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
 			$row['net']		= number_format($row['net'],   $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
 			$row['gross']	= number_format($row['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
@@ -778,7 +786,7 @@ if( $_shop_load_list !== false ) {
 
 					$value = get_shop_option_value($value);
 
-					$_cart_prod_opt1 .= '<option value="'.$key.'">';
+					$_cart_prod_opt1 .= '<option value="'.$key.'" data-type="' . $value['type'] . '" data-price="' . $value[1] . '">';
 					$_cart_prod_opt1 .= html($value[0]) . $value['option'];
 					$_cart_prod_opt1 .= '</option>';
 				}
@@ -799,7 +807,7 @@ if( $_shop_load_list !== false ) {
 
 					$value = get_shop_option_value($value);
 
-					$_cart_prod_opt2 .= '<option value="'.$key.'">';
+					$_cart_prod_opt2 .= '<option value="'.$key.'" data-type="' . $value['type'] . '" data-price="' . $value[1] . '">';
 					$_cart_prod_opt2 .= html($value[0]) . $value['option'];
 					$_cart_prod_opt2 .= '</option>';
 
@@ -818,7 +826,9 @@ if( $_shop_load_list !== false ) {
 
 				$_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 
-				$_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" method="post">';
+				$_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="';
+				$_cart_add .= trim($_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode']);
+				$_cart_add .= '" method="post" data-prices="' . html(json_encode($row['prices'])) . '">';
 				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
 				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
 
