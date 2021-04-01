@@ -100,8 +100,9 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
         $caption[3] = empty($caption[3]) ? $title : ' title="'.html($caption[3]).'"'; //title
         $caption[1] = html(empty($caption[1]) ? $img['f_name'] : $caption[1]);
 
-        $list_img_temp  = '<img src="'.$thumb_image['src'].'" ';
-        $list_img_temp .= $thumb_image[3].' alt="'.$caption[1].'"'.$caption[3].' />';
+        $list_img_temp  = '<img src="'.$thumb_image['src'].'" class="' . $config['image_class'] . '" ';
+        $list_img_temp .= $thumb_image[3] . ' alt="' . $caption[1] . '"' . $caption[3];
+        $list_img_temp .= PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 
         // use lightbox effect
         if($config['image_'.$config['mode'].'_lightbox']) {
@@ -109,7 +110,8 @@ function shop_image_tag($img=array(), $counter=0, $title='') {
             $a  = '<a href="'.PHPWCMS_RESIZE_IMAGE.'/';
             $a .= $config['image_zoom_width'] . 'x' . $config['image_zoom_height'] . '/';
             $a .= $img['f_hash'] . '.' . $img['f_ext'] . '/' . rawurlencode($img['f_name']) . '" ';
-            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '') . $caption[3] . '>';
+            $a .= 'target="_blank" rel="lightbox'.$config['lightbox_id'].'"' . get_attr_data_gallery($config['lightbox_id'], ' ', '');
+            $a .= $caption[3] . '>';
 
             $list_img_temp = $a . $list_img_temp . '</a>';
         }
