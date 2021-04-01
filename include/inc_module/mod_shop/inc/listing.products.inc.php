@@ -111,42 +111,42 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 <form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
   <div class="form-row align-items-center my-2">
-		<div class="form-inline col-12 col-sm">
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<div class="input-group-text bg-success border-0">
-						<input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> />
-					</div>
-					<div class="input-group-text bg-danger border-0">
-						 <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> />
-					</div>
-				</div>
-				<div class="input-group-append">
-					<span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
-				</div>
-			</div>
-		</div>
+        <div class="form-inline col-12 col-sm">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text bg-success border-0">
+                        <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> />
+                    </div>
+                    <div class="input-group-text bg-danger border-0">
+                         <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> />
+                    </div>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
+                </div>
+            </div>
+        </div>
 
-		<div class="col-12 col-sm-auto">
-			<div class="input-group my-3 my-sm-0">
-				<input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php echo html($_entry['post_filter']); ?>" type="search">
-				<span class="input-group-append">
-					<input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
-				</span>
-			</div>
-		</div>
+        <div class="col-12 col-sm-auto">
+            <div class="input-group my-3 my-sm-0">
+                <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php echo html($_entry['post_filter']); ?>" type="search">
+                <span class="input-group-append">
+                    <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
+                </span>
+            </div>
+        </div>
 
-		<div class="col-12 col-sm-auto text-right">
-			<select class="form-control form-control-sm custom-select">
-				<option <?php echo ($_SESSION['list_product_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_article_rendering'] ?></option>
-				<option <?php echo ($_SESSION['list_product_count'] == '10') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=10'">10</option>
-				<option <?php echo ($_SESSION['list_product_count'] == '25') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=25'">25</option>
-				<option <?php echo ($_SESSION['list_product_count'] == '50') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=50'">50</option>
-				<option <?php echo ($_SESSION['list_product_count'] == '100') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=100'">100</option>
-				<option <?php echo ($_SESSION['list_product_count'] == '250') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=250'">250</option>
-				<option <?php echo ($_SESSION['list_product_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=all'"><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
-			</select>
-		</div>
+        <div class="col-12 col-sm-auto text-right">
+            <select class="form-control form-control-sm custom-select">
+                <option <?php echo ($_SESSION['list_product_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_article_rendering'] ?></option>
+                <option <?php echo ($_SESSION['list_product_count'] == '10') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=10'">10</option>
+                <option <?php echo ($_SESSION['list_product_count'] == '25') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=25'">25</option>
+                <option <?php echo ($_SESSION['list_product_count'] == '50') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=50'">50</option>
+                <option <?php echo ($_SESSION['list_product_count'] == '100') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=100'">100</option>
+                <option <?php echo ($_SESSION['list_product_count'] == '250') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=250'">250</option>
+                <option <?php echo ($_SESSION['list_product_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=all'"><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
+            </select>
+        </div>
   </div>
 </form>
 <div class ="table-responsive">

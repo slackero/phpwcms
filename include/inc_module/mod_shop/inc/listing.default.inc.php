@@ -11,6 +11,6 @@
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
