@@ -108,6 +108,16 @@ class_product_option_1 = product-option-1
 class_product_option_2 = product-option-2
 class_form_cart = shop-cart
 
+; Some additional elements
+product_option_1_prefix = <span class="option-1">
+product_option_1_suffix = </span>
+product_option_2_prefix = <span class="option-2">
+product_option_2_suffix = </span>
+amount_input_prefix = <span class="input-amount">
+amount_input_suffix = </span>
+; Where to position the manual amount input - before, between, after - options
+amount_input_position = after
+
 <!--CONFIG_END//-->
 
 
@@ -133,7 +143,7 @@ class_form_cart = shop-cart
         [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
             Send price inquiry
         </a>[/ON_REQUEST][ON_REQUEST_ELSE]
-            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
+            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
         [/ON_REQUEST_ELSE]
             [VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
             [PRODUCT_INVENTORY]<em>Inventory: {PRODUCT_INVENTORY}</em>[/PRODUCT_INVENTORY]
@@ -177,7 +187,7 @@ class_form_cart = shop-cart
         [VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
         [PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
+        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
     </div>
     <div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 

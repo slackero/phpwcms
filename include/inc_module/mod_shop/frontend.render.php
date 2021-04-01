@@ -219,7 +219,14 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
 			'pagetitle_model'			=> ', Model: %s',
 			'pagetitle_add'				=> '%S- %s',
 			'pagetitle_ordernumber'		=> '%S(Order No. %s)',
-			'pagetitle'					=> '%1$s%2$s%3$s%4$s'
+			'pagetitle'					=> '%1$s%2$s%3$s%4$s',
+            'product_option_1_prefix' => '<span class="option-1">',
+            'product_option_1_suffix' => '</span>',
+            'product_option_2_prefix' => '<span class="option-2">',
+            'product_option_2_suffix' => '</span>',
+            'amount_input_prefix' => '<span class="input-amount">',
+            'amount_input_suffix' => '</span>',
+            'amount_input_position' => 'after'
 		),
 		$_tmpl['config']
 	);
@@ -852,23 +859,44 @@ if( $_shop_load_list !== false ) {
 				$_cart_add .= '" method="post" data-prices="' . html(json_encode($row['prices'])) . '">';
 				$_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
 				$_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
+                $_cart_manual_add = '';
+
 				if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
 					// user has set amount manually
-					$_cart_add .= '<input type="text" name="shop_prod_amount" id="shop_prod_amount_'.$row['shopprod_id'].'" class="';
-					$_cart_add .= trim($_tmpl['config']['class_shop_amount'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" value="1" size="2" />';
+                    $_cart_manual_add .= $_tmpl['config']['amount_input_prefix'];
+					$_cart_manual_add .= '<input type="text" name="shop_prod_amount" id="shop_prod_amount_'.$row['shopprod_id'].'" class="';
+					$_cart_manual_add .= trim($_tmpl['config']['class_shop_amount'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" value="1" size="2" />';
+                    $_cart_manual_add .= $_tmpl['config']['amount_input_suffix'];
 					$_cart = str_replace('<!-- SHOW-AMOUNT -->', '', $_cart);
 				} else {
 					$_cart_add .= '<input type="hidden" name="shop_prod_amount" value="1" />';
 				}
 
+				if($_tmpl['config']['amount_input_position'] === 'before') {
+                    $_cart_add .= $_cart_manual_add;
+                }
+
 				if(strpos($_cart, '{PRODUCT_OPT1}') !== false) {
+					$_cart_add .= $_tmpl['config']['product_option_1_prefix'];
 					$_cart_add .= $_cart_prod_opt1;
+					$_cart_add .= $_tmpl['config']['product_option_1_suffix'];
 					$_cart = str_replace('{PRODUCT_OPT1}', '', $_cart);
 				}
+
+                if($_tmpl['config']['amount_input_position'] === 'between') {
+                    $_cart_add .= $_cart_manual_add;
+                }
+
 				if(strpos($_cart, '{PRODUCT_OPT2}') !== false) {
+                    $_cart_add .= $_tmpl['config']['product_option_2_prefix'];
 					$_cart_add .= $_cart_prod_opt2;
+                    $_cart_add .= $_tmpl['config']['product_option_2_suffix'];
 					$_cart = str_replace('{PRODUCT_OPT2}', '', $_cart);
 				}
+
+                if($_tmpl['config']['amount_input_position'] === 'after') {
+                    $_cart_add .= $_cart_manual_add;
+                }
 
 				if(strpos($_cart, 'input ') !== false) {
 					// user has set input button
