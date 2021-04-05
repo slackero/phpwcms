@@ -251,14 +251,22 @@ if($shop_api_access) {
 
                             //opt_1
                             if(isset($_cart_opt_1[$key][1])) {
-                                $value_opt1_float = $_cart_opt_1[$key][1];
+                                if ($_cart_opt_1[$key]['type'] === '=') {
+                                    $item['shopprod_price'] = $_cart_opt_1[$key][1];
+                                } else {
+                                    $value_opt1_float = $_cart_opt_1[$key][1];
+                                }
                                 $position['option1'] = _convert_charset($_cart_opt_1[$key]['option']);
                                 $position['ordernum_opt1'] = $_cart_opt_1[$key][2];
                             }
 
                             //opt_2
                             if(isset($_cart_opt_2[$key][1])) {
-                                $value_opt2_float = $_cart_opt_2[$key][1];
+                                if ($_cart_opt_2[$key]['type'] === '=') {
+                                    $item['shopprod_price'] = $_cart_opt_2[$key][1];
+                                } else {
+                                    $value_opt2_float = $_cart_opt_2[$key][1];
+                                }
                                 $position['option2'] = _convert_charset($_cart_opt_2[$key]['option']);
                                 $position['ordernum_opt2'] = $_cart_opt_2[$key][2];
                             }

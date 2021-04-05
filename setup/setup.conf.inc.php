@@ -17,7 +17,7 @@ $phpwcms['db_user'] = 'db_user';
 $phpwcms['db_pass'] = 'db_pass';
 $phpwcms['db_table'] = 'db_table';
 $phpwcms['db_prepend'] = '';
-$phpwcms['db_pers'] = 0;
+$phpwcms['db_pers'] = 1;
 $phpwcms['db_charset'] = 'utf8';
 $phpwcms['db_collation'] = 'utf8_general_ci';
 $phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
@@ -74,6 +74,8 @@ $phpwcms['charset'] = 'utf-8'; // default charset 'utf-8' do not use soemthing d
 $phpwcms['php_charset'] = false; // set PHP default charset to $phpwcms['charset']
 $phpwcms['allow_remote_URL'] = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality'] = 85; // JPG Quality Range 25-100
+$phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it
+$phpwcms['webp_quality'] = 85; // Set the WebP quality
 $phpwcms['sharpen_level'] = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init'] = 1; // allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render'] = 1; // allow including of custom external scripts at frontend rendering

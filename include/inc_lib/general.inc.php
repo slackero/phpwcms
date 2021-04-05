@@ -409,7 +409,7 @@ function is_ext_true( $extension ) {
 
     $ext = false;
 
-    if ( $phpwcms['image_library'] == 'gd2' || $phpwcms['image_library'] == 'gd' ) {
+    if ( $phpwcms['image_library'] === 'gd2' || $phpwcms['image_library'] === 'gd' ) {
         // if GD is used
         switch ( $extension ) {
             case "jpg":
@@ -422,86 +422,52 @@ function is_ext_true( $extension ) {
             case "png":
                 $ext = "png";
                 break;
+            case "webp":
+                $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
+                break;
         }
     } else {
         // if ImageMagick for thumbnail creation
         switch ( $extension ) {
             case "jpg":
-                $ext = "jpg";
-                break;
             case "jpeg":
-                $ext = "jpg";
-                break;
             case "tif":
-                $ext = "jpg";
-                break;
             case "tiff":
-                $ext = "jpg";
-                break;
             case "psd":
-                $ext = "jpg";
-                break;
             case "bmp":
-                $ext = "jpg";
-                break;
             case "pic":
+            case "ps2":
+            case "ps3":
+            case "pn":
+            case "wmf":
+            case "tga":
+            case "pict":
+            case "jp2":
+            case "jpc":
+            case "ico":
+            case "fax":
                 $ext = "jpg";
                 break;
             case "eps":
-                $ext = "png";
-                break;
             case "ps":
-                $ext = "png";
-                break;
             case "ai":
+            case "png":
+            case "pdf":
                 $ext = "png";
-                break;
-            case "ps2":
-                $ext = "jpg";
-                break;
-            case "ps3":
-                $ext = "jpg";
-                break;
-            case "pn":
-                $ext = "jpg";
-                break;
-            case "wmf":
-                $ext = "jpg";
                 break;
             case "gif":
                 $ext = "gif";
                 break;
-            case "png":
-                $ext = "png";
-                break;
-            case "tga":
-                $ext = "jpg";
-                break;
-            case "pdf":
-                $ext = "png";
-                break;
-            case "pict":
-                $ext = "jpg";
-                break;
-            case "jp2":
-                $ext = "jpg";
-                break;
-            case "jpc":
-                $ext = "jpg";
-                break;
-            case "ico":
-                $ext = "jpg";
-                break;
-            case "fax":
-                $ext = "jpg";
+            case 'webp':
+                $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
                 break;
         }
     }
-    if ( $ext && ! empty( $GLOBALS['phpwcms']["imgext_disabled"] ) ) {
-        $GLOBALS['phpwcms']["imgext_disabled"] = str_replace( ' ', '', $GLOBALS['phpwcms']["imgext_disabled"] );
-        $GLOBALS['phpwcms']["imgext_disabled"] = strtolower( $GLOBALS['phpwcms']["imgext_disabled"] );
-        $disabled_ext                          = explode( ',', $GLOBALS['phpwcms']["imgext_disabled"] );
-        if ( in_array( $ext, $disabled_ext ) ) {
+    if ($ext && !empty($GLOBALS['phpwcms']["imgext_disabled"])) {
+        if (is_string($GLOBALS['phpwcms']["imgext_disabled"])) {
+            $GLOBALS['phpwcms']["imgext_disabled"] = convertStringToArray(strtolower($GLOBALS['phpwcms']["imgext_disabled"]));
+        }
+        if (in_array($ext, $GLOBALS['phpwcms']["imgext_disabled"])) {
             $ext = false;
         }
     }
@@ -534,8 +500,10 @@ function online_users( $spacer = '<br />', $wrap = '<span class="useronline">|<s
 }
 
 function get_filecat_childcount( $fcatid = 0 ) {
-    return _dbQuery( "SELECT COUNT(fkey_id) FROM " . DB_PREPEND . "phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=" . intval( $fcatid ),
-        'COUNT' );
+    return _dbQuery(
+        'SELECT COUNT(fkey_id) FROM ' . DB_PREPEND . 'phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=' . intval($fcatid),
+        'COUNT'
+    );
 }
 
 /**

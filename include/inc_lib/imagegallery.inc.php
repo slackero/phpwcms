@@ -218,7 +218,7 @@ class phpwcmsImageGallery {
 			$sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_file WHERE ';
 			$sql .= 'f_pid IN (' . $folders . ') AND f_kid=1 AND ';
 			$sql .= 'f_trash=0 AND f_aktiv=1 AND f_public=1 AND ';
-			$sql .= "f_ext IN ('jpg', 'jpeg', 'gif', 'png')";
+			$sql .= "f_ext IN ('jpg', 'jpeg', 'gif', 'png', 'webp')";
 			$sql .= $order_by;
 			if($this->image_limit > 0) {
 				$sql .= ' LIMIT ' . $this->image_limit;

@@ -1825,3 +1825,8 @@ if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
 
     $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
+
+// Force Image extensions to WebP
+if (PHPWCMS_WEBP) {
+    $content['all'] = preg_replace('/(\/[a-f0-9]{1,32}\.)(jpg|jpeg|png|gif)/', '$1webp', $content['all']);
+}

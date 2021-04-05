@@ -1,25 +1,25 @@
 /* module Shop backend CSS */
 
 label {
-	cursor:	pointer;
+    cursor:	pointer;
 }
 
 .editform {
-	background:#F3F5F8;
-	border-top:1px solid #92A1AF;
-	border-bottom:1px solid #92A1AF;
-	margin:0 0 5px 0;
-	padding:10px 8px 15px 8px;
+    background:#F3F5F8;
+    border-top:1px solid #92A1AF;
+    border-bottom:1px solid #92A1AF;
+    margin:0 0 5px 0;
+    padding:10px 8px 15px 8px;
 }
 
 form.editform1 {
-	margin:0 0 0 0;
-	padding:10px 8px 10px 8px;
+    margin:0 0 0 0;
+    padding:10px 8px 10px 8px;
 }
 
 table.shop {
 
-	margin: 8px 0 3px 0;
+    margin: 8px 0 3px 0;
 
 }
 
@@ -30,50 +30,50 @@ table.shop tr {
 }
 table.shop tr.adsAltRow {
 
-	background-color: #F3F5F8;
+    background-color: #F3F5F8;
 
 }
 table.shop tr:hover {
-	background-color: #FFCC33;
+    background-color: #FFCC33;
 }
 
 table.shop th {
 
-	padding: 2px 0 3px 0;
-	border-bottom: 1px solid #92A1AF;
-	border-top: 1px solid #92A1AF;
-	text-align: left;
-	font-size: 10px;
-	color: #000000;
-	background-color: #FFFFFF;
+    padding: 2px 0 3px 0;
+    border-bottom: 1px solid #92A1AF;
+    border-top: 1px solid #92A1AF;
+    text-align: left;
+    font-size: 10px;
+    color: #000000;
+    background-color: #FFFFFF;
 
 }
 
 table.shop th.listDate {
-	text-align: center;
-	padding: 2px 3px 3px 3px;
+    text-align: center;
+    padding: 2px 3px 3px 3px;
 }
 table.shop td.listDate {
-	padding: 3px;
-	text-align: center;
-	width: 50px;
+    padding: 3px;
+    text-align: center;
+    width: 50px;
 }
 table.shop th.listFormat {
-	padding: 2px 5px 3px 3px;
+    padding: 2px 5px 3px 3px;
 }
 table.shop td.listFormat {
-	padding: 3px 5px 3px 3px;
+    padding: 3px 5px 3px 3px;
 }
 table.shop td.listNumber {
-	padding: 3px 5px 3px 3px;
-	text-align:	right;
+    padding: 3px 5px 3px 3px;
+    text-align:	right;
 }
 
 input.disabled {
-	background-color:#F3F5F8;
-	border:1px inset #F3F5F8;
-	padding: 1px 3px 1px 3px;
-	color: #666666;
+    background-color:#F3F5F8;
+    border:1px inset #F3F5F8;
+    padding: 1px 3px 1px 3px;
+    color: #666666;
 }
 
 input.width40	{	width:	40px;	}
@@ -88,139 +88,139 @@ input.width250	{	width:	250px;	}
 
 
 input.right, textarea.right {
-	text-align: right;
+    text-align: right;
 }
 
 td.colorfield {
-	border: 1px solid #BBBBBB;
-	background-color: #F3F5F8;
+    border: 1px solid #BBBBBB;
+    background-color: #F3F5F8;
 }
 
 input.width400, textarea.width400 {
-	width:	400px;
+    width:	400px;
 }
 
 td.upload input {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 10px;
-	width: 220px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    width: 220px;
 }
 
 td.newimage {
-	padding: 0 0 0 23px;
-	background: url(../../../../img/famfamfam/image_add.gif) no-repeat 4px;
+    padding: 0 0 0 23px;
+    background: url(../../../../img/famfamfam/image_add.gif) no-repeat 4px;
 }
 td.newflash {
-	padding: 0 0 0 23px;
-	background: url(../../../../img/famfamfam/film_add.gif) no-repeat 4px;
+    padding: 0 0 0 23px;
+    background: url(../../../../img/famfamfam/film_add.gif) no-repeat 4px;
 }
 td.newcss {
-	padding: 0 0 0 23px;
-	background: url(../../../../img/famfamfam/css_add.gif) no-repeat 4px;
+    padding: 0 0 0 23px;
+    background: url(../../../../img/famfamfam/css_add.gif) no-repeat 4px;
 }
 td.warning {
-	padding: 0 20px 15px 20px;
-	background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 -1px;
-	color: #CC3300;
-	font-weight: bold;
+    padding: 0 20px 15px 20px;
+    background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 -1px;
+    color: #CC3300;
+    font-weight: bold;
 }
 td.warning1 {
-	padding: 5px 20px 5px 20px;
-	background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 4px;
-	color: #CC3300;
+    padding: 5px 20px 5px 20px;
+    background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 4px;
+    color: #CC3300;
 }
 input.rt {
-	padding: 2px;
-	margin-top: 3px;
-	font-weight: bold;
-	line-height: 100%;
-	font-size: 12px;
-	border:1px inset #F3F5F8;
-	background-color: #F7F7F7;
+    padding: 2px;
+    margin-top: 3px;
+    font-weight: bold;
+    line-height: 100%;
+    font-size: 12px;
+    border:1px inset #F3F5F8;
+    background-color: #F7F7F7;
 }
 textarea.code {
-	font-family: "Courier New", Courier, monospace;
-	font-size: 12px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
 }
 
 .show {
-	border-top: 1px solid #92A1AF;
-	border-bottom: 1px solid #92A1AF;
-	margin: 0 0 5px 0;
-	padding: 10px 8px 15px 8px;
+    border-top: 1px solid #92A1AF;
+    border-bottom: 1px solid #92A1AF;
+    margin: 0 0 5px 0;
+    padding: 10px 8px 15px 8px;
 }
 .show td.chatlist {
-	color: #406C94;
-	vertical-align: top;
-	padding: 2px 8px 0 0;
-	text-align: right;
-	white-space: nowrap;
+    color: #406C94;
+    vertical-align: top;
+    padding: 2px 8px 0 0;
+    text-align: right;
+    white-space: nowrap;
 }
 .show th {
-	color: #406C94;
-	vertical-align: top;
-	padding: 1px 4px 2px 0;
-	text-align: left;
-	white-space: nowrap;
-	font-weight: normal;
-	border-bottom: 1px solid #92A1AF;
+    color: #406C94;
+    vertical-align: top;
+    padding: 1px 4px 2px 0;
+    text-align: left;
+    white-space: nowrap;
+    font-weight: normal;
+    border-bottom: 1px solid #92A1AF;
 }
 .show th.right {
-	text-align: right;
-	padding-left: 4px;
+    text-align: right;
+    padding-left: 4px;
 }
 .show tr.product td {
-	vertical-align: top;
-	padding: 3px 4px 3px 0;
+    vertical-align: top;
+    padding: 3px 4px 3px 0;
 }
 
 .show tr.product.linetop,
 .show tr.product.linebottom {
-	background-color: #F3F5F8;
+    background-color: #F3F5F8;
 }
 .show tr.product.linetop td {
-	border-top: 1px solid #92A1AF;
-	padding-bottom: 0;
+    border-top: 1px solid #92A1AF;
+    padding-bottom: 0;
 }
 .show tr.product.total {
-	background-color: #EAFFD5;
+    background-color: #EAFFD5;
 }
 .show tr.product.total td {
-	padding-bottom: 0;
+    padding-bottom: 0;
 }
 .show tr.product.total td.chatlist {
-	padding-top: 5px;
+    padding-top: 5px;
 }
 .show tr.product.linebottom td {
-	border-bottom: 1px solid #92A1AF;
+    border-bottom: 1px solid #92A1AF;
 }
 .show tr.product.total.end td {
-	border-bottom: 2px solid #92A1AF;
-	padding-bottom: 4px;
-	font-weight: bold;
+    border-bottom: 2px solid #92A1AF;
+    padding-bottom: 4px;
+    font-weight: bold;
 }
 .show tr.product.linetop td.chatlist,
 .show tr.product.linebottom td.chatlist {
-	padding-top: 4px;
+    padding-top: 4px;
 }
 .show tr.product td.number {
-	text-align: right;
+    text-align: right;
 }
 .show td.currency pre {
-	margin: 0;
-	padding: 0;
-	width: 100px;
-	text-align: right;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    text-align: right;
 }
 .show td.email pre {
-	margin: 0;
-	padding: 5px;
-	overflow: auto;
-	height: 150px;
-	border: 1px solid #ABADB3;
-	max-width: 700px;
+    margin: 0;
+    padding: 5px;
+    overflow: auto;
+    height: 150px;
+    border: 1px solid #ABADB3;
+    max-width: 700px;
 }
 .show td label {
-	padding: 0 6px 0 4px;
-	font-size: 12px;
+    padding: 0 6px 0 4px;
+    font-size: 12px;
 }

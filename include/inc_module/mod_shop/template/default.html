@@ -18,6 +18,14 @@ cat_count_products_suffix = ")"
 ; sort by Viewed - "shopprod_track_view DESC"
 cat_list_sort_by = "shopprod_name1 ASC"
 cat_subcat_spacer = "_>_"
+cat_class_menu = shop-categories nav navbar-nav
+cat_class_item = shop-category nav-item
+cat_class_item_active = active
+cat_class_submenu = shop-sub-category
+cat_class_subitem = shop-sub-category nav-item
+cat_class_subitem_active = active
+cat_class_item_link = shop-cat-link nav-link
+cat_class_subitem_link = shop-subcat-link nav-link
 
 shop_css = "shop.css"
 shop_wrap = "<div class="shop">|</div>"
@@ -31,8 +39,10 @@ thousands_sep = "."
 ; enclose the string by | => "| |" or just | |
 ; {$} is an alias for {CURRENCY_SYMBOL}
 price_option_null = 0
-price_option_prefix = | |
+price_option_prefix = |, |
 price_option_suffix = | {$}|
+; If there is a price option, set to 1 to hide it
+price_option_hide = 0
 
 ; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
 ; for leading and trailing spaces use replacer %S
@@ -60,7 +70,8 @@ image_detail_more_start = 2
 image_zoom_width = 800
 image_zoom_height = 800
 image_list_lightbox = true
-image_detail_lightbox = TRUE
+image_detail_lightbox = true
+image_class = img-fluid
 
 files_direct_download = 0
 files_template = shop.tmpl
@@ -98,6 +109,16 @@ class_product_option_1 = product-option-1
 class_product_option_2 = product-option-2
 class_form_cart = shop-cart
 
+; Some additional elements
+product_option_1_prefix = <span class="option-1">
+product_option_1_suffix = </span>
+product_option_2_prefix = <span class="option-2">
+product_option_2_suffix = </span>
+amount_input_prefix = <span class="input-amount">
+amount_input_suffix = </span>
+; Where to position the manual amount input - before, between, after - options
+amount_input_position = after
+
 <!--CONFIG_END//-->
 
 
@@ -123,7 +144,7 @@ class_form_cart = shop-cart
         [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
             Send price inquiry
         </a>[/ON_REQUEST][ON_REQUEST_ELSE]
-            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
+            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
         [/ON_REQUEST_ELSE]
             [VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
             [PRODUCT_INVENTORY]<em>Inventory: {PRODUCT_INVENTORY}</em>[/PRODUCT_INVENTORY]
@@ -167,7 +188,7 @@ class_form_cart = shop-cart
         [VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
         [PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
+        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
     </div>
     <div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 
@@ -961,7 +982,7 @@ Let's go.
 <!--MAIL_NEWORDER_END//-->
 
 <!--ORDER_DONE_START//-->
-    <h2>Order {ORDER} successfully sent</h2>
+    <h2>Order {ORDER} sent successfully</h2>
     <p>Hello <strong>{INV_FIRSTNAME} {INV_NAME}</strong>,<br />
     Thanks for your order. You will receive a confirmation to your email <strong>{EMAIL}</strong> within next minutes.</p>
     <p>Your order number is: <strong>{ORDER}</strong>. Please use this number in case you contact us by email.</p>
