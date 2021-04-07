@@ -88,19 +88,19 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
 
     switch($img_info[2]) {
 
-        case IMAGETYPE_GIF: // GIF
+        case IMG_GIF: // GIF
             $img_source = imagecreatefromgif($img_file);
             break;
 
-        case IMAGETYPE_JPEG: // JPG
+        case IMG_JPEG: // JPG
             $img_source = imagecreatefromjpeg($img_file);
             break;
 
-        case IMAGETYPE_PNG: // PNG
+        case IMG_PNG: // PNG
             $img_source = imagecreatefrompng($img_file);
             break;
 
-        case IMAGETYPE_WEBP: // WEBP
+        case IMG_WEBP: // WEBP
             $img_source = imagecreatefromwebp($img_file);
             break;
     }

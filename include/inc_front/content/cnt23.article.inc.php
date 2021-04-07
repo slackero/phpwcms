@@ -940,11 +940,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
                     $form_field .= '<input type="checkbox" name="'.$form_name.'" id="'.$form_name.'" ';
                     if(substr($checkbox_value, -8) != ' checked') {
-                        $form_field .= 'value="' . $checkbox_value . '" />';
+                        $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
                         $checkbox_value = str_replace(' checked', '', $checkbox_value);
-                        $form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
+                        $form_field .= 'value="' . $checkbox_value . '" checked="checked" ';
                     }
+                    if($cnt_form["fields"][$key]['required']) {
+                        $form_field .= 'required="required"';
+                    }
+                    $form_field .= '/>';
                     $form_field .= $checkbox_label .'</label>';
 
                 } else {
@@ -1015,7 +1019,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $checkbox_style = '';
                 }
                 if(count($form_value) == 1 || count($form_value) == 0 || !$form_value) {
-                    // only 1 checkbox
+                    // only 1 radio button
                     $checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
                     $checkbox_value = trim($checkbox_value);
 
@@ -1032,15 +1036,19 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
                     $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.'" ';
                     if(substr($checkbox_value, -8) != ' checked') {
-                        $form_field .= 'value="' . $checkbox_value . '" />';
+                        $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
                         $checkbox_value = str_replace(' checked', '', $checkbox_value);
-                        $form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
+                        $form_field .= 'value="' . $checkbox_value . '" checked="checked" ';
                     }
+                    if($cnt_form["fields"][$key]['required']) {
+                        $form_field .= 'required="required"';
+                    }
+                    $form_field .= '/>';
                     $form_field .= $checkbox_label .'</label>';
 
                 } else {
-                    // list of checkboxes
+                    // list of radio buttons
                     $checkbox_counter = 0;
                     $checkbox_spacer  = $cnt_form["fields"][$key]['size'] ? '<br />' : ' ';
                     foreach($form_value as $checkbox_value) {
@@ -1061,11 +1069,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
                         $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.$checkbox_counter.'" ';
                         if(substr($checkbox_value, -8) != ' checked') {
-                            $form_field .= 'value="' . $checkbox_value . '" />';
+                            $form_field .= 'value="' . $checkbox_value . '" ';
                         } else {
                             $checkbox_value = str_replace(' checked', '', $checkbox_value);
-                            $form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
+                            $form_field .= 'value="' . $checkbox_value . '" checked="checked" ';
                         }
+                        if ($checkbox_counter === 0 && $cnt_form["fields"][$key]['required']) {
+                            $form_field .= 'required="required"';
+                        }
+                        $form_field .= '/>';
                         $form_field .= $checkbox_label .'</label>';
                         $checkbox_counter++;
                     }

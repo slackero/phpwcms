@@ -1307,7 +1307,7 @@ function init_frontend_edit() {
         if(empty($GLOBALS['phpwcms']['frontend_edit'])) {
             define('FE_EDIT_LINK', false);
         } else {
-            define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
+            define('FE_EDIT_LINK', get_token_get_string());
         }
     }
 

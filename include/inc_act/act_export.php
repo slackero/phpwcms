@@ -166,7 +166,7 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 					$ext = which_ext($export[$x][$key]);
 					$export[$x][$key] = html($export[$x][$key]);
-					if($ext == 'jpg' || $ext == 'gif' || $ext == 'png') {
+					if($ext == 'jpg' || $ext == 'gif' || $ext == 'png' || (PHPWCMS_WEBP && $ext == 'webp')) {
 						echo '<img src="'.$export[$x][$key].'" border="0" alt="" />';
 					} else {
 						echo '<a href="'.$export[$x][$key].'">'.$export[$x][$key].'</a>';
