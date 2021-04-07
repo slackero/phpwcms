@@ -2,9 +2,9 @@
 /**
  * cmsGO!
  *
- * @author    Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
- * @license   https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
@@ -88,7 +88,7 @@ if (empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE . 'inc_default/f
     $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
 }
 $_files_count = is_array($content['files_result']) ? count($content['files_result']) : 0;
-$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0 ? true : false;
+$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0;
 if ($_files_force_rendering || $_files_count) {
     $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $_files_settings = parse_ini_str($_files_settings, false);

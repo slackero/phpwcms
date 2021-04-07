@@ -36,8 +36,8 @@ if(isset($cmsgo['modules'][$module]['path'])) {
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM =& $BL['modules'][$module];
-	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
-	define('MODULE_HREF_DECODE', CMSGO_URL . 'cmsgo.php?'.get_token_get_string('csrftoken').'&do=modules&module='.$module);
+	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
+	define('MODULE_HREF_DECODE', CMSGO_URL . 'cmsgo.php?'.get_token_get_string().'&do=modules&module='.$module);
 	define('MODULE_KEY', 'feedimport');
 
 	require_once($cmsgo['modules'][$module]['path'].'inc/functions.inc.php');

@@ -478,7 +478,7 @@ $(function() {
         // File Uploading
         /*var uploader = new qq.FileUploader({
             element: uploadButton[0],
-            action: '<?php echo CMSGO_URL ?>include/inc_act/act_upload.php?<?php echo get_token_get_string('csrftoken'); ?>',
+            action: '<?php echo CMSGO_URL ?>include/inc_act/act_upload.php?<?php echo get_token_get_string(); ?>',
             multiple: true,
             autoUpload: true,
             allowedExtensions: [<?php echo $fileuploaderAllowedExtensions ?>],
@@ -588,7 +588,7 @@ $(function() {
     deleteFiles.on('click', function(evt) {
         evt.preventDefault();
         if(confirm('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, CMSGO_CHARSET)) ?>')) {
-            ftpTakeOverForm.attr('action', 'cmsgo.php'+'?<?php echo get_token_get_string('csrftoken'); ?>&do=files&p=8').submit();
+            ftpTakeOverForm.attr('action', 'cmsgo.php'+'?<?php echo get_token_get_string(); ?>&do=files&p=8').submit();
         }
     });
 

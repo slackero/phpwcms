@@ -255,7 +255,7 @@ if (!isset($plugin['data']['shopprod_overwrite_meta'])) {
             'value'     => $plugin['data']['shopprod_description1'],
             'field'     => 'shopprod_description1',
             'height'    => '250px',
-            'width'     => '536px',
+            'width'     => '100%',
             'rows'      => '10',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'

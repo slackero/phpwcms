@@ -16,43 +16,43 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 //predefine values
-$content['cat']         = '';
-$content['metakey']       = '';
-$content['struct']        = get_struct_data(); //reads the complete structure as array
-$content['article_date']    = time();
-$content['redirect']      = array('code' => '');
-$content['all_keywords']    = '';
-$content['globalRT']      = array();
-$content['aId_CpPage']      = 0; // set default content part pagination page (0 and 1) are the same
-$content['CpTrigger']     = array(); // array to hold content part trigger functions
-$content['404error']      = array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
-$content['set_canonical']   = false;
+$content['cat']                 = '';
+$content['metakey']             = '';
+$content['struct']              = get_struct_data(); //reads the complete structure as array
+$content['article_date']        = time();
+$content['redirect']            = array('code' => '');
+$content['all_keywords']        = '';
+$content['globalRT']            = array();
+$content['aId_CpPage']          = 0; // set default content part pagination page (0 and 1) are the same
+$content['CpTrigger']           = array(); // array to hold content part trigger functions
+$content['404error']            = array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
+$content['set_canonical']       = false;
 $content['overwrite_canonical'] = '';
-$content['cptab']       = array(); // array to hold content part based tabs
-$content['images']        = array();
-$content['opengraph']     = array('support' => true, 'type' => 'website', 'render' => empty($cmsgo['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
-$pagelayout           = array();
-$no_content_for_this_page   = false;
-$alias              = '';
-$PERMIT_ACCESS          = true; // by default set all content without permissions
-$CUSTOM             = array(); // var that holds result of content part "php var"
-$cmsgo['preview_mode']    = false;
+$content['cptab']               = array(); // array to hold content part based tabs
+$content['images']              = array();
+$content['opengraph']           = array('support' => true, 'type' => 'website', 'render' => empty($cmsgo['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
+$pagelayout                     = array();
+$no_content_for_this_page       = false;
+$alias                          = '';
+$PERMIT_ACCESS                  = true; // by default set all content without permissions
+$CUSTOM                         = array(); // var that holds result of content part "php var"
+$cmsgo['preview_mode']          = false;
 
 // reset force redirect in case it is a POST
 if(!empty($_POST)) {
-    $cmsgo['force301_id2alias'] = false;
-    $cmsgo['force301_2struct']  = false;
+    $cmsgo['force301_id2alias']   = false;
+    $cmsgo['force301_2struct']    = false;
 
     // handle preview mode
 } elseif(isset($_GET['cmsgo-preview'])) {
-    $cmsgo['force301_id2alias'] = false;
-    $cmsgo['force301_2struct']  = false;
+    $cmsgo['force301_id2alias']   = false;
+    $cmsgo['force301_2struct']    = false;
     unset($_GET['cmsgo-preview'], $_getVar['cmsgo-preview']);
     checkLoginCount();
     if(empty($_SESSION["wcs_user"])) {
         headerRedirect(abs_url());
     }
-    $cmsgo['preview_mode']    = true;
+    $cmsgo['preview_mode']        = true;
 }
 
 define('PREVIEW_MODE', $cmsgo['preview_mode']);
@@ -107,9 +107,9 @@ if(isset($_GET["id"])) {
     // try to find correct structure
     $aktion = array(0,0,0,0,1,0);
 
-    $_GET['aid']      = explode('-', $_GET['aid'], 2); // now check for cp pagination
+    $_GET['aid']            = explode('-', $_GET['aid'], 2); // now check for cp pagination
     $content['aId_CpPage']  = isset($_GET['aid'][1]) ? intval($_GET['aid'][1]) : 0; // set cp paginate page
-    $_GET['aid']      = intval($_GET['aid'][0]);
+    $_GET['aid']            = intval($_GET['aid'][0]);
     if($_GET['aid']) {
 
         $sql  = 'SELECT article_cid, article_alias FROM '.DB_PREPEND.'cmsgo_article WHERE ';
@@ -184,9 +184,9 @@ if(isset($_GET["id"])) {
 
             }
 
-            $content['404error']['id']    = $aktion[0];
-            $content['404error']['aid']   = $aktion[1];
-            $content['404error']['alias'] = $alias;
+            $content['404error']['id']      = $aktion[0];
+            $content['404error']['aid']     = $aktion[1];
+            $content['404error']['alias']   = $alias;
 
         }
     }
@@ -195,7 +195,7 @@ if(isset($_GET["id"])) {
 if(isset($_GET['print'])) {
 
     $aktion[2] = 1;
-    define('PRINT_PDF', $_GET['print'] == 2 && !empty($cmsgo['wkhtmltopdf_path']) ? true : false);
+    define('PRINT_PDF', $_GET['print'] == 2 && !empty($cmsgo['wkhtmltopdf_path']));
     unset($_getVar['print'], $_GET['print']);
 
 }
@@ -334,8 +334,8 @@ if($content['404error']['status'] === true) {
 
             // Store failed page access
             _dbInsert('cmsgo_redirect', array(
-                'id'  => $content['404error']['id'],
-                'aid' => $content['404error']['aid'],
+                'id'    => $content['404error']['id'],
+                'aid'   => $content['404error']['aid'],
                 'alias' => $content['404error']['alias'],
                 'views' => 1
             ));
@@ -362,12 +362,10 @@ if(!empty($_GET['cmsgo_output_action']) || !empty($_POST['cmsgo_output_action'])
     );
 
     if(is_array($cmsgo['output_action'])) {
-
         $cmsgo['output_function'] = array();
         $cmsgo['output_section']  = array();
 
         foreach($cmsgo['output_action'] as $value) {
-
             $value = trim($value);
             $value_type = strtoupper(substr($value, 0, 1));
             if($value_type === 'F') {
@@ -383,7 +381,6 @@ if(!empty($_GET['cmsgo_output_action']) || !empty($_POST['cmsgo_output_action'])
             if(is_array($value)) {
                 foreach($value as $_value) {
                     $_value = trim($_value);
-
                     if($_value != '') {
                         $cmsgo[$output_key][$_value] = $_value;
                     }
@@ -391,8 +388,7 @@ if(!empty($_GET['cmsgo_output_action']) || !empty($_POST['cmsgo_output_action'])
             }
         }
 
-        $cmsgo['output_action'] = count($cmsgo['output_function']) || count($cmsgo['output_section']) ? true : false;
-
+        $cmsgo['output_action'] = count($cmsgo['output_function']) || count($cmsgo['output_section']);
     } else {
         $cmsgo['output_action'] = false;
     }
@@ -427,17 +423,17 @@ if(!CMSGO_SSL && (!empty($cmsgo['site_ssl_mode']) || !empty($content['struct'][ 
 }
 
 //try to find current tree depth
-$LEVEL_ID     = array();
-$LEVEL_KEY    = array();
-$LEVEL_STRUCT = array();
+$LEVEL_ID       = array();
+$LEVEL_KEY      = array();
+$LEVEL_STRUCT   = array();
 $level_ID_array = get_breadcrumb($content["cat_id"], $content['struct']);
-$level_count  = 0;
+$level_count    = 0;
 foreach($level_ID_array as $key => $value) {
-    $LEVEL_ID[$level_count]   = $key;
-    $LEVEL_KEY[$key]      = $level_count;
+    $LEVEL_ID[$level_count]     = $key;
+    $LEVEL_KEY[$key]            = $level_count;
     $LEVEL_STRUCT[$level_count] = $content['struct'][$key]['acat_name'];
     if($PERMIT_ACCESS && $content['struct'][$key]['acat_regonly']) {
-        $PERMIT_ACCESS      = false; // only users have been logged in get access
+        $PERMIT_ACCESS          = false; // only users have been logged in get access
     }
     $level_count++;
 }
@@ -567,6 +563,36 @@ if(!empty($pagelayout['layout_customblocks'])) {
     unset($custom_blocks);
 }
 
+$cmsgo['donottrack'] = empty($block['donottrack']) ? false : (isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1');
+$cmsgo['cookie_consent'] = false;
+$cmsgo['cookie_consent_dismiss'] = false;
+if (empty($block['require_consent']['cookie_name'])) {
+    if (empty($cmsgo['cookie_consent_name'])) {
+        $cmsgo['cookie_consent_name'] = 'cookieconsent_dismissed';
+    }
+} else {
+    $cmsgo['cookie_consent_name'] = $block['require_consent']['cookie_name'];
+}
+if (empty($block['require_consent']['cookie_value'])) {
+    if (empty($cmsgo['cookie_consent_value'])) {
+        $cmsgo['cookie_consent_value'] = 'yes';
+    }
+} else {
+    $cmsgo['cookie_consent_value'] = $block['require_consent']['cookie_value'];
+}
+if (!empty($block['require_consent']['enable'])) {
+    if (isset($_COOKIE[$cmsgo['cookie_consent_name']])) {
+        $cmsgo['cookie_consent'] = true;
+        if (strpos($_COOKIE[$cmsgo['cookie_consent_name']], $cmsgo['cookie_consent_value']) !== false) {
+            $cmsgo['cookie_consent_dismiss'] = true;
+        } else {
+            $cmsgo['donottrack'] = true;
+        }
+    } else {
+        $cmsgo['donottrack'] = true;
+    }
+}
+
 // try to include custom functions or what ever you want to do at this point of the script
 // default dir: "cmsgo_template/inc_script/frontend_init"; only *.php files are allowed there
 if($cmsgo["allow_ext_init"]) {
@@ -600,7 +626,7 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 }
 
 //reads all articles for active cat into array
-$content["articles"]      = get_actcat_articles_data($content["cat_id"]);
+$content["articles"]            = get_actcat_articles_data($content["cat_id"]);
 $content["article_list_count"]  = count($content["articles"]);
 
 // generating a list of articles inside the current article category
@@ -770,76 +796,76 @@ if($aktion[2] == 0) {
 
     switch($pagelayout["layout_render"]) {
 
-    case 0: //create the page layout table (header, left, content, right, footer)
-        $content["all"]  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\""; //start main table
-        $content["all"] .= td_attributes($pagelayout, "all", 0);
-        $content["all"] .= align_base_layout($pagelayout["layout_align"])." summary=\"\">".LF;    // align table
+        case 0: //create the page layout table (header, left, content, right, footer)
+                $content["all"]  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"";   //start main table
+                $content["all"] .= td_attributes($pagelayout, "all", 0);
+                $content["all"] .= align_base_layout($pagelayout["layout_align"])." summary=\"\">".LF;      // align table
 
-        //header
-        $content["all"] .= colspan_table_row($pagelayout, "header", $colspan, $block["headertext"]); //header row
-        if($pagelayout["layout_topspace_height"]) { //header space
-            $content["all"] .= colspan_table_row($pagelayout, "topspace", $colspan, spacer(1, $pagelayout["layout_topspace_height"]));
-        }
+                //header
+                $content["all"] .= colspan_table_row($pagelayout, "header", $colspan, $block["headertext"]); //header row
+                if($pagelayout["layout_topspace_height"]) { //header space
+                    $content["all"] .= colspan_table_row($pagelayout, "topspace", $colspan, spacer(1, $pagelayout["layout_topspace_height"]));
+                }
 
-        //returns the main blocks: left column, content column, right column
-        $content["all"] .= get_table_block($pagelayout, $block["maintext"], $block["lefttext"], $block["righttext"]);
+                //returns the main blocks: left column, content column, right column
+                $content["all"] .= get_table_block($pagelayout, $block["maintext"], $block["lefttext"], $block["righttext"]);
 
-        //footer
-        if($pagelayout["layout_bottomspace_height"]) { //bottom space
-            $content["all"] .= colspan_table_row($pagelayout, "bottomspace", $colspan, spacer(1, $pagelayout["layout_bottomspace_height"]));
-        }
-        $content["all"] .= colspan_table_row($pagelayout, "footer", $colspan, $block["footertext"]); //footer row
-        $content["all"] .= '</table>'.LF; //end main table
+                //footer
+                if($pagelayout["layout_bottomspace_height"]) { //bottom space
+                    $content["all"] .= colspan_table_row($pagelayout, "bottomspace", $colspan, spacer(1, $pagelayout["layout_bottomspace_height"]));
+                }
+                $content["all"] .= colspan_table_row($pagelayout, "footer", $colspan, $block["footertext"]); //footer row
+                $content["all"] .= '</table>'.LF; //end main table
 
-        break;
-
-
-    case 1: //create the page layout based on DIV (layer)
-
-        //contentContainer DIV start
-        $content["all"] = '';
-        $pagelayout['additional_wrap_div'] = false;
-        switch($pagelayout["layout_align"]) {
-        case 1:   $content["all"] .= '<div align="center" style="margin:0;padding:0;">';
-            $pagelayout['additional_wrap_div'] = true;
-            break;
-        case 2:   $content["all"] .= '<div align="right" style="margin:0;padding:0;">';
-            $pagelayout['additional_wrap_div'] = true;
-            break;
-        }
-        $content["all"] .= '<div id="container">'.LF;
-
-        //header DIV
-        if($block["headertext"] || $pagelayout['layout_header_height']) {
-            $content["all"] .= '  <div id="headerBlock">'.$block["headertext"]."</div>\n";
-        }
-        //left DIV if 3column or 2column (with left block)
-        if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 1) {
-            $content["all"] .= '  <div id="leftBlock">'.$block["lefttext"]."</div>\n";
-        }
-        //right DIV if 3column or 2column (with right block)
-        if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 2) {
-            $content["all"] .= '  <div id="rightBlock">'.$block["righttext"]."</div>\n";
-        }
-        //main block
-        $content["all"] .= '<div id="mainBlock">'.$block["maintext"]."</div>\n";
-        //footer DIV
-        if($block["footertext"] || $pagelayout['layout_footer_height']) {
-            $content["all"] .= '  <div id="footerBlock">'.$block["footertext"]."</div>\n";
-        }
-        //contentContainer DIV end
-        if($pagelayout['additional_wrap_div']) {
-            $content["all"] .= "</div>";
-        }
-        $content["all"] .= "</div>\n";
-
-        break;
+                break;
 
 
-    case 2: //create the page layout based only on the content of main block
-        $content["all"] = $block["maintext"];
+        case 1: //create the page layout based on DIV (layer)
 
-        break;
+                //contentContainer DIV start
+                $content["all"] = '';
+                $pagelayout['additional_wrap_div'] = false;
+                switch($pagelayout["layout_align"]) {
+                    case 1:     $content["all"] .= '<div align="center" style="margin:0;padding:0;">';
+                                $pagelayout['additional_wrap_div'] = true;
+                                break;
+                    case 2:     $content["all"] .= '<div align="right" style="margin:0;padding:0;">';
+                                $pagelayout['additional_wrap_div'] = true;
+                                break;
+                }
+                $content["all"] .= '<div id="container">'.LF;
+
+                //header DIV
+                if($block["headertext"] || $pagelayout['layout_header_height']) {
+                    $content["all"] .= '    <div id="headerBlock">'.$block["headertext"]."</div>\n";
+                }
+                //left DIV if 3column or 2column (with left block)
+                if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 1) {
+                    $content["all"] .= '    <div id="leftBlock">'.$block["lefttext"]."</div>\n";
+                }
+                //right DIV if 3column or 2column (with right block)
+                if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 2) {
+                    $content["all"] .= '    <div id="rightBlock">'.$block["righttext"]."</div>\n";
+                }
+                //main block
+                $content["all"] .= '<div id="mainBlock">'.$block["maintext"]."</div>\n";
+                //footer DIV
+                if($block["footertext"] || $pagelayout['layout_footer_height']) {
+                    $content["all"] .= '    <div id="footerBlock">'.$block["footertext"]."</div>\n";
+                }
+                //contentContainer DIV end
+                if($pagelayout['additional_wrap_div']) {
+                    $content["all"] .= "</div>";
+                }
+                $content["all"] .= "</div>\n";
+
+                break;
+
+
+        case 2: //create the page layout based only on the content of main block
+                $content["all"] = $block["maintext"];
+
+                break;
 
     }
 
@@ -849,9 +875,9 @@ if($aktion[2] == 0) {
     $_print_tmpl = PRINT_PDF ? 'pdf' : 'print';
     $content['all'] = is_file(CMSGO_TEMPLATE.'inc_default/'.$_print_tmpl.'.tmpl') ? @file_get_contents(CMSGO_TEMPLATE.'inc_default/'.$_print_tmpl.'.tmpl') : '{CONTENT}<hr />{CURRENT_URL}';
     if(PRINT_PDF) {
-        $_print_settings  = get_tmpl_section('PDF_SETTINGS', $content['all']);
-        $content['all']   = replace_tmpl_section('PDF_SETTINGS', $content['all']);
-        $_print_settings  = parse_ini_str($_print_settings, false);
+        $_print_settings    = get_tmpl_section('PDF_SETTINGS', $content['all']);
+        $content['all']     = replace_tmpl_section('PDF_SETTINGS', $content['all']);
+        $_print_settings    = parse_ini_str($_print_settings, false);
     }
 
     if($content['all']) {
@@ -878,8 +904,8 @@ foreach($content['CB'] as $key => $value) {
         if(isset($block['customblock_'.$key])) {
             $block_name_file = 'customblock_' . $key . '_file';
             $tmpl_section_dir = strtolower($key);
-            if(!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
-                if($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+            if (!empty($block[$block_name_file]) && is_file(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
+                if ($block[$block_name_file] = file_get_contents(CMSGO_TEMPLATE_SECTIONS . $tmpl_section_dir . '/' . $block[$block_name_file])) {
                     $block['customblock_' . $key] = $block[$block_name_file];
                 }
             }
@@ -1452,20 +1478,21 @@ if(HTML5_MODE && IE8_CC) {
 
 }
 
-// Google Analytics Tracking Code
-if(!empty($block['tracking_ga']['enable'])) {
+if(!$cmsgo['donottrack']) {
 
-    $template_default['settings']['tracking']['ga_default'] = array(
-        'position' => 'head',
-        'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE." src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
-  <script".SCRIPT_ATTRIBUTE_TYPE.">
+    // Google Analytics Tracking Code
+    if (!empty($block['tracking_ga']['enable'])) {
+        $template_default['settings']['tracking']['ga_default'] = array(
+            'position' => 'head',
+            'code' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
+  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-        'anonymize' => ", {'anonymize_ip': true}",
-        'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
+            'anonymize' => ", {'anonymize_ip': true}",
+            'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     var gaOptOutCookie = 'ga-disable-%s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
@@ -1475,65 +1502,83 @@ if(!empty($block['tracking_ga']['enable'])) {
         window[gaOptOutCookie] = true;
     }
   </script>"
-    );
-
-    if(isset($template_default['settings']['tracking']['ga'])) {
-        $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
-    } else {
-        $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+        );
+        if (isset($template_default['settings']['tracking']['ga'])) {
+            $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
+        } else {
+            $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
+        }
+        if (empty($block['tracking_ga']['anonymize'])) {
+            $template_default['settings']['tracking']['ga']['anonymize'] = '';
+        }
+        if (!empty($template_default['settings']['tracking']['ga']['optout'])) {
+            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+        }
+        if ($template_default['settings']['tracking']['ga']['position'] === 'head') {
+            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+        } else {
+            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+        }
     }
 
-    if(empty($block['tracking_ga']['anonymize'])) {
-        $template_default['settings']['tracking']['ga']['anonymize'] = '';
+    if (!empty($block['tracking_gtm']['enable'])) {
+        $template_default['settings']['tracking']['gtm_default'] = array(
+            'position' => 'head',
+            'code' => "  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','%1\$s');
+  </script>",
+            'body' => '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
+        );
+        if (isset($template_default['settings']['tracking']['gtm'])) {
+            $template_default['settings']['tracking']['gtm'] = array_merge($template_default['settings']['tracking']['gtm_default'], $template_default['settings']['tracking']['gtm']);
+        } else {
+            $template_default['settings']['tracking']['gtm'] = $template_default['settings']['tracking']['gtm_default'];
+        }
+        if ($template_default['settings']['tracking']['gtm']['position'] === 'head') {
+            $block['custom_htmlhead']['head_gtm.js'] = sprintf($template_default['settings']['tracking']['gtm']['code'], $block['tracking_gtm']['id']);
+        } else {
+            $block['custom_htmlhead']['gtm.js'] = sprintf($template_default['settings']['tracking']['gtm']['code'], $block['tracking_gtm']['id']);
+        }
+        $content['all'] = sprintf($template_default['settings']['tracking']['gtm']['body'], $block['tracking_gtm']['id']) . $content['all'];
     }
 
-    if(!empty($template_default['settings']['tracking']['ga']['optout'])) {
-        $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
-    }
-
-    if($template_default['settings']['tracking']['ga']['position'] === 'head') {
-        $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
-    } else {
-        $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
-    }
-
-}
-
-// Piwik Tracking Code
-if(!empty($block['tracking_piwik']['enable'])) {
-
-    $template_default['settings']['tracking']['piwik_default'] = array(
-        'position' => 'head',
-        'code' => '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>
-    var _paq = _paq || [];
+    // Matomo/Piwik Tracking Code
+    if (!empty($block['tracking_piwik']['enable'])) {
+        $template_default['settings']['tracking']['piwik_default'] = array(
+            'position' => 'head',
+            'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . '>
+    var _paq = window._paq = window._paq || [];
     _paq.push(["trackPageView"]);
     _paq.push(["enableLinkTracking"]);
     (function() {
         var u="//%1$s/";
-        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setTrackerUrl", u+"matomo.php"]);
         _paq.push(["setSiteId", %2$d]);
         var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
-        g.type="text/javascript"; g.async=true; g.defer=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+        g.type="text/javascript"; g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
     })();
   </script>'
-    );
-
-    if(isset($template_default['settings']['tracking']['piwik'])) {
-        $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
-    } else {
-        $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
-    }
-
-    if($template_default['settings']['tracking']['piwik']['position'] === 'head') {
-        $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
-    } else {
-        $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        );
+        if (isset($template_default['settings']['tracking']['piwik'])) {
+            $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
+        } else {
+            $template_default['settings']['tracking']['piwik'] = $template_default['settings']['tracking']['piwik_default'];
+        }
+        if ($template_default['settings']['tracking']['piwik']['position'] === 'head') {
+            $block['custom_htmlhead']['head_piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        } else {
+            $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
+        }
     }
 
 }
 
 // internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
-if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_dismissed']) || strtolower($_COOKIE['cookieconsent_dismissed']) !== 'yes')) {
+if(!empty($block['cookie_consent']['enable']) && !$cmsgo['cookie_consent']) {
 
     $block['cookie_consent']['options'] = array();
     if(!empty($block['cookie_consent']['message'])) {
@@ -1582,8 +1627,8 @@ if(!empty($block['cookie_consent']['enable']) && (empty($_COOKIE['cookieconsent_
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['cmsgo']['detect_pixelratio']) && $cmsgo['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['cmsgo_pixelratio'])) {
     $block['custom_htmlhead']['pixelratio']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF;
-    $block['custom_htmlhead']['pixelratio'] .= '  var cmsgo_pixelratio = typeof window.devicePixelRatio === "undefined" ? 1 : window.devicePixelRatio;' . LF;
-    $block['custom_htmlhead']['pixelratio'] .= '  document.cookie = "cmsgo_pixelratio="+cmsgo_pixelratio+";expires='.date('r', now()+2592000).'";' . LF; // 30 days
+    $block['custom_htmlhead']['pixelratio'] .= '    var cmsgo_pixelratio = typeof window.devicePixelRatio === "undefined" ? 1 : window.devicePixelRatio;' . LF;
+    $block['custom_htmlhead']['pixelratio'] .= '    document.cookie = "cmsgo_pixelratio="+cmsgo_pixelratio+";expires='.date('r', now()+2592000).'";' . LF; // 30 days
     $block['custom_htmlhead']['pixelratio'] .= '  </script>';
 }
 
@@ -1594,7 +1639,7 @@ if(count($block['custom_htmlhead'])) {
 
     if(!empty($block['custom_htmlhead']['jquery_ready'])) {
 
-        $block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '  $(function(){' . LF . implode(LF, $block['custom_htmlhead']['jquery_ready']) . LF . ' });' . LF . '  </script>';
+        $block['custom_htmlhead']['jquery_ready'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . '  $(function(){' . LF . implode(LF, $block['custom_htmlhead']['jquery_ready']) . LF . '   });' . LF . '  </script>';
 
     } else {
 
@@ -1656,11 +1701,11 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
     if( isset($match[1]) && isset($match[2]) ) {
 
-        $all_id   = array();
-        $sql_id   = '';
+        $all_id     = array();
+        $sql_id     = '';
 
-        $all_aid  = array();
-        $sql_aid  = '';
+        $all_aid    = array();
+        $sql_aid    = '';
 
         $all_close  = array();
 
@@ -1676,18 +1721,18 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
                     $old_style  = true;
 
-                    $this_id  = 0;
-                    $this_aid = 0;
+                    $this_id    = 0;
+                    $this_aid   = 0;
 
                     list($this_id, $this_aid) = explode(',', $match[2][$key]);
 
                     if( $this_aid = intval($this_aid) ) {
 
-                        $all_aid[ $this_aid ] = $this_aid;
+                        $all_aid[$this_aid] = $this_aid;
 
                     } elseif( $this_id = intval($this_id) ) {
 
-                        $all_id[ $this_id ]   = $this_id;
+                        $all_id[$this_id] = $this_id;
 
                     }
 
@@ -1766,8 +1811,8 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
 // Global parsing for i18 @@Text@@ replacements
 if(!empty($cmsgo['i18n_parse'])) {
-    $content['all']     = i18n_substitute_text($content['all']);
-    $content["pagetitle"] = i18n_substitute_text($content['pagetitle']);
+    $content['all']         = i18n_substitute_text($content['all']);
+    $content["pagetitle"]   = i18n_substitute_text($content['pagetitle']);
 }
 
 // Replace all deprecated GT Mod tags
@@ -1778,4 +1823,9 @@ if(!empty($cmsgo['gt_mod']) && strpos($content["all"], '{GT') !== false) {
     }
 
     $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
+}
+
+// Force Image extensions to WebP
+if (CMSGO_WEBP) {
+    $content['all'] = preg_replace('/(\/[a-f0-9]{1,32}\.)(jpg|jpeg|png|gif)/', '$1webp', $content['all']);
 }

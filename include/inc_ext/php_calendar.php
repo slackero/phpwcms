@@ -114,7 +114,7 @@ function generate_calendar($param = array()) {
             $weekStart++;
         }
 
-        $thisSelected = (intval($year) == THIS_YEAR && intval($month) == THIS_MONTH && $day == THIS_DAY) ? TRUE : FALSE;
+        $thisSelected = intval($year) == THIS_YEAR && intval($month) == THIS_MONTH && $day == THIS_DAY;
 
         $checkDay = $YYYYmm . substr('0' . $day, -2);
         if (isset($days[$checkDay]) && is_array($days[$checkDay])) {

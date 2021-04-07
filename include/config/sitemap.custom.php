@@ -20,7 +20,7 @@ function cmsgo_getCustomSitemap(&$struct) {
     //$cmsgo['sitemap_set_default'] = false;
 
     $url = array(
-    //  array('url' => 'http://www.webverbund.de', 'date' => '')
+        // array('url' => 'https://pixels-points.ch', 'date' => '')
     );
 
     // Do everything here needed to build your custom sitemap links

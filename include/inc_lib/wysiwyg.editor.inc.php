@@ -10,11 +10,7 @@
 
 // wysiwyg editor
 
-if(empty($wysiwyg_editor['value']))		$wysiwyg_editor['value']	= '';
-if(!isset($wysiwyg_editor['field']))	$wysiwyg_editor['field']	= 'wysiwyg_editor';
-if(empty($wysiwyg_editor['height']))	$wysiwyg_editor['height']	= '400px';
-if(empty($wysiwyg_editor['width']))		$wysiwyg_editor['width']	= '440px';
-if(empty($wysiwyg_editor['rows']))		$wysiwyg_editor['rows']		= '15';
+
 
 if(!isset($wysiwyg_editor['editor'])) {
 	$wysiwyg_editor['editor'] = 1;
@@ -23,10 +19,28 @@ if(!isset($wysiwyg_editor['editor'])) {
 	}
 }
 
-$wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
-$wysiwyg_editor['id'] = trim(preg_replace('/[^a-z0-9\-\_]/', '_', $wysiwyg_editor['field']), '_');
-
 if($wysiwyg_editor['editor']) {
+
+    if(empty($wysiwyg_editor['value'])) {
+        $wysiwyg_editor['value'] = '';
+    }
+    if(!isset($wysiwyg_editor['field'])) {
+        $wysiwyg_editor['field'] = 'wysiwyg_editor';
+    }
+    if(empty($wysiwyg_editor['height'])) {
+        $wysiwyg_editor['height'] = '400px';
+    }
+    if(empty($wysiwyg_editor['width'])) {
+        $wysiwyg_editor['width'] = '100%';
+    }
+    if(empty($wysiwyg_editor['rows'])) {
+        $wysiwyg_editor['rows'] = '15';
+    }
+
+    $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
+    $wysiwyg_editor['id'] = trim(preg_replace('/[^a-z0-9\-\_]/', '_', $wysiwyg_editor['field']), '_');
+    $wysiwyg_editor['is_tab'] = !empty($wysiwyg_editor['config']) && $wysiwyg_editor['config'] === 'tabs';
+
 
 	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
 
@@ -37,16 +51,17 @@ if($wysiwyg_editor['editor']) {
 	echo '<script type="text/javascript">' . LF;
 	echo '	CKEDITOR.replace("'.$wysiwyg_editor['id'].'", {';
 
-	if(is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
+    if($wysiwyg_editor['is_tab'] && is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
 
-		echo '		customConfig: "'.CMSGO_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
+        echo '
+		customConfig: "' . CMSGO_URL . TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+
+    } elseif(is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config.js')) {
+
+		echo '
+		customConfig: "'.CMSGO_URL.TEMPLATE_PATH.'config/ckeditor/ckeditor.config.js"';
 
 	} else {
-
-    	$wysiwyg_editor['js_height'] = intval(str_replace(array('px', '%', 'em'), '', $wysiwyg_editor['height']));
-    	if($wysiwyg_editor['height'] < 100) {
-        	$wysiwyg_editor['height'] = 100;
-    	}
 
 		echo "
 		toolbar: [
@@ -59,17 +74,17 @@ if($wysiwyg_editor['editor']) {
 			{name: 'styles', items: ['Styles', 'Format', 'Font']},
 			{name: 'about', items: ['About']}
 		],
-		width: auto,
-		height: ".$wysiwyg_editor['js_height'].",
+		width: '" . $wysiwyg_editor['width'] . "',
+		height: '" . $wysiwyg_editor['height'] . "',
 		extraPlugins: 'magicline,image2',
+		removePlugins: 'image',
 		toolbarCanCollapse: true,
-		toolbarStartupExpanded: true,
+		toolbarStartupExpanded: " . ($wysiwyg_editor['is_tab'] ? 'false' : 'true') . ",
 		forcePasteAsPlainText: true,
 		pasteFromWordRemoveFontStyles: true,
 		pasteFromWordRemoveStyles: true,
 		pasteFromWordPromptCleanup: true,
 		language: '".$wysiwyg_editor['lang']."'";
-
 	}
 
 	if (!empty($cmsgo['FCK_FileBrowser'])) {

@@ -55,7 +55,7 @@ $setup_recommend = true;
             $setup_recommend = false;
         }
         ?></li>
-    <li>MySQLi client version: <?php
+        <li>MySQLi client information: <?php
 
         $mysqlnd = false;
         $mysql_version = mysqli_get_client_info();
@@ -219,4 +219,3 @@ if (!is_writable($DOCROOT . '/setup/setup.conf.inc.php')) {
     </form>
     <?php
 }
-?>

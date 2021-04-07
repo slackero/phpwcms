@@ -16,7 +16,7 @@ $cmsgo['db_user'] = 'db_user';
 $cmsgo['db_pass'] = 'db_pass';
 $cmsgo['db_table'] = 'db_table';
 $cmsgo['db_prepend'] = '';
-$cmsgo['db_pers'] = 0;
+$cmsgo['db_pers'] = 1;
 $cmsgo['db_charset'] = 'utf8';
 $cmsgo['db_collation'] = 'utf8_general_ci';
 $cmsgo['db_version'] = ''; // Version of MySQL Server at the time cmsGO! was installed
@@ -73,6 +73,8 @@ $cmsgo['charset'] = 'utf-8'; // default charset 'utf-8' do not use soemthing dif
 $cmsgo['php_charset'] = false; // set PHP default charset to $cmsgo['charset']
 $cmsgo['allow_remote_URL'] = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $cmsgo['jpg_quality'] = 85; // JPG Quality Range 25-100
+$cmsgo['webp_enable'] = 1; // Render all images as WebP if the client browser supports it
+$cmsgo['webp_quality'] = 85; // Set the WebP quality
 $cmsgo['sharpen_level'] = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $cmsgo['allow_ext_init'] = 1; // allow including of custom external scripts at frontend initialization
 $cmsgo['allow_ext_render'] = 1; // allow including of custom external scripts at frontend rendering
@@ -147,6 +149,7 @@ $cmsgo['preserve_getVar'] = array(); // cmsgo removes some internal GET vars by 
 $cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsgo by default (anonymize IP...)
 $cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
 $cmsgo['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
+$cmsgo['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

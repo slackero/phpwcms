@@ -36,7 +36,7 @@ if(isset($cmsgo['modules'][$module]['path'])) {
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
+	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
 
 	// listing
 	include_once $cmsgo['modules'][$module]['path'].'backend.listing.php';

@@ -335,7 +335,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     }
 }
 
-function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
+function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
 
     $a    = '';
 
@@ -593,7 +593,7 @@ function update_404redirect() {
         if($result) {
             if($data['data']['active'] == 9) {
                 set_status_message(str_replace('{ID}', $data['data']['rid'], $GLOBALS['BL']['be_action_deleted']), 'success');
-                headerRedirect('cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=14');
+                headerRedirect('cmsgo.php?'.get_token_get_string().'&do=admin&p=14');
             } else {
                 set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
             }

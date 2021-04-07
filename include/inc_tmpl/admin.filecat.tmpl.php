@@ -74,7 +74,7 @@ if(isset($_GET["open"])) {
                     $fcat["id"] = $result['INSERT_ID'];
                 }
 
-                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
+                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin&p=7');
             }
         }
 
@@ -176,7 +176,7 @@ if(isset($_GET["open"])) {
                 if($query_mode === 'INSERT' && !empty($result['INSERT_ID'])) {
                     $fkey["id"] = $result['INSERT_ID'];
                 }
-                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=7');
+                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin&p=7');
             }
         }
     }

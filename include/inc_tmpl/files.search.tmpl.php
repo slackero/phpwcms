@@ -63,7 +63,7 @@ if(isset($_POST["file_search"])) {
                     foreach($search["key"] as $value) {
                         if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
                             if($search["andor"]) {
-                                if(!isset($search["result"][$row["f_id"]])) { //AND clause
+                                if(!isset($search["result"][$row["f_id"]])) {
                                     $search["result"][$row["f_id"]] = 1;
                                 } else {
                                     $search["result"][$row["f_id"]]++;
@@ -218,15 +218,12 @@ if(isset($search["result"])) {
     echo "</table>\n"; //Ende Tabelle
     echo "</div>\n";
 
+} elseif(isset($search["string"])) { //kein gültiges Suchergebnis
+    echo "<div class=\"alert alert-danger mt-3\">";
+    echo $BL['be_fsearch_nonfound'];
+    echo "</div>";
 } else {
-    //kein gültiges Suchergebnis
-    if(isset($search["string"])) {
-        echo "<div class=\"alert alert-danger mt-3\">";
-        echo $BL['be_fsearch_nonfound'];
-        echo "</div>";
-    } else {
-        echo $BL['be_fsearch_fillin'];
-    }
+    echo $BL['be_fsearch_fillin'];
 }
 
 ?>

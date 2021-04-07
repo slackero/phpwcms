@@ -139,7 +139,14 @@ $(function() {
                     'anchor_name'           => '',
                     'ssl'                   => 0,
                     'cform_function_validate' => '',
-
+        'doubleoptin' => CMSGO_GDPR_MODE ? 1 : 0,
+        'doubleoptin_targettype' => 0,
+        'template_format_doubleoptin' => 0,
+        'template_doubleoptin' => '',
+        'onsuccess_doubleoptin' => '',
+        'onerror_doubleoptin' => '',
+        'onsuccess_redirect_doubleoptin' => 0,
+        'onerror_redirect_doubleoptin' => 0
             ),
             $content['form']
             );
@@ -289,6 +296,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 $recipient_option .= is_selected($content['form']['targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $recipient_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
 
+                $recipient_option_doubleoptin .= '  <option value="emailfield_'.$for_name.'"';
+                $recipient_option_doubleoptin .= is_selected($content['form']['doubleoptin_targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
+                $recipient_option_doubleoptin .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>';
+
+
+
                 $sender_option .= ' <option value="emailfield_'.$for_name.'"';
                 $sender_option .= is_selected($content['form']['sendertype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $sender_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
@@ -309,19 +322,15 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         // parallel building of the placeholder tag menu for the template
         switch($content['form']["fields"][$key]['type']) {
 
-            case 'submit':      $for_placeholder = false;
-                                break;
+            case 'submit':
+                                    case 'reset':
+                                    case 'break':
+                                    case 'breaktext':
+                                        $for_placeholder = false;
+                                        break;
+                               
 
-            case 'reset':       $for_placeholder = false;
-                                break;
-
-            case 'break':       $for_placeholder = false;
-                                break;
-
-            case 'breaktext':   $for_placeholder = false;
-                                break;
-
-        }
+         }
 
         $for_select_2   .= '<option value="';
         $for_tempselect  = '';

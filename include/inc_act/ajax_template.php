@@ -53,7 +53,7 @@ if ($action == 'form') {
     $data = _dbQuery($sql);
     if(isset($data[0]['article_id'])) {
         foreach($data as $crow) {
-            echo '<a href="cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&aktion=2&id='.$crow[1].'&acid='.$crow[2].'" target=_blank>'.$crow[0].' <img border="0" alt="" src="img/button/edit_22x13.gif"></a><br>';
+            echo '<a href="cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1&aktion=2&id='.$crow[1].'&acid='.$crow[2].'" target=_blank>'.$crow[0].' <img border="0" alt="" src="img/button/edit_22x13.gif"></a><br>';
         }
     }
 

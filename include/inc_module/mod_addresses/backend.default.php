@@ -19,7 +19,7 @@ if(isset($cmsgo['modules'][$module]['path'])) {
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
+	define('MODULE_HREF', 'cmsgo.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
 	define('MODULE_HREF_DECODE', str_replace('&amp;', '&', MODULE_HREF));
 	define('MODULE_PATH', $cmsgo['modules'][$module]['path']);
 	define('MODULE_BASEPATH', $cmsgo['modules'][$module]['dir']);

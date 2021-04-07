@@ -384,7 +384,7 @@ if($news['template']) {
     $news['config']['news_per_row']             = abs(intval($news['config']['news_per_row']));
     $news['config']['news_teaser_limit_chars']  = intval($news['config']['news_teaser_limit_chars']);
     $news['config']['news_teaser_limit_words']  = intval($news['config']['news_teaser_limit_words']);
-    $news['config']['check_lang']               = (count($cmsgo['allowed_lang']) > 1) ? true : false;
+    $news['config']['check_lang']               = count($cmsgo['allowed_lang']) > 1;
     $news['config']['gallery_allowed_ext']      = convertStringToArray(strtolower($news['config']['gallery_allowed_ext']));
     if(count($news['config']['gallery_allowed_ext'])) {
         foreach($news['config']['gallery_allowed_ext'] as $ikey => $ivalue) {
@@ -437,25 +437,18 @@ if($news['template']) {
                     $value['cnt_teasertext'] = getCleanSubString($value['cnt_teasertext'], $news['config']['news_teaser_limit_words'], $news['config']['news_teaser_limit_ellipse'], 'word');
                 }
 
-                if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] == 'plain') {
+                if(empty($value['cnt_object']['cnt_textformat']) || $value['cnt_object']['cnt_textformat'] === 'plain') {
                     $value['cnt_teasertext'] = plaintext_htmlencode($value['cnt_teasertext']);
                     $value['cnt_description'] = plaintext_htmlencode($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'br') {
+                } elseif($value['cnt_object']['cnt_textformat'] === 'br') {
                     $value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
                     $value['cnt_description'] = br_htmlencode($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'markdown') {
-                    if(!isset($cmsgo['parsedown_class'])) {
-                        require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                        require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                        $cmsgo['parsedown_class'] = new ParsedownExtra();
-                    }
+                } elseif($value['cnt_object']['cnt_textformat'] === 'markdown') {
+                    init_markdown();
                     $value['cnt_teasertext'] = $cmsgo['parsedown_class']->text($value['cnt_teasertext']);
                     $value['cnt_description'] = $cmsgo['parsedown_class']->text($value['cnt_description']);
-                } elseif($value['cnt_object']['cnt_textformat'] == 'textile') {
-                    if(!isset($cmsgo['textile_class'])) {
-                        require_once(CMSGO_ROOT.'/include/inc_ext/classTextile.php');
-                        $cmsgo['textile_class'] = new Textile();
-                    }
+                } elseif($value['cnt_object']['cnt_textformat'] === 'textile') {
+                    init_textile();
                     $value['cnt_teasertext'] = $cmsgo['textile_class']->textileThis($value['cnt_teasertext']);
                     $value['cnt_description'] = $cmsgo['textile_class']->textileThis($value['cnt_description']);
                 } else {

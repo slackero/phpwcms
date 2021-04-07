@@ -1,0 +1,56 @@
+<!--IMAGE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+width		= 1100
+height		= 480
+width_zoom	= 1100
+height_zoom	= 480
+col			= 9999999
+space		= 0
+zoom		= 0
+lightbox	= 0
+nocaption	= 0
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+center		= 0
+;crop		= 0
+crop_zoom	= 0
+;fx1		= 0
+;fx2		= 0
+;fx3		= 0
+; InfoText render: plain, html, markdown, textile
+text_render	= plain
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]{TEXT}[/TEXT]
+<div class="carousel slide[EFFECT_1] carousel-fade[/EFFECT_1]" data-ride="carousel" id="carousel-{ID}">
+	<div class="carousel-inner" role="listbox">
+<!--IMAGES_HEADER_END//-->
+<!--IMAGES_ENTRY_START//-->
+		<div class="carousel-item[FIRST] active[/FIRST]"><img class="w-100 d-block" src="{THUMB_REL}"></div>
+		<!--ENTRY_DATA_START//-->
+		<li data-target="#carousel-{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]></li>
+	<!--ENTRY_DATA_END//-->
+<!--IMAGES_ENTRY_END//-->
+
+<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
+
+<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
+
+<!--IMAGES_FOOTER_START//-->
+	</div>
+	[EFFECT_2]
+	<div><a class="carousel-control-prev" href="#carousel-{ID}" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-{ID}" role="button"
+                                data-slide="next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
+[/EFFECT_2]
+[EFFECT_3]	[DATA]
+	<ol class="carousel-indicators">
+		{DATA}
+	</ol>
+	[/DATA][/EFFECT_3]
+</div>
+
+<!--IMAGES_FOOTER_END//-->

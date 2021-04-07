@@ -142,11 +142,7 @@ if($tabs['template']) {
                 } elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
 
                     if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                        if(!isset($cmsgo['parsedown_class'])) {
-                            require_once CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php';
-                            require_once CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php';
-                            $cmsgo['parsedown_class'] = new ParsedownExtra();
-                        }
+                        init_markdown();
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
                     } elseif($tabs['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, plaintext_htmlencode($custom_field_value));

@@ -8,9 +8,8 @@
  *
  **/
 
-
-$cmsgo    = array();
-$root       = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
+$cmsgo = array();
+$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
 require_once $root.'/include/config/conf.inc.php';
 require_once $root.'/include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
@@ -132,7 +131,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
             if(substr($cmsgo['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
+                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -162,7 +161,7 @@ if(isset($data[1])) {
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'cmsgo_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
             if(substr($cmsgo['image_library'], 0, 2) === 'gd') {
-                $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg') AND ";
+                $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
             $hash  = _dbQuery($sql);
@@ -212,7 +211,7 @@ if(isset($data[1])) {
                 if($quality < 10 || $quality > 100) {
                     $quality = '';
                 } else {
-                    $value['jpg_quality'] = $quality;
+                    $value['quality'] = $quality;
                 }
             } else {
                 $quality = '';
@@ -345,6 +344,10 @@ if(isset($data[1])) {
                 $value["max_height"] = $basis * $grid;
             }
 
+            if (CMSGO_WEBP && !$svg) {
+                $value['target_ext'] = 'webp';
+            }
+
             $image = get_cached_image($value, false, false);
 
             if(!empty($image[0])) {
@@ -358,13 +361,9 @@ if(isset($data[1])) {
                     $image['type'] = get_mimetype_by_extension(which_ext($image[0]));
                 }
 
-                if(empty($name)) {
-                    $name = empty($data[2]) ? $image[0] : $data[2];
-                }
-
                 header('Content-Type: ' . $image['type']);
                 header('Content-length: '.filesize(CMSGO_THUMB.$image[0]));
-                header('Content-Disposition: inline; filename="'.rawurlencode($name).'"');
+                header('Content-Disposition: inline; filename="'.rawurlencode($image[0]).'"');
                 @readfile(CMSGO_THUMB.$image[0]);
                 exit;
             }

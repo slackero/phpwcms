@@ -8,25 +8,26 @@ if (!defined('CMSGO_ROOT')) {
 
 // used to get a calendar
 
-if(strpos($content["all"],'{CALENDAR') !== false) {
+if (strpos($content["all"], '{CALENDAR') !== false) {
 
-    include_once CMSGO_ROOT.'/include/inc_ext/php_calendar.php';
-    include_once CMSGO_ROOT.'/include/inc_front/calendar.func.inc.php';
+    include_once CMSGO_ROOT . '/include/inc_ext/php_calendar.php';
+    include_once CMSGO_ROOT . '/include/inc_front/calendar.func.inc.php';
 
-    $_baseCalVal = initializeCalendar(CMSGO_TEMPLATE.'calendar/calendar.ini');
+    $_baseCalVal = initializeCalendar(CMSGO_TEMPLATE . 'calendar/calendar.ini');
 
     $content['all'] = str_replace(
         '{CALENDAR}',
         generate_calendar(array(
-            'locale'            =>'de_DE',
-            'day_name_length'   => 2,
-            'weekNrTitle'       => 'KW',
-            'days'              => $_baseCalVal['days'],
-            'pn'                => array(
-                '&laquo;'=>$_baseCalVal['prev_link'],
-                '&raquo;'=>$_baseCalVal['next_link']
+            'locale' => 'de_DE',
+            'day_name_length' => 2,
+            'weekNrTitle' => 'KW',
+            'days' => $_baseCalVal['days'],
+            'pn' => array(
+                '&laquo;' => $_baseCalVal['prev_link'],
+                '&raquo;' => $_baseCalVal['next_link'],
             )
         )),
         $content['all']
     );
+
 }

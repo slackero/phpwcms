@@ -17,8 +17,63 @@ if (!defined('CMSGO_ROOT')) {
 
 reset($cmsgo['js_lib']); // reset $cmsgo['js_lib'] to get first element as default
 
-$template = array("name" => '', "default" => 0, "layout" => '', "css" => array(), "htmlhead" => '', "jsonload" => '', "headertext" => '', "maintext" => '', "footertext" => '', "lefttext" => '', "righttext" => '', "errortext" => '', "htmlhead_file" => '', "headertext_file" => '', "maintext_file" => '', "footertext_file" => '', "lefttext_file" => '', "righttext_file" => '', "errortext_file" => '', 'feloginurl' => '', 'jslib' => key($cmsgo['js_lib']), // take the most current
-    'jslibload' => 0, 'frontendjs' => 0, 'googleapi' => 1, 'onepage' => 0, 'ie8ignore' => 0, 'cookie_consent' => array('enable' => 0, 'message' => $BL['cookie_consent_message'], 'dismiss' => $BL['cookie_consent_dismiss'], 'more' => $BL['cookie_consent_more'], 'link' => '', 'theme' => 'light-bottom',), 'tracking_ga' => array('enable' => 0, 'id' => '', 'anonymize' => CMSGO_GDPR_MODE ? 1 : 0, 'optout' => CMSGO_GDPR_MODE ? 1 : 0,), 'tracking_piwik' => array('enable' => 0, 'id' => '', 'url' => ''),);
+$template = array(
+    "name" => '',
+    "default" => 0,
+    "layout" => '',
+    "css" => array(),
+    "htmlhead" => '',
+    "jsonload" => '',
+    "headertext" => '',
+    "maintext" => '',
+    "footertext" => '',
+    "lefttext" => '',
+    "righttext" => '',
+    "errortext" => '',
+    "htmlhead_file" => '',
+    "headertext_file" => '',
+    "maintext_file" => '',
+    "footertext_file" => '',
+    "lefttext_file" => '',
+    "righttext_file" => '',
+    "errortext_file" => '',
+    'feloginurl' => '',
+    'jslib' => key($cmsgo['js_lib']), // take the most current
+    'jslibload' => 0,
+    'frontendjs' => 0,
+    'googleapi' => 1,
+    'onepage' => 0,
+    'ie8ignore' => 0,
+    'cookie_consent' => array(
+        'enable' => 0,
+        'message' => $BL['cookie_consent_message'],
+        'dismiss' => $BL['cookie_consent_dismiss'],
+        'more' => $BL['cookie_consent_more'],
+        'link' => '',
+        'theme' => 'light-bottom',
+    ),
+    'tracking_ga' => array(
+        'enable' => 0,
+        'id' => '',
+        'anonymize' => CMSGO_GDPR_MODE  ? 1 : 0,
+        'optout' => CMSGO_GDPR_MODE  ? 1 : 0,
+    ),
+    'tracking_gtm' => array(
+        'enable' => 0,
+        'id' => '',
+    ),
+    'tracking_piwik' => array(
+        'enable' => 0,
+        'id' => '',
+        'url' => ''
+    ),
+    'donottrack' => 0,
+    'require_consent' => array(
+        'enable' => 0,
+        'cookie_name' => 'cookieconsent_dismissed',
+        'cookie_value' => 'yes'
+    ),
+);
 
 initJQuery();
 
@@ -115,20 +170,20 @@ if (!isset($_GET["s"])) {
         $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
-        if (!empty($_POST['template_cc_message'])) {
-            $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
+        if (!empty($_POST['cookie_consent_message'])) {
+            $template['cookie_consent']['message'] = slweg($_POST['cookie_consent_message']);
         }
-        if (!empty($_POST['template_cc_dismiss'])) {
-            $template['cookie_consent']['dismiss'] = slweg($_POST['template_cc_dismiss']);
+        if (!empty($_POST['cookie_consent_dismiss'])) {
+            $template['cookie_consent']['dismiss'] = slweg($_POST['cookie_consent_dismiss']);
         }
-        if (!empty($_POST['template_cc_more'])) {
-            $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
+        if (!empty($_POST['cookie_consent_more'])) {
+            $template['cookie_consent']['more'] = slweg($_POST['cookie_consent_more']);
         }
-        if (!empty($_POST['template_cc_link'])) {
-            $template['cookie_consent']['link'] = slweg($_POST['template_cc_link']);
+        if (!empty($_POST['cookie_consent_link'])) {
+            $template['cookie_consent']['link'] = slweg($_POST['cookie_consent_link']);
         }
-        if (isset($_POST['template_cc_theme'])) {
-            $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
+        if (isset($_POST['cookie_consent_theme'])) {
+            $template['cookie_consent']['theme'] = clean_slweg($_POST['cookie_consent_theme']);
         }
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
@@ -136,6 +191,11 @@ if (!isset($_GET["s"])) {
         $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
         if (empty($template['tracking_ga']['id'])) {
             $template['tracking_ga']['enable'] = 0;
+        }
+        $template['tracking_gtm']['enable'] = empty($_POST['template_gtm']) ? 0 : 1;
+        $template['tracking_gtm']['id'] = clean_slweg($_POST["template_gtm_id"]);
+        if(empty($template['tracking_gtm']['id'])) {
+            $template['tracking_gtm']['enable'] = 0;
         }
         $template['tracking_piwik']['enable'] = empty($_POST['template_piwik']) ? 0 : 1;
         $template['tracking_piwik']['id'] = intval($_POST["template_piwik_id"]);
@@ -146,6 +206,12 @@ if (!isset($_GET["s"])) {
         if (empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['enable'] = 0;
         }
+        $template['donottrack'] = empty($_POST["template_donottrack"]) ? 0 : 1;
+        $template['require_consent'] = array(
+            'enable' => empty($_POST["template_require_consent"]) ? 0 : 1,
+            'cookie_name' => clean_slweg($_POST['template_require_cookie_name']),
+            'cookie_value' => clean_slweg($_POST['template_require_cookie_value'])
+        );
 
         // now browse custom blocks if available
         if (!empty($_POST['customblock'])) {
@@ -153,7 +219,6 @@ if (!isset($_GET["s"])) {
             $template['customblock'] = clean_slweg($_POST["customblock"]);
             $temp_customblock = explode(',', $template['customblock']);
             foreach ($temp_customblock as $value) {
-
                 $template['customblock_' . $value] = slweg($_POST['template_customblock_' . $value]);
                 $template['customblock_' . $value . '_file'] = slweg($_POST['template_customblock_' . $value . '_file']);
             }
@@ -180,7 +245,7 @@ if (!isset($_GET["s"])) {
             _dbQuery("UPDATE " . DB_PREPEND . "cmsgo_template SET template_default=0 WHERE template_id != " . $template["id"], 'UPDATE');
         }
         update_cache();
-        headerRedirect(CMSGO_URL . 'cmsgo.php?' . get_token_get_string('csrftoken') . '&do=admin&p=11&s=' . $template["id"]);
+        headerRedirect(CMSGO_URL . 'cmsgo.php?' . get_token_get_string() . '&do=admin&p=11&s=' . $template["id"]);
     }
 
     if ($template["id"]) {
@@ -445,6 +510,7 @@ if (!isset($_GET["s"])) {
                             <label class="form-check-label"
                                    for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
                         </div>
+
                         <div class="form-check">
                             <label class="form-check-label" for="template_ga">
                                 <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox"
@@ -455,8 +521,8 @@ if (!isset($_GET["s"])) {
                             <div id="ga-tracking"
                                  class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
                                 <label class="col-sm-2 col-form-label text-right"
-                                       for="be_tracking_id"><?php echo $BL['be_tracking_id']; ?></label>
-                                <div class="col-sm-3"><input type="text" name="template_ga_id"
+                                       for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div class="col-sm-3"><input type="text" name="template_ga_id" id="template_ga_id"
                                                              class="form-control form-control-sm"
                                                              placeholder="UA-XXXXX-Y"
                                                              value="<?php echo html($template['tracking_ga']['id']) ?>"/>
@@ -466,8 +532,27 @@ if (!isset($_GET["s"])) {
                                     <input class="form-check-input" type="checkbox" name="template_ga_anonymize"
                                            id="template_ga_anonymize"
                                            value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
-                                    <label for="be_tracking_anonymize"
+                                    <label for="template_ga_anonymize"
                                            class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label" for="template_gtm">
+                                <input class="form-check-input" name="template_gtm" id="template_gtm" type="checkbox"
+                                       value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?>>
+                                <?php echo $BL['be_google_tag_manager_enable']; ?>
+                            </label>
+
+                            <div id="gtm-tracking"
+                                 class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                <label class="col-sm-2 col-form-label text-right"
+                                       for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div class="col-sm-3"><input type="text" name="template_gtm_id" id="template_gtm_id"
+                                                             class="form-control form-control-sm"
+                                                             placeholder="GTM-XXXXXXX"
+                                                             value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -483,14 +568,14 @@ if (!isset($_GET["s"])) {
                             <div id="piwik-tracking"
                                  class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
                                 <label class="col-sm-2 col-form-label text-right"
-                                       for="be_site_id"><?php echo $BL['be_site_id']; ?></label>
+                                       for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
                                 <input type="text" name="template_piwik_id" class="form-control col-sm-2"
-                                       placeholder="1"
+                                       placeholder="1" id="template_piwik_id"
                                        value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
                                 <label class="col-sm-2 col-form-label text-right"
-                                       for="be_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
+                                       for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
                                 <input type="text" name="template_piwik_url" class="form-control col-sm-4"
-                                       placeholder="piwik.example.com"
+                                       placeholder="piwik.example.com" id="template_piwik_url"
                                        value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
                             </div>
                         </div>
@@ -503,14 +588,15 @@ if (!isset($_GET["s"])) {
                                 <?php echo $BL['be_cookie_consent_enable'] ?>
                             </label>
 
-                            <div id="cookie-consent"<?php if (!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
+                            <div id="template-cc-form"<?php if (!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
                                 <?php if (count($cmsgo['allowed_lang'])): ?>
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></em></small>
                                 <?php endif; ?>
                                 <div class="form-group form-row my-2">
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
-                                    <div class="col"><textarea name="template_cc_message" rows="3"
+                                    <div class="col"><textarea name="cookie_consent_message" rows="3"
+                                                               id="be_cookie_consent_message"
                                                                class="form-control form-control-sm autosize"
                                                                placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea>
                                     </div>
@@ -519,6 +605,7 @@ if (!isset($_GET["s"])) {
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
                                     <div class="col"><input type="text" name="cookie_consent_dismiss"
+                                                            id="be_cookie_consent_dismiss"
                                                             class="form-control form-control-sm"
                                                             placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>"
                                                             value="<?php echo html($template['cookie_consent']['dismiss']) ?>"/>
@@ -526,8 +613,9 @@ if (!isset($_GET["s"])) {
                                 </div>
                                 <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_more']; ?></label>
-                                    <div class="col"><input type="text" name="be_cookie_consent_more"
+                                           for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_more']; ?></label>
+                                    <div class="col"><input type="text" name="cookie_consent_more"
+                                                            id="be_cookie_consent_more"
                                                             class="form-control form-control-sm"
                                                             placeholder="<?php echo $BL['cookie_consent_more']; ?>"
                                                             value="<?php echo html($template['cookie_consent']['more']) ?>"/>
@@ -535,8 +623,9 @@ if (!isset($_GET["s"])) {
                                 </div>
                                 <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_link']; ?></label>
-                                    <div class="col"><input type="text" name="be_cookie_consent_link"
+                                           for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
+                                    <div class="col"><input type="text" name="cookie_consent_link"
+                                                            id="be_cookie_consent_link"
                                                             class="form-control form-control-sm"
                                                             placeholder="http://example.com/cookie-policy | cookie-policy"
                                                             value="<?php echo html($template['cookie_consent']['link']) ?>"/>
@@ -546,11 +635,53 @@ if (!isset($_GET["s"])) {
                                     <label class="col-sm-3 col-form-label text-right"
                                            for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
                                     <div class="col">
-                                        <input type="text" name="be_cookie_consent_theme"
+                                        <input type="text" name="cookie_consent_theme"
+                                               id="be_cookie_consent_theme"
                                                class="form-control form-control-sm"
                                                placeholder="light-top, light-bottom, light-floating, dark-top&hellip;"
                                                title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada"
                                                value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check">
+                            <label class="form-check-label" for="template_require_consent">
+                                <input class="form-check-input" name="template_require_consent" id="template_require_consent" type="checkbox"
+                                       value="1"<?php is_checked($template['require_consent']['enable'], 1); ?>>
+                                <?php echo $BL['be_require_consent']; ?>
+                            </label>
+
+                            <div id="template-cr-form"<?php if (!$template['require_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
+
+                                <div class="form-group form-row mt-2 my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="template_require_cookie_name">
+                                        <?php echo $BL['be_consent_cookie_name']; ?>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text"
+                                               name="template_require_cookie_name"
+                                               id="template_require_cookie_name"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['placeholder_require_cookie_name']; ?>"
+                                               value="<?php echo html($template['require_consent']['cookie_name']) ?>"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row mt-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="template_require_cookie_value">
+                                        <?php echo $BL['be_consent_cookie_value']; ?>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text"
+                                               name="template_require_cookie_value"
+                                               id="template_require_cookie_value"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['placeholder_require_cookie_value']; ?>"
+                                               value="<?php echo html($template['require_consent']['cookie_value']) ?>"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -707,23 +838,38 @@ if (!isset($_GET["s"])) {
     </form>
 
     <script type="text/javascript">
-        $(function () {
-            $('#template_cookie_consent').change(function () {
-                if ($(this).is(':checked')) {
-                    $('#cookie-consent').show();
-                } else {
-                    $('#cookie-consent').hide();
-                }
-            });
-            $('#template_ga').change(function () {
-                if ($(this).is(':checked')) {
-                    $('#ga-tracking').show();
-                } else {
-                    $('#ga-tracking').hide();
-                }
-            });
-            $('#template_piwik').change(function () {
-                if ($(this).is(':checked')) {
+
+    $(function(){
+        $('#template_cookie_consent').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#template-cc-form').show();
+            } else {
+                $('#template-cc-form').hide();
+            }
+        });
+        $('#template_require_consent').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#template-cr-form').show();
+            } else {
+                $('#template-cr-form').hide();
+            }
+        });
+        $('#template_ga').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#ga-tracking').show();
+            } else {
+                $('#ga-tracking').hide();
+            }
+        });
+        $('#template_gtm').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#gtm-tracking').show();
+            } else {
+                $('#gtm-tracking').hide();
+            }
+        });
+        $('#template_piwik').on('change', function(){
+            if($(this).is(':checked')) {
                     $('#piwik-tracking').show();
                 } else {
                     $('#piwik-tracking').hide();

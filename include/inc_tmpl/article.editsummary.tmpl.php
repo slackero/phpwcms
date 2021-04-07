@@ -313,7 +313,7 @@ $langstr = '';
   <div class="form-group align-items-center form-row">
     <label for="be_article_akeywords" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_akeywords'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
     <div class="col">
-      <input class="form-control form-control-sm" type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article["article_keyword"]) ?>" />
+      <input class="form-control form-control-sm border py-3 px-2" type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article["article_keyword"]) ?>" />
     </div>
   </div>
 
@@ -350,8 +350,7 @@ $langstr = '';
         ?>
         </select>
     </div>
-  </div>
-  <div class="form-group align-items-center form-row">
+
     <label for="be_admin_struct_template_full" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?> <?php echo $BL['be_article_forfull'] ?></label>
     <div class="col-sm-4">
       <select name="article_tmplfull" id="article_tmplfull" class="custom-select form-control form-control-sm">
@@ -377,11 +376,17 @@ $langstr = '';
     </div>
   </div>
 
+
   <div class="form-group align-items-center form-row bg-grey py-2">
     <label for="be_cnt_results_wordlimit" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_results_wordlimit'] ?></label>
     <div class="col-sm-4">
       <input class="form-control form-control-sm" name="article_listmaxwords" type="text" id="article_listmaxwords" value="<?php echo empty($article['image']['list_maxwords']) ? '' : intval($article['image']['list_maxwords']) ?>" size="10" maxlength="6" />
     </div>
+
+      <label for="article_meta_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_css_class'] ?></label>
+      <div class="col-sm-4">
+          <input class="form-control form-control-sm" name="article_meta_class" type="text" id="article_meta_class" value="<?php echo html($article["article_meta"]['class']) ?>" size="40" maxlength="255" />
+      </div>
   </div>
 
   <div class="form-group form-row bg-grey py-2">

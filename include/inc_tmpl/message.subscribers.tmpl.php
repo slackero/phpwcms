@@ -42,7 +42,7 @@ if(isset($_GET['duplicate']) && $_GET['duplicate'] == 'remove') {
       }
     }
   }
-  headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=4');
+  headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=4');
 }
 
 // delete susbcriber

@@ -19,13 +19,13 @@ a {
     color: #000000;
 }
 
-a:hover {
-    color: #CC3300;
-}
-
 p, div, form, h1, h2, h3, h4, h5, h6, hr {
     margin: 0;
     padding: 0;
+}
+
+img {
+    border: 0;
 }
 
 input, select {
@@ -36,10 +36,6 @@ input, select {
 
 .button {
     margin-top: 10px;
-}
-
-p {
-    font-size: 13px;
 }
 
 h1 {
@@ -53,11 +49,12 @@ h2, h2 a {
     color: #fff;
 }
 
-td, .v10, .v11, .error {
+p, td, .v10, .v11, .error {
     font-size: 13px;
 }
 
-.error {
+.error,
+a:hover {
     color: #CC3300;
 }
 
@@ -86,10 +83,6 @@ hr {
     border-top-color: #15a589;
 }
 
-.alert-success a {
-    color: #e6e6e6;
-}
-
 .alert-info {
     background-color: #3498db;
     border-color: #3498db;
@@ -100,10 +93,6 @@ hr {
     border-top-color: #258cd1;
 }
 
-.alert-info a {
-    color: #e6e6e6;
-}
-
 .alert-warning {
     background-color: #f39c12;
     border-color: #f39c12;
@@ -112,10 +101,6 @@ hr {
 
 .alert-warning hr {
     border-top-color: #e08e0b;
-}
-
-.alert-warning a {
-    color: #e6e6e6;
 }
 
 .alert-danger {
@@ -129,6 +114,16 @@ hr {
     border-top-color: #e43725;
 }
 
+.alert-info a,
+.alert-warning a,
+.alert-success a,
 .alert-danger a {
     color: #e6e6e6;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+.d-block {
+    display: block;
 }

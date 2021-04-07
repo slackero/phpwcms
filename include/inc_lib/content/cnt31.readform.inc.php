@@ -21,7 +21,6 @@ if (!defined('CMSGO_ROOT')) {
 $content["image_html"]      = slweg($_POST['image_html']);
 $content["image_template"]  = clean_slweg($_POST['template']);
 $content['image_special']   = array(
-
     'pos'           => empty($_POST['cimage_pos']) ? 0 : intval($_POST['cimage_pos']),
     'width'         => empty($_POST['cimage_width']) ? '' : intval($_POST['cimage_width']),
     'height'        => empty($_POST['cimage_height']) ? '' : intval($_POST['cimage_height']),
@@ -40,7 +39,6 @@ $content['image_special']   = array(
     'fx3'           => empty($_POST['cimage_fx3']) ? 0 : 1,
     'images'        => array(),
     'fieldgroup'    => ''
-
 );
 
 $tab_fieldgroup_fields = null;

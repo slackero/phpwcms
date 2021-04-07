@@ -59,6 +59,9 @@ if(!isset($fmp_data['fmp_set_audio'])) {
 if(!isset($fmp_data['fmp_set_loop'])) {
     $fmp_data['fmp_set_loop'] = 0;
 }
+if(!isset($fmp_data['fmp_set_downloadbutton'])) {
+    $fmp_data['fmp_set_downloadbutton'] = 0;
+}
 
 ?>
 <div class="form-group align-items-center form-row">
@@ -386,7 +389,7 @@ if(!isset($fmp_data['fmp_set_loop'])) {
     </label>
     <div class="col-sm-8">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart"class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> />
+            <input type="checkbox" name="fmp_set_autostart" id="fmp_set_autostart" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_autostart']) ?> />
         </div>
     </div>
 </div>
@@ -397,7 +400,18 @@ if(!isset($fmp_data['fmp_set_loop'])) {
     </label>
     <div class="col-sm-8">
         <div class="form-check form-check-inline">
-            <input type="checkbox" name="fmp_set_loop" id="fmp_set_loop"class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> />
+            <input type="checkbox" name="fmp_set_loop" id="fmp_set_loop" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_loop']) ?> />
+        </div>
+    </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+    <label class="col-sm-2 col-form-label text-right" for="fmp_set_downloadbutton">
+        <?php echo $BL['be_hide_downloadbutton'] ?>
+    </label>
+    <div class="col-sm-8">
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="fmp_set_downloadbutton" id="fmp_set_downloadbutton" class="form-check-input" value="1"<?php is_checked(1, $fmp_data['fmp_set_downloadbutton']) ?> />
         </div>
     </div>
 </div>

@@ -52,4 +52,4 @@ if(!empty($_SESSION["wcs_user_admin"])) { // With admin permissions only
 
 }
 
-headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin');
+headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin');

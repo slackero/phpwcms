@@ -146,7 +146,8 @@ define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !=
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
+define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 // Mime-Type definitions
 require_once CMSGO_ROOT.'/include/inc_lib/mimetype.inc.php';
@@ -182,8 +183,10 @@ define('RESPONSIVE_MODE', empty($cmsgo['responsive']) ? false : true);
 define('CMSGO_PRESERVE_IMAGENAME', empty($cmsgo['preserve_image_name']) ? false : true);
 define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
 define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
-define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : true);
+define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : false);
 define('CMSGO_LOGDIR', CMSGO_CONTENT.'log');
+define('CMSGO_WEBP', empty($cmsgo['webp_enable']) ? false : $cmsgo['USER_AGENT']['webp']);
+define('CMSGO_QUALITY', CMSGO_WEBP ? $cmsgo['webp_quality'] : $cmsgo['jpg_quality']);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -258,29 +261,32 @@ $cmsgo['default_lang']    = strtolower($cmsgo['default_lang']);
 $cmsgo['DOCTYPE_LANG']    = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] : strtolower(trim($cmsgo['DOCTYPE_LANG']));
 
 $cmsgo['js_lib_default'] = array(
-    'jquery-3.5'            => 'jQuery 3.5.1',
-    'jquery-3.5-migrate'    => 'jQuery 3.5.1 + Migrate 3.1.0',
-    'jquery-3.5-migrate-1'  => 'jQuery 3.5.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.6'            => 'jQuery 3.6.0',
+    'jquery-3.6-migrate'    => 'jQuery 3.6.0 + Migrate 3.3.2',
+    'jquery-3.6-migrate-1'  => 'jQuery 3.6.0 + Migrate 1.4.1 + 3.3.2',
     'jquery-1.12'           => 'jQuery 1.12.4',
     'jquery-1.12-migrate'   => 'jQuery 1.12.4 + Migrate 1.4.1',
     'jquery-2.2'            => 'jQuery 2.2.4',
     'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
     // ----
+    'jquery-3.5'            => 'jQuery 3.5.1',
+    'jquery-3.5-migrate'    => 'jQuery 3.5.1 + Migrate 3.3.2',
+    'jquery-3.5-migrate-1'  => 'jQuery 3.5.1 + Migrate 1.4.1 + 3.3.2',
     'jquery-3.4'            => 'jQuery 3.4.1',
-    'jquery-3.4-migrate'    => 'jQuery 3.4.1 + Migrate 3.1.0',
-    'jquery-3.4-migrate-1'  => 'jQuery 3.4.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.4-migrate'    => 'jQuery 3.4.1 + Migrate 3.3.2',
+    'jquery-3.4-migrate-1'  => 'jQuery 3.4.1 + Migrate 1.4.1 + 3.3.2',
     'jquery-3.3'            => 'jQuery 3.3.1',
-    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.1.0',
-    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.3.2',
+    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.3.2',
     'jquery-3.2'            => 'jQuery 3.2.1',
-    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.1.0',
-    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.3.2',
+    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.3.2',
     'jquery-3.1'            => 'jQuery 3.1.1',
-    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.1.0',
-    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.3.2',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.3.2',
     'jquery-3.0'            => 'jQuery 3.0.0',
-    'jquery-3.0-migrate'    => 'jQuery 3.0.0 + Migrate 3.1.0',
-    'jquery-3.0-migrate-1'  => 'jQuery 3.0.0 + Migrate 1.4.1 + 3.1.0',
+    'jquery-3.0-migrate'    => 'jQuery 3.0.0 + Migrate 3.3.2',
+    'jquery-3.0-migrate-1'  => 'jQuery 3.0.0 + Migrate 1.4.1 + 3.3.2',
     'jquery-2.1'            => 'jQuery 2.1.4',
     'jquery-2.1-migrate'    => 'jQuery 2.1.4 + Migrate 1.2.1',
     'jquery-2.0'            => 'jQuery 2.0.3',
@@ -437,6 +443,7 @@ if(empty($cmsgo['allowed_upload_ext'])) {
         'jpg',
         'jpeg',
         'png',
+        'webp',
         'gif',
         'tif',
         'tiff',
@@ -643,19 +650,19 @@ function removeSessionName($str='') {
 
 function dumpVar($var, $commented=false) {
     //just a simple funcction returning formatted print_r()
-    switch($commented) {
-        case 1:     echo "\n<!--\n";
+    if ($commented === 1) {
+        echo LF . '<!--' . LF;
                     print_r($var);
-                    echo "\n//-->\n";
-                    return NULL;
-                    break;
-        case 2:     return '<pre>'.html(print_r($var, true)).'</pre>';
-                    break;
-        default:    echo '<pre>';
+        echo LF . '//-->' . LF;
+        return null;
+    } elseif ($commented === 2) {
+        return '<pre>' . html(print_r($var, true)) . '</pre>';
+    }
+
+    echo '<pre>';
                     echo html(print_r($var, true));
                     echo '</pre>';
-                    return NULL;
-    }
+    return null;
 }
 
 function buildGlobalGET($return = '') {
@@ -996,6 +1003,12 @@ function cmsgo_getUserAgent($USER_AGENT='') {
         $pixelratio = 1;
     }
 
+    if(strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/' ) !== false)) {
+        $webp = true;
+    } else {
+        $webp = false;
+    }
+
     if(empty($USER_AGENT)) {
         return $GLOBALS['cmsgo'][$index] = array(
             'agent'         => 'Other',
@@ -1005,7 +1018,8 @@ function cmsgo_getUserAgent($USER_AGENT='') {
             'device'        => 'Default',
             'bot'           => 0,
             'engine'        => 'Other',
-            'pixelratio'    => $pixelratio
+            'pixelratio'    => $pixelratio,
+            'webp'          => $webp
         );
     }
 
@@ -1181,7 +1195,8 @@ function cmsgo_getUserAgent($USER_AGENT='') {
         'device'        => $device,
         'bot'           => $bot,
         'engine'        => $engine,
-        'pixelratio'    => $pixelratio
+        'pixelratio'    => $pixelratio,
+        'webp'          => $webp
     );
 }
 
@@ -1301,7 +1316,7 @@ function init_frontend_edit() {
         if(empty($GLOBALS['cmsgo']['frontend_edit'])) {
             define('FE_EDIT_LINK', false);
         } else {
-            define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
+            define('FE_EDIT_LINK', get_token_get_string());
         }
     }
 
@@ -1388,11 +1403,12 @@ function cmsgo_decrypt($crypttext, $password=CMSGO_USER_KEY) {
  * Get current user visual mode
  */
 function get_user_vmode() {
-    switch(VISIBLE_MODE) {
-        case 1:     return 'editor';    break;
-        case 2:     return 'admin';     break;
-        default:    return 'all';
+    if (VISIBLE_MODE === 1) {
+        return 'editor';
+    } elseif (VISIBLE_MODE === 2) {
+        return 'admin';
     }
+    return 'all';
 }
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
@@ -1429,4 +1445,10 @@ function logdir_exists() {
             @file_put_contents(CMSGO_LOGDIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
         }
     }
+}
+
+function get_default_article_meta() {
+    return array(
+        'class' => ''
+    );
 }

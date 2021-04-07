@@ -114,7 +114,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
           $result = $group["id"] ? _dbUpdate('cmsgo_usergroup', $data, 'group_id='.$group["id"]) : _dbInsert('cmsgo_usergroup', $data);
 
           if(isset($result['AFFECTED_ROWS']) || isset($result['INSERT_ID'])) {
-              headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=1');
+              headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin&p=1');
           } else {
               echo _dbError();
           }

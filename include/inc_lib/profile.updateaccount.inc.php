@@ -116,7 +116,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
 
             set_language_cookie();
 
-            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=profile');
+            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=profile');
         }
     }
 } //Ende Prüfung Gastzugang

@@ -65,13 +65,11 @@ if($row["acontent_files"]) {
 
 $cinfo["result"] = trim($cinfo["result"]);
 if($cinfo["result"] && $cinfo_files) {
-  $cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_files;
-} else {
-  if($cinfo_files) {
+    $cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_files;
+} elseif($cinfo_files) {
     $cinfo["result"] = $cinfo_files;
-  } else {
+} else {
     $cinfo["result"] = html($cinfo["result"]);
-  }
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo

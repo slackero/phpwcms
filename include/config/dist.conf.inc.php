@@ -73,6 +73,8 @@ $cmsgo['charset']             = 'utf-8'; // default charset 'utf-8' do not use s
 $cmsgo['php_charset']         = false; // set PHP default charset to $cmsgo['charset']
 $cmsgo['allow_remote_URL']    = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $cmsgo['jpg_quality']         = 85; // JPG Quality Range 25-100
+$cmsgo['webp_enable']         = 1; // Render all images as WebP if the client browser supports it
+$cmsgo['webp_quality']        = 85; // Set the WebP quality
 $cmsgo['sharpen_level']       = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $cmsgo['allow_ext_init']      = 1; // allow including of custom external scripts at frontend initialization
 $cmsgo['allow_ext_render']    = 1; // allow including of custom external scripts at frontend rendering
@@ -107,7 +109,7 @@ $cmsgo['FCK_FileBrowser']     = 1; // enable|disable cmsgo Filebrowser in FCKedi
 $cmsgo['feuser_regkey']       = 'FEUSER';
 $cmsgo['edit.php']           = 'edit.php';
 $cmsgo['js_lib']              = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.10/)
+$cmsgo['video-js']            = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.10/)
 $cmsgo['render_device']       = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $cmsgo['detect_pixelratio']   = 0; // will inject the page with JavaScript to detect Retina devices
 $cmsgo['im_fix_colorspace']   = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -136,7 +138,7 @@ $cmsgo['header_comment']      = '';
 $cmsgo['cnt_sort']            = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
 $cmsgo['cmsimage_redirect']   = false; // redirect to the resized/cropped image if true
 $cmsgo['disable_next_prev']   = false; // https://support.google.com/webmasters/answer/1663744
-$cmsgo['allowed_upload_ext']  = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
+$cmsgo['allowed_upload_ext']  = 'jpg,jpeg,png,webp,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
 $cmsgo['enable_inline_php']   = false; // disable [PHP] {PHP…} … by default
 $cmsgo['parse_html_mode']     = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $cmsgo['trash_delete_files']  = false; // set to true if files should be deleted if trash is emptied
@@ -147,6 +149,7 @@ $cmsgo['preserve_getVar']     = array(); // cmsgo removes some internal GET vars
 $cmsgo['enable_GDPR']         = true; // Try to handle GDPR inside of cmsgo by default (anonymize IP...)
 $cmsgo['login_autocomplete']  = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
 $cmsgo['lazy_loading']        = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
+$cmsgo['markdown_extra']      = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL']     = 'info@localhost'; // reply/from email address

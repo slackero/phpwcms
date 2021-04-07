@@ -37,4 +37,4 @@ if(defined('FELOGIN_IS_LOGGED') && FELOGIN_IS_LOGGED) {
 [/PHP]
 
 --
-Copyright (c) 2008-2017 pixels & points GmbH <info@pixels-points.ch>
+Copyright (c) 2008-2021 pixels & points GmbH <info@pixels-points.ch>

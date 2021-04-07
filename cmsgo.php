@@ -37,7 +37,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 
 checkLogin();
 validate_csrf_tokens();
-define('CSRF_GET_TOKEN', get_token_get_string('csrftoken'));
+define('CSRF_GET_TOKEN', get_token_get_string());
 
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/default.backend.inc.php';

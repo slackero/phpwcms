@@ -6,10 +6,6 @@
  * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
- * Okt. 2017
- * - enhancement adding be_ctype_custom
- *   image tags as form fields
- *   based on concept and work of Markus Köhl <www.pagewerkstatt.ch>
  **/
 
 // just the names - temporary workaround will be replaced by db based settings

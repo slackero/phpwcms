@@ -392,7 +392,7 @@ function ppInitFunction() {
     deleteFiles.on('click', function(evt) {
         evt.preventDefault();
         if(confirm('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, CMSGO_CHARSET)) ?>')) {
-            ftpTakeOverForm.attr('action', 'cmsgo.php'+'?<?php echo get_token_get_string('csrftoken'); ?>&do=files&p=8').submit();
+            ftpTakeOverForm.attr('action', 'cmsgo.php'+'?<?php echo get_token_get_string(); ?>&do=files&p=8').submit();
         }
     });
 

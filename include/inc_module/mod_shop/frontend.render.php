@@ -22,14 +22,14 @@ if (!defined('CMSGO_ROOT')) {
 
 // Module/Plug-in Shop & Products
 
-$_shop_load_cat  		= strpos($content['all'], '{SHOP_CATEGOR');
-$_shop_load_list 		= strpos($content['all'], '{SHOP_PRODUCTLIST}');
-$_shop_load_cart_small	= strpos($content['all'], '{CART_SMALL}');
-$_shop_load_order		= strpos($content['all'], '{SHOP_ORDER_PROCESS}');
-$_shop_parsed			= false;
+$_shop_load_cat         = strpos($content['all'], '{SHOP_CATEGOR');
+$_shop_load_list        = strpos($content['all'], '{SHOP_PRODUCTLIST}');
+$_shop_load_cart_small  = strpos($content['all'], '{CART_SMALL}');
+$_shop_load_order       = strpos($content['all'], '{SHOP_ORDER_PROCESS}');
+$_shop_parsed           = false;
 
 // set preferences
-$_shopPref				= array();
+$_shopPref              = array();
 
 if(_getConfig( 'shop_pref_felang' )) {
     define('SHOP_FELANG_SUPPORT', true);
@@ -55,7 +55,11 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
     $_shop_parsed = true;
 
     // load template
-    $_tmpl = array( 'config' => array(), 'source' => '', 'lang' => $cmsgo['default_lang'] );
+    $_tmpl = array(
+        'config' => array(),
+        'source' => '',
+        'lang' => $cmsgo['default_lang']
+    );
 
     // Check against language specific shop template
     if(is_file($cmsgo['modules']['shop']['path'].'template/'.$cmsgo['default_lang'].'.html')) {
@@ -507,7 +511,7 @@ if( $_shop_load_cat !== false ) {
 
     $shop_cat = array();
 
-    $shop_cat_selected	= isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 'all';
+    $shop_cat_selected = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 'all';
     if(strpos($shop_cat_selected, '_')) {
         $shop_cat_selected = explode('_', $shop_cat_selected, 2);
         if(isset($shop_cat_selected[1])) {
@@ -682,7 +686,7 @@ if( $_shop_load_cat !== false ) {
 if( $_shop_load_list !== false ) {
 
     // check selected category
-    $shop_cat_selected	= isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 0;
+    $shop_cat_selected = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 0;
     if(strpos($shop_cat_selected, '_')) {
         $shop_cat_selected = explode('_', $shop_cat_selected, 2);
         if(isset($shop_cat_selected[1])) {

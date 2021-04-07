@@ -342,7 +342,7 @@ class FeedHtmlField {
      *
      * @param  $string  : if given, sets the rawFieldContent property
      */
-    function _construct($parFieldContent) {
+    function __construct($parFieldContent) {
         if ($parFieldContent) {
             $this->rawFieldContent = $parFieldContent;
         }
@@ -830,7 +830,7 @@ class FeedDate {
      *
      * @param   mixed  $dateString  optional the date this FeedDate will represent. If not specified, the current date and time is used.
      */
-    function _construct($dateString = "") {
+    function __construct($dateString = "") {
         $tzOffset = 0;
         if ($dateString == "") {
             $dateString = date("r");
@@ -1645,8 +1645,7 @@ class HTMLCreator extends FeedCreator {
             $feedArray[] = "<div class='" . $this->stylePrefix . "footer'>" . $this->footer . "</div>";
         }
 
-        $feed = "" . join($feedArray, "\r\n");
-        return $feed;
+        return implode("\r\n", $feedArray);
     }
 
     /**

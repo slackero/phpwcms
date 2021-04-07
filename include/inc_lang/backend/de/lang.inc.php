@@ -930,38 +930,38 @@ $BL['be_cnt_css_class'] = 'CSS Klasse';
 $BL['be_cnt_send_copy_to'] = 'Kopie an';
 
 $BL['be_cnt_field'] = array(
-    "text"                 => 'Text (einzeilig)',
-    "email"                => 'E-Mail',
-    "textarea"             => 'Text (mehrzeilig)',
-    "hidden"               => 'Versteckt',
-    "password"             => 'Passwort',
-    "select"               => 'Ausklappmen&uuml;',
-    "list"                 => 'Liste',
-    "checkbox"             => 'Checkbox',
-    "checkboxcopy"         => 'Checkbox (E-Mail Kopie an/aus)',
-    "radio"                => 'Optionsschalter',
-    "upload"               => 'Datei',
-    "submit"               => 'Sende-Taste',
-    "reset"                => 'Zur&uuml;cksetzen',
-    "break"                => 'Trenner',
-    "breaktext"            => 'Zwischentext',
-    "special"              => 'Text (spezial)',
-    "captchaimg"           => 'Captcha Bild',
-    "captcha"              => 'Captcha Code',
-    'newsletter'           => 'Newsletter',
-    'selectemail'          => 'E-Mail Ausklappmen&uuml;',
-    'country'              => 'L&auml;nder-Ausklappmen&uuml;',
-    'mathspam'             => 'Mathe Spam Schutz',
-    'summing'              => 'Summieren',
-    'subtract'             => 'Subtrahieren',
-    'divide'               => 'Dividieren',
-    'multiply'             => 'Multiplizieren',
-    'calculation'          => 'Berechnung:',
-    'formtracking_off'     => 'Formular-Tracking ausschalten',
-    'checktofrom'          => 'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
-    'recaptcha'            => 'reCAPTCHA',
+    "text" => 'Text (einzeilig)',
+    "email" => 'E-Mail',
+    "textarea" => 'Text (mehrzeilig)',
+    "hidden" => 'Versteckt',
+    "password" => 'Passwort',
+    "select" => 'Ausklappmen&uuml;',
+    "list" => 'Liste',
+    "checkbox" => 'Checkbox',
+    "checkboxcopy" => 'Checkbox (E-Mail Kopie an/aus)',
+    "radio" => 'Optionsschalter',
+    "upload" => 'Datei',
+    "submit" => 'Sende-Taste',
+    "reset" => 'Zur&uuml;cksetzen',
+    "break" => 'Trenner',
+    "breaktext" => 'Zwischentext',
+    "special" => 'Text (spezial)',
+    "captchaimg" => 'Captcha Bild',
+    "captcha" => 'Captcha Code',
+    'newsletter' => 'Newsletter',
+    'selectemail' => 'E-Mail Ausklappmen&uuml;',
+    'country' => 'L&auml;nder-Ausklappmen&uuml;',
+    'mathspam' => 'Mathe Spam Schutz',
+    'summing' => 'Summieren',
+    'subtract' => 'Subtrahieren',
+    'divide' => 'Dividieren',
+    'multiply' => 'Multiplizieren',
+    'calculation' => 'Berechnung:',
+    'formtracking_off' => 'Formular-Tracking ausschalten',
+    'checktofrom' => 'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
+    'recaptcha' => 'reCAPTCHA',
     'recaptcha_signapikey' => 'Registrierung eines reCAPTCHA API-Schl&uuml;ssels',
-    'recaptchainv'         => 'Unsichtbares reCAPTCHA',
+    'recaptchainv' => 'Unsichtbares reCAPTCHA',
 );
 
 $BL['be_cnt_optin'] = 'Double Opt-In';
@@ -1033,8 +1033,9 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie äusserst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["cmsgo_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;cmsgo_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
+$BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
 $BL['be_ctype_poll'] = 'Poll';
 $BL['be_cnt_pos8'] = 'Tabelle, links';
@@ -1395,6 +1396,7 @@ $BL['be_caption_file_title'] = 'Dateititel';
 $BL['be_caption_descr.'] = 'Beschr.';
 $BL['be_display_html5_only'] = 'ausschliesslich HTML5';
 $BL['be_audio_only'] = 'nur Audio';
+$BL['be_hide_downloadbutton'] = 'HTML5 Download-Button ausblenden';
 
 $BL['be_filter'] = 'Filter';
 $BL['be_filter_with_tags'] = 'nach Schlagwort';
@@ -1436,13 +1438,20 @@ $BL['cookie_consent_more'] = 'Weitere Informationen';
 $BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
-$BL['be_piwik_enable'] = 'Piwik benutzen';
+$BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
+$BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Tracking-Code ohne Consent nicht aktivieren';
+$BL['be_consent_cookie_name'] = 'Name des Consent-Cookies';
+$BL['be_consent_cookie_value'] = 'Wert des Consent-Cookies';
+$BL['be_respect_donottrack'] = 'Browser-Einstellung Do-Not-Track respektieren';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';
@@ -1504,3 +1513,9 @@ $BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';
 
 $BL['copy_to_clipboard'] = 'In die Zwischenablage kopieren';
 $BL['url_parameter'] = 'URL-Parameter';
+$BL['file_extension'] = 'Erweiterung';
+$BL['download_link'] = 'Download-Link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direkt laden';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'im Browser anzeigen';

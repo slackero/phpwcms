@@ -22,7 +22,7 @@ function spacer($width=1, $height=1) {
     return '<span style="display:inline-block;width:'.intval($width).'px;height:'.intval($height).'px" class="'.$GLOBALS['template_default']['classes']['spaceholder'].'"></span>';
 }
 
-function headline(& $head, & $subhead, & $layout) {
+function headline($head, $subhead, $layout) {
     $c = '';
     if($head) {
         $c .= $layout["content_head_before"];
@@ -110,7 +110,7 @@ function html_height_attribute($val=0) {
     return ' style="height:'.intval($val).'px;" ';
 }
 
-function get_body_attributes(& $values) {
+function get_body_attributes($values) {
     //return a standard list of standard html body attributes
     //based on the pagelayout definitions
     $body_class = '';
@@ -163,15 +163,15 @@ function align_base_layout($value) {
 
 function get_colspan($value) {
     //returns colspan value back to table row
-    if(empty($value["layout_type"])) {
+    if (empty($value["layout_type"])) {
         $value["layout_type"] = 0;
     }
-    switch($value["layout_type"]) {
-        case 0:     $col=3; break;
-        case 1:     $col=2; break;
-        case 2:     $col=2; break;
-        case 3:     $col=0; break;
-        default:    $col=3;
+    if ($value["layout_type"] === 1 || $value["layout_type"] === 2) {
+        $col = 2;
+    } elseif ($value["layout_type"] === 3) {
+        $col = 0;
+    } else {
+        $col = 3;
     }
     if(!empty($value["layout_leftspace_width"])) {
         $col++;
@@ -272,7 +272,7 @@ function table_attributes($val, $var_part, $top=1, $tr=false) {
     return $td_attrib;
 }
 
-function get_breadcrumb($start_id, &$struct_array, $key="acat_name") {
+function get_breadcrumb($start_id, $struct_array, $key="acat_name") {
     //returns the breadcrumb path starting with given start_id
     $hash = 'breadcrumbdata_'.md5($start_id.$key);
 
@@ -309,7 +309,7 @@ function breadcrumb_wrapper($match) {
     );
 }
 
-function breadcrumb($start_id, &$struct_array, $end_id=0, $spacer=' &gt; ', $cat_only=false) {
+function breadcrumb($start_id, $struct_array, $end_id=0, $spacer=' &gt; ', $cat_only=false) {
     //builds the breadcrumb menu based on given values
     //$link_to = the page on which the breadcrum part links
     //$root_name = name of the breadcrumb part if empty/false/0 $start_id
@@ -600,7 +600,8 @@ function get_actcat_articles_data($act_cat_id) {
 
     if(isset($result[0]['article_id'])) {
         foreach($result as $row) {
-            $data[$row["article_id"]] = array(
+            $aid = $row["article_id"];
+            $data[$aid] = array(
                 "article_id"            => $row["article_id"],
                 "article_cid"           => $row["article_cid"],
                 "article_title"         => $row["article_title"],
@@ -627,11 +628,11 @@ function get_actcat_articles_data($act_cat_id) {
                 'article_livedate'      => $row["article_livedate"],
                 'article_killdate'      => $row["article_killdate"],
                 'article_uid'           => $row["article_uid"],
-                'article_description'   => $row["article_description"]
+                'article_description'   => $row["article_description"],
+                'article_meta'          => $row["article_meta"]
             );
             // now check for article alias ID
             if($row["article_aliasid"]) {
-                $aid = $row["article_id"];
                 $alias_sql  = "SELECT *, UNIX_TIMESTAMP(article_tstamp) AS article_date, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_begin) AS article_livedate, ";
                 $alias_sql .= "UNIX_TIMESTAMP(article_end) AS article_killdate ";
@@ -673,8 +674,18 @@ function get_actcat_articles_data($act_cat_id) {
                         $data[$aid]['article_killdate']     = $alias_result[0]["article_killdate"];
                         $data[$aid]['article_menutitle']    = $alias_result[0]["article_menutitle"];
                         $data[$aid]['article_description']  = $alias_result[0]["article_description"];
+                        $data[$aid]['article_meta']         = $alias_result[0]["article_meta"];
                     }
                 }
+            }
+
+            if($data[$aid]['article_meta']) {
+                $data[$aid]['article_meta'] = json_decode($data[$aid]['article_meta'], true);
+            }
+            if(is_array($data[$aid]['article_meta'])) {
+                $data[$aid]['article_meta'] = array_merge(get_default_article_meta(), $data[$aid]['article_meta']);
+            } else {
+                $data[$aid]['article_meta'] = get_default_article_meta();
             }
         }
     }
@@ -769,12 +780,10 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
         $left_cell  = "<td width=\"".$nav_table_struct["space_left"]."\"".$colspan.">";
         $left_cell .= spacer($nav_table_struct["space_left"], $cell_height)."</td>\n";
         $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
-    } else {
-        if($count > 1) {
-            $colspan    = ($count > 2) ? " colspan=\"".($count-1)."\"" : "";
-            $left_cell  = "<td ".$colspan.">".spacer(1, 1)."</td>\n";
-            $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
-        }
+    } elseif($count > 1) {
+        $colspan    = ($count > 2) ? " colspan=\"".($count-1)."\"" : "";
+        $left_cell  = "<td ".$colspan.">".spacer(1, 1)."</td>\n";
+        $space_cell = "<td".$colspan.">".spacer(1, 1)."</td><td>".spacer(1, 1)."</td>";
     }
     if($nav_table_struct["space_celltop"]) $cell_top = spacer(1, $nav_table_struct["space_celltop"])."<br />";
     if($nav_table_struct["space_cellbottom"]) $cell_bottom = "<br />".spacer(1, $nav_table_struct["space_cellbottom"]);
@@ -1357,10 +1366,19 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                     $tmpl = render_cnt_template($tmpl, 'SYSTEM', '');
                 }
 
+                if (!empty($article['article_meta'])) {
+                    if (is_string($article['article_meta'])) {
+                        $article['article_meta'] = json_decode($article['article_meta'], true);
+                    }
+                    $article['article_meta'] = is_array($article['article_meta']) ? array_merge(get_default_article_meta(), $article['article_meta']) : get_default_article_meta();
+                } else {
+                    $article['article_meta'] = get_default_article_meta();
+                }
+
+                $article['article_meta']['class'] = trim(get_css_keywords($article['article_keyword']) . ' ' . $article['article_meta']['class']);
+
                 // article class based on keyword *CSS-classname*
-                $article['article_class'] = get_css_keywords($article['article_keyword']);
-                $article['article_class'] = count($article['article_class']) ? implode(' ', $article['article_class']) : '';
-                $tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_class']);
+                $tmpl = render_cnt_template($tmpl, 'CLASS', $article['article_meta']['class']);
                 $tmpl = render_cnt_template($tmpl, 'IMAGE', $thumb_img);
                 $tmpl = render_cnt_template($tmpl, 'ZOOMIMAGE', $article["article_image"]["poplink"]);
                 $tmpl = render_cnt_template($tmpl, 'CAPTION_SUPPRESS', empty($article["article_image"]["list_caption_suppress"]) ? '' : ' ');
@@ -1421,7 +1439,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
 
     // restore original articles
     if(isset($_old_articles)) {
-        $content["articles"]    = $_old_articles;
+        $content["articles"] = $_old_articles;
     }
 
     $listing .= $template_default["space_bottom"]; //ends with space at bottom
@@ -1736,7 +1754,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
     return date($format, $date_now);
 }
 
-function return_struct_level(&$struct, $struct_id) {
+function return_struct_level($struct, $struct_id) {
     // walk through the given struct level and returns an array with available levels
     $level_entry = array();
     if(is_array($struct)) {
@@ -1969,7 +1987,7 @@ function get_new_articles_callback($matches) {
     return get_new_articles($GLOBALS['template_default']['news'], $matches[1], $matches[2]);
 }
 
-function get_new_articles(&$template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
+function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=null) {
     // find all new articles
 
     $max_cnt_links = intval($max_cnt_links);
@@ -2423,7 +2441,7 @@ function include_int_phpcode($string) {
     return ob_get_clean();
 }
 
-function build_sitemap($start=0, $counter=0, & $sitemap) {
+function build_sitemap($start=0, $counter=0, $sitemap=array()) {
     // create sitemap
 
     $s = '';
@@ -2471,7 +2489,7 @@ function build_sitemap($start=0, $counter=0, & $sitemap) {
     return $s;
 }
 
-function build_sitemap_articlelist($cat, $counter=0, & $sitemap) {
+function build_sitemap_articlelist($cat, $counter=0, $sitemap=array()) {
     // create list of articles for given category
 
     $ao = get_order_sort($GLOBALS['content']['struct'][ $cat ]['acat_order']);
@@ -2557,7 +2575,7 @@ function render_urlencode($match) {
     return rawurlencode(decode_entities($match));
 }
 // render date by replacing placeholder tags by value
-function render_cnt_date($text='', $date, $livedate=null, $killdate=null) {
+function render_cnt_date($text='', $date=0, $livedate=null, $killdate=null) {
     if(!($date = intval($date))) {
         $date = now();
     }
@@ -2578,7 +2596,7 @@ function render_cnt_date($text='', $date, $livedate=null, $killdate=null) {
     return $text;
 }
 // render date by replacing placeholder tags by value
-function render_date($text='', $date, $rt='DATE') {
+function render_date($text='', $date=0, $rt='DATE') {
     $rt = preg_quote($rt, '/');
     $GLOBALS['cmsgo']['callback'] = $date;
     $text = preg_replace_callback('/\{'.$rt.':(.*?) lang=(..)\}/', 'international_date_format_callback', $text);
@@ -3141,7 +3159,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
     $ul             = '';
     $TAB            = str_repeat('  ', $counter);
     $_menu_type     = strtolower($menu_type);
-    $max_depth      = ($max_depth == 0 || $max_depth-1 > $counter) ? true : false;
+    $max_depth      = $max_depth == 0 || $max_depth - 1 > $counter;
     $x              = 0;
     $items          = array();
     $last_item      = 0;
@@ -3469,7 +3487,7 @@ function getImageCaption($caption, $array_index='NUM', $short=false) {
         $caption[2][1] = '';
     } else {
         $caption[2][1] = trim($caption[2][1]);
-        if(!empty($caption[2][1])) {
+        if($caption[2][1] !== '') {
             $caption[2][2] = $caption[2][1];
             $caption[2][1] = ' target="' . $caption[2][1] . '"';
         }
@@ -3599,7 +3617,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     return (isset($result[0]) && is_array($result)) ? $result[0] : false;
 }
 
-function _getFrontendUserBaseData(& $data) {
+function _getFrontendUserBaseData($data) {
     // use vaid user data to set some base fe user data
     // like name, login, email
     $userdata = array('login'=>'', 'name'=>'', 'email'=>'', 'url'=>'', 'source'=>'', 'id'=>0);
@@ -3656,7 +3674,7 @@ function _checkFrontendUserAutoLogin() {
     define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
 }
 
-function _getStructureLevelDisplayStatus(&$level_ID, &$current_ID) {
+function _getStructureLevelDisplayStatus($level_ID, $current_ID) {
     if($GLOBALS['content']['struct'][$level_ID]['acat_struct'] == $current_ID && $level_ID) {
         if($GLOBALS['content']['struct'][$level_ID]['acat_regonly'] && !FEUSER_LOGIN_STATUS) {
             return false;
@@ -3851,7 +3869,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
     return $link;
 }
 
-function setGetArticleAid(&$data) {
+function setGetArticleAid($data) {
 
     if(!empty($data['article_alias'])) {
         return $data['article_alias'];
@@ -4066,7 +4084,7 @@ function getArticleMenu($data=array()) {
  * @return string
  * @param array article data
  **/
-function getArticleMenuTitle(& $data) {
+function getArticleMenuTitle($data) {
     return empty($data['article_menutitle']) ? $data['article_title'] : $data['article_menutitle'];
 }
 
@@ -4477,18 +4495,18 @@ function render_if_not_category($matches) {
     return $return === true ? str_replace('{IF_NOTCAT_ID}', $current, $matches[2]) : '';
 }
 
-function get_css_keywords($text) {
+function get_css_keywords($text, $return_as_string=true) {
 
     if(empty($text) || !is_string($text) || strpos($text, '*CSS-') === false) {
-        return array();
+        return $return_as_string ? '' : array();
     }
 
     preg_match_all('/\*CSS\-(.+?)\*/', $text, $css);
     if(isset($css[1]) && is_array($css[1])) {
-        return $css[1];
+        return $return_as_string ? implode(' ', $css[1]) : $css[1];
     }
 
-    return array();
+    return $return_as_string ? '' : array();
 }
 
 function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
@@ -4501,3 +4519,31 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 
 }
 
+/**
+ * Init Parsedown or ParsedownExtra Class
+ */
+function init_markdown() {
+
+    if(!isset($GLOBALS['cmsgo']['parsedown_class'])) {
+        require_once(CMSGO_ROOT . '/include/inc_ext/parsedown/Parsedown.php');
+        if (empty($GLOBALS['cmsgo']['markdown_extra'])) {
+            $GLOBALS['cmsgo']['parsedown_class'] = new Parsedown();
+        } else {
+            require_once(CMSGO_ROOT . '/include/inc_ext/parsedown-extra/ParsedownExtra.php');
+            $GLOBALS['cmsgo']['parsedown_class'] = new ParsedownExtra();
+        }
+    }
+
+}
+
+/**
+ * Init Textile Class
+ */
+function init_textile() {
+
+    if(!isset($GLOBALS['cmsgo']['textile_class'])) {
+        require_once(CMSGO_ROOT . '/include/inc_ext/classTextile.php');
+        $GLOBALS['cmsgo']['textile_class'] = new Textile();
+    }
+
+}

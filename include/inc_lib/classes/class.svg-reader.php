@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @description Classes are taken from MediaWiki and changed for cmsGo!.
+ * @description Classes are taken from MediaWiki and changed for cmsgo.
  * @file Defines classes to read SVG metadata
  * @author "Derk-Jan Hartman <hartman _at_ videolan d0t org>"
  * @author Brion Vibber
@@ -80,7 +80,9 @@ class SVGReader {
     		// libxml_disable_entity_loader() to avoid arbitrary local file
     		// inclusion, or even arbitrary code execution if the expect
 		// extension is installed (T48859).
-    		$oldDisable = libxml_disable_entity_loader( true );
+    		if (!IS_PHP8) {
+    		    $oldDisable = libxml_disable_entity_loader( true );
+            }
     		$this->reader->setParserProperty( XMLReader::SUBST_ENTITIES, true );
 
     		$this->metadata['width'] = self::DEFAULT_WIDTH;
@@ -96,7 +98,9 @@ class SVGReader {
     		// try catch thing to make sure warnings get restored. Seems like there should
     		// be a better way.
     		$this->read();
-    		libxml_disable_entity_loader( $oldDisable );
+    		if(!IS_PHP8) {
+                libxml_disable_entity_loader($oldDisable);
+            }
 	}
 
 	/**

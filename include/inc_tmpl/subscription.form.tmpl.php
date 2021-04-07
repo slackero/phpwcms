@@ -48,7 +48,7 @@ if(isset($_POST["subscription_id"])) {
     }
 
     if($subscription["id"]) {
-        headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=2&s='.$subscription["id"]);
+        headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=2&s='.$subscription["id"]);
     }
 }
 

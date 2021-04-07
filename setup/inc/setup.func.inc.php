@@ -20,7 +20,8 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $cmsgo_version = CMSGO_VERSION;
 $cmsgo_release_date = CMSGO_RELEASE_DATE;
 $cmsgo_revision = CMSGO_REVISION;
-define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
+define('PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
@@ -205,6 +206,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['php_charset'] = false; // set PHP default charset to \$cmsgo['charset']\n";
     $conf_file .= "\$cmsgo['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$cmsgo['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
+    $conf_file .= "\$cmsgo['webp_enable'] = 1; // Render all images as WebP if the client browser supports it\n";
+    $conf_file .= "\$cmsgo['webp_quality'] = 85; // Set the WebP quality\n";
     $conf_file .= "\$cmsgo['sharpen_level'] = 1; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
     $conf_file .= "\$cmsgo['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
     $conf_file .= "\$cmsgo['allow_ext_render'] = 1; //allow including of custom external scripts at frontend rendering\n";
@@ -237,7 +240,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['i18n_complex'] = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars 'en'), true - 'en-gb'...\n";
     $conf_file .= "\$cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsGo! Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
     $conf_file .= "\$cmsgo['feuser_regkey'] = 'FEUSER';\n";
-    $conf_file .= "\$cmsgo['login.php'] = 'login.php';\n";
+    $conf_file .= "\$cmsgo['edit.php'] = 'edit.php';\n";
     $conf_file .= "\$cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
     $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.10/)\n";
     $conf_file .= "\$cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
@@ -279,6 +282,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsGo! by default (anonymize IP...)\n";
     $conf_file .= "\$cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
     $conf_file .= "\$cmsgo['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).\n";
+    $conf_file .= "\$cmsgo['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/.\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
@@ -428,7 +432,6 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
             case 'UPDATE':
                 $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($db);
                 return $queryResult;
-                break;
 
             // SELECT Queries
             case 'ROW':

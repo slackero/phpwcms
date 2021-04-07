@@ -27,4 +27,4 @@ if($chat_message) {
 	_dbQuery($sql, 'INSERT');
 }
 
-headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=chat&p=1&l='.$chatlist.'&'.get_token_get_string('csrftoken'));
+headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=chat&p=1&l='.$chatlist);

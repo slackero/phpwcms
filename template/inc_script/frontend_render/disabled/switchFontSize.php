@@ -16,7 +16,6 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 $userFontSize = 'default';
 if(!empty($_GET['switchFontSize'])) {
 
@@ -24,23 +23,14 @@ if(!empty($_GET['switchFontSize'])) {
     // try to write FontSizeCookie
     setcookie('switchFontSize', $userFontSize, time()+86400);
 
-} else {
-
-    if(isset($_SESSION['FontSize'])) {
-        $userFontSize = $_SESSION['FontSize'];
-    } else {
-
-        if(!empty($_COOKIE['switchFontSize'])) {
-            $userFontSize = $_COOKIE['switchFontSize'];
-        }
-
-    }
+} elseif(isset($_SESSION['FontSize'])) {
+    $userFontSize = $_SESSION['FontSize'];
+} elseif(!empty($_COOKIE['switchFontSize'])) {
+    $userFontSize = $_COOKIE['switchFontSize'];
 }
 
 if(session_id()) {
-
     $_SESSION['FontSize'] = $userFontSize;
-
 }
 
 switch($userFontSize) {

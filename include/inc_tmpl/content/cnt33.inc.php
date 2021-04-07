@@ -211,8 +211,12 @@ initJsAutocompleter();
 
 
 <script type="text/javascript">
-  $(function(){
 
+	function setPaginateBasis() {
+		$('#news_paginate_count').css('visibility', $('#news_paginate_basis').prop('selectedIndex') ? 'hidden' : 'visible');
+	}
+
+  $(function(){
     $("#news_keyword_autosuggest").autoSuggest('<?php echo CMSGO_URL ?>include/inc_act/ajax_connector.php', {
       selectedItemProp: "cat_name",
       selectedValuesProp: 'cat_name',
@@ -229,8 +233,10 @@ initJsAutocompleter();
       $("#news_category").val($('#as-values-keyword-autosuggest').val());
     });
 
-    var allowedLang = $('input.allowedLang');
-    var langAll = $('#langAll');
+		setPaginateBasis();
+
+		var allowedLang = $('input.allowedLang'),
+            langAll = $('#langAll');
 
     langAll.change(function(){
       if($(this).is(':checked')) {

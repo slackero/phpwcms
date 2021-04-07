@@ -459,7 +459,8 @@ if($value['custom_field_items']):
                     'width' => '100%',
                     'rows' => empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $tab_fieldgroup['fields'][$custom_field]['rows'],
                     'editor' => $_SESSION["WYSIWYG_EDITOR"],
-                    'lang' => 'en'
+                                'lang' => 'en',
+                                'config' => 'tabs'
                 );
 
                 include CMSGO_ROOT . '/include/inc_lib/wysiwyg.editor.inc.php';

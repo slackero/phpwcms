@@ -16,8 +16,7 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 $acat_struct_mode   = 'STRUCT';
-$acat_lang_mode     = $_GET['struct'] != 'index' && count($cmsgo['allowed_lang']) > 1 ? true : false;
-$acat_struct        = intval($_GET["struct"]);
+$acat_lang_mode     = $_GET['struct'] !== 'index' && count($cmsgo['allowed_lang']) > 1;
 
 if($_GET['struct'] === 'index') {
 

@@ -206,7 +206,7 @@ if(!isset($_GET["s"])) {
         update_cache();
 
         if($pagelayout["id"]) {
-            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=8&s='.$pagelayout["id"]);
+            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin&p=8&s='.$pagelayout["id"]);
         }
 
     }

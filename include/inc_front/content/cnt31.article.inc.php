@@ -60,13 +60,10 @@ if($image['template']) {
     if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
         $image = array_merge($image, $image['tmpl_settings']);
 
-        if($image['text_render'] === 'markdown' && !isset($cmsgo['parsedown_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $cmsgo['parsedown_class'] = new ParsedownExtra();
-        } elseif($image['text_render'] === 'textile' && !isset($cmsgo['textile_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/classTextile.php');
-            $cmsgo['textile_class'] = new Textile();
+        if($image['text_render'] === 'markdown') {
+            init_markdown();
+        } elseif($image['text_render'] === 'textile') {
+            init_textile();
         }
     }
 
@@ -149,12 +146,12 @@ if($image['template']) {
                 continue;
             } else {
                 $thumb_image = get_cached_image(array(
-                    "target_ext"    =>  $value['thumb_ext'],
-                    "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
-                    "max_width"     =>  $image['width'],
-                    "max_height"    =>  $image['height'],
-                    "thumb_name"    =>  md5($value['thumb_hash'].$image['width'].$image['height'].$cmsgo["sharpen_level"].$image['crop'].$cmsgo['colorspace']),
-                    'crop_image'    =>  $image['crop']
+                    "target_ext" => $value['thumb_ext'],
+                    "image_name" => $value['thumb_hash'] . '.' . $value['thumb_ext'],
+                    "max_width" => $image['width'],
+                    "max_height" => $image['height'],
+                    "thumb_name" => md5($value['thumb_hash'].$image['width'].$image['height'].$cmsgo["sharpen_level"].$image['crop'].$cmsgo['colorspace']),
+                    'crop_image' => $image['crop']
                 ));
             }
 
@@ -320,14 +317,11 @@ if($image['template']) {
                 $img_zoom_height    = $zoominfo[2];
                 $img_zoom_filename  = $value['zoom_name'];
 
+            } elseif($caption[2][0]) { // if not click enlarge
+                $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
+                $img_a .= $img_thumb_link.$list_img_temp.'</a>';
             } else {
-                // if not click enlarge
-                if($caption[2][0]) {
-                    $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
-                    $img_a .= $img_thumb_link.$list_img_temp.'</a>';
-                } else {
-                    $img_a .= $list_img_temp;
-                }
+                $img_a .= $list_img_temp;
             }
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
@@ -486,11 +480,7 @@ if($image['template']) {
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                            if(!isset($cmsgo['parsedown_class'])) {
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                                $cmsgo['parsedown_class'] = new ParsedownExtra();
-                            }
+                            init_markdown();
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
                         } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));

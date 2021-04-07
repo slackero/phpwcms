@@ -83,7 +83,7 @@ $count_user_files = _dbCount($sql);
 // Does the user have files to list
 if($count_user_files) {
     echo '<table class="table table-sm">';
-    list_private(0, 0, "cmsgo.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], $cutID, $_SESSION["wcs_user_thumb"], $cmsgo);
+    list_private(0, 0, "cmsgo.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], 0, $cmsgo);
     include_once CMSGO_ROOT."/include/inc_lib/files.private-filelist.inc.php";
     echo "</table>";
 } else {

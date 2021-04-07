@@ -25,7 +25,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 if(empty($_SESSION['REFERER_URL'])) {
     die('Goood bye.');
 } else {
-    $ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+    $ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
 if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
@@ -120,7 +120,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     $acat_sort_fallback = isset($_POST["acat_sort"]) ? intval(trim($_POST["acat_sort"])) : 0;
     $acat_sort_temp     = isset($_POST["acat_sort_temp"]) ? intval($_POST["acat_sort_temp"]) : 0;
     $acat_lang          = empty($_POST["acat_lang"]) ? '' : clean_slweg($_POST["acat_lang"]);
-    $acat_lang_type     = $acat_lang == '' || empty($_POST["acat_lang_type"]) ? '' : in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : '';
+    $acat_lang_type     = $acat_lang === '' || empty($_POST["acat_lang_type"]) ? '' : (in_array($_POST["acat_lang_type"], array('category', 'article')) ? $_POST["acat_lang_type"] : '');
     $acat_lang_id       = $acat_lang_type == '' || empty($_POST["acat_lang_id"]) ? 0 : intval($_POST["acat_lang_id"]);
 
     if($acat_sort_fallback === 0 && $acat_sort_temp > 0) {
@@ -439,7 +439,7 @@ _setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
 _setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 
 if(isset($_POST['SubmitClose'])) {
-    headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&'.get_token_get_string('csrftoken'));
+    headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles');
 } else {
     headerRedirect($ref);
 }
@@ -538,7 +538,7 @@ function copy_article_to_level($do) {
 
             if(empty($GLOBALS['cmsgo']['disallow_open_copied_article']) && isset($do[3]) && $do[3] == 'open') {
 
-                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$article_insert_id);
+                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$article_insert_id);
 
             }
 

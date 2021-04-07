@@ -272,7 +272,7 @@ function showNewsletterTemplateData(tvar) {
             'value'     => $newsletter["newsletter_vars"]['html'],
             'field'     => 'newsletter_html',
             'height'    => '350px',
-            'width'     => '536px',
+            'width'     => '100%',
             'rows'      => '20',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'
