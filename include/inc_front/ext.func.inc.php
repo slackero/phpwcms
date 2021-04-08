@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -165,9 +165,9 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
                         $i++; // Move in string pointer forward 1
                         switch ($dte_frmt_lstchr) {
                             case "A":
-                                if (strtoupper($lastchar) !== 'AM' && strtoupper($lastchar) !== 'PM') { 
+                                if (strtoupper($lastchar) !== 'AM' && strtoupper($lastchar) !== 'PM') {
                                     $store_arr = false; $i = strlen($PASSED)+1; // Invalid AM/PM. Crash and burn
-                                } else { 
+                                } else {
                                     $store_arr['ampm'] = strtoupper($lastchar); // assign the value to the array
                                 }
                                 break;

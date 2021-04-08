@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -57,7 +57,7 @@ if (!defined('CMSGO_ROOT')) {
 
 						foreach($_userInfo['subscriptions'] as $value) {
 
-							$_userInfo['select_subscr'] .= ' 
+							$_userInfo['select_subscr'] .= '
 								<div class="form-check"><input class="form-check-input" type="checkbox" name="subscribe_to[]" id="subscribe_to'.$value['subscription_id'].'" value="'.$value['subscription_id'].'"';
 							if(is_array($_userInfo['subscriber_data']['subscriptions']) && in_array($value['subscription_id'], $_userInfo['subscriber_data']['subscriptions'])) {
 
