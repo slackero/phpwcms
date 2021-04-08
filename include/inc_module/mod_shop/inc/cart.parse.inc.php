@@ -84,6 +84,15 @@ if($_shopPref['shop_pref_discount_invalid'] || $_shopPref['shop_pref_discount_pe
     }
 }
 
+if (!empty($_shopPref['shop_pref_discount']['freeshipping_pickup']) && !empty($_SESSION[CART_KEY]['selfpickup'])) {
+    $subtotal['shipping_net']	= 0;
+    $subtotal['shipping_gross']	= 0;
+    $subtotal['shipping_vat']	= 0;
+    $subtotal['selfpickup_free'] = 1;
+} else {
+    $subtotal['selfpickup_free'] = 0;
+}
+
 $subtotal['float_shipping_net']		= $subtotal['shipping_net'];
 $subtotal['float_shipping_gross']	= $subtotal['shipping_gross'];
 
@@ -145,3 +154,10 @@ $order_process = str_replace('{TOTAL_GROSS}', $subtotal['total_gross'], $order_p
 $order_process = render_cnt_template($order_process, 'LOWORDER', $subtotal['float_loworder_net'] != 0 ? 1 : '');
 $order_process = render_cnt_template($order_process, 'DISCOUNT', $subtotal['float_discount_net'] != 0 ? $subtotal['discount_percent'] : '');
 $order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
+if (empty($_SESSION[CART_KEY]['selfpickup'])) {
+    $order_process = render_cnt_template($order_process, 'SELFPICKUP', '');
+    $order_process = render_cnt_template($order_process, 'SELFPICKUP_FREE', '');
+} else {
+    $order_process = render_cnt_template($order_process, 'SELFPICKUP', ' ');
+    $order_process = render_cnt_template($order_process, 'SELFPICKUP_FREE', $subtotal['selfpickup_free'] ? ' ' : '');
+}

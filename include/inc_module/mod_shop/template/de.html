@@ -84,6 +84,9 @@ mail_neworder_subject = "[#{ORDER}] Neue Bestellung"
 label_payby_prepay = "Vorauskasse"
 label_payby_pod = "Nachnahme"
 label_payby_onbill = "Rechnung"
+label_payby_cash = "Bar"
+label_selfpickup = "Selbstabholung"
+label_selfpickup_freeshipping = "Selbstabholung, versandkostenfrei"
 
 ; Add custom fields, only for step 1
 ; (where customer fill in address information)
@@ -244,6 +247,15 @@ amount_input_position = after
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
+        [SHIPPING]
+            [SELFPICKUP]
+            <tr>
+                <td colspan="3">Achtung: <strong>Selbstabholung</strong></td>
+                <td colspan="3"><hr /></td>
+            </tr>
+            [/SELFPICKUP]
+        [/SHIPPING]
+
         [SHIPPING_DISTANCE]
 
             <tr>
@@ -310,7 +322,10 @@ amount_input_position = after
                 </tr>
                 <tr>
                     <td>Versandkosten</td>
-                    <td colspan="2">versandkostenfrei</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -366,7 +381,10 @@ amount_input_position = after
             </tr>
             <tr>
                 <td>Versandkosten</td>
-                <td colspan="2">versandkostenfrei</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -559,6 +577,17 @@ amount_input_position = after
         <td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
     </tr>
 
+[SELFPICKUP]
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Selbstabholung:</td>
+        <td>{SELFPICKUP}</td>
+    </tr>
+[SELFPICKUP]
+
 [PAYMENT]
     <tr>
         <td colspan="2">&nbsp;</td>
@@ -686,7 +715,10 @@ amount_input_position = after
                 </tr>
                 <tr>
                     <td>Versandkosten</td>
-                    <td colspan="2">versandkostenfrei</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -742,7 +774,10 @@ amount_input_position = after
             </tr>
             <tr>
                 <td>Versandkosten</td>
-                <td colspan="2">versandkostenfrei</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -887,8 +922,11 @@ Zahlungsweise: [PAYBY_PREPAY]Vorauskasse
                Ihre Bestellung wird nach Zahlungseingang versendet
                Überweisen Sie den Gesamtbetrag auf folgendes Konto:
                Empfänger: xxx
-               IBAN:      xxx[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Ihrer Bestellung liegt eine Rechnung bei.[/PAYBY_ONBILL]
+               IBAN:      xxx[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Ihrer Bestellung liegt eine Rechnung bei.[/PAYBY_ONBILL][PAYBY_CASH]Barzahlung.[/PAYBY_CASH]
 
+[SELFPICKUP]Sie möchten Ihre Bestellung selbst abholen.
+
+[/SELFPICKUP]
 Adresse: {INV_FIRSTNAME} {INV_NAME}
          {INV_ADDRESS}
          {INV_ZIP} {INV_CITY}[INV_REGION]
@@ -949,9 +987,9 @@ Neue Bestellung
 {ORDER}
 Bestelldatum:    {DATE:d/m/Y H:i}
 
-Zahlungsweise: [PAYBY_PREPAY]Vorauskasse[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Rechnung[/PAYBY_ONBILL]
+Zahlungsweise: {PAYMENT}
 
-Adresse:
+Adresse:[SELFPICKUP] SELBSTABHOLER!!![/SELFPICKUP]
 --------
 [INV_COMPANY]{INV_COMPANY}[/INV_COMPANY][INV_SALUTATION]
 {INV_SALUTATION}[/INV_SALUTATION]
