@@ -78,6 +78,7 @@ $BLM['shopprod_payby_prepay']   = 'Vorauskasse';
 $BLM['shopprod_payby_pod']      = 'Nachnahme';
 $BLM['shopprod_payby_onbill']   = 'Rechnung';
 $BLM['shopprod_payby_ccard']    = 'Kreditkarte';
+$BLM['shopprod_payby_cash']     = 'Bar';
 
 $BLM['shopprod_email_paypal']   = 'PayPal E-Mail';
 $BLM['shopprod_supported_ccard']= 'unterst&uuml;tzt';
@@ -112,7 +113,7 @@ $BLM['shopprod_ordered']        = 'Bestellte Produkte';
 $BLM['shopprod_quantity']       = 'Anzahl';
 $BLM['shopprod_total']          = 'Gesamt';
 $BLM['shopprod_status_paid']    = 'Bezahlt';
-$BLM['shopprod_status_sent']    = 'Versendet';
+$BLM['shopprod_status_sent']    = 'Versendet/Abgeholt';
 $BLM['shopprod_status_done']    = 'Abgeschlossen';
 $BLM['shopprod_status_back']    = 'Retour';
 $BLM['shopprod_status_msg']     = 'Der Status der Bestellung wurde ge&auml;ndert.';
@@ -124,6 +125,10 @@ $BLM['shopprod_loworder_charge']    = 'Zuschlag';
 $BLM['shopprod_discount']           = 'Rabatt';
 $BLM['shopprod_discount_from']      = 'ab Nettobetrag';
 $BLM['shopprod_freeshipping']       = 'versandkostenfrei';
+$BLM['shopprod_selfpickup']         = 'Selbstabholung';
+$BLM['shopprod_allowed']            = 'zul&auml;ssig';
+$BLM['shopprod_is_selfpickup']      = 'Ja';
+$BLM['shopprod_isnot_selfpickup']   = 'Nein';
 
 $BLM['shopprod_lang_support']   = 'Frontend Sprachunterst&uuml;tzung';
 $BLM['shopprod_overwrite_meta'] = 'Produktdetail &uuml;berschreibt Metadaten';

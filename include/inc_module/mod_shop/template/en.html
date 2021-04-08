@@ -84,6 +84,9 @@ mail_neworder_subject = "[#{ORDER}] New order"
 label_payby_prepay = "Cash with order"
 label_payby_pod = "Cash on delivery"
 label_payby_onbill = "On account"
+label_payby_cash = "Cash"
+label_selfpickup = "Self pickup"
+label_selfpickup_freeshipping = "Self pickup, free shipping"
 
 ; Add custom fields, only for step 1
 ; (where customer fill in address information)
@@ -244,6 +247,15 @@ amount_input_position = after
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
+        [SHIPPING]
+            [SELFPICKUP]
+            <tr>
+                <td colspan="3">Attention: <strong>Self Pickup</strong></td>
+                <td colspan="3"><hr /></td>
+            </tr>
+            [/SELFPICKUP]
+        [/SHIPPING]
+
         [SHIPPING_DISTANCE]
 
             <tr>
@@ -310,7 +322,10 @@ amount_input_position = after
                 </tr>
                 <tr>
                     <td>Shipping Costs</td>
-                    <td colspan="2">free shipping</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Self pickup[SELFPICKUP_FREE], free shipping[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>free shipping</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -365,7 +380,10 @@ amount_input_position = after
             </tr>
             <tr>
                 <td>Shipping Costs</td>
-                <td colspan="2">free shipping</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Self pickup[SELFPICKUP_FREE], free shipping[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>free shipping</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -558,6 +576,17 @@ amount_input_position = after
         <td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
     </tr>
 
+[SELFPICKUP]
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Self pickup:</td>
+        <td>{SELFPICKUP}</td>
+    </tr>
+[SELFPICKUP]
+
 [PAYMENT]
     <tr>
         <td colspan="2">&nbsp;</td>
@@ -686,7 +715,10 @@ amount_input_position = after
                 </tr>
                 <tr>
                     <td>Shipping Costs</td>
-                    <td colspan="2">free shipping</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Self pickup[SELFPICKUP_FREE], free shipping[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>free shipping</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -742,7 +774,10 @@ amount_input_position = after
             </tr>
             <tr>
                 <td>Shipping Costs</td>
-                <td colspan="2">free shipping</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Self pickup[SELFPICKUP_FREE], free shipping[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>free shipping</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -885,8 +920,11 @@ Your order: {ORDER}
 
 Payment: [PAYBY_PREPAY]You have choosen to pay by Cash with Order.
          We will send your order after we have received your payment.
-         Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL]
+         Please send to follwong account....[/PAYBY_PREPAY][PAYBY_POD]Cash on Delivery[/PAYBY_POD][PAYBY_ONBILL]You will receive an invoice with your order which has to be paid within 7 days.[/PAYBY_ONBILL][PAYBY_CASH]Payment by cash.[/PAYBY_CASH]
 
+[SELFPICKUP]You like to pick up the order yourself.
+
+[/SELFPICKUP]
 Address: {INV_FIRSTNAME} {INV_NAME}
          {INV_ADDRESS}
          {INV_ZIP} {INV_CITY}[INV_REGION]
@@ -942,6 +980,9 @@ Order#:  {ORDER}
 
 Payment: {PAYMENT}
 
+[SELFPICKUP]SELF PICKUP!!!
+
+[/SELFPICKUP]
 Address: {INV_FIRSTNAME} {INV_NAME}
          {INV_ADDRESS}
          {INV_ZIP} {INV_CITY}[INV_REGION]

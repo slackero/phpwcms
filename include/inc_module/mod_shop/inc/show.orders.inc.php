@@ -97,6 +97,15 @@ if (!defined('CMSGO_ROOT')) {
   </div>
 </form>
 
+
+  <div class="align-items-center form-row">
+    <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['shopprod_selfpickup'] ?>:</label>
+    <div class="col">
+        <strong><?php echo empty($plugin['data']['order_data']['shipping']['selfpickup']) ? $BLM['shopprod_isnot_selfpickup'] : $BLM['shopprod_is_selfpickup']; ?></strong>
+    </div>
+  </div>
+
+
   <div class="align-items-center form-row">
     <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_firstname'] ?>:</label>
     <div class="col">
