@@ -226,8 +226,14 @@ if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 
     $GLOBALS['DeluxeMenuParam']['start_at_ID'] = 0;
     $content['all'] = str_replace('{DELUXE_MENU}', '{DELUXE_MENU:0}', $content['all']);
-    $content['all'] = preg_replace_callback('/\{DELUXE_MENU:(.*?)\}/', create_function('$matches', '$GLOBALS["DeluxeMenuParam"]["start_at_ID"]=$matches[1]; return "{DELUXE_MENU}";'), $content['all']);
-
+    $content['all'] = preg_replace_callback(
+        '/\{DELUXE_MENU:(.*?)\}/',
+        function($matches) {
+            $GLOBALS["DeluxeMenuParam"]["start_at_ID"] = $matches[1];
+            return "{DELUXE_MENU}";
+        },
+        $content['all']
+    );
     $DeluxeMenuParam['start_at_ID'] = intval($GLOBALS['DeluxeMenuParam']['start_at_ID']);
 
     $DeluxeMenuParam['js'] .= createDeluxeMenuJSCode($DeluxeMenuParam['start_at_ID'], $counter=0, $DeluxeMenuParam);

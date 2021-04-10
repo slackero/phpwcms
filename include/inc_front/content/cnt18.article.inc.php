@@ -271,15 +271,26 @@ if($guestbook['visible']) {
     } else {
 
         $guestbook['imgdata']   = '';
-        $guestbook['entry']     = preg_replace_callback('/{IMAGE:(.*)}/i', create_function('$matches', '$GLOBALS["guestbook"]["imgdata"]=$matches[1]; return "{IMAGE}";'), $guestbook['entry']);
+        $guestbook['entry']     = preg_replace_callback(
+            '/{IMAGE:(.*)}/i',
+            function($matches) {
+                $GLOBALS['guestbook']['imgdata'] = $matches[1];
+                return '{IMAGE}';
+            },
+            $guestbook['entry']
+        );
         $guestbook['imgdata']   = explode('x', strtolower($guestbook['imgdata']));
 
         // image width
         $guestbook['imgdata'][0] = empty($guestbook['imgdata'][0]) ? '' : intval($guestbook['imgdata'][0]);
-        if(!$guestbook['imgdata'][0]) $guestbook['imgdata'][0] = '';
+        if($guestbook['imgdata'][0] === 0) {
+            $guestbook['imgdata'][0] = '';
+        }
         // image height
         $guestbook['imgdata'][1] = empty($guestbook['imgdata'][1]) ? '' : intval($guestbook['imgdata'][1]);
-        if(!$guestbook['imgdata'][1]) $guestbook['imgdata'][1] = '';
+        if($guestbook['imgdata'][1] === 0) {
+            $guestbook['imgdata'][1] = '';
+        }
         // image zoom
         $guestbook['imgdata'][2] = empty($guestbook['imgdata'][2]) ? 0 : 1;
 

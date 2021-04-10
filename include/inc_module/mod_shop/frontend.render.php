@@ -346,13 +346,12 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
                 // add product to shopping
                 if(isset($_SESSION[CART_KEY]['products'][$shop_prod_id][$opt_1][$opt_2])) {
                     $_SESSION[CART_KEY]['products'][$shop_prod_id][$opt_1][$opt_2] += $shop_prod_amount;
-                    $_SESSION[CART_KEY]['options1'][$shop_prod_id][$opt_1][$opt_2] = $opt_1;
-                    $_SESSION[CART_KEY]['options2'][$shop_prod_id][$opt_1][$opt_2] = $opt_2;
                 } else {
                     $_SESSION[CART_KEY]['products'][$shop_prod_id][$opt_1][$opt_2] = $shop_prod_amount;
-                    $_SESSION[CART_KEY]['options1'][$shop_prod_id][$opt_1][$opt_2] = $opt_1;
-                    $_SESSION[CART_KEY]['options2'][$shop_prod_id][$opt_1][$opt_2] = $opt_2;
                 }
+                $_SESSION[CART_KEY]['options1'][$shop_prod_id][$opt_1][$opt_2] = $opt_1;
+                $_SESSION[CART_KEY]['options2'][$shop_prod_id][$opt_1][$opt_2] = $opt_2;
+
                 //this sessionvar holds the products for the small cart
                 if(isset($_SESSION[CART_KEY]['total'][$shop_prod_id.$opt_1.$opt_2])) {
                     $_SESSION[CART_KEY]['total'][$shop_prod_id.$opt_1.$opt_2] += $shop_prod_amount;

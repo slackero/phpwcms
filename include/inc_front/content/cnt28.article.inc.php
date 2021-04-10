@@ -173,17 +173,14 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                 $_loginData['reminder_to']      = $_loginData['remind_password']['EMAIL'];
 
                 $_loginData['reminder_email_body'] = returnTagContent( $_loginData['reminder_email'], 'PASSWORD_EMAIL' );
-                $_loginData['reminder_email_body'] = $_loginData['reminder_email_body']['tag'];
-
             } else {
 
                 $_loginData['reminder_email']   = str_replace('{LOGIN}', $_loginData['remind_login']['LOGIN'], $_loginData['reminder_email']);
                 $_loginData['reminder_to']      = $_loginData['remind_login']['EMAIL'];
 
                 $_loginData['reminder_email_body'] = returnTagContent( $_loginData['reminder_email'], 'LOGIN_EMAIL' );
-                $_loginData['reminder_email_body'] = $_loginData['reminder_email_body']['tag'];
-
             }
+            $_loginData['reminder_email_body'] = $_loginData['reminder_email_body']['tag'];
 
             $_loginData['reminder_email_subject'] =  returnTagContent( $_loginData['reminder_email'], 'SUBJECT' ) ;
             $_loginData['reminder_email_subject'] =  trim( $_loginData['reminder_email_subject']['tag'] );

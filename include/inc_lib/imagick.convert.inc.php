@@ -267,38 +267,31 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
-    if(empty($val['img_filename'])) {
-
-        // now check if thumbnail was created - proof for GIF, PNG, JPG
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
-    } else {
+    if(!empty($val['img_filename'])) {
 
         $thumb_spec_info = '';
-        if($val['crop_image']) {
+        if ($val['crop_image']) {
             $thumb_spec_info .= 'c' . $val['crop_image'];
-            if($val['crop_pos']) {
+            if ($val['crop_pos']) {
                 $thumb_spec_info .= $val['crop_pos'];
             }
         }
-        if($val['sharpen_level']) {
+        if ($val['sharpen_level']) {
             $thumb_spec_info .= 's' . $val['sharpen_level'];
         }
-        if($val['target_ext'] === 'jpg' || $val['target_ext'] === 'webp') {
+        if ($val['target_ext'] === 'jpg' || $val['target_ext'] === 'webp') {
             $thumb_spec_info .= 'q' . $val['quality'];
         }
-        if(!isset($thumb_filename_basis)) {
+        if (!isset($thumb_filename_basis)) {
             $thumb_filename_basis = cut_ext($val['img_filename']);
         }
 
         $val['thumb_name'] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
-        if($thumb_spec_info) {
+        if ($thumb_spec_info) {
             $val['thumb_name'] .= '-' . $thumb_spec_info;
         }
-
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
     }
+    $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
     if (PHPWCMS_WEBP) {
         if (is_file($thumb_check . '.webp')) {

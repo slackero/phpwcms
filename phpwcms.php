@@ -377,9 +377,9 @@ if($BE['LANG'] == 'ar') {
 
         case "chat":    //Chat
                         if($p === 1) {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php'; break; //Chat/Listing
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php';  //Chat/Listing
                         } else {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php'; break; //Chat Startseite
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php';  //Chat Startseite
                         }
                         break;
 

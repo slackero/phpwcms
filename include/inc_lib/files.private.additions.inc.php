@@ -19,9 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 if(isset($_GET["all"])) { // Hide/Show
 
-    if($_GET["all"] == "open") { // All
+    $_SESSION["klapp"] = array();
 
-        $_SESSION["klapp"] = array();
+    if($_GET["all"] == "open") { // All
 
         $sql = "SELECT f_id FROM ".DB_PREPEND."phpwcms_file WHERE f_kid=0 AND f_trash=0";
         if(empty($_SESSION["wcs_user_admin"])) {
@@ -35,11 +35,6 @@ if(isset($_GET["all"])) { // Hide/Show
                 $_SESSION["klapp"][intval(['f_id'])] = 1;
             }
         }
-
-    } else { // close
-
-        $_SESSION["klapp"] = array();
-
     }
 
     _dbQuery("UPDATE ".DB_PREPEND."phpwcms_user SET usr_var_privatefile="._dbEscape(serialize($_SESSION["klapp"]))." WHERE usr_id=".intval($_SESSION["wcs_user_id"]), 'UPDATE');

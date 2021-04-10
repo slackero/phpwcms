@@ -288,25 +288,16 @@ if($image['template']) {
                 }
 
                 if(!$image['lightbox'] || $caption[2][0]) {
-
                     $img_thumb_link  = '<a href="'.$open_link."\" onclick=\"checkClickZoom();clickZoom('".$open_popup_link."','previewpic','width=";
                     $img_thumb_link .= $zoominfo[1].",height=".$zoominfo[2]."');".$return_false.'"'.$caption[2][1];
                     $img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-zoom'].'">';
-
-                    $img_a .= $img_thumb_link;
-
                 } else {
-
                     // lightbox
                     $img_thumb_link  = '<a href="'.$zoominfo['src'].'" rel="lightbox['.$image['lightbox'].']"'.get_attr_data_gallery($image['lightbox'], ' ', ' ');
                     $img_thumb_link .= $lightbox_capt;
                     $img_thumb_link .= $list_ahref_style.' class="'.$template_default['classes']['image-lightbox'].'">';
-
-                    $img_a .= $img_thumb_link;
-
                 }
-
-                $img_a .= $list_img_temp.'</a>';
+                $img_a .= $img_thumb_link.$list_img_temp.'</a>';
 
                 $img_zoom_id        = $value['zoom_id'];
                 $img_zoom_hash      = $value['zoom_hash'];
