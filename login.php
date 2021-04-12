@@ -13,14 +13,13 @@ session_start();
 
 $phpwcms    = array();
 $BL         = array();
-$basepath   = str_replace('\\', '/', dirname(__FILE__));
 
 // Check if config is still at the old position
-if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/phpwcms/conf.inc.php')):
-    if(!@rename($basepath.'/config/phpwcms', $basepath.'/include/config')):
+if(!is_file(__DIR__.'/include/config/conf.inc.php') && is_file(__DIR__.'/config/phpwcms/conf.inc.php')):
+    if(!@rename(__DIR__.'/config/phpwcms', __DIR__.'/include/config')):
 
 ?><!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>phpwcms configuration error</title>
@@ -53,8 +52,8 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
     endif;
 endif;
 
-require_once $basepath.'/include/config/conf.inc.php';
-require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once __DIR__.'/include/config/conf.inc.php';
+require_once __DIR__.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -265,7 +264,7 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
