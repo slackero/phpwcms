@@ -2971,11 +2971,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $bootstrap      = false; // bootstrap dropdown style
         $onepage        = IS_ONEPAGE_TEMPLATE; // render menu links as id anchor <a href=#alias>
         $onepage_every  = false; // ToDo!
+        $hide_first     = false;
 
         /**
          * P = Show parent level
          * B = Bootstrap compatible rendering
          * A = Articles as menu items
+         * AH = Articles as menu items, hide first (avoid double link because of parent structure level)
          * F = Folded, unfold only active level
          * HCSS = Sample horizontal CSS based menu
          * VCSS = Sample vertical CSS based menu
@@ -2985,10 +2987,12 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             case 'B':       $bootstrap      = true;
                             break;
 
+            case 'BAH':     $hide_first     = true;
             case 'BA':      $bootstrap      = true;
             case 'A':       $articlemenu    = true;
                             break;
 
+            case 'PBAH':    $hide_first     = true;
             case 'PBA':     $bootstrap      = true;
             case 'PA':      $articlemenu    = true;
             case 'P':       $parent         = true;
@@ -2999,11 +3003,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
                             break;
 
                             // vertical, active path unfolded
+            case 'FPAH':    $hide_first     = true;
             case 'FPA':     $articlemenu    = true;
             case 'FP':      $parent         = true;
             case 'F':       $unfold         = 'active_path';
                             break;
 
+            case 'FAH':     $hide_first     = true;
             case 'FA':      $articlemenu    = true;
                             $unfold         = 'active_path';
                             break;
@@ -3025,6 +3031,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $wrap_ul_div    = empty($parameter[6]) ? 0  : intval($parameter[6]);
         $amenu_options  = array(
             'enable'        => false,
+            'hide_first'    => $hide_first,
             'image'         => false,
             'text'          => false,
             'width'         => 0,
@@ -3959,6 +3966,7 @@ function getArticleMenu($data=array()) {
         'return_format'         => 'string', // string or array
         'articlemenu_options'   => array(
             'enable'        => false,
+            'hide_first'    => false,
             'image'         => false,
             'text'          => false,
             'width'         => 0,
@@ -3975,7 +3983,13 @@ function getArticleMenu($data=array()) {
     $articles   = get_actcat_articles_data( $data['level_id'] );
     $key        = 0;
     $total      = count($articles) - 1;
+
     foreach($articles as $item) {
+
+        if ($data['articlemenu_options']['hide_first']) {
+            $data['articlemenu_options']['hide_first'] = false;
+            continue;
+        }
 
         $class      = '';
         $class_a    = '';
