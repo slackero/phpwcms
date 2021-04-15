@@ -79,19 +79,17 @@ if(isset($result[0]['article_id'])) {
 
                 $alinkmenu['sum']       = clean_replacement_tags($alinkmenu['sum']);
                 $alinkmenu['sum']       = remove_unsecure_rptags($alinkmenu['sum']);
-                $alinkmenu['sum']       = preg_replace('/\s/i', ' ', $alinkmenu['sum']);
-                $alinkmenu['sum']       = preg_replace('/\s{2,}/i', ' ', $alinkmenu['sum']);
+                $alinkmenu['sum']       = preg_replace('/\s+/i', ' ', $alinkmenu['sum']);
                 $alinkmenu['sum']       = trim(decode_entities($alinkmenu['sum']));
-                $alinkmenu['sum']       = wordwrap($alinkmenu['sum'], $alinkmenu['maxchar'], "\n");
-                list($alinkmenu['sum']) = explode("\n", $alinkmenu['sum']);
+                $alinkmenu['sum']       = wordwrap($alinkmenu['sum'], $alinkmenu['maxchar'], LF);
+                list($alinkmenu['sum']) = explode(LF, $alinkmenu['sum']);
                 $alinkmenu['sum']       = trim($alinkmenu['sum']);
                 $alinkmenu['sum']       = html_specialchars($alinkmenu['sum']);
 
                 if(!empty($alinkmenu['morelink'])) {
 
-                    $alinkmenu['sum']  .= '<a href="index.php?'.setGetArticleAid($row).'" title="'.$row['article_title'].'">';
-                    $alinkmenu['sum']  .= $alinkmenu['morelink'];
-                    $alinkmenu['sum']  .= '</a>';
+                    $alinkmenu['sum']  .= '<a href="' . rel_url(array(), array(), setGetArticleAid($row)) . '" title="'.$row['article_title'].'">';
+                    $alinkmenu['sum']  .= $alinkmenu['morelink'] . '</a>';
 
                 }
 
