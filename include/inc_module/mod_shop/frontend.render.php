@@ -226,8 +226,10 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
             'pagetitle'                 => '%1$s%2$s%3$s%4$s',
             'product_option_1_prefix' => '<span class="option-1">',
             'product_option_1_suffix' => '</span>',
+            'product_option_1_required' => 'required="required"',
             'product_option_2_prefix' => '<span class="option-2">',
             'product_option_2_suffix' => '</span>',
+            'product_option_2_required' => 'required="required"',
             'amount_input_prefix' => '<span class="input-amount">',
             'amount_input_suffix' => '</span>',
             'amount_input_position' => 'after'
@@ -519,7 +521,7 @@ if( $_shop_load_cat !== false ) {
 
     $shop_cat = array();
 
-    $shop_cat_selected  = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 'all';
+    $shop_cat_selected = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 'all';
     if(strpos($shop_cat_selected, '_')) {
         $shop_cat_selected = explode('_', $shop_cat_selected, 2);
         if(isset($shop_cat_selected[1])) {
@@ -583,7 +585,7 @@ if( $_shop_load_cat !== false ) {
                         $shop_subcat[$z] .= 'class="' .  $_tmpl['config']['cat_class_subitem_link'] . '">';
                         $shop_subcat[$z] .= '@@' . html($srow['cat_name']) . '@@';
                         if ($_tmpl['config']['cat_count_products']) {
-                            $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+                            $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
                             $count_cat_products_sql .= "shopprod_status=1 AND (";
                             $count_cat_products_sql .= "shopprod_category = '" . $srow['cat_id'] . "' OR ";
                             $count_cat_products_sql .= "shopprod_category LIKE '%," . $srow['cat_id'] . ",%' OR ";
@@ -621,7 +623,7 @@ if( $_shop_load_cat !== false ) {
             $shop_cat[$x] .= 'class="' . $_tmpl['config']['cat_class_item_link'] . '">';
             $shop_cat[$x] .= '@@' . html($row['cat_name']) . '@@';
             if ($_tmpl['config']['cat_count_products']) {
-                $count_cat_products_sql = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
+                $count_cat_products_sql  = "SELECT COUNT(*) FROM ".DB_PREPEND.'phpwcms_shop_products WHERE ';
                 $count_cat_products_sql .= "shopprod_status=1 AND (";
                 $count_cat_products_sql .= "shopprod_category = '" . $row['cat_id'] . "' OR ";
                 $count_cat_products_sql .= "shopprod_category LIKE '%," . $row['cat_id'] . ",%' OR ";
@@ -816,7 +818,7 @@ if( $_shop_load_list !== false ) {
                 foreach($_cart_opt_1 as $key => $value){
                     //title - first row in textarea - string
                     if($key === 0 && ($value = trim($value))) {
-                        $_cart_prod_opt1 .= '<option value="0">'.html($value).'</option>';
+                        $_cart_prod_opt1 .= '<option value="">'.html($value).'</option>';
                         continue;
                     }
 
@@ -826,8 +828,8 @@ if( $_shop_load_list !== false ) {
                     $_cart_prod_opt1 .= html($value[0]) . $value['option'];
                     $_cart_prod_opt1 .= '</option>';
                 }
-
-                $_cart_prod_opt1 = '<select name="prod_opt1" id="prod_opt1_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_product_option_1'].' '.$_tmpl['config']['class_prefix_shop_mode']).'">' . $_cart_prod_opt1 . '</select>';
+                $_cart_req_opt1 = empty($_tmpl['config']['product_option_1_required']) ? '' : ' ' . $_tmpl['config']['product_option_1_required'];
+                $_cart_prod_opt1 = '<select name="prod_opt1" id="prod_opt1_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_product_option_1'].' '.$_tmpl['config']['class_prefix_shop_mode']).'"' . $_cart_req_opt1 . '>' . $_cart_prod_opt1 . '</select>';
             }
 
             //order options 2
@@ -837,7 +839,7 @@ if( $_shop_load_list !== false ) {
                 foreach($_cart_opt_2 as $key => $value){
                     //title - first row in textarea - string
                     if($key === 0 && ($value = trim($value))) {
-                        $_cart_prod_opt2 .= '<option value="0">'.html($value).'</option>';
+                        $_cart_prod_opt2 .= '<option value="">'.html($value).'</option>';
                         continue;
                     }
 
@@ -848,8 +850,8 @@ if( $_shop_load_list !== false ) {
                     $_cart_prod_opt2 .= '</option>';
 
                 }
-
-                $_cart_prod_opt2 = '<select name="prod_opt2" id="prod_opt2_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_product_option_2'].' '.$_tmpl['config']['class_prefix_shop_mode']).'">' . $_cart_prod_opt2 . '</select>';
+                $_cart_req_opt2 = empty($_tmpl['config']['product_option_2_required']) ? '' : ' ' . $_tmpl['config']['product_option_2_required'];
+                $_cart_prod_opt2 = '<select name="prod_opt2" id="prod_opt2_'.$row['shopprod_id'].'" class="'.trim($_tmpl['config']['class_product_option_2'].' '.$_tmpl['config']['class_prefix_shop_mode']).'"' . $_cart_req_opt2 . '>' . $_cart_prod_opt2 . '</select>';
             }
 
             if($_tmpl['config']['on_request_trigger'] == $row['net']) {
