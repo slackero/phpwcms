@@ -1509,6 +1509,7 @@ function returnFileListAsArray($dir = '', $extfilter = '') {
                 'filesize' => filesize($dir . '/' . $pf),
                 'filetime' => filemtime($dir . '/' . $pf),
                 'ext' => $ext,
+                'path' => $dir . '/' . $pf
             );
         }
     }

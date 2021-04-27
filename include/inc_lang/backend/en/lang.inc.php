@@ -159,7 +159,7 @@ $BL['be_ftptakeover_title']             = 'take over files uploaded via ftp';
 $BL['be_ftptakeover_mark']              = 'mark';
 $BL['be_ftptakeover_available']         = 'available files';
 $BL['be_ftptakeover_size']              = 'size';
-$BL['be_ftptakeover_nofile']            = 'there is still no file available &#8211; you have to upload one via ftp';
+$BL['be_ftptakeover_nofile']            = 'There are no files available &#8211; you have to upload one by ftp or the the multiple file upload.';
 $BL['be_ftptakeover_all']               = 'ALL';
 $BL['be_ftptakeover_directory']         = 'directory';
 $BL['be_ftptakeover_rootdir']           = 'root directory';
@@ -173,6 +173,8 @@ $BL['be_ftptakeover_active']            = 'active';
 $BL['be_ftptakeover_public']            = 'public';
 $BL['be_ftptakeover_createthumb']       = 'create thumbnail';
 $BL['be_ftptakeover_button']            = 'take over selected files';
+$BL['be_ftptakeover_new_folder']        = 'create folder';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'name of the new folder in the root directory';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title']                    = 'file center';
