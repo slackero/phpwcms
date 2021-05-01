@@ -1009,7 +1009,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         $pixelratio = 1;
     }
 
-    if (strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
+    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
         $webp = true;
     } else {
         $webp = false;
