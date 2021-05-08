@@ -205,10 +205,14 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $val
     );
 
+    if (!is_file($val['image_dir'].$val['image_name'])) {
+        return false;
+    }
+
     $imgCache = false; //do not insert file information in db image cache
     $thumb_image_info = array(0 => false, 'svg' => false);
 
-    if($val['target_ext'] === 'svg' && is_file($val['image_dir'].$val['image_name'])) {
+    if($val['target_ext'] === 'svg') {
 
         $thumb_image_info['svg'] = true;
         $thumb_image_info[0] = $val['image_name'];
