@@ -65,9 +65,9 @@ $crow["default_settings"] = array(
     'class_column_right_image'  => $template_default['classes']['imgtxt-column-right-image'],
     'class_column_left_text'    => $template_default['classes']['imgtxt-column-left-text'],
     'class_column_right_text'   => $template_default['classes']['imgtxt-column-right-text'],
-    'width'                     => $image[4],
-    'height'                    => $image[5],
-    'zoom'                      => $image[8]
+    'width'                     => 0,
+    'height'                    => 0,
+    'zoom'                      => 0
 );
 
 if($image) {
@@ -76,6 +76,9 @@ if($image) {
     $crow["default_settings"]['lightbox']   = empty($cnt_image['cimage_lightbox']) ? 0 : 1;
     $crow["default_settings"]['nocaption']  = empty($cnt_image['cimage_nocaption']) ? 0 : 1;
     $crow["default_settings"]['crop']       = empty($cnt_image['cimage_crop']) ? 0 : 1;
+    $crow["default_settings"]['width']      = empty($image[4]) ? 0 : intval($image[4]);
+    $crow["default_settings"]['height']     = empty($image[5]) ? 0 : intval($image[5]);
+    $crow["default_settings"]['zoom']       = empty($image[8]) ? 0 : 1;
 
 }
 
@@ -165,7 +168,17 @@ if($image) {
 } else {
 
     $image_text .= $crow["acontent_text"];
-    $image = array(7 => 0);
+    $image = array(
+        0,
+        '',
+        '',
+        '',
+        0,
+        0,
+        '',
+        0,
+        0
+    );
 
 }
 
