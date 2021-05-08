@@ -147,7 +147,20 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
         $POST_ERR['spamFormAlert'.time()] = '[span_class:spamFormAlert]Your IP '.(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).' is not allowed to send form![/class]';
     }
 
+    $_default_cnt_form = array(
+        'size' => '',
+        'max' => '',
+        'class' => '',
+        'style' => '',
+        'placeholder' => '',
+        'required' => '',
+        'error' => ''
+    );
+
     foreach($cnt_form["fields"] as $key => $value) {
+
+        $value = array_merge($_default_cnt_form, $value);
+        $cnt_form["fields"][$key] = $value;
 
         $form_field = '';
         $form_name = html_specialchars($cnt_form["fields"][$key]['name']);
