@@ -39,10 +39,16 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
             $ftp["file"][$key]      = base64_decode($ftp["file"][$key]);
             $ftp["filename"][$key]  = clean_slweg($ftp["filename"][$key]);
         } else {
-            unset($ftp["mark"][$key], $ftp["file"][$key], $ftp["filename"][$key]);
+            unset(
+                $ftp["mark"][$key],
+                $ftp["file"][$key],
+                $ftp["filename"][$key]
+            );
         }
     }
-    if(!count($ftp["mark"])) $ftp["error"] = 1;
+    if(!count($ftp["mark"])) {
+        $ftp["error"] = 1;
+    }
 } else {
     $ftp["error"] = 1;
 }
@@ -153,27 +159,27 @@ if(!$ftp["error"]) {
                 $where .= ' AND f_uid='.intval($_SESSION["wcs_user_id"]);
             }
             $target_dir = _dbGet('phpwcms_file', '*', $where, '', '', 1);
-            if (isset($target_dir[0]['f_id'])) {
-                $dir_new_public = intval($target_dir[0]['f_public']);
-                $dir_new_active = intval($target_dir[0]['f_aktiv']);
-            } else {
-                $ftp['dir'] = 0;
-                $dir_new_public = $ftp["public"];
-                $dir_new_active = $ftp["aktiv"];
-            }
-            $data = array(
-                'f_pid'			=> $ftp['dir'],
-                'f_uid'			=> intval($_SESSION["wcs_user_id"]),
-                'f_kid'			=> 0,
-                'f_aktiv'		=> $dir_new_active,
-                'f_public'		=> $dir_new_public,
-                'f_name'		=> $ftp['dir_new'],
-                'f_created'		=> now()
-            );
-            $new_dir = _dbInsert('phpwcms_file', $data);
-            if (isset($new_dir['INSERT_ID'])) {
-                $ftp['dir'] = intval($new_dir['INSERT_ID']);
-            }
+        }
+        if (isset($target_dir[0]['f_id'])) {
+            $dir_new_public = intval($target_dir[0]['f_public']);
+            $dir_new_active = intval($target_dir[0]['f_aktiv']);
+        } else {
+            $ftp['dir'] = 0;
+            $dir_new_public = $ftp["public"];
+            $dir_new_active = $ftp["aktiv"];
+        }
+        $data = array(
+            'f_pid'			=> $ftp['dir'],
+            'f_uid'			=> intval($_SESSION["wcs_user_id"]),
+            'f_kid'			=> 0,
+            'f_aktiv'		=> $dir_new_active,
+            'f_public'		=> $dir_new_public,
+            'f_name'		=> $ftp['dir_new'],
+            'f_created'		=> now()
+        );
+        $new_dir = _dbInsert('phpwcms_file', $data);
+        if (isset($new_dir['INSERT_ID'])) {
+            $ftp['dir'] = intval($new_dir['INSERT_ID']);
         }
     }
 
