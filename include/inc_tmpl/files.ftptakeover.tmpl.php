@@ -18,6 +18,7 @@ if (!defined('CMSGO_ROOT')) {
 
 // If there are files marked to be deleted
 $deleteFiles = array();
+
 if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ftp_mark'])) {
     foreach($_POST['ftp_mark'] as $key => $value) {
         $deleteFiles[$_POST['ftp_file'][$key]] = $_POST['ftp_filename'][$key];
@@ -51,39 +52,45 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
 
   <?php
         //Browse FTP Open Directory
-        $handle = @opendir(CMSGO_ROOT.$cmsgo["ftp_path"]);
+        $multiple_upload_files = returnFileListAsArray(CMSGO_ROOT.$cmsgo["ftp_path"], $extfilter = '');
+
         $fx = 0;
         $fxsg = 0;
-            while($file = @readdir($handle)) {
-                if(!is_dir($file) && $file !== "." && $file !== ".." && substr($file, 0, 1) !== '.' && $fxs = filesize(CMSGO_ROOT.$cmsgo["ftp_path"].$file)) {
+
+        if (is_array($multiple_upload_files) && count($multiple_upload_files)) {
+
+            ksort($multiple_upload_files);
+
+            foreach ($multiple_upload_files as $file) {
 
                     // test if the file should be deleted
-                    $file_base64 = base64_encode($file);
+                $file_base64 = base64_encode($file['filename']);
 
-                    if(isset($deleteFiles[$file_base64]) && @unlink(CMSGO_ROOT.$cmsgo["ftp_path"].$file)) {
+                if(isset($deleteFiles[$file_base64]) && @unlink($file['path'])) {
                             continue;
                         }
 
                     $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
-                    $fxsg += $fxs;
-                    $fxe = extimg(which_ext($file));
+                $fxsg += $file['filesize'];
+                $fxe = extimg($file['ext']);
                      // there is a big problem with special chars on Mac OS X and seems Windows too
-                    $filename = (CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
+                    $filename = (CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($file['filename'])) ? str_replace('?', '', utf8_decode($file['filename'])) : $file['filename'];
                     $filename = html($filename);
 ?>
           <tr<?php echo $fxb ?>>
             <td align="center" width="30"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
             <td><?php echo $filename ?></td>
             <td>
-                <?php echo fsizelong($fxs) ?>
+                <?php echo fsizelong($file['filesize']) ?>
                 <input class="form-control" name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
                 <input class="form-control" name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
             </td>
           </tr>
-<?php               $fx++;
-                }
+                <?php
+
+                $fx++;
             }
-        @closedir($handle);
+        }
 
         if(!$fx) {
 ?>
@@ -110,32 +117,39 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
 
     <div  id="showform" style="display: <?php echo ($fx) ? 'block' : 'none'; ?>;">
 
-    <div class="form-group form-row align-items-center">
-      <label for="be_ftptakeover_directory" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
-      <div class="col-sm-5">
-        <select name="file_dir" class="custom-select form-control form-control-sm" id="file_dir">
-          <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-          <?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
-        </select>
-      </div>
-    </div>
+        <div class="form-group form-row align-items-center">
+            <label for="be_ftptakeover_directory" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+            <div class="col">
+                <select name="file_dir" class="custom-select form-control form-control-sm" id="file_dir">
+                    <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+                    <?php dir_menu(0, 0, "-", $_SESSION["wcs_user_id"], "-"); ?>
+                </select>
+            </div>
+        </div>
 
-    <div class="form-group form-row align-items-center">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
-      <div class="col form-check-inline">
-				<input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($cmsgo['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
-				<label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
-      </div>
-    </div>
+        <div class="form-group form-row align-items-center">
+            <label for="file_dir_new" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_new_folder']; ?></label>
+            <div class="col">
+                <input type="text" name="file_dir_new" id="file_dir_new" class="form-control form-control-sm" placeholder="<?php echo $BL['be_ftptakeover_new_folder_placeholder']; ?>">
+            </div>
+        </div>
 
-     <div class="form-group form-row align-items-center">
-      <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right">JS onload</label>
-      <div class="col">
-        <input class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="" type="text">
-      </div>
-    </div>
+        <div class="form-group form-row align-items-center">
+            <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+            <div class="col form-check-inline">
+                <input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($cmsgo['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
+                <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
+            </div>
+        </div>
 
-   <hr />
+        <div class="form-group form-row align-items-center">
+            <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right">JS onload</label>
+            <div class="col">
+                <input class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="" type="text">
+            </div>
+        </div>
+
+        <hr />
 
 <?php   if(count($cmsgo['allowed_lang']) > 1): ?>
 

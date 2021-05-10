@@ -205,7 +205,10 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     );
 
     $imgCache = false; //do not insert file information in db image cache
-    $thumb_image_info = array(0 => false, 'svg' => false);
+    $thumb_image_info = array(
+        0 => false,
+        'svg' => false
+    );
 
     if($val['target_ext'] === 'svg' && is_file($val['image_dir'].$val['image_name'])) {
 
@@ -266,12 +269,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
-    if(empty($val['img_filename'])) {
-
-        // now check if thumbnail was created - proof for GIF, PNG, JPG
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
-    } else {
+    if(!empty($val['img_filename'])) {
 
         $thumb_spec_info = '';
         if($val['crop_image']) {
@@ -294,10 +292,9 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         if($thumb_spec_info) {
             $val['thumb_name'] .= '-' . $thumb_spec_info;
         }
-
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
     }
+    $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
+
 
     if (CMSGO_WEBP) {
         if (is_file($thumb_check . '.webp')) {
@@ -519,35 +516,30 @@ function cmsgo_svg_getimagesize($svg_file) {
 }
 
 function is_animated_gif($file) {
-    $fp = null;
 
-    if (is_string($file)) {
-        $fp = fopen($file, "rb");
-    } else {
-        $fp = $file;
+    if (is_string($file) && is_file($file) && $fp = fopen($file, 'rb')) {
 
-        /* Make sure that we are at the beginning of the file */
-        fseek($fp, 0);
-    }
+        if (fread($fp, 3) !== 'GIF') {
+            fclose($fp);
 
-    if (fread($fp, 3) !== "GIF") {
-        fclose($fp);
+            return false;
+        }
 
-        return false;
-    }
+        $frames = 0;
 
-    $frames = 0;
-
-    while (!feof($fp) && $frames < 2) {
-        if (fread($fp, 1) === "\x00") {
-            /* Some of the animated GIFs do not contain graphic control extension (starts with 21 f9) */
-            if (fread($fp, 1) === "\x21" || fread($fp, 2) === "\x21\xf9") {
-                $frames++;
+        while (!feof($fp) && $frames < 2) {
+            if (fread($fp, 1) === "\x00") {
+                /* Some of the animated GIFs do not contain graphic control extension (starts with 21 f9) */
+                if (fread($fp, 1) === "\x21" || fread($fp, 2) === "\x21\xf9") {
+                    $frames++;
+                }
             }
         }
+
+        fclose($fp);
+
+        return $frames > 1;
     }
 
-    fclose($fp);
-
-    return $frames > 1;
+    return false;
 }

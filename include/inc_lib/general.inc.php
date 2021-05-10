@@ -1569,7 +1569,13 @@ function returnFileListAsArray($dir = '', $extfilter = '') {
             if ($dofilter && !in_array($ext, $extfilter)) {
                 continue;
             }
-            $files[$pf] = array('filename' => $pf, 'filesize' => filesize($dir.'/'.$pf), 'filetime' => filemtime($dir.'/'.$pf), 'ext' => $ext);
+            $files[$pf] = array(
+                'filename' => $pf,
+                'filesize' => filesize($dir . '/' . $pf),
+                'filetime' => filemtime($dir . '/' . $pf),
+                'ext' => $ext,
+                'path' => $dir . '/' . $pf
+            );
         }
     }
     closedir($ph);
@@ -1586,7 +1592,10 @@ function parse_ini_str($Str, $ProcessSections = true, $SplitInNameValue = false)
     */
     $Section = null;
     $Data = array();
-    $Escape = array('search' => array('\t', '\r', '\n', '\;', '\#', '\=', '\:', "\\\\"), 'replace' => array("\t", "\r", "\n", ';', '#', '=', ':', "\\"));
+    $Escape = array(
+        'search' => array('\t', '\r', '\n', '\;', '\#', '\=', '\:', "\\\\"),
+        'replace' => array("\t", "\r", "\n", ';', '#', '=', ':', "\\"),
+    );
     if ($Temp = strtok($Str, "\r\n")) {
         do {
             switch (substr($Temp, 0, 1)) {
