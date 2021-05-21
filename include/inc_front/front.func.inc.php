@@ -3602,14 +3602,24 @@ function _getFeUserLoginStatus() {
     return true;
 }
 
-function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1)) {
-    if(empty($user) || empty($pass)) return false;
+function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1, 'email_login'=>0)) {
+    if(empty($user) || empty($pass)) {
+        return false;
+    }
     // check against database
     if(!empty($validate_db['userdetail'])) {
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-        $sql .= "detail_login="._dbEscape($user)." AND ";
-        $sql .= "detail_password="._dbEscape($pass)." AND ";
-        $sql .= "detail_aktiv=1 LIMIT 1";
+        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'detail_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(detail_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(detail_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'detail_password=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'detail_aktiv=1 LIMIT 1';
         $result = _dbQuery($sql);
     }
     // hm, seems no user found - OK test against cms users
@@ -3617,9 +3627,17 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
         $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_user ';
         $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_userdetail ON ';
         $sql .= 'usr_id = detail_pid WHERE ';
-        $sql .= "usr_login="._dbEscape($user)." AND ";
-        $sql .= "usr_pass="._dbEscape($pass)." AND ";
-        $sql .= "usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1";
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'usr_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(usr_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(usr_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'usr_pass=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1';
         $result = _dbQuery($sql);
     }
     return (isset($result[0]) && is_array($result)) ? $result[0] : false;
@@ -3631,26 +3649,32 @@ function _getFrontendUserBaseData($data) {
     $userdata = array('login'=>'', 'name'=>'', 'email'=>'', 'url'=>'', 'source'=>'', 'id'=>0);
 
     if(isset($data['usr_login'])) {
-        $userdata['login']  = $data['usr_login'];
-        $userdata['name']   = $data['usr_name'];
-        $userdata['email']  = $data['usr_email'];
+        $userdata['login'] = $data['usr_login'];
+        $userdata['name'] = $data['usr_name'];
+        $userdata['email'] = $data['usr_email'];
         $userdata['source'] = 'BACKEND';
-        $userdata['id']     = $data['usr_id'];
-        if(trim($data['detail_firstname'].$data['detail_lastname'].$data['detail_company'])) {
-            $t                          = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-            if(empty($t))   $t          = trim($data['detail_company']);
-            if($t) $userdata['name']    = $t;
-            $userdata['url']            = trim($data['detail_website']);
+        $userdata['id'] = $data['usr_id'];
+        if (trim($data['detail_firstname'] . $data['detail_lastname'] . $data['detail_company'])) {
+            $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+            if (empty($t)) {
+                $t = trim($data['detail_company']);
+            }
+            if ($t) {
+                $userdata['name'] = $t;
+            }
+            $userdata['url'] = trim($data['detail_website']);
         }
     } elseif($data['detail_login']) {
-        $t                  = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-        if(empty($t)) $t    = $data['detail_company'];
-        $userdata['login']  = $data['detail_login'];
-        $userdata['name']   = $t;
-        $userdata['email']  = $data['detail_email'];
-        $userdata['url']    = $data['detail_website'];
+        $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+        if (empty($t)) {
+            $t = $data['detail_company'];
+        }
+        $userdata['login'] = $data['detail_login'];
+        $userdata['name'] = $t;
+        $userdata['email'] = $data['detail_email'];
+        $userdata['url'] = $data['detail_website'];
         $userdata['source'] = 'PROFILE';
-        $userdata['id']     = $data['detail_id'];
+        $userdata['id'] = $data['detail_id'];
     }
     return $userdata;
 }

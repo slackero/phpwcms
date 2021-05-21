@@ -1135,6 +1135,7 @@ $BL['be_date_format'] = 'Datumsformat';
 $BL['be_check_login_against'] = 'Login pr&uuml;fen gegen';
 $BL['be_userprofile_db'] = 'Benutzerprofil-Datenbank';
 $BL['be_backenduser_db'] = 'Backendnutzer-Datenbank';
+$BL['be_check_login_allow_email'] = 'E-Mail als Login akzeptieren';
 
 $BL['be_gb_post_login'] = 'Posten nur f&uuml;r angemeldete Benutzer';
 $BL['be_gb_show_login'] = 'Anzeigen nur f&uuml;r angemeldete Benutzer';

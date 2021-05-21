@@ -66,14 +66,14 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $_loginData['felogin_profile_manage']       = empty($_loginData['felogin_profile_manage']) ? 0 : 1;
     $_loginData['validate_db']['userdetail']    = empty($_loginData['felogin_validate_userdetail'])  ? 0 : 1;
     $_loginData['validate_db']['backenduser']   = empty($_loginData['felogin_validate_backenduser']) ? 0 : 1;
+    $_loginData['validate_db']['email_login']   = empty($_loginData['felogin_accept_email_login']) ? 0 : 1;
 
     // handle Login
     if(isset($_POST['feLogin'])) {
 
-        $_loginData['login']                        = slweg($_POST['feLogin']);
-        $_loginData['password']                     = slweg($_POST['fePassword']);
-        $_loginData['remember']                     = empty($_POST['feRemember']) ? 0 : 1;
-
+        $_loginData['login']        = slweg($_POST['feLogin']);
+        $_loginData['password']     = slweg($_POST['fePassword']);
+        $_loginData['remember']     = empty($_POST['feRemember']) ? 0 : 1;
         $_loginData['query_result'] = _checkFrontendUserLogin($_loginData['login'], md5($_loginData['password']), $_loginData['validate_db']);
 
         // ok, and now check if we got valid login data
@@ -84,9 +84,13 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
             if($_loginData['remember'] && !empty($_loginData['felogin_cookie_expire'])) {
 
-                setcookie(  'phpwcmsFeLoginRemember',
-                            $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
-                            time()+$_loginData['felogin_cookie_expire'], '/', getCookieDomain() );
+                setcookie(
+                    'phpwcmsFeLoginRemember',
+                    $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
+                    time()+$_loginData['felogin_cookie_expire'],
+                    '/',
+                    getCookieDomain()
+                );
 
             }
 

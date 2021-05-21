@@ -16,18 +16,16 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // frontend login
-
 
 if(!isset($content['felogin']['felogin_cookie_expire'])) {
 	$content['felogin']['felogin_cookie_expire'] = 2592000;
 }
 if(empty($content['felogin']['felogin_date_format'])) {
-	$content['felogin']['felogin_date_format']	= '%m/%d/%y';
+	$content['felogin']['felogin_date_format'] = '%m/%d/%y';
 }
 if(empty($content['felogin']['felogin_locale'])) {
-	$content['felogin']['felogin_locale']	= '';
+	$content['felogin']['felogin_locale'] = '';
 }
 if(!isset($content['felogin']['felogin_validate_backenduser'])) {
 	$content['felogin']['felogin_validate_backenduser']	= 1;
@@ -39,18 +37,20 @@ if(!isset($content['felogin']['felogin_profile_registration'])) {
 	$content['felogin']['felogin_profile_registration']	= 1;
 }
 if(!isset($content['felogin']['felogin_profile_manage'])) {
-	$content['felogin']['felogin_profile_manage']	= 1;
+	$content['felogin']['felogin_profile_manage'] = 1;
 }
 if(!isset($content['felogin']['felogin_reminder_subject'])) {
 	$content['felogin']['felogin_reminder_subject']	= '';
 }
 if(!isset($content['felogin']['felogin_reminder_body'])) {
-	$content['felogin']['felogin_reminder_body']	= '';
+	$content['felogin']['felogin_reminder_body'] = '';
 }
 if(!isset($content['felogin']['felogin_profile_manage_redirect'])) {
-	$content['felogin']['felogin_profile_manage_redirect']	= '';
+	$content['felogin']['felogin_profile_manage_redirect']= '';
 }
-
+if(!isset($content['felogin']['felogin_accept_email_login'])) {
+    $content['felogin']['felogin_accept_email_login'] = 0;
+}
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
@@ -102,12 +102,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 		<td align="right" class="chatlist tdtop4"><?php echo $BL['be_check_login_against'] ?>:&nbsp;</td>
 		<td colspan="2" class="inlineCheckbox"><input type="checkbox" name="validate_userdetail" id="validate_userdetail" value="1"<?php echo is_checked(1, $content['felogin']['felogin_validate_userdetail']); ?> />
 		<label for="validate_userdetail"><?php echo $BL['be_userprofile_db'] ?></label></td>
-	  </tr>
+	</tr>
 	<tr>
 		<td>&nbsp;</td>
 		<td colspan="2" class="inlineCheckbox"><input type="checkbox" name="validate_backenduser" id="validate_backenduser" value="1"<?php echo is_checked(1, $content['felogin']['felogin_validate_backenduser']); ?> />
 		<label for="validate_backenduser"><?php echo $BL['be_backenduser_db']?></label></td>
-	  </tr>
+	</tr>
+    <tr>
+		<td>&nbsp;</td>
+		<td colspan="2" class="inlineCheckbox"><input type="checkbox" name="accept_email_login" id="accept_email_login" value="1"<?php echo is_checked(1, $content['felogin']['felogin_accept_email_login']); ?> />
+		<label for="accept_email_login"><?php echo $BL['be_check_login_allow_email']; ?></label></td>
+	</tr>
 
 	 <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
