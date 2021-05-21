@@ -35,7 +35,11 @@ $(function () {
     autosize($('textarea'));
 
     $('[data-toggle="tooltip"]').tooltip({
-        'delay': {show: 1000, hide: 0}
+        delay: {
+            show: 250,
+            hide: 0
+        },
+        sanitize: false
     });
 
     $('img.modalButton').on('click', function (e) {

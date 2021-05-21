@@ -3601,14 +3601,24 @@ function _getFeUserLoginStatus() {
     return true;
 }
 
-function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1)) {
-    if(empty($user) || empty($pass)) return false;
+function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1, 'email_login'=>0)) {
+    if(empty($user) || empty($pass)) {
+        return false;
+    }
     // check against database
     if(!empty($validate_db['userdetail'])) {
         $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_userdetail WHERE ';
-        $sql .= "detail_login="._dbEscape($user)." AND ";
-        $sql .= "detail_password="._dbEscape($pass)." AND ";
-        $sql .= "detail_aktiv=1 LIMIT 1";
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'detail_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(detail_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(detail_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'detail_password=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'detail_aktiv=1 LIMIT 1';
         $result = _dbQuery($sql);
     }
     // hm, seems no user found - OK test against cms users
@@ -3616,9 +3626,17 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
         $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_user ';
         $sql .= 'LEFT JOIN '.DB_PREPEND.'cmsgo_userdetail ON ';
         $sql .= 'usr_id = detail_pid WHERE ';
-        $sql .= "usr_login="._dbEscape($user)." AND ";
-        $sql .= "usr_pass="._dbEscape($pass)." AND ";
-        $sql .= "usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1";
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'usr_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(usr_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(usr_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'usr_pass=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1';
         $result = _dbQuery($sql);
     }
     return (isset($result[0]) && is_array($result)) ? $result[0] : false;

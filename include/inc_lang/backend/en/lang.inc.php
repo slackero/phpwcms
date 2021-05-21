@@ -1014,7 +1014,6 @@ $BL['be_admin_struct_adduser_this']  = 'take over selected user';
 $BL['be_admin_struct_remove_all']    = 'remove all users';
 $BL['be_admin_struct_remove_this']   = 'remove selected user';
 
-
 $BL['be_ctype_alias'] = 'contentpart alias';
 $BL['be_cnt_setting'] = 'take over';
 $BL['be_cnt_spaces'] = 'spaces of contentpart alias';
@@ -1043,7 +1042,6 @@ $BL['be_admin_keyword_delmsg']          = 'Do you really want\nto delete KEYWORD
 $BL['be_admin_keyword_add']             = 'add KEYWORD';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
-
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
@@ -1169,6 +1167,7 @@ $BL['be_date_format']                   = 'date format';
 $BL['be_check_login_against']           = 'validate login against';
 $BL['be_userprofile_db']                = 'user profile database';
 $BL['be_backenduser_db']                = 'backend user database';
+$BL['be_check_login_allow_email']       = 'Accept email as login';
 
 $BL['be_gb_post_login']                 = 'post for users logged in only';
 $BL['be_gb_show_login']                 = 'show for users logged in only';

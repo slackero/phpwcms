@@ -74,10 +74,10 @@ $a .= ($child_count) ? '<a href="cmsgo.php?do=articles&amp;open=0:'.(empty($_SES
 $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-$info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
+$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'"></i>';
+$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
