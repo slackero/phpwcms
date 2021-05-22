@@ -797,6 +797,13 @@ if(!empty($jsOnChange))  {
                 $('#template-cc-form').hide();
             }
         });
+        $('#template_require_consent').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#template-cr-form').show();
+            } else {
+                $('#template-cr-form').hide();
+            }
+        });
         $('#template_ga').on('change', function(){
             if($(this).is(':checked')) {
                 $('#ga-tracking').show();

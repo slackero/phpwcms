@@ -2971,11 +2971,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $bootstrap      = false; // bootstrap dropdown style
         $onepage        = IS_ONEPAGE_TEMPLATE; // render menu links as id anchor <a href=#alias>
         $onepage_every  = false; // ToDo!
+        $hide_first     = false;
 
         /**
          * P = Show parent level
          * B = Bootstrap compatible rendering
          * A = Articles as menu items
+         * AH = Articles as menu items, hide first (avoid double link because of parent structure level)
          * F = Folded, unfold only active level
          * HCSS = Sample horizontal CSS based menu
          * VCSS = Sample vertical CSS based menu
@@ -2985,10 +2987,12 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             case 'B':       $bootstrap      = true;
                             break;
 
+            case 'BAH':     $hide_first     = true;
             case 'BA':      $bootstrap      = true;
             case 'A':       $articlemenu    = true;
                             break;
 
+            case 'PBAH':    $hide_first     = true;
             case 'PBA':     $bootstrap      = true;
             case 'PA':      $articlemenu    = true;
             case 'P':       $parent         = true;
@@ -2999,11 +3003,13 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
                             break;
 
                             // vertical, active path unfolded
+            case 'FPAH':    $hide_first     = true;
             case 'FPA':     $articlemenu    = true;
             case 'FP':      $parent         = true;
             case 'F':       $unfold         = 'active_path';
                             break;
 
+            case 'FAH':     $hide_first     = true;
             case 'FA':      $articlemenu    = true;
                             $unfold         = 'active_path';
                             break;
@@ -3025,6 +3031,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $wrap_ul_div    = empty($parameter[6]) ? 0  : intval($parameter[6]);
         $amenu_options  = array(
             'enable'        => false,
+            'hide_first'    => $hide_first,
             'image'         => false,
             'text'          => false,
             'width'         => 0,
@@ -3595,14 +3602,24 @@ function _getFeUserLoginStatus() {
     return true;
 }
 
-function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1)) {
-    if(empty($user) || empty($pass)) return false;
+function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdetail'=>1, 'backenduser'=>1, 'email_login'=>0)) {
+    if(empty($user) || empty($pass)) {
+        return false;
+    }
     // check against database
     if(!empty($validate_db['userdetail'])) {
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-        $sql .= "detail_login="._dbEscape($user)." AND ";
-        $sql .= "detail_password="._dbEscape($pass)." AND ";
-        $sql .= "detail_aktiv=1 LIMIT 1";
+        $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'detail_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(detail_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(detail_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'detail_password=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'detail_aktiv=1 LIMIT 1';
         $result = _dbQuery($sql);
     }
     // hm, seems no user found - OK test against cms users
@@ -3610,9 +3627,17 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
         $sql  = 'SELECT * FROM '.DB_PREPEND.'phpwcms_user ';
         $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_userdetail ON ';
         $sql .= 'usr_id = detail_pid WHERE ';
-        $sql .= "usr_login="._dbEscape($user)." AND ";
-        $sql .= "usr_pass="._dbEscape($pass)." AND ";
-        $sql .= "usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1";
+        if($validate_db['email_login'] && is_valid_email($user)) {
+            $sql .= '(';
+            $sql .= 'usr_login=' . _dbEscape($user);
+            $sql .= ' OR ';
+            $sql .= 'LOWER(usr_email)=' . _dbEscape(strtolower($user));
+            $sql .= ') AND ';
+        } else {
+            $sql .= '(usr_login=' . _dbEscape($user) . ') AND ';
+        }
+        $sql .= 'usr_pass=' . _dbEscape($pass) . ' AND ';
+        $sql .= 'usr_aktiv=1 AND usr_fe IN (0,2) LIMIT 1';
         $result = _dbQuery($sql);
     }
     return (isset($result[0]) && is_array($result)) ? $result[0] : false;
@@ -3624,26 +3649,32 @@ function _getFrontendUserBaseData($data) {
     $userdata = array('login'=>'', 'name'=>'', 'email'=>'', 'url'=>'', 'source'=>'', 'id'=>0);
 
     if(isset($data['usr_login'])) {
-        $userdata['login']  = $data['usr_login'];
-        $userdata['name']   = $data['usr_name'];
-        $userdata['email']  = $data['usr_email'];
+        $userdata['login'] = $data['usr_login'];
+        $userdata['name'] = $data['usr_name'];
+        $userdata['email'] = $data['usr_email'];
         $userdata['source'] = 'BACKEND';
-        $userdata['id']     = $data['usr_id'];
-        if(trim($data['detail_firstname'].$data['detail_lastname'].$data['detail_company'])) {
-            $t                          = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-            if(empty($t))   $t          = trim($data['detail_company']);
-            if($t) $userdata['name']    = $t;
-            $userdata['url']            = trim($data['detail_website']);
+        $userdata['id'] = $data['usr_id'];
+        if (trim($data['detail_firstname'] . $data['detail_lastname'] . $data['detail_company'])) {
+            $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+            if (empty($t)) {
+                $t = trim($data['detail_company']);
+            }
+            if ($t) {
+                $userdata['name'] = $t;
+            }
+            $userdata['url'] = trim($data['detail_website']);
         }
     } elseif($data['detail_login']) {
-        $t                  = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-        if(empty($t)) $t    = $data['detail_company'];
-        $userdata['login']  = $data['detail_login'];
-        $userdata['name']   = $t;
-        $userdata['email']  = $data['detail_email'];
-        $userdata['url']    = $data['detail_website'];
+        $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+        if (empty($t)) {
+            $t = $data['detail_company'];
+        }
+        $userdata['login'] = $data['detail_login'];
+        $userdata['name'] = $t;
+        $userdata['email'] = $data['detail_email'];
+        $userdata['url'] = $data['detail_website'];
         $userdata['source'] = 'PROFILE';
-        $userdata['id']     = $data['detail_id'];
+        $userdata['id'] = $data['detail_id'];
     }
     return $userdata;
 }
@@ -3959,6 +3990,7 @@ function getArticleMenu($data=array()) {
         'return_format'         => 'string', // string or array
         'articlemenu_options'   => array(
             'enable'        => false,
+            'hide_first'    => false,
             'image'         => false,
             'text'          => false,
             'width'         => 0,
@@ -3975,7 +4007,13 @@ function getArticleMenu($data=array()) {
     $articles   = get_actcat_articles_data( $data['level_id'] );
     $key        = 0;
     $total      = count($articles) - 1;
+
     foreach($articles as $item) {
+
+        if ($data['articlemenu_options']['hide_first']) {
+            $data['articlemenu_options']['hide_first'] = false;
+            continue;
+        }
 
         $class      = '';
         $class_a    = '';

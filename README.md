@@ -24,7 +24,7 @@ Link your browser to the related URL and follow the install instructions.
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.7 requires a web server with PHP (minimum version 5.3 up to 7.x)
+**phpwcms** version 1.9.25 requires a web server with PHP (minimum version 5.5 up to 8.x)
 and a MySQL database (minimum version 5.1, recommend 5.5+).
 
 

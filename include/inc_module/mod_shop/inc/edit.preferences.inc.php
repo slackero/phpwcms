@@ -42,7 +42,7 @@ if (!defined('PHPWCMS_ROOT')) {
                 <td><input name="pref_currency" type="text" id="pref_currency" class="v12 width125" value="<?php echo html_specialchars($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" /></td>
                 <td class="chatlist">&nbsp;&nbsp;EUR, USD, &#8364;, $, &pound;, &yen;</td>
             </tr>
-            </table></td>
+        </table></td>
     </tr>
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
@@ -176,7 +176,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
     }
 ?>
-
             <tr>
                 <td colspan="4" class="tdtop5"></td>
             </tr>
@@ -227,7 +226,21 @@ if (!defined('PHPWCMS_ROOT')) {
             </table></td>
     </tr>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+
+    <tr>
+        <td align="right" class="chatlist"><?php echo $BLM['shopprod_selfpickup'] ?>:&nbsp;</td>
+        <td><table summary="" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <td><input type="checkbox" name="pref_shipping_selfpickup" id="pref_shipping_selfpickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_shipping_selfpickup']) ?> onchange="enableSubmit();" /></td>
+                <td class="chatlist">&nbsp;<?php echo $BLM['shopprod_allowed'] ?>&nbsp;&nbsp;&nbsp;</td>
+                <td><input type="checkbox" name="pref_freeshipping_pickup" id="pref_freeshipping_pickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping_pickup']) ?> onchange="enableSubmit();" /></td>
+                <td class="chatlist">&nbsp;<?php echo $BLM['shopprod_freeshipping'] ?></td>
+            </tr>
+        </table></td>
+    </tr>
+
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
     <tr>
         <td align="right" class="chatlist"><?php echo $BLM['shopprod_distance_base'] ?>:&nbsp;</td>
@@ -264,7 +277,6 @@ if (!defined('PHPWCMS_ROOT')) {
             </tr>
         </table></td>
     </tr>
-
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
@@ -359,6 +371,15 @@ if (!defined('PHPWCMS_ROOT')) {
             <tr>
                 <td><input type="checkbox" name="pref_payment_onbill" id="pref_payment_onbill" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['onbill']) ?> onchange="enableSubmit();" /></td>
                 <td><label for="pref_payment_onbill" class="chatlist">&nbsp;<?php echo $BLM['shopprod_payby_onbill'] ?>&nbsp;&nbsp;&nbsp;</label></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+
+            <tr>
+                <td><input type="checkbox" name="pref_payment_cash" id="pref_payment_cash" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['cash']) ?> onchange="enableSubmit();" /></td>
+                <td><label for="pref_payment_cash" class="chatlist">&nbsp;<?php echo $BLM['shopprod_payby_cash'] ?>&nbsp;&nbsp;&nbsp;</label></td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
             </tr>

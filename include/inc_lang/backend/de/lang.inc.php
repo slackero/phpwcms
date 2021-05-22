@@ -155,7 +155,7 @@ $BL['be_ftptakeover_title'] = 'Dateien aus FTP Verzeichnis &uuml;bernehmen';
 $BL['be_ftptakeover_mark'] = 'Wahl';
 $BL['be_ftptakeover_available'] = 'Verf&uuml;gbare Dateien';
 $BL['be_ftptakeover_size'] = 'Gr&ouml;&szlig;e';
-$BL['be_ftptakeover_nofile'] = 'Momentan sind keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP hochladen.';
+$BL['be_ftptakeover_nofile'] = 'Keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP oder Mehrfachupload hochladen.';
 $BL['be_ftptakeover_all'] = 'Alle';
 $BL['be_ftptakeover_directory'] = 'Ordner';
 $BL['be_ftptakeover_rootdir'] = 'Wurzelverzeichnis';
@@ -169,6 +169,8 @@ $BL['be_ftptakeover_active'] = 'Aktiv';
 $BL['be_ftptakeover_public'] = '&Ouml;ffentlich';
 $BL['be_ftptakeover_createthumb'] = 'Vorschau erzeugen';
 $BL['be_ftptakeover_button'] = 'Dateien &uuml;bernehmen';
+$BL['be_ftptakeover_new_folder'] = 'Ordner anlegen';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'neuer Name des Ordners im Wurzelverzeichnis';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title'] = 'Dateizentrale';
@@ -1133,6 +1135,7 @@ $BL['be_date_format'] = 'Datumsformat';
 $BL['be_check_login_against'] = 'Login pr&uuml;fen gegen';
 $BL['be_userprofile_db'] = 'Benutzerprofil-Datenbank';
 $BL['be_backenduser_db'] = 'Backendnutzer-Datenbank';
+$BL['be_check_login_allow_email'] = 'E-Mail als Login akzeptieren';
 
 $BL['be_gb_post_login'] = 'Posten nur f&uuml;r angemeldete Benutzer';
 $BL['be_gb_show_login'] = 'Anzeigen nur f&uuml;r angemeldete Benutzer';

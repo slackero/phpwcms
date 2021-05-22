@@ -53,6 +53,8 @@ if ($action == 'edit') {
             $plugin['data']['shop_pref_shipping_calc'] = 2;
         }
 
+        $plugin['data']['shop_pref_shipping_selfpickup'] = empty($_POST['pref_shipping_selfpickup']) ? 0 : 1;
+
         $plugin['data']['shop_pref_zone_base'] = clean_slweg($_POST['pref_zone_base']);
 
         // check if multiple emails
@@ -125,6 +127,7 @@ if ($action == 'edit') {
             'pod' => empty($_POST['pref_payment_pod']) ? 0 : 1,
             'onbill' => empty($_POST['pref_payment_onbill']) ? 0 : 1,
             'ccard' => empty($_POST['pref_payment_ccard']) ? 0 : 1,
+            'cash' => empty($_POST['pref_payment_cash']) ? 0 : 1,
             'accepted_ccard' => (is_array($_POST['pref_supported_ccard']) ? $_POST['pref_supported_ccard'] : array())
         );
 
@@ -143,7 +146,9 @@ if ($action == 'edit') {
             'discount_2' => empty($_POST['pref_discount_2']) ? 0 : 1,
             'percent_2' => clean_slweg($_POST['pref_discount_percent_2']),
             'amount_2' => clean_slweg($_POST['pref_discount_amount_2']),
-            'freeshipping_2' => empty($_POST['pref_discount_freeshipping_2']) ? 0 : 1
+            'freeshipping_2' => empty($_POST['pref_discount_freeshipping_2']) ? 0 : 1,
+
+            'freeshipping_pickup' => empty($_POST['pref_freeshipping_pickup']) ? 0 : 1
         );
         $plugin['data']['shop_pref_discount']['percent'] = str_replace($BLM['thousands_sep'], '', $plugin['data']['shop_pref_discount']['percent']);
         $plugin['data']['shop_pref_discount']['percent'] = round(str_replace($BLM['dec_point'], '.', $plugin['data']['shop_pref_discount']['percent']), 2);
@@ -183,6 +188,7 @@ if ($action == 'edit') {
             _setConfig('shop_pref_email_from', $plugin['data']['shop_pref_email_from'], 'module_shop');
             _setConfig('shop_pref_email_paypal', $plugin['data']['shop_pref_email_paypal'], 'module_shop');
             _setConfig('shop_pref_shipping_calc', $plugin['data']['shop_pref_shipping_calc'], 'module_shop');
+            _setConfig('shop_pref_shipping_selfpickup', $plugin['data']['shop_pref_shipping_selfpickup'], 'module_shop');
             _setConfig('shop_pref_shipping', $plugin['data']['shop_pref_shipping'], 'module_shop');
             _setConfig('shop_pref_payment', $plugin['data']['shop_pref_payment'], 'module_shop');
             _setConfig('shop_pref_terms', $plugin['data']['shop_pref_terms'], 'module_shop');
@@ -225,6 +231,7 @@ if ($action == 'edit') {
         'shop_pref_id_cart' => 0,
         'shop_pref_felang' => 0,
         'shop_pref_shipping_calc' => 0,
+        'shop_pref_shipping_selfpickup' => 0,
         'shop_pref_shipping' => array(
             0 => $_checkPref_shipping_default,
             1 => $_checkPref_shipping_default,
@@ -239,6 +246,7 @@ if ($action == 'edit') {
             'pod' => 1,
             'onbill' => 1,
             'ccard' => 1,
+            'cash' => 1,
             'accepted_ccard' => array('americanexpress', 'mastercard', 'visa')
         ),
         'shop_pref_terms' => '',
@@ -246,7 +254,8 @@ if ($action == 'edit') {
         'shop_pref_discount' => array(
             'discount' => 0, 'percent' => 0, 'amount' => 0, 'freeshipping' => 0,
             'discount_1' => 0, 'percent_1' => 0, 'amount_1' => 0, 'freeshipping_1' => 0,
-            'discount_2' => 0, 'percent_2' => 0, 'amount_2' => 0, 'freeshipping_2' => 0
+            'discount_2' => 0, 'percent_2' => 0, 'amount_2' => 0, 'freeshipping_2' => 0,
+            'freeshipping_pickup' => 1
         ),
         'shop_pref_loworder' => array('loworder' => 0, 'under' => 0, 'charge' => 0, 'vat' => 0),
         'shop_pref_api_access' => 0,

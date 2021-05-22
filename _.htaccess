@@ -1,83 +1,346 @@
-# PHP: These settings are recommend - check phpinfo() before try these
-#   register_globals ON
-#   php_flag magic_quotes_gpc Off
-#   php_flag magic_quotes_runtime Off
-#   php_flag register_globals Off
+#####
+#
+# Example .htaccess file for phpwcms - for use with Apache Webserver
+#
+# This file includes settings for the following configuration options:
+#
+# - Compression
+# - Caching
+# - MIME types
+# - Cross Origin requests
+# - Rewriting and Access
+# - Miscellaneous
+# - PHP optimisation
+#
+# If you want to use it, you have to copy it to the root folder of your TYPO3 installation (if its
+# not there already) and rename it to '.htaccess'. To make .htaccess files work, you might need to
+# adjust the 'AllowOverride' directive in your Apache configuration file.
+#
+# IMPORTANT: You may need to change this file depending on your phpwcms installation!
+#            Consider adding this file's content to your webserver's configuration directly for speed improvement
+#
+# Lots of the options are taken from https://github.com/h5bp/html5-boilerplate/blob/master/dist/.htaccess
+#
+####
 
-#Sometimes necessary to add special types
-#   AddType application/x-javascript .js
-#   AddType text/css .css
-#   AddType video/ogg .ogv
-#   AddType video/ogg .ogg
-#   AddType video/mp4 .mp4
-#   AddType video/x-m4v .m4v
-#   AddType video/webm .webm
-#   AddType image/svg+xml .svg
-#   AddType application/font-woff .woff
-#   AddType application/vnd.ms-fontobject .eot
-#   AddType application/x-font-ttf .ttf
-#   AddType application/x-font-opentype .otf
 
-# Options:
-#   Options +FollowSymlinks
-#   AcceptPathInfo On
+### Begin: Compression ###
 
-# All 404 error should link to phpwcms then
-# it is easy to define internal routing/redirection
-#   ErrorDocument 404 /index.php?r404
-# Installed in Subfolder www.example.com/subfolder/
-#   ErrorDocument 404 /subfolder/index.php?r404
+#<FilesMatch "\.js\.gzip$">
+#   AddType "text/javascript" .gzip
+#</FilesMatch>
+#<FilesMatch "\.css\.gzip$">
+#   AddType "text/css" .gzip
+#</FilesMatch>
+#AddEncoding gzip .gzip
 
-# Rewrite:
+<IfModule mod_deflate.c>
+    # Force compression for mangled `Accept-Encoding` request headers
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+    # Compress all output labeled with one of the following media types.
+    #
+    # (!) For Apache versions below version 2.3.7 you don't need to
+    # enable `mod_filter` and can remove the `<IfModule mod_filter.c>`
+    # and `</IfModule>` lines as `AddOutputFilterByType` is still in
+    # the core directives.
+    #
+    # https://httpd.apache.org/docs/current/mod/mod_filter.html#addoutputfilterbytype
+
+    <IfModule mod_filter.c>
+        AddOutputFilterByType DEFLATE application/atom+xml \
+            application/javascript \
+            application/json \
+            application/ld+json \
+            application/manifest+json \
+            application/rdf+xml \
+            application/rss+xml \
+            application/schema+json \
+            application/vnd.geo+json \
+            application/vnd.ms-fontobject \
+            application/x-font-ttf \
+            application/x-javascript \
+            application/x-web-app-manifest+json \
+            application/xhtml+xml \
+            application/xml \
+            font/eot \
+            font/opentype \
+            image/bmp \
+            image/svg+xml \
+            image/vnd.microsoft.icon \
+            image/x-icon \
+            text/cache-manifest \
+            text/css \
+            text/html \
+            text/javascript \
+            text/plain \
+            text/vcard \
+            text/vnd.rim.location.xloc \
+            text/vtt \
+            text/x-component \
+            text/x-cross-domain-policy \
+            text/xml
+    </IfModule>
+
+    <IfModule mod_mime.c>
+        AddEncoding gzip svgz
+    </IfModule>
+</IfModule>
+
+### End: Compression ###
+
+
+### Begin: Browser caching of resource files ###
+
+# This affects Frontend and Backend and increases performance.
+<IfModule mod_expires.c>
+
+    ExpiresActive on
+    ExpiresDefault                                      "access plus 1 month"
+
+    ExpiresByType application/atom+xml                  "access plus 1 hour"
+    ExpiresByType application/rdf+xml                   "access plus 1 hour"
+    ExpiresByType application/rss+xml                   "access plus 1 hour"
+
+    ExpiresByType application/json                      "access plus 0 seconds"
+    ExpiresByType application/ld+json                   "access plus 0 seconds"
+    ExpiresByType application/schema+json               "access plus 0 seconds"
+    ExpiresByType application/geo+json                  "access plus 0 seconds"
+    ExpiresByType application/xml                       "access plus 0 seconds"
+    ExpiresByType text/calendar                         "access plus 0 seconds"
+    ExpiresByType text/xml                              "access plus 0 seconds"
+
+    ExpiresByType image/vnd.microsoft.icon              "access plus 1 week"
+    ExpiresByType image/x-icon                          "access plus 1 week"
+
+    ExpiresByType text/x-component                      "access plus 1 month"
+
+    ExpiresByType text/html                             "access plus 0 seconds"
+
+    ExpiresByType application/javascript                "access plus 1 year"
+    ExpiresByType application/x-javascript              "access plus 1 year"
+    ExpiresByType text/javascript                       "access plus 1 year"
+
+    ExpiresByType application/manifest+json             "access plus 1 week"
+    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+    ExpiresByType text/markdown                         "access plus 0 seconds"
+
+    ExpiresByType audio/ogg                             "access plus 1 month"
+    ExpiresByType image/apng                            "access plus 1 month"
+    ExpiresByType image/avif                            "access plus 1 month"
+    ExpiresByType image/avif-sequence                   "access plus 1 month"
+    ExpiresByType image/bmp                             "access plus 1 month"
+    ExpiresByType image/gif                             "access plus 1 month"
+    ExpiresByType image/jpeg                            "access plus 1 month"
+    ExpiresByType image/png                             "access plus 1 month"
+    ExpiresByType image/svg+xml                         "access plus 1 month"
+    ExpiresByType image/webp                            "access plus 1 month"
+    ExpiresByType video/mp4                             "access plus 1 month"
+    ExpiresByType video/ogg                             "access plus 1 month"
+    ExpiresByType video/webm                            "access plus 1 month"
+
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
+    ExpiresByType font/eot                              "access plus 1 month"
+    ExpiresByType font/opentype                         "access plus 1 month"
+    ExpiresByType font/otf                              "access plus 1 month"
+    ExpiresByType application/x-font-ttf                "access plus 1 month"
+    ExpiresByType font/ttf                              "access plus 1 month"
+    ExpiresByType application/font-woff                 "access plus 1 month"
+    ExpiresByType application/x-font-woff               "access plus 1 month"
+    ExpiresByType font/woff                             "access plus 1 month"
+    ExpiresByType application/font-woff2                "access plus 1 month"
+    ExpiresByType font/woff2                            "access plus 1 month"
+
+    ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
+
+</IfModule>
+
+### End: Browser caching of resource files ###
+
+
+### Begin: MIME types ###
+
+# Proper MIME types for all files
+<IfModule mod_mime.c>
+    # Security configuration
+    RemoveType .html .htm
+    <FilesMatch ".+\.html?$">
+        AddType text/html .html .htm
+    </FilesMatch>
+
+    RemoveType .svg .svgz
+    <FilesMatch ".+\.svgz?$">
+        AddType image/svg+xml .svg .svgz
+    </FilesMatch>
+
+    # Data interchange
+    AddType application/atom+xml                        atom
+    AddType application/json                            json map topojson
+    AddType application/ld+json                         jsonld
+    AddType application/rss+xml                         rss
+    AddType application/geo+json                        geojson
+    AddType application/rdf+xml                         rdf
+    AddType application/xml                             xml
+
+    # JavaScript
+    AddType text/javascript                             js mjs
+
+    # Manifest files
+    AddType application/manifest+json                   webmanifest
+    AddType application/x-web-app-manifest+json         webapp
+    AddType text/cache-manifest                         appcache
+
+    # Media files
+    AddType audio/mp4                                   f4a f4b m4a
+    AddType audio/ogg                                   oga ogg opus
+    AddType image/avif                                  avif
+    AddType image/avif-sequence                         avifs
+    AddType image/bmp                                   bmp
+    AddType image/webp                                  webp
+    AddType video/mp4                                   f4v f4p m4v mp4
+    AddType video/ogg                                   ogv
+    AddType video/webm                                  webm
+    AddType video/x-flv                                 flv
+    AddType image/x-icon                                cur ico
+
+    # Web fonts
+    AddType font/woff                                   woff
+    AddType font/woff2                                  woff2
+    AddType application/vnd.ms-fontobject               eot
+    AddType font/ttf                                    ttf
+    AddType font/collection                             ttc
+    AddType font/otf                                    otf
+
+    # Other
+    AddType application/octet-stream                    safariextz
+    AddType application/x-bb-appworld                   bbaw
+    AddType application/x-chrome-extension              crx
+    AddType application/x-opera-extension               oex
+    AddType application/x-xpinstall                     xpi
+    AddType text/calendar                               ics
+    AddType text/markdown                               markdown md
+    AddType text/vcard                                  vcard vcf
+    AddType text/vnd.rim.location.xloc                  xloc
+    AddType text/vtt                                    vtt
+    AddType text/x-component                            htc
+
+</IfModule>
+
+# UTF-8 encoding
+AddDefaultCharset utf-8
+<IfModule mod_mime.c>
+    AddCharset utf-8 .atom .css .htc .ics .js .json .manifest .map .markdown .md .mjs .rdf .rss .vtt .vcard .vcf .webapp .webmanifest .xloc .xml
+</IfModule>
+
+### End: MIME types ###
+
+
+### Begin: Cross Origin ###
+
+# Send the CORS header for images when browsers request it.
+<IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+        <FilesMatch "\.(avifs?|bmp|cur|gif|ico|jpe?g|a?png|svgz?|webp)$">
+            SetEnvIf Origin ":" IS_CORS
+            Header set Access-Control-Allow-Origin "*" env=IS_CORS
+        </FilesMatch>
+    </IfModule>
+</IfModule>
+
+# Allow cross-origin access to web fonts.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(eot|otf|tt[cf]|woff2?)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# Allow cross-origin access to the timing information for all resources.
+# <IfModule mod_headers.c>
+#     Header set Timing-Allow-Origin: "*"
+# </IfModule>
+
+### End: Cross Origin ###
+
+
+# Force Internet Explorer 8/9/10 to render pages in the highest mode
+# available in various cases when it may not.
+<IfModule mod_headers.c>
+    Header always set X-UA-Compatible "IE=edge" "expr=%{CONTENT_TYPE} =~ m#text/html#i"
+</IfModule>
+
+
+# Customize what Apache returns to the client in case of an error.
+ErrorDocument 404 /dev-phpwcms/index.php?r404
+
+
+### Begin: Rewriting and Access ###
+
+# You need rewriting, if you use a URL-Rewriting.
+
 <IfModule mod_rewrite.c>
 
+    # Enable URL rewriting
     RewriteEngine On
 
-    # Force everything to www. and keep or force SSL status too
-    #RewriteCond %{HTTP_HOST} !^$
-    #RewriteCond %{HTTPS} off [OR]
-    #RewriteCond %{HTTP_HOST} !^www\. [NC]
-    #RewriteCond %{HTTPS}s ^on(s)|
-    #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-    #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    # Store the current location in an environment variable CWD to use
+    # mod_rewrite in .htaccess files without knowing the RewriteBase
+    RewriteCond $0#%{REQUEST_URI} ([^#]*)#(.*)\1$
+    RewriteRule ^.*$ - [E=CWD:%2]
 
-    # Some more simple redirect example
-    #RewriteCond %{HTTP_HOST} ^example.com [OR]
-    #RewriteCond %{HTTP_HOST} ^example-two.com [OR]
-    #RewriteCond %{HTTP_HOST} ^www.example-two.de [OR]
-    #RewriteCond %{SERVER_PORT} 80
-    #RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+    # For rewriting www to NON-www or force https and so check
+    # https://github.com/h5bp/html5-boilerplate/blob/master/dist/.htaccess#L270
 
-    DirectoryIndex index.html index.php
+    # Rule for static files:
+    # IMPORTANT: This rule has to be the very first RewriteCond in order to work!
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.+)\.(\d+)\.(php|js|css|png|jpg|gif|gzip)$ %{ENV:CWD}$1.$3 [L]
 
-    # Redirect /en and /en/ to english home
-    #RewriteRule ^(en|de)(/{0,1})$ ./index.php?$1/index [L,QSA]
+    # Access block for folders
+    RewriteRule ^(?:upload|content/tmp|filearchive) - [F]
+    RewriteRule (?:include)/[^/]+/(?:config|inc_front|inc_lang|inc_lib|inc_tmpl)/ - [F]
+    RewriteRule (?:template)/[^/]+/(?:inc_cntpart|inc_default|template_lang|inc_script/frontend_init|inc_script/frontend_render)/ - [F]
 
-    # Use RewriteBase - always start in Document Root
-    RewriteBase /
-    # If installed in a subfolder
-    #RewriteBase /subfolder/
-
-    # Ignore all files and folders that exists
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^(.+) - [PT,L]
+    # Block access to all hidden files and directories with the exception of
+    # the visible content from within the `/.well-known/` hidden directory (RFC 5785).
+    RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
+    RewriteCond %{SCRIPT_FILENAME} -d [OR]
+    RewriteCond %{SCRIPT_FILENAME} -f
+    RewriteRule (?:^|/)\. - [F]
 
     # In case of config setting `$phpwcms['rewrite_url']=1` (Default)
     # ===============================================================
 
     # Resized image /img/cmsimage.php/… -> /im/…
-    RewriteRule ^im\/(.+?)$ ./img/cmsimage.php?$1 [L]
+    RewriteRule ^im\/(.+)$ %{ENV:CWD}img/cmsimage.php?$1 [QSA,L]
 
     # File download /dl/… -> /download.php?…
-    RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING} [L]
+    RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ %{ENV:CWD}download.php?f=$1 [QSA,L]
 
-    # In case of config setting `$phpwcms['rewrite_ext']='.html'` -> /alias.html (Default)
-    RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING} [L]
+    # Stop rewrite processing, if we are in the typo3/ directory or any other known directory
+    # NOTE: Add your additional local storages here
+    RewriteRule ^(?:template/|content/|picture/|uploads/) - [L]
+
+    # If the file/symlink/directory does not exist => Redirect to index.php.
+    # For httpd.conf, you need to prefix each '%{REQUEST_FILENAME}' with '%{DOCUMENT_ROOT}'.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-l
+
     RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
+    RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING} [L]
 
     # Rewrite anything else and link it against phpwcms
     # Check redirect settings under admin in the backend
-    RewriteRule ^(.+)/?$ ./index.php?$1&%{QUERY_STRING}
+    # Be careful activating this – might makes only sense if
+    # the rewrite extension is only a slash "/"
+    #RewriteRule ^(.+)/?$ ./index.php?$1&%{QUERY_STRING} [L]
 
 </IfModule>

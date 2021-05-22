@@ -38,7 +38,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 checkLogin();
 validate_csrf_tokens();
-define('CSRF_GET_TOKEN', get_token_get_string('csrftoken'));
+define('CSRF_GET_TOKEN', get_token_get_string());
 
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
@@ -377,9 +377,9 @@ if($BE['LANG'] == 'ar') {
 
         case "chat":    //Chat
                         if($p === 1) {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php'; break; //Chat/Listing
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php';  //Chat/Listing
                         } else {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php'; break; //Chat Startseite
+                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php';  //Chat Startseite
                         }
                         break;
 

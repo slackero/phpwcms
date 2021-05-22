@@ -279,7 +279,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     switch($js_aktion) {
 
         case 6:
-            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac') AND ";
+            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac', 'webp') AND ";
             break;
 
             // H.264

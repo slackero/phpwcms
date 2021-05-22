@@ -21,22 +21,18 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 $file_action = array(
-    "file_dir"  => empty($_POST["file_dir"]) ? 0 : intval($_POST["file_dir"]),
-    "mark"      => empty($_POST["ftp_mark"]) || !is_array($_POST["ftp_mark"]) ? array() : $_POST["ftp_mark"],
-    "newdir"    => empty($_POST["file_newdir"]) ? 0 : intval($_POST["file_newdir"])
+    'file_dir' => empty($_POST['file_dir']) ? 0 : intval($_POST['file_dir']),
+    'mark' => empty($_POST['ftp_mark']) || !is_array($_POST['ftp_mark']) ? array() : $_POST['ftp_mark'],
+    'newdir' => empty($_POST['file_newdir']) ? 0 : intval($_POST['file_newdir'])
 );
 
 //Get post variables
 if(isset($_POST['file_action'])) {
-
     $file_action['action']  = intval($_POST['file_action']);
     $file_action_msg        = $BL['file_actions_msg_error'];
-
 } else {
-
     $file_action['action']  = 0;
     $file_action_msg        = '';
-
 }
 
 if($file_action['action'] === 1 && $file_action["mark"]) {

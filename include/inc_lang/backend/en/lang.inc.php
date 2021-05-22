@@ -159,7 +159,7 @@ $BL['be_ftptakeover_title']             = 'take over files uploaded via ftp';
 $BL['be_ftptakeover_mark']              = 'mark';
 $BL['be_ftptakeover_available']         = 'available files';
 $BL['be_ftptakeover_size']              = 'size';
-$BL['be_ftptakeover_nofile']            = 'there is still no file available &#8211; you have to upload one via ftp';
+$BL['be_ftptakeover_nofile']            = 'There are no files available &#8211; you have to upload one by ftp or the the multiple file upload.';
 $BL['be_ftptakeover_all']               = 'ALL';
 $BL['be_ftptakeover_directory']         = 'directory';
 $BL['be_ftptakeover_rootdir']           = 'root directory';
@@ -173,6 +173,8 @@ $BL['be_ftptakeover_active']            = 'active';
 $BL['be_ftptakeover_public']            = 'public';
 $BL['be_ftptakeover_createthumb']       = 'create thumbnail';
 $BL['be_ftptakeover_button']            = 'take over selected files';
+$BL['be_ftptakeover_new_folder']        = 'create folder';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'name of the new folder in the root directory';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title']                    = 'file center';
@@ -993,7 +995,6 @@ $BL['be_admin_struct_adduser_this']  = 'take over selected user';
 $BL['be_admin_struct_remove_all']    = 'remove all users';
 $BL['be_admin_struct_remove_this']   = 'remove selected user';
 
-
 $BL['be_ctype_alias'] = 'contentpart alias';
 $BL['be_cnt_setting'] = 'take over';
 $BL['be_cnt_spaces'] = 'spaces of contentpart alias';
@@ -1022,7 +1023,6 @@ $BL['be_admin_keyword_delmsg']          = 'Do you really want\nto delete KEYWORD
 $BL['be_admin_keyword_add']             = 'add KEYWORD';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
-
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
@@ -1079,7 +1079,6 @@ $BL['be_article_pagination']            = 'paginate articles';
 $BL['be_article_per_page']              = 'articles per page';
 $BL['be_pagination']                    = 'pagination';
 
-
 $BL['be_ctype_recipe']                  = 'recipe';
 $BL['be_ctype_faq']                     = 'faq';
 $BL['be_cnt_additional']                = 'addition';
@@ -1103,7 +1102,6 @@ $BL['be_cnt_last_edited']               = 'last change';
 $BL['be_cnt_export_selection']          = 'export selection';
 $BL['be_cnt_delete_duplicates']         = 'delete duplicates';
 $BL['be_cnt_new_recipient']             = 'add recipient';
-
 
 $BL['be_cnt_newsletter_prepare']        = 'newsletter active';
 $BL['be_cnt_newsletter_prepare1']       = 'all recipients will be taken over to sending queue';
@@ -1148,6 +1146,7 @@ $BL['be_date_format']                   = 'date format';
 $BL['be_check_login_against']           = 'validate login against';
 $BL['be_userprofile_db']                = 'user profile database';
 $BL['be_backenduser_db']                = 'backend user database';
+$BL['be_check_login_allow_email']       = 'Accept email as login';
 
 $BL['be_gb_post_login']                 = 'post for users logged in only';
 $BL['be_gb_show_login']                 = 'show for users logged in only';

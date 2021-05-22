@@ -56,24 +56,31 @@ if (!defined('PHPWCMS_ROOT')) {
         <form action="<?php echo shop_url('controller=order').'&amp;show='.$plugin['data']['order_id'] ?>" method="post">
             <input type="hidden" name="order_status" value="<?php echo $plugin['data']['order_id'] ?>" />
             <table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr class="row">
-                <td><input type="checkbox" name="status_payment" value="PAYED" id="status_payment"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-                <td><label for="status_payment"><?php echo $BLM['shopprod_status_paid']?>&nbsp;</label></td>
-                <td><input type="checkbox" name="status_send" value="SENT" id="status_send"<?php echo order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-                <td><label for="status_send"><?php echo $BLM['shopprod_status_sent'] ?>&nbsp;</label></td>
-                <td><input type="checkbox" name="status_back" value="RETURN" id="status_back"<?php echo order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-                <td><label for="status_back"><?php echo $BLM['shopprod_status_back'] ?>&nbsp;</label></td>
-                <td><input type="checkbox" name="status_done" value="COMPLETED" id="status_done"<?php echo order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
-                <td><label for="status_done"><?php echo $BLM['shopprod_status_done'] ?></label></td>
-            </tr>
-
+                <tr class="row">
+                    <td><input type="checkbox" name="status_payment" value="PAYED" id="status_payment"<?php echo order_status('PAYED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+                    <td><label for="status_payment"><?php echo $BLM['shopprod_status_paid']?>&nbsp;</label></td>
+                    <td><input type="checkbox" name="status_send" value="SENT" id="status_send"<?php echo order_status('SENT', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+                    <td><label for="status_send"><?php echo $BLM['shopprod_status_sent'] ?>&nbsp;</label></td>
+                    <td><input type="checkbox" name="status_back" value="RETURN" id="status_back"<?php echo order_status('RETURN', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+                    <td><label for="status_back"><?php echo $BLM['shopprod_status_back'] ?>&nbsp;</label></td>
+                    <td><input type="checkbox" name="status_done" value="COMPLETED" id="status_done"<?php echo order_status('COMPLETED', $plugin['data']['order_status']) ?> onchange="this.form.submit();" /></td>
+                    <td><label for="status_done"><?php echo $BLM['shopprod_status_done'] ?></label></td>
+                </tr>
             </table>
         </form>
         </td>
     </tr>
 
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+
+    <tr>
+        <td class="chatlist"><?php echo $BLM['shopprod_selfpickup'] ?>:&nbsp;</td>
+        <td class="v12 tdbottom3">
+            <strong><?php echo empty($plugin['data']['order_data']['shipping']['selfpickup']) ? $BLM['shopprod_isnot_selfpickup'] : $BLM['shopprod_is_selfpickup']; ?></strong>
+        </td>
+    </tr>
+
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 
     <tr>
         <td class="chatlist"><?php echo $BL['be_profile_label_firstname'] ?>:&nbsp;</td>

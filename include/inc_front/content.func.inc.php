@@ -486,13 +486,8 @@ $block['onepage'] = empty($block['onepage']) ? false : true;
 define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
 // support conditional comments for IE8
-if(empty($block['ie8ignore'])) {
-    define('IE8_CC', true);
-    $block['ie8ignore'] = false;
-} else {
-    define('IE8_CC', false);
-    $block['ie8ignore'] = false;
-}
+define('IE8_CC', empty($block['ie8ignore']));
+$block['ie8ignore'] = false;
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
@@ -1824,6 +1819,66 @@ if(!empty($phpwcms['gt_mod']) && strpos($content["all"], '{GT') !== false) {
     }
 
     $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
+}
+
+// Replace image_resized.php
+if (strpos($content['all'], 'image_resized.php') !== false) {
+    function deprecated_image_resized($matches) {
+        $src = explode('?', $matches[2]);
+        if (empty($src[1])) {
+            return $matches[0];
+        }
+        $src = explode('&', html_despecialchars($src[1]));
+        $defs = array(
+            'format' => PHPWCMS_WEBP ? 'webp' : 'jpg',
+            'imgfile' => 'img/leer.gif',
+            'w' => 0,
+            'h' => 0,
+            'q' => PHPWCMS_QUALITY
+        );
+        foreach ($src as $attribute) {
+            if (strpos($attribute, '=') !== false) {
+                list($param, $value) = explode('=', $attribute);
+                if (isset($defs[$param])) {
+                    if ($param === 'format' && !PHPWCMS_WEBP) {
+                        $defs[$param] = trim($value, '.');
+                    } elseif ($param === 'imgfile') {
+                        $value = explode('/', trim($value));
+                        $defs[$param] = cut_ext($value[count($value) - 1]);
+                        if (strlen($defs[$param]) !== 32) {
+                            return $matches[0];
+                        }
+                    } elseif ($param === 'w' || $param === 'h') {
+                        $defs[$param] = intval($value);
+                    }
+                }
+            }
+        }
+
+        $attributes = trim(trim($matches[1]) . ' ' . trim($matches[3]));
+
+        if (!$defs['w'] || !$defs['h']) {
+            if (preg_match('/width=(.+?)\s/', $attributes . ' ', $width)) {
+                if ($width = intval(trim($width[1], '"\''))) {
+                    $defs['w'] = $width;
+                };
+            }
+            if (preg_match('/height=(.+?)\s/', $attributes . ' ', $height)) {
+                if ($height = intval(trim($height[1], '"\''))) {
+                    $defs['h'] = $height;
+                }
+            }
+        }
+
+        $img = '<img src="';
+        $img .= PHPWCMS_REWRITE ? 'im' : 'img/cmsimage.php';
+        $img .= '/' . $defs['w'] . 'x' . $defs['h'] . 'x0x' . $defs['q'] . '/' . $defs['imgfile'] . '.' . $defs['format'];
+        $img .= '" ' . $attributes . '>';
+
+        return $img;
+    }
+
+    $content["all"] = preg_replace_callback('/<img(.+)src=(?:"|\')(image_resized\.php.+?)(?:"|\')(.+?)>/', 'deprecated_image_resized', $content["all"]);
 }
 
 // Force Image extensions to WebP

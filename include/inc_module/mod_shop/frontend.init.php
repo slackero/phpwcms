@@ -159,7 +159,7 @@ function get_shop_category_name($id=0, $subid=0) {
 function get_payment_options() {
 
     $payment_prefs = _getConfig( 'shop_pref_payment', '_shopPref' );
-    $supported = array('prepay' => 0, 'pod' => 0, 'onbill' => 0);
+    $supported = array('prepay' => 0, 'pod' => 0, 'onbill' => 0, 'cash' => 0);
     $available = array();
     foreach($supported as $key => $value) {
         if(!empty($payment_prefs[$key])) {

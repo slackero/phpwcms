@@ -164,10 +164,12 @@ function check_image_extension($file, $filename, $file_image_size) {
             case 15: // there seems to be a problem with getimagesize and Quicktime VR
                      // mov -> wmbf ? why ever!
                      // do an additional extension check and compare against mov
+
                      $result = strtolower(which_ext($filename)) === 'mov' ? 'mov' : 'wbmp';
                      break;
 
             case 16: $result = 'xbm'; break;
+            case 32: $result = 'webp'; break;
         }
     }
 

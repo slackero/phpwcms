@@ -21,13 +21,9 @@ if (!defined('PHPWCMS_ROOT')) {
 $deleteFiles = array();
 
 if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ftp_mark'])) {
-
     foreach($_POST['ftp_mark'] as $key => $value) {
-
         $deleteFiles[$_POST['ftp_file'][$key]] = $_POST['ftp_filename'][$key];
-
     }
-
 }
 
 ?>
@@ -52,111 +48,127 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
           <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 <?php
         //Browse FTP Open Directory
-        $handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
+        $multiple_upload_files = returnFileListAsArray(PHPWCMS_ROOT.$phpwcms["ftp_path"], $extfilter = '');
+
         $fx = 0;
         $fxsg = 0;
-            while($file = @readdir($handle)) {
-                if(!is_dir($file) && $file !== "." && $file !== ".." && substr($file, 0, 1) !== '.' && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
 
-                    // test if the file should be deleted
-                    $file_base64 = base64_encode($file);
+        if (is_array($multiple_upload_files) && count($multiple_upload_files)) {
 
-                    if(isset($deleteFiles[$file_base64]) && @unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
-                            continue;
-                        }
+            ksort($multiple_upload_files);
 
-                    $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
-                    $fxsg += $fxs;
-                    $fxe = extimg(which_ext($file));
-                     // there is a big problem with special chars on Mac OS X and seems Windows too
-                    $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
-                    $filename = html($filename);
-?>
-          <tr<?php echo $fxb ?>>
-            <td align="center" class="tdtop2 tdbottom2"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
-            <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-            <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
-            <td class="v10 tdtop3"><?php echo $filename ?></td>
+            foreach ($multiple_upload_files as $file) {
 
-            <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td align="right" class="v10 tdtop3">
-                <?php echo fsizelong($fxs) ?>&nbsp;
-                <input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
-                <input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
-            </td>
-          </tr>
-<?php               $fx++;
+                // test if the file should be deleted
+                $file_base64 = base64_encode($file['filename']);
+
+                if(isset($deleteFiles[$file_base64]) && @unlink($file['path'])) {
+                    continue;
                 }
+
+                $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
+                $fxsg += $file['filesize'];
+                $fxe = extimg($file['ext']);
+                 // there is a big problem with special chars on Mac OS X and seems Windows too
+                $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file['filename'])) ? str_replace('?', '', utf8_decode($file['filename'])) : $file['filename'];
+                $filename = html($filename);
+?>
+                <tr<?php echo $fxb ?>>
+                    <td align="center" class="tdtop2 tdbottom2"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
+                    <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
+                    <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
+                    <td class="v10 tdtop3"><?php echo $filename ?></td>
+                    <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+                    <td align="right" class="v10 tdtop3">
+                        <?php echo fsizelong($file['filesize']); ?>&nbsp;
+                        <input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
+                        <input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
+                    </td>
+                </tr>
+                <?php
+
+                $fx++;
             }
-        @closedir($handle);
+        }
 
         if(!$fx) {
 ?>
-          <tr>
-            <td colspan="5" class="dir">&nbsp;<?php echo $BL['be_ftptakeover_nofile'] ?></td>
-            <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-        </tr>
+            <tr>
+                <td colspan="5" class="dir" style="padding: 5px;"><?php echo $BL['be_ftptakeover_nofile']; ?></td>
+                <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
+            </tr>
 <?php
         } else {
 ?>
-          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+            <tr bgcolor="#92A1AF">
+                <td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+            </tr>
 
-          <tr bgcolor="#EAEDF0">
-            <td align="center" class="subnavactive tdtop3 tdbottom3"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-            <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-            <td>&nbsp;</td>
-            <td class="v10"><button id="delete-selected-files" style="display:none;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button></td>
-            <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td align="right" class="v10"><?php echo fsizelong($fxsg) ?>&nbsp;</td>
-        </tr>
-          <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+            <tr bgcolor="#EAEDF0">
+                <td align="center" class="subnavactive tdtop3 tdbottom3"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
+                <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
+                <td>&nbsp;</td>
+                <td class="v10"><button id="delete-selected-files" style="display:none;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button></td>
+                <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+                <td align="right" class="v10"><?php echo fsizelong($fxsg) ?>&nbsp;</td>
+            </tr>
+            <tr bgcolor="#92A1AF">
+                <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+            </tr>
 <?php
         }
 ?>
-          <tr bgcolor="#D9DEE3">
-            <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
-            <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td><img src="img/leer.gif" alt="" width="21" height="1" /></td>
-            <td><img src="img/leer.gif" alt="" width="400" height="1" /></td>
-            <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td><img src="img/leer.gif" alt="" width="80" height="1" /></td>
-        </tr>
+            <tr bgcolor="#D9DEE3">
+                <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
+                <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+                <td><img src="img/leer.gif" alt="" width="21" height="1" /></td>
+                <td><img src="img/leer.gif" alt="" width="400" height="1" /></td>
+                <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
+                <td><img src="img/leer.gif" alt="" width="80" height="1" /></td>
+            </tr>
         </table><?php
         //Nur Zeigen wenn Dateien vorhanden
         if($fx) {
 
 ?>
-
        <table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="background:#EBF2F4">
-          <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-            <tr>
-              <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-            <td width="471" class="v10">
-                <select name="file_dir" id="file_dir" class="v11 width400">
-                  <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-                  <?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
-                 </select></td>
-            </tr>
+           <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+           <tr>
+               <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
+               <td width="471" class="v10">
+                   <select name="file_dir" id="file_dir" class="v14 width400">
+                       <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+                       <?php dir_menu(0, 0, "-", $_SESSION["wcs_user_id"], "-"); ?>
+                   </select>
+               </td>
+           </tr>
+           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+           <tr>
+               <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_new_folder']; ?>:&nbsp;</td>
+               <td width="471" class="v10">
+                   <input type="text" name="file_dir_new" id="file_dir_new" class="v11 width400" placeholder="<?php echo $BL['be_ftptakeover_new_folder_placeholder']; ?>">
+               </td>
+           </tr>
 
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-        <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-        <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
+           <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+           <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
-        <tr bgcolor="#F5F8F9">
-            <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
-            <td>
-                <table border="0" cellpadding="0" cellspacing="0" summary="">
-                    <tr>
-                        <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
-                        <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
-                    </tr>
-                </table><div id="iptc-info"></div>
-            </td>
-        </tr>
+           <tr bgcolor="#F5F8F9">
+               <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
+               <td>
+                   <table border="0" cellpadding="0" cellspacing="0" summary="">
+                       <tr>
+                           <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
+                           <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
+                       </tr>
+                   </table><div id="iptc-info"></div>
+               </td>
+           </tr>
 
-        <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
- <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-        <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+           <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+           <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
+           <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 

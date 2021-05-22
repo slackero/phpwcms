@@ -325,11 +325,12 @@ if(isset($form_error)) {
 
 	$false = '';
 
-	if(isset($send_copy_to)) {
+    $mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
+    $mail->addReplyTo($recipient);
 
-		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
-		$mail->addReplyTo($recipient);
-		$mail->addAddress($send_copy_to);
+    if(isset($send_copy_to)) {
+
+        $mail->addAddress($send_copy_to);
 
 		if(!$mail->send()) {
 			$false .= '(1) '.html($mail->ErrorInfo).'<br>';
@@ -338,14 +339,9 @@ if(isset($form_error)) {
 		$mail->setFrom($send_copy_to);
 		$mail->addReplyTo($send_copy_to);
 
-	} else {
-
-		$mail->setFrom($recipient, $phpwcms['SMTP_FROM_NAME']);
-		$mail->addReplyTo($recipient);
-
 	}
 
-	$mail->clearAddresses();
+    $mail->clearAddresses();
 	$mail->addAddress($recipient);
 
 	if(!$mail->send()) {
