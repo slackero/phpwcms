@@ -500,7 +500,7 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, CMSGO_URL."cmsgo.php?do=messages", 2500);
 
-$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.5.1.min.js');
+$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.6.0.min.js');
 $GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
