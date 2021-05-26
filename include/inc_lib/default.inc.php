@@ -682,7 +682,7 @@ function buildGlobalGET($return = '') {
     reset($GLOBALS['_getVar']);
     $_getVar_first = key($GLOBALS['_getVar']);
 
-    unset($_GET[session_name()], $GLOBALS['_getVar'][$_getVar_first], $GLOBALS['_getVar'][session_name()], $GLOBALS['_getVar']['']);
+    unset($_GET[session_name()], $GLOBALS['_getVar'][session_name()], $GLOBALS['_getVar']['']);
 
     if (!empty($GLOBALS['phpwcms']['unregister_getVar']) && is_array($GLOBALS['phpwcms']['unregister_getVar'])) {
         foreach ($GLOBALS['phpwcms']['unregister_getVar'] as $key) {
@@ -690,8 +690,11 @@ function buildGlobalGET($return = '') {
         }
     }
 
-    $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
-    $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+    if ($GLOBALS['_getVar'][$_getVar_first] === '') {
+        unset($GLOBALS['_getVar'][$_getVar_first]);
+        $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
+        $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+    }
 
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         foreach ($GLOBALS['_getVar'] as $key => $value) {
