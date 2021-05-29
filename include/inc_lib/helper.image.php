@@ -517,12 +517,11 @@ class Phpwcms_Image_lib {
             $copy = 'imagecopyresized';
         }
         $dst_img = $create($this->width, $this->height);
-        if ($this->image_type === 3 || $this->image_type === 1 || $this->image_type === 32) // png, gif and webp, preserve transparency
         {
             imagealphablending($dst_img, false);
             imagesavealpha($dst_img, true);
         }
-        if ($this->image_type === 1 && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
+        if ($this->image_type === IMG_GIF && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
         {
             imagefilledrectangle($dst_img, 0, 0, $this->width, $this->height, $transparent_index);
         }
@@ -696,7 +695,7 @@ class Phpwcms_Image_lib {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
-            case IMG_PNG:
+            case IMG_PNG_GD:
                 $cmd_in = 'pngtopnm';
                 $cmd_out = 'ppmtopng';
                 if (strtoupper($this->colorspace) == 'GRAY') {
@@ -1086,6 +1085,7 @@ class Phpwcms_Image_lib {
         if ($image_type == '') {
             $image_type = $this->image_type;
         }
+
         switch ($image_type) {
             case IMG_GIF:
                 if (!function_exists('imagecreatefromgif')) {
@@ -1101,7 +1101,7 @@ class Phpwcms_Image_lib {
                 }
                 $im = @imagecreatefromjpeg($path);
                 break;
-            case IMG_PNG:
+            case IMG_PNG_GD:
                 if (!function_exists('imagecreatefrompng')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
                     return false;
@@ -1205,7 +1205,7 @@ class Phpwcms_Image_lib {
                     return false;
                 }
                 break;
-            case IMG_PNG:
+            case IMG_PNG_GD:
                 if (!function_exists('imagepng')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
                     return false;
@@ -1253,7 +1253,7 @@ class Phpwcms_Image_lib {
             case IMG_JPEG:
                 imagejpeg($resource, null, $this->quality);
                 break;
-            case IMG_PNG:
+            case IMG_PNG_GD:
                 imagepng($resource);
                 break;
             case IMG_WEBP:
@@ -1343,7 +1343,7 @@ class Phpwcms_Image_lib {
             $types = array(
                 IMG_GIF => 'gif',
                 IMG_JPEG => 'jpeg',
-                IMG_PNG => 'png',
+                IMG_PNG_GD => 'png',
                 IMG_WEBP => 'webp'
             );
             $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';

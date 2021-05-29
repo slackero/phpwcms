@@ -51,7 +51,7 @@ if ( $img_info ) {
             $do = 1;
             break;
 
-        case IMG_PNG: // PNG
+        case IMG_PNG_GD: // PNG
             $img_mimetype = 'image/png';
             $img_target = 'png';
             $img_source = imagecreatefrompng( $img_file );

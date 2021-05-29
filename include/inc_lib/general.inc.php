@@ -2265,7 +2265,7 @@ function getRealImageSize($imginfo) {
         $size = $imginfo[0] * $imginfo[1];
     }
     // handle possible alpha channel for PNG and TIF
-    $alpha = ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
+    $alpha = isset($imginfo[2]) && ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
     if ($size && !empty($imginfo['channels'])) {
         // channel - in general this is 3 (RGB) or 4 (CMYK)
         $size = $size * ($imginfo['channels'] + $alpha);

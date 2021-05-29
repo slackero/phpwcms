@@ -146,6 +146,7 @@ define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
 define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
 define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
+define('IMG_PNG_GD', 3);
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';

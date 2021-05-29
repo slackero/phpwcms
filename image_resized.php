@@ -96,7 +96,7 @@ if(is_file($img_file) && $img_info = getimagesize($img_file)) {
             $img_source = imagecreatefromjpeg($img_file);
             break;
 
-        case IMG_PNG: // PNG
+        case IMG_PNG_GD: // PNG
             $img_source = imagecreatefrompng($img_file);
             break;
 
