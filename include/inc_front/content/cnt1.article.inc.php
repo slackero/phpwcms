@@ -16,26 +16,25 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 //image with text
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/imagetext.tmpl')) {
 
-    $crow["acontent_template"]  = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/imagetext.tmpl') );
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/imagetext.tmpl') );
 
 } elseif(is_file(PHPWCMS_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"])) {
 
-    $crow["acontent_template"]  = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"]) );
+    $crow["acontent_template"] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"]) );
 
 } else {
 
-    $crow["acontent_template"]  = '[IMAGETEXT]<div class="image-with-text">{IMAGETEXT}</div>[/IMAGETEXT]';
+    $crow["acontent_template"] = '[IMAGETEXT]<div class="image-with-text">{IMAGETEXT}</div>[/IMAGETEXT]';
 
 }
 
-$crow["settings"]          = get_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
-$crow["settings"]          = parse_ini_str($crow["settings"], false);
+$crow["settings"] = get_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
+$crow["settings"] = parse_ini_str($crow["settings"], false);
 
 $crow["acontent_template"] = replace_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
@@ -43,8 +42,8 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['is_imagetext']       = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
-$crow['has_image']          = false;
+$crow['is_imagetext'] = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
+$crow['has_image'] = false;
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -182,136 +181,134 @@ if($image) {
 
 }
 
-if($crow['is_imagetext']) {
+if ($crow['is_imagetext']) {
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGETEXT', $image_text);
+}
 
-    $CNT_TMP .= render_cnt_template($crow["acontent_template"], 'IMAGETEXT', $image_text);
+$crow['imagetext_class'] = '';
+$crow['position_type'] = array(
+    'top_left'      => 0,
+    'top_center'    => 0,
+    'top_right'     => 0,
+    'bottom_left'   => 0,
+    'bottom_center' => 0,
+    'bottom_right'  => 0,
+    'float_left'    => 0,
+    'float_right'   => 0,
+    'column_left'   => 0,
+    'column_right'  => 0
+);
+
+switch($image[7]) {
+    case 1: // top center
+        $crow['imagetext_class'] = $crow["settings"]['class_top_center'];
+        $crow['position_type']['top_center'] = 1;
+        break;
+    case 2: // top right
+        $crow['imagetext_class'] = $crow["settings"]['class_top_right'];
+        $crow['position_type']['top_right'] = 1;
+        break;
+    case 3: // bottom left
+        $crow['imagetext_class'] = $crow["settings"]['class_bottom_left'];
+        $crow['position_type']['bottom_left'] = 1;
+        break;
+    case 4: // bottom center
+        $crow['imagetext_class'] = $crow["settings"]['class_bottom_center'];
+        $crow['position_type']['bottom_center'] = 1;
+        break;
+    case 5: // bottom right
+        $crow['imagetext_class'] = $crow["settings"]['class_bottom_right'];
+        $crow['position_type']['bottom_right'] = 1;
+        break;
+    case 6: // float left
+        $crow['imagetext_class'] = $crow["settings"]['class_float_left'];
+        $crow['position_type']['float_left'] = 1;
+        break;
+    case 7: // float right
+        $crow['imagetext_class'] = $crow["settings"]['class_float_right'];
+        $crow['position_type']['float_right'] = 1;
+        break;
+    case 8: // column left
+        $crow['imagetext_class'] = $crow["settings"]['class_column_left'];
+        $crow['position_type']['column_left'] = 1;
+        break;
+    case 9: // column right
+        $crow['imagetext_class'] = $crow["settings"]['class_column_right'];
+        $crow['position_type']['column_right'] = 1;
+        break;
+    case 0: // top left
+    default:
+        $crow['imagetext_class'] = $crow["settings"]['class_top_left'];
+        $crow['position_type']['top_left'] = 1;
+        break;
+}
+
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_LEFT', $crow['position_type']['top_left'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_CENTER', $crow['position_type']['top_center'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_RIGHT', $crow['position_type']['top_right'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_LEFT', $crow['position_type']['bottom_left'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_CENTER', $crow['position_type']['bottom_center'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_RIGHT', $crow['position_type']['bottom_right'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_RIGHT', $crow['position_type']['float_right'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_LEFT', $crow['position_type']['float_left'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_LEFT', $crow['position_type']['column_left'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_RIGHT', $crow['position_type']['column_right'] ? ' ' : '');
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
+
+if(!$crow['has_image']) {
+
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', '');
+    $crow["acontent_template"] = str_replace('{IMAGE_ID}', 'empty-image-'.$crow["acontent_id"], $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_HASH}', '', $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_NAME}', 'empty', $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_EXT}', '', $crow["acontent_template"]);
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', '');
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', '');
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
 
 } else {
 
-    $crow['imagetext_class'] = '';
-    $crow['position_type'] = array(
-        'top_left'      => 0,
-        'top_center'    => 0,
-        'top_right'     => 0,
-        'bottom_left'   => 0,
-        'bottom_center' => 0,
-        'bottom_right'  => 0,
-        'float_left'    => 0,
-        'float_right'   => 0,
-        'column_left'   => 0,
-        'column_right'  => 0
-    );
+    $crow["acontent_template"] = str_replace('{IMAGE_ID}', $image[0], $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_HASH}', $image[2], $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_EXT}', $image[3], $crow["acontent_template"]);
+    $crow["acontent_template"] = str_replace('{IMAGE_NAME}', html($image[1]), $crow["acontent_template"]);
 
-    switch($image[7]) {
-        case 1: // top center
-            $crow['imagetext_class'] = $crow["settings"]['class_top_center'];
-            $crow['position_type']['top_center'] = 1;
-            break;
-        case 2: // top right
-            $crow['imagetext_class'] = $crow["settings"]['class_top_right'];
-            $crow['position_type']['top_right'] = 1;
-            break;
-        case 3: // bottom left
-            $crow['imagetext_class'] = $crow["settings"]['class_bottom_left'];
-            $crow['position_type']['bottom_left'] = 1;
-            break;
-        case 4: // bottom center
-            $crow['imagetext_class'] = $crow["settings"]['class_bottom_center'];
-            $crow['position_type']['bottom_center'] = 1;
-            break;
-        case 5: // bottom right
-            $crow['imagetext_class'] = $crow["settings"]['class_bottom_right'];
-            $crow['position_type']['bottom_right'] = 1;
-            break;
-        case 6: // float left
-            $crow['imagetext_class'] = $crow["settings"]['class_float_left'];
-            $crow['position_type']['float_left'] = 1;
-            break;
-        case 7: // float right
-            $crow['imagetext_class'] = $crow["settings"]['class_float_right'];
-            $crow['position_type']['float_right'] = 1;
-            break;
-        case 8: // column left
-            $crow['imagetext_class'] = $crow["settings"]['class_column_left'];
-            $crow['position_type']['column_left'] = 1;
-            break;
-        case 9: // column right
-            $crow['imagetext_class'] = $crow["settings"]['class_column_right'];
-            $crow['position_type']['column_right'] = 1;
-            break;
-        case 0: // top left
-        default:
-            $crow['imagetext_class'] = $crow["settings"]['class_top_left'];
-            $crow['position_type']['top_left'] = 1;
-            break;
-    }
+    $crow['image_tag']  = '<img src="' . PHPWCMS_RESIZE_IMAGE . '/' . $crow["settings"]['width'].'x'.$crow["settings"]['height'].'x'.$crow["settings"]['crop'] . '/';
+    $crow['image_tag'] .= $image[2].'.'.$image[3].'/'.rawurlencode($image[1]).'" alt="';
 
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_LEFT', $crow['position_type']['top_left'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_CENTER', $crow['position_type']['top_center'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TOP_RIGHT', $crow['position_type']['top_right'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_LEFT', $crow['position_type']['bottom_left'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_CENTER', $crow['position_type']['bottom_center'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'BOTTOM_RIGHT', $crow['position_type']['bottom_right'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_RIGHT', $crow['position_type']['float_right'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'FLOAT_LEFT', $crow['position_type']['float_left'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_LEFT', $crow['position_type']['column_left'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COLUMN_RIGHT', $crow['position_type']['column_right'] ? ' ' : '');
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ZOOM', $crow["settings"]['zoom'] ? ' ' : '');
+    $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
+    $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
+    $crow['image_tag'] .= $caption[1];
 
-    if(!$crow['has_image']) {
-
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', '');
-        $crow["acontent_template"] = str_replace('{IMAGE_ID}', 'empty-image-'.$crow["acontent_id"], $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_HASH}', '', $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_NAME}', 'empty', $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_EXT}', '', $crow["acontent_template"]);
+    if($crow["settings"]['nocaption']) {
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', '');
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', '');
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
         $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
-
     } else {
-
-        $crow["acontent_template"] = str_replace('{IMAGE_ID}', $image[0], $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_HASH}', $image[2], $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_EXT}', $image[3], $crow["acontent_template"]);
-        $crow["acontent_template"] = str_replace('{IMAGE_NAME}', html($image[1]), $crow["acontent_template"]);
-
-        $crow['image_tag']  = '<img src="' . PHPWCMS_RESIZE_IMAGE . '/' . $crow["settings"]['width'].'x'.$crow["settings"]['height'].'x'.$crow["settings"]['crop'] . '/';
-        $crow['image_tag'] .= $image[2].'.'.$image[3].'/'.rawurlencode($image[1]).'" alt="';
-
-        $caption = getImageCaption(array('caption' => base64_decode($image[6]), 'file' => $image[0]));
-        $caption[1] = html(empty($caption[1]) ? $image[1] : $caption[1]);
-        $crow['image_tag'] .= $caption[1];
-
-        if($crow["settings"]['nocaption']) {
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', '');
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', '');
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', html($caption[0]));
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', $caption[1]);
+        if(empty($caption[3])) {
             $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', '');
         } else {
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CAPTION', html($caption[0]));
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ALT', $caption[1]);
-            if(empty($caption[3])) {
-                $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', '');
-            } else {
-                $caption[3] = html($caption[3]);
-                $crow['image_tag'] .= '" title="'.$caption[3];
-                $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', $caption[3]);
-            }
-            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', empty($caption[4]) ? '' : html($caption[4]));
+            $caption[3] = html($caption[3]);
+            $crow['image_tag'] .= '" title="'.$caption[3];
+            $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE_TITLE', $caption[3]);
         }
-
-        $crow['image_tag'] .= '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
-
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', $crow['image_tag']);
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'COPYRIGHT', empty($caption[4]) ? '' : html($caption[4]));
     }
-    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CLASS', $crow['imagetext_class']);
-    $crow["acontent_template"] = str_replace('{IMAGE_WIDTH}', $crow["settings"]['width'], $crow["acontent_template"]);
-    $crow["acontent_template"] = str_replace('{IMAGE_HEIGHT}', $crow["settings"]['width'], $crow["acontent_template"]);
-    $crow["acontent_template"] = str_replace('{ID}', $crow["acontent_id"], $crow["acontent_template"]);
 
-    $CNT_TMP .= render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_text"]);
+    $crow['image_tag'] .= '"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+
+    $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'IMAGE', $crow['image_tag']);
 }
+
+$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'CLASS', $crow['imagetext_class']);
+$crow["acontent_template"] = str_replace('{IMAGE_WIDTH}', $crow["settings"]['width'], $crow["acontent_template"]);
+$crow["acontent_template"] = str_replace('{IMAGE_HEIGHT}', $crow["settings"]['width'], $crow["acontent_template"]);
+$crow["acontent_template"] = str_replace('{ID}', $crow["acontent_id"], $crow["acontent_template"]);
+
+$CNT_TMP .= render_cnt_template($crow["acontent_template"], 'TEXT', $crow["acontent_text"]);
 
 unset($image);

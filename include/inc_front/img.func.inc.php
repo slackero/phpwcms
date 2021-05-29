@@ -171,7 +171,7 @@ function imagetable($phpwcms, & $image, $rand="0:0:0:0", $align=0) {
     return $table;
 }
 
-function imagediv($phpwcms, & $image, $classname='') {
+function imagediv($phpwcms, $image, $classname='') {
     // creates the image tags if text w/image
     // 0   :1       :2   :3        :4    :5     :6      :7       :8
     // dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -185,7 +185,8 @@ function imagediv($phpwcms, & $image, $classname='') {
         "max_width"     =>  $image[4],
         "max_height"    =>  $image[5],
         "thumb_name"    =>  md5($image[2].$image[4].$image[5].$phpwcms["sharpen_level"].$crop.$phpwcms['colorspace']),
-        'crop_image'    =>  $crop
+        'crop_image'    =>  $crop,
+        'img_filename'  =>  $image[1]
     ));
 
     if($image[8]) {
@@ -195,10 +196,13 @@ function imagediv($phpwcms, & $image, $classname='') {
             "image_name"    =>  $image[2] . '.' . $image[3],
             "max_width"     =>  $phpwcms["img_prev_width"],
             "max_height"    =>  $phpwcms["img_prev_height"],
-            "thumb_name"    =>  md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+            "thumb_name"    =>  md5($image[2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace']),
+            'img_filename'  =>  $image[1]
         ));
 
-        if($zoominfo == false) $image[8] = 0;
+        if($zoominfo == false) {
+            $image[8] = 0;
+        }
 
     }
 
@@ -222,8 +226,14 @@ function imagediv($phpwcms, & $image, $classname='') {
         }
 
         // image source
-        $img  = '<img src="'.PHPWCMS_IMAGES.$thumb_image[0].'" '.$thumb_image[3];
-        $img .= ' data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"';
+        $img  = '<img src="';
+        if ($crop && !empty($thumb_image['src'])) {
+            $img .= $thumb_image['src'] . '"';
+            $thumb_image[3] = '';
+        } else {
+            $img .= PHPWCMS_IMAGES . $thumb_image[0] . '"';
+        }
+        $img .= ' '.$thumb_image[3] . ' data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"';
         $img .= $image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
 
         $image_block .= '<div class="'.$classname.'">';

@@ -217,16 +217,39 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $thumb_image_info[0] = $val['image_name'];
         $thumb_image_info[1] = $val['max_width'];
         $thumb_image_info[2] = $val['max_height'];
-        $thumb_image_info[3] = '';
+        if ($val['max_width']) {
+            $thumb_image_info[3] = 'width="' . $val['max_width'] . '"';
+        } elseif ($val['max_height']) {
+            $thumb_image_info[3] = 'height="' . $val['max_height'] . '"';
+        } else {
+            $thumb_image_info[3] = '';
+        }
         $thumb_image_info['type'] = 'image/svg+xml';
         $thumb_image_info['src'] = PHPWCMS_RESIZE_IMAGE . '/' . $val['max_width'] . 'x' . $val['max_height'];
+
+        $thumb_spec_info = '';
         if($val['crop_image']) {
             $thumb_image_info['src'] .= 'x1';
+            $thumb_spec_info .= 'c' . $val['crop_image'];
+            if ($val['crop_pos']) {
+                $thumb_spec_info .= $val['crop_pos'];
+            }
         }
         $thumb_image_info['src'] .= '/' . $val['image_name'];
 
         if(!empty($val['img_filename'])) {
             $thumb_image_info['src'] .= '/' . rawurlencode($val['img_filename']);
+            $thumb_filename_basis = cut_ext($val['img_filename']);
+
+            $thumb_image_info[0] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
+            if ($thumb_spec_info) {
+                $thumb_image_info[0] .= '-' . $thumb_spec_info;
+            }
+            $thumb_image_info[0] .= '.svg';
+        }
+
+        if (!is_file($val['thumb_dir'].$thumb_image_info[0])) {
+            copy ($val['image_dir'].$val['image_name'], $val['thumb_dir'].$thumb_image_info[0]);
         }
 
         return $thumb_image_info;
