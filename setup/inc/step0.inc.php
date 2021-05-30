@@ -159,7 +159,7 @@ $setup_recommend = true;
                         } else {
                             $is_gd[] = 'GIF<img src="../img/famfamfam/action_stop.gif" alt="GIF not supported" class="icon1" />';
                         }
-                        if ((imagetypes() & IMG_PNG_GD) || (imagetypes() & IMG_PNG)) {
+                        if (imagetypes() & IMG_PNG) {
                             $is_gd[] = 'PNG<img src="../img/famfamfam/icon_accept.gif" alt="PNG supported" class="icon1" />';
                         } else {
                             $is_gd[] = 'PNG<img src="../img/famfamfam/action_stop.gif" alt="PNG not supported" class="icon1" />';
