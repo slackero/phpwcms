@@ -380,7 +380,7 @@ function convert_into($extension) {
     } else {
         switch ($extension) {
             case 'gif':
-                $ext = (imagetypes() & IMG_GIF) ? "gif" : "png";
+                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';
@@ -397,17 +397,17 @@ function is_ext_true($extension) {
     if ($phpwcms['image_library'] === 'gd2' || $phpwcms['image_library'] === 'gd') {
         // if GD is used
         switch ($extension) {
-            case "jpg":
-            case "jpeg":
-                $ext = "jpg";
+            case 'jpg':
+            case 'jpeg':
+                $ext = 'jpg';
                 break;
-            case "gif":
-                $ext = (imagetypes() && IMG_GIF) ? "gif" : "png";
+            case 'gif':
+                $ext = (imagetypes() && IMG_GIF) ? 'gif' : 'png';
                 break;
-            case "png":
-                $ext = "png";
+            case 'png':
+                $ext = 'png';
                 break;
-            case "webp":
+            case 'webp':
                 $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
                 break;
         }

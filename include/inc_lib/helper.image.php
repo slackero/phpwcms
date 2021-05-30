@@ -517,11 +517,12 @@ class Phpwcms_Image_lib {
             $copy = 'imagecopyresized';
         }
         $dst_img = $create($this->width, $this->height);
+        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF || $this->image_type === IMAGETYPE_WEBP) // png, gif and webp, preserve transparency
         {
             imagealphablending($dst_img, false);
             imagesavealpha($dst_img, true);
         }
-        if ($this->image_type === IMG_GIF && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
+        if ($this->image_type === IMAGETYPE_GIF && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
         {
             imagefilledrectangle($dst_img, 0, 0, $this->width, $this->height, $transparent_index);
         }
@@ -684,25 +685,25 @@ class Phpwcms_Image_lib {
         }
         // Build the resizing command
         switch ($this->image_type) {
-            case IMG_GIF:
+            case IMAGETYPE_GIF:
                 $cmd_in = 'giftopnm';
                 $cmd_out = 'ppmtogif';
                 break;
-            case IMG_JPEG:
+            case IMAGETYPE_JPEG:
                 $cmd_in = 'jpegtopnm';
                 $cmd_out = 'ppmtojpeg';
                 if ($this->colorspace == 'GRAY') {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
-            case IMG_PNG_GD:
+            case IMAGETYPE_PNG:
                 $cmd_in = 'pngtopnm';
                 $cmd_out = 'ppmtopng';
                 if (strtoupper($this->colorspace) == 'GRAY') {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
-            case IMG_WEBP:
+            case IMAGETYPE_WEBP:
                 $cmd_in = 'webptopnm';
                 $cmd_out = 'ppmtowebp';
                 if (strtoupper($this->colorspace) == 'GRAY') {
@@ -1087,28 +1088,28 @@ class Phpwcms_Image_lib {
         }
 
         switch ($image_type) {
-            case IMG_GIF:
+            case IMAGETYPE_GIF:
                 if (!function_exists('imagecreatefromgif')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
                     return false;
                 }
                 $im = @imagecreatefromgif($path);
                 break;
-            case IMG_JPEG:
+            case IMAGETYPE_JPEG:
                 if (!function_exists('imagecreatefromjpeg')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
                     return false;
                 }
                 $im = @imagecreatefromjpeg($path);
                 break;
-            case IMG_PNG_GD:
+            case IMAGETYPE_PNG:
                 if (!function_exists('imagecreatefrompng')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
                     return false;
                 }
                 $im = @imagecreatefrompng($path);
                 break;
-            case IMG_WEBP:
+            case IMAGETYPE_WEBP:
                 if (!function_exists('imagecreatefromwebp')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
                     return false;
@@ -1185,7 +1186,7 @@ class Phpwcms_Image_lib {
             return true;
         }
         switch ($this->image_type) {
-            case IMG_GIF:
+            case IMAGETYPE_GIF:
                 if (!function_exists('imagegif')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
                     return false;
@@ -1195,7 +1196,7 @@ class Phpwcms_Image_lib {
                     return false;
                 }
                 break;
-            case IMG_JPEG:
+            case IMAGETYPE_JPEG:
                 if (!function_exists('imagejpeg')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
                     return false;
@@ -1205,7 +1206,7 @@ class Phpwcms_Image_lib {
                     return false;
                 }
                 break;
-            case IMG_PNG_GD:
+            case IMAGETYPE_PNG:
                 if (!function_exists('imagepng')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
                     return false;
@@ -1215,7 +1216,7 @@ class Phpwcms_Image_lib {
                     return false;
                 }
                 break;
-            case IMG_WEBP:
+            case IMAGETYPE_WEBP:
                 if (!function_exists('imagewebp')) {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
                     return false;
@@ -1247,16 +1248,16 @@ class Phpwcms_Image_lib {
         header('Content-Transfer-Encoding: binary');
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
         switch ($this->image_type) {
-            case IMG_GIF:
+            case IMAGETYPE_GIF:
                 imagegif($resource);
                 break;
-            case IMG_JPEG:
+            case IMAGETYPE_JPEG:
                 imagejpeg($resource, null, $this->quality);
                 break;
-            case IMG_PNG_GD:
+            case IMAGETYPE_PNG:
                 imagepng($resource);
                 break;
-            case IMG_WEBP:
+            case IMAGETYPE_WEBP:
                 imagewebp($resource, null, $this->quality);
                 break;
             default:
@@ -1341,10 +1342,10 @@ class Phpwcms_Image_lib {
                 return true; // the image lib might handle this format
             }
             $types = array(
-                IMG_GIF => 'gif',
-                IMG_JPEG => 'jpeg',
-                IMG_PNG_GD => 'png',
-                IMG_WEBP => 'webp'
+                IMAGETYPE_GIF => 'gif',
+                IMAGETYPE_JPEG => 'jpeg',
+                IMAGETYPE_PNG => 'png',
+                IMAGETYPE_WEBP => 'webp'
             );
             $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
             $this->image_current_vals = $vals;
