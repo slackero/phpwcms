@@ -3609,7 +3609,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     // check against database
     if(!empty($validate_db['userdetail'])) {
         $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_userdetail WHERE ';
-        if($validate_db['email_login'] && is_valid_email($user)) {
+        if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
             $sql .= 'detail_login=' . _dbEscape($user);
             $sql .= ' OR ';

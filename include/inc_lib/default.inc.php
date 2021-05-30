@@ -690,7 +690,7 @@ function buildGlobalGET($return = '') {
         }
     }
 
-    if ($GLOBALS['_getVar'][$_getVar_first] === '') {
+    if ($_getVar_first && $GLOBALS['_getVar'][$_getVar_first] === '') {
         unset($GLOBALS['_getVar'][$_getVar_first]);
         $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
         $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
