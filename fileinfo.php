@@ -92,7 +92,7 @@ if($file_id) {
     <script type="text/javascript">
         function ResizeAndCenter(){
             var width = 590;
-            var height = <?php if(!empty($thumb_image): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
+            var height = <?php if(!empty($thumb_image)): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
             window.moveTo(5,5);
             window.resizeTo(width,height);
         }
