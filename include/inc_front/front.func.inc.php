@@ -3608,7 +3608,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     // check against database
     if(!empty($validate_db['userdetail'])) {
         $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_userdetail WHERE ';
-        if($validate_db['email_login'] && is_valid_email($user)) {
+        if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
             $sql .= 'detail_login=' . _dbEscape($user);
             $sql .= ' OR ';
@@ -3626,7 +3626,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
         $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_user ';
         $sql .= 'LEFT JOIN '.DB_PREPEND.'cmsgo_userdetail ON ';
         $sql .= 'usr_id = detail_pid WHERE ';
-        if($validate_db['email_login'] && is_valid_email($user)) {
+        if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
             $sql .= 'usr_login=' . _dbEscape($user);
             $sql .= ' OR ';

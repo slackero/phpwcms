@@ -516,12 +516,12 @@ class Cmsgo_Image_lib {
             $copy = 'imagecopyresized';
         }
         $dst_img = $create($this->width, $this->height);
-        if ($this->image_type === 3 || $this->image_type === 1) // png and gif, preserve transparency
+        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF) // png and gif, preserve transparency
         {
             imagealphablending($dst_img, false);
             imagesavealpha($dst_img, true);
         }
-        if ($this->image_type === 1 && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
+        if ($this->image_type === IMAGETYPE_GIF && ($transparent_index = imagecolorallocatealpha($dst_img, 255, 255, 255, 127))) // gif preserve transparency
         {
             imagefilledrectangle($dst_img, 0, 0, $this->width, $this->height, $transparent_index);
         }
