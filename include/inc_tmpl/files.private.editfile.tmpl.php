@@ -485,7 +485,7 @@ if($ja) {
             foreach($file_image_iptc as $iptc_key => $iptc_value):
 ?>
                 <tr>
-                    <td nowrap="nowrap" class="tdtop1 chatlist"><?php echo $BL['iptc_'.$iptc_key]; ?>&nbsp;</td>
+                    <td nowrap="nowrap" class="tdtop1 chatlist nowrap"><?php echo $BL['iptc_'.$iptc_key]; ?>&nbsp;</td>
                     <td class="tdtop1"><?php echo html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value); ?></td>
                 </tr>
 <?php

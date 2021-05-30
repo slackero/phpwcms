@@ -142,7 +142,7 @@ initJsCalendar();
     <tr bgcolor="#D9DEE3"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
 
     <tr bgcolor="#D9DEE3">
-        <td align="right" class="chatlist" nowrap="nowrap"><a href="phpwcms.php?do=admin&amp;p=6&amp;struct=<?php
+        <td align="right" class="chatlist nowrap" nowrap="nowrap"><a href="phpwcms.php?do=admin&amp;p=6&amp;struct=<?php
 
         if(empty($content['article']['acat_id'])) {
             echo 'index';
@@ -159,7 +159,7 @@ initJsCalendar();
     <tr bgcolor="#D9DEE3"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
     </tr>
     <tr bgcolor="#D9DEE3">
-        <td align="right" class="chatlist" nowrap="nowrap"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php
+        <td align="right" class="chatlist nowrap" nowrap="nowrap"><a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php
 
         echo $content["aid"];
         ?>" onclick="return confirm('<?php echo $BL['be_dialog_warn_nosave'];
@@ -691,7 +691,7 @@ echo $_save_close_buttons;
                     <td class="chatlist">&nbsp;<br />
                         <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo $content["livedate"]; ?>' : '';" />
                     </td>
-                    <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                    <td class="chatlist tdbottom3 nowrap" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
                         <input name="clivedate" type="text" id="clivedate" class="width150" value="<?php echo $content["livedate"]; ?>" />
                     </td>
                     <td class="chatlist tdbottom3">&nbsp;<br />
@@ -725,7 +725,7 @@ echo $_save_close_buttons;
                     <td class="chatlist">&nbsp;<br />
                         <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo $content["killdate"] ?>' : '';" />
                     </td>
-                    <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                    <td class="chatlist tdbottom3 nowrap" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
                         <input name="ckilldate" type="text" id="ckilldate" class="width150" value="<?php echo $content["killdate"]; ?>" />
                     </td>
                     <td class="chatlist tdbottom3">&nbsp;<br />

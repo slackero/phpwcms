@@ -222,7 +222,7 @@ if($data) {
         echo '<td class="dir listNumber">&nbsp;'.html_specialchars( number_format( round($row['shopprod_price'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
         echo '<td class="dir listNumber">&nbsp;'.$row['shopprod_inventory']."&nbsp;</td>\n";
 
-        echo '<td align="right" nowrap="nowrap" class="button_td">';
+        echo '<td align="right" nowrap="nowrap" class="nowrap button_td">';
 
             echo '<a href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
             echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

@@ -50,7 +50,7 @@ $struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PR
 echo "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">";
 echo "<td width=\"450\">";
 echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\"><tr>";
-echo '<td nowrap="nowrap">';
+echo '<td class="nowrap">';
 echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
 echo "<img src=\"img/symbole/plus_".(($child_count) ? (empty($_SESSION["structure"][0]) ? "open" : "close") : "empty");
 echo ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($child_count) ? "</a>" : "");
@@ -67,7 +67,7 @@ echo '<br>'.$BL['be_onepage_id'].': '.(empty($indexpage["acat_onepage"]) ? $BL['
 echo '\');" onmouseout="UnTip()">';
 echo "</td><td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>";
 echo '<td class="dir" width="97%"><strong>'.$indexpage['acat_name']."</strong></td></tr></table></td>";
-echo '<td width="99" nowrap="nowrap">';
+echo '<td width="99" class="nowrap">';
 
 $struct[0]["acat_id"]     = 0;
 $struct[0]["acat_aktiv"]  = 1;

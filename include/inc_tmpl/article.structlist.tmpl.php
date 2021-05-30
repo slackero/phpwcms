@@ -66,7 +66,7 @@ $an = $indexpage['acat_name'];
 $a  = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
 $a .= '<td width="461">';
 $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
-$a .= '<td nowrap="nowrap">';
+$a .= '<td class="nowrap">';
 $a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
 $a .= "<img src=\"img/symbole/plus_".($child_count ? (empty($_SESSION["structure"][0]) ? "open" : "close") : "empty");
 $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count) ? "</a>" : "");
@@ -83,7 +83,7 @@ $a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\
 $a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td width="77" nowrap="nowrap">';
+echo '<td width="77" class="nowrap">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;

@@ -142,11 +142,11 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			<div id="tab<?php echo $key ?>" class="tab tab-collapsed">
 				<table class="tab-container" cellpadding="0" cellspacing="0">
 					<tr>
-						<td class="chatlist col1w" align="right" nowrap="nowrap">
+						<td class="chatlist col1w nowrap" align="right" nowrap="nowrap">
 							<a href="#" onclick="return toggleTab('tab<?php echo $key ?>');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"></a>
 							<?php echo $BL['be_tab_name']; ?>:&nbsp;</td>
 						<td class="tdbottom2"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="f11b width400" /></td>
-						<td nowrap="nowrap" style="padding-right:5px;">
+						<td class="nowrap" style="padding-right:5px;">
 							<em class="handle" title="<?php echo $sort_up_down; ?>"></em>
 							<a href="#" onclick="return deleteTab('tab<?php echo $key ?>');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /></a>
 						</td>
@@ -178,7 +178,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 					$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
 ?>
 					<tr class="tab-collapsable-row">
-						<td class="chatlist tdtop8" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+						<td class="chatlist tdtop8 nowrap" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
 							if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
 								if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
 									echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -394,7 +394,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 ?>
 			entry += '<tr class="tab-collapsable-row">';
-			entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+			entry += '<td class="chatlist tdtop4 nowrap" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
 						if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
 							if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
 								echo html($tab_fieldgroup['fields'][$custom_field]['legend']);

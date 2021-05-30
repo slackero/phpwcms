@@ -765,7 +765,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
             <tr>
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
                 <td><input type="text" name="cform_function_validate" class="width120" value="<?php echo html($content['form']["cform_function_validate"]) ?>"/></td>
-                <td class="chatlist" align="right" class="nowrap">
+                <td class="chatlist nowrap" align="right" class="nowrap">
                     <?php echo $BL['be_article_cnt_anchor'] . ' &ndash; ' . $BL['be_cnt_target']; ?>:<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
                 </td>
                 <td colspan="4"><input type="text" name="cform_anchor_name" class="width120" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>

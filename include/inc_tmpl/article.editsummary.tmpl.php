@@ -74,7 +74,7 @@ $template_default['article']['imagelist_default_height'] = isset($template_defau
                         <td class="chatlist">&nbsp;<br />
                             <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo $article["article_begin"] ?>' : '';" />
                         </td>
-                        <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                        <td class="chatlist tdbottom3 nowrap" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
                             <input name="article_begin" type="text" id="article_begin" class="width150" value="<?php echo $article["article_begin"]; ?>" />
                         </td>
                         <td class="chatlist tdbottom3">&nbsp;<br />
@@ -108,7 +108,7 @@ calBegin.setYearCombo(false);
                         <td class="chatlist">&nbsp;<br />
                             <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo $article["article_end"] ?>' : '';" />
                         </td>
-                        <td class="chatlist tdbottom3" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
+                        <td class="chatlist tdbottom3 nowrap" nowrap="nowrap">YYYY-MM-DD HH:MM:SS<br />
                             <input name="article_end" type="text" id="article_end" class="width150" value="<?php echo $article["article_end"] ?>" />
                         </td>
                         <td class="chatlist tdbottom3">&nbsp;<br />

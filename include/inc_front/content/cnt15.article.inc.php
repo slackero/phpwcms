@@ -113,7 +113,7 @@ if(isset($result[0]['article_id'])) {
                 $alinkmenu['sum']   = "<tr>\n\t<td>" . $alinkmenu['sum'] . "</td>\n</tr>\n";
             }
 
-            $alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." nowrap=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
+            $alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." class=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
             $alinkmenu['link'] .= '<td'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0].'<a href="index.php?'.setGetArticleAid($row).'" ';
             $alinkmenu['link'] .= get_class_attrib($template_default["article"]["link_article_class"]).' title="'.$row['article_title'].'">';
             $alinkmenu['link'] .= $row['article_menutitle'].'</a>'.$alinkmenu['titlewrap'][1]."</td>\n</tr>\n";

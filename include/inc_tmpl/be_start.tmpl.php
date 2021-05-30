@@ -116,8 +116,8 @@ $_last10_article = _dbQuery($_asql_1);
 				echo ' / ' . html($value['article_subtitle']);
 			}
 			echo '</td>'.LF;
-			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
-			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
+			echo '	<td align="center" class="nowrap" style="width:115px">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
+			echo '	<td style="padding:3px;width:42px;" class="nowrap">';
 			echo '<img src="img/button/visible_12x13_'.$value["article_aktiv"].'.gif" alt="" border="0" style="margin-right:2px;" />';
 			echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'];
 			echo '"><img src="img/button/edit_22x13.gif" alt="Edit" border="0" /></a>';
@@ -207,9 +207,9 @@ $_last10_article = _dbQuery($_asql_1);
 			$value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice'], false));
 
 			echo '	<td class="overflow-ellipsis home-cp" title="'.$BL['be_func_content_edit'].': '.html($value['notice_long'], false).'" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
-			echo '	<td align="center" nowrap="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
+			echo '	<td align="center" class="nowrap" style="width:115px">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
 
-			echo '	<td style="padding:3px;width:42px;" nowrap="nowrap">';
+			echo '	<td style="padding:3px;width:42px;" class="nowrap">';
 			echo '<img src="img/button/visible_12x13_'.$value["acontent_visible"].'.gif" alt="" border="0" style="margin-right:2px;" />';
 			echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
 			echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'];

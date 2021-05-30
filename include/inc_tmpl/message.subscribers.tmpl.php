@@ -384,7 +384,7 @@ foreach($data as $row) {
 	echo '<img src="img/famfamfam/vcard.gif" alt="Recipient"></td>'."\n";
 	echo '<td width="1%" class="dir">&nbsp;<strong>'.$row["address_email"]."</strong></td>\n";
 	echo '<td class="dir" width="95%">&nbsp;'.html($row["address_name"])."</td>\n";
-	echo '<td align="right" nowrap="nowrap" class="button_td">';
+	echo '<td align="right" nowrap="nowrap" class="button_td nowrap">';
 
 	echo '<a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1">';
 	echo '<img src="img/button/edit_22x13.gif" border="0" alt=""></a>';
