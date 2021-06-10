@@ -28,12 +28,12 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	$data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM ".DB_PREPEND.'phpwcms_formresult WHERE formresult_pid='.$fid);
 
 	if(!$data) {
-		die('Just a problem!');
+        die('No data returned or another error processing the export.');
 	}
 
 	$export		= array();
 	$row		= 1;
-	$export[0]	= array('#'=>'','#ID'=>'','#Date'=>'','#IP'=>'');
+	$export[0]	= array('#'=>'', '#ID'=>'', '#Date'=>'', '#IP'=>'');
 
 	// run all data first and combine array elements
 	foreach($data as $key => $value) {
@@ -57,33 +57,32 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 	$elements = array();
 
-	$elements[0]  = '	<tr>'.LF;
+	$elements[0]  = '<tr>';
 	foreach($export[0] as $key => $value) {
-		$elements[0] .= '		<th>';
+		$elements[0] .= '<th>';
 		$elements[0] .= $key;
-		$elements[0] .= '</th>'.LF;
+		$elements[0] .= '</th>';
 	}
-	$elements[0] .= '	</tr>';
-
+	$elements[0] .= '</tr>';
 
 	for($x = 1; $x < $row; $x++) {
 
-		$elements[$x]  = '	<tr>'.LF;
+		$elements[$x]  = '<tr>';
 		foreach($export[0] as $key => $value) {
 
-			$elements[$x] .= '		<td>';
+			$elements[$x] .= '<td>';
 			$elements[$x] .= isset($export[$x][$key]) ? html($export[$x][$key]) : '';
-			$elements[$x] .= '</td>'.LF;
+			$elements[$x] .= '</td>';
 
 		}
-		$elements[$x] .= '	</tr>';
+		$elements[$x] .= '</tr>';
 
 		unset($export[$x]); // free memory
 	}
 
 	unset($export); // free memory
 
-	$filename = date('Y-m-d_H-i-s').'_formresultID-'.$fid.'.xls';
+	$filename = date('Y-m-d_H-i-s').'_formresultID-'.$fid.'.html';
 
 	if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
 		// workaround for IE filename bug with multiple periods / multiple dots in filename
@@ -91,9 +90,21 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		$filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
 	}
 
-	echo '<table border="1" cellspacing="1" cellpadding="2">'.LF;
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
+
+    header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+
+    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+    echo '<html><head>';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
+    echo '<style type="text/css">body {font-family:sans-serif;font-size:10pt;} td {mso-number-format:\@;}</style>';
+    echo '</head><body>';
+	echo '<table border="1" cellspacing="1" cellpadding="2">';
 	echo implode(LF, $elements);
-	echo LF.'</table>';
+	echo '</table></body></html>';
 	flush();
 	exit();
 
@@ -101,11 +112,13 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 	$data		= _getDatabaseQueryResult("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM ".DB_PREPEND.'phpwcms_formresult WHERE formresult_pid='.$fid);
 
-	if(!$data) die('Just a problem!');
+	if(!$data) {
+	    die('No data returned or another error processing the export.');
+    }
 
 	$export		= array();
 	$row		= 1;
-	$export[0]	= array('#ID'=>'','#Date'=>'','#IP'=>'');
+	$export[0]	= array('#ID'=>'', '#Date'=>'', '#IP'=>'');
 
 	// run all data first and combine array elements
 	foreach($data as $key => $value) {
@@ -126,40 +139,39 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 		$row++;
 	}
 
-
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
 	header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
 
 	$filename = date('Y-m-d_H-i-s').'_formresultdetailID-'.$fid.'.html';
-	header('Content-type: text/html');
+	header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
  	header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'.LF;
-	echo '<html>'.LF;
-	echo '<head>'.LF;
-	echo '	<title>Formresult Detail Export ID'.$fid.'</title>'.LF;
-	echo '	<style type="text/css">
+	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+	echo '<html>';
+	echo '<head>';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
+	echo '<title>Formresult Detail Export ID'.$fid.'</title>';
+	echo '<style type="text/css">
 		body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
 		hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
-		td {font-size: 10pt;}
-	</style>'.LF;
-	echo '</head>'.LF;
-	echo '<body>'.LF;
+		td {mso-number-format:\@;font-size:10pt;}
+	</style>';
+	echo '</head>';
+	echo '<body>';
 
 	$elements = array();
 
-
 	for($x = 1; $x < $row; $x++) {
 
-		echo '<p style="font-weight:bold">page '.$x.' of '.($row-1).'</p>'.LF;
-		echo '<table border="0" cellspacing="0" cellpadding="0" summary="ID:'.$fid.'">'.LF;
+		echo '<p style="font-weight:bold">page '.$x.' of '.($row-1).'</p>';
+		echo '<table border="0" cellspacing="0" cellpadding="0" summary="ID:'.$fid.'">';
 
 		foreach($export[0] as $key => $value) {
 
-			echo '<tr>'.LF;
-			echo '	<td valign="top" style="padding:0 5px 0 0;"><strong>'.ucfirst($key).'</strong></td>'.LF;
-			echo '	<td valign="top" style="padding:0 0 3px 0;">';
+			echo '<tr>';
+			echo '<td valign="top" style="padding:0 5px 0 0;"><strong>'.ucfirst($key).'</strong></td>';
+			echo '<td valign="top" style="padding:0 0 3px 0;">';
 			if(isset($export[$x][$key])) {
 
 				if(strpos($export[$x][$key], '/'.$phpwcms["content_path"].'form/')) {
@@ -176,22 +188,17 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 					echo html($export[$x][$key]);
 				}
 
-			} else {
-
-				echo '&nbsp;';
-
 			}
 
-			echo '</td>'.LF.'</tr>'.LF;
+			echo '</td></tr>';
 
 		}
-		echo '</table>'.LF.'<hr />'.LF;
+		echo '</table><hr />';
 
 	}
 
-	echo '</body>'.LF.'</html>';
+	echo '</body></html>';
 	exit();
-
 
 } elseif($action == 'exportsubscriber') {
 
@@ -229,25 +236,29 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 	if($data) {
 
 		// send header data
-		$filename = date('Y-m-d_H-i-s').'_newsletterRecipients.xls';
+		$filename = date('Y-m-d_H-i-s').'_newsletterRecipients.html';
 
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 		header('Last-Modified: '.gmdate('D, d M Y H:i:s GMT', time()) );
 		header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
 
-		header('Content-type: application/vnd-ms-excel');
+		header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
  		header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-		echo '<table border="1" cellspacing="1" cellpadding="2">'.LF;
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+        echo '<html><head>';
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
+        echo '<style type="text/css">body {font-family:sans-serif;font-size:10pt;} td {mso-number-format:\@;}</style>';
+        echo '</head><body>';
+		echo '<table border="1" cellspacing="1" cellpadding="2">';
 
 		// 1st row - column names
-		echo '<tr>'.LF;
-
-		echo '<th>verified</th>'.LF;
-		echo '<th>email</th>'.LF;
-		echo '<th>name</th>'.LF;
-		echo '<th>last change</th>'.LF;
-		echo '<th>all</th>'.LF;
+		echo '<tr>';
+		echo '<th>verified</th>';
+		echo '<th>email</th>';
+		echo '<th>name</th>';
+		echo '<th>last change</th>';
+		echo '<th>all</th>';
 
 		// now check subscriptions
 		$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
@@ -260,15 +271,14 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 			foreach($_userInfo['subscriptions'] as $value) {
 
 				// echo channel column name
-				echo '<th>'.html($value['subscription_name']).'</th>'.LF;
+				echo '<th>'.html($value['subscription_name']).'</th>';
 				$_userInfo['channel'][$x] = $value['subscription_id'];
 				$x++;
 
 			}
-
 		}
 
-		echo '</tr>'.LF;
+		echo '</tr>';
 
 		$_userInfo['count'] = count($_userInfo['channel']);
 
@@ -288,12 +298,12 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 
 			}
 
-			echo '<tr>'.LF;
-			echo '<td align="center">'.($value['address_verified'] ? 'X' : '').'</td>'.LF;
-			echo '<td>'.html($value['address_email']).'</td>'.LF;
-			echo '<td>'.html($value['address_name']).'</td>'.LF;
-			echo '<td>'.html($value['addate']).'</td>'.LF;
-			echo '<td align="center">'.$value['all'].'</td>'.LF;
+			echo '<tr>';
+			echo '<td align="center">'.($value['address_verified'] ? 'X' : '').'</td>';
+			echo '<td>'.html($value['address_email']).'</td>';
+			echo '<td>'.html($value['address_name']).'</td>';
+			echo '<td>'.html($value['addate']).'</td>';
+			echo '<td align="center">'.$value['all'].'</td>';
 
 			// custom subscriptions
 			if($_userInfo['count']) {
@@ -301,32 +311,27 @@ if($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET[
 				if($value['all'] === '') {
 
 					for($x=0; $x < $_userInfo['count']; $x++) {
-
 						echo '<td align="center">';
 						echo in_array($_userInfo['channel'][$x], $value['address_subscription']) ? 'X' : '';
-						echo '</td>'.LF;
-
+						echo '</td>';
 					}
 
 				} else {
 
-					echo str_repeat('<td></td>'.LF, $_userInfo['count']);
+					echo str_repeat('<td></td>', $_userInfo['count']);
 
 				}
-
 			}
 
-			echo '</tr>'.LF;
-
+			echo '</tr>';
 		}
 
-		echo '</table>';
-
+		echo '</table></body></html>';
 	}
 	exit();
 
 } else {
 
-	die('Just a problem!');
+    die('No data returned or another error processing the export.');
 
 }
