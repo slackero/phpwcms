@@ -67,6 +67,7 @@ if($acat_id) {
         $acat_canonical     = $row_acat['acat_canonical'];
         $acat_breadcrumb    = intval($row_acat['acat_breadcrumb']);
         $acat_onepage       = empty($row_acat['acat_onepage']) ? 0 : 1;
+        $acat_struct        = $row_acat['acat_struct'];
 
     }
 

@@ -11,7 +11,7 @@
 // get article details
 function get_article_data($aid) {
     $sql  = "SELECT article_id, article_cid, article_title, article_subtitle, article_alias, article_aktiv, article_public, article_uid, article_lang, ";
-    $sql .= "date_format(article_tstamp, '".$BL['be_sqlshortdatetime']."') AS article_date ";
+    $sql .= "date_format(article_tstamp, '".$GLOBALS['BL']['be_sqlshortdatetime']."') AS article_date ";
     $sql .= 'FROM '.DB_PREPEND.'cmsgo_article WHERE article_deleted=0 AND   article_id = ' . intval($aid) . ' LIMIT 1';
 
     $data = _dbQuery($sql);
@@ -470,7 +470,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($cut_id == !$forbid_cut) {
                         $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
+                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
                 }
@@ -482,7 +482,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($copy_id == !$forbid_copy) {
                         $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
+                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
                 }

@@ -56,6 +56,7 @@ if($_GET['struct'] === 'index') {
     $acat_canonical     = empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'];
     $acat_breadcrumb    = empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']);
     $acat_onepage       = empty($indexpage['acat_onepage']) ? 0 : 1;
+    $acat_struct        = 0;
 
     $acat_struct_mode = 'INDEX';
 
@@ -94,7 +95,10 @@ if($_GET['struct'] === 'index') {
     $acat_canonical     = '';
     $acat_breadcrumb    = 0;
     $acat_onepage       = 0;
+}
 
+if (!isset($acat_struct)) {
+    $acat_struct = intval($_GET['struct']);
 }
 
 switch($acat_hidden) {
@@ -113,7 +117,6 @@ switch($acat_hidden) {
 }
 
 ?>
-
 <form action="include/inc_act/act_structure.php" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('Fill in a category title! \n\n('+x+' words total)');this.acat_name.focus();return false;}">
 
 <input name="acat_sort_temp" type="hidden" value="<?php echo $acat_sort; ?>" />
@@ -139,10 +142,8 @@ switch($acat_hidden) {
   <?php echo $BL['be_admin_struct_title'] ?> <span style="font-weight: normal;"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong style="color: #FF3300"><?php
               //Anzeigen des Kategorienamens (Menuepunkt)
               if($acat_struct) {
-
                   $parentStructData = getParentStructArray($acat_struct);
                   echo html($parentStructData["acat_name"]);
-
               } else {
                   echo $BL['be_admin_struct_index'];
                   $parentStructData = array("acat_name" => $BL['be_admin_struct_index']);
