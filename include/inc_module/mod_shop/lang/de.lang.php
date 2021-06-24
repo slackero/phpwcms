@@ -144,3 +144,7 @@ $BLM['shopprod_autosubtract_off'] = 'bei Bestellung NICHT um die Bestellmenge ve
 
 //NEW entries PPMO
 $BLM['order_edit']              = 'Bestellung bearbeiten';
+
+$BLM['shopprod_on_request'] = 'Nur auf Anfrage';
+$BLM['shopprod_on_request_button'] = 'Anfrage-URL';
+$BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

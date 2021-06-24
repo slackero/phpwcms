@@ -27,7 +27,7 @@ if(isset($_GET['page'])) {
 
 // set default values for paginating
 if(empty($_SESSION['list_product_count'])) {
-  $_SESSION['list_product_count'] = 25;
+  $_SESSION['list_product_count'] = 250;
 }
 
 $_entry['post_filter'] = '';
@@ -164,7 +164,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 
 <?php
-// loop listing available newsletters
+// loop listing available products
 $row_count = 0;
 
 $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_shop_products WHERE '.$_entry['query'].' ';
@@ -199,7 +199,9 @@ if($data) {
       echo '<a class="btn btn-sm btn-blue mr-1" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
       echo '<i class="fa fa-pencil-alt"></i></a>';
 
-      echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible '.($row["shopprod_status"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      $row["shopprod_var"] = @unserialize($row["shopprod_var"]);
+
+      echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible '.(empty($row["shopprod_status"]) ? "btn-danger" : (!empty($row["shopprod_var"]['request'] && !empty($row["shopprod_var"]['request_url'])) ? "btn-warning btn-success" : "btn-success")).' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
 
       echo '<a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';

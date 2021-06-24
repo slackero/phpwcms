@@ -451,6 +451,26 @@ if (count($plugin['data']['shopprod_files'])) {
     </div>
   </div>
 
+    <div class="form-group form-row">
+        <label class="col-2 col-form-label text-right"><?php echo $BLM['shopprod_on_request'] ?></label>
+        <div class="col-10 col-sm-1">
+            <div class="form-check pt-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
+                    <?php echo $BL['be_cnt_activated'] ?>
+                </label>
+            </div>
+        </div>
+        <div class="col-3 col-sm-2 text-right">
+            <label class="col-form-label"><?php echo $BLM['shopprod_on_request_button'] ?></label>
+        </div>
+        <div class="col-9 col-sm-7">
+            <input name="shopprod_on_request_url" type="text" id="shopprod_on_request_url" class="form-control form-control-sm" value="<?php echo html($plugin['data']['shopprod_on_request_url']) ?>" size="30" maxlength="250" title="<?php echo $BLM['shopprod_on_request_url'] ?>" placeholder="<?php echo $BLM['shopprod_on_request_url'] ?>" />
+        </div>
+    </div>
+
+    <hr />
+
   <div class="form-group form-row">
     <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
     <div class="col">
