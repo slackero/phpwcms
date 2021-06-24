@@ -141,3 +141,7 @@ $BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
 
 $BLM['shopprod_inventory'] = 'Bestand';
 $BLM['shopprod_autosubtract_off'] = 'bei Bestellung NICHT um die Bestellmenge verringern';
+
+$BLM['shopprod_on_request'] = 'Nur auf Anfrage';
+$BLM['shopprod_on_request_button'] = 'Anfrage-URL';
+$BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

@@ -77,6 +77,7 @@ files_direct_download = 0
 files_template = shop.tmpl
 
 on_request_trigger = -999
+default_request_url = https://example.com?product={PRODUCT}&num={NUM}
 
 mail_customer_subject = "[#{ORDER}] Your order at MyShop"
 mail_neworder_subject = "[#{ORDER}] New order"
@@ -107,7 +108,9 @@ order_number_style = EN%05s
 class_prefix_shop_mode = shop-
 class_form_product_cart_option = product-cart-option
 class_shop_amount = shop-amount
-class_cart_add_button = cart-add-button
+class_cart_add_button = cart-add-button btn btn-primary
+class_request_button = request-button btn btn-primary
+class_request_form = form-request-product
 class_product_option_1 = product-option-1
 class_product_option_2 = product-option-2
 class_form_cart = shop-cart
@@ -149,7 +152,7 @@ amount_input_position = after
         [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
             Send price inquiry
         </a>[/ON_REQUEST][ON_REQUEST_ELSE]
-            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
+            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2} [ON_REQUEST_LINK_ELSE]Add to cart[/ON_REQUEST_LINK_ELSE][ON_REQUEST_LINK]Request[/ON_REQUEST_LINK][/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
         [/ON_REQUEST_ELSE]
             [VIEWED]<em>Viewed: {VIEWED}</em> [/VIEWED]
             [PRODUCT_INVENTORY]<em>Inventory: {PRODUCT_INVENTORY}</em>[/PRODUCT_INVENTORY]
@@ -193,7 +196,7 @@ amount_input_position = after
         [VIEWED]<p>Viewed: {VIEWED}</p>[/VIEWED]
         [PRODUCT_URL]<p>More: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Visit&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2}Add to cart[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
+        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2} [ON_REQUEST_LINK_ELSE]Add to cart[/ON_REQUEST_LINK_ELSE][ON_REQUEST_LINK]Request[/ON_REQUEST_LINK][/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
     </div>
     <div><a href="{PRODUCT_DETAIL_LINK}">Show All</a></div>
 
