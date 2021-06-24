@@ -119,7 +119,7 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
 }
 
 function escape_quote($text='') {
-    return str_replace("'", "\'", $text);
+    return str_replace(array('\\', "'"), array('\\\\', "\'"), $text);
 }
 
 function write_conf_file($val) {
