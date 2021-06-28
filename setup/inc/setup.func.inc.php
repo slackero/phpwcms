@@ -284,6 +284,8 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
     $conf_file .= "\$phpwcms['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).\n";
     $conf_file .= "\$phpwcms['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/.\n";
+    $conf_file .= "\$phpwcms['disable_generator'] = false; // Disable <meta name=\"generator\"> and header `X-phpwcms-Release`\n";
+    $conf_file .= "\$phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";

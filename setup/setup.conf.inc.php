@@ -151,6 +151,8 @@ $phpwcms['enable_GDPR'] = true; // Try to handle GDPR inside of phpwcms by defau
 $phpwcms['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
 $phpwcms['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
 $phpwcms['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
+$phpwcms['disable_generator'] = false; // Disable <meta name="generator"> and header `X-phpwcms-Release`
+$phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

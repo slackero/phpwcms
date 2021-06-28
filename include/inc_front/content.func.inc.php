@@ -1209,7 +1209,9 @@ if($content['opengraph']['render']) {
     }
 }
 
-set_meta('generator', 'phpwcms '.PHPWCMS_VERSION);
+if(empty($phpwcms['disable_generator'])) {
+    set_meta('generator', 'phpwcms ' . PHPWCMS_VERSION);
+}
 
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {

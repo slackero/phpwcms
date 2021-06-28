@@ -68,7 +68,6 @@ require PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 require PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php';
 
-
 // SEO logging
 if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
     $phpwcms['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
@@ -202,11 +201,15 @@ if($phpwcms['cache_timeout']) {
 }
 
 // write phpwcms release information in a custom HTTP header
-header('X-phpwcms-Release: ' . PHPWCMS_VERSION);
+if(empty($phpwcms['disable_generator'])) {
+    header('X-phpwcms-Release: ' . PHPWCMS_VERSION);
+}
 
 // retrieve complete processing time
-list($usec, $sec) = explode(' ', microtime());
-header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $phpwcms_rendering_start), 3) .' ms');
+if(empty($phpwcms['disable_processed_in'])) {
+    list($usec, $sec) = explode(' ', microtime());
+    header('X-phpwcms-Page-Processed-In: ' . number_format(1000 * ($usec + $sec - $phpwcms_rendering_start), 3) . ' ms');
+}
 
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {
