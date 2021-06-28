@@ -109,7 +109,7 @@ $cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsgo Filebrowser in FCKeditor 
 $cmsgo['feuser_regkey'] = 'FEUSER';
 $cmsgo['edit.php'] = 'edit.php';
 $cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.10/)
+$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.11/)
 $cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -123,7 +123,7 @@ $cmsgo['allow_empty_alias'] = false; // do not auto-create (default) alias when 
 $cmsgo['reserved_alias'] = array(); // use this to block custom alias
 $cmsgo['enable_deprecated'] = false; // enable/disable deprecated functionality, enable if you miss things
 $cmsgo['canonical_off'] = false; // disable canonical link tag
-$cmsgo['viewport'] = ''; // set viewport like "width=device-width, initial-scale=1.0, user-scalable=no"
+$cmsgo['viewport'] = 'width=device-width, initial-scale=1'; // set viewport https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
 $cmsgo['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...
 $cmsgo['base_href'] = false; // set the <base href=""> tag, use string (URL) or bool TRUE/FALSE
 $cmsgo['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr
@@ -150,6 +150,8 @@ $cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsgo by default (
 $cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
 $cmsgo['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
 $cmsgo['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
+$cmsgo['disable_generator'] = false; // Disable <meta name="generator"> and header `X-phpwcms-Release`
+$cmsgo['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

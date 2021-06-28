@@ -68,7 +68,6 @@ require CMSGO_ROOT.'/include/inc_front/front.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/ext.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/content.func.inc.php';
 
-
 // SEO logging
 if(!empty($cmsgo['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
     $cmsgo['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
@@ -202,11 +201,15 @@ if($cmsgo['cache_timeout']) {
 }
 
 // write cmsgo release information in a custom HTTP header
-header('X-cmsgo-Release: ' . CMSGO_VERSION);
+if(empty($cmsgo['disable_generator'])) {
+    header('X-cmsgo-Release: ' . CMSGO_VERSION);
+}
 
 // retrieve complete processing time
-list($usec, $sec) = explode(' ', microtime());
-header('X-cmsgo-Page-Processed-In: ' . number_format(1000*($usec + $sec - $cmsgo_rendering_start), 3) .' ms');
+if(empty($cmsgo['disable_processed_in'])) {
+    list($usec, $sec) = explode(' ', microtime());
+    header('X-cmsgo-Page-Processed-In: ' . number_format(1000 * ($usec + $sec - $cmsgo_rendering_start), 3) . ' ms');
+}
 
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {

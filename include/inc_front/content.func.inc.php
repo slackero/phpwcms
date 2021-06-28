@@ -1147,10 +1147,8 @@ $content['all'] = str_replace('{LAZY_LOADING}', CMSGO_LAZY_LOADING, $content['al
 
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {
-
     init_frontend_edit_js();
     $content['all'] .= LF . '<div id="fe-link" class="disabled"></div>' . LF;
-
 }
 
 // insert description meta tag if not definied
@@ -1213,7 +1211,9 @@ if($content['opengraph']['render']) {
     }
 }
 
-set_meta('generator', 'cmsgo '.CMSGO_VERSION);
+if(empty($cmsgo['disable_generator'])) {
+    set_meta('generator', 'cmsgo ' . CMSGO_VERSION);
+}
 
 // replace Print URL
 if(strpos($content["all"], '[PRINT]') !== false) {
