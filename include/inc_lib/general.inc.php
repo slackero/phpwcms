@@ -1703,6 +1703,16 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
+    if(is_string($GLOBALS['phpwcms']['allowed_upload_ext'])) {
+        $GLOBALS['phpwcms']['allowed_upload_ext'] = convertStringToArray(strtolower($GLOBALS['phpwcms']['allowed_upload_ext']));
+    }
+    if (empty($file_status['ext']) || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'])) {
+        $file_status['error'] = 'The file with extension *.' . $file_status['ext'] . ' is not allowed or invalid for uploading';
+        $file_status['error_num'] = 415;
+        @unlink($_FILES[$file]['tmp_name']);
+
+        return $file_status;
+    }
     if ($imgtype) {
         $imgtype = convertStringToArray(strtolower($imgtype));
         if (count($imgtype)) {
@@ -1724,6 +1734,7 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
                 14 => 'iff',
                 15 => 'wbmp',
                 16 => 'xbm',
+                18 => 'webp'
             );
             if (!$data && !$exttype) {
                 $file_status['error'] = 'Format' . ($file_status['ext'] ? ' *.' . $file_status['ext'] : '') . ' not supported (';

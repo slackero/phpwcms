@@ -386,7 +386,7 @@ if(isset($plugin['error']['image'])) {
 <?php echo $plugin['data']['image'] ?>
 			</select></td>
 			<td>&nbsp;</td>
-			<td class="upload newimage"><input type="file" name="adcampaign_upload_image" id="adcampaign_upload_image" title="<?php echo $BLM['ad_upload_image'] ?>" /></td>
+			<td class="upload newimage"><input type="file" name="adcampaign_upload_image" id="adcampaign_upload_image" title="<?php echo $BLM['ad_upload_image'] ?>" accept="image/png,image/jpeg,image/gif,image/webp,.gif,.png,.webp,.jpeg,.jpg" /></td>
 			</tr>
 			</table></td>
 
@@ -410,7 +410,7 @@ if(isset($plugin['error']['flash'])) {
 <?php echo $plugin['data']['flash'] ?>
 			</select></td>
 				<td>&nbsp;</td>
-				<td class="upload newflash"><input type="file" name="adcampaign_upload_flash" id="adcampaign_upload_flash" title="<?php echo $BLM['ad_upload_flash'] ?>" /></td>
+				<td class="upload newflash"><input type="file" name="adcampaign_upload_flash" id="adcampaign_upload_flash" title="<?php echo $BLM['ad_upload_flash'] ?>" accept=".swf" /></td>
 			</tr>
 			</table></td>
 
@@ -434,7 +434,7 @@ if(isset($plugin['error']['css'])) {
 <?php echo $plugin['data']['css'] ?>
 			</select></td>
 				<td>&nbsp;</td>
-				<td class="upload newcss"><input type="file" name="adcampaign_upload_css" id="adcampaign_upload_css" title="<?php echo $BLM['ad_upload_css'] ?>" /></td>
+				<td class="upload newcss"><input type="file" name="adcampaign_upload_css" id="adcampaign_upload_css" title="<?php echo $BLM['ad_upload_css'] ?>" accept="text/css,.css" /></td>
 			</tr>
 			</table></td>
 

@@ -548,7 +548,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     $fileuploaderAllowedExtensions = '';
     if(is_string($phpwcms['allowed_upload_ext'])) {
-        $fileuploaderAllowedExtensions = $phpwcms['allowed_upload_ext'];
+        $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
         if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
             $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
         }
