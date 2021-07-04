@@ -36,8 +36,16 @@ $ftp = array(
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
-            $ftp["file"][$key]      = base64_decode($ftp["file"][$key]);
-            $ftp["filename"][$key]  = clean_slweg($ftp["filename"][$key]);
+            $ftp["file"][$key] = realpath(base64_decode($ftp["file"][$key]));
+            if (!is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key]) || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false) {
+                unset(
+                    $ftp["mark"][$key],
+                    $ftp["file"][$key],
+                    $ftp["filename"][$key]
+                );
+            } else {
+                $ftp["filename"][$key] = clean_slweg($ftp["filename"][$key]);
+            }
         } else {
             unset(
                 $ftp["mark"][$key],
@@ -300,7 +308,6 @@ if(!$ftp["error"]) {
                 if($file_type === '') {
                     $file_type = @mime_content_type($file_path);
                 }
-
             }
 
             $sql  = "INSERT INTO ".DB_PREPEND."phpwcms_file (";
@@ -323,9 +330,7 @@ if(!$ftp["error"]) {
                 $wcs_newfilename = $file_hash . $_file_extension;
 
                 // changed for using hashed file names
-                $usernewfile    = $useruploadpath.$wcs_newfilename;
-
-
+                $usernewfile = $useruploadpath.$wcs_newfilename;
                 $oldumask = umask(0);
 
                 if ($dir = @opendir($useruploadpath)) {
