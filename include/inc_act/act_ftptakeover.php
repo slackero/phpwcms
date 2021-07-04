@@ -35,8 +35,16 @@ $ftp = array(
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
-            $ftp["file"][$key]      = base64_decode($ftp["file"][$key]);
-            $ftp["filename"][$key]  = clean_slweg($ftp["filename"][$key]);
+            $ftp["file"][$key] = realpath(base64_decode($ftp["file"][$key]));
+            if (!is_file(CMSGO_ROOT.$cmsgo["ftp_path"].$ftp["file"][$key]) || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false) {
+                unset(
+                    $ftp["mark"][$key],
+                    $ftp["file"][$key],
+                    $ftp["filename"][$key]
+                );
+            } else {
+                $ftp["filename"][$key] = clean_slweg($ftp["filename"][$key]);
+            }
         } else {
             unset(
                 $ftp["mark"][$key],

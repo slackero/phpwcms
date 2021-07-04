@@ -535,7 +535,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     $fileuploaderAllowedExtensions = '';
     if(is_string($cmsgo['allowed_upload_ext'])) {
-        $fileuploaderAllowedExtensions = $cmsgo['allowed_upload_ext'];
+        $fileuploaderAllowedExtensions = strtolower($cmsgo['allowed_upload_ext']);
         if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
             $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
         }

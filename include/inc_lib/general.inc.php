@@ -1756,11 +1756,39 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
+    if(is_string($GLOBALS['cmsgo']['allowed_upload_ext'])) {
+        $GLOBALS['cmsgo']['allowed_upload_ext'] = convertStringToArray(strtolower($GLOBALS['cmsgo']['allowed_upload_ext']));
+    }
+    if (empty($file_status['ext']) || !in_array($file_status['ext'], $GLOBALS['cmsgo']['allowed_upload_ext'])) {
+        $file_status['error'] = 'The file with extension *.' . $file_status['ext'] . ' is not allowed or invalid for uploading';
+        $file_status['error_num'] = 415;
+        @unlink($_FILES[$file]['tmp_name']);
+
+        return $file_status;
+    }
     if ($imgtype) {
         $imgtype = convertStringToArray(strtolower($imgtype));
         if (count($imgtype)) {
             $data = @getimagesize($_FILES[$file]['tmp_name']);
-            $exif_imagetype = array(1 => 'gif', 2 => 'jpg', 3 => 'png', 4 => 'swf', 5 => 'psd', 6 => 'bmp', 7 => 'tif', 8 => 'tiff', 9 => 'jpc', 10 => 'jp2', 11 => 'jpx', 12 => 'jb2', 13 => 'swc', 14 => 'iff', 15 => 'wbmp', 16 => 'xbm',);
+            $exif_imagetype = array(
+                1 => 'gif',
+                2 => 'jpg',
+                3 => 'png',
+                4 => 'swf',
+                5 => 'psd',
+                6 => 'bmp',
+                7 => 'tif',
+                8 => 'tiff',
+                9 => 'jpc',
+                10 => 'jp2',
+                11 => 'jpx',
+                12 => 'jb2',
+                13 => 'swc',
+                14 => 'iff',
+                15 => 'wbmp',
+                16 => 'xbm',
+                18 => 'webp'
+            );
             if (!$data && !$exttype) {
                 $file_status['error'] = 'Format'.($file_status['ext'] ? ' *.'.$file_status['ext'] : '').' not supported (';
                 $allowed = array();
