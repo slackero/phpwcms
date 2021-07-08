@@ -852,7 +852,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         echo '<td width="15%"><input type="text" name="cform_field_size['.$field_counter.']" class="form-control form-control-sm" value="';
         echo html($content['form']["fields"][$key]['size']).'"title="SIZE for Text/COLUMNS for Textarea"></td>';
         echo '<td width="auto"><input type="text" name="cform_field_max['.$field_counter.']" class="form-control form-control-sm" value="';
-        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>';
+        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio"></td>';
         echo '<td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_required['.$field_counter.']"';
         echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>';
         echo '<td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_delete['.$field_counter.']" value="1" title="'.$BL['be_cnt_mark_as_del'].'"></td>';
@@ -998,7 +998,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <td width="25%" class="py-3"><input type="text" placeholder="<?php echo $BL['be_admin_tmpl_name'] ?>" name="cform_field_name[0]" class="form-control form-control-sm" /></td>
     <td width="15%" class="py-3"><input type="text" placeholder="<?php echo $BL['be_cnt_label'] ?>" name="cform_field_label[0]" class="form-control form-control-sm" /></td>
     <td width="15%" class="py-3"><input type="text" placeholder="S/C" name="cform_field_size[0]" class="form-control form-control-sm" title="SIZE for Text/COLUMNS for Textarea" /></td>
-    <td width="auto" class="py-3"><input type="text" placeholder="M/R" name="cform_field_max[0]" class="form-control form-control-sm" title="MAXLENGTH for Text/ROWS for Textarea and List" /></td>
+    <td width="auto" class="py-3"><input type="text" placeholder="M/R" name="cform_field_max[0]" class="form-control form-control-sm" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio" /></td>
     <td style="width: 25px; padding: 1px 4px;" class="py-3"><input type="checkbox" name="cform_field_required[0]" value="1" title="mark as required field" /></td>
     <td style="width: 25px; padding: 1px 4px;" class="py-3">&nbsp;<input type="hidden" name="cform_order[0]" value="<?php echo $field_counter?>" /></td>
   </tr>
