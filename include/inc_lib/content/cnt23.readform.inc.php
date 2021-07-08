@@ -404,7 +404,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                  * Checkbox
                  */
                 $content['form']["fields"][$field_counter]['size']  = intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
-                $content['form']["fields"][$field_counter]['max']   = '';
+                $content['form']["fields"][$field_counter]['max']   = strtoupper(clean_slweg($_POST['cform_field_max'][$key]));
+                if (!in_array($content['form']["fields"][$field_counter]['max'], array('B3', 'B4', 'B5'))) {
+                    $content['form']["fields"][$field_counter]['max'] = '';
+                }
                 break;
 
             case 'radio':
@@ -412,7 +415,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                  * Radiobutton
                  */
                 $content['form']["fields"][$field_counter]['size']  = intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
-                $content['form']["fields"][$field_counter]['max']   = '';
+                $content['form']["fields"][$field_counter]['max']   = strtoupper(clean_slweg($_POST['cform_field_max'][$key]));
+                if (!in_array($content['form']["fields"][$field_counter]['max'], array('B3', 'B4', 'B5'))) {
+                    $content['form']["fields"][$field_counter]['max'] = '';
+                }
                 break;
 
             case 'upload':

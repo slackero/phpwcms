@@ -926,32 +926,47 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $form_value = explode("\n", $cnt_form["fields"][$key]['value']);
                 $form_value = array_map('trim', $form_value);
                 $form_value = array_diff($form_value, array(''));
-
-                $form_field     .= '<span class="'.trim('form-checkbox '.$cnt_form["fields"][$key]['class']).'">';
-                $checkbox_class  = '</span>';
-
-                if($cnt_form["fields"][$key]['style']) {
-                    $checkbox_style = ' style="'.$cnt_form["fields"][$key]['style'].'"';
+                $checkbox_style = $cnt_form["fields"][$key]['style'] ? ' style="'.$cnt_form["fields"][$key]['style'].'"' : '';
+                if (count($form_value) > 1) {
+                    $form_value_single = false;
+                    $form_value_inline = $cnt_form["fields"][$key]['size'] ? false : true;
                 } else {
-                    $checkbox_style = '';
+                    $form_value_single = true;
+                    $form_value_inline = false;
                 }
-                if($checkbox_copy || count($form_value) == 1 || count($form_value) == 0 || !$form_value) {
+
+                if (substr($cnt_form["fields"][$key]['max'], 0, 1) === 'B') {
+                    $form_bs = intval(substr($cnt_form["fields"][$key]['max'], -1));
+                    $form_field_prefix = '<div class="'.trim('form-check '.$cnt_form["fields"][$key]['class']);
+                    if ($form_value_inline) {
+                        $form_field_prefix .= ' form-check-inline';
+                    }
+                } else {
+                    $form_bs = 0;
+                    $form_field_prefix = '<div class="'.trim('form-checkbox '.$cnt_form["fields"][$key]['class']);
+                }
+                $form_field_prefix .= '">';
+                $form_field .= $form_field_prefix;
+
+                if($checkbox_copy || $form_value_single || !$form_value) {
                     // only 1 checkbox
                     $checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
                     $checkbox_value = trim($checkbox_value);
-
                     $checkbox_value = explode('-|-', $checkbox_value, 2);
                     $checkbox_label = $checkbox_value[0];
                     $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
-
                     $checkbox_label = str_replace(' checked', '', $checkbox_label);
-
                     if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
                         $checkbox_value .= ' checked';
                     }
                     $checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
-                    $form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
+                    if ($form_bs < 4) {
+                        $form_field .= '<label for="' . $form_name . '"' . $checkbox_style . '>';
+                    }
                     $form_field .= '<input type="checkbox" name="'.$form_name.'" id="'.$form_name.'" ';
+                    if ($form_bs > 3) {
+                        $form_field .= ' class="form-check-input" ';
+                    }
                     if(substr($checkbox_value, -8) != ' checked') {
                         $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
@@ -961,21 +976,20 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if($cnt_form["fields"][$key]['required']) {
                         $form_field .= 'required="required"';
                     }
-                    $form_field .= '/>';
-                    $form_field .= $checkbox_label .'</label>';
+                    $form_field .= HTML_TAG_CLOSE . ' ';
+                    if ($form_bs > 3) {
+                        $form_field .= '<label for="' . $form_name . '" class="form-check-label">';
+                    }
+                    $form_field .= $checkbox_label . '</label>';
 
                 } else {
                     // list of checkboxes
                     $checkbox_counter = 0;
-                    $checkbox_spacer  = $cnt_form["fields"][$key]['size'] ? '<br />' : ' ';
                     foreach($form_value as $checkbox_value) {
-
                         $checkbox_value = explode('-|-', $checkbox_value, 2);
                         $checkbox_label = $checkbox_value[0];
                         $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
-
                         $checkbox_label = str_replace(' checked', '', $checkbox_label);
-
                         if(isset($POST_val[$POST_name]) && is_array($POST_val[$POST_name])) {
                             foreach($POST_val[$POST_name] as $postvar_value) {
                                 if($postvar_value == $checkbox_value) {
@@ -983,24 +997,38 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 }
                             }
                         }
+                        $checkbox_value = html_specialchars(trim($checkbox_value));
 
-                        $checkbox_value =  html_specialchars(trim($checkbox_value));
-                        if($checkbox_counter) {
-                            $form_field .= $checkbox_spacer;
+                        if ($checkbox_counter && ($form_bs > 3 || !$form_value_inline)) {
+                            $form_field .= '</div>' . $form_field_prefix;
                         }
-                        $form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
-                        $form_field .= '<input type="checkbox" name="'.$form_name.'[]" id="'.$form_name.$checkbox_counter.'" ';
-                        if(substr($checkbox_value, -8) != ' checked') {
-                            $form_field .= 'value="' . $checkbox_value . '" />';
+
+                        if ($form_bs < 4) {
+                            $form_field .= '<label for="' . $form_name . $checkbox_counter . '"' . $checkbox_style;
+                            if ($form_value_inline) {
+                                $form_field .= ' class="checkbox-inline"';
+                            }
+                            $form_field .= '>';
+                        }
+                        $form_field .= '<input type="checkbox" name="' . $form_name .'[]" id="' . $form_name . $checkbox_counter.'" ';
+                        if ($form_bs > 3) {
+                            $form_field .= ' class="form-check-input" ';
+                        }
+                        if(substr($checkbox_value, -8) !== ' checked') {
+                            $form_field .= 'value="' . $checkbox_value . '"';
                         } else {
                             $checkbox_value = str_replace(' checked', '', $checkbox_value);
-                            $form_field .= 'value="' . $checkbox_value . '" checked="checked" />';
+                            $form_field .= 'value="' . $checkbox_value . '" checked="checked"';
+                        }
+                        $form_field .= HTML_TAG_CLOSE . ' ';
+                        if ($form_bs > 3) {
+                            $form_field .= '<label for="' . $form_name . $checkbox_counter . '" class="form-check-label">';
                         }
                         $form_field .= $checkbox_label .'</label>';
                         $checkbox_counter++;
                     }
                 }
-                $form_field .= $checkbox_class;
+                $form_field .= '</div>';
                 break;
 
             case 'radio':
@@ -1020,34 +1048,48 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $form_value = explode("\n", $cnt_form["fields"][$key]['value']);
                 $form_value = array_map('trim', $form_value);
                 $form_value = array_diff($form_value, array(''));
-                if($cnt_form["fields"][$key]['class']) {
-                    $form_field     .= '<div class="'.$cnt_form["fields"][$key]['class'].'">';
-                    $checkbox_class  = '</div>';
+                $checkbox_style = $cnt_form["fields"][$key]['style'] ? ' style="'.$cnt_form["fields"][$key]['style'].'"' : '';
+                if (count($form_value) > 1) {
+                    $form_value_single = false;
+                    $form_value_inline = $cnt_form["fields"][$key]['size'] ? false : true;
                 } else {
-                    $checkbox_class  = '';
+                    $form_value_single = true;
+                    $form_value_inline = false;
                 }
-                if($cnt_form["fields"][$key]['style']) {
-                    $checkbox_style = ' style="'.$cnt_form["fields"][$key]['style'].'"';
+
+                if (substr($cnt_form["fields"][$key]['max'], 0, 1) === 'B') {
+                    $form_bs = intval(substr($cnt_form["fields"][$key]['max'], -1));
+                    $form_field_prefix = '<div class="'.trim('form-check '.$cnt_form["fields"][$key]['class']);
+                    if ($form_value_inline) {
+                        $form_field_prefix .= ' form-check-inline';
+                    }
                 } else {
-                    $checkbox_style = '';
+                    $form_bs = 0;
+                    $form_field_prefix = '<div class="'.trim('form-radiobutton '.$cnt_form["fields"][$key]['class']);
                 }
-                if(count($form_value) == 1 || count($form_value) == 0 || !$form_value) {
+                $form_field_prefix .= '">';
+                $form_field .= $form_field_prefix;
+
+                if($form_value_single || !$form_value) {
                     // only 1 radio button
                     $checkbox_value = is_array($form_value) ? implode('', $form_value) : $form_value;
                     $checkbox_value = trim($checkbox_value);
-
                     $checkbox_value = explode('-|-', $checkbox_value, 2);
                     $checkbox_label = $checkbox_value[0];
                     $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
-
                     $checkbox_label = str_replace(' checked', '', $checkbox_label);
 
                     if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
                         $checkbox_value .= ' checked';
                     }
                     $checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
-                    $form_field .= '<label for="'.$form_name.'"' . $checkbox_style . '>';
+                    if ($form_bs < 4) {
+                        $form_field .= '<label for="' . $form_name . '"' . $checkbox_style . '>';
+                    }
                     $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.'" ';
+                    if ($form_bs > 3) {
+                        $form_field .= ' class="form-check-input" ';
+                    }
                     if(substr($checkbox_value, -8) != ' checked') {
                         $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
@@ -1057,31 +1099,42 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if($cnt_form["fields"][$key]['required']) {
                         $form_field .= 'required="required"';
                     }
-                    $form_field .= '/>';
+                    $form_field .= HTML_TAG_CLOSE . ' ';
+                    if ($form_bs > 3) {
+                        $form_field .= '<label for="' . $form_name . '" class="form-check-label">';
+                    }
                     $form_field .= $checkbox_label .'</label>';
 
                 } else {
                     // list of radio buttons
                     $checkbox_counter = 0;
-                    $checkbox_spacer  = $cnt_form["fields"][$key]['size'] ? '<br />' : ' ';
                     foreach($form_value as $checkbox_value) {
 
                         $checkbox_value = explode('-|-', $checkbox_value, 2);
                         $checkbox_label = $checkbox_value[0];
                         $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
-
                         $checkbox_label = str_replace(' checked', '', $checkbox_label);
-
                         if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $checkbox_value) {
                             $checkbox_value .= ' checked';
                         }
-                        $checkbox_value =  html_specialchars(trim($checkbox_value));
-                        if($checkbox_counter) {
-                            $form_field .= $checkbox_spacer;
+                        $checkbox_value = html_specialchars(trim($checkbox_value));
+
+                        if ($checkbox_counter && ($form_bs > 3 || !$form_value_inline)) {
+                            $form_field .= '</div>' . $form_field_prefix;
                         }
-                        $form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
+
+                        if ($form_bs < 4) {
+                            $form_field .= '<label for="' . $form_name . $checkbox_counter . '"' . $checkbox_style;
+                            if ($form_value_inline) {
+                                $form_field .= ' class="radio-inline"';
+                            }
+                            $form_field .= '>';
+                        }
                         $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.$checkbox_counter.'" ';
-                        if(substr($checkbox_value, -8) != ' checked') {
+                        if ($form_bs > 3) {
+                            $form_field .= ' class="form-check-input" ';
+                        }
+                        if(substr($checkbox_value, -8) !== ' checked') {
                             $form_field .= 'value="' . $checkbox_value . '" ';
                         } else {
                             $checkbox_value = str_replace(' checked', '', $checkbox_value);
@@ -1090,7 +1143,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         if ($checkbox_counter === 0 && $cnt_form["fields"][$key]['required']) {
                             $form_field .= 'required="required"';
                         }
-                        $form_field .= '/>';
+                        $form_field .= HTML_TAG_CLOSE . ' ';
+                        if ($form_bs > 3) {
+                            $form_field .= '<label for="' . $form_name . $checkbox_counter . '" class="form-check-label">';
+                        }
                         $form_field .= $checkbox_label .'</label>';
                         $checkbox_counter++;
                     }
@@ -1766,7 +1822,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
             }
 
-            if($cnt_form_validate_function($POST_val, $cnt_form_validate_fields) === FALSE) {
+            if($cnt_form_validate_function($POST_val, $cnt_form_validate_fields, $crow['acontent_id']) === FALSE) {
                 $POST_ERR['VALIDATE_FUNCTION_ERROR'] = TRUE;
             }
 
@@ -1953,16 +2009,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             $cnt_form['cc'][] = $cnt_form["copyto"];
         }
 
-        $cnt_form['fromEmail']  = $cnt_form["copyto"];
+        $cnt_form['fromEmail'] = $cnt_form["copyto"];
     }
 
     // check for unique recipients (target) and sender (fromEmail)
     if(!empty($cnt_form['checktofrom']) && !empty($cnt_form['fromEmail'])) {
-
         foreach($cnt_form["target"] as $value) {
-
             if(strtolower($cnt_form['fromEmail']) == strtolower($value)) {
-
                 $POST_ERR[] = '@@Sender&#8217;s email must be different from recipient&#8217;s email@@';
                 break;
             }
@@ -2033,7 +2086,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             $mail->addAddress($cnt_form['doubleoptin_target']);
 
             if(!$mail->send()) {
-                $cnt_form["copytoError"][] = html_specialchars($cc_email.' ('.$mail->ErrorInfo.')');
+                $cnt_form["copytoError"][] = html_specialchars($cnt_form['doubleoptin_target'] . ' ('.$mail->ErrorInfo.')');
             }
 
             $mail->clearAddresses();
