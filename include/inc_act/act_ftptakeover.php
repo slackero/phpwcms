@@ -36,8 +36,8 @@ $ftp = array(
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
-            $ftp["file"][$key] = realpath(base64_decode($ftp["file"][$key]));
-            if (!is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key]) || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false) {
+            $ftp["file"][$key] = base64_decode($ftp["file"][$key]);
+            if (substr($ftp["file"][$key], 0, 1) === '.' || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
                 unset(
                     $ftp["mark"][$key],
                     $ftp["file"][$key],
