@@ -35,8 +35,8 @@ $ftp = array(
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
-            $ftp["file"][$key] = realpath(base64_decode($ftp["file"][$key]));
-            if (!is_file(CMSGO_ROOT.$cmsgo["ftp_path"].$ftp["file"][$key]) || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false) {
+            $ftp["file"][$key] = base64_decode($ftp["file"][$key]);
+            if (substr($ftp["file"][$key], 0, 1) === '.' || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false || !is_file(CMSGO_ROOT.$cmsgo["ftp_path"].$ftp["file"][$key])) {
                 unset(
                     $ftp["mark"][$key],
                     $ftp["file"][$key],
@@ -127,7 +127,6 @@ if(!$ftp["error"]) {
     }
 
     if(count($cmsgo['allowed_lang']) > 1) {
-
         foreach($cmsgo['allowed_lang'] as $lang) {
             $lang = strtolower($lang);
 
@@ -185,9 +184,7 @@ if(!$ftp["error"]) {
             'f_name'		=> $ftp['dir_new'],
             'f_created'		=> now()
         );
-
         $new_dir = _dbInsert('cmsgo_file', $data);
-
         if (isset($new_dir['INSERT_ID'])) {
             $ftp['dir'] = intval($new_dir['INSERT_ID']);
         }
@@ -310,7 +307,6 @@ if(!$ftp["error"]) {
                 if($file_type === '') {
                     $file_type = @mime_content_type($file_path);
                 }
-
             }
 
             $sql  = "INSERT INTO ".DB_PREPEND."cmsgo_file (";
@@ -333,9 +329,7 @@ if(!$ftp["error"]) {
                 $wcs_newfilename = $file_hash . $_file_extension;
 
                 // changed for using hashed file names
-                $usernewfile    = $useruploadpath.$wcs_newfilename;
-
-
+                $usernewfile = $useruploadpath.$wcs_newfilename;
                 $oldumask = umask(0);
 
                 if ($dir = @opendir($useruploadpath)) {
