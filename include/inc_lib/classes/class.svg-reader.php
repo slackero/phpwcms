@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  * http://www.gnu.org/copyleft/gpl.html
  *
- * @description Classes are taken from MediaWiki and changed for cmsgo.
+ * @description Classes are taken from MediaWiki and changed for cmsGo!.
  * @file Defines classes to read SVG metadata
  * @author "Derk-Jan Hartman <hartman _at_ videolan d0t org>"
  * @author Brion Vibber
@@ -31,7 +31,6 @@
 class SVGMetadataExtractor {
 	static function getMetadata( $filename ) {
 		$svg = new SVGReader( $filename );
-
 		return $svg->getMetadata();
 	}
 }
@@ -43,24 +42,19 @@ class SVGReader {
 	const DEFAULT_WIDTH = CMSGO_IMAGE_WIDTH;
 	const DEFAULT_HEIGHT = CMSGO_IMAGE_HEIGHT;
 	const NS_SVG = 'http://www.w3.org/2000/svg';
-	const LANG_PREFIX_MATCH = 1;
-	const LANG_FULL_MATCH = 2;
 
 	/** @var null|XMLReader */
-	private $reader = null;
-
-	/** @var bool */
-	private $mDebug = false;
+	private $reader;
 
 	/** @var array */
 	private $metadata = array();
 	private $languages = array();
 	private $languagePrefixes = array();
+	private $error = array();
 
 	/**
 	 * Creates an SVGReader drawing from the source provided
 	 * @param string $source URI from which to read
-	 * @throws MWException|Exception
 	 */
 	function __construct( $source ) {
 		$this->reader = new XMLReader();
@@ -68,7 +62,6 @@ class SVGReader {
 		// Don't use $file->getSize() since file object passed to SVGHandler::getMetadata is bogus.
 		$size = filesize( $source );
 		if ( $size !== false ) {
-
 			$this->reader->open( $source, null, LIBXML_NOERROR | LIBXML_NOWARNING );
 		}
 
@@ -112,7 +105,6 @@ class SVGReader {
 
 	/**
 	 * Read the SVG
-	 * @throws MWException
 	 * @return bool
 	 */
 	protected function read() {
@@ -143,7 +135,7 @@ class SVGReader {
 			} elseif ( $isSVG && $tag === 'desc' ) {
 				$this->readField( $tag, 'description' );
 			} elseif ( $isSVG && $tag === 'metadata' && $type === XMLReader::ELEMENT ) {
-				$this->readXml( $tag );
+				$this->readXml( 'metadata' );
 			} elseif ( $isSVG && $tag === 'script' ) {
 				// We normally do not allow scripted svgs.
 				// However its possible to configure MW to let them
@@ -190,7 +182,6 @@ class SVGReader {
 	 * Read an XML snippet from an element
 	 *
 	 * @param string $metafield Field that we will fill with the result
-	 * @throws MWException
 	 */
 	private function readXml( $metafield = null ) {
 		if ( !$metafield || $this->reader->nodeType != XMLReader::ELEMENT ) {
@@ -221,36 +212,9 @@ class SVGReader {
 		$exitDepth = $this->reader->depth;
 		$keepReading = $this->reader->read();
 		while ( $keepReading ) {
-			if ( $this->reader->localName === $name && $this->reader->depth <= $exitDepth && $this->reader->nodeType === XMLReader::END_ELEMENT
-			) {
+			if ( $this->reader->localName === $name && $this->reader->depth <= $exitDepth && $this->reader->nodeType === XMLReader::END_ELEMENT ) {
 				break;
-			} elseif ( $this->reader->namespaceURI === self::NS_SVG && $this->reader->nodeType === XMLReader::ELEMENT
-			) {
-				$sysLang = $this->reader->getAttribute( 'systemLanguage' );
-				if ( !is_null( $sysLang ) && $sysLang !== '' ) {
-					// See https://www.w3.org/TR/SVG/struct.html#SystemLanguageAttribute
-					$langList = explode( ',', $sysLang );
-					foreach ( $langList as $langItem ) {
-						$langItem = trim( $langItem );
-						if ( Language::isWellFormedLanguageTag( $langItem ) ) {
-							$this->languages[$langItem] = self::LANG_FULL_MATCH;
-						}
-						// Note, the standard says that any prefix should work,
-						// here we do only the initial prefix, since that will catch
-						// 99% of cases, and we are going to compare against fallbacks.
-						// This differs mildly from how the spec says languages should be
-						// handled, however it matches better how the MediaWiki language
-						// preference is generally handled.
-						$dash = strpos( $langItem, '-' );
-						// Intentionally checking both !false and > 0 at the same time.
-						if ( $dash ) {
-							$itemPrefix = substr( $langItem, 0, $dash );
-							if ( Language::isWellFormedLanguageTag( $itemPrefix ) ) {
-								$this->languagePrefixes[$itemPrefix] = self::LANG_PREFIX_MATCH;
-							}
-						}
-					}
-				}
+			} elseif ( $this->reader->namespaceURI === self::NS_SVG && $this->reader->nodeType === XMLReader::ELEMENT ) {
 				switch ( $this->reader->localName ) {
 					case 'script':
 						// Normally we disallow files with
@@ -262,18 +226,11 @@ class SVGReader {
 					case 'animateMotion':
 					case 'animateColor':
 					case 'animateTransform':
-						$this->debug( "HOUSTON WE HAVE ANIMATION" );
 						$this->metadata['animated'] = true;
 						break;
 				}
 			}
 			$keepReading = $this->reader->read();
-		}
-	}
-
-	private function debug( $data ) {
-		if ( $this->mDebug ) {
-			wfDebug( "SVGReader: $data\n" );
 		}
 	}
 
