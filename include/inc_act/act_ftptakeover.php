@@ -280,14 +280,14 @@ if(!$ftp["error"]) {
             }
 
             // Check if SVG and detect related values
-            if(!$file_check && $file_ext === 'svg' && ($file_svg = @SVGMetadataExtractor::getMetadata($file_path))) {
+            if(empty($file_check[0]) && $file_ext === 'svg' && ($file_svg = @SVGMetadataExtractor::getMetadata($file_path))) {
 
-                $file_svg = 1;
                 $file_type = 'image/svg+xml';
                 $file_check = array(
                     0 => $file_svg['width'],
                     1 => $file_svg['height']
                 );
+                $file_svg = 1;
 
             } else {
 
