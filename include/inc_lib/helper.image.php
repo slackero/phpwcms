@@ -570,9 +570,9 @@ class Phpwcms_Image_lib {
         // Execute the command
         $cmd = $this->library_path;
         $picnum = '[0]';
-        if ($this->target_ext === 'jpg' || $this->target_ext === 'webp') {
+        if ($this->target_ext === 'jpg') {
             $cmd .= ' -colorspace ' . $this->colorspace . ' -type TrueColor';
-        } elseif ($this->target_ext === 'png') {
+        } elseif ($this->target_ext === 'png' || $this->target_ext === 'webp') {
             $cmd .= ' -colorspace ' . $this->colorspace;
         } elseif ($this->target_ext === 'gif') {
             // Check if it is an animated GIF an coalesce the image
@@ -602,7 +602,7 @@ class Phpwcms_Image_lib {
             $this->sharpen = false;
         }
         $cmd .= ' -quality ' . $this->quality;
-        if ($this->source_ext == 'pdf') {
+        if ($this->source_ext === 'pdf') {
             $cmd .= ' -define pdf:use-cropbox=true';
         }
         if ($picnum) {
