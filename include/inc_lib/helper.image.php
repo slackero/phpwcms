@@ -516,7 +516,7 @@ class Cmsgo_Image_lib {
             $copy = 'imagecopyresized';
         }
         $dst_img = $create($this->width, $this->height);
-        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF) // png and gif, preserve transparency
+        if ($this->image_type === IMAGETYPE_PNG || $this->image_type === IMAGETYPE_GIF || $this->image_type === IMAGETYPE_WEBP) // png, gif and webp, preserve transparency
         {
             imagealphablending($dst_img, false);
             imagesavealpha($dst_img, true);
@@ -569,9 +569,9 @@ class Cmsgo_Image_lib {
         // Execute the command
         $cmd = $this->library_path;
         $picnum = '[0]';
-        if ($this->target_ext === 'jpg' || $this->target_ext === 'webp') {
+        if ($this->target_ext === 'jpg') {
             $cmd .= ' -colorspace ' . $this->colorspace . ' -type TrueColor';
-        } elseif ($this->target_ext === 'png') {
+        } elseif ($this->target_ext === 'png' || $this->target_ext === 'webp') {
             $cmd .= ' -colorspace ' . $this->colorspace;
         } elseif ($this->target_ext === 'gif') {
             // Check if it is an animated GIF an coalesce the image
@@ -601,7 +601,7 @@ class Cmsgo_Image_lib {
             $this->sharpen = false;
         }
         $cmd .= ' -quality ' . $this->quality;
-        if ($this->source_ext == 'pdf') {
+        if ($this->source_ext === 'pdf') {
             $cmd .= ' -define pdf:use-cropbox=true';
         }
         if ($picnum) {
@@ -1085,6 +1085,7 @@ class Cmsgo_Image_lib {
         if ($image_type == '') {
             $image_type = $this->image_type;
         }
+
         switch ($image_type) {
             case IMAGETYPE_GIF:
                 if (!function_exists('imagecreatefromgif')) {
