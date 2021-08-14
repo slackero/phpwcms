@@ -252,7 +252,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FED83F"' : '';
 
     echo '<tr'.$bgcol.'><td colspan="2"><img src="img/leer.gif" height="2" width="1" border="0" alt="" /></td></tr>'.LF; //Abstand vor
-    echo '<tr'.$bgcol.'><td class="msglist" nowrap="nowrap">';
+    echo '<tr'.$bgcol.'><td class="msglist nowrap" nowrap="nowrap">';
     echo $count.'<img src="img/leer.gif" height="1" width="4" border="0" alt="" /><img src="img/icons/harddisk_16x11.gif" border="0" alt="" />'; //Zellinhalt 1. Spalte
     echo '<img src="img/leer.gif" height="1" width="4" alt="" border="0" />'.$dirname.'</td><td><img src="img/leer.gif" height="1" width="5" border="0" alt="" /></td></tr>'.LF;
     //Aufbau trennende Tabellen-Zeile
@@ -548,7 +548,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     $fileuploaderAllowedExtensions = '';
     if(is_string($phpwcms['allowed_upload_ext'])) {
-        $fileuploaderAllowedExtensions = $phpwcms['allowed_upload_ext'];
+        $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
         if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
             $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
         }
@@ -718,7 +718,7 @@ function folder_list($pid, $vor, $zieldatei) {
             }
 
             echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-            echo "<tr".$bgcol."><td class=\"msglist\" nowrap=\"nowrap\">";
+            echo "<tr".$bgcol."><td class=\"msglist nowrap\" nowrap=\"nowrap\">";
             echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\" alt=\"\" /><img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
             echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" />".$dirname."</td><td><img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" /></td></tr>\n";
             echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";

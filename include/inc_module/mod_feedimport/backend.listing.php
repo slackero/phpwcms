@@ -37,11 +37,11 @@ foreach($data as $row) {
 	echo ' onclick="document.location=\''.MODULE_HREF.'&amp;edit='.$row["cnt_id"].'\';">'.LF;
 	echo '<td width="25" style="padding:2px 3px 2px 4px;">';
 	echo '<img src="img/famfamfam/rss.png" alt="'.$BLM['backend_menu'].'" /></td>'.LF;
-	echo '<td class="dir" width="55%" style="padding-left:3px" nowrap="nowrap">'.html($row['cnt_name'])."</td>\n";
+	echo '<td class="dir nowrap" width="55%" style="padding-left:3px" nowrap="nowrap">'.html($row['cnt_name'])."</td>\n";
 
-	echo '<td class="dir" width="35%" nowrap="nowrap">&nbsp;'.$url."&nbsp;&nbsp;</td>\n";
+	echo '<td class="dir nowrap" width="35%" nowrap="nowrap">&nbsp;'.$url."&nbsp;&nbsp;</td>\n";
 
-	echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
+	echo '<td width="10%" align="right" nowrap="nowrap" class="button_td nowrap">';
 
 	echo '<a href="'.MODULE_HREF.'&amp;edit='.$row["cnt_id"].'">';
 	echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

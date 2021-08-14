@@ -765,7 +765,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
             <tr>
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
                 <td><input type="text" name="cform_function_validate" class="width120" value="<?php echo html($content['form']["cform_function_validate"]) ?>"/></td>
-                <td class="chatlist" align="right" class="nowrap">
+                <td class="chatlist nowrap" align="right" class="nowrap">
                     <?php echo $BL['be_article_cnt_anchor'] . ' &ndash; ' . $BL['be_cnt_target']; ?>:<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
                 </td>
                 <td colspan="4"><input type="text" name="cform_anchor_name" class="width120" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>
@@ -969,7 +969,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                     echo '<td><input type="text" name="cform_field_size[' . $field_counter . ']" class="width40" value="';
                     echo html($content['form']["fields"][$key]['size']) . '"title="SIZE for Text/COLUMNS for Textarea"></td>';
                     echo '<td><input type="text" name="cform_field_max[' . $field_counter . ']" class="width40" value="';
-                    echo html($content['form']["fields"][$key]['max']) . '" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>';
+                    echo html($content['form']["fields"][$key]['max']) . '" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio"></td>';
                     echo '<td><input type="checkbox" name="cform_field_required[' . $field_counter . ']"';
                     echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0) . ' value="1" title="' . $BL['be_cnt_mark_as_req'] . '"></td>';
                     echo '<td><input type="checkbox" name="cform_field_delete[' . $field_counter . ']" value="1" title="' . $BL['be_cnt_mark_as_del'] . '"></td>';
@@ -1102,7 +1102,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td><input type="text" name="cform_field_name[0]" class="width120"/></td>
                 <td><input type="text" name="cform_field_label[0]" class="width120"/></td>
                 <td><input type="text" name="cform_field_size[0]" class="width40" title="SIZE for Text/COLUMNS for Textarea"/></td>
-                <td><input type="text" name="cform_field_max[0]" class="width40" title="MAXLENGTH for Text/ROWS for Textarea and List"/></td>
+                <td><input type="text" name="cform_field_max[0]" class="width40" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio"/></td>
                 <td><input type="checkbox" name="cform_field_required[0]" value="1" title="mark as required field"/></td>
                 <td>&nbsp;<input type="hidden" name="cform_order[0]" value="<?php echo $field_counter ?>"/></td>
             </tr>

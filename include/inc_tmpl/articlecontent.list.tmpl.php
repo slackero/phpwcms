@@ -156,19 +156,19 @@ $buttonAction .= '</tr></table>';
               <td class="v10"><?php echo phpwcms_strtotime($article["article_date"], $BL['be_longdatetime'], '') ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_fprivedit_created'] ?>:</span>&nbsp;<?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
             </tr>
             <tr>
-              <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
+              <td class="v10 nowrap" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
               <td class="v10">
                   <?php echo $set_begin ? phpwcms_strtotime($article["article_begin"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_article_cnt_end'] ?>:</span>
                   <?php echo $set_end ? phpwcms_strtotime($article["article_end"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?>
               </td>
             </tr>
             <tr>
-              <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+              <td class="v10 nowrap" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
               <td class="v10"><?php echo $article["article_sort"] ?>&nbsp;&nbsp;<span style="color:#727889"><?php echo $BL['be_priorize'] ?>:</span>&nbsp;<?php echo $article["article_priorize"] ?></td>
             </tr>
 
             <tr>
-              <td class="v10" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+              <td class="v10 nowrap" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
               <td class="v10"><?php echo ($article["article_nositemap"] == 1 ? '&check;' : '-') . ' ' . $BL['be_ctype_sitemap'] ?></td>
             </tr>
             <tr>
@@ -458,9 +458,9 @@ if(!$temp_count) {
 
 
                   ?></td>
-                  <td width="23" nowrap="nowrap"><?php echo $sbutton_string[$row["acontent_id"]]; ?></td>
-                  <td class="v09" style="color:#727889;padding:0 4px 0 5px" width="60" nowrap="nowrap">[ID:<?php echo $row["acontent_id"] ?>]</td>
-                  <td class="v09" nowrap="nowrap"><?php
+                  <td width="23" class="nowrap"><?php echo $sbutton_string[$row["acontent_id"]]; ?></td>
+                  <td class="v09 nowrap" style="color:#727889;padding:0 4px 0 5px" width="60" nowrap="nowrap">[ID:<?php echo $row["acontent_id"] ?>]</td>
+                  <td class="v09 nowrap" nowrap="nowrap"><?php
 
                   echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
 

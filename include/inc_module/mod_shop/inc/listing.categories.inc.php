@@ -220,7 +220,7 @@ if(isset($data[0]['cat_id'])) {
         echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
 
 
-        echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
+        echo '<td width="10%" align="right" nowrap="nowrap" class="nowrap button_td">';
 
             echo '<a href="'.$_controller_link.'&amp;edit='.$row["cat_id"].'">';
             echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

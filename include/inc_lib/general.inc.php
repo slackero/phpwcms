@@ -380,7 +380,7 @@ function convert_into($extension) {
     } else {
         switch ($extension) {
             case 'gif':
-                $ext = (imagetypes() & IMG_GIF) ? "gif" : "png";
+                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';
@@ -397,17 +397,17 @@ function is_ext_true($extension) {
     if ($phpwcms['image_library'] === 'gd2' || $phpwcms['image_library'] === 'gd') {
         // if GD is used
         switch ($extension) {
-            case "jpg":
-            case "jpeg":
-                $ext = "jpg";
+            case 'jpg':
+            case 'jpeg':
+                $ext = 'jpg';
                 break;
-            case "gif":
-                $ext = (imagetypes() && IMG_GIF) ? "gif" : "png";
+            case 'gif':
+                $ext = (imagetypes() && IMG_GIF) ? 'gif' : 'png';
                 break;
-            case "png":
-                $ext = "png";
+            case 'png':
+                $ext = 'png';
                 break;
-            case "webp":
+            case 'webp':
                 $ext = PHPWCMS_WEBP ? 'webp' : 'jpg';
                 break;
         }
@@ -1703,6 +1703,16 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 
         return $file_status;
     }
+    if(is_string($GLOBALS['phpwcms']['allowed_upload_ext'])) {
+        $GLOBALS['phpwcms']['allowed_upload_ext'] = convertStringToArray(strtolower($GLOBALS['phpwcms']['allowed_upload_ext']));
+    }
+    if (empty($file_status['ext']) || !in_array($file_status['ext'], $GLOBALS['phpwcms']['allowed_upload_ext'])) {
+        $file_status['error'] = 'The file with extension *.' . $file_status['ext'] . ' is not allowed or invalid for uploading';
+        $file_status['error_num'] = 415;
+        @unlink($_FILES[$file]['tmp_name']);
+
+        return $file_status;
+    }
     if ($imgtype) {
         $imgtype = convertStringToArray(strtolower($imgtype));
         if (count($imgtype)) {
@@ -1724,6 +1734,7 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
                 14 => 'iff',
                 15 => 'wbmp',
                 16 => 'xbm',
+                18 => 'webp'
             );
             if (!$data && !$exttype) {
                 $file_status['error'] = 'Format' . ($file_status['ext'] ? ' *.' . $file_status['ext'] : '') . ' not supported (';
@@ -2265,7 +2276,7 @@ function getRealImageSize($imginfo) {
         $size = $imginfo[0] * $imginfo[1];
     }
     // handle possible alpha channel for PNG and TIF
-    $alpha = ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
+    $alpha = isset($imginfo[2]) && ($imginfo[2] == 3 || $imginfo[2] == 7 || $imginfo[2] == 6) ? 1 : 0;
     if ($size && !empty($imginfo['channels'])) {
         // channel - in general this is 3 (RGB) or 4 (CMYK)
         $size = $size * ($imginfo['channels'] + $alpha);

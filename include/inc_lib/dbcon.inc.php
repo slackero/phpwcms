@@ -142,7 +142,10 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
             $queryResult[$queryCount] = $row;
             $queryCount++;
         }
-        mysqli_free_result($result);
+
+        if (!is_bool($result)) {
+            mysqli_free_result($result);
+        }
 
         return $queryResult;
 

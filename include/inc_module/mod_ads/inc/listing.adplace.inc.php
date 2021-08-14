@@ -23,9 +23,9 @@ if (!defined('PHPWCMS_ROOT')) {
 	<tr>
 		<th width="25">&nbsp;</th>
 		<th><?php echo $BLM['adplace'] ?></th>
-		<th class="listFormat" nowrap="nowrap"><?php echo $BLM['ad_format'] ?></th>
+		<th class="listFormat nowrap" nowrap="nowrap"><?php echo $BLM['ad_format'] ?></th>
 		<th class="listFormat">RT</th>
-		<th class="listFormat" nowrap="nowrap"><?php echo $BLM['ad_wxh'] ?></th>
+		<th class="listFormat nowrap" nowrap="nowrap"><?php echo $BLM['ad_wxh'] ?></th>
 		<th>&nbsp;</th>
 	</tr>
 
@@ -54,7 +54,7 @@ foreach($data as $row) {
 	echo '	<td class="listFormat nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"]."&nbsp;</td>\n";
 
 
-	echo '	<td align="right" nowrap="nowrap" class="button_td">';
+	echo '	<td align="right" nowrap="nowrap" class="button_td nowrap">';
 
 	echo '<a href="'.MODULE_HREF.'&amp;adplace=1&amp;edit='.$row["adplace_id"].'">';
 	echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

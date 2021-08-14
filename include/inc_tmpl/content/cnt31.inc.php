@@ -370,7 +370,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                     $is_wysiwyg = $tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($tab_fieldgroup['fields'][$custom_field]['render']) && $tab_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg';
 ?>
                     <tr>
-                        <td class="chatlist right tdtop8" nowrap="nowrap"><?php
+                        <td class="chatlist right tdtop8 nowrap" nowrap="nowrap"><?php
                             if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                                 if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                                     echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
@@ -770,7 +770,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 ?>
         new_entry += '<tr class="tab-collapsable-row">';
-        new_entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
+        new_entry += '<td class="chatlist tdtop4 nowrap" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
                 if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                     if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
                         echo html($tab_fieldgroup['fields'][$custom_field]['legend']);

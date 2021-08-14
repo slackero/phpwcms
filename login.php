@@ -75,10 +75,11 @@ $err        = 0;
 $wcs_user   = '';
 
 // where user should be redirected too after login
-if(!empty($_POST['ref_url'])) {
-    $ref_url = xss_clean($_POST['ref_url']);
-} elseif(!empty($_GET['ref'])) {
-    $ref_url = xss_clean(rawurldecode($_GET['ref']));
+if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
+    $ref_url = xss_clean(empty($_POST['ref_url']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
+        $ref_url = '';
+    }
 } else {
     $ref_url = '';
 }
@@ -361,15 +362,15 @@ ob_start();
 ?>
     <table border="0" cellpadding="0" cellspacing="0" summary="Login Form" style="margin:15px 0 20px 10px">
         <tr>
-            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_username"] ?>:&nbsp;</td>
+            <td align="right" nowrap="nowrap" class="v10 nowrap"><?php echo $BL["login_username"] ?>:&nbsp;</td>
             <td class="v10"><input name="form_loginname" type="text" id="form_loginname" class="width250" size="30" maxlength="30" value="<?php echo html_specialchars($wcs_user); ?>" required="required" /></td>
         </tr>
         <tr>
-            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
+            <td align="right" nowrap="nowrap" class="v10 nowrap"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
             <td class="v10"><input name="form_password" type="password" id="form_password" class="width250" size="30" maxlength="40" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> /></td>
         </tr>
         <tr>
-            <td align="right" nowrap="nowrap" class="v10"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
+            <td align="right" nowrap="nowrap" class="v10 nowrap"><?php echo $BL["login_lang"] ?>:&nbsp;</td>
             <td class="v10">
                 <select name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
 <?php

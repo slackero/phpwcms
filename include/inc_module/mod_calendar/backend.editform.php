@@ -27,14 +27,14 @@ initMootoolsAutocompleter();
 <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
 
     <tr>
-        <td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
+        <td align="right" class="chatlist nowrap" nowrap="nowrap"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
         <td class="v10"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['calendar_changed']))) ?></td>
     </tr>
 
     <?php if(!empty($plugin['data']['calendar_created'])) { ?>
 
     <tr>
-        <td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
+        <td align="right" class="chatlist nowrap" nowrap="nowrap"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
         <td class="v10"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['calendar_created']))) ?></td>
     </tr>
 

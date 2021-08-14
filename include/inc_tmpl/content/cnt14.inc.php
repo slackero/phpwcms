@@ -139,7 +139,7 @@ if($content['custom_field_items']): ?>
         $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg';
 ?>
         <tr class="tab-collapsable-row">
-            <td class="chatlist tdtop8" <?php if($is_wysiwyg): ?>colspan="2"<?php else: ?>align="right"<?php endif; ?> nowrap="nowrap">&nbsp;<?php
+            <td class="chatlist tdtop8 nowrap" <?php if($is_wysiwyg): ?>colspan="2"<?php else: ?>align="right"<?php endif; ?> nowrap="nowrap">&nbsp;<?php
                 if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                     if(isset($cnt_fieldgroup['fields'][$custom_field]['legend'])) {
                         echo html($cnt_fieldgroup['fields'][$custom_field]['legend']);

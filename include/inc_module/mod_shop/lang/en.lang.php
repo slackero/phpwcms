@@ -140,3 +140,7 @@ $BLM['shopprod_api_key'] = 'API key';
 
 $BLM['shopprod_inventory'] = 'Inventory';
 $BLM['shopprod_autosubtract_off'] = 'do NOT reduce inventory on order';
+
+$BLM['shopprod_on_request'] = 'Order on reqeuest';
+$BLM['shopprod_on_request_button'] = 'Request url';
+$BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

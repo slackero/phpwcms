@@ -81,7 +81,7 @@ if($_userInfo['subscriptions']) {
 	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
 
 	<tr>
-		<td align="right" class="chatlist" nowrap="nowrap"><?php
+		<td align="right" class="chatlist nowrap" nowrap="nowrap"><?php
 
 		echo $BL['be_newsletter_selectCSV'];
 		echo '<input type="hidden" name="MAX_FILE_SIZE" value="'.$_userInfo['max_file_size'].'" />';

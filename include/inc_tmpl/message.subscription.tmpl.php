@@ -52,7 +52,7 @@ if(isset($result[0]['subscription_id'])) {
         echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';
         echo '<strong>'.html($row["subscription_name"])."</strong></a></td>\n";
 
-        echo '<td align="right" nowrap="nowrap" class="button_td">';
+        echo '<td align="right" class="nowrap button_td">';
 
         echo '<a href="phpwcms.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';
         echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

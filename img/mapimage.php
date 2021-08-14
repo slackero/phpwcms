@@ -32,7 +32,7 @@ if ( $img_info ) {
     $img_file = PHPWCMS_TEMPLATE . 'inc_cntpart/map/map_img/' . $img_file;
 
     switch ( $img_info[2] ) {
-        case IMG_GIF: // GIF
+        case IMAGETYPE_GIF: // GIF
             if ( function_exists( 'imagegif' ) ) {
                 $img_mimetype = 'image/gif';
                 $img_target = 'gif';
@@ -44,21 +44,21 @@ if ( $img_info ) {
             $do = 1;
             break;
 
-        case IMG_JPEG: // JPG
+        case IMAGETYPE_JPEG: // JPG
             $img_mimetype = 'image/jpeg';
             $img_target = 'jpg';
             $img_source = imagecreatefromjpeg( $img_file );
             $do = 1;
             break;
 
-        case IMG_PNG: // PNG
+        case IMAGETYPE_PNG: // PNG
             $img_mimetype = 'image/png';
             $img_target = 'png';
             $img_source = imagecreatefrompng( $img_file );
             $do = 1;
             break;
 
-        case IMG_WEBP: // WEBP
+        case IMAGETYPE_WEBP: // WEBP
             $img_mimetype = 'image/webp';
             $img_target = 'webp';
             $img_source = imagecreatefromwebp( $img_file );

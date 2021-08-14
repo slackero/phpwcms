@@ -202,6 +202,9 @@ if($action == 'edit') {
         // Duplicate it?
         $plugin['data']['shopprod_duplicate'] = empty($_POST['shopprod_duplicate']) ? 0 : 1;
 
+        $plugin['data']['shopprod_on_request'] = empty($_POST['shopprod_on_request']) ? 0 : 1;;
+        $plugin['data']['shopprod_on_request_url'] = clean_slweg($_POST['shopprod_on_request_url']);
+
         if(empty($plugin['error'] )) {
 
             // Update
@@ -230,10 +233,12 @@ if($action == 'edit') {
                 $sql .= "shopprod_description3 = '".aporeplace($plugin['data']['shopprod_description3'])."', ";
 
                 $sql .= "shopprod_var = '".aporeplace(	serialize( array(
-                                                'images'	=> $plugin['data']['shopprod_images'],
-                                                'url'		=> $plugin['data']['shopprod_url'],
-                                                'files'		=> $plugin['data']['shopprod_files']
-                                                        ) )	)."', ";
+                    'images' => $plugin['data']['shopprod_images'],
+                    'url' => $plugin['data']['shopprod_url'],
+                    'files' => $plugin['data']['shopprod_files'],
+                    'request' => $plugin['data']['shopprod_on_request'],
+                    'request_url' => $plugin['data']['shopprod_on_request_url']
+                ) ) ) . "', ";
 
                 $sql .= "shopprod_category = '".aporeplace( implode(',', $plugin['data']['shopprod_category']) )."', ";
 
@@ -280,10 +285,12 @@ if($action == 'edit') {
                 $sql .= "'".aporeplace($plugin['data']['shopprod_description3'])."', ";
 
                 $sql .= "'".aporeplace(	serialize( array(
-                                'images'	=> $plugin['data']['shopprod_images'],
-                                'url'		=> $plugin['data']['shopprod_url'],
-                                'files'		=> $plugin['data']['shopprod_files']
-                            ) )	)."', ";
+                    'images' => $plugin['data']['shopprod_images'],
+                    'url' => $plugin['data']['shopprod_url'],
+                    'files' => $plugin['data']['shopprod_files'],
+                    'request' => $plugin['data']['shopprod_on_request'],
+                    'request_url' => $plugin['data']['shopprod_on_request_url']
+                ) ) )."', ";
 
                 $sql .= "'".aporeplace( implode(',', $plugin['data']['shopprod_category']) ) ."', ";
                 $sql .= "'".aporeplace($plugin['data']['shopprod_weight'])."', ";
@@ -348,6 +355,8 @@ if($action == 'edit') {
         $plugin['data']['shopprod_opengraph']		= empty($phpwcms['set_sociallink']['shop']) ? 0 : 1;
         $plugin['data']['shopprod_unit']			= '';
         $plugin['data']['shopprod_inventory']		= 0;
+        $plugin['data']['shopprod_on_request']		= 0;
+        $plugin['data']['shopprod_on_request_url']	= '';
 
     } else {
 
@@ -379,6 +388,13 @@ if($action == 'edit') {
             $plugin['data']['shopprod_unit']		= isset($plugin['data']['shopprod_unit']) ? $plugin['data']['shopprod_unit'] : '';
             $plugin['data']['shopprod_opengraph']	= empty($plugin['data']['shopprod_opengraph']) ? 0 : 1;
             $plugin['data']['shopprod_overwrite_meta']	= empty($plugin['data']['shopprod_overwrite_meta']) ? 0 : 1;
+
+            $plugin['data']['shopprod_on_request']	= empty($plugin['data']['shopprod_var']['request']) ? 0 : 1;
+            if (empty($plugin['data']['shopprod_var']['request_url'])) {
+                $plugin['data']['shopprod_on_request_url'] = '';
+            } else {
+                $plugin['data']['shopprod_on_request_url'] = $plugin['data']['shopprod_var']['request_url'];
+            }
 
         } else {
             headerRedirect( shop_url(get_token_get_string().'&controller=prod', '') );

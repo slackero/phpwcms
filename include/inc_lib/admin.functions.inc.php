@@ -46,7 +46,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
     $a .= '<td width="461">';
     $a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
-    $a .= '<td nowrap="nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
+    $a .= '<td nowrap="nowrap" class=""nowrap"><img src="img/leer.gif" width="'.(14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />"; //14
     $a .= $child_count ? '<a href="phpwcms.php?'.$page_val.'&amp;open='.rawurlencode($struct[$key]["acat_id"].':'.(empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? 1 : 0)).'">' : '';
     $a .= "<img src=\"img/symbole/plus_".($child_count ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "open" : "close") : "empty");
     $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".($child_count ? "</a>" : "");
@@ -248,12 +248,12 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
 
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-            $a .= "<td nowrap=\"nowrap\"><img src=\"img/leer.gif\" width=\"".(14+14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />";
+            $a .= "<td class=\"nowrap\"><img src=\"img/leer.gif\" width=\"".(14+14+(14*($counter-1)))."\" height=\"1\" alt=\"\" />";
             $a .= ($acontent_count) ? "<a href=\"phpwcms.php?do=articles&amp;opena=".rawurlencode($article[$akey]["article_id"].":".((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]]))?0:1))."\">" : "";
             $a .= "<img src=\"img/symbole/plus_".(($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? "close" : "open") : "empty");
             $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($acontent_count) ? "</a>" : "");
         }else{
-            $a .= "<td nowrap=\"nowrap\"><img src=\"img/leer.gif\" width=\"".(14+29+(14*($counter-1)))."\" height=\"1\" alt=\"\" />";
+            $a .= "<td class=\"nowrap\"><img src=\"img/leer.gif\" width=\"".(14+29+(14*($counter-1)))."\" height=\"1\" alt=\"\" />";
         }
 
         $a .= "<img src=\"img/symbole/text_1.gif\" width=\"11\" height=\"15\" ";
@@ -469,7 +469,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= "</td>";
             $a .= "<td width=\"16\"><img src=\"img/symbole/block.gif\" width=\"9\" height=\"11\" border=\"0\" alt=\"\" style=\"margin:0 3px 0 3px;\" /></td>";
             $a .= "<td class=\"v09\" style=\"color:#727889;\" width=\"102\">".html(' {'.$article_content['acontent_block'].'} ')."</td>";
-			$a .= '<td nowrap="nowrap" style="padding:1px 0 1px 0;width:94px;white-space:nowrap;" onmouseover="'.$info.'">';
+			$a .= '<td class="nowrap" style="padding:1px 0 1px 0;width:94px;white-space:nowrap;" onmouseover="'.$info.'">';
 
             $at  = ' '.$ab.' ';
 

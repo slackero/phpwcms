@@ -83,14 +83,16 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
         $_tmpl['config']['image_detail_crop'] = empty($_tmpl['config']['image_detail_crop']) ? false : phpwcms_boolval($_tmpl['config']['image_detail_crop']);
         $_tmpl['config']['image_list_crop'] = empty($_tmpl['config']['image_list_crop']) ? false : phpwcms_boolval($_tmpl['config']['image_list_crop']);
 
-        // Classes
+        // Classes and other default values
         $_tmpl['config'] = array_merge(array(
             'class_form_product_cart_option' => 'product-cart-option',
             'class_shop_amount' => 'shop-amount',
             'class_cart_add_button' => 'cart-add-button',
             'class_product_option_1' => 'product-option-1',
             'class_product_option_2' => 'product-option-2',
-            'class_form_cart' => 'cart-form'
+            'class_form_cart' => 'cart-form',
+            'class_request_button' => 'request-button',
+            'class_request_form' => 'form-request-product'
         ), $_tmpl['config']);
 
         if(empty($_tmpl['config']['class_prefix_shop_mode'])) {
@@ -232,7 +234,8 @@ if( $_shop_load_cat !== false || $_shop_load_list !== false || $_shop_load_order
             'product_option_2_required' => 'required="required"',
             'amount_input_prefix' => '<span class="input-amount">',
             'amount_input_suffix' => '</span>',
-            'amount_input_position' => 'after'
+            'amount_input_position' => 'after',
+            'default_request_url' => ''
         ),
         $_tmpl['config']
     );
@@ -696,7 +699,7 @@ if( $_shop_load_cat !== false ) {
 if( $_shop_load_list !== false ) {
 
     // check selected category
-    $shop_cat_selected  = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 0;
+    $shop_cat_selected = isset($GLOBALS['_getVar']['shop_cat']) ? $GLOBALS['_getVar']['shop_cat'] : 0;
     if(strpos($shop_cat_selected, '_')) {
         $shop_cat_selected = explode('_', $shop_cat_selected, 2);
         if(isset($shop_cat_selected[1])) {
@@ -797,6 +800,10 @@ if( $_shop_load_list !== false ) {
             $row['weight']  = $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
 
             $row['shopprod_var'] = @unserialize($row['shopprod_var']);
+            $row['shopprod_var']['request'] = !empty($row['shopprod_var']['request']);
+            if (empty($row['shopprod_var']['request_url'])) {
+                $row['shopprod_var']['request_url'] = trim($_tmpl['config']['default_request_url']);
+            }
 
             // check custom product URL
             if(empty($row['shopprod_var']['url'])) {
@@ -858,17 +865,42 @@ if( $_shop_load_list !== false ) {
 
                 $_cart = '';
                 $_cart_add = '';
-                $_cart_on_request = TRUE;
+                $_cart_on_request = true;
 
             } else {
 
                 $_cart = preg_match("/\[CART_ADD\](.*?)\[\/CART_ADD\]/is", $entry[$x], $g) ? $g[1] : '';
 
-                $_cart_add  = '<form action="' . $shop_prod_detail . '" id="prod_form_'.$row['shopprod_id'].'" class="';
-                $_cart_add .= trim($_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode']);
-                $_cart_add .= '" method="post" data-prices="' . html(json_encode($row['prices'])) . '">';
+                $_cart_add = '<form action="';
+                $_cart_form_class = $_tmpl['config']['class_form_product_cart_option'].' '.$_tmpl['config']['class_prefix_shop_mode'];
+
+                if ($row['shopprod_var']['request'] && $row['shopprod_var']['request_url']) {
+                    $_cart_request_link = str_replace('&', '&amp;', $row['shopprod_var']['request_url']);
+                    $_cart_request_link = str_replace('&amp;amp;', '&amp;', $_cart_request_link);
+                    $_cart_request_link = str_replace('{PRODUCT}', urlencode($row['shopprod_name1']), $_cart_request_link);
+                    $_cart_request_link = str_replace('{NUM}', urlencode($row['shopprod_ordernumber']), $_cart_request_link);
+
+                    $_cart_add .= $_cart_request_link;
+                    $_cart_form_class .= ' ' . $_tmpl['config']['class_request_form'];
+                    $_cart_shop_action = 'request';
+                    $_cart_button_class = $_tmpl['config']['class_request_button'];
+                } else {
+                    $_cart_add .= $shop_prod_detail;
+                    $_cart_shop_action = 'add';
+                    $_cart_request_link = '';
+                    $_cart_button_class = $_tmpl['config']['class_cart_add_button'];
+                }
+
+                $_cart_add .= '" id="prod_form_'.$row['shopprod_id'].'" class="'.trim($_cart_form_class).'"';
+                $_cart_add .= ' method="post" data-prices="' . html(json_encode($row['prices'])) . '">';
                 $_cart_add .= '<input type="hidden" name="shop_prod_id" value="' . $row['shopprod_id'] . '" />';
-                $_cart_add .= '<input type="hidden" name="shop_action" value="add" />';
+                $_cart_add .= '<input type="hidden" name="shop_action" value="' . $_cart_shop_action . '" />';
+
+                if ($_cart_request_link) {
+                    $_cart_add .= '<input type="hidden" name="shop_product_title" value="' . html($row['shopprod_name1']) . '" />';
+                    $_cart_add .= '<input type="hidden" name="shop_product_number" value="' . html($row['shopprod_ordernumber']) . '" />';
+                }
+
                 $_cart_manual_add = '';
 
                 if(strpos($_cart, '<!-- SHOW-AMOUNT -->') !== false) {
@@ -916,18 +948,19 @@ if( $_shop_load_list !== false ) {
                     // user has set input button
                     $_cart_add .= $_cart;
                 } else {
-                    $_cart_add .= '<input type="submit" name="shop_cart_add" id="shop_cart_add_'.$row['shopprod_id'].'" value="' . html($_cart) . '" class="'.trim($_tmpl['config']['class_cart_add_button'].' '.$_tmpl['config']['class_prefix_shop_mode']).'" />';
+                    $_cart_add .= '<button type="submit" name="shop_cart_add" id="shop_cart_add_'.$row['shopprod_id'].'" class="'.trim($_cart_button_class.' '.$_tmpl['config']['class_prefix_shop_mode']).'">' . $_cart . '</button>';
                 }
 
                 $_cart_add .= '</form>';
 
-                $_cart_on_request = FALSE;
+                $_cart_on_request = false;
             }
 
             $entry[$x] = preg_replace('/\[CART_ADD\](.*?)\[\/CART_ADD\]/is', $_cart_add , $entry[$x]);
 
             // product name
             $entry[$x] = render_cnt_template($entry[$x], 'ON_REQUEST', $_cart_on_request);
+            $entry[$x] = render_cnt_template($entry[$x], 'ON_REQUEST_LINK', $_cart_request_link);
             $entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_TITLE', html($row['shopprod_name1']));
             $entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_ADD', html($row['shopprod_name2']));
             $entry[$x] = render_cnt_template($entry[$x], 'PRODUCT_SHORT', $row['shopprod_description0']);

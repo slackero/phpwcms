@@ -640,7 +640,7 @@ foreach($phpwcms['js_lib'] as $key => $value) {
 
 
     <tr bgcolor="#F3F5F8">
-      <td align="right" class="chatlist" nowrap="nowrap">&nbsp;<?php echo $BL['be_fe_login_url'] ?>:&nbsp;</td>
+      <td align="right" class="chatlist nowrap" nowrap="nowrap">&nbsp;<?php echo $BL['be_fe_login_url'] ?>:&nbsp;</td>
       <td><input name="template_felogin_url" type="text" class="code width600" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>" size="50" /></td>
     </tr>
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
