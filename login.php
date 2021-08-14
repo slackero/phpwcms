@@ -75,10 +75,11 @@ $err        = 0;
 $wcs_user   = '';
 
 // where user should be redirected too after login
-if(!empty($_POST['ref_url'])) {
-    $ref_url = xss_clean($_POST['ref_url']);
-} elseif(!empty($_GET['ref'])) {
-    $ref_url = xss_clean(rawurldecode($_GET['ref']));
+if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
+    $ref_url = xss_clean(empty($_POST['ref_url']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
+        $ref_url = '';
+    }
 } else {
     $ref_url = '';
 }
