@@ -1,12 +1,12 @@
-phpwcms
-=======
+[![phpwcms](https://www.phpwcms.org/indeximg/phpwcms-logo.svg)](https://www.phpwcms.org)
+=========
 
 **phpwcms** is a very flexible, fast, robust, customer and developer friendly
 but yet powerful web based content management system and cms framework running
 under PHP and MySQL/MariaDB. phpwcms is created and maintained by
 [Oliver Georgi](http://twitter.com/slackero).
 
-To get started, checkout <https://phpwcms.org> or the community driven
+To get started, checkout [phpwcms.org](https://www.phpwcms.org) or the community driven
 [HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet
 answered on the [phpwcms support forum](https://forum.phpwcms.org).
 
@@ -14,27 +14,29 @@ answered on the [phpwcms support forum](https://forum.phpwcms.org).
 Quick start
 -----------
 
-Clone the repo, `git clone -b v1.9-php7-dev git://github.com/slackero/phpwcms.git`,
-[download the latest release](https://github.com/slackero/phpwcms/releases) or
-[download the latest development version](https://github.com/slackero/phpwcms/archive/refs/heads/v1.9-dev.zip).
-Then unarchive and copy the files to your web document root or subfolder.
+Stable releases can be used by cloning the repository, `git clone git://github.com/slackero/phpwcms.git` or
+[download the archive](https://github.com/slackero/phpwcms/releases).
+To start with the latest development version use `git clone -b v1.9-dev git://github.com/slackero/phpwcms.git` or
+[download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.9-dev.zip).
+If downloaded instead of `git clone`, unarchive and copy the files to your web document root or sub folder.
 Link your browser to the related URL and follow the install instructions.
 
 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.25 requires a web server with PHP (minimum version 5.5 up to 8.x)
-and a MySQL database (minimum version 5.1, recommend 5.5+).
+**phpwcms** version 1.9.26 requires a web server with PHP (minimum version 5.5 up to 8.x)
+and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 
 
 Bug tracker
 -----------
 
-Have a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
+Did you find a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
 that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
 
-<https://github.com/slackero/phpwcms/issues>
+In case it's a vulnerability maybe [huntr.dev](https://huntr.dev) is an option:  
+[![huntr](https://cdn.huntr.dev/huntr_security_badge_mono.svg)](https://huntr.dev).
 
 
 Share with us
@@ -43,24 +45,25 @@ Share with us
 Keep up to date on announcements and more by following **phpwcms** on Twitter
 [@phpwcms](https://twitter.com/phpwcms) or on
 [Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-*(We are no longer active there, better you stay in touch with phpwcms on
+*(We are no longer active there, better you stay in touch with **phpwcms** on
 [Github](https://github.com/slackero/phpwcms))*
 
 
-Author
-------
+Creator
+-------
 
 **Oliver Georgi**
 
-+ <https://webverbund.de>
-+ <https://twitter.com/slackero>
-+ <https://github.com/slackero>
+- <https://github.com/slackero>
+- <https://webverbund.de>
+- <https://www.linkedin.com/in/olivergeorgi>
+- <https://twitter.com/slackero>
 
 
 Copyright and license
 ---------------------
 
-Copyright 2002–2019 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright 2002–2021 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
