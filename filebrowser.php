@@ -175,7 +175,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
         }
     </script>
 </head>
-<body class="filebrowser">
+<body class="filebrowser m-3">
 
 <h2 class="mb-1"><?php echo $BL['FILE_TITLE'] ?></h2>
   <?php if ($js_aktion == 16) { ?>
@@ -345,7 +345,11 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $file_sql .= "(f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].") ";
     $file_sql .= "ORDER BY f_sort, f_name";
 
-    $ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
+    if (empty($_SESSION['CKEditorFuncNum'])) {
+        $ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
+    } else {
+        $ckeditor_action = $_SESSION['CKEditorFuncNum'];
+    }
 
     $file_result = _dbQuery($file_sql);
 
@@ -430,7 +434,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
                     //mod
                     case 10:
-                        $js  = "parent.SetUrl('download.php?f=".$file_row["f_hash"] . "&target=0');";
+                        $js  = "parent.SetUrl('download.php?f=" . $file_row["f_hash"] . "');";
                         break;
 
                     case 11:
@@ -439,7 +443,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
                     //CKEditor
                     case 16:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=".$file_row["f_hash"] . "&target=0');";
+                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');";
                         break;
 
                     case 17:

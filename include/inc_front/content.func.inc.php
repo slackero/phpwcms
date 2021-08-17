@@ -485,13 +485,8 @@ $block['onepage'] = empty($block['onepage']) ? false : true;
 define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
 // support conditional comments for IE8
-if(empty($block['ie8ignore'])) {
-    define('IE8_CC', true);
-    $block['ie8ignore'] = false;
-} else {
-    define('IE8_CC', false);
-    $block['ie8ignore'] = false;
-}
+define('IE8_CC', empty($block['ie8ignore']));
+$block['ie8ignore'] = false;
 
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
@@ -1825,6 +1820,9 @@ if(!empty($cmsgo['gt_mod']) && strpos($content["all"], '{GT') !== false) {
     $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
 
+if (CMSGO_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
+    $content["all"] = str_replace('download.php?f=', 'dl/', $content["all"]);
+}
 // Force Image extensions to WebP
 if (CMSGO_WEBP) {
     $content['all'] = preg_replace('/(\/[a-f0-9]{1,32}\.)(jpg|jpeg|png|gif)/', '$1webp', $content['all']);

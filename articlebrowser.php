@@ -52,7 +52,14 @@ if(isset($_GET["open"])) {
 
 $js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 1;
 $field = (isset($_GET["field"])) ? $_GET["field"] : 'id';
-$ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
+if(isset($_GET['CKEditorFuncNum'])) {
+    $ckeditor_action = intval($_GET['CKEditorFuncNum']);
+    $_SESSION['CKEditorFuncNum'] = $ckeditor_action;
+} elseif (!empty($_SESSION['CKEditorFuncNum'])) {
+    $ckeditor_action = $_SESSION['CKEditorFuncNum'];
+} else {
+    $ckeditor_action = 0;
+}
 
 switch($js_aktion) {
     case 1:  $js  = "parent.document.newsform.cnt_link.value";
@@ -86,7 +93,6 @@ checkLogin();
 
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -96,7 +102,6 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
 
   <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
-  <link href="include/inc_css/cmsgobrowser.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
@@ -116,10 +121,14 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
     <?php } ?>
 </head>
 <body class="filebrowser">
-<ul class="nav nav-tabs">
-  <li role="presentation" class="nav-item active"><a href="#" class="nav-link"><?php echo $BL['be_article_title'] ?></a></li>
+<ul class="nav nav-tabs border-0 my-2">
+  <li role="presentation" class="nav-item">
+      <a href="#" class="btn btn-blue mr-2"><?php echo $BL['be_article_title'] ?></a>
+  </li>
 <?php if ($js_aktion == 16) { ?>
-  <li role="presentation" class="nav-item"><a href="filebrowser.php?opt=16&CKEditor=chtml&CKEditorFuncNum=0&langCode=de" class="nav-link"><?php echo $BL['FILE_TITLE'] ?></a></li><?php } ?>
+  <li role="presentation" class="nav-item">
+      <a href="filebrowser.php?opt=16" class="btn btn-blue"><?php echo $BL['FILE_TITLE'] ?></a>
+  </li><?php } ?>
 </ul>
 
 <table summary="" class="table table-sm" border="0" cellspacing="0" cellpadding="0">
