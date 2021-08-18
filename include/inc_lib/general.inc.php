@@ -793,7 +793,7 @@ function sendEmail($data = array(
     $fromName = empty($data['fromName']) ? '' : cleanUpForEmailHeader($data['fromName']);
     $senderName = empty($data['senderName']) ? $fromName : cleanUpForEmailHeader($data['senderName']);
     $toName = empty($data['toName']) ? '' : cleanUpForEmailHeader($data['toName']);
-    $subject = empty($data['subject']) ? 'Email sent by cmsgo' : cleanUpForEmailHeader($data['subject']);
+    $subject = empty($data['subject']) ? 'Email sent by cmsGo!' : cleanUpForEmailHeader($data['subject']);
     if (empty($data['html'])) {
         $data['html'] = '';
         $data['isHTML'] = 0;
