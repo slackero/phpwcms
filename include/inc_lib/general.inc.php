@@ -781,6 +781,7 @@ function sendEmail($data = array(
     'from'         => '',
     'fromName'     => '',
     'sender'       => '',
+    'senderName'   => '',
     'stringAttach' => array(),
 )) {
     // used to send a standardized email message
@@ -790,6 +791,7 @@ function sendEmail($data = array(
     $from = empty($data['from']) || !is_valid_email($data['from']) ? $cmsgo['SMTP_FROM_EMAIL'] : $data['from'];
     $sender = empty($data['sender']) || !is_valid_email($data['sender']) ? $from : $data['sender'];
     $fromName = empty($data['fromName']) ? '' : cleanUpForEmailHeader($data['fromName']);
+    $senderName = empty($data['senderName']) ? $fromName : cleanUpForEmailHeader($data['senderName']);
     $toName = empty($data['toName']) ? '' : cleanUpForEmailHeader($data['toName']);
     $subject = empty($data['subject']) ? 'Email sent by cmsgo' : cleanUpForEmailHeader($data['subject']);
     if (empty($data['html'])) {
@@ -858,7 +860,7 @@ function sendEmail($data = array(
             $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
         }
         $mail->setFrom($from, $fromName);
-        $mail->addReplyTo($sender);
+        $mail->addReplyTo($sender, $senderName);
         $mail->addAddress($sendTo[0], $toName);
         unset($sendTo[0]);
         if (is_array($sendTo) && count($sendTo)) {
