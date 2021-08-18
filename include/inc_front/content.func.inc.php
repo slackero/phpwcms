@@ -1883,6 +1883,10 @@ if (strpos($content['all'], 'image_resized.php') !== false) {
     $content["all"] = preg_replace_callback('/<img(.+)src=(?:"|\')(image_resized\.php.+?)(?:"|\')(.+?)>/', 'deprecated_image_resized', $content["all"]);
 }
 
+if (PHPWCMS_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
+    $content["all"] = str_replace('download.php?f=', 'dl/', $content["all"]);
+}
+
 // Force Image extensions to WebP
 if (PHPWCMS_WEBP) {
     $content['all'] = preg_replace('/(\/[a-f0-9]{1,32}\.)(jpg|jpeg|png|gif)/', '$1webp', $content['all']);
