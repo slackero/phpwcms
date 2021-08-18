@@ -1509,12 +1509,12 @@ if( $_shop_load_order !== false ) {
         }
 
         $order_mail_self = array(
-            'from'      => $_SESSION[CART_KEY]['step1']['EMAIL'],
-            'fromName'  => $_SESSION[CART_KEY]['step1']['INV_FIRSTNAME'] . ' ' . $_SESSION[CART_KEY]['step1']['INV_NAME'],
-            'subject'   => str_replace('{ORDER}', $order_num, $_tmpl['config']['mail_neworder_subject']),
-            'text'      => $mail_neworder,
+            'from' => $email_from,
+            'subject' => str_replace('{ORDER}', $order_num, $_tmpl['config']['mail_neworder_subject']),
+            'text' => $mail_neworder,
             'recipient' => $email_to,
-            'sender'    => $_SESSION[CART_KEY]['step1']['EMAIL']
+            'sender' => $_SESSION[CART_KEY]['step1']['EMAIL'],
+            'senderName' => $_SESSION[CART_KEY]['step1']['INV_FIRSTNAME'] . ' ' . $_SESSION[CART_KEY]['step1']['INV_NAME']
         );
 
         $order_data_mail_self = sendEmail($order_mail_self);
