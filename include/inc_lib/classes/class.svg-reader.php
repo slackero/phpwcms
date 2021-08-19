@@ -25,11 +25,23 @@
  * @license GPL-2.0-or-later
  */
 
+use enshrined\svgSanitize\Sanitizer;
+
 /**
  * SVGMetadataExtractor class.
  */
 class SVGMetadataExtractor {
-    static function getMetadata( $filename ) {
+    static function getMetadata( $filename, $sanitize=true ) {
+        if ($sanitize && is_file( $filename )) {
+            $sanitizer = new Sanitizer();
+            $sanitizer->minify(true);
+            $sanitizer->removeXMLTag(true);
+            $dirtySVG = file_get_contents( $filename );
+            if ($dirtySVG && ($cleanSVG = $sanitizer->sanitize( $dirtySVG ))) {
+                file_put_contents( $filename, trim($cleanSVG) );
+            }
+        }
+
         $svg = new SVGReader( $filename );
         return $svg->getMetadata();
     }
