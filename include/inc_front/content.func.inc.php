@@ -1884,7 +1884,7 @@ if (strpos($content['all'], 'image_resized.php') !== false) {
 }
 
 if (PHPWCMS_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
-    $content["all"] = str_replace('download.php?f=', 'dl/', $content["all"]);
+    $content["all"] = preg_replace('/download.php\?f=([a-f0-9]{32,32}).*?"/', 'dl/$1/"', $content["all"]);
 }
 
 // Force Image extensions to WebP
