@@ -1821,7 +1821,7 @@ if(!empty($cmsgo['gt_mod']) && strpos($content["all"], '{GT') !== false) {
 }
 
 if (CMSGO_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
-    $content["all"] = str_replace('download.php?f=', 'dl/', $content["all"]);
+    $content["all"] = preg_replace('/download.php\?f=([a-f0-9]{32,32}).*?"/', 'dl/$1/"', $content["all"]);
 }
 // Force Image extensions to WebP
 if (CMSGO_WEBP) {
