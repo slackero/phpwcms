@@ -150,6 +150,7 @@ define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/revision/revision.php';
+require_once PHPWCMS_ROOT . '/include/vendor/autoload.php';
 
 phpwcms_getUserAgent();
 define('BROWSER_NAME', $phpwcms['USER_AGENT']['agent']);

@@ -1,0 +1,8 @@
+{
+    "config": {
+        "vendor-dir": "include/vendor"
+    },
+    "require": {
+        "enshrined/svg-sanitize": "^0.14.1"
+    }
+}
