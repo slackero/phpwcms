@@ -142,10 +142,6 @@ if(!empty($cmsgo['IE7-js']) && $cmsgo['USER_AGENT']['agent'] == 'IE' && version_
 
 $content['page_start'] .= '</head>'.LF;
 
-if(!$cmsgo['base_href'] && $cmsgo['rewrite_url'] && strpos($content['page_start'], '<base href') === false) {
-    $content['page_start'] = str_replace('<title>', '<base href="'.CMSGO_URL.'"'.HTML_TAG_CLOSE . LF . '  <title>', $content['page_start']);
-}
-
 // inject body tag in case of class or id attribute
 $content['page_start'] .= '<body';
 if(!empty($template_default['body']['id'])) {

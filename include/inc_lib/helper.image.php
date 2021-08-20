@@ -37,7 +37,7 @@ class Cmsgo_Image_lib {
     var $x_axis = '';
     var $y_axis = '';
     var $sharpen = false;
-    var $target_ext = CMSGO_WEBP ? 'jpg' : 'webp';
+    var $target_ext = 'jpg';
 
     // Watermark Vars
     var $wm_text = '';           // Watermark text if graphic is not used
@@ -112,6 +112,9 @@ class Cmsgo_Image_lib {
      * @return  void
      */
     public function __construct($props = array()) {
+        if (CMSGO_WEBP) {
+            $this->target_ext = 'webp';
+        }
         if (count($props)) {
             $this->initialize($props);
         }
