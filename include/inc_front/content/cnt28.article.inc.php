@@ -89,7 +89,9 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                     $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
                     time()+$_loginData['felogin_cookie_expire'],
                     '/',
-                    getCookieDomain()
+                    getCookieDomain(),
+                    PHPWCMS_SSL,
+                    true
                 );
 
             }

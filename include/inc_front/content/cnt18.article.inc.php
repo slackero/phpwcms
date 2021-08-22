@@ -409,7 +409,7 @@ if($guestbook['visible']) {
 
                 $guestbook['readform'] = 1;
                 if($guestbook['cookie'] && $guestbook['time']) {
-                    setcookie('phpwcms_guestbook'.$guestbook['cid'], time(), time()+intval($guestbook['time']));
+                    setcookie('phpwcms_guestbook'.$guestbook['cid'], time(), time()+intval($guestbook['time']), '/', getCookieDomain(), PHPWCMS_SSL, true);
                 }
 
                 // check if notify email should be sent

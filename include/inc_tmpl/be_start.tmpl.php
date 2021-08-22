@@ -24,15 +24,15 @@ $_phpwcms_home['homeCntType'] = empty($_COOKIE['homeCntType']) ? '' : $_COOKIE['
 
 if(isset($_POST['homeMaxArticles'])) {
 	if($_phpwcms_home['homeMaxArticles'] = intval($_POST['homeMaxArticles'])) {
-		@setcookie('homeMaxArticles', strval($_phpwcms_home['homeMaxArticles']) , time()+31536000); // store cookie for 1 year
+		@setcookie('homeMaxArticles', strval($_phpwcms_home['homeMaxArticles']) , time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
 	}
 }
 if(isset($_POST['homeMaxCntParts'])) {
 	if($_phpwcms_home['homeMaxCntParts'] = intval($_POST['homeMaxCntParts'])) {
-		@setcookie('homeMaxCntParts', strval($_phpwcms_home['homeMaxCntParts']) , time()+31536000); // store cookie for 1 year
+		@setcookie('homeMaxCntParts', strval($_phpwcms_home['homeMaxCntParts']) , time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
 	}
 	$_phpwcms_home['homeCntType'] = clean_slweg($_POST['homeCntType']);
-	@setcookie('homeCntType', $_phpwcms_home['homeCntType'], time()+31536000); // store cookie for 1 year
+	@setcookie('homeCntType', $_phpwcms_home['homeCntType'], time()+31536000, '/', getCookieDomain(), PHPWCMS_SSL, true); // store cookie for 1 year
 	$_SESSION['phpwcms_backend_search'] = '';
 }
 

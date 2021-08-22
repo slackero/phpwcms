@@ -9,20 +9,12 @@
  *
  **/
 
-session_start();
-
-if(empty($_SESSION["wcs_user_id"])) {
-
-	die('{"success":false}');
-
-}
-
-$phpwcms = array();
-require '../../include/config/conf.inc.php';
-require '../inc_lib/default.inc.php';
+$phpwcms = array('SESSION_START' => true);
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 
-if(!validate_csrf_get_token()) {
+if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
 	die('{"success":false}');
 }
 

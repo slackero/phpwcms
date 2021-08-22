@@ -9,15 +9,12 @@
  *
  **/
 
-session_start();
-
-$phpwcms = array();
+$phpwcms = array('SESSION_START' => true);
 require_once 'include/config/conf.inc.php';
 
 if(empty($_SESSION["wcs_user_lang"])) {
     session_destroy();
     headerRedirect($phpwcms['site'].$phpwcms["root"]);
-
 } else {
     require 'include/inc_lang/backend/en/lang.ext.inc.php';
     $cust_lang = 'include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.ext.inc.php';

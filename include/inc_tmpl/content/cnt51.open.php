@@ -9,9 +9,8 @@
  *
  **/
 
-session_start();
+$phpwcms = array('SESSION_START' => true);
 
-$phpwcms = array();
 require_once '../../../include/config/conf.inc.php';
 require_once '../../../include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';

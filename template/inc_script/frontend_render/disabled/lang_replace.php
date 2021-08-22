@@ -18,7 +18,7 @@ $language_cookie_duration   = 60*60*24*365; // 1 year
 if(isset($_GET['lang'])) {
     $language_current = strtolower( substr($_GET['lang'], 0, 2) );
     $_SESSION['phpwcmsFrontendLanguage'] = $language_current;
-    setcookie('phpwcmsFrontendLanguage', $language_current, time()+$language_cookie_duration, '/' );
+    setcookie('phpwcmsFrontendLanguage', $language_current, time()+$language_cookie_duration, '/', getCookieDomain(), PHPWCMS_SSL, true);
 } elseif(isset($_SESSION['phpwcmsFrontendLanguage'])) {
     $language_current   = $_SESSION['phpwcmsFrontendLanguage'];
 } elseif(isset($_COOKIE['phpwcmsFrontendLanguage'])) {
@@ -27,7 +27,7 @@ if(isset($_GET['lang'])) {
 if(!in_array($language_current, $phpwcms['allowed_lang'])) {
     $language_current   = $language_default;
     $_SESSION['phpwcmsFrontendLanguage'] = $language_current;
-    setcookie('phpwcmsFrontendLanguage', $language_current, time()+$language_cookie_duration, '/' );
+    setcookie('phpwcmsFrontendLanguage', $language_current, time()+$language_cookie_duration, '/', getCookieDomain(), PHPWCMS_SSL, true);
 }
 
 // init language replacements

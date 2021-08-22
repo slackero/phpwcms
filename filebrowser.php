@@ -20,9 +20,7 @@
  * - Issue 265 based on TB's post
  */
 
-session_start();
-
-$phpwcms            = array();
+$phpwcms            = array('SESSION_START' => true);
 $phpwcms_root       = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 $js_files_all       = array();
 $js_files_select    = array();

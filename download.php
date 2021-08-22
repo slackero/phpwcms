@@ -14,7 +14,7 @@ $phpwcms = array();
 require_once 'include/config/conf.inc.php';
 
 if( !empty($phpwcms['SESSION_FEinit']) ) {
-    @session_start();
+    $phpwcms['SESSION_START'] = true;
 }
 
 require_once 'include/inc_lib/default.inc.php';

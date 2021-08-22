@@ -41,7 +41,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 
 		if(empty($_COOKIE['phpwcmsAdsUserId']) || !preg_match('/^[0-9a-f]{32}$/', ($ads_userid = $_COOKIE['phpwcmsAdsUserId']) ) ) {
 			$ads_userid	= md5($ads_userip.microtime());
-			setcookie('phpwcmsAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain() );
+			setcookie('phpwcmsAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain(), PHPWCMS_SSL, true);
 		}
 
 		$sql  =	'INSERT DELAYED INTO '.DB_PREPEND.'phpwcms_ads_tracking (';

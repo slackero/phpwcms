@@ -153,6 +153,8 @@ $phpwcms['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded
 $phpwcms['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
 $phpwcms['disable_generator'] = false; // Disable <meta name="generator"> and header `X-phpwcms-Release`
 $phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
+$phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
+$phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address

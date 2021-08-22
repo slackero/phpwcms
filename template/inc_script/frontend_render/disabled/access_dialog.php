@@ -24,7 +24,7 @@ if(isset($_POST['agree_reject'])) {
     if(isset($_SESSION['phpwcmsAgree'])) {
         unset($_SESSION['phpwcmsAgree']);
     }
-    setcookie('phpwcmsAgree', '0', time()-1000000, '/');
+    setcookie('phpwcmsAgree', '0', time()-1000000, '/', getCookieDomain(), PHPWCMS_SSL, true);
 
     if(isset($_POST['agree_redirect'])) {
         $redirect = clean_slweg($_POST['agree_redirect']);
@@ -40,7 +40,7 @@ if(isset($_POST['agree_reject'])) {
 
     } else {
 
-        setcookie('phpwcmsAgree', '1', 0, '/');
+        setcookie('phpwcmsAgree', '1', 0, '/', getCookieDomain(), PHPWCMS_SSL, true);
         $_SESSION['phpwcmsAgree'] = true;
 
     }

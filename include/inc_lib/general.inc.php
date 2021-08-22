@@ -1581,13 +1581,15 @@ function parse_ini_str($Str, $ProcessSections = true, $SplitInNameValue = false)
 }
 
 function getCookieDomain() {
-    $domain = parse_url(PHPWCMS_URL);
-    $domain = strtolower($domain['host']);
-    if (strpos($domain, 'www') === 0) {
-        $domain = substr($domain, 3);
+    if (empty($GLOBALS['phpwcms']['parse_url']['host'])) {
+        $domain = parse_url(PHPWCMS_URL);
+        $domain = strtolower($domain['host']);
+        if (strpos($domain, 'www') === 0) {
+            $domain = substr($domain, 3);
+        }
+        $GLOBALS['phpwcms']['parse_url']['host'] = $domain;
     }
-
-    return $domain;
+    return $GLOBALS['phpwcms']['parse_url']['host'];
 }
 
 function _mkdir($target) {

@@ -9,8 +9,7 @@
  *
  **/
 
-session_start();
-$phpwcms = array();
+$phpwcms = array('SESSION_START' => true);
 $PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';

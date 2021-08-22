@@ -22,7 +22,7 @@ if(!empty($_GET['switchFontSize'])) {
 
     $userFontSize = clean_slweg($_GET['switchFontSize']);
     // try to write FontSizeCookie
-    setcookie('switchFontSize', $userFontSize, time()+86400);
+    setcookie('switchFontSize', $userFontSize, time()+86400, '/', getCookieDomain(), PHPWCMS_SSL, true);
 
 } elseif(isset($_SESSION['FontSize'])) {
     $userFontSize = $_SESSION['FontSize'];

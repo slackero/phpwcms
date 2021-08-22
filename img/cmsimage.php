@@ -124,7 +124,8 @@ if(isset($data[1])) {
 
         if(is_intval($hash)) {
 
-            @session_start();
+            $phpwcms['SESSION_START'] = true;
+            require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once(PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php');
@@ -154,7 +155,8 @@ if(isset($data[1])) {
 
         } elseif(strlen($hash) === 32 && (!$ext || !is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.$hash.'.'.$ext))) {
 
-            @session_start();
+            $phpwcms['SESSION_START'] = true;
+            require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
