@@ -16,11 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// build the database table prepend part
-define ('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : $GLOBALS['phpwcms']["db_prepend"].'_');
-
-// Log DB errors
-define ('DB_LOG_ERRORS', empty($GLOBALS['phpwcms']["db_errorlog"]) ? false : true);
+define('DB_LOG_ERRORS', empty($GLOBALS['phpwcms']["db_errorlog"]) ? false : true);
 
 // open the connection to MySQL database
 if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host"], 0, 2) !== 'p:') {
@@ -37,6 +33,7 @@ if($is_mysql_error === false) {
     // for compatibility issues try to check for MySQL version and charset
     $GLOBALS['phpwcms']['db_version'] = _dbInitialize();
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
+    define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : mysqli_real_escape_string($GLOBALS['db'], $GLOBALS['phpwcms']["db_prepend"]) . '_');
 
 } elseif($is_mysql_error !== 'dbdown.php') {
 
@@ -45,11 +42,15 @@ if($is_mysql_error === false) {
 } else {
 
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
+    define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : aporeplace($GLOBALS['phpwcms']["db_prepend"]) . '_');
 
 }
 
 // deprecated function for escaping db items
 function aporeplace($value='') {
+    if (!$GLOBALS['db']) {
+        return str_replace(array("\\", "\x00", "\n", "\r", "'",  '"', "\x1a"), array("\\\\", "\\0", "\\n", "\\r", "\'", '\"', "\\Z"), $value);
+    }
     return mysqli_real_escape_string($GLOBALS['db'], $value);
 }
 

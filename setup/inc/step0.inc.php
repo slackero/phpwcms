@@ -9,6 +9,10 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
 $_SESSION['admin_set'] = false;
 $setup_recommend = true;
 

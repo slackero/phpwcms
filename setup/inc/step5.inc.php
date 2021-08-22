@@ -9,6 +9,9 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
 
 $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
