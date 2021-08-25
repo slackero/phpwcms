@@ -687,10 +687,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
                 //
 
-                $form_field .= '<select class="form-control custom-select" name="'.$form_name.'" id="'.$form_name.'"';
-                if($cnt_form["fields"][$key]['class']) {
-                    $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
-                }
+                $form_field .= '<select name="'.$form_name.'" id="'.$form_name.'" ';
+                $form_field .= 'class="' . ($cnt_form["fields"][$key]['class'] ? $cnt_form["fields"][$key]['class'] : 'form-control custom-select') . '"';
                 if($cnt_form["fields"][$key]['style']) {
                     $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                 }
