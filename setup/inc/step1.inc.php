@@ -9,6 +9,10 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
 ?>
 <h1><span class="number">3.</span> MySQL database settings </h1>
 <?php
@@ -142,14 +146,14 @@ if(!empty($db_init)) {
     } elseif(isset($db_create_err) || !empty($db_no_create)) {
 
         // OK fine - initial tables were created without error
-        $_db_prepend = ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '');
+        $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
         $check = _dbQuery("SHOW TABLES LIKE '".$_db_prepend."phpwcms_%'");
 
         if($check && count($check)) {
 
-            $sql_data               = false;
-            $db_sql                 = false;
-            $db_fine                = true;
+            $sql_data   = false;
+            $db_sql     = false;
+            $db_fine    = true;
 
 ?>
       <tr>
@@ -305,7 +309,7 @@ if(!empty($_SESSION['admin_set'])) {
 
     } else {
 
-        $_db_prepend = ($phpwcms["db_prepend"] ? $phpwcms["db_prepend"].'_' : '');
+        $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
 
         //show Info that admin info was saved
         //and also if stored in database

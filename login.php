@@ -9,9 +9,7 @@
  *
  **/
 
-session_start();
-
-$phpwcms    = array();
+$phpwcms    = array('SESSION_START' => true);
 $BL         = array();
 
 // Check if config is still at the old position
@@ -102,7 +100,7 @@ if(isset($_COOKIE['phpwcmsBELang'])) {
     if( isset( $BL[ $temp_lang ] ) ) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
-        setcookie('phpwcmsBELang', '', time() - 3600);
+        setcookie('phpwcmsBELang', '', time() - 3600, '/', getCookieDomain(), PHPWCMS_SSL, true);
     }
 }
 if(isset($_POST['form_lang'])) {

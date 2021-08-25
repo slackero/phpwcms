@@ -11,8 +11,8 @@
 
 // general wrapper for ajax based queries
 
-session_start();
-$phpwcms = array();
+$phpwcms = array('SESSION_START' => true);
+
 require '../../include/config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';

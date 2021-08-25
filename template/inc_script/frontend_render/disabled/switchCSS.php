@@ -24,7 +24,7 @@ if(!empty($_GET['switchCSS'])) {
     $_user_CSS = clean_slweg($_GET['switchCSS']);
 
     // try to write FontSizeCookie
-    setcookie('switchCSS', $_user_CSS, time()+86400);
+    setcookie('switchCSS', $_user_CSS, time()+86400, '/', getCookieDomain(), PHPWCMS_SSL, true);
 
 } elseif(isset($_SESSION['switchCSS'])) {
 

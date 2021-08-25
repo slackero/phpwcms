@@ -9,6 +9,10 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
 if ($err) {
     echo '<p class="error"><b>Check your admin user name and password!</b></p>';
 }

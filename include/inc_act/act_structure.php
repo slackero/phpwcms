@@ -12,8 +12,8 @@
 //19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
-session_start();
-$phpwcms = array();
+$phpwcms = array('SESSION_START' => true);
+
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';

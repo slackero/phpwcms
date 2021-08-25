@@ -13,14 +13,12 @@
 list($usec, $sec) = explode(' ', microtime());
 $phpwcms_rendering_start = $usec + $sec;
 
-session_start();
-
 //define used var names
 $body_onload                = '';
 $forward_to_message_center  = false;
 $wcsnav                     = array();
 $indexpage                  = array();
-$phpwcms                    = array();
+$phpwcms                    = array('SESSION_START' => true);
 $BL                         = array();
 $BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
 $PHPWCMS_ROOT               = dirname(__FILE__);

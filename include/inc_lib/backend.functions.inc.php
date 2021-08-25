@@ -609,7 +609,7 @@ function set_status_message($msg='', $type='info', $replace=array()) {
 }
 
 function set_language_cookie() {
-    setcookie('phpwcmsBELang', $_SESSION["wcs_user_lang"], time()+(3600*24*365), '/', getCookieDomain() );
+    setcookie('phpwcmsBELang', $_SESSION["wcs_user_lang"], time()+(3600*24*365), '/', getCookieDomain(), PHPWCMS_SSL, true);
 }
 
 // checks for alias and sets unique value
@@ -939,8 +939,8 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 
 function setItemsPerPage($default=25) {
     if( isset($_GET['showipp']) ) {
-        $ipp = intval( is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default );
-        setcookie('phpwcmsBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain() );
+        $ipp = intval(is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default);
+        setcookie('phpwcmsBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain(), PHPWCMS_SSL, true);
     } elseif(isset($_SESSION['PAGE_FILTER'])) {
         $ipp = $_SESSION['PAGE_FILTER']['IPP'];
     } elseif( isset($_COOKIE['phpwcmsBEItemsPerPage']) ) {

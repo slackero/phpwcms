@@ -3701,7 +3701,7 @@ function _checkFrontendUserAutoLogin() {
     // logout
     if(session_id() && (isset($_POST['feLogout']) || isset($_GET['feLogout']))) {
         unset($_SESSION[ session_id() ]);
-        setcookie('phpwcmsFeLoginRemember', '', time()-3600, '/',  getCookieDomain() );
+        setcookie('phpwcmsFeLoginRemember', '', time()-3600, '/',  getCookieDomain(), PHPWCMS_SSL, true);
     }
     define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
 }

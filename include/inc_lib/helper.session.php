@@ -8,6 +8,14 @@
  * @link http://www.phpwcms.org
  *
  **/
+if (!defined('PHPWCMS_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
+// Cookie settings
+if (!empty($phpwcms['SESSION_START'])) {
+    _initSession();
+}
 
 /**
  * Set session var.
