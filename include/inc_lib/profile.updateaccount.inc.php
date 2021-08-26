@@ -94,7 +94,7 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
             $_SESSION["WYSIWYG_EDITOR"]     = $new_wysiwyg;
             $_SESSION["wcs_user_cp"]        = $user_var['selected_cp'];
 
-            set_language_cookie();
+            set_language_cookie($new_language);
 
             headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=profile');
         }

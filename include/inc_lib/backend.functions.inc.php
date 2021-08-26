@@ -608,8 +608,8 @@ function set_status_message($msg='', $type='info', $replace=array()) {
     return NULL;
 }
 
-function set_language_cookie() {
-    setcookie('phpwcmsBELang', $_SESSION["wcs_user_lang"], time()+(3600*24*365), '/', getCookieDomain(), PHPWCMS_SSL, true);
+function set_language_cookie($lang='en') {
+    setcookie('phpwcmsBELang', $lang, time()+(3600*24*365), '/', getCookieDomain(), PHPWCMS_SSL, true);
 }
 
 // checks for alias and sets unique value

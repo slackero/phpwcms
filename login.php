@@ -74,7 +74,7 @@ $wcs_user   = '';
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
-    $ref_url = xss_clean(empty($_POST['ref_url']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    $ref_url = xss_clean(isset($_POST['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
     if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
         $ref_url = '';
     }
@@ -96,16 +96,17 @@ require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {
-    $temp_lang = strtoupper( substr( trim( $_COOKIE['phpwcmsBELang'] ), 0, 2 ) );
-    if( isset( $BL[ $temp_lang ] ) ) {
+    $temp_lang = strtoupper(substr(trim($_COOKIE['phpwcmsBELang']), 0, 2));
+    if (isset($BL[$temp_lang])) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
         setcookie('phpwcmsBELang', '', time() - 3600, '/', getCookieDomain(), PHPWCMS_SSL, true);
     }
 }
 if(isset($_POST['form_lang'])) {
-    $_SESSION["wcs_user_lang"] = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
-    set_language_cookie();
+    $temp_lang = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
+    $_SESSION["wcs_user_lang"] = $temp_lang;
+    set_language_cookie($temp_lang);
 }
 if(empty($_SESSION["wcs_user_lang"])) {
     $_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms["default_lang"] );
@@ -165,9 +166,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             $_SESSION["wcs_user_thumb"]     = 1;
             if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
                 $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
+                set_language_cookie($result[0]["usr_lang"]);
+            } elseif (!empty($_SESSION["wcs_user_lang"])) {
+                set_language_cookie($_SESSION["wcs_user_lang"]);
+            } else {
+                set_language_cookie();
             }
-
-            set_language_cookie();
 
             $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
             $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
