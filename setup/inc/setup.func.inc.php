@@ -249,7 +249,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
     $conf_file .= "\$phpwcms['wkhtmltopdf_path'] = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'\n";
     $conf_file .= "\$phpwcms['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects\n";
-    $conf_file .= "\$phpwcms['browser_check'] = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
+    $conf_file .= "\$phpwcms['browser_check'] = array('fe' => false, 'be' => false, 'vs' => '', 'insecure' => true, 'required' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
     $conf_file .= "\$phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental\n";
     $conf_file .= "\$phpwcms['force301_id2alias'] = false; // send 301 HTTP Redirect when article/structure has alias but ID is given\n";
     $conf_file .= "\$phpwcms['force301_2struct'] = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";

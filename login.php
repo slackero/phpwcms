@@ -409,15 +409,20 @@ echo implode('', $lang_options);
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
-?><script>
+?>
+<script>
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
-</script>
-<?php if(!empty($phpwcms['browser_check']['be'])): ?>
-<script>
-    $buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) { echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
-</script>
-<script src="https://browser-update.org/update.js"></script>
-<?php endif; ?>
+<?php if(!empty($phpwcms['browser_check']['be'])):
+    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
+    if(!empty($phpwcms['browser_check']['vs'])) {
+        $buoop['vs'] = $phpwcms['browser_check']['vs'];
+    }
+    if(!empty($phpwcms['browser_check']['required'])) {
+        $buoop['required'] = '{' . trim($phpwcms['browser_check']['required'], '{}') . '}';
+    }
+?>
+    var $buoop = <?php echo json_encode($buoop); ?>;
+</script><script src="https://browser-update.org/update.min.js"><?php endif; ?></script>
 </body>
 </html>
