@@ -218,10 +218,8 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
             headerRedirect($linkto);
 
         // user is logged in
-        } elseif(isset($_POST['feLogin'])) {
-
+        } elseif(isset($_POST['feLogin']) && empty($_POST['feNoRedirect'])) {
             headerRedirect(decode_entities(FE_CURRENT_URL));
-
         }
 
         // manage account
