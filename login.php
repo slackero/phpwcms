@@ -69,12 +69,12 @@ if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
 }
 
 // define vars
-$err        = 0;
-$wcs_user   = '';
+$err = 0;
+$wcs_user = '';
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
-    $ref_url = xss_clean(isset($_POST['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
     if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
         $ref_url = '';
     }
@@ -82,7 +82,7 @@ if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken']) || $_POST['logintoken'] !== get_token_get_value());
 
 define('LOGIN_TOKEN', generate_get_token());
 
@@ -267,7 +267,7 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>">
 <head>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
