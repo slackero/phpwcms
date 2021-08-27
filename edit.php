@@ -76,7 +76,7 @@ $wcs_user   = '';
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
-    $ref_url = xss_clean(empty($_POST['ref_url']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
     if (substr($ref_url, 0, strlen(CMSGO_URL)) !== CMSGO_URL) {
         $ref_url = '';
     }
