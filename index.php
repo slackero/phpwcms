@@ -171,11 +171,15 @@ if(count($block['bodyjs'])) {
     $content['page_end'] .= implode(LF, $block['bodyjs']);
 }
 if(!empty($phpwcms['browser_check']['fe'])) {
-    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'> var $buoop = {';
+    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
     if(!empty($phpwcms['browser_check']['vs'])) {
-        $content['page_end'] .= 'vs:' . $phpwcms['browser_check']['vs'];
+        $buoop['vs'] = $phpwcms['browser_check']['vs'];
     }
-    $content['page_end'] .= '}; </script><script'.SCRIPT_ATTRIBUTE_TYPE.' src="//browser-update.org/update.js"></script>';
+    if(!empty($phpwcms['browser_check']['required'])) {
+        $buoop['required'] = '{' . trim($phpwcms['browser_check']['required'], '{}') . '}';
+    }
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>var $buoop = ' . json_encode($buoop) . '; </script>';
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://browser-update.org/update.min.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';
 

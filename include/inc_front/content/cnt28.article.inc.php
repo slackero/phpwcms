@@ -168,7 +168,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
 
             $_loginData['reminder'] = $_loginData['reminder_success'];
 
-            $_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+            $_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder', 'feLogout') );
 
             $_loginData['reminder_email'] = str_replace('{LOGIN_URL}', PHPWCMS_URL . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
 
@@ -218,10 +218,8 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
             headerRedirect($linkto);
 
         // user is logged in
-        } elseif(isset($_POST['feLogin'])) {
-
+        } elseif(isset($_POST['feLogin']) && empty($_POST['feNoRedirect'])) {
             headerRedirect(decode_entities(FE_CURRENT_URL));
-
         }
 
         // manage account
@@ -262,7 +260,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     // check register profile
     if($_loginData['felogin_profile_registration']) {
         // possible -> set link to form
-        $_loginData['uri'] = rel_url( array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder') );
+        $_loginData['uri'] = rel_url( array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder', 'feLogout') );
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'REGISTER_PROFILE', $_loginData['uri'] );
     } else {
         // not possible
@@ -279,7 +277,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         // possible -> set link to form
         $_loginData['uri'] = rel_url(
             array('profile_manage'=>$_loginData['get_profile_manage']),
-            array('profile_register', 'profile_reminder'),
+            array('profile_register', 'profile_reminder', 'feLogout'),
             empty($_loginData['felogin_profile_manage_redirect']) ? '' : $_loginData['felogin_profile_manage_redirect']
         );
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', $_loginData['uri'] );
@@ -289,10 +287,10 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', '' );
     }
 
-    $_loginData['uri'] = rel_url( array('profile_reminder'=>'1'), array('profile_manage', 'profile_register') );
+    $_loginData['uri'] = rel_url( array('profile_reminder'=>'1'), array('profile_manage', 'profile_register', 'feLogout') );
     $_loginData['template'] = render_cnt_template($_loginData['template'], 'REMINDER_FORM', $_loginData['uri'] );
 
-    $_loginData['uri'] = rel_url( array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+    $_loginData['uri'] = rel_url( array(), array('profile_manage', 'profile_register', 'profile_reminder', 'feLogout') );
     $CNT_TMP .=  str_replace(array('{FORM_TARGET}', '{LOGIN_URL}'), $_loginData['uri'], $_loginData['template']);
 
 }

@@ -69,12 +69,12 @@ if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
 }
 
 // define vars
-$err        = 0;
-$wcs_user   = '';
+$err = 0;
+$wcs_user = '';
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
-    $ref_url = xss_clean(empty($_POST['ref_url']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
     if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
         $ref_url = '';
     }
@@ -82,7 +82,7 @@ if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken']) || $_POST['logintoken'] !== get_token_get_value());
 
 define('LOGIN_TOKEN', generate_get_token());
 
@@ -96,16 +96,17 @@ require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {
-    $temp_lang = strtoupper( substr( trim( $_COOKIE['phpwcmsBELang'] ), 0, 2 ) );
-    if( isset( $BL[ $temp_lang ] ) ) {
+    $temp_lang = strtoupper(substr(trim($_COOKIE['phpwcmsBELang']), 0, 2));
+    if (isset($BL[$temp_lang])) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
         setcookie('phpwcmsBELang', '', time() - 3600, '/', getCookieDomain(), PHPWCMS_SSL, true);
     }
 }
 if(isset($_POST['form_lang'])) {
-    $_SESSION["wcs_user_lang"] = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
-    set_language_cookie();
+    $temp_lang = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
+    $_SESSION["wcs_user_lang"] = $temp_lang;
+    set_language_cookie($temp_lang);
 }
 if(empty($_SESSION["wcs_user_lang"])) {
     $_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms["default_lang"] );
@@ -165,9 +166,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             $_SESSION["wcs_user_thumb"]     = 1;
             if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
                 $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
+                set_language_cookie($result[0]["usr_lang"]);
+            } elseif (!empty($_SESSION["wcs_user_lang"])) {
+                set_language_cookie($_SESSION["wcs_user_lang"]);
+            } else {
+                set_language_cookie();
             }
-
-            set_language_cookie();
 
             $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
             $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
@@ -263,7 +267,7 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>">
 <head>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
@@ -272,6 +276,20 @@ $reason_types = array(
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>
 <?php endif; ?>
+    <style>
+        .alert-img {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            float: left;
+            position: relative;
+        }
+        .alert-offset {
+            margin-left: 40px;
+            margin-top: 8px;
+            margin-bottom: 5px;
+        }
+    </style>
     <script src="include/inc_js/jquery/jquery.min.js"></script>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script src="include/inc_js/md5.js"></script>
@@ -334,7 +352,10 @@ ob_start();
 <?php
 
     if(file_exists(PHPWCMS_ROOT.'/setup')) {
-        echo '<div class="alert alert-warning">'.$BL["setup_dir_exists"].'</div>';
+        echo '<div class="alert alert-danger">';
+        echo '<svg focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="alert-img"><path fill="currentColor" d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z" class=""></path></svg>';
+        echo '<div class="alert-offset">' . $BL["setup_dir_exists"];
+        echo '</div></div>';
     }
 
     if(isset($_POST['json']) && $_POST['json'] == 2) {
@@ -405,15 +426,20 @@ echo implode('', $lang_options);
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
-?><script>
+?>
+<script>
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
-</script>
-<?php if(!empty($phpwcms['browser_check']['be'])): ?>
-<script>
-    $buoop = {<?php if(!empty($phpwcms['browser_check']['vs'])) { echo 'vs:'.$phpwcms['browser_check']['vs']; } ?>};
-</script>
-<script src="https://browser-update.org/update.js"></script>
-<?php endif; ?>
+<?php if(!empty($phpwcms['browser_check']['be'])):
+    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
+    if(!empty($phpwcms['browser_check']['vs'])) {
+        $buoop['vs'] = $phpwcms['browser_check']['vs'];
+    }
+    if(!empty($phpwcms['browser_check']['required'])) {
+        $buoop['required'] = '{' . trim($phpwcms['browser_check']['required'], '{}') . '}';
+    }
+?>
+    var $buoop = <?php echo json_encode($buoop); ?>;
+</script><script src="https://browser-update.org/update.min.js"><?php endif; ?></script>
 </body>
 </html>

@@ -110,13 +110,13 @@ $phpwcms['FCK_FileBrowser'] = 1; // enable|disable phpwcms Filebrowser in FCKedi
 $phpwcms['feuser_regkey'] = 'FEUSER';
 $phpwcms['login.php'] = 'login.php';
 $phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.11/)
+$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.14/)
 $phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
 $phpwcms['wkhtmltopdf_path'] = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'
 $phpwcms['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects
-$phpwcms['browser_check'] = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
+$phpwcms['browser_check'] = array('fe' => false, 'be' => false, 'vs' => '', 'insecure' => true, 'required' => ''); // enable Browser Update check in frontend and/or backend, use "vs" to which browser version, see http://www.browser-update.org/index.html#install
 $phpwcms['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental
 $phpwcms['force301_id2alias'] = false; // send 301 HTTP Redirect when article/structure has alias but ID is given
 $phpwcms['force301_2struct'] = false; // send 301 HTTP Redirect to structure level when only 1 article is inside

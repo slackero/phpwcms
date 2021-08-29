@@ -19,10 +19,11 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-//load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
-    include PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php';
+
+//use custom lang if available -> was set in login.php
+if(!empty($_SESSION["wcs_user_lang_custom"]) && ($temp_lang = substr($_SESSION["wcs_user_lang"],0,2)) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$temp_lang.'/lang.inc.php')) {
+    include PHPWCMS_ROOT.'/include/inc_lang/backend/'.$temp_lang.'/lang.inc.php';
 }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

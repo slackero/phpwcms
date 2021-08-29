@@ -19,19 +19,23 @@ $attr = '';
 
 if(!empty($_GET["show"]) && ($data = @unserialize(base64_decode($_GET["show"])))) {
 
-    $src = strip_tags(str_replace(array('http://', 'https://', 'ftp://'), '', $data['src']));
+    $src = strip_tags($data['src']);
+    $src_schema = parse_url($src);
+    if (!empty($src_schema['schema'])) {
+        $src = "img/leer.gif";
+    }
     $width_height = strip_tags($data['attr']);
     $name = $data['name'];
 
 }
 
 ?><!DOCTYPE html>
-<htm lang="<?php echo $phpwcms['DOCTYPE_LANG']; ?>">
+<html lang="<?php echo $phpwcms['DOCTYPE_LANG']; ?>">
 <head>
     <title><?php echo html($name); ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <script type="text/javascript" src="<?php echo TEMPLATE_PATH; ?>inc_js/imagezoom.js"></script>
     <link href="<?php echo TEMPLATE_PATH; ?>inc_css/dialog/popup.image.css" rel="stylesheet">
 </head>
-<body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo html($src); ?>" alt="<?php echo html($name); ?>"<?php echo $attr; ?> /></a></body>
+<body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo html($src); ?>" alt="<?php echo html($name); ?>" /></a></body>
 </html>

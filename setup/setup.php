@@ -13,8 +13,14 @@ session_start();
 
 $phpwcms = array();
 
-require_once(dirname(__FILE__).'/inc/setup.func.inc.php');
-require_once($DOCROOT.'/setup/setup.conf.inc.php');
+require_once dirname(__FILE__).'/inc/setup.func.inc.php';
+require_once $DOCROOT.'/setup/setup.conf.inc.php';
+
+if (is_file($DOCROOT . '/include/config/conf.inc.php')) {
+    header('HTTP/1.1 401 Authorization Required');
+    header('Location: ../login.php');
+    exit();
+}
 
 $step		= isset($_GET["step"]) ? intval($_GET["step"]) : 0;
 $do			= isset($_POST["do"]) ? intval($_POST["do"]) : 0;
@@ -73,9 +79,6 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 			}
 
 		} else {
-
-
-
 			?>
     <h1><img src="../img/famfamfam/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
       stopped </h1>
@@ -83,9 +86,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 			<p class="code">$NO_ACCESS = true;</p>
 			<p>in setup.conf.inc.php.</p>
 			<?php
-
 		}
-
 		?></td>
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>

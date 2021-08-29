@@ -1,0 +1,29 @@
+<!-- NOTICE: Convert file to charset of site -->
+
+<!--LOGIN_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; Cookie expire set to 90 days
+;date_format     = "%m/%d/%y"
+;set_locale      = "en"
+cookie_expire   = 7776000
+<!--LOGIN_SETTINGS_END//-->
+
+<!-- Send Ajax Request against: index.php?hidden-article-with-cp-felogin&cmsgo_output_action=F-trim--S-AJAXLOGIN -->
+<!--LOGIN_FORM_START//-->
+<!--AJAXLOGIN_START//-->{"error":true,"message":"@@Login and/or password not valid.@@"}<!--AJAXLOGIN_END//-->
+<!--LOGIN_FORM_END//-->
+
+<!--LOGIN_IS_START//-->
+<!--AJAXLOGIN_START//-->{"error":false,"message":"@@You are logged in as:@@ {LOGIN}","profile_url":"[MANAGE_PROFILE]{MANAGE_PROFILE}[/MANAGE_PROFILE]"}<!--AJAXLOGIN_END//-->
+<!--LOGIN_IS_END//-->
+
+<!--PROFILE_REGISTER_START//--><!--PROFILE_REGISTER_END//-->
+
+<!--PROFILE_MANAGE_START//--><!--PROFILE_MANAGE_END//-->
+
+<!--REMINDER_FORM_START//--><!--REMINDER_FORM_END//-->
+
+<!--REMINDER_SUCCESS_START//--><!--REMINDER_SUCCESS_END//-->
+
+<!--REMINDER_EMAIL_START//--><!--REMINDER_EMAIL_END//-->
