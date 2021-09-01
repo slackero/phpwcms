@@ -12,6 +12,9 @@
 $phpwcms = array('SESSION_START' => true);
 require_once 'include/config/conf.inc.php';
 
+require_once 'include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+
 if(empty($_SESSION["wcs_user_lang"])) {
     session_destroy();
     headerRedirect($phpwcms['site'].$phpwcms["root"]);
@@ -22,10 +25,8 @@ if(empty($_SESSION["wcs_user_lang"])) {
         include $cust_lang;
     }
 }
-require_once 'include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once "include/inc_lib/general.inc.php";
 checkLogin();
 require_once "include/inc_lib/backend.functions.inc.php";
