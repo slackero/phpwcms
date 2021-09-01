@@ -968,7 +968,7 @@ function _initSession() {
         session_start();
     }
     if (empty($_SESSION['phpwcmsSessionInit']) && function_exists("session_regenerate_id")) {
-        session_regenerate_id();
+        session_regenerate_id(true);
         $_SESSION['phpwcmsSessionInit'] = true;
     }
 
@@ -1212,7 +1212,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         }
     }
 
-    return $GLOBALS['phpwcms'][$index] = array(
+    $GLOBALS['phpwcms'][$index] = array(
         'agent' => $agent,
         'version' => intval($ver),
         'platform' => $platform,
@@ -1222,7 +1222,12 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         'engine' => $engine,
         'pixelratio' => $pixelratio,
         'webp' => $webp,
+        'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
     );
+
+    $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+
+    return $GLOBALS['phpwcms'][$index];
 }
 
 /**
@@ -1286,7 +1291,7 @@ function checkLoginCount() {
     $check = 0;
     if (!empty($_SESSION["wcs_user"])) {
         $sql = "SELECT COUNT(*) FROM " . DB_PREPEND . "phpwcms_userlog WHERE logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
-        if (!empty($phpwcms['Login_IPcheck'])) {
+        if (!PHPWCMS_GDPR_MODE && !empty($phpwcms['Login_IPcheck'])) {
             $sql .= " AND logged_ip=" . _dbEscape(getRemoteIP());
         }
         $check = _dbCount($sql);

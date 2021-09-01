@@ -16,7 +16,8 @@ require_once 'include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 
 if(empty($_SESSION["wcs_user_lang"])) {
-    session_destroy();
+    $_SESSION = array();
+    @session_destroy();
     headerRedirect($phpwcms['site'].$phpwcms["root"]);
 } else {
     require 'include/inc_lang/backend/en/lang.ext.inc.php';

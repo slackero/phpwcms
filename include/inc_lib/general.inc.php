@@ -2014,14 +2014,15 @@ function checkLogin($mode = 'REDIRECT') {
     $sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > " . intval($GLOBALS['phpwcms']["max_time"]);
     _dbQuery($sql, 'UPDATE');
     checkLoginCount();
-    if (empty($_SESSION["wcs_user"])) {
+    if (empty($_SESSION['wcs_user']) || empty($_SESSION['PHPWCMS_BROWSER_HASH']) || $_SESSION['PHPWCMS_BROWSER_HASH'] !== $GLOBALS['phpwcms']['USER_AGENT']['hash']) {
+        $_SESSION = array();
         @session_destroy();
         if (!empty($_SERVER['QUERY_STRING'])) {
             $ref_url = '?ref=' . rawurlencode(PHPWCMS_URL . 'phpwcms.php?' . xss_clean($_SERVER['QUERY_STRING']));
         } else {
             $ref_url = '';
         }
-        if ($mode == 'REDIRECT') {
+        if ($mode === 'REDIRECT') {
             // check again if user was logged in and this is a valid redirect request
             $sql = 'SELECT COUNT(*)  FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE ';
             $sql .= "logged_ip=" . _dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()) . " AND ";

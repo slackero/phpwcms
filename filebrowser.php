@@ -31,7 +31,8 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 
 if( empty($_SESSION["wcs_user_lang"]) ) {
 
-    session_destroy();
+    $_SESSION = array();
+    @session_destroy();
     headerRedirect(PHPWCMS_URL, 401);
 
 } else {
