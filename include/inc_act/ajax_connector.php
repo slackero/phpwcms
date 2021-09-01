@@ -20,9 +20,9 @@ require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if(empty($_SESSION["wcs_user"])) {
+if(empty($_SESSION['wcs_user']) || empty($_SESSION['PHPWCMS_BROWSER_HASH']) || $_SESSION['PHPWCMS_BROWSER_HASH'] !== $GLOBALS['phpwcms']['USER_AGENT']['hash']) {
 	headerRedirect('', 401);
-	die('Sorry, access forbidden');
+	die();
 }
 
 if(isset($_POST['action'])) {
@@ -98,7 +98,11 @@ switch($action) {
 		break;
 
 	case 'flush_image_cache':
-		$files = returnFileListAsArray(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES, array('jpg', 'png', 'gif', 'svg'));
+        if (empty($_SESSION['wcs_user_admin'])) {
+            headerRedirect('', 401);
+            die();
+        }
+		$files = returnFileListAsArray(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
 		$data = array('file_count' => 0, 'status' => 'ok');
 		if(is_array($files)) {
 			$data['file_count'] = count($files);
