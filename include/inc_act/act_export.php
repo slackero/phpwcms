@@ -191,7 +191,7 @@ if ($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET
 
     echo '</body></html>';
     exit();
-} elseif ($action == 'exportsubscriber') {
+} elseif ($action == 'exportsubscriber' && !empty($_SESSION["wcs_user_admin"])) {
 
     // export list of newsletter subscribers
     $_userInfo = array();
