@@ -81,118 +81,121 @@ $phpwcms['be_parse_lang_process']   = false; // limit parsing for BBCode/BraceCo
 switch ($do) {
 
     case "articles":    //articles
-                        include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
-                        $wcsnav["articles"] = "<strong class=\"navtexta\">".$wcsnav["articles"]."</strong>";
-                        include PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'; //load article funtions
-                        $subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
-                        $subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
-                        $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                        $subnav .= subnavtext($BL['be_news'], "phpwcms.php?do=articles&amp;p=3", $p, "3", 0);
-                        break;
+        include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
+        $wcsnav["articles"] = "<strong class=\"navtexta\">".$wcsnav["articles"]."</strong>";
+        include PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'; //load article funtions
+        $subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", $p, "", 0);
+        $subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
+        $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+        $subnav .= subnavtext($BL['be_news'], "phpwcms.php?do=articles&amp;p=3", $p, "3", 0);
+        break;
 
     case "files":       //files
-                        $wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
-                        $subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
+        $wcsnav["files"] = "<strong class=\"navtexta\">".$wcsnav["files"]."</strong>";
+        $subnav .= subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, "", 0);
 
-                        // based on pwmod by pagewerkstatt.ch 12/2012
-                        $subnav .= subnavtext($BL['be_subnav_file_actions'], "phpwcms.php?do=files&amp;p=4", $p, "4", 0);
+        // based on pwmod by pagewerkstatt.ch 12/2012
+        $subnav .= subnavtext($BL['be_subnav_file_actions'], "phpwcms.php?do=files&amp;p=4", $p, "4", 0);
 
-                        $subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
-                    break;
+        $subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, "8", 0);
+        break;
 
     case "modules":     //modules
-                        $wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
+        $wcsnav["modules"] = "<strong class=\"navtexta\">".$wcsnav["modules"]."</strong>";
 
-                        foreach($phpwcms['modules'] as $value) {
+        foreach($phpwcms['modules'] as $value) {
 
-                            if($value['type'] == 2) {
-                                continue;
-                            }
+            if($value['type'] == 2) {
+                continue;
+            }
 
-                            $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
+            $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
 
-                        }
-
-                        break;
+        }
+        break;
 
     case "messages":    //messages
-                        $wcsnav["messages"] = "<strong class=\"navtexta\">".$wcsnav["messages"]."</strong>";
-                        if(isset($_SESSION["wcs_user_admin"]) && $_SESSION["wcs_user_admin"] == 1) {
-                            $subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], "phpwcms.php?do=messages&amp;p=3", $p, "3", 0);
-                            $subnav .= subnavtext($BL['be_subnav_msg_subscribers'], "phpwcms.php?do=messages&amp;p=4", $p, "4", 0);
-                            $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], "phpwcms.php?do=messages&amp;p=2", $p, "2", 0);
+        $wcsnav["messages"] = "<strong class=\"navtexta\">".$wcsnav["messages"]."</strong>";
+        if(isset($_SESSION["wcs_user_admin"]) && $_SESSION["wcs_user_admin"] == 1) {
+            $subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], "phpwcms.php?do=messages&amp;p=3", $p, "3", 0);
+            $subnav .= subnavtext($BL['be_subnav_msg_subscribers'], "phpwcms.php?do=messages&amp;p=4", $p, "4", 0);
+            $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], "phpwcms.php?do=messages&amp;p=2", $p, "2", 0);
 
-                            if(!empty($phpwcms['enable_messages'])) {
-                                $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            }
-                        }
-                        if(!empty($phpwcms['enable_messages'])) {
-                            $subnav .= subnavtext($BL['be_subnav_msg_center'], "phpwcms.php?do=messages", $p, "", 0);
-                            $subnav .= subnavtext($BL['be_subnav_msg_new'], "phpwcms.php?do=messages&amp;p=1", $p, "1", 0);
-                        }
-                        break;
+            if(!empty($phpwcms['enable_messages'])) {
+                $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            }
+        }
+        if(!empty($phpwcms['enable_messages'])) {
+            $subnav .= subnavtext($BL['be_subnav_msg_center'], "phpwcms.php?do=messages", $p, "", 0);
+            $subnav .= subnavtext($BL['be_subnav_msg_new'], "phpwcms.php?do=messages&amp;p=1", $p, "1", 0);
+        }
+        break;
 
     case "discuss":     //discuss
-                        $wcsnav["discuss"] = "<strong class=\"navtexta\">".$wcsnav["discuss"]."</strong>";
-                        break;
+        $wcsnav["discuss"] = "<strong class=\"navtexta\">".$wcsnav["discuss"]."</strong>";
+        break;
 
     case "chat":        //chat
-                        $wcsnav["chat"] = "<strong class=\"navtexta\">".$wcsnav["chat"]."</strong>";
-                        $subnav .= subnavtext($BL['be_subnav_chat_main'], "phpwcms.php?do=chat", $p, "", 0);
-                        $subnav .= subnavtext($BL['be_subnav_chat_internal'], "phpwcms.php?do=chat&amp;p=1", $p, "1", 0);
-                        break;
+        $wcsnav["chat"] = "<strong class=\"navtexta\">".$wcsnav["chat"]."</strong>";
+        $subnav .= subnavtext($BL['be_subnav_chat_main'], "phpwcms.php?do=chat", $p, "", 0);
+        $subnav .= subnavtext($BL['be_subnav_chat_internal'], "phpwcms.php?do=chat&amp;p=1", $p, "1", 0);
+        break;
 
     case "profile":     //profile
-                        $wcsnav["profile"] = "<strong class=\"navtexta\">".$wcsnav["profile"]."</strong>";
-                        if(!empty($_POST["form_aktion"])) {
-                            switch($_POST["form_aktion"]) { //Aktualisieren der wcs account & profile Daten
-                                case "update_account":  include PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php';
-                                                        break;
-                                case "update_detail":   include PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php';
-                                                        break;
-                                case "create_detail":   include PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php';
-                                                        break;
-                            }
-                        }
-                        $subnav .= subnavtext($BL['be_subnav_profile_login'], "phpwcms.php?do=profile", $p, "", 0);
-                        $subnav .= subnavtext($BL['be_subnav_profile_personal'], "phpwcms.php?do=profile&amp;p=1", $p, "1", 0);
-                        break;
+        $wcsnav["profile"] = "<strong class=\"navtexta\">".$wcsnav["profile"]."</strong>";
+        if(!empty($_POST["form_aktion"])) {
+            switch($_POST["form_aktion"]) { //Aktualisieren der wcs account & profile Daten
+                case "update_account":  include PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php';
+                                        break;
+                case "update_detail":   include PHPWCMS_ROOT.'/include/inc_lib/profile.update.inc.php';
+                                        break;
+                case "create_detail":   include PHPWCMS_ROOT.'/include/inc_lib/profile.create.inc.php';
+                                        break;
+            }
+        }
+        $subnav .= subnavtext($BL['be_subnav_profile_login'], "phpwcms.php?do=profile", $p, "", 0);
+        $subnav .= subnavtext($BL['be_subnav_profile_personal'], "phpwcms.php?do=profile&amp;p=1", $p, "1", 0);
+        break;
 
     case "logout":      //Logout
-                        logout_user();
-                        break;
+        logout_user();
+        break;
 
     case "admin":       //Admin
-                        if(!empty($_SESSION["wcs_user_admin"])) {
-                            include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
-                            $subnav .= subnavtext($BL['be_subnav_admin_sitestructure'], "phpwcms.php?do=admin&amp;p=6", $p, "6", 0);
-                            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], "phpwcms.php?do=admin&amp;p=8", $p, "8", 0);
-                            $subnav .= subnavtext($BL['be_subnav_admin_templates'], "phpwcms.php?do=admin&amp;p=11", $p, "11", 0);
-                            if(!empty($phpwcms['enable_deprecated'])) {
-                                $subnav .= subnavtext($BL['be_subnav_admin_css'], "phpwcms.php?do=admin&amp;p=10", $p, "10", 0);
-                            }
-                            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            $subnav .= subnavtext($BL['be_subnav_admin_users'], "phpwcms.php?do=admin", $p, "", 0);
-                            if(!empty($phpwcms['usergroup_support'])) {
-                                $subnav .= subnavtext($BL['be_subnav_admin_groups'], "phpwcms.php?do=admin&amp;p=1", $p, "1", 0);
-                            }
-                            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            //$subnav .= subnavtext($BL['be_admin_keywords'], "phpwcms.php?do=admin&amp;p=5", $p, "5", 0);
-                            $subnav .= subnavtext($BL['be_subnav_admin_filecat'], "phpwcms.php?do=admin&amp;p=7", $p, "7", 0);
-                            if(!empty($phpwcms['enable_deprecated'])) {
-                                $subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
-                            }
-                            $subnav .= subnavtext($BL['be_alias'], 'phpwcms.php?do=admin&amp;p=13', $p, "13", 0);
-                            $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'phpwcms.php?do=admin&amp;p=14', $p, "14", 0);
+        if(!empty($_SESSION["wcs_user_admin"])) {
+            include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
+            $subnav .= subnavtext($BL['be_subnav_admin_sitestructure'], "phpwcms.php?do=admin&amp;p=6", $p, "6", 0);
+            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], "phpwcms.php?do=admin&amp;p=8", $p, "8", 0);
+            $subnav .= subnavtext($BL['be_subnav_admin_templates'], "phpwcms.php?do=admin&amp;p=11", $p, "11", 0);
+            if(!empty($phpwcms['enable_deprecated'])) {
+                $subnav .= subnavtext($BL['be_subnav_admin_css'], "phpwcms.php?do=admin&amp;p=10", $p, "10", 0);
+            }
+            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            $subnav .= subnavtext($BL['be_subnav_admin_users'], "phpwcms.php?do=admin", $p, "", 0);
+            if(!empty($phpwcms['usergroup_support'])) {
+                $subnav .= subnavtext($BL['be_subnav_admin_groups'], "phpwcms.php?do=admin&amp;p=1", $p, "1", 0);
+            }
+            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            //$subnav .= subnavtext($BL['be_admin_keywords'], "phpwcms.php?do=admin&amp;p=5", $p, "5", 0);
+            $subnav .= subnavtext($BL['be_subnav_admin_filecat'], "phpwcms.php?do=admin&amp;p=7", $p, "7", 0);
+            if(!empty($phpwcms['enable_deprecated'])) {
+                $subnav .= subnavtext($BL['be_subnav_admin_starttext'], "phpwcms.php?do=admin&amp;p=12", $p, "12", 0);
+            }
+            $subnav .= subnavtext($BL['be_alias'], 'phpwcms.php?do=admin&amp;p=13', $p, "13", 0);
+            $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'phpwcms.php?do=admin&amp;p=14', $p, "14", 0);
 
-                            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?action=flush_image_cache&value=1\');" ');
-                            $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
-                            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
-                            $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
-                        }
-                        break;
+            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?action=flush_image_cache&value=1\');" ');
+            $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
+            $subnav .= '<tr><td colspan="2"><img src="img/leer.gif" height="5" width="1" alt="" /></td></tr>'."\n";
+            $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
+        }
+        break;
+
+    case 'home':
+        $do = 'default';
+        break;
 
 }
 
@@ -260,7 +263,7 @@ if($BE['LANG'] == 'ar') {
     <tr>
         <td colspan="6">
         <div style="position:relative;margin:15px 15px 7px 15px;">
-            <a href="phpwcms.php" target="_top" class="d-inline-block"><img src="img/backend/phpwcms-logo.png" srcset="img/backend/phpwcms-logo.svg" alt="phpwcms v<?php echo html_specialchars(PHPWCMS_VERSION); ?>" width="112" height="31" class="img-fluid" /></a>
+            <a href="phpwcms.php?do=home" target="_top" class="d-inline-block"><img src="img/backend/phpwcms-logo.png" srcset="img/backend/phpwcms-logo.svg" alt="phpwcms v<?php echo html_specialchars(PHPWCMS_VERSION); ?>" width="112" height="31" class="img-fluid" /></a>
             <a href="<?php echo PHPWCMS_URL ?>" class="v10" style="position:absolute;right:0;bottom:5px;color:#FFFFFF" target="_blank"><?php echo PHPWCMS_HOST ?></a>
         </div>
         </td>
@@ -270,13 +273,8 @@ if($BE['LANG'] == 'ar') {
         <td colspan="4" valign="top" class="backend-menu navtext"><?php
 
             // create backend main navigation
-            if($do == 'default') {
-                echo '<a href="phpwcms.php"><strong>HOME</strong></a>';
-            } else {
-                echo '<a href="phpwcms.php">HOME</a>';
-            }
+            echo '<a href="phpwcms.php?do=home">' . ($do == 'default' ? '<strong>HOME</strong>' : 'HOME') . '</a>';
             echo implode('', $wcsnav);
-
 
             ?><a href="phpwcms.php?do=logout" target="_top" class="backend-menu-logout"><?php echo $BL['be_nav_logout'] ?></a>
         </td>
@@ -289,7 +287,7 @@ if($BE['LANG'] == 'ar') {
         echo $subnav . LF;
 
         ?>
-        <form action="phpwcms.php" method="POST" class="backend-search">
+        <form action="phpwcms.php?do=home" method="POST" class="backend-search">
 
             <h1 class="title" style="margin:0 0 3px 0;"><?php echo $BL['be_ctype_search'] ?></h1>
             <input type="search" name="backend_search_input" value="<?php
@@ -316,215 +314,210 @@ if($BE['LANG'] == 'ar') {
       <td width="540" valign="top" bgcolor="#FFFFFF" class="v11b width540" id="be_main_content">{STATUS_MESSAGE}{BE_PARSE_LANG}<!--BE_MAIN_CONTENT_START//-->
 <?php
 
-      switch($do) {
+    switch ($do) {
 
         case "profile": //Profile
-                        if($p === 1) {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/profile.data.tmpl.php';
-                        } else {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php';
-                        }
-                        break;
+            if ($p === 1) {
+                include PHPWCMS_ROOT . '/include/inc_tmpl/profile.data.tmpl.php';
+            } else {
+                include PHPWCMS_ROOT . '/include/inc_tmpl/profile.account.tmpl.php';
+            }
+            break;
 
         case "files":   // File manager
-                        if($p === 8) { //FTP File upload
+            if ($p === 8) { //FTP File upload
+                include PHPWCMS_ROOT . '/include/inc_tmpl/files.ftptakeover.tmpl.php';
+                // based on pwmod by pagewerkstatt.ch 12/2012
+            } elseif ($p === 4) {
+                    include PHPWCMS_ROOT . '/include/inc_tmpl/files.actions.tmpl.php';
+            } else {
+                include PHPWCMS_ROOT . '/include/inc_tmpl/files.reiter.tmpl.php'; //Files Navigation/Reiter
+                switch ($files_folder) {
+                    case 0: //Listing der Privaten Dateien
+                        include PHPWCMS_ROOT . '/include/inc_lib/files.private-functions.inc.php'; //Listing-Funktionen einfügen
 
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php';
-
-                        // based on pwmod by pagewerkstatt.ch 12/2012
-                        } elseif ($p === 4) {
-
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.actions.tmpl.php';
-
+                        if (isset($_GET["mkdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1)) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/files.private.newdir.tmpl.php';
+                        } elseif (isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2)) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/files.private.editdir.tmpl.php';
+                        } elseif (isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1)) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/files.private.upload.tmpl.php';
+                        } elseif (isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2)) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/files.private.editfile.tmpl.php';
                         } else {
-
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'; //Files Navigation/Reiter
-                            switch($files_folder) {
-                                case 0: //Listing der Privaten Dateien
-                                        include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Listing-Funktionen einfügen
-
-                                        if(isset($_GET["mkdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) ) {
-                                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php';
-                                        } elseif(isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2) ) {
-                                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php';
-                                        } elseif(isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) ) {
-                                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php';
-                                        } elseif(isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) ) {
-                                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php';
-                                        } else {
-                                            include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //Zusätzliche Private Funktionen
-                                        }
-                                        break;
-
-                                case 1: //Funktionen zum Listen von Public Files
-                                        include PHPWCMS_ROOT.'/include/inc_lib/files.public-functions.inc.php'; //Public Listing-Funktionen einfügen
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/files.public.list.tmpl.php'; //Elemetares für Public Listing
-                                        break;
-
-                                case 2: //Dateien im Papierkorb
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.trash.tmpl.php';
-                                        break;
-
-                                case 3: //Dateisuche
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/files.search.tmpl.php';
-                                        break;
-                            }
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/files.abschluss.tmpl.php'; //Abschließende Tabellenzeile = dicke Linie
+                            include PHPWCMS_ROOT . '/include/inc_lib/files.private.additions.inc.php'; //Zusätzliche Private Funktionen
                         }
                         break;
+
+                    case 1: //Funktionen zum Listen von Public Files
+                        include PHPWCMS_ROOT . '/include/inc_lib/files.public-functions.inc.php'; //Public Listing-Funktionen einfügen
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/files.public.list.tmpl.php'; //Elemetares für Public Listing
+                        break;
+
+                    case 2: //Dateien im Papierkorb
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/files.private.trash.tmpl.php';
+                        break;
+
+                    case 3: //Dateisuche
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/files.search.tmpl.php';
+                        break;
+                }
+                include PHPWCMS_ROOT . '/include/inc_tmpl/files.abschluss.tmpl.php'; //Abschließende Tabellenzeile = dicke Linie
+            }
+            break;
 
         case "chat":    //Chat
-                        if($p === 1) {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.list.tmpl.php';  //Chat/Listing
-                        } else {
-                            include PHPWCMS_ROOT.'/include/inc_tmpl/chat.main.tmpl.php';  //Chat Startseite
-                        }
-                        break;
+            if ($p === 1) {
+                include PHPWCMS_ROOT . '/include/inc_tmpl/chat.list.tmpl.php';  //Chat/Listing
+            } else {
+                include PHPWCMS_ROOT . '/include/inc_tmpl/chat.main.tmpl.php';  //Chat Startseite
+            }
+            break;
 
         case "messages":    //Messages
-                        switch($p) {
-                            case 0: include PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'; break; //Messages Overview
-                            case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php';   break;    //New Message
-                            case 2: //Newsletter subscription
-                                    if($_SESSION["wcs_user_admin"] == 1) {
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/message.subscription.tmpl.php';
-                                    }
-                                    break;
-                            case 3: //Newsletter
-                                    if($_SESSION["wcs_user_admin"] == 1) {
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/newsletter.list.tmpl.php';
-                                    }
-                                    break;
-                            case 4: //Newsletter subscribers
-                                    if($_SESSION["wcs_user_admin"] == 1) {
-                                        include PHPWCMS_ROOT.'/include/inc_tmpl/message.subscribers.tmpl.php';
-                                    }
-                                    break;
-                        }
-                        break;
+            switch ($p) {
+                case 0:
+                    include PHPWCMS_ROOT . '/include/inc_tmpl/message.center.tmpl.php';
+                    break; //Messages Overview
+                case 1:
+                    include PHPWCMS_ROOT . '/include/inc_tmpl/message.send.tmpl.php';
+                    break;    //New Message
+                case 2: //Newsletter subscription
+                    if ($_SESSION["wcs_user_admin"] == 1) {
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscription.tmpl.php';
+                    }
+                    break;
+                case 3: //Newsletter
+                    if ($_SESSION["wcs_user_admin"] == 1) {
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/newsletter.list.tmpl.php';
+                    }
+                    break;
+                case 4: //Newsletter subscribers
+                    if ($_SESSION["wcs_user_admin"] == 1) {
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscribers.tmpl.php';
+                    }
+                    break;
+            }
+            break;
 
         case "modules": //Modules
-
             // if a module is selected
-            if(isset($phpwcms['modules'][$module])) {
-
-                include $phpwcms['modules'][$module]['path'].'backend.default.php';
-
+            if (isset($phpwcms['modules'][$module])) {
+                include $phpwcms['modules'][$module]['path'] . 'backend.default.php';
             }
-
             break;
 
         case "admin":   //Administration
-        if($_SESSION["wcs_user_admin"] == 1) {
-            switch($p) {
-                case 0: //User Administration
-                switch(!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
-                    case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php';  break; //New User
-                    case 2: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'; break; //Edit User
+            if ($_SESSION["wcs_user_admin"] == 1) {
+                switch ($p) {
+                    case 0: //User Administration
+                        switch (!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
+                            case 1:
+                                include PHPWCMS_ROOT . '/include/inc_tmpl/admin.newuser.tmpl.php';
+                                break; //New User
+                            case 2:
+                                include PHPWCMS_ROOT . '/include/inc_tmpl/admin.edituser.tmpl.php';
+                                break; //Edit User
+                        }
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.listuser.tmpl.php';
+                        break;
+
+                    case 1: //Users and Groups
+                        //enym new group management tool
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.groups.tmpl.php';
+                        break;
+
+                    case 2: //Settings
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.settings.tmpl.php';
+                        break;
+
+                    case 5: //Keywords
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.keyword.tmpl.php';
+                        break;
+
+                    case 6: //article structure
+                            include PHPWCMS_ROOT . '/include/inc_lib/admin.structure.inc.php';
+                        if (isset($_GET["struct"])) {
+                            //include PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'; //loading array with actual content types
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/admin.structform.tmpl.php';
+                        } else {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/admin.structlist.tmpl.php';
+                            $phpwcms['be_parse_lang_process'] = true;
+                        }
+                        break;
+
+                    case 7: //File Categories
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.filecat.tmpl.php';
+                        break;
+
+                    case 8: //Page Layout
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.pagelayout.tmpl.php';
+                        break;
+
+                    case 10: //Frontend CSS
+                        if (!empty($phpwcms['enable_deprecated'])) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/admin.frontendcss.tmpl.php';
+                        }
+                        break;
+
+                    case 11: //Templates
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.templates.tmpl.php';
+                        break;
+
+                    case 12: //Default backend starup HTML
+                        if (!empty($phpwcms['enable_deprecated'])) {
+                            include PHPWCMS_ROOT . '/include/inc_tmpl/admin.startup.tmpl.php';
+                        }
+                        break;
+
+                    //Default backend sitemap HTML
+                    case 13:
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.aliaslist.tmpl.php';
+                        break;
+
+                    //Default backend sitemap HTML
+                    case 14:
+                        include PHPWCMS_ROOT . '/include/inc_tmpl/admin.redirect.tmpl.php';
+                        break;
                 }
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php';
-                break;
-
-                case 1: //Users and Groups
-                    //enym new group management tool
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php';
-                break;
-
-                case 2: //Settings
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.settings.tmpl.php';
-                break;
-
-                case 5: //Keywords
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.keyword.tmpl.php';
-                break;
-
-                case 6: //article structure
-
-                include PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php';
-                if(isset($_GET["struct"])) {
-                    //include PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php'; //loading array with actual content types
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php';
-                } else {
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/admin.structlist.tmpl.php';
-                    $phpwcms['be_parse_lang_process'] = true;
-                }
-                break;
-
-                case 7: //File Categories
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php';
-                break;
-
-                case 8: //Page Layout
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php';
-                break;
-
-                case 10: //Frontend CSS
-                if(!empty($phpwcms['enable_deprecated'])) {
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/admin.frontendcss.tmpl.php';
-                }
-                break;
-
-                case 11: //Templates
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php';
-                break;
-
-                case 12: //Default backend starup HTML
-                if(!empty($phpwcms['enable_deprecated'])) {
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/admin.startup.tmpl.php';
-                }
-                break;
-
-                //Default backend sitemap HTML
-                case 13:
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php';
-                break;
-
-                //Default backend sitemap HTML
-                case 14:
-                include PHPWCMS_ROOT.'/include/inc_tmpl/admin.redirect.tmpl.php';
-                break;
-
             }
-        }
-        break;
+            break;
 
         // articles
         case "articles":
             $_SESSION['image_browser_article'] = 0; //set how image file browser should work
-            switch($p) {
-
-                // List articles
+            switch ($p) {
+                    // List articles
                 case 0:
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php';
+                    include PHPWCMS_ROOT . '/include/inc_tmpl/article.structlist.tmpl.php';
                     $phpwcms['be_parse_lang_process'] = true;
                     break;
 
                 // Edit/create article
                 case 1:
                 case 2:
-                    include PHPWCMS_ROOT.'/include/inc_lib/article.editcontent.inc.php';
+                    include PHPWCMS_ROOT . '/include/inc_lib/article.editcontent.inc.php';
                     break;
 
                 // News
                 case 3:
-                    include PHPWCMS_ROOT.'/include/inc_lib/news.inc.php';
-                    include PHPWCMS_ROOT.'/include/inc_tmpl/news.tmpl.php';
+                    include PHPWCMS_ROOT . '/include/inc_lib/news.inc.php';
+                    include PHPWCMS_ROOT . '/include/inc_tmpl/news.tmpl.php';
                     break;
             }
             break;
 
         // about phpwcms
         case "about":
-            include PHPWCMS_ROOT.'/include/inc_tmpl/about.tmpl.php';
+            include PHPWCMS_ROOT . '/include/inc_tmpl/about.tmpl.php';
             break;
 
         // start
         default:
-            include PHPWCMS_ROOT.'/include/inc_tmpl/be_start.tmpl.php';
-            include PHPWCMS_TEMPLATE.'inc_default/startup.php';
+            include PHPWCMS_ROOT . '/include/inc_tmpl/be_start.tmpl.php';
+            include PHPWCMS_TEMPLATE . 'inc_default/startup.php';
             echo phpwcmsversionCheck();
             $phpwcms['be_parse_lang_process'] = true;
-
     }
 
 ?>

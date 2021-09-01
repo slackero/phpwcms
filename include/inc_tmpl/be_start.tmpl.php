@@ -75,7 +75,7 @@ $_last10_article = _dbQuery($_asql_1);
 
 ?>
 <div style="margin:0 0 10px 0;padding:0;">
-	<form class="formRightInput" action="phpwcms.php" id="setHomeMaxArticles" name="setHomeMaxArticles" method="post">
+	<form class="formRightInput" action="phpwcms.php?do=home" id="setHomeMaxArticles" name="setHomeMaxArticles" method="post">
 		<select name="homeMaxArticles" onchange="this.form.submit();">
 	<?php foreach(array(5,10,15,25,50,75,100,150) as $x): ?>
 			<option value="<?php echo $x ?>"<?php is_selected($_phpwcms_home['homeMaxArticles'], $x) ?>><?php echo $x ?></option>
@@ -142,7 +142,7 @@ $_last10_article = _dbQuery($_asql_1);
 </table>
 
 <div style="margin:25px 0 10px 0;padding:0;">
-	<form class="formRightInput" action="phpwcms.php" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
+	<form class="formRightInput" action="phpwcms.php?do=home" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
 		<select name="homeCntType" onChange="this.form.submit();" class="width150">
 			<option value="">&#8211;</option>
 	<?php foreach($wcs_content_type as $key => $value): ?>
