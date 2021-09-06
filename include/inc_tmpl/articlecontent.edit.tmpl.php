@@ -766,15 +766,18 @@ echo $_save_close_buttons;
             <tr>
 
                 <td><input name="cvisible" type="checkbox" id="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?> /></td>
-                <td><label for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?>&nbsp;&nbsp;</label></td>
+                <td><label for="cvisible"><?php echo $BL['be_admin_struct_visible'] ?>&nbsp;&nbsp;</label>&nbsp;</td>
 
-                <td bgcolor="#F3F5F8">&nbsp;</td>
+                <td>
+                    <select name="cgranted" id="cgranted" class="v11">
+                        <option value="0"<?php is_selected(0, $content["granted"]); ?>><?php echo $BL['be_visible_for_everybody'] ?></option>
+                        <option value="1"<?php is_selected(1, $content["granted"]); ?>><?php echo $BL['be_granted_feuser'] ?></option>
+                        <option value="2"<?php is_selected(2, $content["granted"]); ?>><?php echo $BL['be_hidden_for_feuser'] ?></option>
+                    </select>
+                </td>
 
-                <td><input name="cgranted" type="checkbox" id="cgranted" value="1"<?php is_checked(1, $content["granted"]); ?> /></td>
-                <td><label for="cgranted"><?php echo $BL['be_granted_feuser'] ?></label>&nbsp;</td>
-
-                <td bgcolor="#F3F5F8" class="chatlist" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
-                <td bgcolor="#F3F5F8"><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width40" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
+                <td class="chatlist" align="right">&nbsp;&nbsp;<?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+                <td><input name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" class="width40" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" /></td>
 
             </tr>
         </table></td>
