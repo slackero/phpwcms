@@ -409,13 +409,10 @@ function set_article_alias(onempty_only, alias_type, category) {
 }
 
 function flush_image_cache(link, url) {
-    link.addClass('ajax-running');
-    new Ajax(url, {
-        method: 'get',
-        onComplete: function () {
-            link.removeClass('ajax-running');
-        }
-    }).request();
+    link.classList.add('ajax-running');
+    $.get(url, function() {
+        link.classList.remove('ajax-running');
+    });
     return false;
 }
 

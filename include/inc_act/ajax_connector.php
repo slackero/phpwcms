@@ -100,7 +100,7 @@ switch($action) {
 		break;
 
 	case 'flush_image_cache':
-		$files = returnFileListAsArray(CMSGO_ROOT.'/'.CMSGO_IMAGES, array('jpg', 'png', 'gif', 'svg'));
+		$files = returnFileListAsArray(CMSGO_ROOT.'/'.CMSGO_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
 		$data = array('file_count' => 0, 'status' => 'ok');
 		if(is_array($files)) {
 			$data['file_count'] = count($files);
