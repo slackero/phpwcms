@@ -953,13 +953,10 @@ function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']) ? true : false;
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
-    if (empty($GLOBALS['phpwcms']['session.cookie_samesite'])) {
-        $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
-        if (PHPWCMS_SSL && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
-            $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = 'Lax';
-        }
+    $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
+    if (empty($GLOBALS['phpwcms']['session.cookie_samesite']) && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
+        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
     } else {
-        $GLOBALS['phpwcms']['session_cookie_params']['secure'] = true;
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = $GLOBALS['phpwcms']['session.cookie_samesite'];
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
