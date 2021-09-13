@@ -60,7 +60,6 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
     $_loginData['remember']     = 0;
     $_loginData['remind_data']  = '';
 
-
     $_loginData['felogin_profile_registration'] = empty($_loginData['felogin_profile_registration']) ? 0 : 1;
     $_loginData['felogin_profile_manage']       = empty($_loginData['felogin_profile_manage']) ? 0 : 1;
     $_loginData['validate_db']['userdetail']    = empty($_loginData['felogin_validate_userdetail'])  ? 0 : 1;
@@ -80,10 +79,6 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
 
             $_SESSION[ $_loginData['session_key'] ]             = $_loginData['login'];
             $_SESSION[ $_loginData['session_key'].'_userdata']  = _getFrontendUserBaseData($_loginData['query_result']);
-
-			//entry logfile login user
-			log_message('INFO', 'Login',intval($_loginData['query_result']['detail_id']));
-			//end
 
             if($_loginData['remember'] && !empty($_loginData['felogin_cookie_expire'])) {
 
@@ -107,24 +102,29 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
         if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
 
             if($_loginData['validate_db']['userdetail']) {
-                $sql  = 'SELECT detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."cmsgo_userdetail WHERE LOWER(detail_email)=";
+                $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE LOWER(detail_email)=";
                 $sql .= _dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }
 
             // hm, seems no user found - OK test against cms users
             if($_loginData['validate_db']['backenduser'] && !isset($result[0])) {
-                $sql  = 'SELECT usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'cmsgo_user WHERE ';
+                $sql  = 'SELECT usr_id, usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'phpwcms_user WHERE ';
                 $sql .= "LOWER(usr_email)="._dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }
 
             if(isset($result[0])) {
-                $_loginData['remind_login'] = $result[0];
+                if (is_valid_email($result[0]['LOGIN'])) {
+                    $_loginData['remind_data'] = $result[0]['LOGIN'];
+                } else {
+                    $_loginData['remind_login'] = $result[0];
+                }
+            }
             }
 
         // otherwise check login and send password
-        } elseif($_loginData['remind_data']) {
+        if($_loginData['remind_data'] && empty($_loginData['remind_login'])) {
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."cmsgo_userdetail WHERE ";
@@ -164,7 +164,7 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
 
             $_loginData['reminder'] = $_loginData['reminder_success'];
 
-            $_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+            $_loginData['LOGIN_URL'] = rel_url(array(), array('profile_manage', 'profile_register', 'profile_reminder', 'feLogout') );
 
             $_loginData['reminder_email'] = str_replace('{LOGIN_URL}', CMSGO_URL . $_loginData['LOGIN_URL'], $_loginData['reminder_email']);
 
@@ -214,10 +214,8 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
             headerRedirect($linkto);
 
         // user is logged in
-        } elseif(isset($_POST['feLogin'])) {
-
+        } elseif(isset($_POST['feLogin']) && empty($_POST['feNoRedirect'])) {
             headerRedirect(decode_entities(FE_CURRENT_URL));
-
         }
 
         // manage account
@@ -258,7 +256,7 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
     // check register profile
     if($_loginData['felogin_profile_registration']) {
         // possible -> set link to form
-        $_loginData['uri'] = rel_url( array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder') );
+        $_loginData['uri'] = rel_url( array('profile_register'=>$_loginData['get_profile_register']), array('profile_manage', 'profile_reminder', 'feLogout') );
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'REGISTER_PROFILE', $_loginData['uri'] );
     } else {
         // not possible
@@ -275,7 +273,7 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
         // possible -> set link to form
         $_loginData['uri'] = rel_url(
             array('profile_manage'=>$_loginData['get_profile_manage']),
-            array('profile_register', 'profile_reminder'),
+            array('profile_register', 'profile_reminder', 'feLogout'),
             empty($_loginData['felogin_profile_manage_redirect']) ? '' : $_loginData['felogin_profile_manage_redirect']
         );
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', $_loginData['uri'] );
@@ -285,10 +283,10 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
         $_loginData['template'] = render_cnt_template($_loginData['template'], 'MANAGE_PROFILE', '' );
     }
 
-    $_loginData['uri'] = rel_url( array('profile_reminder'=>'1'), array('profile_manage', 'profile_register') );
+    $_loginData['uri'] = rel_url( array('profile_reminder'=>'1'), array('profile_manage', 'profile_register', 'feLogout') );
     $_loginData['template'] = render_cnt_template($_loginData['template'], 'REMINDER_FORM', $_loginData['uri'] );
 
-    $_loginData['uri'] = rel_url( array(), array('profile_manage', 'profile_register', 'profile_reminder') );
+    $_loginData['uri'] = rel_url( array(), array('profile_manage', 'profile_register', 'profile_reminder', 'feLogout') );
     $CNT_TMP .=  str_replace(array('{FORM_TARGET}', '{LOGIN_URL}'), $_loginData['uri'], $_loginData['template']);
 
 }
