@@ -458,7 +458,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     case '0-9':
                     case 'WORD':
                     case 'LETTER+SPACE':
-                        $form_field_attributes = ' pattern="' . $cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ] . '"';
+                        $form_field_attributes = ' pattern="' . trim($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], '/') . '"';
                         break;
 
                     case 'PHONE':
@@ -476,7 +476,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         break;
 
                     case 'REGEX':
-                        $form_field_attributes = ' pattern="'.$cnt_form['special_attribute']['pattern'].'"';
+                        $form_field_attributes = ' pattern="'.trim($cnt_form['special_attribute']['pattern'], '/').'"';
                         break;
                 }
 

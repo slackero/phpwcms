@@ -953,13 +953,10 @@ function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']) ? true : false;
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
-    if (empty($GLOBALS['phpwcms']['session.cookie_samesite'])) {
-        $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
-        if (PHPWCMS_SSL && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
-            $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = 'Lax';
-        }
+    $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
+    if (empty($GLOBALS['phpwcms']['session.cookie_samesite']) && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
+        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
     } else {
-        $GLOBALS['phpwcms']['session_cookie_params']['secure'] = true;
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = $GLOBALS['phpwcms']['session.cookie_samesite'];
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
@@ -968,7 +965,7 @@ function _initSession() {
         session_start();
     }
     if (empty($_SESSION['phpwcmsSessionInit']) && function_exists("session_regenerate_id")) {
-        session_regenerate_id();
+        session_regenerate_id(true);
         $_SESSION['phpwcmsSessionInit'] = true;
     }
 
@@ -1212,7 +1209,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         }
     }
 
-    return $GLOBALS['phpwcms'][$index] = array(
+    $GLOBALS['phpwcms'][$index] = array(
         'agent' => $agent,
         'version' => intval($ver),
         'platform' => $platform,
@@ -1222,7 +1219,12 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         'engine' => $engine,
         'pixelratio' => $pixelratio,
         'webp' => $webp,
+        'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
     );
+
+    $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+
+    return $GLOBALS['phpwcms'][$index];
 }
 
 /**
@@ -1286,7 +1288,7 @@ function checkLoginCount() {
     $check = 0;
     if (!empty($_SESSION["wcs_user"])) {
         $sql = "SELECT COUNT(*) FROM " . DB_PREPEND . "phpwcms_userlog WHERE logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
-        if (!empty($phpwcms['Login_IPcheck'])) {
+        if (!PHPWCMS_GDPR_MODE && !empty($phpwcms['Login_IPcheck'])) {
             $sql .= " AND logged_ip=" . _dbEscape(getRemoteIP());
         }
         $check = _dbCount($sql);

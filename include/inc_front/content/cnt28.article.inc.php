@@ -61,7 +61,6 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $_loginData['remember']     = 0;
     $_loginData['remind_data']  = '';
 
-
     $_loginData['felogin_profile_registration'] = empty($_loginData['felogin_profile_registration']) ? 0 : 1;
     $_loginData['felogin_profile_manage']       = empty($_loginData['felogin_profile_manage']) ? 0 : 1;
     $_loginData['validate_db']['userdetail']    = empty($_loginData['felogin_validate_userdetail'])  ? 0 : 1;
@@ -111,24 +110,29 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
         if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
 
             if($_loginData['validate_db']['userdetail']) {
-                $sql  = 'SELECT detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE LOWER(detail_email)=";
+                $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE LOWER(detail_email)=";
                 $sql .= _dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }
 
             // hm, seems no user found - OK test against cms users
             if($_loginData['validate_db']['backenduser'] && !isset($result[0])) {
-                $sql  = 'SELECT usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'phpwcms_user WHERE ';
+                $sql  = 'SELECT usr_id, usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'phpwcms_user WHERE ';
                 $sql .= "LOWER(usr_email)="._dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }
 
             if(isset($result[0])) {
-                $_loginData['remind_login'] = $result[0];
+                if (is_valid_email($result[0]['LOGIN'])) {
+                    $_loginData['remind_data'] = $result[0]['LOGIN'];
+                } else {
+                    $_loginData['remind_login'] = $result[0];
+                }
             }
+        }
 
         // otherwise check login and send password
-        } elseif($_loginData['remind_data']) {
+        if($_loginData['remind_data'] && empty($_loginData['remind_login'])) {
 
             if($_loginData['validate_db']['userdetail']) {
                 $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";

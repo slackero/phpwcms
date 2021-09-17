@@ -482,7 +482,7 @@ function validate_csrf_tokens($token_prefix='csrf_') {
  */
 function validate_csrf_get_token($token_name='csrftoken', $logout=true) {
 
-	if($_SERVER['REQUEST_METHOD'] === 'GET' && count($_GET)) {
+	if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		if(empty($_GET[$token_name])) {
 			if($logout) {

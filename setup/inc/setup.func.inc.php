@@ -259,7 +259,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['canonical_off'] = false; // disable canonical link tag\n";
     $conf_file .= "\$phpwcms['viewport'] = 'width=device-width, initial-scale=1'; // set viewport https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag\n";
     $conf_file .= "\$phpwcms['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...\n";
-    $conf_file .= "\$phpwcms['base_href'] = false; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
+    $conf_file .= "\$phpwcms['base_href'] = true; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
     $conf_file .= "\$phpwcms['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
     $conf_file .= "\$phpwcms['js_in_body'] = 0; // add <script /> direct before </body> instead inside of <head>\n";
     $conf_file .= "\$phpwcms['set_article_active'] = 1; // activate (1) or disable (0) article by default on create\n";

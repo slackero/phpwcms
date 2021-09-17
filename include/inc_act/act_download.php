@@ -87,7 +87,8 @@ if($dl) {
 
 if($err):
 
-    session_destroy();
+    $_SESSION = array();
+    @session_destroy();
 
 ?><html>
 <head>
