@@ -1438,8 +1438,12 @@ if(!empty($block['tracking_ga']['enable'])) {
   <script".SCRIPT_ATTRIBUTE_TYPE.">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '%1\$s'%2\$s);
+    gtag('js', new Date(), {
+      cookie_flags: 'max-age=7200;secure;samesite=none'
+  	});
+    gtag('config', '%1\$s'%2\$s, {
+    cookie_flags: 'max-age=7200;secure;samesite=none'
+  	});
   </script>",
         'anonymize' => ", {'anonymize_ip': true}",
         'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
