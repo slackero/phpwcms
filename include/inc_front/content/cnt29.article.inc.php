@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -166,6 +166,8 @@ if($image['template']) {
 
             }
 
+            $this_image_name = $image['images'][$key][2] . '.' . $image['images'][$key][3];
+
             $thumb_image = get_cached_image(array(
                 "target_ext"    =>  $image['images'][$key][3],
                 "image_name"    =>  $image['images'][$key][2] . '.' . $image['images'][$key][3],
@@ -263,12 +265,12 @@ if($image['template']) {
             if($caption[3]) {
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image['images'][$key][1]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -415,6 +417,7 @@ if($image['template']) {
     $image['template'] = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
+    $image['template'] = str_replace('{IMAGE_COUNT}', $total, $image['template']);
 
     $image['template'] = render_cnt_template($image['template'], 'IMAGE_CLASS_CENTER', $image['center_image_class']);
     $image['template'] = render_cnt_template($image['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -26,8 +26,8 @@ $_entry['query']			= '';
 <div id="tabsG" class="mb-4">
   <ul class="nav nav-tabs">
     <li class="nav-item"><a class="nav-link<?php if($controller == 'orders') echo ' active'; ?>" href="<?php echo shop_url('controller=order') ?>"><?php echo $BLM['tab_orders'] ?></a></li>
-		<li class="nav-item"><a class="nav-link<?php if($controller == 'products') echo ' active'; ?>" href="<?php echo shop_url('controller=prod') ?>"><?php echo $BLM['tab_products'] ?></a></li>
-		<li class="nav-item"><a class="nav-link<?php if($controller == 'categories') echo ' active'; ?>" href="<?php echo shop_url('controller=cat') ?>"><?php echo $BLM['tab_categories'] ?></a></li>
-		<li class="nav-item"><a class="nav-link<?php if($controller == 'preferences') echo ' active'; ?>" href="<?php echo shop_url('controller=pref') ?>"><?php echo $BLM['tab_preferences'] ?></a></li>
-	</ul>
+        <li class="nav-item"><a class="nav-link<?php if($controller == 'products') echo ' active'; ?>" href="<?php echo shop_url('controller=prod') ?>"><?php echo $BLM['tab_products'] ?></a></li>
+        <li class="nav-item"><a class="nav-link<?php if($controller == 'categories') echo ' active'; ?>" href="<?php echo shop_url('controller=cat') ?>"><?php echo $BLM['tab_categories'] ?></a></li>
+        <li class="nav-item"><a class="nav-link<?php if($controller == 'preferences') echo ' active'; ?>" href="<?php echo shop_url('controller=pref') ?>"><?php echo $BLM['tab_preferences'] ?></a></li>
+    </ul>
 </div>

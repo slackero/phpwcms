@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -100,7 +100,7 @@ switch($action) {
 		break;
 
 	case 'flush_image_cache':
-		$files = returnFileListAsArray(CMSGO_ROOT.'/'.CMSGO_IMAGES, array('jpg', 'png', 'gif', 'svg'));
+		$files = returnFileListAsArray(CMSGO_ROOT.'/'.CMSGO_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
 		$data = array('file_count' => 0, 'status' => 'ok');
 		if(is_array($files)) {
 			$data['file_count'] = count($files);

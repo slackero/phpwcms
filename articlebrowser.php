@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -52,7 +52,14 @@ if(isset($_GET["open"])) {
 
 $js_aktion = (isset($_GET["opt"])) ? intval($_GET["opt"]) : 1;
 $field = (isset($_GET["field"])) ? $_GET["field"] : 'id';
-$ckeditor_action = isset($_GET['CKEditorFuncNum']) ? intval($_GET['CKEditorFuncNum']) : 0;
+if(isset($_GET['CKEditorFuncNum'])) {
+    $ckeditor_action = intval($_GET['CKEditorFuncNum']);
+    $_SESSION['CKEditorFuncNum'] = $ckeditor_action;
+} elseif (!empty($_SESSION['CKEditorFuncNum'])) {
+    $ckeditor_action = $_SESSION['CKEditorFuncNum'];
+} else {
+    $ckeditor_action = 0;
+}
 
 switch($js_aktion) {
     case 1:  $js  = "parent.document.newsform.cnt_link.value";
@@ -86,7 +93,6 @@ checkLogin();
 
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -96,7 +102,6 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
 
   <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
-  <link href="include/inc_css/cmsgobrowser.css" rel="stylesheet" type="text/css" />
   <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
   <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
@@ -116,10 +121,14 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
     <?php } ?>
 </head>
 <body class="filebrowser">
-<ul class="nav nav-tabs">
-  <li role="presentation" class="nav-item active"><a href="#" class="nav-link"><?php echo $BL['be_article_title'] ?></a></li>
+<ul class="nav nav-tabs border-0 my-2">
+  <li role="presentation" class="nav-item">
+      <a href="#" class="btn btn-blue mr-2"><?php echo $BL['be_article_title'] ?></a>
+  </li>
 <?php if ($js_aktion == 16) { ?>
-  <li role="presentation" class="nav-item"><a href="filebrowser.php?opt=16&CKEditor=chtml&CKEditorFuncNum=0&langCode=de" class="nav-link"><?php echo $BL['FILE_TITLE'] ?></a></li><?php } ?>
+  <li role="presentation" class="nav-item">
+      <a href="filebrowser.php?opt=16" class="btn btn-blue"><?php echo $BL['FILE_TITLE'] ?></a>
+  </li><?php } ?>
 </ul>
 
 <table summary="" class="table table-sm" border="0" cellspacing="0" cellpadding="0">
@@ -137,10 +146,10 @@ $a .= ($child_count) ? "<a href=\"cmsgo.php?do=articles&amp;open=0:".(($_SESSION
 $a .= '<i class="fa fa-caret-'.(($child_count) ? (($_SESSION["structure"][0]==0) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-$info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
+$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'"></i>';
+$a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
@@ -216,25 +225,27 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
   $a .= ($child_count) ? "<a href=\"articlebrowser.php?opt=".$js_aktion."&amp;".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
   $a .= '<i class="fa fa-caret-'.(($child_count) ? ($_SESSION["structure"][ $struct[$key]["acat_id"] ]==0 ? "right" : "down") : "right").' fa-fw slist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-  $info .= 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-  $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
-  $info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
-  $info .= '<br>'.$BL['be_admin_struct_template'].': ';
+  $info  = '<table class="text-left">';
+  $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
+  $info .= '<tr><td>'.$BL['be_alias'].':</td><td>'.$struct[$key]["acat_alias"].'</td></tr>';
+  $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$struct[$key]["acat_sort"].'</td></tr>';
+  $info .= '<tr><td>'.$BL['be_admin_struct_template'].':</td><td>';
   if(empty($struct[$key]['template_trash'])) {
-      $info .= html($struct[$key]["template_name"]);
+      $info .= $struct[$key]["template_name"];
       if($struct[$key]["template_default"]) {
           $info .= ' ('.$BL['be_admin_tmpl_default'].')';
       }
   } else {
       $info .= $BL['be_admin_tmpl_default'];
   }
-  $info .= '<br>'.$BL['be_onepage_id'].': '.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']);
+  $info .= '</td></tr>';
+  $info .= '<tr><td>'.$BL['be_onepage_id'].':</td><td>'.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']) . '</td></tr></table>';
 
   $a .= '<i class="far fa-folder';
   if($struct[$key]["acat_regonly"]) {
       $a .= '-open';
   }
-  $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'"></i>';
+  $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
   $a .= "</td>\n";
   $a .= '<td width="95%"><strong>';
   if ($js_aktion == 5) {
@@ -338,7 +349,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     $a .= "<i class=\"fa fa-caret-".(($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? "down" : "right") : "right");
     $a .= ' fa-fw alist-'.($counter).'" aria-hidden="true"></i>'.(($acontent_count) ? "</a>" : "");
 
-    $info = '<table cellspacing=0 cellpadding=1 border=0>';
+    $info  = '<table class="text-left">';
     $info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
     if(!empty($article[$akey]["article_alias"])) {
         $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
@@ -359,7 +370,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     }
     $info .= '</table>';
 
-    $a .= '<i class="far fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="'.$info.'"></i>'."\n";
+    $a .= '<i class="far fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="'.html($info).'"></i>'."\n";
 
     if ($js_aktion == 5) {
       $a .= $at;
@@ -414,20 +425,22 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
         //continue;
       }
 
-      $info .= 'ID: '.$article_content["acontent_id"];
+      $info = '<table class="text-left">';
+      $info .= '<tr><td>ID:</td><td>'.$article_content["acontent_id"].'</td></tr>';
       if($article_content['acontent_title']) {
-        $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html(js_singlequote($article_content['acontent_title'])).'</nobr>';
+        $info .= '<tr><td>' . $GLOBALS['BL']['be_article_cnt_ctitle'].':</td><td>'.$article_content['acontent_title'].'</td></tr>';
       }
       if($article_content['acontent_title']) {
-        $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+        $info .= '<tr><td>' . $GLOBALS['BL']['be_article_asubtitle'].':</td><td>'.$article_content['acontent_subtitle'].'</td></tr>';
       }
       if($article_content["acontent_comment"]) {
-        $info .= '<br />' . nl2br( html(js_singlequote($article_content["acontent_comment"])) );
+        $info .= '<tr><td colspan="2">' . nl2br($article_content["acontent_comment"]) . '</td></tr>';
       }
+      $info .= '</table>';
 
       $a .= "<tr onmouseover=\"this.bgColor='#FFDE01';\" onmouseout=\"this.bgColor='#FFFFFF';\"  class=\"structarticle\" data-aid=\"".$article_content['acontent_id']."\" data-idtype=\"acontent\">\n";
 
-      $a .= '<td width="30"><i class="far fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'" /></td>';
+      $a .= '<td width="30"><i class="far fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'" /></td>';
       $a .= '<td class="" style="color:#727889;width: 60%">';
       $ab  = '[ID:'.$article_content["acontent_id"].'] ';
       $ab .= $article_content["acontent_title"].' - ';

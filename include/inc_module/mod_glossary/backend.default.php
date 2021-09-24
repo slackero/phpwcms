@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -40,7 +40,7 @@ if(isset($cmsgo['modules'][$module]['path']) && file_exists($cmsgo['modules'][$m
 
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
-	define('GLOSSARY_HREF', 'cmsgo.php?'.get_token_get_string('csrftoken').'&amp;do=modules&amp;module='.$module);
+	define('GLOSSARY_HREF', 'cmsgo.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
 	$glossary = array();
 
 

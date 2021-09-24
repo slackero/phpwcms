@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -51,6 +51,7 @@ $fmp_data = array(
 
     'fmp_caption'               => clean_slweg($_POST['fmp_caption']),
     'fmp_link'                  => clean_slweg($_POST['fmp_link']),
+    'fmp_marker'                => clean_slweg($_POST['fmp_marker']),
     'fmp_img_id'                => intval($_POST['fmp_img_id']),
     'fmp_img_name'              => clean_slweg($_POST['fmp_img_name']),
     'fmp_set_logo'              => clean_slweg($_POST['fmp_set_logo']),
@@ -70,8 +71,8 @@ $fmp_data = array(
 
     'fmp_set_html5only'         => empty($_POST['fmp_set_html5only']) ? 0 : 1,
     'fmp_set_audio'             => empty($_POST['fmp_set_audio']) ? 0 : 1,
-    'fmp_set_loop'              => empty($_POST['fmp_set_loop']) ? 0 : 1
-
+    'fmp_set_loop'              => empty($_POST['fmp_set_loop']) ? 0 : 1,
+    'fmp_set_downloadbutton'    => empty($_POST['fmp_set_downloadbutton']) ? 0 : 1
 );
 
 // make some checks

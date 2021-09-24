@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -11,70 +11,70 @@
 // ----------------------------------------------------------------
 // obligate check for cmsgo constants
 if (!defined('CMSGO_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 
 if($action == 'delete') {
 
-	$plugin['data']['order_id']		= intval($_GET['delete']);
+    $plugin['data']['order_id']		= intval($_GET['delete']);
 
-	$sql  = 'UPDATE '.DB_PREPEND.'cmsgo_shop_orders SET ';
-	$sql .= "order_status = 'CLOSED' ";
-	$sql .= "WHERE order_id = " . $plugin['data']['order_id'];
+    $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_shop_orders SET ';
+    $sql .= "order_status = 'CLOSED' ";
+    $sql .= "WHERE order_id = " . $plugin['data']['order_id'];
 
-	_dbQuery($sql, 'UPDATE');
+    _dbQuery($sql, 'UPDATE');
 
-	headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+    headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
 } elseif($action == 'show') {
 
-	if(isset($_POST['order_status'])) {
+    if(isset($_POST['order_status'])) {
 
-		$plugin['order_status'] = array();
+        $plugin['order_status'] = array();
 
-		if(!empty($_POST['status_payment'])) {
-			$plugin['order_status'][] = 'PAYED';
-		}
-		if(!empty($_POST['status_send'])) {
-			$plugin['order_status'][] = 'SENT';
-		}
-		if(!empty($_POST['status_back'])) {
-			$plugin['order_status'][] = 'RETURN';
-		}
-		if(!empty($_POST['status_done'])) {
-			$plugin['order_status'][] = 'COMPLETED';
-		}
+        if(!empty($_POST['status_payment'])) {
+            $plugin['order_status'][] = 'PAYED';
+        }
+        if(!empty($_POST['status_send'])) {
+            $plugin['order_status'][] = 'SENT';
+        }
+        if(!empty($_POST['status_back'])) {
+            $plugin['order_status'][] = 'RETURN';
+        }
+        if(!empty($_POST['status_done'])) {
+            $plugin['order_status'][] = 'COMPLETED';
+        }
 
-		$plugin['order_status'] = implode('-', $plugin['order_status']);
-		if($plugin['order_status'] == '') {
-			$plugin['order_status'] = 'NEW-ORDER';
-		}
-		$sql  = 'UPDATE '.DB_PREPEND."cmsgo_shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
-		$sql .= "WHERE order_id=" . intval($_POST['order_status']);
+        $plugin['order_status'] = implode('-', $plugin['order_status']);
+        if($plugin['order_status'] == '') {
+            $plugin['order_status'] = 'NEW-ORDER';
+        }
+        $sql  = 'UPDATE '.DB_PREPEND."cmsgo_shop_orders SET order_status='".aporeplace($plugin['order_status'])."' ";
+        $sql .= "WHERE order_id=" . intval($_POST['order_status']);
 
-		if( _dbQuery($sql, 'UPDATE') ) {
-			set_status_message($BLM['shopprod_status_msg'], 'success');
-		}
-	}
+        if( _dbQuery($sql, 'UPDATE') ) {
+            set_status_message($BLM['shopprod_status_msg'], 'success');
+        }
+    }
 
-	$sql  = 'SELECT *, UNIX_TIMESTAMP(order_date) AS order_date_unix FROM '.DB_PREPEND.'cmsgo_shop_orders ';
-	$sql .= "WHERE order_id = " . intval($_GET['show']);
+    $sql  = 'SELECT *, UNIX_TIMESTAMP(order_date) AS order_date_unix FROM '.DB_PREPEND.'cmsgo_shop_orders ';
+    $sql .= "WHERE order_id = " . intval($_GET['show']);
 
-	$plugin['data'] = _dbQuery($sql);
+    $plugin['data'] = _dbQuery($sql);
 
-	if(isset($plugin['data'][0])) {
+    if(isset($plugin['data'][0])) {
 
-		$plugin['data'] = $plugin['data'][0];
-		$plugin['data']['order_data'] = @unserialize($plugin['data']['order_data']);
+        $plugin['data'] = $plugin['data'][0];
+        $plugin['data']['order_data'] = @unserialize($plugin['data']['order_data']);
 
-	} else {
+    } else {
 
-		headerRedirect( shop_url(get_token_get_string('csrftoken').'&controller=order', '') );
+        headerRedirect( shop_url(get_token_get_string().'&controller=order', '') );
 
-	}
+    }
 
-	$BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
+    $BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
 
 }

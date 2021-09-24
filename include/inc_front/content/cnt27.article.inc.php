@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -77,7 +77,7 @@ if(!empty($crow["acontent_image"][2])) {
 
 			if($zoominfo != false) {
 
-				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+				$popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $crow["acontent_image"][1]);
 
 				if(!empty($caption[2][0])) {
 					$open_link = $caption[2][0];
@@ -93,11 +93,8 @@ if(!empty($crow["acontent_image"][2])) {
 
 
 			}
-		} else {
-
-			if($caption[2][0]) {
-				$thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
-			}
+		} elseif($caption[2][0]) {
+		    $thumb_img = '<a href="'.$caption[2][0].'"'.$caption[2][1].'>'.$thumb_img.'</a>';
 		}
 	}
 }

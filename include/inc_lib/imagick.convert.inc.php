@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -36,15 +36,15 @@ function image_manipulate($config=array()) {
     // Merge config values with default
     $config = array_merge(
         array(
-            "max_width" => $cmsgo["img_list_width"],
-            "max_height" => $cmsgo["img_list_height"],
-            "error" => '',
-            "image_name" => '',
-            "thumb_name" => '',
-            "target_ext" => 'jpg',
-            "image_dir" => CMSGO_ROOT . '/' . CMSGO_FILES,
-            "thumb_dir" => CMSGO_THUMB,
-            'jpg_quality' => 85,
+            'max_width' => $cmsgo['img_list_width'],
+            'max_height' => $cmsgo['img_list_height'],
+            'error' => '',
+            'image_name' => '',
+            'thumb_name' => '',
+            'target_ext' => CMSGO_WEBP ? 'webp' : 'jpg',
+            'image_dir' => CMSGO_ROOT . '/' . CMSGO_FILES,
+            'thumb_dir' => CMSGO_THUMB,
+            'quality' => CMSGO_QUALITY,
             'sharpen_level' => 0,
             'density' => 72,
             'add_command' => '',
@@ -91,10 +91,11 @@ function image_manipulate($config=array()) {
         'height' => $config['max_height'],
         'master_dim' => $config['master_dim'],
         'sharpen' => $config['sharpen_level'],
-        'quality' => $config['jpg_quality'],
+        'quality' => $config['quality'],
         'create_thumb' => false,
         'target_ext' => $config["target_ext"],
-        'colorspace' => $cmsgo['colorspace']
+        'colorspace' => $cmsgo['colorspace'],
+        'animated_gif' => $config["animated_gif"]
     );
 
     $IMG = new Cmsgo_Image_lib($image_config);
@@ -193,17 +194,21 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             'max_height' => $GLOBALS['cmsgo']['img_list_height'],
             'image_dir' => CMSGO_ROOT . '/' . CMSGO_FILES,
             'thumb_dir' => CMSGO_ROOT . '/' . CMSGO_IMAGES,
-            'jpg_quality' => $GLOBALS['cmsgo']['jpg_quality'],
+            'quality' => CMSGO_QUALITY,
             'sharpen_level' => $GLOBALS['cmsgo']['sharpen_level'],
             'crop_image'  => false,
             'crop_pos' => '',
-            'img_filename' => ''
+            'img_filename' => '',
+            'animated_gif' => false
         ),
         $val
     );
 
     $imgCache = false; //do not insert file information in db image cache
-    $thumb_image_info = array(0 => false, 'svg' => false);
+    $thumb_image_info = array(
+        0 => false,
+        'svg' => false
+    );
 
     if($val['target_ext'] === 'svg' && is_file($val['image_dir'].$val['image_name'])) {
 
@@ -211,20 +216,52 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $thumb_image_info[0] = $val['image_name'];
         $thumb_image_info[1] = $val['max_width'];
         $thumb_image_info[2] = $val['max_height'];
-        $thumb_image_info[3] = '';
+        if ($val['max_width']) {
+            $thumb_image_info[3] = 'width="' . $val['max_width'] . '"';
+        } elseif ($val['max_height']) {
+            $thumb_image_info[3] = 'height="' . $val['max_height'] . '"';
+        } else {
+            $thumb_image_info[3] = '';
+        }
         $thumb_image_info['type'] = 'image/svg+xml';
         $thumb_image_info['src'] = CMSGO_RESIZE_IMAGE . '/' . $val['max_width'] . 'x' . $val['max_height'];
+
+        $thumb_spec_info = '';
         if($val['crop_image']) {
             $thumb_image_info['src'] .= 'x1';
+            $thumb_spec_info .= 'c' . $val['crop_image'];
+            if ($val['crop_pos']) {
+                $thumb_spec_info .= $val['crop_pos'];
+            }
         }
         $thumb_image_info['src'] .= '/' . $val['image_name'];
 
         if(!empty($val['img_filename'])) {
             $thumb_image_info['src'] .= '/' . rawurlencode($val['img_filename']);
+            $thumb_filename_basis = cut_ext($val['img_filename']);
+
+            $thumb_image_info[0] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
+            if ($thumb_spec_info) {
+                $thumb_image_info[0] .= '-' . $thumb_spec_info;
+            }
+            $thumb_image_info[0] .= '.svg';
+        }
+
+        if (!is_file($val['thumb_dir'].$thumb_image_info[0])) {
+            copy ($val['image_dir'].$val['image_name'], $val['thumb_dir'].$thumb_image_info[0]);
         }
 
         return $thumb_image_info;
 
+    }
+
+    // Check if animated GIF
+    if ($val['target_ext'] === 'gif' && in_array($GLOBALS['cmsgo']['image_library'], array('imagemagick', 'gm', 'graphicsmagick')) && is_animated_gif($val['image_dir'].$val['image_name'])) {
+        $val['animated_gif'] = true; // Try to preserve animated GIF
+    } elseif (CMSGO_WEBP) { // Test against WebP support
+        $val['target_ext'] = 'webp';
+    } elseif ($val['target_ext'] === 'webp') {
+        $val['target_ext'] = 'jpg';
     }
 
     // Try to catch file name from database
@@ -242,7 +279,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
         $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
         if(substr($GLOBALS['cmsgo']['image_library'], 0, 2) === 'gd') {
-            $sql .= " AND f_ext IN ('jpg','jpeg','png','gif','bmp')";
+            $sql .= " AND f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp')";
         }
         $imagedetail = _dbQuery($sql);
 
@@ -255,93 +292,79 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
-    if(empty($val['img_filename'])) {
-
-        // now check if thumbnail was created - proof for GIF, PNG, JPG
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
-    } else {
+    if(!empty($val['img_filename'])) {
 
         $thumb_spec_info = '';
-        if($val['crop_image']) {
+        if ($val['crop_image']) {
             $thumb_spec_info .= 'c' . $val['crop_image'];
-            if($val['crop_pos']) {
+            if ($val['crop_pos']) {
                 $thumb_spec_info .= $val['crop_pos'];
             }
         }
-        if($val['sharpen_level']) {
+        if ($val['sharpen_level']) {
             $thumb_spec_info .= 's' . $val['sharpen_level'];
         }
-        if($val['target_ext'] === 'jpg') {
-            $thumb_spec_info .= 'q' . $val['jpg_quality'];
+        if ($val['target_ext'] === 'jpg' || $val['target_ext'] === 'webp') {
+            $thumb_spec_info .= 'q' . $val['quality'];
         }
-        if(!isset($thumb_filename_basis)) {
+        if (!isset($thumb_filename_basis)) {
             $thumb_filename_basis = cut_ext($val['img_filename']);
         }
 
         $val['thumb_name'] = substr($thumb_filename_basis, 0, 230) . '_' . $val['max_width'] . 'x' . $val['max_height'];
-        if($thumb_spec_info) {
+        if ($thumb_spec_info) {
             $val['thumb_name'] .= '-' . $thumb_spec_info;
         }
-
-        $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
-
     }
+    $thumb_check = $val['thumb_dir'] . $val['thumb_name'];
 
-    if(is_file($thumb_check . '.jpg')) {
-
-        $thumb_image_info[0] = $val['thumb_name'] . '.jpg';
+    if (CMSGO_WEBP) {
+        if (is_file($thumb_check . '.webp')) {
+            $thumb_image_info[0] = $val['thumb_name'].'.webp';
+            $thumb_image_info['type'] = 'image/webp';
+        } elseif ($val["target_ext"] = is_ext_true($val["target_ext"])) {
+            $create_preview = image_manipulate($val);
+            if (is_file($val['thumb_dir'].$create_preview["thumb_name"])) {
+                $thumb_image_info[0] = $create_preview["thumb_name"];
+                $imgCache = true; // insert/update information in db image cache
+            }
+        }
+    } elseif (is_file($thumb_check.'.jpg')) {
+        $thumb_image_info[0] = $val['thumb_name'].'.jpg';
         $thumb_image_info['type'] = 'image/jpeg';
-
-    } elseif(is_file($thumb_check . '.png')) {
-
-        $thumb_image_info[0] = $val['thumb_name'] . '.png';
+    } elseif (is_file($thumb_check.'.png')) {
+        $thumb_image_info[0] = $val['thumb_name'].'.png';
         $thumb_image_info['type'] = 'image/png';
-
-    } elseif(is_file($thumb_check . '.gif')) {
-
-        $thumb_image_info[0] = $val['thumb_name'] . '.gif';
+    } elseif (is_file($thumb_check.'.gif')) {
+        $thumb_image_info[0] = $val['thumb_name'].'.gif';
         $thumb_image_info['type'] = 'image/gif';
-
         // check if current file's extension is handable by ImageMagick or GD
-    } elseif($val["target_ext"] = is_ext_true($val["target_ext"])) {
-
+    } elseif ($val["target_ext"] = is_ext_true($val["target_ext"])) {
         $create_preview = image_manipulate($val);
-
-        if(is_file($val['thumb_dir'] . $create_preview["thumb_name"])) {
+        if (is_file($val['thumb_dir'].$create_preview["thumb_name"])) {
             $thumb_image_info[0] = $create_preview["thumb_name"];
             $imgCache = true; // insert/update information in db image cache
         }
-
     }
 
     if($thumb_image_info[0] !== false) {
-
         if($return_all_imageinfo === false) {
             return $thumb_image_info;
         }
-
         $thumb_info = @getimagesize($val['thumb_dir'] . $thumb_image_info[0]);
         if(is_array($thumb_info)) {
-
             $thumb_image_info[1] = $thumb_info[0]; // width
             $thumb_image_info[2] = $thumb_info[1]; // height
             $thumb_image_info[3] = $thumb_info[3]; // HTML width & height attribute
             $thumb_image_info['src'] = CMSGO_IMAGES . $thumb_image_info[0];
             $thumb_image_info['type'] = $thumb_info['mime'];
-
         } else {
-
             // if wrong - no result, return false
             return false;
-
         }
-
     } else {
-
         // if wrong - no result, return false
         return false;
-
     }
 
     // Return cached thumbnail image info
@@ -405,15 +428,12 @@ function set_cropped_imagesize($config, $orig_width=0, $orig_height=0, $crop_pos
                 }
 
                 // source image dimensions width and/or height is smaller than target
+            } elseif($ratio_width <= $ratio_height) {
+                $config['resize_width'] = ceil($orig_width + ($orig_width * (1 - $ratio_height)));
+                $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
             } else {
-
-                if($ratio_width <= $ratio_height) {
-                    $config['resize_width'] = ceil($orig_width + ($orig_width * (1 - $ratio_height)));
-                    $config['x_axis'] = get_cropped_pos('x', $crop_pos, $config['resize_width'], $config['width']);
-                } else {
-                    $config['resize_height'] = ceil($orig_height + ($orig_height * (1 - $ratio_width)));
-                    $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
-                }
+                $config['resize_height'] = ceil($orig_height + ($orig_height * (1 - $ratio_width)));
+                $config['y_axis'] = get_cropped_pos('y', $crop_pos, $config['resize_height'], $config['height']);
             }
         }
     }
@@ -480,7 +500,7 @@ function cmsgo_convertimage_gs($source_img='', $target_img='', $config=array()) 
             'source_image' => $source_img,
             'new_image' => $target_img,
             'sharpen' => 0,
-            'quality' => $cmsgo['jpg_quality'],
+            'quality' => CMSGO_QUALITY,
             'create_thumb' => false,
             'colorspace' => 'GRAY',
             'density' => 72
@@ -515,4 +535,33 @@ function cmsgo_svg_getimagesize($svg_file) {
         'width' => empty($svg_attributes->width) ? 0 : (string) $svg_attributes->width,
         'height' => empty($svg_attributes->height) ? 0 : (string) $svg_attributes->height
     );
+}
+
+function is_animated_gif($file) {
+
+    if (is_string($file) && is_file($file) && $fp = fopen($file, 'rb')) {
+
+        if (fread($fp, 3) !== 'GIF') {
+            fclose($fp);
+
+            return false;
+        }
+
+        $frames = 0;
+
+        while (!feof($fp) && $frames < 2) {
+            if (fread($fp, 1) === "\x00") {
+                /* Some of the animated GIFs do not contain graphic control extension (starts with 21 f9) */
+                if (fread($fp, 1) === "\x21" || fread($fp, 2) === "\x21\xf9") {
+                    $frames++;
+                }
+            }
+        }
+
+        fclose($fp);
+
+        return $frames > 1;
+    }
+
+    return false;
 }

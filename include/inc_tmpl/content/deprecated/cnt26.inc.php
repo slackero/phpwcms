@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -157,7 +157,7 @@ $wysiwyg_editor = array(
 	'value'		=> $content['recipe']['preparation'],
 	'field'		=> 'recipe_preparation',
 	'height'	=> '250px',
-	'width'		=> '536px',
+	'width'		=> '100%',
 	'rows'		=> '10',
 	'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 	'lang'		=> 'en'

@@ -1,12 +1,13 @@
 [TITLE]<h1>{TITLE}</h1>[/TITLE]
 <!--CP_PAGINATE_START//-->
-<div class="cpPagination">
-[CP_PAGINATE_PREV]  <a href="{CP_PAGINATE_PREV}" class="cpPaginationPrev">&laquo; Previous</a>[/CP_PAGINATE_PREV]
-[CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]
-[CP_PAGINATE_NEXT]  <a href="{CP_PAGINATE_NEXT}" class="cpPaginationNext">Next &raquo;</a>[/CP_PAGINATE_NEXT]
-[CP_PAGINATE_MENU:item_prefix|item_suffix|active_class|hide_active]
+<ul class="pagination">
+    [CP_PAGINATE_PREV]<li><a href="{CP_PAGINATE_PREV}" class="{CP_PAGINATE_CLASS} paginate-prev">&laquo; Previous</a></li>[/CP_PAGINATE_PREV]
+    [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]
+    [CP_PAGINATE_NEXT]<li><a href="{CP_PAGINATE_NEXT}" class="{CP_PAGINATE_CLASS} paginate-next">Next &raquo;</a></li>[/CP_PAGINATE_NEXT]
+</ul>
+[CP_PAGINATE_MENU]
     <!-- when no item prefix/suffix/... is given the default will be used (ul/li) -->
+    <!-- with parameter: [ CP_PAGINATE_MENU : item_prefix|item_suffix|active_class|hide_active ] -->
     {CP_PAGINATE_MENU}
 [/CP_PAGINATE_MENU]
-</div>
 <!--CP_PAGINATE_END//-->

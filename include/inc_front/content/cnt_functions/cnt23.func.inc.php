@@ -4,7 +4,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -17,7 +17,7 @@ function getFieldErrorClass($field_class, $error_class) {
 }
 
 
-function block_comment_spam(&$POST_val, $field_names=NULL) {
+function block_comment_spam($POST_val, $field_names=NULL) {
 
 	global $cnt_form;
 

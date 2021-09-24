@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -58,7 +58,7 @@ if(isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1) {
         $dir_sort.")";
         $result = _dbQuery($sql, 'INSERT');
     if(!empty($result['INSERT_ID'])) {
-      headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=files&f=0');
+      headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=files&f=0');
     }
   }
 }

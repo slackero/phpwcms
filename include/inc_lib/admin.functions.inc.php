@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -11,7 +11,7 @@
 // get article details
 function get_article_data($aid) {
     $sql  = "SELECT article_id, article_cid, article_title, article_subtitle, article_alias, article_aktiv, article_public, article_uid, article_lang, ";
-    $sql .= "date_format(article_tstamp, '".$BL['be_sqlshortdatetime']."') AS article_date ";
+    $sql .= "date_format(article_tstamp, '".$GLOBALS['BL']['be_sqlshortdatetime']."') AS article_date ";
     $sql .= 'FROM '.DB_PREPEND.'cmsgo_article WHERE article_deleted=0 AND   article_id = ' . intval($aid) . ' LIMIT 1';
 
     $data = _dbQuery($sql);
@@ -57,24 +57,28 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     $a .= '<i class="fa fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-    $info  = 'ID: <b>'.$struct[$key]["acat_id"].'</b><br />';
-    $info .= $BL['be_alias'].': '.html($struct[$key]["acat_alias"]).'<br />';
-    $info .= $BL['be_cnt_sortvalue'].': '.$struct[$key]["acat_sort"];
-    $info .= '<br>'.$BL['be_admin_struct_template'].': ';
+    $info  = '<table class="text-left">';
+    $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
+    $info .= '<tr><td>'.$BL['be_alias'].':</td><td>'.$struct[$key]["acat_alias"].'</td></tr>';
+    $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$struct[$key]["acat_sort"].'</td></tr>';
+    $info .= '<tr><td>'.$BL['be_admin_struct_template'].':</td><td>';
     if(empty($struct[$key]['template_trash'])) {
-        $info .= html($struct[$key]["template_name"]);
+        $info .= $struct[$key]["template_name"];
         if($struct[$key]["template_default"]) {
             $info .= ' ('.$BL['be_admin_tmpl_default'].')';
         }
     } else {
         $info .= $BL['be_admin_tmpl_default'];
     }
-    $info .= '<br>'.$BL['be_onepage_id'].': '.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']);
+    $info .= '</td></tr>';
+    $info .= '<tr><td>'.$BL['be_onepage_id'].':</td><td>'.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']).'</td></tr>';
+    $info .= '</table>';
+
     $a .= '<i class="fa fa-folder';
     if($struct[$key]["acat_regonly"]) {
         $a .= '-lock';
     }
-    $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'"></i>';
+    $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
     $a .= '</td>'.LF;
     $a .= '<td class="dir" width="95%"><strong><a href="';
@@ -222,7 +226,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             $a .= '<div class="alist-'.($counter).'" ></div>';
         }
 
-        $info = '<table cellspacing=0 cellpadding=1 border=0>';
+        $info = '<table class="text-left">';
         $info .= '<tr><td>'.$BL['be_func_struct_articleID'].':</td><td><b>'.$article[$akey]["article_id"].'</b></td></tr>';
         if(!empty($article[$akey]["article_alias"])) {
             $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
@@ -241,9 +245,9 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         if(isset($article[$akey]["article_end"])) {
             $info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
         }
-        $info .= '</table>'.LF;
+        $info .= '</table>';
 
-        $a .= '<i class="fa fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="'.$info.'" ></i></td>'.LF;
+        $a .= '<i class="fa fa-file fa-fw" aria-hidden="true" data-html="true" data-toggle="tooltip" title="'.html($info).'" ></i></td>'.LF;
         $a .= '<td class="dir" width="95%"><a href="';
         $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
         $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
@@ -335,7 +339,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     }
 }
 
-function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
+function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_article_content, $counter, $sbutton_string){
 
     $a    = '';
 
@@ -354,16 +358,17 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
                 continue;
             }
 
-            $info = 'ID: '.$article_content["acontent_id"];
+            $info = '<table class="text-left"><tr><td>ID:</td><td>'.$article_content["acontent_id"].'</td></tr>';
             if($article_content['acontent_title']) {
-                $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_cnt_ctitle'].': '.html(js_singlequote($article_content['acontent_title'])).'</nobr>';
+                $info .= '<tr><td>' . $GLOBALS['BL']['be_article_cnt_ctitle'].':</td><td>'.$article_content['acontent_title'].'</td></tr>';
             }
             if($article_content['acontent_title']) {
-                $info .= '<br /><nobr>' . $GLOBALS['BL']['be_article_asubtitle'].': '.html(js_singlequote($article_content['acontent_subtitle'])).'</nobr>';
+                $info .= '<tr><td>' . $GLOBALS['BL']['be_article_asubtitle'].':</td><td>'.$article_content['acontent_subtitle'].'</td></tr>';
             }
             if($article_content["acontent_comment"]) {
-                $info .= '<br />' . nl2br( html(js_singlequote($article_content["acontent_comment"])) );
+                $info .= '<tr><td colspan="2">' . nl2br($article_content["acontent_comment"]) . '</td></tr>';
             }
+            $info .= '</table>';
 
             if($cut_article_content == $article_content["acontent_id"] ) {
                 $a .= "<tr bgcolor=\"#FFC4CB\">\n";
@@ -372,7 +377,7 @@ function struct_articlecontentlist(& $article, $akey, $copy_article_content, $cu
             } else {
                 $a .= "<tr style=\"border-bottom: 1px solid #dfdfdf;\" onmouseover=\"this.bgColor='#FFF4CB';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
             }
-            $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'" ></i>&nbsp;';
+            $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>&nbsp;';
 
             $ab  = '[ID:'.$article_content["acontent_id"].'] ';
             $ab .= $GLOBALS["wcs_content_type"][$article_content["acontent_type"]];
@@ -465,7 +470,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($cut_id == !$forbid_cut) {
                         $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
+                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
                 }
@@ -477,7 +482,7 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                         $a .= " [".$an."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                     } elseif($copy_id == !$forbid_copy) {
                         $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
+                        $a .= $GLOBALS['BL']['be_func_content_paste_cancel']; //." [".$at."]";
                         $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                     }
                 }
@@ -593,7 +598,7 @@ function update_404redirect() {
         if($result) {
             if($data['data']['active'] == 9) {
                 set_status_message(str_replace('{ID}', $data['data']['rid'], $GLOBALS['BL']['be_action_deleted']), 'success');
-                headerRedirect('cmsgo.php?'.get_token_get_string('csrftoken').'&do=admin&p=14');
+                headerRedirect('cmsgo.php?'.get_token_get_string().'&do=admin&p=14');
             } else {
                 set_status_message($GLOBALS['BL']['be_successfully_saved'], 'success');
             }

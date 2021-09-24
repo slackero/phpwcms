@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -192,7 +192,7 @@ if($do) {
 
 	_dbQuery('SET storage_engine=MYISAM', 'SET');
 	_dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
-	_dbQuery("SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'"), 'SET');
+    _dbQuery("SET NAMES '".$cmsgo['db_charset']."'".(empty($cmsgo['db_collation']) ? '' : " COLLATE '".$cmsgo['db_collation']."'"), 'SET');
 
 	$sql_data = read_textfile("update_sql/".$file);
 	$sql_data = preg_replace("/#.*.\n/", "", $sql_data );
@@ -231,7 +231,7 @@ if($do) {
 
 <?php
 
-if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation']))) {
+if(empty($cmsgo['db_charset']) || empty($cmsgo['db_collation'])) {
 
 ?>
   <tr bgcolor="#FFFFFF">

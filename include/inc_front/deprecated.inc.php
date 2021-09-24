@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -51,7 +51,7 @@ function get_random_image_tag($path) {
 
 	if(count($imgArray) && ($imageinfo = is_random_image($imgArray, $imgpath))) {
 		if($tag) {
-			return '<img src="'.$path.'/'.urlencode($imageinfo['imagename']).'" '.$imageinfo[3].' border="0" alt="'.html_specialchars($imageinfo["imagename"]).'"'.HTML_TAG_CLOSE;
+			return '<img src="' . $path . '/'. urlencode($imageinfo['imagename']) . '" ' . $imageinfo[3] . ' alt="' . html($imageinfo["imagename"]) . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 		} else {
 			return CMSGO_URL . $path . '/' . urlencode($imageinfo['imagename']);
 		}
@@ -82,31 +82,31 @@ function html_parser_deprecated($string='') {
 
 	// random GIF Image
 	$search[0]		= '/\{RANDOM_GIF:(.*?)\}/';
-	$replace[0]		= '<img src="img/random_image.php?type=0&imgdir=$1" border="0" alt="" />';
+	$replace[0]		= '<img src="img/random_image.php?type=0&amp;imgdir=$1" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// random JPEG Image
 	$search[1]		= '/\{RANDOM_JPEG:(.*?)\}/';
-	$replace[1]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" border="0" alt="" />';
+	$replace[1]		= '<img src="img/random_image.php?type=1&amp;imgdir=$1" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// random PNG Image
 	$search[2]		= '/\{RANDOM_PNG:(.*?)\}/';
-	$replace[2]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" border="0" alt="" />';
+	$replace[2]		= '<img src="img/random_image.php?type=2&amp;imgdir=$1" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image standard
 	$search[3]		= '/\{IMAGE:(.*?)\}/';
-	$replace[3]		= '<img src="picture/$1" border="0" alt="" />';
+	$replace[3]		= '<img src="picture/$1" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image left
 	$search[4]		= '/\{IMAGE_LEFT:(.*?)\}/';
-	$replace[4]		= '<img src="picture/$1" border="0" align="left" alt="" />';
+	$replace[4]		= '<img src="picture/$1" align="left" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image right
 	$search[5]		= '/\{IMAGE_RIGHT:(.*?)\}/';
-	$replace[5]		= '<img src="picture/$1" border="0" align="right" alt="" />';
+	$replace[5]		= '<img src="picture/$1" align="right" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
 	// insert non db image center
 	$search[6]		= '/\{IMAGE_CENTER:(.*?)\}/';
-	$replace[6]		= '<div style="text-align:center;"><img src="picture/$1" border="0" alt="" /></div>';
+	$replace[6]		= '<div style="text-align:center;"><img src="picture/$1" alt=""' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE . '</div>';
 
 	// random Image Tag
 	$string			= preg_replace_callback('/\{RANDOM:(.*?)\}/', 'get_random_image_tag', $string);
@@ -116,7 +116,7 @@ function html_parser_deprecated($string='') {
 }
 
 //menu creating
-function nav_table_simple_struct(&$struct, $act_cat_id, $link_to="index.php") {
+function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 	//returns a simple table based navigation menu of possible
 	//structure levels based on current structure level
 	$nav_table  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" summary=\"\">\n<tr>\n";
@@ -156,7 +156,7 @@ function nav_table_struct_callback($matches) {
 	return nav_table_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $GLOBALS['template_default']["nav_table_struct"]);
 }
 
-function nav_table_struct (&$struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
+function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $link_to="index.php") {
 	// start with home directory for the listing = top nav structure
 	// 1. Build the recursive tree for given actual article category ID
 
@@ -347,7 +347,7 @@ function nav_list_struct_callback($matches) {
 	return nav_list_struct($GLOBALS['content']["struct"], $GLOBALS['content']["cat_id"], $matches[1], $matches[2]);
 }
 
-function nav_list_struct(&$struct, $act_cat_id, $level, $class='') {
+function nav_list_struct($struct, $act_cat_id, $level, $class='') {
 	// start with home directory for the listing = top nav structure
 	// 1. Build the recursive tree for given actual article category ID
 

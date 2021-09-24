@@ -4,7 +4,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -125,7 +125,7 @@ function renderAds($match) {
 				}
 				$ad_media	.= ' id="'.$ad_so.'">';
 				if(is_file($ad['dir'].$ad['adcampaign_data']['image'])) {
-					$ad_media	.= '<img src="'. html_specialchars($ad_imgsrc) .'" border="0"'.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
+					$ad_media	.= '<img src="'. html_specialchars($ad_imgsrc) .'" '.$ad_wxh.$ad_alt.HTML_TAG_CLOSE;
 				} else {
 					$ad_media	.= $ad_title;
 				}

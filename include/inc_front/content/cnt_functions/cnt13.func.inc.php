@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -183,7 +183,7 @@ class search_News {
 			}
 			$search_replace_newsdetail = true;
 		} else {
-			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false ? true : false;
+			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false;
 			$this->search_target_url = html_specialchars($this->search_target_url);
 		}
 

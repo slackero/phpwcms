@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Checks to see if a string is utf8 encoded.
  *

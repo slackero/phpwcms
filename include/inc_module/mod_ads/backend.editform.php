@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -81,7 +81,7 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 			getFieldById('adcampaign_date_start').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 
 			var timestart = getFieldById('adcampaign_time_start');
-			if(Trim(timestart.value) == '') {
+			if(Trim(timestart.value) === '') {
 				timestart.value = '00:00';
 			}
 		}
@@ -120,7 +120,7 @@ $BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCa
 		function aEnd(date, month, year) {
 			getFieldById('adcampaign_date_end').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
 			var timeend = getFieldById('adcampaign_time_end');
-			if(Trim(timeend.value) == '') {
+			if(Trim(timeend.value) === '') {
 				timeend.value = '23:59';
 			}
 		}

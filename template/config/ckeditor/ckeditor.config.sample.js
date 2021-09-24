@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  *
  * Adopted for cmsGO!, Oliver Georgi
@@ -50,6 +50,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.width = 800;
     config.height = 400;
 
+    config.extraPlugins = 'magicline,image2';
     //config.extraPlugins = 'magicline';
     //config.removePlugins = 'resize';
 

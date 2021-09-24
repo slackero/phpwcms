@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -57,78 +57,6 @@ if(isset($_POST['adcampaign_title'])) {
 
         $plugin['error']['adcampaign_title'] = 1;
 
-    }
-
-    $plugin['error'] = 1;
-
-
-    if(false && !isset($plugin['error'])) {
-
-        if($plugin['data']['glossary_id']) {
-
-            // UPDATE
-            $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_glossary SET ';
-
-            $sql .= "glossary_title='".aporeplace($plugin['data']['glossary_title'])."', ";
-            $sql .= "glossary_tag='".aporeplace($plugin['data']['glossary_tag'])."', ";
-            $sql .= "glossary_keyword='".aporeplace($plugin['data']['glossary_keyword'])."', ";
-            $sql .= "glossary_text='".aporeplace($plugin['data']['glossary_text'])."', ";
-            $sql .= "glossary_object='".aporeplace(serialize($plugin['data']['glossary_object']))."', ";
-            $sql .= "glossary_changed='".aporeplace($plugin['data']['glossary_changed'])."', ";
-            $sql .= "glossary_status=".$plugin['data']['glossary_status'].", ";
-            $sql .= "glossary_highlight=".$plugin['data']['glossary_highlight']." ";
-
-            $sql .= "WHERE glossary_id=".$plugin['data']['glossary_id'];
-
-            if(@_dbQuery($sql, 'UPDATE')) {
-
-                if(isset($_POST['save'])) {
-
-                    headerRedirect(decode_entities(MODULE_HREF));
-
-                }
-
-            } else {
-
-                $plugin['error']['update'] = _dbError();
-
-            }
-
-
-        } else {
-
-            // INSERT
-            $sql  = 'INSERT INTO '.DB_PREPEND.'cmsgo_glossary (';
-            $sql .= 'glossary_created, glossary_changed, glossary_title, glossary_tag, ';
-            $sql .= 'glossary_keyword, glossary_text, glossary_highlight, glossary_object, glossary_status';
-            $sql .= ') VALUES (';
-            $sql .= "'".aporeplace($plugin['data']['glossary_created'])."', ";
-            $sql .= "'".aporeplace($plugin['data']['glossary_changed'])."', ";
-            $sql .= "'".aporeplace($plugin['data']['glossary_title'])."', ";
-            $sql .= "'".aporeplace($plugin['data']['glossary_tag'])."', ";
-            $sql .= "'".aporeplace($plugin['data']['glossary_keyword'])."', ";
-            $sql .= "'".aporeplace($plugin['data']['glossary_text'])."', ";
-            $sql .= aporeplace($plugin['data']['glossary_highlight']).', ';
-            $sql .= "'".aporeplace(serialize($plugin['data']['glossary_object']))."', ";
-            $sql .= aporeplace($plugin['data']['glossary_status']);
-            $sql .= ')';
-
-            if(@_dbQuery($sql, 'INSERT')) {
-
-                if(isset($_POST['save'])) {
-
-                    headerRedirect(decode_entities(MODULE_HREF));
-
-                }
-
-            } else {
-
-                $plugin['error']['update'] = _dbError();
-
-            }
-
-
-        }
     }
 
 }

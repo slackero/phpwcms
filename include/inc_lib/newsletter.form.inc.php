@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -39,7 +39,7 @@ if(!empty($_GET["del"]) && intval($_GET["del"]) == $newsletter["newsletter_id"])
     $sql  = "UPDATE ".DB_PREPEND."cmsgo_newsletter SET newsletter_trashed=9 ";
     $sql .= "WHERE newsletter_id=".intval($_GET["del"])." LIMIT 1";
     _dbQuery($sql, 'UPDATE');
-    headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=3');
+    headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=3');
 
 }
 
@@ -199,9 +199,9 @@ if(isset($_POST["newsletter_id"])) {
         @_dbQuery($sql, 'UPDATE');
 
         if(isset($_POST['close'])) {
-            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=3');
+            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=3');
         } else {
-            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=3&s='.$newsletter["newsletter_id"].'&edit=1');
+            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=3&s='.$newsletter["newsletter_id"].'&edit=1');
         }
     }
 }

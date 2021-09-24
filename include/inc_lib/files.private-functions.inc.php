@@ -3,14 +3,23 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
 //Funktionen zum Listen der privaten Dateien
-
-function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb=1, $cmsgo) {
+/**
+ * @param $pid
+ * @param $vor
+ * @param $zieldatei
+ * @param $userID
+ * @param $cutID
+ * @param $cmsgo
+ *
+ * @return mixed
+ */
+function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
     $cutID = intval($cutID);
     $pid = intval($pid);
     $sql  = "SELECT * FROM ".DB_PREPEND."cmsgo_file f ";
@@ -119,7 +128,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID=0, $show_thumb
 
         //Weiter, wenn Unterstruktur
         if(!$klapp_status && $count_wert) {
-            list_private($row["f_id"], $counter+1, $zieldatei, $userID, $cutID, $show_thumb, $cmsgo);
+            list_private($row["f_id"], $counter+1, $zieldatei, $userID, $cutID, $cmsgo);
 
             //Listing eventuell im Verzeichnis enthaltener Dateien
             $file_sql = "SELECT * FROM ".DB_PREPEND."cmsgo_file WHERE f_pid=".$row["f_id"];

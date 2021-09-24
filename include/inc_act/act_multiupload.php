@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -21,7 +21,7 @@ require '../../include/config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
 
-if(!validate_csrf_get_token('csrftoken')) {
+if(!validate_csrf_get_token()) {
   die('{"success":false}');
 }
 

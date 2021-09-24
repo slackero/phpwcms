@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -67,6 +67,7 @@ if($acat_id) {
         $acat_canonical     = $row_acat['acat_canonical'];
         $acat_breadcrumb    = intval($row_acat['acat_breadcrumb']);
         $acat_onepage       = empty($row_acat['acat_onepage']) ? 0 : 1;
+        $acat_struct        = $row_acat['acat_struct'];
 
     }
 

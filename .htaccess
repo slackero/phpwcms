@@ -33,7 +33,7 @@
 
     RewriteEngine On
 
-    # Force everything to www. and keep SSL status too
+    # Force everything to www. and keep or force SSL status too
     #RewriteCond %{HTTP_HOST} !^$
     #RewriteCond %{HTTPS} off [OR]
     #RewriteCond %{HTTP_HOST} !^www\. [NC]
@@ -41,7 +41,14 @@
     #RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
     #RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-    DirectoryIndex index.html index.php
+    # Some more simple redirect example
+    #RewriteCond %{HTTP_HOST} ^example.com [OR]
+    #RewriteCond %{HTTP_HOST} ^example-two.com [OR]
+    #RewriteCond %{HTTP_HOST} ^www.example-two.de [OR]
+    #RewriteCond %{SERVER_PORT} 80
+    #RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+
+    DirectoryIndex index.html index.php index.phtml
 
     # Redirect /en and /en/ to english home
     #RewriteRule ^(en|de)(/{0,1})$ ./index.php?$1/index [L,QSA]
@@ -51,23 +58,24 @@
     # If installed in a subfolder
     #RewriteBase /subfolder/
 
-    # Ignore all files and folders that exists
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d
-    RewriteRule ^(.+) - [PT,L]
-
-    # In case of config setting `$cmsgo['rewrite_url']=1` (Default)
-    # ===============================================================
-
     # Resized image /img/cmsimage.php/… -> /im/…
     RewriteRule ^im\/(.+?)$ ./img/cmsimage.php?$1 [L]
 
     # File download /dl/… -> /download.php?…
     RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING} [L]
 
+    # Stop rewrite processing, if we are in any known directory
+    # NOTE: Add your additional local storages here
+    RewriteRule ^(?:template/|content/|picture/|uploads/|include/|filearchive/|img/) - [L]
+
+    # Ignore all files and folders that exists
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^(.+) - [PT,L]
+
     # In case of config setting `$cmsgo['rewrite_ext']='.html'` -> /alias.html (Default)
-    RewriteRule ^(.+)\.html$ ./index.php?$1&%{QUERY_STRING} [L]
-    RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
+    RewriteRule ^(.+)\.[p]{0,1}html$ ./index.php?$1&%{QUERY_STRING} [L]
+    RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.[p]{0,1}html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
 
     # Rewrite anything else and link it against cmsGO!
     # Check redirect settings under admin in the backend

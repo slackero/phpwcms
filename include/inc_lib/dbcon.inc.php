@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -90,7 +90,6 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
             case 'UPDATE':
                 $queryResult['AFFECTED_ROWS'] = mysqli_affected_rows($GLOBALS['db']);
                 return $queryResult;
-                break;
 
             // INSERT ... ON DUPLICATE KEY
             case 'ON_DUPLICATE':
@@ -101,7 +100,6 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
                     $queryResult['AFFECTED_ROWS'] = 1;
                 }
                 return $queryResult;
-                break;
 
             // SELECT Queries
             case 'ROW':
@@ -119,10 +117,8 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
                 if(strpos($query, 'SELECT COUNT(') !== false) {
                     $row = mysqli_fetch_row($result);
                     return $row ? (int) $row[0] : 0;
-                } else {
-                    return mysqli_num_rows($result);
                 }
-                break;
+                return mysqli_num_rows($result);
 
             // SET, CREATE, ALTER, DROP, RENAME, TRUNCATE
             case 'RENAME':
@@ -132,36 +128,30 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
             case 'TRUNCATE':
             case 'CREATE':
                 return true;
-                break;
 
             // send SHOW query and count results
             case 'COUNT_SHOW':
                 return mysqli_num_rows($result);
-                break;
 
             default:
                 $_queryMode = 'mysqli_fetch_assoc';
-
         }
 
         while($row = $_queryMode($result)) {
-
             $queryResult[$queryCount] = $row;
             $queryCount++;
-
         }
-        mysqli_free_result($result);
+
+        if (!is_bool($result)) {
+            mysqli_free_result($result);
+        }
 
         return $queryResult;
 
-    } else {
-
-        _dbLogError(_dbError('LOG', $query));
-
-        return false;
-
     }
 
+    _dbLogError(_dbError('LOG', $query));
+    return false;
 }
 
 function _dbCount($query='') {
@@ -684,15 +674,15 @@ function _dbSetVar($var='', $value=null, $compare=false) {
             switch($compare) {
 
                 case '>':
-                    $set = $default > $value ? true : false;
+                    $set = $default > $value;
                     break;
 
                 case '<':
-                    $set = $default < $value ? true : false;
+                    $set = $default < $value;
                     break;
 
                 case '!=':
-                    $set = $default != $value ? true : false;
+                    $set = $default != $value;
                     break;
 
                 default:

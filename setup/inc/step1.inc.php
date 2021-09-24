@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -62,7 +62,7 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
                 <td><label for="db_pers" class="v12">&nbsp;use&nbsp;persistent&nbsp;database&nbsp;connection&nbsp;</label></td>
                 </tr>
             </table></td>
-            <td class="chatlist"><em>recommend setting is to disable it</em></td>
+            <td class="chatlist"><em>it should be safe to enable it</em></td>
           </tr>
 
 <?php
@@ -329,18 +329,26 @@ if(!empty($_SESSION['admin_set'])) {
             $sql  = "INSERT INTO ".$_db_prepend."cmsgo_user (";
             $sql .= "usr_login, usr_pass, usr_email, ";
             $sql .= "usr_admin, usr_aktiv, usr_name, ";
-            $sql .= "usr_lang, usr_wysiwyg, usr_fe";
+            $sql .= "usr_var_structure, usr_var_publicfile, usr_var_privatefile, ";
+            $sql .= "usr_lang, usr_wysiwyg, usr_fe, usr_vars";
             $sql .= ") VALUES (";
             $sql .= "'".mysqli_real_escape_string($db, $cmsgo['admin_user'])."', ";
             $sql .= "'".mysqli_real_escape_string($db, $cmsgo["admin_pass"])."', ";
             $sql .= "'".mysqli_real_escape_string($db, $cmsgo["admin_email"])."', ";
             $sql .= "1, 1, ";
             $sql .= "'".mysqli_real_escape_string($db, $cmsgo['admin_name'])."', ";
+            $sql .= "'', ";
+            $sql .= "'', ";
+            $sql .= "'', ";
             $sql .= "'".mysqli_real_escape_string($db, $cmsgo['default_lang'])."', ";
-            $sql .= "2, 2";
+            $sql .= "2, 2, ''";
             $sql .= ")";
 
             $create_user = _dbQuery($sql, 'INSERT');
+
+        } else {
+
+            $user_check = false;
 
         }
 

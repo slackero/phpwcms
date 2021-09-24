@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -70,7 +70,7 @@ $cmsgo['charsets'] = array(
     'shift_jis',
 );
 
-define('CMSGO_CHARSET',  empty($cmsgo["charset"]) ? 'utf-8' : strtolower($cmsgo["charset"]));
+define('CMSGO_CHARSET', empty($cmsgo["charset"]) ? 'utf-8' : strtolower($cmsgo["charset"]));
 
 if(!empty($cmsgo['php_charset'])) {
     @ini_set('default_charset', CMSGO_CHARSET);
@@ -92,16 +92,8 @@ if(defined('CUSTOM_CONTENT_TYPE')) {
 
 }
 
-if($cmsgo["site"] === '') {
-    $cmsgo["site"] = get_url_origin(true);
-} else {
-    $cmsgo["site"] = rtrim($cmsgo["site"], '/');
-}
-if(empty($cmsgo['site_ssl_url'])) {
-    $cmsgo['site_ssl_url'] = $cmsgo["site"];
-} else {
-    $cmsgo["site_ssl_url"] = rtrim($cmsgo["site_ssl_url"], '/');
-}
+$cmsgo["site"] = $cmsgo["site"] === '' ? get_url_origin(true) : rtrim($cmsgo["site"], '/');
+$cmsgo['site_ssl_url'] = empty($cmsgo['site_ssl_url']) ? $cmsgo["site"] : rtrim($cmsgo["site_ssl_url"], '/');
 if(substr($cmsgo['site_ssl_url'], 0, 5) == 'http:') {
     $cmsgo['site_ssl_url'] = 'https' . substr($cmsgo['site_ssl_url'], 4);
 }
@@ -110,7 +102,7 @@ if($cmsgo['site_ssl_port'] !== 443) {
     $cmsgo['site_ssl_url'] .= ':' . $cmsgo['site_ssl_port'];
 }
 
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
     if(substr($cmsgo['site'], 0, 5) == 'http:') {
         $cmsgo['site'] = $cmsgo['site_ssl_url'];
     }
@@ -154,20 +146,20 @@ define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !=
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7 ? true : false);
+define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
+define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 // Mime-Type definitions
-require_once CMSGO_ROOT.'/include/inc_lib/mimetype.inc.php';
-require_once CMSGO_ROOT.'/include/inc_lib/revision/revision.php';
+require_once CMSGO_ROOT . '/include/inc_lib/mimetype.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/revision/revision.php';
+require_once CMSGO_ROOT . '/include/vendor/autoload.php';
 
 cmsgo_getUserAgent();
 define('BROWSER_NAME', $cmsgo['USER_AGENT']['agent']);
 define('BROWSER_NUMBER', $cmsgo['USER_AGENT']['version']);
 define('BROWSER_OS', $cmsgo['USER_AGENT']['platform']);
 define('BROWSER_MOBILE', $cmsgo['USER_AGENT']['mobile']);
-
 $cmsgo["file_path"] =   '/'.$cmsgo["file_path"].'/' ;  // "/cmsgo_filestorage/"
-
 define('TEMPLATE_PATH', $cmsgo["templates"].'/');
 $cmsgo["templates"] = '/'.$cmsgo["templates"].'/' ;  // "/cmsgo_template/"
 $cmsgo["content_path"] = $cmsgo["content_path"].'/'  ;  // "content/"
@@ -192,8 +184,10 @@ define('RESPONSIVE_MODE', empty($cmsgo['responsive']) ? false : true);
 define('CMSGO_PRESERVE_IMAGENAME', empty($cmsgo['preserve_image_name']) ? false : true);
 define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
 define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
-define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : true);
+define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : false);
 define('CMSGO_LOGDIR', CMSGO_CONTENT.'log');
+define('CMSGO_WEBP', empty($cmsgo['webp_enable']) ? false : $cmsgo['USER_AGENT']['webp']);
+define('CMSGO_QUALITY', CMSGO_WEBP ? $cmsgo['webp_quality'] : $cmsgo['jpg_quality']);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -202,17 +196,11 @@ if(function_exists('mb_substr')) {
 
     function mb_substr($str='', $start=0, $length=NULL, $encoding='') {
         if($length !== NULL) {
-            if(cmsgo_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start, $length));
-            } else {
-                return substr($str, $start, $length);
-            }
+            return cmsgo_seems_utf8($str) ? utf8_encode(substr(utf8_decode($str), $start, $length)) : substr($str, $start, $length);
+        } elseif(cmsgo_seems_utf8($str)) {
+            return utf8_encode(substr(utf8_decode($str), $start));
         } else {
-            if(cmsgo_seems_utf8($str)) {
-                return utf8_encode(substr(utf8_decode($str), $start));
-            } else {
-                return substr($str, $start);
-            }
+            return substr($str, $start);
         }
     }
     function mb_strlen($str='', $encoding='') {
@@ -274,31 +262,38 @@ $cmsgo['default_lang']    = strtolower($cmsgo['default_lang']);
 $cmsgo['DOCTYPE_LANG']    = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] : strtolower(trim($cmsgo['DOCTYPE_LANG']));
 
 $cmsgo['js_lib_default'] = array(
-    'jquery-3.4'            => 'jQuery 3.4.1',
-    'jquery-3.4-migrate'    => 'jQuery 3.4.1 + Migrate 3.0.1',
-    'jquery-3.4-migrate-1'  => 'jQuery 3.4.1 + Migrate 1.4.1 + 3.0.1',
-    'jquery-3.3'            => 'jQuery 3.3.1',
-    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.0.0',
-    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.2'            => 'jQuery 3.2.1',
-    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.0.0',
-    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.1'            => 'jQuery 3.1.1',
-    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.0.0',
-    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.0.0',
-    'jquery-3.0'            => 'jQuery 3.1.0',
-    'jquery-3.0-migrate'    => 'jQuery 3.1.0 + Migrate 3.0.0',
-    'jquery-3.0-migrate-1'  => 'jQuery 3.1.0 + Migrate 1.4.1 + 3.0.0',
-    'jquery-2.2'            => 'jQuery 2.2.4',
-    'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
+    'jquery-3.6'            => 'jQuery 3.6.0',
+    'jquery-3.6-migrate'    => 'jQuery 3.6.0 + Migrate 3.3.2',
+    'jquery-3.6-migrate-1'  => 'jQuery 3.6.0 + Migrate 1.4.1 + 3.3.2',
     'jquery-1.12'           => 'jQuery 1.12.4',
     'jquery-1.12-migrate'   => 'jQuery 1.12.4 + Migrate 1.4.1',
+    'jquery-2.2'            => 'jQuery 2.2.4',
+    'jquery-2.2-migrate'    => 'jQuery 2.2.4 + Migrate 1.4.1',
+    // ----
+    'jquery-3.5'            => 'jQuery 3.5.1',
+    'jquery-3.5-migrate'    => 'jQuery 3.5.1 + Migrate 3.3.2',
+    'jquery-3.5-migrate-1'  => 'jQuery 3.5.1 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.4'            => 'jQuery 3.4.1',
+    'jquery-3.4-migrate'    => 'jQuery 3.4.1 + Migrate 3.3.2',
+    'jquery-3.4-migrate-1'  => 'jQuery 3.4.1 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.3'            => 'jQuery 3.3.1',
+    'jquery-3.3-migrate'    => 'jQuery 3.3.1 + Migrate 3.3.2',
+    'jquery-3.3-migrate-1'  => 'jQuery 3.3.1 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.2'            => 'jQuery 3.2.1',
+    'jquery-3.2-migrate'    => 'jQuery 3.2.1 + Migrate 3.3.2',
+    'jquery-3.2-migrate-1'  => 'jQuery 3.2.1 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.1'            => 'jQuery 3.1.1',
+    'jquery-3.1-migrate'    => 'jQuery 3.1.1 + Migrate 3.3.2',
+    'jquery-3.1-migrate-1'  => 'jQuery 3.1.1 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.0'            => 'jQuery 3.0.0',
+    'jquery-3.0-migrate'    => 'jQuery 3.0.0 + Migrate 3.3.2',
+    'jquery-3.0-migrate-1'  => 'jQuery 3.0.0 + Migrate 1.4.1 + 3.3.2',
     'jquery-2.1'            => 'jQuery 2.1.4',
     'jquery-2.1-migrate'    => 'jQuery 2.1.4 + Migrate 1.2.1',
-    'jquery-1.11'           => 'jQuery 1.11.3',
-    'jquery-1.11-migrate'   => 'jQuery 1.11.3 + Migrate 1.2.1',
     'jquery-2.0'            => 'jQuery 2.0.3',
     'jquery-2.0-migrate'    => 'jQuery 2.0.3 + Migrate 1.2.1',
+    'jquery-1.11'           => 'jQuery 1.11.3',
+    'jquery-1.11-migrate'   => 'jQuery 1.11.3 + Migrate 1.2.1',
     'jquery-1.10'           => 'jQuery 1.10.2',
     'jquery-1.10-migrate'   => 'jQuery 1.10.2 + Migrate 1.2.1',
     'jquery-1.9'            => 'jQuery 1.9.1',
@@ -306,6 +301,9 @@ $cmsgo['js_lib_default'] = array(
     'jquery-1.8'            => 'jQuery 1.8.3',
     'jquery-1.7'            => 'jQuery 1.7.2',
     'jquery-1.6'            => 'jQuery 1.6.4',
+    // ----
+    'mootools-1.2'          => 'MooTools 1.2.6',
+    'mootools-1.1'          => 'MooTools 1.12'
 );
 $cmsgo['js_lib_deprecated'] = array(
     'jquery-1.5'            => 'jQuery 1.5.2',
@@ -313,11 +311,8 @@ $cmsgo['js_lib_deprecated'] = array(
     'jquery'                => 'jQuery 1.3.2',
 );
 
-if(isset($cmsgo['js_lib'])) {
-    $cmsgo['js_lib'] = array_merge($cmsgo['js_lib_default'], $cmsgo['js_lib']);
-} else {
-    $cmsgo['js_lib'] = $cmsgo['js_lib_default'];
-}
+$cmsgo['js_lib'] = isset($cmsgo['js_lib']) ? array_merge($cmsgo['js_lib_default'], $cmsgo['js_lib']) : $cmsgo['js_lib_default'];
+
 if(!empty($cmsgo['enable_deprecated'])) {
     $cmsgo['js_lib'] = array_merge($cmsgo['js_lib'], $cmsgo['js_lib_deprecated']);
 }
@@ -412,6 +407,9 @@ $cmsgo['default_template_classes'] = array(
     'shop-products-menu'            => 'shop-products',
     'cp-paginate-link'              => 'paginate-link',
     'cp-paginate-link-active'       => 'paginate-link active',
+    'search-paginate-link'          => 'paginate-link',
+    'search-paginate-link-active'   => 'paginate-link active',
+    'search-paginate-link-disabled' => 'paginate-link disabled',
     'newsletter-table'              => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email'        => 'form-control',
@@ -430,10 +428,13 @@ $cmsgo['default_template_attributes'] = array(
     'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
     'cpgroup'                   => 'data', // data = <span>, href = <a>
     'cp-paginate' => array(
-        'link-prefix' => ' ',
-        'link-suffix' => ' ',
+        'wrap-prefix' => '<ul>',
+        'wrap-suffix' => '</ul>',
+        'link-prefix' => '<li>',
+        'link-suffix' => '</li>',
         'value-prefix' => '',
-        'value-suffix' => ''
+        'value-suffix' => '',
+        'href-disabled' => '#'
     ),
     'data-gallery' => 'gallery',
 );
@@ -443,6 +444,7 @@ if(empty($cmsgo['allowed_upload_ext'])) {
         'jpg',
         'jpeg',
         'png',
+        'webp',
         'gif',
         'tif',
         'tiff',
@@ -534,7 +536,8 @@ if(!isset($cmsgo['global_unregister_getVar'])) {
         'shop_cat',
         'shop_cart',
         'gallery',
-        'subgallery'
+        'subgallery',
+        'fmp'
     );
 }
 if(is_array($cmsgo['preserve_getVar']) && count($cmsgo['preserve_getVar'])) {
@@ -617,6 +620,12 @@ define('CMSGO_HEADER_COMMENT', '
   -->
 ');
 
+if(empty($cmsgo['lazy_loading']) || !in_array($cmsgo['lazy_loading'], array('lazy', 'eager', 'auto'))) {
+    define('CMSGO_LAZY_LOADING', '');
+} else {
+    define('CMSGO_LAZY_LOADING', ' loading="' . $cmsgo['lazy_loading'] . '"');
+}
+
 // Todo: Later remove these
 $cmsgo["release"] = CMSGO_VERSION;
 $cmsgo["release_date"] = CMSGO_RELEASE_DATE;
@@ -642,19 +651,19 @@ function removeSessionName($str='') {
 
 function dumpVar($var, $commented=false) {
     //just a simple funcction returning formatted print_r()
-    switch($commented) {
-        case 1:     echo "\n<!--\n";
+    if ($commented === 1) {
+        echo LF . '<!--' . LF;
                     print_r($var);
-                    echo "\n//-->\n";
-                    return NULL;
-                    break;
-        case 2:     return '<pre>'.html(print_r($var, true)).'</pre>';
-                    break;
-        default:    echo '<pre>';
+        echo LF . '//-->' . LF;
+        return null;
+    } elseif ($commented === 2) {
+        return '<pre>' . html(print_r($var, true)) . '</pre>';
+    }
+
+    echo '<pre>';
                     echo html(print_r($var, true));
                     echo '</pre>';
-                    return NULL;
-    }
+    return null;
 }
 
 function buildGlobalGET($return = '') {
@@ -690,7 +699,6 @@ function buildGlobalGET($return = '') {
 
     unset(
         $_GET[session_name()],
-        $GLOBALS['_getVar'][$_getVar_first],
         $GLOBALS['_getVar'][session_name()],
         $GLOBALS['_getVar']['']
     );
@@ -701,8 +709,11 @@ function buildGlobalGET($return = '') {
         }
     }
 
-    $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
-    $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+    if ($_getVar_first && $GLOBALS['_getVar'][$_getVar_first] === '') {
+        unset($GLOBALS['_getVar'][$_getVar_first]);
+        $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
+        $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+    }
 
     if(!IS_PHP7 && get_magic_quotes_gpc()) {
         foreach($GLOBALS['_getVar'] as $key => $value) {
@@ -995,6 +1006,12 @@ function cmsgo_getUserAgent($USER_AGENT='') {
         $pixelratio = 1;
     }
 
+    if(!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/' ) !== false)) {
+        $webp = true;
+    } else {
+        $webp = false;
+    }
+
     if(empty($USER_AGENT)) {
         return $GLOBALS['cmsgo'][$index] = array(
             'agent'         => 'Other',
@@ -1004,7 +1021,8 @@ function cmsgo_getUserAgent($USER_AGENT='') {
             'device'        => 'Default',
             'bot'           => 0,
             'engine'        => 'Other',
-            'pixelratio'    => $pixelratio
+            'pixelratio'    => $pixelratio,
+            'webp'          => $webp
         );
     }
 
@@ -1180,7 +1198,8 @@ function cmsgo_getUserAgent($USER_AGENT='') {
         'device'        => $device,
         'bot'           => $bot,
         'engine'        => $engine,
-        'pixelratio'    => $pixelratio
+        'pixelratio'    => $pixelratio,
+        'webp'          => $webp
     );
 }
 
@@ -1300,7 +1319,7 @@ function init_frontend_edit() {
         if(empty($GLOBALS['cmsgo']['frontend_edit'])) {
             define('FE_EDIT_LINK', false);
         } else {
-            define('FE_EDIT_LINK', get_token_get_string('csrftoken'));
+            define('FE_EDIT_LINK', get_token_get_string());
         }
     }
 
@@ -1387,11 +1406,12 @@ function cmsgo_decrypt($crypttext, $password=CMSGO_USER_KEY) {
  * Get current user visual mode
  */
 function get_user_vmode() {
-    switch(VISIBLE_MODE) {
-        case 1:     return 'editor';    break;
-        case 2:     return 'admin';     break;
-        default:    return 'all';
+    if (VISIBLE_MODE === 1) {
+        return 'editor';
+    } elseif (VISIBLE_MODE === 2) {
+        return 'admin';
     }
+    return 'all';
 }
 
 function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w','5k4kWtC','8RAoSD4','Jp6RmA','6LfyU74','OVQRK5f','kbHQ6qx','YdgUgX-','H808le')) {
@@ -1399,15 +1419,11 @@ function get_user_rc($g='', $pu=501289, $pr=506734, $e=array('SAAAAA','PT96y0w',
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
-    if($set_protocol) {
-        $protocol = substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://';
-    } else {
-        $protocol = '';
-    }
+    $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/' )) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
-    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : ':'.$port;
+    $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
     $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
@@ -1432,4 +1448,10 @@ function logdir_exists() {
             @file_put_contents(CMSGO_LOGDIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
         }
     }
+}
+
+function get_default_article_meta() {
+    return array(
+        'class' => ''
+    );
 }

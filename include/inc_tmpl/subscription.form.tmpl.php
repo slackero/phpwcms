@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -48,7 +48,7 @@ if(isset($_POST["subscription_id"])) {
     }
 
     if($subscription["id"]) {
-        headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=messages&p=2&s='.$subscription["id"]);
+        headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=messages&p=2&s='.$subscription["id"]);
     }
 }
 

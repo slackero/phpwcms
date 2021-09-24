@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -20,7 +20,7 @@ checkLogin();
 validate_csrf_tokens();
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-$ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+$ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 
 if(isset($_GET["do"])) {
     $values = explode(",", $_GET["do"]);
@@ -74,12 +74,12 @@ if(isset($_GET["sort"])) {
         $sort2 = $sort1+10;
     }
 
-    $sql = "UPDATE ".DB_PREPEND."cmsgo_articlecontent SET acontent_sorting=".$sort1.
+    $sql = "UPDATE ".DB_PREPEND."cmsgo_articlecontent SET acontent_sorting=".$sort1.',acontent_tstamp=acontent_tstamp'.
            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
            " AND acontent_id=".$id1;
     _dbQuery($sql, 'UPDATE');
 
-    $sql = "UPDATE ".DB_PREPEND."cmsgo_articlecontent SET acontent_sorting=".$sort2.
+    $sql = "UPDATE ".DB_PREPEND."cmsgo_articlecontent SET acontent_sorting=".$sort2.',acontent_tstamp=acontent_tstamp'.
            " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
            " AND acontent_id=".$id2;
     _dbQuery($sql, 'UPDATE');

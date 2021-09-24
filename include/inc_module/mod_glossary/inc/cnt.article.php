@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -144,11 +144,8 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
 
             }
 
-        } else {
-
-            if($content['glossary']['glossary_filter_active'] != '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
-                $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
-            }
+        } elseif($content['glossary']['glossary_filter_active'] !== '*' && strlen($content['glossary']['glossary_filter_active']) == 1) {
+            $content['glossary']['where'] = " AND glossary_title LIKE '".aporeplace($content['glossary']['glossary_filter_active'])."%'";
         }
     }
 

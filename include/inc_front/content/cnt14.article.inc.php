@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -94,11 +94,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 			} elseif(isset($crow['fieldgroup'][$custom_field_key]['render']) && in_array($crow['fieldgroup'][$custom_field_key]['render'], $crow['field_render'])) {
 
 				if($crow['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-					if(!isset($cmsgo['parsedown_class'])) {
-						require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-						require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-						$cmsgo['parsedown_class'] = new ParsedownExtra();
-					}
+					init_markdown();
 					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
 				} elseif($crow['fieldgroup'][$custom_field_key]['render'] === 'plain') {
 					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, plaintext_htmlencode($custom_field_value));

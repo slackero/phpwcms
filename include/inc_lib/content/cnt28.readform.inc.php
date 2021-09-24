@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -26,6 +26,7 @@ $content['felogin']['felogin_date_format']				= clean_slweg($_POST['date_format'
 $content['felogin']['felogin_locale']					= clean_slweg($_POST['locale']);
 $content['felogin']['felogin_validate_userdetail']		= empty($_POST['validate_userdetail']) ? 0 : 1;
 $content['felogin']['felogin_validate_backenduser']		= empty($_POST['validate_backenduser']) ? 0 : 1;
+$content['felogin']['felogin_accept_email_login']		= empty($_POST['accept_email_login']) ? 0 : 1;
 $content['felogin']['felogin_profile_registration']		= empty($_POST['profile_registration']) ? 0 : 1;
 $content['felogin']['felogin_profile_manage']			= empty($_POST['profile_manage']) ? 0 : 1;
 $content['felogin']['felogin_profile_manage_redirect']	= clean_slweg($_POST['profile_manage_redirect']);

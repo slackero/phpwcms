@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -50,7 +50,7 @@ function i18n_get_filename() {
 	return CMSGO_TEMPLATE . 'template_lang/' . i18n_get_language(true) . '.php';
 }
 function i18n_get_file_open_text() {
-	$text  = '<?php ' . LF;
+	$text  = '<?php' . LF;
 	$text .= '// cmsgo template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . LF;
 	$text .= '// ATTENTION! Never add the closing PHP tag "? >" at the end of this file!' . LF . LF;
 	return $text;

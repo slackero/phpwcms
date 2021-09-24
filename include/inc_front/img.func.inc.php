@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -18,7 +18,7 @@ if (!defined('CMSGO_ROOT')) {
 // image rendering functions
 // moved away from front
 
-function imagetable(& $cmsgo, & $image, $rand="0:0:0:0", $align=0) {
+function imagetable($cmsgo, & $image, $rand="0:0:0:0", $align=0) {
     // creates the image tags if text w/image
     // 0   :1       :2   :3        :4    :5     :6      :7       :8
     // dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -115,7 +115,7 @@ function imagetable(& $cmsgo, & $image, $rand="0:0:0:0", $align=0) {
         $table .= ($rand[2]) ? '<td>'.spacer($rand[2],1).'</td>' : '';
         if($image[8]) {
 
-            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
             $table .= '<td'.$image_align.$image_valign.$image_bgcolor.$image_class.">";
             if($caption[2][0]) {
                 $open_link = $caption[2][0];
@@ -170,7 +170,7 @@ function imagetable(& $cmsgo, & $image, $rand="0:0:0:0", $align=0) {
     return $table;
 }
 
-function imagediv(& $cmsgo, & $image, $classname='') {
+function imagediv($cmsgo, $image, $classname='') {
     // creates the image tags if text w/image
     // 0   :1       :2   :3        :4    :5     :6      :7       :8
     // dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -184,7 +184,8 @@ function imagediv(& $cmsgo, & $image, $classname='') {
         "max_width"     =>  $image[4],
         "max_height"    =>  $image[5],
         "thumb_name"    =>  md5($image[2].$image[4].$image[5].$cmsgo["sharpen_level"].$crop.$cmsgo['colorspace']),
-        'crop_image'    =>  $crop
+        'crop_image'    =>  $crop,
+        'img_filename'  =>  $image[1]
     ));
 
     if($image[8]) {
@@ -194,10 +195,13 @@ function imagediv(& $cmsgo, & $image, $classname='') {
             "image_name"    =>  $image[2] . '.' . $image[3],
             "max_width"     =>  $cmsgo["img_prev_width"],
             "max_height"    =>  $cmsgo["img_prev_height"],
-            "thumb_name"    =>  md5($image[2].$cmsgo["img_prev_width"].$cmsgo["img_prev_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
+            "thumb_name"    =>  md5($image[2].$cmsgo["img_prev_width"].$cmsgo["img_prev_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace']),
+            'img_filename'  =>  $image[1]
         ));
 
-        if($zoominfo == false) $image[8] = 0;
+        if($zoominfo == false) {
+            $image[8] = 0;
+        }
 
     }
 
@@ -221,15 +225,21 @@ function imagediv(& $cmsgo, & $image, $classname='') {
         }
 
         // image source
-        $img  = '<img src="'.CMSGO_IMAGES.$thumb_image[0].'" '.$thumb_image[3];
-        $img .= ' data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"';
+        $img  = '<img src="';
+        if ($crop && !empty($thumb_image['src'])) {
+            $img .= $thumb_image['src'] . '"';
+            $thumb_image[3] = '';
+        } else {
+            $img .= CMSGO_IMAGES . $thumb_image[0] . '"';
+        }
+        $img .= ' '.$thumb_image[3] . ' data-image-id="'.$image[0].'" data-image-hash="'.$image[2].'"';
         $img .= $image_border.$image_imgclass.' alt="'.$caption[1].'"'.$caption[3].' />';
 
         $image_block .= '<div class="'.$classname.'">';
 
         if($image[8]) {
 
-            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0].'?'.$zoominfo[3]);
+            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo[0], $zoominfo[3], $image[1]);
             $image_block .= '<div class="'.$image_class.'">';
             if($caption[2][0]) {
                 $open_link = $caption[2][0];
@@ -289,7 +299,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
     // image: type = 0
     // ecard: type = 1
     $template_type  = $type ? 'ecard' : 'imagelist';
-    $usetable       = !isset($imagelist['usetable']) || $imagelist['usetable'] ? true : false;
+    $usetable       = !isset($imagelist['usetable']) || $imagelist['usetable'];
 
     if(empty($GLOBALS['cnt_image_lightbox'])) {
         $lightbox   = 0;
@@ -297,7 +307,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
         $lightbox   = generic_string(5);
     }
 
-    $caption_on     = empty($imagelist['nocaption']) ? true : false;
+    $caption_on     = empty($imagelist['nocaption']);
     $crop           = empty($imagelist['crop']) ? 0 : 1;
     $image_border   = ' border="' . (empty($GLOBALS["template_default"]["article"][$template_type."_border"]) ? '0' : $GLOBALS["template_default"]["article"][$template_type."_border"]) . '"';
 
@@ -465,7 +475,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
 
             if($imagelist['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $imagelist['images'][$key][1]);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -491,13 +501,10 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
                 }
 
                 $table .= $list_img_temp."</a>";
+            } elseif($caption[2][0]) { // if not click enlarge
+                $table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$imagelist['class_image_link'].'">'.$list_img_temp.'</a>';
             } else {
-                // if not click enlarge
-                if($caption[2][0]) {
-                    $table .= '<a href="'.$caption[2][0].'"'.$caption[2][1].' class="'.$imagelist['class_image_link'].'">'.$list_img_temp.'</a>';
-                } else {
-                    $table .= $list_img_temp;
-                }
+                $table .= $list_img_temp;
             }
 
             if($usetable) {
@@ -574,15 +581,11 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
                     $x++;
                 }
 
+            } elseif($x==$imagelist['col']) {
+                $x = 0;
+                $z++;
             } else {
-
-                if($x==$imagelist['col']) {
-                    $x = 0;
-                    $z++;
-                } else {
-                    $x++;
-                }
-
+                $x++;
             }
 
             // end if max image count

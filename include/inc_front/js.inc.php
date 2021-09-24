@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -89,7 +89,7 @@ function renderHeadJS($js) {
     }
 
     // detect remote if `http://example.com`, `https://example.com` or `//example.com`
-    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//' ? true : false;
+    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//';
 
     if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
 
@@ -144,9 +144,9 @@ function renderHeadJS($js) {
 function initVideoJs() {
     if(empty($GLOBALS['cmsgo']['video-js'])) {
         if(IE8_CC) {
-            $GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script><![endif]-->';
+            $GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="'.CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script><![endif]-->';
         }
-        $GLOBALS['cmsgo']['video-js'] = CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/7.6/';
+        $GLOBALS['cmsgo']['video-js'] = CMSGO_HTTP_SCHEMA.'://vjs.zencdn.net/7.11/';
     } else {
         $GLOBALS['cmsgo']['video-js'] = rtrim($GLOBALS['cmsgo']['video-js'], '/') . '/';
     }

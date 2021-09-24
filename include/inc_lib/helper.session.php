@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -355,7 +355,7 @@ function tokenize_forms($html) {
  */
 function get_tokenized_form($match, $token_prefix='csrf_') {
 
-	$form  = $match[0];
+	$form = $match[0];
 
 	if(strpos($match[1], 'data-csrf="off"') === false) {
 
@@ -379,7 +379,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
  */
 function tokenize_urls($html) {
 
-	$get_token = get_token_get_string('csrftoken');
+	$get_token = get_token_get_string();
 
 	if($get_token) {
 
@@ -439,7 +439,7 @@ function validate_csrf_tokens($token_prefix='csrf_') {
 
 	} else {
 
-		validate_csrf_get_token('csrftoken');
+		validate_csrf_get_token();
 
 	}
 

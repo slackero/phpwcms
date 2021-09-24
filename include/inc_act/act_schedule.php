@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -22,7 +22,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 if(empty($_SESSION['REFERER_URL'])) {
     die('Goood bye.');
 } else {
-    $ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken') : $_SESSION['REFERER_URL'];
+    $ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
 if($_SESSION["wcs_user_admin"] == 1 && trim($_POST["scat_name"])) {

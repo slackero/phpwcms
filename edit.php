@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -15,25 +15,42 @@ $BL         = array();
 $basepath   = str_replace('\\', '/', dirname(__FILE__));
 
 // Check if config is still at the old position
-if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/cmsgo/conf.inc.php')) {
-
+if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/cmsgo/conf.inc.php')):
     if(!@rename($basepath.'/config/cmsgo', $basepath.'/include/config')):
-?>
-    <html><body>
-        <h4 style="color:#cc3300">
-            <strong>Your configuration is placed at the wrong position.</strong>
-        </h4>
-        <p>
-            Beginning with <strong>cmsGO! v1.7.8</strong> base config files were moved from
-            directory <code>config/cmsgo</code> to directory <code>include/config</code>. The fallback
-            to do it automatically has failed. Please do it manually before you continue.
-        </p>
-    </body></html>
+
+?><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>cmsGo! configuration error</title>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 18px;
+            color: #000;
+        }
+        h1 {
+            font-size: 28px;
+            color:#cc3300;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <strong>Your configuration is placed at the wrong position.</strong>
+    </h1>
+    <p>
+        Beginning with <strong>cmsGO! v1.7.8</strong> base config files were moved from
+        directory <code>config/cmsgo</code> to directory <code>include/config</code>. The fallback
+        to do it automatically has failed. Please do it manually before you continue.
+    </p>
+</body>
+</html>
 <?php
         die();
-
     endif;
-}
+endif;
 
 require_once $basepath.'/include/config/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
@@ -58,26 +75,22 @@ $err        = 0;
 $wcs_user   = '';
 
 // where user should be redirected too after login
-if(!empty($_POST['ref_url'])) {
-    $ref_url = xss_clean($_POST['ref_url']);
-} elseif(!empty($_GET['ref'])) {
-    $ref_url = xss_clean(rawurldecode($_GET['ref']));
+if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
+    $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
+    if (substr($ref_url, 0, strlen(CMSGO_URL)) !== CMSGO_URL) {
+        $ref_url = '';
+    }
 } else {
     $ref_url = '';
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value('csrftoken')) {
-    $csrf_error = true;
-} else {
-    $csrf_error = false;
-}
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
 
-define('LOGIN_TOKEN', generate_get_token('csrftoken'));
+define('LOGIN_TOKEN', generate_get_token());
 
 // reset all inactive users
-$sql  = "UPDATE ".DB_PREPEND."cmsgo_userlog SET ";
-$sql .= "logged_in = 0, logged_change = '".time()."' ";
-$sql .= "WHERE logged_in = 1 AND ( ".time()." - logged_change ) > ".intval($cmsgo["max_time"]);
+$sql  = "UPDATE " . DB_PREPEND . "cmsgo_userlog SET logged_in=0, logged_change='" . time() . "' ";
+$sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > ".intval($cmsgo["max_time"]);
 _dbQuery($sql, 'UPDATE');
 
 //load default language EN
@@ -89,7 +102,7 @@ if(isset($_COOKIE['cmsgoBELang'])) {
     if( isset( $BL[ $temp_lang ] ) ) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
-        setcookie('cmsgoBELang', '', time()-3600 );
+        setcookie('cmsgoBELang', '', time() - 3600);
     }
 }
 if(isset($_POST['form_lang'])) {
@@ -104,8 +117,8 @@ if(empty($_SESSION["wcs_user_lang"])) {
 if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(CMSGO_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
     $_SESSION["wcs_user_lang_custom"] = 1;
 } else {
-    $_SESSION["wcs_user_lang"]          = 'en'; //by ono
-    $_SESSION["wcs_user_lang_custom"]   = 0;
+    $_SESSION["wcs_user_lang"] = 'en'; //by ono
+    $_SESSION["wcs_user_lang_custom"] = 0;
 }
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
     //use custom lang if available -> was set in edit.php
@@ -121,7 +134,7 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-$cmsgo["wysiwyg_editor"]  = empty($cmsgo["wysiwyg_editor"]) ? 0 : 1;
+$cmsgo["wysiwyg_editor"] = empty($cmsgo["wysiwyg_editor"]) ? 0 : 1;
 $_SESSION["WYSIWYG_EDITOR"] = $cmsgo["wysiwyg_editor"];
 
 destroyBackendSessionData();
@@ -135,8 +148,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
     $wcs_user           = slweg($_POST['form_loginname']);
     $wcs_pass           = slweg($_POST['md5pass']);
 
-    $sql_query  = "SELECT * FROM ".DB_PREPEND."cmsgo_user WHERE usr_login="._dbEscape($wcs_user)." AND ";
-    $sql_query .= "usr_pass="._dbEscape($wcs_pass)." AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
+    $sql_query  = "SELECT * FROM " . DB_PREPEND . "cmsgo_user WHERE usr_login=" . _dbEscape($wcs_user) . " AND ";
+    $sql_query .= "usr_pass=" . _dbEscape($wcs_pass) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
 
     if(!$csrf_error) {
 
@@ -160,10 +173,10 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
             set_language_cookie();
 
-            $_SESSION["structure"]      = @unserialize($result[0]["usr_var_structure"]);
-            $_SESSION["klapp"]          = @unserialize($result[0]["usr_var_privatefile"]);
-            $_SESSION["pklapp"]         = @unserialize($result[0]["usr_var_publicfile"]);
-            $result[0]["usr_vars"]      = @unserialize($result[0]["usr_vars"]);
+            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
+            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
+            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"]);
+            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"]);
 
             if(!is_array($_SESSION["structure"])) {
                 $_SESSION["structure"] = array();
@@ -175,7 +188,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 $_SESSION["pklapp"] = array();
             }
             if(!is_array($result[0]["usr_vars"])) {
-                $result[0]["usr_vars"]  = array();
+                $result[0]["usr_vars"] = array();
             }
 
             // Fallback to CKeditor?
@@ -230,7 +243,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
         }
 
-        headerRedirect($backend_redirect . get_token_get_string('csrftoken') . '&' . session_name().'='.session_id());
+        headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
 
     } else {
 
@@ -286,24 +299,26 @@ $reason_types = array(
 <div class="col-12 col-md-6 col-lg-4">
 <div class="card mt-5">
 <div class="card-header">
-	<h2 class="card-title"><?php echo $BL["login_text"]; ?></h2>
+	<h2 class="card-title"><strong><?php echo $BL["login_text"]; ?></strong></h2>
 </div>
 <div class="card-body">
 <?php if(isset($_GET['reason'])): ?>
         <div class="alert <?php echo $reason_types[ (isset($_GET['type']) && isset($reason_types[$_GET['type']])) ? $_GET['type'] : 'default' ]; ?>">
-            <?php if($_GET['reason'] === 'csrf-post-failed'): ?>
-                <?php echo $BL['CSRF_POST_FAILED']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-post-invalid'): ?>
-                <?php echo $BL['CSRF_POST_INVALID']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-get-failed'): ?>
-                <?php echo $BL['CSRF_GET_FAILED']; ?>
-            <?php elseif($_GET['reason'] === 'csrf-get-invalid'): ?>
-                <?php echo $BL['CSRF_GET_INVALID']; ?>
-            <?php endif; ?>
+            <?php
+                if($_GET['reason'] === 'csrf-post-failed') {
+                    echo $BL['CSRF_POST_FAILED'];
+                } elseif($_GET['reason'] === 'csrf-post-invalid') {
+                    echo $BL['CSRF_POST_INVALID'];
+                } elseif($_GET['reason'] === 'csrf-get-failed') {
+                    echo $BL['CSRF_GET_FAILED'];
+                } elseif($_GET['reason'] === 'csrf-get-invalid') {
+                    echo $BL['CSRF_GET_INVALID'];
+                }
+            ?>
         </div>
 <?php endif; ?>
     <div id="loginFormArea">
-    	<div class="alert alert-danger" style=";font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo']; ?></div>
+    	<div class="alert alert-danger" style="font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo']; ?></div>
 	</div>
 	</div>
 </div>
@@ -320,7 +335,7 @@ $reason_types = array(
 ob_start();
 
 ?>
-<form action="<?php echo CMSGO_URL.get_login_file() ?>" method="post" name="login_formular" id="login_formular" onsubmit="return login(this);" autocomplete="off">
+<form action="<?php echo CMSGO_URL.get_login_file() ?>" method="post" id="login_formular" onsubmit="return login(this);"<?php if(empty($cmsgo['login_autocomplete'])): ?> autocomplete="off"<?php endif; ?>>
 <input type="hidden" name="json" id="json" value="0" />
 <input type="hidden" name="customlang" id="customlang" value="<?php if(!empty($_POST['customlang'])): ?>1<?php endif; ?>" />
 <input type="hidden" name="md5pass" id="md5pass" value="" autocomplete="off" />
@@ -332,69 +347,75 @@ ob_start();
     if(file_exists(CMSGO_ROOT.'/setup')) {
         echo '<div class="alert alert-danger">'.$BL["setup_dir_exists"].'</div>';
     }
-    if(file_exists(CMSGO_ROOT.'/cmsgo_code_snippets')) {
-        echo '<div class="alert alert-danger">'.$BL["cmsgo_code_snippets_dir_exists"].'</div>';
-    }
 
     if(isset($_POST['json']) && $_POST['json'] == 2) {
         $err = 0;
     }
 
-    echo '<div class="alert alert-danger"'.($err ? '' : ' style="display:none;"') . ' id="jserr">'.$BL["login_error"].'</div>';
+    if(file_exists(CMSGO_ROOT.'/cmsgo_code_snippets')) {
+        echo '<div class="alert alert-danger">'.$BL["cmsgo_code_snippets_dir_exists"].'</div>';
+    }
+
+    if(($cmsgo['image_library'] === 'gd' || $cmsgo['image_library'] === 'gd2') && (!extension_loaded('gd') || !function_exists('gd_info'))) {
+        echo '<div class="alert alert-danger" style="font-weight:normal;">'.$BL['gd_not_loaded'].'</div>';
+    }
+
+    echo '<div class="alert alert-danger"';
+    if(!$err) {
+        echo ' style="display:none;"';
+    }
+    echo ' id="jserr">';
+    echo $BL["login_error"];
+    echo '</div>';
 
 ?>
-<form>
 <div class="form-group">
 	<label class="sr-only" for="loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
-    <div class="input-group-prepend">
-    <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
-  </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
+        </div>
 		<input name="form_loginname" type="text" id="form_loginname" class="form-control" placeholder="<?php echo $BL["login_username"] ?>" value="<?php echo html_specialchars($wcs_user); ?>" required="required" />
 	</div>
 </div>
 
 <div class="form-group">
 	<label class="sr-only" for="inputPassword"><?php echo $BL["login_userpass"] ?></label>
-  <div class="input-group">
-	<div class="input-group-prepend">
-    <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
-    </div>
-      <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required" autocomplete="new-password" />
+    <div class="input-group">
+	    <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+        </div>
+        <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($cmsgo['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
 	</div>
 </div>
-<hr />
-<div class="form-group row">
-	<label for="inputPassword" class="col-sm-12 col-form-label">
-		<strong><?php echo $BL["login_lang"] ?></strong>
-	</label>
-    <div class="col-sm-12">
-      <select class="custom-select form-control-sm" name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
-<?php
-// check available languages installed and build language selector menu
-$lang_dirs = opendir(CMSGO_ROOT.'/include/inc_lang/backend');
-$lang_options = array();
-while($lang_code = readdir($lang_dirs)) {
-    if( substr($lang_code, 0, 1) !== '.' && is_file(CMSGO_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
-        $_lang_code = strtoupper($lang_code);
-        $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
-        $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
-        $lang_options[$_lang_code] .= '>';
-        $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
-        $lang_options[$_lang_code] .= '</option>';
-    }
-}
-closedir($lang_dirs);
+<hr class="mt-4 mb-3" />
+<div class="form-group">
+	<label for="inputPassword"><?php echo $BL["login_lang"] ?></label>
+    <div class="input-group">
+        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
+        <?php
+        // check available languages installed and build language selector menu
+        $lang_dirs = opendir(CMSGO_ROOT.'/include/inc_lang/backend');
+        $lang_options = array();
+        while($lang_code = readdir($lang_dirs)) {
+            if( substr($lang_code, 0, 1) !== '.' && is_file(CMSGO_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
+                $_lang_code = strtoupper($lang_code);
+                $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
+                $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
+                $lang_options[$_lang_code] .= '>';
+                $lang_options[$_lang_code] .= isset($BL[$_lang_code]) ? $BL[$_lang_code] : $_lang_code;
+                $lang_options[$_lang_code] .= '</option>';
+            }
+        }
+        closedir($lang_dirs);
+        ksort($lang_options);
+        echo implode('', $lang_options);
 
-ksort($lang_options);
-echo implode('', $lang_options);
-
-?>
-</select>
+        ?>
+        </select>
+    </div>
 </div>
-</div>
-
-<button name="submit_form" type="submit" class="btn btn-blue btn-block"><?php echo $BL["login_button"] ?> <i class="fa fa-arrow-right"></i></button></form>
+<button name="submit_form" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL["login_button"] ?> <i class="fa fa-arrow-right"></i></button></form>
 <?php
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
@@ -407,9 +428,8 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 <script>
     $buoop = {<?php if(!empty($cmsgo['browser_check']['vs'])) { echo 'vs:'.$cmsgo['browser_check']['vs']; } ?>};
 </script>
-<script src="//browser-update.org/update.js"></script>
+<script src="https://browser-update.org/update.js"></script>
 <?php endif; ?>
-
 </div>
 </body>
 </html>

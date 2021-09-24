@@ -154,35 +154,34 @@ class qqFileUploader {
 		if( isset( $this->uploadName ) ) {
             return $this->uploadName;
         }
-        return '';
 	}
 
 	public function getFileSize(){
 		if( isset( $this->fileSize ) ) {
 			return $this->fileSize;
+		} else {
+			return 0;
 		}
-		return 0;
 	}
 
 	public function getFileExtension(){
 		if( isset( $this->fileExtension ) ) {
 			return trim($this->fileExtension, '.');
+		} else {
+			return '';
 		}
-		return '';
 	}
 
 	public function getFileType(){
 		if ($this->file) {
             return $this->file->getMimeType();
         }
-        return '';
 	}
 
 	public function getName(){
 		if ($this->file) {
             return $this->file->getName();
         }
-        return '';
 	}
 
     private function checkServerSettings(){

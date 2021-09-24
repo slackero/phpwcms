@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -54,7 +54,7 @@ class cmsgoNews {
 
         $this->BL               = &$BL;
         $this->cmsgo            = &$cmsgo;
-        $this->csrf_token       = get_token_get_string('csrftoken');
+        $this->csrf_token       = get_token_get_string();
         $this->base_url         = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
         $this->base_url_decoded = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&do=articles&p=3';
 

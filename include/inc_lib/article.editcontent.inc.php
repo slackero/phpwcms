@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -20,20 +20,21 @@ $set_livedate = 0;
 $set_end = 0;
 $set_killdate = 0;
 
-if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { //Show single article information
+if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { //Show single article information
 
-    //Artikel editieren
+    // Edit articles
     $article = array(
-        "article_id" => empty($_GET["id"]) ? 0 : intval($_GET["id"]),
-        "article_timeout" => '',
+        'article_id' => empty($_GET['id']) ? 0 : intval($_GET['id']),
+        'article_timeout' => '',
         'article_nosearch' => '',
         'article_nositemap' => 1,
         'article_morelink' => 1,
-        "article_cntpart" => array(),
+        'article_cntpart' => array(),
+        'article_meta' => get_default_article_meta()
     );
 
     // check if in POST mode (form submitted) and NOT add new article
-    if((!isset($_POST["article_update"]) || !intval($_POST["article_update"])) && !isset($_GET['struct'])) {
+    if((!isset($_POST['article_update']) || !intval($_POST['article_update'])) && !isset($_GET['struct'])) {
 
         $read_done = false;
 
@@ -99,25 +100,31 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                     $set_end = 1;
                 }
 
-            $article['article_aliasid']     = $row['article_aliasid'];
-            $article['article_headerdata']  = $row['article_headerdata'];
-            $article['article_morelink']    = $row['article_morelink'];
-            $article['article_noteaser']    = $row['article_noteaser'];
-            $article['article_pagetitle']   = $row['article_pagetitle'];
-            $article['article_paginate']    = $row['article_paginate'];
-            $article['article_sort']        = $row['article_sort'];
-            $article['article_priorize']    = $row['article_priorize'];
-            $article['article_created']     = $row['article_created'];
-            $article['article_norss']       = $row['article_norss'];
-            $article['article_menutitle']   = $row['article_menutitle'];
-            $article['article_description'] = $row['article_description'];
-            $article['article_lang']        = $row['article_lang'];
-            $article['article_lang_type']   = $row['article_lang_type'];
-            $article['article_lang_id']     = $row['article_lang_id'];
-            $article['article_opengraph']   = $row['article_opengraph'];
-            $article['article_canonical']   = $row['article_canonical'];
-
+            $article['article_aliasid']         = $row['article_aliasid'];
+            $article['article_headerdata']      = $row['article_headerdata'];
+            $article['article_morelink']        = $row['article_morelink'];
+            $article['article_noteaser']        = $row['article_noteaser'];
+            $article['article_pagetitle']       = $row['article_pagetitle'];
+            $article['article_paginate']        = $row['article_paginate'];
+            $article['article_sort']            = $row['article_sort'];
+            $article['article_priorize']        = $row['article_priorize'];
+            $article['article_created']         = $row['article_created'];
+            $article['article_norss']           = $row['article_norss'];
+            $article['article_menutitle']       = $row['article_menutitle'];
+            $article['article_description']     = $row['article_description'];
+            $article['article_lang']            = $row['article_lang'];
+            $article['article_lang_type']       = $row['article_lang_type'];
+            $article['article_lang_id']         = $row['article_lang_id'];
+            $article['article_opengraph']       = $row['article_opengraph'];
+            $article['article_canonical']       = $row['article_canonical'];
             $article['article_archive_status']  = $row['article_archive_status'];
+
+            if ($row['article_meta']) {
+                $row['article_meta'] = json_decode($row['article_meta'], true);
+                if (is_array($row['article_meta']) && count($row['article_meta'])) {
+                    $article['article_meta'] = array_merge($article['article_meta'], $row['article_meta']);
+                }
+            }
 
             $article["acat_overwrite"] = $row['acat_overwrite'];
 
@@ -126,7 +133,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         }
 
         if(!$read_done) {
-            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2');
+            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2');
         }
 
 
@@ -232,6 +239,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
         $article["article_timeout"] = clean_slweg($_POST["article_timeout"]);
         $article['article_opengraph'] = empty($_POST["article_opengraph"]) ? 0 : 1;
         $article['article_canonical'] = clean_slweg($_POST["article_canonical"], 2000);
+        $article['article_meta']['class'] = clean_slweg($_POST["article_meta_class"], 250);
 
         if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
             $article["article_timeout"] = 0; //check if cache = Off
@@ -386,7 +394,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                     'article_lang_type'     => $article["article_lang_type"],
                     'article_lang_id'       => $article["article_lang_id"],
                     'article_opengraph'     => $article["article_opengraph"],
-                    'article_canonical'     => $article["article_canonical"]
+                    'article_canonical'     => $article["article_canonical"],
+                    'article_meta'          => json_encode($article['article_meta'])
                 );
 
                 $result = _dbInsert('cmsgo_article', $data);
@@ -434,7 +443,8 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                         "article_lang_type="._dbEscape($article["article_lang_type"]).", ".
                         "article_lang_id="._dbEscape($article["article_lang_id"]).", ".
                         "article_opengraph=".$article["article_opengraph"].', '.
-                        "article_canonical="._dbEscape($article["article_canonical"]);
+                        "article_canonical="._dbEscape($article["article_canonical"]).', '.
+                        "article_meta="._dbEscape(json_encode($article['article_meta']));
 
                         if($_SESSION["wcs_user_admin"]) {
                             $sql .= ", article_uid=".$article["article_uid"];
@@ -451,7 +461,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                 _dbSaveCategories($article["article_keyword"], 'article', $article["article_id"], ',');
 
                 $update = isset($_POST['updatesubmit']) ? '&aktion=1' : '';
-                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
+                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1'.$update.'&id='.$article["article_id"]);
             }
 
         } else {
@@ -640,7 +650,7 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                             change_articledate($content["aid"]); //update article date too
                             update_cache(); // set cache timeout = 0
                             if(!empty($_POST['SubmitClose'])) {
-                                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
+                                headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"]);
                             }
                         }
 
@@ -680,9 +690,9 @@ if((isset($_GET["s"]) && intval($_GET["s"]) == 1) || isset($_GET['struct'])) { /
                             if(!empty($_POST['teaser_filter_category_by_tags'])) {
                                 $_SESSION['teaser_filter_category_by_tags'] = true;
                             }
-                            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&aktion=2&id='.$content["aid"]."&acid=".$content["id"]);
+                            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1&aktion=2&id='.$content["aid"]."&acid=".$content["id"]);
                         } else {
-                            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string('csrftoken').'&do=articles&p=2&s=1&id='.$content["aid"]);
+                            headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"]);
                         }
                     }
 

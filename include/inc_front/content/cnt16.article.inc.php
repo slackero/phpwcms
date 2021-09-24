@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -68,14 +68,14 @@ if(isset($_POST['ecard_chooser'])) {
 			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$ecard['images'][$ecard["chooser"]][4].$ecard['images'][$ecard["chooser"]][5].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
         ));
 
-		$list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'" />';
+		$list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'"'.CMSGO_LAZY_LOADING.HTML_TAG_CLOSE;
 
-		$ecard["send"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
+		$ecard["send"] = str_replace('###ECARD_TITLE###', html(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_IMAGE###', $list_img_temp, $ecard["send"]);
-		$ecard["send"] = str_replace('###RECIPIENT_NAME###', ($ecard["recipient_name"]) ? html_specialchars($ecard["recipient_name"]) : html_specialchars($ecard["recipient_email"]), $ecard["send"]);
-		$ecard["send"] = str_replace('###RECIPIENT_EMAIL###', html_specialchars($ecard["recipient_email"]), $ecard["send"]);
-		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html_specialchars($ecard["sender_msg"])), $ecard["send"]);
-		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html_specialchars($ecard["subject"]), $ecard["send"]);
+		$ecard["send"] = str_replace('###RECIPIENT_NAME###', html($ecard["recipient_name"] ? $ecard["recipient_name"] : $ecard["recipient_email"]), $ecard["send"]);
+		$ecard["send"] = str_replace('###RECIPIENT_EMAIL###', html($ecard["recipient_email"]), $ecard["send"]);
+		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
+		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
 
 		$ecard["mailer"] = new PHPMailer();
 		$ecard["mailer"]->Mailer = $cmsgo['SMTP_MAILER'];
@@ -118,7 +118,7 @@ if(isset($_POST['ecard_chooser'])) {
 			"max_height"	=>	$cmsgo["img_prev_height"],
 			"thumb_name"	=>	md5($ecard['images'][$ecard["chooser"]][2].$cmsgo["img_prev_width"].$cmsgo["img_prev_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'].'ecard')
 		));
-		$list_img_temp  = '<img src="'.CMSGO_URL.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html_specialchars($ecard['images'][$ecard["chooser"]][1]).'" />';
+		$list_img_temp  = '<img src="'.CMSGO_URL.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.html($ecard['images'][$ecard["chooser"]][1]).'"'.CMSGO_LAZY_LOADING.HTML_TAG_CLOSE;
 
 		if($ecard["mail"]) {
 			$ecard["mail"] = str_replace('###ECARD_TITLE###', html_specialchars(chop($ecard["capt"][$ecard["chooser"]])), $ecard["mail"]);

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -60,13 +60,10 @@ if($image['template']) {
     if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
         $image = array_merge($image, $image['tmpl_settings']);
 
-        if($image['text_render'] === 'markdown' && !isset($cmsgo['parsedown_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $cmsgo['parsedown_class'] = new ParsedownExtra();
-        } elseif($image['text_render'] === 'textile' && !isset($cmsgo['textile_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/classTextile.php');
-            $cmsgo['textile_class'] = new Textile();
+        if($image['text_render'] === 'markdown') {
+            init_markdown();
+        } elseif($image['text_render'] === 'textile') {
+            init_textile();
         }
     }
 
@@ -88,7 +85,7 @@ if($image['template']) {
         $image['custom_tab_fields'] = array();
     } else {
         $image['custom_tab_fields'] = array_keys($template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields']);
-        $image['field_render'] = array('html', 'markdown', 'plain');
+        $image['field_render'] = array('html', 'markdown', 'plain', 'wysiwyg');
         $image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
     }
 
@@ -149,12 +146,12 @@ if($image['template']) {
                 continue;
             } else {
                 $thumb_image = get_cached_image(array(
-                    "target_ext"    =>  $value['thumb_ext'],
-                    "image_name"    =>  $value['thumb_hash'] . '.' . $value['thumb_ext'],
-                    "max_width"     =>  $image['width'],
-                    "max_height"    =>  $image['height'],
-                    "thumb_name"    =>  md5($value['thumb_hash'].$image['width'].$image['height'].$cmsgo["sharpen_level"].$image['crop'].$cmsgo['colorspace']),
-                    'crop_image'    =>  $image['crop']
+                    "target_ext" => $value['thumb_ext'],
+                    "image_name" => $value['thumb_hash'] . '.' . $value['thumb_ext'],
+                    "max_width" => $image['width'],
+                    "max_height" => $image['height'],
+                    "thumb_name" => md5($value['thumb_hash'].$image['width'].$image['height'].$cmsgo["sharpen_level"].$image['crop'].$cmsgo['colorspace']),
+                    'crop_image' => $image['crop']
                 ));
             }
 
@@ -270,13 +267,13 @@ if($image['template']) {
                 $caption[3] = html($caption[3]);
                 $list_img_temp .= ' title="'.$caption[3].'"';
             }
-            $list_img_temp .= ' class="'.$image['thumb_class'].'" />';
+            $list_img_temp .= ' class="' . $image['thumb_class'] . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
             $img_a          = '';
             $lightbox_capt  = '';
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $value['zoom_name']);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -320,14 +317,11 @@ if($image['template']) {
                 $img_zoom_height    = $zoominfo[2];
                 $img_zoom_filename  = $value['zoom_name'];
 
+            } elseif($caption[2][0]) { // if not click enlarge
+                $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
+                $img_a .= $img_thumb_link.$list_img_temp.'</a>';
             } else {
-                // if not click enlarge
-                if($caption[2][0]) {
-                    $img_thumb_link = '<a href="'.$caption[2][0].'" '.$list_ahref_style.$caption[2][1].' class="'.$template_default['classes']['image-link'].'">';
-                    $img_a .= $img_thumb_link.$list_img_temp.'</a>';
-                } else {
-                    $img_a .= $list_img_temp;
-                }
+                $img_a .= $list_img_temp;
             }
 
             $img_a = str_replace('{IMAGE}', $img_a, $image['tmpl_entry']);
@@ -458,6 +452,7 @@ if($image['template']) {
 
                     } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
+                        $_preserve_acontent_html = $crow['acontent_html'];
                         $news['files_result'] = '';
 
                         if(!empty($custom_field_value['id'])) {
@@ -479,15 +474,13 @@ if($image['template']) {
                         }
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
+                        $crow['acontent_html'] = $_preserve_acontent_html;
+                        unset($_preserve_acontent_html);
 
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                            if(!isset($cmsgo['parsedown_class'])) {
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                                $cmsgo['parsedown_class'] = new ParsedownExtra();
-                            }
+                            init_markdown();
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
                         } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));
@@ -542,6 +535,7 @@ if($image['template']) {
     $image['template'] = str_replace('{THUMB_WIDTH_MAX}', $image['tmpl_thumb_width_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_HEIGHT_MAX}', $image['tmpl_thumb_height_max'], $image['template']);
     $image['template'] = str_replace('{THUMB_COLUMNS}', $image['col'], $image['template']);
+    $image['template'] = str_replace('{IMAGE_COUNT}', $total, $image['template']);
 
     $image['template'] = render_cnt_template($image['template'], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $image['template'] = render_cnt_template($image['template'], 'ATTR_ID', html($crow['acontent_attr_id']));

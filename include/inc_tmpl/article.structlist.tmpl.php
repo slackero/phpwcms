@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -69,15 +69,15 @@ $a  = "<tr bgcolor=\"#e8e8e8\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOu
 $a .= '<td>';
 $a .= "<table class=\"table-no-border\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
-$a .= ($child_count) ? "<a href=\"cmsgo.php?do=articles&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
+$a .= ($child_count) ? '<a href="cmsgo.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
 
-$a .= '<i class="fa fa-caret-'.(($child_count) ? (($_SESSION["structure"][0]==0) ? "right" : "down") : "right");
+$a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-$info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
+$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.$info.'"></i>';
+$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";

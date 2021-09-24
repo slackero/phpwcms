@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -67,7 +67,6 @@ require CMSGO_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 require CMSGO_ROOT.'/include/inc_front/front.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/ext.func.inc.php';
 require CMSGO_ROOT.'/include/inc_front/content.func.inc.php';
-
 
 // SEO logging
 if(!empty($cmsgo['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
@@ -143,10 +142,6 @@ if(!empty($cmsgo['IE7-js']) && $cmsgo['USER_AGENT']['agent'] == 'IE' && version_
 
 $content['page_start'] .= '</head>'.LF;
 
-if(!$cmsgo['base_href'] && $cmsgo['rewrite_url'] && strpos($content['page_start'], '<base href') === false) {
-    $content['page_start'] = str_replace('<title>', '<base href="'.CMSGO_URL.'"'.HTML_TAG_CLOSE . LF . '  <title>', $content['page_start']);
-}
-
 // inject body tag in case of class or id attribute
 $content['page_start'] .= '<body';
 if(!empty($template_default['body']['id'])) {
@@ -202,11 +197,15 @@ if($cmsgo['cache_timeout']) {
 }
 
 // write cmsgo release information in a custom HTTP header
-header('X-cmsgo-Release: ' . CMSGO_VERSION);
+if(empty($cmsgo['disable_generator'])) {
+    header('X-cmsgo-Release: ' . CMSGO_VERSION);
+}
 
 // retrieve complete processing time
-list($usec, $sec) = explode(' ', microtime());
-header('X-cmsgo-Page-Processed-In: ' . number_format(1000*($usec + $sec - $cmsgo_rendering_start), 3) .' ms');
+if(empty($cmsgo['disable_processed_in'])) {
+    list($usec, $sec) = explode(' ', microtime());
+    header('X-cmsgo-Page-Processed-In: ' . number_format(1000 * ($usec + $sec - $cmsgo_rendering_start), 3) . ' ms');
+}
 
 // print PDF
 if($aktion[2] === 1 && defined('PRINT_PDF') && PRINT_PDF) {

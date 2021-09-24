@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -21,7 +21,7 @@ if(!function_exists('dec_num_count')) {
 
 // In case shop module is used in  an older release
 if(!function_exists('cmsgo_boolval')) {
-    function cmsgo_boolval(&$BOOL, &$STRICT=false) {
+    function cmsgo_boolval($BOOL, $STRICT=false) {
         return version_compare(PHP_VERSION, '5.5.0', '>=') ? boolval($BOOL) : boolval($BOOL, $STRICT);
     }
 }
@@ -37,6 +37,15 @@ function get_shop_option_value($option) {
     $option[0] = trim($option[0]);
     $option['option'] = ''; // used to return the formatted optional price component
 
+    /**
+     * in case there is a price option,
+     * '' default price
+     *  + add to the default price
+     *  - subtract from the default price
+     *  = use this as the product price
+     */
+    $option['type'] = '';
+
     if(isset($option[1])) {
         if(($option[1] = trim($option[1]))) {
             $config = get_shop_option_value_config();
@@ -49,21 +58,27 @@ function get_shop_option_value($option) {
             if($option_sign === '-' && $option[1] > 0) {
                 $option[1] = $option[1] * -1;
                 $option_sign = '';
+                $option['type'] = '-';
             } elseif($option[1] == 0) {
                 $option_sign = '';
                 $option_enable = $config['null'];
+            } elseif($option_sign === '=') {
+                $option['type'] = '=';
             } else {
                 $option_sign = '+';
+                $option['type'] = '+';
             }
-            if($option_enable) {
+            if($option_enable && !$config['hide']) {
                 $option['option'] .= trim($config['prefix'], '|');
-                $option['option'] .= $option_sign;
+                if ($option_sign && $option_sign !== '=') {
+                    $option['option'] .= $option_sign;
+                }
                 $option['option'] .= number_format($option[1], 2, $config['dec_point'], $config['thousands_sep']);
                 $option['option'] .= trim($config['suffix'], '|');
             }
         }
     } else {
-        $option[1] = '';
+        $option[1] = 0;
     }
     $option[2] = isset($option[2]) ? trim($option[2]) : '';
 

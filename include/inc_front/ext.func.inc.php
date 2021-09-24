@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -36,11 +36,11 @@ function showPollImage($image, $zoom = 0) {
         ));
     }
 
-    $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.' />';
+    $list_img_temp  = '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].$image_border.$image_imgclass.CMSGO_LAZY_LOADING.HTML_TAG_CLOSE;
 
     if($zoom && !empty($zoominfo)) {
         // if click enlarge the image
-        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'].'?'.$zoominfo[3]);
+        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
         $open_link = $open_popup_link;
         $return_false = 'return false;';
 
@@ -165,8 +165,11 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
                         $i++; // Move in string pointer forward 1
                         switch ($dte_frmt_lstchr) {
                             case "A":
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
-                                else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
+                                if (strtoupper($lastchar) !== 'AM' && strtoupper($lastchar) !== 'PM') {
+                                    $store_arr = false; $i = strlen($PASSED)+1; // Invalid AM/PM. Crash and burn
+                                } else {
+                                    $store_arr['ampm'] = strtoupper($lastchar); // assign the value to the array
+                                }
                                 break;
                             case "a":
                                 if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
@@ -231,9 +234,8 @@ function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
             if (isset($store_arr['ampm'])) {
                 if ($store_arr['ampm']=="PM") { // Is it PM? If so test to see if hour is set
                     $store_arr['hours']=$store_arr['hours']+12; // The 12 hour date was in PM. Example 11 pm really is 11+12 or 23!
-                }
-                else { // This is AM. Only 1 test needs to be done: 12 am!
-                    if ($store_arr['hours']==12) { $store_arr['hours']=0; } // 12am in 24 cycle is really 0 (0-23!)
+                } elseif ($store_arr['hours']==12) { // This is AM. Only 1 test needs to be done: 12 am!
+                    $store_arr['hours']=0; // 12am in 24 cycle is really 0 (0-23!)
                 }
             }
         }
@@ -629,24 +631,20 @@ function getContentPartSpacer($space_before=0, $space_after=0) {
             $spacers['before'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
         }
 
+    } elseif(empty($template_default["article"]["div_spacer"])) {
+        $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
     } else {
-
-        if(empty($template_default["article"]["div_spacer"])) {
-            $spacers['after'] = '<br class="'.$template_default['classes']['spaceholder-cp-after'].'" />'.spacer(1, $space_after);
+         $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
+        if($template_default['article']['div_spacer_style'] === 'padding') {
+            $spacers['after'] .= 'padding-bottom';
+        } elseif($template_default['article']['div_spacer_style'] === 'height') {
+            $spacers['after'] .= 'height';
         } else {
-             $spacers['after'] .= '<'.$template_default['article']['div_spacer_tag'].' style="';
-            if($template_default['article']['div_spacer_style'] === 'padding') {
-                $spacers['after'] .= 'padding-bottom';
-            } elseif($template_default['article']['div_spacer_style'] === 'height') {
-                $spacers['after'] .= 'height';
-            } else {
-                $spacers['after'] .= 'margin-bottom';
-            }
-            $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
-            $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
-            $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
+            $spacers['after'] .= 'margin-bottom';
         }
-
+        $spacers['after'] .= ':'.$space_after.$template_default['article']['div_spacer_unit'].';" ';
+        $spacers['after'] .= 'class="'.$template_default['classes']['spaceholder-cp-after'].'">';
+        $spacers['after'] .= '</'.$template_default['article']['div_spacer_tag'].'>';
     }
 
     return $spacers;
@@ -909,6 +907,13 @@ function convert2htmlspecialchars($matches) {
     return '';
 }
 
+/**
+ * Parse BBCode style [img] tags
+ * [img=123.pngx200x100x1x85 alt Text]Title[/img]
+ *
+ * @param $matches
+ * @return string
+ */
 function parse_images($matches) {
 
     if(isset($matches[1])) {
@@ -938,14 +943,22 @@ function parse_images($matches) {
             $image .= 'x'.$quality;
         }
         $image     .= '/'.$img_id.$ext.'" alt="'.$alt.'"';
+        if($width) {
+            $image .= ' width="' . $width . '"';
+        }
+        if($height) {
+            $image .= ' height="' . $height . '"';
+        }
         if(isset($matches[3])) {
 
-            $title = html_specialchars( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
+            $title = html( preg_replace('/\s+/', ' ', clean_slweg( xss_clean( $matches[3] ) ) ) );
             if($title) {
                 $image .= ' title="'.$title.'"';
             }
         }
-        $image     .= ' />';
+
+        $class = empty($GLOBALS['template_default']['classes']['image-parse-inline'])  ? 'img-bbcode' : $GLOBALS['template_default']['classes']['image-parse-inline'];
+        $image     .= ' class="' . $class . ' ' . $class . '-' .$img_id . '"' . CMSGO_LAZY_LOADING . HTML_TAG_CLOSE;
 
         return $image;
 

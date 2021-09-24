@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -158,7 +158,7 @@ $BL['be_ftptakeover_title']             = 'take over files uploaded via ftp';
 $BL['be_ftptakeover_mark']              = 'mark';
 $BL['be_ftptakeover_available']         = 'available files';
 $BL['be_ftptakeover_size']              = 'size';
-$BL['be_ftptakeover_nofile']            = 'there is still no file available &#8211; you have to upload one via ftp';
+$BL['be_ftptakeover_nofile']            = 'There are no files available &#8211; you have to upload one by ftp or the the multiple file upload.';
 $BL['be_ftptakeover_all']               = 'ALL';
 $BL['be_ftptakeover_directory']         = 'directory';
 $BL['be_ftptakeover_rootdir']           = 'root directory';
@@ -172,6 +172,8 @@ $BL['be_ftptakeover_active']            = 'active';
 $BL['be_ftptakeover_public']            = 'public';
 $BL['be_ftptakeover_createthumb']       = 'create thumbnail';
 $BL['be_ftptakeover_button']            = 'take over selected files';
+$BL['be_ftptakeover_new_folder']        = 'create folder';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'name of the new folder in the root directory';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title']                    = 'file center';
@@ -388,6 +390,7 @@ $BL['be_admin_struct_title']            = 'site structure';
 $BL['be_admin_struct_child']            = '(child of)';
 $BL['be_admin_struct_index']            = 'index (website start)';
 $BL['be_admin_struct_cat']              = 'category title';
+$BL['be_admin_struct_alt']              = 'category alternative title';
 $BL['be_admin_struct_hide1']            = 'hide';
 $BL['be_admin_struct_hide2']            = 'this&nbsp;category&nbsp;in&nbsp;menu';
 $BL['be_admin_struct_info']             = 'category infotext';
@@ -971,6 +974,9 @@ $BL['be_cnt_field']                     = array(
     'recaptchainv' => 'Invisible reCAPTCHA',
 );
 
+$BL['be_cnt_optin']                     = 'Double Opt-In';
+$BL['be_cnt_doubleoptin']               = 'activate Double Opt-In according to <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">General Data Protection Regulation</a> (GDPR)';
+
 $BL['be_cnt_access']                    = 'access';
 $BL['be_cnt_activated']                 = 'activated';
 $BL['be_cnt_available']                 = 'available';
@@ -1008,7 +1014,6 @@ $BL['be_admin_struct_adduser_this']  = 'take over selected user';
 $BL['be_admin_struct_remove_all']    = 'remove all users';
 $BL['be_admin_struct_remove_this']   = 'remove selected user';
 
-
 $BL['be_ctype_alias'] = 'contentpart alias';
 $BL['be_cnt_setting'] = 'take over';
 $BL['be_cnt_spaces'] = 'spaces of contentpart alias';
@@ -1038,11 +1043,11 @@ $BL['be_admin_keyword_add']             = 'add KEYWORD';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
 
-
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
 $BL['be_func_switch_contentpart'] = 'Do you really want to switch content part? \n\nBe very careful doing so! \nImportant settings might be overwritten! \n';
 $BL["cmsgo_code_snippets_dir_exists"] = '<strong>ATTENTION!</strong> The &quot;CODE-SNIPPETS&quot; directory still exists! Delete directory <strong>cmsgo_code_snippets</strong> - this is a potential security problem.';
+$BL['gd_not_loaded'] = '<strong>No GD functionality available!</strong> Please make sure that the PHP GD library is activated, otherwise the processing of images will not work reliably.';
 
 $BL['be_ctype_poll'] = 'poll';
 $BL['be_cnt_pos8']                      = 'table, left';
@@ -1162,6 +1167,7 @@ $BL['be_date_format']                   = 'date format';
 $BL['be_check_login_against']           = 'validate login against';
 $BL['be_userprofile_db']                = 'user profile database';
 $BL['be_backenduser_db']                = 'backend user database';
+$BL['be_check_login_allow_email']       = 'Accept email as login';
 
 $BL['be_gb_post_login']                 = 'post for users logged in only';
 $BL['be_gb_show_login']                 = 'show for users logged in only';
@@ -1408,6 +1414,7 @@ $BL['be_caption_file_title']            = 'file title';
 $BL['be_caption_descr.']                = 'descr.';
 $BL['be_display_html5_only']            = 'HTML5 only';
 $BL['be_audio_only']                    = 'audio only';
+$BL['be_hide_downloadbutton']           = 'hide HTML5 download button';
 
 $BL['be_filter']                        = 'filter';
 $BL['be_filter_with_tags']              = 'by tag';
@@ -1449,13 +1456,20 @@ $BL['cookie_consent_more'] = 'More info';
 $BL['be_cookie_consent_link'] = 'cookie policy url/alias';
 $BL['be_cookie_consent_theme'] = 'theme (empty = no CSS)';
 $BL['be_google_analytics_enable'] = 'use Google Analytics';
-$BL['be_piwik_enable'] = 'use Piwik';
+$BL['be_google_tag_manager_enable'] = 'use Google Tag Manager';
+$BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Deactivate tracking code widthout consent';
+$BL['be_consent_cookie_name'] = 'Consent cookie name';
+$BL['be_consent_cookie_value'] = 'Consent cookie value';
+$BL['be_respect_donottrack'] = 'Respect the Do-Not-Track browser setting';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
@@ -1510,3 +1524,17 @@ $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
 
 $BL['be_admin_template_choose_file'] = 'Text template, alternatively select file template';
+
+$BL['be_flashplayer_marker'] = 'Marker';
+$BL['be_marker_time'] = 'Time (seconds, i.e. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = 'Overlay text';
+
+$BL['copy_to_clipboard'] = 'Copy to Clipboard';
+$BL['url_parameter'] = 'URL parameter';
+$BL['file_extension'] = 'Extension';
+$BL['download_link'] = 'Download link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direct download';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'display in browser';

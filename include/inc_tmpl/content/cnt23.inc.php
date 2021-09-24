@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -139,7 +139,14 @@ $(function() {
                     'anchor_name'           => '',
                     'ssl'                   => 0,
                     'cform_function_validate' => '',
-
+        'doubleoptin' => CMSGO_GDPR_MODE ? 1 : 0,
+        'doubleoptin_targettype' => 0,
+        'template_format_doubleoptin' => 0,
+        'template_doubleoptin' => '',
+        'onsuccess_doubleoptin' => '',
+        'onerror_doubleoptin' => '',
+        'onsuccess_redirect_doubleoptin' => 0,
+        'onerror_redirect_doubleoptin' => 0
             ),
             $content['form']
             );
@@ -289,6 +296,12 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 $recipient_option .= is_selected($content['form']['targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $recipient_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
 
+                $recipient_option_doubleoptin .= '  <option value="emailfield_'.$for_name.'"';
+                $recipient_option_doubleoptin .= is_selected($content['form']['doubleoptin_targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
+                $recipient_option_doubleoptin .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>';
+
+
+
                 $sender_option .= ' <option value="emailfield_'.$for_name.'"';
                 $sender_option .= is_selected($content['form']['sendertype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $sender_option .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>'.LF;
@@ -309,19 +322,15 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         // parallel building of the placeholder tag menu for the template
         switch($content['form']["fields"][$key]['type']) {
 
-            case 'submit':      $for_placeholder = false;
-                                break;
+            case 'submit':
+                                    case 'reset':
+                                    case 'break':
+                                    case 'breaktext':
+                                        $for_placeholder = false;
+                                        break;
 
-            case 'reset':       $for_placeholder = false;
-                                break;
 
-            case 'break':       $for_placeholder = false;
-                                break;
-
-            case 'breaktext':   $for_placeholder = false;
-                                break;
-
-        }
+         }
 
         $for_select_2   .= '<option value="';
         $for_tempselect  = '';
@@ -843,7 +852,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         echo '<td width="15%"><input type="text" name="cform_field_size['.$field_counter.']" class="form-control form-control-sm" value="';
         echo html($content['form']["fields"][$key]['size']).'"title="SIZE for Text/COLUMNS for Textarea"></td>';
         echo '<td width="auto"><input type="text" name="cform_field_max['.$field_counter.']" class="form-control form-control-sm" value="';
-        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List"></td>';
+        echo html($content['form']["fields"][$key]['max']).'" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio"></td>';
         echo '<td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_required['.$field_counter.']"';
         echo is_checked('1', $content['form']["fields"][$key]['required'], 0, 0).' value="1" title="'.$BL['be_cnt_mark_as_req'].'"></td>';
         echo '<td class="text-center" style="width: 30px;"><input type="checkbox" name="cform_field_delete['.$field_counter.']" value="1" title="'.$BL['be_cnt_mark_as_del'].'"></td>';
@@ -989,7 +998,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <td width="25%" class="py-3"><input type="text" placeholder="<?php echo $BL['be_admin_tmpl_name'] ?>" name="cform_field_name[0]" class="form-control form-control-sm" /></td>
     <td width="15%" class="py-3"><input type="text" placeholder="<?php echo $BL['be_cnt_label'] ?>" name="cform_field_label[0]" class="form-control form-control-sm" /></td>
     <td width="15%" class="py-3"><input type="text" placeholder="S/C" name="cform_field_size[0]" class="form-control form-control-sm" title="SIZE for Text/COLUMNS for Textarea" /></td>
-    <td width="auto" class="py-3"><input type="text" placeholder="M/R" name="cform_field_max[0]" class="form-control form-control-sm" title="MAXLENGTH for Text/ROWS for Textarea and List" /></td>
+    <td width="auto" class="py-3"><input type="text" placeholder="M/R" name="cform_field_max[0]" class="form-control form-control-sm" title="MAXLENGTH for Text/ROWS for Textarea and List OR B3/B4/B5 for Checkbox/Radio" /></td>
     <td style="width: 25px; padding: 1px 4px;" class="py-3"><input type="checkbox" name="cform_field_required[0]" value="1" title="mark as required field" /></td>
     <td style="width: 25px; padding: 1px 4px;" class="py-3">&nbsp;<input type="hidden" name="cform_order[0]" value="<?php echo $field_counter?>" /></td>
   </tr>

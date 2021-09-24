@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -250,7 +250,7 @@ if(!$newsletter) {
                 updateSentDate($newsletter["newsletter_id"]);
                 echo '<script type="text/javascript">'.LF.SCRIPT_CDATA_START.LF;
                 echo 'function loopIt() { self.location.href="act_sendnewsletter.php?';
-                echo 'newsletter_id='.$newsletter["newsletter_id"].'&'.get_token_get_string('csrftoken').'&';
+                echo 'newsletter_id='.$newsletter["newsletter_id"].'&'.get_token_get_string().'&';
                 echo 'send_confirm=confirmed&loop='.$loop.'&pause='.$pause.'"; }'.LF;
                 echo 'window.setTimeout("loopIt()", '. ($pause * 1000) .')'.LF;
                 echo LF.SCRIPT_CDATA_END.LF.'</script></body></html>';
@@ -272,7 +272,7 @@ if(!$newsletter) {
     echo 'no permission';
 }
 
-function build_email_text($text, &$value) {
+function build_email_text($text, $value) {
 
     //build right message part
     $refkey = rawurlencode($value['address_key']);

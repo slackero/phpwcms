@@ -1448,7 +1448,7 @@ class Textile
 
     protected function parseAttribsToArray($in, $element = '', $include_id = true, $autoclass = '')
     {
-        $style = '';
+        $style = array();
         $class = '';
         $lang = '';
         $colspan = '';
@@ -2561,7 +2561,7 @@ class Textile
      * @return string Processed input
      */
 
-    protected function makeBackrefLink(&$info, $g_links, $i)
+    protected function makeBackrefLink($info, $g_links, $i)
     {
         $link    = '';
         $atts    = '';
@@ -2731,7 +2731,7 @@ class Textile
      * @return bool   TRUE if the component can be added
      */
 
-    protected function addPart(&$mask, $name, &$parts)
+    protected function addPart($mask, $name, $parts)
     {
         return (in_array($name, $mask) && isset($parts[$name]) && '' !== $parts[$name]);
     }

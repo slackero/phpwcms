@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -34,8 +34,8 @@ require_once "include/inc_lib/backend.functions.inc.php";
 require_once "include/inc_lib/imagick.convert.inc.php";
 require_once "include/inc_lib/autolink.inc.php";
 
-$file_id    = (isset($_GET["fid"])) ? intval($_GET["fid"]) : 0;
-$public     = (isset($_GET["public"])) ? true : false;
+$file_id    = isset($_GET["fid"]) ? intval($_GET["fid"]) : 0;
+$public     = isset($_GET["public"]);
 $error      = 1;
 $frows      = '';
 
@@ -92,7 +92,7 @@ if($file_id) {
     <script type="text/javascript">
         function ResizeAndCenter(){
             var width = 590;
-            var height = <?php if($thumb_image != false): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
+            var height = <?php if(!empty($thumb_image)): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
             window.moveTo(5,5);
             window.resizeTo(width,height);
         }

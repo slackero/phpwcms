@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -70,7 +70,9 @@ if(isset($_POST['adcampaign_title'])) {
         $plugin['data']['adcampaign_data']['flashversion'] = '7';
     }
 
-    if($plugin['data']['adcampaign_type'] > 4) $plugin['data']['adcampaign_type'] = 0;
+    if ($plugin['data']['adcampaign_type'] > 4) {
+        $plugin['data']['adcampaign_type'] = 0;
+    }
 
     // clean up date/time
     include_once $cmsgo['modules'][$module]['path'].'inc/processing.datetime.inc.php';
@@ -88,6 +90,9 @@ if(isset($_POST['adcampaign_title'])) {
         $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_image', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', '', '1,2,3', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['image'] = $plugin['data']['upload']['rename'];
+            if (!is_file(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess')) {
+                @file_put_contents(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess', "<Files *.php>\nOrder allow,deny\nDeny from all\n</Files>");
+            }
             unset($_POST['save']);
         } else {
             $plugin['error']['image'] = $plugin['data']['upload']['error'];
@@ -100,6 +105,9 @@ if(isset($_POST['adcampaign_title'])) {
         $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_flash', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'swf', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['flash'] = $plugin['data']['upload']['rename'];
+            if (!is_file(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess')) {
+                @file_put_contents(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess', "<Files *.php>\nOrder allow,deny\nDeny from all\n</Files>");
+            }
             unset($_POST['save']);
         } else {
             $plugin['error']['flash'] = $plugin['data']['upload']['error'];
@@ -112,6 +120,9 @@ if(isset($_POST['adcampaign_title'])) {
         $plugin['data']['upload'] = saveUploadedFile('adcampaign_upload_css', CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$plugin['data']['adcampaign_id'].'/', 'css', '', '1,4');
         if($plugin['data']['upload']['status']) {
             $plugin['data']['adcampaign_data']['css'] = $plugin['data']['upload']['rename'];
+            if (!is_file(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess')) {
+                @file_put_contents(CMSGO_CONTENT.CMSGO_ADS_DIR . '/' . $plugin['data']['adcampaign_id'] . '/.htaccess', "<Files *.php>\nOrder allow,deny\nDeny from all\n</Files>");
+            }
             unset($_POST['save']);
         } else {
             $plugin['error']['css'] = $plugin['data']['upload']['error'];

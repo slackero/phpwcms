@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -39,7 +39,7 @@ if(!count($content['news']['news_lang']) || (isset($content['news']['news_lang']
 	$content['news']['news_lang'] = array();
 }
 
-if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 10 ) {
+if( empty($content['news']['news_sort']) || $content['news']['news_sort'] > 18 ) {
 	$content['news']['news_sort'] = 9;
 }
 if( empty($content['news']['news_paginate_count']) ) {

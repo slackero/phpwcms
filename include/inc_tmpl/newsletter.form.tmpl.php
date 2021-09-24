@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -272,7 +272,7 @@ function showNewsletterTemplateData(tvar) {
             'value'     => $newsletter["newsletter_vars"]['html'],
             'field'     => 'newsletter_html',
             'height'    => '350px',
-            'width'     => '536px',
+            'width'     => '100%',
             'rows'      => '20',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'

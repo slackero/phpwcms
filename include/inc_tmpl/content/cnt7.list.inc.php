@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -65,13 +65,11 @@ if($row["acontent_files"]) {
 
 $cinfo["result"] = trim($cinfo["result"]);
 if($cinfo["result"] && $cinfo_files) {
-  $cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_files;
-} else {
-  if($cinfo_files) {
+    $cinfo["result"] = html($cinfo["result"])."<br />".$cinfo_files;
+} elseif($cinfo_files) {
     $cinfo["result"] = $cinfo_files;
-  } else {
+} else {
     $cinfo["result"] = html($cinfo["result"]);
-  }
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo

@@ -152,6 +152,7 @@ function findnxreg($body, $offset, $reg){
     $matches = array();
     $retarr = array();
     $preg_rule = '%^(.*?)(' . $reg . ')%s';
+    $offset = intval($offset);
     if(preg_match($preg_rule, substr($body, $offset), $matches)) {
         $retarr[0] = $offset + strlen($matches[1]);
         $retarr[1] = $matches[1];
@@ -396,8 +397,7 @@ function getnxtag($body, $offset){
                 //htmlfilter_debug("$me: Found invalid character '/'.\n");
                 $gt = findnxstr($body, $pos, '>');
                 //htmlfilter_debug("$me: Tag is invalid. Returning.\n");
-                $retary = array(false, false, false, $lt, $gt);
-                return $retary;
+                return array(false, false, false, $lt, $gt);
             }
         case '>':
             //htmlfilter_debug("$me: found type 4 attribute.\n");

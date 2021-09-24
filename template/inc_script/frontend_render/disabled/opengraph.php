@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -14,6 +14,10 @@
 // - https://developers.facebook.com/docs/opengraph/using-objects#selfhosted
 // - https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags
 if($content['opengraph']['support']) {
+
+    if(empty($cmsgo['opengraph_imagesize'])) {
+        $cmsgo['opengraph_imagesize'] = '1200x630x1';
+    }
 
 	set_meta('og:type', $content['opengraph']['type'], 'property');
 
@@ -35,14 +39,14 @@ if($content['opengraph']['support']) {
 	$content['opengraph']['has_image'] = false;
 	if(isset($content['images']['shop']) && count($content['images']['shop'])) {
 		foreach($content['images']['shop'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', CMSGO_URL . 'img/cmsimage.php/500x500x0/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
+			$content['opengraph']['has_image'] = true;
+			set_meta('og:image', CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['hash'].'.'.$og_img['ext'], 'property', false, true);
 		}
 	}
 	if(isset($content['images']['news']) && count($content['images']['news'])) {
 		foreach($content['images']['news'] as $og_img) {
-				$content['opengraph']['has_image'] = true;
-				set_meta('og:image', CMSGO_URL . 'img/cmsimage.php/500x500x0/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
+			$content['opengraph']['has_image'] = true;
+			set_meta('og:image', CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['opengraph_imagesize'].'/'.$og_img['id'].'.'.$og_img['ext'], 'property', false, true);
 		}
 	}
 	if(isset($content['images']['article']['image'])) {
@@ -52,7 +56,7 @@ if($content['opengraph']['support']) {
 		//set_meta('og:image', CMSGO_URL . $content['images']['article'][ isset($content['images']['article']) ? 'zoom' : 'image' ]['src'], 'property');
 
 		// This can be set dynamically ad allow always the same size
-		set_meta('og:image', CMSGO_URL . 'img/cmsimage.php/500x500x0/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
+		set_meta('og:image', CMSGO_URL.CMSGO_RESIZE_IMAGE.'/'.$cmsgo['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'.'.$content['images']['article']['ext'], 'property');
 	}
 	if(!$content['opengraph']['has_image']) {
 		// Default Open Graph image

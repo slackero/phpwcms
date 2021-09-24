@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -154,7 +154,7 @@ $BL['be_ftptakeover_title'] = 'Dateien aus FTP Verzeichnis &uuml;bernehmen';
 $BL['be_ftptakeover_mark'] = 'Wahl';
 $BL['be_ftptakeover_available'] = 'Verf&uuml;gbare Dateien';
 $BL['be_ftptakeover_size'] = 'Gr&ouml;sse';
-$BL['be_ftptakeover_nofile'] = 'Momentan sind keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP hochladen.';
+$BL['be_ftptakeover_nofile'] = 'Keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP oder Mehrfachupload hochladen.';
 $BL['be_ftptakeover_all'] = 'Alle';
 $BL['be_ftptakeover_directory'] = 'Ordner';
 $BL['be_ftptakeover_rootdir'] = 'Wurzelverzeichnis';
@@ -168,6 +168,8 @@ $BL['be_ftptakeover_active'] = 'Aktiv';
 $BL['be_ftptakeover_public'] = '&Ouml;ffentlich';
 $BL['be_ftptakeover_createthumb'] = 'Vorschau erzeugen';
 $BL['be_ftptakeover_button'] = 'Dateien &uuml;bernehmen';
+$BL['be_ftptakeover_new_folder'] = 'Ordner anlegen';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'neuer Name des Ordners im Wurzelverzeichnis';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title'] = 'Dateizentrale';
@@ -930,38 +932,38 @@ $BL['be_cnt_css_class'] = 'CSS Klasse';
 $BL['be_cnt_send_copy_to'] = 'Kopie an';
 
 $BL['be_cnt_field'] = array(
-    "text"                 => 'Text (einzeilig)',
-    "email"                => 'E-Mail',
-    "textarea"             => 'Text (mehrzeilig)',
-    "hidden"               => 'Versteckt',
-    "password"             => 'Passwort',
-    "select"               => 'Ausklappmen&uuml;',
-    "list"                 => 'Liste',
-    "checkbox"             => 'Checkbox',
-    "checkboxcopy"         => 'Checkbox (E-Mail Kopie an/aus)',
-    "radio"                => 'Optionsschalter',
-    "upload"               => 'Datei',
-    "submit"               => 'Sende-Taste',
-    "reset"                => 'Zur&uuml;cksetzen',
-    "break"                => 'Trenner',
-    "breaktext"            => 'Zwischentext',
-    "special"              => 'Text (spezial)',
-    "captchaimg"           => 'Captcha Bild',
-    "captcha"              => 'Captcha Code',
-    'newsletter'           => 'Newsletter',
-    'selectemail'          => 'E-Mail Ausklappmen&uuml;',
-    'country'              => 'L&auml;nder-Ausklappmen&uuml;',
-    'mathspam'             => 'Mathe Spam Schutz',
-    'summing'              => 'Summieren',
-    'subtract'             => 'Subtrahieren',
-    'divide'               => 'Dividieren',
-    'multiply'             => 'Multiplizieren',
-    'calculation'          => 'Berechnung:',
-    'formtracking_off'     => 'Formular-Tracking ausschalten',
-    'checktofrom'          => 'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
-    'recaptcha'            => 'reCAPTCHA',
+    "text" => 'Text (einzeilig)',
+    "email" => 'E-Mail',
+    "textarea" => 'Text (mehrzeilig)',
+    "hidden" => 'Versteckt',
+    "password" => 'Passwort',
+    "select" => 'Ausklappmen&uuml;',
+    "list" => 'Liste',
+    "checkbox" => 'Checkbox',
+    "checkboxcopy" => 'Checkbox (E-Mail Kopie an/aus)',
+    "radio" => 'Optionsschalter',
+    "upload" => 'Datei',
+    "submit" => 'Sende-Taste',
+    "reset" => 'Zur&uuml;cksetzen',
+    "break" => 'Trenner',
+    "breaktext" => 'Zwischentext',
+    "special" => 'Text (spezial)',
+    "captchaimg" => 'Captcha Bild',
+    "captcha" => 'Captcha Code',
+    'newsletter' => 'Newsletter',
+    'selectemail' => 'E-Mail Ausklappmen&uuml;',
+    'country' => 'L&auml;nder-Ausklappmen&uuml;',
+    'mathspam' => 'Mathe Spam Schutz',
+    'summing' => 'Summieren',
+    'subtract' => 'Subtrahieren',
+    'divide' => 'Dividieren',
+    'multiply' => 'Multiplizieren',
+    'calculation' => 'Berechnung:',
+    'formtracking_off' => 'Formular-Tracking ausschalten',
+    'checktofrom' => 'Empf&auml;nger und Absender E-mail m&uuml;ssen verschieden sein',
+    'recaptcha' => 'reCAPTCHA',
     'recaptcha_signapikey' => 'Registrierung eines reCAPTCHA API-Schl&uuml;ssels',
-    'recaptchainv'         => 'Unsichtbares reCAPTCHA',
+    'recaptchainv' => 'Unsichtbares reCAPTCHA',
 );
 
 $BL['be_cnt_optin'] = 'Double Opt-In';
@@ -1033,8 +1035,9 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie äusserst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["cmsgo_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;cmsgo_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
+$BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
 $BL['be_ctype_poll'] = 'Poll';
 $BL['be_cnt_pos8'] = 'Tabelle, links';
@@ -1151,6 +1154,7 @@ $BL['be_date_format'] = 'Datumsformat';
 $BL['be_check_login_against'] = 'Login pr&uuml;fen gegen';
 $BL['be_userprofile_db'] = 'Benutzerprofil-Datenbank';
 $BL['be_backenduser_db'] = 'Backendnutzer-Datenbank';
+$BL['be_check_login_allow_email'] = 'E-Mail als Login akzeptieren';
 
 $BL['be_gb_post_login'] = 'Posten nur f&uuml;r angemeldete Benutzer';
 $BL['be_gb_show_login'] = 'Anzeigen nur f&uuml;r angemeldete Benutzer';
@@ -1187,7 +1191,7 @@ $BL['be_image_cropit'] = 'Bild auf Gr&ouml;sse schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
 $BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
-$BL['be_flashplayer_caption'] = 'Titel';
+$BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
 $BL['be_flashplayer_selectsize'] = 'Playergr&ouml;sse w&auml;hlen';
 $BL['be_flash_media'] = 'Flash';
@@ -1218,7 +1222,7 @@ $BL['be_image_zoom'] = 'Grossansicht';
 $BL['be_image_delete_js'] = 'Soll der Bildeintrag wirklich entfernt werden?';
 
 $BL['be_news'] = 'Newsverwaltung';
-$BL['be_news_create'] = 'neue News erstellen';
+$BL['be_news_create'] = 'Neue News erstellen';
 $BL['be_tags'] = 'Tag/Schlagwort';
 $BL['be_title'] = 'Bezeichnung';
 $BL['be_delete_dataset'] = 'Gew&auml;hlten Eintrag l&ouml;schen?';
@@ -1395,6 +1399,7 @@ $BL['be_caption_file_title'] = 'Dateititel';
 $BL['be_caption_descr.'] = 'Beschr.';
 $BL['be_display_html5_only'] = 'ausschliesslich HTML5';
 $BL['be_audio_only'] = 'nur Audio';
+$BL['be_hide_downloadbutton'] = 'HTML5 Download-Button ausblenden';
 
 $BL['be_filter'] = 'Filter';
 $BL['be_filter_with_tags'] = 'nach Schlagwort';
@@ -1436,13 +1441,20 @@ $BL['cookie_consent_more'] = 'Weitere Informationen';
 $BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
-$BL['be_piwik_enable'] = 'Piwik benutzen';
+$BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
+$BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
-$BL['be_piwik_url'] = 'Piwik URL';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'geblockt durch <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'Opt-Out-Cookie unterst&uuml;tzen <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_require_consent'] = 'Tracking-Code ohne Consent nicht aktivieren';
+$BL['be_consent_cookie_name'] = 'Name des Consent-Cookies';
+$BL['be_consent_cookie_value'] = 'Wert des Consent-Cookies';
+$BL['be_respect_donottrack'] = 'Browser-Einstellung Do-Not-Track respektieren';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';
@@ -1496,3 +1508,17 @@ $BL['be_password_hide'] = 'Password verstecken';
 $BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
 $BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
 $BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';
+
+$BL['be_flashplayer_marker'] = 'Markierung';
+$BL['be_marker_time'] = 'Zeit (Sekunden, z.B. 10.5)';
+$BL['be_marker_text'] = 'Text';
+$BL['be_marker_overlaytext'] = '&Uuml;berlagernder Text';
+
+$BL['copy_to_clipboard'] = 'In die Zwischenablage kopieren';
+$BL['url_parameter'] = 'URL-Parameter';
+$BL['file_extension'] = 'Erweiterung';
+$BL['download_link'] = 'Download-Link';
+$BL['disposition_attachment'] = 'Attachment';
+$BL['disposition_attachment_description'] = 'direkt laden';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'im Browser anzeigen';

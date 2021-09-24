@@ -18,6 +18,14 @@ cat_count_products_suffix = ")"
 ; sort by Viewed - "shopprod_track_view DESC"
 cat_list_sort_by = "shopprod_name1 ASC"
 cat_subcat_spacer = "_>_"
+cat_class_menu = shop-categories nav navbar-nav
+cat_class_item = shop-category nav-item
+cat_class_item_active = active
+cat_class_submenu = shop-sub-category
+cat_class_subitem = shop-sub-category nav-item
+cat_class_subitem_active = active
+cat_class_item_link = shop-cat-link nav-link
+cat_class_subitem_link = shop-subcat-link nav-link
 
 shop_css = "shop.css"
 shop_wrap = "<div class="shop">|</div>"
@@ -31,8 +39,10 @@ thousands_sep = ","
 ; enclose the string by | => "| |" or just | |
 ; {$} is an alias for {CURRENCY_SYMBOL}
 price_option_null = 0
-price_option_prefix = | |
+price_option_prefix = |, |
 price_option_suffix = | {$}|
+; If there is a price option, set to 1 to hide it
+price_option_hide = 1
 
 ; Add model and/or order number to pagetitle based on sprintf, see http://php.net/sprintf
 ; for leading and trailing spaces use replacer %S
@@ -60,12 +70,14 @@ image_detail_more_start = 2
 image_zoom_width = 800
 image_zoom_height = 800
 image_list_lightbox = true
-image_detail_lightbox = TRUE
+image_detail_lightbox = true
+image_class = img-fluid
 
 files_direct_download = 0
 files_template = shop-de.tmpl
 
 on_request_trigger = -999
+default_request_url = https://example.com?product={PRODUCT}&num={NUM}
 
 mail_customer_subject = "[#{ORDER}] Bestellbestätigung von MeinOnlineShop"
 mail_neworder_subject = "[#{ORDER}] Neue Bestellung"
@@ -73,6 +85,9 @@ mail_neworder_subject = "[#{ORDER}] Neue Bestellung"
 label_payby_prepay = "Vorauskasse"
 label_payby_pod = "Nachnahme"
 label_payby_onbill = "Rechnung"
+label_payby_cash = "Bar"
+label_selfpickup = "Selbstabholung"
+label_selfpickup_freeshipping = "Selbstabholung, versandkostenfrei"
 
 ; Add custom fields, only for step 1
 ; (where customer fill in address information)
@@ -93,10 +108,24 @@ order_number_style = DE%05s
 class_prefix_shop_mode = shop-
 class_form_product_cart_option = product-cart-option
 class_shop_amount = shop-amount
-class_cart_add_button = cart-add-button
+class_cart_add_button = cart-add-button btn btn-primary
+class_request_button = request-button btn btn-primary
+class_request_form = form-request-product
 class_product_option_1 = product-option-1
 class_product_option_2 = product-option-2
 class_form_cart = shop-cart
+
+; Some additional elements
+product_option_1_prefix = <span class="option-1">
+product_option_1_suffix = </span>
+product_option_1_required = required="required"
+product_option_2_prefix = <span class="option-2">
+product_option_2_suffix = </span>
+product_option_2_required = required="required"
+amount_input_prefix = <span class="input-amount">
+amount_input_suffix = </span>
+; Where to position the manual amount input - before, between, after - options
+amount_input_position = after
 
 <!--CONFIG_END//-->
 
@@ -123,7 +152,7 @@ class_form_cart = shop-cart
         [ON_REQUEST]<a href="mailto:mail@example.com?subject=Request%20for%20[URLENCODE]{ORDER_NUM}[/URLENCODE]&amp;body=Send%20price%20for%20%2A[URLENCODE]{PRODUCT_TITLE}[/URLENCODE]%2A%20,%20%2A[URLENCODE]{ORDER_NUM}[/URLENCODE]%2A" class="list-request-price">
             Preisanfrage senden
         </a>[/ON_REQUEST][ON_REQUEST_ELSE]
-            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}In den Warenkorb[/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
+            [PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2} [ON_REQUEST_LINK_ELSE]In den Warenkorb[/ON_REQUEST_LINK_ELSE][ON_REQUEST_LINK]Anfragen[/ON_REQUEST_LINK][/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE]
         [/ON_REQUEST_ELSE]
             [VIEWED]<em>Besucher: {VIEWED}</em> [/VIEWED]
             [PRODUCT_INVENTORY]<em>Lagerbestand: {PRODUCT_INVENTORY}</em>[/PRODUCT_INVENTORY]
@@ -167,7 +196,7 @@ class_form_cart = shop-cart
         [VIEWED]<p>Besucher: {VIEWED}</p>[/VIEWED]
         [PRODUCT_URL]<p>Mehr: <a href="{PRODUCT_URL}"{PRODUCT_URL_TARGET}>Anzeigen&nbsp;&raquo;</a></p>[/PRODUCT_URL]
 
-        [ON_REQUEST_ELSE][CART_ADD]{PRODUCT_OPT1}{PRODUCT_OPT2}Dem Warenkorb hinzuf&uuml;gen[/CART_ADD][/ON_REQUEST_ELSE]
+        [ON_REQUEST_ELSE][PRODUCT_INVENTORY_AVAILABLE][CART_ADD]<!-- SHOW-AMOUNT -->{PRODUCT_OPT1}{PRODUCT_OPT2} [ON_REQUEST_LINK_ELSE]In den Warenkorb[/ON_REQUEST_LINK_ELSE][ON_REQUEST_LINK]Anfragen[/ON_REQUEST_LINK][/CART_ADD][/PRODUCT_INVENTORY_AVAILABLE][/ON_REQUEST_ELSE]
     </div>
     <div><a href="{PRODUCT_DETAIL_LINK}">Zeige alle</a></div>
 
@@ -223,6 +252,15 @@ class_form_cart = shop-cart
 <!--CART_SPACE_END//-->
 
 <!--CART_FOOTER_START//-->
+        [SHIPPING]
+            [SELFPICKUP]
+            <tr>
+                <td colspan="3">Achtung: <strong>Selbstabholung</strong></td>
+                <td colspan="3"><hr /></td>
+            </tr>
+            [/SELFPICKUP]
+        [/SHIPPING]
+
         [SHIPPING_DISTANCE]
 
             <tr>
@@ -289,7 +327,10 @@ class_form_cart = shop-cart
                 </tr>
                 <tr>
                     <td>Versandkosten</td>
-                    <td colspan="2">versandkostenfrei</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -345,7 +386,10 @@ class_form_cart = shop-cart
             </tr>
             <tr>
                 <td>Versandkosten</td>
-                <td colspan="2">versandkostenfrei</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -538,6 +582,17 @@ class_form_cart = shop-cart
         <td><input type="text" name="shop_field_1" id="shop_field_1" value="{shop_field_1}" size="20" maxlength="20" /></td>
     </tr>
 
+[SELFPICKUP]
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Selbstabholung:</td>
+        <td>{SELFPICKUP}</td>
+    </tr>
+[SELFPICKUP]
+
 [PAYMENT]
     <tr>
         <td colspan="2">&nbsp;</td>
@@ -665,7 +720,10 @@ class_form_cart = shop-cart
                 </tr>
                 <tr>
                     <td>Versandkosten</td>
-                    <td colspan="2">versandkostenfrei</td>
+                    <td colspan="2">
+                        [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                        [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                    </td>
                 </tr>
                 [/SHIPPING_ELSE]
 
@@ -721,7 +779,10 @@ class_form_cart = shop-cart
             </tr>
             <tr>
                 <td>Versandkosten</td>
-                <td colspan="2">versandkostenfrei</td>
+                <td colspan="2">
+                    [SELFPICKUP]<strong>Selbstabholung[SELFPICKUP_FREE], versandkostenfrei[/SELFPICKUP_FREE]</strong>[/SELFPICKUP]
+                    [SELFPICKUP_ELSE]<strong>versandkostenfrei</strong>[/SELFPICKUP_ELSE]
+                </td>
             </tr>
             [/SHIPPING_ELSE]
 
@@ -857,7 +918,7 @@ Bruttopreis: {PRODUCT_GROSS_PRICE} {CURRENCY_SYMBOL}
 <!--MAIL_ITEM_END//-->
 
 <!--MAIL_CUSTOMER_START//-->
-*Vielen Dak für Ihre Bestellung*
+*Vielen Dank für Ihre Bestellung*
 
 Ihre Bestellung: {ORDER}
 Bestelldatum:    {DATE:d/m/Y H:i}
@@ -866,8 +927,11 @@ Zahlungsweise: [PAYBY_PREPAY]Vorauskasse
                Ihre Bestellung wird nach Zahlungseingang versendet
                Überweisen Sie den Gesamtbetrag auf folgendes Konto:
                Empfänger: xxx
-               IBAN:      xxx[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Ihrer Bestellung liegt eine Rechnung bei.[/PAYBY_ONBILL]
+               IBAN:      xxx[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Ihrer Bestellung liegt eine Rechnung bei.[/PAYBY_ONBILL][PAYBY_CASH]Barzahlung.[/PAYBY_CASH]
 
+[SELFPICKUP]Sie möchten Ihre Bestellung selbst abholen.
+
+[/SELFPICKUP]
 Adresse: {INV_FIRSTNAME} {INV_NAME}
          {INV_ADDRESS}
          {INV_ZIP} {INV_CITY}[INV_REGION]
@@ -926,11 +990,11 @@ Ihr XYZ Online Shop
 Neue Bestellung
 
 {ORDER}
-Bestelldatum:    {DATE:d/m/Y H:i}
+Bestelldatum:  {DATE:d.m.Y, H:i} Uhr
 
-Zahlungsweise: [PAYBY_PREPAY]Vorauskasse[/PAYBY_PREPAY][PAYBY_POD]Nachnahme[/PAYBY_POD][PAYBY_ONBILL]Rechnung[/PAYBY_ONBILL]
+Zahlungsweise: {PAYMENT}
 
-Adresse:
+Adresse:[SELFPICKUP] SELBSTABHOLER!!![/SELFPICKUP]
 --------
 [INV_COMPANY]{INV_COMPANY}[/INV_COMPANY][INV_SALUTATION]
 {INV_SALUTATION}[/INV_SALUTATION]
@@ -979,13 +1043,13 @@ Gesamt:  {TOTAL_GROSS} {CURRENCY_SYMBOL}
 ========================================
 
 
-Bestellprositionen:
-==============
+Bestellpositionen:
+==================
 
 {ITEMS}
 
 
-Dann los! Bestellung abwicklen
+Bitte die Bestellung zeitnah bearbeiten.
 <!--MAIL_NEWORDER_END//-->
 
 <!--ORDER_DONE_START//-->

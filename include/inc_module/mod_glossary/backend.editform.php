@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -80,7 +80,7 @@ if (!defined('CMSGO_ROOT')) {
 			'value'		=> $glossary['data']['glossary_text'],
 			'field'		=> 'glossary_text',
 			'height'	=> '400px',
-			'width'		=> '524px',
+			'width'		=> '100%',
 			'rows'		=> '15',
 			'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
 			'lang'		=> 'en'

@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -238,7 +238,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                 case 'dateformat':  $special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
                                                     break;
 
-                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim($_special[1]) : '/.*?/';
+                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim(trim($_special[1]), '/') : '/.*?/';
                                                     break;
                             }
                         }
@@ -342,40 +342,52 @@ foreach($_POST['cform_field_type'] as $key => $value) {
 
                     } else {
 
-                        switch($newsletter[0]) {
+                        switch ($newsletter[0]) {
 
-                            case 'all':             $newletter_array['all']             = $newsletter[1];                   break;
-                            case 'email_field':     $newletter_array['email_field']     = $newsletter[1];                   break;
-                            case 'name_field':      $newletter_array['name_field']      = $newsletter[1];                   break;
-                            case 'sender_email':    $newletter_array['sender_email']    = $newsletter[1];                   break;
-                            case 'sender_name':     $newletter_array['sender_name']     = $newsletter[1];                   break;
-                            case 'url_subscribe':   $newletter_array['url_subscribe']   = $newsletter[1];                   break;
-                            case 'url_unsubscribe': $newletter_array['url_unsubscribe'] = $newsletter[1];                   break;
-                            case 'double_optin':    $newletter_array['double_optin']    = intval($newsletter[1]) ? 1 : 0;   break;
-                            case 'optin_template':  $newletter_array['optin_template']  = $newsletter[1];                   break;
-                            case 'subject':         $newletter_array['subject']         = $newsletter[1];                   break;
+                            case 'all':
+                                $newletter_array['all'] = $newsletter[1];
+                                break;
+                            case 'email_field':
+                                $newletter_array['email_field'] = $newsletter[1];
+                                break;
+                            case 'name_field':
+                                $newletter_array['name_field'] = $newsletter[1];
+                                break;
+                            case 'sender_email':
+                                $newletter_array['sender_email'] = $newsletter[1];
+                                break;
+                            case 'sender_name':
+                                $newletter_array['sender_name'] = $newsletter[1];
+                                break;
+                            case 'url_subscribe':
+                                $newletter_array['url_subscribe'] = $newsletter[1];
+                                break;
+                            case 'url_unsubscribe':
+                                $newletter_array['url_unsubscribe'] = $newsletter[1];
+                                break;
+                            case 'double_optin':
+                                $newletter_array['double_optin'] = intval($newsletter[1]) ? 1 : 0;
+                                break;
+                            case 'optin_template':
+                                $newletter_array['optin_template'] = $newsletter[1];
+                                break;
+                            case 'subject':
+                                $newletter_array['subject'] = $newsletter[1];
+                                break;
 
-                            default:    if(intval($newsletter[0])) {
-                                            $newsletter[0]  = intval($newsletter[0]);
-                                            $query = _dbGet('cmsgo_subscription', '*', 'subscription_id='.$newsletter[0].' AND subscription_active=1');
-                                            if(isset($query[0])) {
-                                                if($newsletter[1] == '') {
-                                                    $newsletter[1] = $query[0]['subscription_name'];
-                                                }
-                                                $newletter_array[ $newsletter[0] ] = $newsletter[1];
-                                            } else {
-                                                continue;
-                                            }
-                                        } else {
-
-                                            continue;
-
+                            default:
+                                if (intval($newsletter[0])) {
+                                    $newsletter[0] = intval($newsletter[0]);
+                                    $query = _dbGet('cmsgo_subscription', '*', 'subscription_id=' . $newsletter[0] . ' AND subscription_active=1');
+                                    if (isset($query[0])) {
+                                        if ($newsletter[1] == '') {
+                                            $newsletter[1] = $query[0]['subscription_name'];
                                         }
-
+                                        $newletter_array[$newsletter[0]] = $newsletter[1];
+                                    }
+                                }
                         }
-
                     }
-
                 }
 
                 $content['form']["fields"][$field_counter]['value'] = '';
@@ -391,7 +403,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                  * Checkbox
                  */
                 $content['form']["fields"][$field_counter]['size']  = intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
-                $content['form']["fields"][$field_counter]['max']   = '';
+                $content['form']["fields"][$field_counter]['max']   = strtoupper(clean_slweg($_POST['cform_field_max'][$key]));
+                if (!in_array($content['form']["fields"][$field_counter]['max'], array('B3', 'B4', 'B5'))) {
+                    $content['form']["fields"][$field_counter]['max'] = '';
+                }
                 break;
 
             case 'radio':
@@ -399,7 +414,10 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                  * Radiobutton
                  */
                 $content['form']["fields"][$field_counter]['size']  = intval($_POST['cform_field_size'][$key]) ? intval($_POST['cform_field_size'][$key]) : '';
-                $content['form']["fields"][$field_counter]['max']   = '';
+                $content['form']["fields"][$field_counter]['max']   = strtoupper(clean_slweg($_POST['cform_field_max'][$key]));
+                if (!in_array($content['form']["fields"][$field_counter]['max'], array('B3', 'B4', 'B5'))) {
+                    $content['form']["fields"][$field_counter]['max'] = '';
+                }
                 break;
 
             case 'upload':

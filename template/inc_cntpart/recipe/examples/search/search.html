@@ -1,0 +1,61 @@
+<form method="get" action="index.php?aid=123">
+<!-- action is the target page for search index.php?aid=ARTICLE-ID or ?id=LEVEL-ID or ?alias //-->
+<div style="margin:0;padding:0;height:15px;"> </div>
+<input type="hidden" name="rezepte" value="" />
+<fieldset>
+<legend> Rezept Volltextsuche </legend>
+<input name="recipetext" type="text" value="" size="30" maxlength="50" />
+</fieldset>
+<div style="margin:0;padding:0;height:15px;"> </div>
+<fieldset>
+<legend> <img src="content/gt/fecaf036f36944bae7dbb04c3d922a09.png" alt="Nach Rezeptkategorien sortiert" width="210" height="20"/> </legend>
+<select name="recipecat" class="size5">
+	<option value="" selected="selected"> Bitte auswählen </option>
+    <option value="Fleisch">Fleischgerichte</option>
+	<option value="Fisch">Fischgerichte</option>
+	<option value="Vegetarisch">Vegetarisch</option>
+	<option value="Suppe">Suppen</option>
+	<option value="Auflauf">Auflauf & Gratin</option>
+	<option value="Pasta">Pasta</option>
+</select>
+</fieldset>
+<div style="margin:0;padding:0;height:15px;"> </div>
+<fieldset>
+<legend> <img src="content/gt/0a252474d694216cae81a06dfa19826d.png" alt="Nach Kilokalorien (kcal) sortiert"  width="214" height="20"/> </legend>
+<select name="recipecal" class="size5">
+	<option value="" selected="selected"> Bitte auswählen </option>
+    <option value="1">bis 400 kcal</option>
+	<option value="2">400 bis 600 kcal</option>
+	<option value="3">?ber 600 kcal</option>
+</select>
+<div style="margin:0;padding:0;height:15px;"> </div>
+<b>Brennwertrechner</b>
+<table border="0" cellpadding="0" cellspacing="3" summary="">
+<tr>
+<td>&nbsp;</td>
+<td colspan="2"><input type="radio" name="calChecked" value="0" id="calChecked_kcal2kj" checked="checked" onchange="convertCal()"><label for="calChecked_kcal2kj">kcal zu kJ</label>  <input type="radio" name="calChecked" value="1" id="calChecked_kj2kcal" onchange="convertCal()"><label for="calChecked_kj2kcal">kJ zu kcal</label></td>
+</tr>
+<tr>
+<td><label for="calWert">Wert</label></td>
+<td><input type="text" name="calWert" id="calWert" onkeyup="convertCal()" /></td>
+<td><span id="einheit">kcal</span></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td colspan="2"><div id="calErgebnis" style="font-weight:bold;"> </div></td>
+</tr>
+</table>
+</fieldset>
+<div style="margin:0;padding:0;height:15px;"> </div>
+<fieldset>
+<legend> <img src="content/gt/c9310f7cf1d121d5dc5a359efe40b44a.png" alt="Nach Zubereitungszeit sortiert"  width="203" height="20"/> </legend>
+<select name="recipetime" class="size5">
+	<option value="" selected="selected"> Bitte auswählen </option>
+    <option value="1">bis 20 Min.</option>
+	<option value="2">20 bis 40 Min.</option>
+	<option value="3">?ber 40 Min.</option>
+</select>
+</fieldset>
+<div style="margin:0;padding:0;height:15px;"> </div>
+<input type="submit" name="recipesearch" value="Rezeptsuche" />
+</form>

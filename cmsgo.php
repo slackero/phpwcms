@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -37,7 +37,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 
 checkLogin();
 validate_csrf_tokens();
-define('CSRF_GET_TOKEN', get_token_get_string('csrftoken'));
+define('CSRF_GET_TOKEN', get_token_get_string());
 
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/default.backend.inc.php';
@@ -500,7 +500,7 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, CMSGO_URL."cmsgo.php?do=messages", 2500);
 
-$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.4.1.min.js');
+$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.6.0.min.js');
 $GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');

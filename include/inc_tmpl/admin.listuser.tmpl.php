@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2020, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2021, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -31,8 +31,7 @@ if(empty($_SESSION['list_user_count'])) {
 
 $_userInfo = array();
 
-
-// get filter and paginating form values
+// Get filter and paginating form values
 if(isset($_POST['do_pagination'])) {
 
     $_SESSION['list_admin']     = empty($_POST['showadmin']) ? 0 : 1;
@@ -62,7 +61,7 @@ $_userInfo['list']          = array();
 // if admin user should be listed
 $_userInfo['where_query']    = ' WHERE usr_aktiv != 9';
 if($_userInfo['list_admin']) {
-$_userInfo['where_query']   .= ' AND usr_admin=1';
+    $_userInfo['where_query']   .= ' AND usr_admin=1';
 }
 if($_userInfo['list_befe']) {
     $_userInfo['list'][]    = ' usr_fe=2 ';
@@ -86,11 +85,8 @@ if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results'])) {
         $_userInfo['filter_array'][] = "CONCAT(usr_name, usr_login, usr_email) LIKE '%".aporeplace($_userInfo['filter'])."%'";
     }
     if(count($_userInfo['filter_array'])) {
-
         $_userInfo['where_query'] .= ' AND ('.implode('OR', $_userInfo['filter_array']).')';
-
     }
-
 }
 
 // paginating values
@@ -114,47 +110,44 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
   </div>
 </div>
 
-
-
 <div class="card">
   <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_usr_ltitle'] ?></h2></div>
   <div class="card-body">
 <form action="cmsgo.php?do=admin" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
 
   <div class="row align-items-center mb-3">
-    <div class="col-12 col-sm">
-      <div class="form-row">
-      	<div class="col-sm-auto form-check form-check-inline">
-					<input class="form-check-input" name="showadmin" id="showadmin" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_admin'], 1) ?>>
-					<label for="showadmin" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-info"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
-				</div>
-				<div class="col-sm-auto form-check form-check-inline">
-					<input class="form-check-input" name="showbefe" id="showbefe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?>>
-					<label for="showbefe" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-success"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
-				</div>
-				<div class="col-sm-auto form-check form-check-inline">
-					<input class="form-check-input" name="shownorm" id="shownorm" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?>>
-					<label for="shownorm" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
-				</div>
-				<div class="col-sm-auto form-check form-check-inline">
-					<input class="form-check-input" name="showfe" id="showfe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_fe'], 1) ?>>
-					<label for="showfe" class="form-check-label"> <span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-warning"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
-				</div>
+      <div class="col-12 col-sm">
+          <div class="form-row">
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showadmin" id="showadmin" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_admin'], 1) ?>>
+                  <label for="showadmin" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-info"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showbefe" id="showbefe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?>>
+                  <label for="showbefe" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-success"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="shownorm" id="shownorm" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?>>
+                  <label for="shownorm" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showfe" id="showfe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_fe'], 1) ?>>
+                  <label for="showfe" class="form-check-label"> <span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-warning"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+          </div>
       </div>
-    </div>
-
-  	<div class="col-12 col-sm-auto">
-      <div class="input-group my-3 my-sm-0">
-        <input type="search" name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_user'] ?>" class="form-control form-control-sm" value="<?php
-      if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
-          echo html(implode(' ', $_SESSION['filter_results']));
-      }
-      ?>">
-				<div class="input-group-append">
-					<input class="btn btn-sm btn-secondary" name="gofilter" type="button" value="<?php echo $BL['be_filter'] ?>">
-				</div>
-      </div>
-  	</div>
+      <div class="col-12 col-sm-auto">
+          <div class="input-group my-3 my-sm-0">
+              <input type="search" name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_user'] ?>" class="form-control form-control-sm" value="<?php
+              if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
+                  echo html(implode(' ', $_SESSION['filter_results']));
+              }
+              ?>">
+              <div class="input-group-append">
+                  <input class="btn btn-sm btn-secondary" name="gofilter" type="button" value="<?php echo $BL['be_filter'] ?>">
+              </div>
+          </div>
+  	  </div>
 
     <?php
       if($_userInfo['pages_total'] > 1) {
@@ -205,13 +198,15 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     $bg_color1 = "#FFFFFF";
     $bg_color2 = "#f5f5f5";
     $zaehler = 0;
-    if(!isset($new_user_id)) $new_user_id = 0;
-    //Liste aller User erzeugen
+    if(!isset($new_user_id)) {
+        $new_user_id = 0;
+    }
+    // Generate list of all users
     $sql  = "SELECT * FROM ".DB_PREPEND."cmsgo_user ".$_userInfo['where_query'].' ';
     $sql .= "ORDER BY usr_aktiv DESC, usr_fe DESC, usr_admin DESC, usr_name ASC ";
     $sql .= "LIMIT ".(($_SESSION['list_user_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
     $result = _dbQuery($sql);
-    if($result[0]['usr_id']) {
+    if(isset($result[0]['usr_id'])) {
         foreach($result as $userlist) {
             $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
             if($userlist["usr_id"] == $new_user_id) {
@@ -220,7 +215,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             $goto = "cmsgo.php?do=admin&amp;s=2&amp;u=".$userlist["usr_id"];
 ?>
 
-        <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#f5f5f5'" onmouseout="bgColor='<?php echo  $bg_color ?>'">
+      <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#f5f5f5'" onmouseout="bgColor='<?php echo  $bg_color ?>'">
       <td width="30" class="align-middle"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
 
             if($userlist["usr_aktiv"] == 1) {
