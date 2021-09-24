@@ -1484,10 +1484,10 @@ if(!$cmsgo['donottrack']) {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date(), {
-      cookie_flags: 'max-age=7200;secure;samesite=none'
+        cookie_flags: 'max-age=7200;secure;samesite=none'
   	});
     gtag('config', '%1\$s'%2\$s, {
-    cookie_flags: 'max-age=7200;secure;samesite=none'
+        cookie_flags: 'max-age=7200;secure;samesite=none'
   	});
   </script>",
             'anonymize' => ", {'anonymize_ip': true}",
