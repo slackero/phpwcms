@@ -630,7 +630,7 @@ $BL['be_admin_tmpl_nolayout'] = 'Kein Seitenlayout verf&uuml;gbar!';
 // added: 31-12-2003
 $BL['be_ctype_search'] = 'Suche';
 $BL['be_cnt_results'] = 'Ergebnisse';
-$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige alle)';
+$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige max. 25)';
 $BL['be_cnt_opennewwin'] = '&Ouml;ffne neues Fenster';
 $BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;&szlig;er ist';
 $BL['be_cnt_input'] = 'Eingabe';
@@ -1050,7 +1050,7 @@ $BL['Mailing_list_subscribe_reminder'] = 'Um immer die neuesten Informationen zu
 $BL['Version_information'] = 'phpwcms Versionsinformation';
 
 $BL['be_cnt_search_highlight'] = 'Highlight';
-$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Summary)';
+$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Zusammenfassung)';
 $BL['be_cnt_page_of_pages'] = 'Suchnavi';
 $BL['be_cnt_page_of_pages_descr'] = '{PREV:Zur&uuml;ck}, Seite #/##, Ergebnis ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Vorw&auml;rts}';
 $BL['be_cnt_search_show_top'] = 'oben';

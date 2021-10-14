@@ -626,7 +626,7 @@ $BL['be_admin_tmpl_nolayout']           = 'Der er intet sidelayout tilg&aelig;ng
 // added: 31-12-2003
 $BL['be_ctype_search'] = 's&oslash;ge-form';
 $BL['be_cnt_results'] = 'resulter';
-$BL['be_cnt_results_per_page'] = 'pr&nbsp;side (hvis tom vises alle)';
+$BL['be_cnt_results_per_page'] = 'pr&nbsp;side (hvis tom vises 25)';
 $BL['be_cnt_opennewwin'] = '&aring;ben link i nyt vindue';
 $BL['be_cnt_searchlabeltext'] = 'Dette er forudbestemte v&aelig;rdier og tekst for s&aring;vel s&oslash;geresultater, som s&oslash;geformularen.';
 $BL['be_cnt_input'] = 'input';

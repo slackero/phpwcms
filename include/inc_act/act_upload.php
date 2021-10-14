@@ -98,8 +98,6 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
             $data['f_image_height'] = $file_svg['height'];
         }
 
-
-
     }
 
 	$insert = _dbInsert('phpwcms_file', $data);

@@ -626,7 +626,7 @@ $BL['be_admin_tmpl_nolayout']           = 'No page layout available!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'αναζήτηση';
 $BL['be_cnt_results']                   = 'αποτελέσματα';
-$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show all)';
+$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show max. 25)';
 $BL['be_cnt_opennewwin']                = 'άνοιγμα νέου παραθύρου';
 $BL['be_cnt_searchlabeltext']           = 'these are predefined texts and values for the search form and search result page and texts are shown when more than the given count of results per page should be shown.';
 $BL['be_cnt_input']                     = 'input';

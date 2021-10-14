@@ -620,7 +620,7 @@ $BL['be_admin_tmpl_nolayout']           = 'Нет макета страницы!
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'поиск';
 $BL['be_cnt_results']                   = 'результаты';
-$BL['be_cnt_results_per_page']          = 'на&nbsp;странице (если нет числовых данных показывать все)';
+$BL['be_cnt_results_per_page']          = 'на&nbsp;странице (если нет числовых данных показывать 25)';
 $BL['be_cnt_opennewwin']                = 'открыть новое окно';
 $BL['be_cnt_searchlabeltext']           = 'это определенные текстовые поля для поисковых форм Она показываются когда превышен лимит поиска.';
 $BL['be_cnt_input']                     = 'ввод';

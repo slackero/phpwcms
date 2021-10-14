@@ -69,11 +69,11 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
     $content["search_word"] = array_unique($content["search_word"]);
 
     $content['search']['highlight_result']  = empty($content["search"]['highlight_result']) ? false : true;
-    $content['search']['wordlimit']         = isset($content["search"]['wordlimit']) && is_intval($content["search"]['wordlimit']) ? intval($content["search"]['wordlimit']) : 35;
+    $content['search']['wordlimit']         = isset($content["search"]['wordlimit']) && is_intval($content["search"]['wordlimit']) ? abs(intval($content["search"]['wordlimit'])) : 35;
 
-    $content["search"]["result_per_page"]   = empty($content["search"]['result_per_page']) ? 15 : $content["search"]['result_per_page'];
-    if($content["search"]["result_per_page"] == -1)  {
-        $content["search"]["result_per_page"] = 100000;
+    $content["search"]["result_per_page"]   = empty($content["search"]['result_per_page']) ? 25 : $content["search"]['result_per_page'];
+    if($content["search"]["result_per_page"] < 0)  {
+        $content["search"]["result_per_page"] = $content["search"]["result_per_page"] === -1 ? 100000 : abs($content["search"]["result_per_page"]);
     }
 
     if(!isset($content["search"]["show_always"]))   $content["search"]["show_always"]   = 1;
