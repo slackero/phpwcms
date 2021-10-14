@@ -4327,7 +4327,7 @@ function render_device($string) {
         return '';
     }
 
-    if(empty($GLOBALS['phpwcms']['render_device']) || strpos($string, '<!--if:') === false) {
+    if(empty($GLOBALS['phpwcms']['render_device']) || (strpos($string, '<!--if:') === false && strpos($string, '<!--!if:') === false)) {
         return $string;
     }
 
