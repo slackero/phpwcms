@@ -1440,6 +1440,8 @@ $BL['be_google_analytics_enable'] = 'use Google Analytics';
 $BL['be_google_tag_manager_enable'] = 'use Google Tag Manager';
 $BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
+$BL['be_tracking_cookie_flags'] = 'enable <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>cookie flags</u> (generated automatically)</a>';
+$BL['be_tracking_custom_properties'] = 'custom <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>config parameters</u></a> (prop1: val1, prop2, val2)';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';

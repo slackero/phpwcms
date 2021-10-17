@@ -1489,14 +1489,13 @@ if(!$phpwcms['donottrack']) {
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-            'anonymize' => ", {'anonymize_ip': true}",
             'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
-    var gaOptOutCookie = 'ga-disable-%s';
+    var gaOptOutCookie = 'ga-disable-%1\$s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
     }
     function gaOptout() {
-        document.cookie = gaOptOutCookie + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+        document.cookie = gaOptOutCookie + '=true; Expires=Thu, 31 Dec 2099 23:59:59 UTC; Path=/%2\$s';
         window[gaOptOutCookie] = true;
     }
   </script>"
@@ -1506,16 +1505,39 @@ if(!$phpwcms['donottrack']) {
         } else {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
-        if (empty($block['tracking_ga']['anonymize'])) {
-            $template_default['settings']['tracking']['ga']['anonymize'] = '';
+        $block['tracking_ga']['config'] = array(
+            "cookie_comain: '" . $phpwcms['session_cookie_params']['domain'] . "'"
+        );
+        if (!empty($block['tracking_ga']['anonymize'])) {
+            $block['tracking_ga']['config'][] = 'anonymize_ip: true';
+        }
+        if (!empty($block['tracking_ga']['custom_properties'])) {
+            $block['tracking_ga']['config'][] = $block['tracking_ga']['custom_properties'];
+        }
+
+        $block['tracking_ga']['ga_cookie_flags'] = array();
+        if (PHPWCMS_SSL) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'Secure';
+        }
+        if ($phpwcms['session_cookie_params']['httponly']) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'HttpOnly';
+        }
+        if ($phpwcms['session_cookie_params']['samesite']) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'SameSite=' . $phpwcms['session_cookie_params']['samesite'];
+        }
+        $block['tracking_ga']['ga_cookie_flags'] = implode('; ', $block['tracking_ga']['ga_cookie_flags']);
+
+        if (!empty($block['tracking_ga']['cookie_flags'])) {
+            $block['tracking_ga']['config'][] = "cookie_flags: '" . $block['tracking_ga']['ga_cookie_flags'] . "'";
         }
         if (!empty($template_default['settings']['tracking']['ga']['optout'])) {
-            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id'], $block['tracking_ga']['ga_cookie_flags'] ? '; ' . $block['tracking_ga']['ga_cookie_flags'] : '');
         }
+        $block['tracking_ga']['config'] = ', {' . implode(', ', $block['tracking_ga']['config']) . '}';
         if ($template_default['settings']['tracking']['ga']['position'] === 'head') {
-            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $block['tracking_ga']['config']);
         } else {
-            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $block['tracking_ga']['config']);
         }
     }
 
