@@ -1483,10 +1483,8 @@ if(!$cmsgo['donottrack']) {
   <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date(), {
-  	});
-    gtag('config', '%1\$s'%2\$s, {
-  	});
+    gtag('js', new Date());
+    gtag('config', '%1\$s'%2\$s);
   </script>",
             'anonymize' => ", {'anonymize_ip': true}",
             'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
