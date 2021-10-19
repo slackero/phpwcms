@@ -133,7 +133,7 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
 		}
 
-		if(!empty($dir)) {
+		if(!empty($dir) && !is_bool($dir)) {
 			@closedir($dir);
 		}
 
