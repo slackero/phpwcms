@@ -26,7 +26,7 @@ function phpwcms_revision_r553() {
     unset($_SESSION_STORE['phpwcmsSessionInit']);
     $_SESSION = array();
 
-    setcookie(session_id(), '', time() - 42000);
+    setcookie(session_name(), '', time() - 42000);
     session_destroy();
     session_write_close();
 
