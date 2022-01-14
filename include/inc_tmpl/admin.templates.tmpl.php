@@ -277,8 +277,7 @@ if (!isset($_GET["s"])) {
             return false;
         }
     </script>
-    <form action="cmsgo.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks"
-          target="_self" id="blocks">
+    <form action="cmsgo.php?do=admin&amp;p=11&amp;s=<?php echo $template["id"] ?>" method="post" name="blocks" target="_self" id="blocks">
         <div class="row align-items-center">
             <div class="col col-sm-auto text-center text-sm-left">
                 <h1><?php echo $BL['be_subnav_admin_templates'] ?></h1>
@@ -414,8 +413,7 @@ if (!isset($_GET["s"])) {
                     <label for="be_admin_tmpl_css"
                            class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
                     <div class="col">
-                        <select name="template_css[]" multiple class="custom-select form-control form-control-sm"
-                                id="template_css">
+                        <select name="template_css[]" multiple class="custom-select form-control form-control-sm" id="template_css">
                             <?php
                             $unselected_css = array();
                             // get css file list
@@ -445,14 +443,13 @@ if (!isset($_GET["s"])) {
                         </select>
                     </div>
                     <div class="col-sm-auto">
-                        <button type="button" class="btn btn-sm btn-blue"
-                                onclick="moveOptionUp(document.blocks.template_css);"><i class="fa fa-angle-up fa-fw"
-                                                                                         aria-hidden="true"></i>
+                        <button type="button" class="btn btn-sm btn-blue" onclick="moveOptionUp(document.blocks.template_css);">
+                            <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
                         </button>
                         <br/>
-                        <button type="button" class="btn btn-sm btn-blue mt-1"
-                                onclick="moveOptionDown(document.blocks.template_css);"><i
-                                    class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-sm btn-blue mt-1" onclick="moveOptionDown(document.blocks.template_css);">
+                            <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -590,7 +587,7 @@ if (!isset($_GET["s"])) {
 
                             <div id="template-cc-form"<?php if (!$template['cookie_consent']['enable']): ?> style="display:none;"<?php endif; ?>>
                                 <?php if (count($cmsgo['allowed_lang'])): ?>
-                                    <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></em></small>
+                                    <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
                                 <div class="form-group form-row my-2">
                                     <label class="col-sm-3 col-form-label text-right"
@@ -695,145 +692,146 @@ if (!isset($_GET["s"])) {
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group form-row align-items-center">
-                <label for="be_admin_tmpl_js"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
-                <div class="col">
-                    <input type="text" class="form-control form-control-sm" name="template_jsonload"
-                           id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
+                <div class="form-group form-row align-items-center">
+                    <label for="be_admin_tmpl_js"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" name="template_jsonload"
+                               id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row align-items-center">
-                <label for="be_fe_login_url"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
-                <div class="col">
-                    <input type="text" class="form-control form-control-sm" name="template_felogin_url"
-                           id="template_felogin_url"
-                           value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
+                <div class="form-group form-row align-items-center">
+                    <label for="be_fe_login_url"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-sm" name="template_felogin_url"
+                               id="template_felogin_url"
+                               value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
+                    </div>
                 </div>
-            </div>
 
-            <hr/>
+                <hr/>
 
-            <div class="form-group form-row">
-                <label for="be_admin_page_header"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
-                <div class="col">
-                    <?php
-                    if (!isset($template["headertext_file"])) {
-                        $template["headertext_file"] = '';
-                    }
-                    echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
-                    ?>
-                    <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_page_header"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+                    <div class="col">
+                        <?php
+                        if (!isset($template["headertext_file"])) {
+                            $template["headertext_file"] = '';
+                        }
+                        echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
+                        ?>
+                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row">
-                <label for="be_admin_page_main"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
-                <div class="col">
-                    <?php
-                    if(!isset($template["maintext_file"])) {
-                        $template["maintext_file"] = '';
-                    }
-                    echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
-                    ?>
-                    <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_page_main"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
+                    <div class="col">
+                        <?php
+                        if(!isset($template["maintext_file"])) {
+                            $template["maintext_file"] = '';
+                        }
+                        echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
+                        ?>
+                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row">
-                <label for="be_admin_page_footer"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
-                <div class="col">
-                    <?php
-                    if(!isset($template["footertext_file"])) {
-                        $template["footertext_file"] = '';
-                    }
-                    echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
-                    ?>
-                    <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_page_footer"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+                    <div class="col">
+                        <?php
+                        if(!isset($template["footertext_file"])) {
+                            $template["footertext_file"] = '';
+                        }
+                        echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
+                        ?>
+                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row">
-                <label for="be_admin_page_left"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
-                <div class="col">
-                    <?php
-                    if(!isset($template["lefttext_file"])) {
-                        $template["lefttext_file"] = '';
-                    }
-                    echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
-                    ?>
-                    <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_page_left"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+                    <div class="col">
+                        <?php
+                        if(!isset($template["lefttext_file"])) {
+                            $template["lefttext_file"] = '';
+                        }
+                        echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
+                        ?>
+                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group form-row">
-                <label for="be_admin_page_right"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
-                <div class="col">
-                    <?php
-                    if(!isset($template["righttext_file"])) {
-                        $template["righttext_file"] = '';
-                    }
-                    echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
-                    ?>
-                    <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_page_right"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+                    <div class="col">
+                        <?php
+                        if(!isset($template["righttext_file"])) {
+                            $template["righttext_file"] = '';
+                        }
+                        echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
+                        ?>
+                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                    </div>
                 </div>
-            </div>
 
-            <?php
-            if (!empty($jsOnChange)) {
-                echo '<input type="hidden" name="customblock" value="' . html(implode(',', $custom_blocks)) . '" />';
-                // list custom blocks
-                foreach ($custom_blocks as $value) {
-                    $custom_block = html($value);
-                    if(!isset($template['customblock_'.$value.'_file'])) {
-                        $template['customblock_'.$value.'_file'] = '';
+                <?php
+                if (!empty($jsOnChange)) {
+                    echo '<input type="hidden" name="customblock" value="' . html(implode(',', $custom_blocks)) . '" />';
+                    // list custom blocks
+                    foreach ($custom_blocks as $value) {
+                        $custom_block = html($value);
+                        if(!isset($template['customblock_'.$value.'_file'])) {
+                            $template['customblock_'.$value.'_file'] = '';
+                        }
+                        echo '<div class="form-group form-row">';
+                        echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right">';
+                        echo $custom_block . " <br />{" . $custom_block . "}";
+                        echo '</label>';
+                        echo '<div class="col">';
+                        echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
+                        echo '<textarea name="template_customblock_' . $custom_block;
+                        echo '" rows="3" class="form-control form-control-sm autosize">';
+                        echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
+                        echo "</textarea>";
+                        echo '  </div>';
+                        echo '</div>';
                     }
-                    echo '<div class="form-group form-row">';
-                    echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right">';
-                    echo '' . $custom_block . " <br /> {" . $custom_block . "}";
-                    echo '</label>';
-                    echo '<div class="col">';
-                    echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
-                    echo '<textarea name="template_customblock_' . $custom_block;
-                    echo '" rows="3" class="form-control form-control-sm autosize">';
-                    echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
-                    echo "</textarea>\n";
-                    echo '  </div>';
-                    echo '</div>';
                 }
-            }
-            ?>
+                ?>
 
-            <div class="form-group form-row">
-                <label for="be_admin_tmpl_error"
-                       class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
-                <div class="col">
-                    <?php
-                    if(!isset($template["errortext_file"])) {
-                        $template["errortext_file"] = '';
-                    }
-                    echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
-                    ?>
-                    <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize"
-                              id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                <div class="form-group form-row">
+                    <label for="be_admin_tmpl_error"
+                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
+                    <div class="col">
+                        <?php
+                        if(!isset($template["errortext_file"])) {
+                            $template["errortext_file"] = '';
+                        }
+                        echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
+                        ?>
+                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize"
+                                  id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
+                    <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
+                    <input name="Submit" type="submit" class="btn btn-sm btn-blue"
+                           value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
+                    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>"
+                           onclick="location.href='cmsgo.php?do=admin&amp;p=11';"/>
                 </div>
             </div>
-        </div>
-        <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
-            <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-            <input name="Submit" type="submit" class="btn btn-sm btn-blue"
-                   value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
-            <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>"
-                   onclick="location.href='cmsgo.php?do=admin&amp;p=11';"/>
         </div>
     </form>
 
