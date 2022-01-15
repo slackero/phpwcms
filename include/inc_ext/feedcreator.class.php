@@ -625,30 +625,53 @@ class FeedCreator extends HtmlDescribable {
      * @return string    the truncated string
      */
     function iTrunc($string, $length) {
+        if (extension_loaded('mbstring')) {
+            return FeedCreator::iTrunc_mb($string, $length);
+        }
         if (strlen($string) <= $length) {
             return $string;
         }
-
-        $pos = strrpos($string, ".");
+        $pos = strrpos($string, '.');
         if ($pos >= $length - 4) {
             $string = substr($string, 0, $length - 4);
-            $pos    = strrpos($string, ".");
+            $pos    = strrpos($string, '.');
         }
         if ($pos >= $length * 0.4) {
-            return substr($string, 0, $pos + 1) . " ...";
+            return substr($string, 0, $pos + 1) . ' ...';
         }
-
-        $pos = strrpos($string, " ");
+        $pos = strrpos($string, ' ');
         if ($pos >= $length - 4) {
             $string = substr($string, 0, $length - 4);
-            $pos    = strrpos($string, " ");
+            $pos    = strrpos($string, ' ');
         }
         if ($pos >= $length * 0.4) {
-            return substr($string, 0, $pos) . " ...";
+            return substr($string, 0, $pos) . ' ...';
         }
+        return substr($string, 0, $length - 4) . ' ...';
+    }
 
-        return substr($string, 0, $length - 4) . " ...";
-
+    function iTrunc_mb($string, $length) {
+        $encoding = strtoupper($this->encoding);
+        if (@mb_strlen($string, $encoding) <= $length) {
+            return $string;
+        }
+        $pos = mb_strrpos($string, '.', $encoding);
+        if ($pos >= $length - 4) {
+            $string = mb_substr($string, 0, $length - 4, $encoding);
+            $pos = mb_strrpos($string, '.', $encoding);
+        }
+        if ($pos >= $length * 0.4) {
+            return mb_substr($string, 0, $pos + 1, $encoding) . ' ...';
+        }
+        $pos = mb_strrpos($string, ' ', $encoding);
+        if ($pos >= $length - 4) {
+            $string = mb_substr($string, 0, $length - 4, $encoding);
+            $pos = mb_strrpos($string, ' ', $encoding);
+        }
+        if ($pos >= $length * 0.4) {
+            return mb_substr($string, 0, $pos, $encoding) . ' ...';
+        }
+        return mb_substr($string, 0, $length - 4, $encoding) . ' ...';
     }
 
 
