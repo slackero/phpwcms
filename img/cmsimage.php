@@ -123,7 +123,8 @@ if(isset($data[1])) {
 
         if(is_intval($hash)) {
 
-            @session_start();
+            $cmsgo['SESSION_START'] = true;
+            require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
@@ -153,7 +154,8 @@ if(isset($data[1])) {
 
         } elseif(strlen($hash) === 32 && (!$ext || !is_file(CMSGO_ROOT.'/'.CMSGO_FILES.$hash.'.'.$ext))) {
 
-            @session_start();
+            $cmsgo['SESSION_START'] = true;
+            require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
             $file_public = empty($_SESSION["wcs_user_id"]) ? 'f_public=1' : '(f_public=1 OR f_uid='.intval($_SESSION["wcs_user_id"]).')';
 
             require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';

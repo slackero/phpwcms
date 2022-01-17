@@ -10,7 +10,7 @@
 
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }

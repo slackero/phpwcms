@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -204,7 +204,7 @@ if($data) {
 
 		echo '<td class="dir">'.html($row["glossary_tag"])."&nbsp;</td>\n";
 
-		echo '<td align="right" nowrap="nowrap" class="button_td">';
+		echo '<td align="right" nowrap="nowrap" class="button_td nowrap">';
 
 		echo '<a href="'.GLOSSARY_HREF.'&amp;edit='.$row["glossary_id"].'">';
 		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';

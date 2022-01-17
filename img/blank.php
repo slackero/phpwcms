@@ -37,7 +37,7 @@ if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == CMSGO_USER_KEY) {
 
 		if(empty($_COOKIE['cmsgoAdsUserId']) || !preg_match('/^[0-9a-f]{32}$/', ($ads_userid = $_COOKIE['cmsgoAdsUserId']) ) ) {
 			$ads_userid	= md5($ads_userip.microtime());
-			setcookie('cmsgoAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain() );
+			setcookie('cmsgoAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain(), CMSGO_SSL, true);
 		}
 
 		$t = array();

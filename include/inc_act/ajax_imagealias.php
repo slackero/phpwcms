@@ -9,22 +9,22 @@
  **/
 
 // general wrapper for ajax based queries
-session_start();
-$cmsgo = array();
-require_once ('../../include/config/conf.inc.php');
-require('../inc_lib/default.inc.php');
-require(CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php');
-require(CMSGO_ROOT.'/include/inc_lib/general.inc.php');
-require(CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php');
-require(CMSGO_ROOT.'/include/inc_lib/imagick.convert.inc.php');
-require_once (CMSGO_ROOT.'/include/inc_lang/backend/en/lang.inc.php');
+$cmsgo = array('SESSION_START' => true);
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
+require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/imagick.convert.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in edit.php
   include(CMSGO_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
   //Adding specific language files
   include CMSGO_ROOT.'/include/inc_lang/backend/'. substr($_SESSION["wcs_user_lang"],0,2) .'/lang.pp.inc.php';
 }
 
-if(empty($_SESSION["wcs_user"])) {
+if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
     die('Sorry, access forbidden');
 }
 

@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -57,6 +57,8 @@ $template = array(
         'id' => '',
         'anonymize' => CMSGO_GDPR_MODE  ? 1 : 0,
         'optout' => CMSGO_GDPR_MODE  ? 1 : 0,
+        'cookie_flags' => CMSGO_GDPR_MODE  ? 1 : 0,
+        'custom_properties' => ''
     ),
     'tracking_gtm' => array(
         'enable' => 0,
@@ -77,7 +79,7 @@ $template = array(
 
 initJQuery();
 
-if (!isset($_GET["s"])) {
+if(!isset($_GET["s"])) {
 
     ?>
     <h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_admin_templates'] ?></h1>
@@ -133,7 +135,7 @@ if (!isset($_GET["s"])) {
 
     $createcopy = isset($_GET["c"]) ? intval($_GET["c"]) : 0;
 
-    if (isset($_POST["template_id"])) {
+    if(isset($_POST["template_id"])) {
 
         $createcopy = empty($_POST["c"]) ? 0 : intval($_POST["c"]); // ERICH COPY TEMPLATE 08.06.2005
 
@@ -142,8 +144,8 @@ if (!isset($_GET["s"])) {
         $template["default"] = empty($_POST["template_setdefault"]) ? 0 : 1;
         $template["layout"] = intval($_POST["template_layout"]);
         $template["name"] = clean_slweg($_POST["template_name"], 150);
-        if (empty($template["name"])) {
-            $template["name"] = "template_" . generic_string(3);
+        if(empty($template["name"])) {
+            $template["name"] = "template_".generic_string(3);
         }
         $template["css"] = isset($_POST["template_css"]) && is_array($_POST["template_css"]) ? $_POST["template_css"] : array();
         $template["htmlhead"] = slweg($_POST["template_htmlhead"]);
@@ -170,26 +172,28 @@ if (!isset($_GET["s"])) {
         $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
-        if (!empty($_POST['cookie_consent_message'])) {
-            $template['cookie_consent']['message'] = slweg($_POST['cookie_consent_message']);
+        if(!empty($_POST['template_cc_message'])) {
+            $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
         }
-        if (!empty($_POST['cookie_consent_dismiss'])) {
-            $template['cookie_consent']['dismiss'] = slweg($_POST['cookie_consent_dismiss']);
+        if(!empty($_POST['template_cc_dismiss'])) {
+            $template['cookie_consent']['dismiss'] = slweg($_POST['template_cc_dismiss']);
         }
-        if (!empty($_POST['cookie_consent_more'])) {
-            $template['cookie_consent']['more'] = slweg($_POST['cookie_consent_more']);
+        if(!empty($_POST['template_cc_more'])) {
+            $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
         }
-        if (!empty($_POST['cookie_consent_link'])) {
-            $template['cookie_consent']['link'] = slweg($_POST['cookie_consent_link']);
+        if(!empty($_POST['template_cc_link'])) {
+            $template['cookie_consent']['link'] = slweg($_POST['template_cc_link']);
         }
-        if (isset($_POST['cookie_consent_theme'])) {
-            $template['cookie_consent']['theme'] = clean_slweg($_POST['cookie_consent_theme']);
+        if(isset($_POST['template_cc_theme'])) {
+            $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
         }
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
+        $template['tracking_ga']['custom_properties'] = trim(clean_slweg($_POST["template_ga_custom_properties"]), " \t\n\r\0\x0B{},");
         $template['tracking_ga']['anonymize'] = empty($_POST['template_ga_anonymize']) ? 0 : 1;
         $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
-        if (empty($template['tracking_ga']['id'])) {
+        $template['tracking_ga']['cookie_flags'] = empty($_POST['template_ga_cookie_flags']) ? 0 : 1;
+        if(empty($template['tracking_ga']['id'])) {
             $template['tracking_ga']['enable'] = 0;
         }
         $template['tracking_gtm']['enable'] = empty($_POST['template_gtm']) ? 0 : 1;
@@ -200,10 +204,10 @@ if (!isset($_GET["s"])) {
         $template['tracking_piwik']['enable'] = empty($_POST['template_piwik']) ? 0 : 1;
         $template['tracking_piwik']['id'] = intval($_POST["template_piwik_id"]);
         $template['tracking_piwik']['url'] = clean_slweg($_POST["template_piwik_url"]);
-        if (!empty($template['tracking_piwik']['url'])) {
+        if(!empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['url'] = trim(preg_replace('/.*?:\/\//i', '', trim($template['tracking_piwik']['url'], '/')));
         }
-        if (empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
+        if(empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['enable'] = 0;
         }
         $template['donottrack'] = empty($_POST["template_donottrack"]) ? 0 : 1;
@@ -214,53 +218,62 @@ if (!isset($_GET["s"])) {
         );
 
         // now browse custom blocks if available
-        if (!empty($_POST['customblock'])) {
+        if(!empty($_POST['customblock'])) {
 
             $template['customblock'] = clean_slweg($_POST["customblock"]);
             $temp_customblock = explode(',', $template['customblock']);
-            foreach ($temp_customblock as $value) {
-                $template['customblock_' . $value] = slweg($_POST['template_customblock_' . $value]);
-                $template['customblock_' . $value . '_file'] = slweg($_POST['template_customblock_' . $value . '_file']);
+            foreach($temp_customblock as $value) {
+
+                $template['customblock_'.$value] = slweg($_POST['template_customblock_'.$value]);
+                $template['customblock_'.$value.'_file'] = slweg($_POST['template_customblock_'.$value.'_file']);
+
             }
         }
 
-        if ($template["id"] && empty($createcopy)) {
+        if($template["id"] && empty($createcopy)) {
             // if ID <> 0 then get template info from database
             $query_mode = 'UPDATE';
-            $sql = "UPDATE " . DB_PREPEND . "cmsgo_template SET " . "template_name='" . aporeplace($template["name"]) . "', " . "template_default=" . $template["default"] . ", " . "template_var='" . aporeplace(serialize($template)) . "' " . "WHERE template_id=" . $template["id"];
+            $sql =  "UPDATE ".DB_PREPEND."cmsgo_template SET ".
+                    "template_name='".aporeplace($template["name"])."', ".
+                    "template_default=".$template["default"].", ".
+                    "template_var='".aporeplace(serialize($template))."' ".
+                    "WHERE template_id=".$template["id"];
         } else {
             // if ID = 0 then show create new template form
             $query_mode = 'INSERT';
-            $sql = "INSERT INTO " . DB_PREPEND . "cmsgo_template (" . "template_name, template_default, template_var) VALUES ('" . aporeplace($template["name"]) . "', " . $template["default"] . ", '" . aporeplace(serialize($template)) . "')";
+            $sql =  "INSERT INTO ".DB_PREPEND."cmsgo_template (".
+                    "template_name, template_default, template_var) VALUES ('".
+                    aporeplace($template["name"])."', ".$template["default"].", '".
+                    aporeplace(serialize($template))."')";
         }
         // update or insert data entry
         $result = _dbQuery($sql, $query_mode);
 
-        if ($query_mode === 'INSERT' && !empty($result['INSERT_ID'])) {
+        if($query_mode === 'INSERT' && !empty($result['INSERT_ID'])) {
             $template["id"] = $result['INSERT_ID'];
         }
 
         //now proof for default template definition
-        if ($template["default"]) {
-            _dbQuery("UPDATE " . DB_PREPEND . "cmsgo_template SET template_default=0 WHERE template_id != " . $template["id"], 'UPDATE');
+        if($template["default"]) {
+            _dbQuery("UPDATE ".DB_PREPEND."cmsgo_template SET template_default=0 WHERE template_id != ".$template["id"], 'UPDATE');
         }
         update_cache();
-        headerRedirect(CMSGO_URL . 'cmsgo.php?' . get_token_get_string() . '&do=admin&p=11&s=' . $template["id"]);
+        headerRedirect(CMSGO_URL.'cmsgo.php?'.get_token_get_string().'&do=admin&p=11&s='.$template["id"]);
     }
 
-    if ($template["id"]) {
+    if($template["id"]) {
         // read the given template datas from db
-        $sql = "SELECT * FROM " . DB_PREPEND . "cmsgo_template WHERE template_id=" . $template["id"] . " LIMIT 1";
+        $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_template WHERE template_id=".$template["id"]." LIMIT 1";
         $result = _dbQuery($sql);
-        if (isset($result[0]['template_id'])) {
-            if (($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
+        if(isset($result[0]['template_id'])) {
+            if(($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
                 $template = array_merge($template, $result[0]["template_var"]);
             }
             $template["id"] = intval($result[0]["template_id"]);
             $template["default"] = $result[0]["template_default"];
 
             // compatibility for older releases where only 1 css file could be stored per template
-            if (is_string($template['css'])) {
+            if(is_string($template['css'])) {
                 $template['css'] = array($template['css']);
             }
         }
@@ -270,7 +283,7 @@ if (!isset($_GET["s"])) {
     ?>
     <script type="text/javascript">
         function doPageLayoutChange() {
-            if (confirm('<?php echo $BL['be_admin_template_jswarning'] ?>')) {
+        if(confirm('<?php echo $BL['be_admin_template_jswarning'] ?>')) {
                 document.blocks.submit();
                 return true;
             }
@@ -333,18 +346,18 @@ if (!isset($_GET["s"])) {
                         // get available page layout list
                         $jsOnChange = '';
                         $opt = "";
-                        $sql = "SELECT * FROM " . DB_PREPEND . "cmsgo_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+$sql = "SELECT * FROM ".DB_PREPEND."cmsgo_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
                         $result = _dbQuery($sql);
-                        if (isset($result[0]['pagelayout_id'])) {
-                            foreach ($result as $row) {
-                                $opt .= '<option value="' . $row['pagelayout_id'] . '"';
-                                if ($row['pagelayout_id'] == $template["layout"]) {
+if(isset($result[0]['pagelayout_id'])) {
+    foreach($result as $row) {
+        $opt .= '<option value="'.$row['pagelayout_id'].'"';
+        if($row['pagelayout_id'] == $template["layout"]) {
                                     $opt .= ' selected="selected"';
                                     // try to get additional custom blocks from selected page layout
                                     $custom_blocks = unserialize($row['pagelayout_var']);
                                     $custom_blocks = explode(', ', trim($custom_blocks['layout_customblocks']));
 
-                                    if (is_array($custom_blocks) && count($custom_blocks) && $custom_blocks[0] != '') {
+            if(is_array($custom_blocks) && count($custom_blocks) && $custom_blocks[0] != '') {
                                         $jsOnChange = ' onChange="doPageLayoutChange();"';
                                     } else {
                                         $jsOnChange = '';

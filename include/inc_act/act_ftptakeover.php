@@ -8,8 +8,7 @@
  *
  **/
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
 $CMSGO_ROOT = dirname(dirname(dirname(__FILE__)));
 
 require_once $CMSGO_ROOT.'/include/config/conf.inc.php';
@@ -63,7 +62,7 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
 ?><!DOCTYPE>
 <html>
 <head>
-    <title>cmsGo!: File take over</title>
+    <title>cmsGO!: File take over</title>
     <meta charset="<?php echo CMSGO_CHARSET ?>">
     <meta http-equiv="Expires" content="0">
     <meta http-equiv="Pragma" content="no-cache">

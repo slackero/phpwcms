@@ -8,21 +8,18 @@
  *
  **/
 
-session_start();
-
-$cmsgo    = array();
-$BL         = array();
-$basepath   = str_replace('\\', '/', dirname(__FILE__));
+$cmsgo = array('SESSION_START' => true);
+$BL = array();
 
 // Check if config is still at the old position
-if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/config/cmsgo/conf.inc.php')):
-    if(!@rename($basepath.'/config/cmsgo', $basepath.'/include/config')):
+if(!is_file(__DIR__.'/include/config/conf.inc.php') && is_file(__DIR__.'/config/cmsgo/conf.inc.php')):
+    if(!@rename(__DIR__.'/config/cmsgo', __DIR__.'/include/config')):
 
 ?><!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>cmsGo! configuration error</title>
+        <title>cmsGO! configuration error</title>
     <style>
         body {
             background-color: #fff;
@@ -52,8 +49,8 @@ if(!is_file($basepath.'/include/config/conf.inc.php') && is_file($basepath.'/con
     endif;
 endif;
 
-require_once $basepath.'/include/config/conf.inc.php';
-require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once __DIR__.'/include/config/conf.inc.php';
+require_once __DIR__.'/include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
 require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
@@ -71,8 +68,8 @@ if(cmsgo_revision_check_temp($cmsgo["revision"]) !== true) {
 }
 
 // define vars
-$err        = 0;
-$wcs_user   = '';
+$err = 0;
+$wcs_user = '';
 
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
@@ -84,7 +81,7 @@ if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = '';
 }
 
-$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST) && $_POST['logintoken'] !== get_token_get_value();
+$csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken']) || $_POST['logintoken'] !== get_token_get_value());
 
 define('LOGIN_TOKEN', generate_get_token());
 
@@ -98,16 +95,17 @@ require_once CMSGO_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
 //define language and check if language file is available
 if(isset($_COOKIE['cmsgoBELang'])) {
-    $temp_lang = strtoupper( substr( trim( $_COOKIE['cmsgoBELang'] ), 0, 2 ) );
-    if( isset( $BL[ $temp_lang ] ) ) {
+    $temp_lang = strtoupper(substr(trim($_COOKIE['cmsgoBELang']), 0, 2));
+    if (isset($BL[$temp_lang])) {
         $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
     } else {
-        setcookie('cmsgoBELang', '', time() - 3600);
+        setcookie('cmsgoBELang', '', time() - 3600, '/', getCookieDomain(), CMSGO_SSL, true);
     }
 }
 if(isset($_POST['form_lang'])) {
-    $_SESSION["wcs_user_lang"] = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
-    set_language_cookie();
+    $temp_lang = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
+    $_SESSION["wcs_user_lang"] = $temp_lang;
+    set_language_cookie($temp_lang);
 }
 if(empty($_SESSION["wcs_user_lang"])) {
     $_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $cmsgo["default_lang"] );
@@ -169,9 +167,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             $_SESSION["wcs_user_thumb"]     = 1;
             if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
                 $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
+                set_language_cookie($result[0]["usr_lang"]);
+            } elseif (!empty($_SESSION["wcs_user_lang"])) {
+                set_language_cookie($_SESSION["wcs_user_lang"]);
+            } else {
+                set_language_cookie();
             }
-
-            set_language_cookie();
 
             $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
             $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
@@ -243,6 +244,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
         }
 
+        $_SESSION['CMSGO_BROWSER_HASH'] = $cmsgo['USER_AGENT']['hash'];
+
         headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
 
     } else {
@@ -267,7 +270,7 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html>
+<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>">
 <head>
 	<meta charset="<?php echo CMSGO_CHARSET ?>">
 	<title><?php echo $BL['be_page_title'] . ' - ' . CMSGO_HOST ?></title>
@@ -286,21 +289,23 @@ $reason_types = array(
 	<script src="include/inc_js/md5.js"></script>
 </head>
 <body id="login">
-<div id="container">
-<header id="header" class="navbar navbar-static-top">
-<div class="container-fluid">
-<div id="header-logo" class="navbar-header"><a href="index.php" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System" /></a></div>
-<a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a> </div>
-</header>
+    <div id="container">
+        <header id="header" class="navbar navbar-static-top">
+            <div class="container-fluid">
+                <div id="header-logo" class="navbar-header">
+                    <a href="index.php" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System" /></a>
+                </div>
+                <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a> </div>
+        </header>
 
-<div id="content">
-<div class="container-fluid">
-<div class="row justify-content-md-center">
-<div class="col-12 col-md-6 col-lg-4">
-<div class="card mt-5">
-<div class="card-header">
-	<h2 class="card-title"><strong><?php echo $BL["login_text"]; ?></strong></h2>
-</div>
+        <div id="content">
+            <div class="container-fluid">
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card mt-5">
+                            <div class="card-header">
+                                <h2 class="card-title"><strong><?php echo $BL["login_text"]; ?></strong></h2>
+                            </div>
 <div class="card-body">
 <?php if(isset($_GET['reason'])): ?>
         <div class="alert <?php echo $reason_types[ (isset($_GET['type']) && isset($reason_types[$_GET['type']])) ? $_GET['type'] : 'default' ]; ?>">
@@ -320,15 +325,19 @@ $reason_types = array(
     <div id="loginFormArea">
     	<div class="alert alert-danger" style="font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo']; ?></div>
 	</div>
-	</div>
 </div>
-</div>
-</div>
-</div>
-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<footer id="footer" class="text-center mt-3"><strong><a href="https://pixels-points.ch/" target="_blank" style="text-decoration:none;">cmsGO!</a></strong> | Copyright &copy; 2002-<?php echo date('Y'); ?> Pixels &amp; Points GmbH</footer>
-
+        <footer id="footer" class="text-center mt-3">
+            <strong><a href="https://pixels-points.ch/" target="_blank" style="text-decoration:none;">cmsGO!</a></strong>
+            |
+            Copyright &copy; 2002-<?php echo date('Y'); ?> Pixels &amp; Points GmbH
+        </footer>
+    </div>
 <?php
 
 // get whole login form and keep in buffer
@@ -403,7 +412,7 @@ ob_start();
                 $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
                 $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
                 $lang_options[$_lang_code] .= '>';
-                $lang_options[$_lang_code] .= isset($BL[$_lang_code]) ? $BL[$_lang_code] : $_lang_code;
+        $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
                 $lang_options[$_lang_code] .= '</option>';
             }
         }
@@ -420,16 +429,20 @@ ob_start();
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
-?><script>
+?>
+<script>
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
-</script>
-<?php if(!empty($cmsgo['browser_check']['be'])): ?>
-<script>
-    $buoop = {<?php if(!empty($cmsgo['browser_check']['vs'])) { echo 'vs:'.$cmsgo['browser_check']['vs']; } ?>};
-</script>
-<script src="https://browser-update.org/update.js"></script>
-<?php endif; ?>
-</div>
+<?php if(!empty($cmsgo['browser_check']['be'])):
+    $buoop = array('insecure' => isset($cmsgo['browser_check']['insecure']) ? boolval($cmsgo['browser_check']['insecure']) : true);
+    if(!empty($cmsgo['browser_check']['vs'])) {
+        $buoop['vs'] = $cmsgo['browser_check']['vs'];
+    }
+    if(!empty($cmsgo['browser_check']['required'])) {
+        $buoop['required'] = '{' . trim($cmsgo['browser_check']['required'], '{}') . '}';
+    }
+?>
+    var $buoop = <?php echo json_encode($buoop); ?>;
+</script><script src="https://browser-update.org/update.min.js"><?php endif; ?></script>
 </body>
 </html>

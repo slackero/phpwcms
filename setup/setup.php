@@ -12,8 +12,14 @@ session_start();
 
 $cmsgo = array();
 
-require_once(dirname(__FILE__).'/inc/setup.func.inc.php');
-require_once($DOCROOT.'/setup/setup.conf.inc.php');
+require_once dirname(__FILE__).'/inc/setup.func.inc.php';
+require_once $DOCROOT.'/setup/setup.conf.inc.php';
+
+if (is_file($DOCROOT . '/include/config/conf.inc.php')) {
+    header('HTTP/1.1 401 Authorization Required');
+    header('Location: ../edit.php');
+    exit();
+}
 
 $step		= isset($_GET["step"]) ? intval($_GET["step"]) : 0;
 $do			= isset($_POST["do"]) ? intval($_POST["do"]) : 0;

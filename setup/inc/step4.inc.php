@@ -8,7 +8,11 @@
  *
  **/
 
-?><p class="title">cmsgo content values</p>
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
+?><p class="title">cmsGO! content values</p>
 <form action="setup.php?step=4" method="post"><table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
             <td align="right" class="v10">&nbsp;</td>

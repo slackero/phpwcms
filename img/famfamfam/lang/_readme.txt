@@ -8,7 +8,7 @@ If you find these icons useful, please donate via paypal to mjames@gmail.com (or
 
 Contact: mjames@gmail.com
 
-Info for cmsgo users:
+Info for cmsGO! users:
 =======================
 I have added the most general languages only,
 add missing languages in this folder yourself

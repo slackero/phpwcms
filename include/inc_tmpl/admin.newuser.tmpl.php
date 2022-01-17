@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -26,7 +26,7 @@ $send_verification  = 1;
 $user_err           = '';
 
 if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
-    //Create Account Daten verarbeiten
+    // Create Account
     $new_login          = trim(slweg($_POST["form_newloginname"]));
     $new_password       = slweg($_POST["form_newpassword"]);
     $new_email          = clean_slweg($_POST["form_newemail"]);

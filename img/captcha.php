@@ -7,7 +7,7 @@ require_once CMSGO_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 
 $spaf_obj = new SPAF_FormValidator();
 
-// custom settings for cmsgo
+// custom settings for cmsGO!
 $spaf_obj->setLibDir(CMSGO_TEMPLATE.'inc_captcha/');
 $spaf_obj->work_dir	= CMSGO_ROOT.'/content/tmp/';
 $spaf_obj->tag_ttl	= 5;

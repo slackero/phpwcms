@@ -144,7 +144,7 @@ td.chatlist {
         <tr>
           <td colspan="2" class="chatlist"><div id="warning">
 <p><strong>ATTENTION! </strong>Before you start updating &#8212; <strong>backup</strong> all
-  cmsgo files AND  all databases. Sometimes it might be better you merge SQL
+  cmsGo! files AND  all databases. Sometimes it might be better you merge SQL
    files manually. Don't forget to make copies of  CSS files, templates,
   images, settings and custom scripts.</p>
 </div></td>

@@ -8,8 +8,7 @@
  *
  **/
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
 
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
@@ -69,7 +68,7 @@ if(isset($_GET['edit']) && intval($_GET['edit'])) {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
-<title>cmsgo Backend Guestbook</title>
+<title>cmsGO! Backend Guestbook</title>
 <style type="text/css">
 body,td,th {
     font-family: Verdana, Arial, Helvetica, sans-serif;

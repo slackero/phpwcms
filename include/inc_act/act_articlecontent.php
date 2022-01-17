@@ -8,9 +8,7 @@
  *
  **/
 
-session_start();
-
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
@@ -49,11 +47,6 @@ if(isset($_GET["do"])) {
                     break;
             case 3: //make article visible/invisible
                     $sql = "UPDATE ".DB_PREPEND."cmsgo_article SET article_aktiv=".intval($values[3]).
-                           " WHERE article_id=".intval($values[1]);
-                    _dbQuery($sql, 'UPDATE');
-                    break;
-            case 4: //make article public/nonpublic
-                    $sql = "UPDATE ".DB_PREPEND."cmsgo_article SET article_public=".intval($values[3]).
                            " WHERE article_id=".intval($values[1]);
                     _dbQuery($sql, 'UPDATE');
                     break;

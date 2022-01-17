@@ -51,7 +51,7 @@ function i18n_get_filename() {
 }
 function i18n_get_file_open_text() {
 	$text  = '<?php' . LF;
-	$text .= '// cmsgo template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . LF;
+	$text .= '// cmsGO! template language file "' . i18n_get_language(true) . '" (' . now('Y-m-d H:i:s') . ')' . LF;
 	$text .= '// ATTENTION! Never add the closing PHP tag "? >" at the end of this file!' . LF . LF;
 	return $text;
 }

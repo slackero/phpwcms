@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -57,13 +57,11 @@ if(is_array($content["mailform"]) && count($content["mailform"])) {
             switch ($content["mailform"][$key][0]) {
                 case "TA": $field_max_height = ($field_max_height) ? $field_max_height : 3;
                     break;
+                case "IR":
+                case "IC":
                 case "SL": $field_max_height = ($field_max_height) ? $field_max_height : 0;
                     break;
-                case "IC": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
-                case "IR": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
-				case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';
+                case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';
 						   $content["mailform"][$key][2] = 1;
 					break;
                 default: $field_max_height = ($field_max_height) ? $field_max_height : 100;

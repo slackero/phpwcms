@@ -7,6 +7,14 @@
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
+if (!defined('CMSGO_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
+// Cookie settings
+if (!empty($cmsgo['SESSION_START'])) {
+    _initSession();
+}
 
 /**
  * Set session var.
@@ -473,7 +481,7 @@ function validate_csrf_tokens($token_prefix='csrf_') {
  */
 function validate_csrf_get_token($token_name='csrftoken', $logout=true) {
 
-	if($_SERVER['REQUEST_METHOD'] === 'GET' && count($_GET)) {
+	if($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 		if(empty($_GET[$token_name])) {
 			if($logout) {

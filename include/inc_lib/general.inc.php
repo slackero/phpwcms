@@ -8,20 +8,20 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_INCLUDE_CHECK')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 if (CMSGO_CHARSET === 'utf-8') {
-    require_once CMSGO_ROOT.'/include/inc_lib/lib.php_special_entities.utf-8.php';
+    require_once CMSGO_ROOT . '/include/inc_lib/lib.php_special_entities.utf-8.php';
 } else {
-    require_once CMSGO_ROOT.'/include/inc_lib/lib.php_special_entities.php';
+    require_once CMSGO_ROOT . '/include/inc_lib/lib.php_special_entities.php';
 }
-require_once CMSGO_ROOT.'/include/inc_lib/charset_helper.inc.php';
-require_once CMSGO_ROOT.'/include/inc_ext/htmlfilter.php';
-require_once CMSGO_ROOT.'/include/inc_lib/helper.inc.php';
-require_once CMSGO_ROOT.'/include/inc_ext/rfc822.php';
+require_once CMSGO_ROOT . '/include/inc_lib/charset_helper.inc.php';
+require_once CMSGO_ROOT . '/include/inc_ext/htmlfilter.php';
+require_once CMSGO_ROOT . '/include/inc_lib/helper.inc.php';
+require_once CMSGO_ROOT . '/include/inc_ext/rfc822.php';
 function str_empty($string) {
     return $string === null || $string === '';
 }
@@ -84,11 +84,11 @@ function list_country($c, $lang = '') {
     $country_list = '';
     $country = getCountry($lang);
     foreach ($country as $key => $value) {
-        $country_list .= '  <option value="'.html($key).'"';
+        $country_list .= '  <option value="' . html($key) . '"';
         if ($key == $c) {
             $country_list .= ' selected="selected"';
         }
-        $country_list .= '>'.html($value).'</option>'.LF;
+        $country_list .= '>' . html($value) . '</option>' . LF;
     }
 
     return $country_list;
@@ -100,28 +100,28 @@ function getCountry($lang = '', $get = 'COUNTRY_ARRAY') {
         $lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['cmsgo']['default_lang'];
     }
     $lang = strtolower(substr($lang, 0, 2));
-    $country_lang_var = $get.'_'.$lang;
+    $country_lang_var = $get . '_' . $lang;
     if (!empty($cmsgo['country'][$country_lang_var])) {
         return $cmsgo['country'][$country_lang_var];
     }
-    $country_name = 'country_name_'._dbEscape($lang, false);
-    $sql = 'SHOW COLUMNS FROM '.DB_PREPEND."cmsgo_country WHERE Field='".$country_name."'";
+    $country_name = 'country_name_' . _dbEscape($lang, false);
+    $sql = 'SHOW COLUMNS FROM ' . DB_PREPEND . "cmsgo_country WHERE Field='" . $country_name . "'";
     $result = _dbQuery($sql);
     if (!isset($result[0])) {
         $country_name = 'country_name';
     }
     if ($get == 'COUNTRY_NAME') {
         $cmsgo['country'][$country_lang_var] = strtoupper($lang);
-        $sql = 'SELECT '.$country_name.' AS country FROM '.DB_PREPEND."cmsgo_country WHERE ";
-        $sql .= "country_iso="._dbEscape($cmsgo['country'][$country_lang_var])." LIMIT 1";
+        $sql = 'SELECT ' . $country_name . ' AS country FROM ' . DB_PREPEND . "cmsgo_country WHERE ";
+        $sql .= "country_iso=" . _dbEscape($cmsgo['country'][$country_lang_var]) . " LIMIT 1";
         $result = _dbQuery($sql);
         if (isset($result[0]['country'])) {
             $cmsgo['country'][$country_lang_var] = $result[0]['country'];
         }
     } else {
-        $country_lang_var = 'COUNTRY_ARRAY_'.$lang;
+        $country_lang_var = 'COUNTRY_ARRAY_' . $lang;
         $cmsgo['country'][$country_lang_var] = array();
-        $sql = 'SELECT country_iso, '.$country_name.' AS country FROM '.DB_PREPEND.'cmsgo_country ORDER BY '.$country_name;
+        $sql = 'SELECT country_iso, ' . $country_name . ' AS country FROM ' . DB_PREPEND . 'cmsgo_country ORDER BY ' . $country_name;
         $result = _dbQuery($sql);
         if (isset($result[0])) {
             foreach ($result as $row) {
@@ -138,14 +138,14 @@ function list_profession($c) {
     if (empty($c)) {
         $c = $GLOBALS['BL']['be_n/a'];
     }
-    $sql = "SELECT prof_name FROM ".DB_PREPEND."cmsgo_profession ORDER BY prof_name";
+    $sql = "SELECT prof_name FROM " . DB_PREPEND . "cmsgo_profession ORDER BY prof_name";
     if ($result = _dbQuery($sql)) {
         foreach ($result as $a) {
-            echo '<option value="'.html($a["prof_name"]).'"';
+            echo '<option value="' . html($a["prof_name"]) . '"';
             if ($a["prof_name"] == $c) {
                 echo ' selected="selected"';
             }
-            echo '>'.html($a["prof_name"])."</option>";
+            echo '>' . html($a["prof_name"]) . "</option>";
         }
     }
 }
@@ -237,7 +237,7 @@ function fsize($zahl, $spacer = '&nbsp;', $short = 1) {
         $unit = "T";
     }
 
-    return $zahl.$spacer.$_unit[$short][$unit];
+    return $zahl . $spacer . $_unit[$short][$unit];
 }
 
 function fsizelong($zahl, $spacer = '&nbsp;') {
@@ -299,13 +299,13 @@ function generic_string($length, $i = 0) {
     $p[2] = "1234567890";
     switch ($i) {
         case 1:
-            $chars = $p[0].$p[2];
+            $chars = $p[0] . $p[2];
             break;
         case 2:
-            $chars = $p[1].$p[2];
+            $chars = $p[1] . $p[2];
             break;
         case 3:
-            $chars = $p[0].$p[1];
+            $chars = $p[0] . $p[1];
             break;
         case 4:
             $chars = $p[0];
@@ -317,7 +317,7 @@ function generic_string($length, $i = 0) {
             $chars = $p[2];
             break;
         default:
-            $chars = $p[0].$p[2].$p[1];
+            $chars = $p[0] . $p[2] . $p[1];
     }
     mt_srand((double)microtime() * 1000000);
     $count = strlen($chars) - 1;
@@ -329,10 +329,10 @@ function generic_string($length, $i = 0) {
 }
 
 function genlogname() {
-    $usercount = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND."cmsgo_user WHERE usr_login LIKE 'user%'", 'COUNT');
+    $usercount = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . "cmsgo_user WHERE usr_login LIKE 'user%'", 'COUNT');
     $usercount = $usercount ? $usercount + 1 : 1;
 
-    return 'user'.$usercount;
+    return 'user' . $usercount;
 }
 
 function gib_part($value, $part, $separator) {
@@ -349,10 +349,10 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
 
 function which_folder_active($ist, $soll, $ac = "#9BBECA", $nc = "#363E57", $nclass = "msgreiter") {
     if ($ist == $soll) {
-        echo "bgcolor='".$ac."' class='".$nclass."'";
+        echo "bgcolor='" . $ac . "' class='" . $nclass . "'";
     } else {
-        echo "bgcolor='".$nc."' class='".$nclass."' ";
-        echo "onMouseOver=\"bgColor='#FF6600'\" onMouseOut=\"bgColor='".$nc."'\"";
+        echo "bgcolor='" . $nc . "' class='" . $nclass . "' ";
+        echo "onMouseOver=\"bgColor='#FF6600'\" onMouseOut=\"bgColor='" . $nc . "'\"";
     }
 }
 
@@ -361,6 +361,9 @@ function FileExtension($filename) {
 }
 
 function convert_into($extension) {
+    if (CMSGO_WEBP) {
+        return 'webp';
+    }
     //check which extension to give back
     $extension = strtolower($extension);
     $ext = 'jpg';
@@ -376,7 +379,7 @@ function convert_into($extension) {
     } else {
         switch ($extension) {
             case 'gif':
-                $ext = (imagetypes() & IMG_GIF) ? "gif" : "png";
+                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';
@@ -393,17 +396,17 @@ function is_ext_true($extension) {
     if ($cmsgo['image_library'] === 'gd2' || $cmsgo['image_library'] === 'gd') {
         // if GD is used
         switch ($extension) {
-            case "jpg":
-            case "jpeg":
-                $ext = "jpg";
+            case 'jpg':
+            case 'jpeg':
+                $ext = 'jpg';
                 break;
-            case "gif":
-                $ext = (imagetypes() && IMG_GIF) ? "gif" : "png";
+            case 'gif':
+                $ext = (imagetypes() && IMG_GIF) ? 'gif' : 'png';
                 break;
-            case "png":
-                $ext = "png";
+            case 'png':
+                $ext = 'png';
                 break;
-            case "webp":
+            case 'webp':
                 $ext = CMSGO_WEBP ? 'webp' : 'jpg';
                 break;
         }
@@ -468,20 +471,20 @@ function switch_on_off($wert) {
 function online_users($spacer = '<br />', $wrap = '<span class="useronline">|<span>') {
     $wrap = explode('|', $wrap);
     $users = array();
-    if ($result = _dbQuery("SELECT logged_user FROM ".DB_PREPEND."cmsgo_userlog WHERE logged_in=1")) {
+    if ($result = _dbQuery("SELECT logged_user FROM " . DB_PREPEND . "cmsgo_userlog WHERE logged_in=1")) {
         foreach ($result as $user) {
             $users[] = html($user['logged_user']);
         }
     }
     if ($users) {
-        return $wrap[0].implode($spacer, $users).(isset($wrap[1]) ? $wrap[1] : '');
+        return $wrap[0] . implode($spacer, $users) . (isset($wrap[1]) ? $wrap[1] : '');
     }
 
     return '';
 }
 
 function get_filecat_childcount($fcatid = 0) {
-    return _dbQuery("SELECT COUNT(fkey_id) FROM ".DB_PREPEND."cmsgo_filekey WHERE fkey_deleted=0 AND fkey_cid=".intval($fcatid), 'COUNT');
+    return _dbQuery('SELECT COUNT(fkey_id) FROM ' . DB_PREPEND . 'cmsgo_filekey WHERE fkey_deleted=0 AND fkey_cid=' . intval($fcatid), 'COUNT');
 }
 
 /**
@@ -508,7 +511,7 @@ function is_valid_email($email, $options = array()) {
  * @return string
  */
 function idn_encode($string = '') {
-    require_once CMSGO_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php';
+    require_once CMSGO_ROOT . '/include/inc_ext/idna_convert/idna_convert.class.php';
     // convert to utf-8 first
     $string = makeCharsetConversion($string, CMSGO_CHARSET, 'utf-8');
     // include punicode conversion if >= PHP5
@@ -581,14 +584,14 @@ function add_keywords_to_search($list_of_keywords, $keywords, $spacer = " ", $st
         }
     }
 
-    return (($start_spacer) ? $spacer : '').$kw_string;
+    return (($start_spacer) ? $spacer : '') . $kw_string;
 }
 
 function get_list_of_file_keywords() {
     //reads possible keywords defined by admin and returns
     //array with values if exists else it returns false
     $file_key = array();
-    if ($result = _dbQuery("SELECT fkey_id, fkey_name FROM ".DB_PREPEND."cmsgo_filekey")) {
+    if ($result = _dbQuery("SELECT fkey_id, fkey_name FROM " . DB_PREPEND . "cmsgo_filekey")) {
         foreach ($result as $row) {
             $file_key[intval($row["fkey_id"])] = html($row["fkey_name"]);
         }
@@ -610,17 +613,17 @@ function get_tmpl_files($dir = '', $ext = '', $sort = true) {
         if (count($ext)) {
             $c = array();
             foreach ($ext as $value) {
-                $c[] = '\.'.$value;
+                $c[] = '\.' . $value;
             }
             $c = implode('|', $c);
         }
     }
-    $regexp = '/('.$c.')$/i';
+    $regexp = '/(' . $c . ')$/i';
     $fa = array(); //file array
     if (is_dir($dir)) {
         $ph = opendir($dir);
         while ($pf = readdir($ph)) {
-            if (substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf) && preg_match($regexp, $pf)) {
+            if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf) && preg_match($regexp, $pf)) {
                 $fa[] = $pf; //add $pf to file array for current dir
             }
         }
@@ -636,13 +639,13 @@ function get_tmpl_files($dir = '', $ext = '', $sort = true) {
 function get_tmpl_section($s = '', $t = '') {
     // try to return the matching section of template
     // within HTML comments like <!--SECTION_START//-->...<!--SECTION_END//-->
-    return preg_match("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $t, $g) ? $g[1] : '';
+    return preg_match("/<!--" . $s . "_START\/\/-->(.*?)<!--" . $s . "_END\/\/-->/si", $t, $g) ? $g[1] : '';
 }
 
 function replace_tmpl_section($s = '', $t = '', $r = '') {
     // try to delete the matching section of template
     // within HTML comments like <!--SECTION_START//-->...<!--SECTION_END//-->
-    return preg_replace("/<!--".$s."_START\/\/-->(.*?)<!--".$s."_END\/\/-->/si", $r, $t);
+    return preg_replace("/<!--" . $s . "_START\/\/-->(.*?)<!--" . $s . "_END\/\/-->/si", $r, $t);
 }
 
 function importedFile_toString($filename = '') {
@@ -724,7 +727,7 @@ function get_order_sort($order = 0, $resort = 0) {
             $o[2] = ' article_end DESC';
             break;
     }
-    $o[2] = ' article_priorize DESC,'.$o[2];
+    $o[2] = ' article_priorize DESC,' . $o[2];
 
     return $o;
 }
@@ -732,7 +735,7 @@ function get_order_sort($order = 0, $resort = 0) {
 function getRefererURL() {
     $url = strtolower(substr($GLOBALS['cmsgo']['site'], 0, 5)) !== 'https' ? 'http://' : 'https://';
 
-    return $url.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    return $url . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 }
 
 function build_QueryString() {
@@ -757,11 +760,11 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
     $attribute = trim($string);
     $altAndTitle = intval($altAndTitle);
     if ($altAndTitle === 0) {
-            $attribute = 'alt="'.$attribute.'" title="'.$attribute.'"';
+        $attribute = 'alt="' . $attribute . '" title="' . $attribute . '"';
     } elseif ($altAndTitle === 1) {
-            $attribute = 'alt="'.$attribute.'"';
+        $attribute = 'alt="' . $attribute . '"';
     } elseif ($altAndTitle === 2) {
-            $attribute = 'title="'.$attribute.'"';
+        $attribute = 'title="' . $attribute . '"';
     }
     if ($echo) {
         echo $attribute;
@@ -771,17 +774,17 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
 }
 
 function sendEmail($data = array(
-    'recipient'    => '',
-    'toName'       => '',
-    'subject'      => '',
-    'isHTML'       => 0,
-    'html'         => '',
-    'text'         => '',
-    'attach'       => array(),
-    'from'         => '',
-    'fromName'     => '',
-    'sender'       => '',
-    'senderName'   => '',
+    'recipient' => '',
+    'toName' => '',
+    'subject' => '',
+    'isHTML' => 0,
+    'html' => '',
+    'text' => '',
+    'attach' => array(),
+    'from' => '',
+    'fromName' => '',
+    'sender' => '',
+    'senderName' => '',
     'stringAttach' => array(),
 )) {
     // used to send a standardized email message
@@ -821,7 +824,7 @@ function sendEmail($data = array(
         }
     }
     if (count($sendTo)) {
-        require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
+        require_once CMSGO_ROOT . '/include/inc_ext/phpmailer/PHPMailerAutoload.php';
         $mail = new PHPMailer();
         $mail->Mailer = $cmsgo['SMTP_MAILER'];
         $mail->Host = $cmsgo['SMTP_HOST'];
@@ -856,8 +859,8 @@ function sendEmail($data = array(
         } else {
             $mail->Body = $data['text'];
         }
-        if (!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+        if (!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT . '/include/inc_ext/phpmailer/language/')) {
+            $mail->setLanguage('en', CMSGO_ROOT . '/include/inc_ext/phpmailer/language/');
         }
         $mail->setFrom($from, $fromName);
         $mail->addReplyTo($sender, $senderName);
@@ -877,7 +880,7 @@ function sendEmail($data = array(
             $attach_counter = 1;
             foreach ($data['stringAttach'] as $attach_string) {
                 if (is_array($attach_string) && !empty($attach_string['data'])) {
-                    $attach_string['filename'] = empty($attach_string['filename']) ? 'attachment_'.$attach_counter : $attach_string['filename'];
+                    $attach_string['filename'] = empty($attach_string['filename']) ? 'attachment_' . $attach_counter : $attach_string['filename'];
                     $attach_string['mime'] = empty($attach_string['mime']) ? 'application/octet-stream' : $attach_string['mime'];
                     $attach_string['encoding'] = empty($attach_string['encoding']) ? 'base64' : $attach_string['encoding'];
                     $mail->addStringAttachment(
@@ -909,24 +912,24 @@ function getFormTrackingValue() {
     //creates a new form tracking entry in database
     //returns a <input type="hidden">
     $ip = getRemoteIP();
-    $hash = md5($ip.$GLOBALS['cmsgo']["db_pass"].date('G'));
+    $hash = md5($ip . $GLOBALS['cmsgo']["db_pass"] . date('G'));
     $entry_id = time();
     if (!empty($GLOBALS['cmsgo']["form_tracking"]) && !CMSGO_GDPR_MODE) {
-        $sql = "INSERT INTO ".DB_PREPEND."cmsgo_formtracking SET formtracking_hash="._dbEscape($hash).", formtracking_ip="._dbEscape($ip);
+        $sql = "INSERT INTO " . DB_PREPEND . "cmsgo_formtracking SET formtracking_hash=" . _dbEscape($hash) . ", formtracking_ip=" . _dbEscape($ip);
         $result = _dbQuery($sql, 'INSERT');
         if (isset($result['INSERT_ID'])) {
             $entry_id = $result['INSERT_ID'];
         }
     }
 
-    return '<input type="hidden" name="'.$hash.'" value="'.$entry_id.'" />';
+    return '<input type="hidden" name="' . $hash . '" value="' . $entry_id . '" />';
 }
 
 function checkFormTrackingValue() {
     //compare given tracking value against db tracking entry
     $ip = getRemoteIP();
-    $hash1 = md5($ip.$GLOBALS['cmsgo']["db_pass"].date('G'));
-    $hash2 = md5($ip.$GLOBALS['cmsgo']["db_pass"].date('G', time() - 3600)); //max form delay of 1 hour
+    $hash1 = md5($ip . $GLOBALS['cmsgo']["db_pass"] . date('G'));
+    $hash2 = md5($ip . $GLOBALS['cmsgo']["db_pass"] . date('G', time() - 3600)); //max form delay of 1 hour
     $valid = false;
     if (isset($_POST[$hash1])) {
         // form method POST
@@ -1085,7 +1088,7 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
         $cutString = '';
         for ($i = 0; $i < $maxLength; $i++) {
             if (!empty($words[$i])) {
-                $cutString .= $words[$i].' ';
+                $cutString .= $words[$i] . ' ';
             }
         }
         $cutString = trim($cutString);
@@ -1115,7 +1118,7 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
 
 function headerAvoidPageCaching() {
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-    header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
     header("Cache-Control: no-cache");
     header("Pragma: no-cache");
     header("Cache-Control: post-check=0, pre-check=0", false);
@@ -1132,21 +1135,21 @@ function getFileInformation($fileID) {
         }
         $f = array();
         foreach ($fileID as $value) {
-            $f[] = 'f_id='.intval($value);
+            $f[] = 'f_id=' . intval($value);
         }
         $f = implode(' OR ', $f);
     } elseif (intval($fileID)) {
-        $f = 'f_id='.intval($fileID);
+        $f = 'f_id=' . intval($fileID);
     } else {
         return false;
     }
-    $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (".$f.")";
+    $sql = "SELECT * FROM " . DB_PREPEND . "cmsgo_file WHERE f_public=1 AND f_aktiv=1 AND f_kid=1 AND f_trash=0 AND (" . $f . ")";
 
     return _dbQuery($sql);
 }
 
 function getJavaScriptSourceLink($src, $prefix = '  ') {
-    return ($src) ? $prefix.'<script'.SCRIPT_ATTRIBUTE_TYPE.' src="'.$src.'"></script>' : '';
+    return ($src) ? $prefix . '<script' . SCRIPT_ATTRIBUTE_TYPE . ' src="' . $src . '"></script>' : '';
 }
 
 function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', $rmvDblWSp = true) {
@@ -1191,11 +1194,11 @@ function convertDecChar($decChar) {
     if ($decChar < 128) {
         return chr($decChar);
     } elseif ($decChar < 2048) {
-        return chr(($decChar >> 6) + 192).chr(($decChar & 63) + 128);
+        return chr(($decChar >> 6) + 192) . chr(($decChar & 63) + 128);
     } elseif ($decChar < 65536) {
-        return chr(($decChar >> 12) + 224).chr((($decChar >> 6) & 63) + 128).chr(($decChar & 63) + 128);
+        return chr(($decChar >> 12) + 224) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
     } elseif ($decChar < 2097152) {
-        return chr($decChar >> 18 + 240).chr((($decChar >> 12) & 63) + 128).chr(($decChar >> 6) & 63 + 128).chr($decChar & 63 + 128);
+        return chr($decChar >> 18 + 240) . chr((($decChar >> 12) & 63) + 128) . chr(($decChar >> 6) & 63 + 128) . chr($decChar & 63 + 128);
     }
 
     return $decChar;
@@ -1232,7 +1235,7 @@ function optimizeForSearch() {
     $text = '';
     if ($numargs) {
         for ($i = 0; $i < $numargs; $i++) {
-            $text .= ' '.func_get_arg($i);
+            $text .= ' ' . func_get_arg($i);
         }
         $text = stripped_cache_content($text);
         $text = cleanUpSpecialHtmlEntities($text);
@@ -1281,7 +1284,7 @@ function return_bytes_shorten($val, $round = 2, $return_bytes = 0) {
     }
     if ($last === 'k' || $last === 'm' || $last === 'g' || $last === 't') {
         if ($byte) {
-            $val .= $space.'Byte';
+            $val .= $space . 'Byte';
         }
 
         return $val;
@@ -1290,23 +1293,23 @@ function return_bytes_shorten($val, $round = 2, $return_bytes = 0) {
     if ($val >= (1024 * 1024 * 1024 * 1024)) {
         //T
         $val = round($val / (1024 * 1024 * 1024 * 1024), $round);
-        $val .= $space.'T'.$byte;
+        $val .= $space . 'T' . $byte;
     } elseif ($val >= (1024 * 1024 * 1024)) {
         //G
         $val = round($val / (1024 * 1024 * 1024), $round);
-        $val .= $space.'G'.$byte;
+        $val .= $space . 'G' . $byte;
     } elseif ($val >= (1024 * 1024)) {
         //M
         $val = round($val / (1024 * 1024), $round);
-        $val .= $space.'M'.$byte;
+        $val .= $space . 'M' . $byte;
     } elseif ($val >= 1024) {
         //K
         $val = round($val / 1024, $round);
-        $val .= $space.'K'.$byte;
+        $val .= $space . 'K' . $byte;
     } elseif ($val < 1024) {
         //Byte but as 0.xxx KB
         $val = round($val / 1024, $round + 1);
-        $val .= $space.'K'.$byte;
+        $val .= $space . 'K' . $byte;
     }
 
     return $val;
@@ -1337,7 +1340,7 @@ function return_upload_errormsg($value) {
         case 0:
             break;
         case 1:
-            $err = "The uploaded file exceeds the upload_max_filesize directive (".@ini_get("upload_max_filesize").") in php.ini.";
+            $err = "The uploaded file exceeds the upload_max_filesize directive (" . @ini_get("upload_max_filesize") . ") in php.ini.";
             break;
         case 2:
             $err = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.";
@@ -1379,7 +1382,7 @@ function csvFileToArray($csvfile, $delimiter = ';', $heading = false, $enclosure
         if ($heading && !$first) {
             foreach ($data as $key => $value) {
                 $value = trim($value);
-                $datas[0][$key] = $value ? $value : 'Column'.$key;
+                $datas[0][$key] = $value ? $value : 'Column' . $key;
             }
             $first++;
             continue;
@@ -1446,17 +1449,17 @@ function makeCharsetConversion($string = '', $in_charset = 'utf-8', $out_charset
         $string = doHtmlEntityPHPCleanUp($string, $phpCharsetSuppport);
     }
     if ($entityEncode) {
-        $convertInOut = $in_charset.$out_charset.'EntitiesOn';
+        $convertInOut = $in_charset . $out_charset . 'EntitiesOn';
         $entityEncode = true;
     } else {
-        $convertInOut = $in_charset.$out_charset.'EntitiesOff';
+        $convertInOut = $in_charset . $out_charset . 'EntitiesOff';
         $entityEncode = false;
     }
     if (!isset($cmsgo['convert_charsets'])) {
         $cmsgo['convert_charsets'] = array();
     }
     if (!isset($cmsgo['convert_charsets'][$convertInOut])) {
-        require_once CMSGO_ROOT.'/include/inc_ext/ConvertCharset/ConvertCharset.class.php';
+        require_once CMSGO_ROOT . '/include/inc_ext/ConvertCharset/ConvertCharset.class.php';
         $cmsgo['convert_charsets'][$convertInOut] = new ConvertCharset($in_charset, $out_charset, $entityEncode);
     }
     $NewEncoding =& $cmsgo['convert_charsets'][$convertInOut];
@@ -1541,7 +1544,7 @@ function returnSubdirListAsArray($dir = '') {
     $subdir = array();
     $ph = opendir($dir);
     while ($pf = readdir($ph)) {
-        if (substr($pf, 0, 1) !== '.' && is_dir($dir.'/'.$pf)) {
+        if (substr($pf, 0, 1) !== '.' && is_dir($dir . '/' . $pf)) {
             $subdir[] = $pf;
         }
     }
@@ -1566,7 +1569,7 @@ function returnFileListAsArray($dir = '', $extfilter = '') {
     }
     $dofilter = count($extfilter) ? true : false;
     while ($pf = readdir($ph)) {
-        if (substr($pf, 0, 1) !== '.' && is_file($dir.'/'.$pf)) {
+        if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf)) {
             $ext = which_ext($pf);
             if ($dofilter && !in_array($ext, $extfilter)) {
                 continue;
@@ -1646,13 +1649,15 @@ function parse_ini_str($Str, $ProcessSections = true, $SplitInNameValue = false)
 }
 
 function getCookieDomain() {
+    if (empty($GLOBALS['cmsgo']['parse_url']['host'])) {
     $domain = parse_url(CMSGO_URL);
     $domain = strtolower($domain['host']);
     if (strpos($domain, 'www') === 0) {
         $domain = substr($domain, 3);
     }
-
-    return $domain;
+        $GLOBALS['cmsgo']['parse_url']['host'] = $domain;
+    }
+    return $GLOBALS['cmsgo']['parse_url']['host'];
 }
 
 function _mkdir($target) {
@@ -1661,9 +1666,9 @@ function _mkdir($target) {
         return (!@is_dir($target)) ? false : true;
     }
     umask(0);
-    if (@mkdir($target)) { // Attempting to create the directory may clutter up our display.
+    if (@mkdir($target)) {   // Attempting to create the directory may clutter up our display.
         $stat = @stat(dirname($target));
-        $dir_perms = $stat['mode'] & 0007777; // Get the permission bits.
+        $dir_perms = $stat['mode'] & 0007777;  // Get the permission bits.
         @chmod($target, $dir_perms);
 
         return true;
@@ -1720,7 +1725,19 @@ function sanitize_filename($filename) {
 function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename = 0, $maxsize = 0) {
     // imgtype can be all exif_imagetype supported by your PHP install
     // see http://www.php.net/exif_imagetype
-    $file_status = array('status' => false, 'error' => '', 'name' => '', 'tmp_name' => '', 'size' => 0, 'path' => '', 'ext' => '', 'rename' => '', 'maxsize' => intval($maxsize), 'error_num' => 0, 'type' => '');
+    $file_status = array(
+        'status' => false,
+        'error' => '',
+        'name' => '',
+        'tmp_name' => '',
+        'size' => 0,
+        'path' => '',
+        'ext' => '',
+        'rename' => '',
+        'maxsize' => intval($maxsize),
+        'error_num' => 0,
+        'type' => '',
+    );
     if (!isset($_FILES[$file]) || !is_uploaded_file($_FILES[$file]['tmp_name'])) {
         $file_status['error'] = 'Upload not defined';
 
@@ -1747,7 +1764,7 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
         return $file_status;
     }
     if (!@_mkdir($target)) {
-        $file_status['error'] = 'The target directory "'.$target.'" can not be found or generated';
+        $file_status['error'] = 'The target directory "' . $target . '" can not be found or generated';
         $file_status['error_num'] = 412;
 
         return $file_status;
@@ -1792,14 +1809,14 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
                 18 => 'webp'
             );
             if (!$data && !$exttype) {
-                $file_status['error'] = 'Format'.($file_status['ext'] ? ' *.'.$file_status['ext'] : '').' not supported (';
+                $file_status['error'] = 'Format' . ($file_status['ext'] ? ' *.' . $file_status['ext'] : '') . ' not supported (';
                 $allowed = array();
                 foreach ($imgtype as $value) {
                     if (($value = intval($value)) && isset($exif_imagetype[$value])) {
-                        $allowed[] = '*.'.$exif_imagetype[$value];
+                        $allowed[] = '*.' . $exif_imagetype[$value];
                     }
                 }
-                $file_status['error'] .= implode(', ', $allowed).')';
+                $file_status['error'] .= implode(', ', $allowed) . ')';
                 $file_status['error_num'] = 415;
                 @unlink($_FILES[$file]['tmp_name']);
 
@@ -1828,7 +1845,7 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
     if ($exttype) {
         $exttype = convertStringToArray(strtolower($exttype));
         if (!in_array($file_status['ext'], $exttype)) {
-            $file_status['error'] = 'File type *.'.$file_status['ext'].' is not supported for this upload (*.'.implode(', *.', $exttype).' only)';
+            $file_status['error'] = 'File type *.' . $file_status['ext'] . ' is not supported for this upload (*.' . implode(', *.', $exttype) . ' only)';
             $file_status['error_num'] = 415;
             @unlink($_FILES[$file]['tmp_name']);
 
@@ -1836,7 +1853,7 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
         }
     }
     if (!is_writable($target)) {
-        $file_status['error'] = 'Target directory <b>'.str_replace(CMSGO_ROOT, '', $target).'</b> is not writable';
+        $file_status['error'] = 'Target directory <b>' . str_replace(CMSGO_ROOT, '', $target) . '</b> is not writable';
         $file_status['error_num'] = 412;
         @unlink($_FILES[$file]['tmp_name']);
 
@@ -1852,38 +1869,38 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
                     $_temp_name = preg_replace('/[^0-9a-z_\-\.]/i', '', $_temp_name);
                     break;
                 case 2:
-                    $_temp_name = time().'_'.$_temp_name;
+                    $_temp_name = time() . '_' . $_temp_name;
                     break;
                 case 3:
-                    $_temp_name = date('Ymd-His').'_'.$_temp_name;
+                    $_temp_name = date('Ymd-His') . '_' . $_temp_name;
                     break;
                 case 4:
-                    $_temp_name = date('Ymd').'_'.$_temp_name;
+                    $_temp_name = date('Ymd') . '_' . $_temp_name;
                     break;
                 case 5:
-                    $_temp_name = generic_string(6).'_'.$_temp_name;
+                    $_temp_name = generic_string(6) . '_' . $_temp_name;
                     break;
                 case 6:
-                    $_temp_name = md5($_temp_name.($file_status['ext'] ? '.'.$file_status['ext'] : ''));
+                    $_temp_name = md5($_temp_name . ($file_status['ext'] ? '.' . $file_status['ext'] : ''));
                     break;
                 case 7:
-                    $_temp_name = shortHash($_temp_name.($file_status['ext'] ? '.'.$file_status['ext'] : ''));
+                    $_temp_name = shortHash($_temp_name . ($file_status['ext'] ? '.' . $file_status['ext'] : ''));
                     break;
             }
         }
-        $file_status['rename'] = $_temp_name.($file_status['ext'] ? '.'.$file_status['ext'] : '');
+        $file_status['rename'] = $_temp_name . ($file_status['ext'] ? '.' . $file_status['ext'] : '');
     }
     @umask(0);
-    if (!@move_uploaded_file($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-        if (!copy($_FILES[$file]['tmp_name'], $target.$file_status['rename'])) {
-            $file_status['error'] = 'Saving uploaded file <b>'.html($file_status['name']).'</b> to <b>'.html(str_replace(CMSGO_ROOT, '', $target.$file_status['rename'])).'</b> failed';
+    if (!@move_uploaded_file($_FILES[$file]['tmp_name'], $target . $file_status['rename'])) {
+        if (!copy($_FILES[$file]['tmp_name'], $target . $file_status['rename'])) {
+            $file_status['error'] = 'Saving uploaded file <b>' . html($file_status['name']) . '</b> to <b>' . html(str_replace(CMSGO_ROOT, '', $target . $file_status['rename'])) . '</b> failed';
             $file_status['error_num'] = 412;
             @unlink($_FILES[$file]['tmp_name']);
 
             return $file_status;
         }
     }
-    @chmod($target.$file_status['rename'], 0644);
+    @chmod($target . $file_status['rename'], 0644);
     $file_status['status'] = true;
 
     return $file_status;
@@ -1893,12 +1910,12 @@ function get_alnum_dashes($string, $remove_accents = false, $replace_space = '-'
     $string = str_replace(array(' ', '?', ':', '&', '\\', ';', '#', '=', '+'), $replace_space, $string);
     if ($remove_accents) {
         $string = cmsgo_remove_accents($string);
-        $string = preg_replace('/[^a-z0-9\-_\.'.($allow_slashes ? '\/' : '').']/i', '', $string);
+        $string = preg_replace('/[^a-z0-9\-_\.' . ($allow_slashes ? '\/' : '') . ']/i', '', $string);
     } else {
-        $string = preg_replace('/[^a-z0-9\x{00A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\-_\.'.($allow_slashes ? '\/' : '').']/iu', '', $string);
+        $string = preg_replace('/[^a-z0-9\x{00A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\-_\.' . ($allow_slashes ? '\/' : '') . ']/iu', '', $string);
     }
 
-    return trim(preg_replace('/\-+/', $replace_space, $string), '._/'.$replace_space);
+    return trim(preg_replace('/\-+/', $replace_space, $string), '._/' . $replace_space);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
@@ -1917,12 +1934,33 @@ function xss_clean($val) {
         // ;? matches the ;, which is optional
         // 0{0,7} matches any padded zeros, which are optional and go up to 8 chars
         // &#x0040 @ search for the hex values
-        $val = preg_replace('/(&#[x|X]0{0,8}'.dechex(ord($search[$i])).';?)/i', $search[$i], $val); // with a ;
+        $val = preg_replace('/(&#[x|X]0{0,8}' . dechex(ord($search[$i])) . ';?)/i', $search[$i], $val); // with a ;
         // &#00064 @ 0{0,7} matches '0' zero to seven times
-        $val = preg_replace('/(&#0{0,8}'.ord($search[$i]).';?)/', $search[$i], $val); // with a ;
+        $val = preg_replace('/(&#0{0,8}' . ord($search[$i]) . ';?)/', $search[$i], $val); // with a ;
     }
     // now the only remaining whitespace attacks are \t, \n, and \r
-    $ra1 = array('javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink', 'link', 'style', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'title', 'base');
+    $ra1 = array(
+        'javascript',
+        'vbscript',
+        'expression',
+        'applet',
+        'meta',
+        'xml',
+        'blink',
+        'link',
+        'style',
+        'script',
+        'embed',
+        'object',
+        'iframe',
+        'frame',
+        'frameset',
+        'ilayer',
+        'layer',
+        'bgsound',
+        'title',
+        'base',
+    );
     $ra2 = array(
         'onabort',
         'onactivate',
@@ -2019,7 +2057,7 @@ function xss_clean($val) {
                 $pattern .= $ra[$i][$j];
             }
             $pattern .= '/i';
-            $replacement = substr($ra[$i], 0, 2).'<x>'.substr($ra[$i], 2); // add in <> to nerf the tag
+            $replacement = substr($ra[$i], 0, 2) . '<x>' . substr($ra[$i], 2); // add in <> to nerf the tag
             $val = preg_replace($pattern, $replacement, $val); // filter out the hex tags
             if ($val_before == $val) {
                 // no replacements were made, so exit the loop
@@ -2040,24 +2078,25 @@ function sanitize_multiple_emails($string) {
 }
 
 function checkLogin($mode = 'REDIRECT') {
-    $sql = "UPDATE ".DB_PREPEND."cmsgo_userlog SET logged_in=0, logged_change="._dbEscape(time())." ";
-    $sql .= "WHERE logged_in=1 AND (".time()."-logged_change) > ".intval($GLOBALS['cmsgo']["max_time"]);
+    $sql = "UPDATE " . DB_PREPEND . "cmsgo_userlog SET logged_in=0, logged_change=" . _dbEscape(time()) . " ";
+    $sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > " . intval($GLOBALS['cmsgo']["max_time"]);
     _dbQuery($sql, 'UPDATE');
     checkLoginCount();
-    if (empty($_SESSION["wcs_user"])) {
+    if (empty($_SESSION['wcs_user']) || empty($_SESSION['CMSGO_BROWSER_HASH']) || $_SESSION['CMSGO_BROWSER_HASH'] !== $GLOBALS['cmsgo']['USER_AGENT']['hash']) {
+        $_SESSION = array();
         @session_destroy();
         if (!empty($_SERVER['QUERY_STRING'])) {
-            $ref_url = '?ref='.rawurlencode(CMSGO_URL.'cmsgo.php?'.xss_clean($_SERVER['QUERY_STRING']));
+            $ref_url = '?ref=' . rawurlencode(CMSGO_URL . 'cmsgo.php?' . xss_clean($_SERVER['QUERY_STRING']));
         } else {
             $ref_url = '';
         }
-        if ($mode == 'REDIRECT') {
+        if ($mode === 'REDIRECT') {
             // check again if user was logged in and this is a valid redirect request
-            $sql = 'SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_userlog WHERE ';
-            $sql .= "logged_ip="._dbEscape(CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP())." AND ";
-            $sql .= '( '.time().' - logged_change ) < 3600';
-            $ref_url = _dbCount($sql) > 0 ? get_login_file().$ref_url : '';
-            headerRedirect(CMSGO_URL.$ref_url, 401);
+            $sql = 'SELECT COUNT(*)  FROM ' . DB_PREPEND . 'cmsgo_userlog WHERE ';
+            $sql .= "logged_ip=" . _dbEscape(CMSGO_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()) . " AND ";
+            $sql .= '( ' . time() . ' - logged_change ) < 3600';
+            $ref_url = _dbCount($sql) > 0 ? get_login_file() . $ref_url : '';
+            headerRedirect(CMSGO_URL . $ref_url, 401);
         } else {
             return false;
         }
@@ -2067,21 +2106,21 @@ function checkLogin($mode = 'REDIRECT') {
 }
 
 function logout_user($reason = '', $type = '') {
-    $sql = "UPDATE ".DB_PREPEND."cmsgo_userlog SET logged_change="._dbEscape(time()).", logged_in=0 ";
-    $sql .= "WHERE logged_user="._dbEscape($_SESSION["wcs_user"])." AND logged_in=1";
+    $sql = "UPDATE " . DB_PREPEND . "cmsgo_userlog SET logged_change=" . _dbEscape(time()) . ", logged_in=0 ";
+    $sql .= "WHERE logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
     _dbQuery($sql, 'UPDATE');
     $_SESSION = array();
     @session_destroy();
-    $login_url = CMSGO_URL.get_login_file();
+    $login_url = CMSGO_URL . get_login_file();
     $get_parameter = array();
     if ($reason) {
-        $get_parameter[] = 'reason='.rawurlencode($reason);
+        $get_parameter[] = 'reason=' . rawurlencode($reason);
     }
     if ($type) {
-        $get_parameter[] = 'type='.rawurlencode($type);
+        $get_parameter[] = 'type=' . rawurlencode($type);
     }
     if (count($get_parameter)) {
-        $login_url .= '?'.implode('&', $get_parameter);
+        $login_url .= '?' . implode('&', $get_parameter);
     }
     headerRedirect($login_url, 401);
 }
@@ -2092,7 +2131,7 @@ function logout_user($reason = '', $type = '') {
 function plaintext_htmlencode($text = '', $encode_function = 'html_specialchars', $render_bbcode = true) {
     $text = trim($text);
     if ($text) {
-        $text = '[p]'.preg_replace('/\s{0,}\n\s{0,}\n\s{0,}/s', '[/p][p]', $text).'[/p]';
+        $text = '[p]' . preg_replace('/\s{0,}\n\s{0,}\n\s{0,}/s', '[/p][p]', $text) . '[/p]';
         $text = preg_replace('/\s{0,}\n\s{0,}/s', '[br]', $text);
         $text = $encode_function($text);
         $text = str_replace(array('[/p][p]', '[p]', '[/p]', '[br]'), array("</p>\n<p>", '<p>', '</p>', "<br />\n"), $text);
@@ -2125,8 +2164,44 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
     }
     $text = render_bbcode_url($text);
     if ($mode == 'basic') {
-        $search = array('[i]', '[/i]', '[u]', '[/u]', '[s]', '[/s]', '[b]', '[/b]', '[em]', '[/em]', '[br]', '[p]', '[/p]', '[strong]', '[/strong]', '[nowrap]', '[/nowrap]');
-        $replace = array('<i>', '</i>', '<u>', '</u>', '<s>', '</s>', '<b>', '</b>', '<em>', '</em>', '<br />', '<p>', '</p>', '<strong>', '</strong>', '<span class="nowrap">', '</span>');
+        $search = array(
+            '[i]',
+            '[/i]',
+            '[u]',
+            '[/u]',
+            '[s]',
+            '[/s]',
+            '[b]',
+            '[/b]',
+            '[em]',
+            '[/em]',
+            '[br]',
+            '[p]',
+            '[/p]',
+            '[strong]',
+            '[/strong]',
+            '[nowrap]',
+            '[/nowrap]',
+        );
+        $replace = array(
+            '<i>',
+            '</i>',
+            '<u>',
+            '</u>',
+            '<s>',
+            '</s>',
+            '<b>',
+            '</b>',
+            '<em>',
+            '</em>',
+            '<br />',
+            '<p>',
+            '</p>',
+            '<strong>',
+            '</strong>',
+            '<span class="nowrap">',
+            '</span>',
+        );
 
         return str_replace($search, $replace, $text);
     }
@@ -2205,17 +2280,17 @@ function render_bbcode_url($text) {
 
 function get_bbcode_ahref($match) {
     $href = empty($match[1]) ? '#' : xss_clean($match[1]);
-    $target = trim($match[2]) == '' ? '' : ' target="'.trim($match[2]).'"';
+    $target = trim($match[2]) == '' ? '' : ' target="' . trim($match[2]) . '"';
     $text = empty($match[3]) ? $href : $match[3];
 
-    return '<a href="'.$href.'"'.$target.'>'.$text.'</a>';
+    return '<a href="' . $href . '"' . $target . '>' . $text . '</a>';
 }
 
 function get_link_ahref($match) {
     $href = empty($match[2]) ? '#' : xss_clean($match[2]);
     $text = empty($match[3]) ? $href : trim($match[3]);
 
-    return '<a href="'.$match[1].'://'.$href.'" target="_blank">'.$text.'</a>';
+    return '<a href="' . $match[1] . '://' . $href . '" target="_blank">' . $text . '</a>';
 }
 
 function strip_bbcode($text) {
@@ -2234,16 +2309,16 @@ function getBytes($size) {
         return $size;
     } elseif ($size) {
         $_unit = array(
-            'B'        => 1,
-            'K'        => 1024,
-            'M'        => 1048576,
-            'G'        => 1073741824,
-            'T'        => 1099511627776,
-            'KB'       => 1024,
-            'MB'       => 1048576,
-            'GB'       => 1073741824,
-            'TB'       => 1099511627776,
-            'BYTE'     => 1,
+            'B' => 1,
+            'K' => 1024,
+            'M' => 1048576,
+            'G' => 1073741824,
+            'T' => 1099511627776,
+            'KB' => 1024,
+            'MB' => 1048576,
+            'GB' => 1073741824,
+            'TB' => 1099511627776,
+            'BYTE' => 1,
             'KILOBYTE' => 1024,
             'MEGABYTE' => 1048576,
             'GIGABYTE' => 1073741824,
@@ -2251,8 +2326,8 @@ function getBytes($size) {
         );
         $size = trim($size);
         foreach ($_unit as $key => $value) {
-            if (preg_match('/.*?'.$key.'$/i', $size)) {
-                $num = trim(preg_replace('/(.*?)'.$key.'$/i', '$1', $size));
+            if (preg_match('/.*?' . $key . '$/i', $size)) {
+                $num = trim(preg_replace('/(.*?)' . $key . '$/i', '$1', $size));
 
                 return ceil($num * $value);
             }
@@ -2376,11 +2451,11 @@ function convert_rel2abs($text, $base) {
     }
     // Fix a href
     $pattern = "/<a([^>]*) href=\"([^http|ftp|https|mailto|tel|fax|###DELETE_LINK###|###SITE_URL###][^\"]*)\"/";
-    $replace = "<a\${1} href=\"".$base."\${2}\"";
+    $replace = "<a\${1} href=\"" . $base . "\${2}\"";
     $text = preg_replace($pattern, $replace, $text);
     // Fix img src
     $pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
-    $replace = "<img\${1} src=\"".$base."\${2}\"";
+    $replace = "<img\${1} src=\"" . $base . "\${2}\"";
     $text = preg_replace($pattern, $replace, $text);
 
     return $text;
@@ -2401,10 +2476,10 @@ function rel_download($hash = '', $filename = '', $countonly = false, $htmlencod
     $href = '';
     $get = array();
     if (CMSGO_REWRITE) {
-        $href .= 'dl/'.$hash.'/'.rawurlencode($filename);
+        $href .= 'dl/' . $hash . '/' . rawurlencode($filename);
     } else {
         $href .= 'download.php';
-        $get[] = 'f='.$hash;
+        $get[] = 'f=' . $hash;
     }
     if ($countonly) {
         $get[] = 'countonly=1';
@@ -2413,7 +2488,7 @@ function rel_download($hash = '', $filename = '', $countonly = false, $htmlencod
         $get[] = 'target=1';
     }
     if (count($get)) {
-        $href .= '?'.implode($htmlencode ? '&amp;' : '&', $get);
+        $href .= '?' . implode($htmlencode ? '&amp;' : '&', $get);
     }
 
     return $href;

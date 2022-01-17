@@ -10,7 +10,7 @@
 
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -23,7 +23,7 @@ if(!empty($_GET['switchCSS'])) {
     $_user_CSS = clean_slweg($_GET['switchCSS']);
 
     // try to write FontSizeCookie
-    setcookie('switchCSS', $_user_CSS, time()+86400);
+    setcookie('switchCSS', $_user_CSS, time()+86400, '/', getCookieDomain(), CMSGO_SSL, true);
 
 } elseif(isset($_SESSION['switchCSS'])) {
 

@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -1357,9 +1357,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                     $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'cmsgo_articlecontent WHERE acontent_aid=' . $article["article_id"] . ' ';
                     $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate='0000-00-00 00:00:00' OR acontent_killdate > NOW()) ";
                     $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (1, 3) "; // 1 = article list, 3 = article detail OR list
-                    if(!FEUSER_LOGIN_STATUS) {
-                        $sql_cnt .= 'AND acontent_granted=0 ';
-                    }
+                    $sql_cnt .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
                     $sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
                     $tmpl = render_cnt_template($tmpl, 'SYSTEM', showSelectedContent('CPC', $sql_cnt, true));
                 } else {
@@ -3607,7 +3605,7 @@ function _checkFrontendUserLogin($user='', $pass='', $validate_db=array('userdet
     }
     // check against database
     if(!empty($validate_db['userdetail'])) {
-        $sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_userdetail WHERE ';
+        $sql = 'SELECT * FROM '.DB_PREPEND.'cmsgo_userdetail WHERE ';
         if(!empty($validate_db['email_login']) && is_valid_email($user)) {
             $sql .= '(';
             $sql .= 'detail_login=' . _dbEscape($user);
@@ -3648,26 +3646,32 @@ function _getFrontendUserBaseData($data) {
     $userdata = array('login'=>'', 'name'=>'', 'email'=>'', 'url'=>'', 'source'=>'', 'id'=>0);
 
     if(isset($data['usr_login'])) {
-        $userdata['login']  = $data['usr_login'];
-        $userdata['name']   = $data['usr_name'];
-        $userdata['email']  = $data['usr_email'];
+        $userdata['login'] = $data['usr_login'];
+        $userdata['name'] = $data['usr_name'];
+        $userdata['email'] = $data['usr_email'];
         $userdata['source'] = 'BACKEND';
-        $userdata['id']     = $data['usr_id'];
-        if(trim($data['detail_firstname'].$data['detail_lastname'].$data['detail_company'])) {
-            $t                          = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-            if(empty($t))   $t          = trim($data['detail_company']);
-            if($t) $userdata['name']    = $t;
-            $userdata['url']            = trim($data['detail_website']);
+        $userdata['id'] = $data['usr_id'];
+        if (trim($data['detail_firstname'] . $data['detail_lastname'] . $data['detail_company'])) {
+            $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+            if (empty($t)) {
+                $t = trim($data['detail_company']);
+            }
+            if ($t) {
+                $userdata['name'] = $t;
+            }
+            $userdata['url'] = trim($data['detail_website']);
         }
     } elseif($data['detail_login']) {
-        $t                  = trim($data['detail_firstname'].' '.$data['detail_lastname']);
-        if(empty($t)) $t    = $data['detail_company'];
-        $userdata['login']  = $data['detail_login'];
-        $userdata['name']   = $t;
-        $userdata['email']  = $data['detail_email'];
-        $userdata['url']    = $data['detail_website'];
+        $t = trim($data['detail_firstname'] . ' ' . $data['detail_lastname']);
+        if (empty($t)) {
+            $t = $data['detail_company'];
+        }
+        $userdata['login'] = $data['detail_login'];
+        $userdata['name'] = $t;
+        $userdata['email'] = $data['detail_email'];
+        $userdata['url'] = $data['detail_website'];
         $userdata['source'] = 'PROFILE';
-        $userdata['id']     = $data['detail_id'];
+        $userdata['id'] = $data['detail_id'];
     }
     return $userdata;
 }
@@ -3694,7 +3698,7 @@ function _checkFrontendUserAutoLogin() {
     // logout
     if(session_id() && (isset($_POST['feLogout']) || isset($_GET['feLogout']))) {
         unset($_SESSION[ session_id() ]);
-        setcookie('cmsgoFeLoginRemember', '', time()-3600, '/',  getCookieDomain() );
+        setcookie('cmsgoFeLoginRemember', '', time()-3600, '/',  getCookieDomain(), CMSGO_SSL, true);
     }
     define('FEUSER_LOGIN_STATUS', _getFeUserLoginStatus() );
 }
@@ -4322,7 +4326,7 @@ function render_device($string) {
         return '';
     }
 
-    if(empty($GLOBALS['cmsgo']['render_device']) || strpos($string, '<!--if:') === false) {
+    if(empty($GLOBALS['cmsgo']['render_device']) || (strpos($string, '<!--if:') === false && strpos($string, '<!--!if:') === false)) {
         return $string;
     }
 

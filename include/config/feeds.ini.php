@@ -27,7 +27,7 @@ feedEmail           = "feed@mysite.tld"
 timeZone            = "+01:00"          ; your local timezone, set to "" to disable or for GMT
 cacheTTL            = 3600              ; if 0 no caching will be used otherwise these are seconds
 
-structureID         = ""                    ; if empty it will return the list of all articles sort by date, or use an cmsgo alias as starting point
+structureID         = ""                    ; if empty it will return the list of all articles sort by date, or use an cmsGO! alias as starting point
                                         ; you can also use structureID there seperated by ','
 maxentries          = 10
 encoding            = UTF-8     ;ISO-8859-1

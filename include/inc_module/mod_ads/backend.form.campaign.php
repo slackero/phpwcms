@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -30,7 +30,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 <table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
 
 	<tr>
-		<td align="right" class="chatlist" nowrap="nowrap"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
+		<td align="right" class="chatlist nowrap" nowrap="nowrap"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
 		<td class="v10"><?php
 
 		echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['adcampaign_changed'])));

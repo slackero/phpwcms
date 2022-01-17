@@ -13,7 +13,7 @@
 // script contains everything necessary to track ad banner clicks and so on...
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -40,7 +40,7 @@ if(isset($_GET['u']) && $_GET['u'] == CMSGO_USER_KEY) {
 
 		if(empty($_COOKIE['cmsgoAdsUserId']) || !preg_match('/^[0-9a-f]{32}$/', ($ads_userid = $_COOKIE['cmsgoAdsUserId']) ) ) {
 			$ads_userid	= md5($ads_userip.microtime());
-			setcookie('cmsgoAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain() );
+			setcookie('cmsgoAdsUserId', $ads_userid, time()+63072000, '/', getCookieDomain(), CMSGO_SSL, true);
 		}
 
 		$sql  =	'INSERT DELAYED INTO '.DB_PREPEND.'cmsgo_ads_tracking (';

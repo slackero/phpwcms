@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -35,19 +35,19 @@ if(isset($cmsgo['modules'][$module]['path'])) {
 
 	// module default stuff
 
-	// Initial check against 'content/%ads_dir%'
-	if(@!is_dir(CMSGO_CONTENT.CMSGO_ADS_DIR)) {
-		// Check older 'ads' static dir and try to rename
-		if(@is_dir(CMSGO_CONTENT.'ads')) {
-			@rename( CMSGO_CONTENT.'ads', CMSGO_CONTENT.CMSGO_ADS_DIR);
-		}
-		// Create new if not existing
-		if(_mkdir(CMSGO_CONTENT . CMSGO_ADS_DIR)) {
-			if(!is_file(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html')) {
-				@file_put_contents(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
-			}
-		}
-	}
+    // Initial check against 'content/%ads_dir%'
+    if(@!is_dir(CMSGO_CONTENT.CMSGO_ADS_DIR)) {
+        // Check older 'ads' static dir and try to rename
+        if(@is_dir(CMSGO_CONTENT.'ads')) {
+            @rename( CMSGO_CONTENT.'ads', CMSGO_CONTENT.CMSGO_ADS_DIR);
+        }
+        // Create new if not existing
+        if(_mkdir(CMSGO_CONTENT . CMSGO_ADS_DIR)) {
+            if(!is_file(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html')) {
+                @file_put_contents(CMSGO_CONTENT . CMSGO_ADS_DIR.'/index.html', '<html><head><title></title><meta content="0; url=../" http-equiv="refresh"/></head></html>');
+            }
+        }
+    }
 
 	// load special backend CSS
 	$BE['HEADER']['module_ads.css'] = '	<link href="'.$cmsgo['modules'][$module]['dir'].'template/backend.ads.css" rel="stylesheet" type="text/css">';

@@ -1,4 +1,4 @@
--- cmsgo default Schema
+-- cmsGO! default Schema
 -- ======================
 
 CREATE TABLE `cmsgo_address` (

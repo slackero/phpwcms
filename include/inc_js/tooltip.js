@@ -1,4 +1,4 @@
-// Tooltips for cmsgo Backend
+// Tooltips for cmsGO! Backend
 window.addEvent('domready', function(){
     var as = [];
     $$('input').each(function(a){

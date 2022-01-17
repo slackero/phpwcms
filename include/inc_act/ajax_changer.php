@@ -10,16 +10,15 @@
 
 // change value in table (aktive, public etc.)
 
-session_start();
-$cmsgo = array();
-require '../../include/config/conf.inc.php';
-require '../inc_lib/default.inc.php';
+$cmsgo = array('SESSION_START' => true);
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
-require CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
-require CMSGO_ROOT.'/include/inc_lib/general.inc.php';
-require CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
+require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if(empty($_SESSION["wcs_user"])) {
+if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
     headerRedirect('', 401);
     die('Sorry, access forbidden');
 }

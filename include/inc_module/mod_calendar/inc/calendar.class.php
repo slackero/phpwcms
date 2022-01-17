@@ -1,7 +1,7 @@
 <?php
 
 /**
- * cmsgo Calendar frontend render class
+ * cmsGO! Calendar frontend render class
  */
 class cmsgoCalendar {
 

@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -20,8 +20,8 @@ echo $BLM['under_construction'];
 ?>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank" style="margin:20px 0 0 20px;">
 <input type="hidden" name="cmd" value="_xclick" />
-<input type="hidden" name="business" value="cmsgo-paypal-donation@cmsgo.org" />
-<input type="hidden" name="item_name" value="cmsgo Donation" />
+<input type="hidden" name="business" value="phpwcms-paypal-donation@phpwcms.org" />
+<input type="hidden" name="item_name" value="cmsGO! Donation" />
 <input type="hidden" name="no_shipping" value="1" />
 <input type="hidden" name="no_note" value="1" />
 <input type="hidden" name="bn" value="PP-DonationsBF" />

@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -52,10 +52,10 @@ class cmsgoNews {
         global $BL;
         global $cmsgo;
 
-        $this->BL               = &$BL;
-        $this->cmsgo            = &$cmsgo;
-        $this->csrf_token       = get_token_get_string();
-        $this->base_url         = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
+        $this->BL = &$BL;
+        $this->cmsgo = &$cmsgo;
+        $this->csrf_token = get_token_get_string();
+        $this->base_url = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
         $this->base_url_decoded = CMSGO_URL.'cmsgo.php?'.$this->csrf_token.'&do=articles&p=3';
 
     }

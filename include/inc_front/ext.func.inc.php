@@ -440,11 +440,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                 $sql .= "ar.article_id=ac.acontent_aid ";
                 $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
                 $sql .= "AND ac.acontent_block NOT IN ('CPSET', 'SYSTEM') ";
-
-                if( !FEUSER_LOGIN_STATUS ) {
-                    $sql .= 'AND ac.acontent_granted=0 ';
-                }
-
+                $sql .= 'AND ac.acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
                 $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 AND ";
                 $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
 
@@ -461,11 +457,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                 $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 AND ";
                 $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate='0000-00-00 00:00:00' OR ac.acontent_killdate > NOW()) ";
                 $sql .= "AND ac.acontent_block='SYSTEM' ";
-
-                if( !FEUSER_LOGIN_STATUS ) {
-                    $sql .= 'AND ac.acontent_granted=0 ';
-                }
-
+                $sql .= 'AND ac.acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
                 $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 ";
                 if(!PREVIEW_MODE) {
                     $sql .= " AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
@@ -489,10 +481,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                     $sql .= "AND acontent_block NOT IN ('CPSET', 'SYSTEM') ";
                 }
 
-                if( !FEUSER_LOGIN_STATUS ) {
-                    $sql .= 'AND acontent_granted=0 ';
-                }
-
+                $sql .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
                 $sql .= "ORDER BY acontent_sorting".$sort.", acontent_id";
 
             }
@@ -677,9 +666,7 @@ function getContentPartAlias($crow) {
         if(!empty($alias['alias_status'])) {
             $sql_alias .= 'AND acontent_visible=1 ';
         }
-        if( !FEUSER_LOGIN_STATUS ) {
-            $sql_alias .= 'AND acontent_granted=0 ';
-        }
+        $sql_alias .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
         $sql_alias .= "LIMIT 1";
 
         $result = _dbQuery($sql_alias);

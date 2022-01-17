@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
 	die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -171,7 +171,7 @@ if($_entry['pages_total'] > 1) {
 	<tr>
 		<th width="25">&nbsp;</th>
 		<th><?php echo $BLM['campaign_entry'] ?></th>
-		<th class="listFormat" nowrap="nowrap"><?php echo $BLM['ad_from-to'] ?></th>
+		<th class="listFormat nowrap" nowrap="nowrap"><?php echo $BLM['ad_from-to'] ?></th>
 		<th class="listFormat"><?php echo $BLM['adplace'] ?></th>
 		<th>&nbsp;</th>
 	</tr>

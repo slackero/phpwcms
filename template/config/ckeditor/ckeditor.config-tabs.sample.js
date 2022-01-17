@@ -29,7 +29,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'about', items: [ 'About' ] }
     ];
     */
-    /* cmsgo default toolbar setting
+    /* cmsGO! default toolbar setting
     config.toolbar = [
         { name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
         { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },

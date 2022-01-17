@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -176,6 +176,7 @@ function check_image_extension($file, $filename, $file_image_size) {
                      break;
 
             case 16: $result = 'xbm'; break;
+            case 32: $result = 'webp'; break;
         }
     }
 
@@ -275,7 +276,6 @@ function getArticleReSorted($cat_id, $ordered_by) {
     }
 
     return $article;
-
 }
 
 function cmsgoversionCheck() {
@@ -588,6 +588,7 @@ function set_status_message($msg='', $type='info', $replace=array()) {
         case 'success':
         case 'info':
         case 'danger':
+        case 'error':
         case 'warning': break;
         default: $type = 'info';
     }
@@ -595,8 +596,8 @@ function set_status_message($msg='', $type='info', $replace=array()) {
     return NULL;
 }
 
-function set_language_cookie() {
-    setcookie('cmsgoBELang', $_SESSION["wcs_user_lang"], time()+(3600*24*365), '/', getCookieDomain() );
+function set_language_cookie($lang='en') {
+    setcookie('cmsgoBELang', $lang, time()+(3600*24*365), '/', getCookieDomain(), CMSGO_SSL, true);
 }
 
 // checks for alias and sets unique value
@@ -698,8 +699,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         $reserved = array_merge($reserved, $cmsgo['reserved_alias']);
     }
 
-    if($alias == '' || in_array($alias, $reserved) || ($alias == 'index' && $current_id != 'index') ) {
-        $alias .= ($mode == 'CONTENT') ? date('_Ymd') : '-view';
+    if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
+        $alias .= $mode === 'CONTENT' ? date('_Ymd') : '-view';
     }
 
     $alias = trim($alias, '-');
@@ -707,11 +708,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $where_acat     = '';
     $where_article  = '';
     $where_content  = '';
+    $current_sql_id = $current_id === 'index' ? 0 : $current_id;
 
     switch($mode) {
-        case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_id.' AND ';    break;
-        case 'ARTICLE':     $where_article  = 'article_id != '.$current_id.' AND '; break;
-        case 'CONTENT':     $where_content  = 'cnt_id != '.$current_id.' AND ';     break;
+        case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_sql_id.' AND ';    break;
+        case 'ARTICLE':     $where_article  = 'article_id != '.$current_sql_id.' AND '; break;
+        case 'CONTENT':     $where_content  = 'cnt_id != '.$current_sql_id.' AND ';     break;
     }
 
     // check alias against all structure alias
@@ -933,8 +935,8 @@ function _dbSaveCategories($categories=array(), $type='', $pid=0, $seperator=','
 
 function setItemsPerPage($default=25) {
     if( isset($_GET['showipp']) ) {
-        $ipp = intval( is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default );
-        setcookie('cmsgoBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain() );
+        $ipp = intval(is_numeric($_GET['showipp']) ? $_GET['showipp'] : $default);
+        setcookie('cmsgoBEItemsPerPage', $ipp, time()+157680000, '/', getCookieDomain(), CMSGO_SSL, true);
     } elseif(isset($_SESSION['PAGE_FILTER'])) {
         $ipp = $_SESSION['PAGE_FILTER']['IPP'];
     } elseif( isset($_COOKIE['cmsgoBEItemsPerPage']) ) {
@@ -1023,7 +1025,7 @@ function initJQuery() {
     $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.6.0.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
-// make cmsgo compatibility and upgrade check
+// make cmsGO! compatibility and upgrade check
 function cmsgo_revision_check($revision) {
 
     $revision_file = CMSGO_ROOT.'/include/inc_lib/revision/r';
@@ -1190,7 +1192,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
 
 
 /**
- * Correct the text in case cmsgo charset is different from UTF-8
+ * Correct the text in case cmsGO! charset is different from UTF-8
  *
  * @access public
  * @param string $text

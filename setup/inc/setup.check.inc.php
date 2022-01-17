@@ -1,4 +1,16 @@
 <?php
+/**
+ * cmsGO!
+ *
+ * @author Pixels & Points GmbH <info@pixels-points.ch>
+ * @copyright Copyright (c) 2002-2022, Pixels & Points GmbH
+ * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
+ *
+ **/
+
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
 
 if(!empty($step)) {
 
@@ -84,7 +96,7 @@ if(!empty($step)) {
 
                     mysqli_free_result($result);
 
-                    if($result = mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '').'cmsgo_user')) {
+                    if($result = mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '') . 'cmsgo_user')) {
 
                         $_db_prepend_error = true;
                         mysqli_free_result($result);
@@ -127,7 +139,7 @@ if(!empty($step)) {
 
                             // now read and display sql queries
 
-                            $_db_prepend = ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '');
+                            $_db_prepend = $cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '';
 
                             $sql_data = read_textfile($DOCROOT . '/setup/default_sql/cmsgo_init.sql');
                             $sql_data = $sql_data . read_textfile($DOCROOT . '/setup/default_sql/cmsgo_inserts.sql');
@@ -218,8 +230,8 @@ if(!empty($step)) {
             } else {
                 mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
                 mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $cmsgo["charset"])."'");
-                $cmsgo["db_prepend"] = ($cmsgo["db_prepend"]) ? $cmsgo["db_prepend"]."_" : "";
-                $sql =  "INSERT INTO ".$cmsgo["db_prepend"]."cmsgo_user (usr_login, usr_pass, usr_email, ".
+                $_db_prepend = $cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . "_" : "";
+                $sql =  "INSERT INTO " . $_db_prepend . "cmsgo_user (usr_login, usr_pass, usr_email, ".
                         "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".
                         mysqli_real_escape_string($db, $cmsgo["admin_user"])."', '".
                         mysqli_real_escape_string($db, md5($cmsgo["admin_pass"]))."', '".

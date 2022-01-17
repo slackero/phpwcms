@@ -8,6 +8,10 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
 ?>
 <h1><span class="number">3.</span> MySQL database settings </h1>
 <?php
@@ -118,18 +122,18 @@ if(!empty($db_additional)) {
 if(!empty($db_init)) {
 
 ?>
-    <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default cmsgo database schema</h1></td></tr>
+    <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default cmsGO! database schema</h1></td></tr>
 <?php
 
     if(empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
         echo '<tr><td>&nbsp;</td><td colspan="2">';
-        echo errorWarning('cmsgo tables still exists in choosen database. Rename table prefix might help!');
+        echo errorWarning('cmsGO! tables still exists in choosen database. Rename table prefix might help!');
         echo "</td></tr>\n";
         $_SESSION['admin_set'] = false;
     }
     if(isset($db_create_err) && count($db_create_err)) {
         echo '<tr><td>&nbsp;</td><td colspan="2">';
-        echo errorWarning('Errors while creating initial cmsgo tables. Solve it manually:</b></p><pre class="errorBox">'.html_specialchars(implode(";\n\n", $db_create_err).';').'</pre><p><b> ');
+        echo errorWarning('Errors while creating initial cmsGO! tables. Solve it manually:</b></p><pre class="errorBox">'.html_specialchars(implode(";\n\n", $db_create_err).';').'</pre><p><b> ');
         echo "</td></tr>\n";
 
         $_SESSION['admin_set']  = false;
@@ -139,19 +143,19 @@ if(!empty($db_init)) {
     } elseif(isset($db_create_err) || !empty($db_no_create)) {
 
         // OK fine - initial tables were created without error
-        $_db_prepend = ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '');
+        $_db_prepend = $cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '';
         $check = _dbQuery("SHOW TABLES LIKE '".$_db_prepend."cmsgo_%'");
 
         if($check && count($check)) {
 
-            $sql_data               = false;
-            $db_sql                 = false;
-            $db_fine                = true;
+            $sql_data   = false;
+            $db_sql     = false;
+            $db_fine    = true;
 
 ?>
       <tr>
         <td align="right" class="v10">&nbsp;</td>
-        <td colspan="2"><img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" /><strong>Fine!</strong> All initial cmsgo tables were created or still exists.<input type="hidden" name="db_sql_hidden" value="1" /></td>
+        <td colspan="2"><img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" /><strong>Fine!</strong> All initial cmsGO! tables were created or still exists.<input type="hidden" name="db_sql_hidden" value="1" /></td>
       </tr>
 <?php
 
@@ -163,7 +167,7 @@ if(!empty($db_init)) {
             $db_sql                 = false;
 
             echo '<tr><td>&nbsp;</td><td colspan="2">';
-            echo errorWarning('No cmsgo database table exists. Check before you continue!');
+            echo errorWarning('No cmsGO! database table exists. Check before you continue!');
             echo '<input type="hidden" name="db_sql_hidden" value="1" />';
             echo "</td></tr>\n";
 
@@ -179,7 +183,7 @@ if(!empty($db_init)) {
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
             <tr>
             <td><input name="db_sql" type="checkbox" id="db_sql" value="1"<?php if(!empty($db_sql)) echo ' checked="checked"' ?> /></td>
-            <td><label for="db_sql" class="v12">&nbsp;create cmsgo db tables&nbsp;</label><input type="hidden" name="db_sql_hidden" value="1" /></td>
+            <td><label for="db_sql" class="v12">&nbsp;create cmsGO! db tables&nbsp;</label><input type="hidden" name="db_sql_hidden" value="1" /></td>
             </tr>
         </table></td>
         <td class="chatlist">&nbsp;</td>
@@ -275,7 +279,7 @@ if(!empty($_SESSION['admin_set'])) {
     <tr>
         <td align="right" class="v10">Admin password:&nbsp;</td>
         <td><input name="admin_pass" type="password" id="admin_pass" class="v12" style="width:300px" size="30" autocomplete="new-password" /></td>
-        <td class="chatlist"><em>&nbsp;default: cmsgo </em></td>
+        <td class="chatlist"><em>&nbsp;default: cmsGO! </em></td>
     </tr>
 
     <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
@@ -299,7 +303,7 @@ if(!empty($_SESSION['admin_set'])) {
 
     } else {
 
-        $_db_prepend = ($cmsgo["db_prepend"] ? $cmsgo["db_prepend"].'_' : '');
+        $_db_prepend = $cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '';
 
         //show Info that admin info was saved
         //and also if stored in database

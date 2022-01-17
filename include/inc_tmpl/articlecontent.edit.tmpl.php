@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -24,20 +24,20 @@ $content['article'] = _dbQuery($sql);
 $content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
 $content['cp_setting_mode'] = false;
 
-if (empty($content['article']['acat_id'])) { // Root structure
+if(empty($content['article']['acat_id'])) { // Root structure
     $content['article']['acat_name']        = $indexpage['acat_name'];
     $content['article']['acat_id']          = 0;
     $content['article']['acat_template']    = $indexpage['acat_template'];
 }
 
 // Livedate / killdate fallback
-if (empty($content["livedate"]) || $content["livedate"] === '0000-00-00 00:00:00') {
+if(empty($content["livedate"]) || $content["livedate"] === '0000-00-00 00:00:00') {
     $content["livedate"] = '';
     $set_livedate = 0;
 } else {
     $set_livedate = 1;
 }
-if (empty($content["killdate"]) || $content["killdate"] === '0000-00-00 00:00:00') {
+if(empty($content["killdate"]) || $content["killdate"] === '0000-00-00 00:00:00') {
     $content["killdate"] = '';
     $set_killdate = 0;
 } else {

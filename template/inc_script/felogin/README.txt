@@ -7,7 +7,7 @@ multiple users and also multiple users for different site levels.
 Keep the folder structure as is. Check name of your template folder. 
 The default is "template" but maybe different for older releases.
 
-The script might be compatibe with all releases of cmsgo are 
+The script might be compatibe with all releases of cmsGO! are 
 having support for built-in frontend users because hiding
 levels is based on same techniques. But it's untested.
 

@@ -10,8 +10,8 @@
 
 // general wrapper for ajax based queries
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
+
 require '../../include/config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
@@ -19,7 +19,7 @@ require CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if(empty($_SESSION["wcs_user"])) {
+if(empty($_SESSION['wcs_user']) || empty($_SESSION['CMSGO_BROWSER_HASH']) || $_SESSION['CMSGO_BROWSER_HASH'] !== $GLOBALS['cmsgo']['USER_AGENT']['hash']) {
 	headerRedirect('', 401);
 	die('Sorry, access forbidden');
 }
@@ -100,6 +100,10 @@ switch($action) {
 		break;
 
 	case 'flush_image_cache':
+        if (empty($_SESSION['wcs_user_admin'])) {
+            headerRedirect('', 401);
+            die();
+        }
 		$files = returnFileListAsArray(CMSGO_ROOT.'/'.CMSGO_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
 		$data = array('file_count' => 0, 'status' => 'ok');
 		if(is_array($files)) {
@@ -127,20 +131,9 @@ switch($action) {
   //end
 }
 
-if($method == 'json') {
+if($method === 'json') {
 
 	header('Content-type: application/json');
-	if(!function_exists('json_encode')) {
-
-		require(CMSGO_ROOT.'/include/inc_ext/JSON.php');
-		$json = new Services_JSON();
-
-		echo $json->encode( $data );
-
-	} else {
-
-		echo json_encode( $data );
-
-	}
+    echo json_encode($data);
 
 }

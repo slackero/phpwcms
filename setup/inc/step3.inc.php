@@ -8,6 +8,10 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+
 ?>
 <p class="title">cmsgo path settings </p>
 <p>Please check that any path value does NOT begin or end with a slash. I recommend

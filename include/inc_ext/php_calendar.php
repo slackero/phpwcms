@@ -5,7 +5,7 @@
  * see example at http://keithdevens.com/weblog
  * License: http://keithdevens.com/software/license
  *
- * enhanced by Oliver Georgi for cmsGo!
+ * enhanced by Oliver Georgi for cmsGO!
  * - 2020-04-15: refactored, solve deprecated functions
  **/
 

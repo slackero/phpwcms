@@ -35,7 +35,7 @@ $BL['be_nav_profile']                   = 'PROFILE';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DISCUSS';
 
-$BL['be_page_title']                    = 'cmsgo backend (administration)';
+$BL['be_page_title']                    = 'cmsGO! backend (administration)';
 
 $BL['be_subnav_article_center']         = 'article center';
 $BL['be_subnav_article_new']            = 'new article';
@@ -136,7 +136,7 @@ $BL['be_profile_label_signature']       = 'signature';
 $BL['be_profile_label_notes']           = 'notes';
 $BL['be_profile_label_profession']      = 'profession';
 $BL['be_profile_label_newsletter']      = 'newsletter';
-$BL['be_profile_text_newsletter']       = 'I want to receive the general cmsgo newsletter.';
+$BL['be_profile_text_newsletter']       = 'I want to receive the general cmsGO! newsletter.';
 $BL['be_profile_label_public']          = 'public';
 $BL['be_profile_text_public']           = 'Anybody should be able to see my personal profile.';
 $BL['be_profile_label_button']          = 'update personal data';
@@ -305,7 +305,7 @@ $BL['be_fsearch_public']                = 'public';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']                    = 'internal chat';
-$BL['be_chat_info']                     = 'Here you can chat with other cmsgo backend users about everything you want. This medium is for realtime speaking but you can also let a message that everybody can read. If you want to exchange ideas with others use the discussion please (later cmsgo version).';
+$BL['be_chat_info']                     = 'Here you can chat with other cmsGO! backend users about everything you want. This medium is for realtime speaking but you can also let a message that everybody can read. If you want to exchange ideas with others use the discussion please (later cmsGO! version).';
 $BL['be_chat_start']                    = 'click here to start the chat';
 $BL['be_chat_lines']                    = 'chat lines';
 
@@ -360,7 +360,7 @@ $BL['be_admin_usr_err2']                = 'username is empty (required)';
 $BL['be_admin_usr_err3']                = 'password is empty (required)';
 $BL['be_admin_usr_err4']                = "email isn't valid";
 $BL['be_admin_usr_err']                 = 'error';
-$BL['be_admin_usr_mailsubject']         = 'welcome to cmsgo backend';
+$BL['be_admin_usr_mailsubject']         = 'welcome to cmsGO! backend';
 $BL['be_admin_usr_mailbody']            = "WELCOME TO THE CMSGO BACKEND\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\ncmsgo admin\n ";
 $BL['be_admin_usr_title']               = 'add new user account';
 $BL['be_admin_usr_realname']            = 'real name';
@@ -374,13 +374,13 @@ $BL['be_admin_usr_button']              = 'send user data';
 
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edit user account';
-$BL['be_admin_usr_emailsubject']        = 'cmsgo - account data changed';
+$BL['be_admin_usr_emailsubject']        = 'cmsGO! - account data changed';
 $BL['be_admin_usr_emailbody']           = "CMSGO USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\ncmsgo admin\n ";
 $BL['be_admin_usr_passnochange']        = '[NO CHANGE - USE THE KNOWN PASSWORD]';
 $BL['be_admin_usr_ebutton']             = 'update user data';
 
 // admin.listuser.tmpl.php
-$BL['be_admin_usr_ltitle']              = 'cmsgo user list';
+$BL['be_admin_usr_ltitle']              = 'cmsGO! user list';
 $BL['be_admin_usr_ldel']                = 'ATTENTION!&#13;This will delete user';
 $BL['be_admin_usr_create']              = 'create new user';
 $BL['be_admin_usr_editusr']             = 'edit user';
@@ -654,7 +654,7 @@ $BL['be_admin_tmpl_nolayout']           = 'No page layout available!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'search';
 $BL['be_cnt_results']                   = 'results';
-$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show all)';
+$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show max. 25)';
 $BL['be_cnt_opennewwin']                = 'open new window';
 $BL['be_cnt_searchlabeltext']           = 'these are predefined texts and values for the search form and search result page and texts are shown when more than the given count of results per page should be shown.';
 $BL['be_cnt_input']                     = 'input';
@@ -1072,12 +1072,12 @@ $BL['be_cnt_sysadmin_system']           = 'system';
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']               = 'Your installation is up to date, no updates are available for this version of cmsgo.';
 $BL['Version_not_up_to_date']           = 'Your installation does <b>not</b> seem to be up to date. Updates are available for this version of cmsgo, please visit <a href="https://github.com/slackero/cmsgo/releases" target="_blank">GitHub Releases</a> to obtain the latest version.';
-$BL['Latest_version_info']              = 'The latest official version is <b>cmsgo %s</b>.';
-$BL['Current_version_info']             = 'You are running <b>cmsgo %s</b>.';
-$BL['Connect_socket_error']             = 'Unable to open connection to cmsgo Server, reported error is:<br />%s';
+$BL['Latest_version_info']              = 'The latest official version is <b>cmsGO! %s</b>.';
+$BL['Current_version_info']             = 'You are running <b>cmsGO! %s</b>.';
+$BL['Connect_socket_error']             = 'Unable to open connection to cmsGO! Server, reported error is:<br />%s';
 $BL['Socket_functions_disabled']        = 'Unable to use socket functions.';
 $BL['Mailing_list_subscribe_reminder']  = 'For the latest information on updates to cmsgo, why not subscribe to our <a href="http://eepurl.com/bm-BrH" target="_blank">mailing list</a>.';
-$BL['Version_information']              = 'cmsgo Version Information';
+$BL['Version_information']              = 'cmsGO! Version Information';
 
 $BL['be_cnt_search_highlight']          = 'highlight';
 $BL['be_cnt_results_wordlimit']         = 'max. words for summary';
@@ -1097,7 +1097,6 @@ $BL['be_cnt_pagination']                = 'paginate content parts';
 $BL['be_article_pagination']            = 'paginate articles';
 $BL['be_article_per_page']              = 'articles per page';
 $BL['be_pagination']                    = 'pagination';
-
 
 $BL['be_ctype_recipe']                  = 'recipe';
 $BL['be_ctype_faq']                     = 'faq';
@@ -1123,7 +1122,6 @@ $BL['be_cnt_export_selection']          = 'export selection';
 $BL['be_cnt_delete_duplicates']         = 'delete duplicates';
 $BL['be_cnt_new_recipient']             = 'add recipient';
 
-
 $BL['be_cnt_newsletter_prepare']        = 'newsletter active';
 $BL['be_cnt_newsletter_prepare1']       = 'all recipients will be taken over to sending queue';
 $BL['be_cnt_newsletter_prepare2']       = 'sending queue will be updated&#8230;';
@@ -1136,7 +1134,7 @@ $BL['be_profile_label_gender']          = 'gender';
 $BL['be_profile_label_birthday']        = 'birthday';
 
 $BL['be_cnt_store_in']                  = 'save to field';
-$BL['be_aboutlink_title']               = 'information about cmsgo and license';
+$BL['be_aboutlink_title']               = 'information about cmsGO! and license';
 
 $BL['be_shortdate']                     = 'n/j/y';
 $BL['be_shortdatetime']                 = 'n/j/y G:i';
@@ -1271,7 +1269,9 @@ $BL['be_on']                            = 'on';
 $BL['be_random']                        = 'random';
 $BL['be_sorted']                        = 'sorted';
 $BL['be_granted_download']              = 'secured frontend download only';
-$BL['be_granted_feuser']                = 'for logged-in frontend users only';
+$BL['be_granted_feuser']                = 'Only visible for logged-in frontend users';
+$BL['be_hidden_for_feuser']             = 'Hidden for logged-in frontend users';
+$BL['be_visible_for_everybody']         = 'Visible for everybody (default)';
 $BL['be_fileuploader_typeError']        = "{file} has an invalid extension. Valid extension(s): {extensions}.";
 $BL['be_fileuploader_sizeError']        = "{file} is too large, maximum file size is {sizeLimit}.";
 $BL['be_fileuploader_minSizeError']     = "{file} is too small, minimum file size is {minSizeLimit}.";
@@ -1459,6 +1459,8 @@ $BL['be_google_analytics_enable'] = 'use Google Analytics';
 $BL['be_google_tag_manager_enable'] = 'use Google Tag Manager';
 $BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
+$BL['be_tracking_cookie_flags'] = 'enable <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>cookie flags</u> (generated automatically)</a>';
+$BL['be_tracking_custom_properties'] = 'custom <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>config parameters</u></a> (prop1: val1, prop2, val2)';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';

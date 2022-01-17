@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -1207,7 +1207,7 @@ if($content['opengraph']['render']) {
 }
 
 if(empty($cmsgo['disable_generator'])) {
-    set_meta('generator', 'cmsgo ' . CMSGO_VERSION);
+    set_meta('generator', 'cmsGO! ' . CMSGO_VERSION);
 }
 
 // replace Print URL
@@ -1486,14 +1486,13 @@ if(!$cmsgo['donottrack']) {
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-            'anonymize' => ", {'anonymize_ip': true}",
             'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
-    var gaOptOutCookie = 'ga-disable-%s';
+    var gaOptOutCookie = 'ga-disable-%1\$s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
     }
     function gaOptout() {
-        document.cookie = gaOptOutCookie + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+        document.cookie = gaOptOutCookie + '=true; Expires=Thu, 31 Dec 2099 23:59:59 UTC; Path=/%2\$s';
         window[gaOptOutCookie] = true;
     }
   </script>"
@@ -1503,16 +1502,39 @@ if(!$cmsgo['donottrack']) {
         } else {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
-        if (empty($block['tracking_ga']['anonymize'])) {
-            $template_default['settings']['tracking']['ga']['anonymize'] = '';
+        $block['tracking_ga']['config'] = array(
+            "cookie_comain: '" . $cmsgo['session_cookie_params']['domain'] . "'"
+        );
+        if (!empty($block['tracking_ga']['anonymize'])) {
+            $block['tracking_ga']['config'][] = 'anonymize_ip: true';
+        }
+        if (!empty($block['tracking_ga']['custom_properties'])) {
+            $block['tracking_ga']['config'][] = $block['tracking_ga']['custom_properties'];
+        }
+
+        $block['tracking_ga']['ga_cookie_flags'] = array();
+        if (CMSGO_SSL) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'Secure';
+        }
+        if ($cmsgo['session_cookie_params']['httponly']) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'HttpOnly';
+        }
+        if ($cmsgo['session_cookie_params']['samesite']) {
+            $block['tracking_ga']['ga_cookie_flags'][] = 'SameSite=' . $cmsgo['session_cookie_params']['samesite'];
+        }
+        $block['tracking_ga']['ga_cookie_flags'] = implode('; ', $block['tracking_ga']['ga_cookie_flags']);
+
+        if (!empty($block['tracking_ga']['cookie_flags'])) {
+            $block['tracking_ga']['config'][] = "cookie_flags: '" . $block['tracking_ga']['ga_cookie_flags'] . "'";
         }
         if (!empty($template_default['settings']['tracking']['ga']['optout'])) {
-            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id']);
+            $block['custom_htmlhead']['head_ga_optout.js'] = sprintf($template_default['settings']['tracking']['ga']['optout'], $block['tracking_ga']['id'], $block['tracking_ga']['ga_cookie_flags'] ? '; ' . $block['tracking_ga']['ga_cookie_flags'] : '');
         }
+        $block['tracking_ga']['config'] = ', {' . implode(', ', $block['tracking_ga']['config']) . '}';
         if ($template_default['settings']['tracking']['ga']['position'] === 'head') {
-            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+            $block['custom_htmlhead']['head_ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $block['tracking_ga']['config']);
         } else {
-            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $template_default['settings']['tracking']['ga']['anonymize']);
+            $block['custom_htmlhead']['ga.js'] = sprintf($template_default['settings']['tracking']['ga']['code'], $block['tracking_ga']['id'], $block['tracking_ga']['config']);
         }
     }
 
@@ -1723,11 +1745,11 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 
                     if( $this_aid = intval($this_aid) ) {
 
-                        $all_aid[$this_aid] = $this_aid;
+                        $all_aid[ $this_aid ]   = $this_aid;
 
                     } elseif( $this_id = intval($this_id) ) {
 
-                        $all_id[$this_id] = $this_id;
+                        $all_id[ $this_id ]     = $this_id;
 
                     }
 
@@ -1820,9 +1842,70 @@ if(!empty($cmsgo['gt_mod']) && strpos($content["all"], '{GT') !== false) {
     $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
 }
 
+// Replace image_resized.php
+if (strpos($content['all'], 'image_resized.php') !== false) {
+    function deprecated_image_resized($matches) {
+        $src = explode('?', $matches[2]);
+        if (empty($src[1])) {
+            return $matches[0];
+        }
+        $src = explode('&', html_despecialchars($src[1]));
+        $defs = array(
+            'format' => CMSGO_WEBP ? 'webp' : 'jpg',
+            'imgfile' => 'img/leer.gif',
+            'w' => 0,
+            'h' => 0,
+            'q' => CMSGO_QUALITY
+        );
+        foreach ($src as $attribute) {
+            if (strpos($attribute, '=') !== false) {
+                list($param, $value) = explode('=', $attribute);
+                if (isset($defs[$param])) {
+                    if ($param === 'format' && !CMSGO_WEBP) {
+                        $defs[$param] = trim($value, '.');
+                    } elseif ($param === 'imgfile') {
+                        $value = explode('/', trim($value));
+                        $defs[$param] = cut_ext($value[count($value) - 1]);
+                        if (strlen($defs[$param]) !== 32) {
+                            return $matches[0];
+                        }
+                    } elseif ($param === 'w' || $param === 'h') {
+                        $defs[$param] = intval($value);
+                    }
+                }
+            }
+        }
+
+        $attributes = trim(trim($matches[1]) . ' ' . trim($matches[3]));
+
+        if (!$defs['w'] || !$defs['h']) {
+            if (preg_match('/width=(.+?)\s/', $attributes . ' ', $width)) {
+                if ($width = intval(trim($width[1], '"\''))) {
+                    $defs['w'] = $width;
+                };
+            }
+            if (preg_match('/height=(.+?)\s/', $attributes . ' ', $height)) {
+                if ($height = intval(trim($height[1], '"\''))) {
+                    $defs['h'] = $height;
+                }
+            }
+        }
+
+        $img = '<img src="';
+        $img .= CMSGO_REWRITE ? 'im' : 'img/cmsimage.php';
+        $img .= '/' . $defs['w'] . 'x' . $defs['h'] . 'x0x' . $defs['q'] . '/' . $defs['imgfile'] . '.' . $defs['format'];
+        $img .= '" ' . $attributes . '>';
+
+        return $img;
+    }
+
+    $content["all"] = preg_replace_callback('/<img(.+)src=(?:"|\')(image_resized\.php.+?)(?:"|\')(.+?)>/', 'deprecated_image_resized', $content["all"]);
+}
+
 if (CMSGO_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
     $content["all"] = preg_replace('/download.php\?f=([a-f0-9]{32,32}).*?"/', 'dl/$1/"', $content["all"]);
 }
+
 // Force Image extensions to WebP
 if (CMSGO_WEBP) {
     $content['all'] = preg_replace('/(\/[a-f0-9]{1,32}\.)(jpg|jpeg|png|gif)/', '$1webp', $content['all']);

@@ -12,28 +12,26 @@
 list($usec, $sec) = explode(' ', microtime());
 $cmsgo_rendering_start = $usec + $sec;
 
-session_start();
-
 //define used var names
 $body_onload                = '';
 $forward_to_message_center  = false;
 $wcsnav                     = array();
 $indexpage                  = array();
-$cmsgo                      = array();
+$cmsgo                    = array('SESSION_START' => true);
 $BL                         = array();
 $BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
-$CMSGO_ROOT                 = dirname(__FILE__);
-
-// check against user's language
-if (!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
-    $BE['LANG'] = $_SESSION["wcs_user_lang"];
-}
+$CMSGO_ROOT               = dirname(__FILE__);
 
 require_once $CMSGO_ROOT.'/include/config/conf.inc.php';
 require_once $CMSGO_ROOT.'/include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
 require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
+
+// check against user's language
+if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
+    $BE['LANG'] = $_SESSION["wcs_user_lang"];
+}
 
 checkLogin();
 validate_csrf_tokens();
@@ -47,7 +45,7 @@ include_once CMSGO_ROOT."/include/inc_lang/code.lang.inc.php";
 
 $BL['modules'] = array();
 
-if (!empty($_SESSION["wcs_user_lang_custom"])) {
+if(!empty($_SESSION["wcs_user_lang_custom"])) {
     //use custom lang if available -> was set in edit.php
     $BL['merge_lang_array'][0]      = $BL['be_admin_optgroup_label'];
     $BL['merge_lang_array'][1]      = $BL['be_cnt_field'];
@@ -122,7 +120,7 @@ switch ($do) {
         break;
 
     case "admin":       //Admin
-        if (!empty($_SESSION["wcs_user_admin"])) {
+        if(!empty($_SESSION["wcs_user_admin"])) {
             include CMSGO_ROOT.'/include/inc_lib/admin.functions.inc.php';
         }
         break;
@@ -167,13 +165,14 @@ if ($do == "messages" && $p == 1) {
     initJsOptionSelect();
 }
 
-if ($BE['LANG'] == 'ar') {
+if($BE['LANG'] == 'ar') {
     $BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
 }
+
 ?>
-<!-- cmsgo HEADER -->
+<!-- cmsGO! HEADER -->
 </head>
-<body<?php echo $body_onload ?>><!-- cmsgo BODY_OPEN -->
+<body<?php echo $body_onload ?>><!-- cmsGO! BODY_OPEN -->
 <div id="container">
   <header id="header" class="navbar navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
@@ -506,7 +505,7 @@ $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/
 $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
 
 ?>
-<!-- cmsgo BODY_CLOSE -->
+<!-- cmsGO! BODY_CLOSE -->
 <div id="browserModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
@@ -545,16 +544,16 @@ if ($body_onload) {
 //$BE['HEADER'][] = '';
 
 // html head section
-$BE['HTML'] = str_replace('<!-- cmsgo HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);
+$BE['HTML'] = str_replace('<!-- cmsGO! HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);
 
 // body open area
-$BE['HTML'] = str_replace('<!-- cmsgo BODY_OPEN -->', implode(LF, $BE['BODY_OPEN']), $BE['HTML']);
+$BE['HTML'] = str_replace('<!-- cmsGO! BODY_OPEN -->', implode(LF, $BE['BODY_OPEN']), $BE['HTML']);
 
 // body close area
-$BE['HTML'] = str_replace('<!-- cmsgo BODY_CLOSE -->', implode(LF, $BE['BODY_CLOSE']), $BE['HTML']);
+$BE['HTML'] = str_replace('<!-- cmsGO! BODY_CLOSE -->', implode(LF, $BE['BODY_CLOSE']), $BE['HTML']);
 
 // Show global system status message
 $BE['HTML'] = str_replace('{STATUS_MESSAGE}', show_status_message(true), $BE['HTML']);
 
 // return all
-echo tokenize_urls(tokenize_forms($BE['HTML']));
+echo tokenize_urls( tokenize_forms($BE['HTML']) );

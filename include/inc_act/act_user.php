@@ -8,8 +8,7 @@
  *
  **/
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
 
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
@@ -34,7 +33,7 @@ if(!empty($_SESSION["wcs_user_admin"])) { // With admin permissions only
                 @mail(
                   $user_email,
                   'Your account on '.$host.' was deactivated',
-                  "Dear user,\n\nYour account to CMSGO was deactivated!\n\nContact the admin if you have any question.\n\nSee you on ".$cmsgo["site"].'.',
+                    "Dear user,\n\nYour account to cmsGO! was deactivated!\n\nContact the admin if you have any question.\n\nSee you on ".$cmsgo["site"].'.',
                   "From: ".$cmsgo["admin_email"]."\nReply-To: ".$cmsgo["admin_email"]."\n"
                   );
             }

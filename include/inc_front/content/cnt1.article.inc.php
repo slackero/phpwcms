@@ -9,32 +9,31 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
 
 //image with text
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_default/imagetext.tmpl')) {
 
-    $crow["acontent_template"]  = render_device( @file_get_contents(CMSGO_TEMPLATE.'inc_default/imagetext.tmpl') );
+    $crow["acontent_template"] = render_device( @file_get_contents(CMSGO_TEMPLATE.'inc_default/imagetext.tmpl') );
 
 } elseif(is_file(CMSGO_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"])) {
 
-    $crow["acontent_template"]  = render_device( @file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"]) );
+    $crow["acontent_template"] = render_device( @file_get_contents(CMSGO_TEMPLATE.'inc_cntpart/imagetext/'.$crow["acontent_template"]) );
 
 } else {
 
-    $crow["acontent_template"]  = '[IMAGETEXT]<div class="image-with-text">{IMAGETEXT}</div>[/IMAGETEXT]';
+    $crow["acontent_template"] = '[IMAGETEXT]<div class="image-with-text">{IMAGETEXT}</div>[/IMAGETEXT]';
 
 }
 
-$crow["settings"]          = get_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
-$crow["settings"]          = parse_ini_str($crow["settings"], false);
+$crow["settings"] = get_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
+$crow["settings"] = parse_ini_str($crow["settings"], false);
 
 $crow["acontent_template"] = replace_tmpl_section('IMAGETEXT_SETTINGS', $crow["acontent_template"]);
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
@@ -42,8 +41,8 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['is_imagetext']       = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
-$crow['has_image']          = false;
+$crow['is_imagetext'] = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
+$crow['has_image'] = false;
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom

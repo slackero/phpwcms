@@ -1,7 +1,7 @@
 <?php
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -18,7 +18,7 @@ $language_cookie_duration   = 60*60*24*365; // 1 year
 if(isset($_GET['lang'])) {
     $language_current = strtolower( substr($_GET['lang'], 0, 2) );
     $_SESSION['cmsgoFrontendLanguage'] = $language_current;
-    setcookie('cmsgoFrontendLanguage', $language_current, time()+$language_cookie_duration, '/' );
+    setcookie('cmsgoFrontendLanguage', $language_current, time()+$language_cookie_duration, '/', getCookieDomain(), CMSGO_SSL, true);
 } elseif(isset($_SESSION['cmsgoFrontendLanguage'])) {
     $language_current   = $_SESSION['cmsgoFrontendLanguage'];
 } elseif(isset($_COOKIE['cmsgoFrontendLanguage'])) {
@@ -27,7 +27,7 @@ if(isset($_GET['lang'])) {
 if(!in_array($language_current, $cmsgo['allowed_lang'])) {
     $language_current   = $language_default;
     $_SESSION['cmsgoFrontendLanguage'] = $language_current;
-    setcookie('cmsgoFrontendLanguage', $language_current, time()+$language_cookie_duration, '/' );
+    setcookie('cmsgoFrontendLanguage', $language_current, time()+$language_cookie_duration, '/', getCookieDomain(), CMSGO_SSL, true);
 }
 
 // init language replacements

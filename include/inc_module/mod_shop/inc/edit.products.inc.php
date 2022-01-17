@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -18,12 +18,13 @@ if (!defined('CMSGO_ROOT')) {
 
 $BE['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 
-if (!isset($plugin['data']['shopprod_duplicate'])) {
+if(!isset($plugin['data']['shopprod_duplicate'])) {
     $plugin['data']['shopprod_duplicate'] = 0;
 }
-if (!isset($plugin['data']['shopprod_overwrite_meta'])) {
+if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     $plugin['data']['shopprod_overwrite_meta'] = 1;
 }
+
 ?>
 
 <form action="<?php

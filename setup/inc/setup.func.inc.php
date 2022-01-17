@@ -228,7 +228,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['php_timezone'] = ''; // overwrite PHP default time zone http://php.net/manual/en/timezones.php\n";
     $conf_file .= "\$cmsgo['wysiwyg_template'] = array(); // deprecated\n";
     $conf_file .= "\$cmsgo['GET_pageinfo'] = 0; // will add \"&pageinfo=/cat1/cat2/page-title.htm\" based on the breadcrumb information for each site link \n";
-    $conf_file .= "\$cmsgo['version_check'] = 1; // checks for current release of cmsGo! online \n";
+    $conf_file .= "\$cmsgo['version_check'] = 1; // checks for current release of cmsGO! online \n";
     $conf_file .= "\$cmsgo['SESSION_FEinit'] = 0; // set 1 to enable sessions in frontend, 0 to disable sessions in frontend \n";
     $conf_file .= "\$cmsgo['Login_IPcheck'] = 0; \n";
     $conf_file .= "\$cmsgo['frontend_edit'] = 0; // enable content specific direct links - linking direct into the backend \n";
@@ -238,17 +238,17 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['enable_seolog'] = 1; // enable or disable logging of search engine referrer data \n";
     $conf_file .= "\$cmsgo['i18n_parse'] = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement\n";
     $conf_file .= "\$cmsgo['i18n_complex'] = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars 'en'), true - 'en-gb'...\n";
-    $conf_file .= "\$cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsGo! Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
+    $conf_file .= "\$cmsgo['FCK_FileBrowser'] = 1; // enable|disable cmsGO! Filebrowser in FCKeditor instead of built-in FCK file bowser support\n";
     $conf_file .= "\$cmsgo['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$cmsgo['edit.php'] = 'edit.php';\n";
     $conf_file .= "\$cmsgo['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (//vjs.zencdn.net/7.11/)\n";
+    $conf_file .= "\$cmsgo['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.14/)\n";
     $conf_file .= "\$cmsgo['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$cmsgo['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$cmsgo['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
     $conf_file .= "\$cmsgo['wkhtmltopdf_path'] = ''; // used for generating PDF, use full path including application name '/usr/bin/wkhtmltopdf'\n";
     $conf_file .= "\$cmsgo['render_clean_html'] = 0; // clean up HTML source a bit, experimental can have unexpected side effects\n";
-    $conf_file .= "\$cmsgo['browser_check'] = array('fe'=>false, 'be'=>true, 'vs' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
+    $conf_file .= "\$cmsgo['browser_check'] = array('fe' => false, 'be' => false, 'vs' => '', 'insecure' => true, 'required' => ''); // enable Browser Update check in frontend and/or backend, use 'vs' to which browser version, see http://www.browser-update.org/index.html#install\n";
     $conf_file .= "\$cmsgo['usergroup_support'] = false; // set true or false to support/disable this feature, is experimental\n";
     $conf_file .= "\$cmsgo['force301_id2alias'] = false; // send 301 HTTP Redirect when article/structure has alias but ID is given\n";
     $conf_file .= "\$cmsgo['force301_2struct'] = false; // send 301 HTTP Redirect to structure level when only 1 article is inside\n";
@@ -260,7 +260,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['X-UA-Compatible'] = ''; // what version of Internet Explorer the page should be rendered as, IE=edge, IE=10...\n";
     $conf_file .= "\$cmsgo['base_href'] = true; // set the <base href=\"\"> tag, use string (URL) or bool TRUE/FALSE\n";
     $conf_file .= "\$cmsgo['cp_default'] = 0; // set the default CP ID here as used in structure level editor, see http://goo.gl/BVODr\n";
-    $conf_file .= "\$cmsgo['js_in_body'] = 0; // add <script> direct before </body> instead inside of <head>\n";
+    $conf_file .= "\$cmsgo['js_in_body'] = 0; // add <script /> direct before </body> instead inside of <head>\n";
     $conf_file .= "\$cmsgo['set_article_active'] = 1; // activate (1) or disable (0) article by default on create\n";
     $conf_file .= "\$cmsgo['set_category_active'] = 1; // activate (1) or disable (0) category/structure level by default on create\n";
     $conf_file .= "\$cmsgo['set_file_active'] = 1; // activate (1) or disable (0) files and folders by default on create\n";
@@ -283,8 +283,10 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
     $conf_file .= "\$cmsgo['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).\n";
     $conf_file .= "\$cmsgo['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/.\n";
-    $conf_file .= "\$cmsgo['disable_generator']    = false; // Disable <meta name=\"generator\"> and header `X-phpwcms-Release`\n";
-    $conf_file .= "\$cmsgo['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`\n";
+    $conf_file .= "\$cmsgo['disable_generator'] = false; // Disable <meta name=\"generator\"> and header `X-cmsgo-Release`\n";
+    $conf_file .= "\$cmsgo['disable_processed_in'] = false; // Hide header `X-cmsgo-Page-Processed-In`\n";
+    $conf_file .= "\$cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript\n";
+    $conf_file .= "\$cmsgo['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";

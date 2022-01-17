@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -457,7 +457,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     case '0-9':
                     case 'WORD':
                     case 'LETTER+SPACE':
-                        $form_field_attributes = ' pattern="' . $cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ] . '"';
+                        $form_field_attributes = ' pattern="' . trim($cnt_form['regx_pattern'][ $cnt_form['special_attribute']['type'] ], '/') . '"';
                         break;
 
                     case 'PHONE':
@@ -475,7 +475,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         break;
 
                     case 'REGEX':
-                        $form_field_attributes = ' pattern="'.$cnt_form['special_attribute']['pattern'].'"';
+                        $form_field_attributes = ' pattern="'.trim($cnt_form['special_attribute']['pattern'], '/').'"';
                         break;
                 }
 
@@ -2006,16 +2006,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             $cnt_form['cc'][] = $cnt_form["copyto"];
         }
 
-        $cnt_form['fromEmail']  = $cnt_form["copyto"];
+        $cnt_form['fromEmail'] = $cnt_form["copyto"];
     }
 
     // check for unique recipients (target) and sender (fromEmail)
     if(!empty($cnt_form['checktofrom']) && !empty($cnt_form['fromEmail'])) {
-
         foreach($cnt_form["target"] as $value) {
-
             if(strtolower($cnt_form['fromEmail']) == strtolower($value)) {
-
                 $POST_ERR[] = '@@Sender&#8217;s email must be different from recipient&#8217;s email@@';
                 break;
             }

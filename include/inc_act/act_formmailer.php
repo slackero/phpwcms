@@ -7,8 +7,6 @@
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
-//  based on FormMail v1
-//  (c) 2003 webverbund.de Oliver Georgi (info@webverbund.de)
 
 // Only internal form sender allowed
 $cmsgo = array();
@@ -39,13 +37,15 @@ require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 if(!checkFormTrackingValue()) {
 
-	echo '<html><head><title>cmsgo Formmailer</title></head>';
-	echo '<body><pre>';
-	echo 'You are not allowed to send form!'.LF;
+    header("HTTP/1.0 405 Method Not Allowed");
+
+    echo '<html lang="en"><head><meta charset="utf-8"><title>cmsGO! Formmailer</title></head>';
+	echo '<body>';
+	echo '<h1>You are not allowed to send the form!</h1><pre>';
 	if(!CMSGO_GDPR_MODE) {
-        echo 'Your IP: ' . getRemoteIP() . LF;
+        echo 'Your IP: ' . html(getRemoteIP()) . LF;
     }
-	echo 'HTTP-REFERER: '.(empty($ref) ? 'unknown' : $ref);
+	echo 'HTTP-REFERRER: ' . (empty($ref) ? 'unknown' : html($ref));
 	echo '</pre></body></html>';
 	exit();
 
@@ -81,13 +81,13 @@ function cmsgo_form_encode($in_str, $charset) {
 
 //check which language to use
 $lang = "EN";
-if(isset($_POST["language"]) && strlen($_POST['language']) < 3 ) {
-	$lang = trim($_POST["language"]);
-	unset($_POST["language"]);
+if(isset($_POST["language"]) && strlen($_POST['language']) < 3) {
+    $_POST["language"] = trim(strtoupper($_POST["language"]));
+	if (isset($translate[$_POST["language"]])) {
+	    $lang = $_POST["language"];
 	$translate[$lang] = array_merge($translate['EN'], $translate[$lang]);
 }
-if(!isset($translate[$lang])) {
-	$lang = "EN";
+    unset($_POST["language"]);
 }
 
 //charset
@@ -99,7 +99,9 @@ if(isset($_POST["charset"])) {
 	$charset = str_replace('/', '', $charset);
 	unset($_POST["charset"]);
 }
-if(empty($charset)) $charset = 'utf-8';
+if(empty($charset)) {
+    $charset = 'utf-8';
+}
 $content_type = 'Content-Type: text/plain; charset='.$charset."\n";
 
 //getting the required fields list
@@ -242,7 +244,7 @@ if(isset($form_error)) {
 		$table = "";
 		foreach($form_error as $key => $value) {
   			$table .= "<tr bgcolor=\"#F4F4F4\">";
-    		$table .= "<td class=\"error\">[".$key."]</td>";
+    		$table .= "<td class=\"error\">[".html($key)."]</td>";
     		$table .= "<td class=\"error\">".html($value)."</td>";
   			$table .= "</tr>\n";
 		}
@@ -286,7 +288,7 @@ if(isset($form_error)) {
 	}
 
 	$body.= "\n====================================================================\n";
-	$body.= "cmsgo formmailer  | Copyright (C) 2003 \n";
+	$body.= "cmsGO! formmailer  | Copyright (C) 2022 \n";
 
 	// phpMailer Class
 	$mail = new PHPMailer();
@@ -324,10 +326,11 @@ if(isset($form_error)) {
 
 	$false = '';
 
+    $mail->setFrom($recipient, $cmsgo['SMTP_FROM_NAME']);
+    $mail->addReplyTo($recipient);
+
 	if(isset($send_copy_to)) {
 
-		$mail->setFrom($recipient, $cmsgo['SMTP_FROM_NAME']);
-		$mail->addReplyTo($recipient);
 		$mail->addAddress($send_copy_to);
 
 		if(!$mail->send()) {
@@ -336,11 +339,6 @@ if(isset($form_error)) {
 
 		$mail->setFrom($send_copy_to);
 		$mail->addReplyTo($send_copy_to);
-
-	} else {
-
-		$mail->setFrom($recipient, $cmsgo['SMTP_FROM_NAME']);
-		$mail->addReplyTo($recipient);
 
 	}
 

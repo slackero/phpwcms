@@ -8,8 +8,7 @@
  *
  **/
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
 
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
@@ -87,11 +86,12 @@ if($dl) {
 
 if($err):
 
-    session_destroy();
+    $_SESSION = array();
+    @session_destroy();
 
 ?><html>
 <head>
-<title>cmsgo File Error</title>
+<title>cmsGO! File Error</title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
 <link href="../inc_css/cmsgo.min.css" rel="stylesheet" type="text/css">
 </head>

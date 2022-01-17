@@ -8,9 +8,7 @@
  *
  **/
 
-session_start();
-
-$cmsgo            = array();
+$cmsgo            = array('SESSION_START' => true);
 $cmsgo_root       = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 $js_files_all       = array();
 $js_files_select    = array();
@@ -21,7 +19,8 @@ require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
 
 if( empty($_SESSION["wcs_user_lang"]) ) {
 
-    session_destroy();
+    $_SESSION = array();
+    @session_destroy();
     headerRedirect(CMSGO_URL, 401);
 
 } else {
@@ -262,7 +261,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     switch($js_aktion) {
 
         case 6:
-            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac') AND ";
+            $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac', 'webp') AND ";
                     break;
 
                     // H.264
@@ -331,7 +330,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
                         $allowed_ext = convertStringToArray(strtolower($cmsgo["multimedia_ext"]));
                         if(count($allowed_ext)) {
-                            $default_ext = "f_ext IN ('".implode("', '", $allowed_ext) . "')";
+                    $default_ext = "f_ext IN ('" . implode("', '", $allowed_ext) . "')";
                         }
 
                     }
@@ -449,7 +448,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     case 17:
                         $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
-
 
                     default:
                         $js = "addFile(parent.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";

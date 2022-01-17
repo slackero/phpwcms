@@ -649,7 +649,7 @@ $BL['be_admin_tmpl_nolayout'] = 'Kein Seitenlayout verf&uuml;gbar!';
 // added: 31-12-2003
 $BL['be_ctype_search'] = 'Suche';
 $BL['be_cnt_results'] = 'Ergebnisse';
-$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige alle)';
+$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige max. 25)';
 $BL['be_cnt_opennewwin'] = '&Ouml;ffne neues Fenster';
 $BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;sser ist';
 $BL['be_cnt_input'] = 'Eingabe';
@@ -1069,7 +1069,7 @@ $BL['Mailing_list_subscribe_reminder'] = 'Um immer die neuesten Informationen zu
 $BL['Version_information'] = 'cmsGO! Versionsinformation';
 
 $BL['be_cnt_search_highlight'] = 'Highlight';
-$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Summary)';
+$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Zusammenfassung)';
 $BL['be_cnt_page_of_pages'] = 'Suchnavi';
 $BL['be_cnt_page_of_pages_descr'] = '{PREV:Zur&uuml;ck}, Seite #/##, Ergebnis ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Vorw&auml;rts}';
 $BL['be_cnt_search_show_top'] = 'oben';
@@ -1258,7 +1258,9 @@ $BL['be_on'] = 'an';
 $BL['be_random'] = 'zuf&auml;llig';
 $BL['be_sorted'] = 'sortiert';
 $BL['be_granted_download'] = 'gesch&uuml;tzter Download im Frontend';
-$BL['be_granted_feuser'] = 'nur f&uuml;r angemeldete Frontend Benutzer';
+$BL['be_granted_feuser'] = 'Nur sichtbar f&uuml;r angemeldete Frontend Benutzer';
+$BL['be_hidden_for_feuser'] = 'Ausblenden f&uuml;r angemeldete Frontend Benutzer';
+$BL['be_visible_for_everybody'] = 'F&uuml;r jeden sichtbar (Standard)';
 $BL['be_fileuploader_typeError'] = "{file} hat eine nicht zulässige Erweiterung. Zulässig: {extensions}";
 $BL['be_fileuploader_sizeError'] = "{file} ist zu groß, Dateigröße maximal {sizeLimit}.";
 $BL['be_fileuploader_minSizeError'] = "{file} ist zu klein, Dateigröße mindestens {minSizeLimit}.";
@@ -1444,6 +1446,8 @@ $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
 $BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
 $BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
+$BL['be_tracking_cookie_flags'] = '<a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id?hl=de#cookie_flags" target="_blank"><u>Cookie Flags</u></a> aktivieren (automatisch generiert)';
+$BL['be_tracking_custom_properties'] = 'Zus&auml;tzliche <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/?hl=de" target="_blank"><u>Konfigurations-Parameter</u></a> (prop1: val1, prop2, val2)';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';

@@ -4,8 +4,8 @@
 
 User-Agent: *
 
-# Be careful with these settings related to cmsgo
-# =================================================
+# Be careful with these settings related to cmsGo!
+# ================================================
 #
 # exclude downloadable files from indexing
 #Disallow: /download.php*
@@ -21,7 +21,7 @@ Disallow: /content/pages/
 # And some resizing is done by files here especially cmsimage.php
 #Disallow: /img/
 #
-# cmsgo keeps uploaded files here, better let it as is
+# cmsGo! keeps uploaded files here, better let it as is
 # in general there is no direct access from the frontend to this
 Disallow: /filearchive/
 #

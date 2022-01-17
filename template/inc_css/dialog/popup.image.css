@@ -12,6 +12,10 @@ body {
     background-color: #ffffff;
 }
 
+a {
+    display: inline-block;
+}
 img {
+    display: inline-block;
     border: 0;
 }

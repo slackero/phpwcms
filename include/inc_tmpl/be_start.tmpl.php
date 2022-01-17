@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -21,17 +21,17 @@ $_cmsgo_home['homeMaxArticles'] = empty($_COOKIE['homeMaxArticles']) ? 10 : intv
 $_cmsgo_home['homeMaxCntParts'] = empty($_COOKIE['homeMaxCntParts']) ? 10 : intval($_COOKIE['homeMaxCntParts']);
 $_cmsgo_home['homeCntType'] = empty($_COOKIE['homeCntType']) ? '' : $_COOKIE['homeCntType'];
 
-if (isset($_POST['homeMaxArticles'])) {
-    if ($_cmsgo_home['homeMaxArticles'] = intval($_POST['homeMaxArticles'])) {
-        @setcookie('homeMaxArticles', strval($_cmsgo_home['homeMaxArticles']), time()+31536000); // store cookie for 1 year
+if(isset($_POST['homeMaxArticles'])) {
+	if($_cmsgo_home['homeMaxArticles'] = intval($_POST['homeMaxArticles'])) {
+		@setcookie('homeMaxArticles', strval($_cmsgo_home['homeMaxArticles']) , time()+31536000, '/', getCookieDomain(), CMSGO_SSL, true); // store cookie for 1 year
     }
 }
-if (isset($_POST['homeMaxCntParts'])) {
-    if ($_cmsgo_home['homeMaxCntParts'] = intval($_POST['homeMaxCntParts'])) {
-        @setcookie('homeMaxCntParts', strval($_cmsgo_home['homeMaxCntParts']), time()+31536000); // store cookie for 1 year
+if(isset($_POST['homeMaxCntParts'])) {
+	if($_cmsgo_home['homeMaxCntParts'] = intval($_POST['homeMaxCntParts'])) {
+		@setcookie('homeMaxCntParts', strval($_cmsgo_home['homeMaxCntParts']) , time()+31536000, '/', getCookieDomain(), CMSGO_SSL, true); // store cookie for 1 year
     }
     $_cmsgo_home['homeCntType'] = clean_slweg($_POST['homeCntType']);
-    @setcookie('homeCntType', $_cmsgo_home['homeCntType'], time()+31536000); // store cookie for 1 year
+	@setcookie('homeCntType', $_cmsgo_home['homeCntType'], time()+31536000, '/', getCookieDomain(), CMSGO_SSL, true); // store cookie for 1 year
     $_SESSION['cmsgo_backend_search'] = '';
 }
 
@@ -44,10 +44,10 @@ $_asql_1 .= "LEFT JOIN ".DB_PREPEND."cmsgo_article t2 ON ";
 $_asql_1 .= "t1.acontent_aid = t2.article_id ";
 $_asql_1 .= 'WHERE t1.acontent_trash=0 AND t2.article_deleted=0 ';
 $_asql_1 .= $_usql;
-if (is_intval($_cmsgo_home['homeCntType'])) {
+if(is_intval($_cmsgo_home['homeCntType'])) {
     $_asql_1 .= ' AND t1.acontent_type=' . _dbEscape($_cmsgo_home['homeCntType']);
 }
-if (!empty($_SESSION['cmsgo_backend_search'])) {
+if(!empty($_SESSION['cmsgo_backend_search'])) {
     $_asql_1 .= " AND (";
     $_asql_1 .= " CONCAT(t1.acontent_title,t1.acontent_subtitle,t1.acontent_text,t1.acontent_html) LIKE '%"._dbEscape($_SESSION['cmsgo_backend_search'], false)."%'";
     $_asql_1 .= " OR ";

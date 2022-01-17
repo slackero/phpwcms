@@ -33,9 +33,6 @@
  * @copyright 2010-2012 Brad wedell
  * @author Brad Wedell
  *
- * @link http://www.cmsgo.org/
- * @copyright 2009-2013 Oliver Georgi
- * @author Oliver Georgi <oliver at cmsgo dot de>
  * @package GoogleMapAPI (version 3) for cmsgo
  * @version 3.1beta
 */

@@ -28,7 +28,6 @@ if(!is_file($basepath.'/include/config/conf.inc.php')) {
     }
     die('Error: Config file missing. Check your setup!');
 }
-
 require_once $basepath.'/include/config/conf.inc.php';
 require_once $basepath.'/include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
@@ -171,11 +170,15 @@ if(count($block['bodyjs'])) {
     $content['page_end'] .= implode(LF, $block['bodyjs']);
 }
 if(!empty($cmsgo['browser_check']['fe'])) {
-    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'> var $buoop = {';
+    $buoop = array('insecure' => isset($cmsgo['browser_check']['insecure']) ? boolval($cmsgo['browser_check']['insecure']) : true);
     if(!empty($cmsgo['browser_check']['vs'])) {
-        $content['page_end'] .= 'vs:' . $cmsgo['browser_check']['vs'];
+        $buoop['vs'] = $cmsgo['browser_check']['vs'];
     }
-    $content['page_end'] .= '}; </script><script'.SCRIPT_ATTRIBUTE_TYPE.' src="//browser-update.org/update.js"></script>';
+    if(!empty($cmsgo['browser_check']['required'])) {
+        $buoop['required'] = '{' . trim($cmsgo['browser_check']['required'], '{}') . '}';
+    }
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>var $buoop = ' . json_encode($buoop) . '; </script>';
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://browser-update.org/update.min.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';
 
@@ -188,7 +191,7 @@ echo $content['page_start'];
 echo $content["all"];
 echo $content['page_end'];
 
-// cmsgo Default header settings
+// cmsGO! Default header settings
 if($cmsgo['cache_timeout']) {
     header('Expires: '.gmdate('D, d M Y H:i:s', time() + $cmsgo['cache_timeout']) .' GMT');
     header('Last-Modified: '.gmdate('D, d M Y H:i:s', empty($row['article_date']) ? time() : $row['article_date']) .' GMT');
@@ -196,7 +199,7 @@ if($cmsgo['cache_timeout']) {
     header('Pragma: public');
 }
 
-// write cmsgo release information in a custom HTTP header
+// write cmsGO! release information in a custom HTTP header
 if(empty($cmsgo['disable_generator'])) {
     header('X-cmsgo-Release: ' . CMSGO_VERSION);
 }

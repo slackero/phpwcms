@@ -24,7 +24,7 @@ if(isset($_POST['agree_reject'])) {
     if(isset($_SESSION['cmsgoAgree'])) {
         unset($_SESSION['cmsgoAgree']);
     }
-    setcookie('cmsgoAgree', '0', time()-1000000, '/');
+    setcookie('cmsgoAgree', '0', time()-1000000, '/', getCookieDomain(), CMSGO_SSL, true);
 
     if(isset($_POST['agree_redirect'])) {
         $redirect = clean_slweg($_POST['agree_redirect']);
@@ -40,7 +40,7 @@ if(isset($_POST['agree_reject'])) {
 
     } else {
 
-        setcookie('cmsgoAgree', '1', 0, '/');
+        setcookie('cmsgoAgree', '1', 0, '/', getCookieDomain(), CMSGO_SSL, true);
         $_SESSION['cmsgoAgree'] = true;
 
     }

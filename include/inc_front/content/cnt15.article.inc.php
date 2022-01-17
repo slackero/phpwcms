@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -78,19 +78,17 @@ if(isset($result[0]['article_id'])) {
 
                 $alinkmenu['sum']       = clean_replacement_tags($alinkmenu['sum']);
                 $alinkmenu['sum']       = remove_unsecure_rptags($alinkmenu['sum']);
-                $alinkmenu['sum']       = preg_replace('/\s/i', ' ', $alinkmenu['sum']);
-                $alinkmenu['sum']       = preg_replace('/\s{2,}/i', ' ', $alinkmenu['sum']);
+                $alinkmenu['sum']       = preg_replace('/\s+/i', ' ', $alinkmenu['sum']);
                 $alinkmenu['sum']       = trim(decode_entities($alinkmenu['sum']));
-                $alinkmenu['sum']       = wordwrap($alinkmenu['sum'], $alinkmenu['maxchar'], "\n");
-                list($alinkmenu['sum']) = explode("\n", $alinkmenu['sum']);
+                $alinkmenu['sum']       = wordwrap($alinkmenu['sum'], $alinkmenu['maxchar'], LF);
+                list($alinkmenu['sum']) = explode(LF, $alinkmenu['sum']);
                 $alinkmenu['sum']       = trim($alinkmenu['sum']);
                 $alinkmenu['sum']       = html_specialchars($alinkmenu['sum']);
 
                 if(!empty($alinkmenu['morelink'])) {
 
-                    $alinkmenu['sum']  .= '<a href="index.php?'.setGetArticleAid($row).'" title="'.$row['article_title'].'">';
-                    $alinkmenu['sum']  .= $alinkmenu['morelink'];
-                    $alinkmenu['sum']  .= '</a>';
+                    $alinkmenu['sum']  .= '<a href="' . rel_url(array(), array(), setGetArticleAid($row)) . '" title="'.$row['article_title'].'">';
+                    $alinkmenu['sum']  .= $alinkmenu['morelink'] . '</a>';
 
                 }
 
@@ -114,7 +112,7 @@ if(isset($result[0]['article_id'])) {
                 $alinkmenu['sum']   = "<tr>\n\t<td>" . $alinkmenu['sum'] . "</td>\n</tr>\n";
             }
 
-            $alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." nowrap=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
+            $alinkmenu['link'] .= "<tr>\n\t<td valign=\"top\"".$tempRowSpan." class=\"nowrap\">".$template_default["article"]["link_article_sign"]."</td>\n\t";
             $alinkmenu['link'] .= '<td'.$alinkmenu['active_class'].'>'.$alinkmenu['titlewrap'][0].'<a href="index.php?'.setGetArticleAid($row).'" ';
             $alinkmenu['link'] .= get_class_attrib($template_default["article"]["link_article_class"]).' title="'.$row['article_title'].'">';
             $alinkmenu['link'] .= $row['article_menutitle'].'</a>'.$alinkmenu['titlewrap'][1]."</td>\n</tr>\n";

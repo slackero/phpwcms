@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -201,7 +201,7 @@ if($action == 'edit') {
         $plugin['data']['shopprod_duplicate'] = empty($_POST['shopprod_duplicate']) ? 0 : 1;
 
         $plugin['data']['shopprod_on_request'] = empty($_POST['shopprod_on_request']) ? 0 : 1;;
-        $plugin['data']['shopprod_on_request_url']	= clean_slweg($_POST['shopprod_on_request_url']);
+        $plugin['data']['shopprod_on_request_url'] = clean_slweg($_POST['shopprod_on_request_url']);
 
         if(empty($plugin['error'] )) {
 
@@ -231,11 +231,11 @@ if($action == 'edit') {
                 $sql .= "shopprod_description3 = '".aporeplace($plugin['data']['shopprod_description3'])."', ";
 
                 $sql .= "shopprod_var = '".aporeplace(	serialize( array(
-                    'images'	    => $plugin['data']['shopprod_images'],
-                    'url'		    => $plugin['data']['shopprod_url'],
-                    'files'		    => $plugin['data']['shopprod_files'],
-                    'request'       => $plugin['data']['shopprod_on_request'],
-                    'request_url'   => $plugin['data']['shopprod_on_request_url']
+                    'images' => $plugin['data']['shopprod_images'],
+                    'url' => $plugin['data']['shopprod_url'],
+                    'files' => $plugin['data']['shopprod_files'],
+                    'request' => $plugin['data']['shopprod_on_request'],
+                    'request_url' => $plugin['data']['shopprod_on_request_url']
                 ) ) ) . "', ";
 
                 $sql .= "shopprod_category = '".aporeplace( implode(',', $plugin['data']['shopprod_category']) )."', ";
@@ -283,12 +283,12 @@ if($action == 'edit') {
                 $sql .= "'".aporeplace($plugin['data']['shopprod_description3'])."', ";
 
                 $sql .= "'".aporeplace(	serialize( array(
-                    'images'	    => $plugin['data']['shopprod_images'],
-                    'url'		    => $plugin['data']['shopprod_url'],
-                    'files'		    => $plugin['data']['shopprod_files'],
-                    'request'       => $plugin['data']['shopprod_on_request'],
-                    'request_url'   => $plugin['data']['shopprod_on_request_url']
-                ) )	)."', ";
+                    'images' => $plugin['data']['shopprod_images'],
+                    'url' => $plugin['data']['shopprod_url'],
+                    'files' => $plugin['data']['shopprod_files'],
+                    'request' => $plugin['data']['shopprod_on_request'],
+                    'request_url' => $plugin['data']['shopprod_on_request_url']
+                ) ) )."', ";
 
                 $sql .= "'".aporeplace( implode(',', $plugin['data']['shopprod_category']) ) ."', ";
                 $sql .= "'".aporeplace($plugin['data']['shopprod_weight'])."', ";

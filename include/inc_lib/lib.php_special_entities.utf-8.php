@@ -11,7 +11,7 @@
 // this is a html entities and its decode parameter
 // based on list at http://www.htmlhelp.com/reference/html40/entities/
 
-$SPECIAL_ENTITIES_TABLES['latin1_encode'] = array (
+$SPECIAL_ENTITIES_TABLES['latin1_encode'] = array(
     "&nbsp;",
     "&iexcl;",
     "&cent;",
@@ -107,7 +107,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_encode'] = array (
     "&uuml;",
     "&yacute;",
     "&thorn;",
-    "&yuml;"
+    "&yuml;",
 );
 
 $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
@@ -234,7 +234,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_encode'] = array(
     "&spades;",
     "&clubs;",
     "&hearts;",
-    "&diams;"
+    "&diams;",
 );
 
 $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array(
@@ -269,10 +269,10 @@ $SPECIAL_ENTITIES_TABLES['specialchars_encode'] = array(
     "&permil;",
     "&lsaquo;",
     "&rsaquo;",
-    "&euro;"
+    "&euro;",
 );
 
-$SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
+$SPECIAL_ENTITIES_TABLES['latin1_decode'] = array(
     " ",
     "¡",
     "¢",
@@ -368,7 +368,7 @@ $SPECIAL_ENTITIES_TABLES['latin1_decode'] = array (
     "ü",
     "ý",
     "þ",
-    "ÿ"
+    "ÿ",
 );
 
 $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
@@ -495,7 +495,7 @@ $SPECIAL_ENTITIES_TABLES['symbol_decode'] = array(
 	"&#9824;",
 	"&#9827;",
 	"&#9829;",
-	"&#9830;"
+    "&#9830;",
 );
 
 $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array(
@@ -530,5 +530,5 @@ $SPECIAL_ENTITIES_TABLES['specialchars_decode'] = array(
 	"&#8240;",
 	"&#8249;",
 	"&#8250;",
-	"&#8364;"
+    "&#8364;",
 );

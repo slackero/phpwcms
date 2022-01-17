@@ -11,8 +11,8 @@
 //19-11-2004 Fernando Batista -> Copy article, Copy strutures http://fernandobatista.net
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
-session_start();
-$cmsgo = array();
+$cmsgo = array('SESSION_START' => true);
+
 require_once '../../include/config/conf.inc.php';
 require_once '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
@@ -127,7 +127,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         $acat_sort_fallback = $acat_sort_temp;
     }
 
-    if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && intval($_POST["acat_id"]) == 0 && $_POST["acat_id"] != 'index') {
+    if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && !intval($_POST["acat_id"]) && $_POST["acat_id"] !== 'index') {
         if(trim($_POST["acat_name"])) {
 
             $cache_timeout = clean_slweg($_POST["acat_timeout"]);

@@ -13,7 +13,7 @@ $cmsgo = array();
 require_once 'include/config/conf.inc.php';
 
 if( !empty($cmsgo['SESSION_FEinit']) ) {
-    @session_start();
+    $cmsgo['SESSION_START'] = true;
 }
 
 require_once 'include/inc_lib/default.inc.php';

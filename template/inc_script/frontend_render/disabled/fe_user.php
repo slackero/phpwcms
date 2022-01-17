@@ -440,11 +440,11 @@ if($fe_action) {
                 sendEmail(array(
                     'recipient'     => strtolower($udata['user_email']),
                     'toName'        => trim($udata['user_firstname'].' '.$udata['user_name']),
-                    'subject'       => 'cmsgo Registration',
+                    'subject'       => 'cmsGO! Registration',
                     'text'          => $fe_text,
-                    'from'          => 'og@cmsgo.org',
+                    'from'          => 'info@pixels-points.ch',
                     'fromName'      => 'cmsgo',
-                    'sender'        => 'og@cmsgo.org' ));
+                    'sender'        => 'info@pixels-points.ch' ));
 
                 sendEmail(array(
                     'recipient'     => 'slackero+cmsgo-registration@gmail.com',

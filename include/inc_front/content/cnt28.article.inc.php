@@ -9,7 +9,7 @@
  **/
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -82,9 +82,16 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
 
             if($_loginData['remember'] && !empty($_loginData['felogin_cookie_expire'])) {
 
-                setcookie(  'cmsgoFeLoginRemember',
+                setcookie(
+                    'cmsgoFeLoginRemember',
                             $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
-                            time()+$_loginData['felogin_cookie_expire'], '/', getCookieDomain() );
+                    time()+$_loginData['felogin_cookie_expire'],
+                    '/',
+                    getCookieDomain(),
+                    CMSGO_SSL,
+                    true
+                );
+
             }
 
         } else {
@@ -102,14 +109,14 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
         if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
 
             if($_loginData['validate_db']['userdetail']) {
-                $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."phpwcms_userdetail WHERE LOWER(detail_email)=";
+                $sql  = 'SELECT detail_id, detail_login AS LOGIN, detail_email AS EMAIL FROM '.DB_PREPEND."cmsgo_userdetail WHERE LOWER(detail_email)=";
                 $sql .= _dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }
 
             // hm, seems no user found - OK test against cms users
             if($_loginData['validate_db']['backenduser'] && !isset($result[0])) {
-                $sql  = 'SELECT usr_id, usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'phpwcms_user WHERE ';
+                $sql  = 'SELECT usr_id, usr_login AS LOGIN, usr_email AS EMAIL FROM '.DB_PREPEND.'cmsgo_user WHERE ';
                 $sql .= "LOWER(usr_email)="._dbEscape(strtolower($_loginData['remind_data']))." LIMIT 1";
                 $result = _dbQuery($sql);
             }

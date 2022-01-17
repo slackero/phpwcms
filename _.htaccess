@@ -22,7 +22,7 @@
 #   Options +FollowSymlinks
 #   AcceptPathInfo On
 
-# All 404 error should link to cmsGO! then
+# All 404 error should link to cmsGo! then
 # it is easy to define internal routing/redirection
 #   ErrorDocument 404 /index.php?r404
 # Installed in Subfolder www.example.com/subfolder/

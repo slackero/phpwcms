@@ -17,7 +17,7 @@ require_once('inc/setup.func.inc.php');
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>cmsgo Setup</title>
+<title>cmsGO! Setup</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="inc/install.css" rel="stylesheet" type="text/css" />
 </head>
@@ -48,12 +48,12 @@ require_once('inc/setup.func.inc.php');
   </tr>
   <tr bgcolor="#FFFFFF">
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
-    <td valign="top" bgcolor="#FFFFFF"><h1>Welcome to the setup of cmsgo </h1>
+    <td valign="top" bgcolor="#FFFFFF"><h1>Welcome to the setup of cmsGO! </h1>
 	<p>This is the semi automatic setup script to install a new release of
       the web cms <strong>cmsGO!</strong>.</p>
 	<p><strong>cmsGO!</strong> is open source software released under the <a href="../include/GPL.html" target="_blank"><strong>GNU
 	  General Public License</strong></a> (GPL). Before you continue setting
-	  up cmsgo  read the license very careful.</p>
+	  up cmsGO!  read the license very careful.</p>
 	<div id="license">
       <p align="center"><strong style="font-size:17px;">The GNU General Public License (GPL)</strong><br />Version 2, June 1991</p>
       <p align="center">Copyright (C) 1989, 1991 Free Software Foundation, Inc.<br />

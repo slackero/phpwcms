@@ -10,7 +10,7 @@
 
 
 // ----------------------------------------------------------------
-// obligate check for cmsgo constants
+// obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
@@ -21,7 +21,7 @@ if(!empty($_GET['switchFontSize'])) {
 
     $userFontSize = clean_slweg($_GET['switchFontSize']);
     // try to write FontSizeCookie
-    setcookie('switchFontSize', $userFontSize, time()+86400);
+    setcookie('switchFontSize', $userFontSize, time()+86400, '/', getCookieDomain(), CMSGO_SSL, true);
 
 } elseif(isset($_SESSION['FontSize'])) {
     $userFontSize = $_SESSION['FontSize'];

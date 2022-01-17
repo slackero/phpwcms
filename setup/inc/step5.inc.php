@@ -8,6 +8,9 @@
  *
  **/
 
+if (!defined('PHP8')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
 
 $_SERVER['DOCUMENT_ROOT'] = $cmsgo['DOC_ROOT'];
 $cmsgo["root"] = !empty($cmsgo["root"]) ? "/".$cmsgo["root"] : "";
@@ -15,7 +18,7 @@ $cmsgo["root"] = !empty($cmsgo["root"]) ? "/".$cmsgo["root"] : "";
 ?>
 
 <p><span class="title"><strong>Ready to start cmsgo?</strong> Some &quot;problems&quot;
-    maybe OK - you can check by testing cmsgo installation.</span></p>
+    maybe OK - you can check by testing cmsGO! installation.</span></p>
 <table border="0" cellpadding="0" cellspacing="0" summary="">
   <tr><?php
 
