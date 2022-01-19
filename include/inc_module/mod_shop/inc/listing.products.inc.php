@@ -201,7 +201,7 @@ if($data) {
 
       $row["shopprod_var"] = @unserialize($row["shopprod_var"]);
 
-      echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible '.(empty($row["shopprod_status"]) ? "btn-danger" : (!empty($row["shopprod_var"]['request'] && !empty($row["shopprod_var"]['request_url'])) ? "btn-warning btn-success" : "btn-success")).' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible '.(empty($row["shopprod_status"]) ? "btn-danger" : (!empty($row["shopprod_var"]['request']) && !empty($row["shopprod_var"]['request_url'])) ? "btn-warning btn-success" : "btn-success").' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
 
       echo '<a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
