@@ -31,7 +31,7 @@ CKEDITOR.editorConfig = function( config ) {
   ];
   */
   config.toolbar = [
-    { name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
+    { name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Scayt','-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks' ] },
     { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
     { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ] },
@@ -48,7 +48,7 @@ CKEDITOR.editorConfig = function( config ) {
   config.width = '100%';
   config.height = 400;
 
-  config.extraPlugins = 'magicline,image2';
+  config.extraPlugins = 'magicline,image2,scayt';
   //config.removePlugins = 'resize';
 
   // Allow classes for all tags
@@ -61,6 +61,10 @@ CKEDITOR.editorConfig = function( config ) {
   config.pasteFromWordRemoveFontStyles = true;
   config.pasteFromWordRemoveStyles = true;
   config.pasteFromWordPromptCleanup = true;
+
+  config.scayt_autoStartup = true;
+  config.scayt_multiLanguageMode = true;
+  config.scayt_sLang = 'de_DE', 'en_GB', 'fr_FR', 'it_IT';
 
   //config.contentsCss = 'template/config/ckeditor/ckeditor.custom.css';
   //config.protectedSource.push( /<i[\s\S]*?\>/g ); //allows beginning <i> tag
