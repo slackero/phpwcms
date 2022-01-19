@@ -188,6 +188,7 @@ define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR']
 define('CMSGO_LOGDIR', CMSGO_CONTENT.'log');
 define('CMSGO_WEBP', empty($cmsgo['webp_enable']) ? false : $cmsgo['USER_AGENT']['webp']);
 define('CMSGO_QUALITY', CMSGO_WEBP ? $cmsgo['webp_quality'] : $cmsgo['jpg_quality']);
+define('CMSGO_RESIZE_ANIMATED_GIF', isset($cmsgo['resize_animated_gif']) ? (bool) $cmsgo['resize_animated_gif'] : true);
 
 if(function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -1372,7 +1373,7 @@ function get_login_file() {
         define('CMSGO_LOGIN_PHP', 'edit.php');
         return CMSGO_LOGIN_PHP;
     }
-    die('edit.php cannot be found. We stop here!');
+    die($login . ' cannot be found. We stop here!');
 }
 
 /**
