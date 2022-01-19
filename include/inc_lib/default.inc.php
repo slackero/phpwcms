@@ -186,6 +186,7 @@ define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR']
 define('CMSGO_LOGDIR', CMSGO_CONTENT . 'log');
 define('CMSGO_WEBP', empty($cmsgo['webp_enable']) ? false : $cmsgo['USER_AGENT']['webp']);
 define('CMSGO_QUALITY', CMSGO_WEBP ? $cmsgo['webp_quality'] : $cmsgo['jpg_quality']);
+define('CMSGO_RESIZE_ANIMATED_GIF', isset($cmsgo['resize_animated_gif']) ? (bool) $cmsgo['resize_animated_gif'] : true);
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -557,6 +558,7 @@ if (empty($cmsgo['mode_XHTML'])) {
     define('XHTML_MODE', false);
     define('CMSGO_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
     define('HTML5_MODE', false);
+
 } elseif ($cmsgo['mode_XHTML'] == 2) {
 
     define('CMSGO_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . LF . '%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s' . LF . '<head>%s%s');
@@ -567,6 +569,7 @@ if (empty($cmsgo['mode_XHTML'])) {
     define('XHTML_MODE', true);
     define('CMSGO_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
     define('HTML5_MODE', false);
+
 } elseif ($cmsgo['mode_XHTML'] == 3) {
 
     define('CMSGO_DOCTYPE', '<!DOCTYPE html>' . LF . '%s<html%s%s>%s' . LF . '<head>%s%s');
@@ -691,7 +694,11 @@ function buildGlobalGET($return = '') {
     reset($GLOBALS['_getVar']);
     $_getVar_first = key($GLOBALS['_getVar']);
 
-    unset($_GET[session_name()], $GLOBALS['_getVar'][session_name()], $GLOBALS['_getVar']['']);
+    unset(
+        $_GET[session_name()],
+        $GLOBALS['_getVar'][session_name()],
+        $GLOBALS['_getVar']['']
+    );
 
     if (!empty($GLOBALS['cmsgo']['unregister_getVar']) && is_array($GLOBALS['cmsgo']['unregister_getVar'])) {
         foreach ($GLOBALS['cmsgo']['unregister_getVar'] as $key) {
@@ -1409,7 +1416,7 @@ function get_login_file() {
 
         return CMSGO_LOGIN_PHP;
     }
-    die('Login.php cannot be found. We stop here!');
+    die($login . ' cannot be found. We stop here!');
 }
 
 /**
