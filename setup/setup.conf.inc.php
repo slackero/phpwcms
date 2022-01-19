@@ -76,6 +76,7 @@ $phpwcms['allow_remote_URL'] = 0; // 0 = no remote URL in {PHP:...} replacement 
 $phpwcms['jpg_quality'] = 85; // JPG Quality Range 25-100
 $phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it
 $phpwcms['webp_quality'] = 85; // Set the WebP quality
+$phpwcms['resize_animated_gif'] = true; // Try to resize animated GIF, this can lead to bigger file sizes
 $phpwcms['sharpen_level'] = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init'] = 1; // allow including of custom external scripts at frontend initialization
 $phpwcms['allow_ext_render'] = 1; // allow including of custom external scripts at frontend rendering
@@ -110,7 +111,7 @@ $phpwcms['FCK_FileBrowser'] = 1; // enable|disable phpwcms Filebrowser in FCKedi
 $phpwcms['feuser_regkey'] = 'FEUSER';
 $phpwcms['login.php'] = 'login.php';
 $phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.14/)
+$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/7.17/)
 $phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB

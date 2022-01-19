@@ -553,11 +553,31 @@ function is_animated_gif($file) {
         while (!feof($fp) && $frames < 2) {
             if (fread($fp, 1) === "\x00") {
                 /* Some of the animated GIFs do not contain graphic control extension (starts with 21 f9) */
-                if (fread($fp, 1) === "\x21" || fread($fp, 2) === "\x21\xf9") {
+                $x21x2C = fread($fp, 1);
+                if ($x21x2C === "\x21" || $x21x2C === "\x2C" || fread($fp, 2) === "\x21\xf9") {
                     $frames++;
                 }
             }
         }
+
+        //an animated gif contains multiple "frames", with each frame having a
+        //header made up of:
+        // * a static 4-byte sequence (\x00\x21\xF9\x04)
+        // * 4 variable bytes
+        // * a static 2-byte sequence (\x00\x2C) (some variants may use \x00\x21 ?)
+
+        // We read through the file til we reach the end of the file, or we've found
+        // at least 2 frame headers
+        /*
+        $chunk = false;
+        while(!feof($fp) && $frames < 2) {
+            //add the last 20 characters from the previous string, to make sure the searched pattern is not split.
+            $chunk = ($chunk ? substr($chunk, -20) : '') . fread($fp, 1024 * 100); //read 100kb at a time
+            if (preg_match_all('#\x00\x21\xF9\x04.{4}\x00(\x2C|\x21)#s', $chunk, $matches)) {
+                $frames++;
+            }
+        }
+        */
 
         fclose($fp);
 
