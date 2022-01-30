@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -128,7 +128,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         $acat_sort_fallback = $acat_sort_temp;
     }
 
-    if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && intval($_POST["acat_id"]) == 0 && $_POST["acat_id"] != 'index') {
+    if(isset($_POST["acat_new"]) && intval($_POST["acat_new"]) == 1 && !intval($_POST["acat_id"]) && $_POST["acat_id"] !== 'index') {
         if(trim($_POST["acat_name"])) {
 
             $cache_timeout = clean_slweg($_POST["acat_timeout"]);

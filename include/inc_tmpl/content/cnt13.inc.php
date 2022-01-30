@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -96,7 +96,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
     <td align="right" class="chatlist" valign="top"><?php echo $BL['be_cnt_results'] ?>:&nbsp;</td>
     <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td><input name="csearch_result_per_page" type="text" id="csearch_result_per_page" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["result_per_page"]) ? $content["search"]["result_per_page"] : '' ?>" size="3" maxlength="5" /></td>
+        <td><input name="csearch_result_per_page" type="text" id="csearch_result_per_page" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["result_per_page"]) ? $content["search"]["result_per_page"] : '' ?>" size="3" maxlength="5" placeholder="25" /></td>
         <td class="v10">&nbsp;<?php echo $BL['be_cnt_results_per_page'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
         <td><input name="csearch_newwin" type="checkbox" id="csearch_newwin" value="1" <?php is_checked(1, $content["search"]["newwin"]) ?> /></td>
         <td class="v10"><label for="csearch_newwin"><?php echo $BL['be_cnt_opennewwin'] ?></label></td>
@@ -104,7 +104,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 	  </tr>
 	  <tr>
-	  	<td><input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" size="3" maxlength="5" /></td>
+	  	<td><input name="csearch_wordlimit" type="text" id="csearch_wordlimit" class="f11b" style="width: 30px" value="<?php echo isset($content["search"]["wordlimit"]) ? $content["search"]["wordlimit"] : '' ?>" size="3" maxlength="5" placeholder="35" /></td>
       	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	  	<td><input name="csearch_highlight" type="checkbox" id="csearch_highlight" value="1" <?php is_checked(1, $content["search"]["highlight_result"]) ?> /></td>
       	<td class="v10"><label for="csearch_highlight"><?php echo $BL['be_cnt_search_highlight'] ?></label></td>
@@ -112,7 +112,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	  <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
 	  </tr>
 	  <tr>
-	  	<td><input name="csearch_minchar" type="text" id="csearch_minchar" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["minchar"]) ? $content["search"]["minchar"] : '3' ?>" size="3" maxlength="5" /></td>
+	  	<td><input name="csearch_minchar" type="text" id="csearch_minchar" class="f11b" style="width: 30px" value="<?php echo  isset($content["search"]["minchar"]) ? $content["search"]["minchar"] : '3' ?>" size="3" maxlength="5" placeholder="3" /></td>
       	<td class="v10">&nbsp;<?php echo $BL['be_cnt_results_minchar'] ?>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		<td><input name="csearch_hidesummary" type="checkbox" id="csearch_hidesummary" value="1" <?php is_checked(1, $content["search"]["hide_summary"]) ?> /></td>
       	<td class="v10"><label for="csearch_hidesummary"><?php echo $BL['be_cnt_search_hidesummary'] ?></label></td>

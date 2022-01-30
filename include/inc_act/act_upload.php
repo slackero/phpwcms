@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -98,8 +98,6 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
             $data['f_image_height'] = $file_svg['height'];
         }
 
-
-
     }
 
 	$insert = _dbInsert('phpwcms_file', $data);
@@ -135,7 +133,7 @@ if(!empty($result['success']) && !empty($_GET['file_public'])) {
 
 		}
 
-		if(!empty($dir)) {
+		if(!empty($dir) && !is_bool($dir)) {
 			@closedir($dir);
 		}
 

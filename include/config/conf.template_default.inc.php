@@ -829,14 +829,13 @@ $template_default['settings'] = array(
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-           'anonymize' => ', {anonymizeIp: true}',
            'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
-    var gaOptOutCookie = 'ga-disable-%s';
+    var gaOptOutCookie = 'ga-disable-%1\$s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
     }
     function gaOptout() {
-        document.cookie = gaOptOutCookie + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+        document.cookie = gaOptOutCookie + '=true; Expires=Thu, 31 Dec 2099 23:59:59 UTC; Path=/%2\$s';
         window[gaOptOutCookie] = true;
     }
   </script>"

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -476,6 +476,18 @@ class Phpwcms_Image_lib {
      * @return  bool
      */
     function image_process_gd($action = 'resize') {
+        if ($this->animated_gif) {
+            if (is_file($this->full_dst_path)) {
+                return true;
+            } elseif (!PHPWCMS_RESIZE_ANIMATED_GIF) {
+                $copied = @copy($this->full_src_path, $this->full_dst_path);
+                if ($copied) {
+                    @chmod($this->full_dst_path, 0666);
+                    return true;
+                }
+                return false;
+            }
+        }
         $v2_override = false;
         // If the target width/height match the source, AND if the new file name is not equal to the old file name
         // we'll simply make a copy of the original with the new name... assuming dynamic rendering is off.
@@ -580,8 +592,23 @@ class Phpwcms_Image_lib {
         } elseif ($this->target_ext === 'gif') {
             // Check if it is an animated GIF an coalesce the image
             if ($this->animated_gif) {
+                if (is_file($this->full_dst_path)) {
+                    return true;
+                } elseif (!PHPWCMS_RESIZE_ANIMATED_GIF) {
+                    $copied = @copy($this->full_src_path, $this->full_dst_path);
+                    if ($copied) {
+                        @chmod($this->full_dst_path, 0666);
+                        return true;
+                    }
+                    return false;
+                }
                 // The coalesce command
-                $coalesce = $this->library_path . ' ' . escapeshellarg($this->full_src_path) . ' -coalesce ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
+                $coalesce = $this->library_path . ' ' . escapeshellarg($this->full_src_path) . ' -coalesce ';
+                if (!$this->graphicsmagick) {
+                    $coalesce .= '-layers RemoveDups ';
+                }
+                $resized_gif = $this->full_dst_path . '.miff';
+                $coalesce .= escapeshellarg($resized_gif) . ' 2>&1';
                 // Run the command
                 @exec($coalesce, $output, $retval);
                 // Did it work?
@@ -591,9 +618,9 @@ class Phpwcms_Image_lib {
                     // preserve animated GIF
                     $picnum = '';
                     // Set the file to 666
-                    @chmod($this->full_dst_path, 0666);
+                    @chmod($resized_gif, 0666);
                     // Use the coalesce image as new src
-                    $this->full_src_path = $this->full_dst_path;
+                    $this->full_src_path = $resized_gif;
                     $cmd .= ' -fuzz 3%';
                     if (!$this->graphicsmagick) {
                         $cmd .= ' -layers optimizePlus';
@@ -601,10 +628,13 @@ class Phpwcms_Image_lib {
                 }
             }
             $cmd .= ' -colorspace ' . $this->colorspace;
+            $cmd .= ' +dither ';
             $cmd .= ' -colors 256';
             $this->sharpen = false;
         }
-        $cmd .= ' -quality ' . $this->quality;
+        if ($this->target_ext !== 'gif') {
+            $cmd .= ' -quality ' . $this->quality;
+        }
         if ($this->source_ext === 'pdf') {
             $cmd .= ' -define pdf:use-cropbox=true';
         }
@@ -658,6 +688,9 @@ class Phpwcms_Image_lib {
         // debug commands
         //write_textfile(PHPWCMS_TEMP.'imagemagick-2.log', date('Y-m-d H:i:s').' - '.$cmd.LF, 'a');
         @exec($cmd, $output, $retval);
+        if (!empty($resized_gif) && is_file($resized_gif)) {
+            @unlink($resized_gif);
+        }
         // Did it work?
         if ($retval > 0) {
             $this->set_error('imglib_image_process_failed');

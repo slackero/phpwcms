@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -711,8 +711,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         $reserved = array_merge($reserved, $phpwcms['reserved_alias']);
     }
 
-    if($alias == '' || in_array($alias, $reserved) || ($alias == 'index' && $current_id != 'index') ) {
-        $alias .= ($mode == 'CONTENT') ? date('_Ymd') : '-view';
+    if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
+        $alias .= $mode === 'CONTENT' ? date('_Ymd') : '-view';
     }
 
     $alias = trim($alias, '-');
@@ -720,11 +720,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $where_acat     = '';
     $where_article  = '';
     $where_content  = '';
+    $current_sql_id = $current_id === 'index' ? 0 : $current_id;
 
     switch($mode) {
-        case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_id.' AND ';    break;
-        case 'ARTICLE':     $where_article  = 'article_id != '.$current_id.' AND '; break;
-        case 'CONTENT':     $where_content  = 'cnt_id != '.$current_id.' AND ';     break;
+        case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_sql_id.' AND ';    break;
+        case 'ARTICLE':     $where_article  = 'article_id != '.$current_sql_id.' AND '; break;
+        case 'CONTENT':     $where_content  = 'cnt_id != '.$current_sql_id.' AND ';     break;
     }
 
     // check alias against all structure alias

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -58,6 +58,8 @@ $template = array(
         'id' => '',
         'anonymize' => PHPWCMS_GDPR_MODE  ? 1 : 0,
         'optout' => PHPWCMS_GDPR_MODE  ? 1 : 0,
+        'cookie_flags' => PHPWCMS_GDPR_MODE  ? 1 : 0,
+        'custom_properties' => ''
     ),
     'tracking_gtm' => array(
         'enable' => 0,
@@ -190,8 +192,10 @@ if(isset($result[0]['template_id'])) {
         }
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
+        $template['tracking_ga']['custom_properties'] = trim(clean_slweg($_POST["template_ga_custom_properties"]), " \t\n\r\0\x0B{},");
         $template['tracking_ga']['anonymize'] = empty($_POST['template_ga_anonymize']) ? 0 : 1;
         $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
+        $template['tracking_ga']['cookie_flags'] = empty($_POST['template_ga_cookie_flags']) ? 0 : 1;
         if(empty($template['tracking_ga']['id'])) {
             $template['tracking_ga']['enable'] = 0;
         }
@@ -524,6 +528,19 @@ foreach($phpwcms['js_lib'] as $key => $value) {
                         <td class="chatlist">&nbsp;</td>
                         <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked(isset($template['tracking_ga']['optout']) ? $template['tracking_ga']['optout'] : 0, 1); ?> /></td>
                         <td class="chatlist nowrap"><label for="template_ga_optout">&nbsp;<?php echo $BL['be_tracking_optout']; ?></label></td>
+                    </tr>
+                    <tr>
+                        <td class="chatlist">&nbsp;</td>
+                        <td><input type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked(isset($template['tracking_ga']['cookie_flags']) ? $template['tracking_ga']['cookie_flags'] : 0, 1); ?> /></td>
+                        <td class="chatlist nowrap"><label for="template_ga_cookie_flags">&nbsp;<?php echo $BL['be_tracking_cookie_flags']; ?></label></td>
+                    </tr>
+                    <tr>
+                        <td class="chatlist">&nbsp;</td>
+                        <td class="chatlist tdtop5 tdbottom3" colspan="2"><?php echo $BL['be_tracking_custom_properties']; ?>:</td>
+                    </tr>
+                    <tr>
+                        <td class="chatlist">&nbsp;</td>
+                        <td class="tdbottom3" colspan="2"><textarea name="template_ga_custom_properties" class="width400 autosize" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea></td>
                     </tr>
                 </table>
             </td>

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -630,7 +630,7 @@ $BL['be_admin_tmpl_nolayout'] = 'Kein Seitenlayout verf&uuml;gbar!';
 // added: 31-12-2003
 $BL['be_ctype_search'] = 'Suche';
 $BL['be_cnt_results'] = 'Ergebnisse';
-$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige alle)';
+$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige max. 25)';
 $BL['be_cnt_opennewwin'] = '&Ouml;ffne neues Fenster';
 $BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;&szlig;er ist';
 $BL['be_cnt_input'] = 'Eingabe';
@@ -1050,7 +1050,7 @@ $BL['Mailing_list_subscribe_reminder'] = 'Um immer die neuesten Informationen zu
 $BL['Version_information'] = 'phpwcms Versionsinformation';
 
 $BL['be_cnt_search_highlight'] = 'Highlight';
-$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Summary)';
+$BL['be_cnt_results_wordlimit'] = 'max. Anzahl Worte (Zusammenfassung)';
 $BL['be_cnt_page_of_pages'] = 'Suchnavi';
 $BL['be_cnt_page_of_pages_descr'] = '{PREV:Zur&uuml;ck}, Seite #/##, Ergebnis ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Vorw&auml;rts}';
 $BL['be_cnt_search_show_top'] = 'oben';
@@ -1427,6 +1427,8 @@ $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
 $BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
 $BL['be_piwik_enable'] = 'Matomo/Piwik benutzen';
 $BL['be_tracking_anonymize'] = 'IP anonymisieren';
+$BL['be_tracking_cookie_flags'] = '<a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id?hl=de#cookie_flags" target="_blank"><u>Cookie Flags</u></a> aktivieren (automatisch generiert)';
+$BL['be_tracking_custom_properties'] = 'Zus&auml;tzliche <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/?hl=de" target="_blank"><u>Konfigurations-Parameter</u></a> (prop1: val1, prop2, val2)';
 $BL['be_tracking_id'] = 'Tracking-ID';
 $BL['be_site_id'] = 'Site-ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';

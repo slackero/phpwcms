@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  **/
@@ -186,6 +186,7 @@ define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT . 'log');
 define('PHPWCMS_WEBP', empty($phpwcms['webp_enable']) ? false : $phpwcms['USER_AGENT']['webp']);
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
+define('PHPWCMS_RESIZE_ANIMATED_GIF', isset($phpwcms['resize_animated_gif']) ? (bool) $phpwcms['resize_animated_gif'] : true);
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here

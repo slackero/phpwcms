@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -621,7 +621,7 @@ $BL['be_admin_tmpl_nolayout']           = 'aucune mise en page disponible!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'rechercher';
 $BL['be_cnt_results']                   = 'r&eacute;sultats';
-$BL['be_cnt_results_per_page']          = 'par page (vide = tous)';
+$BL['be_cnt_results_per_page']          = 'par page (vide = 25)';
 $BL['be_cnt_opennewwin']                = 'ouvrir une nouvele fen&egrave;tre';
 $BL['be_cnt_searchlabeltext']           = 'valeurs de texte pr&eacute;d&eacute;finies du formulaire de recherche et de la page de r&eacute;sultats.';
 $BL['be_cnt_input']                     = 'entr&eacute;e';

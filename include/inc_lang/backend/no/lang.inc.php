@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -627,7 +627,7 @@ $BL['be_admin_tmpl_nolayout']           = 'Ingen side layout eksisterer!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 's&#248;k';
 $BL['be_cnt_results']                   = 'resultater';
-$BL['be_cnt_results_per_page']          = 'pr&nbsp;side (hvis blank vis alle)';
+$BL['be_cnt_results_per_page']          = 'pr&nbsp;side (hvis blank vis 25)';
 $BL['be_cnt_opennewwin']                = '&#229;pne nytt vindu';
 $BL['be_cnt_searchlabeltext']           = 'dette er forh&#229;ndsdefinerte tekster og verdier for s&#248;keformularet og s&#248;ke resultatsiden. disse blir blir vist hvis flere enn en side blir vist.'; # er dette riktig?
 $BL['be_cnt_input']                     = 'ledetekst';

@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -58,13 +58,11 @@ if(is_array($content["mailform"]) && count($content["mailform"])) {
             switch ($content["mailform"][$key][0]) {
                 case "TA": $field_max_height = ($field_max_height) ? $field_max_height : 3;
                     break;
+                case "IR":
+                case "IC":
                 case "SL": $field_max_height = ($field_max_height) ? $field_max_height : 0;
                     break;
-                case "IC": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
-                case "IR": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
-				case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';
+                case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';
 						   $content["mailform"][$key][2] = 1;
 					break;
                 default: $field_max_height = ($field_max_height) ? $field_max_height : 100;

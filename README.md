@@ -25,7 +25,7 @@ Link your browser to the related URL and follow the install instructions.
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.26 requires a web server with PHP (minimum version 5.5 up to 8.x)
+**phpwcms** version 1.9.32 requires a web server with PHP (minimum version 5.5 up to 8.x)
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 
 
@@ -63,7 +63,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright 2002–2021 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright 2002-2022 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.

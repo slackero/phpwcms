@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -635,7 +635,7 @@ $BL['be_admin_tmpl_nolayout']           = 'No page layout available!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'search';
 $BL['be_cnt_results']                   = 'results';
-$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show all)';
+$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show max. 25)';
 $BL['be_cnt_opennewwin']                = 'open new window';
 $BL['be_cnt_searchlabeltext']           = 'these are predefined texts and values for the search form and search result page and texts are shown when more than the given count of results per page should be shown.';
 $BL['be_cnt_input']                     = 'input';
@@ -1440,6 +1440,8 @@ $BL['be_google_analytics_enable'] = 'use Google Analytics';
 $BL['be_google_tag_manager_enable'] = 'use Google Tag Manager';
 $BL['be_piwik_enable'] = 'use Matomo/Piwik';
 $BL['be_tracking_anonymize'] = 'anonymize the IP';
+$BL['be_tracking_cookie_flags'] = 'enable <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>cookie flags</u> (generated automatically)</a>';
+$BL['be_tracking_custom_properties'] = 'custom <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>config parameters</u></a> (prop1: val1, prop2, val2)';
 $BL['be_tracking_id'] = 'tracking ID';
 $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';

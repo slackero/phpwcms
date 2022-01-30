@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2021, Oliver Georgi
+ * @copyright Copyright (c) 2002-2022, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -629,7 +629,7 @@ $BL['be_admin_tmpl_nolayout']           = 'Er is geen layout beschikbaar';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'Zoekformulier';
 $BL['be_cnt_results']                   = 'Aantal&nbsp;&#13resultaten';
-$BL['be_cnt_results_per_page']          = 'per&nbsp;pagina (default: alles)';
+$BL['be_cnt_results_per_page']          = 'per&nbsp;pagina (default: 25)';
 $BL['be_cnt_opennewwin']                = 'Resultaten&nbsp;in&nbsp;nieuw&nbsp;venster';
 $BL['be_cnt_searchlabeltext']           = 'Dit zijn standaardteksten en -waarden voor het zoekformulier en de zoekpagina, indien er meer overeenkomsten zijn dan het opgegeven aantal.';
 $BL['be_cnt_input']                     = 'Ingave';
