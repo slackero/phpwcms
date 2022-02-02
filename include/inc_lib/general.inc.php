@@ -1107,6 +1107,13 @@ function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', 
     return $string;
 }
 
+function get_unique_array($array, $diff=array('', null, false)) {
+    if ($diff) {
+        $array = array_diff($array, $diff);
+    }
+    return array_unique($array);
+}
+
 function decode_entities($text) {
     $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
     if (strpos($text, '&') === false) {

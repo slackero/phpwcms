@@ -3182,7 +3182,7 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
     foreach($items as $key) {
 
         $li_ul      = '';
-        $li_ie      = '';
+        $li_class   = array();
         $bs_toggle  = false;
 
         if($max_depth && ($unfold == 'all' || ($unfold == 'active_path' && isset($GLOBALS['LEVEL_KEY'][$key]))) ) {
@@ -3196,62 +3196,59 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
             $li .= ' id="li_'.$level_id_name.'_'.$key.'"';
         }
         if($li_ul) {
-            $li_class = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_ul'];
             if($bootstrap) {
-                $li_class   = trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown'].' '.$li_class);
+                $li_class[] = $GLOBALS['template_default']['classes']['navlist-bs-dropdown'];
                 $bs_toggle  = true;
             }
         } elseif(getHasSubStructureStatus($key)) {
-            $li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'].' '.$GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_no'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_ul_true'];
         } else {
-            $li_class = $GLOBALS['template_default']['classes']['navlist-sub_no'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_no'];
         }
 
         $li_a_title = html_specialchars($GLOBALS['content']['struct'][$key]['acat_name']);
-        $li_a_class = $GLOBALS['template_default']['classes']['navlist-link-class'];
+        $li_a_class = array(
+            $GLOBALS['template_default']['classes']['navlist-link-class']
+        );
         if($active_class[1] && $key == $GLOBALS['aktion'][0]) {
-            $li_a_class = trim($li_a_class . ' ' . $active_class[1]); // set active link class
+            $li_a_class[] = $active_class[1]; // set active link class
         }
         if($bs_toggle) {
-            $li_a_class     = trim($GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'].' '.$li_a_class);
-            $bs_data_toggle = ' '.$GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
+            $li_a_class[]   = $GLOBALS['template_default']['classes']['navlist-bs-dropdown-toggle'];
+            $bs_data_toggle = ' ' . $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-data'];
             $bs_caret       = $GLOBALS['template_default']['attributes']['navlist-bs-dropdown-caret'];
         } else {
             $bs_data_toggle = '';
             $bs_caret       = '';
         }
         if($bootstrap && $GLOBALS['template_default']['classes']['navlist-bs-link']) {
-            $li_a_class = trim($li_a_class.' '.$GLOBALS['template_default']['classes']['navlist-bs-link']);
+            $li_a_class[] = $GLOBALS['template_default']['classes']['navlist-bs-link'];
         }
-        if($li_a_class) {
-            $li_a_class = ' class="'.$li_a_class.'"';
-        }
+        $li_a_class = ' class="' . implode(' ', get_unique_array($li_a_class)) . '"';
         $li_a  = get_level_ahref($key, $li_a_class.' title="'.$li_a_title.'"'.$bs_data_toggle);
         $li_a .= $wrap_link_text[0] . $li_a_title . $bs_caret . $wrap_link_text[1];
 
         if($path_class[0] && isset($GLOBALS['LEVEL_KEY'][$key])) {
-            $li_class = trim($li_class.' '.$path_class[0]);
+            $li_class[] = $path_class[0];
         }
         if($active_class[0] != '' && $key == $GLOBALS['aktion'][0]) {
-            $li_class = trim($li_class.' '.$active_class[0]);
+            $li_class[] = $active_class[0];
         }
         if($x === 0) {
-            $li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_first'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_first'];
         }
 
         $x++;
 
         if($x === $last_item) {
-            $li_class .= ' '.$GLOBALS['template_default']['classes']['navlist-sub_last'];
+            $li_class[] = $GLOBALS['template_default']['classes']['navlist-sub_last'];
         }
-        if(($li_class = trim(trim($li_class) . ' ' . $GLOBALS['content']['struct'][$key]['acat_class']))) {
-            $li .= ' class="' . $li_class .'"';
-        }
-
+        $li_class[] = $GLOBALS['content']['struct'][$key]['acat_class'];
+        $li .= ' class="' . implode(' ', get_unique_array($li_class)) .'"';
         $li .= '>' . $li_a . '</a>';
-
         $li .= $li_ul.'</li>'.LF;
-
     }
 
     // show article menu
@@ -3263,14 +3260,10 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $ali = getArticleMenu($parameter[12]);
 
         if(count($ali) > 1) {
-
             $li .= implode(LF, $ali) . LF;
             $ali = $TAB;
-
         } else {
-
             $ali = '';
-
         }
 
     }
@@ -3310,25 +3303,33 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
         $ul .= '>'.LF;
 
         if($parent && isset($GLOBALS['content']['struct'][$start_id])) {
-
-            $ul .= LF;
-            $ul .= $TAB.'   <li';
+            $ul .= LF . $TAB.'   <li';
             if($level_id_name) {
                 $ul .= ' id="li_'.$level_id_name.'_'.$start_id.'"';
             }
-            $li_class = $GLOBALS['template_default']['classes']['navlist-sub_parent'];
+            $li_class = array(
+                $GLOBALS['content']['struct'][$start_id]['acat_class'],
+                $GLOBALS['template_default']['classes']['navlist-sub_parent']
+            );
             if($active_class[0] != '' && $start_id == $GLOBALS['aktion'][0]) {
-                $li_class = trim($li_class.' '.$active_class[0]);
+                $li_class[] = $active_class[0];
             }
-            $ul .= ' class="'.trim($li_class.' '.$GLOBALS['content']['struct'][$start_id]['acat_class']).'">';
+            $ul .= ' class="' . implode(' ', get_unique_array($li_class)) . '">';
 
             $link_text  = html_specialchars($GLOBALS['content']['struct'][$start_id]['acat_name']);
-            $link_class = ($active_class[1] && $start_id == $GLOBALS['aktion'][0]) ? ' class="'.$active_class[1].'"' : ''; // set active link class
-
+            $link_class = array(
+                $GLOBALS['template_default']['classes']['navlist-link-class']
+            );
+            if($active_class[1] && $start_id == $GLOBALS['aktion'][0]) {
+                $link_class[] = $active_class[1]; // set active link class
+            }
+            if($bootstrap && $GLOBALS['template_default']['classes']['navlist-bs-link']) {
+                $link_class[] = $GLOBALS['template_default']['classes']['navlist-bs-link'];
+            }
+            $link_class = ' class="' . implode(' ', get_unique_array($link_class)) . '"';
             $ul .= get_level_ahref($start_id, $link_class.' title="'.$link_text.'"');
             $ul .= $wrap_link_text[0] . $link_text . $wrap_link_text[1];
             $ul .= '</a></li>'.LF;
-
         }
 
         $ul .= $li;
@@ -4013,28 +4014,25 @@ function getArticleMenu($data=array()) {
             continue;
         }
 
-        $class      = '';
-        $class_a    = '';
-        if($data['class_item_tag']) {
-            $class .= $data['class_item_tag'].' ';
-        }
-        if($data['class_item_link']) {
-            $class_a .= $data['class_item_link'].' ';
-        }
-        if($key === 0 && $data['class_first_item_tag']) {
-            $class .= $data['class_first_item_tag'].' ';
-        } elseif($key === $total && $data['class_last_item_tag']) {
-            $class .= $data['class_last_item_tag'].' ';
+        $class      = array(
+            $data['class_item_tag']
+        );
+        $class_a    = array(
+            $data['class_item_link']
+        );
+        if($key === 0) {
+            $class[] = $data['class_first_item_tag'];
+        } elseif($key === $total) {
+            $class[] = $data['class_last_item_tag'];
         }
         if($item['article_id'] == $aktion[1]) {
             if(!empty($data['class_active'][0])) {
-                $class .= $data['class_active'][0].' ';
+                $class[] = $data['class_active'][0];
             }
             if(!empty($data['class_active'][1])) {
-                $class_a .= $data['class_active'][1]; // set active link class
+                $class_a[] = $data['class_active'][1]; // set active link class
             }
         }
-        $class = trim($class);
 
         $item['outside']    = '';
         $item['inside']     = '';
@@ -4090,15 +4088,17 @@ function getArticleMenu($data=array()) {
             $item['target'] = '';
         }
 
-        $li[$key]  = $data['item_prefix'] . '<'. $data['item_tag'] . ($class ? ' class="' . $class . '"' : '' ) . '>';
-        $li[$key] .= '<a href="'.$item['href'].'"' . ($class_a ? ' class="' . $class_a . '"' : '') . $item['target'] . '>';
+        $li[$key]  = $data['item_prefix'];
+        $li[$key] .= '<'. $data['item_tag'] . ' class="' . implode(' ', get_unique_array($class)) . '">';
+        $li[$key] .= '<a href="'.$item['href'].'" class="' . implode(' ', get_unique_array($class_a)) . '"' . $item['target'] . '>';
         $li[$key] .= $data['wrap_title_prefix'];
         $li[$key] .= html(getArticleMenuTitle($item));
         $li[$key] .= $data['wrap_title_suffix'];
         $li[$key] .= $item['inside'];
         $li[$key] .= '</a>';
         $li[$key] .= $item['outside'];
-        $li[$key] .= '</'.$data['item_tag'].'>' . $data['item_suffix'];
+        $li[$key] .= '</'.$data['item_tag'].'>';
+        $li[$key] .= $data['item_suffix'];
 
         $key++;
 
