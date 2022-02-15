@@ -3,6 +3,6 @@
         "vendor-dir": "include/vendor"
     },
     "require": {
-        "enshrined/svg-sanitize": "^0.14.1"
+        "enshrined/svg-sanitize": "^0.15.0"
     }
 }
