@@ -120,6 +120,8 @@ if($image['template']) {
         $image['thumb_class'] = trim($image['thumb_class'].' '.$image['center_image_class']);
     }
 
+    $total = 0;
+
     if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
         // Start lightbox
@@ -134,7 +136,6 @@ if($image['template']) {
 
         $x      = 0;
         $col    = 0;
-        $total  = 0;
 
         // Randomize?
         if(!empty($image['random']) && $image['count'] > 1) {
