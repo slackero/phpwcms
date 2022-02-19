@@ -89,6 +89,8 @@ if($image['template']) {
         $image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
     }
 
+    $total = 0;
+
     if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
         // Start lightbox
@@ -135,7 +137,6 @@ if($image['template']) {
 
         $x      = 0;
         $col    = 0;
-        $total  = 0;
 
         foreach($image['images'] as $key => $value) {
 
