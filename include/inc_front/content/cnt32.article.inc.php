@@ -120,8 +120,11 @@ if($tabs['template']) {
                     if(!empty($custom_field_value['id'])) {
 
                         $IS_NEWS_CP = true;
+
                         if (!is_array($value)) {
                             $value = array();
+                        } elseif (!isset($value['cnt_object']) || !is_array($value['cnt_object'])) {
+                            $value['cnt_object'] = array();
                         }
 
                         $value['cnt_object']['cnt_files'] = array(

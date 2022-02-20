@@ -121,7 +121,7 @@ if($image['template']) {
         $image['thumb_class'] = trim($image['thumb_class'].' '.$image['center_image_class']);
     }
 
-    $total  = 0;
+    $total = 0;
 
     if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
