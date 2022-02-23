@@ -197,7 +197,9 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 
 if($do) {
 
-	_dbQuery('SET storage_engine=MYISAM', 'SET');
+    if (!PHPWCMS_DB_VERSION_57PLUS) {
+        _dbQuery('SET storage_engine=MYISAM', 'SET');
+    }
     _dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
     _dbQuery("SET NAMES '".$phpwcms['db_charset']."'".(empty($phpwcms['db_collation']) ? '' : " COLLATE '".$phpwcms['db_collation']."'"), 'SET');
 
