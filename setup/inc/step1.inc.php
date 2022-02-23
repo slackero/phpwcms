@@ -126,8 +126,6 @@ if(!empty($db_init)) {
     <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default phpwcms database schema</h1></td></tr>
 <?php
 
-
-
     if(empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
         echo '<tr><td>&nbsp;</td><td colspan="2">';
         echo errorWarning('phpwcms tables still exists in choosen database. Rename table prefix might help!');

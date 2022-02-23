@@ -26,12 +26,14 @@ $GLOBALS['db'] = mysqli_connect($GLOBALS['phpwcms']["db_host"], $GLOBALS['phpwcm
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
 $GLOBALS['phpwcms']['db_version'] = 'unknown';
+$GLOBALS['phpwcms']['db_version_57_plus'] = false;
 
 if($is_mysql_error === false) {
 
     // set DB to compatible mode
     // for compatibility issues try to check for MySQL version and charset
     $GLOBALS['phpwcms']['db_version'] = _dbInitialize();
+    $GLOBALS['phpwcms']['db_version_57_plus'] = version_compare($GLOBALS['phpwcms']['db_version'], '5.7') >= 0;
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
     define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : mysqli_real_escape_string($GLOBALS['db'], $GLOBALS['phpwcms']["db_prepend"]) . '_');
 
@@ -45,6 +47,8 @@ if($is_mysql_error === false) {
     define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : aporeplace($GLOBALS['phpwcms']["db_prepend"]) . '_');
 
 }
+
+define('PHPWCMS_DB_VERSION_57PLUS', $GLOBALS['phpwcms']['db_version_57_plus']);
 
 // deprecated function for escaping db items
 function aporeplace($value='') {
