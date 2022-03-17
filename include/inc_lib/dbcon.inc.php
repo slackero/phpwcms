@@ -15,10 +15,6 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// build the database table prepend part
-define ('DB_PREPEND', empty($GLOBALS['cmsgo']["db_prepend"]) ? '' : $GLOBALS['cmsgo']["db_prepend"].'_');
-
-// Log DB errors
 define ('DB_LOG_ERRORS', empty($GLOBALS['cmsgo']["db_errorlog"]) ? false : true);
 
 // open the connection to MySQL database
@@ -29,13 +25,16 @@ $GLOBALS['db'] = mysqli_connect($GLOBALS['cmsgo']["db_host"], $GLOBALS['cmsgo'][
 
 $is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
 $GLOBALS['cmsgo']['db_version'] = 'unknown';
+$GLOBALS['cmsgo']['db_version_57_plus'] = false;
 
 if($is_mysql_error === false) {
 
     // set DB to compatible mode
     // for compatibility issues try to check for MySQL version and charset
     $GLOBALS['cmsgo']['db_version'] = _dbInitialize();
+    $GLOBALS['cmsgo']['db_version_57_plus'] = version_compare($GLOBALS['cmsgo']['db_version'], '5.7') >= 0;
     define('CMSGO_DB_VERSION', $GLOBALS['cmsgo']['db_version']);
+    define('DB_PREPEND', empty($GLOBALS['cmsgo']["db_prepend"]) ? '' : mysqli_real_escape_string($GLOBALS['db'], $GLOBALS['cmsgo']["db_prepend"]) . '_');
 
 } elseif($is_mysql_error !== 'dbdown.php') {
 
@@ -44,11 +43,17 @@ if($is_mysql_error === false) {
 } else {
 
     define('CMSGO_DB_VERSION', $GLOBALS['cmsgo']['db_version']);
+    define('DB_PREPEND', empty($GLOBALS['cmsgo']["db_prepend"]) ? '' : aporeplace($GLOBALS['cmsgo']["db_prepend"]) . '_');
 
 }
 
+define('CMSGO_DB_VERSION_57PLUS', $GLOBALS['cmsgo']['db_version_57_plus']);
+
 // deprecated function for escaping db items
 function aporeplace($value='') {
+    if (!$GLOBALS['db']) {
+        return str_replace(array("\\", "\x00", "\n", "\r", "'",  '"', "\x1a"), array("\\\\", "\\0", "\\n", "\\r", "\'", '\"', "\\Z"), $value);
+    }
     return mysqli_real_escape_string($GLOBALS['db'], $value);
 }
 
