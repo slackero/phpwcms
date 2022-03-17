@@ -96,9 +96,11 @@ if(!empty($step)) {
 
                     mysqli_free_result($result);
 
-                    if($result = mysqli_query($db, 'SELECT * FROM '. ($cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '') . 'cmsgo_user')) {
+                    if($result = mysqli_query($db, "SHOW TABLES LIKE '". ($cmsgo["db_prepend"] ? mysqli_real_escape_string($db, $cmsgo["db_prepend"]) . '_' : '') . "cmsgo_user'")) {
 
-                        $_db_prepend_error = true;
+                        if (!empty($result->num_rows)) {
+                            $_db_prepend_error = true;
+                        }
                         mysqli_free_result($result);
 
                     }
@@ -109,7 +111,6 @@ if(!empty($step)) {
                     $_SESSION['admin_save'] = 0;
 
                 }
-
 
             } else {
 
@@ -130,7 +131,6 @@ if(!empty($step)) {
                     if(isset($_POST['db_sql_hidden'])) {
 
                         if(empty($db_sql)) {
-
 
                             $_SESSION['admin_set']  = true;
                             $db_no_create           = true;
@@ -154,7 +154,7 @@ if(!empty($step)) {
 
                                 $db_create_err = array();
 
-                                mysqli_query($db, 'SET storage_engine=MYISAM');
+                                //mysqli_query($db, 'SET storage_engine=MYISAM');
                                 mysqli_query($db, "SET SQL_MODE=NO_ENGINE_SUBSTITUTION");
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $cmsgo['db_charset'])."'";

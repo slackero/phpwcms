@@ -190,8 +190,10 @@ if(isset($_POST['sqlfile']) && isset($_GET["do"]) && $_GET["do"] == "upgrade") {
 
 if($do) {
 
-	_dbQuery('SET storage_engine=MYISAM', 'SET');
-	_dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
+    if (!CMSGO_DB_VERSION_57PLUS) {
+        _dbQuery('SET storage_engine=MYISAM', 'SET');
+    }
+    _dbQuery("SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO'", 'SET');
     _dbQuery("SET NAMES '".$cmsgo['db_charset']."'".(empty($cmsgo['db_collation']) ? '' : " COLLATE '".$cmsgo['db_collation']."'"), 'SET');
 
 	$sql_data = read_textfile("update_sql/".$file);

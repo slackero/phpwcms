@@ -63,7 +63,9 @@ $_SESSION['REFERER_URL'] = CMSGO_URL.get_login_file();
 
 // make compatibility check
 if(cmsgo_revision_check_temp($cmsgo["revision"]) !== true) {
-    _dbQuery('SET storage_engine=MYISAM', 'SET');
+    if (!CMSGO_DB_VERSION_57PLUS) {
+        _dbQuery('SET storage_engine=MYISAM', 'SET');
+    }
     $revision_status = cmsgo_revision_check($cmsgo["revision"]);
 }
 
