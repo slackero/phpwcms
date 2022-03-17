@@ -91,12 +91,12 @@ if ($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s GMT', time()));
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
 
-    header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
+    header('Content-type: text/html; charset=' . CMSGO_CHARSET);
     header('Content-Disposition: attachment; filename="' . $filename . '"');
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
     echo '<html><head>';
-    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . CMSGO_CHARSET . '"/>';
     echo '<style type="text/css">body {font-family:sans-serif;font-size:10pt;} td {mso-number-format:\@;}</style>';
     echo '</head><body>';
     echo '<table border="1" cellspacing="1" cellpadding="2">';
