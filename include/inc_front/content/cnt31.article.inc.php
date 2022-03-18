@@ -90,7 +90,7 @@ if($image['template']) {
         $image['fieldgroup'] =& $template_default['settings']['imagespecial_custom_fields'][ $image['fieldgroup'] ]['fields'];
     }
 
-    $total  = 0;
+    $total = 0;
 
     if(is_array($image['images']) && ($image['count'] = count($image['images']))) {
 
