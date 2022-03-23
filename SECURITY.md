@@ -8,9 +8,9 @@ recommend to update to a current version whenever possible.
 On regular basis the following versions of **phpwcms** are supported:
 
 | Version   | Supported          |
-| --------- | ------------------ |
-| >= 1.9.25 | :white_check_mark: |
-| < 1.9.25  | :x:                |
+|-----------| ------------------ |
+| &gt;= 1.9.33 | :white_check_mark: |
+| &lt; 1.9.33  | :x:                |
 
 ## Reporting a Vulnerability
 
