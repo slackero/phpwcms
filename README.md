@@ -25,8 +25,18 @@ Link your browser to the related URL and follow the install instructions.
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.32 requires a web server with PHP (minimum version 5.5 up to 8.x)
+**phpwcms** version 1.9.34-dev requires a web server with PHP (minimum version 5.5 up to 8.x)
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
+
+
+Known problems
+--------------
+
+Because of the project history there are several probable problems regarding the database. 
+MySQL changed the time and date related default values over the last years. Check to setup
+the related config values to connect to the database in a more compatible way. MySQL Strict
+is no good option. I work on this to [solve the problems](https://github.com/slackero/phpwcms/issues/275)
+soon.
 
 
 Bug tracker
