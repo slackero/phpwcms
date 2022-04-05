@@ -702,6 +702,24 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
   <hr />
 
+    <div class="form-group align-items-center form-row">
+        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_robots'] ?></label>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" name="article_meta_noindex" type="checkbox" id="article_meta_noindex" value="1"<?php is_checked(1, $article["article_meta"]['noindex']); ?> />
+                <label class="form-check-label" for="article_meta_noindex"><?php echo $BL['be_robots_noindex'] ?></label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" name="article_meta_nofollow" type="checkbox" id="article_meta_nofollow" value="1"<?php is_checked(1, $article["article_meta"]['nofollow']); ?> />
+                <label class="form-check-label" for="article_meta_nofollow"><?php echo $BL['be_robots_nofollow'] ?></label>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
   <div class="form-group form-row bg-grey py-2">
     <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
     <div class="col">

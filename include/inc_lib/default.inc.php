@@ -1505,5 +1505,7 @@ function logdir_exists() {
 function get_default_article_meta() {
     return array(
         'class' => '',
+        'noindex' => 0,
+        'nofollow' => 0,
     );
 }

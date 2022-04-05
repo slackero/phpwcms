@@ -234,11 +234,13 @@ $(function() {
                 <tr>
                   <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
                   <td>
-                    <span class="badge <?php echo ($article["article_nositemap"] == 1 ? 'badge-success' : 'badge-secondary') ?>" > <?php echo $BL['be_ctype_sitemap'] ?></span>
-                    <span class="badge <?php echo ($article["article_nosearch"] == 1 ? 'badge-secondary' : 'badge-success') ?>" > <?php echo $BL['be_fsearch_searchlabel'] ?></span>
-                    <span class="badge <?php echo ($article["article_norss"] == 1 ? 'badge-success' : 'badge-secondary') ?>" > <?php echo $BL['be_no_rss'] ?></span>
-                    <span class="badge <?php echo ($article["article_opengraph"] == 1 ? 'badge-success' : 'badge-secondary') ?>" > <?php echo $BL['be_opengraph_support'] ?></span>
-                    <span class="badge <?php echo ($article["article_archive_status"] == 1 ? 'badge-success' : 'badge-secondary') ?>" > <?php echo $BL['be_show_archived'] ?></span>
+                      <span class="badge <?php echo ($article["article_nositemap"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_ctype_sitemap'] ?></span>
+                      <span class="badge <?php echo ($article["article_nosearch"] ? 'badge-secondary' : 'badge-success') ?> mt-1"><?php echo $BL['be_fsearch_searchlabel'] ?></span>
+                      <span class="badge <?php echo ($article["article_norss"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_no_rss'] ?></span>
+                      <span class="badge <?php echo ($article["article_opengraph"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_opengraph_support'] ?></span>
+                      <span class="badge <?php echo ($article["article_archive_status"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_show_archived'] ?></span>
+                      <span class="badge <?php echo ($article["article_meta"]['noindex'] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_robots_noindex'] ?></span>
+                      <span class="badge <?php echo ($article["article_meta"]['nofollow'] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_robots_nofollow'] ?></span>
                   </td>
                 </tr>
           </table>
