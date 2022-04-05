@@ -193,7 +193,7 @@ $(function(){
     selectedValuesProp: 'cat_name',
     searchObjProps: "cat_name",
     queryParam: 'value',
-    extraParams: '&method=json&action=category',
+    extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
     startText: '',
     preFill: $("#cnt_category").val(),
     neverSubmit: true,

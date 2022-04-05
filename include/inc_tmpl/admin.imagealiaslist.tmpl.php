@@ -136,7 +136,7 @@ echo "</strong></div>";
 
 function AjaxLink(contentId, file_id){
   $.ajax({
-      url: "include/inc_act/ajax_imagealias.php",
+      url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
       data: {
         action: 'form',
         'file_id': file_id
@@ -154,7 +154,7 @@ function AjaxLink(contentId, file_id){
 
 function AjaxSubmit(contentId, file_id, file_alias){
   $.ajax({
-      url: "include/inc_act/ajax_imagealias.php",
+      url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
       data: {
         action: 'form',
         'file_id': file_id,

@@ -87,17 +87,15 @@ switch($js_aktion) {
 require_once CMSGO_ROOT.'/include/inc_lib/article.contenttype.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
-
 checkLogin();
-
+validate_csrf_tokens();
+define('CSRF_GET_TOKEN', get_token_get_string());
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+?><!DOCTYPE html>
+<html lang="<?php echo $BE['LANG']; ?>">
 <head>
-
   <title><?php echo $titel ?></title>
-
   <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
 
   <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
@@ -109,6 +107,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
   <script src="include/inc_js/autosize.min.js"></script>
   <script src="include/inc_js/cmsgo.js"></script>
   <script src="include/inc_js/bootstrap.bundle.min.js"></script>
+  <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
   <script src="include/inc_js/cmsgo-addons.js"></script>
 
   <?php if ($js_aktion == 16) { ?>

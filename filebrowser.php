@@ -556,7 +556,7 @@ $(function() {
         selectedValuesProp: 'cat_name',
         searchObjProps: "cat_name",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         neverSubmit: true,
         asHtmlID: 'keyword-autosuggest'
@@ -571,14 +571,14 @@ $(document).ready(function(){
 
 
   $("#fileuploader").uploadFile({
-  url:"<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload.php?filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
+  url:"<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
   fileName:"myfile",
   dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
   abortStr:"<?php echo $BL["be_newsletter_button_cancel"] ?>",
   onSuccess:function(files,data,xhr,pd)
     {
     $.ajax({
-      url: '<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload-list.php',
+      url: '<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
       data: {
                 file_dir: <?php echo $_SESSION["imgdir"] ?>,
                 file_aktiv: 1,

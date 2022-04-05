@@ -404,7 +404,7 @@ $(function(){
         selectedValuesProp: 'calink_category',
         searchObjProps: "calink_category",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         preFill: $("#calink_category").val(),
         neverSubmit: true,

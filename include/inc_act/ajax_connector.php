@@ -12,7 +12,7 @@
 
 $cmsgo = array('SESSION_START' => true);
 
-require '../../include/config/conf.inc.php';
+require '../config/conf.inc.php';
 require '../inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
 require CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';

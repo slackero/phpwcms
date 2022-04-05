@@ -104,7 +104,7 @@ if(isset($result[0]['article_id'])) {
 
 function AjaxLink(contentId, acat_id, article_id, template){
   $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
-  var url = 'include/inc_act/ajax_alias.php?action=form&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
+  var url = 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=form&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
   $.ajax({ url: url }).done(function(data) {
     $("#"+contentId).html(data);
   });
@@ -112,7 +112,7 @@ function AjaxLink(contentId, acat_id, article_id, template){
 
 function AjaxSubmit(contentId, article_id, article_alias, article_description){
   $.ajax({
-    url:'include/inc_act/ajax_alias.php',
+    url:'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
     data: {
       action: 'update',
       'article_alias': article_alias,
@@ -132,7 +132,7 @@ function AjaxSubmit(contentId, article_id, article_alias, article_description){
 
 function AjaxSubmitCat(contentId, acat_id, acat_alias, acat_pagetitle, template){
   $.ajax({
-    url:'include/inc_act/ajax_alias.php',
+    url:'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
     data: {
       action: 'updatecat',
       'acat_id': acat_id,
@@ -152,7 +152,7 @@ function AjaxSubmitCat(contentId, acat_id, acat_alias, acat_pagetitle, template)
 }
 
 function AjaxClose(contentId, acat_id, article_id, template){
-  var url = 'include/inc_act/ajax_alias.php?action=close&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
+  var url = 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=close&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
   $.ajax({ url: url }).done(function(data) {
     $("#"+contentId).html(data);
   });

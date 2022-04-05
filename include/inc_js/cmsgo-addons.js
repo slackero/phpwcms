@@ -85,7 +85,7 @@ $(function () {
         var id = $(this).attr('data-id');
 
         var thisbtn = "#abtn" + type + $(this).attr('data-id');
-        var url = 'include/inc_act/ajax_changer.php';
+        var url = 'include/inc_act/ajax_changer.php?' + CSRF_GET_TOKEN;
 
         $.ajax({
             url: url,
@@ -183,7 +183,7 @@ function SendData1(sVar1, sVar2, sVar3, stoken) {
 
 //Ajax Sort contentpart
 function SendDataSort(sVar) {
-    var url = 'include/inc_act/act_articlesort.php?sortid=' + sVar;
+    var url = 'include/inc_act/act_articlesort.php?' + CSRF_GET_TOKEN + '&sortid=' + sVar;
     $.ajax({url: url});
 }
 

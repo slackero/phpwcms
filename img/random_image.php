@@ -41,7 +41,7 @@ if($imgpath) {
 
 $file = dirname(__FILE__)."/leer.gif";
 if(is_array($imgArray) && sizeof($imgArray)) {
-	mt_srand( (double)microtime( ) * 1000000 );
+	mt_srand(intval(microtime(true) * 1000000));
 	$randval = mt_rand( 0, sizeof( $imgArray ) - 1 );
 	$file = $imgpath.$imgArray[ $randval ];
 }

@@ -10,7 +10,7 @@
 
 // Only internal form sender allowed
 $cmsgo = array();
-require_once '../../include/config/conf.inc.php';
+require_once '../config/conf.inc.php';
 
 $url = $cmsgo["site"];
 $url = str_replace('http://', '', $url);

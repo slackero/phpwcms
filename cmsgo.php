@@ -127,14 +127,13 @@ switch ($do) {
 
 }
 
-
 //script chaching to allow header redirect
 ob_start(); //without Compression
 
 // set correct content type for backend
 header('Content-Type: text/html; charset='.CMSGO_CHARSET);
 
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+?><!DOCTYPE HTML>
 <html lang="<?php echo $BE['LANG']; ?>">
 <head><?php printf(CMSGO_HEADER_COMMENT, ''); ?>
 	<title><?php echo $BL['be_page_title'].' - '.CMSGO_HOST ?></title>
@@ -145,6 +144,7 @@ header('Content-Type: text/html; charset='.CMSGO_CHARSET);
 	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
 <?php
 
 $BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
@@ -293,10 +293,10 @@ if($BE['LANG'] == 'ar') {
                     $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'cmsgo.php?do=admin&amp;p=14', $p, "14", 0);
                 }
 
-                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?action=flush_image_cache&value=1\');" ');
-                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
+                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\');" ');
+                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 
-                $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php', '_blank', 0);
+                $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php?' . get_token_get_string(), '_blank', 0);
                 echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
             }
           ?>

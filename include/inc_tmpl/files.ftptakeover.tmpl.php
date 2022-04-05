@@ -334,13 +334,13 @@ if(is_string($cmsgo['allowed_upload_ext'])) {
 
 $(function () {
     $("#fileuploader").uploadFile({
-        url: "include/inc_act/act_multiupload.php",
+        url: "include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>",
         fileName: "myfile",
         dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
         abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
         onSuccess: function (files, data, xhr, pd) {
             $.ajax({
-                url: 'include/inc_act/act_multiupload-list.php',
+                url: 'include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
                 success: function (data) {
                     $("#filelist").html(data);
                     $("#showform").show();
@@ -415,7 +415,7 @@ function ppInitFunction() {
         selectedValuesProp: 'cat_name',
         searchObjProps: "cat_name",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         preFill: $("#file_tags").val(),
         neverSubmit: true,

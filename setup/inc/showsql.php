@@ -9,7 +9,7 @@
  **/
 
 $cmsgo = array();
-require_once '../../include/config/conf.inc.php';
+require_once '../config/conf.inc.php';
 require_once '../../include/inc_lib/default.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';

@@ -222,7 +222,7 @@ initJsAutocompleter();
       selectedValuesProp: 'cat_name',
       searchObjProps: "cat_name",
       queryParam: 'value',
-      extraParams: '&method=json&action=newstags',
+      extraParams: '&method=json&action=newstags&<?php echo get_token_get_string(); ?>',
       startText: '',
       preFill: $("#news_category").val(),
       neverSubmit: true,
