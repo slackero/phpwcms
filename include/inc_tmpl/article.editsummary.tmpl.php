@@ -657,9 +657,8 @@ if(!isset($article['image']['list_usesummary'])) {
               <td align="right" class="chatlist"><?php echo $BL['be_article_username'] ?>:&nbsp;</td>
               <td><input name="article_username" type="text" id="article_username" class="f11" style="width: 300px" value="<?php echo html($article["article_username"]) ?>" size="40" maxlength="200" /></td>
             </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td>
-            </tr>
 
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
 
             <tr>
                 <td align="right" class="chatlist inactive"><?php echo $BL['be_cache'] ?>:&nbsp;</td>
@@ -669,27 +668,37 @@ if(!isset($article['image']['list_usesummary'])) {
                         <td><label for="article_cacheoff">&nbsp;<?php echo $BL['be_off'] ?></label>&nbsp;&nbsp;</td>
                         <td>&nbsp;</td>
                         <td><select name="article_timeout" style="margin:1px;" onchange="document.article.article_cacheoff.checked=false;">
-<?php
-echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
-echo '<option value="60"'.is_selected($article["article_timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
-echo '<option value="300"'.is_selected($article["article_timeout"], '300', 0, 0).'>&nbsp;&nbsp;5 '.$BL['be_date_minutes']."</option>\n";
-echo '<option value="900"'.is_selected($article["article_timeout"], '900', 0, 0).'>15 '.$BL['be_date_minutes']."</option>\n";
-echo '<option value="1800"'.is_selected($article["article_timeout"], '1800', 0, 0).'>30 '.$BL['be_date_minutes']."</option>\n";
-echo '<option value="3600"'.is_selected($article["article_timeout"], '3600', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_hour']."</option>\n";
-echo '<option value="14400"'.is_selected($article["article_timeout"], '14400', 0, 0).'>&nbsp;&nbsp;4 '.$BL['be_date_hours']."</option>\n";
-echo '<option value="43200"'.is_selected($article["article_timeout"], '43200', 0, 0).'>12 '.$BL['be_date_hours']."</option>\n";
-echo '<option value="86400"'.is_selected($article["article_timeout"], '86400', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_day']."</option>\n";
-echo '<option value="172800"'.is_selected($article["article_timeout"], '172800', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_days']."</option>\n";
-echo '<option value="604800"'.is_selected($article["article_timeout"], '604800', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_week']."</option>\n";
-echo '<option value="1209600"'.is_selected($article["article_timeout"], '1209600', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_weeks']."</option>\n";
-echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_month']."</option>\n";
-
-?>
+                            <?php
+                                echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
+                                echo '<option value="60"'.is_selected($article["article_timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
+                                echo '<option value="300"'.is_selected($article["article_timeout"], '300', 0, 0).'>&nbsp;&nbsp;5 '.$BL['be_date_minutes']."</option>\n";
+                                echo '<option value="900"'.is_selected($article["article_timeout"], '900', 0, 0).'>15 '.$BL['be_date_minutes']."</option>\n";
+                                echo '<option value="1800"'.is_selected($article["article_timeout"], '1800', 0, 0).'>30 '.$BL['be_date_minutes']."</option>\n";
+                                echo '<option value="3600"'.is_selected($article["article_timeout"], '3600', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_hour']."</option>\n";
+                                echo '<option value="14400"'.is_selected($article["article_timeout"], '14400', 0, 0).'>&nbsp;&nbsp;4 '.$BL['be_date_hours']."</option>\n";
+                                echo '<option value="43200"'.is_selected($article["article_timeout"], '43200', 0, 0).'>12 '.$BL['be_date_hours']."</option>\n";
+                                echo '<option value="86400"'.is_selected($article["article_timeout"], '86400', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_day']."</option>\n";
+                                echo '<option value="172800"'.is_selected($article["article_timeout"], '172800', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_days']."</option>\n";
+                                echo '<option value="604800"'.is_selected($article["article_timeout"], '604800', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_week']."</option>\n";
+                                echo '<option value="1209600"'.is_selected($article["article_timeout"], '1209600', 0, 0).'>&nbsp;&nbsp;2 '.$BL['be_date_weeks']."</option>\n";
+                                echo '<option value="2592000"'.is_selected($article["article_timeout"], '2592000', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_month']."</option>\n";
+                            ?>
                         </select></td>
                   <td>&nbsp;<?php echo $BL['be_cache_timeout'] ?>&nbsp;&nbsp;</td>
 
                     </tr>
                 </table></td>
+            </tr>
+
+            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+
+            <tr>
+                <td align="right" class="chatlist"><?php echo $BL['be_robots'] ?>:&nbsp;</td>
+                <td>
+                    <label for="article_meta_noindex"><input name="article_meta_noindex" type="checkbox" id="article_meta_noindex" value="1"<?php is_checked(1, $article["article_meta"]['noindex']); ?> />&nbsp;<?php echo $BL['be_robots_noindex'] ?></label>
+                    &nbsp;
+                    <label for="article_meta_nofollow"><input name="article_meta_nofollow" type="checkbox" id="article_meta_nofollow" value="1" <?php is_checked(1, $article["article_meta"]['nofollow']); ?> />&nbsp;<?php echo $BL['be_robots_nofollow'] ?></label>
+                </td>
             </tr>
 
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>

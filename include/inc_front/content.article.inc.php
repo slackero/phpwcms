@@ -866,3 +866,17 @@ if($content['overwrite_canonical']) {
     $block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
 
 }
+
+// Set robots meta tag if noindex or nofollow
+$row['article_meta']['robots'] = array();
+if(!empty($row['article_meta']['noindex'])) {
+    $row['article_meta']['robots'][] = 'noindex';
+}
+if(!empty($row['article_meta']['nofollow'])) {
+    $row['article_meta']['robots'][] = 'nofollow';
+}
+if($row['article_meta']['robots']) {
+    $row['article_meta']['robots'] = implode(',', $row['article_meta']['robots']);
+    set_meta('robots', $row['article_meta']['robots']);
+    header('X-Robots-Tag: ' . $row['article_meta']['robots']);
+}

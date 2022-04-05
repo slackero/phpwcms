@@ -1505,3 +1505,7 @@ $BL['disposition_attachment'] = 'Attachment';
 $BL['disposition_attachment_description'] = 'direkt laden';
 $BL['disposition_inline'] = 'Inline';
 $BL['disposition_inline_description'] = 'im Browser anzeigen';
+
+$BL['be_robots'] = 'Suchindex';
+$BL['be_robots_noindex'] = 'Indizierung blockieren (noindex)';
+$BL['be_robots_nofollow'] = 'Links nicht folgen (nofollow)';
