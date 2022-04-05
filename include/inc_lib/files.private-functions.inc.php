@@ -254,8 +254,6 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
 
         //Zaehler mitführen
         $_SESSION["list_zaehler"]++;
-        $counter;
-
     }
 
     return $vor;
@@ -266,7 +264,7 @@ function true_false($wert) {
     return (intval($wert)) ? 0 : 1;
 }
 
-function on_off($wert, $string, $art = 1, $counter) {
+function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
