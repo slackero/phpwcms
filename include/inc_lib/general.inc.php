@@ -320,7 +320,7 @@ function generic_string($length, $i = 0) {
         default:
             $chars = $p[0] . $p[2] . $p[1];
     }
-    mt_srand((double)microtime() * 1000000);
+    mt_srand(intval(microtime(true) * 1000000));
     $count = strlen($chars) - 1;
     for ($i = 0; $i < $length; $i++) {
         $gen_string .= substr($chars, mt_rand(0, $count), 1);
