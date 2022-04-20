@@ -80,7 +80,7 @@ $_last10_article = _dbQuery($_asql_1);
 			<h2><?php echo $BL['be_cnt_articles'] .' <span class="smalltext">('. $_be_search . ')</span>' ?></h2>
 		</div>
 		<div class="col-sm-auto text-right">
-			<form class="formRightInput" action="cmsgo.php" id="setHomeMaxArticles" name="setHomeMaxArticles" method="post">
+			<form class="formRightInput" action="cmsgo.php?<?php echo get_token_get_string(); ?>" id="setHomeMaxArticles" name="setHomeMaxArticles" method="post">
 				<select class="custom-select form-control form-control-sm" name="homeMaxArticles" onchange="this.form.submit();">
 					<?php foreach (array(5,10,15,25,50,75,100,150) as $x): ?>
 					<option value="<?php echo $x ?>"<?php is_selected($_cmsgo_home['homeMaxArticles'], $x) ?>><?php echo $x ?></option>
@@ -125,8 +125,8 @@ $_last10_article = _dbQuery($_asql_1);
   }
 ?>
 </table>
-    <input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='cmsgo.php?do=articles'" />
-    <input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='cmsgo.php?do=articles&amp;p=1&amp;struct=0'" />
+    <input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='cmsgo.php?<?php echo get_token_get_string(); ?>&do=articles'" />
+    <input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='cmsgo.php?<?php echo get_token_get_string(); ?>&do=articles&amp;p=1&amp;struct=0'" />
   </div>
 </div>
 
@@ -137,7 +137,7 @@ $_last10_article = _dbQuery($_asql_1);
   			<h2><?php echo $BL['be_ctype'] .' <span class="smalltext">('. $_be_search .')</span>' ?></h2>
   		</div>
   		<div class="col">
-		<form class="formRightInput float-right" action="cmsgo.php" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
+		<form class="formRightInput float-right" action="cmsgo.php?<?php echo get_token_get_string(); ?>" id="setHomeMaxCntParts" name="setHomeMaxCntParts" method="post">
 		<div class="form-row">
 			<div class="col">
 			<select class="custom-select form-control form-control-sm" name="homeCntType" onChange="this.form.submit();">
@@ -179,9 +179,6 @@ $_last10_article = _dbQuery($_asql_1);
       foreach ($_last10_articlecontent as $value) {
           if (($value["acontent_type"] == 30 && !isset($cmsgo['modules'][$value["acontent_module"] ])) || !isset($wcs_content_type[$value["acontent_type"]])) {
               continue;
-          }
-
-          if ($row_count) {
           }
 
           echo '<tr>'.LF;

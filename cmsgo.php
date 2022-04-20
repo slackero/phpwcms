@@ -176,27 +176,27 @@ if($BE['LANG'] == 'ar') {
 <div id="container">
   <header id="header" class="navbar navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
-      <div id="header-logo" class="navbar-header"><a href="cmsgo.php" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System"></a></div>
+      <div id="header-logo" class="navbar-header"><a href="cmsgo.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
-					<ul class="dropdown-menu dropdown-menu-right">
-						<form action="cmsgo.php" method="POST" class="backend-search">
-						<div class="input-group">
-						<input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
-							if (isset($_POST['backend_search_input'])) {
-									$_SESSION['cmsgo_backend_search'] = clean_slweg($_POST['backend_search_input']);
-							}
-							if (!empty($_SESSION['cmsgo_backend_search'])) {
-									echo html_specialchars($_SESSION['cmsgo_backend_search']);
-							}
-						?>" class="form-control" aria-describedby="basic-search" />
-						<div class="input-group-append" id="basic-search"><button class="btn btn-blue"><i class="fa fa-search fw"></i></button></div>
-						</div>
-					</form>
-					</ul>
-				</li>
+            <form class="dropdown-menu dropdown-menu-right" action="cmsgo.php?<?php echo get_token_get_string(); ?>" method="POST" class="backend-search">
+                <div class="input-group">
+                    <input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
+                    if (isset($_POST['backend_search_input'])) {
+                        $_SESSION['cmsgo_backend_search'] = clean_slweg($_POST['backend_search_input']);
+                    }
+                    if (!empty($_SESSION['cmsgo_backend_search'])) {
+                        echo html_specialchars($_SESSION['cmsgo_backend_search']);
+                    }
+                    ?>" class="form-control" aria-describedby="basic-search" />
+                    <div class="input-group-append" id="basic-search">
+                        <button class="btn btn-blue"><i class="fa fa-search fw"></i></button>
+                    </div>
+                </div>
+            </form>
+        </li>
         <?php if (in_array($_SESSION["wcs_user_id"], $grouparray["profile"])) {
           $active = ($do == 'profile') ? ' class="active"' : '';
           echo '<li><a href="cmsgo.php?do=profile"'.$active.'><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';

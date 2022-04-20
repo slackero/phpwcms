@@ -402,7 +402,9 @@ function tokenize_urls($html) {
 			'/act_user.php?',
 			'/act_frontendsetup.php?',
 			'/act_message.php?',
-			'/act_cache.php?'
+			'/act_cache.php?',
+            'cmsgo.php"',
+            $get_token.'&amp;' . $get_token
 		);
 
 		$replace = array(
@@ -416,7 +418,9 @@ function tokenize_urls($html) {
 			'/act_user.php?'.$get_token.'&amp;',
 			'/act_frontendsetup.php?'.$get_token.'&amp;',
 			'/act_message.php?'.$get_token.'&amp;',
-			'/act_cache.php?'.$get_token.'&amp;'
+			'/act_cache.php?'.$get_token.'&amp;',
+            'cmsgo.php?'.$get_token.'"',
+            $get_token
 		);
 
 		$html = str_replace($search, $replace, $html);
