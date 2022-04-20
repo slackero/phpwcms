@@ -213,11 +213,13 @@ if($BE['LANG'] == 'ar') {
           <ul id="side-menu" class="nav flex-column">
             <?php
             // create backend main navigation
+
+            echo '<li class="nav-item';
             if ($do == 'default') {
-                echo '<li class="nav-item active"><a href="cmsgo.php"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
-            } else {
-                echo '<li class="nav-item"><a href="cmsgo.php"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
+                echo ' active';
             }
+            echo '"><a href="cmsgo.php?' . get_token_get_string() . '"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
+
             $active = ($do == 'articles' || ($do == 'admin' && $p == 6)) ? ' active' : '';
             echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="glyphicon arrow"></span></a> ';
             $subnav = '';
@@ -228,7 +230,7 @@ if($BE['LANG'] == 'ar') {
             if (in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
                 $subnav .= subnavtext($BL['be_news'], "cmsgo.php?do=articles&amp;p=3", $p, "3", 0);
             }
-            echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
+            echo '<ul class="submenu">'.$subnav."</ul></li>";
 
             $active = ($do == 'files') ? ' active' : '';
             echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="glyphicon arrow"></span></a> ';
@@ -236,7 +238,7 @@ if($BE['LANG'] == 'ar') {
             $subnav = subnavtext($BL['be_subnav_file_center'], "cmsgo.php?do=files", $p, "", 0);
             $subnav .= subnavtext($BL['be_subnav_file_actions'], "cmsgo.php?do=files&amp;p=4", $p, "4", 0);
             $subnav .= subnavtext($BL['be_file_multiple_upload'], "cmsgo.php?do=files&amp;p=8", $p, "8", 0);
-            echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
+            echo '<ul class="submenu">'.$subnav."</ul></li>";
 
             if (in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
                 $active = ($do == 'modules') ? ' active' : '';
