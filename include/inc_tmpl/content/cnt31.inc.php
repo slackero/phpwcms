@@ -602,16 +602,13 @@ if (count($content['image_special']['images'])) {
 <div class="form-group align-items-center form-row mb-3">
     <label class="col-sm-2 col-form-label text-right"></label>
     <div class="col">
-        <button class="btn btn-blue btn-sm" onclick="return addNewImage('top');">
+        <button class="btn btn-blue btn-sm" onclick="return addNewImage('bottom');">
            <i class="fa fa-plus"></i> <?php echo $BL['be_ctype_images'] ?> <?php echo $BL['be_article_cnt_add'] ?>
         </button>
     </div>
 </div>
 <?php
 }
-?>
-
-<?php
 
 $wysiwyg_editor = array(
     'value'     => isset($content["image_html"]) ? $content["image_html"] : '',
@@ -913,13 +910,16 @@ function addNewImage(where) {
     new_entry += '<'+'/div>'; //end card-body
 
     var $li = $("<li>", {id: 'image_'+entry_number, "class": "card my-3 p-0 sortme nomove"});
-    $("#images").append($li);
+    if (where === 'top') {
+        $("#images").prepend($li);
+    } else {
+        $("#images").append($li);
+    }
     $('#image_'+entry_number).html(new_entry);
     window.location.hash='image_'+entry_number;
 
-    $('button.modalButton').on('click', function(e) {
-      var src = $(this).data('src');
-      $("#browserModal iframe").attr({'src':src, 'height': '100%', 'width': '100%'});
+    $('button.modalButton').on('click', function() {
+        $("#browserModal iframe").attr({'src': $(this).data('src'), 'height': '100%', 'width': '100%'});
     });
     return false;
 }
@@ -936,9 +936,7 @@ $(function(){
     setCimageCenterInactive();
     updatePreviewImageAll();
 
-    var $images = $("#images");
-
-    $images.sortable({
+    $("#images").sortable({
         group: 'no-drop',
         handle: 'em.handle',
         onDrag: function ($item, container, _super, event) {
