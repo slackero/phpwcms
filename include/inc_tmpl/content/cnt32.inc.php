@@ -90,8 +90,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group align-items-center form-row">
 	<label class="col-sm-2 col-form-label text-right"></label>
 	<div class="col">
-		<button class="btn btn-sm btn-blue" id="btn_add_tab" onclick="addNewTab();">
-			<i class="fa fa-plus"></i> <?php echo $BL['be_tab_add'] ?></button>
+		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_top" onclick="return addNewTab('top');">
+			<i class="fa fa-plus"></i>
+            <?php echo $BL['be_tab_add'] ?>
+        </button>
 	</div>
 </div>
 
@@ -114,7 +116,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
   $value['custom_field_items'] = $custom_tab_fields;
   $custom_tab_fields_hidden = array();
-  $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool');
+  $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
 
   if(!empty($content['tabs'])):
     foreach($content['tabs'] as $key => $value):
@@ -132,8 +134,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
       }
 
 ?>
-
-    <li id="tab_<?php echo $key ?>" class="card my-3 p-0 ">
+    <li id="tab_<?php echo $key ?>" class="card my-3 p-0">
 
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
           <div class="row">
@@ -153,16 +154,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
         </div>
 
         <div class="card-body pb-1">
+            <div class="form-group align-items-center form-row">
+                <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name']; ?></label>
+                <div class="col"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" /></div>
+            </div>
 
-				<div class="form-group align-items-center form-row">
-					<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name']; ?></label>
-						<div class="col">
-							<input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" />
-						</div>
-				</div>
-
-				<div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
-				<div class="form-group align-items-center form-row">
+            <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
+                <div class="form-group align-items-center form-row">
 					<label for="be_headline" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html($value['tabheadline']); ?>" class="form-control form-control-sm" />
@@ -172,28 +170,28 @@ if(is_array($tmpllist) && count($tmpllist)) {
 						<input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="form-control form-control-sm" />
 					</div>
 				</div>
-
 				<div class="form-group form-row">
 					<?php if($content['tabwysiwygoff']): ?>
 					<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_wysiwyg']; ?></label>
-						<div class="col">
-								<?php
-									$wysiwyg_editor = array(
-											'value'     => isset($value['tabtext']) ? $value['tabtext'] : '',
-											'field'     => 'tabtext['.$key.']',
-											'height'    => empty($tab_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $tab_fieldgroup['fields'][$custom_field]['height'],
-											'width'     => '100%',
-											'rows'      => empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '5' : $tab_fieldgroup['fields'][$custom_field]['rows'],
-											'editor'    => $_SESSION["WYSIWYG_EDITOR"],
-											'lang'      => 'de'
-									);
-									include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-								?></div><?php
-								else: ?>
-							<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
-								<div class="col">
-									<textarea class="form-control" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
-								</div>
+                    <div class="col">
+                    <?php
+                        $wysiwyg_editor = array(
+                                'value'     => isset($value['tabtext']) ? $value['tabtext'] : '',
+                                'field'     => 'tabtext['.$key.']',
+                                'height'    => '150px',
+                                'width'     => '100%',
+                                'rows'      => '5',
+                                'editor'    => $_SESSION["WYSIWYG_EDITOR"],
+                                'lang'      => 'de'
+                        );
+                        include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+                    ?>
+                    </div>
+                    <?php else: ?>
+                    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
+                    <div class="col">
+                        <textarea class="form-control" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
+                    </div>
 					<?php endif; ?>
 				</div>
 
@@ -225,13 +223,13 @@ if(is_array($tmpllist) && count($tmpllist)) {
             ?></label>
 
             <div class="col">
-						<?php
-						// support only type "str" or "textarea" at the moment
-						if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
-							$tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
-						}
+<?php
+        // support only type "str" or "textarea" at the moment
+        if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
+            $tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+        }
 
-          if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
+        if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
               <input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
               if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); }
               ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?>
@@ -278,11 +276,77 @@ if(is_array($tmpllist) && count($tmpllist)) {
               </select>
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
               <div class="form-check form-check-inline col-sm-auto">
-								<input class="form-check-input" type="checkbox" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="1"<?php
-									if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
-								?> checked="checked"<?php endif; ?> />
-								<label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>
+                    <input class="form-check-input" type="checkbox" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="1"<?php
+                        if((!empty($value['custom_fields'][$custom_field])) || (!isset($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']))):
+                    ?> checked="checked"<?php endif; ?> />
+                    <label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>
               </div>
+      <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+
+          <div class="input-group mb-3">
+              <span class="input-group-prepend">
+                  <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" ></button>
+              </span>
+              <input
+                  name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
+                  type="hidden"
+                  id="customfield_<?php echo $custom_field.'_'.$key; ?>_id"
+                  value="<?php
+                  if(isset($value['custom_fields'][$custom_field]['id'])) {
+                      echo $value['custom_fields'][$custom_field]['id'];
+                  }
+                  ?>"
+              />
+              <input
+                  name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
+                  type="text"
+                  id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
+                  class="form-control form-control-sm"
+                  value="<?php
+                  if(isset($value['custom_fields'][$custom_field]['name'])) {
+                      echo html($value['custom_fields'][$custom_field]['name']);
+                  }
+                  ?>"
+                  size="40"
+                  onfocus="this.blur()"
+              />
+              <span class="input-group-append ">
+                  <a class="btn btn-sm btn-danger trash"
+                     href="#"
+                     type="button"
+                     data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                     onclick="getObjectById('customfield_<?php
+                     echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
+                     echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                     echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
+                  ></a>
+              </span>
+          </div>
+
+          <textarea
+              name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
+              cols="40"
+              rows="2"
+              class="form-control form-control-sm mb-2"
+              id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
+              if(isset($value['custom_fields'][$custom_field]['description'])) {
+                  echo html($value['custom_fields'][$custom_field]['description']);
+              }
+              ?></textarea>
+          <span class="small">
+              <?php echo $BL['be_cnt_description']; ?>
+              |
+              <?php echo $BL['be_fprivedit_filename']; ?>
+              |
+              <?php echo $BL['be_caption_file_title']; ?>
+              |
+              <?php echo $BL['be_cnt_target']; ?>
+              |
+              <?php echo $BL['be_caption_file_imagesize']; ?>
+              |
+              <?php echo $BL['be_copyright']; ?>
+          </span>
+
       <?php endif; ?>
             </div>
             </div>
@@ -294,7 +358,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
       </div>
 
-  </li>
+        </div>
+    </li>
 
 <?php
     endforeach;
@@ -311,111 +376,174 @@ if(is_array($tmpllist) && count($tmpllist)) {
     ?>
 <script type="text/javascript">
 
-  var entries = 0;
+var entries = 0;
 
-
-function addNewTab() {
+function addNewTab(pos) {
 
   var $tabs = $("ul#tabs");
-  var entries = $("ul#tabs").children().length;
-
-  var entry = '';
-
-  var entry = '<table class="tab-container" cellpadding="0" cellspacing="0">';
-  entry += '<tr><td class="chatlist col1w" align="right"> ';
-  entry += '<a href="#" onclick="return toggleTab(\'tab' + entries + '\');" class="toggle-item" title="<?php echo $BL['be_tab_toggle']; ?>"><'+'/a> ';
-  entry += '<?php echo $BL['be_tab_name'] ?>:&nbsp;<'+'/td>';
-  entry += '<td class="tdbottom2"><input type="text" name="tabtitle[' + entries + ']" id="tabtitle' + entries + '" value="" class="form-control" /'+'><'+'/td>';
-  entry += '<td style="padding-right:5px;"><a href="#" onclick="return deleteTab(\'tab' + entries + '\');" class="tab-delete"><img src="img/famfamfam/tab_delete.gif" alt="" border="" /><'+'/a> <'+'/td><'+'/tr>';
-  entry += '<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_headline'] ?>:&nbsp;<'+'/td>';
-  entry += '<td colspan="2" class="tdbottom2"><input type="text" name="tabheadline[' + entries + ']" id="tabheadline' + entries + '" value="" class="form-control" /'+'><'+'/td><'+'/tr>';
-  entry += '<tr class="tab-collapsable-row"><td class="chatlist col1w" align="right"><?php echo $BL['be_admin_page_link'] ?>:&nbsp;<'+'/td>';
-  entry += '<td colspan="2"><input type="text" name="tablink[' + entries + ']" id="tablink' + entries + '" value="" class="form-control" /'+'><'+'/td><'+'/tr>';
-  entry += '<tr class="tab-collapsable-row"><td colspan="3" class="tdtop5 tdbottom10 tdleft5 tdright5"><textarea name="tabtext[' + entries + ']" id="tabtext' + entries + '" rows="10" class="form-control">';
-  entry += '<'+'/textarea><'+'/td><'+'/tr>';
-
-  <?php
+  var entries = $tabs.children().length;
+  var entry = `
+        <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
+            <div class="row">
+                <div class="col-sm-auto">
+                    <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
+                        <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
+                    </em>
+                </div>
+                <div class="col text-right">
+                    <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_${entries}"><i class="fa fa-ellipsis-h"></i></a>
+                    <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');"><i class="far fa-trash-alt"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pb-1">
+            <div class="form-group align-items-center form-row">
+                <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name']; ?></label>
+                <div class="col"><input type="text" name="tabtitle[${entries}]" id="tabtitle${entries}" value="" class="form-control form-control-sm" /></div>
+            </div>
+            <div id="collapse_${entries}" class="collapse show" role="tabpanel" aria-labelledby="heading_${entries}" data-parent="#tabs">
+                <div class="form-group align-items-center form-row">
+					<label for="be_headline" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
+					<div class="col-sm-4">
+						<input type="text" name="tabheadline[${entries}]" id="tabheadline${entries}" value="" class="form-control form-control-sm" />
+					</div>
+					<label for="be_admin_page_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+					<div class="col-sm-4">
+						<input type="text" name="tablink[${entries}]" id="tablink${entries}" value="" class="form-control form-control-sm" />
+					</div>
+				</div>
+                <div class="form-group form-row">
+                    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
+                    <div class="col"><textarea class="form-control" name="tabtext[${entries}]" id="tabtext${entries}" rows="5"></textarea></div>
+				</div>
+<?php
         if(!empty($value['custom_field_items'])):
-          foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
+            foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 
-            // send fields not defined as hidden values, should ensure not loosing values
-            if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
-              continue;
-            }
-
-            $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
-
-            // support only type "str" or "textarea" at the moment
-            if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
-              $tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
-            }
-
-  ?>
-        entry += '<tr class="tab-collapsable-row">';
-        entry += '<td class="chatlist tdtop4" align="right" nowrap="nowrap">&nbsp;&nbsp;<?php
-              if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
-                if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
-                  echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
-                } else {
-                  echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+                // send fields not defined as hidden values, should ensure not loosing values
+                if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
+                    continue;
                 }
-                echo ':';
-              }
-            ?>&nbsp;<'+'/td>';
-        entry += '<td colspan="2" class="tdbottom2">';
-  <?php if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
-        entry += '<input type="text" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="form-control"<?php echo $custom_field_placeholder; ?> '+'/>';
-  <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-        entry += '<textarea name="customfield[' + entries + '][<?php echo $custom_field; ?>]" class="form-control autosize" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
-  <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
-        foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-        entry += '<label class="radio tab-option-radio"><input type="radio" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <?php echo html($option_label); ?><'+'/label> ';
-  <?php   endforeach;
-      elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
-        entry += '<input type="number" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="0" class="v11 width100"<?php echo $custom_field_placeholder; ?>';
-        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?>entry += ' min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>"';<?php endif; ?>
-        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?>entry += ' max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>"';<?php endif; ?>
-        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?>entry += ' step="<?php echo $tab_fieldgroup['fields'][$custom_field]['step']; ?>"';<?php endif; ?>
-        entry += ' />';
-  <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
-        entry += '<select class="custom-select" name="customfield[' + entries + '][<?php echo $custom_field; ?>]">';
-        <?php   foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-        entry += '<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?><'+'/option>';
-        <?php   endforeach; ?>
-        entry += '</select>';
-  <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
-        entry += '<label class="checkbox tab-option-checkbox">';
-        entry += '<input type="checkbox" name="customfield[' + entries + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>'+'/> ';
-        entry += '<?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
-  <?php endif; ?>
-        entry += '<'+'/td><'+'/tr>';
-  <?php
-          endforeach;
+
+                $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+
+                // support defined types only
+                if(empty($tab_fieldgroup['fields'][$custom_field]['type']) || !in_array($tab_fieldgroup['fields'][$custom_field]['type'], $custom_tab_field_types)) {
+                    $tab_fieldgroup['fields'][$custom_field]['type'] = 'str';
+                }
+?>
+                <hr />
+                <div class="form-group align-items-center form-row tab-collapsable-row">
+                    <label class="col-sm-2 col-form-label text-right">
+                        <?php
+                        if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
+                            echo isset($tab_fieldgroup['fields'][$custom_field]['legend']) ? html($tab_fieldgroup['fields'][$custom_field]['legend']) : $BL['be_custom_textfield'] . ' #' . ($custom_field_key + 1);
+                        }
+                        ?>
+                    </label>
+                    <div class="col">
+                        <?php if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
+                            <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="" class="form-control form-control-sm"<?php echo $custom_field_placeholder; ?>
+                            <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> />
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
+                            <input type="number" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="" class="form-control form-control-sm"<?php echo $custom_field_placeholder; ?>
+                                <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
+                                <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
+                                <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['step'])): ?> step="<?php
+                                    if($tab_fieldgroup['fields'][$custom_field]['type'] === 'int') {
+                                        $tab_fieldgroup['fields'][$custom_field]['step'] = ceil($tab_fieldgroup['fields'][$custom_field]['step']);
+                                    } else {
+                                        $tab_fieldgroup['fields'][$custom_field]['step'] = floatval($tab_fieldgroup['fields'][$custom_field]['step']);
+                                        $tab_fieldgroup['fields'][$custom_field]['step'] = rtrim(number_format($tab_fieldgroup['fields'][$custom_field]['step'], 14 - log10($tab_fieldgroup['fields'][$custom_field]['step'])), '0');
+                                    }
+                                    echo $tab_fieldgroup['fields'][$custom_field]['step'];
+                                    ?>"
+                                <?php endif; ?> />
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
+                            <textarea name="customfield[${entries}][<?php echo $custom_field; ?>]" class="form-control form-control-sm autosize"<?php echo $custom_field_placeholder; ?> rows="3"></textarea>
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
+                            foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+                            <div class="form-check form-check-inline col-sm-auto">
+								<input class="form-check-input" type="radio" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"
+								<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?> />
+								<label class="form-check-label"><?php echo html($option_label); ?></label>
+                            </div><?php
+                            endforeach; ?>
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
+                            <select class="custom-select form-control form-control-sm" name="customfield[${entries}][<?php echo $custom_field; ?>]">
+                            <?php foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
+                                <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"
+                                <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>>
+                                    <?php echo html($option_label); ?>
+                                </option>
+                            <?php endforeach; ?>
+                            </select>
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
+                            <div class="form-check form-check-inline col-sm-auto">
+                                <input class="form-check-input" type="checkbox" name="customfield[${entries}][<?php echo $custom_field; ?>]" value="1" />
+                                <label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>
+                            </div>
+
+                        <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
+                            <div class="input-group mb-3">
+                                <span class="input-group-prepend">
+                                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field ?>_${entries}&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>
+                                </span>
+                                <input type="hidden" name="customfield[${entries}][<?php echo $custom_field; ?>][id]" id="customfield_<?php echo $custom_field; ?>_${entries}_id" value="" />
+                                <input type="text" name="customfield[${entries}][<?php echo $custom_field; ?>][name]" id="customfield_<?php echo $custom_field; ?>_${entries}_name" class="form-control form-control-sm" value="" size="40" onfocus="this.blur()" />
+                                <span class="input-group-append ">
+                                    <a class="btn btn-sm btn-danger trash" href="#" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('customfield_<?php
+                                      echo $custom_field; ?>_${entries}_name').value='';getObjectById('customfield_<?php
+                                      echo $custom_field; ?>_${entries}_id').value='';getObjectById('customfield_<?php
+                                      echo $custom_field; ?>_${entries}_description').value='';this.blur();return false;"></a>
+                                </span>
+                            </div>
+                            <textarea name="customfield[${entries}][<?php echo $custom_field; ?>][description]" cols="40" rows="2" class="form-control form-control-sm mb-2" id="customfield_<?php echo $custom_field; ?>_${entries}_description"></textarea>
+                            <span class="small">
+                                <?php echo $BL['be_cnt_description']; ?> | <?php echo $BL['be_fprivedit_filename']; ?> |
+                                <?php echo $BL['be_caption_file_title']; ?> | <?php echo $BL['be_cnt_target']; ?> |
+                                <?php echo $BL['be_caption_file_imagesize']; ?> | <?php echo $BL['be_copyright']; ?>
+                            </span>
+
+                        <?php endif; ?>
+                    </div>
+                </div>
+<?php
+            endforeach;
         endif;
-  ?>
-        entry  += '<'+'/table>';
+?>
+            </div>
+        </div>
+`;
 
-        var $li = $("<li>", {id: 'tab_'+entries, "class": "sortme nomove"});
-        $("#tabs").append($li);
-        $('#tab_'+entries).html(entry);
-        window.location.hash='tab_'+entries;
-
-  <?php if($content['wysiwyg']): ?>
-        EnableCKEditor(entries);
-        <?php endif; ?>
-        $('ul#tabs').scrollTop($('ul#tabs li:nth-child('+entries +')').position().top);
-        entries++;
-      }
-
-  <?php if($content['wysiwyg']): ?>
-      if(entries > 0) {
-        for(var x = 0; x < entries; x++) {
-          EnableCKEditor(x);
+        var $li = $("<li>", {id: 'tab_'+entries, "class": "card my-3 p-0"});
+        if (pos === 'top') {
+            $("#tabs").prepend($li);
+        } else {
+            $("#tabs").append($li);
         }
-      }
-  <?php endif; ?>
 
-<?php if($content['wysiwyg']):
+        $li.html(entry);
+        <?php if($content['wysiwyg']): ?>EnableCKEditor(entries);<?php endif; ?>
+
+        $('button.modalButton').on('click', function() {
+            $("#browserModal iframe").attr({'src': $(this).data('src'), 'height': '100%', 'width': '100%'});
+        });
+        return false;
+    }
+
+<?php if($content['wysiwyg']): ?>
+    if(entries > 0) {
+        for(var x = 0; x < entries; x++) {
+            EnableCKEditor(x);
+        }
+    }
+<?php
 
   // CKEditor Tabs configuration
   $content['ckconfig'] = array();
@@ -478,8 +606,16 @@ function addNewTab() {
     return false;
   }
 
-  $(function(){
+  function setIdName(field, file_id, file_name) {
+      if(file_id == null || file_name == null || field == null) {
+          return null;
+      }
+      $('#customfield_'+field+'_name').val(file_name);
+      $('#customfield_'+field+'_id').val(file_id);
+      $('#browserModal').modal('hide');
+  }
 
+  $(function(){
       $("ul.dropable-list").sortable({
         group: 'no-drop',
         handle: 'em.handle',
@@ -491,7 +627,6 @@ function addNewTab() {
           $("body").removeClass(container.group.options.bodyClass);
         }
       });
-
   });
 
   </script>
@@ -500,7 +635,9 @@ function addNewTab() {
 <div class="form-group align-items-center form-row">
 	<label class="col-sm-2 col-form-label text-right"></label>
 	<div class="col">
-		<button class="btn btn-sm btn-blue" id="btn_add_tab" onclick="return addNewTab();">
-			<i class="fa fa-plus"></i> <?php echo $BL['be_tab_add'] ?></button>
+		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_bottom" onclick="return addNewTab('bottom');">
+			<i class="fa fa-plus"></i>
+            <?php echo $BL['be_tab_add'] ?>
+        </button>
 	</div>
 </div>

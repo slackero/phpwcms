@@ -51,6 +51,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		$content["tabs"][$x]['tablink']		= empty($_POST['tablink'][$key]) ? '' : clean_slweg($_POST['tablink'][$key]);
 
 		$content["tabs"][$x]['custom_fields'] = array();
+        $_cp_search = '';
 
 		// first read all defined custom field values
 		if(!empty($tab_fieldgroup_fields)) {
@@ -85,14 +86,17 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
                     }
                     if(!empty($custom_field_value['name']) && $content["tabs"][$x]['custom_fields'][$custom_field]['id']) {
                         $content["tabs"][$x]['custom_fields'][$custom_field]['name'] = clean_slweg($custom_field_value['name']);
+                        $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field]['name'];
                     }
                     if(!empty($custom_field_value['description']) && $content["tabs"][$x]['custom_fields'][$custom_field]['id']) {
                         $content["tabs"][$x]['custom_fields'][$custom_field]['description'] = clean_slweg($custom_field_value['description']);
+                        $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field]['description'];
                     }
 
                 } else {
 
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
+                    $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field];
 
 				}
 			}
@@ -105,15 +109,11 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 					continue;
 				}
 				$content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value); // keep the value as is
+                $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field];
 			}
 		}
 
-		$content['search'] .= strip_tags(
-			trim(
-				$content["tabs"][$x]['tabtitle'] . ' ' . $content["tabs"][$x]['tabheadline'] . ' ' .
-				$content["tabs"][$x]['tabtext'] . ' ' . implode(' ', $content["tabs"][$x]['custom_fields'])
-			)
-		) . ' ';
+		$content['search'] .= strip_tags(trim($content["tabs"][$x]['tabtitle'] . ' ' . $content["tabs"][$x]['tabheadline'] . ' ' . $content["tabs"][$x]['tabtext'] . ' ' . $_cp_search)) . ' ';
 
 		$content['html'][] = '<dt>'.html_specialchars($content["tabs"][$x]['tabtitle']).'</dt>';
 		$content['html'][] = '<dd>';
@@ -122,18 +122,17 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		}
 		if(!$content['tabwysiwygoff'] && strpos($content["tabs"][$x]['tabtext'], '<') === false) {
 			$content["tabs"][$x]['tabtext'] = plaintext_htmlencode($content["tabs"][$x]['tabtext']);
-			$content['html'][] = ''.$content["tabs"][$x]['tabtext'];
+			$content['html'][] = $content["tabs"][$x]['tabtext'];
 		}
 		$content['html'][] = '</dd>';
 
 		$x++;
 
 	}
+
 }
 
 $content['search'] = trim($content['search']);
-
 $content['html'] = count($content['html']) ? '<dl>' . implode(LF, $content['html']) . '</dl>' : '';
-
 $content['tabs']['tabwysiwygoff'] = $content['tabwysiwygoff'];
 $content['tabs']['tab_fieldgroup'] = $content['tab_fieldgroup'];
