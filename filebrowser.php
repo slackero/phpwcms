@@ -655,7 +655,7 @@ function folder_list($pid, $counter, $zieldatei) {
     }
 }
 
-function on_off($wert, $string, $art = 1, $counter) {
+function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
