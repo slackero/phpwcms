@@ -25,11 +25,11 @@ header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Retry-After: 3600');
 
 ?><!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?php echo $cmsgo['DOCTYPE_LANG']; ?>">
 <head>
-    <meta charset="utf-8">
+    <meta charset="<?php echo CMSGO_CHARSET ?>" />
     <title>Sorry</title>
-    <style type="text/css">
+    <style>
         body {
             background-color: #fff;
             margin: 50px;

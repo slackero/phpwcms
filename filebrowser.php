@@ -142,14 +142,11 @@ if(isset($_GET["files"])) {
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."cmsgo_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") AND f_trash=0";
 $count_user_files = _dbQuery($sql, 'COUNT');
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $user_lang; ?>">
+?><!DOCTYPE html>
+<html lang="<?php echo $user_lang; ?>">
 <head>
-
     <title><?php echo $titel ?></title>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
-
+    <meta charset="<?php echo CMSGO_CHARSET ?>" />
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/uploadfile.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />

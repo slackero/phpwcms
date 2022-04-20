@@ -20,7 +20,8 @@ if(empty($_SESSION["wcs_user_lang"])) {
     headerRedirect($cmsgo['site'].$cmsgo["root"]);
 } else {
     require 'include/inc_lang/backend/en/lang.ext.inc.php';
-    $cust_lang = 'include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.ext.inc.php';
+    $user_lang = substr($_SESSION["wcs_user_lang"],0,2);
+    $cust_lang = 'include/inc_lang/backend/'.$user_lang.'/lang.ext.inc.php';
     if(is_file($cust_lang)) {
         include $cust_lang;
     }
@@ -75,11 +76,11 @@ if($file_id) {
             ));
         }
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+?><!DOCTYPE html>
+<html lang="<?php echo $user_lang; ?>">
 <head>
     <title><?php echo $BL['FILEINFO_TITLE'] ?>: <?php echo $filename ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>" />
+    <meta charset="<?php echo CMSGO_CHARSET ?>" />
     <meta http-equiv="Expires" content="0" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
