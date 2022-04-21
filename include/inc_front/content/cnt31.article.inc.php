@@ -444,12 +444,12 @@ if($image['template']) {
 
                     } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
-                        $_preserve_acontent_html = $crow['acontent_html'];
                         $news['files_result'] = '';
 
                         if(!empty($custom_field_value['id'])) {
 
                             $IS_NEWS_CP = true;
+                            $_crow = $crow; // temporary save
 
                             if (!is_array($value)) {
                                 $value = array();
@@ -467,13 +467,12 @@ if($image['template']) {
                             // include content part files renderer
                             include CMSGO_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-                            unset($IS_NEWS_CP);
+                            $crow = $_crow;
+                            unset($IS_NEWS_CP, $_crow);
 
                         }
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
-                        $crow['acontent_html'] = $_preserve_acontent_html;
-                        unset($_preserve_acontent_html);
 
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
