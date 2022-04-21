@@ -49,7 +49,7 @@ CKEDITOR.editorConfig = function( config ) {
   config.height = 400;
 
   config.extraPlugins = 'magicline,image2,scayt';
-  //config.removePlugins = 'resize';
+  config.removePlugins = 'image,flash'; //,resize
 
   // Allow classes for all tags
   config.extraAllowedContent = '*(*)';

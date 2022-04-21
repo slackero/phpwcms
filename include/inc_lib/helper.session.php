@@ -404,6 +404,8 @@ function tokenize_urls($html) {
 			'/act_message.php?',
 			'/act_cache.php?',
             'cmsgo.php"',
+            'articlebrowser.php?opt',
+            'filebrowser.php?opt',
             $get_token.'&amp;' . $get_token
 		);
 
@@ -420,6 +422,8 @@ function tokenize_urls($html) {
 			'/act_message.php?'.$get_token.'&amp;',
 			'/act_cache.php?'.$get_token.'&amp;',
             'cmsgo.php?'.$get_token.'"',
+            'articlebrowser.php?'.$get_token.'&opt',
+            'filebrowser.php?'.$get_token.'&opt',
             $get_token
 		);
 

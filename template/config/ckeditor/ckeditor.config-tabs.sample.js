@@ -50,7 +50,7 @@ CKEDITOR.editorConfig = function( config ) {
     //config.height = 200;
 
     //config.extraPlugins = 'magicline,image2';
-    //config.removePlugins = 'resize';
+    //config.removePlugins = 'image,flash'; //,resize
 
     //config.toolbarCanCollapse = true;
     //config.toolbarStartupExpanded = false;

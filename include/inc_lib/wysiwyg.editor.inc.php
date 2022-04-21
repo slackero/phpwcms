@@ -49,6 +49,7 @@ if($wysiwyg_editor['editor']) {
 	echo html($wysiwyg_editor['value'], true).'</textarea>';
 
 	echo '<script type="text/javascript">' . LF;
+	echo 'if(!CKEDITOR.instances["'.$wysiwyg_editor['id'].'"]) {' . LF;
 	echo '	CKEDITOR.replace("'.$wysiwyg_editor['id'].'", {';
 
     if($wysiwyg_editor['is_tab'] && is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
@@ -77,7 +78,7 @@ if($wysiwyg_editor['editor']) {
 		width: '" . $wysiwyg_editor['width'] . "',
 		height: '" . $wysiwyg_editor['height'] . "',
 		extraPlugins: 'magicline,image2',
-		removePlugins: 'image',
+		removePlugins: 'image,flash',
 		toolbarCanCollapse: true,
 		toolbarStartupExpanded: " . ($wysiwyg_editor['is_tab'] ? 'false' : 'true') . ",
 		forcePasteAsPlainText: true,
@@ -96,6 +97,7 @@ if($wysiwyg_editor['editor']) {
 		echo '		filebrowserWindowHeight: "480"';
 	}
 	echo LF . '	});' . LF;
+	echo '};' . LF;
 	echo '</script>';
 
 } else {

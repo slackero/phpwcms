@@ -586,7 +586,7 @@ function addNewTab(pos) {
 ?>
 
   function EnableCKEditor(x) {
-    if( $('tabtext'+x) ) {
+    if( $('tabtext'+x) && !CKEDITOR.instances['tabtext'+x]) {
       CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
     }
   }
