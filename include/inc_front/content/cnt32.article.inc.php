@@ -119,9 +119,10 @@ if($tabs['template']) {
                     if(!empty($custom_field_value['id'])) {
 
                         $IS_NEWS_CP = true;
+                        $_crow = $crow; // temporary save
 
-                        if (!is_array($value)) {
-                            $value = array();
+                        if (!isset($value) || !is_array($value)) {
+                            $value = array('cnt_object' => array());
                         } elseif (!isset($value['cnt_object']) || !is_array($value['cnt_object'])) {
                             $value['cnt_object'] = array();
                         }
@@ -136,7 +137,8 @@ if($tabs['template']) {
                         // include content part files renderer
                         include CMSGO_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-                        unset($IS_NEWS_CP);
+                        $crow = $_crow;
+                        unset($IS_NEWS_CP, $_crow);
 
                     }
 
@@ -166,6 +168,7 @@ if($tabs['template']) {
     $tabs['entries_count'] = count($tabs['entries']);
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', $tabs['entries_count'] ? implode('', $tabs['entries']) : '');
     $tabs['template'] = str_replace('{TAB_COUNT}', $tabs['entries_count'], $tabs['template']);
+    $CNT_TMP .= $CNT_TMP = str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 } else {
 
@@ -173,7 +176,5 @@ if($tabs['template']) {
     $CNT_TMP .= LF . $crow["acontent_html"];
 
 }
-
-$CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 unset($tabs);
