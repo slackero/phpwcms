@@ -168,7 +168,7 @@ if($tabs['template']) {
     $tabs['entries_count'] = count($tabs['entries']);
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', $tabs['entries_count'] ? implode('', $tabs['entries']) : '');
     $tabs['template'] = str_replace('{TAB_COUNT}', $tabs['entries_count'], $tabs['template']);
-    $CNT_TMP .= $CNT_TMP = str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
+    $CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 } else {
 
