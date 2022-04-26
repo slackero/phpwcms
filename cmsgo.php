@@ -253,7 +253,7 @@ if($BE['LANG'] == 'ar') {
             }
 
             //newsletter
-            if (in_array($_SESSION["wcs_user_id"], $grouparray["nl"])) {
+            if (!empty($cmsgo['enable_backend_newsletter']) && in_array($_SESSION["wcs_user_id"], $grouparray["nl"])) {
                 $active = ($do == 'messages' || ($do == 'messages' && $p == 2)) ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="glyphicon arrow"></span></a> ';
                 $subnav = '';
@@ -371,24 +371,33 @@ if($BE['LANG'] == 'ar') {
               break;
 
       case "messages":    //Messages
-            switch ($p) {
-                //case 0: include CMSGO_ROOT.'/include/inc_tmpl/message.center.tmpl.php'; break; //Messages Overview
-                //case 1: include CMSGO_ROOT.'/include/inc_tmpl/message.send.tmpl.php';   break;    //New Message
-                case 2: //Newsletter subscription
+            if (empty($cmsgo['enable_backend_newsletter'])) {
+                $do = 'default';
+                $p = 0;
+                include CMSGO_ROOT.'/include/inc_tmpl/be_start.tmpl.php';
+                include CMSGO_TEMPLATE.'inc_default/startup.php';
+                // echo cmsgoversionCheck();
+                $cmsgo['be_parse_lang_process'] = true;
+            } else {
+                switch ($p) {
+                    //case 0: include CMSGO_ROOT.'/include/inc_tmpl/message.center.tmpl.php'; break; //Messages Overview
+                    //case 1: include CMSGO_ROOT.'/include/inc_tmpl/message.send.tmpl.php';   break;    //New Message
+                    case 2: //Newsletter subscription
                         if ($_SESSION["wcs_user_admin"] == 1) {
-                            include CMSGO_ROOT.'/include/inc_tmpl/message.subscription.tmpl.php';
+                            include CMSGO_ROOT . '/include/inc_tmpl/message.subscription.tmpl.php';
                         }
                         break;
-                case 3: //Newsletter
+                    case 3: //Newsletter
                         if ($_SESSION["wcs_user_admin"] == 1) {
-                            include CMSGO_ROOT.'/include/inc_tmpl/newsletter.list.tmpl.php';
+                            include CMSGO_ROOT . '/include/inc_tmpl/newsletter.list.tmpl.php';
                         }
                         break;
-                case 4: //Newsletter subscribers
+                    case 4: //Newsletter subscribers
                         if ($_SESSION["wcs_user_admin"] == 1) {
-                            include CMSGO_ROOT.'/include/inc_tmpl/message.subscribers.tmpl.php';
+                            include CMSGO_ROOT . '/include/inc_tmpl/message.subscribers.tmpl.php';
                         }
                         break;
+                }
             }
             break;
 

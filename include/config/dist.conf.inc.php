@@ -155,6 +155,7 @@ $cmsgo['disable_generator']    = false; // Disable <meta name="generator"> and h
 $cmsgo['disable_processed_in'] = false; // Hide header `X-cmsgo-Page-Processed-In`
 $cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
 $cmsgo['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
+$cmsgo['enable_backend_newsletter'] = false; // Enable newsletter menu item in the backend, disabled by default
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address
