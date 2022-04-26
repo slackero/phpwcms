@@ -181,7 +181,7 @@ if($BE['LANG'] == 'ar') {
       <ul class="nav navbar-nav navbar-right">
         <li><a href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
-            <form class="dropdown-menu dropdown-menu-right" action="cmsgo.php?<?php echo get_token_get_string(); ?>" method="POST" class="backend-search">
+            <form class="dropdown-menu dropdown-menu-right backend-search" action="cmsgo.php?<?php echo get_token_get_string(); ?>" method="POST">
                 <div class="input-group">
                     <input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
                     if (isset($_POST['backend_search_input'])) {
@@ -192,7 +192,9 @@ if($BE['LANG'] == 'ar') {
                     }
                     ?>" class="form-control" aria-describedby="basic-search" />
                     <div class="input-group-append" id="basic-search">
-                        <button class="btn btn-blue"><i class="fa fa-search fw"></i></button>
+                        <button class="btn btn-blue">
+                            <i class="fa fa-search fw"></i>
+                        </button>
                     </div>
                 </div>
             </form>
