@@ -1184,10 +1184,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 if(empty($cnt_form['upload_value']['exclude'])) {
                     $cnt_form['upload_value']['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,com,bat,app,sh,jar,java';
                 }
+                if(!isset($cnt_form['upload_value']['text_no_upload'])) {
+                    $cnt_form['upload_value']['text_no_upload'] = '-';
+                }
 
                 if($POST_DO && isset($_FILES[$POST_name])) {
                     $POST_val[$POST_name]['folder'] = $cnt_form['upload_value']['folder'];
                     $POST_val[$POST_name]['attachment'] = $cnt_form['upload_value']['attachment'];
+                    $POST_val[$POST_name]['text_no_upload'] = $cnt_form['upload_value']['text_no_upload'];
                     $POST_val[$POST_name]['name'] = '';
                     if(!empty($cnt_form['upload_value']['accept'])) {
                         $cnt_form['upload_value']['accept'] = convertStringToArray($cnt_form['upload_value']['accept'], ',');
@@ -1835,6 +1839,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
     $POST_attach = array();
     $POST_savedb = array();
+    $POST_file_upload_texts = array();
 
     if(!empty($doubleoptin_values['formresult_content'])) {
         $POST_val = $doubleoptin_values['formresult_content'];
@@ -1857,28 +1862,30 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                 $cnt_form["copyto"] = $POST_keyval;
             }
 
-            if(is_array($POST_keyval) && !isset($POST_keyval['folder'])) {
-                // check if this is an array - but no upload value
-                $POST_keyval = implode(', ', $POST_keyval);
-
-            } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
-                // check if this is an array - and is an upload value
-                $POST_valurl = PHPWCMS_URL.$POST_keyval['folder'].'/'.rawurlencode($POST_keyval['name']);
-                if(isset($POST_keyval['attachment']) && $POST_keyval['attachment']) {
-                    $POST_attach[] = PHPWCMS_ROOT.'/'.$POST_keyval['folder'].'/'.$POST_keyval['name'];
-                }
-                if(!$cnt_form['template_format']) {
-                    $POST_keyval = $POST_valurl;
+            if(is_array($POST_keyval)) {
+                if (isset($POST_keyval['folder'])) {
+                    // check if this is an array - and is an upload value
+                    if (empty($POST_keyval['name'])) {
+                        $POST_keyval = $POST_keyval['text_no_upload'];
+                    } else {
+                        $POST_valurl = PHPWCMS_URL . $POST_keyval['folder'] . '/' . rawurlencode( $POST_keyval['name'] );
+                        if ( isset( $POST_keyval['attachment'] ) && $POST_keyval['attachment'] ) {
+                            $POST_attach[] = PHPWCMS_ROOT . '/' . $POST_keyval['folder'] . '/' . $POST_keyval['name'];
+                        }
+                        if ( ! $cnt_form['template_format'] ) {
+                            $POST_keyval = $POST_valurl;
+                        }
+                    }
+                } else {
+                    // check if this is an array - but no upload value
+                    $POST_keyval = implode( ', ', $POST_keyval );
                 }
             }
 
             // prepare for storing in database
             if(!empty($cnt_form['savedb'])) {
-
                 $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
-
             }
-
 
             // first check copy to email template related things
             if( !$cnt_form['template_equal'] ) {

@@ -469,6 +469,11 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                     $upload_value['exclude'] = implode(',', $upload_value['exclude']);
                                 }
                                 break;
+
+                            case 'text_no_upload':
+                                $upload_value['text_no_upload'] = isset($upload[1]) ? trim($upload[1]) : '-';
+                                break;
+
                         }
 
                     }
@@ -687,7 +692,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
          */
         $all_fields_empty  = $content['form']["fields"][$field_counter]['name'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['label'];
-        $all_fields_empty .= $content['form']["fields"][$field_counter]['value'];
+        $all_fields_empty .= is_array($content['form']["fields"][$field_counter]['value']) ? implode('', $content['form']["fields"][$field_counter]['value']) : $content['form']["fields"][$field_counter]['value'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['error'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['style'];
 
