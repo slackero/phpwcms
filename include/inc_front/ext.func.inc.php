@@ -79,7 +79,7 @@ function utf2html($str) {
 }
 
 // http://www.evilwalrus.com/viewcode.php?codeEx=627
-function is_date($PASSED, $TXT_DATE_FORMAT='m/d/Y') {
+function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
     $lib_import_datearr = array();
     $lib_import_datearr['h'] = 2; // 01-12 - time - hours 12
     $lib_import_datearr['H'] = 2; // 00-23 - time - hours 24

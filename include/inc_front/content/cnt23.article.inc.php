@@ -23,11 +23,7 @@ $cnt_form = unserialize($crow["acontent_form"]);
 
 if(empty($cnt_form['anchor_off'])) {
     $CNT_TMP .= '<a id="';
-    if(empty($cnt_form['anchor_name'])) {
-        $CNT_TMP .= 'jumpForm'.$crow["acontent_id"];
-    } else {
-        $CNT_TMP .= html($cnt_form['anchor_name']);
-    }
+    $CNT_TMP .= empty($cnt_form['anchor_name']) ? 'jumpForm'.$crow["acontent_id"] : html($cnt_form['anchor_name']);
     $CNT_TMP .= '"></a>';
 }
 
@@ -365,10 +361,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  * Special
                  */
                 $cnt_form['special_attribute'] = array(
-                    'default'       => '',
-                    'type'          => 'MIX',
-                    'dateformat'    => 'm/d/Y',
-                    'pattern'       => '/.*?/'
+                    'default' => '',
+                    'type' => 'MIX',
+                    'dateformat' => 'Y-m-d',
+                    'pattern' => '/.*?/',
+                    'validatedateformat' => 0
                 );
                 //
                 if($cnt_form["fields"][$key]['value']) {
@@ -384,9 +381,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             } elseif($temp_array[0] === 'type') {
                                 $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
                             } elseif($temp_array[0] === 'dateformat') {
-                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
+                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'Y-m-d';
                             } elseif($temp_array[0] === 'pattern') {
                                 $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? ('/' . trim($temp_array[1], '/') . '/') : '/.*?/'; //#%+~
+                            } elseif($temp_array[0] === 'validatedateformat') {
+                                $cnt_form['special_attribute']['validatedateformat'] = empty($temp_array[1]) ? '0' : '1';
                             }
                         }
                     }
@@ -437,9 +436,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 break;
 
                             case 'DATE':
-                                if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) &&
-                                    !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
+                                if($cnt_form["fields"][$key]['value'] !== '' && !empty($cnt_form['special_attribute']['dateformat']) && !empty($cnt_form['special_attribute']['validatedateformat']) && !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
                                     $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                } elseif (!empty($cnt_form['special_attribute']['dateformat'])) {
+                                    $cnt_form["fields"][$key]['date_format'] = $cnt_form['special_attribute']['dateformat'];
                                 }
                                 break;
                         }
@@ -477,6 +477,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     case 'REGEX':
                         $form_field_attributes = ' pattern="'.trim($cnt_form['special_attribute']['pattern'], '/').'"';
+                        break;
+
+                    case 'DATE':
+                        $form_field_type = 'date';
                         break;
                 }
 
@@ -1890,6 +1894,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             // first check copy to email template related things
             if( !$cnt_form['template_equal'] ) {
 
+                $POST_keyval_copy = $POST_keyval;
+
                 if($cnt_form['template_format_copy'] == 1) { //HTML
 
                     if(is_string($POST_keyval)) {
@@ -1898,10 +1904,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                         $POST_keyval_copy = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
                     }
 
-                } else {
+                }
 
-                    $POST_keyval_copy = $POST_keyval;
-
+                if(isset($cnt_form["fields"][$POST_key]['date_format']) && $POST_keyval_copy) {
+                    $_date = strtotime($POST_keyval_copy);
+                    if ($_date) {
+                        $POST_keyval_copy = date($cnt_form["fields"][$POST_key]['date_format'], $_date);
+                    }
                 }
 
                 // replace tags in email form
@@ -1912,6 +1921,12 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             if($cnt_form['template_format']) { //HTML
 
                 if(is_string($POST_keyval)) {
+                    if(isset($cnt_form["fields"][$POST_key]['date_format']) && $POST_keyval) {
+                        $_date = strtotime($POST_keyval);
+                        if ($_date) {
+                            $POST_keyval = date($cnt_form["fields"][$POST_key]['date_format'], $_date);
+                        }
+                    }
                     $POST_keyval = html_specialchars($POST_keyval);
                 } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
                     $POST_keyval = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
@@ -2470,10 +2485,9 @@ if($form_cnt) {
     }
     $CNT_TMP .= $form_error_text;
     $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
-    if(!empty($cnt_form['anchor_name'])) {
-        $CNT_TMP .= '#'.html($cnt_form['anchor_name']);
-    } elseif(empty($cnt_form['anchor_off'])) {
-        $CNT_TMP .= '#jumpForm'.$crow["acontent_id"];
+    if(empty($cnt_form['anchor_off'])) {
+        $CNT_TMP .= '#';
+        $CNT_TMP .= empty($cnt_form['anchor_name']) ? html($cnt_form['anchor_name']) : 'jumpForm'.$crow["acontent_id"];
     }
     $CNT_TMP .= '" ';
     if($cnt_form['is_enctype']) {

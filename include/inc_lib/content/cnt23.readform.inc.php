@@ -203,44 +203,52 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                             $_special[0] = strtolower(trim($_special[0]));
                             switch($_special[0]) {
 
-                                case 'type':        if(!empty($_special[1])) {
-                                                        $_special[1] = trim($_special[1]);
-                                                        if($_special[1] !== 'a-Z' && $_special[1] !== 'a-z') {
-                                                            $_special[1] = strtoupper($_special[1]);
-                                                        }
-                                                        switch($_special[1]) {
-                                                            case 'MIX':
-                                                            case 'INT':
-                                                            case 'FLOAT':
-                                                            case 'DEC':
-                                                            case 'IDENT':
-                                                            case 'STRING':
-                                                            case 'DATE':
-                                                            case 'A-Z':
-                                                            case 'a-Z':
-                                                            case 'a-z':
-                                                            case '0-9':
-                                                            case 'WORD':
-                                                            case 'LETTER+SPACE':
-                                                            case 'PHONE':
-                                                            case 'REGEX':
-                                                                $special_attribute['type'] = $_special[1];
-                                                                break;
-                                                        }
-                                                    }
-                                                    if(!isset($special_attribute['type'])) {
-                                                        $special_attribute['type'] = 'MIX';
-                                                    }
-                                                    break;
+                                case 'type':
+                                    if ( ! empty( $_special[1] ) ) {
+                                        $_special[1] = trim( $_special[1] );
+                                        if ( $_special[1] !== 'a-Z' && $_special[1] !== 'a-z' ) {
+                                            $_special[1] = strtoupper( $_special[1] );
+                                        }
+                                        switch ( $_special[1] ) {
+                                            case 'MIX':
+                                            case 'INT':
+                                            case 'FLOAT':
+                                            case 'DEC':
+                                            case 'IDENT':
+                                            case 'STRING':
+                                            case 'DATE':
+                                            case 'A-Z':
+                                            case 'a-Z':
+                                            case 'a-z':
+                                            case '0-9':
+                                            case 'WORD':
+                                            case 'LETTER+SPACE':
+                                            case 'PHONE':
+                                            case 'REGEX':
+                                                $special_attribute['type'] = $_special[1];
+                                                break;
+                                        }
+                                    }
+                                    if ( ! isset( $special_attribute['type'] ) ) {
+                                        $special_attribute['type'] = 'MIX';
+                                    }
+                                    break;
 
-                                case 'default':     $special_attribute['default'] = isset($_special[1]) ? trim($_special[1]) : '';
-                                                    break;
+                                case 'default':
+                                    $special_attribute['default'] = isset( $_special[1] ) ? trim( $_special[1] ) : '';
+                                    break;
 
-                                case 'dateformat':  $special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
-                                                    break;
+                                case 'dateformat':
+                                    $special_attribute['dateformat'] = isset( $_special[1] ) ? trim( $_special[1] ) : 'Y-m-d';
+                                    break;
 
-                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim(trim($_special[1]), '/') : '/.*?/';
-                                                    break;
+                                case 'validatedateformat':
+                                    $special_attribute['validatedateformat'] = empty( $_special[1] ) ? '0' : '1';
+                                    break;
+
+                                case 'pattern':
+                                    $special_attribute['pattern'] = isset( $_special[1] ) ? trim( trim( $_special[1] ), '/' ) : '/.*?/';
+                                    break;
                             }
                         }
                     }
