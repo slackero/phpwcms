@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'reference' => 'a32567baf7790e66407cffeb6f85d50479a015e4',
+        'reference' => '359120d8c8a9fc913d224c7b8ba8e5e16b04ebfc',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
-            'reference' => 'a32567baf7790e66407cffeb6f85d50479a015e4',
+            'reference' => '359120d8c8a9fc913d224c7b8ba8e5e16b04ebfc',
             'dev_requirement' => false,
         ),
         'enshrined/svg-sanitize' => array(
