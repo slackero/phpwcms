@@ -52,7 +52,7 @@ switch($crow["acontent_form"]) {
 
     case 'textile':
         init_textile();
-        $crow['acontent_text'] = $phpwcms['textile_class']->textileThis($crow['acontent_text']);
+        $crow['acontent_text'] = $phpwcms['textile_class']->parse($crow['acontent_text']);
         break;
 
     case 'plain':

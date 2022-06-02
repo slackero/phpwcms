@@ -3,6 +3,7 @@
         "vendor-dir": "include/vendor"
     },
     "require": {
-        "enshrined/svg-sanitize": "^0.15.4"
+        "enshrined/svg-sanitize": "^0.15.4",
+        "netcarver/textile": "v3.7.7"
     }
 }

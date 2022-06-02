@@ -367,7 +367,7 @@ if($image['template']) {
                     break;
 
                 case 'textile':
-                    $value['freetext'] = $phpwcms['textile_class']->textileThis($value['freetext']);
+                    $value['freetext'] = $phpwcms['textile_class']->parse($value['freetext']);
                     break;
 
                 case 'html':

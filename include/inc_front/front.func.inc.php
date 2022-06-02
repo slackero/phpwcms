@@ -4579,8 +4579,7 @@ function init_markdown() {
 function init_textile() {
 
     if(!isset($GLOBALS['phpwcms']['textile_class'])) {
-        require_once(PHPWCMS_ROOT . '/include/inc_ext/classTextile.php');
-        $GLOBALS['phpwcms']['textile_class'] = new Textile();
+        $GLOBALS['phpwcms']['textile_class'] = new \Netcarver\Textile\Parser();
     }
 
 }
