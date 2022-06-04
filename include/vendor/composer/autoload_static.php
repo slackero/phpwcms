@@ -11,12 +11,20 @@ class ComposerStaticInitd9d8a20757697aec57dc4639fa16142e
         array (
             'enshrined\\svgSanitize\\' => 22,
         ),
+        'N' => 
+        array (
+            'Netcarver\\Textile\\' => 18,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'enshrined\\svgSanitize\\' => 
         array (
             0 => __DIR__ . '/..' . '/enshrined/svg-sanitize/src',
+        ),
+        'Netcarver\\Textile\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/netcarver/textile/src/Netcarver/Textile',
         ),
     );
 

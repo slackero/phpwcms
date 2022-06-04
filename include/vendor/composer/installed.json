@@ -47,6 +47,68 @@
                 "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.15.4"
             },
             "install-path": "../enshrined/svg-sanitize"
+        },
+        {
+            "name": "netcarver/textile",
+            "version": "v3.7.7",
+            "version_normalized": "3.7.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/textile/php-textile.git",
+                "reference": "e5c32b4485741e656cfd94932da8ba7dd4a19da5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/textile/php-textile/zipball/e5c32b4485741e656cfd94932da8ba7dd4a19da5",
+                "reference": "e5c32b4485741e656cfd94932da8ba7dd4a19da5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "1.6.3",
+                "phpunit/phpunit": "^9.5.20",
+                "squizlabs/php_codesniffer": "3.*",
+                "symfony/yaml": "^4.4.3"
+            },
+            "time": "2022-05-01T17:05:16+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Netcarver\\Textile\\": "src/Netcarver/Textile/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Textile markup language parser",
+            "homepage": "https://github.com/textile/php-textile",
+            "keywords": [
+                "document",
+                "format",
+                "html",
+                "language",
+                "markup",
+                "parser",
+                "php-textile",
+                "plaintext",
+                "textile"
+            ],
+            "support": {
+                "irc": "irc://irc.freenode.net/textile",
+                "issues": "https://github.com/textile/php-textile/issues",
+                "source": "https://github.com/textile/php-textile",
+                "wiki": "https://github.com/textile/php-textile/wiki"
+            },
+            "install-path": "../netcarver/textile"
         }
     ],
     "dev": true,

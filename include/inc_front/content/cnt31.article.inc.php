@@ -366,7 +366,7 @@ if($image['template']) {
                     break;
 
                 case 'textile':
-                    $value['freetext'] = $cmsgo['textile_class']->textileThis($value['freetext']);
+                    $value['freetext'] = $cmsgo['textile_class']->parse($value['freetext']);
                     break;
 
                 case 'html':

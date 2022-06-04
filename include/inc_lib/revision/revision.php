@@ -9,5 +9,5 @@
  **/
 
 define('CMSGO_VERSION', '2.2.12');
-define('CMSGO_RELEASE_DATE', '2022/05/24');
+define('CMSGO_RELEASE_DATE', '2022/06/04');
 define('CMSGO_REVISION', '553');

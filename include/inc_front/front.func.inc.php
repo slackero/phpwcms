@@ -4578,8 +4578,7 @@ function init_markdown() {
 function init_textile() {
 
     if(!isset($GLOBALS['cmsgo']['textile_class'])) {
-        require_once(CMSGO_ROOT . '/include/inc_ext/classTextile.php');
-        $GLOBALS['cmsgo']['textile_class'] = new Textile();
+        $GLOBALS['cmsgo']['textile_class'] = new \Netcarver\Textile\Parser();;
     }
 
 }
