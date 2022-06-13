@@ -25,6 +25,7 @@ if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was se
 if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
     die('Sorry, access forbidden');
 }
+
 //get variables
 $action = isset($_REQUEST['action']) ? $_REQUEST['action'] : '';
 $alias = isset($_REQUEST['article_alias']) ? clean_slweg($_REQUEST['article_alias'], 255) : '';

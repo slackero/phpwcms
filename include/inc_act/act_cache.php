@@ -18,7 +18,7 @@ checkLogin();
 validate_csrf_tokens();
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
+if(!empty($_SESSION["wcs_user_admin"])) { //Wenn Benutzer Admin-Rechte hat
 
     if(isset($_GET['do']) && intval($_GET['do']) === 9) {
 
