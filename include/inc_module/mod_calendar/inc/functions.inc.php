@@ -17,7 +17,7 @@ function returnDayNameArray() {
 	// http://keithdevens.com/software/php_calendar
 	$day_names = array();
 	for($n=0, $t=3*86400; $n<7; $n++, $t+=86400) {
-		$day_names[$n] = ucfirst(gmstrftime('%A',$t));
+		$day_names[$n] = ucfirst(gmdate('l', $t));
 	}
 	return $day_names;
 }
