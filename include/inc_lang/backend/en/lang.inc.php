@@ -1526,3 +1526,4 @@ $BL['be_robots_nofollow'] = 'do not follow the links (nofollow)';
 $BL['be_cnt_form_direct_download'] = 'allow download';
 $BL['be_cnt_form_direct_download_apikey'] = 'API key';
 $BL['be_cnt_form_apikey_reset'] = 'reset';
+$BL['be_copy_link'] = 'copy link';

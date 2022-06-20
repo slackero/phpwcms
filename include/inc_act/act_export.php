@@ -14,16 +14,41 @@ require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
-checkLogin();
-validate_csrf_tokens();
-require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
+$apikey = '';
+$fid = isset($_GET['fid']) ? intval($_GET['fid']) : 0;
+
+if (empty($_GET['apikey']) || $action !== 'exportformresult') {
+    checkLogin();
+    validate_csrf_tokens();
+} else {
+    $apikey = clean_slweg($_GET['apikey']);
+    if (strlen($apikey) !== 16) {
+        $apikey = '';
+    } else {
+        $where_apikey = _dbEscape('direct_download_apikey";s:16:"' . $apikey . '"', true, '%', '%');
+        $form = _dbGet(
+            'phpwcms_articlecontent',
+            'acontent_id, acontent_form',
+            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_apikey
+        );
+        if (empty($form[0]['acontent_id']) || intval($form[0]['acontent_id']) !== $fid) {
+            $apikey = '';
+        }
+    }
+    if (!$apikey) {
+        echo '<html><body><h1>403 Forbidden</h1></body></html>';
+        headerRedirect('', 403, false);
+        die();
+    }
+}
+require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 // export form results
-if ($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET['fid']))) {
+if ($action === 'exportformresult' && $fid) {
 
-    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
+    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
 
     if (!$data) {
         die('No data returned or another error processing the export.');
@@ -104,9 +129,10 @@ if ($action == 'exportformresult' && isset($_GET['fid']) && ($fid = intval($_GET
     echo '</table></body></html>';
     flush();
     exit();
-} elseif ($action == 'exportformresultdetail' && isset($_GET['fid']) && ($fid = intval($_GET['fid']))) {
 
-    $data = _getDatabaseQueryResult("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
+} elseif ($action == 'exportformresultdetail' && $fid) {
+
+    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
 
     if (!$data) {
         die('No data returned or another error processing the export.');

@@ -466,31 +466,38 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
     <td>
         <table summary="" cellpadding="0" cellspacing="0" border="0">
             <tr>
-                <td bgcolor="#E7E8EB"><input type="checkbox" name="cform_savedb" id="cform_savedb" value="1" <?php echo is_checked(1, $content['form']["savedb"], 0, 0) ?> /></td>
-                <td class="v10" bgcolor="#E7E8EB"><label for="cform_savedb">&nbsp;<?php echo $BL['be_cnt_formsave_in_db'] ?></label>&nbsp;</td>
+                <td><input type="checkbox" name="cform_savedb" id="cform_savedb" value="1" <?php echo is_checked(1, $content['form']["savedb"], 0, 0) ?> /></td>
+                <td class="v10"><label for="cform_savedb">&nbsp;<?php echo $BL['be_cnt_formsave_in_db'] ?></label>&nbsp;</td>
                 <td>&nbsp;</td>
-                <td bgcolor="#E7E8EB" class="width15"><input type="checkbox" name="cform_tracking_off" id="cform_tracking_off" value="1" <?php echo is_checked(1, $content['form']["formtracking_off"], 0, 0) ?> /> </td>
-                <td class="v10" bgcolor="#E7E8EB"><label for="cform_tracking_off">&nbsp;<?php echo $BL['be_cnt_field']['formtracking_off'] ?></label>&nbsp;</td>
+                <td class="width15"><input type="checkbox" name="cform_tracking_off" id="cform_tracking_off" value="1" <?php echo is_checked(1, $content['form']["formtracking_off"], 0, 0) ?> /> </td>
+                <td class="v10"><label for="cform_tracking_off">&nbsp;<?php echo $BL['be_cnt_field']['formtracking_off'] ?></label>&nbsp;</td>
             </tr>
             <tr>
                 <td colspan="5"><img src="img/leer.gif" alt="" width="1" height="2"/></td>
             </tr>
             <tr>
-                <td bgcolor="#E7E8EB"><input type="checkbox" name="cform_saveprofile" id="cform_saveprofile" value="1" <?php echo is_checked(1, $content['form']["saveprofile"], 0, 0) ?> onchange="this.form.submit();"/></td>
-                <td class="v10" bgcolor="#E7E8EB"><label for="cform_saveprofile">&nbsp;<?php echo $BL['be_cnt_formsave_profile'] ?></label>&nbsp;</td>
+                <td><input type="checkbox" name="cform_saveprofile" id="cform_saveprofile" value="1" <?php echo is_checked(1, $content['form']["saveprofile"], 0, 0) ?> onchange="this.form.submit();"/></td>
+                <td class="v10"><label for="cform_saveprofile">&nbsp;<?php echo $BL['be_cnt_formsave_profile'] ?></label>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td colspan="2">
                     <?php
                     // check form entries
-                    if ($content["id"]) {
+                    $result_download_link = 'include/inc_act/act_export.php?' . CSRF_GET_TOKEN . '&amp;action=exportformresult&amp;fid=' . $content['id'];
+                    if ($content["id"]):
                         $entries = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $content['id'], 'COUNT');
-                        if ($entries > 0) {
-                            echo "<button onclick=\"window.open('include/inc_act/act_export.php?" . CSRF_GET_TOKEN . "&amp;action=exportformresult&amp;fid=";
-                            echo $content['id'] . "', 'Zweitfenster');\">";
-                            echo '<img src="img/icons/small_icon_xls.gif" alt="Excel Sheet" style="position:relative;top:1px;" />&nbsp;' . $BL['be_cnt_download'] . ' (' . $entries . ')</button>';
-                        }
-                    }
+                        if ($entries > 0):
                     ?>
+                            <button onclick="window.open('<?php echo $result_download_link; ?>', '_new');">
+                                <img src="img/icons/small_icon_xls.gif" alt="Excel Sheet" style="position:relative;top:1px;" class="tdright5"><?php echo $BL['be_cnt_download'] . ' (' . $entries . ')'; ?>
+                            </button>
+                    <?php
+                        endif;
+                    endif;
+                    $result_download_link = PHPWCMS_URL . 'include/inc_act/act_export.php?action=exportformresult&amp;fid=' . $content['id'] . '&amp;apikey=' . html($content['form']['direct_download_apikey']);
+                    ?>
+                    <button type="button" onclick="copyToClipboard('<?php echo $result_download_link; ?>');return false;" title="<?php echo $BL['copy_to_clipboard'] . ': ' . $result_download_link; ?>" id="copy_link_to_clipboard">
+                        <img src="img/button/copy_11x11_0.gif" style="position:relative;top:1px;" alt="" class="tdright5"><?php echo $BL['be_copy_link']; ?>
+                    </button>
                 </td>
             </tr>
         </table>
@@ -508,8 +515,8 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                 <td class="v10"><label for="cform_direct_download">&nbsp;<?php echo $BL['be_cnt_form_direct_download'] ?></label>&nbsp;</td>
                 <td>&nbsp;&nbsp;</td>
                 <td class="checkbox-list">
-                    <span id="direct_download_apikey_display" class="tdleft5 tdright5 v14"><?php echo html($content['form']['direct_download_apikey']) ?></span>
-                    <input type="hidden" name="direct_download_apikey" id="direct_download_apikey" value="<?php echo html($content['form']['direct_download_apikey']) ?>" />
+                    <span id="direct_download_apikey_display" class="tdleft5 tdright5 v14"><?php echo html($content['form']['direct_download_apikey']); ?></span>
+                    <input type="hidden" name="direct_download_apikey" id="direct_download_apikey" value="<?php echo html($content['form']['direct_download_apikey']); ?>" />
                 </td>
                 <td class="tdleft5">
                     <button type="button" onclick="resetApiKey(this);"><?php echo $BL['be_cnt_form_apikey_reset']; ?></button>
@@ -523,9 +530,9 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
                             document.getElementById('direct_download_apikey').value = apiKeyNew;
                             let apiKeyDisplay = document.getElementById('direct_download_apikey_display');
                             apiKeyDisplay.textContent = apiKeyNew;
-                            //apiKeyDisplay.classList.add('navtext');
                             apiKeyResetted = true;
                             elem.disabled = true;
+                            document.getElementById('copy_link_to_clipboard').disabled = true;
                             return true;
                         }
                     </script>
