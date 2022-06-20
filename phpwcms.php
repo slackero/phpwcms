@@ -224,7 +224,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     <title><?php echo $BL['be_page_title'].' - '.PHPWCMS_HOST ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' 'unsafe-inline'">
+    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' 'unsafe-inline'">
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
 <?php
