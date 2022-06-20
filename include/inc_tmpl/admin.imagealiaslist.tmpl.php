@@ -134,41 +134,43 @@ echo "</strong></div>";
 
 <script type="text/javascript">
 
-function AjaxLink(contentId, file_id){
-  $.ajax({
-      url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
-      data: {
-        action: 'form',
-        'file_id': file_id
-      },
-      success: function(data) {
-        $(contentId).html(data);
-        $(contentId).show();
-      },
-      error: function() {
-        $(contentId).html('The request failed.');
-        $(contentId).show();
-      }
-  })
-}
+    function AjaxLink(contentId, file_id) {
+        $.ajax({
+            url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
+            xhrFields: {
+                withCredentials: true
+            },
+            data: {
+                action: 'form',
+                'file_id': file_id
+            },
+            success: function (data) {
+                $(contentId).html(data).show();
+            },
+            error: function () {
+                $(contentId).html('The request failed.').show();
+            }
+        })
+    }
 
-function AjaxSubmit(contentId, file_id, file_alias){
-  $.ajax({
-      url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
-      data: {
-        action: 'form',
-        'file_id': file_id,
-        'file_alias': file_alias
-      },
-      success: function(data) {
-        $(contentId).html(data);
-        $(contentId).show();
-      },
-      error: function() {
-        $(contentId).html('The request failed.');
-        $(contentId).show();
-      }
-  })
-}
+    function AjaxSubmit(contentId, file_id, file_alias) {
+        $.ajax({
+            url: "include/inc_act/ajax_imagealias.php?<?php echo get_token_get_string(); ?>",
+            xhrFields: {
+                withCredentials: true
+            },
+            data: {
+                action: 'form',
+                'file_id': file_id,
+                'file_alias': file_alias
+            },
+            success: function (data) {
+                $(contentId).html(data).show();
+            },
+            error: function () {
+                $(contentId).html('The request failed.').show();
+            }
+        })
+    }
 
 </script>

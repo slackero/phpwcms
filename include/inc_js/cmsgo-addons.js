@@ -22,8 +22,7 @@ $(function () {
             $('div.navbar-collapse').removeClass('collapse')
         }
 
-        height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
-        height = height - topOffset;
+        height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - topOffset;
         if (height < 1) {
             height = 1;
         }
@@ -43,13 +42,14 @@ $(function () {
     });
 
     $('img.modalButton').on('click', function (e) {
-        var src = $(this).attr('data-src');
-        var height = $(this).attr('data-height') || 300;
-        var width = $(this).attr('data-width') || 400;
-        var modaltitle = $(this).attr('alt');
+        let $this = $(this);
+        var src = $this.attr('data-src');
+        var modaltitle = $this.attr('alt');
 
-        $('.modal .modal-body').css('overflow-y', 'auto');
-        $('.modal .modal-body').css('min-height', $(window).height() * 0.8);
+        $('.modal .modal-body').css({
+            'overflow-y': 'auto',
+            'min-height': $(window).height() * 0.8
+        });
 
         $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
         $("#browserModal h2").html(modaltitle);
@@ -57,8 +57,10 @@ $(function () {
 
     $('button.modalButton').on('click', function (e) {
         var src = $(this).attr('data-src');
-        $('.modal .modal-body').css('overflow-y', 'auto');
-        $('.modal .modal-body').css('min-height', $(window).height() * 0.8);
+        $('.modal .modal-body').css({
+            'overflow-y': 'auto',
+            'min-height': $(window).height() * 0.8
+        });
 
         $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
     });
@@ -69,8 +71,10 @@ $(function () {
         //var width = $(this).attr('data-width') || 400;
         //var modaltitle = $(this).attr('data-title');
 
-        $('.modal .modal-body').css('overflow-y', 'auto');
-        $('.modal .modal-body').css('min-height', $(window).height() * 0.8);
+        $('.modal .modal-body').css({
+            'overflow-y': 'auto',
+            'min-height': $(window).height() * 0.8
+        });
 
         $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
         //$("#browserModal h2").html(modaltitle);
@@ -78,17 +82,19 @@ $(function () {
 
     //ajaxfunction
     $('[id^="abtn"]').on('click', function (e) {
-        var type = $(this).attr('data-type');
-        var table = $(this).attr('data-table');
-        var field = $(this).attr('data-field');
-        var fieldid = $(this).attr('data-fieldid');
-        var id = $(this).attr('data-id');
-
-        var thisbtn = "#abtn" + type + $(this).attr('data-id');
-        var url = 'include/inc_act/ajax_changer.php?' + CSRF_GET_TOKEN;
+        let $this = $(this);
+        var type = $this.attr('data-type');
+        var table = $this.attr('data-table');
+        var field = $this.attr('data-field');
+        var fieldid = $this.attr('data-fieldid');
+        var id = $this.attr('data-id');
+        var thisbtn = "#abtn" + type + $this.attr('data-id');
 
         $.ajax({
-            url: url,
+            url: 'include/inc_act/ajax_changer.php?' + CSRF_GET_TOKEN,
+            xhrFields: {
+                withCredentials: true
+            },
             data: {
                 'table': table,
                 'id': id,
@@ -103,13 +109,12 @@ $(function () {
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert(xhr.status);
-                alert(thrownError);
+                alert(xhr.status + ' ' + thrownError);
             }
         });
     });
 
-    $('[id^="imgpos"]').click(function () {
+    $('[id^="imgpos"]').on('click', function () {
         var id = $(this).attr('id');
         var x = id.match(/[\d\.]+/g);
         $("#cimage_pos").val(x);
@@ -122,7 +127,7 @@ $(function () {
         }
     });
 
-    $('#cimage_pos').change(function () {
+    $('#cimage_pos').on('change', function () {
         var x = $(this).val();
         for (var i = 0; i <= 9; i++) {
             if (i == x) {
@@ -167,12 +172,13 @@ function SendData1(sVar1, sVar2, sVar3, stoken) {
             sVar5 = 1;
         }
     }
-    //build url
-    var url = 'include/inc_act/act_articlecontent.php?' + stoken + '&do=' + sVar1 + ',' + sVar2 + ',' + sVar3 + ',' + sVar5;
 
     //Change image
     $.ajax({
-        url: url,
+        url: 'include/inc_act/act_articlecontent.php?' + stoken + '&do=' + sVar1 + ',' + sVar2 + ',' + sVar3 + ',' + sVar5,
+        xhrFields: {
+            withCredentials: true
+        },
         context: document.body
     }).done(function () {
         $("#" + sImage).replaceWith('<i class="fa ' + sVaricon + ' icolor' + sVar5 + '" id="' + sVar4 + '_' + sVar1 + '_' + sVar2 + '_' + sVar3 + '" aria-hidden="true" onclick="SendData(' + "'" + sVar1 + "','" + sVar2 + "','" + sVar3 + "','" + stoken + "'" + ')"></i>');
@@ -184,7 +190,12 @@ function SendData1(sVar1, sVar2, sVar3, stoken) {
 //Ajax Sort contentpart
 function SendDataSort(sVar) {
     var url = 'include/inc_act/act_articlesort.php?' + CSRF_GET_TOKEN + '&sortid=' + sVar;
-    $.ajax({url: url});
+    $.ajax({
+        url: url,
+        xhrFields: {
+            withCredentials: true
+        }
+    });
 }
 
 //set min height of wrapper if changing sidebar
@@ -192,7 +203,7 @@ if (typeof jQuery == 'undefined') { // still mootools
     window.addEvent('domready', function () {
         $$('#side-menu li').addEvent('click', function (e) {
             $$('#side-menu ul').setStyle('display', 'none');
-            if (this.getElements('ul').getStyle('display') == 'block') {
+            if (this.getElements('ul').getStyle('display') === 'block') {
                 this.getElements('ul').setStyle('display', 'none');
             } else {
                 this.getElements('ul').setStyle('display', 'block');
@@ -203,8 +214,8 @@ if (typeof jQuery == 'undefined') { // still mootools
         });
     });
 } else {
-   $(function () {
-        $('#side-menu li').click(function () {
+    $(function () {
+        $('#side-menu li').on('click', function () {
             $('#side-menu ul').css("display", "none");
             $(this).children('ul').css("display", "block");
             height = height - topOffset;

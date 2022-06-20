@@ -547,7 +547,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 </table>
 <script>
 $(function() {
-
     $("#file_tags_autosuggest").autoSuggest('<?php echo CMSGO_URL ?>include/inc_act/ajax_connector.php', {
         selectedItemProp: "cat_name",
         selectedValuesProp: 'cat_name',
@@ -559,41 +558,39 @@ $(function() {
         asHtmlID: 'keyword-autosuggest'
     });
 
-});
-
-$(document).ready(function(){
-  $('.structarticle').click(function() {
-    parent.$('#browserModal').modal('hide');
-  });
-
-
-  $("#fileuploader").uploadFile({
-  url:"<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
-  fileName:"myfile",
-  dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
-  abortStr:"<?php echo $BL["be_newsletter_button_cancel"] ?>",
-  onSuccess:function(files,data,xhr,pd)
-    {
-    $.ajax({
-      url: '<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
-      data: {
-                file_dir: <?php echo $_SESSION["imgdir"] ?>,
-                file_aktiv: 1,
-                file_public: 1,
-                file_longinfo: $('#file_longinfo').val(),
-                file_copyright: $('#file_copyright').val(),
-                file_tags: $('#as-values-keyword-autosuggest').val()
-      },
-      success: function(data) {
-        document.location.reload(true);
-      }
+    $('.structarticle').on('click', function () {
+        parent.$('#browserModal').modal('hide');
     });
-    }
-  });
 
-  $('#showuploader').click(function() {
-    $('#filebrowser-uploader').toggle();
-  });
+    $("#fileuploader").uploadFile({
+        url: "<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
+        fileName: "myfile",
+        dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
+        abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        onSuccess: function (files, data, xhr, pd) {
+            $.ajax({
+                url: '<?php echo CMSGO_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    file_dir: <?php echo $_SESSION["imgdir"] ?>,
+                    file_aktiv: 1,
+                    file_public: 1,
+                    file_longinfo: $('#file_longinfo').val(),
+                    file_copyright: $('#file_copyright').val(),
+                    file_tags: $('#as-values-keyword-autosuggest').val()
+                },
+                success: function (data) {
+                    document.location.reload();
+                }
+            });
+        }
+    });
+
+    $('#showuploader').on('click', function () {
+        $('#filebrowser-uploader').toggle();
+    });
 });
 </script>
 </body>

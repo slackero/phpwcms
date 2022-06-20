@@ -102,60 +102,70 @@ if(isset($result[0]['article_id'])) {
 
 <script type="text/javascript">
 
-function AjaxLink(contentId, acat_id, article_id, template){
-  $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
-  var url = 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=form&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
-  $.ajax({ url: url }).done(function(data) {
-    $("#"+contentId).html(data);
-  });
-}
-
-function AjaxSubmit(contentId, article_id, article_alias, article_description){
-  $.ajax({
-    url:'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
-    data: {
-      action: 'update',
-      'article_alias': article_alias,
-      'article_id': article_id,
-      'article_description': article_description
-    },
-    success: function(data) {
-      $("#"+contentId).html(data);
-      $("#"+contentId).show();
-    },
-    error: function() {
-      $("#"+contentId).html('The request failed.');
-      $("#"+contentId).show();
+    function AjaxLink(contentId, acat_id, article_id, template) {
+        $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
+        $.ajax({
+            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=form&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template,
+            xhrFields: {
+                withCredentials: true
+            }
+        }).done(function (data) {
+            $("#" + contentId).html(data);
+        });
     }
-  })
-}
 
-function AjaxSubmitCat(contentId, acat_id, acat_alias, acat_pagetitle, template){
-  $.ajax({
-    url:'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
-    data: {
-      action: 'updatecat',
-      'acat_id': acat_id,
-      'acat_alias': acat_alias,
-      'acat_pagetitle': acat_pagetitle,
-      'template': template
-    },
-    success: function(data) {
-      $("#"+contentId).html(data);
-      $("#"+contentId).show();
-    },
-    error: function() {
-      $("#"+contentId).html('The request failed.');
-      $("#"+contentId).show();
+    function AjaxSubmit(contentId, article_id, article_alias, article_description) {
+        $.ajax({
+            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
+            xhrFields: {
+                withCredentials: true
+            },
+            data: {
+                action: 'update',
+                'article_alias': article_alias,
+                'article_id': article_id,
+                'article_description': article_description
+            },
+            success: function (data) {
+                $("#" + contentId).html(data).show();
+            },
+            error: function () {
+                $("#" + contentId).html('The request failed.').show();
+            }
+        })
     }
-  })
-}
 
-function AjaxClose(contentId, acat_id, article_id, template){
-  var url = 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=close&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template;
-  $.ajax({ url: url }).done(function(data) {
-    $("#"+contentId).html(data);
-  });
-}
+    function AjaxSubmitCat(contentId, acat_id, acat_alias, acat_pagetitle, template) {
+        $.ajax({
+            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
+            xhrFields: {
+                withCredentials: true
+            },
+            data: {
+                action: 'updatecat',
+                'acat_id': acat_id,
+                'acat_alias': acat_alias,
+                'acat_pagetitle': acat_pagetitle,
+                'template': template
+            },
+            success: function (data) {
+                $("#" + contentId).html(data).show();
+            },
+            error: function () {
+                $("#" + contentId).html('The request failed.').show();
+            }
+        })
+    }
+
+    function AjaxClose(contentId, acat_id, article_id, template) {
+        $.ajax({
+            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=close&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template,
+            xhrFields: {
+                withCredentials: true
+            }
+        }).done(function (data) {
+            $("#" + contentId).html(data);
+        });
+    }
 
 </script>

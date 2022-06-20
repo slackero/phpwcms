@@ -341,6 +341,9 @@ $(function () {
         onSuccess: function (files, data, xhr, pd) {
             $.ajax({
                 url: 'include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
+                xhrFields: {
+                    withCredentials: true
+                },
                 success: function (data) {
                     $("#filelist").html(data);
                     $("#showform").show();

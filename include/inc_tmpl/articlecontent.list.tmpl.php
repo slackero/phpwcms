@@ -37,7 +37,12 @@ $(function() {
             $('#sortable-list-0 li').each(function() {
                 sort_order = sort_order + $(this).attr('id') + '|';
             });
-            $.ajax({url: 'include/inc_act/act_articlesort.php?<?php echo get_token_get_string(); ?>&sortid=' + sort_order});
+            $.ajax({
+                url: 'include/inc_act/act_articlesort.php?<?php echo get_token_get_string(); ?>&sortid=' + sort_order,
+                xhrFields: {
+                    withCredentials: true
+                }
+            });
         }
   });
 });
@@ -495,9 +500,8 @@ $(function() {
           $(\'#sortable-list-'. $listingflag .' li\').each(function() {
             sort_order = sort_order +  $(this).attr(\'id\')  + \'|\';
           });
-          $.ajax({url: \'include/inc_act/act_articlesort.php?' . get_token_get_string() . '&sortid=\' + sort_order});
+          $.ajax({url: \'include/inc_act/act_articlesort.php?' . get_token_get_string() . '&sortid=\' + sort_order, xhrFields: {withCredentials: true}});
         }
-
         });
       });
       </script>
