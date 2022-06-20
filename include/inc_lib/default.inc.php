@@ -144,8 +144,17 @@ define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !=
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
-define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
+if (defined('PHP_MAJOR_VERSION')) {
+    define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
+    define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
+    define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
+    define('IS_PHP82', IS_PHP8 && PHP_MINOR_VERSION === 2);
+} else {
+    define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
+    define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
+    define('IS_PHP81', version_compare(PHP_VERSION, '8.1.0', '>='));
+    define('IS_PHP82', version_compare(PHP_VERSION, '8.2.0', '>='));
+}
 
 // Mime-Type definitions
 require_once CMSGO_ROOT . '/include/inc_lib/mimetype.inc.php';
