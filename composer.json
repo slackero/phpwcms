@@ -1,9 +1,13 @@
 {
     "config": {
+        "platform": {
+            "php": "7.3"
+        },
         "vendor-dir": "include/vendor"
     },
     "require": {
         "enshrined/svg-sanitize": "^0.15.4",
-        "netcarver/textile": "v3.7.7"
+        "netcarver/textile": "v3.7.7",
+        "phpoffice/phpspreadsheet": "^1.23"
     }
 }

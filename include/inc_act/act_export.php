@@ -45,6 +45,9 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
 }
 require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 // export form results
 if ($action === 'exportformresult' && $fid) {
 
@@ -56,7 +59,8 @@ if ($action === 'exportformresult' && $fid) {
 
     $export = array();
     $row = 1;
-    $export[0] = array('#' => '', '#ID' => '', '#Date' => '', '#IP' => '');
+    $export[0] = array('#' => 1, '#ID' => 2, '#Date' => 3, '#IP' => 4);
+    $col = 5;
 
     // run all data first and combine array elements
     foreach ($data as $key => $value) {
@@ -71,64 +75,104 @@ if ($action === 'exportformresult' && $fid) {
         if (is_array($val_array) && count($val_array)) {
             foreach ($val_array as $a_key => $a_value) {
                 $export[$row][$a_key] = $a_value;
-                $export[0][$a_key] = '';
+                if (!isset($export[0][$a_key])) {
+                    $export[0][$a_key] = $col;
+                    $col++;
+                }
             }
         }
 
         $row++;
     }
 
-    $elements = array();
+    $filename = date('Y-m-d_H-i-s') . '_formresultID-' . $fid;
 
-    $elements[0] = '<tr>';
-    foreach ($export[0] as $key => $value) {
-        $elements[0] .= '<th>';
-        $elements[0] .= $key;
-        $elements[0] .= '</th>';
-    }
-    $elements[0] .= '</tr>';
+    if (IS_PHP8 || version_compare(PHP_VERSION, '7.3.0', '>=')) {
 
-    for ($x = 1; $x < $row; $x++) {
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->getProperties()
+                    ->setCreator('phpwcms')
+                    ->setLastModifiedBy('phpwcms')
+                    ->setTitle('phpwcms Form Result Export ID ' . $fid)
+                    ->setSubject('phpwcms Form Result Export ID ' . $fid);
 
-        $elements[$x] = '<tr>';
-        foreach ($export[0] as $key => $value) {
+        $sheet = $spreadsheet->setActiveSheetIndex(0);
 
-            $elements[$x] .= '<td>';
-            $elements[$x] .= isset($export[$x][$key]) ? html($export[$x][$key]) : '';
-            $elements[$x] .= '</td>';
+        // First row contains column names
+        foreach($export[0] as $column_title => $column) {
+            $sheet->setCellValueByColumnAndRow($column, 1, $column_title);
         }
-        $elements[$x] .= '</tr>';
 
-        unset($export[$x]); // free memory
+        for ($x = 1; $x < $row; $x++) {
+            $current = $export[$x];
+            foreach($export[0] as $column_title => $column) {
+                $column_value = isset($current[$column_title]) ? $current[$column_title] : '';
+                $sheet->setCellValueByColumnAndRow($column, $x+1, $column_value);
+            }
+        }
+
+        // Redirect output to a client’s web browser (Xlsx)
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+        header('Cache-Control: max-age=1');
+
+        header('Expires: Mon, 21 Jun 2022 00:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: cache, must-revalidate');
+        header('Pragma: public');
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+
+    } else {
+
+        $elements = array();
+
+        $elements[0] = '<tr>';
+        foreach ($export[0] as $key => $value) {
+            $elements[0] .= '<th>';
+            $elements[0] .= $key;
+            $elements[0] .= '</th>';
+        }
+        $elements[0] .= '</tr>';
+
+        for ($x = 1; $x < $row; $x++) {
+
+            $elements[$x] = '<tr>';
+            foreach ($export[0] as $key => $value) {
+
+                $elements[$x] .= '<td>';
+                $elements[$x] .= isset($export[$x][$key]) ? html($export[$x][$key]) : '';
+                $elements[$x] .= '</td>';
+            }
+            $elements[$x] .= '</tr>';
+        }
+
+        if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
+            // workaround for IE filename bug with multiple periods / multiple dots in filename
+            // that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
+            $filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
+        }
+
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s GMT', time()));
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
+
+        header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
+        header('Content-Disposition: attachment;filename="' . $filename . '.html"');
+
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+        echo '<html><head>';
+        echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
+        echo '<style type="text/css">body {font-family:sans-serif;font-size:10pt;} td {mso-number-format:\@;}</style>';
+        echo '</head><body>';
+        echo '<table border="1" cellspacing="1" cellpadding="2">';
+        echo implode(LF, $elements);
+        echo '</table></body></html>';
+        flush();
     }
 
-    unset($export); // free memory
-
-    $filename = date('Y-m-d_H-i-s') . '_formresultID-' . $fid . '.html';
-
-    if (isset($_SERVER['HTTP_USER_AGENT']) && strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-        // workaround for IE filename bug with multiple periods / multiple dots in filename
-        // that adds square brackets to filename - eg. setup.abc.exe becomes setup[1].abc.exe
-        $filename = preg_replace('/\./', '%2e', $filename, substr_count($filename, '.') - 1);
-    }
-
-    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s GMT', time()));
-    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
-
-    header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-
-    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
-    echo '<html><head>';
-    echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
-    echo '<style type="text/css">body {font-family:sans-serif;font-size:10pt;} td {mso-number-format:\@;}</style>';
-    echo '</head><body>';
-    echo '<table border="1" cellspacing="1" cellpadding="2">';
-    echo implode(LF, $elements);
-    echo '</table></body></html>';
-    flush();
-    exit();
+    exit;
 
 } elseif ($action == 'exportformresultdetail' && $fid) {
 
@@ -175,14 +219,12 @@ if ($action === 'exportformresult' && $fid) {
     echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
     echo '<title>Formresult Detail Export ID' . $fid . '</title>';
     echo '<style type="text/css">
-		body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
-		hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
-		td {mso-number-format:\@;font-size:10pt;}
-	</style>';
+        body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
+        hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
+        td {mso-number-format:\@;font-size:10pt;}
+    </style>';
     echo '</head>';
     echo '<body>';
-
-    $elements = array();
 
     for ($x = 1; $x < $row; $x++) {
 
@@ -216,7 +258,8 @@ if ($action === 'exportformresult' && $fid) {
     }
 
     echo '</body></html>';
-    exit();
+    exit;
+
 } elseif ($action == 'exportsubscriber' && !empty($_SESSION["wcs_user_admin"])) {
 
     // export list of newsletter subscribers
@@ -342,8 +385,11 @@ if ($action === 'exportformresult' && $fid) {
 
         echo '</table></body></html>';
     }
-    exit();
+
+    exit;
+
 } else {
 
     die('No data returned or another error processing the export.');
+
 }
