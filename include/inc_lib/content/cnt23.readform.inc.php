@@ -141,13 +141,15 @@ if(is_callable($content['form']["function_cc"])) {
     $content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
 }
 
-$content['form']["template_equal"]  = empty($_POST["cform_template_equal"]) ? 0 : 1;
-$content['form']["customform"]      = slweg($_POST["cform_customform"]);
-$content['form']["savedb"]          = empty($_POST["cform_savedb"]) ? 0 : 1;
-$content['form']["saveprofile"]     = empty($_POST["cform_saveprofile"]) ? 0 : 1;
-$content['form']["anchor_off"]      = isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
-$content['form']["ssl"]             = empty($_POST["cform_ssl"]) ? 0 : 1;
-$content['form']["anchor_name"]     = clean_slweg($_POST["cform_anchor_name"]);
+$content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;
+$content['form']["customform"] = slweg($_POST["cform_customform"]);
+$content['form']["savedb"] = empty($_POST["cform_savedb"]) ? 0 : 1;
+$content['form']["saveprofile"] = empty($_POST["cform_saveprofile"]) ? 0 : 1;
+$content['form']["anchor_off"] = isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
+$content['form']["ssl"] = empty($_POST["cform_ssl"]) ? 0 : 1;
+$content['form']["anchor_name"] = clean_slweg($_POST["cform_anchor_name"]);
+$content['form']["direct_download"] = empty($_POST["cform_direct_download"]) ? 0 : 1;
+$content['form']["direct_download_apikey"] = clean_slweg($_POST["direct_download_apikey"]);
 
 //$field_counter = 0;
 $content["form"]["fields"] = array();

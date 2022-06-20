@@ -1509,3 +1509,7 @@ $BL['disposition_inline_description'] = 'im Browser anzeigen';
 $BL['be_robots'] = 'Suchindex';
 $BL['be_robots_noindex'] = 'Indizierung blockieren (noindex)';
 $BL['be_robots_nofollow'] = 'Links nicht folgen (nofollow)';
+
+$BL['be_cnt_form_direct_download'] = 'Download gestatten';
+$BL['be_cnt_form_direct_download_apikey'] = 'API-Schl&uuml;ssel';
+$BL['be_cnt_form_apikey_reset'] = 'zur&uuml;cksetzen';
