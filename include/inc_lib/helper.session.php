@@ -11,6 +11,10 @@ if (!defined('CMSGO_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 
+header('Access-Control-Allow-Origin: ' . CMSGO_BASEURL);
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+
 // Cookie settings
 if (!empty($cmsgo['SESSION_START'])) {
     _initSession();

@@ -169,6 +169,8 @@ define('CMSGO_TEMPLATE', CMSGO_ROOT . $cmsgo["templates"]);
 define('CMSGO_URL', $cmsgo["site"] . $cmsgo["root"]);
 $cmsgo['parse_url'] = parse_url(CMSGO_URL);
 
+define('CMSGO_DOMAIN', $cmsgo['parse_url']['host']);
+define('CMSGO_BASEURL', $cmsgo['parse_url']['scheme'] . '://' . $cmsgo['parse_url']['host'] . (empty($cmsgo['parse_url']['port']) || $cmsgo['parse_url']['port'] === 443 || $cmsgo['parse_url']['port'] === 80 ? '' : ':' . $cmsgo['parse_url']['port']));
 define('CMSGO_HOST', $cmsgo['parse_url']['host'] . $cmsgo["host_root"]);
 define('CMSGO_IMAGES', $cmsgo["content_path"] . $cmsgo["cimage_path"]);
 define('CMSGO_TEMP', CMSGO_ROOT . '/' . $cmsgo["content_path"] . 'tmp/');
@@ -1233,11 +1235,11 @@ function cmsgo_getUserAgent($USER_AGENT = '') {
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'webp' => $webp,
         'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['cmsgo']["default_lang"]
     );
 
     $GLOBALS['cmsgo'][$index]['hash'] = md5(implode('', $GLOBALS['cmsgo'][$index]) . getRemoteIP());
+    $GLOBALS['cmsgo'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['cmsgo'][$index];
 }
