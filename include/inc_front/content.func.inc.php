@@ -1503,7 +1503,7 @@ if(!$cmsgo['donottrack']) {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
         $block['tracking_ga']['config'] = array(
-            "cookie_comain: '" . $cmsgo['session_cookie_params']['domain'] . "'"
+            "cookie_comain: '" . (isset($cmsgo['session_cookie_params']['domain']) ? $cmsgo['session_cookie_params']['domain'] : CMSGO_DOMAIN) . "'"
         );
         if (!empty($block['tracking_ga']['anonymize'])) {
             $block['tracking_ga']['config'][] = 'anonymize_ip: true';
@@ -1516,10 +1516,10 @@ if(!$cmsgo['donottrack']) {
         if (CMSGO_SSL) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'Secure';
         }
-        if ($cmsgo['session_cookie_params']['httponly']) {
+        if (isset($cmsgo['session_cookie_params']['httponly'])) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'HttpOnly';
         }
-        if ($cmsgo['session_cookie_params']['samesite']) {
+        if (isset($cmsgo['session_cookie_params']['samesite'])) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'SameSite=' . $cmsgo['session_cookie_params']['samesite'];
         }
         $block['tracking_ga']['ga_cookie_flags'] = implode('; ', $block['tracking_ga']['ga_cookie_flags']);
