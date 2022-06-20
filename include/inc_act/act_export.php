@@ -28,10 +28,11 @@ if (empty($_GET['apikey']) || $action !== 'exportformresult') {
         $apikey = '';
     } else {
         $where_apikey = _dbEscape('direct_download_apikey";s:16:"' . $apikey . '"', true, '%', '%');
+        $where_allow = _dbEscape('direct_download";i:1', true, '%', '%');
         $form = _dbGet(
             'phpwcms_articlecontent',
             'acontent_id, acontent_form',
-            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_apikey
+            'acontent_id=' . $fid . ' AND acontent_type=23 AND acontent_trash=0 AND acontent_form LIKE ' . $where_allow . ' AND acontent_form LIKE ' . $where_apikey
         );
         if (empty($form[0]['acontent_id']) || intval($form[0]['acontent_id']) !== $fid) {
             $apikey = '';
