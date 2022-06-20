@@ -144,8 +144,17 @@ define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHAR
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
-define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
+if (defined('PHP_MAJOR_VERSION')) {
+    define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
+    define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
+    define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
+    define('IS_PHP82', IS_PHP8 && PHP_MINOR_VERSION === 2);
+} else {
+    define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
+    define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
+    define('IS_PHP81', version_compare(PHP_VERSION, '8.1.0', '>='));
+    define('IS_PHP82', version_compare(PHP_VERSION, '8.2.0', '>='));
+}
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
@@ -169,6 +178,8 @@ define('PHPWCMS_TEMPLATE', PHPWCMS_ROOT . $phpwcms["templates"]);
 define('PHPWCMS_URL', $phpwcms["site"] . $phpwcms["root"]);
 $phpwcms['parse_url'] = parse_url(PHPWCMS_URL);
 
+define('PHPWCMS_DOMAIN', $phpwcms['parse_url']['host']);
+define('PHPWCMS_BASEURL', $phpwcms['parse_url']['scheme'] . '://' . $phpwcms['parse_url']['host'] . (empty($phpwcms['parse_url']['port']) || $phpwcms['parse_url']['port'] === 443 || $phpwcms['parse_url']['port'] === 80 ? '' : ':' . $phpwcms['parse_url']['port']));
 define('PHPWCMS_HOST', $phpwcms['parse_url']['host'] . $phpwcms["host_root"]);
 define('PHPWCMS_IMAGES', $phpwcms["content_path"] . $phpwcms["cimage_path"]);
 define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms["content_path"] . 'tmp/');
@@ -1219,11 +1230,11 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'webp' => $webp,
         'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
     );
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+    $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['phpwcms'][$index];
 }

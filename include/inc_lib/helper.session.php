@@ -12,6 +12,10 @@ if (!defined('PHPWCMS_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 
+header('Access-Control-Allow-Origin: ' . PHPWCMS_BASEURL);
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+
 // Cookie settings
 if (!empty($phpwcms['SESSION_START'])) {
     _initSession();
@@ -403,7 +407,10 @@ function tokenize_urls($html) {
 			'/act_user.php?',
 			'/act_frontendsetup.php?',
 			'/act_message.php?',
-			'/act_cache.php?'
+			'/act_cache.php?',
+			'phpwcms.php"',
+			'filebrowser.php?opt',
+			$get_token.'&amp;'.$get_token
 		);
 
 		$replace = array(
@@ -417,7 +424,10 @@ function tokenize_urls($html) {
 			'/act_user.php?'.$get_token.'&amp;',
 			'/act_frontendsetup.php?'.$get_token.'&amp;',
 			'/act_message.php?'.$get_token.'&amp;',
-			'/act_cache.php?'.$get_token.'&amp;'
+			'/act_cache.php?'.$get_token.'&amp;',
+			'phpwcms.php?'.$get_token.'"',
+			'filebrowser.php?'.$get_token.'&opt',
+			$get_token
 		);
 
 		$html = str_replace($search, $replace, $html);
