@@ -21,124 +21,121 @@ $field_counter = 0;
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 $BE['BODY_CLOSE']['custom_js'] = '<script type="text/javascript">
 function initMathSpam() {
-    document.getElementById("cform_field_value_0").value = "+ = '.
-    $BL['be_cnt_field']['summing'].
-    '\n- = '.
-    $BL['be_cnt_field']['subtract'].
-    '\n* = '.
-    $BL['be_cnt_field']['multiply'].
-    '\n: = '.
-    $BL['be_cnt_field']['divide'].
-    '\ncalc = '.
-    $BL['be_cnt_field']['calculation'].
-    '";
+    document.getElementById("cform_field_value_0").value = "+ = ' .
+    $BL['be_cnt_field']['summing'] . '\n- = ' .
+    $BL['be_cnt_field']['subtract'] . '\n* = ' .
+    $BL['be_cnt_field']['multiply'] . '\n: = ' .
+    $BL['be_cnt_field']['divide'] . '\ncalc = ' .
+    $BL['be_cnt_field']['calculation'] . '";
 }
 
-$(\'#cform_field_type\').on(\'change\', function() {
-  if(this.value == "mathspam") {
-     initMathSpam();
-  }
-})
+$("#cform_field_type").on("change", function() {
+    if(this.value === "mathspam") {
+        initMathSpam();
+    }
+});
 
 $(function() {
-  $("ul.dropable-list").sortable({
-  group: \'no-drop\',
-  handle: \'em.handle\',
-  onDrop: function($item, container, _super, event) {
-    $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-    $("body").removeClass(container.group.options.bodyClass);
-    var i=1;
-    $(\'#sortable-list li\').each(function(element) {
-        var res = $(this).attr(\'id\').split("_");
-        $(\'#cform_order_\'+res[1]).val(i);
-        i++;
+    $("ul.dropable-list").sortable({
+        group: "no-drop",
+        handle: "em.handle",
+        onDrop: function($item, container, _super, event) {
+            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+            $("body").removeClass(container.group.options.bodyClass);
+            let i=1;
+            $("#sortable-list li").each(function(element) {
+                let res = $(this).attr("id").split("_");
+                $("#cform_order_"+res[1]).val(i);
+                i++;
+            });
+        }
     });
-  }
-
-  });
 });
 </script>';
 
-    $BL['be_cnt_field'] = array_merge(
-            array(
-                    "text" => 'text (single-line)',
-                    "email" => 'email',
-                    "textarea" => 'text (multi-line)',
-                    "hidden" => 'hidden',
-                    "password" => 'password',
-                    "select" => 'select menu',
-                    "list" => 'list menu',
-                    "checkbox" => 'checkbox',
-                    "checkboxcopy" => 'checkbox (email copy on/off)',
-                    "radio" => 'radio button',
-                    "upload" => 'file',
-                    "submit" => 'send button',
-                    "reset" => 'reset button',
-                    "break" => 'break',
-                    "breaktext" => 'break text',
-                    "special" => 'text (spezial)',
-                    "captchaimg" => 'captcha image',
-                    "captcha" => 'captcha code',
-                    'newsletter' => 'newsletter',
-                    'selectemail' => 'select email menu',
-                    'country' => 'select country menu',
-                    'mathspam' => 'math spam protect',
-                    'summing' => 'summing',
-                    'subtract' => 'subtract',
-                    'divide' => 'divide',
-                    'multiply' => 'multiply',
-                    'calculation' => 'calculation:',
-                    'formtracking_off' => 'disable form tracking',
-                    'checktofrom' => 'email of recipient must be different from sender',
-                    'recaptcha' => 'reCAPTCHA',
-                    'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key',
-                    'recaptchainv' => 'Invisible reCAPTCHA',
-            ),
-            $BL['be_cnt_field']
-            );
+$BL['be_cnt_field'] = array_merge(
+    array(
+        "text" => 'text (single-line)',
+        "email" => 'email',
+        "textarea" => 'text (multi-line)',
+        "hidden" => 'hidden',
+        "password" => 'password',
+        "select" => 'select menu',
+        "list" => 'list menu',
+        "checkbox" => 'checkbox',
+        "checkboxcopy" => 'checkbox (email copy on/off)',
+        "radio" => 'radio button',
+        "upload" => 'file',
+        "submit" => 'send button',
+        "reset" => 'reset button',
+        "break" => 'break',
+        "breaktext" => 'break text',
+        "special" => 'text (spezial)',
+        "captchaimg" => 'captcha image',
+        "captcha" => 'captcha code',
+        'newsletter' => 'newsletter',
+        'selectemail' => 'select email menu',
+        'country' => 'select country menu',
+        'mathspam' => 'math spam protect',
+        'summing' => 'summing',
+        'subtract' => 'subtract',
+        'divide' => 'divide',
+        'multiply' => 'multiply',
+        'calculation' => 'calculation:',
+        'formtracking_off' => 'disable form tracking',
+        'checktofrom' => 'email of recipient must be different from sender',
+        'recaptcha' => 'reCAPTCHA',
+        'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key',
+        'recaptchainv' => 'Invisible reCAPTCHA',
+    ),
+    $BL['be_cnt_field']
+);
 
-    if(empty($content['form']) || !is_array($content['form'])) $content['form'] = array();
+if (empty($content['form']) || !is_array($content['form'])) {
+    $content['form'] = array();
+}
 
-    $content['form'] = array_merge(
-            array(
-                    'subject'               => '',
-                    'startup'               => '',
-                    'startup_html'          => 0,
-                    'targettype'            => 'email',
-                    'class'                 => '',
-                    'label_wrap'            => '|:',
-                    'error_class'           => 'error',
-                    'cform_reqmark'         => '*',
-                    'target'                => '',
-                    "copyto"                => '',
-                    "sendcopy"              => 0,
-                    "onsuccess_redirect"    => 0,
-                    "onsuccess"             => '',
-                    "onerror_redirect"      => 0,
-                    "onerror"               => '',
-                    "template_format"       => 0,
-                    "template"              => '',
-                    "template_format_copy"  => 0,
-                    "template_copy"         => '',
-                    'template_equal'        => 1,
-                    "customform"            => '',
-                    'sender'                => '',
-                    'sendertype'            => 'email',
-                    'sendername'            => '',
-                    'sendernametype'        => 'custom',
-                    'cc'                    => '',
-                    'subjectselect'         => '',
-                    'savedb'                => 0,
-                    'saveprofile'           => 0,
-                    'verifyemail'           => '',
-                    'formtracking_off'      => 0,
-                    'checktofrom'           => 0,
-                    'function_to'           => '',
-                    'function_cc'           => '',
-                    'anchor_off'            => 0,
-                    'anchor_name'           => '',
-                    'ssl'                   => 0,
-                    'cform_function_validate' => '',
+$content['direct_download_apikey'] = generic_string(16);
+$content['form'] = array_merge(
+    array(
+        'subject' => '',
+        'startup' => '',
+        'startup_html' => 0,
+        'targettype' => 'email',
+        'class' => '',
+        'label_wrap' => '|:',
+        'error_class' => 'error',
+        'cform_reqmark' => '*',
+        'target' => '',
+        'copyto' => '',
+        'sendcopy' => 0,
+        'onsuccess_redirect' => 0,
+        'onsuccess' => '',
+        'onerror_redirect' => 0,
+        'onerror' => '',
+        'template_format' => 0,
+        'template' => '',
+        'template_format_copy' => 0,
+        'template_copy' => '',
+        'template_equal' => 1,
+        'customform' => '',
+        'sender' => '',
+        'sendertype' => 'email',
+        'sendername' => '',
+        'sendernametype' => 'custom',
+        'cc' => '',
+        'subjectselect' => '',
+        'savedb' => 0,
+        'saveprofile' => 0,
+        'verifyemail' => '',
+        'formtracking_off' => 0,
+        'checktofrom' => 0,
+        'function_to' => '',
+        'function_cc' => '',
+        'anchor_off' => 0,
+        'anchor_name' => '',
+        'ssl' => 0,
+        'cform_function_validate' => '',
         'doubleoptin' => CMSGO_GDPR_MODE ? 1 : 0,
         'doubleoptin_targettype' => 0,
         'template_format_doubleoptin' => 0,
@@ -146,84 +143,85 @@ $(function() {
         'onsuccess_doubleoptin' => '',
         'onerror_doubleoptin' => '',
         'onsuccess_redirect_doubleoptin' => 0,
-        'onerror_redirect_doubleoptin' => 0
-            ),
-            $content['form']
-            );
+        'onerror_redirect_doubleoptin' => 0,
+        'direct_download' => 0,
+        'direct_download_apikey' => $content['direct_download_apikey']
+    ),
+$content['form']
+);
 
-    $content['profile_fields'] = array(
-            "title"         => $BL['be_profile_label_title'],
-            "firstname"     => $BL['be_profile_label_firstname'],
-            "lastname"      => $BL['be_profile_label_name'],
-            "company"       => $BL['be_profile_label_company'],
-            "street"        => $BL['be_profile_label_street'],
-            "add"           => $BL['be_profile_label_add'],
-            "city"          => $BL['be_profile_label_city'],
-            "zip"           => $BL['be_profile_label_zip'],
-            "region"        => $BL['be_profile_label_state'],
-            "country"       => $BL['be_profile_label_country'],
-            "fon"           => $BL['be_profile_label_phone'],
-            "fax"           => $BL['be_profile_label_fax'],
-            "mobile"        => $BL['be_profile_label_cellphone'],
-            "signature"     => $BL['be_profile_label_signature'],
-            'notes'         => $BL['be_profile_label_notes'],
-            "prof"          => $BL['be_profile_label_profession'],
-            "newsletter"    => $BL['be_profile_label_newsletter'],
-            "website"       => $BL['be_profile_label_website'],
-            'gender'        => $BL['be_profile_label_gender'],
-            'birthday'      => $BL['be_profile_label_birthday'],
-            "varchar1"      => $BL['be_cnt_field']['text'].' 1',
-            "varchar2"      => $BL['be_cnt_field']['text'].' 2',
-            "varchar3"      => $BL['be_cnt_field']['text'].' 3',
-            "varchar4"      => $BL['be_cnt_field']['text'].' 4',
-            "varchar5"      => $BL['be_cnt_field']['text'].' 5',
-            "text1"         => $BL['be_cnt_field']['textarea'].' 1',
-            "text2"         => $BL['be_cnt_field']['textarea'].' 2',
-            "text3"         => $BL['be_cnt_field']['textarea'].' 3'
-    );
+$content['profile_fields'] = array(
+    'title' => $BL['be_profile_label_title'],
+    'firstname' => $BL['be_profile_label_firstname'],
+    'lastname' => $BL['be_profile_label_name'],
+    'company' => $BL['be_profile_label_company'],
+    'street' => $BL['be_profile_label_street'],
+    'add' => $BL['be_profile_label_add'],
+    'city' => $BL['be_profile_label_city'],
+    'zip' => $BL['be_profile_label_zip'],
+    'region' => $BL['be_profile_label_state'],
+    'country' => $BL['be_profile_label_country'],
+    'fon' => $BL['be_profile_label_phone'],
+    'fax' => $BL['be_profile_label_fax'],
+    'mobile' => $BL['be_profile_label_cellphone'],
+    'signature' => $BL['be_profile_label_signature'],
+    'notes' => $BL['be_profile_label_notes'],
+    'prof' => $BL['be_profile_label_profession'],
+    'newsletter' => $BL['be_profile_label_newsletter'],
+    'website' => $BL['be_profile_label_website'],
+    'gender' => $BL['be_profile_label_gender'],
+    'birthday' => $BL['be_profile_label_birthday'],
+    'varchar1' => $BL['be_cnt_field']['text'].' 1',
+    'varchar2' => $BL['be_cnt_field']['text'].' 2',
+    'varchar3' => $BL['be_cnt_field']['text'].' 3',
+    'varchar4' => $BL['be_cnt_field']['text'].' 4',
+    'varchar5' => $BL['be_cnt_field']['text'].' 5',
+    'text1' => $BL['be_cnt_field']['textarea'].' 1',
+    'text2' => $BL['be_cnt_field']['textarea'].' 2',
+    'text3' => $BL['be_cnt_field']['textarea'].' 3'
+);
 
-    $content['profile_fields_varchar'] = array(
-            "title"     => $BL['be_profile_label_title'],
-            "firstname" => $BL['be_profile_label_firstname'],
-            "lastname"  => $BL['be_profile_label_name'],
-            "company"   => $BL['be_profile_label_company'],
-            "street"    => $BL['be_profile_label_street'],
-            "add"       => $BL['be_profile_label_add'],
-            "city"      => $BL['be_profile_label_city'],
-            "zip"       => $BL['be_profile_label_zip'],
-            "region"    => $BL['be_profile_label_state'],
-            "country"   => $BL['be_profile_label_country'],
-            "fon"       => $BL['be_profile_label_phone'],
-            "fax"       => $BL['be_profile_label_fax'],
-            "mobile"    => $BL['be_profile_label_cellphone'],
-            "email"     => $BL['be_profile_label_email'],
-            "password"  => $BL['be_cnt_field']['password'],
-            "signature" => $BL['be_profile_label_signature'],
-            "prof"      => $BL['be_profile_label_profession'],
-            "website"   => $BL['be_profile_label_website'],
-            'gender'    => $BL['be_profile_label_gender'],
-            "varchar1"  => $BL['be_cnt_field']['text'].' 1',
-            "varchar2"  => $BL['be_cnt_field']['text'].' 2',
-            "varchar3"  => $BL['be_cnt_field']['text'].' 3',
-            "varchar4"  => $BL['be_cnt_field']['text'].' 4',
-            "varchar5"  => $BL['be_cnt_field']['text'].' 5'
-    );
-    $content['profile_fields_longtext'] = array(
-            'notes' => $BL['be_profile_label_notes'],
-            "text1" => $BL['be_cnt_field']['textarea'].' 1',
-            "text2" => $BL['be_cnt_field']['textarea'].' 2',
-            "text3" => $BL['be_cnt_field']['textarea'].' 3'
-    );
+$content['profile_fields_varchar'] = array(
+    'title' => $BL['be_profile_label_title'],
+    'firstname' => $BL['be_profile_label_firstname'],
+    'lastname' => $BL['be_profile_label_name'],
+    'company' => $BL['be_profile_label_company'],
+    'street' => $BL['be_profile_label_street'],
+    'add' => $BL['be_profile_label_add'],
+    'city' => $BL['be_profile_label_city'],
+    'zip' => $BL['be_profile_label_zip'],
+    'region' => $BL['be_profile_label_state'],
+    'country' => $BL['be_profile_label_country'],
+    'fon' => $BL['be_profile_label_phone'],
+    'fax' => $BL['be_profile_label_fax'],
+    'mobile' => $BL['be_profile_label_cellphone'],
+    'email' => $BL['be_profile_label_email'],
+    'password' => $BL['be_cnt_field']['password'],
+    'signature' => $BL['be_profile_label_signature'],
+    'prof' => $BL['be_profile_label_profession'],
+    'website' => $BL['be_profile_label_website'],
+    'gender' => $BL['be_profile_label_gender'],
+    'varchar1' => $BL['be_cnt_field']['text'].' 1',
+    'varchar2' => $BL['be_cnt_field']['text'].' 2',
+    'varchar3' => $BL['be_cnt_field']['text'].' 3',
+    'varchar4' => $BL['be_cnt_field']['text'].' 4',
+    'varchar5' => $BL['be_cnt_field']['text'].' 5'
+);
+$content['profile_fields_longtext'] = array(
+    'notes' => $BL['be_profile_label_notes'],
+    'text1' => $BL['be_cnt_field']['textarea'].' 1',
+    'text2' => $BL['be_cnt_field']['textarea'].' 2',
+    'text3' => $BL['be_cnt_field']['textarea'].' 3'
+);
 
-    $for_select     = '';
-    $for_select_2   = '';
+$for_select = '';
+$for_select_2 = '';
 
-    // always disable switching content part for form - too complex settings and better to safe the user for himself
-    $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
+// always disable switching content part for form - too complex settings and better to safe the user for himself
+$BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("target_ctype").disabled = true;</script>';
 
-    ?>
-    <input type="hidden" name="target_ctype" value="23" />
-
+?>
+<input type="hidden" name="target_ctype" value="23" />
 
 <div class="form-group align-items-center form-row">
   <label for="cform_subjectselect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
@@ -250,30 +248,36 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
         switch($content['form']["fields"][$key]['type']) {
 
-            case 'text':        $for_copy       = true;
-                                $for_sendername = true;
-                                $for_subject    = true;
-                                break;
+            case 'text':
+                $for_copy       = true;
+                $for_sendername = true;
+                $for_subject    = true;
+                break;
 
-            case 'email':       $for_copy       = true;
-                                $for_email      = true;
-                                $for_sendername = true;
-                                break;
+            case 'email':
+                $for_copy       = true;
+                $for_email      = true;
+                $for_sendername = true;
+                break;
 
-            case 'selectemail': $for_copy       = true;
-                                $for_email      = true;
-                                break;
+            case 'selectemail':
+                $for_copy  = true;
+                $for_email = true;
+                break;
 
-            case 'hidden':      $for_copy       = true;
-                                $for_subject    = true;
-                                break;
+            case 'hidden':
+                $for_copy    = true;
+                $for_subject = true;
+                break;
 
-            case 'newsletter':  $for_newsletter = true;
-                                break;
+            case 'newsletter':
+                $for_newsletter = true;
+                break;
 
             case 'select':
-            case 'list':        $for_subject    = true;
-                                break;
+            case 'list':
+                $for_subject = true;
+                break;
         }
 
         if($for_subject) {
@@ -318,33 +322,26 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
         }
 
-
         // parallel building of the placeholder tag menu for the template
         switch($content['form']["fields"][$key]['type']) {
-
             case 'submit':
-                                    case 'reset':
-                                    case 'break':
-                                    case 'breaktext':
-                                        $for_placeholder = false;
-                                        break;
-
-
-         }
+            case 'reset':
+            case 'break':
+            case 'breaktext':
+                $for_placeholder = false;
+                break;
+        }
 
         $for_select_2   .= '<option value="';
         $for_tempselect  = '';
         if($for_placeholder) {
-
             $for_select   .= '<option value="{'.$for_name.'}">';
             if(!empty($content['form']["fields"][$key]['label'])) {
                 $for_select     .= html($content['form']["fields"][$key]['label']).' ';
                 $for_tempselect .= html($content['form']["fields"][$key]['label']).' ';
             }
             $for_select   .= '{'.$for_name."}</option>\n";
-
             $for_select_2 .= '{ERROR:'.$for_name.'}{LABEL:'.$for_name.'}';
-
         }
         $for_select_2 .= '{'.$for_name.'}">'.$for_tempselect.'{'.$for_name."}</option>\n";
 
@@ -365,8 +362,8 @@ echo $subject_option;
   <div class="col-sm-3">
         <select name="cform_targettype" class="custom-select form-control form-control-sm">
     <?php
-            echo '  <option value="email"'. is_selected('email', $content['form']['targettype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
-            echo $recipient_option;
+        echo '<option value="email"'. is_selected('email', $content['form']['targettype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
+        echo $recipient_option;
     ?>
     </select>
   </div>
@@ -380,9 +377,9 @@ echo $subject_option;
   <div class="col-sm-3">
         <select name="cform_sendertype" class="custom-select form-control form-control-sm">
     <?php
-            echo '  <option value="email"'. is_selected('email', $content['form']['sendertype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
-            echo '  <option value="system"'. is_selected('system', $content['form']['sendertype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($cmsgo['SMTP_FROM_EMAIL']).'</option>'.LF;
-            echo $sender_option;
+        echo '<option value="email"'. is_selected('email', $content['form']['sendertype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
+        echo '<option value="system"'. is_selected('system', $content['form']['sendertype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($cmsgo['SMTP_FROM_EMAIL']).'</option>'.LF;
+        echo $sender_option;
     ?>
     </select>
   </div>
@@ -396,8 +393,8 @@ echo $subject_option;
   <div class="col-sm-3">
         <select name="cform_sendernametype" class="custom-select form-control form-control-sm">
     <?php
-            echo '  <option value="custom"'. is_selected('custom', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_ecardform_name'].'</option>'.LF;
-            echo '  <option value="system"'. is_selected('system', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($cmsgo['SMTP_FROM_NAME']).'</option>'.LF;
+            echo '<option value="custom"'. is_selected('custom', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_ecardform_name'].'</option>'.LF;
+            echo '<option value="system"'. is_selected('system', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($cmsgo['SMTP_FROM_NAME']).'</option>'.LF;
             echo $sendername_option;
     ?>
     </select>
@@ -439,37 +436,83 @@ echo $subject_option;
 </div>
 
 <div class="form-group form-row">
-  <label for="cform_savedb" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_database'] ?></label>
-  <div class="col-sm-auto">
-		<div class="form-check">
-			<input class="form-check-input" type="checkbox" name="cform_savedb" id="cform_savedb" value="1" <?php echo is_checked(1, $content['form']["savedb"], 0, 0) ?> />
-			<label class="form-check-label" for="cform_savedb"><?php echo $BL['be_cnt_formsave_in_db'] ?></label>
+    <label for="cform_savedb" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_database'] ?></label>
+    <div class="col-sm-auto">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="cform_savedb" id="cform_savedb" value="1" <?php echo is_checked(1, $content['form']["savedb"], 0, 0) ?> />
+            <label class="form-check-label" for="cform_savedb"><?php echo $BL['be_cnt_formsave_in_db'] ?></label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="cform_saveprofile" id="cform_saveprofile" value="1" <?php echo is_checked(1, $content['form']["saveprofile"], 0, 0) ?> onchange="this.form.submit();" />
+            <label class="form-check-label" for="cform_saveprofile"><?php echo $BL['be_cnt_formsave_profile'] ?></label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="cform_tracking_off" id="cform_tracking_off" value="1" <?php echo is_checked(1, $content['form']["formtracking_off"], 0, 0) ?> />
+            <label class="form-check-label" for="cform_tracking_off"><?php echo $BL['be_cnt_field']['formtracking_off'] ?></label>
+        </div>
     </div>
-    <div class="form-check">
-			<input class="form-check-input" type="checkbox" name="cform_saveprofile" id="cform_saveprofile" value="1" <?php echo is_checked(1, $content['form']["saveprofile"], 0, 0) ?> onchange="this.form.submit();" />
-			<label class="form-check-label" for="cform_saveprofile"><?php echo $BL['be_cnt_formsave_profile'] ?></label>
+    <div class="col ml-sm-5">
+        <?php
+        // check form entries
+        $result_download_link = 'include/inc_act/act_export.php?' . CSRF_GET_TOKEN . '&amp;action=exportformresult&amp;fid=' . $content['id'];
+        if($content["id"]):
+            $entries = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_formresult WHERE formresult_pid='.$content['id'], 'COUNT');
+            if($entries > 0):
+                ?>
+                <button class="btn btn-success text-nowrap" onclick="window.open('<?php echo $result_download_link; ?>', '_new');" class="p-3">
+                    <i class="fas fa-file-excel text-light"></i>
+                    <?php echo $BL['be_cnt_download']; ?>
+                    <span class="badge badge-pill badge-light"><?php echo $entries; ?></span>
+                </button>';
+                <?php
+            endif;
+        endif;
+        $result_download_link = CMSGO_URL . 'include/inc_act/act_export.php?action=exportformresult&amp;fid=' . $content['id'] . '&amp;apikey=' . html($content['form']['direct_download_apikey']);
+        ?>
     </div>
-    <div class="form-check">
-			<input class="form-check-input" type="checkbox" name="cform_tracking_off" id="cform_tracking_off" value="1" <?php echo is_checked(1, $content['form']["formtracking_off"], 0, 0) ?> />
-			<label class="form-check-label" for="cform_tracking_off"><?php echo $BL['be_cnt_field']['formtracking_off'] ?></label>
-    </div>
-  </div>
-  <div class="col ml-sm-5">
-  		<?php
-		// check form entries
-		if($content["id"]) {
-				$entries = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_formresult WHERE formresult_pid='.$content['id'], 'COUNT');
-				// yepp - available - link to export script
-				if($entries > 0) {
-					echo "<button class=\"btn btn-sm btn-success\" onclick=\"window.open('include/inc_act/act_export.php?".CSRF_GET_TOKEN."&amp;action=exportformresult&amp;fid=";
-					echo $content['id']."', 'Zweitfenster');\" class=\"p-3\">";
-					echo '<i class="fas fa-file-excel mr-2 text-light"></i>';
-					echo $BL['be_cnt_download'].'<span class="badge badge-pill badge-light ml-2">'.$entries.'</span></button>';
-				}
-		}
-		?>
-  </div>
 </div>
+
+<div class="form-group form-row">
+    <label for="cform_savedb" class="col-sm-2 col-form-label text-right pt-1"><?php echo $BL['be_cnt_form_direct_download_apikey'] ?></label>
+    <div class="col-sm-auto">
+        <input type="hidden" name="direct_download_apikey" id="direct_download_apikey" value="<?php echo html($content['form']['direct_download_apikey']) ?>" />
+        <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" name="cform_direct_download" id="cform_direct_download" value="1" <?php echo is_checked(1, $content['form']["direct_download"], 0, 0) ?> />
+                </div>
+                <label class="input-group-text" for="cform_direct_download"><?php echo $BL['be_cnt_form_direct_download'] ?></label>
+            </div>
+            <span id="direct_download_apikey_display" class="form-control form-control-sm font-weight-bold text-primary"><?php echo html($content['form']['direct_download_apikey']) ?></span>
+            <div class="input-group-append">
+                <button class="btn btn-secondary" type="button" onclick="resetApiKey(this);">
+                    <i class="fas fa-sync"></i>
+                    <?php echo $BL['be_cnt_form_apikey_reset']; ?>
+                </button>
+                <button class="btn btn-blue" type="button" onclick="copyToClipboard('<?php echo $result_download_link; ?>');return false;" title="<?php echo $BL['copy_to_clipboard'] . ': ' . $result_download_link; ?>" id="copy_link_to_clipboard">
+                    <i class="fas fa-clipboard"></i>
+                    <?php echo $BL['be_copy_link']; ?>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    let apiKeyResetted = false;
+    let apiKeyNew = '<?php echo $content['direct_download_apikey']; ?>';
+    function resetApiKey(elem) {
+        if (apiKeyResetted) {
+            return false;
+        }
+        document.getElementById('direct_download_apikey').value = apiKeyNew;
+        let apiKeyDisplay = document.getElementById('direct_download_apikey_display');
+        apiKeyDisplay.textContent = apiKeyNew;
+        apiKeyResetted = true;
+        elem.disabled = true;
+        document.getElementById('copy_link_to_clipboard').disabled = true;
+        return true;
+    }
+</script>
 
 <hr />
 
@@ -477,14 +520,12 @@ echo $subject_option;
   <label for="cform_startup_html" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
   <div class="col">
   	<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html0" title="Text" value="0"<?php echo is_checked('0', $content['form']["startup_html"], 0, 0) ?>  />
-      <label class="form-check-label" for="cform_startup_html0">
-			Text&nbsp;</label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html1" title="HTML" value="1"<?php echo is_checked('1', $content['form']["startup_html"], 0, 0) ?>  />
-      <label class="form-check-label" for="cform_startup_html1">
-			HTML&nbsp;</label>
+        <input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html0" title="Text" value="0"<?php echo is_checked('0', $content['form']["startup_html"], 0, 0) ?>  />
+        <label class="form-check-label" for="cform_startup_html0">Text&nbsp;</label>
+    </div>
+	<div class="form-check form-check-inline">
+		<input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html1" title="HTML" value="1"<?php echo is_checked('1', $content['form']["startup_html"], 0, 0) ?>  />
+        <label class="form-check-label" for="cform_startup_html1">HTML&nbsp;</label>
     </div>
   </div>
 </div>
@@ -492,7 +533,7 @@ echo $subject_option;
 <div class="form-group form-row">
   <label class="col-sm-2 col-form-label"></label>
     <div class="col">
-			<textarea name="cform_startup" id="cform_startup" rows="3" class="form-control form-control-sm"><?php echo html($content['form']["startup"]) ?></textarea>
+        <textarea name="cform_startup" id="cform_startup" rows="3" class="form-control form-control-sm"><?php echo html($content['form']["startup"]) ?></textarea>
   	</div>
 </div>
 
@@ -502,14 +543,12 @@ echo $subject_option;
   <label for="cform_onsuccess_redirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onsuccess'] ?></label>
   <div class="col-sm-auto">
   	<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect0" value="0"<?php echo is_checked('0', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
-      <label class="form-check-label" for="cform_onsuccess_redirect0">
-			Text&nbsp;</label>
+        <input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect0" value="0"<?php echo is_checked('0', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
+        <label class="form-check-label" for="cform_onsuccess_redirect0">Text&nbsp;</label>
     </div>
     <div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect2" value="2"<?php echo is_checked('2', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
-			<label class="form-check-label" for="cform_onsuccess_redirect2">
-			HTML&nbsp;</label>
+        <input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect2" value="2"<?php echo is_checked('2', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
+        <label class="form-check-label" for="cform_onsuccess_redirect2">HTML&nbsp;</label>
     </div>
   </div>
 
@@ -534,8 +573,7 @@ echo $subject_option;
 	<div class="col">
 		<div class="form-check form-check-inline">
     	<input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect1" value="1"<?php echo is_checked('1', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
-      <label class="form-check-label" for="cform_onsuccess_redirect1">
-			Redirect</label>
+      <label class="form-check-label" for="cform_onsuccess_redirect1">Redirect</label>
   	</div>
   </div>
 </div>
@@ -559,13 +597,11 @@ echo $subject_option;
 		</div>
     <div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect2" title="redirect on success" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect"], 0, 0) ?> />
-      <label class="form-check-label" for="cform_onerror_redirect2">
-      HTML&nbsp;</label>
+      <label class="form-check-label" for="cform_onerror_redirect2">HTML&nbsp;</label>
     </div>
 		<div class="form-check form-check-inline">
       <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect1" title="redirect on success" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect"], 0, 0) ?> />
-			<label class="form-check-label" for="cform_onerror_redirect1">
-      Redirect</label>
+			<label class="form-check-label" for="cform_onerror_redirect1">Redirect</label>
     </div>
   </div>
 </div>

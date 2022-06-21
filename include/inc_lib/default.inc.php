@@ -143,17 +143,16 @@ define('CMSGO_ALIAS_WSLASH', empty($cmsgo['alias_allow_slash']) ? false : true);
 define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
-define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
 if (defined('PHP_MAJOR_VERSION')) {
     define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
     define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
     define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
-    define('IS_PHP82', IS_PHP8 && PHP_MINOR_VERSION === 2);
+    define('IS_PHP82', IS_PHP81 && PHP_MINOR_VERSION === 2);
 } else {
     define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
     define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
-    define('IS_PHP81', version_compare(PHP_VERSION, '8.1.0', '>='));
-    define('IS_PHP82', version_compare(PHP_VERSION, '8.2.0', '>='));
+    define('IS_PHP81', IS_PHP8 && version_compare(PHP_VERSION, '8.1.0', '>='));
+    define('IS_PHP82', IS_PHP81 && version_compare(PHP_VERSION, '8.2.0', '>='));
 }
 
 // Mime-Type definitions
@@ -960,6 +959,9 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
             break;
         case 401:
             header('HTTP/1.1 401 Authorization Required');
+            break;
+        case 403:
+            header('HTTP/1.1 403 Forbidden');
             break;
         case 404:
             header('HTTP/1.1 404 Not Found');
