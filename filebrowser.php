@@ -155,6 +155,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/jquery.form.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery.uploadfile.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
     <script src="include/inc_js/cmsgo.min.js" type="text/javascript"></script>

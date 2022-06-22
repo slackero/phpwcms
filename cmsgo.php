@@ -144,7 +144,7 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
 	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' 'unsafe-inline'">
+    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src-elem 'self' 'unsafe-inline'; connect-src 'self' 'unsafe-inline'">
     <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
 <?php
 
