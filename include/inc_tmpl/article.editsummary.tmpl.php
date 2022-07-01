@@ -395,28 +395,28 @@ $langstr = '';
 
       <div class="form-check">
           <input class="form-check-input" name="article_hidesummary" type="checkbox" id="article_hidesummary" value="1"<?php is_checked(1, $article["article_hidesummary"]); ?> />
-          <label class="form-check-label align-items-center">
+          <label class="form-check-label align-items-center" for="article_hidesummary">
           <?php echo $BL['be_article_nosummary'] ?>
         </label>
       </div>
 
       <div class="form-check">
-          <input class="form-check-input" name="article_hidesummary" type="checkbox" id="article_hidesummary" value="1"<?php is_checked(1, $article["article_hidesummary"]); ?> />
-          <label class="form-check-label align-items-center">
+          <input class="form-check-input" name="article_morelink" type="checkbox" id="article_morelink" value="1"<?php is_checked(1, $article["article_morelink"]); ?> />
+          <label class="form-check-label align-items-center" for="article_morelink">
           <?php echo $BL['be_article_morelink'] ?>
         </label>
       </div>
 
       <div class="form-check">
           <input class="form-check-input" name="article_noteaser" type="checkbox" id="article_noteaser" value="1"<?php is_checked(1, $article['article_noteaser']); ?> />
-          <label class="form-check-label align-items-center">
+          <label class="form-check-label align-items-center" for="article_noteaser">
           <?php echo $BL['be_article_noteaser'] ?>
         </label>
       </div>
 
       <div class="form-check">
           <input class="form-check-input" name="article_paginate" type="checkbox" id="article_paginate" value="1"<?php is_checked(1, $article["article_paginate"]); ?> />
-          <label class="form-check-label align-items-center">
+          <label class="form-check-label align-items-center" for="article_paginate">
           <?php echo $BL['be_cnt_pagination'] ?>
         </label>
       </div>
