@@ -17,7 +17,14 @@ if (!defined('CMSGO_ROOT')) {
 
 
 // Alias ID
-echo "<div class=\"col-sm-auto\">".$BL['be_alias_ID'].': ';
+echo "<div class=\"col-sm-auto\">";
+if(!empty($row["acontent_title"])){
+    echo $row["acontent_title"]."</br>";
+}
+if(!empty($row["acontent_subtitle"])){
+    echo $row["acontent_subtitle"]."</br>";
+}
+echo $BL['be_alias_ID'].': ';
 $content["alias"] = @unserialize($row["acontent_form"]);
 $content['alias_link'] = '';
 if(empty($content["alias"]['alias_ID'])) {
