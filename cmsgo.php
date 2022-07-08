@@ -243,7 +243,7 @@ if($BE['LANG'] == 'ar') {
             $subnav .= subnavtext($BL['be_file_multiple_upload'], "cmsgo.php?do=files&amp;p=8", $p, "8", 0);
             echo '<ul class="submenu">'.$subnav."</ul></li>";
 
-            if (in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
+            if (!empty($cmsgo['enable_backend_module']) && in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
                 $active = ($do == 'modules') ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="glyphicon arrow"></span></a>';
                 $subnav = '';

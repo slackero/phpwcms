@@ -289,6 +289,7 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript\n";
     $conf_file .= "\$cmsgo['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported\n";
     $conf_file .= "\$cmsgo['enable_backend_newsletter'] = false; // Enable newsletter menu item in the backend, disabled by default\n";
+    $conf_file .= "\$cmsgo['enable_backend_module'] = false; // Enable module menu item in the backend, disabled by default\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
     $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
