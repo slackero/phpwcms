@@ -254,28 +254,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="nowrap text-right">';
         $a .= '<span class="mr-3 flag-icon flag-icon-'.$article[$akey]["article_lang"].'" data-toggle="tooltip" title="" data-original-title="'.$article[$akey]["article_lang"].'"></span>';
 
-        if($cut_article) {
-          if($cut_article != $article[$akey]["article_id"]) {
+        if($cut_article_content) {
             $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content.'|'.$article[$akey]["article_id"].'|-10');
             $a .= '" data-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
-            $a .= " [".$at."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
-          } else {
-            $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-            $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
-            $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
-          }
-        }
-
-        if($copy_article) {
-          if($copy_article != $article[$akey]["article_id"]) {
+            $a .= "\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
+        } elseif($copy_article_content) {
             $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('8|'.$copy_article_content.'|'.$article[$akey]["article_id"].'|-10');
             $a .= '" data-toggle="tooltip" title="'.$BL['be_func_content_paste0'];
-            $a .= " [".$at."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
-          } else {
-            $a .= "<a class=\"btn btn-xs btn-danger mr-1\" href=\"cmsgo.php?do=articles\" title=\"";
-            $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
-            $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
-          }
+            $a .= "\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
         }
 
         $a .= '<div class="btn-group" role="group" aria-label="group'.$article[$akey]["article_id"].'">';
@@ -411,7 +397,6 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
                     $a .= $GLOBALS['BL']['be_func_content_paste_cancel']." [".$at."]";
                     $a .= "\"><i class=\"fa fa-times fa-fw\"></i></a>";
                 }
-
             }
 
             $a .= '<div class="btn-group" role="group" aria-label="group'.$article_content["acontent_id"].'">';
