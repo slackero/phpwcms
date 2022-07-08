@@ -387,13 +387,12 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= $ab;
 
             $a .= "&nbsp;".html(' {'.$article_content['acontent_block'].'} ').'</td>';
-            $a .= '<td nowrap="nowrap" class="text-right" style="padding:3px 5px 3px 0;white-space:nowrap;" >';
-
-            $at  = ' '.$ab.' ';
+            $a .= '<td nowrap="nowrap" class="text-right" style="padding:3px 5px 3px 0;white-space:nowrap;">';
+            $at = ' ' . $ab . ' ';
 
             if($cut_article_content) {
                 if($cut_article_content != $article_content["acontent_id"]) {
-                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content."|".$article_content["acontent_id"]."|".$article_content["acontent_sorting"]);
+                    $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content."|".$article_content["acontent_aid"]."|".$article_content["acontent_sorting"]);
                     $a .= '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_content_paste'];
                     $a .= " [".$at."]\"><i class=\"fa fa-arrow-down\" aria-hidden=\"true\"></i></a>";
                 } else {
