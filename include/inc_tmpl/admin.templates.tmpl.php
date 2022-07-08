@@ -172,20 +172,20 @@ if(!isset($_GET["s"])) {
         $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
-        if(!empty($_POST['template_cc_message'])) {
-            $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
+        if(!empty($_POST['cookie_consent_message'])) {
+            $template['cookie_consent']['message'] = slweg($_POST['cookie_consent_message']);
         }
-        if(!empty($_POST['template_cc_dismiss'])) {
-            $template['cookie_consent']['dismiss'] = slweg($_POST['template_cc_dismiss']);
+        if(!empty($_POST['cookie_consent_dismiss'])) {
+            $template['cookie_consent']['dismiss'] = slweg($_POST['cookie_consent_dismiss']);
         }
-        if(!empty($_POST['template_cc_more'])) {
-            $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
+        if(!empty($_POST['cookie_consent_more'])) {
+            $template['cookie_consent']['more'] = slweg($_POST['cookie_consent_more']);
         }
-        if(!empty($_POST['template_cc_link'])) {
-            $template['cookie_consent']['link'] = slweg($_POST['template_cc_link']);
+        if(!empty($_POST['cookie_consent_link'])) {
+            $template['cookie_consent']['link'] = slweg($_POST['cookie_consent_link']);
         }
-        if(isset($_POST['template_cc_theme'])) {
-            $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
+        if(isset($_POST['cookie_consent_theme'])) {
+            $template['cookie_consent']['theme'] = clean_slweg($_POST['cookie_consent_theme']);
         }
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
@@ -497,16 +497,12 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                     <div class="col-sm-5 mt-2 mt-sm-0">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="template_jslibload"
-                                   id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
-                            <label for="template_jslibload"
-                                   class="form-check-label"><?php echo $BL['js_lib_alwaysload'] ?></label>
+                            <input class="form-check-input" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
+                            <label for="template_jslibload" class="form-check-label"><?php echo $BL['js_lib_alwaysload'] ?></label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="template_googleapi"
-                                   id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
-                            <label for="template_googleapi"
-                                   class="form-check-label"><?php echo $BL['googleapi_load'] ?></label>
+                            <input class="form-check-input" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
+                            <label for="template_googleapi" class="form-check-label"><?php echo $BL['googleapi_load'] ?></label>
                         </div>
                     </div>
                 </div>
@@ -515,86 +511,76 @@ if(isset($result[0]['pagelayout_id'])) {
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore"
-                                   type="checkbox" value="1"<?php is_checked($template['ie8ignore'], 1); ?>>
-                            <label class="form-check-label"
-                                   for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
+                            <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1"<?php is_checked($template['ie8ignore'], 1); ?>>
+                            <label class="form-check-label" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label" for="template_ga">
-                                <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox"
-                                       value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>
+                                <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>
                                 <?php echo $BL['be_google_analytics_enable']; ?>
                             </label>
 
-                            <div id="ga-tracking"
-                                 class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right"
-                                       for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
-                                <div class="col-sm-3"><input type="text" name="template_ga_id" id="template_ga_id"
-                                                             class="form-control form-control-sm"
-                                                             placeholder="UA-XXXXX-Y"
-                                                             value="<?php echo html($template['tracking_ga']['id']) ?>"/>
+                            <div id="ga-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                <label class="col-sm-2 col-form-label text-right" for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="template_ga_id" id="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>"/>
                                 </div>
 
-                                <div class="form-check col-sm-5 form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_anonymize"
-                                           id="template_ga_anonymize"
-                                           value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
-                                    <label for="template_ga_anonymize"
-                                           class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                    <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
+                                    <label for="template_ga_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
                                 </div>
+
+                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                    <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked(isset($template['tracking_ga']['optout']) ? $template['tracking_ga']['optout'] : 0, 1); ?> />
+                                    <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
+                                </div>
+
+                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                    <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked(isset($template['tracking_ga']['cookie_flags']) ? $template['tracking_ga']['cookie_flags'] : 0, 1); ?> />
+                                    <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
+                                </div>
+
+                                <div class="form-check col-sm-10 offset-sm-2 my-1">
+                                    <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
+                                    <textarea name="template_ga_custom_properties" class="form-control" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label" for="template_gtm">
-                                <input class="form-check-input" name="template_gtm" id="template_gtm" type="checkbox"
-                                       value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?>>
+                                <input class="form-check-input" name="template_gtm" id="template_gtm" type="checkbox" value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?>>
                                 <?php echo $BL['be_google_tag_manager_enable']; ?>
                             </label>
 
-                            <div id="gtm-tracking"
-                                 class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right"
-                                       for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
-                                <div class="col-sm-3"><input type="text" name="template_gtm_id" id="template_gtm_id"
-                                                             class="form-control form-control-sm"
-                                                             placeholder="GTM-XXXXXXX"
-                                                             value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
+                            <div id="gtm-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                <label class="col-sm-2 col-form-label text-right" for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                <div class="col-sm-4">
+                                    <input type="text" name="template_gtm_id" id="template_gtm_id" class="form-control form-control-sm" placeholder="GTM-XXXXXXX" value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label" for="template_piwik">
-                                <input class="form-check-input" name="template_piwik" id="template_piwik"
-                                       type="checkbox"
-                                       value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?>>
+                                <input class="form-check-input" name="template_piwik" id="template_piwik" type="checkbox" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?>>
                                 <?php echo $BL['be_piwik_enable']; ?>
                             </label>
 
-                            <div id="piwik-tracking"
-                                 class="form-group form-row align-items-center mt-3"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right"
-                                       for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
-                                <input type="text" name="template_piwik_id" class="form-control col-sm-2"
-                                       placeholder="1" id="template_piwik_id"
-                                       value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
-                                <label class="col-sm-2 col-form-label text-right"
-                                       for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
-                                <input type="text" name="template_piwik_url" class="form-control col-sm-4"
-                                       placeholder="piwik.example.com" id="template_piwik_url"
-                                       value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
+                            <div id="piwik-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                <label class="col-sm-2 col-form-label text-right" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
+                                <input type="text" name="template_piwik_id" class="form-control form-control-sm col-sm-2" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
+                                <label class="col-sm-2 col-form-label text-right" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
+                                <input type="text" name="template_piwik_url" class="form-control form-control-sm col-sm-4" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
                             </div>
                         </div>
 
                         <div class="form-check">
                             <label class="form-check-label" for="template_cookie_consent">
-                                <input class="form-check-input" name="template_cookie_consent"
-                                       id="template_cookie_consent" type="checkbox"
-                                       value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?>>
+                                <input class="form-check-input" name="template_cookie_consent" id="template_cookie_consent" type="checkbox" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?>>
                                 <?php echo $BL['be_cookie_consent_enable'] ?>
                             </label>
 
@@ -603,54 +589,32 @@ if(isset($result[0]['pagelayout_id'])) {
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
                                 <div class="form-group form-row my-2">
-                                    <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
-                                    <div class="col"><textarea name="cookie_consent_message" rows="3"
-                                                               id="be_cookie_consent_message"
-                                                               class="form-control form-control-sm autosize"
-                                                               placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea>
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_message"><?php echo $BL['be_cookie_consent_message']; ?></label>
+                                    <div class="col">
+                                        <textarea name="cookie_consent_message" rows="3" id="be_cookie_consent_message" class="form-control form-control-sm autosize" placeholder="<?php echo $BL['cookie_consent_message']; ?>"><?php echo html($template['cookie_consent']['message']) ?></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group form-row mt-2 mb-0">
-                                    <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
-                                    <div class="col"><input type="text" name="cookie_consent_dismiss"
-                                                            id="be_cookie_consent_dismiss"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>"
-                                                            value="<?php echo html($template['cookie_consent']['dismiss']) ?>"/>
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_dismiss"><?php echo $BL['be_cookie_consent_dismiss']; ?></label>
+                                    <div class="col"><input type="text" name="cookie_consent_dismiss" id="be_cookie_consent_dismiss" class="form-control form-control-sm" placeholder="<?php echo $BL['cookie_consent_dismiss']; ?>" value="<?php echo html($template['cookie_consent']['dismiss']) ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_more']; ?></label>
-                                    <div class="col"><input type="text" name="cookie_consent_more"
-                                                            id="be_cookie_consent_more"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="<?php echo $BL['cookie_consent_more']; ?>"
-                                                            value="<?php echo html($template['cookie_consent']['more']) ?>"/>
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_more"><?php echo $BL['be_cookie_consent_more']; ?></label>
+                                    <div class="col">
+                                        <input type="text" name="cookie_consent_more" id="be_cookie_consent_more" class="form-control form-control-sm" placeholder="<?php echo $BL['cookie_consent_more']; ?>" value="<?php echo html($template['cookie_consent']['more']) ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group form-row my-0">
-                                    <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
-                                    <div class="col"><input type="text" name="cookie_consent_link"
-                                                            id="be_cookie_consent_link"
-                                                            class="form-control form-control-sm"
-                                                            placeholder="http://example.com/cookie-policy | cookie-policy"
-                                                            value="<?php echo html($template['cookie_consent']['link']) ?>"/>
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
+                                    <div class="col">
+                                        <input type="text" name="cookie_consent_link" id="be_cookie_consent_link" class="form-control form-control-sm" placeholder="http://example.com/cookie-policy | cookie-policy" value="<?php echo html($template['cookie_consent']['link']) ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group form-row mt-0">
-                                    <label class="col-sm-3 col-form-label text-right"
-                                           for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_theme"><?php echo $BL['be_cookie_consent_theme']; ?></label>
                                     <div class="col">
-                                        <input type="text" name="cookie_consent_theme"
-                                               id="be_cookie_consent_theme"
-                                               class="form-control form-control-sm"
-                                               placeholder="light-top, light-bottom, light-floating, dark-top&hellip;"
-                                               title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada"
-                                               value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
+                                        <input type="text" name="cookie_consent_theme" id="be_cookie_consent_theme" class="form-control form-control-sm" placeholder="light-top, light-bottom, light-floating, dark-top&hellip;" title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada" value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
                                     </div>
                                 </div>
                             </div>
@@ -658,8 +622,7 @@ if(isset($result[0]['pagelayout_id'])) {
 
                         <div class="form-check">
                             <label class="form-check-label" for="template_require_consent">
-                                <input class="form-check-input" name="template_require_consent" id="template_require_consent" type="checkbox"
-                                       value="1"<?php is_checked($template['require_consent']['enable'], 1); ?>>
+                                <input class="form-check-input" name="template_require_consent" id="template_require_consent" type="checkbox" value="1"<?php is_checked($template['require_consent']['enable'], 1); ?>>
                                 <?php echo $BL['be_require_consent']; ?>
                             </label>
 
@@ -670,13 +633,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                         <?php echo $BL['be_consent_cookie_name']; ?>
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text"
-                                               name="template_require_cookie_name"
-                                               id="template_require_cookie_name"
-                                               class="form-control form-control-sm"
-                                               placeholder="<?php echo $BL['placeholder_require_cookie_name']; ?>"
-                                               value="<?php echo html($template['require_consent']['cookie_name']) ?>"
-                                        >
+                                        <input type="text" name="template_require_cookie_name" id="template_require_cookie_name" class="form-control form-control-sm" placeholder="<?php echo $BL['placeholder_require_cookie_name']; ?>" value="<?php echo html($template['require_consent']['cookie_name']) ?>">
                                     </div>
                                 </div>
 
@@ -685,50 +642,36 @@ if(isset($result[0]['pagelayout_id'])) {
                                         <?php echo $BL['be_consent_cookie_value']; ?>
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text"
-                                               name="template_require_cookie_value"
-                                               id="template_require_cookie_value"
-                                               class="form-control form-control-sm"
-                                               placeholder="<?php echo $BL['placeholder_require_cookie_value']; ?>"
-                                               value="<?php echo html($template['require_consent']['cookie_value']) ?>"
-                                        >
+                                        <input type="text" name="template_require_cookie_value" id="template_require_cookie_value" class="form-control form-control-sm" placeholder="<?php echo $BL['placeholder_require_cookie_value']; ?>" value="<?php echo html($template['require_consent']['cookie_value']) ?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-check">
-                            <input class="form-check-input" name="template_frontendjs" id="template_frontendjs"
-                                   type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
-                            <label class="form-check-label"
-                                   for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
+                            <input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
+                            <label class="form-check-label" for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group form-row align-items-center">
-                    <label for="be_admin_tmpl_js"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
+                    <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
                     <div class="col">
-                        <input type="text" class="form-control form-control-sm" name="template_jsonload"
-                               id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
+                        <input type="text" class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
                     </div>
                 </div>
                 <div class="form-group form-row align-items-center">
-                    <label for="be_fe_login_url"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
+                    <label for="be_fe_login_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
                     <div class="col">
-                        <input type="text" class="form-control form-control-sm" name="template_felogin_url"
-                               id="template_felogin_url"
-                               value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
+                        <input type="text" class="form-control form-control-sm" name="template_felogin_url" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
                     </div>
                 </div>
 
                 <hr/>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_page_header"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+                    <label for="be_admin_page_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
                     <div class="col">
                         <?php
                         if (!isset($template["headertext_file"])) {
@@ -736,13 +679,11 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
                         ?>
-                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_main"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
+                    <label for="be_admin_page_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["maintext_file"])) {
@@ -750,13 +691,11 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
                         ?>
-                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_footer"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+                    <label for="be_admin_page_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["footertext_file"])) {
@@ -764,13 +703,11 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
                         ?>
-                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_left"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+                    <label for="be_admin_page_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["lefttext_file"])) {
@@ -778,13 +715,11 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
                         ?>
-                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_right"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+                    <label for="be_admin_page_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["righttext_file"])) {
@@ -792,8 +727,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
                         ?>
-                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
                     </div>
                 </div>
 
@@ -823,8 +757,7 @@ if(isset($result[0]['pagelayout_id'])) {
                 ?>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_tmpl_error"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
+                    <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["errortext_file"])) {
@@ -832,24 +765,19 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
                         ?>
-                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize"
-                                  id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                     </div>
                 </div>
 
                 <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
                     <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-                    <input name="Submit" type="submit" class="btn btn-sm btn-blue"
-                           value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
-                    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>"
-                           onclick="location.href='cmsgo.php?do=admin&amp;p=11';"/>
+                    <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
+                    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='cmsgo.php?do=admin&amp;p=11';"/>
                 </div>
             </div>
         </div>
     </form>
-
     <script type="text/javascript">
-
     $(function(){
         $('#template_cookie_consent').on('change', function(){
             if($(this).is(':checked')) {
@@ -889,5 +817,4 @@ if(isset($result[0]['pagelayout_id'])) {
         });
     </script>
     <?php
-
 }
