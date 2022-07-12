@@ -160,7 +160,7 @@ if($content['reference']['ref_count']) {
 
 
 				if($zoominfo != false) {
-					$popup_link  = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $content['reference']["list"][$captkey][1]);
+					$popup_link  = PHPWCMS_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $content['reference']["list"][$captkey][1]);
 
 					$content['reference']['x5'] = '<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link."','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;\">";
 					$content['reference']['x6'] = '</a>';

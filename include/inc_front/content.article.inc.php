@@ -304,7 +304,7 @@ if(isset($result[0]['article_id'])) {
                         'src' => $img_zoom_rel
                     );
 
-                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
+                    $popup_img = PHPWCMS_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
 
                     if(!empty($caption[2][0])) {
                         $open_link = $caption[2][0];
