@@ -287,7 +287,7 @@ print_r($custom);
 
                         if($custom['zoom'] && isset($zoom_image) && $zoom_image != false) {
                             // if click enlarge the image
-                            $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoom_image['src'].'?'.$zoom_image[3]);
+                            $open_popup_link = CMSGO_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoom_image['src'].'?'.$zoom_image[3]);
                             $open_link = $open_popup_link;
                             $return_false = 'return false;';
 
