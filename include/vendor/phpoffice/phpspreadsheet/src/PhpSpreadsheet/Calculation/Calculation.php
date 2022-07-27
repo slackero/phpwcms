@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 use PhpOffice\PhpSpreadsheet\Calculation\Token\Stack;
 use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\DefinedName;
 use PhpOffice\PhpSpreadsheet\ReferenceHelper;
 use PhpOffice\PhpSpreadsheet\Shared;
@@ -33,17 +34,17 @@ class Calculation
     //    Function (allow for the old @ symbol that could be used to prefix a function, but we'll ignore it)
     const CALCULATION_REGEXP_FUNCTION = '@?(?:_xlfn\.)?([\p{L}][\p{L}\p{N}\.]*)[\s]*\(';
     //    Cell reference (cell or range of cells, with or without a sheet reference)
-    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_CELLREF = '((([^\s,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?\$?\b([a-z]{1,3})\$?(\d{1,7})(?![\w.])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
-    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
-    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
-    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'.*?\')|(\".*?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
+    const CALCULATION_REGEXP_CELLREF_RELATIVE = '((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?\b[a-z]{1,3})(\$?\d{1,7})(?![\w.])';
+    const CALCULATION_REGEXP_COLUMN_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\".(?:[^\"]|\"[^!])?\"))!)?(\$?[a-z]{1,3})):(?![.*])';
+    const CALCULATION_REGEXP_ROW_RANGE = '(((([^\s\(,!&%^\/\*\+<>=:`-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?(\$?[1-9][0-9]{0,6})):(?![.*])';
     //    Cell reference (with or without a sheet reference) ensuring absolute/relative
     //    Cell ranges ensuring absolute/relative
     const CALCULATION_REGEXP_COLUMNRANGE_RELATIVE = '(\$?[a-z]{1,3}):(\$?[a-z]{1,3})';
     const CALCULATION_REGEXP_ROWRANGE_RELATIVE = '(\$?\d{1,7}):(\$?\d{1,7})';
     //    Defined Names: Named Range of cells, or Named Formulae
-    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'.*?\')|(\".*?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
+    const CALCULATION_REGEXP_DEFINEDNAME = '((([^\s,!&%^\/\*\+<>=-]*)|(\'(?:[^\']|\'[^!])+?\')|(\"(?:[^\"]|\"[^!])+?\"))!)?([_\p{L}][_\p{L}\p{N}\.]*)';
     //    Error
     const CALCULATION_REGEXP_ERROR = '\#[A-Z][A-Z0_\/]*[!\?]?';
 
@@ -542,6 +543,16 @@ class Calculation
             'functionCall' => [LookupRef\Selection::class, 'CHOOSE'],
             'argumentCount' => '2+',
         ],
+        'CHOOSECOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
+        'CHOOSEROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2+',
+        ],
         'CLEAN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Trim::class, 'nonPrintable'],
@@ -904,6 +915,11 @@ class Calculation
             'functionCall' => [Database\DProduct::class, 'evaluate'],
             'argumentCount' => '3',
         ],
+        'DROP' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'DSTDEV' => [
             'category' => Category::CATEGORY_DATABASE,
             'functionCall' => [Database\DStDev::class, 'evaluate'],
@@ -998,6 +1014,11 @@ class Calculation
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Exp::class, 'evaluate'],
             'argumentCount' => '1',
+        ],
+        'EXPAND' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
         ],
         'EXPONDIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -1260,6 +1281,11 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\TimeParts::class, 'hour'],
             'argumentCount' => '1',
+        ],
+        'HSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
         ],
         'HYPERLINK' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2407,6 +2433,11 @@ class Calculation
             'functionCall' => [TextData\Text::class, 'test'],
             'argumentCount' => '1',
         ],
+        'TAKE' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
         'TAN' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Trig\Tangent::class, 'tan'],
@@ -2457,10 +2488,25 @@ class Calculation
             'functionCall' => [TextData\Format::class, 'TEXTFORMAT'],
             'argumentCount' => '2',
         ],
+        'TEXTAFTER' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
+        'TEXTBEFORE' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-4',
+        ],
         'TEXTJOIN' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'TEXTJOIN'],
             'argumentCount' => '3+',
+        ],
+        'TEXTSPLIT' => [
+            'category' => Category::CATEGORY_TEXT_AND_DATA,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-5',
         ],
         'THAIDAYOFWEEK' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -2526,6 +2572,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [DateTimeExcel\Current::class, 'today'],
             'argumentCount' => '0',
+        ],
+        'TOCOL' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
+        ],
+        'TOROW' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1-3',
         ],
         'TRANSPOSE' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
@@ -2647,6 +2703,11 @@ class Calculation
             'functionCall' => [LookupRef\VLookup::class, 'lookup'],
             'argumentCount' => '3,4',
         ],
+        'VSTACK' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '1+',
+        ],
         'WEBSERVICE' => [
             'category' => Category::CATEGORY_WEB,
             'functionCall' => [Web\Service::class, 'webService'],
@@ -2681,6 +2742,16 @@ class Calculation
             'category' => Category::CATEGORY_DATE_AND_TIME,
             'functionCall' => [Functions::class, 'DUMMY'],
             'argumentCount' => '2-4',
+        ],
+        'WRAPCOLS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
+        ],
+        'WRAPROWS' => [
+            'category' => Category::CATEGORY_MATH_AND_TRIG,
+            'functionCall' => [Functions::class, 'DUMMY'],
+            'argumentCount' => '2-3',
         ],
         'XIRR' => [
             'category' => Category::CATEGORY_FINANCIAL,
@@ -3018,7 +3089,7 @@ class Calculation
         }
 
         //    Test whether we have any language data for this language (any locale)
-        if (in_array($language, self::$validLocaleLanguages)) {
+        if (in_array($language, self::$validLocaleLanguages, true)) {
             //    initialise language/locale settings
             self::$localeFunctions = [];
             self::$localeArgumentSeparator = ',';
@@ -3127,7 +3198,7 @@ class Calculation
         string $toSeparator
     ): string {
         // Function Names
-        $formula = preg_replace($from, $to, $formula);
+        $formula = (string) preg_replace($from, $to, $formula);
 
         // Temporarily adjust matrix separators so that they won't be confused with function arguments
         $formula = self::translateSeparator(';', '|', $formula, $inMatrixBracesLevel, self::FORMULA_OPEN_MATRIX_BRACE, self::FORMULA_CLOSE_MATRIX_BRACE);
@@ -3153,10 +3224,11 @@ class Calculation
                 //    So instead we skip replacing in any quoted strings by only replacing in every other array element
                 //       after we've exploded the formula
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
-                $i = false;
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only adjust in alternating array entries
-                    if ($i = !$i) {
+                    $notWithinQuotes = !$notWithinQuotes;
+                    if ($notWithinQuotes === true) {
                         $value = self::translateFormulaBlock($from, $to, $value, $inFunctionBracesLevel, $inMatrixBracesLevel, $fromSeparator, $toSeparator);
                     }
                 }
@@ -3828,10 +3900,11 @@ class Calculation
                 $temp = explode(self::FORMULA_STRING_QUOTE, $formula);
                 //    Open and Closed counts used for trapping mismatched braces in the formula
                 $openCount = $closeCount = 0;
-                $i = false;
+                $notWithinQuotes = false;
                 foreach ($temp as &$value) {
                     //    Only count/replace in alternating array entries
-                    if ($i = !$i) {
+                    $notWithinQuotes = !$notWithinQuotes;
+                    if ($notWithinQuotes === true) {
                         $openCount += substr_count($value, self::FORMULA_OPEN_MATRIX_BRACE);
                         $closeCount += substr_count($value, self::FORMULA_CLOSE_MATRIX_BRACE);
                         $value = str_replace($matrixReplaceFrom, $matrixReplaceTo, $value);
@@ -3949,6 +4022,7 @@ class Calculation
             //    Find out if we're currently at the beginning of a number, variable, cell reference, function, parenthesis or operand
             $isOperandOrFunction = (bool) preg_match($regexpMatchString, substr($formula, $index), $match);
 
+            $expectingOperatorCopy = $expectingOperator;
             if ($opCharacter == '-' && !$expectingOperator) {                //    Is it a negation instead of a minus?
                 //    Put a negation on the stack
                 $stack->push('Unary Operator', '~');
@@ -4101,14 +4175,14 @@ class Calculation
                 $this->branchPruner->incrementDepth();
                 $stack->push('Brace', '(', null);
                 ++$index;
-            } elseif ($isOperandOrFunction && !$expectingOperator) {    // do we now have a function/variable/number?
+            } elseif ($isOperandOrFunction && !$expectingOperatorCopy) {    // do we now have a function/variable/number?
                 $expectingOperator = true;
                 $expectingOperand = false;
                 $val = $match[1];
                 $length = strlen($val);
 
                 if (preg_match('/^' . self::CALCULATION_REGEXP_FUNCTION . '$/miu', $val, $matches)) {
-                    $val = preg_replace('/\s/u', '', $val);
+                    $val = (string) preg_replace('/\s/u', '', $val);
                     if (isset(self::$phpSpreadsheetFunctions[strtoupper($matches[1])]) || isset(self::$controlFunctions[strtoupper($matches[1])])) {    // it's a function
                         $valToUpper = strtoupper($val);
                     } else {
@@ -4130,7 +4204,7 @@ class Calculation
                         $expectingOperator = false;
                     }
                     $stack->push('Brace', '(');
-                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/i', $val, $matches)) {
+                } elseif (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '$/miu', $val, $matches)) {
                     //    Watch for this case-change when modifying to allow cell references in different worksheets...
                     //    Should only be applied to the actual cell column, not the worksheet name
                     //    If the last entry on the stack was a : operator, then we have a cell range reference
@@ -4253,6 +4327,8 @@ class Calculation
                         $val = $rowRangeReference[1];
                         $length = strlen($rowRangeReference[1]);
                         $stackItemType = 'Row Reference';
+                        // unescape any apostrophes or double quotes in worksheet name
+                        $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $column = 'A';
                         if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
                             $column = $pCellParent->getHighestDataColumn($val);
@@ -4265,6 +4341,8 @@ class Calculation
                         $val = $columnRangeReference[1];
                         $length = strlen($val);
                         $stackItemType = 'Column Reference';
+                        // unescape any apostrophes or double quotes in worksheet name
+                        $val = str_replace(["''", '""'], ["'", '"'], $val);
                         $row = '1';
                         if (($testPrevOp !== null && $testPrevOp['value'] === ':') && $pCellParent !== null) {
                             $row = $pCellParent->getHighestDataRow($val);
@@ -4326,13 +4404,17 @@ class Calculation
 
                 //    If we're expecting an operator, but only have a space between the previous and next operands (and both are
                 //        Cell References) then we have an INTERSECTION operator
+                $countOutputMinus1 = count($output) - 1;
                 if (
                     ($expectingOperator) &&
+                    array_key_exists($countOutputMinus1, $output) &&
+                    is_array($output[$countOutputMinus1]) &&
+                    array_key_exists('type', $output[$countOutputMinus1]) &&
                     (
                         (preg_match('/^' . self::CALCULATION_REGEXP_CELLREF . '.*/Ui', substr($formula, $index), $match)) &&
-                        ($output[count($output) - 1]['type'] === 'Cell Reference') ||
+                        ($output[$countOutputMinus1]['type'] === 'Cell Reference') ||
                         (preg_match('/^' . self::CALCULATION_REGEXP_DEFINEDNAME . '.*/miu', substr($formula, $index), $match)) &&
-                            ($output[count($output) - 1]['type'] === 'Defined Name' || $output[count($output) - 1]['type'] === 'Value')
+                            ($output[$countOutputMinus1]['type'] === 'Defined Name' || $output[$countOutputMinus1]['type'] === 'Value')
                     )
                 ) {
                     while (
@@ -4523,7 +4605,7 @@ class Calculation
                         if (strpos($operand1Data['reference'], '!') !== false) {
                             [$sheet1, $operand1Data['reference']] = Worksheet::extractSheetTitle($operand1Data['reference'], true);
                         } else {
-                            $sheet1 = ($pCellParent !== null) ? $pCellWorksheet->getTitle() : '';
+                            $sheet1 = ($pCellWorksheet !== null) ? $pCellWorksheet->getTitle() : '';
                         }
 
                         [$sheet2, $operand2Data['reference']] = Worksheet::extractSheetTitle($operand2Data['reference'], true);
@@ -4532,21 +4614,23 @@ class Calculation
                         }
 
                         if (trim($sheet1, "'") === trim($sheet2, "'")) {
-                            if ($operand1Data['reference'] === null) {
-                                if ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
+                            if ($operand1Data['reference'] === null && $cell !== null) {
+                                if (is_array($operand1Data['value'])) {
+                                    $operand1Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand1Data['value']) != '') && (is_numeric($operand1Data['value']))) {
                                     $operand1Data['reference'] = $cell->getColumn() . $operand1Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand1Data['reference']) == '') {
+                                } elseif (trim($operand1Data['value']) == '') {
                                     $operand1Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand1Data['reference'] = $operand1Data['value'] . $cell->getRow();
                                 }
                             }
-                            if ($operand2Data['reference'] === null) {
-                                if ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
+                            if ($operand2Data['reference'] === null && $cell !== null) {
+                                if (is_array($operand2Data['value'])) {
+                                    $operand2Data['reference'] = $cell->getCoordinate();
+                                } elseif ((trim($operand2Data['value']) != '') && (is_numeric($operand2Data['value']))) {
                                     $operand2Data['reference'] = $cell->getColumn() . $operand2Data['value'];
-                                // @phpstan-ignore-next-line
-                                } elseif (trim($operand2Data['reference']) == '') {
+                                } elseif (trim($operand2Data['value']) == '') {
                                     $operand2Data['reference'] = $cell->getCoordinate();
                                 } else {
                                     $operand2Data['reference'] = $operand2Data['value'] . $cell->getRow();
@@ -4628,11 +4712,19 @@ class Calculation
                                 //    Perform the required operation against the operand 1 matrix, passing in operand 2
                                 $matrixResult = $matrix->concat($operand2);
                                 $result = $matrixResult->getArray();
+                                if (isset($result[0][0])) {
+                                    $result[0][0] = Shared\StringHelper::substring($result[0][0], 0, DataType::MAX_STRING_LENGTH);
+                                }
                             } catch (\Exception $ex) {
                                 $this->debugLog->writeDebugLog('JAMA Matrix Exception: %s', $ex->getMessage());
                                 $result = '#VALUE!';
                             }
                         } else {
+                            // In theory, we should truncate here.
+                            // But I can't figure out a formula
+                            // using the concatenation operator
+                            // with literals that fits in 32K,
+                            // so I don't think we can overflow here.
                             $result = self::FORMULA_STRING_QUOTE . str_replace('""', self::FORMULA_STRING_QUOTE, self::unwrapResult($operand1) . self::unwrapResult($operand2)) . self::FORMULA_STRING_QUOTE;
                         }
                         $this->debugLog->writeDebugLog('Evaluation Result is %s', $this->showTypeDetails($result));
@@ -4751,7 +4843,7 @@ class Calculation
                                     $cell->attach($pCellParent);
                                 } else {
                                     $cellRef = ($cellSheet !== null) ? "'{$matches[2]}'!{$cellRef}" : $cellRef;
-                                    $cellValue = null;
+                                    $cellValue = ($cellSheet !== null) ? null : Information\ExcelError::REF();
                                 }
                             } else {
                                 return $this->raiseFormulaError('Unable to access Cell Reference');
@@ -4759,7 +4851,7 @@ class Calculation
                             $this->debugLog->writeDebugLog('Evaluation Result for cell %s in worksheet %s is %s', $cellRef, $matches[2], $this->showTypeDetails($cellValue));
                         } else {
                             $this->debugLog->writeDebugLog('Evaluating Cell %s in current worksheet', $cellRef);
-                            if ($pCellParent->has($cellRef)) {
+                            if ($pCellParent !== null && $pCellParent->has($cellRef)) {
                                 $cellValue = $this->extractCellRange($cellRef, $pCellWorksheet, false);
                                 $cell->attach($pCellParent);
                             } else {
@@ -5166,8 +5258,6 @@ class Calculation
             $aReferences = Coordinate::extractAllCellReferencesInRange($range);
             $range = "'" . $worksheetName . "'" . '!' . $range;
             if (!isset($aReferences[1])) {
-                $currentCol = '';
-                $currentRow = 0;
                 //    Single cell in range
                 sscanf($aReferences[0], '%[A-Z]%d', $currentCol, $currentRow);
                 if ($worksheet->cellExists($aReferences[0])) {
@@ -5178,8 +5268,6 @@ class Calculation
             } else {
                 // Extract cell data for all cells in the range
                 foreach ($aReferences as $reference) {
-                    $currentCol = '';
-                    $currentRow = 0;
                     // Extract range
                     sscanf($reference, '%[A-Z]%d', $currentCol, $currentRow);
                     if ($worksheet->cellExists($reference)) {
@@ -5215,7 +5303,7 @@ class Calculation
             }
 
             // Named range?
-            $namedRange = DefinedName::resolveName($range, $worksheet);
+            $namedRange = DefinedName::resolveName($range, /** @scrutinizer ignore-type */ $worksheet);
             if ($namedRange === null) {
                 return Information\ExcelError::REF();
             }

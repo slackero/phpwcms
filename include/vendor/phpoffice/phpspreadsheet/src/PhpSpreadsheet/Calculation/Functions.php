@@ -152,14 +152,14 @@ class Functions
         if ($condition === '') {
             return '=""';
         }
-        if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='])) {
+        if (!is_string($condition) || !in_array($condition[0], ['>', '<', '='], true)) {
             $condition = self::operandSpecialHandling($condition);
             if (is_bool($condition)) {
                 return '=' . ($condition ? 'TRUE' : 'FALSE');
             } elseif (!is_numeric($condition)) {
                 if ($condition !== '""') { // Not an empty string
                     // Escape any quotes in the string value
-                    $condition = preg_replace('/"/ui', '""', $condition);
+                    $condition = (string) preg_replace('/"/ui', '""', $condition);
                 }
                 $condition = Calculation::wrapResult(strtoupper($condition));
             }
@@ -705,8 +705,8 @@ class Functions
 
     public static function trimSheetFromCellReference(string $coordinate): string
     {
-        while (strpos($coordinate, '!') !== false) {
-            $coordinate = substr($coordinate, strpos($coordinate, '!') + 1);
+        if (strpos($coordinate, '!') !== false) {
+            $coordinate = substr($coordinate, strrpos($coordinate, '!') + 1);
         }
 
         return $coordinate;

@@ -5,6 +5,87 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.24.1 - 2022-07-18
+
+### Added
+
+- Add Chart Axis Option textRotation [Issue #2705](https://github.com/PHPOffice/PhpSpreadsheet/issues/2705) [PR #2940](https://github.com/PHPOffice/PhpSpreadsheet/pull/2940)
+
+### Changed
+
+- Nothing
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Fix Encoding issue with Html reader (PHP 8.2 deprecation for mb_convert_encoding) [Issue #2942](https://github.com/PHPOffice/PhpSpreadsheet/issues/2942) [PR #2943](https://github.com/PHPOffice/PhpSpreadsheet/pull/2943)
+- Additional Chart fixes
+  - Pie chart with part separated unwantedly [Issue #2506](https://github.com/PHPOffice/PhpSpreadsheet/issues/2506) [PR #2928](https://github.com/PHPOffice/PhpSpreadsheet/pull/2928)
+  - Chart styling is lost on simple load / save process [Issue #1797](https://github.com/PHPOffice/PhpSpreadsheet/issues/1797) [Issue #2077](https://github.com/PHPOffice/PhpSpreadsheet/issues/2077) [PR #2930](https://github.com/PHPOffice/PhpSpreadsheet/pull/2930)
+  - Can't create contour chart (surface 2d) [Issue #2931](https://github.com/PHPOffice/PhpSpreadsheet/issues/2931) [PR #2933](https://github.com/PHPOffice/PhpSpreadsheet/pull/2933)
+- VLOOKUP Breaks When Array Contains Null Cells [Issue #2934](https://github.com/PHPOffice/PhpSpreadsheet/issues/2934) [PR #2939](https://github.com/PHPOffice/PhpSpreadsheet/pull/2939)
+
+## 1.24.0 - 2022-07-09
+
+Note that this will be the last 1.x branch release before the 2.x release. We will maintain both branches in parallel for a time; but users are requested to update to version 2.0 once that is fully available.
+
+### Added
+
+- Added `removeComment()` method for Worksheet [PR #2875](https://github.com/PHPOffice/PhpSpreadsheet/pull/2875/files)
+- Add point size option for scatter charts [Issue #2298](https://github.com/PHPOffice/PhpSpreadsheet/issues/2298) [PR #2801](https://github.com/PHPOffice/PhpSpreadsheet/pull/2801)
+- Basic support for Xlsx reading/writing Chart Sheets [PR #2830](https://github.com/PHPOffice/PhpSpreadsheet/pull/2830)
+
+  Note that a ChartSheet is still only written as a normal Worksheet containing a single chart, not as an actual ChartSheet.
+
+- Added Worksheet visibility in Ods Reader [PR #2851](https://github.com/PHPOffice/PhpSpreadsheet/pull/2851) and Gnumeric Reader [PR #2853](https://github.com/PHPOffice/PhpSpreadsheet/pull/2853)
+- Added Worksheet visibility in Ods Writer [PR #2850](https://github.com/PHPOffice/PhpSpreadsheet/pull/2850)
+- Allow Csv Reader to treat string as contents of file [Issue #1285](https://github.com/PHPOffice/PhpSpreadsheet/issues/1285) [PR #2792](https://github.com/PHPOffice/PhpSpreadsheet/pull/2792)
+- Allow Csv Reader to store null string rather than leave cell empty [Issue #2840](https://github.com/PHPOffice/PhpSpreadsheet/issues/2840) [PR #2842](https://github.com/PHPOffice/PhpSpreadsheet/pull/2842)
+- Provide new Worksheet methods to identify if a row or column is "empty", making allowance for different definitions of "empty":
+  - Treat rows/columns containing no cell records as empty (default)
+  - Treat cells containing a null value as empty
+  - Treat cells containing an empty string as empty
+
+### Changed
+
+- Modify `rangeBoundaries()`, `rangeDimension()` and `getRangeBoundaries()` Coordinate methods to work with row/column ranges as well as with cell ranges and cells [PR #2926](https://github.com/PHPOffice/PhpSpreadsheet/pull/2926)
+- Better enforcement of value modification to match specified datatype when using `setValueExplicit()`
+- Relax validation of merge cells to allow merge for a single cell reference [Issue #2776](https://github.com/PHPOffice/PhpSpreadsheet/issues/2776)
+- Memory and speed improvements, particularly for the Cell Collection, and the Writers.
+
+  See [the Discussion section on github](https://github.com/PHPOffice/PhpSpreadsheet/discussions/2821) for details of performance across versions
+- Improved performance for removing rows/columns from a worksheet
+
+### Deprecated
+
+- Nothing
+
+### Removed
+
+- Nothing
+
+### Fixed
+
+- Xls Reader resolving absolute named ranges to relative ranges [Issue #2826](https://github.com/PHPOffice/PhpSpreadsheet/issues/2826) [PR #2827](https://github.com/PHPOffice/PhpSpreadsheet/pull/2827)
+- Null value handling in the Excel Math/Trig PRODUCT() function [Issue #2833](https://github.com/PHPOffice/PhpSpreadsheet/issues/2833) [PR #2834](https://github.com/PHPOffice/PhpSpreadsheet/pull/2834)
+- Invalid Print Area defined in Xlsx corrupts internal storage of print area [Issue #2848](https://github.com/PHPOffice/PhpSpreadsheet/issues/2848) [PR #2849](https://github.com/PHPOffice/PhpSpreadsheet/pull/2849)
+- Time interval formatting [Issue #2768](https://github.com/PHPOffice/PhpSpreadsheet/issues/2768) [PR #2772](https://github.com/PHPOffice/PhpSpreadsheet/pull/2772)
+- Copy from Xls(x) to Html/Pdf loses drawings [PR #2788](https://github.com/PHPOffice/PhpSpreadsheet/pull/2788)
+- Html Reader converting cell containing 0 to null string [Issue #2810](https://github.com/PHPOffice/PhpSpreadsheet/issues/2810) [PR #2813](https://github.com/PHPOffice/PhpSpreadsheet/pull/2813)
+- Many fixes for Charts, especially, but not limited to, Scatter, Bubble, and Surface charts. [Issue #2762](https://github.com/PHPOffice/PhpSpreadsheet/issues/2762) [Issue #2299](https://github.com/PHPOffice/PhpSpreadsheet/issues/2299) [Issue #2700](https://github.com/PHPOffice/PhpSpreadsheet/issues/2700) [Issue #2817](https://github.com/PHPOffice/PhpSpreadsheet/issues/2817) [Issue #2763](https://github.com/PHPOffice/PhpSpreadsheet/issues/2763) [Issue #2219](https://github.com/PHPOffice/PhpSpreadsheet/issues/2219) [Issue #2863](https://github.com/PHPOffice/PhpSpreadsheet/issues/2863) [PR #2828](https://github.com/PHPOffice/PhpSpreadsheet/pull/2828) [PR #2841](https://github.com/PHPOffice/PhpSpreadsheet/pull/2841) [PR #2846](https://github.com/PHPOffice/PhpSpreadsheet/pull/2846) [PR #2852](https://github.com/PHPOffice/PhpSpreadsheet/pull/2852) [PR #2856](https://github.com/PHPOffice/PhpSpreadsheet/pull/2856) [PR #2865](https://github.com/PHPOffice/PhpSpreadsheet/pull/2865) [PR #2872](https://github.com/PHPOffice/PhpSpreadsheet/pull/2872) [PR #2879](https://github.com/PHPOffice/PhpSpreadsheet/pull/2879) [PR #2898](https://github.com/PHPOffice/PhpSpreadsheet/pull/2898) [PR #2906](https://github.com/PHPOffice/PhpSpreadsheet/pull/2906) [PR #2922](https://github.com/PHPOffice/PhpSpreadsheet/pull/2922) [PR #2923](https://github.com/PHPOffice/PhpSpreadsheet/pull/2923)
+- Adjust both coordinates for two-cell anchors when rows/columns are added/deleted. [Issue #2908](https://github.com/PHPOffice/PhpSpreadsheet/issues/2908) [PR #2909](https://github.com/PHPOffice/PhpSpreadsheet/pull/2909)
+- Keep calculated string results below 32K. [PR #2921](https://github.com/PHPOffice/PhpSpreadsheet/pull/2921)
+- Filter out illegal Unicode char values FFFE/FFFF. [Issue #2897](https://github.com/PHPOffice/PhpSpreadsheet/issues/2897) [PR #2910](https://github.com/PHPOffice/PhpSpreadsheet/pull/2910)
+- Better handling of REF errors and propagation of all errors in Calculation engine. [PR #2902](https://github.com/PHPOffice/PhpSpreadsheet/pull/2902)
+- Calculating Engine regexp for Column/Row references when there are multiple quoted worksheet references in the formula [Issue #2874](https://github.com/PHPOffice/PhpSpreadsheet/issues/2874) [PR #2899](https://github.com/PHPOffice/PhpSpreadsheet/pull/2899)
+
 ## 1.23.0 - 2022-04-24
 
 ### Added
