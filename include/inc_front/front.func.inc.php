@@ -1883,7 +1883,6 @@ function get_related_articles($keywords, $current_article_id, $template_default,
         foreach($keywordarray as $value) {
                 //build where keyword = blabla
                 $where .= ($where) ? " OR " : "";
-                //replace every "'" to "''" for security reasons with _dbEscape()
                 $where .= "article_keyword LIKE "._dbEscape($value, true, '%', '%');
         }
         $limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";

@@ -82,9 +82,9 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
     if(isset($_POST["acat_id"]) && $_POST["acat_id"] === 'index') {
         // write index page config to flat file
         $sql  = "<?php\n";
-        $sql .= "\$indexpage['acat_name'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_name"], 2000))."';\n";
-        $sql .= "\$indexpage['acat_title'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_title"], 2000))."';\n";
-        $sql .= "\$indexpage['acat_info'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_info"], 32000))."';\n";
+        $sql .= "\$indexpage['acat_name'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_name"], 2000))."';\n";
+        $sql .= "\$indexpage['acat_title'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_title"], 2000))."';\n";
+        $sql .= "\$indexpage['acat_info'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_info"], 32000))."';\n";
         $sql .= "\$indexpage['acat_alias'] = '". proof_alias($_POST["acat_id"], $_POST["acat_alias"])."';\n";
         $sql .= "\$indexpage['acat_aktiv'] = ". (isset($_POST["acat_aktiv"]) ? 1 : 0).";\n";
         $sql .= "\$indexpage['acat_template'] = ". intval($_POST["acat_template"]).";\n";
@@ -93,7 +93,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         $sql .= "\$indexpage['acat_regonly'] = ". (isset($_POST["acat_regonly"]) ? 1 : 0).";\n";
         $sql .= "\$indexpage['acat_topcount'] = ". intval($_POST["acat_topcount"]).";\n";
         $sql .= "\$indexpage['acat_maxlist'] = ". intval($_POST["acat_maxlist"]).";\n";
-        $sql .= "\$indexpage['acat_redirect'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_redirect"]))."';\n";
+        $sql .= "\$indexpage['acat_redirect'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_redirect"]))."';\n";
         $cache_timeout = clean_slweg($_POST["acat_timeout"]);
         if(isset($_POST['acat_cacheoff']) && intval($_POST['acat_cacheoff'])) $cache_timeout = 0; //check if cache = Off
         $sql .= "\$indexpage['acat_timeout'] = '". $cache_timeout."';\n";
@@ -102,16 +102,16 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
         $sql .= "\$indexpage['acat_order'] = ". set_correct_ordersort() .";\n";
         $sql .= "\$indexpage['acat_permit'] = '". $acat_permit."';\n";
         $sql .= "\$indexpage['acat_cntpart'] = '". $acat_cntpart."';\n";
-        $sql .= "\$indexpage['acat_pagetitle'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_pagetitle"]))."';\n";
+        $sql .= "\$indexpage['acat_pagetitle'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_pagetitle"]))."';\n";
         $sql .= "\$indexpage['acat_paginate'] = ". (isset($_POST["acat_paginate"]) ? 1 : 0).";\n";
-        $sql .= "\$indexpage['acat_overwrite'] = '". str_replace("''", "\\'", clean_slweg($_POST["acat_overwrite"]))."';\n";
+        $sql .= "\$indexpage['acat_overwrite'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_overwrite"]))."';\n";
         $sql .= "\$indexpage['acat_archive'] = ". (empty($_POST["acat_archive"]) ? 0 : 1) .";\n";
-        $sql .= "\$indexpage['acat_class'] = '". str_replace("'", "\\'", $acat_class)."';\n";
-        $sql .= "\$indexpage['acat_keywords'] = '". str_replace("'", "\\'", $acat_keywords)."';\n";
+        $sql .= "\$indexpage['acat_class'] = '". sanitize_quote_backslash($acat_class)."';\n";
+        $sql .= "\$indexpage['acat_keywords'] = '". sanitize_quote_backslash($acat_keywords)."';\n";
         $sql .= "\$indexpage['acat_cpdefault'] = ". intval($_POST["acat_cpdefault"]).";\n";
         $sql .= "\$indexpage['acat_disable301'] = ". (empty($_POST["acat_disable301"]) ? 0 : 1).";\n";
         $sql .= "\$indexpage['acat_opengraph'] = ". (empty($_POST["acat_opengraph"]) ? 0 : 1).";\n";
-        $sql .= "\$indexpage['acat_canonical'] = '". str_replace("'", "\\'", clean_slweg($_POST["acat_canonical"], 2000))."';\n";
+        $sql .= "\$indexpage['acat_canonical'] = '". sanitize_quote_backslash(clean_slweg($_POST["acat_canonical"], 2000))."';\n";
         $sql .= "\$indexpage['acat_breadcrumb'] = ". $acat_breadcrumb .";\n";
         $sql .= "\$indexpage['acat_onepage'] = ". $acat_onepage .";\n";
 

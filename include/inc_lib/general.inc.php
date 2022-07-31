@@ -1661,6 +1661,18 @@ function sanitize_filename($filename) {
     return $filename;
 }
 
+/**
+ * Sanitize string which will be written to set the value of a PHP variable.
+ * Should avoid users from bypassing it and execute PHP code.
+ *
+ * @param string $text
+ *
+ * @return string
+ */
+function sanitize_quote_backslash($text) {
+    return str_replace(array('\\', "'"), array("\\\\", "\\'"), $text);
+}
+
 function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename = 0, $maxsize = 0) {
     // imgtype can be all exif_imagetype supported by your PHP install
     // see http://www.php.net/exif_imagetype
