@@ -390,12 +390,12 @@ if(!$ftp["error"]) {
                                 $filter_by_ext  = 'svg';
                             } elseif (in_array($file_ext, array('jpg', 'jpeg', 'png', 'gif', 'webp'))) {
                                 $filter_by_ext = $file_ext;
-                                if (CMSGO_WEBP) {
+                                if (PHPWCMS_WEBP) {
                                     $filter_by_ext .= ',webp';
                                 }
                             } else {
                                 $filter_by_ext = 'jpg';
-                                if (CMSGO_WEBP) {
+                                if (PHPWCMS_WEBP) {
                                     $filter_by_ext .= ',webp';
                                 }
                             }
