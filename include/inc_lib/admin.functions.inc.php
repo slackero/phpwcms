@@ -287,9 +287,9 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         //delete article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"';
+          $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"';
           $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ')\">";
-          $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
+          $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
         }
         $a .= '</div></div>'.LF;
         $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
@@ -412,9 +412,9 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '<a class="dropdown-item" href="cmsgo.php?do=articles&amp;accopy='.$article_content["acontent_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_copy'].' ['.$at.'] </a>';
             //cut content part
             $a .= '<a class="dropdown-item" href="cmsgo.php?do=articles&amp;accut='.$article_content["acontent_id"].'"><i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_cut'].' ['.$at.'] </a>';
-            $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true"';
+            $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"';
             $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ')\">";
-            $a .= '</i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
+            $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
             $a .= '</div></div>';
 
             $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
@@ -511,9 +511,9 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 }
                 //delete structur
                 if($struct[$key]["acat_id"]) {
-                  $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"].'"><i class="far fa-trash-alt fa-fw" aria-hidden="true" ';
+                  $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"].'"';
                   $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_struct']." \\n[".js_singlequote($an)."] ')\">";
-                  $a .= '</i> '.$GLOBALS['BL']['be_func_struct_del_struct'].' ['.$an.']</a>';
+                  $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_del_struct'].' ['.$an.']</a>';
                 }
 
                 $a .= '</div></div>'.LF;
