@@ -74,7 +74,7 @@ $(function() {
         <div class="col text-right">
           <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil-alt"></i></a>
           <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-danger" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
-          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="'<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>  \n ');"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="return confirm('<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>');"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
