@@ -462,6 +462,7 @@ if($news['template']) {
                 $value['cnt_description'] = '';
             }
 
+            $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'IS_ARCHIVE', $value['cnt_ts_killdate'] < $news['now'] ? ' ' : '');
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));

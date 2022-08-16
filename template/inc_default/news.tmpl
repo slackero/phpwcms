@@ -50,7 +50,7 @@ gallery_filecenter_info = 1
 		Killdate:   {KILLDATE:d.m.Y H:i:s lang=EN}
 		Sortdate:   {SORTDATE:d.m.Y H:i:s lang=EN}
 	//-->
-	<div class="newsEntry[PRIO] prio{PRIO}[/PRIO][FIRST] firstEntry[/FIRST][LAST] lastEntry[/LAST]" id="news-{ID}">
+	<div class="newsEntry[PRIO] prio{PRIO}[/PRIO][FIRST] firstEntry[/FIRST][LAST] lastEntry[/LAST][IS_ARCHIVE] news-item-archived[/IS_ARCHIVE][IS_ARCHIVE_ELSE] news-item-live[/IS_ARCHIVE_ELSE]" id="news-{ID}">
 	[NEWS_TITLE]<h2>{NEWS_TITLE}</h2>[/NEWS_TITLE]
 	[NEWS_SUBTITLE]<h3>{NEWS_SUBTITLE}</h3>[/NEWS_SUBTITLE]
 	[NEWS_TOPIC]<p><strong>{NEWS_TOPIC}</strong></p>[/NEWS_TOPIC]
@@ -112,7 +112,7 @@ gallery_filecenter_info = 1
 
 <!--NEWS_DETAIL_START//-->
 [ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
-<div class="news">
+<div class="news[IS_ARCHIVE] news-archived[/IS_ARCHIVE][IS_ARCHIVE_ELSE] news-live[/IS_ARCHIVE_ELSE]">
 	<div class="news-header">
 		[TITLE]<h3>{TITLE}</h3>[/TITLE]
 		[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
