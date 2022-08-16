@@ -1887,9 +1887,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             }
 
             // prepare for storing in database
-            if(!empty($cnt_form['savedb'])) {
-                $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
-            }
+            $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
 
             // first check copy to email template related things
             if( !$cnt_form['template_equal'] ) {
@@ -2050,7 +2048,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$doubleoptin_error)) {
 
     // check if there are form values which should be saved in db
-    if(count($POST_savedb)) {
+    if(!empty($cnt_form['savedb']) && count($POST_savedb)) {
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
