@@ -1155,7 +1155,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $checkbox_counter++;
                     }
                 }
-                $form_field .= $checkbox_class;
+                $form_field .= '</div>';
                 break;
 
             case 'upload':
