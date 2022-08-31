@@ -2482,7 +2482,7 @@ if($form_cnt) {
         $cnt_form['class'] = '';
     }
     $CNT_TMP .= $form_error_text;
-    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
+    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.abs_url();
     if(empty($cnt_form['anchor_off'])) {
         $CNT_TMP .= '#';
         $CNT_TMP .= empty($cnt_form['anchor_name']) ? html($cnt_form['anchor_name']) : 'jumpForm'.$crow["acontent_id"];
