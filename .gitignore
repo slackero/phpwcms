@@ -1,6 +1,7 @@
 *.esproj
 .idea
 .nova
+composer.lock
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*
