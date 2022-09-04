@@ -2063,10 +2063,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         if (is_valid_email($cnt_form['doubleoptin_target'])) {
-            // send mail, include phpmailer class
-            require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $phpwcms['SMTP_MAILER'];
             $mail->Host             = $phpwcms['SMTP_HOST'];
             $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2089,13 +2087,18 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                     }
                 }
             }
-            $mail->CharSet          = $phpwcms["charset"];
+            $mail->CharSet = $phpwcms["charset"];
 
-            $mail->isHTML($cnt_form['template_format_doubleoptin']);
+            if ($cnt_form['template_format_doubleoptin']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_doubleoptin']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_doubleoptin'];
-            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+                $mail->setLanguage($phpwcms['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2122,13 +2125,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     } else {
 
-        // send mail, include phpmailer class
-        require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-
         // now run all CC -> but sent as full email to each CC recipient
         if(count($cnt_form['cc'])) {
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $phpwcms['SMTP_MAILER'];
             $mail->Host             = $phpwcms['SMTP_HOST'];
             $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2157,11 +2157,16 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                 @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
             }
 
-            $mail->isHTML($cnt_form['template_format_copy']);
+            if ($cnt_form['template_format_copy']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_copy']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_copy'];
-            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+                $mail->setLanguage($phpwcms['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2191,7 +2196,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         // now send original message
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $phpwcms['SMTP_MAILER'];
         $mail->Host             = $phpwcms['SMTP_HOST'];
         $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2206,13 +2211,18 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
-        $mail->isHTML($cnt_form['template_format']);
+        if ($cnt_form['template_format']) {
+            $mail->isHTML(true);
+            $altBody = new \Html2Text\Html2Text($cnt_form['template']);
+            $mail->AltBody = $altBody->getText();
+        }
         $mail->Subject          = $cnt_form["subject"];
         $mail->Body             = $cnt_form['template'];
 
-        if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+            $mail->setLanguage($phpwcms['default_lang']);
         }
+
         if(empty($cnt_form["fromEmail"])) {
             $cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
         }

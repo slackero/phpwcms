@@ -1,0 +1,48 @@
+{
+    "name": "erusev/parsedown",
+    "description": "Parser for Markdown.",
+    "keywords": ["markdown", "parser"],
+    "homepage": "http://parsedown.org",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Emanuil Rusev",
+            "email": "hello@erusev.com",
+            "homepage": "http://erusev.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1||^8.0",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3.11||^8.5.21||^7.5.20",
+        "vimeo/psalm": "^4.10.0",
+        "friendsofphp/php-cs-fixer": "^3.0.0",
+        "infection/infection": "^0.25.0",
+        "roave/infection-static-analysis-plugin": "^1.10.0"
+    },
+    "autoload": {
+        "psr-4": {"Erusev\\Parsedown\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Erusev\\Parsedown\\Tests\\": "tests/"}
+    },
+    "scripts": {
+        "test": [
+            "@test-static",
+            "@test-formatting",
+            "@test-dead-code",
+            "@test-units"
+        ],
+        "test-static": "vendor/bin/psalm",
+        "test-dead-code": "vendor/bin/psalm --find-dead-code",
+        "test-units": "vendor/bin/phpunit",
+        "test-commonmark": "vendor/bin/phpunit tests/CommonMarkTestStrict.php",
+        "test-commonmark-weak": "vendor/bin/phpunit tests/CommonMarkTestWeak.php",
+        "test-formatting": "@composer fix -- --dry-run",
+
+        "fix": "vendor/bin/php-cs-fixer fix --verbose --show-progress=dots --diff"
+    }
+}

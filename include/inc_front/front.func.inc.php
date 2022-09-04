@@ -4561,12 +4561,10 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 function init_markdown() {
 
     if(!isset($GLOBALS['phpwcms']['parsedown_class'])) {
-        require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown/Parsedown.php');
         if (empty($GLOBALS['phpwcms']['markdown_extra'])) {
-            $GLOBALS['phpwcms']['parsedown_class'] = new Parsedown();
+            $GLOBALS['phpwcms']['parsedown_class'] = new \Erusev\Parsedown\Parsedown();
         } else {
-            require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $GLOBALS['phpwcms']['parsedown_class'] = new ParsedownExtra();
+            $GLOBALS['phpwcms']['parsedown_class'] = new \Erusev\ParsedownExtra\ParsedownExtra();
         }
     }
 

@@ -83,8 +83,12 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 
     $queryResult = array();
     $queryCount  = 0;
-
-    if($result = mysqli_query($GLOBALS['db'], $query)) {
+    if ($_queryMode === 'SET') {
+        $result = @mysqli_query($GLOBALS['db'], $query);
+    } else {
+        $result = mysqli_query($GLOBALS['db'], $query);
+    }
+    if($result) {
 
         switch($_queryMode) {
 
@@ -699,21 +703,17 @@ function _dbSetVar($var='', $value=null, $compare=false) {
             // change MySQL var setting
             if($set) {
 
-                $value  = _dbEscape($value, is_numeric($default) ? false : true);
-
-                // try SET SESSION first
-                if(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
-
-                    if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
-
-                        if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
-
-                            return false;
-
-                        }
-
+                $value = _dbEscape($value, is_numeric($default) ? false : true);
+                if ($_var === 'max_allowed_packet') {
+                    if (!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
+                        return false;
                     }
-
+                } elseif(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
+                    if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
+                        if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
+                            return false;
+                        }
+                    }
                 }
 
                 $GLOBALS['phpwcms']['mysql_'.$var] = $value;

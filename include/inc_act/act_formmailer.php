@@ -36,7 +36,6 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 include_once PHPWCMS_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 if(!checkFormTrackingValue()) {
 
@@ -294,7 +293,7 @@ if(isset($form_error)) {
 	$body.= "phpwcms formmailer  | Copyright (C) 2003 \n";
 
 	// phpMailer Class
-	$mail = new PHPMailer();
+	$mail = new \PHPMailer\PHPMailer\PHPMailer();
 	$mail->Mailer 			= $phpwcms['SMTP_MAILER'];
 	$mail->Host 			= $phpwcms['SMTP_HOST'];
 	$mail->Port 			= $phpwcms['SMTP_PORT'];
@@ -323,8 +322,8 @@ if(isset($form_error)) {
 	$mail->Subject			= $subject;
 	$mail->Body 			= $body;
 
-	if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-		$mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+	if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+		$mail->setLanguage($phpwcms['default_lang']);
 	}
 
 	$false = '';

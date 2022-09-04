@@ -22,7 +22,7 @@ if (PHPWCMS_CHARSET === 'utf-8') {
 require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_ext/rfc822.php';
+
 function str_empty($string) {
     return $string === null || $string === '';
 }
@@ -489,39 +489,20 @@ function get_filecat_childcount($fcatid = 0) {
 }
 
 /**
- * Test email based on RFC 822/2822/5322 Email Parser
+ * Test email based on RFC 822
  *
- * @param string email address
+ * @param string $email email address
  *
  * @return bool
- * @copyright Cal Henderson <cal@iamcal.com>
  */
-function is_valid_email($email, $options = array()) {
-    // IDN conversion
-    $email = idn_encode($email);
-
-    // wrapped by default function as used since long time in phpwcms
-    return is_valid_email_address($email, $options);
-}
-
-/**
- * Convert internationalized domain names
- *
- * @param string
- *
- * @return string
- */
-function idn_encode($string = '') {
-    require_once PHPWCMS_ROOT . '/include/inc_ext/idna_convert/idna_convert.class.php';
-    // convert to utf-8 first
-    $string = makeCharsetConversion($string, PHPWCMS_CHARSET, 'utf-8');
-    // include punicode conversion if >= PHP5
-    if (empty($string) || !class_exists('idna_convert')) {
-        return $string;
+function is_valid_email($email) {
+    $email = makeCharsetConversion($email, PHPWCMS_CHARSET, 'utf-8');
+    $explode = explode('@', $email);
+    if (empty($explode[1])) {
+        return false;
     }
-    $IDN = new idna_convert();
-
-    return $IDN->encode($string);
+    $email = $explode[0] . '@' . idn_to_ascii($explode[1]);
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
 
 function read_textfile($filename, $mode = 'rb') {
@@ -825,8 +806,7 @@ function sendEmail($data = array(
         }
     }
     if (count($sendTo)) {
-        require_once PHPWCMS_ROOT . '/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer = $phpwcms['SMTP_MAILER'];
         $mail->Host = $phpwcms['SMTP_HOST'];
         $mail->Port = $phpwcms['SMTP_PORT'];
@@ -853,15 +833,18 @@ function sendEmail($data = array(
         $mail->isHTML($data['isHTML']);
         $mail->Subject = $data['subject'];
         if ($data['isHTML']) {
-            if ($data['text'] != '') {
+            if ($data['text'] !== '') {
                 $mail->AltBody = $data['text'];
+            } else {
+                $altBody = new \Html2Text\Html2Text($data['html']);
+                $mail->AltBody = $altBody->getText();
             }
             $mail->Body = $data['html'];
         } else {
             $mail->Body = $data['text'];
         }
-        if (!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT . '/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', PHPWCMS_ROOT . '/include/inc_ext/phpmailer/language/');
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+            $mail->setLanguage($phpwcms['default_lang']);
         }
         $mail->setFrom($from, $fromName);
         $mail->addReplyTo($sender, $senderName);
@@ -1378,9 +1361,12 @@ function formatRTDate($matches) {
 
 function makeCharsetConversion($string = '', $in_charset = 'utf-8', $out_charset = 'utf-8', $entityEncode = false) {
     global $phpwcms;
+    if (empty($string)) {
+        return $string;
+    }
     $in_charset = strtolower($in_charset);
     $out_charset = strtolower($out_charset);
-    if (empty($string) || $in_charset == $out_charset || empty($in_charset) || empty($out_charset)) {
+    if ($in_charset == $out_charset || empty($in_charset) || empty($out_charset)) {
         return $string;
     }
     $phpCharsetSuppport = returnCorrectCharset($in_charset);

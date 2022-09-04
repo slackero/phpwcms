@@ -19,7 +19,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_ext/feedcreator.class.php';
+require_once PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 
@@ -106,8 +106,12 @@ $FEED['useauthor']      = intval($FEED['useauthor']);
 $FEED['encoding']       = empty($FEED['encoding']) ? 'utf-8' : $FEED['encoding'];
 $FEED['timeZone']       = empty($FEED['timeZone']) ? '+01:00' : $FEED['timeZone'];
 
-define('FEED_ENCODING', trim(strtolower($FEED['encoding'])));
-define("TIME_ZONE", $FEED['timeZone']);
+if (!defined('FEED_ENCODING')) {
+    define('FEED_ENCODING', trim(strtolower($FEED['encoding'])));
+}
+if (!defined('TIME_ZONE')) {
+    define("TIME_ZONE", $FEED['timeZone']);
+}
 
 $rss                        = new UniversalFeedCreator();
 $rss->useCached($FEED['defaultFormat'], $FEED['filename'], intval($FEED['cacheTTL']));
@@ -115,7 +119,6 @@ $rss->title                 = $FEED['title'];
 $rss->description           = $FEED['description'];
 $rss->link                  = $FEED['link'];
 $rss->syndicationURL        = $FEED['syndicationURL'];
-$rss->encoding              = FEED_ENCODING;
 if(!empty($FEED['feedAuthor'])) {
     $rss->editor            = $FEED['feedAuthor'];
 }
@@ -202,13 +205,16 @@ $result = _dbQuery($sql);
 if(isset($result[0]['article_title'])) {
     foreach($result as $data) {
 
+        $abs_url = abs_url(array(), array(), setGetArticleAid($data));
+
         $item = new FeedItem();
         $item->title            = combinedParser($data["article_title"], FEED_ENCODING);
-        $item->link             = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
+        $item->link             = $abs_url;
         $item->description      = combinedParser( empty($data["article_summary"]) ? $data["article_subtitle"] : $data["article_summary"] , FEED_ENCODING);
         $item->date             = $data['article_created'] + $timePlus;
         $item->updateDate       = $data['article_changeDate'] + $timePlus + 1;
         $item->source           = PHPWCMS_URL;
+        $item->guid             = $abs_url;
 
         if($FEED['useauthor'] || $FEED['defaultFormat'] == 'ATOM' || $FEED['defaultFormat'] == 'ATOM1.0') {
 
@@ -220,7 +226,6 @@ if(isset($result[0]['article_title'])) {
 
         }
 
-        $item->guid             = PHPWCMS_URL.'index.php?'.setGetArticleAid( $data );
         $rss->addItem($item);
 
         $timePlus += 2;
