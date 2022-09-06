@@ -468,7 +468,7 @@ $template_default['settings'] = array(
 
     'tabs_custom_fields' => array(
         // Enable and customise to enable additional tab input fields:
-        'fieldgroup1' => array(
+        /*'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -478,7 +478,8 @@ $template_default['settings'] = array(
                     'type' => 'str',
                     'render' => 'html',
                     'maxlength' => 100,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [TAB_TEXTAREA1]{TAB_TEXTAREA1}[/TAB_TEXTAREA1]
                 'textarea1' => array(
@@ -486,7 +487,8 @@ $template_default['settings'] = array(
                     'type' => 'textarea',
                     'render' => '',
                     'rows' => 3,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [TAB_OPTIONNAME1]
                 //    Will be the selected value {TAB_OPTIONNAME1}
@@ -502,7 +504,8 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                         'empty' => 'nothing',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [TAB_INTEGER1]{TAB_INTEGER1}[/TAB_INTEGER1]
                 'integer1' => array(
@@ -512,7 +515,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => 1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [TAB_FLOAT1]{TAB_FLOAT1}[/TAB_FLOAT1]
                 'float1' => array(
@@ -522,7 +526,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => .1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [TAB_IMAGE]{TAB_IMAGE}[/TAB_IMAGE]
                 'image' => array(
@@ -530,7 +535,8 @@ $template_default['settings'] = array(
                     'type' => 'file',
                     'template' => 'tab-image.html', // if empty the default file list template is used
                     'filetypes' => 'jpg,png,jpeg', // comma separated allowed filetypes 'xls,docx,vcf'
-                    'direct' => 0 // direct file download 1 or not 0
+                    'direct' => 0, // direct file download 1 or not 0
+                    'hr' => 0
                 ),
                 // [TAB_SELECT1]
                 //    Will be the selected value {TAB_SELECT1}
@@ -546,16 +552,18 @@ $template_default['settings'] = array(
                         'option1' => 'value option 1',
                         'option2' => 'value option 2',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [TAB_BOOL1]True[/TAB_BOOL1][TAB_BOOL1_ELSE]False[/TAB_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
+                    'hr' => 0
                 ),
             )
-        ),
+        ),*/
 
         'gmaps' => array(
             'legend' => 'Google Maps',
@@ -618,7 +626,7 @@ $template_default['settings'] = array(
 
     'imagespecial_custom_fields' => array(
         // Enable and customise to enable additional input fields for each image special item:
-        'fieldgroup1' => array(
+        /*'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -628,7 +636,8 @@ $template_default['settings'] = array(
                     'type' => 'str',
                     'render' => 'html',
                     'maxlength' => 100,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_TEXTAREA1]{IMGSPCL_TEXTAREA1}[/IMGSPCL_TEXTAREA1]
                 'textarea1' => array(
@@ -636,7 +645,8 @@ $template_default['settings'] = array(
                     'type' => 'textarea',
                     'render' => '',
                     'rows' => 3,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_OPTIONNAME1]
                 //    Will be the selected value {IMGSPCL_OPTIONNAME1}
@@ -652,7 +662,8 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                         'empty' => 'nothing',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_INTEGER1]{IMGSPCL_INTEGER1}[/IMGSPCL_INTEGER1]
                 'integer1' => array(
@@ -662,7 +673,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => 1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_FLOAT1]{IMGSPCL_FLOAT1}[/IMGSPCL_FLOAT1]
                 'float1' => array(
@@ -672,7 +684,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => .1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_SELECT1]
                 //    Will be the selected value {IMGSPCL_SELECT1}
@@ -688,20 +701,23 @@ $template_default['settings'] = array(
                         'option1' => 'value option 1',
                         'option2' => 'value option 2',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [IMGSPCL_BOOL1]True[/IMGSPCL_BOOL1][IMGSPCL_BOOL1_ELSE]False[/IMGSPCL_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
+                    'hr' => 0
                 ),
                 'file1' => array(
                     'legend' => 'file 1',
                     'type' => 'file',
                     'template' => '', // if empty the default file list template is used
                     'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
-                    'direct' => 0 // direct file download 1 or not 0
+                    'direct' => 0, // direct file download 1 or not 0
+                    'hr' => 0
                 ),
                 // [IMGSPCL_WYSIWYG1]{IMGSPCL_WYSIWYG1}[/IMGSPCL_WYSIWYG1][IMGSPCL_WYSIWYG1_ELSE]<!--nada-->[/IMGSPCL_WYSIWYG1_ELSE]
                 'wysiwyg1' => array(
@@ -710,15 +726,16 @@ $template_default['settings'] = array(
                     'render' => 'wysiwyg',
                     'rows' => 5,
                     'height' => '75px',
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 )
             )
-        ),
+        ),*/
     ),
 
     'wysiwyg_custom_fields' => array(
         // Enable and customise to enable additional input fields to WYSIWYG content part:
-        'fieldgroup1' => array(
+        /*'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -728,7 +745,8 @@ $template_default['settings'] = array(
                     'type' => 'str',
                     'render' => 'html',
                     'maxlength' => 100,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_TEXTAREA1]{WYSIWYG_TEXTAREA1}[/WYSIWYG_TEXTAREA1]
                 'textarea1' => array(
@@ -736,7 +754,8 @@ $template_default['settings'] = array(
                     'type' => 'textarea',
                     'render' => '',
                     'rows' => 3,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_OPTIONNAME1]
                 //    Will be the selected value {WYSIWYG_OPTIONNAME1}
@@ -752,7 +771,8 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                         'empty' => 'nothing',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_INTEGER1]{WYSIWYG_INTEGER1}[/WYSIWYG_INTEGER1]
                 'integer1' => array(
@@ -762,7 +782,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => 1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_FLOAT1]{WYSIWYG_FLOAT1}[/WYSIWYG_FLOAT1]
                 'float1' => array(
@@ -772,7 +793,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => .1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_SELECT1]
                 //    Will be the selected value {WYSIWYG_SELECT1}
@@ -788,13 +810,15 @@ $template_default['settings'] = array(
                         'option1' => 'value option 1',
                         'option2' => 'value option 2',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [WYSIWYG_BOOL1]True[/WYSIWYG_BOOL1][WYSIWYG_BOOL1_ELSE]False[/WYSIWYG_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
+                    'hr' => 0
                 ),
                 // [WYSIWYG_WYSIWYG1]{WYSIWYG_WYSIWYG1}[/WYSIWYG_WYSIWYG1][WYSIWYG_WYSIWYG1_ELSE]<!--nada-->[/WYSIWYG_WYSIWYG1_ELSE]
                 'wysiwyg1' => array(
@@ -803,15 +827,16 @@ $template_default['settings'] = array(
                     'render' => 'wysiwyg',
                     'rows' => 10,
                     'height' => '175px',
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
             )
-        )
+        )*/
     ),
 
     'customctp_custom_fields' => array(
         // Enable and customise to enable additional input fields to custom content part:
-        'fieldgroup1' => array(
+        /*'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -821,7 +846,8 @@ $template_default['settings'] = array(
                     'type' => 'str',
                     'render' => 'html',
                     'maxlength' => 100,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_TEXTAREA1]{CUSTCTP_TEXTAREA1}[/CUSTCTP_TEXTAREA1]
                 'textarea1' => array(
@@ -829,7 +855,8 @@ $template_default['settings'] = array(
                     'type' => 'textarea',
                     'render' => '',
                     'rows' => 3,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_OPTIONNAME1]
                 //    Will be the selected value {CUSTCTP_OPTIONNAME1}
@@ -845,7 +872,8 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                         'empty' => 'nothing',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_INTEGER1]{CUSTCTP_INTEGER1}[/CUSTCTP_INTEGER1]
                 'integer1' => array(
@@ -855,7 +883,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => 1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_FLOAT1]{CUSTCTP_FLOAT1}[/CUSTCTP_FLOAT1]
                 'float1' => array(
@@ -865,7 +894,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => .1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_SELECT1]
                 //    Will be the selected value {CUSTCTP_SELECT1}
@@ -881,20 +911,23 @@ $template_default['settings'] = array(
                         'option1' => 'value option 1',
                         'option2' => 'value option 2',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_BOOL1]True[/CUSTCTP_BOOL1][CUSTCTP_BOOL1_ELSE]False[/CUSTCTP_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
+                    'hr' => 0
                 ),
                 'file1' => array(
                     'legend' => 'file 1',
                     'type' => 'file',
                     'template' => '', // if empty the default file list template is used
                     'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
-                    'direct' => 0 // direct file download 1 or not 0
+                    'direct' => 0, // direct file download 1 or not 0
+                    'hr' => 0
                 ),
                 // [CUSTCTP_IMAGE1]{CUSTCTP_IMAGE1}[/CUSTCTP_IMAGE1]
                 'image1' => array(
@@ -908,7 +941,8 @@ $template_default['settings'] = array(
                     'sharpen_level' => '1',
                     'crop_zoom' => '0',
                     'crop' => '0',
-                    'class' => 'img-responsive'
+                    'class' => 'img-responsive',
+                    'hr' => 0
                 ),
                 // [CUSTCTP_WYSIWYG1]{CUSTCTP_WYSIWYG1}[/CUSTCTP_WYSIWYG1][CUSTCTP_WYSIWYG1_ELSE]<!--nada-->[/CUSTCTP_WYSIWYG1_ELSE]
                 'wysiwyg1' => array(
@@ -917,15 +951,16 @@ $template_default['settings'] = array(
                     'render' => 'wysiwyg',
                     'rows' => 10,
                     'height' => '175px',
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 )
             )
-        ),
+        ),*/
     ),
 
     'imgdiv_custom_fields' => array(
         // Enable and customise to enable additional input fields to ImageDiv content part:
-        'fieldgroup1' => array(
+        /*'fieldgroup1' => array(
             'legend' => 'Field group name',
             'template' => 'default', // bind the fieldgroup to a specific template, or default
             'fields' => array(
@@ -935,7 +970,8 @@ $template_default['settings'] = array(
                     'type' => 'str',
                     'render' => 'html',
                     'maxlength' => 100,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGDIV_TEXTAREA1]{IMGDIV_TEXTAREA1}[/IMGDIV_TEXTAREA1]
                 'textarea1' => array(
@@ -943,7 +979,8 @@ $template_default['settings'] = array(
                     'type' => 'textarea',
                     'render' => '',
                     'rows' => 3,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGDIV_OPTIONNAME1]
                 //    Will be the selected value {IMGDIV_OPTIONNAME1}
@@ -959,7 +996,8 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                         'empty' => 'nothing',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [IMGDIV_INTEGER1]{IMGDIV_INTEGER1}[/IMGDIV_INTEGER1]
                 'integer1' => array(
@@ -969,7 +1007,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => 1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGDIV_FLOAT1]{WYSIWYG_FLOAT1}[/IMGDIV_FLOAT1]
                 'float1' => array(
@@ -979,7 +1018,8 @@ $template_default['settings'] = array(
                     'max' => 1000,
                     'min' => -1000,
                     'step' => .1,
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 ),
                 // [IMGDIV_SELECT1]
                 //    Will be the selected value {IMGDIV_SELECT1}
@@ -995,20 +1035,23 @@ $template_default['settings'] = array(
                         'option1' => 'value option 1',
                         'option2' => 'value option 2',
                     ),
-                    'default' => 'empty'
+                    'default' => 'empty',
+                    'hr' => 0
                 ),
                 // [IMGDIV_BOOL1]True[/IMGDIV_BOOL1][IMGDIV_BOOL1_ELSE]False[/IMGDIV_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
+                    'hr' => 0
                 ),
                 'file1' => array(
                     'legend' => 'file 1',
                     'type' => 'file',
                     'template' => '', // if empty the default file list template is used
                     'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
-                    'direct' => 0 // direct file download 1 or not 0
+                    'direct' => 0, // direct file download 1 or not 0
+                    'hr' => 0
                 ),
                 // [IMGDIV_WYSIWYG1]{IMGDIV_WYSIWYG1}[/IMGDIV_WYSIWYG1][IMGDIV_WYSIWYG1_ELSE]<!--nada-->[/IMGDIV_WYSIWYG1_ELSE]
                 'wysiwyg1' => array(
@@ -1017,10 +1060,11 @@ $template_default['settings'] = array(
                     'render' => 'wysiwyg',
                     'rows' => 10,
                     'height' => '175px',
-                    'placeholder' => ''
+                    'placeholder' => '',
+                    'hr' => 0
                 )
             )
-        ),
+        ),*/
     ),
 
    'tracking' => array(

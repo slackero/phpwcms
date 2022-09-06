@@ -511,6 +511,8 @@ if($content['custom_field_items']):
         </div>
     </div><?php
 
+    if($cnt_fieldgroup['fields'][$custom_field]['hr']):?><hr><?php endif;
+
     endforeach;
 
 endif; ?>
