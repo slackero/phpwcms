@@ -174,18 +174,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 					<?php if($content['tabwysiwygoff']): ?>
 					<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_wysiwyg']; ?></label>
                     <div class="col">
-                    <?php
-                        $wysiwyg_editor = array(
-                                'value'     => isset($value['tabtext']) ? $value['tabtext'] : '',
-                                'field'     => 'tabtext['.$key.']',
-                                'height'    => '150px',
-                                'width'     => '100%',
-                                'rows'      => '5',
-                                'editor'    => $_SESSION["WYSIWYG_EDITOR"],
-                                'lang'      => 'de'
-                        );
-                        include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-                    ?>
+                        <textarea class="form-control autosize" name="tabtext[<?php echo $key ?>]" id="tabtext<?php echo $key ?>" rows="5"><?php echo html($value['tabtext']); ?></textarea>
                     </div>
                     <?php else: ?>
                     <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_field']['textarea'] ?></label>
@@ -380,7 +369,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div>
     <input type="hidden" name="tab_fieldgroup" value="<?php echo $tab_fieldgroups_active; ?>" /><?php
     if(count($custom_tab_fields_hidden)) {
-      echo implode('', $custom_tab_fields_hidden);
+        echo implode('', $custom_tab_fields_hidden);
     }
     ?>
 <script type="text/javascript">
@@ -388,9 +377,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
 var entries = 0;
 
 function addNewTab(pos) {
+    entries++;
 
-  var $tabs = $("ul#tabs");
-  var entries = $tabs.children().length;
   var entry = `
         <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
             <div class="row">
@@ -547,11 +535,16 @@ function addNewTab(pos) {
     }
 
 <?php if($content['wysiwyg']): ?>
+
+$( function() {
+    entries = $("ul#tabs").children().length;
     if(entries > 0) {
         for(var x = 0; x < entries; x++) {
             EnableCKEditor(x);
         }
     }
+});
+
 <?php
 
   // CKEditor Tabs configuration
@@ -574,10 +567,10 @@ function addNewTab(pos) {
       {name: 'about', items: ['About']}
     ]";
 
-    $content['ckconfig'][] = 'width: 538';
-    $content['ckconfig'][] = 'height: 150';
+    //$content['ckconfig'][] = 'width: 538';
+    //$content['ckconfig'][] = 'height: 150';
     $content['ckconfig'][] = 'toolbarCanCollapse: true';
-    $content['ckconfig'][] = 'toolbarStartupExpanded: false';
+    $content['ckconfig'][] = 'toolbarStartupExpanded: true';
     $content['ckconfig'][] = 'forcePasteAsPlainText: true';
     $content['ckconfig'][] = 'pasteFromWordRemoveFontStyles: true';
     $content['ckconfig'][] = 'pasteFromWordRemoveStyles: true';

@@ -50,9 +50,7 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
     $_loginData['reminder_success'] = get_tmpl_section('REMINDER_SUCCESS', $_loginData['template']);
     $_loginData['reminder_email']   = get_tmpl_section('REMINDER_EMAIL', $_loginData['template']);
 
-
     $_loginData['session_key']  = session_id();
-
     $_loginData['template']     = $_loginData['form'];
     $_loginData['error']        = false;
     $_loginData['login']        = '';
@@ -84,8 +82,8 @@ if(!empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_cntpart/fel
 
                 setcookie(
                     'cmsgoFeLoginRemember',
-                            $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
-                    time()+$_loginData['felogin_cookie_expire'],
+                    $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
+                    time() + $_loginData['felogin_cookie_expire'],
                     '/',
                     getCookieDomain(),
                     CMSGO_SSL,

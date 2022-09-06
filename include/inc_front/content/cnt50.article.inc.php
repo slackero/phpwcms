@@ -152,14 +152,14 @@ if($content['reference']['ref_count']) {
 				$zoominfo = get_cached_image(array(
 					"target_ext"	=>	$content['reference']["list"][$captkey][3],
 					"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
-					"max_width"		=>	$cmsgo["img_prev_width"],
+					"max_width"	=>	$cmsgo["img_prev_width"],
 					"max_height"	=>	$cmsgo["img_prev_height"],
 					"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$cmsgo["img_prev_width"].$cmsgo["img_prev_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
 				));
 
 
 				if($zoominfo != false) {
-					$popup_link  = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $content['reference']["list"][$captkey][1]);
+					$popup_link  = CMSGO_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $content['reference']["list"][$captkey][1]);
 
 					$content['reference']['x5'] = '<a href="'.$popup_link.'" onclick="window.open(\''.$popup_link."','previewpic','width=".$zoominfo[1].",height=".$zoominfo[2]."');return false;\">";
 					$content['reference']['x6'] = '</a>';

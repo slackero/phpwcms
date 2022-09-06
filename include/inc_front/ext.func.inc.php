@@ -40,7 +40,7 @@ function showPollImage($image, $zoom = 0) {
 
     if($zoom && !empty($zoominfo)) {
         // if click enlarge the image
-        $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
+        $open_popup_link = CMSGO_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $image[1]);
         $open_link = $open_popup_link;
         $return_false = 'return false;';
 
@@ -165,14 +165,8 @@ function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
                         $i++; // Move in string pointer forward 1
                         switch ($dte_frmt_lstchr) {
                             case "A":
-                                if (strtoupper($lastchar) !== 'AM' && strtoupper($lastchar) !== 'PM') {
-                                    $store_arr = false; $i = strlen($PASSED)+1; // Invalid AM/PM. Crash and burn
-                                } else {
-                                    $store_arr['ampm'] = strtoupper($lastchar); // assign the value to the array
-                                }
-                                break;
                             case "a":
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
+                                if (strtoupper($lastchar)!=='AM' && strtoupper($lastchar)!=='PM') { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
                                 else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
                                 break;
                             case "H":
