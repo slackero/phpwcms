@@ -363,9 +363,9 @@ if($content['custom_field_items']):
 
         $custom_field_placeholder = isset($cnt_fieldgroup['fields'][$custom_field]['placeholder']) && $cnt_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($cnt_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
         $is_wysiwyg = $cnt_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($cnt_fieldgroup['fields'][$custom_field]['render']) && $cnt_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
-
+        $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
-    <div class="form-group form-row<?php if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($cnt_fieldgroup['fields'][$custom_field]['rows']) || $cnt_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?>">
+    <div class="form-group form-row<?php if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'file' && (empty($cnt_fieldgroup['fields'][$custom_field]['rows']) || $cnt_fieldgroup['fields'][$custom_field]['rows'] < 2)): ?> align-items-center<?php endif; ?><?= $custom_field_class; ?>">
         <label class="col-sm-2 col-form-label text-right"><?php
             if($cnt_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($cnt_fieldgroup['fields'][$custom_field]['legend'])) {
@@ -485,15 +485,19 @@ if($content['custom_field_items']):
                         } ?>
                     />
                     <span class="input-group-append ">
-                        <a class="btn btn-sm btn-danger trash" href="#" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                        onclick="getObjectById('customfield_<?php
+                        <a class="btn btn-sm btn-danger trash" href="#" type="button"
+                           data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
+                           onclick="getObjectById('customfield_<?php
                             echo $custom_field; ?>_name').value='';getObjectById('customfield_<?php
                             echo $custom_field; ?>_id').value='';getObjectById('customfield_<?php
                             echo $custom_field; ?>_description').value='';this.blur();return false;"
                         ></a>
                     </span>
                 </div>
-                <textarea name="customfield[<?php echo $custom_field; ?>][description]" cols="40" rows="1" class="form-control form-control-sm mb-2"
+                <textarea name="customfield[<?php echo $custom_field; ?>][description]"
+                          cols="40"
+                          rows="1"
+                          class="form-control form-control-sm mb-2"
                           id="customfield_<?php echo $custom_field; ?>_description"><?php
                     if(isset($content['custom_fields'][$custom_field]['description'])) {
                         echo html($content['custom_fields'][$custom_field]['description']);
@@ -511,10 +515,7 @@ if($content['custom_field_items']):
         </div>
     </div><?php
 
-    if($cnt_fieldgroup['fields'][$custom_field]['hr']):?><hr><?php endif;
-
     endforeach;
-
 endif; ?>
     <input type="hidden" name="cnt_fieldgroup" value="<?php echo $cnt_fieldgroups_active; ?>" />
 <?php

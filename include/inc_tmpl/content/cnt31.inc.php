@@ -415,9 +415,10 @@ if($value['custom_field_items']):
 
         $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
         $is_wysiwyg = $tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea' && !empty($tab_fieldgroup['fields'][$custom_field]['render']) && $tab_fieldgroup['fields'][$custom_field]['render'] === 'wysiwyg' ? true : false;
+        $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
 
-      <div class="form-group align-items-center form-row">
+      <div class="form-group align-items-center form-row<?= $custom_field_class; ?>">
         <label class="col-sm-2 col-form-label text-right align-self-start"><?php
             if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
                 if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
