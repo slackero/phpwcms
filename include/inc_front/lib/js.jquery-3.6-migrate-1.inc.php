@@ -11,7 +11,7 @@
 
 require_once(PHPWCMS_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('PHPWCMS_JSLIB', 'jquery-3.5-migrate-1');
+define('PHPWCMS_JSLIB', 'jquery-3.6-migrate-1');
 
 /**
  * Init jQuery 3.6.x + jQuery Migrate 1.4.x & 3.3.x Library
