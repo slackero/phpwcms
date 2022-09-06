@@ -207,8 +207,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
            }
 
            $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
+           if($tab_fieldgroup['fields'][$custom_field]['hr']):?><hr><?php endif;
 ?>
- 					<hr />
  					<div class="form-group align-items-center form-row tab-collapsable-row">
             <label class="col-sm-2 col-form-label text-right"><?php
               if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
@@ -360,6 +360,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
     </li>
 
 <?php
+
+
+
     endforeach;
   endif;
 ?>
