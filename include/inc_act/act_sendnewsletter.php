@@ -17,7 +17,6 @@ require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 validate_csrf_tokens();
-require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 require_once CMSGO_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
 //use custom lang if available -> was set in edit.php
@@ -157,7 +156,7 @@ if(!$newsletter) {
             $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], CMSGO_URL);
         }
 
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $cmsgo['SMTP_MAILER'];
         $mail->Host             = $cmsgo['SMTP_HOST'];
         $mail->Port             = $cmsgo['SMTP_PORT'];
@@ -186,8 +185,8 @@ if(!$newsletter) {
         $mail->addReplyTo($newsletter['newsletter_vars']['replyto']);
         $mail->Subject = $newsletter['newsletter_subject'];
 
-        if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+            $mail->setLanguage($cmsgo['default_lang']);
         }
 
         $mail->SMTPKeepAlive = true;
@@ -212,8 +211,11 @@ if(!$newsletter) {
 
             if($newsletter['newsletter_vars']['html'] && !$newsletter['newsletter_vars']['text']) {
                 //send HTML part
-                $mail->Body = build_email_text($newsletter['newsletter_vars']['html'], $value);
+                $mailBody = build_email_text($newsletter['newsletter_vars']['html'], $value);
+                $mail->Body = $mailBody;
                 $mail->isHTML(1);
+                $altBody = new \Html2Text\Html2Text($mailBody);
+                $mail->AltBody = $altBody->getText();
             }
 
             if(!$newsletter['newsletter_vars']['html'] && $newsletter['newsletter_vars']['text']) {

@@ -47,23 +47,19 @@ if(!empty($_getVar['feedimport'])) {
 
 	if(isset($feedimport_result['cnt_object']['structure_level_id'])) {
 
-		// retrieve Feed now
-		// Load SimplePie
-		require_once(CMSGO_ROOT.'/include/inc_ext/simplepie.inc.php');
-
-		$rss_obj = new SimplePie();
+		$rss_obj = new \SimplePie\SimplePie();
 
 		// Feed URL
-		$rss_obj->set_feed_url( $feedimport_result['cnt_text'] );
+		$rss_obj->set_feed_url($feedimport_result['cnt_text']);
 
 		// Output Encoding Charset
-		$rss_obj->set_output_encoding( CMSGO_CHARSET );
+		$rss_obj->set_output_encoding(CMSGO_CHARSET);
 
 		// Disable Feed cache
-		$rss_obj->enable_cache( false );
+		$rss_obj->enable_cache(false);
 
 		// Remove surrounding DIV
-		$rss_obj->remove_div( true );
+		$rss_obj->remove_div(true);
 
 
 		// Init Feed

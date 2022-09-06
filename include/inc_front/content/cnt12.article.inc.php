@@ -205,10 +205,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
-        require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-
         // phpMailer Class
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $cmsgo['SMTP_MAILER'];
         $mail->Host             = $cmsgo['SMTP_HOST'];
         $mail->Port             = $cmsgo['SMTP_PORT'];
@@ -237,8 +235,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $mail->Subject          = $content['newsletter']['subject'];
         $mail->Body             = $content["newsletter"]["mailtext"];
 
-        if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+            $mail->setLanguage($cmsgo['default_lang']);
         }
 
         $mail->setFrom($cmsgo['SMTP_FROM_EMAIL'], $cmsgo['SMTP_FROM_NAME']);
