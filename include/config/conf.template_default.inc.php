@@ -404,7 +404,7 @@ $template_default['search_highlight'] = array(
 );
 
 $template_default['attributes'] = array(
-    'navlist-bs-dropdown-data'  => 'data-toggle="dropdown"',
+    'navlist-bs-dropdown-data'  => 'data-bs-toggle="dropdown"',
     'navlist-bs-dropdown-caret' => ' <b class="caret"></b>',
     'cpgroup'                   => 'data', // data = <span>, href = <a>
     'cpgroup_custom'            => array(
