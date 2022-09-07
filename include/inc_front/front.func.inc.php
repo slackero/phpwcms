@@ -4560,12 +4560,10 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 function init_markdown() {
 
     if(!isset($GLOBALS['cmsgo']['parsedown_class'])) {
-        require_once(CMSGO_ROOT . '/include/inc_ext/parsedown/Parsedown.php');
         if (empty($GLOBALS['cmsgo']['markdown_extra'])) {
-            $GLOBALS['cmsgo']['parsedown_class'] = new Parsedown();
+            $GLOBALS['cmsgo']['parsedown_class'] = new \Erusev\Parsedown\Parsedown();
         } else {
-            require_once(CMSGO_ROOT . '/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $GLOBALS['cmsgo']['parsedown_class'] = new ParsedownExtra();
+            $GLOBALS['cmsgo']['parsedown_class'] = new \Erusev\ParsedownExtra\ParsedownExtra();
         }
     }
 

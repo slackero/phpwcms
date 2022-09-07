@@ -637,7 +637,7 @@ $template_default['settings'] = array(
                     'render' => 'html',
                     'maxlength' => 100,
                     'placeholder' => '',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_TEXTAREA1]{IMGSPCL_TEXTAREA1}[/IMGSPCL_TEXTAREA1]
                 'textarea1' => array(
@@ -646,7 +646,7 @@ $template_default['settings'] = array(
                     'render' => '',
                     'rows' => 3,
                     'placeholder' => '',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_OPTIONNAME1]
                 //    Will be the selected value {IMGSPCL_OPTIONNAME1}
@@ -663,7 +663,7 @@ $template_default['settings'] = array(
                         'empty' => 'nothing',
                     ),
                     'default' => 'empty',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_INTEGER1]{IMGSPCL_INTEGER1}[/IMGSPCL_INTEGER1]
                 'integer1' => array(
@@ -674,7 +674,7 @@ $template_default['settings'] = array(
                     'min' => -1000,
                     'step' => 1,
                     'placeholder' => '',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_FLOAT1]{IMGSPCL_FLOAT1}[/IMGSPCL_FLOAT1]
                 'float1' => array(
@@ -685,7 +685,7 @@ $template_default['settings'] = array(
                     'min' => -1000,
                     'step' => .1,
                     'placeholder' => '',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_SELECT1]
                 //    Will be the selected value {IMGSPCL_SELECT1}
@@ -702,14 +702,14 @@ $template_default['settings'] = array(
                         'option2' => 'value option 2',
                     ),
                     'default' => 'empty',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_BOOL1]True[/IMGSPCL_BOOL1][IMGSPCL_BOOL1_ELSE]False[/IMGSPCL_BOOL1_ELSE]
                 'bool1' => array(
                     'legend' => 'Enable (to be true)',
                     'type' => 'bool',
                     'default' => false, // or true to be enabled by default
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 'file1' => array(
                     'legend' => 'file 1',
@@ -717,7 +717,7 @@ $template_default['settings'] = array(
                     'template' => '', // if empty the default file list template is used
                     'filetypes' => 'pdf,txt', // comma separated allowed filetypes 'xls,docx,vcf'
                     'direct' => 0, // direct file download 1 or not 0
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 ),
                 // [IMGSPCL_WYSIWYG1]{IMGSPCL_WYSIWYG1}[/IMGSPCL_WYSIWYG1][IMGSPCL_WYSIWYG1_ELSE]<!--nada-->[/IMGSPCL_WYSIWYG1_ELSE]
                 'wysiwyg1' => array(
@@ -727,7 +727,7 @@ $template_default['settings'] = array(
                     'rows' => 5,
                     'height' => '75px',
                     'placeholder' => '',
-                    'hr' => 0
+                    'class' => '' // border-bottom or border-top
                 )
             )
         ),*/

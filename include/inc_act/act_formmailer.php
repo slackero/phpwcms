@@ -33,7 +33,6 @@ require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 include_once CMSGO_ROOT.'/include/inc_lang/formmailer/lang.formmailer.inc.php';
-require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
 if(!checkFormTrackingValue()) {
 
@@ -291,7 +290,7 @@ if(isset($form_error)) {
 	$body.= "cmsGO! formmailer  | Copyright (C) 2022 \n";
 
 	// phpMailer Class
-	$mail = new PHPMailer();
+	$mail = new \PHPMailer\PHPMailer\PHPMailer();
 	$mail->Mailer 			= $cmsgo['SMTP_MAILER'];
 	$mail->Host 			= $cmsgo['SMTP_HOST'];
 	$mail->Port 			= $cmsgo['SMTP_PORT'];
@@ -320,8 +319,8 @@ if(isset($form_error)) {
 	$mail->Subject			= $subject;
 	$mail->Body 			= $body;
 
-	if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-		$mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+	if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+		$mail->setLanguage($cmsgo['default_lang']);
 	}
 
 	$false = '';

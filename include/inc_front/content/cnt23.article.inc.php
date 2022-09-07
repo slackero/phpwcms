@@ -2060,10 +2060,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         if (is_valid_email($cnt_form['doubleoptin_target'])) {
-            // send mail, include phpmailer class
-            require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $cmsgo['SMTP_MAILER'];
             $mail->Host             = $cmsgo['SMTP_HOST'];
             $mail->Port             = $cmsgo['SMTP_PORT'];
@@ -2088,11 +2086,16 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
             $mail->CharSet          = $cmsgo["charset"];
 
-            $mail->isHTML($cnt_form['template_format_doubleoptin']);
+            if ($cnt_form['template_format_doubleoptin']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_doubleoptin']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_doubleoptin'];
-            if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+                $mail->setLanguage($cmsgo['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2119,13 +2122,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     } else {
 
-        // send mail, include phpmailer class
-        require_once CMSGO_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-
         // now run all CC -> but sent as full email to each CC recipient
         if(count($cnt_form['cc'])) {
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $cmsgo['SMTP_MAILER'];
             $mail->Host             = $cmsgo['SMTP_HOST'];
             $mail->Port             = $cmsgo['SMTP_PORT'];
@@ -2154,11 +2154,16 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                 @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
             }
 
-            $mail->isHTML($cnt_form['template_format_copy']);
+            if ($cnt_form['template_format_copy']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_copy']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_copy'];
-            if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+                $mail->setLanguage($cmsgo['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2188,7 +2193,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         // now send original message
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $cmsgo['SMTP_MAILER'];
         $mail->Host             = $cmsgo['SMTP_HOST'];
         $mail->Port             = $cmsgo['SMTP_PORT'];
@@ -2203,13 +2208,18 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
-        $mail->isHTML($cnt_form['template_format']);
+        if ($cnt_form['template_format']) {
+            $mail->isHTML(true);
+            $altBody = new \Html2Text\Html2Text($cnt_form['template']);
+            $mail->AltBody = $altBody->getText();
+        }
         $mail->Subject          = $cnt_form["subject"];
         $mail->Body             = $cnt_form['template'];
 
-        if(!$mail->setLanguage($cmsgo['default_lang'], CMSGO_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', CMSGO_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
+            $mail->setLanguage($cmsgo['default_lang']);
         }
+
         if(empty($cnt_form["fromEmail"])) {
             $cnt_form["fromEmail"] = $cmsgo['SMTP_FROM_EMAIL'];
         }

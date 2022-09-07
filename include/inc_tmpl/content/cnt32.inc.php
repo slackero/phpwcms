@@ -207,18 +207,18 @@ if(is_array($tmpllist) && count($tmpllist)) {
            }
 
            $custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
-           if($tab_fieldgroup['fields'][$custom_field]['hr']):?><hr><?php endif;
+           $custom_field_class = empty($cnt_fieldgroup['fields'][$custom_field]['class']) ? '' : ' ' . $cnt_fieldgroup['fields'][$custom_field]['class'];
 ?>
- 					<div class="form-group align-items-center form-row tab-collapsable-row">
-            <label class="col-sm-2 col-form-label text-right"><?php
-              if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
-                if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
-                  echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
-                } else {
-                  echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
-                }
-              }
-            ?></label>
+ 			<div class="form-group align-items-center form-row tab-collapsable-row<?= $custom_field_class; ?>">
+                <label class="col-sm-2 col-form-label text-right"><?php
+                  if($tab_fieldgroup['fields'][$custom_field]['type'] !== 'bool') {
+                    if(isset($tab_fieldgroup['fields'][$custom_field]['legend'])) {
+                      echo html($tab_fieldgroup['fields'][$custom_field]['legend']);
+                    } else {
+                      echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
+                    }
+                  }
+                ?></label>
 
             <div class="col">
 <?php
