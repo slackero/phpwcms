@@ -102,11 +102,10 @@ ul.as-selections li.as-original {
 }
 
 ul.as-selections li.as-original input {
-    border: none;
     outline: none;
     font-size: 13px;
     width: 120px;
-    margin: 0;
+    margin: 3px 0 0 15px;
 }
 
 ul.as-list {
@@ -180,7 +179,7 @@ li.as-result-item.active em {
         margin-top: -1px;
     }
     ul.as-selections li.as-original input {
-        height: 19px;
+        height: 26px;
     }
 }
 
