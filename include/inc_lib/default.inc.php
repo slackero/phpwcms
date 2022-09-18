@@ -141,14 +141,15 @@ if (empty($phpwcms['rewrite_url'])) {
 define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
 define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8' ? false : true);
-define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
-define('IS_PHP5', IS_PHP523);
+
 if (defined('PHP_MAJOR_VERSION')) {
+    define('IS_PHP5', PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 6);
     define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
     define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
     define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
     define('IS_PHP82', IS_PHP81 && PHP_MINOR_VERSION === 2);
 } else {
+    define('IS_PHP5', version_compare(PHP_VERSION, '5.6.0', '>='));
     define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
     define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
     define('IS_PHP81', IS_PHP8 && version_compare(PHP_VERSION, '8.1.0', '>='));
@@ -1348,15 +1349,10 @@ function init_frontend_edit() {
     return null;
 }
 
-if (IS_PHP523) {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
-    }
-} else {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET);
-    }
+function html($string, $double_encode = false) {
+    return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 }
+
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
     return htmlentities($string, $quote_mode, $charset);
 }
