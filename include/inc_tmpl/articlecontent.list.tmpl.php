@@ -168,26 +168,37 @@ $buttonAction .= '</tr></table>';
             </tr>
 
             <tr>
-              <td class="v10 nowrap" style="color:#727889" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-              <td class="v10"><?php echo ($article["article_nositemap"] == 1 ? '&check;' : '-') . ' ' . $BL['be_ctype_sitemap'] ?></td>
+                <td class="v10 nowrap" style="color:#727889;vertical-align: top;" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+                <td class="v10">
+                    <table>
+                        <tr>
+                            <td><?php echo ($article["article_nositemap"] == 1 ? '&check;' : '-') . ' ' . $BL['be_ctype_sitemap'] ?>&nbsp;</td>
+                            <td><?php echo ($article["article_nosearch"] == 1 ? '-' : '&check;') . ' ' . $BL['be_fsearch_searchlabel'] ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo ($article["article_norss"] == 1 ? '&check;' : '-') . ' ' . $BL['be_no_rss'] ?>&nbsp;</td>
+                            <td><?php echo ($article["article_opengraph"] == 1 ? '&check;' : '-') . ' ' . $BL['be_opengraph_support'] ?></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><?php echo ($article["article_archive_status"] == 1 ? '&check;' : '-') . ' ' . $BL['be_show_archived']; ?></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
-            <tr>
-              <td class="v10">&nbsp;</td>
-              <td class="v10"><?php echo ($article["article_nosearch"] == 1 ? '-' : '&check;') . ' ' . $BL['be_fsearch_searchlabel'] ?></td>
-            </tr>
-            <tr>
-              <td class="v10">&nbsp;</td>
-              <td class="v10"><?php echo ($article["article_norss"] == 1 ? '&check;' : '-') . ' ' . $BL['be_no_rss'] ?></td>
-            </tr>
-            <tr>
-              <td class="v10">&nbsp;</td>
-              <td class="v10"><?php echo ($article["article_opengraph"] == 1 ? '&check;' : '-') . ' ' . $BL['be_opengraph_support'] ?></td>
-            </tr>
-            <tr>
-              <td class="v10">&nbsp;</td>
-              <td class="v10"><?php echo ($article["article_archive_status"] == 1 ? '&check;' : '-') . ' ' . $BL['be_show_archived']; //&#x2610; ?></td>
-            </tr>
-
+            <?php if($article["article_meta"]['noindex'] || $article["article_meta"]['nofollow']): ?>
+                <?php if($article["article_meta"]['noindex']): ?>
+                  <tr>
+                      <td class="v10 nowrap" style="color:#727889;" nowrap="nowrap"><?php echo $BL['be_robots'] ?>:&nbsp;</td>
+                      <td class="v10"><?php echo ($article["article_meta"]['noindex'] == 1 ? '&check;' : '-') . ' ' . $BL['be_robots_noindex'] ?></td>
+                  </tr>
+                <?php endif; ?>
+                <?php if($article["article_meta"]['nofollow']): ?>
+                  <tr>
+                      <td class="v10 nowrap" style="color:#727889;" nowrap="nowrap"><?php echo $article["article_meta"]['noindex'] ? '&nbsp;' : $BL['be_robots']; ?>:&nbsp;</td>
+                      <td><?php echo ($article["article_meta"]['nofollow'] == 1 ? '&check;' : '-') . ' ' . $BL['be_robots_nofollow'] ?></td>
+                  </tr>
+                <?php endif; ?>
+            <?php endif; ?>
           </table></td>
             <td>&nbsp;</td>
         </tr>

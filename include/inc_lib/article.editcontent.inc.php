@@ -241,6 +241,8 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
         $article['article_opengraph'] = empty($_POST["article_opengraph"]) ? 0 : 1;
         $article['article_canonical'] = clean_slweg($_POST["article_canonical"], 2000);
         $article['article_meta']['class'] = clean_slweg($_POST["article_meta_class"], 250);
+        $article['article_meta']['noindex'] = empty($_POST["article_meta_noindex"]) ? 0 : 1;
+        $article['article_meta']['nofollow'] = empty($_POST["article_meta_nofollow"]) ? 0 : 1;
 
         if(isset($_POST['article_cacheoff']) && intval($_POST['article_cacheoff'])) {
             $article["article_timeout"] = 0; //check if cache = Off

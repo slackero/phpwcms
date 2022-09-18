@@ -62,16 +62,16 @@ function get_random_image_tag($path) {
 }
 
 function is_random_image($imgArray, $imagepath, $count=0) {
-	// tests if the random choosed image is really an image
+	// tests if the random chosen image is really an image
 	$count++;
-	$randval = mt_rand( 0, count( $imgArray ) - 1 );
-	$file = $imagepath.$imgArray[ $randval ];
+	$randval = array_rand($imgArray, 1);
+	$file = $imagepath.$imgArray[$randval];
 	$imageinfo = @getimagesize($file);
 	//if $imageinfo is not true repeat function and count smaller count all images
 	if(!$imageinfo && $count < count($imgArray)) {
 		$imageinfo = is_random_image($imgArray, $imagepath, $count);
 	} else {
-		$imageinfo["imagename"] = $imgArray[ $randval ];
+		$imageinfo["imagename"] = $imgArray[$randval];
 	}
 	return $imageinfo;
 }

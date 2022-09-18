@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    strictBinaryOperands="true"
+    checkForThrowsDocblock="true"
+>
+    <projectFiles>
+        <directory name="src" />
+        <directory name="tests" />
+    </projectFiles>
+
+    <issueHandlers>
+        <PossiblyUnusedMethod>
+            <errorLevel type="suppress">
+                <directory name="tests" />
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress"><directory name="tests" /></errorLevel>
+        </PropertyNotSetInConstructor>
+        <UnusedClass>
+            <errorLevel type="suppress"><directory name="tests" /></errorLevel>
+        </UnusedClass>
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress"><directory name="tests/src" /></errorLevel>
+        </UndefinedInterfaceMethod>
+        <PossiblyNullArrayAccess>
+            <errorLevel type="suppress"><directory name="tests/src" /></errorLevel>
+        </PossiblyNullArrayAccess>
+        <PossiblyNullReference>
+            <errorLevel type="suppress"><directory name="tests/src" /></errorLevel>
+        </PossiblyNullReference>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <directory name="tests" />
+            </errorLevel>
+        </InternalMethod>
+    </issueHandlers>
+</psalm>

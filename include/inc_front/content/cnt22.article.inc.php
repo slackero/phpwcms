@@ -47,12 +47,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	$rss['template_FEEDINFO']	= get_tmpl_section('FEEDINFO',	$rssfeed['template']);
 	$rss['template_RSSFEED']	= get_tmpl_section('RSSFEED',	$rssfeed['template']);
 
-    require_once PHPWCMS_ROOT.'/include/inc_ext/idna_convert/idna_convert.class.php';
-
-	// Load SimplePie
-	require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie/SimplePie.compiled.php');
-
-	$rss_obj = new SimplePie();
+	$rss_obj = new \SimplePie\SimplePie();
 
 	// Feed URL
 	$rss_obj->set_feed_url( $rssfeed['rssurl'] );

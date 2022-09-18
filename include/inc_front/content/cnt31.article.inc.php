@@ -275,7 +275,7 @@ if($image['template']) {
 
             if($image['zoom'] && isset($zoominfo) && $zoominfo != false) {
                 // if click enlarge the image
-                $open_popup_link = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $value['zoom_name']);
+                $open_popup_link = PHPWCMS_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $value['zoom_name']);
                 if($caption[2][0]) {
                     $open_link = $caption[2][0];
                     $return_false = '';
@@ -367,7 +367,7 @@ if($image['template']) {
                     break;
 
                 case 'textile':
-                    $value['freetext'] = $phpwcms['textile_class']->textileThis($value['freetext']);
+                    $value['freetext'] = $phpwcms['textile_class']->parse($value['freetext']);
                     break;
 
                 case 'html':

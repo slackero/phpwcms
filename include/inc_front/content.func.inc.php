@@ -1506,7 +1506,7 @@ if(!$phpwcms['donottrack']) {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
         $block['tracking_ga']['config'] = array(
-            "cookie_comain: '" . $phpwcms['session_cookie_params']['domain'] . "'"
+            "cookie_comain: '" . (isset($phpwcms['session_cookie_params']['domain']) ? $phpwcms['session_cookie_params']['domain'] : PHPWCMS_DOMAIN) . "'"
         );
         if (!empty($block['tracking_ga']['anonymize'])) {
             $block['tracking_ga']['config'][] = 'anonymize_ip: true';
@@ -1519,10 +1519,10 @@ if(!$phpwcms['donottrack']) {
         if (PHPWCMS_SSL) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'Secure';
         }
-        if ($phpwcms['session_cookie_params']['httponly']) {
+        if (isset($phpwcms['session_cookie_params']['httponly'])) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'HttpOnly';
         }
-        if ($phpwcms['session_cookie_params']['samesite']) {
+        if (isset($phpwcms['session_cookie_params']['samesite'])) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'SameSite=' . $phpwcms['session_cookie_params']['samesite'];
         }
         $block['tracking_ga']['ga_cookie_flags'] = implode('; ', $block['tracking_ga']['ga_cookie_flags']);

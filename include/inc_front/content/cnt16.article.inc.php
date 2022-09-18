@@ -58,7 +58,6 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["send_err"] = 1;
 	} else {
 		//send message
-		require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 		$ecard["capt"] = explode("\n", $ecard["caption"]);
 
 		$thumb_image = get_cached_image(array(
@@ -78,7 +77,7 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
 
-		$ecard["mailer"] = new PHPMailer();
+		$ecard["mailer"] = new \PHPMailer\PHPMailer\PHPMailer();
 		$ecard["mailer"]->Mailer = $phpwcms['SMTP_MAILER'];
 		$ecard["mailer"]->isHTML(1);
 		$ecard['mailer']->CharSet = $phpwcms["charset"];
@@ -103,9 +102,10 @@ if(isset($_POST['ecard_chooser'])) {
 				}
 			}
 		}
-		if(!$ecard['mailer']->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-			$ecard['mailer']->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
-		}
+
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+            $ecard['mailer']->setLanguage($phpwcms['default_lang']);
+        }
 
 		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addReplyTo($ecard["sender_email"], $ecard["sender_name"]);

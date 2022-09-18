@@ -200,10 +200,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
-        require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-
         // phpMailer Class
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $phpwcms['SMTP_MAILER'];
         $mail->Host             = $phpwcms['SMTP_HOST'];
         $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -232,8 +230,8 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
         $mail->Subject          = $content['newsletter']['subject'];
         $mail->Body             = $content["newsletter"]["mailtext"];
 
-        if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+            $mail->setLanguage($phpwcms['default_lang']);
         }
 
         $mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);

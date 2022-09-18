@@ -17,8 +17,7 @@ $src = "img/leer.gif";
 $name = '';
 $attr = '';
 
-if(!empty($_GET["show"]) && ($data = @unserialize(base64_decode($_GET["show"])))) {
-
+if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
     $src = strip_tags($data['src']);
     $src_schema = parse_url($src);
     if (!empty($src_schema['schema'])) {
@@ -26,7 +25,6 @@ if(!empty($_GET["show"]) && ($data = @unserialize(base64_decode($_GET["show"])))
     }
     $width_height = strip_tags($data['attr']);
     $name = $data['name'];
-
 }
 
 ?><!DOCTYPE html>

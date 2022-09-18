@@ -1,6 +1,7 @@
 *.esproj
 .idea
 .nova
+composer.lock
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*
@@ -17,3 +18,23 @@
 include/config.codekit3
 /include/build
 /.htaccess
+
+# Ignore files of the composer packages
+/include/vendor/erusev/parsedown/.github/
+/include/vendor/erusev/parsedown/tests/
+/include/vendor/erusev/parsedown/docs/
+/include/vendor/erusev/parsedown-extra/.github/
+/include/vendor/erusev/parsedown-extra/tests/
+/include/vendor/algo26-matthias/idna-convert/.github/
+/include/vendor/algo26-matthias/idna-convert/tests/
+/include/vendor/html2text/html2text/test/
+/include/vendor/jakeasmith/http_build_url/tests/
+/include/vendor/maennchen/zipstream-php/.github/
+/include/vendor/maennchen/zipstream-php/test/
+/include/vendor/markbaker/complex/.github/
+/include/vendor/markbaker/complex/examples/
+/include/vendor/markbaker/matrix/.github/
+/include/vendor/markbaker/matrix/examples/
+/include/vendor/netcarver/textile/docker/
+/include/vendor/openpsa/universalfeedcreator/.github/
+/include/vendor/openpsa/universalfeedcreator/test/

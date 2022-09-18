@@ -141,11 +141,20 @@ if (empty($phpwcms['rewrite_url'])) {
 define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
 define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
 define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8' ? false : true);
-define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
-define('IS_PHP5', IS_PHP523);
-define('IS_PHP540', version_compare(PHP_VERSION, '5.4.0', '>='));
-define('IS_PHP7', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 7);
-define('IS_PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
+
+if (defined('PHP_MAJOR_VERSION')) {
+    define('IS_PHP5', PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 6);
+    define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
+    define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
+    define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
+    define('IS_PHP82', IS_PHP81 && PHP_MINOR_VERSION === 2);
+} else {
+    define('IS_PHP5', version_compare(PHP_VERSION, '5.6.0', '>='));
+    define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
+    define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
+    define('IS_PHP81', IS_PHP8 && version_compare(PHP_VERSION, '8.1.0', '>='));
+    define('IS_PHP82', IS_PHP81 && version_compare(PHP_VERSION, '8.2.0', '>='));
+}
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
@@ -169,6 +178,8 @@ define('PHPWCMS_TEMPLATE', PHPWCMS_ROOT . $phpwcms["templates"]);
 define('PHPWCMS_URL', $phpwcms["site"] . $phpwcms["root"]);
 $phpwcms['parse_url'] = parse_url(PHPWCMS_URL);
 
+define('PHPWCMS_DOMAIN', $phpwcms['parse_url']['host']);
+define('PHPWCMS_BASEURL', $phpwcms['parse_url']['scheme'] . '://' . $phpwcms['parse_url']['host'] . (empty($phpwcms['parse_url']['port']) || $phpwcms['parse_url']['port'] === 443 || $phpwcms['parse_url']['port'] === 80 ? '' : ':' . $phpwcms['parse_url']['port']));
 define('PHPWCMS_HOST', $phpwcms['parse_url']['host'] . $phpwcms["host_root"]);
 define('PHPWCMS_IMAGES', $phpwcms["content_path"] . $phpwcms["cimage_path"]);
 define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms["content_path"] . 'tmp/');
@@ -261,9 +272,9 @@ $phpwcms['default_lang'] = strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
-    'jquery-3.6' => 'jQuery 3.6.0',
-    'jquery-3.6-migrate' => 'jQuery 3.6.0 + Migrate 3.3.2',
-    'jquery-3.6-migrate-1' => 'jQuery 3.6.0 + Migrate 1.4.1 + 3.3.2',
+    'jquery-3.6' => 'jQuery 3.6.1',
+    'jquery-3.6-migrate' => 'jQuery 3.6.1 + Migrate 3.4.0',
+    'jquery-3.6-migrate-1' => 'jQuery 3.6.1 + Migrate 1.4.1 + 3.4.0',
     'jquery-1.12' => 'jQuery 1.12.4',
     'jquery-1.12-migrate' => 'jQuery 1.12.4 + Migrate 1.4.1',
     'jquery-2.2' => 'jQuery 2.2.4',
@@ -936,6 +947,9 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
         case 401:
             header('HTTP/1.1 401 Authorization Required');
             break;
+        case 403:
+            header('HTTP/1.1 403 Forbidden');
+            break;
         case 404:
             header('HTTP/1.1 404 Not Found');
             break;
@@ -1219,11 +1233,11 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'webp' => $webp,
         'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
     );
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+    $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['phpwcms'][$index];
 }
@@ -1335,15 +1349,10 @@ function init_frontend_edit() {
     return null;
 }
 
-if (IS_PHP523) {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
-    }
-} else {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET);
-    }
+function html($string, $double_encode = false) {
+    return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 }
+
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
     return htmlentities($string, $quote_mode, $charset);
 }
@@ -1475,5 +1484,7 @@ function logdir_exists() {
 function get_default_article_meta() {
     return array(
         'class' => '',
+        'noindex' => 0,
+        'nofollow' => 0,
     );
 }

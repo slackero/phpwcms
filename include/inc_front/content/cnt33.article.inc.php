@@ -450,8 +450,8 @@ if($news['template']) {
                     $value['cnt_description'] = $phpwcms['parsedown_class']->text($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] === 'textile') {
                     init_textile();
-                    $value['cnt_teasertext'] = $phpwcms['textile_class']->textileThis($value['cnt_teasertext']);
-                    $value['cnt_description'] = $phpwcms['textile_class']->textileThis($value['cnt_description']);
+                    $value['cnt_teasertext'] = $phpwcms['textile_class']->parse($value['cnt_teasertext']);
+                    $value['cnt_description'] = $phpwcms['textile_class']->parse($value['cnt_description']);
                 } else {
                     $value['cnt_teasertext'] = html($value['cnt_teasertext']);
                     $value['cnt_description'] = html($value['cnt_description']);
@@ -462,6 +462,7 @@ if($news['template']) {
                 $value['cnt_description'] = '';
             }
 
+            $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'IS_ARCHIVE', $value['cnt_ts_killdate'] < $news['now'] ? ' ' : '');
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TITLE', html_specialchars($value['cnt_title']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_TOPIC', html_specialchars($value['cnt_name']));
             $news['entries'][$key] = render_cnt_template($news['entries'][$key], 'NEWS_SUBTITLE', html_specialchars($value['cnt_subtitle']));

@@ -48,11 +48,7 @@ if(!empty($_getVar['feedimport'])) {
 
 	if(isset($feedimport_result['cnt_object']['structure_level_id'])) {
 
-		// retrieve Feed now
-		// Load SimplePie
-		require_once(PHPWCMS_ROOT.'/include/inc_ext/simplepie.inc.php');
-
-		$rss_obj = new SimplePie();
+		$rss_obj = new \SimplePie\SimplePie();
 
 		// Feed URL
 		$rss_obj->set_feed_url( $feedimport_result['cnt_text'] );

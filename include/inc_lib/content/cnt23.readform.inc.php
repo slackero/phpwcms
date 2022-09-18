@@ -141,13 +141,15 @@ if(is_callable($content['form']["function_cc"])) {
     $content['form']["function_cc"] = '_Proof_'.$content['form']["function_cc"];
 }
 
-$content['form']["template_equal"]  = empty($_POST["cform_template_equal"]) ? 0 : 1;
-$content['form']["customform"]      = slweg($_POST["cform_customform"]);
-$content['form']["savedb"]          = empty($_POST["cform_savedb"]) ? 0 : 1;
-$content['form']["saveprofile"]     = empty($_POST["cform_saveprofile"]) ? 0 : 1;
-$content['form']["anchor_off"]      = isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
-$content['form']["ssl"]             = empty($_POST["cform_ssl"]) ? 0 : 1;
-$content['form']["anchor_name"]     = clean_slweg($_POST["cform_anchor_name"]);
+$content['form']["template_equal"] = empty($_POST["cform_template_equal"]) ? 0 : 1;
+$content['form']["customform"] = slweg($_POST["cform_customform"]);
+$content['form']["savedb"] = empty($_POST["cform_savedb"]) ? 0 : 1;
+$content['form']["saveprofile"] = empty($_POST["cform_saveprofile"]) ? 0 : 1;
+$content['form']["anchor_off"] = isset($_POST["cform_anchor_off"]) && !intval($_POST["cform_anchor_off"]) ? 0 : 1;
+$content['form']["ssl"] = empty($_POST["cform_ssl"]) ? 0 : 1;
+$content['form']["anchor_name"] = clean_slweg($_POST["cform_anchor_name"]);
+$content['form']["direct_download"] = empty($_POST["cform_direct_download"]) ? 0 : 1;
+$content['form']["direct_download_apikey"] = clean_slweg($_POST["direct_download_apikey"]);
 
 //$field_counter = 0;
 $content["form"]["fields"] = array();
@@ -203,44 +205,52 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                             $_special[0] = strtolower(trim($_special[0]));
                             switch($_special[0]) {
 
-                                case 'type':        if(!empty($_special[1])) {
-                                                        $_special[1] = trim($_special[1]);
-                                                        if($_special[1] !== 'a-Z' && $_special[1] !== 'a-z') {
-                                                            $_special[1] = strtoupper($_special[1]);
-                                                        }
-                                                        switch($_special[1]) {
-                                                            case 'MIX':
-                                                            case 'INT':
-                                                            case 'FLOAT':
-                                                            case 'DEC':
-                                                            case 'IDENT':
-                                                            case 'STRING':
-                                                            case 'DATE':
-                                                            case 'A-Z':
-                                                            case 'a-Z':
-                                                            case 'a-z':
-                                                            case '0-9':
-                                                            case 'WORD':
-                                                            case 'LETTER+SPACE':
-                                                            case 'PHONE':
-                                                            case 'REGEX':
-                                                                $special_attribute['type'] = $_special[1];
-                                                                break;
-                                                        }
-                                                    }
-                                                    if(!isset($special_attribute['type'])) {
-                                                        $special_attribute['type'] = 'MIX';
-                                                    }
-                                                    break;
+                                case 'type':
+                                    if ( ! empty( $_special[1] ) ) {
+                                        $_special[1] = trim( $_special[1] );
+                                        if ( $_special[1] !== 'a-Z' && $_special[1] !== 'a-z' ) {
+                                            $_special[1] = strtoupper( $_special[1] );
+                                        }
+                                        switch ( $_special[1] ) {
+                                            case 'MIX':
+                                            case 'INT':
+                                            case 'FLOAT':
+                                            case 'DEC':
+                                            case 'IDENT':
+                                            case 'STRING':
+                                            case 'DATE':
+                                            case 'A-Z':
+                                            case 'a-Z':
+                                            case 'a-z':
+                                            case '0-9':
+                                            case 'WORD':
+                                            case 'LETTER+SPACE':
+                                            case 'PHONE':
+                                            case 'REGEX':
+                                                $special_attribute['type'] = $_special[1];
+                                                break;
+                                        }
+                                    }
+                                    if ( ! isset( $special_attribute['type'] ) ) {
+                                        $special_attribute['type'] = 'MIX';
+                                    }
+                                    break;
 
-                                case 'default':     $special_attribute['default'] = isset($_special[1]) ? trim($_special[1]) : '';
-                                                    break;
+                                case 'default':
+                                    $special_attribute['default'] = isset( $_special[1] ) ? trim( $_special[1] ) : '';
+                                    break;
 
-                                case 'dateformat':  $special_attribute['dateformat'] = isset($_special[1]) ? trim($_special[1]) : 'm/d/Y';
-                                                    break;
+                                case 'dateformat':
+                                    $special_attribute['dateformat'] = isset( $_special[1] ) ? trim( $_special[1] ) : 'Y-m-d';
+                                    break;
 
-                                case 'pattern':     $special_attribute['pattern'] = isset($_special[1]) ? trim(trim($_special[1]), '/') : '/.*?/';
-                                                    break;
+                                case 'validatedateformat':
+                                    $special_attribute['validatedateformat'] = empty( $_special[1] ) ? '0' : '1';
+                                    break;
+
+                                case 'pattern':
+                                    $special_attribute['pattern'] = isset( $_special[1] ) ? trim( trim( $_special[1] ), '/' ) : '/.*?/';
+                                    break;
                             }
                         }
                     }
@@ -469,6 +479,11 @@ foreach($_POST['cform_field_type'] as $key => $value) {
                                     $upload_value['exclude'] = implode(',', $upload_value['exclude']);
                                 }
                                 break;
+
+                            case 'text_no_upload':
+                                $upload_value['text_no_upload'] = isset($upload[1]) ? trim($upload[1]) : '-';
+                                break;
+
                         }
 
                     }
@@ -687,7 +702,7 @@ foreach($_POST['cform_field_type'] as $key => $value) {
          */
         $all_fields_empty  = $content['form']["fields"][$field_counter]['name'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['label'];
-        $all_fields_empty .= $content['form']["fields"][$field_counter]['value'];
+        $all_fields_empty .= is_array($content['form']["fields"][$field_counter]['value']) ? implode('', $content['form']["fields"][$field_counter]['value']) : $content['form']["fields"][$field_counter]['value'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['error'];
         $all_fields_empty .= $content['form']["fields"][$field_counter]['style'];
 

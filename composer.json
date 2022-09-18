@@ -1,8 +1,21 @@
 {
     "config": {
+        "platform": {
+            "php": "7.3"
+        },
         "vendor-dir": "include/vendor"
     },
     "require": {
-        "enshrined/svg-sanitize": "^0.15.4"
+        "algo26-matthias/idna-convert": "3.*",
+        "enshrined/svg-sanitize": "^0.15.4",
+        "netcarver/textile": "v3.7.7",
+        "erusev/parsedown": "^v2.0.0-beta-1",
+        "erusev/parsedown-extra": "^v2.0.0-beta-1",
+        "openpsa/universalfeedcreator": "^v1.8.4",
+        "phpmailer/phpmailer": "^6.5",
+        "phpoffice/phpspreadsheet": "^1.24.1",
+        "simplepie/simplepie": "^1.6.0",
+        "ext-intl": "*",
+        "html2text/html2text": "^4.3"
     }
 }

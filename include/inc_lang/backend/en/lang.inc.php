@@ -1518,3 +1518,12 @@ $BL['disposition_attachment'] = 'Attachment';
 $BL['disposition_attachment_description'] = 'direct download';
 $BL['disposition_inline'] = 'Inline';
 $BL['disposition_inline_description'] = 'display in browser';
+
+$BL['be_robots'] = 'Search index';
+$BL['be_robots_noindex'] = 'block search indexing (noindex)';
+$BL['be_robots_nofollow'] = 'do not follow the links (nofollow)';
+
+$BL['be_cnt_form_direct_download'] = 'allow download';
+$BL['be_cnt_form_direct_download_apikey'] = 'API key';
+$BL['be_cnt_form_apikey_reset'] = 'reset';
+$BL['be_copy_link'] = 'copy link';

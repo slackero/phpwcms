@@ -23,11 +23,7 @@ $cnt_form = unserialize($crow["acontent_form"]);
 
 if(empty($cnt_form['anchor_off'])) {
     $CNT_TMP .= '<a id="';
-    if(empty($cnt_form['anchor_name'])) {
-        $CNT_TMP .= 'jumpForm'.$crow["acontent_id"];
-    } else {
-        $CNT_TMP .= html($cnt_form['anchor_name']);
-    }
+    $CNT_TMP .= empty($cnt_form['anchor_name']) ? 'jumpForm'.$crow["acontent_id"] : html($cnt_form['anchor_name']);
     $CNT_TMP .= '"></a>';
 }
 
@@ -365,10 +361,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  * Special
                  */
                 $cnt_form['special_attribute'] = array(
-                    'default'       => '',
-                    'type'          => 'MIX',
-                    'dateformat'    => 'm/d/Y',
-                    'pattern'       => '/.*?/'
+                    'default' => '',
+                    'type' => 'MIX',
+                    'dateformat' => 'Y-m-d',
+                    'pattern' => '/.*?/',
+                    'validatedateformat' => 0
                 );
                 //
                 if($cnt_form["fields"][$key]['value']) {
@@ -384,9 +381,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             } elseif($temp_array[0] === 'type') {
                                 $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
                             } elseif($temp_array[0] === 'dateformat') {
-                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'm/d/Y';
+                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'Y-m-d';
                             } elseif($temp_array[0] === 'pattern') {
                                 $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? ('/' . trim($temp_array[1], '/') . '/') : '/.*?/'; //#%+~
+                            } elseif($temp_array[0] === 'validatedateformat') {
+                                $cnt_form['special_attribute']['validatedateformat'] = empty($temp_array[1]) ? '0' : '1';
                             }
                         }
                     }
@@ -437,9 +436,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 break;
 
                             case 'DATE':
-                                if($cnt_form["fields"][$key]['value'] !== '' && isset($cnt_form['special_attribute']['dateformat']) &&
-                                    !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
+                                if($cnt_form["fields"][$key]['value'] !== '' && !empty($cnt_form['special_attribute']['dateformat']) && !empty($cnt_form['special_attribute']['validatedateformat']) && !is_date($cnt_form["fields"][$key]['value'], $cnt_form['special_attribute']['dateformat'])) {
                                     $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                } elseif (!empty($cnt_form['special_attribute']['dateformat'])) {
+                                    $cnt_form["fields"][$key]['date_format'] = $cnt_form['special_attribute']['dateformat'];
                                 }
                                 break;
                         }
@@ -477,6 +477,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     case 'REGEX':
                         $form_field_attributes = ' pattern="'.trim($cnt_form['special_attribute']['pattern'], '/').'"';
+                        break;
+
+                    case 'DATE':
+                        $form_field_type = 'date';
                         break;
                 }
 
@@ -1151,7 +1155,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $checkbox_counter++;
                     }
                 }
-                $form_field .= $checkbox_class;
+                $form_field .= '</div>';
                 break;
 
             case 'upload':
@@ -1184,10 +1188,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 if(empty($cnt_form['upload_value']['exclude'])) {
                     $cnt_form['upload_value']['exclude'] = 'php,asp,php3,php4,php5,aspx,cfm,js,exe,com,bat,app,sh,jar,java';
                 }
+                if(!isset($cnt_form['upload_value']['text_no_upload'])) {
+                    $cnt_form['upload_value']['text_no_upload'] = '-';
+                }
 
                 if($POST_DO && isset($_FILES[$POST_name])) {
                     $POST_val[$POST_name]['folder'] = $cnt_form['upload_value']['folder'];
                     $POST_val[$POST_name]['attachment'] = $cnt_form['upload_value']['attachment'];
+                    $POST_val[$POST_name]['text_no_upload'] = $cnt_form['upload_value']['text_no_upload'];
                     $POST_val[$POST_name]['name'] = '';
                     if(!empty($cnt_form['upload_value']['accept'])) {
                         $cnt_form['upload_value']['accept'] = convertStringToArray($cnt_form['upload_value']['accept'], ',');
@@ -1835,6 +1843,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
     $POST_attach = array();
     $POST_savedb = array();
+    $POST_file_upload_texts = array();
 
     if(!empty($doubleoptin_values['formresult_content'])) {
         $POST_val = $doubleoptin_values['formresult_content'];
@@ -1857,31 +1866,33 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                 $cnt_form["copyto"] = $POST_keyval;
             }
 
-            if(is_array($POST_keyval) && !isset($POST_keyval['folder'])) {
-                // check if this is an array - but no upload value
-                $POST_keyval = implode(', ', $POST_keyval);
-
-            } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
-                // check if this is an array - and is an upload value
-                $POST_valurl = PHPWCMS_URL.$POST_keyval['folder'].'/'.rawurlencode($POST_keyval['name']);
-                if(isset($POST_keyval['attachment']) && $POST_keyval['attachment']) {
-                    $POST_attach[] = PHPWCMS_ROOT.'/'.$POST_keyval['folder'].'/'.$POST_keyval['name'];
-                }
-                if(!$cnt_form['template_format']) {
-                    $POST_keyval = $POST_valurl;
+            if(is_array($POST_keyval)) {
+                if (isset($POST_keyval['folder'])) {
+                    // check if this is an array - and is an upload value
+                    if (empty($POST_keyval['name'])) {
+                        $POST_keyval = $POST_keyval['text_no_upload'];
+                    } else {
+                        $POST_valurl = PHPWCMS_URL . $POST_keyval['folder'] . '/' . rawurlencode( $POST_keyval['name'] );
+                        if ( isset( $POST_keyval['attachment'] ) && $POST_keyval['attachment'] ) {
+                            $POST_attach[] = PHPWCMS_ROOT . '/' . $POST_keyval['folder'] . '/' . $POST_keyval['name'];
+                        }
+                        if ( ! $cnt_form['template_format'] ) {
+                            $POST_keyval = $POST_valurl;
+                        }
+                    }
+                } else {
+                    // check if this is an array - but no upload value
+                    $POST_keyval = implode( ', ', $POST_keyval );
                 }
             }
 
             // prepare for storing in database
-            if(!empty($cnt_form['savedb'])) {
-
-                $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
-
-            }
-
+            $POST_savedb[$POST_key] = empty($POST_valurl) ? $POST_keyval : $POST_valurl;
 
             // first check copy to email template related things
             if( !$cnt_form['template_equal'] ) {
+
+                $POST_keyval_copy = $POST_keyval;
 
                 if($cnt_form['template_format_copy'] == 1) { //HTML
 
@@ -1891,10 +1902,13 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                         $POST_keyval_copy = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
                     }
 
-                } else {
+                }
 
-                    $POST_keyval_copy = $POST_keyval;
-
+                if(isset($cnt_form["fields"][$POST_key]['date_format']) && $POST_keyval_copy) {
+                    $_date = strtotime($POST_keyval_copy);
+                    if ($_date) {
+                        $POST_keyval_copy = date($cnt_form["fields"][$POST_key]['date_format'], $_date);
+                    }
                 }
 
                 // replace tags in email form
@@ -1905,6 +1919,12 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
             if($cnt_form['template_format']) { //HTML
 
                 if(is_string($POST_keyval)) {
+                    if(isset($cnt_form["fields"][$POST_key]['date_format']) && $POST_keyval) {
+                        $_date = strtotime($POST_keyval);
+                        if ($_date) {
+                            $POST_keyval = date($cnt_form["fields"][$POST_key]['date_format'], $_date);
+                        }
+                    }
                     $POST_keyval = html_specialchars($POST_keyval);
                 } elseif(is_array($POST_keyval) && isset($POST_keyval['folder'])) {
                     $POST_keyval = '<a href="'.$POST_valurl.'" target="_blank">'.html_specialchars($POST_keyval['name']).'</a>';
@@ -2028,7 +2048,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$doubleoptin_error)) {
 
     // check if there are form values which should be saved in db
-    if(count($POST_savedb)) {
+    if(!empty($cnt_form['savedb']) && count($POST_savedb)) {
         $POST_savedb_sql  = 'INSERT INTO '.DB_PREPEND.'phpwcms_formresult ';
         $POST_savedb_sql .= '(formresult_pid, formresult_ip, formresult_content) VALUES (';
         $POST_savedb_sql .= $crow['acontent_id'].", "._dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()).", ";
@@ -2043,10 +2063,8 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         if (is_valid_email($cnt_form['doubleoptin_target'])) {
-            // send mail, include phpmailer class
-            require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $phpwcms['SMTP_MAILER'];
             $mail->Host             = $phpwcms['SMTP_HOST'];
             $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2069,13 +2087,18 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                     }
                 }
             }
-            $mail->CharSet          = $phpwcms["charset"];
+            $mail->CharSet = $phpwcms["charset"];
 
-            $mail->isHTML($cnt_form['template_format_doubleoptin']);
+            if ($cnt_form['template_format_doubleoptin']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_doubleoptin']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_doubleoptin'];
-            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+                $mail->setLanguage($phpwcms['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2102,13 +2125,10 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     } else {
 
-        // send mail, include phpmailer class
-        require_once PHPWCMS_ROOT.'/include/inc_ext/phpmailer/PHPMailerAutoload.php';
-
         // now run all CC -> but sent as full email to each CC recipient
         if(count($cnt_form['cc'])) {
 
-            $mail = new PHPMailer();
+            $mail = new \PHPMailer\PHPMailer\PHPMailer();
             $mail->Mailer           = $phpwcms['SMTP_MAILER'];
             $mail->Host             = $phpwcms['SMTP_HOST'];
             $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2137,11 +2157,16 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
                 @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
             }
 
-            $mail->isHTML($cnt_form['template_format_copy']);
+            if ($cnt_form['template_format_copy']) {
+                $mail->isHTML(true);
+                $altBody = new \Html2Text\Html2Text($cnt_form['template_copy']);
+                $mail->AltBody = $altBody->getText();
+            }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_copy'];
-            if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-                $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+
+            if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+                $mail->setLanguage($phpwcms['default_lang']);
             }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
@@ -2171,7 +2196,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         }
 
         // now send original message
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->Mailer           = $phpwcms['SMTP_MAILER'];
         $mail->Host             = $phpwcms['SMTP_HOST'];
         $mail->Port             = $phpwcms['SMTP_PORT'];
@@ -2186,13 +2211,18 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
-        $mail->isHTML($cnt_form['template_format']);
+        if ($cnt_form['template_format']) {
+            $mail->isHTML(true);
+            $altBody = new \Html2Text\Html2Text($cnt_form['template']);
+            $mail->AltBody = $altBody->getText();
+        }
         $mail->Subject          = $cnt_form["subject"];
         $mail->Body             = $cnt_form['template'];
 
-        if(!$mail->setLanguage($phpwcms['default_lang'], PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/')) {
-            $mail->setLanguage('en', PHPWCMS_ROOT.'/include/inc_ext/phpmailer/language/');
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+            $mail->setLanguage($phpwcms['default_lang']);
         }
+
         if(empty($cnt_form["fromEmail"])) {
             $cnt_form["fromEmail"] = $phpwcms['SMTP_FROM_EMAIL'];
         }
@@ -2462,11 +2492,10 @@ if($form_cnt) {
         $cnt_form['class'] = '';
     }
     $CNT_TMP .= $form_error_text;
-    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
-    if(!empty($cnt_form['anchor_name'])) {
-        $CNT_TMP .= '#'.html($cnt_form['anchor_name']);
-    } elseif(empty($cnt_form['anchor_off'])) {
-        $CNT_TMP .= '#jumpForm'.$crow["acontent_id"];
+    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.abs_url();
+    if(empty($cnt_form['anchor_off'])) {
+        $CNT_TMP .= '#';
+        $CNT_TMP .= empty($cnt_form['anchor_name']) ? html($cnt_form['anchor_name']) : 'jumpForm'.$crow["acontent_id"];
     }
     $CNT_TMP .= '" ';
     if($cnt_form['is_enctype']) {

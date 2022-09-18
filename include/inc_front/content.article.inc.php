@@ -304,7 +304,7 @@ if(isset($result[0]['article_id'])) {
                         'src' => $img_zoom_rel
                     );
 
-                    $popup_img = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
+                    $popup_img = PHPWCMS_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $row["article_image"]["name"]);
 
                     if(!empty($caption[2][0])) {
                         $open_link = $caption[2][0];
@@ -865,4 +865,18 @@ if($content['overwrite_canonical']) {
 
     $block['custom_htmlhead']['canonical'] = '  <link rel="canonical" href="' . $content['set_canonical'] . '"'.HTML_TAG_CLOSE;
 
+}
+
+// Set robots meta tag if noindex or nofollow
+$row['article_meta']['robots'] = array();
+if(!empty($row['article_meta']['noindex'])) {
+    $row['article_meta']['robots'][] = 'noindex';
+}
+if(!empty($row['article_meta']['nofollow'])) {
+    $row['article_meta']['robots'][] = 'nofollow';
+}
+if($row['article_meta']['robots']) {
+    $row['article_meta']['robots'] = implode(',', $row['article_meta']['robots']);
+    set_meta('robots', $row['article_meta']['robots']);
+    header('X-Robots-Tag: ' . $row['article_meta']['robots']);
 }

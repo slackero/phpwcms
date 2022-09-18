@@ -325,7 +325,7 @@ if(!$ftp["error"]) {
             if(isset($result['INSERT_ID'])) {
                 $new_fileId = $result['INSERT_ID']; // set new file ID
 
-                $_file_extension = ($file_ext) ? '.'.$file_ext : '';
+                $_file_extension = $file_ext ? '.'.$file_ext : '';
                 $wcs_newfilename = $file_hash . $_file_extension;
 
                 // changed for using hashed file names
@@ -386,13 +386,23 @@ if(!$ftp["error"]) {
                             _dbUpdate('phpwcms_file', array('f_type'=>$file_type, 'f_size'=>$file_size, 'f_changed'=>now()), 'f_id='.$oldFileID);
 
                             // empty temp images directory
-                            $thumbnails = returnFileListAsArray(PHPWCMS_THUMB, 'jpg,jpeg,gif,png');
+                            if ($file_ext === 'svg') {
+                                $filter_by_ext  = 'svg';
+                            } elseif (in_array($file_ext, array('jpg', 'jpeg', 'png', 'gif', 'webp'))) {
+                                $filter_by_ext = $file_ext;
+                                if (PHPWCMS_WEBP) {
+                                    $filter_by_ext .= ',webp';
+                                }
+                            } else {
+                                $filter_by_ext = 'jpg';
+                                if (PHPWCMS_WEBP) {
+                                    $filter_by_ext .= ',webp';
+                                }
+                            }
+                            $thumbnails = returnFileListAsArray(PHPWCMS_THUMB, $filter_by_ext);
                             if(is_array($thumbnails) && count($thumbnails)) {
-
                                 foreach($thumbnails as $thumbnail) {
-
                                     @unlink(PHPWCMS_THUMB.$thumbnail['filename']);
-
                                 }
                             }
                         }

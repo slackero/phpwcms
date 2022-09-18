@@ -59,8 +59,8 @@ $plugin['first_of_month']   = gmmktime(0, 0, 0, $plugin['current_month'], 1, $pl
 $plugin['days_in_month']    = gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']       = date('W', $plugin['first_of_month']);
 $plugin['first_day']        = 0;
-$plugin['weekday']          = (intval(gmstrftime('%w', $plugin['first_of_month'])) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
-$plugin['this_date']        = html(ucfirst(gmstrftime('%B %Y', $plugin['first_of_month'])), false);
+$plugin['weekday']          = (intval(gmdate('w', $plugin['first_of_month'])) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
+$plugin['this_date']        = html(ucfirst(gmdate('F Y', $plugin['first_of_month'])), false);
 
 $plugin['location']         = decode_entities(MODULE_HREF);
 $plugin['loc_this_month']   = $plugin['location'].'&calendardate='.date('m-Y');
@@ -77,7 +77,7 @@ if($plugin['current_month'] == 1) {
 } else {
     $plugin['loc_prev_month'] .= ($plugin['current_month']-1).'-'.$plugin['current_year'];
 }
-$plugin['week_add']         = intval(gmstrftime('%W', gmmktime(0, 0, 0, 1, 1, $plugin['current_year']))) ? 0 : 1;
+$plugin['week_add']         = intval(gmdate('W', gmmktime(0, 0, 0, 1, 1, $plugin['current_year']))) ? 0 : 1;
 
 // paginate and search form processing
 if(isset($_POST['do_pagination'])) {
@@ -327,14 +327,14 @@ echo $plugin['this_date'];
 
 echo '</th><th>&nbsp;</th></tr>';
 
-$_entry['rowspan']  = gmstrftime('%w', $plugin['first_of_month']);
-$_entry['rowspan']  = 8 - ($_entry['rowspan']==0 ? 7 : $_entry['rowspan']);
+$_entry['rowspan']  = (int) gmdate('w', $plugin['first_of_month']);
+$_entry['rowspan']  = 8 - (!$_entry['rowspan'] ? 7 : $_entry['rowspan']);
 $_entry['c']        = 0;
 
 for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x'] <= $plugin['days_in_month']; $_entry['x']++, $_entry['timestamp']+=86400) {
 
-    $_entry['day_num'] = gmstrftime('%w', $_entry['timestamp']);
-    $_entry['day_num'] = $_entry['day_num']==0 ? 7 : $_entry['day_num'];
+    $_entry['day_num'] = (int) gmdate('w', $_entry['timestamp']);
+    $_entry['day_num'] = !$_entry['day_num'] ? 7 : $_entry['day_num'];
 
     echo '<tr';
     if($_entry['x'] % 2) {
@@ -342,7 +342,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
     }
     echo '>'.LF;
 
-    if($_entry['day_num'] == 1) {
+    if($_entry['day_num'] === 1) {
 
         if($plugin['days_in_month'] - $_entry['x'] < 7) {
             $_entry['rowspan'] = (int)$plugin['days_in_month'] - $_entry['x'] + 1;
@@ -360,7 +360,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
         echo ($_entry['c'] % 2) ? '' : ' calendarWeekAlt';
         echo '">';
 
-        $_entry['wno'] = intval(gmstrftime('%W', $_entry['timestamp'])) + $plugin['week_add'];
+        $_entry['wno'] = intval(gmdate('W', $_entry['timestamp'])) + $plugin['week_add'];
         if($_entry['wno'] == 53) {
             $_entry['wno'] = 1;
         }
@@ -375,7 +375,7 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 
     $_entry['class'] = ($_entry['day_num'] == 7 || $_entry['x'] == $plugin['days_in_month']) ? ' calendarSunday' : '';
 
-    echo '<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmstrftime('%a', $_entry['timestamp']), false).'</td>';
+    echo '<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmdate('D', $_entry['timestamp']), false).'</td>';
     echo '<td class="calendarData'.$_entry['class'].'">';
 
     // run available dates for current day

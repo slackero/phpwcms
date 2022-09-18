@@ -1213,7 +1213,7 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
                             $img_zoom_width     = $zoominfo[1];
                             $img_zoom_height    = $zoominfo[2];
 
-                            $article["article_image"]["poplink"] = 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $article["article_image"]['list_name']);
+                            $article["article_image"]["poplink"] = PHPWCMS_URL . 'image_zoom.php?'.getClickZoomImageParameter($zoominfo['src'], $zoominfo[3], $article["article_image"]['list_name']);
 
                             if(!empty($caption[2][0])) {
                                 $open_link = $caption[2][0];
@@ -1883,7 +1883,6 @@ function get_related_articles($keywords, $current_article_id, $template_default,
         foreach($keywordarray as $value) {
                 //build where keyword = blabla
                 $where .= ($where) ? " OR " : "";
-                //replace every "'" to "''" for security reasons with _dbEscape()
                 $where .= "article_keyword LIKE "._dbEscape($value, true, '%', '%');
         }
         $limit = ($max_cnt_links) ? " LIMIT ".$max_cnt_links : "";
@@ -3576,7 +3575,7 @@ function getFileDetails($file) {
 }
 
 function getClickZoomImageParameter($src='', $size='', $name='') {
-    return 'show='.rawurlencode(base64_encode(serialize(array('src' => $src, 'attr' => $size, 'name' => $name))));
+    return 'show='.rawurlencode(base64_encode(json_encode(array('src' => $src, 'attr' => $size, 'name' => $name))));
 }
 
 function getPageInfoGetValue($type='string') {
@@ -4562,12 +4561,10 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 function init_markdown() {
 
     if(!isset($GLOBALS['phpwcms']['parsedown_class'])) {
-        require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown/Parsedown.php');
         if (empty($GLOBALS['phpwcms']['markdown_extra'])) {
-            $GLOBALS['phpwcms']['parsedown_class'] = new Parsedown();
+            $GLOBALS['phpwcms']['parsedown_class'] = new \Erusev\Parsedown\Parsedown();
         } else {
-            require_once(PHPWCMS_ROOT . '/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $GLOBALS['phpwcms']['parsedown_class'] = new ParsedownExtra();
+            $GLOBALS['phpwcms']['parsedown_class'] = new \Erusev\ParsedownExtra\ParsedownExtra();
         }
     }
 
@@ -4579,8 +4576,7 @@ function init_markdown() {
 function init_textile() {
 
     if(!isset($GLOBALS['phpwcms']['textile_class'])) {
-        require_once(PHPWCMS_ROOT . '/include/inc_ext/classTextile.php');
-        $GLOBALS['phpwcms']['textile_class'] = new Textile();
+        $GLOBALS['phpwcms']['textile_class'] = new \Netcarver\Textile\Parser();
     }
 
 }

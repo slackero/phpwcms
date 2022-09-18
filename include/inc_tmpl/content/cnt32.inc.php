@@ -166,14 +166,24 @@ if(is_array($tmpllist) && count($tmpllist)) {
 			if($value['custom_field_items']):
 				foreach($value['custom_field_items'] as $custom_field_key => $custom_field):
 
-					// send fields not defined as hidden values, should ensure not loosing values
-					if(!isset($tab_fieldgroup['fields'][$custom_field]) && isset($value['custom_fields'][$custom_field])) {
-						// do not store if the value is an empty string
-						if($value['custom_fields'][$custom_field] !== '') {
-							$custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
-						}
-						continue;
-					}
+                    // send fields not defined as hidden values, should ensure not loosing values
+                    if(isset($value['custom_fields'][$custom_field])) {
+                        if(!isset($tab_fieldgroup['fields'][$custom_field])) {
+                            // do not store if the value is an empty string
+                            if(is_array($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field]) {
+                                $custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html(serialize($value['custom_fields'][$custom_field])).'" />';
+                            } elseif($value['custom_fields'][$custom_field] !== '') {
+                                $custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
+                            }
+                            continue;
+                        } elseif(is_string($value['custom_fields'][$custom_field]) && substr($value['custom_fields'][$custom_field], 0, 2) === 'a:') {
+                            $_unserialze = @unserialize($value['custom_fields'][$custom_field]);
+                            if ($_unserialze === false) {
+                                continue;
+                            }
+                            $value['custom_fields'][$custom_field] = $_unserialze;
+                        }
+                    }
 
 					$custom_field_placeholder = isset($tab_fieldgroup['fields'][$custom_field]['placeholder']) && $tab_fieldgroup['fields'][$custom_field]['placeholder'] !== '' ? ' placeholder="'.html($tab_fieldgroup['fields'][$custom_field]['placeholder']).'"' : '';
 ?>
