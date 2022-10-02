@@ -76,23 +76,45 @@ function html_despecialchars($h = '') {
     return $h;
 }
 
-function list_country($c, $lang = '') {
+/**
+ * Returns country as <option> list
+ *
+ * @param string $default
+ * @param string $lang
+ * @param array $prepend
+ *
+ * @return string
+ */
+function list_country($default = '', $lang = '', $prepend = []) {
     //Create the country list menu for forms with the given value selected
-    //$c = selected value
-    if (empty($c)) {
-        $c = strtoupper($GLOBALS['phpwcms']['default_lang']);
+    if (empty($default)) {
+        $default = strtoupper($GLOBALS['phpwcms']['default_lang']);
     }
     $country_list = '';
     $country = getCountry($lang);
-    foreach ($country as $key => $value) {
-        $country_list .= '  <option value="' . html($key) . '"';
-        if ($key == $c) {
-            $country_list .= ' selected="selected"';
+    $prepend_sorted = [];
+    if ($prepend) {
+        foreach ($prepend as $value) {
+            $prepend_sorted[$value] = '';
         }
-        $country_list .= '>' . html($value) . '</option>' . LF;
     }
-
-    return $country_list;
+    foreach ($country as $key => $value) {
+        $country_option = '<option value="'.html($key).'"';
+        if ($key === $default) {
+            $country_option .= ' selected="selected"';
+        }
+        $country_option .= '>'.html($value).'</option>';
+        if (isset($prepend_sorted[$key])) {
+            $prepend_sorted[$key] = $country_option;
+        } else {
+            $country_list .= $country_option;
+        }
+    }
+    $prepend_sorted = implode('', $prepend_sorted);
+    if ($prepend_sorted) {
+        $prepend_sorted .= '<option disabled="disabled">──────────</option>';
+    }
+    return $prepend_sorted . $country_list;
 }
 
 function getCountry($lang = '', $get = 'COUNTRY_ARRAY') {

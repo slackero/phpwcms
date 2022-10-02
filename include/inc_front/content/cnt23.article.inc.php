@@ -710,22 +710,19 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     // check which language should be used and
                     // which country should be set as default
                     $form_value = parse_ini_str($cnt_form["fields"][$key]['value'], false);
-                    if(isset($form_value['lang'])) {
-                        $form_value['lang'] = preg_replace('/[^a-zA-Z]/', '', $form_value['lang']);
-                    } else {
-                        $form_value['lang'] = $phpwcms['default_lang'];
-                    }
+                    $form_value['lang'] = isset($form_value['lang']) ? preg_replace('/[^a-zA-Z]/', '', $form_value['lang']) : $phpwcms['default_lang'];
                     if(isset($form_value['default'])) {
                         $form_value['default'] = preg_replace('/[^a-zA-Z]/', '', $form_value['default']);
                     } else {
                         $form_value['default'] = '-';
                     }
+                    $form_value['prepend'] = empty($form_value['prepend']) ? array() : convertStringToArray(strtoupper($form_value['prepend']));
 
                     $option_value = substr( empty($POST_val[$POST_name]) ? $form_value['default'] : $POST_val[$POST_name] , 0, 2);
                     if(!empty($form_value['first'])) {
-                        $form_field  .= '<option value="">' . html_specialchars($form_value['first']) . '</option>' . LF;
+                        $form_field .= '<option value="" disabled="disabled">' . html_specialchars($form_value['first']) . '</option>';
                     }
-                    $form_field  .= list_country($option_value, $form_value['lang']);
+                    $form_field .= list_country($option_value, $form_value['lang'], $form_value['prepend']);
 
 
                 // build value/option select menu
