@@ -957,6 +957,7 @@ $BL['be_cnt_field']                     = array(
 
 $BL['be_cnt_optin']                     = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']               = 'activate Double Opt-In according to <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">General Data Protection Regulation</a> (GDPR)';
+$BL['be_cnt_novalidate']                = 'Novalidate';
 
 $BL['be_cnt_access']                    = 'access';
 $BL['be_cnt_activated']                 = 'activated';

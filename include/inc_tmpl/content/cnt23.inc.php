@@ -44,24 +44,24 @@ function setFieldValue(el) {
 
 $BL['be_cnt_field'] = array_merge(
     array(
-        "text" => 'text (single-line)',
-        "email" => 'email',
-        "textarea" => 'text (multi-line)',
-        "hidden" => 'hidden',
-        "password" => 'password',
-        "select" => 'select menu',
-        "list" => 'list menu',
-        "checkbox" => 'checkbox',
-        "checkboxcopy" => 'checkbox (email copy on/off)',
-        "radio" => 'radio button',
-        "upload" => 'file',
-        "submit" => 'send button',
-        "reset" => 'reset button',
-        "break" => 'break',
-        "breaktext" => 'break text',
-        "special" => 'text (spezial)',
-        "captchaimg" => 'captcha image',
-        "captcha" => 'captcha code',
+        'text' => 'text (single-line)',
+        'email' => 'email',
+        'textarea' => 'text (multi-line)',
+        'hidden' => 'hidden',
+        'password' => 'password',
+        'select' => 'select menu',
+        'list' => 'list menu',
+        'checkbox' => 'checkbox',
+        'checkboxcopy' => 'checkbox (email copy on/off)',
+        'radio' => 'radio button',
+        'upload' => 'file',
+        'submit' => 'send button',
+        'reset' => 'reset button',
+        'break' => 'break',
+        'breaktext' => 'break text',
+        'special' => 'text (spezial)',
+        'captchaimg' => 'captcha image',
+        'captcha' => 'captcha code',
         'newsletter' => 'newsletter',
         'selectemail' => 'select email menu',
         'country' => 'select country menu',
@@ -96,18 +96,18 @@ $content['form'] = array_merge(
         'error_class' => 'error',
         'cform_reqmark' => '*',
         'target' => '',
-        "copyto" => '',
-        "sendcopy" => 0,
-        "onsuccess_redirect" => 0,
-        "onsuccess" => '',
-        "onerror_redirect" => 0,
-        "onerror" => '',
-        "template_format" => 0,
-        "template" => '',
-        "template_format_copy" => 0,
-        "template_copy" => '',
+        'copyto' => '',
+        'sendcopy' => 0,
+        'onsuccess_redirect' => 0,
+        'onsuccess' => '',
+        'onerror_redirect' => 0,
+        'onerror' => '',
+        'template_format' => 0,
+        'template' => '',
+        'template_format_copy' => 0,
+        'template_copy' => '',
         'template_equal' => 1,
-        "customform" => '',
+        'customform' => '',
         'sender' => '',
         'sendertype' => 'email',
         'sendername' => '',
@@ -134,73 +134,74 @@ $content['form'] = array_merge(
         'onsuccess_redirect_doubleoptin' => 0,
         'onerror_redirect_doubleoptin' => 0,
         'direct_download' => 0,
-        'direct_download_apikey' => $content['direct_download_apikey']
+        'direct_download_apikey' => $content['direct_download_apikey'],
+        'novalidate' => 0,
     ),
     $content['form']
 );
 
 $content['profile_fields'] = array(
-    "title" => $BL['be_profile_label_title'],
-    "firstname" => $BL['be_profile_label_firstname'],
-    "lastname" => $BL['be_profile_label_name'],
-    "company" => $BL['be_profile_label_company'],
-    "street" => $BL['be_profile_label_street'],
-    "add" => $BL['be_profile_label_add'],
-    "city" => $BL['be_profile_label_city'],
-    "zip" => $BL['be_profile_label_zip'],
-    "region" => $BL['be_profile_label_state'],
-    "country" => $BL['be_profile_label_country'],
-    "fon" => $BL['be_profile_label_phone'],
-    "fax" => $BL['be_profile_label_fax'],
-    "mobile" => $BL['be_profile_label_cellphone'],
-    "signature" => $BL['be_profile_label_signature'],
+    'title' => $BL['be_profile_label_title'],
+    'firstname' => $BL['be_profile_label_firstname'],
+    'lastname' => $BL['be_profile_label_name'],
+    'company' => $BL['be_profile_label_company'],
+    'street' => $BL['be_profile_label_street'],
+    'add' => $BL['be_profile_label_add'],
+    'city' => $BL['be_profile_label_city'],
+    'zip' => $BL['be_profile_label_zip'],
+    'region' => $BL['be_profile_label_state'],
+    'country' => $BL['be_profile_label_country'],
+    'fon' => $BL['be_profile_label_phone'],
+    'fax' => $BL['be_profile_label_fax'],
+    'mobile' => $BL['be_profile_label_cellphone'],
+    'signature' => $BL['be_profile_label_signature'],
     'notes' => $BL['be_profile_label_notes'],
-    "prof" => $BL['be_profile_label_profession'],
-    "newsletter" => $BL['be_profile_label_newsletter'],
-    "website" => $BL['be_profile_label_website'],
+    'prof' => $BL['be_profile_label_profession'],
+    'newsletter' => $BL['be_profile_label_newsletter'],
+    'website' => $BL['be_profile_label_website'],
     'gender' => $BL['be_profile_label_gender'],
     'birthday' => $BL['be_profile_label_birthday'],
-    "varchar1" => $BL['be_cnt_field']['text'] . ' 1',
-    "varchar2" => $BL['be_cnt_field']['text'] . ' 2',
-    "varchar3" => $BL['be_cnt_field']['text'] . ' 3',
-    "varchar4" => $BL['be_cnt_field']['text'] . ' 4',
-    "varchar5" => $BL['be_cnt_field']['text'] . ' 5',
-    "text1" => $BL['be_cnt_field']['textarea'] . ' 1',
-    "text2" => $BL['be_cnt_field']['textarea'] . ' 2',
-    "text3" => $BL['be_cnt_field']['textarea'] . ' 3'
+    'varchar1' => $BL['be_cnt_field']['text'] . ' 1',
+    'varchar2' => $BL['be_cnt_field']['text'] . ' 2',
+    'varchar3' => $BL['be_cnt_field']['text'] . ' 3',
+    'varchar4' => $BL['be_cnt_field']['text'] . ' 4',
+    'varchar5' => $BL['be_cnt_field']['text'] . ' 5',
+    'text1' => $BL['be_cnt_field']['textarea'] . ' 1',
+    'text2' => $BL['be_cnt_field']['textarea'] . ' 2',
+    'text3' => $BL['be_cnt_field']['textarea'] . ' 3'
 );
 
 $content['profile_fields_varchar'] = array(
-    "title" => $BL['be_profile_label_title'],
-    "firstname" => $BL['be_profile_label_firstname'],
-    "lastname" => $BL['be_profile_label_name'],
-    "company" => $BL['be_profile_label_company'],
-    "street" => $BL['be_profile_label_street'],
-    "add" => $BL['be_profile_label_add'],
-    "city" => $BL['be_profile_label_city'],
-    "zip" => $BL['be_profile_label_zip'],
-    "region" => $BL['be_profile_label_state'],
-    "country" => $BL['be_profile_label_country'],
-    "fon" => $BL['be_profile_label_phone'],
-    "fax" => $BL['be_profile_label_fax'],
-    "mobile" => $BL['be_profile_label_cellphone'],
-    "email" => $BL['be_profile_label_email'],
-    "password" => $BL['be_cnt_field']['password'],
-    "signature" => $BL['be_profile_label_signature'],
-    "prof" => $BL['be_profile_label_profession'],
-    "website" => $BL['be_profile_label_website'],
+    'title' => $BL['be_profile_label_title'],
+    'firstname' => $BL['be_profile_label_firstname'],
+    'lastname' => $BL['be_profile_label_name'],
+    'company' => $BL['be_profile_label_company'],
+    'street' => $BL['be_profile_label_street'],
+    'add' => $BL['be_profile_label_add'],
+    'city' => $BL['be_profile_label_city'],
+    'zip' => $BL['be_profile_label_zip'],
+    'region' => $BL['be_profile_label_state'],
+    'country' => $BL['be_profile_label_country'],
+    'fon' => $BL['be_profile_label_phone'],
+    'fax' => $BL['be_profile_label_fax'],
+    'mobile' => $BL['be_profile_label_cellphone'],
+    'email' => $BL['be_profile_label_email'],
+    'password' => $BL['be_cnt_field']['password'],
+    'signature' => $BL['be_profile_label_signature'],
+    'prof' => $BL['be_profile_label_profession'],
+    'website' => $BL['be_profile_label_website'],
     'gender' => $BL['be_profile_label_gender'],
-    "varchar1" => $BL['be_cnt_field']['text'] . ' 1',
-    "varchar2" => $BL['be_cnt_field']['text'] . ' 2',
-    "varchar3" => $BL['be_cnt_field']['text'] . ' 3',
-    "varchar4" => $BL['be_cnt_field']['text'] . ' 4',
-    "varchar5" => $BL['be_cnt_field']['text'] . ' 5'
+    'varchar1' => $BL['be_cnt_field']['text'] . ' 1',
+    'varchar2' => $BL['be_cnt_field']['text'] . ' 2',
+    'varchar3' => $BL['be_cnt_field']['text'] . ' 3',
+    'varchar4' => $BL['be_cnt_field']['text'] . ' 4',
+    'varchar5' => $BL['be_cnt_field']['text'] . ' 5'
 );
 $content['profile_fields_longtext'] = array(
     'notes' => $BL['be_profile_label_notes'],
-    "text1" => $BL['be_cnt_field']['textarea'] . ' 1',
-    "text2" => $BL['be_cnt_field']['textarea'] . ' 2',
-    "text3" => $BL['be_cnt_field']['textarea'] . ' 3'
+    'text1' => $BL['be_cnt_field']['textarea'] . ' 1',
+    'text2' => $BL['be_cnt_field']['textarea'] . ' 2',
+    'text3' => $BL['be_cnt_field']['textarea'] . ' 3'
 );
 
 $for_select = '';
@@ -804,10 +805,18 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
             <tr>
                 <td colspan="2" class="chatlist" align="right"><?php echo $BL['be_cnt_function_validate'] ?>:&nbsp;</td>
                 <td><input type="text" name="cform_function_validate" class="width120" value="<?php echo html($content['form']["cform_function_validate"]) ?>"/></td>
-                <td class="chatlist nowrap" align="right" class="nowrap">
+                <td class="chatlist nowrap" align="right">
+                    <label for="cform_novalidate"><?php echo $BL['be_cnt_novalidate']; ?></label>:&nbsp;
+                </td>
+                <td colspan="4">
+                    <input type="checkbox" name="cform_novalidate" id="cform_novalidate" value="1"<?php is_checked(1, $content['form']["novalidate"]) ?> />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="chatlist nowrap" align="right">
                     <?php echo $BL['be_article_cnt_anchor'] . ' &ndash; ' . $BL['be_cnt_target']; ?>:<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> />
                 </td>
-                <td colspan="4"><input type="text" name="cform_anchor_name" class="width120" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>
+                <td><input type="text" name="cform_anchor_name" class="width120" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>"/></td>
             </tr>
             <tr>
                 <td colspan="8"><img src="img/leer.gif" alt="" width="1" height="3"/></td>

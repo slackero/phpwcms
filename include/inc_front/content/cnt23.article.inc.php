@@ -2498,7 +2498,11 @@ if($form_cnt) {
     if($cnt_form['is_enctype']) {
         $CNT_TMP .= 'enctype="multipart/form-data" ';
     }
-    $CNT_TMP .= 'method="post">';
+    $CNT_TMP .= 'method="post" role="form"';
+    if(!empty($cnt_form['novalidate'])) {
+        $CNT_TMP .= ' novalidate';
+    }
+    $CNT_TMP .= '>';
 
 
     if($cnt_form['labelpos'] == 2) {

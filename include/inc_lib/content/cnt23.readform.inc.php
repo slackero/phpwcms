@@ -150,6 +150,7 @@ $content['form']["ssl"] = empty($_POST["cform_ssl"]) ? 0 : 1;
 $content['form']["anchor_name"] = clean_slweg($_POST["cform_anchor_name"]);
 $content['form']["direct_download"] = empty($_POST["cform_direct_download"]) ? 0 : 1;
 $content['form']["direct_download_apikey"] = clean_slweg($_POST["direct_download_apikey"]);
+$content['form']["novalidate"] = empty($_POST["cform_novalidate"]) ? 0 : 1;
 
 //$field_counter = 0;
 $content["form"]["fields"] = array();
