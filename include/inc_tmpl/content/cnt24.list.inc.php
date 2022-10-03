@@ -16,17 +16,6 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Alias ID
-<<<<<<< HEAD
-echo "<div class=\"col-sm-auto\">";
-if(!empty($row["acontent_title"])){
-    echo $row["acontent_title"]."</br>";
-}
-if(!empty($row["acontent_subtitle"])){
-    echo $row["acontent_subtitle"]."</br>";
-}
-echo $BL['be_alias_ID'].': ';
-=======
->>>>>>> og-final
 $content["alias"] = @unserialize($row["acontent_form"]);
 $content['alias_link'] = '';
 $content['alias_list_title'] = array();
