@@ -2500,7 +2500,11 @@ if($form_cnt) {
         $CNT_TMP .= 'enctype="multipart/form-data" ';
     }
     //add data-toggle
-    $CNT_TMP .= 'method="post" data-toggle="validator" role="form">';
+    $CNT_TMP .= 'method="post" data-toggle="validator" role="form"';
+    if(!empty($cnt_form['novalidate'])) {
+        $CNT_TMP .= ' novalidate';
+    }
+    $CNT_TMP .= '>';
     //end
 
 

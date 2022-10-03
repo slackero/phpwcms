@@ -29,13 +29,13 @@ function initMathSpam() {
     $BL['be_cnt_field']['calculation'] . '";
 }
 
-$("#cform_field_type").on("change", function() {
-    if(this.value === "mathspam") {
-        initMathSpam();
-    }
-});
-
 $(function() {
+    $("#cform_field_type").on("change", function() {
+        if(this.value === "mathspam") {
+            initMathSpam();
+        }
+    });
+
     $("ul.dropable-list").sortable({
         group: "no-drop",
         handle: "em.handle",
@@ -145,7 +145,8 @@ $content['form'] = array_merge(
         'onsuccess_redirect_doubleoptin' => 0,
         'onerror_redirect_doubleoptin' => 0,
         'direct_download' => 0,
-        'direct_download_apikey' => $content['direct_download_apikey']
+        'direct_download_apikey' => $content['direct_download_apikey'],
+        'novalidate' => 0,
     ),
 $content['form']
 );
@@ -618,68 +619,68 @@ echo $subject_option;
 <div class="form-group align-items-center form-row">
   <label for="cform_labelpos" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_basis'] ?></label>
   <div class="col">
-		<?php
-		if(!isset($content['form']["labelpos"])) {
-				$content['form']["labelpos"] = 3;
-				// 0 = default = in front of form field
-				// 1 = above form field
-				// 2 = Custom
-				// 3 = modern DIV based
-		}
-		?>
-    <div class="form-check form-check-inline mr-sm-4">
-			<input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos3" value="3"<?php echo is_checked(3, $content['form']["labelpos"], 0, 1) ?> />
-      <label class="form-check-label" for="cform_labelpos3">
-			<img src="img/symbole/label_3.svg" width="72" height="22" alt="" /></label>
-		</div>
+      <?php
+      if(!isset($content['form']["labelpos"])) {
+          $content['form']["labelpos"] = 3;
+          // 0 = default = in front of form field
+          // 1 = above form field
+          // 2 = Custom
+          // 3 = modern DIV based
+      }
+      ?>
       <div class="form-check form-check-inline mr-sm-4">
-			<input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos0" value="0"<?php echo is_checked(0, $content['form']["labelpos"], 0, 1) ?> />
-      <label class="form-check-label" for="cform_labelpos0">
-			<img src="img/symbole/label_0.svg" width="72" height="22" alt="" /></label>
-		</div>
-		  <div class="form-check form-check-inline mr-sm-4">
-			<input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos1" value="1"<?php echo is_checked(1, $content['form']["labelpos"], 0, 1) ?> />
-      <label class="form-check-label" for="cform_labelpos1">
-			<img src="img/symbole/label_1.svg" width="72" height="22" alt="" /></label>
-		</div>
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos2" value="2"<?php echo is_checked(2, $content['form']["labelpos"], 0, 1) ?> />
-			<label class="form-check-label" for="cform_labelpos2">
-			<img src="img/symbole/label_2.svg" width="72" height="22" alt="" /></label>
-		</div>
+          <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos3" value="3"<?php echo is_checked(3, $content['form']["labelpos"], 0, 1) ?> />
+          <label class="form-check-label" for="cform_labelpos3"><img src="img/symbole/label_3.svg" width="72" height="22" alt=""/></label>
+      </div>
+      <div class="form-check form-check-inline mr-sm-4">
+          <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos0" value="0"<?php echo is_checked(0, $content['form']["labelpos"], 0, 1) ?> />
+          <label class="form-check-label" for="cform_labelpos0"><img src="img/symbole/label_0.svg" width="72" height="22" alt=""/></label>
+      </div>
+      <div class="form-check form-check-inline mr-sm-4">
+          <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos1" value="1"<?php echo is_checked(1, $content['form']["labelpos"], 0, 1) ?> />
+          <label class="form-check-label" for="cform_labelpos1"><img src="img/symbole/label_1.svg" width="72" height="22" alt=""/></label>
+      </div>
+      <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="cform_labelpos" id="cform_labelpos2" value="2"<?php echo is_checked(2, $content['form']["labelpos"], 0, 1) ?> />
+          <label class="form-check-label" for="cform_labelpos2"><img src="img/symbole/label_2.svg" width="72" height="22" alt=""/></label>
+      </div>
   </div>
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_form_class'] ?></label>
+  <label for="cform_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_form_class'] ?></label>
   <div class="col-sm-4">
-    <input type="text" name="cform_class" class="form-control form-control-sm" value="<?php echo html($content['form']["class"]) ?>" />
+    <input type="text" name="cform_class" id="cform_class" class="form-control form-control-sm" value="<?php echo html($content['form']["class"]) ?>" />
   </div>
-  <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_label_wrap'] ?></label>
+  <label for="cform_label_wrap" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_label_wrap'] ?></label>
   <div class="col-sm-4">
-    <input type="text" name="cform_label_wrap" class="form-control form-control-sm" value="<?php echo html($content['form']["label_wrap"]) ?>" />
-  </div>
-</div>
-
-<div class="form-group align-items-center form-row">
-  <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_req_mark'] ?></label>
-  <div class="col-sm-4">
-    <input type="text" name="cform_reqmark" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_reqmark"]) ?>" />
-  </div>
-  <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_error_class'] ?></label>
-  <div class="col-sm-4">
-    <input type="text" name="cform_error_class" class="form-control form-control-sm" value="<?php echo html($content['form']["error_class"]) ?>" />
+    <input type="text" name="cform_label_wrap" id="cform_label_wrap" class="form-control form-control-sm" value="<?php echo html($content['form']["label_wrap"]) ?>" />
   </div>
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_function_validate'] ?></label>
+    <label for="cform_reqmark" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_req_mark'] ?></label>
+    <div class="col-sm-4">
+        <input type="text" name="cform_reqmark" id="cform_reqmark" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_reqmark"]) ?>" />
+    </div>
+    <label for="cform_error_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_error_class'] ?></label>
+    <div class="col-sm-2">
+        <input type="text" name="cform_error_class" id="cform_error_class" class="form-control form-control-sm" value="<?php echo html($content['form']["error_class"]) ?>" />
+    </div>
+    <div class="form-check col-sm-2 pl-sm-5">
+        <input type="checkbox" name="cform_novalidate" id="cform_novalidate" class="form-check-input" value="1"<?php is_checked(1, $content['form']["novalidate"]) ?> />
+        <label for="cform_novalidate" class="form-check-label"><strong><?php echo $BL['be_cnt_novalidate']; ?></strong></label>
+    </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="cform_function_validate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_function_validate'] ?></label>
   <div class="col-sm-4">
-    <input type="text" name="cform_function_validate" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_function_validate"]) ?>" />
+    <input type="text" name="cform_function_validate" id="cform_function_validate" class="form-control form-control-sm" value="<?php echo html($content['form']["cform_function_validate"]) ?>" />
   </div>
-  <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_anchor'].' &ndash; '.$BL['be_cnt_target']; ?>&nbsp;<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> /></label>
+  <label for="cform_anchor_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_anchor'].' &ndash; '.$BL['be_cnt_target']; ?>&nbsp;<input type="checkbox" name="cform_anchor_off" id="cform_anchor_off" value="0"<?php is_checked(0, $content['form']["anchor_off"]) ?> /></label>
   <div class="col-sm-4">
-    <input type="text" name="cform_anchor_name" class="form-control form-control-sm" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>" />
+    <input type="text" name="cform_anchor_name" id="cform_anchor_name" class="form-control form-control-sm" value="<?php echo html($content['form']["anchor_name"]) ?>" placeholder="jumpForm<?php echo empty($content["id"]) ? '' : $content["id"]; ?>" />
   </div>
 </div>
 
