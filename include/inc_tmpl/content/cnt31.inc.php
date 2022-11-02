@@ -592,7 +592,7 @@ if($value['custom_field_items']):
         </div>
       </div>
 <?php
-          if($cnt_fieldgroup['fields'][$custom_field]['hr']):?><hr><?php endif;
+          if(!empty($cnt_fieldgroup['fields'][$custom_field]['hr'])):?><hr><?php endif;
     endforeach;
 endif;
 ?>
@@ -914,7 +914,7 @@ function addNewImage(where) {
 <?php   endif; ?>
 
         new_entry += '</div><'+'/div>';
-        <?php if($tab_fieldgroup['fields'][$custom_field]['hr']):?>
+        <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['hr'])):?>
         new_entry += '<hr>';
         <?php endif; ?>
 
