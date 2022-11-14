@@ -59,7 +59,10 @@ function i18n_get_file_open_text() {
 // substitutes a single token
 function i18n_substitute_text_token($token) {
 	global $i18n_tokens;
-	$a = trim($token[1]);
+	$a = trim(isset($token[1]) ? $token[1] : $token);
+    if($a === '') {
+        return '';
+    }
 	if(isset($i18n_tokens[$a])) {
 		return $i18n_tokens[$a];
 	} else {

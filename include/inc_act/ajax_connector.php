@@ -42,8 +42,8 @@ if(empty($value)) {
 }
 
 // do charset conversions for value
-if(PHPWCMS_CHARSET != 'utf-8') {
-    $value = @mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
+if(PHPWCMS_CHARSET !== 'utf-8') {
+    $value = @mb_convert_encoding($value, PHPWCMS_CHARSET, 'utf-8');
 }
 
 $data = array();
@@ -52,42 +52,27 @@ switch($action) {
 
     case 'category':
         $where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
-        $where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
+        $where .= "cat_name LIKE '%" . _dbEscape(preg_replace('/[^\w\-\/]/', '', $value), false) . "%'";
         $result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
         if(isset($result[0])) {
-
-            if($jquery) {
-
-                $data = $result;
-
-            } else {
-
-                foreach($result as $value) {
-                    $data[] = utf8_encode($value['cat_name']);
-                }
-
+            foreach($result as $value) {
+                $value = utf8_encode($value['cat_name']);
+                $data[] = $jquery ? array('cat_name' => $value) : $value;
             }
         }
         break;
 
     case 'newstags':
         $where  = "cat_status=1 AND cat_type='news' AND ";
-        $where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\- ]/', '', $value), false ) . "%'";
+        $where .= "SUBSTRING(cat_name, 1, 5) != '*CSS-' AND ";
+        $where .= "cat_name LIKE '%" . _dbEscape(preg_replace('/[^\w\-\/]/', '', $value), false) . "%'";
         $result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
         if(isset($result[0])) {
-
-            if($jquery) {
-
-                $data = $result;
-
-            } else {
-
-                foreach($result as $value) {
-                    $data[] = utf8_encode($value['cat_name']);
-                }
-
+            foreach($result as $value) {
+                $value = utf8_encode($value['cat_name']);
+                $data[] = $jquery ? array('cat_name' => $value) : $value;
             }
         }
         break;
