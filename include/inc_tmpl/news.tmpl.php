@@ -193,11 +193,12 @@ $(function(){
     selectedValuesProp: 'cat_name',
     searchObjProps: "cat_name",
     queryParam: 'value',
-    extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
+    extraParams: '&method=json&action=newstags&<?php echo get_token_get_string(); ?>',
     startText: '',
     preFill: $("#cnt_category").val(),
     neverSubmit: true,
-    asHtmlID: 'keyword-autosuggest'
+    asHtmlID: 'keyword-autosuggest',
+    emptyText: '<?php echo $BL['be_cnt_noresult']; ?>'
   });
 
   $('#newsform').submit(function(event){
