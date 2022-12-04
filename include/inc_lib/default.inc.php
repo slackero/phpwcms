@@ -969,10 +969,10 @@ function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
     $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
-    if (empty($GLOBALS['phpwcms']['session.cookie_samesite']) && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
-        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
-    } else {
+    if(isset($GLOBALS['phpwcms']['session.cookie_samesite'])) {
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = $GLOBALS['phpwcms']['session.cookie_samesite'];
+    } elseif(empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
+        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
 
