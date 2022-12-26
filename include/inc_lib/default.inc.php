@@ -982,10 +982,10 @@ function _initSession() {
     $GLOBALS['cmsgo']['session_cookie_params']['domain'] = $GLOBALS['cmsgo']['parse_url']['host'];
     $GLOBALS['cmsgo']['session_cookie_params']['path'] = CMSGO_BASEPATH;
     $GLOBALS['cmsgo']['session_cookie_params']['secure'] = CMSGO_SSL;
-    if (empty($GLOBALS['cmsgo']['session.cookie_samesite']) && empty($GLOBALS['cmsgo']['session_cookie_params']['samesite'])) {
-        $GLOBALS['cmsgo']['session_cookie_params']['samesite'] = CMSGO_SSL ? 'Lax' : 'None';
-    } else {
+    if(isset($GLOBALS['cmsgo']['session.cookie_samesite'])) {
         $GLOBALS['cmsgo']['session_cookie_params']['samesite'] = $GLOBALS['cmsgo']['session.cookie_samesite'];
+    } elseif(empty($GLOBALS['cmsgo']['session_cookie_params']['samesite'])) {
+        $GLOBALS['cmsgo']['session_cookie_params']['samesite'] = CMSGO_SSL ? 'Lax' : 'None';
     }
     @session_set_cookie_params($GLOBALS['cmsgo']['session_cookie_params']);
 
