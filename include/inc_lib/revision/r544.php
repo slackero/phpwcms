@@ -62,9 +62,9 @@ function cmsgo_revision_r544() {
     }
 
     // Add column group_sys for adding Sysrecords to user groups
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."cmsgo_usergroup LIKE 'group_syskey '");
+    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."cmsgo_usergroup LIKE 'group_syskey'");
     if(empty($result)) {
-        if($result = _dbQuery("ALTER TABLE ".DB_PREPEND."cmsgo_usergroup ADD group_syskey VARCHAR(10) NOT NULL AFTER `group_active`", 'ALTER')) {
+        if(_dbQuery("ALTER TABLE ".DB_PREPEND."cmsgo_usergroup ADD group_syskey VARCHAR(10) NOT NULL AFTER `group_active`", 'ALTER')) {
             //now we add new sys groups to cmsgo_usergroup
             //first we get all admin users and prepare insert value
             $adminusers = _dbQuery('SELECT `usr_id` FROM `'.DB_PREPEND.'cmsgo_user` WHERE `usr_admin` = 1');
@@ -78,16 +78,40 @@ function cmsgo_revision_r544() {
             }
             //basic data for sys group
             $data = array(
-                    'group_name'         => 'SYSGROUP',
-                    'group_member'         => $group_member ,
-                    'group_value'      => '',
-                    'group_active'       => 1,
-                    'group_trash'       => 0,
-                    'group_syskey'      => ''
+                'group_name' => 'SYSGROUP',
+                'group_member' => $group_member ,
+                'group_value' => '',
+                'group_active' => 1,
+                'group_trash' => 0,
+                'group_syskey' => ''
             );
 
             //array with all sys group values
-            $newgroupnames = array('artcent','artnew','artnews','module','adm','admlayout','admtempl','admuser','admugroup','admfc','admalias','admimagealias','admctptempl','admlink','profile','file','filecent','fileaction','fileupload','nl','nllist','nlrecip','nlabo');
+            $newgroupnames = array(
+                'artcent',
+                'artnew',
+                'artnews',
+                'module',
+                'adm',
+                'admlayout',
+                'admtempl',
+                'admuser',
+                'admugroup',
+                'admfc',
+                'admalias',
+                'admimagealias',
+                'admctptempl',
+                'admlink',
+                'profile',
+                'file',
+                'filecent',
+                'fileaction',
+                'fileupload',
+                'nl',
+                'nllist',
+                'nlrecip',
+                'nlabo'
+            );
 
             foreach ($newgroupnames as $groupname) {
                 //if sys group is not existing we add this new group
