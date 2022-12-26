@@ -8,11 +8,11 @@
     "require": {
         "algo26-matthias/idna-convert": "3.*",
         "enshrined/svg-sanitize": "^0.15.4",
-        "netcarver/textile": "v3.7.7",
+        "netcarver/textile": "v4.0.0",
         "erusev/parsedown": "^v2.0.0-beta-1",
         "erusev/parsedown-extra": "^v2.0.0-beta-1",
         "openpsa/universalfeedcreator": "^v1.8.4",
-        "phpmailer/phpmailer": "^6.5",
+        "phpmailer/phpmailer": "^v6.7.1",
         "phpoffice/phpspreadsheet": "^1.25.2",
         "simplepie/simplepie": "^1.7.0",
         "ext-intl": "*",
