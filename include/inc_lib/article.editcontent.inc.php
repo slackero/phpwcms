@@ -305,7 +305,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             'list_id' => intval($_POST["cimage_list_id"]),
             'list_width' => intval($_POST["cimage_list_width"]) ? intval($_POST["cimage_list_width"]) : '',
             'list_height' => intval($_POST["cimage_list_height"]) ? intval($_POST["cimage_list_height"]) : '',
-            'list_caption' => clean_slweg($_POST["cimage_list_caption"]),
+            'list_caption' => isset($_POST["cimage_list_caption"]) ? clean_slweg($_POST["cimage_list_caption"]) : '',
             'list_caption_suppress' => empty($_POST["cimage_list_caption_suppress"]) ? 0 : 1,
             'list_zoom' => empty($_POST["cimage_list_zoom"]) ? 0 : 1,
             'list_lightbox' => empty($_POST["cimage_list_lightbox"]) ? 0 : 1,
