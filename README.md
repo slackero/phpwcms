@@ -25,7 +25,7 @@ Link your browser to the related URL and follow the install instructions.
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.35-dev requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.36-dev requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 
 
