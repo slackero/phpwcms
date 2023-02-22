@@ -240,9 +240,7 @@ class NamePrep implements NamePrepInterface
      */
     private function getCombiningClass(int $char): int
     {
-        return isset($this->namePrepData->normalizeCombiningClasses[$char])
-            ? $this->namePrepData->normalizeCombiningClasses[$char]
-            : 0;
+        return $this->namePrepData->normalizeCombiningClasses[$char] ?? 0;
     }
 
     /**

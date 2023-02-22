@@ -63,12 +63,7 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
         // Copy all basic code points to output
         for ($i = 0; $i < $decodedLength; ++$i) {
             $test = $decoded[$i];
-            // Will match [-0-9a-zA-Z]
-            if ((0x2F < $test && $test < 0x40)
-                || (0x40 < $test && $test < 0x5B)
-                || (0x60 < $test && $test <= 0x7B)
-                || (0x2D == $test)
-            ) {
+            if (0x01 <= $test && $test <= 0x7f) {
                 $encoded .= chr($decoded[$i]);
                 $codeCount++;
             }
@@ -79,31 +74,38 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
 
         // Start with the prefix; copy it to output
         $encoded = self::punycodePrefix . $encoded;
-        // If we have basic code points in output, add an hyphen to the end
-        if ($codeCount) {
+        // If we have basic code points in output, add a hyphen to the end
+        if ($codeCount > 0) {
             $encoded .= '-';
         }
+
         // Now find and encode all non-basic code points
         $isFirst = true;
         $currentCode = self::initialN;
         $bias = self::initialBias;
         $delta = 0;
+
         while ($codeCount < $decodedLength) {
-            // Find the smallest code point >= the current code point and
-            // remember the last occurrence of it in the input
-            for ($i = 0, $nextCode = self::maxUcs; $i < $decodedLength; $i++) {
-                if ($decoded[$i] >= $currentCode && $decoded[$i] <= $nextCode) {
-                    $nextCode = $decoded[$i];
+            $nextCode = self::maxUcs;
+            // Find the next largest code point to $currentCode
+            foreach ($decoded as $nextLargestCandidate) {
+                if ($nextLargestCandidate >= $currentCode && $nextLargestCandidate <= $nextCode) {
+                    $nextCode = $nextLargestCandidate;
                 }
             }
-            $delta += ($nextCode - $currentCode) * ($codeCount + 1);
+
+            $codeCountPlusOne = $codeCount + 1;
+
+            $delta += ($nextCode - $currentCode) * $codeCountPlusOne;
             $currentCode = $nextCode;
 
             // Scan input again and encode all characters whose code point is $currentCode
             for ($i = 0; $i < $decodedLength; $i++) {
                 if ($decoded[$i] < $currentCode) {
                     $delta++;
-                } elseif ($decoded[$i] == $currentCode) {
+                }
+
+                if ($decoded[$i] === $currentCode) {
                     for ($q = $delta, $k = self::base; 1; $k += self::base) {
                         $t = ($k <= $bias)
                             ? self::tMin
@@ -119,12 +121,13 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
                         $q = (int) (($q - $t) / (self::base - $t));
                     }
                     $encoded .= $this->encodeDigit($q);
-                    $bias = $this->adapt($delta, $codeCount + 1, $isFirst);
+                    $bias = $this->adapt($delta, $codeCountPlusOne, $isFirst);
                     $codeCount++;
                     $delta = 0;
                     $isFirst = false;
                 }
             }
+
             $delta++;
             $currentCode++;
         }
