@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2022, Oliver Georgi
+ * @copyright Copyright (c) 2002-2023, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -957,6 +957,7 @@ $BL['be_cnt_field']                     = array(
 
 $BL['be_cnt_optin']                     = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']               = 'activate Double Opt-In according to <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">General Data Protection Regulation</a> (GDPR)';
+$BL['be_cnt_novalidate']                = 'Novalidate';
 
 $BL['be_cnt_access']                    = 'access';
 $BL['be_cnt_activated']                 = 'activated';

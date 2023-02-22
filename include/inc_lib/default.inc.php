@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2022, Oliver Georgi
+ * @copyright Copyright (c) 2002-2023, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  **/
@@ -272,9 +272,9 @@ $phpwcms['default_lang'] = strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
 $phpwcms['js_lib_default'] = array(
-    'jquery-3.6' => 'jQuery 3.6.1',
-    'jquery-3.6-migrate' => 'jQuery 3.6.1 + Migrate 3.4.0',
-    'jquery-3.6-migrate-1' => 'jQuery 3.6.1 + Migrate 1.4.1 + 3.4.0',
+    'jquery-3.6' => 'jQuery 3.6.3',
+    'jquery-3.6-migrate' => 'jQuery 3.6.3 + Migrate 3.4.0',
+    'jquery-3.6-migrate-1' => 'jQuery 3.6.3 + Migrate 1.4.1 + 3.4.0',
     'jquery-1.12' => 'jQuery 1.12.4',
     'jquery-1.12-migrate' => 'jQuery 1.12.4 + Migrate 1.4.1',
     'jquery-2.2' => 'jQuery 2.2.4',
@@ -969,10 +969,10 @@ function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
     $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
-    if (empty($GLOBALS['phpwcms']['session.cookie_samesite']) && empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
-        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
-    } else {
+    if(isset($GLOBALS['phpwcms']['session.cookie_samesite'])) {
         $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = $GLOBALS['phpwcms']['session.cookie_samesite'];
+    } elseif(empty($GLOBALS['phpwcms']['session_cookie_params']['samesite'])) {
+        $GLOBALS['phpwcms']['session_cookie_params']['samesite'] = PHPWCMS_SSL ? 'Lax' : 'None';
     }
     @session_set_cookie_params($GLOBALS['phpwcms']['session_cookie_params']);
 

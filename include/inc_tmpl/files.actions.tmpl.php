@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2022, Oliver Georgi
+ * @copyright Copyright (c) 2002-2023, Oliver Georgi
  *
  * @author Marus Köhl <info@pagewerkstatt.ch>
  * @link http://www.pagewerkstatt.ch
@@ -103,28 +103,28 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 ?>
 <script type=text/javascript>
 function showAction() {
-    divid = document.filetakeover.file_action.value;
-    if (divid === '0') {
+    let divid = parseInt(document.filetakeover.file_action.value, 10);
+    if (divid === 0) {
         document.getElementById("div_button").style.display='none';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === '1') {
+    } else if (divid === 1) {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === '2') {
+    } else if (divid === 2) {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='block';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === '3') {
+    } else if (divid === 3) {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='block';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === '4') {
+    } else if (divid === 4) {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
@@ -235,7 +235,18 @@ if(!$fx) {
 if($fx) {
 ?>
 <div style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-    <strong style="display:block;margin-bottom:3px"><?php echo $BL['file_actions_step3'] ?></strong>
+    <div class="mb-4">
+        <?php echo $BL['file_actions_step3'] ?>
+        <select name="file_action" id="file_action" class="v12" onChange="showAction()">
+            <option value="0">- <?php echo $BL['file_actions_pdl_empty'] ?> -</option>
+            <option value="1"><?php echo $BL['file_actions_pdl_delete'] ?></option>
+            <option value="2"><?php echo $BL['file_actions_pdl_move'] ?></option>
+            <option value="3"><?php echo $BL['file_actions_pdl_status'] ?></option>
+            <option value="4"><?php echo $BL['file_actions_pdl_user'] ?></option>
+        </select>
+    </div>
+
+
         <div id="div_folder" style="display: none;">
         <table>
             <tr>
@@ -272,43 +283,39 @@ if($fx) {
         <div id="div_user" style="display: none;">
         <table>
             <tr>
-                <td align="right" class="v09" valign="top"><?php echo $BL["login_username"] ?>:&nbsp;</td>
+                <td align="right" class="chatlist" valign="top"><?php echo $BL["login_username"]; ?>:&nbsp;</td>
                 <td class="v10">
-                <select name="file_user" id="file_user" class="v11 width400">
+                    <select name="file_user" id="file_user" class="v12b">
+                        <option value="">--- <?php echo $BL['be_selection'] ?> ---</option>
 <?php
-    $sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ORDER BY usr_name";
-    $result = _dbQuery($sql);
-    if(isset($result[0]['usr_id'])) {
-        foreach($result as $row) {
-            echo "<option value='".$row['usr_id']."'>".html($row['usr_name'])."</option>\n";
-        }
-    }
+    $result = _dbGet('phpwcms_user', 'usr_id, usr_name, usr_aktiv', '', '', 'usr_name');
+    if(isset($result[0]['usr_id'])):
+        $this_uid = intval($_SESSION["wcs_user_id"]);
+        foreach($result as $row):
 ?>
-                </select><br />
-                <?php echo $BL['file_actions_bemuser']; ?>
+            <option value="<?php echo $row['usr_id']; ?>"<?php if (intval($row['usr_id']) === $this_uid): ?> disabled="disabled"<?php endif; ?>>
+                <?php echo html($row['usr_name']); ?>
+                <?php if (!$row['usr_aktiv']): ?>(<?php echo $BL['be_inactive']; ?>)
+                <?php elseif ($row['usr_aktiv'] == 9): ?>(<?php echo $BL['be_msg_del']; ?>)
+                <?php endif; ?>
+            </option>
+<?php
+        endforeach;
+    endif;
+?>
+                    </select>
                 </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="tdtop3 tdbottom3"><?php echo $BL['file_actions_bemuser']; ?></td>
             </tr>
          </table>
          </div>
 
-    <table border="0" cellpadding="0" cellspacing="0" summary="" style="margin-top:3px">
-
-        <tr>
-            <td>
-            <select name="file_action" id="file_action" class="v12" onChange="showAction()">
-                <option value="0">- <?php echo $BL['file_actions_pdl_empty'] ?> -</option>
-                <option value="1"><?php echo $BL['file_actions_pdl_delete'] ?></option>
-                <option value="2"><?php echo $BL['file_actions_pdl_move'] ?></option>
-                <option value="3"><?php echo $BL['file_actions_pdl_status'] ?></option>
-                <option value="4"><?php echo $BL['file_actions_pdl_user'] ?></option>
-            </select></td>
-
-            <td>&nbsp;</td>
-
-            <td><div id="div_button" style="display: none;"><input name="Submit" type="submit" class="button" value="<?php echo $BL['file_actions_button'] ?>" /></div></td>
-        </tr>
-
-    </table>
+        <div id="div_button" style="display: none;" class="mt-5">
+            <input name="Submit" type="submit" class="button" value="<?php echo $BL['file_actions_button'] ?>" />
+        </div>
 </div>
 
 <?php } ?>
