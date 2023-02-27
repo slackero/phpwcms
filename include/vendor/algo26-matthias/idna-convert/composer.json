@@ -17,7 +17,7 @@
         "jakeasmith/http_build_url": "^1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.0 || ^9.0"
+        "phpunit/phpunit": "8.0"
     },
     "suggest":  {
         "ext-mbstring": "Install ext/mbstring for using input / output other than UTF-8 or ISO-8859-1",

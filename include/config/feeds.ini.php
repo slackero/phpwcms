@@ -3,7 +3,7 @@
 ; cmsGO!
 ;
 ; @author Pixels & Points GmbH <info@pixels-points.ch>
-; @copyright Copyright (c) 2002-2022, Pixels & Points GmbH
+; @copyright Copyright (c) 2002-2023, Pixels & Points GmbH
 ; @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
 
 ; Here are the basic settings for feeds like default feeds format and so on

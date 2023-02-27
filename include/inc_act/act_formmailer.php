@@ -3,7 +3,7 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2022, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2023, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
@@ -287,7 +287,7 @@ if(isset($form_error)) {
 	}
 
 	$body.= "\n====================================================================\n";
-	$body.= "cmsGO! formmailer  | Copyright (C) 2022 \n";
+	$body.= "cmsGO! formmailer  | Copyright (C) 2023 \n";
 
 	// phpMailer Class
 	$mail = new \PHPMailer\PHPMailer\PHPMailer();

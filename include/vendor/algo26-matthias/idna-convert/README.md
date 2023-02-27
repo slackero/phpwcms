@@ -213,8 +213,8 @@ For questions, bug reports and security issues just send me an email.
 
 algo26 Beratungs GmbH<br>
 c/o Matthias Sommerfeld<br>
-Wichertstr. 5<br>
-D-10439 Berlin<br>
+Zedernweg 1<br>
+D-16348 Wandlitz<br>
 <br>
 Germany<br>
 <br>
