@@ -168,7 +168,7 @@ initJsAutocompleter();
       <label for="news_paginate" class="form-check-label"><?php echo $BL['be_pagination'] ?></label>
     </div>
   </div>
-  <input type="hidden" name="news_paginate_basis" id="news_paginate_basis" value="<?php echo html(implode(', ', $content['news']['news_paginate_basis'])) ?>" />
+  <input type="hidden" name="news_paginate_basis" id="news_paginate_basis" value="<?php echo $content['news']['news_paginate_basis'] ?? 0; ?>" />
   <div class="col-sm-auto">
 		<div class="input-group input-group-sm">
 			<input type="text" name="news_paginate_count" id="news_paginate_count" size="5" maxlength="5"  class="form-control form-control-sm" value="<?php echo html($content['news']['news_paginate_count']) ?>"  />
