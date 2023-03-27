@@ -754,17 +754,17 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.7.1",
-            "version_normalized": "6.7.1.0",
+            "version": "v6.8.0",
+            "version_normalized": "6.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55"
+                "reference": "df16b615e371d81fb79e506277faea67a1be18f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/49cd7ea3d2563f028d7811f06864a53b1f15ff55",
-                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/df16b615e371d81fb79e506277faea67a1be18f1",
+                "reference": "df16b615e371d81fb79e506277faea67a1be18f1",
                 "shasum": ""
             },
             "require": {
@@ -793,7 +793,7 @@
                 "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
                 "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
             },
-            "time": "2022-12-08T13:30:06+00:00",
+            "time": "2023-03-06T14:43:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -825,7 +825,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.7.1"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.8.0"
             },
             "funding": [
                 {
@@ -837,17 +837,17 @@
         },
         {
             "name": "phpoffice/phpspreadsheet",
-            "version": "1.27.1",
-            "version_normalized": "1.27.1.0",
+            "version": "1.28.0",
+            "version_normalized": "1.28.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-                "reference": "ef4e6ef74990239946d3983451a9bbed5ef1be5d"
+                "reference": "6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/ef4e6ef74990239946d3983451a9bbed5ef1be5d",
-                "reference": "ef4e6ef74990239946d3983451a9bbed5ef1be5d",
+                "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a",
+                "reference": "6e81cf39bbd93ebc3a4e8150444c41e8aa9b769a",
                 "shasum": ""
             },
             "require": {
@@ -893,7 +893,7 @@
                 "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
                 "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer"
             },
-            "time": "2023-02-08T07:02:13+00:00",
+            "time": "2023-02-25T12:24:49+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -939,7 +939,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
-                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.27.1"
+                "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.28.0"
             },
             "install-path": "../phpoffice/phpspreadsheet"
         },

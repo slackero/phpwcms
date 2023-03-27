@@ -2,7 +2,7 @@
   <img src="https://cloud.githubusercontent.com/assets/835857/14581711/ba623018-0436-11e6-8fce-d2ccd4d379c9.gif">
 </p>
 
-# JavaScript Cookie [![Build Status](https://travis-ci.org/js-cookie/js-cookie.svg?branch=master)](https://travis-ci.org/js-cookie/js-cookie) [![Code Climate](https://codeclimate.com/github/js-cookie/js-cookie.svg)](https://codeclimate.com/github/js-cookie/js-cookie)
+# JavaScript Cookie [![Build Status](https://travis-ci.org/js-cookie/js-cookie.svg?branch=master)](https://travis-ci.org/js-cookie/js-cookie) [![Code Climate](https://codeclimate.com/github/js-cookie/js-cookie.svg)](https://codeclimate.com/github/js-cookie/js-cookie) [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/js-cookie/badge?style=rounded)](https://www.jsdelivr.com/package/npm/js-cookie)
 
 A simple, lightweight JavaScript API for handling cookies
 
@@ -20,7 +20,7 @@ A simple, lightweight JavaScript API for handling cookies
 **If you're viewing this at https://github.com/js-cookie/js-cookie, you're reading the documentation for the master branch.
 [View documentation for the latest release.](https://github.com/js-cookie/js-cookie/tree/latest#readme)**
 
-## Build Status Matrix
+## Build Status Matrix ([including active Pull Requests](https://github.com/js-cookie/js-cookie/issues/286))
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/js-cookie.svg)](https://saucelabs.com/u/js-cookie)
 
@@ -34,6 +34,12 @@ Download the script [here](https://github.com/js-cookie/js-cookie/blob/latest/sr
 <script src="/path/to/js.cookie.js"></script>
 ```
 
+Or include it via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/js-cookie):
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+```
+
 **Do not include the script directly from GitHub (http://raw.github.com/...).** The file is being served as text/plain and as such being blocked
 in Internet Explorer on Windows 7 for instance (because of the wrong MIME type). Bottom line: GitHub is not a CDN.
 
@@ -41,9 +47,14 @@ in Internet Explorer on Windows 7 for instance (because of the wrong MIME type).
 
 JavaScript Cookie supports [npm](https://www.npmjs.com/package/js-cookie) and [Bower](http://bower.io/search/?q=js-cookie) under the name `js-cookie`.
 
+#### NPM
+```
+  $ npm install js-cookie --save
+```
+
 ### Module Loaders
 
-JavaScript Cookie can also be loaded as an AMD, CommonJS or [ES6](https://github.com/js-cookie/js-cookie/issues/233#issuecomment-233187386) module.
+JavaScript Cookie can also be loaded as an AMD or CommonJS module.
 
 ## Basic Usage
 
@@ -78,6 +89,16 @@ Read all visible cookies:
 Cookies.get(); // => { name: 'value' }
 ```
 
+*Note: It is not possible to read a particular cookie by passing one of the cookie attributes (which may or may not
+have been used when writing the cookie in question):*
+
+```javascript
+Cookies.get('foo', { domain: 'sub.example.com' }); // `domain` won't have any effect...!
+```
+
+The cookie with the name `foo` will only be available on `.get()` if it's visible from where the
+code is called; the domain and/or path attribute will not have an effect when reading.
+
 Delete cookie:
 
 ```javascript
@@ -92,7 +113,13 @@ Cookies.remove('name'); // fail!
 Cookies.remove('name', { path: '' }); // removed!
 ```
 
-*IMPORTANT! when deleting a cookie, you must pass the exact same path and domain attributes that was used to set the cookie, unless you're relying on the [default attributes](#cookie-attributes).*
+*IMPORTANT! When deleting a cookie and you're not relying on the [default attributes](#cookie-attributes), you must pass the exact same path and domain attributes that were used to set the cookie:*
+
+```javascript
+Cookies.remove('name', { path: '', domain: '.yourdomain.com' });
+```
+
+*Note: Removing a nonexistent cookie does not raise any exception nor return any value.*
 
 ## Namespace conflicts
 
@@ -142,7 +169,9 @@ Cookies.getJSON(); // => { name: { foo: 'bar' } }
 
 This project is [RFC 6265](http://tools.ietf.org/html/rfc6265#section-4.1.1) compliant. All special characters that are not allowed in the cookie-name or cookie-value are encoded with each one's UTF-8 Hex equivalent using [percent-encoding](http://en.wikipedia.org/wiki/Percent-encoding).  
 The only character in cookie-name or cookie-value that is allowed and still encoded is the percent `%` character, it is escaped in order to interpret percent input as literal.  
-Please note that the default encoding/decoding strategy is meant to be interoperable [only between cookies that are read/written by js-cookie](https://github.com/js-cookie/js-cookie/pull/200#discussion_r63270778). To override the default encoding/decoding strategy you need to use a [converter](#converter).
+Please note that the default encoding/decoding strategy is meant to be interoperable [only between cookies that are read/written by js-cookie](https://github.com/js-cookie/js-cookie/pull/200#discussion_r63270778). To override the default encoding/decoding strategy you need to use a [converter](#converters).
+
+*Note: According to [RFC 6265](https://tools.ietf.org/html/rfc6265#section-6.1), your cookies may get deleted if they are too big or there are too many cookies in the same domain, [more details here](https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#why-are-my-cookies-being-deleted).*
 
 ## Cookie Attributes
 
@@ -184,7 +213,9 @@ Cookies.remove('name', { path: '' });
 
 (From [Internet Explorer Cookie Internals (FAQ)](http://blogs.msdn.com/b/ieinternals/archive/2009/08/20/wininet-ie-cookie-internals-faq.aspx))
 
-This means one cannot set a path using `path: window.location.pathname` in case such pathname contains a filename like so: `/check.html` (or at least, such cookie cannot be read correctly).
+This means one cannot set a path using `window.location.pathname` in case such pathname contains a filename like so: `/check.html` (or at least, such cookie cannot be read correctly).
+
+In fact, you should never allow untrusted input to set the cookie attributes or you might be exposed to a [XSS attack](https://github.com/js-cookie/js-cookie/issues/396).
 
 ### domain
 
@@ -222,7 +253,7 @@ Either `true` or `false`, indicating if the cookie transmission requires a secur
 ```javascript
 Cookies.set('name', 'value', { secure: true });
 Cookies.get('name'); // => 'value'
-Cookies.remove('name', { secure: true });
+Cookies.remove('name');
 ```
 
 ## Converters
@@ -271,10 +302,15 @@ Check out the [Servers Docs](SERVER_SIDE.md)
 
 Check out the [Contributing Guidelines](CONTRIBUTING.md)
 
+## Security
+
+For vulnerability reports, send an e-mail to `jscookieproject at gmail dot com`
+
 ## Manual release steps
 
 * Increment the "version" attribute of `package.json`
 * Increment the version number in the `src/js.cookie.js` file
+* If `major` bump, update jsDelivr CDN major version link on README
 * Commit with the message "Release version x.x.x"
 * Create version tag in git
 * Create a github release and upload the minified file
