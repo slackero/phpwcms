@@ -25,6 +25,7 @@ $file_thumb_small = '';
 $file_image_iptc = array();
 $file_image_width = 0;
 $file_image_height = 0;
+$file_name = '';
 
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
@@ -285,14 +286,8 @@ if($ja) {
 <form action="cmsgo.php?do=files&amp;f=0" method="post" name="editfileinfo" id="editfileinfo">
   <div class="form-group row">
     <div class="col-sm-2"></div>
-    <div class="col"><?php
-            if($file_thumb_small) {
-                echo $file_thumb_small;
-            } else {
-                echo '<img class="img-fluid" src="img/icons/small_'.extimg($file_ext).'" border="0" alt="" style="position:relative;top:1px" /> ';
-                echo html($file_name);
-            }
-        ?>
+    <div class="col">
+        <?php echo $file_thumb_small ?: '<i class="fa fa-fw fa-'.extimg($file_ext).'"></i> ' . html($file_name); ?>
     </div>
   </div>
 
