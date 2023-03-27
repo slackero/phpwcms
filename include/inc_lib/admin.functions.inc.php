@@ -252,8 +252,9 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
         $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
         $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="nowrap text-right">';
-        $a .= '<span class="mr-3 flag-icon flag-icon-'.$article[$akey]["article_lang"].'" data-toggle="tooltip" title="" data-original-title="'.$article[$akey]["article_lang"].'"></span>';
-
+        if (!empty($article[$akey]["article_lang"])) {
+            $a .= '<span class="mr-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-toggle="tooltip" title="" data-original-title="' . $article[$akey]["article_lang"] . '"></span>';
+        }
         if($cut_article_content) {
             $a .= '<a class="btn btn-xs btn-warning mr-1" href="include/inc_act/act_structure.php?do='.rawurlencode('7|'.$cut_article_content.'|'.$article[$akey]["article_id"].'|-10');
             $a .= '" data-toggle="tooltip" title="'.$BL['be_func_content_paste0'];

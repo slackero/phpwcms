@@ -46,6 +46,13 @@ class cmsgoNews {
     );
     public $filter_sort     = '';
     public $csrf_token          = '';
+    public $BL = [];
+    public $cmsgo = [];
+    public $filter = '';
+    public $filter_page = '';
+    public $filter_lang = '';
+    public $filter_keyword = '';
+    public $filter_status = '';
 
     function __construct() {
 
