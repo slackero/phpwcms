@@ -464,7 +464,7 @@ echo $subject_option;
                     <i class="fas fa-file-excel text-light"></i>
                     <?php echo $BL['be_cnt_download']; ?>
                     <span class="badge badge-pill badge-light"><?php echo $entries; ?></span>
-                </button>';
+                </button>
                 <?php
             endif;
         endif;
