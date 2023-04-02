@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Converts between various flavours of Unicode representations like UCS-4 or UTF-8
  * Supported schemes:
@@ -10,7 +10,7 @@
  *
  * @package IdnaConvert
  * @author Matthias Sommerfeld  <matthias.sommerfeld@algo26.de>
- * @copyright 2003-2019 algo26 Beratungs GmbH, Berlin, https://www.algo26.de
+ * @copyright 2003-2023 algo26 Beratungs GmbH, https://www.algo26.de
  */
 
 namespace Algo26\IdnaConvert\TranscodeUnicode;
@@ -20,10 +20,10 @@ use InvalidArgumentException;
 
 class TranscodeUnicode implements TranscodeUnicodeInterface
 {
-    public const FORMAT_UCS4       = 'ucs4';
+    public const FORMAT_UCS4 = 'ucs4';
     public const FORMAT_UCS4_ARRAY = 'ucs4array';
-    public const FORMAT_UTF8       = 'utf8';
-    public const FORMAT_UTF7       = 'utf7';
+    public const FORMAT_UTF8 = 'utf8';
+    public const FORMAT_UTF7 = 'utf7';
     public const FORMAT_UTF7_IMAP  = 'utf7imap';
 
     private const encodings = [
@@ -36,6 +36,8 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
 
     private $safeMode;
     private $safeCodepoint = 0xFFFC;
+
+    use ByteLengthTrait;
 
     public function convert(
         $data,
@@ -76,22 +78,16 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
     }
 
     /**
-     * This converts an UTF-8 encoded string to its UCS-4 representation
-     *
-     * @param string $input The UTF-8 string to convert
-     *
-     * @return array  Array of 32bit values representing each codepoint
      * @throws InvalidCharacterException
-     * @access public
      */
-    private function utf8_ucs4array($input)
+    private function utf8_ucs4array(string $input): array
     {
         $startByte = 0;
         $nextByte = 0;
 
         $output = [];
         $outputLength = 0;
-        $inputLength = $this->byteLength($input);
+        $inputLength = $this->getByteLength($input);
         $mode = 'next';
         $test = 'none';
         for ($k = 0; $k < $inputLength; ++$k) {
@@ -176,7 +172,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                     --$nextByte;
                 } else {
                     if ($this->safeMode) {
-                        $output[$outputLength - 1] = ord($this->safeCodepoint);
+                        $output[$outputLength - 1] = chr($this->safeCodepoint);
                         $k--;
                         $mode = 'next';
 
@@ -192,22 +188,15 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                     $mode = 'next';
                 }
             }
-        } // for
+        }
 
         return $output;
     }
 
     /**
-     * Convert UCS-4 arary into UTF-8 string
-     * See utf8_ucs4array() for details
-     *
-     * @param $input array Array of UCS-4 codepoints
-     *
-     * @return string
-     * @access   public
      * @throws InvalidCharacterException
      */
-    private function ucs4array_utf8($input)
+    private function ucs4array_utf8($input): string
     {
         $output = '';
         foreach ($input as $k => $v) {
@@ -247,16 +236,16 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         return $output;
     }
 
-    private function utf7imap_ucs4array($input)
+    private function utf7imap_ucs4array(string $input): array
     {
         return $this->utf7_ucs4array(str_replace(',', '/', $input), '&');
     }
 
-    private function utf7_ucs4array($input, $sc = '+')
+    private function utf7_ucs4array(string $input, $sc = '+'): array
     {
         $output = [];
         $outputLength = 0;
-        $inputLength = $this->byteLength($input);
+        $inputLength = $this->getByteLength($input);
         $mode = 'd';
         $b64 = '';
 
@@ -312,7 +301,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         return $output;
     }
 
-    private function ucs4array_utf7imap($input)
+    private function ucs4array_utf7imap(array $input): string
     {
         return str_replace(
             '/',
@@ -321,16 +310,14 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         );
     }
 
-    private function ucs4array_utf7($input, $sc = '+')
+    private function ucs4array_utf7(array $input, string $sc = '+'): string
     {
         $output = '';
         $mode = 'd';
         $b64 = '';
         while (true) {
             $v = (!empty($input)) ? array_shift($input) : false;
-            $isDirect = (false !== $v)
-                ? (0x20 <= $v && $v <= 0x7e && $v !== ord($sc))
-                : true;
+            $isDirect = ! (false !== $v) || 0x20 <= $v && $v <= 0x7e && $v !== ord($sc);
             if ($mode === 'b') {
                 if ($isDirect) {
                     if ($b64 === chr(0).$sc) {
@@ -363,11 +350,8 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
 
     /**
      * Convert UCS-4 array into UCS-4 string (Little Endian at the moment)
-     * @param $input array UCS-4 code points
-     * @return string
-     * @access   public
      */
-    private function ucs4array_ucs4($input)
+    private function ucs4array_ucs4(array $input): string
     {
         $output = '';
         foreach ($input as $v) {
@@ -384,19 +368,15 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
     }
 
     /**
-     * Convert UCS-4 string (LE ar the moment) into UCS-4 array
+     * Convert UCS-4 string (LE only) to UCS-4 array
      *
-     * @param $input string UCS-4 LE string
-     *
-     * @return array
-     * @access   public
      * @throws InvalidCharacterException
      */
-    private function ucs4_ucs4array($input)
+    private function ucs4_ucs4array(string $input): array
     {
         $output = [];
 
-        $inputLength = $this->byteLength($input);
+        $inputLength = $this->getByteLength($input);
         // Input length must be dividable by 4
         if ($inputLength % 4) {
             throw new InvalidCharacterException('Input UCS4 string is broken', 306);
@@ -416,22 +396,4 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
 
         return $output;
     }
-    
-    /**
-     * Gets the length of a string in bytes even if mbstring function
-     * overloading is turned on
-     *
-     * @param string $string the string for which to get the length.
-     * @return integer the length of the string in bytes.
-     */
-    protected function byteLength($string)
-    {
-        if ((extension_loaded('mbstring')
-             && (ini_get('mbstring.func_overload') & 0x02) === 0x02)
-        ) {
-            return mb_strlen($string, '8bit');
-        }
-
-        return strlen((binary) $string);
-    }    
 }

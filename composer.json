@@ -3,9 +3,9 @@
         "vendor-dir": "include/vendor"
     },
     "require": {
-        "php": ">=7.4",
-        "algo26-matthias/idna-convert": "^v3.1.0",
-        "enshrined/svg-sanitize": "^0.15.4",
+        "php": ">=8.2",
+        "algo26-matthias/idna-convert": "^v4.0.0",
+        "enshrined/svg-sanitize": "^0.16.0",
         "netcarver/textile": "v4.0.0",
         "erusev/parsedown": "^v2.0.0-beta-1",
         "erusev/parsedown-extra": "^v2.0.0-beta-1",

@@ -4,7 +4,7 @@ namespace Algo26\IdnaConvert\Exception;
 
 use Exception;
 
-class InvalidIdnVersionException extends Exception
+class Std3AsciiRulesViolationException extends Exception
 {
 
 }
