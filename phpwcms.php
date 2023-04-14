@@ -551,7 +551,14 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 2500);
 
-
+//Check if Mootools is in use
+if (empty($GLOBALS['BE']['HEADER']['mootools.js'])) {
+  if (empty(!$GLOBALS['BE']['HEADER']['jquery.js'])) {
+    $GLOBALS['BE']['HEADER']['jquery.js']		= getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js');
+    $GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.js');
+    $GLOBALS['BE']['HEADER']['pwspecial.js'] = getJavaScriptSourceLink('include/inc_js/pwspecial.js');
+  }
+}
 ?>
 <!-- phpwcms BODY_CLOSE -->
 </body>
