@@ -50,6 +50,7 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
                                     $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
                                     $sql .= "WHERE address_key='".aporeplace($hash)."'";
                                     if(isset($data[0]['address_verified'])) {
+                                        log_message('3', $data[0]['address_email']." ".$data[0]['address_name'] , $data[0]['address_id']);
                                         $result = _dbQuery($sql, 'UPDATE');
                                     }
                                     if(!empty($data[0]['address_url1'])) {
@@ -67,6 +68,7 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
             case 'unsubscribe':     $sql  = 'DELETE FROM '.DB_PREPEND.'phpwcms_address ';
                                     $sql .= "WHERE address_key='".aporeplace($hash)."'";
                                     $result = _dbQuery($sql, 'DELETE');
+                                    log_message('4', $data[0]['address_email']." ".$data[0]['address_name'] , $data[0]['address_id']);
                                     if(!empty($data[0]['address_url2'])) {
                                         headerRedirect($data[0]['address_url2']);
                                     }
