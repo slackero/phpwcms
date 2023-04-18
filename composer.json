@@ -15,6 +15,7 @@
         "simplepie/simplepie": "^1.8.0",
         "ext-intl": "*",
         "html2text/html2text": "^4.3",
-        "php81_bc/strftime": "@dev"
+        "php81_bc/strftime": "@dev",
+        "ext-gd": "*"
     }
 }
