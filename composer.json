@@ -16,6 +16,8 @@
         "ext-intl": "*",
         "html2text/html2text": "^4.3",
         "php81_bc/strftime": "@dev",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "ext-iconv": "*",
+        "ext-mysqli": "*"
     }
 }

@@ -175,7 +175,7 @@ if(isset($file_result[0]['f_id'])) {
         $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
         // there is a big problem with special chars on Mac OS X and seems Windows too
         if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) {
-            $filename = str_replace('?', '', utf8_decode($file_row["f_name"]));
+            $filename = str_replace('?', '', mb_convert_encoding($file_row["f_name"], 'ISO-8859-1'));
         } else {
             $filename = $file_row["f_name"];
         }

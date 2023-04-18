@@ -65,7 +65,7 @@ $setup_recommend = true;
             $mysqlnd = false;
             $mysql_version = mysqli_get_client_info();
 
-            if (strpos($mysql_version, 'mysqlnd') !== false) {
+            if (str_contains($mysql_version, 'mysqlnd')) {
                 $mysql_version = preg_replace('/^.*?\s(\d.+?)\s.*?$/', '$1', $mysql_version) . ' (client lib)';
                 $mysqlnd = true;
             }

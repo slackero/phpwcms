@@ -454,7 +454,7 @@ if($content['cp_setting_mode']):
                                 ctab_number = document.getElementById('ctab_number');
 
                             if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                                return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : utf8_decode($BL['confirm_cp_tab_warning']); ?>');
+                                return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], 'ISO-8859-1'); ?>');
                             }
 
                             return true;

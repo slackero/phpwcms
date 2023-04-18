@@ -219,7 +219,7 @@ if($do) {
 		} else {
 
 			if($phpwcms['db_charset'] === 'utf8') {
-				$value = utf8_encode($value);
+				$value = mb_convert_encoding($value, 'UTF-8');
 			}
 
 			if(!mysqli_query($GLOBALS['db'], $value)) {

@@ -1357,7 +1357,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
 function correct_charset($text='', $js=false) {
 
     if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($text)) {
-        $text = utf8_decode($text);
+        $text = mb_convert_encoding($text, 'ISO-8859-1');
     }
     if($js) {
         $text = str_replace("'", "\'", $text);
