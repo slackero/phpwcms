@@ -697,26 +697,26 @@
         },
         {
             "name": "openpsa/universalfeedcreator",
-            "version": "v1.8.4.1",
-            "version_normalized": "1.8.4.1",
+            "version": "v1.8.5",
+            "version_normalized": "1.8.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/flack/UniversalFeedCreator.git",
-                "reference": "e4736a68eef454a83acd100230a2e15b424f899f"
+                "reference": "d07a9f54e4fe522d8fefaf99564efd675932a635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flack/UniversalFeedCreator/zipball/e4736a68eef454a83acd100230a2e15b424f899f",
-                "reference": "e4736a68eef454a83acd100230a2e15b424f899f",
+                "url": "https://api.github.com/repos/flack/UniversalFeedCreator/zipball/d07a9f54e4fe522d8fefaf99564efd675932a635",
+                "reference": "d07a9f54e4fe522d8fefaf99564efd675932a635",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.0"
+                "php": ">=5.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "*"
+                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.32 || ^9.5.10"
             },
-            "time": "2022-04-04T10:02:43+00:00",
+            "time": "2023-04-17T12:24:35+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -749,9 +749,57 @@
             ],
             "support": {
                 "issues": "https://github.com/flack/UniversalFeedCreator/issues",
-                "source": "https://github.com/flack/UniversalFeedCreator/tree/v1.8.4.1"
+                "source": "https://github.com/flack/UniversalFeedCreator/tree/v1.8.5"
             },
             "install-path": "../openpsa/universalfeedcreator"
+        },
+        {
+            "name": "php81_bc/strftime",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alphp/strftime.git",
+                "reference": "51a4ef70056267d0104c3bcb3f4b0b65dcf40f39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alphp/strftime/zipball/51a4ef70056267d0104c3bcb3f4b0b65dcf40f39",
+                "reference": "51a4ef70056267d0104c3bcb3f4b0b65dcf40f39",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "@stable"
+            },
+            "time": "2022-04-28T19:50:27+00:00",
+            "default-branch": true,
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "src/php-8.1-strftime.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fernando Herrero",
+                    "homepage": "https://github.com/alphp/strftime/graphs/contributors"
+                }
+            ],
+            "description": "Locale-formatted strftime using IntlDateFormatter (PHP 8.1 compatible)",
+            "support": {
+                "issues": "https://github.com/alphp/strftime/issues",
+                "source": "https://github.com/alphp/strftime"
+            },
+            "install-path": "../php81_bc/strftime"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -946,24 +994,24 @@
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621"
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
-                "reference": "2dfb5f6c5eff0e91e20e913f8c5452ed95b86621",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2020-06-29T06:28:15+00:00",
+            "time": "2023-04-10T20:12:12+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -983,7 +1031,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP clients",
@@ -995,30 +1043,30 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
+                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
             },
             "install-path": "../psr/http-client"
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+                "reference": "e616d01114759c4c489f93b099585439f795fe35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
-                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0",
-                "psr/http-message": "^1.0"
+                "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2019-04-30T12:38:16+00:00",
+            "time": "2023-04-10T20:10:41+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1038,7 +1086,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interfaces for PSR-7 HTTP message factories",
@@ -1053,33 +1101,33 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
+                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
             },
             "install-path": "../psr/http-factory"
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
+            "version": "1.1",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
-            "time": "2016-08-06T14:39:51+00:00",
+            "time": "2023-04-04T09:50:52+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "installation-source": "dist",
@@ -1109,7 +1157,7 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
             "install-path": "../psr/http-message"
         },

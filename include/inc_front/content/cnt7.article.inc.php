@@ -14,6 +14,9 @@
 if (!defined('PHPWCMS_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
+
+use function PHP81_BC\strftime;
+
 // ----------------------------------------------------------------
 //file list
 // if $IS_NEWS_CP = true then file list content part render is
@@ -112,6 +115,10 @@ if ($_files_force_rendering || $_files_count) {
     if ($_files_settings['set_locale']) {
         $_files_old_locale = setlocale(LC_ALL, "0");
         setlocale(LC_ALL, $_files_settings['set_locale']);
+        $strftime_locale = explode('@', $_files_settings['set_locale']);
+        $strftime_locale =empty($strftime_locale[0]) ? null : $strftime_locale[0];
+    } else {
+        $strftime_locale = null;
     }
     $_files_entries = array();
     $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
@@ -237,7 +244,7 @@ if ($_files_force_rendering || $_files_count) {
                         if ($content['files_result'][$_files_x]['f_created'] <= 0) {
                             $content['files_result'][$_files_x]['f_created'] = filectime($_file_current);
                         }
-                        $_files_entries[$fkey] = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][$_files_x]['f_created']), $_files_entries[$fkey]);
+                        $_files_entries[$fkey] = str_replace('{FILE_DATE}', strftime($_files_settings['date_format'], $content['files_result'][$_files_x]['f_created'], $strftime_locale), $_files_entries[$fkey]);
                         if ($_file_info[1]) {
                             $_files_entries[$fkey] = str_replace('{FILE_NAME}', html($_file_info[1]), $_files_entries[$fkey]);
                             $content['files_result'][$_files_x]['f_name'] = $_file_info[1];
