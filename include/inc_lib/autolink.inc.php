@@ -11,8 +11,9 @@
 
 function auto_link($str) {
   # don't use target if tail is follow
+  $regex = [];
   $regex['file'] = "gz|tgz|tar|gzip|zip|rar|mpeg|mpg|exe|rpm|dep|rm|ram|asf|ace|viv|avi|mid|gif|jpg|png|bmp|eps|mov";
-  $regex['file'] = "(\.($regex[file])\") TARGET=\"_blank\"";
+  $regex['file'] = "(\.(" . $regex['file'] . ")\") TARGET=\"_blank\"";
 
   # define URL ( include korean character set )
   $regex['http'] = "(http|https|ftp|telnet|news|mms):\/\/(([\xA1-\xFEa-z0-9:_\-]+\.[\xA1-\xFEa-z0-9:;&#=_~%\[\]\?\/\.\,\+\-]+)([\.]*[\/a-z0-9\[\]]|=[\xA1-\xFE]+))";
@@ -26,7 +27,7 @@ function auto_link($str) {
   $tar[] = "<\\1\\2\\3>";
   $src[] = "/<([^<>\n]*)\n([^\n<>]*)>/i";
   $tar[] = "<\\1\\2>";
-  $src[] = "/<(A|IMG)[^>]*(HREF|SRC)[^=]*=[ '\"\n]*($regex[http]|mailto:$regex[mail])[^>]*>/i";
+  $src[] = "/<(A|IMG)[^>]*(HREF|SRC)[^=]*=[ '\"\n]*(" . $regex['http'] . "|mailto:" . $regex['mail'] . ")[^>]*>/i";
   $tar[] = "<\\1 \\2=\"\\3\">";
 
   # replaceed @ charactor include email form in URL
@@ -37,17 +38,17 @@ function auto_link($str) {
   # and protected link when use html link code
   $src[] = "/&(quot|gt|lt)/i";
   $tar[] = "!\\1";
-  $src[] = "/<a([^>]*)href=[\"' ]*($regex[http])[\"']*[^>]*>/i";
+  $src[] = "/<a([^>]*)href=[\"' ]*(" . $regex['http'] . ")[\"']*[^>]*>/i";
   $tar[] = "<A\\1HREF=\"\\3_orig://\\4\" TARGET=\"_blank\">";
-  $src[] = "/href=[\"' ]*mailto:($regex[mail])[\"']*>/i";
+  $src[] = "/href=[\"' ]*mailto:(" . $regex['mail'] . ")[\"']*>/i";
   $tar[] = "HREF=\"mailto:\\2#-#\\3\">";
-  $src[] = "/<([^>]*)(background|codebase|src)[ \n]*=[\n\"' ]*($regex[http])[\"']*/i";
+  $src[] = "/<([^>]*)(background|codebase|src)[ \n]*=[\n\"' ]*(" . $regex['http'] . ")[\"']*/i";
   $tar[] = "<\\1\\2=\"\\4_orig://\\5\"";
 
   # auto linked url and email address that unlinked
-  $src[] = "/((SRC|HREF|BASE|GROUND)[ ]*=[ ]*|[^=]|^)($regex[http])/i";
+  $src[] = "/((SRC|HREF|BASE|GROUND)[ ]*=[ ]*|[^=]|^)(" . $regex['http'] . ")/i";
   $tar[] = "\\1<A HREF=\"\\3\" TARGET=\"_blank\">\\3</a>";
-  $src[] = "/($regex[mail])/i";
+  $src[] = "/(" . $regex['mail'] . ")/i";
   $tar[] = "<A HREF=\"mailto:\\1\">\\1</a>";
   $src[] = "/<A HREF=[^>]+>(<A HREF=[^>]+>)/i";
   $tar[] = "\\1";
@@ -61,7 +62,7 @@ function auto_link($str) {
   $tar[] = "\\1";
   $src[] = "'#-#'";
   $tar[] = "@";
-  $src[] = "/$regex[file]/i";
+  $src[] = "/" . $regex['file'] . "/i";
   $tar[] = "\\1";
 
   # restored @ charactor include Email form in URL

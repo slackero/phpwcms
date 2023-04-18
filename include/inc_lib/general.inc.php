@@ -390,7 +390,7 @@ function convert_into($extension) {
     //check which extension to give back
     $extension = strtolower($extension);
     $ext = 'jpg';
-    if (IMAGICK_ON) {
+    if (function_exists('imagegif')) {
         switch ($extension) {
             case 'gif':
                 $ext = 'gif';
@@ -402,7 +402,7 @@ function convert_into($extension) {
     } else {
         switch ($extension) {
             case 'gif':
-                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
+                $ext = imagetypes() & IMG_GIF ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';

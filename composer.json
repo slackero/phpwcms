@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.4",
         "algo26-matthias/idna-convert": "^v3.1.0",
-        "enshrined/svg-sanitize": "^0.15.4",
+        "enshrined/svg-sanitize": "^0.16.0",
         "netcarver/textile": "v4.0.0",
         "erusev/parsedown": "^v2.0.0-beta-1",
         "erusev/parsedown-extra": "^v2.0.0-beta-1",
@@ -14,6 +14,7 @@
         "phpoffice/phpspreadsheet": "^1.28",
         "simplepie/simplepie": "^1.8.0",
         "ext-intl": "*",
-        "html2text/html2text": "^4.3"
+        "html2text/html2text": "^4.3",
+        "ext-gd": "*"
     }
 }
