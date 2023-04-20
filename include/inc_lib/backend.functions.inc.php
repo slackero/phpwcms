@@ -1202,7 +1202,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
 function correct_charset($text='', $js=false) {
 
     if(CMSGO_CHARSET !== 'utf-8' && cmsgo_seems_utf8($text)) {
-        $text = utf8_decode($text);
+        $text = mb_convert_encoding($text, CMSGO_CHARSET);
     }
     if($js) {
         $text = str_replace("'", "\'", $text);

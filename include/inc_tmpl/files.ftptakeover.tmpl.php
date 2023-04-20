@@ -75,7 +75,7 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
                 $fxsg += $file['filesize'];
                 $fxe = extimg($file['ext']);
                      // there is a big problem with special chars on Mac OS X and seems Windows too
-                    $filename = (CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($file['filename'])) ? str_replace('?', '', utf8_decode($file['filename'])) : $file['filename'];
+                    $filename = CMSGO_CHARSET !== 'utf-8' && cmsgo_seems_utf8($file['filename']) ? str_replace('?', '', mb_convert_encoding($file['filename'], CMSGO_CHARSET)) : $file['filename'];
                     $filename = html($filename);
 ?>
           <tr<?php echo $fxb ?>>

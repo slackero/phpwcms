@@ -25,24 +25,29 @@ if(empty($_SESSION['wcs_user']) || empty($_SESSION['CMSGO_BROWSER_HASH']) || $_S
 }
 
 if(isset($_POST['action'])) {
-	$action		= isset($_POST['action']) ? $_POST['action'] : false;
-	$method		= isset($_POST['method']) ? $_POST['method'] : 'json';
-	$value		= isset($_POST['value']) ? clean_slweg($_POST['value'], 0, false) : '';
-	$jquery		= false;
+    $action		= $_POST['action'];
+    $method		= $_POST['method'] ?? 'json';
+    $value		= isset($_POST['value']) ? clean_slweg($_POST['value'], 0, false) : '';
+    $jquery		= false;
 } elseif($_GET['action']) {
-	$action		= isset($_GET['action']) ? $_GET['action'] : false;
-	$method		= isset($_GET['method']) ? $_GET['method'] : 'json';
-	$value		= isset($_GET['value']) ? clean_slweg($_GET['value'], 0, false) : '';
-	$jquery		= true;
+    $action		= $_GET['action'];
+    $method		= $_GET['method'] ?? 'json';
+    $value		= isset($_GET['value']) ? clean_slweg($_GET['value'], 0, false) : '';
+    $jquery		= true;
+} else {
+    $method     = 'json';
+    $action     = 'empty';
+    $jquery     = false;
+    $value      = '';
 }
 
 if(empty($value)) {
-	$action = 'empty';
+    $action = 'empty';
 }
 
 // do charset conversions for value
 if(CMSGO_CHARSET !== 'utf-8') {
-	$value = @mb_convert_encoding( $value, CMSGO_CHARSET, 'utf-8' );
+    $value = mb_convert_encoding( $value, CMSGO_CHARSET, 'utf-8' );
 }
 
 $data = array();
@@ -56,7 +61,7 @@ switch($action) {
 
 		if(isset($result[0])) {
 			foreach($result as $value) {
-				$value = utf8_encode($value['cat_name']);
+				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
 				$data[] = $jquery ? array('cat_name' => $value) : $value;
 			}
 		}
@@ -70,7 +75,7 @@ switch($action) {
 
 		if(isset($result[0])) {
 			foreach($result as $value) {
-				$value = utf8_encode($value['cat_name']);
+				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
 				$data[] = $jquery ? array('cat_name' => $value) : $value;
 			}
 		}
@@ -109,7 +114,7 @@ switch($action) {
 
     if(isset($result[0])) {
       foreach($result as $key => $value) {
-        $data[] = array('article_title' => utf8_encode($value['cat_name']));
+        $data[] = array('article_title' => mb_convert_encoding($value['cat_name'], 'UTF-8'));
       }
     }
     break;

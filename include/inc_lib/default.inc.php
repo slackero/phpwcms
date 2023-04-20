@@ -140,7 +140,7 @@ if (empty($cmsgo['rewrite_url'])) {
 }
 define('CMSGO_REWRITE_EXT', isset($cmsgo['rewrite_ext']) ? $cmsgo['rewrite_ext'] : '.html');
 define('CMSGO_ALIAS_WSLASH', empty($cmsgo['alias_allow_slash']) ? false : true);
-define('CMSGO_ALIAS_UTF8', empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8' ? false : true);
+define('CMSGO_ALIAS_UTF8', !(empty($cmsgo['alias_allow_utf8']) || CMSGO_CHARSET !== 'utf-8'));
 define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
 define('IS_PHP5', IS_PHP523);
 if (defined('PHP_MAJOR_VERSION')) {
@@ -205,16 +205,16 @@ if (function_exists('mb_substr')) {
 
     function mb_substr($str = '', $start = 0, $length = null, $encoding = '') {
         if ($length !== null) {
-            return cmsgo_seems_utf8($str) ? utf8_encode(substr(utf8_decode($str), $start, $length)) : substr($str, $start, $length);
+            return cmsgo_seems_utf8($str) ? mb_convert_encoding(substr(mb_convert_encoding($str, CMSGO_CHARSET), $start, $length), 'UTF-8') : substr($str, $start, $length);
         } elseif (cmsgo_seems_utf8($str)) {
-            return utf8_encode(substr(utf8_decode($str), $start));
+            return mb_convert_encoding(substr(mb_convert_encoding($str, CMSGO_CHARSET), $start), 'UTF-8');
         } else {
             return substr($str, $start);
         }
     }
 
     function mb_strlen($str = '', $encoding = '') {
-        return strlen(cmsgo_seems_utf8($str) ? utf8_decode($str) : $str);
+        return strlen(cmsgo_seems_utf8($str) ? mb_convert_encoding($str, CMSGO_CHARSET) : $str);
     }
 
     // fallback for mb_convert_encoding()

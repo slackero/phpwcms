@@ -34,17 +34,9 @@ $value    = isset($_POST['value']) ? $_POST['value'] : 'json';
 
 // do charset conversions for value
 if(CMSGO_CHARSET != 'utf-8') {
-
     if(function_exists('mb_convert_encoding')) {
-
-        $value = @mb_convert_encoding( $value, CMSGO_CHARSET, 'utf-8' );
-
-    } else {
-
-        $value = utf8_decode($value);
-
+        $value = mb_convert_encoding( $value, CMSGO_CHARSET, 'utf-8' );
     }
-
 }
 
 if($file_id && !$file_alias) {

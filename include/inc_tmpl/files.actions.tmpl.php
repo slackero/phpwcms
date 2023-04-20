@@ -173,7 +173,7 @@ function showAction() {
                 $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
                 // there is a big problem with special chars on Mac OS X and seems Windows too
                 if(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($file_row["f_name"])) {
-                    $filename = str_replace('?', '', utf8_decode($file_row["f_name"]));
+                    $filename = str_replace('?', '', mb_convert_encoding($file_row["f_name"], CMSGO_CHARSET));
                 } else {
                     $filename = $file_row["f_name"];
                 }

@@ -38,8 +38,8 @@ if ($cmsgo['charset'] == 'utf-8') {
     $article_description = isset($_REQUEST['article_description']) ? clean_slweg($_REQUEST["article_description"], 255) : '';
     $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg($_REQUEST["acat_pagetitle"], 255) : '';
 } else {
-    $article_description = isset($_REQUEST['article_description']) ? clean_slweg(utf8_decode($_REQUEST["article_description"]), 255) : '';
-    $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg(utf8_decode($_REQUEST["acat_pagetitle"]), 255) : '';
+    $article_description = isset($_REQUEST['article_description']) ? clean_slweg(mb_convert_encoding($_REQUEST["article_description"], CMSGO_CHARSET), 255) : '';
+    $acat_pagetitle = isset($_REQUEST['acat_pagetitle']) ? clean_slweg(mb_convert_encoding($_REQUEST["acat_pagetitle"], CMSGO_CHARSET), 255) : '';
 }
 
 if($action == 'form' && $article_id) {

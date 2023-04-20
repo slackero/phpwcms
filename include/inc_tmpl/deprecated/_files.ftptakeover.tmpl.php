@@ -151,7 +151,7 @@ $GLOBALS['BE']['HEADER']['fileuploaderaa.js'] = '
                     $fxsg += $fxs;
                     $fxe = extimg(which_ext($file));
                      // there is a big problem with special chars on Mac OS X and seems Windows too
-                    $filename = (CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($file)) ? str_replace('?', '', utf8_decode($file)) : $file;
+                    $filename = CMSGO_CHARSET !== 'utf-8' && cmsgo_seems_utf8($file) ? str_replace('?', '', mb_convert_encoding($file, CMSGO_CHARSET)) : $file;
                     $filename = html($filename);
 ?>
           <tr<?php echo $fxb ?>>

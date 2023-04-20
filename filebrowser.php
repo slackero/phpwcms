@@ -523,7 +523,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . ' getObjectById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(CMSGO_CHARSET !== 'utf-8') {
-            $confirm = utf8_decode($confirm);
+            $confirm = mb_convert_encoding($confirm, CMSGO_CHARSET);
         }
         echo LF . ' if(confirm("' . $confirm . '")) '."parent.$('#browserModal').modal('hide');";
         echo LF . '}' . LF;
