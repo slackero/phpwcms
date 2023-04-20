@@ -286,6 +286,7 @@ function extimg($ext) {
         "jpeg" => "icon_pix.gif",
         "gif" => "icon_pix.gif",
         "png" => "icon_pix.gif",
+        "webp" => "icon_pix.gif",
         "psd" => "icon_pix.gif",
         "rar" => "icon_rar.gif",
         "zip" => "icon_zip.gif",
