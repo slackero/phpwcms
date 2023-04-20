@@ -1,9 +1,8 @@
 version: '3.1'
 services:
   idna-convert-test:
-    image: epcallan/php7-testing-phpunit:7.2-phpunit7
+    image: jitesoft/phpunit:8.2
     container_name: idna-convert-test
-    working_dir: /project
-    command: bash -c "composer install && phpunit -vvv"
+    command: ash -c "composer install && phpunit -vvv"
     volumes:
-      - ./:/project
+      - ./:/app

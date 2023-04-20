@@ -1,61 +1,44 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
 use Algo26\IdnaConvert\Exception\AlreadyPunycodeException;
 use Algo26\IdnaConvert\Exception\InvalidCharacterException;
 use Algo26\IdnaConvert\Exception\InvalidIdnVersionException;
+use Algo26\IdnaConvert\Exception\Std3AsciiRulesViolationException;
 use Algo26\IdnaConvert\NamePrep\NamePrep;
 
 class ToPunycode extends AbstractPunycode implements PunycodeInterface
 {
-    /** @var NamePrep */
-    private $namePrep;
+    private NamePrep $namePrep;
 
     /**
      * @throws InvalidIdnVersionException
      */
-    public function __construct(?string $idnVersion = null)
-    {
+    public function __construct(
+        ?int $idnVersion = null,
+        private readonly ?bool $useStd3AsciiRules = false
+    ) {
         $this->namePrep = new NamePrep($idnVersion);
         parent::__construct();
     }
 
     /**
-     * @param array $decoded
-     *
-     * @return string
      * @throws AlreadyPunycodeException
      * @throws InvalidCharacterException
+     * @throws Std3AsciiRulesViolationException
      */
-    public function convert(array $decoded): string
+    public function convert(array $decoded): ?string
     {
-        // We cannot encode a domain name containing the Punycode prefix
-        $checkForPrefix = array_slice($decoded, 0, self::$prefixLength);
-        if (self::$prefixAsArray === $checkForPrefix) {
-            throw new AlreadyPunycodeException('This is already a Punycode string', 100);
-        }
-        // We will not try to encode strings consisting of basic code points only
-        $canEncode = false;
-        foreach ($decoded as $k => $v) {
-            if ($v > 0x7a) {
-                $canEncode = true;
-                break;
-            }
-        }
-        if (!$canEncode) {
-            return false;
-        }
-
-        // Do NAMEPREP
         $decoded = $this->namePrep->do($decoded);
-        if (!$decoded || !is_array($decoded)) {
-            return false; // NAMEPREP failed
-        }
+
+        $this->checkConvertPreconditions($decoded);
+        // We will not try to encode strings consisting of basic code points only
+        $canEncode = $this->checkForNonBasicCodepoints($decoded);
 
         $decodedLength = count($decoded);
         if (!$decodedLength) {
-            return false; // Empty array
+            return null; // Empty array
         }
 
         $codeCount = 0; // How many chars have been consumed
@@ -68,6 +51,11 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
                 $codeCount++;
             }
         }
+
+        if (!$canEncode) {
+            return $encoded;
+        }
+
         if ($codeCount === $decodedLength) {
             return $encoded; // All codepoints were basic ones
         }
@@ -135,13 +123,48 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
         return $encoded;
     }
 
-    /**
-     * Encoding a certain digit
-     * @param    int $d
-     * @return string
-     */
-    private function encodeDigit($d): string
+    private function encodeDigit(int $d): string
     {
         return chr($d + 22 + 75 * ($d < 26));
+    }
+
+    /**
+     * @throws AlreadyPunycodeException
+     * @throws Std3AsciiRulesViolationException
+     */
+    private function checkConvertPreconditions(array $decoded): void
+    {
+        // We cannot encode a domain name containing the Punycode prefix
+        $checkForPrefix = array_slice($decoded, 0, self::$prefixLength);
+        if (self::$prefixAsArray === $checkForPrefix) {
+            throw new AlreadyPunycodeException('This is already a Punycode string', 100);
+        }
+
+        if (!$this->useStd3AsciiRules) {
+            return;
+        }
+
+        if ($decoded[0] === '-'
+            || $decoded[array_key_last($decoded)] === '-'
+        ) {
+            throw new Std3AsciiRulesViolationException('No trailing / leading hyphens allowed', 103);
+        }
+
+        foreach ($decoded as $index => $codePoint) {
+            if (!preg_match('[-a-zA-Z0-9]u', chr($codePoint))) {
+                throw new Std3AsciiRulesViolationException(sprintf('Character at offset %d is outside the legal range', $index), 104);
+            }
+        }
+    }
+
+    private function checkForNonBasicCodepoints(array $decoded): bool
+    {
+        foreach ($decoded as $codePoint) {
+            if ($codePoint > 0x7a) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

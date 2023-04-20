@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert;
 
@@ -8,14 +8,9 @@ abstract class AbstractIdnaConvert
 {
     abstract public function convert(string $host): string;
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return string
-     */
     public function convertEmailAddress(string $emailAddress): string
     {
-        if (strpos($emailAddress, '@') === false) {
+        if ( ! str_contains($emailAddress, '@')) {
             throw new InvalidArgumentException('The given string does not look like an email address', 206);
         }
 
@@ -28,11 +23,6 @@ abstract class AbstractIdnaConvert
         );
     }
 
-    /**
-     * @param string $url
-     *
-     * @return string
-     */
     public function convertUrl(string $url): string
     {
         $parsed = parse_url($url);

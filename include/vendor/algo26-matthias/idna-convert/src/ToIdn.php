@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 namespace Algo26\IdnaConvert;
 
 use Algo26\IdnaConvert\Exception\InvalidCharacterException;
@@ -8,25 +8,22 @@ use Algo26\IdnaConvert\TranscodeUnicode\TranscodeUnicode;
 
 class ToIdn extends AbstractIdnaConvert implements IdnaConvertInterface
 {
-    /** @var TranscodeUnicode */
-    private $unicodeTransCoder;
+    private TranscodeUnicode $unicodeTransCoder;
 
-    /** @var ToPunycode */
-    private $punycodeEncoder;
+    private ToPunycode $punycodeEncoder;
 
     /**
      * @throws InvalidIdnVersionException
      */
-    public function __construct($idnVersion = null)
-    {
+    public function __construct(
+        ?int $idnVersion = null,
+        bool $useStd3AsciiRules = false
+    ) {
         $this->unicodeTransCoder = new TranscodeUnicode();
-        $this->punycodeEncoder = new ToPunycode($idnVersion);
+        $this->punycodeEncoder = new ToPunycode($idnVersion, $useStd3AsciiRules);
     }
 
     /**
-     * @param string $host
-     *
-     * @return string
      * @throws InvalidCharacterException
      * @throws Exception\AlreadyPunycodeException
      */
@@ -36,10 +33,10 @@ class ToIdn extends AbstractIdnaConvert implements IdnaConvertInterface
             return $host;
         }
 
-        if (strpos('/', $host) !== false
-            || strpos(':', $host) !== false
-            || strpos('?', $host) !== false
-            || strpos('@', $host) !== false
+        if (str_contains('/', $host)
+            || str_contains(':', $host)
+            || str_contains('?', $host)
+            || str_contains('@', $host)
         ) {
             throw new InvalidCharacterException('Neither email addresses nor URLs are allowed', 205);
         }

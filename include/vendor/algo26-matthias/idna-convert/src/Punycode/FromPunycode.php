@@ -1,35 +1,32 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
 class FromPunycode extends AbstractPunycode implements PunycodeInterface
 {
-    public function __construct(?string $idnVersion = null)
-    {
+    public function __construct(
+        ?int $idnVersion = null,
+        ?bool $useStd3AsciiRules = false
+    ) {
         parent::__construct();
     }
 
-    /**
-     * The actual decoding algorithm
-     * @param string
-     * @return mixed
-     */
-    public function convert($encoded)
+    public function convert(string $encoded)
     {
-        if (!$this->validate($encoded)) {
+        if (!$this->isValidPunycodeString($encoded)) {
             return false;
         }
 
         $decoded = [];
         // Find last occurrence of the delimiter
         $delimiterPosition = strrpos($encoded, '-');
-        if ($delimiterPosition > self::byteLength(self::punycodePrefix)) {
-            for ($k = $this->byteLength(self::punycodePrefix); $k < $delimiterPosition; ++$k) {
+        if ($delimiterPosition > $this->getByteLength($this->getPunycodePrefix())) {
+            for ($k = $this->getByteLength($this->getPunycodePrefix()); $k < $delimiterPosition; ++$k) {
                 $decoded[] = ord($encoded[$k]);
             }
         }
         $decodedLength = count($decoded);
-        $encodedLength = $this->byteLength($encoded);
+        $encodedLength = $this->getByteLength($encoded);
 
         // Wandering through the strings; init
         $isFirst = true;
@@ -73,16 +70,10 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
         );
     }
 
-
-    /**
-     * Checks, whether or not the provided string is a valid punycode string
-     * @param string $encoded
-     * @return boolean
-     */
-    private function validate($encoded): bool
+    private function isValidPunycodeString($encoded): bool
     {
         // Check for existence of the prefix
-        if (strpos($encoded, self::punycodePrefix) !== 0) {
+        if ( ! str_starts_with($encoded, self::punycodePrefix)) {
             return false;
         }
 

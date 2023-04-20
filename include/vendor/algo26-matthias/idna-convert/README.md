@@ -35,7 +35,7 @@ composer require algo26-matthias/idna-convert
 
 ### Official ZIP Package
 
-The official ZIP packages are discontinued. Stick to Composer or Github to acquire your copy, please.
+The official ZIP packages are discontinued. Stick to Composer or GitHub to acquire your copy, please.
 
 ## Upgrading from a previous version
 

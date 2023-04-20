@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\NamePrep;
 
@@ -7,7 +7,7 @@ namespace Algo26\IdnaConvert\NamePrep;
  */
 class NamePrepData2003 extends NamePrepData2008 implements NamePrepDataInterface
 {
-    public $replaceMaps = [
+    public array $replaceMaps = [
             0x41 => [0x61], 0x42 => [0x62], 0x43 => [0x63],
             0x44 => [0x64], 0x45 => [0x65], 0x46 => [0x66], 0x47 => [0x67],
             0x48 => [0x68], 0x49 => [0x69], 0x4A => [0x6A], 0x4B => [0x6B],

@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
+use Algo26\IdnaConvert\TranscodeUnicode\ByteLengthTrait;
 use Algo26\IdnaConvert\TranscodeUnicode\TranscodeUnicode;
 
 abstract class AbstractPunycode
@@ -17,22 +18,16 @@ abstract class AbstractPunycode
     const initialBias = 72;
     const initialN = 0x80;
 
-    protected static $isMbStringOverload;
     protected static $prefixAsArray;
     protected static $prefixLength;
 
-    /** @var TranscodeUnicode */
-    protected $unicodeTransCoder;
+    protected TranscodeUnicode $unicodeTransCoder;
+
+    use ByteLengthTrait;
 
     public function __construct()
     {
         $this->unicodeTransCoder = new TranscodeUnicode();
-
-        // populate mbstring overloading cache if not set
-        if (self::$isMbStringOverload === null) {
-            self::$isMbStringOverload = (extension_loaded('mbstring')
-                                         && (ini_get('mbstring.func_overload') & 0x02) === 0x02);
-        }
 
         if (self::$prefixAsArray === null) {
             self::$prefixAsArray = $this->unicodeTransCoder->convert(
@@ -40,7 +35,7 @@ abstract class AbstractPunycode
                 $this->unicodeTransCoder::FORMAT_UTF8,
                 $this->unicodeTransCoder::FORMAT_UCS4_ARRAY
             );
-            self::$prefixLength = $this->byteLength(self::punycodePrefix);
+            self::$prefixLength = $this->getByteLength(self::punycodePrefix);
         }
     }
 
@@ -49,31 +44,7 @@ abstract class AbstractPunycode
         return self::punycodePrefix;
     }
 
-    /**
-     * Gets the length of a string in bytes even if mbstring function
-     * overloading is turned on
-     *
-     * @param string $string the string for which to get the length.
-     * @return integer the length of the string in bytes.
-     */
-    protected function byteLength($string): int
-    {
-        if (self::$isMbStringOverload) {
-            return mb_strlen($string, '8bit');
-        }
-
-        return strlen((binary) $string);
-    }
-
-
-    /**
-     * Adapt the bias according to the current code point and position
-     * @param int $delta
-     * @param int $nPoints
-     * @param int $isFirst
-     * @return int
-     */
-    protected function adapt($delta, $nPoints, $isFirst): int
+    protected function adapt(int $delta, int $nPoints, bool $isFirst): int
     {
         $delta = intval($isFirst ? ($delta / self::damp) : ($delta / 2));
         $delta += intval($delta / $nPoints);
