@@ -54,6 +54,11 @@ class cmsgoNews {
     public $filter_keyword = '';
     public $filter_status = '';
 
+    public $newsId = 0;
+    public $files = [];
+    public $fileCount = 0;
+    public $fileRows = 0;
+
     function __construct() {
 
         global $BL;
