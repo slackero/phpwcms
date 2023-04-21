@@ -28,6 +28,7 @@ function str_empty($string) {
 }
 
 function slweg($text = '', $maxlen = 0, $trim = true) {
+    $text = (string) $text;
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
@@ -44,7 +45,8 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
     return $text;
 }
 
-function clean_slweg($text, $maxlen = 0, $trim = true) {
+function clean_slweg($text = '', $maxlen = 0, $trim = true) {
+    $text = (string) $text;
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
