@@ -206,16 +206,16 @@ if (function_exists('mb_substr')) {
 
     function mb_substr($str = '', $start = 0, $length = null, $encoding = '') {
         if ($length !== null) {
-            return phpwcms_seems_utf8($str) ? utf8_encode(substr(utf8_decode($str), $start, $length)) : substr($str, $start, $length);
+            return phpwcms_seems_utf8($str) ? mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start, $length), 'UTF-8') : substr($str, $start, $length);
         } elseif (phpwcms_seems_utf8($str)) {
-            return utf8_encode(substr(utf8_decode($str), $start));
+            return utf8_encode(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start));
         } else {
             return substr($str, $start);
         }
     }
 
     function mb_strlen($str = '', $encoding = '') {
-        return strlen(phpwcms_seems_utf8($str) ? utf8_decode($str) : $str);
+        return strlen(phpwcms_seems_utf8($str) ? mb_convert_encoding($str, PHPWCMS_CHARSET) : $str);
     }
 
     // fallback for mb_convert_encoding()

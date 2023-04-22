@@ -1,5 +1,0 @@
-/.idea
-!.gitkeep
-.phpunit.result.cache
-/composer.lock
-/vendor
