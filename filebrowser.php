@@ -395,9 +395,6 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     case 19:
-                        $js = "parent.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
-                        break;
-
                     case 18:
                     case 15:
                         $js = "parent.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";

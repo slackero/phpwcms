@@ -57,10 +57,8 @@ if(is_array($content["mailform"]) && count($content["mailform"])) {
             switch ($content["mailform"][$key][0]) {
                 case "TA": $field_max_height = ($field_max_height) ? $field_max_height : 3;
                     break;
-                case "SL": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
-                case "IC": $field_max_height = ($field_max_height) ? $field_max_height : 0;
-                    break;
+                case "SL":
+                case "IC":
                 case "IR": $field_max_height = ($field_max_height) ? $field_max_height : 0;
                     break;
 				case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';

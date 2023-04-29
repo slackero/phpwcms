@@ -1143,16 +1143,13 @@ class GoogleMapAPI
 		}
 
 		$_output .= sprintf( 'var mapObj = '.$this->getElementById().'("%s");', $this->map_id ) . "\n";
-		$_output .= 'if (mapObj != "undefined" && mapObj != null) {' . "\n";
-		$_output .= sprintf( 'map = new GMap2( mapObj );', $this->map_id ) . "\n";
-		if ( isset( $this->center_lat ) && isset( $this->center_lon ) )
-		{
+		$_output .= 'if (mapObj != "undefined" && mapObj != null) { map = new GMap2( mapObj );' . "\n";
+		if ( isset( $this->center_lat ) && isset( $this->center_lon ) ) {
 			// Special care for decimal point in lon and lat, would get lost if "wrong" locale is set; applies to (s)printf only
 			$_output .= sprintf( 'map.setCenter(new GLatLng(%s, %s), %d, %s);', number_format( $this->center_lat, 6, ".", "" ), number_format( $this->center_lon, 6, ".", "" ), $this->zoom, $this->map_type ) . "\n";
 		}
 		// zoom so that all markers are in the viewport
-		if ( $this->zoom_encompass && count( $this->_markers ) > 1 )
-		{
+		if ( $this->zoom_encompass && count( $this->_markers ) > 1 ) {
 			// increase bounds by fudge factor to keep
 			// markers away from the edges
 			$_len_lon = $this->_max_lon - $this->_min_lon;
@@ -1612,10 +1609,9 @@ class GoogleMapAPI
             case 'YAHOO':
             default:
 
-                $_url = 'http://%s/MapsService/V1/geocode';
-                $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
+                $_url = sprintf(''http://%s/MapsService/V1/geocode'?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
 
-                if($_result = $this->fetchURL($_url)) {
+                if ($_result = $this->fetchURL($_url)) {
                     if (preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
                         $_coords['lon'] = $_match[2];
                         $_coords['lat'] = $_match[1];

@@ -81,15 +81,12 @@ switch($js_aktion) {
         break;
 
     case 4:
+    case 6:
         $js = "parent.document.articlecontent." . $field . ".value";
         break;
 
     case 5:
         $js = "parent.document.articlecontent.calias.value";
-        break;
-
-    case 6:
-        $js = "parent.document.articlecontent." . $field . ".value";
         break;
 
     //CKEditor

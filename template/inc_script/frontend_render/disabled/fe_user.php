@@ -288,6 +288,7 @@ if($fe_action) {
 
     $fe_reg[] = '<form action="' .$_uri. '" method="post">';
 
+    /*
     foreach($fe_fields as $fe_field) {
 
         switch($fe_field['type']) {
@@ -319,6 +320,7 @@ if($fe_action) {
         }
 
     }
+    */
 
     /*
     $fe_reg[] = '<fieldset>';

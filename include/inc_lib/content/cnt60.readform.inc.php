@@ -20,10 +20,8 @@ if (!defined('CMSGO_ROOT')) {
 $content["custom_html"]      = slweg($_POST['custom_html']);
 $content["custom_template"]  = clean_slweg($_POST['template']);
 $content['custom_form']   = array(
-
-        'custom_elements'        => array(),
-        'fieldgroup'    => ''
-
+    'custom_elements' => array(),
+    'fieldgroup' => ''
 );
 
 $tab_fieldgroup_fields = null;

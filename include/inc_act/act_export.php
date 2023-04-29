@@ -101,14 +101,14 @@ if ($action === 'exportformresult' && $fid) {
 
         // First row contains column names
         foreach($export[0] as $column_title => $column) {
-            $sheet->setCellValueByColumnAndRow($column, 1, $column_title);
+            $sheet->setCellValue([$column, 1], $column_title);
         }
 
         for ($x = 1; $x < $row; $x++) {
             $current = $export[$x];
             foreach($export[0] as $column_title => $column) {
                 $column_value = isset($current[$column_title]) ? $current[$column_title] : '';
-                $sheet->setCellValueByColumnAndRow($column, $x+1, $column_value);
+                $sheet->setCellValue([$column, $x+1], $column_value);
             }
         }
 

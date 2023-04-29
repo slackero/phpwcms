@@ -61,7 +61,6 @@ if(isset($result[0]['article_id'])) {
         $alias_result = _dbQuery($alias_sql);
 
         if(isset($alias_result[0]['article_id'])) {
-            $alias_result[0];
             $row["article_id"] = $alias_result[0]["article_id"];
             // use alias article header data
             if(!$row["article_headerdata"]) {

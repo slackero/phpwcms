@@ -270,7 +270,7 @@ if($guestbook['visible']) {
     } else {
 
         $guestbook['imgdata']   = '';
-        $guestbook['entry']     = preg_replace_callback('/{IMAGE:(.*)}/i', create_function('$matches', '$GLOBALS["guestbook"]["imgdata"]=$matches[1]; return "{IMAGE}";'), $guestbook['entry']);
+        $guestbook['entry']     = preg_replace_callback('/{IMAGE:(.*)}/i', function($matches) { $GLOBALS["guestbook"]["imgdata"] = $matches[1]; return "{IMAGE}"; }, $guestbook['entry']);
         $guestbook['imgdata']   = explode('x', strtolower($guestbook['imgdata']));
 
         // image width

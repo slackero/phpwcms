@@ -125,7 +125,7 @@ function struct_checkbox_list($counter=0, $struct_id=0, $selected_id=array(), $a
         $counter = $counter + 1;
         $list .= '<ul class="checkbox-list checkbox-list-level-'.$counter.'">';
 
-		foreach($struct as $key => $value) {
+		foreach($struct as $value) {
 
             $value['acat_name'] = html($value["acat_name"]);
 
@@ -181,7 +181,7 @@ function struct_radio_list($counter=0, $struct_id=0, $selected_id=array(), $add_
         $counter = $counter + 1;
         $list .= '<ul class="radio-list radio-list-level-'.$counter.'">';
 
-		foreach($struct as $key => $value) {
+		foreach($struct as $value) {
 
             $value['acat_name'] = html($value["acat_name"]);
 

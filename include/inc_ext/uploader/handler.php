@@ -345,14 +345,10 @@ class UploadHandler {
      * @param string $str
      */
     protected function toBytes($str){
-	$str = trim($str);
+        $str = trim($str);
         $last = strtolower($str[strlen($str)-1]);
-	$val;
-	if(is_numeric($last)) {
-		$val = (int) $str;
-	} else {
-		$val = (int) substr($str, 0, -1);
-	}
+        $val = is_numeric($last) ? (int) $str : (int) substr($str, 0, -1);
+
         switch($last) {
             case 'g': case 'G': $val *= 1024;
             case 'm': case 'M': $val *= 1024;

@@ -17,10 +17,10 @@ $body_onload                = '';
 $forward_to_message_center  = false;
 $wcsnav                     = array();
 $indexpage                  = array();
-$cmsgo                    = array('SESSION_START' => true);
+$cmsgo                      = array('SESSION_START' => true);
 $BL                         = array();
 $BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
-$CMSGO_ROOT               = dirname(__FILE__);
+$CMSGO_ROOT                 = dirname(__FILE__);
 
 require_once $CMSGO_ROOT.'/include/config/conf.inc.php';
 require_once $CMSGO_ROOT.'/include/inc_lib/default.inc.php';
@@ -136,14 +136,14 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
 ?><!DOCTYPE HTML>
 <html lang="<?php echo $BE['LANG']; ?>">
 <head><?php printf(CMSGO_HEADER_COMMENT, ''); ?>
-	<title><?php echo $BL['be_page_title'] . ' - ' . CMSGO_HOST ?></title>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
-	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-	<link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
-	<meta name="robots" content="noindex, nofollow">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title><?php echo $BL['be_page_title'] . ' - ' . CMSGO_HOST ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
+    <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
+    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src-elem 'self' 'unsafe-inline'; connect-src 'self' 'unsafe-inline'">
     <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
 <?php

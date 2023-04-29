@@ -3010,11 +3010,9 @@ function buildCascadingMenu($parameter='', $counter=0, $param='string') {
                             $unfold         = 'active_path';
                             break;
 
-            case 'HCSSP':   $parent     = true;
-            case 'HCSS':    $create_css = true;
-                            break;
-
+            case 'HCSSP':
             case 'VCSSP':   $parent     = true;
+            case 'HCSS':
             case 'VCSS':    $create_css = true;
                             break;
         }
