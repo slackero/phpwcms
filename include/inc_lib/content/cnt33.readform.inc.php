@@ -63,8 +63,8 @@ if( ! in_array($content['news']['news_andor'], array('OR', 'AND', 'NOT')) ) {
 }
 
 if(is_intval($content['news']['news_detail_link'])) {
-	$content['news']['news_detail_link'] = intval($content['news']['news_detail_link']) ? intval($content['news']['news_detail_link']) : '';
+	$content['news']['news_detail_link'] = intval($content['news']['news_detail_link']) ?: '';
 }
 if(is_intval($content['news']['news_archive_link'])) {
-	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ? intval($content['news']['news_archive_link']) : '';
+	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ?: '';
 }

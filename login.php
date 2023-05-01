@@ -77,7 +77,7 @@ $wcs_user = '';
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
-    if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
+    if (!str_starts_with($ref_url, PHPWCMS_URL)) {
         $ref_url = '';
     }
 } else {
@@ -194,7 +194,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             }
 
             // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? false : true;
+            $_SESSION["WYSIWYG_EDITOR"] = !empty($result[0]["usr_wysiwyg"]);
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
             $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 
@@ -402,7 +402,7 @@ ob_start();
 $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
 $lang_options = array();
 while($lang_code = readdir($lang_dirs)) {
-    if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
+    if( !str_starts_with($lang_code, '.') && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
         $_lang_code = strtoupper($lang_code);
         $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
         $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
@@ -435,7 +435,7 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
 <?php if(!empty($phpwcms['browser_check']['be'])):
-    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
+    $buoop = array('insecure' => !isset($phpwcms['browser_check']['insecure']) || boolval($phpwcms['browser_check']['insecure']));
     if(!empty($phpwcms['browser_check']['vs'])) {
         $buoop['vs'] = $phpwcms['browser_check']['vs'];
     }

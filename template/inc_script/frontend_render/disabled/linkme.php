@@ -18,7 +18,7 @@ function createSocialBookmark($matches) {
 
     if(empty($matches[1])) return '';
 
-    if(strpos($matches[1], '<!--DETAIL_ONLY-->') === false) {
+    if(!str_contains($matches[1], '<!--DETAIL_ONLY-->')) {
 
         if(empty($GLOBALS['aktion'][1])) {
             $bm['url']  = PHPWCMS_URL.'index.php?id='.$GLOBALS['aktion'][0];

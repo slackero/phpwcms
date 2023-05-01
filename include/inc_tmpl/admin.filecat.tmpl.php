@@ -310,7 +310,7 @@ if(isset($_GET["open"])) {
                     echo "</td>\n</tr>\n";
 
 
-                    if(isset($_SESSION["fcatlist"]) && isset($_SESSION["fcatlist"][$row["fcat_id"]]) && $_SESSION["fcatlist"][$row["fcat_id"]]) { //List key names for this categroy
+                    if(isset($_SESSION["fcatlist"][$row["fcat_id"]]) && $_SESSION["fcatlist"][$row["fcat_id"]]) { //List key names for this categroy
                         $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_cid=".$row["fcat_id"]." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
                         $kresult = _dbQuery($ksql);
                         if(isset($kresult[0]['fcat_id'])) {

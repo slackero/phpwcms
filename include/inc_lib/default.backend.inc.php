@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // user is admin
-define('IS_ADMIN',			empty($_SESSION["wcs_user_admin"]) ? false : true);
+define('IS_ADMIN', !empty($_SESSION["wcs_user_admin"]));
 define('BE_CURRENT_URL',	PHPWCMS_URL.'phpwcms.php?'.$_SERVER['QUERY_STRING']);
 define('ACTIVE_REFERER',	$_SESSION['REFERER_URL']);
 

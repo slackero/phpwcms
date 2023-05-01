@@ -213,11 +213,13 @@ function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
                     }
                     else { // Right length. Test Type
                         $i=$i+3; // Move in string pointer forward 3
-                        switch ($dte_frmt_lstchr) {
-                            case "Y":
-                                if (!is_numeric($lastchar)) { $store_arr = FALSE; $i = strlen($PASSED)+1; } // The the value. Must be a number. Break out
-                                else { $store_arr['year']=$lastchar; } // assign the value to the array
-                                break;
+                        if ($dte_frmt_lstchr === 'Y') {
+                            if (!is_numeric($lastchar)) {
+                                $store_arr = FALSE;
+                                $i = strlen($PASSED)+1;  // The the value. Must be a number. Break out
+                            } else {
+                                $store_arr['year']=$lastchar; // assign the value to the array
+                            }
                         }
                     }
                     break;
@@ -265,7 +267,7 @@ function is_float_ex($pNum) {
             }
             $i++;
         }
-        return ($v < 0) ? false : true;
+        return !(($v < 0));
     }
 }
 
@@ -397,7 +399,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
     // Article Mode
     if($type === 'AS') {
 
-        if(substr($mode, -1) == 'P') {
+        if(str_ends_with($mode, 'P')) {
             $mode = substr($mode, 0, -1);
             $priorize = 'article_priorize DESC, ';
         } else {
@@ -909,7 +911,7 @@ function parse_images($matches) {
 
         $alt        = isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
 
-        if(substr($value[0], 0, 1) == '.') {
+        if(str_starts_with($value[0], '.')) {
             $ext    = trim($value[0]);
         } else {
             $ext    = '.jpg';
@@ -989,7 +991,7 @@ function parse_downloads($match) {
 
     }
 
-    return isset($match[3]) ? $match[3] : '';
+    return $match[3] ?? '';
 
 }
 
@@ -1038,13 +1040,13 @@ function register_cp_trigger($function='', $method='LAST') {
 
             case 'RLAST':
                 if(!in_array($function, $GLOBALS['content']['CpTrigger'])) {
-                    array_push($GLOBALS['content']['CpTrigger'], $function);
+                    $GLOBALS['content']['CpTrigger'][] = $function;
                 }
                 break;
 
             case 'LAST':
             default:
-                array_push($GLOBALS['content']['CpTrigger'], $function);
+                $GLOBALS['content']['CpTrigger'][] = $function;
         }
     }
 }
@@ -1055,8 +1057,8 @@ function register_cp_trigger($function='', $method='LAST') {
  * and log those fetched data in database
  * Basic idea: http://www.tellinya.com/read/2007/07/11/34.html
  *
- * @return  array
- * @param   string  referrer string
+ * @return  array|false
+ * @param   string $ref referrer string
  *
  **/
 function seReferrer($ref = false) {
@@ -1085,8 +1087,8 @@ function seReferrer($ref = false) {
         //Check against DogPile
         if( preg_match('/\/search\/web\/([^\/]+)\//i', $SeReferer, $pcs) ) {
             if( preg_match("/https?:\/\/([^\/]+)\//i", $SeReferer, $SeDomain) ){
-            $SeDomain   = trim(strtolower($SeDomain[1]));
-            $SeQuery    = $pcs[1];
+                $SeDomain   = trim(strtolower($SeDomain[1]));
+                $SeQuery    = $pcs[1];
             }
         }
 

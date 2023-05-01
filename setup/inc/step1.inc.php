@@ -219,7 +219,7 @@ if(!empty($db_init)) {
             }
             $sql_data[$key] .= '"><p>'.$value;
 
-            if(strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
+            if(!str_starts_with(strtoupper(trim($value)), 'INSERT')) {
                 $sql_data[$key] .= ' DEFAULT';
                 $sql_data[$key] .= ' CHARACTER SET '.$phpwcms['db_charset'];
                 $sql_data[$key] .= ' COLLATE '.$phpwcms['db_collation'];

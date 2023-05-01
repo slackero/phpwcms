@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 /**
  * phpwcms content management system
  *
@@ -18,7 +18,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 
 // get segments: cmsimage.php/WIDTH[[[[xHEIGHT]xCROP]xQUALITY]xGS]/[[HASH|ID].EXT]
 // ...xGS will convert image to GrayScale
-$request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF'];
+$request_uri = $_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF'];
 
 // strip out PHPSESSNAME=...
 if(session_id() && session_name()) {
@@ -29,9 +29,9 @@ if(session_id() && session_name()) {
     }
 }
 
-if(strpos($request_uri, '/im/') !== false) {
+if(str_contains($request_uri, '/im/')) {
     $data = explode('/im/', $request_uri, 2);
-} elseif(strpos($request_uri, 'cmsimage.php?') === false) {
+} elseif(!str_contains($request_uri, 'cmsimage.php?')) {
     $data = explode('cmsimage.php/', $request_uri, 2);
 } else {
     $data = explode('cmsimage.php?', $request_uri, 2);
@@ -54,7 +54,7 @@ if(isset($data[1])) {
             $ext = which_ext($data[2]);
         }
 
-        if(substr($data[0], 0, 7) === 'convert') {
+        if(str_starts_with($data[0], 'convert')) {
             // get image convert function but limit to max of 5 chars
             $convert_function = substr(substr($data[0], 8), 0, 5);
 
@@ -132,7 +132,7 @@ if(isset($data[1])) {
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_id='.intval($hash)." AND ";
-            if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
+            if(str_starts_with($phpwcms['image_library'], 'gd')) {
                 $sql .= "f_ext IN ('jpg','jpeg','png','gif','bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
@@ -163,7 +163,7 @@ if(isset($data[1])) {
 
             $sql   = 'SELECT f_hash, f_ext, f_svg, f_image_width, f_image_height, f_name FROM '.DB_PREPEND.'phpwcms_file WHERE ';
             $sql  .= 'f_hash='._dbEscape($hash)." AND ";
-            if(substr($phpwcms['image_library'], 0, 2) === 'gd') {
+            if(str_starts_with($phpwcms['image_library'], 'gd')) {
                 $sql .= "f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg', 'webp') AND ";
             }
             $sql  .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
@@ -190,7 +190,7 @@ if(isset($data[1])) {
             $attribute  = explode('x', $data[0]);
             $width      = intval($attribute[0]);
             $height     = isset($attribute[1]) ? intval($attribute[1]) : 0;
-            $crop       = isset($attribute[2]) ? $attribute[2] : 0;
+            $crop       = $attribute[2] ?? 0;
             $crop_pos   = ''; // the old behavior center,center | cc
             $grid       = 0;
             if($crop) {
@@ -224,8 +224,8 @@ if(isset($data[1])) {
                 $phpwcms['colorspace'] = 'GRAY';
             }
 
-            $value["max_width"]     = $width ? $width : '';
-            $value["max_height"]    = $height ? $height : '';
+            $value["max_width"]     = $width ?: '';
+            $value["max_height"]    = $height ?: '';
             $value['target_ext']    = $ext;
             $value['image_name']    = $hash . '.' . $ext;
             $value['thumb_name']    = md5($hash.$value["max_width"].$value["max_height"].$phpwcms['sharpen_level'].$crop.$crop_pos.$quality.$phpwcms['colorspace']);

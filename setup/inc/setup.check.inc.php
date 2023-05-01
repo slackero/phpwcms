@@ -80,7 +80,7 @@ if(!empty($step)) {
 
             // make db connect
             $db_host = $phpwcms["db_host"];
-            if(!empty($phpwcms["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
+            if(!empty($phpwcms["db_pers"]) && !str_starts_with($db_host, 'p:')) {
                 $db_host = 'p:'.$db_host;
             }
             $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
@@ -173,7 +173,7 @@ if(!empty($step)) {
                                         continue;
                                     }
 
-                                    if(strpos(strtoupper($value), 'INSERT') !== 0) {
+                                    if(!str_starts_with(strtoupper($value), 'INSERT')) {
                                         $value .= ' DEFAULT';
                                         $value .= ' CHARACTER SET '.$phpwcms['db_charset'];
                                         $value .= ' COLLATE '.$phpwcms['db_collation'];
@@ -258,11 +258,11 @@ if(!empty($step)) {
         $phpwcms["templates"]      = clean_slweg($_POST["templates"]);
         $phpwcms["ftp_path"]       = clean_slweg($_POST["ftp_path"]);
 
-        $phpwcms["file_path"]      = ($phpwcms["file_path"]) ? $phpwcms["file_path"] : "phpwcms_filestorage";
-        $phpwcms["templates"]      = ($phpwcms["templates"]) ? $phpwcms["templates"] : "phpwcms_template";
-        $phpwcms["content_path"]   = ($phpwcms["content_path"]) ? $phpwcms["content_path"] : "content";
-        $phpwcms["cimage_path"]    = ($phpwcms["cimage_path"]) ? $phpwcms["cimage_path"] : "images";
-        $phpwcms["ftp_path"]       = ($phpwcms["ftp_path"]) ? $phpwcms["ftp_path"] : "phpwcms_ftp";
+        $phpwcms["file_path"]      = $phpwcms["file_path"] ?: "phpwcms_filestorage";
+        $phpwcms["templates"]      = $phpwcms["templates"] ?: "phpwcms_template";
+        $phpwcms["content_path"]   = $phpwcms["content_path"] ?: "content";
+        $phpwcms["cimage_path"]    = $phpwcms["cimage_path"] ?: "images";
+        $phpwcms["ftp_path"]       = $phpwcms["ftp_path"] ?: "phpwcms_ftp";
 
         write_conf_file($phpwcms);
         header("Location: setup.php?step=4");
@@ -277,13 +277,13 @@ if(!empty($step)) {
         $phpwcms["img_prev_width"]   = intval($_POST["img_prev_width"]);
         $phpwcms["img_prev_height"]  = intval($_POST["img_prev_height"]);
         $phpwcms["max_time"]         = intval($_POST["max_time"]);
-        $phpwcms["file_maxsize"]     = ($phpwcms["file_maxsize"]) ? $phpwcms["file_maxsize"] : 2097152;
-        $phpwcms["content_width"]    = ($phpwcms["content_width"]) ? $phpwcms["content_width"] : 538;
-        $phpwcms["img_list_width"]   = ($phpwcms["img_list_width"]) ? $phpwcms["img_list_width"] : 100;
-        $phpwcms["img_list_height"]  = ($phpwcms["img_list_height"]) ? $phpwcms["img_list_height"] : 75;
-        $phpwcms["img_prev_width"]   = ($phpwcms["img_prev_width"]) ? $phpwcms["img_prev_width"] : 538;
-        $phpwcms["img_prev_height"]  = ($phpwcms["img_prev_height"]) ? $phpwcms["img_prev_height"] : 400;
-        $phpwcms["max_time"]         = ($phpwcms["max_time"]) ? $phpwcms["max_time"] : 1800;
+        $phpwcms["file_maxsize"]     = $phpwcms["file_maxsize"] ?: 2097152;
+        $phpwcms["content_width"]    = $phpwcms["content_width"] ?: 538;
+        $phpwcms["img_list_width"]   = $phpwcms["img_list_width"] ?: 100;
+        $phpwcms["img_list_height"]  = $phpwcms["img_list_height"] ?: 75;
+        $phpwcms["img_prev_width"]   = $phpwcms["img_prev_width"] ?: 538;
+        $phpwcms["img_prev_height"]  = $phpwcms["img_prev_height"] ?: 400;
+        $phpwcms["max_time"]         = $phpwcms["max_time"] ?: 1800;
 
         write_conf_file($phpwcms);
         header("Location: setup.php?step=5");

@@ -1462,12 +1462,12 @@ class GoogleMapAPI {
      * @return array Array with information about newly /previously created icon.
      */
     function createMarkerIcon($iconImage,$iconShadowImage = '',$iconAnchorX = 'x',$iconAnchorY = 'x',$infoWindowAnchorX = 'x',$infoWindowAnchorY = 'x') {
-        $_icon_image_path = strpos($iconImage,'http') === 0 ? $iconImage : $_SERVER['DOCUMENT_ROOT'] . $iconImage;
+        $_icon_image_path = str_starts_with($iconImage, 'http') ? $iconImage : $_SERVER['DOCUMENT_ROOT'] . $iconImage;
         if(!($_image_info = @getimagesize($_icon_image_path))) {
             die('GoogleMapAPI:createMarkerIcon: Error reading image: ' . $iconImage);
         }
         if($iconShadowImage) {
-            $_shadow_image_path = strpos($iconShadowImage,'http') === 0 ? $iconShadowImage : $_SERVER['DOCUMENT_ROOT'] . $iconShadowImage;
+            $_shadow_image_path = str_starts_with($iconShadowImage, 'http') ? $iconShadowImage : $_SERVER['DOCUMENT_ROOT'] . $iconShadowImage;
             if(!($_shadow_info = @getimagesize($_shadow_image_path))) {
                 die('GoogleMapAPI:createMarkerIcon: Error reading shadow image: ' . $iconShadowImage);
             }
@@ -2535,8 +2535,7 @@ class GoogleMapAPI {
                 break;
             case 'YAHOO':
             default:
-                $_url = 'http://%s/MapsService/V1/geocode';
-                $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
+                $_url = sprintf('http://%s/MapsService/V1/geocode?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id,rawurlencode($address));
                 if($_result = $this->fetchURL($_url)) {
                     if(preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
                         return array('lon' => $_match[2], 'lat' => $_match[1]);
@@ -2578,24 +2577,19 @@ class GoogleMapAPI {
         case 'K':
           // kilometers
           return $M * 1.609344;
-          break;
-        case 'N':
+          case 'N':
           // nautical miles
           return $M * 0.868976242;
-          break;
-        case 'F':
+          case 'F':
           // feet
           return $M * 5280;
-          break;
-        case 'I':
+          case 'I':
           // inches
           return $M * 63360;
-          break;
-        case 'M':
+          case 'M':
         default:
           // miles
           return $M;
-          break;
       }
 
     }

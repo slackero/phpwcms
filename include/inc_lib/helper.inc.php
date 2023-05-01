@@ -28,7 +28,7 @@ function i18n_get_language($complex=false) {
 		$phpwcms['i18_lang'] = $phpwcms['default_lang'];
 		return $phpwcms['i18_lang'];
 	}
-	$complex = isset($phpwcms['i18n_complex']) ? $phpwcms['i18n_complex'] : $complex;
+	$complex = $phpwcms['i18n_complex'] ?? $complex;
 	if($complex) {
 		$lang = explode(';', trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 2);
 		$lang = explode(',', $lang[0], 2);
@@ -59,7 +59,7 @@ function i18n_get_file_open_text() {
 // substitutes a single token
 function i18n_substitute_text_token($token) {
 	global $i18n_tokens;
-	$a = trim(isset($token[1]) ? $token[1] : $token);
+	$a = trim($token[1] ?? $token);
     if($a === '') {
         return '';
     }

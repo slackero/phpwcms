@@ -32,7 +32,7 @@ if(empty($block['jslib'])) {
 }
 
 // set if CDN can be used
-define('PHPWCMS_USE_CDN', empty($block['googleapi']) ? FALSE : TRUE);
+define('PHPWCMS_USE_CDN', !empty($block['googleapi']));
 
 // include the related JavaScript Library wrapper
 @include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
@@ -90,9 +90,9 @@ function renderHeadJS($js) {
     }
 
     // detect remote if `http://example.com`, `https://example.com` or `//example.com`
-    $remote = substr($js, 0, 4) === 'http' || substr($js, 0, 2) === '//';
+    $remote = str_starts_with($js, 'http') || str_starts_with($js, '//');
 
-    if(!$remote && (strpos($js, ';') !== false || strpos($js, '//') !== false || strpos($js, '/*') !== false)) {
+    if(!$remote && (str_contains($js, ';') || str_contains($js, '//') || str_contains($js, '/*'))) {
 
         if(strtolower(substr($js, 0, 5)) === 'ready') {
             $jsready = true;

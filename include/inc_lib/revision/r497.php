@@ -34,7 +34,7 @@ function phpwcms_revision_r497() {
 	// switch crossreference field type from INT to VARCHAR
 	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_crossreference LIKE 'cref_type'");
 
-	if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) == 'int') {
+	if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'int')) {
 
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_crossreference CHANGE cref_type cref_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 

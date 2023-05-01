@@ -43,7 +43,7 @@ function get_random_image_tag($path) {
 	if(is_dir($imgpath)) {
 		$handle = opendir($imgpath);
 		while($file = readdir( $handle )) {
-   			if( substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
+   			if( !str_starts_with($file, '.') && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.gif|\.png)$/i', $file)) {
 				$imgArray[] = $file;
 			}
 		}
@@ -131,22 +131,22 @@ function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 
 			$nav_table .= "<tr>\n";
 			$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
-			$nav_table .= '<td width="100%"'.(empty($struct[$key]["acat_class"]) ? '' : ' class="'.$struct[$key]["acat_class"].'"').'>';
+			$nav_table .= '<td width="100%"'.(empty($value["acat_class"]) ? '' : ' class="'. $value["acat_class"].'"').'>';
 
-			if(!$struct[$key]["acat_redirect"]) {
+			if(!$value["acat_redirect"]) {
 				$nav_table .= '<a href="index.php?';
-				if($struct[$key]["acat_alias"]) {
-					$nav_table .= html_specialchars($struct[$key]["acat_alias"]);
+				if($value["acat_alias"]) {
+					$nav_table .= html_specialchars($value["acat_alias"]);
 				} else {
 					$nav_table .= 'id='.$key; //',0,0,1,0,0';
 				}
 				$nav_table .= '">';
 			} else {
-				$redirect = get_redirect_link($struct[$key]["acat_redirect"], ' ', '');
+				$redirect = get_redirect_link($value["acat_redirect"], ' ', '');
 				$nav_table .= '<a href="'.$redirect['link'].'"'.$redirect['target'].'>';
 			}
 
-			$nav_table .= html_specialchars($struct[$key]["acat_name"])."</a></td>\n<tr>";
+			$nav_table .= html_specialchars($value["acat_name"])."</a></td>\n<tr>";
 		}
 	}
 	$nav_table .= '</table>';
@@ -180,7 +180,7 @@ function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $lin
 	$temp_tree = is_array($data) && count($data) ? array_reverse($data, 1) : array();
 
 	foreach($struct as $key => $value) {
-		if($struct[$key]["acat_struct"] == $act_cat_id && $key && (!$struct[$key]["acat_hidden"] || isset($GLOBALS['LEVEL_KEY'][$key]))) {
+		if($value["acat_struct"] == $act_cat_id && $key && (!$value["acat_hidden"] || isset($GLOBALS['LEVEL_KEY'][$key]))) {
 			$c++;
 		}
 	}
@@ -369,7 +369,7 @@ function nav_list_struct($struct, $act_cat_id, $level, $class='') {
 
 	$temp_menu = build_list($struct, $level, $temp_tree, $act_cat_id, $class, $depth);
 	$temp_menu = str_replace("\n\n", LF, $temp_menu);
-	return $temp_menu ? $temp_menu : '';
+	return $temp_menu ?: '';
 }
 
 function css_level_list_current_callback($matches) {
@@ -380,7 +380,7 @@ function css_level_list_top_callback($matches) {
 	return css_level_list($GLOBALS['content']["struct"], $GLOBALS['content']["cat_path"], 0, $matches[1], 1, $matches[2]);
 }
 
-function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $parent_level=1, $class='') {
+function css_level_list($struct, $struct_path, $level, $parent_level_name='', $parent_level=1, $class='') {
 	// returns list <div><ul><li></li></ul></div> of the current structure level
 	// if $parent_level=1 the first list entry will be the parent level
 	// $parent_level=0 - only the list of all levels in this structure
@@ -401,23 +401,23 @@ function css_level_list(&$struct, $struct_path, $level, $parent_level_name='', $
 
 	foreach($level_struct as $key => $value) {
 
-		if(!$level_struct[$key]["acat_redirect"]) {
+		if(!$value["acat_redirect"]) {
 			$link = 'index.php?';
-			if($level_struct[$key]["acat_alias"]) {
-				$link .= html_specialchars($level_struct[$key]["acat_alias"]);
+			if($value["acat_alias"]) {
+				$link .= html_specialchars($value["acat_alias"]);
 			} else {
 				$link .= 'id='.$key;
 			}
 			$redirect['target'] = '';
 		} else {
-			$redirect = get_redirect_link($level_struct[$key]["acat_redirect"], ' ', '');
+			$redirect = get_redirect_link($value["acat_redirect"], ' ', '');
 			$link = $redirect['link'];
 		}
 		$css_list .= '	<li';
-		$liclass   = trim( (empty($breadcrumb[$key]) ? '' : 'active ') . $level_struct[$key]["acat_class"] );
+		$liclass   = trim( (empty($breadcrumb[$key]) ? '' : 'active ') . $value["acat_class"] );
 		$css_list .= empty($liclass) ? '' : ' class="'.$liclass.'"';
 		$css_list .= '><a href="'.$link.'"'.$redirect['target'].'>';
-		$css_list .= html_specialchars($level_struct[$key]["acat_name"]);
+		$css_list .= html_specialchars($value["acat_name"]);
 		$css_list .= '</a></li>'.LF;
 
 	}

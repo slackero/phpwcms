@@ -30,9 +30,9 @@ if(empty($template_default['imagegallery_default_column'])) {
         $template_default['imagegallery_default_column'] = 1;
     }
 }
-$template_default['imagegallery_default_width']  = isset($template_default['imagegallery_default_width']) ? $template_default['imagegallery_default_width'] : '' ;
-$template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
-$template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
+$template_default['imagegallery_default_width']  = $template_default['imagegallery_default_width'] ?? '';
+$template_default['imagegallery_default_height'] = $template_default['imagegallery_default_height'] ?? '';
+$template_default['imagegallery_default_space']  = $template_default['imagegallery_default_space'] ?? '';
 
 $content['image_default'] = array(
     'pos'           => 0,
@@ -78,7 +78,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
             <td><select name="template" id="template" class="width150">
 <?php
 
-    $tab_fieldgroups_active = isset($tab_fieldgroup_templates['default']) ? $tab_fieldgroup_templates['default'] : '';
+    $tab_fieldgroups_active = $tab_fieldgroup_templates['default'] ?? '';
 
     echo '<option value=""'.(empty($content["image_template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>'.LF;
 
@@ -87,18 +87,13 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
     if(is_array($tmpllist) && count($tmpllist)) {
         foreach($tmpllist as $val) {
             // do not show listmode templates
-            if(substr($val, 0, 5) == 'list.') {
+            if(str_starts_with($val, 'list.')) {
                 continue;
             }
 
             if(isset($content["image_template"]) && $val == $content["image_template"]){
                 $selected_val = ' selected="selected"';
-                if(isset($tab_fieldgroup_templates[$val])) {
-                    $tab_fieldgroups_active = $tab_fieldgroup_templates[$val];
-                } else {
-                    // Reset
-                    $tab_fieldgroups_active = '';
-                }
+                $tab_fieldgroups_active = $tab_fieldgroup_templates[$val] ?? '';
             } else {
                 $selected_val = '';
             }
@@ -366,7 +361,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                                 $custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
                             }
                             continue;
-                        } elseif(is_string($value['custom_fields'][$custom_field]) && substr($value['custom_fields'][$custom_field], 0, 2) === 'a:') {
+                        } elseif(is_string($value['custom_fields'][$custom_field]) && str_starts_with($value['custom_fields'][$custom_field], 'a:')) {
                             $_unserialze = @unserialize($value['custom_fields'][$custom_field]);
                             if ($_unserialze === false) {
                                 continue;
@@ -404,7 +399,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
             <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
                             <input type="number" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
-                            echo isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : 0;
+                            echo $value['custom_fields'][$custom_field] ?? 0;
                             ?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
                             <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
                             <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
@@ -424,7 +419,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
                         if ($is_wysiwyg):
                             $wysiwyg_editor = array(
-                                'value' => isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : '',
+                                'value' => $value['custom_fields'][$custom_field] ?? '',
                                 'field' => 'customfield[' . $key . '][' . $custom_field . ']',
                                 'height' => empty($tab_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $tab_fieldgroup['fields'][$custom_field]['height'],
                                 'width' => '100%',
@@ -589,7 +584,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 <tr><td colspan="2" align="center"><?php
 
 $wysiwyg_editor = array(
-    'value'     => isset($content["image_html"]) ? $content["image_html"] : '',
+    'value'     => $content["image_html"] ?? '',
     'field'     => 'image_html',
     'height'    => '300px',
     'width'     => '100%',

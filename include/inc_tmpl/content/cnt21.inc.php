@@ -63,7 +63,7 @@ function browse_pages_dir($dir) {
 	if(is_dir($dir)) {
 		$ph = opendir($dir);
 		while($pf = readdir($ph)) {
-   			if(substr($pf, 0, 1) !== '.') {
+   			if(!str_starts_with($pf, '.')) {
 
 				if(is_dir($dir.'/'.$pf)) {
 

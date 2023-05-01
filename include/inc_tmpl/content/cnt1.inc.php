@@ -19,8 +19,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //image with text
 
-$template_default['article']['image_default_width'] = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '' ;
-$template_default['article']['image_default_height']= isset($template_default['article']['image_default_height']) ? $template_default['article']['image_default_height'] : '' ;
+$template_default['article']['image_default_width'] = $template_default['article']['image_default_width'] ?? '';
+$template_default['article']['image_default_height']= $template_default['article']['image_default_height'] ?? '';
 
 if(empty($content['cimage']['cimage_crop'])) {
     $content['cimage']['cimage_crop'] = 0;
@@ -58,7 +58,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2" align="center"><?php
 
 $wysiwyg_editor = array(
-    'value'     => isset($content["text"]) ? $content["text"] : '',
+    'value'     => $content["text"] ?? '',
     'field'     => 'ctext',
     'height'    => '650px',
     'width'     => '100%',
@@ -80,7 +80,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                   <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo  isset($content["image_name"]) ? html($content["image_name"]) : '' ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
                   <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
                   <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
-                    <input name="cimage_id" type="hidden" value="<?php echo  isset($content["image_id"]) ? $content["image_id"] : '' ?>" /></td>
+                    <input name="cimage_id" type="hidden" value="<?php echo $content["image_id"] ?? ''; ?>" /></td>
                 </tr>
               </table></td>
               </tr>

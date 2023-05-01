@@ -78,7 +78,7 @@ if($tabs['template']) {
 
         if($tabs['custom_tab_fields']) {
             foreach($tabs['custom_tab_fields'] as $custom_field_key) {
-                $custom_field_value = isset($entry['custom_fields'][$custom_field_key]) ? $entry['custom_fields'][$custom_field_key] : '';
+                $custom_field_value = $entry['custom_fields'][$custom_field_key] ?? '';
                 $custom_field_replacer = 'TAB_'.strtoupper($custom_field_key);
 
                 if($custom_field_value === '') {
@@ -98,7 +98,7 @@ if($tabs['template']) {
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
 
                         // render option specific replacers
-                        if(strpos($tabs['entries'][$key], $custom_field_replacer.'_') !== false) {
+                        if(str_contains($tabs['entries'][$key], $custom_field_replacer . '_')) {
                             foreach($tabs['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
                                 if($custom_field_value === $option_key) {
                                     $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));

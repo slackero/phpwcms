@@ -56,28 +56,28 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		// first read all defined custom field values
 		if(!empty($tab_fieldgroup_fields)) {
 			foreach($tab_fieldgroup_fields as $custom_field => $custom_field_definition) {
-				$custom_field_value = isset($_POST['customfield'][$key][$custom_field]) ? $_POST['customfield'][$key][$custom_field] : null;
+				$custom_field_value = $_POST['customfield'][$key][$custom_field] ?? null;
 
 				$_POST['customfield'][$key][$custom_field] = null;
 				unset($_POST['customfield'][$key][$custom_field]);
 
-				if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
+				if(isset($custom_field_definition['render']) && in_array($custom_field_definition['render'], $tab_fieldgroup_field_render)) {
 
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
 
-				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
+				} elseif($custom_field_definition['type'] === 'int') {
 
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
 
-				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
+				} elseif($custom_field_definition['type'] === 'float') {
 
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
 
-				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
+				} elseif($custom_field_definition['type'] === 'bool') {
 
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 
-				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'file') {
+				} elseif($custom_field_definition['type'] === 'file') {
 
                     $content["tabs"][$x]['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
 
@@ -121,7 +121,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		if($content["tabs"][$x]['tabheadline']) {
 			$content['html'][] = '<h3>'.html_specialchars($content["tabs"][$x]['tabheadline']).'</h3>';
 		}
-		if(!$content['tabwysiwygoff'] && strpos($content["tabs"][$x]['tabtext'], '<') === false) {
+		if(!$content['tabwysiwygoff'] && !str_contains($content["tabs"][$x]['tabtext'], '<')) {
 			$content["tabs"][$x]['tabtext'] = plaintext_htmlencode($content["tabs"][$x]['tabtext']);
 			$content['html'][] = ''.$content["tabs"][$x]['tabtext'];
 		}

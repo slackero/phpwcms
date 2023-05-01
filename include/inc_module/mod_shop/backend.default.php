@@ -67,7 +67,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
     include_once $phpwcms['modules'][$module]['path'].'inc/functions.backend.inc.php';
     include_once $phpwcms['modules'][$module]['path'].'inc/functions.global.inc.php';
 
-    define('SHOP_FELANG_SUPPORT', _getConfig( 'shop_pref_felang' ) ? true : false);
+    define('SHOP_FELANG_SUPPORT', (bool)_getConfig('shop_pref_felang'));
 
     // put translation back to have easier access to it - use it as relation
     $BLM = & $BL['modules'][$module];

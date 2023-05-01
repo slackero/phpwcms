@@ -132,8 +132,8 @@ if(isset($_POST["file_search"])) {
             <td><select name="file_andor" id="file_andor" class="v11">
             <?php
 
-            $s1 = isset($_POST["file_andor"]) ? $_POST["file_andor"] : 1;
-            $s2 = isset($_POST["file_which"]) ? $_POST["file_which"] : 2;
+            $s1 = $_POST["file_andor"] ?? 1;
+            $s2 = $_POST["file_which"] ?? 2;
 
             ?>
               <option value="1" <?php is_selected("1", $s1) ?>><?php echo $BL['be_fsearch_and'] ?></option>

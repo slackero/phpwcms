@@ -50,7 +50,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['direct_download_deny'] = file_get_contents(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess'))) {
     $content['file']['direct_download_deny'] = strtolower($content['file']['direct_download_deny']);
-    if(strpos($content['file']['direct_download_deny'], 'deny') !== false) {
+    if(str_contains($content['file']['direct_download_deny'], 'deny')) {
         $content['file']['direct_download_deny'] = true;
     } else {
         $content['file']['direct_download_deny'] = false;
@@ -114,15 +114,15 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
     			if(isset($file_result[0]['f_id'])) {
     				foreach($file_result as $file_row) {
     					foreach($fxb as $key => $value) {
-    						if($fxb[$key]["fid"] == $file_row['f_id']) {
+    						if($value["fid"] == $file_row['f_id']) {
     							$fxb[$key]["fname"] = html($file_row['f_name']);
     						}
     					}
     				}
     			}
     			foreach($fxb as $key => $value) {
-    				if(!empty($fxb[$key]["fname"])) {
-    					echo "<option value=\"".$fxb[$key]["fid"]."\">".$fxb[$key]["fname"]."</option>\n";
+    				if(!empty($value["fname"])) {
+    					echo "<option value=\"". $value["fid"]."\">". $value["fname"]."</option>\n";
     				}
     			}
     			unset($fxb, $content["file_list"]);
@@ -146,7 +146,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
   <td valign="top">
   	<textarea name="cfile_descr" cols="40" rows="5" class="width440 autosize" id="cfile_descr"><?php
 
-	if(!empty($content["file_descr"]) && (substr($content["file_descr"], 0, 1) === "\r" || substr($content["file_descr"], 0, 1) === "\n")) {
+	if(!empty($content["file_descr"]) && (str_starts_with($content["file_descr"], "\r") || str_starts_with($content["file_descr"], "\n"))) {
 		echo ' ';
 	}
 	echo html($content["file_descr"]);
@@ -173,7 +173,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 <tr><td colspan="2" align="center"><?php
 
 $wysiwyg_editor = array(
-	'value'		=> isset($content["html"]) ? $content["html"] : '',
+	'value'		=> $content["html"] ?? '',
 	'field'		=> 'chtml',
 	'height'	=> '250px',
 	'width'		=> '100%',

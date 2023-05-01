@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //images (gallery)
 
 $image  = @unserialize($crow["acontent_form"]);
-$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
+$crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
 if(empty($image['fieldgroup'])) {
     $image['fieldgroup'] = '';
 }
@@ -408,7 +408,7 @@ if($image['template']) {
 
             if($image['custom_tab_fields']) {
                 foreach($image['custom_tab_fields'] as $custom_field_key) {
-                    $custom_field_value = isset($value['custom_fields'][$custom_field_key]) ? $value['custom_fields'][$custom_field_key] : '';
+                    $custom_field_value = $value['custom_fields'][$custom_field_key] ?? '';
                     $custom_field_replacer = 'IMGSPCL_'.strtoupper($custom_field_key);
 
                     if($custom_field_value === '') {
@@ -428,7 +428,7 @@ if($image['template']) {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, html($custom_field_value));
 
                             // render option specific replacers
-                            if(strpos($img_a, $custom_field_replacer.'_') !== false) {
+                            if(str_contains($img_a, $custom_field_replacer . '_')) {
                                 foreach($image['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
                                     if($custom_field_value === $option_key) {
                                         $img_a = render_cnt_template($img_a, $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));

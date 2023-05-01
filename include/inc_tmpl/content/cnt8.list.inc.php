@@ -23,7 +23,7 @@ $cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 
 $cinfo_alink = unserialize($row["acontent_form"]);
-$cinfo_alink = isset($cinfo_alink['alink_id']) ? $cinfo_alink['alink_id'] : explode(':', $row["acontent_alink"]);
+$cinfo_alink = $cinfo_alink['alink_id'] ?? explode(':', $row["acontent_alink"]);
 
 $cinfo[3] = '';
 if(is_array($cinfo_alink)) {

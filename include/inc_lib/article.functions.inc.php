@@ -58,7 +58,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 
 				echo '<option value="', $value["acat_id"], '"';
 				if($selected_id==$value["acat_id"]) {
-					define('ACAT_OPENGRAPH_STATUS', empty($value["acat_opengraph"]) ? false : true);
+					define('ACAT_OPENGRAPH_STATUS', !empty($value["acat_opengraph"]));
 					echo ' selected="selected"';
 				}
 				echo '>', $value["acat_name"], '</option>', LF;
@@ -93,20 +93,20 @@ function struct_select_list($counter, $struct_id, $selected_id, $add_alias=false
 	if(isset($struct[0]['acat_id'])) {
 		foreach($struct as $key => $value) {
 
-			$value['acat_name'] = html($struct[$key]["acat_name"]);
-			if($add_alias && $struct[$key]["acat_alias"]) {
-				$value['acat_name'] .= ' ('.$struct[$key]["acat_alias"].')';
+			$value['acat_name'] = html($value["acat_name"]);
+			if($add_alias && $value["acat_alias"]) {
+				$value['acat_name'] .= ' ('. $value["acat_alias"].')';
 			}
 
-			echo '<option value="', $struct[$key]["acat_id"], '"';
-			if(in_array($struct[$key]["acat_id"], $selected_id)) {
+			echo '<option value="', $value["acat_id"], '"';
+			if(in_array($value["acat_id"], $selected_id)) {
 				echo ' selected="selected"';
 			}
 			echo ' title="', $value['acat_name'], '">';
 			echo str_repeat("&#8212;", $counter), ' ', $value['acat_name'];
 			echo '</option>'.LF;
 
-			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id, $add_alias);
+			struct_select_list($counter, $value["acat_id"], $selected_id, $add_alias);
 		}
 	}
 }

@@ -51,8 +51,8 @@ if(empty($_SESSION['ads_page'])) {
 	$_SESSION['ads_page'] = 1;
 }
 
-$_entry['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_active']		: 1;
-$_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
+$_entry['list_active']		= $_SESSION['list_active'] ?? 1;
+$_entry['list_inactive']	= $_SESSION['list_inactive'] ?? 1;
 
 
 // set correct status query

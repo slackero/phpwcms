@@ -19,13 +19,13 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images
 
-$content["image_list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
+$content["image_list"] 		= $_POST["cimage_list"] ?? array();
 $content["image_pos"] 		= empty($_POST["cimage_pos"]) ? 0 : intval($_POST["cimage_pos"]);
 
-$content["image_width"] 	= intval($_POST["cimage_width"]) ? intval($_POST["cimage_width"]) : '';
+$content["image_width"] 	= intval($_POST["cimage_width"]) ?: '';
 $temp_width 				= $content["image_width"];
 
-$content["image_height"] 	= intval($_POST["cimage_height"]) ? intval($_POST["cimage_height"]) : '';
+$content["image_height"] 	= intval($_POST["cimage_height"]) ?: '';
 $temp_height 				= $content["image_height"];
 
 $content["image_space"] 	= intval($_POST["cimage_space"]);

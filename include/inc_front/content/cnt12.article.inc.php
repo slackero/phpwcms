@@ -302,12 +302,12 @@ if($content["newsletter"]["success"]) {
     $CNT_TMP .= '<fieldset class="subscriber">';
 
     $CNT_TMP .= '<div class="form-group">';
-    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_email"] ? $content["newsletter"]["label_email"] : "@@email:@@") . '</label> ';
+    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_email"] ?: "@@email:@@") . '</label> ';
     $CNT_TMP .= '<input name="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
     $CNT_TMP .= 'value="'.$content["newsletter"]["email_address"].'" required="required" placeholder="@@newsletter email@@" /></div>';
 
     $CNT_TMP .= '<div class="form-group">';
-    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_name"] ? $content["newsletter"]["label_name"] : '@@name:@@') . '</label> ';
+    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_name"] ?: '@@name:@@') . '</label> ';
     $CNT_TMP .= '<input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
     $CNT_TMP .= 'value="'.$content["newsletter"]["email_name"].'" placeholder="@@newsletter name@@" /></div>';
 
@@ -402,7 +402,7 @@ if($content["newsletter"]["success"]) {
         $CNT_TMP .= '<button type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'">';
     }
 
-    $CNT_TMP .= $content["newsletter"]["button_text"] ? $content["newsletter"]["button_text"] : '@@Subscribe@@';
+    $CNT_TMP .= $content["newsletter"]["button_text"] ?: '@@Subscribe@@';
     $CNT_TMP .= '</button>' . LF;
     $CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 

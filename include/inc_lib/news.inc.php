@@ -251,16 +251,16 @@ class phpwcmsNews {
         // 2 = all inactive
 
         $status     = isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
-        $filter     = isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
+        $filter     = $_SESSION['PAGE_FILTER']['news']['filter'] ?? '';
         $page       = isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
-        $sort       = isset($_SESSION['PAGE_FILTER']['news']['sort']) ? $_SESSION['PAGE_FILTER']['news']['sort'] : 'start_desc';
-        $lang       = isset($_SESSION['PAGE_FILTER']['news']['lang']) ? $_SESSION['PAGE_FILTER']['news']['lang'] : '';
-        $keyword    = isset($_SESSION['PAGE_FILTER']['news']['keyword']) ? $_SESSION['PAGE_FILTER']['news']['keyword'] : '';
+        $sort       = $_SESSION['PAGE_FILTER']['news']['sort'] ?? 'start_desc';
+        $lang       = $_SESSION['PAGE_FILTER']['news']['lang'] ?? '';
+        $keyword    = $_SESSION['PAGE_FILTER']['news']['keyword'] ?? '';
 
         if(isset($_POST['filter'])) {
 
-            $active     = empty($_POST['showactive']) ? false : true;
-            $inactive   = empty($_POST['showinactive']) ? false : true;
+            $active     = !empty($_POST['showactive']);
+            $inactive   = !empty($_POST['showinactive']);
             $filter     = clean_slweg($_POST['filter']);
             $page       = empty($_POST['page']) ? 0 : intval($_POST['page']);
             $sort       = empty($_POST['sort']) || !isset($this->sort_options[$_POST['sort']]) ? 'start_desc' : $_POST['sort'];
@@ -473,7 +473,6 @@ class phpwcmsNews {
                     foreach($result as $file_data) {
                         if(intval($file_data['f_id']) === intval($file_id)) {
                             $data[$key] = $file_data;
-                            continue;
                         }
                     }
                 }

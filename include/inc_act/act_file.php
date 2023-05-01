@@ -91,7 +91,7 @@ if(isset($_GET["thumbnail"])) {
 
 if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
 
-    $phpwcms['trash_delete_files'] = empty($phpwcms['trash_delete_files']) ? false : true;
+    $phpwcms['trash_delete_files'] = !empty($phpwcms['trash_delete_files']);
 
     //move deleted files into final deletion directory
     if(isset($_GET['movedeletedfiles']) && intval($_GET['movedeletedfiles']) === intval($_SESSION["wcs_user_id"])) {

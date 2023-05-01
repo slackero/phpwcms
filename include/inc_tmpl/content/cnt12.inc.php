@@ -71,7 +71,7 @@ if (!defined('PHPWCMS_ROOT')) {
     <td align="right" class="chatlist"><?php echo $BL['be_cnt_labelemail'] ?>:&nbsp;</td>
     <td class="tdbottom3"><table width="450" border="0" cellpadding="0" cellspacing="0" summary="">
       <tr>
-        <td width="188"><input name="cnewsletter_label_email" type="text" id="cnewsletter_label_email" class="width180" value="<?php echo  isset($content["newsletter"]["label_email"]) ? $content["newsletter"]["label_email"] : '' ?>" size="20" maxlength="100"></td>
+        <td width="188"><input name="cnewsletter_label_email" type="text" id="cnewsletter_label_email" class="width180" value="<?php echo $content["newsletter"]["label_email"] ?? '' ?>" size="20" maxlength="100"></td>
         <td width="70" align="right" class="chatlist">&nbsp;<?php
 
         echo $BL['be_cnt_tablealign'];

@@ -123,7 +123,7 @@ if($fe_action) {
 
     foreach($fe_fields as $fe_field => $fe_field_value) {
 
-        if( substr(ltrim($fe_field , '/'), 0, 8) === 'FIELDSET' ) {
+        if(str_starts_with(ltrim($fe_field, '/'), 'FIELDSET')) {
             $fe_fields[ $fe_field ] = array('type' => 'FIELDSET', 'label' => $fe_field_value, 'value'=>substr($fe_field, 0, 1));
             continue;
         }
@@ -135,7 +135,7 @@ if($fe_action) {
             if(!isset($fe_field_value['value'])) {
                 $fe_fields[ $fe_field ]['value'] = '';
             }
-            $fe_fields[ $fe_field ]['required'] = empty( $fe_field_value['required'] ) ? false : true;
+            $fe_fields[ $fe_field ]['required'] = !empty($fe_field_value['required']);
         } else {
             $fe_field_type = is_string($fe_field_value) ? $fe_field_value : 'STRING';
             $fe_fields[ $fe_field ] = array('type' => $fe_field_type, 'value' => '', 'required' => false);

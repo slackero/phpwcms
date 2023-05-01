@@ -232,12 +232,12 @@ if(isset($result[0]['usr_id'])) {
             if(isset($group["member"]) && empty($group["error"])) {
                 if(in_array($key, $group["member"])) {
                     echo '<option value="'.$key.'"';
-                    if(!$_temp_usr[$key]['active']) {
+                    if(!$value['active']) {
                         echo ' style="color:#999999;"';
-                    } elseif($_temp_usr[$key]['admin']) {
+                    } elseif($value['admin']) {
                         echo ' style="color:#3F61BF;"';
                     }
-                    echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
+                    echo '>'.trim($value['name']. ' ('. $value['login'].')')."</option>\n";
                     unset($_temp_usr[$key]);
                 }
             }
@@ -254,12 +254,12 @@ if(isset($result[0]['usr_id'])) {
     if(count($_temp_usr)) {
         foreach($_temp_usr as $key => $value) {
             echo '<option value="'.$key.'"';
-            if(!$_temp_usr[$key]['active']) {
+            if(!$value['active']) {
                 echo ' style="color:#999999"';
-            } elseif($_temp_usr[$key]['admin']) {
+            } elseif($value['admin']) {
                 echo ' style="color:#3F61BF"';
             }
-            echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
+            echo '>'.trim($value['name']. ' ('. $value['login'].')')."</option>\n";
         }
     }
 

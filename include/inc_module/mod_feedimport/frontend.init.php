@@ -142,7 +142,7 @@ if(!empty($_getVar['feedimport'])) {
 				}
 				if($article_summary && $article_summary == strip_tags($article_summary)) {
 					$article_summary = plaintext_htmlencode($article_summary);
-				} elseif($article_summary && strpos($article_summary, '<') !== false) {
+				} elseif($article_summary && str_contains($article_summary, '<')) {
 					$article_summary = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
@@ -150,7 +150,7 @@ if(!empty($_getVar['feedimport'])) {
 						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_summary);
 				}
-				if($article_content && strpos($article_content, '<') !== false) {
+				if($article_content && str_contains($article_content, '<')) {
 					$article_content = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',

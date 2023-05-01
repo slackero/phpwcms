@@ -27,7 +27,7 @@ if($_GET['struct'] === 'index') {
     $acat_id            = 'index';
     $acat_new           = 0;
     $acat_aktiv         = $indexpage['acat_aktiv'];
-    $acat_sort          = isset($acat_sort) ? $acat_sort : '';
+    $acat_sort          = $acat_sort ?? '';
     $acat_alias         = $indexpage['acat_alias'];
     $acat_hidden        = $indexpage['acat_hidden'];
     $acat_template      = $indexpage['acat_template'];
@@ -53,7 +53,7 @@ if($_GET['struct'] === 'index') {
     $acat_lang_type     = '';
     $acat_lang_id       = 0;
     $acat_disable301    = empty($indexpage['acat_disable301']) ? 0 : 1;
-    $acat_opengraph     = isset($indexpage['acat_opengraph']) ? $indexpage['acat_opengraph'] : 1;
+    $acat_opengraph     = $indexpage['acat_opengraph'] ?? 1;
     $acat_canonical     = empty($indexpage['acat_canonical']) ? '' : $indexpage['acat_canonical'];
     $acat_breadcrumb    = empty($indexpage['acat_breadcrumb']) ? 0 : intval($indexpage['acat_breadcrumb']);
     $acat_onepage       = empty($indexpage['acat_onepage']) ? 0 : 1;
@@ -68,7 +68,7 @@ if($_GET['struct'] === 'index') {
     $acat_title_alt     = '';
     $acat_info          = '';
     $acat_aktiv         = $phpwcms['set_category_active'];
-    $acat_sort          = isset($acat_sort) ? $acat_sort : '';
+    $acat_sort          = $acat_sort ?? '';
     $acat_alias         = '';
     $acat_hidden        = 0;
     $acat_hiddenactive  = 0;
@@ -219,7 +219,7 @@ switch($acat_hidden) {
                     <label><input type="radio" name="acat_lang_type" value="article"<?php is_checked('article', $acat_lang_type); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
                     &nbsp;
                     <img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . $lang_default ?>" />&nbsp;
-                    <input name="acat_lang_id" type="text" class="bold width75" value="<?php echo $acat_lang_id ? $acat_lang_id : ''; ?>" size="11" maxlength="11" />
+                    <input name="acat_lang_id" type="text" class="bold width75" value="<?php echo $acat_lang_id ?: ''; ?>" size="11" maxlength="11" />
                 </div>
 
             </div>
@@ -436,10 +436,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
                 foreach($_temp_group as $key => $value) {
                     if(in_array($key, $acat_permit)) {
                         echo '<option value="'.$key.'"';
-                        if(empty($_temp_group[$key]['active'])) {
+                        if(empty($value['active'])) {
                             echo ' style="color:#999999;"';
                         }
-                        echo '>'.html($_temp_group[$key]['name'])."</option>";
+                        echo '>'.html($value['name'])."</option>";
                         unset($_temp_group[$key]);
                     }
                 }
@@ -464,10 +464,10 @@ if(is_array($tmpllist) && count($tmpllist)) {
                 // list all available groups
                 foreach($_temp_group as $key => $value) {
                     echo '<option value="'.$key.'"';
-                    if(empty($_temp_group[$key]['active'])) {
+                    if(empty($value['active'])) {
                         echo ' style="color:#999999;"';
                     }
-                    echo '>'.html($_temp_group[$key]['name'])."</option>\n";
+                    echo '>'.html($value['name'])."</option>\n";
                 }
             }
         ?>

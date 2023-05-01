@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection ALL */
+/** @noinspection ALL */
+/** @noinspection ALL */
+/** @noinspection ALL */
+/** @noinspection ALL */
 /**
  * phpwcms content management system
  *
@@ -92,7 +96,7 @@ if (defined('CUSTOM_CONTENT_TYPE')) {
 
 $phpwcms["site"] = $phpwcms["site"] === '' ? get_url_origin(true) : rtrim($phpwcms["site"], '/');
 $phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms["site"] : rtrim($phpwcms["site_ssl_url"], '/');
-if (substr($phpwcms['site_ssl_url'], 0, 5) == 'http:') {
+if (str_starts_with($phpwcms['site_ssl_url'], 'http:')) {
     $phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
 }
 $phpwcms['site_ssl_port'] = abs(intval($phpwcms['site_ssl_port']));
@@ -101,7 +105,7 @@ if ($phpwcms['site_ssl_port'] !== 443) {
 }
 
 if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
-    if (substr($phpwcms['site'], 0, 5) == 'http:') {
+    if (str_starts_with($phpwcms['site'], 'http:')) {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
     }
     define('PHPWCMS_SSL', true);
@@ -138,9 +142,9 @@ if (empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', true);
     define('PHPWCMS_RESIZE_IMAGE', 'im');
 }
-define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
-define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
-define('PHPWCMS_ALIAS_UTF8', empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8' ? false : true);
+define('PHPWCMS_REWRITE_EXT', $phpwcms['rewrite_ext'] ?? '.html');
+define('PHPWCMS_ALIAS_WSLASH', !empty($phpwcms['alias_allow_slash']));
+define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8'));
 
 if (defined('PHP_MAJOR_VERSION')) {
     define('IS_PHP5', PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 6);
@@ -189,15 +193,15 @@ define('PHPWCMS_RSS', PHPWCMS_CONTENT . 'rss');
 define('PHPWCMS_STORAGE', PHPWCMS_ROOT . $phpwcms["file_path"]);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
-define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
-define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
+define('RESPONSIVE_MODE', !empty($phpwcms['responsive']));
+define('PHPWCMS_PRESERVE_IMAGENAME', !empty($phpwcms['preserve_image_name']));
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
-define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : false);
+define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) && !!$phpwcms['enable_GDPR']);
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT . 'log');
 define('PHPWCMS_WEBP', empty($phpwcms['webp_enable']) ? false : $phpwcms['USER_AGENT']['webp']);
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
-define('PHPWCMS_RESIZE_ANIMATED_GIF', isset($phpwcms['resize_animated_gif']) ? (bool) $phpwcms['resize_animated_gif'] : true);
+define('PHPWCMS_RESIZE_ANIMATED_GIF', !isset($phpwcms['resize_animated_gif']) || (bool)$phpwcms['resize_animated_gif']);
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -208,7 +212,7 @@ if (function_exists('mb_substr')) {
         if ($length !== null) {
             return phpwcms_seems_utf8($str) ? mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start, $length), 'UTF-8') : substr($str, $start, $length);
         } elseif (phpwcms_seems_utf8($str)) {
-            return utf8_encode(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start));
+            return mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start), 'UTF-8');
         } else {
             return substr($str, $start);
         }
@@ -677,7 +681,7 @@ function buildGlobalGET($return = '') {
     if ($_getCount && $_getCount >= $_queryCount) {
 
         // solve the problem that dots inside alias can get lost using GET variable
-        if (!empty($_queryVal[0]) && strpos($_queryVal[0], '.') !== false) {
+        if (!empty($_queryVal[0]) && str_contains($_queryVal[0], '.')) {
             array_shift($_GET);
             $_GET = array($_queryVal[0] => '') + $_GET;
         }
@@ -895,7 +899,7 @@ function cleanupPOSTandGET() {
     // remove possible unsecure PHP replacement tags in GET and POST vars
     if (isset($_POST) && count($_POST)) {
         foreach ($_POST as $key => $value) {
-            if (!is_array($_POST[$key])) {
+            if (!is_array($value)) {
                 $_POST[$key] = remove_unsecure_rptags($value);
             }
         }
@@ -965,7 +969,7 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
 
 function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params'] = session_get_cookie_params();
-    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']) ? true : false;
+    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']);
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
     $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
@@ -1019,7 +1023,7 @@ function getAnonymizedIp() {
 function phpwcms_getUserAgent($USER_AGENT = '') {
 
     if (empty($USER_AGENT)) {
-        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'] ?? '';
         $index = 'USER_AGENT';
     } else {
         $index = 'USER_AGENT_' . md5($USER_AGENT);
@@ -1040,7 +1044,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         $pixelratio = 1;
     }
 
-    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
+    if (!empty($_SERVER['HTTP_ACCEPT']) && str_contains($_SERVER['HTTP_ACCEPT'], 'image/webp') || ($USER_AGENT && str_contains($USER_AGENT, ' Chrome/'))) {
         $webp = true;
     } else {
         $webp = false;
@@ -1122,7 +1126,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
 
     $USER_AGENT = strtolower($USER_AGENT);
 
-    if (strpos($USER_AGENT, 'android') !== false) {
+    if (str_contains($USER_AGENT, 'android')) {
         if ($agent === 'Edge') {
             $platform = 'Edge';
         } else {
@@ -1135,75 +1139,75 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         } else {
             $device = 'Tablet';
         }
-    } elseif (strpos($USER_AGENT, 'windows phone') !== false) {
+    } elseif (str_contains($USER_AGENT, 'windows phone')) {
         $agent = 'IEMobile';
         $platform = 'WinPhone';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'windows ce') !== false) {
+    } elseif (str_contains($USER_AGENT, 'windows ce')) {
         $platform = 'WinCE';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'win') !== false) {
+    } elseif (str_contains($USER_AGENT, 'win')) {
         $platform = 'Win';
         $device = 'Desktop';
-    } elseif (strpos($USER_AGENT, 'iphone') !== false) {
+    } elseif (str_contains($USER_AGENT, 'iphone')) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'ipad') !== false) {
+    } elseif (str_contains($USER_AGENT, 'ipad')) {
         $platform = 'iOS';
         $device = 'Tablet';
-    } elseif (strpos($USER_AGENT, 'ipod') !== false) {
+    } elseif (str_contains($USER_AGENT, 'ipod')) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'mac') !== false) {
+    } elseif (str_contains($USER_AGENT, 'mac')) {
         $platform = 'Mac';
         $device = 'Desktop';
-    } elseif (strpos($USER_AGENT, 'googletv') !== false) {
+    } elseif (str_contains($USER_AGENT, 'googletv')) {
         $platform = 'GoogleTV';
         $device = 'TV';
         $engine = 'WebKit';
-    } elseif (strpos($USER_AGENT, 'rim tablet') !== false) {
+    } elseif (str_contains($USER_AGENT, 'rim tablet')) {
         $platform = 'Blackberry';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'blackberry') !== false) {
+    } elseif (str_contains($USER_AGENT, 'blackberry')) {
         $platform = 'Blackberry';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'webos') !== false) {
+    } elseif (str_contains($USER_AGENT, 'webos')) {
         $platform = 'WebOS';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'kindle') !== false) {
+    } elseif (str_contains($USER_AGENT, 'kindle')) {
         $platform = 'Android';
         $mobile = 1;
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'silk') !== false) {
+    } elseif (str_contains($USER_AGENT, 'silk')) {
         $platform = 'Linux';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'linux') !== false) {
+    } elseif (str_contains($USER_AGENT, 'linux')) {
         $platform = 'Linux';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'unix') !== false) {
+    } elseif (str_contains($USER_AGENT, 'unix')) {
         $platform = 'Unix';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'freebsd') !== false) {
+    } elseif (str_contains($USER_AGENT, 'freebsd')) {
         $platform = 'FreeBSD';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'symbian') !== false) {
+    } elseif (str_contains($USER_AGENT, 'symbian')) {
         $platform = 'Symbian';
         $mobile = 1;
         $device = 'Smartphone';
@@ -1233,7 +1237,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
+        'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? $GLOBALS['phpwcms']["default_lang"]
     );
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
@@ -1454,7 +1458,7 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
     $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;

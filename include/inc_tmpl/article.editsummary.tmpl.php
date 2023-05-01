@@ -21,10 +21,10 @@ initJsAutocompleter();
 
 unset($_SESSION['filebrowser_image_target']);
 
-$template_default['article']['image_default_width']      = isset($template_default['article']['image_default_width']) ? $template_default['article']['image_default_width'] : '';
-$template_default['article']['image_default_height']     = isset($template_default['article']['image_default_height']) ? $template_default['article']['image_default_height'] : '';
-$template_default['article']['imagelist_default_width']  = isset($template_default['article']['imagelist_default_width']) ? $template_default['article']['imagelist_default_width'] : '';
-$template_default['article']['imagelist_default_height'] = isset($template_default['article']['imagelist_default_height']) ? $template_default['article']['imagelist_default_height'] : '';
+$template_default['article']['image_default_width']      = $template_default['article']['image_default_width'] ?? '';
+$template_default['article']['image_default_height']     = $template_default['article']['image_default_height'] ?? '';
+$template_default['article']['imagelist_default_width']  = $template_default['article']['imagelist_default_width'] ?? '';
+$template_default['article']['imagelist_default_height'] = $template_default['article']['imagelist_default_height'] ?? '';
 
 ?>
 <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>" method="post" name="article" id="article">
@@ -172,7 +172,7 @@ calEnd.setYearCombo(false);
         <td align="right" class="chatlist"><?php echo $BL['be_alias_articleID'] ?>:&nbsp;</td>
         <td><table border="0" cellpadding="0" cellspacing="0" summary="">
          <tr>
-            <td><input name="article_aliasid" type="text" class="width75" id="article_aliasid" value="<?php echo $article["article_aliasid"] ? $article["article_aliasid"] : ''; ?>" size="11" maxlength="11" /></td>
+            <td><input name="article_aliasid" type="text" class="width75" id="article_aliasid" value="<?php echo $article["article_aliasid"] ?: ''; ?>" size="11" maxlength="11" /></td>
             <td>&nbsp;&nbsp;</td>
             <td><input name="article_headerdata" id="article_headerdata" type="checkbox" value="1" <?php is_checked($article["article_headerdata"],1) ?> /></td>
             <td class="v10"><label for="article_headerdata">&nbsp;<?php echo $BL['be_alias_useAll'] ?></label></td>
@@ -226,7 +226,7 @@ calEnd.setYearCombo(false);
                     <label><input type="radio" name="article_lang_type" value="article"<?php is_checked('article', $article['article_lang_type']); ?> /><?php echo $BL['be_cnt_articles'] ?> ID</label>
                     &nbsp;
                     <img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" />&nbsp;
-                    <input name="article_lang_id" type="text" class="bold width75" value="<?php echo $article['article_lang_id'] ? $article['article_lang_id'] : ''; ?>" size="11" maxlength="11" />
+                    <input name="article_lang_id" type="text" class="bold width75" value="<?php echo $article['article_lang_id'] ?: ''; ?>" size="11" maxlength="11" />
                 </div>
 
             </div></td>
@@ -637,7 +637,7 @@ if(!isset($article['image']['list_usesummary'])) {
                         if(intval($u_row['usr_admin'])) {
                             echo ' style="background-color: #FFC299;"';
                         }
-                        echo '>'.html(($u_row['usr_name']) ? $u_row['usr_name'] : $u_row['usr_login']).'</option>';
+                        echo '>'.html($u_row['usr_name'] ?: $u_row['usr_login']).'</option>';
                     }
 
                 }

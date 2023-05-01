@@ -16,10 +16,10 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-define('DB_LOG_ERRORS', empty($GLOBALS['phpwcms']["db_errorlog"]) ? false : true);
+define('DB_LOG_ERRORS', !empty($GLOBALS['phpwcms']["db_errorlog"]));
 
 // open the connection to MySQL database
-if(!empty($GLOBALS['phpwcms']["db_pers"]) && substr($GLOBALS['phpwcms']["db_host"], 0, 2) !== 'p:') {
+if(!empty($GLOBALS['phpwcms']["db_pers"]) && !str_starts_with($GLOBALS['phpwcms']["db_host"], 'p:')) {
     $GLOBALS['phpwcms']["db_host"] = 'p:'.$GLOBALS['phpwcms']["db_host"];
 }
 $GLOBALS['db'] = mysqli_connect($GLOBALS['phpwcms']["db_host"], $GLOBALS['phpwcms']["db_user"], $GLOBALS['phpwcms']["db_pass"], $GLOBALS['phpwcms']["db_table"]);
@@ -124,7 +124,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
             case 'COUNT':
                 // first check if SQL COUNT() is used
                 $query = substr(strtoupper($query), 0, 30);
-                if(strpos($query, 'SELECT COUNT(') !== false) {
+                if(str_contains($query, 'SELECT COUNT(')) {
                     $row = mysqli_fetch_row($result);
                     return $row ? (int) $row[0] : 0;
                 }
@@ -288,7 +288,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 
     if($where != '') {
         $where = trim($where);
-        if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+        if(!str_starts_with(strtoupper($where), 'WHERE')) {
             $where = 'WHERE '.$where;
         }
         $where = ' '.$where;
@@ -325,7 +325,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
 
     if($where != '') {
         $where = trim($where);
-        if( substr(strtoupper($where), 0, 5) !== 'WHERE' ) {
+        if(!str_starts_with(strtoupper($where), 'WHERE')) {
             $where = 'WHERE '.$where;
         }
     }
@@ -407,7 +407,7 @@ function _dbInitialize() {
             'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
             'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
         );
-        $GLOBALS['phpwcms']['db_charset'] = isset($mysql_charset_map[PHPWCMS_CHARSET]) ? $mysql_charset_map[PHPWCMS_CHARSET] : 'utf8';
+        $GLOBALS['phpwcms']['db_charset'] = $mysql_charset_map[PHPWCMS_CHARSET] ?? 'utf8';
     }
 
     mysqli_set_charset($GLOBALS['db'], $GLOBALS['phpwcms']['db_charset']);
@@ -464,7 +464,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
             if($value === '--UNIQUE--') {
                 unset($row[$key]);
             } else {
-                if(is_string($value) && strpos($value, '--SELF--') !== false) {
+                if(is_string($value) && str_contains($value, '--SELF--')) {
                     $value = str_replace('--SELF--', $row[$key], $value);
                 }
                 $row[$key] = $value;
@@ -480,7 +480,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
     foreach($row as $key => $value) {
         $_VALUE[$c] = $key;
         if(is_string($value)) {
-            if(strpos($value, 'SQL:') === 0) {
+            if(str_starts_with($value, 'SQL:')) {
                 $_SET[$c] = str_replace('SQL:', '', $value);
             } else {
                 $_SET[$c] = _dbEscape($value);
@@ -629,7 +629,7 @@ function _getConfig($key, $set_global='phpwcms') {
         }
         if($set_global && count($result)) {
             foreach($result as $key => $value) {
-                $GLOBALS[$set_global][$key] = $result[$key];
+                $GLOBALS[$set_global][$key] = $value;
             }
         }
         if($return === 'array') {
@@ -703,7 +703,7 @@ function _dbSetVar($var='', $value=null, $compare=false) {
             // change MySQL var setting
             if($set) {
 
-                $value = _dbEscape($value, is_numeric($default) ? false : true);
+                $value = _dbEscape($value, !is_numeric($default));
                 if ($_var === 'max_allowed_packet') {
                     if (!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
                         return false;

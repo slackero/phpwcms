@@ -72,7 +72,7 @@ if(isset($_POST['ecard_chooser'])) {
 
 		$ecard["send"] = str_replace('###ECARD_TITLE###', html(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_IMAGE###', $list_img_temp, $ecard["send"]);
-		$ecard["send"] = str_replace('###RECIPIENT_NAME###', html($ecard["recipient_name"] ? $ecard["recipient_name"] : $ecard["recipient_email"]), $ecard["send"]);
+		$ecard["send"] = str_replace('###RECIPIENT_NAME###', html($ecard["recipient_name"] ?: $ecard["recipient_email"]), $ecard["send"]);
 		$ecard["send"] = str_replace('###RECIPIENT_EMAIL###', html($ecard["recipient_email"]), $ecard["send"]);
 		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
@@ -110,7 +110,7 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);
-		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
+		$ecard["mailer"]->Subject = ($ecard["subject"]) ?: 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
 
 		$thumb_image = get_cached_image(array(
 			"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
@@ -162,7 +162,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 			$ecard['temp_caption'] = explode('|', $ecard['images'][$key][6], 2);
 			$ecard['images'][$key][6] = $ecard['temp_caption'][0];
 			//check if image should be available as e-card
-			if(substr($ecard['images'][$key][6], 0, 1) != '~') {
+			if(!str_starts_with($ecard['images'][$key][6], '~')) {
 
 				//check if radio button or javascript
 				if(!$ecard["selector"]) {

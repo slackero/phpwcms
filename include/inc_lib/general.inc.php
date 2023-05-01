@@ -32,7 +32,7 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
-    if ($text && substr($text, -1) === '>') {
+    if ($text && str_ends_with($text, '>')) {
         $text = preg_replace(array('/<br>$/i', '/<br \/>$/i', '/<p><\/p>$/i', '/<p>&nbsp;<\/p>$/i'), '', rtrim($text));
     }
     if ($trim) {
@@ -503,7 +503,7 @@ function online_users($spacer = '<br />', $wrap = '<span class="useronline">|<sp
         }
     }
     if ($users) {
-        return $wrap[0] . implode($spacer, $users) . (isset($wrap[1]) ? $wrap[1] : '');
+        return $wrap[0] . implode($spacer, $users) . ($wrap[1] ?? '');
     }
 
     return '';
@@ -630,7 +630,7 @@ function get_tmpl_files($dir = '', $ext = '', $sort = true) {
     if (is_dir($dir)) {
         $ph = opendir($dir);
         while ($pf = readdir($ph)) {
-            if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf) && preg_match($regexp, $pf)) {
+            if (!str_starts_with($pf, '.') && is_file($dir . '/' . $pf) && preg_match($regexp, $pf)) {
                 $fa[] = $pf; //add $pf to file array for current dir
             }
         }
@@ -1000,13 +1000,10 @@ function encode_SpecialHtmlEntities($string = '', $mode = 'ALL') {
 }
 
 function cleanUpFormMailerPostValue($string = '') {
-    if (strpos("\n", $string) !== false) {
+    if (str_contains("\n", $string)) {
         return '';
     }
-    $string = clean_slweg($string);
-    $string = cleanUpSpecialHtmlEntities($string);
-
-    return $string;
+    return cleanUpSpecialHtmlEntities(clean_slweg($string));
 }
 
 function cleanUpForEmailHeader($text = '') {
@@ -1124,13 +1121,11 @@ function get_unique_array($array, $diff=array('', null, false)) {
 
 function decode_entities($text) {
     $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
-    if (strpos($text, '&') === false) {
+    if (!str_contains($text, '&')) {
         return $text;
     }
     $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
-    $text = preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
-
-    return $text;
+    return preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
 }
 
 function convertHexNumericToChar($matches) {
@@ -1175,9 +1170,7 @@ function stripped_cache_content($page = '') {
     $page = str_replace('><', '> <', $page);
     $page = strip_tags($page);
     $page = decode_entities($page);
-    $page = preg_replace('/\s+/s', ' ', $page);
-
-    return $page;
+    return preg_replace('/\s+/s', ' ', $page);
 }
 
 function optimizeForSearch() {
@@ -1329,7 +1322,7 @@ function csvFileToArray($csvfile, $delimiter = ';', $heading = false, $enclosure
         if ($heading && !$first) {
             foreach ($data as $key => $value) {
                 $value = trim($value);
-                $datas[0][$key] = $value ? $value : 'Column' . $key;
+                $datas[0][$key] = $value ?: 'Column' . $key;
             }
             $first++;
             continue;
@@ -1356,9 +1349,7 @@ function replaceGlobalRT($string = '') {
     $string = str_replace(array('{SITE}', '{PHPWCMS_URL}'), PHPWCMS_URL, $string);
     $string = str_replace('{PHPWCMS_TEMPLATE}', TEMPLATE_PATH, $string);
     $string = str_replace('{IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $string);
-    $string = renderRTDate($string);
-
-    return $string;
+    return renderRTDate($string);
 }
 
 function renderRTDate($string = '') {
@@ -1494,7 +1485,7 @@ function returnSubdirListAsArray($dir = '') {
     $subdir = array();
     $ph = opendir($dir);
     while ($pf = readdir($ph)) {
-        if (substr($pf, 0, 1) !== '.' && is_dir($dir . '/' . $pf)) {
+        if (!str_starts_with($pf, '.') && is_dir($dir . '/' . $pf)) {
             $subdir[] = $pf;
         }
     }
@@ -1517,9 +1508,9 @@ function returnFileListAsArray($dir = '', $extfilter = '') {
     } elseif (!is_array($extfilter)) {
         $extfilter = array();
     }
-    $dofilter = count($extfilter) ? true : false;
+    $dofilter = count($extfilter);
     while ($pf = readdir($ph)) {
-        if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf)) {
+        if (!str_starts_with($pf, '.') && is_file($dir . '/' . $pf)) {
             $ext = which_ext($pf);
             if ($dofilter && !in_array($ext, $extfilter)) {
                 continue;
@@ -1602,7 +1593,7 @@ function getCookieDomain() {
     if (empty($GLOBALS['phpwcms']['parse_url']['host'])) {
         $domain = parse_url(PHPWCMS_URL);
         $domain = strtolower($domain['host']);
-        if (strpos($domain, 'www') === 0) {
+        if (str_starts_with($domain, 'www')) {
             $domain = substr($domain, 3);
         }
         $GLOBALS['phpwcms']['parse_url']['host'] = $domain;
@@ -1613,7 +1604,7 @@ function getCookieDomain() {
 function _mkdir($target) {
     // taken from WordPress
     if (file_exists($target)) { // from php.net/mkdir user contributed notes
-        return (!@is_dir($target)) ? false : true;
+        return !!@is_dir($target);
     }
     umask(0);
     if (@mkdir($target)) {   // Attempting to create the directory may clutter up our display.
@@ -2034,9 +2025,7 @@ function xss_clean($val) {
 function sanitize_multiple_emails($string) {
     $string = preg_replace('/\s|\,]/', ';', $string);
     $string = convertStringToArray($string, ';');
-    $string = implode(';', $string);
-
-    return $string;
+    return implode(';', $string);
 }
 
 function checkLogin($mode = 'REDIRECT') {
@@ -2227,7 +2216,7 @@ function render_bbcode_url($text) {
     }
     $text = preg_replace_callback(array('/\[url=([^ ]+)(.*?)\](.*?)\[\/url\]/', '/\[a=([^ ]+)(.*?)\](.*?)\[\/a\]/'), 'get_bbcode_ahref', $text);
     // Fallback for URL parameter having =[http://
-    if (strpos($text, '=[') !== false) {
+    if (str_contains($text, '=[')) {
         $text = str_replace('=[[', '=####[#[####', $text);
         $text = str_replace('=[', '=####[####', $text);
         $text = preg_replace_callback('/\[(http|https|ftp):\/\/([^ ]+)(.*?)\]/', 'get_link_ahref', $text);
@@ -2364,7 +2353,7 @@ function phpwcms_boolval($BOOL, $STRICT = false) {
     }
 
     // let PHP decide
-    return $BOOL ? true : false;
+    return (bool)$BOOL;
 }
 
 // sanitize a text for nice URL/alias or whatever
@@ -2408,7 +2397,7 @@ function convert_rel2abs($text, $base) {
         return $text;
     }
     // Base URL needs trailing /
-    if (substr($base, -1, 1) !== '/') {
+    if (!str_ends_with($base, '/')) {
         $base .= '/';
     }
     // Fix a href
@@ -2418,9 +2407,7 @@ function convert_rel2abs($text, $base) {
     // Fix img src
     $pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
     $replace = "<img\${1} src=\"" . $base . "\${2}\"";
-    $text = preg_replace($pattern, $replace, $text);
-
-    return $text;
+    return preg_replace($pattern, $replace, $text);
 }
 
 /**

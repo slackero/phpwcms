@@ -42,7 +42,7 @@ if(!$content['list_mode']) {
     set_meta('twitter:card', $twitter_card);
 
     // Use the article username if matching a Twitter user ID
-    if($content['article_username'] && substr($content['article_username'], 0, 1) === '@') {
+    if($content['article_username'] && str_starts_with($content['article_username'], '@')) {
 
         set_meta('twitter:creator', $content['article_username']);
 

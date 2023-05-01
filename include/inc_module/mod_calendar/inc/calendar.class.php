@@ -284,7 +284,7 @@ class phpwcmsCalendar {
         $this->dbReset();
         $this->defaultTemplate();
 
-        if($match !== '' && strpos($match, '=') !== FALSE ) {
+        if($match !== '' && str_contains($match, '=')) {
 
             // oh yes fix, in case LF was converted to <br /> by phpwcms
             $match = str_replace('<br />', LF, $match);
@@ -465,7 +465,7 @@ class phpwcmsCalendar {
             } elseif(strtoupper($match['date_end']) == 'YEAREND') {
                 $this->date_end = mktime(23, 59, 59, 12, 31, $current_date['year']);
             } else {
-                if(strlen($match['date_end']) < 12 && preg_match('/[0-9\-]/', $match['date_end']) && strpos($match['date_end'], ':') === false) {
+                if(strlen($match['date_end']) < 12 && preg_match('/[0-9\-]/', $match['date_end']) && !str_contains($match['date_end'], ':')) {
                     $match['date_end'] .= ' 23:59:59';
                 }
                 $match['date_end'] = phpwcms_strtotime($match['date_end']);
@@ -660,8 +660,7 @@ class phpwcmsCalendar {
     function getFirstCalendarDate() {
 
         $this->getDate( '' , '', 'calendar_start ASC', 1, '', $this->getNonLocationWhere() );
-
-        $this->date_first = isset($this->dates[0]['calendar_start_date']) ? $this->dates[0]['calendar_start_date'] : NULL;
+        $this->date_first = $this->dates[0]['calendar_start_date'] ?? NULL;
 
         return $this->date_first;
     }
@@ -672,8 +671,7 @@ class phpwcmsCalendar {
     function getLastCalendarDate() {
 
         $this->getDate( '' , '', 'calendar_end DESC', 1, '', $this->getNonLocationWhere() );
-
-        $this->date_last = isset($this->dates[0]['calendar_end_date']) ? $this->dates[0]['calendar_end_date'] : NULL;
+        $this->date_last = $this->dates[0]['calendar_end_date'] ?? NULL;
 
         return $this->date_last;
     }

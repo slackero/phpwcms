@@ -75,14 +75,14 @@ function getCurrentCalendarDate() {
 	define('THIS_DAY',		$_date['day']);
 
 
-	$_date['next_month']['month']	= ($_date['month'] == 12)				? 1						: $_date['month'] + 1;
+	$_date['next_month']['month']	= ($_date['month'] == 12)				? 1						: (int) $_date['month'] + 1;
 	$_date['prev_month']['month']	= ($_date['month'] == 1)				? 12					: $_date['month'] - 1;
-	$_date['next_month']['year']	= ($_date['next_month']['month'] == 1)	? $_date['year'] + 1	: $_date['year'];
-	$_date['prev_month']['year']	= ($_date['prev_month']['month'] == 12)	? $_date['year'] - 1	: $_date['year'];
+	$_date['next_month']['year']	= ($_date['next_month']['month'] == 1)	? (int) $_date['year'] + 1	: $_date['year'];
+	$_date['prev_month']['year']	= ($_date['prev_month']['month'] == 12)	? (int) $_date['year'] - 1	: $_date['year'];
 
 	$_date['next_year']['month']	= $_date['month'];
 	$_date['prev_year']['month']	= $_date['month'];
-	$_date['next_year']['year']		= $_date['year'] + 1;
+	$_date['next_year']['year']		= (int) $_date['year'] + 1;
 	$_date['prev_year']['year']		= $_date['year'] - 1;
 
 	$_date['next_month']['day']		= $_date['day'];

@@ -34,7 +34,7 @@ if(count($clink)) {
 		$clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ";
 		$clink_liste .= "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">";
 		$clink_liste .= "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
-		$clink_liste .= html($clink_name ? $clink_name : $clink_link)."</a>\n";
+		$clink_liste .= html($clink_name ?: $clink_link)."</a>\n";
 	}
 	unset($clink);
 }

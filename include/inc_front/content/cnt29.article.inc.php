@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //images (gallery)
 $image = @unserialize($crow["acontent_form"]);
-$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
+$crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
 
 // get template
 if($crow['acontent_template_listmode'] && empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/list.images.tmpl')) {
@@ -190,7 +190,7 @@ if($image['template']) {
                 ));
             }
 
-            if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false) {
+            if(str_contains($image['tmpl_entry'], '[LANDSCAPE')) {
 
                 $img_landscape = false;
 

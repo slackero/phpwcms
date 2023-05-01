@@ -119,7 +119,7 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 function initJSPlugin($plugin='', $more=false) {
 	// enhance teplate JS parser for MooTools More
 	// sample: <!-- JS: MORE:Fx/Fx.Elements,Fx/Fx.Accordion -->
-	if(is_string($plugin) && $more === false && substr(strtoupper($plugin), 0, 5) == 'MORE:') {
+	if(is_string($plugin) && $more === false && str_starts_with(strtoupper($plugin), 'MORE:')) {
 		$plugin	= trim(substr($plugin, 5));
 		$more	= true;
 	}

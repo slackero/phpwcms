@@ -82,7 +82,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 		} else {
 
-			if(substr($content["text"], 0, 1) === LF || substr($content["text"], 0, 1) === "\r") {
+			if(substr($content["text"], 0, 1) === LF || str_starts_with($content["text"], "\r")) {
 				echo ' '; // keep 1st linebreak;
 			}
 			echo html($content["text"]);

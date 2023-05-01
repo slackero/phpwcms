@@ -22,7 +22,7 @@ $s_result_list           = array();
 $content["search_word"]  = '';
 $content['highlight']    = array();
 $s_list                  = array();
-define('SEARCH_TYPE_AND', empty($content['search']['type']) || $content['search']['type'] == 'OR' ? FALSE : TRUE);
+define('SEARCH_TYPE_AND', !(empty($content['search']['type']) || $content['search']['type'] == 'OR'));
 
 if(empty($content['search']["text_html"])) {
     $content['search']['text_html'] = 0;
@@ -68,7 +68,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
     $content["search_word"] = explode(' ', $content["search_word"]);
     $content["search_word"] = array_unique($content["search_word"]);
 
-    $content['search']['highlight_result']  = empty($content["search"]['highlight_result']) ? false : true;
+    $content['search']['highlight_result']  = !empty($content["search"]['highlight_result']);
     $content['search']['wordlimit']         = isset($content["search"]['wordlimit']) && is_intval($content["search"]['wordlimit']) ? abs(intval($content["search"]['wordlimit'])) : 35;
 
     $content["search"]["result_per_page"]   = empty($content["search"]['result_per_page']) ? 25 : $content["search"]['result_per_page'];
@@ -105,7 +105,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
     if(count($content['highlight'])) {
 
-        if(strpos($crow['template']['item'], '{IMAGE') !== false) {
+        if(str_contains($crow['template']['item'], '{IMAGE')) {
             $crow['template']['image_render'] = true;
         }
 
@@ -338,7 +338,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 }
 
                 // Search for {SHOW_CONTENT}
-                if(strpos($s_text, '{SHOW_CONTENT') !== false) {
+                if(str_contains($s_text, '{SHOW_CONTENT')) {
                     $s_text = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $s_text);
                 }
 
@@ -389,7 +389,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                     }
                     $s_list[$s_run]["date"]     = $s_date;
                     $s_list[$s_run]["user"]     = $s_user;
-                    $s_list[$s_run]['query']    = $srow['article_alias'] ? $srow['article_alias'] : 'aid='.$s_id;
+                    $s_list[$s_run]['query']    = $srow['article_alias'] ?: 'aid='.$s_id;
                     $s_list[$s_run]['link']     = '';
                     $s_list[$s_run]["text"]     = '';
                     $s_list[$s_run]['image']    = false;
@@ -471,7 +471,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
             // create search result listing
             // ranking
             foreach($s_list as $s_key => $svalue) {
-                $s_rank[$s_key] = $s_list[$s_key]["rank"];
+                $s_rank[$s_key] = $svalue["rank"];
             }
             arsort($s_rank, SORT_NUMERIC);
 
@@ -516,7 +516,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 }
 
                 if(empty($s_list[$s_key]['link'])) {
-                    if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
+                    if(str_contains($s_list[$s_key]['query'], 'index.php') || str_starts_with($s_list[$s_key]['query'], 'http')) {
                         $s_list[$s_key]['link'] = $s_list[$s_key]['query'];
                     } elseif($content['search']['highlight_result']) {
                         $s_list[$s_key]['link'] = str_replace(array('___GOTO___', '___HIGHLIGHT__'), array($s_list[$s_key]['query'], $s_result_highlight), $_search_link_highlight);
@@ -706,7 +706,7 @@ if(isset($content["search"]["result_per_page"])) {
 
     $crow['template']['form'] = ' ';
 
-    if(strpos($crow['template']['result'], '{FORM}') !== false) {
+    if(str_contains($crow['template']['result'], '{FORM}')) {
 
         $crow['template']['form'] = '<div class="search_form"';
         if($content["search"]["align"] === 1) {

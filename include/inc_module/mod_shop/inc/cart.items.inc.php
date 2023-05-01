@@ -310,7 +310,7 @@ foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) 
                 $subtotal['shipping_gross']	= $subtotal['shipping_net'] * ( 1 + ($row['zone_vat'] / 100) );
                 $subtotal['shipping_vat']	= $subtotal['shipping_gross'] - $subtotal['shipping_net'];
 
-                $subtotal['shipping_distance_details']['label'] = $row['zone_label'] ? $row['zone_label'] : $row['zone'];
+                $subtotal['shipping_distance_details']['label'] = $row['zone_label'] ?: $row['zone'];
 
                 break;
             }

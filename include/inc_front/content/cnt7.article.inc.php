@@ -92,7 +92,7 @@ if (empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE . 'inc_default
     $crow["acontent_template"] .= '<!--FILE_ENTRY_END//--></ul>[/HAS_FILES]';
 }
 $_files_count = is_array($content['files_result']) ? count($content['files_result']) : 0;
-$_files_force_rendering = strpos($crow["acontent_template"], '[HAS_FILES') !== 0;
+$_files_force_rendering = !str_starts_with($crow["acontent_template"], '[HAS_FILES');
 if ($_files_force_rendering || $_files_count) {
     $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $_files_settings = parse_ini_str($_files_settings, false);
@@ -121,7 +121,7 @@ if ($_files_force_rendering || $_files_count) {
         $strftime_locale = null;
     }
     $_files_entries = array();
-    $_files_get_imagesize = strpos($content['template_file'], '{FILE_IMAGE_') === false ? false : true; // check if necessary to check for image type and sizes
+    $_files_get_imagesize = !(!str_contains($content['template_file'], '{FILE_IMAGE_')); // check if necessary to check for image type and sizes
     if ($_files_count) {
         if (!empty($_files_settings['lightbox_init'])) {
             initSlimbox();
@@ -169,7 +169,7 @@ if ($_files_force_rendering || $_files_count) {
                                 $_file_info[3][0] = '';
                                 $_file_info[3][1] = '';
                             }
-                            if ($_file_info[3][0] && ($_file_info[3][0] === '_blank' || $_file_info[3][0] === '_parent' || $_file_info[3][0] === '_self')) {
+                            if (($_file_info[3][0] === '_blank' || $_file_info[3][0] === '_parent' || $_file_info[3][0] === '_self')) {
                                 $_file_info[3] = ' target="' . $_file_info[3][0] . '"';
                             } elseif ($_file_info[3][1]) {
                                 $_file_info[6] = $_file_info[3][0];
@@ -270,7 +270,7 @@ if ($_files_force_rendering || $_files_count) {
                         $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_COPYRIGHT', html($_file_info[5]));
                         // now check file for possible thumbnail image
                         $_files_image = false;
-                        if ($_file_info[4] && strpos($_files_entries[$fkey], 'FILE_IMAGE') !== false) {
+                        if ($_file_info[4] && str_contains($_files_entries[$fkey], 'FILE_IMAGE')) {
                             $target_ext = $content['files_result'][$_files_x]['f_ext'];
                             // do it for jpg, png or gif only
                             switch ($content['files_result'][$_files_x]['f_ext']) {
@@ -313,7 +313,7 @@ if ($_files_force_rendering || $_files_count) {
                             if (!empty($_files_get_imagesize[0])) {
                                 $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_WIDTH', $_files_get_imagesize[0]);
                                 $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_HEIGHT', $_files_get_imagesize[1]);
-                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', isset($_files_get_imagesize['mime']) ? $_files_get_imagesize['mime'] : '');
+                                $_files_entries[$fkey] = render_cnt_template($_files_entries[$fkey], 'FILE_IMAGE_MIME', $_files_get_imagesize['mime'] ?? '');
                                 if (isset($_files_get_imagesize['channels'])) {
                                     switch ($_files_get_imagesize['channels']) {
                                         case 3:
@@ -359,7 +359,7 @@ if ($_files_force_rendering || $_files_count) {
     }
     $crow["acontent_template"] = replace_tmpl_section('FILE_ENTRY', $crow["acontent_template"], implode(LF, $_files_entries));
     if ($_files_force_rendering) {
-        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HAS_FILES', $_files_count ? $_files_count : '');
+        $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'HAS_FILES', $_files_count ?: '');
     }
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_CLASS', html($crow['acontent_attr_class']));
     $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'ATTR_ID', html($crow['acontent_attr_id']));

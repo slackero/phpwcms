@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Is Shipping?
 $order_process = render_cnt_template($order_process, 'SHIPPING_DISTANCE', $subtotal['shipping_calc_type'] === 2 ? ' ' : '');
-if(strpos($order_process, '[SHIPPING_DISTANCE_ADDRESS]') !== false) {
+if(str_contains($order_process, '[SHIPPING_DISTANCE_ADDRESS]')) {
 	$order_process = render_cnt_template($order_process, 'SHIPPING_DISTANCE_ADDRESS', $subtotal['shipping_distance'] === false ? '' : ' ');
 
 	// render distance address details
@@ -59,6 +59,6 @@ if(strpos($order_process, '[SHIPPING_DISTANCE_ADDRESS]') !== false) {
 
 	}
 
-} elseif(strpos($order_process, '[SHIPPING') !== false) {
+} elseif(str_contains($order_process, '[SHIPPING')) {
 	$order_process = render_cnt_template($order_process, 'SHIPPING', $subtotal['float_shipping_net'] > 0 ? 1 : '');
 }

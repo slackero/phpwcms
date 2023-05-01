@@ -36,7 +36,7 @@ if($_SESSION["wcs_user_admin"] == 1) {
 				$default = _dbGet('phpwcms_template', 'template_id, template_default', 'template_trash=0 AND template_default=1', '', '', 1);
 				_dbUpdate(
 					'phpwcms_articlecat',
-					array('acat_template' => isset($default[0]['template_id']) ? $default[0]['template_id'] : 0),
+					array('acat_template' => $default[0]['template_id'] ?? 0),
 					'acat_trash=0 AND acat_template='.$id
 				);
 			}

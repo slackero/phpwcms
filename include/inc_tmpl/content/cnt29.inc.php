@@ -32,9 +32,9 @@ if(empty($template_default['imagegallery_default_column'])) {
     }
 }
 
-$template_default['imagegallery_default_width']  = isset($template_default['imagegallery_default_width']) ? $template_default['imagegallery_default_width'] : '' ;
-$template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
-$template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
+$template_default['imagegallery_default_width']  = $template_default['imagegallery_default_width'] ?? '';
+$template_default['imagegallery_default_height'] = $template_default['imagegallery_default_height'] ?? '';
+$template_default['imagegallery_default_space']  = $template_default['imagegallery_default_space'] ?? '';
 
 if(!isset($content['image_list']['col'])) {
 
@@ -80,7 +80,7 @@ $img_count = isset($content["image_list"]['images']) && is_array($content["image
     if(is_array($tmpllist) && count($tmpllist)) {
         foreach($tmpllist as $val) {
             // do not show listmode templates
-            if(substr($val, 0, 5) == 'list.') {
+            if(str_starts_with($val, 'list.')) {
                 continue;
             }
             $selected_val = (isset($content["image_template"]) && $val == $content["image_template"]) ? ' selected="selected"' : '';
@@ -306,7 +306,7 @@ if($img_count) {
 <tr><td colspan="2" align="center"><?php
 
 $wysiwyg_editor = array(
-    'value'     => isset($content["text"]) ? $content["text"] : '',
+    'value'     => $content["text"] ?? '',
     'field'     => 'ctext',
     'height'    => '250px',
     'width'     => '100%',

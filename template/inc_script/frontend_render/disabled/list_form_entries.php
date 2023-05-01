@@ -50,7 +50,7 @@ $_form_entries['ENTRY']         = '
 
 ////////// Do not change below //////////////////////////////
 
-if(strpos($content['all'], $_form_entries['RT']) !== false) {
+if(str_contains($content['all'], $_form_entries['RT'])) {
 
 
     $_form_entries['RESULT']        = array();

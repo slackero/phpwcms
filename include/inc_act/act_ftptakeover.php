@@ -1,4 +1,4 @@
-<?php
+<?php/** @noinspection ALL */
 /**
  * phpwcms content management system
  *
@@ -10,7 +10,7 @@
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
+$PHPWCMS_ROOT = dirname(__FILE__, 3);
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
 require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
@@ -27,16 +27,16 @@ $new_fileId = 0;
 
 $ftp = array(
     'error' => 0,
-    'mark' => isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false,
-    'file' => isset($_POST["ftp_file"]) ? $_POST["ftp_file"] : false,
-    'filename' => isset($_POST["ftp_filename"]) ? $_POST["ftp_filename"] : false
+    'mark' => $_POST["ftp_mark"] ?? false,
+    'file' => $_POST["ftp_file"] ?? false,
+    'filename' => $_POST["ftp_filename"] ?? false
 );
 
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
             $ftp["file"][$key] = base64_decode($ftp["file"][$key]);
-            if (substr($ftp["file"][$key], 0, 1) === '.' || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
+            if (str_starts_with($ftp["file"][$key], '.') || str_contains($ftp["file"][$key], '/') || str_contains($ftp["file"][$key], "\\") || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
                 unset(
                     $ftp["mark"][$key],
                     $ftp["file"][$key],
@@ -109,7 +109,7 @@ if(!$ftp["error"]) {
     $ftp['long_info']   = slweg($_POST['file_longinfo']);
     $ftp['copyright']   = slweg($_POST['file_copyright']);
     $ftp['tags']        = trim( trim( clean_slweg($_POST['file_tags']), ',') );
-    $ftp['keywords']    = isset($_POST['file_keywords']) ? $_POST['file_keywords'] : array();
+    $ftp['keywords']    = $_POST['file_keywords'] ?? array();
     $ftp['keys']        = '';
     $ftp['file_vars']   = array();
 
@@ -137,7 +137,7 @@ if(!$ftp["error"]) {
                 'alt' => ''
             );
 
-            if($phpwcms['default_lang'] === $lang) {
+            if($phpwcms['default_lang'] == $lang) {
                 $ftp['file_vars'][$lang]['longinfo'] = $ftp["long_info"];
                 $ftp['file_vars'][$lang]['copyright'] = $ftp["copyright"];
                 $ftp['file_vars'][$lang]['title'] = $ftp["title"];

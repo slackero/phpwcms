@@ -31,7 +31,7 @@ if(empty($phpwcms['sanitize_dlname'])) {
 // try to get hash for file download
 $success    = false;
 $hash       = false;
-$countonly  = empty($_GET['countonly']) ? false : true;
+$countonly  = !empty($_GET['countonly']);
 $hash       = empty($_GET['f']) ? '' : clean_slweg($_GET['f']);
 
 if(isset($_GET['target'])) {

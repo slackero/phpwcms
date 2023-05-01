@@ -116,7 +116,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
             $content['glossary']['filter'][0]   = substr($content['glossary']['filter'][0], 0, 1);
             $content['glossary']['filter'][1]   = empty($content['glossary']['filter'][1]) ? '?' : substr($content['glossary']['filter'][1], 0, 1);
             // is there start and end
-            if(strpos($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][0]) !== false && strpos($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][1]) !== false) {
+            if(str_contains($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][0]) && str_contains($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][1])) {
 
                 $content['glossary']['glossary_alphabet']   = preg_split('//', $content['glossary']['glossary_alphabet'], -1, PREG_SPLIT_NO_EMPTY);
                 $content['glossary']['filters']             = array();

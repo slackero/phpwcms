@@ -53,8 +53,8 @@ if(empty($_SESSION['detail_page'])) {
     $_SESSION['detail_page'] = 1;
 }
 
-$_entry['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_active']		: 1;
-$_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
+$_entry['list_active']		= $_SESSION['list_active'] ?? 1;
+$_entry['list_inactive']	= $_SESSION['list_inactive'] ?? 1;
 
 
 // set correct status query
@@ -214,7 +214,7 @@ if($data) {
         echo '<td class="dir">';
         if(SHOP_FELANG_SUPPORT) {
             $row['shopprod_lang'] = html_specialchars(strtolower($row['shopprod_lang']));
-            echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ? $row['shopprod_lang'] : 'all').'.png" alt="'.$row['shopprod_lang'].'" />';
+            echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ?: 'all').'.png" alt="'.$row['shopprod_lang'].'" />';
         }
         echo '&nbsp;' . html_specialchars($row['shopprod_ordernumber']) . "</td>\n";
         echo '<td class="dir">&nbsp;'.html_specialchars($row['shopprod_model'])."</td>\n";

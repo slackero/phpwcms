@@ -54,10 +54,10 @@ if(empty($_SESSION['list_user_page'])) {
     $_SESSION['list_user_page'] = 1;
 }
 
-$_userInfo['list_admin']    = isset($_SESSION['list_admin']) ? $_SESSION['list_admin'] : 0;
-$_userInfo['list_befe']     = isset($_SESSION['list_befe']) ? $_SESSION['list_befe'] : 0;
-$_userInfo['list_norm']     = isset($_SESSION['list_norm']) ? $_SESSION['list_norm'] : 0;
-$_userInfo['list_fe']       = isset($_SESSION['list_fe']) ? $_SESSION['list_fe'] : 0;
+$_userInfo['list_admin']    = $_SESSION['list_admin'] ?? 0;
+$_userInfo['list_befe']     = $_SESSION['list_befe'] ?? 0;
+$_userInfo['list_norm']     = $_SESSION['list_norm'] ?? 0;
+$_userInfo['list_fe']       = $_SESSION['list_fe'] ?? 0;
 
 $_userInfo['list']          = array();
 // if admin user should be listed

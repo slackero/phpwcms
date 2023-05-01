@@ -36,7 +36,7 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/co
 if($crow["acontent_text"]) {
     $crow["acontent_text"] = str_replace(array(' ', "\t", '[', ']', '{', '}'), array('&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;', '&#x5B;', '&#x5D;', '&#x7B;', '&#x7D;'), html($crow["acontent_text"]));
 
-    if(strpos($crow["acontent_template"], '<pre') === false) {
+    if(!str_contains($crow["acontent_template"], '<pre')) {
         $crow["acontent_text"] = nl2br($crow["acontent_text"]);
     }
 }

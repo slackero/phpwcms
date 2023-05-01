@@ -2,7 +2,7 @@
 
 // list and search help for recipes
 
-if(!(strpos($content["all"], '{RECIPES:') === false)) {
+if(!(!str_contains($content["all"], '{RECIPES:'))) {
 
 // define neccessary functions only when RT is in use
 
@@ -53,14 +53,11 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 
 	}
 
-	function showRecipeSeach()
-	{
-
-		global $_getVar;
+	function showRecipeSeach() {
 
 		$search = file_get_contents(PHPWCMS_TEMPLATE . 'inc_cntpart/recipe/search/search.html');
 
-		return ($search ? $search : '');
+		return $search ?: '';
 
 	}
 

@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'phpwcms_article ar LEFT JOIN '.DB_PREPEND.'phpwcms_articlecat ac ON ';
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
-$content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
+$content['article'] = $content['article'][0] ?? array('article_title' => '', 'acat_name' => '', 'acat_template' => 0);
 $content['cp_setting_mode'] = false;
 
 if(empty($content['article']['acat_id'])) { // Root structure
@@ -629,7 +629,7 @@ echo $_save_close_buttons;
 
     }
 
-    if(in_array($content['type'], array(32))):
+    if($content['type'] == 32):
 ?>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <?php

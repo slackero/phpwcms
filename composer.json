@@ -19,6 +19,15 @@
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-mysqli": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*",
+        "ext-xmlreader": "*",
+        "ext-libxml": "*",
+        "ext-dom": "*",
+        "ext-openssl": "*",
+        "ext-zip": "*",
+        "ext-ctype": "*",
+        "ext-simplexml": "*",
+        "ext-curl": "*"
     }
 }

@@ -47,7 +47,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
     <tr>
         <td><input name="cguestbook_aliasID" type="text" class="f11b" id="cguestbook_aliasID" style="width: 50px;" size="10"
             maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';"
-            value="<?php echo  isset($content["guestbook"]["aliasID"]) ? $content["guestbook"]["aliasID"] : '' ?>" /></td>
+            value="<?php echo $content["guestbook"]["aliasID"] ?? '' ?>" /></td>
 
         <td>&nbsp;</td>
 <?php
@@ -99,7 +99,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <td class="v10" bgcolor="#E7E8EB"><label for="cguestbook_listing0"><?php echo $BL['be_cnt_guestbook_listing_all'] ?></label>&nbsp;&nbsp;</td>
         <td bgcolor="#E7E8EB"><input name="cguestbook_listing" id="cguestbook_listing1" type="radio" value="1" <?php is_checked(1, $content["guestbook"]["listing"]); ?> /></td>
         <td class="v10" bgcolor="#E7E8EB"><label for="cguestbook_listing1"><?php echo $BL['be_cnt_guestbook_list'] ?>&nbsp;</label></td>
-        <td bgcolor="#E7E8EB"><input name="cguestbook_listcount" type="text" class="f11b" id="cguestbook_listcount" style="width: 40px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo  isset($content["guestbook"]["listcount"]) ? $content["guestbook"]["listcount"] : '' ?>" /></td>
+        <td bgcolor="#E7E8EB"><input name="cguestbook_listcount" type="text" class="f11b" id="cguestbook_listcount" style="width: 40px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo $content["guestbook"]["listcount"] ?? '' ?>" /></td>
         <td class="v10" bgcolor="#E7E8EB">&nbsp;<?php echo $BL['be_cnt_guestbook_perpage'] ?>&nbsp;</td>
         <td><img src="img/leer.gif" alt="" width="1" height="22" /></td>
       </tr>

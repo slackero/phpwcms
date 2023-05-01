@@ -33,7 +33,7 @@ if($imgpath) {
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if(substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
+   			if(!str_starts_with($file, '.') && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
 				$imgArray[] = $file;
 		}
 		closedir( $handle );

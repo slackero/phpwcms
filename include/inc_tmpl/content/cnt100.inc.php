@@ -44,5 +44,5 @@ if(empty($content['bulletlist']["list_type"])) $content['bulletlist']["list_type
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><textarea name="ctext" rows="30" class="width440 autosize" id="ctext"><?php echo  isset($content["text"]) ? $content["text"] : '' ?></textarea></td>
+	<td><textarea name="ctext" rows="30" class="width440 autosize" id="ctext"><?php echo $content["text"] ?? '' ?></textarea></td>
 </tr>

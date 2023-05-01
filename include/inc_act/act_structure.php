@@ -226,7 +226,7 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
 }
 
 // Diverse actions
-$do = explode("|", isset($_GET["do"]) ? $_GET["do"] : '');
+$do = explode("|", $_GET["do"] ?? '');
 $action = intval($do[0]);
 
 if($action) {
@@ -283,17 +283,17 @@ if($action) {
 
                 // 1.) get all structure level IDs and put into an array
                 $struct_del = array();
-                $article_del = array();
+                $GLOBALS['article_del'] = array();
 
                 $struct_del[] = $do[1]; //start
 
                 get_struct_del_id($do[1]);
 
                 // create SQL query to set articles deleted
-                if(count($article_del)) {
+                if(count($GLOBALS['article_del'])) {
 
                     $a_del = array();
-                    foreach($article_del as $value) {
+                    foreach($GLOBALS['article_del'] as $value) {
                         //delete cached articles
                         $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_aid=".intval($value);
                         _dbQuery($sql, 'DELETE');

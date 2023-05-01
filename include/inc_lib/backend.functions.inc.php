@@ -392,7 +392,7 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 
     $option['rows']         = empty($option['rows']) || !intval($option['rows']) ? 5 : $option['rows'];
     $option['delimeter']    = empty($option['delimeter']) ? ',' : $option['delimeter'];
-    $option['encode']       = (isset($option['encode']) && $option['encode'] === false) ? false : true;
+    $option['encode']       = !((isset($option['encode']) && $option['encode'] === false));
     $option['style']        = empty($option['style']) ? '' : ' style="'.$option['style'].'"';
     $option['class']        = empty($option['class']) ? ' class="#SIDE#"' : ' class="#SIDE# '.$option['class'].'"';
     $option['formname']     = empty($option['formname']) ? 'document.forms[0]' : 'document.getElementById(\''.$option['formname'].'\')';
@@ -468,11 +468,10 @@ function countNewsletterRecipients($target) {
     // try to count all recipients for special newsletter
     $recipients = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1');
     $counter    = 0;
-    $check      = (empty($target) || !is_array($target) || !count($target)) ? false : true;
+    $check      = !((empty($target) || !is_array($target) || !count($target)));
     foreach($recipients as $value) {
         if(empty($value['address_subscription'])) {
             $counter++;
-            continue;
         } elseif($check) {
             $value['address_subscription'] = @unserialize($value['address_subscription']);
             if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
@@ -658,7 +657,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     // Test against existing folders to avoid problems with rewrite
-    if(PHPWCMS_ALIAS_WSLASH && strpos($alias, '/') !== false) {
+    if(PHPWCMS_ALIAS_WSLASH && str_contains($alias, '/')) {
 
         $root_folders = returnSubdirListAsArray(PHPWCMS_ROOT);
 
@@ -960,7 +959,7 @@ function setItemsPerPage($default=25) {
 
 function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $separator=' ') {
 
-    $ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
+    $ipp = $_SESSION['PAGE_FILTER']['IPP'] ?? setItemsPerPage();
 
     if(!in_array($ipp, $steps)) {
         array_unshift($steps, $ipp);
@@ -1060,7 +1059,7 @@ function phpwcms_revision_check($revision) {
         $GLOBALS['phpwcms']['revision_return'] = '';
         if( call_user_func($revision_function) !== false ) {
             $GLOBALS['phpwcms']['check_r'.$revision] = true;
-            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n".strval($GLOBALS['phpwcms']['revision_return']);
+            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n" . $GLOBALS['phpwcms']['revision_return'];
             @write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s').$phpwcms_revision_return);
             return true;
         } else {
@@ -1237,7 +1236,7 @@ function get_language_name($lang='', $default=true) {
 
     $lang = strtoupper($lang);
 
-    return isset($GLOBALS['BL'][$lang]) ? $GLOBALS['BL'][$lang] : $lang;
+    return $GLOBALS['BL'][$lang] ?? $lang;
 
 }
 
@@ -1249,9 +1248,9 @@ function get_pix_or_percent($val) {
     $val = trim($val);
     $intval = intval($val);
     if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, "%") && $intval) {
-        $val = (($intval > 100) ? "100" : $intval)."%";
+        $val = ($intval > 100 ? "100" : $intval) . "%";
     } else {
-        $val = ($intval) ? $intval : "";
+        $val = $intval ?: "";
     }
     return $val;
 }
@@ -1419,7 +1418,7 @@ function render_iptc_fileinfo($iptc_data) {
 
         foreach($fileinfo as $field => $value) {
 
-            if((strpos($value, '{') !== false && strpos($value, '}') !== false) || strpos($value, '[/') !== false) {
+            if((str_contains($value, '{') && str_contains($value, '}')) || str_contains($value, '[/')) {
 
                 foreach($iptc_keys as $iptc_key => $iptc_value) {
 
@@ -1447,8 +1446,7 @@ function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_s
         $text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/'.$case_sensitive.'s', '', $text);
         $text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
     }
-    $text = str_replace('{'.$tag.'}', $value, $text);
-    return $text;
+    return str_replace('{'.$tag.'}', $value, $text);
 }
 
 function get_template_file_select($block='', $name='', $selected='', $path='') {

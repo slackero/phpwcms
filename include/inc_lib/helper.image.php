@@ -286,11 +286,11 @@ class Phpwcms_Image_lib {
         if ($this->new_image === '') {
             $this->dest_image = $this->source_image;
             $this->dest_folder = $this->source_folder;
-        } elseif (strpos($this->new_image, '/') === false) {
+        } elseif (!str_contains($this->new_image, '/')) {
             $this->dest_folder = $this->source_folder;
             $this->dest_image = $this->new_image;
         } else {
-            if (strpos($this->new_image, '/') === false && strpos($this->new_image, '\\') === false) {
+            if (!str_contains($this->new_image, '/') && !str_contains($this->new_image, '\\')) {
                 $full_dest_path = str_replace('\\', '/', realpath($this->new_image));
             } else {
                 $full_dest_path = $this->new_image;
@@ -1516,7 +1516,7 @@ class Phpwcms_Image_lib {
      */
     function set_error($msg) {
         if (!$this->lang_localized) {
-            $local_lang = strtolower(isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : $GLOBALS['phpwcms']['DOCTYPE_LANG']);
+            $local_lang = strtolower($_SESSION["wcs_user_lang"] ?? $GLOBALS['phpwcms']['DOCTYPE_LANG']);
             if ($local_lang && is_file(PHPWCMS_ROOT . '/include/inc_lang/image/image.' . $local_lang . '.php')) {
                 include PHPWCMS_ROOT . '/include/inc_lang/image/image.' . $local_lang . '.php';
                 $this->lang = array_merge($this->lang, $ci_lang);

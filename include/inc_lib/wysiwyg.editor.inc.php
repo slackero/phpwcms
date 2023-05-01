@@ -38,7 +38,7 @@ if($wysiwyg_editor['editor']) {
         $wysiwyg_editor['rows'] = '15';
     }
 
-    $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
+    $wysiwyg_editor['lang']	= $_SESSION["wcs_user_lang"] ?? 'en';
     $wysiwyg_editor['id'] = trim(preg_replace('/[^a-z0-9\-\_]/', '_', $wysiwyg_editor['field']), '_');
     $wysiwyg_editor['is_tab'] = !empty($wysiwyg_editor['config']) && $wysiwyg_editor['config'] === 'tabs';
 

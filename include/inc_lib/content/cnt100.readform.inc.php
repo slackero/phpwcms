@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $content["text"] = html_specialchars(slweg($_POST["ctext"], 65500));
 
 // check if minimum of 1 delimeter '~' available
-if(substr($content['text'], 0, 1) != '~') $content['text'] = '~'.$content['text'];
+if(!str_starts_with($content['text'], '~')) $content['text'] = '~'.$content['text'];
 if($content['text'] == '~') $content['text'] = '';
 
 $content['bulletlist']["list_type"] = intval($_POST['clist_type']);

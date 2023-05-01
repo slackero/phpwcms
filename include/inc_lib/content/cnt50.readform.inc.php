@@ -18,11 +18,11 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Reference
-$content['reference']["list"]       = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
-$content['reference']["width"]      = (intval($_POST["creference_width"]))  ? intval($_POST["creference_width"])  : '';
-$content['reference']["height"]     = (intval($_POST["creference_height"])) ? intval($_POST["creference_height"]) : '';
-$content['reference']["blockwidth"] = (intval($_POST["creference_blockwidth"]))  ? intval($_POST["creference_blockwidth"])  : '';
-$content['reference']["blockheight"]= (intval($_POST["creference_blockheight"])) ? intval($_POST["creference_blockheight"]) : '';
+$content['reference']["list"]       = $_POST["cimage_list"] ?? array();
+$content['reference']["width"]      = intval($_POST["creference_width"])  ?: '';
+$content['reference']["height"]     = intval($_POST["creference_height"]) ?: '';
+$content['reference']["blockwidth"] = intval($_POST["creference_blockwidth"])  ?: '';
+$content['reference']["blockheight"]= intval($_POST["creference_blockheight"]) ?: '';
 $temp_width                         = $content['reference']["width"];
 $temp_height                        = $content['reference']["height"];
 $content['reference']["space"]      = intval($_POST["creference_space"]);

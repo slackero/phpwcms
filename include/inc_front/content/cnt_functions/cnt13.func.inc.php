@@ -184,7 +184,7 @@ class search_News {
 			}
 			$search_replace_newsdetail = true;
 		} else {
-			$search_replace_newsdetail = strpos($this->search_target_url, '___NEWSDETAIL__') !== false;
+			$search_replace_newsdetail = str_contains($this->search_target_url, '___NEWSDETAIL__');
 			$this->search_target_url = html_specialchars($this->search_target_url);
 		}
 
@@ -259,7 +259,7 @@ class search_News {
 				$value['detail_link']	= date('Ymd', $value['cnt_ts_livedate']) . '-' . $value['cnt_id'] . '_' ; //$crow['acontent_aid']
 				$value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
 
-				if(strpos($this->search_target_url, '___NEWSDETAIL__') !== false) {
+				if(str_contains($this->search_target_url, '___NEWSDETAIL__')) {
 					$this->search_results[$id]['link'] = str_replace(array('___NEWSDETAIL__', '___HIGHLIGHT__'), array($value['detail_link'], $s_highlight_words), $this->search_target_url);
 				} else {
 					$this->search_results[$id]['link'] = $this->search_target_url.'&amp;newsdetail='.$value['detail_link'];
