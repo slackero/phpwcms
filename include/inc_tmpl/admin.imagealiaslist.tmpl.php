@@ -105,7 +105,7 @@ if(isset($_POST['keyword'])) {
 
 <?php
 
-$sql =  "SELECT f_alias, f_id, f_name FROM ".DB_PREPEND."cmsgo_file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png')";
+$sql =  "SELECT f_alias, f_id, f_name, f_hash FROM ".DB_PREPEND."cmsgo_file WHERE f_alias <> '' AND f_hash <> '' AND f_trash=0 AND (f_ext like 'jpg' OR f_ext like 'gif' OR f_ext like 'png')";
 
 $result = _dbQuery($sql);
 if(isset($result[0]['f_id'])) {

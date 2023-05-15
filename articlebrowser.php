@@ -258,8 +258,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
   $a .= '<td width="80%">';
   $a .= '<table class="table-no-border"'."><tr>";
   $a .= '<td nowrap="nowrap" class="text-right">';
-  $a .= ($child_count) ? "<a href=\"articlebrowser.php?opt=".$js_aktion."&amp;".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
-  $a .= '<i class="fa fa-caret-'.(($child_count) ? ($_SESSION["structure"][ $struct[$key]["acat_id"] ]==0 ? "right" : "down") : "right").' fa-fw slist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+  $a .= ($child_count) ? '<a href="articlebrowser.php?opt='.$js_aktion.'&amp;'.$page_val.'&amp;open='.rawurlencode($struct[$key]["acat_id"].":".(!empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? 0 : 1)).'">' : '';
+  $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw slist-'.$counter.'" aria-hidden="true"></i>'.($child_count ? "</a>" : "");
 
   $info  = '<table class="text-left">';
   $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
@@ -295,7 +295,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
   $a .= "</strong></td></tr></table></td></tr>";
   echo $a;
 
-  if(isset($_SESSION["structure"][$struct[$key]["acat_id"]]) && $_SESSION["structure"][$struct[$key]["acat_id"]]) {
+  if(!empty($_SESSION["structure"][$struct[$key]["acat_id"]])) {
 
     if(!$listmode) {
       struct_articlelist($struct[$key]["acat_id"], $counter, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $struct[$key]["acat_order"], $js, $js_aktion);
