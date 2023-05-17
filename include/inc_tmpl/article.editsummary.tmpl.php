@@ -182,32 +182,32 @@ $langstr = '';
     </div>
   </div>
 
+<?php if (count($cmsgo['allowed_lang']) > 1):  ?>
   <div class="form-group align-items-center form-row">
       <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
       <div class="col-sm-4">
-			<?php if (count($cmsgo['allowed_lang']) > 1):  ?>
 			<div class="lang-select">
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" name="article_lang" id="article_lang" type="radio" value="" <?php is_checked('', $article['article_lang']); ?> />
+						<input class="form-check-input" name="article_lang" id="article_lang" type="radio" value=""<?php is_checked('', $article['article_lang']); ?> />
 						<label class="form-check-label">
-							<span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span><?php echo ' ('.$BL['be_admin_tmpl_default'].')' ?>
+							<span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
+                            <?php echo '('.$BL['be_admin_tmpl_default'].')'; ?>
 						</label>
 					</div>
 
-				<?php   foreach ($cmsgo['allowed_lang'] as $key => $lang):
-						$lang = strtolower($lang);
-						if ($lang == $cmsgo['default_lang']) {
-								continue;
-						}
+				<?php foreach ($cmsgo['allowed_lang'] as $key => $lang):
+                        $lang = strtolower($lang);
+                        if ($lang == $cmsgo['default_lang']) {
+                            continue;
+                        }
 				?>
-      <div class="form-check form-check-inline">
-				<input class="form-check-input lang-opt" name="article_lang" id="article_lang" type="radio" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> />
-				<label class="form-check-label">
-					<span class="flag-icon flag-icon-<?php echo $lang ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span>
-				</label>
-      </div>
-
-  <?php   endforeach; ?>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input lang-opt" name="article_lang" id="article_lang" type="radio" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> />
+                        <label class="form-check-label">
+                            <span class="flag-icon flag-icon-<?php echo $lang ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span>
+                        </label>
+                    </div>
+                <?php endforeach; ?>
 
      <div style="margin:10px 0;border-top:1px solid #e5e5e5;padding-top:5px;<?php if ($article['article_lang'] == ''): ?>display:none;<?php endif; ?>" id="lang-id-select">
         <div class="form-check form-check-inline">
@@ -273,12 +273,11 @@ $langstr = '';
   ?>
 
 <?php echo $langstr; ?>
-     </div>
-  </div>
+            </div>
+        </div>
+   </div>
 <?php endif; ?>
 <!-- Sprachwechsel ende-->
-
-  </div>
 
   <hr />
 
