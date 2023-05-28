@@ -1,6 +1,11 @@
 {
     "config": {
-        "vendor-dir": "include/vendor"
+        "vendor-dir": "include/vendor",
+        "preferred-install": "dist",
+        "platform": {
+            "php": "8.2.0"
+        }
+
     },
     "require": {
         "php": ">=8.2",

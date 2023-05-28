@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '94e413158eb1111a34dfcb2a80246d6dfae97dbd',
+        'reference' => 'f37dc09616056525b375a25184bef9385eb45107',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '94e413158eb1111a34dfcb2a80246d6dfae97dbd',
+            'reference' => 'f37dc09616056525b375a25184bef9385eb45107',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -204,7 +204,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'adc91d455d2247ad4eb9febef0c275a780780cad',
+            'reference' => 'dba1fd788c25167ce16a3a5adb86aea0a0ff6818',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
