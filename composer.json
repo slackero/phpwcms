@@ -1,19 +1,26 @@
 {
     "config": {
-        "vendor-dir": "include/vendor"
+        "vendor-dir": "include/vendor",
+        "preferred-install": "dist",
+        "platform": {
+            "php": "7.4.0"
+        }
     },
     "require": {
         "php": ">=7.4",
         "algo26-matthias/idna-convert": "^v3.1.0",
-        "enshrined/svg-sanitize": "^0.15.4",
+        "enshrined/svg-sanitize": "^0.16.0",
         "netcarver/textile": "v4.0.0",
         "erusev/parsedown": "^v2.0.0-beta-1",
         "erusev/parsedown-extra": "^v2.0.0-beta-1",
-        "openpsa/universalfeedcreator": "^v1.8.4",
-        "phpmailer/phpmailer": "^v6.7.1",
-        "phpoffice/phpspreadsheet": "^1.27.1",
-        "simplepie/simplepie": "^1.8.0",
+        "openpsa/universalfeedcreator": "^v1.8.5",
+        "phpmailer/phpmailer": "^v6.8.0",
+        "phpoffice/phpspreadsheet": "^1.28",
+        "simplepie/simplepie": "@dev",
         "ext-intl": "*",
-        "html2text/html2text": "^4.3"
+        "html2text/html2text": "^4.3",
+        "ext-gd": "*",
+        "ext-mysqli": "*",
+        "ext-mbstring": "*"
     }
 }

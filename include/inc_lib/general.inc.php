@@ -28,6 +28,7 @@ function str_empty($string) {
 }
 
 function slweg($text = '', $maxlen = 0, $trim = true) {
+    $text = (string) $text;
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
@@ -44,7 +45,8 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
     return $text;
 }
 
-function clean_slweg($text, $maxlen = 0, $trim = true) {
+function clean_slweg($text = '', $maxlen = 0, $trim = true) {
+    $text = (string) $text;
     if (!IS_PHP7 && get_magic_quotes_gpc()) {
         $text = stripslashes($text);
     }
@@ -286,6 +288,7 @@ function extimg($ext) {
         "jpeg" => "icon_pix.gif",
         "gif" => "icon_pix.gif",
         "png" => "icon_pix.gif",
+        "webp" => "icon_pix.gif",
         "psd" => "icon_pix.gif",
         "rar" => "icon_rar.gif",
         "zip" => "icon_zip.gif",
@@ -390,7 +393,7 @@ function convert_into($extension) {
     //check which extension to give back
     $extension = strtolower($extension);
     $ext = 'jpg';
-    if (IMAGICK_ON) {
+    if (function_exists('imagegif')) {
         switch ($extension) {
             case 'gif':
                 $ext = 'gif';
@@ -402,7 +405,7 @@ function convert_into($extension) {
     } else {
         switch ($extension) {
             case 'gif':
-                $ext = (imagetypes() & IMG_GIF) ? 'gif' : 'png';
+                $ext = imagetypes() & IMG_GIF ? 'gif' : 'png';
                 break;
             case 'png':
                 $ext = 'png';

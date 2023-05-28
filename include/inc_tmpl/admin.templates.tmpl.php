@@ -270,7 +270,7 @@ if(isset($result[0]['template_id'])) {
         $result = _dbQuery($sql);
         if(isset($result[0]['template_id'])) {
             if(($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
-                $template = array_merge($template, $result[0]["template_var"]);
+                $template = array_replace_recursive($template, $result[0]["template_var"]);
             }
             $template["id"] = intval($result[0]["template_id"]);
             $template["default"] = $result[0]["template_default"];
@@ -471,14 +471,25 @@ foreach($unselected_css as $value) {
         <tr>
             <td><select name="template_jslib" id="template_jslib">
 <?php
+$jslib_optgroup = false;
+$jslib_current_optgroup = '';
 foreach($phpwcms['js_lib'] as $key => $value) {
-
+    if (substr($value, 0, 1) === '-' && $key !== $jslib_current_optgroup) {
+        if ($jslib_optgroup) {
+            echo '</optgroup>';
+        }
+        $jslib_optgroup = true;
+        $jslib_current_optgroup = $key;
+        echo '<optgroup label="' . html($jslib_current_optgroup) . '">';
+        continue;
+    }
     echo '<option value="' . $key . '"';
     is_selected($template['jslib'], $key);
     echo '>' . html($value) . '</option>';
-
 }
-
+if ($jslib_optgroup) {
+    echo '</optgroup>';
+}
 ?>
             </select></td>
             <td>&nbsp;</td>

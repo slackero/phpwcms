@@ -1,6 +1,50 @@
 CKEditor 4 Changelog
 ====================
 
+## CKEditor 4.21.0
+
+**Security Updates:**
+
+A cross-site scripting vulnerability has been discovered affecting [Iframe Dialog](https://ckeditor.com/cke4/addon/iframe) and [Media Embed](https://ckeditor.com/cke4/addon/embed) plugins.
+
+This vulnerability might affect a small percentage of integrators that depend on dynamic editor initialization/destroy mechanism. See [GitHub advisory](https://github.com/ckeditor/ckeditor4/security/advisories/GHSA-vh5c-xwqv-cv9g) for more details.
+
+**Potential breaking changes**
+
+In some rare cases, a security release may introduce a breaking change to your application. We have provided configuration options that will help you mitigate any potential issues with the upgrade:
+
+- Starting from version 4.21, the [Iframe Dialog](https://ckeditor.com/cke4/addon/iframe) plugin applies the `sandbox` attribute by default, which restricts JavaScript code execution in the iframe element. To change this behavior, configure the [`config.iframe_attributes`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-iframe_attributes) option.
+- Starting from version 4.21, the [Media Embed](https://ckeditor.com/cke4/addon/embed) plugin regenerates the entire content of the embed widget by default. To change this behavior, configure the [`config.embed_keepOriginalContent`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-embed_keepOriginalContent) option.
+
+If you choose to change either of the above options, make sure to properly configure [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) to avoid any potential security issues that may arise from embedding iframe elements on your web page.
+
+You can read more details in the relevant security advisory and [contact us](security@cksource.com) if you have more questions.
+
+**An upgrade is highly recommended!**
+
+New Features:
+
+* [#4400](https://github.com/ckeditor/ckeditor4/issues/4400): Added the [`config.uploadImage_supportedTypes`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-uploadImage_supportedTypes) configuration option allowing to change the image formats accepted by the [Upload Image](https://ckeditor.com/cke4/addon/uploadimage) plugin. Thanks to [SilverYoCha](https://github.com/SilverYoCha)!
+
+Fixed Issues:
+
+* [#5431](https://github.com/ckeditor/ckeditor4/issues/5431): Fixed: No notification is shown when pasting or dropping unsupported image types into the editor.
+
+## CKEditor 4.20.2
+
+Fixed Issues:
+
+* [#439](https://github.com/ckeditor/ckeditor4/issues/439): Fixed: Incorrect <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> navigation for radio buttons inside the dialog.
+* [#4829](https://github.com/ckeditor/ckeditor4/issues/4829): Fixed: Undo reversed entire table content instead of a single cell. Thanks to that fix, multiple changes in a table can be undone one by one.
+* [#5396](https://github.com/ckeditor/ckeditor4/issues/5396): Fixed: Event listeners for `popstate` and `hashchange` events on the `window`, added by the [Maximize](https://ckeditor.com/cke4/addon/maximize) plugin, were not removed when destroying the editor instance.
+* [#5414](https://github.com/ckeditor/ckeditor4/issues/5414): Fixed: File and image uploaders based on the [Upload Widget plugin](https://ckeditor.com/cke4/addon/uploadwidget) and [Easy Image plugin ](https://ckeditor.com/cke4/addon/easyimage) didn't fire the [`change` event](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_editor.html#event-change) upon finishing upload, resulting in passing incorrect data in form controls for integration frameworks, like [Reactive forms in Angular](https://angular.io/guide/reactive-forms).
+* [#698](https://github.com/ckeditor/ckeditor4/issues/698): Fixed: An error was thrown after applying formatting to the widget with inline editable and switching to the source mode. Thanks to [Glen](https://github.com/glen-84)!
+
+API changes:
+
+* [#3540](https://github.com/ckeditor/ckeditor4/issues/3540): The [startup data](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_plugins_widget.html) passed to the widget's command is now used to also populate the widget's template.
+* [#5352](https://github.com/ckeditor/ckeditor4/issues/5352): Added the [`colorButton_contentsCss`](https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html#cfg-colorButton_contentsCss) configuration option allowing to add custom CSS to the [Color Button](https://ckeditor.com/cke4/addon/colorbutton) menu content. Thanks to [mihilion](https://github.com/mihilion)!
+
 ## CKEditor 4.20.1
 
 Fixed Issues:

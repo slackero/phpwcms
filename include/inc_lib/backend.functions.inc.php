@@ -615,7 +615,6 @@ function set_language_cookie($lang='en') {
 // checks for alias and sets unique value
 function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
-    $current_id = intval($current_id);
     $alias      = strtolower( uri_sanitize( clean_slweg($alias) ) );
     $reserved   = array(
         'print',
@@ -720,7 +719,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $where_acat     = '';
     $where_article  = '';
     $where_content  = '';
-    $current_sql_id = $current_id === 'index' ? 0 : $current_id;
+    $current_sql_id = $current_id === 'index' ? 0 : (int) $current_id;
 
     switch($mode) {
         case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_sql_id.' AND ';    break;
