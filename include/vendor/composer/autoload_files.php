@@ -6,8 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '2cffec82183ee1cea088009cef9a6fc3' => $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+    '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     'b45b351e6b6f7487d819961fef2fda77' => $vendorDir . '/jakeasmith/http_build_url/src/http_build_url.php',
     'fdc0e9724ddc47859c8bf0c1ea0a623a' => $vendorDir . '/openpsa/universalfeedcreator/lib/constants.php',
 );
