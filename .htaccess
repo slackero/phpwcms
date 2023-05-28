@@ -1,3 +1,10 @@
+# Avoid accessing typical project specific IDE settings
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.idea
+RedirectMatch 404 /\.nova
+RedirectMatch 404 /\.vscode
+RedirectMatch 404 /\.vs
+
 # PHP: These settings are recommend - check phpinfo() before try these
 #   register_globals ON
 #   php_flag magic_quotes_gpc Off
