@@ -72,7 +72,7 @@ if ($action === 'exportformresult' && $fid) {
         $export[$row]['#Date'] = $value['formresult_createdate'];
         $export[$row]['#IP'] = $value['formresult_ip'];
 
-        $val_array = @unserialize($value['formresult_content']);
+        $val_array = @unserialize($value['formresult_content'], ['allowed_classes' => false]);
         if (is_array($val_array) && count($val_array)) {
             foreach ($val_array as $a_key => $a_value) {
                 $export[$row][$a_key] = $a_value;
