@@ -484,13 +484,26 @@ if(isset($result[0]['pagelayout_id'])) {
                 <div class="form-group form-row align-items-center">
                     <label for="js_lib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
                     <div class="col-sm-5">
-                        <select class="custom-select form-control form-control-sm" name="template_jslib"
-                                id="template_jslib">
+                        <select class="custom-select form-control form-control-sm" name="template_jslib" id="template_jslib">
                             <?php
+                            $jslib_optgroup = false;
+                            $jslib_current_optgroup = '';
                             foreach ($cmsgo['js_lib'] as $key => $value) {
+                                if (substr($value, 0, 1) === '-' && $key !== $jslib_current_optgroup) {
+                                    if ($jslib_optgroup) {
+                                        echo '</optgroup>';
+                                    }
+                                    $jslib_optgroup = true;
+                                    $jslib_current_optgroup = $key;
+                                    echo '<optgroup label="' . html($jslib_current_optgroup) . '">';
+                                    continue;
+                                }
                                 echo '<option value="' . $key . '"';
                                 is_selected($template['jslib'], $key);
                                 echo '>' . html($value) . '</option>';
+                            }
+                            if ($jslib_optgroup) {
+                                echo '</optgroup>';
                             }
                             ?>
                         </select>
