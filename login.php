@@ -175,10 +175,10 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 set_language_cookie();
             }
 
-            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
-            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
-            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"]);
-            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"]);
+            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"], ['allowed_classes' => false]);
+            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"], ['allowed_classes' => false]);
+            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"], ['allowed_classes' => false]);
+            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
 
             if(!is_array($_SESSION["structure"])) {
                 $_SESSION["structure"] = array();

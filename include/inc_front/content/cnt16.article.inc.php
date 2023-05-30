@@ -37,7 +37,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 }
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-$ecard = unserialize($crow["acontent_form"]);
+$ecard = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 $ecard["send_err"]		= 0;
 $ecard["send_success"]	= 0;

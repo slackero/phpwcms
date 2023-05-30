@@ -36,7 +36,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
-$alinkmenu                  = unserialize($crow["acontent_form"]);
+$alinkmenu                  = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $alinkmenu["catid"]         = ($alinkmenu["cat"]) ? $alinkmenu["catid"] : $content["cat_id"];
 $alinkmenu['headertext']    = empty($alinkmenu["headertext"]) ? 0 : 1;
 $alinkmenu['ul']            = empty($alinkmenu["ul"]) ? 0 : $alinkmenu["ul"];

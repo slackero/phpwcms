@@ -617,13 +617,26 @@ function _getConfig($key, $set_global='phpwcms') {
             $row = _dbQuery($sql);
             if(isset($row[0]['sysvalue_vartype'])) {
                 switch($row[0]['sysvalue_vartype']) {
-                    case 'string':  $result[ $value ] = (string) $row[0]['sysvalue_value'];                 break;
-                    case 'int':     $result[ $value ] = (int) $row[0]['sysvalue_value'];                    break;
-                    case 'float':   $result[ $value ] = (float) $row[0]['sysvalue_value'];                  break;
-                    case 'bool':    $result[ $value ] = (bool) $row[0]['sysvalue_value'];                   break;
-                    case 'array':   $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value']);    break;
-                    case 'object':  $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value']);   break;
-                    default:        $result[ $value ] = $row[0]['sysvalue_value'];
+                    case 'string':
+                        $result[ $value ] = (string) $row[0]['sysvalue_value'];
+                        break;
+                    case 'int':
+                        $result[ $value ] = (int) $row[0]['sysvalue_value'];
+                        break;
+                    case 'float':
+                        $result[ $value ] = (float) $row[0]['sysvalue_value'];
+                        break;
+                    case 'bool':
+                        $result[ $value ] = (bool) $row[0]['sysvalue_value'];
+                        break;
+                    case 'array':
+                        $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
+                        break;
+                    case 'object':
+                        $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
+                        break;
+                    default:
+                        $result[ $value ] = $row[0]['sysvalue_value'];
                 }
             }
         }

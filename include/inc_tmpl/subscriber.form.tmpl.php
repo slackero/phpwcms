@@ -59,7 +59,7 @@ if (!defined('PHPWCMS_ROOT')) {
 	$_userInfo['subscr_all']	= 1;
 	$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
 
-	$_userInfo['subscriber_data']['subscriptions']	= unserialize($_userInfo['subscriber_data']['address_subscription']);
+	$_userInfo['subscriber_data']['subscriptions']	= unserialize($_userInfo['subscriber_data']['address_subscription'], ['allowed_classes' => false]);
 
 	if($_userInfo['subscriptions']) {
 

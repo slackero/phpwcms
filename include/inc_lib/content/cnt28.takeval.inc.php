@@ -19,4 +19,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Part Frontend Login
 $content["felogin_template"]	= $row["acontent_template"];
-$content['felogin']				= @unserialize($row["acontent_form"]);
+$content['felogin']				= @unserialize($row['acontent_form'], ['allowed_classes' => false]);

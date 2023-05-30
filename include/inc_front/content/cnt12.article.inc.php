@@ -36,7 +36,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
-$content["newsletter"] = unserialize($crow["acontent_newsletter"]);
+$content["newsletter"] = unserialize($crow["acontent_newsletter"], ['allowed_classes' => false]);
 $content["newsletter"]["email_address_error"] = 0;
 $content["newsletter"]["success"] = 0;
 $content["newsletter"]["email_subscription"] = array();

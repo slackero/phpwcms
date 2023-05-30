@@ -276,7 +276,7 @@ if(isset($result[0]['template_id'])) {
         echo "<option value=\"".$row["template_id"]."\"";
         if($row["template_id"] == $acat_template) {
             echo " selected";
-            $_temp_cat = @unserialize($row['template_var']);
+            $_temp_cat = @unserialize($row['template_var'], ['allowed_classes' => false]);
             $_temp_cat = empty($_temp_cat['overwrite']) ? '' : $_temp_cat['overwrite'];
         }
         echo ">".html($row["template_name"]);

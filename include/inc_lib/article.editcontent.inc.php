@@ -82,7 +82,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             }
 
             $article["article_keyword"]     = $row["article_keyword"];
-            $article["image"]               = unserialize($row["article_image"]);
+            $article["image"]               = unserialize($row["article_image"], ['allowed_classes' => false]);
             $article["article_timeout"]     = $row["article_cache"];
             $article['article_nosearch']    = $row['article_nosearch'];
             $article['article_nositemap']   = $row['article_nositemap'];

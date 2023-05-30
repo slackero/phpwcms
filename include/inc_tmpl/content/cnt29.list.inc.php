@@ -24,7 +24,7 @@ $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : ""
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
 // get image array
-$image_list = @unserialize($row["acontent_form"]);
+$image_list = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 
 if(isset($image_list['images']) && is_array($image_list['images']) && count($image_list['images'])) {
 

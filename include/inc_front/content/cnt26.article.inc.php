@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
-$crow["acontent_form"] = unserialize($crow["acontent_form"]);
+$crow["acontent_form"] = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template'])) {
 	$crow["acontent_form"]['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template']) );

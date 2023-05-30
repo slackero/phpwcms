@@ -20,7 +20,7 @@ if(!defined('PHPWCMS_ROOT')) {
 
 $cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$cinfo_list_type = unserialize($row["acontent_form"]);
+$cinfo_list_type = unserialize($row['acontent_form'], ['allowed_classes' => false]);
 switch($cinfo_list_type['list_type']) {
     case 1:
         $cinfo_list_type = '&lt;ol&gt;';

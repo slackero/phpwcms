@@ -579,7 +579,7 @@ function get_actcat_articles_data($act_cat_id) {
                 "article_sort"          => $row["article_sort"],
                 "article_notitle"       => $row["article_notitle"],
                 "article_created"       => $row["article_created"],
-                "article_image"         => @unserialize($row["article_image"]),
+                "article_image"         => @unserialize($row["article_image"], ['allowed_classes' => false]),
                 "article_timeout"       => $row["article_cache"],
                 "article_nosearch"      => $row["article_nosearch"],
                 "article_nositemap"     => $row["article_nositemap"],
@@ -631,7 +631,7 @@ function get_actcat_articles_data($act_cat_id) {
                         $data[$aid]["article_summary"]      = $alias_result[0]["article_summary"];
                         $data[$aid]["article_redirect"]     = $alias_result[0]["article_redirect"];
                         $data[$aid]["article_date"]         = $alias_result[0]["article_date"];
-                        $data[$aid]["article_image"]        = @unserialize($alias_result[0]["article_image"]);
+                        $data[$aid]["article_image"]        = @unserialize($alias_result[0]["article_image"], ['allowed_classes' => false]);
                         $data[$aid]["article_begin"]        = $alias_result[0]["article_begin"];
                         $data[$aid]["article_end"]          = $alias_result[0]["article_end"];
                         $data[$aid]['article_livedate']     = $alias_result[0]["article_livedate"];
@@ -3506,7 +3506,7 @@ function getFileDetails($file) {
 
         $result = $result[0];
         if(!empty($result['f_vars'])) {
-            $result['f_vars'] = @unserialize($result['f_vars']);
+            $result['f_vars'] = @unserialize($result['f_vars'], ['allowed_classes' => false]);
             $lang = $GLOBALS['phpwcms']['default_lang'];
 
             if(count($GLOBALS['phpwcms']['allowed_lang']) > 1 && isset($result['f_vars'][ $lang ])) {

@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Alias ID
 echo "<tr><td>&nbsp;</td><td class=\"v10\">".$BL['be_alias_ID'].': ';
-$content["alias"] = @unserialize($row["acontent_form"]);
+$content["alias"] = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 $content['alias_link'] = '';
 if(empty($content["alias"]['alias_ID'])) {
     $content["alias"]['alias_ID'] = '';

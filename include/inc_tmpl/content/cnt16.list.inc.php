@@ -25,7 +25,7 @@ $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtit
 // same as image list
 
 // get image array
-$image_list = unserialize($row["acontent_form"]);
+$image_list = unserialize($row['acontent_form'], ['allowed_classes' => false]);
 
 if(isset($image_list['images']) && is_array($image_list['images']) && count($image_list['images'])) {
 

@@ -473,7 +473,7 @@ function countNewsletterRecipients($target) {
         if(empty($value['address_subscription'])) {
             $counter++;
         } elseif($check) {
-            $value['address_subscription'] = @unserialize($value['address_subscription']);
+            $value['address_subscription'] = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
             if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
                 foreach($value['address_subscription'] as $subscr) {
                     if(in_array(intval($subscr), $target)) {

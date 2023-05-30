@@ -49,7 +49,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     // Set file info based on IPTC for all languages
     if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
 
-        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']));
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']), ['allowed_classes' => false]);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
         if($file_title === '') {
@@ -215,7 +215,7 @@ if($file_id) {
             $file_granted           = $row["f_granted"];
             $file_gallerydownload   = $row["f_gallerystatus"];
             $file_sort              = $row["f_sort"];
-            $file_vars              = @unserialize($row['f_vars']);
+            $file_vars              = @unserialize($row['f_vars'], ['allowed_classes' => false]);
             $file_title             = $row["f_title"];
             $file_alt               = $row["f_alt"];
 

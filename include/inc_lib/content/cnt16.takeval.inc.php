@@ -18,4 +18,4 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type E-Card
-$content["ecard"]	= unserialize($row["acontent_form"]);
+$content["ecard"]	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

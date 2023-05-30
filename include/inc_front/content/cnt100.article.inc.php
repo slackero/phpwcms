@@ -49,7 +49,7 @@ if(substr_count ($crow["acontent_text"], '~')) {
     $crow["acontent_text"] = str_replace("\r\n~", '###', $crow["acontent_text"]);
     $crow["acontent_text"] = str_replace("\n~", '###', $crow["acontent_text"]);
 
-    $clist_listtype = @unserialize($crow["acontent_form"]);
+    $clist_listtype = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
     switch($clist_listtype['list_type']) {
         case 1:     $clist_listmain  = 'ol';

@@ -71,7 +71,7 @@ $crow["default_settings"] = array(
 
 if($image) {
 
-    $cnt_image = @unserialize($crow["acontent_form"]);
+    $cnt_image = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
     $crow["default_settings"]['lightbox']   = empty($cnt_image['cimage_lightbox']) ? 0 : 1;
     $crow["default_settings"]['nocaption']  = empty($cnt_image['cimage_nocaption']) ? 0 : 1;
     $crow["default_settings"]['crop']       = empty($cnt_image['cimage_crop']) ? 0 : 1;

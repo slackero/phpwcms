@@ -649,7 +649,7 @@ class phpwcmsNews {
             $result = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_id='.$this->newsId, '', '', '1');
             if(isset($result[0])) {
 
-                $result[0]['cnt_object'] = @unserialize($result[0]['cnt_object']);
+                $result[0]['cnt_object'] = @unserialize($result[0]['cnt_object'], ['allowed_classes' => false]);
                 if(is_array($result[0]['cnt_object']['cnt_image'])) {
                     $result[0]['cnt_image'] = array_merge($this->data['cnt_image'], $result[0]['cnt_object']['cnt_image']);
                 }

@@ -29,7 +29,7 @@ if($all = _dbQuery("SELECT article_id, article_image, article_title, article_tst
 
 	foreach($all as $key => $value) {
 
-		$all[$key]['article_image']	= unserialize($value['article_image']);
+		$all[$key]['article_image']	= @unserialize($value['article_image'], ['allowed_classes' => false]);
 		if(isset($all[$key]['article_image']['prev']) && !empty($all[$key]['article_image']['id'])) {
 
 			//dumpVar($all[$key]);

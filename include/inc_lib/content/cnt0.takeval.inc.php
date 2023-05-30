@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type Text
 $content["text"] 			= $row["acontent_text"];
 $content["template"]		= $row["acontent_template"];
-$content["ctext_format"]	= @unserialize($row["acontent_form"]);
+$content["ctext_format"]	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $content["ctext_format"]	= $content["ctext_format"]['ctext_format'] ?? 'plain';
 
 switch($content["ctext_format"]) {

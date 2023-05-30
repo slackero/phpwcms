@@ -220,7 +220,7 @@ if(!isset($_GET["s"])) {
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_id=".$pagelayout["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['pagelayout_id'])) {
-            $pagelayout = unserialize($result[0]["pagelayout_var"]);
+            $pagelayout = unserialize($result[0]["pagelayout_var"], ['allowed_classes' => false]);
             $pagelayout["id"] = $result[0]["pagelayout_id"];
             $pagelayout["layout_default"] = $result[0]["pagelayout_default"];
         }

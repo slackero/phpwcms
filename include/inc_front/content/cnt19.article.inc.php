@@ -36,7 +36,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 }
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-$sitemap = unserialize($crow["acontent_form"]);
+$sitemap = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $sitemap['startid'] = intval($sitemap['startid']);
 
 if($sitemap['articleimg']) {

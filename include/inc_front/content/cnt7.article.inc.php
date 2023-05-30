@@ -25,7 +25,7 @@ use function PHP81_BC\strftime;
 if (empty($IS_NEWS_CP)) {
     $crow["acontent_files"] = explode(':', $crow["acontent_files"]);
     $crow["acontent_text"] = explode("\n", $crow["acontent_text"]);
-    $crow["acontent_form"] = unserialize($crow["acontent_form"]);
+    $crow["acontent_form"] = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
     $crow['file_cp_title'] = $crow['acontent_title'];
     $crow['file_cp_subtitle'] = $crow['acontent_subtitle'];
     $content['files_direct'] = empty($crow["acontent_form"]['direct_download']) ? 0 : 1;

@@ -297,7 +297,7 @@ if($content['cp_setting_mode']):
             if($content['current_template'][0]['template_default']) {
                 $content['template_name'] .= ' ('.$BL['be_admin_tmpl_default'].')';
             }
-            $content['current_template'] = unserialize($content['current_template'][0]['template_var']);
+            $content['current_template'] = unserialize($content['current_template'][0]['template_var'], ['allowed_classes' => false]);
             if(!empty($content['current_template']['customblock'])) {
                 $content['current_template'] = explode(',', $content['current_template']['customblock']);
                 if(count($content['current_template'])) {

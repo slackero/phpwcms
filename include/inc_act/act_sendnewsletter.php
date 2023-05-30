@@ -59,7 +59,7 @@ if($newsletter_id) {
     $sql  = "SELECT *FROM ".DB_PREPEND."phpwcms_newsletter WHERE newsletter_id=".$newsletter_id." LIMIT 1";
     $newsletter = _dbQuery($sql);
     if(isset($newsletter[0]['newsletter_vars'])) {
-        $newsletter[0]['newsletter_vars'] = unserialize($newsletter[0]['newsletter_vars']);
+        $newsletter[0]['newsletter_vars'] = unserialize($newsletter[0]['newsletter_vars'], ['allowed_classes' => false]);
         $newsletter = $newsletter[0];
     } else {
         $newsletter = false;

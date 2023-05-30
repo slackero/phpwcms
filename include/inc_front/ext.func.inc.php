@@ -653,7 +653,7 @@ function getContentPartTopLink($param=0) {
 
 function getContentPartAlias($crow) {
 
-    $alias = @unserialize($crow["acontent_form"]);
+    $alias = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
     $alias_visible = false;
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);
@@ -807,7 +807,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
             "article_sort"      => $row["article_sort"],
             "article_notitle"   => $row["article_notitle"],
             "article_created"   => $row["article_created"],
-            "article_image"     => @unserialize($row["article_image"]),
+            "article_image"     => @unserialize($row["article_image"], ['allowed_classes' => false]),
             "article_timeout"   => $row["article_cache"],
             "article_nosearch"  => $row["article_nosearch"],
             "article_nositemap" => $row["article_nositemap"],
@@ -852,7 +852,7 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
                     $data[$aid]["article_summary"]  = $alias_row["article_summary"];
                     $data[$aid]["article_redirect"] = $alias_row["article_redirect"];
                     $data[$aid]["article_date"]     = $alias_row["article_date"];
-                    $data[$aid]["article_image"]    = @unserialize($alias_row["article_image"]);
+                    $data[$aid]["article_image"]    = @unserialize($alias_row["article_image"], ['allowed_classes' => false]);
                     $data[$aid]["article_begin"]    = $alias_row["article_begin"];
                     $data[$aid]["article_end"]      = $alias_row["article_end"];
                     $data[$aid]['article_livedate'] = $alias_row["article_livedate"];
