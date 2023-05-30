@@ -17,7 +17,7 @@ if (!defined('CMSGO_ROOT')) {
 
 //FAQ
 
-$crow["acontent_form"]	= @unserialize($crow["acontent_form"]);
+$crow["acontent_form"]	= @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $crow["acontent_image"]	= empty($crow["acontent_image"]) ? '' : explode(":", $crow["acontent_image"]);
 
 if(!empty($crow["acontent_form"]['faq_template']) && file_exists(CMSGO_TEMPLATE.'inc_cntpart/faq/'.$crow["acontent_form"]['faq_template'])) {

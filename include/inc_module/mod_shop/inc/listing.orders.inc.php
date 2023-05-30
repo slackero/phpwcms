@@ -43,7 +43,7 @@ if($data) {
         echo '<td class="dir nowrap" width="13%">';
 
         if(SHOP_FELANG_SUPPORT) {
-            $row['order_data']		= @unserialize($row['order_data']);
+            $row['order_data']		= @unserialize($row['order_data'], ['allowed_classes' => false]);
             $row['shopprod_lang']	= empty($row['order_data']['lang']) ? '' : html_specialchars(strtolower($row['order_data']['lang']));
             echo '<span class="mr-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa fa-globe').' mt-1" data-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
         }

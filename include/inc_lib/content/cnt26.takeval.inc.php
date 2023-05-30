@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Recipe
-$content['recipe'] = unserialize($row['acontent_form']);
+$content['recipe'] = unserialize($row['acontent_form'], ['allowed_classes' => false]);

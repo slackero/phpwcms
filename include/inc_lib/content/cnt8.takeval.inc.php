@@ -19,4 +19,4 @@ if (!defined('CMSGO_ROOT')) {
 
 
 // Content Type Link Article
-$content['alink'] = unserialize($row["acontent_form"]);
+$content['alink'] = unserialize($row["acontent_form"], ['allowed_classes' => false]);

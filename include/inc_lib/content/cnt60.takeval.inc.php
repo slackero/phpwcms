@@ -17,5 +17,5 @@ if (!defined('CMSGO_ROOT')) {
 
 // Content Type Images Special
 $content["custom_template"]	= $row["acontent_template"];
-$content["custom_form"]	= @unserialize($row["acontent_form"]);
+$content["custom_form"]	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $content["custom_html"]		= $row["acontent_html"];

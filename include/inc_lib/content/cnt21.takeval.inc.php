@@ -16,4 +16,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Page / ext. Content
-$content["page_file"] = unserialize($row["acontent_form"]);
+$content["page_file"] = unserialize($row["acontent_form"], ['allowed_classes' => false]);

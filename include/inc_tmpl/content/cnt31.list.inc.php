@@ -24,7 +24,7 @@ $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtit
 
 // get image array
 
-$image_list = @unserialize($row["acontent_form"]);
+$image_list = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $image_data = '';
 if (isset($image_list['images'])) {
     foreach($image_list['images'] as $img_info) {

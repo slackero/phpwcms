@@ -220,7 +220,7 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 
 			foreach($result as $value) {
 
-				$value['article_image'] = unserialize($value['article_image']);
+				$value['article_image'] = unserialize($value['article_image'], ['allowed_classes' => false]);
 				$articles[ $value['article_id'] ] = $value;
 
 			}

@@ -9,7 +9,7 @@
  **/
 
 //images (gallery)
-$image = @unserialize($crow["acontent_form"]);
+$image = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(is_array($image) && ($image_count = count($image))) {
 

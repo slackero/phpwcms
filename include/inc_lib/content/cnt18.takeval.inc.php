@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Guestbook
-$content["guestbook"]	= unserialize($row["acontent_form"]);
+$content["guestbook"]	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

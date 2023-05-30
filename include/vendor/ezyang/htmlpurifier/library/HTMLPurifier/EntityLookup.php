@@ -23,7 +23,7 @@ class HTMLPurifier_EntityLookup
         if (!$file) {
             $file = HTMLPURIFIER_PREFIX . '/HTMLPurifier/EntityLookup/entities.ser';
         }
-        $this->table = unserialize(file_get_contents($file));
+        $this->table = unserialize(file_get_contents($file, ['allowed_classes' => false]));
     }
 
     /**

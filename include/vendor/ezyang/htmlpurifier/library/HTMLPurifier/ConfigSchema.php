@@ -69,7 +69,7 @@ class HTMLPurifier_ConfigSchema
     public static function makeFromSerial()
     {
         $contents = file_get_contents(HTMLPURIFIER_PREFIX . '/HTMLPurifier/ConfigSchema/schema.ser');
-        $r = unserialize($contents);
+        $r = unserialize($contents, ['allowed_classes' => false]);
         if (!$r) {
             $hash = sha1($contents);
             trigger_error("Unserialization of configuration schema failed, sha1 of file was $hash", E_USER_ERROR);

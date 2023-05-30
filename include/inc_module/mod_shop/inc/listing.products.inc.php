@@ -199,7 +199,7 @@ if($data) {
       echo '<a class="btn btn-sm btn-blue mr-1" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
       echo '<i class="fa fa-pencil-alt"></i></a>';
 
-      $row["shopprod_var"] = @unserialize($row["shopprod_var"]);
+      $row["shopprod_var"] = @unserialize($row["shopprod_var"], ['allowed_classes' => false]);
 
       echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible ';
 

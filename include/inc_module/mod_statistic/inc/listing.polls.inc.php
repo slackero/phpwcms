@@ -39,7 +39,7 @@ $result = _dbQuery($sql);
       echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
         echo '		<td width="80%"><a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
 
-      $poll_form			= @unserialize($data["acontent_form"]);
+      $poll_form			= @unserialize($data["acontent_form"], ['allowed_classes' => false]);
 
       $poll_total_votes = 0;
       foreach($poll_form["count"] as $key => $value) {

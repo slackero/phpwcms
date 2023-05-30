@@ -494,7 +494,7 @@ class cmsgoImageGallery {
 
 			if($image['f_vars'] && count($GLOBALS['cmsgo']['allowed_lang']) > 1) {
 
-				$image['f_vars'] = @unserialize($image['f_vars']);
+				$image['f_vars'] = @unserialize($image['f_vars'], ['allowed_classes' => false]);
 
 				if(!empty($image['f_vars'][$lang]['longinfo'])) {
 					$image['f_longinfo'] = $image['f_vars'][$lang]['longinfo'];

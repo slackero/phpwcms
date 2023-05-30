@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Article Menu
-$content["alist"]	= unserialize($row["acontent_form"]);
+$content["alist"]	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

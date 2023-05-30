@@ -16,4 +16,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Glossary module read content part values to fill field
-$content['glossary']	= unserialize($row["acontent_form"]);
+$content['glossary']	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

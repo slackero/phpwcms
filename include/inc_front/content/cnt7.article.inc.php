@@ -24,7 +24,7 @@ use function PHP81_BC\strftime;
 if (empty($IS_NEWS_CP)) {
     $crow["acontent_files"] = explode(':', $crow["acontent_files"]);
     $crow["acontent_text"] = explode("\n", $crow["acontent_text"]);
-    $crow["acontent_form"] = unserialize($crow["acontent_form"]);
+    $crow["acontent_form"] = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
     $crow['file_cp_title'] = $crow['acontent_title'];
     $crow['file_cp_subtitle'] = $crow['acontent_subtitle'];
     $content['files_direct'] = empty($crow["acontent_form"]['direct_download']) ? 0 : 1;
@@ -220,7 +220,7 @@ if ($_files_force_rendering || $_files_count) {
                         // language specific long description and copyright
                         if ($content['files_result'][$_files_x]['f_vars'] && count($cmsgo['allowed_lang']) > 1) {
                             if (is_string($content['files_result'][$_files_x]['f_vars'])) {
-                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars']);
+                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars'], ['allowed_classes' => false]);
                             }
                             if (is_array($content['files_result'][$_files_x]['f_vars'])) {
                                 if (!empty($content['files_result'][$_files_x]['f_vars'][$cmsgo['default_lang']]['longinfo'])) {

@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Reference
-$content['reference']	= unserialize($row["acontent_form"]);
+$content['reference']	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

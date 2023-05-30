@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Map
-$content["map"]	= unserialize($row["acontent_form"]);
+$content["map"]	= unserialize($row["acontent_form"], ['allowed_classes' => false]);

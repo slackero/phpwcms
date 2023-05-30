@@ -346,7 +346,7 @@ if($_userInfo['list_channel']) {
 		if($_userInfo['channel'] !== false) {
 			$_userInfo['channel_select'] = ' class="inactive"';
 
-			$row['channel'] = unserialize($row['address_subscription']);
+			$row['channel'] = unserialize($row['address_subscription'], ['allowed_classes' => false]);
 			if(is_array($row['channel']) && count($row['channel'])) {
 
 				foreach($row['channel'] as $channel) {

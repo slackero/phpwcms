@@ -19,7 +19,7 @@ if (!defined('CMSGO_ROOT')) {
 
 
 // Content Type Images
-$content["image_list"]		= unserialize($row["acontent_form"]);
+$content["image_list"]		= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if(!isset($content["image_list"]['lightbox'])) {
 	$content["image_list"]['lightbox'] = 0;
 }

@@ -19,5 +19,5 @@ if (!defined('CMSGO_ROOT')) {
 // Content Type WYSIWYG HTML
 $content["html"] = $row["acontent_html"];
 $content["template"] = $row["acontent_template"];
-$content["custom_fields"] = @unserialize($row["acontent_form"]);
+$content["custom_fields"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $content["custom_fields"] = empty($content["custom_fields"]['cnt_fields']) ? array() : $content["custom_fields"]['cnt_fields'];

@@ -3548,7 +3548,7 @@ class Worksheet implements IComparable
                     $this->autoFilter = $newAutoFilter;
                     $this->autoFilter->setParent($this);
                 } else {
-                    $this->{$key} = unserialize(serialize($val));
+                    $this->{$key} = unserialize(serialize($val, ['allowed_classes' => false]));
                 }
             }
         }

@@ -21,7 +21,7 @@ if (!defined('CMSGO_ROOT')) {
 
 //images (gallery)
 
-$image  = @unserialize($crow["acontent_form"]);
+$image  = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 if(empty($image['fieldgroup'])) {
     $image['fieldgroup'] = '';

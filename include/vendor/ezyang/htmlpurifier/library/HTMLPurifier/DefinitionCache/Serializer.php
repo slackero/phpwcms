@@ -70,7 +70,7 @@ class HTMLPurifier_DefinitionCache_Serializer extends HTMLPurifier_DefinitionCac
         if (!file_exists($file)) {
             return false;
         }
-        return unserialize(file_get_contents($file));
+        return unserialize(file_get_contents($file, ['allowed_classes' => false]));
     }
 
     /**

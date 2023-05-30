@@ -160,7 +160,7 @@ if($_SESSION['newsletter_page'] < 1) {
 
         foreach($result as $row) {
 
-          $row['newsletter_vars'] = unserialize($row['newsletter_vars']);
+          $row['newsletter_vars'] = unserialize($row['newsletter_vars'], ['allowed_classes' => false]);
 
           echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).' class="listrow">'.LF;
           echo '<td>';

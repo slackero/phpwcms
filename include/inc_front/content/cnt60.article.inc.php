@@ -19,7 +19,7 @@ if (!defined('CMSGO_ROOT')) {
 //custom contentpart
 
 
-$custom  = @unserialize($crow["acontent_form"]);
+$custom  = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 $crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 if(empty($custom['fieldgroup'])) {

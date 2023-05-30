@@ -17,4 +17,4 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // Alias ID
-$content["alias"] = unserialize($row["acontent_form"]);
+$content["alias"] = unserialize($row["acontent_form"], ['allowed_classes' => false]);

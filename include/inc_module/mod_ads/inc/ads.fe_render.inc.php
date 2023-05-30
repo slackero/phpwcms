@@ -79,7 +79,7 @@ function renderAds($match) {
 		return '';
 	}
 
-	$ad['adcampaign_data']	= @unserialize($ad['adcampaign_data']);
+	$ad['adcampaign_data']	= @unserialize($ad['adcampaign_data'], ['allowed_classes' => false]);
 	$ad['dir']				= CMSGO_CONTENT.CMSGO_ADS_DIR.'/'.$ad['adcampaign_id'];
 	$ad['content_dir']		= CONTENT_PATH.CMSGO_ADS_DIR.'/'.$ad['adcampaign_id'].'/';
 	if($ad['adcampaign_type']!=2 && $ad['adcampaign_type']!=4 && !is_dir($ad['dir'])) {

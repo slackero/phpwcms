@@ -25,7 +25,7 @@ $cinfo["result"] .= '<br />'.$BL['be_admin_struct_template'] . ':&nbsp;';
 $cinfo["result"] .= $row["acontent_template"] ? cut_string($row["acontent_template"],'&#8230;', 55) : '';
 
 // get custom array
-$custom_data	= @unserialize($row["acontent_form"]);
+$custom_data	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if(count($custom_data['custom_elements'])) {
     $cinfo["result"] .= '<br />'.$BL['be_cnt_custom_entries'] . ':&nbsp;'.count($custom_data['custom_elements']);
 }

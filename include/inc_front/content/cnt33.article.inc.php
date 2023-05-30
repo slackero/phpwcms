@@ -16,7 +16,7 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 // News
-$news = @unserialize($crow["acontent_form"]);
+$news = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(CMSGO_TEMPLATE.'inc_default/news.tmpl')) {
@@ -414,7 +414,7 @@ if($news['template']) {
 
         foreach($news['result'] as $key => $value) {
 
-            $value['cnt_object'] = @unserialize($value['cnt_object']);
+            $value['cnt_object'] = @unserialize($value['cnt_object'], ['allowed_classes' => false]);
             $news_item_id = $value['cnt_id'];
 
             $news['entries'][$key] = getFrontendEditLink('news', $value['cnt_id']);
@@ -730,7 +730,7 @@ if($news['template']) {
 
                                         if($news['config']['check_lang'] && !empty($ivalue['f_vars'])) {
 
-                                            $ivalue['f_vars'] = @unserialize($ivalue['f_vars']);
+                                            $ivalue['f_vars'] = @unserialize($ivalue['f_vars'], ['allowed_classes' => false]);
 
                                             if(!empty($ivalue['f_vars'][$cmsgo['DOCTYPE_LANG']]['longinfo'])) {
                                                 $ivalue['f_longinfo'] = $ivalue['f_vars'][$cmsgo['DOCTYPE_LANG']]['longinfo'];

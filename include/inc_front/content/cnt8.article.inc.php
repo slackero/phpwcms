@@ -21,7 +21,7 @@ if (!defined('CMSGO_ROOT')) {
 // Check if custom array is given or parse it based on the default behavior
 if(!isset($content['alink']['inject'])) {
 
-    $content['alink'] = @unserialize($crow["acontent_form"]);
+    $content['alink'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
     if(!isset($content['alink']['alink_id'])) {
         $content['alink']['alink_id'] = explode(':', $crow['acontent_alink']);
@@ -428,7 +428,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'ACTIVE', isset($content["article_id"]) && $content["article_id"] == $row['article_id'] ? 'active' : '');
 
 
-                    $row['article_image'] = @unserialize($row['article_image']);
+                    $row['article_image'] = @unserialize($row['article_image'], ['allowed_classes' => false]);
                     $row['article_image'] = setArticleSummaryImageData($row['article_image']);
 
                     if(!empty($row['article_image']['list_caption'])) {

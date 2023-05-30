@@ -113,7 +113,7 @@ class ModuleShopSearch {
                 $this->search_results[$id]['query']		= $shop_url; //.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
                 $this->search_results[$id]['image']		= false;
                 if($this->image_render) {
-                    $value['shopprod_var'] = unserialize($value['shopprod_var']);
+                    $value['shopprod_var'] = unserialize($value['shopprod_var'], ['allowed_classes' => false]);
                     if(isset($value['shopprod_var']['images'][0]['f_hash'])) {
                         $this->search_results[$id]['image'] = array(
                             'id'	=> $value['shopprod_var']['images'][0]['f_id'],

@@ -32,7 +32,7 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
   echo "<a href=\"cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=";
   echo $row["acontent_id"]."\">".$cinfo["result"].'</a>';
 }
-$rssfeed = unserialize($row["acontent_form"]);
+$rssfeed = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if($rssfeed['rssurl']) {
   echo ' <a href="'.html($rssfeed['rssurl']).'" target="_blank">';
   echo '<i class="fa fa-rss"></i></a>';

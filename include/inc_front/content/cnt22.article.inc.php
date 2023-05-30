@@ -18,7 +18,7 @@ if (!defined('CMSGO_ROOT')) {
 // RSS feed
 
 if( !empty($crow["acontent_form"]) && is_string($crow["acontent_form"]) ) {
-	$rssfeed = unserialize($crow["acontent_form"]);
+	$rssfeed = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 } elseif( empty($rssfeed) || !is_array($rssfeed) ) {
 	$rssfeed = array();
 }

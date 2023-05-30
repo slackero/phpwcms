@@ -17,7 +17,7 @@ if(!defined('CMSGO_ROOT')) {
 
 // Content Type Multimedia
 
-$content["media"] = @unserialize($row["acontent_form"]);
+$content["media"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $content["media_type"] = $content['media']["media_type"];
 $content["media_player"] = $content['media']["media_player"];
 $content["media_src"] = $content['media']["media_src"];
