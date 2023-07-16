@@ -240,7 +240,7 @@ class MySQL extends DB
         $query = $this->mysql->prepare('SELECT `items`, `data` FROM `' . $this->options['extras']['prefix'] . 'cache_data` WHERE `id` = :id');
         $query->bindValue(':id', $this->id);
         if ($query->execute() && ($row = $query->fetch())) {
-            $data = unserialize($row[1], ['allowed_classes' => false]);
+            $data = unserialize($row[1]);
 
             if (isset($this->options['items'][0])) {
                 $items = (int) $this->options['items'][0];
@@ -271,7 +271,7 @@ class MySQL extends DB
                     $query->bindValue(':feed', $this->id);
                     if ($query->execute()) {
                         while ($row = $query->fetchColumn()) {
-                            $feed['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['entry'][] = unserialize($row, ['allowed_classes' => false]);
+                            $feed['child'][\SimplePie\SimplePie::NAMESPACE_ATOM_10]['entry'][] = unserialize($row);
                         }
                     } else {
                         return false;

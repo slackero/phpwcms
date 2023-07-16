@@ -26,6 +26,5 @@ return array(
     'RSSCreator091' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator091.php',
     'RSSCreator10' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator10.php',
     'RSSCreator20' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator20.php',
-    'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
     'UniversalFeedCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/UniversalFeedCreator.php',
 );

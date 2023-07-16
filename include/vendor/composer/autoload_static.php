@@ -40,7 +40,6 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         ),
         'M' => 
         array (
-            'MyCLabs\\Enum\\' => 13,
             'Matrix\\' => 7,
         ),
         'H' => 
@@ -81,8 +80,8 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -99,10 +98,6 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'Netcarver\\Textile\\' => 
         array (
             0 => __DIR__ . '/..' . '/netcarver/textile/src/Netcarver/Textile',
-        ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Matrix\\' => 
         array (
@@ -169,7 +164,6 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'RSSCreator091' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator091.php',
         'RSSCreator10' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator10.php',
         'RSSCreator20' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator20.php',
-        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
         'UniversalFeedCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/UniversalFeedCreator.php',
     );
 

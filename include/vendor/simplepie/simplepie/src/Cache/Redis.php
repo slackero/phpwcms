@@ -115,7 +115,7 @@ class Redis implements Base
         $data = $this->cache->get($this->name);
 
         if ($data !== false) {
-            return unserialize($data, ['allowed_classes' => false]);
+            return unserialize($data);
         }
         return false;
     }
