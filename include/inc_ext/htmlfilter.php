@@ -552,8 +552,8 @@ function defang(&$attvalue){
      * Skip this if there aren't ampersands or backslashes.
      */
     //htmlfilter_debug("$me: Checking '$attvalue' for suspicious content\n");
-    if (strpos($attvalue, '&') === false
-        && strpos($attvalue, '\\') === false){
+    if (!str_contains($attvalue, '&')
+        && !str_contains($attvalue, '\\')){
         //htmlfilter_debug("$me: no suspicious content found, returning.\n");
         return;
     }

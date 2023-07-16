@@ -287,7 +287,6 @@ class SPAF_FormValidator {
             default:
                 // critical error - unsupported format
                 die( 'ERROR: Unsupported format!' );
-                break;
         }
     }
 
