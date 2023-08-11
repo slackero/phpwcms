@@ -451,7 +451,7 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
     $sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
-        $block = @$result[0]['template_var'], ['allowed_classes' => false]);
+        $block = @unserialize($result[0]['template_var'], ['allowed_classes' => false]);
     }
 }
 if(!isset($block)) {
