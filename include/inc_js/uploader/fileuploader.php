@@ -240,8 +240,7 @@ class qqFileUploader {
         	$cutoff = strrpos($newFileName, '.');
         	$filename = $cutoff !== false ? mb_substr($newFileName, 0, $cutoff) : $newFileName;
         }
-        //$filename = md5(uniqid());
-        $ext = @$pathinfo['extension'];		// hide notices if extension is empty
+        $ext = $pathinfo['extension'] ?? '';
 
 		if($this->forceExtension && !$ext) {
 			$these = implode(', ', $this->allowedExtensions);
