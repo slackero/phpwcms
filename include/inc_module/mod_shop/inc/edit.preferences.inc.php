@@ -55,7 +55,7 @@ if (!defined('CMSGO_ROOT')) {
             <textarea class="form-control form-control-sm text-right" name="pref_vat" id="pref_vat" rows="3" onchange="enableSubmit();" />
             <?php
             foreach( $plugin['data']['shop_pref_vat'] as $value ) {
-                echo number_format($value, 2, $BLM['dec_point'], $BLM['thousands_sep']) . LF;
+                echo number_format((float) $value, 2, $BLM['dec_point'], $BLM['thousands_sep']) . LF;
             }
             ?>
             </textarea>
@@ -118,13 +118,13 @@ if (!defined('CMSGO_ROOT')) {
             <div class="form-group form-row align-items-center">
             <label class="col-sm-2 col-form-label text-right"></label>
                 <div class="col-sm-2"><input name="pref_shipping_weight['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_net['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_vat['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
             </div>
             ';
@@ -156,13 +156,13 @@ if (!defined('CMSGO_ROOT')) {
             <div class="form-group form-row align-items-center">
             <label class="col-sm-2 col-form-label text-right"></label>
                 <div class="col-sm-2"><input name="pref_shipping_price['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['price'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['price'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_price_net['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['price_net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_price_vat['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['price_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['price_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
             </div>
             ';
@@ -206,10 +206,10 @@ if (!defined('CMSGO_ROOT')) {
                 $plugin['data']['shop_pref_shipping'][$x]['zone'] .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_zone_net['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['zone_net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['zone_net'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_zone_vat['.$x.']" type="text" class="form-control form-control-sm" value="' .
-                html_specialchars( @number_format($plugin['data']['shop_pref_shipping'][$x]['zone_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
+                html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['zone_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
                 <div class="col-sm-2"><input name="pref_shipping_zone_label['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 html_specialchars($plugin['data']['shop_pref_shipping'][$x]['zone_label']) .
@@ -262,19 +262,19 @@ if (!defined('CMSGO_ROOT')) {
                 </div>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_loworder_under" type="text" id="pref_loworder_under" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_loworder_under" type="text" id="pref_loworder_under" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_loworder']['under'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <?php echo $BLM['shopprod_loworder_charge'] ?>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_loworder_charge" type="text" id="pref_loworder_charge" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_loworder']['charge'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <?php echo $BLM['shopprod_vat'] ?>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_loworder_vat" type="text" id="pref_loworder_vat" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_loworder']['vat'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             &nbsp;%
     </div>
@@ -300,13 +300,13 @@ if (!defined('CMSGO_ROOT')) {
                 </div>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_percent" type="text" id="pref_discount_percent" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_percent" type="text" id="pref_discount_percent" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['percent'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 %, <?php echo $BLM['shopprod_discount_from'] ?>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_amount" type="text" id="pref_discount_amount" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['amount'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_amount" type="text" id="pref_discount_amount" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['amount'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
@@ -327,13 +327,13 @@ if (!defined('CMSGO_ROOT')) {
                 </div>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_percent_1" type="text" id="pref_discount_percent_1" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent_1'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_percent_1" type="text" id="pref_discount_percent_1" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['percent_1'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 %, <?php echo $BLM['shopprod_discount_from'] ?>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_amount_1" type="text" id="pref_discount_amount_1" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['amount_1'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_amount_1" type="text" id="pref_discount_amount_1" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['amount_1'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
@@ -354,13 +354,13 @@ if (!defined('CMSGO_ROOT')) {
                 </div>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_percent_2" type="text" id="pref_discount_percent_2" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['percent_2'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_percent_2" type="text" id="pref_discount_percent_2" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['percent_2'], 1, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 %, <?php echo $BLM['shopprod_discount_from'] ?>
             </div>
             <div class="col-sm-auto">
-                <input name="pref_discount_amount_2" type="text" id="pref_discount_amount_2" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format($plugin['data']['shop_pref_discount']['amount_2'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
+                <input name="pref_discount_amount_2" type="text" id="pref_discount_amount_2" class="form-control form-control-sm" value="<?php echo html_specialchars( @number_format((float) $plugin['data']['shop_pref_discount']['amount_2'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
