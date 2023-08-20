@@ -157,6 +157,7 @@ $cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the sess
 $cmsgo['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
 $cmsgo['enable_backend_newsletter'] = false; // Enable newsletter menu item in the backend, disabled by default
 $cmsgo['enable_backend_module'] = false; // Enable module menu item in the backend, disabled by default
+$cmsgo['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
 $cmsgo['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address

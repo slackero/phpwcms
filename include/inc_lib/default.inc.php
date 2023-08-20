@@ -806,6 +806,20 @@ function returnGlobalGET_QueryString($format = '', $add = array(), $remove = arr
         }
     }
 
+    // Remove all GET vars having no value except the alias
+    if (!empty($GLOBALS['cmsgo']['remove_empty_get_vars']) && count($_getVarTemp)) {
+        $items = array_keys($_getVarTemp); // get all indexes first
+        unset($items[0]); // delete the first = alias
+        // Search all empty GET values and remove
+        if (count($items)) {
+            foreach ($items as $index) {
+                if ($_getVarTemp[$index] === '') {
+                    unset($_getVarTemp[$index]);
+                }
+            }
+        }
+    }
+
     $pairs = is_array($add) && count($add) ? array_merge($_getVarTemp, $add) : $_getVarTemp;
 
     switch ($format) {
