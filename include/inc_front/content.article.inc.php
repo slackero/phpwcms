@@ -62,7 +62,6 @@ if(isset($result[0]['article_id'])) {
         $alias_result = _dbQuery($alias_sql);
 
         if(isset($alias_result[0]['article_id'])) {
-            $alias_result[0];
             $row["article_id"] = $alias_result[0]["article_id"];
             // use alias article header data
             if(!$row["article_headerdata"]) {
@@ -99,7 +98,7 @@ if(isset($result[0]['article_id'])) {
     }
 
     //Kategoriebezeichner
-    $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'];
+    $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'] ?? '';
 
     //redirection definition
     if($row["article_redirect"]) {
