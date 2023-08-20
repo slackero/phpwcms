@@ -97,7 +97,7 @@ if(isset($result[0]['article_id'])) {
     }
 
     //Kategoriebezeichner
-    $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'];
+    $article['cat'] = $content['struct'][$row["article_cid"]]['acat_name'] ?? '';
 
     //redirection definition
     if($row["article_redirect"]) {
