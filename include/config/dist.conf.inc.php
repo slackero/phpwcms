@@ -156,6 +156,7 @@ $phpwcms['disable_generator']    = false; // Disable <meta name="generator"> and
 $phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 $phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
 $phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
+$phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address
