@@ -31,7 +31,7 @@ if(!(!str_contains($content["all"], '{RECIPES:'))) {
 		$recipe = '';
 
 		if(isset($option['LOCALE']) && !empty($option['LOCALE'][0])) {
-			$_oldLocale = setlocale(LC_ALL, null);
+			$_oldLocale = setlocale(LC_ALL, '0');
 			setlocale(LC_ALL, $option['LOCALE'][0]);
 		}
 

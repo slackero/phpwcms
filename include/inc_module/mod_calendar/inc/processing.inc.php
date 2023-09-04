@@ -21,7 +21,7 @@ $plugin['id'] = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
 // process post form
 if(isset($_POST['calendar_title'])) {
 
-    $plugin['data'] = array(
+    $plugin['data'] = [
         'calendar_id'           => intval($_POST['calendar_id']),
         'calendar_title'        => clean_slweg($_POST['calendar_title']),
         'calendar_created'      => date('Y-m-d H:i:s'),
@@ -30,7 +30,7 @@ if(isset($_POST['calendar_title'])) {
         'calendar_lang'         => isset($_POST['calendar_lang']) ? preg_replace('/[^a-z\-]/', '', strtolower($_POST['calendar_lang'])) : '',
         'calendar_teaser'       => clean_slweg($_POST['calendar_teaser']),
         'calendar_text'         => slweg($_POST['calendar_text']),
-        'calendar_object'       => array(),
+        'calendar_object'       => [],
         'calendar_status'       => empty($_POST['calendar_status']) ? 0 : 1,
         'calendar_start_date'   => clean_slweg($_POST['calendar_start_date']),
         'calendar_start_time'   => clean_slweg($_POST['calendar_start_time']),
@@ -43,15 +43,15 @@ if(isset($_POST['calendar_title'])) {
         'calendar_duplicate'    => empty($_POST['calendar_duplicate']) ? 0 : 1,
         'calendar_rangestart'   => clean_slweg($_POST['calendar_range_start']),
         'calendar_rangeend'     => clean_slweg($_POST['calendar_range_end']),
-        'calendar_image'        => array(
+        'calendar_image'        => [
             'id'        => intval($_POST['cnt_image_id']),
             'name'      => clean_slweg($_POST['cnt_image_name']),
             'zoom'      => empty($_POST['cnt_image_zoom']) ? 0 : 1,
             'lightbox'  => empty($_POST['cnt_image_lightbox']) ? 0 : 1,
             'caption'   => clean_slweg($_POST['cnt_image_caption']),
             'link'      =>clean_slweg($_POST['cnt_image_link'])
-        )
-    );
+        ]
+    ];
 
     if($plugin['data']['calendar_range'] > 16) {
         $plugin['data']['calendar_range'] = 0;
@@ -222,7 +222,7 @@ if(empty($plugin['data'])) {
 
     }
 
-    $plugin['data'] = array(
+    $plugin['data'] = [
         'calendar_id'           => 0,
         'calendar_title'        => '',
         'calendar_created'      => '',
@@ -230,7 +230,7 @@ if(empty($plugin['data'])) {
         'calendar_tag'          => '',
         'calendar_teaser'       => '',
         'calendar_text'         => '',
-        'calendar_object'       => array(),
+        'calendar_object'       => [],
         'calendar_status'       => 0,
         'calendar_start_date'   => $plugin['default_date'],
         'calendar_end_date'     => $plugin['default_date_end'],
@@ -244,15 +244,15 @@ if(empty($plugin['data'])) {
         'calendar_rangestart'   => '',
         'calendar_rangeend'     => '',
         'calendar_lang'         => ''
-    );
+    ];
 
 }
 
 if(!isset($plugin['data']['calendar_image'])) {
-    $plugin['data']['calendar_image'] = array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>'');
+    $plugin['data']['calendar_image'] = ['id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''];
 } else {
     $plugin['data']['calendar_image'] = array_merge(
-        array('id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''),
+        ['id'=>0, 'name'=>'', 'zoom'=>0, 'lightbox'=>0, 'caption'=>'', 'link'=>''],
         $plugin['data']['calendar_image']
     );
 }

@@ -240,7 +240,7 @@ initMootoolsAutocompleter();
     <tr>
         <td colspan="2" align="center"><?php
 
-        $wysiwyg_editor = array(
+        $wysiwyg_editor = [
             'value'     => $plugin['data']['calendar_text'],
             'field'     => 'calendar_text',
             'height'    => '400px',
@@ -248,7 +248,7 @@ initMootoolsAutocompleter();
             'rows'      => '15',
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'
-        );
+        ];
 
         include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 

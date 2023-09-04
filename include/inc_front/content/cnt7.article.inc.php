@@ -113,7 +113,7 @@ if ($_files_force_rendering || $_files_count) {
     $crow["acontent_template"] = replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $content['template_file'] = get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
     if ($_files_settings['set_locale']) {
-        $_files_old_locale = setlocale(LC_ALL, "0");
+        $_files_old_locale = setlocale(LC_ALL, '0');
         setlocale(LC_ALL, $_files_settings['set_locale']);
         $strftime_locale = explode('@', $_files_settings['set_locale']);
         $strftime_locale =empty($strftime_locale[0]) ? null : $strftime_locale[0];

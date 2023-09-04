@@ -41,8 +41,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
 	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
-	$glossary = array();
-
+	$glossary = [];
 
 	if(isset($_GET['edit'])) {
 

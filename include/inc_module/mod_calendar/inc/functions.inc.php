@@ -9,13 +9,13 @@
  *
  **/
 
-// THE FOLLOWIN FUNCTION IS RELEASED UNDER THE FOLLOWING OPEN SOUCE LICENCE
+// THE FOLLOWING FUNCTION IS RELEASED UNDER THE FOLLOWING OPEN SOURCE LICENCE
 // http://keithdevens.com/software/license
 
 function returnDayNameArray() {
 	// taken from PHP Calendar (version 2.3), written by Keith Devens
 	// http://keithdevens.com/software/php_calendar
-	$day_names = array();
+	$day_names = [];
 	for($n=0, $t=3*86400; $n<7; $n++, $t+=86400) {
 		$day_names[$n] = ucfirst(gmdate('l', $t));
 	}

@@ -6,15 +6,21 @@
 class phpwcmsCalendar {
 
     var $mode                   = 'simple';
-    var $dates                  = array();
+    var $dates                  = [];
     var $session                = false;
     var $place                  = '';
+    var $href                   = '';
     var $where_tag              = '';
     var $where_place            = '';
     var $where_lang             = '';
-    var $calendar_places        = array();
+    var $calendar_places        = [];
     var $limit_item             = 0;
     var $limit                  = '';
+    var $where                  = '';
+    var $select                 = '*';
+    var $join_on                = '';
+    var $group_by               = '';
+    var $order_by               = '';
     var $gettype                = ''; // used to detect type section inside event title
     var $teaserwords            = 0; // cut teaser text after n words
     var $date_first             = NULL;
@@ -24,7 +30,7 @@ class phpwcmsCalendar {
     var $select_format_day      = '%02s'; // %02s -> 05, %s -> 5
     var $select_format_month    = 'name'; // %02s -> 05, %s -> 5, 'name' like defined in $select_month_option
     var $select_format_year     = 4; // 4 = 2010, 2 = 10
-    var $select_month_option    = array(
+    var $select_month_option    = [
         1   => 'January',
         2   => 'February',
         3   => 'March',
@@ -37,14 +43,14 @@ class phpwcmsCalendar {
         10  => 'October',
         11  => 'November',
         12  => 'December'
-    );
+    ];
     var $no_calendar_item_found = '@@No date found for current calendar search.@@ <a href="{CALENDAR_RESET}" title="@@Reset@@">@@Reset@@</a>';
     var $template               = '';
     var $expired                = '';
     var $expired_date           = 'END';
     var $expired_prefix         = '';
     var $expired_suffix         = '';
-    var $range_date_type        = array(
+    var $range_date_type        = [
         0   => '',
         1   => 'daily',
         2   => 'every weekday (Mon-Fri)',
@@ -62,7 +68,13 @@ class phpwcmsCalendar {
         14  => 'every Sunday',
         15  => 'every Wednesday - Sunday',
         16  => 'every Weekend (Sat+Sun)'
-    );
+    ];
+
+    var $current_date;
+    var $date_start;
+    var $date_end;
+    var $datetime_start;
+    var $datetime_end;
 
     /**
      * Initialize class
@@ -120,7 +132,7 @@ class phpwcmsCalendar {
 
         if(isset($_GET['pcal_reset']) || isset($_POST['pcal_reset'])) {
             unset($_SESSION['pcal']);
-            headerRedirect( abs_url(array(), array('pcal_reset','pcal_start', 'pcal_end', 'pcal_place', 'pcal_limit'), '', 'rawurlencode' ) );
+            headerRedirect( abs_url([], ['pcal_reset','pcal_start', 'pcal_end', 'pcal_place', 'pcal_limit'], '', 'rawurlencode' ) );
         }
 
         if( preg_match_all('/\{CALENDAR:(.*?)\}/s', $string, $matches) ) {
@@ -148,7 +160,7 @@ class phpwcmsCalendar {
      * Calendar reset Link - delete current Calendar Session or GET
      */
     function resetCalendarLink() {
-        return rel_url(array('pcal_reset'=>1), array('pcal_start', 'pcal_end', 'pcal_place', 'pcal_limit'));
+        return rel_url(['pcal_reset'=>1], ['pcal_start', 'pcal_end', 'pcal_place', 'pcal_limit']);
     }
 
     function get_calendar_range_type($calendar_range) {
@@ -163,12 +175,12 @@ class phpwcmsCalendar {
 
     function render() {
 
-        $items = array(
-            'top' => array(),
-            'default' => array(),
-            'bottom' => array(),
-            'hide' => array()
-        );
+        $items = [
+            'top' => [],
+            'default' => [],
+            'bottom' => [],
+            'hide' => []
+        ];
 
         $now = now();
 
@@ -207,13 +219,13 @@ class phpwcmsCalendar {
                 $target                         = $date['calendar_refid']['target'];
 
                 if(is_intval($date['calendar_refid']['link'])) {
-                    $url = rel_url(array(), array(), 'aid='.$date['calendar_refid']['link']); //'index.php?aid='.$date['calendar_refid']['link'];
+                    $url = rel_url([], [], 'aid='.$date['calendar_refid']['link']); //'index.php?aid='.$date['calendar_refid']['link'];
 
                 } elseif(strpos($date['calendar_refid']['link'], '://') || strpos($date['calendar_refid']['link'], '?') || strpos($date['calendar_refid']['link'], '.')) {
                     $url = $date['calendar_refid']['link'];
 
                 } elseif(!empty($date['calendar_refid']['link'])) {
-                    $url = rel_url(array(), array(), $date['calendar_refid']['link']);
+                    $url = rel_url([], [], $date['calendar_refid']['link']);
 
                 }
             }
@@ -277,7 +289,7 @@ class phpwcmsCalendar {
      */
     function parse_match($match='') {
 
-        $default        = array();
+        $default        = [];
         $match          = trim($match);
 
         // set query defaults
@@ -303,13 +315,13 @@ class phpwcmsCalendar {
             $default['teaserwords']     = empty($match['teaserwords']) ? 0 : intval($match['teaserwords']);
             if(!empty($match['expired'])) {
                 $match['expired']       = strtolower(trim($match['expired']));
-                $default['expired']     = in_array($match['expired'], array('hide', 'bottom', 'top')) ? $match['expired'] : '';
+                $default['expired']     = in_array($match['expired'], ['hide', 'bottom', 'top']) ? $match['expired'] : '';
             } else {
                 $default['expired']     = '';
             }
             if(!empty($match['expired_date'])) {
                 $match['expired_date']   = strtoupper(trim($match['expired_date']));
-                $default['expired_date'] = in_array($match['expired_date'], array('START', 'END')) ? $match['expired_date'] : 'END';
+                $default['expired_date'] = in_array($match['expired_date'], ['START', 'END']) ? $match['expired_date'] : 'END';
             } else {
                 $default['expired_date'] = 'END';
             }
@@ -434,7 +446,7 @@ class phpwcmsCalendar {
             } elseif(strtoupper($match['date_start']) == 'MONTHSTART') {
                 $this->date_start = mktime(0, 0, 0, $this->current_date['mon'], 1, $this->current_date['year']);
             } elseif(strtoupper($match['date_start']) == 'YEARSTART') {
-                $this->date_start = mktime(0, 0, 0, 1, 1, $current_date['year']);
+                $this->date_start = mktime(0, 0, 0, 1, 1, $this->current_date['year']);
             } else {
                 $match['date_start'] = phpwcms_strtotime($match['date_start']);
                 if($match['date_start']) {
@@ -463,7 +475,7 @@ class phpwcmsCalendar {
             } elseif(strtoupper($match['date_end']) == 'MONTHEND') {
                 $this->date_end = mktime(23, 59, 59, $this->current_date['mon'], intval(date('t', $this->current_date[0])), $this->current_date['year']);
             } elseif(strtoupper($match['date_end']) == 'YEAREND') {
-                $this->date_end = mktime(23, 59, 59, 12, 31, $current_date['year']);
+                $this->date_end = mktime(23, 59, 59, 12, 31, $this->current_date['year']);
             } else {
                 if(strlen($match['date_end']) < 12 && preg_match('/[0-9\-]/', $match['date_end']) && !str_contains($match['date_end'], ':')) {
                     $match['date_end'] .= ' 23:59:59';
@@ -500,7 +512,7 @@ class phpwcmsCalendar {
             }
         }
 
-        $where = array();
+        $where = [];
 
         if($default['lang'] !== '') {
 
@@ -516,7 +528,7 @@ class phpwcmsCalendar {
         if($default['place'] !== '') {
 
             $places         = convertStringToArray( strtolower( $default['place'] ), ',');
-            $place_items    = array();
+            $place_items    = [];
 
             foreach($places as $place) {
                 $place_items[] = 'calendar_where LIKE '._dbEscape('%'.$place.'%');
@@ -534,7 +546,7 @@ class phpwcmsCalendar {
 
             if(count($default['tag'])) {
 
-                $tag_where = array();
+                $tag_where = [];
 
                 foreach($default['tag'] as $tag) {
 
@@ -563,12 +575,12 @@ class phpwcmsCalendar {
 
         if($this->session && session_id()) {
 
-            $this->session = array(
+            $this->session = [
                 'date_start'    => $this->datetime_start,
                 'date_end'      => $this->datetime_end,
                 'place'         => $default['place'],
                 'limit'         => $default['items']
-            );
+            ];
 
             $_SESSION['pcal'] = isset($_SESSION['pcal']) ? array_merge($_SESSION['pcal'], $this->session) : $this->session;
 
@@ -634,7 +646,7 @@ class phpwcmsCalendar {
 
         $this->dates = _dbQuery($sql);
         if( !$this->dates ) {
-            $this->dates = array();
+            $this->dates = [];
         }
     }
 
@@ -683,7 +695,7 @@ class phpwcmsCalendar {
 
         $this->getDate( '' , '', 'calendar_where ASC', 0, 'calendar_where', $this->getNonLocationWhere() );
 
-        $this->calendar_places = array();
+        $this->calendar_places = [];
 
         if(isset($this->dates[0])) {
 
@@ -742,7 +754,7 @@ class phpwcmsCalendar {
         }
         $_year .= '</select>';
 
-        $select = str_replace(array('D','M','Y'), array('[%%D%%]','[%%M%%]','[%%Y%%]'), $this->selector_format);
+        $select = str_replace(['D','M','Y'], ['[%%D%%]','[%%M%%]','[%%Y%%]'], $this->selector_format);
         $select = str_replace('[%%D%%]', $_day, $select);
         $select = str_replace('[%%M%%]', $_month, $select);
         $select = str_replace('[%%Y%%]', $_year, $select);
