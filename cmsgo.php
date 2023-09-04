@@ -78,16 +78,17 @@ $p                                = isset($_GET["p"])  ? intval($_GET["p"]) : 0;
 $do                               = isset($_GET["do"]) ? $_GET["do"] : 'default'; //which backend section and which $do action
 $module                           = isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which module
 $cmsgo['be_parse_lang_process']   = false; // limit parsing for BBCode/BraceCode languages only to some sections
+$modulearray                      = [];
 
 $result = _dbGet('cmsgo_usergroup', '*', 'group_active != 9', '', 'group_id');
 if (isset($result[0])) {
     foreach ($result as $grouplist) {
         $grouparray[(string) $grouplist["group_syskey"]] = convertStringToArray($grouplist["group_member"]);
-        if ($grouplist["group_modkey"] !='') {
-            if ($grouplist["group_trash"] ==0 && $grouplist["group_active"] ==1) {
-                $modulearray[(string) $grouplist["group_modkey"]] = convertStringToArray($grouplist["group_member"]);
+        if ($grouplist["group_modkey"] !== '') {
+            if ($grouplist["group_trash"] == '0' && $grouplist["group_active"] == '1') {
+                $modulearray[$grouplist["group_modkey"]] = convertStringToArray($grouplist["group_member"]);
             } else {
-                $modulearray[(string) $grouplist["group_modkey"]] = array();
+                $modulearray[$grouplist["group_modkey"]] = array();
             }
         }
     }

@@ -20,7 +20,7 @@ echo $BLM['under_construction'];
 ?>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="get" target="_blank" style="margin:20px 0 0 20px;">
 <input type="hidden" name="cmd" value="_xclick" />
-<input type="hidden" name="business" value="phpwcms-paypal-donation@phpwcms.org" />
+<input type="hidden" name="business" value="info@pixels-points.ch" />
 <input type="hidden" name="item_name" value="cmsGO! Donation" />
 <input type="hidden" name="no_shipping" value="1" />
 <input type="hidden" name="no_note" value="1" />

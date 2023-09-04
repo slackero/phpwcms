@@ -21,7 +21,7 @@ include_once $cmsgo['modules'][$module]['path'].'inc/functions.inc.php';
 // OK lets switch language :)
 // set correct locale
 if(!empty($BLM['locale_string'])) {
-    $_oldLocale = setlocale(LC_TIME, NULL); //save current locale
+    $_oldLocale = setlocale(LC_TIME, '0'); //save current locale
     setlocale(LC_TIME, $BLM['locale_string']);
 }
 

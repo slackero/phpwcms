@@ -186,7 +186,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
         <option <?php echo ($_SESSION['list_user_count'] == '25') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=admin&amp;c=25'">25</option>
         <option <?php echo ($_SESSION['list_user_count'] == '50') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=admin&amp;c=50'">50</option>
         <option <?php echo ($_SESSION['list_user_count'] == '100') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=admin&amp;c=100'">100</option>
-        <option <?php echo ($_SESSION['list_user_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=admin&amp;c=all'"><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
+        <option <?php echo ($_SESSION['list_user_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=admin&amp;c=all'"><?php echo $BL['be_ftptakeover_all']; ?></option>
     </select>
   	</div>
 </div>
