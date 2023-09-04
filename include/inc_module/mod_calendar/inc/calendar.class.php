@@ -9,12 +9,18 @@ class phpwcmsCalendar {
     var $dates                  = array();
     var $session                = false;
     var $place                  = '';
+    var $href                   = '';
     var $where_tag              = '';
     var $where_place            = '';
     var $where_lang             = '';
     var $calendar_places        = array();
     var $limit_item             = 0;
     var $limit                  = '';
+    var $where                  = '';
+    var $select                 = '*';
+    var $join_on                = '';
+    var $group_by               = '';
+    var $order_by               = '';
     var $gettype                = ''; // used to detect type section inside event title
     var $teaserwords            = 0; // cut teaser text after n words
     var $date_first             = NULL;
@@ -63,6 +69,12 @@ class phpwcmsCalendar {
         15  => 'every Wednesday - Sunday',
         16  => 'every Weekend (Sat+Sun)'
     );
+
+    var $current_date;
+    var $date_start;
+    var $date_end;
+    var $datetime_start;
+    var $datetime_end;
 
     /**
      * Initialize class
@@ -434,7 +446,7 @@ class phpwcmsCalendar {
             } elseif(strtoupper($match['date_start']) == 'MONTHSTART') {
                 $this->date_start = mktime(0, 0, 0, $this->current_date['mon'], 1, $this->current_date['year']);
             } elseif(strtoupper($match['date_start']) == 'YEARSTART') {
-                $this->date_start = mktime(0, 0, 0, 1, 1, $current_date['year']);
+                $this->date_start = mktime(0, 0, 0, 1, 1, $this->current_date['year']);
             } else {
                 $match['date_start'] = phpwcms_strtotime($match['date_start']);
                 if($match['date_start']) {
@@ -463,7 +475,7 @@ class phpwcmsCalendar {
             } elseif(strtoupper($match['date_end']) == 'MONTHEND') {
                 $this->date_end = mktime(23, 59, 59, $this->current_date['mon'], intval(date('t', $this->current_date[0])), $this->current_date['year']);
             } elseif(strtoupper($match['date_end']) == 'YEAREND') {
-                $this->date_end = mktime(23, 59, 59, 12, 31, $current_date['year']);
+                $this->date_end = mktime(23, 59, 59, 12, 31, $this->current_date['year']);
             } else {
                 if(strlen($match['date_end']) < 12 && preg_match('/[0-9\-]/', $match['date_end']) && strpos($match['date_end'], ':') === false) {
                     $match['date_end'] .= ' 23:59:59';

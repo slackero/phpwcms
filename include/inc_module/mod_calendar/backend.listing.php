@@ -22,18 +22,17 @@ include_once $phpwcms['modules'][$module]['path'].'inc/functions.inc.php';
 // OK lets switch language :)
 // set correct locale
 if(!empty($BLM['locale_string'])) {
-    $_oldLocale = setlocale(LC_TIME, NULL); //save current locale
+    $_oldLocale = setlocale(LC_TIME, '0'); //save current locale
     setlocale(LC_TIME, $BLM['locale_string']);
 }
 
-$_entry['query']            = '';
+$_entry['query'] = '';
 
 // define some defaults
 if(isset($_GET['calendardate'])) {
-
     $_SESSION['calendardate'] = substr(clean_slweg($_GET['calendardate']), 0, 7);
-
 }
+
 if(!empty($_SESSION['calendardate'])) {
 
     @list($plugin['current_month'], $plugin['current_year']) = explode('-', $_SESSION['calendardate']);
@@ -42,10 +41,10 @@ if(!empty($_SESSION['calendardate'])) {
     $plugin['current_year']     = intval($plugin['current_year']);
 
     if(empty($plugin['current_year'])) {
-        $plugin['current_year']     = gmdate('Y');
+        $plugin['current_year']  = gmdate('Y');
     }
     if(empty($plugin['current_month'])) {
-        $plugin['current_month']        = gmdate('n');
+        $plugin['current_month'] = gmdate('n');
     }
 
 } else {
@@ -134,8 +133,6 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
     $_entry['query'] .= $_SESSION['filter_calendar'];
 
 }
-
-
 
 ?>
 <h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>

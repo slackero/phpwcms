@@ -43,7 +43,6 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
 	$glossary = array();
 
-
 	if(isset($_GET['edit'])) {
 
 		// handle posts and read data
