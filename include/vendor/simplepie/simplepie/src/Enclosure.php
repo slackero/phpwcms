@@ -251,7 +251,7 @@ class Enclosure
         $this->width = $width;
 
         if (function_exists('idn_to_ascii')) {
-            $parsed = \SimplePie\Misc::parse_url($link);
+            $parsed = \SimplePie\Misc::parse_url($link ?? '');
             if ($parsed['authority'] !== '' && !ctype_print($parsed['authority'])) {
                 $authority = \idn_to_ascii($parsed['authority'], \IDNA_NONTRANSITIONAL_TO_ASCII, \INTL_IDNA_VARIANT_UTS46);
                 $this->link = \SimplePie\Misc::compress_parse_url($parsed['scheme'], $authority, $parsed['path'], $parsed['query'], $parsed['fragment']);
@@ -722,7 +722,7 @@ class Enclosure
     {
         $length = $this->get_length();
         if ($length !== null) {
-            return round($length/1048576, 2);
+            return round($length / 1048576, 2);
         }
 
         return null;
@@ -806,10 +806,10 @@ class Enclosure
      *
      * @deprecated Use the second parameter to {@see embed} instead
      *
-     * @param array|string $options See first parameter to {@see embed}
+     * @param array<string, mixed>|string $options See first parameter to {@see embed}
      * @return string HTML string to output
      */
-    public function native_embed($options='')
+    public function native_embed($options = '')
     {
         return $this->embed($options, true);
     }
@@ -855,7 +855,7 @@ class Enclosure
      * `width` and `height` set to `auto` will default to 480x270 video resolution.
      *
      * @todo If the dimensions for media:content are defined, use them when width/height are set to 'auto'.
-     * @param array|string $options Comma-separated key:value list, or array
+     * @param array<string, mixed>|string $options Comma-separated key:value list, or array
      * @param bool $native Use `<embed>`
      * @return string HTML string to output
      */
@@ -940,9 +940,9 @@ class Enclosure
                 if ($height === 'auto') {
                     $width = 480;
                 } elseif ($widescreen) {
-                    $width = round((intval($height)/9)*16);
+                    $width = round((intval($height) / 9) * 16);
                 } else {
-                    $width = round((intval($height)/3)*4);
+                    $width = round((intval($height) / 3) * 4);
                 }
             } else {
                 $width = '100%';
@@ -960,9 +960,9 @@ class Enclosure
                         $height = 360;
                     }
                 } elseif ($widescreen) {
-                    $height = round((intval($width)/16)*9);
+                    $height = round((intval($width) / 16) * 9);
                 } else {
-                    $height = round((intval($width)/4)*3);
+                    $height = round((intval($width) / 4) * 3);
                 }
             } else {
                 $height = 376;

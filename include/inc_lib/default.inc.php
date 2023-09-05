@@ -272,10 +272,10 @@ $cmsgo['DOCTYPE_LANG'] = empty($cmsgo['DOCTYPE_LANG']) ? $cmsgo['default_lang'] 
 
 $cmsgo['js_lib_default'] = array(
     'jQuery' => '-',
-        'jquery-3.7' => 'jQuery 3.7.0',
-        'jquery-3.7-migrate' => 'jQuery 3.7.0 + Migrate 3.4.0',
-        'jquery-3.7-migrate-1' => 'jQuery 3.7.0 + Migrate 1.4.1 + 3.4.0',
-        'jquery-3.7-slim' => 'jQuery Slim 3.7.0',
+        'jquery-3.7' => 'jQuery 3.7.1',
+        'jquery-3.7-migrate' => 'jQuery 3.7.1 + Migrate 3.4.0',
+        'jquery-3.7-migrate-1' => 'jQuery 3.7.1 + Migrate 1.4.1 + 3.4.0',
+        'jquery-3.7-slim' => 'jQuery Slim 3.7.1',
         'jquery-1.12' => 'jQuery 1.12.4',
         'jquery-1.12-migrate' => 'jQuery 1.12.4 + Migrate 1.4.1',
         'jquery-2.2' => 'jQuery 2.2.4',

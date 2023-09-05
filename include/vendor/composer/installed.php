@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '95fc00c138cecec07a72fd9a5623db7eb0cf06ed',
+        'reference' => '7c147dd7fa7a44570da91fa80aca5651ca12afb4',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '95fc00c138cecec07a72fd9a5623db7eb0cf06ed',
+            'reference' => '7c147dd7fa7a44570da91fa80aca5651ca12afb4',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -139,9 +139,9 @@
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
-            'pretty_version' => 'v6.8.0',
-            'version' => '6.8.0.0',
-            'reference' => 'df16b615e371d81fb79e506277faea67a1be18f1',
+            'pretty_version' => 'v6.8.1',
+            'version' => '6.8.1.0',
+            'reference' => 'e88da8d679acc3824ff231fdc553565b802ac016',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
@@ -195,7 +195,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'bb01ef4df7e7c977b9c28773e5958f026bc750d6',
+            'reference' => '8f4507729a25e6cec380d17845996e71cb7a13ae',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
