@@ -14,3 +14,12 @@
 // most times it is used to make global replacements
 
 // $content['all'] = str_replace('{MY_TAG}', 'My Replacement', $content['all'];
+
+if(strpos($content['all'], '{CALENDAR:')) {
+
+    require_once __DIR__ . '/inc/calendar.class.php';
+
+    $phpwcms_calendar_module = new phpwcmsCalendar();
+    $phpwcms_calendar_module->parse($content['all']);
+
+}

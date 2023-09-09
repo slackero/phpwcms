@@ -8,6 +8,7 @@ $baseDir = dirname(dirname($vendorDir));
 return array(
     'AtomCreator03' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator03.php',
     'AtomCreator10' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator10.php',
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'FeedCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/FeedCreator.php',
     'FeedDate' => $vendorDir . '/openpsa/universalfeedcreator/lib/Element/FeedDate.php',
@@ -23,9 +24,12 @@ return array(
     'OPMLCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',
     'PHPCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/PHPCreator.php',
     'PIECreator01' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/PIECreator01.php',
+    'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'RSSCreator091' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator091.php',
     'RSSCreator10' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator10.php',
     'RSSCreator20' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator20.php',
-    'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
+    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'UniversalFeedCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/UniversalFeedCreator.php',
+    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
 );
