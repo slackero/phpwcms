@@ -1399,21 +1399,21 @@ function init_frontend_edit() {
 
 if (IS_PHP523) {
     function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, CMSGO_CHARSET, $double_encode);
+        return htmlspecialchars((string)$string, ENT_QUOTES, CMSGO_CHARSET, $double_encode);
     }
 } else {
     function html($string, $double_encode = false) {
-        return htmlspecialchars($string, ENT_QUOTES, CMSGO_CHARSET);
+        return htmlspecialchars((string)$string, ENT_QUOTES, CMSGO_CHARSET);
     }
 }
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = CMSGO_CHARSET) {
-    return htmlentities($string, $quote_mode, $charset);
+    return htmlentities((string)$string, $quote_mode, $charset);
 }
 
 function html_specialchars($string = '', $quote_mode = ENT_QUOTES, $charset = CMSGO_CHARSET) {
     //used to replace the htmlspecialchars original php function
     //not compatible with many international chars like turkish, polish
-    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string); //works correct for "&#8230;" and/or "&ndash;"
+    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', (string)$string); //works correct for "&#8230;" and/or "&ndash;"
     $string = str_replace(array('<', '>', '"', "'", "\\"), array('&lt;', '&gt;', '&quot;', '&#039;', '&#92;'), $string);
 
     return $string;

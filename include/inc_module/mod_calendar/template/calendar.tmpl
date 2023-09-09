@@ -1,0 +1,74 @@
+<!--
+    To handle different languages use the @@Replacer@@ for static texts.
+    For dynamic replacement or whole section wrap it by:
+        [DE]Das ist Deutsch[/DE]
+        [EN]This is English[/EN]
+        [EN_ELSE]Используйте значение по умолчанию[/EN_ELSE]
+    Do not forget to enable the language replacement tag parser.
+-->
+
+<!--CALENDAR_HEADER_START//-->
+<div class="calendar">
+    <header class="calendar-header">
+        @@Calendar@@
+        <span class="calendar-today-date">
+            @@Today@@ {DATE:m/d/Y}
+        </span>
+    </header>
+    <div class="calendar-items">
+<!--CALENDAR_HEADER_END//-->
+
+<!--CALENDAR_ITEM_START//-->
+        <div class="calendar-item-{ID}[TEXT] calendar-item-has-text[/TEXT][GROUP] {GROUP}[/GROUP]">
+            <p class="calendar-list-date">
+                [RANGEDATE]{RANGEDATE} | {STARTDATE:m/d}-{ENDDATE:m/d/Y}[/RANGEDATE][RANGEDATE_ELSE]{STARTDATE:m/d/Y}[/RANGEDATE_ELSE][ALLDAY_ELSE], {STARTDATE:H:i}[/ALLDAY_ELSE][TYPE],
+                <span class="calendar-list-type">
+                    {TYPE}
+                </span>[/TYPE]
+            </p>[TITLE]
+            <h2>[URL]
+                <a href="{URL}"{TARGET}>[/URL]{TITLE}[URL]</a>[/URL]
+            </h2>[/TITLE][TEASER]
+            <div class="calendar-list-teaser">
+                {TEASER}
+            </div>[/TEASER][IMAGE]
+            <div class="calendar-list-image">
+                {IMAGE}
+                <!--
+                Image Replacement Tags:
+                - id: [IMAGE_ID]<img src="im/1000x600x1/{IMAGE_ID}" alt="[IMAGE_NAME]{IMAGE_NAME}[/IMAGE_NAME]" id="cal-img-{IMAGE_ID}">[/IMAGE_ID]
+                - name: [IMAGE_NAME]{IMAGE_NAME}[/IMAGE_NAME]
+                - lightbox: [IMAGE_LIGHTBOX]{IMAGE_LIGHTBOX}[/IMAGE_LIGHTBOX]
+                - alt: [IMAGE_ALT]{IMAGE_ALT}[/IMAGE_ALT]
+                - title: [IMAGE_TITLE]{IMAGE_TITLE}[/IMAGE_TITLE]
+                - text: [IMAGE_TEXT]{IMAGE_TEXT}[/IMAGE_TEXT]
+                - copyright: [IMAGE_COPYRIGHT]{IMAGE_COPYRIGHT}[/IMAGE_COPYRIGHT]
+                - link: [IMAGE_LINK]{IMAGE_LINK}[/IMAGE_LINK]
+                - link target: [IMAGE_LINK_TARGET]{IMAGE_LINK_TARGET}[/IMAGE_LINK_TARGET]
+                - url: [IMAGE_URL]{IMAGE_URL}[/IMAGE_URL]
+                - url target: [IMAGE_URL_TARGET]{IMAGE_URL_TARGET}[/IMAGE_URL_TARGET]
+                -->
+            </div>[/IMAGE][TEXT]
+            <div class="calendar-list-text">
+                    {TEXT}[URL]
+                <p class="calendar-list-more">
+                    <a href="{URL}"{TARGET}>
+                        @@more@@&#8230;
+                    </a>
+                </p>[/URL]
+            </div>[/TEXT][TEXT_ELSE][URL]
+            <p class="calendar-list-more">
+                <a href="{URL}"{TARGET}>
+                    @@more@@&#8230;
+                </a>
+            </p>[/URL][/TEXT_ELSE]
+        </div>
+<!--CALENDAR_ITEM_END//-->
+
+<!--CALENDAR_FOOTER_START//-->
+    </div>
+    <footer class="calendar-footer">
+        <hr>
+    </footer>
+</div>
+<!--CALENDAR_FOOTER_END//-->

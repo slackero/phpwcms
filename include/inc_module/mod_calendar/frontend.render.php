@@ -12,4 +12,11 @@
 // use it as when it is located under "template/inc_script/frontend_render"
 // most times it is used to make global replacements
 
-// $content['all'] = str_replace('{MY_TAG}', 'My Replacement', $content['all'];
+if(strpos($content['all'], '{CALENDAR:')) {
+
+    require_once __DIR__ . '/inc/calendar.class.php';
+
+    $cmsgo_calendar_module = new cmsgoCalendar();
+    $cmsgo_calendar_module->parse($content['all']);
+
+}
