@@ -1373,7 +1373,8 @@ function init_frontend_edit() {
 }
 
 function html($string, $double_encode = false) {
-    return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+    $string = (string)$string;
+    return $string === '' ? '' : htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 }
 
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
