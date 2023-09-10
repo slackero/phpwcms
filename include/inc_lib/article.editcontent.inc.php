@@ -87,15 +87,13 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             $article['article_nosearch']    = $row['article_nosearch'];
             $article['article_nositemap']   = $row['article_nositemap'];
 
-            if($article["article_begin"] === '0000-00-00 00:00:00') {
-                $article["article_begin"] = '';
+            if(is_null($article["article_begin"])) {
                 $set_begin = 0;
             } else {
                 $set_begin = 1;
             }
 
-            if($article["article_end"] === '0000-00-00 00:00:00') {
-                $article["article_end"] = '';
+            if(is_null($article["article_end"])) {
                 $set_end = 0;
             } else {
                 $set_end = 1;
@@ -271,18 +269,18 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 $article["article_begin"] = date("Y-m-d H:i:s", $article["article_begin"]);
             }
         } else {
-            $article["article_begin"] = '0000-00-00 00:00:00';
+            $article["article_begin"] = null;
         }
         if($set_end && $article["article_end"]) {
             $article["article_end"] = phpwcms_strtotime($article["article_end"]);
             if($article["article_end"] === false) {
-                $article["article_end"] = '0000-00-00 00:00:00';
+                $article["article_end"] = null;
                 $article_err[] = $BL['be_article_err4'];
             } else {
                 $article["article_end"] = date("Y-m-d H:i:s", $article["article_end"]);
             }
         } else {
-            $article["article_end"] = '0000-00-00 00:00:00';
+            $article["article_end"] = null;
         }
         //End Check Date
 

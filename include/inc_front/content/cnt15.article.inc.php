@@ -51,7 +51,7 @@ $alink_sql .= DB_PREPEND."phpwcms_article WHERE article_aktiv=1 AND article_dele
 $alink_sql .= intval($alinkmenu["catid"]);
 if(!PREVIEW_MODE) {
 	$alink_sql .= ' AND article_begin < NOW()';
-	$alink_sql .= " AND (article_end='0000-00-00 00:00:00' OR article_end > NOW())";
+	$alink_sql .= " AND (article_end IS NULL OR article_end > NOW())";
 }
 if(!empty($alinkmenu['hideactive'])) {
     $alink_sql .= ' AND article_id != '. $aktion[1];

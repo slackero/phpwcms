@@ -549,8 +549,8 @@ if(!$temp_count) {
             <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <?php   endif;
 
-        $acontent_livedate = $row['acontent_livedate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_livedate'], $BL['be_longdatetime'], '');
-        $acontent_killdate = $row['acontent_killdate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_killdate'], $BL['be_longdatetime'], '');
+        $acontent_livedate = is_null($row['acontent_livedate']) ? false : phpwcms_strtotime($row['acontent_livedate'], $BL['be_longdatetime'], '');
+        $acontent_killdate = is_null($row['acontent_killdate']) ? false : phpwcms_strtotime($row['acontent_killdate'], $BL['be_longdatetime'], '');
 
         if($acontent_livedate || $acontent_killdate):
 ?>

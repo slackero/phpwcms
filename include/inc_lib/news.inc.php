@@ -520,8 +520,8 @@ class phpwcmsNews {
             'cnt_id'                => 0,
             'cnt_pid'               => 0,
             'cnt_status'            => intval($this->phpwcms['set_news_active']),
-            'cnt_livedate'          => '0000-00-00 00:00:00',
-            'cnt_killdate'          => '0000-00-00 00:00:00',
+            'cnt_livedate'          => null,
+            'cnt_killdate'          => null,
             'cnt_archive_status'    => 1,
             'cnt_alias'             => '',
             'cnt_name'              => '',
@@ -690,7 +690,7 @@ class phpwcmsNews {
         $sort_date  = intval($this->data['cnt_sort']);
 
         if($start_date <= 0) {
-            $this->data['cnt_livedate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_livedate']     = null;
             $this->data['cnt_date_start']   = '';
             $this->data['cnt_time_start']   = '';
         } else {
@@ -699,7 +699,7 @@ class phpwcmsNews {
         }
 
         if($end_date <= 0) {
-            $this->data['cnt_killdate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_killdate']     = null;
             $this->data['cnt_date_end']     = '';
             $this->data['cnt_time_end']     = '';
         } else {

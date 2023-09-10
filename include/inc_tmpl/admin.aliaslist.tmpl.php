@@ -23,7 +23,7 @@ echo '<h1 class="title">', $BL['be_alias'], '</h1>'; //' ('.$BL['be_ftptakeover_
 $sql  = '(';
 $sql .=	"	SELECT article_id AS id, article_title AS title, article_alias AS alias, ";
 $sql .= "	UNIX_TIMESTAMP(article_tstamp) AS timestamp, 'article' AS type, article_aktiv AS active, ";
-$sql .= "	IF(article_begin < NOW() AND (article_end='0000-00-00 00:00:00' OR article_end > NOW()), 0, 1) AS hidden, '' AS struct";
+$sql .= "	IF(article_begin < NOW() AND (article_end IS NULL OR article_end > NOW()), 0, 1) AS hidden, '' AS struct";
 $sql .= "	FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0";
 $sql .= ') UNION (';
 $sql .=	"	SELECT acat_id AS id, acat_name AS title, acat_alias AS alias, ";

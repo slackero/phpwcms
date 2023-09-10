@@ -285,7 +285,7 @@ if(!empty($_getVar['feedimport'])) {
                     "article_keyword"       => $article_categories,
                     "article_aktiv"         => $feedimport_result['cnt_object']['activate_after_import'],
                     "article_begin"         => date('Y-m-d H:i:s', $article_begin),
-                    "article_end"           => '0000-00-00 00:00:00',
+                    "article_end"           => null,
                     "article_subtitle"      => '',
                     "article_summary"       => $article_summary,
                     "article_redirect"      => '',
