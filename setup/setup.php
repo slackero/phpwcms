@@ -56,9 +56,16 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
           <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
         </tr>
         <tr>
-          <td valign="top" class="navtext">PHPWCMS SETUP VERSION&nbsp;<?php echo $phpwcms_version.', RELEASE '.$phpwcms_release_date ?></td>
-          <td align="right" valign="top" class="navtext"><a href="../index.php" target="_top">HOME</a> |
-            <a href="upgrade.php">UPGRADE</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../<?php echo $phpwcms['login.php'] ?>" target="_top">LOGIN</a></td>
+          <td valign="top" class="navtext">
+              PHPWCMS SETUP VERSION&nbsp;<?php echo $phpwcms_version.', RELEASE '.$phpwcms_release_date ?>
+          </td>
+          <td align="right" valign="top" class="navtext">
+              <a href="../index.php" target="_top">HOME</a>
+              |
+              <a href="index.php" target="_top">LICENCE</a>
+              |
+              <a href="../<?php echo $phpwcms['login.php'] ?>" target="_top">LOGIN</a>
+          </td>
         </tr>
     </table></td>
     <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
