@@ -192,13 +192,13 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
 
     if($special) {
         $special = strtoupper(trim($special));
-        if($special != 'LOW_PRIORITY' || $special != 'DELAYED') {
+        if($special !== 'LOW_PRIORITY' && $special !== 'DELAYED') {
             $special = 'DELAYED';
         }
         $special .= ' ';
     }
 
-    $query  = 'INSERT '.$special.'INTO ' . $table . ' (';
+    $query  = 'INSERT ' . $special . 'INTO ' . _dbEscape($table, false) . ' (';
     $query .= implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
 
     return _dbQuery($query, 'INSERT');
@@ -232,7 +232,7 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
         $x++;
     }
 
-    $insert  = 'INSERT INTO ' . $table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
+    $insert  = 'INSERT INTO ' . _dbEscape($table, false) . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $values) . ')';
     $insert .= ' ON DUPLICATE KEY UPDATE ' . implode(',', $set);
 
     return _dbQuery($insert, 'ON_DUPLICATE');
@@ -246,8 +246,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
         return false;
     }
 
-    $table      = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
-    $sets       = array();
+    $table      = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
     $select     = trim($select);
     $limit      = trim($limit);
     $group_by   = trim($group_by);
@@ -276,17 +275,13 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
     }
     if($group_by !== '') {
         $group_by = ' GROUP BY '._dbEscape($group_by, false);
-    } else {
-        $group_by = '';
     }
 
     if($order_by !== '') {
         $order_by = ' ORDER BY '._dbEscape($order_by, false);
-    } else {
-        $order_by = '';
     }
 
-    if($where != '') {
+    if($where !== '') {
         $where = trim($where);
         if(!str_starts_with(strtoupper($where), 'WHERE')) {
             $where = 'WHERE '.$where;
@@ -294,7 +289,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
         $where = ' '.$where;
     }
 
-    $query = trim( 'SELECT ' . $select . ' FROM ' . $table . $where . $group_by . $order_by . $limit);
+    $query = trim( 'SELECT ' . $select . ' FROM ' . _dbEscape($table, false) . $where . $group_by . $order_by . $limit);
 
     return _dbQuery($query, $_queryMode);
 }
@@ -310,7 +305,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
         return false;
     }
 
-    $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
+    $table  = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
     $sets   = array();
 
     foreach($data as $key => $value) {
@@ -319,7 +314,9 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
 
     if($special) {
         $special = strtoupper(trim($special));
-        if($special != 'LOW_PRIORITY') $special = 'LOW_PRIORITY';
+        if($special !== 'LOW_PRIORITY') {
+            $special = 'LOW_PRIORITY';
+        }
         $special .= ' ';
     }
 
@@ -330,7 +327,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
         }
     }
 
-    $query = trim( 'UPDATE ' . $special . $table . ' SET ' . implode(',', $sets) . ' ' . $where );
+    $query = trim( 'UPDATE ' . $special . _dbEscape($table, false) . ' SET ' . implode(',', $sets) . ' ' . $where );
 
     return _dbQuery($query, 'UPDATE');
 
@@ -356,12 +353,10 @@ function _dbError($error_type='DB', $query='') {
 
     if($query) {
         $query  = str_replace(',', ",\n", $query);
-        switch($error_type) {
-            case 'LOG':
-                $error  .= ', QUERY: "' . $query . '"';
-                break;
-            default:
-                $error .= '<pre>' . $query .'</pre>';
+        if($error_type === 'LOG') {
+            $error .= ', QUERY: "' . $query . '"';
+        } else {
+            $error .= '<pre>' . $query .'</pre>';
         }
     }
 
@@ -369,9 +364,7 @@ function _dbError($error_type='DB', $query='') {
 }
 
 function _dbErrorNum() {
-
     return mysqli_errno($GLOBALS['db']);
-
 }
 
 function _dbLogError($log_msg='') {
@@ -446,6 +439,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
     }
 
     $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $table = _dbEscape($table, false);
 
     $where_value = is_string($id_value) ? _dbEscape($id_value) : $id_value;
     $row = _dbQuery('SELECT * FROM '.$table.' WHERE '.$unique_field.'='.$where_value.' LIMIT 1');
@@ -683,56 +677,51 @@ function _dbSetVar($var='', $value=null, $compare=false) {
     // check if it is a valid MySQL var
     $_var       = _dbEscape($var, false);
     $result     = _dbQuery('SELECT @@'.$_var.' AS mysqlvar');
-    $default    = null;
 
     if(isset($result[0]['mysqlvar'])) {
 
         // check if the given MySQL var exists
         $default = $result[0]['mysqlvar'];
 
-        if($default !== null) {
+        $GLOBALS['phpwcms']['mysql_'.$var] = $default;
 
-            $GLOBALS['phpwcms']['mysql_'.$var] = $default;
+        switch($compare) {
 
-            switch($compare) {
+            case '>':
+                $set = $default > $value;
+                break;
 
-                case '>':
-                    $set = $default > $value;
-                    break;
+            case '<':
+                $set = $default < $value;
+                break;
 
-                case '<':
-                    $set = $default < $value;
-                    break;
+            case '!=':
+                $set = $default != $value;
+                break;
 
-                case '!=':
-                    $set = $default != $value;
-                    break;
+            default:
+                $set = false;
 
-                default:
-                    $set = false;
+        }
 
-            }
+        // change MySQL var setting
+        if($set) {
 
-            // change MySQL var setting
-            if($set) {
-
-                $value = _dbEscape($value, !is_numeric($default));
-                if ($_var === 'max_allowed_packet') {
-                    if (!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
+            $value = _dbEscape($value, !is_numeric($default));
+            if ($_var === 'max_allowed_packet') {
+                if (!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
+                    return false;
+                }
+            } elseif(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
+                if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
+                    if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
                         return false;
                     }
-                } elseif(!_dbQuery('SET @@'.$_var.'='.$value, 'SET')) {
-                    if(!_dbQuery('SET @@session.'.$_var.'='.$value, 'SET')) {
-                        if(!_dbQuery('SET @@global.'.$_var.'='.$value, 'SET')) {
-                            return false;
-                        }
-                    }
                 }
-
-                $GLOBALS['phpwcms']['mysql_'.$var] = $value;
-                return true;
-
             }
+
+            $GLOBALS['phpwcms']['mysql_'.$var] = $value;
+            return true;
 
         }
 
