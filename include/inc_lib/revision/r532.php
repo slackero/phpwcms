@@ -41,7 +41,7 @@ function phpwcms_revision_r532() {
 					KEY `id` (`id`,`aid`,`alias`),
 					KEY `active` (`active`),
 					KEY `link` (`link`)
-				) ENGINE=MyISAM";
+				)";
 		if(!empty($GLOBALS['phpwcms']['db_charset'])) {
 			$sql .= ' DEFAULT CHARSET='.$GLOBALS['phpwcms']['db_charset'];
 		}

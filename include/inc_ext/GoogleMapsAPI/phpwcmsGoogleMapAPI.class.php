@@ -50,8 +50,7 @@ CREATE TABLE `phpwcms_geocodes` (
   PRIMARY KEY (`address`),
   KEY `lon` (`lon`),
   KEY `lat` (`lat`)
-) ENGINE=MyISAM;
-
+);
 
 */
 
@@ -1525,13 +1524,13 @@ class GoogleMapAPI
 		} elseif( $_row === false && $this->_db_cache_table ) {
 
 			$sql  = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . $this->_db_cache_table . '` (';
-			$sql .= ' `address` varchar(255) NOT NULL, ';
+			$sql .= '`address` varchar(255) NOT NULL, ';
 			$sql .= '`lon` double DEFAULT NULL, ';
 			$sql .= '`lat` double DEFAULT NULL, ';
 			$sql .= 'PRIMARY KEY (`address`), ';
 			$sql .= 'KEY `lon` (`lon`), ';
 			$sql .= 'KEY `lat` (`lat`) ';
-			$sql .= ') ENGINE=MyISAM';
+			$sql .= ')';
 
 			_dbQuery($sql, 'CREATE');
 
