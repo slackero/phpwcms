@@ -20,9 +20,9 @@ $phpwcms['db_prepend'] = '';
 $phpwcms['db_pers'] = 1;
 $phpwcms['db_charset'] = 'utf8';
 $phpwcms['db_collation'] = 'utf8_general_ci';
-$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
-$phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed, 5.6+
+$phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
+$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.6/en/sql-mode.html#sql-mode-setting
 $phpwcms['db_errorlog'] = false; // Log DB queries - false|true
 
 // site values

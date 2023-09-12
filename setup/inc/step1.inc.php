@@ -79,12 +79,15 @@ if(!empty($db_additional)) {
             <h1>
                 <span class="number">4.</span>
                 Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> settings
-                <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
+                <a href="https://dev.mysql.com/doc/refman/5.7/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
             </h1>
         </td>
     </tr>
     <tr>
-            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
+            <td align="right" class="v10">
+                <a href="https://www.w3.org/International/articles/http-charset/index" target="_blank" title="HTTP charset">
+                    <img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" />
+                </a>Charset:&nbsp;</td>
             <td><select name="charset">
             <?php
 
