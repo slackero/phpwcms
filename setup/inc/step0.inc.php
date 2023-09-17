@@ -32,7 +32,7 @@ $setup_recommend = true;
 
             echo '<strong>' . html_specialchars(phpversion()) . '</strong>';
 
-            switch (version_compare('8.2', phpversion())) {
+            switch (version_compare('8.1', phpversion())) {
 
                 case -1:    // current used PHP is > OK
                     echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
@@ -40,8 +40,7 @@ $setup_recommend = true;
 
                 case  0:    // the same version - HM not recommend
                     echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-                    echo ' (your version of PHP is OK but update to 7.x is recommend)';
-                    $setup_recommend = false;
+                    echo ' (your version of PHP is OK but update to 8.2+ is recommend)';
                     break;
 
                 case  1:    // false it's older
