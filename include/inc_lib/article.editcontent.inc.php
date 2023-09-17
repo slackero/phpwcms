@@ -86,19 +86,17 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             $article['article_nosearch']    = $row['article_nosearch'];
             $article['article_nositemap']   = $row['article_nositemap'];
 
-                if($article["article_begin"] === '0000-00-00 00:00:00') {
-                    $article["article_begin"] = '';
-                    $set_begin = 0;
-                } else {
-                    $set_begin = 1;
-                }
+            if(is_null($article["article_begin"])) {
+                $set_begin = 0;
+            } else {
+                $set_begin = 1;
+            }
 
-                if($article["article_end"] === '0000-00-00 00:00:00') {
-                    $article["article_end"] = '';
-                    $set_end = 0;
-                } else {
-                    $set_end = 1;
-                }
+            if(is_null($article["article_end"])) {
+                $set_end = 0;
+            } else {
+                $set_end = 1;
+            }
 
             $article['article_aliasid']         = $row['article_aliasid'];
             $article['article_headerdata']      = $row['article_headerdata'];
@@ -270,18 +268,18 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 $article["article_begin"] = date("Y-m-d H:i:s", $article["article_begin"]);
             }
         } else {
-            $article["article_begin"] = '0000-00-00 00:00:00';
+            $article["article_begin"] = null;
         }
         if($set_end && $article["article_end"]) {
             $article["article_end"] = cmsgo_strtotime($article["article_end"]);
             if($article["article_end"] === false) {
-                $article["article_end"] = '0000-00-00 00:00:00';
+                $article["article_end"] = null;
                 $article_err[] = $BL['be_article_err4'];
             } else {
                 $article["article_end"] = date("Y-m-d H:i:s", $article["article_end"]);
             }
         } else {
-            $article["article_end"] = '0000-00-00 00:00:00';
+            $article["article_end"] = null;
         }
         //End Check Date
 
@@ -292,8 +290,8 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
         	// get summary image info for article detail
             'name' => clean_slweg($_POST["cimage_name"]),
             'id' => intval($_POST["cimage_id"]),
-            'width' => intval($_POST["cimage_width"]) ? intval($_POST["cimage_width"]) : '',
-            'height' => intval($_POST["cimage_height"]) ? intval($_POST["cimage_height"]) : '',
+            'width' => intval($_POST["cimage_width"]) ?: '',
+            'height' => intval($_POST["cimage_height"]) ?: '',
             'caption' => clean_slweg($_POST["cimage_caption"]),
             'caption_suppress' => empty($_POST["cimage_caption_suppress"]) ? 0 : 1,
             'zoom' => empty($_POST["cimage_zoom"]) ? 0 : 1,
@@ -303,9 +301,9 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             'list_usesummary' => empty($_POST["cimage_usesummary"]) ? 0 : 1,
             'list_name' => clean_slweg($_POST["cimage_list_name"]),
             'list_id' => intval($_POST["cimage_list_id"]),
-            'list_width' => intval($_POST["cimage_list_width"]) ? intval($_POST["cimage_list_width"]) : '',
-            'list_height' => intval($_POST["cimage_list_height"]) ? intval($_POST["cimage_list_height"]) : '',
-            'list_caption' => isset($_POST["cimage_list_caption"]) ? clean_slweg($_POST["cimage_list_caption"]) : '',
+            'list_width' => intval($_POST["cimage_list_width"]) ?: '',
+            'list_height' => intval($_POST["cimage_list_height"]) ?: '',
+            'list_caption' => clean_slweg($_POST["cimage_list_caption"]),
             'list_caption_suppress' => empty($_POST["cimage_list_caption_suppress"]) ? 0 : 1,
             'list_zoom' => empty($_POST["cimage_list_zoom"]) ? 0 : 1,
             'list_lightbox' => empty($_POST["cimage_list_lightbox"]) ? 0 : 1,

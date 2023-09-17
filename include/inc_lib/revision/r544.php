@@ -36,7 +36,7 @@ function cmsgo_revision_r544() {
     // Add column newsletter_pub for Newsletter modification
     $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."cmsgo_newsletter LIKE 'newsletter_pub'");
     if(empty($result)) {
-        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."cmsgo_newsletter ADD newsletter_pub datetime NOT NULL DEFAULT '0000-00-00 00:00:00'", 'ALTER');
+        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."cmsgo_newsletter ADD newsletter_pub datetime DEFAULT NULL", 'ALTER');
     }
     // Add column newsletter_lang for Newsletter modification
     $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."cmsgo_newsletter LIKE 'newsletter_lang'");

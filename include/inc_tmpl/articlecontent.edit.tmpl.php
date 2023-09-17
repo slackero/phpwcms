@@ -31,13 +31,13 @@ if(empty($content['article']['acat_id'])) { // Root structure
 }
 
 // Livedate / killdate fallback
-if(empty($content["livedate"]) || $content["livedate"] === '0000-00-00 00:00:00') {
+if(empty($content["livedate"])) {
     $content["livedate"] = '';
     $set_livedate = 0;
 } else {
     $set_livedate = 1;
 }
-if(empty($content["killdate"]) || $content["killdate"] === '0000-00-00 00:00:00') {
+if(empty($content["killdate"])) {
     $content["killdate"] = '';
     $set_killdate = 0;
 } else {

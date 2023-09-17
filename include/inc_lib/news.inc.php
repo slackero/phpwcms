@@ -248,16 +248,16 @@ class cmsgoNews {
         // 2 = all inactive
 
         $status     = isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
-        $filter     = isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
+        $filter     = $_SESSION['PAGE_FILTER']['news']['filter'] ?? '';
         $page       = isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
-        $sort       = isset($_SESSION['PAGE_FILTER']['news']['sort']) ? $_SESSION['PAGE_FILTER']['news']['sort'] : 'start_desc';
-        $lang       = isset($_SESSION['PAGE_FILTER']['news']['lang']) ? $_SESSION['PAGE_FILTER']['news']['lang'] : '';
-        $keyword    = isset($_SESSION['PAGE_FILTER']['news']['keyword']) ? $_SESSION['PAGE_FILTER']['news']['keyword'] : '';
+        $sort       = $_SESSION['PAGE_FILTER']['news']['sort'] ?? 'start_desc';
+        $lang       = $_SESSION['PAGE_FILTER']['news']['lang'] ?? '';
+        $keyword    = $_SESSION['PAGE_FILTER']['news']['keyword'] ?? '';
 
         if(isset($_POST['filter'])) {
 
-            $active     = empty($_POST['showactive']) ? false : true;
-            $inactive   = empty($_POST['showinactive']) ? false : true;
+            $active     = !empty($_POST['showactive']);
+            $inactive   = !empty($_POST['showinactive']);
             $filter     = clean_slweg($_POST['filter']);
             $page       = empty($_POST['page']) ? 0 : intval($_POST['page']);
             $sort       = empty($_POST['sort']) || !isset($this->sort_options[$_POST['sort']]) ? 'start_desc' : $_POST['sort'];
@@ -518,8 +518,8 @@ class cmsgoNews {
             'cnt_id'                => 0,
             'cnt_pid'               => 0,
             'cnt_status'            => intval($this->cmsgo['set_news_active']),
-            'cnt_livedate'          => '0000-00-00 00:00:00',
-            'cnt_killdate'          => '0000-00-00 00:00:00',
+            'cnt_livedate'          => null,
+            'cnt_killdate'          => null,
             'cnt_archive_status'    => 1,
             'cnt_alias'             => '',
             'cnt_name'              => '',
@@ -688,7 +688,7 @@ class cmsgoNews {
         $sort_date  = intval($this->data['cnt_sort']);
 
         if($start_date <= 0) {
-            $this->data['cnt_livedate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_livedate']     = null;
             $this->data['cnt_date_start']   = '';
             $this->data['cnt_time_start']   = '';
         } else {
@@ -697,7 +697,7 @@ class cmsgoNews {
         }
 
         if($end_date <= 0) {
-            $this->data['cnt_killdate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_killdate']     = null;
             $this->data['cnt_date_end']     = '';
             $this->data['cnt_time_end']     = '';
         } else {

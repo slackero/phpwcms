@@ -110,7 +110,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
     $alink_sql .= 'WHERE ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_noteaser=0 ';
     if(!PREVIEW_MODE) {
-        $alink_sql .= "AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
+        $alink_sql .= "AND ar.article_begin < NOW() AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
     }
 
     // add possible WHERE clauses when tags/categories are used
@@ -493,7 +493,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                                     $thumb_img  = '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3];
                                     $thumb_img .= ' data-image-id="'.$img_thumb_id.'" data-image-hash="'.$img_thumb_hash.'"';
-                                    $thumb_img .= ' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
+                                    $thumb_img .= ' alt="'.($content['alink']['caption'][1] ?: $row['article_image']['list_name']).'"';
                                     if($content['alink']['caption'][3]) {
                                         $thumb_img .= ' title="'.$content['alink']['caption'][3].'"';
                                     }
@@ -586,7 +586,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                             $row['article_image']['img']  = '<img src="' . $row['article_image']['detail']['src'] .'" '.$row['article_image']['detail'][3];
                             $row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
-                            $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
+                            $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ?: $row['article_image']['name']).'"';
                             if($row['article_image']['caption'][3]) {
                                 $row['article_image']['img'] .= ' title="'.$row['article_image']['caption'][3].'"';
                             }
