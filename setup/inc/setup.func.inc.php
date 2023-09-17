@@ -133,8 +133,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['db_charset'] = '" . escape_quote($val["db_charset"]) . "';\n";
     $conf_file .= "\$cmsgo['db_collation'] = '" . escape_quote($val["db_collation"]) . "';\n";
     $conf_file .= "\$cmsgo['db_version'] = '" . escape_quote($val["db_version"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
-    $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
+    $conf_file .= "\$cmsgo['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html\n";
+    $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$cmsgo['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
@@ -518,7 +518,7 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
     } else {
         $port = '';
     }
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;
@@ -530,7 +530,7 @@ function check_htaccess($val) {
 
     if ($val["rewrite_url"]) {
 
-        $root = dirname(dirname(dirname(__FILE__)));
+        $root = dirname(__FILE__, 3);
         $htaccess_content = '';
         $htaccess_new_content = '';
 

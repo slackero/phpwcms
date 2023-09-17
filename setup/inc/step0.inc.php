@@ -22,7 +22,7 @@ $setup_recommend = true;
     which <strong>cmsGO!</strong> is released you can continue to install or upgrade <strong>cmsGO!</strong>.</p>
 
 <h1><span class="number">2.</span> Now lets check your server settings</h1>
-<p>Please proof all information about your system (recommend PHP 7.1+, MySQL 5.5+).</p>
+<p>Please proof all information about your system (recommend PHP 8.2+, MySQL 5.6+).</p>
 <ol>
     <li>WWW server:
         <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong>
@@ -31,7 +31,7 @@ $setup_recommend = true;
 
         echo '<strong>' . html_specialchars(phpversion()) . '</strong>';
 
-        switch (version_compare('5.6', phpversion())) {
+        switch (version_compare('8.1', phpversion())) {
 
             case -1:    // current used PHP is > OK
                 echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
@@ -39,8 +39,7 @@ $setup_recommend = true;
 
             case  0:    // the same version - HM not recommend
                 echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-                echo ' (your version of PHP is OK but update to 7.x is recommend)';
-                $setup_recommend = false;
+                echo ' (your version of PHP is OK but update to 8.2+ is recommend)';
                 break;
 
             case  1:    // false it's older
@@ -75,7 +74,7 @@ $setup_recommend = true;
         $mysql_version[0] = (int)$mysql_version[0];
         $mysql_version[1] = empty($mysql_version[1]) ? 0 : (int)$mysql_version[1];
 
-        if ($mysql_version[0] >= 5 && ($mysql_version[1] >= 1 || $mysqlnd)) {
+        if ($mysql_version[0] >= 5 && ($mysql_version[1] >= 6 || $mysqlnd)) {
 
             // current MySQL isOK
             echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';

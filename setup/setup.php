@@ -55,9 +55,16 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
           <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
         </tr>
         <tr>
-          <td valign="top" class="navtext">CMSGO SETUP VERSION&nbsp;<?php echo $cmsgo_version.', RELEASE '.$cmsgo_release_date ?></td>
-          <td align="right" valign="top" class="navtext"><a href="../index.php" target="_top">HOME</a> |
-            <a href="upgrade.php">UPGRADE</a> | <a href="index.php" target="_top">LICENCE</a> | <a href="../<?php echo $cmsgo['edit.php'] ?>" target="_top">LOGIN</a></td>
+          <td valign="top" class="navtext">
+              CMSGO SETUP VERSION&nbsp;<?php echo $cmsgo_version.', RELEASE '.$cmsgo_release_date ?>
+          </td>
+          <td align="right" valign="top" class="navtext">
+              <a href="../index.php" target="_top">HOME</a>
+              |
+              <a href="index.php" target="_top">LICENCE</a>
+              |
+              <a href="../<?php echo $cmsgo['edit.php'] ?>" target="_top">LOGIN</a>
+          </td>
         </tr>
     </table></td>
     <td valign="top" style="background: url(../img/backend/backend_r3_c4.jpg) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
@@ -78,9 +85,6 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 			}
 
 		} else {
-
-
-
 			?>
     <h1><img src="../img/famfamfam/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
       stopped </h1>
@@ -88,9 +92,7 @@ if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
 			<p class="code">$NO_ACCESS = true;</p>
 			<p>in setup.conf.inc.php.</p>
 			<?php
-
 		}
-
 		?></td>
     <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
   </tr>
