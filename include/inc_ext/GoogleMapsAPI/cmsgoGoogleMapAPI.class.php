@@ -48,8 +48,7 @@ CREATE TABLE `cmsgo_geocodes` (
   PRIMARY KEY (`address`),
   KEY `lon` (`lon`),
   KEY `lat` (`lat`)
-) ENGINE=MyISAM;
-
+);
 
 */
 
@@ -1527,7 +1526,7 @@ class GoogleMapAPI
 			$sql .= 'PRIMARY KEY (`address`), ';
 			$sql .= 'KEY `lon` (`lon`), ';
 			$sql .= 'KEY `lat` (`lat`) ';
-			$sql .= ') ENGINE=MyISAM';
+			$sql .= ')';
 
 			_dbQuery($sql, 'CREATE');
 
