@@ -55,7 +55,7 @@ if(isset($result[0]['article_id'])) {
                 $alias_sql .= " AND (article_aktiv=1 OR article_uid=".intval($_SESSION["wcs_user_id"]).')';
             }
             if(!PREVIEW_MODE) {
-                    $alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
+                $alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
             }
         }
         $alias_sql .= " LIMIT 1";

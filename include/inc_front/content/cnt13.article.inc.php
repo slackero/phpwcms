@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 //search form
-$content["search"]       = unserialize($crow["acontent_form"]);
+$content["search"]       = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $s_result_list           = array();
 $content["search_word"]  = '';
 $content['highlight']    = array();
@@ -170,7 +170,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                             case 1: $alias_sql .= " AND (article_aktiv=1 OR article_uid=".$_SESSION["wcs_user_id"].')'; break;
                         }
                         if(!PREVIEW_MODE) {
-							$alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
+                            $alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
                         }
                     }
                     $alias_sql .= " LIMIT 1";
@@ -200,9 +200,9 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                 // read article content for search
                 $csql  = "SELECT acontent_title, acontent_subtitle, acontent_text, acontent_html, acontent_files, acontent_type, acontent_form, acontent_image FROM ";
-				$csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
-				$csql .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
-				$csql .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) AND ";
+                $csql .= DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$s_id." ";
+                $csql .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
+                $csql .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) AND ";
                 $csql .= 'acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' AND ';
                 $csql .= "acontent_type IN (0, 1, 2, 4, 5, 6, 7, 11, 14, 26, 27, 29, 100, 31, 32)";
 
@@ -278,7 +278,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             case 29:    $s_text .= ' '.$scrow['acontent_text'];
                             case 2:     if($content['search']['search_caption'] || $content['search']['search_filename']) {
-                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                             if(isset($scrow['acontent_form']['images']) && is_array($scrow['acontent_form']['images']) && count($scrow['acontent_form']['images'])) {
                                                 $s_imgname = '';
                                                 foreach($scrow['acontent_form']['images'] as $s_imgtext) {
@@ -306,7 +306,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             case 31:    $s_text .= ' '.$scrow['acontent_html'];
                                         if($content['search']['search_caption'] || $content['search']['search_filename']) {
-                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                             if(isset($scrow['acontent_form']['images']) && is_array($scrow['acontent_form']['images']) && count($scrow['acontent_form']['images'])) {
                                                 foreach($scrow['acontent_form']['images'] as $s_imgtext) {
                                                     if($content['search']['search_caption']) {
@@ -323,7 +323,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             // search recipe
                             case 26:    $s_text .= ' '.$scrow['acontent_text'].' '.$scrow['acontent_html'];
-                                        $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                        $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                         if(isset($scrow['acontent_form']['preparation'])) {
                                             $s_text .= ' '.$scrow['acontent_form']['preparation'].' '.$scrow['acontent_form']['ingredients'];
                                             $s_text .= ' '.$scrow['acontent_form']['calorificvalue'].' '.$scrow['acontent_form']['calorificvalue_add'];
@@ -394,7 +394,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                     $s_list[$s_run]["text"]     = '';
                     $s_list[$s_run]['image']    = false;
                     if($crow['template']['image_render'] && $srow["article_image"]) {
-                        $srow["article_image"] = setArticleSummaryImageData(unserialize($srow["article_image"]));
+                        $srow["article_image"] = setArticleSummaryImageData(unserialize($srow["article_image"], ['allowed_classes' => false]));
                         if(!empty($srow["article_image"]['list_hash'])) {
                             $s_list[$s_run]['image'] = array(
                                 'id'    => $srow["article_image"]['list_id'],

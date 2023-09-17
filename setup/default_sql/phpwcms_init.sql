@@ -864,6 +864,8 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `group_trash` int(1) NOT NULL DEFAULT '0',
   `group_active` int(1) NOT NULL DEFAULT '0',
+  `group_modkey` varchar(20) NOT NULL,
+  `group_syskey` varchar(10) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `group_member` (`group_member`(255))
 );

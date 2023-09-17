@@ -216,7 +216,7 @@ function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
                         if ($dte_frmt_lstchr === 'Y') {
                             if (!is_numeric($lastchar)) {
                                 $store_arr = FALSE;
-                                $i = strlen($PASSED)+1;  // The the value. Must be a number. Break out
+                                $i = strlen($PASSED)+1;  // The value must be a number. Break out
                             } else {
                                 $store_arr['year']=$lastchar; // assign the value to the array
                             }

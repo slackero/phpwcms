@@ -1549,7 +1549,6 @@ function html_parser($string) {
         ),
         $string
     );
-
     return $string;
 }
 
