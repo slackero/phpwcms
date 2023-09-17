@@ -25,7 +25,7 @@ function cmsgo_revision_r532() {
 
 		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."cmsgo_redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-					`changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					`changed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 					`id` bigint(20) unsigned NOT NULL DEFAULT '0',
 					`aid` bigint(20) unsigned NOT NULL DEFAULT '0',
 					`alias` varchar(255) NOT NULL DEFAULT '',
