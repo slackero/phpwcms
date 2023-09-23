@@ -82,6 +82,7 @@ class phpwcmsCalendar {
     public $width = 0;
     public $height = 0;
     public $crop = 0;
+    public string $lightbox;
 
     /**
      * Initialize class
