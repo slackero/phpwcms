@@ -612,8 +612,8 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 $SQL .= "acontent_granted           = "._dbEscape($content["granted"]).", ";
                 $SQL .= "acontent_tab               = "._dbEscape($content["tab"]).", ";
                 $SQL .= "acontent_tid               = "._dbEscape($content["tid"]).", ";
-                $SQL .= "acontent_livedate          = "._dbEscape($content["livedate"]).", ";
-                $SQL .= "acontent_killdate          = "._dbEscape($content["killdate"]).", ";
+                $SQL .= "acontent_livedate          = "._dbEscape(empty($content["livedate"]) ? null : $content["livedate"]).", ";
+                $SQL .= "acontent_killdate          = "._dbEscape(empty($content["killdate"]) ? null : $content["killdate"]).", ";
                 $SQL .= "acontent_attr_class        = "._dbEscape($content["attr_class"] ).", ";
                 $SQL .= "acontent_attr_id           = "._dbEscape($content["attr_id"]).", ";
 

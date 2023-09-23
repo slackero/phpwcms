@@ -685,8 +685,8 @@ class phpwcmsNews {
 
         }
 
-        $start_date = strtotime( $this->data['cnt_livedate'] );
-        $end_date   = strtotime( $this->data['cnt_killdate'] );
+        $start_date = is_null($this->data['cnt_livedate']) ? 0 : strtotime($this->data['cnt_livedate']);
+        $end_date   = is_null($this->data['cnt_killdate']) ? 0 : strtotime($this->data['cnt_killdate']);
         $sort_date  = intval($this->data['cnt_sort']);
 
         if($start_date <= 0) {
@@ -725,9 +725,7 @@ class phpwcmsNews {
 
         // do only when news ID is known
         if( $this->newsId == 0 ) {
-
             $post['cnt_created']    = now();
-
         }
 
         $post['cnt_pid']            = 0;
@@ -739,13 +737,21 @@ class phpwcmsNews {
         $post['cnt_archive_status'] = empty($_POST['cnt_archive_status']) ? 0 : 1;
         $post['cnt_prio']           = empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
 
-        $temp_time                  = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
-        $temp_date                  = isset($_POST['calendar_start_date']) ? _getDate($_POST['calendar_start_date']) : '';
-        $post['cnt_livedate']       = $temp_date.' '.$temp_time;
+        if (empty($_POST['calendar_start_date'])) {
+            $temp_date = _getDate($_POST['calendar_start_date']);
+            $temp_time = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
+            $post['cnt_livedate'] = $temp_date . ' ' . $temp_time;
+        } else {
+            $post['cnt_livedate'] = null;
+        }
 
-        $temp_time                  = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
-        $temp_date                  = isset($_POST['calendar_end_date']) ? _getDate($_POST['calendar_end_date']) : '';
-        $post['cnt_killdate']       = $temp_date.' '.$temp_time;
+        if (empty($_POST['calendar_end_date'])) {
+            $temp_date = _getDate($_POST['calendar_end_date']);
+            $temp_time = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
+            $post['cnt_killdate'] = $temp_date . ' ' . $temp_time;
+        } else {
+            $post['cnt_killdate'] = null;
+        }
 
         $temp_time                  = isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : '';
         $temp_date                  = isset($_POST['sort_date']) ? _getDate($_POST['sort_date']) : '';
