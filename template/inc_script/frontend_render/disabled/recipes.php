@@ -118,8 +118,9 @@ if(!(!str_contains($content["all"], '{RECIPES:'))) {
 		$sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
 		$sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ON ";
 		$sql .= DB_PREPEND . "phpwcms_article.article_id = " . DB_PREPEND . "phpwcms_articlecontent.acontent_aid ";
-		$sql .= "WHERE acontent_type=26 AND acontent_visible=1 AND ";
-		$sql .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+		$sql .= "WHERE acontent_type=26 AND acontent_visible=1 ";
+		$sql .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+		$sql .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
 		$sql .= "AND acontent_trash=0 AND ";
 
 		if(!empty($_getVar['recipecat'])) {
@@ -203,8 +204,9 @@ if(!(!str_contains($content["all"], '{RECIPES:'))) {
 		$sql .= DB_PREPEND . "phpwcms_article.article_deleted=0 ";
 		if(!PREVIEW_MODE) {
 			$sql .= 'AND ';
-			$sql .= DB_PREPEND . "phpwcms_article.article_begin < NOW() AND ";
-			$sql .= '(' . DB_PREPEND . "phpwcms_article.article_end > NOW() OR " .DB_PREPEND . "phpwcms_article.article_end IS NULL)";
+			$sql .= '(' . DB_PREPEND . 'phpwcms_article.article_begin IS NULL OR ' . DB_PREPEND . 'phpwcms_article.article_begin < NOW()) ';
+			$sql .= 'AND ';
+			$sql .= '(' . DB_PREPEND . 'phpwcms_article.article_end > NOW() OR ' .DB_PREPEND . 'phpwcms_article.article_end IS NULL)';
 		}
 		$sql .= 'ORDER BY ' . implode(', ', $order_by);
 

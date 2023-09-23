@@ -50,7 +50,7 @@ $alink_sql  = "SELECT article_id, article_title, article_cid, article_summary, a
 $alink_sql .= DB_PREPEND."phpwcms_article WHERE article_aktiv=1 AND article_deleted=0 AND article_cid=";
 $alink_sql .= intval($alinkmenu["catid"]);
 if(!PREVIEW_MODE) {
-	$alink_sql .= ' AND article_begin < NOW()';
+	$alink_sql .= ' AND (article_begin IS NULL OR article_begin < NOW())';
 	$alink_sql .= " AND (article_end IS NULL OR article_end > NOW())";
 }
 if(!empty($alinkmenu['hideactive'])) {

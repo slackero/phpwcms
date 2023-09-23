@@ -30,8 +30,8 @@ if(VISIBLE_MODE === 0) {
 }
 $sql .= 'ar.article_deleted=0 ';
 if(!PREVIEW_MODE) {
-    $sql .= 'AND ar.article_begin<NOW() ';
-    $sql .= "AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, (ar.article_end IS NULL OR ar.article_end>NOW())) ";
+    $sql .= 'AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ';
+    $sql .= "AND IF(ac.acat_archive=1 AND ar.article_archive_status=1, 1, (ar.article_end IS NULL OR ar.article_end > NOW())) ";
 }
 $sql .= 'LIMIT 1';
 
@@ -55,7 +55,8 @@ if(isset($result[0]['article_id'])) {
                 $alias_sql .= " AND (article_aktiv=1 OR article_uid=".intval($_SESSION["wcs_user_id"]).')';
             }
             if(!PREVIEW_MODE) {
-                $alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
+                $alias_sql .= " AND (article_begin IS NULL OR article_begin < NOW()) ";
+                $alias_sql .= " AND (article_end IS NULL OR article_end > NOW())";
             }
         }
         $alias_sql .= " LIMIT 1";
@@ -361,8 +362,9 @@ if(isset($result[0]['article_id'])) {
         $sql_cnt  = "SELECT DISTINCT IF(acontent_paginate_page=1, 0, acontent_paginate_page) AS acontent_paginate_page, ";
         $sql_cnt .= "acontent_paginate_title ";
         $sql_cnt .= "FROM ".DB_PREPEND."phpwcms_articlecontent WHERE ";
-        $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 AND ";
-        $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+        $sql_cnt .= "acontent_aid=".$row["article_id"]." AND acontent_visible=1 AND acontent_trash=0 ";
+        $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+        $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
         $sql_cnt .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
         $sql_cnt .= "AND acontent_block IN ('', 'CONTENT') ORDER BY acontent_paginate_page DESC";
         $sql_cnt  = _dbQuery($sql_cnt);
@@ -497,7 +499,8 @@ if(isset($result[0]['article_id'])) {
             // Search for all system related content parts
             $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
             $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
-            $sql_cnt .= "AND acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+            $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+            $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
             $sql_cnt .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
             $sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
             $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'SYSTEM', showSelectedContent('CPC', $sql_cnt));
@@ -534,8 +537,9 @@ if(isset($result[0]['article_id'])) {
 
     // render content parts
     $sql_cnt  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_aid=".$row["article_id"]." ";
-    $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND ";
-    $sql_cnt .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+    $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 ";
+    $sql_cnt .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+    $sql_cnt .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
     $sql_cnt .= 'AND acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
     $sql_cnt .= "ORDER BY acontent_sorting, acontent_id";
     $cresult  = _dbQuery($sql_cnt);

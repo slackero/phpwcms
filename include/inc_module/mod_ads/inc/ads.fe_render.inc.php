@@ -29,8 +29,8 @@ function renderAds($match) {
 	$sql .= 'ap.adplace_id=ac.adcampaign_place ';
 	$sql .= 'WHERE ac.adcampaign_place='.$adID.' AND ';
 	$sql .= 'ac.adcampaign_status=1 AND ap.adplace_status=1 AND ';
-	$sql .= 'ac.adcampaign_datestart < NOW() AND ';
-	$sql .= 'ac.adcampaign_dateend > NOW() AND ';
+	$sql .= '(ac.adcampaign_datestart IS NULL OR ac.adcampaign_datestart < NOW()) AND ';
+	$sql .= '(ac.adcampaign_dateend IS NULL OR ac.adcampaign_dateend > NOW()) AND ';
 	$sql .= '(ac.adcampaign_maxview=0 OR (ac.adcampaign_maxview > 0 AND ac.adcampaign_maxview >= ac.adcampaign_curview)) AND ';
 	$sql .= '(ac.adcampaign_maxclick=0 OR (ac.adcampaign_maxclick > 0 AND ac.adcampaign_maxclick >= ac.adcampaign_curclick))';
 

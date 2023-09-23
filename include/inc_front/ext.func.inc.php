@@ -167,7 +167,7 @@ function is_date($PASSED, $TXT_DATE_FORMAT='Y-m-d') {
                         switch ($dte_frmt_lstchr) {
                             case "A":
                             case "a":
-                                if (strtoupper($lastchar)!="AM" && strtoupper($lastchar)!="PM") { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
+                                if (strtoupper($lastchar)!=='AM' && strtoupper($lastchar)!=='PM') { $store_arr = FALSE; $i = strlen($PASSED)+1; } // Invalid AM/PM. Crash and burn
                                 else { $store_arr['ampm']=strtoupper($lastchar); } // assign the value to the array
                                 break;
                             case "H":
@@ -438,11 +438,13 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                 $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
                 $sql .= "AND ac.acontent_block NOT IN ('CPSET', 'SYSTEM') ";
                 $sql .= 'AND ac.acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
-                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 AND ";
-                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate IS NULL OR ac.acontent_killdate > NOW()) ";
+                $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 ";
+                $sql .= "AND (ac.acontent_livedate IS NULL OR ac.acontent_livedate < NOW()) ";
+                $sql .= "AND (ac.acontent_killdate IS NULL OR ac.acontent_killdate > NOW()) ";
 
                 if(!PREVIEW_MODE) {
-                    $sql .= " AND ar.article_begin < NOW() AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
+                    $sql .= " AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ";
+                    $sql .= " AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
                 }
                 $sql .= "LIMIT 1";
 
@@ -451,13 +453,15 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
                 $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ac ";
                 $sql .= "INNER JOIN " . DB_PREPEND . "phpwcms_article ar ON ";
                 $sql .= "ar.article_id=ac.acontent_aid ";
-                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 AND ";
-                $sql .= "ac.acontent_livedate < NOW() AND (ac.acontent_killdate IS NULL OR ac.acontent_killdate > NOW()) ";
+                $sql .= "WHERE ac.acontent_id=" . $value . " AND ac.acontent_visible=1 ";
+                $sql .= "AND (ac.acontent_livedate IS NULL OR ac.acontent_livedate < NOW()) ";
+                $sql .= "AND (ac.acontent_killdate IS NULL OR ac.acontent_killdate > NOW()) ";
                 $sql .= "AND ac.acontent_block='SYSTEM' ";
                 $sql .= 'AND ac.acontent_granted' . (FEUSER_LOGIN_STATUS ? '!=2' : '=0') . ' ';
                 $sql .= "AND ac.acontent_trash=0 AND ar.article_deleted=0 ";
                 if(!PREVIEW_MODE) {
-                    $sql .= " AND ar.article_begin < NOW() AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
+                    $sql .= "AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ";
+                    $sql .= "AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
                 }
                 $sql .= "LIMIT 1";
 
@@ -469,8 +473,9 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
 
                 // content parts based on article ID
                 $sql  = "SELECT * FROM " . DB_PREPEND . "phpwcms_articlecontent ";
-                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 AND ";
-                $sql .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+                $sql .= "WHERE acontent_aid=". $value." AND acontent_visible=1 AND acontent_trash=0 ";
+                $sql .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+                $sql .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
 
                 if($mode == 'CPAS' || $mode == 'CPASD') {
                     $sql .= "AND acontent_block='SYSTEM' ";
@@ -658,8 +663,9 @@ function getContentPartAlias($crow) {
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);
         $sql_alias  = "SELECT * FROM ".DB_PREPEND."phpwcms_articlecontent WHERE acontent_id=";
-        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 AND ";
-        $sql_alias .= "acontent_livedate < NOW() AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
+        $sql_alias .= $alias['alias_ID'] . " AND acontent_trash=0 ";
+        $sql_alias .= "AND (acontent_livedate IS NULL OR acontent_livedate < NOW()) ";
+        $sql_alias .= "AND (acontent_killdate IS NULL OR acontent_killdate > NOW()) ";
         if(!empty($alias['alias_status'])) {
             $sql_alias .= 'AND acontent_visible=1 ';
         }
@@ -734,7 +740,8 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
                 break;
     }
     if(!PREVIEW_MODE) {
-        $sql_where[] = "article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
+        $sql_where[] = "(article_begin IS NULL OR article_begin < NOW())";
+        $sql_where[] = "(article_end IS NULL OR article_end > NOW())";
     }
 
     if(count($not)) {
@@ -837,7 +844,8 @@ function get_article_data($article_id, $limit=0, $sort='', $where='', $not=array
                             break;
                 }
                 if(!PREVIEW_MODE) {
-                    $alias_sql .= " AND article_begin < NOW() AND (article_end IS NULL OR article_end > NOW())";
+                    $alias_sql .= " AND (article_begin IS NULL OR article_begin < NOW())";
+                    $alias_sql .= " AND (article_end IS NULL OR article_end > NOW())";
                 }
             }
             $alias_sql .= " AND article_deleted=0 LIMIT 1";
