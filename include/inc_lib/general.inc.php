@@ -2452,7 +2452,7 @@ function uri_sanitize($text) {
 }
 
 function cmsgo_strtotime($date, $date_format = null, $empty_return = false) {
-    $strtotime = strtotime($date);
+    $strtotime = is_null($date) ? false : strtotime($date);
     if ($strtotime < 0 || $strtotime === false) {
         return $empty_return;
     }
