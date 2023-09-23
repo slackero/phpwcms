@@ -21,7 +21,10 @@ $sql  = "SELECT ar.article_id, ar.article_title ";
 $sql .= "FROM ".DB_PREPEND."cmsgo_article ar LEFT JOIN ".DB_PREPEND."cmsgo_articlecontent ac ON ";
 $sql .= "ar.article_id = ac.acontent_aid WHERE ";
 $sql .= "ar.article_public=1 AND  ar.article_aktiv=1 AND ";
-$sql .= "ar.article_deleted=0 AND ar.article_begin<NOW() AND ar.article_end>NOW() AND  ac.acontent_type = ";
+$sql .= "ar.article_deleted=0 AND ";
+$sql .= "(ar.article_begin IS NULL OR ar.article_begin<NOW()) AND ";
+$sql .= "(ar.article_end IS NULL OR ar.article_end>NOW()) AND ";
+$sql .= "ac.acontent_type = ";
 ?>
 
 <h1><?php echo $BLM['listing_title'] ?></h1>
