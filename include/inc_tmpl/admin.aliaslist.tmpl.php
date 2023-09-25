@@ -32,7 +32,7 @@ $result = _dbQuery($sql);
 if(isset($result[0]['acat_id'])) {
   $x = 0;
   echo '<form action="" method="post" name="editstructur">';
-   echo '<table class="table table-sm table-hover mb-0" id="catalias-'.$data["acat_id"].'">';
+   echo '<table class="table table-sm table-hover mb-0">';
 
   foreach($result as $data) {
 
@@ -49,7 +49,7 @@ if(isset($result[0]['acat_id'])) {
 	  echo '</td >';
 
 		echo '<td class="text-right">';
-    echo '<a href="cmsgo.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-right" title="'.$BL['be_func_struct_sedit'].'" data-toggle="tooltip" onClick="'."AjaxLink('catalias-".$data["acat_id"]."','".$data["acat_id"]."','','" . $data["acat_template"] . "');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="cmsgo.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-right" title="'.$BL['be_func_struct_sedit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;
@@ -75,7 +75,7 @@ $result = _dbQuery($sql);
 if(isset($result[0]['article_id'])) {
   $x = 0;
   echo '<form action="" method="post" name="editartikel">';
-  echo '<table class="table table-sm table-hover mb-0" id="alias-'.$data["article_id"].'">';
+  echo '<table class="table table-sm table-hover mb-0">';
   foreach($result as $data) {
 
     // now add article URL
@@ -87,7 +87,7 @@ if(isset($result[0]['article_id'])) {
     echo '</td >';
 
 		echo '<td class="text-right">';
-    echo '<a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" onClick="'."AjaxLink('alias-".$data["article_id"]."','','".$data["article_id"]."','');".'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
     echo "</td>" . LF;
     echo '</tr>';
     $x++;
@@ -100,72 +100,3 @@ if(isset($result[0]['article_id'])) {
   </div>
 </div>
 
-<script type="text/javascript">
-
-    function AjaxLink(contentId, acat_id, article_id, template) {
-        $('[data-toggle="tooltip"], .tooltip').tooltip("hide");
-        $.ajax({
-            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=form&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template,
-            xhrFields: {
-                withCredentials: true
-            }
-        }).done(function (data) {
-            $("#" + contentId).html(data);
-        });
-    }
-
-    function AjaxSubmit(contentId, article_id, article_alias, article_description) {
-        $.ajax({
-            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                action: 'update',
-                'article_alias': article_alias,
-                'article_id': article_id,
-                'article_description': article_description
-            },
-            success: function (data) {
-                $("#" + contentId).html(data).show();
-            },
-            error: function () {
-                $("#" + contentId).html('The request failed.').show();
-            }
-        })
-    }
-
-    function AjaxSubmitCat(contentId, acat_id, acat_alias, acat_pagetitle, template) {
-        $.ajax({
-            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>',
-            xhrFields: {
-                withCredentials: true
-            },
-            data: {
-                action: 'updatecat',
-                'acat_id': acat_id,
-                'acat_alias': acat_alias,
-                'acat_pagetitle': acat_pagetitle,
-                'template': template
-            },
-            success: function (data) {
-                $("#" + contentId).html(data).show();
-            },
-            error: function () {
-                $("#" + contentId).html('The request failed.').show();
-            }
-        })
-    }
-
-    function AjaxClose(contentId, acat_id, article_id, template) {
-        $.ajax({
-            url: 'include/inc_act/ajax_alias.php?<?php echo get_token_get_string(); ?>&action=close&acat_id=' + acat_id + '&article_id=' + article_id + '&template=' + template,
-            xhrFields: {
-                withCredentials: true
-            }
-        }).done(function (data) {
-            $("#" + contentId).html(data);
-        });
-    }
-
-</script>
