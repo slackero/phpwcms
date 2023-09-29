@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 /**
  * phpwcms content management system
  *

@@ -1,4 +1,4 @@
-<?php/** @noinspection ALL */
+<?php
 /**
  * phpwcms content management system
  *
@@ -9,7 +9,7 @@
  *
  **/
 
-$phpwcms = array('SESSION_START' => true);
+$phpwcms = ['SESSION_START' => true];
 $PHPWCMS_ROOT = dirname(__FILE__, 3);
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
