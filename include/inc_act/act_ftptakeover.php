@@ -137,7 +137,7 @@ if(!$ftp["error"]) {
                 'alt' => ''
             );
 
-            if($phpwcms['default_lang'] === $lang) {
+            if($phpwcms['default_lang'] == $lang) {
                 $ftp['file_vars'][$lang]['longinfo'] = $ftp["long_info"];
                 $ftp['file_vars'][$lang]['copyright'] = $ftp["copyright"];
                 $ftp['file_vars'][$lang]['title'] = $ftp["title"];

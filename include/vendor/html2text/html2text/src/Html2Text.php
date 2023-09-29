@@ -598,7 +598,7 @@ class Html2Text
      * @param  array  $matches PREG matches
      * @return string
      */
-    protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */ $matches)
+    protected function pregPreCallback($matches)
     {
         return $this->preContent;
     }
