@@ -35,12 +35,12 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     global $BL;
 
-    $page_val       = ($listmode) ? "do=admin&amp;p=6" : "do=articles";
+    $page_val       = $listmode ? "do=admin&amp;p=6" : "do=articles";
     $child_count    = get_root_childcount($struct[$key]["acat_id"]);
     $child_sort     = (($child_count+1)*10);
 
-    $forbid_cut     = ($struct[$key]["acat_struct"] == $cut_id || $forbid_cut) ? 1 : 0;
-    $forbid_copy    = ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
+    $forbid_cut     = $struct[$key]["acat_struct"] == $cut_id || $forbid_cut ? 1 : 0;
+    $forbid_copy    = $struct[$key]["acat_struct"] == $copy_id || $forbid_copy ? 1 : 0;
 
     $an = html($struct[$key]["acat_name"]);
     $a  = "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
@@ -118,17 +118,17 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
     global $BL;
 
-    $article            = array();  // empty article array
-    $sort_array         = array();  // empty array to store all sort values for the category
+    $article            = [];  // empty article array
+    $sort_array         = [];  // empty array to store all sort values for the category
     $article_order      = intval($article_order);
     $max_article_count  = 0;
-    $show_sort          = (!$article_order || $article_order == 1) ? 1 : 0;
+    $show_sort          = !$article_order || $article_order == 1 ? 1 : 0;
     $ao                 = get_order_sort($article_order);
     $count_article      = 0;
-    $sbutton_string     = array();
+    $sbutton_string     = [];
 
     $sql  = "SELECT *, ";
-    $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted
+    $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ";
     $sql .= "FROM ".DB_PREPEND."phpwcms_article ";
     $sql .= "WHERE article_cid='".$struct_id."' AND article_deleted=0 ORDER BY ".$ao[2];
 
@@ -252,7 +252,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             $a .= ($acontent_count) ? "<a href=\"phpwcms.php?do=articles&amp;opena=".rawurlencode($article[$akey]["article_id"].":".((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]]))?0:1))."\">" : "";
             $a .= "<img src=\"img/symbole/plus_".(($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? "close" : "open") : "empty");
             $a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\" />".(($acontent_count) ? "</a>" : "");
-        }else{
+        } else {
             $a .= "<td class=\"nowrap\"><img src=\"img/leer.gif\" width=\"".(14+29+(14*($counter-1)))."\" height=\"1\" alt=\"\" />";
         }
 
@@ -265,11 +265,11 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
 
         $info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
-        $info .= is_null($article[$akey]["article_begin"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+        $info .= empty($article[$akey]["article_begin"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
         $info .= '</b></td></tr>';
 
         $info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
-        $info .= is_null($article[$akey]["article_end"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
+        $info .= empty($article[$akey]["article_end"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
         $info .= '</b></td></tr>';
 
         $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
