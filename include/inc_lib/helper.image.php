@@ -291,7 +291,7 @@ class Phpwcms_Image_lib {
             $this->dest_folder = $this->source_folder;
             $this->dest_image = $this->new_image;
         } else {
-            if (!str_contains($this->new_image, '\\')) {
+            if (!str_contains($this->new_image, '/') && !str_contains($this->new_image, '\\')) {
                 $full_dest_path = str_replace('\\', '/', realpath($this->new_image));
             } else {
                 $full_dest_path = $this->new_image;
@@ -1221,7 +1221,7 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   resource $resource
+     * @param   resource|string $resource
      *
      * @return  bool
      */
