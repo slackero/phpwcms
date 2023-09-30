@@ -9,22 +9,35 @@
  *
  **/
 
-// Revision 554 Update Check
+/**
+ * Revision 554 Update Check
+ *
+ * @return bool
+ */
 function phpwcms_revision_r554() {
 
     $status = true;
 
     // do former revision check – fallback to r553
-	if(phpwcms_revision_check_temp('553') !== true) {
-		$status = phpwcms_revision_check('553');
-	}
+    if (phpwcms_revision_check_temp('553') !== true) {
+        $status = phpwcms_revision_check('553');
+    }
 
     if (!$status) {
         return false;
     }
 
     // Update DATE/TIME DEFAULT NULL then update 0000-00-00 00:00:00 by NULL
+    // Preserve not required if only 1 column is updated per table or
+    // if there is no ON UPDATE CURRENT_TIMESTAMP column
     $updated = [
+
+        'phpwcms_address' => phpwcms_revision_r554_update_datetime(
+            'phpwcms_address',
+            [
+                'address_tstamp' => 'CURRENT_TIMESTAMP_UPDATE',
+            ]
+        ),
 
         'phpwcms_ads_campaign' => phpwcms_revision_r554_update_datetime(
             'phpwcms_ads_campaign',
@@ -64,6 +77,17 @@ function phpwcms_revision_r554() {
             [
                 'article_begin' => 'DATETIME',
                 'article_end' => 'DATETIME',
+                'article_tstamp' => 'CURRENT_TIMESTAMP_UPDATE',
+            ],
+            [
+                'article_tstamp',
+            ]
+        ),
+
+        'phpwcms_articlecat' => phpwcms_revision_r554_update_datetime(
+            'phpwcms_articlecat',
+            [
+                'acat_tstamp' => 'CURRENT_TIMESTAMP_UPDATE',
             ]
         ),
 
@@ -74,6 +98,9 @@ function phpwcms_revision_r554() {
                 'acontent_tstamp' => 'CURRENT_TIMESTAMP_UPDATE',
                 'acontent_livedate' => 'DATETIME',
                 'acontent_killdate' => 'DATETIME',
+            ],
+            [
+                'acontent_tstamp',
             ]
         ),
 
@@ -151,7 +178,7 @@ function phpwcms_revision_r554() {
         'phpwcms_keyword' => phpwcms_revision_r554_update_datetime(
             'phpwcms_keyword',
             [
-                'keyword_updated' => 'CURRENT_TIMESTAMP',
+                'keyword_updated' => 'CURRENT_TIMESTAMP_UPDATE',
             ]
         ),
 
@@ -182,6 +209,9 @@ function phpwcms_revision_r554() {
                 'newsletter_created' => 'TIMESTAMP',
                 'newsletter_lastsending' => 'TIMESTAMP',
                 'newsletter_changed' => 'CURRENT_TIMESTAMP_UPDATE',
+            ],
+            [
+                'newsletter_changed',
             ]
         ),
 
@@ -235,6 +265,9 @@ function phpwcms_revision_r554() {
                 'detail_tstamp' => 'CURRENT_TIMESTAMP_UPDATE',
                 'userdetail_lastlogin' => 'DATETIME',
                 'detail_birthday' => 'DATE',
+            ],
+            [
+                'detail_tstamp',
             ]
         ),
 
@@ -247,10 +280,16 @@ function phpwcms_revision_r554() {
 
     ];
 
-	return $status;
+    return $status;
 }
 
-function phpwcms_revision_r554_update_datetime($table, $fields) {
+/**
+ * @param $table
+ * @param $fields
+ * @param $preserve
+ * @return bool
+ */
+function phpwcms_revision_r554_update_datetime($table, $fields, $preserve = []) {
 
     if (!$table || !$fields) {
         return false;
@@ -262,7 +301,7 @@ function phpwcms_revision_r554_update_datetime($table, $fields) {
     $drop = [];
     $update = [];
 
-    foreach($fields as $field => $type) {
+    foreach ($fields as $field => $type) {
         // check if NULL is already allowed
         $result = _dbQuery('SHOW COLUMNS FROM `' . DB_PREPEND . $table . '` WHERE Field=' . _dbEscape($field));
         if (isset($result[0]['Null']) && strtoupper($result[0]['Null']) === 'YES') {
@@ -275,7 +314,7 @@ function phpwcms_revision_r554_update_datetime($table, $fields) {
         if ($type === 'DATETIME') {
             $drop[] = 'ALTER `' . $field . '` DROP DEFAULT';
             $update[] = 'CHANGE `' . $field . '` `' . $field . '` DATETIME NULL';
-        } elseif($type === 'DATE') {
+        } elseif ($type === 'DATE') {
             $drop[] = 'ALTER `' . $field . '` DROP DEFAULT';
             $update[] = 'CHANGE `' . $field . '` `' . $field . '` DATE NULL';
         } elseif ($type === 'TIMESTAMP') {
@@ -301,21 +340,33 @@ function phpwcms_revision_r554_update_datetime($table, $fields) {
     if (_dbQuery($alter_table . ' ' . implode(', ', $drop), 'ALTER')) {
         if (_dbQuery($alter_table . ' ' . implode(', ', $update), 'ALTER')) {
             $status = true;
-            foreach($fields as $field => $type) {
+            $preserve_fields = [];
+            if ($preserve && count($preserve) > 0) {
+                foreach ($preserve as $preserve_field) {
+                    $preserve_fields[$preserve_field] = _dbEscape($preserve_field, false) . '=';
+                    $preserve_fields[$preserve_field] .= _dbEscape($preserve_field, false);
+                }
+            }
+            foreach ($fields as $field => $type) {
                 $type = strtoupper($type);
                 if (in_array($type, ['DATETIME', 'TIMESTAMP', 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP_UPDATE'])) {
                     $value = "'0000-00-00 00:00:00'";
-                } elseif($type === 'DATE') {
+                } elseif ($type === 'DATE') {
                     $value = "'0000-00-00'";
                 } else {
                     continue;
                 }
 
+                $_preserve_fields = $preserve_fields;
+                unset($_preserve_fields[$field]); // preserve if different from current field
+                $preserve = '';
+                if (count($_preserve_fields)) {
+                    $preserve = ', ' . implode(', ', $_preserve_fields);
+                }
                 $field = _dbEscape($field, false);
-                $result = _dbQuery(
-                    'UPDATE `' . DB_PREPEND . $table . '` SET ' . $field . '=NULL WHERE ' . $field . '=' . $value,
-                    'UPDATE'
-                );
+                $query = 'UPDATE `' . DB_PREPEND . $table . '` SET ' . $field . '=NULL';
+                $query .= $preserve . ' WHERE ' . $field . '=' . $value;
+                $result = _dbQuery($query, 'UPDATE');
                 if (!isset($result['AFFECTED_ROWS'])) {
                     $status = false;
                 }
