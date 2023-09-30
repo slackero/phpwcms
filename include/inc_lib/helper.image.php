@@ -1221,7 +1221,7 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   resource $resource
+     * @param   resource|string $resource
      *
      * @return  bool
      */
