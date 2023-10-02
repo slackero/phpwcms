@@ -52,8 +52,9 @@ $BL['be_newsletter_new'] = 'Create new newsletter';
 $BL['be_msg_opend'] = 'Open';
 
 //User group
-$BL['be_admin_group_edit'] = "Edit user group";
-$BL['be_admin_group_ldel'] = "Delete user group";
+$BL['be_admin_group'] = "Permissions";
+$BL['be_admin_group_edit'] = "Edit permissions";
+$BL['be_admin_group_ldel'] = "Delete permissions group";
 
 //Image alias
 $BL['be_imagealias'] = 'Pictures Alias';

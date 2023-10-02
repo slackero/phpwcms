@@ -52,8 +52,9 @@ $BL['be_newsletter_new'] = 'Neuen Newsletter erstellen';
 $BL['be_msg_opend'] = 'Geöffnet';
 
 //Benutzergruppe
-$BL['be_admin_group_edit'] = "Benutzergruppe bearbeiten";
-$BL['be_admin_group_ldel'] = "Benutzergruppe löschen";
+$BL['be_admin_group'] = "Berechtigungen";
+$BL['be_admin_group_edit'] = "Berechtigungen bearbeiten";
+$BL['be_admin_group_ldel'] = "Berechtigungen löschen";
 
 //Image alias
 $BL['be_imagealias'] = 'Bilder Alias';
