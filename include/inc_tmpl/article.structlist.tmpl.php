@@ -94,7 +94,7 @@ echo listmode_edits($listmode, $struct, 0, $an, $copy_article_content, $cut_arti
 echo "</td>\n</tr>\n";
 
 if(is_array($_SESSION["structure"]) && !empty($_SESSION["structure"][0])) {
-    struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);//$template_default["article_order"]
+    struct_articlelist(0, 0, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $indexpage['acat_order']);
     struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>

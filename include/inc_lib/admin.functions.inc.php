@@ -41,12 +41,12 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
 
     global $BL;
 
-    $page_val       = ($listmode) ? "do=articles&amp;p=0" : "do=articles";
+    $page_val       = $listmode ? "do=articles&amp;p=0" : "do=articles";
     $child_count    = get_root_childcount($struct[$key]["acat_id"]);
     $child_sort     = (($child_count+1)*10);
 
-    $forbid_cut     = ($struct[$key]["acat_struct"] == $cut_id || $forbid_cut) ? 1 : 0;
-    $forbid_copy    = ($struct[$key]["acat_struct"] == $copy_id || $forbid_copy) ? 1 : 0;
+    $forbid_cut     = $struct[$key]["acat_struct"] == $cut_id || $forbid_cut ? 1 : 0;
+    $forbid_copy    = $struct[$key]["acat_struct"] == $copy_id || $forbid_copy ? 1 : 0;
 
     $an = html($struct[$key]["acat_name"]);
     $a  = "<tr bgcolor=\"#e8e8e8\" onmouseover=\"this.bgColor='#D2EED9';\" onmouseout=\"this.bgColor='#e8e8e8';\">\n";
@@ -124,17 +124,17 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
 
     global $BL;
 
-    $article            = array();  // empty article array
-    $sort_array         = array();  // empty array to store all sort values for the category
+    $article            = [];  // empty article array
+    $sort_array         = [];  // empty array to store all sort values for the category
     $article_order      = intval($article_order);
     $max_article_count  = 0;
-    $show_sort          = (!$article_order || $article_order == 1) ? 1 : 0;
+    $show_sort          = !$article_order || $article_order == 1 ? 1 : 0;
     $ao                 = get_order_sort($article_order);
     $count_article      = 0;
-    $sbutton_string     = array();
+    $sbutton_string     = [];
 
     $sql  = "SELECT *, ";
-    $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted
+    $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date ";
     $sql .= "FROM ".DB_PREPEND."cmsgo_article ";
     $sql .= "WHERE article_cid='".$struct_id."' AND article_deleted=0 ORDER BY ".$ao[2];
 
@@ -185,7 +185,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             // this article has a pre entry
             // so use these by setting (current index - 1)
             $article[$akey]['sort_up'] = $article[$akey-1]['article_sort'];
-            $sort_up = $show_sort ? true : false;
+            $sort_up = $show_sort;
         }
 
         // count up for article array index
@@ -200,7 +200,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             // this article has a follower
             // so use these by setting (current index + 1)
             $article[$akey]['sort_down'] = $article[$akey+1]['article_sort'];
-            $sort_down = $show_sort ? true : false;
+            $sort_down = $show_sort;
         }
 
         $at = html($article[$akey]["article_title"]);
@@ -233,12 +233,12 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         if(!empty($article[$akey]["article_begin"])) {
             $info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
-            $info .= is_null($article[$akey]["article_begin"]) ? $BL['be_not_set'] : cmsgo_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+            $info .= empty($article[$akey]["article_begin"]) ? $BL['be_not_set'] : cmsgo_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
             $info .= '</b></td></tr>';
         }
         if(!empty($article[$akey]["article_end"])) {
             $info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
-            $info .= is_null($article[$akey]["article_end"]) ? $BL['be_not_set'] : cmsgo_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
+            $info .= empty($article[$akey]["article_end"]) ? $BL['be_not_set'] : cmsgo_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
             $info .= '</b></td></tr>';
         }
         $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
