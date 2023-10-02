@@ -70,17 +70,17 @@ class Cmsgo_Image_lib {
     var $full_dst_path = '';
     var $create_fnc = 'imagecreatetruecolor';
     var $copy_fnc = 'imagecopyresampled';
-    var $error_msg = array();
+    var $error_msg = [];
     var $wm_use_drop_shadow = false;
     var $wm_use_truetype = false;
-    var $image_cache = array();
-    var $image_current_vals = array();
+    var $image_cache = [];
+    var $image_current_vals = [];
     var $graphicsmagick = '';
     var $colorspace = 'RGB';
     var $animated_gif = false;
 
     // Language strings
-    var $lang = array(
+    var $lang = [
         'imglib_source_image_required' => "You must specify a source image in your preferences.",
         'imglib_gd_required' => "The GD image library is required for this feature.",
         'imglib_gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
@@ -102,17 +102,17 @@ class Cmsgo_Image_lib {
         'imglib_missing_font' => "Unable to find a font to use.",
         'imglib_save_failed' => "Unable to save the image. Please make sure the image and file directory are writable.",
         'imglib_image_cannot_opened' => 'Unable to open the image. This might happen if the image source is broken or the image is damaged.',
-    );
+    ];
     var $lang_localized = false;        // set to TRUE if overwritten once
 
     /**
      * Constructor
      *
-     * @param   string
+     * @param   array $props
      *
      * @return  void
      */
-    public function __construct($props = array()) {
+    public function __construct($props = []) {
         if (CMSGO_WEBP) {
             $this->target_ext = 'webp';
         }
@@ -131,7 +131,7 @@ class Cmsgo_Image_lib {
      * @return  void
      */
     function clear() {
-        $props = array(
+        $props = [
             'library_path',
             'source_image',
             'new_image',
@@ -153,7 +153,7 @@ class Cmsgo_Image_lib {
             'size_str',
             'full_src_path',
             'full_dst_path',
-        );
+        ];
         foreach ($props as $val) {
             $this->$val = '';
         }
@@ -193,7 +193,7 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   array
+     * @param   array $props
      *
      * @return  bool
      */
@@ -286,11 +286,11 @@ class Cmsgo_Image_lib {
         if ($this->new_image === '') {
             $this->dest_image = $this->source_image;
             $this->dest_folder = $this->source_folder;
-        } elseif (strpos($this->new_image, '/') === false) {
+        } elseif (!str_contains($this->new_image, '/')) {
             $this->dest_folder = $this->source_folder;
             $this->dest_image = $this->new_image;
         } else {
-            if (strpos($this->new_image, '/') === false && strpos($this->new_image, '\\') === false) {
+            if (!str_contains($this->new_image, '/') && !str_contains($this->new_image, '\\')) {
                 $full_dest_path = str_replace('\\', '/', realpath($this->new_image));
             } else {
                 $full_dest_path = $this->new_image;
@@ -368,7 +368,7 @@ class Cmsgo_Image_lib {
         }
         if ($this->wm_shadow_color != '') {
             $this->wm_use_drop_shadow = true;
-        } elseif ($this->wm_use_drop_shadow == true && $this->wm_shadow_color == '') {
+        } elseif ($this->wm_use_drop_shadow) {
             $this->wm_use_drop_shadow = false;
         }
         if ($this->wm_font_path != '') {
@@ -471,7 +471,7 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   string
+     * @param   string $action
      *
      * @return  bool
      */
@@ -546,7 +546,7 @@ class Cmsgo_Image_lib {
             imagefilter($dst_img, IMG_FILTER_GRAYSCALE);
         }
         // Show the image
-        if ($this->dynamic_output == true) {
+        if ($this->dynamic_output) {
             $this->image_display_gd($dst_img);
         } elseif (!$this->image_save_gd($dst_img)) // Or save it
         {
@@ -569,7 +569,7 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   string
+     * @param   string $action
      *
      * @return  bool
      */
@@ -710,7 +710,7 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   string
+     * @param   string $action
      *
      * @return  bool
      */
@@ -750,23 +750,24 @@ class Cmsgo_Image_lib {
         if ($action == 'crop') {
             $cmd_inner = 'pnmcut -left ' . $this->x_axis . ' -top ' . $this->y_axis . ' -width ' . $this->width . ' -height ' . $this->height;
         } elseif ($action == 'rotate') {
-            $angle = 'r90';
             switch ($this->rotation_angle) {
-                case 90     :
+                case 90:
                     $angle = 'r270';
                     break;
-                case 180    :
+                case 180:
                     $angle = 'r180';
                     break;
-                case 270    :
+                case 270:
                     $angle = 'r90';
                     break;
-                case 'vrt'  :
+                case 'vrt':
                     $angle = 'tb';
                     break;
-                case 'hor'  :
+                case 'hor':
                     $angle = 'lr';
                     break;
+                default:
+                    $angle = 'r90';
             }
             $cmd_inner = 'pnmflip -' . $angle . ' ';
         } else // Resize
@@ -811,7 +812,7 @@ class Cmsgo_Image_lib {
         // Rotate it!
         $dst_img = imagerotate($src_img, $this->rotation_angle, $white);
         // Show the image
-        if ($this->dynamic_output == true) {
+        if ($this->dynamic_output) {
             $this->image_display_gd($dst_img);
         } elseif (!$this->image_save_gd($dst_img)) // ... or save it
         {
@@ -1002,7 +1003,7 @@ class Cmsgo_Image_lib {
         if (!($src_img = $this->image_create_gd())) {
             return false;
         }
-        if ($this->wm_use_truetype == true && !file_exists($this->wm_font_path)) {
+        if ($this->wm_use_truetype && !file_exists($this->wm_font_path)) {
             $this->set_error('imglib_missing_font');
             return false;
         }
@@ -1111,9 +1112,10 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   string
+     * @param   string $path
+     * @param   string $image_type
      *
-     * @return  resource
+     * @return  resource|false
      */
     function image_create_gd($path = '', $image_type = '') {
         if ($path == '') {
@@ -1151,7 +1153,7 @@ class Cmsgo_Image_lib {
                     return false;
                 }
                 // Animated WebP isn't supported yet, needs to be detected and rejected
-                $webp_type = file_get_contents($filename, false, null, 12, 4);
+                $webp_type = file_get_contents($path, false, null, 12, 4);
                 if ($webp_type && strtoupper($webp_type) === 'VP8X') {
                     $this->set_error('imglib_webp_animated_not_supported');
                     return false;
@@ -1162,7 +1164,7 @@ class Cmsgo_Image_lib {
                 $im = null;
         }
         if ($im !== null) {
-            if ($im === '') {
+            if ($im === false) {
                 $this->set_error('imglib_image_cannot_opened');
                 return false;
             }
@@ -1178,10 +1180,10 @@ class Cmsgo_Image_lib {
      *
      * @access public
      *
-     * @param   mixed &$im
-     * @param   mixed  $imagename
+     * @param  mixed &$im
+     * @param  mixed  $imagename
      *
-     * @return void
+     * @return bool
      */
     function gd_fix_orientation(&$im, $imagename) {
         // Try to handle exif based orientation
@@ -1208,7 +1210,6 @@ class Cmsgo_Image_lib {
         return false;
     }
 
-
     // --------------------------------------------------------------------
 
     /**
@@ -1219,7 +1220,7 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   resource
+     * @param   resource|string $resource
      *
      * @return  bool
      */
@@ -1280,7 +1281,7 @@ class Cmsgo_Image_lib {
     /**
      * Dynamically outputs an image
      *
-     * @param   resource
+     * @param   resource $resource
      *
      * @return  void
      */
@@ -1358,8 +1359,8 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   string
-     * @param   bool
+     * @param   string $path
+     * @param   bool $return
      *
      * @return  mixed
      */
@@ -1428,13 +1429,13 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   array
+     * @param   array $vals
      *
-     * @return  array
+     * @return  array|null
      */
     function size_calculator($vals) {
         if (!is_array($vals)) {
-            return;
+            return null;
         }
         $allowed = array('new_width', 'new_height', 'width', 'height');
         foreach ($allowed as $item) {
@@ -1467,15 +1468,15 @@ class Cmsgo_Image_lib {
      *
      * @access  public
      *
-     * @param   array
-     * @param   bool
+     * @param   string $source_image
+     * @param   bool $ext_only
      *
-     * @return  array
+     * @return  array|string
      */
     function explode_name($source_image, $ext_only = false) {
         $ext = strrchr($source_image, '.');
         $name = ($ext === false) ? $source_image : substr($source_image, 0, -strlen($ext));
-        return $ext_only ? strtolower(trim($ext, '.')) : array('ext' => $ext, 'name' => $name);
+        return $ext_only ? strtolower(trim($ext, '.')) : ['ext' => $ext, 'name' => $name];
     }
 
     // --------------------------------------------------------------------
@@ -1501,7 +1502,7 @@ class Cmsgo_Image_lib {
      * Get GD version
      *
      * @access  public
-     * @return  mixed
+     * @return  string|false
      */
     function gd_version() {
         if (function_exists('gd_info')) {
@@ -1516,7 +1517,7 @@ class Cmsgo_Image_lib {
     /**
      * Set error message
      *
-     * @param   string
+     * @param   string $msg
      *
      * @return  void
      */
@@ -1531,12 +1532,10 @@ class Cmsgo_Image_lib {
         }
         if (is_array($msg)) {
             foreach ($msg as $val) {
-                $msg = ($this->lang[$val] == false) ? $val : $this->lang[$val];
-                $this->error_msg[] = $msg;
+                $this->error_msg[] = $this->lang[$val] ?? $val;
             }
         } else {
-            $msg = ($this->lang[$msg] == false) ? $msg : $this->lang[$msg];
-            $this->error_msg[] = $msg;
+            $this->error_msg[] = $this->lang[$msg] ?? $msg;
         }
     }
 
@@ -1545,7 +1544,10 @@ class Cmsgo_Image_lib {
     /**
      * Show error messages
      *
-     * @param   string
+     * @param   string $open
+     * @param   string $close
+     * @param   string $wrap_open
+     * @param   string $wrap_close
      *
      * @return  string
      */
