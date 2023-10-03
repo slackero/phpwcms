@@ -24,5 +24,5 @@ function initJSLib() {
 			$GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.3.2.min.js');
 		}
 	}
-	return TRUE;
+	return true;
 }
