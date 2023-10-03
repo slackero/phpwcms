@@ -473,6 +473,7 @@ foreach($unselected_css as $value) {
 <?php
 $jslib_optgroup = false;
 $jslib_current_optgroup = '';
+$jslib_selected = '';
 foreach($phpwcms['js_lib'] as $key => $value) {
     if (substr($value, 0, 1) === '-' && $key !== $jslib_current_optgroup) {
         if ($jslib_optgroup) {
@@ -484,10 +485,20 @@ foreach($phpwcms['js_lib'] as $key => $value) {
         continue;
     }
     echo '<option value="' . $key . '"';
-    is_selected($template['jslib'], $key);
+    if ($template['jslib'] == $key) {
+        $jslib_selected = $key;
+        is_selected($template['jslib'], $key);
+    }
     echo '>' . html($value) . '</option>';
 }
 if ($jslib_optgroup) {
+    echo '</optgroup>';
+}
+if ($template['jslib'] && !$jslib_selected) {
+    echo '<optgroup label="' . html($BL['be_deprecated']) . '">';
+    echo '<option value="' . $template['jslib'] . '" selected="selected">';
+    echo html($template['jslib'] . ' (' . $BL['be_deprecated'] . ')');
+    echo '</option>';
     echo '</optgroup>';
 }
 ?>

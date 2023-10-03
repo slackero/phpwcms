@@ -12,6 +12,8 @@
 
 /**
  * Initialize Slimbox CSS and JavaScript for jQuery
+ *
+ * @return void
  */
 function initSlimbox() {
     initJSLib();
@@ -21,17 +23,19 @@ function initSlimbox() {
 
 /**
  * Initialize Frontend Edit DomReady JavaScript
+ *
+ * @return void
  */
 function init_frontend_edit_js() {
-
     initJSPlugin('switchClass');
     // based on work and idea by markus@localhorst (http://forum.phpwcms.org/viewtopic.php?f=8&t=19551)
     $GLOBALS['block']['js_ondomready'][] = '$("a.fe-link").toggle();$("#fe-link").on("click", function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
-
 }
 
 /**
- * Create JavaScript Domready Section
+ * Create JavaScript DomReady Section
+ *
+ * @return string|true
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
@@ -55,6 +59,8 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
 /**
  * Create JavaScript UnLoad Section
+ *
+ * @return string|true
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
@@ -78,6 +84,8 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
 /**
  * Simple jQuery Plugin Loader
+ *
+ * @return true
  */
 function initJSPlugin($plugin='') {
     $plugin = 'jquery.'.$plugin.'.js';

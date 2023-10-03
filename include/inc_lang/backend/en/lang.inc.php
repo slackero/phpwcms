@@ -1528,3 +1528,5 @@ $BL['be_cnt_form_direct_download'] = 'allow download';
 $BL['be_cnt_form_direct_download_apikey'] = 'API key';
 $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
+
+$BL['be_deprecated'] = 'deprecated';
