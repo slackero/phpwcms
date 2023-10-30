@@ -738,19 +738,27 @@ class phpwcmsNews {
         $post['cnt_prio']           = empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
 
         if (empty($_POST['calendar_start_date'])) {
+            $post['cnt_livedate'] = null;
+        } else {
             $temp_date = _getDate($_POST['calendar_start_date']);
             $temp_time = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
-            $post['cnt_livedate'] = $temp_date . ' ' . $temp_time;
-        } else {
-            $post['cnt_livedate'] = null;
+            if ($temp_date === '0000-00-00') {
+                $post['cnt_livedate'] = null;
+            } else {
+                $post['cnt_livedate'] = $temp_date . ' ' . $temp_time;
+            }
         }
 
         if (empty($_POST['calendar_end_date'])) {
+            $post['cnt_killdate'] = null;
+        } else {
             $temp_date = _getDate($_POST['calendar_end_date']);
             $temp_time = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
-            $post['cnt_killdate'] = $temp_date . ' ' . $temp_time;
-        } else {
-            $post['cnt_killdate'] = null;
+            if ($temp_date === '0000-00-00') {
+                $post['cnt_killdate'] = null;
+            } else {
+                $post['cnt_killdate'] = $temp_date . ' ' . $temp_time;
+            }
         }
 
         $temp_time                  = isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : '';
