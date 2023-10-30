@@ -136,13 +136,13 @@ function true_false($wert) {
     return (intval($wert)) ? 0 : 1;
 }
 
-function on_off($wert, $string, $art = 1, $counter) {
+function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return ($art == 1) ? "+" : '<i class="fa fa-lg fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
+        return ($art == 1) ? '+' : '<i class="fa fa-lg fa-caret-right fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return ($art == 1) ? "-" : '<i class="fa fa-lg fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
+        return ($art == 1) ? '-' : '<i class="fa fa-lg fa-caret-down fa-fw slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
 

@@ -83,7 +83,7 @@ $modulearray                      = [];
 $result = _dbGet('cmsgo_usergroup', '*', 'group_active != 9', '', 'group_id');
 if (isset($result[0])) {
     foreach ($result as $grouplist) {
-        $grouparray[(string) $grouplist["group_syskey"]] = convertStringToArray($grouplist["group_member"]);
+        $grouparray[$grouplist["group_syskey"]] = convertStringToArray($grouplist["group_member"]);
         if ($grouplist["group_modkey"] !== '') {
             if ($grouplist["group_trash"] == '0' && $grouplist["group_active"] == '1') {
                 $modulearray[$grouplist["group_modkey"]] = convertStringToArray($grouplist["group_member"]);
@@ -225,24 +225,36 @@ if($BE['LANG'] == 'ar') {
             echo '"><a href="cmsgo.php?' . get_token_get_string() . '"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
 
             $active = ($do == 'articles' || ($do == 'admin' && $p == 6)) ? ' active' : '';
-            echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="glyphicon arrow"></span></a> ';
-            $subnav = '';
-            if (in_array($_SESSION["wcs_user_id"], $grouparray["artcent"])) {
-                $subnav .= subnavtext($BL['be_subnav_article_center'], "cmsgo.php?do=articles", $p, "", 0);
-                $subnav .= subnavtext($BL['be_subnav_article_new'], "cmsgo.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
+            //only access if admin or permission set
+            if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artcent"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="glyphicon arrow"></span></a> ';
+                $subnav = '';
+                if (in_array($_SESSION["wcs_user_id"], $grouparray["artcent"])) {
+                    $subnav .= subnavtext($BL['be_subnav_article_center'], "cmsgo.php?do=articles", $p, "", 0);
+                    $subnav .= subnavtext($BL['be_subnav_article_new'], "cmsgo.php?do=articles&amp;p=1&amp;struct=0", $p, "1", 0);
+                }
+                if (in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
+                    $subnav .= subnavtext($BL['be_news'], "cmsgo.php?do=articles&amp;p=3", $p, "3", 0);
+                }
+                echo '<ul class="submenu">'.$subnav."</ul></li>";
             }
-            if (in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
-                $subnav .= subnavtext($BL['be_news'], "cmsgo.php?do=articles&amp;p=3", $p, "3", 0);
+
+            $active = $do == 'files' ? ' active' : '';
+            //only access if admin or permission set
+            if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="glyphicon arrow"></span></a> ';
+
+                if (in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
+                    $subnav = subnavtext($BL['be_subnav_file_center'], "cmsgo.php?do=files", $p, "", 0);
+                }
+                if (in_array($_SESSION["wcs_user_id"], $grouparray["fileaction"])) {
+                    $subnav .= subnavtext($BL['be_subnav_file_actions'], "cmsgo.php?do=files&amp;p=4", $p, "4", 0);
+                }
+                if (in_array($_SESSION["wcs_user_id"], $grouparray["fileupload"])) {
+                    $subnav .= subnavtext($BL['be_file_multiple_upload'], "cmsgo.php?do=files&amp;p=8", $p, "8", 0);
+                }
+                echo '<ul class="submenu">'.$subnav."</ul></li>";
             }
-            echo '<ul class="submenu">'.$subnav."</ul></li>";
-
-            $active = ($do == 'files') ? ' active' : '';
-            echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="glyphicon arrow"></span></a> ';
-
-            $subnav = subnavtext($BL['be_subnav_file_center'], "cmsgo.php?do=files", $p, "", 0);
-            $subnav .= subnavtext($BL['be_subnav_file_actions'], "cmsgo.php?do=files&amp;p=4", $p, "4", 0);
-            $subnav .= subnavtext($BL['be_file_multiple_upload'], "cmsgo.php?do=files&amp;p=8", $p, "8", 0);
-            echo '<ul class="submenu">'.$subnav."</ul></li>";
 
             if (!empty($cmsgo['enable_backend_module']) && in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
                 $active = ($do == 'modules') ? ' active' : '';

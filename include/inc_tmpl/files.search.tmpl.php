@@ -61,7 +61,7 @@ if(isset($_POST["file_search"])) {
                     $search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); //fügt freie Keywords zum Suchstring hinzu
 
                     foreach($search["key"] as $value) {
-                        if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
+                        if(preg_match('/' .preg_quote($value, '/'). '/i', $search["string"])) {
                             if($search["andor"]) {
                                 if(!isset($search["result"][$row["f_id"]])) {
                                     $search["result"][$row["f_id"]] = 1;
@@ -79,7 +79,9 @@ if(isset($_POST["file_search"])) {
                     //gilt nur, wenn Anzahl Suchworte = Anzahl Funde im String
                     $search["count_key"] = sizeof($search["key"]);
                     foreach($search["result"] as $key => $value) {
-                        if($search["count_key"] != $value) unset($search["result"][$key]);
+                        if($search["count_key"] != $value) {
+                            unset($search["result"][$key]);
+                        }
                     }
                 }
             }
@@ -110,8 +112,8 @@ if(isset($_POST["file_search"])) {
 
       <label class="form-label mr-2" for="file_search"><?php echo $BL['be_fsearch_searchlabel'] ?></label>
       <input name="file_search" type="search" id="file_search" class="form-control form-control-sm mr-2 my-2 my-sm-0" value="<?php
-                    if(!empty($_SESSION['file_search_query']["file_search"])) {
-                        echo html($_SESSION['file_search_query']["file_search"]);
+                    if(!empty($_SESSION['file_search_query']['file_search'])) {
+                        echo html($_SESSION['file_search_query']['file_search']);
                     }
                 ?>" maxlength="250" />
       <script type="text/javascript"> document.searchfile.file_search.focus(); </script>
@@ -119,8 +121,8 @@ if(isset($_POST["file_search"])) {
       <select name="file_andor" id="file_andor" class="custom-select form-control form-control-sm mr-2 my-2 my-sm-0">
         <?php
 
-        $s1 = isset($_POST["file_andor"]) ? $_POST["file_andor"] : 1;
-        $s2 = isset($_POST["file_which"]) ? $_POST["file_which"] : 2;
+        $s1 = $_POST['file_andor'] ?? 1;
+        $s2 = $_POST['file_which'] ?? 2;
 
         ?>
           <option value="1" <?php is_selected("1", $s1) ?>><?php echo $BL['be_fsearch_and'] ?></option>
@@ -155,12 +157,24 @@ if(isset($search["result"])) {
     $file_result = _dbQuery($file_sql);
     if(isset($file_result[0]['f_id'])) {
         $file_durchlauf = 0;
+        //new delete button
+        if (empty($_SESSION["wcs_user_admin"])) {
+            $result = _dbGet('cmsgo_usergroup', '*', 'group_active != 9', '', 'group_id');
+            if (isset($result[0])) {
+                foreach ($result as $grouplist) {
+                    $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
+                }
+            }
+            $has_filedelete_permission = !empty($grouparray['filedelete']) && in_array($_SESSION['wcs_user_id'], $grouparray['filedelete']);
+        } else {
+            $has_filedelete_permission = true;
+        }
         foreach($file_result as $file_row) {
             $filename = html($file_row["f_name"]);
-            echo "<tr>\n";
+            echo "<tr>";
             echo "<td width=\"13\">";
-             echo '<i class="fa fa-lg fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
-            echo "</td>\n";
+            echo '<i class="fa fa-lg fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            echo "</td>";
             echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {
                 echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
@@ -172,7 +186,7 @@ if(isset($search["result"])) {
 
             }
             echo $filename."</a>";
-            echo "</td>\n<td>\n";
+            echo "</td><td>";
             if($_SESSION["wcs_user_thumb"]) {
                 $thumb_image = get_cached_image(array(
                     "target_ext" => $file_row["f_ext"],
@@ -191,7 +205,7 @@ if(isset($search["result"])) {
                     echo '<img src="'.CMSGO_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a>";
                 }
             }
-            echo "</td>\n<td class=\"text-right text-nowrap\">";
+            echo "</td><td class=\"text-right text-nowrap\">";
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
@@ -200,9 +214,19 @@ if(isset($search["result"])) {
 
             echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
             echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>';
-            echo "</td>\n";
+
+            if ($has_filedelete_permission || $file_row['f_uid'] == intval($_SESSION['wcs_user_id'])) {
+                //if user is owner then delete button is active
+                echo '<a href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.'" ';
+                echo 'data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
+                echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
+                echo "');\">", '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
+            } else {
+                echo '<div class="dropdown-item"><i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt disabled" aria-hidden="true"></i></div>';
+            }
+            echo "</td>";
             //Ende Aufbau
-            echo "</tr>\n";
+            echo "</tr>";
             $file_durchlauf++;
         }
         if($file_durchlauf) { //Abschluss der Filelisten-Tabelle

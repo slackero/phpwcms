@@ -35,6 +35,7 @@ $groupnames = array(
     'filecent' => $BL['be_nav_files'].' - '.$BL['be_subnav_file_center'],
     'fileaction' => $BL['be_nav_files'].' - '.$BL['be_subnav_file_actions'],
     'fileupload' => $BL['be_nav_files'].' - '.$BL['be_file_multiple_upload'],
+    'filedelete' => $BL['be_nav_files'].' - '.$BL['be_ftabhelp_delete'],
     'module' => $BL['be_nav_modules'],
     'nl' => $BL['be_nav_messages'],
     'nllist' => $BL['be_nav_messages'].' - '.$BL['be_subnav_msg_newslettersend'],
