@@ -15,9 +15,9 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-if(isset($_GET["open"])) {
-    list($open_id, $open_value) = explode(":", $_GET["open"]);
-    $_SESSION["fcatlist"][intval($open_id)] = intval($open_value);
+if(isset($_GET['open'])) {
+    list($open_id, $open_value) = explode(':', $_GET['open']);
+    $_SESSION['fcatlist'][intval($open_id)] = intval($open_value);
 }
 ?>
 
@@ -279,24 +279,24 @@ if(isset($_GET["open"])) {
             echo "</td>\n</tr>\n";
 
 
-            if(isset($_SESSION["fcatlist"]) && isset($_SESSION["fcatlist"][$row["fcat_id"]]) && $_SESSION["fcatlist"][$row["fcat_id"]]) { //List key names for this categroy
-                $ksql = "SELECT * FROM ".DB_PREPEND."cmsgo_filekey WHERE fkey_cid=".$row["fcat_id"]." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
+            if(!empty($_SESSION["fcatlist"][$row["fcat_id"]])) { //List key names for this categroy
+                $ksql = "SELECT * FROM ".DB_PREPEND."cmsgo_filekey WHERE fkey_cid=".$row['fcat_id']." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
                 $kresult = _dbQuery($ksql);
-                if(isset($kresult[0]['fcat_id'])) {
+                if(isset($kresult[0]['fkey_id'])) {
                     foreach($kresult as $krow) {
                         echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
                         echo "<td><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
                         echo "<td><img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
                         echo "<td></td>\n";
-                        echo "<td>".html($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
+                        echo "<td>".html($krow['fkey_name'])." [".$krow['fkey_sort']."]</td>\n";
                         echo "</tr>\n</table></td>\n";
-                        echo "<td><a href=\"cmsgo.php?do=admin&p=7&fkeyid=".$krow["fkey_id"]."&cid=".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
+                        echo "<td><a href=\"cmsgo.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
                         echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
-                        echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow["fkey_id"].",".(($krow["fkey_aktiv"])?0:1)."\" title =\"".$BL['be_fprivfunc_cactivefile']."\">";
-                        echo "<img src=\"img/button/active_11x11_".$krow["fkey_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
+                        echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".(($krow['fkey_aktiv'])?0:1)."\" title =\"".$BL['be_fprivfunc_cactivefile']."\">";
+                        echo "<img src=\"img/button/active_11x11_".$krow['fkey_aktiv'].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 
-                        echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow["fkey_id"].",".($krow["fkey_cid"])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
-                        echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow["fkey_name"])."] ');\">";
+                        echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
+                        echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow['fkey_name'])."] ');\">";
                         echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
                         echo "</td>\n</tr>\n";
                     }
@@ -306,9 +306,8 @@ if(isset($_GET["open"])) {
     }
 ?>
 
-<form action="cmsgo.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
-                <input type="submit" value="<?php echo $BL['be_admin_fcat_addcat'] ?>" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_fcat_addcat'] ?>" />
-</form>
-</div>
+    <form action="cmsgo.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
+        <input type="submit" value="<?php echo $BL['be_admin_fcat_addcat'] ?>" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_fcat_addcat'] ?>" />
+    </form>
 </div>
 </div>
