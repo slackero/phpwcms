@@ -13,13 +13,11 @@ function cmsgo_revision_r555() {
 
 	$status = true;
 
-	// do former revision check – fallback to r551
+	// do former revision check – fallback to r554
 	if(cmsgo_revision_check_temp('554') !== true) {
 		$status = cmsgo_revision_check('554');
 	}
 
-    // Try to fix SVG again
-    // Search existing SVG files and try to set width and height
     $result = _dbCount('SELECT COUNT(*) FROM ' . DB_PREPEND . "cmsgo_usergroup WHERE group_syskey='filedelete' AND group_trash=0");
 
     if($result > 0) {
