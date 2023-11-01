@@ -232,9 +232,16 @@ if($file_id) {
             $file_granted           = $row["f_granted"];
             $file_gallerydownload   = $row["f_gallerystatus"];
             $file_sort              = $row["f_sort"];
-            $file_vars              = @unserialize($row['f_vars'], ['allowed_classes' => false]);
             $file_title             = $row["f_title"];
             $file_alt               = $row["f_alt"];
+            if (empty($row['f_vars'])) {
+                $file_vars = [];
+            } else {
+                $file_vars = @unserialize($row['f_vars'], ['allowed_classes' => false]);
+                if ($file_vars === false) {
+                    $file_vars = [];
+                }
+            }
 
             if($file_keys) {
                 $file_keys_temp = explode(":", $file_keys);
