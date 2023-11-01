@@ -16,20 +16,19 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-if(isset($_GET["open"])) {
-    list($open_id, $open_value) = explode(":", $_GET["open"]);
-    $_SESSION["fcatlist"][intval($open_id)] = intval($open_value);
+if(isset($_GET['open'])) {
+    list($open_id, $open_value) = explode(':', $_GET['open']);
+    $_SESSION['fcatlist'][intval($open_id)] = intval($open_value);
 }
 ?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr><td colspan="2" class="title"><?php echo $BL['be_admin_fcat_title'] ?></td></tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-          <?php
-          if(isset($_GET["fcatid"])) {
-          ?>
-		  <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
-          <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-    </tr>
+    <tr><td colspan="2" class="title"><?php echo $BL['be_admin_fcat_title'] ?></td></tr>
+    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
+    <?php
+    if(isset($_GET['fcatid'])) {
+    ?>
+    <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+    <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <?php
             $fcat["id"] = intval($_GET["fcatid"]);
             if($fcat["id"]) {
@@ -96,7 +95,6 @@ if(isset($_GET["open"])) {
               <td><input name="fcat_name" type="text" id="fcat_name" class="width400" value="<?php echo  empty($fcat["name"]) ? '' : html($fcat["name"]) ?>" size="40" maxlength="250" /></td>
             </tr>
 
-
             <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
 
             <tr>
@@ -139,10 +137,8 @@ if(isset($_GET["open"])) {
 
           if(isset($_GET["fkeyid"])) { //Keyname
           ?>
-          <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td>
-    </tr>
-          <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-    </tr>
+          <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1" /></td></tr>
+          <tr bgcolor="#F0F2F4"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
           <?php
             $fkey["id"] = intval($_GET["fkeyid"]);
             $fkey["cid"] = intval($_GET["cid"]);
@@ -268,9 +264,7 @@ if(isset($_GET["open"])) {
           </form>
 <?php
           } //Ende Anzeige Key Name Formular
-
-
-          ?>
+?>
           <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
           <?php
             $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
@@ -284,12 +278,12 @@ if(isset($_GET["open"])) {
                     $child_count = get_filecat_childcount($row["fcat_id"]);
 
                     echo "<td>";
-                    echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."\">" : "";
-                    echo "<img src=\"img/symbole/plus_".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "open" : "close") : "empty");
-                    echo ".gif\" width=\"15\" height=\"15\" border=\"0\">".(($child_count) ? "</a>" : "")."</td>\n";
+                    echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"]. ':' .(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."\">" : '';
+                    echo "<img src=\"img/symbole/plus_".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? 'open' : 'close') : 'empty');
+                    echo ".gif\" width=\"15\" height=\"15\" border=\"0\">".(($child_count) ? '</a>' : '')."</td>\n";
 
                     echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-                    echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
+                    echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row['fcat_name'])."</strong> [".$row["fcat_sort"]."]</td>\n";
                     echo "</tr>\n</table></td>".LF;
 
 					echo '<td width="66" class="nowrap">';
@@ -309,29 +303,28 @@ if(isset($_GET["open"])) {
 
                     echo "</td>\n</tr>\n";
 
-
-                    if(isset($_SESSION["fcatlist"][$row["fcat_id"]]) && $_SESSION["fcatlist"][$row["fcat_id"]]) { //List key names for this categroy
+                    if(!empty($_SESSION["fcatlist"][$row["fcat_id"]])) { //List key names for this categroy
                         $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_cid=".$row["fcat_id"]." AND fkey_deleted=0 ORDER BY fkey_sort, fkey_name";
                         $kresult = _dbQuery($ksql);
-                        if(isset($kresult[0]['fcat_id'])) {
+                        if(isset($kresult[0]['fkey_id'])) {
                             foreach($kresult as $krow) {
                                 echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
                                 echo "<td><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
                                 echo "<td><img src=\"img/leer.gif\" width=\"16\" height=\"1\">";
                                 echo "<img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
                                 echo "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\"></td>\n";
-                                echo "<td>".html($krow["fkey_name"])." [".$krow["fkey_sort"]."]</td>\n";
+                                echo "<td>".html($krow['fkey_name'])." [".$krow['fkey_sort']."]</td>\n";
                                 echo "</tr>\n</table></td>\n";
 								echo '<td class="nowrap"><img src="img/leer.gif" width="22" height="11">';
 
-                                echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow["fkey_id"]."&cid=".$row["fcat_id"]."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
+                                echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
                                 echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
 
-                                echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow["fkey_id"].",".(($krow["fkey_aktiv"])?0:1)."\" title =\"".$BL['be_fprivfunc_cactivefile']."\">";
-                                echo "<img src=\"img/button/active_11x11_".$krow["fkey_aktiv"].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
+                                echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".($krow['fkey_aktiv']?0:1)."\" title =\"".$BL['be_fprivfunc_cactivefile']."\">";
+                                echo "<img src=\"img/button/active_11x11_".$krow['fkey_aktiv'].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
 
-                                echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow["fkey_id"].",".($krow["fkey_cid"])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
-                                echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow["fkey_name"])."] ');\">";
+                                echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" title =\"".$BL['be_admin_fcat_delkey']."\" ";
+                                echo "onclick=\"return confirm('".$BL['be_admin_fcat_delmsg']."\\n[".html($krow['fkey_name'])."] ');\">";
                                 echo "<img src=\"img/button/del_11x11.gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
                                 echo "</td>\n</tr>\n";
                             }
@@ -340,14 +333,16 @@ if(isset($_GET["open"])) {
                 }
             }
         ?>
-        <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-          <tr>
-            <td><img src="img/leer.gif" alt="" width="483" height="1" /></td>
-			<td><img src="img/leer.gif" alt="" width="66" height="5" /></td>
+    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+    <tr>
+        <td><img src="img/leer.gif" alt="" width="483" height="1" /></td>
+        <td><img src="img/leer.gif" alt="" width="66" height="5" /></td>
     </tr>
-          <tr>
-            <td colspan="2"><form action="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
+    <tr>
+        <td colspan="2">
+            <form action="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
                 <input type="submit" value="<?php echo $BL['be_admin_fcat_addcat'] ?>" class="button" title="<?php echo $BL['be_admin_fcat_addcat'] ?>" />
-            </form></td>
-          </tr>
+            </form>
+        </td>
+    </tr>
 </table>
