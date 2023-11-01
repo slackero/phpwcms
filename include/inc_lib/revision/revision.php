@@ -8,6 +8,6 @@
  *
  **/
 
-define('CMSGO_VERSION', '2.4.3');
-define('CMSGO_RELEASE_DATE', '2023/10/30');
-define('CMSGO_REVISION', '555');
+const CMSGO_VERSION = '2.4.3';
+const CMSGO_RELEASE_DATE = '2023/11/01';
+const CMSGO_REVISION = '556';

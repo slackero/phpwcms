@@ -98,12 +98,12 @@ function forward_to($to, $link, $time=2500) { //Javascript forwarding
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
     //generate ul based subnavigation based on text
     $sn = '';
-    if($is == $should) {
-        $sn .= '<li class="subnavactive"><a href="'.$link.'">'.$text.'</a></li>';
+    if ($is == $should) {
+        $sn .= '<li class="subnavactive"><a href="' . $link . '">' . $text . '</a></li>';
     } else {
-        $sn .= '<li class="subnavinactive"><a href="'.$link.'" ' .$js.'>'.$text."</a></li>";
+        $sn .= '<li class="subnavinactive"><a href="' . $link . '" ' . $js . '>' . $text . '</a></li>';
     }
-    if(!$getback) {
+    if (!$getback) {
         return $sn;
     } else {
         echo $sn;
@@ -114,9 +114,9 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
 
 function subnavtextext($text, $link, $target='_blank', $getback=1) {
     //generate ul based subnavigation based on text and links to new page
-    $sn  = '<li class="subnavinactive"><a href="'.$link.'" target="'.$target.'" >'.$text.'</a></li>';
+    $sn = '<li class="subnavinactive"><a href="' . $link . '" target="' . $target . '" >' . $text . '</a></li>';
 
-    if(!$getback) {
+    if (!$getback) {
         return $sn;
     }
     echo $sn;

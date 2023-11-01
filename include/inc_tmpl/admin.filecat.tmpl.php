@@ -81,7 +81,7 @@ if(isset($_GET['open'])) {
     }
 
   ?>
-  <form action="cmsgo.php?do=admin&amp;p=7&amp;fcatid=<?php echo $fcat["id"] ?>" method="post" name="filecategory" id="filecategory">
+  <form action="cmsgo.php?do=admin&amp;p=7&amp;fcatid=<?php echo $fcat["id"] ?>" method="post" name="filecategory" id="filecategory" class="mb-4">
 
   <table border="0" cellpadding="0" cellspacing="0" summary="">
     <?php if(!empty($fcat["error"])) { ?>
@@ -93,29 +93,29 @@ if(isset($_GET['open'])) {
     <?php } ?>
     <tr>
       <td><?php echo $BL['be_admin_fcat_name'] ?>:&nbsp;</td>
-      <td><input name="fcat_name" type="text" id="fcat_name" class="form-control" value="<?php echo  empty($fcat["name"]) ? '' : html($fcat["name"]) ?>" size="40" maxlength="250" /></td>
+      <td class="pb-2"><input name="fcat_name" type="text" id="fcat_name" class="form-control" value="<?php echo  empty($fcat["name"]) ? '' : html($fcat["name"]) ?>" size="40" maxlength="250" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td><input name="fcat_sort" type="text" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fcat_sort" type="text" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-      <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#D9DEE3" summary="">
+      <td class="bg-grey p-2"><table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
-          <td><input name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> /></td>
-          <td><label for="fcat_active"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
-          <td><input name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> /></td>
-          <td><label for="fcat_needed"><?php echo $BL['be_admin_fcat_needed'] ?></label>&nbsp;&nbsp;</td>
+          <td><input class="form-check" name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> /></td>
+          <td><label for="fcat_active" class="pl-1 pr-3"><?php echo $BL['be_ftptakeover_active'] ?></label></td>
+          <td><input class="form-check" name="fcat_needed" type="checkbox" id="fcat_needed" value="1"<?php is_checked(1, empty($fcat["needed"]) ? 0 : $fcat["needed"]); ?> /></td>
+          <td><label for="fcat_needed" class="pl-1"><?php echo $BL['be_admin_fcat_needed'] ?></label></td>
         </tr>
       </table></td>
       </tr>
 
     <tr>
       <td></td>
-      <td>
+      <td class="pt-3">
       <input name="Submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo $sendbutton ?>" />
       &nbsp;&nbsp;
       <input name="donotsubmit" type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='cmsgo.php?do=admin&amp;p=7';" /></td>
@@ -181,23 +181,25 @@ if(isset($_GET['open'])) {
         }
     }
   ?>
-  <form action="cmsgo.php?do=admin&amp;p=7&amp;fkeyid=<?php echo $fkey["id"]."&cid=".$fkey["cid"] ?>" method="post" name="filekey" id="filekey">
+  <form action="cmsgo.php?do=admin&amp;p=7&amp;fkeyid=<?php echo $fkey["id"]."&cid=".$fkey["cid"] ?>" method="post" name="filekey" id="filekey" class="mb-4">
   <table border="0" cellpadding="0" cellspacing="0" summary="">
   <tr>
       <td><?php echo $BL['be_admin_fcat_fcat'] ?>:&nbsp;</td>
-      <td><select name="fkey_cid" id="fkey_cid" class="custom-select form-control">
-      <?php
-        $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
-        $result = _dbQuery($sql);
-        if(isset($result[0]['fcat_id'])) {
-            foreach($result as $row) {
-                echo "<option value=\"".$row["fcat_id"]."\"".
-                     (($row["fcat_id"]==$fkey["cid"])?" selected":"").
-                     ">".html($row["fcat_name"])."</option>\n";
-            }
-        }
-      ?>
-        </select></td>
+      <td class="pb-2">
+          <select name="fkey_cid" id="fkey_cid" class="custom-select form-control">
+          <?php
+          $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_filecat WHERE fcat_deleted=0 ORDER BY fcat_name";
+          $result = _dbQuery($sql);
+          if (isset($result[0]['fcat_id'])) {
+              foreach ($result as $row) {
+                  echo "<option value=\"" . $row["fcat_id"] . "\"" .
+                      (($row["fcat_id"] == $fkey["cid"]) ? " selected" : "") .
+                      ">" . html($row["fcat_name"]) . "</option>\n";
+              }
+          }
+          ?>
+          </select>
+      </td>
     </tr>
 
     <?php if(!empty($fkey["error"])) { ?>
@@ -209,35 +211,35 @@ if(isset($_GET['open'])) {
     <?php } ?>
     <tr>
       <td><?php echo $BL['be_admin_fcat_fkeyname'] ?>:&nbsp;</td>
-      <td><input name="fkey_name" type="text" id="fkey_name" class="form-control" value="<?php echo html(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
+      <td class="pb-2"><input name="fkey_name" type="text" id="fkey_name" class="form-control" value="<?php echo html(empty($fkey["name"]) ? '' : $fkey["name"]) ?>" size="40" maxlength="250" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td><input name="fkey_sort" type="text" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fkey_sort" type="text" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-      <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#D9DEE3" summary="">
+      <td class="bg-grey p-2"><table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
-          <td><input name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> /></td>
-          <td><label for="fkey_active"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
+          <td><input class="form-check" name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> /></td>
+          <td><label for="fkey_active" class="pl-1"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
         </tr>
       </table></td>
       </tr>
 
     <tr>
-      <td>
+      <td></td>
+      <td class="pt-3">
+        <input name="Submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo $sendbutton ?>" />
+        &nbsp;&nbsp;
+        <input name="donotsubmit" type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='cmsgo.php?do=admin&amp;p=7';" />
       </td>
-      <td>
-      <input name="Submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo $sendbutton ?>" />
-      &nbsp;&nbsp;
-      <input name="donotsubmit" type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='cmsgo.php?do=admin&amp;p=7';" /></td>
     </tr>
     </table>
-      <input name="fkey_id" type="hidden" id="fkey_id" value="<?php echo intval($fkey["id"]) ?>" />
-      <input name="fkey_aktion" type="hidden" id="fkey_aktion" value="1" />
+    <input name="fkey_id" type="hidden" id="fkey_id" value="<?php echo intval($fkey["id"]) ?>" />
+    <input name="fkey_aktion" type="hidden" id="fkey_aktion" value="1" />
   </form>
 <?php
   } //Ende Anzeige Key Name Formular
@@ -247,6 +249,8 @@ if(isset($_GET['open'])) {
     $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
     if(isset($result[0]['fcat_id'])) {
+        echo '<table border="0" cellpadding="0" cellspacing="0" summary="" class="mb-4">';
+
         foreach($result as $row) {
 
             echo "<tr onmouseover=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
@@ -261,7 +265,7 @@ if(isset($_GET['open'])) {
             echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
             echo "</tr>\n</table></td>".LF;
 
-            echo '<td width="66" class="nowrap">';
+            echo '<td width="66" class="nowrap" align="right">';
 
             echo "<a href=\"cmsgo.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" title=\"".$BL['be_admin_fcat_addkey']."\">";
             echo "<img src=\"img/button/add_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
@@ -286,11 +290,11 @@ if(isset($_GET['open'])) {
                     foreach($kresult as $krow) {
                         echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
                         echo "<td><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
+                        echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"1\"></td>\n";
                         echo "<td><img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
-                        echo "<td></td>\n";
                         echo "<td>".html($krow['fkey_name'])." [".$krow['fkey_sort']."]</td>\n";
                         echo "</tr>\n</table></td>\n";
-                        echo "<td><a href=\"cmsgo.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
+                        echo "<td align=\"right\"><a href=\"cmsgo.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" title =\"".$BL['be_admin_fcat_editkey']."\">";
                         echo "<img src=\"img/button/edit_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
                         echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".(($krow['fkey_aktiv'])?0:1)."\" title =\"".$BL['be_fprivfunc_cactivefile']."\">";
                         echo "<img src=\"img/button/active_11x11_".$krow['fkey_aktiv'].".gif\" width=\"11\" height=\"11\" border=\"0\"></a>";
@@ -303,6 +307,8 @@ if(isset($_GET['open'])) {
                 }
             } //Ende List Keynames
         }
+
+        echo '</table>';
     }
 ?>
 

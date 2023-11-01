@@ -270,49 +270,52 @@ if($BE['LANG'] == 'ar') {
 
             //newsletter
             if (!empty($cmsgo['enable_backend_newsletter']) && in_array($_SESSION["wcs_user_id"], $grouparray["nl"])) {
-                $active = ($do == 'messages' || ($do == 'messages' && $p == 2)) ? ' active' : '';
+                $active = $do == 'messages' ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="glyphicon arrow"></span></a> ';
                 $subnav = '';
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["nlabo"])) {
-                    $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], "cmsgo.php?do=messages&amp;p=2", $p, "2", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
+                    $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], 'cmsgo.php?do=messages&amp;p=2', $p, '2', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["nllist"])) {
-                    $subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], "cmsgo.php?do=messages&amp;p=3", $p, "3", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['nllist'])) {
+                    $subnav .= subnavtext($BL['be_subnav_msg_newslettersend'], 'cmsgo.php?do=messages&amp;p=3', $p, '3', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["nlrecip"])) {
-                    $subnav .= subnavtext($BL['be_subnav_msg_subscribers'], "cmsgo.php?do=messages&amp;p=4", $p, "4", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['nlrecip'])) {
+                    $subnav .= subnavtext($BL['be_subnav_msg_subscribers'], 'cmsgo.php?do=messages&amp;p=4', $p, '4', 0);
                 }
                 echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
             }
 
-            if (in_array($_SESSION["wcs_user_id"], $grouparray["adm"])) {
+            if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
                 $active = ($do == 'admin' && $p != 6) ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="glyphicon arrow"></span></a>';
                 $subnav = '';
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admlayout"])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], "cmsgo.php?do=admin&amp;p=8", $p, "8", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
+                    $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'cmsgo.php?do=admin&amp;p=8', $p, '8', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admtempl"])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_templates'], "cmsgo.php?do=admin&amp;p=11", $p, "11", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admtempl'])) {
+                    $subnav .= subnavtext($BL['be_subnav_admin_templates'], 'cmsgo.php?do=admin&amp;p=11', $p, '11', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admuser"])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_users'], "cmsgo.php?do=admin", $p, "", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admuser'])) {
+                    $subnav .= subnavtext($BL['be_subnav_admin_users'], 'cmsgo.php?do=admin', $p, '', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admugroup"])) {
-                    $subnav .= subnavtext($BL['be_subnav_admin_groups'], "cmsgo.php?do=admin&amp;p=1", $p, "1", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admugroup'])) {
+                    $subnav .= subnavtext($BL['be_subnav_admin_groups'], 'cmsgo.php?do=admin&amp;p=1', $p, '1', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admialias"])) {
-                    $subnav .= subnavtext($BL['be_imagealias'], 'cmsgo.php?do=admin&amp;p=12', $p, "12", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admialias'])) {
+                    $subnav .= subnavtext($BL['be_imagealias'], 'cmsgo.php?do=admin&amp;p=12', $p, '12', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admalias"])) {
-                    $subnav .= subnavtext($BL['be_alias'], 'cmsgo.php?do=admin&amp;p=13', $p, "13", 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admfilecat'])) {
+                    $subnav .= subnavtext($BL['be_subnav_admin_filecat'], 'cmsgo.php?do=admin&amp;p=7', $p, '7', 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["admlink"])) {
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admalias'])) {
+                    $subnav .= subnavtext($BL['be_alias'], 'cmsgo.php?do=admin&amp;p=13', $p, '13', 0);
+                }
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['admlink'])) {
                     $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'cmsgo.php?do=admin&amp;p=14', $p, "14", 0);
                 }
 
                 $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\');" ');
-                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION["wcs_user_id"], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
+                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 
                 $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php?' . get_token_get_string(), '_blank', 0);
                 echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
@@ -424,7 +427,7 @@ if($BE['LANG'] == 'ar') {
             }
             break;
 
-      case "admin":    //Administration
+      case 'admin':    //Administration
         if ($_SESSION["wcs_user_admin"] == 1) {
             switch ($p) {
             case 0: //User Administration

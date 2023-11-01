@@ -858,14 +858,14 @@ CREATE TABLE `cmsgo_userdetail` (
 
 CREATE TABLE `cmsgo_usergroup` (
   `group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(200) NOT NULL DEFAULT '',
+  `group_name` varchar(255) NOT NULL DEFAULT '',
   `group_member` mediumtext NOT NULL,
   `group_value` longblob NOT NULL,
   `group_timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `group_trash` int(1) NOT NULL DEFAULT '0',
   `group_active` int(1) NOT NULL DEFAULT '0',
-  `group_modkey` varchar(20) NOT NULL,
-  `group_syskey` varchar(10) NOT NULL,
+  `group_modkey` varchar(255) NOT NULL,
+  `group_syskey` varchar(255) NOT NULL,
   PRIMARY KEY (`group_id`),
   KEY `group_member` (`group_member`(255))
 );

@@ -18,21 +18,21 @@ if (!defined('CMSGO_ROOT')) {
 $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 
 foreach($cmsgo['modules'] as $value) {
-  $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_usergroup WHERE group_modkey='".$value["name"]."' LIMIT 1";
+  $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_usergroup WHERE group_modkey="._dbEscape($value["name"])." LIMIT 1";
   $result = _dbQuery($sql);
   if(!isset($result[0]['group_id'])) {
-    $data = array(
-        'group_name'    => $BL['modules'][$value["name"]]['backend_menu'],
-        'group_member'  => array('1'),
-        'group_value'   => 'Modul '.$BL['modules'][$value["name"]]['backend_menu'],
+    $data = [
+        'group_name'    => $BL['modules'][$value['name']]['backend_menu'],
+        'group_member'  => ['1'],
+        'group_value'   => 'Modul '.$BL['modules'][$value['name']]['backend_menu'],
         'group_trash'   => 0,
         'group_active'  => 1,
         'group_modkey'  => $value["name"]
-    );
+    ];
 
     $result = _dbInsert('cmsgo_usergroup', $data);
     if(isset($result['INSERT_ID'])) {
-      echo '<div class="alert alert-success">Module '.$BL['modules'][$value["name"]]['backend_menu'].' erfolgreich hinzugefügt</div>';
+      echo '<div class="alert alert-success">Module '.$BL['modules'][$value['name']]['backend_menu'].' erfolgreich hinzugefügt</div>';
     }
   }
 }
@@ -59,7 +59,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
   <div class="card-body">
 
 <?php
-  $group["id"]        = empty($_GET["u"]) ? 0 : intval($_GET["u"]);
+  $group["id"]        = empty($_GET['u']) ? 0 : intval($_GET['u']);
   $group["name"]      = '';
   $group["member"]    = array();
   $group["value"]     = '';
@@ -103,7 +103,6 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
       } else {
 
           $data = array(
-
               'group_name'    => $group["name"],
               'group_member'  => $group["member"],
               'group_value'   => $group["value"],
@@ -153,66 +152,66 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
     <div class="form-group form-row" >
       <label for="be_selection" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_selection'] ?></label>
         <div class="col">
-					<?php
-					// list all available frontend users and put into temp array
-					$sql = "SELECT * FROM ".DB_PREPEND."cmsgo_user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
-					$result = _dbQuery($sql);
-					$_temp_usr = array();
-					if(isset($result[0]['usr_id'])) {
-						foreach($result as $row) {
-						 $_temp_usr[$row['usr_id']]['name']  = html($row['usr_name']);
-						 $_temp_usr[$row['usr_id']]['login']   = html($row['usr_login']);
-						 $_temp_usr[$row['usr_id']]['fe']  = $row['usr_fe'];
-						 $_temp_usr[$row['usr_id']]['active'] = $row['usr_aktiv'];
-						 $_temp_usr[$row['usr_id']]['admin'] = $row['usr_admin'];
-						}
-					}
-					?>
-					<select name="acat_access[]" id="acat_access" size="12" multiple="multiple" class="custom-select form-control form-control-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
-						<?php
-						if(count($_temp_usr)) {
-						// list all fe_users
-								foreach($_temp_usr as $key => $value) {
-										if(isset($group["member"]) && empty($group["error"])) {
-											if(in_array($key, $group["member"])) {
-													echo '<option value="'.$key.'"';
-													if(!$_temp_usr[$key]['active']) {
-														echo ' style="color:#999999;"';
-														} else if($_temp_usr[$key]['admin']) {
-														echo ' style="color:#3F61BF;"';
-													}
-												echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
-											unset($_temp_usr[$key]);
-														}
-												}
-										}
-								}
-						?>
-					</select>
+            <?php
+            // list all available frontend users and put into temp array
+            $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_user WHERE usr_aktiv != 9 ORDER BY usr_fe, usr_name, usr_login";
+            $result = _dbQuery($sql);
+            $_temp_usr = array();
+            if(isset($result[0]['usr_id'])) {
+                foreach($result as $row) {
+                    $_temp_usr[$row['usr_id']]['name'] = html($row['usr_name']);
+                    $_temp_usr[$row['usr_id']]['login'] = html($row['usr_login']);
+                    $_temp_usr[$row['usr_id']]['fe'] = $row['usr_fe'];
+                    $_temp_usr[$row['usr_id']]['active'] = $row['usr_aktiv'];
+                    $_temp_usr[$row['usr_id']]['admin'] = $row['usr_admin'];
+                }
+            }
+            ?>
+            <select name="acat_access[]" id="acat_access" size="12" multiple="multiple" class="custom-select form-control form-control-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);">
+                <?php
+                if (count($_temp_usr)) {
+                    // list all fe_users
+                    foreach ($_temp_usr as $key => $value) {
+                        if (isset($group['member']) && empty($group['error'])) {
+                            if (in_array($key, $group["member"])) {
+                                echo '<option value="' . $key . '"';
+                                if (!$value['active']) {
+                                    echo ' style="color:#999999;"';
+                                } elseif ($value['admin']) {
+                                    echo ' style="color:#3F61BF;"';
+                                }
+                                echo '>' . trim($_temp_usr[$key]['name'] . ' (' . $_temp_usr[$key]['login'] . ')') . "</option>\n";
+                                unset($_temp_usr[$key]);
+                            }
+                        }
+                    }
+                }
+                ?>
+            </select>
         </div>
       <div class="col-sm-auto">
-				<button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
-				<button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
-				<button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
-				<button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_adduser_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_this']?>" onClick="moveSelectedOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers,true);"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button><br />
+          <button type="button" class="btn btn-sm btn-blue mt-2" data-toggle="tooltip" title="<?php echo $BL['be_admin_struct_remove_all']?>" onClick="moveAllOptions(document.editsitestructure.acat_access,document.editsitestructure.acat_feusers);"><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></button>
       </div>
       <div class="col">
         <select name="acat_feusers" size="12" multiple="multiple" id="acat_feusers" class="custom-select form-control form-control-sm" onDblClick="moveSelectedOptions(document.editsitestructure.acat_feusers,document.editsitestructure.acat_access,true);selectAllOptions(document.editsitestructure.acat_access);">
-					<?php
-						// list all available fe_users
-						if(count($_temp_usr)) {
-								foreach($_temp_usr as $key => $value) {
-										echo '<option value="'.$key.'"';
-										if(!$_temp_usr[$key]['active']) {
-											 echo ' style="color:#999999"';
-										} else if($_temp_usr[$key]['admin']) {
-											echo ' style="color:#3F61BF"';
-										}
-										echo '>'.trim($_temp_usr[$key]['name']. ' ('.$_temp_usr[$key]['login'].')')."</option>\n";
-								}
-						}
-					?>
-				</select>
+            <?php
+                // list all available fe_users
+            if (count($_temp_usr)) {
+                foreach ($_temp_usr as $key => $value) {
+                    echo '<option value="' . $key . '"';
+                    if (!$value['active']) {
+                        echo ' style="color:#999999"';
+                    } elseif ($value['admin']) {
+                        echo ' style="color:#3F61BF"';
+                    }
+                    echo '>' . trim($_temp_usr[$key]['name'] . ' (' . $_temp_usr[$key]['login'] . ')') . "</option>\n";
+                }
+            }
+            ?>
+        </select>
       </div>
       </div>
       <!-- USER RIGHTS -->
@@ -278,7 +277,6 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             $total_member = empty($grouparray[0]) ? 0 : count($grouparray);
 
             echo $grouplist["group_name"] ? html($grouplist["group_name"]).' <span style="color:#999999;">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
-
 
           ?></a></td>
           <td class="text-right text-nowrap">
