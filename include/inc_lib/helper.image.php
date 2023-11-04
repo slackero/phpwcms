@@ -1197,11 +1197,11 @@ class Phpwcms_Image_lib {
                 return true;
             }
             if ($exif['Orientation'] === 6 || $exif['Orientation'] === 5) {
-                $im = imagerotate($im, 270, null);
+                $im = imagerotate($im, 270, 0);
             } elseif ($exif['Orientation'] === 3 || $exif['Orientation'] === 4) {
-                $im = imagerotate($im, 180, null);
+                $im = imagerotate($im, 180, 0);
             } elseif ($exif['Orientation'] === 8 || $exif['Orientation'] === 7) {
-                $im = imagerotate($im, 90, null);
+                $im = imagerotate($im, 90, 0);
             }
             if ($exif['Orientation'] === 5 || $exif['Orientation'] === 4 || $exif['Orientation'] === 7) {
                 imageflip($im, IMG_FLIP_HORIZONTAL);
