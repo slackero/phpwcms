@@ -45,3 +45,8 @@ include/config.codekit3
 /include/vendor/bin/phpstan.phar
 /include/vendor/bin/rector
 /rector.php
+/include/vendor/bin
+/include/vendor/dealerdirect
+/include/vendor/phpcompatibility
+/include/vendor/phpcsstandards
+/include/vendor/squizlabs
