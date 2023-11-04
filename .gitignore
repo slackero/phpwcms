@@ -38,3 +38,10 @@ include/config.codekit3
 /include/vendor/netcarver/textile/docker/
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
+# Required for dev only
+/include/vendor/rector
+/include/vendor/phpstan
+/include/vendor/bin/phpstan
+/include/vendor/bin/phpstan.phar
+/include/vendor/bin/rector
+/rector.php

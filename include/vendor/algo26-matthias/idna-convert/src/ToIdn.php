@@ -33,10 +33,10 @@ class ToIdn extends AbstractIdnaConvert implements IdnaConvertInterface
             return $host;
         }
 
-        if (str_contains('/', $host)
-            || str_contains(':', $host)
-            || str_contains('?', $host)
-            || str_contains('@', $host)
+        if (str_contains($host, '/')
+            || str_contains($host, ':')
+            || str_contains($host, '?')
+            || str_contains($host, '@')
         ) {
             throw new InvalidCharacterException('Neither email addresses nor URLs are allowed', 205);
         }
