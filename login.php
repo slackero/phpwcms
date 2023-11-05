@@ -9,8 +9,8 @@
  *
  **/
 
-$phpwcms    = array('SESSION_START' => true);
-$BL         = array();
+$phpwcms = ['SESSION_START' => true];
+$BL = [];
 
 // Check if config is still at the old position
 if(!is_file(__DIR__.'/include/config/conf.inc.php') && is_file(__DIR__.'/config/phpwcms/conf.inc.php')):
@@ -89,8 +89,8 @@ $csrf_error = $_SERVER['REQUEST_METHOD'] === 'POST' && (empty($_POST['logintoken
 define('LOGIN_TOKEN', generate_get_token());
 
 // reset all inactive users
-$sql  = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
-$sql .= "WHERE logged_in=1 AND (" . time() . "-logged_change) > ".intval($phpwcms["max_time"]);
+$sql  = 'UPDATE ' . DB_PREPEND . "phpwcms_userlog SET logged_in=0, logged_change='" . time() . "' ";
+$sql .= 'WHERE logged_in=1 AND (' . time() . '-logged_change) > ' .intval($phpwcms['max_time']);
 _dbQuery($sql, 'UPDATE');
 
 //load default language EN
@@ -107,21 +107,21 @@ if(isset($_COOKIE['phpwcmsBELang'])) {
 }
 if(isset($_POST['form_lang'])) {
     $temp_lang = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
-    $_SESSION["wcs_user_lang"] = $temp_lang;
+    $_SESSION['wcs_user_lang'] = $temp_lang;
     set_language_cookie($temp_lang);
 }
-if(empty($_SESSION["wcs_user_lang"])) {
-    $_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms["default_lang"] );
+if(empty($_SESSION['wcs_user_lang'])) {
+    $_SESSION['wcs_user_lang'] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms['default_lang'] );
 } else {
-    $_SESSION["wcs_user_lang"] = strtolower( substr($_SESSION["wcs_user_lang"], 0, 2 ) );
+    $_SESSION['wcs_user_lang'] = strtolower( substr($_SESSION['wcs_user_lang'], 0, 2 ) );
 }
-if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
-    $_SESSION["wcs_user_lang_custom"] = 1;
+if(isset($BL[strtoupper($_SESSION['wcs_user_lang'])]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
+    $_SESSION['wcs_user_lang_custom'] = 1;
 } else {
-    $_SESSION["wcs_user_lang"] = 'en'; //by ono
-    $_SESSION["wcs_user_lang_custom"] = 0;
+    $_SESSION['wcs_user_lang'] = 'en'; //by ono
+    $_SESSION['wcs_user_lang_custom'] = 0;
 }
-if(!empty($_SESSION["wcs_user_lang_custom"])) {
+if(!empty($_SESSION['wcs_user_lang_custom'])) {
     //use custom lang if available -> was set in login.php
     $BL['merge_lang_array'][0] = $BL['be_admin_optgroup_label'];
     $BL['merge_lang_array'][1] = $BL['be_cnt_field'];
@@ -133,8 +133,8 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-$phpwcms["wysiwyg_editor"] = empty($phpwcms["wysiwyg_editor"]) ? 0 : 1;
-$_SESSION["WYSIWYG_EDITOR"] = $phpwcms["wysiwyg_editor"];
+$phpwcms['wysiwyg_editor'] = empty($phpwcms['wysiwyg_editor']) ? 0 : 1;
+$_SESSION['WYSIWYG_EDITOR'] = $phpwcms['wysiwyg_editor'];
 
 destroyBackendSessionData();
 
@@ -142,15 +142,15 @@ $json_check = isset($_POST['json']) ? intval($_POST['json']) : 0;
 
 if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_check === 1) {
 
-    $login_passed       = 0;
-    $wysiwyg_template   = '';
-    $wcs_user           = slweg($_POST['form_loginname']);
-    $wcs_pass           = slweg($_POST['md5pass']);
-
-    $sql_query  = "SELECT * FROM " . DB_PREPEND . "phpwcms_user WHERE usr_login=" . _dbEscape($wcs_user) . " AND ";
-    $sql_query .= "usr_pass=" . _dbEscape($wcs_pass) . " AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)";
+    $login_passed = 0;
 
     if(!$csrf_error) {
+
+        $wcs_user = slweg($_POST['form_loginname']);
+        $wcs_pass = slweg($_POST['md5pass']);
+
+        $sql_query  = 'SELECT * FROM ' . DB_PREPEND . "phpwcms_user WHERE usr_login=" . _dbEscape($wcs_user) . ' AND ';
+        $sql_query .= 'usr_pass=' . _dbEscape($wcs_pass) . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)';
 
         $result = _dbQuery($sql_query);
 
@@ -175,28 +175,28 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 set_language_cookie();
             }
 
-            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"]);
-            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"]);
-            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"]);
-            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"]);
+            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"], ['allowed_classes' => false]);
+            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"], ['allowed_classes' => false]);
+            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"], ['allowed_classes' => false]);
+            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
 
             if(!is_array($_SESSION["structure"])) {
-                $_SESSION["structure"] = array();
+                $_SESSION["structure"] = [];
             }
             if(!is_array($_SESSION["klapp"])) {
-                $_SESSION["klapp"] = array();
+                $_SESSION["klapp"] = [];
             }
             if(!is_array($_SESSION["pklapp"])) {
-                $_SESSION["pklapp"] = array();
+                $_SESSION["pklapp"] = [];
             }
             if(!is_array($result[0]["usr_vars"])) {
-                $result[0]["usr_vars"] = array();
+                $result[0]["usr_vars"] = [];
             }
 
             // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? false : true;
-            $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
-            $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
+            $_SESSION['WYSIWYG_EDITOR'] = !empty($result[0]['usr_wysiwyg']);
+            $_SESSION['wcs_user_cp']    = isset($result[0]['usr_vars']['selected_cp']) && is_array($result[0]['usr_vars']['selected_cp']) ? $result[0]['usr_vars']['selected_cp'] : [];
+            $_SESSION['wcs_allowed_cp'] = isset($result[0]['usr_vars']['allowed_cp']) && is_array($result[0]['usr_vars']['allowed_cp']) ? $result[0]['usr_vars']['allowed_cp'] : [];
 
             // Test if there are CPs that use had choosen but no longer available for
             if(count($_SESSION["wcs_allowed_cp"])) {
@@ -261,14 +261,14 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
 }
 
-$reason_types = array(
+$reason_types = [
     'default' => 'alert-default',
     'info' => 'alert-info',
     'error' => 'alert-error',
     'warning' => 'alert-warning',
     'success' => 'alert-success',
     'danger' => 'alert-danger'
-);
+];
 
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>">
@@ -331,11 +331,11 @@ $reason_types = array(
             <div class="alert alert-danger" style="font-weight:bold;padding:0 0 15px 0;font-size:12px;text-align:center"><?php echo $BL['be_login_jsinfo']; ?></div>
         </div>
         <p style="padding: 0 3px 5px 3px;">
-            <strong><a href="http://www.phpwcms.org" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
+            <strong><a href="https://www.phpwcms.org" target="_blank" style="text-decoration:none;">phpwcms</a></strong>
             Copyright &copy; 2002&#8212;<?php echo date('Y'); ?>
             Oliver Georgi. Extensions are copyright of their respective owners.
             Visit <a href="https://www.phpwcms.org" target="_blank">phpwcms.org</a> for
-            details. phpwcms is free software released under <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
+            details. phpwcms is free software released under <a href="https://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GPL</a>
             and comes WITHOUT ANY WARRANTY. Obstructing the appearance of this notice is prohibited  by law.
         </p>
     </div>
@@ -400,7 +400,7 @@ ob_start();
 
 // check available languages installed and build language selector menu
 $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
-$lang_options = array();
+$lang_options = [];
 while($lang_code = readdir($lang_dirs)) {
     if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
         $_lang_code = strtoupper($lang_code);
@@ -428,7 +428,7 @@ echo implode('', $lang_options);
     </form>
 <?php
 
-$formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
+$formAll = str_replace( ["'", "\r", "\n", '<'], ["\'", '', " ", "<'+'"], ob_get_clean() );
 
 ?>
 <script>

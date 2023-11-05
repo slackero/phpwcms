@@ -33,7 +33,7 @@ if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=";
 	echo $row["acontent_id"]."\">".$cinfo["result"].'</a>';
 }
-$form = unserialize($row["acontent_form"]);
+$form = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if($form['subject']) {
 	if($cinfo["result"]) echo '<br>';
 	echo html($form['subject']);

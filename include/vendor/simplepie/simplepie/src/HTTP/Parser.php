@@ -9,6 +9,7 @@ namespace SimplePie\HTTP;
 
 /**
  * HTTP Response Parser
+ * @template Psr7Compatible of bool
  */
 class Parser
 {
@@ -34,9 +35,14 @@ class Parser
     public $reason = '';
 
     /**
+     * @var Psr7Compatible whether headers are compatible with PSR-7 format.
+     */
+    private $psr7Compatible;
+
+    /**
      * Key/value pairs of the headers
      *
-     * @var array
+     * @var (Psr7Compatible is true ? array<string, non-empty-array<string>> : array<string, string>)
      */
     public $headers = [];
 
@@ -121,11 +127,13 @@ class Parser
      * Create an instance of the class with the input data
      *
      * @param string $data Input data
+     * @param Psr7Compatible $psr7Compatible Whether the data types are in format compatible with PSR-7.
      */
-    public function __construct(string $data)
+    public function __construct(string $data, bool $psr7Compatible = false)
     {
         $this->data = $data;
         $this->data_length = strlen($this->data);
+        $this->psr7Compatible = $psr7Compatible;
     }
 
     /**
@@ -144,7 +152,8 @@ class Parser
             return true;
         }
 
-        $this->http_version = '';
+        // Reset the parser state.
+        $this->http_version = 0.0;
         $this->status_code = 0;
         $this->reason = '';
         $this->headers = [];
@@ -178,15 +187,16 @@ class Parser
 
     /**
      * Parse the HTTP version
+     * @return void
      */
     protected function http_version()
     {
         if (strpos($this->data, "\x0A") !== false && strtoupper(substr($this->data, 0, 5)) === 'HTTP/') {
             $len = strspn($this->data, '0123456789.', 5);
-            $this->http_version = substr($this->data, 5, $len);
+            $http_version = substr($this->data, 5, $len);
             $this->position += 5 + $len;
-            if (substr_count($this->http_version, '.') <= 1) {
-                $this->http_version = (float) $this->http_version;
+            if (substr_count($http_version, '.') <= 1) {
+                $this->http_version = (float) $http_version;
                 $this->position += strspn($this->data, "\x09\x20", $this->position);
                 $this->state = self::STATE_STATUS;
             } else {
@@ -199,6 +209,7 @@ class Parser
 
     /**
      * Parse the status code
+     * @return void
      */
     protected function status()
     {
@@ -213,6 +224,7 @@ class Parser
 
     /**
      * Parse the reason phrase
+     * @return void
      */
     protected function reason()
     {
@@ -224,6 +236,7 @@ class Parser
 
     /**
      * Deal with a new line, shifting data around as needed
+     * @return void
      */
     protected function new_line()
     {
@@ -232,9 +245,17 @@ class Parser
             $this->name = strtolower($this->name);
             // We should only use the last Content-Type header. c.f. issue #1
             if (isset($this->headers[$this->name]) && $this->name !== 'content-type') {
-                $this->headers[$this->name] .= ', ' . $this->value;
+                if ($this->psr7Compatible) {
+                    $this->headers[$this->name][] = $this->value;
+                } else {
+                    $this->headers[$this->name] .= ', ' . $this->value;
+                }
             } else {
-                $this->headers[$this->name] = $this->value;
+                if ($this->psr7Compatible) {
+                    $this->headers[$this->name] = [$this->value];
+                } else {
+                    $this->headers[$this->name] = $this->value;
+                }
             }
         }
         $this->name = '';
@@ -252,6 +273,7 @@ class Parser
 
     /**
      * Parse a header name
+     * @return void
      */
     protected function name()
     {
@@ -272,6 +294,7 @@ class Parser
 
     /**
      * Parse LWS, replacing consecutive LWS characters with a single space
+     * @return void
      */
     protected function linear_whitespace()
     {
@@ -288,6 +311,7 @@ class Parser
 
     /**
      * See what state to move to while within non-quoted header values
+     * @return void
      */
     protected function value()
     {
@@ -322,6 +346,7 @@ class Parser
 
     /**
      * Parse a header value while outside quotes
+     * @return void
      */
     protected function value_char()
     {
@@ -333,6 +358,7 @@ class Parser
 
     /**
      * See what state to move to while within quoted header values
+     * @return void
      */
     protected function quote()
     {
@@ -364,6 +390,7 @@ class Parser
 
     /**
      * Parse a header value while within quotes
+     * @return void
      */
     protected function quote_char()
     {
@@ -375,6 +402,7 @@ class Parser
 
     /**
      * Parse an escaped character within quotes
+     * @return void
      */
     protected function quote_escaped()
     {
@@ -385,6 +413,7 @@ class Parser
 
     /**
      * Parse the body
+     * @return void
      */
     protected function body()
     {
@@ -399,6 +428,7 @@ class Parser
 
     /**
      * Parsed a "Transfer-Encoding: chunked" body
+     * @return void
      */
     protected function chunked()
     {

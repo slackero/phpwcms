@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Content Type Text with Image
 $content["faq_question"]		= $row["acontent_text"];
 $content["faq_answer"]			= $row["acontent_html"];
-$content["faq"]					= unserialize($row["acontent_form"]);
+$content["faq"]					= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8
 // dbid:filename:hash:extension:width:height:caption:position:zoom

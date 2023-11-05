@@ -367,7 +367,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
                             }
                             continue;
                         } elseif(is_string($value['custom_fields'][$custom_field]) && substr($value['custom_fields'][$custom_field], 0, 2) === 'a:') {
-                            $_unserialze = @unserialize($value['custom_fields'][$custom_field]);
+                            $_unserialze = @unserialize($value['custom_fields'][$custom_field], ['allowed_classes' => false]);
                             if ($_unserialze === false) {
                                 continue;
                             }

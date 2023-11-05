@@ -451,7 +451,7 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
     $sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
-        $block = @unserialize($result[0]['template_var']);
+        $block = @unserialize($result[0]['template_var'], ['allowed_classes' => false]);
     }
 }
 if(!isset($block)) {
@@ -725,7 +725,7 @@ if($aktion[1]) {
 }
 
 // Force overwritten canonical link
-if($content['struct'][ $content['cat_id'] ]['acat_canonical']) {
+if(!empty($content['struct'][ $content['cat_id'] ]['acat_canonical'])) {
     $content['overwrite_canonical'] = $content['struct'][ $content['cat_id'] ]['acat_canonical'];
 }
 
@@ -886,10 +886,8 @@ if($aktion[2] == 0) {
 }
 
 // Render possible PHP Values in category or article keyword field
-$content["struct"][$aktion[0]]["acat_info"] = render_PHPcode($content["struct"][$aktion[0]]["acat_info"]);
-if(!empty($content["articles"][$aktion[1]]["article_keyword"]) && strpos($content["articles"][$aktion[1]]["article_keyword"], 'PHP') !== FALSE) {
-    $content["articles"][$aktion[1]]["article_keyword"] = render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]);
-}
+$content["struct"][$aktion[0]]["acat_info"] = isset($content["struct"][$aktion[0]]["acat_info"]) ? render_PHPcode($content["struct"][$aktion[0]]["acat_info"]) : '';
+$content["articles"][$aktion[1]]["article_keyword"] = isset($content["articles"][$aktion[1]]["article_keyword"]) ? render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]) : '';
 
 // put in the complete rendered content
 $content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);

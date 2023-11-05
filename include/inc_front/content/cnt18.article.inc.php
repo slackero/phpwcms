@@ -38,7 +38,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 
 $CNT_TMP                .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 global $guestbook; // make it global
-$guestbook               = unserialize($crow["acontent_form"]);
+$guestbook               = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $guestbook['error']      = array();
 $guestbook['cid']        = intval( empty($guestbook['aliasID']) ? $crow["acontent_id"] : $guestbook['aliasID'] );
 $guestbook['image_dir']  = PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'guestbook_'.$guestbook['cid'];
@@ -208,7 +208,7 @@ if($guestbook['visible']) {
 
             } elseif(!empty($_POST['guestbook_hiddenfile'])) { //same file was just uploaded
 
-                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile']));
+                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile']), ['allowed_classes' => false]);
 
                 $guestbook['image']['name'] = $guestbook['hidden']['name'];
                 $guestbook['image']['hash'] = $guestbook['hidden']['hash'];

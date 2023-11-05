@@ -1,4 +1,4 @@
-<?php /** @noinspection ALL */
+<?php
 
 /**
  * phpwcms content management system
@@ -19,9 +19,9 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // content type 89: poll        jens
 $poll_html          = "";
-$poll_image         = @unserialize($crow["acontent_image"]);
-$poll_text          = @unserialize($crow["acontent_text"]);
-$poll_form          = @unserialize($crow["acontent_form"]);
+$poll_image         = @unserialize($crow["acontent_image"], ['allowed_classes' => false]);
+$poll_text          = @unserialize($crow["acontent_text"], ['allowed_classes' => false]);
+$poll_form          = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $poll_choice_count  = 0;
 $remoteIP           = PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP();
 

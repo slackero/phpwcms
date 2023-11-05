@@ -24,7 +24,7 @@ $_module_type 			= 0;
 $_module_contentpart	= false;
 
 // simple switch to allow fe render or fe init
-$_module_fe_render		= false;
+$_module_fe_render		= true;
 $_module_fe_init		= false;
 $_module_fe_search		= false;
 $_module_fe_setting		= false;

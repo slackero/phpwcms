@@ -111,7 +111,7 @@ $phpwcms['FCK_FileBrowser']      = 1; // enable|disable phpwcms Filebrowser in F
 $phpwcms['feuser_regkey']        = 'FEUSER';
 $phpwcms['login.php']            = 'login.php';
 $phpwcms['js_lib']               = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
-$phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.0.4/)
+$phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.5.2/)
 $phpwcms['render_device']        = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
 $phpwcms['detect_pixelratio']    = 0; // will inject the page with JavaScript to detect Retina devices
 $phpwcms['im_fix_colorspace']    = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB
@@ -156,6 +156,7 @@ $phpwcms['disable_generator']    = false; // Disable <meta name="generator"> and
 $phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 $phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
 $phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
+$phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
 $phpwcms['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address

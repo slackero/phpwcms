@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Be more modern here - we start switch to jQuery and overwrite non-used MooTools with jQuery call
 initJsAutocompleter();
 
-$file_id = isset($_GET["editfile"]) ? intval($_GET["editfile"]) : 0;
+$file_id = isset($_GET['editfile']) ? intval($_GET['editfile']) : 0;
 $file_ext = '';
 $ja = 0;
 $file_thumb_small = '';
@@ -49,7 +49,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     // Set file info based on IPTC for all languages
     if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
 
-        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']));
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']), ['allowed_classes' => false]);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
         if($file_title === '') {
@@ -73,17 +73,17 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
 
     if(count($phpwcms['allowed_lang']) > 1) {
 
-        $file_vars = array();
+        $file_vars = [];
 
         foreach($phpwcms['allowed_lang'] as $lang) {
             $lang = strtolower($lang);
 
-            $file_vars[$lang] = array(
+            $file_vars[$lang] = [
                 'longinfo' => '',
                 'copyright' => '',
                 'title' => '',
                 'alt' => ''
-            );
+            ];
 
             if($phpwcms['default_lang'] === $lang) {
                 $file_vars[$lang]['longinfo'] = $file_longinfo;
@@ -215,9 +215,16 @@ if($file_id) {
             $file_granted           = $row["f_granted"];
             $file_gallerydownload   = $row["f_gallerystatus"];
             $file_sort              = $row["f_sort"];
-            $file_vars              = @unserialize($row['f_vars']);
             $file_title             = $row["f_title"];
             $file_alt               = $row["f_alt"];
+            if (empty($row['f_vars'])) {
+                $file_vars = [];
+            } else {
+                $file_vars = @unserialize($row['f_vars'], ['allowed_classes' => false]);
+                if ($file_vars === false) {
+                    $file_vars = [];
+                }
+            }
 
             if($file_keys) {
                 $file_keys_temp = explode(":", $file_keys);

@@ -7,9 +7,15 @@ declare(strict_types=1);
 
 namespace SimplePie;
 
+use DomDocument;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use SimplePie\Exception\HttpException;
 use SimplePie\HTTP\Client;
 use SimplePie\HTTP\FileClient;
+use SimplePie\HTTP\Psr18Client;
+use SimplePie\HTTP\Response;
 
 /**
  * Used for feed auto-discovery
@@ -19,29 +25,46 @@ use SimplePie\HTTP\FileClient;
  */
 class Locator implements RegistryAware
 {
-    public $useragent;
-    public $timeout;
+    /** @var ?string */
+    public $useragent = null;
+    /** @var int */
+    public $timeout = 10;
+    /** @var File */
     public $file;
+    /** @var string[] */
     public $local = [];
+    /** @var string[] */
     public $elsewhere = [];
+    /** @var array<mixed> */
     public $cached_entities = [];
+    /** @var string */
     public $http_base;
+    /** @var string */
     public $base;
+    /** @var int */
     public $base_location = 0;
+    /** @var int */
     public $checked_feeds = 0;
+    /** @var int */
     public $max_checked_feeds = 10;
+    /** @var bool */
     public $force_fsockopen = false;
+    /** @var array<int, mixed> */
     public $curl_options = [];
     /** @var ?\DomDocument */
     public $dom;
+    /** @var ?Registry */
     protected $registry;
 
     /**
-     * @var Client
+     * @var Client|null
      */
     private $http_client = null;
 
-    public function __construct(\SimplePie\File $file, $timeout = 10, $useragent = null, $max_checked_feeds = 10, $force_fsockopen = false, $curl_options = [], ?Client $http_client = null)
+    /**
+     * @param array<int, mixed> $curl_options
+     */
+    public function __construct(File $file, int $timeout = 10, ?string $useragent = null, int $max_checked_feeds = 10, bool $force_fsockopen = false, array $curl_options = [])
     {
         $this->file = $file;
         $this->useragent = $useragent;
@@ -49,14 +72,15 @@ class Locator implements RegistryAware
         $this->max_checked_feeds = $max_checked_feeds;
         $this->force_fsockopen = $force_fsockopen;
         $this->curl_options = $curl_options;
-        $this->http_client = $http_client;
 
-        if (class_exists('DOMDocument') && $this->file->get_body_content() != '') {
+        $body = $this->file->get_body_content();
+
+        if (class_exists('DOMDocument') && $body != '') {
             $this->dom = new \DOMDocument();
 
             set_error_handler([Misc::class, 'silence_errors']);
             try {
-                $this->dom->loadHTML($this->file->get_body_content());
+                $this->dom->loadHTML($body);
             } catch (\Throwable $ex) {
                 $this->dom = null;
             }
@@ -66,18 +90,39 @@ class Locator implements RegistryAware
         }
     }
 
-    public function set_registry(\SimplePie\Registry $registry)/* : void */
+    /**
+     * Set a PSR-18 client and PSR-17 factories
+     *
+     * Allows you to use your own HTTP client implementations.
+     */
+    final public function set_http_client(
+        ClientInterface $http_client,
+        RequestFactoryInterface $request_factory,
+        UriFactoryInterface $uri_factory
+    ): void {
+        $this->http_client = new Psr18Client($http_client, $request_factory, $uri_factory);
+    }
+
+    /**
+     * @return void
+     */
+    public function set_registry(\SimplePie\Registry $registry)
     {
         $this->registry = $registry;
     }
 
-    public function find($type = \SimplePie\SimplePie::LOCATOR_ALL, &$working = null)
+    /**
+     * @param SimplePie::LOCATOR_* $type
+     * @param array<Response>|null $working
+     * @return Response|null
+     */
+    public function find(int $type = \SimplePie\SimplePie::LOCATOR_ALL, ?array &$working = null)
     {
         if ($this->is_feed($this->file)) {
             return $this->file;
         }
 
-        if (preg_match('/^http(s)?:\/\//i', $this->file->get_requested_uri())) {
+        if (Misc::is_remote_uri($this->file->get_final_requested_uri())) {
             $sniffer = $this->registry->create(Content\Type\Sniffer::class, [$this->file]);
             if ($sniffer->get_type() !== 'text/html') {
                 return null;
@@ -112,9 +157,12 @@ class Locator implements RegistryAware
         return null;
     }
 
-    public function is_feed($file, $check_html = false)
+    /**
+     * @return bool
+     */
+    public function is_feed(Response $file, bool $check_html = false)
     {
-        if (preg_match('/^http(s)?:\/\//i', $file->get_requested_uri())) {
+        if (Misc::is_remote_uri($file->get_final_requested_uri())) {
             $sniffer = $this->registry->create(Content\Type\Sniffer::class, [$file]);
             $sniffed = $sniffer->get_type();
             $mime_types = ['application/rss+xml', 'application/rdf+xml',
@@ -125,19 +173,22 @@ class Locator implements RegistryAware
             }
 
             return in_array($sniffed, $mime_types);
-        } elseif (is_file($file->get_requested_uri())) {
+        } elseif (is_file($file->get_final_requested_uri())) {
             return true;
         } else {
             return false;
         }
     }
 
+    /**
+     * @return void
+     */
     public function get_base()
     {
         if ($this->dom === null) {
             throw new \SimplePie\Exception('DOMDocument not found, unable to use locator');
         }
-        $this->http_base = $this->file->get_requested_uri();
+        $this->http_base = $this->file->get_final_requested_uri();
         $this->base = $this->http_base;
         $elements = $this->dom->getElementsByTagName('base');
         foreach ($elements as $element) {
@@ -153,6 +204,9 @@ class Locator implements RegistryAware
         }
     }
 
+    /**
+     * @return array<Response>|null
+     */
     public function autodiscovery()
     {
         $done = [];
@@ -168,7 +222,12 @@ class Locator implements RegistryAware
         return null;
     }
 
-    protected function search_elements_by_tag($name, &$done, $feeds)
+    /**
+     * @param string[] $done
+     * @param array<string, Response> $feeds
+     * @return array<string, Response>
+     */
+    protected function search_elements_by_tag(string $name, array &$done, array $feeds)
     {
         if ($this->dom === null) {
             throw new \SimplePie\Exception('DOMDocument not found, unable to use locator');
@@ -199,13 +258,13 @@ class Locator implements RegistryAware
                     ];
 
                     try {
-                        $response = $this->get_http_client()->request(Client::METHOD_GET, $href, $headers);
-                    } catch (HttpException $th) {
-                        continue;
-                    }
+                        $feed = $this->get_http_client()->request(Client::METHOD_GET, $href, $headers);
 
-                    if ((! preg_match('/^http(s)?:\/\//i', $response->get_requested_uri()) || ($response->get_status_code() === 200 || $response->get_status_code() > 206 && $response->get_status_code() < 300)) && $this->is_feed($response, true)) {
-                        $feeds[$href] = $response;
+                        if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed, true)) {
+                            $feeds[$href] = $feed;
+                        }
+                    } catch (HttpException $th) {
+                        // Just mark it as done and continue.
                     }
                 }
                 $done[] = $href;
@@ -215,6 +274,9 @@ class Locator implements RegistryAware
         return $feeds;
     }
 
+    /**
+     * @return true|null
+     */
     public function get_links()
     {
         if ($this->dom === null) {
@@ -236,7 +298,7 @@ class Locator implements RegistryAware
                         continue;
                     }
 
-                    $current = $this->registry->call(Misc::class, 'parse_url', [$this->file->get_requested_uri()]);
+                    $current = $this->registry->call(Misc::class, 'parse_url', [$this->file->get_final_requested_uri()]);
 
                     if ($parsed['authority'] === '' || $parsed['authority'] === $current['authority']) {
                         $this->local[] = $href;
@@ -254,7 +316,10 @@ class Locator implements RegistryAware
         return null;
     }
 
-    public function get_rel_link($rel)
+    /**
+     * @return string|null
+     */
+    public function get_rel_link(string $rel)
     {
         if ($this->dom === null) {
             throw new \SimplePie\Exception('DOMDocument not found, unable to use '.
@@ -299,7 +364,11 @@ class Locator implements RegistryAware
         return null;
     }
 
-    public function extension(&$array)
+    /**
+     * @param string[] $array
+     * @return array<Response>|null
+     */
+    public function extension(array &$array)
     {
         foreach ($array as $key => $value) {
             if ($this->checked_feeds === $this->max_checked_feeds) {
@@ -314,22 +383,26 @@ class Locator implements RegistryAware
                 ];
 
                 try {
-                    $response = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+                    $feed = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+
+                    if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed)) {
+                        return [$feed];
+                    }
                 } catch (HttpException $th) {
-                    continue;
+                    // Just unset and continue.
                 }
 
-                if ((! preg_match('/^http(s)?:\/\//i', $response->get_requested_uri()) || ($response->get_status_code() === 200 || $response->get_status_code() > 206 && $response->get_status_code() < 300)) && $this->is_feed($response)) {
-                    return [$response];
-                } else {
-                    unset($array[$key]);
-                }
+                unset($array[$key]);
             }
         }
         return null;
     }
 
-    public function body(&$array)
+    /**
+     * @param string[] $array
+     * @return array<Response>|null
+     */
+    public function body(array &$array)
     {
         foreach ($array as $key => $value) {
             if ($this->checked_feeds === $this->max_checked_feeds) {
@@ -342,16 +415,16 @@ class Locator implements RegistryAware
                 ];
 
                 try {
-                    $response = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+                    $feed = $this->get_http_client()->request(Client::METHOD_GET, $value, $headers);
+
+                    if ((!Misc::is_remote_uri($feed->get_final_requested_uri()) || ($feed->get_status_code() === 200 || $feed->get_status_code() > 206 && $feed->get_status_code() < 300)) && $this->is_feed($feed)) {
+                        return [$feed];
+                    }
                 } catch (HttpException $th) {
-                    continue;
+                    // Just unset and continue.
                 }
 
-                if ((! preg_match('/^http(s)?:\/\//i', $response->get_requested_uri()) || ($response->get_status_code() === 200 || $response->get_status_code() > 206 && $response->get_status_code() < 300)) && $this->is_feed($response)) {
-                    return [$response];
-                } else {
-                    unset($array[$key]);
-                }
+                unset($array[$key]);
             }
         }
         return null;

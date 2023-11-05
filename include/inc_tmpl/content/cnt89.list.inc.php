@@ -23,7 +23,7 @@ $cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : "";
 
-$poll_text = unserialize($row["acontent_text"]);
+$poll_text = unserialize($row["acontent_text"], ['allowed_classes' => false]);
 
 if($cinfo["result"])
 {

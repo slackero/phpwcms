@@ -113,7 +113,7 @@ if(isset($_POST["newsletter_id"])) {
 
                     } else {
 
-                        $value['address_subscription'] = @unserialize($value['address_subscription']);
+                        $value['address_subscription'] = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
 
                         if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
 
@@ -202,7 +202,7 @@ if($newsletter["newsletter_id"] && !isset($_POST["newsletter_id"])) {
     $result = _dbQuery($sql);
     if(isset($result[0]['newsletter_id'])) {
         $newsletter = $result[0];
-        $newsletter['newsletter_vars'] = unserialize($newsletter['newsletter_vars']);
+        $newsletter['newsletter_vars'] = unserialize($newsletter['newsletter_vars'], ['allowed_classes' => false]);
     }
 }
 

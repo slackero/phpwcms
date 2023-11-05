@@ -7,7 +7,12 @@ declare(strict_types=1);
 
 namespace SimplePie;
 
+use DOMDocument;
+use DOMXPath;
 use InvalidArgumentException;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use SimplePie\Cache\Base;
 use SimplePie\Cache\BaseDataCache;
 use SimplePie\Cache\CallableNameFilter;
@@ -16,6 +21,7 @@ use SimplePie\Cache\NameFilter;
 use SimplePie\Exception\HttpException;
 use SimplePie\HTTP\Client;
 use SimplePie\HTTP\FileClient;
+use SimplePie\HTTP\Psr18Client;
 
 /**
  * Used for data cleanup and post-processing
@@ -28,36 +34,54 @@ use SimplePie\HTTP\FileClient;
 class Sanitize implements RegistryAware
 {
     // Private vars
-    public $base;
+    /** @var string */
+    public $base = '';
 
     // Options
+    /** @var bool */
     public $remove_div = true;
+    /** @var string */
     public $image_handler = '';
+    /** @var string[] */
     public $strip_htmltags = ['base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'];
+    /** @var bool */
     public $encode_instead_of_strip = false;
+    /** @var string[] */
     public $strip_attributes = ['bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'];
+    /** @var string[] */
     public $rename_attributes = [];
+    /** @var array<string, array<string, string>> */
     public $add_attributes = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']];
+    /** @var bool */
     public $strip_comments = false;
+    /** @var string */
     public $output_encoding = 'UTF-8';
+    /** @var bool */
     public $enable_cache = true;
+    /** @var string */
     public $cache_location = './cache';
+    /** @var string */
     public $cache_name_function = 'md5';
 
     /**
      * @var NameFilter
      */
     private $cache_namefilter;
+    /** @var int */
     public $timeout = 10;
+    /** @var string */
     public $useragent = '';
+    /** @var bool */
     public $force_fsockopen = false;
-    public $replace_url_attributes = null;
+    /** @var array<string, string|string[]> */
+    public $replace_url_attributes = [];
     /**
-     * @var array<mixed> Custom curl options
+     * @var array<int, mixed> Custom curl options
      * @see SimplePie::set_curl_options()
      */
     private $curl_options = [];
 
+    /** @var Registry */
     public $registry;
 
     /**
@@ -75,6 +99,7 @@ class Sanitize implements RegistryAware
      * @see \SimplePie\Sanitize::set_https_domains()
      * Array is a tree split at DNS levels. Example:
      * array('biz' => true, 'com' => array('example' => true), 'net' => array('example' => array('www' => true)))
+     * @var true|array<string, true|array<string, true|array<string, array<string, true|array<string, true|array<string, true>>>>>>
      */
     public $https_domains = [];
 
@@ -89,36 +114,50 @@ class Sanitize implements RegistryAware
         $this->set_url_replacements(null);
     }
 
-    public function remove_div($enable = true)
+    /**
+     * @return void
+     */
+    public function remove_div(bool $enable = true)
     {
         $this->remove_div = (bool) $enable;
     }
 
+    /**
+     * @param string|false $page
+     * @return void
+     */
     public function set_image_handler($page = false)
     {
         if ($page) {
             $this->image_handler = (string) $page;
         } else {
-            $this->image_handler = false;
+            $this->image_handler = '';
         }
     }
 
-    public function set_registry(\SimplePie\Registry $registry)/* : void */
+    /**
+     * @return void
+     */
+    public function set_registry(\SimplePie\Registry $registry)
     {
         $this->registry = $registry;
     }
 
-    public function pass_cache_data($enable_cache = true, $cache_location = './cache', $cache_name_function = 'md5', $cache_class = Cache::class, DataCache $cache = null)
+    /**
+     * @param string|NameFilter $cache_name_function
+     * @param class-string<Cache> $cache_class
+     * @return void
+     */
+    public function pass_cache_data(bool $enable_cache = true, string $cache_location = './cache', $cache_name_function = 'md5', string $cache_class = Cache::class, DataCache $cache = null)
     {
-        if (isset($enable_cache)) {
-            $this->enable_cache = (bool) $enable_cache;
-        }
+        $this->enable_cache = $enable_cache;
 
         if ($cache_location) {
-            $this->cache_location = (string) $cache_location;
+            $this->cache_location = $cache_location;
         }
 
-        if (! is_string($cache_name_function) && ! is_object($cache_name_function) && ! $cache_name_function instanceof NameFilter) {
+        // @phpstan-ignore-next-line Enforce PHPDoc type.
+        if (! is_string($cache_name_function) && ! $cache_name_function instanceof NameFilter) {
             throw new InvalidArgumentException(sprintf(
                 '%s(): Argument #3 ($cache_name_function) must be of type %s',
                 __METHOD__,
@@ -141,32 +180,49 @@ class Sanitize implements RegistryAware
         }
     }
 
-    public function set_http_client(Client $http_client): void
-    {
-        $this->http_client = $http_client;
+    /**
+     * Set a PSR-18 client and PSR-17 factories
+     *
+     * Allows you to use your own HTTP client implementations.
+     */
+    final public function set_http_client(
+        ClientInterface $http_client,
+        RequestFactoryInterface $request_factory,
+        UriFactoryInterface $uri_factory
+    ): void {
+        $this->http_client = new Psr18Client($http_client, $request_factory, $uri_factory);
     }
 
     /**
      * @deprecated since SimplePie 1.9.0, use \SimplePie\Sanitize::set_http_client() instead.
+     * @param class-string<File> $file_class
+     * @param array<int, mixed> $curl_options
+     * @return void
      */
-    public function pass_file_data($file_class = File::class, $timeout = 10, $useragent = '', $force_fsockopen = false, array $curl_options = [])
+    public function pass_file_data(string $file_class = File::class, int $timeout = 10, string $useragent = '', bool $force_fsockopen = false, array $curl_options = [])
     {
         // trigger_error(sprintf('SimplePie\Sanitize::pass_file_data() is deprecated since SimplePie 1.9.0, please use "SimplePie\Sanitize::set_http_client()" instead.'), \E_USER_DEPRECATED);
         if ($timeout) {
-            $this->timeout = (string) $timeout;
+            $this->timeout = $timeout;
         }
 
         if ($useragent) {
-            $this->useragent = (string) $useragent;
+            $this->useragent = $useragent;
         }
 
         if ($force_fsockopen) {
-            $this->force_fsockopen = (string) $force_fsockopen;
+            $this->force_fsockopen = $force_fsockopen;
         }
 
         $this->curl_options = $curl_options;
+        // Invalidate the registered client.
+        $this->http_client = null;
     }
 
+    /**
+     * @param string[]|string $tags
+     * @return void
+     */
     public function strip_htmltags($tags = ['base', 'blink', 'body', 'doctype', 'embed', 'font', 'form', 'frame', 'frameset', 'html', 'iframe', 'input', 'marquee', 'meta', 'noscript', 'object', 'param', 'script', 'style'])
     {
         if ($tags) {
@@ -176,15 +232,22 @@ class Sanitize implements RegistryAware
                 $this->strip_htmltags = explode(',', $tags);
             }
         } else {
-            $this->strip_htmltags = false;
+            $this->strip_htmltags = [];
         }
     }
 
-    public function encode_instead_of_strip($encode = false)
+    /**
+     * @return void
+     */
+    public function encode_instead_of_strip(bool $encode = false)
     {
-        $this->encode_instead_of_strip = (bool) $encode;
+        $this->encode_instead_of_strip = $encode;
     }
 
+    /**
+     * @param string[]|string $attribs
+     * @return void
+     */
     public function rename_attributes($attribs = [])
     {
         if ($attribs) {
@@ -194,10 +257,14 @@ class Sanitize implements RegistryAware
                 $this->rename_attributes = explode(',', $attribs);
             }
         } else {
-            $this->rename_attributes = false;
+            $this->rename_attributes = [];
         }
     }
 
+    /**
+     * @param string[]|string $attribs
+     * @return void
+     */
     public function strip_attributes($attribs = ['bgsound', 'expr', 'id', 'style', 'onclick', 'onerror', 'onfinish', 'onmouseover', 'onmouseout', 'onfocus', 'onblur', 'lowsrc', 'dynsrc'])
     {
         if ($attribs) {
@@ -207,31 +274,33 @@ class Sanitize implements RegistryAware
                 $this->strip_attributes = explode(',', $attribs);
             }
         } else {
-            $this->strip_attributes = false;
+            $this->strip_attributes = [];
         }
     }
 
-    public function add_attributes($attribs = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']])
+    /**
+     * @param array<string, array<string, string>> $attribs
+     * @return void
+     */
+    public function add_attributes(array $attribs = ['audio' => ['preload' => 'none'], 'iframe' => ['sandbox' => 'allow-scripts allow-same-origin'], 'video' => ['preload' => 'none']])
     {
-        if ($attribs) {
-            if (is_array($attribs)) {
-                $this->add_attributes = $attribs;
-            } else {
-                $this->add_attributes = explode(',', $attribs);
-            }
-        } else {
-            $this->add_attributes = false;
-        }
+        $this->add_attributes = $attribs;
     }
 
-    public function strip_comments($strip = false)
+    /**
+     * @return void
+     */
+    public function strip_comments(bool $strip = false)
     {
-        $this->strip_comments = (bool) $strip;
+        $this->strip_comments = $strip;
     }
 
-    public function set_output_encoding($encoding = 'UTF-8')
+    /**
+     * @return void
+     */
+    public function set_output_encoding(string $encoding = 'UTF-8')
     {
-        $this->output_encoding = (string) $encoding;
+        $this->output_encoding = $encoding;
     }
 
     /**
@@ -243,7 +312,8 @@ class Sanitize implements RegistryAware
      * |ins|@cite, |q|@cite, |source|@src, |video|@src
      *
      * @since 1.0
-     * @param array|null $element_attribute Element/attribute key/value pairs, null for default
+     * @param array<string, string|string[]>|null $element_attribute Element/attribute key/value pairs, null for default
+     * @return void
      */
     public function set_url_replacements(?array $element_attribute = null)
     {
@@ -269,21 +339,26 @@ class Sanitize implements RegistryAware
                 ]
             ];
         }
-        $this->replace_url_attributes = (array) $element_attribute;
+        $this->replace_url_attributes = $element_attribute;
     }
 
     /**
      * Set the list of domains for which to force HTTPS.
      * @see \SimplePie\Misc::https_url()
      * Example array('biz', 'example.com', 'example.org', 'www.example.net');
+     *
+     * @param string[] $domains list of domain names ['biz', 'example.com', 'example.org', 'www.example.net']
+     *
+     * @return void
      */
-    public function set_https_domains($domains)
+    public function set_https_domains(array $domains)
     {
         $this->https_domains = [];
         foreach ($domains as $domain) {
             $domain = trim($domain, ". \t\n\r\0\x0B");
             $segments = array_reverse(explode('.', $domain));
-            $node =& $this->https_domains;
+            /** @var true|array<string, true|array<string, true|array<string, array<string, true|array<string, true|array<string, true>>>>>> */ // Needed for PHPStan.
+            $node = & $this->https_domains;
             foreach ($segments as $segment) {//Build a tree
                 if ($node === true) {
                     break;
@@ -291,7 +366,7 @@ class Sanitize implements RegistryAware
                 if (!isset($node[$segment])) {
                     $node[$segment] = [];
                 }
-                $node =& $node[$segment];
+                $node = & $node[$segment];
             }
             $node = true;
         }
@@ -299,15 +374,17 @@ class Sanitize implements RegistryAware
 
     /**
      * Check if the domain is in the list of forced HTTPS.
+     *
+     * @return bool
      */
-    protected function is_https_domain($domain)
+    protected function is_https_domain(string $domain)
     {
         $domain = trim($domain, '. ');
         $segments = array_reverse(explode('.', $domain));
-        $node =& $this->https_domains;
+        $node = & $this->https_domains;
         foreach ($segments as $segment) {//Explore the tree
             if (isset($node[$segment])) {
-                $node =& $node[$segment];
+                $node = & $node[$segment];
             } else {
                 break;
             }
@@ -317,16 +394,26 @@ class Sanitize implements RegistryAware
 
     /**
      * Force HTTPS for selected Web sites.
+     *
+     * @return string
      */
-    public function https_url($url)
+    public function https_url(string $url)
     {
-        return (strtolower(substr($url, 0, 7)) === 'http://') &&
-            $this->is_https_domain(parse_url($url, PHP_URL_HOST)) ?
-            substr_replace($url, 's', 4, 0) : //Add the 's' to HTTPS
-            $url;
+        return (
+            strtolower(substr($url, 0, 7)) === 'http://'
+            && ($parsed = parse_url($url, PHP_URL_HOST)) !== false // Malformed URL
+            && $parsed !== null // Missing host
+            && $this->is_https_domain($parsed) // Should be forced?
+        ) ? substr_replace($url, 's', 4, 0) // Add the 's' to HTTPS
+        : $url;
     }
 
-    public function sanitize($data, $type, $base = '')
+    /**
+     * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
+     * @param string $base
+     * @return string|bool|string[]
+     */
+    public function sanitize(string $data, int $type, string $base = '')
     {
         $data = trim($data);
         if ($data !== '' || $type & \SimplePie\SimplePie::CONSTRUCT_IRI) {
@@ -368,7 +455,7 @@ class Sanitize implements RegistryAware
 
                 // Strip out HTML tags and attributes that might cause various security problems.
                 // Based on recommendations by Mark Pilgrim at:
-                // http://diveintomark.org/archives/2003/06/12/how_to_consume_rss_safely
+                // https://web.archive.org/web/20110902041826/http://diveintomark.org:80/archives/2003/06/12/how_to_consume_rss_safely
                 if ($this->strip_htmltags) {
                     foreach ($this->strip_htmltags as $tag) {
                         $this->strip_tag($tag, $document, $xpath, $type);
@@ -400,7 +487,7 @@ class Sanitize implements RegistryAware
                 }
 
                 // If image handling (caching, etc.) is enabled, cache and rewrite all the image tags.
-                if (isset($this->image_handler) && ((string) $this->image_handler) !== '' && $this->enable_cache) {
+                if ($this->image_handler !== '' && $this->enable_cache) {
                     $images = $document->getElementsByTagName('img');
 
                     foreach ($images as $img) {
@@ -412,7 +499,7 @@ class Sanitize implements RegistryAware
                                 $img->setAttribute('src', $this->image_handler . $image_url);
                             } else {
                                 try {
-                                    $response = $this->get_http_client()->request(
+                                    $file = $this->get_http_client()->request(
                                         Client::METHOD_GET,
                                         $img->getAttribute('src'),
                                         ['X-FORWARDED-FOR' => $_SERVER['REMOTE_ADDR']]
@@ -421,8 +508,8 @@ class Sanitize implements RegistryAware
                                     continue;
                                 }
 
-                                if (! preg_match('/^http(s)?:\/\//i', $response->get_requested_uri()) || ($response->get_status_code() === 200 || $response->get_status_code() > 206 && $response->get_status_code() < 300)) {
-                                    if ($cache->set_data($image_url, ['headers' => $response->get_headers(), 'body' => $response->get_body_content()], $this->cache_duration)) {
+                                if ((!Misc::is_remote_uri($file->get_final_requested_uri()) || ($file->get_status_code() === 200 || $file->get_status_code() > 206 && $file->get_status_code() < 300))) {
+                                    if ($cache->set_data($image_url, ['headers' => $file->get_headers(), 'body' => $file->get_body_content()], $this->cache_duration)) {
                                         $img->setAttribute('src', $this->image_handler . $image_url);
                                     } else {
                                         trigger_error("$this->cache_location is not writable. Make sure you've set the correct relative or absolute path, and that the location is server-writable.", E_USER_WARNING);
@@ -466,7 +553,11 @@ class Sanitize implements RegistryAware
         return $data;
     }
 
-    protected function preprocess($html, $type)
+    /**
+     * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
+     * @return string
+     */
+    protected function preprocess(string $html, int $type)
     {
         $ret = '';
         $html = preg_replace('%</?(?:html|body)[^>]*?'.'>%is', '', $html);
@@ -487,7 +578,11 @@ class Sanitize implements RegistryAware
         return $ret;
     }
 
-    public function replace_urls($document, $tag, $attributes)
+    /**
+     * @param array<string>|string $attributes
+     * @return void
+     */
+    public function replace_urls(DOMDocument $document, string $tag, $attributes)
     {
         if (!is_array($attributes)) {
             $attributes = [$attributes];
@@ -509,7 +604,11 @@ class Sanitize implements RegistryAware
         }
     }
 
-    public function do_strip_htmltags($match)
+    /**
+     * @param array<int, string> $match
+     * @return string
+     */
+    public function do_strip_htmltags(array $match)
     {
         if ($this->encode_instead_of_strip) {
             if (isset($match[4]) && !in_array(strtolower($match[1]), ['script', 'style'])) {
@@ -526,7 +625,11 @@ class Sanitize implements RegistryAware
         }
     }
 
-    protected function strip_tag($tag, $document, $xpath, $type)
+    /**
+     * @param int-mask-of<SimplePie::CONSTRUCT_*> $type
+     * @return void
+     */
+    protected function strip_tag(string $tag, DOMDocument $document, DOMXPath $xpath, int $type)
     {
         $elements = $xpath->query('body//' . $tag);
         if ($this->encode_instead_of_strip) {
@@ -594,28 +697,41 @@ class Sanitize implements RegistryAware
         }
     }
 
-    protected function strip_attr($attrib, $xpath)
+    /**
+     * @return void
+     */
+    protected function strip_attr(string $attrib, DOMXPath $xpath)
     {
         $elements = $xpath->query('//*[@' . $attrib . ']');
 
+        /** @var \DOMElement $element */
         foreach ($elements as $element) {
             $element->removeAttribute($attrib);
         }
     }
 
-    protected function rename_attr($attrib, $xpath)
+    /**
+     * @return void
+     */
+    protected function rename_attr(string $attrib, DOMXPath $xpath)
     {
         $elements = $xpath->query('//*[@' . $attrib . ']');
 
+        /** @var \DOMElement $element */
         foreach ($elements as $element) {
             $element->setAttribute('data-sanitized-' . $attrib, $element->getAttribute($attrib));
             $element->removeAttribute($attrib);
         }
     }
 
-    protected function add_attr($tag, $valuePairs, $document)
+    /**
+     * @param array<string, string> $valuePairs
+     * @return void
+     */
+    protected function add_attr(string $tag, array $valuePairs, DOMDocument $document)
     {
         $elements = $document->getElementsByTagName($tag);
+        /** @var \DOMElement $element */
         foreach ($elements as $element) {
             foreach ($valuePairs as $attrib => $value) {
                 $element->setAttribute($attrib, $value);
@@ -652,7 +768,7 @@ class Sanitize implements RegistryAware
     private function get_http_client(): Client
     {
         if ($this->http_client === null) {
-            return new FileClient(
+            $this->http_client = new FileClient(
                 $this->registry,
                 [
                     'timeout' => $this->timeout,

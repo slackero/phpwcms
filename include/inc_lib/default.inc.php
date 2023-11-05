@@ -273,10 +273,10 @@ $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_l
 
 $phpwcms['js_lib_default'] = array(
     'jQuery' => '-',
-        'jquery-3.7' => 'jQuery 3.7.0',
-        'jquery-3.7-migrate' => 'jQuery 3.7.0 + Migrate 3.4.0',
-        'jquery-3.7-migrate-1' => 'jQuery 3.7.0 + Migrate 1.4.1 + 3.4.0',
-        'jquery-3.7-slim' => 'jQuery Slim 3.7.0',
+        'jquery-3.7' => 'jQuery 3.7.1',
+        'jquery-3.7-migrate' => 'jQuery 3.7.1 + Migrate 3.4.0',
+        'jquery-3.7-migrate-1' => 'jQuery 3.7.1 + Migrate 1.4.1 + 3.4.0',
+        'jquery-3.7-slim' => 'jQuery Slim 3.7.1',
         'jquery-1.12' => 'jQuery 1.12.4',
         'jquery-1.12-migrate' => 'jQuery 1.12.4 + Migrate 1.4.1',
         'jquery-2.2' => 'jQuery 2.2.4',
@@ -790,6 +790,20 @@ function returnGlobalGET_QueryString($format = '', $add = array(), $remove = arr
     if (count($remove)) {
         foreach ($remove as $value) {
             unset($_getVarTemp[$value]);
+        }
+    }
+
+    // Remove all GET vars having no value except the alias
+    if (!empty($GLOBALS['phpwcms']['remove_empty_get_vars']) && count($_getVarTemp)) {
+        $items = array_keys($_getVarTemp); // get all indexes first
+        unset($items[0]); // delete the first = alias
+        // Search all empty GET values and remove
+        if (count($items)) {
+            foreach ($items as $index) {
+                if ($_getVarTemp[$index] === '') {
+                    unset($_getVarTemp[$index]);
+                }
+            }
         }
     }
 
@@ -1355,7 +1369,8 @@ function init_frontend_edit() {
 }
 
 function html($string, $double_encode = false) {
-    return htmlspecialchars($string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+    $string = (string)$string;
+    return $string === '' ? '' : htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 }
 
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {

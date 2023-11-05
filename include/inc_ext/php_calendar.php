@@ -34,7 +34,7 @@ function generate_calendar($param = array()) {
 
     // set correct locale
     if ($locale) {
-        $_oldLocale = setlocale(LC_TIME, NULL); //save current locale
+        $_oldLocale = setlocale(LC_TIME, '0'); //save current locale
         setlocale(LC_TIME, $locale);
     }
 

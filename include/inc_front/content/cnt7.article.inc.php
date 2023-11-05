@@ -110,7 +110,7 @@ if ($_files_force_rendering || $_files_count) {
     $crow["acontent_template"] = replace_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $content['template_file'] = get_tmpl_section('FILE_ENTRY', $crow["acontent_template"]);
     if ($_files_settings['set_locale']) {
-        $_files_old_locale = setlocale(LC_ALL, "0");
+        $_files_old_locale = setlocale(LC_ALL, '0');
         setlocale(LC_ALL, $_files_settings['set_locale']);
     }
     $_files_entries = array();
@@ -214,7 +214,7 @@ if ($_files_force_rendering || $_files_count) {
                         // language specific long description and copyright
                         if ($content['files_result'][$_files_x]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
                             if (is_string($content['files_result'][$_files_x]['f_vars'])) {
-                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars']);
+                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars'], ['allowed_classes' => false]);
                             }
                             if (is_array($content['files_result'][$_files_x]['f_vars'])) {
                                 if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'])) {

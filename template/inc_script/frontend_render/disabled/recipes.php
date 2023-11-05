@@ -31,7 +31,7 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 		$recipe = '';
 
 		if(isset($option['LOCALE']) && !empty($option['LOCALE'][0])) {
-			$_oldLocale = setlocale(LC_ALL, null);
+			$_oldLocale = setlocale(LC_ALL, '0');
 			setlocale(LC_ALL, $option['LOCALE'][0]);
 		}
 
@@ -220,7 +220,7 @@ if(!(strpos($content["all"], '{RECIPES:') === false)) {
 
 			foreach($result as $value) {
 
-				$value['article_image'] = unserialize($value['article_image']);
+				$value['article_image'] = unserialize($value['article_image'], ['allowed_classes' => false]);
 				$articles[ $value['article_id'] ] = $value;
 
 			}

@@ -651,7 +651,7 @@ function getContentPartTopLink($param=0) {
 
 function getContentPartAlias($crow) {
 
-    $alias = @unserialize($crow["acontent_form"]);
+    $alias = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
     $alias_visible = false;
     if(!empty($alias['alias_ID'])) {
         $alias['alias_ID'] = intval($alias['alias_ID']);

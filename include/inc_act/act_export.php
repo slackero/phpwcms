@@ -72,7 +72,7 @@ if ($action === 'exportformresult' && $fid) {
         $export[$row]['#Date'] = $value['formresult_createdate'];
         $export[$row]['#IP'] = $value['formresult_ip'];
 
-        $val_array = @unserialize($value['formresult_content']);
+        $val_array = @unserialize($value['formresult_content'], ['allowed_classes' => false]);
         if (is_array($val_array) && count($val_array)) {
             foreach ($val_array as $a_key => $a_value) {
                 $export[$row][$a_key] = $a_value;
@@ -195,7 +195,7 @@ if ($action === 'exportformresult' && $fid) {
         $export[$row]['#Date'] = $value['formresult_createdate'];
         $export[$row]['#IP'] = $value['formresult_ip'];
 
-        $val_array = @unserialize($value['formresult_content']);
+        $val_array = @unserialize($value['formresult_content'], ['allowed_classes' => false]);
         if (is_array($val_array) && count($val_array)) {
             foreach ($val_array as $a_key => $a_value) {
                 $export[$row][$a_key] = $a_value;
@@ -349,7 +349,7 @@ if ($action === 'exportformresult' && $fid) {
 
                 $value['all'] = '';
 
-                $value['address_subscription'] = unserialize($value['address_subscription']);
+                $value['address_subscription'] = unserialize($value['address_subscription'], ['allowed_classes' => false]);
                 if (in_array(0, $value['address_subscription'])) {
                     $value['all'] = 'X';
                 }

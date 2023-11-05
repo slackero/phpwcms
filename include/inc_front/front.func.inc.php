@@ -3705,8 +3705,8 @@ function _checkFrontendUserAutoLogin() {
 }
 
 function _getStructureLevelDisplayStatus($level_ID, $current_ID) {
-    if($GLOBALS['content']['struct'][$level_ID]['acat_struct'] == $current_ID && $level_ID) {
-        if($GLOBALS['content']['struct'][$level_ID]['acat_regonly'] && !FEUSER_LOGIN_STATUS) {
+    if($level_ID && isset($GLOBALS['content']['struct'][$level_ID]['acat_struct']) && $GLOBALS['content']['struct'][$level_ID]['acat_struct'] == $current_ID) {
+        if(!FEUSER_LOGIN_STATUS && isset($GLOBALS['content']['struct'][$level_ID]['acat_regonly']) && $GLOBALS['content']['struct'][$level_ID]['acat_regonly']) {
             return false;
         }
         if(empty($GLOBALS['content']['struct'][$level_ID]['acat_hidden'])) {
