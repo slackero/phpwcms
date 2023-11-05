@@ -29,7 +29,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             $set_user_aktiv = $result[0]["usr_aktiv"];
             $set_user_admin = $result[0]["usr_admin"];
             $set_user_fe    = $result[0]["usr_fe"];
-            $set_user_var   = @unserialize($result[0]["usr_vars"]);
+            $set_user_var   = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
             $send_verification = 0;
             $new_password = '';
         }
@@ -72,7 +72,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 }
 
                 if(empty($user_err)) {
-                    $set_user_var = @unserialize($result[0]["usr_vars"]);
+                    $set_user_var = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
                     if(!is_array($set_user_var)) {
                         $set_user_var = array();
                     }

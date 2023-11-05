@@ -19,7 +19,7 @@ if(!defined('PHPWCMS_ROOT')) {
 // Content Type Text with Image
 $content["text"] = $row["acontent_text"];
 $content["template"] = $row["acontent_template"];
-$content["cimage"] = @unserialize($row["acontent_form"]);
+$content["cimage"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if(!is_array($content["cimage"])) {
 	$content["cimage"] = array();
 }

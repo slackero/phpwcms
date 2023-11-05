@@ -621,8 +621,8 @@ function _getConfig($key, $set_global='phpwcms') {
                     case 'int':     $result[ $value ] = (int) $row[0]['sysvalue_value'];                    break;
                     case 'float':   $result[ $value ] = (float) $row[0]['sysvalue_value'];                  break;
                     case 'bool':    $result[ $value ] = (bool) $row[0]['sysvalue_value'];                   break;
-                    case 'array':   $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value']);    break;
-                    case 'object':  $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value']);   break;
+                    case 'array':   $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);    break;
+                    case 'object':  $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);   break;
                     default:        $result[ $value ] = $row[0]['sysvalue_value'];
                 }
             }

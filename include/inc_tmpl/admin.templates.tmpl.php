@@ -269,7 +269,7 @@ if(isset($result[0]['template_id'])) {
         $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_id=".$template["id"]." LIMIT 1";
         $result = _dbQuery($sql);
         if(isset($result[0]['template_id'])) {
-            if(($result[0]["template_var"] = @unserialize($result[0]["template_var"]))) {
+            if(($result[0]["template_var"] = @unserialize($result[0]["template_var"], ['allowed_classes' => false]))) {
                 $template = array_replace_recursive($template, $result[0]["template_var"]);
             }
             $template["id"] = intval($result[0]["template_id"]);
@@ -334,7 +334,7 @@ if(isset($result[0]['pagelayout_id'])) {
         if($row['pagelayout_id'] == $template["layout"]) {
             $opt .= ' selected="selected"';
             // try to get additional custom blocks from selected page layout
-            $custom_blocks = unserialize($row['pagelayout_var']);
+            $custom_blocks = unserialize($row['pagelayout_var'], ['allowed_classes' => false]);
             $custom_blocks = explode(', ', trim($custom_blocks['layout_customblocks']));
 
             if(is_array($custom_blocks) && count($custom_blocks) && $custom_blocks[0] != '') {

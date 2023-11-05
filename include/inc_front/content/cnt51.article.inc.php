@@ -34,7 +34,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 }
 
 $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
-$map = unserialize($crow["acontent_form"]);
+$map = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 $map['sql']  = "SELECT * FROM ".DB_PREPEND."phpwcms_map WHERE map_deleted=0 ";
 $map['sql'] .= "AND map_cid=".intval($crow["acontent_id"])." ORDER BY map_zip ASC, map_city ASC";

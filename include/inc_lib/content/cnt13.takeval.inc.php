@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Search
 $content["template"]	= $row["acontent_template"];
-$content["search"]		= unserialize($row["acontent_form"]);
+$content["search"]		= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if(!isset($content["search"]["align"])) {
 	unset($content["search"]);
 }

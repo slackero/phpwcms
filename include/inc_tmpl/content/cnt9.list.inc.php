@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
 
-$media["media"]			= unserialize($row["acontent_form"]);
+$media["media"]			= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $media["media_type"]	= $media["media"]['media_type'];
 $media["media_player"]	= $media["media"]['media_player'];
 $media["media_id"]		= $media["media"]["media_id"];

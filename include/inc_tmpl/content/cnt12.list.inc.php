@@ -20,7 +20,7 @@ if(!defined('PHPWCMS_ROOT')) {
 
 $cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$cnewsletter = unserialize($row["acontent_newsletter"]);
+$cnewsletter = unserialize($row["acontent_newsletter"], ['allowed_classes' => false]);
 $cinfo[3] = str_replace("\n", " ", cut_string($cnewsletter["text"], '&#8230;', 150));
 $cinfo["result"] = "";
 

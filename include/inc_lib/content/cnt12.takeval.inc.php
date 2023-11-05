@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Newsletter Subscription
-$content["newsletter"] = unserialize($row["acontent_newsletter"]);
+$content["newsletter"] = unserialize($row["acontent_newsletter"], ['allowed_classes' => false]);
 
 if(empty($content["newsletter"]["recaptcha_config"])) {
 

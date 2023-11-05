@@ -49,7 +49,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     // Set file info based on IPTC for all languages
     if(!empty($_POST['file_iptc_as_caption']) && !empty($_POST['file_image_iptc'])) {
 
-        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']));
+        $file_image_iptc = unserialize(base64_decode($_POST['file_image_iptc']), ['allowed_classes' => false]);
         $file_iptc_info = render_iptc_fileinfo($file_image_iptc);
 
         if($file_title === '') {

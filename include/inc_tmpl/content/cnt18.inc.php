@@ -66,7 +66,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
         foreach($_available_aliasID as $_aliasValue) {
 
-            $_temp_gb_data = unserialize($_aliasValue['acontent_form']);
+            $_temp_gb_data = unserialize($_aliasValue['acontent_form'], ['allowed_classes' => false]);
 
             if(empty($_temp_gb_data['aliasID'])) {
                 echo '  <option value="'.$_aliasValue['acontent_id'].'">['.$_aliasValue['acontent_id'].'] ';

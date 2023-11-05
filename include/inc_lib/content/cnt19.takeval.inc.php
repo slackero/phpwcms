@@ -18,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Sitemap
-$content["sitemap"]	= unserialize($row["acontent_form"]);
+$content["sitemap"]	= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 
 if(!isset($content["sitemap"]["without_parent"])) {
 	$content["sitemap"]["without_parent"] = 0;

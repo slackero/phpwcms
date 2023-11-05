@@ -20,7 +20,7 @@ if(!defined('PHPWCMS_ROOT')) {
 
 $cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$calist = unserialize($row["acontent_form"]);
+$calist = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 $cinfo[3] = ($cinfo[1] || $cinfo[2]) ? "<br />" : "";
 $cinfo[3] .= (empty($calist['cat'])) ? $BL['be_cnt_sitecurrent'] : $BL['be_cnt_sitelevel'] . ' [ID:' . $calist['catid'] . ']';
 $cinfo["result"] = "";

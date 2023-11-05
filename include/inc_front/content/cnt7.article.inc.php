@@ -214,7 +214,7 @@ if ($_files_force_rendering || $_files_count) {
                         // language specific long description and copyright
                         if ($content['files_result'][$_files_x]['f_vars'] && count($phpwcms['allowed_lang']) > 1) {
                             if (is_string($content['files_result'][$_files_x]['f_vars'])) {
-                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars']);
+                                $content['files_result'][$_files_x]['f_vars'] = @unserialize($content['files_result'][$_files_x]['f_vars'], ['allowed_classes' => false]);
                             }
                             if (is_array($content['files_result'][$_files_x]['f_vars'])) {
                                 if (!empty($content['files_result'][$_files_x]['f_vars'][$phpwcms['default_lang']]['longinfo'])) {

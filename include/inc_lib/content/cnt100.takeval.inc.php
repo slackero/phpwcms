@@ -19,4 +19,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type List
 $content["text"] = $row["acontent_text"];
-$content['bulletlist'] = unserialize($row["acontent_form"]);
+$content['bulletlist'] = unserialize($row["acontent_form"], ['allowed_classes' => false]);
