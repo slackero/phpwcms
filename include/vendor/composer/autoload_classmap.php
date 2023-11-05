@@ -6,9 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
+    'AllowDynamicProperties' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/AllowDynamicProperties.php',
     'AtomCreator03' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator03.php',
     'AtomCreator10' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/AtomCreator10.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+    'CURLStringFile' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'FeedCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/FeedCreator.php',
     'FeedDate' => $vendorDir . '/openpsa/universalfeedcreator/lib/Element/FeedDate.php',
@@ -28,6 +30,15 @@ return array(
     'RSSCreator091' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator091.php',
     'RSSCreator10' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator10.php',
     'RSSCreator20' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/RSSCreator20.php',
+    'Random\\BrokenRandomEngineError' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/BrokenRandomEngineError.php',
+    'Random\\CryptoSafeEngine' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/CryptoSafeEngine.php',
+    'Random\\Engine' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/Engine.php',
+    'Random\\Engine\\Secure' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/Engine/Secure.php',
+    'Random\\RandomError' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/RandomError.php',
+    'Random\\RandomException' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/Random/RandomException.php',
+    'ReturnTypeWillChange' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
+    'SensitiveParameter' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameter.php',
+    'SensitiveParameterValue' => $vendorDir . '/symfony/polyfill-php82/Resources/stubs/SensitiveParameterValue.php',
     'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'UniversalFeedCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/UniversalFeedCreator.php',
