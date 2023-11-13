@@ -24,9 +24,12 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
 <form action="setup.php?step=1" method="post" autocomplete="off">
         <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
-            <td align="right" class="v10" width="120">MySQL host:&nbsp;</td>
-            <td width="270"><input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:300px" /></td>
-            <td class="chatlist"><em>default: localhost</em></td>
+            <td align="right" class="v10" width="120">MySQL host and port:&nbsp;</td>
+            <td width="270">
+                <input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:250px" />
+                <input name="db_port" type="text" class="v12" id="db_port" value="<?php echo $phpwcms["db_port"] ?>" placeholder="localhost" size="4" style="width:45px" />
+            </td>
+            <td class="chatlist"><em>default: localhost / 3306</em></td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>

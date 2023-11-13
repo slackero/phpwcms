@@ -12,28 +12,41 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
-define('DB_LOG_ERRORS', !empty($GLOBALS['phpwcms']["db_errorlog"]));
+define('DB_LOG_ERRORS', !empty($GLOBALS['phpwcms']['db_errorlog']));
 
 // open the connection to MySQL database
-if(!empty($GLOBALS['phpwcms']["db_pers"]) && !str_starts_with($GLOBALS['phpwcms']["db_host"], 'p:')) {
-    $GLOBALS['phpwcms']["db_host"] = 'p:'.$GLOBALS['phpwcms']["db_host"];
+if(!empty($GLOBALS['phpwcms']['db_pers']) && !str_starts_with($GLOBALS['phpwcms']['db_host'], 'p:')) {
+    $GLOBALS['phpwcms']['db_host'] = 'p:'.$GLOBALS['phpwcms']['db_host'];
 }
-$GLOBALS['db'] = mysqli_connect($GLOBALS['phpwcms']["db_host"], $GLOBALS['phpwcms']["db_user"], $GLOBALS['phpwcms']["db_pass"], $GLOBALS['phpwcms']["db_table"]);
+if (empty($GLOBALS['phpwcms']['db_port'])) {
+    $GLOBALS['phpwcms']['db_port'] = 3306;
+}
+try {
+    $GLOBALS['db'] = mysqli_connect(
+        $GLOBALS['phpwcms']['db_host'],
+        $GLOBALS['phpwcms']['db_user'],
+        $GLOBALS['phpwcms']['db_pass'],
+        $GLOBALS['phpwcms']['db_table'],
+        $GLOBALS['phpwcms']['db_port']
+    );
+    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME']) : false;
+} catch (Exception $e) {
+    $GLOBALS['db'] = false;
+    $is_mysql_error = mysqli_connect_error() ? basename($_SERVER['SCRIPT_FILENAME']) : false;
+}
 
-$is_mysql_error = mysqli_connect_error() ? basename($_SERVER["SCRIPT_FILENAME"]) : false;
 $GLOBALS['phpwcms']['db_version'] = 'unknown';
 
 if($is_mysql_error === false) {
-
     // set DB to compatible mode
     // for compatibility issues try to check for MySQL version and charset
     $GLOBALS['phpwcms']['db_version'] = _dbInitialize();
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
-    define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : mysqli_real_escape_string($GLOBALS['db'], $GLOBALS['phpwcms']["db_prepend"]) . '_');
+    define('DB_PREPEND', empty($GLOBALS['phpwcms']['db_prepend']) ? '' : mysqli_real_escape_string($GLOBALS['db'], $GLOBALS['phpwcms']['db_prepend']) . '_');
 
 } elseif($is_mysql_error !== 'dbdown.php') {
 
@@ -42,7 +55,7 @@ if($is_mysql_error === false) {
 } else {
 
     define('PHPWCMS_DB_VERSION', $GLOBALS['phpwcms']['db_version']);
-    define('DB_PREPEND', empty($GLOBALS['phpwcms']["db_prepend"]) ? '' : aporeplace($GLOBALS['phpwcms']["db_prepend"]) . '_');
+    define('DB_PREPEND', empty($GLOBALS['phpwcms']['db_prepend']) ? '' : aporeplace($GLOBALS['phpwcms']['db_prepend']) . '_');
 
 }
 
@@ -57,15 +70,15 @@ function aporeplace($value='') {
 function _dbSelect($db_table='') {
 
     if(empty($db_table)) {
-        $db_table = $GLOBALS['phpwcms']["db_table"];
+        $db_table = $GLOBALS['phpwcms']['db_table'];
     }
 
-    if(isset($GLOBALS['phpwcms']["db_table_selected"]) && $GLOBALS['phpwcms']["db_table_selected"] === $db_table) {
+    if(isset($GLOBALS['phpwcms']['db_table_selected']) && $GLOBALS['phpwcms']['db_table_selected'] === $db_table) {
         return true;
     }
 
     // Set current selected DB Table
-    $GLOBALS['phpwcms']["db_table_selected"] = $db_table;
+    $GLOBALS['phpwcms']['db_table_selected'] = $db_table;
 
     return mysqli_select_db($GLOBALS['db'], $db_table);
 
@@ -550,7 +563,7 @@ function _setConfig($key, $value=null, $group='', $status=1) {
 
         if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
             $mysql_error = _dbError();
-            trigger_error("_setConfig failed".(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_WARNING);
+            trigger_error('_setConfig failed' .(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_WARNING);
         }
 
     }

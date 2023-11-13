@@ -13,6 +13,7 @@
 
 // database values
 $phpwcms['db_host']              = 'localhost';
+$phpwcms['db_port']              = 3306;
 $phpwcms['db_user']              = '';
 $phpwcms['db_pass']              = '';
 $phpwcms['db_table']             = '';

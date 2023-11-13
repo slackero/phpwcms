@@ -125,25 +125,26 @@ function escape_quote($text='') {
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val["db_host"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val["db_user"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val["db_pass"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val["db_table"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val["db_prepend"]) . "';\n";
+    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host']) . "';\n";
+    $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
+    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user']) . "';\n";
+    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass']) . "';\n";
+    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table']) . "';\n";
+    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend']) . "';\n";
     $conf_file .= "\$phpwcms['db_pers'] = " . intval($val["db_pers"]) . ";\n";
-    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val["db_charset"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val["db_collation"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val["db_version"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
+    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset']) . "';\n";
+    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation']) . "';\n";
+    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version']) . "';\n";
+    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val['db_timezone'])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
-    $check_url = rtrim($val["site"], '/');
+    $check_url = rtrim($val['site'], '/');
     if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$phpwcms['site'] = '';";
     } else {
-        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val["site"]) . "';";
+        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val['site']) . "';";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
