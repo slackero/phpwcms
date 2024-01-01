@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '052493f17617aa66bf464bccb420ae9f017eb175',
+        'reference' => 'fb44255ade05eadbc30f96efaeedd915b3606d00',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '052493f17617aa66bf464bccb420ae9f017eb175',
+            'reference' => 'fb44255ade05eadbc30f96efaeedd915b3606d00',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
-            'pretty_version' => 'v4.16.0',
-            'version' => '4.16.0.0',
-            'reference' => '523407fb06eb9e5f3d59889b3978d5bfe94299c8',
+            'pretty_version' => 'v4.17.0',
+            'version' => '4.17.0.0',
+            'reference' => 'bbc513d79acf6691fa9cf10f192c90dd2957f18c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
@@ -130,7 +130,7 @@
         'php81_bc/strftime' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '51a4ef70056267d0104c3bcb3f4b0b65dcf40f39',
+            'reference' => 'f5e1ece8a84171d52ef9fc2cd7fb9e9f52e49c58',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php81_bc/strftime',
             'aliases' => array(
@@ -139,9 +139,9 @@
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
-            'pretty_version' => 'v6.8.1',
-            'version' => '6.8.1.0',
-            'reference' => 'e88da8d679acc3824ff231fdc553565b802ac016',
+            'pretty_version' => 'v6.9.1',
+            'version' => '6.9.1.0',
+            'reference' => '039de174cd9c17a8389754d3b877a2ed22743e18',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
@@ -195,7 +195,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '290e930c21bdfa513c11119507767d5c72258ab5',
+            'reference' => '1ec20d6e0aa68339e18f638bdcfba7aa10a361ce',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(

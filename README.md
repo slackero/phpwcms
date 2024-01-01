@@ -16,10 +16,11 @@ Quick start
 
 Stable releases can be used by cloning the repository, `git clone git://github.com/slackero/phpwcms.git` or
 [download the archive](https://github.com/slackero/phpwcms/releases).
-To start with the latest development version use `git clone -b v1.10-php8.2-dev-mysql-timestamp git://github.com/slackero/phpwcms.git` or
+
+To start with the latest development version use `git clone -b v1.10-dev git://github.com/slackero/phpwcms.git` or
 [download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.10-php8.2-dev-mysql-timestamp.zip).
-If downloaded instead of `git clone`, un-archive and copy the files to your web document root or sub folder.
-Link your browser to the related URL and follow the install instructions.
+If you have downloaded the archive instead of `git clone`, un-archive and copy the files to your web
+document root or sub folder. Link your browser to the related URL and follow the install instructions.
 
 
 Server system requirements
@@ -44,9 +45,6 @@ Bug tracker
 
 Did you find a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
 that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
-
-In case it's a vulnerability maybe [huntr.dev](https://huntr.dev) is an option:  
-[![huntr](https://cdn.huntr.dev/huntr_security_badge_mono.svg)](https://huntr.dev).
 
 
 Share with us
@@ -73,7 +71,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright 2002-2023 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright 2002-2024 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
