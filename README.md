@@ -7,7 +7,7 @@ under PHP and MySQL/MariaDB. phpwcms is created and maintained by
 [Oliver Georgi](http://twitter.com/slackero). None of the fancy systems but working since more 
 than 20 years! Yeah!
 
-Version 1.9.37 is the legacy version of **phpwcms** (version > 1.9.36 and < 1.10).
+Version 1.9.38 is the legacy version of **phpwcms** (version > 1.9.36 and < 1.10).
 I will try to keep this on par as long as possible to the newest version
 of **phpwcms** v1.10+ — if you can try to upgrade existing installations.
 
@@ -21,16 +21,17 @@ Quick start
 
 Stable releases can be used by cloning the repository, `git clone git://github.com/slackero/phpwcms.git` or
 [download the archive](https://github.com/slackero/phpwcms/releases).
+
 To start with the latest development version use `git clone -b v1.10-dev git://github.com/slackero/phpwcms.git` or
 [download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.10-dev.zip).
-If downloaded instead of `git clone`, unarchive and copy the files to your web document root or sub folder.
-Link your browser to the related URL and follow the install instructions.
+If you have downloaded the archive instead of `git clone`, unarchive and copy the files to your web document
+root or sub folder. Link your browser to the related URL and follow the install instructions.
 
 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.37 requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.38 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 Always check the [supported versions of PHP](https://www.php.net/supported-versions.php).
 
@@ -72,7 +73,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright 2002-2023 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright 2002-2024 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
