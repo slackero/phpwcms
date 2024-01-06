@@ -25,7 +25,7 @@ define('PHP8', defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION >= 8);
 
 function read_textfile($filename) {
     if (is_file($filename)) {
-        $fd = @fopen($filename, "rb");
+        $fd = @fopen($filename, 'rb');
         $text = fread($fd, filesize($filename));
         fclose($fd);
         return $text;
@@ -34,7 +34,7 @@ function read_textfile($filename) {
 }
 
 function write_textfile($filename, $text) {
-    if ($fp = @fopen($filename, "w+b")) {
+    if ($fp = @fopen($filename, 'w+b')) {
         fwrite($fp, $text);
         fclose($fp);
         return true;
@@ -76,16 +76,16 @@ function gib_bg_color($status) {
 function gib_status_text($status) {
     switch ($status) {
         case 2:
-            $msg = "&nbsp;<b>OK</b> (exists + writable)";
+            $msg = '&nbsp;<b>OK</b> (exists + writable)';
             break;
         case 1:
-            $msg = "&nbsp;<b>FALSE</b> (exists + not writable)";
+            $msg = '&nbsp;<b>FALSE</b> (exists + not writable)';
             break;
         case 3:
-            $msg = "&nbsp;<b>OK</b> (exists + not writable)";
+            $msg = '&nbsp;<b>OK</b> (exists + not writable)';
             break;
         default:
-            $msg = "&nbsp;<b>FALSE</b> (not existing)";
+            $msg = '&nbsp;<b>FALSE</b> (not existing)';
     }
     return $msg;
 }
@@ -118,31 +118,32 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
 }
 
 function escape_quote($text='') {
-    return str_replace(array('\\', "'"), array('\\\\', "\\'"), $text);
+    return str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
 }
 
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$cmsgo['db_host'] = '" . escape_quote($val["db_host"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_user'] = '" . escape_quote($val["db_user"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_pass'] = '" . escape_quote($val["db_pass"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_table'] = '" . escape_quote($val["db_table"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_prepend'] = '" . escape_quote($val["db_prepend"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_pers'] = " . intval($val["db_pers"]) . ";\n";
-    $conf_file .= "\$cmsgo['db_charset'] = '" . escape_quote($val["db_charset"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_collation'] = '" . escape_quote($val["db_collation"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_version'] = '" . escape_quote($val["db_version"]) . "';\n";
-    $conf_file .= "\$cmsgo['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html\n";
+    $conf_file .= "\$cmsgo['db_host'] = '" . escape_quote($val['db_host']) . "';\n";
+    $conf_file .= "\$cmsgo['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
+    $conf_file .= "\$cmsgo['db_user'] = '" . escape_quote($val['db_user']) . "';\n";
+    $conf_file .= "\$cmsgo['db_pass'] = '" . escape_quote($val['db_pass']) . "';\n";
+    $conf_file .= "\$cmsgo['db_table'] = '" . escape_quote($val['db_table']) . "';\n";
+    $conf_file .= "\$cmsgo['db_prepend'] = '" . escape_quote($val['db_prepend']) . "';\n";
+    $conf_file .= "\$cmsgo['db_pers'] = " . intval($val['db_pers']) . ";\n";
+    $conf_file .= "\$cmsgo['db_charset'] = '" . escape_quote($val['db_charset']) . "';\n";
+    $conf_file .= "\$cmsgo['db_collation'] = '" . escape_quote($val['db_collation']) . "';\n";
+    $conf_file .= "\$cmsgo['db_version'] = '" . escape_quote($val['db_version']) . "';\n";
+    $conf_file .= "\$cmsgo['db_timezone'] = '" . escape_quote(trim($val['db_timezone'])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html\n";
     $conf_file .= "\$cmsgo['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$cmsgo['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
-    $check_url = rtrim($val["site"], '/');
+    $check_url = rtrim($val['site'], '/');
     if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$cmsgo['site'] = '';";
     } else {
-        $conf_file .= "\$cmsgo['site'] = '" . escape_quote($val["site"]) . "';";
+        $conf_file .= "\$cmsgo['site'] = '" . escape_quote($val['site']) . "';";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
@@ -150,49 +151,49 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$cmsgo['site_ssl_port'] = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
 
-    $conf_file .= "\$cmsgo['admin_name'] = '" . escape_quote($val["admin_name"]) . "'; //default: Webmaster\n";
-    $conf_file .= "\$cmsgo['admin_user'] = '" . escape_quote($val["admin_user"]) . "'; //default: admin\n";
-    $conf_file .= "\$cmsgo['admin_pass'] = '" . escape_quote($val["admin_pass"]) . "'; //MD5(cmsgo)\n";
-    $conf_file .= "\$cmsgo['admin_email'] = '" . escape_quote($val["admin_email"]) . "'; //default: noreplay@host\n";
+    $conf_file .= "\$cmsgo['admin_name'] = '" . escape_quote($val['admin_name']) . "'; //default: Webmaster\n";
+    $conf_file .= "\$cmsgo['admin_user'] = '" . escape_quote($val['admin_user']) . "'; //default: admin\n";
+    $conf_file .= "\$cmsgo['admin_pass'] = '" . escape_quote($val['admin_pass']) . "'; //MD5(cmsgo)\n";
+    $conf_file .= "\$cmsgo['admin_email'] = '" . escape_quote($val['admin_email']) . "'; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";
     if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
         $conf_file .= "\$cmsgo['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . escape_quote($val["DOC_ROOT"]) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$cmsgo['DOC_ROOT'] = '" . escape_quote($val['DOC_ROOT']) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
-    if (isset($val["root"]) && $val["root"] !== '') {
-        $real_doc = explode($val["root"], $real_doc);
+    if (isset($val['root']) && $val['root'] !== '') {
+        $real_doc = explode($val['root'], $real_doc);
         $real_doc = rtrim($real_doc[0], '/');
     }
     $conf_file .= "// current DOC_ROOT seems to be: '" . escape_quote($real_doc) . "' \n";
-    $conf_file .= "\$cmsgo['root'] = '" . escape_quote($val["root"]) . "'; //default: ''\n";
-    $conf_file .= "\$cmsgo['file_path'] = '" . escape_quote($val["file_path"]) . "'; //default: 'filearchive'\n";
-    $conf_file .= "\$cmsgo['templates'] = '" . escape_quote($val["templates"]) . "'; //default: 'template'\n";
-    $conf_file .= "\$cmsgo['content_path'] = '" . escape_quote($val["content_path"]) . "'; //default: 'content'\n";
+    $conf_file .= "\$cmsgo['root'] = '" . escape_quote($val['root']) . "'; //default: ''\n";
+    $conf_file .= "\$cmsgo['file_path'] = '" . escape_quote($val['file_path']) . "'; //default: 'filearchive'\n";
+    $conf_file .= "\$cmsgo['templates'] = '" . escape_quote($val['templates']) . "'; //default: 'template'\n";
+    $conf_file .= "\$cmsgo['content_path'] = '" . escape_quote($val['content_path']) . "'; //default: 'content'\n";
     $conf_file .= "\$cmsgo['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$cmsgo['ftp_path'] = '" . escape_quote($val["ftp_path"]) . "'; //default: 'upload'\n";
+    $conf_file .= "\$cmsgo['ftp_path'] = '" . escape_quote($val['ftp_path']) . "'; //default: 'upload'\n";
     $conf_file .= "\$cmsgo['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
-    $conf_file .= "\$cmsgo['file_maxsize'] = " . intval($val["file_maxsize"]) . "; //Bytes (50 x 1024 x 1024)\n";
-    $conf_file .= "\$cmsgo['content_width'] = " . intval($val["content_width"]) . "; //max width of the article content column - important for rendering multi column images\n";
-    $conf_file .= "\$cmsgo['img_list_width'] = " . intval($val["img_list_width"]) . "; //max with of the list thumbnail image\n";
-    $conf_file .= "\$cmsgo['img_list_height'] = " . intval($val["img_list_height"]) . "; //max height of the list thumbnail image\n";
-    $conf_file .= "\$cmsgo['img_prev_width'] = " . intval($val["img_prev_width"]) . "; //max width of the large preview image\n";
-    $conf_file .= "\$cmsgo['img_prev_height'] = " . intval($val["img_prev_height"]) . "; //max height of the large preview image\n";
-    $conf_file .= "\$cmsgo['max_time'] = " . intval($val["max_time"]) . "; //logout after max_time/60 seconds\n";
+    $conf_file .= "\$cmsgo['file_maxsize'] = " . intval($val['file_maxsize']) . "; //Bytes (50 x 1024 x 1024)\n";
+    $conf_file .= "\$cmsgo['content_width'] = " . intval($val['content_width']) . "; //max width of the article content column - important for rendering multi column images\n";
+    $conf_file .= "\$cmsgo['img_list_width'] = " . intval($val['img_list_width']) . "; //max with of the list thumbnail image\n";
+    $conf_file .= "\$cmsgo['img_list_height'] = " . intval($val['img_list_height']) . "; //max height of the list thumbnail image\n";
+    $conf_file .= "\$cmsgo['img_prev_width'] = " . intval($val['img_prev_width']) . "; //max width of the large preview image\n";
+    $conf_file .= "\$cmsgo['img_prev_height'] = " . intval($val['img_prev_height']) . "; //max height of the large preview image\n";
+    $conf_file .= "\$cmsgo['max_time'] = " . intval($val['max_time']) . "; //logout after max_time/60 seconds\n";
     $conf_file .= "\$cmsgo['responsive'] = 1; // 0 max. image width = \$cmsgo['content_width'], 1 = as given\n";
     $conf_file .= "\$cmsgo['preserve_image_name'] = 0; // keep file name for resized versions of the image\n";
 
-    $val["rewrite_url"] = check_htaccess($val);
+    $val['rewrite_url'] = check_htaccess($val);
 
     $conf_file .= "\n// other stuff\n";
     $conf_file .= "\$cmsgo['image_library'] = 'GD2'; //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
     $conf_file .= "\$cmsgo['library_path'] = ''; //Path to ImageMagick or NetPBM\n";
-    $conf_file .= "\$cmsgo['rewrite_url'] = " . $val["rewrite_url"] . "; // whether URL should be rewritable\n";
+    $conf_file .= "\$cmsgo['rewrite_url'] = " . $val['rewrite_url'] . "; // whether URL should be rewritable\n";
     $conf_file .= "\$cmsgo['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$cmsgo['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$cmsgo['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
@@ -201,8 +202,8 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$cmsgo['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$cmsgo['DOCTYPE_LANG'] = ''; //by default same as \$cmsgo['default_lang'], but can be injected by whatever you like\n";
-    $conf_file .= "\$cmsgo['default_lang'] = '" . escape_quote($val["default_lang"]) . "';  //default language\n";
-    $conf_file .= "\$cmsgo['charset'] = '" . escape_quote($val["charset"]) . "';  //default charset 'utf-8'\n";
+    $conf_file .= "\$cmsgo['default_lang'] = '" . escape_quote($val['default_lang']) . "';  //default language\n";
+    $conf_file .= "\$cmsgo['charset'] = '" . escape_quote($val['charset']) . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$cmsgo['php_charset'] = false; // set PHP default charset to \$cmsgo['charset']\n";
     $conf_file .= "\$cmsgo['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$cmsgo['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
@@ -293,33 +294,33 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
-    $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val["SMTP_FROM_EMAIL"]) . "'; // reply/from email address\n";
-    $conf_file .= "\$cmsgo['SMTP_FROM_NAME'] = '" . escape_quote($val["SMTP_FROM_NAME"]) . "'; // reply/from name\n";
-    $conf_file .= "\$cmsgo['SMTP_HOST'] = '" . escape_quote($val["SMTP_HOST"]) . "'; // SMTP server (host/IP)\n";
-    $conf_file .= "\$cmsgo['SMTP_PORT'] = " . intval($val["SMTP_PORT"]) . "; // SMTP server port (default 25)\n";
-    $conf_file .= "\$cmsgo['SMTP_MAILER'] = '" . escape_quote($val["SMTP_MAILER"]) . "'; // mail method: mail (default), smtp, sendmail\n";
-    $conf_file .= "\$cmsgo['SMTP_USER'] = '" . escape_quote($val["SMTP_USER"]) . "'; // default SMTP login (user) name\n";
-    $conf_file .= "\$cmsgo['SMTP_PASS'] = '" . escape_quote($val["SMTP_PASS"]) . "'; // default SMTP password\n";
-    $conf_file .= "\$cmsgo['SMTP_SECURE'] = '" . escape_quote($val["SMTP_SECURE"]) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
-    $conf_file .= "\$cmsgo['SMTP_AUTH'] = " . intval($val["SMTP_AUTH"]) . "; // SMTP authentication, ON=1/OFF=0\n";
-    $conf_file .= "\$cmsgo['SMTP_AUTH_TYPE'] = '" . escape_quote($val["SMTP_AUTH_TYPE"]) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
-    $conf_file .= "\$cmsgo['SMTP_REALM'] = '" . escape_quote($val["SMTP_REALM"]) . "'; // SMTP realm, used for NTLM auth type\n";
-    $conf_file .= "\$cmsgo['SMTP_WORKSTATION'] = '" . escape_quote($val["SMTP_WORKSTATION"]) . "'; // SMTP workstation, used for NTLM auth type\n";
+    $conf_file .= "\$cmsgo['SMTP_FROM_EMAIL'] = '" . escape_quote($val['SMTP_FROM_EMAIL']) . "'; // reply/from email address\n";
+    $conf_file .= "\$cmsgo['SMTP_FROM_NAME'] = '" . escape_quote($val['SMTP_FROM_NAME']) . "'; // reply/from name\n";
+    $conf_file .= "\$cmsgo['SMTP_HOST'] = '" . escape_quote($val['SMTP_HOST']) . "'; // SMTP server (host/IP)\n";
+    $conf_file .= "\$cmsgo['SMTP_PORT'] = " . intval($val['SMTP_PORT']) . "; // SMTP server port (default 25)\n";
+    $conf_file .= "\$cmsgo['SMTP_MAILER'] = '" . escape_quote($val['SMTP_MAILER']) . "'; // mail method: mail (default), smtp, sendmail\n";
+    $conf_file .= "\$cmsgo['SMTP_USER'] = '" . escape_quote($val['SMTP_USER']) . "'; // default SMTP login (user) name\n";
+    $conf_file .= "\$cmsgo['SMTP_PASS'] = '" . escape_quote($val['SMTP_PASS']) . "'; // default SMTP password\n";
+    $conf_file .= "\$cmsgo['SMTP_SECURE'] = '" . escape_quote($val['SMTP_SECURE']) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+    $conf_file .= "\$cmsgo['SMTP_AUTH'] = " . intval($val['SMTP_AUTH']) . "; // SMTP authentication, ON=1/OFF=0\n";
+    $conf_file .= "\$cmsgo['SMTP_AUTH_TYPE'] = '" . escape_quote($val['SMTP_AUTH_TYPE']) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
+    $conf_file .= "\$cmsgo['SMTP_REALM'] = '" . escape_quote($val['SMTP_REALM']) . "'; // SMTP realm, used for NTLM auth type\n";
+    $conf_file .= "\$cmsgo['SMTP_WORKSTATION'] = '" . escape_quote($val['SMTP_WORKSTATION']) . "'; // SMTP workstation, used for NTLM auth type\n";
 
     $conf_file .= "\ndefine('CMSGO_INCLUDE_CHECK', true);\n";
 
-    write_textfile("setup.conf.inc.php", $conf_file);
+    write_textfile('setup.conf.inc.php', $conf_file);
 }
 
-function html_specialchars($h = "") {
+function html_specialchars($h = '') {
     //used to replace the htmlspecialchars original php function
     //not compatible with many internation chars like turkish, polish
-    $h = preg_replace("/&(?!#[0-9]+;)/s", '&amp;', $h);
-    $h = str_replace("<", "&lt;", $h);
-    $h = str_replace(">", "&gt;", $h);
-    $h = str_replace('"', "&quot;", $h);
-    $h = str_replace("'", "&#039;", $h);
-    $h = str_replace("\\", "&#92;", $h);
+    $h = preg_replace('/&(?!#[0-9]+;)/s', '&amp;', $h);
+    $h = str_replace('<', '&lt;', $h);
+    $h = str_replace('>', '&gt;', $h);
+    $h = str_replace('"', '&quot;', $h);
+    $h = str_replace("'", '&#039;', $h);
+    $h = str_replace("\\", '&#92;', $h);
     return $h;
 }
 
@@ -331,7 +332,7 @@ function parsePHPModules() {
     $s = preg_replace('/<th[^>]*>([^<]+)<\/th>/', "<info>\\1</info>", $s);
     $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/', "<info>\\1</info>", $s);
     $vTmp = preg_split('/(<h2>[^<]+<\/h2>)/', $s, -1, PREG_SPLIT_DELIM_CAPTURE);
-    $vModules = array();
+    $vModules = [];
     for ($i = 1; $i < count($vTmp); $i++) {
         if (preg_match('/<h2>([^<]+)<\/h2>/', $vTmp[$i], $vMat)) {
             $vName = trim($vMat[1]);
@@ -341,7 +342,7 @@ function parsePHPModules() {
                 $vPat3 = "/$vPat\s*$vPat\s*$vPat/";
                 $vPat2 = "/$vPat\s*$vPat/";
                 if (preg_match($vPat3, $vOne, $vMat)) { // 3cols
-                    $vModules[$vName][trim($vMat[1])] = array(trim($vMat[2]), trim($vMat[3]));
+                    $vModules[$vName][trim($vMat[1])] = [trim($vMat[2]), trim($vMat[3])];
                 } elseif (preg_match($vPat2, $vOne, $vMat)) { // 2cols
                     $vModules[$vName][trim($vMat[1])] = trim($vMat[2]);
                 }
@@ -352,71 +353,71 @@ function parsePHPModules() {
 }
 
 function errorWarning($warning = '') {
-    $t = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" border="0" class="icon1" /><b>';
+    $t = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" class="icon1" /><b>';
     $t .= $warning;
     $t .= '</b></p>';
     return $t;
 }
 
 // based on definitions of phpMyAdmin
-$mysql_charset_map = array(
+$mysql_charset_map = [
     'utf-8' => 'utf8'
-);
+];
 
-$available_languages = array(
-    'af-utf-8' => array('af|afrikaans', 'afrikaans-utf-8', 'af', ''),
-    'ar-utf-8' => array('ar|arabic', 'arabic-utf-8', 'ar', '&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;'),
-    'az-utf-8' => array('az|azerbaijani', 'azerbaijani-utf-8', 'az', 'Az&#601;rbaycanca'),
-    'becyr-utf-8' => array('be|belarusian', 'belarusian_cyrillic-utf-8', 'be', '&#1041;&#1077;&#1083;&#1072;&#1088;&#1091;&#1089;&#1082;&#1072;&#1103;'),
-    'belat-utf-8' => array('be[-_]lat|belarusian latin', 'belarusian_latin-utf-8', 'be-lat', 'Byelorussian'),
-    'bg-utf-8' => array('bg|bulgarian', 'bulgarian-utf-8', 'bg', '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;'),
-    'bs-utf-8' => array('bs|bosnian', 'bosnian-utf-8', 'bs', 'Bosanski'),
-    'ca-utf-8' => array('ca|catalan', 'catalan-utf-8', 'ca', 'Catal&agrave;'),
-    'cs-utf-8' => array('cs|czech', 'czech-utf-8', 'cs', '&#268;esky'),
-    'da-utf-8' => array('da|danish', 'danish-utf-8', 'da', 'Dansk'),
-    'de-utf-8' => array('de|german', 'german-utf-8', 'de', 'Deutsch'),
-    'el-utf-8' => array('el|greek', 'greek-utf-8', 'el', '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;'),
-    'en-utf-8' => array('en|english', 'english-utf-8', 'en', ''),
-    'es-utf-8' => array('es|spanish', 'spanish-utf-8', 'es', 'Espa&ntilde;ol'),
-    'et-utf-8' => array('et|estonian', 'estonian-utf-8', 'et', 'Eesti'),
-    'eu-utf-8' => array('eu|basque', 'basque-utf-8', 'eu', 'Euskara'),
-    'fa-utf-8' => array('fa|persian', 'persian-utf-8', 'fa', '&#1601;&#1575;&#1585;&#1587;&#1740;'),
-    'fi-utf-8' => array('fi|finnish', 'finnish-utf-8', 'fi', 'Suomi'),
-    'fr-utf-8' => array('fr|french', 'french-utf-8', 'fr', 'Fran&ccedil;ais'),
-    'gl-utf-8' => array('gl|galician', 'galician-utf-8', 'gl', 'Galego'),
-    'he-utf-8' => array('he|hebrew', 'hebrew-utf-8', 'he', '&#1506;&#1489;&#1512;&#1497;&#1514;'),
-    'hi-utf-8' => array('hi|hindi', 'hindi-utf-8', 'hi', '&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;'),
-    'hr-utf-8' => array('hr|croatian', 'croatian-utf-8', 'hr', 'Hrvatski'),
-    'hu-utf-8' => array('hu|hungarian', 'hungarian-utf-8', 'hu', 'Magyar'),
-    'id-utf-8' => array('id|indonesian', 'indonesian-utf-8', 'id', 'Bahasa Indonesia'),
-    'it-utf-8' => array('it|italian', 'italian-utf-8', 'it', 'Italiano'),
-    'ja-utf-8' => array('ja|japanese', 'japanese-utf-8', 'ja', '&#26085;&#26412;&#35486;'),
-    'ko-utf-8' => array('ko|korean', 'korean-utf-8', 'ko', '&#54620;&#44397;&#50612;'),
-    'ka-utf-8' => array('ka|georgian', 'georgian-utf-8', 'ka', '&#4325;&#4304;&#4320;&#4311;&#4323;&#4314;&#4312;'),
-    'lt-utf-8' => array('lt|lithuanian', 'lithuanian-utf-8', 'lt', 'Lietuvi&#371;'),
-    'lv-utf-8' => array('lv|latvian', 'latvian-utf-8', 'lv', 'Latvie&scaron;u'),
-    'mn-utf-8' => array('mn|mongolian', 'mongolian-utf-8', 'mn', '&#1052;&#1086;&#1085;&#1075;&#1086;&#1083;'),
-    'ms-utf-8' => array('ms|malay', 'malay-utf-8', 'ms', 'Bahasa Melayu'),
-    'nl-utf-8' => array('nl|dutch', 'dutch-utf-8', 'nl', 'Nederlands'),
-    'no-utf-8' => array('no|norwegian', 'norwegian-utf-8', 'no', 'Norsk'),
-    'pl-utf-8' => array('pl|polish', 'polish-utf-8', 'pl', 'Polski'),
-    'ptbr-utf-8' => array('pt[-_]br|brazilian portuguese', 'brazilian_portuguese-utf-8', 'pt-BR', 'Portugu&ecirc;s'),
-    'pt-utf-8' => array('pt|portuguese', 'portuguese-utf-8', 'pt', 'Portugu&ecirc;s'),
-    'ro-utf-8' => array('ro|romanian', 'romanian-utf-8', 'ro', 'Rom&acirc;n&#259;'),
-    'ru-utf-8' => array('ru|russian', 'russian-utf-8', 'ru', '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;'),
-    'sk-utf-8' => array('sk|slovak', 'slovak-utf-8', 'sk', 'Sloven&#269;ina'),
-    'sl-utf-8' => array('sl|slovenian', 'slovenian-utf-8', 'sl', 'Sloven&scaron;&#269;ina'),
-    'sq-utf-8' => array('sq|albanian', 'albanian-utf-8', 'sq', 'Shqip'),
-    'srlat-utf-8' => array('sr[-_]lat|serbian latin', 'serbian_latin-utf-8', 'sr-lat', 'Srpski'),
-    'srcyr-utf-8' => array('sr|serbian', 'serbian_cyrillic-utf-8', 'sr', '&#1057;&#1088;&#1087;&#1089;&#1082;&#1080;'),
-    'sv-utf-8' => array('sv|swedish', 'swedish-utf-8', 'sv', 'Svenska'),
-    'th-utf-8' => array('th|thai', 'thai-utf-8', 'th', '&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;'),
-    'tr-utf-8' => array('tr|turkish', 'turkish-utf-8', 'tr', 'T&uuml;rk&ccedil;e'),
-    'tt-utf-8' => array('tt|tatarish', 'tatarish-utf-8', 'tt', 'Tatar&ccedil;a'),
-    'uk-utf-8' => array('uk|ukrainian', 'ukrainian-utf-8', 'uk', '&#1059;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;'),
-    'zhtw-utf-8' => array('zhtw|chinese traditional', 'chinese_traditional-utf-8', 'zh-TW', '&#20013;&#25991;'),
-    'zh-utf-8' => array('zh|chinese simplified', 'chinese_simplified-utf-8', 'zh', '&#20013;&#25991;')
-);
+$available_languages = [
+    'af-utf-8' => ['af|afrikaans', 'afrikaans-utf-8', 'af', ''],
+    'ar-utf-8' => ['ar|arabic', 'arabic-utf-8', 'ar', '&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;'],
+    'az-utf-8' => ['az|azerbaijani', 'azerbaijani-utf-8', 'az', 'Az&#601;rbaycanca'],
+    'becyr-utf-8' => ['be|belarusian', 'belarusian_cyrillic-utf-8', 'be', '&#1041;&#1077;&#1083;&#1072;&#1088;&#1091;&#1089;&#1082;&#1072;&#1103;'],
+    'belat-utf-8' => ['be[-_]lat|belarusian latin', 'belarusian_latin-utf-8', 'be-lat', 'Byelorussian'],
+    'bg-utf-8' => ['bg|bulgarian', 'bulgarian-utf-8', 'bg', '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;'],
+    'bs-utf-8' => ['bs|bosnian', 'bosnian-utf-8', 'bs', 'Bosanski'],
+    'ca-utf-8' => ['ca|catalan', 'catalan-utf-8', 'ca', 'Catal&agrave;'],
+    'cs-utf-8' => ['cs|czech', 'czech-utf-8', 'cs', '&#268;esky'],
+    'da-utf-8' => ['da|danish', 'danish-utf-8', 'da', 'Dansk'],
+    'de-utf-8' => ['de|german', 'german-utf-8', 'de', 'Deutsch'],
+    'el-utf-8' => ['el|greek', 'greek-utf-8', 'el', '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa;&#940;'],
+    'en-utf-8' => ['en|english', 'english-utf-8', 'en', ''],
+    'es-utf-8' => ['es|spanish', 'spanish-utf-8', 'es', 'Espa&ntilde;ol'],
+    'et-utf-8' => ['et|estonian', 'estonian-utf-8', 'et', 'Eesti'],
+    'eu-utf-8' => ['eu|basque', 'basque-utf-8', 'eu', 'Euskara'],
+    'fa-utf-8' => ['fa|persian', 'persian-utf-8', 'fa', '&#1601;&#1575;&#1585;&#1587;&#1740;'],
+    'fi-utf-8' => ['fi|finnish', 'finnish-utf-8', 'fi', 'Suomi'],
+    'fr-utf-8' => ['fr|french', 'french-utf-8', 'fr', 'Fran&ccedil;ais'],
+    'gl-utf-8' => ['gl|galician', 'galician-utf-8', 'gl', 'Galego'],
+    'he-utf-8' => ['he|hebrew', 'hebrew-utf-8', 'he', '&#1506;&#1489;&#1512;&#1497;&#1514;'],
+    'hi-utf-8' => ['hi|hindi', 'hindi-utf-8', 'hi', '&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;'],
+    'hr-utf-8' => ['hr|croatian', 'croatian-utf-8', 'hr', 'Hrvatski'],
+    'hu-utf-8' => ['hu|hungarian', 'hungarian-utf-8', 'hu', 'Magyar'],
+    'id-utf-8' => ['id|indonesian', 'indonesian-utf-8', 'id', 'Bahasa Indonesia'],
+    'it-utf-8' => ['it|italian', 'italian-utf-8', 'it', 'Italiano'],
+    'ja-utf-8' => ['ja|japanese', 'japanese-utf-8', 'ja', '&#26085;&#26412;&#35486;'],
+    'ko-utf-8' => ['ko|korean', 'korean-utf-8', 'ko', '&#54620;&#44397;&#50612;'],
+    'ka-utf-8' => ['ka|georgian', 'georgian-utf-8', 'ka', '&#4325;&#4304;&#4320;&#4311;&#4323;&#4314;&#4312;'],
+    'lt-utf-8' => ['lt|lithuanian', 'lithuanian-utf-8', 'lt', 'Lietuvi&#371;'],
+    'lv-utf-8' => ['lv|latvian', 'latvian-utf-8', 'lv', 'Latvie&scaron;u'],
+    'mn-utf-8' => ['mn|mongolian', 'mongolian-utf-8', 'mn', '&#1052;&#1086;&#1085;&#1075;&#1086;&#1083;'],
+    'ms-utf-8' => ['ms|malay', 'malay-utf-8', 'ms', 'Bahasa Melayu'],
+    'nl-utf-8' => ['nl|dutch', 'dutch-utf-8', 'nl', 'Nederlands'],
+    'no-utf-8' => ['no|norwegian', 'norwegian-utf-8', 'no', 'Norsk'],
+    'pl-utf-8' => ['pl|polish', 'polish-utf-8', 'pl', 'Polski'],
+    'ptbr-utf-8' => ['pt[-_]br|brazilian portuguese', 'brazilian_portuguese-utf-8', 'pt-BR', 'Portugu&ecirc;s'],
+    'pt-utf-8' => ['pt|portuguese', 'portuguese-utf-8', 'pt', 'Portugu&ecirc;s'],
+    'ro-utf-8' => ['ro|romanian', 'romanian-utf-8', 'ro', 'Rom&acirc;n&#259;'],
+    'ru-utf-8' => ['ru|russian', 'russian-utf-8', 'ru', '&#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;'],
+    'sk-utf-8' => ['sk|slovak', 'slovak-utf-8', 'sk', 'Sloven&#269;ina'],
+    'sl-utf-8' => ['sl|slovenian', 'slovenian-utf-8', 'sl', 'Sloven&scaron;&#269;ina'],
+    'sq-utf-8' => ['sq|albanian', 'albanian-utf-8', 'sq', 'Shqip'],
+    'srlat-utf-8' => ['sr[-_]lat|serbian latin', 'serbian_latin-utf-8', 'sr-lat', 'Srpski'],
+    'srcyr-utf-8' => ['sr|serbian', 'serbian_cyrillic-utf-8', 'sr', '&#1057;&#1088;&#1087;&#1089;&#1082;&#1080;'],
+    'sv-utf-8' => ['sv|swedish', 'swedish-utf-8', 'sv', 'Svenska'],
+    'th-utf-8' => ['th|thai', 'thai-utf-8', 'th', '&#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618;'],
+    'tr-utf-8' => ['tr|turkish', 'turkish-utf-8', 'tr', 'T&uuml;rk&ccedil;e'],
+    'tt-utf-8' => ['tt|tatarish', 'tatarish-utf-8', 'tt', 'Tatar&ccedil;a'],
+    'uk-utf-8' => ['uk|ukrainian', 'ukrainian-utf-8', 'uk', '&#1059;&#1082;&#1088;&#1072;&#1111;&#1085;&#1089;&#1100;&#1082;&#1072;'],
+    'zhtw-utf-8' => ['zhtw|chinese traditional', 'chinese_traditional-utf-8', 'zh-TW', '&#20013;&#25991;'],
+    'zh-utf-8' => ['zh|chinese simplified', 'chinese_simplified-utf-8', 'zh', '&#20013;&#25991;']
+];
 
 function _dbQuery($query = '', $_queryMode = 'ASSOC') {
 
@@ -425,7 +426,7 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
     }
 
     global $db;
-    $queryResult = array();
+    $queryResult = [];
     $queryCount = 0;
 
     if ($result = mysqli_query($db, $query)) {
@@ -492,9 +493,9 @@ if (!function_exists('convertDecChar')) {
 }
 
 if (!function_exists('decode_entities')) {
-    function decode_entities($string) {
+    function decode_entities($text) {
         $text = @html_entity_decode($text, ENT_QUOTES, CMSGO_CHARSET);
-        if (strpos($text, '&') === false) {
+        if (!str_contains($text, '&')) {
             return $text;
         }
         $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
@@ -526,9 +527,9 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
 
 function check_htaccess($val) {
 
-    $val["rewrite_url"] = empty($val["rewrite_url"]) ? 0 : 1;
+    $val['rewrite_url'] = empty($val['rewrite_url']) ? 0 : 1;
 
-    if ($val["rewrite_url"]) {
+    if ($val['rewrite_url']) {
 
         $root = dirname(__FILE__, 3);
         $htaccess_content = '';
@@ -552,14 +553,14 @@ function check_htaccess($val) {
             return 0;
         }
 
-        if ($val["root"]) {
-            $htaccess_new_content = str_replace('#RewriteBase /subfolder/', '#RewriteBase#/' . $val["root"] . '/', $htaccess_new_content);
+        if ($val['root']) {
+            $htaccess_new_content = str_replace('#RewriteBase /subfolder/', '#RewriteBase#/' . $val['root'] . '/', $htaccess_new_content);
             $htaccess_new_content = str_replace('RewriteBase /', '#RewriteBase /', $htaccess_new_content);
-            $htaccess_new_content = str_replace('#RewriteBase#/' . $val["root"] . '/', 'RewriteBase /' . $val["root"] . '/', $htaccess_new_content);
+            $htaccess_new_content = str_replace('#RewriteBase#/' . $val['root'] . '/', 'RewriteBase /' . $val['root'] . '/', $htaccess_new_content);
         }
 
-        $val["rewrite_url"] = @write_textfile($root . '/.htaccess', $htaccess_new_content) ? 1 : 0;
+        $val['rewrite_url'] = @write_textfile($root . '/.htaccess', $htaccess_new_content) ? 1 : 0;
     }
 
-    return $val["rewrite_url"];
+    return $val['rewrite_url'];
 }

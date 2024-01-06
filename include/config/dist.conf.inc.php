@@ -12,6 +12,7 @@
 
 // database values
 $cmsgo['db_host']              = 'localhost';
+$cmsgo['db_port']              = 3306;
 $cmsgo['db_user']              = '';
 $cmsgo['db_pass']              = '';
 $cmsgo['db_table']             = '';
