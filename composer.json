@@ -10,7 +10,7 @@
         "php": ">=8.2",
         "algo26-matthias/idna-convert": "^v4.0.1",
         "enshrined/svg-sanitize": "^0.16.0",
-        "netcarver/textile": "v4.0.0",
+        "netcarver/textile": "v4.1.0",
         "erusev/parsedown": "^v2.0.0-beta-1",
         "erusev/parsedown-extra": "^v2.0.0-beta-1",
         "ezyang/htmlpurifier": "^v4.17.0",

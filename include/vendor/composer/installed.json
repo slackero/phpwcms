@@ -572,17 +572,17 @@
         },
         {
             "name": "netcarver/textile",
-            "version": "v4.0.0",
-            "version_normalized": "4.0.0.0",
+            "version": "v4.1.0",
+            "version_normalized": "4.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/textile/php-textile.git",
-                "reference": "79b7d5102816ff017a940d8695a35d7f8db1e60a"
+                "reference": "3b2fa182bcc0fc63c4bad6d948762a38c2cd9616"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/textile/php-textile/zipball/79b7d5102816ff017a940d8695a35d7f8db1e60a",
-                "reference": "79b7d5102816ff017a940d8695a35d7f8db1e60a",
+                "url": "https://api.github.com/repos/textile/php-textile/zipball/3b2fa182bcc0fc63c4bad6d948762a38c2cd9616",
+                "reference": "3b2fa182bcc0fc63c4bad6d948762a38c2cd9616",
                 "shasum": ""
             },
             "require": {
@@ -595,11 +595,11 @@
                 "squizlabs/php_codesniffer": "3.*",
                 "symfony/yaml": "^4.4.3"
             },
-            "time": "2022-12-03T18:45:20+00:00",
+            "time": "2024-01-02T17:48:05+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "installation-source": "dist",

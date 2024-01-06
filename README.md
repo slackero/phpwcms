@@ -23,17 +23,24 @@ If you have downloaded the archive instead of `git clone`, un-archive and copy t
 document root or sub folder. Link your browser to the related URL and follow the install instructions.
 
 
+Upgrade
+-------
+
+Before you upgrade your existing installation to v1.10+, please update to the latest v1.9.x release first.
+Never forget to backup your database and files before you start the upgrade process.
+
+
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.10.0-dev requires a web server with PHP 8.2 or newer.
+**phpwcms** version 1.10.3-dev requires a web server with PHP 8.2 or newer.
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
 Known problems
 --------------
 
-Because of the project history there are several probable problems regarding the database. 
+Because of the project history there are several probable problems regarding the database.
 MySQL changed the time and date related default values over the last years. Check to setup
 the related config values to connect to the database in a more compatible way. MySQL Strict
 is no good option. I work on this to [solve the problems](https://github.com/slackero/phpwcms/issues/275)
@@ -50,11 +57,9 @@ that conforms with [necolas's guidelines](https://github.com/necolas/issue-guide
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter
-[@phpwcms](https://twitter.com/phpwcms) or on
-[Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-*(We are no longer active there, better you stay in touch with **phpwcms** on
-[Github](https://github.com/slackero/phpwcms))*
+phpwcms is no longer active on social media.
+Please use the [phpwcms support forum](https://forum.phpwcms.org)
+or [Github](https://github.com/slackero/phpwcms) to share your thoughts.
 
 
 Creator
@@ -77,7 +82,7 @@ Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
 You may obtain a copy of the License in the LICENSE file, or at:
 
-   <https://opensource.org/licenses/GPL-2.0>
+<https://opensource.org/licenses/GPL-2.0>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -91,6 +96,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the
-    Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston,
-    MA 02110-1301, USA.
+Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
