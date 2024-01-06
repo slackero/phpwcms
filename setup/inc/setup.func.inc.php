@@ -492,9 +492,9 @@ if (!function_exists('convertDecChar')) {
 }
 
 if (!function_exists('decode_entities')) {
-    function decode_entities($string) {
+    function decode_entities($text) {
         $text = @html_entity_decode($text, ENT_QUOTES, CMSGO_CHARSET);
-        if (strpos($text, '&') === false) {
+        if (!str_contains($text, '&')) {
             return $text;
         }
         $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
