@@ -172,7 +172,7 @@ if(!$newsletter) {
         }
         if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
             $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-            if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
+            if($phpwcms['SMTP_AUTH_TYPE'] == 'NTLM') {
                 if(!empty($phpwcms['SMTP_REALM'])) {
                     $mail->Realm = $phpwcms['SMTP_REALM'];
                 }
@@ -186,7 +186,7 @@ if(!$newsletter) {
         $mail->addReplyTo($newsletter['newsletter_vars']['replyto']);
         $mail->Subject = $newsletter['newsletter_subject'];
 
-        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
+        if($phpwcms['default_lang'] && $phpwcms['default_lang'] != 'en') {
             $mail->setLanguage($phpwcms['default_lang']);
         }
 

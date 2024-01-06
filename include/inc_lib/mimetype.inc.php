@@ -271,7 +271,7 @@ function get_mimetype_by_extension($ext='') {
 }
 
 function is_mimetype_by_extension($ext) {
-	return empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext]) ? false : true;
+	return !(empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext]));
 }
 
 /**

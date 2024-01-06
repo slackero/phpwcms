@@ -42,7 +42,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['is_imagetext'] = strpos($crow["acontent_template"], '{IMAGETEXT}') !== false;
+$crow['is_imagetext'] = str_contains($crow["acontent_template"], '{IMAGETEXT}');
 $crow['has_image'] = false;
 
 // 0   :1       :2   :3        :4    :5     :6      :7       :8

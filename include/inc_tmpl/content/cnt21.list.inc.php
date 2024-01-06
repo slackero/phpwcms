@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 $cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
-$cinfo_pagefile = unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$cinfo_pagefile = unserialize($row['acontent_form'], ['allowed_classes' => false]);
 $cinfo[3] = '<strong>'.html(str_replace("\n", " ", cut_string($cinfo_pagefile['pfile'],'&#8230;', 150))).'</strong>';
 $cinfo["result"] = "";
 

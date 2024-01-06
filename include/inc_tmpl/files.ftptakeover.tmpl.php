@@ -70,7 +70,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
                 $fxsg += $file['filesize'];
                 $fxe = extimg($file['ext']);
                  // there is a big problem with special chars on Mac OS X and seems Windows too
-                $filename = (PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file['filename'])) ? str_replace('?', '', utf8_decode($file['filename'])) : $file['filename'];
+                $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file['filename']) ? str_replace('?', '', mb_convert_encoding($file['filename'], PHPWCMS_CHARSET)) : $file['filename'];
                 $filename = html($filename);
 ?>
                 <tr<?php echo $fxb ?>>
@@ -342,7 +342,7 @@ $GLOBALS['BE']['HEADER']['fileuploader.js']     = getJavaScriptSourceLink('inclu
 $fileuploaderAllowedExtensions = '';
 if(is_string($phpwcms['allowed_upload_ext'])) {
     $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
-    if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
+    if(str_contains($fileuploaderAllowedExtensions, ',')) {
         $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
     }
 } elseif(count($phpwcms['allowed_upload_ext'])) {

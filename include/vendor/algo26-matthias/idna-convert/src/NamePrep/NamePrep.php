@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\NamePrep;
 
@@ -18,29 +18,28 @@ class NamePrep implements NamePrepInterface
     const sCount = 11172; // lCount * tCount * vCount
     const sLast = self::sBase + self::lCount * self::vCount * self::tCount;
 
-    /** @var NamePrepDataInterface */
-    private $namePrepData;
+    private NamePrepDataInterface $namePrepData;
 
     /**
      * @param string|null $idnVersion
      *
      * @throws InvalidIdnVersionException
      */
-    public function __construct(?string $idnVersion = null)
+    public function __construct(?int $idnVersion = null)
     {
-        if ($idnVersion === null || $idnVersion == 2008) {
+        if ($idnVersion === null || $idnVersion === 2008) {
             $this->namePrepData = new NamePrepData2008();
 
             return;
         }
 
-        if ($idnVersion == 2003) {
+        if ($idnVersion === 2003) {
             $this->namePrepData = new NamePrepData2003();
 
             return;
         }
 
-        throw new InvalidIdnVersionException('IDN version must bei either 2003 or 2008');
+        throw new InvalidIdnVersionException('IDN version must be either 2003 or 2008', 400);
     }
 
     /**
@@ -53,9 +52,8 @@ class NamePrep implements NamePrepInterface
     {
         $outputArray = $this->applyCharacterMaps($inputArray);
         $outputArray = $this->hangulCompose($outputArray);
-        $outputArray = $this->combineCodePoints($outputArray);
 
-        return $outputArray;
+        return $this->combineCodePoints($outputArray);
     }
 
     /**
@@ -149,12 +147,10 @@ class NamePrep implements NamePrepInterface
     /**
      * Decomposes a Hangul syllable
      * (see http://www.unicode.org/unicode/reports/tr15/#Hangul
-     * @param    integer  32bit UCS4 code point
-     * @return   array    Either Hangul Syllable decomposed or original 32bit value as one value array
      */
     private function hangulDecompose(int $codePoint): array
     {
-        $sIndex = (int) $codePoint - self::sBase;
+        $sIndex = $codePoint - self::sBase;
         if ($sIndex < 0 || $sIndex >= self::sCount) {
             return [$codePoint];
         }
@@ -174,9 +170,6 @@ class NamePrep implements NamePrepInterface
     /**
      * Compose a Hangul syllable
      * (see http://www.unicode.org/unicode/reports/tr15/#Hangul
-     *
-     * @param  array $input   Decomposed UCS4 sequence
-     * @return array UCS4 sequence with syllables composed
      */
     private function hangulCompose(array $input): array
     {
@@ -187,10 +180,7 @@ class NamePrep implements NamePrepInterface
 
         $previousCharCode = (int) $input[0];
 
-        // copy first codepoint from input to output
-        $result = [
-            $previousCharCode,
-        ];
+        $result = [$previousCharCode];
 
         for ($i = 1; $i < $inputLength; ++$i) {
             $charCode = (int) $input[$i];
@@ -199,33 +189,33 @@ class NamePrep implements NamePrepInterface
             $vIndex = $charCode - self::vBase;
             $tIndex = $charCode - self::tBase;
 
-            // Find out, whether two current characters are LV and T
+            // Determine if two current characters are LV and T
             if (0 <= $sIndex
                 && $sIndex < self::sCount
                 && ($sIndex % self::tCount == 0)
                 && 0 <= $tIndex
                 && $tIndex <= self::tCount
             ) {
-                // create syllable of form LVT
+                // Create syllable of form LVT
                 $previousCharCode += $tIndex;
                 $result[(count($result) - 1)] = $previousCharCode; // reset last
 
                 continue; // discard char
             }
 
-            // Find out, whether two current characters form L and V
+            // Determine if two current characters form L and V
             if (0 <= $lIndex
                 && $lIndex < self::lCount
                 && 0 <= $vIndex
                 && $vIndex < self::vCount
             ) {
-                // create syllable of form LV
+                // Create syllable of form LV
                 $previousCharCode = (int) self::sBase + ($lIndex * self::vCount + $vIndex) * self::tCount;
                 $result[(count($result) - 1)] = $previousCharCode; // reset last
 
                 continue; // discard char
             }
-            // if neither case was true, just add the character
+
             $previousCharCode = $charCode;
             $result[] = $charCode;
         }
@@ -233,21 +223,11 @@ class NamePrep implements NamePrepInterface
         return $result;
     }
 
-    /**
-     * Returns the combining class of a certain wide char
-     * @param integer  $char  Wide char to check (32bit integer)
-     * @return integer Combining class if found, else 0
-     */
     private function getCombiningClass(int $char): int
     {
         return $this->namePrepData->normalizeCombiningClasses[$char] ?? 0;
     }
 
-    /**
-     * Applies the canonical ordering of a decomposed UCS4 sequence
-     * @param array  $input Decomposed UCS4 sequence
-     * @return array Ordered USC4 sequence
-     */
     private function applyCanonicalOrdering(array $input): array
     {
         $needsSwapping = true;

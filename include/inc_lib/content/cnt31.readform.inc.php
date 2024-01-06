@@ -113,28 +113,28 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
         if(!empty($tab_fieldgroup_fields)) {
             foreach($tab_fieldgroup_fields as $custom_field => $custom_field_definition) {
 
-                $custom_field_value = isset($_POST['customfield'][$key][$custom_field]) ? $_POST['customfield'][$key][$custom_field] : null;
+                $custom_field_value = $_POST['customfield'][$key][$custom_field] ?? null;
 
                 $_POST['customfield'][$key][$custom_field] = null;
                 unset($_POST['customfield'][$key][$custom_field]);
 
-                if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
+                if(isset($custom_field_definition['render']) && in_array($custom_field_definition['render'], $tab_fieldgroup_field_render)) {
 
                     $image_entry['custom_fields'][$custom_field] = slweg($custom_field_value);
 
-                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
+                } elseif($custom_field_definition['type'] === 'int') {
 
                     $image_entry['custom_fields'][$custom_field] = intval($custom_field_value);
 
-                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
+                } elseif($custom_field_definition['type'] === 'float') {
 
                     $image_entry['custom_fields'][$custom_field] = floatval($custom_field_value);
 
-                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
+                } elseif($custom_field_definition['type'] === 'bool') {
 
                     $image_entry['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 
-                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'file') {
+                } elseif($custom_field_definition['type'] === 'file') {
 
                     $image_entry['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
 

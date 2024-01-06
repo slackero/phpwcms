@@ -294,14 +294,14 @@ if(!$temp_count) {
                         // if 1st content part in list
                         $sbutton[$key]["top"] = '<img src="img/button/sort_top_0.gif" border="0" alt="" />';
 
-                    } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $sbutton[$key]["block"]) {
+                    } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $value["block"]) {
                         // if this content part is selected for different block than previous
                         $sbutton[$key]["top"] = '<img src="img/button/sort_top_0.gif" border="0" alt="" />';
 
                     } else {
                         $sbutton[$key]["top"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                        $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
-                        $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
+                        $value["id"].":".$sbutton[$key-1]["sort"]."|".
+                        $sbutton[$key-1]["id"].":". $value["sort"].
                         "\" title=\"".$BL['be_article_cnt_up']."\"><img src=\"img/button/sort_top_1.gif\" border=\"0\" alt=\"\" /></a>";
                     }
                     if($key == $sc) {
@@ -549,17 +549,17 @@ if(!$temp_count) {
             <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <?php   endif;
 
-        $acontent_livedate = $row['acontent_livedate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_livedate'], $BL['be_longdatetime'], '');
-        $acontent_killdate = $row['acontent_killdate'] === '0000-00-00 00:00:00' ? false : phpwcms_strtotime($row['acontent_killdate'], $BL['be_longdatetime'], '');
+        $acontent_livedate = is_null($row['acontent_livedate']) ? false : phpwcms_strtotime($row['acontent_livedate'], $BL['be_longdatetime'], '');
+        $acontent_killdate = is_null($row['acontent_killdate']) ? false : phpwcms_strtotime($row['acontent_killdate'], $BL['be_longdatetime'], '');
 
         if($acontent_livedate || $acontent_killdate):
 ?>
             <tr>
                 <td class="v09">&nbsp;</td>
                 <td class="v10" colspan="2">
-                    <span class="chatlist"><?php echo $BL['be_article_cnt_start'] ?>:</span> <?php echo $acontent_livedate ? $acontent_livedate : $BL['be_not_set']; ?>
+                    <span class="chatlist"><?php echo $BL['be_article_cnt_start'] ?>:</span> <?php echo $acontent_livedate ?: $BL['be_not_set']; ?>
                     &nbsp;&nbsp;
-                    <span class="chatlist"><?php echo $BL['be_article_cnt_end'] ?>:</span> <?php echo $acontent_killdate ? $acontent_killdate : $BL['be_not_set']; ?>
+                    <span class="chatlist"><?php echo $BL['be_article_cnt_end'] ?>:</span> <?php echo $acontent_killdate ?: $BL['be_not_set']; ?>
                 </td>
             </tr>
 <?php   endif;

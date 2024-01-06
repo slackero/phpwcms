@@ -84,7 +84,7 @@ function feedimport_article_authors() {
 
 	foreach($result as $user) {
 
-		$users[ $user['usr_id'] ] = $user['usr_name'] ? $user['usr_name'] : $user['usr_login'];
+		$users[ $user['usr_id'] ] = $user['usr_name'] ?: $user['usr_login'];
 		if($user['usr_admin']) {
 			$users[ $user['usr_id'] ] .= ' ('.$GLOBALS['BL']['be_article_adminuser'].')';
 		}

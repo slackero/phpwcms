@@ -21,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $sql  = 'SELECT DISTINCT * FROM '.DB_PREPEND.'phpwcms_article ar LEFT JOIN '.DB_PREPEND.'phpwcms_articlecat ac ON ';
 $sql .= "ar.article_cid=ac.acat_id WHERE ar.article_id='".$content["aid"]."' LIMIT 1";
 $content['article'] = _dbQuery($sql);
-$content['article'] = isset($content['article'][0]) ? $content['article'][0] : array('article_title' => '', 'acat_name' => '', 'acat_template'=>0);
+$content['article'] = $content['article'][0] ?? array('article_title' => '', 'acat_name' => '', 'acat_template' => 0);
 $content['cp_setting_mode'] = false;
 
 if(empty($content['article']['acat_id'])) { // Root structure
@@ -31,13 +31,13 @@ if(empty($content['article']['acat_id'])) { // Root structure
 }
 
 // Livedate / killdate fallback
-if(empty($content["livedate"]) || $content["livedate"] === '0000-00-00 00:00:00') {
+if(empty($content["livedate"])) {
     $content["livedate"] = '';
     $set_livedate = 0;
 } else {
     $set_livedate = 1;
 }
-if(empty($content["killdate"]) || $content["killdate"] === '0000-00-00 00:00:00') {
+if(empty($content["killdate"])) {
     $content["killdate"] = '';
     $set_killdate = 0;
 } else {
@@ -454,7 +454,7 @@ if($content['cp_setting_mode']):
                                 ctab_number = document.getElementById('ctab_number');
 
                             if(ctab.selectedIndex > 0 && ctab_title.value === '' && ctab_number.value === '') {
-                                return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : utf8_decode($BL['confirm_cp_tab_warning']); ?>');
+                                return confirm('<?php echo PHPWCMS_CHARSET === 'utf-8' ? $BL['confirm_cp_tab_warning'] : mb_convert_encoding($BL['confirm_cp_tab_warning'], PHPWCMS_CHARSET); ?>');
                             }
 
                             return true;
@@ -629,7 +629,7 @@ echo $_save_close_buttons;
 
     }
 
-    if(in_array($content['type'], array(32))):
+    if($content['type'] == 32):
 ?>
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 <?php

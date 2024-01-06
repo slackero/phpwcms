@@ -18,5 +18,5 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images Special
 $content["image_template"]	= $row["acontent_template"];
-$content["image_special"]	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content["image_special"]	= @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 $content["image_html"]		= $row["acontent_html"];

@@ -72,7 +72,7 @@ $fmp_data = array(
 );
 
 if($content["id"]) {
-    if($row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false])) {
+    if($row["acontent_form"] = @unserialize($row['acontent_form'], ['allowed_classes' => false])) {
         $fmp_data = array_merge($fmp_data, $row["acontent_form"]);
     }
     $fmp_data['fmp_template'] = $row["acontent_template"];

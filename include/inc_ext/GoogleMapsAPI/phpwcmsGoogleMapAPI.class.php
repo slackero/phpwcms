@@ -50,8 +50,7 @@ CREATE TABLE `phpwcms_geocodes` (
   PRIMARY KEY (`address`),
   KEY `lon` (`lon`),
   KEY `lat` (`lat`)
-) ENGINE=MyISAM;
-
+);
 
 */
 
@@ -939,7 +938,7 @@ class GoogleMapAPI
 	*/
 	function createMarkerIcon( $iconImage, $iconShadowImage = '', $iconAnchorX = 'x', $iconAnchorY = 'x', $infoWindowAnchorX = 'x', $infoWindowAnchorY = 'x' )
 	{
-		$_icon_image_path	= strpos( $iconImage, 'http' ) === 0 ? $iconImage : $this->document_root . $iconImage;
+		$_icon_image_path	= str_starts_with($iconImage, 'http') ? $iconImage : $this->document_root . $iconImage;
 		$_icon_cache_key	= md5($_icon_image_path . $iconShadowImage . $iconAnchorX . $iconAnchorY . $infoWindowAnchorX . $infoWindowAnchorY);
 		if(isset($this->_icon_cache[ $_icon_cache_key ]))
 		{
@@ -952,7 +951,7 @@ class GoogleMapAPI
 		}
 		if ( $iconShadowImage )
 		{
-			$_shadow_image_path = strpos( $iconShadowImage, 'http' ) === 0 ? $iconShadowImage : $this->document_root . $iconShadowImage;
+			$_shadow_image_path = str_starts_with($iconShadowImage, 'http') ? $iconShadowImage : $this->document_root . $iconShadowImage;
 			if ( !( $_shadow_info = @getimagesize( $_shadow_image_path ) ) )
 			{
 				return FALSE;
@@ -1145,8 +1144,7 @@ class GoogleMapAPI
 		}
 
 		$_output .= sprintf( 'var mapObj = '.$this->getElementById().'("%s");', $this->map_id ) . "\n";
-		$_output .= 'if (mapObj != "undefined" && mapObj != null) {' . "\n";
-		$_output .= sprintf( 'map = new GMap2( mapObj );', $this->map_id ) . "\n";
+		$_output .= 'if (mapObj != "undefined" && mapObj != null) { map = new GMap2( mapObj );' . "\n";
 		if ( isset( $this->center_lat ) && isset( $this->center_lon ) )
 		{
 			// Special care for decimal point in lon and lat, would get lost if "wrong" locale is set; applies to (s)printf only
@@ -1526,13 +1524,13 @@ class GoogleMapAPI
 		} elseif( $_row === false && $this->_db_cache_table ) {
 
 			$sql  = 'CREATE TABLE IF NOT EXISTS `' . DB_PREPEND . $this->_db_cache_table . '` (';
-			$sql .= ' `address` varchar(255) NOT NULL, ';
+			$sql .= '`address` varchar(255) NOT NULL, ';
 			$sql .= '`lon` double DEFAULT NULL, ';
 			$sql .= '`lat` double DEFAULT NULL, ';
 			$sql .= 'PRIMARY KEY (`address`), ';
 			$sql .= 'KEY `lon` (`lon`), ';
 			$sql .= 'KEY `lat` (`lat`) ';
-			$sql .= ') ENGINE=MyISAM';
+			$sql .= ')';
 
 			_dbQuery($sql, 'CREATE');
 
@@ -1614,8 +1612,7 @@ class GoogleMapAPI
             case 'YAHOO':
             default:
 
-                $_url = 'http://%s/MapsService/V1/geocode';
-                $_url .= sprintf('?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
+                $_url = sprintf('http://%s/MapsService/V1/geocode?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id,rawurlencode($address));
 
                 if($_result = $this->fetchURL($_url)) {
                     if (preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
@@ -1662,25 +1659,20 @@ class GoogleMapAPI
 			case 'K':
 				// kilometers
 				return $M * 1.609344;
-				break;
-			case 'N':
+            case 'N':
 				// nautical miles
 				return $M * 0.868976242;
-				break;
-			case 'F':
+            case 'F':
 				// feet
 				return $M * 5280;
-				break;
-			case 'I':
+            case 'I':
 				// inches
 				return $M * 63360;
-				break;
-			case 'M':
+            case 'M':
 			default:
 				// miles
 				return $M;
-				break;
-		}
+        }
 	}
 
 	/**

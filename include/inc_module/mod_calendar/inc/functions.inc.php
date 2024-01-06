@@ -15,7 +15,7 @@
 function returnDayNameArray() {
 	// taken from PHP Calendar (version 2.3), written by Keith Devens
 	// http://keithdevens.com/software/php_calendar
-	$day_names = array();
+	$day_names = [];
 	for($n=0, $t=3*86400; $n<7; $n++, $t+=86400) {
 		$day_names[$n] = ucfirst(gmdate('l', $t));
 	}

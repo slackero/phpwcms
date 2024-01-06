@@ -19,13 +19,13 @@ class phpwcmsRecaptcha {
 
     public function __construct($sitekey=null, $secretkey=null) {
 
-        if($sitekey !== null && is_string($sitekey)) {
+        if(is_string($sitekey)) {
             $this->sitekey = $sitekey;
         } elseif(!empty($GLOBALS['phpwcms']['recaptcha_site_key'])) {
             $this->sitekey = $GLOBALS['phpwcms']['recaptcha_site_key'];
         }
 
-        if($secretkey !== null && is_string($secretkey)) {
+        if(is_string($secretkey)) {
             $this->secretkey = $secretkey;
         } elseif(!empty($GLOBALS['phpwcms']['recaptcha_secret_key'])) {
             $this->secretkey = $GLOBALS['phpwcms']['recaptcha_secret_key'];

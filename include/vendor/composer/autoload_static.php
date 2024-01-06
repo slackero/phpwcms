@@ -4,13 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
+class ComposerStaticInit27746412545f20b1dea83d7fa7c0a077
 {
     public static $files = array (
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
         'fdc0e9724ddc47859c8bf0c1ea0a623a' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/constants.php',
+        '9e71c1459ef1226520e4b26dac3a180d' => __DIR__ . '/..' . '/php81_bc/strftime/src/php-8.1-strftime.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '5897ea0ac4cccf14d323035e65887801' => __DIR__ . '/..' . '/symfony/polyfill-php82/bootstrap.php',
@@ -30,7 +30,6 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
             'Symfony\\Polyfill\\Php82\\' => 23,
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
             'SimplePie\\' => 10,
         ),
         'P' => 
@@ -47,7 +46,6 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
         ),
         'M' => 
         array (
-            'MyCLabs\\Enum\\' => 13,
             'Matrix\\' => 7,
         ),
         'H' => 
@@ -90,10 +88,6 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
-        ),
         'SimplePie\\' => 
         array (
             0 => __DIR__ . '/..' . '/simplepie/simplepie/src',
@@ -122,10 +116,6 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
         'Netcarver\\Textile\\' => 
         array (
             0 => __DIR__ . '/..' . '/netcarver/textile/src/Netcarver/Textile',
-        ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Matrix\\' => 
         array (
@@ -214,10 +204,10 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit27746412545f20b1dea83d7fa7c0a077::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit27746412545f20b1dea83d7fa7c0a077::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit27746412545f20b1dea83d7fa7c0a077::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit27746412545f20b1dea83d7fa7c0a077::$classMap;
 
         }, null, ClassLoader::class);
     }

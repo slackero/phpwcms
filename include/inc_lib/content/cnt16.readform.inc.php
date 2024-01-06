@@ -19,10 +19,10 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type E-Card
 $content['ecard']['images']     = array();
-$content["ecard"]["list"]       = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
+$content["ecard"]["list"]       = $_POST["cimage_list"] ?? array();
 
-$content["ecard"]["width"]      = (intval($_POST["cecard_width"]))  ? intval($_POST["cecard_width"])  : '';
-$content["ecard"]["height"]     = (intval($_POST["cecard_height"])) ? intval($_POST["cecard_height"]) : '';
+$content["ecard"]["width"]      = intval($_POST["cecard_width"])  ?: '';
+$content["ecard"]["height"]     = intval($_POST["cecard_height"]) ?: '';
 $temp_width                     = $content["ecard"]["width"];
 $temp_height                    = $content["ecard"]["height"];
 

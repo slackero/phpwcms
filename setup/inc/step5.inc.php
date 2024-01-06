@@ -221,7 +221,7 @@ $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
 </table>
 <?php
 
-$this_root = dirname(dirname(dirname(__FILE__)));
+$this_root = dirname(__FILE__, 3);
 $config_setup = read_textfile($this_root.'/setup/setup.conf.inc.php');
 $config_setup = str_replace('?>', "\$NO_ACCESS = true;\n\n", $config_setup);
 $result = false;

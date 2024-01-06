@@ -22,7 +22,7 @@ $cinfo["result"] = '';
 
 $cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
 $cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$cinfo[3] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$cinfo[3] = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 if(isset($cinfo[3]['news_category'])) {
     $cinfo[3] = implode(', ', $cinfo[3]['news_category']);
 }

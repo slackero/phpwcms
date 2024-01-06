@@ -15,7 +15,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
-$action = isset($_GET['action']) ? $_GET['action'] : '';
+$action = $_GET['action'] ?? '';
 $apikey = '';
 $fid = isset($_GET['fid']) ? intval($_GET['fid']) : 0;
 
@@ -101,14 +101,14 @@ if ($action === 'exportformresult' && $fid) {
 
         // First row contains column names
         foreach($export[0] as $column_title => $column) {
-            $sheet->setCellValueByColumnAndRow($column, 1, $column_title);
+            $sheet->setCellValue([$column, 1], $column_title);
         }
 
         for ($x = 1; $x < $row; $x++) {
             $current = $export[$x];
             foreach($export[0] as $column_title => $column) {
-                $column_value = isset($current[$column_title]) ? $current[$column_title] : '';
-                $sheet->setCellValueByColumnAndRow($column, $x+1, $column_value);
+                $column_value = $current[$column_title] ?? '';
+                $sheet->setCellValue([$column, $x+1], $column_value);
             }
         }
 
@@ -267,8 +267,8 @@ if ($action === 'exportformresult' && $fid) {
     $_userInfo = array();
 
     // default settings for listing selected users
-    $_userInfo['list_active'] = isset($_SESSION['list_active']) ? $_SESSION['list_active'] : 1;
-    $_userInfo['list_inactive'] = isset($_SESSION['list_inactive']) ? $_SESSION['list_inactive'] : 1;
+    $_userInfo['list_active'] = $_SESSION['list_active'] ?? 1;
+    $_userInfo['list_inactive'] = $_SESSION['list_inactive'] ?? 1;
 
     $_userInfo['where_query'] = '';
 

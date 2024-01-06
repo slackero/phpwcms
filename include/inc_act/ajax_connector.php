@@ -13,12 +13,12 @@
 
 $phpwcms = array('SESSION_START' => true);
 
-require '../../include/config/conf.inc.php';
-require '../inc_lib/default.inc.php';
+require_once '../../include/config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
-require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
-require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(empty($_SESSION['wcs_user']) || empty($_SESSION['PHPWCMS_BROWSER_HASH']) || $_SESSION['PHPWCMS_BROWSER_HASH'] !== $GLOBALS['phpwcms']['USER_AGENT']['hash']) {
     headerRedirect('', 401);
@@ -26,15 +26,20 @@ if(empty($_SESSION['wcs_user']) || empty($_SESSION['PHPWCMS_BROWSER_HASH']) || $
 }
 
 if(isset($_POST['action'])) {
-    $action		= isset($_POST['action']) ? $_POST['action'] : false;
-    $method		= isset($_POST['method']) ? $_POST['method'] : 'json';
+    $action		= $_POST['action'];
+    $method		= $_POST['method'] ?? 'json';
     $value		= isset($_POST['value']) ? clean_slweg($_POST['value'], 0, false) : '';
     $jquery		= false;
 } elseif($_GET['action']) {
-    $action		= isset($_GET['action']) ? $_GET['action'] : false;
-    $method		= isset($_GET['method']) ? $_GET['method'] : 'json';
+    $action		= $_GET['action'];
+    $method		= $_GET['method'] ?? 'json';
     $value		= isset($_GET['value']) ? clean_slweg($_GET['value'], 0, false) : '';
     $jquery		= true;
+} else {
+    $method     = 'json';
+    $action     = 'empty';
+    $jquery     = false;
+    $value      = '';
 }
 
 if(empty($value)) {
@@ -43,7 +48,7 @@ if(empty($value)) {
 
 // do charset conversions for value
 if(PHPWCMS_CHARSET !== 'utf-8') {
-    $value = @mb_convert_encoding($value, PHPWCMS_CHARSET, 'utf-8');
+    $value = mb_convert_encoding($value, PHPWCMS_CHARSET, 'utf-8');
 }
 
 $data = array();
@@ -57,7 +62,7 @@ switch($action) {
 
         if(isset($result[0])) {
             foreach($result as $value) {
-                $value = utf8_encode($value['cat_name']);
+                $value = mb_convert_encoding($value['cat_name'], 'UTF-8');
                 $data[] = $jquery ? array('cat_name' => $value) : $value;
             }
         }
@@ -71,7 +76,7 @@ switch($action) {
 
         if(isset($result[0])) {
             foreach($result as $value) {
-                $value = utf8_encode($value['cat_name']);
+                $value = mb_convert_encoding($value['cat_name'], 'UTF-8');
                 $data[] = $jquery ? array('cat_name' => $value) : $value;
             }
         }

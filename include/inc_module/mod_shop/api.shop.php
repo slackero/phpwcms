@@ -12,7 +12,7 @@
 // ToDo: Enhance Actions (setstatus)
 
 $phpwcms = array();
-$path = dirname(dirname(dirname(dirname(__FILE__))));
+$path = dirname(__FILE__, 4);
 $module_path = dirname(__FILE__);
 if(is_file($path.'/include/config/conf.inc.php')) {
     require $path.'/include/config/conf.inc.php';
@@ -128,12 +128,12 @@ if($shop_api_access) {
                     'total_vat'     => floatval($row['order_gross']) - floatval($row['order_net']),
                     'total_gross'   => floatval($row['order_gross'])
                 ),
-                'subtotal'      => isset($row['order_data']['subtotal']) ? $row['order_data']['subtotal'] : null,
-                'shipping'      => isset($row['order_data']['shipping']) ? $row['order_data']['shipping'] : null,
-                'discount'      => isset($row['order_data']['discount']) ? $row['order_data']['discount'] : null,
-                'loworder'      => isset($row['order_data']['loworder']) ? $row['order_data']['loworder'] : null,
-                'weight'        => isset($row['order_data']['weight']) ? $row['order_data']['weight'] : null,
-                'distance'      => isset($row['order_data']['distance']) ? $row['order_data']['distance'] : null,
+                'subtotal'      => $row['order_data']['subtotal'] ?? null,
+                'shipping'      => $row['order_data']['shipping'] ?? null,
+                'discount'      => $row['order_data']['discount'] ?? null,
+                'loworder'      => $row['order_data']['loworder'] ?? null,
+                'weight'        => $row['order_data']['weight'] ?? null,
+                'distance'      => $row['order_data']['distance'] ?? null,
                 'positions'     => array()
             );
 

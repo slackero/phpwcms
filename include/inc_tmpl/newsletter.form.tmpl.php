@@ -70,7 +70,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <td align="right" class="chatlist"><?php
 
         echo $BL['be_newsletter_fromemail'];
-        if(isset($newsletter['error']) && isset($newsletter['error']['from_email'])) {
+        if(isset($newsletter['error']['from_email'])) {
             echo '<img src="img/symbole/error_9x9.gif" width="9" height="9" alt="" />';
         }
 
@@ -82,7 +82,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <td align="right" class="chatlist"><?php
 
         echo $BL['be_newsletter_replyto'];
-        if(isset($newsletter['error']) && isset($newsletter['error']['replyto'])) {
+        if(isset($newsletter['error']['replyto'])) {
             echo '<img src="img/symbole/error_9x9.gif" width="9" height="9" alt="" />';
         }
 

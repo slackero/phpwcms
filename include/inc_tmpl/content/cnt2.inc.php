@@ -32,9 +32,9 @@ if(empty($template_default['imagegallery_default_column'])) {
     }
 }
 
-$template_default['imagegallery_default_width']  = isset($template_default['imagegallery_default_width']) ? $template_default['imagegallery_default_width'] : '' ;
-$template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
-$template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
+$template_default['imagegallery_default_width']  = $template_default['imagegallery_default_width'] ?? '';
+$template_default['imagegallery_default_height'] = $template_default['imagegallery_default_height'] ?? '';
+$template_default['imagegallery_default_space']  = $template_default['imagegallery_default_space'] ?? '';
 
 if(!isset($content['image_list'])) {
 

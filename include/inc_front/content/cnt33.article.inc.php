@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // News
-$news = @unserialize($crow["acontent_form"], ['allowed_classes' => false], ['allowed_classes' => false]);
+$news = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 // read template
 if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/news.tmpl')) {
@@ -176,10 +176,10 @@ if($news['list_mode']) {
 
     if($news['news_skip']) {
         $news['sql_limit']  = ' LIMIT '.$news['news_skip'].', ';
-        $news['sql_limit'] .= $news['news_limit'] ? $news['news_limit'] : 99999999;
+        $news['sql_limit'] .= $news['news_limit'] ?: 99999999;
     } elseif($news['news_limit']) {
         $news['sql_limit']  = ' LIMIT ';
-        $news['sql_limit'] .= $news['news_skip'] ? $news['news_skip'] : 0;
+        $news['sql_limit'] .= $news['news_skip'] ?: 0;
         $news['sql_limit'] .= ', ' . $news['news_limit'];
     } else {
         $news['sql_limit'] = '';
@@ -483,7 +483,7 @@ if($news['template']) {
                 } else {
                     $value['detail_link']   = date('Ymd', $value['cnt_ts_livedate']) . '-' . $crow['acontent_aid'] . '_' ;
                     $value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
-                    $news['entries'][$key]  = render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (strpos($news['base_href'], '?') !== false ? '&amp;' : '?') . 'newsdetail=' . $value['detail_link']);
+                    $news['entries'][$key]  = render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (str_contains($news['base_href'], '?') ? '&amp;' : '?') . 'newsdetail=' . $value['detail_link']);
                 }
 
             // news list link (back)
@@ -742,8 +742,8 @@ if($news['template']) {
                                         }
 
                                         $value['gallery_captions'][$ikey] = array(
-                                            'caption' => isset($ivalue['f_longinfo']) ? $ivalue['f_longinfo'] : '',
-                                            'copyright' => isset($ivalue['f_copyright']) ? $ivalue['f_copyright'] : ''
+                                            'caption' => $ivalue['f_longinfo'] ?? '',
+                                            'copyright' => $ivalue['f_copyright'] ?? ''
                                         );
                                     }
 

@@ -17,4 +17,4 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Page / ext. Content
-$content["page_file"] = unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content["page_file"] = unserialize($row['acontent_form'], ['allowed_classes' => false]);

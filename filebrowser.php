@@ -539,7 +539,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . ' getObjectById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(PHPWCMS_CHARSET !== 'utf-8') {
-            $confirm = utf8_decode($confirm);
+            $confirm = mb_convert_encoding($confirm, PHPWCMS_CHARSET);
         }
         echo LF . ' if(confirm("' . $confirm . '")) tmt_winControl("self","close()");';
         echo LF . '}' . LF;
@@ -552,7 +552,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $fileuploaderAllowedExtensions = '';
     if(is_string($phpwcms['allowed_upload_ext'])) {
         $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
-        if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
+        if(str_contains($fileuploaderAllowedExtensions, ',')) {
             $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
         }
     } elseif(count($phpwcms['allowed_upload_ext'])) {

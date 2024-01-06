@@ -64,9 +64,6 @@ $_SESSION['REFERER_URL'] = PHPWCMS_URL.get_login_file();
 
 // make compatibility check
 if(phpwcms_revision_check_temp($phpwcms["revision"]) !== true) {
-    if (!PHPWCMS_DB_VERSION_57PLUS) {
-        _dbQuery('SET storage_engine=MYISAM', 'SET');
-    }
     $revision_status = phpwcms_revision_check($phpwcms["revision"]);
 }
 
@@ -77,7 +74,7 @@ $wcs_user = '';
 // where user should be redirected too after login
 if(isset($_POST['ref_url']) || isset($_GET['ref'])) {
     $ref_url = xss_clean(isset($_GET['ref']) ? rawurldecode($_GET['ref']) : $_POST['ref_url']);
-    if (substr($ref_url, 0, strlen(PHPWCMS_URL)) !== PHPWCMS_URL) {
+    if (!str_starts_with($ref_url, PHPWCMS_URL)) {
         $ref_url = '';
     }
 } else {
@@ -402,7 +399,7 @@ ob_start();
 $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
 $lang_options = [];
 while($lang_code = readdir($lang_dirs)) {
-    if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
+    if( !str_starts_with($lang_code, '.') && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
         $_lang_code = strtoupper($lang_code);
         $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
         $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
@@ -435,7 +432,7 @@ $formAll = str_replace( ["'", "\r", "\n", '<'], ["\'", '', " ", "<'+'"], ob_get_
     getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     getObjectById('form_loginname').focus();
 <?php if(!empty($phpwcms['browser_check']['be'])):
-    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
+    $buoop = array('insecure' => !isset($phpwcms['browser_check']['insecure']) || boolval($phpwcms['browser_check']['insecure']));
     if(!empty($phpwcms['browser_check']['vs'])) {
         $buoop['vs'] = $phpwcms['browser_check']['vs'];
     }

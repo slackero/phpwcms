@@ -105,7 +105,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 $new_user_id = NULL;
                 if($send_verification) {
                     $emailbody = str_replace('{LOGIN}',         $new_login, $BL['be_admin_usr_emailbody']);
-                    $emailbody = str_replace('{PASSWORD}',      (($new_password) ? $new_password : $BL['be_admin_usr_passnochange']), $emailbody);
+                    $emailbody = str_replace('{PASSWORD}',      $new_password ?: $BL['be_admin_usr_passnochange'], $emailbody);
                     $emailbody = str_replace('{SITE}',          PHPWCMS_URL, $emailbody);
                     $emailbody = str_replace('{LOGIN_PAGE}',    PHPWCMS_URL.get_login_file(), $emailbody);
 

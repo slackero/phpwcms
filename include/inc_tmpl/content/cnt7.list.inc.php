@@ -40,7 +40,7 @@ if($row["acontent_files"]) {
     	if(isset($file_result[0]['f_id'])) {
 			foreach($file_result as $file_row) {
 				foreach($fxb as $key => $value) {
-					if($fxb[$key]["fid"] == $file_row['f_id']) {
+					if($value["fid"] == $file_row['f_id']) {
 						$fxb[$key]["fname"] = html($file_row['f_name']);
 						$fxb[$key]["fext"] = $file_row['f_ext'];
 					}
@@ -52,13 +52,13 @@ if($row["acontent_files"]) {
 		$fx = 0;
 		$cinfo_files = '';
 		foreach($fxb as $key => $value) {
-			if(!isset($fxb[$key]["fname"])) {
+			if(!isset($value["fname"])) {
 				continue;
 			}
 			if($fx) $cinfo_files .= "<br />";
-			$cinfo_files .= "<img src=\"img/icons/small_".extimg($fxb[$key]["fext"])."\" border=\"0\">";
+			$cinfo_files .= "<img src=\"img/icons/small_".extimg($value["fext"])."\" border=\"0\">";
 			$cinfo_files .= "<img src=\"img/leer.gif\" width=\"3\" height=\"1\" border=\"0\">";
-			$cinfo_files .= $fxb[$key]["fname"];
+			$cinfo_files .= $value["fname"];
 			$fx++;
 		}
 	}

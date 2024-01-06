@@ -13,7 +13,7 @@
 // for the excellent JavaScript menu at http://deluxe-menu.com
 
 
-if(strpos($content["all"],'{DELUXE_MENU') !== false) {
+if(str_contains($content["all"], '{DELUXE_MENU')) {
 
 
     // now lets define some default array values

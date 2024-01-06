@@ -18,4 +18,4 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // RSS feed
-$content['rssfeed'] = unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content['rssfeed'] = unserialize($row['acontent_form'], ['allowed_classes' => false]);

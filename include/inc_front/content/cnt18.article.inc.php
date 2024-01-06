@@ -283,12 +283,12 @@ if($guestbook['visible']) {
 
         // image width
         $guestbook['imgdata'][0] = empty($guestbook['imgdata'][0]) ? '' : intval($guestbook['imgdata'][0]);
-        if($guestbook['imgdata'][0] === 0) {
+        if($guestbook['imgdata'][0] == 0) {
             $guestbook['imgdata'][0] = '';
         }
         // image height
         $guestbook['imgdata'][1] = empty($guestbook['imgdata'][1]) ? '' : intval($guestbook['imgdata'][1]);
-        if($guestbook['imgdata'][1] === 0) {
+        if($guestbook['imgdata'][1] == 0) {
             $guestbook['imgdata'][1] = '';
         }
         // image zoom
@@ -633,7 +633,7 @@ if($guestbook['visible']) {
             $guestbook['nav'] = preg_replace_callback('/{PAGE:(\d+):(.*?)}/s', 'guestbook_pages', $guestbook['nav']);
 
             // archive (form)
-            if( ! ( strpos($guestbook['nav'],'{ARCHIVE')===false ) ) {
+            if( ! (!str_contains($guestbook['nav'], '{ARCHIVE')) ) {
                 preg_match('/{ARCHIVE:(.*?)}/s', $guestbook['nav'], $guestbook['archiveval']);
                 $guestbook['archiveval'] = explode('|', $guestbook['archiveval'][1]);
                 $guestbook['archive']  = '<form name="guestbookarchive" id="guestbookarchive" method="post" action="index.php?id='.implode(',', $aktion).'">';
@@ -686,7 +686,7 @@ if($guestbook['visible']) {
             }
 
             // jump to menu (form)
-            if( ! ( strpos($guestbook['nav'],'{JUMP')===false ) ) {
+            if( ! (!str_contains($guestbook['nav'], '{JUMP')) ) {
                 preg_match('/{JUMP:(.*?)}/s', $guestbook['nav'], $guestbook['jumpval']);
                 $guestbook['jumpval'] = explode('|', $guestbook['jumpval'][1]);
                 $guestbook['jump']  = '<form name="guestbookjump" id="guestbookjump" method="post" action="index.php?id='.implode(',', $aktion).'">';

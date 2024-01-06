@@ -18,5 +18,5 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type 89: Poll		jens
 $content["poll_list"]		= unserialize($row["acontent_image"], ['allowed_classes' => false]);
-$content["poll_form"]		= unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content["poll_form"]		= unserialize($row['acontent_form'], ['allowed_classes' => false]);
 $content["poll_text"]		= unserialize($row["acontent_text"], ['allowed_classes' => false]);

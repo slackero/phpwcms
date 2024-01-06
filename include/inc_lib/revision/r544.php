@@ -22,7 +22,7 @@ function phpwcms_revision_r544() {
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_calendar` WHERE Field='calendar_refid'");
 
-    if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) === 'int') {
+    if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'int')) {
 
         if($result = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_calendar` CHANGE `calendar_refid` `calendar_refid` VARCHAR(1000) NOT NULL DEFAULT ''", 'ALTER')) {
 

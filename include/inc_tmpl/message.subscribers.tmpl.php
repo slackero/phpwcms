@@ -168,9 +168,9 @@ if(empty($_SESSION['subscriber_page'])) {
 }
 
 // default settings for listing selected users
-$_userInfo['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_active']		: 1;
-$_userInfo['list_inactive']		= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
-$_userInfo['list_channel']		= isset($_SESSION['list_channel'])	? $_SESSION['list_channel']		: 0;
+$_userInfo['list_active']		= $_SESSION['list_active'] ?? 1;
+$_userInfo['list_inactive']		= $_SESSION['list_inactive'] ?? 1;
+$_userInfo['list_channel']		= $_SESSION['list_channel'] ?? 0;
 
 if($_userInfo['list_channel'] && isset($_POST['showchannel'])) {
 	$_userInfo['channel'] = empty($_POST['subscribe_select']) ? false : $_POST['subscribe_select'];

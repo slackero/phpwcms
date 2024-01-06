@@ -26,7 +26,7 @@ $cinfo["result"][] = html(
     ($row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '')
 );
 
-if( $row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]) ) {
+if( $row["acontent_form"] = @unserialize($row['acontent_form'], ['allowed_classes' => false]) ) {
 
     // Flash
     if(!empty($row["acontent_form"]['fmp_internal_id'])) {

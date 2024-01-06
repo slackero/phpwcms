@@ -8,7 +8,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // used to get a calendar
 
-if (strpos($content["all"], '{CALENDAR') !== false) {
+if (str_contains($content["all"], '{CALENDAR')) {
 
     include_once PHPWCMS_ROOT . '/include/inc_ext/php_calendar.php';
     include_once PHPWCMS_ROOT . '/include/inc_front/calendar.func.inc.php';

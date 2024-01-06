@@ -126,7 +126,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
       <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=2&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
       <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.articlecontent.cmedia_name.value='';document.articlecontent.cmedia_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>
-      <td><input name="cmedia_id" type="hidden" id="cmedia_id2" value="<?php echo  isset($content["media_id"]) ? $content["media_id"] : '' ?>" /></td>
+      <td><input name="cmedia_id" type="hidden" id="cmedia_id2" value="<?php echo $content["media_id"] ?? '' ?>" /></td>
     </tr>
     <tr>
       <td><img src="img/leer.gif" alt="" width="80" height="1" /></td>
@@ -172,9 +172,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
               <td align="right" class="chatlist"><?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
               <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
                 <tr>
-                  <td><input name="cmedia_width" type="text" class="f11b" id="cmedia_width" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["media_width"]) ? $content["media_width"] : '' ?>" /></td>
+                  <td><input name="cmedia_width" type="text" class="f11b" id="cmedia_width" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content["media_width"] ?? '' ?>" /></td>
                   <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-                  <td><input name="cmedia_height" type="text" class="f11b" id="cmedia_height" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["media_height"]) ? $content["media_height"] : '' ?>" /></td>
+                  <td><input name="cmedia_height" type="text" class="f11b" id="cmedia_height" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content["media_height"] ?? '' ?>" /></td>
                   <td class="chatlist">&nbsp;px</td>
                   <td><img src="img/leer.gif" alt="" width="30" height="1" /></td>
                   <td class="chatlist"><?php echo $BL['be_cnt_setsize'] ?>:&nbsp;</td>

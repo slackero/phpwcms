@@ -31,8 +31,8 @@ $content["image_pos"]       = 0;
 $content["image_caption"]   = clean_slweg($_POST["cimage_caption"]);
 $content["image_zoom"]      = isset($_POST["cimage_zoom"]) ? 1 : 0;
 
-$content["image_width"]     = (intval($_POST["cimage_width"])) ? intval($_POST["cimage_width"]) : "";
-$content["image_height"]    = (intval($_POST["cimage_height"])) ? intval($_POST["cimage_height"]): "";
+$content["image_width"]     = intval($_POST["cimage_width"]) ?: "";
+$content["image_height"]    = intval($_POST["cimage_height"]) ?: "";
 $temp_img_maxwidth = ($content["image_pos"] == 6 || $content["image_pos"] == 7) ? intval($phpwcms["content_width"] / 1.75) : $phpwcms["content_width"];
 
 if((!RESPONSIVE_MODE && $content["image_width"] > $temp_img_maxwidth) || ($content["image_width"] == "")) {

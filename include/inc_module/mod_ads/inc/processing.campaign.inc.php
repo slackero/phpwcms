@@ -129,8 +129,8 @@ if (isset($_POST['adcampaign_title'])) {
             $sql .= "adcampaign_status=" . $plugin['data']['adcampaign_status'] . ", ";
             $sql .= "adcampaign_title='" . aporeplace($plugin['data']['adcampaign_title']) . "', ";
             $sql .= "adcampaign_comment='" . aporeplace($plugin['data']['adcampaign_comment']) . "', ";
-            $sql .= "adcampaign_datestart='" . aporeplace($plugin['data']['adcampaign_datestart']) . "', ";
-            $sql .= "adcampaign_dateend='" . aporeplace($plugin['data']['adcampaign_dateend']) . "', ";
+            $sql .= "adcampaign_datestart=" . _dbEscape(empty($plugin['data']['adcampaign_datestart']) ? null : $plugin['data']['adcampaign_datestart']) . ", ";
+            $sql .= "adcampaign_dateend=" . _dbEscape(empty($plugin['data']['adcampaign_dateend']) ? null : $plugin['data']['adcampaign_dateend']) . ", ";
             $sql .= "adcampaign_maxview=" . $plugin['data']['adcampaign_maxview'] . ", ";
             $sql .= "adcampaign_maxclick=" . $plugin['data']['adcampaign_maxclick'] . ", ";
             $sql .= "adcampaign_maxviewuser=" . $plugin['data']['adcampaign_maxviewuser'] . ", ";
@@ -159,8 +159,8 @@ if (isset($_POST['adcampaign_title'])) {
             $sql .= $plugin['data']['adcampaign_status'] . ", ";
             $sql .= "   '" . aporeplace($plugin['data']['adcampaign_title']) . "', ";
             $sql .= "   '" . aporeplace($plugin['data']['adcampaign_comment']) . "', ";
-            $sql .= "   '" . aporeplace($plugin['data']['adcampaign_datestart']) . "', ";
-            $sql .= "   '" . aporeplace($plugin['data']['adcampaign_dateend']) . "', ";
+            $sql .= "   " . _dbEscape(empty($plugin['data']['adcampaign_datestart']) ? null : $plugin['data']['adcampaign_datestart']) . ", ";
+            $sql .= "   " . _dbEscape(empty($plugin['data']['adcampaign_dateend']) ? null : $plugin['data']['adcampaign_dateend']) . ", ";
             $sql .= $plugin['data']['adcampaign_maxview'] . ", ";
             $sql .= $plugin['data']['adcampaign_maxclick'] . ", ";
             $sql .= $plugin['data']['adcampaign_maxviewuser'] . ", ";

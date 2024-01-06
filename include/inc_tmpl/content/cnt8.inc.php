@@ -98,7 +98,7 @@ initMootoolsAutocompleter();
     if(is_array($tmpllist) && count($tmpllist)) {
         foreach($tmpllist as $val) {
             // do not show listmode templates
-            if(substr($val, 0, 5) == 'list.') {
+            if(str_starts_with($val, 'list.')) {
                 continue;
             }
             $vals = ($val == $content['alink']['alink_template']) ? ' selected="selected"' : '';
@@ -301,7 +301,7 @@ initMootoolsAutocompleter();
                     if(is_array($content['alink']['filter_tags']) && count($content['alink']['filter_tags'])) {
                         $content['alink']['filter_tags_active'] = false;
                         foreach($content['alink']['filter_tags'] as $_tag) {
-                            if(strpos($row['article_keyword'], $_tag) !== false) {
+                            if(str_contains($row['article_keyword'], $_tag)) {
                                 $content['alink']['filter_tags_active'] = true;
                                 break;
                             }

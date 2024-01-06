@@ -8,7 +8,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-if( ! ( strpos($content["all"],'{MY_LEVEL_NAV}')===false ) ) {
+if( ! (!str_contains($content["all"], '{MY_LEVEL_NAV}')) ) {
 
     $complexNav = '';
 

@@ -95,8 +95,8 @@ if(isset($_POST['do_pagination'])) {
 }
 
 
-$_entry['list_active']      = isset($_SESSION['list_active'])   ? $_SESSION['list_active']      : 1;
-$_entry['list_inactive']    = isset($_SESSION['list_inactive']) ? $_SESSION['list_inactive']    : 1;
+$_entry['list_active']      = $_SESSION['list_active'] ?? 1;
+$_entry['list_inactive']    = $_SESSION['list_inactive'] ?? 1;
 
 
 // set correct status query
@@ -115,7 +115,7 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 
 if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar']) && count($_SESSION['filter_calendar'])) {
 
-    $_entry['filter_array'] = array();
+    $_entry['filter_array'] = [];
 
     foreach($_SESSION['filter_calendar'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
@@ -205,7 +205,7 @@ $sql .= "calendar_start < '".aporeplace($plugin['end_year'].'-'.$plugin['end_mon
 $plugin['dates'] = _dbQuery($sql);
 
 // run through dates and put in right day, fist for all non-repeating dates
-$_entry['dates'] = array();
+$_entry['dates'] = [];
 if($plugin['dates']) {
     foreach($plugin['dates'] as $_entry['x']) {
 

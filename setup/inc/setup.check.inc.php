@@ -54,6 +54,7 @@ if(!empty($step)) {
         // main settings
 
         $phpwcms["db_host"]    = slweg($_POST["db_host"]);
+        $phpwcms["db_port"]    = empty($_POST["db_port"]) || !intval($_POST['db_port']) ? 3306 : intval($_POST['db_port']);
         $phpwcms["db_user"]    = slweg($_POST["db_user"]);
         $phpwcms["db_pass"]    = slweg($_POST["db_pass"]);
         $phpwcms["db_table"]   = slweg($_POST["db_table"]);
@@ -63,35 +64,46 @@ if(!empty($step)) {
         $phpwcms["charset"]         = 'utf-8'; // Fixed
         $phpwcms['db_charset']      = 'utf8';
         if (!empty($_POST["charset"])) {
-            $phpwcms['default_lang'] = substr($_POST["charset"], 0, 2);
+            $phpwcms['default_lang'] = substr($_POST['charset'], 0, 2);
             $_collation_warning = false;
         } elseif (empty($phpwcms['default_lang'])) {
             $phpwcms['default_lang'] = 'en';
         }
         $phpwcms['db_collation']    = 'utf8_general_ci';
-        $db_sql = empty($_POST["db_sql"]) ? 0 : 1;
+        $db_sql = empty($_POST['db_sql']) ? 0 : 1;
 
         write_conf_file($phpwcms);
         $err = 0;
 
         $prepend = $phpwcms["db_prepend"];
 
-        if(isset($_POST["dbsavesubmit"])) {
+        if(isset($_POST['dbsavesubmit'])) {
 
             // make db connect
-            $db_host = $phpwcms["db_host"];
-            if(!empty($phpwcms["db_pers"]) && substr($db_host, 0, 2) !== 'p:') {
+            $db_host = $phpwcms['db_host'];
+            if(!empty($phpwcms['db_pers']) && !str_starts_with($db_host, 'p:')) {
                 $db_host = 'p:'.$db_host;
             }
-            $db = mysqli_connect($db_host, $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
+
+            try {
+                $db = mysqli_connect(
+                    $db_host,
+                    $phpwcms['db_user'],
+                    $phpwcms['db_pass'],
+                    $phpwcms['db_table'],
+                    $phpwcms['db_port']
+                );
+            } catch (Exception $e) {
+                $db = false;
+            }
 
             if($db) {
 
-                if($result = mysqli_query($db, "SELECT VERSION()")) {
+                if($result = mysqli_query($db, 'SELECT VERSION()')) {
 
                     if($row = mysqli_fetch_row($result)) {
 
-                        $phpwcms["db_version"] = $row[0];
+                        $phpwcms['db_version'] = $row[0];
                         write_conf_file($phpwcms);
 
                     }
@@ -173,7 +185,7 @@ if(!empty($step)) {
                                         continue;
                                     }
 
-                                    if(strpos(strtoupper($value), 'INSERT') !== 0) {
+                                    if(!str_starts_with(strtoupper($value), 'INSERT')) {
                                         $value .= ' DEFAULT';
                                         $value .= ' CHARACTER SET '.$phpwcms['db_charset'];
                                         $value .= ' COLLATE '.$phpwcms['db_collation'];
@@ -226,13 +238,23 @@ if(!empty($step)) {
         write_conf_file($phpwcms);
 
         if(!empty($_POST["admin_create"])) {
-            $db = mysqli_connect($phpwcms["db_host"], $phpwcms["db_user"], $phpwcms["db_pass"], $phpwcms["db_table"]);
-            if(mysqli_connect_error()) {
+            try {
+                $db = mysqli_connect(
+                    $phpwcms['db_host'],
+                    $phpwcms['db_user'],
+                    $phpwcms['db_pass'],
+                    $phpwcms['db_table'],
+                    $phpwcms['db_port']
+                );
+            } catch (Exception $e) {
+                $db = false;
+            }
+            if(!$db || mysqli_connect_error()) {
                 $err = 1;
             } else {
-                mysqli_query($db, "SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION");
-                mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $phpwcms["charset"])."'");
-                $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . "_" : "";
+                mysqli_query($db, 'SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION');
+                mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $phpwcms['charset'])."'");
+                $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
                 $sql =  "INSERT INTO " . $_db_prepend . "phpwcms_user (usr_login, usr_pass, usr_email, ".
                         "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".
                         mysqli_real_escape_string($db, $phpwcms["admin_user"])."', '".
@@ -258,11 +280,11 @@ if(!empty($step)) {
         $phpwcms["templates"]      = clean_slweg($_POST["templates"]);
         $phpwcms["ftp_path"]       = clean_slweg($_POST["ftp_path"]);
 
-        $phpwcms["file_path"]      = ($phpwcms["file_path"]) ? $phpwcms["file_path"] : "phpwcms_filestorage";
-        $phpwcms["templates"]      = ($phpwcms["templates"]) ? $phpwcms["templates"] : "phpwcms_template";
-        $phpwcms["content_path"]   = ($phpwcms["content_path"]) ? $phpwcms["content_path"] : "content";
-        $phpwcms["cimage_path"]    = ($phpwcms["cimage_path"]) ? $phpwcms["cimage_path"] : "images";
-        $phpwcms["ftp_path"]       = ($phpwcms["ftp_path"]) ? $phpwcms["ftp_path"] : "phpwcms_ftp";
+        $phpwcms["file_path"]      = $phpwcms["file_path"] ?: "phpwcms_filestorage";
+        $phpwcms["templates"]      = $phpwcms["templates"] ?: "phpwcms_template";
+        $phpwcms["content_path"]   = $phpwcms["content_path"] ?: "content";
+        $phpwcms["cimage_path"]    = $phpwcms["cimage_path"] ?: "images";
+        $phpwcms["ftp_path"]       = $phpwcms["ftp_path"] ?: "phpwcms_ftp";
 
         write_conf_file($phpwcms);
         header("Location: setup.php?step=4");
@@ -277,13 +299,13 @@ if(!empty($step)) {
         $phpwcms["img_prev_width"]   = intval($_POST["img_prev_width"]);
         $phpwcms["img_prev_height"]  = intval($_POST["img_prev_height"]);
         $phpwcms["max_time"]         = intval($_POST["max_time"]);
-        $phpwcms["file_maxsize"]     = ($phpwcms["file_maxsize"]) ? $phpwcms["file_maxsize"] : 2097152;
-        $phpwcms["content_width"]    = ($phpwcms["content_width"]) ? $phpwcms["content_width"] : 538;
-        $phpwcms["img_list_width"]   = ($phpwcms["img_list_width"]) ? $phpwcms["img_list_width"] : 100;
-        $phpwcms["img_list_height"]  = ($phpwcms["img_list_height"]) ? $phpwcms["img_list_height"] : 75;
-        $phpwcms["img_prev_width"]   = ($phpwcms["img_prev_width"]) ? $phpwcms["img_prev_width"] : 538;
-        $phpwcms["img_prev_height"]  = ($phpwcms["img_prev_height"]) ? $phpwcms["img_prev_height"] : 400;
-        $phpwcms["max_time"]         = ($phpwcms["max_time"]) ? $phpwcms["max_time"] : 1800;
+        $phpwcms["file_maxsize"]     = $phpwcms["file_maxsize"] ?: 2097152;
+        $phpwcms["content_width"]    = $phpwcms["content_width"] ?: 538;
+        $phpwcms["img_list_width"]   = $phpwcms["img_list_width"] ?: 100;
+        $phpwcms["img_list_height"]  = $phpwcms["img_list_height"] ?: 75;
+        $phpwcms["img_prev_width"]   = $phpwcms["img_prev_width"] ?: 538;
+        $phpwcms["img_prev_height"]  = $phpwcms["img_prev_height"] ?: 400;
+        $phpwcms["max_time"]         = $phpwcms["max_time"] ?: 1800;
 
         write_conf_file($phpwcms);
         header("Location: setup.php?step=5");

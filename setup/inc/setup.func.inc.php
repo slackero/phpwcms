@@ -11,7 +11,7 @@
 
 //setup functions
 
-$DOCROOT = rtrim(str_replace('\\', '/', dirname(dirname(dirname(__FILE__)))), '/');
+$DOCROOT = rtrim(str_replace('\\', '/', dirname(__FILE__, 3)), '/');
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
@@ -125,25 +125,26 @@ function escape_quote($text='') {
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val["db_host"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val["db_user"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val["db_pass"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val["db_table"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val["db_prepend"]) . "';\n";
+    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host']) . "';\n";
+    $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
+    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user']) . "';\n";
+    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass']) . "';\n";
+    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table']) . "';\n";
+    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend']) . "';\n";
     $conf_file .= "\$phpwcms['db_pers'] = " . intval($val["db_pers"]) . ";\n";
-    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val["db_charset"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val["db_collation"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val["db_version"]) . "';\n";
-    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val["db_timezone"])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
+    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset']) . "';\n";
+    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation']) . "';\n";
+    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version']) . "';\n";
+    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val['db_timezone'])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
-    $check_url = rtrim($val["site"], '/');
+    $check_url = rtrim($val['site'], '/');
     if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
         $conf_file .= "\$phpwcms['site'] = '';";
     } else {
-        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val["site"]) . "';";
+        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val['site']) . "';";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
@@ -163,7 +164,7 @@ function write_conf_file($val) {
         $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . escape_quote($val["DOC_ROOT"]) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
-    $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
+    $real_doc = str_replace('\\', '/', dirname(__FILE__, 3));
     if (isset($val["root"]) && $val["root"] !== '') {
         $real_doc = explode($val["root"], $real_doc);
         $real_doc = rtrim($real_doc[0], '/');
@@ -466,15 +467,40 @@ function _dbQuery($query = '', $_queryMode = 'ASSOC') {
     }
 }
 
+if (!function_exists('convertDecChar')) {
+    function convertDecChar($decChar) {
+        if ($decChar < 128) {
+            return chr($decChar);
+        } elseif ($decChar < 2048) {
+            return chr(($decChar >> 6) + 192) . chr(($decChar & 63) + 128);
+        } elseif ($decChar < 65536) {
+            return chr(($decChar >> 12) + 224) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
+        } elseif ($decChar < 2097152) {
+            return chr($decChar >> 18 + 240) . chr((($decChar >> 12) & 63) + 128) . chr(($decChar >> 6) & 63 + 128) . chr($decChar & 63 + 128);
+        }
+
+        return $decChar;
+    }
+
+    function convertHexNumericToChar($matches) {
+        return convertDecChar(hexdec($matches[1]));
+    }
+
+    function convertNumericToChar($matches) {
+        return convertDecChar($matches[1]);
+    }
+}
+
 if (!function_exists('decode_entities')) {
     function decode_entities($string) {
-        // replace numeric entities
-        $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
-        $string = preg_replace('~&#([0-9]+);~e', 'chr(\\1)', $string);
-        // replace literal entities
-        $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-        $trans_tbl = array_flip($trans_tbl);
-        return strtr($string, $trans_tbl);
+        $text = @html_entity_decode($text, ENT_QUOTES, CMSGO_CHARSET);
+        if (strpos($text, '&') === false) {
+            return $text;
+        }
+        $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
+        $text = preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
+
+        return $text;
     }
 }
 
@@ -492,7 +518,7 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true, $enab
     } else {
         $port = '';
     }
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;
@@ -504,7 +530,7 @@ function check_htaccess($val) {
 
     if ($val["rewrite_url"]) {
 
-        $root = dirname(dirname(dirname(__FILE__)));
+        $root = dirname(__FILE__, 3);
         $htaccess_content = '';
         $htaccess_new_content = '';
 

@@ -78,7 +78,7 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     }
 
     if(empty($fileinfo['mimetype'])) {
-        $fileinfo['mimetype'] = isset($GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']]) ? $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] : 'application/force-download';
+        $fileinfo['mimetype'] = $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] ?? 'application/force-download';
     }
 
     // Disable output compression.
@@ -159,7 +159,7 @@ function rangeDownload($file) {
         // Extract the range string
         list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
         // Make sure the client hasn't sent us a multibyte range
-        if (strpos($range, ',') !== false) {
+        if (str_contains($range, ',')) {
 
             // (?) Shoud this be issued here, or should the first
             // range be used? Or should the header be ignored and
@@ -172,7 +172,7 @@ function rangeDownload($file) {
         // If the range starts with an '-' we start from the beginning
         // If not, we forward the file pointer
         // And make sure to get the end byte if spesified
-        if (substr($range, 0, 1) === '-') {
+        if (str_starts_with($range, '-')) {
 
             // The n-number of the last bytes is requested
             $c_start = $size - substr($range, 1);

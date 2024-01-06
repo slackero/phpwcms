@@ -33,7 +33,7 @@ if (!defined('PHPWCMS_ROOT')) {
                 $plugin['data']['order_data']['lang'] = empty($plugin['data']['order_data']['lang']) ? '' : html_specialchars(strtolower($plugin['data']['order_data']['lang']));
                 echo '&nbsp;&nbsp;&nbsp;<span class="chatlist">'.$BL['be_profile_label_lang'].':</span> ';
                 echo '<img src="img/famfamfam/lang/';
-                echo $plugin['data']['order_data']['lang'] ? $plugin['data']['order_data']['lang'] : 'all';
+                echo $plugin['data']['order_data']['lang'] ?: 'all';
                 echo '.png" alt="'.$plugin['data']['order_data']['lang'].'" style="position:relative;top:1px;" />';
             }
 
@@ -137,7 +137,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
     foreach($plugin['data']['order_data']['address'] as $custom_key => $custom_field) {
 
-        if(strpos($custom_key, 'shop_field') === FALSE) {
+        if(!str_contains($custom_key, 'shop_field')) {
             continue;
         }
 
@@ -393,7 +393,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <td class="tdbottom5 email"><pre><?php
 
             // only a slight fix
-            if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_customer'], '�') !== false) {
+            if(PHPWCMS_CHARSET !== 'utf-8' && str_contains($plugin['data']['order_data']['mail_customer'], '�')) {
                 $plugin['data']['order_data']['mail_customer'] = mb_convert_encoding($plugin['data']['order_data']['mail_customer'], PHPWCMS_CHARSET, 'utf-8');
             }
 
@@ -408,7 +408,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <td class="email"><pre><?php
 
             // only a slight fix
-            if(PHPWCMS_CHARSET !== 'utf-8' && strpos($plugin['data']['order_data']['mail_self'], '�') !== false) {
+            if(PHPWCMS_CHARSET !== 'utf-8' && str_contains($plugin['data']['order_data']['mail_self'], '�')) {
                 $plugin['data']['order_data']['mail_self'] = mb_convert_encoding($plugin['data']['order_data']['mail_self'], PHPWCMS_CHARSET, 'utf-8');
             }
 

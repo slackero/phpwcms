@@ -416,7 +416,7 @@ if(is_dir(PHPWCMS_TEMPLATE."inc_css")) {
     // browse template CSS diretory and list all available CSS files
     while($css_file = readdir($css_handle)) {
 
-        if(substr($css_file, 0, 1) !== '.' && is_file(PHPWCMS_TEMPLATE."inc_css/".$css_file) && preg_match('/^[a-z0-9\. \-_]+\.css$/i', $css_file) ) {
+        if(!str_starts_with($css_file, '.') && is_file(PHPWCMS_TEMPLATE."inc_css/".$css_file) && preg_match('/^[a-z0-9\. \-_]+\.css$/i', $css_file) ) {
 
             $unselected_css[$css_file] = $css_file;
 
@@ -548,12 +548,12 @@ if ($template['jslib'] && !$jslib_selected) {
                     </tr>
                     <tr>
                         <td class="chatlist">&nbsp;</td>
-                        <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked(isset($template['tracking_ga']['optout']) ? $template['tracking_ga']['optout'] : 0, 1); ?> /></td>
+                        <td><input type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> /></td>
                         <td class="chatlist nowrap"><label for="template_ga_optout">&nbsp;<?php echo $BL['be_tracking_optout']; ?></label></td>
                     </tr>
                     <tr>
                         <td class="chatlist">&nbsp;</td>
-                        <td><input type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked(isset($template['tracking_ga']['cookie_flags']) ? $template['tracking_ga']['cookie_flags'] : 0, 1); ?> /></td>
+                        <td><input type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> /></td>
                         <td class="chatlist nowrap"><label for="template_ga_cookie_flags">&nbsp;<?php echo $BL['be_tracking_cookie_flags']; ?></label></td>
                     </tr>
                     <tr>

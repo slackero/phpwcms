@@ -29,7 +29,7 @@ class ModuleShopSearch {
         }
 
         $shop_url			= _getConfig( 'shop_pref_id_shop', '_shopPref' );
-        $shop_lang_support	= _getConfig( 'shop_pref_felang' ) ? true : false;
+        $shop_lang_support	= _getConfig( 'shop_pref_felang' );
 
         if(!is_intval($shop_url) && is_string($shop_url)) {
             $shop_url	= trim($shop_url);

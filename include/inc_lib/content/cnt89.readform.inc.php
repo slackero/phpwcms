@@ -17,12 +17,12 @@ if(!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type 89: Poll            jens
-$content["poll_list"] = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : [];
+$content["poll_list"] = $_POST["cimage_list"] ?? [];
 
-$content["img_width"] = intval($_POST["cpoll_width"]) ? intval($_POST["cpoll_width"]) : "";
+$content["img_width"] = intval($_POST["cpoll_width"]) ?: "";
 $temp_width = $content["img_width"];
 
-$content["img_height"] = intval($_POST["cpoll_height"]) ? intval($_POST["cpoll_height"]) : "";
+$content["img_height"] = intval($_POST["cpoll_height"]) ?: "";
 $temp_height = $content["img_height"];
 
 $content["poll_caption"] = clean_slweg($_POST["cpoll_caption"], 65000);

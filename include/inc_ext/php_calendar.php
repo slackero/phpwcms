@@ -150,14 +150,3 @@ function generate_calendar($param = array()) {
 
     return $calendar . '</tr></table>';
 }
-
-function tzdelta($iTime = 0) {
-    if (!$iTime) {
-        $iTime = time();
-    }
-    $ar = localtime($iTime);
-    $ar[5] += 1900;
-    $ar[4]++;
-    $iTztime = gmmktime($ar[2], $ar[1], $ar[0], $ar[4], $ar[3], $ar[5], $ar[8]);
-    return ($iTztime - $iTime);
-}

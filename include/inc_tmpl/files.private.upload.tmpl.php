@@ -179,7 +179,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             'nginx.conf', // Nginx
         );
 
-        if(substr($fileName, 0, 1) === '.' || in_array(strtolower($fileName), $forbiddenUploadName)) {
+        if(str_starts_with($fileName, '.') || in_array(strtolower($fileName), $forbiddenUploadName)) {
             $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
         }
 

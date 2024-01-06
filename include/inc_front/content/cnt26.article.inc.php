@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //$CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $template_default["article"]);
 
-$crow["acontent_form"] = unserialize($crow["acontent_form"]);
+$crow["acontent_form"] = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template'])) {
 	$crow["acontent_form"]['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/recipe/'.$crow["acontent_form"]['template']) );
@@ -45,7 +45,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 	foreach($crow["acontent_form"]['ingredients'] as $temp_val) {
 		$temp_val = html_specialchars($temp_val);
 
-		if(substr($temp_val, 0, 1) === '*') {	//headline
+		if(str_starts_with($temp_val, '*')) {	//headline
 			if(isset($crow["acontent_form"]['temp'][$ingrediens_counter]['h'])) {
 				$ingrediens_counter++;
 			}

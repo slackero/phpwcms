@@ -21,7 +21,7 @@ function phpwcms_revision_r539() {
 	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_description'");
-	if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 7) == 'varchar') {
+	if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'varchar')) {
 		$update = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` CHANGE `article_description` `article_description` text NOT NULL", 'ALTER');
 		if(!$update) {
 			$status = false;

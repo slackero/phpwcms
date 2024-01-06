@@ -428,7 +428,7 @@ class phpwcmsImageGallery {
 			array_unshift($listing, $this->list_header);
 
 			// add gallery listing footer
-			array_push($listing, $this->list_footer);
+			$listing[] = $this->list_footer;
 
 			return implode($this->line_break, $listing);
 		}

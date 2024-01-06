@@ -26,7 +26,7 @@ function phpwcms_revision_r532() {
 
 		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."phpwcms_redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-					`changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+					`changed` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 					`id` bigint(20) unsigned NOT NULL DEFAULT '0',
 					`aid` bigint(20) unsigned NOT NULL DEFAULT '0',
 					`alias` varchar(255) NOT NULL DEFAULT '',
@@ -41,7 +41,7 @@ function phpwcms_revision_r532() {
 					KEY `id` (`id`,`aid`,`alias`),
 					KEY `active` (`active`),
 					KEY `link` (`link`)
-				) ENGINE=MyISAM";
+				)";
 		if(!empty($GLOBALS['phpwcms']['db_charset'])) {
 			$sql .= ' DEFAULT CHARSET='.$GLOBALS['phpwcms']['db_charset'];
 		}

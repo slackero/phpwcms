@@ -23,7 +23,7 @@ $setup_recommend = true;
         which <strong>phpwcms</strong> is released you can continue to install or upgrade <strong>phpwcms</strong>.</p>
 
     <h1><span class="number">2.</span> Now lets check your server settings</h1>
-    <p>Please proof all information about your system (recommend PHP 7.1+, MySQL 5.5+).</p>
+    <p>Please proof all information about your system (recommend PHP 8.2+, MySQL 5.6+).</p>
     <ol>
         <li>WWW server:
             <strong><?php echo empty($_SERVER['SERVER_SOFTWARE']) ? 'unavailable' : html_specialchars($_SERVER['SERVER_SOFTWARE']) ?></strong>
@@ -32,7 +32,7 @@ $setup_recommend = true;
 
             echo '<strong>' . html_specialchars(phpversion()) . '</strong>';
 
-            switch (version_compare('5.6', phpversion())) {
+            switch (version_compare('8.1', phpversion())) {
 
                 case -1:    // current used PHP is > OK
                     echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
@@ -40,8 +40,7 @@ $setup_recommend = true;
 
                 case  0:    // the same version - HM not recommend
                     echo '<img src="../img/famfamfam/icon_alert.gif" alt="OK" class="icon1" />';
-                    echo ' (your version of PHP is OK but update to 7.x is recommend)';
-                    $setup_recommend = false;
+                    echo ' (your version of PHP is OK but update to 8.2+ is recommend)';
                     break;
 
                 case  1:    // false it's older
@@ -65,7 +64,7 @@ $setup_recommend = true;
             $mysqlnd = false;
             $mysql_version = mysqli_get_client_info();
 
-            if (strpos($mysql_version, 'mysqlnd') !== false) {
+            if (str_contains($mysql_version, 'mysqlnd')) {
                 $mysql_version = preg_replace('/^.*?\s(\d.+?)\s.*?$/', '$1', $mysql_version) . ' (client lib)';
                 $mysqlnd = true;
             }
@@ -76,7 +75,7 @@ $setup_recommend = true;
             $mysql_version[0] = (int)$mysql_version[0];
             $mysql_version[1] = empty($mysql_version[1]) ? 0 : (int)$mysql_version[1];
 
-            if ($mysql_version[0] >= 5 && ($mysql_version[1] >= 1 || $mysqlnd)) {
+            if ($mysql_version[0] >= 5 && ($mysql_version[1] >= 6 || $mysqlnd)) {
 
                 // current MySQL isOK
                 echo '<img src="../img/famfamfam/icon_accept.gif" alt="OK" class="icon1" />';
@@ -109,7 +108,7 @@ $setup_recommend = true;
 
                     ?>
                 </li>
-                <?php if (version_compare(phpversion(), '5.6.0', '<')): ?>
+                <?php if (version_compare(phpversion(), '8.2.0', '<')): ?>
                     <li><strong>safe_mode </strong><?php
 
                         if (ini_get('safe_mode')) {
@@ -186,7 +185,7 @@ $setup_recommend = true;
         file formats like JPEG, GIF and PNG as long as your PHP installation has built-in
         support for <a href="http://en.wikipedia.org/wiki/GD_Graphics_Library" target="_blank">GD</a> &#8212; <strong>GD2</strong>
         with freetype support is always recommend. <strong>Note:</strong> It
-        is not neccessary but recommend that you have installed <a href="http://www.imagemagick.org" target="_blank">ImageMagick</a>
+        is not necessary but recommend that you have installed <a href="http://www.imagemagick.org" target="_blank">ImageMagick</a>
         and <a href="http://www.ghostscript.com/" target="_blank">GhostScript</a> on
         your server system which enables image resizing for nearly every
         graphics file format.</p>

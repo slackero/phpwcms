@@ -81,7 +81,7 @@ if(substr_count ($crow["acontent_text"], '~')) {
 
             $clist_level[$key] = 0;
 
-            while(substr($value,0,1) == '~') {
+            while(str_starts_with($value, '~')) {
 
                 $value = substr($value, 1);
                 $clist_level[$key]++;

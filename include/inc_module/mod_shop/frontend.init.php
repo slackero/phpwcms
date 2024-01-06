@@ -255,6 +255,6 @@ function get_shop_option_value_config() {
         'null' => $GLOBALS['_tmpl']['config']['price_option_null'],
         'prefix' => $GLOBALS['_tmpl']['config']['price_option_prefix'],
         'suffix' => $GLOBALS['_tmpl']['config']['price_option_suffix'],
-        'hide' => $GLOBALS['_tmpl']['config']['price_option_hide'] ? true : false,
+        'hide' => (bool)$GLOBALS['_tmpl']['config']['price_option_hide'],
     );
 }

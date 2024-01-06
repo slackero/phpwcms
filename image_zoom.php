@@ -20,7 +20,7 @@ $attr = '';
 if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), true))) {
     $src = strip_tags($data['src']);
     $src_schema = parse_url($src);
-    if (!empty($src_schema['schema'])) {
+    if (!empty($src_schema['scheme'])) {
         $src = "img/leer.gif";
     }
     $width_height = strip_tags($data['attr']);

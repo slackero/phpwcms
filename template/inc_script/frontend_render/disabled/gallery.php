@@ -34,7 +34,7 @@ $gallery->list_thumbnail_width  = 50;
 $gallery->list_thumbnail_height = 50;
 $gallery->gallery_only = true;
 
-if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
+if(str_contains($content['all'], '{GALLERY}')) {
 
     $galleries = array();
 

@@ -24,9 +24,12 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
 <form action="setup.php?step=1" method="post" autocomplete="off">
         <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
-            <td align="right" class="v10" width="120">MySQL host:&nbsp;</td>
-            <td width="270"><input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:300px" /></td>
-            <td class="chatlist"><em>default: localhost</em></td>
+            <td align="right" class="v10" width="120">MySQL host and port:&nbsp;</td>
+            <td width="270">
+                <input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:250px" />
+                <input name="db_port" type="text" class="v12" id="db_port" value="<?php echo $phpwcms["db_port"] ?>" placeholder="localhost" size="4" style="width:45px" />
+            </td>
+            <td class="chatlist"><em>default: localhost / 3306</em></td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
@@ -79,12 +82,15 @@ if(!empty($db_additional)) {
             <h1>
                 <span class="number">4.</span>
                 Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> settings
-                <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
+                <a href="https://dev.mysql.com/doc/refman/5.7/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
             </h1>
         </td>
     </tr>
     <tr>
-            <td align="right" class="v10"><a href="http://www.w3.org/International/O-HTTP-charset" target="_blank" title="HTTP charset"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" /></a>Charset:&nbsp;</td>
+            <td align="right" class="v10">
+                <a href="https://www.w3.org/International/articles/http-charset/index" target="_blank" title="HTTP charset">
+                    <img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" />
+                </a>Charset:&nbsp;</td>
             <td><select name="charset">
             <?php
 
@@ -219,7 +225,7 @@ if(!empty($db_init)) {
             }
             $sql_data[$key] .= '"><p>'.$value;
 
-            if(strpos(strtoupper(trim($value)), 'INSERT') !== 0) {
+            if(!str_starts_with(strtoupper(trim($value)), 'INSERT')) {
                 $sql_data[$key] .= ' DEFAULT';
                 $sql_data[$key] .= ' CHARACTER SET '.$phpwcms['db_charset'];
                 $sql_data[$key] .= ' COLLATE '.$phpwcms['db_collation'];

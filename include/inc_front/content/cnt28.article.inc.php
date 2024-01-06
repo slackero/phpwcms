@@ -104,7 +104,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     } elseif(isset($_POST['feReminder'])) {
 
         $_loginData['remind_data'] = slweg($_POST['feReminder']);
-        $_loginData['remind_login_known'] = empty($_POST['feReminderLoginKnown']) ? false : true;
+        $_loginData['remind_login_known'] = !empty($_POST['feReminderLoginKnown']);
 
         // check if valid email - send login
         if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {

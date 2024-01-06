@@ -35,7 +35,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
         $content['UNIQUE_ALINK'] = array();
     }
 
-    $crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
+    $crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
 
     if($crow['acontent_template_listmode'] && !empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/list.'.$content['alink']['alink_template'])) {
 
@@ -111,7 +111,8 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
     $alink_sql .= 'WHERE ar.article_aktiv=1 AND ar.article_deleted=0 AND ar.article_noteaser=0 ';
     if(!PREVIEW_MODE) {
-        $alink_sql .= "AND ar.article_begin < NOW() AND (ar.article_end='0000-00-00 00:00:00' OR ar.article_end > NOW()) ";
+        $alink_sql .= "AND (ar.article_begin IS NULL OR ar.article_begin < NOW()) ";
+        $alink_sql .= "AND (ar.article_end IS NULL OR ar.article_end > NOW()) ";
     }
 
     // add possible WHERE clauses when tags/categories are used
@@ -325,7 +326,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
             $content['alink']['alink_id'] = array();
 
-            if($content['alink']['alink_category_count'] && substr($content['alink']['alink_andor'], -2) !== 'OR') {
+            if($content['alink']['alink_category_count'] && !str_ends_with($content['alink']['alink_andor'], 'OR')) {
 
                 foreach($content['alink']['result'] as $value) {
 
@@ -443,7 +444,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article list image
-                    if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {
+                    if(str_contains($content['alink']['tr'][$key], 'IMAGE')) {
 
                         $img_thumb_name     = '';
                         $img_thumb_rel      = '';
@@ -475,7 +476,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                             $img_thumb_hash                         = empty($row['article_image']['list_hash']) ? '' : $row['article_image']['list_hash'];
                             $img_thumb_crop                         = empty($content['alink']['alink_crop']) ? 0 : 1;
 
-                            if(strpos($content['alink']['tr'][$key], 'cmsimage.php') !== false && $img_thumb_hash) {
+                            if(str_contains($content['alink']['tr'][$key], 'cmsimage.php') && $img_thumb_hash) {
 
                                 $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'IMAGE', $img_thumb_hash);
 
@@ -494,7 +495,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                                     $thumb_img  = '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3];
                                     $thumb_img .= ' data-image-id="'.$img_thumb_id.'" data-image-hash="'.$img_thumb_hash.'"';
-                                    $thumb_img .= ' alt="'.($content['alink']['caption'][1] ? $content['alink']['caption'][1] : $row['article_image']['list_name']).'"';
+                                    $thumb_img .= ' alt="'.($content['alink']['caption'][1] ?: $row['article_image']['list_name']).'"';
                                     if($content['alink']['caption'][3]) {
                                         $thumb_img .= ' title="'.$content['alink']['caption'][3].'"';
                                     }
@@ -549,7 +550,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article detail image
-                    if(strpos($content['alink']['tr'][$key], 'IMAGE_DETAIL') !== false && isset($row['article_image']['hash'])) {
+                    if(str_contains($content['alink']['tr'][$key], 'IMAGE_DETAIL') && isset($row['article_image']['hash'])) {
 
                         $row['article_image']['name'] = html_specialchars($row['article_image']['name']);
 
@@ -587,7 +588,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
                             $row['article_image']['img']  = '<img src="' . $row['article_image']['detail']['src'] .'" '.$row['article_image']['detail'][3];
                             $row['article_image']['img'] .= ' data-detail-id="'.$row['article_image']['id'].'" data-detail-hash="'.$row['article_image']['hash'].'"';
-                            $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ? $row['article_image']['caption'][1] : $row['article_image']['name']).'"';
+                            $row['article_image']['img'] .= ' alt="'.($row['article_image']['caption'][1] ?: $row['article_image']['name']).'"';
                             if($row['article_image']['caption'][3]) {
                                 $row['article_image']['img'] .= ' title="'.$row['article_image']['caption'][3].'"';
                             }
@@ -628,13 +629,13 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article summary
-                    if(strpos($content['alink']['tr'][$key], 'SUMMARY_RAW') !== false) {
+                    if(str_contains($content['alink']['tr'][$key], 'SUMMARY_RAW')) {
 
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'SUMMARY_RAW', empty($content['alink']['alink_hidesummary']) ? $row['article_summary'] : '');
 
                     }
 
-                    if(strpos($content['alink']['tr'][$key], 'SUMMARY') !== false) {
+                    if(str_contains($content['alink']['tr'][$key], 'SUMMARY')) {
                         if(empty($content['alink']['alink_hidesummary'])) {
                             if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) {
                                 $content['alink']['alink_wordlimit'] = $row['article_image']['list_maxwords'];

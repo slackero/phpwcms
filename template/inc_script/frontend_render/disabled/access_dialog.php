@@ -15,7 +15,7 @@ $redirect_id    = $content['struct'][ $content['cat_id'] ]['acat_struct'];
 $redirect       = empty($content['struct'][ $redirect_id ]['acat_alias']) ? '?id=' . $redirect_id : '?' . $content['struct'][ $redirect_id ]['acat_alias'];
 $redirect       = PHPWCMS_URL.'index.php'.$redirect;
 
-if(!empty($_SERVER['HTTP_REFERER']) && strpos(strtolower($_SERVER['HTTP_REFERER']), strtolower(PHPWCMS_URL)) !== FALSE) {
+if(!empty($_SERVER['HTTP_REFERER']) && str_contains(strtolower($_SERVER['HTTP_REFERER']), strtolower(PHPWCMS_URL))) {
     $redirect = $_SERVER['HTTP_REFERER'];
 }
 
@@ -52,7 +52,7 @@ if(!empty($_SESSION['phpwcmsAgree']) || ( isset($_COOKIE['phpwcmsAgree']) && $_C
     $content['all'] = str_replace($ACCESS['prefix'], '', $content['all']);
     $content['all'] = str_replace($ACCESS['suffix'], '', $content['all']);
 
-} elseif( strpos($content['all'], $ACCESS['prefix']) !== FALSE && strpos($content['all'], $ACCESS['suffix']) !== FALSE ) {
+} elseif( str_contains($content['all'], $ACCESS['prefix']) && str_contains($content['all'], $ACCESS['suffix'])) {
 
     $block['custom_htmlhead']['js.cookie.min.js']   = '  <script src="'.TEMPLATE_PATH.'lib/js-cookie/js.cookie.min.js" type="text/javascript"></script>';
     $block['custom_htmlhead']['access.js']   = '  <script src="'.TEMPLATE_PATH.'inc_script/access/access.js" type="text/javascript"></script>';

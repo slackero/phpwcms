@@ -36,7 +36,7 @@ if(isset($_GET["s"])) {
 	if(isset($_GET['duplicate_nl'])) {
 		@_dbDuplicateRow(	'phpwcms_newsletter', 'newsletter_id', intval($_GET['duplicate_nl']),
 							array('newsletter_active' => 0, 'newsletter_changed' => 'SQL:NOW()',
-							'newsletter_lastsending' => '0000-00-00 00:00:00', 'newsletter_created' => 'SQL:NOW()',
+							'newsletter_lastsending' => NULL, 'newsletter_created' => 'SQL:NOW()',
 							'newsletter_subject' => '--SELF-- (copy)'));
 	}
 

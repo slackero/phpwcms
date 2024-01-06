@@ -46,7 +46,7 @@ if(isset($template_default['settings']['tabs_custom_fields']) && is_array($templ
 
 $tab_template_options = '<option value=""'.(empty($content["tabs_template"]) ? ' selected="selected"' : '').'>'.$BL['be_admin_tmpl_default'].'</option>';
 
-$tab_fieldgroups_active = isset($tab_fieldgroup_templates['default']) ? $tab_fieldgroup_templates['default'] : '';
+$tab_fieldgroups_active = $tab_fieldgroup_templates['default'] ?? '';
 
 $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/tabs');
 
@@ -55,12 +55,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 	foreach($tmpllist as $val) {
 		if(!empty($content["tabs_template"]) && $val === $content["tabs_template"]) {
 			$selected_val = ' selected="selected"';
-			if(isset($tab_fieldgroup_templates[$val])) {
-				$tab_fieldgroups_active = $tab_fieldgroup_templates[$val];
-			} else {
-				// Reset
-				$tab_fieldgroups_active = '';
-			}
+            $tab_fieldgroups_active = $tab_fieldgroup_templates[$val] ?? '';
 		} else {
 			$selected_val = '';
 		}
@@ -176,7 +171,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                                 $custom_tab_fields_hidden[] = '<input type="hidden" name="customfield['.$key.']['.$custom_field.']" value="'.html($value['custom_fields'][$custom_field]).'" />';
                             }
                             continue;
-                        } elseif(is_string($value['custom_fields'][$custom_field]) && substr($value['custom_fields'][$custom_field], 0, 2) === 'a:') {
+                        } elseif(is_string($value['custom_fields'][$custom_field]) && str_starts_with($value['custom_fields'][$custom_field], 'a:')) {
                             $_unserialze = @unserialize($value['custom_fields'][$custom_field], ['allowed_classes' => false]);
                             if ($_unserialze === false) {
                                 continue;
@@ -212,7 +207,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 							class="v11 width400"<?php echo $custom_field_placeholder; ?> />
 			<?php	elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'):	?>
 							<input type="number" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php
-							echo isset($value['custom_fields'][$custom_field]) ? $value['custom_fields'][$custom_field] : 0;
+							echo $value['custom_fields'][$custom_field] ?? 0;
 							?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
 							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $tab_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
 							<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $tab_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>

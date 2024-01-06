@@ -313,7 +313,7 @@ if(!isset($_GET["s"])) {
                  <tr>
                     <td><input name="layout_name" type="text" class="f11b" id="layout_name" style="width: 350px;" value="<?php echo  isset($pagelayout["layout_name"]) ? html($pagelayout["layout_name"]) : '' ?>" size="20" maxlength="150"></td>
                     <td>&nbsp;&nbsp;</td>
-                    <td><input name="layout_default" id="layout_default" type="checkbox" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>></td>
+                    <td><input name="layout_default" id="layout_default" type="checkbox" value="1" <?php is_checked($pagelayout["layout_default"] ?? 0, 1) ?>></td>
                     <td class="v10"><label for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label></td>
                  </tr>
               </table></td>
@@ -436,7 +436,7 @@ if(!isset($_GET["s"])) {
                   <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
                   <td><input name="layout_border_right" type="text" class="f10" id="layout_border_right" style="width: 30px;" value="<?php echo $pagelayout["layout_border_right"] ?>" size="3" maxlength="3"></td>
                   <td class="v10">&nbsp;px&nbsp;&nbsp;</td>
-                  <td><input name="layout_noborder" id="layout_noborder" type="checkbox" value="1" <?php is_checked(1, isset($pagelayout["layout_noborder"]) ? $pagelayout["layout_noborder"] : 0) ?>></td>
+                  <td><input name="layout_noborder" id="layout_noborder" type="checkbox" value="1" <?php is_checked(1, $pagelayout["layout_noborder"] ?? 0) ?>></td>
                   <td class="v10"><label for="layout_noborder"><?php echo $BL['be_admin_page_disable'] ?></label></td>
                 </tr>
               </table></td>

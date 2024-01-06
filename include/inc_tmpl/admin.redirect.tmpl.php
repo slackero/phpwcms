@@ -72,8 +72,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		$_SESSION['redirect_detail_page'] = 1;
 	}
 
-	$_entry['list_active']		= isset($_SESSION['redirect_list_active']) ? $_SESSION['redirect_list_active'] : 1;
-	$_entry['list_inactive']	= isset($_SESSION['redirect_list_inactive']) ? $_SESSION['redirect_list_inactive'] : 1;
+	$_entry['list_active']		= $_SESSION['redirect_list_active'] ?? 1;
+	$_entry['list_inactive']	= $_SESSION['redirect_list_inactive'] ?? 1;
 
 	// set correct status query
 	if($_entry['list_active'] != $_entry['list_inactive']) {
@@ -260,26 +260,19 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 		$data = _dbGet('phpwcms_redirect', '*, UNIX_TIMESTAMP(changed) AS timestamp', 'rid='.$rid, '', 'changed DESC, views DESC');
 	}
 
-	if(isset($data[0])) {
-
-		$data = $data[0];
-
-	} else {
-
-		$data = array(
-			'rid'		=> 0,
-			'alias'		=> '',
-			'id'		=> '',
-			'aid'		=> '',
-			'type'		=> '',
-			'active'	=> 0,
-			'shortcut'	=> 0,
-			'views'		=> 0,
-			'timestamp'	=> now(),
-			'target'	=> '',
-			'code'		=> ''
-		);
-	}
+    $data = $data[0] ?? array(
+        'rid' => 0,
+        'alias' => '',
+        'id' => '',
+        'aid' => '',
+        'type' => '',
+        'active' => 0,
+        'shortcut' => 0,
+        'views' => 0,
+        'timestamp' => now(),
+        'target' => '',
+        'code' => ''
+    );
 
 	if(count($data_result['data'])) {
 

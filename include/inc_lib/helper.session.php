@@ -370,7 +370,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
 
 	$form = $match[0];
 
-	if(strpos($match[1], 'data-csrf="off"') === false) {
+	if(!str_contains($match[1], 'data-csrf="off"')) {
 
 		$token_name = generate_token_name();
 		$token_value = generate_session_token($token_name);

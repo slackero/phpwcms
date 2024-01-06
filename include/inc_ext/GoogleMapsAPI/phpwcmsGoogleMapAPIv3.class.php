@@ -1642,7 +1642,7 @@ class GoogleMapAPI {
      * @return array Array with information about newly /previously created icon.
      */
     function createMarkerIcon($iconImage,$iconShadowImage = '',$iconAnchorX = 'x',$iconAnchorY = 'x',$infoWindowAnchorX = 'x',$infoWindowAnchorY = 'x') {
-        $_icon_image_path = strpos($iconImage,'http') === 0 ? $iconImage : $this->document_root . $iconImage;
+        $_icon_image_path = str_starts_with($iconImage, 'http') ? $iconImage : $this->document_root . $iconImage;
         $_icon_cache_key    = md5($_icon_image_path . $iconShadowImage . $iconAnchorX . $iconAnchorY . $infoWindowAnchorX . $infoWindowAnchorY);
 
         if(isset($this->_icon_cache[ $_icon_cache_key ])) {
@@ -1653,7 +1653,7 @@ class GoogleMapAPI {
             //die('GoogleMapAPI:createMarkerIcon: Error reading image: ' . $iconImage);
         }
         if($iconShadowImage) {
-            $_shadow_image_path = strpos($iconShadowImage,'http') === 0 ? $iconShadowImage : $this->document_root . $iconShadowImage;
+            $_shadow_image_path = str_starts_with($iconShadowImage, 'http') ? $iconShadowImage : $this->document_root . $iconShadowImage;
             if(!($_shadow_info = @getimagesize($_shadow_image_path))) {
                 return FALSE;
                 //die('GoogleMapAPI:createMarkerIcon: Error reading shadow image: ' . $iconShadowImage);
@@ -2846,24 +2846,19 @@ class GoogleMapAPI {
             case 'K':
                 // kilometers
                 return $M * 1.609344;
-                break;
             case 'N':
                 // nautical miles
                 return $M * 0.868976242;
-                break;
             case 'F':
                 // feet
                 return $M * 5280;
-                break;
             case 'I':
                 // inches
                 return $M * 63360;
-                break;
             case 'M':
             default:
                 // miles
                 return $M;
-                break;
         }
 
     }

@@ -251,16 +251,16 @@ class phpwcmsNews {
         // 2 = all inactive
 
         $status     = isset($_SESSION['PAGE_FILTER']['news']['status']) ? intval($_SESSION['PAGE_FILTER']['news']['status']) : 0;
-        $filter     = isset($_SESSION['PAGE_FILTER']['news']['filter']) ? $_SESSION['PAGE_FILTER']['news']['filter'] : '';
+        $filter     = $_SESSION['PAGE_FILTER']['news']['filter'] ?? '';
         $page       = isset($_SESSION['PAGE_FILTER']['news']['page']) ? intval($_SESSION['PAGE_FILTER']['news']['page']) : 0;
-        $sort       = isset($_SESSION['PAGE_FILTER']['news']['sort']) ? $_SESSION['PAGE_FILTER']['news']['sort'] : 'start_desc';
-        $lang       = isset($_SESSION['PAGE_FILTER']['news']['lang']) ? $_SESSION['PAGE_FILTER']['news']['lang'] : '';
-        $keyword    = isset($_SESSION['PAGE_FILTER']['news']['keyword']) ? $_SESSION['PAGE_FILTER']['news']['keyword'] : '';
+        $sort       = $_SESSION['PAGE_FILTER']['news']['sort'] ?? 'start_desc';
+        $lang       = $_SESSION['PAGE_FILTER']['news']['lang'] ?? '';
+        $keyword    = $_SESSION['PAGE_FILTER']['news']['keyword'] ?? '';
 
         if(isset($_POST['filter'])) {
 
-            $active     = empty($_POST['showactive']) ? false : true;
-            $inactive   = empty($_POST['showinactive']) ? false : true;
+            $active     = !empty($_POST['showactive']);
+            $inactive   = !empty($_POST['showinactive']);
             $filter     = clean_slweg($_POST['filter']);
             $page       = empty($_POST['page']) ? 0 : intval($_POST['page']);
             $sort       = empty($_POST['sort']) || !isset($this->sort_options[$_POST['sort']]) ? 'start_desc' : $_POST['sort'];
@@ -473,7 +473,6 @@ class phpwcmsNews {
                     foreach($result as $file_data) {
                         if(intval($file_data['f_id']) === intval($file_id)) {
                             $data[$key] = $file_data;
-                            continue;
                         }
                     }
                 }
@@ -521,8 +520,8 @@ class phpwcmsNews {
             'cnt_id'                => 0,
             'cnt_pid'               => 0,
             'cnt_status'            => intval($this->phpwcms['set_news_active']),
-            'cnt_livedate'          => '0000-00-00 00:00:00',
-            'cnt_killdate'          => '0000-00-00 00:00:00',
+            'cnt_livedate'          => null,
+            'cnt_killdate'          => null,
             'cnt_archive_status'    => 1,
             'cnt_alias'             => '',
             'cnt_name'              => '',
@@ -686,12 +685,12 @@ class phpwcmsNews {
 
         }
 
-        $start_date = strtotime( $this->data['cnt_livedate'] );
-        $end_date   = strtotime( $this->data['cnt_killdate'] );
+        $start_date = is_null($this->data['cnt_livedate']) ? 0 : strtotime($this->data['cnt_livedate']);
+        $end_date   = is_null($this->data['cnt_killdate']) ? 0 : strtotime($this->data['cnt_killdate']);
         $sort_date  = intval($this->data['cnt_sort']);
 
         if($start_date <= 0) {
-            $this->data['cnt_livedate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_livedate']     = null;
             $this->data['cnt_date_start']   = '';
             $this->data['cnt_time_start']   = '';
         } else {
@@ -700,7 +699,7 @@ class phpwcmsNews {
         }
 
         if($end_date <= 0) {
-            $this->data['cnt_killdate']     = '0000-00-00 00:00:00';
+            $this->data['cnt_killdate']     = null;
             $this->data['cnt_date_end']     = '';
             $this->data['cnt_time_end']     = '';
         } else {
@@ -726,9 +725,7 @@ class phpwcmsNews {
 
         // do only when news ID is known
         if( $this->newsId == 0 ) {
-
             $post['cnt_created']    = now();
-
         }
 
         $post['cnt_pid']            = 0;
@@ -740,13 +737,29 @@ class phpwcmsNews {
         $post['cnt_archive_status'] = empty($_POST['cnt_archive_status']) ? 0 : 1;
         $post['cnt_prio']           = empty($_POST['cnt_prio']) ? 0 : intval($_POST['cnt_prio']);
 
-        $temp_time                  = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
-        $temp_date                  = isset($_POST['calendar_start_date']) ? _getDate($_POST['calendar_start_date']) : '';
-        $post['cnt_livedate']       = $temp_date.' '.$temp_time;
+        if (empty($_POST['calendar_start_date'])) {
+            $post['cnt_livedate'] = null;
+        } else {
+            $temp_date = _getDate($_POST['calendar_start_date']);
+            $temp_time = isset($_POST['calendar_start_time']) ? _getTime($_POST['calendar_start_time']) : '';
+            if ($temp_date === '0000-00-00') {
+                $post['cnt_livedate'] = null;
+            } else {
+                $post['cnt_livedate'] = $temp_date . ' ' . $temp_time;
+            }
+        }
 
-        $temp_time                  = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
-        $temp_date                  = isset($_POST['calendar_end_date']) ? _getDate($_POST['calendar_end_date']) : '';
-        $post['cnt_killdate']       = $temp_date.' '.$temp_time;
+        if (empty($_POST['calendar_end_date'])) {
+            $post['cnt_killdate'] = null;
+        } else {
+            $temp_date = _getDate($_POST['calendar_end_date']);
+            $temp_time = isset($_POST['calendar_end_time']) ? _getTime($_POST['calendar_end_time']) : '';
+            if ($temp_date === '0000-00-00') {
+                $post['cnt_killdate'] = null;
+            } else {
+                $post['cnt_killdate'] = $temp_date . ' ' . $temp_time;
+            }
+        }
 
         $temp_time                  = isset($_POST['sort_time']) ? _getTime($_POST['sort_time']) : '';
         $temp_date                  = isset($_POST['sort_date']) ? _getDate($_POST['sort_date']) : '';

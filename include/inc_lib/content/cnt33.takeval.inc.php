@@ -18,4 +18,4 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // News
 $content["template"]		= $row["acontent_template"];
-$content["news"]			= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content["news"]			= @unserialize($row['acontent_form'], ['allowed_classes' => false]);

@@ -31,7 +31,7 @@ if(isset($template_default['settings']['wysiwyg_custom_fields']) && is_array($te
     $cnt_fieldgroups = array();
 }
 
-$cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fieldgroup_templates['default'] : '';
+$cnt_fieldgroups_active = $cnt_fieldgroup_templates['default'] ?? '';
 
 ?>
 <tr><td colspan="2" class="rowspacer0x7"></td></tr>
@@ -47,12 +47,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
         foreach($tmpllist as $val) {
             if(isset($content["template"]) && $val === $content["template"]) {
                 $selected_val = ' selected="selected"';
-                if(isset($cnt_fieldgroup_templates[$val])) {
-                    $cnt_fieldgroups_active = $cnt_fieldgroup_templates[$val];
-                } else {
-                    // Reset
-                    $cnt_fieldgroups_active = '';
-                }
+                $cnt_fieldgroups_active = $cnt_fieldgroup_templates[$val] ?? '';
             } else {
                 $selected_val = '';
             }
@@ -70,7 +65,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 <tr><td colspan="2"><?php
 
 $wysiwyg_editor = array(
-    'value'     => isset($content["html"]) ? $content["html"] : '',
+    'value'     => $content["html"] ?? '',
     'field'     => 'chtml',
     'height'    => '400px',
     'width'     => '100%',
@@ -164,7 +159,7 @@ if($content['custom_field_items']): ?>
                 class="v11 width400"<?php echo $custom_field_placeholder; ?> />
 <?php   elseif($cnt_fieldgroup['fields'][$custom_field]['type'] === 'int' || $cnt_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
                 <input type="number" name="customfield[<?php echo $custom_field; ?>]" value="<?php
-                echo isset($content['custom_fields'][$custom_field]) ? $content['custom_fields'][$custom_field] : 0;
+                echo $content['custom_fields'][$custom_field] ?? 0;
                 ?>" class="v11 width100" <?php echo $custom_field_placeholder; ?>
                 <?php if(!empty($cnt_fieldgroup['fields'][$custom_field]['min'])): ?> min="<?php echo $cnt_fieldgroup['fields'][$custom_field]['min']; ?>" <?php endif; ?>
                 <?php if(!empty($cnt_fieldgroup['fields'][$custom_field]['max'])): ?> max="<?php echo $cnt_fieldgroup['fields'][$custom_field]['max']; ?>" <?php endif; ?>
@@ -183,7 +178,7 @@ if($content['custom_field_items']): ?>
 
             if($is_wysiwyg):
                 $wysiwyg_editor = array(
-                    'value'     => isset($content['custom_fields'][$custom_field]) ? $content['custom_fields'][$custom_field] : '',
+                    'value'     => $content['custom_fields'][$custom_field] ?? '',
                     'field'     => 'customfield['.$custom_field.']',
                     'height'    => empty($cnt_fieldgroup['fields'][$custom_field]['height']) ? '150px' : $cnt_fieldgroup['fields'][$custom_field]['height'],
                     'width'     => '100%',

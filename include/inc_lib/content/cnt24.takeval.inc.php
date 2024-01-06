@@ -18,4 +18,4 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Alias ID
-$content["alias"] = unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$content["alias"] = unserialize($row['acontent_form'], ['allowed_classes' => false]);

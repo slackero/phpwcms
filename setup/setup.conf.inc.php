@@ -13,6 +13,7 @@
 
 // database values
 $phpwcms['db_host'] = 'localhost';
+$phpwcms['db_port'] = 3306;
 $phpwcms['db_user'] = 'db_user';
 $phpwcms['db_pass'] = 'db_pass';
 $phpwcms['db_table'] = 'db_table';
@@ -20,9 +21,9 @@ $phpwcms['db_prepend'] = '';
 $phpwcms['db_pers'] = 1;
 $phpwcms['db_charset'] = 'utf8';
 $phpwcms['db_collation'] = 'utf8_general_ci';
-$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
-$phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html
-$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.5/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed, 5.6+
+$phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
+$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.6/en/sql-mode.html#sql-mode-setting
 $phpwcms['db_errorlog'] = false; // Log DB queries - false|true
 
 // site values
@@ -37,7 +38,7 @@ $phpwcms['admin_pass'] = 'acf977c1cfa27a463246f6963055cb11'; //MD5
 $phpwcms['admin_email'] = 'noreply@'.str_replace('www.', '', get_url_origin(true, false, false));
 
 // paths
-$phpwcms['DOC_ROOT'] = empty($_SERVER['DOCUMENT_ROOT']) ? dirname(dirname(__FILE__)) : $_SERVER['DOCUMENT_ROOT'];
+$phpwcms['DOC_ROOT'] = empty($_SERVER['DOCUMENT_ROOT']) ? dirname(__FILE__, 2) : $_SERVER['DOCUMENT_ROOT'];
 $phpwcms['root'] = trim(str_replace("\\", '/', preg_replace('/\/setup$/i', '', dirname($_SERVER['SCRIPT_NAME']))), '/');
 $phpwcms['file_path'] = 'filearchive';
 $phpwcms['templates'] = 'template';

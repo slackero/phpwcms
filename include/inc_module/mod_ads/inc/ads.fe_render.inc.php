@@ -29,8 +29,8 @@ function renderAds($match) {
 	$sql .= 'ap.adplace_id=ac.adcampaign_place ';
 	$sql .= 'WHERE ac.adcampaign_place='.$adID.' AND ';
 	$sql .= 'ac.adcampaign_status=1 AND ap.adplace_status=1 AND ';
-	$sql .= 'ac.adcampaign_datestart < NOW() AND ';
-	$sql .= 'ac.adcampaign_dateend > NOW() AND ';
+	$sql .= '(ac.adcampaign_datestart IS NULL OR ac.adcampaign_datestart < NOW()) AND ';
+	$sql .= '(ac.adcampaign_dateend IS NULL OR ac.adcampaign_dateend > NOW()) AND ';
 	$sql .= '(ac.adcampaign_maxview=0 OR (ac.adcampaign_maxview > 0 AND ac.adcampaign_maxview >= ac.adcampaign_curview)) AND ';
 	$sql .= '(ac.adcampaign_maxclick=0 OR (ac.adcampaign_maxclick > 0 AND ac.adcampaign_maxclick >= ac.adcampaign_curclick))';
 
@@ -92,7 +92,7 @@ function renderAds($match) {
 	}
 
 	$ad_media	= '';
-	$ad_title	= ' title="'.html($ad['adcampaign_data']['title_text'] ? $ad['adcampaign_data']['title_text'] : $ad['adcampaign_data']['url']).'"';
+	$ad_title	= ' title="'.html($ad['adcampaign_data']['title_text'] ?: $ad['adcampaign_data']['url']).'"';
 	$ad_alt		= $ad['adcampaign_data']['alt_text'] ? ' alt="'.html_specialchars($ad['adcampaign_data']['alt_text']).'"' : ' alt=""';
 	$ad_wxh		= ' style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;"';
 	$ad_imgsrc	= $ad['content_dir'].$ad['adcampaign_data']['image'];

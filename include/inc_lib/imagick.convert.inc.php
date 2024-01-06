@@ -132,7 +132,7 @@ function image_manipulate($config=array()) {
     }
 
     // do not resize if image is smaller than target sizes
-    if(!$config['crop_image'] && substr($phpwcms['image_library'], 0, 2) === 'gd' && !empty($IMG->orig_width) && !empty($IMG->orig_height) && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
+    if(!$config['crop_image'] && str_starts_with($phpwcms['image_library'], 'gd') && !empty($IMG->orig_width) && !empty($IMG->orig_height) && $image_config['width'] > $IMG->orig_width && $image_config['height'] > $IMG->orig_height) {
         $config['max_width'] = $IMG->orig_width;
         $config['max_height'] = $IMG->orig_height;
         $image_config['width'] = $IMG->orig_width;
@@ -279,7 +279,7 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
         $sql  = 'SELECT f_hash, f_ext, f_image_width, f_image_height, f_name FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
         $sql .= 'f_kid=1 AND f_hash=' . _dbEscape($hash)." AND ";
         $sql .= 'f_trash=0 AND f_aktiv=1 AND '.$file_public;
-        if(substr($GLOBALS['phpwcms']['image_library'], 0, 2) === 'gd') {
+        if(str_starts_with($GLOBALS['phpwcms']['image_library'], 'gd')) {
             $sql .= " AND f_ext IN ('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp')";
         }
         $imagedetail = _dbQuery($sql);

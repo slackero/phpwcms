@@ -11,7 +11,7 @@
 
 // set page processiong start time
 list($usec, $sec) = explode(' ', microtime());
-$phpwcms_rendering_start = $usec + $sec;
+$phpwcms_rendering_start = (float) $usec + (float) $sec;
 
 //define used var names
 $body_onload                = '';
@@ -74,7 +74,7 @@ $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 
 $subnav                             = ''; //Sub Navigation
 $p                                  = isset($_GET["p"])  ? intval($_GET["p"]) : 0; //which page should be opened
-$do                                 = isset($_GET["do"]) ? $_GET["do"] : 'default'; //which backend section and which $do action
+$do                                 = $_GET["do"] ?? 'default'; //which backend section and which $do action
 $module                             = isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which module
 $phpwcms['be_parse_lang_process']   = false; // limit parsing for BBCode/BraceCode languages only to some sections
 
@@ -560,7 +560,7 @@ forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 25
 
 // retrieve complete processing time
 list($usec, $sec) = explode(' ', microtime());
-header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $phpwcms_rendering_start), 3) .' ms');
+header('X-phpwcms-Page-Processed-In: ' . number_format(1000*((float) $usec + (float) $sec - $phpwcms_rendering_start), 3) .' ms');
 
 $BE['HTML'] = ob_get_clean();
 

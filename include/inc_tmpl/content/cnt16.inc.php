@@ -210,7 +210,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 </tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_ecardtext'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cecard_caption" cols="40" rows="3" wrap="off" class="width440" id="cecard_caption"><?php echo isset($caption_box) ? $caption_box : '' ?></textarea></td>
+  <td valign="top"><textarea name="cecard_caption" cols="40" rows="3" wrap="off" class="width440" id="cecard_caption"><?php echo $caption_box ?? '' ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

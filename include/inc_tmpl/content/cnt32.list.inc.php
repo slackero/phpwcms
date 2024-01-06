@@ -23,7 +23,7 @@ $cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
-$row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$row["acontent_form"] = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
 unset($row['acontent_form']['tabwysiwygoff'], $row['acontent_form']['tab_fieldgroup']);
 
 if($cinfo["result"] || count($row["acontent_form"])) {

@@ -56,17 +56,17 @@ if($set_livedate && $content['livedate']) {
         $content['livedate'] = date("Y-m-d H:i:s", $content['livedate']);
     }
 } else {
-    $content['livedate'] = '0000-00-00 00:00:00';
+    $content['livedate'] = null;
 }
 if($set_killdate && $content['killdate']) {
     $content['killdate'] = phpwcms_strtotime($content['killdate']);
     if($content['killdate'] === false) {
-        $content['killdate'] = '0000-00-00 00:00:00';
+        $content['killdate'] = null;
     } else {
         $content['killdate'] = date("Y-m-d H:i:s", $content['killdate']);
     }
 } else {
-    $content['killdate'] = '0000-00-00 00:00:00';
+    $content['killdate'] = null;
 }
 
 if(!empty($_POST['ctype_change_aid'])) {

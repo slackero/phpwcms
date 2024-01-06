@@ -1,15 +1,10 @@
 [![phpwcms](https://www.phpwcms.org/indeximg/phpwcms-logo.svg)](https://www.phpwcms.org)
 =========
 
-**phpwcms** is a flexible, fast, robust, customer and developer friendly
+**phpwcms** is a very flexible, fast, robust, customer and developer friendly
 but yet powerful web based content management system and cms framework running
 under PHP and MySQL/MariaDB. phpwcms is created and maintained by
-[Oliver Georgi](http://twitter.com/slackero). None of the fancy systems but working since more 
-than 20 years! Yeah!
-
-Version 1.9.38 is the legacy version of **phpwcms** (version > 1.9.36 and < 1.10).
-I will try to keep this on par as long as possible to the newest version
-of **phpwcms** v1.10+ — if you can try to upgrade existing installations.
+[Oliver Georgi](http://twitter.com/slackero).
 
 To get started, checkout [phpwcms.org](https://www.phpwcms.org) or the community driven
 [HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet
@@ -23,17 +18,23 @@ Stable releases can be used by cloning the repository, `git clone git://github.c
 [download the archive](https://github.com/slackero/phpwcms/releases).
 
 To start with the latest development version use `git clone -b v1.10-dev git://github.com/slackero/phpwcms.git` or
-[download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.10-dev.zip).
-If you have downloaded the archive instead of `git clone`, unarchive and copy the files to your web document
-root or sub folder. Link your browser to the related URL and follow the install instructions.
+[download the archive](https://github.com/slackero/phpwcms/archive/refs/heads/v1.10-php8.2-dev-mysql-timestamp.zip).
+If you have downloaded the archive instead of `git clone`, un-archive and copy the files to your web
+document root or sub folder. Link your browser to the related URL and follow the install instructions.
+
+
+Upgrade
+-------
+
+Before you upgrade your existing installation to v1.10+, please update to the latest v1.9.x release first.
+Never forget to backup your database and files before you start the upgrade process.
 
 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.38 requires a web server with PHP 7.4 or newer.
-and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
-Always check the [supported versions of PHP](https://www.php.net/supported-versions.php).
+**phpwcms** version 1.10.2 requires a web server with PHP 8.2 or newer.
+and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
 Known problems
@@ -42,22 +43,23 @@ Known problems
 Because of the project history there are several probable problems regarding the database. 
 MySQL changed the time and date related default values over the last years. Check to setup
 the related config values to connect to the database in a more compatible way. MySQL Strict
-is no good option for **phpwcms** < 1.10. But **phpwcms** has a db related
-[config setting](https://github.com/slackero/phpwcms/blob/master/include/config/dist.conf.inc.php#L25) 
-to force MySQL into a more lax mode.
+is no good option. I work on this to [solve the problems](https://github.com/slackero/phpwcms/issues/275)
+soon.
 
 
-Support an issue (bug)
-----------------------
+Bug tracker
+-----------
 
-Did you find a bug or miss something? Please create an [issue on GitHub](https://github.com/slackero/phpwcms/issues).
+Did you find a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
+that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
 
 
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on
-[Github](https://github.com/slackero/phpwcms).
+phpwcms is no longer active on social media. 
+Please use the [phpwcms support forum](https://forum.phpwcms.org) 
+or [Github](https://github.com/slackero/phpwcms) to share your thoughts.
 
 
 Creator
@@ -66,6 +68,7 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
+- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
 - <https://twitter.com/slackero>
 

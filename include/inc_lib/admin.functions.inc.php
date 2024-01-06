@@ -182,7 +182,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             // this article has a pre entry
             // so use these by setting (current index - 1)
             $article[$akey]['sort_up'] = $article[$akey-1]['article_sort'];
-            $sort_up = $show_sort ? true : false;
+            $sort_up = $show_sort;
         }
 
         // count up for article array index
@@ -197,7 +197,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
             // this article has a follower
             // so use these by setting (current index + 1)
             $article[$akey]['sort_down'] = $article[$akey+1]['article_sort'];
-            $sort_down = $show_sort ? true : false;
+            $sort_down = $show_sort;
         }
 
         // now do some checks to be sure that all sort values
@@ -263,16 +263,15 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         if(!empty($article[$akey]["article_alias"])) {
             $info .= '<tr><td>ALIAS:</td><td><b>'.$article[$akey]["article_alias"].'</b></td></tr>';
         }
-        if(!empty($article[$akey]["article_begin"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
-			$info .= $article[$akey]["article_begin"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
-			$info .= '</b></td></tr>';
-        }
-        if(!empty($article[$akey]["article_end"])) {
-			$info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
-			$info .= $article[$akey]["article_end"] === '0000-00-00 00:00:00' ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
-			$info .= '</b></td></tr>';
-        }
+
+        $info .= '<tr><td>'.$BL['be_article_cnt_start'].':</td><td><b>';
+        $info .= empty($article[$akey]["article_begin"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+        $info .= '</b></td></tr>';
+
+        $info .= '<tr><td>'.$BL['be_article_cnt_end'].':</td><td><b>';
+        $info .= empty($article[$akey]["article_end"]) ? $BL['be_not_set'] : phpwcms_strtotime($article[$akey]["article_end"], $BL['be_longdatetime'], '&nbsp;');
+        $info .= '</b></td></tr>';
+
         $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$article[$akey]["article_sort"].'</td></tr>';
         if(isset($article[$akey]["article_end"])) {
             $info .= '<tr><td>'.$BL['be_priorize'].':</td><td>'.$article[$akey]["article_priorize"].'</td></tr>';
@@ -374,14 +373,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
                     // if 1st content part in list
                     $sbutton[$key]["top"] = "<img src=\"img/button/sort_1_0.gif\" border=\"0\" alt=\"\" />";
 
-                } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $sbutton[$key]["block"]) {
+                } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $value["block"]) {
                     // if this content part is selected for different block than previous
                     $sbutton[$key]["top"] = "<img src=\"img/button/sort_1_0.gif\" border=\"0\" alt=\"\" />";
 
                 } else {
                     $sbutton[$key]["top"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                    rawurlencode($sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
-                    $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"]).
+                    rawurlencode($value["id"].":".$sbutton[$key-1]["sort"]."|".
+                    $sbutton[$key-1]["id"].":". $value["sort"]).
                     "\" title=\"".$BL['be_article_cnt_up']."\"><img src=\"img/button/sort_1_1.gif\" border=\"0\" alt=\"\" /></a>";
 
                 }
