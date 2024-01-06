@@ -95,7 +95,11 @@
       //  in formatted strings.
       // To adjust for this, a custom calendar can be supplied with a cutover date arbitrarily far in the past.
       $calendar = IntlGregorianCalendar::createInstance();
-      $calendar->setGregorianChange(PHP_INT_MIN);
+      // NOTE: IntlGregorianCalendar::createInstance DOES NOT return an IntlGregorianCalendar instance when
+      // using a non-Gregorian locale (e.g. fa_IR)! In that case, setGregorianChange will not exist.
+      if ($calendar instanceof IntlGregorianCalendar) {
+        $calendar->setGregorianChange(PHP_INT_MIN);
+      }
 
       return (new IntlDateFormatter($locale, $date_type, $time_type, $tz, $calendar, $pattern))->format($timestamp);
     };
