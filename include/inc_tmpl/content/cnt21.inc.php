@@ -117,3 +117,8 @@ echo "\n</table>";
 
 ?></div></td>
 </tr>
+<?php
+if (empty($phpwcms['enable_inline_php'])) {
+    echo '<tr><td></td><td class="tdtop3"><span class="error">' . $BL['be_cnt_pages_php_render_warning'] . '</span></td></tr>';
+}
+
