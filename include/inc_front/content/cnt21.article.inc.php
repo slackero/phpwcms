@@ -34,7 +34,7 @@ if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
 }
 
 $CNT_TMP .= headline($crow['acontent_title'], $crow['acontent_subtitle'], $template_default['article']);
-$content['page_file'] = @unserialize($crow['acontent_form']);
+$content['page_file'] = @unserialize($crow['acontent_form'], ['allowed_classes' => false]);
 if(!empty($content['page_file']['source'])) {
 	$CNT_TMP .= empty($content['page_file']['pfile']) ? '' : include_url($content['page_file']['pfile']);
 } elseif(!empty($content['page_file']['pfile'])) {

@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php';
 
 // Form
-$cnt_form = unserialize($crow["acontent_form"]);
+$cnt_form = unserialize($crow['acontent_form'], ['allowed_classes' => false]);
 
 if(empty($cnt_form['anchor_off'])) {
     $CNT_TMP .= '<a id="';
