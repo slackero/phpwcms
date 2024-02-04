@@ -8,17 +8,17 @@
  *
  **/
 
-$cmsgo            = array('SESSION_START' => true);
-$cmsgo_root       = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
-$js_files_all       = array();
-$js_files_select    = array();
+$cmsgo = array('SESSION_START' => true);
+$cmsgo_root = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
+$js_files_all = array();
+$js_files_select = array();
 
-require_once $cmsgo_root.'/include/config/conf.inc.php';
-require_once $cmsgo_root.'/include/config/conf.indexpage.inc.php';
-require_once $cmsgo_root.'/include/inc_lib/default.inc.php';
-require_once CMSGO_ROOT.'/include/inc_lib/helper.session.php';
+require_once $cmsgo_root . '/include/config/conf.inc.php';
+require_once $cmsgo_root . '/include/config/conf.indexpage.inc.php';
+require_once $cmsgo_root . '/include/inc_lib/default.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/helper.session.php';
 
-if( empty($_SESSION["wcs_user_lang"]) ) {
+if (empty($_SESSION['wcs_user_lang'])) {
 
     $_SESSION = array();
     @session_destroy();
@@ -26,39 +26,39 @@ if( empty($_SESSION["wcs_user_lang"]) ) {
 
 } else {
 
-    $user_lang = strtolower(substr($_SESSION["wcs_user_lang"], 0, 2));
+    $user_lang = strtolower(substr($_SESSION['wcs_user_lang'], 0, 2));
 
-    require CMSGO_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-    require CMSGO_ROOT.'/include/inc_lang/backend/en/lang.ext.inc.php';
-    require CMSGO_ROOT.'/include/inc_lang/backend/en/lang.pp.inc.php';
-    $cust_lang = CMSGO_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
-    if(is_file($cust_lang)) {
+    require CMSGO_ROOT . '/include/inc_lang/backend/en/lang.inc.php';
+    require CMSGO_ROOT . '/include/inc_lang/backend/en/lang.ext.inc.php';
+    require CMSGO_ROOT . '/include/inc_lang/backend/en/lang.pp.inc.php';
+    $cust_lang = CMSGO_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
+    if (is_file($cust_lang)) {
         include $cust_lang;
     }
-    $cust_lang = CMSGO_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.ext.inc.php';
-    if(is_file($cust_lang)) {
+    $cust_lang = CMSGO_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.ext.inc.php';
+    if (is_file($cust_lang)) {
         include $cust_lang;
     }
-    $cust_lang = CMSGO_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.pp.inc.php';
-    if(is_file($cust_lang)) {
+    $cust_lang = CMSGO_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.pp.inc.php';
+    if (is_file($cust_lang)) {
         include $cust_lang;
     }
 
 }
 
-if(isset($_GET["open"])) {
-    list($open_id, $open_value) = explode(":", $_GET["open"]);
+if (isset($_GET['open'])) {
+    list($open_id, $open_value) = explode(':', $_GET['open']);
     $open_id = intval($open_id);
-    if(empty($open_value)) {
-        unset($_SESSION["structure"][$open_id]);
+    if (empty($open_value)) {
+        unset($_SESSION['structure'][$open_id]);
     } else {
-        $_SESSION["structure"][$open_id] = $open_value;
+        $_SESSION['structure'][$open_id] = $open_value;
     }
 }
 
-$js_aktion = isset($_GET["opt"]) ? intval($_GET["opt"]) : 1;
-$field = isset($_GET["field"]) ? clean_slweg($_GET["field"]) : 'id';
-if(isset($_GET['CKEditorFuncNum'])) {
+$js_aktion = isset($_GET['opt']) ? intval($_GET['opt']) : 1;
+$field = isset($_GET['field']) ? clean_slweg($_GET['field']) : 'id';
+if (isset($_GET['CKEditorFuncNum'])) {
     $ckeditor_action = intval($_GET['CKEditorFuncNum']);
     $_SESSION['CKEditorFuncNum'] = $ckeditor_action;
 } elseif (!empty($_SESSION['CKEditorFuncNum'])) {
@@ -67,54 +67,54 @@ if(isset($_GET['CKEditorFuncNum'])) {
     $ckeditor_action = 0;
 }
 
-switch($js_aktion) {
+switch ($js_aktion) {
     case 1:
-        $js = "parent.document.newsform.cnt_link.value";
+        $js = 'parent.document.newsform.cnt_link.value';
         break;
 
     case 2:
-        $js = "parent.document.article.article_lang_id.value";
+        $js = 'parent.document.article.article_lang_id.value';
         break;
 
     case 3:
-        $js = "parent.document.editsitestructure.acat_lang_id.value";
+        $js = 'parent.document.editsitestructure.acat_lang_id.value';
         break;
 
     case 4:
     case 6:
-        $js = "parent.document.articlecontent." . $field . ".value";
+        $js = 'parent.document.articlecontent.' . $field . '.value';
         break;
 
     case 5:
-        $js = "parent.document.articlecontent.calias.value";
+        $js = 'parent.document.articlecontent.calias.value';
         break;
 
     //CKEditor
     case 16:
-        $js = "window.opener.CKEDITOR.tools.callFunction(" . $ckeditor_action . ", 'index.php?%s');window.close();";
+        $js = 'window.opener.CKEDITOR.tools.callFunction(' . $ckeditor_action . ", 'index.php?%s');window.close();";
         break;
 
     default:
         $js = '';
 }
 
-require_once CMSGO_ROOT.'/include/inc_lib/article.contenttype.inc.php';
-require_once CMSGO_ROOT.'/include/inc_lib/dbcon.inc.php';
-require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/article.contenttype.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/dbcon.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/general.inc.php';
+
 checkLogin();
 validate_csrf_tokens();
 define('CSRF_GET_TOKEN', get_token_get_string());
-require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
+
+require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
 ?><!DOCTYPE html>
 <html lang="<?php echo $user_lang; ?>">
 <head>
-    <title><?php
-        echo $BL['be_articlebrowser_selector'] ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php
-    echo CMSGO_CHARSET ?>"/>
+    <meta charset="<?php echo CMSGO_CHARSET ?>">
+    <title><?php echo $BL['be_articlebrowser_selector']; ?></title>
 
-    <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css"/>
+    <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
@@ -123,10 +123,12 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
             background-color: #CCFF00;
             cursor: default;
         }
+
         tr.structarticle:hover {
             background-color: #CCFF00;
             cursor: default;
         }
+
         tr.structarticlecontent:hover {
             background-color: #FFDE01;
             cursor: pointer;
@@ -137,203 +139,201 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
     <script src="include/inc_js/autosize.min.js"></script>
     <script src="include/inc_js/cmsgo.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>
-    <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
+    <script>
+        const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
+    </script>
     <script src="include/inc_js/cmsgo-addons.js"></script>
 
-    <?php
-    if ($js_aktion == 16) {
-    ?>
+    <?php if ($js_aktion == 16): ?>
         <script type="text/javascript">
-            var dialog = window.opener.CKEDITOR.dialog.getCurrent();
-            var docIdField = dialog.getContentElement('info', 'protocol');
+            const dialog = window.opener.CKEDITOR.dialog.getCurrent();
+            const docIdField = dialog.getContentElement('info', 'protocol');
             docIdField.setValue('');
         </script>
-    <?php
-    }
-    ?>
+    <?php endif; ?>
 </head>
 <body class="filebrowser">
 <ul class="nav nav-tabs border-0 my-2">
-  <li role="presentation" class="nav-item">
-      <a href="#" class="btn btn-blue mr-2"><?php echo $BL['be_article_title'] ?></a>
-  </li>
-<?php if ($js_aktion == 16) { ?>
-  <li role="presentation" class="nav-item">
-      <a href="filebrowser.php?opt=16" class="btn btn-blue"><?php echo $BL['FILE_TITLE'] ?></a>
-  </li><?php } ?>
+    <li role="presentation" class="nav-item">
+        <a href="#" class="btn btn-blue mr-2">
+            <?php echo $BL['be_article_title'] ?>
+        </a>
+    </li>
+    <?php if ($js_aktion == 16): ?>
+        <li role="presentation" class="nav-item">
+            <a href="filebrowser.php?<?php echo CSRF_GET_TOKEN; ?>&amp;opt=16" class="btn btn-blue">
+                <?php echo $BL['FILE_TITLE'] ?>
+            </a>
+        </li>
+    <?php endif; ?>
 </ul>
 
 <table summary="" class="table table-sm" border="0" cellspacing="0" cellpadding="0">
-<?php
+    <?php
 
-$child_count = get_root_childcount(0);
-$an = $indexpage['acat_name'];
+    $child_count = get_root_childcount(0);
+    $an = $indexpage['acat_name'];
 
-$a  = '<tr bgcolor="#e8e8e8" class="struct">';
-$a .= '<td>';
-$a .= "<table class=\"table-no-border\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\"><tr>";
-$a .= '<td nowrap="nowrap">';
-$a .= ($child_count) ? "<a href=\"cmsgo.php?do=articles&amp;open=0:".(($_SESSION["structure"][0])?0:1)."\">" : "";
+    $a = '<tr bgcolor="#e8e8e8" class="struct">';
+    $a .= '<td>';
+    $a .= '<table class="table-no-border" border="0" width="100%" cellpadding="0" cellspacing="0" summary=""><tr>';
+    $a .= '<td nowrap="nowrap">';
+    $a .= $child_count ? '<a href="cmsgo.php?' . CSRF_GET_TOKEN . '&amp;do=articles&amp;open=0:' . (($_SESSION['structure'][0]) ? 0 : 1) . '">' : '';
 
-$a .= '<i class="fa fa-caret-'.(($child_count) ? (($_SESSION["structure"][0]==0) ? "right" : "down") : "right");
-$a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
+    $a .= '<i class="fa fa-caret-' . (($child_count) ? (($_SESSION['structure'][0] == 0) ? 'right' : 'down') : 'right');
+    $a .= ' fa-fw" aria-hidden="true"></i>' . (($child_count) ? '</a>' : '');
 
-$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
-$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
+    $info = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+    $info .= '<tr><td>ALIAS:</td><td>' . $indexpage['acat_alias'] . '</td></tr></table>';
 
-$a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
+    $a .= '<i class="far fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
 
-$a .= "</td>";
-$a .= '<td width="97%"><strong>'.$an."</strong></td></tr></table></td>";
+    $a .= '</td>';
+    $a .= '<td width="97%"><strong>' . $an . '</strong></td></tr></table></td>';
 
-echo $a;
+    echo $a;
 
-$listmode = 0;
-$forbid_cut = 0;
-$forbid_copy = 0;
-$counter = 0;
+    $listmode = 0;
+    $counter = 0;
 
-struct_articlelist(0, 0, 0, 0, 0, 0, $indexpage['acat_order'], $js, $js_aktion);
-struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $forbid_cut, $forbid_copy, $counter, $js, $js_aktion);
-?></table>
+    struct_articlelist(0, 0, $indexpage['acat_order'], $js, $js_aktion);
+    struct_list(0, 0, 0, 0, 0, 0, 0, $listmode, $counter, $js, $js_aktion);
+    ?></table>
 
 <script>
-$(function(){
-    $('<?php if ($js_aktion == 5): ?>tr.structarticlecontent<?php else: ?>a.structarticle<?php endif; ?>').on('click', function() {
-    <?php
-    echo $js . "=$(this).attr('data-aid');";
-    if ($js_aktion == 6) {
-        echo 'parent.$("#browserModal").modal("hide");';
-    } elseif ($js_aktion == 2) {
-        echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
-        echo "parent.$('#browserModal').modal('hide');";
-    } elseif ($js_aktion != 16) {
-        echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
-        echo "parent.$('#browserModal').modal('hide');";
-    }
-    ?>
+    $(function() {
+        $('<?php if ($js_aktion == 5): ?>'r.structarticleconten'<?php else: ?>a.structarticle<?php endif; ?>').
+        on('click', function() {
+            <?php
+            echo $js . "=$(this).attr('data-aid');";
+            if ($js_aktion == 6) {
+                echo 'parent.$("#browserModal").modal("hide");';
+            } elseif ($js_aktion == 2) {
+                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('#browserModal').modal('hide');";
+            } elseif ($js_aktion != 16) {
+                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('#browserModal').modal('hide');";
+            }
+            ?>
+        });
     });
-});
 </script>
 </body>
 </html>
 <?php
 
-function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode=1, $forbid_cut=0, $forbid_copy=0, $counter=0, $js='', $js_aktion=0) {
+function struct_list($id, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode = 1, $counter = 0, $js = '', $js_aktion = 0)
+{
 
     $counter++;
-    $sql  = "SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ".DB_PREPEND."cmsgo_articlecat t1 ";
-    $sql .= "LEFT JOIN ".DB_PREPEND."cmsgo_template t2 ON t1.acat_template=t2.template_id ";
-    $sql .= "WHERE acat_trash=0 AND acat_struct=".intval($id)." ORDER BY acat_sort";
+    $sql = 'SELECT t1.*, t2.template_default, t2.template_name, t2.template_trash FROM ' . DB_PREPEND . 'cmsgo_articlecat t1 ';
+    $sql .= 'LEFT JOIN ' . DB_PREPEND . 'cmsgo_template t2 ON t1.acat_template=t2.template_id ';
+    $sql .= 'WHERE acat_trash=0 AND acat_struct=' . intval($id) . ' ORDER BY acat_sort';
     $result = _dbQuery($sql);
 
-    if(isset($result[0]['acat_struct'])) {
+    if (isset($result[0]['acat_struct'])) {
         $count_row = 0;
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $struct[$count_row] = $row;
             $count_row++;
         }
 
-        if(isset($struct[0])) {
-            foreach($struct as $key => $value) {
-                struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $forbid_cut, $forbid_copy, $listmode, $cut_article, $count_row, $js, $js_aktion);
+        if (isset($struct[0])) {
+            foreach ($struct as $key => $value) {
+                struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion);
             }
         }
     }
 }
 
-function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $forbid_cut, $forbid_copy, $listmode, $cut_article, $count_row, $js, $js_aktion) {
+function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $listmode, $cut_article, $js, $js_aktion) {
 
-  global $BL;
+    global $BL;
 
-  $page_val   = ($listmode) ? "do=articles&amp;p=6" : "do=articles";
-  $child_count  = get_root_childcount($struct[$key]["acat_id"]);
-  $child_sort   = (($child_count+1)*10);
+    $page_val = ($listmode) ? 'do=articles&amp;p=6' : 'do=articles';
+    $child_count = get_root_childcount($struct[$key]['acat_id']);
 
-  $forbid_cut   = 0;
-  $forbid_copy  = 0;
+    $an = html($struct[$key]['acat_name']);
+    $a = '<tr class="structarticle">';
+    $a .= '<td width="80%">';
+    $a .= '<table class="table-no-border"' . '><tr>';
+    $a .= '<td nowrap="nowrap" class="text-right">';
+    $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . '&amp;' . $page_val . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
+    $a .= '<i class="fa fa-caret-' . ($child_count ? (empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 'right' : 'down') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
-  $an = html($struct[$key]["acat_name"]);
-  $a  = '<tr class="structarticle">';
-  $a .= '<td width="80%">';
-  $a .= '<table class="table-no-border"'."><tr>";
-  $a .= '<td nowrap="nowrap" class="text-right">';
-  $a .= ($child_count) ? '<a href="articlebrowser.php?opt='.$js_aktion.'&amp;'.$page_val.'&amp;open='.rawurlencode($struct[$key]["acat_id"].":".(!empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? 0 : 1)).'">' : '';
-  $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw slist-'.$counter.'" aria-hidden="true"></i>'.($child_count ? "</a>" : "");
-
-  $info  = '<table class="text-left">';
-  $info .= '<tr><td>ID:</td><td><b>'.$struct[$key]["acat_id"].'</b></td></tr>';
-  $info .= '<tr><td>'.$BL['be_alias'].':</td><td>'.$struct[$key]["acat_alias"].'</td></tr>';
-  $info .= '<tr><td>'.$BL['be_cnt_sortvalue'].':</td><td>'.$struct[$key]["acat_sort"].'</td></tr>';
-  $info .= '<tr><td>'.$BL['be_admin_struct_template'].':</td><td>';
-  if(empty($struct[$key]['template_trash'])) {
-      $info .= $struct[$key]["template_name"];
-      if($struct[$key]["template_default"]) {
-          $info .= ' ('.$BL['be_admin_tmpl_default'].')';
-      }
-  } else {
-      $info .= $BL['be_admin_tmpl_default'];
-  }
-  $info .= '</td></tr>';
-  $info .= '<tr><td>'.$BL['be_onepage_id'].':</td><td>'.($struct[$key]["acat_onepage"] ? $BL['be_yes'] : $BL['be_no']) . '</td></tr></table>';
-
-  $a .= '<i class="far fa-folder';
-  if($struct[$key]["acat_regonly"]) {
-      $a .= '-open';
-  }
-  $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
-  $a .= "</td>";
-  $a .= '<td width="95%"><strong>';
-  if ($js_aktion == 5) {
-      $a .= $an;
-  } elseif ($js_aktion == 16) {
-    $a .= '<a href="#" onclick="'.str_replace('%s','id='.$struct[$key]["acat_id"],$js).'" title="">'.$an . '</a>';
-  } else {
-    $a .= '<a href="#" class="structarticle" data-aid="'.($js_aktion == 6 ? 'id=' : '').$struct[$key]["acat_id"].'" data-idtype="category" title="">'.$an ;
-    $a .= '<span class="ml-3">'.$struct[$key]['acat_lang'].'</span></a>';
-  }
-  $a .= "</strong></td></tr></table></td></tr>";
-  echo $a;
-
-  if(!empty($_SESSION["structure"][$struct[$key]["acat_id"]])) {
-
-    if(!$listmode) {
-      struct_articlelist($struct[$key]["acat_id"], $counter, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $struct[$key]["acat_order"], $js, $js_aktion);
+    $info = '<table class="text-left">';
+    $info .= '<tr><td>ID:</td><td><b>' . $struct[$key]['acat_id'] . '</b></td></tr>';
+    $info .= '<tr><td>' . $BL['be_alias'] . ':</td><td>' . $struct[$key]['acat_alias'] . '</td></tr>';
+    $info .= '<tr><td>' . $BL['be_cnt_sortvalue'] . ':</td><td>' . $struct[$key]['acat_sort'] . '</td></tr>';
+    $info .= '<tr><td>' . $BL['be_admin_struct_template'] . ':</td><td>';
+    if (empty($struct[$key]['template_trash'])) {
+        $info .= $struct[$key]['template_name'];
+        if ($struct[$key]['template_default']) {
+            $info .= ' (' . $BL['be_admin_tmpl_default'] . ')';
+        }
+    } else {
+        $info .= $BL['be_admin_tmpl_default'];
     }
-    struct_list($struct[$key]["acat_id"], $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode, $forbid_cut, $forbid_copy, $counter, $js, $js_aktion);
+    $info .= '</td></tr>';
+    $info .= '<tr><td>' . $BL['be_onepage_id'] . ':</td><td>' . ($struct[$key]['acat_onepage'] ? $BL['be_yes'] : $BL['be_no']) . '</td></tr></table>';
 
-  }
+    $a .= '<i class="far fa-folder';
+    if ($struct[$key]['acat_regonly']) {
+        $a .= '-open';
+    }
+    $a .= ' fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="' . html($info) . '"></i>';
+    $a .= '</td>';
+    $a .= '<td width="95%"><strong>';
+    if ($js_aktion == 5) {
+        $a .= $an;
+    } elseif ($js_aktion == 16) {
+        $a .= '<a href="#" onclick="' . str_replace('%s', 'id=' . $struct[$key]['acat_id'], $js) . '" title="">' . $an . '</a>';
+    } else {
+        $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'id=' : '') . $struct[$key]['acat_id'] . '" data-idtype="category" title="">' . $an;
+        $a .= '<span class="ml-3">' . $struct[$key]['acat_lang'] . '</span></a>';
+    }
+    $a .= '</strong></td></tr></table></td></tr>';
+    echo $a;
+
+    if (!empty($_SESSION['structure'][$struct[$key]['acat_id']])) {
+
+        if (!$listmode) {
+            struct_articlelist($struct[$key]['acat_id'], $counter, $struct[$key]['acat_order'], $js, $js_aktion);
+        }
+        struct_list($struct[$key]['acat_id'], $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode, $counter, $js, $js_aktion);
+
+    }
 }
 
 function get_root_childcount($id) {
     // get amount of active child levels
     $id = intval($id);
 
-    $p1_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."cmsgo_articlecat WHERE acat_trash=0 AND acat_struct=".$id, 'COUNT');
-    $p2_count = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."cmsgo_article WHERE article_deleted=0 AND article_cid=".$id, 'COUNT');
+    $p1_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'cmsgo_articlecat WHERE acat_trash=0 AND acat_struct=' . $id, 'COUNT');
+    $p2_count = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'cmsgo_article WHERE article_deleted=0 AND article_cid=' . $id, 'COUNT');
 
     return $p1_count + $p2_count;
 }
 
 function get_article_content_count($id) {
-    return _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."cmsgo_articlecontent WHERE acontent_trash=0 AND acontent_aid=".intval($id), 'COUNT');
+    return _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'cmsgo_articlecontent WHERE acontent_trash=0 AND acontent_aid=' . intval($id), 'COUNT');
 }
 
-function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_article_content, $copy_article, $cut_article, $article_order, $js, $js_aktion) {
+function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktion) {
 
     global $BL;
 
-    $article           = array();  // empty article array
-    $sort_array        = array();  // empty array to store all sort values for the category
-    $article_order     = intval($article_order);
+    $article = array();  // empty article array
+    $sort_array = [];  // empty array to store all sort values for the category
+    $article_order = intval($article_order);
     $max_article_count = 0;
-    $ao                = get_order_sort($article_order);
-    $count_article     = 0;
-    $sbutton_string    = array();
+    $ao = get_order_sort($article_order);
+    $count_article = 0;
 
-    $sql  = "SELECT *, ";
+    $sql = 'SELECT *, ';
     $sql .= "DATE_FORMAT(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date "; //, article_deleted
-    $sql .= "FROM " . DB_PREPEND . "cmsgo_article ";
+    $sql .= 'FROM ' . DB_PREPEND . 'cmsgo_article ';
     $sql .= "WHERE article_cid='" . $struct_id . "' AND article_deleted=0 ORDER BY " . $ao[2];
     $result = _dbQuery($sql);
     if (isset($result[0]['article_date'])) {
@@ -348,7 +348,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
                 $sort_array[$count_article] = $row['article_sort'];
             }
             // count up for article array index
-            $count_article ++;
+            $count_article++;
         }
     }
 
@@ -359,9 +359,6 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $article = getArticleReSorted($struct_id, $article_order);
     }
 
-    // reset article counter
-    $count_article = 0;
-
     /*
      * now we know ALL articles and can run array index +/-
      * to set correct sorting UP and DOWN based on article
@@ -369,36 +366,33 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
      */
     foreach ($article as $akey => $avalue) {
 
-        // count up for article array index
-        $count_article ++;
-
-        $at = html($avalue["article_title"]);
-        $acontent_count = get_article_content_count($avalue["article_id"]);
-        $a  = '<tr class="struct">';
+        $at = html($avalue['article_title']);
+        $acontent_count = get_article_content_count($avalue['article_id']);
+        $a = '<tr class="struct">';
         $a .= '<td width="100%">';
-        $a .= "<table class=\"table-no-border\" summary=\"\"><tr>";
-        $a .= "<td nowrap=\"nowrap\">";
-        $a .= "<i class=\"fa fa-caret-" . ($acontent_count ? (!empty($_SESSION["structure"]["article"][$avalue["article_id"]]) ? "down" : "right") : "right");
+        $a .= '<table class="table-no-border" summary=""><tr>';
+        $a .= '<td nowrap="nowrap">';
+        $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
         $a .= ' fa-fw alist-' . $counter . '" aria-hidden="true"></i>';
 
         $info = '<table class="text-left">';
-        $info .= '<tr><td>' . $BL['be_func_struct_articleID'] . ':</td><td><b>' . $article[ $akey ]["article_id"] . '</b></td></tr>';
-        if (!empty($avalue["article_alias"])) {
-            $info .= '<tr><td>ALIAS:</td><td><b>' . $article[ $akey ]["article_alias"] . '</b></td></tr>';
+        $info .= '<tr><td>' . $BL['be_func_struct_articleID'] . ':</td><td><b>' . $avalue['article_id'] . '</b></td></tr>';
+        if (!empty($avalue['article_alias'])) {
+            $info .= '<tr><td>ALIAS:</td><td><b>' . $avalue['article_alias'] . '</b></td></tr>';
         }
-        if (!empty($avalue["article_begin"])) {
+        if (!empty($avalue['article_begin'])) {
             $info .= '<tr><td>' . $BL['be_article_cnt_start'] . ':</td><td><b>';
-            $info .= is_null($avalue["article_begin"]) ? $BL['be_not_set'] : cmsgo_strtotime($avalue["article_begin"], $BL['be_longdatetime'], '&nbsp;');
+            $info .= cmsgo_strtotime($avalue['article_begin'], $BL['be_longdatetime'], '&nbsp;');
             $info .= '</b></td></tr>';
         }
-        if (!empty( $article[ $akey ]["article_end"])) {
+        if (!empty($avalue['article_end'])) {
             $info .= '<tr><td>' . $BL['be_article_cnt_end'] . ':</td><td><b>';
-            $info .= is_null($avalue["article_end"]) ? $BL['be_not_set'] : cmsgo_strtotime($avalue["article_end"], $BL['be_longdatetime'], '&nbsp;');
+            $info .= cmsgo_strtotime($avalue['article_end'], $BL['be_longdatetime'], '&nbsp;');
             $info .= '</b></td></tr>';
         }
-        $info .= '<tr><td>' . $BL['be_cnt_sortvalue'] . ':</td><td>' . $avalue["article_sort"] . '</td></tr>';
-        if (isset($avalue["article_end"])) {
-            $info .= '<tr><td>' . $BL['be_priorize'] . ':</td><td>' . $avalue["article_priorize"] . '</td></tr>';
+        $info .= '<tr><td>' . $BL['be_cnt_sortvalue'] . ':</td><td>' . $avalue['article_sort'] . '</td></tr>';
+        if (isset($avalue['article_end'])) {
+            $info .= '<tr><td>' . $BL['be_priorize'] . ':</td><td>' . $avalue['article_priorize'] . '</td></tr>';
         }
         $info .= '</table>';
 
@@ -407,34 +401,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         if ($js_aktion == 5) {
             $a .= $at;
         } elseif ($js_aktion == 16) {
-            $a .= '<a href="#" onclick="' . str_replace('%s', 'aid=' . $article[$akey]["article_id"], $js) . '" title="">' . $at . '</a>';
+            $a .= '<a href="#" onclick="' . str_replace('%s', 'aid=' . $avalue['article_id'], $js) . '" title="">' . $at . '</a>';
         } else {
-            $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'aid=' : '') . $article[$akey]["article_id"] . '" data-idtype="article" title="">';
+            $a .= '<a href="#" class="structarticle" data-aid="' . ($js_aktion == 6 ? 'aid=' : '') . $avalue['article_id'] . '" data-idtype="article" title="">';
             $a .= $at;
-            $a .= '<span class="ml-3">' . $article[$akey]["article_lang"] . '</span></a>';
+            $a .= '<span class="ml-3">' . $avalue['article_lang'] . '</span></a>';
         }
-        $a .= "</td></tr></table></td></tr>";
+        $a .= '</td></tr></table></td></tr>';
         echo $a;
-
-        /*
-        $sql    = "SELECT acontent_id, acontent_sorting, acontent_block FROM " . DB_PREPEND . "cmsgo_articlecontent ";
-        $sql    .= "WHERE acontent_aid=" . $article[ $akey ]["article_id"] . " AND acontent_trash=0 ORDER BY acontent_block, acontent_sorting, acontent_id";
-        $result = _dbQuery( $sql );
-        //Sort counter
-        $sc  = 0;
-        $scc = 0;
-
-        if (isset($result[0]['acontent_id'])) {
-            foreach ($result as $row) {
-                $scc ++;
-
-                $sc ++;
-                $sbutton[$sc]["id"]    = $row['acontent_id'];
-                $sbutton[$sc]["sort"]  = $row['acontent_sorting'];
-                $sbutton[$sc]["block"] = $row['acontent_block'];
-            }
-        }
-        */
 
         if ($js_aktion == 5) {
             struct_articlecontentlist($article, $akey, $counter);
@@ -442,46 +416,40 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
     }
 }
 
-function struct_articlecontentlist($article, $akey, $counter){
+function struct_articlecontentlist($article, $akey, $counter) {
 
     $a = '';
 
-    $sql  = "SELECT * FROM " . DB_PREPEND . "cmsgo_articlecontent ";
-    $sql .= "WHERE acontent_aid=" . $article[ $akey ]["article_id"] . " AND acontent_trash=0 ";
-    $sql .= "ORDER BY acontent_block, acontent_sorting, acontent_id";
+    $sql = 'SELECT * FROM ' . DB_PREPEND . 'cmsgo_articlecontent ';
+    $sql .= 'WHERE acontent_aid=' . $article[$akey]['article_id'] . ' AND acontent_trash=0 ';
+    $sql .= 'ORDER BY acontent_block, acontent_sorting, acontent_id';
 
-    $result = _dbQuery( $sql );
-    if (isset( $result[0]['acontent_aid'])) {
+    $result = _dbQuery($sql);
+    if (isset($result[0]['acontent_aid'])) {
 
         foreach ($result as $article_content) {
-            // if type of content part not enabled available
-            /*
-            if(!isset($wcs_content_type[ $article_content["acontent_type"] ]) || ($article_content['acontent_type'] == 30 && !isset($GLOBALS['cmsgo']['modules'][$article_content["acontent_module"]]))) {
-              //continue;
-            }
-            */
 
-            $info  = '<table class="text-left">';
-            $info .= '<tr><td>ID:</td><td>' . $article_content["acontent_id"] . '</td></tr>';
+            $info = '<table class="text-left">';
+            $info .= '<tr><td>ID:</td><td>' . $article_content['acontent_id'] . '</td></tr>';
             if ($article_content['acontent_title']) {
                 $info .= '<tr><td>' . $GLOBALS['BL']['be_article_cnt_ctitle'] . ':</td><td>' . $article_content['acontent_title'] . '</td></tr>';
             }
             if ($article_content['acontent_title']) {
                 $info .= '<tr><td>' . $GLOBALS['BL']['be_article_asubtitle'] . ':</td><td>' . $article_content['acontent_subtitle'] . '</td></tr>';
             }
-            if ($article_content["acontent_comment"]) {
-                $info .= '<tr><td colspan="2">' . nl2br($article_content["acontent_comment"]) . '</td></tr>';
+            if ($article_content['acontent_comment']) {
+                $info .= '<tr><td colspan="2">' . nl2br($article_content['acontent_comment']) . '</td></tr>';
             }
             $info .= '</table>';
 
             $a .= '<tr class="structarticlecontent" data-aid="' . $article_content['acontent_id'] . '" data-idtype="acontent">';
             $a .= '<td data-toggle="tooltip" data-html="true" title="' . html($info) . '"><i class="far fa-list-alt fa-fw aclist-' . $counter . '" aria-hidden="true"></i></td>';
             $a .= '<td width="90%" class="text-secondary">';
-            $a .= '[ID:' . $article_content["acontent_id"] . '] ';
-            $a .= html($article_content["acontent_title"]) . ' – ';
-            $a .= html($GLOBALS["wcs_content_type"][$article_content["acontent_type"]]);
-            if ($article_content["acontent_type"] == 30) {
-                $a .= ': ' . html($GLOBALS['BL']['modules'][$article_content["acontent_module"]]['listing_title']);
+            $a .= '[ID:' . $article_content['acontent_id'] . '] ';
+            $a .= html($article_content['acontent_title']) . ' – ';
+            $a .= html($GLOBALS['wcs_content_type'][$article_content['acontent_type']]);
+            if ($article_content['acontent_type'] == 30) {
+                $a .= ': ' . html($GLOBALS['BL']['modules'][$article_content['acontent_module']]['listing_title']);
             }
             $a .= '</td>';
             $a .= '<td class="text-secondary text-right text-nowrap">{' . html($article_content['acontent_block']) . '}</td>';
