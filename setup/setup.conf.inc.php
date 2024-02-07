@@ -48,11 +48,11 @@ $phpwcms['ads_path']= 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $phpwcms['file_maxsize'] = 52428800; // Bytes (50 x 1024 x 1024)
-$phpwcms['content_width'] = 538; // max width of the article content column - important for rendering multi column images
+$phpwcms['content_width'] = 978; // max width of the article content column - important for rendering multi column images
 $phpwcms['img_list_width'] = 100; // max with of the list thumbnail image
 $phpwcms['img_list_height'] = 75; // max height of the list thumbnail image
-$phpwcms['img_prev_width'] = 538; // max width of the large preview image
-$phpwcms['img_prev_height'] = 538; // max height of the large preview image
+$phpwcms['img_prev_width'] = 978; // max width of the large preview image
+$phpwcms['img_prev_height'] = 734; // max height of the large preview image
 $phpwcms['max_time'] = 1800; // logout after max_time/60 seconds
 $phpwcms['responsive'] = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
 $phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image
@@ -140,7 +140,7 @@ $phpwcms['header_comment'] = '';
 $phpwcms['cnt_sort'] = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
 $phpwcms['cmsimage_redirect'] = false; // redirect to the resized/cropped image if true
 $phpwcms['disable_next_prev'] = false; // https://support.google.com/webmasters/answer/1663744
-$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
+$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,webp,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
 $phpwcms['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default
 $phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied
