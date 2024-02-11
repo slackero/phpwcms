@@ -76,7 +76,7 @@ $phpwcms['php_charset']          = false; // set PHP default charset to $phpwcms
 $phpwcms['allow_remote_URL']     = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality']          = 85; // JPG Quality Range 25-100
 $phpwcms['webp_enable']          = 1; // Render all images as WebP if the client browser supports it
-$phpwcms['webp_quality']         = 85; // Set the WebP quality
+$phpwcms['webp_quality']         = 85; // Set the WebP quality, 0-100
 $phpwcms['resize_animated_gif']  = true; // Try to resize animated GIF, this can lead to bigger file sizes
 $phpwcms['sharpen_level']        = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init']       = 1; // allow including of custom external scripts at frontend initialization

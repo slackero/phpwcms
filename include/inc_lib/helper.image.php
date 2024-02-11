@@ -1153,9 +1153,11 @@ class Phpwcms_Image_lib {
                     $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
                     return false;
                 }
-                // Animated WebP isn't supported yet, needs to be detected and rejected
-                $webp_type = file_get_contents($path, false, null, 12, 4);
-                if ($webp_type && strtoupper($webp_type) === 'VP8X') {
+                // Animated WebP isn't supported yet, needs to be detected and rejected or the user forces it
+                $head_data = file_get_contents($path, false, null, 12, 30);
+                $head_data = strtoupper($head_data);
+                $webp_type = substr($head_data, 0, 4);
+                if ($webp_type === 'VP8X' && strpos($head_data, 'ANIM') !== false) {
                     $this->set_error('imglib_webp_animated_not_supported');
                     return false;
                 }
