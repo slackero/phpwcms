@@ -168,3 +168,14 @@ $translate["SL"]["bodyLine2"]		= "Izviren obrazec lahko najdete tukaj: ";
 $translate["SL"]["bodyRecipient"]	= "Prejemnik: ";
 $translate["SL"]["error350"]		= "Preverjenja Captcha kode je spodletelo.";
 
+// Language: Polish, Language Code: pl UTF-8 for ver.1.10.2 (2024/01/06, 554)
+$translate["PL"]["error100"]		= "Recipient's e-mail address is invalid.";
+$translate["PL"]["error200"]		= "No subject!";
+$translate["PL"]["error300"]		= "Podany nieprawidłowy adres e-mail do wysłania wiadomości potwierdzającej.";
+$translate["PL"]["error400"]		= "Wypełnij pole ###value###.";
+$translate["PL"]["dateFormat"]		= "Y-m-d";
+$translate["PL"]["timeFormat"]		= "H:i:s";
+$translate["PL"]["bodyLine1"]		= "Formularz został wysłany: ###date###, ###time###";
+$translate["PL"]["bodyLine2"]		= "Oryginalny formularz znajdziesz tutaj: ";
+$translate["PL"]["bodyRecipient"]	= "Odbiorca: ";
+$translate["PL"]["error350"]		= "Sprawdzanie kodu Captcha nie powiodło się.";
