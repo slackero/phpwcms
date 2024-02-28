@@ -26,16 +26,23 @@ $block['js_onunload']       = array();
 $block['js_ondomready']     = array();
 $block['js_inline']         = array();
 
-// set default JS library
+// Set default JS library
 if(empty($block['jslib'])) {
     $block['jslib'] = key($phpwcms['js_lib']);
 }
+// Sanitize the JavaScript library
+$block['jslib'] = preg_replace('/[^a-z0-9-.]/', '', $block['jslib']);
 
 // set if CDN can be used
 define('PHPWCMS_USE_CDN', !empty($block['googleapi']));
 
-// include the related JavaScript Library wrapper
-@include PHPWCMS_ROOT.'/include/inc_front/lib/js.'.$block['jslib'].'.inc.php';
+// Check if the selected JavaScript library exists
+if (!is_file(PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php')) {
+    // Set fallback to latest jQuery migrate
+    $block['jslib'] = 'jquery-3.7-migrate-1';
+}
+// include the related JavaScript library wrapper
+@include PHPWCMS_ROOT . '/include/inc_front/lib/js.' . $block['jslib'] . '.inc.php';
 
 // check if selected JavaScript should be loaded permanently
 if(!empty($block['jslibload'])) {
