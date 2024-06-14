@@ -59,9 +59,13 @@ if($tabs['template']) {
         $tabs['fieldgroup'] =& $template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields'];
     }
 
-    foreach($tabs['tabs'] as $key => $entry) {
+    $tabs['total_entries'] = count($tabs['tabs']);
 
-        $tabs['entries'][$key] = str_replace('{TABID}', ($key+1), $tabs['tmpl_entry']);
+    foreach($tabs['tabs'] as $key => $entry) {
+        $tab_id = $key+1;
+        $tabs['entries'][$key] = str_replace('{TABID}', $tab_id, $tabs['tmpl_entry']);
+        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'FIRST', $tab_id > 1 ? '' : $tab_id);
+        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'LAST', $tab_id === $tabs['total_entries'] ? $tab_id : '');
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABTITLE', $entry['tabtitle'] === '-' ? '' : html_specialchars($entry['tabtitle']));
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABCONTENT', trim($entry['tabheadline'].$entry['tabtext']) === '' ? '' : LF);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABHEADLINE', html_specialchars($entry['tabheadline']));
@@ -77,7 +81,7 @@ if($tabs['template']) {
 
         if($tabs['custom_tab_fields']) {
             foreach($tabs['custom_tab_fields'] as $custom_field_key) {
-                $custom_field_value = isset($entry['custom_fields'][$custom_field_key]) ? $entry['custom_fields'][$custom_field_key] : '';
+                $custom_field_value = $entry['custom_fields'][$custom_field_key] ?? '';
                 $custom_field_replacer = 'TAB_'.strtoupper($custom_field_key);
 
                 if($custom_field_value === '') {
@@ -97,7 +101,7 @@ if($tabs['template']) {
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, html($custom_field_value));
 
                         // render option specific replacers
-                        if(strpos($tabs['entries'][$key], $custom_field_replacer.'_') !== false) {
+                        if(str_contains($tabs['entries'][$key], $custom_field_replacer . '_')) {
                             foreach($tabs['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
                                 if($custom_field_value === $option_key) {
                                     $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));
