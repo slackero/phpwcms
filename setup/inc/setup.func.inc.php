@@ -361,7 +361,7 @@ function errorWarning($warning = '') {
 
 // based on definitions of phpMyAdmin
 $mysql_charset_map = [
-    'utf-8' => 'utf8'
+    'utf-8' => 'utf8mb4'
 ];
 
 $available_languages = [
