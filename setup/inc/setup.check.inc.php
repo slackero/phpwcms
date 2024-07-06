@@ -169,7 +169,8 @@ if(!empty($step)) {
                                 $db_create_err = array();
 
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
-                                mysqli_query($db, "SET SQL_MODE=NO_ENGINE_SUBSTITUTION");
+                                mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
+                                mysqli_query($db, 'SET innodb_default_row_format=DYNAMIC');
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";
