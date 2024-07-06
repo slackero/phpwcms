@@ -62,14 +62,14 @@ if(!empty($step)) {
         $phpwcms["db_pers"]    = empty($_POST["db_pers"]) ? 0 : 1;
 
         $phpwcms["charset"]         = 'utf-8'; // Fixed
-        $phpwcms['db_charset']      = 'utf8';
+        $phpwcms['db_charset']      = 'utf8mb4';
         if (!empty($_POST["charset"])) {
             $phpwcms['default_lang'] = substr($_POST['charset'], 0, 2);
             $_collation_warning = false;
         } elseif (empty($phpwcms['default_lang'])) {
             $phpwcms['default_lang'] = 'en';
         }
-        $phpwcms['db_collation']    = 'utf8_general_ci';
+        $phpwcms['db_collation']    = 'utf8mb4_general_ci';
         $db_sql = empty($_POST['db_sql']) ? 0 : 1;
 
         write_conf_file($phpwcms);

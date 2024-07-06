@@ -117,7 +117,7 @@ if(!empty($db_additional)) {
             }
 
             ?>
-            </select><input type="hidden" name="collation" value="utf8_general_ci" /></td>
+            </select><input type="hidden" name="collation" value="utf8mb4_general_ci" /></td>
             <td class="chatlist"></td>
           </tr>
 
