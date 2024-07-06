@@ -8,6 +8,6 @@
  *
  **/
 
-const CMSGO_VERSION = '2.4.4';
-const CMSGO_RELEASE_DATE = '2024/02/11';
+const CMSGO_VERSION = '2.4.5';
+const CMSGO_RELEASE_DATE = '2024/07/06';
 const CMSGO_REVISION = '556';
