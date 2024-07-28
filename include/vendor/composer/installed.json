@@ -1174,12 +1174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "1ec20d6e0aa68339e18f638bdcfba7aa10a361ce"
+                "reference": "9385c54382edec0a768fdbe310c3e580c1b5dc81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/1ec20d6e0aa68339e18f638bdcfba7aa10a361ce",
-                "reference": "1ec20d6e0aa68339e18f638bdcfba7aa10a361ce",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/9385c54382edec0a768fdbe310c3e580c1b5dc81",
+                "reference": "9385c54382edec0a768fdbe310c3e580c1b5dc81",
                 "shasum": ""
             },
             "require": {
@@ -1191,7 +1191,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19 || ^3.8",
                 "mf2/mf2": "^0.5.0",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^1.11",
                 "phpunit/phpunit": "^8 || ^9 || ^10",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
@@ -1204,7 +1204,7 @@
                 "ext-mbstring": "",
                 "mf2/mf2": "Microformat module that allows for parsing HTML for microformats"
             },
-            "time": "2023-12-19T06:54:35+00:00",
+            "time": "2024-07-24T00:21:05+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",

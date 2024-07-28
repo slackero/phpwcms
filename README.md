@@ -26,8 +26,10 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.36-dev requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.39 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
+If you already use PHP v8.x you can use the latest version of
+[**phpwcms v1.10.3**](https://github.com/slackero/phpwcms/releases/tag/v1.10.3).
 
 
 Known problems
@@ -75,9 +77,8 @@ Copyright 2002-2024 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the LICENSE file, or at:
-
-   <https://opensource.org/licenses/GPL-2.0>
+You may obtain a copy of the License in the LICENSE file, or at:  
+<https://opensource.org/licenses/GPL-2.0>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -90,7 +91,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the
-    Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston,
-    MA 02110-1301, USA.
+along with this program; if not, write to the  
+Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301,
+USA.
