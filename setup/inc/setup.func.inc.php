@@ -209,7 +209,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
     $conf_file .= "\$phpwcms['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
     $conf_file .= "\$phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it\n";
-    $conf_file .= "\$phpwcms['webp_quality'] = 85; // Set the WebP quality\n";
+    $conf_file .= "\$phpwcms['webp_quality'] = 85; // Set the WebP quality, 0-100\n";
     $conf_file .= "\$phpwcms['resize_animated_gif'] = true; // Try to resize animated GIF, this can lead to bigger file sizes\n";
     $conf_file .= "\$phpwcms['sharpen_level'] = 1; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
     $conf_file .= "\$phpwcms['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
@@ -274,7 +274,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['cnt_sort'] = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'\n";
     $conf_file .= "\$phpwcms['cmsimage_redirect'] = false; // redirect to the resized/cropped image if true\n";
     $conf_file .= "\$phpwcms['disable_next_prev'] = false; // https://support.google.com/webmasters/answer/1663744\n";
-    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
+    $conf_file .= "\$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,webp,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';\n";
     $conf_file .= "\$phpwcms['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default\n";
     $conf_file .= "\$phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render\n";
     $conf_file .= "\$phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied\n";
@@ -360,7 +360,7 @@ function errorWarning($warning = '') {
 
 // based on definitions of phpMyAdmin
 $mysql_charset_map = array(
-    'utf-8' => 'utf8'
+    'utf-8' => 'utf8mb4',
 );
 
 $available_languages = array(
@@ -492,9 +492,9 @@ if (!function_exists('convertDecChar')) {
 }
 
 if (!function_exists('decode_entities')) {
-    function decode_entities($string) {
+    function decode_entities($text) {
         $text = @html_entity_decode($text, ENT_QUOTES, CMSGO_CHARSET);
-        if (strpos($text, '&') === false) {
+        if (!str_contains($text, '&')) {
             return $text;
         }
         $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);

@@ -2,6 +2,9 @@
 
 namespace Algo26\IdnaConvert\Punycode;
 
+use Algo26\IdnaConvert\Exception\InvalidCharacterException;
+use OutOfBoundsException;
+
 class FromPunycode extends AbstractPunycode implements PunycodeInterface
 {
     public function __construct(
@@ -11,6 +14,9 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
         parent::__construct();
     }
 
+    /**
+     * @throws InvalidCharacterException
+     */
     public function convert(string $encoded)
     {
         if (!$this->isValidPunycodeString($encoded)) {
@@ -28,15 +34,39 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
         $decodedLength = count($decoded);
         $encodedLength = $this->getByteLength($encoded);
 
-        // Wandering through the strings; init
+        // Walking through the strings; init
         $isFirst = true;
         $bias = self::initialBias;
         $currentIndex = 0;
         $char = self::initialN;
 
-        for ($encodedIndex = ($delimiterPosition) ? ($delimiterPosition + 1) : 0; $encodedIndex < $encodedLength; ++$decodedLength) {
+        $startOfLoop = ($delimiterPosition) ? ($delimiterPosition + 1) : 0;
+        for ($encodedIndex = $startOfLoop; $encodedIndex < $encodedLength; ++$decodedLength) {
             for ($oldIndex = $currentIndex, $w = 1, $k = self::base; 1; $k += self::base) {
+                if ($encodedIndex + 1 > $encodedLength) {
+                    throw new InvalidCharacterException('trying to read beyond input length');
+                }
+
                 $digit = $this->decodeDigit($encoded[$encodedIndex++]);
+
+                if ($digit >= self::base) {
+                    throw new InvalidCharacterException(
+                        sprintf(
+                            'encountered invalid digit at #%d',
+                            $encodedIndex - 1,
+                        )
+                    );
+                }
+
+                if ($digit > floor((PHP_INT_MAX - $currentIndex) / $w)) {
+                    throw new OutOfBoundsException(
+                        sprintf(
+                            'overflow at #%d',
+                            $encodedIndex - 1,
+                        )
+                    );
+                }
+
                 $currentIndex += $digit * $w;
                 $t = ($k <= $bias)
                     ? self::tMin
@@ -45,11 +75,14 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
                             ? self::tMax
                             : ($k - $bias)
                     );
+
                 if ($digit < $t) {
                     break;
                 }
+
                 $w = (int) ($w * (self::base - $t));
             }
+
             $bias = $this->adapt($currentIndex - $oldIndex, $decodedLength + 1, $isFirst);
             $isFirst = false;
             $char += (int) ($currentIndex / ($decodedLength + 1));
@@ -73,7 +106,7 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
     private function isValidPunycodeString($encoded): bool
     {
         // Check for existence of the prefix
-        if ( ! str_starts_with($encoded, self::punycodePrefix)) {
+        if (!str_starts_with($encoded, self::punycodePrefix)) {
             return false;
         }
 
@@ -85,19 +118,20 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
         return true;
     }
 
-    private function decodeDigit(string $cp): int
+    private function decodeDigit(string $codePoint): int
     {
-        $cp = ord($cp);
-        if ($cp - 48 < 10) {
-            return $cp - 22;
+        $codeAsInt = ord($codePoint);
+
+        if ($codeAsInt - 48 < 10) {
+            return $codeAsInt - 22;
         }
 
-        if ($cp - 65 < 26) {
-            return $cp - 65;
+        if ($codeAsInt - 65 < 26) {
+            return $codeAsInt - 65;
         }
 
-        if ($cp - 97 < 26) {
-            return $cp - 97;
+        if ($codeAsInt - 97 < 26) {
+            return $codeAsInt - 97;
         }
 
         return self::base;

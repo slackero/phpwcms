@@ -19,11 +19,11 @@ $phpwcms['db_pass'] = 'db_pass';
 $phpwcms['db_table'] = 'db_table';
 $phpwcms['db_prepend'] = '';
 $phpwcms['db_pers'] = 1;
-$phpwcms['db_charset'] = 'utf8';
-$phpwcms['db_collation'] = 'utf8_general_ci';
-$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed, 5.6+
+$phpwcms['db_charset'] = 'utf8mb4';
+$phpwcms['db_collation'] = 'utf8mb4_general_ci';
+$phpwcms['db_version'] = ''; // Version of MySQL Server at the time phpwcms was installed
 $phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
-$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.6/en/sql-mode.html#sql-mode-setting
+$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
 $phpwcms['db_errorlog'] = false; // Log DB queries - false|true
 
 // site values
@@ -49,11 +49,11 @@ $phpwcms['ads_path']= 'marketing'; // it's the former 'ads' dir in '/content'
 
 // content values
 $phpwcms['file_maxsize'] = 52428800; // Bytes (50 x 1024 x 1024)
-$phpwcms['content_width'] = 538; // max width of the article content column - important for rendering multi column images
+$phpwcms['content_width'] = 978; // max width of the article content column - important for rendering multi column images
 $phpwcms['img_list_width'] = 100; // max with of the list thumbnail image
 $phpwcms['img_list_height'] = 75; // max height of the list thumbnail image
-$phpwcms['img_prev_width'] = 538; // max width of the large preview image
-$phpwcms['img_prev_height'] = 538; // max height of the large preview image
+$phpwcms['img_prev_width'] = 978; // max width of the large preview image
+$phpwcms['img_prev_height'] = 734; // max height of the large preview image
 $phpwcms['max_time'] = 1800; // logout after max_time/60 seconds
 $phpwcms['responsive'] = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
 $phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image
@@ -76,7 +76,7 @@ $phpwcms['php_charset'] = false; // set PHP default charset to $phpwcms['charset
 $phpwcms['allow_remote_URL'] = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality'] = 85; // JPG Quality Range 25-100
 $phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it
-$phpwcms['webp_quality'] = 85; // Set the WebP quality
+$phpwcms['webp_quality'] = 85; // Set the WebP quality, 0-100
 $phpwcms['resize_animated_gif'] = true; // Try to resize animated GIF, this can lead to bigger file sizes
 $phpwcms['sharpen_level'] = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init'] = 1; // allow including of custom external scripts at frontend initialization
@@ -141,7 +141,7 @@ $phpwcms['header_comment'] = '';
 $phpwcms['cnt_sort'] = 'a-z'; // not set or empty or false like before; 'a-z' or reverse 'z-a'
 $phpwcms['cmsimage_redirect'] = false; // redirect to the resized/cropped image if true
 $phpwcms['disable_next_prev'] = false; // https://support.google.com/webmasters/answer/1663744
-$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
+$phpwcms['allowed_upload_ext'] = 'jpg,jpeg,png,webp,gif,tif,tiff,bmp,pic,psd,eps,ai,svg,pdf,ps,doc,docx,xls,xlsx,ppt,pptx,odt,odm,odg,ods,odp,odf,odc,odb,sxw,sxc,sxi,csv,txt,rtf,html,xml,ini,sql,db,zip,rar,7z,s7z,dmg,bz2,gz,tar,tgz,mkv,webm,vob,ogg,ogv,mov,qt,wmv,mpg,mpeg,mp3,mp4,m4p,flv,f4v,f4p,f4a,f4b';
 $phpwcms['enable_inline_php'] = false; // disable [PHP] {PHP…} … by default
 $phpwcms['parse_html_mode'] = 'before'; // when to parse html: [null|before, after, before+after] frontend render
 $phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied

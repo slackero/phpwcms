@@ -62,14 +62,14 @@ if(!empty($step)) {
         $phpwcms["db_pers"]    = empty($_POST["db_pers"]) ? 0 : 1;
 
         $phpwcms["charset"]         = 'utf-8'; // Fixed
-        $phpwcms['db_charset']      = 'utf8';
+        $phpwcms['db_charset']      = 'utf8mb4';
         if (!empty($_POST["charset"])) {
             $phpwcms['default_lang'] = substr($_POST['charset'], 0, 2);
             $_collation_warning = false;
         } elseif (empty($phpwcms['default_lang'])) {
             $phpwcms['default_lang'] = 'en';
         }
-        $phpwcms['db_collation']    = 'utf8_general_ci';
+        $phpwcms['db_collation']    = 'utf8mb4_general_ci';
         $db_sql = empty($_POST['db_sql']) ? 0 : 1;
 
         write_conf_file($phpwcms);
@@ -169,7 +169,8 @@ if(!empty($step)) {
                                 $db_create_err = array();
 
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
-                                mysqli_query($db, "SET SQL_MODE=NO_ENGINE_SUBSTITUTION");
+                                mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
+                                mysqli_query($db, 'SET innodb_default_row_format=DYNAMIC');
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";

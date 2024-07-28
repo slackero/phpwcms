@@ -10,7 +10,7 @@
  **/
 // Language: Polish
 // Language Code: pl
-// charset UTF-8 for ver.1.6.519  Zibi http://www.krynica.malopolska.pl
+// charset UTF-8 ver.1.10.2 (554)  Zibi http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY
 // this is neccessary to reduce the processing time
 // normal line break:    '&#13'

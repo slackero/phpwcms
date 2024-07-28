@@ -776,6 +776,7 @@ $BL['be_cnt_pages_fromfile']            = 'file from structure';
 $BL['be_cnt_pages_manually']            = 'custom path/file or URL';
 $BL['be_cnt_pages_cust']                = 'file/URL';
 $BL['be_cnt_pages_from']                = 'source';
+$BL['be_cnt_pages_php_render_warning']  = 'inline PHP <code>$phpwcms[&#39;enable_inline_php&#39;]</code> is disabled';
 
 // added: 24-05-2004
 $BL['be_ctype_reference']               = 'rollover images';

@@ -21,6 +21,8 @@ return array(
     'HTMLCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/HTMLCreator.php',
     'HtmlDescribable' => $vendorDir . '/openpsa/universalfeedcreator/lib/Element/HtmlDescribable.php',
     'JSCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/JSCreator.php',
+    'JSONCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/JSONCreator.php',
+    'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'KMLCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/KMLCreator.php',
     'MBOXCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/MBOXCreator.php',
     'OPMLCreator' => $vendorDir . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',

@@ -8,7 +8,8 @@
  * @link http://www.phpwcms.org
  *
  **/
-// Language: Polish, Language Code: pl UTF-8 for ver.1.9.0-beta.8 (2017/10/18, 549)
+
+// Language: Polish, Language Code: pl UTF-8 for ver.1.10.2 (2024/01/06, 554)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
@@ -169,6 +170,8 @@ $BL['be_ftptakeover_active'] = 'Aktywny';
 $BL['be_ftptakeover_public'] = 'Publiczne';
 $BL['be_ftptakeover_createthumb'] = 'Utwórz miniaturkę';
 $BL['be_ftptakeover_button'] = 'Odbierz wybrane pliki';
+$BL['be_ftptakeover_new_folder'] = 'utwórz folder';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'nazwa nowego folderu w katalogu głównym';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title'] = 'Centrum plików';
@@ -308,7 +311,7 @@ $BL['be_msg_RE'] = 'ODP';
 $BL['be_msg_by'] = 'wysłana przez';
 $BL['be_msg_on'] = 'w dniu';
 $BL['be_msg_msg'] = 'Wiadomość';
-$BL['be_msg_err1'] = 'Zapomniałeś udtsawić odbiorcę...';
+$BL['be_msg_err1'] = 'Zapomniałeś ustsawić odbiorcę...';
 $BL['be_msg_err2'] = 'Wypełnij pole tytułu (odbiorcy będzie łatwiej czytać Twoją wiadomość)';
 $BL['be_msg_err3'] = 'nie ma sensu wysyłać wiadomości bez treści ;-)';
 $BL['be_msg_sent'] = 'Nowa Wiadomość została wysłana!';
@@ -637,7 +640,7 @@ $BL['be_cnt_result'] = 'Rezultat';
 $BL['be_cnt_next'] = 'Następny';
 $BL['be_cnt_previous'] = 'Poprzedni';
 $BL['be_cnt_align'] = 'Wyrównanie';
-$BL['be_cnt_searchformtext'] = 'Wstaw swoje komunikaty gdy użytkownik otworzy strone wyszukiwarki lub gdy nie ma rezultatów.';
+$BL['be_cnt_searchformtext'] = 'Wstaw swoje komunikaty gdy użytkownik otworzy stronę wyszukiwarki lub gdy nie ma rezultatów.';
 $BL['be_cnt_intro'] = 'Nagłówek';
 $BL['be_cnt_noresult'] = 'Brak&nbsp; rezultatów';
 $BL['be_cnt_search_default_type'] = 'Domyślny typ wyszukiwania';
@@ -858,6 +861,8 @@ $BL['be_date_week'] = 'Tydzień';
 $BL['be_date_weeks'] = 'Tygodnie';
 $BL['be_date_month'] = 'Miesiąc';
 $BL['be_date_months'] = 'Miesiące';
+$BL['be_off'] = 'Wył.';
+$BL['be_on'] = 'Wł.';
 $BL['be_cache'] = 'Pamięć podręczna';
 $BL['be_cache_timeout'] = 'Czas wygaśn.';
 
@@ -1280,7 +1285,7 @@ $BL['group_guest'] = 'Gość';
 $BL['php_function'] = 'Funkcja PHP';
 $BL['article_menu_title'] = 'Tytuł menu';
 
-$BL['content_type'] = 'Content-Type';
+$BL['content_type'] = 'Rodzaj treści';
 $BL['automatic'] = 'automatycznie';
 
 $BL['random_image'] = 'Losowy obraz';
@@ -1408,7 +1413,7 @@ $BL['be_ie8ignore'] = 'WYŁĄCZ <a href="https://en.wikipedia.org/wiki/Condition
 $BL['be_cookie_consent_enable'] = 'Włącz wtyczkę Zgody Cookie';
 $BL['be_cookie_consent_message'] = 'Komunikat zgody';
 $BL['cookie_consent_message'] = 'Witryna ta wykorzystuje cookies, aby uzyskać najlepszą jakość na naszej stronie internetowej';
-$BL['be_cookie_consent_dismiss'] = 'Przycisk tekstu zwolenia';
+$BL['be_cookie_consent_dismiss'] = 'Przycisk tekstu zezwolenia';
 $BL['cookie_consent_dismiss'] = 'Rozumiem!';
 $BL['be_cookie_consent_more'] = 'Tekst przycisku dowiedz się więcej';
 $BL['cookie_consent_more'] = 'Więcej informacji';
@@ -1422,6 +1427,11 @@ $BL['be_site_id'] = 'ID witryny';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'wsparcie dla pliku Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
+$BL['be_consent_cookie_name'] = 'Nazwa ciasteczka zgody';
+$BL['be_consent_cookie_value'] = 'Zgoda na zawartość pliku cookie';
+$BL['be_respect_donottrack'] = 'Przestrzegaj ustawienia przeglądarki Do-Not-Track';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'tak';
 
 $BL['be_iptc_data'] = 'Dane IPTC';
 $BL['be_iptc_as_caption'] = 'Użyj do podpisu, Praw autorskich itp. korzytaj , gdy nie jest ustawiony';
@@ -1468,3 +1478,33 @@ $BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
 $BL['be_not_set'] = 'Nie ustawiony';
 $BL['be_licensed_under_GPL'] = 'Na licencji GPL.';
 $BL['be_extensions_copyright'] = 'Rozszerzenia są chronione prawami autorskimi ich właścicieli.';
+
+$BL['be_password_show'] = 'Pokaż hasło';
+$BL['be_password_hide'] = 'Ukryj hasło';
+
+$BL['be_admin_template_choose_file'] = 'Szablon tekstowy, alternatywnie wybierz plik szablonu';
+
+$BL['be_flashplayer_marker'] = 'Marker';
+$BL['be_marker_time'] = 'Czas (sekundy, n.p. 10.5)';
+$BL['be_marker_text'] = 'Tekst';
+$BL['be_marker_overlaytext'] = 'Nakładka tekstowa';
+
+$BL['copy_to_clipboard'] = 'Skopiuj do schowka';
+$BL['url_parameter'] = 'Parametr URL';
+$BL['file_extension'] = 'Rozszerzenie';
+$BL['download_link'] = 'Link pobrania';
+$BL['disposition_attachment'] = 'Załącznik';
+$BL['disposition_attachment_description'] = 'pobieranie bezpośrednie';
+$BL['disposition_inline'] = 'Inline';
+$BL['disposition_inline_description'] = 'wyświetl w przeglądarce';
+
+$BL['be_robots'] = 'Search index';
+$BL['be_robots_noindex'] = 'block search indexing (noindex)';
+$BL['be_robots_nofollow'] = 'nie podążaj za linkami (nofollow)';
+
+$BL['be_cnt_form_direct_download'] = 'zezwól na pobieranie';
+$BL['be_cnt_form_direct_download_apikey'] = 'API key';
+$BL['be_cnt_form_apikey_reset'] = 'resetuj';
+$BL['be_copy_link'] = 'kopiuj link';
+
+$BL['be_deprecated'] = 'przestarzałe';

@@ -60,9 +60,13 @@ if($tabs['template']) {
         $tabs['fieldgroup'] =& $template_default['settings']['tabs_custom_fields'][ $tabs['tab_fieldgroup'] ]['fields'];
     }
 
-    foreach($tabs['tabs'] as $key => $entry) {
+    $tabs['total_entries'] = count($tabs['tabs']);
 
-        $tabs['entries'][$key] = str_replace('{TABID}', ($key+1), $tabs['tmpl_entry']);
+    foreach($tabs['tabs'] as $key => $entry) {
+        $tab_id = $key+1;
+        $tabs['entries'][$key] = str_replace('{TABID}', $tab_id, $tabs['tmpl_entry']);
+        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'FIRST', $tab_id > 1 ? '' : $tab_id);
+        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'LAST', $tab_id === $tabs['total_entries'] ? $tab_id : '');
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABTITLE', $entry['tabtitle'] === '-' ? '' : html_specialchars($entry['tabtitle']));
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABCONTENT', trim($entry['tabheadline'].$entry['tabtext']) === '' ? '' : LF);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'TABHEADLINE', html_specialchars($entry['tabheadline']));
@@ -167,6 +171,7 @@ if($tabs['template']) {
     $tabs['entries_count'] = count($tabs['entries']);
     $tabs['template'] = render_cnt_template($tabs['template'], 'TABS_ENTRIES', $tabs['entries_count'] ? implode('', $tabs['entries']) : '');
     $tabs['template'] = str_replace('{TAB_COUNT}', $tabs['entries_count'], $tabs['template']);
+    $CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 } else {
 
@@ -174,7 +179,5 @@ if($tabs['template']) {
     $CNT_TMP .= LF . $crow["acontent_html"];
 
 }
-
-$CNT_TMP .= str_replace('{ID}', $crow['acontent_id'], $tabs['template']);
 
 unset($tabs);

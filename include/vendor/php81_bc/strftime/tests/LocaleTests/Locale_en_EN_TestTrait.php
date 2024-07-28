@@ -26,10 +26,16 @@
       $this->assertEquals('Mar', $result, '%h: Abbreviated month name, based on the locale (an alias of %b)');
 
       $result = strftime('%X', '20220306 13:02:03', $locale);
-      $this->assertEquals('1:02:03 PM', $result, '%X: Preferred time representation based on locale, without the date');
+      $this->assertThat($result, $this->logicalOr(
+        $this->equalTo('1:02:03 PM'), // PHP-7
+        $this->equalTo('13:02:03')   // PHP-8
+      ), '%X: Preferred time representation based on locale, without the date');
 
       $result = strftime('%c', '20220306 13:02:03', $locale);
-      $this->assertEquals('March 6, 2022 at 1:02 PM', $result, '%c: Preferred date and time stamp based on locale');
+      $this->assertThat($result, $this->logicalOr(
+        $this->equalTo('March 6, 2022 at 1:02 PM'), // PHP-7
+        $this->equalTo('March 6, 2022 at 13:02')   // PHP-8
+      ), '%c: Preferred date and time stamp based on locale');
 
       $result = strftime('%x', '20220306 13:02:03', $locale);
       $this->assertEquals('3/6/22', $result, '%x: Preferred date representation based on locale, without the time');

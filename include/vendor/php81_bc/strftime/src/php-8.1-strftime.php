@@ -8,6 +8,7 @@
   use IntlDateFormatter;
   use IntlGregorianCalendar;
   use InvalidArgumentException;
+  use Locale;
 
   /**
    * Locale-formatted strftime using IntlDateFormatter (PHP 8.1 compatible)
@@ -24,6 +25,7 @@
    *
    * @param  string $format Date format
    * @param  integer|string|DateTime $timestamp Timestamp
+   * @param  string|null $locale locale
    * @return string
    * @author BohwaZ <https://bohwaz.net/>
    */
@@ -36,21 +38,16 @@
       } catch (Exception $e) {
         throw new InvalidArgumentException('$timestamp argument is neither a valid UNIX timestamp, a valid date-time string or a DateTime object.', 0, $e);
       }
+
+      $timestamp->setTimezone(new DateTimeZone(date_default_timezone_get()));
     }
 
-    $timestamp->setTimezone(new DateTimeZone(date_default_timezone_get()));
-
-    if (empty($locale)) {
-      // get current locale
-      $locale = setlocale(LC_TIME, '0');
-    }
-    // remove trailing part not supported by ext-intl locale
-    $locale = preg_replace('/[^\w-].*$/', '', $locale);
+    $locale = Locale::canonicalize($locale ?? (Locale::getDefault() ?? setlocale(LC_TIME, '0')));
 
     $intl_formats = [
-      '%a' => 'EEE',	// An abbreviated textual representation of the day	Sun through Sat
+      '%a' => 'ccc',	// An abbreviated textual representation of the day	Sun through Sat
       '%A' => 'EEEE',	// A full textual representation of the day	Sunday through Saturday
-      '%b' => 'MMM',	// Abbreviated month name, based on the locale	Jan through Dec
+      '%b' => 'LLL',	// Abbreviated month name, based on the locale	Jan through Dec
       '%B' => 'MMMM',	// Full month name, based on the locale	January through December
       '%h' => 'MMM',	// Abbreviated month name, based on the locale (an alias of %b)	Jan through Dec
     ];
@@ -210,7 +207,7 @@
         case '#':
         case '-':
           // remove leading zeros but keep last char if also zero
-          return preg_replace('/^0+(?=.)/', '', $result);
+          return preg_replace('/^[0\s]+(?=.)/', '', $result);
       }
 
       return $result;
