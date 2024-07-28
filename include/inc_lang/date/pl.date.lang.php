@@ -10,7 +10,7 @@
  **/
 
 // pl.date.lang.php
-// Language: Polish, Language Code: pl UTF-8 for ver.1.6.530 Zięba Bogusław http://www.krynica.malopolska.pl
+// Language: Polish, Language Code: pl UTF-8 for ver.1.9.x Zięba Bogusław http://www.krynica.malopolska.pl
 
 // language: PL
 

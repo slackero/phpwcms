@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
 {
     public static $files = array (
-        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'b45b351e6b6f7487d819961fef2fda77' => __DIR__ . '/..' . '/jakeasmith/http_build_url/src/http_build_url.php',
         'fdc0e9724ddc47859c8bf0c1ea0a623a' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/constants.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -187,6 +187,7 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
         'HTMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/HTMLCreator.php',
         'HtmlDescribable' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Element/HtmlDescribable.php',
         'JSCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/JSCreator.php',
+        'JSONCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/JSONCreator.php',
         'KMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/KMLCreator.php',
         'MBOXCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/MBOXCreator.php',
         'OPMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',

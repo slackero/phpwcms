@@ -1,15 +1,10 @@
 [![phpwcms](https://www.phpwcms.org/indeximg/phpwcms-logo.svg)](https://www.phpwcms.org)
 =========
 
-**phpwcms** is a flexible, fast, robust, customer and developer friendly
+**phpwcms** is a very flexible, fast, robust, customer and developer friendly
 but yet powerful web based content management system and cms framework running
 under PHP and MySQL/MariaDB. phpwcms is created and maintained by
-[Oliver Georgi](http://twitter.com/slackero). None of the fancy systems but working since more 
-than 20 years! Yeah!
-
-Version 1.9.38 is the legacy version of **phpwcms** (version > 1.9.36 and < 1.10).
-I will try to keep this on par as long as possible to the newest version
-of **phpwcms** v1.10+ — if you can try to upgrade existing installations.
+[Oliver Georgi](http://twitter.com/slackero).
 
 To get started, checkout [phpwcms.org](https://www.phpwcms.org) or the community driven
 [HowTo Wiki](https://wiki.phpwcms.org/) (snapshot). Most questions are yet
@@ -31,9 +26,10 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.38 requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.39 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
-Always check the [supported versions of PHP](https://www.php.net/supported-versions.php).
+If you already use PHP v8.x you can use the latest version of
+[**phpwcms v1.10.3**](https://github.com/slackero/phpwcms/releases/tag/v1.10.3).
 
 
 Known problems
@@ -42,22 +38,25 @@ Known problems
 Because of the project history there are several probable problems regarding the database. 
 MySQL changed the time and date related default values over the last years. Check to setup
 the related config values to connect to the database in a more compatible way. MySQL Strict
-is no good option for **phpwcms** < 1.10. But **phpwcms** has a db related
-[config setting](https://github.com/slackero/phpwcms/blob/master/include/config/dist.conf.inc.php#L25) 
-to force MySQL into a more lax mode.
+is no good option. I work on this to [solve the problems](https://github.com/slackero/phpwcms/issues/275)
+soon.
 
 
-Support an issue (bug)
-----------------------
+Bug tracker
+-----------
 
-Did you find a bug or miss something? Please create an [issue on GitHub](https://github.com/slackero/phpwcms/issues).
+Did you find a bug? Please create an **[issue here](https://github.com/slackero/phpwcms/issues)** on GitHub
+that conforms with [necolas's guidelines](https://github.com/necolas/issue-guidelines).
 
 
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on
-[Github](https://github.com/slackero/phpwcms).
+Keep up to date on announcements and more by following **phpwcms** on Twitter
+[@phpwcms](https://twitter.com/phpwcms) or on
+[Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
+*(We are no longer active there, better you stay in touch with **phpwcms** on
+[Github](https://github.com/slackero/phpwcms))*
 
 
 Creator
@@ -66,6 +65,7 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
+- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
 - <https://twitter.com/slackero>
 
@@ -77,9 +77,8 @@ Copyright 2002-2024 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
-You may obtain a copy of the License in the LICENSE file, or at:
-
-   <https://opensource.org/licenses/GPL-2.0>
+You may obtain a copy of the License in the LICENSE file, or at:  
+<https://opensource.org/licenses/GPL-2.0>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -92,7 +91,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the
-    Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston,
-    MA 02110-1301, USA.
+along with this program; if not, write to the  
+Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301,
+USA.

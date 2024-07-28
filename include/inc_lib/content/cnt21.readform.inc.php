@@ -20,27 +20,27 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Page/ext. Content
-$content["page_file"]['source'] = intval($_POST['cpage_source']);
+$content['page_file']['source'] = intval($_POST['cpage_source']);
 
-if(!$content["page_file"]['source']) {
+if(!$content['page_file']['source']) {
 
-	$content["page_file"]['pfile'] = isset($_POST['cpage_file']) ? clean_slweg($_POST['cpage_file']) : '';
-	if(!file_exists($content["page_file"]['pfile'])) {
-		$content["page_file"]['pfile'] = '';
+	$content['page_file']['pfile'] = isset($_POST['cpage_file']) ? clean_slweg($_POST['cpage_file']) : '';
+	if(!file_exists($content['page_file']['pfile'])) {
+		$content['page_file']['pfile'] = '';
 	}
 
 } else {
 
-	$content["page_file"]['pfile'] = clean_slweg($_POST['cpage_custom']);
+	$content['page_file']['pfile'] = clean_slweg($_POST['cpage_custom']);
 
-	if(!file_exists($content["page_file"]['pfile'])) {
+	if(!is_file($content['page_file']['pfile'])) {
 
-		list($content["page_file"]['checkurl']) = explode('?', $content["page_file"]['pfile']);
+		list($content['page_file']['checkurl']) = explode('?', $content['page_file']['pfile']);
 
-		if(!file_get_contents($content["page_file"]['checkurl'])) {
-			$content["page_file"]['pfile'] = '';
+		if(empty($content['page_file']['checkurl']) || !file_get_contents($content['page_file']['checkurl'])) {
+			$content['page_file']['pfile'] = '';
 		}
-		unset($content["page_file"]['checkurl']);
+		unset($content['page_file']['checkurl']);
 	}
 
 }

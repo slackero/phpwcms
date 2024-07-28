@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "algo26-matthias/idna-convert",
-            "version": "v3.1.0",
-            "version_normalized": "3.1.0.0",
+            "version": "v3.1.1",
+            "version_normalized": "3.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/algo26-matthias/idna-convert.git",
-                "reference": "340a4dc65f6b0d9884853a3d32895d82f0c1502a"
+                "reference": "d8dbf18599548b8460ab0c462f299a15cacf6e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/algo26-matthias/idna-convert/zipball/340a4dc65f6b0d9884853a3d32895d82f0c1502a",
-                "reference": "340a4dc65f6b0d9884853a3d32895d82f0c1502a",
+                "url": "https://api.github.com/repos/algo26-matthias/idna-convert/zipball/d8dbf18599548b8460ab0c462f299a15cacf6e66",
+                "reference": "d8dbf18599548b8460ab0c462f299a15cacf6e66",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
                 "ext-iconv": "Install ext/iconv for using input / output other than UTF-8 or ISO-8859-1",
                 "ext-mbstring": "Install ext/mbstring for using input / output other than UTF-8 or ISO-8859-1"
             },
-            "time": "2023-02-17T10:08:02+00:00",
+            "time": "2024-03-18T16:24:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -55,35 +55,34 @@
             ],
             "support": {
                 "issues": "https://github.com/algo26-matthias/idna-convert/issues",
-                "source": "https://github.com/algo26-matthias/idna-convert/tree/v3.1.0"
+                "source": "https://github.com/algo26-matthias/idna-convert/tree/v3.1.1"
             },
             "install-path": "../algo26-matthias/idna-convert"
         },
         {
             "name": "enshrined/svg-sanitize",
-            "version": "0.16.0",
-            "version_normalized": "0.16.0.0",
+            "version": "0.19.0",
+            "version_normalized": "0.19.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "239e257605e2141265b429e40987b2ee51bba4b4"
+                "reference": "e95cd17be68e45f523cbfb0fe50cdd891b0cf20e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/239e257605e2141265b429e40987b2ee51bba4b4",
-                "reference": "239e257605e2141265b429e40987b2ee51bba4b4",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/e95cd17be68e45f523cbfb0fe50cdd891b0cf20e",
+                "reference": "e95cd17be68e45f523cbfb0fe50cdd891b0cf20e",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "ezyang/htmlpurifier": "^4.16",
                 "php": "^5.6 || ^7.0 || ^8.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7 || ^6.5 || ^8.5"
             },
-            "time": "2023-03-20T10:51:12+00:00",
+            "time": "2024-06-18T10:27:15+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -104,7 +103,7 @@
             "description": "An SVG sanitizer for PHP",
             "support": {
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
-                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.16.0"
+                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.19.0"
             },
             "install-path": "../enshrined/svg-sanitize"
         },
@@ -635,17 +634,17 @@
         },
         {
             "name": "netcarver/textile",
-            "version": "v4.0.0",
-            "version_normalized": "4.0.0.0",
+            "version": "v4.1.1",
+            "version_normalized": "4.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/textile/php-textile.git",
-                "reference": "79b7d5102816ff017a940d8695a35d7f8db1e60a"
+                "reference": "5a76f3ae5fa2b73e09c11d14e54eb184eafad9d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/textile/php-textile/zipball/79b7d5102816ff017a940d8695a35d7f8db1e60a",
-                "reference": "79b7d5102816ff017a940d8695a35d7f8db1e60a",
+                "url": "https://api.github.com/repos/textile/php-textile/zipball/5a76f3ae5fa2b73e09c11d14e54eb184eafad9d9",
+                "reference": "5a76f3ae5fa2b73e09c11d14e54eb184eafad9d9",
                 "shasum": ""
             },
             "require": {
@@ -658,11 +657,11 @@
                 "squizlabs/php_codesniffer": "3.*",
                 "symfony/yaml": "^4.4.3"
             },
-            "time": "2022-12-03T18:45:20+00:00",
+            "time": "2024-06-07T18:58:50+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "installation-source": "dist",
@@ -697,17 +696,17 @@
         },
         {
             "name": "openpsa/universalfeedcreator",
-            "version": "v1.8.5",
-            "version_normalized": "1.8.5.0",
+            "version": "v1.9.0",
+            "version_normalized": "1.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/flack/UniversalFeedCreator.git",
-                "reference": "d07a9f54e4fe522d8fefaf99564efd675932a635"
+                "reference": "c55f908e867aa6dade0905b8aefb94fd9d8c1f9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flack/UniversalFeedCreator/zipball/d07a9f54e4fe522d8fefaf99564efd675932a635",
-                "reference": "d07a9f54e4fe522d8fefaf99564efd675932a635",
+                "url": "https://api.github.com/repos/flack/UniversalFeedCreator/zipball/c55f908e867aa6dade0905b8aefb94fd9d8c1f9e",
+                "reference": "c55f908e867aa6dade0905b8aefb94fd9d8c1f9e",
                 "shasum": ""
             },
             "require": {
@@ -716,7 +715,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.32 || ^9.5.10"
             },
-            "time": "2023-04-17T12:24:35+00:00",
+            "time": "2024-02-22T11:08:24+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -749,7 +748,7 @@
             ],
             "support": {
                 "issues": "https://github.com/flack/UniversalFeedCreator/issues",
-                "source": "https://github.com/flack/UniversalFeedCreator/tree/v1.8.5"
+                "source": "https://github.com/flack/UniversalFeedCreator/tree/v1.9.0"
             },
             "install-path": "../openpsa/universalfeedcreator"
         },
@@ -1002,24 +1001,24 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
-            "time": "2023-04-10T20:10:41+00:00",
+            "time": "2024-04-15T12:06:14+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1042,7 +1041,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -1054,7 +1053,7 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
             "install-path": "../psr/http-factory"
         },
@@ -1175,12 +1174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "1ec20d6e0aa68339e18f638bdcfba7aa10a361ce"
+                "reference": "9385c54382edec0a768fdbe310c3e580c1b5dc81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/1ec20d6e0aa68339e18f638bdcfba7aa10a361ce",
-                "reference": "1ec20d6e0aa68339e18f638bdcfba7aa10a361ce",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/9385c54382edec0a768fdbe310c3e580c1b5dc81",
+                "reference": "9385c54382edec0a768fdbe310c3e580c1b5dc81",
                 "shasum": ""
             },
             "require": {
@@ -1192,7 +1191,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19 || ^3.8",
                 "mf2/mf2": "^0.5.0",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^1.11",
                 "phpunit/phpunit": "^8 || ^9 || ^10",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0",
@@ -1205,7 +1204,7 @@
                 "ext-mbstring": "",
                 "mf2/mf2": "Microformat module that allows for parsing HTML for microformats"
             },
-            "time": "2023-12-19T06:54:35+00:00",
+            "time": "2024-07-24T00:21:05+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
@@ -1254,17 +1253,17 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.28.0",
-            "version_normalized": "1.28.0.0",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "42292d99c55abe617799667f454222c54c60e229"
+                "reference": "fd22ab50000ef01661e2a31d850ebaa297f8e03c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/42292d99c55abe617799667f454222c54c60e229",
-                "reference": "42292d99c55abe617799667f454222c54c60e229",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fd22ab50000ef01661e2a31d850ebaa297f8e03c",
+                "reference": "fd22ab50000ef01661e2a31d850ebaa297f8e03c",
                 "shasum": ""
             },
             "require": {
@@ -1276,12 +1275,9 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
-            "time": "2023-07-28T09:04:16+00:00",
+            "time": "2024-06-19T12:30:46+00:00",
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1320,7 +1316,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.30.0"
             },
             "funding": [
                 {
@@ -1340,28 +1336,25 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.28.0",
-            "version_normalized": "1.28.0.0",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5"
+                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
-                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/77fa7995ac1b21ab60769b7323d600a991a90433",
+                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2023-01-26T09:26:14+00:00",
+            "time": "2024-05-31T15:07:36+00:00",
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1406,7 +1399,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.30.0"
             },
             "funding": [
                 {
@@ -1426,28 +1419,25 @@
         },
         {
             "name": "symfony/polyfill-php81",
-            "version": "v1.28.0",
-            "version_normalized": "1.28.0.0",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b"
+                "reference": "3fb075789fb91f9ad9af537c4012d523085bd5af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/7581cd600fa9fd681b797d00b02f068e2f13263b",
-                "reference": "7581cd600fa9fd681b797d00b02f068e2f13263b",
+                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/3fb075789fb91f9ad9af537c4012d523085bd5af",
+                "reference": "3fb075789fb91f9ad9af537c4012d523085bd5af",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2023-01-26T09:26:14+00:00",
+            "time": "2024-06-19T12:30:46+00:00",
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1488,7 +1478,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.30.0"
             },
             "funding": [
                 {
@@ -1508,28 +1498,25 @@
         },
         {
             "name": "symfony/polyfill-php82",
-            "version": "v1.28.0",
-            "version_normalized": "1.28.0.0",
+            "version": "v1.30.0",
+            "version_normalized": "1.30.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php82.git",
-                "reference": "7716bea9c86776fb3362d6b52fe1fc9471056a49"
+                "reference": "77ff49780f56906788a88974867ed68bc49fae5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php82/zipball/7716bea9c86776fb3362d6b52fe1fc9471056a49",
-                "reference": "7716bea9c86776fb3362d6b52fe1fc9471056a49",
+                "url": "https://api.github.com/repos/symfony/polyfill-php82/zipball/77ff49780f56906788a88974867ed68bc49fae5b",
+                "reference": "77ff49780f56906788a88974867ed68bc49fae5b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
             },
-            "time": "2023-08-25T17:27:25+00:00",
+            "time": "2024-06-19T12:30:46+00:00",
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.28-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1570,7 +1557,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php82/tree/v1.28.0"
+                "source": "https://github.com/symfony/polyfill-php82/tree/v1.30.0"
             },
             "funding": [
                 {

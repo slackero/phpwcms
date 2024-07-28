@@ -771,6 +771,7 @@ $BL['be_cnt_pages_fromfile'] = 'Datei aus der Struktur';
 $BL['be_cnt_pages_manually'] = 'Eigene Pfad/Datei oder URL';
 $BL['be_cnt_pages_cust'] = 'Datei/URL';
 $BL['be_cnt_pages_from'] = 'Herkunft';
+$BL['be_cnt_pages_php_render_warning'] = 'Inline PHP <code>$phpwcms[&#39;enable_inline_php&#39;]</code> ist deaktiviert.';
 
 // added: 24-05-2004
 $BL['be_ctype_reference'] = 'Bilderwechsel';
