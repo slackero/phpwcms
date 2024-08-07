@@ -47,7 +47,7 @@ switch($crow["acontent_form"]) {
 
     case 'markdown':
         init_markdown();
-        $crow['acontent_text'] = $phpwcms['parsedown_class']->text($crow['acontent_text']);
+        $crow['acontent_text'] = $phpwcms['parsedown_class']->toHtml($crow['acontent_text']);
         break;
 
     case 'textile':
