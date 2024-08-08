@@ -150,7 +150,6 @@ if($tabs['template']) {
                 } elseif(isset($tabs['fieldgroup'][$custom_field_key]['render']) && in_array($tabs['fieldgroup'][$custom_field_key]['render'], $tabs['field_render'])) {
 
                     if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                        init_markdown();
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, parse_markdown($custom_field_value));
                     } elseif($tabs['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
