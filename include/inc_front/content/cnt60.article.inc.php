@@ -58,15 +58,6 @@ if($custom['template']) {
 
     if(is_array($custom['tmpl_settings']) && count($custom['tmpl_settings'])) {
         $custom = array_merge($custom, $custom['tmpl_settings']);
-
-        if($custom['text_render'] === 'markdown' && !isset($cmsgo['parsedown_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-            require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-            $cmsgo['parsedown_class'] = new ParsedownExtra();
-        } elseif($custom['text_render'] === 'textile' && !isset($cmsgo['textile_class'])) {
-            require_once(CMSGO_ROOT.'/include/inc_ext/classTextile.php');
-            $cmsgo['textile_class'] = new Textile();
-        }
     }
 
     $custom['tmpl_header']           = get_tmpl_section('CUSTOM_HEADER', $custom['template']);
@@ -321,12 +312,7 @@ print_r($custom);
                     } elseif(isset($custom['fieldgroup'][$custom_field_key]['render']) && in_array($custom['fieldgroup'][$custom_field_key]['render'], $custom['field_render'])) {
 
                         if($custom['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                            if(!isset($cmsgo['parsedown_class'])) {
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                                require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                                $cmsgo['parsedown_class'] = new ParsedownExtra();
-                            }
-                            $custom_a = render_cnt_template($custom_a, $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
+                            $custom_a = render_cnt_template($custom_a, $custom_field_replacer, parse_markdown($custom_field_value));
                         } elseif($custom['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $custom_a = render_cnt_template($custom_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));
                         } else {

@@ -151,7 +151,6 @@ $cmsgo['preserve_getVar']      = array(); // cmsGO! removes some internal GET va
 $cmsgo['enable_GDPR']          = true; // Try to handle GDPR inside of cmsGO! by default (anonymize IP...)
 $cmsgo['login_autocomplete']   = true; // If true the browser/user can decide to store login/password and/or autofill in credentials
 $cmsgo['lazy_loading']         = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).
-$cmsgo['markdown_extra']       = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/
 $cmsgo['disable_generator']    = false; // Disable <meta name="generator"> and header `X-cmsgo-Release`
 $cmsgo['disable_processed_in'] = false; // Hide header `X-cmsgo-Page-Processed-In`
 $cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript

@@ -284,7 +284,6 @@ function write_conf_file($val) {
     $conf_file .= "\$cmsgo['enable_GDPR'] = true; // Try to handle GDPR inside of cmsGo! by default (anonymize IP...)\n";
     $conf_file .= "\$cmsgo['login_autocomplete'] = true; // If true the browser/user can decide to store login/password and/or autofill in credentials\n";
     $conf_file .= "\$cmsgo['lazy_loading'] = 'lazy'; // Set how images or iframes should be loaded: lazy (recommend), eager (right away) or auto (let browser decide).\n";
-    $conf_file .= "\$cmsgo['markdown_extra'] = false; // Enable/disable Markdown Extra https://michelf.ca/projects/php-markdown/extra/.\n";
     $conf_file .= "\$cmsgo['disable_generator'] = false; // Disable <meta name=\"generator\"> and header `X-cmsgo-Release`\n";
     $conf_file .= "\$cmsgo['disable_processed_in'] = false; // Hide header `X-cmsgo-Page-Processed-In`\n";
     $conf_file .= "\$cmsgo['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript\n";

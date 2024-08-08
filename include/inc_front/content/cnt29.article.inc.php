@@ -498,12 +498,7 @@ if($image['template']) {
             } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                 if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                    if(!isset($cmsgo['parsedown_class'])) {
-                        require_once(CMSGO_ROOT.'/include/inc_ext/parsedown/Parsedown.php');
-                        require_once(CMSGO_ROOT.'/include/inc_ext/parsedown-extra/ParsedownExtra.php');
-                        $cmsgo['parsedown_class'] = new ParsedownExtra();
-                    }
-                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, $cmsgo['parsedown_class']->text($custom_field_value));
+                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, parse_markdown($custom_field_value));
                 } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                     $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
                 } else {

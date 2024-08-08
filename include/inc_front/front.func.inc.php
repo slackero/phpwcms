@@ -4560,16 +4560,16 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 }
 
 /**
- * Init Parsedown or ParsedownExtra Class
+ * Init CommonMark Class
+ * @link https://commonmark.thephpleague.com/
  */
 function init_markdown() {
 
-    if(!isset($GLOBALS['cmsgo']['parsedown_class'])) {
-        if (empty($GLOBALS['cmsgo']['markdown_extra'])) {
-            $GLOBALS['cmsgo']['parsedown_class'] = new \Erusev\Parsedown\Parsedown();
-        } else {
-            $GLOBALS['cmsgo']['parsedown_class'] = new \Erusev\ParsedownExtra\ParsedownExtra();
-        }
+    if(!isset($GLOBALS['cmsgo']['commonmark_class'])) {
+        $environment = new \League\CommonMark\Environment\Environment();
+        $environment->addExtension(new \League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension());
+        $environment->addExtension(new \League\CommonMark\Extension\GithubFlavoredMarkdownExtension());
+        $GLOBALS['cmsgo']['commonmark_class'] = new \League\CommonMark\MarkdownConverter($environment);
     }
 
 }
@@ -4580,7 +4580,34 @@ function init_markdown() {
 function init_textile() {
 
     if(!isset($GLOBALS['cmsgo']['textile_class'])) {
-        $GLOBALS['cmsgo']['textile_class'] = new \Netcarver\Textile\Parser();;
+        $GLOBALS['cmsgo']['textile_class'] = new \Netcarver\Textile\Parser();
     }
 
+}
+
+/**
+ * Parse content with CommonMark
+ * @link https://commonmark.thephpleague.com/
+ *
+ * @param string $text
+ */
+function parse_markdown(string $text) {
+    if ($text === '') {
+        return '';
+    }
+    init_markdown();
+    return $GLOBALS['cmsgo']['commonmark_class']->convert($text);
+}
+
+/**
+ * Parse content with Textile
+ *
+ * @param string $text
+ */
+function parse_textile(string $text) {
+    if ($text === '') {
+        return '';
+    }
+    init_textile();
+    return $GLOBALS['cmsgo']['textile_class']->textileThis($text);
 }
