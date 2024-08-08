@@ -151,7 +151,7 @@ if($tabs['template']) {
 
                     if($tabs['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
                         init_markdown();
-                        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
+                        $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, parse_markdown($custom_field_value));
                     } elseif($tabs['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
                     } else {

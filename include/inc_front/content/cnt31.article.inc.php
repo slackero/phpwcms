@@ -363,7 +363,7 @@ if($image['template']) {
             switch($image['text_render']) {
 
                 case 'markdown':
-                    $value['freetext'] = $phpwcms['parsedown_class']->text($value['freetext']);
+                    $value['freetext'] = parse_markdown($value['freetext']);
                     break;
 
                 case 'textile':
@@ -480,7 +480,7 @@ if($image['template']) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
                             init_markdown();
-                            $img_a = render_cnt_template($img_a, $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
+                            $img_a = render_cnt_template($img_a, $custom_field_replacer, parse_markdown($custom_field_value));
                         } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));
                         } else {
