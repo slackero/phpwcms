@@ -445,13 +445,11 @@ if($news['template']) {
                     $value['cnt_teasertext'] = br_htmlencode($value['cnt_teasertext']);
                     $value['cnt_description'] = br_htmlencode($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] === 'markdown') {
-                    init_markdown();
                     $value['cnt_teasertext'] = parse_markdown($value['cnt_teasertext']);
                     $value['cnt_description'] = parse_markdown($value['cnt_description']);
                 } elseif($value['cnt_object']['cnt_textformat'] === 'textile') {
-                    init_textile();
-                    $value['cnt_teasertext'] = $phpwcms['textile_class']->parse($value['cnt_teasertext']);
-                    $value['cnt_description'] = $phpwcms['textile_class']->parse($value['cnt_description']);
+                    $value['cnt_teasertext'] = parse_textile($value['cnt_teasertext']);
+                    $value['cnt_description'] = parse_textile($value['cnt_description']);
                 } else {
                     $value['cnt_teasertext'] = html($value['cnt_teasertext']);
                     $value['cnt_description'] = html($value['cnt_description']);
