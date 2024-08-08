@@ -18,11 +18,6 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //specific functions for the frontend
 
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\MarkdownConverter;
-
 function spacer($width=1, $height=1) {
     //creates a placeholder image (transparent gif)
     return '<span style="display:inline-block;width:'.intval($width).'px;height:'.intval($height).'px" class="'.$GLOBALS['template_default']['classes']['spaceholder'].'"></span>';
@@ -4535,10 +4530,10 @@ function get_attr_data_gallery($group='', $prefix=' ', $suffix='') {
 function init_markdown() {
 
     if(!isset($GLOBALS['phpwcms']['commonmark_class'])) {
-        $environment = new Environment();
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $environment->addExtension(new GithubFlavoredMarkdownExtension());
-        $GLOBALS['phpwcms']['commonmark_class'] = new MarkdownConverter($environment);
+        $environment = new \League\CommonMark\Environment\Environment();
+        $environment->addExtension(new \League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension());
+        $environment->addExtension(new \League\CommonMark\Extension\GithubFlavoredMarkdownExtension());
+        $GLOBALS['phpwcms']['commonmark_class'] = new \League\CommonMark\MarkdownConverter($environment);
     }
 
 }
@@ -4566,4 +4561,17 @@ function parse_markdown(string $text) {
     }
     init_markdown();
     return $GLOBALS['phpwcms']['commonmark_class']->convert($text);
+}
+
+/**
+ * Parse content with Textile
+ *
+ * @param string $text
+ */
+function parse_textile(string $text) {
+    if ($text === '') {
+        return '';
+    }
+    init_textile();
+    return $GLOBALS['phpwcms']['textile_class']->textileThis($text);
 }
