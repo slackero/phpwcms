@@ -95,8 +95,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 			} elseif(isset($crow['fieldgroup'][$custom_field_key]['render']) && in_array($crow['fieldgroup'][$custom_field_key]['render'], $crow['field_render'])) {
 
 				if($crow['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-					init_markdown();
-					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
+					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, parse_markdown($custom_field_value));
 				} elseif($crow['fieldgroup'][$custom_field_key]['render'] === 'plain') {
 					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
 				} else {

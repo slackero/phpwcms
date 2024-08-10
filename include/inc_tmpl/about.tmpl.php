@@ -154,9 +154,9 @@ echo phpwcmsversionCheck();
         <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0" target="_blank">GNU GPL</a>
     </li>
     <li>
-        <a href="http://parsedown.org/" target="_blank"><strong>Parsedown &amp; Parsedown Extra</strong></a>,
-        Copyright &copy; Emanuil Rusev,
-        <a href="http://www.opensource.org/licenses/mit-license.php" target="_blank">MIT License</a>
+        <a href="https://https://commonmark.thephpleague.com/2.5/" target="_blank"><strong>CommonMark</strong></a>,
+        Copyright &copy; Colin O'Dell,
+        <a href="https://github.com/thephpleague/commonmark/blob/2.5/LICENSE" target="_blank">BSD 3-Clause &quot;New&quot; or &quot;Revised&quot; License</a>
     </li>
     <li>
         <a href="https://www.mediawiki.org" target="_blank"><strong>ConvertibleTimestamp &amp; IPTC</strong></a>,

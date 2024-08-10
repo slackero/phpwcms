@@ -60,12 +60,6 @@ if($image['template']) {
 
     if(is_array($image['tmpl_settings']) && count($image['tmpl_settings'])) {
         $image = array_merge($image, $image['tmpl_settings']);
-
-        if($image['text_render'] === 'markdown') {
-            init_markdown();
-        } elseif($image['text_render'] === 'textile') {
-            init_textile();
-        }
     }
 
     $image['tmpl_header']           = get_tmpl_section('IMAGES_HEADER', $image['template']);
@@ -363,11 +357,11 @@ if($image['template']) {
             switch($image['text_render']) {
 
                 case 'markdown':
-                    $value['freetext'] = $phpwcms['parsedown_class']->text($value['freetext']);
+                    $value['freetext'] = parse_markdown($value['freetext']);
                     break;
 
                 case 'textile':
-                    $value['freetext'] = $phpwcms['textile_class']->parse($value['freetext']);
+                    $value['freetext'] = parse_textile($value['freetext']);
                     break;
 
                 case 'html':
@@ -479,8 +473,7 @@ if($image['template']) {
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 
                         if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
-                            init_markdown();
-                            $img_a = render_cnt_template($img_a, $custom_field_replacer, $phpwcms['parsedown_class']->text($custom_field_value));
+                            $img_a = render_cnt_template($img_a, $custom_field_replacer, parse_markdown($custom_field_value));
                         } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, plaintext_htmlencode($custom_field_value));
                         } else {

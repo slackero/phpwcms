@@ -33,7 +33,7 @@ Never forget to backup your database and files before you start the upgrade proc
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.10.3 requires a web server with PHP 8.2 or newer.
+**phpwcms** version 1.10.5 requires a web server with PHP 8.2 or newer.
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
@@ -42,9 +42,8 @@ Known problems
 
 Because of the project history there are several probable problems regarding the database.
 MySQL changed the time and date related default values over the last years. Check to setup
-the related config values to connect to the database in a more compatible way. MySQL Strict
-is no good option. I work on this to [solve the problems](https://github.com/slackero/phpwcms/issues/275)
-soon.
+the related config values to connect to the database in a more compatible way. MySQL `Strict`
+is no good option.
 
 
 Bug tracker
