@@ -145,10 +145,15 @@ if(is_array($cmsgo['allowed_lang']) && count($cmsgo['allowed_lang']) > 1) {
         }
 
         // make the language link
-        $content['auto_lang']['opposite'][$lang]  = '';
+        $content['auto_lang']['opposite'][$lang] = '';
         if($lang_alias == '') {
-            $lang_root_id = $content['auto_lang']['root_id'][$lang];
-            $content['auto_lang']['opposite'][$lang] .= !empty( $content['struct'][ $lang_root_id ]['acat_alias'] ) ? $content['struct'][ $lang_root_id ]['acat_alias'] : 'id='.$lang_root_id;
+            if ($lang === CMSGO_ALIAS) {
+                $lang_alias = CMSGO_ALIAS;
+                $lang_active_class = ' lang-active';
+            } else {
+                $lang_root_id = $content['auto_lang']['root_id'][$lang];
+                $content['auto_lang']['opposite'][$lang] .= !empty($content['struct'][$lang_root_id]['acat_alias']) ? $content['struct'][$lang_root_id]['acat_alias'] : 'id=' . $lang_root_id;
+            }
         } else {
             $content['auto_lang']['opposite'][$lang] .= $lang_alias;
         }
