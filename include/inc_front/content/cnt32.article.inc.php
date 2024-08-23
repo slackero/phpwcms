@@ -62,7 +62,13 @@ if($tabs['template']) {
     $tabs['total_entries'] = count($tabs['tabs']);
 
     foreach($tabs['tabs'] as $key => $entry) {
+        if (isset($entry['tabactive']) && $entry['tabactive'] === 0) {
+            $tabs['total_entries']--;
+            continue;
+        }
+
         $tab_id = $key+1;
+
         $tabs['entries'][$key] = str_replace('{TABID}', $tab_id, $tabs['tmpl_entry']);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'FIRST', $tab_id > 1 ? '' : $tab_id);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'LAST', $tab_id === $tabs['total_entries'] ? $tab_id : '');

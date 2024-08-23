@@ -49,6 +49,7 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 		$content["tabs"][$x]['tabheadline'] = empty($_POST['tabheadline'][$key]) ? '' : clean_slweg($_POST['tabheadline'][$key]);
 		$content["tabs"][$x]['tabtext']		= empty($_POST['tabtext'][$key]) ? '' : slweg($_POST['tabtext'][$key]);
 		$content["tabs"][$x]['tablink']		= empty($_POST['tablink'][$key]) ? '' : clean_slweg($_POST['tablink'][$key]);
+		$content["tabs"][$x]['tabactive']   = empty($_POST['tabactive'][$key]) ? 0 : 1;
 
 		$content["tabs"][$x]['custom_fields'] = array();
         $_cp_search = '';
@@ -62,25 +63,15 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
 				unset($_POST['customfield'][$key][$custom_field]);
 
 				if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
-
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = slweg($custom_field_value);
-
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
-
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = intval($custom_field_value);
-
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
-
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = floatval($custom_field_value);
-
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
-
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
-
 				} elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'file') {
-
                     $content["tabs"][$x]['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
-
                     if(!empty($custom_field_value['id']) && ($custom_field_value['id'] = intval($custom_field_value['id']))) {
                        $content["tabs"][$x]['custom_fields'][$custom_field]['id'] = $custom_field_value['id'];
                     }
@@ -92,12 +83,9 @@ if(isset($_POST['tabtitle']) && is_array($_POST['tabtitle']) && count($_POST['ta
                         $content["tabs"][$x]['custom_fields'][$custom_field]['description'] = clean_slweg($custom_field_value['description']);
                         $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field]['description'];
                     }
-
                 } else {
-
 				    $content["tabs"][$x]['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
                     $_cp_search .= ' ' . $content["tabs"][$x]['custom_fields'][$custom_field];
-
 				}
 			}
 		}

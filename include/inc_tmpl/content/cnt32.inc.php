@@ -118,8 +118,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
   $custom_tab_fields_hidden = array();
   $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
 
-  if(!empty($content['tabs'])):
-    foreach($content['tabs'] as $key => $value):
+  foreach($content['tabs'] as $key => $value):
 
       if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
 
@@ -135,7 +134,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 ?>
     <li id="tab_<?php echo $key ?>" class="card my-3 p-0">
-
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
           <div class="row">
             <div class="col-sm-auto">
@@ -147,8 +145,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
               </em>
             </div>
             <div class="col text-right">
-              <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-              <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');"><i class="far fa-trash-alt"></i></a>
+                <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
+                    <i class="fa fa-eye-slash" id="tabactive<?php echo $key ?>-icon"></i>
+                    <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive'] ?? 0; ?>">
+                </a>
+                <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+                <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');"><i class="far fa-trash-alt"></i></a>
             </div>
           </div>
         </div>
@@ -254,12 +256,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
             foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
               <div class="form-check form-check-inline col-sm-auto">
-								<input class="form-check-input" type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
-										if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
-									?> checked="checked"<?php
-										elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
-									?> checked="checked"<?php endif; ?> />
-								<label class="form-check-label"><?php echo html($option_label); ?></label>
+                    <input class="form-check-input" type="radio" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]" value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
+                            if(isset($value['custom_fields'][$custom_field]) && $value['custom_fields'][$custom_field] === $option_key):
+                        ?> checked="checked"<?php
+                            elseif(empty($value['custom_fields'][$custom_field]) && !empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key):
+                        ?> checked="checked"<?php endif; ?> />
+                    <label class="form-check-label"><?php echo html($option_label); ?></label>
               </div>
       <?php   endforeach; ?>
       <?php elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
@@ -344,27 +346,19 @@ if(is_array($tmpllist) && count($tmpllist)) {
               |
               <?php echo $BL['be_copyright']; ?>
           </span>
-
       <?php endif; ?>
             </div>
             </div>
-
 <?php
         endforeach;
       endif;
 ?>
-
       </div>
 
         </div>
     </li>
-
 <?php
-
-
-
     endforeach;
-  endif;
 ?>
 </ul>
 
@@ -391,6 +385,10 @@ function addNewTab(pos) {
                     </em>
                 </div>
                 <div class="col text-right">
+                    <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive${entries}')">
+                        <i class="fa fa-eye-slash" id="tabactive${entries}-icon"></i>
+                        <input type="hidden" name="tabactive[${entries}]" id="tabactive${entries}" value="0">
+                    </a>
                     <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_${entries}"><i class="fa fa-ellipsis-h"></i></a>
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');"><i class="far fa-trash-alt"></i></a>
                 </div>
@@ -609,6 +607,22 @@ $( function() {
       return true;
     }
     return false;
+  }
+  function setTabActive(link, id) {
+      let tab = document.getElementById(id);
+      if (tab.value === '1') {
+          tab.value = '0';
+          link.classList.add('btn-danger');
+          link.classList.remove('btn-success');
+          document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye-slash');
+      } else {
+          tab.value = '1';
+          link.classList.remove('btn-danger');
+          link.classList.add('btn-success');
+          document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye');
+      }
+      link.blur();
+      return false;
   }
 
   function setIdName(field, file_id, file_name) {
