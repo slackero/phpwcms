@@ -15,8 +15,7 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-//images special
+// images special
 
 // some predefinitions
 if(empty($template_default['imagegallery_default_column'])) {
@@ -280,21 +279,16 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
     // loop available image entries
     foreach($content['image_special']['images'] as $key => $value) {
-
         if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
-
             if(count($custom_tab_fields)) {
                 $value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
             } else {
                 $value['custom_field_items'] = array_keys($value['custom_fields']);
             }
-
         } else {
             $value['custom_field_items'] = $custom_tab_fields;
         }
-
 ?>
-
 
   <li id="image_<?php echo $key ?>" class="card my-3 p-0 sortme">
 
@@ -312,6 +306,16 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                 <h2># <?php echo $key ?> - <?php echo html($value['caption']) ?></h2>
             </div>
             <div class="col-sm-auto text-right">
+                <?php
+                // Fallback for old entries
+                if (!isset($value['active'])) {
+                    $value['active'] = 1;
+                }
+                ?>
+                <a class="btn btn-sm <?= $value['active'] ? 'btn-success' : 'btn-danger'; ?>" role="button" href="#" onclick="return setImgActive(this, 'imgactive<?php echo $key ?>')">
+                    <i class="fa <?= $value['active'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="imgactive<?php echo $key ?>-icon"></i>
+                    <input type="hidden" name="cimage_active[<?php echo $key ?>]" id="imgactive<?php echo $key ?>" value="<?php echo $value['active']; ?>">
+                </a>
                 <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>">
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
@@ -490,9 +494,8 @@ if($value['custom_field_items']):
 									?> checked="checked"<?php endif; ?> />
 									<label class="form-check-label"><?php echo html($option_label); ?></label>
                 </div>
-<?php       endforeach; ?>
-
-            <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
+<?php       endforeach;
+        elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
             <select class="custom-select form-control form-control-sm" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>]">
 <?php       foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
                 <option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php
@@ -515,7 +518,12 @@ if($value['custom_field_items']):
             <div class="input-group mb-3">
 
               <span class="input-group-prepend">
-                <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" ></button>
+                <button class="modalButton btn btn-sm btn-blue folder-open"
+                        type="button"
+                        data-toggle="modal"
+                        data-target="#browserModal"
+                        data-src="filebrowser.php?opt=19&field=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"
+                ></button>
               </span>
 
               <input
@@ -641,7 +649,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         echo implode('', $custom_tab_fields_hidden);
     }
 ?>
-<script type="text/javascript">
+<script>
 
 var site_url    = '<?php echo CMSGO_URL; ?>';
 var max_img_w   = <?php echo $cmsgo['img_list_width']; ?>;
@@ -707,7 +715,6 @@ function deleteImageData(image_number, e) {
 }
 
 function updatePreviewImage(image_number) {
-
     var preview = '';
     var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
     var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
@@ -723,91 +730,93 @@ function updatePreviewImage(image_number) {
 
 function getBackendImgSrc(image_file_id) {
     var image_file_id = parseInt(image_file_id, 10);
-    if(image_file_id) {
-        return '<'+'img src="'+site_url+'img/cmsimage.php/'+max_img_w+'x'+max_img_h+'/'+image_file_id+'" border="0" alt="" /'+'> ';
+    if (image_file_id) {
+        return '<img src="' + site_url + 'img/cmsimage.php/' + max_img_w + 'x' + max_img_h + '/' + image_file_id + '" border="0" alt="" /> ';
     }
     return '';
 }
 
 function updatePreviewImageAll() {
-
     $('li', $('ul#images')).each(function() {
-      var image_number = $(this).attr('id').split('_');
-      if(image_number[1]) {
-          updatePreviewImage(image_number[1]);
-          image_entry[ image_number[1] ] = $('cimage_sort_'+image_number[1]).value;
-      }
+        var image_number = $(this).attr('id').split('_');
+        if (image_number[1]) {
+            updatePreviewImage(image_number[1]);
+            image_entry[image_number[1]] = $('cimage_sort_' + image_number[1]).value;
+        }
     });
 }
 
 function addNewImage(where) {
-
     updatePreviewImageAll();
 
     var entry_number = image_entry.length;
     var new_entry = '';
 
-    new_entry += '<'+'div class="card-header p-2 border-1" role="tab" id="heading_'+entry_number+'">';
-    new_entry += '<'+'div class="row align-items-center">';
-    new_entry += '<'+'div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"><'+'/i><i class="fa fa-sort fa-stack-1x fa-inverse"><'+'/i><'+'/span><'+'/em><'+'/div>';
-    new_entry += '<'+'div class="col"><h2># '+entry_number+'<'+'/h2><'+'/div>';
-    new_entry += '<'+'div class="col-sm-auto text-right">';
-    new_entry += '<'+'a class="btn btn-sm btn-blue mr-1" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
-    new_entry += '<'+'i class="fa fa-ellipsis-h" aria-hidden="true"><'+'/i>';
-    new_entry += '<'+'/a>';
-    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
-    new_entry += '<'+'div class="card-body">';
-    new_entry += '<'+'div class="row mb-3">';
-    new_entry += '<'+'div class="col-sm-6">';
-    new_entry += '<'+'div class="form-group align-items-center">';
-    new_entry += '<'+'input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_'+entry_number+'" type="hidden" value="" '+'/>';
-    new_entry += '<'+'input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" '+'/>';
-    new_entry += '<'+'label><?php echo $BL['be_flashplayer_thumbnail'] ?><'+'/label>';
+    new_entry += '<div class="card-header p-2 border-1" role="tab" id="heading_'+entry_number+'">';
+    new_entry += '<div class="row align-items-center">';
+    new_entry += '<div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>';
+    new_entry += '<div class="col"><h2># '+entry_number+'</h2></div>';
+    new_entry += '<div class="col-sm-auto text-right">';
+    new_entry += '<a class="btn btn-sm btn-danger mr-1" role="button" href="#" onclick="return setImgActive(this, \'imgactive'+entry_number+'\')">'
+    new_entry += '<i class="fa fa-eye-slash" id="imgactive'+entry_number+'-icon"></i>';
+    new_entry += '<input type="hidden" name="cimage_active['+entry_number+']" id="imgactive'+entry_number+'" value="0">'
+    new_entry += '</a>';
+    new_entry += '<a class="btn btn-sm btn-blue mr-1" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
+    new_entry += '<i class="fa fa-ellipsis-h" aria-hidden="true"></i>';
+    new_entry += '</a>';
+    new_entry += '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"></i></a></div>';
+    new_entry += '</div>';
+    new_entry += '</div>';
+    new_entry += '<div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
+    new_entry += '<div class="card-body">';
+    new_entry += '<div class="row mb-3">';
+    new_entry += '<div class="col-sm-6">';
+    new_entry += '<div class="form-group align-items-center">';
+    new_entry += '<input name="cimage_id_thumb['+entry_number+']" id="cimage_id_thumb_'+entry_number+'" type="hidden" value="" />';
+    new_entry += '<input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" />';
+    new_entry += '<label><?php echo $BL['be_flashplayer_thumbnail'] ?></label>';
     new_entry += '<div class="input-group">';
-    new_entry += '<'+'span class="input-group-prepend chatlist">';
-    new_entry += '<'+'button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_'+entry_number+'" ><'+'/button>';
-    new_entry += '<'+'/span>';
-    new_entry += '<'+'input name="cimage_name_thumb['+entry_number+']" type="text" id="cimage_name_thumb_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" '+'/>';
-    new_entry += '<'+'span class="input-group-append chatlist">';
-    new_entry += '<'+'a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
-    new_entry += '<'+'/span>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div class="form-group align-items-center">';
-    new_entry += '<'+'input name="cimage_id_zoom['+entry_number+']" id="cimage_id_zoom_'+entry_number+'" type="hidden" value="" '+'/>';
-    new_entry += '<'+'input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" '+'/>';
-    new_entry += '<'+'label><?php echo $BL['be_image_zoom'] ?><'+'/label>';
-    new_entry += '<'+'div class="input-group">';
-    new_entry += '<'+'span class="input-group-prepend chatlist">';
-    new_entry += '<'+'button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_'+entry_number+'" ></button>';
-    new_entry += '<'+'/span>';
-    new_entry += '<'+'input name="cimage_name_zoom['+entry_number+']" type="text" id="cimage_name_zoom_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" '+'/>';
-    new_entry += '<'+'span class="input-group-append chatlist">';
-    new_entry += '<'+'a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
-    new_entry += '<'+'/span>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div id="img_preview_'+entry_number+'" class="backend_preview_img"><'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div class="col-sm-6">';
-    new_entry += '<'+'div class="form-group">';
-    new_entry += '<'+'label><?php echo $BL['be_cnt_caption'] ?><'+'/label>';
-    new_entry += '<'+'textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="form-control form-control-sm" cols="30" rows="2"><'+'/textarea>';
-    new_entry += '<span class="small"><?php echo $BL['be_cnt_caption']; ?> | <?php echo $BL['be_caption_alt']; ?> | <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em> | <?php echo $BL['be_caption_title']; ?> | <?php echo $BL['be_copyright']; ?><'+'/span>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div class="form-group">';
-    new_entry += '<'+'label><?php echo $BL['be_cnt_infotext'] ?><'+'/label>';
-    new_entry += '<'+'textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="form-control form-control-sm" cols="30" rows="2"><'+'/textarea>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'div class="form-group mb-0">';
-    new_entry += '<'+'label><?php echo $BL['be_profile_label_website'] ?><'+'/label>';
-    new_entry += '<'+'input type="text" name="cimage_url['+entry_number+']" id="cimage_url_<?php echo $key ?>" class="form-control form-control-sm"  value="" '+'/>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>';
+    new_entry += '<span class="input-group-prepend chatlist">';
+    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_'+entry_number+'" ></button>';
+    new_entry += '</span>';
+    new_entry += '<input name="cimage_name_thumb['+entry_number+']" type="text" id="cimage_name_thumb_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
+    new_entry += '<span class="input-group-append chatlist">';
+    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
+    new_entry += '</span>';
+    new_entry += '</div>';
+    new_entry += '</div>';
+    new_entry += '<div class="form-group align-items-center">';
+    new_entry += '<input name="cimage_id_zoom['+entry_number+']" id="cimage_id_zoom_'+entry_number+'" type="hidden" value="" />';
+    new_entry += '<input name="cimage_sort['+entry_number+']" id="cimage_sort_'+entry_number+'" type="hidden" value="" />';
+    new_entry += '<label><?php echo $BL['be_image_zoom'] ?></label>';
+    new_entry += '<div class="input-group">';
+    new_entry += '<span class="input-group-prepend chatlist">';
+    new_entry += '<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_'+entry_number+'" ></button>';
+    new_entry += '</span>';
+    new_entry += '<input name="cimage_name_zoom['+entry_number+']" type="text" id="cimage_name_zoom_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
+    new_entry += '<span class="input-group-append chatlist">';
+    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
+    new_entry += '</span>';
+    new_entry += '</div>';
+    new_entry += '</div>';
+    new_entry += '<div id="img_preview_'+entry_number+'" class="backend_preview_img"></div>';
+    new_entry += '</div>';
+    new_entry += '<div class="col-sm-6">';
+    new_entry += '<div class="form-group">';
+    new_entry += '<label><?php echo $BL['be_cnt_caption'] ?></label>';
+    new_entry += '<textarea name="cimage_caption['+entry_number+']" id="cimage_caption_'+entry_number+'" class="form-control form-control-sm" cols="30" rows="2"></textarea>';
+    new_entry += '<span class="small"><?php echo $BL['be_cnt_caption']; ?> | <?php echo $BL['be_caption_alt']; ?> | <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em> | <?php echo $BL['be_caption_title']; ?> | <?php echo $BL['be_copyright']; ?></span>';
+    new_entry += '</div>';
+    new_entry += '<div class="form-group">';
+    new_entry += '<label><?php echo $BL['be_cnt_infotext'] ?></label>';
+    new_entry += '<textarea name="cimage_freetext['+entry_number+']" id="cimage_freetext_'+entry_number+'" class="form-control form-control-sm" cols="30" rows="2"></textarea>';
+    new_entry += '</div>';
+    new_entry += '<div class="form-group mb-0">';
+    new_entry += '<label><?php echo $BL['be_profile_label_website'] ?></label>';
+    new_entry += '<input type="text" name="cimage_url['+entry_number+']" id="cimage_url_<?php echo $key ?>" class="form-control form-control-sm"  value="" />';
+    new_entry += '</div>';
+    new_entry += '</div>';
+    new_entry += '</div>';
 
 <?php
     if(!empty($value['custom_field_items'])):
@@ -835,17 +844,17 @@ function addNewImage(where) {
                     echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
                 }
             }
-    ?><'+'/label>';
+    ?></label>';
     new_entry += '<div class="col">';
 <?php   if($tab_fieldgroup['fields'][$custom_field]['type'] === 'str'): ?>
-    new_entry += '<input type="text" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="form-control form-control-sm"<?php echo $custom_field_placeholder; ?> '+'/>';
+    new_entry += '<input type="text" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value=""<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['maxlength'])): ?> maxlength="<?php echo $tab_fieldgroup['fields'][$custom_field]['maxlength']; ?>"<?php endif; ?> class="form-control form-control-sm"<?php echo $custom_field_placeholder; ?> />';
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'textarea'): ?>
-    new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="form-control form-control-sm" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>><'+'/textarea>';
+    new_entry += '<textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" class="form-control form-control-sm" rows="<?php echo empty($tab_fieldgroup['fields'][$custom_field]['rows']) ? '3' : $tab_fieldgroup['fields'][$custom_field]['rows']; ?>"<?php echo $custom_field_placeholder; ?>></textarea>';
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'option' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])):
     foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-    new_entry += '<div class="form-check form-check-inline col-sm-auto"><input class="form-check-input" type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>'+'/> <label class="form-check-label"><?php echo html($option_label); ?><'+'/label></div> ';
+    new_entry += '<div class="form-check form-check-inline col-sm-auto"><input class="form-check-input" type="radio" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="<?php echo $option_key; ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> checked="checked"<?php endif; ?>/> <label class="form-check-label"><?php echo html($option_label); ?></label></div> ';
 <?php   endforeach;
 
     elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'int' || $tab_fieldgroup['fields'][$custom_field]['type'] === 'float'): ?>
@@ -858,13 +867,13 @@ function addNewImage(where) {
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'select' && !empty($tab_fieldgroup['fields'][$custom_field]['values'])): ?>
     new_entry += '<select class="custom-select form-control form-control-sm" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]">';
     <?php       foreach($tab_fieldgroup['fields'][$custom_field]['values'] as $option_key => $option_label): ?>
-    new_entry += '<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?><'+'/option>';
+    new_entry += '<option value="<?php echo ($option_key === 'empty' ? '' : $option_key); ?>"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default']) && $tab_fieldgroup['fields'][$custom_field]['default'] === $option_key): ?> selected="selected"<?php endif; ?>><?php echo html($option_label); ?></option>';
     <?php       endforeach; ?>
     new_entry += '</select>';
 
 <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'): ?>
 		new_entry += '<div class="form-check form-check-inline pt-1 col-sm-auto">';
-    new_entry += '<input class="form-check-input" type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>'+'/> ';
+    new_entry += '<input class="form-check-input" type="checkbox" name="customfield[' + entry_number + '][<?php echo $custom_field; ?>]" value="1"<?php if(!empty($tab_fieldgroup['fields'][$custom_field]['default'])): ?> checked="checked"<?php endif; ?>/> ';
     new_entry += '<label class="form-check-label"><?php echo html($tab_fieldgroup['fields'][$custom_field]['legend']); ?></label>';
     new_entry += '</div>'
 
@@ -913,7 +922,7 @@ function addNewImage(where) {
 
 <?php   endif; ?>
 
-        new_entry += '</div><'+'/div>';
+        new_entry += '</div></div>';
         <?php if(!empty($tab_fieldgroup['fields'][$custom_field]['hr'])):?>
         new_entry += '<hr>';
         <?php endif; ?>
@@ -922,8 +931,8 @@ function addNewImage(where) {
         endforeach;
     endif;
 ?>
-    new_entry += '<'+'/div>';
-    new_entry += '<'+'/div>'; //end card-body
+    new_entry += '</div>';
+    new_entry += '</div>'; //end card-body
 
     var $li = $("<li>", {id: 'image_'+entry_number, "class": "card my-3 p-0 sortme nomove"});
     if (where === 'top') {
@@ -940,6 +949,23 @@ function addNewImage(where) {
     return false;
 }
 
+function setImgActive(button, id) {
+    let item = document.getElementById(id);
+    if (item.value === '1') {
+        item.value = '0';
+        button.classList.add('btn-danger');
+        button.classList.remove('btn-success');
+        document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye-slash');
+    } else {
+        item.value = '1';
+        button.classList.remove('btn-danger');
+        button.classList.add('btn-success');
+        document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye');
+    }
+    button.blur();
+    return false;
+}
+
 function deleteImgElement(id) {
     if(confirm('<?php echo $BL['be_image_delete_js'] ?>')) {
         $("#" + id).remove();
@@ -948,10 +974,8 @@ function deleteImgElement(id) {
 }
 
 $(function(){
-
     setCimageCenterInactive();
     updatePreviewImageAll();
-
     $("#images").sortable({
         group: 'no-drop',
         handle: 'em.handle',
@@ -963,7 +987,5 @@ $(function(){
             $("body").removeClass(container.group.options.bodyClass);
         }
     });
-
 });
-
 </script>

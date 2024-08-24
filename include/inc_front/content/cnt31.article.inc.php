@@ -133,6 +133,10 @@ if($image['template']) {
         $col    = 0;
 
         foreach($image['images'] as $key => $value) {
+            // Do not show inactive images
+            if (isset($value['active']) && !$value['active']) {
+                continue;
+            }
 
             $thumb_image        = false;
             $zoominfo           = false;

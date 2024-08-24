@@ -74,6 +74,7 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
         $image_entry['caption']     = clean_slweg($_POST['cimage_caption'][$key]);
         $image_entry['freetext']    = slweg($_POST['cimage_freetext'][$key]);
         $image_entry['url']         = clean_slweg($_POST['cimage_url'][$key]);
+        $image_entry['active']      = empty($_POST['cimage_active'][$key]) ? 0 : 1;
 
         if(!$image_entry['thumb_id']) {
             $image_entry['thumb_id']    = '';
