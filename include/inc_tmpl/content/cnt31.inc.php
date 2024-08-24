@@ -288,13 +288,22 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
         } else {
             $value['custom_field_items'] = $custom_tab_fields;
         }
+
+        // image tab title
+        if ($value['thumb_name'] !== '') {
+            $tab_title = $value['thumb_name'];
+        } elseif ($value['zoom_name'] !== '') {
+            $tab_title = $value['zoom_name'];
+        } else {
+            $tab_title = $value['caption'];
+        }
 ?>
 
   <li id="image_<?php echo $key ?>" class="card my-3 p-0 sortme">
 
     <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
         <div class="row align-items-center">
-            <div class="col-sm-auto text-right pr-0">
+            <div class="col-sm-auto pr-0">
                 <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
                     <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
                 </em>
@@ -303,7 +312,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
               <div id="img_previewsmall_<?php echo $key ?>" class="backend_previewsmall_img"></div>
             </div>
             <div class="col">
-                <h2># <?php echo $key ?> - <?php echo html($value['caption']) ?></h2>
+                <h2><strong>#<?= $key+1 ?></strong><?php if ($tab_title): echo ' – ' . html($tab_title); endif; ?></h2>
             </div>
             <div class="col-sm-auto text-right">
                 <?php
@@ -330,37 +339,34 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
       <div class="card-body ">
         <div class="row mb-3">
           <div class="col-sm-6">
-
-						<div class="form-group align-items-center">
-							<input name="cimage_id_thumb[<?php echo $key ?>]" id="cimage_id_thumb_<?php echo $key ?>" type="hidden" value="<?php echo $value['thumb_id'] ?>" />
-							<input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
-							<label><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
-							<div class="input-group">
-								<span class="input-group-prepend">
-									<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_<?php echo $key ?>" ></button>
-								</span>
-								<input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" maxlength="250" onfocus="this.blur()" />
-								<span class="input-group-append">
-									<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
-								</span>
-							</div>
-						</div>
-
-						<div class="form-group align-items-center">
-							<input name="cimage_id_zoom[<?php echo $key ?>]" id="cimage_id_zoom_<?php echo $key ?>" type="hidden" value="<?php echo $value['zoom_id'] ?>" />
-							<input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
-							<label><?php echo $BL['be_image_zoom'] ?></label>
-							<div class="input-group">
-								<span class="input-group-prepend">
-									<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_<?php echo $key ?>" ></button>
-								</span>
-								<input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['zoom_name']) ?>" maxlength="250" onfocus="this.blur()" />
-								<span class="input-group-append">
-									<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
-								</span>
-							</div>
-						</div>
-
+            <div class="form-group align-items-center">
+                <input name="cimage_id_thumb[<?php echo $key ?>]" id="cimage_id_thumb_<?php echo $key ?>" type="hidden" value="<?php echo $value['thumb_id'] ?>" />
+                <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
+                <label><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
+                <div class="input-group">
+                    <span class="input-group-prepend">
+                        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_<?php echo $key ?>" ></button>
+                    </span>
+                    <input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" maxlength="250" onfocus="this.blur()" />
+                    <span class="input-group-append">
+                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group align-items-center">
+                <input name="cimage_id_zoom[<?php echo $key ?>]" id="cimage_id_zoom_<?php echo $key ?>" type="hidden" value="<?php echo $value['zoom_id'] ?>" />
+                <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
+                <label><?php echo $BL['be_image_zoom'] ?></label>
+                <div class="input-group">
+                    <span class="input-group-prepend">
+                        <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=zoom_<?php echo $key ?>" ></button>
+                    </span>
+                    <input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['zoom_name']) ?>" maxlength="250" onfocus="this.blur()" />
+                    <span class="input-group-append">
+                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
+                    </span>
+                </div>
+            </div>
             <div id="img_preview_<?php echo $key ?>" class="backend_preview_img"></div>
           </div>
 
@@ -719,10 +725,10 @@ function updatePreviewImage(image_number) {
     var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
     var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
     if(cimage_id_thumb) {
-            preview += getBackendImgSrc( cimage_id_thumb.value );
+            preview += getBackendImgSrc(cimage_id_thumb);
     }
     if(cimage_id_zoom) {
-        preview += getBackendImgSrc( cimage_id_zoom );
+        preview += getBackendImgSrc(cimage_id_zoom);
     }
     $('#img_preview_'+image_number).html(preview);
     $('#img_previewsmall_'+image_number).html(preview);
@@ -731,7 +737,7 @@ function updatePreviewImage(image_number) {
 function getBackendImgSrc(image_file_id) {
     var image_file_id = parseInt(image_file_id, 10);
     if (image_file_id) {
-        return '<img src="' + site_url + 'img/cmsimage.php/' + max_img_w + 'x' + max_img_h + '/' + image_file_id + '" border="0" alt="" /> ';
+        return '<img src="' + site_url + 'img/cmsimage.php/' + max_img_w + 'x' + max_img_h + '/' + image_file_id + '" alt="" /> ';
     }
     return '';
 }
@@ -739,7 +745,7 @@ function getBackendImgSrc(image_file_id) {
 function updatePreviewImageAll() {
     $('li', $('ul#images')).each(function() {
         var image_number = $(this).attr('id').split('_');
-        if (image_number[1]) {
+        if (image_number.length > 1) {
             updatePreviewImage(image_number[1]);
             image_entry[image_number[1]] = $('cimage_sort_' + image_number[1]).value;
         }
@@ -747,15 +753,13 @@ function updatePreviewImageAll() {
 }
 
 function addNewImage(where) {
-    updatePreviewImageAll();
-
     var entry_number = image_entry.length;
     var new_entry = '';
 
     new_entry += '<div class="card-header p-2 border-1" role="tab" id="heading_'+entry_number+'">';
     new_entry += '<div class="row align-items-center">';
-    new_entry += '<div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>';
-    new_entry += '<div class="col"><h2># '+entry_number+'</h2></div>';
+    new_entry += '<div class="col-sm-auto pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>';
+    new_entry += '<div class="col"><h2><strong>#'+(entry_number+1)+'</strong></h2></div>';
     new_entry += '<div class="col-sm-auto text-right">';
     new_entry += '<a class="btn btn-sm btn-danger mr-1" role="button" href="#" onclick="return setImgActive(this, \'imgactive'+entry_number+'\')">'
     new_entry += '<i class="fa fa-eye-slash" id="imgactive'+entry_number+'-icon"></i>';
