@@ -145,12 +145,22 @@ if(is_array($tmpllist) && count($tmpllist)) {
               </em>
             </div>
             <div class="col text-right">
-                <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
-                    <i class="fa fa-eye-slash" id="tabactive<?php echo $key ?>-icon"></i>
-                    <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive'] ?? 0; ?>">
+                <?php
+                // Fallback for old entries
+                if (!isset($value['tabactive'])) {
+                    $value['tabactive'] = 1;
+                }
+                ?>
+                <a class="btn btn-sm <?= $value['tabactive'] ? 'btn-success' : 'btn-danger'; ?>" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
+                    <i class="fa <?= $value['tabactive'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="tabactive<?php echo $key ?>-icon"></i>
+                    <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive']; ?>">
                 </a>
-                <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');"><i class="far fa-trash-alt"></i></a>
+                <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteTab('tab_<?php echo $key ?>');">
+                    <i class="far fa-trash-alt"></i>
+                </a>
             </div>
           </div>
         </div>
@@ -389,8 +399,12 @@ function addNewTab(pos) {
                         <i class="fa fa-eye-slash" id="tabactive${entries}-icon"></i>
                         <input type="hidden" name="tabactive[${entries}]" id="tabactive${entries}" value="0">
                     </a>
-                    <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_${entries}"><i class="fa fa-ellipsis-h"></i></a>
-                    <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');"><i class="far fa-trash-alt"></i></a>
+                    <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_${entries}">
+                        <i class="fa fa-ellipsis-h"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return deleteTab('tab_${entries}');">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -624,7 +638,6 @@ $( function() {
       link.blur();
       return false;
   }
-
   function setIdName(field, file_id, file_name) {
       if(file_id == null || file_name == null || field == null) {
           return null;
@@ -633,7 +646,6 @@ $( function() {
       $('#customfield_'+field+'_id').val(file_id);
       $('#browserModal').modal('hide');
   }
-
   $(function(){
       $("ul.dropable-list").sortable({
         group: 'no-drop',
@@ -647,7 +659,6 @@ $( function() {
         }
       });
   });
-
   </script>
 </div>
 
