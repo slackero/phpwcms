@@ -302,8 +302,6 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['SMTP_SECURE'] = '" . escape_quote($val["SMTP_SECURE"]) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
     $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . intval($val["SMTP_AUTH"]) . "; // SMTP authentication, ON=1/OFF=0\n";
     $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = '" . escape_quote($val["SMTP_AUTH_TYPE"]) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
-    $conf_file .= "\$phpwcms['SMTP_REALM'] = '" . escape_quote($val["SMTP_REALM"]) . "'; // SMTP realm, used for NTLM auth type\n";
-    $conf_file .= "\$phpwcms['SMTP_WORKSTATION'] = '" . escape_quote($val["SMTP_WORKSTATION"]) . "'; // SMTP workstation, used for NTLM auth type\n";
 
     $conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 
