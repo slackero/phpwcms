@@ -152,7 +152,6 @@ class ComposerStaticInit6f202d7d9be93f2e5b4a0650a3c21d2b
         'Html2Text\\' => 
         array (
             0 => __DIR__ . '/..' . '/html2text/html2text/src',
-            1 => __DIR__ . '/..' . '/html2text/html2text/test',
         ),
         'Dflydev\\DotAccessData\\' => 
         array (

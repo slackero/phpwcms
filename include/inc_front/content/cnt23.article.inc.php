@@ -2010,9 +2010,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     // get email addresses of recipients and senders
     $cnt_form["target"] = convertStringToArray($cnt_form["target"], ';');
     if(empty($cnt_form["subject"])) {
-        $cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
-        $cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
-        $cnt_form["subject"]  = 'Webform: '.$cnt_form["alt_subj"];
+        $cnt_form["subject"]  = 'Webform: ' . parse_url($phpwcms['site'], PHP_URL_HOST);
     }
 
     // check for BCC Addresses
@@ -2075,14 +2073,6 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
             if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
                 $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-                if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
-                    if(!empty($phpwcms['SMTP_REALM'])) {
-                        $mail->Realm = $phpwcms['SMTP_REALM'];
-                    }
-                    if(!empty($phpwcms['SMTP_WORKSTATION'])) {
-                        $mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
-                    }
-                }
             }
             $mail->CharSet = $phpwcms["charset"];
 
@@ -2139,14 +2129,6 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
             if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
                 $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-                if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
-                    if(!empty($phpwcms['SMTP_REALM'])) {
-                        $mail->Realm = $phpwcms['SMTP_REALM'];
-                    }
-                    if(!empty($phpwcms['SMTP_WORKSTATION'])) {
-                        $mail->Workstation = $phpwcms['SMTP_WORKSTATION'];
-                    }
-                }
             }
             $mail->CharSet          = $phpwcms["charset"];
 

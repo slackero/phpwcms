@@ -6,6 +6,23 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) princi
 
 ## [Unreleased][unreleased]
 
+## [2.5.3] - 2024-08-16
+
+### Changed
+
+- Made compatible with CommonMark spec 0.31.1, including:
+  - Remove `source`, add `search` to list of recognized block tags
+
+## [2.5.2] - 2024-08-14
+
+### Changed
+
+- Boolean attributes now require an explicit `true` value (#1040)
+
+### Fixed
+
+- Fixed regression where text could be misinterpreted as an attribute (#1040)
+
 ## [2.5.1] - 2024-07-24
 
 ### Fixed
@@ -614,8 +631,10 @@ No changes were introduced since the previous release.
     - Alternative 1: Use `CommonMarkConverter` or `GithubFlavoredMarkdownConverter` if you don't need to customize the environment
     - Alternative 2: Instantiate a new `Environment` and add the necessary extensions yourself
 
-[unreleased]: https://github.com/thephpleague/commonmark/compare/2.5.1....main
-[2.5.1]: https://github.com/thephpleague/commonmark/compare/2.5.0....2.5.1
+[unreleased]: https://github.com/thephpleague/commonmark/compare/2.5.3...main
+[2.5.3]: https://github.com/thephpleague/commonmark/compare/2.5.2...2.5.3
+[2.5.2]: https://github.com/thephpleague/commonmark/compare/2.5.1...2.5.2
+[2.5.1]: https://github.com/thephpleague/commonmark/compare/2.5.0...2.5.1
 [2.5.0]: https://github.com/thephpleague/commonmark/compare/2.4.4...2.5.0
 [2.4.4]: https://github.com/thephpleague/commonmark/compare/2.4.3...2.4.4
 [2.4.3]: https://github.com/thephpleague/commonmark/compare/2.4.2...2.4.3

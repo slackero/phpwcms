@@ -24,7 +24,7 @@ return array(
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'League\\Config\\' => array($vendorDir . '/league/config/src'),
     'League\\CommonMark\\' => array($vendorDir . '/league/commonmark/src'),
-    'Html2Text\\' => array($vendorDir . '/html2text/html2text/src', $vendorDir . '/html2text/html2text/test'),
+    'Html2Text\\' => array($vendorDir . '/html2text/html2text/src'),
     'Dflydev\\DotAccessData\\' => array($vendorDir . '/dflydev/dot-access-data/src'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Algo26\\IdnaConvert\\' => array($vendorDir . '/algo26-matthias/idna-convert/src'),

@@ -93,14 +93,6 @@ if(isset($_POST['ecard_chooser'])) {
 		}
 		if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
 			$ecard["mailer"]->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-			if($phpwcms['SMTP_AUTH_TYPE'] === 'NTLM') {
-				if(!empty($phpwcms['SMTP_REALM'])) {
-					$ecard["mailer"]->Realm = $phpwcms['SMTP_REALM'];
-				}
-				if(!empty($phpwcms['SMTP_WORKSTATION'])) {
-					$ecard["mailer"]->Workstation = $phpwcms['SMTP_WORKSTATION'];
-				}
-			}
 		}
 
         if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {

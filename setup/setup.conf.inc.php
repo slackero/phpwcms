@@ -168,5 +168,3 @@ $phpwcms['SMTP_PASS'] = 'pass'; // default SMTP password
 $phpwcms['SMTP_SECURE'] = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
 $phpwcms['SMTP_AUTH'] = 0; // SMTP authentication, ON=1/OFF=0
 $phpwcms['SMTP_AUTH_TYPE'] = ''; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5
-$phpwcms['SMTP_REALM'] = ''; // SMTP realm, used for NTLM auth type
-$phpwcms['SMTP_WORKSTATION'] = ''; // SMTP workstation, used for NTLM auth type
