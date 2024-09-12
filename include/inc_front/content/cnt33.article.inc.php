@@ -79,7 +79,7 @@ if($news['list_mode']) {
 
         case 0: // include archived
                 $news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
-                $news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR cnt_archive_status = 1)';
+                $news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR pc.cnt_archive_status = 1)';
                 break;
 
         case 1: // exclude archived
@@ -89,7 +89,7 @@ if($news['list_mode']) {
 
         case 2: // archived only
                 $news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' < ' . $news['now'];
-                $news['sql_where'][] = 'AND cnt_archive_status = 1';
+                $news['sql_where'][] = 'AND pc.cnt_archive_status = 1';
                 break;
 
         case 3: // all items
