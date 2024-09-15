@@ -372,7 +372,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>
 </ul>
 
-
 <div>
     <input type="hidden" name="tab_fieldgroup" value="<?php echo $tab_fieldgroups_active; ?>" /><?php
     if(count($custom_tab_fields_hidden)) {
@@ -384,7 +383,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 var entries = 0;
 
 function addNewTab(pos) {
-    entries++;
+  entries++;
 
   var entry = `
         <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
@@ -549,18 +548,7 @@ function addNewTab(pos) {
         return false;
     }
 
-<?php if($content['wysiwyg']): ?>
-
-$( function() {
-    entries = $("ul#tabs").children().length;
-    if(entries > 0) {
-        for(var x = 0; x < entries; x++) {
-            EnableCKEditor(x);
-        }
-    }
-});
-
-<?php
+<?php if($content['wysiwyg']):
 
   // CKEditor Tabs configuration
   $content['ckconfig'] = array();
@@ -603,7 +591,7 @@ $( function() {
 ?>
 
   function EnableCKEditor(x) {
-    if( $('tabtext'+x) && !CKEDITOR.instances['tabtext'+x]) {
+    if($('tabtext'+x) && !CKEDITOR.instances['tabtext'+x]) {
       CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
     }
   }
@@ -646,18 +634,29 @@ $( function() {
       $('#customfield_'+field+'_id').val(file_id);
       $('#browserModal').modal('hide');
   }
-  $(function(){
-      $("ul.dropable-list").sortable({
+
+  $(function() {
+    entries = $("ul#tabs").children().length;
+
+    <?php if($content['wysiwyg']): ?>
+    if (entries > 0) {
+        for(let x = 0; x < entries; x++) {
+            EnableCKEditor(x);
+        }
+    }
+    <?php endif; ?>
+
+    $("ul.dropable-list").sortable({
         group: 'no-drop',
         handle: 'em.handle',
         onDrag: function ($item, container, _super, event) {
-          $(".collapse").collapse('hide');
+            $(".collapse").collapse('hide');
         },
         onDrop: function ($item, container, _super, event) {
-          $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-          $("body").removeClass(container.group.options.bodyClass);
+            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
+            $("body").removeClass(container.group.options.bodyClass);
         }
-      });
+    });
   });
   </script>
 </div>
