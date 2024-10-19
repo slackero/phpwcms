@@ -1407,7 +1407,7 @@ $BL['be_no'] = 'Nie';
 $BL['be_attr_title'] = 'Tytuł (Atrybut)';
 $BL['be_attr_alt'] = 'Alternatywny Tekst';
 $BL['be_ie8ignore'] = 'WYŁĄCZ <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">komentarze warunkowe</a> dla IE8';
-$BL['be_cookie_consent_enable'] = 'Włącz wtyczkę Zgody Cookie';
+$BL['be_cookie_consent_enable'] = 'Włącz wtyczkę Zgody Cookie v2';
 $BL['be_cookie_consent_message'] = 'Komunikat zgody';
 $BL['cookie_consent_message'] = 'Witryna ta wykorzystuje cookies, aby uzyskać najlepszą jakość na naszej stronie internetowej';
 $BL['be_cookie_consent_dismiss'] = 'Przycisk tekstu zwolenia';
