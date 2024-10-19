@@ -52,6 +52,56 @@ $template = array(
         'link' => '',
         'theme' => 'light-bottom',
     ),
+    'cc_v3' => array(
+        'enable' => 0,
+        'title' => '',
+        'description' => '',
+        'accept_all' => '',
+        'accept_necessary' => '',
+        'accept_selected' => '',
+        'reject_all' => '',
+        'customize' => '',
+        'link' => '',
+        'more' => '',
+        'theme' => 'light-bottom',
+        'sections' => [
+            'general' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'necessary' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'functionality' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'analytics' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'marketing' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'social' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'more' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+        ],
+    ),
     'tracking_ga' => array(
         'enable' => 0,
         'id' => '',
@@ -171,6 +221,8 @@ if(!isset($_GET["s"])) {
         $template['googleapi'] = empty($_POST["template_googleapi"]) ? 0 : 1;
         $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
+
+        // cookie consent v2
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
         if(!empty($_POST['cookie_consent_message'])) {
             $template['cookie_consent']['message'] = slweg($_POST['cookie_consent_message']);
@@ -187,9 +239,52 @@ if(!isset($_GET["s"])) {
         if(isset($_POST['cookie_consent_theme'])) {
             $template['cookie_consent']['theme'] = clean_slweg($_POST['cookie_consent_theme']);
         }
+
+        // cookie consent v3
+        $template['cc_v3']['enable'] = empty($_POST['template_cc_v3']) ? 0 : 1;
+        if(!empty($_POST['cc_v3_title'])) {
+            $template['cc_v3']['title'] = slweg($_POST['cc_v3_title']);
+        }
+        if(!empty($_POST['cc_v3_description'])) {
+            $template['cc_v3']['description'] = slweg($_POST['cc_v3_description']);
+        }
+        if(!empty($_POST['cc_v3_accept_all'])) {
+            $template['cc_v3']['accept_all'] = slweg($_POST['cc_v3_accept_all']);
+        }
+        if(!empty($_POST['cc_v3_accept_necessary'])) {
+            $template['cc_v3']['accept_necessary'] = slweg($_POST['cc_v3_accept_necessary']);
+        }
+        if(!empty($_POST['cc_v3_accept_selected'])) {
+            $template['cc_v3']['accept_selected'] = slweg($_POST['cc_v3_accept_selected']);
+        }
+        if(!empty($_POST['cc_v3_reject_all'])) {
+            $template['cc_v3']['reject_all'] = slweg($_POST['cc_v3_reject_all']);
+        }
+        if(!empty($_POST['cc_v3_customize'])) {
+            $template['cc_v3']['customize'] = slweg($_POST['cc_v3_customize']);
+        }
+        if(!empty($_POST['cc_v3_link'])) {
+            $template['cc_v3']['link'] = slweg($_POST['cc_v3_link']);
+        }
+        if(!empty($_POST['cc_v3_more'])) {
+            $template['cc_v3']['more'] = slweg($_POST['cc_v3_more']);
+        }
+        if(!empty($_POST['cc_v3_theme'])) {
+            $template['cc_v3']['theme'] = slweg($_POST['cc_v3_theme']);
+        }
+        foreach (['general', 'necessary', 'functionality', 'analytics', 'marketing', 'social', 'more' ] as $section) {
+            $template['cc_v3']['sections'][$section]['active'] = empty($_POST['cc_v3_'.$section.'_active']) ? 0 : 1;
+            if(!empty($_POST['cc_v3_'.$section.'_title'])) {
+                $template['cc_v3']['sections'][$section]['title'] = slweg($_POST['cc_v3_'.$section.'_title']);
+            }
+            if(!empty($_POST['cc_v3_'.$section.'_description'])) {
+                $template['cc_v3']['sections'][$section]['description'] = slweg($_POST['cc_v3_'.$section.'_description']);
+            }
+        }
+
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
-        $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
-        $template['tracking_ga']['custom_properties'] = trim(clean_slweg($_POST["template_ga_custom_properties"]), " \t\n\r\0\x0B{},");
+        $template['tracking_ga']['id'] = clean_slweg($_POST['template_ga_id']);
+        $template['tracking_ga']['custom_properties'] = trim(clean_slweg($_POST['template_ga_custom_properties']), " \t\n\r\0\x0B{},");
         $template['tracking_ga']['anonymize'] = empty($_POST['template_ga_anonymize']) ? 0 : 1;
         $template['tracking_ga']['optout'] = empty($_POST['template_ga_optout']) ? 0 : 1;
         $template['tracking_ga']['cookie_flags'] = empty($_POST['template_ga_cookie_flags']) ? 0 : 1;
@@ -197,22 +292,22 @@ if(!isset($_GET["s"])) {
             $template['tracking_ga']['enable'] = 0;
         }
         $template['tracking_gtm']['enable'] = empty($_POST['template_gtm']) ? 0 : 1;
-        $template['tracking_gtm']['id'] = clean_slweg($_POST["template_gtm_id"]);
+        $template['tracking_gtm']['id'] = clean_slweg($_POST['template_gtm_id']);
         if(empty($template['tracking_gtm']['id'])) {
             $template['tracking_gtm']['enable'] = 0;
         }
         $template['tracking_piwik']['enable'] = empty($_POST['template_piwik']) ? 0 : 1;
-        $template['tracking_piwik']['id'] = intval($_POST["template_piwik_id"]);
-        $template['tracking_piwik']['url'] = clean_slweg($_POST["template_piwik_url"]);
+        $template['tracking_piwik']['id'] = intval($_POST['template_piwik_id']);
+        $template['tracking_piwik']['url'] = clean_slweg($_POST['template_piwik_url']);
         if(!empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['url'] = trim(preg_replace('/.*?:\/\//i', '', trim($template['tracking_piwik']['url'], '/')));
         }
         if(empty($template['tracking_piwik']['id']) || empty($template['tracking_piwik']['url'])) {
             $template['tracking_piwik']['enable'] = 0;
         }
-        $template['donottrack'] = empty($_POST["template_donottrack"]) ? 0 : 1;
+        $template['donottrack'] = empty($_POST['template_donottrack']) ? 0 : 1;
         $template['require_consent'] = array(
-            'enable' => empty($_POST["template_require_consent"]) ? 0 : 1,
+            'enable' => empty($_POST['template_require_consent']) ? 0 : 1,
             'cookie_name' => clean_slweg($_POST['template_require_cookie_name']),
             'cookie_value' => clean_slweg($_POST['template_require_cookie_value'])
         );
@@ -220,20 +315,18 @@ if(!isset($_GET["s"])) {
         // now browse custom blocks if available
         if(!empty($_POST['customblock'])) {
 
-            $template['customblock'] = clean_slweg($_POST["customblock"]);
+            $template['customblock'] = clean_slweg($_POST['customblock']);
             $temp_customblock = explode(',', $template['customblock']);
             foreach($temp_customblock as $value) {
-
                 $template['customblock_'.$value] = slweg($_POST['template_customblock_'.$value]);
                 $template['customblock_'.$value.'_file'] = slweg($_POST['template_customblock_'.$value.'_file']);
-
             }
         }
 
         if($template["id"] && empty($createcopy)) {
             // if ID <> 0 then get template info from database
             $query_mode = 'UPDATE';
-            $sql =  "UPDATE ".DB_PREPEND."cmsgo_template SET ".
+            $sql =  'UPDATE ' .DB_PREPEND. 'cmsgo_template SET ' .
                     "template_name='".aporeplace($template["name"])."', ".
                     "template_default=".$template["default"].", ".
                     "template_var='".aporeplace(serialize($template))."' ".
@@ -476,7 +569,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
                         ?>
-                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize"
+                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize text-monospace"
                                   id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
                     </div>
                 </div>
@@ -557,7 +650,7 @@ if(isset($result[0]['pagelayout_id'])) {
 
                                 <div class="form-check col-sm-10 offset-sm-2 my-1">
                                     <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
-                                    <textarea name="template_ga_custom_properties" class="form-control" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                    <textarea name="template_ga_custom_properties" class="form-control text-monospace autosize" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                 </div>
 
                             </div>
@@ -591,6 +684,7 @@ if(isset($result[0]['pagelayout_id'])) {
                             </div>
                         </div>
 
+                        <!-- Cookie Consent v2 -->
                         <div class="form-check">
                             <label class="form-check-label" for="template_cookie_consent">
                                 <input class="form-check-input" name="template_cookie_consent" id="template_cookie_consent" type="checkbox" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?>>
@@ -621,7 +715,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                 <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right" for="be_cookie_consent_link"><?php echo $BL['be_cookie_consent_link']; ?></label>
                                     <div class="col">
-                                        <input type="text" name="cookie_consent_link" id="be_cookie_consent_link" class="form-control form-control-sm" placeholder="http://example.com/cookie-policy | cookie-policy" value="<?php echo html($template['cookie_consent']['link']) ?>"/>
+                                        <input type="text" name="cookie_consent_link" id="be_cookie_consent_link" class="form-control form-control-sm" placeholder="https://example.com/cookie-policy | cookie-policy" value="<?php echo html($template['cookie_consent']['link']) ?>"/>
                                     </div>
                                 </div>
                                 <div class="form-group form-row mt-0">
@@ -630,6 +724,512 @@ if(isset($result[0]['pagelayout_id'])) {
                                         <input type="text" name="cookie_consent_theme" id="be_cookie_consent_theme" class="form-control form-control-sm" placeholder="light-top, light-bottom, light-floating, dark-top&hellip;" title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada" value="<?php echo html($template['cookie_consent']['theme']) ?>"/>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Cookie Consent v3 -->
+                        <div class="form-check">
+                            <label class="form-check-label" for="template_cc_v3">
+                                <input class="form-check-input"
+                                       name="template_cc_v3"
+                                       id="template_cc_v3"
+                                       type="checkbox"
+                                       value="1"<?php is_checked($template['cc_v3']['enable'], 1); ?>
+                                />
+                                <?php echo $BL['be_cc_v3_enable'] ?>
+                            </label>
+
+                            <div id="template-cc_v3-form"<?php if (!$template['cc_v3']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                <?php if (count($cmsgo['allowed_lang'])): ?>
+                                    <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
+                                <?php endif; ?>
+                                <div class="form-group form-row mt-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_title">
+                                        <?php echo $BL['be_cc_v3_title']; ?>
+                                    </label>
+                                    <div class="col">
+                                        <input type="text"
+                                               name="cc_v3_title"
+                                               id="cc_v3_title"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['title']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_description">
+                                        <?php echo $BL['be_cc_v3_description']; ?>
+                                    </label>
+                                    <div class="col">
+                                        <textarea name="cc_v3_description"
+                                                  rows="3"
+                                                  id="cc_v3_description"
+                                                  class="form-control form-control-sm autosize"
+                                                  placeholder="<?php echo $BL['cc_v3_description_placeholder']; ?>"><?php
+                                            echo html($template['cc_v3']['description']);
+                                            ?></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row mt-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_all">
+                                        <?php echo $BL['be_cc_v3_accept_all']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_accept_all"
+                                               id="cc_v3_accept_all"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_accept_all_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['accept_all']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_necessary">
+                                        <?php echo $BL['be_cc_v3_accept_necessary']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_accept_necessary"
+                                               id="cc_v3_accept_necessary"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_accept_necessary_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['accept_necessary']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_accept_selected">
+                                        <?php echo $BL['be_cc_v3_accept_selected']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_accept_selected"
+                                               id="cc_v3_accept_selected"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_accept_selected_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['accept_selected']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_reject_all">
+                                        <?php echo $BL['be_cc_v3_reject_all']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_reject_all"
+                                               id="cc_v3_reject_all"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_reject_all_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['reject_all']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_customize">
+                                        <?php echo $BL['be_cc_v3_customize']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_customize"
+                                               id="cc_v3_customize"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_customize_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['customize']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_more">
+                                        <?php echo $BL['be_cc_v3_more']; ?>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <input type="text"
+                                               name="cc_v3_more"
+                                               id="cc_v3_more"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo $BL['cc_v3_more_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['more']); ?>"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group form-row my-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_link">
+                                        <?php echo $BL['be_cc_v3_link']; ?>
+                                    </label>
+                                    <div class="col">
+                                        <input type="text"
+                                               name="cc_v3_link"
+                                               id="cc_v3_link"
+                                               class="form-control form-control-sm"
+                                               placeholder="https://example.com/cookie-policy | cookie-policy"
+                                               value="<?php echo html($template['cc_v3']['link']); ?>"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row mt-0">
+                                    <div class="col-sm-3 col-form-label text-right">
+                                        <?php echo $BL['be_cc_v3_sections']; ?>
+                                    </div>
+                                    <div class="col">
+                                        <div class="border rounded p-2 mt-1">
+                                            <!-- General -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_general']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_general_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_general_active"
+                                                               id="cc_v3_general_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['general']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_general_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_general_title"
+                                                           id="cc_v3_general_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_general_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['general']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_general_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_general_description"
+                                                              rows="3"
+                                                              id="cc_v3_general_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_general_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['general']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- Strictly necessary cookies -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_necessary']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_necessary_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_necessary_active"
+                                                               id="cc_v3_necessary_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['necessary']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_necessary_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_necessary_title"
+                                                           id="cc_v3_necessary_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_necessary_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['necessary']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_necessary_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_necessary_description"
+                                                              rows="3"
+                                                              id="cc_v3_necessary_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_necessary_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['necessary']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- Functional cookies -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_functional']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_functionality_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_functionality_active"
+                                                               id="cc_v3_functionality_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['functionality']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_functionality_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_functionality_title"
+                                                           id="cc_v3_functionality_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_functional_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['functionality']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_functionality_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_functionality_description"
+                                                              rows="3"
+                                                              id="cc_v3_functionality_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_functional_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['functionality']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- Performance and Analytics cookies -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_analytics']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_analytics_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_analytics_active"
+                                                               id="cc_v3_analytics_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['analytics']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_analytics_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_analytics_title"
+                                                           id="cc_v3_analytics_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_analytics_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['analytics']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_analytics_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_analytics_description"
+                                                              rows="3"
+                                                              id="cc_v3_analytics_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_analytics_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['analytics']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- Advertising and marketing cookies -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_marketing']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_marketing_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_marketing_active"
+                                                               id="cc_v3_marketing_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['marketing']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_marketing_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_marketing_title"
+                                                           id="cc_v3_marketing_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_marketing_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['marketing']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_marketing_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_marketing_description"
+                                                              rows="3"
+                                                              id="cc_v3_marketing_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_marketing_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['marketing']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- Social media cookies -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_social']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_social_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_social_active"
+                                                               id="cc_v3_social_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['social']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_social_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_social_title"
+                                                           id="cc_v3_social_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_social_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['social']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_social_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_social_description"
+                                                              rows="3"
+                                                              id="cc_v3_social_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_social_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['social']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-2">
+
+                                            <!-- More information -->
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <strong class="col-4 col-md-3 col-lg-2 text-right text-info">
+                                                    <?php echo $BL['be_cc_v3_section_more']; ?>
+                                                </strong>
+                                                <div class="col">
+                                                    <label class="form-check-label ml-4" for="cc_v3_more_active">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_more_active"
+                                                               id="cc_v3_more_active"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['sections']['more']['active'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_more_title">
+                                                    <?php echo $BL['be_cc_v3_sections_title']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <input type="text"
+                                                           name="cc_v3_more_title"
+                                                           id="cc_v3_more_title"
+                                                           class="form-control form-control-sm"
+                                                           placeholder="<?php echo $BL['be_cc_v3_section_more_title_placeholder']; ?>"
+                                                           value="<?php echo html($template['cc_v3']['sections']['more']['title']); ?>"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right font-weight-normal" for="cc_v3_more_description">
+                                                    <?php echo $BL['be_cc_v3_sections_description']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <textarea name="cc_v3_more_description"
+                                                              rows="3"
+                                                              id="cc_v3_more_description"
+                                                              class="form-control form-control-sm autosize"
+                                                              placeholder="<?php echo $BL['be_cc_v3_section_more_description_placeholder']; ?>"><?php
+                                                        echo html($template['cc_v3']['sections']['more']['description']);
+                                                    ?></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row mt-2 mb-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="be_cc_v3_theme">
+                                        <?php echo $BL['be_cc_v3_theme']; ?>
+                                    </label>
+                                    <div class="col">
+                                        <input type="text"
+                                               name="cc_v3_theme"
+                                               id="be_cc_v3_theme"
+                                               class="form-control form-control-sm"
+                                               placeholder="light-top, light-bottom, light-floating, dark-top&hellip;"
+                                               title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada"
+                                               value="<?php echo html($template['cc_v3']['theme']) ?>"
+                                        />
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -692,7 +1292,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
                         ?>
-                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -704,7 +1304,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
                         ?>
-                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -716,7 +1316,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
                         ?>
-                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -728,7 +1328,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
                         ?>
-                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -740,7 +1340,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
                         ?>
-                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
                     </div>
                 </div>
 
@@ -760,7 +1360,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         echo '<div class="col">';
                         echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
                         echo '<textarea name="template_customblock_' . $custom_block;
-                        echo '" rows="3" class="form-control form-control-sm autosize">';
+                        echo '" rows="3" class="form-control form-control-sm autosize text-monospace">';
                         echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
                         echo "</textarea>";
                         echo '  </div>';
@@ -778,7 +1378,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
                         ?>
-                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                     </div>
                 </div>
 
@@ -795,8 +1395,23 @@ if(isset($result[0]['pagelayout_id'])) {
         $('#template_cookie_consent').on('change', function(){
             if($(this).is(':checked')) {
                 $('#template-cc-form').show();
+                // Only Cookie Consent v3 or Cookie Consent v2 can be enabled at the same time
+                // Disable Cookie Consent v3 if Cookie Consent v2 is enabled
+                $('#template_cc_v3').prop('checked', false);
+                $('#template-cc_v3-form').hide();
             } else {
                 $('#template-cc-form').hide();
+            }
+        });
+        $('#template_cc_v3').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#template-cc_v3-form').show();
+                // Only Cookie Consent v3 or Cookie Consent v2 can be enabled at the same time
+                // Disable Cookie Consent v2 if Cookie Consent v3 is enabled
+                $('#template_cookie_consent').prop('checked', false);
+                $('#template-cc-form').hide();
+            } else {
+                $('#template-cc_v3-form').hide();
             }
         });
         $('#template_require_consent').on('change', function(){
