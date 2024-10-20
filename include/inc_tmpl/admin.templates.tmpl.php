@@ -63,7 +63,7 @@ $template = array(
         'customize' => '',
         'link' => '',
         'more' => '',
-        'theme' => 'light-bottom',
+        'theme' => '',
         'sections' => [
             'general' => [
                 'active' => 1,
@@ -99,6 +99,20 @@ $template = array(
                 'active' => 1,
                 'title' => '',
                 'description' => '',
+            ],
+        ],
+        'gui' => [
+            'consent' => [
+                'layout' => 'box',
+                'position' => 'bottom right',
+                'btn_flip' => 0,
+                'btn_equal' => 0,
+            ],
+            'preferences' => [
+                'layout' => 'bar',
+                'position' => 'right',
+                'btn_flip' => 0,
+                'btn_equal' => 0,
             ],
         ],
     ),
@@ -272,6 +286,24 @@ if(!isset($_GET["s"])) {
         if(!empty($_POST['cc_v3_theme'])) {
             $template['cc_v3']['theme'] = slweg($_POST['cc_v3_theme']);
         }
+        if(!empty($_POST['cc_v3_consent_layout'])) {
+            $template['cc_v3']['gui']['consent']['layout'] = slweg($_POST['cc_v3_consent_layout']);
+        }
+        if(!empty($_POST['cc_v3_consent_position'])) {
+            $template['cc_v3']['gui']['consent']['position'] = slweg($_POST['cc_v3_consent_position']);
+        }
+        $template['cc_v3']['gui']['consent']['btn_flip'] = empty($_POST['cc_v3_consent_flip']) ? 0 : 1;
+        $template['cc_v3']['gui']['consent']['btn_equal'] = empty($_POST['cc_v3_consent_equal']) ? 0 : 1;
+        if(!empty($_POST['cc_v3_preferences_layout'])) {
+            $template['cc_v3']['gui']['preferences']['layout'] = slweg($_POST['cc_v3_preferences_layout']);
+        }
+        if(!empty($_POST['cc_v3_preferences_position'])) {
+            $template['cc_v3']['gui']['preferences']['position'] = slweg($_POST['cc_v3_preferences_position']);
+        }
+        $template['cc_v3']['gui']['preferences']['btn_flip'] = empty($_POST['cc_v3_preferences_flip']) ? 0 : 1;
+        $template['cc_v3']['gui']['preferences']['btn_equal'] = empty($_POST['cc_v3_preferences_equal']) ? 0 : 1;
+
+        // Consent Sections
         foreach (['general', 'necessary', 'functionality', 'analytics', 'marketing', 'social', 'more' ] as $section) {
             $template['cc_v3']['sections'][$section]['active'] = empty($_POST['cc_v3_'.$section.'_active']) ? 0 : 1;
             if(!empty($_POST['cc_v3_'.$section.'_title'])) {
@@ -314,7 +346,6 @@ if(!isset($_GET["s"])) {
 
         // now browse custom blocks if available
         if(!empty($_POST['customblock'])) {
-
             $template['customblock'] = clean_slweg($_POST['customblock']);
             $temp_customblock = explode(',', $template['customblock']);
             foreach($temp_customblock as $value) {
@@ -739,7 +770,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                 <?php echo $BL['be_cc_v3_enable'] ?>
                             </label>
 
-                            <div id="template-cc_v3-form"<?php if (!$template['cc_v3']['enable']): ?> style="display:none;"<?php endif; ?>>
+                            <div id="template-cc_v3-form"<?php if (!$template['cc_v3']['enable']): ?> style="display:none;"<?php endif; ?> class="mb-2">
                                 <?php if (count($cmsgo['allowed_lang'])): ?>
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
@@ -871,7 +902,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-0">
+                                <div class="form-group form-row mt-0 mb-2">
                                     <div class="col-sm-3 col-form-label text-right">
                                         <?php echo $BL['be_cc_v3_sections']; ?>
                                     </div>
@@ -1214,7 +1245,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                     </div>
                                 </div>
 
-                                <div class="form-group form-row mt-2 mb-0">
+                                <div class="form-group form-row my-0">
                                     <label class="col-sm-3 col-form-label text-right" for="be_cc_v3_theme">
                                         <?php echo $BL['be_cc_v3_theme']; ?>
                                     </label>
@@ -1223,10 +1254,155 @@ if(isset($result[0]['pagelayout_id'])) {
                                                name="cc_v3_theme"
                                                id="be_cc_v3_theme"
                                                class="form-control form-control-sm"
-                                               placeholder="light-top, light-bottom, light-floating, dark-top&hellip;"
-                                               title="<?php echo $BL['be_admin_tmpl_default']; ?>: light-top, light-bottom, light-floating, dark-top, dark-bottom, dark-floating, dark-inline, dark-floating-tada"
+                                               placeholder="light (<?= $BL['be_cc_v3_default']; ?>) <?= $BL['be_fsearch_or']; ?> dark <?= $BL['be_fsearch_or']; ?> custom&hellip;"
+                                               title="<?php echo $BL['be_admin_tmpl_default']; ?>: light (<?= $BL['be_cc_v3_builtin'] . ', ' . $BL['be_cc_v3_default']; ?>), dark (<?= $BL['be_cc_v3_builtin']; ?>), custom"
                                                value="<?php echo html($template['cc_v3']['theme']) ?>"
                                         />
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row my-0">
+                                    <div class="col-sm-3 col-form-label text-right">
+                                        <?php echo $BL['be_cc_v3_consent_modal']; ?>
+                                    </div>
+                                    <div class="col">
+                                        <div class="border rounded p-2 mt-1">
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_consent_layout">
+                                                    <?php echo $BL['be_cc_v3_layout']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <select class="form-control" name="cc_v3_consent_layout" id="cc_v3_consent_layout">
+                                                        <option value="box"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box'); ?>>Box</option>
+                                                        <option value="box inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box inline'); ?>>Box Inline</option>
+                                                        <option value="box wide"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box wide'); ?>>Box Wide</option>
+                                                        <option value="cloud"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'cloud'); ?>>Cloud</option>
+                                                        <option value="cloud inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'cloud inline'); ?>>Cloud Inline</option>
+                                                        <option value="bar"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'bar'); ?>>Bar</option>
+                                                        <option value="bar inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'bar inline'); ?>>Bar Inline</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_consent_position">
+                                                    <?php echo $BL['be_cc_v3_position']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <select class="form-control" name="cc_v3_consent_position" id="cc_v3_consent_position">
+                                                        <option value="top left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top left'); ?>>
+                                                            <?= $BL['be_cc_v3_top_left']; ?>
+                                                        </option>
+                                                        <option value="top center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top center'); ?>>
+                                                            <?= $BL['be_cc_v3_top_center']; ?>
+                                                        </option>
+                                                        <option value="top right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top right'); ?>>
+                                                            <?= $BL['be_cc_v3_top_right']; ?>
+                                                        </option>
+                                                        <option value="middle left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle left'); ?>>
+                                                            <?= $BL['be_cc_v3_middle_left']; ?>
+                                                        </option>
+                                                        <option value="middle center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle center'); ?>>
+                                                            <?= $BL['be_cc_v3_middle_center']; ?>
+                                                        </option>
+                                                        <option value="middle right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle right'); ?>>
+                                                            <?= $BL['be_cc_v3_middle_right']; ?>
+                                                        </option>
+                                                        <option value="bottom left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom left'); ?>>
+                                                            <?= $BL['be_cc_v3_bottom_left']; ?>
+                                                        </option>
+                                                        <option value="bottom center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom center'); ?>>
+                                                            <?= $BL['be_cc_v3_bottom_center']; ?>
+                                                        </option>
+                                                        <option value="bottom right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom right'); ?>>
+                                                            <?= $BL['be_cc_v3_bottom_right']; ?>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0 py-1">
+                                                <strong class="col-4 col-md-3 col-lg-2">&nbsp;</strong>
+                                                <div class="col">
+                                                    <label class="form-check-label mx-4" for="cc_v3_consent_flip">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_consent_flip"
+                                                               id="cc_v3_consent_flip"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['gui']['consent']['btn_flip'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_btn_flip'] ?>
+                                                    </label>
+                                                    <label class="form-check-label ml-4" for="cc_v3_consent_equal">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_consent_equal"
+                                                               id="cc_v3_consent_equal"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['gui']['consent']['btn_equal'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_btn_equal'] ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row my-0">
+                                    <div class="col-sm-3 col-form-label text-right">
+                                        <?php echo $BL['be_cc_v3_preferences_modal']; ?>
+                                    </div>
+                                    <div class="col">
+                                        <div class="border rounded p-2 mt-1">
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_preferences_layout">
+                                                    <?php echo $BL['be_cc_v3_layout']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <select class="form-control" name="cc_v3_preferences_layout" id="cc_v3_preferences_layout">
+                                                        <option value="box"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'box'); ?>>Box</option>
+                                                        <option value="bar"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar'); ?>>Bar</option>
+                                                        <option value="bar wide"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar wide'); ?>>Bar Wide</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0 pb-1">
+                                                <label class="col-4 col-md-3 col-lg-2 col-form-label text-right" for="cc_v3_preferences_position">
+                                                    <?php echo $BL['be_cc_v3_position']; ?>
+                                                </label>
+                                                <div class="col">
+                                                    <select class="form-control" name="cc_v3_preferences_position" id="cc_v3_preferences_position">
+                                                        <option value="left"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'left'); ?>>
+                                                            <?= $BL['be_cc_v3_left']; ?>
+                                                        </option>
+                                                        <option value="right"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'right'); ?>>
+                                                            <?= $BL['be_cc_v3_right']; ?>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group form-row my-0 py-1">
+                                                <strong class="col-4 col-md-3 col-lg-2">&nbsp;</strong>
+                                                <div class="col">
+                                                    <label class="form-check-label mx-4" for="cc_v3_preferences_flip">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_preferences_flip"
+                                                               id="cc_v3_preferences_flip"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['gui']['preferences']['btn_flip'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_btn_flip'] ?>
+                                                    </label>
+                                                    <label class="form-check-label ml-4" for="cc_v3_preferences_equal">
+                                                        <input class="form-check-input"
+                                                               name="cc_v3_preferences_equal"
+                                                               id="cc_v3_preferences_equal"
+                                                               type="checkbox"
+                                                               value="1"<?php is_checked($template['cc_v3']['gui']['preferences']['btn_equal'], 1); ?>
+                                                        />
+                                                        <?php echo $BL['be_cc_v3_btn_equal'] ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
