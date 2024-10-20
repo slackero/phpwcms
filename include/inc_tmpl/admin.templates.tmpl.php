@@ -962,14 +962,15 @@ if(isset($result[0]['pagelayout_id'])) {
                                                     <?php echo $BL['be_cc_v3_section_necessary']; ?>
                                                 </strong>
                                                 <div class="col">
-                                                    <label class="form-check-label ml-4" for="cc_v3_necessary_active">
+                                                    <label class="form-check-label ml-4">
                                                         <input class="form-check-input"
-                                                               name="cc_v3_necessary_active"
-                                                               id="cc_v3_necessary_active"
                                                                type="checkbox"
-                                                               value="1"<?php is_checked($template['cc_v3']['sections']['necessary']['active'], 1); ?>
+                                                               value="1"
+                                                               checked="checked"
+                                                               disabled="disabled"
                                                         />
                                                         <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                                        <input type="hidden" name="cc_v3_necessary_active" value="1" /><!-- always active -->
                                                     </label>
                                                 </div>
                                             </div>
