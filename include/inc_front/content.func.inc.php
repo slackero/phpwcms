@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------
 // obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
@@ -20,22 +20,22 @@ $content['cat']                 = '';
 $content['metakey']             = '';
 $content['struct']              = get_struct_data(); //reads the complete structure as array
 $content['article_date']        = time();
-$content['redirect']            = array('code' => '');
+$content['redirect']            = ['code' => ''];
 $content['all_keywords']        = '';
-$content['globalRT']            = array();
+$content['globalRT']            = [];
 $content['aId_CpPage']          = 0; // set default content part pagination page (0 and 1) are the same
-$content['CpTrigger']           = array(); // array to hold content part trigger functions
-$content['404error']            = array('status' => false, 'id' => '', 'aid' => '', 'alias' => '');
+$content['CpTrigger']           = []; // array to hold content part trigger functions
+$content['404error']            = ['status' => false, 'id' => '', 'aid' => '', 'alias' => ''];
 $content['set_canonical']       = false;
 $content['overwrite_canonical'] = '';
-$content['cptab']               = array(); // array to hold content part based tabs
-$content['images']              = array();
-$content['opengraph']           = array('support' => true, 'type' => 'website', 'render' => empty($cmsgo['set_sociallink']['render']) ? false : true); // will hold all relevant open graph information
-$pagelayout                     = array();
+$content['cptab']               = []; // array to hold content part based tabs
+$content['images']              = [];
+$content['opengraph']           = ['support' => true, 'type' => 'website', 'render' => !empty($cmsgo['set_sociallink']['render'])]; // will hold all relevant open graph information
+$pagelayout                     = [];
 $no_content_for_this_page       = false;
 $alias                          = '';
 $PERMIT_ACCESS                  = true; // by default set all content without permissions
-$CUSTOM                         = array(); // var that holds result of content part "php var"
+$CUSTOM                         = []; // var that holds result of content part "php var"
 $cmsgo['preview_mode']          = false;
 
 // reset force redirect in case it is a POST
@@ -49,7 +49,7 @@ if(!empty($_POST)) {
     $cmsgo['force301_2struct']    = false;
     unset($_GET['cmsgo-preview'], $_getVar['cmsgo-preview']);
     checkLoginCount();
-    if(empty($_SESSION["wcs_user"])) {
+    if(empty($_SESSION['wcs_user'])) {
         headerRedirect(abs_url());
     }
     $cmsgo['preview_mode']        = true;
@@ -59,9 +59,9 @@ define('PREVIEW_MODE', $cmsgo['preview_mode']);
 
 //method to get the right action values
 //if there is only the ?alias try to find the right category
-if(isset($_GET["id"])) {
+if(isset($_GET['id'])) {
 
-    $aktion = explode(',', $_GET["id"], 6);
+    $aktion = explode(',', $_GET['id'], 6);
     $aktion[0] = intval($aktion[0]);
     $aktion[1] = isset($aktion[1]) ? intval($aktion[1]) : 0;
     $aktion[2] = isset($aktion[2]) ? intval($aktion[2]) : 0;
@@ -94,18 +94,18 @@ if(isset($_GET["id"])) {
 
         if($content['404error']['status'] === false) {
             $GLOBALS['_getVar']['id'] = implode(',', $aktion);
-            headerRedirect(abs_url( array(), array(), '', 'urlencode'), 404);
+            headerRedirect(abs_url( [], [], '', 'urlencode'), 404);
         }
     }
 
     // Force 301 Redirect when alias is available
     if($content['404error']['status'] === false && !empty($cmsgo['force301_id2alias']) && !empty($content['struct'][ $aktion[0] ]['acat_alias'])) {
-        headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
+        headerRedirect(abs_url([], [], $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
     }
 
 } elseif(isset($_GET['aid'])) {
     // try to find correct structure
-    $aktion = array(0,0,0,0,1,0);
+    $aktion = [0,0,0,0,1,0];
 
     $_GET['aid']            = explode('-', $_GET['aid'], 2); // now check for cp pagination
     $content['aId_CpPage']  = isset($_GET['aid'][1]) ? intval($_GET['aid'][1]) : 0; // set cp paginate page
@@ -117,7 +117,7 @@ if(isset($_GET["id"])) {
         if(VISIBLE_MODE !== 2) {
             $sql .= 'AND article_aktiv=1 ';
         } elseif(VISIBLE_MODE === 1) {
-            $sql .= 'AND (article_aktiv=1 OR article_uid='.intval($_SESSION["wcs_user_id"]).') ';
+            $sql .= 'AND (article_aktiv=1 OR article_uid='.intval($_SESSION['wcs_user_id']).') ';
         }
         $sql .= 'LIMIT 1';
 
@@ -129,7 +129,7 @@ if(isset($_GET["id"])) {
 
             // Force 301 Redirect when alias is available
             if(!empty($cmsgo['force301_id2alias']) && !$content['aId_CpPage'] && !empty($result[0]['article_alias'])) {
-                headerRedirect(abs_url(array(), array(), $result[0]['article_alias'], 'urlencode'), 301);
+                headerRedirect(abs_url([], [], $result[0]['article_alias'], 'urlencode'), 301);
             }
 
         } else {
@@ -148,7 +148,7 @@ if(isset($_GET["id"])) {
 
 } else {
     // check the alias
-    $aktion = array(0,0,0,1,0,0);
+    $aktion = [0,0,0,1,0,0];
 
     if(count($GLOBALS['_getVar'])) {
         reset($GLOBALS['_getVar']);
@@ -156,12 +156,12 @@ if(isset($_GET["id"])) {
 
         if($alias && $GLOBALS['_getVar'][$alias] === '') { // alias must be empty ""
 
-            $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-            $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-            $sql .= " UNION ";
-            $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-            $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-            $sql .= "LIMIT 1";
+            $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'cmsgo_articlecat ';
+            $sql .= 'WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=' . _dbEscape($alias) . ')';
+            $sql .= ' UNION ';
+            $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'cmsgo_article ';
+            $sql .= 'WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=' . _dbEscape($alias) . ') ';
+            $sql .= 'LIMIT 1';
 
             $row = _dbQuery($sql);
 
@@ -230,12 +230,12 @@ if($content['404error']['status'] === true) {
 
                 $alias = substr($content['404error']['redirect_url'], 0, strlen($content['404error']['redirect_url']) - $content['404error']['rewrite_ext_length']);
 
-                $sql  = "(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM " . DB_PREPEND . "cmsgo_articlecat ";
-                $sql .= "WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=" . _dbEscape($alias) . ")";
-                $sql .= " UNION ";
-                $sql .= "(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM " . DB_PREPEND . "cmsgo_article ";
-                $sql .= "WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=" . _dbEscape($alias) . ") ";
-                $sql .= "LIMIT 1";
+                $sql  = '(SELECT acat_id, (0) AS article_id, 1 AS aktion3, 0 AS aktion4 FROM ' . DB_PREPEND . 'cmsgo_articlecat ';
+                $sql .= 'WHERE acat_trash=0 AND acat_aktiv=1 AND acat_alias=' . _dbEscape($alias) . ')';
+                $sql .= ' UNION ';
+                $sql .= '(SELECT article_cid AS acat_id, article_id, 0 AS aktion3, 1 AS aktion4 FROM ' . DB_PREPEND . 'cmsgo_article ';
+                $sql .= 'WHERE article_deleted=0 AND article_aktiv=1 AND article_alias=' . _dbEscape($alias) . ') ';
+                $sql .= 'LIMIT 1';
 
                 $row = _dbQuery($sql);
 
@@ -283,7 +283,7 @@ if($content['404error']['status'] === true) {
 
             $content['404error']['result'] = $content['404error']['result'][0];
 
-            _dbUpdate('cmsgo_redirect', array('views' => intval($content['404error']['result']['views']) + 1), 'rid='.$content['404error']['result']['rid']);
+            _dbUpdate('cmsgo_redirect', ['views' => intval($content['404error']['result']['views']) + 1], 'rid='.$content['404error']['result']['rid']);
 
             // Test for redirect
             if($content['404error']['result']['active'] == 1) {
@@ -305,17 +305,17 @@ if($content['404error']['status'] === true) {
                     switch($content['404error']['result']['type']) {
 
                     case 'alias':
-                        $content['404error']['result']['target'] = abs_url(array(), array(), $content['404error']['result']['target'], 'rawurlencode');
+                        $content['404error']['result']['target'] = abs_url([], [], $content['404error']['result']['target'], 'rawurlencode');
                         headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
                         break;
 
                     case 'id':
-                        $content['404error']['result']['target'] = abs_url(array(), array(), 'id='.$content['404error']['result']['target'], 'rawurlencode');
+                        $content['404error']['result']['target'] = abs_url([], [], 'id='.$content['404error']['result']['target'], 'rawurlencode');
                         headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
                         break;
 
                     case 'aid':
-                        $content['404error']['result']['target'] = abs_url(array(), array(), 'aid='.$content['404error']['result']['target'], 'rawurlencode');
+                        $content['404error']['result']['target'] = abs_url([], [], 'aid='.$content['404error']['result']['target'], 'rawurlencode');
                         headerRedirect($content['404error']['result']['target'], $content['404error']['result']['code']);
                         break;
 
@@ -333,12 +333,12 @@ if($content['404error']['status'] === true) {
         } elseif(!empty($cmsgo['log_404error'])) {
 
             // Store failed page access
-            _dbInsert('cmsgo_redirect', array(
+            _dbInsert('cmsgo_redirect', [
                 'id'    => $content['404error']['id'],
                 'aid'   => $content['404error']['aid'],
                 'alias' => $content['404error']['alias'],
                 'views' => 1
-            ));
+            ]);
         }
 
     } else {
@@ -362,8 +362,8 @@ if(!empty($_GET['cmsgo_output_action']) || !empty($_POST['cmsgo_output_action'])
     );
 
     if(is_array($cmsgo['output_action'])) {
-        $cmsgo['output_function'] = array();
-        $cmsgo['output_section']  = array();
+        $cmsgo['output_function'] = [];
+        $cmsgo['output_section']  = [];
 
         foreach($cmsgo['output_action'] as $value) {
             $value = trim($value);
@@ -395,19 +395,19 @@ if(!empty($_GET['cmsgo_output_action']) || !empty($_POST['cmsgo_output_action'])
 }
 
 //define the current article category ID
-$content["cat_id"]  = $aktion[0];
+$content['cat_id']  = $aktion[0];
 // set default to empty string, to get back the old behavior use
 // frontend_render and set
 // $content['body_id'] = $content["cat_id"];
 $content['body_id'] = '';
 
 // check if current level is a redirect level
-if(!empty($content['struct'][ $content["cat_id"] ]['acat_redirect'])) {
-    $redirect = get_redirect_link( $content['struct'][ $content["cat_id"] ]['acat_redirect'] );
+if(!empty($content['struct'][ $content['cat_id'] ]['acat_redirect'])) {
+    $redirect = get_redirect_link( $content['struct'][ $content['cat_id'] ]['acat_redirect'] );
     headerRedirect($redirect['link'], 301);
 }
 // Check if curret level is forced for SSL
-if(!CMSGO_SSL && (!empty($cmsgo['site_ssl_mode']) || !empty($content['struct'][ $content["cat_id"] ]['acat_ssl']))) {
+if(!CMSGO_SSL && (!empty($cmsgo['site_ssl_mode']) || !empty($content['struct'][ $content['cat_id'] ]['acat_ssl']))) {
     if(!empty($GLOBALS['_getVar']) && count($GLOBALS['_getVar'])) {
         $query_string = returnGlobalGET_QueryString('rawurlencode');
         if($query_string === '?') {
@@ -423,10 +423,10 @@ if(!CMSGO_SSL && (!empty($cmsgo['site_ssl_mode']) || !empty($content['struct'][ 
 }
 
 //try to find current tree depth
-$LEVEL_ID       = array();
-$LEVEL_KEY      = array();
-$LEVEL_STRUCT   = array();
-$level_ID_array = get_breadcrumb($content["cat_id"], $content['struct']);
+$LEVEL_ID       = [];
+$LEVEL_KEY      = [];
+$LEVEL_STRUCT   = [];
+$level_ID_array = get_breadcrumb($content['cat_id'], $content['struct']);
 $level_count    = 0;
 foreach($level_ID_array as $key => $value) {
     $LEVEL_ID[$level_count]     = $key;
@@ -443,11 +443,11 @@ define('PERMIT_ACCESS', $PERMIT_ACCESS);
 _checkFrontendUserAutoLogin();
 
 // read the template information for the current page based on structure
-if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
+if(!empty($content['struct'][ $content['cat_id'] ]['acat_template'])) {
     //if there is a template defined for this structure level
     //then choose the template information based on this ID
-    $sql  = "SELECT template_var FROM ".DB_PREPEND."cmsgo_template WHERE template_trash=0 AND ";
-    $sql .= "template_id=".$content["struct"][ $content["cat_id"] ]["acat_template"]." LIMIT 1";
+    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'cmsgo_template WHERE template_trash=0 AND ';
+    $sql .= 'template_id=' .$content['struct'][ $content['cat_id'] ]['acat_template']. ' LIMIT 1';
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
         $block = @unserialize($result[0]['template_var'], ['allowed_classes' => false]);
@@ -456,20 +456,20 @@ if(!empty($content["struct"][ $content["cat_id"] ]["acat_template"])) {
 if(!isset($block)) {
     // if template ID is not defined or there is a problem with level's template ID then
     // choose the default template or if no default template defined choose the next one
-    $sql  = "SELECT template_var FROM ".DB_PREPEND."cmsgo_template ";
-    $sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1";
+    $sql  = 'SELECT template_var FROM ' .DB_PREPEND. 'cmsgo_template ';
+    $sql .= 'WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1';
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
         $block = @unserialize($result[0]['template_var'], ['allowed_classes' => false]);
     }
 }
 
-$block['bodyjs'] = array();
+$block['bodyjs'] = [];
 
 // compatibility for older releases where only
 // 1 css file could be stored per template
 if(is_string($block['css'])) {
-    $block['css'] = array($block['css']);
+    $block['css'] = [$block['css']];
 }
 
 // template defaults
@@ -480,7 +480,7 @@ if(empty($template_default['attributes']['data-gallery'])) {
 }
 
 // is this a onepage template, also egalize the related variable
-$block['onepage'] = empty($block['onepage']) ? false : true;
+$block['onepage'] = !empty($block['onepage']);
 // set the one page constant
 define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
@@ -508,20 +508,20 @@ require CMSGO_ROOT.'/include/inc_front/js.inc.php';
 
 // retrieve pagelayout info
 // check how the content should be rendered based on pagelayout render value
-$block["layout"] = intval($block["layout"]);
-$sql  = "SELECT pagelayout_var FROM ".DB_PREPEND."cmsgo_pagelayout WHERE pagelayout_trash=0 ";
-$sql .= $block["layout"] ? "AND pagelayout_id=".$block["layout"] : "ORDER BY pagelayout_default DESC";
-$sql .= " LIMIT 1";
+$block['layout'] = intval($block['layout']);
+$sql  = 'SELECT pagelayout_var FROM ' .DB_PREPEND. 'cmsgo_pagelayout WHERE pagelayout_trash=0 ';
+$sql .= $block['layout'] ? 'AND pagelayout_id=' .$block['layout'] : 'ORDER BY pagelayout_default DESC';
+$sql .= ' LIMIT 1';
 $result = _dbQuery($sql);
 if(isset($result[0]['pagelayout_var'])) {
     $pagelayout = @unserialize($result[0]['pagelayout_var'], ['allowed_classes' => false]);
     // if print action
     if($aktion[2] === 1) {
-        $pagelayout = array(
+        $pagelayout = [
             'layout_title' => $pagelayout['layout_title'],
             'layout_customblocks' => $pagelayout['layout_customblocks'],
             'layout_noborder' => $pagelayout['layout_noborder']
-        );
+        ];
     }
 }
 if(empty($pagelayout)) {
@@ -531,11 +531,11 @@ if(empty($pagelayout)) {
         CMSGO_URL.'cmsgo.php?do=admin&amp;p=8">create one here</a>!');
 }
 // Pagetitle
-if(empty($pagelayout["layout_title"])) {
-    $content["pagetitle"] = '';
+if(empty($pagelayout['layout_title'])) {
+    $content['pagetitle'] = '';
 } else {
-    $content["pagetitle"] = $pagelayout["layout_title"];
-    $content['opengraph']['title'] = $pagelayout["layout_title"];
+    $content['pagetitle'] = $pagelayout['layout_title'];
+    $content['opengraph']['title'] = $pagelayout['layout_title'];
 }
 
 //generate the colspan attribute
@@ -558,7 +558,7 @@ if(!empty($pagelayout['layout_customblocks'])) {
     unset($custom_blocks);
 }
 
-$cmsgo['donottrack'] = empty($block['donottrack']) ? false : (isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1');
+$cmsgo['donottrack'] = !empty($block['donottrack']) && isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1';
 $cmsgo['cookie_consent'] = false;
 $cmsgo['cookie_consent_dismiss'] = false;
 if (empty($block['require_consent']['cookie_name'])) {
@@ -576,6 +576,7 @@ if (empty($block['require_consent']['cookie_value'])) {
     $cmsgo['cookie_consent_value'] = $block['require_consent']['cookie_value'];
 }
 if (!empty($block['require_consent']['enable'])) {
+    // Todo: make decision based on cookie consent version v2 or v3
     if (isset($_COOKIE[$cmsgo['cookie_consent_name']])) {
         $cmsgo['cookie_consent'] = true;
         if (strpos($_COOKIE[$cmsgo['cookie_consent_name']], $cmsgo['cookie_consent_value']) !== false) {
@@ -590,7 +591,7 @@ if (!empty($block['require_consent']['enable'])) {
 
 // try to include custom functions or what ever you want to do at this point of the script
 // default dir: "cmsgo_template/inc_script/frontend_init"; only *.php files are allowed there
-if($cmsgo["allow_ext_init"]) {
+if($cmsgo['allow_ext_init']) {
     if(count($custom_includes = get_tmpl_files(CMSGO_TEMPLATE.'inc_script/frontend_init', 'php'))) {
         foreach($custom_includes as $value) {
             include_once CMSGO_TEMPLATE.'inc_script/frontend_init/'.$value;
@@ -621,22 +622,22 @@ if(!PERMIT_ACCESS && !_getFeUserLoginStatus()) {
 }
 
 //reads all articles for active cat into array
-$content["articles"]            = get_actcat_articles_data($content["cat_id"]);
-$content["article_list_count"]  = count($content["articles"]);
+$content['articles']            = get_actcat_articles_data($content['cat_id']);
+$content['article_list_count']  = count($content['articles']);
 
 // generating a list of articles inside the current article category
 if(!$aktion[4]) {
 
-    if($content['404error']['status'] === false && ($content["article_list_count"] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
+    if($content['404error']['status'] === false && ($content['article_list_count'] || $content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1)) {
 
         $content['opengraph']['type'] = 'article';
 
-        if($content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1 || ($content["article_list_count"] === 1 && empty($template_default['settings']['force_article_list_mode']))) {
+        if($content['struct'][ $content['cat_id'] ]['acat_topcount'] == -1 || ($content['article_list_count'] === 1 && empty($template_default['settings']['force_article_list_mode']))) {
             // if($temp_counter == 1) {
             // if only 1 article for this category available
             // then show this article directly
             // sets article ID to this only 1 article
-            foreach($content["articles"] as $key => $value) {
+            foreach($content['articles'] as $key => $value) {
                 $aktion[1] = intval($key);
                 break;
             }
@@ -650,12 +651,12 @@ if(!$aktion[4]) {
             // there is more than 1 article inside this category
 
             //enym enable structure fe link for listing mode
-            if(FE_EDIT_LINK && $_SESSION["wcs_user_admin"]) {
-                $content["main"] .= getFrontendEditLink('structure', $content['cat_id']);
+            if(FE_EDIT_LINK && $_SESSION['wcs_user_admin']) {
+                $content['main'] .= getFrontendEditLink('structure', $content['cat_id']);
             }
 
             // -> list all - the 1st will be shown with summary and such stuff
-            $content["main"] .= list_articles_summary();
+            $content['main'] .= list_articles_summary();
 
         }
 
@@ -665,7 +666,7 @@ if(!$aktion[4]) {
 
     }
 
-} elseif($content["article_list_count"] === 1) {
+} elseif($content['article_list_count'] === 1) {
 
     // enable canonical <link> tag
     $content['set_canonical'] = true;
@@ -674,7 +675,7 @@ if(!$aktion[4]) {
 
 // Force 301 Redirect to structure alias
 if($content['set_canonical'] && !empty($cmsgo['force301_2struct']) && !$content['aId_CpPage'] && empty($content['struct'][ $aktion[0] ]['acat_disable301']) && !empty($content['struct'][ $aktion[0] ]['acat_alias']) && (!defined('CMSGO_ALIAS') || CMSGO_ALIAS != $content['struct'][ $aktion[0] ]['acat_alias'])) {
-    headerRedirect(abs_url(array(), array(), $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
+    headerRedirect(abs_url([], [], $content['struct'][ $aktion[0] ]['acat_alias'], 'urlencode'), 301);
 } elseif(count($_getVar) > 1) {
     $content['set_canonical'] = false;
 }
@@ -683,7 +684,7 @@ if($content['set_canonical'] && !empty($cmsgo['force301_2struct']) && !$content[
 if(empty($cmsgo['enable_deprecated'])) {
     $cmsgo['enable_deprecated'] = false;
 } else {
-    include_once CMSGO_ROOT."/include/inc_front/deprecated.inc.php";
+    include_once CMSGO_ROOT. '/include/inc_front/deprecated.inc.php';
 }
 
 // check if current category should be cached
@@ -707,18 +708,18 @@ $content['list_mode'] = true;
 if($aktion[1]) {
 
     // render page based on article
-    include_once CMSGO_ROOT."/include/inc_front/content.article.inc.php";
+    include_once CMSGO_ROOT. '/include/inc_front/content.article.inc.php';
     $content['list_mode'] = false;
 
 } elseif(!empty($content['struct'][$content['cat_id']]['acat_pagetitle'])) {
 
     // a custom pagetitle for structure level exists
-    $content["pagetitle"] = $content['struct'][$content['cat_id']]['acat_pagetitle'];
-    $content['opengraph']['title'] = $content["pagetitle"];
+    $content['pagetitle'] = $content['struct'][$content['cat_id']]['acat_pagetitle'];
+    $content['opengraph']['title'] = $content['pagetitle'];
 
 } else {
 
-    $content["pagetitle"] = setPageTitle($content["pagetitle"], $content['struct'][$content['cat_id']]['acat_name'], '');
+    $content['pagetitle'] = setPageTitle($content['pagetitle'], $content['struct'][$content['cat_id']]['acat_name'], '');
     $content['opengraph']['title'] = $content['struct'][$content['cat_id']]['acat_name'];
 
 }
@@ -750,15 +751,15 @@ if($content['overwrite_canonical']) {
 define('CMSGO_TEMPLATE_SECTIONS', CMSGO_TEMPLATE . 'inc_cntpart/template-sections/');
 
 // Test against file based template sections
-$content['template_sections'] = array(
+$content['template_sections'] = [
     'htmlhead' => 'head',
-    "headertext" => 'header',
-    "maintext" => 'main',
-    "footertext" => 'footer',
-    "lefttext" => 'left',
-    "righttext" => 'right',
-    "errortext" => 'error'
-);
+    'headertext' => 'header',
+    'maintext' => 'main',
+    'footertext' => 'footer',
+    'lefttext' => 'left',
+    'righttext' => 'right',
+    'errortext' => 'error'
+];
 
 foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
     $block_name_file = $block_name . '_file';
@@ -770,47 +771,47 @@ foreach($content['template_sections'] as $block_name => $tmpl_section_dir) {
 }
 
 //check for no content error
-$content["main"] = trim($content["main"]);
+$content['main'] = trim($content['main']);
 if($content['404error']['status'] === true) {
     // Show 404 error page
     headerRedirect('', 404, false);
     // [404] … {404} … [/404]
-    $content["main"] .= render_cnt_template($block["errortext"], '404', '<!-- 404 Not Found -->');
-} elseif($no_content_for_this_page || $content["main"] === '') {
+    $content['main'] .= render_cnt_template($block['errortext'], '404', '<!-- 404 Not Found -->');
+} elseif($no_content_for_this_page || $content['main'] === '') {
     // [404_ELSE] … {404_ELSE} … [/404_ELSE]
-    $content["main"] .= render_cnt_template($block["errortext"], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
+    $content['main'] .= render_cnt_template($block['errortext'], '404', '', '<!-- Just empty: Why ever, there is no content! -->');
 }
 
 // Or force main content
-if(empty($block["maintext"])) {
-    $block["maintext"] = $content["main"];
+if(empty($block['maintext'])) {
+    $block['maintext'] = $content['main'];
 }
 
 //normal page operation
 if($aktion[2] == 0) {
 
-    switch($pagelayout["layout_render"]) {
+    switch($pagelayout['layout_render']) {
 
         case 0: //create the page layout table (header, left, content, right, footer)
-                $content["all"]  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"";   //start main table
-                $content["all"] .= td_attributes($pagelayout, "all", 0);
-                $content["all"] .= align_base_layout($pagelayout["layout_align"])." summary=\"\">".LF;      // align table
+                $content['all']  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"";   //start main table
+                $content['all'] .= td_attributes($pagelayout, 'all', 0);
+                $content['all'] .= align_base_layout($pagelayout['layout_align'])." summary=\"\">".LF;      // align table
 
                 //header
-                $content["all"] .= colspan_table_row($pagelayout, "header", $colspan, $block["headertext"]); //header row
-                if($pagelayout["layout_topspace_height"]) { //header space
-                    $content["all"] .= colspan_table_row($pagelayout, "topspace", $colspan, spacer(1, $pagelayout["layout_topspace_height"]));
+                $content['all'] .= colspan_table_row($pagelayout, 'header', $colspan, $block['headertext']); //header row
+                if($pagelayout['layout_topspace_height']) { //header space
+                    $content['all'] .= colspan_table_row($pagelayout, 'topspace', $colspan, spacer(1, $pagelayout['layout_topspace_height']));
                 }
 
                 //returns the main blocks: left column, content column, right column
-                $content["all"] .= get_table_block($pagelayout, $block["maintext"], $block["lefttext"], $block["righttext"]);
+                $content['all'] .= get_table_block($pagelayout, $block['maintext'], $block['lefttext'], $block['righttext']);
 
                 //footer
-                if($pagelayout["layout_bottomspace_height"]) { //bottom space
-                    $content["all"] .= colspan_table_row($pagelayout, "bottomspace", $colspan, spacer(1, $pagelayout["layout_bottomspace_height"]));
+                if($pagelayout['layout_bottomspace_height']) { //bottom space
+                    $content['all'] .= colspan_table_row($pagelayout, 'bottomspace', $colspan, spacer(1, $pagelayout['layout_bottomspace_height']));
                 }
-                $content["all"] .= colspan_table_row($pagelayout, "footer", $colspan, $block["footertext"]); //footer row
-                $content["all"] .= '</table>'.LF; //end main table
+                $content['all'] .= colspan_table_row($pagelayout, 'footer', $colspan, $block['footertext']); //footer row
+                $content['all'] .= '</table>'.LF; //end main table
 
                 break;
 
@@ -818,47 +819,47 @@ if($aktion[2] == 0) {
         case 1: //create the page layout based on DIV (layer)
 
                 //contentContainer DIV start
-                $content["all"] = '';
+                $content['all'] = '';
                 $pagelayout['additional_wrap_div'] = false;
-                switch($pagelayout["layout_align"]) {
-                    case 1:     $content["all"] .= '<div align="center" style="margin:0;padding:0;">';
+                switch($pagelayout['layout_align']) {
+                    case 1:     $content['all'] .= '<div align="center" style="margin:0;padding:0;">';
                                 $pagelayout['additional_wrap_div'] = true;
                                 break;
-                    case 2:     $content["all"] .= '<div align="right" style="margin:0;padding:0;">';
+                    case 2:     $content['all'] .= '<div align="right" style="margin:0;padding:0;">';
                                 $pagelayout['additional_wrap_div'] = true;
                                 break;
                 }
-                $content["all"] .= '<div id="container">'.LF;
+                $content['all'] .= '<div id="container">'.LF;
 
                 //header DIV
-                if($block["headertext"] || $pagelayout['layout_header_height']) {
-                    $content["all"] .= '    <div id="headerBlock">'.$block["headertext"]."</div>\n";
+                if($block['headertext'] || $pagelayout['layout_header_height']) {
+                    $content['all'] .= '    <div id="headerBlock">'.$block['headertext']."</div>\n";
                 }
                 //left DIV if 3column or 2column (with left block)
-                if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 1) {
-                    $content["all"] .= '    <div id="leftBlock">'.$block["lefttext"]."</div>\n";
+                if($pagelayout['layout_type'] == 0 || $pagelayout['layout_type'] == 1) {
+                    $content['all'] .= '    <div id="leftBlock">'.$block['lefttext']."</div>\n";
                 }
                 //right DIV if 3column or 2column (with right block)
-                if($pagelayout["layout_type"] == 0 || $pagelayout["layout_type"] == 2) {
-                    $content["all"] .= '    <div id="rightBlock">'.$block["righttext"]."</div>\n";
+                if($pagelayout['layout_type'] == 0 || $pagelayout['layout_type'] == 2) {
+                    $content['all'] .= '    <div id="rightBlock">'.$block['righttext']."</div>\n";
                 }
                 //main block
-                $content["all"] .= '<div id="mainBlock">'.$block["maintext"]."</div>\n";
+                $content['all'] .= '<div id="mainBlock">'.$block['maintext']."</div>\n";
                 //footer DIV
-                if($block["footertext"] || $pagelayout['layout_footer_height']) {
-                    $content["all"] .= '    <div id="footerBlock">'.$block["footertext"]."</div>\n";
+                if($block['footertext'] || $pagelayout['layout_footer_height']) {
+                    $content['all'] .= '    <div id="footerBlock">'.$block['footertext']."</div>\n";
                 }
                 //contentContainer DIV end
                 if($pagelayout['additional_wrap_div']) {
-                    $content["all"] .= "</div>";
+                    $content['all'] .= '</div>';
                 }
-                $content["all"] .= "</div>\n";
+                $content['all'] .= "</div>\n";
 
                 break;
 
 
         case 2: //create the page layout based only on the content of main block
-                $content["all"] = $block["maintext"];
+                $content['all'] = $block['maintext'];
 
                 break;
 
@@ -876,20 +877,20 @@ if($aktion[2] == 0) {
     }
 
     if($content['all']) {
-        $content["all"] = str_replace('{CURRENT_URL}', abs_url(), $content["all"]);
-        $content["all"] = str_replace('{CONTENT}', $block["maintext"], $content["all"]);
+        $content['all'] = str_replace('{CURRENT_URL}', abs_url(), $content['all']);
+        $content['all'] = str_replace('{CONTENT}', $block['maintext'], $content['all']);
     } else {
-        $content['all'] = $block["maintext"];
+        $content['all'] = $block['maintext'];
     }
 
 }
 
 // Render possible PHP Values in category or article keyword field
-$content["struct"][$aktion[0]]["acat_info"] = isset($content["struct"][$aktion[0]]["acat_info"]) ? render_PHPcode($content["struct"][$aktion[0]]["acat_info"]) : '';
-$content["articles"][$aktion[1]]["article_keyword"] = isset($content["articles"][$aktion[1]]["article_keyword"]) ? render_PHPcode($content["articles"][$aktion[1]]["article_keyword"]) : '';
+$content['struct'][$aktion[0]]['acat_info'] = isset($content['struct'][$aktion[0]]['acat_info']) ? render_PHPcode($content['struct'][$aktion[0]]['acat_info']) : '';
+$content['articles'][$aktion[1]]['article_keyword'] = isset($content['articles'][$aktion[1]]['article_keyword']) ? render_PHPcode($content['articles'][$aktion[1]]['article_keyword']) : '';
 
 // put in the complete rendered content
-$content["all"] = str_replace('{CONTENT}', $content["main"], $content["all"]);
+$content['all'] = str_replace('{CONTENT}', $content['main'], $content['all']);
 // put in custom rendered content
 foreach($content['CB'] as $key => $value) {
     //first check content of custom block in current template
@@ -913,7 +914,7 @@ foreach($content['CB'] as $key => $value) {
         }
     }
     // Blocks should render now as [BLOCK] and [BLOCK_ELSE] if no content
-    $content["all"] = render_cnt_template($content["all"], $key, $value);
+    $content['all'] = render_cnt_template($content['all'], $key, $value);
 }
 
 // render Tab replacement code
@@ -926,7 +927,7 @@ if(count($content['cptab'])) {
 // check layout for list mode sections or detail view
 if(strpos($content['all'], '_LIST_MODE')) {
     $content['all'] = replace_tmpl_section( ($content['list_mode'] ? 'ELSE_LIST_MODE' : 'IF_LIST_MODE') , $content['all']);
-    $content['all'] = str_replace(array('<!--ELSE_LIST_MODE_START//-->', '<!--ELSE_LIST_MODE_END//-->', '<!--IF_LIST_MODE_START//-->', '<!--IF_LIST_MODE_END//-->'), '', $content['all']);
+    $content['all'] = str_replace(['<!--ELSE_LIST_MODE_START//-->', '<!--ELSE_LIST_MODE_END//-->', '<!--IF_LIST_MODE_START//-->', '<!--IF_LIST_MODE_END//-->'], '', $content['all']);
 }
 
 // Initial Render Device
@@ -942,165 +943,165 @@ if(preg_match_all('/LEVEL(\d+)_ID/', $content['all'], $match)) {
     $match = array_unique($match[1]);
     foreach($match as $id) {
         $id = intval($id);
-        $content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', isset($LEVEL_ID[$id]) ? $LEVEL_ID[$id] : '');
+        $content['all'] = render_cnt_template($content['all'], 'LEVEL'.$id.'_ID', $LEVEL_ID[$id] ?? '');
     }
 }
 // keep inner content if category ID [IF_CAT:id,id,id] is matched,
 // the matching ID can be used inside with replacer {IF_CAT_ID}
-if(strpos($content["all"],'[IF_CAT:') !== false) {
+if(strpos($content['all'],'[IF_CAT:') !== false) {
     $content['all'] = preg_replace_callback('/\[IF_CAT:([0-9, ]+?)\](.+?)\[\/IF_CAT\]/s', 'render_if_category', $content['all']);
 }
 // keep inner content if category ID [IF_NOTCAT:id,id,id] is NOT matched,
 // the not matching ID can be used inside with replacer {IF_NOTCAT_ID}
-if(strpos($content["all"],'[IF_NOTCAT:') !== false) {
+if(strpos($content['all'],'[IF_NOTCAT:') !== false) {
     $content['all'] = preg_replace_callback('/\[IF_NOTCAT:([0-9, ]+?)\](.+?)\[\/IF_NOTCAT\]/s', 'render_if_not_category', $content['all']);
 }
 
 // {SHOW_CONTENT:MODE,id[,id[,...]]}
-if(strpos($content["all"],'{SHOW_CONTENT:') !== false) {
-    $content["all"] = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $content["all"]);
+if(strpos($content['all'],'{SHOW_CONTENT:') !== false) {
+    $content['all'] = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $content['all']);
 }
 
 // include external PHP script (also normal HTML snippets) or return PHP var value
-$content["all"] = str_replace('{SITE}', CMSGO_URL, $content["all"]);
-$content["all"] = str_replace('{TEMPLATE}', TEMPLATE_PATH, $content["all"]);
-$content["all"] = render_PHPcode($content["all"]);
+$content['all'] = str_replace('{SITE}', CMSGO_URL, $content['all']);
+$content['all'] = str_replace('{TEMPLATE}', TEMPLATE_PATH, $content['all']);
+$content['all'] = render_PHPcode($content['all']);
 
 //breadcrumb replacement
-if(strpos($content["all"],'{BREADCRUMB') !== false) {
+if(strpos($content['all'],'{BREADCRUMB') !== false) {
     $content['all'] = preg_replace_callback('/\{BREADCRUMB:?(\-?\d+){0,1}(,[01]){0,1}\}/', 'breadcrumb_wrapper', $content['all']);
 }
 
 // ul/li based navigation, the default one
-if(strpos($content["all"],'{NAV_LIST_UL') !== false) {
+if(strpos($content['all'],'{NAV_LIST_UL') !== false) {
 
     // build complete menu structure starting at a specific ID
     // {NAV_LIST_UL:Parameter} Parameter: "menu_type, start_id, class_path, class_active, ul_id_name"
-    $content["all"] = preg_replace_callback('/\{NAV_LIST_UL:(.*?)\}/', 'buildCascadingMenu', $content["all"]);
+    $content['all'] = preg_replace_callback('/\{NAV_LIST_UL:(.*?)\}/', 'buildCascadingMenu', $content['all']);
 
 }
 
 // some more navigations, do not use - not recommend any longer, need deprecated config enabled
 if($cmsgo['enable_deprecated']) {
 
-    if(strpos($content["all"],'{NAV_') !== false) {
+    if(strpos($content['all'],'{NAV_') !== false) {
 
         // Simple row based navigation
-        $content["all"] = str_replace('{NAV_ROW}', nav_level_row(0), $content["all"]);
-        $content["all"] = preg_replace_callback('/\{NAV_ROW:(\w+|\d+):(0|1)\}/', 'nav_level_row', $content["all"]);
+        $content['all'] = str_replace('{NAV_ROW}', nav_level_row(0), $content['all']);
+        $content['all'] = preg_replace_callback('/\{NAV_ROW:(\w+|\d+):([01])\}/', 'nav_level_row', $content['all']);
 
         //reads all active category IDs beginning with the current cat ID - without HOME
-        $content["cat_path"] = get_active_categories($content["struct"], $content["cat_id"]);
+        $content['cat_path'] = get_active_categories($content['struct'], $content['cat_id']);
 
         // some general list replacements first
-        $content["all"] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content["all"]);
-        $content["all"] = str_replace('{NAV_LIST_TOP}', css_level_list($content["struct"], $content["cat_path"], 0, '', 1), $content["all"]);
-        $content["all"] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content["struct"], $content["cat_path"], $content["cat_id"]), $content["all"]);
+        $content['all'] = str_replace('{NAV_LIST}', '{NAV_LIST:0}', $content['all']);
+        $content['all'] = str_replace('{NAV_LIST_TOP}', css_level_list($content['struct'], $content['cat_path'], 0, '', 1), $content['all']);
+        $content['all'] = str_replace('{NAV_LIST_CURRENT}', css_level_list($content['struct'], $content['cat_path'], $content['cat_id']), $content['all']);
 
         // list based navigation starting at given level
-        $content["all"] = preg_replace_callback('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/', 'nav_list_struct_callback', $content["all"]);
+        $content['all'] = preg_replace_callback('/\{NAV_LIST:(\d+):{0,1}(.*){0,1}\}/', 'nav_list_struct_callback', $content['all']);
 
         // List based navigation with Top Level - default settings
         // creates a list styled top nav menu, + optional Home | {NAV_LIST_TOP:home_name:class_name} | default class name = list_top
-        $content["all"] = preg_replace_callback('/\{NAV_LIST_TOP:(.*?):(.*?)\}/', 'css_level_list_top_callback', $content["all"]);
+        $content['all'] = preg_replace_callback('/\{NAV_LIST_TOP:(.*?):(.*?)\}/', 'css_level_list_top_callback', $content['all']);
 
         // List based navigation with Top Level - default settings
         // creates a list styled nav menu of current level {NAV_LIST_CURRENT:1:back_name:class_name} | default class name = list_top
-        $content["all"] = preg_replace_callback('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/', 'css_level_list_current_callback', $content["all"]);
+        $content['all'] = preg_replace_callback('/\{NAV_LIST_CURRENT:(\d+):(.*?):(.*?)\}/', 'css_level_list_current_callback', $content['all']);
 
         // Table based navigation, outdated
-        if(strpos($content["all"],'{NAV_TABLE') !== false) {
-            $content["all"] = str_replace('{NAV_TABLE_SIMPLE}', nav_table_simple_struct($content["struct"], $content["cat_id"]), $content["all"]);
-            $content["all"] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content["all"]);
-            $content["all"] = preg_replace_callback('/\{NAV_TABLE_COLUMN:(\d+)\}/', 'nav_table_struct_callback', $content["all"]);
+        if(strpos($content['all'],'{NAV_TABLE') !== false) {
+            $content['all'] = str_replace('{NAV_TABLE_SIMPLE}', nav_table_simple_struct($content['struct'], $content['cat_id']), $content['all']);
+            $content['all'] = str_replace('{NAV_TABLE_COLUMN}', '{NAV_TABLE_COLUMN:0}', $content['all']);
+            $content['all'] = preg_replace_callback('/\{NAV_TABLE_COLUMN:(\d+)\}/', 'nav_table_struct_callback', $content['all']);
         }
     }
 
-    $content["all"] = html_parser_deprecated($content["all"]);
+    $content['all'] = html_parser_deprecated($content['all']);
 }
 
 // date replacement
-if(strpos($content["all"],'{DATE_') !== false) {
-    $content["all"] = str_replace('{DATE_LONG}',    international_date_format($template_default["date"]["language"], $template_default["date"]["long"]),   $content["all"]);
-    $content["all"] = str_replace('{DATE_MEDIUM}',  international_date_format($template_default["date"]["language"], $template_default["date"]["medium"]), $content["all"]);
-    $content["all"] = str_replace('{DATE_SHORT}',   international_date_format($template_default["date"]["language"], $template_default["date"]["short"]),  $content["all"]);
-    $content["all"] = str_replace('{DATE_ARTICLE}', international_date_format($template_default["date"]["language"], $template_default["date"]["article"], $content["article_date"]),  $content["all"]);
+if(strpos($content['all'],'{DATE_') !== false) {
+    $content['all'] = str_replace('{DATE_LONG}',    international_date_format($template_default['date']['language'], $template_default['date']['long']),   $content['all']);
+    $content['all'] = str_replace('{DATE_MEDIUM}',  international_date_format($template_default['date']['language'], $template_default['date']['medium']), $content['all']);
+    $content['all'] = str_replace('{DATE_SHORT}',   international_date_format($template_default['date']['language'], $template_default['date']['short']),  $content['all']);
+    $content['all'] = str_replace('{DATE_ARTICLE}', international_date_format($template_default['date']['language'], $template_default['date']['article'], $content['article_date']),  $content['all']);
 }
 
 // time replacement
-if(strpos($content["all"],'{TIME_') !== false) {
-    $content["all"] = str_replace('{TIME_LONG}',    date($template_default["time"]["long"]) ,                            $content["all"] );
-    $content["all"] = str_replace('{TIME_SHORT}',   date($template_default["time"]["short"]),                            $content["all"] );
-    $content["all"] = str_replace('{TIME_ARTICLE}', date($template_default["time"]["short"] , $content["article_date"]), $content["all"] );
+if(strpos($content['all'],'{TIME_') !== false) {
+    $content['all'] = str_replace('{TIME_LONG}',    date($template_default['time']['long']) ,                            $content['all'] );
+    $content['all'] = str_replace('{TIME_SHORT}',   date($template_default['time']['short']),                            $content['all'] );
+    $content['all'] = str_replace('{TIME_ARTICLE}', date($template_default['time']['short'] , $content['article_date']), $content['all'] );
 }
 
 // replace custom search form input field and action with right target
-if(strpos($content["all"],'###search_input_') !== false) {
-    $content["all"] = str_replace('###search_input_field###', 'search_input_field', $content["all"]);
-    $content["all"] = str_replace('###search_input_value###', (empty($content["search_word"]) ? '' : $content["search_word"]), $content["all"]);
+if(strpos($content['all'],'###search_input_') !== false) {
+    $content['all'] = str_replace('###search_input_field###', 'search_input_field', $content['all']);
+    $content['all'] = str_replace('###search_input_value###', (empty($content['search_word']) ? '' : $content['search_word']), $content['all']);
     // create serahc form action
-    if(strpos($content["all"],'###search_input_action:') !== false) {
-        $content["all"] = preg_replace_callback('/###search_input_action:(\d+)###/', 'get_search_action', $content["all"]);
+    if(strpos($content['all'],'###search_input_action:') !== false) {
+        $content['all'] = preg_replace_callback('/###search_input_action:(\d+)###/', 'get_search_action', $content['all']);
     }
 }
 
 // related articles based on keywords, inspired by Magnar Stav Johanssen
-if(strpos($content["all"],'{RELATED:') !== false) {
-    $related_keywords = ($no_content_for_this_page === false && !empty($content["articles"][$aktion[1]]["article_keyword"])) ? $content["articles"][$aktion[1]]["article_keyword"] : '';
-    $content["all"] = preg_replace_callback('/\{RELATED:(\d+)\}/', 'get_related_articles_callback', $content["all"]);
-    $content["all"] = preg_replace_callback('/\{RELATED:(\d+):(.*?)\}/', 'get_related_articles_callback', $content["all"]);
+if(strpos($content['all'],'{RELATED:') !== false) {
+    $related_keywords = ($no_content_for_this_page === false && !empty($content['articles'][$aktion[1]]['article_keyword'])) ? $content['articles'][$aktion[1]]['article_keyword'] : '';
+    $content['all'] = preg_replace_callback('/\{RELATED:(\d+)\}/', 'get_related_articles_callback', $content['all']);
+    $content['all'] = preg_replace_callback('/\{RELATED:(\d+):(.*?)\}/', 'get_related_articles_callback', $content['all']);
 }
 
 // all new article list sorted by date
-if(strpos($content["all"],'{NEW:') !== false) {
-    $content["all"] = preg_replace_callback('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/', 'get_new_articles_callback', $content["all"]);
+if(strpos($content['all'],'{NEW:') !== false) {
+    $content['all'] = preg_replace_callback('/\{NEW:(\d+):{0,1}(\d+){0,1}\}/', 'get_new_articles_callback', $content['all']);
 }
 
 // some more general parsing
-$content["all"] = str_replace('{RSSIMG}', $template_default["rss"]["image"], $content["all"]);
+$content['all'] = str_replace('{RSSIMG}', $template_default['rss']['image'], $content['all']);
 
 // create link to articles for found keywords
-$content["all"] = preg_replace_callback('/\{KEYWORD:(.*?)\}/', 'get_keyword_link', $content["all"]);
+$content['all'] = preg_replace_callback('/\{KEYWORD:(.*?)\}/', 'get_keyword_link', $content['all']);
 
 // include external HTML page but only part between <body></body>
-$content["all"] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $content["all"]);
+$content['all'] = preg_replace_callback('/\{URL:(.*?)\}/i', 'include_url', $content['all']);
 
 // special browse the content links: UP, NEXT, PREVIOUS
 // echo get_index_link_up('UP')." | ".get_index_link_prev('PREV',1).' | '.get_index_link_next('NEXT',1);
-if(strpos($content["all"],'{BROWSE:') !== false) {
-    $content["all"] = preg_replace_callback('/\{BROWSE:UP:(.*?)\}/', 'get_index_link_up', $content["all"]);
-    $content["all"] = preg_replace_callback('/\{BROWSE:NEXT:(.*?):(0|1)\}/', 'get_index_link_next',$content["all"]);
-    $content["all"] = preg_replace_callback('/\{BROWSE:PREV:(.*?):(0|1)\}/', 'get_index_link_prev',$content["all"]);
+if(strpos($content['all'],'{BROWSE:') !== false) {
+    $content['all'] = preg_replace_callback('/\{BROWSE:UP:(.*?)\}/', 'get_index_link_up', $content['all']);
+    $content['all'] = preg_replace_callback('/\{BROWSE:NEXT:(.*?):([01])\}/', 'get_index_link_next',$content['all']);
+    $content['all'] = preg_replace_callback('/\{BROWSE:PREV:(.*?):([01])\}/', 'get_index_link_prev',$content['all']);
 }
 
 // parse replacements to HTML before frontend render
 if(empty($cmsgo['parse_html_mode']) || substr($cmsgo['parse_html_mode'], 0, 6) === 'before') {
-    $content["all"] = html_parser($content["all"]);
+    $content['all'] = html_parser($content['all']);
 
     // replace all "hardcoded" global replacement tags
     if(count($content['globalRT'])) {
         foreach($content['globalRT'] as $key => $value) {
             if($key != '') {
-                $content["all"] = str_replace($key, $value, $content["all"]);
+                $content['all'] = str_replace($key, $value, $content['all']);
             }
         }
     }
 }
 
 // add possible redirection code (article summary) to $block["htmlhead"];
-$block["htmlhead"] = $content["redirect"]["code"] . render_PHPcode($block["htmlhead"]) . LF;
+$block['htmlhead'] = $content['redirect']['code'] . render_PHPcode($block['htmlhead']) . LF;
 
 if(!defined('CMSGO_ALIAS')) {
-    if(empty($content['struct'][ $content["cat_id"] ]['acat_alias'])) {
-        define('CMSGO_ALIAS', empty($aktion[1]) ? 'id='.$content["cat_id"] : 'aid='.$aktion[1]);
+    if(empty($content['struct'][ $content['cat_id'] ]['acat_alias'])) {
+        define('CMSGO_ALIAS', empty($aktion[1]) ? 'id='.$content['cat_id'] : 'aid='.$aktion[1]);
     } else {
-        define('CMSGO_ALIAS',  $content['struct'][ $content["cat_id"] ]['acat_alias']);
+        define('CMSGO_ALIAS',  $content['struct'][ $content['cat_id'] ]['acat_alias']);
     }
 }
 
 // try to include custom functions and replacement tags or what you want to do at this point of the script
 // default dir: "cmsgo_template/inc_script/frontend_render"; only *.php files are allowed there
-if($cmsgo["allow_ext_render"]) {
+if($cmsgo['allow_ext_render']) {
     if(count($custom_includes = get_tmpl_files(CMSGO_TEMPLATE.'inc_script/frontend_render', 'php'))) {
         foreach($custom_includes as $value) {
             include_once CMSGO_TEMPLATE.'inc_script/frontend_render/'.$value;
@@ -1115,13 +1116,13 @@ if(count($cmsgo['modules_fe_render'])) {
 
 // parse replacements to HTML before frontend render
 if(!empty($cmsgo['parse_html_mode']) && substr($cmsgo['parse_html_mode'], -5) === 'after') {
-    $content["all"] = html_parser($content["all"]);
+    $content['all'] = html_parser($content['all']);
 
     // replace all "hardcoded" global replacement tags
     if(count($content['globalRT'])) {
         foreach($content['globalRT'] as $key => $value) {
             if($key != '') {
-                $content["all"] = str_replace($key, $value, $content["all"]);
+                $content['all'] = str_replace($key, $value, $content['all']);
             }
         }
     }
@@ -1132,7 +1133,7 @@ $content['all'] = render_device($content['all']);
 
 // And again check against possible {PHP needs to be rendered
 if(strpos($content['all'],'PHP') !== false) {
-    $content['all'] = render_PHPcode($content["all"]);
+    $content['all'] = render_PHPcode($content['all']);
 }
 
 // Replace Lazy Loading attribute
@@ -1145,16 +1146,16 @@ if(FE_EDIT_LINK) {
 }
 
 // insert description meta tag if not definied
-if(empty($block['custom_htmlhead']['meta.description']) && !empty($content["struct"][$aktion[0]]["acat_info"]) && !stristr($block["htmlhead"], '"description"')) {
-    $content['opengraph']['description'] = $content["struct"][$aktion[0]]["acat_info"];
-    set_meta('description', $content["struct"][$aktion[0]]["acat_info"]);
+if(empty($block['custom_htmlhead']['meta.description']) && !empty($content['struct'][$aktion[0]]['acat_info']) && !stristr($block['htmlhead'], '"description"')) {
+    $content['opengraph']['description'] = $content['struct'][$aktion[0]]['acat_info'];
+    set_meta('description', $content['struct'][$aktion[0]]['acat_info']);
 }
 // add structure level keywords
-if(!empty($content['struct'][ $content["cat_id"] ]['acat_keywords'])) {
-    $content['all_keywords'] .= ', ' . $content['struct'][ $content["cat_id"] ]['acat_keywords'];
+if(!empty($content['struct'][ $content['cat_id'] ]['acat_keywords'])) {
+    $content['all_keywords'] .= ', ' . $content['struct'][ $content['cat_id'] ]['acat_keywords'];
 }
 // insert keywords meta tag if not yet definied
-if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_keywords']) && !stristr($block["htmlhead"], '"keywords"')) {
+if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_keywords']) && !stristr($block['htmlhead'], '"keywords"')) {
     if(strpos($content['all_keywords'], '*CSS-') !== false) {
         $content['all_keywords'] = preg_replace('/\*CSS\-.+?\*/', '', $content['all_keywords']);
     }
@@ -1174,7 +1175,7 @@ if($content['opengraph']['render']) {
     set_meta('og:type', $content['opengraph']['type'], 'property');
     set_meta('og:title', sanitize_replacement_tags($content['opengraph']['title']), 'property');
     if(empty($content['opengraph']['url'])) {
-        set_meta('og:url', abs_url(array(), array('cmsgo_output_action', 'print', 'cmsgo-preview', 'unsubscribe', 'subscribe')), 'property');
+        set_meta('og:url', abs_url([], ['cmsgo_output_action', 'print', 'cmsgo-preview', 'unsubscribe', 'subscribe']), 'property');
     } else {
         set_meta('og:url', $content['opengraph']['url'], 'property');
     }
@@ -1209,20 +1210,20 @@ if(empty($cmsgo['disable_generator'])) {
 }
 
 // replace Print URL
-if(strpos($content["all"], '[PRINT]') !== false) {
-    $content["all"] = str_replace('[PRINT]', '<a href="'.rel_url(array('print'=>1),array(), CMSGO_ALIAS).'" class="'.$template_default['classes']['link-print'].'" target="_blank" rel="nofollow">', $content["all"]);
-    $content["all"] = str_replace('[/PRINT]', '</a>', $content["all"]);
+if(strpos($content['all'], '[PRINT]') !== false) {
+    $content['all'] = str_replace('[PRINT]', '<a href="'.rel_url(['print'=>1], [], CMSGO_ALIAS).'" class="'.$template_default['classes']['link-print'].'" target="_blank" rel="nofollow">', $content['all']);
+    $content['all'] = str_replace('[/PRINT]', '</a>', $content['all']);
 }
-if(strpos($content["all"], '[PRINT_PDF]') !== false) {
-    $content["all"] = str_replace('[PRINT_PDF]', '<a href="'.rel_url(array('print'=>2),array(), CMSGO_ALIAS).'" class="'.$template_default['classes']['link-print-pdf'].'" target="_blank" rel="nofollow">', $content["all"]);
-    $content["all"] = str_replace('[/PRINT_PDF]', '</a>', $content["all"]);
+if(strpos($content['all'], '[PRINT_PDF]') !== false) {
+    $content['all'] = str_replace('[PRINT_PDF]', '<a href="'.rel_url(['print'=>2], [], CMSGO_ALIAS).'" class="'.$template_default['classes']['link-print-pdf'].'" target="_blank" rel="nofollow">', $content['all']);
+    $content['all'] = str_replace('[/PRINT_PDF]', '</a>', $content['all']);
 }
 
 // some article related "global" replacement tags
 if(isset($content['article_livedate'])) {
 
     $content['all'] = render_cnt_template($content['all'], 'AUTHOR', html_specialchars($content['article_username']));
-    $content['all'] = render_cnt_date($content['all'], $content["article_date"], $content['article_livedate'], $content['article_killdate']);
+    $content['all'] = render_cnt_date($content['all'], $content['article_date'], $content['article_livedate'], $content['article_killdate']);
     $content['all'] = render_cnt_template($content['all'], 'CATEGORY', $content['cat']);
 
 } else {
@@ -1243,15 +1244,15 @@ if(!isset($GLOBALS['block']['custom_htmlhead']['frontend.js']) && preg_match('/M
 }
 
 //check for additional template based onLoad JavaScript Code
-if($block["jsonload"]) {
-    if(empty($pagelayout["layout_jsonload"])) {
-        $pagelayout["layout_jsonload"]  = '';
+if($block['jsonload']) {
+    if(empty($pagelayout['layout_jsonload'])) {
+        $pagelayout['layout_jsonload']  = '';
     } else {
-        $pagelayout["layout_jsonload"] .= ';';
+        $pagelayout['layout_jsonload'] .= ';';
     }
-    $pagelayout["layout_jsonload"]  = convertStringToArray($pagelayout["layout_jsonload"] . $block["jsonload"], ';');
-    $block['js_ondomready'][]       = '     ' . implode(';'.LF.'    ', $pagelayout["layout_jsonload"]) . ';';
-    $pagelayout["layout_jsonload"]  = '';
+    $pagelayout['layout_jsonload']  = convertStringToArray($pagelayout['layout_jsonload'] . $block['jsonload'], ';');
+    $block['js_ondomready'][]       = '     ' . implode(';'.LF.'    ', $pagelayout['layout_jsonload']) . ';';
+    $pagelayout['layout_jsonload']  = '';
 }
 
 // set OnLoad (DomReady) JavaScript
@@ -1271,16 +1272,16 @@ if(count($block['js_inline'])) {
 
 if(!empty($_GET['highlight'])) {
     $highlight_words = explode(' ', clean_slweg(rawurldecode($_GET['highlight'])));
-    $content['all'] = preg_replace_callback("/<!--SEARCH_HIGHLIGHT_START\/\/-->(.*?)<!--SEARCH_HIGHLIGHT_END\/\/-->/si", "pregReplaceHighlightWrapper", $content['all']);
+    $content['all'] = preg_replace_callback('/<!--SEARCH_HIGHLIGHT_START\/\/-->(.*?)<!--SEARCH_HIGHLIGHT_END\/\/-->/si', 'pregReplaceHighlightWrapper', $content['all']);
 }
-$content['all'] = str_replace(array('<!--SEARCH_HIGHLIGHT_START//-->', '<!--SEARCH_HIGHLIGHT_END//-->'), '', $content['all']);
+$content['all'] = str_replace(['<!--SEARCH_HIGHLIGHT_START//-->', '<!--SEARCH_HIGHLIGHT_END//-->'], '', $content['all']);
 
 // render content part pagination
 if(!empty($_CpPaginate)) {
 
     $content['all'] = str_replace(
-        array('<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->', '{CP_PAGINATE_CLASS}'),
-        array('', '', $template_default['classes']['cp-paginate-link']),
+        ['<!--CP_PAGINATE_START//-->', '<!--CP_PAGINATE_END//-->', '{CP_PAGINATE_CLASS}'],
+        ['', '', $template_default['classes']['cp-paginate-link']],
         $content['all']
     );
 
@@ -1288,12 +1289,12 @@ if(!empty($_CpPaginate)) {
 
     // first build [1][2][3] paginate pages
     if(strpos($content['all'], '{CP_PAGINATE}')) {
-        $content['CpPaginateNavi'] = array();
+        $content['CpPaginateNavi'] = [];
 
         foreach($content['CpPages'] as $key => $value) {
 
             $content['CpPaginateNavi'][ $key ]  = $template_default['attributes']['cp-paginate']['link-prefix'];
-            $content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS) . '" class="';
+            $content['CpPaginateNavi'][ $key ] .= '<a href="' . rel_url([], [], $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS) . '" class="';
             $content['CpPaginateNavi'][ $key ] .= $key === $content['aId_CpPage'] ? $template_default['classes']['cp-paginate-link-active'] : $template_default['classes']['cp-paginate-link'];
             $content['CpPaginateNavi'][ $key ] .= '">' . $template_default['attributes']['cp-paginate']['value-prefix'] . $value . $template_default['attributes']['cp-paginate']['value-suffix'] . '</a>';
             $content['CpPaginateNavi'][ $key ] .= $template_default['attributes']['cp-paginate']['link-suffix'];
@@ -1306,7 +1307,7 @@ if(!empty($_CpPaginate)) {
     if(in_array($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages'])) {
 
         $key = array_search($content['CpPages'][ $content['aId_CpPage'] ] - 1, $content['CpPages']);
-        $value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS);
+        $value = abs_url([], [], $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS);
         $content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_PREV', $value);
 
         if(empty($cmsgo['disable_next_prev'])) {
@@ -1321,7 +1322,7 @@ if(!empty($_CpPaginate)) {
     if(in_array($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages'])) {
 
         $key = array_search($content['CpPages'][ $content['aId_CpPage'] ] + 1, $content['CpPages']);
-        $value = abs_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS);
+        $value = abs_url([], [], $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS);
         $content['all'] = render_cnt_template($content['all'], 'CP_PAGINATE_NEXT', $value);
 
         if(empty($cmsgo['disable_next_prev'])) {
@@ -1368,12 +1369,12 @@ if(!empty($_CpPaginate)) {
 
         }
 
-        $content['CpTitleMenu'] = array();
+        $content['CpTitleMenu'] = [];
 
         // cp menu items
         foreach($content['CpPageTitles'] as $key => $value) {
 
-            $content['CpItem'] = '<a href="' . rel_url(array(), array(), $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS) . '"';
+            $content['CpItem'] = '<a href="' . rel_url([], [], $key ? 'aid='.$aktion[1].'-'.$key : CMSGO_ALIAS) . '"';
 
             if($key === $content['aId_CpPage']) {
 
@@ -1418,11 +1419,11 @@ if(strpos($content['all'], '--NO_PRINT')) {
     if($aktion[2] == 1) {
 
         $content['all'] = replace_tmpl_section('NO_PRINT', $content['all']);
-        $block['css'] = array('print_layout.css');
+        $block['css'] = ['print_layout.css'];
 
     } else {
 
-        $content['all'] = str_replace(array('<!--NO_PRINT_START//-->', '<!--NO_PRINT_END//-->'), '', $content['all']);
+        $content['all'] = str_replace(['<!--NO_PRINT_START//-->', '<!--NO_PRINT_END//-->'], '', $content['all']);
 
     }
 }
@@ -1432,11 +1433,11 @@ if(strpos($content['all'], '--LOGGED_')) {
 
     if( _getFeUserLoginStatus() ) {
         // if user IS logged in
-        $content['all'] = str_replace(array('<!--LOGGED_IN_START//-->', '<!--LOGGED_IN_END//-->'), '', $content['all']);
+        $content['all'] = str_replace(['<!--LOGGED_IN_START//-->', '<!--LOGGED_IN_END//-->'], '', $content['all']);
         $content['all'] = replace_tmpl_section('LOGGED_OUT', $content['all']);
     } else {
         // user is NOT logged
-        $content['all'] = str_replace(array('<!--LOGGED_OUT_START//-->', '<!--LOGGED_OUT_END//-->'), '', $content['all']);
+        $content['all'] = str_replace(['<!--LOGGED_OUT_START//-->', '<!--LOGGED_OUT_END//-->'], '', $content['all']);
         $content['all'] = replace_tmpl_section('LOGGED_IN', $content['all']);
     }
 
@@ -1450,8 +1451,8 @@ parse_CKEDitor_resized_images();
 // cleanup document to enhance XHTML Strict compatibility
 if(HTML5_MODE && IE8_CC) {
 
-    $cmsgo['html5shiv_disabled'] = empty($cmsgo['html5shiv_disabled']) ? false : true;
-    $cmsgo['respondjs_disabled'] = empty($cmsgo['respondjs_disabled']) ? false : true;
+    $cmsgo['html5shiv_disabled'] = !empty($cmsgo['html5shiv_disabled']);
+    $cmsgo['respondjs_disabled'] = !empty($cmsgo['respondjs_disabled']);
 
     // put it as first item
     if(!$cmsgo['html5shiv_disabled'] && !$cmsgo['respondjs_disabled']) {
@@ -1467,24 +1468,23 @@ if(HTML5_MODE && IE8_CC) {
 
 } elseif($cmsgo['mode_XHTML'] === 2) {
 
-    $content['all'] = preg_replace(array('/ border="[0-9]+?"/', '/ target=".+?"/'), '', $content['all'] );
+    $content['all'] = preg_replace(['/ border="[0-9]+?"/', '/ target=".+?"/'], '', $content['all'] );
 
 }
 
 if(!$cmsgo['donottrack']) {
-
     // Google Analytics Tracking Code
     if (!empty($block['tracking_ga']['enable'])) {
-        $template_default['settings']['tracking']['ga_default'] = array(
+        $template_default['settings']['tracking']['ga_default'] = [
             'position' => 'head',
-            'code' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
+            'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
   <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', '%1\$s'%2\$s);
   </script>",
-            'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
+            'optout' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . ">
     var gaOptOutCookie = 'ga-disable-%1\$s';
     if (document.cookie.indexOf(gaOptOutCookie + '=true') > -1) {
         window[gaOptOutCookie] = true;
@@ -1494,15 +1494,15 @@ if(!$cmsgo['donottrack']) {
         window[gaOptOutCookie] = true;
     }
   </script>"
-        );
+        ];
         if (isset($template_default['settings']['tracking']['ga'])) {
             $template_default['settings']['tracking']['ga'] = array_merge($template_default['settings']['tracking']['ga_default'], $template_default['settings']['tracking']['ga']);
         } else {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
-        $block['tracking_ga']['config'] = array(
-            "cookie_comain: '" . (isset($cmsgo['session_cookie_params']['domain']) ? $cmsgo['session_cookie_params']['domain'] : CMSGO_DOMAIN) . "'"
-        );
+        $block['tracking_ga']['config'] = [
+            "cookie_comain: '" . ($cmsgo['session_cookie_params']['domain'] ?? CMSGO_DOMAIN) . "'"
+        ];
         if (!empty($block['tracking_ga']['anonymize'])) {
             $block['tracking_ga']['config'][] = 'anonymize_ip: true';
         }
@@ -1510,7 +1510,7 @@ if(!$cmsgo['donottrack']) {
             $block['tracking_ga']['config'][] = $block['tracking_ga']['custom_properties'];
         }
 
-        $block['tracking_ga']['ga_cookie_flags'] = array();
+        $block['tracking_ga']['ga_cookie_flags'] = [];
         if (CMSGO_SSL) {
             $block['tracking_ga']['ga_cookie_flags'][] = 'Secure';
         }
@@ -1537,9 +1537,9 @@ if(!$cmsgo['donottrack']) {
     }
 
     if (!empty($block['tracking_gtm']['enable'])) {
-        $template_default['settings']['tracking']['gtm_default'] = array(
+        $template_default['settings']['tracking']['gtm_default'] = [
             'position' => 'head',
-            'code' => "  <script>
+            'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . ">
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -1547,7 +1547,7 @@ if(!$cmsgo['donottrack']) {
     })(window,document,'script','dataLayer','%1\$s');
   </script>",
             'body' => '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%s" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>'
-        );
+        ];
         if (isset($template_default['settings']['tracking']['gtm'])) {
             $template_default['settings']['tracking']['gtm'] = array_merge($template_default['settings']['tracking']['gtm_default'], $template_default['settings']['tracking']['gtm']);
         } else {
@@ -1563,7 +1563,7 @@ if(!$cmsgo['donottrack']) {
 
     // Matomo/Piwik Tracking Code
     if (!empty($block['tracking_piwik']['enable'])) {
-        $template_default['settings']['tracking']['piwik_default'] = array(
+        $template_default['settings']['tracking']['piwik_default'] = [
             'position' => 'head',
             'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . '>
     var _paq = window._paq = window._paq || [];
@@ -1577,7 +1577,7 @@ if(!$cmsgo['donottrack']) {
         g.type="text/javascript"; g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
     })();
   </script>'
-        );
+        ];
         if (isset($template_default['settings']['tracking']['piwik'])) {
             $template_default['settings']['tracking']['piwik'] = array_merge($template_default['settings']['tracking']['piwik_default'], $template_default['settings']['tracking']['piwik']);
         } else {
@@ -1589,54 +1589,6 @@ if(!$cmsgo['donottrack']) {
             $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
         }
     }
-
-}
-
-// internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
-if(!empty($block['cookie_consent']['enable']) && !$cmsgo['cookie_consent']) {
-
-    $block['cookie_consent']['options'] = array();
-    if(!empty($block['cookie_consent']['message'])) {
-        $block['cookie_consent']['options']['message'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
-        $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
-    }
-    if(!empty($block['cookie_consent']['dismiss'])) {
-        $block['cookie_consent']['options']['dismiss'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
-        $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
-    }
-    if(!empty($block['cookie_consent']['link'])) {
-
-        $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
-        $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
-        $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
-        if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
-            $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
-        }
-
-        if(!empty($block['cookie_consent']['more'])) {
-            $block['cookie_consent']['options']['learnMore'] = CMSGO_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
-            $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
-        }
-    }
-
-    if(empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
-        $block['cookie_consent']['options']['theme'] = false;
-    } elseif(!CMSGO_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
-        $block['cookie_consent']['options']['theme'] = CMSGO_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['theme'].'.css';
-    } else {
-        $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
-    }
-
-    $block['custom_htmlhead']['cookieconsent.js']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  ';
-    $block['custom_htmlhead']['cookieconsent.js'] .= '    window.cookieconsent_options='.json_encode($block['cookie_consent']['options']).';';
-    $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
-
-    if(CMSGO_USE_CDN) {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.CMSGO_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
-    } else {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.CMSGO_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script>';
-    }
-
 }
 
 // PixelRatio Check based on JavaScript and Cookie
@@ -1690,7 +1642,7 @@ if(count($block['custom_htmlhead'])) {
 
     } else {
 
-        $block["htmlhead"] .= implode(LF, $block['custom_htmlhead']).LF;
+        $block['htmlhead'] .= implode(LF, $block['custom_htmlhead']).LF;
 
     }
 
@@ -1699,7 +1651,7 @@ if(count($block['custom_htmlhead'])) {
 }
 
 // remove all useless replacement tags
-$content["pagetitle"] = sanitize_replacement_tags($content["pagetitle"]);
+$content['pagetitle'] = sanitize_replacement_tags($content['pagetitle']);
 
 // now we should search all ?aid=123 and/or ?id=123 and replace'em by the real alias if available
 if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.php?id=')) {
@@ -1711,18 +1663,18 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
         $all_reset_url = false;
     }
 
-    $match = array();
+    $match = [];
     preg_match_all('/[^\/]index.php\?(aid|id)=([\d\,]+)(["|&])/', $content['all'], $match);
 
     if( isset($match[1]) && isset($match[2]) ) {
 
-        $all_id     = array();
+        $all_id     = [];
         $sql_id     = '';
 
-        $all_aid    = array();
+        $all_aid    = [];
         $sql_aid    = '';
 
-        $all_close  = array();
+        $all_close  = [];
 
         $old_style  = false;
 
@@ -1804,7 +1756,7 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
                 }
 
                 // search also for id=0,0,...
-                if( $old_style == true ) {
+                if($old_style) {
 
                     $value['id'] = $value['id'] . ',' . $value['aid'] . ',0,1,0,0';
 
@@ -1827,17 +1779,17 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
 // Global parsing for i18 @@Text@@ replacements
 if(!empty($cmsgo['i18n_parse'])) {
     $content['all']         = i18n_substitute_text($content['all']);
-    $content["pagetitle"]   = i18n_substitute_text($content['pagetitle']);
+    $content['pagetitle']   = i18n_substitute_text($content['pagetitle']);
 }
 
 // Replace all deprecated GT Mod tags
-if(!empty($cmsgo['gt_mod']) && strpos($content["all"], '{GT') !== false) {
+if(!empty($cmsgo['gt_mod']) && strpos($content['all'], '{GT') !== false) {
 
     function deprecated_get_gt_by_style($matches) {
         return '<span class="gt-'.trim($matches[1]).'">' . $matches[2] . '</span>';
     }
 
-    $content["all"] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content["all"]);
+    $content['all'] = preg_replace_callback('/\{GT:(.+?)\}(.*?)\{\/GT\}/is', 'deprecated_get_gt_by_style', $content['all']);
 }
 
 // Replace image_resized.php
@@ -1848,13 +1800,13 @@ if (strpos($content['all'], 'image_resized.php') !== false) {
             return $matches[0];
         }
         $src = explode('&', html_despecialchars($src[1]));
-        $defs = array(
+        $defs = [
             'format' => CMSGO_WEBP ? 'webp' : 'jpg',
             'imgfile' => 'img/leer.gif',
             'w' => 0,
             'h' => 0,
             'q' => CMSGO_QUALITY
-        );
+        ];
         foreach ($src as $attribute) {
             if (strpos($attribute, '=') !== false) {
                 list($param, $value) = explode('=', $attribute);
@@ -1880,7 +1832,7 @@ if (strpos($content['all'], 'image_resized.php') !== false) {
             if (preg_match('/width=(.+?)\s/', $attributes . ' ', $width)) {
                 if ($width = intval(trim($width[1], '"\''))) {
                     $defs['w'] = $width;
-                };
+                }
             }
             if (preg_match('/height=(.+?)\s/', $attributes . ' ', $height)) {
                 if ($height = intval(trim($height[1], '"\''))) {
@@ -1897,11 +1849,11 @@ if (strpos($content['all'], 'image_resized.php') !== false) {
         return $img;
     }
 
-    $content["all"] = preg_replace_callback('/<img(.+)src=(?:"|\')(image_resized\.php.+?)(?:"|\')(.+?)>/', 'deprecated_image_resized', $content["all"]);
+    $content['all'] = preg_replace_callback('/<img(.+)src=(?:"|\')(image_resized\.php.+?)(?:"|\')(.+?)>/', 'deprecated_image_resized', $content['all']);
 }
 
 if (CMSGO_REWRITE && strpos($content['all'], 'download.php?f=') !== false) {
-    $content["all"] = preg_replace('/download.php\?f=([a-f0-9]{32,32}).*?"/', 'dl/$1/"', $content["all"]);
+    $content['all'] = preg_replace('/download.php\?f=([a-f0-9]{32,32}).*?"/', 'dl/$1/"', $content['all']);
 }
 
 // Force Image extensions to WebP
