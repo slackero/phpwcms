@@ -158,7 +158,11 @@ if(!empty($step)) {
 
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
                                 mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
-                                mysqli_query($db, 'SET GLOBAL innodb_default_row_format=DYNAMIC');
+                                try {
+                                    mysqli_query($db, 'SET GLOBAL innodb_default_row_format=DYNAMIC');
+                                } catch (Exception $e) {
+                                    // we tried, but continue without breaking
+                                }
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";
