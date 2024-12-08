@@ -1525,6 +1525,8 @@ $BL['be_cc_v3_bottom_center'] = 'Unten zentriert';
 $BL['be_cc_v3_bottom_right'] = 'Unten rechts';
 $BL['be_cc_v3_left'] = 'Links';
 $BL['be_cc_v3_right'] = 'Rechts';
+$BL['be_cc_v3_top'] = 'Oben';
+$BL['be_cc_v3_bottom'] = 'Unten';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';

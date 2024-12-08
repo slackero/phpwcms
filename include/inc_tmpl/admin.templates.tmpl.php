@@ -1289,33 +1289,49 @@ if(isset($result[0]['pagelayout_id'])) {
                                                     <?php echo $BL['be_cc_v3_position']; ?>
                                                 </label>
                                                 <div class="col">
+                                                    <?php
+                                                    if (in_array($template['cc_v3']['gui']['consent']['layout'], ['bar', 'bar inline'])) {
+                                                        $cc_v3_consent_position_nobar = ' style="display:none;"';
+                                                        $cc_v3_consent_position_bar = '';
+                                                    } else {
+                                                        $cc_v3_consent_position_nobar = '';
+                                                        $cc_v3_consent_position_bar = ' style="display:none;"';
+                                                    }
+
+                                                    ?>
                                                     <select class="form-control" name="cc_v3_consent_position" id="cc_v3_consent_position">
-                                                        <option value="top left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top left'); ?>>
+                                                        <option value="top left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top left'); echo $cc_v3_consent_position_nobar; ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_top_left']; ?>
                                                         </option>
-                                                        <option value="top center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top center'); ?>>
+                                                        <option value="top center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_top_center']; ?>
                                                         </option>
-                                                        <option value="top right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top right'); ?>>
+                                                        <option value="top right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_top_right']; ?>
                                                         </option>
-                                                        <option value="middle left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle left'); ?>>
+                                                        <option value="middle left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle left'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_middle_left']; ?>
                                                         </option>
-                                                        <option value="middle center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle center'); ?>>
+                                                        <option value="middle center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_middle_center']; ?>
                                                         </option>
-                                                        <option value="middle right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle right'); ?>>
+                                                        <option value="middle right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_middle_right']; ?>
                                                         </option>
-                                                        <option value="bottom left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom left'); ?>>
+                                                        <option value="bottom left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom left'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_bottom_left']; ?>
                                                         </option>
-                                                        <option value="bottom center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom center'); ?>>
+                                                        <option value="bottom center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_bottom_center']; ?>
                                                         </option>
-                                                        <option value="bottom right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom right'); ?>>
+                                                        <option value="bottom right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
                                                             <?= $BL['be_cc_v3_bottom_right']; ?>
+                                                        </option>
+                                                        <option value="top"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top'); echo $cc_v3_consent_position_bar;  ?> class="v3_consent-bar">
+                                                            <?= $BL['be_cc_v3_top']; ?>
+                                                        </option>
+                                                        <option value="bottom"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom'); echo $cc_v3_consent_position_bar; ?> class="v3_consent-bar">
+                                                            <?= $BL['be_cc_v3_bottom']; ?>
                                                         </option>
                                                     </select>
                                                 </div>
@@ -1370,7 +1386,9 @@ if(isset($result[0]['pagelayout_id'])) {
                                                     <?php echo $BL['be_cc_v3_position']; ?>
                                                 </label>
                                                 <div class="col">
-                                                    <select class="form-control" name="cc_v3_preferences_position" id="cc_v3_preferences_position">
+                                                    <select class="form-control" name="cc_v3_preferences_position" id="cc_v3_preferences_position"<?php
+                                                    if ($template['cc_v3']['gui']['preferences']['layout'] === 'box'): ?> disabled="disabled"<?php endif;
+                                                    ?>>
                                                         <option value="left"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'left'); ?>>
                                                             <?= $BL['be_cc_v3_left']; ?>
                                                         </option>
@@ -1619,6 +1637,28 @@ if(isset($result[0]['pagelayout_id'])) {
                     $('#piwik-tracking').hide();
                 }
             });
+        });
+        $('#cc_v3_preferences_layout').on('change', function(){
+            if($(this).val() === 'box') {
+                $('#cc_v3_preferences_position').prop('disabled', 'disabled');
+            } else {
+                $('#cc_v3_preferences_position').prop('disabled', 'false');
+            }
+        });
+        $('#cc_v3_consent_layout').on('change', function(){
+            let $value = $(this).val();
+            let $consent_position = $('#cc_v3_consent_position');
+            if($value === 'bar' || $value === 'bar inline') {
+                let $consent_position_bar = $consent_position.children('.v3_consent-bar');
+                $consent_position_bar.show();
+                $consent_position.children('.v3_consent-no-bar').hide();
+                $consent_position_bar.first().prop('selected', true);
+            } else {
+                let $consent_position_nobar = $consent_position.children('.v3_consent-no-bar');
+                $consent_position_nobar.show();
+                $consent_position.children('.v3_consent-bar').hide();
+                $consent_position_nobar.first().prop('selected', true);
+            }
         });
     </script>
     <?php

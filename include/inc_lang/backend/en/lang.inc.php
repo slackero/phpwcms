@@ -1538,6 +1538,8 @@ $BL['be_cc_v3_bottom_center'] = 'bottom center';
 $BL['be_cc_v3_bottom_right'] = 'bottom right';
 $BL['be_cc_v3_left'] = 'left';
 $BL['be_cc_v3_right'] = 'right';
+$BL['be_cc_v3_top'] = 'top';
+$BL['be_cc_v3_bottom'] = 'bottom';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
