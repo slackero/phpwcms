@@ -1637,18 +1637,18 @@ if(isset($result[0]['pagelayout_id'])) {
             }
         });
         $('#template_piwik').on('change', function(){
-            if($(this).is(':checked')) {
-                    $('#piwik-tracking').show();
-                } else {
-                    $('#piwik-tracking').hide();
-                }
-            });
+            if ($(this).is(':checked')) {
+                $('#piwik-tracking').show();
+            } else {
+                $('#piwik-tracking').hide();
+            }
         });
         $('#cc_v3_preferences_layout').on('change', function(){
+            let $preferences_position = $('#cc_v3_preferences_position');
             if($(this).val() === 'box') {
-                $('#cc_v3_preferences_position').prop('disabled', 'disabled');
+                $preferences_position.prop('disabled', 'disabled').attr('disabled', 'disabled');
             } else {
-                $('#cc_v3_preferences_position').prop('disabled', 'false');
+                $preferences_position.prop('disabled', 'false').removeAttr('disabled');
             }
         });
         $('#cc_v3_consent_layout').on('change', function(){
@@ -1658,14 +1658,15 @@ if(isset($result[0]['pagelayout_id'])) {
                 let $consent_position_bar = $consent_position.children('.v3_consent-bar');
                 $consent_position_bar.show();
                 $consent_position.children('.v3_consent-no-bar').hide();
-                $consent_position_bar.first().prop('selected', true);
+                $consent_position_bar.first().prop('selected', true).attr('selected', 'selected');
             } else {
                 let $consent_position_nobar = $consent_position.children('.v3_consent-no-bar');
                 $consent_position_nobar.show();
                 $consent_position.children('.v3_consent-bar').hide();
-                $consent_position_nobar.first().prop('selected', true);
+                $consent_position_nobar.first().prop('selected', true).attr('selected', 'selected');
             }
         });
+    });
     </script>
     <?php
 }
