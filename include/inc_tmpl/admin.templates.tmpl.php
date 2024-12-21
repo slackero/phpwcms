@@ -1441,7 +1441,13 @@ if(isset($result[0]['pagelayout_id'])) {
                                         <?php echo $BL['be_consent_cookie_name']; ?>
                                     </label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="template_require_cookie_name" id="template_require_cookie_name" class="form-control form-control-sm" placeholder="<?php echo $BL['placeholder_require_cookie_name']; ?>" value="<?php echo html($template['require_consent']['cookie_name']) ?>">
+                                        <input type="text"
+                                               name="template_require_cookie_name"
+                                               id="template_require_cookie_name"
+                                               class="form-control form-control-sm"
+                                               placeholder="<?php echo empty($template['cookie_consent']['enable']) ? 'cc_cookie' : $BL['placeholder_require_cookie_name']; ?>"
+                                               value="<?php echo html($template['require_consent']['cookie_name']) ?>"
+                                        >
                                     </div>
                                 </div>
 

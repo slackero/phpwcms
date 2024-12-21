@@ -561,6 +561,13 @@ if(!empty($pagelayout['layout_customblocks'])) {
 $cmsgo['donottrack'] = !empty($block['donottrack']) && isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1';
 $cmsgo['cookie_consent'] = false;
 $cmsgo['cookie_consent_dismiss'] = false;
+$cmsgo['cookie_consent_v3'] = [
+    'necessary' => true,
+    'functionality' => false,
+    'analytics' => false,
+    'marketing' => false,
+    'social' => false,
+];
 if (empty($block['require_consent']['cookie_name'])) {
     if (empty($cmsgo['cookie_consent_name'])) {
         $cmsgo['cookie_consent_name'] = 'cookieconsent_dismissed';
@@ -575,14 +582,46 @@ if (empty($block['require_consent']['cookie_value'])) {
 } else {
     $cmsgo['cookie_consent_value'] = $block['require_consent']['cookie_value'];
 }
+if (!empty($block['cc_v3']['enable'])) {
+    $cmsgo['cookie_consent_name'] = 'cc_cookie';
+    $cmsgo['cookie_consent_value'] = '';
+}
 if (!empty($block['require_consent']['enable'])) {
-    // Todo: make decision based on cookie consent version v2 or v3
     if (isset($_COOKIE[$cmsgo['cookie_consent_name']])) {
         $cmsgo['cookie_consent'] = true;
-        if (strpos($_COOKIE[$cmsgo['cookie_consent_name']], $cmsgo['cookie_consent_value']) !== false) {
-            $cmsgo['cookie_consent_dismiss'] = true;
+        if (empty($block['cc_v3']['enable'])) {
+            // old cookie consent
+            if (strpos($_COOKIE[$cmsgo['cookie_consent_name']], $cmsgo['cookie_consent_value']) !== false) {
+                $cmsgo['cookie_consent_dismiss'] = true;
+            } else {
+                $cmsgo['donottrack'] = true;
+            }
         } else {
-            $cmsgo['donottrack'] = true;
+            // cookie consent v3
+            $cookie_consent_v3 = json_decode($_COOKIE[$cmsgo['cookie_consent_name']], true);
+            if (!empty($cookie_consent_v3['categories']) && is_array($cookie_consent_v3['categories'])) {
+                if (in_array('necessary', $cookie_consent_v3['categories'])) {
+                    $cmsgo['cookie_consent'] = false; // necessary cookies are always allowed
+                }
+                if (in_array('functionality', $cookie_consent_v3['categories'])) {
+                    $cmsgo['cookie_consent_v3']['functionality'] =  true;
+                }
+                if (in_array('analytics', $cookie_consent_v3['categories'])) {
+                    $cmsgo['cookie_consent_v3']['analytics'] =  true;
+                } else {
+                    $block['tracking_ga']['enable'] = false;
+                    $block['tracking_piwik']['enable'] = false;
+                    $block['tracking_gtm']['enable'] = false;
+                }
+                if (in_array('marketing', $cookie_consent_v3['categories'])) {
+                    $cmsgo['cookie_consent_v3']['marketing'] =  true;
+                }
+                if (in_array('social', $cookie_consent_v3['categories'])) {
+                    $cmsgo['cookie_consent_v3']['social'] =  true;
+                }
+            } else {
+                $cmsgo['donottrack'] = true;
+            }
         }
     } else {
         $cmsgo['donottrack'] = true;
@@ -1490,69 +1529,129 @@ if (!$cmsgo['cookie_consent']) {
             $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="' . CMSGO_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.umd.js"></script>';
         }
 
+        $cc_v3_lang = $cmsgo['default_lang'];
         $cc_v3_config = [
             'categories' => [],
-            'guiOptions' => [],
+            'guiOptions' => [
+                'consentModal' => [
+                    'layout' => empty($block['cc_v3']['gui']['consent']['layout']) ? 'box' : $block['cc_v3']['gui']['consent']['layout'],
+                    'position' => empty($block['cc_v3']['gui']['consent']['position']) ? 'bottom right' : $block['cc_v3']['gui']['consent']['position'],
+                    'equalWeightButtons' => !empty($block['cc_v3']['gui']['consent']['btn_equal']),
+                    'flipButtons' => !empty($block['cc_v3']['gui']['consent']['btn_flip']),
+                ],
+                'preferencesModal' => [
+                    'layout' => empty($block['cc_v3']['gui']['preferences']['layout']) ? 'bar wide' : $block['cc_v3']['gui']['preferences']['layout'],
+                    'position' => empty($block['cc_v3']['gui']['preferences']['position']) ? 'right' : $block['cc_v3']['gui']['preferences']['position'],
+                    'equalWeightButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal']),
+                    'flipButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal'])
+                ]
+            ],
             'language' => [
-                'default' => $cmsgo['lang'],
+                'default' => $cc_v3_lang,
                 'autoDetect' => 'browser',
                 'translations' => [],
             ],
         ];
 
         // Default translations
-        $cc_v3_translations = ['en', 'de'];
-        if (!in_array($cmsgo['lang'], $cc_v3_translations)) {
-            $cc_v3_translations[] = $cmsgo['lang'];
+        $cc_v3_load_lang = $cc_v3_lang;
+        if (!is_file(CMSGO_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json')) {
+            $cc_v3_load_lang = 'en'; // fallback to English
         }
-        foreach ($cc_v3_translations as $cc_v3_lang) {
-            if (is_file(CMSGO_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_lang . '.json')) {
-                $cc_v3_config_lang = json_decode(
-                    file_get_contents(CMSGO_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_lang . '.json'),
-                    true
-                );
-                if ($cc_v3_config_lang) {
-                    $cc_v3_config['language']['translations'][$cc_v3_lang] = $cc_v3_config_lang;
-                }
+        if (is_file(CMSGO_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json')) {
+            $cc_v3_config_lang = json_decode(
+                file_get_contents(CMSGO_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json'),
+                true
+            );
+            if ($cc_v3_config_lang) {
+                $cc_v3_config['language']['translations'][$cc_v3_lang] = $cc_v3_config_lang;
             }
         }
+
+        $cc_v3_translation =& $cc_v3_config['language']['translations'][$cc_v3_lang];
 
         if (!empty($block['cc_v3']['sections'])) {
             // Handle categories
             // =================
-            // General
-            if (!empty($block['cc_v3']['sections']['general']['active'])) {
-
+            $cc_v3_categories = [
+                'general' => ['readOnly' => null],
+                'necessary' => ['enabled' => true, 'readOnly' => true],
+                'functionality' => ['readOnly' => false],
+                'analytics' => [
+                    'readOnly' => false,
+                    'autoClear' => [
+                        'cookies' => [
+                            ['name' => 'CCV3_REGEX_GA'],
+                            ['name' => '_gid']
+                        ]
+                    ]
+                ],
+                'marketing' => ['readOnly' => false],
+                'social' => ['readOnly' => false],
+                'more' => ['readOnly' => null],
+            ];
+            foreach($cc_v3_categories as $category => $cat_options) {
+                if (empty($block['cc_v3']['sections'][$category]['active'])) {
+                    unset($cc_v3_translation['preferencesModal']['sections'][$category]);
+                    unset($cc_v3_translation['categories']['sections'][$category]);
+                } else {
+                    if (is_bool($cat_options['readOnly'])) {
+                        $cc_v3_config['categories'][$category] = $cat_options;
+                        $cc_v3_config['categories'][$category]['readOnly'] = $cat_options['readOnly'];
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['linkedCategory'] = $category;
+                    } else {
+                        unset($cc_v3_translation['preferencesModal']['sections'][$category]['linkedCategory']);
+                    }
+                    if (!empty($block['cc_v3']['sections'][$category]['title'])) {
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['title'] = $block['cc_v3']['sections'][$category]['title'];
+                    }
+                    if (!empty($block['cc_v3']['sections'][$category]['description'])) {
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['description'] = $block['cc_v3']['sections'][$category]['description'];
+                    }
+                }
             }
-            // Necessary
-            if (!empty($block['cc_v3']['sections']['necessary']['active'])) {
-                $cc_v3_config['categories']['necessary'] = ['readOnly' => true];
-            }
-            // Functionality
-            if (!empty($block['cc_v3']['sections']['functionality']['active'])) {
-                $cc_v3_config['categories']['functionality'] = ['readOnly' => false];
-            }
-            // Analytics
-            if (!empty($block['cc_v3']['sections']['analytics']['active'])) {
-                $cc_v3_config['categories']['analytics'] = ['readOnly' => false];
-            }
-            // Marketing
-            if (!empty($block['cc_v3']['sections']['marketing']['active'])) {
-                $cc_v3_config['categories']['marketing'] = ['readOnly' => false];
-            }
-            // Social Media
-            if (!empty($block['cc_v3']['sections']['social']['active'])) {
-                $cc_v3_config['categories']['social'] = ['readOnly' => false];
-            }
-            // More information
-            if (!empty($block['cc_v3']['sections']['more']['active'])) {
-
-            }
+            // Remove named index keys | ToDo: maybe not needed
+            $cc_v3_translation['preferencesModal']['sections']= array_values($cc_v3_translation['preferencesModal']['sections']);
         }
 
+        if (!empty($block['cc_v3']['title'])) {
+            $cc_v3_translation['consentModal']['title'] = $block['cc_v3']['title'];
+        }
+        if (!empty($block['cc_v3']['description'])) {
+            $cc_v3_translation['consentModal']['description'] = $block['cc_v3']['description'];
+        }
+        if (!empty($block['cc_v3']['accept_all'])) {
+            $cc_v3_translation['consentModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
+            $cc_v3_translation['preferencesModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
+        }
+        if (!empty($block['cc_v3']['accept_necessary'])) {
+            $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+            $cc_v3_translation['preferencesModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+        }
+        if (!empty($block['cc_v3']['accept_selected'])) {
+            $cc_v3_translation['preferencesModal']['savePreferencesBtn'] = $block['cc_v3']['accept_selected'];
+        }
+        if (!empty($block['cc_v3']['link'])) {
+            $block['cc_v3']['link'] = explode(' ', $block['cc_v3']['link'], 2);
+            $block['cc_v3']['link'][0] = trim($block['cc_v3']['link'][0]);
+            $_cc_v3_link = strpos($block['cc_v3']['link'][0], ':/') !== false ? $block['cc_v3']['link'][0] : abs_url([], [], $block['cc_v3']['link'][0]);
+            $_cc_v3_target = isset($block['cc_v3']['link'][1]) && trim($block['cc_v3']['link'][1]) !== '' ? ' target="' . trim($block['cc_v3']['link'][1]) . '"' : '';
+
+            $cc_v3_translation['consentModal']['footer'] = '<a href="' . $_cc_v3_link . '"' . $_cc_v3_target . '>';
+            $cc_v3_translation['consentModal']['footer'] .= empty($block['cc_v3']['more']) ? '@@More information@@' : $block['cc_v3']['more'];
+            $cc_v3_translation['consentModal']['footer'] .= '</a>';
+        }
+
+        $cc_v3_config = i18n_substitute_text(json_encode($cc_v3_config, JSON_PRETTY_PRINT));
+        $cc_v3_config = str_replace('"CCV3_REGEX_GA"', '/^(_ga)/ //regex', $cc_v3_config);
+
         $block['custom_htmlhead']['cookieconsent.js'] .= '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF;
-        $block['custom_htmlhead']['cookieconsent.js'] .= '// language: ' . $cmsgo['lang'] . LF;
-        $block['custom_htmlhead']['cookieconsent.js'] .= 'CookieConsent.run(' . json_encode($cc_v3_config) . ');';
+        $block['custom_htmlhead']['cookieconsent.js'] .= '// language: ' . $cc_v3_lang . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= 'document.addEventListener("DOMContentLoaded", () => {' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  if (window.CookieConsent) {' . LF ;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '    CookieConsent.run(' . $cc_v3_config . ');' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  }' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '});' . LF;
         $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
     }
     // Cookie Consent v2, based on https://silktide.com/tools/cookie-consent/
@@ -1608,9 +1707,9 @@ if(!$cmsgo['donottrack']) {
             'code' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
   <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);} //gtagv3_init
     gtag('js', new Date());
-    gtag('config', '%1\$s'%2\$s);
+    gtag('config', '%1\$s'%2\$s); //gtagv3_events
   </script>",
             'optout' => '  <script' . SCRIPT_ATTRIBUTE_TYPE . ">
     var gaOptOutCookie = 'ga-disable-%1\$s';
@@ -1628,6 +1727,68 @@ if(!$cmsgo['donottrack']) {
         } else {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
+
+        // Render Cookie Consent v3 for Google Analytics
+        if (!empty($template_default['settings']['tracking']['ga']['code'])) {
+            if (!empty($block['cc_v3']['enable'])) {
+                $_cc_v3_analytics = $cmsgo['cookie_consent_v3']['analytics'] ? 'granted' : 'denied';
+                $_cc_v3_functionality = $cmsgo['cookie_consent_v3']['functionality'] ? 'granted' : 'denied';
+                $_cc_v3_marketing = $cmsgo['cookie_consent_v3']['marketing'] ? 'granted' : 'denied';
+                $_cc_v3_social = $cmsgo['cookie_consent_v3']['social'] ? 'granted' : 'denied';
+
+                $_cc_v3_init  = LF;
+                $_cc_v3_init .= 'let cookieConsentUpdate = {' . LF;
+                $_cc_v3_init .= '  "ad_storage": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "ad_user_data": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "ad_personalization": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "analytics_storage": "' . $_cc_v3_analytics . '",' . LF;
+                $_cc_v3_init .= '  "analytics_googleanalytics": "' . $_cc_v3_analytics . '",' . LF;
+                $_cc_v3_init .= '  "functionality_storage": "' . $_cc_v3_functionality . '",' . LF;
+                $_cc_v3_init .= '  "personalization_storage": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "advertisement_facebookpixel": "' . $_cc_v3_social . '",' . LF;
+                $_cc_v3_init .= '  "security_storage": "granted"' . LF;
+                $_cc_v3_init .= '};' . LF;
+                $_cc_v3_init = 'gtag("consent", "default", cookieConsentUpdate);' . LF;
+
+                $_cc_v3_events  = LF;
+                $_cc_v3_events .= 'const updateGtagConsent = () => {' . LF;
+                $_cc_v3_events .= '  const ccAnalytics = CookieConsent.acceptedCategory("analytics") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccFunctionality = CookieConsent.acceptedCategory("functionality") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccMarketing = CookieConsent.acceptedCategory("marketing") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccSocial = CookieConsent.acceptedCategory("social") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_storage = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_user_data = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_personalization = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.personalization_storage = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.analytics_storage = ccAnalytics;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.analytics_googleanalytics = ccAnalytics;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.functionality_storage = ccFunctionality;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.advertisement_facebookpixel = ccSocial;' . LF;
+                $_cc_v3_events .= '  gtag("consent", "update", cookieConsentUpdate);' . LF;
+                $_cc_v3_events .= '};' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onConsent", () => { updateGtagConsent(); };' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onChange", () => { updateGtagConsent(); };' . LF;
+
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    '//gtagv3_init',
+                    $_cc_v3_init,
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    '//gtagv3_events',
+                    $_cc_v3_events,
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+            } else {
+                // Remove the special cookie consent v3 placeholders
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    ['//gtagv3_init', '//gtagv3_events'],
+                    '',
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+            }
+        }
+
         $block['tracking_ga']['config'] = [
             "cookie_comain: '" . ($cmsgo['session_cookie_params']['domain'] ?? CMSGO_DOMAIN) . "'"
         ];
@@ -1718,6 +1879,8 @@ if(!$cmsgo['donottrack']) {
         }
     }
 }
+
+
 
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['cmsgo']['detect_pixelratio']) && $cmsgo['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['cmsgo_pixelratio'])) {
