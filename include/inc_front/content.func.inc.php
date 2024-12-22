@@ -562,6 +562,13 @@ if(!empty($pagelayout['layout_customblocks'])) {
 $phpwcms['donottrack'] = !empty($block['donottrack']) && isset($_SERVER['HTTP_DNT']) && $_SERVER['HTTP_DNT'] === '1';
 $phpwcms['cookie_consent'] = false;
 $phpwcms['cookie_consent_dismiss'] = false;
+$phpwcms['cookie_consent_v3'] = [
+    'necessary' => true,
+    'functionality' => false,
+    'analytics' => false,
+    'marketing' => false,
+    'social' => false,
+];
 if (empty($block['require_consent']['cookie_name'])) {
     if (empty($phpwcms['cookie_consent_name'])) {
         $phpwcms['cookie_consent_name'] = 'cookieconsent_dismissed';
@@ -576,13 +583,46 @@ if (empty($block['require_consent']['cookie_value'])) {
 } else {
     $phpwcms['cookie_consent_value'] = $block['require_consent']['cookie_value'];
 }
+if (!empty($block['cc_v3']['enable'])) {
+    $phpwcms['cookie_consent_name'] = 'cc_cookie';
+    $phpwcms['cookie_consent_value'] = '';
+}
 if (!empty($block['require_consent']['enable'])) {
     if (isset($_COOKIE[$phpwcms['cookie_consent_name']])) {
         $phpwcms['cookie_consent'] = true;
-        if (str_contains($_COOKIE[$phpwcms['cookie_consent_name']], $phpwcms['cookie_consent_value'])) {
-            $phpwcms['cookie_consent_dismiss'] = true;
+        if (empty($block['cc_v3']['enable'])) {
+            // old cookie consent
+            if (strpos($_COOKIE[$phpwcms['cookie_consent_name']], $phpwcms['cookie_consent_value']) !== false) {
+                $phpwcms['cookie_consent_dismiss'] = true;
+            } else {
+                $phpwcms['donottrack'] = true;
+            }
         } else {
-            $phpwcms['donottrack'] = true;
+            // cookie consent v3
+            $cookie_consent_v3 = json_decode($_COOKIE[$phpwcms['cookie_consent_name']], true);
+            if (!empty($cookie_consent_v3['categories']) && is_array($cookie_consent_v3['categories'])) {
+                if (in_array('necessary', $cookie_consent_v3['categories'])) {
+                    $phpwcms['cookie_consent'] = false; // necessary cookies are always allowed
+                }
+                if (in_array('functionality', $cookie_consent_v3['categories'])) {
+                    $phpwcms['cookie_consent_v3']['functionality'] =  true;
+                }
+                if (in_array('analytics', $cookie_consent_v3['categories'])) {
+                    $phpwcms['cookie_consent_v3']['analytics'] =  true;
+                } else {
+                    $block['tracking_ga']['enable'] = false;
+                    $block['tracking_piwik']['enable'] = false;
+                    $block['tracking_gtm']['enable'] = false;
+                }
+                if (in_array('marketing', $cookie_consent_v3['categories'])) {
+                    $phpwcms['cookie_consent_v3']['marketing'] =  true;
+                }
+                if (in_array('social', $cookie_consent_v3['categories'])) {
+                    $phpwcms['cookie_consent_v3']['social'] =  true;
+                }
+            } else {
+                $phpwcms['donottrack'] = true;
+            }
         }
     } else {
         $phpwcms['donottrack'] = true;
@@ -1141,10 +1181,8 @@ $content['all'] = str_replace('{LAZY_LOADING}', PHPWCMS_LAZY_LOADING, $content['
 
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {
-
     init_frontend_edit_js();
     $content['all'] .= LF . '<div id="fe-link" class="disabled"></div>' . LF;
-
 }
 
 // insert description meta tag if not definied
@@ -1474,8 +1512,195 @@ if(HTML5_MODE && IE8_CC) {
 
 }
 
-if(!$phpwcms['donottrack']) {
+// Cookie Consent
+if (!$phpwcms['cookie_consent']) {
+    // Cookie Consent v3, has preference over v2 – based on https://github.com/orestbida/cookieconsent
+    // https://github.com/orestbida/cookieconsent/discussions/523
+    // https://www.adbutler.com/blog/article/Google-Ad-Manager-vs-Google-Ads-Google-AdSense-Ecosystem-FAQ
+    if (!empty($block['cc_v3']['enable'])) {
+        $block['cc_v3']['options'] = [
+            'theme' => empty($block['cc_v3']['theme']) ? 'light' : $block['cc_v3']['theme']
+        ];
 
+        if (PHPWCMS_USE_CDN) {
+            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" />';
+            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>';
+        } else {
+            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.css" />';
+            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.umd.js"></script>';
+        }
+
+        $cc_v3_lang = $phpwcms['default_lang'];
+        $cc_v3_config = [
+            'categories' => [],
+            'guiOptions' => [
+                'consentModal' => [
+                    'layout' => empty($block['cc_v3']['gui']['consent']['layout']) ? 'box' : $block['cc_v3']['gui']['consent']['layout'],
+                    'position' => empty($block['cc_v3']['gui']['consent']['position']) ? 'bottom right' : $block['cc_v3']['gui']['consent']['position'],
+                    'equalWeightButtons' => !empty($block['cc_v3']['gui']['consent']['btn_equal']),
+                    'flipButtons' => !empty($block['cc_v3']['gui']['consent']['btn_flip']),
+                ],
+                'preferencesModal' => [
+                    'layout' => empty($block['cc_v3']['gui']['preferences']['layout']) ? 'bar wide' : $block['cc_v3']['gui']['preferences']['layout'],
+                    'position' => empty($block['cc_v3']['gui']['preferences']['position']) ? 'right' : $block['cc_v3']['gui']['preferences']['position'],
+                    'equalWeightButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal']),
+                    'flipButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal'])
+                ]
+            ],
+            'language' => [
+                'default' => $cc_v3_lang,
+                'autoDetect' => 'browser',
+                'translations' => [],
+            ],
+        ];
+
+        // Default translations
+        $cc_v3_load_lang = $cc_v3_lang;
+        if (!is_file(PHPWCMS_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json')) {
+            $cc_v3_load_lang = 'en'; // fallback to English
+        }
+        if (is_file(PHPWCMS_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json')) {
+            $cc_v3_config_lang = json_decode(
+                file_get_contents(PHPWCMS_TEMPLATE . 'lib/cookieconsent3/lang/' . $cc_v3_load_lang . '.json'),
+                true
+            );
+            if ($cc_v3_config_lang) {
+                $cc_v3_config['language']['translations'][$cc_v3_lang] = $cc_v3_config_lang;
+            }
+        }
+
+        $cc_v3_translation =& $cc_v3_config['language']['translations'][$cc_v3_lang];
+
+        if (!empty($block['cc_v3']['sections'])) {
+            // Handle categories
+            // =================
+            $cc_v3_categories = [
+                'general' => ['readOnly' => null],
+                'necessary' => ['enabled' => true, 'readOnly' => true],
+                'functionality' => ['readOnly' => false],
+                'analytics' => [
+                    'readOnly' => false,
+                    'autoClear' => [
+                        'cookies' => [
+                            ['name' => 'CCV3_REGEX_GA'],
+                            ['name' => '_gid']
+                        ]
+                    ]
+                ],
+                'marketing' => ['readOnly' => false],
+                'social' => ['readOnly' => false],
+                'more' => ['readOnly' => null],
+            ];
+            foreach($cc_v3_categories as $category => $cat_options) {
+                if (empty($block['cc_v3']['sections'][$category]['active'])) {
+                    unset($cc_v3_translation['preferencesModal']['sections'][$category]);
+                    unset($cc_v3_translation['categories']['sections'][$category]);
+                } else {
+                    if (is_bool($cat_options['readOnly'])) {
+                        $cc_v3_config['categories'][$category] = $cat_options;
+                        $cc_v3_config['categories'][$category]['readOnly'] = $cat_options['readOnly'];
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['linkedCategory'] = $category;
+                    } else {
+                        unset($cc_v3_translation['preferencesModal']['sections'][$category]['linkedCategory']);
+                    }
+                    if (!empty($block['cc_v3']['sections'][$category]['title'])) {
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['title'] = $block['cc_v3']['sections'][$category]['title'];
+                    }
+                    if (!empty($block['cc_v3']['sections'][$category]['description'])) {
+                        $cc_v3_translation['preferencesModal']['sections'][$category]['description'] = $block['cc_v3']['sections'][$category]['description'];
+                    }
+                }
+            }
+            // Remove named index keys | ToDo: maybe not needed
+            $cc_v3_translation['preferencesModal']['sections']= array_values($cc_v3_translation['preferencesModal']['sections']);
+        }
+
+        if (!empty($block['cc_v3']['title'])) {
+            $cc_v3_translation['consentModal']['title'] = $block['cc_v3']['title'];
+        }
+        if (!empty($block['cc_v3']['description'])) {
+            $cc_v3_translation['consentModal']['description'] = $block['cc_v3']['description'];
+        }
+        if (!empty($block['cc_v3']['accept_all'])) {
+            $cc_v3_translation['consentModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
+            $cc_v3_translation['preferencesModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
+        }
+        if (!empty($block['cc_v3']['accept_necessary'])) {
+            $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+            $cc_v3_translation['preferencesModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+        }
+        if (!empty($block['cc_v3']['accept_selected'])) {
+            $cc_v3_translation['preferencesModal']['savePreferencesBtn'] = $block['cc_v3']['accept_selected'];
+        }
+        if (!empty($block['cc_v3']['link'])) {
+            $block['cc_v3']['link'] = explode(' ', $block['cc_v3']['link'], 2);
+            $block['cc_v3']['link'][0] = trim($block['cc_v3']['link'][0]);
+            $_cc_v3_link = strpos($block['cc_v3']['link'][0], ':/') !== false ? $block['cc_v3']['link'][0] : abs_url([], [], $block['cc_v3']['link'][0]);
+            $_cc_v3_target = isset($block['cc_v3']['link'][1]) && trim($block['cc_v3']['link'][1]) !== '' ? ' target="' . trim($block['cc_v3']['link'][1]) . '"' : '';
+
+            $cc_v3_translation['consentModal']['footer'] = '<a href="' . $_cc_v3_link . '"' . $_cc_v3_target . '>';
+            $cc_v3_translation['consentModal']['footer'] .= empty($block['cc_v3']['more']) ? '@@More information@@' : $block['cc_v3']['more'];
+            $cc_v3_translation['consentModal']['footer'] .= '</a>';
+        }
+
+        $cc_v3_config = i18n_substitute_text(json_encode($cc_v3_config, JSON_PRETTY_PRINT));
+        $cc_v3_config = str_replace('"CCV3_REGEX_GA"', '/^(_ga)/ //regex', $cc_v3_config);
+
+        $block['custom_htmlhead']['cookieconsent.js'] .= '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '// language: ' . $cc_v3_lang . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= 'document.addEventListener("DOMContentLoaded", () => {' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  if (window.CookieConsent) {' . LF ;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '    CookieConsent.run(' . $cc_v3_config . ');' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '  }' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= '});' . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
+    }
+    // Cookie Consent v2, based on https://silktide.com/tools/cookie-consent/
+    elseif (!empty($block['cookie_consent']['enable'])) {
+        $block['cookie_consent']['options'] = [];
+        if (!empty($block['cookie_consent']['message'])) {
+            $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
+            $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
+        }
+        if (!empty($block['cookie_consent']['dismiss'])) {
+            $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
+            $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
+        }
+        if (!empty($block['cookie_consent']['link'])) {
+            $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
+            $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
+            $block['cookie_consent']['options']['link'] = strpos($block['cookie_consent']['link'][0], ':/') !== false ? $block['cookie_consent']['link'][0] : abs_url([], [], $block['cookie_consent']['link'][0]);
+            if (isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
+                $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
+            }
+
+            if (!empty($block['cookie_consent']['more'])) {
+                $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
+                $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
+            }
+        }
+
+        if (empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
+            $block['cookie_consent']['options']['theme'] = false;
+        } elseif (!PHPWCMS_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
+            $block['cookie_consent']['options']['theme'] = PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent2/' . $block['cookie_consent']['theme'] . '.css';
+        } else {
+            $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
+        }
+
+        $block['custom_htmlhead']['cookieconsent.js'] = '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF;
+        $block['custom_htmlhead']['cookieconsent.js'] .= 'window.cookieconsent_options=' . json_encode($block['cookie_consent']['options']) . ';';
+        $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
+
+        if (PHPWCMS_USE_CDN) {
+            $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="' . PHPWCMS_HTTP_SCHEMA . '://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
+        } else {
+            $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent2/cookieconsent.min.js"></script>';
+        }
+    }
+}
+
+if(!$phpwcms['donottrack']) {
     // Google Analytics Tracking Code
     if (!empty($block['tracking_ga']['enable'])) {
         $template_default['settings']['tracking']['ga_default'] = array(
@@ -1483,9 +1708,9 @@ if(!$phpwcms['donottrack']) {
             'code' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . " src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
   <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);} //gtagv3_init
     gtag('js', new Date());
-    gtag('config', '%1\$s'%2\$s);
+    gtag('config', '%1\$s'%2\$s); //gtagv3_events
   </script>",
             'optout' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     var gaOptOutCookie = 'ga-disable-%1\$s';
@@ -1503,6 +1728,68 @@ if(!$phpwcms['donottrack']) {
         } else {
             $template_default['settings']['tracking']['ga'] = $template_default['settings']['tracking']['ga_default'];
         }
+
+        // Render Cookie Consent v3 for Google Analytics
+        if (!empty($template_default['settings']['tracking']['ga']['code'])) {
+            if (!empty($block['cc_v3']['enable'])) {
+                $_cc_v3_analytics = $phpwcms['cookie_consent_v3']['analytics'] ? 'granted' : 'denied';
+                $_cc_v3_functionality = $phpwcms['cookie_consent_v3']['functionality'] ? 'granted' : 'denied';
+                $_cc_v3_marketing = $phpwcms['cookie_consent_v3']['marketing'] ? 'granted' : 'denied';
+                $_cc_v3_social = $phpwcms['cookie_consent_v3']['social'] ? 'granted' : 'denied';
+
+                $_cc_v3_init  = LF;
+                $_cc_v3_init .= 'let cookieConsentUpdate = {' . LF;
+                $_cc_v3_init .= '  "ad_storage": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "ad_user_data": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "ad_personalization": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "analytics_storage": "' . $_cc_v3_analytics . '",' . LF;
+                $_cc_v3_init .= '  "analytics_googleanalytics": "' . $_cc_v3_analytics . '",' . LF;
+                $_cc_v3_init .= '  "functionality_storage": "' . $_cc_v3_functionality . '",' . LF;
+                $_cc_v3_init .= '  "personalization_storage": "' . $_cc_v3_marketing . '",' . LF;
+                $_cc_v3_init .= '  "advertisement_facebookpixel": "' . $_cc_v3_social . '",' . LF;
+                $_cc_v3_init .= '  "security_storage": "granted"' . LF;
+                $_cc_v3_init .= '};' . LF;
+                $_cc_v3_init = 'gtag("consent", "default", cookieConsentUpdate);' . LF;
+
+                $_cc_v3_events  = LF;
+                $_cc_v3_events .= 'const updateGtagConsent = () => {' . LF;
+                $_cc_v3_events .= '  const ccAnalytics = CookieConsent.acceptedCategory("analytics") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccFunctionality = CookieConsent.acceptedCategory("functionality") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccMarketing = CookieConsent.acceptedCategory("marketing") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  const ccSocial = CookieConsent.acceptedCategory("social") ? "granted" : "denied";' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_storage = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_user_data = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.ad_personalization = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.personalization_storage = ccMarketing;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.analytics_storage = ccAnalytics;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.analytics_googleanalytics = ccAnalytics;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.functionality_storage = ccFunctionality;' . LF;
+                $_cc_v3_events .= '  cookieConsentUpdate.advertisement_facebookpixel = ccSocial;' . LF;
+                $_cc_v3_events .= '  gtag("consent", "update", cookieConsentUpdate);' . LF;
+                $_cc_v3_events .= '};' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onConsent", () => { updateGtagConsent(); };' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onChange", () => { updateGtagConsent(); };' . LF;
+
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    '//gtagv3_init',
+                    $_cc_v3_init,
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    '//gtagv3_events',
+                    $_cc_v3_events,
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+            } else {
+                // Remove the special cookie consent v3 placeholders
+                $template_default['settings']['tracking']['ga']['code'] = str_replace(
+                    ['//gtagv3_init', '//gtagv3_events'],
+                    '',
+                    $template_default['settings']['tracking']['ga']['code']
+                );
+            }
+        }
+
         $block['tracking_ga']['config'] = array(
             "cookie_comain: '" . ($phpwcms['session_cookie_params']['domain'] ?? PHPWCMS_DOMAIN) . "'"
         );
@@ -1542,7 +1829,7 @@ if(!$phpwcms['donottrack']) {
     if (!empty($block['tracking_gtm']['enable'])) {
         $template_default['settings']['tracking']['gtm_default'] = array(
             'position' => 'head',
-            'code' => "  <script>
+            'code' => "  <script" . SCRIPT_ATTRIBUTE_TYPE . ">
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -1592,55 +1879,9 @@ if(!$phpwcms['donottrack']) {
             $block['custom_htmlhead']['piwik.js'] = sprintf($template_default['settings']['tracking']['piwik']['code'], $block['tracking_piwik']['url'], intval($block['tracking_piwik']['id']));
         }
     }
-
 }
 
-// internal Cookie Consent, based on https://silktide.com/tools/cookie-consent/
-if(!empty($block['cookie_consent']['enable']) && !$phpwcms['cookie_consent']) {
 
-    $block['cookie_consent']['options'] = array();
-    if(!empty($block['cookie_consent']['message'])) {
-        $block['cookie_consent']['options']['message'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['message'] : mb_convert_encoding($block['cookie_consent']['message'], 'utf-8');
-        $block['cookie_consent']['options']['message'] = i18n_substitute_text($block['cookie_consent']['options']['message']);
-    }
-    if(!empty($block['cookie_consent']['dismiss'])) {
-        $block['cookie_consent']['options']['dismiss'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['dismiss'] : mb_convert_encoding($block['cookie_consent']['dismiss'], 'utf-8');
-        $block['cookie_consent']['options']['dismiss'] = i18n_substitute_text($block['cookie_consent']['options']['dismiss']);
-    }
-    if(!empty($block['cookie_consent']['link'])) {
-
-        $block['cookie_consent']['link'] = explode(' ', $block['cookie_consent']['link'], 2);
-        $block['cookie_consent']['link'][0] = i18n_substitute_text(trim($block['cookie_consent']['link'][0]));
-        $block['cookie_consent']['options']['link'] = str_contains($block['cookie_consent']['link'][0], ':/') ? $block['cookie_consent']['link'][0] : abs_url(array(), array(), $block['cookie_consent']['link'][0]);
-        if(isset($block['cookie_consent']['link'][1]) && ($block['cookie_consent']['target'] = trim($block['cookie_consent']['link'][1])) !== '') {
-            $block['cookie_consent']['options']['target'] = $block['cookie_consent']['target'];
-        }
-
-        if(!empty($block['cookie_consent']['more'])) {
-            $block['cookie_consent']['options']['learnMore'] = PHPWCMS_CHARSET === 'utf-8' ? $block['cookie_consent']['more'] : mb_convert_encoding($block['cookie_consent']['more'], 'utf-8');
-            $block['cookie_consent']['options']['learnMore'] = i18n_substitute_text($block['cookie_consent']['options']['learnMore']);
-        }
-    }
-
-    if(empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
-        $block['cookie_consent']['options']['theme'] = false;
-    } elseif(!PHPWCMS_USE_CDN && !str_contains($block['cookie_consent']['theme'], '.css')) {
-        $block['cookie_consent']['options']['theme'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/'.$block['cookie_consent']['theme'].'.css';
-    } else {
-        $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
-    }
-
-    $block['custom_htmlhead']['cookieconsent.js']  = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  ';
-    $block['custom_htmlhead']['cookieconsent.js'] .= '    window.cookieconsent_options='.json_encode($block['cookie_consent']['options']).';';
-    $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
-
-    if(PHPWCMS_USE_CDN) {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_HTTP_SCHEMA.'://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
-    } else {
-        $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="'.PHPWCMS_URL.TEMPLATE_PATH.'lib/cookieconsent2/cookieconsent.min.js"></script>';
-    }
-
-}
 
 // PixelRatio Check based on JavaScript and Cookie
 if(!empty($GLOBALS['phpwcms']['detect_pixelratio']) && $phpwcms['USER_AGENT']['pixelratio'] == 1 && empty($_COOKIE['phpwcms_pixelratio'])) {

@@ -53,6 +53,70 @@ $template = array(
         'link' => '',
         'theme' => 'light-bottom',
     ),
+    'cc_v3' => array(
+        'enable' => 0,
+        'title' => '',
+        'description' => '',
+        'accept_all' => '',
+        'accept_necessary' => '',
+        'accept_selected' => '',
+        'reject_all' => '',
+        'customize' => '',
+        'link' => '',
+        'more' => '',
+        'theme' => '',
+        'sections' => [
+            'general' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'necessary' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'functionality' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'analytics' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'marketing' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'social' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+            'more' => [
+                'active' => 1,
+                'title' => '',
+                'description' => '',
+            ],
+        ],
+        'gui' => [
+            'consent' => [
+                'layout' => 'box',
+                'position' => 'bottom right',
+                'btn_flip' => 0,
+                'btn_equal' => 0,
+            ],
+            'preferences' => [
+                'layout' => 'bar',
+                'position' => 'right',
+                'btn_flip' => 0,
+                'btn_equal' => 0,
+            ],
+        ],
+    ),
     'tracking_ga' => array(
         'enable' => 0,
         'id' => '',
@@ -174,22 +238,85 @@ if(isset($result[0]['template_id'])) {
         $template['googleapi'] = empty($_POST["template_googleapi"]) ? 0 : 1;
         $template['onepage'] = empty($_POST["template_onepage"]) ? 0 : 1;
         $template['ie8ignore'] = empty($_POST["template_ie8ignore"]) ? 0 : 1;
+
+        // cookie consent v2
         $template['cookie_consent']['enable'] = empty($_POST['template_cookie_consent']) ? 0 : 1;
-        if(!empty($_POST['template_cc_message'])) {
-            $template['cookie_consent']['message'] = slweg($_POST['template_cc_message']);
+        if(!empty($_POST['cookie_consent_message'])) {
+            $template['cookie_consent']['message'] = slweg($_POST['cookie_consent_message']);
         }
-        if(!empty($_POST['template_cc_dismiss'])) {
-            $template['cookie_consent']['dismiss'] = slweg($_POST['template_cc_dismiss']);
+        if(!empty($_POST['cookie_consent_dismiss'])) {
+            $template['cookie_consent']['dismiss'] = slweg($_POST['cookie_consent_dismiss']);
         }
-        if(!empty($_POST['template_cc_more'])) {
-            $template['cookie_consent']['more'] = slweg($_POST['template_cc_more']);
+        if(!empty($_POST['cookie_consent_more'])) {
+            $template['cookie_consent']['more'] = slweg($_POST['cookie_consent_more']);
         }
-        if(!empty($_POST['template_cc_link'])) {
-            $template['cookie_consent']['link'] = slweg($_POST['template_cc_link']);
+        if(!empty($_POST['cookie_consent_link'])) {
+            $template['cookie_consent']['link'] = slweg($_POST['cookie_consent_link']);
         }
-        if(isset($_POST['template_cc_theme'])) {
-            $template['cookie_consent']['theme'] = clean_slweg($_POST['template_cc_theme']);
+        if(isset($_POST['cookie_consent_theme'])) {
+            $template['cookie_consent']['theme'] = clean_slweg($_POST['cookie_consent_theme']);
         }
+
+        // cookie consent v3
+        $template['cc_v3']['enable'] = empty($_POST['template_cc_v3']) ? 0 : 1;
+        if(!empty($_POST['cc_v3_title'])) {
+            $template['cc_v3']['title'] = slweg($_POST['cc_v3_title']);
+        }
+        if(!empty($_POST['cc_v3_description'])) {
+            $template['cc_v3']['description'] = slweg($_POST['cc_v3_description']);
+        }
+        if(!empty($_POST['cc_v3_accept_all'])) {
+            $template['cc_v3']['accept_all'] = slweg($_POST['cc_v3_accept_all']);
+        }
+        if(!empty($_POST['cc_v3_accept_necessary'])) {
+            $template['cc_v3']['accept_necessary'] = slweg($_POST['cc_v3_accept_necessary']);
+        }
+        if(!empty($_POST['cc_v3_accept_selected'])) {
+            $template['cc_v3']['accept_selected'] = slweg($_POST['cc_v3_accept_selected']);
+        }
+        if(!empty($_POST['cc_v3_reject_all'])) {
+            $template['cc_v3']['reject_all'] = slweg($_POST['cc_v3_reject_all']);
+        }
+        if(!empty($_POST['cc_v3_customize'])) {
+            $template['cc_v3']['customize'] = slweg($_POST['cc_v3_customize']);
+        }
+        if(!empty($_POST['cc_v3_link'])) {
+            $template['cc_v3']['link'] = slweg($_POST['cc_v3_link']);
+        }
+        if(!empty($_POST['cc_v3_more'])) {
+            $template['cc_v3']['more'] = slweg($_POST['cc_v3_more']);
+        }
+        if(!empty($_POST['cc_v3_theme'])) {
+            $template['cc_v3']['theme'] = slweg($_POST['cc_v3_theme']);
+        }
+        if(!empty($_POST['cc_v3_consent_layout'])) {
+            $template['cc_v3']['gui']['consent']['layout'] = slweg($_POST['cc_v3_consent_layout']);
+        }
+        if(!empty($_POST['cc_v3_consent_position'])) {
+            $template['cc_v3']['gui']['consent']['position'] = slweg($_POST['cc_v3_consent_position']);
+        }
+        $template['cc_v3']['gui']['consent']['btn_flip'] = empty($_POST['cc_v3_consent_flip']) ? 0 : 1;
+        $template['cc_v3']['gui']['consent']['btn_equal'] = empty($_POST['cc_v3_consent_equal']) ? 0 : 1;
+        if(!empty($_POST['cc_v3_preferences_layout'])) {
+            $template['cc_v3']['gui']['preferences']['layout'] = slweg($_POST['cc_v3_preferences_layout']);
+        }
+        if(!empty($_POST['cc_v3_preferences_position'])) {
+            $template['cc_v3']['gui']['preferences']['position'] = slweg($_POST['cc_v3_preferences_position']);
+        }
+        $template['cc_v3']['gui']['preferences']['btn_flip'] = empty($_POST['cc_v3_preferences_flip']) ? 0 : 1;
+        $template['cc_v3']['gui']['preferences']['btn_equal'] = empty($_POST['cc_v3_preferences_equal']) ? 0 : 1;
+
+        // Consent Sections
+        foreach (['general', 'necessary', 'functionality', 'analytics', 'marketing', 'social', 'more' ] as $section) {
+            $template['cc_v3']['sections'][$section]['active'] = empty($_POST['cc_v3_'.$section.'_active']) ? 0 : 1;
+            if(!empty($_POST['cc_v3_'.$section.'_title'])) {
+                $template['cc_v3']['sections'][$section]['title'] = slweg($_POST['cc_v3_'.$section.'_title']);
+            }
+            if(!empty($_POST['cc_v3_'.$section.'_description'])) {
+                $template['cc_v3']['sections'][$section]['description'] = slweg($_POST['cc_v3_'.$section.'_description']);
+            }
+        }
+
         $template['tracking_ga']['enable'] = empty($_POST['template_ga']) ? 0 : 1;
         $template['tracking_ga']['id'] = clean_slweg($_POST["template_ga_id"]);
         $template['tracking_ga']['custom_properties'] = trim(clean_slweg($_POST["template_ga_custom_properties"]), " \t\n\r\0\x0B{},");
@@ -604,6 +731,7 @@ if ($template['jslib'] && !$jslib_selected) {
             </td>
         </tr>
 
+        <!-- Cookie Consent v2 -->
         <tr>
             <td><input type="checkbox" name="template_cookie_consent" id="template_cookie_consent" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?> /></td>
             <td class="v10"><label for="template_cookie_consent"><?php echo $BL['be_cookie_consent_enable'] ?></label></td>
@@ -640,6 +768,677 @@ if ($template['jslib'] && !$jslib_selected) {
             </td>
         </tr>
 
+        <!-- Cookie Consent v3 -->
+        <tr>
+            <td>
+                <input type="checkbox" name="template_cc_v3" id="template_cc_v3" value="1"<?php is_checked($template['cc_v3']['enable'], 1); ?> />
+            </td>
+            <td class="v10"><label for="template_cc_v3"><?php echo $BL['be_cc_v3_enable'] ?></label></td>
+        </tr>
+        <tr id="template-cc_v3-form"<?php if(!$template['cc_v3']['enable']): ?> style="display:none;"<?php endif; ?>>
+            <td>&nbsp;</td>
+            <td class="tdbottom5">
+                <?php if (count($phpwcms['allowed_lang'])): ?>
+                <div class="chatlist wrap tdbottom3 tdright10">
+                    <?php echo $BL['be_cookie_consent_translatable']; ?>
+                </div>
+                <?php endif; ?>
+                <table cellpadding="0" cellspacing="0" border="0" class="tdtop3">
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_title"><?php echo $BL['be_cc_v3_title']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_title"
+                                   id="cc_v3_title"
+                                   class="width400"
+                                   placeholder="<?php echo $BL['cc_v3_title_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['title']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop3 nowrap">
+                            <label for="cc_v3_description"><?php echo $BL['be_cc_v3_description']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <textarea name="cc_v3_description"
+                                      rows="3"
+                                      id="cc_v3_description"
+                                      class="width400 autosize"
+                                      placeholder="<?php echo $BL['cc_v3_description_placeholder']; ?>"><?php
+                                echo html($template['cc_v3']['description']);
+                                ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_accept_all"><?php echo $BL['be_cc_v3_accept_all']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_accept_all"
+                                   id="cc_v3_accept_all"
+                                   class="width200"
+                                   placeholder="<?php echo $BL['cc_v3_accept_all_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['accept_all']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_accept_necessary"><?php echo $BL['be_cc_v3_accept_necessary']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_accept_necessary"
+                                   id="cc_v3_accept_necessary"
+                                   class="width200"
+                                   placeholder="<?php echo $BL['cc_v3_accept_necessary_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['accept_necessary']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_accept_selected"><?php echo $BL['be_cc_v3_accept_selected']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_accept_selected"
+                                   id="cc_v3_accept_selected"
+                                   class="width200"
+                                   placeholder="<?php echo $BL['cc_v3_accept_selected_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['accept_selected']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_reject_all"><?php echo $BL['be_cc_v3_reject_all']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_reject_all"
+                                   id="cc_v3_reject_all"
+                                   class="width200"
+                                   placeholder="<?php echo $BL['cc_v3_reject_all_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['reject_all']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_customize"><?php echo $BL['be_cc_v3_customize']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_customize"
+                                   id="cc_v3_customize"
+                                   class="width200"
+                                   placeholder="<?php echo $BL['cc_v3_customize_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['customize']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_more"><?php echo $BL['be_cc_v3_more']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom3">
+                            <input type="text"
+                                   name="cc_v3_more"
+                                   id="cc_v3_more"
+                                   class="width400"
+                                   placeholder="<?php echo $BL['cc_v3_more_placeholder']; ?>"
+                                   value="<?php echo html($template['cc_v3']['more']); ?>"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_link"><?php echo $BL['be_cc_v3_link']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom10">
+                            <input type="text"
+                                   name="cc_v3_link"
+                                   id="cc_v3_link"
+                                   class="width400"
+                                   placeholder="https://example.com/cookie-policy | cookie-policy"
+                                   value="<?php echo html($template['cc_v3']['link']); ?>"
+                            />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" class="chatlist tdtop2 nowrap">
+                            <?php echo $BL['be_cc_v3_sections']; ?>:&nbsp;
+                        </td>
+                        <td class="tdbottom5">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <!-- General -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_general']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_general_active"
+                                               id="cc_v3_general_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['general']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_general_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_general_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_general_title"
+                                               id="cc_v3_general_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_general_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['general']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_general_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                        <textarea name="cc_v3_general_description"
+                                                  rows="3"
+                                                  id="cc_v3_general_description"
+                                                  class="width300 autosize"
+                                                  placeholder="<?php echo $BL['be_cc_v3_section_general_description_placeholder']; ?>"><?php
+                                            echo html($template['cc_v3']['sections']['general']['description']);
+                                        ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- Strictly necessary cookies -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_necessary']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox"
+                                               value="1"
+                                               checked="checked"
+                                               disabled="disabled"
+                                        />
+                                        <input type="hidden" name="cc_v3_necessary_active" value="1" /><!-- always active -->
+                                    </td>
+                                    <td class="width300">
+                                        <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_necessary_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_necessary_title"
+                                               id="cc_v3_necessary_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_necessary_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['necessary']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_necessary_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                        <textarea name="cc_v3_necessary_description"
+                                                  rows="3"
+                                                  id="cc_v3_necessary_description"
+                                                  class="width300 autosize"
+                                                  placeholder="<?php echo $BL['be_cc_v3_section_necessary_description_placeholder']; ?>"><?php
+                                            echo html($template['cc_v3']['sections']['necessary']['description']);
+                                        ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- Functional cookies -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_functional']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_functionality_active"
+                                               id="cc_v3_functionality_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['functionality']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_functionality_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_functionality_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_functionality_title"
+                                               id="cc_v3_functionality_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_functional_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['functionality']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_functionality_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                         <textarea name="cc_v3_functionality_description"
+                                                   rows="3"
+                                                   id="cc_v3_functionality_description"
+                                                   class="width300 autosize"
+                                                   placeholder="<?php echo $BL['be_cc_v3_section_functional_description_placeholder']; ?>"><?php
+                                             echo html($template['cc_v3']['sections']['functionality']['description']);
+                                         ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- Performance and Analytics cookies -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_analytics']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_analytics_active"
+                                               id="cc_v3_analytics_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['analytics']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_analytics_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_analytics_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_analytics_title"
+                                               id="cc_v3_analytics_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_analytics_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['analytics']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_analytics_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                         <textarea name="cc_v3_analytics_description"
+                                                   rows="3"
+                                                   id="cc_v3_analytics_description"
+                                                   class="width300 autosize"
+                                                   placeholder="<?php echo $BL['be_cc_v3_section_analytics_description_placeholder']; ?>"><?php
+                                             echo html($template['cc_v3']['sections']['analytics']['description']);
+                                         ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- Advertising and marketing cookies -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_marketing']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_marketing_active"
+                                               id="cc_v3_marketing_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['marketing']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_marketing_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_marketing_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_marketing_title"
+                                               id="cc_v3_marketing_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_marketing_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['marketing']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_marketing_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                         <textarea name="cc_v3_marketing_description"
+                                                   rows="3"
+                                                   id="cc_v3_marketing_description"
+                                                   class="width300 autosize"
+                                                   placeholder="<?php echo $BL['be_cc_v3_section_marketing_description_placeholder']; ?>"><?php
+                                             echo html($template['cc_v3']['sections']['marketing']['description']);
+                                         ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- Social media cookies -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_social']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_social_active"
+                                               id="cc_v3_social_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['social']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_social_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_social_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_social_title"
+                                               id="cc_v3_social_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_social_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['social']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_social_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                         <textarea name="cc_v3_social_description"
+                                                   rows="3"
+                                                   id="cc_v3_social_description"
+                                                   class="width300 autosize"
+                                                   placeholder="<?php echo $BL['be_cc_v3_section_social_description_placeholder']; ?>"><?php
+                                             echo html($template['cc_v3']['sections']['social']['description']);
+                                         ?></textarea>
+                                    </td>
+                                </tr>
+
+                                <!-- More information -->
+                                <tr>
+                                    <td class="nowrap chatlist" align="right">
+                                        <strong><?php echo $BL['be_cc_v3_section_more']; ?>&nbsp;</strong>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_more_active"
+                                               id="cc_v3_more_active"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['sections']['more']['active'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width300">
+                                        <label for="cc_v3_more_active">
+                                            <?php echo $BL['be_cc_v3_sections_active']; ?>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_more_title"><?php echo $BL['be_cc_v3_sections_title']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="2">
+                                        <input type="text"
+                                               name="cc_v3_more_title"
+                                               id="cc_v3_more_title"
+                                               class="width300"
+                                               placeholder="<?php echo $BL['be_cc_v3_section_more_title_placeholder']; ?>"
+                                               value="<?php echo html($template['cc_v3']['sections']['more']['title']); ?>"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_more_description"><?php echo $BL['be_cc_v3_sections_description']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom5 tdtop2" colspan="2">
+                                         <textarea name="cc_v3_more_description"
+                                                   rows="3"
+                                                   id="cc_v3_more_description"
+                                                   class="width300 autosize"
+                                                   placeholder="<?php echo $BL['be_cc_v3_section_more_description_placeholder']; ?>"><?php
+                                             echo html($template['cc_v3']['sections']['more']['description']);
+                                         ?></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" class="chatlist tdtop4 nowrap">
+                            <label for="cc_v3_theme"><?php echo $BL['be_cc_v3_theme']; ?></label>:&nbsp;
+                        </td>
+                        <td class="tdbottom6">
+                            <input type="text"
+                                   name="cc_v3_theme"
+                                   id="cc_v3_theme"
+                                   class="width400"
+                                   placeholder="light (<?= $BL['be_cc_v3_default']; ?>) <?= $BL['be_fsearch_or']; ?> dark <?= $BL['be_fsearch_or']; ?> custom&hellip;"
+                                   title="<?php echo $BL['be_admin_tmpl_default']; ?>: light (<?= $BL['be_cc_v3_builtin'] . ', ' . $BL['be_cc_v3_default']; ?>), dark (<?= $BL['be_cc_v3_builtin']; ?>), custom"
+                                   value="<?php echo html($template['cc_v3']['theme']) ?>"
+                            />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" class="chatlist tdtop5 nowrap">
+                            <?php echo $BL['be_cc_v3_consent_modal']; ?>:&nbsp;
+                        </td>
+                        <td class="tdbottom5">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_consent_layout"><?php echo $BL['be_cc_v3_layout']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="4">
+                                        <select name="cc_v3_consent_layout" id="cc_v3_consent_layout">
+                                            <option value="box"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box'); ?>>Box</option>
+                                            <option value="box inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box inline'); ?>>Box Inline</option>
+                                            <option value="box wide"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'box wide'); ?>>Box Wide</option>
+                                            <option value="cloud"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'cloud'); ?>>Cloud</option>
+                                            <option value="cloud inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'cloud inline'); ?>>Cloud Inline</option>
+                                            <option value="bar"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'bar'); ?>>Bar</option>
+                                            <option value="bar inline"<?php is_selected($template['cc_v3']['gui']['consent']['layout'], 'bar inline'); ?>>Bar Inline</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_consent_position"><?php echo $BL['be_cc_v3_position']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="4">
+                                        <?php
+                                        if (in_array($template['cc_v3']['gui']['consent']['layout'], ['bar', 'bar inline'])) {
+                                            $cc_v3_consent_position_nobar = ' style="display:none;"';
+                                            $cc_v3_consent_position_bar = '';
+                                        } else {
+                                            $cc_v3_consent_position_nobar = '';
+                                            $cc_v3_consent_position_bar = ' style="display:none;"';
+                                        }
+                                        ?>
+                                        <select name="cc_v3_consent_position" id="cc_v3_consent_position">
+                                            <option value="top left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top left'); echo $cc_v3_consent_position_nobar; ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_top_left']; ?>
+                                            </option>
+                                            <option value="top center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_top_center']; ?>
+                                            </option>
+                                            <option value="top right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_top_right']; ?>
+                                            </option>
+                                            <option value="middle left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle left'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_middle_left']; ?>
+                                            </option>
+                                            <option value="middle center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_middle_center']; ?>
+                                            </option>
+                                            <option value="middle right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'middle right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_middle_right']; ?>
+                                            </option>
+                                            <option value="bottom left"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom left'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_bottom_left']; ?>
+                                            </option>
+                                            <option value="bottom center"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom center'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_bottom_center']; ?>
+                                            </option>
+                                            <option value="bottom right"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom right'); echo $cc_v3_consent_position_nobar;  ?> class="v3_consent-no-bar">
+                                                <?= $BL['be_cc_v3_bottom_right']; ?>
+                                            </option>
+                                            <option value="top"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'top'); echo $cc_v3_consent_position_bar;  ?> class="v3_consent-bar">
+                                                <?= $BL['be_cc_v3_top']; ?>
+                                            </option>
+                                            <option value="bottom"<?php is_selected($template['cc_v3']['gui']['consent']['position'], 'bottom'); echo $cc_v3_consent_position_bar; ?> class="v3_consent-bar">
+                                                <?= $BL['be_cc_v3_bottom']; ?>
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="chatlist tdtop6 nowrap">
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_consent_flip"
+                                               id="cc_v3_consent_flip"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['gui']['consent']['btn_flip'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width100 tdright10">
+                                        <label for="cc_v3_consent_flip"><?php echo $BL['be_cc_v3_btn_flip'] ?></label>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_consent_equal"
+                                               id="cc_v3_consent_equal"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['gui']['consent']['btn_equal'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width100">
+                                        <label for="cc_v3_consent_equal"><?php echo $BL['be_cc_v3_btn_equal'] ?></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" class="chatlist tdtop5 nowrap">
+                            <?php echo $BL['be_cc_v3_preferences_modal']; ?>:&nbsp;
+                        </td>
+                        <td class="tdbottom10">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_preferences_layout"><?php echo $BL['be_cc_v3_layout']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="4">
+                                        <select name="cc_v3_preferences_layout" id="cc_v3_preferences_layout">
+                                            <option value="box"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'box'); ?>>
+                                                Box
+                                            </option>
+                                            <option value="bar"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar'); ?>>
+                                                Bar
+                                            </option>
+                                            <option value="bar wide"<?php is_selected($template['cc_v3']['gui']['preferences']['layout'], 'bar wide'); ?>>
+                                                Bar Wide
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right" class="chatlist tdtop6 nowrap">
+                                        <label for="cc_v3_preferences_position"><?php echo $BL['be_cc_v3_position']; ?></label>:&nbsp;
+                                    </td>
+                                    <td class="tdbottom3 tdtop2" colspan="4">
+                                        <select name="cc_v3_preferences_position" id="cc_v3_preferences_position"<?php
+                                        if ($template['cc_v3']['gui']['preferences']['layout'] === 'box'): ?> disabled="disabled"<?php endif;
+                                        ?>>
+                                            <option value="left"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'left'); ?>>
+                                                <?= $BL['be_cc_v3_left']; ?>
+                                            </option>
+                                            <option value="right"<?php is_selected($template['cc_v3']['gui']['preferences']['position'], 'right'); ?>>
+                                                <?= $BL['be_cc_v3_right']; ?>
+                                            </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="chatlist tdtop6 nowrap">
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_preferences_flip"
+                                               id="cc_v3_preferences_flip"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['gui']['preferences']['btn_flip'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class=" width100 tdright10">
+                                        <label for="cc_v3_preferences_flip"><?php echo $BL['be_cc_v3_btn_flip'] ?></label>
+                                    </td>
+                                    <td>
+                                        <input name="cc_v3_preferences_equal"
+                                               id="cc_v3_preferences_equal"
+                                               type="checkbox"
+                                               value="1"<?php is_checked($template['cc_v3']['gui']['preferences']['btn_equal'], 1); ?>
+                                        />
+                                    </td>
+                                    <td class="width100">
+                                        <label for="cc_v3_preferences_equal"><?php echo $BL['be_cc_v3_btn_equal'] ?></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
         <tr>
           <td><input type="checkbox" name="template_require_consent" id="template_require_consent" value="1"<?php is_checked($template['require_consent']['enable'], 1); ?> /></td>
           <td class="v10"><label for="template_require_consent"><?php echo $BL['be_require_consent']; ?></label></td>
@@ -659,12 +1458,10 @@ if ($template['jslib'] && !$jslib_selected) {
               </table>
           </td>
         </tr>
-
         <tr>
             <td><input type="checkbox" name="template_frontendjs" id="template_frontendjs" value="1"<?php is_checked($template['frontendjs'], 1); ?> /></td>
             <td class="v10"><label for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label></td>
         </tr>
-
       </table></td>
     </tr>
 
@@ -676,7 +1473,6 @@ if ($template['jslib'] && !$jslib_selected) {
     </tr>
 
     <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
 
     <tr bgcolor="#F3F5F8">
       <td align="right" class="chatlist nowrap" nowrap="nowrap">&nbsp;<?php echo $BL['be_fe_login_url'] ?>:&nbsp;</td>
@@ -766,7 +1562,7 @@ if ($template['jslib'] && !$jslib_selected) {
     <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
 
 <?php
-if(!empty($jsOnChange))  {
+if(!empty($jsOnChange)) {
 
     echo '<tr><td colspan="2"><img src="img/leer.gif" width="1" height="5" alt="" /></td></tr>';
     echo '<tr><td colspan="2" class="rowspacer1x0" bgcolor="#F3F5F8"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
@@ -832,8 +1628,23 @@ if(!empty($jsOnChange))  {
         $('#template_cookie_consent').on('change', function(){
             if($(this).is(':checked')) {
                 $('#template-cc-form').show();
+                // Only Cookie Consent v3 or Cookie Consent v2 can be enabled at the same time
+                // Disable Cookie Consent v3 if Cookie Consent v2 is enabled
+                $('#template_cc_v3').prop('checked', false);
+                $('#template-cc_v3-form').hide();
             } else {
                 $('#template-cc-form').hide();
+            }
+        });
+        $('#template_cc_v3').on('change', function(){
+            if($(this).is(':checked')) {
+                $('#template-cc_v3-form').show();
+                // Only Cookie Consent v3 or Cookie Consent v2 can be enabled at the same time
+                // Disable Cookie Consent v2 if Cookie Consent v3 is enabled
+                $('#template_cookie_consent').prop('checked', false);
+                $('#template-cc-form').hide();
+            } else {
+                $('#template-cc_v3-form').hide();
             }
         });
         $('#template_require_consent').on('change', function(){
@@ -864,8 +1675,32 @@ if(!empty($jsOnChange))  {
                 $('#piwik-tracking').hide();
             }
         });
+        $('#cc_v3_preferences_layout').on('change', function(){
+            const $value = $(this).val();
+            if($value === 'box') {
+                $('#cc_v3_preferences_position').prop('disabled', 'disabled');
+            } else {
+                $('#cc_v3_preferences_position').removeAttr('disabled');
+            }
+        });
+        $('#cc_v3_consent_layout').on('change', function(){
+            let $value = $(this).val();
+            let $consent_position = $('#cc_v3_consent_position');
+            if($value === 'bar' || $value === 'bar inline') {
+                let $consent_position_bar = $consent_position.children('.v3_consent-bar');
+                $consent_position_bar.show();
+                $consent_position.children('.v3_consent-no-bar').hide();
+                $consent_position_bar.first().prop('selected', true);
+                $consent_position_bar.first().attr('selected', 'selected');
+            } else {
+                let $consent_position_nobar = $consent_position.children('.v3_consent-no-bar');
+                $consent_position_nobar.show();
+                $consent_position.children('.v3_consent-bar').hide();
+                $consent_position_nobar.first().prop('selected', true);
+                $consent_position_nobar.first().attr('selected', 'selected');
+            }
+        });
     });
-
 </script>
 <?php
 

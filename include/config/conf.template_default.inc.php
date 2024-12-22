@@ -825,9 +825,9 @@ $template_default['settings'] = array(
             'code' => "  <script".SCRIPT_ATTRIBUTE_TYPE." src=\"https://www.googletagmanager.com/gtag/js?id=%1\$s\" async></script>
   <script".SCRIPT_ATTRIBUTE_TYPE.">
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){dataLayer.push(arguments);} //gtagv3_init
     gtag('js', new Date());
-    gtag('config', '%1\$s'%2\$s);
+    gtag('config', '%1\$s'%2\$s); //gtagv3_events
   </script>",
            'optout' => "  <script".SCRIPT_ATTRIBUTE_TYPE.">
     var gaOptOutCookie = 'ga-disable-%1\$s';

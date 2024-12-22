@@ -1,0 +1,53 @@
+{
+    "consentModal": {
+        "title": "Wir schätzen Ihre Privatsphäre",
+        "description": "Wir verwenden Cookies, um Ihr Browsing-Erlebnis zu verbessern, personalisierte Werbung oder Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Wenn Sie auf „Alle akzeptieren“ klicken, stimmen Sie unserer Verwendung von Cookies zu.",
+        "acceptAllBtn": "Alle akzeptieren",
+        "acceptNecessaryBtn": "Alle ablehnen",
+        "showPreferencesBtn": "Anpassen",
+        "footer": "<a href=\"#link\">Datenschutz</a>\n<a href=\"#link\">Bedingungen und Konditionen</a>"
+    },
+    "preferencesModal": {
+        "title": "Cookie-Einstellungen verwalten",
+        "acceptAllBtn": "Alle akzeptieren",
+        "acceptNecessaryBtn": "Notwendige akzeptieren",
+        "savePreferencesBtn": "Auswahl akzeptieren",
+        "closeIconLabel": "Schließen",
+        "serviceCounterLabel": "Dienstleistungen",
+        "sections": {
+            "general": {
+                "title": "Verwalten Sie Ihre Cookies",
+                "description": "Wir verwenden Cookies, um Ihnen die Navigation zu erleichtern und bestimmte Funktionen auszuführen. Detaillierte Informationen über alle Cookies finden Sie unter jeder Einwilligungskategorie unten. Die Cookies, die als „notwendig“ eingestuft sind, werden in Ihrem Browser gespeichert, da sie für die grundlegenden Funktionen der Website unerlässlich sind. Wir verwenden auch Cookies von Drittanbietern, die uns dabei helfen, zu analysieren, wie Sie diese Website nutzen, Ihre Präferenzen zu speichern und Ihnen die für Sie relevanten Inhalte und Anzeigen zu liefern. Diese Cookies werden nur mit Ihrer vorherigen Zustimmung in Ihrem Browser gespeichert. Sie haben die Möglichkeit, einige oder alle dieser Cookies zu aktivieren oder zu deaktivieren, aber die Deaktivierung einiger dieser Cookies kann Ihr Surferlebnis beeinträchtigen."
+            },
+            "necessary": {
+                "title": "Streng notwendige Cookies",
+                "description": "Notwendige Cookies sind erforderlich, um die grundlegenden Funktionen dieser Website zu ermöglichen, wie z.B. das sichere Einloggen oder die Anpassung Ihrer Einwilligungseinstellungen. Diese Cookies speichern keine persönlich identifizierbaren Daten.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funktionale Cookies",
+                "description": "Funktionalitäts-Cookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website möglicherweise nicht verfügbar sind. Funktionscookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website möglicherweise nicht verfügbar sind. So ermöglichen diese z.B. das Speichern wichtiger Informationen und Benutzereinstellungen. Zu den Informationen können Anmeldedaten, Region, Sprache und erweiterte Inhalte gehören.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookies für Leistung und Analytik",
+                "description": "Analytische Cookies werden verwendet, um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies helfen dabei, Informationen über Metriken wie die Anzahl der Besucher, Absprungrate, Verkehrsquelle usw. zu liefern.",
+                "linkedCategory": "analytics"
+            },
+            "marketing": {
+                "title": "Cookies für Werbung und Marketing",
+                "description": "Cookie für Werbung und Marketing werden verwendet, um Werbung bereitzustellen, die für Sie und Ihre Interessen relevanter ist. Kann auch verwendet werden, um die Häufigkeit, mit der Sie eine Werbung sehen, zu begrenzen und die Wirksamkeit von Werbekampagnen zu messen. Werbenetzwerke platzieren sie in der Regel mit der Erlaubnis des Website-Betreibers.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookies für soziale Medien",
+                "description": "Cookies für soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. Diese Cookies können verwendet werden, um für Sie relevante Werbung auf anderen Plattformen zu schalten.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Weitere Informationen",
+                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten <a class=\"cc-link\" href=\"#yourdomain.com\">kontaktieren Sie uns bitte</a>."
+            }
+        }
+    }
+}
