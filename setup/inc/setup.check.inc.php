@@ -171,9 +171,18 @@ if(!empty($step)) {
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
                                 mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
                                 try {
-                                    mysqli_query($db, 'SET GLOBAL innodb_default_row_format=DYNAMIC');
+                                    mysqli_query($db, 'SET innodb_default_row_format=DYNAMIC');
+                                    $set_dynamic = true;
                                 } catch (Exception $e) {
-                                    // we tried, but continue without breaking
+                                    $set_dynamic = false;
+                                }
+
+                                if (!$set_dynamic) {
+                                    try {
+                                        mysqli_query($db, 'SET GLOBAL innodb_default_row_format=DYNAMIC');
+                                    } catch (Exception $e) {
+                                        // we tried, but continue without breaking
+                                    }
                                 }
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
