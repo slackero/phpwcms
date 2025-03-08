@@ -1499,7 +1499,7 @@ $BL['be_cc_v3_section_social_title_placeholder'] = 'Social media cookies';
 $BL['be_cc_v3_section_social_description_placeholder'] = 'Social media cookies are used to understand how visitors interact with social media. These cookies may be used to deliver relevant advertising on other platforms.';
 $BL['be_cc_v3_section_more'] = 'more';
 $BL['be_cc_v3_section_more_title_placeholder'] = 'More information';
-$BL['be_cc_v3_section_more_description_placeholder'] = 'For any queries in relation to our policy on cookies and your choices, please &lt;a class=&quot;cc-link&quot; href=&quot;#yourdomain.com&quot;&gt;contact us&lt;/a&gt;.';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'For any queries in relation to our policy on cookies and your choices, please &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;contact us&lt;/a&gt;.';
 $BL['be_cc_v3_builtin'] = 'built-in';
 $BL['be_cc_v3_default'] = 'default';
 $BL['be_cc_v3_btn_flip'] = 'flip buttons';

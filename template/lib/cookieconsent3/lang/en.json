@@ -1,5 +1,6 @@
 {
     "consentModal": {
+        "label": "Cookie consent",
         "title": "We value your privacy",
         "description": "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking \"Accept all\", you consent to our use of cookies.",
         "acceptAllBtn": "Accept all",
@@ -32,7 +33,21 @@
             "analytics": {
                 "title": "Performance and Analytics cookies",
                 "description": "Analytical cookies are used to understand how visitors interact with the website. These cookies help provide information on metrics such as the number of visitors, bounce rate, traffic source, etc.",
-                "linkedCategory": "analytics"
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Name",
+                        "description": "Description",
+                        "Service": "Service"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Used to track you ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
             },
             "marketing": {
                 "title": "Advertising and marketing cookies",
@@ -46,7 +61,7 @@
             },
             "more": {
                 "title": "More information",
-                "description": "For any queries in relation to our policy on cookies and your choices, please <a class=\"cc-link\" href=\"#yourdomain.com\">contact us</a>."
+                "description": "For any query in relation to our policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact us</a>."
             }
         }
     }

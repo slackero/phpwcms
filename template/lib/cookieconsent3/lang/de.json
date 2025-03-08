@@ -1,5 +1,6 @@
 {
     "consentModal": {
+        "label": "Cookie-Zustimmung",
         "title": "Wir schätzen Ihre Privatsphäre",
         "description": "Wir verwenden Cookies, um Ihr Browsing-Erlebnis zu verbessern, personalisierte Werbung oder Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Wenn Sie auf „Alle akzeptieren“ klicken, stimmen Sie unserer Verwendung von Cookies zu.",
         "acceptAllBtn": "Alle akzeptieren",
@@ -14,7 +15,7 @@
         "savePreferencesBtn": "Auswahl akzeptieren",
         "closeIconLabel": "Schließen",
         "serviceCounterLabel": "Dienstleistungen",
-        "sections": {
+        "sections": [
             "general": {
                 "title": "Verwalten Sie Ihre Cookies",
                 "description": "Wir verwenden Cookies, um Ihnen die Navigation zu erleichtern und bestimmte Funktionen auszuführen. Detaillierte Informationen über alle Cookies finden Sie unter jeder Einwilligungskategorie unten. Die Cookies, die als „notwendig“ eingestuft sind, werden in Ihrem Browser gespeichert, da sie für die grundlegenden Funktionen der Website unerlässlich sind. Wir verwenden auch Cookies von Drittanbietern, die uns dabei helfen, zu analysieren, wie Sie diese Website nutzen, Ihre Präferenzen zu speichern und Ihnen die für Sie relevanten Inhalte und Anzeigen zu liefern. Diese Cookies werden nur mit Ihrer vorherigen Zustimmung in Ihrem Browser gespeichert. Sie haben die Möglichkeit, einige oder alle dieser Cookies zu aktivieren oder zu deaktivieren, aber die Deaktivierung einiger dieser Cookies kann Ihr Surferlebnis beeinträchtigen."
@@ -32,7 +33,21 @@
             "analytics": {
                 "title": "Cookies für Leistung und Analytik",
                 "description": "Analytische Cookies werden verwendet, um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies helfen dabei, Informationen über Metriken wie die Anzahl der Besucher, Absprungrate, Verkehrsquelle usw. zu liefern.",
-                "linkedCategory": "analytics"
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Name",
+                        "description": "Beschreibung",
+                        "Service": "Dienst"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Werden benutzt, um Sie zu verfolgen …",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
             },
             "marketing": {
                 "title": "Cookies für Werbung und Marketing",
@@ -46,8 +61,8 @@
             },
             "more": {
                 "title": "Weitere Informationen",
-                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten <a class=\"cc-link\" href=\"#yourdomain.com\">kontaktieren Sie uns bitte</a>."
+                "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten <a class=\"cc__link\" href=\"#yourdomain.com\">kontaktieren Sie uns bitte</a>."
             }
-        }
+        ]
     }
 }
