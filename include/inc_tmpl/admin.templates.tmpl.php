@@ -17,11 +17,11 @@ if (!defined('CMSGO_ROOT')) {
 
 reset($cmsgo['js_lib']); // reset $cmsgo['js_lib'] to get first element as default
 
-$template = array(
+$template = [
     "name" => '',
     "default" => 0,
     "layout" => '',
-    "css" => array(),
+    "css" => [],
     "htmlhead" => '',
     "jsonload" => '',
     "headertext" => '',
@@ -44,16 +44,17 @@ $template = array(
     'googleapi' => 1,
     'onepage' => 0,
     'ie8ignore' => 0,
-    'cookie_consent' => array(
+    'cookie_consent' => [
         'enable' => 0,
         'message' => $BL['cookie_consent_message'],
         'dismiss' => $BL['cookie_consent_dismiss'],
         'more' => $BL['cookie_consent_more'],
         'link' => '',
         'theme' => 'light-bottom',
-    ),
-    'cc_v3' => array(
+    ],
+    'cc_v3' => [
         'enable' => 0,
+        'reload_on_change' => 0,
         'title' => '',
         'description' => '',
         'accept_all' => '',
@@ -115,31 +116,31 @@ $template = array(
                 'btn_equal' => 0,
             ],
         ],
-    ),
-    'tracking_ga' => array(
+    ],
+    'tracking_ga' => [
         'enable' => 0,
         'id' => '',
         'anonymize' => CMSGO_GDPR_MODE  ? 1 : 0,
         'optout' => CMSGO_GDPR_MODE  ? 1 : 0,
         'cookie_flags' => CMSGO_GDPR_MODE  ? 1 : 0,
         'custom_properties' => ''
-    ),
-    'tracking_gtm' => array(
+    ],
+    'tracking_gtm' => [
         'enable' => 0,
         'id' => '',
-    ),
-    'tracking_piwik' => array(
+    ],
+    'tracking_piwik' => [
         'enable' => 0,
         'id' => '',
         'url' => ''
-    ),
+    ],
     'donottrack' => 0,
-    'require_consent' => array(
+    'require_consent' => [
         'enable' => 0,
         'cookie_name' => 'cookieconsent_dismissed',
         'cookie_value' => 'yes'
-    ),
-);
+    ],
+];
 
 initJQuery();
 
@@ -211,7 +212,7 @@ if(!isset($_GET["s"])) {
         if(empty($template["name"])) {
             $template["name"] = "template_".generic_string(3);
         }
-        $template["css"] = isset($_POST["template_css"]) && is_array($_POST["template_css"]) ? $_POST["template_css"] : array();
+        $template["css"] = isset($_POST["template_css"]) && is_array($_POST["template_css"]) ? $_POST["template_css"] : [];
         $template["htmlhead"] = slweg($_POST["template_htmlhead"]);
         $template["htmlhead_file"] = clean_slweg($_POST["template_htmlhead_file"]);
         $template["jsonload"] = slweg($_POST["template_jsonload"]);
@@ -302,6 +303,7 @@ if(!isset($_GET["s"])) {
         }
         $template['cc_v3']['gui']['preferences']['btn_flip'] = empty($_POST['cc_v3_preferences_flip']) ? 0 : 1;
         $template['cc_v3']['gui']['preferences']['btn_equal'] = empty($_POST['cc_v3_preferences_equal']) ? 0 : 1;
+        $template['cc_v3']['reload_on_change'] = empty($_POST['cc_v3_reload_on_change']) ? 0 : 1;
 
         // Consent Sections
         foreach (['general', 'necessary', 'functionality', 'analytics', 'marketing', 'social', 'more' ] as $section) {
@@ -338,11 +340,11 @@ if(!isset($_GET["s"])) {
             $template['tracking_piwik']['enable'] = 0;
         }
         $template['donottrack'] = empty($_POST['template_donottrack']) ? 0 : 1;
-        $template['require_consent'] = array(
+        $template['require_consent'] = [
             'enable' => empty($_POST['template_require_consent']) ? 0 : 1,
             'cookie_name' => clean_slweg($_POST['template_require_cookie_name']),
             'cookie_value' => clean_slweg($_POST['template_require_cookie_value'])
-        );
+        ];
 
         // now browse custom blocks if available
         if(!empty($_POST['customblock'])) {
@@ -398,7 +400,7 @@ if(!isset($_GET["s"])) {
 
             // compatibility for older releases where only 1 css file could be stored per template
             if(is_string($template['css'])) {
-                $template['css'] = array($template['css']);
+                $template['css'] = [$template['css']];
             }
         }
     }
@@ -440,8 +442,7 @@ if(!isset($_GET["s"])) {
             </div>
             <div class="card-body">
                 <div class="form-group form-row align-items-center">
-                    <label for="layout_name"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
+                    <label for="template_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
                     <div class="col-sm-7">
                         <?php
                         if (empty($createcopy)) {
@@ -463,7 +464,7 @@ if(!isset($_GET["s"])) {
                 </div>
                 <hr/>
                 <div class="form-group form-row align-items-center">
-                    <label for="be_admin_tmpl_layout"
+                    <label for="template_layout"
                            class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
                     <div class="col-sm-5">
                         <?php
@@ -524,13 +525,10 @@ if(isset($result[0]['pagelayout_id'])) {
                 <hr/>
 
                 <div class="form-group form-row align-items-center">
-                    <label for="be_settings"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
+                    <label for="template_overwrite" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
                     <div class="col-sm-5">
-                        <select name="template_overwrite" type="text" class="custom-select form-control form-control-sm"
-                                id="template_overwrite">
-                            <option value=""
-                                    style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
+                        <select name="template_overwrite" type="text" class="custom-select form-control form-control-sm" id="template_overwrite">
+                            <option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
                             <?php
                             // templates for frontend login
                             $tmpllist = get_tmpl_files(CMSGO_TEMPLATE . 'inc_settings/template_default', 'php');
@@ -547,12 +545,11 @@ if(isset($result[0]['pagelayout_id'])) {
                 </div>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_tmpl_css"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
+                    <label for="template_css" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
                     <div class="col">
                         <select name="template_css[]" multiple class="custom-select form-control form-control-sm" id="template_css">
                             <?php
-                            $unselected_css = array();
+                            $unselected_css = [];
                             // get css file list
                             if (is_dir(CMSGO_TEMPLATE . "inc_css")) {
                                 $css_handle = opendir(CMSGO_TEMPLATE . "inc_css");
@@ -591,8 +588,7 @@ if(isset($result[0]['pagelayout_id'])) {
                 </div>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_tmpl_head"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_head'] ?></label>
+                    <label for="template_htmlhead" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_head'] ?></label>
                     <div class="col">
                         <?php
                         if (!isset($template["htmlhead_file"])) {
@@ -600,13 +596,12 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
                         ?>
-                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize text-monospace"
-                                  id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
+                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
                     </div>
                 </div>
 
                 <div class="form-group form-row align-items-center">
-                    <label for="js_lib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
+                    <label for="template_jslib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
                     <div class="col-sm-5">
                         <select class="custom-select form-control form-control-sm" name="template_jslib" id="template_jslib">
                             <?php
@@ -670,18 +665,18 @@ if(isset($result[0]['pagelayout_id'])) {
                                 </div>
 
                                 <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked(isset($template['tracking_ga']['optout']) ? $template['tracking_ga']['optout'] : 0, 1); ?> />
+                                    <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> />
                                     <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
                                 </div>
 
                                 <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked(isset($template['tracking_ga']['cookie_flags']) ? $template['tracking_ga']['cookie_flags'] : 0, 1); ?> />
+                                    <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> />
                                     <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
                                 </div>
 
                                 <div class="form-check col-sm-10 offset-sm-2 my-1">
                                     <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
-                                    <textarea name="template_ga_custom_properties" class="form-control text-monospace autosize" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                    <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                 </div>
 
                             </div>
@@ -774,7 +769,25 @@ if(isset($result[0]['pagelayout_id'])) {
                                 <?php if (count($cmsgo['allowed_lang'])): ?>
                                     <em class="mt-2"><small><?php echo $BL['be_cookie_consent_translatable']; ?></small></em>
                                 <?php endif; ?>
-                                <div class="form-group form-row mt-2 mb-0">
+
+                                <div class="form-group form-row mb-0">
+                                    <label class="col-sm-3 col-form-label text-right" for="cc_v3_reload_on_change">
+                                        <?php echo $BL['be_cc_v3_on_change']; ?>
+                                    </label>
+                                    <div class="col mb-1 mt-2 pl-4">
+                                        <label class="form-check-label" for="cc_v3_reload_on_change">
+                                            <input class="form-check-input"
+                                                   name="cc_v3_reload_on_change"
+                                                   id="cc_v3_reload_on_change"
+                                                   type="checkbox"
+                                                   value="1"<?php is_checked($template['cc_v3']['reload_on_change'], 1); ?>
+                                            />
+                                            <?php echo $BL['be_cc_v3_reload_on_change'] ?>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-row mt-1 mb-0">
                                     <label class="col-sm-3 col-form-label text-right" for="cc_v3_title">
                                         <?php echo $BL['be_cc_v3_title']; ?>
                                     </label>
@@ -968,9 +981,10 @@ if(isset($result[0]['pagelayout_id'])) {
                                                                value="1"
                                                                checked="checked"
                                                                disabled="disabled"
+                                                               id="cc_v3_section_necessary_active"
                                                         />
                                                         <?php echo $BL['be_cc_v3_sections_active']; ?>
-                                                        <input type="hidden" name="cc_v3_necessary_active" value="1" /><!-- always active -->
+                                                        <input type="hidden" name="cc_v3_necessary_active" id="cc_v3_necessary_active" value="1" /><!-- always active -->
                                                     </label>
                                                 </div>
                                             </div>
@@ -1244,6 +1258,7 @@ if(isset($result[0]['pagelayout_id'])) {
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <div class="form-group form-row my-0">
@@ -1470,13 +1485,13 @@ if(isset($result[0]['pagelayout_id'])) {
                 </div>
 
                 <div class="form-group form-row align-items-center">
-                    <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
+                    <label for="template_jsonload" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
                     <div class="col">
                         <input type="text" class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
                     </div>
                 </div>
                 <div class="form-group form-row align-items-center">
-                    <label for="be_fe_login_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
+                    <label for="template_felogin_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
                     <div class="col">
                         <input type="text" class="form-control form-control-sm" name="template_felogin_url" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
                     </div>
@@ -1485,7 +1500,7 @@ if(isset($result[0]['pagelayout_id'])) {
                 <hr/>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_page_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+                    <label for="template_block_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
                     <div class="col">
                         <?php
                         if (!isset($template["headertext_file"])) {
@@ -1497,7 +1512,7 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
+                    <label for="template_block_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["maintext_file"])) {
@@ -1509,7 +1524,7 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+                    <label for="template_block_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["footertext_file"])) {
@@ -1521,7 +1536,7 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+                    <label for="template_block_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["lefttext_file"])) {
@@ -1533,7 +1548,7 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
                 <div class="form-group form-row">
-                    <label for="be_admin_page_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+                    <label for="template_block_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["righttext_file"])) {
@@ -1560,8 +1575,8 @@ if(isset($result[0]['pagelayout_id'])) {
                         echo '</label>';
                         echo '<div class="col">';
                         echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
-                        echo '<textarea name="template_customblock_' . $custom_block;
-                        echo '" rows="3" class="form-control form-control-sm autosize text-monospace">';
+                        echo '<textarea name="template_customblock_' . $custom_block . '" id="template_customblock_' . $custom_block . '" ';
+                        echo 'rows="3" class="form-control form-control-sm autosize text-monospace">';
                         echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
                         echo "</textarea>";
                         echo '  </div>';
@@ -1571,7 +1586,7 @@ if(isset($result[0]['pagelayout_id'])) {
                 ?>
 
                 <div class="form-group form-row">
-                    <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
+                    <label for="template_block_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
                     <div class="col">
                         <?php
                         if(!isset($template["errortext_file"])) {
