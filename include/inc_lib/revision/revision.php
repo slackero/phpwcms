@@ -3,11 +3,11 @@
  * cmsGO!
  *
  * @author Pixels & Points GmbH <info@pixels-points.ch>
- * @copyright Copyright (c) 2002-2024, Pixels & Points GmbH
+ * @copyright Copyright (c) 2002-2025, Pixels & Points GmbH
  * @license https://www.pixels-points.ch/cmsgo-license.html Pixels & Points cmsGO! license
  *
  **/
 
-const CMSGO_VERSION = '2.4.9-dev';
-const CMSGO_RELEASE_DATE = '2024/08/31';
+const CMSGO_VERSION = '2.4.10-dev';
+const CMSGO_RELEASE_DATE = '2025/03/15';
 const CMSGO_REVISION = '556';
