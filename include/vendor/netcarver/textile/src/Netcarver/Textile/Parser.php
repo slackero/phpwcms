@@ -384,7 +384,7 @@ class Parser
      *
      * @var string
      */
-    protected $ver = '4.1.2';
+    protected $ver = '4.1.3';
 
     /**
      * Regular expression snippets.
@@ -4718,6 +4718,10 @@ class Parser
         $url = $m['url'];
         $title = (isset($m['title'])) ? $m['title'] : '';
         $href = (isset($m['href'])) ? $m['href'] : '';
+
+        if ($href && !$this->isValidUrl($href)) {
+            return $m[0];
+        }
 
         $alignments = array(
             '<'    => 'left',
