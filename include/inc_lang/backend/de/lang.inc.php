@@ -1505,7 +1505,7 @@ $BL['be_cc_v3_section_social_title_placeholder'] = 'Cookies für soziale Medien'
 $BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies für soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. Diese Cookies können verwendet werden, um für Sie relevante Werbung auf anderen Plattformen zu schalten.';
 $BL['be_cc_v3_section_more'] = 'Sonstiges';
 $BL['be_cc_v3_section_more_title_placeholder'] = 'Weitere Informationen';
-$BL['be_cc_v3_section_more_description_placeholder'] = 'Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten &lt;a class=&quot;cc-link&quot; href=&quot;#yourdomain.com&quot;&gt;kontaktieren Sie uns bitte&lt;/a&gt;.';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;kontaktieren Sie uns bitte&lt;/a&gt;.';
 $BL['be_cc_v3_builtin'] = 'integriert';
 $BL['be_cc_v3_default'] = 'Standard';
 $BL['be_cc_v3_btn_flip'] = 'Buttons vertauschen';
