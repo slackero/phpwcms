@@ -15,7 +15,7 @@
         "savePreferencesBtn": "Auswahl akzeptieren",
         "closeIconLabel": "Schließen",
         "serviceCounterLabel": "Dienstleistungen",
-        "sections": [
+        "sections": {
             "general": {
                 "title": "Verwalten Sie Ihre Cookies",
                 "description": "Wir verwenden Cookies, um Ihnen die Navigation zu erleichtern und bestimmte Funktionen auszuführen. Detaillierte Informationen über alle Cookies finden Sie unter jeder Einwilligungskategorie unten. Die Cookies, die als „notwendig“ eingestuft sind, werden in Ihrem Browser gespeichert, da sie für die grundlegenden Funktionen der Website unerlässlich sind. Wir verwenden auch Cookies von Drittanbietern, die uns dabei helfen, zu analysieren, wie Sie diese Website nutzen, Ihre Präferenzen zu speichern und Ihnen die für Sie relevanten Inhalte und Anzeigen zu liefern. Diese Cookies werden nur mit Ihrer vorherigen Zustimmung in Ihrem Browser gespeichert. Sie haben die Möglichkeit, einige oder alle dieser Cookies zu aktivieren oder zu deaktivieren, aber die Deaktivierung einiger dieser Cookies kann Ihr Surferlebnis beeinträchtigen."
@@ -63,6 +63,6 @@
                 "title": "Weitere Informationen",
                 "description": "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten <a class=\"cc__link\" href=\"#yourdomain.com\">kontaktieren Sie uns bitte</a>."
             }
-        ]
+        }
     }
 }
