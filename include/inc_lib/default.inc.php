@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2024, Oliver Georgi
+ * @copyright Copyright (c) 2002-2025, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  **/
@@ -1059,7 +1059,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         $pixelratio = 1;
     }
 
-    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
+    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp')) {
         $webp = true;
     } else {
         $webp = false;
@@ -1243,9 +1243,11 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         }
     }
 
+    $ver = intval($ver);
+
     $GLOBALS['phpwcms'][$index] = array(
         'agent' => $agent,
-        'version' => intval($ver),
+        'version' => $ver,
         'platform' => $platform,
         'mobile' => $mobile,
         'device' => $device,
@@ -1256,6 +1258,30 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
     );
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
+
+    if (!$webp) {
+        switch ($agent) {
+            case 'Chrome':
+            case 'Opera':
+            case 'Edge':
+                if ($ver > 50) {
+                    $webp = true;
+                }
+                break;
+            case 'Firefox':
+                if ($ver > 70) {
+                    $webp = true;
+                }
+                break;
+            case 'Safari':
+                if ($platform === 'Mac' && $ver > 15) {
+                    $webp = true;
+                } elseif ($platform === 'iOS' && $ver > 13) {
+                    $webp = true;
+                }
+                break;
+        }
+    }
     $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['phpwcms'][$index];

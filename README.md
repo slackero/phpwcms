@@ -26,10 +26,10 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.41 requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.43 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 If you already use PHP v8.x you should use the latest version of
-[**phpwcms v1.10.5**](https://github.com/slackero/phpwcms/releases/tag/v1.10.5).
+[**phpwcms v1.10**](https://github.com/slackero/phpwcms/releases?q=1.10&expanded=true).
 
 
 Known problems
@@ -52,10 +52,7 @@ that conforms with [necolas's guidelines](https://github.com/necolas/issue-guide
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter
-[@phpwcms](https://twitter.com/phpwcms) or on
-[Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-*(We are no longer active there, better you stay in touch with **phpwcms** on
+Keep up to date on announcements and more by following **phpwcms** on 
 [Github](https://github.com/slackero/phpwcms))*
 
 
@@ -65,15 +62,13 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
-- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
-- <https://twitter.com/slackero>
 
 
 Copyright and license
 ---------------------
 
-Copyright 2002-2024 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright © 2002-2025 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
