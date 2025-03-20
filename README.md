@@ -26,9 +26,9 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.39 requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.43 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
-If you already use PHP v8.x you can use the latest version of
+If you already use PHP v8.x you should use the latest version of
 [**phpwcms v1.10**](https://github.com/slackero/phpwcms/releases?q=1.10&expanded=true).
 
 
@@ -52,10 +52,7 @@ that conforms with [necolas's guidelines](https://github.com/necolas/issue-guide
 Share with us
 -------------
 
-Keep up to date on announcements and more by following **phpwcms** on Twitter
-[@phpwcms](https://twitter.com/phpwcms) or on
-[Facebook](https://www.facebook.com/pages/phpwcms/162275020999).
-*(We are no longer active there, better you stay in touch with **phpwcms** on
+Keep up to date on announcements and more by following **phpwcms** on 
 [Github](https://github.com/slackero/phpwcms))*
 
 
@@ -65,9 +62,7 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
-- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
-- <https://twitter.com/slackero>
 
 
 Copyright and license

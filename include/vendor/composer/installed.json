@@ -1617,12 +1617,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplepie/simplepie.git",
-                "reference": "72b42935cb828ef691d17ca1e39fc0c9f480028b"
+                "reference": "452f47906f59a87ddda42d0dcf74e58403372bb3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/72b42935cb828ef691d17ca1e39fc0c9f480028b",
-                "reference": "72b42935cb828ef691d17ca1e39fc0c9f480028b",
+                "url": "https://api.github.com/repos/simplepie/simplepie/zipball/452f47906f59a87ddda42d0dcf74e58403372bb3",
+                "reference": "452f47906f59a87ddda42d0dcf74e58403372bb3",
                 "shasum": ""
             },
             "require": {
@@ -1647,7 +1647,7 @@
                 "ext-mbstring": "",
                 "mf2/mf2": "Microformat module that allows for parsing HTML for microformats"
             },
-            "time": "2024-11-22T01:45:20+00:00",
+            "time": "2025-03-15T10:20:47+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "dist",
