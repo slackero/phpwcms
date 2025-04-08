@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
@@ -36,20 +38,20 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
 
         // Walking through the strings; init
         $isFirst = true;
-        $bias = self::initialBias;
+        $bias = self::INITIAL_BIAS;
         $currentIndex = 0;
-        $char = self::initialN;
+        $char = self::INITIAL_N;
 
         $startOfLoop = ($delimiterPosition) ? ($delimiterPosition + 1) : 0;
         for ($encodedIndex = $startOfLoop; $encodedIndex < $encodedLength; ++$decodedLength) {
-            for ($oldIndex = $currentIndex, $w = 1, $k = self::base; 1; $k += self::base) {
+            for ($oldIndex = $currentIndex, $w = 1, $k = self::BASE; 1; $k += self::BASE) {
                 if ($encodedIndex + 1 > $encodedLength) {
                     throw new InvalidCharacterException('trying to read beyond input length');
                 }
 
                 $digit = $this->decodeDigit($encoded[$encodedIndex++]);
 
-                if ($digit >= self::base) {
+                if ($digit >= self::BASE) {
                     throw new InvalidCharacterException(
                         sprintf(
                             'encountered invalid digit at #%d',
@@ -69,10 +71,10 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
 
                 $currentIndex += $digit * $w;
                 $t = ($k <= $bias)
-                    ? self::tMin
+                    ? self::T_MIN
                     : (
-                        ($k >= $bias + self::tMax)
-                            ? self::tMax
+                        ($k >= $bias + self::T_MAX)
+                            ? self::T_MAX
                             : ($k - $bias)
                     );
 
@@ -80,7 +82,7 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
                     break;
                 }
 
-                $w = (int) ($w * (self::base - $t));
+                $w = (int) ($w * (self::BASE - $t));
             }
 
             $bias = $this->adapt($currentIndex - $oldIndex, $decodedLength + 1, $isFirst);
@@ -106,12 +108,12 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
     private function isValidPunycodeString($encoded): bool
     {
         // Check for existence of the prefix
-        if (!str_starts_with($encoded, self::punycodePrefix)) {
+        if (!str_starts_with($encoded, self::PUNYCODE_PREFIX)) {
             return false;
         }
 
         // If nothing is left after the prefix, it is hopeless
-        if (strlen(trim($encoded)) <= strlen(self::punycodePrefix)) {
+        if (strlen(trim($encoded)) <= strlen(self::PUNYCODE_PREFIX)) {
             return false;
         }
 
@@ -134,6 +136,6 @@ class FromPunycode extends AbstractPunycode implements PunycodeInterface
             return $codeAsInt - 97;
         }
 
-        return self::base;
+        return self::BASE;
     }
 }

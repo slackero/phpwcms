@@ -1,8 +1,8 @@
-version: '3.1'
 services:
   idna-convert-test:
-    image: jitesoft/phpunit:8.2
     container_name: idna-convert-test
+    build:
+      context: .
     command: ash -c "composer install && phpunit --display-notices --display-warnings"
     volumes:
-      - ./:/app
+    - ./:/app

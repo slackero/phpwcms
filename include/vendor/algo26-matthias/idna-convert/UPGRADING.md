@@ -1,5 +1,18 @@
 # Upgrading from previous versions
 
+## 4.1.0
+
+It is strongly advised to install and configure either the 
+[Internationalization Functions](https://www.php.net/manual/en/book.intl.php) or the
+[Multibyte Strings](https://www.php.net/manual/de/book.mbstring.php)
+extension. _Intl_ is preferred.
+
+If neither is available, you might experience wrong conversion results due to insufficient case folding behaviour for three-codepoint letters. See the [associated issue](https://github.com/algo26-matthias/idna-convert/issues/45)
+for details.
+
+There's a wide range of third party users of this library, who cannot enforce either of the extensions. So we will have to resort to recommend installation.
+
+
 ## 4.0.0
 
 **The minimum PHP version is now 8.1.**
