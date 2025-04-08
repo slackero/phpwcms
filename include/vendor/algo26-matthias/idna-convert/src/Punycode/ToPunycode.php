@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\Punycode;
 
@@ -60,8 +62,8 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
             return $encoded; // All codepoints were basic ones
         }
 
-        // Start with the prefix; copy it to output
-        $encoded = self::punycodePrefix . $encoded;
+        // Start with the prefix
+        $encoded = self::PUNYCODE_PREFIX . $encoded;
         // If we have basic code points in output, add a hyphen to the end
         if ($codeCount > 0) {
             $encoded .= '-';
@@ -69,12 +71,12 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
 
         // Now find and encode all non-basic code points
         $isFirst = true;
-        $currentCode = self::initialN;
-        $bias = self::initialBias;
+        $currentCode = self::INITIAL_N;
+        $bias = self::INITIAL_BIAS;
         $delta = 0;
 
         while ($codeCount < $decodedLength) {
-            $nextCode = self::maxUcs;
+            $nextCode = self::MAX_UCS;
             // Find the next largest code point to $currentCode
             foreach ($decoded as $nextLargestCandidate) {
                 if ($nextLargestCandidate >= $currentCode && $nextLargestCandidate <= $nextCode) {
@@ -94,19 +96,19 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
                 }
 
                 if ($decoded[$i] === $currentCode) {
-                    for ($q = $delta, $k = self::base; 1; $k += self::base) {
+                    for ($q = $delta, $k = self::BASE; 1; $k += self::BASE) {
                         $t = ($k <= $bias)
-                            ? self::tMin
-                            : (($k >= $bias + self::tMax)
-                                ? self::tMax
+                            ? self::T_MIN
+                            : (($k >= $bias + self::T_MAX)
+                                ? self::T_MAX
                                 : $k - $bias
                             );
                         if ($q < $t) {
                             break;
                         }
 
-                        $encoded .= $this->encodeDigit(intval($t + (($q - $t) % (self::base - $t))));
-                        $q = (int) (($q - $t) / (self::base - $t));
+                        $encoded .= $this->encodeDigit(intval($t + (($q - $t) % (self::BASE - $t))));
+                        $q = (int) (($q - $t) / (self::BASE - $t));
                     }
                     $encoded .= $this->encodeDigit($q);
                     $bias = $this->adapt($delta, $codeCountPlusOne, $isFirst);
@@ -123,9 +125,9 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
         return $encoded;
     }
 
-    private function encodeDigit(int $d): string
+    private function encodeDigit(int $digit): string
     {
-        return chr($d + 22 + 75 * ($d < 26));
+        return chr($digit + 22 + 75 * ($digit < 26));
     }
 
     /**
@@ -152,7 +154,10 @@ class ToPunycode extends AbstractPunycode implements PunycodeInterface
 
         foreach ($decoded as $index => $codePoint) {
             if (!preg_match('[-a-zA-Z0-9]u', chr($codePoint))) {
-                throw new Std3AsciiRulesViolationException(sprintf('Character at offset %d is outside the legal range', $index), 104);
+                throw new Std3AsciiRulesViolationException(
+                    sprintf('Character at offset %d is outside the legal range', $index),
+                    104,
+                );
             }
         }
     }

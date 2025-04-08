@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Algo26\IdnaConvert\Punycode;
 
-interface PunycodeInterface 
+interface PunycodeInterface
 {
     public function __construct(
         ?int $idnVersion = null,

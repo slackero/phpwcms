@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 namespace Algo26\IdnaConvert;
 
 use Algo26\IdnaConvert\Exception\InvalidCharacterException;

@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\EncodingHelper;
 
 class FromUtf8 implements EncodingHelperInterface
 {
     private const DEFAULT_ENCODING = 'ISO-8859-1';
-
     private string $encoding = self::DEFAULT_ENCODING;
 
     public function convert(

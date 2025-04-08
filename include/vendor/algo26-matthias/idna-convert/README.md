@@ -1,7 +1,6 @@
 # IDNA Convert - pure PHP IDNA converter
 
 ![latest stable version](https://img.shields.io/github/tag/algo26-matthias/idna-convert.svg)
-![Travis CI status](https://img.shields.io/travis/algo26-matthias/idna-convert.svg)
 
 Project homepage: <http://idnaconv.net><br>
 by Matthias Sommerfeld <matthias.sommerfeld@algo26.de><br>
@@ -21,7 +20,7 @@ for details) as they can be used with various registries worldwide to be transla
 The library provides two classes (`ToIdn` and `ToUnicode` respectively), which expose three public methods to convert between the respective forms. See the Example section below. 
 This allows you to convert host names (simple labels like `localhost` or FQHNs like `some-host.domain.example`), email addresses and complete URLs.
 
-Errors, incorrectly encoded or invalid strings will lead to various exceptions.  They should help you to find out, what went wrong.  
+Errors, incorrectly encoded or invalid strings will lead to various exceptions.  They should help you find out, what went wrong.  
 
 Unicode strings are expected to be UTF-8 strings. ACE strings (the Punycode form) are always 7bit ASCII strings.
 
@@ -32,6 +31,13 @@ Unicode strings are expected to be UTF-8 strings. ACE strings (the Punycode form
 ```
 composer require algo26-matthias/idna-convert
 ```
+**Important note:** To cover all possible supported characters you will need to have either PHP's 
+[Internationalization Functions](https://www.php.net/manual/en/book.intl.php) or 
+[Multibyte Strings](https://www.php.net/manual/de/book.mbstring.php) 
+extension installed and configured. _Intl_ is preferred.
+
+**⚠ If neither of these are available you might experience wrong results!** 
+
 
 ### Official ZIP Package
 
@@ -85,7 +91,7 @@ echo utf8_decode($output); // This will read: andre@börse.knörz.info
 
 ### Example 3. 
 
-The input is read from a UCS-4 coded file and encoded line by line. By appending the optional second parameter we tell enode() about the input format to be used
+The input is read from a UCS-4 coded file and encoded line by line. By appending the optional second parameter we tell encode() about the input format to be used
 
 ```php
 <?php  
@@ -132,21 +138,21 @@ Per default, the class converts strings according to IDNA version 2008. To suppo
 // Include the class  
 use Algo26\IdnaConvert\ToIdn;
 // Instantiate it, switching to IDNA 2003, the original, now outdated standard
-$IDN = new ToIdn(2008);
-// Sth. containing the German letter ß  
+$IDN = new ToIdn(2003);
+// Something containing the German letter ß  
 $input = 'meine-straße.example';
-// Encode it to its punycode presentation  
+// Encode it to its punycode representation  
 $output = $IDN->convert($input);  
-// Output, what we got now  
+// Output what we got now  
 echo $output; // xn--meine-strae-46a.example
   
 // Switch back to IDNA 2008
-$IDN = new ToIdn(2003);
-// Sth. containing the German letter ß  
+$IDN = new ToIdn(2008);
+// Something containing the German letter ß  
 $input = 'meine-straße.example';  
-// Encode it to its punycode presentation  
+// Encode it to its punycode representation  
 $output = $IDN->convert($input);
-// Output, what we got now  
+// Output what we got now  
 echo $output; // meine-strasse.example
 ```
 
@@ -154,7 +160,7 @@ echo $output; // meine-strasse.example
 ## Encoding helper
 
 In case you have strings in encodings other than ISO-8859-1 and UTF-8 you might need to translate these strings to UTF-8 before feeding the IDNA converter with it.
-PHP's built in functions `utf8_encode()` and `utf8_decode()` can only deal with ISO-8859-1.  
+PHP's built-in functions `utf8_encode()` and `utf8_decode()` can only deal with ISO-8859-1.  
 Use the encoding helper class supplied with this package for the conversion. It requires either iconv, libiconv or mbstring installed together with one of the relevant PHP extensions. The functions you will find useful are
 `toUtf8()` as a replacement for `utf8_encode()` and
 `fromUtf8()` as a replacement for `utf8_decode()`.
@@ -199,7 +205,7 @@ echo $transcodeUnicode->convert($mystring, 'utf8', 'utf7imap');
 The library is supplied with a `docker-compose.yml`, that allows to run the supplied tests. This assumes, you have Docker installed and docker-compose available as a command. Just issue
 
 ```
-docker-compose up
+docker compose up
 ```
 in you local command line and see the output of PHPUnit.
 
@@ -209,7 +215,7 @@ Please use the [issues tab on GitHub](https://github.com/algo26-matthias/idna-co
 
 ## Contact the author
 
-For questions, bug reports and security issues just send me an email.
+For questions, bug reports and security issues just drop me a line.
 
 algo26 Beratungs GmbH<br>
 c/o Matthias Sommerfeld<br>
