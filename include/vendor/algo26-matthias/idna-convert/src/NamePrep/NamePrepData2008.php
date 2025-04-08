@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\NamePrep;
 
 /**
- * @codeCoverageIgnore character mapss
+ * @codeCoverageIgnore character maps
  */
 class NamePrepData2008 implements NamePrepDataInterface
 {
