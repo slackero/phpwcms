@@ -7,6 +7,8 @@ namespace Algo26\IdnaConvert\NamePrep;
  */
 class NamePrepData2003 extends NamePrepData2008 implements NamePrepDataInterface
 {
+    public $version = 2003;
+
     public $replaceMaps = [
             0x41 => [0x61], 0x42 => [0x62], 0x43 => [0x63],
             0x44 => [0x64], 0x45 => [0x65], 0x46 => [0x66], 0x47 => [0x67],
