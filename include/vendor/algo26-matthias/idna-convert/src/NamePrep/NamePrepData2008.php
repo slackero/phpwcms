@@ -1,12 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\NamePrep;
 
 /**
- * @codeCoverageIgnore character mapss
+ * @codeCoverageIgnore character maps
  */
 class NamePrepData2008 implements NamePrepDataInterface
 {
+    public int $version = 2008;
+
     public array $mapToNothing = [
             0xAD, 0x34F, 0x1806, 0x180B, 0x180C, 0x180D, 0x200B, 0x200C,
             0x200D, 0x2060, 0xFE00, 0xFE01, 0xFE02, 0xFE03, 0xFE04, 0xFE05, 0xFE06, 0xFE07,

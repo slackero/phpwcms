@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2024, Oliver Georgi
+ * @copyright Copyright (c) 2002-2025, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -1415,7 +1415,7 @@ $BL['be_no'] = 'Nein';
 $BL['be_attr_title'] = 'Titel (Attribut)';
 $BL['be_attr_alt'] = 'Alternativer Text';
 $BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';
-$BL['be_cookie_consent_enable'] = 'Cookie Consent Plugin aktivieren';
+$BL['be_cookie_consent_enable'] = 'Cookie Consent v2 Plugin aktivieren (v3 wird deaktiviert)';
 $BL['be_cookie_consent_message'] = 'Zustimmungstext';
 $BL['be_cookie_consent_translatable'] = 'Diese Installation unterst&uuml;tzt mehrere Sprachen (&#36;phpwcms[&#39;allowed_lang&#39;]). Mittels <b>@@Text@@</b> Syntax k&ouml;nnen Cookie Consent Texte &uuml;bersetzt werden. Nach dem Rendern `template/template_lang` pr&uuml;fen.';
 $BL['cookie_consent_message'] = 'Diese Website benutzt Cookies, um eine umfassende Darstellung sowie die Funktionalit&auml;t der Webseite sicherzustellen';
@@ -1423,7 +1423,7 @@ $BL['be_cookie_consent_dismiss'] = 'Best&auml;tigungs-Button';
 $BL['cookie_consent_dismiss'] = 'Verstanden!';
 $BL['be_cookie_consent_more'] = 'Infolink-Button';
 $BL['cookie_consent_more'] = 'Weitere Informationen';
-$BL['be_cookie_consent_link'] = 'Cookie-Policy URL/Alias';
+$BL['be_cookie_consent_link'] = 'Cookie-Richtline URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
 $BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
@@ -1442,6 +1442,74 @@ $BL['be_consent_cookie_value'] = 'Wert des Consent-Cookies';
 $BL['be_respect_donottrack'] = 'Browser-Einstellung Do-Not-Track respektieren';
 $BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
 $BL['placeholder_require_cookie_value'] = 'yes';
+
+$BL['be_cc_v3_enable'] = 'Cookie Consent v3 Plugin aktivieren (v2 wird deaktiviert)';
+$BL['be_cc_v3_title'] = 'Cookie Modal Titel';
+$BL['cc_v3_title_placeholder'] = 'Wir sch&auml;tzen Ihre Privatsph&auml;re';
+$BL['be_cc_v3_description'] = 'Beschreibung';
+$BL['cc_v3_description_placeholder'] = 'Wir verwenden Cookies, um Ihr Browsing-Erlebnis zu verbessern, personalisierte Werbung oder Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Wenn Sie auf &bdquo;Alle akzeptieren&ldquo; klicken, stimmen Sie unserer Verwendung von Cookies zu.';
+$BL['be_cc_v3_accept_all'] = 'Button &bdquo;Alle akzeptieren&ldquo;';
+$BL['cc_v3_accept_all_placeholder'] = 'Alle akzeptieren';
+$BL['be_cc_v3_accept_necessary'] = 'Button &bdquo;Notwendige akzeptieren&ldquo;';
+$BL['cc_v3_accept_necessary_placeholder'] = 'Notwendige akzeptieren';
+$BL['be_cc_v3_accept_selected'] = 'Button &bdquo;Auswahl akzeptieren&ldquo;';
+$BL['cc_v3_accept_selected_placeholder'] = 'Auswahl akzeptieren';
+$BL['be_cc_v3_reject_all'] = 'Button &bdquo;Alle ablehnen&ldquo;';
+$BL['cc_v3_reject_all_placeholder'] = 'Alle ablehnen';
+$BL['be_cc_v3_customize'] = 'Button &bdquo;Anpassen&ldquo;';
+$BL['cc_v3_customize_placeholder'] = 'Anpassen';
+$BL['be_cc_v3_link'] = 'Cookie-Richtlinie URL/Alias';
+$BL['be_cc_v3_more'] = 'Weitere Informationen';
+$BL['be_cc_v3_theme'] = 'Vorlage';
+$BL['cc_v3_more_placeholder'] = 'Weitere Informationen';
+$BL['be_cc_v3_sections'] = 'Cookie-Abschnitte';
+$BL['be_cc_v3_sections_title'] = 'Titel';
+$BL['be_cc_v3_sections_description'] = 'Beschreibung';
+$BL['be_cc_v3_sections_active'] = 'Abschnitt aktivieren';
+$BL['be_cc_v3_section_general'] = 'Allgemein';
+$BL['be_cc_v3_section_general_title_placeholder'] = 'Verwalten Sie Ihre Cookies';
+$BL['be_cc_v3_section_general_description_placeholder'] = 'Wir verwenden Cookies, um Ihnen die Navigation zu erleichtern und bestimmte Funktionen auszuf&uuml;hren. Detaillierte Informationen &uuml;ber alle Cookies finden Sie unter jeder Einwilligungskategorie unten. Die Cookies, die als &bdquo;notwendig&ldquo; eingestuft sind, werden in Ihrem Browser gespeichert, da sie f&uuml;r die grundlegenden Funktionen der Website unerl&auml;sslich sind. Wir verwenden auch Cookies von Drittanbietern, die uns dabei helfen, zu analysieren, wie Sie diese Website nutzen, Ihre Pr&auml;ferenzen zu speichern und Ihnen die f&uuml;r Sie relevanten Inhalte und Anzeigen zu liefern. Diese Cookies werden nur mit Ihrer vorherigen Zustimmung in Ihrem Browser gespeichert. Sie haben die M&ouml;glichkeit, einige oder alle dieser Cookies zu aktivieren oder zu deaktivieren, aber die Deaktivierung einiger dieser Cookies kann Ihr Surferlebnis beeintr&auml;chtigen.';
+$BL['be_cc_v3_section_necessary'] = 'Notwendig';
+$BL['be_cc_v3_section_necessary_title_placeholder'] = 'Streng notwendige Cookies';
+$BL['be_cc_v3_section_necessary_description_placeholder'] = 'Notwendige Cookies sind erforderlich, um die grundlegenden Funktionen dieser Website zu erm&ouml;glichen, wie z.B. das sichere Einloggen oder die Anpassung Ihrer Einwilligungseinstellungen. Diese Cookies speichern keine pers&ouml;nlich identifizierbaren Daten.';
+$BL['be_cc_v3_section_functional'] = 'Funktion';
+$BL['be_cc_v3_section_functional_title_placeholder'] = 'Funktionale Cookies';
+$BL['be_cc_v3_section_functional_description_placeholder'] = 'Funktionalit&auml;ts-Cookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website m&ouml;glicherweise nicht verf&uuml;gbar sind. Funktionscookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website m&ouml;glicherweise nicht verf&uuml;gbar sind. So erm&ouml;glichen diese z.B. das Speichern wichtiger Informationen und Benutzereinstellungen. Zu den Informationen k&ouml;nnen Anmeldedaten, Region, Sprache und erweiterte Inhalte geh&ouml;ren.';
+$BL['be_cc_v3_section_analytics'] = 'Analyse';
+$BL['be_cc_v3_section_analytics_title_placeholder'] = 'Cookies f&uuml;r Leistung und Analytik';
+$BL['be_cc_v3_section_analytics_description_placeholder'] = 'Analytische Cookies werden verwendet, um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies helfen dabei, Informationen &uuml;ber Metriken wie die Anzahl der Besucher, Absprungrate, Verkehrsquelle usw. zu liefern.';
+$BL['be_cc_v3_section_marketing'] = 'Marketing';
+$BL['be_cc_v3_section_marketing_title_placeholder'] = 'Cookies f&uuml;r Werbung und Marketing';
+$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Cookie f&uuml;r Werbung und Marketing werden verwendet, um Werbung bereitzustellen, die f&uuml;r Sie und Ihre Interessen relevanter ist. Kann auch verwendet werden, um die H&auml;ufigkeit, mit der Sie eine Werbung sehen, zu begrenzen und die Wirksamkeit von Werbekampagnen zu messen. Werbenetzwerke platzieren sie in der Regel mit der Erlaubnis des Website-Betreibers.';
+$BL['be_cc_v3_section_social'] = 'Soziale Medien';
+$BL['be_cc_v3_section_social_title_placeholder'] = 'Cookies f&uuml;r soziale Medien';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies f&uuml;r soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. Diese Cookies k&ouml;nnen verwendet werden, um f&uuml;r Sie relevante Werbung auf anderen Plattformen zu schalten.';
+$BL['be_cc_v3_section_more'] = 'Sonstiges';
+$BL['be_cc_v3_section_more_title_placeholder'] = 'Weitere Informationen';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlm&ouml;glichkeiten &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;kontaktieren Sie uns bitte&lt;/a&gt;.';
+$BL['be_cc_v3_builtin'] = 'integriert';
+$BL['be_cc_v3_default'] = 'Standard';
+$BL['be_cc_v3_btn_flip'] = 'Buttons vertauschen';
+$BL['be_cc_v3_btn_equal'] = 'Buttons nicht gewichten';
+$BL['be_cc_v3_consent_modal'] = 'Consent-Modal';
+$BL['be_cc_v3_preferences_modal'] = 'Einstellungs-Modal';
+$BL['be_cc_v3_layout'] = 'Layout';
+$BL['be_cc_v3_position'] = 'Position';
+$BL['be_cc_v3_top_left'] = 'Oben links';
+$BL['be_cc_v3_top_center'] = 'Oben zentriert';
+$BL['be_cc_v3_top_right'] = 'Oben rechts';
+$BL['be_cc_v3_middle_left'] = 'Mittig links';
+$BL['be_cc_v3_middle_center'] = 'Mittig zentriert';
+$BL['be_cc_v3_middle_right'] = 'Mittig rechts';
+$BL['be_cc_v3_bottom_left'] = 'Unten links';
+$BL['be_cc_v3_bottom_center'] = 'Unten zentriert';
+$BL['be_cc_v3_bottom_right'] = 'Unten rechts';
+$BL['be_cc_v3_left'] = 'Links';
+$BL['be_cc_v3_right'] = 'Rechts';
+$BL['be_cc_v3_top'] = 'Oben';
+$BL['be_cc_v3_bottom'] = 'Unten';
+$BL['be_cc_v3_reload_on_change'] = 'Seite neu laden nach &Auml;nderung der Einstellungen';
+$BL['be_cc_v3_on_change'] = 'Cookie-&Auml;nderung';
 
 $BL['be_iptc_data'] = 'IPTC-Angaben';
 $BL['be_iptc_as_caption'] = 'f&uuml;r Beschreibung, Copyright etc. nutzen, solange nicht gesetzt';

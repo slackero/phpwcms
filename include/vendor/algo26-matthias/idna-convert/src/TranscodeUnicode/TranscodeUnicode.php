@@ -1,17 +1,6 @@
-<?php declare(strict_types=1);
-/**
- * Converts between various flavours of Unicode representations like UCS-4 or UTF-8
- * Supported schemes:
- * - UCS-4 Little Endian / Big Endian / Array (partially)
- * - UTF-16 Little Endian / Big Endian (not yet)
- * - UTF-8
- * - UTF-7
- * - UTF-7 IMAP (modified UTF-7)
- *
- * @package IdnaConvert
- * @author Matthias Sommerfeld  <matthias.sommerfeld@algo26.de>
- * @copyright 2003-2023 algo26 Beratungs GmbH, https://www.algo26.de
- */
+<?php
+
+declare(strict_types=1);
 
 namespace Algo26\IdnaConvert\TranscodeUnicode;
 
@@ -26,7 +15,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
     public const FORMAT_UTF7 = 'utf7';
     public const FORMAT_UTF7_IMAP  = 'utf7imap';
 
-    private const encodings = [
+    private const VALID_ENCODINGS = [
         self::FORMAT_UCS4,
         self::FORMAT_UCS4_ARRAY,
         self::FORMAT_UTF8,
@@ -34,8 +23,8 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         self::FORMAT_UTF7_IMAP
     ];
 
-    private $safeMode;
-    private $safeCodepoint = 0xFFFC;
+    private bool $safeMode;
+    private int $safeCodepoint = 0xFFFC;
 
     use ByteLengthTrait;
 
@@ -58,10 +47,10 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
             return $data;
         }
 
-        if (!in_array($fromEncoding, self::encodings)) {
+        if (!in_array($fromEncoding, self::VALID_ENCODINGS)) {
             throw new InvalidArgumentException(sprintf('Invalid input format %s', $fromEncoding), 300);
         }
-        if (!in_array($toEncoding, self::encodings)) {
+        if (!in_array($toEncoding, self::VALID_ENCODINGS)) {
             throw new InvalidArgumentException(sprintf('Invalid output format %s', $toEncoding), 301);
         }
 
@@ -93,7 +82,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         for ($k = 0; $k < $inputLength; ++$k) {
             $v = ord($input[$k]); // Extract byte from input string
 
-            if ($v < 128) { // We found an ASCII char - put into string as is
+            if ($v < 128) { // We found an ASCII char - copy into string as is
                 $output[$outputLength] = $v;
                 ++$outputLength;
                 if ('add' === $mode) {
@@ -104,9 +93,9 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                         throw new InvalidCharacterException(
                             sprintf(
                                 'Conversion from UTF-8 to UCS-4 failed: malformed input at byte %d',
-                                $k
+                                $k,
                             ),
-                            302
+                            302,
                         );
                     }
                 }
@@ -136,7 +125,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                 } else {
                     throw new InvalidCharacterException(
                         sprintf('This might be UTF-8, but I don\'t understand it at byte %d', $k),
-                        303
+                        303,
                     );
                 }
                 if (($inputLength - $k - $nextByte) < 2) {
@@ -162,7 +151,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                     ) {
                         throw new InvalidCharacterException(
                             sprintf('Bogus UTF-8 character (out of legal range) at byte %d', $k),
-                            304
+                            304,
                         );
                     }
                 }
@@ -180,7 +169,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                     } else {
                         throw new InvalidCharacterException(
                             sprintf('Conversion from UTF-8 to UCS-4 failed: malformed input at byte %d', $k),
-                            302
+                            302,
                         );
                     }
                 }
@@ -228,7 +217,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
             } else {
                 throw new InvalidCharacterException(
                     sprintf('Conversion from UCS-4 to UTF-8 failed: malformed input at byte %d', $k),
-                    305
+                    305,
                 );
             }
         }
@@ -316,7 +305,9 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
         $mode = 'd';
         $b64 = '';
         while (true) {
-            $v = (!empty($input)) ? array_shift($input) : false;
+            $v = (!empty($input))
+                ? array_shift($input)
+                : false;
             $isDirect = ! (false !== $v) || 0x20 <= $v && $v <= 0x7e && $v !== ord($sc);
             if ($mode === 'b') {
                 if ($isDirect) {
@@ -360,7 +351,7 @@ class TranscodeUnicode implements TranscodeUnicodeInterface
                 chr(($v >> 24) & 255),
                 chr(($v >> 16) & 255),
                 chr(($v >> 8) & 255),
-                chr($v & 255)
+                chr($v & 255),
             );
         }
 
