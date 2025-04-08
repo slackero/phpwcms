@@ -21,6 +21,9 @@ class NamePrep implements NamePrepInterface
     /** @var NamePrepDataInterface */
     private $namePrepData;
 
+    /** @var CaseFolding */
+    private $caseFolding;
+
     /**
      * @param string|null $idnVersion
      *
@@ -28,6 +31,8 @@ class NamePrep implements NamePrepInterface
      */
     public function __construct(?string $idnVersion = null)
     {
+        $this->caseFolding = new CaseFolding();
+
         if ($idnVersion === null || $idnVersion == 2008) {
             $this->namePrepData = new NamePrepData2008();
 
@@ -55,7 +60,10 @@ class NamePrep implements NamePrepInterface
         $outputArray = $this->hangulCompose($outputArray);
         $outputArray = $this->combineCodePoints($outputArray);
 
-        return $outputArray;
+        return $this->caseFolding->apply(
+            $outputArray,
+            $this->namePrepData->version
+        );
     }
 
     /**
