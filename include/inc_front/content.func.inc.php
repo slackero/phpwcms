@@ -1643,8 +1643,15 @@ if (!$phpwcms['cookie_consent']) {
             $cc_v3_translation['consentModal']['footer'] .= '</a>';
         }
 
+        if (empty($cmsgo['cookie_consent_v3']['functionality']) && !empty($block['cc_v3']['reload_on_change'])) {
+            $cc_v3_config['onChange'] = 'CCV3_RELOAD';
+            $cc_v3_config['onFirstConsent'] = 'CCV3_RELOAD';
+            //$cc_v3_config['onConsent'] = 'CCV3_RELOAD';
+        }
+
         $cc_v3_config = i18n_substitute_text(json_encode($cc_v3_config, JSON_PRETTY_PRINT));
         $cc_v3_config = str_replace('"CCV3_REGEX_GA"', '/^(_ga)/ //regex', $cc_v3_config);
+        $cc_v3_config = str_replace('"CCV3_RELOAD"', '() => {window.location.reload();}', $cc_v3_config);
 
         $block['custom_htmlhead']['cookieconsent.js'] .= '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF;
         $block['custom_htmlhead']['cookieconsent.js'] .= '// language: ' . $cc_v3_lang . LF;

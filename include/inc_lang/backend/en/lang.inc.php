@@ -1521,6 +1521,8 @@ $BL['be_cc_v3_left'] = 'left';
 $BL['be_cc_v3_right'] = 'right';
 $BL['be_cc_v3_top'] = 'top';
 $BL['be_cc_v3_bottom'] = 'bottom';
+$BL['be_cc_v3_reload_on_change'] = 'reload page after changing the cookie settings';
+$BL['be_cc_v3_on_change'] = 'on change';
 
 $BL['be_iptc_data'] = 'IPTC data';
 $BL['be_iptc_as_caption'] = 'use for caption, copyright etc. as long yet unset';
