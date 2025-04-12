@@ -36,27 +36,36 @@ function phpwcms_revision_r497() {
 
 	if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'int')) {
 
+        // Drop index first
+        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference DROP INDEX cref_type', 'ALTER');
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_crossreference CHANGE cref_type cref_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 
-		// Update feedimport References
-		_dbUpdate('phpwcms_crossreference', array('cref_type'=>'feed_to_article_import'), "cref_str LIKE 'feedimport_%'");
+        // Add new index
+        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_type)', 'ALTER');
+        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_int)', 'ALTER');
+        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_rid)', 'ALTER');
+        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_str)', 'ALTER');
 
+        if ($result) {
+            // Update feedimport References
+            _dbUpdate('phpwcms_crossreference', array('cref_type' => 'feed_to_article_import'), "cref_str LIKE 'feedimport_%'");
+        }
 	}
 
 	// add language to article category, article and content part
 	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_lang'", 'COUNT_SHOW');
 	if(empty($result)) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD INDEX (acat_lang)", 'ALTER');
 	}
 	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_article LIKE 'article_lang'", 'COUNT_SHOW');
 	if(empty($result)) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD INDEX (article_lang)", 'ALTER');
 	}
 	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecontent LIKE 'acontent_lang'", 'COUNT_SHOW');
 	if(empty($result)) {
-		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD acontent_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD acontent_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD INDEX (acontent_lang)", 'ALTER');
 	}
 
