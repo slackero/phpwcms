@@ -33,7 +33,7 @@ Never forget to backup your database and files before you start the upgrade proc
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.10.5 requires a web server with PHP 8.2 or newer.
+**phpwcms** version 1.10.8 requires a web server with PHP 8.2 or newer.
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
