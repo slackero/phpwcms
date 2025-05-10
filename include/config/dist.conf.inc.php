@@ -164,13 +164,16 @@ $cmsgo['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address
 $cmsgo['SMTP_FROM_NAME']       = 'My Name'; // reply/from name
 $cmsgo['SMTP_HOST']            = 'localhost'; // SMTP server (host/IP)
 $cmsgo['SMTP_PORT']            = 25; // SMTP server port (default 25)
-$cmsgo['SMTP_MAILER']          = 'mail'; // mail method: mail (default), smtp, sendmail
+$cmsgo['SMTP_MAILER']          = 'mail'; // mail method: mail (default), smtp, sendmail, qmail
 $cmsgo['SMTP_USER']            = 'user'; // default SMTP login (user) name
 $cmsgo['SMTP_PASS']            = 'pass'; // default SMTP password
 $cmsgo['SMTP_SECURE']          = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
 $cmsgo['SMTP_AUTH']            = 0; // SMTP authentication, ON=1/OFF=0
-$cmsgo['SMTP_AUTH_TYPE']       = ''; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5
-$cmsgo['SMTP_REALM']           = ''; // SMTP realm, used for NTLM auth type
-$cmsgo['SMTP_WORKSTATION']     = ''; // SMTP workstation, used for NTLM auth type
+$cmsgo['SMTP_AUTH_TYPE']       = ''; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2
+$cmsgo['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider, currently 'Google', 'Microsoft' or 'Azure' are supported
+$cmsgo['SMTP_CLIENT_ID']       = ''; // The client ID for OAuth2 authentication
+$cmsgo['SMTP_CLIENT_SECRET']   = ''; // The client secret for OAuth2 authentication
+$cmsgo['SMTP_TENANT_ID']       = ''; // The tenant ID for Microsoft OAuth2 authentication
+$cmsgo['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (see the backend to obtain it)
 
 define('CMSGO_INCLUDE_CHECK', true);
