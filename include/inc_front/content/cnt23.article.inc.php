@@ -2058,42 +2058,15 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
         if (is_valid_email($cnt_form['doubleoptin_target'])) {
 
-            $mail = new \PHPMailer\PHPMailer\PHPMailer();
-            $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-            $mail->Host             = $cmsgo['SMTP_HOST'];
-            $mail->Port             = $cmsgo['SMTP_PORT'];
-            if($cmsgo['SMTP_AUTH']) {
-                $mail->SMTPAuth     = 1;
-                $mail->Username     = $cmsgo['SMTP_USER'];
-                $mail->Password     = $cmsgo['SMTP_PASS'];
-            }
-            if(!empty($cmsgo['SMTP_SECURE'])) {
-                $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
-            }
-            if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-                $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-                if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                    if(!empty($cmsgo['SMTP_REALM'])) {
-                        $mail->Realm = $cmsgo['SMTP_REALM'];
-                    }
-                    if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-                        $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                    }
-                }
-            }
-            $mail->CharSet          = $cmsgo["charset"];
+            $mail = new CmsgoMailer($cmsgo);
 
             if ($cnt_form['template_format_doubleoptin']) {
-                $mail->isHTML(true);
+                $mail->isHTML();
                 $altBody = new \Html2Text\Html2Text($cnt_form['template_doubleoptin']);
                 $mail->AltBody = $altBody->getText();
             }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_doubleoptin'];
-
-            if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-                $mail->setLanguage($cmsgo['default_lang']);
-            }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
             $mail->addReplyTo($cnt_form['sender']);
@@ -2122,46 +2095,19 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
         // now run all CC -> but sent as full email to each CC recipient
         if(count($cnt_form['cc'])) {
 
-            $mail = new \PHPMailer\PHPMailer\PHPMailer();
-            $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-            $mail->Host             = $cmsgo['SMTP_HOST'];
-            $mail->Port             = $cmsgo['SMTP_PORT'];
-            if($cmsgo['SMTP_AUTH']) {
-                $mail->SMTPAuth     = 1;
-                $mail->Username     = $cmsgo['SMTP_USER'];
-                $mail->Password     = $cmsgo['SMTP_PASS'];
-            }
-            if(!empty($cmsgo['SMTP_SECURE'])) {
-                $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
-            }
-            if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-                $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-                if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                    if(!empty($cmsgo['SMTP_REALM'])) {
-                        $mail->Realm = $cmsgo['SMTP_REALM'];
-                    }
-                    if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-                        $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                    }
-                }
-            }
-            $mail->CharSet          = $cmsgo["charset"];
+            $mail = new CmsgoMailer($cmsgo);
 
             if(isset($cnt_form['function_cc']) && function_exists($cnt_form['function_cc'])) {
                 @$cnt_form['function_cc']($POST_savedb, $cnt_form, $mail);
             }
 
             if ($cnt_form['template_format_copy']) {
-                $mail->isHTML(true);
+                $mail->isHTML();
                 $altBody = new \Html2Text\Html2Text($cnt_form['template_copy']);
                 $mail->AltBody = $altBody->getText();
             }
             $mail->Subject          = $cnt_form["subject"];
             $mail->Body             = $cnt_form['template_copy'];
-
-            if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-                $mail->setLanguage($cmsgo['default_lang']);
-            }
 
             $mail->setFrom($cnt_form['sender'], $cnt_form['sendername']);
             $mail->addReplyTo($cnt_form['sender']);
@@ -2185,37 +2131,24 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             } else {
                 unset($cnt_form["copytoError"]);
             }
-
-            unset($mail);
         }
+
+        unset($mail);
 
         // now send original message
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-        $mail->Host             = $cmsgo['SMTP_HOST'];
-        $mail->Port             = $cmsgo['SMTP_PORT'];
-        if($cmsgo['SMTP_AUTH']) {
-            $mail->SMTPAuth     = 1;
-            $mail->Username     = $cmsgo['SMTP_USER'];
-            $mail->Password     = $cmsgo['SMTP_PASS'];
-        }
-        $mail->CharSet          = $cmsgo["charset"];
+        $mail = new CmsgoMailer($cmsgo);
 
         if(isset($cnt_form['function_to']) && function_exists($cnt_form['function_to'])) {
             @$cnt_form['function_to']($POST_savedb, $cnt_form, $mail);
         }
 
         if ($cnt_form['template_format']) {
-            $mail->isHTML(true);
+            $mail->isHTML();
             $altBody = new \Html2Text\Html2Text($cnt_form['template']);
             $mail->AltBody = $altBody->getText();
         }
         $mail->Subject          = $cnt_form["subject"];
         $mail->Body             = $cnt_form['template'];
-
-        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-            $mail->setLanguage($cmsgo['default_lang']);
-        }
 
         if(empty($cnt_form["fromEmail"])) {
             $cnt_form["fromEmail"] = $cmsgo['SMTP_FROM_EMAIL'];
@@ -2393,6 +2326,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             }
         }
     }
+
     if(!empty($cnt_form["copytoError"])) {
         $CNT_TMP .= '<p class="error form-copy-to">'.$cnt_form["copytoError"].'</p>';
     }

@@ -156,46 +156,17 @@ if(!$newsletter) {
             $newsletter['newsletter_vars']['html'] = convert_rel2abs($newsletter['newsletter_vars']['html'], CMSGO_URL);
         }
 
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-        $mail->Host             = $cmsgo['SMTP_HOST'];
-        $mail->Port             = $cmsgo['SMTP_PORT'];
-        $mail->CharSet          = $cmsgo["charset"];
-        if($cmsgo['SMTP_AUTH']) {
-            $mail->SMTPAuth     = 1;
-            $mail->Username     = $cmsgo['SMTP_USER'];
-            $mail->Password     = $cmsgo['SMTP_PASS'];
-        }
-        if(!empty($cmsgo['SMTP_SECURE'])) {
-            $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
-        }
-        if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-            if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                if(!empty($cmsgo['SMTP_REALM'])) {
-                    $mail->Realm = $cmsgo['SMTP_REALM'];
-                }
-                if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-                    $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                }
-            }
-        }
-
+        $mail = new CmsgoMailer($cmsgo);
         $mail->setFrom($newsletter['newsletter_vars']['from_email'], $newsletter['newsletter_vars']['from_name']);
         $mail->addReplyTo($newsletter['newsletter_vars']['replyto']);
         $mail->Subject = $newsletter['newsletter_subject'];
-
-        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-            $mail->setLanguage($cmsgo['default_lang']);
-        }
-
         $mail->SMTPKeepAlive = true;
 
         $x = 0;
 
         foreach($recipient as $value) {
 
-            if($x == 20) {
+            if($x === 20) {
                 $mail->smtpClose(); // Manually close the SMTP connection
                 $mail->SMTPKeepAlive = true;
             }
@@ -206,14 +177,14 @@ if(!$newsletter) {
                 //send both TEXT and HTML part
                 $mail->Body =    build_email_text($newsletter['newsletter_vars']['html'], $value);
                 $mail->AltBody = build_email_text($newsletter['newsletter_vars']['text'], $value);
-                $mail->isHTML(1);
+                $mail->isHTML();
             }
 
             if($newsletter['newsletter_vars']['html'] && !$newsletter['newsletter_vars']['text']) {
                 //send HTML part
                 $mailBody = build_email_text($newsletter['newsletter_vars']['html'], $value);
                 $mail->Body = $mailBody;
-                $mail->isHTML(1);
+                $mail->isHTML();
                 $altBody = new \Html2Text\Html2Text($mailBody);
                 $mail->AltBody = $altBody->getText();
             }
@@ -221,13 +192,13 @@ if(!$newsletter) {
             if(!$newsletter['newsletter_vars']['html'] && $newsletter['newsletter_vars']['text']) {
                 //send TEXT part
                 $mail->Body = build_email_text($newsletter['newsletter_vars']['text'], $value);
-                $mail->isHTML(0);
+                $mail->isHTML(false);
             }
 
             // update newsletter queue
             $sql  = 'UPDATE '.DB_PREPEND.'cmsgo_newsletterqueue SET ';
             $sql .= 'queue_changed=NOW(), ';
-            if( ( $mailresult = $mail->send() ) == false ) {
+            if(!($mailresult = $mail->send())) {
                 // save error information
                 $sql .= 'queue_status=2, ';
                 $sql .= "queue_errormsg="._dbEscape($mail->ErrorInfo)." ";

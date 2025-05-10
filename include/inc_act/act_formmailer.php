@@ -287,41 +287,14 @@ if(isset($form_error)) {
 	}
 
 	$body.= "\n====================================================================\n";
-	$body.= "cmsGO! formmailer  | Copyright (C) 2023 \n";
+	$body.= "cmsGO! formmailer  | Copyright (C) 2025 \n";
 
-	// phpMailer Class
-	$mail = new \PHPMailer\PHPMailer\PHPMailer();
-	$mail->Mailer 			= $cmsgo['SMTP_MAILER'];
-	$mail->Host 			= $cmsgo['SMTP_HOST'];
-	$mail->Port 			= $cmsgo['SMTP_PORT'];
-	if($cmsgo['SMTP_AUTH']) {
-		$mail->SMTPAuth 	= 1;
-		$mail->Username 	= $cmsgo['SMTP_USER'];
-		$mail->Password 	= $cmsgo['SMTP_PASS'];
-	}
-	if(!empty($cmsgo['SMTP_SECURE'])) {
-		$mail->SMTPSecure 	= $cmsgo['SMTP_SECURE'];
-	}
-	if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-		$mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-		if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-			if(!empty($cmsgo['SMTP_REALM'])) {
-				$mail->Realm = $cmsgo['SMTP_REALM'];
-			}
-			if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-				$mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-			}
-		}
-	}
-	$mail->SMTPKeepAlive 	= true;
-	$mail->CharSet	 		= $cmsgo["charset"];
-	$mail->isHTML(0);
-	$mail->Subject			= $subject;
-	$mail->Body 			= $body;
-
-	if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-		$mail->setLanguage($cmsgo['default_lang']);
-	}
+	// CmsgoMailer Class
+    $mail = new CmsgoMailer($cmsgo);
+    $mail->SMTPKeepAlive = true;
+    $mail->isHTML(false);
+    $mail->Subject = $subject;
+    $mail->Body = $body;
 
 	$false = '';
 

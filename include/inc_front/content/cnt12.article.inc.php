@@ -205,39 +205,11 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
-        // phpMailer Class
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer           = $cmsgo['SMTP_MAILER'];
-        $mail->Host             = $cmsgo['SMTP_HOST'];
-        $mail->Port             = $cmsgo['SMTP_PORT'];
-        if($cmsgo['SMTP_AUTH']) {
-            $mail->SMTPAuth     = 1;
-            $mail->Username     = $cmsgo['SMTP_USER'];
-            $mail->Password     = $cmsgo['SMTP_PASS'];
-        }
-        if(!empty($cmsgo['SMTP_SECURE'])) {
-            $mail->SMTPSecure   = $cmsgo['SMTP_SECURE'];
-        }
-        if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-            if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                if(!empty($cmsgo['SMTP_REALM'])) {
-                    $mail->Realm = $cmsgo['SMTP_REALM'];
-                }
-                if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-                    $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                }
-            }
-        }
-        $mail->SMTPKeepAlive    = false;
-        $mail->CharSet          = $cmsgo["charset"];
-        $mail->isHTML(0);
-        $mail->Subject          = $content['newsletter']['subject'];
-        $mail->Body             = $content["newsletter"]["mailtext"];
-
-        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-            $mail->setLanguage($cmsgo['default_lang']);
-        }
+        // CmsgoMailer Class
+        $mail = new CmsgoMailer($cmsgo);
+        $mail->isHTML(false);
+        $mail->Subject = $content['newsletter']['subject'];
+        $mail->Body = $content['newsletter']['mailtext'];
 
         $mail->setFrom($cmsgo['SMTP_FROM_EMAIL'], $cmsgo['SMTP_FROM_NAME']);
         $mail->addReplyTo($cmsgo["admin_email"]);
