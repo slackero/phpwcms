@@ -232,6 +232,7 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 <?php
 $cc_listing         = '';
 $recipient_option   = '';
+$recipient_option_doubleoptin = '';
 $sender_option      = '';
 $sendername_option  = '';
 $subject_option     = '';
@@ -304,8 +305,6 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
                 $recipient_option_doubleoptin .= '  <option value="emailfield_'.$for_name.'"';
                 $recipient_option_doubleoptin .= is_selected($content['form']['doubleoptin_targettype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);
                 $recipient_option_doubleoptin .= '>'.$BL['be_cnt_guestbook_form'].': '.$for_name.'</option>';
-
-
 
                 $sender_option .= ' <option value="emailfield_'.$for_name.'"';
                 $sender_option .= is_selected($content['form']['sendertype'], 'emailfield_'.$content['form']['fields'][$key]['name'], 0, 0);

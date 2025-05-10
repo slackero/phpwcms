@@ -71,12 +71,12 @@ if(!is_valid_email($content["form"]["sender"])) {
 
 $content["form"]["sendernametype"]  = clean_slweg($_POST["cform_sendernametype"]);
 $content["form"]["sendername"]      = clean_slweg($_POST["cform_sendername"]);
-if($content["form"]["sendernametype"] == 'system' && $content["form"]["sendername"]) {
+if($content["form"]["sendernametype"] === 'system' && $content["form"]["sendername"]) {
     $content["form"]["sendernametype"] = 'custom';
 }
 
 $content['form']['verifyemail']     = isset($_POST['cform_field_verifyemail']) ? clean_slweg($_POST['cform_field_verifyemail']) : '';
-$content["form"]["labelpos"]        = intval($_POST["cform_labelpos"]);
+$content["form"]["labelpos"]        = (int)$_POST["cform_labelpos"];
 $content['form']["sendcopy"]        = empty($_POST["cform_sendcopy"]) ? 0 : 1;
 $content['form']["copyto"]          = isset($_POST["cform_copyto"]) ? clean_slweg($_POST["cform_copyto"]) : '';
 
@@ -84,18 +84,18 @@ $content['form']["copyto"]          = isset($_POST["cform_copyto"]) ? clean_slwe
 $content['form']["doubleoptin"] = empty($_POST["cform_doubleoptin"]) ? 0 : 1;
 $content["form"]["doubleoptin_targettype"] = isset($_POST["cform_targettype_doubleoptin"]) ? clean_slweg($_POST["cform_targettype_doubleoptin"]) : '';
 
-$content['form']["onsuccess_redirect_doubleoptin"] = empty($_POST["cform_onsuccess_redirect_doubleoptin"]) ? 0 : intval($_POST["cform_onsuccess_redirect_doubleoptin"]);
+$content['form']["onsuccess_redirect_doubleoptin"] = empty($_POST["cform_onsuccess_redirect_doubleoptin"]) ? 0 : (int)$_POST["cform_onsuccess_redirect_doubleoptin"];
 if($content['form']["onsuccess_redirect_doubleoptin"] !== 1 && $content['form']["onsuccess_redirect_doubleoptin"] !== 2) {
     $content['form']["onsuccess_redirect_doubleoptin"] = 0;
 }
 
-$content['form']["onerror_redirect_doubleoptin"]   = empty($_POST["cform_onerror_redirect_doubleoptin"]) ? 0 : intval($_POST["cform_onerror_redirect_doubleoptin"]);
+$content['form']["onerror_redirect_doubleoptin"]   = empty($_POST["cform_onerror_redirect_doubleoptin"]) ? 0 : (int)$_POST["cform_onerror_redirect_doubleoptin"];
 if($content['form']["onerror_redirect_doubleoptin"] !== 1 && $content['form']["onerror_redirect_doubleoptin"] !== 2) {
     $content['form']["onerror_redirect_doubleoptin"] = 0;
 }
 
-$content['form']['onsuccess_doubleoptin'] = $content['form']["onsuccess_redirect_doubleoptin"] === 2 ? slweg($_POST["cform_onsuccess_doubleoptin"]) : clean_slweg($_POST["cform_onsuccess_doubleoptin"]);
-$content['form']['onerror_doubleoptin']   = $content['form']["onerror_redirect_doubleoptin"]   === 2 ? slweg($_POST["cform_onerror_doubleoptin"])   : clean_slweg($_POST["cform_onerror_doubleoptin"]);
+$content['form']['onsuccess_doubleoptin'] = $content['form']["onsuccess_redirect_doubleoptin"] === 2 ? slweg($_POST["cform_onsuccess_doubleoptin"] ?? '') : clean_slweg($_POST["cform_onsuccess_doubleoptin"] ?? '');
+$content['form']['onerror_doubleoptin']   = $content['form']["onerror_redirect_doubleoptin"]   === 2 ? slweg($_POST["cform_onerror_doubleoptin"] ?? '')   : clean_slweg($_POST["cform_onerror_doubleoptin"] ?? '');
 
 $content['form']["template_format_doubleoptin"] = empty($_POST["cform_template_format_doubleoptin"]) ? 0 : 1;
 $content['form']["template_doubleoptin"]        = isset($_POST["cform_template_doubleoptin"]) ? slweg($_POST["cform_template_doubleoptin"]) : '';
