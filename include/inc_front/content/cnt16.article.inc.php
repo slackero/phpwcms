@@ -76,35 +76,8 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
 
-		$ecard["mailer"] = new \PHPMailer\PHPMailer\PHPMailer();
-		$ecard["mailer"]->Mailer = $cmsgo['SMTP_MAILER'];
-		$ecard["mailer"]->isHTML(1);
-		$ecard['mailer']->CharSet = $cmsgo["charset"];
-		$ecard["mailer"]->Host = $cmsgo['SMTP_HOST'];
-		$ecard["mailer"]->Port = $cmsgo['SMTP_PORT'];
-		if($cmsgo['SMTP_AUTH']) {
-			$ecard["mailer"]->SMTPAuth = 1;
-			$ecard["mailer"]->Username = $cmsgo['SMTP_USER'];
-			$ecard["mailer"]->Password = $cmsgo['SMTP_PASS'];
-		}
-		if(!empty($cmsgo['SMTP_SECURE'])) {
-			$ecard["mailer"]->SMTPSecure = $cmsgo['SMTP_SECURE'];
-		}
-		if(!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-			$ecard["mailer"]->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-			if($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-				if(!empty($cmsgo['SMTP_REALM'])) {
-					$ecard["mailer"]->Realm = $cmsgo['SMTP_REALM'];
-				}
-				if(!empty($cmsgo['SMTP_WORKSTATION'])) {
-					$ecard["mailer"]->Workstation = $cmsgo['SMTP_WORKSTATION'];
-				}
-			}
-		}
-		if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-                    $ecard['mailer']->setLanguage($cmsgo['default_lang']);
-                }
-
+		$ecard["mailer"] = new CmsgoMailer($cmsgo);
+		$ecard["mailer"]->isHTML();
 		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);

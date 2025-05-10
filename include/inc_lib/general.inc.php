@@ -21,6 +21,7 @@ if (CMSGO_CHARSET === 'utf-8') {
 require_once CMSGO_ROOT . '/include/inc_lib/charset_helper.inc.php';
 require_once CMSGO_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once CMSGO_ROOT . '/include/inc_lib/helper.inc.php';
+require_once CMSGO_ROOT . '/include/inc_lib/classes/CmsgoMailer.php';
 
 function str_empty($string) {
     return $string === null || $string === '';
@@ -782,7 +783,7 @@ function sendEmail($data = array(
     'recipient' => '',
     'toName' => '',
     'subject' => '',
-    'isHTML' => 0,
+    'isHTML' => false,
     'html' => '',
     'text' => '',
     'attach' => array(),
@@ -804,19 +805,17 @@ function sendEmail($data = array(
     $subject = empty($data['subject']) ? 'Email sent by cmsGo!' : cleanUpForEmailHeader($data['subject']);
     if (empty($data['html'])) {
         $data['html'] = '';
-        $data['isHTML'] = 0;
+        $data['isHTML'] = false;
     } elseif (empty($data['isHTML'])) {
-        $data['isHTML'] = 0;
+        $data['isHTML'] = false;
     } else {
-        $data['isHTML'] = 1;
+        $data['isHTML'] = true;
     }
     if (empty($data['text'])) {
         $data['text'] = '';
     }
     if (!is_array($data['recipient'])) {
-        $recipient = str_replace(' ', '', trim($data['recipient']));
-        $recipient = str_replace(',', ';', $recipient);
-        $recipient = str_replace(' ', '', $recipient);
+        $recipient = str_replace([' ', ',', ' '], ['', ';', ''], trim($data['recipient']));
         $recipient = explode(';', $recipient);
     } else {
         $recipient = $data['recipient'];
@@ -829,30 +828,7 @@ function sendEmail($data = array(
         }
     }
     if (count($sendTo)) {
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer = $cmsgo['SMTP_MAILER'];
-        $mail->Host = $cmsgo['SMTP_HOST'];
-        $mail->Port = $cmsgo['SMTP_PORT'];
-        if ($cmsgo['SMTP_AUTH']) {
-            $mail->SMTPAuth = 1;
-            $mail->Username = $cmsgo['SMTP_USER'];
-            $mail->Password = $cmsgo['SMTP_PASS'];
-        }
-        if (!empty($cmsgo['SMTP_SECURE'])) {
-            $mail->SMTPSecure = $cmsgo['SMTP_SECURE'];
-        }
-        if (!empty($cmsgo['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $cmsgo['SMTP_AUTH_TYPE'];
-            if ($cmsgo['SMTP_AUTH_TYPE'] === 'NTLM') {
-                if (!empty($cmsgo['SMTP_REALM'])) {
-                    $mail->Realm = $cmsgo['SMTP_REALM'];
-                }
-                if (!empty($cmsgo['SMTP_WORKSTATION'])) {
-                    $mail->Workstation = $cmsgo['SMTP_WORKSTATION'];
-                }
-            }
-        }
-        $mail->CharSet = $cmsgo["charset"];
+        $mail = new CmsgoMailer($cmsgo);
         $mail->isHTML($data['isHTML']);
         $mail->Subject = $data['subject'];
         if ($data['isHTML']) {
@@ -865,9 +841,6 @@ function sendEmail($data = array(
             $mail->Body = $data['html'];
         } else {
             $mail->Body = $data['text'];
-        }
-        if($cmsgo['default_lang'] && $cmsgo['default_lang'] !== 'en') {
-            $mail->setLanguage($cmsgo['default_lang']);
         }
         $mail->setFrom($from, $fromName);
         $mail->addReplyTo($sender, $senderName);
