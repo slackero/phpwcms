@@ -8,6 +8,15 @@ use League\OAuth2\Client\Provider\Google;
 class CmsgoMailer extends PHPMailer
 {
     /**
+     * SMTP class debug output mode.
+     *
+     * @var int
+     *
+     * @see PHPMailer::$SMTPDebug
+     */
+    public $SMTPDebug = 0;
+
+    /**
      * @var array<string, string> List of supported OAuth providers
      */
     private const OAUTH_PROVIDERS = [
@@ -93,19 +102,19 @@ class CmsgoMailer extends PHPMailer
                     'Invalid SMTP_XOAUTH_PROVIDER value (must be one of: ' . $allowedProviders . ')'
                 );
             }
-            if (empty($config['SMTP_XOAUTH_CLIENT_ID'])) {
+            if (empty($config['SMTP_CLIENT_ID'])) {
                 throw new RuntimeException(
-                    'SMTP_XOAUTH_CLIENT_ID is required for OAuth2 authentication'
+                    'SMTP_CLIENT_ID is required for OAuth2 authentication'
                 );
             }
-            if (empty($config['SMTP_XOAUTH_CLIENT_SECRET'])) {
+            if (empty($config['SMTP_CLIENT_SECRET'])) {
                 throw new RuntimeException(
-                    'SMTP_XOAUTH_CLIENT_SECRET is required for OAuth2 authentication'
+                    'SMTP_CLIENT_SECRET is required for OAuth2 authentication'
                 );
             }
-            if (empty($config['SMTP_XOAUTH_REFRESH_TOKEN'])) {
+            if (empty($config['SMTP_REFRESH_TOKEN'])) {
                 throw new RuntimeException(
-                    'SMTP_XOAUTH_REFRESH_TOKEN is required for OAuth2 authentication'
+                    'SMTP_REFRESH_TOKEN is required for OAuth2 authentication'
                 );
             }
             if (empty($config['SMTP_USER'])) {
@@ -117,6 +126,7 @@ class CmsgoMailer extends PHPMailer
             $this->isSMTP();
             $this->SMTPAuth = true;
             $this->AuthType = 'XOAUTH2';
+            $this->Password = '';
 
             if ($config['SMTP_XOAUTH_PROVIDER'] === 'google') {
 
@@ -128,8 +138,8 @@ class CmsgoMailer extends PHPMailer
 
                 $provider = new Google(
                     [
-                        'clientId' => $config['SMTP_XOAUTH_CLIENT_ID'],
-                        'clientSecret' => $config['SMTP_XOAUTH_CLIENT_SECRET'],
+                        'clientId' => $config['SMTP_CLIENT_ID'],
+                        'clientSecret' => $config['SMTP_CLIENT_SECRET'],
                     ]
                 );
 
@@ -153,8 +163,8 @@ class CmsgoMailer extends PHPMailer
 
                 $provider = new Azure(
                     [
-                        'clientId' => $config['SMTP_XOAUTH_CLIENT_ID'],
-                        'clientSecret' => $config['SMTP_XOAUTH_CLIENT_SECRET'],
+                        'clientId' => $config['SMTP_CLIENT_ID'],
+                        'clientSecret' => $config['SMTP_CLIENT_SECRET'],
                         'tenantId' => $config['SMTP_TENANT_ID'],
                     ]
                 );
@@ -168,9 +178,9 @@ class CmsgoMailer extends PHPMailer
                 new OAuth(
                     [
                         'provider' => $provider,
-                        'clientId' => $config['SMTP_XOAUTH_CLIENT_ID'],
-                        'clientSecret' => $config['SMTP_XOAUTH_CLIENT_SECRET'],
-                        'refreshToken' => $config['SMTP_XOAUTH_REFRESH_TOKEN'],
+                        'clientId' => $config['SMTP_CLIENT_ID'],
+                        'clientSecret' => $config['SMTP_CLIENT_SECRET'],
+                        'refreshToken' => $config['SMTP_REFRESH_TOKEN'],
                         'userName' => $config['SMTP_USER'],
                     ]
                 )
