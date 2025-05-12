@@ -171,7 +171,8 @@ $cmsgo['SMTP_SECURE'] = ''; // secure connection, phpMailer options: '', 'ssl' o
 $cmsgo['SMTP_AUTH'] = 0; // SMTP authentication, ON=1/OFF=0
 $cmsgo['SMTP_AUTH_TYPE'] = ''; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2
 $cmsgo['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider, currently 'Google', 'Microsoft' or 'Azure' are supported
-$cmsgo['SMTP_CLIENT_ID']       = ''; // The client ID for OAuth2 authentication
-$cmsgo['SMTP_CLIENT_SECRET']   = ''; // The client secret for OAuth2 authentication
-$cmsgo['SMTP_TENANT_ID']       = ''; // The tenant ID for Microsoft OAuth2 authentication
-$cmsgo['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (see the backend to obtain it)
+$cmsgo['SMTP_CLIENT_ID'] = ''; // The client ID for OAuth2 authentication
+$cmsgo['SMTP_CLIENT_SECRET'] = ''; // The client secret for OAuth2 authentication
+$cmsgo['SMTP_TENANT_ID'] = ''; // The tenant ID for Microsoft OAuth2 authentication
+$cmsgo['SMTP_REFRESH_TOKEN'] = ''; // The OAuth2 refresh token (see the backend to obtain it)
+$cmsgo['SMTP_DEBUG'] = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages, 3 = plus connection status, 4 = low-level data

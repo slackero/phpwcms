@@ -28,7 +28,12 @@ class CmsgoMailer extends PHPMailer
 
     public function __construct($config = []) {
 
+        if (!empty($config['SMTP_DEBUG'])) {
+            $this->SMTPDebug = (int)$config['SMTP_DEBUG'];
+        }
+
         $this->edebug('Init PHPMailer');
+        $this->edebug('Debug level set to ' . $this->SMTPDebug);
         parent::__construct();
 
         $this->edebug('Start to configure cmsgoMailer');
