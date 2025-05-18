@@ -97,9 +97,16 @@ if(isset($_POST['cnt_name'])) {
 	}
 	if(empty($plugin['data']['cnt_text'])) {
 		$plugin['error']['cnt_text'] = $BLM['error_url'];
-	} elseif(!is_feed_available($plugin['data']['cnt_text'])) {
-		$plugin['error']['cnt_text'] = $BLM['error_url_notvalid'];
-	}
+	} else {
+        // Remove all illegal characters from a url
+        $plugin['data']['cnt_text'] = filter_var($plugin['data']['cnt_text'], FILTER_SANITIZE_URL);
+        // Validate the url
+        if(!filter_var($plugin['data']['cnt_text'], FILTER_VALIDATE_URL)) {
+            $plugin['error']['cnt_text'] =  $BLM['error_url_notvalid'];
+        } elseif(!is_feed_available($plugin['data']['cnt_text'])) {
+            $plugin['error']['cnt_text'] = $BLM['error_url_notvalid'];
+        }
+    }
 	if($plugin['data']['cnt_object-structure_level_id'] == '-2' || $plugin['data']['cnt_object-structure_level_id'] == '-1') {
 		$plugin['error']['cnt_structure_level_id'] = $BLM['error_structure_level_id'];
 	}
