@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php';
 
 // Form
-$cnt_form = unserialize($crow["acontent_form"]);
+$cnt_form = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(empty($cnt_form['anchor_off'])) {
     $CNT_TMP .= '<a id="';
@@ -130,7 +130,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
             $doubleoptin_error = true;
         } else {
             $doubleoptin_values = $doubleoptin_values[0];
-            $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content']);
+            $doubleoptin_values['formresult_content'] = unserialize($doubleoptin_values['formresult_content'], ['allowed_classes' => false]);
             if(empty($doubleoptin_values['formresult_content']['hash']) || $doubleoptin_values['formresult_content']['hash'] !== $_GET['hash']) {
                 $doubleoptin_values = null;
                 $doubleoptin_error = true;
