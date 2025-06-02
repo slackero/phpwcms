@@ -37,6 +37,20 @@ Server system requirements
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
+FAQ
+---
+
+### How to set up SMTP with Microsoft Azure and XOAUTH2?
+
+You can find the setup guide for Microsoft Azure and XOAUTH2 in the
+[PHPMailer wiki](https://github.com/PHPMailer/PHPMailer/wiki/Microsoft-Azure-and-XOAUTH2-setup-guide)
+
+### How to set up SMTP with Google and XOAUTH2?
+
+You can find the setup guide for Google and XOAUTH2 in the
+[PHPMailer wiki](https://github.com/PHPMailer/PHPMailer/wiki/Using-Gmail-with-XOAUTH2).
+
+
 Known problems
 --------------
 
@@ -68,9 +82,7 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
-- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
-- <https://twitter.com/slackero>
 
 
 Copyright and license
