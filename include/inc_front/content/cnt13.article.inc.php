@@ -278,7 +278,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             case 29:    $s_text .= ' '.$scrow['acontent_text'];
                             case 2:     if($content['search']['search_caption'] || $content['search']['search_filename']) {
-                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                             if(isset($scrow['acontent_form']['images']) && is_array($scrow['acontent_form']['images']) && count($scrow['acontent_form']['images'])) {
                                                 $s_imgname = '';
                                                 foreach($scrow['acontent_form']['images'] as $s_imgtext) {
@@ -306,7 +306,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             case 31:    $s_text .= ' '.$scrow['acontent_html'];
                                         if($content['search']['search_caption'] || $content['search']['search_filename']) {
-                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                            $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                             if(isset($scrow['acontent_form']['images']) && is_array($scrow['acontent_form']['images']) && count($scrow['acontent_form']['images'])) {
                                                 foreach($scrow['acontent_form']['images'] as $s_imgtext) {
                                                     if($content['search']['search_caption']) {
@@ -323,7 +323,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
                             // search recipe
                             case 26:    $s_text .= ' '.$scrow['acontent_text'].' '.$scrow['acontent_html'];
-                                        $scrow['acontent_form'] = @unserialize($scrow['acontent_form']);
+                                        $scrow['acontent_form'] = @unserialize($scrow['acontent_form'], ['allowed_classes' => false]);
                                         if(isset($scrow['acontent_form']['preparation'])) {
                                             $s_text .= ' '.$scrow['acontent_form']['preparation'].' '.$scrow['acontent_form']['ingredients'];
                                             $s_text .= ' '.$scrow['acontent_form']['calorificvalue'].' '.$scrow['acontent_form']['calorificvalue_add'];

@@ -204,7 +204,7 @@ class search_News {
 				$s_text .= ', '.$value['cnt_editor'];
 			}
 
-			$value['cnt_object'] = @unserialize($value['cnt_object']);
+			$value['cnt_object'] = @unserialize($value['cnt_object'], ['allowed_classes' => false]);
 
 			if(!empty($value['cnt_object']['cnt_searchoff'])) {
 				continue;

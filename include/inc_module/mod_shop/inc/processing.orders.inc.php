@@ -68,7 +68,7 @@ if($action == 'delete') {
 	if(isset($plugin['data'][0])) {
 
 		$plugin['data'] = $plugin['data'][0];
-		$plugin['data']['order_data'] = @unserialize($plugin['data']['order_data']);
+		$plugin['data']['order_data'] = @unserialize($plugin['data']['order_data'], ['allowed_classes' => false]);
 
 	} else {
 

@@ -799,7 +799,7 @@ if( $_shop_load_list !== false ) {
             $row['gross']   = number_format($row['gross'], $_tmpl['config']['price_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']);
             $row['weight']  = $row['shopprod_weight'] > 0 ? number_format($row['shopprod_weight'], $_tmpl['config']['weight_decimals'], $_tmpl['config']['dec_point'], $_tmpl['config']['thousands_sep']) : '';
 
-            $row['shopprod_var'] = @unserialize($row['shopprod_var']);
+            $row['shopprod_var'] = @unserialize($row['shopprod_var'], ['allowed_classes' => false]);
             $row['shopprod_var']['request'] = !empty($row['shopprod_var']['request']);
             if (empty($row['shopprod_var']['request_url'])) {
                 $row['shopprod_var']['request_url'] = trim($_tmpl['config']['default_request_url']);

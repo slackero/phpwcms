@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Check if custom array is given or parse it based on the default behavior
 if(!isset($content['alink']['inject'])) {
 
-    $content['alink'] = @unserialize($crow["acontent_form"]);
+    $content['alink'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
     if(!isset($content['alink']['alink_id'])) {
         $content['alink']['alink_id'] = explode(':', $crow['acontent_alink']);
