@@ -93,7 +93,7 @@ if($shop_api_access) {
 
         foreach($data as $row) {
 
-            $row['order_data'] = @unserialize($row['order_data']);
+            $row['order_data'] = @unserialize($row['order_data'], ['allowed_classes' => false]);
 
             // fallback for additional fields
 

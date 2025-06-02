@@ -42,7 +42,7 @@ if(!empty($_getVar['feedimport'])) {
 
 		$feedimport_result = $feedimport_result[0];
 
-		$feedimport_result['cnt_object'] = @unserialize($feedimport_result['cnt_object']);
+		$feedimport_result['cnt_object'] = @unserialize($feedimport_result['cnt_object'], ['allowed_classes' => false]);
 
 	}
 

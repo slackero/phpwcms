@@ -200,31 +200,11 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
             $content['newsletter']['subject'] = $content['newsletter']['subject']['tag'];
         }
 
-        // phpMailer Class
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer           = $phpwcms['SMTP_MAILER'];
-        $mail->Host             = $phpwcms['SMTP_HOST'];
-        $mail->Port             = $phpwcms['SMTP_PORT'];
-        if($phpwcms['SMTP_AUTH']) {
-            $mail->SMTPAuth     = 1;
-            $mail->Username     = $phpwcms['SMTP_USER'];
-            $mail->Password     = $phpwcms['SMTP_PASS'];
-        }
-        if(!empty($phpwcms['SMTP_SECURE'])) {
-            $mail->SMTPSecure   = $phpwcms['SMTP_SECURE'];
-        }
-        if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-        }
-        $mail->SMTPKeepAlive    = false;
-        $mail->CharSet          = $phpwcms["charset"];
-        $mail->isHTML(0);
-        $mail->Subject          = $content['newsletter']['subject'];
-        $mail->Body             = $content["newsletter"]["mailtext"];
-
-        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
-            $mail->setLanguage($phpwcms['default_lang']);
-        }
+        // PhpwcmsMailer Class
+        $mail = new PhpwcmsMailer($phpwcms);
+        $mail->isHTML(false);
+        $mail->Subject = $content['newsletter']['subject'];
+        $mail->Body = $content['newsletter']['mailtext'];
 
         $mail->setFrom($phpwcms['SMTP_FROM_EMAIL'], $phpwcms['SMTP_FROM_NAME']);
         $mail->addReplyTo($phpwcms["admin_email"]);

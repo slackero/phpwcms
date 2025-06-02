@@ -33,8 +33,22 @@ Never forget to backup your database and files before you start the upgrade proc
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.10.8 requires a web server with PHP 8.2 or newer.
+**phpwcms** version 1.10.9 requires a web server with PHP 8.2 or newer.
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
+
+
+FAQ
+---
+
+### How to set up SMTP with Microsoft Azure and XOAUTH2?
+
+You can find the setup guide for Microsoft Azure and XOAUTH2 in the
+[PHPMailer wiki](https://github.com/PHPMailer/PHPMailer/wiki/Microsoft-Azure-and-XOAUTH2-setup-guide)
+
+### How to set up SMTP with Google and XOAUTH2?
+
+You can find the setup guide for Google and XOAUTH2 in the
+[PHPMailer wiki](https://github.com/PHPMailer/PHPMailer/wiki/Using-Gmail-with-XOAUTH2).
 
 
 Known problems
@@ -67,9 +81,7 @@ Creator
 **Oliver Georgi**
 
 - <https://github.com/slackero>
-- <https://webverbund.de>
 - <https://www.linkedin.com/in/olivergeorgi>
-- <https://twitter.com/slackero>
 
 
 Copyright and license
@@ -95,7 +107,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the.  
-Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston,
-MA 02110-1301,
+Free Software Foundation, Inc.,  
+51 Franklin Street, Fifth Floor, Boston,  
+MA 02110-1301,  
 USA.

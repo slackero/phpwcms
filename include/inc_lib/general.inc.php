@@ -22,6 +22,7 @@ if (PHPWCMS_CHARSET === 'utf-8') {
 require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsMailer.php';
 
 function str_empty($string) {
     return $string === null || $string === '';
@@ -784,7 +785,7 @@ function sendEmail($data = array(
     'recipient' => '',
     'toName' => '',
     'subject' => '',
-    'isHTML' => 0,
+    'isHTML' => false,
     'html' => '',
     'text' => '',
     'attach' => array(),
@@ -806,19 +807,17 @@ function sendEmail($data = array(
     $subject = empty($data['subject']) ? 'Email sent by phpwcms' : cleanUpForEmailHeader($data['subject']);
     if (empty($data['html'])) {
         $data['html'] = '';
-        $data['isHTML'] = 0;
+        $data['isHTML'] = false;
     } elseif (empty($data['isHTML'])) {
-        $data['isHTML'] = 0;
+        $data['isHTML'] = false;
     } else {
-        $data['isHTML'] = 1;
+        $data['isHTML'] = true;
     }
     if (empty($data['text'])) {
         $data['text'] = '';
     }
     if (!is_array($data['recipient'])) {
-        $recipient = str_replace(' ', '', trim($data['recipient']));
-        $recipient = str_replace(',', ';', $recipient);
-        $recipient = str_replace(' ', '', $recipient);
+        $recipient = str_replace([' ', ',', ' '], ['', ';', ''], trim($data['recipient']));
         $recipient = explode(';', $recipient);
     } else {
         $recipient = $data['recipient'];
@@ -831,22 +830,7 @@ function sendEmail($data = array(
         }
     }
     if (count($sendTo)) {
-        $mail = new \PHPMailer\PHPMailer\PHPMailer();
-        $mail->Mailer = $phpwcms['SMTP_MAILER'];
-        $mail->Host = $phpwcms['SMTP_HOST'];
-        $mail->Port = $phpwcms['SMTP_PORT'];
-        if ($phpwcms['SMTP_AUTH']) {
-            $mail->SMTPAuth = 1;
-            $mail->Username = $phpwcms['SMTP_USER'];
-            $mail->Password = $phpwcms['SMTP_PASS'];
-        }
-        if (!empty($phpwcms['SMTP_SECURE'])) {
-            $mail->SMTPSecure = $phpwcms['SMTP_SECURE'];
-        }
-        if (!empty($phpwcms['SMTP_AUTH_TYPE'])) {
-            $mail->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-        }
-        $mail->CharSet = $phpwcms["charset"];
+        $mail = new PhpwcmsMailer($phpwcms);
         $mail->isHTML($data['isHTML']);
         $mail->Subject = $data['subject'];
         if ($data['isHTML']) {
@@ -859,9 +843,6 @@ function sendEmail($data = array(
             $mail->Body = $data['html'];
         } else {
             $mail->Body = $data['text'];
-        }
-        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
-            $mail->setLanguage($phpwcms['default_lang']);
         }
         $mail->setFrom($from, $fromName);
         $mail->addReplyTo($sender, $senderName);
@@ -884,7 +865,12 @@ function sendEmail($data = array(
                     $attach_string['filename'] = empty($attach_string['filename']) ? 'attachment_' . $attach_counter : $attach_string['filename'];
                     $attach_string['mime'] = empty($attach_string['mime']) ? 'application/octet-stream' : $attach_string['mime'];
                     $attach_string['encoding'] = empty($attach_string['encoding']) ? 'base64' : $attach_string['encoding'];
-                    $mail->addStringAttachment($attach_string['data'], $attach_string['filename'], $attach_string['encoding'], $attach_string['mime']);
+                    $mail->addStringAttachment(
+                        $attach_string['data'],
+                        $attach_string['filename'],
+                        $attach_string['encoding'],
+                        $attach_string['mime']
+                    );
                     $attach_counter++;
                 }
             }
@@ -947,9 +933,21 @@ function checkFormTrackingValue() {
 
 function cleanUpSpecialHtmlEntities($string = '') {
     if (isset($GLOBALS['SPECIAL_ENTITIES_TABLES'])) {
-        $string = str_replace($GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_decode'], $string);
-        $string = str_replace($GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_decode'], $string);
-        $string = str_replace($GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_encode'], $GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_decode'], $string);
+        $string = str_replace(
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_encode'],
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['latin1_decode'],
+            $string
+        );
+        $string = str_replace(
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_encode'],
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['symbol_decode'],
+            $string
+        );
+        $string = str_replace(
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_encode'],
+            $GLOBALS['SPECIAL_ENTITIES_TABLES']['specialchars_decode'],
+            $string
+        );
     }
 
     return $string;
@@ -959,33 +957,81 @@ function encode_SpecialHtmlEntities($string = '', $mode = 'ALL') {
     global $SPECIAL_ENTITIES_TABLES;
     switch ($mode) {
         case 'LATIN':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['latin1_decode'],
+                $SPECIAL_ENTITIES_TABLES['latin1_encode'],
+                $string
+            );
             break;
         case 'SYMBOL':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['symbol_decode'],
+                $SPECIAL_ENTITIES_TABLES['symbol_encode'],
+                $string
+            );
             break;
         case 'LATIN SYMBOL':
         case 'SYMBOL LATIN':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['latin1_decode'],
+                $SPECIAL_ENTITIES_TABLES['latin1_encode'],
+                $string
+            );
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['symbol_decode'],
+                $SPECIAL_ENTITIES_TABLES['symbol_encode'],
+                $string
+            );
             break;
         case 'SPECIALCHARS':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['specialchars_decode'],
+                $SPECIAL_ENTITIES_TABLES['specialchars_encode'],
+                $string
+            );
             break;
         case 'LATIN SPECIALCHARS':
         case 'SPECIALCHARS LATIN':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['latin1_decode'],
+                $SPECIAL_ENTITIES_TABLES['latin1_encode'],
+                $string
+            );
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['specialchars_decode'],
+                $SPECIAL_ENTITIES_TABLES['specialchars_encode'],
+                $string
+            );
             break;
         case 'SYMBOL SPECIALCHARS':
         case 'SPECIALCHARS SYMBOL':
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['symbol_decode'],
+                $SPECIAL_ENTITIES_TABLES['symbol_encode'],
+                $string
+            );
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['specialchars_decode'],
+                $SPECIAL_ENTITIES_TABLES['specialchars_encode'],
+                $string
+            );
             break;
         default:
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['latin1_decode'], $SPECIAL_ENTITIES_TABLES['latin1_encode'], $string);
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['symbol_decode'], $SPECIAL_ENTITIES_TABLES['symbol_encode'], $string);
-            $string = str_replace($SPECIAL_ENTITIES_TABLES['specialchars_decode'], $SPECIAL_ENTITIES_TABLES['specialchars_encode'], $string);
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['latin1_decode'],
+                $SPECIAL_ENTITIES_TABLES['latin1_encode'],
+                $string
+            );
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['symbol_decode'],
+                $SPECIAL_ENTITIES_TABLES['symbol_encode'],
+                $string
+            );
+            $string = str_replace(
+                $SPECIAL_ENTITIES_TABLES['specialchars_decode'],
+                $SPECIAL_ENTITIES_TABLES['specialchars_encode'],
+                $string
+            );
     }
 
     return $string;
@@ -1176,25 +1222,29 @@ function optimizeForSearch() {
         $text = stripped_cache_content($text);
         $text = cleanUpSpecialHtmlEntities($text);
         $text = decode_entities($text);
-        $text = str_replace(array(
-                                '!',
-                                '"',
-                                "'",
-                                '.',
-                                '#',
-                                ';',
-                                '~',
-                                '+',
-                                '*',
-                                '%',
-                                '&',
-                                '$',
-                                '§',
-                                ':',
-                                '@',
-                                ',',
-                                '|',
-                            ), ' ', $text);
+        $text = str_replace(
+            array(
+                '!',
+                '"',
+                "'",
+                '.',
+                '#',
+                ';',
+                '~',
+                '+',
+                '*',
+                '%',
+                '&',
+                '$',
+                '§',
+                ':',
+                '@',
+                ',',
+                '|',
+            ),
+            ' ',
+            $text
+        );
         $text = preg_replace('/\[.*?\]/', '', $text);
         $text = preg_replace('/\{.*?\}/', '', $text);
         $text = strtoupper($text);

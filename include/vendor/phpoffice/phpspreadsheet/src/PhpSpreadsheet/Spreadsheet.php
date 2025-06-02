@@ -115,12 +115,16 @@ class Spreadsheet implements JsonSerializable
     /**
      * ribbonBinObjects : null if workbook is'nt Excel 2007 or not contain embedded objects (picture(s)) for Ribbon Elements
      * ignored if $ribbonXMLData is null.
+     *
+     * @var null|mixed[]
      */
     private ?array $ribbonBinObjects = null;
 
     /**
      * List of unparsed loaded data for export to same format with better compatibility.
      * It has to be minimized when the library start to support currently unparsed data.
+     *
+     * @var array<array<array<array<string>|string>>>
      */
     private array $unparsedLoadedData = [];
 
@@ -263,6 +267,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * retrieve ribbon XML Data.
+     *
+     * @return mixed[]
      */
     public function getRibbonXMLData(string $what = 'all'): null|array|string //we need some constants here...
     {
@@ -302,6 +308,8 @@ class Spreadsheet implements JsonSerializable
      * It has to be minimized when the library start to support currently unparsed data.
      *
      * @internal
+     *
+     * @return mixed[]
      */
     public function getUnparsedLoadedData(): array
     {
@@ -313,6 +321,8 @@ class Spreadsheet implements JsonSerializable
      * It has to be minimized when the library start to support currently unparsed data.
      *
      * @internal
+     *
+     * @param array<array<array<array<string>|string>>> $unparsedLoadedData
      */
     public function setUnparsedLoadedData(array $unparsedLoadedData): void
     {
@@ -321,6 +331,8 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * retrieve Binaries Ribbon Objects.
+     *
+     * @return mixed[]
      */
     public function getRibbonBinObjects(string $what = 'all'): ?array
     {
@@ -331,7 +343,7 @@ class Spreadsheet implements JsonSerializable
                 return $this->ribbonBinObjects;
             case 'names':
             case 'data':
-                if (is_array($this->ribbonBinObjects) && isset($this->ribbonBinObjects[$what])) {
+                if (is_array($this->ribbonBinObjects) && is_array($this->ribbonBinObjects[$what] ?? null)) {
                     $ReturnData = $this->ribbonBinObjects[$what];
                 }
 
@@ -1058,7 +1070,7 @@ class Spreadsheet implements JsonSerializable
      */
     public function copy(): self
     {
-        return unserialize(serialize($this));
+        return unserialize(serialize($this)); //* @phpstan-ignore-line
     }
 
     /**
@@ -1079,6 +1091,15 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine = new Calculation($this);
         if ($oldCalc !== null) {
             $this->calculationEngine
+                ->setSuppressFormulaErrors(
+                    $oldCalc->getSuppressFormulaErrors()
+                )
+                ->setCalculationCacheEnabled(
+                    $oldCalc->getCalculationCacheEnabled()
+                )
+                ->setBranchPruningEnabled(
+                    $oldCalc->getBranchPruningEnabled()
+                )
                 ->setInstanceArrayReturnType(
                     $oldCalc->getInstanceArrayReturnType()
                 );
@@ -1119,6 +1140,7 @@ class Spreadsheet implements JsonSerializable
             switch ($key) {
                 // arrays of objects not covered above
                 case 'definedNames':
+                    /** @var DefinedName[] */
                     $currentCollection = $val;
                     $this->$key = [];
                     foreach ($currentCollection as $item) {
@@ -1666,7 +1688,10 @@ class Spreadsheet implements JsonSerializable
 
     public function getLegacyDrawing(Worksheet $worksheet): ?string
     {
-        return $this->unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'] ?? null;
+        /** @var ?string */
+        $temp = $this->unparsedLoadedData['sheets'][$worksheet->getCodeName()]['legacyDrawing'] ?? null;
+
+        return $temp;
     }
 
     public function getValueBinder(): ?IValueBinder

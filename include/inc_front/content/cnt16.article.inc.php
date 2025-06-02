@@ -77,28 +77,8 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
 
-		$ecard["mailer"] = new \PHPMailer\PHPMailer\PHPMailer();
-		$ecard["mailer"]->Mailer = $phpwcms['SMTP_MAILER'];
-		$ecard["mailer"]->isHTML(1);
-		$ecard['mailer']->CharSet = $phpwcms["charset"];
-		$ecard["mailer"]->Host = $phpwcms['SMTP_HOST'];
-		$ecard["mailer"]->Port = $phpwcms['SMTP_PORT'];
-		if($phpwcms['SMTP_AUTH']) {
-			$ecard["mailer"]->SMTPAuth = 1;
-			$ecard["mailer"]->Username = $phpwcms['SMTP_USER'];
-			$ecard["mailer"]->Password = $phpwcms['SMTP_PASS'];
-		}
-		if(!empty($phpwcms['SMTP_SECURE'])) {
-			$ecard["mailer"]->SMTPSecure = $phpwcms['SMTP_SECURE'];
-		}
-		if(!empty($phpwcms['SMTP_AUTH_TYPE'])) {
-			$ecard["mailer"]->AuthType = $phpwcms['SMTP_AUTH_TYPE'];
-		}
-
-        if($phpwcms['default_lang'] && $phpwcms['default_lang'] !== 'en') {
-            $ecard['mailer']->setLanguage($phpwcms['default_lang']);
-        }
-
+		$ecard["mailer"] = new PhpwcmsMailer($phpwcms);
+		$ecard["mailer"]->isHTML();
 		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);

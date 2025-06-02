@@ -56,7 +56,7 @@ $phpwcms['img_prev_width']       = 978; // max width of the large preview image
 $phpwcms['img_prev_height']      = 734; // max height of the large preview image
 $phpwcms['max_time']             = 1800; // logout after max_time/60 seconds
 $phpwcms['responsive']           = 1; // 0 max. image width = $phpwcms['content_width'], 1 = as given
-$phpwcms['preserve_image_name']  = 0; // keep file name for resized versions of the image
+$phpwcms['preserve_image_name']  = 1; // keep file name for resized versions of the image
 
 // other stuff
 $phpwcms['image_library']        = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
@@ -163,11 +163,17 @@ $phpwcms['SMTP_FROM_EMAIL']      = 'info@localhost'; // reply/from email address
 $phpwcms['SMTP_FROM_NAME']       = 'My Name'; // reply/from name
 $phpwcms['SMTP_HOST']            = 'localhost'; // SMTP server (host/IP)
 $phpwcms['SMTP_PORT']            = 25; // SMTP server port (default 25)
-$phpwcms['SMTP_MAILER']          = 'mail'; // mail method: mail (default), smtp, sendmail
+$phpwcms['SMTP_MAILER']          = 'mail'; // mail method: mail (default), smtp, sendmail, qmail
 $phpwcms['SMTP_USER']            = 'user'; // default SMTP login (user) name
 $phpwcms['SMTP_PASS']            = 'pass'; // default SMTP password
 $phpwcms['SMTP_SECURE']          = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
 $phpwcms['SMTP_AUTH']            = 0; // SMTP authentication, ON=1/OFF=0
-$phpwcms['SMTP_AUTH_TYPE']       = ''; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5
+$phpwcms['SMTP_AUTH_TYPE']       = ''; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2
+$phpwcms['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider, currently 'Google', 'Microsoft' or 'Azure' are supported
+$phpwcms['SMTP_CLIENT_ID']       = ''; // The client ID for OAuth2 authentication
+$phpwcms['SMTP_CLIENT_SECRET']   = ''; // The client secret for OAuth2 authentication
+$phpwcms['SMTP_TENANT_ID']       = ''; // The tenant ID for Microsoft OAuth2 authentication
+$phpwcms['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (see the backend to obtain it)
+$phpwcms['SMTP_DEBUG']           = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages, 3 = plus connection status, 4 = low-level data
 
 define('PHPWCMS_INCLUDE_CHECK', true);
