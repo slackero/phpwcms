@@ -73,7 +73,7 @@ if($plugin['id'] && !isset($plugin['error'])) {
     $sql .= 'FROM '.DB_PREPEND.'phpwcms_ads_campaign WHERE adcampaign_id='.$plugin['id'];
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
-    $plugin['data']['adcampaign_data'] = @unserialize($plugin['data']['adcampaign_data']);
+    $plugin['data']['adcampaign_data'] = @unserialize($plugin['data']['adcampaign_data'], ['allowed_classes' => false]);
     if(!is_array($plugin['data']['adcampaign_data'])) {
         $plugin['data']['adcampaign_data'] = array(
 

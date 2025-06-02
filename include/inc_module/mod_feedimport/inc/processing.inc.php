@@ -188,7 +188,7 @@ if($plugin['id'] && !isset($plugin['error'])) {
 	$plugin['data'] = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_module='._dbEscape(MODULE_KEY).' AND cnt_id='.$plugin['id']);
 	if(isset($plugin['data'][0])) {
 		$plugin['data'] = $plugin['data'][0];
-		$plugin['data']['cnt_object'] = @unserialize($plugin['data']['cnt_object']);
+		$plugin['data']['cnt_object'] = @unserialize($plugin['data']['cnt_object'], ['allowed_classes' => false]);
 		$plugin['data']['id'] = $plugin['data']['cnt_id'];
 		if(count($plugin['data']['cnt_object'])) {
 			foreach($plugin['data']['cnt_object'] as $key => $value) {

@@ -188,7 +188,7 @@ if($plugin['id'] && !isset($plugin['error'])) {
     $plugin['data'] = _dbQuery($sql);
     $plugin['data'] = $plugin['data'][0];
 
-    $plugin['data']['calendar_object'] = @unserialize($plugin['data']['calendar_object']);
+    $plugin['data']['calendar_object'] = @unserialize($plugin['data']['calendar_object'], ['allowed_classes' => false]);
 
     if(is_array($plugin['data']['calendar_object'])) {
         if(isset($plugin['data']['calendar_object']['image'])) {

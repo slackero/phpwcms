@@ -78,7 +78,7 @@ if(!function_exists('get_mediaplayer_stream')) {
 
 }
 
-$fmp_data = @unserialize($crow["acontent_form"]);
+$fmp_data = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(isset($fmp_data['fmp_template'])) {
 

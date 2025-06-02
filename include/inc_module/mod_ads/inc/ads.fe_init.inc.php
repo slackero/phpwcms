@@ -31,7 +31,7 @@ if(isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {
 	$ad_data = _dbQuery($sql);
 
 	if(!empty($ad_data[0]['adcampaign_data'])) {
-		$ad_data = @unserialize($ad_data[0]['adcampaign_data']);
+		$ad_data = @unserialize($ad_data[0]['adcampaign_data'], ['allowed_classes' => false]);
 
 		$ads_userip		= PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP();
 		$ads_useragent	= $_SERVER['HTTP_USER_AGENT'];

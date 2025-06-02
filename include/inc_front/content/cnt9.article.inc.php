@@ -33,7 +33,7 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/mu
 
 }
 
-$media              = @unserialize($crow['acontent_form']);
+$media              = @unserialize($crow['acontent_form'], ['allowed_classes' => false]);
 $media["source"]    = '';
 $media["code"]      = '';
 $media["alt"]       = '';
