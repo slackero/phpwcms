@@ -461,7 +461,7 @@ if(!isset($block)) {
     $sql .= "WHERE template_trash=0 ORDER BY template_default DESC LIMIT 1";
     $result = _dbQuery($sql);
     if(isset($result[0]['template_var'])) {
-        $block = @unserialize($result[0]['template_var']);
+        $block = @unserialize($result[0]['template_var'], ['allowed_classes' => false]);
     }
 }
 
@@ -515,7 +515,7 @@ $sql .= $block["layout"] ? "AND pagelayout_id=".$block["layout"] : "ORDER BY pag
 $sql .= " LIMIT 1";
 $result = _dbQuery($sql);
 if(isset($result[0]['pagelayout_var'])) {
-    $pagelayout = @unserialize($result[0]['pagelayout_var']);
+    $pagelayout = @unserialize($result[0]['pagelayout_var'], ['allowed_classes' => false]);
     // if print action
     if($aktion[2] === 1) {
         $pagelayout = array(

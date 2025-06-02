@@ -371,7 +371,7 @@ if($action == 'edit') {
             $plugin['data']['shopprod_changedate']	= strtotime($plugin['data']['shopprod_changedate']);
             $plugin['data']['shopprod_category']	= convertStringToArray($plugin['data']['shopprod_category']);
 
-            $plugin['data']['shopprod_var']			= @unserialize($plugin['data']['shopprod_var']);
+            $plugin['data']['shopprod_var']			= @unserialize($plugin['data']['shopprod_var'], ['allowed_classes' => false]);
             if(isset($plugin['data']['shopprod_var']['images']) && is_array($plugin['data']['shopprod_var']['images'])) {
                 $plugin['data']['shopprod_images']	= $plugin['data']['shopprod_var']['images'];
             } else {

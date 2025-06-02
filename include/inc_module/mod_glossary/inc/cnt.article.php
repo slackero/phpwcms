@@ -22,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // if you ant to access module vars check that var
 // $phpwcms['modules'][$crow["acontent_module"]]
 
-$content['glossary'] = @unserialize($crow["acontent_form"]);
+$content['glossary'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 // check for template and load default in case of error
 if(empty($content['glossary']['glossary_template'])) {

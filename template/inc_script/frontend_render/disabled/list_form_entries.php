@@ -66,7 +66,7 @@ if(strpos($content['all'], $_form_entries['RT']) !== false) {
     foreach($_form_entries['ALL'] as $_form_entries_value) {
 
         $_form_entries['ENTRIES'][$_fc] = $_form_entries['ENTRY'];
-        $_form_entries_value = @unserialize($_form_entries_value['formresult_content']);
+        $_form_entries_value = @unserialize($_form_entries_value['formresult_content'], ['allowed_classes' => false]);
         foreach($_form_entries_value as $_form_entries_key => $_form_entries_value1) {
 
             if(isset($_form_entries['SELECT'][$_form_entries_key])) {

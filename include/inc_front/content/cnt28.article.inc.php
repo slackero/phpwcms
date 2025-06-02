@@ -37,7 +37,7 @@ $CNT_TMP .= headline($crow["acontent_title"], $crow["acontent_subtitle"], $templ
 
 if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/felogin/'.$crow["acontent_template"])) {
 
-    $_loginData                     = @unserialize($crow["acontent_form"]);
+    $_loginData                     = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
     $_loginData['template']         = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_cntpart/felogin/'.$crow["acontent_template"]) );
 

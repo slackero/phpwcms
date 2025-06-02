@@ -40,7 +40,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html_specialchars($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 
-$crow["acontent_form"] = @unserialize($crow["acontent_form"]);
+$crow["acontent_form"] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 $crow["acontent_form"] = isset($crow["acontent_form"]['ctext_format']) ? $crow["acontent_form"]['ctext_format'] : 'plain';
 
 switch($crow["acontent_form"]) {

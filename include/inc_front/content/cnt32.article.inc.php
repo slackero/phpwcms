@@ -19,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // tabs
 $tabs = array();
-$tabs['tabs'] = @unserialize($crow["acontent_form"]);
+$tabs['tabs'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 unset($tabs['tabs']['tabwysiwygoff']);
 
 $tabs['tab_fieldgroup'] = empty($tabs['tabs']['tab_fieldgroup']) ? '' : $tabs['tabs']['tab_fieldgroup'];
