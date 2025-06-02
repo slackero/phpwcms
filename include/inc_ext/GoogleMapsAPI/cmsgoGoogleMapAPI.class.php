@@ -1608,13 +1608,11 @@ class GoogleMapAPI
             case 'YAHOO':
             default:
 
-                $_url = sprintf(''http://%s/MapsService/V1/geocode'?appid=%s&location=%s',$this->lookup_server['YAHOO'],$this->app_id,rawurlencode($address));
+                $_url = sprintf('https://%s/MapsService/V1/geocode?appid=%s&location=%s', $this->lookup_server['YAHOO'], $this->app_id,rawurlencode($address));
 
-                if ($_result = $this->fetchURL($_url)) {
-                    if (preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
-                        $_coords['lon'] = $_match[2];
-                        $_coords['lat'] = $_match[1];
-                    }
+                if (($_result = $this->fetchURL($_url)) && preg_match('!<Latitude>(.*)</Latitude><Longitude>(.*)</Longitude>!U', $_result, $_match)) {
+                    $_coords['lon'] = $_match[2];
+                    $_coords['lat'] = $_match[1];
                 }
 
                 break;
