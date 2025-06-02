@@ -26,7 +26,7 @@ class Conditional
      *        AVERAGEIF(range,condition[, average_range])
      *
      * @param mixed $range Data values, expect array
-     * @param null|array|string $condition the criteria that defines which cells will be checked
+     * @param null|mixed[]|string $condition the criteria that defines which cells will be checked
      * @param mixed $averageRange Data values
      */
     public static function AVERAGEIF(mixed $range, null|array|string $condition, mixed $averageRange = []): null|int|float|string
@@ -59,8 +59,9 @@ class Conditional
     {
         if (empty($args)) {
             return 0.0;
-        } elseif (count($args) === 3) {
-            return self::AVERAGEIF($args[1], $args[2], $args[0]);
+        }
+        if (count($args) === 3) {
+            return self::AVERAGEIF($args[1], $args[2], $args[0]); //* @phpstan-ignore-line
         }
         foreach ($args as $arg) {
             if (is_array($arg) && array_key_exists(0, $arg)) {
@@ -83,7 +84,7 @@ class Conditional
      *        COUNTIF(range,condition)
      *
      * @param mixed $range Data values, expect array
-     * @param null|array|string $condition the criteria that defines which cells will be counted
+     * @param null|mixed[]|string $condition the criteria that defines which cells will be counted
      */
     public static function COUNTIF(mixed $range, null|array|string $condition): string|int
     {
@@ -233,7 +234,11 @@ class Conditional
         return DSum::evaluate($database, self::VALUE_COLUMN_NAME, $conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditionSet(...$args): array
     {
         $conditions = self::buildConditions(1, ...$args);
@@ -241,7 +246,11 @@ class Conditional
         return array_map(null, ...$conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditionSetForValueRange(...$args): array
     {
         $conditions = self::buildConditions(2, ...$args);
@@ -256,7 +265,11 @@ class Conditional
         return array_map(null, ...$conditions);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[][]
+     */
     private static function buildConditions(int $startOffset, ...$args): array
     {
         $conditions = [];
@@ -271,7 +284,11 @@ class Conditional
         return $conditions;
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDatabase(...$args): array
     {
         $database = [];
@@ -279,7 +296,11 @@ class Conditional
         return self::buildDataSet(0, $database, ...$args);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDatabaseWithValueRange(...$args): array
     {
         $database = [];
@@ -291,7 +312,12 @@ class Conditional
         return self::buildDataSet(1, $database, ...$args);
     }
 
-    /** @param array $args */
+    /**
+     * @param mixed[][] $database
+     * @param mixed[] $args
+     *
+     * @return mixed[]
+     */
     private static function buildDataSet(int $startOffset, array $database, ...$args): array
     {
         $pairCount = 1;
@@ -307,6 +333,12 @@ class Conditional
         return array_map(null, ...$database);
     }
 
+    /**
+     * @param mixed[] $range
+     * @param mixed[] $valueRange
+     *
+     * @return mixed[]
+     */
     private static function databaseFromRangeAndValue(array $range, array $valueRange = []): array
     {
         $range = Functions::flattenArray($range);
