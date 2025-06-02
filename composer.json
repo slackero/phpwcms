@@ -43,8 +43,7 @@
         "ext-ctype": "*",
         "ext-simplexml": "*",
         "ext-curl": "*"
-    }
-    ,
+    },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "phpstan/phpstan": "^2.1.17"

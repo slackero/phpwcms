@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'ec931c3c75ab4864157d953eab3e60825847f565',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '1bb8f32b619a4902cfc4f76740276c6daf23c8e5',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'ec931c3c75ab4864157d953eab3e60825847f565',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '1bb8f32b619a4902cfc4f76740276c6daf23c8e5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -244,15 +244,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'phpstan/phpstan' => array(
-            'pretty_version' => '2.1.17',
-            'version' => '2.1.17.0',
-            'reference' => '89b5ef665716fa2a52ecd2633f21007a6a349053',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpstan/phpstan',
-            'aliases' => array(),
-            'dev_requirement' => true,
-        ),
         'psr/event-dispatcher' => array(
             'pretty_version' => '1.0.0',
             'version' => '1.0.0.0',
@@ -324,17 +315,6 @@
             'install_path' => __DIR__ . '/../ralouphie/getallheaders',
             'aliases' => array(),
             'dev_requirement' => false,
-        ),
-        'roave/security-advisories' => array(
-            'pretty_version' => 'dev-latest',
-            'version' => 'dev-latest',
-            'reference' => 'c6007a53027047b08044448c57571988ac9b6e93',
-            'type' => 'metapackage',
-            'install_path' => null,
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'dev_requirement' => true,
         ),
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
