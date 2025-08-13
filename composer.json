@@ -9,7 +9,7 @@
     "require": {
         "php": ">=8.2",
         "algo26-matthias/idna-convert": "^v4.2.0",
-        "enshrined/svg-sanitize": "^0.21.0",
+        "enshrined/svg-sanitize": "^0.22.0",
         "greew/oauth2-azure-provider": "^v2.0.0",
         "netcarver/textile": "v4.1.3",
         "league/commonmark": "^2.7.0",
