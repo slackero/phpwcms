@@ -1,5 +1,10 @@
 # Upgrading from previous versions
 
+## 4.2.0
+
+The extra dependency to ext/intl, accidentally introduced with v 4.1 is no longer required.
+
+
 ## 4.1.0
 
 It is strongly advised to install and configure either the 
@@ -31,6 +36,11 @@ When stating the IDNA version (2003 or 2008) one must always use an integer. Fro
 
 **BC break:**
 In older version labels containing characters prohibited according to NAMEPREP were silently ignored. Now we are throwing an `InvalidCharacterException`.
+
+
+## 3.2.0
+
+The extra dependency to ext/intl, accidentally introduced with v 3.1 is no longer required.
 
 
 ## 3.1.0

@@ -10,13 +10,13 @@ use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx\Namespaces;
 use PhpOffice\PhpSpreadsheet\RichText\RichText;
-use PhpOffice\PhpSpreadsheet\Settings;
 use PhpOffice\PhpSpreadsheet\Shared\StringHelper;
 use PhpOffice\PhpSpreadsheet\Shared\XMLWriter;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalColorScale;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
+use PhpOffice\PhpSpreadsheet\Style\Font;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
@@ -68,7 +68,6 @@ class Worksheet extends WriterPart
 
         // Worksheet
         $objWriter->startElement('worksheet');
-        $objWriter->writeAttribute('xml:space', 'preserve');
         $objWriter->writeAttribute('xmlns', Namespaces::MAIN);
         $objWriter->writeAttribute('xmlns:r', Namespaces::SCHEMA_OFFICE_DOCUMENT);
 
@@ -1431,19 +1430,26 @@ class Worksheet extends WriterPart
         $objWriter->endElement();
     }
 
-    private function writeCellInlineStr(XMLWriter $objWriter, string $mappedType, RichText|string $cellValue): void
+    private function writeCellInlineStr(XMLWriter $objWriter, string $mappedType, RichText|string $cellValue, ?Font $font): void
     {
         $objWriter->writeAttribute('t', $mappedType);
         if (!$cellValue instanceof RichText) {
             $objWriter->startElement('is');
-            $objWriter->writeElement(
-                't',
-                StringHelper::controlCharacterPHP2OOXML(htmlspecialchars($cellValue, Settings::htmlEntityFlags()))
+            $objWriter->startElement('t');
+            $textToWrite = StringHelper::controlCharacterPHP2OOXML(
+                $cellValue
             );
-            $objWriter->endElement();
+            if ($textToWrite !== trim($textToWrite)) {
+                $objWriter->writeAttribute('xml:space', 'preserve');
+            }
+            $objWriter->writeRawData($textToWrite);
+            $objWriter->endElement(); // t
+            $objWriter->endElement(); // is
         } else {
             $objWriter->startElement('is');
-            $this->getParentWriter()->getWriterPartstringtable()->writeRichText($objWriter, $cellValue);
+            $this->getParentWriter()
+                ->getWriterPartstringtable()
+                ->writeRichText($objWriter, $cellValue, null, $font);
             $objWriter->endElement();
         }
     }
@@ -1608,6 +1614,13 @@ class Worksheet extends WriterPart
         if (empty($xfi) && !$writeValue) {
             return;
         }
+        $styleArray = $this->getParentWriter()
+            ->getSpreadsheet()
+            ->getCellXfCollection();
+        $font = $styleArray[$xfi] ?? null;
+        if ($font !== null) {
+            $font = $font->getFont();
+        }
         $objWriter->startElement('c');
         $objWriter->writeAttribute('r', $cellAddress);
         $mappedType = $pCell->getDataType();
@@ -1638,7 +1651,7 @@ class Worksheet extends WriterPart
                 case 'inlinestr':    // Inline string
                     /** @var RichText|string */
                     $richText = $cellValue;
-                    $this->writeCellInlineStr($objWriter, $mappedType, $richText);
+                    $this->writeCellInlineStr($objWriter, $mappedType, $richText, $font);
 
                     break;
                 case 's':            // String

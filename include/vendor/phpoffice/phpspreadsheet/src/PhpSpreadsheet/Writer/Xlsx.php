@@ -5,6 +5,7 @@ namespace PhpOffice\PhpSpreadsheet\Writer;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\HashTable;
+use PhpOffice\PhpSpreadsheet\RichText\RichText;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Borders;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -249,6 +250,53 @@ class Xlsx extends BaseWriter
         return $this->writerPartWorksheet;
     }
 
+    public function createStyleDictionaries(): void
+    {
+        $this->styleHashTable->addFromSource(
+            $this->getWriterPartStyle()->allStyles(
+                $this->spreadSheet
+            )
+        );
+        $this->stylesConditionalHashTable->addFromSource(
+            $this->getWriterPartStyle()->allConditionalStyles(
+                $this->spreadSheet
+            )
+        );
+        $this->fillHashTable->addFromSource(
+            $this->getWriterPartStyle()->allFills(
+                $this->spreadSheet
+            )
+        );
+        $this->fontHashTable->addFromSource(
+            $this->getWriterPartStyle()->allFonts(
+                $this->spreadSheet
+            )
+        );
+        $this->bordersHashTable->addFromSource(
+            $this->getWriterPartStyle()->allBorders(
+                $this->spreadSheet
+            )
+        );
+        $this->numFmtHashTable->addFromSource(
+            $this->getWriterPartStyle()->allNumberFormats(
+                $this->spreadSheet
+            )
+        );
+    }
+
+    /**
+     * @return (RichText|string)[] $stringTable
+     */
+    public function createStringTable(): array
+    {
+        $this->stringTable = [];
+        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
+            $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
+        }
+
+        return $this->stringTable;
+    }
+
     /**
      * Save PhpSpreadsheet to file.
      *
@@ -269,18 +317,10 @@ class Xlsx extends BaseWriter
         Functions::setReturnDateType(Functions::RETURNDATE_EXCEL);
 
         // Create string lookup table
-        $this->stringTable = [];
-        for ($i = 0; $i < $this->spreadSheet->getSheetCount(); ++$i) {
-            $this->stringTable = $this->getWriterPartStringTable()->createStringTable($this->spreadSheet->getSheet($i), $this->stringTable);
-        }
+        $this->createStringTable();
 
         // Create styles dictionaries
-        $this->styleHashTable->addFromSource($this->getWriterPartStyle()->allStyles($this->spreadSheet));
-        $this->stylesConditionalHashTable->addFromSource($this->getWriterPartStyle()->allConditionalStyles($this->spreadSheet));
-        $this->fillHashTable->addFromSource($this->getWriterPartStyle()->allFills($this->spreadSheet));
-        $this->fontHashTable->addFromSource($this->getWriterPartStyle()->allFonts($this->spreadSheet));
-        $this->bordersHashTable->addFromSource($this->getWriterPartStyle()->allBorders($this->spreadSheet));
-        $this->numFmtHashTable->addFromSource($this->getWriterPartStyle()->allNumberFormats($this->spreadSheet));
+        $this->createStyleDictionaries();
 
         // Create drawing dictionary
         $this->drawingHashTable->addFromSource($this->getWriterPartDrawing()->allDrawings($this->spreadSheet));

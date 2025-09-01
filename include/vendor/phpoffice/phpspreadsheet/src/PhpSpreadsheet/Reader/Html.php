@@ -338,7 +338,7 @@ class Html extends BaseReader
     {
         $attributeArray = [];
         /** @var DOMAttr $attribute */
-        foreach ($child->attributes as $attribute) {
+        foreach (($child->attributes ?? []) as $attribute) {
             $attributeArray[$attribute->name] = $attribute->value;
         }
 
@@ -531,6 +531,9 @@ class Html extends BaseReader
                 $classes = explode(' ', $attributeArray['class']);
                 $sheet->setShowGridlines(in_array('gridlines', $classes, true));
                 $sheet->setPrintGridlines(in_array('gridlinesp', $classes, true));
+            }
+            if ('rtl' === ($attributeArray['dir'] ?? '')) {
+                $sheet->setRightToLeft(true);
             }
             $this->currentColumn = 'A';
             $this->flushCell($sheet, $column, $row, $cellContent, $attributeArray);
@@ -1126,7 +1129,7 @@ class Html extends BaseReader
         $name = $attributes['alt'] ?? null;
 
         $drawing = new Drawing();
-        $drawing->setPath($src, false);
+        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages);
         if ($drawing->getPath() === '') {
             return;
         }
