@@ -13,9 +13,11 @@ $phpwcms = ['SESSION_START' => true];
 $BL = [];
 
 // Check if config is still at the old position
-if(!is_file(__DIR__.'/include/config/conf.inc.php') && is_file(__DIR__.'/config/phpwcms/conf.inc.php')):
-    if(!@rename(__DIR__.'/config/phpwcms', __DIR__.'/include/config')):
-
+if(
+    !is_file(__DIR__ . '/include/config/conf.inc.php')
+    && is_file(__DIR__ . '/config/phpwcms/conf.inc.php')
+    && !@rename(__DIR__ . '/config/phpwcms', __DIR__ . '/include/config')
+):
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -46,8 +48,7 @@ if(!is_file(__DIR__.'/include/config/conf.inc.php') && is_file(__DIR__.'/config/
     </body>
 </html>
 <?php
-        die();
-    endif;
+    die();
 endif;
 
 require_once __DIR__.'/include/config/conf.inc.php';

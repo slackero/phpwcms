@@ -10,9 +10,9 @@
  **/
 
 $phpwcms = array();
-$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require_once $root.'/include/config/conf.inc.php';
-require_once $root.'/include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
 

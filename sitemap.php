@@ -12,13 +12,13 @@
 // build Google Sitemap based on available articles
 
 $phpwcms = array();
-require_once 'include/config/conf.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
 
 // set neccessary charset
 $phpwcms["charset"] = 'utf-8';
 define('CUSTOM_CONTENT_TYPE', 'Content-Type: text/xml');
 
-require_once 'include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
 define('VISIBLE_MODE', 0);
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';

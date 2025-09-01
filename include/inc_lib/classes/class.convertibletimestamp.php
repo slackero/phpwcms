@@ -173,8 +173,7 @@ class ConvertibleTimestamp {
 	 */
 	public static function convert( $style = TS_UNIX, $ts=0 ) {
 		try {
-			$ct = new static( $ts );
-			return $ct->getTimestamp( $style );
+            return (new static($ts))->getTimestamp( $style );
 		} catch ( Exception $e ) {
 			return false;
 		}

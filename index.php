@@ -21,16 +21,15 @@ $template_default   = array();
 $indexpage          = array();
 
 // load general configuration
-$basepath           = str_replace('\\', '/', dirname(__FILE__));
-if(!is_file($basepath.'/include/config/conf.inc.php')) {
-    if(is_file($basepath.'/setup/index.php')) {
+if(!is_file(__DIR__ . '/include/config/conf.inc.php')) {
+    if(is_file(__DIR__ . '/setup/index.php')) {
         header('Location: setup/index.php');
         exit();
     }
     die('Error: Config file missing. Check your setup!');
 }
-require_once $basepath.'/include/config/conf.inc.php';
-require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 

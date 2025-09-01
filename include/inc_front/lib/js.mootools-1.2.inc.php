@@ -61,7 +61,7 @@ function init_frontend_edit_js() {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string
+ * @return string|void
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
@@ -88,7 +88,7 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string
+ * @return string|void
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 

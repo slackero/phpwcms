@@ -10,8 +10,9 @@
  **/
 
 $phpwcms = array();
-require_once '../../include/config/conf.inc.php';
-require_once '../../include/inc_lib/default.inc.php';
+$DOCROOT = dirname(__DIR__, 2);
+require_once $DOCROOT . '/include/config/conf.inc.php';
+require_once $DOCROOT . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 

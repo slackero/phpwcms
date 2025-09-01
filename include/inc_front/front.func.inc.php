@@ -2118,7 +2118,7 @@ function get_keyword_link($keywords) {
         if(isset($result[0])) {
             if(count($result) === 1) {
                 // if only 1 article found
-                $link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($result[0])).'" title="'.html_specialchars($article_list[0]['article_title']).'">'.$keyword_list.'</a>';
+                $link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($result[0])).'" title="'.html_specialchars($result[0]['article_title']).'">'.$keyword_list.'</a>';
             } else {
                 // if more than one article found
                 foreach($result as $key => $value) {

@@ -44,11 +44,11 @@ function update_cache() {
 }
 
 function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
-    if($do == "chat" && $p == 1) {
+    if($do === "chat" && $p == 1) {
         echo "<script type=\"text/javascript\"> ";
         echo "document.sendchatmessage.chatmsg.focus(); document.sendchatmessage.chatmsg.value=get_cookie('chatstring');";
         echo "timer = chat_reload(20000); function chat_reload(zeit) {";
-        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
+        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?" . CSRF_GET_TOKEN . "&do=chat&p=1&l=" . urlencode($GLOBALS['chatlist'] ?? 0) . "'\", zeit);";
         echo "return timer;\n} function restart_reload(timer) {";
         echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
     }
@@ -705,8 +705,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     // new reserved alias can be defined in $phpwcms['reserved_alias']
-    if(isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias'])) {
-        $reserved = array_merge($reserved, $phpwcms['reserved_alias']);
+    if(isset($GLOBALS['phpwcms']['reserved_alias']) && is_array($GLOBALS['phpwcms']['reserved_alias']) && count($GLOBALS['phpwcms']['reserved_alias'])) {
+        $reserved = array_merge($reserved, $GLOBALS['phpwcms']['reserved_alias']);
     }
 
     if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {

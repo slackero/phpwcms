@@ -10,8 +10,9 @@
  **/
 
 $phpwcms = array();
-require_once '../include/config/conf.inc.php';
-require_once '../include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 
 //Random Pic send to browser
 $imgpath = trim($_GET["imgdir"]);

@@ -10,11 +10,10 @@
  **/
 
 $phpwcms = array();
-$basepath = str_replace('\\', '/', dirname(__FILE__));
-require_once $basepath.'/include/config/conf.inc.php';
-require_once $basepath.'/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 
 // database accessible again?
 if($is_mysql_error === false) {

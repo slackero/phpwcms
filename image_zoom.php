@@ -10,8 +10,8 @@
  **/
 
 $phpwcms = array();
-require_once('include/config/conf.inc.php');
-require_once('include/inc_lib/default.inc.php');
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
 
 $src = "img/leer.gif";
 $name = '';

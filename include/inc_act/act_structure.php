@@ -13,9 +13,9 @@
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 $phpwcms = array('SESSION_START' => true);
-
-require_once '../../include/config/conf.inc.php';
-require_once '../inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__, 2);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';

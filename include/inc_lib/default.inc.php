@@ -714,12 +714,6 @@ function buildGlobalGET($return = '') {
         $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
     }
 
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        foreach ($GLOBALS['_getVar'] as $key => $value) {
-            $GLOBALS['_getVar'][$key] = stripslashes($value);
-        }
-    }
-
     if ($return === 'getQuery') {
         return returnGlobalGET_QueryString('htmlentities');
     }

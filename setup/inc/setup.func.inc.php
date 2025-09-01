@@ -11,7 +11,7 @@
 
 //setup functions
 
-$DOCROOT = rtrim(str_replace('\\', '/', dirname(__FILE__, 3)), '/');
+$DOCROOT = dirname(__DIR__, 2);
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
@@ -95,9 +95,6 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (!PHP7 && get_magic_quotes_gpc()) {
-        $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
-    }
     if ($string_laenge) {
         $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
     }
@@ -108,9 +105,6 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (!PHP7 && get_magic_quotes_gpc()) {
-        $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
-    }
     $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
     if ($string_laenge) {
         $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);

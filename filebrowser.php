@@ -21,13 +21,12 @@
  */
 
 $phpwcms            = array('SESSION_START' => true);
-$phpwcms_root       = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 $js_files_all       = array();
 $js_files_select    = array();
 
-require_once $phpwcms_root.'/include/config/conf.inc.php';
-require_once $phpwcms_root.'/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 
 if( empty($_SESSION["wcs_user_lang"]) ) {
 

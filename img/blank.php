@@ -12,9 +12,9 @@
 // tracking pixel
 
 $phpwcms = array();
-$root = rtrim(str_replace('\\', '/', realpath(dirname(__FILE__).'/../') ), '/').'/';
-require_once $root.'/include/config/conf.inc.php';
-require_once $root.'/include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 
 // first check
 if(!empty($_GET['t']) && isset($_GET['u']) && $_GET['u'] == PHPWCMS_USER_KEY) {

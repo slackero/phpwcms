@@ -574,8 +574,8 @@ function defang(&$attvalue){
  * makers of the browser with 95% market value decided that it'd
  * be funny to make "java[tab]script" be just as good as "javascript".
  *
- * @param  attvalue  The attribute value before extraneous spaces removed.
- * @return attvalue  Nothing, modifies a reference value.
+ * @param  string $attvalue  The attribute value before extraneous spaces removed.
+ * @return void Nothing, modifies a reference value.
  */
 function unspace(&$attvalue){
     $me = 'unspace';

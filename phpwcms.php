@@ -21,7 +21,7 @@ $indexpage                  = array();
 $phpwcms                    = array('SESSION_START' => true);
 $BL                         = array();
 $BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
-$PHPWCMS_ROOT               = dirname(__FILE__);
+$PHPWCMS_ROOT               = __DIR__;
 
 require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
 require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
@@ -208,7 +208,7 @@ if($subnav) {
 //Wenn der User kein Admin ist, anderenfalls
 if(empty($_SESSION["wcs_user_admin"])) {
     unset($wcsnav["admin"]);
-} elseif($do  == "admin") {
+} elseif($do === "admin") {
     $wcsnav["admin"] = '<strong class="navtexta">'.$wcsnav["admin"].'</strong>';
 }
 
