@@ -4573,5 +4573,5 @@ function parse_textile(string $text) {
         return '';
     }
     init_textile();
-    return $GLOBALS['phpwcms']['textile_class']->textileThis($text);
+    return $GLOBALS['phpwcms']['textile_class']->parse($text);
 }
