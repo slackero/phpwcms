@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '5e0c68f59b627dc30e88d4fc5e168e5fe3c8a252',
+        'reference' => '151ae247fbcc79d699523124e3fbc0e22bddde7b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '5e0c68f59b627dc30e88d4fc5e168e5fe3c8a252',
+            'reference' => '151ae247fbcc79d699523124e3fbc0e22bddde7b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -243,6 +243,15 @@
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'phpstan/phpstan' => array(
+            'pretty_version' => '2.1.22',
+            'version' => '2.1.22.0',
+            'reference' => '41600c8379eb5aee63e9413fe9e97273e25d57e4',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpstan/phpstan',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'psr/event-dispatcher' => array(
             'pretty_version' => '1.0.0',

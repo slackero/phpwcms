@@ -15,6 +15,7 @@ class ComposerStaticInit4b55c751baaf47512d22ca0465e5183a
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'fdc0e9724ddc47859c8bf0c1ea0a623a' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/constants.php',
         '9e71c1459ef1226520e4b26dac3a180d' => __DIR__ . '/..' . '/php81_bc/strftime/src/php-8.1-strftime.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'b686b8e46447868025a15ce5d0cb2634' => __DIR__ . '/..' . '/symfony/polyfill-php74/bootstrap.php',
