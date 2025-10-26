@@ -39,7 +39,7 @@ class SimplePie
     /**
      * SimplePie Version
      */
-    public const VERSION = '1.8.0';
+    public const VERSION = '1.9.0';
 
     /**
      * SimplePie Website URL
@@ -545,7 +545,7 @@ class SimplePie
     public $input_encoding = false;
 
     /**
-     * @var self::LOCATOR_* Feed Autodiscovery Level
+     * @var int-mask-of<self::LOCATOR_*> Feed Autodiscovery Level
      * @see SimplePie::set_autodiscovery_level()
      * @access private
      */
@@ -1085,7 +1085,7 @@ class SimplePie
      * @see self::LOCATOR_REMOTE_EXTENSION
      * @see self::LOCATOR_REMOTE_BODY
      * @see self::LOCATOR_ALL
-     * @param self::LOCATOR_* $level Feed Autodiscovery Level (level can be a combination of the above constants, see bitwise OR operator)
+     * @param int-mask-of<self::LOCATOR_*> $level Feed Autodiscovery Level (level can be a combination of the above constants, see bitwise OR operator)
      * @return void
      */
     public function set_autodiscovery_level(int $level = self::LOCATOR_ALL)
@@ -1655,7 +1655,9 @@ class SimplePie
             if ($xml_is_sane === null) {
                 $parser_check = xml_parser_create();
                 xml_parse_into_struct($parser_check, '<foo>&amp;</foo>', $values);
-                xml_parser_free($parser_check);
+                if (\PHP_VERSION_ID < 80000) {
+                    xml_parser_free($parser_check);
+                }
                 $xml_is_sane = isset($values[0]['value']);
             }
             if (!$xml_is_sane) {

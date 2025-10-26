@@ -571,7 +571,7 @@ class Html extends BaseWriter
                         }
                         ++$column;
                         /** @var string $colStr */
-                        ++$colStr;
+                        StringHelper::stringIncrement($colStr);
                     }
                     $html .= $this->generateRow($sheet, $rowData, $row - 1, $cellType);
                 }
@@ -841,13 +841,12 @@ class Html extends BaseWriter
                     $totalHeight += ($height >= 0) ? $height : $defaultRowHeight;
                 }
                 $rightEdge = $brCoordinate[2];
-                ++$rightEdge;
+                StringHelper::stringIncrement($rightEdge);
                 for ($column = $tlCoordinate[2]; $column !== $rightEdge;) {
                     $width = $sheet->getColumnDimension($column)->getWidth();
                     $width = ($width < 0) ? self::DEFAULT_CELL_WIDTH_PIXELS : SharedDrawing::cellDimensionToPixels($sheet->getColumnDimension($column)->getWidth(), $this->defaultFont);
                     $totalWidth += $width;
-                    /** @var string $column */
-                    ++$column;
+                    StringHelper::stringIncrement($column);
                 }
                 $chart->setRenderedWidth($totalWidth);
                 $chart->setRenderedHeight($totalHeight);
@@ -941,7 +940,7 @@ class Html extends BaseWriter
             if ($this->shouldGenerateColumn($sheet, $colStr)) {
                 $css['table.sheet' . $sheetIndex . ' col.col' . $column]['width'] = self::DEFAULT_CELL_WIDTH_POINTS . 'pt';
             }
-            ++$colStr;
+            StringHelper::stringIncrement($colStr);
         }
 
         // col elements, loop through columnDimensions and set width

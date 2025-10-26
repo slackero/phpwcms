@@ -39,14 +39,14 @@ include/config.codekit3
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
 # Required for dev only
-/include/vendor/rector
-/include/vendor/phpstan
-/include/vendor/bin/phpstan
-/include/vendor/bin/phpstan.phar
-/include/vendor/bin/rector
-/rector.php
-/include/vendor/bin
-/include/vendor/dealerdirect
-/include/vendor/phpcompatibility
-/include/vendor/phpcsstandards
-/include/vendor/squizlabs
+#/include/vendor/rector
+#/include/vendor/phpstan
+#/include/vendor/bin/phpstan
+#/include/vendor/bin/phpstan.phar
+#/include/vendor/bin/rector
+#/rector.php
+#/include/vendor/bin
+#/include/vendor/dealerdirect
+#/include/vendor/phpcompatibility
+#/include/vendor/phpcsstandards
+#/include/vendor/squizlabs
