@@ -10,7 +10,7 @@
 
 require_once(CMSGO_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('CMSGO_JSLIB', 'jquery-3.0');
+const CMSGO_JSLIB = 'jquery-3.0';
 
 /**
  * Init jQuery 3.0.x Library

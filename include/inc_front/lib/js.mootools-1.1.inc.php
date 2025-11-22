@@ -8,7 +8,7 @@
  *
  **/
 
-define('CMSGO_JSLIB', 'mootools-1.1');
+const CMSGO_JSLIB = 'mootools-1.1';
 
 /**
  * Init Mootools 1.1.x Library
@@ -62,7 +62,7 @@ function init_frontend_edit_js() {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string
+ * @return string|void
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
@@ -89,7 +89,7 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string
+ * @return string|void
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
@@ -113,7 +113,6 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
  * Simple MooTools Plugin Loader
  *
  * @param   string  $plugin
- * @param   false   $more
  *
  * @return bool
  */

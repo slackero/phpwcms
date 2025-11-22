@@ -10,7 +10,7 @@
 
 require_once(CMSGO_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('CMSGO_JSLIB', 'jquery-3.7-slim');
+const CMSGO_JSLIB = 'jquery-3.7-slim';
 
 /**
  * Init jQuery Slim 3.7.x Library

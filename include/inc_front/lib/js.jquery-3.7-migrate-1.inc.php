@@ -10,7 +10,7 @@
 
 require_once(CMSGO_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('CMSGO_JSLIB', 'jquery-3.7-migrate-1');
+const CMSGO_JSLIB = 'jquery-3.7-migrate-1';
 
 /**
  * Init jQuery 3.7.x + jQuery Migrate 1.4.x & 3.4.x Library
@@ -26,16 +26,16 @@ function initJSLib() {
                 $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA.'://code.jquery.com/jquery-3.7.1.min.js');
             }
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA.'://code.jquery.com/jquery-migrate-1.4.1.min.js');
-            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA.'://code.jquery.com/jquery-migrate-3.4.0.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA.'://code.jquery.com/jquery-migrate-3.5.2.min.js');
         } elseif(IE8_CC) {
             $GLOBALS['block']['custom_htmlhead']['jquery-1.12.min.js'] = '  <!--[if lt IE 9]>' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-1.12.4.min.js', '') . '<![endif]-->';
             $GLOBALS['block']['custom_htmlhead']['jquery.js'] = '  <!--[if gte IE 9]><!-->' . getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.7.1.min.js', '') . '<!--<![endif]-->';
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-1.4.1.min.js');
-            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.4.0.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.5.2.min.js');
         } else {
             $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-3.7.1.min.js');
             $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-1.4.1.min.js');
-            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.4.0.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery-migrate-3.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-migrate-3.5.2.min.js');
         }
     }
     return true;

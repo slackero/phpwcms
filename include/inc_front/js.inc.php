@@ -122,11 +122,11 @@ function renderHeadJS($js) {
 
         }
 
-    } elseif($js == 'initJSLib') {
+    } elseif($js === 'initJSLib') {
 
         initJSLib();
 
-    } elseif($remote || which_ext($js) == 'js') { // decide if plugin or script
+    } elseif($remote || which_ext($js) === 'js') { // decide if plugin or script
 
             // replace {TEMPLATE}
             $js     = str_replace('{TEMPLATE}', TEMPLATE_PATH, $js);
@@ -136,7 +136,7 @@ function renderHeadJS($js) {
 
         initJSLib();
 
-        if(strtolower($js) != 'initlib') {
+        if(strtolower($js) !== 'initlib') {
             initJSPlugin($js);
         }
     }

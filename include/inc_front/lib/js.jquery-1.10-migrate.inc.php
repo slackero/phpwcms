@@ -10,7 +10,7 @@
 
 require_once(CMSGO_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('CMSGO_JSLIB', 'jquery-1.10-migrate');
+const CMSGO_JSLIB = 'jquery-1.10-migrate';
 
 /**
  * Init jQuery 1.10.x + jQuery Migrate Library
