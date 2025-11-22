@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '75d1b07c9fe498ee87f380b26a75ea17c41014c9',
+        'reference' => '2c8a3fecf60c044ab8d3507823e75a8e65be27e0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '75d1b07c9fe498ee87f380b26a75ea17c41014c9',
+            'reference' => '2c8a3fecf60c044ab8d3507823e75a8e65be27e0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -191,9 +191,9 @@
             'dev_requirement' => false,
         ),
         'nette/schema' => array(
-            'pretty_version' => 'v1.3.2',
-            'version' => '1.3.2.0',
-            'reference' => 'da801d52f0354f70a638673c4a0f04e16529431d',
+            'pretty_version' => 'v1.3.3',
+            'version' => '1.3.3.0',
+            'reference' => '2befc2f42d7c715fd9d95efc31b1081e5d765004',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nette/schema',
             'aliases' => array(),
@@ -236,18 +236,18 @@
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '5.1.0',
-            'version' => '5.1.0.0',
-            'reference' => 'fd26e45a814e94ae2aad0df757d9d1739c4bf2e0',
+            'pretty_version' => '5.2.0',
+            'version' => '5.2.0.0',
+            'reference' => '3b8994b3aac4b61018bc04fc8c441f4fd68c18eb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '2.1.31',
-            'version' => '2.1.31.0',
-            'reference' => 'ead89849d879fe203ce9292c6ef5e7e76f867b96',
+            'pretty_version' => '2.1.32',
+            'version' => '2.1.32.0',
+            'reference' => 'e126cad1e30a99b137b8ed75a85a676450ebb227',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -328,7 +328,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'd8a6a765b23a6877089086ead3d4d415a3310068',
+            'reference' => 'f5a58d09ea64ab1d080876ee3abbd3b90dd022d6',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -339,7 +339,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '48788f4ca714017eb70a2755d8f0c3eee1f5c0a0',
+            'reference' => '92bc715d126ae53d98577cdb5a6903af47b9138e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(

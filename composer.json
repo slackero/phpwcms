@@ -17,7 +17,7 @@
         "ezyang/htmlpurifier": "^v4.19.0",
         "openpsa/universalfeedcreator": "^v1.9.0",
         "phpmailer/phpmailer": "^v7.0.0",
-        "phpoffice/phpspreadsheet": "^5.1.0",
+        "phpoffice/phpspreadsheet": "^5.2.0",
         "simplepie/simplepie": "@dev",
         "html2text/html2text": "^4.3.2",
         "php81_bc/strftime": "^0.7.6",
@@ -46,7 +46,7 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "^2.1.31"
+        "phpstan/phpstan": "^2.1.32"
     },
     "scripts": {
         "phpstan": "phpstan analyse"
