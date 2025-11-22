@@ -33,6 +33,7 @@ class CalculationLocale extends CalculationBase
      */
     protected static string $localeArgumentSeparator = ',';
 
+    /** @var string[] */
     protected static array $localeFunctions = [];
 
     /**
@@ -62,6 +63,11 @@ class CalculationLocale extends CalculationBase
             $filename = substr($filename, strlen($localeFileDirectory));
             if ($filename != 'en') {
                 self::$validLocaleLanguages[] = $filename;
+                $subdirs = glob("$localeFileDirectory$filename/*", GLOB_ONLYDIR) ?: [];
+                foreach ($subdirs as $subdir) {
+                    $subdirx = basename($subdir);
+                    self::$validLocaleLanguages[] = "{$filename}_{$subdirx}";
+                }
             }
         }
     }
@@ -271,6 +277,10 @@ class CalculationLocale extends CalculationBase
         return $formula;
     }
 
+    /**
+     * @param string[] $from
+     * @param string[] $to
+     */
     protected static function translateFormulaBlock(
         array $from,
         array $to,
@@ -295,6 +305,10 @@ class CalculationLocale extends CalculationBase
         return $formula;
     }
 
+    /**
+     * @param string[] $from
+     * @param string[] $to
+     */
     protected static function translateFormula(array $from, array $to, string $formula, string $fromSeparator, string $toSeparator): string
     {
         // Convert any Excel function names and constant names to the required language;
@@ -327,8 +341,10 @@ class CalculationLocale extends CalculationBase
         return $formula;
     }
 
+    /** @var null|string[] */
     private static ?array $functionReplaceFromExcel;
 
+    /** @var null|string[] */
     private static ?array $functionReplaceToLocale;
 
     public function translateFormulaToLocale(string $formula): string
@@ -364,8 +380,10 @@ class CalculationLocale extends CalculationBase
         );
     }
 
+    /** @var null|string[] */
     protected static ?array $functionReplaceFromLocale;
 
+    /** @var null|string[] */
     protected static ?array $functionReplaceToExcel;
 
     public function translateFormulaToEnglish(string $formula): string
