@@ -8,7 +8,7 @@
  *
  **/
 
-define('CMSGO_JSLIB', 'mootools-1.2');
+const CMSGO_JSLIB = 'mootools-1.2';
 
 /**
  * Init Mootools 1.2.x Library

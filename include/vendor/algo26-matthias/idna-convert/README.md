@@ -2,9 +2,6 @@
 
 ![latest stable version](https://img.shields.io/github/tag/algo26-matthias/idna-convert.svg)
 
-Project homepage: <http://idnaconv.net><br>
-by Matthias Sommerfeld <matthias.sommerfeld@algo26.de><br>
-
 ## Introduction
 
 The library IdnaConvert allows to convert internationalized domain names (see 
@@ -31,13 +28,6 @@ Unicode strings are expected to be UTF-8 strings. ACE strings (the Punycode form
 ```
 composer require algo26-matthias/idna-convert
 ```
-**Important note:** To cover all possible supported characters you will need to have either PHP's 
-[Internationalization Functions](https://www.php.net/manual/en/book.intl.php) or 
-[Multibyte Strings](https://www.php.net/manual/de/book.mbstring.php) 
-extension installed and configured. _Intl_ is preferred.
-
-**⚠ If neither of these are available you might experience wrong results!** 
-
 
 ### Official ZIP Package
 
@@ -212,17 +202,3 @@ in you local command line and see the output of PHPUnit.
 ## Reporting bugs
 
 Please use the [issues tab on GitHub](https://github.com/algo26-matthias/idna-convert/issues) to report any bugs or feature requests.
-
-## Contact the author
-
-For questions, bug reports and security issues just drop me a line.
-
-algo26 Beratungs GmbH<br>
-c/o Matthias Sommerfeld<br>
-Zedernweg 1<br>
-D-16348 Wandlitz<br>
-<br>
-Germany<br>
-<br>
-mailto:matthias.sommerfeld@algo26.de
-

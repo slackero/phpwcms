@@ -41,6 +41,19 @@ CKEDITOR.editorConfig = function( config ) {
     { name: 'about', items: [ 'About' ] }
   ];
 
+  /*
+  config.allowedContent = {
+      script: true,
+      $1: {
+          // This will set the default set of elements
+          elements: CKEDITOR.dtd,
+          attributes: true,
+          styles: true,
+          classes: true
+      }
+  };
+  */
+
   // Remove some buttons, provided by the standard plugins, which we don't
   // need to have in the Standard(s) toolbar.
   //config.removeButtons = 'Copy,Iframe,Flash,Smiley,PageBreak,FontSize,Save,Print,NewPage,Preview,Templates,PasteFromWord,PasteText';

@@ -10,7 +10,7 @@
 
 require_once(CMSGO_ROOT.'/include/inc_front/lib/js.jquery.default.php');
 
-define('CMSGO_JSLIB', 'jquery-2.2');
+const CMSGO_JSLIB = 'jquery-2.2';
 
 /**
  * Init jQuery 2.2.x Library

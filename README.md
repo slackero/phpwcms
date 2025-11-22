@@ -11,7 +11,7 @@ cmsGO! is created and maintained by [pixels & points](https://pixels-points.ch).
 Server system requirements
 --------------------------
 
-**cmsGO!** version 2.4.12 requires a web server with PHP (minimum version 8.2)
+**cmsGO!** version 2.4.13 requires a web server with PHP (minimum version 8.2)
 and a MySQL database (minimum version 5.1, recommend 5.5+).
 **This branch is compatible to PHP 8.2+**
 

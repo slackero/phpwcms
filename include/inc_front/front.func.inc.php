@@ -4609,5 +4609,5 @@ function parse_textile(string $text) {
         return '';
     }
     init_textile();
-    return $GLOBALS['cmsgo']['textile_class']->textileThis($text);
+    return $GLOBALS['cmsgo']['textile_class']->parse($text);
 }
