@@ -3,7 +3,6 @@
 .slick-slider {
     position: relative;
     display: block;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -45,6 +44,8 @@
     left: 0;
     top: 0;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 
     &:before,
     &:after {
@@ -64,6 +65,7 @@
     float: left;
     height: 100%;
     min-height: 1px;
+    display: none;
     [dir="rtl"] & {
         float: right;
     }
@@ -73,8 +75,6 @@
     &.slick-loading img {
         display: none;
     }
-
-    display: none;
 
     &.dragging img {
         pointer-events: none;
