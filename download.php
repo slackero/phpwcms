@@ -11,13 +11,13 @@
 
 $phpwcms = array();
 
-require_once 'include/config/conf.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
 
 if( !empty($phpwcms['SESSION_FEinit']) ) {
     $phpwcms['SESSION_START'] = true;
 }
 
-require_once 'include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';

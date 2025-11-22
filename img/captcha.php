@@ -10,8 +10,9 @@
  **/
 
 $phpwcms = array();
-require_once '../include/config/conf.inc.php';
-require_once '../include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_ext/SPAF_FormValidator.class.php';
 
 $spaf_obj = new SPAF_FormValidator();

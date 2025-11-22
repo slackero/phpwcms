@@ -61,6 +61,19 @@ class Xlsx extends BaseReader
     /** @var SharedFormula[] */
     private array $sharedFormulae = [];
 
+    private bool $parseHuge = false;
+
+    /**
+     * Allow use of LIBXML_PARSEHUGE.
+     * This option can lead to memory leaks and failures,
+     * and is not recommended. But some very large spreadsheets
+     * seem to require it.
+     */
+    public function setParseHuge(bool $parseHuge): void
+    {
+        $this->parseHuge = $parseHuge;
+    }
+
     /**
      * Create a new Xlsx Reader instance.
      */
@@ -124,8 +137,8 @@ class Xlsx extends BaseReader
         }
         $rels = @simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
-            'SimpleXMLElement',
-            0,
+            SimpleXMLElement::class,
+            $this->parseHuge ? LIBXML_PARSEHUGE : 0,
             $ns
         );
 
@@ -139,8 +152,8 @@ class Xlsx extends BaseReader
         $contents = $this->getFromZipArchive($this->zip, $filename);
         $rels = simplexml_load_string(
             $this->getSecurityScannerOrThrow()->scan($contents),
-            'SimpleXMLElement',
-            0,
+            SimpleXMLElement::class,
+            $this->parseHuge ? LIBXML_PARSEHUGE : 0,
             ($ns === '' ? $ns : '')
         );
 
@@ -259,7 +272,9 @@ class Xlsx extends BaseReader
                                         $this->zip,
                                         $fileWorksheetPath
                                     )
-                                )
+                                ),
+                            null,
+                            $this->parseHuge ? LIBXML_PARSEHUGE : 0
                         );
                         $xml->setParserProperty(2, true);
 
@@ -434,6 +449,12 @@ class Xlsx extends BaseReader
                 $relTarget = substr($relTarget, 4);
             }
             switch ($rel['Type']) {
+                case "$xmlNamespaceBase/sheetMetadata":
+                    if ($this->fileExistsInArchive($zip, "xl/{$relTarget}")) {
+                        $excel->returnArrayAsArray();
+                    }
+
+                    break;
                 case "$xmlNamespaceBase/theme":
                     if (!$this->fileExistsInArchive($zip, "xl/{$relTarget}")) {
                         break; // issue3770
@@ -655,7 +676,11 @@ class Xlsx extends BaseReader
 
                             // add style to cellXf collection
                             $objStyle = new Style();
-                            $this->styleReader->readStyle($objStyle, $style);
+                            $this->styleReader
+                                ->readStyle($objStyle, $style);
+                            foreach ($this->styleReader->getFontCharsets() as $fontName => $charset) {
+                                $excel->addFontCharset($fontName, $charset);
+                            }
                             if ($addingFirstCellXf) {
                                 $excel->removeCellXfByIndex(0); // remove the default style
                                 $addingFirstCellXf = false;
@@ -759,6 +784,7 @@ class Xlsx extends BaseReader
 
                     $charts = $chartDetails = [];
 
+                    $sheetCreated = false;
                     if ($xmlWorkbookNS->sheets) {
                         foreach ($xmlWorkbookNS->sheets->sheet as $eleSheet) {
                             $eleSheetAttr = self::getAttributes($eleSheet);
@@ -785,6 +811,7 @@ class Xlsx extends BaseReader
 
                             // Load sheet
                             $docSheet = $excel->createSheet();
+                            $sheetCreated = true;
                             //    Use false for $updateFormulaCellReferences to prevent adjustment of worksheet
                             //        references in formula cells... during the load, all formulae should be correct,
                             //        and we're simply bringing the worksheet name in line with the formula, not the
@@ -1052,7 +1079,8 @@ class Xlsx extends BaseReader
                                             $childNode = $node->addChild('formula1');
                                             if ($childNode !== null) { // null should never happen
                                                 // see https://github.com/phpstan/phpstan/issues/8236
-                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f; // @phpstan-ignore-line
+                                                // resolved with Phpstan 2.1.23
+                                                $childNode[0] = (string) $item->formula1->children(Namespaces::DATA_VALIDATIONS2)->f;
                                             }
                                         }
                                     }
@@ -1177,7 +1205,10 @@ class Xlsx extends BaseReader
                                     $shapes = self::xpathNoFalse($vmlCommentsFile, '//v:shape');
                                     foreach ($shapes as $shape) {
                                         /** @var SimpleXMLElement $shape */
-                                        $shape->registerXPathNamespace('v', Namespaces::URN_VML);
+                                        $vmlNamespaces = $shape->getNamespaces();
+                                        $shape->registerXPathNamespace('v', $vmlNamespaces['v'] ?? Namespaces::URN_VML);
+                                        $shape->registerXPathNamespace('x', $vmlNamespaces['x'] ?? Namespaces::URN_EXCEL);
+                                        $shape->registerXPathNamespace('o', $vmlNamespaces['o'] ?? Namespaces::URN_MSOFFICE);
 
                                         if (isset($shape['style'])) {
                                             $style = (string) $shape['style'];
@@ -1202,6 +1233,7 @@ class Xlsx extends BaseReader
                                                 $clientData = $clientData[0];
 
                                                 if (isset($clientData['ObjectType']) && (string) $clientData['ObjectType'] == 'Note') {
+                                                    $clientData->registerXPathNamespace('x', $vmlNamespaces['x'] ?? Namespaces::URN_EXCEL);
                                                     $temp = $clientData->xpath('.//x:Row');
                                                     if (is_array($temp)) {
                                                         $row = $temp[0];
@@ -1250,7 +1282,7 @@ class Xlsx extends BaseReader
                                                 // Set comment properties
                                                 $comment = $docSheet->getComment([(int) $column + 1, (int) $row + 1]);
                                                 $comment->getFillColor()->setRGB($fillColor);
-                                                if (isset($drowingImages[$fillImageRelId])) {
+                                                if (isset($fillImageRelId, $drowingImages[$fillImageRelId])) {
                                                     $objDrawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
                                                     $objDrawing->setName($fillImageTitle);
                                                     $imagePath = str_replace(['../', '/xl/'], 'xl/', $drowingImages[$fillImageRelId]);
@@ -1489,7 +1521,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -1593,7 +1625,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -1872,6 +1904,9 @@ class Xlsx extends BaseReader
                             }
                         }
                     }
+                    if ($this->createBlankSheetIfNoneRead && !$sheetCreated) {
+                        $excel->createSheet();
+                    }
 
                     (new WorkbookView($excel))->viewSettings($xmlWorkbook, $mainNS, $mapSheetId, $this->readDataOnly);
 
@@ -2043,7 +2078,9 @@ class Xlsx extends BaseReader
             // exists and not empty if the ribbon have some pictures (other than internal MSO)
             $UIRels = simplexml_load_string(
                 $this->getSecurityScannerOrThrow()
-                    ->scan($dataRels)
+                    ->scan($dataRels),
+                SimpleXMLElement::class,
+                $this->parseHuge ? LIBXML_PARSEHUGE : 0
             );
             if (false !== $UIRels) {
                 // we need to save id and target to avoid parsing customUI.xml and "guess" if it's a pseudo callback who load the image
@@ -2168,22 +2205,78 @@ class Xlsx extends BaseReader
             return;
         }
 
-        $excel->getSecurity()->setLockRevision(self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision'));
-        $excel->getSecurity()->setLockStructure(self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure'));
-        $excel->getSecurity()->setLockWindows(self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows'));
+        $security = $excel->getSecurity();
+        $security->setLockRevision(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockRevision')
+        );
+        $security->setLockStructure(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockStructure')
+        );
+        $security->setLockWindows(
+            self::getLockValue($xmlWorkbook->workbookProtection, 'lockWindows')
+        );
 
         if ($xmlWorkbook->workbookProtection['revisionsPassword']) {
-            $excel->getSecurity()->setRevisionsPassword(
+            $security->setRevisionsPassword(
                 (string) $xmlWorkbook->workbookProtection['revisionsPassword'],
                 true
             );
         }
+        if ($xmlWorkbook->workbookProtection['revisionsAlgorithmName']) {
+            $security->setRevisionsAlgorithmName(
+                (string) $xmlWorkbook->workbookProtection['revisionsAlgorithmName']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsSaltValue']) {
+            $security->setRevisionsSaltValue(
+                (string) $xmlWorkbook->workbookProtection['revisionsSaltValue'],
+                false
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsSpinCount']) {
+            $security->setRevisionsSpinCount(
+                (int) $xmlWorkbook->workbookProtection['revisionsSpinCount']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['revisionsHashValue']) {
+            if ($security->advancedRevisionsPassword()) {
+                $security->setRevisionsPassword(
+                    (string) $xmlWorkbook->workbookProtection['revisionsHashValue'],
+                    true
+                );
+            }
+        }
 
         if ($xmlWorkbook->workbookProtection['workbookPassword']) {
-            $excel->getSecurity()->setWorkbookPassword(
+            $security->setWorkbookPassword(
                 (string) $xmlWorkbook->workbookProtection['workbookPassword'],
                 true
             );
+        }
+
+        if ($xmlWorkbook->workbookProtection['workbookAlgorithmName']) {
+            $security->setWorkbookAlgorithmName(
+                (string) $xmlWorkbook->workbookProtection['workbookAlgorithmName']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookSaltValue']) {
+            $security->setWorkbookSaltValue(
+                (string) $xmlWorkbook->workbookProtection['workbookSaltValue'],
+                false
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookSpinCount']) {
+            $security->setWorkbookSpinCount(
+                (int) $xmlWorkbook->workbookProtection['workbookSpinCount']
+            );
+        }
+        if ($xmlWorkbook->workbookProtection['workbookHashValue']) {
+            if ($security->advancedPassword()) {
+                $security->setWorkbookPassword(
+                    (string) $xmlWorkbook->workbookProtection['workbookHashValue'],
+                    true
+                );
+            }
         }
     }
 
@@ -2463,10 +2556,9 @@ class Xlsx extends BaseReader
                         $lastCol = $firstCol;
                         $lastRow = $firstRow;
                     }
-                    ++$lastCol;
+                    StringHelper::stringIncrement($lastCol);
                     for ($row = $firstRow; $row <= $lastRow; ++$row) {
-                        for ($col = $firstCol; $col !== $lastCol; ++$col) {
-                            /** @var string $col */
+                        for ($col = $firstCol; $col !== $lastCol; StringHelper::stringIncrement($col)) {
                             if (!$cellCollection->has2("$col$row")) {
                                 continue;
                             }

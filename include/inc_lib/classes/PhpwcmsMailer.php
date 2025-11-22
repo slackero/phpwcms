@@ -209,7 +209,7 @@ class PhpwcmsMailer extends PHPMailer
                     $this->edebug('SMTP_HOST is empty or localhost, set Host to smtp.office365.com');
                     $this->Host = 'smtp.office365.com';
                 }
-                $this->edebug('Force Port to 465');
+                $this->edebug('Force Port to 587');
                 $this->Port = 587;
                 $this->edebug('Set SMTPSecure to tls');
                 $this->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;

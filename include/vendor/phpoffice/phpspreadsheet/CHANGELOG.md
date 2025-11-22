@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com)
-and this project adheres to [Semantic Versioning](https://semver.org).
+and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 4.4.0
+## TBD - 5.3.0
 
 ### Added
 
@@ -31,11 +31,124 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 - Nothing yet.
 
+## 2025-10-25 - 5.2.0
+
+### Added
+
+- This release should be usable with Php8.5 Release Candidates without deprecation messages.
+- Option to display numbers with less precision. [Issue #4626](https://github.com/PHPOffice/PhpSpreadsheet/issues/4626) [PR #4640](https://github.com/PHPOffice/PhpSpreadsheet/pull/4640)
+- Offer Tcpdf Interface which throws exception rather than die. [PR #4666](https://github.com/PHPOffice/PhpSpreadsheet/pull/4666)
+- Xls Reader ListWorksheetDimensions method. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
+
+### Deprecated
+
+- Worksheet::getHashInt serves no useful purpose. No replacement.
+- Spreadsheet::getId serves no useful purpose. No replacement.
+
+### Fixed
+
+- Performance improvement when working with large amounts of cells. [Issue #4607](https://github.com/PHPOffice/PhpSpreadsheet/issues/4607) [PR #4609](https://github.com/PHPOffice/PhpSpreadsheet/pull/4609)
+- Minor improvements to Calculation coverage. [PR #4624](https://github.com/PHPOffice/PhpSpreadsheet/pull/4624)
+- Conditional formatting in extLst. [Issue #4629](https://github.com/PHPOffice/PhpSpreadsheet/issues/4629) [PR #4633](https://github.com/PHPOffice/PhpSpreadsheet/pull/4633)
+- Php8.5 deprecates use of null as array index. [PR #4634](https://github.com/PHPOffice/PhpSpreadsheet/pull/4634)
+- Wrapped cells and default row height. [Issue #4584](https://github.com/PHPOffice/PhpSpreadsheet/issues/4584) [PR #4645](https://github.com/PHPOffice/PhpSpreadsheet/pull/4645)
+- For Php8.5, replace one of our two uses of `__wakeup` with `__unserialize`, and eliminate the other. [PR #4639](https://github.com/PHPOffice/PhpSpreadsheet/pull/4639)
+- Use prefix _xlfn for BASE function. [Issue #4638](https://github.com/PHPOffice/PhpSpreadsheet/issues/4638) [PR #4641](https://github.com/PHPOffice/PhpSpreadsheet/pull/4641)
+- Warning messages with corrupt Xls file. [Issue #4647](https://github.com/PHPOffice/PhpSpreadsheet/issues/4647) [PR #4648](https://github.com/PHPOffice/PhpSpreadsheet/pull/4648)
+- Additional support for union and intersection. [PR #4596](https://github.com/PHPOffice/PhpSpreadsheet/pull/4596)
+- Missing array keys x,o,v for Xml Reader. [Issue #4668](https://github.com/PHPOffice/PhpSpreadsheet/issues/4668) [PR #4669](https://github.com/PHPOffice/PhpSpreadsheet/pull/4669)
+- Missing array key x for Xlsx Reader VML. [Issue #4505](https://github.com/PHPOffice/PhpSpreadsheet/issues/4505) [PR #4676](https://github.com/PHPOffice/PhpSpreadsheet/pull/4676)
+- Better support for Style Alignment Read Order. [Issue #850](https://github.com/PHPOffice/PhpSpreadsheet/issues/850) [PR #4655](https://github.com/PHPOffice/PhpSpreadsheet/pull/4655)
+- More sophisticated workbook password algorithms (Xlsx only). [Issue #4673](https://github.com/PHPOffice/PhpSpreadsheet/issues/4673) [PR #4675](https://github.com/PHPOffice/PhpSpreadsheet/pull/4675)
+- Xls Writer fix DIMENSIONS record. [Issue #4682](https://github.com/PHPOffice/PhpSpreadsheet/issues/4682) [PR #4687](https://github.com/PHPOffice/PhpSpreadsheet/pull/4687)
+- Xls Reader listWorksheetInfo process MULRK records. [PR #4689](https://github.com/PHPOffice/PhpSpreadsheet/pull/4689)
+- Make Reader Xls Escher generic. [PR #4690](https://github.com/PHPOffice/PhpSpreadsheet/pull/4690)
+
+## 2025-09-03 - 5.1.0
+
+### Added
+
+- Add Conditional Formatting with IconSet (Xlsx only). [Issue #4560](https://github.com/PHPOffice/PhpSpreadsheet/issues/4560) [PR #4574](https://github.com/PHPOffice/PhpSpreadsheet/pull/4574)
+- Copy cell adjusting formula. [Issue #1203](https://github.com/PHPOffice/PhpSpreadsheet/issues/1203) [PR #4577](https://github.com/PHPOffice/PhpSpreadsheet/pull/4577)
+- splitRange and ProtectedRange. [Issue #1457](https://github.com/PHPOffice/PhpSpreadsheet/issues/1457) [PR #4580](https://github.com/PHPOffice/PhpSpreadsheet/pull/4580)
+- Option to create Blank Sheet if LoadSheetsOnly doesn't find any. [PR #4618](https://github.com/PHPOffice/PhpSpreadsheet/pull/4618)
+
+### Fixed
+
+- Google-only formulas exported from Google Sheets. [Issue #1637](https://github.com/PHPOffice/PhpSpreadsheet/issues/1637) [PR #4579](https://github.com/PHPOffice/PhpSpreadsheet/pull/4579)
+- Maximum column width. [PR #4581](https://github.com/PHPOffice/PhpSpreadsheet/pull/4581)
+- PrintArea after row/column delete. [Issue #2912](https://github.com/PHPOffice/PhpSpreadsheet/issues/2912) [PR #4598](https://github.com/PHPOffice/PhpSpreadsheet/pull/4598)
+- Remove deprecated imagedestroy call. [PR #4625](https://github.com/PHPOffice/PhpSpreadsheet/pull/4625)
+- Excel 2007 problem with newlines. [Issue #4619](https://github.com/PHPOffice/PhpSpreadsheet/issues/4619) [PR #4620](https://github.com/PHPOffice/PhpSpreadsheet/pull/4620)
+- Compatibility changes for Php 8.5. [PR #4601](https://github.com/PHPOffice/PhpSpreadsheet/pull/4601) [PR #4611](https://github.com/PHPOffice/PhpSpreadsheet/pull/4611)
+
+## 2025-08-10 - 5.0.0
+
+### Breaking Changes
+
+- Images will be loaded from an external source (e.g. http://example.com/img.png) only if the reader is explicitly set to allow it via `$reader->setAllowExternalImages(true)`. We do not believe that loading of external images is a widely used feature.
+- Deletion of items deprecated in Release 4. See "removed" below.
+- Move some properties from Base Reader to Html Reader. [PR #4551](https://github.com/PHPOffice/PhpSpreadsheet/pull/4551)
+- DefaultValueBinder will treat integers with more than 15 digits as strings. [Issue #4522](https://github.com/PHPOffice/PhpSpreadsheet/issues/4522) [PR #4527](https://github.com/PHPOffice/PhpSpreadsheet/pull/4527)
+
+### Removed
+
+- Theme public constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
+
+### Fixed
+
+- Additional floating-point precision changes. [Issue #1324](https://github.com/PHPOffice/PhpSpreadsheet/issues/1324) [PR #4575](https://github.com/PHPOffice/PhpSpreadsheet/pull/4575)
+- Header/Footer images expand location. [Issue #484](https://github.com/PHPOffice/PhpSpreadsheet/issues/484) [Issue #1318](https://github.com/PHPOffice/PhpSpreadsheet/issues/1318) [PR #4572](https://github.com/PHPOffice/PhpSpreadsheet/pull/4572)
+- Create uninitialized cell if used in calculation. [Issue #4558](https://github.com/PHPOffice/PhpSpreadsheet/issues/4558) [Issue #4530](https://github.com/PHPOffice/PhpSpreadsheet/issues/4530) [PR #4565](https://github.com/PHPOffice/PhpSpreadsheet/pull/4565)
+- Shared/Date::isDateTime handle cells which calculate as arrays. [Issue #4557](https://github.com/PHPOffice/PhpSpreadsheet/issues/4557) [PR #4562](https://github.com/PHPOffice/PhpSpreadsheet/pull/4562)
+- Xlsx Writer eliminate xml:space from non-text nodes. [Issue #4542](https://github.com/PHPOffice/PhpSpreadsheet/issues/4542) [PR #4556](https://github.com/PHPOffice/PhpSpreadsheet/pull/4556)
+
+## 2025-07-23 - 4.5.0
+
+### Added
+
+- Add to all readers the option to allow or forbid fetching external images. This is unconditionally allowed now. The default will be set to "allow", so no code changes are necessary. However, we are giving consideration to changing the default. [PR #4543](https://github.com/PHPOffice/PhpSpreadsheet/pull/4543)
+- Address Excel Inappropriate Number Format Substitution. [PR #4532](https://github.com/PHPOffice/PhpSpreadsheet/pull/4532)
+
+### Fixed
+
+- Html Writer Conditional Formatting Inline Css. [Issue #4539](https://github.com/PHPOffice/PhpSpreadsheet/issues/4539) [PR #4541](https://github.com/PHPOffice/PhpSpreadsheet/pull/4541)
+- Do not use htmlspecialchars when formatting XML. [Issue #4537](https://github.com/PHPOffice/PhpSpreadsheet/issues/4537) [PR #4540](https://github.com/PHPOffice/PhpSpreadsheet/pull/4540)
+- Writer Html/Pdf support RTL alignment of tables. [Issue #1104](https://github.com/PHPOffice/PhpSpreadsheet/issues/1104) [PR #4535](https://github.com/PHPOffice/PhpSpreadsheet/pull/4535)
+- Xlsx Reader use dynamic arrays if spreadsheet did so. [PR #4533](https://github.com/PHPOffice/PhpSpreadsheet/pull/4533)
+- Ods Reader Nested table-row. [Issue #4528](https://github.com/PHPOffice/PhpSpreadsheet/issues/4528) [Issue #2507](https://github.com/PHPOffice/PhpSpreadsheet/issues/2507) [PR #4531](https://github.com/PHPOffice/PhpSpreadsheet/pull/4531)
+- Recognize application/x-empty mimetype. [Issue #4521](https://github.com/PHPOffice/PhpSpreadsheet/issues/4521) [PR #4524](https://github.com/PHPOffice/PhpSpreadsheet/pull/4524)
+- Micro-optimization in getSheetByName. [PR #4499](https://github.com/PHPOffice/PhpSpreadsheet/pull/4499)
+- Bug in resizeMatricesExtend. [Issue #4451](https://github.com/PHPOffice/PhpSpreadsheet/issues/4451) [PR #4474](https://github.com/PHPOffice/PhpSpreadsheet/pull/4474)
+- Allow Replace of Dummy Function with Custom Function. [PR #4544](https://github.com/PHPOffice/PhpSpreadsheet/pull/4544)
+- Preserve 0x0a in Strings if Desired. [Issue #347](https://github.com/PHPOffice/PhpSpreadsheet/issues/347) [PR #4536](https://github.com/PHPOffice/PhpSpreadsheet/pull/4536)
+
+## 2025-06-22 - 4.4.0
+
+### Added
+
+- VSTACK and HSTACK. [Issue #4485](https://github.com/PHPOffice/PhpSpreadsheet/issues/4485) [PR #4492](https://github.com/PHPOffice/PhpSpreadsheet/pull/4492)
+- TOCOL and TOROW. [PR #4493](https://github.com/PHPOffice/PhpSpreadsheet/pull/4493)
+- Support Current Office Theme. [PR #4500](https://github.com/PHPOffice/PhpSpreadsheet/pull/4500)
+
+### Deprecated
+
+- Theme constants COLOR_SCHEME_2013_PLUS_NAME (use COLOR_SCHEME_2013_2022_NAME) and COLOR_SCHEME_2013_PLUS (use COLOR_SCHEME_2013_2022).
+
+### Fixed
+
+- Various Writers RichText TextElement Should Inherit Cell Style. [Issue #1154](https://github.com/PHPOffice/PhpSpreadsheet/issues/1154) [PR #4487](https://github.com/PHPOffice/PhpSpreadsheet/pull/4487)
+- Minor Changes to FILTER function. [PR #4491](https://github.com/PHPOffice/PhpSpreadsheet/pull/4491)
+- Allow Xlsx Reader/Writer to support Font Charset. [Issue #2760](https://github.com/PHPOffice/PhpSpreadsheet/issues/2760) [PR #4501](https://github.com/PHPOffice/PhpSpreadsheet/pull/4501)
+- AutoColor for LibreOffice Dark Mode [Discussion 4502](https://github.com/PHPOffice/PhpSpreadsheet/discussions/4502) [PR #4503](https://github.com/PHPOffice/PhpSpreadsheet/pull/4503)
+- Xlsx Style Writer Minor Refactoring. [PR #4508](https://github.com/PHPOffice/PhpSpreadsheet/pull/4508)
+- Allow Xlsx Reader to Specify ParseHuge. [Issue #4260](https://github.com/PHPOffice/PhpSpreadsheet/issues/4260) [PR #4515](https://github.com/PHPOffice/PhpSpreadsheet/pull/4515)
+
 ## 2025-05-26 - 4.3.1
 
 ### Fixed
 
-- Regression in Date::stringToExcel. [Issue #4448](https://github.com/PHPOffice/PhpSpreadsheet/issues/4448) [PR #4449](https://github.com/PHPOffice/PhpSpreadsheet/pull/4449)
+- Regression in Date::stringToExcel. [Issue #4488](https://github.com/PHPOffice/PhpSpreadsheet/issues/4488) [PR #4489](https://github.com/PHPOffice/PhpSpreadsheet/pull/4489)
 
 ## 2025-05-25 - 4.3.0
 

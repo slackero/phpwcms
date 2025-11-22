@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    paths:
+         - /
+    #autoload_files:
+    #    - include/vendor/autoload.php
+    #excludes_analyse:
+    #    - tests/
+    #ignoreErrors:
+    #    - '#Call to undefined function#'
+

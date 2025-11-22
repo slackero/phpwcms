@@ -97,7 +97,7 @@ class phpwcmsRecaptcha {
 
         }
 
-        return $api_src;
+        return $src;
 
     }
 

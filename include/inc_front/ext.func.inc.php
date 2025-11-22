@@ -11,8 +11,8 @@
 
 // added by jens for content type 89: poll
 function showPollImage($image, $zoom = 0) {
-
-    $image_border       = ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
+    $html = '';
+    $image_border = ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
     if(empty($GLOBALS["template_default"]["article"]["imagelist_imgclass"])) {
         $image_imgclass = '';
     } else {

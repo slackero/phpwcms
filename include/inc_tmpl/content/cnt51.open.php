@@ -10,9 +10,9 @@
  **/
 
 $phpwcms = array('SESSION_START' => true);
-
-require_once '../../../include/config/conf.inc.php';
-require_once '../../../include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__, 3);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';

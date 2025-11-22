@@ -13,7 +13,7 @@ session_start();
 
 $phpwcms = array();
 
-require_once dirname(__FILE__).'/inc/setup.func.inc.php';
+require_once __DIR__ .'/inc/setup.func.inc.php';
 require_once $DOCROOT.'/setup/setup.conf.inc.php';
 
 if (is_file($DOCROOT . '/include/config/conf.inc.php')) {

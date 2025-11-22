@@ -278,7 +278,14 @@ class Cell implements Stringable
             case DataType::TYPE_INLINE:
                 // Rich text
                 $value2 = StringHelper::convertToString($value, true);
-                $this->value = DataType::checkString(($value instanceof RichText) ? $value : $value2);
+                // Cells?->Worksheet?->Spreadsheet
+                $binder = $this->parent?->getParent()?->getParent()?->getValueBinder();
+                $preserveCr = false;
+                if ($binder !== null && method_exists($binder, 'getPreserveCr')) {
+                    /** @var bool */
+                    $preserveCr = $binder->getPreserveCr();
+                }
+                $this->value = DataType::checkString(($value instanceof RichText) ? $value : $value2, $preserveCr);
 
                 break;
             case DataType::TYPE_NUMERIC:
@@ -446,6 +453,7 @@ class Cell implements Stringable
                 }
                 $newColumn = $this->getColumn();
                 if (is_array($result)) {
+                    $result = self::convertSpecialArray($result);
                     $this->formulaAttributes['t'] = 'array';
                     $this->formulaAttributes['ref'] = $maxCoordinate = $coordinate;
                     $newRow = $row = $this->getRow();
@@ -465,7 +473,7 @@ class Cell implements Stringable
                                     }
                                 }
                                 /** @var string $newColumn */
-                                ++$newColumn;
+                                StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;
                         } else {
@@ -477,7 +485,7 @@ class Cell implements Stringable
                                     }
                                 }
                             }
-                            ++$newColumn;
+                            StringHelper::stringIncrement($newColumn);
                         }
                         if ($spill) {
                             break;
@@ -499,10 +507,10 @@ class Cell implements Stringable
                                     $minCol = $matches[1];
                                     $minRow = (int) $matches[2];
                                     $maxCol = $matches[4];
-                                    ++$maxCol;
+                                    StringHelper::stringIncrement($maxCol);
                                     $maxRow = (int) $matches[5];
                                     for ($row = $minRow; $row <= $maxRow; ++$row) {
-                                        for ($col = $minCol; $col !== $maxCol; ++$col) {
+                                        for ($col = $minCol; $col !== $maxCol; StringHelper::stringIncrement($col)) {
                                             /** @var string $col */
                                             if ("$col$row" !== $coordinate) {
                                                 $thisworksheet->getCell("$col$row")->setValue(null);
@@ -530,15 +538,14 @@ class Cell implements Stringable
                                         ->getCell($newColumn . $newRow)
                                         ->setValue($resultValue);
                                 }
-                                /** @var string $newColumn */
-                                ++$newColumn;
+                                StringHelper::stringIncrement($newColumn);
                             }
                             ++$newRow;
                         } else {
                             if ($row !== $newRow || $column !== $newColumn) {
                                 $thisworksheet->getCell($newColumn . $newRow)->setValue($resultRow);
                             }
-                            ++$newColumn;
+                            StringHelper::stringIncrement($newColumn);
                         }
                     }
                     $thisworksheet->getCell($column . $row);
@@ -573,6 +580,36 @@ class Cell implements Stringable
         }
 
         return $this->convertDateTimeInt($this->value);
+    }
+
+    /**
+     * Convert array like the following (preserve values, lose indexes):
+     * [
+     *   rowNumber1 => [colLetter1 => value, colLetter2 => value ...],
+     *   rowNumber2 => [colLetter1 => value, colLetter2 => value ...],
+     *   ...
+     * ].
+     *
+     * @param mixed[] $array
+     *
+     * @return mixed[]
+     */
+    private static function convertSpecialArray(array $array): array
+    {
+        $newArray = [];
+        foreach ($array as $rowIndex => $row) {
+            if (!is_int($rowIndex) || $rowIndex <= 0 || !is_array($row)) {
+                return $array;
+            }
+            $keys = array_keys($row);
+            $key0 = $keys[0] ?? '';
+            if (!is_string($key0)) {
+                return $array;
+            }
+            $newArray[] = array_values($row);
+        }
+
+        return $newArray;
     }
 
     /**

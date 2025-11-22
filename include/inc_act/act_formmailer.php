@@ -13,7 +13,8 @@
 
 // Only internal form sender allowed
 $phpwcms = [];
-require_once '../../include/config/conf.inc.php';
+$base_dir = dirname(__DIR__, 2);
+require_once $base_dir . '/include/config/conf.inc.php';
 
 $url = $phpwcms['site'];
 $url = str_replace(['http://', 'https://'], '', $url);
@@ -28,7 +29,7 @@ if (is_array($_GET)) {
     $_GET = [''];
 }
 
-require_once '../inc_lib/default.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';

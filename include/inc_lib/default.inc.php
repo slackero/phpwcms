@@ -273,6 +273,9 @@ $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_l
 
 $phpwcms['js_lib_default'] = array(
     'jQuery' => '-',
+        'jquery-4.0' => 'jQuery 4.0.0-rc1',
+        'jquery-4.0-migrate' => 'jQuery 4.0.0-rc1 + Migrate 4.0.0-beta2',
+        'jquery-4.0-slim' => 'jQuery Slim 4.0.0-rc1',
         'jquery-3.7' => 'jQuery 3.7.1',
         'jquery-3.7-migrate' => 'jQuery 3.7.1 + Migrate 3.4.0',
         'jquery-3.7-migrate-1' => 'jQuery 3.7.1 + Migrate 1.4.1 + 3.4.0',
@@ -712,12 +715,6 @@ function buildGlobalGET($return = '') {
         unset($GLOBALS['_getVar'][$_getVar_first]);
         $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
         $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
-    }
-
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        foreach ($GLOBALS['_getVar'] as $key => $value) {
-            $GLOBALS['_getVar'][$key] = stripslashes($value);
-        }
     }
 
     if ($return === 'getQuery') {

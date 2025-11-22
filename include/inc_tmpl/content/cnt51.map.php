@@ -10,8 +10,9 @@
  **/
 
 $phpwcms = array();
-require_once '../../../include/config/conf.inc.php';
-require_once '../../../include/inc_lib/default.inc.php';
+$base_dir = dirname(__DIR__, 3);
+require_once $base_dir . '/include/config/conf.inc.php';
+require_once $base_dir . '/include/inc_lib/default.inc.php';
 
 $img_file = ( isset( $_GET['i'] ) ) ? rawurldecode( $_GET['i'] ) : '';
 $img_quality = ( isset( $_GET['q'] ) && intval( $_GET['q'] ) <= 100 && intval( $_GET['q'] ) ) ? intval( $_GET['q'] ) : 85;

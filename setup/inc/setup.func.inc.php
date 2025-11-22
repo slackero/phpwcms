@@ -11,7 +11,7 @@
 
 //setup functions
 
-$DOCROOT = rtrim(str_replace('\\', '/', dirname(__FILE__, 3)), '/');
+$DOCROOT = dirname(__DIR__, 2);
 include $DOCROOT . '/include/inc_lib/revision/revision.php';
 
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
@@ -95,9 +95,6 @@ function slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (!PHP7 && get_magic_quotes_gpc()) {
-        $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
-    }
     if ($string_laenge) {
         $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
     }
@@ -108,9 +105,6 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     // Falls die Serverfunktion magic_quotes_gpc aktiviert ist, so
     // sollen die Slashes herausgenommen werden, anderenfalls nicht
     $string_wo_slashes_weg = trim($string_wo_slashes_weg);
-    if (!PHP7 && get_magic_quotes_gpc()) {
-        $string_wo_slashes_weg = stripslashes($string_wo_slashes_weg);
-    }
     $string_wo_slashes_weg = strip_tags($string_wo_slashes_weg);
     if ($string_laenge) {
         $string_wo_slashes_weg = substr($string_wo_slashes_weg, 0, $string_laenge);
@@ -245,7 +239,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['feuser_regkey'] = 'FEUSER';\n";
     $conf_file .= "\$phpwcms['login.php'] = 'login.php';\n";
     $conf_file .= "\$phpwcms['js_lib'] = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);\n";
-    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.0.4/)\n";
+    $conf_file .= "\$phpwcms['video-js'] = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.23.3/)\n";
     $conf_file .= "\$phpwcms['render_device'] = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->\n";
     $conf_file .= "\$phpwcms['detect_pixelratio'] = 0; // will inject the page with JavaScript to detect Retina devices\n";
     $conf_file .= "\$phpwcms['im_fix_colorspace'] = 'RGB'; // newer ImageMagick installs tend to have problems with colorspace setting, if colors are look bad try SRGB\n";
