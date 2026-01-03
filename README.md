@@ -26,14 +26,14 @@ document root or sub folder. Link your browser to the related URL and follow the
 Upgrade
 -------
 
-Before you upgrade your existing installation to v1.10+, please update to the latest v1.9.x release first.
+Before you upgrade your existing installation to v1.11+, please update to the latest v1.9.x release first.
 Never forget to backup your database and files before you start the upgrade process.
 
 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.11.0 requires a web server with PHP 8.2 or newer.
+**phpwcms** version 1.11.1 requires a web server with PHP 8.2 or newer.
 and a MySQL/MariaDB database (minimum version 5.6+ or equivalent).
 
 
@@ -87,7 +87,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright 2002-2025 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright 2002-2026 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
