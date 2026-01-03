@@ -26,10 +26,10 @@ root or sub folder. Link your browser to the related URL and follow the install 
 Server system requirements
 --------------------------
 
-**phpwcms** version 1.9.47 requires a web server with PHP 7.4 or newer.
+**phpwcms** version 1.9.48 requires a web server with PHP 7.4 or newer.
 and a MySQL/MariaDB database (minimum version 5.1, recommend 5.5+).
 If you already use PHP v8.x you should use the latest version of
-[**phpwcms v1.10**](https://github.com/slackero/phpwcms/releases?q=1.10&expanded=true).
+[**phpwcms v1.11**](https://github.com/slackero/phpwcms/releases/tag/v1.11.0).
 
 
 Known problems
@@ -68,7 +68,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright © 2002-2025 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright © 2002-2026 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.

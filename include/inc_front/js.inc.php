@@ -3,7 +3,7 @@
  * phpwcms content management system
  *
  * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2025, Oliver Georgi
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
  * @link http://www.phpwcms.org
  *
@@ -154,7 +154,7 @@ function initVideoJs() {
         if(IE8_CC) {
             $GLOBALS['block']['custom_htmlhead']['video-js.ie8shim'] = '  <!--[if lt IE 9]><script src="'.PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script><![endif]-->';
         }
-        $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/8.23.3/';
+        $GLOBALS['phpwcms']['video-js'] = PHPWCMS_HTTP_SCHEMA.'://vjs.zencdn.net/8.23.4/';
     } else {
         $GLOBALS['phpwcms']['video-js'] = rtrim($GLOBALS['phpwcms']['video-js'], '/') . '/';
     }
