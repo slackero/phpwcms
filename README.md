@@ -68,7 +68,7 @@ Creator
 Copyright and license
 ---------------------
 
-Copyright © 2002-2025 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
+Copyright © 2002-2026 [Oliver Georgi](mailto:og@phpwcms.org?subject=phpwcms)
 
 Licensed under the GNU General Public License, Version 2 (the "License");
 you may not use this work except in compliance with the License.
