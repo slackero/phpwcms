@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com)
 and this project adheres to [Semantic Versioning](https://semver.org). Thia is always true of the master branch. Some earlier branches remain supported and security fixes are applied to them; if the security fix represents a breaking change, it may have to be applied as a minor or patch version.
 
-## TBD - 5.3.0
+## TBD - 5.4.0
 
 ### Added
 
@@ -30,6 +30,27 @@ and this project adheres to [Semantic Versioning](https://semver.org). Thia is a
 ### Fixed
 
 - Nothing yet.
+
+## 2025-11-24 - 5.3.0
+
+### Added
+
+- Formal support for Php8.5.
+- Limited Printarea support for Html/Pdf. [Issue #3941](https://github.com/PHPOffice/PhpSpreadsheet/issues/3941) [PR #4711](https://github.com/PHPOffice/PhpSpreadsheet/pull/4711)
+- Implement missing `INFO` function. [PR #4709](https://github.com/PHPOffice/PhpSpreadsheet/pull/4709)
+- Implement missing `BAHTTEXT` function. [PR #4715](https://github.com/PHPOffice/PhpSpreadsheet/pull/4715)
+
+### Deprecated
+
+- $dataType, the second parameter of Cell::setValueExplicit, is currently optional. Omitting it is deprecated, and it will be required in a future release.
+
+### Fixed
+
+- Protected ranges and insert/delete rows/columns. [Issue #4695](https://github.com/PHPOffice/PhpSpreadsheet/issues/4695) [PR #4702](https://github.com/PHPOffice/PhpSpreadsheet/pull/4702)
+- Unexpected Exception in Php DateTime. [Issue #4696](https://github.com/PHPOffice/PhpSpreadsheet/issues/4696) [Issue #917](https://github.com/PHPOffice/PhpSpreadsheet/issues/917) [PR #4697](https://github.com/PHPOffice/PhpSpreadsheet/pull/4697)
+- Add missing Dutch translation to translation file. [PR #4707](https://github.com/PHPOffice/PhpSpreadsheet/pull/4707)
+- Fix lots of typos throughout codebase. [PR #4705](https://github.com/PHPOffice/PhpSpreadsheet/pull/4705)
+- Apply small code style improvements. [PR #4708](https://github.com/PHPOffice/PhpSpreadsheet/pull/4708)
 
 ## 2025-10-25 - 5.2.0
 
