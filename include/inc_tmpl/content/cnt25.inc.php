@@ -233,7 +233,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <!-- Flash Media Fallback -->
         <tr>
             <td colspan="3" class="chatlist tdbottom3" align="right"><?php echo $BL['be_media_format'] ?>&nbsp;&nbsp;</td>
-            <td colspan="3" class="v10 tdbottom3 greyed">&nbsp;Flash &#8212; <i>mp4, mp3, flv, mov, swf, f4v, m4v, jpg, png</i></td>
+            <td colspan="3" class="v10 tdbottom3 greyed">&nbsp;<i>mp4, mp3, mov, m4v, jpg, png</i> / Flash (<?php echo $BL['be_deprecated'] ?>) <i>flv, swf, f4v</i></td>
         </tr>
         <tr>
             <td bgcolor="#E7E8EB"><input name="fmp_int_ext" id="fmp_int_ext0" type="radio" value="0" <?php is_checked(0, $fmp_data['fmp_int_ext']); ?> /></td>

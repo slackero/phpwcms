@@ -1143,7 +1143,7 @@ $BL['be_article_urlalias']              = 'konu ba&#351;l&#305;&#287;&#305; mahl
 $BL['be_image_crop']                    = 'k&#305;rp&#305;lm&#305;&#351; k&uuml;&ccedil;&uuml;kboy';
 $BL['be_image_align']                   = 'resim hizlama';
 
-$BL['be_ctype_flashplayer']             = 'flash media player';
+$BL['be_ctype_flashplayer']             = 'html5/Video.js media player';
 $BL['be_flashplayer_caption']           = 'ba&#351;l&#305;k';
 $BL['be_flashplayer_thumbnail']         = 'k&uuml;&ccedil;&uuml;kboy';
 $BL['be_flashplayer_selectsize']        = 'oynat&#305;c&#305; b&uuml;y&uuml;kl&uuml;&#287;&uuml;n&uuml; se&ccedil;';

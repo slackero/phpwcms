@@ -1139,7 +1139,7 @@ $BL['be_image_crop']                    = '"crop" male slike';
 $BL['be_image_cropit']                  = '"crop" slike';
 $BL['be_image_align']                   = 'poravnanje slike';
 
-$BL['be_ctype_flashplayer']             = 'flash media player';
+$BL['be_ctype_flashplayer']             = 'html5/Video.js media player';
 $BL['be_flashplayer_caption']           = 'uvod';
 $BL['be_flashplayer_thumbnail']         = 'mala slika';
 $BL['be_flashplayer_selectsize']        = 'Odaberi velicinu player-a';

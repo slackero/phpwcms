@@ -30,15 +30,25 @@ if (is_array($_GET)) {
 }
 
 require_once $base_dir . '/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
-include_once PHPWCMS_ROOT . '/include/inc_lang/formmailer/lang.formmailer.inc.php';
+
+// Disable formmailer if deprecated features are turned off
+if (empty($phpwcms['enable_deprecated'])) {
+
+    header('HTTP/1.1 410 Gone');
+    header('Deprecation: true');
+
+    echo '<html lang="en"><head><meta charset="utf-8"><title>phpwcms Formmailer</title></head>';
+    echo '<body>';
+    echo '<h1>Formmailer is no longer supported</h1><p>';
+    echo 'The Formmailer functionality has been deprecated and is no longer supported in phpwcms.';
+    echo '</p></body></html>';
+    exit();
+
+}
 
 if (!checkFormTrackingValue()) {
 
-    header('HTTP/1.0 405 Method Not Allowed');
+    header('HTTP/1.1 405 Method Not Allowed');
 
     echo '<html lang="en"><head><meta charset="utf-8"><title>phpwcms Formmailer</title></head>';
     echo '<body>';
@@ -51,6 +61,12 @@ if (!checkFormTrackingValue()) {
     exit();
 
 }
+
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
+include_once PHPWCMS_ROOT . '/include/inc_lang/formmailer/lang.formmailer.inc.php';
 
 function phpwcms_form_encode($in_str, $charset)
 {

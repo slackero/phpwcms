@@ -32,7 +32,7 @@ $wcs_content_type = array(
      7 => $BL['be_ctype_filelist'],
     16 => $BL['be_ctype_ecard'],
     23 => $BL['be_ctype_simpleform'],
-    10 => $BL['be_ctype_emailform'].' [old]',
+    10 => $BL['be_ctype_emailform'],
     12 => $BL['be_ctype_newsletter'],
     13 => $BL['be_ctype_search'],
     18 => $BL['be_ctype_guestbook'],
@@ -49,6 +49,14 @@ $wcs_content_type = array(
     28 => $BL['be_ctype_felogin'],
     25 => $BL['be_ctype_flashplayer']
 );
+
+// remove deprecated content types if disabled
+if (empty($phpwcms['enable_deprecated'])) {
+    unset(
+        $wcs_content_type[9], // multimedia
+        $wcs_content_type[10], // emailform
+    );
+}
 
 // set module content parts = 30
 if(count($phpwcms['modules'])) {

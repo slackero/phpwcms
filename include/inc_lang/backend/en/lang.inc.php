@@ -1184,7 +1184,7 @@ $BL['be_image_crop']                    = 'crop thumbnail';
 $BL['be_image_cropit']                  = 'crop image';
 $BL['be_image_align']                   = 'image alignment';
 
-$BL['be_ctype_flashplayer']             = 'HTML5/Flash media player';
+$BL['be_ctype_flashplayer']             = 'HTML5/Video.js media player';
 $BL['be_flashplayer_caption']           = 'caption';
 $BL['be_flashplayer_thumbnail']         = 'thumbnail';
 $BL['be_flashplayer_selectsize']        = 'Select player size';
@@ -1599,3 +1599,4 @@ $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
 
 $BL['be_deprecated'] = 'deprecated';
+$BL['be_deprecated_info'] = 'This feature is deprecated and will be removed in future versions of phpwcms. Please avoid using it in new projects and consider replacing it in existing projects.';

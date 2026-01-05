@@ -1173,11 +1173,11 @@ $BL['be_image_crop'] = 'Vorschau auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_cropit'] = 'Bild auf Gr&ouml;&szlig;e schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
-$BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
+$BL['be_ctype_flashplayer'] = 'HTML5/Video.js Media-Player';
 $BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
 $BL['be_flashplayer_selectsize'] = 'Playergr&ouml;&szlig;e w&auml;hlen';
-$BL['be_flash_media'] = 'Flash';
+$BL['be_flash_media'] = 'Video.js';
 $BL['be_html5_media'] = 'HTML5';
 $BL['be_html5_h264'] = 'MPEG/H.264';
 $BL['be_html5_webm'] = 'WebM';
@@ -1586,3 +1586,4 @@ $BL['be_cnt_form_apikey_reset'] = 'zur&uuml;cksetzen';
 $BL['be_copy_link'] = 'Link kopieren';
 
 $BL['be_deprecated'] = 'veraltet';
+$BL['be_deprecated_info'] = 'Dieser Content-Typ ist veraltet und wird in zuk&uuml;nftigen Versionen von phpwcms nicht mehr unterst&uuml;tzt. Bitte verwenden Sie eine alternative L&ouml;sung.';

@@ -1169,7 +1169,7 @@ $BL['be_image_crop'] = 'Kadruj miniaturę';
 $BL['be_image_cropit'] = 'Kadruj obrazek';
 $BL['be_image_align'] = 'Wyrównanie obrazka';
 
-$BL['be_ctype_flashplayer'] = 'HTML5/Flash odtwarzacz multimedialny';
+$BL['be_ctype_flashplayer'] = 'HTML5/Video.js odtwarzacz multimedialny';
 $BL['be_flashplayer_caption'] = 'Podpis';
 $BL['be_flashplayer_thumbnail'] = 'Miniaturka';
 $BL['be_flashplayer_selectsize'] = 'Wybierz rozmiar odtwarzacza';
