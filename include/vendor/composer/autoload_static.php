@@ -22,6 +22,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         '5897ea0ac4cccf14d323035e65887801' => __DIR__ . '/..' . '/symfony/polyfill-php82/bootstrap.php',
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '9d2b9fc6db0f153a0a149fefb182415e' => __DIR__ . '/..' . '/symfony/polyfill-php84/bootstrap.php',
+        '606a39d89246991a373564698c2d8383' => __DIR__ . '/..' . '/symfony/polyfill-php85/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -35,6 +36,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         ),
         'S' =>
         array (
+            'Symfony\\Polyfill\\Php85\\' => 23,
             'Symfony\\Polyfill\\Php84\\' => 23,
             'Symfony\\Polyfill\\Php83\\' => 23,
             'Symfony\\Polyfill\\Php82\\' => 23,
@@ -103,6 +105,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'ZipStream\\' =>
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
+        'Symfony\\Polyfill\\Php85\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php85',
         ),
         'Symfony\\Polyfill\\Php84\\' =>
         array (
@@ -338,6 +344,7 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'Nette\\Utils\\Type' => __DIR__ . '/..' . '/nette/utils/src/Utils/Type.php',
         'Nette\\Utils\\UnknownImageFileException' => __DIR__ . '/..' . '/nette/utils/src/Utils/exceptions.php',
         'Nette\\Utils\\Validators' => __DIR__ . '/..' . '/nette/utils/src/Utils/Validators.php',
+        'NoDiscard' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/NoDiscard.php',
         'OPMLCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/OPMLCreator.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'PHPCreator' => __DIR__ . '/..' . '/openpsa/universalfeedcreator/lib/Creator/PHPCreator.php',
