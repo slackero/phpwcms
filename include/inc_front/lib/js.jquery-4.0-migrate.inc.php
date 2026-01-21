@@ -20,11 +20,11 @@ function initJSLib()
     if (empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
         if (CMSGO_USE_CDN) {
             // use jQuery CDN
-            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA . '://code.jquery.com/jquery-4.0.0-rc.1.min.js');
-            $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA . '://code.jquery.com/jquery-migrate-4.0.0-beta.2.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA . '://code.jquery.com/jquery-4.0.0.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(CMSGO_HTTP_SCHEMA . '://code.jquery.com/jquery-migrate-4.0.2.min.js');
         } else {
-            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH . 'lib/jquery/jquery-4.0.0-rc.1.min.js');
-            $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH . 'lib/jquery/jquery-migrate-4.0.0-beta.2.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH . 'lib/jquery/jquery-4.0.0.min.js');
+            $GLOBALS['block']['custom_htmlhead']['jquery-migrate.js'] = getJavaScriptSourceLink(TEMPLATE_PATH . 'lib/jquery/jquery-migrate-4.0.2.min.js');
         }
     }
     return true;
