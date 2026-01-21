@@ -588,7 +588,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <div class="form-group form-row">
     <label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
-      <textarea name="cimage_caption" cols="30" rows="3" class="form-control form-control-sm" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
+      <textarea name="cimage_list_caption" cols="30" rows="3" class="form-control form-control-sm" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
       <label class="col col-form-label pl-0">
         <?php echo $BL['be_cnt_caption']; ?>
         |
