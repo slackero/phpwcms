@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "stacklit"
+  ],
+  "enableAllProjectMcpServers": true
+}
