@@ -290,10 +290,11 @@ class Html extends BaseReader
      *
      * @param string[] $attributeArray
      *
-     * @param-out string $cellContent In one case, it can be bool
+     * @param-out string $cellContentx
      */
-    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContentx, array $attributeArray): void
     {
+        $cellContent = $cellContentx;
         if (is_string($cellContent)) {
             //    Simple String content
             if (trim($cellContent) > '') {
@@ -302,6 +303,10 @@ class Html extends BaseReader
                 //    ... we return the cell, so we can mess about with styles more easily
 
                 // Set cell value explicitly if there is data-type attribute
+                if (isset($attributeArray['data-checkbox'])) {
+                    $sheet->getStyle($column . $row)
+                        ->setCheckBox(true);
+                }
                 if (isset($attributeArray['data-type'])) {
                     $datatype = $attributeArray['data-type'];
                     if (in_array($datatype, [DataType::TYPE_STRING, DataType::TYPE_STRING2, DataType::TYPE_INLINE])) {
@@ -314,9 +319,19 @@ class Html extends BaseReader
                     }
                     if ($datatype === DataType::TYPE_BOOL) {
                         // This is the case where we can set cellContent to bool rather than string
-                        $cellContent = self::convertBoolean($cellContent); //* @phpstan-ignore-line
-                        if (!is_bool($cellContent)) {
-                            $attributeArray['data-type'] = DataType::TYPE_STRING;
+                        if ($cellContent === '☑') {
+                            $cellContent = true;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } elseif ($cellContent === '☐') {
+                            $cellContent = false;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } else {
+                            $cellContent = self::convertBoolean($cellContent);
+                            if (!is_bool($cellContent)) {
+                                $attributeArray['data-type'] = DataType::TYPE_STRING;
+                            }
                         }
                     }
 
@@ -324,7 +339,15 @@ class Html extends BaseReader
                     $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
 
                     try {
-                        $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                        if (isset($attributeArray['data-formula'])) {
+                            $sheet->setCellValueExplicit($column . $row, $attributeArray['data-formula'], DataType::TYPE_FORMULA);
+                            $sheet->getCell($column . $row)
+                                ->setCalculatedValue(
+                                    $cellContent
+                                );
+                        } else {
+                            $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                        }
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
@@ -346,7 +369,7 @@ class Html extends BaseReader
             // @phpstan-ignore-next-line
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
-        $cellContent = (string) '';
+        $cellContentx = '';
     }
 
     /** @var array<int, array<int, string>> */
@@ -1203,7 +1226,7 @@ class Html extends BaseReader
         $name = $attributes['alt'] ?? null;
 
         $drawing = new Drawing();
-        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages);
+        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
         if ($drawing->getPath() === '') {
             return;
         }
