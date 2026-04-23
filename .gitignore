@@ -51,3 +51,5 @@ include/config.codekit3
 #/include/vendor/phpcsstandards
 #/include/vendor/squizlabs
 /.claude
+/stacklit.html
+/.mcp.json
