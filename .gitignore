@@ -50,3 +50,4 @@ include/config.codekit3
 #/include/vendor/phpcompatibility
 #/include/vendor/phpcsstandards
 #/include/vendor/squizlabs
+/.claude
