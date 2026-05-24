@@ -16,19 +16,19 @@
         "league/oauth2-google": "^5.0.0",
         "ezyang/htmlpurifier": "^v4.19.0",
         "openpsa/universalfeedcreator": "^v1.9.0",
-        "phpmailer/phpmailer": "^v7.0.2",
+        "phpmailer/phpmailer": "^v7.1.1",
         "phpoffice/phpspreadsheet": "^5.6.0",
         "simplepie/simplepie": "@dev",
         "html2text/html2text": "^4.3.2",
         "php81_bc/strftime": "^0.7.6",
-        "symfony/polyfill-mbstring": "v1.36.0",
-        "symfony/polyfill-php73": "v1.36.0",
-        "symfony/polyfill-php74": "v1.36.0",
-        "symfony/polyfill-php80": "v1.36.0",
-        "symfony/polyfill-php81": "v1.36.0",
-        "symfony/polyfill-php82": "v1.36.0",
-        "symfony/polyfill-php83": "v1.36.0",
-        "symfony/polyfill-php84": "v1.36.0",
+        "symfony/polyfill-mbstring": "v1.37.0",
+        "symfony/polyfill-php73": "v1.37.0",
+        "symfony/polyfill-php74": "v1.37.0",
+        "symfony/polyfill-php80": "v1.37.0",
+        "symfony/polyfill-php81": "v1.37.0",
+        "symfony/polyfill-php82": "v1.37.0",
+        "symfony/polyfill-php83": "v1.37.0",
+        "symfony/polyfill-php84": "v1.37.0",
         "ext-intl": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
@@ -46,7 +46,7 @@
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "phpstan/phpstan": "^2.1.50"
+        "phpstan/phpstan": "^2.1.55"
     },
     "scripts": {
         "phpstan": "phpstan analyse"
