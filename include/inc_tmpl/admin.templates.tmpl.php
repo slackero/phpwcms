@@ -496,7 +496,7 @@ if ($jslib_optgroup) {
 }
 if ($template['jslib'] && !$jslib_selected) {
     echo '<optgroup label="' . html($BL['be_deprecated']) . '">';
-    echo '<option value="' . $template['jslib'] . '" selected="selected">';
+    echo '<option value="' . html($template['jslib']) . '" selected="selected">';
     echo html($template['jslib'] . ' (' . $BL['be_deprecated'] . ')');
     echo '</option>';
     echo '</optgroup>';
