@@ -38,3 +38,8 @@ include/config.codekit3
 /include/vendor/netcarver/textile/docker/
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
+
+# AI tools
+/.claude
+/.mcp.json
+/stacklit.html
