@@ -11,20 +11,21 @@
 
 // redirect verify to correct newsletter action
 
-$phpwcms = array();
-require_once __DIR__ . 'include/config/conf.inc.php';
-require_once __DIR__ . 'include/inc_lib/default.inc.php';
+$phpwcms = [];
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
 
-$type   = '';
-$email  = 'n.a.';
+$page = '';
+$type = '';
+$email = 'n.a.';
 
-if(!empty($_GET['s']) || !empty($_GET['u'])) {
+if (!empty($_GET['s']) || !empty($_GET['u'])) {
 
-    require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
-    require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
-    require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+    require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+    require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
+    require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
-    if(isset($_GET['s'])) {
+    if (isset($_GET['s'])) {
 
         $hash = clean_slweg($_GET['s']);
         $type = 'subscribe';
@@ -36,48 +37,45 @@ if(!empty($_GET['s']) || !empty($_GET['u'])) {
 
     }
 
-    $data = _dbQuery('SELECT * FROM '.DB_PREPEND."phpwcms_address WHERE address_key='".aporeplace($hash)."' LIMIT 1");
+    $data = _dbQuery('SELECT * FROM ' . DB_PREPEND . "phpwcms_address WHERE address_key='" . aporeplace($hash) . "' LIMIT 1");
 
-    if(isset($data[0])) {
+    if (isset($data[0])) {
 
         // fix old hash where containing "+" char might result in an invalid hash key
         $hash = str_replace(' ', '+', $hash);
 
         $email = $data[0]['address_email'];
-        switch($type) {
+        switch ($type) {
 
-            case 'subscribe':       $sql  = 'UPDATE '.DB_PREPEND.'phpwcms_address ';
-                                    $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
-                                    $sql .= "WHERE address_key='".aporeplace($hash)."'";
-                                    if(isset($data[0]['address_verified'])) {
-                                        $result = _dbQuery($sql, 'UPDATE');
-                                    }
-                                    if(!empty($data[0]['address_url1'])) {
-                                        headerRedirect($data[0]['address_url1']);
-                                    }
+            case 'subscribe':
+                $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_address ';
+                $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
+                $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
+                if (isset($data[0]['address_verified'])) {
+                    $result = _dbQuery($sql, 'UPDATE');
+                }
+                if (!empty($data[0]['address_url1'])) {
+                    headerRedirect($data[0]['address_url1']);
+                }
 
-                                    if(!($page = file_get_contents(PHPWCMS_TEMPLATE.'inc_default/subscribe.tmpl'))) {
+                if (!($page = file_get_contents(PHPWCMS_TEMPLATE . 'inc_default/subscribe.tmpl'))) {
+                    $page = 'The email address <strong>{EMAIL}</strong> was verified.';
+                }
+                break;
 
-                                        $page = "The email address <strong>{EMAIL}</strong> was verified.";
+            case 'unsubscribe':
+                $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_address ';
+                $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
+                $result = _dbQuery($sql, 'DELETE');
+                if (!empty($data[0]['address_url2'])) {
+                    headerRedirect($data[0]['address_url2']);
+                }
 
-                                    }
-                                    break;
+                if (!($page = file_get_contents(PHPWCMS_TEMPLATE . 'inc_default/unsubscribe.tmpl'))) {
+                    $page = 'All Subscriptions for <strong>{EMAIL}</strong> canceled.';
+                }
 
-
-            case 'unsubscribe':     $sql  = 'DELETE FROM '.DB_PREPEND.'phpwcms_address ';
-                                    $sql .= "WHERE address_key='".aporeplace($hash)."'";
-                                    $result = _dbQuery($sql, 'DELETE');
-                                    if(!empty($data[0]['address_url2'])) {
-                                        headerRedirect($data[0]['address_url2']);
-                                    }
-
-                                    if(!($page = file_get_contents(PHPWCMS_TEMPLATE.'inc_default/unsubscribe.tmpl'))) {
-
-                                        $page = "All Subscriptions for <strong>{EMAIL}</strong> canceled.";
-
-                                    }
-
-                                    break;
+                break;
 
         }
 
