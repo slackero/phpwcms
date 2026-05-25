@@ -176,11 +176,11 @@ if($BE['LANG'] == 'ar') {
 </head>
 <body<?php echo $body_onload ?>><!-- cmsGO! BODY_OPEN -->
 <div id="container">
-  <header id="header" class="navbar navbar-static-top">
+  <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
       <div id="header-logo" class="navbar-header"><a href="cmsgo.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav ml-auto navbar-right">
         <li><a href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
             <form class="dropdown-menu dropdown-menu-right backend-search" action="cmsgo.php?<?php echo get_token_get_string(); ?>" method="POST">
@@ -227,7 +227,7 @@ if($BE['LANG'] == 'ar') {
             $active = ($do == 'articles' || ($do == 'admin' && $p == 6)) ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artcent"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="glyphicon arrow"></span></a> ';
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION["wcs_user_id"], $grouparray["artcent"])) {
                     $subnav .= subnavtext($BL['be_subnav_article_center'], "cmsgo.php?do=articles", $p, "", 0);
@@ -242,7 +242,7 @@ if($BE['LANG'] == 'ar') {
             $active = $do == 'files' ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="glyphicon arrow"></span></a> ';
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="arrow fa fa-angle-down"></span></a> ';
 
                 if (in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
                     $subnav = subnavtext($BL['be_subnav_file_center'], "cmsgo.php?do=files", $p, "", 0);
@@ -258,7 +258,7 @@ if($BE['LANG'] == 'ar') {
 
             if (!empty($cmsgo['enable_backend_module']) && in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
                 $active = ($do == 'modules') ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="glyphicon arrow"></span></a>';
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 foreach ($cmsgo['modules'] as $value) {
                     if (isset($modulearray[$value['name']]) && in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
@@ -271,7 +271,7 @@ if($BE['LANG'] == 'ar') {
             //newsletter
             if (!empty($cmsgo['enable_backend_newsletter']) && in_array($_SESSION["wcs_user_id"], $grouparray["nl"])) {
                 $active = $do == 'messages' ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="glyphicon arrow"></span></a> ';
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
                     $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], 'cmsgo.php?do=messages&amp;p=2', $p, '2', 0);
@@ -287,7 +287,7 @@ if($BE['LANG'] == 'ar') {
 
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
                 $active = ($do == 'admin' && $p != 6) ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="glyphicon arrow"></span></a>';
+                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'cmsgo.php?do=admin&amp;p=8', $p, '8', 0);
@@ -529,11 +529,6 @@ set_chat_focus($do, $p);
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, CMSGO_URL."cmsgo.php?do=messages", 2500);
 
-$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
-$GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
-$BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
-$BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
-
 ?>
 <!-- cmsGO! BODY_CLOSE -->
 <div id="browserModal" class="modal fade" role="dialog">
@@ -553,10 +548,14 @@ $BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/c
 </body>
 </html>
 <?php
+
+$GLOBALS['BE']['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
+$GLOBALS['BE']['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
+$BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
 
 // retrieve complete processing time
-list($usec, $sec) = explode(' ', microtime());
+[$usec, $sec] = explode(' ', microtime());
 header('X-cmsgo-Page-Processed-In: ' . number_format(1000*($usec + $sec - $cmsgo_rendering_start), 3) .' ms');
 
 $BE['HTML'] = ob_get_clean();
