@@ -7,6 +7,7 @@ graph LR
   classDef javascript fill:#c9d1d9,color:#0d1117,stroke:#c9d1d9
   classDef php fill:#8b949e,color:#0d1117,stroke:#8b949e
   classDef ruby fill:#8b949e,color:#0d1117,stroke:#8b949e
+  phpstan[".phpstan<br/>.phpstan"]:::php
   cmsgo_extended_cmsgo_fancyBox_template_inc_script["cmsgo-extended/cmsgo-fancyBox/template/inc_script<br/>Inc Script"]:::php
   cmsgo_extended_cmsgo_fancyBox_template_lib["cmsgo-extended/cmsgo-fancyBox/template/lib<br/>Shared library code"]:::php
   img["img<br/>Img"]:::php

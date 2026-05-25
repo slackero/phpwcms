@@ -5,9 +5,11 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-cmsgo-v2.0 | php | 122 modules | 215,203 lines
+cmsgo-v2.0 | php | 123 modules | 215,915 lines
+test: make test
 
 modules:
+  .phpstan                        .phpstan
   cmsgo-extended/cmsgo-fancyBox/  inc script
   cmsgo-extended/cmsgo-fancyBox/  shared library code
   img                             img
@@ -131,6 +133,6 @@ modules:
   template/lib/swfobject          swfobject
   template/lib/syntaxhighlighter  syntaxhighlighter
 
-hot: DEPENDENCIES.md (2 commits/90d), stacklit.html (2 commits/90d), stacklit.json (2 commits/90d)
+hot: .gitignore (3 commits/90d), DEPENDENCIES.md (3 commits/90d), stacklit.json (3 commits/90d)
 ```
 # end stacklit map

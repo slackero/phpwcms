@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     level: 5
     paths:
@@ -10,4 +13,5 @@ parameters:
         - phpstan-bootstrap.php
     tmpDir: cache
     treatPhpDocTypesAsCertain: false
+
 

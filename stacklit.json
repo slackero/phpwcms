@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-05-25T08:21:17Z",
+  "generated_at": "2026-05-25T14:34:07Z",
   "stacklit_version": "dev",
-  "merkle_hash": "fd3418b64bf7fab5dcd5e8f9e5ed32a3c99647447efddd7bc2db1e657086b499",
+  "merkle_hash": "788c7356407e7d88af4165076ca17e017a4b495e91d2353d8dd2c332c823d1fb",
   "project": {
     "name": "cmsgo-v2.0",
     "root": ".",
@@ -17,8 +17,8 @@
         "lines": 57075
       },
       "php": {
-        "files": 818,
-        "lines": 156664
+        "files": 821,
+        "lines": 157376
       },
       "ruby": {
         "files": 1,
@@ -32,10 +32,20 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1460,
-    "total_lines": 215203
+    "total_files": 1463,
+    "total_lines": 215915
   },
   "modules": {
+    ".phpstan": {
+      "purpose": ".phpstan",
+      "language": "php",
+      "files": 1,
+      "lines": 86,
+      "file_list": [
+        "phpstan-bootstrap.php"
+      ],
+      "activity": "low"
+    },
     "cmsgo-extended/cmsgo-fancyBox/template/inc_script": {
       "purpose": "Inc Script",
       "language": "php",
@@ -1351,7 +1361,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 20,
-      "lines": 3986,
+      "lines": 4022,
       "file_list": [
         "cart.items.inc.php",
         "cart.parse.inc.php",
@@ -1385,11 +1395,13 @@
     "include/inc_module/mod_shop/lang": {
       "purpose": "Lang",
       "language": "php",
-      "files": 5,
-      "lines": 575,
+      "files": 7,
+      "lines": 1085,
       "file_list": [
         "de.lang.php",
         "en.lang.php",
+        "es.lang.php",
+        "fr.lang.php",
         "it.lang.php",
         "pl.lang.php",
         "tr.lang.php"
@@ -1522,7 +1534,7 @@
       "purpose": "Root package",
       "language": "php",
       "files": 14,
-      "lines": 3592,
+      "lines": 3672,
       "file_list": [
         "articlebrowser.php",
         "cmsgo.php",
@@ -1974,6 +1986,7 @@
     "edges": null,
     "entrypoints": null,
     "most_depended": [
+      ".phpstan",
       "cmsgo-extended/cmsgo-fancyBox/template/inc_script",
       "cmsgo-extended/cmsgo-fancyBox/template/lib",
       "img",
@@ -1982,10 +1995,10 @@
       "include/inc_act/deprecated",
       "include/inc_ext",
       "include/inc_ext/ConvertCharset",
-      "include/inc_ext/GoogleMapsAPI",
-      "include/inc_ext/ckeditor"
+      "include/inc_ext/GoogleMapsAPI"
     ],
     "isolated": [
+      ".phpstan",
       "cmsgo-extended/cmsgo-fancyBox/template/inc_script",
       "cmsgo-extended/cmsgo-fancyBox/template/lib",
       "img",
@@ -2113,7 +2126,39 @@
   "git": {
     "hot_files": [
       {
+        "path": ".gitignore",
+        "commits_90d": 3
+      },
+      {
         "path": "DEPENDENCIES.md",
+        "commits_90d": 3
+      },
+      {
+        "path": "stacklit.json",
+        "commits_90d": 3
+      },
+      {
+        "path": ".claude/settings.local.json",
+        "commits_90d": 2
+      },
+      {
+        "path": "CLAUDE.md",
+        "commits_90d": 2
+      },
+      {
+        "path": "composer.json",
+        "commits_90d": 2
+      },
+      {
+        "path": "include/vendor/composer/installed.php",
+        "commits_90d": 2
+      },
+      {
+        "path": "phpstan.neon",
+        "commits_90d": 2
+      },
+      {
+        "path": "phpstan.neon.default",
         "commits_90d": 2
       },
       {
@@ -2121,23 +2166,23 @@
         "commits_90d": 2
       },
       {
-        "path": "stacklit.json",
-        "commits_90d": 2
-      },
-      {
-        "path": ".claude/settings.local.json",
-        "commits_90d": 1
-      },
-      {
-        "path": ".gitignore",
-        "commits_90d": 1
-      },
-      {
         "path": ".mcp.json",
         "commits_90d": 1
       },
       {
-        "path": "CLAUDE.md",
+        "path": ".phpstan/phpstan-bootstrap.php",
+        "commits_90d": 1
+      },
+      {
+        "path": ".phpstan/phpstan.neon",
+        "commits_90d": 1
+      },
+      {
+        "path": "content/cache/.htaccess",
+        "commits_90d": 1
+      },
+      {
+        "path": "content/cache/index.html",
         "commits_90d": 1
       },
       {
@@ -2145,41 +2190,49 @@
         "commits_90d": 1
       },
       {
-        "path": "include/inc_tmpl/forum.list.tmpl.php",
+        "path": "include/inc_lang/backend/de/lang.ext.inc.php",
         "commits_90d": 1
       },
       {
-        "path": "include/inc_tmpl/message.center.tmpl.php",
+        "path": "include/inc_lang/backend/de/lang.inc.php",
         "commits_90d": 1
       },
       {
-        "path": "verify.php",
+        "path": "include/inc_lang/backend/de/lang.pp.inc.php",
+        "commits_90d": 1
+      },
+      {
+        "path": "include/inc_lang/backend/en/lang.ext.inc.php",
         "commits_90d": 1
       }
     ],
     "recent": [
-      "include/inc_front/content.func.inc.php",
-      ".gitignore",
-      "DEPENDENCIES.md",
-      "stacklit.html",
-      "stacklit.json",
-      "include/inc_tmpl/forum.list.tmpl.php",
-      "include/inc_tmpl/message.center.tmpl.php",
-      "verify.php",
       ".claude/settings.local.json",
-      ".mcp.json"
+      ".gitignore",
+      ".phpstan/phpstan-bootstrap.php",
+      ".phpstan/phpstan.neon",
+      "composer.json",
+      "include/vendor/composer/installed.php",
+      "phpstan.neon",
+      "phpstan.neon.default",
+      "include/inc_module/mod_shop/inc/listing.categories.inc.php",
+      "include/inc_module/mod_shop/inc/listing.orders.inc.php"
     ],
     "stable": [
-      ".claude/settings.local.json",
-      ".gitignore",
       ".mcp.json",
-      "CLAUDE.md",
+      ".phpstan/phpstan-bootstrap.php",
+      ".phpstan/phpstan.neon",
+      "content/cache/.htaccess",
+      "content/cache/index.html",
       "include/inc_front/content.func.inc.php",
-      "include/inc_tmpl/forum.list.tmpl.php",
-      "include/inc_tmpl/message.center.tmpl.php",
-      "verify.php"
+      "include/inc_lang/backend/de/lang.ext.inc.php",
+      "include/inc_lang/backend/de/lang.inc.php",
+      "include/inc_lang/backend/de/lang.pp.inc.php",
+      "include/inc_lang/backend/en/lang.ext.inc.php"
     ]
   },
-  "hints": {},
+  "hints": {
+    "test_command": "make test"
+  },
   "architecture": {}
 }

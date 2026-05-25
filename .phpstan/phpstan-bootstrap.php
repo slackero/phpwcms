@@ -28,6 +28,7 @@ $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 $_SERVER['REQUEST_METHOD'] = 'GET';
 $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 $_SERVER['SERVER_PORT'] = '80';
+$_SERVER['SCRIPT_FILENAME'] = 'dbdown.php';
 
 // Mock essential keys in $cmsgo before loading files to prevent warnings
 $cmsgo['USER_AGENT'] = [
@@ -77,10 +78,14 @@ if (class_exists(QueryReflection::class)) {
     $dbname = getenv('DBA_DBNAME') ?: ($cmsgo['db_table'] ?? 'cmsgo_v2');
 
     // 2. Establish a connection for query reflection analysis
-    $mysqli = @new \mysqli($host, $user, $pass, $dbname);
-    if (!$mysqli->connect_error) {
-        $config = new RuntimeConfiguration();
-        $reflector = new MysqliQueryReflector($mysqli);
-        QueryReflection::setupReflector($reflector, $config);
+    try {
+        $mysqli = @new \mysqli($host, $user, $pass, $dbname);
+        if (!$mysqli->connect_error) {
+            $config = new RuntimeConfiguration();
+            $reflector = new MysqliQueryReflector($mysqli);
+            QueryReflection::setupReflector($reflector, $config);
+        }
+    } catch (\Throwable $e) {
+        // Suppress connection exceptions during analysis
     }
 }
