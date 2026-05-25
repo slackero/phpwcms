@@ -12,14 +12,12 @@
 // ----------------------------------------------------------------
 // obligate check for cmsGO! constants
 if (!defined('CMSGO_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
-
 // Flash Media Player
-
-$fmp_data = array(
+$fmp_data = [
     'fmp_template'              => '',
     'fmp_width'                 => 320,
     'fmp_height'                => 240,
@@ -68,13 +66,14 @@ $fmp_data = array(
     'fmp_player'                => 1,
     'fmp_set_volume'            => 80,
     'fmp_set_preload'           => 'auto'
-);
+];
 
-if($content["id"]) {
-    if($row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false])) {
-        $fmp_data = array_merge($fmp_data, $row["acontent_form"]);
+if($content['id']) {
+    $acontent_form = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+    if (is_array($acontent_form) && $acontent_form) {
+        $fmp_data = array_merge($fmp_data, $row['acontent_form']);
     }
-    $fmp_data['fmp_template'] = $row["acontent_template"];
+    $fmp_data['fmp_template'] = $row['acontent_template'];
 }
 
 // format color
