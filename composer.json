@@ -43,7 +43,8 @@
         "ext-zip": "*",
         "ext-ctype": "*",
         "ext-simplexml": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

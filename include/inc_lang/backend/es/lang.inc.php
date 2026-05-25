@@ -653,3 +653,12 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+$BL['CSRF_ERROR_TITLE'] = 'Fallo de Validación de Seguridad';
+$BL['CSRF_POST_INVALID'] = 'No se encontraron parámetros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Envío de formulario abortado.';
+$BL['CSRF_POST_FAILED'] = 'Fallo al validar los parámetros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Envío de formulario abortado.';
+$BL['CSRF_GET_INVALID'] = 'No se encontraron parámetros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegación abortada.';
+$BL['CSRF_GET_FAILED'] = 'Fallo al validar los parámetros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegación abortada.';
+$BL['CSRF_BTN_BACK'] = 'Volver';
+$BL['CSRF_BTN_LOGIN'] = 'Ingresar';
+$BL['CSRF_BTN_DASHBOARD'] = 'Tablero';
+
