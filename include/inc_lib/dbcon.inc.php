@@ -610,41 +610,58 @@ function _getConfig($key, $set_global='cmsgo') {
     }
     if(is_array($key) && count($key)) {
         $result = [];
+        $to_fetch = [];
         foreach($key as $value) {
             if($set_global && isset($GLOBALS[$set_global][$value])) {
                 $result[ $value ] = $GLOBALS[$set_global][$value];
-                continue;
+            } else {
+                $to_fetch[] = $value;
             }
-            $sql = 'SELECT * FROM '.DB_PREPEND."cmsgo_sysvalue WHERE sysvalue_status=1 AND sysvalue_key='".mysqli_real_escape_string($GLOBALS['db'], $value)."'";
-            $row = _dbQuery($sql);
-            if(isset($row[0]['sysvalue_vartype'])) {
-                switch($row[0]['sysvalue_vartype']) {
-                    case 'string':
-                        $result[ $value ] = (string) $row[0]['sysvalue_value'];
-                        break;
-                    case 'int':
-                        $result[ $value ] = (int) $row[0]['sysvalue_value'];
-                        break;
-                    case 'float':
-                        $result[ $value ] = (float) $row[0]['sysvalue_value'];
-                        break;
-                    case 'bool':
-                        $result[ $value ] = (bool) $row[0]['sysvalue_value'];
-                        break;
-                    case 'array':
-                        $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
-                        break;
-                    case 'object':
-                        $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
-                        break;
-                    default:
-                        $result[ $value ] = $row[0]['sysvalue_value'];
+        }
+        if(count($to_fetch)) {
+            $escaped_keys = [];
+            foreach($to_fetch as $value) {
+                $escaped_keys[] = "'" . mysqli_real_escape_string($GLOBALS['db'], $value) . "'";
+            }
+            $sql = 'SELECT * FROM '.DB_PREPEND.'cmsgo_sysvalue WHERE sysvalue_status=1 AND sysvalue_key IN (' . implode(',', $escaped_keys) . ')';
+            $rows = _dbQuery($sql);
+            if(is_array($rows) && count($rows)) {
+                $fetched_map = [];
+                foreach($rows as $row) {
+                    $fetched_map[$row['sysvalue_key']] = $row;
+                }
+                foreach($to_fetch as $value) {
+                    if(isset($fetched_map[$value])) {
+                        $row = $fetched_map[$value];
+                        switch($row['sysvalue_vartype']) {
+                            case 'string':
+                                $result[ $value ] = (string) $row['sysvalue_value'];
+                                break;
+                            case 'int':
+                                $result[ $value ] = (int) $row['sysvalue_value'];
+                                break;
+                            case 'float':
+                                $result[ $value ] = (float) $row['sysvalue_value'];
+                                break;
+                            case 'bool':
+                                $result[ $value ] = (bool) $row['sysvalue_value'];
+                                break;
+                            case 'array':
+                                $result[ $value ] = (array) @unserialize($row['sysvalue_value'], ['allowed_classes' => false]);
+                                break;
+                            case 'object':
+                                $result[ $value ] = (object) @unserialize($row['sysvalue_value'], ['allowed_classes' => false]);
+                                break;
+                            default:
+                                $result[ $value ] = $row['sysvalue_value'];
+                        }
+                    }
                 }
             }
         }
         if($set_global && count($result)) {
-            foreach($result as $key => $value) {
-                $GLOBALS[$set_global][$key] = $value;
+            foreach($result as $key_name => $value) {
+                $GLOBALS[$set_global][$key_name] = $value;
             }
         }
         if($return === 'array') {
