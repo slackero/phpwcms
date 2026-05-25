@@ -1,11 +1,15 @@
 parameters:
     level: 5
+    autoload_files:
+      - include/config/conf.inc.php
+      - include/inc_lib/default.inc.php
     paths:
          - /
     #autoload_files:
     #    - include/vendor/autoload.php
-    #excludes_analyse:
-    #    - tests/
+    excludes_analyse:
+    - tests/
+    - include/vendor/
     #ignoreErrors:
     #    - '#Call to undefined function#'
 
