@@ -1,6 +1,22 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.13/bin/php -v)",
+      "Bash(echo \"Current PHP version: $\\(/Applications/MAMP/bin/php/php8.2.13/bin/php -v 2>&1)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.13/bin/php /Applications/MAMP/bin/php/composer --version)",
+      "Bash(echo \"Composer path: $\\(/Applications/MAMP/bin/php/php8.2.13/bin/php /Applications/MAMP/bin/php/composer --version 2>&1)",
+      "Bash(/Applications/MAMP/bin/php/php8.2.13/bin/php *)",
+      "Bash(phpstan analyse *)",
+      "Bash(chmod +x *)",
+      "Bash(./include/vendor/bin/phpstan analyse *)",
+      "Bash(git rm *)",
+      "Bash(ampsay *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "stacklit"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

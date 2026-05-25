@@ -1,7 +1,12 @@
+# IDE files
 *.esproj
 .idea
 .nova
+
+# Composer files
 composer.lock
+
+# Custom content files
 /content/images/*.*
 !/content/images/index.html
 /content/tmp/*.*
@@ -44,5 +49,10 @@ include/config.codekit3
 /include/vendor/netcarver/textile/docker/
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
+
+# AI environment
+!/.claude/settings.local.json
 /stacklit.html
 
+# PHPStan cache
+/.phpstan/cache/
