@@ -3,6 +3,7 @@ parameters:
     autoload_files:
       - include/config/conf.inc.php
       - include/inc_lib/default.inc.php
+      - include/vendor/autoload.php
     paths:
          - /
     #autoload_files:
