@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-05-24T21:11:31Z",
+  "generated_at": "2026-05-25T08:21:17Z",
   "stacklit_version": "dev",
-  "merkle_hash": "29d59857c3465a3448e4cd7b2f9dc41843193def12388c7109bd47f5afbe986b",
+  "merkle_hash": "fd3418b64bf7fab5dcd5e8f9e5ed32a3c99647447efddd7bc2db1e657086b499",
   "project": {
     "name": "cmsgo-v2.0",
     "root": ".",
@@ -17,8 +17,8 @@
         "lines": 57075
       },
       "php": {
-        "files": 811,
-        "lines": 156271
+        "files": 818,
+        "lines": 156664
       },
       "ruby": {
         "files": 1,
@@ -32,8 +32,8 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1453,
-    "total_lines": 214810
+    "total_files": 1460,
+    "total_lines": 215203
   },
   "modules": {
     "cmsgo-extended/cmsgo-fancyBox/template/inc_script": {
@@ -300,7 +300,7 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10212,
+      "lines": 10216,
       "file_list": [
         "calendar.func.inc.php",
         "cnt.lang.inc.php",
@@ -518,7 +518,19 @@
       "purpose": "En",
       "language": "php",
       "files": 3,
-      "lines": 1780,
+      "lines": 1779,
+      "file_list": [
+        "lang.ext.inc.php",
+        "lang.inc.php",
+        "lang.pp.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/es": {
+      "purpose": "Es",
+      "language": "php",
+      "files": 3,
+      "lines": 811,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
@@ -557,6 +569,18 @@
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
+      ],
+      "activity": "low"
+    },
+    "include/inc_lang/backend/pl": {
+      "purpose": "Pl",
+      "language": "php",
+      "files": 3,
+      "lines": 1627,
+      "file_list": [
+        "lang.ext.inc.php",
+        "lang.inc.php",
+        "lang.pp.inc.php"
       ],
       "activity": "low"
     },
@@ -666,17 +690,6 @@
       ],
       "activity": "low"
     },
-    "include/inc_lang/disable lang/es": {
-      "purpose": "Es",
-      "language": "php",
-      "files": 2,
-      "lines": 700,
-      "file_list": [
-        "lang.ext.inc.php",
-        "lang.inc.php"
-      ],
-      "activity": "low"
-    },
     "include/inc_lang/disable lang/et": {
       "purpose": "Et",
       "language": "php",
@@ -737,17 +750,6 @@
       "language": "php",
       "files": 2,
       "lines": 1002,
-      "file_list": [
-        "lang.ext.inc.php",
-        "lang.inc.php"
-      ],
-      "activity": "low"
-    },
-    "include/inc_lang/disable lang/pl": {
-      "purpose": "Pl",
-      "language": "php",
-      "files": 2,
-      "lines": 1516,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
@@ -855,10 +857,15 @@
     "include/inc_lang/image": {
       "purpose": "Image",
       "language": "php",
-      "files": 2,
-      "lines": 62,
+      "files": 7,
+      "lines": 230,
       "file_list": [
         "image.de.php",
+        "image.en.php",
+        "image.es.php",
+        "image.fr.php",
+        "image.it.php",
+        "image.nl.php",
         "image.pl.php"
       ],
       "activity": "low"
@@ -2005,9 +2012,11 @@
       "include/inc_lang",
       "include/inc_lang/backend/de",
       "include/inc_lang/backend/en",
+      "include/inc_lang/backend/es",
       "include/inc_lang/backend/fr",
       "include/inc_lang/backend/it",
       "include/inc_lang/backend/nl",
+      "include/inc_lang/backend/pl",
       "include/inc_lang/date",
       "include/inc_lang/disable lang/ar",
       "include/inc_lang/disable lang/bg",
@@ -2016,14 +2025,12 @@
       "include/inc_lang/disable lang/cs",
       "include/inc_lang/disable lang/cz",
       "include/inc_lang/disable lang/da",
-      "include/inc_lang/disable lang/es",
       "include/inc_lang/disable lang/et",
       "include/inc_lang/disable lang/fi",
       "include/inc_lang/disable lang/gr",
       "include/inc_lang/disable lang/hu",
       "include/inc_lang/disable lang/lt",
       "include/inc_lang/disable lang/no",
-      "include/inc_lang/disable lang/pl",
       "include/inc_lang/disable lang/pt",
       "include/inc_lang/disable lang/ro",
       "include/inc_lang/disable lang/ru",
@@ -2106,7 +2113,23 @@
   "git": {
     "hot_files": [
       {
+        "path": "DEPENDENCIES.md",
+        "commits_90d": 2
+      },
+      {
+        "path": "stacklit.html",
+        "commits_90d": 2
+      },
+      {
+        "path": "stacklit.json",
+        "commits_90d": 2
+      },
+      {
         "path": ".claude/settings.local.json",
+        "commits_90d": 1
+      },
+      {
+        "path": ".gitignore",
         "commits_90d": 1
       },
       {
@@ -2118,7 +2141,7 @@
         "commits_90d": 1
       },
       {
-        "path": "DEPENDENCIES.md",
+        "path": "include/inc_front/content.func.inc.php",
         "commits_90d": 1
       },
       {
@@ -2130,39 +2153,30 @@
         "commits_90d": 1
       },
       {
-        "path": "stacklit.html",
-        "commits_90d": 1
-      },
-      {
-        "path": "stacklit.json",
-        "commits_90d": 1
-      },
-      {
         "path": "verify.php",
         "commits_90d": 1
       }
     ],
     "recent": [
+      "include/inc_front/content.func.inc.php",
+      ".gitignore",
+      "DEPENDENCIES.md",
+      "stacklit.html",
+      "stacklit.json",
       "include/inc_tmpl/forum.list.tmpl.php",
       "include/inc_tmpl/message.center.tmpl.php",
       "verify.php",
       ".claude/settings.local.json",
-      ".mcp.json",
-      "CLAUDE.md",
-      "DEPENDENCIES.md",
-      "stacklit.html",
-      "stacklit.json",
-      "composer.json"
+      ".mcp.json"
     ],
     "stable": [
       ".claude/settings.local.json",
+      ".gitignore",
       ".mcp.json",
       "CLAUDE.md",
-      "DEPENDENCIES.md",
+      "include/inc_front/content.func.inc.php",
       "include/inc_tmpl/forum.list.tmpl.php",
       "include/inc_tmpl/message.center.tmpl.php",
-      "stacklit.html",
-      "stacklit.json",
       "verify.php"
     ]
   },
