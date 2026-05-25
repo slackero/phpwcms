@@ -10,7 +10,7 @@
 
 
 // Language: Italiano, Language Code: it
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 
 // translated by: Fulvio Romanin (info@fulvioromanin.it)
@@ -77,9 +77,9 @@ $BL['be_func_struct_paste_article']     = 'incolla articolo nel livello';
 $BL['be_func_struct_insert_level']      = 'inserisci il livello di struttura in';
 $BL['be_func_struct_paste_level']       = 'incolla nel livello';
 $BL['be_func_struct_cut_level']         = 'taglia il livello';
-$BL['be_func_struct_no_cut']            = "Non si può cancellare la root!";
-$BL['be_func_struct_no_paste1']         = "Non si può incollare qui!";
-$BL['be_func_struct_no_paste2']         = 'è figlio nella root del livello';
+$BL['be_func_struct_no_cut']            = "Non si pu&ograve; cancellare la root!";
+$BL['be_func_struct_no_paste1']         = "Non si pu&ograve; incollare qui!";
+$BL['be_func_struct_no_paste2']         = '&egrave; figlio nella root del livello';
 $BL['be_func_struct_no_paste3']         = 'che dovrebbe essere incollato qui';
 $BL['be_func_struct_paste_cancel']      = 'annulla il cambiamento di struttura del livello';
 $BL['be_func_struct_del_struct']        = 'cancella il livello di struttura';
@@ -112,20 +112,20 @@ $BL['be_profile_update_success']        = 'Dati del profilo aggiornati con succe
 $BL['be_profile_update_error']          = 'Errore di aggiornamento dati.';
 
 // profile.updateaccount.inc.php
-$BL['be_profile_account_err1']          = 'il nome utente {VAL} non è valido';
+$BL['be_profile_account_err1']          = 'il nome utente {VAL} non &egrave; valido';
 $BL['be_profile_account_err2']          = 'password troppo corta (solo {VAL} caratteri: ne servono almeno 5)';
 $BL['be_profile_account_err3']          = 'la password deve essere identica';
-$BL['be_profile_account_err4']          = 'email {VAL} non valido';
+$BL['be_profile_account_err4']          = 'email {VAL} non valida';
 
 // profile.data.tmpl.php
 $BL['be_profile_data_title']            = 'i tuoi dati personali';
-$BL['be_profile_data_text']             = 'i dati personali sono opzionali. Questo può aiutare altri utenti o visitatori del sito a sapere di più su di te, le tue abilità e interessi. Se selezioni la checkbox appropriata gli utenti possono vedere le informazioni sul tuo profilo nell"area pubblica o negli articoli (se desiderato).';
+$BL['be_profile_data_text']             = 'i dati personali sono opzionali. Questo pu&ograve; aiutare altri utenti o visitatori del sito a sapere di pi&ugrave; su di te, le tue abilit&agrave; e interessi. Se selezioni la checkbox appropriata gli utenti possono vedere le informazioni sul tuo profilo nell&#39;area pubblica o negli articoli (se desiderato).';
 $BL['be_profile_label_title']           = 'titolo';
 $BL['be_profile_label_firstname']       = 'nome';
 $BL['be_profile_label_name']            = 'cognome';
-$BL['be_profile_label_company']         = 'società';
+$BL['be_profile_label_company']         = 'societ&agrave;';
 $BL['be_profile_label_street']          = 'indirizzo';
-$BL['be_profile_label_city']            = 'città';
+$BL['be_profile_label_city']            = 'citt&agrave;';
 $BL['be_profile_label_state']           = 'provincia, stato';
 $BL['be_profile_label_zip']             = 'codice postale';
 $BL['be_profile_label_country']         = 'stato';
@@ -138,12 +138,12 @@ $BL['be_profile_label_profession']      = 'professione';
 $BL['be_profile_label_newsletter']      = 'newsletter';
 $BL['be_profile_text_newsletter']       = 'voglio ricevere la newsletter di cmsgo.';
 $BL['be_profile_label_public']          = 'pubblico';
-$BL['be_profile_text_public']           = 'Chiunque può vedere i miei dati personali.';
+$BL['be_profile_text_public']           = 'Chiunque pu&ograve; vedere i miei dati personali.';
 $BL['be_profile_label_button']          = 'aggiorna i dati personali';
 
 // profile.account.tmpl.php
 $BL['be_profile_account_title']         = 'informazioni di accesso';
-$BL['be_profile_account_text']          = 'Normalmente non è necessario cambiare il nome utente.<br />Dovreste tuttavia cambiare la password di quando in quando per incrementare la sicurezza.';
+$BL['be_profile_account_text']          = 'Normalmente non &egrave; necessario cambiare il nome utente.<br />Dovreste tuttavia cambiare la password di quando in quando per incrementare la sicurezza.';
 $BL['be_profile_label_err']             = 'per cortesia controlla';
 $BL['be_profile_label_username']        = 'nome utente';
 $BL['be_profile_label_newpass']         = 'nuova password';
@@ -204,7 +204,7 @@ $BL['be_fpriv_updatebutton']            = 'aggiorna le info della cartella';
 
 // files.private.upload.tmpl.php
 $BL['be_fprivup_err1']                  = 'seleziona un file da caricare';
-$BL['be_fprivup_err2']                  = 'la dimensione del file caricato è maggiore di';
+$BL['be_fprivup_err2']                  = 'la dimensione del file caricato &egrave; maggiore di';
 $BL['be_fprivup_err3']                  = 'Errore nella scrittura del file nella cartella apposita';
 $BL['be_fprivup_err4']                  = 'Errore nella creazione della cartella utente.';
 $BL['be_fprivup_err5']                  = 'nessuna icona';
@@ -254,7 +254,7 @@ $BL['be_fpublic_user']                  = 'utente';
 $BL['be_fpublic_nofiles']               = 'nessun file o cartella pubblico';
 
 // files.private.trash.tmpl.php
-$BL['be_ftrash_nofiles']                = 'il cestino è vuoto';
+$BL['be_ftrash_nofiles']                = 'il cestino &egrave; vuoto';
 $BL['be_ftrash_show']                   = 'mostra i files privati';
 
 // files.private-delfilelist.inc.php
@@ -264,9 +264,9 @@ $BL['be_ftrash_undo']                   = 'ripristina';
 $BL['be_ftrash_delfinal']               = 'cancellazione definitiva';
 
 // files.search.tmpl.php
-$BL['be_fsearch_err1']                  = 'la stringa di ricerca è vuota.';
+$BL['be_fsearch_err1']                  = 'la stringa di ricerca &egrave; vuota.';
 $BL['be_fsearch_title']                 = 'cerca files';
-$BL['be_fsearch_infotext']              = 'Questa è una ricerca semplificata per le informazioni dei files. Cerca nelle keywords, nomi dei files e descrizioni dei files.<br />. Nessun supporto per le wildcards. Separate la ricerca di parole<br />multiple con uno spazio. Selezionate AND/OR e quali files cercare: personali/pubblici.';
+$BL['be_fsearch_infotext']              = 'Questa &egrave; una ricerca semplificata per le informazioni dei files. Cerca nelle keywords, nomi dei files e descrizioni dei files.<br />. Nessun supporto per le wildcards. Separate la ricerca di parole<br />multiple con uno spazio. Selezionate AND/OR e quali files cercare: personali/pubblici.';
 $BL['be_fsearch_nonfound']              = 'nessun file trovato. provate a modificare i termini di ricerca';
 $BL['be_fsearch_fillin']                = 'per cortesia scrivete nel campo soprastante i termini di ricerca.';
 $BL['be_fsearch_searchlabel']           = 'cerca';
@@ -279,7 +279,7 @@ $BL['be_fsearch_public']                = 'pubblici';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
 $BL['be_chat_title']                    = 'chat interna';
-$BL['be_chat_info']                     = 'Qui potete chattare con altre persone che hanno accesso al back office. Questa chat è per parlarsi in tempo reale ma potete lasciare anche un messaggio se volete che tutti leggano.';
+$BL['be_chat_info']                     = 'Qui potete chattare con altre persone che hanno accesso al back office. Questa chat &egrave; per parlarsi in tempo reale ma potete lasciare anche un messaggio se volete che tutti leggano.';
 $BL['be_chat_start']                    = 'cliccate qui per iniziare a chattare';
 $BL['be_chat_lines']                    = 'chat:';
 
@@ -310,7 +310,7 @@ $BL['be_msg_msg']                       = 'messaggio';
 $BL['be_msg_err1']                      = 'non hai indicato il destinatario...';
 $BL['be_msg_err2']                      = 'non hai indicato l"argomento...';
 $BL['be_msg_err3']                      = 'non hai scritto nulla nel messaggio! che lo mandi a fare? :)';
-$BL['be_msg_sent']                      = 'il messaggio è satto inviato!';
+$BL['be_msg_sent']                      = 'il messaggio &egrave; stato inviato!';
 $BL['be_msg_fwd']                       = 'sarai riindirizzato al centro messaggi o';
 $BL['be_msg_newmsgtitle']               = 'scrivi un messaggio nuovo';
 $BL['be_msg_err']                       = 'errore nell"invio del messaggio';
@@ -330,21 +330,21 @@ $BL['be_newsletter_button_cancel']      = 'cancella';
 
 // admin.newuser.tmpl.php
 $BL['be_admin_usr_err1']                = 'nome utente non valido, scegline un altro';
-$BL['be_admin_usr_err2']                = 'unome utente vuoto (obbligatorio)';
+$BL['be_admin_usr_err2']                = 'nome utente vuoto (obbligatorio)';
 $BL['be_admin_usr_err3']                = 'password vuota (obbligatorio)';
-$BL['be_admin_usr_err4']                = "email non valido";
+$BL['be_admin_usr_err4']                = "email non valida";
 $BL['be_admin_usr_err']                 = 'errore';
 $BL['be_admin_usr_mailsubject']         = 'benvenuto nel back office di cmsgo';
 $BL['be_admin_usr_mailbody']            = "BENVENUTO NEL BACK OFFICE DI CMSGO\n\n    nome utente: {LOGIN}\n    password: {PASSWORD}\n\n\nPuoi accedere da qui: {LOGIN_PAGE}\n\ncmsgo admin\n ";
 $BL['be_admin_usr_title']               = 'aggiungi nome utente';
 $BL['be_admin_usr_realname']            = 'nome vero';
 $BL['be_admin_usr_setactive']           = 'attiva utente';
-$BL['be_admin_usr_iflogin']             = 'se selezionato l"utente può accedere';
-$BL['be_admin_usr_isadmin']             = 'utente è amministratore';
-$BL['be_admin_usr_ifadmin']             = 'se selezionato l"utente ha diritti di amministratore';
+$BL['be_admin_usr_iflogin']             = 'se selezionato l&#39;utente pu&ograve; accedere';
+$BL['be_admin_usr_isadmin']             = 'l&#39;utente &egrave; amministratore';
+$BL['be_admin_usr_ifadmin']             = 'se selezionato l&#39;utente ha diritti di amministratore';
 $BL['be_admin_usr_verify']              = 'verifica';
-$BL['be_admin_usr_sendemail']           = 'manda un e-mail al nuovo utente con le informazioni dell"account';
-$BL['be_admin_usr_button']              = 'invia i dati dell"utente';
+$BL['be_admin_usr_sendemail']           = 'manda un e-mail al nuovo utente con le informazioni dell&#39;account';
+$BL['be_admin_usr_button']              = 'invia i dati dell&#39;utente';
 
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edita account utente';
@@ -355,7 +355,7 @@ $BL['be_admin_usr_ebutton']             = 'aggiorna dati utente';
 
 // admin.listuser.tmpl.php
 $BL['be_admin_usr_ltitle']              = 'lista utenti cmsgo';
-$BL['be_admin_usr_ldel']                = 'ATTENZIONE!&#13Questo cancellerà l"utente';
+$BL['be_admin_usr_ldel']                = 'ATTENZIONE!&#13Questo canceller&agrave; l&#39;utente';
 $BL['be_admin_usr_create']              = 'crea nuovo utente';
 $BL['be_admin_usr_editusr']             = 'edita utente';
 
@@ -375,7 +375,7 @@ $BL['be_admin_struct_close']            = 'chiudi';
 
 // admin.filecat.tmpl.php
 $BL['be_admin_fcat_title']              = 'categorie dei file';
-$BL['be_admin_fcat_err']                = 'il nome della categoria è vuoto!';
+$BL['be_admin_fcat_err']                = 'il nome della categoria &egrave; vuota!';
 $BL['be_admin_fcat_name']               = 'nome della categoria';
 $BL['be_admin_fcat_needed']             = 'obbligatorio';
 $BL['be_admin_fcat_button1']            = 'aggiorna';
@@ -502,7 +502,7 @@ $BL['be_article_cnt_start']             = 'data inizio';
 $BL['be_article_cnt_end']               = 'data termine';
 $BL['be_article_cnt_add']               = 'aggiungi nuova parte contenuto';
 $BL['be_article_cnt_up']                = 'muovi contenuto su';
-$BL['be_article_cnt_down']              = 'muovi contenuto giù';
+$BL['be_article_cnt_down']              = 'muovi contenuto gi&ugrave;';
 $BL['be_article_cnt_edit']              = 'aggiungi parte contenuto';
 $BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto articolo';
 $BL['be_article_cnt_delpartjs']         = 'Cancella questa parte contenuto?';
@@ -560,7 +560,7 @@ $BL['be_cnt_changemail']                = 'cambio.email';
 $BL['be_cnt_openimagebrowser']          = 'apri browser immagini';
 $BL['be_cnt_openfilebrowser']           = 'apri browser files';
 $BL['be_cnt_sortup']                    = 'muovi su';
-$BL['be_cnt_sortdown']                  = 'muovi giù';
+$BL['be_cnt_sortdown']                  = 'muovi gi&ugrave;';
 $BL['be_cnt_delimage']                  = 'rimuovi immagine selezionata';
 $BL['be_cnt_delfile']                   = 'rimuovi file selezionato';
 $BL['be_cnt_delmedia']                  = 'rimuovi media selezionato';

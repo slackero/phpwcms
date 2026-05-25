@@ -12,7 +12,7 @@
 // Original translation by http://www.repute.nl and http://www.voskotan.com
 // Major revision and final editing by http://www.argosmedia.nl (26-03-2004)
 // Updated by F. de Groot 03/2007
-// Please use HTML safe strings ONLY,neccessary to reduce processing time
+// Please use HTML safe strings ONLY, necessary to reduce processing time
 // Normal line break: '&#13'
 // JavaScript Linebreak: '\n'
 
@@ -164,7 +164,7 @@ $BL['be_ftptakeover_nofile']            = '<br>U heeft geen bestanden geupload. 
 $BL['be_ftptakeover_all']               = 'Alles versturen';
 $BL['be_ftptakeover_directory']         = 'Directory';
 $BL['be_ftptakeover_rootdir']           = 'Root directory';
-$BL['be_ftptakeover_needed']            = 'U dient minimaal één bestand te selecteren';
+$BL['be_ftptakeover_needed']            = 'U dient minimaal &eacute;&eacute;n bestand te selecteren';
 $BL['be_ftptakeover_optional']          = 'Optioneel';
 $BL['be_ftptakeover_keywords']          = 'Sleutelwoorden';
 $BL['be_ftptakeover_additional']        = '(extra)';

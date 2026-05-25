@@ -11,7 +11,7 @@
 
 // Language: French, Language Code: fr
 // 04-04-2007 updated by Marcos Peebles www.piezo.be
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 
 
@@ -581,8 +581,8 @@ $BL['be_cnt_articles']                  = 'articles';
 $BL['be_cnt_movearticleto']             = 'd&eacute;placer l&#39;article s&eacute;lectionn&eacute; vers la liste de liens articles';
 $BL['be_cnt_removearticleto']           = 'supprimer l&#39;article s&eacute;lectionn&eacute; de la liste de liens articles';
 $BL['be_cnt_mediatype']                 = 'type de m&eacute;dia';
-$BL['be_cnt_control']                   = 'contrôle';
-$BL['be_cnt_showcontrol']               = 'afficher la barre de contrôle';
+$BL['be_cnt_control']                   = 'contr&ocirc;le';
+$BL['be_cnt_showcontrol']               = 'afficher la barre de contr&ocirc;le';
 $BL['be_cnt_autoplay']                  = 'lecture automatique';
 $BL['be_cnt_source']                    = 'source';
 $BL['be_cnt_internal']                  = 'interne';
@@ -724,7 +724,7 @@ $BL['be_newsletter_attention1']         = 'Si vous avez modifi&eacute; des donn&
 $BL['be_newsletter_testemail']          = 'Email de test';
 $BL['be_newsletter_sendnlbutton']       = 'envoyez la lettre d&#39;infos';
 $BL['be_newsletter_sendprocess']        = 'processus d&#39;envoi';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de façon automatique.';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de fa&ccedil;on automatique.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">l&#39;adresse de test <strong>###TEST###</strong> n&#39;est PAS valide!<br />&nbsp;<br />Veuillez r&eacute;essayer svp!';
 $BL['be_newsletter_to']                 = 'Destinataires';
 $BL['be_newsletter_ready']              = 'envoi de lettre d&#39;infos: FAIT';
@@ -733,8 +733,8 @@ $BL['be_subnav_msg_subscribers']        = 'lettres d&#39;infos > abonn&eacute;s'
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap']                 = 'plan du site';
-$BL['be_cnt_sitemap_catimage']          = 'icône du niveau';
-$BL['be_cnt_sitemap_articleimage']      = 'icône de l&#39;article';
+$BL['be_cnt_sitemap_catimage']          = 'ic&ocirc;ne du niveau';
+$BL['be_cnt_sitemap_articleimage']      = 'ic&ocirc;ne de l&#39;article';
 $BL['be_cnt_sitemap_display']           = 'montrer';
 $BL['be_cnt_sitemap_structuronly']      = 'seulement les structures des niveaux';
 $BL['be_cnt_sitemap_structurarticle']   = 'structure des niveaux + articles';

@@ -13,7 +13,7 @@
 // Language Code: it
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -21,7 +21,7 @@ $BL['FOLDER_LIST']       = 'elenco cartelle';
 $BL['FILES']             = 'files';
 $BL['SHOW_FILES']        = 'mostra i files nella root';
 $BL['SHOW_FILES1']       = 'mostra i file nella cartella';
-$BL['TAKE_IMAGE']        = 'prendi ed aggiungi questo file';
+$BL['TAKE_IMAGE']        = 'prendi ed aggiungi questo file&#8230;';
 $BL['NO_FILE']           = 'nessun file';
 $BL['OPEN_DIR']          = 'apri cartella';
 $BL['CLOSE_DIR']         = 'chiudi cartella';
@@ -39,8 +39,8 @@ $BL['CREATED']           = 'creato';
 $BL['DATE_FORMAT']       = 'm-d-Y H:i';
 $BL['SIZE']              = 'dimensione';
 $BL['DOWNLOAD_FILE']     = 'scarica file';
-$BL['FILE_IN_TRASH']     = 'il file è nel cestino';
+$BL['FILE_IN_TRASH']     = 'il file &egrave; nel cestino';
 $BL['KEYWORDS']          = 'parole chiave';
-$BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora...';
+$BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora&#8230;';
 
 

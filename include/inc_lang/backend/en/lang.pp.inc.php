@@ -13,7 +13,7 @@
 // Language Code: en
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -25,7 +25,7 @@ $BL['be_cnt_custom_entry'] = 'Item';
 $BL['be_cnt_custom_entries'] = 'Items';
 $BL['be_cnt_title_overview'] = 'Overview';
 $BL['be_article_opposite_lang'] = 'Other languages';
-$BL['be_tooltip_visibility'] = 'activate/deactivte';
+$BL['be_tooltip_visibility'] = 'activate/deactivate';
 $BL['be_tooltip_filter_user'] = 'Filter by username, name or email';
 $BL['be_tooltip_filter_for'] = 'Filter by';
 $BL['be_btn_preview'] = 'Preview';
@@ -67,7 +67,7 @@ $BL['f_alias'] = '<p><b>Alias fields were added to the database</b></p>';
 $BL['be_ctptemp'] = 'Contentpart templates';
 $BL['file_copy'] = 'Copy template';
 $BL['file_rename'] = 'Rename template';
-$BL['file_delete'] = 'Template l&ouml;schen';
+$BL['file_delete'] = 'Delete template';
 $BL['list_files'] = 'List articles with this template';
 $BL['show_code'] = 'Show source code of the template';
 $BL['label_default'] = 'Default template (/inc_default)';
@@ -95,7 +95,7 @@ $BL['be_amount_results'] = 'Number';
 
 //News
 $BL['be_news_edit'] = 'Edit news';
-$BL['be_news_edit'] = 'Copy news';
+$BL['be_news_copy'] = 'Copy news';
 $BL['be_news_add'] = 'Enter news article';
 $BL['be_news_list'] = 'News articles';
 

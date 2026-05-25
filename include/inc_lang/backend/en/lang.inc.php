@@ -10,7 +10,7 @@
 
 
 // Language: English, Language Code: en
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
 
@@ -105,11 +105,11 @@ $BL['be_ctype_newsletter']              = 'newsletter';
 
 // profile.create.inc.php
 $BL['be_profile_create_success']        = 'Profile successfully created.';
-$BL['be_profile_create_error']          = 'An error occured while creating.';
+$BL['be_profile_create_error']          = 'An error occurred while creating.';
 
 // profile.update.inc.php
 $BL['be_profile_update_success']        = 'Profile data successful updated.';
-$BL['be_profile_update_error']          = 'An error occured while updating.';
+$BL['be_profile_update_error']          = 'An error occurred while updating.';
 
 // profile.updateaccount.inc.php
 $BL['be_profile_account_err1']          = 'username {VAL} is invalid';
@@ -1062,7 +1062,7 @@ $BL['be_WYSIWYG']                       = 'WYSIWYG editor';
 $BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor disabled';
 $BL['be_admin_struct_acat_hiddenactive'] = 'visible when active';
 
-$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is neccessary in the backend!';
+$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is necessary in the backend!';
 
 $BL['be_admin_struct_maxlist']          = 'max. articles in list mode';
 
@@ -1337,7 +1337,7 @@ $BL['googleapi_load']                   = 'use CDN';
 
 $BL['fancyupload_clear_list']           = 'Clear List';
 $BL['fancyupload_file_uploaded']        = 'File was uploaded';
-$BL['fancyupload_file_error']           = 'An error occured';
+$BL['fancyupload_file_error']           = 'An error occurred';
 $BL['fancyupload_adblock_error']        = 'To enable the embedded uploader, unblock it in your browser and refresh (see Adblock).';
 $BL['fancyupload_flashblock_error']     = 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
 $BL['fancyupload_required_error']       = 'A required file was not found, please be patient and we fix this.';
