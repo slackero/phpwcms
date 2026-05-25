@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-04-18T09:13:31Z",
+  "generated_at": "2026-05-24T21:11:31Z",
   "stacklit_version": "dev",
-  "merkle_hash": "a5da0f38835293955127a036f709c59b6d53440b417f70b72d96cbf56b97c82a",
+  "merkle_hash": "29d59857c3465a3448e4cd7b2f9dc41843193def12388c7109bd47f5afbe986b",
   "project": {
     "name": "cmsgo-v2.0",
     "root": ".",
@@ -18,7 +18,7 @@
       },
       "php": {
         "files": 811,
-        "lines": 156269
+        "lines": 156271
       },
       "ruby": {
         "files": 1,
@@ -33,7 +33,7 @@
   "structure": {
     "entrypoints": null,
     "total_files": 1453,
-    "total_lines": 214808
+    "total_lines": 214810
   },
   "modules": {
     "cmsgo-extended/cmsgo-fancyBox/template/inc_script": {
@@ -1434,7 +1434,7 @@
       "purpose": "Inc Tmpl",
       "language": "php",
       "files": 50,
-      "lines": 14800,
+      "lines": 14801,
       "file_list": [
         "about.tmpl.php",
         "admin.aliaslist.tmpl.php",
@@ -1515,7 +1515,7 @@
       "purpose": "Root package",
       "language": "php",
       "files": 14,
-      "lines": 3591,
+      "lines": 3592,
       "file_list": [
         "articlebrowser.php",
         "cmsgo.php",
@@ -2106,6 +2106,10 @@
   "git": {
     "hot_files": [
       {
+        "path": ".claude/settings.local.json",
+        "commits_90d": 1
+      },
+      {
         "path": ".mcp.json",
         "commits_90d": 1
       },
@@ -2118,97 +2122,48 @@
         "commits_90d": 1
       },
       {
-        "path": "composer.json",
+        "path": "include/inc_tmpl/forum.list.tmpl.php",
         "commits_90d": 1
       },
       {
-        "path": "include/inc_front/lib/js.jquery-3.0-migrate-1.inc.php",
+        "path": "include/inc_tmpl/message.center.tmpl.php",
         "commits_90d": 1
       },
       {
-        "path": "include/inc_front/lib/js.jquery-3.0-migrate.inc.php",
+        "path": "stacklit.html",
         "commits_90d": 1
       },
       {
-        "path": "include/inc_front/lib/js.jquery-3.1-migrate-1.inc.php",
+        "path": "stacklit.json",
         "commits_90d": 1
       },
       {
-        "path": "include/inc_front/lib/js.jquery-3.1-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.2-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.2-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.3-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.3-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.4-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.4-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.5-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.5-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.6-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.6-migrate.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.7-migrate-1.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/lib/js.jquery-3.7-migrate.inc.php",
+        "path": "verify.php",
         "commits_90d": 1
       }
     ],
     "recent": [
+      "include/inc_tmpl/forum.list.tmpl.php",
+      "include/inc_tmpl/message.center.tmpl.php",
+      "verify.php",
+      ".claude/settings.local.json",
       ".mcp.json",
       "CLAUDE.md",
       "DEPENDENCIES.md",
       "stacklit.html",
       "stacklit.json",
-      "composer.json",
-      "include/inc_lib/revision/revision.php",
-      "include/vendor/algo26-matthias/idna-convert/src/TranscodeUnicode/ByteLengthTrait.php",
-      "include/vendor/composer/autoload_classmap.php",
-      "include/vendor/composer/autoload_files.php"
+      "composer.json"
     ],
     "stable": [
+      ".claude/settings.local.json",
       ".mcp.json",
       "CLAUDE.md",
       "DEPENDENCIES.md",
-      "composer.json",
-      "include/inc_front/lib/js.jquery-3.0-migrate-1.inc.php",
-      "include/inc_front/lib/js.jquery-3.0-migrate.inc.php",
-      "include/inc_front/lib/js.jquery-3.1-migrate-1.inc.php",
-      "include/inc_front/lib/js.jquery-3.1-migrate.inc.php",
-      "include/inc_front/lib/js.jquery-3.2-migrate-1.inc.php",
-      "include/inc_front/lib/js.jquery-3.2-migrate.inc.php"
+      "include/inc_tmpl/forum.list.tmpl.php",
+      "include/inc_tmpl/message.center.tmpl.php",
+      "stacklit.html",
+      "stacklit.json",
+      "verify.php"
     ]
   },
   "hints": {},

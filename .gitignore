@@ -41,3 +41,4 @@ include/config.codekit3
 /include/vendor/netcarver/textile/docker/
 /include/vendor/openpsa/universalfeedcreator/.github/
 /include/vendor/openpsa/universalfeedcreator/test/
+/stacklit.html
