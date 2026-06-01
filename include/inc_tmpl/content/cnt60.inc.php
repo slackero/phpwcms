@@ -506,11 +506,12 @@ function updatePreviewImageAll() {
 }
 
 function updateCustomSort() {
-
+    custom_entry = [];
     $("li[id*='custom_element_']").each(function() {
-      var custom_number = $(this).attr('id').split('_')
+      var custom_number = $(this).attr('id').split('_');
       if(custom_number[2]) {
-        custom_entry[ custom_number[2] ] = $('custom_sort['+custom_number[2]+']').value;
+        var idx = parseInt(custom_number[2], 10);
+        custom_entry[idx] = idx;
       }
     });
 }
