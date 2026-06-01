@@ -5887,12 +5887,6 @@ parameters:
 			path: ../include/inc_module/mod_feedimport/backend.default.php
 
 		-
-			message: '#^Function initMootools not found\.$#'
-			identifier: function.notFound
-			count: 2
-			path: ../include/inc_module/mod_feedimport/backend.editform.php
-
-		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 8
@@ -5901,7 +5895,7 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 29
+			count: 15
 			path: ../include/inc_module/mod_feedimport/backend.editform.php
 
 		-
