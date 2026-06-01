@@ -38,6 +38,7 @@ $(function () {
             show: 250,
             hide: 0
         },
+        container: 'body',
         sanitize: false
     });
 
