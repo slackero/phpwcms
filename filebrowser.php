@@ -470,9 +470,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
                     echo $filename.'</td><td class="text-right py-1">';
                 } else if($js_aktion == 16 || $js_aktion == 17) {
-                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td align="right py-1">';
+                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td class="text-right py-1">';
                 } else {
-                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td align="right py-1">';
+                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td class="text-right py-1">';
                 }
 
                 echo '<a href="#" class="btn btn-sm btn-blue" onclick="'.$js.'return false;" data-toggle="tooltip" title="'.$BL['TAKE_IMAGE'].'">';
