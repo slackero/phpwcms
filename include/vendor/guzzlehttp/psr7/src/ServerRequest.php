@@ -166,7 +166,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     public static function fromGlobals(): ServerRequestInterface
     {
         $method = self::getServerParam('REQUEST_METHOD') ?? 'GET';
-        $headers = getallheaders();
+        $headers = self::removeInvalidHostHeader(self::getAllHeaders());
         $uri = self::getUriFromGlobals();
         $body = new CachingStream(new LazyOpenStream('php://input', 'r+'));
         $serverProtocol = self::getServerParam('SERVER_PROTOCOL');
@@ -181,9 +181,55 @@ class ServerRequest extends Request implements ServerRequestInterface
             ->withUploadedFiles(self::normalizeFiles($_FILES));
     }
 
+    /**
+     * @return array<array-key, string>
+     */
+    private static function getAllHeaders(): array
+    {
+        return self::normalizeHeaderValues(getallheaders());
+    }
+
+    /**
+     * @param array<array-key, mixed> $headers
+     *
+     * @return array<array-key, string>
+     */
+    private static function normalizeHeaderValues(array $headers): array
+    {
+        $normalized = [];
+
+        foreach ($headers as $name => $value) {
+            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
+                $normalized[$name] = (string) $value;
+            }
+        }
+
+        return $normalized;
+    }
+
     private static function getServerParam(string $key): ?string
     {
         return isset($_SERVER[$key]) && is_string($_SERVER[$key]) ? $_SERVER[$key] : null;
+    }
+
+    /**
+     * @param array<array-key, string> $headers
+     *
+     * @return array<array-key, string>
+     */
+    private static function removeInvalidHostHeader(array $headers): array
+    {
+        foreach ($headers as $name => $value) {
+            if (strtolower((string) $name) !== 'host') {
+                continue;
+            }
+
+            if (Rfc7230::parseHostHeader($value) === null) {
+                unset($headers[$name]);
+            }
+        }
+
+        return $headers;
     }
 
     /**
@@ -191,16 +237,7 @@ class ServerRequest extends Request implements ServerRequestInterface
      */
     private static function extractHostAndPortFromAuthority(string $authority): array
     {
-        $uri = 'http://'.$authority;
-        $parts = parse_url($uri);
-        if (!is_array($parts)) {
-            return [null, null];
-        }
-
-        $host = $parts['host'] ?? null;
-        $port = $parts['port'] ?? null;
-
-        return [$host, $port];
+        return Rfc7230::parseHostHeader($authority) ?? [null, null];
     }
 
     /**

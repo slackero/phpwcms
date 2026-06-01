@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.10.4 - 2026-05-29
+
+### Fixed
+
+- Apply `UriNormalizer` percent-encoding normalizations to URI fragments
+- Make `LimitStream::getSize()` return `0` for slices past the underlying stream end
+- Make `AppendStream::read()` return an empty string when no streams are attached
+- Make `CachingStream::read()` throw on an incomplete cache-target write instead of silently corrupting replays
+- Prevent `CachingStream::seek()` from looping indefinitely when the remote stream makes no progress
+
+## 2.10.3 - 2026-05-27
+
+### Fixed
+
+- Fixed URI parsing for IPv6 literals containing embedded IPv4 addresses
+- Fixed malformed UTF-8 URI strings being parsed as empty URIs
+
+## 2.10.2 - 2026-05-25
+
+### Security
+
+- Reject control and whitespace characters in URI host components (GHSA-hq7v-mx3g-29hw)
+- Reject malformed Host values when constructing request URIs (GHSA-34xg-wgjx-8xph)
+
+### Fixed
+
+- Make `ServerRequest::fromGlobals()` robust against unexpected HTTP header value types in `$_SERVER`
+
 ## 2.10.1 - 2026-05-20
 
 ### Fixed
