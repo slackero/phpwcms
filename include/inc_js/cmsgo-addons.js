@@ -200,30 +200,14 @@ function SendDataSort(sVar) {
 }
 
 //set min height of wrapper if changing sidebar
-if (typeof jQuery == 'undefined') { // still mootools
-    window.addEvent('domready', function () {
-        $$('#side-menu li').addEvent('click', function (e) {
-            $$('#side-menu ul').setStyle('display', 'none');
-            if (this.getElements('ul').getStyle('display') === 'block') {
-                this.getElements('ul').setStyle('display', 'none');
-            } else {
-                this.getElements('ul').setStyle('display', 'block');
-            }
-            height = height - topOffset;
-            newheight = document.getElementById('side-menu').offsetHeight + (topOffset * 2);
-            $$('#page-wrapper').setStyle('min-height', newheight);
-        });
+$(function () {
+    $('#side-menu li').on('click', function () {
+        $('#side-menu ul').css("display", "none");
+        $(this).children('ul').css("display", "block");
+        height = height - topOffset;
+        newheight = $('#side-menu').height() + (topOffset * 2);
+        if (height < newheight) {
+            $("#page-wrapper").css("min-height", (newheight) + "px");
+        }
     });
-} else {
-    $(function () {
-        $('#side-menu li').on('click', function () {
-            $('#side-menu ul').css("display", "none");
-            $(this).children('ul').css("display", "block");
-            height = height - topOffset;
-            newheight = $('#side-menu').height() + (topOffset * 2);
-            if (height < newheight) {
-                $("#page-wrapper").css("min-height", (newheight) + "px");
-            }
-        });
-    });
-}
+});
