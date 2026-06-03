@@ -64,7 +64,7 @@ $cmsgo['rewrite_url']          = 1; // whether URL should be rewritable
 $cmsgo['rewrite_ext']          = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/
 $cmsgo['alias_allow_slash']    = 1; // Allow slashes / in ALIAS
 $cmsgo['alias_allow_utf8']     = 1; // If charset is utf-8 special chars will survive alias checking
-$cmsgo['wysiwyg_editor']       = 1; // 0 = no wysiwyg editor, 1 = TinyMCE 8
+$cmsgo['wysiwyg_editor']       = 2; // 0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8
 $cmsgo['default_lang']         = 'de'; // default language
 $cmsgo['DOCTYPE_LANG']         = ''; // by default same as $cmsgo['default_lang'], but can be injected by whatever you like
 $cmsgo['allowed_lang']         = array('en', 'de', 'fr', 'es'); //array of allowed languages
