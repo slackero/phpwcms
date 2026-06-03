@@ -1,0 +1,25 @@
+name: Update langs
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 10 * * 1'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 18
+      - name: Update langs
+        run: |
+          apt update && apt install wget unzip git jq -y
+          npm ci
+          ./update.sh
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+            commit-message: Update langs
+            title: Update langs
+            branch: update-langs

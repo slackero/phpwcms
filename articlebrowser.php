@@ -89,9 +89,9 @@ switch ($js_aktion) {
         $js = 'parent.document.articlecontent.calias.value';
         break;
 
-    //CKEditor
+    //TinyMCE / CKEditor
     case 16:
-        $js = 'window.opener.CKEDITOR.tools.callFunction(' . $ckeditor_action . ", 'index.php?%s');window.close();";
+        $js = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('index.php?%s');window.close();}else{window.opener.CKEDITOR.tools.callFunction(" . $ckeditor_action . ", 'index.php?%s');window.close();}";
         break;
 
     default:
@@ -146,9 +146,11 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     <?php if ($js_aktion == 16): ?>
         <script type="text/javascript">
-            const dialog = window.opener.CKEDITOR.dialog.getCurrent();
-            const docIdField = dialog.getContentElement('info', 'protocol');
-            docIdField.setValue('');
+            if (window.opener && window.opener.CKEDITOR) {
+                const dialog = window.opener.CKEDITOR.dialog.getCurrent();
+                const docIdField = dialog.getContentElement('info', 'protocol');
+                docIdField.setValue('');
+            }
         </script>
     <?php endif; ?>
 </head>

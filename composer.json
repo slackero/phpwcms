@@ -9,6 +9,8 @@
     "require": {
         "php": ">=8.2",
         "algo26-matthias/idna-convert": "^v4.2.1",
+        "tinymce/tinymce": "^8.6.0",
+        "mklkj/tinymce-i18n": "dev-master",
         "enshrined/svg-sanitize": "0.22.0",
         "greew/oauth2-azure-provider": "^v2.0.0",
         "netcarver/textile": "v4.1.4",

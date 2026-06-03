@@ -1,0 +1,22 @@
+# macOS
+*.DS_Store
+
+# Windows
+Thumbs.db
+
+# composer
+composer.phar
+/vendor/
+
+# npm
+node_modules/
+.npm
+logs
+*.log
+*.tgz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# output
+langs*.zip

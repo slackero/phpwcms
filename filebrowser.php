@@ -435,13 +435,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         $js  = "parent.SetUrl('".CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
-                    //CKEditor
+                    //TinyMCE / CKEditor
                     case 16:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');";
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('download.php?f=" . $file_row["f_hash"] . "');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');}";
                         break;
 
                     case 17:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        $resize_url = CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"];
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('".$resize_url."');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".$resize_url."');}";
                         break;
 
                     default:
