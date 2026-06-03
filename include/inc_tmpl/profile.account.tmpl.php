@@ -89,12 +89,13 @@ if (!defined('CMSGO_ROOT')) {
 
     <div class="row align-items-center">
       <label for="be_WYSIWYG" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_WYSIWYG'] ?></label>
-      <div class="col">
-        <div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_wysiwyg" type="checkbox" id="form_active" value="1"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
-					<label class="form-check-label" for="form_active"><?php echo $BL['be_on']; ?> (CKEditor 4.x)</label>
-					<input type="hidden" name="form_wysiwyg_toolbar" value="" />
-        </div>
+      <div class="col-sm-4">
+        <select class="custom-select form-control form-control-sm" name="form_wysiwyg" id="be_WYSIWYG">
+          <option value="0"<?php if(empty($_SESSION["WYSIWYG_EDITOR"]) || $_SESSION["WYSIWYG_EDITOR"] == 0): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_off']; ?></option>
+          <option value="1"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 1): ?> selected="selected"<?php endif; ?>>CKEditor (legacy)</option>
+          <option value="2"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 2): ?> selected="selected"<?php endif; ?>>TinyMCE 8 (default)</option>
+        </select>
+        <input type="hidden" name="form_wysiwyg_toolbar" value="" />
       </div>
     </div>
 
