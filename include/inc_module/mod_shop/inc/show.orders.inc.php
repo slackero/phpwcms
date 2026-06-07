@@ -48,7 +48,11 @@ if (!defined('PHPWCMS_ROOT')) {
     </tr>
     <tr>
         <td class="chatlist"><?php echo $BLM['th_payment'] ?>:&nbsp;</td>
-        <td class="v12b tdbottom5"><strong><?php echo html($BLM[ 'shopprod_payby_'.$plugin['data']['order_payment'] ]) ?></strong></td>
+        <td class="v12b tdbottom5"><strong><?php
+        $payby_key = 'shopprod_payby_'.$plugin['data']['order_payment'];
+        $payment_name = isset($BLM[$payby_key]) ? $BLM[$payby_key] : (empty($plugin['data']['order_payment']) ? '-' : $plugin['data']['order_payment']);
+        echo html($payment_name);
+        ?></strong></td>
     </tr>
     <tr>
         <td class="chatlist" style="padding-top:3px;"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
