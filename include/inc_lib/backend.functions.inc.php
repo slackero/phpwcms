@@ -296,7 +296,7 @@ function phpwcmsversionCheck() {
     $identify .= '&url='.rawurlencode(PHPWCMS_URL);
     $identify .= '&revision='.rawurlencode(PHPWCMS_REVISION);
 
-    if(function_exists('fsockopen') && $fsock = @fsockopen('www.phpwcms.org', 80, $errno, $errstr, 10)) {
+    if(function_exists('fsockopen') && $fsock = @fsockopen('ssl://www.phpwcms.org', 443, $errno, $errstr, 10)) {
 
         @fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
         @fputs($fsock, "HOST: www.phpwcms.org\r\n");

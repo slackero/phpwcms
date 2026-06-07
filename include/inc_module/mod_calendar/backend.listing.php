@@ -58,8 +58,26 @@ $plugin['first_of_month']   = gmmktime(0, 0, 0, $plugin['current_month'], 1, $pl
 $plugin['days_in_month']    = gmdate('t', $plugin['first_of_month']);
 $plugin['week_start']       = date('W', $plugin['first_of_month']);
 $plugin['first_day']        = 0;
-$plugin['weekday']          = (intval(gmdate('w', $plugin['first_of_month'])) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
-$plugin['this_date']        = html(ucfirst(gmdate('F Y', $plugin['first_of_month'])), false);
+$plugin['weekday']          = ((int)gmdate('w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
+
+// Load localized date strings
+if (!empty($BLM['locale_string'])) {
+    $_lang_code = substr($BLM['locale_string'], 0, 2);
+} elseif (!empty($GLOBALS['phpwcms']['default_lang'])) {
+    $_lang_code = substr($GLOBALS['phpwcms']['default_lang'], 0, 2);
+} else {
+    $_lang_code = 'en';
+}
+$_date_lang_file = PHPWCMS_ROOT . '/include/inc_lang/date/' . $_lang_code . '.date.lang.php';
+if (is_file($_date_lang_file)) {
+    include $_date_lang_file;
+}
+
+if (isset($month_long[$plugin['current_month']])) {
+    $plugin['this_date'] = html($month_long[$plugin['current_month']] . ' ' . $plugin['current_year']);
+} else {
+    $plugin['this_date'] = html(ucfirst(gmdate('F Y', $plugin['first_of_month'])));
+}
 
 $plugin['location']         = decode_entities(MODULE_HREF);
 $plugin['loc_this_month']   = $plugin['location'].'&calendardate='.date('m-Y');
@@ -372,7 +390,9 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
 
     $_entry['class'] = ($_entry['day_num'] == 7 || $_entry['x'] == $plugin['days_in_month']) ? ' calendarSunday' : '';
 
-    echo '<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html(gmdate('D', $_entry['timestamp']), false).'</td>';
+    $_entry['day_w'] = (int) gmdate('w', $_entry['timestamp']);
+    $_entry['day_name'] = isset($weekday_short[$_entry['day_w']]) ? $weekday_short[$_entry['day_w']] : gmdate('D', $_entry['timestamp']);
+    echo '<td class="calendarDay'.$_entry['class'].'"><span>'.$_entry['x'].'</span><br />'.html($_entry['day_name'], false).'</td>';
     echo '<td class="calendarData'.$_entry['class'].'">';
 
     // run available dates for current day
