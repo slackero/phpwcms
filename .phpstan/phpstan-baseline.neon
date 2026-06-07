@@ -6933,7 +6933,7 @@ parameters:
 		-
 			message: '#^Offset ''default_lang'' does not exist on array\{SESSION_START\: true, wysiwyg_editor\: 0\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 2
+			count: 1
 			path: ../login.php
 
 		-
