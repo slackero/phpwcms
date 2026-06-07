@@ -563,7 +563,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 ?>
 	function EnableCKEditor(x) {
-		if( $('tabtext'+x) ) {
+		if( document.getElementById('tabtext'+x) ) {
 			CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
 		}
 	}

@@ -417,21 +417,12 @@ function flush_image_cache(link, url) {
 
 // Autosize textarea
 var autosizeTextareas = [];
-if (typeof jQuery == 'undefined') { // still mootools
-    window.addEvent('domready', function () {
-        autosizeTextareas = $$('textarea.autosize');
-        if (autosizeTextareas.length) {
-            autosize(autosizeTextareas);
-        }
-    });
-} else {
-    $(function () {
-        autosizeTextareas = $('textarea.autosize');
-        if (autosizeTextareas.length) {
-            autosize(autosizeTextareas);
-        }
-    });
-}
+$(function () {
+    autosizeTextareas = $('textarea.autosize');
+    if (autosizeTextareas.length) {
+        autosize(autosizeTextareas);
+    }
+});
 
 
 var validation = {
