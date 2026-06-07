@@ -8,5 +8,3 @@ paths-ignore:
   - '**/cookieconsent2/**'
   - '**/cookieconsent3/**'
   - '**/slimbox/**'
-  - '**/nonverblaster/**'
-

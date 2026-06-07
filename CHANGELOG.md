@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
   - Removed local respond files (`template/lib/respond/*`)
   - Removed local swfobject files (`template/lib/swfobject/*`)
   - Removed local ie7-js files (`template/lib/ie7-js/*`)
+  - Removed local NonverBlaster Flash player (`template/lib/nonverblaster/*`)
 
 ### Security Fixes
 - **Email Regex ReDoS (High):** Optimized the email validation pattern in `include/inc_js/phpwcms.js` to prevent potential Regular Expression Denial of Service (ReDoS) backtracking attacks. Added support for plus-addressing (e.g., `user+tag@domain.com`).
