@@ -49,6 +49,6 @@
         "phpstan/phpstan": "^2.1.55"
     },
     "scripts": {
-        "phpstan": "phpstan analyse"
+        "phpstan": "phpstan analyse -c .phpstan/phpstan.neon --memory-limit=2G"
     }
 }
