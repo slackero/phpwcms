@@ -3,3 +3,10 @@ name: "CodeQL custom configuration"
 paths-ignore:
   - '**/tinymce/**'
   - '**/mootools/**'
+  - '**/jquery/**'
+  - '**/js-cookie/**'
+  - '**/cookieconsent2/**'
+  - '**/cookieconsent3/**'
+  - '**/slimbox/**'
+  - '**/nonverblaster/**'
+
