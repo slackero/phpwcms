@@ -1392,10 +1392,14 @@ $BL['be_breadcrumb'] = 'Zachowanie nawigacyjne wyświetlania';
 $BL['be_breadcrumb_nothidden'] = 'Widoczne, jeśli poziom jest ukryty';
 $BL['be_breadcrumb_nolink'] = 'Nie ma linku';
 
-$BL['CSRF_POST_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów POST. Ze względów bezpieczeństwa, sesja została zakończona.';
-$BL['CSRF_POST_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów POST nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
-$BL['CSRF_GET_INVALID'] = 'Nie <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> znaleziono parametrów GET. Ze względów bezpieczeństwa, sesja została zakończona.';
-$BL['CSRF_GET_FAILED'] = 'Weryfikacja <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a> parametrów GET nie powiodła się. Ze względów bezpieczeństwa, sesja została zakończona.';
+$BL['CSRF_ERROR_TITLE'] = 'Weryfikacja bezpieczeństwa nie powiodła się';
+$BL['CSRF_POST_INVALID'] = 'Nie znaleziono parametrów POST <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Przesyłanie formularza przerwane.';
+$BL['CSRF_POST_FAILED'] = 'Weryfikacja parametrów POST <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> nie powiodła się. Przesyłanie formularza przerwane.';
+$BL['CSRF_GET_INVALID'] = 'Nie znaleziono parametrów GET <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Nawigacja przerwana.';
+$BL['CSRF_GET_FAILED'] = 'Weryfikacja parametrów GET <a href="https://pl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> nie powiodła się. Nawigacja przerwana.';
+$BL['CSRF_BTN_BACK'] = 'Wróć';
+$BL['CSRF_BTN_LOGIN'] = 'Zaloguj';
+$BL['CSRF_BTN_DASHBOARD'] = 'Panel główny';
 
 $BL['be_parental_alias'] = 'Alias macierzysty';
 $BL['be_fsearch_nor'] = 'BRAK';

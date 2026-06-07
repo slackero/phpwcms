@@ -1410,10 +1410,14 @@ $BL['be_breadcrumb']                    = 'breadcrumb display behavior';
 $BL['be_breadcrumb_nothidden']          = 'visible if level is hidden';
 $BL['be_breadcrumb_nolink']             = 'do not link';
 
-$BL['CSRF_POST_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters found. For security reasons, the session was ended.';
-$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters failed. For security reasons, the session was ended.';
-$BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters found. For security reasons, the session was ended.';
-$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
+$BL['CSRF_ERROR_TITLE'] = 'Security Validation Failed';
+$BL['CSRF_POST_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters found. Form submission aborted.';
+$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters failed. Form submission aborted.';
+$BL['CSRF_GET_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters found. Navigation aborted.';
+$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters failed. Navigation aborted.';
+$BL['CSRF_BTN_BACK'] = 'Go Back';
+$BL['CSRF_BTN_LOGIN'] = 'Login';
+$BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'parental alias';
 $BL['be_fsearch_nor'] = 'NONE';

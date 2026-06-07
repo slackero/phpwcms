@@ -1397,10 +1397,14 @@ $BL['be_breadcrumb'] = 'Breadcrumb Anzeigeverhalten';
 $BL['be_breadcrumb_nothidden'] = 'sichtbar, wenn Seitenebene versteckt';
 $BL['be_breadcrumb_nolink'] = 'nicht verlinken';
 
-$BL['CSRF_POST_INVALID'] = 'Keine POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
-$BL['CSRF_POST_FAILED'] = 'Die POST <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
-$BL['CSRF_GET_INVALID'] = 'Keine GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fparamter gefunden. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
-$BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Aus Sicherheitsgr&uuml;nden wurde die Session beendet.';
+$BL['CSRF_ERROR_TITLE'] = 'Sicherheitsüberprüfung fehlgeschlagen';
+$BL['CSRF_POST_INVALID'] = 'Keine POST <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fparameter gefunden. Formular&uuml;bermittlung abgebrochen.';
+$BL['CSRF_POST_FAILED'] = 'Die POST <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Formular&uuml;bermittlung abgebrochen.';
+$BL['CSRF_GET_INVALID'] = 'Keine GET <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fparameter gefunden. Navigation abgebrochen.';
+$BL['CSRF_GET_FAILED'] = 'Die GET <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Navigation abgebrochen.';
+$BL['CSRF_BTN_BACK'] = 'Zur&uuml;ck';
+$BL['CSRF_BTN_LOGIN'] = 'Anmelden';
+$BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'Eltern-Alias';
 $BL['be_fsearch_nor'] = 'KEINES';
