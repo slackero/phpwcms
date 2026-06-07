@@ -28,7 +28,11 @@ unset($content['tabs']['tabwysiwygoff'], $content['tabs']['tab_fieldgroup']);
 
 // load WYSIWYG editor
 if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
-	$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+	if($_SESSION["WYSIWYG_EDITOR"] == 2) {
+		$BE['HEADER']['tinymce.js'] = getJavaScriptSourceLink('include/vendor/tinymce/tinymce/tinymce.min.js');
+	} else {
+		$BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+	}
 	$content['wysiwyg'] = true;
 } else {
 	$content['wysiwyg'] = false;
@@ -517,7 +521,23 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <?php endif; ?>
 
 		new Sortables($tabs, {
-            handles: 'em.handle'
+            handles: 'em.handle'<?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>,
+            onStart: function(element) {
+                element.getElements('textarea').each(function(el) {
+                    var id = el.getProperty('id');
+                    if (id && tinymce.get(id)) {
+                        tinymce.execCommand('mceRemoveEditor', false, id);
+                    }
+                });
+            },
+            onComplete: function(element) {
+                element.getElements('textarea').each(function(el) {
+                    var id = el.getProperty('id');
+                    if (id && id.indexOf('tabtext') === 0) {
+                        tinymce.execCommand('mceAddEditor', false, id);
+                    }
+                });
+            }<?php endif; ?>
 		});
 	});
 
@@ -564,13 +584,56 @@ if(is_array($tmpllist) && count($tmpllist)) {
 ?>
 	function EnableCKEditor(x) {
 		if( document.getElementById('tabtext'+x) ) {
+			<?php if($_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+			tinymce.init({
+				license_key: 'gpl',
+				selector: '#tabtext'+x,
+				width: 538,
+				height: 150,
+				plugins: "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount",
+				menubar: false,
+				toolbar: "undo redo | blocks fontfamily fontsize | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table | code fullscreen",
+				<?php
+				$tinymce_lang = isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
+				$tinymce_lang_file = 'include/vendor/mklkj/tinymce-i18n/langs/' . $tinymce_lang . '.js';
+				if ($tinymce_lang !== 'en' && is_file(PHPWCMS_ROOT . '/' . $tinymce_lang_file)) {
+					echo '				language: "' . $tinymce_lang . '",' . LF;
+					echo '				language_url: "' . $tinymce_lang_file . '",' . LF;
+				} else {
+					echo '				language: "en",' . LF;
+				}
+				?>
+				convert_urls: false,
+				<?php if(!empty($GLOBALS['phpwcms']['FCK_FileBrowser'])): ?>
+				file_picker_callback: function (callback, value, meta) {
+					window.activeTinyMceCallback = callback;
+					let url = "filebrowser.php?opt=17";
+					if (meta.filetype === 'file' || meta.filetype === 'link') {
+						url = "filebrowser.php?opt=16";
+					}
+					window.open(url, "FileBrowser", "width=800,height=600,resizable=yes,scrollbars=yes");
+				},
+				<?php endif; ?>
+				branding: false,
+				promotion: false
+			});
+			<?php else: ?>
 			CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
+			<?php endif; ?>
 		}
 	}
 <?php endif; ?>
 
 	function deleteTab(e) {
 		if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
+			<?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+			$(e).getElements('textarea').each(function(el) {
+				var tid = el.getProperty('id');
+				if (tid && tinymce.get(tid)) {
+					tinymce.execCommand('mceRemoveEditor', false, tid);
+				}
+			});
+			<?php endif; ?>
 			$(e).remove();
 		}
 		return false;

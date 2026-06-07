@@ -65,7 +65,7 @@ $phpwcms['rewrite_url']          = 1; // whether URL should be rewritable
 $phpwcms['rewrite_ext']          = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/
 $phpwcms['alias_allow_slash']    = 1; // Allow slashes / in ALIAS
 $phpwcms['alias_allow_utf8']     = 1; // If charset is utf-8 special chars will survive alias checking
-$phpwcms['wysiwyg_editor']       = 1; // 0 = no wysiwyg editor, 1 = CKEditor 4
+$phpwcms['wysiwyg_editor']       = 2; // 0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8
 $phpwcms['default_lang']         = 'en'; // default language
 $phpwcms['DOCTYPE_LANG']         = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']         = array('en', 'de', 'fr', 'es'); //array of allowed languages
