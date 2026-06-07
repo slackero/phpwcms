@@ -192,7 +192,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
-    $conf_file .= "\$phpwcms['wysiwyg_editor'] = 1; //0 = no wysiwyg editor, 1 = CKEditor 4\n";
+    $conf_file .= "\$phpwcms['wysiwyg_editor'] = 2; //0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8\n";
     $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
     $conf_file .= "\$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";

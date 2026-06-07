@@ -25,7 +25,11 @@ if(!isset($content["mailhtml"])) {
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<tr><td colspan="2" class="rowspacer0x0 row"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+
+<tr><td colspan="2" class="tdleft10 tdright10 tdtop5 tdbottom5 error1"><?php echo $BL['be_deprecated_info']; ?></td></tr>
+
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
+use Composer\Pcre\Preg;
 use JsonSerializable;
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 use PhpOffice\PhpSpreadsheet\Cell\IValueBinder;
@@ -413,6 +414,21 @@ class Spreadsheet implements JsonSerializable
     }
 
     /**
+     * This workbook has in cell images.
+     */
+    public function hasInCellDrawings(): bool
+    {
+        $sheetCount = $this->getSheetCount();
+        for ($i = 0; $i < $sheetCount; ++$i) {
+            if ($this->getSheet($i)->getInCellDrawingCollection()->count() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Check if a sheet with a specified code name already exists.
      *
      * @param string $codeName Name of the worksheet to check
@@ -494,6 +510,7 @@ class Spreadsheet implements JsonSerializable
             unset($worksheet);
         }
         $this->workSheetCollection = [];
+        $this->activeSheetIndex = -1;
     }
 
     /**
@@ -1045,7 +1062,7 @@ class Spreadsheet implements JsonSerializable
             // then look for local defined name (has priority over global defined name if both names exist)
             if ($worksheet !== null) {
                 $wsTitle = StringHelper::strToUpper($worksheet->getTitle());
-                $definedName = (string) preg_replace('/^.*!/', '', $definedName);
+                $definedName = Preg::replace('/^.*!/', '', $definedName);
                 foreach ($this->definedNames as $dn) {
                     $sheet = $dn->getScope() ?? $dn->getWorksheet();
                     $upper = StringHelper::strToUpper($dn->getName());
@@ -1132,6 +1149,11 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Copy workbook (!= clone!).
+     *
+     * Uses serialize/unserialize which is broadly faster than clone across
+     * PHP versions and platforms, though clone uses less memory.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function copy(): self
     {
@@ -1140,6 +1162,11 @@ class Spreadsheet implements JsonSerializable
 
     /**
      * Implement PHP __clone to create a deep clone, not just a shallow copy.
+     *
+     * Clone uses less memory than serialize/unserialize but speed varies
+     * across PHP versions and platforms.
+     *
+     * @see \PhpOffice\PhpSpreadsheetBenchmarks\SpreadsheetCopyBenchmarkTest
      */
     public function __clone()
     {
@@ -1208,6 +1235,16 @@ class Spreadsheet implements JsonSerializable
                     $this->$key = [];
                     foreach ($currentCollection as $item) {
                         $clone = clone $item;
+                        $title = $clone->getWorksheet()?->getTitle();
+                        if ($title !== null) {
+                            $ws = $this->getSheetByName($title);
+                            $clone->setWorksheet($ws);
+                        }
+                        $title = $clone->getScope()?->getTitle();
+                        if ($title !== null) {
+                            $ws = $this->getSheetByName($title);
+                            $clone->setScope($ws);
+                        }
                         $this->{$key}[] = $clone;
                     }
 
@@ -1838,6 +1875,37 @@ class Spreadsheet implements JsonSerializable
         }
     }
 
+    /**
+     * Change all 2-digit-year date styles to use 4-digit year;
+     * change all dd-mm-yyyy and mm-dd-yyyy styles to yyyy-mm-dd;
+     * dd-mmm-yyyy is unambiguous and left unchanged.
+     */
+    public function disambiguateDateStyles(): void
+    {
+        foreach ($this->cellXfCollection as $style) {
+            $numberFormat = $style->getNumberFormat();
+            $oldFormat = (string) $numberFormat->getFormatCode();
+            $newFormat = Preg::replace('/\byy\b/i', 'yyyy', $oldFormat);
+            $newFormat = Preg::replace(
+                '~\bdd?(-|/|"-"|"/")'
+                    . 'mm?(-|/|"-"|"/")'
+                    . 'yyyy~',
+                'yyyy-mm-dd',
+                $newFormat
+            );
+            $newFormat = Preg::replace(
+                '~\bmm?(-|/|"-"|"/")'
+                    . 'dd?(-|/|"-"|"/")'
+                    . 'yyyy~',
+                'yyyy-mm-dd',
+                $newFormat
+            );
+            if ($newFormat !== $oldFormat) {
+                $numberFormat->setFormatCode($newFormat);
+            }
+        }
+    }
+
     public function returnArrayAsArray(): void
     {
         $this->calculationEngine->setInstanceArrayReturnType(
@@ -1850,5 +1918,47 @@ class Spreadsheet implements JsonSerializable
         $this->calculationEngine->setInstanceArrayReturnType(
             Calculation::RETURN_ARRAY_AS_VALUE
         );
+    }
+
+    /** @var string[] */
+    private $domainWhiteList = [];
+
+    /**
+     * Currently used only by WEBSERVICE function.
+     *
+     * @param string[] $domainWhiteList
+     */
+    public function setDomainWhiteList(array $domainWhiteList): self
+    {
+        $this->domainWhiteList = $domainWhiteList;
+
+        return $this;
+    }
+
+    /** @return string[] */
+    public function getDomainWhiteList(): array
+    {
+        return $this->domainWhiteList;
+    }
+
+    private bool $usesCheckBoxStyle = false;
+
+    public function getUsesCheckBoxStyle(): bool
+    {
+        return $this->usesCheckBoxStyle;
+    }
+
+    public function setUsesCheckBoxStyle(): bool
+    {
+        $this->usesCheckBoxStyle = false;
+        foreach ($this->getCellXfCollection() as $cellXf) {
+            if ($cellXf->getCheckBox()) {
+                $this->usesCheckBoxStyle = true;
+
+                break;
+            }
+        }
+
+        return $this->usesCheckBoxStyle;
     }
 }

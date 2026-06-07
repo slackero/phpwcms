@@ -9,6 +9,7 @@ On regular basis the following versions of **phpwcms** are supported:
 
 | Version      | Supported          |
 |--------------| ------------------ |
+| &gt;= 1.12.0 | :white_check_mark: |
 | &gt;= 1.10.2 | :white_check_mark: |
 | &gt;= 1.9.38 | :white_check_mark: |
 | &lt; 1.9.38  | :x:                |

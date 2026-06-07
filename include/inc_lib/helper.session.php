@@ -90,7 +90,7 @@ function unset_session_var($key) {
  */
 function generate_token_name($prefix='csrf') {
 
-	return uniqid($prefix, true);
+	return $prefix . '_' . bin2hex(random_bytes(16));
 
 }
 
@@ -109,7 +109,7 @@ function generate_token_name($prefix='csrf') {
 function generate_get_token($get_token_name='csrftoken') {
 
 	$token_name = '_gettoken_'.$get_token_name;
-	$token_value = md5( generate_token_name($token_name) );
+	$token_value = bin2hex(random_bytes(32));
 
 	set_session_var($token_name, $token_value);
 
@@ -172,19 +172,7 @@ function get_token_get_array($get_token_name='csrftoken') {
  */
 function generate_session_token($unique_name) {
 
-	if(function_exists('hash_algos') && in_array('sha512', hash_algos())) {
-
-		$token = hash('sha512', uniqid('', true));
-
-	} else {
-
-		$token = '';
-
-		for($i=0; $i < 128; $i++) {
-			$r = mt_rand(0, 35);
-			$token .= chr( ($r < 26) ? (ord('a') + $r) : (ord('0') + $r - 26) );
-		}
-	}
+	$token = bin2hex(random_bytes(32));
 
 	set_session_var($unique_name, $token);
 	set_cached_token($unique_name);
@@ -235,24 +223,16 @@ function validate_session_token($unique_name, $token_value) {
 
 	$token = get_session_var($unique_name);
 
-	if($token === false) {
-
+	if(empty($token)) {
 		return false;
-
-	} elseif($token === $token_value) {
-
-		$result = true;
-
-	} else {
-
-		$result = false;
-
 	}
 
-	unset_session_var($unique_name);
-	unset_cached_token($unique_name);
+	if($unique_name !== 'csrf_form_token') {
+		unset_session_var($unique_name);
+		unset_cached_token($unique_name);
+	}
 
-	return $result;
+	return $token === $token_value;
 
 }
 
@@ -372,7 +352,7 @@ function get_tokenized_form($match, $token_prefix='csrf_') {
 
 	if(!str_contains($match[1], 'data-csrf="off"')) {
 
-		$token_name = generate_token_name();
+		$token_name = 'csrf_form_token';
 		$token_value = generate_session_token($token_name);
 
 		$form .= '<input type="hidden" name="'.$token_prefix.'token_name" value="'.$token_name.'" />';
@@ -449,11 +429,11 @@ function validate_csrf_tokens($token_prefix='csrf_') {
 	if($_SERVER['REQUEST_METHOD'] === 'POST' && count($_POST)) {
 
 		if(empty($_POST[$token_prefix.'token_name']) || empty($_POST[$token_prefix.'token_value'])) {
-			logout_user('csrf-post-invalid', 'danger');
+			handle_csrf_error('csrf-post-invalid');
 		}
 
 		if(!validate_session_token($_POST[$token_prefix.'token_name'], $_POST[$token_prefix.'token_value'])) {
-			logout_user('csrf-post-failed', 'danger');
+			handle_csrf_error('csrf-post-failed');
 		}
 
 	} else {
@@ -496,14 +476,14 @@ function validate_csrf_get_token($token_name='csrftoken', $logout=true) {
 
 		if(empty($_GET[$token_name])) {
 			if($logout) {
-				logout_user('csrf-get-invalid', 'danger');
+				handle_csrf_error('csrf-get-invalid');
 			}
 			return false;
 		}
 
 		if($_GET[$token_name] !== get_token_get_value($token_name)) {
 			if($logout) {
-				logout_user('csrf-get-failed', 'danger');
+				handle_csrf_error('csrf-get-failed');
 			}
 			return false;
 		}
@@ -512,4 +492,14 @@ function validate_csrf_get_token($token_name='csrftoken', $logout=true) {
 
 	return true;
 
+}
+
+/**
+ * Renders security validation fail or logs out user based on PHPWCMS backend templating.
+ *
+ * @access public
+ * @param string $reason
+ */
+function handle_csrf_error($reason) {
+	logout_user($reason, 'danger');
 }

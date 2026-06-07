@@ -69,6 +69,19 @@ if($action == 'delete') {
 
 		$plugin['data'] = $plugin['data'][0];
 		$plugin['data']['order_data'] = @unserialize($plugin['data']['order_data'], ['allowed_classes' => false]);
+		if (!is_array($plugin['data']['order_data'])) {
+			$plugin['data']['order_data'] = array();
+		}
+		if (!isset($plugin['data']['order_data']['address']) || !is_array($plugin['data']['order_data']['address'])) {
+			$plugin['data']['order_data']['address'] = array();
+		}
+		// Initialize default address keys to prevent Undefined Array Key warnings
+		$addr_keys = array('INV_SALUTATION', 'INV_TITLE', 'INV_COMPANY', 'INV_FIRSTNAME', 'INV_NAME', 'INV_ADDRESS', 'INV_ADDRESS2', 'INV_ZIP', 'INV_CITY', 'INV_REGION', 'INV_COUNTRY', 'EMAIL', 'PHONE');
+		foreach ($addr_keys as $k) {
+			if (!isset($plugin['data']['order_data']['address'][$k])) {
+				$plugin['data']['order_data']['address'][$k] = '';
+			}
+		}
 
 	} else {
 

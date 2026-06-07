@@ -8,6 +8,9 @@ composer.lock
 !/content/tmp/index.html
 /content/form/*.*
 !/content/form/index.html
+/content/cache/*.*
+!/content/cache/.htaccess
+!/content/cache/index.html
 /filearchive/*.*
 !/filearchive/image_memoryinfo.png
 !/filearchive/image_placeholder.png
@@ -50,3 +53,13 @@ include/config.codekit3
 #/include/vendor/phpcompatibility
 #/include/vendor/phpcsstandards
 #/include/vendor/squizlabs
+
+# Dev tools
+/.claude
+/ANTIGRAVITY.md
+/CLAUDE.md
+/DEPENDENCIES.md
+/stacklit.html
+/.stacklit.json
+/.mcp.json
+/.phpstan/

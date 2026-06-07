@@ -1104,3 +1104,13 @@ $BL['be_selection']                     = 'Selectie';
 
 $BL['be_ctype_module']                  = 'Plug-in';
 
+$BL['CSRF_ERROR_TITLE'] = 'Beveiligingsvalidatie Mislukt';
+$BL['CSRF_POST_INVALID'] = 'Geen POST <a href="https://nl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-parameters gevonden. Formulierverzending afgebroken.';
+$BL['CSRF_POST_FAILED'] = 'Validatie van POST <a href="https://nl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-parameters is mislukt. Formulierverzending afgebroken.';
+$BL['CSRF_GET_INVALID'] = 'Geen GET <a href="https://nl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-parameters gevonden. Navigatie afgebroken.';
+$BL['CSRF_GET_FAILED'] = 'Validatie van GET <a href="https://nl.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-parameters is mislukt. Navigatie afgebroken.';
+$BL['CSRF_BTN_BACK'] = 'Terug';
+$BL['CSRF_BTN_LOGIN'] = 'Inloggen';
+$BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
+
+

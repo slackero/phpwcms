@@ -655,3 +655,13 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+$BL['CSRF_ERROR_TITLE'] = 'Convalida di sicurezza fallita';
+$BL['CSRF_POST_INVALID'] = 'Nessun parametro POST <a href="https://it.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> trovato. Invio del modulo interrotto.';
+$BL['CSRF_POST_FAILED'] = 'Convalida dei parametri POST <a href="https://it.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> fallita. Invio del modulo interrotto.';
+$BL['CSRF_GET_INVALID'] = 'Nessun parametro GET <a href="https://it.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> trovato. Navigazione interrotta.';
+$BL['CSRF_GET_FAILED'] = 'Convalida dei parametri GET <a href="https://it.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> fallita. Navigazione interrotta.';
+$BL['CSRF_BTN_BACK'] = 'Indietro';
+$BL['CSRF_BTN_LOGIN'] = 'Login';
+$BL['CSRF_BTN_DASHBOARD'] = 'Bacheca';
+
+

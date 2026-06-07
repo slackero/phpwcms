@@ -213,11 +213,13 @@ if(isset($fmp_data['fmp_template'])) {
         $fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
     }
 
-    if($fmp_data['file']) {
+    // Flash fallback – deprecated – but still available, delete lib/nonverblaster/ for removal
+    $nonverblaster_path = PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
+    if($fmp_data['file'] && is_file($nonverblaster_path)) {
         // Define Flash Vars
 
         // NonverBlaster:hover
-        $fmp_data['player_swf'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
+        $fmp_data['player_swf'] = $nonverblaster_path;
 
         $fmp_data['flashvars']['mediaURL']          = rawurlencode($fmp_data['file']);
         $fmp_data['flashvars']['loop']              = 'false';

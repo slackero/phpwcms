@@ -1184,7 +1184,7 @@ $BL['be_image_crop']                    = 'crop thumbnail';
 $BL['be_image_cropit']                  = 'crop image';
 $BL['be_image_align']                   = 'image alignment';
 
-$BL['be_ctype_flashplayer']             = 'HTML5/Flash media player';
+$BL['be_ctype_flashplayer']             = 'HTML5/Video.js media player';
 $BL['be_flashplayer_caption']           = 'caption';
 $BL['be_flashplayer_thumbnail']         = 'thumbnail';
 $BL['be_flashplayer_selectsize']        = 'Select player size';
@@ -1410,10 +1410,14 @@ $BL['be_breadcrumb']                    = 'breadcrumb display behavior';
 $BL['be_breadcrumb_nothidden']          = 'visible if level is hidden';
 $BL['be_breadcrumb_nolink']             = 'do not link';
 
-$BL['CSRF_POST_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters found. For security reasons, the session was ended.';
-$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters failed. For security reasons, the session was ended.';
-$BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters found. For security reasons, the session was ended.';
-$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
+$BL['CSRF_ERROR_TITLE'] = 'Security Validation Failed';
+$BL['CSRF_POST_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters found. Form submission aborted.';
+$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters failed. Form submission aborted.';
+$BL['CSRF_GET_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters found. Navigation aborted.';
+$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters failed. Navigation aborted.';
+$BL['CSRF_BTN_BACK'] = 'Go Back';
+$BL['CSRF_BTN_LOGIN'] = 'Login';
+$BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'parental alias';
 $BL['be_fsearch_nor'] = 'NONE';
@@ -1599,3 +1603,4 @@ $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
 
 $BL['be_deprecated'] = 'deprecated';
+$BL['be_deprecated_info'] = 'This feature is deprecated and will be removed in future versions of phpwcms. Please avoid using it in new projects and consider replacing it in existing projects.';

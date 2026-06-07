@@ -1,0 +1,17 @@
+{
+  "name": "mklkj/tinymce-i18n",
+  "description": "Languages for TinyMCE 4, 5, 6, 7 and 8",
+  "keywords": [
+    "i18n",
+    "languages",
+    "tinymce"
+  ],
+  "homepage": "https://github.com/mklkj/tinymce-i18n",
+  "type": "library",
+  "license": ["MIT", "GPL-2.0-or-later"],
+  "authors": [
+    {
+      "name": "TinyMCE Community"
+    }
+  ]
+}

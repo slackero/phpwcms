@@ -9,7 +9,7 @@ class FunctionArray extends CalculationBase
      *
      * @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}>
      */
-    protected static array $phpSpreadsheetFunctions = [
+    protected static array $phpSpreadsheetFunctions = [ // @phpstan-ignore-line
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Absolute::class, 'evaluate'],
@@ -405,6 +405,7 @@ class FunctionArray extends CalculationBase
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'actualCONCATENATE'],
             'argumentCount' => '1+',
+            'passCellReference' => true,
         ],
         'CONFIDENCE' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -2336,17 +2337,17 @@ class FunctionArray extends CalculationBase
         ],
         'T.DIST' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDist'],
             'argumentCount' => '3',
         ],
         'T.DIST.2T' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDistDot2T'],
             'argumentCount' => '2',
         ],
         'T.DIST.RT' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotDistDotRT'],
             'argumentCount' => '2',
         ],
         'TEXT' => [
@@ -2426,12 +2427,12 @@ class FunctionArray extends CalculationBase
         ],
         'T.INV' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'tDotInv'],
             'argumentCount' => '2',
         ],
         'T.INV.2T' => [
             'category' => Category::CATEGORY_STATISTICAL,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [Statistical\Distributions\StudentT::class, 'inverse'],
             'argumentCount' => '2',
         ],
         'TODAY' => [
@@ -2496,12 +2497,12 @@ class FunctionArray extends CalculationBase
         ],
         'UNICHAR' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\CharacterConvert::class, 'character'],
+            'functionCall' => [TextData\CharacterConvert::class, 'characterUnicode'],
             'argumentCount' => '1',
         ],
         'UNICODE' => [
             'category' => Category::CATEGORY_TEXT_AND_DATA,
-            'functionCall' => [TextData\CharacterConvert::class, 'code'],
+            'functionCall' => [TextData\CharacterConvert::class, 'codeUnicode'],
             'argumentCount' => '1',
         ],
         'UNIQUE' => [
@@ -2578,6 +2579,7 @@ class FunctionArray extends CalculationBase
             'category' => Category::CATEGORY_WEB,
             'functionCall' => [Web\Service::class, 'webService'],
             'argumentCount' => '1',
+            'passCellReference' => true,
         ],
         'WEEKDAY' => [
             'category' => Category::CATEGORY_DATE_AND_TIME,
@@ -2626,7 +2628,7 @@ class FunctionArray extends CalculationBase
         ],
         'XLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\XLookup::class, 'lookup'],
             'argumentCount' => '3-6',
         ],
         'XNPV' => [

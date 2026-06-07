@@ -455,14 +455,15 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         $js  = "window.opener.SetUrl('".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
-                    //CKEditor
-                    case 16:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=".$file_row["f_hash"] . "');";
-                        break;
-
-                    case 17:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
-                        break;
+                     //TinyMCE / CKEditor
+                     case 16:
+                         $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('download.php?f=" . $file_row["f_hash"] . "');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');}";
+                         break;
+ 
+                     case 17:
+                         $resize_url = PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"];
+                         $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('".$resize_url."');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".$resize_url."');}";
+                         break;
 
                     default:
                         $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";

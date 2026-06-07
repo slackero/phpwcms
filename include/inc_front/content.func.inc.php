@@ -1629,6 +1629,10 @@ if (!$phpwcms['cookie_consent']) {
             $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
             $cc_v3_translation['preferencesModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
         }
+        if (!empty($block['cc_v3']['customize'])) {
+            $cc_v3_translation['consentModal']['showPreferencesBtn'] = $block['cc_v3']['customize'];
+            $cc_v3_translation['preferencesModal']['showPreferencesBtn'] = $block['cc_v3']['customize'];
+        }
         if (!empty($block['cc_v3']['accept_selected'])) {
             $cc_v3_translation['preferencesModal']['savePreferencesBtn'] = $block['cc_v3']['accept_selected'];
         }

@@ -1,0 +1,13 @@
+diff --git a/langs/nb_NO.js b/langs/nb_NO.js
+index 5923345..b5ac5a5 100644
+--- a/langs/nb_NO.js
++++ b/langs/nb_NO.js
+@@ -159,7 +159,7 @@ tinymce.addI18n('nb_NO',{
+ "Link": "Lenke",
+ "Paste or type a link": "Lim inn eller skriv en lenke",
+ "The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?": "Oppgitte URL ser ut til \u00e5 v\u00e6re en epost-adresse. \u00d8nsker du \u00e5 sette inn p\u00e5krevet mailto: prefiks forran epost-adressen?",
+-"The URL you entered seems to be an external link. Do you want to add the required http:\/\/ prefix?": "Oppgitt URL ser ut til \u00e5 v\u00e6re en e-postadresse. \u00d8nsker du \u00e5 sette inn p\u00e5krevd mailto:-prefiks foran e-postadressen?",
++"The URL you entered seems to be an external link. Do you want to add the required http:\/\/ prefix?": "Nettadressen du skrev inn ser ut som en ekstern adresse. Vil du legge til det obligatoriske prefixet \"http:\/\/\"?",
+ "Link list": "Lenkeliste",
+ "Insert video": "Sett inn video",
+ "Insert\/edit video": "Sett inn\/rediger video",

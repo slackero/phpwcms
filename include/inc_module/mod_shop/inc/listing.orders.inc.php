@@ -70,7 +70,9 @@ if($data) {
 
         echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_net'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
         echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_gross'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
-        echo '<td class="dir" width="10%">'.(empty($row['order_payment']) ? '-' : html_specialchars($BLM[ 'shopprod_payby_'.$row['order_payment'] ]))."&nbsp;&nbsp;</td>\n";
+        $payby_key = 'shopprod_payby_'.$row['order_payment'];
+        $payment_name = isset($BLM[$payby_key]) ? $BLM[$payby_key] : (empty($row['order_payment']) ? '-' : $row['order_payment']);
+        echo '<td class="dir" width="10%">'.html_specialchars($payment_name)."&nbsp;&nbsp;</td>\n";
 
         echo '<td width="5%" align="right" class="button_td nowrap">';
 

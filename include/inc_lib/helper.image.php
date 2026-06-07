@@ -775,7 +775,14 @@ class Phpwcms_Image_lib {
         {
             $cmd_inner = 'pnmscale -xysize ' . $this->width . ' ' . $this->height;
         }
-        $cmd = $this->library_path . $cmd_in . ' ' . $this->full_src_path . ' | ' . $cmd_inner . ' | ' . $cmd_out . ' > ' . $this->dest_folder . 'netpbm.tmp';
+        $cmd_parts = explode(' ', $cmd_out, 2);
+        $cmd_bin = $this->library_path . $cmd_parts[0];
+        $cmd_args = isset($cmd_parts[1]) ? ' ' . $cmd_parts[1] : '';
+
+        $cmd = escapeshellarg($this->library_path . $cmd_in) . ' ' . escapeshellarg($this->full_src_path)
+            . ' | ' . $cmd_inner
+            . ' | ' . escapeshellarg($cmd_bin) . $cmd_args
+            . ' > ' . escapeshellarg($this->dest_folder . 'netpbm.tmp');
         $retval = 1;
         @exec($cmd, $output, $retval);
         // Did it work?
@@ -934,23 +941,23 @@ class Phpwcms_Image_lib {
         $this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
         $this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
         if ($this->wm_vrt_alignment == 'B') {
-            $this->wm_vrt_offset = $this->wm_vrt_offset * -1;
+            $this->wm_vrt_offset *= -1;
         }
         if ($this->wm_hor_alignment == 'R') {
-            $this->wm_hor_offset = $this->wm_hor_offset * -1;
+            $this->wm_hor_offset *= -1;
         }
         // Set the base x and y axis values
-        $x_axis = $this->wm_hor_offset + $this->wm_padding;
-        $y_axis = $this->wm_vrt_offset + $this->wm_padding;
+        $x_axis = ($this->wm_hor_offset + $this->wm_padding);
+        $y_axis = ($this->wm_vrt_offset + $this->wm_padding);
         //  Set the vertical position
         switch ($this->wm_vrt_alignment) {
             case 'T':
                 break;
             case 'M':
-                $y_axis += ($this->orig_height / 2) - ($wm_height / 2);
+                $y_axis += (int)(($this->orig_height / 2) - ($wm_height / 2));
                 break;
             case 'B':
-                $y_axis += (int) $this->orig_height - (int) $wm_height;
+                $y_axis += (int)$this->orig_height - (int)$wm_height;
                 break;
         }
         //  Set the horizontal position
@@ -958,10 +965,10 @@ class Phpwcms_Image_lib {
             case 'L':
                 break;
             case 'C':
-                $x_axis += ($this->orig_width / 2) - ($wm_width / 2);
+                $x_axis += (int)(($this->orig_width / 2) - ($wm_width / 2));
                 break;
             case 'R':
-                $x_axis += (int) $this->orig_width - (int) $wm_width;
+                $x_axis += (int)$this->orig_width - (int)$wm_width;
                 break;
         }
         //  Build the finalized image
@@ -971,14 +978,14 @@ class Phpwcms_Image_lib {
         // Set RGB values for text and shadow
         $rgba = imagecolorat($wm_img, $this->wm_x_transp, $this->wm_y_transp);
         $alpha = ($rgba & 0x7F000000) >> 24;
-        // make a best guess as to whether we're dealing with an image with alpha transparency or no/binary transparency
+        // make a best guess whether we're dealing with an image with alpha transparency or no/binary transparency
         if ($alpha > 0) {
             // copy the image directly, the image's alpha transparency being the sole determinant of blending
-            imagecopy($src_img, $wm_img, $x_axis, $y_axis, 0, 0, $wm_width, $wm_height);
+            imagecopy($src_img, $wm_img, $x_axis, $y_axis, 0, 0, (int)$wm_width, (int)$wm_height);
         } else {
             // set our RGB value from above to be transparent and merge the images with the specified opacity
             imagecolortransparent($wm_img, imagecolorat($wm_img, $this->wm_x_transp, $this->wm_y_transp));
-            imagecopymerge($src_img, $wm_img, $x_axis, $y_axis, 0, 0, $wm_width, $wm_height, $this->wm_opacity);
+            imagecopymerge($src_img, $wm_img, $x_axis, $y_axis, 0, 0, (int)$wm_width, (int)$wm_height, (int)$this->wm_opacity);
         }
         // Output the image
         if ($this->dynamic_output == true) {
@@ -1027,71 +1034,71 @@ class Phpwcms_Image_lib {
         // further down. We want the reverse, so we'll
         // invert the offset. Note: The horizontal
         // offset flips itself automatically
-        if ($this->wm_vrt_alignment == 'B') {
-            $this->wm_vrt_offset = $this->wm_vrt_offset * -1;
+        if ($this->wm_vrt_alignment === 'B') {
+            $this->wm_vrt_offset *= -1;
         }
-        if ($this->wm_hor_alignment == 'R') {
-            $this->wm_hor_offset = $this->wm_hor_offset * -1;
+        if ($this->wm_hor_alignment === 'R') {
+            $this->wm_hor_offset *= -1;
         }
         // Set font width and height
         // These are calculated differently depending on
         // whether we are using the true type font or not
-        if ($this->wm_use_truetype == true) {
+        if ($this->wm_use_truetype) {
             if ($this->wm_font_size == '') {
                 $this->wm_font_size = 17;
             }
-            $fontwidth = $this->wm_font_size - ($this->wm_font_size / 4);
-            $fontheight = $this->wm_font_size;
+            $fontwidth = (int)($this->wm_font_size - ($this->wm_font_size / 4));
+            $fontheight = (int)$this->wm_font_size;
             $this->wm_vrt_offset += $this->wm_font_size;
         } else {
-            $fontwidth = imagefontwidth($this->wm_font_size);
-            $fontheight = imagefontheight($this->wm_font_size);
+            $fontwidth = imagefontwidth((int)$this->wm_font_size);
+            $fontheight = imagefontheight((int)$this->wm_font_size);
         }
         // Set base X and Y axis values
-        $x_axis = $this->wm_hor_offset + $this->wm_padding;
-        $y_axis = $this->wm_vrt_offset + $this->wm_padding;
+        $x_axis = ($this->wm_hor_offset + $this->wm_padding);
+        $y_axis = ($this->wm_vrt_offset + $this->wm_padding);
         // Set verticle alignment
-        if ($this->wm_use_drop_shadow == false) {
+        if (!$this->wm_use_drop_shadow) {
             $this->wm_shadow_distance = 0;
         }
         $this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
         $this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
         switch ($this->wm_vrt_alignment) {
-            case     "T" :
+            case     'T' :
                 break;
-            case "M":
-                $y_axis += ($this->orig_height / 2) + ($fontheight / 2);
+            case 'M':
+                $y_axis += (int)(($this->orig_height / 2) + ($fontheight / 2));
                 break;
-            case "B":
-                $y_axis += ((int) $this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight / 2));
+            case 'B':
+                $y_axis += (int)((int)$this->orig_height - $fontheight - $this->wm_shadow_distance - ($fontheight / 2));
                 break;
         }
-        $x_shad = $x_axis + $this->wm_shadow_distance;
-        $y_shad = $y_axis + $this->wm_shadow_distance;
+        $x_shad = ($x_axis + $this->wm_shadow_distance);
+        $y_shad = ($y_axis + $this->wm_shadow_distance);
         // Set horizontal alignment
         switch ($this->wm_hor_alignment) {
-            case "L":
+            case 'L':
                 break;
-            case "R":
-                if ($this->wm_use_drop_shadow) {
-                    $x_shad += ((int) $this->orig_width - $fontwidth * strlen($this->wm_text));
-                    $x_axis += ((int) $this->orig_width - $fontwidth * strlen($this->wm_text));
-                }
+            case 'R':
+                $x_shad += ((int)$this->orig_width - $fontwidth * strlen($this->wm_text));
+                $x_axis += ((int)$this->orig_width - $fontwidth * strlen($this->wm_text));
                 break;
-            case "C":
-                if ($this->wm_use_drop_shadow) {
-                    $x_shad += floor(($this->orig_width - $fontwidth * strlen($this->wm_text)) / 2);
-                    $x_axis += floor(($this->orig_width - $fontwidth * strlen($this->wm_text)) / 2);
-                }
+            case 'C':
+                $x_shad += (int)floor(($this->orig_width - $fontwidth * strlen($this->wm_text)) / 2);
+                $x_axis += (int)floor(($this->orig_width - $fontwidth * strlen($this->wm_text)) / 2);
                 break;
         }
         //  Add the text to the source image
-        if ($this->wm_use_truetype && $this->wm_use_drop_shadow) {
-            imagettftext($src_img, $this->wm_font_size, 0, $x_shad, $y_shad, $drp_color, $this->wm_font_path, $this->wm_text);
-            imagettftext($src_img, $this->wm_font_size, 0, $x_axis, $y_axis, $txt_color, $this->wm_font_path, $this->wm_text);
-        } elseif ($this->wm_use_drop_shadow) {
-            imagestring($src_img, $this->wm_font_size, $x_shad, $y_shad, $this->wm_text, $drp_color);
-            imagestring($src_img, $this->wm_font_size, $x_axis, $y_axis, $this->wm_text, $txt_color);
+        if ($this->wm_use_truetype) {
+            if ($this->wm_use_drop_shadow) {
+                imagettftext($src_img, (int)$this->wm_font_size, 0, $x_shad, $y_shad, $drp_color, $this->wm_font_path, $this->wm_text);
+            }
+            imagettftext($src_img, (int)$this->wm_font_size, 0, $x_axis, $y_axis, $txt_color, $this->wm_font_path, $this->wm_text);
+        } else {
+            if ($this->wm_use_drop_shadow) {
+                imagestring($src_img, (int)$this->wm_font_size, $x_shad, $y_shad, $this->wm_text, $drp_color);
+            }
+            imagestring($src_img, (int)$this->wm_font_size, $x_axis, $y_axis, $this->wm_text, $txt_color);
         }
         // Output the final image
         if ($this->dynamic_output == true) {
@@ -1198,15 +1205,27 @@ class Phpwcms_Image_lib {
             if ($exif['Orientation'] === 1) {
                 return true;
             }
+            $swapped = false;
             if ($exif['Orientation'] === 6 || $exif['Orientation'] === 5) {
                 $im = imagerotate($im, 270, 0);
+                $swapped = true;
             } elseif ($exif['Orientation'] === 3 || $exif['Orientation'] === 4) {
                 $im = imagerotate($im, 180, 0);
             } elseif ($exif['Orientation'] === 8 || $exif['Orientation'] === 7) {
                 $im = imagerotate($im, 90, 0);
+                $swapped = true;
             }
             if ($exif['Orientation'] === 5 || $exif['Orientation'] === 4 || $exif['Orientation'] === 7) {
                 imageflip($im, IMG_FLIP_HORIZONTAL);
+            }
+            if ($swapped) {
+                $temp_orig = $this->orig_width;
+                $this->orig_width = $this->orig_height;
+                $this->orig_height = $temp_orig;
+
+                $temp_width = $this->width;
+                $this->width = $this->height;
+                $this->height = $temp_width;
             }
             return true;
         }

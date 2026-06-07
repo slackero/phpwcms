@@ -18,6 +18,7 @@ use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalDataBar;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalFormattingRuleExtension;
 use PhpOffice\PhpSpreadsheet\Style\ConditionalFormatting\ConditionalIconSet;
 use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\RowDimension;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet as PhpspreadsheetWorksheet;
@@ -1085,6 +1086,13 @@ class Worksheet extends WriterPart
 
                 if ($hyperlink->getTooltip() !== '') {
                     $objWriter->writeAttribute('tooltip', $hyperlink->getTooltip());
+                }
+                if ($hyperlink->getDisplay() !== '') {
+                    $objWriter->writeAttribute('display', $hyperlink->getDisplay());
+                } elseif ($hyperlink->getTooltip() !== '') {
+                    // Probably shouldn't do this,
+                    // but avoids a breaking change.
+                    // This was introduced in PR 904 in 2019.
                     $objWriter->writeAttribute('display', $hyperlink->getTooltip());
                 }
 
@@ -1557,11 +1565,24 @@ class Worksheet extends WriterPart
         $objWriter->writeElement('v', $cellIsFormula ? $formulaerr : $cellValue);
     }
 
+    private function writeCellDrawing(XMLWriter $objWriter, int $index): void
+    {
+        $objWriter->writeAttribute('t', 'e');
+        $objWriter->writeAttribute('vm', (string) $index);
+        $objWriter->writeElement('v', '#VALUE!');
+    }
+
     private function writeCellFormula(XMLWriter $objWriter, string $cellValue, Cell $cell): void
     {
         $attributes = $cell->getFormulaAttributes() ?? [];
         $coordinate = $cell->getCoordinate();
-        $calculatedValue = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValue() : $cellValue;
+        $preCalc = $this->getParentWriter()->getPreCalculateFormulas();
+        // When pre-calc is off we have no calculated value to infer the cell type from. The
+        // previous fall-back of $cellValue (the formula source) made every formula cell write
+        // t="str" because the source is always a string — misleading for formulas that resolve
+        // to numbers/booleans. Leave $calculatedValue/$calculatedValueString null so the
+        // type-inference branches below are skipped and no t attribute is written.
+        $calculatedValue = $preCalc ? $cell->getCalculatedValue() : null;
         if ($calculatedValue === ExcelError::SPILL()) {
             $objWriter->writeAttribute('t', 'e');
             //$objWriter->writeAttribute('cm', '1'); // already added
@@ -1577,7 +1598,10 @@ class Worksheet extends WriterPart
 
             return;
         }
-        $calculatedValueString = $this->getParentWriter()->getPreCalculateFormulas() ? $cell->getCalculatedValueString() : $cellValue;
+        // Empty string (not null) so str_starts_with($calculatedValueString, '#') below stays
+        // type-correct when pre-calc is off; the surrounding writeElementIf condition guards
+        // against actually emitting <v> when there is no calculated value.
+        $calculatedValueString = $preCalc ? $cell->getCalculatedValueString() : '';
         $result = $calculatedValue;
         while (is_array($result)) {
             $result = array_shift($result);
@@ -1736,6 +1760,13 @@ class Worksheet extends WriterPart
                     break;
                 case 'b':            // Boolean
                     $this->writeCellBoolean($objWriter, $mappedType, (bool) $cellValue);
+
+                    break;
+                case 'drawingcell':  // DrawingInCell
+                    if ($cellValue instanceof BaseDrawing) {
+                        $index = $cellValue->getIndex();
+                        $this->writeCellDrawing($objWriter, $index);
+                    }
 
                     break;
                 case 'e':            // Error

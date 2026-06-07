@@ -1088,3 +1088,13 @@ $BL['be_selection']                     = 's&eacute;lection';
 
 $BL['be_ctype_module']                  = 'plug-in';
 
+$BL['CSRF_ERROR_TITLE'] = 'Échec de la validation de sécurité';
+$BL['CSRF_POST_INVALID'] = 'Aucun paramètre POST <a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> trouvé. Soumission du formulaire interrompue.';
+$BL['CSRF_POST_FAILED'] = 'Échec de la validation des paramètres POST <a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Soumission du formulaire interrompue.';
+$BL['CSRF_GET_INVALID'] = 'Aucun paramètre GET <a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> trouvé. Navigation interrompue.';
+$BL['CSRF_GET_FAILED'] = 'Échec de la validation des paramètres GET <a href="https://fr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navigation interrompue.';
+$BL['CSRF_BTN_BACK'] = 'Retour';
+$BL['CSRF_BTN_LOGIN'] = 'connection';
+$BL['CSRF_BTN_DASHBOARD'] = 'Tableau de bord';
+
+

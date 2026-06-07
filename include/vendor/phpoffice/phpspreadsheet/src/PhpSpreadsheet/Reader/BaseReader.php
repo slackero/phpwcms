@@ -9,7 +9,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-abstract class BaseReader implements IReader
+abstract class BaseReader implements IReader2
 {
     /**
      * Read data only?
@@ -61,6 +61,14 @@ abstract class BaseReader implements IReader
     protected bool $createBlankSheetIfNoneRead = false;
 
     /**
+     * Enable drawing pass-through?
+     * Identifies whether the Reader should preserve unsupported drawing elements (shapes, grouped images, etc.)
+     * by storing the original XML for pass-through during write operations.
+     * When enabled, drawings cannot be modified programmatically but are preserved exactly.
+     */
+    protected bool $enableDrawingPassThrough = false;
+
+    /**
      * IReadFilter instance.
      */
     protected IReadFilter $readFilter;
@@ -72,6 +80,9 @@ abstract class BaseReader implements IReader
 
     protected ?IValueBinder $valueBinder = null;
 
+    /** @var null|callable(string):bool function to return whether image path is okay */
+    protected $isWhitelisted;
+
     public function __construct()
     {
         $this->readFilter = new DefaultReadFilter();
@@ -82,7 +93,7 @@ abstract class BaseReader implements IReader
         return $this->readDataOnly;
     }
 
-    public function setReadDataOnly(bool $readCellValuesOnly): self
+    public function setReadDataOnly(bool $readCellValuesOnly): static
     {
         $this->readDataOnly = $readCellValuesOnly;
 
@@ -94,7 +105,7 @@ abstract class BaseReader implements IReader
         return $this->readEmptyCells;
     }
 
-    public function setReadEmptyCells(bool $readEmptyCells): self
+    public function setReadEmptyCells(bool $readEmptyCells): static
     {
         $this->readEmptyCells = $readEmptyCells;
 
@@ -106,7 +117,7 @@ abstract class BaseReader implements IReader
         return $this->ignoreRowsWithNoCells;
     }
 
-    public function setIgnoreRowsWithNoCells(bool $ignoreRowsWithNoCells): self
+    public function setIgnoreRowsWithNoCells(bool $ignoreRowsWithNoCells): static
     {
         $this->ignoreRowsWithNoCells = $ignoreRowsWithNoCells;
 
@@ -118,9 +129,21 @@ abstract class BaseReader implements IReader
         return $this->includeCharts;
     }
 
-    public function setIncludeCharts(bool $includeCharts): self
+    public function setIncludeCharts(bool $includeCharts): static
     {
         $this->includeCharts = $includeCharts;
+
+        return $this;
+    }
+
+    public function getEnableDrawingPassThrough(): bool
+    {
+        return $this->enableDrawingPassThrough;
+    }
+
+    public function setEnableDrawingPassThrough(bool $enableDrawingPassThrough): static
+    {
+        $this->enableDrawingPassThrough = $enableDrawingPassThrough;
 
         return $this;
     }
@@ -132,7 +155,7 @@ abstract class BaseReader implements IReader
     }
 
     /** @param null|string|string[] $sheetList */
-    public function setLoadSheetsOnly(string|array|null $sheetList): self
+    public function setLoadSheetsOnly(string|array|null $sheetList): static
     {
         if ($sheetList === null) {
             return $this->setLoadAllSheets();
@@ -143,7 +166,7 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function setLoadAllSheets(): self
+    public function setLoadAllSheets(): static
     {
         $this->loadSheetsOnly = null;
 
@@ -155,7 +178,7 @@ abstract class BaseReader implements IReader
         return $this->readFilter;
     }
 
-    public function setReadFilter(IReadFilter $readFilter): self
+    public function setReadFilter(IReadFilter $readFilter): static
     {
         $this->readFilter = $readFilter;
 
@@ -163,11 +186,12 @@ abstract class BaseReader implements IReader
     }
 
     /**
-     * Allow external images. Use with caution.
-     * Improper specification of these within a spreadsheet
-     * can subject the caller to security exploits.
+     * USE WITH CAUTION (and in conjunction with setIsWhiteListed)!
+     * Allow external images;
+     * these can be specified within a spreadsheet
+     * in a way that can subject the caller to security exploits.
      */
-    public function setAllowExternalImages(bool $allowExternalImages): self
+    public function setAllowExternalImages(bool $allowExternalImages): static
     {
         $this->allowExternalImages = $allowExternalImages;
 
@@ -180,10 +204,26 @@ abstract class BaseReader implements IReader
     }
 
     /**
+     * USE WITH CAUTION!
+     * Supply a callback to determine whether a path should be whitelisted,
+     * used in conjunction with setAllowExternalImages;
+     * supplying a method which might return true
+     * can subject the caller to security exploits.
+     *
+     * @param callable(string):bool $isWhitelisted
+     */
+    public function setIsWhitelisted(callable $isWhitelisted): static
+    {
+        $this->isWhitelisted = $isWhitelisted;
+
+        return $this;
+    }
+
+    /**
      * Create a blank sheet if none are read,
      * possibly due to a typo when using LoadSheetsOnly.
      */
-    public function setCreateBlankSheetIfNoneRead(bool $createBlankSheetIfNoneRead): self
+    public function setCreateBlankSheetIfNoneRead(bool $createBlankSheetIfNoneRead): static
     {
         $this->createBlankSheetIfNoneRead = $createBlankSheetIfNoneRead;
 
@@ -305,7 +345,7 @@ abstract class BaseReader implements IReader
         return $this->valueBinder;
     }
 
-    public function setValueBinder(?IValueBinder $valueBinder): self
+    public function setValueBinder(?IValueBinder $valueBinder): static
     {
         $this->valueBinder = $valueBinder;
 
