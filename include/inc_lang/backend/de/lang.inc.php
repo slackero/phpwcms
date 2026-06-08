@@ -1591,3 +1591,11 @@ $BL['be_copy_link'] = 'Link kopieren';
 
 $BL['be_deprecated'] = 'veraltet';
 $BL['be_deprecated_info'] = 'Dieser Content-Typ ist veraltet und wird in zuk&uuml;nftigen Versionen von phpwcms nicht mehr unterst&uuml;tzt. Bitte verwenden Sie eine alternative L&ouml;sung.';
+
+$BL['be_about_headline'] = 'phpwcms Content Management System';
+$BL['be_about_version'] = 'Version';
+$BL['be_about_maintainer'] = 'Entwickler';
+$BL['be_about_website'] = 'Website';
+$BL['be_about_copyright'] = 'Urheberrecht';
+$BL['be_about_contributors'] = 'und Mitwirkende';
+$BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/slackero/phpwcms" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
