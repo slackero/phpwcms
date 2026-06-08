@@ -86,9 +86,10 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     @ini_set('zlib.output_compression', 'Off');
 
     // Prevent caching.
-    header('Pragma: public'); // Fix IE6 Content-Disposition
-    header('Expires: -1');
-    header('Cache-Control: public, must-revalidate, post-check=0, pre-check=0');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');
 
     // Enable resuamble download in IE9.
     // http://blogs.msdn.com/b/ieinternals/archive/2011/06/03/send-an-etag-to-enable-http-206-file-download-resume-without-restarting.aspx
