@@ -1609,3 +1609,11 @@ $BL['be_cnt_form_direct_download_apikey'] = 'API-Schl&uuml;ssel';
 $BL['be_cnt_form_apikey_reset'] = 'zur&uuml;cksetzen';
 $BL['be_copy_link'] = 'Link kopieren';
 $BL['be_articlebrowser_selector'] = 'Artikelauswahl';
+
+$BL['be_about_headline'] = 'cmsGO! Content Management System';
+$BL['be_about_version'] = 'Version';
+$BL['be_about_maintainer'] = 'Entwickler';
+$BL['be_about_website'] = 'Website';
+$BL['be_about_copyright'] = 'Urheberrecht';
+$BL['be_about_contributors'] = 'und Mitwirkende';
+$BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/systron-dev/cmsgo" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
