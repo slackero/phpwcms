@@ -57,6 +57,10 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lang/code.lang.inc.php';
 
+if (isset($_GET['reason']) && str_starts_with($_GET['reason'], 'csrf-')) {
+    headerAvoidPageCaching();
+}
+
 logdir_exists();
 
 $_SESSION['REFERER_URL'] = CMSGO_URL.get_login_file();
