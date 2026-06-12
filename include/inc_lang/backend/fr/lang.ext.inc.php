@@ -42,5 +42,8 @@ $BL['DOWNLOAD_FILE']     = 't&eacute;l&eacute;charger le fichier';
 $BL['FILE_IN_TRASH']     = 'le fichier se trouve dans la corbeille';
 $BL['KEYWORDS']          = 'mots cl&eacute;s';
 $BL['DOWNLOAD_ERR3']     = 'erreur lors de la lecture de l\'information contenue dans le fichier<br />Veuillez fermer la fen&ecirc;tre et r&eacute;essayer&#8230;';
+$BL['ADD_ALL_FILES']     = 'Ajouter tous les fichiers';
+$BL['ADD_ALL_CONFIRM']   = 'Tous les fichiers du r&eacute;pertoire &raquo;{VAL}&laquo; ont &eacute;t&eacute; ajout&eacute;s !\n\nCliquez sur [OK] pour fermer le gestionnaire de fichiers&#8230;';
+
 
 
