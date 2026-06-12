@@ -153,7 +153,7 @@ function write_conf_file($val) {
 
     $conf_file .= "\$cmsgo['admin_name'] = '" . escape_quote($val['admin_name']) . "'; //default: Webmaster\n";
     $conf_file .= "\$cmsgo['admin_user'] = '" . escape_quote($val['admin_user']) . "'; //default: admin\n";
-    $conf_file .= "\$cmsgo['admin_pass'] = '" . escape_quote($val['admin_pass']) . "'; //MD5(cmsgo)\n";
+    $conf_file .= "\$cmsgo['admin_pass'] = '" . escape_quote($val['admin_pass']) . "'; //password_hash\n";
     $conf_file .= "\$cmsgo['admin_email'] = '" . escape_quote($val['admin_email']) . "'; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";

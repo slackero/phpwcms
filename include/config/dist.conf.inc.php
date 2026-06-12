@@ -33,7 +33,7 @@ $cmsgo['site_ssl_port']        = 443; // The Port on which your SSL Service serv
 
 $cmsgo['admin_name']           = 'Webmaster';
 $cmsgo['admin_user']           = 'admin';
-$cmsgo['admin_pass']           = 'acf977c1cfa27a463246f6963055cb11'; //MD5
+$cmsgo['admin_pass']           = '$2y$10$ZqMmglioxdphO.MLEUI8yeQaocFljNiJUWSNqFDlcY0BgHvT/vHbG'; //password_hash
 $cmsgo['admin_email']          = 'noreply@example.com';
 
 // paths
