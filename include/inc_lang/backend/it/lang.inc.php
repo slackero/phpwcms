@@ -362,7 +362,7 @@ $BL['be_admin_usr_editusr']             = 'edita utente';
 // admin.structform.tmpl.php
 $BL['be_admin_struct_title']            = 'struttura del sito';
 $BL['be_admin_struct_child']            = '(figlio di)';
-$BL['be_admin_struct_index']            = 'indice(prima pagina del sito)';
+$BL['be_admin_struct_index']            = 'indice (prima pagina del sito)';
 $BL['be_admin_struct_cat']              = 'titolo della categoria';
 $BL['be_admin_struct_hide1']            = 'nascondi';
 $BL['be_admin_struct_hide2']            = 'questa&nbsp;category&nbsp;nel&nbsp;menu';
