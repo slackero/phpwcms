@@ -42,5 +42,7 @@ $BL['DOWNLOAD_FILE']     = 'scarica file';
 $BL['FILE_IN_TRASH']     = 'il file &egrave; nel cestino';
 $BL['KEYWORDS']          = 'parole chiave';
 $BL['DOWNLOAD_ERR3']     = 'errore leggendo le informazioni sul file<br />chiudi la finestra e prova ancora&#8230;';
+$BL['ADD_ALL_FILES']     = 'Aggiungi tutti i file';
+$BL['ADD_ALL_CONFIRM']   = 'Tutti i file nella cartella &raquo;{VAL}&laquo; sono stati aggiunti!\n\nFare clic su [OK] per chiudere il browser dei file&#8230;';
 
 

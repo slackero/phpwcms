@@ -42,5 +42,7 @@ $BL['DOWNLOAD_FILE']     = 'download bestand';
 $BL['FILE_IN_TRASH']     = 'bestand bevindt zich in de prullenbak';
 $BL['KEYWORDS']          = 'sleutelwoorden';
 $BL['DOWNLOAD_ERR3']     = 'fout bij het lezen van de bestands informatie<br />sluit het venster en probeer opnieuw&#8230;';
+$BL['ADD_ALL_FILES']     = 'Voeg alle bestanden toe';
+$BL['ADD_ALL_CONFIRM']   = 'Alle bestanden in map &raquo;{VAL}&laquo; zijn toegevoegd!\n\nKlik op [OK] om de bestandsbrowser te sluiten&#8230;';
 
 

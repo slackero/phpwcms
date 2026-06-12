@@ -1617,3 +1617,8 @@ $BL['be_about_website'] = 'Website';
 $BL['be_about_copyright'] = 'Urheberrecht';
 $BL['be_about_contributors'] = 'und Mitwirkende';
 $BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/systron-dev/cmsgo" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
+
+$BL['be_newsletter_entriesfound']       = 'Eintr&auml;ge gefunden';
+$BL['be_newsletter_foundinfile']        = 'in Datei';
+$BL['be_cnt_fpro_usecaption']            = 'Dateizentrums-&quot;'.$BL['be_ftptakeover_longinfo'].'&quot; verwenden';
+
