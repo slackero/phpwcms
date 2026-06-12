@@ -89,7 +89,8 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
             $sql =  "UPDATE ".DB_PREPEND."phpwcms_user SET usr_login='".aporeplace($new_login)."', ";
             if($new_password) {
-                $sql .= "usr_pass='".aporeplace(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8')))."', ";
+                $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
+                $sql .= "usr_pass='".aporeplace($bcrypt_pass)."', ";
             }
             $sql .= "usr_email='".aporeplace($new_email)."', ".
                     "usr_admin='".$set_user_admin."', ".
