@@ -506,11 +506,12 @@ function updatePreviewImageAll() {
 }
 
 function updateCustomSort() {
-
+    custom_entry = [];
     $("li[id*='custom_element_']").each(function() {
-      var custom_number = $(this).attr('id').split('_')
+      var custom_number = $(this).attr('id').split('_');
       if(custom_number[2]) {
-        custom_entry[ custom_number[2] ] = $('custom_sort['+custom_number[2]+']').value;
+        var idx = parseInt(custom_number[2], 10);
+        custom_entry[idx] = idx;
       }
     });
 }
@@ -673,7 +674,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '              onfocus="this.blur()"';
     new_entry += '          />';
     new_entry += '      </td>';
-    new_entry += '      <td><img src="img/button/open_image_button.gif" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" alt="<?php echo $BL['be_cnt_openmediabrowser'] ?>" border="0" hspace="3" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.phpopt=8&target=nolist&entry_id=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" class="modalButton" /><'+'/td>';
+    new_entry += '      <td><img src="img/button/open_image_button.gif" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" alt="<?php echo $BL['be_cnt_openmediabrowser'] ?>" border="0" hspace="3" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" class="modalButton" /><'+'/td>';
     new_entry += '      <td><a';
     new_entry += '              href="#"';
     new_entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';

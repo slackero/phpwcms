@@ -24,9 +24,9 @@ $content["text"] = slweg($_POST["ctext"]);
 $content["image_id"] = intval($_POST["cimage_id"]);
 $content["image_pos"] = intval($_POST["cimage_pos"]);
 // collect image caption
-$content["image_caption"] = (isset($_POST["cimage_caption_title"]) ? str_replace(array('  ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_title"])) : '') . '|';
-$content["image_caption"] .= (isset($_POST["cimage_caption_alt"]) ? str_replace(array(' ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_alt"])) : '') . '|';
-$content["image_caption"] .= (isset($_POST["cimage_caption_url"]) ? str_replace(array(' ', ' ', '  ','|'), ' ', clean_slweg($_POST["cimage_caption_url"])) : '');
+$content["image_caption"] = (isset($_POST["cimage_caption_title"]) ? str_replace(array('  ', '|'), ' ', clean_slweg($_POST["cimage_caption_title"])) : '') . '|';
+$content["image_caption"] .= (isset($_POST["cimage_caption_alt"]) ? str_replace(array('  ', '|'), ' ', clean_slweg($_POST["cimage_caption_alt"])) : '') . '|';
+$content["image_caption"] .= (isset($_POST["cimage_caption_url"]) ? str_replace(array('  ', '|'), ' ', clean_slweg($_POST["cimage_caption_url"])) : '');
 $content["image_caption"] .= (isset($_POST["cimage_caption_target"]) ? (' ' . clean_slweg($_POST["cimage_caption_target"])) : '');
 // end
 // $content["image_caption"] = clean_slweg($_POST["cimage_caption"]);

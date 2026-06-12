@@ -329,26 +329,8 @@ if (!defined('CMSGO_ROOT')) {
 
 			case 'DATESELECT':
 
-		// needs MooTools 1.2 and load datepicker
+		// needs load datepicker (MooTools removed)
 		if(empty($plugin['date_select_loaded'])) {
-
-			initMootools('1.2');
-
-			$BE['HEADER']['datepicker.js']					= getJavaScriptSourceLink(TEMPLATE_PATH.'lib/datepicker/datepicker.js');
-			$BE['HEADER']['datepicker.css']					= '  <link href="'.TEMPLATE_PATH.'lib/datepicker/datepicker.css" rel="stylesheet" type="text/css" />';
-			$BE['HEADER']['datepicker_vista.css']			= '  <link href="'.TEMPLATE_PATH.'lib/datepicker/datepicker_vista/datepicker_vista.css" rel="stylesheet" type="text/css" />';
-			$BE['HEADER']['datepicker']  = '  <script type="text/javascript">' . LF;
-			$BE['HEADER']['datepicker'] .= '	window.addEvent("domready", function(){';
-			$BE['HEADER']['datepicker'] .= "new DatePicker($$('.dateselect'), {";
-			$BE['HEADER']['datepicker'] .= 	"pickerClass:'datepicker_vista', ";
-			$BE['HEADER']['datepicker'] .= 	"positionOffset: {x: 110, y: -30}, ";
-			$BE['HEADER']['datepicker'] .= 	"format: 'd.m.Y', allowEmpty: true, ";
-			$BE['HEADER']['datepicker'] .= 	"inputOutputFormat: 'U', ";
-			$BE['HEADER']['datepicker'] .= 	"days: ".$BLM['days'].", ";
-			$BE['HEADER']['datepicker'] .= 	"months: ".$BLM['months'].", ";
-			$BE['HEADER']['datepicker'] .= '});});' . LF;
-			$BE['HEADER']['datepicker'] .= '  </script>';
-
 			$plugin['date_select_loaded'] = true;
 		}
 
@@ -361,59 +343,8 @@ if (!defined('CMSGO_ROOT')) {
 
 			case 'DECIMAL':
 
-		// needs MooTools 1.2 and MooTools More
+		// needs load decimal mask (MooTools removed)
 		if(empty($plugin['meio.mask_loaded'])) {
-
-			initMootools('1.2', array('Element/Element.Forms')); // need MooTools More and Element.Forms
-			$BE['HEADER']['Meio.Mask.min.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/meio.mask/Meio.Mask.min.js');
-
-			$BE['HEADER']['meio.mask']  = '  <script type="text/javascript">' . LF;
-			$BE['HEADER']['meio.mask'] .= '	window.addEvent("domready", function() {
-			var meiomasks_eur = $$("input.decimal-eur");
-			var meiomasks_int = $$("input.decimal-int");
-			var meiomasks_cent = $$("input.decimal-cent");
-			if(meiomasks_eur.length > 0) {
-				meiomasks_eur.each(function(el){
-					el.meiomask("' . $BLM['meio.mask'] .'", {
-						autoEmpty: true,
-						autoTab: true,
-						alignText: true,
-						decimal: "' . $BLM['price_dec_point'] . '",
-						thousands: "' . $BLM['price_thousands_sep'] . '",
-						precision: ' . $BLM['price_decimals'] . ',
-						symbol: "€ "
-					});
-				});
-			}
-			if(meiomasks_int.length > 0) {
-				meiomasks_int.each(function(el){
-					el.meiomask("' . $BLM['meio.mask'] .'", {
-						autoEmpty: true,
-						autoTab: true,
-						alignText: true,
-						decimal: "' . $BLM['price_dec_point'] . '",
-						thousands: "' . $BLM['price_thousands_sep'] . '",
-						precision: ' . $BLM['price_decimalint'] . ',
-						symbol: ""
-					});
-				});
-			}
-			if(meiomasks_cent.length > 0) {
-				meiomasks_cent.each(function(el){
-					el.meiomask("' . $BLM['meio.mask'] .'", {
-						autoEmpty: true,
-						autoTab: true,
-						alignText: true,
-						decimal: "' . $BLM['price_dec_point'] . '",
-						thousands: "' . $BLM['price_thousands_sep'] . '",
-						precision: ' . $BLM['price_decimals'] . ',
-						symbol: "Cent "
-					});
-				});
-			}
-		});' . LF;
-			$BE['HEADER']['meio.mask'] .= '  </script>';
-
 			$plugin['meio.mask_loaded'] = true;
 		}
 

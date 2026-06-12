@@ -423,27 +423,18 @@ function flush_image_cache(link, url) {
 }
 
 // Autosize textarea
-/*var autosizeTextareas = [];
-if (typeof jQuery == 'undefined') { // still mootools
-    window.addEvent('domready', function() {
-        autosizeTextareas = $$('textarea.autosize');
-        if (autosizeTextareas.length) {
-            autosize(autosizeTextareas);
-        }
-    });
-} else {
-    $(function() {
-        autosizeTextareas = $('textarea.autosize');
-        if (autosizeTextareas.length) {
-            autosize(autosizeTextareas);
-        }
-    });
-}*/
+var autosizeTextareas = [];
+$(function() {
+    autosizeTextareas = $('textarea.autosize');
+    if (autosizeTextareas.length) {
+        autosize(autosizeTextareas);
+    }
+});
 
 
 var validation = {
     isEmailAddress: function (str) {
-        var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var pattern = /^[\w+]+(?:[.-][\w+]+)*@\w+(?:[.-]\w+)*(?:\.\w{2,3})+$/;
         return pattern.test(str);  // returns a boolean
     },
     isNotEmpty: function (str) {

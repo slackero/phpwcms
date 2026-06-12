@@ -435,13 +435,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         $js  = "parent.SetUrl('".CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
-                    //CKEditor
+                    //TinyMCE / CKEditor
                     case 16:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');";
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('download.php?f=" . $file_row["f_hash"] . "');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');}";
                         break;
 
                     case 17:
-                        $js  = "window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        $resize_url = CMSGO_RESIZE_IMAGE."/".$cmsgo['img_prev_width']."x".$cmsgo['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"];
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('".$resize_url."');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".$resize_url."');}";
                         break;
 
                     default:
@@ -470,9 +471,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
                     echo $filename.'</td><td class="text-right py-1">';
                 } else if($js_aktion == 16 || $js_aktion == 17) {
-                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td align="right py-1">';
+                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td class="text-right py-1">';
                 } else {
-                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td align="right py-1">';
+                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td class="text-right py-1">';
                 }
 
                 echo '<a href="#" class="btn btn-sm btn-blue" onclick="'.$js.'return false;" data-toggle="tooltip" title="'.$BL['TAKE_IMAGE'].'">';

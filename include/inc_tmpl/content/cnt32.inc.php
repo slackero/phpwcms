@@ -25,7 +25,11 @@ unset($content['tabs']['tabwysiwygoff'], $content['tabs']['tab_fieldgroup']);
 
 // load WYSIWYG editor
 if(!empty($_SESSION["WYSIWYG_EDITOR"]) && !$content['tabwysiwygoff']) {
-  $BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+  if($_SESSION["WYSIWYG_EDITOR"] == 2) {
+    $BE['HEADER']['tinymce.js'] = getJavaScriptSourceLink('include/vendor/tinymce/tinymce/tinymce.min.js');
+  } else {
+    $BE['HEADER']['ckeditor.js'] = getJavaScriptSourceLink('include/inc_ext/ckeditor/ckeditor.js');
+  }
   $content['wysiwyg'] = true;
 } else {
   $content['wysiwyg'] = false;
@@ -549,56 +553,96 @@ function addNewTab(pos) {
     }
 
 <?php if($content['wysiwyg']):
+  $lang = isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
 
-  // CKEditor Tabs configuration
-  $content['ckconfig'] = array();
+  if($_SESSION["WYSIWYG_EDITOR"] == 1) {
+      // CKEditor Tabs configuration
+      $content['ckconfig'] = array();
 
-  if(isset($_SESSION["wcs_user_lang"])) {
-    $content['ckconfig'][] = "language: '" . $_SESSION["wcs_user_lang"] ."'";
+      if(isset($_SESSION["wcs_user_lang"])) {
+        $content['ckconfig'][] = "language: '" . $_SESSION["wcs_user_lang"] ."'";
+      }
+      if(is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
+        $content['ckconfig'][] = 'customConfig: "' . CMSGO_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
+      } else {
+        $content['ckconfig'][] = "toolbar: [
+          {name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
+          {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
+          {name: 'colors', items: ['TextColor', 'BGColor']},
+          {name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+          {name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
+          {name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
+          {name: 'styles', items: ['Styles', 'Format', 'Font']},
+          {name: 'about', items: ['About']}
+        ]";
+
+        $content['ckconfig'][] = 'toolbarCanCollapse: true';
+        $content['ckconfig'][] = 'toolbarStartupExpanded: true';
+        $content['ckconfig'][] = 'forcePasteAsPlainText: true';
+        $content['ckconfig'][] = 'pasteFromWordRemoveFontStyles: true';
+        $content['ckconfig'][] = 'pasteFromWordRemoveStyles: true';
+        $content['ckconfig'][] = 'pasteFromWordPromptCleanup: true';
+      }
+      if(!empty($GLOBALS['cmsgo']['FCK_FileBrowser'])) {
+        $content['ckconfig'][] = 'filebrowserBrowseUrl: "'.CMSGO_URL.'filebrowser.php?opt=16"';
+        $content['ckconfig'][] = 'filebrowserImageBrowseUrl: "'.CMSGO_URL.'filebrowser.php?opt=17"';
+        $content['ckconfig'][] = 'filebrowserWindowWidth: 640';
+        $content['ckconfig'][] = 'filebrowserWindowHeight: 480';
+      }
+
+      $content['ckconfig'] = ', {' . implode(',', $content['ckconfig']) . '}';
   }
-  if(is_file(CMSGO_TEMPLATE.'config/ckeditor/ckeditor.config-tabs.js')) {
-    $content['ckconfig'][] = 'customConfig: "' . CMSGO_URL.TEMPLATE_PATH . 'config/ckeditor/ckeditor.config-tabs.js"';
-  } else {
-    $content['ckconfig'][] = "toolbar: [
-      {name: 'tools', items: ['Maximize', '-', 'Source', '-', 'Undo', 'Redo', '-', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Find', '-', 'ShowBlocks']},
-      {name: 'links', items: ['Link', 'Unlink', 'Anchor']},
-      {name: 'colors', items: ['TextColor', 'BGColor']},
-      {name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-      {name: 'paragraph', groups: ['align', 'list', 'indent', 'blocks'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BulletedList', 'NumberedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv']},
-      {name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Iframe', 'SpecialChar']},
-      {name: 'styles', items: ['Styles', 'Format', 'Font']},
-      {name: 'about', items: ['About']}
-    ]";
-
-    //$content['ckconfig'][] = 'width: 538';
-    //$content['ckconfig'][] = 'height: 150';
-    $content['ckconfig'][] = 'toolbarCanCollapse: true';
-    $content['ckconfig'][] = 'toolbarStartupExpanded: true';
-    $content['ckconfig'][] = 'forcePasteAsPlainText: true';
-    $content['ckconfig'][] = 'pasteFromWordRemoveFontStyles: true';
-    $content['ckconfig'][] = 'pasteFromWordRemoveStyles: true';
-    $content['ckconfig'][] = 'pasteFromWordPromptCleanup: true';
-  }
-  if(!empty($GLOBALS['cmsgo']['FCK_FileBrowser'])) {
-    $content['ckconfig'][] = 'filebrowserBrowseUrl: "'.CMSGO_URL.'filebrowser.php?opt=16"';
-    $content['ckconfig'][] = 'filebrowserImageBrowseUrl: "'.CMSGO_URL.'filebrowser.php?opt=17"';
-    $content['ckconfig'][] = 'filebrowserWindowWidth: 640';
-    $content['ckconfig'][] = 'filebrowserWindowHeight: 480';
-  }
-
-  $content['ckconfig'] = ', {' . implode(',', $content['ckconfig']) . '}';
-
 ?>
-
   function EnableCKEditor(x) {
-    if($('tabtext'+x) && !CKEDITOR.instances['tabtext'+x]) {
-      CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
+    if(document.getElementById('tabtext'+x)) {
+      <?php if($_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+      tinymce.init({
+        license_key: 'gpl',
+        selector: '#tabtext'+x,
+        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+        menubar: false,
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table | code fullscreen',
+        <?php
+        $tinymce_lang_file = 'include/vendor/mklkj/tinymce-i18n/langs/' . $lang . '.js';
+        if ($lang !== 'en' && is_file(CMSGO_ROOT . '/' . $tinymce_lang_file)): ?>
+        language: '<?php echo $lang; ?>',
+        language_url: '<?php echo $tinymce_lang_file; ?>',
+        <?php else: ?>
+        language: 'en',
+        <?php endif; ?>
+        convert_urls: false,
+        <?php if(!empty($GLOBALS['cmsgo']['FCK_FileBrowser'])): ?>
+        file_picker_callback: function (callback, value, meta) {
+            window.activeTinyMceCallback = callback;
+            let url = 'filebrowser.php?opt=17';
+            if (meta.filetype === 'file' || meta.filetype === 'link') {
+                url = 'articlebrowser.php?opt=16';
+            }
+            window.open(url, 'FileBrowser', 'width=800,height=600,resizable=yes,scrollbars=yes');
+        },
+        <?php endif; ?>
+        branding: false,
+        promotion: false
+      });
+      <?php else: ?>
+      if(!CKEDITOR.instances['tabtext'+x]) {
+        CKEDITOR.replace('tabtext'+x<?php echo $content['ckconfig'] ?>);
+      }
+      <?php endif; ?>
     }
   }
 <?php endif; ?>
 
   function deleteTab(id) {
     if(confirm('<?php echo $BL['be_tab_delete_js'] ?>')) {
+      <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+      $("#" + id).find('textarea').each(function() {
+        var tid = $(this).attr('id');
+        if (tid && tinymce.get(tid)) {
+          tinymce.execCommand('mceRemoveEditor', false, tid);
+        }
+      });
+      <?php endif; ?>
       $("#" + id).remove();
     }
     return false;
@@ -651,10 +695,29 @@ function addNewTab(pos) {
         handle: 'em.handle',
         onDrag: function ($item, container, _super, event) {
             $(".collapse").collapse('hide');
+            <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+            $item.find('textarea').each(function() {
+                var id = $(this).attr('id');
+                if (id && tinymce.get(id)) {
+                    tinymce.execCommand('mceRemoveEditor', false, id);
+                }
+            });
+            <?php endif; ?>
+            _super($item, container);
         },
         onDrop: function ($item, container, _super, event) {
             $item.removeClass(container.group.options.draggedClass).removeAttr("style");
             $("body").removeClass(container.group.options.bodyClass);
+            _super($item, container);
+            <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+            $item.find('textarea').each(function() {
+                var id = $(this).attr('id');
+                if (id && id.indexOf('tabtext') === 0) {
+                    var x = id.substring(7);
+                    EnableCKEditor(x);
+                }
+            });
+            <?php endif; ?>
         }
     });
   });

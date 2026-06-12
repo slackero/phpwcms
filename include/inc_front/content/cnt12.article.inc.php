@@ -253,15 +253,15 @@ if($content["newsletter"]["success"]) {
 
     switch($content["newsletter"]["pos"]) {
         case 1:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-left');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-left');
             break;
 
         case 2:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' center-block');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' mx-auto d-block');
             break;
 
         case 3:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-right');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-right');
             break;
 
         default:

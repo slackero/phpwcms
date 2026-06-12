@@ -2,8 +2,8 @@ function showImageAds() {
 	var obj = getObjectById('adcampaign_image');
 	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
-		var boxw = getFieldById('adcampaign_width').value;
-		var boxh = getFieldById('adcampaign_height').value;
+		var boxw = parseInt(getFieldById('adcampaign_width').value, 10) || 0;
+		var boxh = parseInt(getFieldById('adcampaign_height').value, 10) || 0;
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
@@ -11,8 +11,8 @@ function showImageAds() {
 			set  = false;
 		}
 
-		var wh = parseInt(boxh, 10)+50;
-		var ww = parseInt(boxw, 10)+30;
+		var wh = boxh+50;
+		var ww = boxw+30;
 
 		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
@@ -36,8 +36,8 @@ function showHtmlAds() {
 	var val = getFieldById('adcampaign_html').value;
 	if(val && val != '') {
 
-		var boxw = getFieldById('adcampaign_width').value;
-		var boxh = getFieldById('adcampaign_height').value;
+		var boxw = parseInt(getFieldById('adcampaign_width').value, 10) || 0;
+		var boxh = parseInt(getFieldById('adcampaign_height').value, 10) || 0;
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
@@ -45,8 +45,8 @@ function showHtmlAds() {
 			set  = false;
 		}
 
-		var wh = parseInt(boxh, 10)+50;
-		var ww = parseInt(boxw, 10)+30;
+		var wh = boxh+50;
+		var ww = boxw+30;
 
 		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;
@@ -73,8 +73,8 @@ function showFlashAds() {
 	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
 
-		var boxw = getFieldById('adcampaign_width').value;
-		var boxh = getFieldById('adcampaign_height').value;
+		var boxw = parseInt(getFieldById('adcampaign_width').value, 10) || 0;
+		var boxh = parseInt(getFieldById('adcampaign_height').value, 10) || 0;
 		var set  = true;
 		if(boxh+boxw==0) {
 			boxh = 350;
@@ -82,8 +82,8 @@ function showFlashAds() {
 			set  = false;
 		}
 
-		var wh = parseInt(boxh, 10)+50;
-		var ww = parseInt(boxw, 10)+30;
+		var wh = boxh+50;
+		var ww = boxw+30;
 
 		var newwindow2 = window.open('','name','width='+ww+',height='+wh+',scrollbars=yes,resizable=yes');
 		var tmp = newwindow2.document;

@@ -380,7 +380,7 @@ initJsAutocompleter();
 <hr />
 
 <div class="form-group form-row">
-  <label for="be_tags" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+  <label for="be_tags" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
   <div class="col">
     <input type="text" id="calink_category_autosuggest" class="form-control form-control-sm" />
     <input type="hidden" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" />

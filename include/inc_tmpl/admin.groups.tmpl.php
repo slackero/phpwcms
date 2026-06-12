@@ -293,7 +293,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             ?>" data-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
 
             <?php if ($grouplist["group_syskey"]) {
-            echo '<span class="btn btn-sm btn-default"><i class="fa fa-fw"></i></span>';
+            echo '<span class="btn btn-sm btn-light"><i class="fa fa-fw"></i></span>';
             } else {
             ?>
             <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php

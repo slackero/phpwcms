@@ -9,7 +9,7 @@ class FunctionArray extends CalculationBase
      *
      * @var array<string, array{category: string, functionCall: string|string[], argumentCount: string, passCellReference?: bool, passByReference?: bool[], custom?: bool}>
      */
-    protected static array $phpSpreadsheetFunctions = [
+    protected static array $phpSpreadsheetFunctions = [ // @phpstan-ignore-line
         'ABS' => [
             'category' => Category::CATEGORY_MATH_AND_TRIG,
             'functionCall' => [MathTrig\Absolute::class, 'evaluate'],
@@ -405,6 +405,7 @@ class FunctionArray extends CalculationBase
             'category' => Category::CATEGORY_TEXT_AND_DATA,
             'functionCall' => [TextData\Concatenate::class, 'actualCONCATENATE'],
             'argumentCount' => '1+',
+            'passCellReference' => true,
         ],
         'CONFIDENCE' => [
             'category' => Category::CATEGORY_STATISTICAL,
@@ -2627,7 +2628,7 @@ class FunctionArray extends CalculationBase
         ],
         'XLOOKUP' => [
             'category' => Category::CATEGORY_LOOKUP_AND_REFERENCE,
-            'functionCall' => [Functions::class, 'DUMMY'],
+            'functionCall' => [LookupRef\XLookup::class, 'lookup'],
             'argumentCount' => '3-6',
         ],
         'XNPV' => [

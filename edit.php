@@ -57,6 +57,10 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once CMSGO_ROOT.'/include/inc_lang/code.lang.inc.php';
 
+if (isset($_GET['reason']) && str_starts_with($_GET['reason'], 'csrf-')) {
+    headerAvoidPageCaching();
+}
+
 logdir_exists();
 
 $_SESSION['REFERER_URL'] = CMSGO_URL.get_login_file();
@@ -131,7 +135,9 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-$cmsgo["wysiwyg_editor"] = empty($cmsgo["wysiwyg_editor"]) ? 0 : 1;
+//2 = TinyMCE
+/** @phpstan-ignore-next-line */
+$cmsgo["wysiwyg_editor"] = empty($cmsgo["wysiwyg_editor"]) ? 0 : intval($cmsgo["wysiwyg_editor"]);
 $_SESSION["WYSIWYG_EDITOR"] = $cmsgo["wysiwyg_editor"];
 
 destroyBackendSessionData();
@@ -192,7 +198,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             }
 
             // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? false : true;
+            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? 0 : intval($result[0]["usr_wysiwyg"]);
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
             $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 

@@ -299,7 +299,7 @@ function cmsgoversionCheck() {
     $identify .= '&url='.rawurlencode(CMSGO_URL);
     $identify .= '&revision='.rawurlencode(CMSGO_REVISION);
 
-    if(function_exists('fsockopen') && $fsock = @fsockopen('www.pixels-points.ch', 80, $errno, $errstr, 10)) {
+    if(function_exists('fsockopen') && $fsock = @fsockopen('ssl://www.pixels-points.ch', 443, $errno, $errstr, 10)) {
 
         @fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
         @fputs($fsock, "HOST: www.pixels-points.ch\r\n");

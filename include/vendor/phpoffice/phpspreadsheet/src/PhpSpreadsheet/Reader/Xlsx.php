@@ -306,7 +306,7 @@ class Xlsx extends BaseReader
                         $xml->close();
 
                         $tmpInfo['lastColumnIndex'] = $tmpInfo['totalColumns'] - 1;
-                        $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1);
+                        $tmpInfo['lastColumnLetter'] = Coordinate::stringFromColumnIndex($tmpInfo['lastColumnIndex'] + 1, true);
 
                         $worksheetInfo[] = $tmpInfo;
                     }
@@ -509,12 +509,12 @@ class Xlsx extends BaseReader
                     $majorFonts = [];
                     $minorFonts = [];
                     $fontScheme = $xmlTheme->themeElements->fontScheme->children($drawingNS);
-                    $majorLatin = self::getAttributes($fontScheme->majorFont->latin)['typeface'] ?? '';
-                    $majorEastAsian = self::getAttributes($fontScheme->majorFont->ea)['typeface'] ?? '';
-                    $majorComplexScript = self::getAttributes($fontScheme->majorFont->cs)['typeface'] ?? '';
-                    $minorLatin = self::getAttributes($fontScheme->minorFont->latin)['typeface'] ?? '';
-                    $minorEastAsian = self::getAttributes($fontScheme->minorFont->ea)['typeface'] ?? '';
-                    $minorComplexScript = self::getAttributes($fontScheme->minorFont->cs)['typeface'] ?? '';
+                    $majorLatin = (string) (self::getAttributes($fontScheme->majorFont->latin)['typeface'] ?? '');
+                    $majorEastAsian = (string) (self::getAttributes($fontScheme->majorFont->ea)['typeface'] ?? '');
+                    $majorComplexScript = (string) (self::getAttributes($fontScheme->majorFont->cs)['typeface'] ?? '');
+                    $minorLatin = (string) (self::getAttributes($fontScheme->minorFont->latin)['typeface'] ?? '');
+                    $minorEastAsian = (string) (self::getAttributes($fontScheme->minorFont->ea)['typeface'] ?? '');
+                    $minorComplexScript = (string) (self::getAttributes($fontScheme->minorFont->cs)['typeface'] ?? '');
 
                     foreach ($fontScheme->majorFont->font as $xmlFont) {
                         $fontAttributes = self::getAttributes($xmlFont);
@@ -690,6 +690,16 @@ class Xlsx extends BaseReader
                             $objStyle = new Style();
                             $this->styleReader
                                 ->readStyle($objStyle, $style);
+                            if (isset($xfTag->extLst)) {
+                                foreach ($xfTag->extLst->ext as $extTag) {
+                                    $attributes = $extTag->attributes();
+                                    if (isset($attributes['uri'])) {
+                                        if ((string) $attributes['uri'] === Namespaces::STYLE_CHECKBOX_URI) {
+                                            $objStyle->setCheckBox(true);
+                                        }
+                                    }
+                                }
+                            }
                             foreach ($this->styleReader->getFontCharsets() as $fontName => $charset) {
                                 $excel->addFontCharset($fontName, $charset);
                             }
@@ -1291,7 +1301,7 @@ class Xlsx extends BaseReader
                                                     }
                                                     $temp = $clientData->xpath('.//x:TextHAlign');
                                                     if (!empty($temp)) {
-                                                        $textHAlign = strtolower($temp[0]);
+                                                        $textHAlign = strtolower((string) $temp[0]);
                                                     }
                                                 }
                                             }
@@ -1590,7 +1600,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -1694,7 +1704,7 @@ class Xlsx extends BaseReader
                                                         );
                                                         if (isset($images[$linkImageKey])) {
                                                             $url = str_replace('xl/drawings/', '', $images[$linkImageKey]);
-                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages);
+                                                            $objDrawing->setPath($url, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
                                                         }
                                                         if ($objDrawing->getPath() === '') {
                                                             continue;
@@ -2215,18 +2225,18 @@ class Xlsx extends BaseReader
 
             if (str_contains($item[1], 'px')) {
                 $item[1] = str_replace('px', '', $item[1]);
-            }
-            if (str_contains($item[1], 'pt')) {
+            } elseif (str_contains($item[1], 'pt')) {
                 $item[1] = str_replace('pt', '', $item[1]);
-                $item[1] = (string) Font::fontSizeToPixels((int) $item[1]);
-            }
-            if (str_contains($item[1], 'in')) {
+                $item[1] = Font::fontSizeToPixels((float) $item[1]);
+            } elseif (str_contains($item[1], 'in')) {
                 $item[1] = str_replace('in', '', $item[1]);
-                $item[1] = (string) Font::inchSizeToPixels((int) $item[1]);
-            }
-            if (str_contains($item[1], 'cm')) {
+                $item[1] = (int) Font::inchSizeToPixels((float) $item[1]);
+            } elseif (str_contains($item[1], 'cm')) {
                 $item[1] = str_replace('cm', '', $item[1]);
-                $item[1] = (string) Font::centimeterSizeToPixels((int) $item[1]);
+                $item[1] = (int) Font::centimeterSizeToPixels((float) $item[1]);
+            } elseif (str_contains($item[1], 'mm')) {
+                $item[1] = str_replace('mm', '', $item[1]);
+                $item[1] = (int) Font::centimeterSizeToPixels((float) $item[1] / 10);
             }
 
             $style[$item[0]] = $item[1];

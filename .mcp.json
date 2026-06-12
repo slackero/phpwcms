@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "stacklit": {
+      "command": "stacklit",
+      "args": [
+        "serve"
+      ]
+    }
+  }
+}

@@ -89,12 +89,43 @@ if (!defined('CMSGO_ROOT')) {
 
     <div class="row align-items-center">
       <label for="be_WYSIWYG" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_WYSIWYG'] ?></label>
-      <div class="col">
-        <div class="form-check form-check-inline">
-					<input class="form-check-input" name="form_wysiwyg" type="checkbox" id="form_active" value="1"<?php if(!empty($_SESSION["WYSIWYG_EDITOR"])): ?> checked="checked"<?php endif; ?> />
-					<label class="form-check-label" for="form_active"><?php echo $BL['be_on']; ?> (CKEditor 4.x)</label>
-					<input type="hidden" name="form_wysiwyg_toolbar" value="" />
-        </div>
+      <div class="col-sm-4">
+        <?php
+        $lbl_legacy = 'legacy';
+        $lbl_default = 'default';
+        switch (isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en') {
+            case 'de':
+                $lbl_legacy = 'Legacy';
+                $lbl_default = 'Standard';
+                break;
+            case 'fr':
+                $lbl_legacy = 'obsolète';
+                $lbl_default = 'par défaut';
+                break;
+            case 'es':
+                $lbl_legacy = 'heredado';
+                $lbl_default = 'por defecto';
+                break;
+            case 'it':
+                $lbl_legacy = 'legacy';
+                $lbl_default = 'predefinito';
+                break;
+            case 'nl':
+                $lbl_legacy = 'verouderd';
+                $lbl_default = 'standaard';
+                break;
+            case 'pl':
+                $lbl_legacy = 'przestarzały';
+                $lbl_default = 'domyślny';
+                break;
+        }
+        ?>
+        <select class="custom-select form-control form-control-sm" name="form_wysiwyg" id="be_WYSIWYG">
+          <option value="0"<?php if(empty($_SESSION["WYSIWYG_EDITOR"]) || $_SESSION["WYSIWYG_EDITOR"] == 0): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_off']; ?></option>
+          <option value="1"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 1): ?> selected="selected"<?php endif; ?>>CKEditor (<?php echo $lbl_legacy; ?>)</option>
+          <option value="2"<?php if(isset($_SESSION["WYSIWYG_EDITOR"]) && $_SESSION["WYSIWYG_EDITOR"] == 2): ?> selected="selected"<?php endif; ?>>TinyMCE 8 (<?php echo $lbl_default; ?>)</option>
+        </select>
+        <input type="hidden" name="form_wysiwyg_toolbar" value="" />
       </div>
     </div>
 

@@ -38,14 +38,14 @@ if (!defined('CMSGO_ROOT')) {
   <div class="align-items-center form-row">
         <?php
             if(SHOP_FELANG_SUPPORT) {
-                $plugin['data']['order_data']['lang'] = empty($plugin['data']['order_data']['lang']) ? '' : html_specialchars(strtolower($plugin['data']['order_data']['lang']));
+                $order_lang = (is_array($plugin['data']['order_data']) && !empty($plugin['data']['order_data']['lang'])) ? html_specialchars(strtolower($plugin['data']['order_data']['lang'])) : '';
 
                 echo '<label class="col-sm-auto col-sm-2 col-form-label text-right">'.$BL['be_profile_label_lang'].':</label> ';
                 echo '<div class="col">';
 
                 echo '<span class="flag-icon flag-icon-';
-                echo $plugin['data']['order_data']['lang'] ? $plugin['data']['order_data']['lang'] : 'all';
-                echo ' mt-1" data-toggle="tooltip" title="'.$plugin['data']['order_data']['lang'].'"></span>';
+                echo $order_lang ? $order_lang : 'all';
+                echo ' mt-1" data-toggle="tooltip" title="'.$order_lang.'"></span>';
 
                 echo '</div>';
             }
@@ -62,7 +62,11 @@ if (!defined('CMSGO_ROOT')) {
   <div class="align-items-center form-row">
     <label class="col-sm-auto col-sm-2 col-form-label text-right"><?php echo $BLM['th_payment'] ?>:</label>
     <div class="col">
-        <strong><?php echo html($BLM[ 'shopprod_payby_'.$plugin['data']['order_payment'] ]) ?></strong>
+        <?php
+        $payby_key = 'shopprod_payby_'.$plugin['data']['order_payment'];
+        $payment_name = isset($BLM[$payby_key]) ? $BLM[$payby_key] : (empty($plugin['data']['order_payment']) ? '-' : $plugin['data']['order_payment']);
+        ?>
+        <strong><?php echo html($payment_name) ?></strong>
     </div>
   </div>
 

@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Composer\Pcre\Preg;
 use DOMAttr;
 use DOMDocument;
 use DOMElement;
@@ -180,7 +181,7 @@ class Html extends BaseReader
             return false;
         }
 
-        $beginning = preg_replace(self::STARTS_WITH_BOM, '', $this->readBeginning()) ?? '';
+        $beginning = Preg::replace(self::STARTS_WITH_BOM, '', $this->readBeginning());
 
         $startWithTag = self::startsWithTag($beginning);
         $containsTags = self::containsTags($beginning);
@@ -290,10 +291,11 @@ class Html extends BaseReader
      *
      * @param string[] $attributeArray
      *
-     * @param-out string $cellContent In one case, it can be bool
+     * @param-out string $cellContentx
      */
-    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContent, array $attributeArray): void
+    protected function flushCell(Worksheet $sheet, string $column, int|string $row, mixed &$cellContentx, array $attributeArray): void
     {
+        $cellContent = $cellContentx;
         if (is_string($cellContent)) {
             //    Simple String content
             if (trim($cellContent) > '') {
@@ -302,6 +304,10 @@ class Html extends BaseReader
                 //    ... we return the cell, so we can mess about with styles more easily
 
                 // Set cell value explicitly if there is data-type attribute
+                if (isset($attributeArray['data-checkbox'])) {
+                    $sheet->getStyle($column . $row)
+                        ->setCheckBox(true);
+                }
                 if (isset($attributeArray['data-type'])) {
                     $datatype = $attributeArray['data-type'];
                     if (in_array($datatype, [DataType::TYPE_STRING, DataType::TYPE_STRING2, DataType::TYPE_INLINE])) {
@@ -314,9 +320,19 @@ class Html extends BaseReader
                     }
                     if ($datatype === DataType::TYPE_BOOL) {
                         // This is the case where we can set cellContent to bool rather than string
-                        $cellContent = self::convertBoolean($cellContent); //* @phpstan-ignore-line
-                        if (!is_bool($cellContent)) {
-                            $attributeArray['data-type'] = DataType::TYPE_STRING;
+                        if ($cellContent === '☑') {
+                            $cellContent = true;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } elseif ($cellContent === '☐') {
+                            $cellContent = false;
+                            $sheet->getStyle($column . $row)
+                                ->setCheckBox(true);
+                        } else {
+                            $cellContent = self::convertBoolean($cellContent);
+                            if (!is_bool($cellContent)) {
+                                $attributeArray['data-type'] = DataType::TYPE_STRING;
+                            }
                         }
                     }
 
@@ -324,7 +340,23 @@ class Html extends BaseReader
                     $hyperlink = $sheet->hyperlinkExists($column . $row) ? $sheet->getHyperlink($column . $row) : null;
 
                     try {
-                        $sheet->setCellValueExplicit($column . $row, $cellContent, $attributeArray['data-type']);
+                        if (isset($attributeArray['data-formula'])) {
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-formula'],
+                                DataType::TYPE_FORMULA
+                            );
+                            $sheet->getCell($column . $row)
+                                ->setCalculatedValue(
+                                    $cellContent
+                                );
+                        } else {
+                            $sheet->setCellValueExplicit(
+                                $column . $row,
+                                $attributeArray['data-value'] ?? $cellContent,
+                                $attributeArray['data-type']
+                            );
+                        }
                     } catch (SpreadsheetException) {
                         $sheet->setCellValue($column . $row, $cellContent);
                     }
@@ -334,7 +366,7 @@ class Html extends BaseReader
                     if ($sheet->hyperlinkExists($column . $row)) {
                         $hyperlink = $sheet->getHyperlink($column . $row);
                     }
-                    $sheet->setCellValue($column . $row, $cellContent);
+                    $sheet->setCellValue($column . $row, $attributeArray['data-value'] ?? $cellContent);
                     $sheet->setHyperlink($column . $row, $hyperlink);
                 }
                 $this->dataArray[$row][$column] = $cellContent; // @phpstan-ignore-line
@@ -346,7 +378,7 @@ class Html extends BaseReader
             // @phpstan-ignore-next-line
             $this->dataArray[$row][$column] = 'RICH TEXT: ' . StringHelper::convertToString($cellContent); // @codeCoverageIgnore
         }
-        $cellContent = (string) '';
+        $cellContentx = '';
     }
 
     /** @var array<int, array<int, string>> */
@@ -426,7 +458,7 @@ class Html extends BaseReader
                 }
                 if (isset($attributeArray['style'])) {
                     $alignStyle = $attributeArray['style'];
-                    if (preg_match('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches) === 1) {
+                    if (Preg::isMatch('/\btext-align:\s*(left|right|center|justify)\b/', (string) $alignStyle, $matches)) {
                         $sheet->getComment($column . $row)->setAlignment($matches[1]);
                     }
                 }
@@ -741,7 +773,7 @@ class Html extends BaseReader
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
-                $domText = (string) preg_replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
+                $domText = Preg::replace('/\s+/', ' ', trim($child->nodeValue ?? ''));
                 if ($domText === "\u{a0}") {
                     $domText = '';
                 }
@@ -852,7 +884,7 @@ class Html extends BaseReader
 
                         break;
                     default:
-                        if (preg_match('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches) === 1) {
+                        if (Preg::isMatch('/^custom[.](bool|date|float|int|string)[.](.+)$/', $metaName, $matches)) {
                             match ($matches[1]) {
                                 'bool' => $properties->setCustomProperty($matches[2], (bool) $metaContent, Properties::PROPERTY_TYPE_BOOLEAN),
                                 'float' => $properties->setCustomProperty($matches[2], (float) $metaContent, Properties::PROPERTY_TYPE_FLOAT),
@@ -879,13 +911,12 @@ class Html extends BaseReader
     /** @internal */
     protected static function replaceNonAsciiIfNeeded(string $convert): ?string
     {
-        if (preg_match(self::STARTS_WITH_BOM, $convert) !== 1 && preg_match(self::DECLARES_CHARSET, $convert) !== 1) {
+        if (!Preg::isMatch(self::STARTS_WITH_BOM, $convert) && !Preg::isMatch(self::DECLARES_CHARSET, $convert)) {
             $lowend = "\u{80}";
             $highend = "\u{10ffff}";
             $regexp = "/[$lowend-$highend]/u";
-            /** @var callable $callback */
-            $callback = [self::class, 'replaceNonAscii'];
-            $convert = preg_replace_callback($regexp, $callback, $convert);
+            // use native preg because of "u" modifier
+            $convert = preg_replace_callback($regexp, self::replaceNonAscii(...), $convert);
         }
 
         return $convert;
@@ -1203,7 +1234,7 @@ class Html extends BaseReader
         $name = $attributes['alt'] ?? null;
 
         $drawing = new Drawing();
-        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages);
+        $drawing->setPath($src, false, allowExternal: $this->allowExternalImages, isWhitelisted: $this->isWhitelisted);
         if ($drawing->getPath() === '') {
             return;
         }
@@ -1242,6 +1273,11 @@ class Html extends BaseReader
             if (is_numeric($opacity)) {
                 $drawing->setOpacity((int) ($opacity * 100000));
             }
+        }
+        /** @var string */
+        $transform = $styleArray['transform'] ?? '';
+        if (Preg::isMatch('/rotate[(](-?\d{1,3})deg[)]$/', $transform, $matches)) {
+            $drawing->setRotation((int) $matches[1]);
         }
     }
 

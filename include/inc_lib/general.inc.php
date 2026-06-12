@@ -1099,9 +1099,9 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
 function headerAvoidPageCaching() {
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-    header("Cache-Control: no-cache");
-    header("Pragma: no-cache");
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
 }
 
 function getFileInformation($fileID) {
@@ -2345,6 +2345,9 @@ function getBytes($size) {
  * errors based on memory limit.
  */
 function getRealImageSize($imginfo) {
+    if (empty($imginfo) || !is_array($imginfo)) {
+        return 0;
+    }
     $size = 0;
     // check image width and height
     if (!empty($imginfo[0]) && !empty($imginfo[1])) {

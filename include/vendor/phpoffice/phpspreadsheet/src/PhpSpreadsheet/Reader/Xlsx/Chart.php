@@ -313,7 +313,6 @@ class Chart
 
                                             break;
                                         case 'scatterChart':
-                                            /** @var string $scatterStyle */
                                             $scatterStyle = self::getAttributeString($chartDetail->scatterStyle, 'val');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle($scatterStyle);
@@ -330,7 +329,6 @@ class Chart
 
                                             break;
                                         case 'radarChart':
-                                            /** @var string $radarStyle */
                                             $radarStyle = self::getAttributeString($chartDetail->radarStyle, 'val');
                                             $plotSer = $this->chartDataSeries($chartDetail, $chartDetailKey);
                                             $plotSer->setPlotStyle($radarStyle);
@@ -1206,7 +1204,10 @@ class Chart
         }
         $fontArray['bold'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'b');
         $fontArray['italic'] = (bool) self::getAttributeBoolean($titleDetailPart->pPr->defRPr, 'i');
-        $fontArray['underscore'] = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        $temp = self::getAttributeString($titleDetailPart->pPr->defRPr, 'u');
+        if (is_string($temp) && $temp !== '') {
+            $fontArray['underline'] = $temp;
+        }
         $strikethrough = self::getAttributeString($titleDetailPart->pPr->defRPr, 'strike');
         if ($strikethrough !== null) {
             if ($strikethrough == 'noStrike') {
@@ -1465,11 +1466,8 @@ class Chart
         if (is_numeric($lineWidthTemp)) {
             $lineWidth = ChartProperties::xmlToPoints($lineWidthTemp);
         }
-        /** @var string $compoundType */
         $compoundType = self::getAttributeString($sppr->ln, 'cmpd');
-        /** @var string $dashType */
         $dashType = self::getAttributeString($sppr->ln->prstDash, 'val');
-        /** @var string $capType */
         $capType = self::getAttributeString($sppr->ln, 'cap');
         if (isset($sppr->ln->miter)) {
             $joinType = ChartProperties::LINE_STYLE_JOIN_MITER;

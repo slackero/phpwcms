@@ -1,0 +1,13 @@
+diff --git a/langs8/id.js b/langs8/id.js
+index e7eb23b..92c4b9c 100644
+--- a/langs8/id.js
++++ b/langs8/id.js
+@@ -372,7 +372,7 @@ tinymce.addI18n("id", {
+     "Uploading image": "Unggah gambar",
+     "Upper Alpha": "Huruf Besar",
+     "Upper Roman": "Huruf Besar Romawi",
+-    "Url": "Urlarcarbonmodifikasi.com",
++    "Url": "Url",
+     "Use arrow keys to navigate.": "Gunakan tombol panah untuk menavigasi.",
+     "User Defined": "Ditentukan Pengguna",
+     "Valid": "Valid",

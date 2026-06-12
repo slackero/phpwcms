@@ -13,7 +13,7 @@
 // Language Code: de
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -23,20 +23,20 @@ $BL['be_nav_toggle_navigation'] = 'Navigation umschalten';
 $BL['be_ctype_custom'] = 'Kundenspezifisches Inhaltselement';
 $BL['be_cnt_custom_entry'] = 'Element';
 $BL['be_cnt_custom_entries'] = 'Elemente';
-$BL['be_cnt_title_overview'] = 'Übersicht';
+$BL['be_cnt_title_overview'] = '&Uuml;bersicht';
 $BL['be_article_opposite_lang'] = 'Andere Sprache/n';
 $BL['be_tooltip_visibility'] = 'aktivieren/deaktivieren';
 $BL['be_tooltip_filter_user'] = 'Filtern nach Benutzername, Name oder E-Mail';
 $BL['be_tooltip_filter_for'] = 'Filtern nach';
 $BL['be_btn_preview'] = 'Vorschau';
 $BL['be_cnt_title_multiupload'] = 'Bilder und Dateien in dieses Fenster ziehen';
-$BL['be_input_text_tab'] = 'Begriff eingeben und mit Tabulator-Taste bestätigen';
+$BL['be_input_text_tab'] = 'Begriff eingeben und mit Tabulator-Taste best&auml;tigen';
 
 $BL['be_tt_duplicate'] = 'Duplizieren';
 $BL['be_tt_edit'] = 'Bearbeiten';
-$BL['be_tt_delete'] = 'Löschen';
-$BL['be_tt_delete_pagelayout'] = 'Seitenlayout löschen';
-$BL['be_subnav_admin_users_overview'] = 'Benutzerübersicht';
+$BL['be_tt_delete'] = 'L&ouml;schen';
+$BL['be_tt_delete_pagelayout'] = 'Seitenlayout l&ouml;schen';
+$BL['be_subnav_admin_users_overview'] = 'Benutzer&uuml;bersicht';
 
 //Artikel
 $BL['be_cnt_several'] = 'Sonstige';
@@ -44,17 +44,17 @@ $BL['be_cnt_several'] = 'Sonstige';
 //Newsletter
 $BL['be_mailinglist_new'] = 'Neue Mailingliste erstellen';
 $BL['be_mailinglist_overview_subscribers'] = 'Abonnenten';
-$BL['be_mailinglist_verified'] = "Setze %s geprüft/nichtgeprüft";
-$BL['be_mailinglist_delete_subscriber'] = "Lösche Abonnent";
-$BL['be_mailinglist_delete_list'] = "Lösche Mailingliste";
-$BL['be_mailinglist_cannotdelete_list'] = "Mailingliste kann nicht gelöscht werden da Abonnenten vorhanden";
+$BL['be_mailinglist_verified'] = "Setze %s gepr&uuml;ft/nicht gepr&uuml;ft";
+$BL['be_mailinglist_delete_subscriber'] = "L&ouml;sche Abonnent";
+$BL['be_mailinglist_delete_list'] = "L&ouml;sche Mailingliste";
+$BL['be_mailinglist_cannotdelete_list'] = "Mailingliste kann nicht gel&ouml;scht werden, da Abonnenten vorhanden";
 $BL['be_newsletter_new'] = 'Neuen Newsletter erstellen';
-$BL['be_msg_opend'] = 'Geöffnet';
+$BL['be_msg_opend'] = 'Ge&ouml;ffnet';
 
 //Benutzergruppe
 $BL['be_admin_group'] = "Berechtigungen";
 $BL['be_admin_group_edit'] = "Berechtigungen bearbeiten";
-$BL['be_admin_group_ldel'] = "Berechtigungen löschen";
+$BL['be_admin_group_ldel'] = "Berechtigungen l&ouml;schen";
 
 //Image alias
 $BL['be_imagealias'] = 'Bilder Alias';
@@ -88,16 +88,16 @@ $BL['be_acat_alias'] = 'Alias vorhanden';
 $BL['be_article_description'] = 'Beschreibung (Description) vorhanden';
 
 $BL['be_func_struct_more_action'] = 'Aktionen';
-$BL['be_func_open_articlebrowser'] = 'Artikelbrowser öffnen';
+$BL['be_func_open_articlebrowser'] = 'Artikelbrowser &ouml;ffnen';
 
 // Filter suchergebnisse
 $BL['be_amount_results'] = 'Anzahl';
 
 //News
 $BL['be_news_edit'] = 'Newsbeitrag bearbeiten';
-$BL['be_news_edit'] = 'Newsbeitrag Kopieren';
+$BL['be_news_copy'] = 'Newsbeitrag kopieren';
 $BL['be_news_add'] = 'Newsbeitrag erfassen';
-$BL['be_news_list'] = 'Newsbeiträgen';
+$BL['be_news_list'] = 'Newsbeitr&auml;ge';
 
 $BL['be_text_full'] = 'Volltext';
 
@@ -109,4 +109,4 @@ $BL['be_sqlshortdate'] = '%d.%m.%y';
 $BL['be_sqlshortdatetime'] = '%d.%m.%y %H:%i';
 $BL['be_sqllongdatetime'] = '%d.%m.%Y %H:%i:%s';
 
-$BL['be_fprivfunc_notrash'] = 'Keine Berechtigung zum Löschen';
+$BL['be_fprivfunc_notrash'] = 'Keine Berechtigung zum L&ouml;schen';

@@ -10,7 +10,7 @@
 
 
 // Language: English, Language Code: en
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
 
@@ -105,11 +105,11 @@ $BL['be_ctype_newsletter']              = 'newsletter';
 
 // profile.create.inc.php
 $BL['be_profile_create_success']        = 'Profile successfully created.';
-$BL['be_profile_create_error']          = 'An error occured while creating.';
+$BL['be_profile_create_error']          = 'An error occurred while creating.';
 
 // profile.update.inc.php
 $BL['be_profile_update_success']        = 'Profile data successful updated.';
-$BL['be_profile_update_error']          = 'An error occured while updating.';
+$BL['be_profile_update_error']          = 'An error occurred while updating.';
 
 // profile.updateaccount.inc.php
 $BL['be_profile_account_err1']          = 'username {VAL} is invalid';
@@ -1062,7 +1062,7 @@ $BL['be_WYSIWYG']                       = 'WYSIWYG editor';
 $BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor disabled';
 $BL['be_admin_struct_acat_hiddenactive'] = 'visible when active';
 
-$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is neccessary in the backend!';
+$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is necessary in the backend!';
 
 $BL['be_admin_struct_maxlist']          = 'max. articles in list mode';
 
@@ -1337,7 +1337,7 @@ $BL['googleapi_load']                   = 'use CDN';
 
 $BL['fancyupload_clear_list']           = 'Clear List';
 $BL['fancyupload_file_uploaded']        = 'File was uploaded';
-$BL['fancyupload_file_error']           = 'An error occured';
+$BL['fancyupload_file_error']           = 'An error occurred';
 $BL['fancyupload_adblock_error']        = 'To enable the embedded uploader, unblock it in your browser and refresh (see Adblock).';
 $BL['fancyupload_flashblock_error']     = 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
 $BL['fancyupload_required_error']       = 'A required file was not found, please be patient and we fix this.';
@@ -1429,10 +1429,14 @@ $BL['be_breadcrumb']                    = 'breadcrumb display behavior';
 $BL['be_breadcrumb_nothidden']          = 'visible if level is hidden';
 $BL['be_breadcrumb_nolink']             = 'do not link';
 
-$BL['CSRF_POST_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters found. For security reasons, the session was ended.';
-$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> POST parameters failed. For security reasons, the session was ended.';
-$BL['CSRF_GET_INVALID'] = 'No <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters found. For security reasons, the session was ended.';
-$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery">CSRF</a> GET parameters failed. For security reasons, the session was ended.';
+$BL['CSRF_ERROR_TITLE'] = 'Security Validation Failed';
+$BL['CSRF_POST_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters found. Form submission aborted.';
+$BL['CSRF_POST_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parameters failed. Form submission aborted.';
+$BL['CSRF_GET_INVALID'] = 'No <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters found. Navigation aborted.';
+$BL['CSRF_GET_FAILED'] = 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters failed. Navigation aborted.';
+$BL['CSRF_BTN_BACK'] = 'Go Back';
+$BL['CSRF_BTN_LOGIN'] = 'Login';
+$BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'parental alias';
 $BL['be_fsearch_nor'] = 'NONE';
@@ -1619,3 +1623,11 @@ $BL['be_cnt_form_direct_download_apikey'] = 'API key';
 $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
 $BL['be_articlebrowser_selector'] = 'Article browser';
+
+$BL['be_about_headline'] = 'cmsGO! content management system';
+$BL['be_about_version'] = 'Version';
+$BL['be_about_maintainer'] = 'Maintainer';
+$BL['be_about_website'] = 'Website';
+$BL['be_about_copyright'] = 'Copyright';
+$BL['be_about_contributors'] = 'and contributors';
+$BL['be_about_and_contributors'] = 'and other contributors (including Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, and others) &ndash; see <a href="https://github.com/systron-dev/cmsgo" title="Source code on GitHub" target="_blank">source code</a> for detailed copyright and license information.';

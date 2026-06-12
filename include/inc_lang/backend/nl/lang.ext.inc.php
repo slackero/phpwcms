@@ -13,7 +13,7 @@
 // Language Code: nl
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -31,16 +31,18 @@ $BL['MEDIA_TITLE']       = 'cmsgo media browser';
 $BL['IMAGE_FILES']       = 'afbeeldings bestanden';
 $BL['MEDIA_FILES']       = 'media bestanden';
 $BL['ROOT_DIR']          = 'opslag (root dir)';
-$BL['DOWNLOAD_ERR1']     = 'Er heeft zich fout (NR:{VAL}) voorgedaan bij het opvragen van een bstand.';
-$BL['DOWNLOAD_ERR2']     = 'Als je denk dat dit een technisch probleem is stuur dan een email naar de <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_ERR1']     = 'Er heeft zich een fout (NR:{VAL}) voorgedaan bij het opvragen van een bestand.';
+$BL['DOWNLOAD_ERR2']     = 'Als je denkt dat dit een technisch probleem is stuur dan een email naar de <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'Bestands Download Fout';
 $BL['FILEINFO_TITLE']    = 'cmsgo: bestands info';
 $BL['CREATED']           = 'aangemaakt';
 $BL['DATE_FORMAT']       = 'd-m-Y H:i';
-$BL['SIZE']              = 'grote';
+$BL['SIZE']              = 'grootte';
 $BL['DOWNLOAD_FILE']     = 'download bestand';
 $BL['FILE_IN_TRASH']     = 'bestand bevindt zich in de prullenbak';
 $BL['KEYWORDS']          = 'sleutelwoorden';
-$BL['DOWNLOAD_ERR3']     = 'fout bij het lezen van de bstands informatie<br />sluit het venster en probeer opnieuw...';
+$BL['DOWNLOAD_ERR3']     = 'fout bij het lezen van de bestands informatie<br />sluit het venster en probeer opnieuw&#8230;';
+$BL['ADD_ALL_FILES']     = 'Voeg alle bestanden toe';
+$BL['ADD_ALL_CONFIRM']   = 'Alle bestanden in map &raquo;{VAL}&laquo; zijn toegevoegd!\n\nKlik op [OK] om de bestandsbrowser te sluiten&#8230;';
 
 
