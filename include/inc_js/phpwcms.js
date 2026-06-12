@@ -18,8 +18,6 @@ function login(fval) {
     }
     fval.json.value = 0;
     if (fval.form_password.value && fval.form_loginname.value) {
-        fval.md5pass.value = hex_md5(fval.form_password.value);
-        fval.form_password.value = '';
         fval.json.value = 1;
         return true;
     } else {

@@ -150,13 +150,51 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'login' && $json_ch
 
         $wcs_user = slweg($_POST['form_loginname']);
         $wcs_pass = slweg($_POST['md5pass']);
+        $plain_pass = isset($_POST['form_password']) ? slweg($_POST['form_password']) : '';
 
-        $sql_query  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_login=' . _dbEscape($wcs_user) . ' AND ';
-        $sql_query .= 'usr_pass=' . _dbEscape($wcs_pass) . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)';
+        $sql_query  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_login=' . _dbEscape($wcs_user) . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2)';
 
         $result = _dbQuery($sql_query);
 
         if(isset($result[0]['usr_id'])) {
+
+            $db_pass = $result[0]['usr_pass'];
+            if ($plain_pass !== '') {
+                if (str_starts_with($db_pass, '$')) {
+                    if (password_verify($plain_pass, $db_pass)) {
+                        $login_passed = 1;
+                    } else {
+                        $md5_pass = md5(makeCharsetConversion($plain_pass, PHPWCMS_CHARSET, 'utf-8'));
+                        if (password_verify($md5_pass, $db_pass)) {
+                            $login_passed = 1;
+                            $new_hash = password_hash($plain_pass, PASSWORD_DEFAULT);
+                            _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                        }
+                    }
+                } else {
+                    $md5_pass = md5(makeCharsetConversion($plain_pass, PHPWCMS_CHARSET, 'utf-8'));
+                    if ($md5_pass === $db_pass) {
+                        $login_passed = 1;
+                        $new_hash = password_hash($plain_pass, PASSWORD_DEFAULT);
+                        _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                    }
+                }
+            } else {
+                if (str_starts_with($db_pass, '$')) {
+                    if (password_verify($wcs_pass, $db_pass)) {
+                        $login_passed = 1;
+                    }
+                } else {
+                    if ($wcs_pass === $db_pass) {
+                        $login_passed = 1;
+                        $new_hash = password_hash($wcs_pass, PASSWORD_DEFAULT);
+                        _dbQuery('UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_pass=' . _dbEscape($new_hash) . ' WHERE usr_id=' . (int)$result[0]['usr_id'], 'UPDATE');
+                    }
+                }
+            }
+        }
+
+        if($login_passed) {
 
             $_SESSION['wcs_user']           = $wcs_user;
             $_SESSION['wcs_user_name']      = empty($result[0]['usr_name']) ? $wcs_user : $result[0]['usr_name'];
