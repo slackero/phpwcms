@@ -37,7 +37,7 @@ if(!empty($step)) {
             if ($_POST['admin_pass'] !== $_POST['admin_passrepeat'] || empty($cmsgo['admin_pass'])) {
                 $admin_err_pass = 1;
             } elseif (!empty($_POST['admin_pass'])) {
-                $cmsgo['admin_pass'] = md5(slweg($_POST['admin_pass']));
+                $cmsgo['admin_pass'] = password_hash(slweg($_POST['admin_pass']), PASSWORD_DEFAULT);
             }
 
             $cmsgo['admin_email'] = clean_slweg($_POST['admin_email']);
@@ -270,7 +270,7 @@ if(!empty($step)) {
                 $sql =  'INSERT INTO ' . $_db_prepend . 'cmsgo_user (usr_login, usr_pass, usr_email, '.
                         "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".
                         mysqli_real_escape_string($db, $cmsgo['admin_user'])."', '".
-                        mysqli_real_escape_string($db, md5($cmsgo['admin_pass']))."', '".
+                        mysqli_real_escape_string($db, $cmsgo['admin_pass'])."', '".
                         mysqli_real_escape_string($db, $cmsgo['admin_email'])."', 1, 1, '".
                         mysqli_real_escape_string($db, $cmsgo['SMTP_FROM_NAME'])."', 2, 2)";
 
