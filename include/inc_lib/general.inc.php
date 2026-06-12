@@ -2345,6 +2345,9 @@ function getBytes($size) {
  * errors based on memory limit.
  */
 function getRealImageSize($imginfo) {
+    if (empty($imginfo) || !is_array($imginfo)) {
+        return 0;
+    }
     $size = 0;
     // check image width and height
     if (!empty($imginfo[0]) && !empty($imginfo[1])) {

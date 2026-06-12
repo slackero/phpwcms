@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '480efcc6da78f544e44c1eb2475974a6ed61069d',
+        'reference' => '0063f1fab29640ed975d5a48db9c2efd9aa17c45',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '480efcc6da78f544e44c1eb2475974a6ed61069d',
+            'reference' => '0063f1fab29640ed975d5a48db9c2efd9aa17c45',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'composer/pcre' => array(
-            'pretty_version' => '3.3.2',
-            'version' => '3.3.2.0',
-            'reference' => 'b2bed4734f0cc156ee1fe9c0da2550420d99a21e',
+            'pretty_version' => '3.4.0',
+            'version' => '3.4.0.0',
+            'reference' => 'd5a341b3fb61f3001970940afb1d332968a183ed',
             'type' => 'library',
             'install_path' => __DIR__ . '/./pcre',
             'aliases' => array(),
@@ -74,9 +74,9 @@
             'dev_requirement' => false,
         ),
         'guzzlehttp/guzzle' => array(
-            'pretty_version' => '7.11.0',
-            'version' => '7.11.0.0',
-            'reference' => 'c987f8ce84b8434fa430795eca0f3430663da72b',
+            'pretty_version' => '7.11.1',
+            'version' => '7.11.1.0',
+            'reference' => '5af96f374e0ab4ebd747b8310888c99d3adb0a8c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/guzzle',
             'aliases' => array(),
@@ -184,7 +184,7 @@
         'mklkj/tinymce-i18n' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a88dd5c18ed7049af862e6dd85807618f552d5d9',
+            'reference' => '31c63773d2075fc90c13bf4de058e1e3a0904e5c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mklkj/tinymce-i18n',
             'aliases' => array(
@@ -247,18 +247,18 @@
             'dev_requirement' => false,
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '5.7.0',
-            'version' => '5.7.0.0',
-            'reference' => '9f55d3b9b7bcb1084fda8340e4b7ce4ed10cd0c8',
+            'pretty_version' => '5.8.0',
+            'version' => '5.8.0.0',
+            'reference' => '01964d92536edf1a3a874b9580a52824bebf6fbb',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'phpstan/phpstan' => array(
-            'pretty_version' => '2.2.1',
-            'version' => '2.2.1.0',
-            'reference' => 'dea9c8f2d25cc849391042b71e429c1a4bf82660',
+            'pretty_version' => '2.2.2',
+            'version' => '2.2.2.0',
+            'reference' => 'e5cc34d491a90e79c216d824f60fe21fd4d93bd6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpstan/phpstan',
             'aliases' => array(),
@@ -339,7 +339,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '79d4585eac9c287effcdf55a21c2ae7315fae84e',
+            'reference' => '5d4f7cc7622a8e3a4d3771a9133ac6b5a228c19f',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -350,7 +350,7 @@
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '4cc2492a087e4361f647647c095a44389aa7c413',
+            'reference' => '26903c439128ed523c55708b02ffa790519536f1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../simplepie/simplepie',
             'aliases' => array(
