@@ -1493,16 +1493,26 @@ if(HTML5_MODE && IE8_CC) {
     $cmsgo['html5shiv_disabled'] = !empty($cmsgo['html5shiv_disabled']);
     $cmsgo['respondjs_disabled'] = !empty($cmsgo['respondjs_disabled']);
 
+    $html5shiv_path = TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js';
+    $html5shiv_src = (CMSGO_USE_CDN || !file_exists(CMSGO_ROOT . '/' . $html5shiv_path))
+        ? 'https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js'
+        : CMSGO_URL.$html5shiv_path;
+
+    $respondjs_path = TEMPLATE_PATH.'lib/respond/respond.min.js';
+    $respondjs_src = (CMSGO_USE_CDN || !file_exists(CMSGO_ROOT . '/' . $respondjs_path))
+        ? 'https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js'
+        : CMSGO_URL.$respondjs_path;
+
     // put it as first item
     if(!$cmsgo['html5shiv_disabled'] && !$cmsgo['respondjs_disabled']) {
         $block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]>
-  <script src="'.CMSGO_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js"></script>
-  <script src="'.CMSGO_URL.TEMPLATE_PATH.'lib/respond/respond.min.js"></script>
+    <script src="'.$html5shiv_src.'"></script>
+    <script src="'.$respondjs_src.'"></script>
   <![endif]-->';
     } elseif(!$cmsgo['html5shiv_disabled']) {
-        $block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="'.CMSGO_URL.TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js"></script><![endif]-->';
+        $block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="'.$html5shiv_src.'"></script><![endif]-->';
     } elseif(!$cmsgo['respondjs_disabled']) {
-        $block['custom_htmlhead']['respondjs'] = '  <!--[if lt IE 9]><script src="'.CMSGO_URL.TEMPLATE_PATH.'lib/respond/respond.min.js"></script><![endif]-->';
+        $block['custom_htmlhead']['respondjs'] = '  <!--[if lt IE 9]><script src="'.$respondjs_src.'"></script><![endif]-->';
     }
 
 } elseif($cmsgo['mode_XHTML'] === 2) {

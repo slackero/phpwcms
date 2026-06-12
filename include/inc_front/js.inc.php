@@ -60,12 +60,12 @@ function initializeLightbox() {
     initSlimbox();
 }
 
-/**
- * Init SwfObject JavaScript Library
- */
 function initSwfObject() {
     if(empty($GLOBALS['block']['custom_htmlhead']['swfobject.js'])) {
-        $GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink(CMSGO_USE_CDN ? CMSGO_HTTP_SCHEMA.'://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js' : TEMPLATE_PATH.'lib/swfobject/swfobject.js');
+        // To use a local copy, download swfobject and place it at template/lib/swfobject/swfobject.js
+        $swfobject_path = TEMPLATE_PATH.'lib/swfobject/swfobject.js';
+        $swf_src = (CMSGO_USE_CDN || !file_exists(CMSGO_ROOT . '/' . $swfobject_path)) ? CMSGO_HTTP_SCHEMA.'://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js' : $swfobject_path;
+        $GLOBALS['block']['custom_htmlhead']['swfobject.js'] = getJavaScriptSourceLink($swf_src);
     }
     return TRUE;
 }
