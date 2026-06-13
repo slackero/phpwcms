@@ -487,6 +487,7 @@ function validate_csrf_get_token($token_name = 'csrftoken', $logout = true)
  *
  * @access public
  * @param string $reason
+ * @return never
  */
 function handle_csrf_error($reason)
 {
@@ -594,4 +595,55 @@ function handle_csrf_error($reason)
     </html>
     <?php
     exit();
+}
+
+/**
+ * Check if a user belongs to a specific user group (by syskey).
+ * Uses local static caching to avoid redundant database lookups.
+ *
+ * @access public
+ * @param int $user_id The unique user ID.
+ * @param string $group_syskey The system key identifying the user group.
+ * @return bool True if the user is a member of the group, false otherwise.
+ */
+function is_user_in_group($user_id, $group_syskey)
+{
+    static $group_cache = [];
+
+    $user_id = (int)$user_id;
+    if (!$user_id || empty($group_syskey)) {
+        return false;
+    }
+
+    if (!isset($group_cache[$group_syskey])) {
+        $sql = 'SELECT group_member FROM ' . DB_PREPEND . 'cmsgo_usergroup WHERE group_syskey = ' . _dbEscape($group_syskey) . ' AND group_active = 1 AND group_trash = 0 LIMIT 1';
+        $result = _dbQuery($sql);
+        if (isset($result[0]['group_member']) && trim($result[0]['group_member']) !== '') {
+            $members = explode(',', $result[0]['group_member']);
+            $group_cache[$group_syskey] = array_map('intval', array_map('trim', $members));
+        } else {
+            $group_cache[$group_syskey] = [];
+        }
+    }
+
+    return in_array($user_id, $group_cache[$group_syskey], true);
+}
+
+/**
+ * Check if the current user has permission for a specific admin action.
+ * Super-administrators bypass this check and are always authorized.
+ *
+ * @access public
+ * @param string $permission The system key of the permission group (e.g. 'admuser', 'admugroup').
+ * @return bool True if the current user has the permission, false otherwise.
+ */
+function has_admin_permission($permission)
+{
+    if (!empty($_SESSION['wcs_user_admin']) && (int)$_SESSION['wcs_user_admin'] === 1) {
+        return true;
+    }
+    if (empty($_SESSION['wcs_user_id'])) {
+        return false;
+    }
+    return is_user_in_group($_SESSION['wcs_user_id'], $permission);
 }
