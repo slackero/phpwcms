@@ -406,15 +406,29 @@ function set_article_alias(onempty_only, alias_type, category) {
     return false;
 }
 
-function flush_image_cache(link, url) {
+function flush_image_cache(link, url, confirm_msg, success_msg) {
+    if (confirm_msg && !confirm(confirm_msg)) {
+        return false;
+    }
     link.classList.add('ajax-running');
     $.ajax({
         url: url,
+        dataType: 'json',
         xhrFields: {
             withCredentials: true
         },
-        success: function() {
+        success: function(response) {
             link.classList.remove('ajax-running');
+            if (response && response.status === 'ok') {
+                var msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
+                alert(msg);
+            } else {
+                alert('Error flushing image cache');
+            }
+        },
+        error: function() {
+            link.classList.remove('ajax-running');
+            alert('Error connecting to server');
         }
     });
     return false;

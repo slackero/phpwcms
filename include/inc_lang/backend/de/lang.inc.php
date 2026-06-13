@@ -1395,6 +1395,8 @@ $BL['be_system_container'] = 'Systemcontainer';
 $BL['be_system_container_norender'] = 'ohne regul&auml;re Ausgabe im Frontend';
 $BL['be_custom_scriptlogic'] = 'benutzerdefiniert (Scriptlogik)';
 $BL['be_flush_image_cache'] = 'Bildcache leeren';
+$BL['be_flush_image_cache_confirm'] = 'Soll der Bildcache wirklich geleert werden?';
+$BL['be_flush_image_cache_success'] = 'Bildcache erfolgreich geleert. %d Datei(en) gelöscht.';
 
 $BL['be_caption_alt'] = 'alt Attr.';
 $BL['be_caption_title'] = 'title Attr.';
