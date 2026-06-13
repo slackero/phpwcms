@@ -161,7 +161,7 @@ if(!$ftp["error"]) {
     if ($ftp['dir_new']) {
         if ($ftp['dir']) {
             $where = 'f_kid=0 AND f_trash=0 AND f_id=' . $ftp['dir'];
-            if(empty($_SESSION["wcs_user_admin"])) {
+            if(!has_admin_permission('filecent') && !has_admin_permission('fileupload')) {
                 $where .= ' AND f_uid='.intval($_SESSION["wcs_user_id"]);
             }
             $target_dir = _dbGet('cmsgo_file', '*', $where, '', '', 1);

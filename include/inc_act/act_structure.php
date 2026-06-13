@@ -28,7 +28,7 @@ if(empty($_SESSION['REFERER_URL'])) {
     $ref = empty($_SESSION['REFERER_URL']) ? CMSGO_URL.'cmsgo.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
-if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
+if(has_admin_permission('artstruc')) { // Only for admin users
 
     if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 
@@ -231,7 +231,7 @@ $action = intval($do[0]);
 if($action) {
 
     // Admin related actions only
-    if($_SESSION["wcs_user_admin"] === 1) {
+    if(has_admin_permission('artstruc')) {
 
         // Insert
         if($action === 1) {

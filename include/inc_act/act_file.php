@@ -27,7 +27,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert != 1 && $wert != 0) $wert = 0;
     $sql  = "UPDATE ".DB_PREPEND."cmsgo_file SET f_aktiv=".$wert.", f_changed='".time()."' WHERE f_id=".$id;
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -39,7 +39,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert != 1 && $wert != 0) $wert = 0;
     $sql = "UPDATE ".DB_PREPEND."cmsgo_file SET f_public=".$wert.", f_changed='".time()."' WHERE f_id=".$id;
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -51,7 +51,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert == 9) {
         $sql = "UPDATE ".DB_PREPEND."cmsgo_file SET f_trash=9, f_changed='".time()."' WHERE f_id=".$id;
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('filedelete')) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         _dbQuery($sql, 'UPDATE');
@@ -65,7 +65,7 @@ if(isset($_GET["aktiv"])) {
     if($wert == 1 || $wert == 9 || $wert == 0) {
         $sql  = "UPDATE ".DB_PREPEND."cmsgo_file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
         $sql .= $id ? "f_id=".$id : "f_trash=1";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('filedelete')) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         _dbQuery($sql, 'UPDATE');
@@ -77,7 +77,7 @@ if(isset($_GET["aktiv"])) {
     $file_id    = intval($file_id);
     $dir_id     = intval($dir_id);
     $sql  = "UPDATE ".DB_PREPEND."cmsgo_file SET f_pid=".$dir_id.", f_changed='".time()."' WHERE f_id=".$file_id." AND f_kid=1";
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -88,7 +88,7 @@ if(isset($_GET["thumbnail"])) {
     $_SESSION["wcs_user_thumb"] = intval($_GET["thumbnail"]);
 }
 
-if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
+if(has_admin_permission('adm') || has_admin_permission('filedelete')) { // If user has admin permissions
 
     $cmsgo['trash_delete_files'] = empty($cmsgo['trash_delete_files']) ? false : true;
 

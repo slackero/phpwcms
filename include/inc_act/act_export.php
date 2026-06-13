@@ -260,7 +260,7 @@ if ($action === 'exportformresult' && $fid) {
     echo '</body></html>';
     exit;
 
-} elseif ($action === 'exportsubscriber' && !empty($_SESSION["wcs_user_admin"])) {
+} elseif ($action === 'exportsubscriber' && (has_admin_permission('nl') || has_admin_permission('adm'))) {
 
     // export list of newsletter subscribers
     $_userInfo = array();

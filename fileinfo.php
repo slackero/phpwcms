@@ -47,14 +47,14 @@ if($file_id) {
     if($public) {
         //public file
         $sql .= "f_trash=0 AND f_aktiv=1 AND (f_public=1";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         $sql .= ") ";
     } else {
         //private file
         $sql .= "f_trash IN (0, 1) ";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
         }
     }
