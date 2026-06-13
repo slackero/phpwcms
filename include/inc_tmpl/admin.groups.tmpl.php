@@ -17,21 +17,29 @@ if (!defined('CMSGO_ROOT')) {
 //user group
 $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 
+// Optimization: Load all group modkeys at once to avoid querying inside a loop
+$existing_groups = array();
+$sql = "SELECT group_modkey FROM ".DB_PREPEND."cmsgo_usergroup WHERE group_modkey != '' AND group_trash = 0";
+$result = _dbQuery($sql);
+if ($result) {
+    foreach ($result as $row) {
+        $existing_groups[$row['group_modkey']] = true;
+    }
+}
+
 foreach($cmsgo['modules'] as $value) {
-  $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_usergroup WHERE group_modkey="._dbEscape($value["name"])." LIMIT 1";
-  $result = _dbQuery($sql);
-  if(!isset($result[0]['group_id'])) {
+  if(!isset($existing_groups[$value["name"]])) {
     $data = [
         'group_name'    => $BL['modules'][$value['name']]['backend_menu'],
-        'group_member'  => ['1'],
+        'group_member'  => '1', // Fix: Use '1' string instead of array ['1'] to avoid array serialization in DB
         'group_value'   => 'Modul '.$BL['modules'][$value['name']]['backend_menu'],
         'group_trash'   => 0,
         'group_active'  => 1,
         'group_modkey'  => $value["name"]
     ];
 
-    $result = _dbInsert('cmsgo_usergroup', $data);
-    if(isset($result['INSERT_ID'])) {
+    $insert_result = _dbInsert('cmsgo_usergroup', $data);
+    if(isset($insert_result['INSERT_ID'])) {
       echo '<div class="alert alert-success">Module '.$BL['modules'][$value['name']]['backend_menu'].' erfolgreich hinzugefügt</div>';
     }
   }
