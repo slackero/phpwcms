@@ -317,7 +317,7 @@ if($BE['LANG'] == 'ar') {
                 $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\');" ');
                 $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 
-                $subnav .= subnavtextext('phpinfo()', 'include/inc_act/act_phpinfo.php?' . get_token_get_string(), '_blank', 0);
+                $subnav .= subnavtext('phpinfo()', 'cmsgo.php?do=admin&amp;p=15', $p, '15', 0);
                 echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
             }
           ?>
@@ -480,6 +480,10 @@ if($BE['LANG'] == 'ar') {
               if (has_admin_permission('admlink')) {
                   include CMSGO_ROOT.'/include/inc_tmpl/admin.redirect.tmpl.php';
               }
+              break;
+
+            case 15: //Display phpinfo inline
+              include CMSGO_ROOT.'/include/inc_tmpl/admin.phpinfo.tmpl.php';
               break;
 
           }
