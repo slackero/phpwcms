@@ -28,12 +28,12 @@ if($dl) {
     $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_file WHERE f_trash=0 AND f_kid=1 AND f_id=".$dl." ";
 
     if($pl === 0) {
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
         }
     } else {
         $sql .= "AND f_aktiv=1 AND (f_public=1";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         $sql .= ") ";

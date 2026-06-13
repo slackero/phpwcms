@@ -71,7 +71,7 @@ if(!$newsletter) {
 
     echo 'No valid newsletter ID given.';
 
-} elseif($_SESSION["wcs_user_admin"] == 1) {
+} elseif(has_admin_permission('nl') || has_admin_permission('adm')) {
 
     $notest     = 1;
     $recipient  = array();
