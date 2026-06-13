@@ -8,7 +8,6 @@
  *
  **/
 
-
 if (!defined('CMSGO_ROOT')) {
     die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
@@ -88,10 +87,7 @@ function generate_token_name($prefix = 'csrf')
 }
 
 /**
- * Generate a more short token with shorter value
- */
-/**
- * Generates a token with md5 based unique value.
+ * Generate a more short token with shorter value.
  * The token is registered as session var too.
  * Generates a shorter token as recommend with GET parameters.
  *
@@ -101,14 +97,12 @@ function generate_token_name($prefix = 'csrf')
  */
 function generate_get_token($get_token_name = 'csrftoken')
 {
-
     $token_name = '_gettoken_' . $get_token_name;
     $token_value = bin2hex(random_bytes(32));
 
     set_session_var($token_name, $token_value);
 
     return $token_value;
-
 }
 
 /**
@@ -121,10 +115,9 @@ function generate_get_token($get_token_name = 'csrftoken')
  */
 function get_token_get_value($get_token_name = 'csrftoken')
 {
-
     $token_name = '_gettoken_' . $get_token_name;
-    return get_session_var($token_name, '');
 
+    return get_session_var($token_name, '');
 }
 
 /**
@@ -230,86 +223,94 @@ function validate_session_token($unique_name, $token_value)
  * rand_uniqid(9007199254740989) = 'PpQXn7COf'
  * rand_uniqid('PpQXn7COf', true) = '9007199254740989'
  *
+ * **Refactored** on 2026-06-13 with the following optimizations and improvements:
+ *
+ * 1. **Edge Case Safety**: Added checking for values `< 1.0` or non-finite
+ *    logarithms (e.g. `log(0)`) to prevent division by zero, float warnings,
+ *    or negative array indexing.
+ * 2. **Simplified Permutation Logic**: Replaced the nested index copy/rebuilding
+ *    loops and redundant secondary hashing (SHA-512) with a direct `str_split`
+ *    on the SHA-256 hash output, preserving identical sorting key mapping
+ *    for backward-compatible passkey values.
+ * 3. **Index Access Optimization**: Substituted slow `substr($index, $pos, 1)`
+ *    string extractions with direct character array offsets (`$index[$pos]`).
+ * 4. **Improved Math Types**: Ensured values are cast appropriately to floats or
+ *    integers to match the expected mathematical inputs for exponent operations.
+ *
  * @access public
  * @param mixed $in
  * @param bool $to_num (default: false)
- * @param bool $pad_up (default: false)
+ * @param bool|int $pad_up (default: false)
  * @param mixed $passkey (default: null)
+ *
  * @return string
+ *
  * @link http://php.net/manual/de/function.uniqid.php#96898
  * @author Enrico Pallazzo
  */
-function rand_uniqid($in, $to_num = false, $pad_up = false, $passkey = null)
+function rand_uniqid($in, $to_num = false, $pad_up = false, $passkey = null): string
 {
     $index = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $base = 62;
 
     if ($passkey !== null) {
-        // Although this function's purpose is to just make the
-        // ID short - and not so much secure,
-        // you can optionally supply a password to make it harder
-        // to calculate the corresponding numeric ID
-
-        $i = [];
-        $p = [];
-
-        for ($n = 0, $nMax = strlen($index); $n < $nMax; $n++) {
-            $i[] = substr($index, $n, 1);
-        }
-
+        $i = str_split($index);
         $passhash = hash('sha256', $passkey);
-        $passhash = (strlen($passhash) < strlen($index)) ? hash('sha512', $passkey) : $passhash;
-
-        for ($n = 0, $nMax = strlen($index); $n < $nMax; $n++) {
-            $p[] = substr($passhash, $n, 1);
-        }
-
+        $p = str_split(substr($passhash, 0, $base));
         array_multisort($p, SORT_DESC, $i);
-        $index = implode($i);
+        $index = implode('', $i);
     }
 
-    $base = strlen($index);
-
     if ($to_num) {
-
         // Digital number <<-- alphabet letter code
-        $in = strrev($in);
-        $out = 0;
-        $len = strlen($in) - 1;
-        for ($t = 0; $t <= $len; $t++) {
-            $bcpow = bcpow($base, $len - $t);
-            $out = $out + strpos($index, substr($in, $t, 1)) * $bcpow;
+        $in = strrev((string)$in);
+        $out = 0.0;
+        $len = strlen($in);
+        for ($t = 0; $t < $len; $t++) {
+            $pos = strpos($index, $in[$t]);
+            if ($pos === false) {
+                continue;
+            }
+            $bcpow = bcpow((string)$base, (string)($len - 1 - $t));
+            $out += $pos * (float)$bcpow;
         }
 
         if (is_numeric($pad_up)) {
-            $pad_up--;
+            $pad_up = (int)$pad_up - 1;
             if ($pad_up > 0) {
                 $out -= $base ** $pad_up;
             }
         }
         $out = sprintf('%F', $out);
-        $out = substr($out, 0, strpos($out, '.'));
-
-    } else {
-
-        // Digital number -->> alphabet letter code
-        if (is_numeric($pad_up)) {
-            $pad_up--;
-            if ($pad_up > 0) {
-                $in += $base ** $pad_up;
-            }
-        }
-
-        $out = '';
-        for ($t = floor(log($in, $base)); $t >= 0; $t--) {
-            $bcp = bcpow($base, $t);
-            $a = floor($in / $bcp) % $base;
-            $out .= substr($index, $a, 1);
-            $in -= ($a * $bcp);
-        }
-        $out = strrev($out); // reverse
+        $dotPos = strpos($out, '.');
+        return $dotPos !== false ? substr($out, 0, $dotPos) : $out;
     }
 
-    return $out;
+    // Digital number -->> alphabet letter code
+    $in = (float)$in;
+    if (is_numeric($pad_up)) {
+        $pad_up = (int)$pad_up - 1;
+        if ($pad_up > 0) {
+            $in += $base ** $pad_up;
+        }
+    }
+
+    if ($in < 1.0) {
+        return $index[0];
+    }
+
+    $out = '';
+    $logVal = log($in, $base);
+    if (is_finite($logVal)) {
+        for ($t = (int)floor($logVal); $t >= 0; $t--) {
+            $bcp = (float)bcpow((string)$base, (string)$t);
+            $a = floor($in / $bcp) % $base;
+            $out .= $index[$a];
+            $in -= ($a * $bcp);
+        }
+    }
+
+    return strrev($out);
 }
 
 /**
@@ -581,8 +582,8 @@ function handle_csrf_error($reason)
                             <div class="card-body text-center pb-4">
                                 <p class="card-text text-muted mb-4 px-3" style="line-height: 1.6;"><?php echo $reason_desc; // contains HTML link, not escaped ?></p>
                                 <div class="d-flex justify-content-center gap-2" style="gap: 12px;">
-                                    <a href="javascript:history.back()" class="btn btn-blue"><?php echo html_specialchars(isset($BL['CSRF_BTN_BACK']) ? $BL['CSRF_BTN_BACK'] : 'Go Back'); ?></a>
-                                    <a href="<?php echo CMSGO_URL . get_login_file(); ?>" class="btn btn-light"><?php echo html_specialchars(isset($BL['CSRF_BTN_LOGIN']) ? $BL['CSRF_BTN_LOGIN'] : 'Login'); ?></a>
+                                    <a href="javascript:history.back()" class="btn btn-blue"><?php echo html_specialchars($BL['CSRF_BTN_BACK'] ?? 'Go Back'); ?></a>
+                                    <a href="<?php echo CMSGO_URL . get_login_file(); ?>" class="btn btn-light"><?php echo html_specialchars($BL['CSRF_BTN_LOGIN'] ?? 'Login'); ?></a>
                                 </div>
  							</div>
                         </div>
