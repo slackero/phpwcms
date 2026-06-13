@@ -19,7 +19,7 @@ checkLogin();
 validate_csrf_tokens();
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
+if(has_admin_permission('admfilecat')) { //With admin/delegated permissions only
 
     //diverse Aktionen
     $do = explode(",", $_GET["do"]);

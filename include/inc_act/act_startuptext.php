@@ -19,7 +19,7 @@ checkLogin();
 validate_csrf_tokens();
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if($_SESSION["wcs_user_admin"] == 1) { //if user has admin rights
+if(has_admin_permission('adm')) { //With admin/delegated permissions only
 
 	write_textfile(CMSGO_TEMPLATE."inc_default/startup.php", slweg($_POST["startup_default"]));
 

@@ -18,6 +18,6 @@ require_once CMSGO_ROOT.'/include/inc_lib/general.inc.php';
 checkLogin();
 require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if($_SESSION["wcs_user_admin"] == 1) { //Wenn Benutzer Admin-Rechte hat
+if(has_admin_permission('adm')) { //With admin/delegated permissions only
 	phpinfo();
 }
