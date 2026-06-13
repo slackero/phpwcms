@@ -90,7 +90,7 @@ switch($action) {
 		break;
 
 	case 'flush_image_cache':
-		if (empty($_SESSION['wcs_user_admin'])) {
+		if (!has_admin_permission('adm')) {
 			headerRedirect('', 401);
 			die();
 		}
