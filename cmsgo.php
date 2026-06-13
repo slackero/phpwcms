@@ -316,7 +316,8 @@ if($BE['LANG'] == 'ar') {
                     $subnav .= subnavtext($BL['be_link'] . ' &amp; ' . $BL['be_redirect'], 'cmsgo.php?do=admin&amp;p=14', $p, "14", 0);
                 }
 
-                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\');" ');
+                // @phpstan-ignore-next-line
+                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . htmlspecialchars($BL['be_flush_image_cache_confirm'], ENT_QUOTES, 'UTF-8') . '\', \'' . htmlspecialchars($BL['be_flush_image_cache_success'], ENT_QUOTES, 'UTF-8') . '\');" ');
                 $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
 
                 $subnav .= subnavtext('phpinfo()', 'cmsgo.php?do=admin&amp;p=15', $p, '15', 0);

@@ -1408,6 +1408,8 @@ $BL['be_system_container']              = 'system container';
 $BL['be_system_container_norender']     = 'no regular frontend rendering';
 $BL['be_custom_scriptlogic']            = 'custom (script logic)';
 $BL['be_flush_image_cache']             = 'flush image cache';
+$BL['be_flush_image_cache_confirm']     = 'Do you really want to empty the image cache?';
+$BL['be_flush_image_cache_success']     = 'Image cache emptied successfully. %d file(s) deleted.';
 
 $BL['be_caption_alt']                   = 'alt attr.';
 $BL['be_caption_title']                 = 'title attr.';
