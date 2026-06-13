@@ -428,42 +428,58 @@ if($BE['LANG'] == 'ar') {
             break;
 
       case 'admin':    //Administration
-        if ($_SESSION["wcs_user_admin"] == 1) {
+        if (has_admin_permission('adm')) {
             switch ($p) {
             case 0: //User Administration
-              switch (!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
-                  case 1: include CMSGO_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php';  break; //New User
-                  case 2: include CMSGO_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'; break; //Edit User
+              if (has_admin_permission('admuser')) {
+                  switch (!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
+                      case 1: include CMSGO_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php';  break; //New User
+                      case 2: include CMSGO_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'; break; //Edit User
+                  }
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php';
               }
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.listuser.tmpl.php';
               break;
 
             case 1: //Users and Groups
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php';
+              if (has_admin_permission('admugroup')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.groups.tmpl.php';
+              }
               break;
 
             case 7: //File Categories
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php';
+              if (has_admin_permission('admfilecat')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.filecat.tmpl.php';
+              }
               break;
 
             case 8: //Page Layout
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php';
+              if (has_admin_permission('admlayout')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.pagelayout.tmpl.php';
+              }
               break;
 
             case 11: //Templates
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php';
+              if (has_admin_permission('admtempl')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.templates.tmpl.php';
+              }
               break;
 
             case 12: //Manage image alias
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.imagealiaslist.tmpl.php';
+              if (has_admin_permission('admialias')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.imagealiaslist.tmpl.php';
+              }
               break;
 
             case 13: //Manage alias structure und pages
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php';
+              if (has_admin_permission('admalias')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.aliaslist.tmpl.php';
+              }
               break;
 
             case 14: //Manage redirect entries
-              include CMSGO_ROOT.'/include/inc_tmpl/admin.redirect.tmpl.php';
+              if (has_admin_permission('admlink')) {
+                  include CMSGO_ROOT.'/include/inc_tmpl/admin.redirect.tmpl.php';
+              }
               break;
 
           }
