@@ -4693,30 +4693,6 @@ parameters:
 			path: ../include/inc_lib/helper.image.php
 
 		-
-			message: '#^Comparison operation "\>" between \*NEVER\* and 0 results in an error\.$#'
-			identifier: greater.invalid
-			count: 2
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#1 \$num of function bcpow expects numeric\-string, int\<0, max\> given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#2 \$exponent of function bcpow expects numeric\-string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#2 \$exponent of function bcpow expects numeric\-string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_lib/helper.session.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
