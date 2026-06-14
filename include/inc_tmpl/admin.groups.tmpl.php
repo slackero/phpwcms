@@ -289,25 +289,21 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
           ?></a></td>
           <td class="text-right text-nowrap">
             <?php if ($grouplist["group_syskey"]) {
-              echo '';
+                echo '<button class="btn fa btn-sm visible btn-success disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5; min-width: 32px;" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               } else {
                 echo '<button id="abtngroup'.$grouplist["group_id"].'" class="btn fa btn-sm visible '.($grouplist["group_active"]==0 ? "btn-danger" : "btn-success").' " data-id="'.$grouplist["group_id"].'" data-type="group" data-table="usergroup" data-field="group_active" data-fieldid="group_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>';
               }
             ?>
-
-
             <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php
                 echo $BL['be_admin_group_edit'].": ".html($grouplist["group_name"])
             ?>" data-toggle="tooltip" href="<?php echo $goto ?>"><i class="fa fa-pencil-alt fa-fw"></i></a>
-
             <?php if ($grouplist["group_syskey"]) {
-            echo '<span class="btn btn-sm btn-light"><i class="fa fa-fw"></i></span>';
+            echo '<button class="btn btn-sm btn-danger disabled" disabled aria-disabled="true" style="pointer-events: none; opacity: 0.5;" title="'.$BL['be_admin_group_ldel'].' '.html($grouplist["group_name"]).'" data-toggle="tooltip"><i class="far fa-trash-alt fa-fw"></i></button>';
             } else {
             ?>
             <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
             ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><i class="far fa-trash-alt fa-fw"></i></a>
-
             <?php }  ?></td>
         </tr>
         <?php
@@ -324,5 +320,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 </div>
 
 <div class="form-group text-center text-sm-right mt-3 mb-0">
-  <form action="cmsgo.php?do=admin&amp;p=1&amp;create_group=1" method="post"><input type="submit" value="<?php echo $BL['be_admin_group_add'] ?>" class="btn btn-sm btn-blue" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"></form>
+  <form action="cmsgo.php?do=admin&amp;p=1&amp;create_group=1" method="post">
+      <input type="submit" value="<?php echo $BL['be_admin_group_add'] ?>" class="btn btn-sm btn-blue" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>">
+  </form>
 </div>
