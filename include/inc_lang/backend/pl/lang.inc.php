@@ -1617,3 +1617,15 @@ $BL['be_about_website'] = 'Strona internetowa';
 $BL['be_about_copyright'] = 'Prawa autorskie';
 $BL['be_about_contributors'] = 'oraz współtwórcy';
 $BL['be_about_and_contributors'] = 'oraz inni współtwórcy (w tym Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 i inni) &ndash; zobacz <a href="https://github.com/systron-dev/cmsgo" title="Kod źródłowy w serwisie GitHub" target="_blank">kod źródłowy</a>, aby uzyskać szczegółowe informacje o prawach autorskich i licencjach.';
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Potwierdź';
+$BL['modal_cancel'] = 'Anuluj';
+$BL['modal_title_confirm'] = 'Potwierdzenie';
+$BL['modal_title_alert'] = 'Informacja';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Usuń';
+$BL['modal_move'] = 'Przenieś';
+$BL['modal_copy'] = 'Kopiuj';
+$BL['modal_flush'] = 'Wyczyść';

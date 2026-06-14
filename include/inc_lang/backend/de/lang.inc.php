@@ -1624,3 +1624,15 @@ $BL['be_newsletter_entriesfound']       = 'Eintr&auml;ge gefunden';
 $BL['be_newsletter_foundinfile']        = 'in Datei';
 $BL['be_cnt_fpro_usecaption']            = 'Dateizentrums-&quot;'.$BL['be_ftptakeover_longinfo'].'&quot; verwenden';
 
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Bestätigen';
+$BL['modal_cancel'] = 'Abbrechen';
+$BL['modal_title_confirm'] = 'Bestätigung';
+$BL['modal_title_alert'] = 'Information';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Löschen';
+$BL['modal_move'] = 'Verschieben';
+$BL['modal_copy'] = 'Kopieren';
+$BL['modal_flush'] = 'Leeren';
