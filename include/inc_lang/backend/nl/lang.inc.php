@@ -1575,3 +1575,15 @@ $BL['be_about_website'] = 'Website';
 $BL['be_about_copyright'] = 'Auteursrecht';
 $BL['be_about_contributors'] = 'en bijdragers';
 $BL['be_about_and_contributors'] = 'en andere bijdragers (waaronder Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, en anderen) &ndash; zie de <a href="https://github.com/systron-dev/cmsgo" title="Broncode op GitHub" target="_blank">broncode</a> voor gedetailleerde auteursrecht- en licentie-informatie.';
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Bevestigen';
+$BL['modal_cancel'] = 'Annuleren';
+$BL['modal_title_confirm'] = 'Bevestiging';
+$BL['modal_title_alert'] = 'Informatie';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Verwijderen';
+$BL['modal_move'] = 'Verplaatsen';
+$BL['modal_copy'] = 'Kopiëren';
+$BL['modal_flush'] = 'Leegmaken';

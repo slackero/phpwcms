@@ -1500,3 +1500,15 @@ $BL['be_cnt_field']                     = array(
     'recaptcha_signapikey'=>'Reg&iacute;strese para obtener una clave de API de reCAPTCHA',
     'recaptchainv' => 'reCAPTCHA invisible',
 );
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Confirmar';
+$BL['modal_cancel'] = 'Cancelar';
+$BL['modal_title_confirm'] = 'Confirmación';
+$BL['modal_title_alert'] = 'Información';
+$BL['modal_ok'] = 'Aceptar';
+$BL['modal_delete'] = 'Eliminar';
+$BL['modal_move'] = 'Mover';
+$BL['modal_copy'] = 'Copiar';
+$BL['modal_flush'] = 'Vaciar';
