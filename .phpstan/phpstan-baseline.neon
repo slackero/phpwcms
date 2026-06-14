@@ -103,18 +103,6 @@ parameters:
 			path: ../cmsgo.php
 
 		-
-			message: '#^Offset ''be_cnt_move_deleted'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../cmsgo.php
-
-		-
-			message: '#^Offset ''be_cnt_move_deleted_msg'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../cmsgo.php
-
-		-
 			message: '#^Offset ''be_ctype_search'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -122,12 +110,6 @@ parameters:
 
 		-
 			message: '#^Offset ''be_file_multiple_upload'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../cmsgo.php
-
-		-
-			message: '#^Offset ''be_flush_image_cache'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../cmsgo.php
