@@ -502,7 +502,7 @@ function online_users($spacer = '<br />', $wrap = '<span class="useronline">|<sp
         }
     }
     if ($users) {
-        return $wrap[0] . implode($spacer, $users) . (isset($wrap[1]) ? $wrap[1] : '');
+        return $wrap[0] . implode($spacer, $users) . ($wrap[1] ?? '');
     }
 
     return '';
@@ -1132,6 +1132,23 @@ function getJavaScriptSourceLink($src, $prefix = '  ') {
     return ($src) ? $prefix . '<script' . SCRIPT_ATTRIBUTE_TYPE . ' src="' . $src . '"></script>' : '';
 }
 
+function getJavaScriptTranslations() {
+    global $BL;
+    $translations = [
+        'cancel' => $BL['modal_cancel'] ?? 'Cancel',
+        'ok' => $BL['modal_ok'] ?? 'OK',
+        'confirm' => $BL['modal_confirm'] ?? 'Confirm',
+        'titleConfirm' => $BL['modal_title_confirm'] ?? 'Confirmation',
+        'titleAlert' => $BL['modal_title_alert'] ?? 'Information',
+        'delete' => $BL['modal_delete'] ?? 'Delete',
+        'move' => $BL['modal_move'] ?? 'Move',
+        'copy' => $BL['modal_copy'] ?? 'Copy',
+        'flush' => $BL['modal_flush'] ?? 'Flush'
+    ];
+
+    return '<script' . SCRIPT_ATTRIBUTE_TYPE . '>window.CMSGO_LANG = ' . json_encode($translations, JSON_UNESCAPED_UNICODE) . ';</script>';
+}
+
 function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', $rmvDblWSp = true) {
     // clean up a seperator seperated string and return as array
     if (trim($string) === '') {
@@ -1369,7 +1386,7 @@ function csvFileToArray($csvfile, $delimiter = ';', $heading = false, $enclosure
         if ($heading && !$first) {
             foreach ($data as $key => $value) {
                 $value = trim($value);
-                $datas[0][$key] = $value ? $value : 'Column' . $key;
+                $datas[0][$key] = $value ?: 'Column' . $key;
             }
             $first++;
             continue;
@@ -1932,7 +1949,7 @@ function xss_clean($val) {
     $search .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $search .= '1234567890!@#$%^&*()';
     $search .= '~`";:?+/={}[]-_|\'\\';
-    for ($i = 0; $i < strlen($search); $i++) {
+    for ($i = 0, $iMax = strlen($search); $i < $iMax; $i++) {
         // ;? matches the ;, which is optional
         // 0{0,7} matches any padded zeros, which are optional and go up to 8 chars
         // &#x0040 @ search for the hex values

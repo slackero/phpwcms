@@ -137,12 +137,13 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     <script src="include/inc_js/jquery/jquery.min.js"></script>
     <script src="include/inc_js/autosize.min.js"></script>
-    <script src="include/inc_js/cmsgo.js"></script>
+    <?php echo getJavaScriptTranslations(); ?>
+    <script src="include/inc_js/cmsgo.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>
     <script>
         const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
     </script>
-    <script src="include/inc_js/cmsgo-addons.js"></script>
+    <script src="include/inc_js/cmsgo-addons.min.js"></script>
 
     <?php if ($js_aktion == 16): ?>
         <script type="text/javascript">
