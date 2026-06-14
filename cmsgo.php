@@ -152,7 +152,8 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
 $BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
 $BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
 $BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
-$BE['HEADER']['cmsgo.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo.js');
+$BE['HEADER']['cmsgo-lang.js'] = getJavaScriptTranslations();
+$BE['HEADER']['cmsgo.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo.min.js');
 $BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
 
 if ($do == "messages" && $p == 1) {
@@ -317,8 +318,9 @@ if($BE['LANG'] == 'ar') {
                 }
 
                 // @phpstan-ignore-next-line
-                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . htmlspecialchars($BL['be_flush_image_cache_confirm'], ENT_QUOTES, 'UTF-8') . '\', \'' . htmlspecialchars($BL['be_flush_image_cache_success'], ENT_QUOTES, 'UTF-8') . '\');" ');
-                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'onclick="return confirm(\''.$BL['be_cnt_move_deleted_msg'].'\');" ');
+                $subnav .= subnavtext($BL['be_flush_image_cache'], '#', 1, 0, 0, 'data-confirm-type="warning" data-confirm-action="' . html($BL['modal_flush']) . '" onclick="return flush_image_cache(this,\'include/inc_act/ajax_connector.php?' . get_token_get_string() . '&action=flush_image_cache&value=1\', \'' . html($BL['be_flush_image_cache_confirm']) . '\', \'' . html($BL['be_flush_image_cache_success']) . '\');" ');
+                // @phpstan-ignore-next-line
+                $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
 
                 $subnav .= subnavtext('phpinfo()', 'cmsgo.php?do=admin&amp;p=15', $p, '15', 0);
                 echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
@@ -573,7 +575,7 @@ forward_to($forward_to_message_center, CMSGO_URL."cmsgo.php?do=messages", 2500);
 <?php
 
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
-$BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.js');
+$BE['BODY_CLOSE']['cmsgo-addons.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo-addons.min.js');
 
 // retrieve complete processing time
 [$usec, $sec] = explode(' ', microtime());

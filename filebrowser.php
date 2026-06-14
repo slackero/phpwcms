@@ -158,6 +158,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <script src="include/inc_js/jquery.form.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery.uploadfile.min.js" type="text/javascript"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
+    <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/cmsgo.min.js" type="text/javascript"></script>
     <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -523,7 +524,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         if(CMSGO_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, CMSGO_CHARSET);
         }
-        echo LF . ' if(confirm("' . $confirm . '")) '."parent.$('#browserModal').modal('hide');";
+        echo LF . ' bootstrapConfirm("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 
         echo LF . SCRIPT_CDATA_END;
