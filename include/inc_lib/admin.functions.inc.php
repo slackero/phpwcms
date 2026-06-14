@@ -288,8 +288,8 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
         //delete article
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
-          $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"';
-          $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_jsmsg']." \\n[".js_singlequote($at)."] ')\">";
+          $a .= '<a class="dropdown-item confirm-link" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"';
+          $a .= " data-confirm-type=\"danger\" data-confirm-action=\"".html($GLOBALS['BL']['modal_delete'])."\" data-confirm=\"".html($GLOBALS['BL']['be_func_struct_del_jsmsg']." [".$at."]")."\">";
           $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
         }
         $a .= '</div></div>'.LF;
