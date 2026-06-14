@@ -2,9 +2,9 @@
 
 .PHONY: phpstan baseline stacklit help
 
-# Default PHP executable from MAMP (can be overridden, e.g., make phpstan PHP=php)
-PHP ?= php8
-PHPSTAN = $(PHP) include/vendor/bin/phpstan
+# Default PHP executable (check for php8 in PATH, fallback to MAMP php8.2.31)
+PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.2.31/bin/php)
+PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
 
 # Default target
