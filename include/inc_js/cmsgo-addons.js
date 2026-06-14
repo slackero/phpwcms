@@ -1,20 +1,78 @@
-//Loads the correct sidebar on window load,
-//collapses the sidebar on window resize.
+// Loads the correct sidebar on window load,
+// Collapses the sidebar on window resize.
 // Sets the min-height of #page-wrapper to window size
 
-topOffset = 95;
-height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
+let topOffset = 95;
+let height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
 
 $(function () {
-
     $('#button-menu').on('click', function (e) {
         e.preventDefault();
         $('#column-left').toggleClass('active');
     });
 
+    $(document).on('click', '.confirm-link', function (e) {
+        e.preventDefault();
+        const $this = $(this);
+        const message = $this.attr('data-confirm') || 'Are you sure?';
+        const action = $this.attr('data-confirm-action');
+        const confirmType = $this.attr('data-confirm-type') || 'info';
+        const href = $this.attr('href');
+        bootstrapConfirm(message, function () {
+            window.location.href = href;
+        }, action, confirmType);
+    });
+
+    // Intercept native confirm calls in inline onclick attributes dynamically
+    $(document).on('click', 'a[onclick*="confirm("], button[onclick*="confirm("], input[type="submit"][onclick*="confirm("], input[type="button"][onclick*="confirm("]', function(e) {
+        const $el = $(this);
+        const onclickStr = $el.attr('onclick');
+        if (!onclickStr) return;
+
+        const match = onclickStr.match(/confirm\(\s*(['"])(.*?)\1\s*\)/);
+        if (match) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const confirmMsg = match[2];
+            const action = $el.attr('data-confirm-action');
+            const confirmType = $el.attr('data-confirm-type') || 'info';
+            bootstrapConfirm(confirmMsg, function() {
+                if ($el.is('a')) {
+                    const href = $el.attr('href');
+                    if (href && href !== '#') {
+                        const target = $el.attr('target');
+                        if (target && target !== '_self') {
+                            window.open(href, target);
+                        } else {
+                            window.location.href = href;
+                        }
+                    }
+                } else if ($el.is('input[type="submit"], button[type="submit"]')) {
+                    const name = $el.attr('name');
+                    const form = $el.closest('form');
+                    if (form.length) {
+                        if (name) {
+                            $('<input>').attr({
+                                type: 'hidden',
+                                name: name,
+                                value: $el.val() || '1'
+                            }).appendTo(form);
+                        }
+                        form.submit();
+                    }
+                } else {
+                    $el.attr('onclick', onclickStr.replace(/return\s+confirm\(.*?\);?/, ''));
+                    $el.click();
+                    $el.attr('onclick', onclickStr);
+                }
+            }, action, confirmType);
+        }
+    });
+
     $(window).bind("load resize", function () {
         topOffset = 95;
-        width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+        let width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
         if (width < 768) {
             $('div.navbar-collapse').addClass('collapse')
             topOffset = 100; // 2-row-menu
@@ -44,8 +102,8 @@ $(function () {
 
     $('img.modalButton').on('click', function (e) {
         let $this = $(this);
-        var src = $this.attr('data-src');
-        var modaltitle = $this.attr('alt');
+        const src = $this.attr('data-src');
+        const modaltitle = $this.attr('alt');
 
         $('.modal .modal-body').css({
             'overflow-y': 'auto',
@@ -57,7 +115,7 @@ $(function () {
     });
 
     $('button.modalButton').on('click', function (e) {
-        var src = $(this).attr('data-src');
+        const src = $(this).attr('data-src');
         $('.modal .modal-body').css({
             'overflow-y': 'auto',
             'min-height': $(window).height() * 0.8
@@ -67,7 +125,7 @@ $(function () {
     });
 
     $('input.modalButton').on('click', function (e) {
-        var src = $(this).attr('data-src');
+        const src = $(this).attr('data-src');
         //var height = $(this).attr('data-height') || 300;
         //var width = $(this).attr('data-width') || 400;
         //var modaltitle = $(this).attr('data-title');
@@ -84,12 +142,12 @@ $(function () {
     //ajaxfunction
     $('[id^="abtn"]').on('click', function (e) {
         let $this = $(this);
-        var type = $this.attr('data-type');
-        var table = $this.attr('data-table');
-        var field = $this.attr('data-field');
-        var fieldid = $this.attr('data-fieldid');
-        var id = $this.attr('data-id');
-        var thisbtn = "#abtn" + type + $this.attr('data-id');
+        const type = $this.attr('data-type');
+        const table = $this.attr('data-table');
+        const field = $this.attr('data-field');
+        const fieldid = $this.attr('data-fieldid');
+        const id = $this.attr('data-id');
+        const thisbtn = '#abtn' + type + $this.attr('data-id');
 
         $.ajax({
             url: 'include/inc_act/ajax_changer.php?' + CSRF_GET_TOKEN,
@@ -116,11 +174,11 @@ $(function () {
     });
 
     $('[id^="imgpos"]').on('click', function () {
-        var id = $(this).attr('id');
-        var x = id.match(/[\d\.]+/g);
+        const id = $(this).attr('id');
+        const x = id.match(/[\d\.]+/g);
         $("#cimage_pos").val(x);
-        for (var i = 0; i <= 9; i++) {
-            if (i == x) {
+        for (let i = 0; i <= 9; i++) {
+            if (i === x) {
                 $("#imgpos" + i).removeClass('btn-blue').addClass('btn-success');
             } else {
                 $("#imgpos" + i).removeClass('btn-success').addClass('btn-blue');
@@ -129,9 +187,9 @@ $(function () {
     });
 
     $('#cimage_pos').on('change', function () {
-        var x = $(this).val();
-        for (var i = 0; i <= 9; i++) {
-            if (i == x) {
+        const x = $(this).val();
+        for (let i = 0; i <= 9; i++) {
+            if (i === x) {
                 $("#imgpos" + i).removeClass('btn-blue').addClass('btn-success');
             } else {
                 $("#imgpos" + i).removeClass('btn-success').addClass('btn-blue');
@@ -147,7 +205,9 @@ $(function () {
 });
 
 function SendData1(sVar1, sVar2, sVar3, stoken) {
-    //get the values
+    // get the values
+    let sVar4;
+    let sVaricon;
     if (sVar1 == 4 || sVar1 == 6) {
         sVar4 = 'public';
         sVaricon = 'fa-lock';
@@ -155,17 +215,18 @@ function SendData1(sVar1, sVar2, sVar3, stoken) {
         sVar4 = 'visible';
         sVaricon = 'fa-eye';
     }
-    sImage = sVar4 + '_' + sVar1 + '_' + sVar2 + '_' + sVar3;
+    let sImage = sVar4 + '_' + sVar1 + '_' + sVar2 + '_' + sVar3;
 
-    var sVar5 = 3;
-    if ($("#" + sImage).is("i")) {
+    let sVar5 = 3;
+    let sLen;
+    if ($('#' + sImage).is('i')) {
         if ($('#' + sImage).hasClass('icolor1')) {
             sVar5 = 0;
         } else {
             sVar5 = 1;
         }
     } else {
-        sLen = document.getElementById(sImage).src.length
+        sLen = document.getElementById(sImage).src.length;
         sVar5 = document.getElementById(sImage).src.substring(sLen - 5, sLen - 4);
         if (sVar5 == 1) {
             sVar5 = 0;
@@ -190,7 +251,7 @@ function SendData1(sVar1, sVar2, sVar3, stoken) {
 
 //Ajax Sort contentpart
 function SendDataSort(sVar) {
-    var url = 'include/inc_act/act_articlesort.php?' + CSRF_GET_TOKEN + '&sortid=' + sVar;
+    const url = 'include/inc_act/act_articlesort.php?' + CSRF_GET_TOKEN + '&sortid=' + sVar;
     $.ajax({
         url: url,
         xhrFields: {
@@ -205,7 +266,7 @@ $(function () {
         $('#side-menu ul').css("display", "none");
         $(this).children('ul').css("display", "block");
         height = height - topOffset;
-        newheight = $('#side-menu').height() + (topOffset * 2);
+        let newheight = $('#side-menu').height() + (topOffset * 2);
         if (height < newheight) {
             $("#page-wrapper").css("min-height", (newheight) + "px");
         }

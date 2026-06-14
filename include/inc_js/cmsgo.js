@@ -8,12 +8,11 @@
  */
 
 function toggle_visibility(classstr) {
-    var e = document.getElementByClass(classstr);
-    e.style.display = e.style.display == 'block' ? 'none' : 'block';
+    const e = document.getElementByClass(classstr);
+    e.style.display = e.style.display === 'block' ? 'none' : 'block';
 }
 
 var imageBrowser, uploadWin, temp_url;
-
 function login(fval) {
     if (fval.json.value == '2') {
         fval.customlang.value = 1;
@@ -62,15 +61,159 @@ function clearText(thefield) {
     }
 }
 
-function confirmGoUrl(confirmtext, jumpurl) {
-    if (confirm(confirmtext)) {
-        location.href = jumpurl;
+function bootstrapConfirm(message, callback, customConfirmText, confirmType) {
+    if (window.parent && window.parent !== window && typeof window.parent.bootstrapConfirm === 'function') {
+        window.parent.bootstrapConfirm(message, callback, customConfirmText, confirmType);
+        return;
     }
+
+    const modalId = 'bootstrapConfirmModal';
+    let $modal = $('#' + modalId);
+    if ($modal.length === 0) {
+        var modalHtml =
+            '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
+            '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
+            '    <div class="modal-content border-0 bg-transparent">' +
+            '      <div class="alert shadow-lg mb-0 p-4 alert-container" role="alert" style="border-radius: 8px;">' +
+            '        <div class="d-flex align-items-start">' +
+            '          <div class="mr-3 icon-container" style="font-size: 2rem; line-height: 1;">' +
+            '            <i></i>' +
+            '          </div>' +
+            '          <div style="flex: 1; min-width: 0;">' +
+            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <div class="d-flex justify-content-end">' +
+            '              <button type="button" class="btn btn-secondary mr-2 cancel-btn" data-dismiss="modal"></button>' +
+            '              <button type="button" class="btn confirm-btn font-weight-bold"></button>' +
+            '            </div>' +
+            '          </div>' +
+            '        </div>' +
+            '      </div>' +
+            '    </div>' +
+            '  </div>' +
+            '</div>';
+        $('body').append(modalHtml);
+        $modal = $('#' + modalId);
+    }
+
+    const cancelText = (window.CMSGO_LANG && window.CMSGO_LANG.cancel) || 'Cancel';
+    $modal.find('.cancel-btn').text(cancelText);
+
+    const confirmText = customConfirmText || (window.CMSGO_LANG && window.CMSGO_LANG.ok) || 'OK';
+    const type = (confirmType || 'info').toLowerCase().trim();
+
+    let btnClass = 'btn-info text-white';
+    let textClass = 'text-info';
+    let iconClass = 'fas fa-info-circle';
+
+    if (type === 'danger' || type === 'delete') {
+        btnClass = 'btn-danger text-white';
+        textClass = 'text-danger';
+        iconClass = 'fas fa-trash-alt';
+    } else if (type === 'primary' || type === 'move') {
+        btnClass = 'btn-primary text-white';
+        textClass = 'text-primary';
+        iconClass = 'fas fa-arrows-alt';
+    } else if (type === 'warning' || type === 'flush') {
+        btnClass = 'btn-warning text-dark';
+        textClass = 'text-warning';
+        iconClass = 'fas fa-exclamation-triangle';
+    } else if (type === 'success') {
+        btnClass = 'btn-success text-white';
+        textClass = 'text-success';
+        iconClass = 'fas fa-check-circle';
+    }
+
+    $modal.find('.alert-container')
+        .removeClass('alert-warning alert-danger alert-primary alert-info alert-success')
+        .addClass('alert-light')
+        .css('border', '1px solid #dee2e6');
+
+    $modal.find('.icon-container')
+        .removeClass('text-warning text-danger text-primary text-info text-success')
+        .addClass(textClass);
+
+    $modal.find('.icon-container i')
+        .removeClass()
+        .addClass(iconClass);
+
+    $modal.find('.confirm-btn')
+        .removeClass('btn-danger btn-primary btn-info btn-warning btn-success text-white text-dark')
+        .addClass(btnClass)
+        .text(confirmText);
+
+    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
+    $modal.find('.confirm-message').html(formattedMsg);
+
+    $modal.find('.confirm-btn').off('click').on('click', function() {
+        $modal.modal('hide');
+        if (typeof callback === 'function') {
+            callback();
+        }
+    });
+
+    $modal.modal('show');
+}
+
+function bootstrapAlert(message, callback) {
+    if (window.parent && window.parent !== window && typeof window.parent.bootstrapAlert === 'function') {
+        window.parent.bootstrapAlert(message, callback);
+        return;
+    }
+
+    const modalId = 'bootstrapAlertModal';
+    let $modal = $('#' + modalId);
+    if ($modal.length === 0) {
+        var modalHtml =
+            '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
+            '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
+            '    <div class="modal-content border-0 bg-transparent">' +
+            '      <div class="alert alert-light shadow-lg mb-0 p-4" role="alert" style="border-radius: 8px; border: 1px solid #dee2e6;">' +
+            '        <div class="d-flex align-items-start">' +
+            '          <div class="mr-3 text-primary" style="font-size: 2rem; line-height: 1;">' +
+            '            <i class="fas fa-info-circle"></i>' +
+            '          </div>' +
+            '          <div style="flex: 1; min-width: 0;">' +
+            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <div class="d-flex justify-content-end">' +
+            '              <button type="button" class="btn btn-primary confirm-btn text-white font-weight-bold" data-dismiss="modal">OK</button>' +
+            '            </div>' +
+            '          </div>' +
+            '        </div>' +
+            '      </div>' +
+            '    </div>' +
+            '  </div>' +
+            '</div>';
+        $('body').append(modalHtml);
+        $modal = $('#' + modalId);
+    }
+
+    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
+    $modal.find('.confirm-message').html(formattedMsg);
+
+    $modal.find('.confirm-btn').off('click').on('click', function() {
+        $modal.modal('hide');
+        if (typeof callback === 'function') {
+            callback();
+        }
+    });
+
+    $modal.modal('show');
+}
+
+// Global alert override
+window.alert = function(msg) {
+    bootstrapAlert(msg);
+};
+
+function confirmGoUrl(confirmtext, jumpurl) {
+    bootstrapConfirm(confirmtext, function() {
+        location.href = jumpurl;
+    });
 }
 
 function wordcount(s) {
     var formcontent = Trim(s);
-    if (formcontent == "") {
+    if (formcontent === '') {
         return 0;
     } else {
         formcontent = formcontent.split(" ");
@@ -79,12 +222,12 @@ function wordcount(s) {
 }
 
 function LTrim(str) {
-    var whitespace = new String(" \t\n\r");
-    var s = new String(str);
-    if (whitespace.indexOf(s.charAt(0)) != -1) {
-        var j = 0,
+    const whitespace = String(' \t\n\r');
+    let s = String(str);
+    if (whitespace.indexOf(s.charAt(0)) !== -1) {
+        let j = 0,
             i = s.length;
-        while (j < i && whitespace.indexOf(s.charAt(j)) != -1) {
+        while (j < i && whitespace.indexOf(s.charAt(j)) !== -1) {
             j++;
             s = s.substring(j, i);
         }
@@ -93,11 +236,11 @@ function LTrim(str) {
 }
 
 function RTrim(str) {
-    var whitespace = new String(" \t\n\r");
-    var s = new String(str);
-    if (whitespace.indexOf(s.charAt(s.length - 1)) != -1) {
-        var i = s.length - 1;
-        while (i >= 0 && whitespace.indexOf(s.charAt(i)) != -1) {
+    const whitespace = String(' \t\n\r');
+    let s = String(str);
+    if (whitespace.indexOf(s.charAt(s.length - 1)) !== -1) {
+        let i = s.length - 1;
+        while (i >= 0 && whitespace.indexOf(s.charAt(i)) !== -1) {
             i--;
             s = s.substring(0, i + 1);
         }
@@ -115,7 +258,7 @@ function set_chatlist(lines) {
 }
 
 function flevPopupLink() { // v1.2
-    var v1 = arguments,
+    const v1 = arguments,
         v2 = window.open(v1[0], v1[1], v1[2]),
         v3 = (v1.length > 3) ? v1[3] : false;
     if (v3) {
@@ -125,12 +268,16 @@ function flevPopupLink() { // v1.2
 }
 
 function MM_showHideLayers() { //v6.0
-    var i, p, v, obj, args = MM_showHideLayers.arguments;
+    let i,
+        p,
+        v,
+        obj,
+        args = MM_showHideLayers.arguments;
     for (i = 0; i < (args.length - 2); i += 3) if ((obj = MM_findObj(args[i])) != null) {
         v = args[i + 2];
         if (obj.style) {
             obj = obj.style;
-            v = (v == 'show') ? 'visible' : (v == 'hide') ? 'hidden' : v;
+            v = (v === 'show') ? 'visible' : (v === 'hide') ? 'hidden' : v;
         }
         obj.visibility = v;
     }
@@ -149,7 +296,7 @@ function tmt_winOpen(u, id, f, df) {
 }
 
 function tmt_winControl(id, c) {
-    var d = eval(id) == null || eval(id + ".closed");
+    const d = eval(id) == null || eval(id + '.closed');
     if (!d) {
         eval(id + "." + c);
     }
@@ -158,11 +305,11 @@ function tmt_winControl(id, c) {
 function get_cookie(Name) {
     var search = Name + "=";
     if (document.cookie.length > 0) {
-        var offset = document.cookie.indexOf(search);
+        let offset = document.cookie.indexOf(search);
         // if cookie exists
         if (offset !== -1) {
             offset += search.length; // set index of beginning of value
-            var end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+            let end = document.cookie.indexOf(';', offset); // set index of end of cookie value
             if (end === -1) {
                 end = document.cookie.length;
             }
@@ -188,14 +335,14 @@ function changeImagePos(x, f) {
     } else {
         document.articlecontent.cimage_pos.selectedIndex = x;
     }
-    for (var i = 0; i <= 9; i++) {
+    for (let i = 0; i <= 9; i++) {
         MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
 }
 
 function changeImagePosMenu(f) {
-    var x = f ? document.article.cimage_pos.selectedIndex : document.articlecontent.cimage_pos.selectedIndex;
-    for (var i = 0; i <= 9; i++) {
+    const x = f ? document.article.cimage_pos.selectedIndex : document.articlecontent.cimage_pos.selectedIndex;
+    for (let i = 0; i <= 9; i++) {
         MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
     if (f) {
@@ -210,7 +357,7 @@ function switchToggleFTP(field) {
 }
 
 function toggleAllFTP(field, proof) {
-    for (var i = 0; i < field.length; i++) {
+    for (let i = 0; i < field.length; i++) {
         field[i].checked = !!proof;
     }
 }
@@ -260,17 +407,17 @@ function insertAtCursorPos(textObj, textFieldValue) {
     textObj.focus();
     if (document.all) {
         if (textObj.createTextRange && textObj.cursorPos) {
-            var cursorPos = textObj.cursorPos;
+            const cursorPos = textObj.cursorPos;
             cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) === ' ' ? textFieldValue + ' ' : textFieldValue;
         } else {
             textObj.value = textObj.value + textFieldValue;
         }
     } else {
         if (textObj.setSelectionRange) {
-            var rangeStart = textObj.selectionStart;
-            var rangeEnd = textObj.selectionEnd;
-            var tempStr1 = textObj.value.substring(0, rangeStart);
-            var tempStr2 = textObj.value.substring(rangeEnd);
+            const rangeStart = textObj.selectionStart;
+            const rangeEnd = textObj.selectionEnd;
+            const tempStr1 = textObj.value.substring(0, rangeStart);
+            const tempStr2 = textObj.value.substring(rangeEnd);
             textObj.value = tempStr1 + textFieldValue + tempStr2;
         } else {
             alert("This version of Mozilla based browser does not support setSelectionRange");
@@ -407,30 +554,38 @@ function set_article_alias(onempty_only, alias_type, category) {
 }
 
 function flush_image_cache(link, url, confirm_msg, success_msg) {
-    if (confirm_msg && !confirm(confirm_msg)) {
-        return false;
+    const proceed = function() {
+        link.classList.add('ajax-running');
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true,
+            },
+            success: function(response) {
+                link.classList.remove('ajax-running');
+                if (response && response.status === 'ok') {
+                    var msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
+                    alert(msg);
+                } else {
+                    alert('Error flushing image cache');
+                }
+            },
+            error: function() {
+                link.classList.remove('ajax-running');
+                alert('Error connecting to server');
+            },
+        });
+    };
+
+    if (confirm_msg) {
+        const $link = $(link);
+        const customConfirmText = $link.attr('data-confirm-action');
+        const confirmType = $link.attr('data-confirm-type');
+        bootstrapConfirm(confirm_msg, proceed, customConfirmText, confirmType);
+    } else {
+        proceed();
     }
-    link.classList.add('ajax-running');
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        xhrFields: {
-            withCredentials: true
-        },
-        success: function(response) {
-            link.classList.remove('ajax-running');
-            if (response && response.status === 'ok') {
-                var msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
-                alert(msg);
-            } else {
-                alert('Error flushing image cache');
-            }
-        },
-        error: function() {
-            link.classList.remove('ajax-running');
-            alert('Error connecting to server');
-        }
-    });
     return false;
 }
 
@@ -443,43 +598,42 @@ $(function() {
     }
 });
 
-
-var validation = {
-    isEmailAddress: function (str) {
-        var pattern = /^[\w+]+(?:[.-][\w+]+)*@\w+(?:[.-]\w+)*(?:\.\w{2,3})+$/;
+const validation = {
+    isEmailAddress: function(str) {
+        const pattern = /^[\w+]+(?:[.-][\w+]+)*@\w+(?:[.-]\w+)*(?:\.\w{2,3})+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isNotEmpty: function (str) {
-        var pattern = /\S+/;
+    isNotEmpty: function(str) {
+        const pattern = /\S+/;
         return pattern.test(str);  // returns a boolean
     },
-    isNumber: function (str) {
-        var pattern = /^\d+$/;
+    isNumber: function(str) {
+        const pattern = /^\d+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isSame: function (str1, str2) {
+    isSame: function(str1, str2) {
         return str1 === str2;
     },
-    isInt: function (str) {
-        var pattern = /^(\-?|\+?)\d+$/;
+    isInt: function(str) {
+        const pattern = /^(\-?|\+?)\d+$/;
         return pattern.test(str);  // returns a boolean
     },
 };
 
 function togglePasswordVisibility(id) {
-    var pwdField = document.getElementById(id);
+    const pwdField = document.getElementById(id);
     pwdField.type = pwdField.type === "password" ? "text" : "password";
     return pwdField.type === 'text' ? 'hide' : 'show';
 }
 
 function copyToClipboard(str) {
-    var el = document.createElement('textarea');
+    const el = document.createElement('textarea');
     el.value = str;
     el.setAttribute('readonly', '');
     el.style.position = 'absolute';
     el.style.left = '-9999px';
     document.body.appendChild(el);
-    var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
