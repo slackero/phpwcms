@@ -601,7 +601,7 @@ function addNewTab(pos) {
         selector: '#tabtext'+x,
         plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
         menubar: false,
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table | code fullscreen',
+        toolbar: 'undo redo | blocks | bold italic underline forecolor backcolor | link image media table | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | fontfamily fontsize | code fullscreen',
         <?php
         $tinymce_lang_file = 'include/vendor/mklkj/tinymce-i18n/langs/' . $lang . '.js';
         if ($lang !== 'en' && is_file(CMSGO_ROOT . '/' . $tinymce_lang_file)): ?>
