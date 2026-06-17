@@ -106,48 +106,45 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 ?>
 
 <div class="form-group mb-3 text-center text-sm-left">
-  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa fa-plus"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
+  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fas fa-cart-plus"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
 </div>
 
-<form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-  <div class="form-row align-items-center my-2">
-        <div class="form-inline col-12 col-sm">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text bg-success border-0">
-                        <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> />
-                    </div>
-                    <div class="input-group-text bg-danger border-0">
-                         <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> />
-                    </div>
-                </div>
-                <div class="input-group-append">
-                    <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
-                </div>
-            </div>
-        </div>
+<form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate">
+	<input type="hidden" name="do_pagination" value="1" />
+	<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+	<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+	<div class="form-row align-items-center my-2">
+		<div class="col-auto">
+			<div class="btn-group btn-group-sm">
+				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+					<i class="fas fa-eye"></i>
+				</button>
+				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+					<i class="fas fa-eye-slash"></i>
+				</button>
+			</div>
+		</div>
 
-        <div class="col-12 col-sm-auto">
-            <div class="input-group my-3 my-sm-0">
-                <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php echo html($_entry['post_filter']); ?>" type="search">
-                <span class="input-group-append">
-                    <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
-                </span>
-            </div>
-        </div>
+		<div class="col-auto">
+			<div class="input-group input-group-sm">
+				<input name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo html($BL['be_filter']); ?>" class="form-control" value="<?php echo html($_entry['post_filter']); ?>" type="search" style="min-width: 250px;" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." />
+				<div class="input-group-append">
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-12 col-sm-auto text-right">
-            <select class="form-control form-control-sm custom-select">
-                <option <?php echo ($_SESSION['list_product_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_article_rendering'] ?></option>
-                <option <?php echo ($_SESSION['list_product_count'] == '10') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=10'">10</option>
-                <option <?php echo ($_SESSION['list_product_count'] == '25') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=25'">25</option>
-                <option <?php echo ($_SESSION['list_product_count'] == '50') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=50'">50</option>
-                <option <?php echo ($_SESSION['list_product_count'] == '100') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=100'">100</option>
-                <option <?php echo ($_SESSION['list_product_count'] == '250') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=250'">250</option>
-                <option <?php echo ($_SESSION['list_product_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=all'"><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
-            </select>
-        </div>
-  </div>
+		<div class="col text-right">
+			<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='cmsgo.php?do=modules&amp;module=shop&amp;controller=prod&amp;c=' + this.value;">
+				<option value="10"<?php if($_SESSION['list_product_count'] == '10') echo ' selected'; ?>>10</option>
+				<option value="25"<?php if($_SESSION['list_product_count'] == '25') echo ' selected'; ?>>25</option>
+				<option value="50"<?php if($_SESSION['list_product_count'] == '50') echo ' selected'; ?>>50</option>
+				<option value="100"<?php if($_SESSION['list_product_count'] == '100') echo ' selected'; ?>>100</option>
+				<option value="250"<?php if($_SESSION['list_product_count'] == '250') echo ' selected'; ?>>250</option>
+				<option value="all"<?php if($_SESSION['list_product_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
+			</select>
+		</div>
+	</div>
 </form>
 <div class ="table-responsive">
 <table class="table table-sm mb-0 mt-2" border="0">
