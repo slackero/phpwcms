@@ -93,6 +93,11 @@ function bootstrapConfirm(message, callback, customConfirmText, confirmType) {
             '</div>';
         $('body').append(modalHtml);
         $modal = $('#' + modalId);
+        $modal.on('hide.bs.modal', function () {
+            if ($modal.has(document.activeElement).length) {
+                document.activeElement.blur();
+            }
+        });
     }
 
     const cancelText = (window.CMSGO_LANG && window.CMSGO_LANG.cancel) || 'Cancel';
@@ -185,6 +190,11 @@ function bootstrapAlert(message, callback) {
             '</div>';
         $('body').append(modalHtml);
         $modal = $('#' + modalId);
+        $modal.on('hide.bs.modal', function () {
+            if ($modal.has(document.activeElement).length) {
+                document.activeElement.blur();
+            }
+        });
     }
 
     const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
