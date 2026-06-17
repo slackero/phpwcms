@@ -15,7 +15,7 @@ $BLM['listing_guestbook']		= 'G&auml;stebuch';
 $BLM['listing_user']			= 'Logfile Benutzer';
 $BLM['listing_activ']			= 'Aktivierungen';
 $BLM['listing_seo']			= 'SEO Log';
-$BLM['listing_seo_top']			= 'top 20';
+$BLM['listing_seo_top']			= 'Top 20';
 
 $BLM['overview_end']		= 'Abgelaufen am';
 $BLM['overview_mit']		= 'Container ';

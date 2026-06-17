@@ -90,94 +90,96 @@ $sql .= ' LIMIT '.(($_SESSION['downloads_page']-1) * $_SESSION['list_user_count'
 $result = _dbQuery($sql);
 ?>
 
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_title'] ?></h2></div>
-    <div class="card-body">
-      <form action="<?php echo statistic_url('controller=downloads') ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-       <table class="table table-sm table-striped mb-0" summary="">
-        <tr>
-          <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
-      <?php
-      if($_entry['pages_total'] > 1) {
-        echo '<td>';
-        if($_SESSION['downloads_page'] > 1) {
-          echo '<a href="'.statistic_url('controller=downloads').'&amp;page='.($_SESSION['downloads_page']-1).'">';
-          echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
-        } else {
-          echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
-        }
-        echo '</td>';
-        echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['downloads_page'];
-        echo '" class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-        echo '<td>/'.$_entry['pages_total'].'&nbsp;</td>';
-        echo '<td>';
-        if($_SESSION['downloads_page'] < $_entry['pages_total']) {
-          echo '<a href="'.statistic_url('controller=downloads').'&amp;page='.($_SESSION['downloads_page']+1).'">';
-          echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
-        } else {
-          echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
-        }
-        echo '</td><td>&nbsp;|&nbsp;</td>';
-      } else {
-        echo '<td"><input type="hidden" name="page" id="page" value="1" /></td>';
-      }
-      ?>
-              <td><input type="text" name="filter" id="filter" size="10" value="<?php
-              if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-                echo html_specialchars(implode(' ', $_POST['filter']));
-              }
-              ?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results" /></td>
-              <td><select name="list_search" class="custom-select textinput" id="list_search" style="margin:0 2px 2px 0;text-align:left;">
-                    <option value="">-- Sortierung --</option>';
-                    <option value="f_name" <?php echo ($_SESSION['list_search'] == 'f_name' ? ' selected' : '') ?>><?php echo $BLM['filename'] ?></option>
-                    <option value="f_dlstart" <?php echo ($_SESSION['list_search'] == 'f_dlstart' ? ' selected' : '') ?>><?php echo $BLM['downloads_start'] ?></option>
-                    <option value="f_dlfinal" <?php echo ($_SESSION['list_search'] == 'f_dlfinal' ? ' selected' : '') ?>><?php echo $BLM['downloads_end'] ?></option>
-                    <option value="f_created" <?php echo ($_SESSION['list_search'] == 'f_created' ? ' selected' : '') ?>><?php echo $BLM['erstellt'] ?></option>
-                  </select></td>
-              <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-            </tr>
-          </table></td>
+<h2 class="mb-3"><?php echo $BLM['listing_title'] ?></h2>
 
-        <td align="right">
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=10">10</a>
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=25">25</a>
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=50">50</a>
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=100">100</a>
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=250">250</a>
-          <a href="<?php echo statistic_url('controller=downloads') ?>&amp;c=all"><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></a>
-        </td>
+<form action="<?php echo statistic_url('controller=downloads') ?>" method="post" name="paginate" id="paginate">
+	<input type="hidden" name="do_pagination" value="1" />
+	<div class="form-row align-items-center mb-3">
+		<?php if($_entry['pages_total'] > 1): ?>
+			<div class="col-auto">
+				<div class="input-group input-group-sm">
+					<div class="input-group-prepend">
+						<?php if($_SESSION['downloads_page'] > 1): ?>
+							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+						<?php else: ?>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+						<?php endif; ?>
+					</div>
+					<input type="text" name="page" id="page" value="<?php echo $_SESSION['downloads_page'] ?>" class="form-control form-control-sm text-center" style="width: 50px;" />
+					<div class="input-group-append">
+						<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+						<?php if($_SESSION['downloads_page'] < $_entry['pages_total']): ?>
+							<a href="<?php echo statistic_url('controller=downloads') ?>&amp;page=<?php echo ($_SESSION['downloads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+						<?php else: ?>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		<?php else: ?>
+			<input type="hidden" name="page" id="page" value="1" />
+		<?php endif; ?>
 
-        </tr>
-      </table>
-      </form>
+		<div class="col-auto">
+			<div class="input-group input-group-sm">
+				<input type="search" name="filter" id="filter" size="15" value="<?php
+				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+					echo html_specialchars(implode(' ', $_POST['filter']));
+				}
+				?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
+				<select name="list_search" class="form-control" id="list_search">
+					<option value="">-- Sortierung --</option>
+					<option value="f_name" <?php echo ($_SESSION['list_search'] == 'f_name' ? ' selected' : '') ?>><?php echo $BLM['filename'] ?></option>
+					<option value="f_dlstart" <?php echo ($_SESSION['list_search'] == 'f_dlstart' ? ' selected' : '') ?>><?php echo $BLM['downloads_start'] ?></option>
+					<option value="f_dlfinal" <?php echo ($_SESSION['list_search'] == 'f_dlfinal' ? ' selected' : '') ?>><?php echo $BLM['downloads_end'] ?></option>
+					<option value="f_created" <?php echo ($_SESSION['list_search'] == 'f_created' ? ' selected' : '') ?>><?php echo $BLM['erstellt'] ?></option>
+				</select>
+				<div class="input-group-append">
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+				</div>
+			</div>
+		</div>
 
-      <table class="table table-sm table-striped mb-0">
-        <tr>
-          <th><?php echo $BLM['filename'] ?></th>
-          <th><?php echo $BLM['downloads_start'] ?></th>
-          <th><?php echo $BLM['downloads_end'] ?></th>
-          <th><?php echo $BLM['erstellt'] ?></th>
-        </tr>
+		<div class="col text-right">
+			<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo statistic_url('controller=downloads') ?>&amp;c=' + this.value;">
+				<?php foreach([10, 25, 50, 100, 250] as $c): ?>
+					<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
+				<?php endforeach; ?>
+				<option value="all"<?php if($_SESSION['list_user_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
+			</select>
+		</div>
+	</div>
+</form>
+
+<div class="table-responsive">
+	<table class="table table-sm table-striped table-hover mb-0">
+		<thead>
+			<tr>
+				<th><?php echo $BLM['filename'] ?></th>
+				<th><?php echo $BLM['downloads_start'] ?></th>
+				<th><?php echo $BLM['downloads_end'] ?></th>
+				<th><?php echo $BLM['erstellt'] ?></th>
+			</tr>
+		</thead>
+		<tbody>
         <?php
-
-      $x = 0;
-      if(isset($result[0]['f_name'])) {
-        foreach($result as $data) {
-          // now add article URL
-          echo '  <tr title="'.html_specialchars($data["f_name"]).'">';
-            echo '    <td><a href="fileinfo.php?public&fid='.$data["f_id"].'" target="_blank">' . (empty($data["f_name"]) ? '-' : html_specialchars($data["f_name"]) ) . "</a>&nbsp;</td>" . LF;
-          echo '    <td>'.$data["f_dlstart"]."&nbsp;</td>" . LF;
-          echo '    <td>'.$data["f_dlfinal"]."&nbsp;</td>" . LF;
-          echo '    <td nowrap>&nbsp;'.@date($BL['be_fprivedit_dateformat'], $data["f_created"])."</td>" . LF;
-          echo '  </tr>' . LF;
-
-          $x++;
-        }
-      }
-      ?>
-      </table>
-  </div>
+		$x = 0;
+		if(isset($result[0]['f_name'])) {
+			foreach($result as $data) {
+				echo '  <tr title="'.html_specialchars($data["f_name"]).'">';
+				echo '    <td><a href="fileinfo.php?public&fid='.$data["f_id"].'" target="_blank">' . (empty($data["f_name"]) ? '-' : html_specialchars($data["f_name"]) ) . "</a>&nbsp;</td>" . LF;
+				echo '    <td>'.$data["f_dlstart"]."&nbsp;</td>" . LF;
+				echo '    <td>'.$data["f_dlfinal"]."&nbsp;</td>" . LF;
+				echo '    <td nowrap>&nbsp;'.@date($BL['be_fprivedit_dateformat'], $data["f_created"])."</td>" . LF;
+				echo '  </tr>' . LF;
+				$x++;
+			}
+		}
+		?>
+		</tbody>
+	</table>
+</div>
+</div>
 </div>
 
   </div>

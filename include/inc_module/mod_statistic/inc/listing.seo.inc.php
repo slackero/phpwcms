@@ -92,126 +92,124 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
 
 ?>
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_seo'] ?></h2></div>
-  <div class="card-body">
+<h2 class="mb-3"><?php echo $BLM['listing_seo'] ?></h2>
 
-    <form action="<?php echo $_controller_link ?>" method="post" name="paginate" id="paginate">
-      <input type="hidden" name="do_pagination" value="1" />
-      <div class="row align-items-center mb-4">
+<form action="<?php echo $_controller_link ?>" method="post" name="paginate" id="paginate">
+	<input type="hidden" name="do_pagination" value="1" />
+	<div class="form-row align-items-center mb-3">
+		<?php if($_entry['pages_total'] > 1): ?>
+			<div class="col-auto">
+				<div class="input-group input-group-sm">
+					<div class="input-group-prepend">
+						<?php if($_SESSION['seolog_page'] > 1): ?>
+							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+						<?php else: ?>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+						<?php endif; ?>
+					</div>
+					<input type="text" name="page" id="page" value="<?php echo $_SESSION['seolog_page'] ?>" class="form-control form-control-sm text-center" style="width: 50px;" />
+					<div class="input-group-append">
+						<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+						<?php if($_SESSION['seolog_page'] < $_entry['pages_total']): ?>
+							<a href="<?php echo $_controller_link ?>&amp;page=<?php echo ($_SESSION['seolog_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+						<?php else: ?>
+							<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		<?php else: ?>
+			<input type="hidden" name="page" id="page" value="1" />
+		<?php endif; ?>
 
-          <?php
-          if($_entry['pages_total'] > 1) {
-            echo '<div class="col-sm-auto text-right">';
-            echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
-            if($_SESSION['seolog_page'] > 1) {
-                echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;page='.($_SESSION['seolog_page']-1).'">';
-                echo '<i class="fa fa-angle-left"></i></a>';
-            } else {
-                echo '<a class="btn btn-sm btn-blue disabled" href="'.$_controller_link.'&amp;page='.($_SESSION['seolog_page']-1).'">';
-                echo '<i class="fa fa-angle-left"></i></a>';
-            }
-            echo '</td>';
-            echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['seolog_page'];
-            echo '" class="form-control form-control-sm" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-            echo '<td>/'.$_entry['pages_total'].'&nbsp;</td>';
-            echo '<td>';
-            if($_SESSION['seolog_page'] < $_entry['pages_total']) {
-                echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;page='.($_SESSION['seolog_page']+1).'">';
-                echo '<i class="fa fa-angle-right"></i></a>';
-            } else {
-                echo '<a class="btn btn-sm btn-blue disabled" href="'.$_controller_link.'&amp;page='.($_SESSION['seolog_page']+1).'">';
-                echo '<i class="fa fa-angle-right"></i></a>';
-            }
-            echo '</td></tr></table></div>';
-          } else {
-            echo '<input type="hidden" name="page" id="page" value="1" />';
-          }
-          ?>
+		<div class="col-auto">
+			<div class="input-group input-group-sm">
+				<input type="search" name="filter" id="filter" size="15" value="<?php
+				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+					echo html_specialchars(implode(' ', $_POST['filter']));
+				}
+				?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
+				<div class="input-group-append">
+					<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+				</div>
+			</div>
+		</div>
 
-          <div class="col-sm-auto">
-              <div class="input-group">
-                  <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern" class="form-control form-control-sm" value="<?php
-                  if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-                    echo htmlentities(implode(' ', $_POST['filter']));
-                  }
-                  ?>" type="search">
-                  <span class="input-group-append">
-                      <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
-                  </span>
-              </div>
-          </div>
+		<div class="col text-right">
+			<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo statistic_url('controller=seo') ?>&amp;c=' + this.value;">
+				<?php foreach([10, 25, 50, 100, 250] as $c): ?>
+					<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
+				<?php endforeach; ?>
+				<option value="all"<?php if($_SESSION['list_user_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'].' '.$_entry['count_total'] ?></option>
+			</select>
+		</div>
+	</div>
+</form>
 
-          <div class="col-sm-auto text-right">
-              <select class="custom-select">
-                  <option selected>Anzeige</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=5'">5</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=10'">10</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=25'">25</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=50'">50</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=100'">100</option>
-                  <option onClick="window.location = '<?php echo statistic_url('controller=seo') ?>&amp;c=all'"><?php echo $BL['be_ftptakeover_all'] ?></option>
-              </select>
-          </div>
-      </div>
-    </form>
+<div class="table-responsive mb-4">
+	<table class="table table-sm table-striped table-hover mb-0">
+		<thead>
+			<tr>
+				<th style="width: 150px;">Datum</th>
+				<th>Domain / Referrer</th>
+				<th class="text-center" style="width: 80px;">Pos</th>
+				<th>Suchbegriff</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		$row_count = 0;
+		$sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_log_seo WHERE '.$_entry['query'].' ORDER BY create_date DESC ';
+		$sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
+		$data = _dbQuery($sql);
 
-    <table class="table table-sm">
-<?php
-// loop listing available seo entries
-$row_count = 0;
-
-$sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_log_seo WHERE '.$_entry['query'].' ORDER BY create_date DESC ';
-$sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
-$data = _dbQuery($sql);
-
-#print_r($sql);
-
-foreach($data as $row) {
-
-  echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
-  echo '<td class="tdbottom3 tdtop3" nowrap="nowrap">'.$row['create_date'].'&nbsp;</td>';
-  echo '<td class="tdbottom3 tdtop3"><a href="';
-  echo html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']);
-  echo '</a></td>';
-   echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;'.$row['pos'].'&nbsp;</td>';
-  echo '<td class="tdbottom3 tdtop3">';
-  echo html_specialchars(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']);
-  echo '</td>';
-  echo "</tr>\n";
-
-  $row_count++;
-}
-?>
-    </table>
-  </div>
+		foreach($data as $row) {
+			echo '<tr>';
+			echo '<td class="align-middle" nowrap="nowrap">'.$row['create_date'].'</td>';
+			echo '<td class="align-middle"><a href="'.html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']).'</a></td>';
+			echo '<td class="align-middle text-center">'.$row['pos'].'</td>';
+			echo '<td class="align-middle">';
+			echo html_specialchars(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']);
+			echo '</td>';
+			echo "</tr>\n";
+			$row_count++;
+		}
+		?>
+		</tbody>
+	</table>
 </div>
 
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_seo_top'] ?></h2></div>
-  <div class="card-body">
-    <table class="table table-sm">
+<div class="card mt-4 mb-0">
+	<div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_seo_top'] ?></h5></div>
+	<div class="card-body p-0">
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover mb-0">
+				<thead>
+					<tr>
+						<th style="width: 80px;"><?php echo $BLM['pollcounts'] ?></th>
+						<th>Suchbegriff</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$sql  = 'SELECT Count(query) AS Anzahl, query FROM '.DB_PREPEND.'cmsgo_log_seo GROUP BY query ORDER BY Anzahl DESC LIMIT 0,20';
+				$data = _dbQuery($sql);
 
-<?php
-$sql  = 'SELECT Count(query) AS Anzahl, query FROM '.DB_PREPEND.'cmsgo_log_seo GROUP BY query ORDER BY Anzahl DESC LIMIT 0,20';
-$data = _dbQuery($sql);
-
-$row_count = 0;
-
-foreach($data as $row) {
-
-  echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
-  echo '<td class="tdbottom3 tdtop3">'.$row['Anzahl'].'</td>';
-  echo '<td class="tdbottom3 tdtop3">';
-  echo html_specialchars(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']);
-  echo '</td>';
-  echo "</tr>\n";
-
-  $row_count++;
-}
-?>
-    </table>
-  </div>
+				$row_count = 0;
+				foreach($data as $row) {
+					echo '<tr>';
+					echo '<td>'.$row['Anzahl'].'</td>';
+					echo '<td>';
+					echo html_specialchars(CMSGO_CHARSET !== 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']);
+					echo '</td>';
+					echo "</tr>\n";
+					$row_count++;
+				}
+				?>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 </div>
