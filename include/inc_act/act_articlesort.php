@@ -21,7 +21,7 @@ require_once CMSGO_ROOT.'/include/inc_lib/backend.functions.inc.php';
 if(isset($_GET["sortid"])) {
 	$values = explode("|", $_GET["sortid"]);
 	$sorti = 10;
-	for ($i = 0; $i < count($values); $i++) {
+	for ($i = 0, $count = count($values); $i < $count; $i++) {
         $acontent_id = intval($values[$i]);
 		if ($acontent_id){
 			$sql = "UPDATE ".DB_PREPEND."cmsgo_articlecontent SET acontent_sorting=" . $sorti . " WHERE (acontent_uid=" . $_SESSION["wcs_user_id"] . " OR " . $_SESSION["wcs_user_admin"] . ") AND acontent_id=" . $acontent_id;

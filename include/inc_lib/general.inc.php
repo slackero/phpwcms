@@ -2064,7 +2064,7 @@ function xss_clean($val) {
     $found = true; // keep replacing as long as the previous round replaced something
     while ($found == true) {
         $val_before = $val;
-        for ($i = 0; $i < count($ra); $i++) {
+        for ($i = 0, $ra_count = count($ra); $i < $ra_count; $i++) {
             $pattern = '/';
             for ($j = 0; $j < strlen($ra[$i]); $j++) {
                 if ($j > 0) {
