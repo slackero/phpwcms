@@ -1086,29 +1086,6 @@ parameters:
 			count: 5
 			path: ../include/inc_act/act_structure.php
 
-		-
-			message: '#^Call to function is_bool\(\) with true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''allowed_upload_ext'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''file_maxsize'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 4
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_act/act_upload.php
 
 		-
 			message: '#^Offset ''admin_email'' does not exist on array\{SESSION_START\: true\}\.$#'
@@ -1458,11 +1435,6 @@ parameters:
 			count: 1
 			path: ../include/inc_ext/php_calendar.php
 
-		-
-			message: '#^Variable \$url might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_ext/uploader/handler.php
 
 		-
 			message: '#^Constant FEUSER_LOGIN_STATUS not found\.$#'
@@ -2898,11 +2870,6 @@ parameters:
 			count: 1
 			path: ../include/inc_front/pdf.inc.php
 
-		-
-			message: '#^Property qqFileUploader\:\:\$fileType is unused\.$#'
-			identifier: property.unused
-			count: 1
-			path: ../include/inc_js/uploader/fileuploader.php
 
 		-
 			message: '#^Binary operation "\*" between ''Čia galima atlikti…'' and '' naudoti negalima\.…'' results in an error\.$#'
@@ -4785,25 +4752,25 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 16
 			path: ../include/inc_module/mod_addresses/backend.editform.php
 
 		-
 			message: '#^Variable \$plugin might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 9
 			path: ../include/inc_module/mod_addresses/backend.editform.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 5
 			path: ../include/inc_module/mod_addresses/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 9
+			count: 8
 			path: ../include/inc_module/mod_addresses/backend.listing.php
 
 		-

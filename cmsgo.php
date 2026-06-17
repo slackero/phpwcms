@@ -19,7 +19,21 @@ $wcsnav                     = array();
 $indexpage                  = array();
 $cmsgo                      = array('SESSION_START' => true);
 $BL                         = array();
-$BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
+$BE                         = array(
+    'HTML' => '',
+    'BODY_OPEN' => array(),
+    'BODY_CLOSE' => array(),
+    'HEADER' => array(),
+    'LANG' => 'en',
+    'CSP' => array(
+        'default-src' => array('*'),
+        'img-src' => array("'self'", 'data:', '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'style-src' => array("'self'", 'data:', "'unsafe-inline'"),
+        'script-src' => array("'self'", "'unsafe-inline'", "'unsafe-eval'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'script-src-elem' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'connect-src' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com')
+    )
+);
 $CMSGO_ROOT                 = dirname(__FILE__);
 
 require_once $CMSGO_ROOT.'/include/config/conf.inc.php';
@@ -145,7 +159,7 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src-elem 'self' 'unsafe-inline'; connect-src 'self' 'unsafe-inline'">
+    <!-- cmsGO! CSP -->
     <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
 <?php
 
@@ -594,6 +608,15 @@ if ($body_onload) {
 }
 
 //$BE['HEADER'][] = '';
+
+// generate CSP meta tag from late-modified array
+$csp_parts = array();
+foreach ($BE['CSP'] as $directive => $sources) {
+    $csp_parts[] = $directive . ' ' . implode(' ', array_unique($sources));
+}
+$csp_content = implode('; ', $csp_parts);
+$csp_meta = '<meta http-equiv="content-security-policy" content="' . html_specialchars($csp_content) . '">';
+$BE['HTML'] = str_replace('<!-- cmsGO! CSP -->', $csp_meta, $BE['HTML']);
 
 // html head section
 $BE['HTML'] = str_replace('<!-- cmsGO! HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);
