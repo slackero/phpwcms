@@ -1086,7 +1086,6 @@ parameters:
 			count: 5
 			path: ../include/inc_act/act_structure.php
 
-
 		-
 			message: '#^Offset ''admin_email'' does not exist on array\{SESSION_START\: true\}\.$#'
 			identifier: offsetAccess.notFound
@@ -1434,7 +1433,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: ../include/inc_ext/php_calendar.php
-
 
 		-
 			message: '#^Constant FEUSER_LOGIN_STATUS not found\.$#'
@@ -2869,7 +2867,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_front/pdf.inc.php
-
 
 		-
 			message: '#^Binary operation "\*" between ''Čia galima atlikti…'' and '' naudoti negalima\.…'' results in an error\.$#'
@@ -5891,12 +5888,6 @@ parameters:
 
 		-
 			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
