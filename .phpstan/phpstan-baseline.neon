@@ -4824,13 +4824,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 16
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 21
+			count: 13
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
@@ -4842,7 +4842,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.form.adplace.php
 
 		-
@@ -4860,13 +4860,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 18
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 41
+			count: 33
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
@@ -4920,19 +4920,19 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_ads/inc/listing.adplace.inc.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 9
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
@@ -5118,7 +5118,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 9
 			path: ../include/inc_module/mod_feedimport/backend.editform.php
 
 		-
@@ -5136,13 +5136,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
@@ -5214,13 +5214,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 11
+			count: 10
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 7
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
@@ -5232,13 +5232,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
@@ -5340,7 +5340,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_seolog/backend.listing.php
 
 		-
