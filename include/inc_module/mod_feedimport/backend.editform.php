@@ -7,11 +7,12 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<h1 class="title" style="margin-bottom:10px;padding-left:21px;background:url(img/famfamfam/rss.png) no-repeat left center;"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3" style="padding-left:24px;background:url(img/famfamfam/rss.png) no-repeat left center;"><?php echo $BLM['listing_title'] ?></h1>
 
-<form action="<?php echo MODULE_HREF ?>&amp;edit=<?php echo $plugin['data']['id'] ?>" method="post" id="address_form" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-<input type="hidden" name="id" value="<?php echo $plugin['data']['id'] ?>" />
-<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
+<div class="card">
+	<div class="card-body">
+		<form action="<?php echo MODULE_HREF ?>&amp;edit=<?php echo $plugin['data']['id'] ?>" method="post" id="address_form">
+			<input type="hidden" name="id" value="<?php echo $plugin['data']['id'] ?>" />
 <?php
 
 	$BE['HEADER']['form_css']  = '  <style type="text/css">
@@ -56,15 +57,19 @@ if (!defined('CMSGO_ROOT')) {
 			$plugin['file_'.$key] = '';
 		}
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF.'<td><table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
-		echo '<input name="file_'.$key.'" type="text" id="file_'.$key.'" class="v12 width300 greyed" value="'.$plugin['file_'.$key].'" onfocus="this.blur();" />';
-		echo '<input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html($plugin['data'][$key]).'" /></td>';
-		echo '<td>&nbsp;<a href="#" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="return openFileBrowser(\''.$key.'\');"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>';
-		echo '<td>&nbsp;<a href="#" title="'.$BL['be_cnt_delfile'].'" onclick="return deleteIdData(\''.$key.'\',this);"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>';
-
-		echo '</tr></table></td>'.LF.'</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="file_'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <div class="input-group input-group-sm" style="max-width: 450px;">'.LF;
+		echo '      <input name="file_'.$key.'" type="text" id="file_'.$key.'" class="form-control text-muted bg-light" value="'.$plugin['file_'.$key].'" readonly />'.LF;
+		echo '      <input type="hidden" name="'.$key.'" id="fileid_'.$key.'" value="'.html($plugin['data'][$key]).'" />'.LF;
+		echo '      <div class="input-group-append">'.LF;
+		echo '        <button class="btn btn-secondary" type="button" title="'.$BL['be_cnt_openfilebrowser'].'" onclick="openFileBrowser(\''.$key.'\');"><i class="fas fa-folder-open"></i></button>'.LF;
+		echo '        <button class="btn btn-danger" type="button" title="'.$BL['be_cnt_delfile'].'" onclick="deleteIdData(\''.$key.'\',this);"><i class="fas fa-trash-alt"></i></button>'.LF;
+		echo '      </div>'.LF;
+		echo '    </div>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
@@ -79,63 +84,65 @@ if (!defined('CMSGO_ROOT')) {
 
 
 			case 'STRING':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html($plugin['data'][$key]).'" maxlength="200" style="max-width: 450px;" />'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 			case 'STRING-DISABLED':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width400" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" disabled="disabled" /></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm bg-light" value="'.html($plugin['data'][$key]).'" readonly style="max-width: 450px;" />'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 			case 'TEXTAREA-DISABLED':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea class="width400" cols="30" rows="2" readonly="readonly" style="text-wrap:unrestricted" onclick="this.focus();this.select();">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <textarea class="form-control form-control-sm bg-light" rows="2" readonly onclick="this.focus();this.select();" style="max-width: 450px;">'.html($plugin['data'][$key]).'</textarea>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
 			case 'TEXTAREA':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist tdtop6">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><textarea name="'.$key.'" id="'.$key.'" class="width400" rows="4">'.html($plugin['data'][$key]).'</textarea></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <textarea name="'.$key.'" id="'.$key.'" class="form-control form-control-sm" rows="4" style="max-width: 450px;">'.html($plugin['data'][$key]).'</textarea>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
 			case 'INT':
 			case 'FLOAT':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width150" value="'.html($plugin['data'][$key]).'" size="30" maxlength="200" /></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html($plugin['data'][$key]).'" maxlength="200" style="max-width: 150px;" />'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
 			case 'CHECK':
-
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td>&nbsp;</td>'.LF;
-		echo '<td><table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td><input type="checkbox" name="'.$key.'" id="'.$key.'" value="1"';
+		echo '<div class="form-group row">'.LF;
+		echo '  <div class="col-sm-10 offset-sm-2">'.LF;
+		echo '    <div class="custom-control custom-checkbox">'.LF;
+		echo '      <input type="checkbox" class="custom-control-input" name="'.$key.'" id="'.$key.'" value="1"';
 		is_checked($plugin['data'][$key], 1);
-		echo ' /></td><td><label for="'.$key.'">'.$BLM[$key].'</label></td></tr></table></td>'.LF;
-		echo '</tr>'.LF;
+		echo ' />';
+		echo '      <label class="custom-control-label" for="'.$key.'">'.$BLM[$key].'</label>'.LF;
+		echo '    </div>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
@@ -167,12 +174,14 @@ if (!defined('CMSGO_ROOT')) {
 
 		}
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist tdtop4">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><select id="'.$key.'" class="v12" style="min-width:75px;max-width:400px;" name="'.$key;
-		echo $value == 'MULTISELECT' ? '[]" multiple="multiple" size="6"' : '"';
-		echo '>' . LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		if($value == 'MULTISELECT') {
+			echo '    <select id="'.$key.'" class="form-control form-control-sm" style="max-width:450px;" name="'.$key.'[]" multiple="multiple" size="6">'.LF;
+		} else {
+			echo '    <select id="'.$key.'" class="custom-select custom-select-sm" style="max-width:450px;" name="'.$key.'">'.LF;
+		}
 
 		$_options_pre = array();
 		$_options_end = array();
@@ -204,13 +213,13 @@ if (!defined('CMSGO_ROOT')) {
 
 		echo implode(LF, $_options_pre) . LF . implode(LF, $_options_end) . LF;
 
-		echo '</select></td>'.LF.'</tr>'.LF;
+		echo '    </select>'.LF;
 
 		if(count($_option_remember)) {
-			echo '<tr>'.LF;
-			echo '<td align="right">&nbsp;</td>'.LF;
-			echo '<td class="tdtop3"><em>'.html(implode(', ', $_option_remember)).'</em></td>'.LF.'</tr>'.LF;
+			echo '    <div class="text-muted small mt-1"><em>'.html(implode(', ', $_option_remember)).'</em></div>'.LF;
 		}
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 
 							break;
 
@@ -242,10 +251,10 @@ if (!defined('CMSGO_ROOT')) {
 
 		}
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist tdtop4">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><ul class="multicheck">' . LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <ul class="list-unstyled p-2 border bg-white rounded" style="max-height: 200px; overflow-y: auto; max-width: 450px;">' . LF;
 
 		$_options_pre = array();
 		$_options_end = array();
@@ -253,12 +262,15 @@ if (!defined('CMSGO_ROOT')) {
 		foreach($plugin['multicheck'] as $item => $row) {
 
 			$_selected = false;
-			$_option  = '	<li><label><input type="checkbox" name="'.$key.'[]" value="' . html($item) .'"';
+			$_option  = '	<li><div class="custom-control custom-checkbox">';
+			$_option .= '     <input type="checkbox" class="custom-control-input" id="'.$key.'_'.html($item).'" name="'.$key.'[]" value="' . html($item) .'"';
 			if( in_array($item, $plugin['data'][$key]) ) {
 					$_option .= ' checked="checked"';
 					$_selected = true;
 			}
-			$_option .= ' />' . html(trim($row)) . '</label></li>';
+			$_option .= ' />';
+			$_option .= '     <label class="custom-control-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>';
+			$_option .= '   </div></li>';
 
 			if($_selected) {
 				$_options_pre[] = $_option;
@@ -270,7 +282,9 @@ if (!defined('CMSGO_ROOT')) {
 
 		echo implode(LF, $_options_pre) . LF . implode(LF, $_options_end) . LF;
 
-		echo '</ul></td>'.LF.'</tr>'.LF;
+		echo '    </ul>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 
 							break;
 
@@ -299,46 +313,53 @@ if (!defined('CMSGO_ROOT')) {
 
 		}
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist tdtop4">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><ul class="radiobutton">' . LF;
-
-		$_options_pre = array();
+		echo '<div class="form-group row">'.LF;
+		echo '  <label class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10 pt-1">'.LF;
 
 		foreach($plugin['radiobutton'] as $item => $row) {
 
-			$_selected = false;
-			$_option  = '	<li><label><input type="radio" name="'.$key.'" value="' . html($item) .'"';
+			echo '    <div class="custom-control custom-radio custom-control-inline">'.LF;
+			echo '      <input type="radio" class="custom-control-input" id="'.$key.'_'.html($item).'" name="'.$key.'" value="' . html($item) .'"';
 			if( strval($item) == strval($plugin['data'][$key]) ) {
-					$_option .= ' checked="checked"';
-					$_selected = true;
+					echo ' checked="checked"';
 			}
-			$_option .= ' />' . html(trim($row)) . '</label></li>';
-
-			$_options_pre[] = $_option;
+			echo ' />'.LF;
+			echo '      <label class="custom-control-label" for="'.$key.'_'.html($item).'">' . html(trim($row)) . '</label>'.LF;
+			echo '    </div>'.LF;
 
 		}
 
-		echo implode(LF, $_options_pre) . LF;
-
-		echo '</ul></td>'.LF.'</tr>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 
 							break;
 
 
 			case 'DATESELECT':
 
-		// needs load datepicker (MooTools removed)
-		if(empty($plugin['date_select_loaded'])) {
-			$plugin['date_select_loaded'] = true;
-		}
+		initJsCalendar();
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 dateselect" value="'.html($plugin['data'][$key]).'" size="30" maxlength="10" /></td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row align-items-center">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <div class="date input-group input-group-sm" id="datetimepicker_'.$key.'" style="max-width: 180px;">'.LF;
+		echo '      <input type="text" class="form-control datetimepicker" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" maxlength="10" placeholder="'.$BL['default_date_format'].'" />'.LF;
+		echo '      <div class="input-group-append">'.LF;
+		echo '        <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
+		echo '      </div>'.LF;
+		echo '    </div>'.LF;
+		echo '    <script type="text/javascript">'.LF;
+		echo '    $(function () {'.LF;
+		echo '      $("#datetimepicker_'.$key.'").datetimepicker({'.LF;
+		echo '        locale: "de-ch",'.LF;
+		echo '        format: "DD.MM.YYYY",'.LF;
+		echo '        showClose: true'.LF;
+		echo '      });'.LF;
+		echo '    });'.LF;
+		echo '    </script>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 			case 'DECIMAL':
@@ -348,12 +369,14 @@ if (!defined('CMSGO_ROOT')) {
 			$plugin['meio.mask_loaded'] = true;
 		}
 
-		echo '<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>'.LF;
-		echo '<tr>'.LF;
-		echo '<td align="right" class="chatlist">'.$BLM[$key].':&nbsp;</td>'.LF;
-		echo '<td><input name="'.$key.'" type="text" id="'.$key.'" class="v12 width100 '.$BLM[$key.'_class'].'" ';
-		echo 'value="'.html(decformat($plugin['data'][$key])).'" size="30" maxlength="200" /> '.$BLM[$key.'_add'].'</td>'.LF;
-		echo '</tr>'.LF;
+		echo '<div class="form-group row">'.LF;
+		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
+		echo '  <div class="col-sm-10">'.LF;
+		echo '    <div class="form-inline">'.LF;
+		echo '      <input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm mr-2 '.$BLM[$key.'_class'].'" value="'.html(decformat($plugin['data'][$key])).'" maxlength="200" style="max-width: 150px;" /> '.$BLM[$key.'_add'].LF;
+		echo '    </div>'.LF;
+		echo '  </div>'.LF;
+		echo '</div>'.LF;
 							break;
 
 
@@ -362,22 +385,17 @@ if (!defined('CMSGO_ROOT')) {
 	}
 ?>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+			<div class="form-group row mt-4 mb-0">
+				<div class="col-sm-10 offset-sm-2">
+					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-success mr-1"><i class="fas fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-sm btn-info mr-1"><i class="fas fa-plus-circle mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-secondary mr-1"><i class="fas fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button type="reset" class="btn btn-sm btn-dark"><i class="fas fa-undo mr-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+				</div>
+			</div>
 
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo MODULE_HREF ?>&amp;edit=0';return false;" />
-			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo MODULE_HREF ?>';return false;" />
-			<input type="reset" class="button" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
-		</td>
-	</tr>
-
-</table>
-
-<?php echo $plugin['hidden_fields'] ?>
-
-</form>
+			<?php echo $plugin['hidden_fields'] ?>
+		</form>
+	</div>
+</div>
