@@ -410,7 +410,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     case 4:
-                        $js = "addFile(parent.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list),'".$filename."','".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
