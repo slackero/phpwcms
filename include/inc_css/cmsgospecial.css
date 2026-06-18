@@ -899,8 +899,18 @@ li.sortme {
 }
 
 @media (max-width: 768px) {
-    #header .nav > li > a {
+    #header .navbar-nav .nav-link {
         line-height: 45px;
+    }
+
+    #button-menu {
+        line-height: 45px;
+        height: 45px;
+    }
+
+    #column-left {
+        top: 0;
+        padding-top: 45px;
     }
 
     #content {
