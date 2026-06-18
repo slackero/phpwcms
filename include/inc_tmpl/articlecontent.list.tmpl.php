@@ -380,7 +380,7 @@ $(function() {
               }
               if($key == $sc) {
                 // if this is the last content part in list
-                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
+                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-down text-muted" aria-hidden="true"></i>';
 
               } elseif(isset($sbutton[$key+1]["block"]) && $sbutton[$key+1]["block"] != $sbutton[$key]["block"]) {
                 // if this is the last content part in current block and next is different
