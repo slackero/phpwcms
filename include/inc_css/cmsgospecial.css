@@ -201,7 +201,8 @@ select.form-control-sm:not([size]):not([multiple]) {
 }
 
 #header .navbar-nav {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
