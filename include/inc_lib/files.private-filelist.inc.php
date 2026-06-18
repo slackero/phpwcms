@@ -36,7 +36,7 @@ if(isset($file_result[0]['f_id'])) {
         $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
 
         if(!$file_durchlauf) {
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table class=\"table-no-border\" width=\"100%\">\n";
+            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table class=\"table-borderless\" width=\"100%\">\n";
         } else {
             echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"3\"></td></tr>\n";
         }

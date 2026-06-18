@@ -302,7 +302,7 @@ if(count($content['search']['module_search'])) {
   echo '<div class="form-group align-items-center form-row">';
   echo '<label for="radio" class="col-sm-2 col-form-label text-right pt-0"></label>';
   echo '<div class="col">';
-  echo '<table class="table-no-border">';
+  echo '<table class="table-borderless">';
   echo implode(LF, $content['search']['module_search']) ;
   echo '</table></div></div>';
 }

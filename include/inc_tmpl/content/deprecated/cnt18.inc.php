@@ -41,7 +41,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right"><?php echo $BL['be_alias_ID'] ?>:&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
 
     <tr>
         <td><input name="cguestbook_aliasID" type="text" class="form-control" id="cguestbook_aliasID" style="width: 50px;" size="10"
@@ -85,7 +85,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_guestbook_listing'] ?>:&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
       <tr>
       <?php
 
@@ -109,7 +109,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right">&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
       <tr bgcolor="#E7E8EB">
       <?php
 
@@ -134,7 +134,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_imgupload'] ?>:&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
       <tr>
       <?php
 
@@ -186,7 +186,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 <tr>
   <td align="right"><?php echo 'Captcha' ?>:&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
       <tr>
       <?php
 
@@ -212,7 +212,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
-  <td><table class="table-no-border">
+  <td><table class="table-borderless">
       <tr>
       <?php
 

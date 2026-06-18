@@ -265,7 +265,7 @@ if(isset($_GET['open'])) {
             echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
             echo "</tr>\n</table></td>".LF;
 
-            echo '<td width="66" class="nowrap" align="right">';
+            echo '<td width="66" class="text-nowrap" align="right">';
 
             echo "<a href=\"cmsgo.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" title=\"".$BL['be_admin_fcat_addkey']."\">";
             echo "<img src=\"img/button/add_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";

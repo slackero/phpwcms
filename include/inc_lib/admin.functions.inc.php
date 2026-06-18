@@ -51,7 +51,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $an = html($struct[$key]["acat_name"]);
     $a  = "<tr bgcolor=\"#e8e8e8\" onmouseover=\"this.bgColor='#D2EED9';\" onmouseout=\"this.bgColor='#e8e8e8';\">\n";
     $a .= '<td width="80%">'.LF;
-    $a .= '<table class="table-no-border"'.">\n<tr>\n";
+    $a .= '<table class="table-borderless"'.">\n<tr>\n";
     $a .= '<td nowrap="nowrap" class="text-right here">'.LF;
     $a .= ($child_count) ? "<a href=\"cmsgo.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 
@@ -84,7 +84,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td class="dir" width="95%"><strong><a href="';
     $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
     $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
-    $a .= $an . '</a></strong></td></tr></table></td><td class="nowrap text-right" nowrap="nowrap">'.LF;
+    $a .= $an . '</a></strong></td></tr></table></td><td class="text-nowrap text-right" nowrap="nowrap">'.LF;
     $a .= '<span class="mr-3 flag-icon flag-icon-'.$struct[$key]['acat_lang'].'" data-toggle="tooltip" title="" data-original-title="'.$struct[$key]['acat_lang'].'"></span>';
 
     $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
@@ -214,7 +214,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         }
 
         $a .= '<td width="80%">'.LF;
-        $a .= '<table class="table-no-border">'.LF.'<tr>'.LF;
+        $a .= '<table class="table-borderless">'.LF.'<tr>'.LF;
 
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
         $a .= '<td nowrap="nowrap">';
@@ -251,7 +251,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<td class="dir" width="95%"><a href="';
         $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
         $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
-        $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="nowrap text-right">';
+        $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="text-nowrap text-right">';
         if (!empty($article[$akey]["article_lang"])) {
             $a .= '<span class="mr-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-toggle="tooltip" title="" data-original-title="' . $article[$akey]["article_lang"] . '"></span>';
         }

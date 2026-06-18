@@ -76,7 +76,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 <tr>
               <td align="right"><?php echo  $BL['be_cnt_image'] ?>:&nbsp;</td>
-              <td valign="top"><table class="table-no-border">
+              <td valign="top"><table class="table-borderless">
                 <tr>
                   <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 200px; color: #727889;" value="<?php echo  isset($content["image_name"]) ? html($content["image_name"]) : '' ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
                   <td><img src="img/button/open_image_button.gif" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" alt="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" width="20" height="15" border="0" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" class="modalButton" /></td>
@@ -89,7 +89,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </tr>
             <tr>
               <td align="right"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-              <td valign="top"><table class="table-no-border">
+              <td valign="top"><table class="table-borderless">
                 <tr>
                   <td><input name="cimage_width" type="text" class="form-control" id="cimage_width" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["image_width"]) ? $content["image_width"] : '' ?>" /></td>
                   <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
@@ -104,7 +104,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
               </tr>
             <tr>
               <td align="right" valign="top"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-              <td valign="top"><table class="table-no-border">
+              <td valign="top"><table class="table-borderless">
                   <tr>
                     <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="form-control" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
                     <td valign="top"></td>

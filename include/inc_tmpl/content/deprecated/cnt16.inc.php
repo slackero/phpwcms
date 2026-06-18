@@ -79,7 +79,7 @@ if(!isset($content["ecard"])) {
 
 <tr>
   <td align="right" valign="top"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
         <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content["ecard"]["select"]) && count($content["ecard"]["select"]) ? count($content["ecard"]["select"])+5 : 5 ?>" multiple="multiple" class="custom-select width200" id="cimage_list">
 <?php
@@ -151,7 +151,7 @@ if(isset($img_thumbs) && $img_thumbs) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
         <td><input name="cecard_width" type="text" class="form-control" id="cecard_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content["ecard"]["width"] ?>"></td>
         <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
@@ -163,7 +163,7 @@ if(isset($img_thumbs) && $img_thumbs) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
         <td><select class="custom-select" name="cecard_col" id="cecard_col">
 <?php

@@ -67,7 +67,7 @@ $an = $indexpage['acat_name'];
 
 $a  = "<tr bgcolor=\"#e8e8e8\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#e8e8e8';\">\n";
 $a .= '<td>';
-$a .= "<table class=\"table-no-border\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
+$a .= "<table class=\"table-borderless\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';
 $a .= ($child_count) ? '<a href="cmsgo.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
 

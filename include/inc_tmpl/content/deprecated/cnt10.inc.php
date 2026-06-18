@@ -38,7 +38,7 @@ if(!isset($content["mailhtml"])) {
 </tr>
 <tr>
 	<td align="right"><?php echo $BL['be_cnt_sendas'] ?>:&nbsp;</td>
-	<td><table class="table-no-border">
+	<td><table class="table-borderless">
 		<tr bgcolor="#E7E8EB">
 		<td><input name="cmailhtml" type="radio" value="0" <?php is_checked(0, $content["mailhtml"]); ?>></td>
 	    <td><?php echo $BL['be_cnt_text'] ?>&nbsp;&nbsp;</td>

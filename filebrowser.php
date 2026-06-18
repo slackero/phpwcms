@@ -255,7 +255,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     //Tabelle
 
-    echo '<table class="table table-no-border mt-2">'.LF;
+    echo '<table class="table table-borderless mt-2">'.LF;
     $file_sql  = "SELECT * FROM ".DB_PREPEND."cmsgo_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     switch($js_aktion) {
 

@@ -475,10 +475,6 @@ a.filein {
     background-color: #f5f5f5;
 }
 
-.table-no-border, .table-no-border td, .table-no-border th {
-    border: 0 !important;
-}
-
 .table td, .table th {
     vertical-align: middle;
 }
@@ -957,6 +953,3 @@ li.sortme {
     bottom: 0;
 }
 
-.nowrap {
-    white-space: nowrap;
-}

@@ -95,7 +95,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                     foreach($file_result as $file_row) {
                         $filename = html($file_row["f_name"]);
                         if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
-                            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"100%\" class=\"table-no-border\">\n";
+                            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"100%\" class=\"table-borderless\">\n";
                         } else {
                             echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"></td></tr>\n";
                         }

@@ -2218,7 +2218,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
             '</p>',
             '<strong>',
             '</strong>',
-            '<span class="nowrap">',
+            '<span class="text-nowrap">',
             '</span>',
         );
 
@@ -2271,7 +2271,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
     $search[21] = '/\[strong\](.*?)\[\/strong\]/is';
     $replace[21] = '<strong>$1</strong>';
     $search[22] = '/\[nowrap\](.*?)\[\/nowrap\]/is';
-    $replace[22] = '<span class="nowrap">$1</span>';
+    $replace[22] = '<span class="text-nowrap">$1</span>';
     $search[23] = '/\[blockquote\](.*?)\[\/blockquote\]/is';
     $replace[23] = '<blockquote>$1</blockquote>';
 

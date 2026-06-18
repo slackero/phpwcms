@@ -106,7 +106,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
     <td align="right">Zuber.Zeit:&nbsp;</td>
-	<td><table class="table-no-border">
+	<td><table class="table-borderless">
 		<tr>
 			<td><input name="recipe_time" type="text" id="recipe_time" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=int_only(this.value);" size="5" /></td>
 			<td style="width:60px;">&nbsp;<?php echo $BL['be_date_minutes'] ?>&nbsp;</td>
@@ -118,7 +118,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
     <td align="right">N&auml;hrwert:&nbsp;</td>
-	<td><table class="table-no-border">
+	<td><table class="table-borderless">
 		<tr>
 			<td><input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=int_only(this.value);" /></td>
 			<td style="width:60px;">&nbsp;kJ&nbsp;</td>

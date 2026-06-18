@@ -206,11 +206,11 @@ class cmsgoNews {
             } else {
                 $paginate .= ' onclick="$(\'filterPage\').value='.$prev_page.';$(\'paginate\').submit();"';
             }
-            $paginate .= ' /></td><td class="chatlist nowrap">';
+            $paginate .= ' /></td><td class="chatlist text-nowrap">';
 
             $paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
 
-            $paginate .= '</td><td class="nowrap"><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
+            $paginate .= '</td><td class="text-nowrap"><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
             if($current_page == $max_page) {
                 $paginate .= ' class="inactive"';
             } else {

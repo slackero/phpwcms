@@ -71,7 +71,7 @@ $img_thumbs = '';
 
 <tr>
   <td align="right" valign="top"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
         <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 5 : 5; ?>" multiple="multiple" class="custom-select width300" id="cimage_list">
             <?php
@@ -145,7 +145,7 @@ if($img_thumbs) {
 <tr><td></td><td><strong><?php echo $BL['be_cnt_reference_largetext']; ?>:</strong></td></tr>
 <tr>
   <td align="right"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
         <td><input name="creference_width" type="text" class="form-control" id="creference_width" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["width"] ?>"></td>
         <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
@@ -161,7 +161,7 @@ if($img_thumbs) {
 <tr><td></td><td><strong><?php echo $BL['be_cnt_reference_aligntext'] ?>:</strong></td></tr>
 <tr>
   <td align="right"><?php echo $BL['be_cnt_reference_basis'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
     <tr>
       <td bgcolor="#E7E8EB"><input name="creference_basis" type="radio" value="0" <?php is_checked(0, $content["reference"]["basis"]); ?>></td>
       <td bgcolor="#E7E8EB"><?php echo $BL['be_cnt_reference_horizontal'] ?>&nbsp;</td>
@@ -187,7 +187,7 @@ if($img_thumbs) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_reference_block'] ?>:&nbsp;</td>
-  <td valign="top"><table class="table-no-border">
+  <td valign="top"><table class="table-borderless">
       <tr>
 
         <td><input name="creference_blockwidth" type="text" class="form-control" id="creference_blockwidth" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>"></td>

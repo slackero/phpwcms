@@ -236,7 +236,7 @@ if(isset($result[0])) {
             sort($_zip);
 
             $dealer[] = '<div class="col-auto d-flex flex-row my-2">';
-            $dealer[] = '   <label class="col-form-label mr-2 nowrap">@@PLZ-Gebiet@@</label>';
+            $dealer[] = '   <label class="col-form-label mr-2 text-nowrap">@@PLZ-Gebiet@@</label>';
             $dealer[] = '   <select class="form-control" name="filter_zip" class="ziparea" onchange="this.form.submit()">';
             $dealer[] = '       <option value="">- @@Select postcode area@@ -</option>';
 

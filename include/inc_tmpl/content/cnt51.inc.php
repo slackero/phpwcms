@@ -75,7 +75,7 @@ if(is_array($imglist) && count($imglist)) {
     }
 }
 if($g) {
-    echo '<table  class="table-no-border">'."\n".$g.'</table>';
+    echo '<table  class="table-borderless">'."\n".$g.'</table>';
 } else {
     echo '<span class="error">no map available. upload one first.</span>';
 }
@@ -140,7 +140,7 @@ if($map_selected) {
 <div class="form-group form-row">
   <label for="cmap_location_x" class="col-sm-2 col-form-label text-right"><?php echo ($map_current) ? $BL['be_cnt_map_edit'] : $BL['be_cnt_map_add']; ?></label>
   <div class="col">
-    <table class="table-no-border" bgcolor="#E7E8EB">
+    <table class="table-borderless" bgcolor="#E7E8EB">
         <tr>
           <td>&nbsp;&nbsp;X:&nbsp; </td>
           <td><input name="cmap_location_x" type="text" class="form-control" id="cmap_location_x" maxlength="4" value="<?php echo  empty($content['location']["x"]) ? '' : intval($content['location']["x"]) ?>" onChange="doMapChange();"></td>
@@ -172,7 +172,7 @@ if($map_selected) {
 <div class="form-group form-row">
   <label for="cmap_location_zip" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_zip'] ?></label>
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
       <tr>
       <td style="width:55px;"><input name="cmap_location_zip" type="text" class="form-control" value="<?php echo  empty($content['location']["zip"]) ? '' : html($content['location']["zip"]) ?>" onChange="doMapChange();"></td>
       <td align="right">&nbsp;&nbsp;<?php echo $BL['be_profile_label_city'] ?>:&nbsp;</td>
@@ -214,7 +214,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
   <div class="col">
     <div style="overflow:auto;border:1px solid #7F9DB9;padding:0;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
-      <table width="100%" class="table-no-border">
+      <table width="100%" class="table-borderless">
       <?php echo $map_list; ?>
       </table>
     </div>

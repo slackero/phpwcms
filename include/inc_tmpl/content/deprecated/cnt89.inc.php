@@ -64,7 +64,7 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 <tr>
     <td align="right" valign="top"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
     <td valign="top">
-    <table class="table-no-border">
+    <table class="table-borderless">
     <tr>
         <td valign="top">
         <select name="cimage_list[]" size="<?php echo is_array($content["poll_select"]) && count($content["poll_select"]) ? count($content["poll_select"])+5 : 5 ?>" multiple="multiple" class="custom-select width300" id="cimage_list">
@@ -122,7 +122,7 @@ if($img_thumbs)
 <tr>
   <td align="right"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
   <td valign="top">
-   <table class="table-no-border">
+   <table class="table-borderless">
      <tr>
         <td><input name="cpoll_width" type="text" class="form-control" id="cpoll_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>"></td>
         <td>&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
