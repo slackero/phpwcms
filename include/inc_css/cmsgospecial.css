@@ -126,10 +126,6 @@ select.form-control-sm:not([size]):not([multiple]) {
     font-size: 1rem;
 }
 
-.table td, .table th {
-    border-top: 1px solid #ccc;
-}
-
 #container {
     min-height: 100%;
     width: 100%;
