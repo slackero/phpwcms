@@ -207,7 +207,7 @@ select.form-control-sm:not([size]):not([multiple]) {
     list-style: none;
 }
 
-#header .nav > li > a {
+#header .navbar-nav .nav-link {
     padding: 0 15px;
     line-height: 60px;
     cursor: pointer;
@@ -231,20 +231,19 @@ header .dropdown-toggle::after {
     display: none;
 }
 
-#header .navbar-nav > li {
-    float: left;
+#header .navbar-nav > .nav-item {
     display: inline-block;
 }
 
-#header .navbar-nav > li:hover {
+#header .navbar-nav > .nav-item:hover {
     background-color: #eee;
 }
 
-#header .navbar-right > li {
+#header .navbar-nav > .nav-item {
     border-left: 1px solid #eee;
 }
 
-#header .nav > li.dropdown > a {
+#header .navbar-nav .nav-link.dropdown-toggle {
     padding-left: 10px;
     padding-right: 10px;
 }
