@@ -232,15 +232,11 @@ header .dropdown-toggle::after {
 }
 
 #header .navbar-nav > .nav-item {
-    display: inline-block;
+    border-left: 1px solid #eee;
 }
 
 #header .navbar-nav > .nav-item:hover {
     background-color: #eee;
-}
-
-#header .navbar-nav > .nav-item {
-    border-left: 1px solid #eee;
 }
 
 #header .navbar-nav .nav-link.dropdown-toggle {
