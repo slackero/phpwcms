@@ -8,13 +8,14 @@ html, body {
     color: #333;
 }
 
-a, .text-blue {
+a {
     color: #30709b;
     cursor: pointer;
 }
 
 .text-blue {
     color: #30709b !important;
+    cursor: pointer;
 }
 
 a:hover {
@@ -33,11 +34,9 @@ td label {
 
 .tooltip {
     font-size: .75rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .h1, h1, .h2, h2 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 300;
     font-size: 1.75rem;
     margin-bottom: 20px;
@@ -78,7 +77,6 @@ select.form-control-sm:not([size]):not([multiple]) {
 }
 
 .modal-header h1, .modal-header h2, .card-header h1, .card-header h2 {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 400;
     font-size: 1.125rem;
     margin: 0;
@@ -87,10 +85,6 @@ select.form-control-sm:not([size]):not([multiple]) {
 
 .modal-content {
     min-height: 800px;
-}
-
-.modal-body {
-    height: 1px;
 }
 
 .card, .card-header, .card-footer, .card-header:first-child {
@@ -266,9 +260,6 @@ header .dropdown-toggle::after {
     height: 40px;
 }
 
-#column-left, #content, #footer {
-    transition: all 0.3s;
-}
 
 #content {
     padding-bottom: 20px;
@@ -360,7 +351,7 @@ header .dropdown-toggle::after {
     font-size: .75rem;
 }
 
-.btn-blue:hover, .btn-blue:focus, .btn-blue.focus, .btn-blue:active, .btn-blue.active, .open > .dropdown-toggle.btn-default {
+.btn-blue:hover, .btn-blue:focus, .btn-blue.focus, .btn-blue:active, .btn-blue.active, .show > .dropdown-toggle {
     color: #fff;
     background-color: #3a4a5c;
     border-color: #3a4a5c;
@@ -512,7 +503,6 @@ a.filein {
 #login .input-group .form-control {
     margin: 0;
     font-size: .875rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: #222;
 }
 
@@ -712,30 +702,6 @@ li.sortme {
 
 /*NEWSLETTER FORM*/
 
-#statusMessage {
-    display: none;
-    padding: 7px 10px 0 6px;
-    margin: 0;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
-    background-color: #E3EED7;
-    float: left;
-    color: #52970D;
-    font-weight: bold;
-}
-
-#statusMessage img {
-    float: left;
-    position: relative;
-    top: 0;
-}
-
-#statusMessage p {
-    margin: 1px 0 7px 23px;
-    padding: 0;
-}
-
 /*Artikel listing*/
 
 .slist-0 {
@@ -846,13 +812,17 @@ li.sortme {
     margin-left: 1.7rem;
 }
 
-.input-group-addon.success {
+.input-group-addon.success,
+.input-group-prepend .input-group-text.success,
+.input-group-append .input-group-text.success {
     color: rgb(255, 255, 255);
     background-color: rgb(92, 184, 92);
     border-color: rgb(76, 174, 76);
 }
 
-.input-group-addon.danger {
+.input-group-addon.danger,
+.input-group-prepend .input-group-text.danger,
+.input-group-append .input-group-text.danger {
     color: rgb(255, 255, 255);
     background-color: rgb(217, 83, 79);
     border-color: rgb(212, 63, 58);
@@ -974,6 +944,7 @@ li.sortme {
     padding: 0;
     margin: 1rem;
     position: relative;
+    height: 1px;
 }
 
 .modal-body-iframe > .iframe {
