@@ -237,7 +237,7 @@ $(function() {
                 </tr>
 
                 <tr>
-                  <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+                  <td class="text-secondary text-nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
                   <td>
                       <span class="badge <?php echo ($article["article_nositemap"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_ctype_sitemap'] ?></span>
                       <span class="badge <?php echo ($article["article_nosearch"] ? 'badge-secondary' : 'badge-success') ?> mt-1"><?php echo $BL['be_fsearch_searchlabel'] ?></span>
@@ -264,7 +264,7 @@ $(function() {
               <td><?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
             </tr>
             <tr>
-              <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
+              <td class="text-secondary text-nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
               <td><?php echo $set_begin ? cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
             </tr>
             <tr>
@@ -272,7 +272,7 @@ $(function() {
               <td><?php echo $set_end ? cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
             </tr>
             <tr>
-              <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+              <td class="text-secondary text-nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
               <td><?php echo $article["article_sort"] ?></td>
             </tr>
             <tr>
@@ -592,11 +592,11 @@ $(function() {
             <?php echo $sbutton_string[$row["acontent_id"]]; ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" style="color:#727889;" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-muted">
             [ID:<?php echo $row["acontent_id"] ?>]
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
               <?php
                   echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
                   if($contentpart_block != 'CPSET') {
