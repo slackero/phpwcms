@@ -549,7 +549,7 @@ $(function() {
       </div>
       <div class="col">
         <div class="row">
-          <div class="col small" style="font-weight:bold;text-transform:uppercase;"><?php
+          <div class="col small font-weight-bold text-uppercase"><?php
             $cntpart_title = $wcs_content_type[$row["acontent_type"]];
             if(!empty($row["acontent_module"])) {
               $cntpart_title .= ': '.$BL['modules'][$row["acontent_module"]]['listing_title'];
