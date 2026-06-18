@@ -365,35 +365,29 @@ $(function() {
                   foreach($sbutton as $key => $value) {
                       if($key == 1) {
                           // if 1st content part in list
-                          $sbutton[$key]["top"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
-
+                          $sbutton[$key]["top"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-up fa-fw text-muted" aria-hidden="true"></i></button>';
                       } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $sbutton[$key]["block"]) {
                           // if this content part is selected for different block than previous
-                          $sbutton[$key]["top"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
-
-
-              } else {
-                $sbutton[$key]["top"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
-                $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
-                '" data-toggle="tooltip" title="'.$BL['be_article_cnt_up'].'"><i class="fa fa-chevron-up text-dark" aria-hidden="true"></i></a>';
-              }
-              if($key == $sc) {
-                // if this is the last content part in list
-                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-down text-muted" aria-hidden="true"></i>';
-
-              } elseif(isset($sbutton[$key+1]["block"]) && $sbutton[$key+1]["block"] != $sbutton[$key]["block"]) {
-                // if this is the last content part in current block and next is different
-                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-down text-muted" aria-hidden="true"></i>';
-
-              } else {
-                $sbutton[$key]["bottom"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
-                $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
-                '" data-toggle="tooltip" title="'.$BL['be_article_cnt_down'].'"><i class="fa fa-chevron-down text-dark" aria-hidden="true"></i></a>';
-              }
-              $sbutton_string[$sbutton[$key]["id"]] = $sbutton[$key]["top"].
-              $sbutton[$key]["bottom"];
+                          $sbutton[$key]["top"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-up fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } else {
+                          $sbutton[$key]["top"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
+                          $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
+                          $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
+                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa fa-chevron-up fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                      }
+                      if($key == $sc) {
+                          // if this is the last content part in list
+                          $sbutton[$key]["bottom"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-down fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } elseif(isset($sbutton[$key+1]["block"]) && $sbutton[$key+1]["block"] != $sbutton[$key]["block"]) {
+                          // if this is the last content part in current block and next is different
+                          $sbutton[$key]["bottom"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-down fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } else {
+                          $sbutton[$key]["bottom"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
+                          $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
+                          $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
+                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                      }
+                      $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group-vertical" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
               }
               unset($sbutton);
             }
@@ -594,7 +588,7 @@ $(function() {
           ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
             <?php echo $sbutton_string[$row["acontent_id"]]; ?>
           </div>
 
