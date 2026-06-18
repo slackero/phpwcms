@@ -182,7 +182,6 @@ select.form-control-sm:not([size]):not([multiple]) {
 #header .navbar-header {
     transition: 0.3s all;
     width: 236px;
-    display: none;
 }
 
 #login #header .navbar-header {
@@ -883,11 +882,6 @@ li.sortme {
     #column-left + #content, #column-left + #content + #footer {
         left: 0;
         margin-left: 250px;
-    }
-
-    #header .navbar-header {
-        display: flex;
-        align-items: center;
     }
 
     .btn-menu {
