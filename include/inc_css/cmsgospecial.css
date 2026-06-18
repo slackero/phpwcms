@@ -886,7 +886,7 @@ li.sortme {
     }
 
     #header .navbar-header {
-        display: inline-block;
+        display: block;
     }
 
     .btn-menu {
