@@ -67,8 +67,8 @@ $an = $indexpage['acat_name'];
 
 $a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
 $a .= '<td>';
-$a .= "<table class=\"table-borderless\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
-$a .= '<td nowrap="nowrap">';
+$a .= "<table class=\"table-borderless\">\n<tr>\n";
+$a .= '<td class="text-nowrap">';
 $a .= ($child_count) ? '<a href="cmsgo.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
 
 $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
@@ -83,7 +83,7 @@ $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td nowrap="nowrap" class="text-right">';
+echo '<td class="text-nowrap text-right">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;

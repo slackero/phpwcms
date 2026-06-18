@@ -38,7 +38,7 @@ if(!isset($_GET["s"])) {
 
             echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : '';
 
-            echo "</a></td>\n".'<td class="text-right" nowrap="nowrap">';
+            echo "</a></td>\n".'<td class="text-right text-nowrap">';
 
             echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
             echo '<i class="fa fa-pencil-alt"></i></a>';
