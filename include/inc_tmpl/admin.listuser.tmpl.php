@@ -208,14 +208,14 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     $result = _dbQuery($sql);
     if(isset($result[0]['usr_id'])) {
         foreach($result as $userlist) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-grey' : 'bg-row-white';
             if($userlist["usr_id"] == $new_user_id) {
-                $bg_color = "#FFF4CB";
+                $bg_class = "bg-row-highlight-amber";
             }
             $goto = "cmsgo.php?do=admin&amp;s=2&amp;u=".$userlist["usr_id"];
 ?>
 
-      <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#f5f5f5'" onmouseout="bgColor='<?php echo  $bg_color ?>'">
+      <tr class="hover-light <?php echo $bg_class ?>">
       <td width="30" class="align-middle"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
 
             if($userlist["usr_aktiv"] == 1) {

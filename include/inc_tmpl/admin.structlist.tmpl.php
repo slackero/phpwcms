@@ -46,7 +46,7 @@ $child_count		= get_root_childcount(0);
 $child_sort			= ( $child_count + 1 ) * 10;
 $struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PREPEND.'cmsgo_template WHERE template_trash=0 AND template_id='.intval($indexpage['acat_template']));
 
-echo "<tr onmouseover=\"this.bgColor='#CCFF00';\" onmouseout=\"this.bgColor='#FFFFFF';\">";
+echo "<tr class=\"hover-warning\">";
 echo "<td width=\"450\">";
 echo "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\"><tr>";
 echo '<td nowrap="nowrap">';

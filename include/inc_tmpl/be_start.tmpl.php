@@ -92,7 +92,7 @@ $_last10_article = _dbQuery($_asql_1);
 	</div>
 </div>
 <div class="card-body">
-<table class="table table-sm" border="0" cellpadding="0" cellspacing="0" summary="">
+<table class="table table-sm">
   <thead class="thead-default">
   <tr class="bg-grey">
     <th class="text-left" width="90%"><?php echo $BL['be_article_atitle'] ?></th>
@@ -162,7 +162,7 @@ $_last10_article = _dbQuery($_asql_1);
 </div>
 <div class="card-body">
 <div class="table-responsive">
-<table class="table table-sm mb-0" border="0" cellpadding="0" cellspacing="0" summary="">
+<table class="table table-sm mb-0">
   <thead class="thead-default">
   <tr class="bg-grey">
     <th style="text-align:left" class="text-nowrap"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>

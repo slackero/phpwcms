@@ -638,7 +638,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
                     echo ' selected="selected"';
                 }
                 if (intval($u_row['usr_admin'])) {
-                    echo ' style="background-color: #FFC299;"';
+                    echo ' class="option-admin"';
                 }
                 echo '>'.html(($u_row['usr_name']) ? $u_row['usr_name'] : $u_row['usr_login']).'</option>';
             }

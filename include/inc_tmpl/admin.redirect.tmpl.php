@@ -208,7 +208,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     </form>
 
 	<div class="table-responsive">
-  <table class="table table-sm listing" border="0" cellpadding="0" cellspacing="0" summary="">
+  <table class="table table-sm listing">
     <tr class="header">
       <th class="column news"><?php echo $BL['be_cnt_source'] ?></th>
       <th class="column"><?php echo $BL['be_cnt_target'] ?></th>

@@ -24,7 +24,7 @@ if (!defined('CMSGO_ROOT')) {
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
 <div class="table-responsive" style="overflow-x: inherit">
-<table class="table table-sm mb-0" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<table class="table table-sm mb-0">
 <?php
 
 $listmode = 0;
@@ -65,7 +65,7 @@ $child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
-$a  = "<tr bgcolor=\"#e8e8e8\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#e8e8e8';\">\n";
+$a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
 $a .= '<td>';
 $a .= "<table class=\"table-borderless\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
 $a .= '<td nowrap="nowrap">';

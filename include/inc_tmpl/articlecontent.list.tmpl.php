@@ -82,7 +82,7 @@ $(function() {
       <div class="row">
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace" border="0" cellpadding="0" cellspacing="0">
+          <table class="table table-sm mt-3 tdMorepace">
             <tr>
               <td class="text-secondary"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
               <td><strong><?php echo html($article["article_alias"]); ?></strong></td>
@@ -254,7 +254,7 @@ $(function() {
 
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace" border="0" cellpadding="0" cellspacing="0" summary="">
+          <table class="table table-sm mt-3 tdMorepace">
             <tr>
               <td class="text-secondary"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
               <td><?php echo cmsgo_strtotime($article["article_date"], $BL['be_longdatetime'], '') ?></td>

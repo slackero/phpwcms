@@ -207,13 +207,13 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 <?php
     if($map_list) {
-        $ck = ($ck > 10) ? 'height:200px;' : '';
+        $ck_style = ($ck > 10) ? ' style="height:200px;"' : '';
 ?>
 
 <div class="form-group form-row">
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
   <div class="col">
-    <div style="overflow:auto;border:1px solid #7F9DB9;padding:0;width:440px;<?php echo $ck ?>margin:0;background-color:#F3F3F5;">
+    <div class="map-list-container"<?php echo $ck_style ?>>
       <table width="100%" class="table-borderless">
       <?php echo $map_list; ?>
       </table>

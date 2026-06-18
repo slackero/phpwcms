@@ -188,20 +188,20 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-        <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+          <td width="60" align="right" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;
@@ -250,16 +250,16 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-        <tr bgcolor="<?php echo $bg_color ?>" onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
           <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
           <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
           <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
@@ -313,20 +313,20 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-    <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-        <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-        <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+    <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+        <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+        <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+        <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+        <td width="60" align="right" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;
@@ -374,13 +374,13 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
             // which action?
             if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) {
@@ -396,11 +396,11 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                 $do_del = 5; //Delete normal message
             }
 ?>
-        <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+          <td width="60" align="right" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;

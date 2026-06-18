@@ -374,10 +374,9 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
 
 function which_folder_active($ist, $soll, $ac = "#9BBECA", $nc = "#363E57", $nclass = "msgreiter") {
     if ($ist == $soll) {
-        echo "bgcolor='" . $ac . "' class='" . $nclass . "'";
+        echo "style=\"background-color: " . $ac . ";\" class=\"" . $nclass . " msgreiter-active\"";
     } else {
-        echo "bgcolor='" . $nc . "' class='" . $nclass . "' ";
-        echo "onMouseOver=\"bgColor='#FF6600'\" onMouseOut=\"bgColor='" . $nc . "'\"";
+        echo "style=\"background-color: " . $nc . ";\" class=\"" . $nclass . " msgreiter-inactive\"";
     }
 }
 

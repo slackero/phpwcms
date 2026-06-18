@@ -49,8 +49,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $forbid_copy    = $struct[$key]["acat_struct"] == $copy_id || $forbid_copy ? 1 : 0;
 
     $an = html($struct[$key]["acat_name"]);
-    $a  = "<tr bgcolor=\"#e8e8e8\" onmouseover=\"this.bgColor='#D2EED9';\" onmouseout=\"this.bgColor='#e8e8e8';\">\n";
-    $a .= '<td width="80%">'.LF;
+    $a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
+    $a .= '<td class="w-80">'.LF;
     $a .= '<table class="table-borderless"'.">\n<tr>\n";
     $a .= '<td nowrap="nowrap" class="text-right here">'.LF;
     $a .= ($child_count) ? "<a href=\"cmsgo.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
@@ -206,14 +206,14 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $at = html($article[$akey]["article_title"]);
 
         if($cut_article == $article[$akey]["article_id"] ) {
-            $a = "<tr bgColor='#D2EED9'>\n";
+            $a = "<tr class=\"bg-row-success-light\">\n";
         } elseif($copy_article == $article[$akey]["article_id"]){
-            $a = "<tr bgColor='#D2EED9'>\n";
+            $a = "<tr class=\"bg-row-success-light\">\n";
         } else {
-            $a = "<tr bgcolor=\"#f5f5f5\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#f5f5f5';\">\n";
+            $a = "<tr class=\"hover-success bg-row-alt-grey\">\n";
         }
 
-        $a .= '<td width="80%">'.LF;
+        $a .= '<td class="w-80">'.LF;
         $a .= '<table class="table-borderless">'.LF.'<tr>'.LF;
 
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
@@ -358,11 +358,11 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $info .= '</table>';
 
             if($cut_article_content == $article_content["acontent_id"] ) {
-                $a .= "<tr bgcolor=\"#FFC4CB\">\n";
+                $a .= "<tr class=\"bg-row-pink\">\n";
             } elseif($copy_article_content == $article_content["acontent_id"]) {
-                $a .= "<tr bgcolor=\"#FFC4CB\">\n";
+                $a .= "<tr class=\"bg-row-pink\">\n";
             } else {
-                $a .= "<tr style=\"border-bottom: 1px solid #dfdfdf;\" onmouseover=\"this.bgColor='#FFF4CB';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
+                $a .= "<tr class=\"hover-amber border-bottom-light bg-row-white\">\n";
             }
             $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>&nbsp;';
 
@@ -374,7 +374,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= $ab;
 
             $a .= "&nbsp;".html(' {'.$article_content['acontent_block'].'} ').'</td>';
-            $a .= '<td nowrap="nowrap" class="text-right" style="padding:3px 5px 3px 0;white-space:nowrap;">';
+            $a .= '<td class="text-right text-nowrap cell-actions">';
             $at = ' ' . $ab . ' ';
 
             if($cut_article_content) {

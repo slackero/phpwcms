@@ -253,7 +253,7 @@ if(isset($_GET['open'])) {
 
         foreach($result as $row) {
 
-            echo "<tr onmouseover=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
+            echo "<tr class=\"hover-success\">\n";
             echo "<td width=\"483\"><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
 
             $child_count = get_filecat_childcount($row["fcat_id"]);
@@ -288,7 +288,7 @@ if(isset($_GET['open'])) {
                 $kresult = _dbQuery($ksql);
                 if(isset($kresult[0]['fkey_id'])) {
                     foreach($kresult as $krow) {
-                        echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
+                        echo "<tr class=\"hover-warning\">\n";
                         echo "<td><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
                         echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"1\"></td>\n";
                         echo "<td><img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";

@@ -949,3 +949,91 @@ li.sortme {
     bottom: 0;
 }
 
+/* Custom table row hover effects replacing inline JavaScript */
+tr.hover-success:hover td {
+    background-color: #D2EED9 !important;
+}
+tr.hover-warning:hover td {
+    background-color: #CCFF00 !important;
+}
+tr.hover-highlight:hover td {
+    background-color: #DBFF48 !important;
+}
+tr.hover-light:hover td {
+    background-color: #f5f5f5 !important;
+}
+tr.hover-amber:hover td {
+    background-color: #FFF4CB !important;
+}
+tr.hover-gold:hover td {
+    background-color: #FFCC00 !important;
+}
+
+/* Tab/Folder styles for Message Center */
+.msgreiter-active {
+    background-color: #9BBECA !important;
+}
+.msgreiter-inactive {
+    background-color: #363E57 !important;
+    transition: background-color 0.2s ease;
+}
+.msgreiter-inactive:hover {
+    background-color: #FF6600 !important;
+}
+
+/* Reusable row background helper classes replacing inline background-color style attributes */
+.bg-row-white {
+    background-color: #FFFFFF;
+}
+.bg-row-alt-grey {
+    background-color: #f5f5f5;
+}
+.bg-row-alt-blue {
+    background-color: #F5F9FA;
+}
+.bg-row-alt-light {
+    background-color: #F3F5F8;
+}
+.bg-row-grey-medium {
+    background-color: #e8e8e8;
+}
+.bg-row-highlight-amber {
+    background-color: #FFF4CB;
+}
+.bg-row-highlight-gold {
+    background-color: #FFCC00;
+}
+
+/* Border and additional row helper classes */
+.border-bottom-light {
+    border-bottom: 1px solid #dfdfdf;
+}
+.bg-row-pink {
+    background-color: #FFC4CB;
+}
+
+.cell-actions {
+    padding: 3px 5px 3px 0 !important;
+}
+
+.option-admin {
+    background-color: #FFC299;
+}
+
+.map-list-container {
+    overflow: auto;
+    border: 1px solid #7F9DB9;
+    padding: 0;
+    width: 440px;
+    margin: 0;
+    background-color: #F3F3F5;
+}
+
+.bg-row-success-light {
+    background-color: #D2EED9;
+}
+
+.w-80 {
+    width: 80%;
+}
+
