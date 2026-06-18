@@ -87,7 +87,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
         echo "<strong>".$dirname; //Zellinhalt 1. Spalte Fortsetzung
         echo "</strong></a></td>\n"; //Schließen Zelle 1. Spalte
         //Zelle 2. Spalte - vorgesehen für Buttons/Tasten Edit etc.
-        echo '<td class="text-right" nowrap="nowrap">';
+        echo '<td class="text-right text-nowrap">';
 
         echo '<div class="btn-group" role="group" aria-label="group'.$row["f_id"].'">';
         //Button zum Bearbeiten des Verzeichnisses
@@ -170,7 +170,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
 
 
                     //Aufbauen Buttonleiste für jeweilige Datei
-                    echo '<td class="text-right px-0" nowrap="nowrap">'.LF;
+                    echo '<td class="text-right text-nowrap px-0">'.LF;
                     echo '<div class="btn-group" role="group">'.LF;
 
                     //Button zum Bearbeiten der Dateiinformationn

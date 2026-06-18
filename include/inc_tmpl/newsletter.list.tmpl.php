@@ -183,19 +183,19 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '<td class="dir"><strong>'.html($row["newsletter_subject"])."</strong></td>\n";
           echo '<td class="dir">'.(!$row["newsletter_lang"] ? '' : '<span class="flag-icon flag-icon-'.$row["newsletter_lang"].'"></span>')."</td>\n";
           // create date
-          echo '<td nowrap="nowrap" class="v10">&nbsp;';
+          echo '<td class="v10 text-nowrap">&nbsp;';
           if($row['cdate']) {
             echo @date($BL['be_shortdate'], $row['cdate']);
           }
           echo '&nbsp;</td>';
           // last sending
-          echo '<td nowrap="nowrap">&nbsp;';
+          echo '<td class="text-nowrap">&nbsp;';
           if($row['lastsend']) {
             @date($BL['be_shortdate'], $row['lastsend']);
           }
           echo '&nbsp;</td>';
 
-          echo '<td nowrap="nowrap" class="v10" align="center">'.$count_recipient.'/'.$count_queue.'/'.$count_sent.'/'.$count_opener;
+          echo '<td class="v10 text-nowrap" align="center">'.$count_recipient.'/'.$count_queue.'/'.$count_sent.'/'.$count_opener;
           if($count_sent && !$count_queue && $row["newsletter_active"]) {
             echo '<img src="img/symbole/valid.gif" border="0" alt="valid" style="margin: 0 0 0 3px" />';
           }

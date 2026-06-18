@@ -366,7 +366,7 @@ if($_userInfo['list_channel']) {
 		echo '<i class="fa fa-user" aria-hidden="true"></i></td>'."\n";
 		echo '<td width="1%" class="dir text-nowrap">'.$row["address_email"]."</td>".LF;
 		echo '<td class="dir" width="95%">'.html($row["address_name"])."</td>".LF;
-		echo '<td align="right" nowrap="nowrap" class="button_td">'.LF;
+		echo '<td align="right" class="button_td text-nowrap">'.LF;
 
 		echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
 

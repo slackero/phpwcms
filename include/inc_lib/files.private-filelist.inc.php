@@ -55,7 +55,7 @@ if(isset($file_result[0]['f_id'])) {
         echo $file_row['edit'] . $filename."</a></td>\n";
 
         //Aufbauen Buttonleiste für jeweilige Datei
-        echo '</td><td class="text-right px-0" nowrap="nowrap">'.LF;
+        echo '</td><td class="text-right text-nowrap px-0">'.LF;
         echo '<div class="btn-group" role="group">'.LF;
 
         //Button zum Bearbeiten der Dateiinformationn

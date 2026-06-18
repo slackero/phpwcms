@@ -128,15 +128,15 @@ $_controller_link =  statistic_url('controller=subscriptions');
         $x = 0;
         foreach($result2 as $data) {
           echo '  <tr title="'.html_specialchars('[ID:'.$data["log_user_id"].'] '.(isset($data["subscription_name"]) ? $data["subscription_name"] : '')).'">';
-          echo '    <td nowrap="nowrap" class="align-middle">'.$data["log_created"]."&nbsp;</td>" . LF;
+          echo '    <td class="align-middle text-nowrap">'.$data["log_created"]."&nbsp;</td>" . LF;
           echo '    <td class="align-middle text-center">'.$data["log_type"]."&nbsp;</td>" . LF;
           if ($data["log_type"] == 1) {
             echo '    <td width="70%" class="align-middle"><a href="cmsgo.php?do=messages&amp;p=4&amp;s='.$data["log_user_id"].'&amp;edit=1" target="_blank">' . html_specialchars($data["log_msg"]). "</a>&nbsp;</td>" . LF;
-            echo '    <td class="text-right p-1 align-middle" nowrap="nowrap">';
+            echo '    <td class="text-right p-1 align-middle text-nowrap">';
             echo '      <a class="btn btn-sm mr-1 '.($data["address_verified"] ? 'btn-success' : 'btn-secondary').'" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$data["address_id"].'&amp;verify='.($data["address_verified"] ? '0' : '1').'" title="set '.$data["address_email"].' verified/not verified"><i class="fas '.($data["address_verified"] ? 'fa-check' : 'fa-clock').'"></i></a>';
           } else {
             echo '    <td width="70%" class="align-middle">' . html_specialchars($data["log_msg"]). "&nbsp;</td>" . LF;
-            echo '    <td class="text-right p-1 align-middle" nowrap="nowrap">';
+            echo '    <td class="text-right p-1 align-middle text-nowrap">';
           }
 
           echo '      <a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';

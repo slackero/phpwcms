@@ -165,7 +165,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
 		foreach($data as $row) {
 			echo '<tr>';
-			echo '<td class="align-middle" nowrap="nowrap">'.$row['create_date'].'</td>';
+			echo '<td class="align-middle text-nowrap">'.$row['create_date'].'</td>';
 			echo '<td class="align-middle"><a href="'.html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']).'</a></td>';
 			echo '<td class="align-middle text-center">'.$row['pos'].'</td>';
 			echo '<td class="align-middle">';
