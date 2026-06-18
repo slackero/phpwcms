@@ -307,6 +307,12 @@ header .dropdown-toggle::after {
     border-color: #e4e4e4;
 }
 
+.btn-light:hover {
+    background-color: #c0c0c0;
+    border-color: #b0b0b0;
+    color: #000;
+}
+
 .darken {
     background-color: #255e86;
     border-color: transparent;
