@@ -236,7 +236,8 @@ header .dropdown-toggle::after {
     border-left: 1px solid #eee;
 }
 
-#header .navbar-nav > .nav-item:hover {
+#header .navbar-nav > .nav-item:hover,
+#button-menu:hover {
     background-color: #eee;
 }
 
