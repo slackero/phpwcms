@@ -307,7 +307,7 @@ header .dropdown-toggle::after {
     border-color: #e4e4e4;
 }
 
-.btn-light:hover {
+.btn-light:hover:not(:disabled) {
     background-color: #c0c0c0;
     border-color: #b0b0b0;
     color: #000;
