@@ -212,10 +212,10 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
             if ($js_aktion == 6) {
                 echo 'parent.$("#browserModal").modal("hide");';
             } elseif ($js_aktion == 2) {
-                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
                 echo "parent.$('#browserModal').modal('hide');";
             } elseif ($js_aktion != 16) {
-                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
                 echo "parent.$('#browserModal').modal('hide');";
             }
             ?>

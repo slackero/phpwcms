@@ -188,8 +188,8 @@ $langstr = '';
       <div class="col-sm-4">
 			<div class="lang-select">
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" name="article_lang" id="article_lang" type="radio" value=""<?php is_checked('', $article['article_lang']); ?> />
-						<label class="form-check-label">
+						<input class="form-check-input lang-default" name="article_lang" id="article_lang_default" type="radio" value=""<?php is_checked('', $article['article_lang']); ?> />
+						<label class="form-check-label" for="article_lang_default">
 							<span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?> mt-1" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
                             <?php echo '('.$BL['be_admin_tmpl_default'].')'; ?>
 						</label>
@@ -202,8 +202,8 @@ $langstr = '';
                         }
 				?>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input lang-opt" name="article_lang" id="article_lang" type="radio" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> />
-                        <label class="form-check-label">
+                        <input class="form-check-input lang-opt" name="article_lang" id="article_lang_<?php echo $lang ?>" type="radio" value="<?php echo $lang ?>"<?php is_checked($lang, $article['article_lang']) ?> />
+                        <label class="form-check-label" for="article_lang_<?php echo $lang ?>">
                             <span class="flag-icon flag-icon-<?php echo $lang ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span>
                         </label>
                     </div>
@@ -211,15 +211,16 @@ $langstr = '';
 
      <div style="margin:10px 0;border-top:1px solid #e5e5e5;padding-top:5px;<?php if ($article['article_lang'] == ''): ?>display:none;<?php endif; ?>" id="lang-id-select">
         <div class="form-check form-check-inline">
-          <input class="form-check-input" name="article_lang_type" id="article_lang_type" type="radio" value="category"<?php is_checked('category', $article['article_lang_type']); ?> />
-          <label class="form-check-label">
+          <input class="form-check-input" name="article_lang_type" id="article_lang_type_category" type="radio" value="category"<?php is_checked('category', $article['article_lang_type']); ?> />
+          <label class="form-check-label" for="article_lang_type_category">
              <?php echo $BL['be_article_cat'] ?> ID
           </label>
         </div>
         <div class="form-check form-check-inline mb-3">
-          <input class="form-check-input" name="article_lang_type" id="article_lang_type" type="radio" value="article"<?php is_checked('article', $article['article_lang_type']); ?> /> <?php echo $BL['be_cnt_articles'] ?>
-          <label class="form-check-label">ID&nbsp;
-          <span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?>" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
+          <input class="form-check-input" name="article_lang_type" id="article_lang_type_article" type="radio" value="article"<?php is_checked('article', $article['article_lang_type']); ?> />
+          <label class="form-check-label" for="article_lang_type_article">
+            <?php echo $BL['be_cnt_articles'] ?> ID&nbsp;
+            <span class="flag-icon flag-icon-<?php echo $cmsgo['default_lang'] ?>" data-toggle="tooltip" title="<?php echo get_language_name($cmsgo['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>"></span>
           </label>
         </div>
         <div class="input-group">
