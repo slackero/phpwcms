@@ -809,6 +809,8 @@ $(function(){
 
   $('input.lang-default').change(function(){
     langIdSelect.hide();
+    $('#article_lang_id').val('');
+    $('input[name="article_lang_type"]').prop('checked', false);
   });
 
   $('#struct_alias,#parent_alias').click(function() {
