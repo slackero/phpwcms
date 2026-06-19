@@ -80,7 +80,7 @@ foreach($plugin['fields'] as $key => $value) {
  		case 'INT':
 			echo '<div class="form-group row align-items-center">';
 			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
-			echo '  <div class="col-sm-4"><input name="'.$key.'" type="text" id="'.$key.'" class="form-control form-control-sm" value="'.html_specialchars($plugin['data'][$key]).'" maxlength="10" /></div>';
+			echo '  <div class="col-auto"><input name="'.$key.'" type="number" id="'.$key.'" class="form-control form-control-sm" value="'.html_specialchars($plugin['data'][$key]).'" maxlength="10" /></div>';
 			echo '</div>';
 			break;
 

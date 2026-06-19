@@ -573,7 +573,7 @@ echo $_save_close_buttons;
     				</div>
 							<span class="input-group-text"><?php echo $BL['be_article_cnt_before'] ?></span>
 					</div>
-					<input name="cbefore" type="text" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
+					<input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
 					<div class="input-group-append">
 						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
 					</div>
@@ -588,7 +588,7 @@ echo $_save_close_buttons;
     				</div>
 							<span class="input-group-text"><?php echo $BL['be_article_cnt_after'] ?></span>
 					</div>
-					<input name="cafter" type="text" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
+					<input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
 					<div class="input-group-append">
 						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
 					</div>
@@ -682,7 +682,7 @@ echo $_save_close_buttons;
     <div class="form-inline form-group align-items-center form-row">
       <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_cnt_sortvalue'] ?></label>
         <div class="col-sm-auto">
-          <input class="form-control form-control-sm" name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+          <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
         </div>
     </div>
 

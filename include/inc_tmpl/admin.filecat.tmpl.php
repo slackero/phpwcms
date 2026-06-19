@@ -98,7 +98,7 @@ if(isset($_GET['open'])) {
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td class="pb-2"><input name="fcat_sort" type="text" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fcat_sort" type="number" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>
@@ -216,7 +216,7 @@ if(isset($_GET['open'])) {
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td class="pb-2"><input name="fkey_sort" type="text" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fkey_sort" type="number" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>

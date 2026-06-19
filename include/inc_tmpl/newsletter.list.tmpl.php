@@ -101,8 +101,8 @@ if($_SESSION['newsletter_page'] < 1) {
 						echo '<i class="fa fa-angle-left fa-fw"></i></a>';
 						echo '</div>';
 				}
-				echo '<input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
-				echo '"  class="form-control" style="width:30px;font-weight:bold;" />';
+				echo '<input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
+				echo '"  class="form-control font-weight-bold w-25" />';
 				echo '<div class="input-group-append">';
 				echo '<label class="input-group-text" for="page">/'.$_newsletter['pages_total'].'&nbsp;</label>';
 				if($_SESSION['newsletter_page'] < $_newsletter['pages_total']) {

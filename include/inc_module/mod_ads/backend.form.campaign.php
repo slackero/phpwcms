@@ -30,8 +30,8 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			<input type="hidden" name="adcampaign_id" value="<?php echo $plugin['data']['adcampaign_id'] ?>" />
 
 			<div class="form-group row align-items-center">
-				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
-				<div class="col-sm-10">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
+				<div class="col-sm-9">
 					<span class="text-muted"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['adcampaign_changed']))) ?></span>
 					<?php if(!empty($plugin['data']['adcampaign_created'])): ?>
 						<span class="text-muted ml-3 small">(<?php echo $BL['be_fprivedit_created'] ?>: <?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['adcampaign_created']))) ?>)</span>
@@ -40,15 +40,15 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_title" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['campaign_entry'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_title" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['campaign_entry'] ?></label>
+				<div class="col-sm-9">
 					<input name="adcampaign_title" type="text" id="adcampaign_title" class="form-control form-control-sm<?php if(!empty($plugin['error']['adcampaign_title'])) echo ' is-invalid'; ?>" value="<?php echo html($plugin['data']['adcampaign_title']) ?>" maxlength="200" />
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_place" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['adplace'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_place" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['adplace'] ?></label>
+				<div class="col-sm-9">
 					<select name="adcampaign_place" id="adcampaign_place" class="custom-select custom-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
 						$sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_ads_place ap ';
@@ -81,7 +81,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-10 offset-sm-2">
+				<div class="col-sm-9 offset-sm-3">
 					<div class="form-row align-items-center">
 						<div class="col-auto">
 							<span class="small text-muted font-weight-bold mr-1"><?php echo $BL['be_admin_page_width'] ?>:</span>
@@ -120,8 +120,8 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_url" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['target_url'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_url" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['target_url'] ?></label>
+				<div class="col-sm-9">
 					<div class="form-row">
 						<div class="col-sm-8 mb-2 mb-sm-0">
 							<input type="text" name="adcampaign_url" id="adcampaign_url" value="<?php
@@ -150,68 +150,76 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row align-items-center">
-				<label for="adcampaign_date_start" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
-				<div class="col-sm-auto">
-					<div class="date input-group input-group-sm" id="datetimepickerstartdate">
-						<input type="text" class="form-control datetimepicker" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-						<div class="input-group-append">
-							<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+				<label for="adcampaign_date_start" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
+				<div class="col-sm-9">
+					<div class="form-row">
+						<div class="col-auto mb-2 mb-sm-0">
+							<div class="date input-group input-group-sm" id="datetimepickerstartdate">
+								<input type="text" class="form-control datetimepicker" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-sm-auto">
-					<div class="date input-group input-group-sm" id="datetimepickerstarttime">
-						<input type="text" class="form-control datetimepicker" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-						<div class="input-group-append">
-							<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+						<div class="col-auto mb-2 mb-sm-0">
+							<div class="date input-group input-group-sm" id="datetimepickerstarttime">
+								<input type="text" class="form-control datetimepicker" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group row align-items-center">
-				<label for="adcampaign_date_end" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_end'] ?></label>
-				<div class="col-sm-auto">
-					<div class="date input-group input-group-sm" id="datetimepickerenddate">
-						<input type="text" class="form-control datetimepicker" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-						<div class="input-group-append">
-							<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+				<label for="adcampaign_date_end" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_end'] ?></label>
+				<div class="col-sm-9">
+					<div class="form-row">
+						<div class="col-auto mb-2 mb-sm-0">
+							<div class="date input-group input-group-sm" id="datetimepickerenddate">
+								<input type="text" class="form-control datetimepicker" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-sm-auto">
-					<div class="date input-group input-group-sm" id="datetimepickerendtime">
-						<input type="text" class="form-control datetimepicker" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-						<div class="input-group-append">
-							<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+						<div class="col-auto mb-2 mb-sm-0">
+							<div class="date input-group input-group-sm" id="datetimepickerendtime">
+								<input type="text" class="form-control datetimepicker" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['tracking_base'] ?></label>
-				<div class="col-sm-10">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['tracking_base'] ?></label>
+				<div class="col-sm-9">
 					<div class="form-row">
 						<div class="col-auto">
 							<label for="adcampaign_max_views" class="small text-muted mb-1 d-block"><?php echo $BLM['max_view'] ?></label>
-							<input type="text" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_maxview']) ? '' : $plugin['data']['adcampaign_maxview'] ?>" class="form-control form-control-sm" style="width: 100px;" />
+							<input type="number" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_maxview']) ? '' : $plugin['data']['adcampaign_maxview'] ?>" class="form-control form-control-sm" />
 						</div>
 						<div class="col-auto">
 							<label for="adcampaign_max_click" class="small text-muted mb-1 d-block"><?php echo $BLM['max_click'] ?></label>
-							<input type="text" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_maxclick']) ? '' : $plugin['data']['adcampaign_maxclick'] ?>" class="form-control form-control-sm" style="width: 100px;" />
+							<input type="number" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_maxclick']) ? '' : $plugin['data']['adcampaign_maxclick'] ?>" class="form-control form-control-sm" />
 						</div>
 						<div class="col-auto">
 							<label for="adcampaign_max_viewuser" class="small text-muted mb-1 d-block"><?php echo $BLM['max_view_user'] ?></label>
-							<input type="text" name="adcampaign_max_viewuser" id="adcampaign_max_viewuser" value="<?php echo empty($plugin['data']['adcampaign_maxviewuser']) ? '' : $plugin['data']['adcampaign_maxviewuser'] ?>" class="form-control form-control-sm" style="width: 100px;" />
+							<input type="number" name="adcampaign_max_viewuser" id="adcampaign_max_viewuser" value="<?php echo empty($plugin['data']['adcampaign_maxviewuser']) ? '' : $plugin['data']['adcampaign_maxviewuser'] ?>" class="form-control form-control-sm" />
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_type'] ?></label>
-				<div class="col-sm-10 pt-1">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_type'] ?></label>
+				<div class="col-sm-9 pt-1">
 					<div class="custom-control custom-radio custom-control-inline">
 						<input type="radio" id="adcampaign_type_0" name="adcampaign_type" class="custom-control-input" value="0"<?php is_checked(0, $plugin['data']['adcampaign_type']) ?> />
 						<label class="custom-control-label" for="adcampaign_type_0"><?php echo $BLM['ad_type_0'] ?></label>
@@ -279,7 +287,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 
 			<?php if(empty($plugin['data']['adcampaign_id'])): ?>
 				<div class="form-group row">
-					<div class="col-sm-10 offset-sm-2">
+					<div class="col-sm-9 offset-sm-3">
 						<div class="p-3 mb-0 rounded" style="background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404 !important; font-weight: bold;">
 							<i class="fas fa-exclamation-triangle mr-2" style="color: #856404 !important;"></i> <?php echo $BLM['ad_info'] ?>
 						</div>
@@ -288,16 +296,16 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			<?php else: ?>
 				<?php if(isset($plugin['error']['image'])): ?>
 					<div class="form-group row">
-						<div class="col-sm-10 offset-sm-2 text-danger">
+						<div class="col-sm-9 offset-sm-3 text-danger">
 							<?php echo $plugin['error']['image'] ?>
 						</div>
 					</div>
 				<?php endif; ?>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label text-sm-right font-weight-bold">
+					<label class="col-sm-3 col-form-label text-sm-right font-weight-bold">
 						<a href="#" onclick="showImageAds();return false;" title="Preview"><?php echo $BLM['ad_type_0'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
-					<div class="col-sm-10">
+					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
 								<select name="adcampaign_image" id="adcampaign_image" class="custom-select custom-select-sm" style="width: 200px;">
@@ -314,16 +322,16 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 
 				<?php if(isset($plugin['error']['flash'])): ?>
 					<div class="form-group row">
-						<div class="col-sm-10 offset-sm-2 text-danger">
+						<div class="col-sm-9 offset-sm-3 text-danger">
 							<?php echo $plugin['error']['flash'] ?>
 						</div>
 					</div>
 				<?php endif; ?>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label text-sm-right font-weight-bold">
+					<label class="col-sm-3 col-form-label text-sm-right font-weight-bold">
 						<a href="#" onclick="showFlashAds();return false;" title="Preview"><?php echo $BLM['ad_type_1'] ?> <i class="fas fa-external-link-alt small"></i></a>
 					</label>
-					<div class="col-sm-10">
+					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
 								<select name="adcampaign_flash" id="adcampaign_flash" class="custom-select custom-select-sm" style="width: 200px;">
@@ -340,14 +348,14 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 
 				<?php if(isset($plugin['error']['css'])): ?>
 					<div class="form-group row">
-						<div class="col-sm-10 offset-sm-2 text-danger">
+						<div class="col-sm-9 offset-sm-3 text-danger">
 							<?php echo $plugin['error']['css'] ?>
 						</div>
 					</div>
 				<?php endif; ?>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label text-sm-right font-weight-bold">CSS</label>
-					<div class="col-sm-10">
+					<label class="col-sm-3 col-form-label text-sm-right font-weight-bold">CSS</label>
+					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
 								<select name="adcampaign_css" id="adcampaign_css" class="custom-select custom-select-sm" style="width: 200px;">
@@ -364,31 +372,31 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			<?php endif; ?>
 
 			<div class="form-group row">
-				<label for="adcampaign_html" class="col-sm-2 col-form-label text-sm-right font-weight-bold">
+				<label for="adcampaign_html" class="col-sm-3 col-form-label text-sm-right font-weight-bold">
 					<a href="#" onclick="showHtmlAds();return false;" title="Preview"><?php echo $BLM['ad_type_2'] ?> <i class="fas fa-external-link-alt small"></i></a>
 				</label>
-				<div class="col-sm-10">
+				<div class="col-sm-9">
 					<textarea name="adcampaign_html" id="adcampaign_html" rows="5" class="form-control form-control-sm code"><?php echo html($plugin['data']['adcampaign_data']['html']) ?></textarea>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_alt_text" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_alt_text'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_alt_text" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_alt_text'] ?></label>
+				<div class="col-sm-9">
 					<input name="adcampaign_alt_text" type="text" id="adcampaign_alt_text" class="form-control form-control-sm" value="<?php echo html($plugin['data']['adcampaign_data']['alt_text']) ?>" maxlength="200" />
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_title_text" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_title_text'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_title_text" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_title_text'] ?></label>
+				<div class="col-sm-9">
 					<input name="adcampaign_title_text" type="text" id="adcampaign_title_text" class="form-control form-control-sm" value="<?php echo html($plugin['data']['adcampaign_data']['title_text']) ?>" maxlength="200" />
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_settings'] ?></label>
-				<div class="col-sm-10">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_settings'] ?></label>
+				<div class="col-sm-9">
 					<div class="form-row">
 						<div class="col-auto">
 							<label for="adcampaign_bgcolor" class="small text-muted mb-1 d-block"><?php echo $BLM['ad_bgcolor'] ?></label>
@@ -417,14 +425,14 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row">
-				<label for="adcampaign_comment" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['comment'] ?></label>
-				<div class="col-sm-10">
+				<label for="adcampaign_comment" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['comment'] ?></label>
+				<div class="col-sm-9">
 					<textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="form-control form-control-sm"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-10 offset-sm-2">
+				<div class="col-sm-9 offset-sm-3">
 					<div class="custom-control custom-checkbox mb-2">
 						<?php if(empty($plugin['data']['adcampaign_id'])): ?>
 							<input type="checkbox" class="custom-control-input" name="adcampaign_status" id="adcampaign_status" value="1" disabled />
@@ -444,7 +452,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row mt-4 mb-0">
-				<div class="col-sm-10 offset-sm-2">
+				<div class="col-sm-9 offset-sm-3">
 					<?php if(empty($plugin['data']['adcampaign_id'])): ?>
 						<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
 					<?php else: ?>

@@ -429,16 +429,16 @@ if(!isset($_GET["s"])) {
     <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
       <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_margin']  ?></label>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_bottom" id="layout_border_bottom" value="<?php echo $pagelayout["layout_border_bottom"] ?>" placeholder="<?php echo $BL['be_admin_page_bottom'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_bottom" id="layout_border_bottom" value="<?php echo $pagelayout["layout_border_bottom"] ?>" placeholder="<?php echo $BL['be_admin_page_bottom'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_left" id="layout_border_left" value="<?php echo $pagelayout["layout_border_left"] ?>" placeholder="<?php echo $BL['be_admin_page_left'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_left" id="layout_border_left" value="<?php echo $pagelayout["layout_border_left"] ?>" placeholder="<?php echo $BL['be_admin_page_left'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
       </div>
       <div class="col">
       	<div class="form-check form-check-inline">

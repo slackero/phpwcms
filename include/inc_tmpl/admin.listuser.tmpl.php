@@ -161,8 +161,8 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             echo '<i class="fa fa-angle-left"></i></a>';
         }
         echo '</td>';
-        echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
-        echo '"  class="form-control form-control-sm" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+        echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
+        echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
         echo '<td>/'.$_userInfo['pages_total'].'&nbsp;</td>';
         echo '<td>';
         if($_SESSION['list_user_page'] < $_userInfo['pages_total']) {

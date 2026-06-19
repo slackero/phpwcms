@@ -167,8 +167,8 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
               echo '<i class="fa fa-angle-left"></i></a>';
           }
           echo '</td>';
-          echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['redirect_detail_page'];
-          echo '"  class="form-control form-control-sm" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+          echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['redirect_detail_page'];
+          echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
           echo '<td>/'.$_entry['pages_total'].'&nbsp;</td>';
           echo '<td>';
           if($_SESSION['redirect_detail_page'] < $_entry['pages_total']) {
@@ -342,13 +342,13 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   <div class="form-group form-row align-items-center">
     <label for="be_func_struct_articleID" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_func_struct_articleID'] ?></label>
     <div class="col-sm-5">
-      <input class="form-control form-control-sm col" name="aid" id="aid" value="<?php echo empty($data['aid']) ? '' : $data['aid'] ?>" type="text">
+      <input class="form-control form-control-sm col" name="aid" id="aid" value="<?php echo empty($data['aid']) ? '' : $data['aid'] ?>" type="number">
     </div>
     <div class="col-sm-5">
       <div class="form-row align-items-center">
         <label for="be_structure_id" class="col-sm-4 col-form-label text-right"><?php echo $BL['be_structure_id'] ?></label>
         <div class="col">
-          <input class="form-control form-control-sm col" name="id" id="id" value="<?php echo empty($data['id']) ? '' : $data['id'] ?>" type="text">
+          <input class="form-control form-control-sm col" name="id" id="id" value="<?php echo empty($data['id']) ? '' : $data['id'] ?>" type="number">
         </div>
       </div>
     </div>

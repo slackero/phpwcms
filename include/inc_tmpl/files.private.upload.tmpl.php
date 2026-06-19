@@ -523,8 +523,8 @@ document.getElementById("file").onchange = function(e) {
 
     <div class="form-group form-row align-items-center">
       <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
-      <div class="col-sm-4">
-     	<input name="file_sort" type="text" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort) ?>" />
+      <div class="col-auto">
+     	<input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort) ?>" />
       </div>
     </div>
 

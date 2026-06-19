@@ -141,7 +141,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-left"></i></button>
 								<?php endif; ?>
 							</div>
-							<input type="text" name="page" id="page" value="<?php echo $_SESSION['userdetail_page'] ?>" class="form-control text-center" style="width: 50px;" />
+							<input type="number" name="page" id="page" value="<?php echo $_SESSION['userdetail_page'] ?>" class="form-control text-center w-25" />
 							<div class="input-group-append">
 								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
 								<?php if($_SESSION['userdetail_page'] < $_entry['pages_total']): ?>
