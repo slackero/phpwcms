@@ -34,35 +34,35 @@ if (!defined('CMSGO_ROOT')) {
 
   <form action="cmsgo.php?do=profile" method="post" name="formprofiledetail" id="formprofiledetail" autocomplete="off">
     <div class="form-group row align-items-center">
-      <label for="be_profile_label_username" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_username"]  ?></label>
+      <label for="form_loginname" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_username"]  ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_loginname" id="form_loginname" value="<?php echo html($_SESSION["wcs_user"]); ?>" autocomplete="off">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="be_profile_label_newpass" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_newpass"]  ?></label>
+      <label for="form_password" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_newpass"]  ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_password" id="form_password" value="" autocomplete="new-password">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="be_profile_label_repeatpass" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_repeatpass"]  ?></label>
+      <label for="form_password2" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_repeatpass"]  ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_password2" id="form_password2" value="" autocomplete="new-password">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="be_profile_label_email" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_email"]  ?></label>
+      <label for="form_useremail" class="col-sm-2 col-form-label text-right"><?php echo $BL["be_profile_label_email"]  ?></label>
       <div class="col">
         <input type="text" class="form-control form-control-sm col-sm-5" name="form_useremail" id="form_useremail" value="<?php echo html($_SESSION["wcs_user_email"]); ?>" autocomplete="off">
       </div>
     </div>
 
     <div class="form-group row align-items-center">
-      <label for="be_profile_label_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+      <label for="form_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
       <div class="col-sm-3">
         <select name="form_lang" id="form_lang" class="custom-select form-control form-control-sm">
           <?php
@@ -132,9 +132,8 @@ if (!defined('CMSGO_ROOT')) {
     <hr />
 
     <div class="row">
-      <label for="be_structform_select_cp" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_structform_select_cp'] ?></label>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_structform_select_cp'] ?></label>
       <div class="col-sm-10">
-        <div class="form-check form-check-inline">
           <div class="row">
             <?php
                     $has_selected_cp    = isset($_SESSION["wcs_user_cp"]) ? count($_SESSION["wcs_user_cp"]) : 0;
@@ -143,26 +142,29 @@ if (!defined('CMSGO_ROOT')) {
                             foreach($wcs_content_type as $key => $value):
                             if($has_allowed_cp && !isset($_SESSION["wcs_allowed_cp"][$key])):
             ?>
-            <div class="col-sm-6 col-md-4">
+            <div class="col-sm-6 col-md-4 mb-2">
+                <div class="form-check">
                   <input type="checkbox" disabled="disabled" class="form-check-input" />
                   <label class="form-check-label">
                     <?php echo html($value) ?>
                   </label>
+                </div>
             </div>
             <?php
                     continue;
             endif;
             ?>
-            <div class="col-sm-6 col-md-4">
-                <input type="checkbox" class="form-check-input" name="profile_account_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_selected_cp || isset($_SESSION["wcs_user_cp"][$key])): ?> checked="checked"<?php endif; ?> />
-                <label class="form-check-label">
-                  <?php echo html($value) ?>
-                </label>
+            <div class="col-sm-6 col-md-4 mb-2">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="profile_account_cp_<?php echo $key ?>" name="profile_account_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_selected_cp || isset($_SESSION["wcs_user_cp"][$key])): ?> checked="checked"<?php endif; ?> />
+                  <label class="form-check-label" for="profile_account_cp_<?php echo $key ?>">
+                    <?php echo html($value) ?>
+                  </label>
+                </div>
             </div>
             <?php   endforeach; ?>
             <input type="hidden" name="profile_cp_total" value="<?php echo count($wcs_content_type) ?>" />
           </div>
-        </div>
       </div>
     </div>
 

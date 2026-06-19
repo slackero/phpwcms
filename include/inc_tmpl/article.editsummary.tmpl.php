@@ -61,7 +61,7 @@ $langstr = '';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="cat-as-articletitle" class="col-sm-2 col-form-label text-right"><a class="underline" href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a></label>
+    <label for="article_title" class="col-sm-2 col-form-label text-right"><a class="underline" href="#" id="cat-as-articletitle"><?php echo $BL['be_article_atitle'] ?></a></label>
     <div class="col-sm-8">
       <input name="article_title" type="text" class="form-control form-control-sm" id="article_title" value="<?php echo html($article["article_title"]) ?>" size="40" maxlength="5000" required />
     </div>
@@ -74,14 +74,14 @@ $langstr = '';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="cat-as-articlesubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+    <label for="article_subtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
     <div class="col-sm-8">
       <input name="article_subtitle" type="text" class="form-control form-control-sm" id="article_subtitle" value="<?php echo html($article["article_subtitle"]) ?>" size="40" maxlength="5000" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_urlalias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_urlalias'] ?></label>
+    <label for="article_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_urlalias'] ?></label>
     <div class="col-sm-4">
       <input name="article_alias" type="text" class="form-control form-control-sm" id="article_alias" value="<?php echo html($article["article_alias"]) ?>" maxlength="1000"<?php if (empty($cmsgo['allow_empty_alias'])): ?> onfocus="set_article_alias(true);"<?php endif; ?> onchange="this.value=create_alias(this.value);" />
     </div>
@@ -95,7 +95,7 @@ $langstr = '';
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_abegin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
+    <label for="set_begin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
     <div class="col-sm-auto">
       <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], '') ?>' : '';">
     </div>
@@ -110,7 +110,7 @@ $langstr = '';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_aend" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
+    <label for="set_end" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
     <div class="col-sm-auto">
       <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], '') ?>' : '';">
     </div>
@@ -148,14 +148,14 @@ $langstr = '';
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_sortvalue" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sortvalue'] ?></label>
+    <label for="article_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sortvalue'] ?></label>
     <div class="col-sm-4">
       <input name="article_sort" type="text" id="article_sort" value="<?php echo empty($article["article_sort"]) ? 0 : intval($article["article_sort"]) ?>" class="form-control form-control-sm" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_sortvalue" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
+    <label for="article_priorize" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
     <div class="col-sm-4">
       <select name="article_priorize" id="article_priorize" class="custom-select form-control form-control-sm">
         <?php
@@ -170,14 +170,14 @@ $langstr = '';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_alias_articleID" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_alias_articleID'] ?></label>
+    <label for="article_aliasid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_alias_articleID'] ?></label>
     <div class="col-sm-4">
       <input name="article_aliasid" type="text" class="form-control form-control-sm" id="article_aliasid" value="<?php echo $article["article_aliasid"] ? $article["article_aliasid"] : ''; ?>" size="11" maxlength="11" />
     </div>
     <div class="col-sm-6">
       <div class="form-check">
         <input class="form-check-input" name="article_headerdata" id="article_headerdata" type="checkbox" value="1" <?php is_checked($article["article_headerdata"], 1) ?> />
-        <label class="form-check-label"><?php echo $BL['be_alias_useAll'] ?></label>
+        <label class="form-check-label" for="article_headerdata"><?php echo $BL['be_alias_useAll'] ?></label>
       </div>
     </div>
   </div>

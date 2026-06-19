@@ -79,7 +79,7 @@ if($subscription["id"]) {
       </div>
 
       <div class="form-group form-row">
-          <label for="subscription_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_info'] ?></label>
+          <label for="subscription_info" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_info'] ?></label>
           <div class="col-sm-10">
             <textarea name="subscription_info" cols="35" rows="6" class="form-control form-control-sm autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea>
           </div>

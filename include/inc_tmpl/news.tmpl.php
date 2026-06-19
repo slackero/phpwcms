@@ -289,14 +289,14 @@ if($news->data['cnt_id']) {
 
 <div class="card-body">
   <div class="form-group align-items-center form-row">
-    <label for="be_article_cnt_ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+    <label for="cnt_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
     <div class="col">
       <input name="cnt_title" class="form-control form-control-sm" id="cnt_title" value="<?php echo html($news->data['cnt_title']) ?>" maxlength="250" type="text" required >
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_asubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+    <label for="cnt_subtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
     <div class="col">
       <input name="cnt_subtitle" class="form-control form-control-sm" id="cnt_subtitle" value="<?php echo html($news->data['cnt_subtitle']) ?>" maxlength="250" type="text">
     </div>
@@ -305,7 +305,7 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center form-row">
-      <label for="be_teasertext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_teasertext'] ?></label>
+      <label for="cnt_teasertext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_teasertext'] ?></label>
     <div class="form-check form-check-inline col-sm-auto">
       <input class="form-check-input" type="radio" id="text_format0" name="cnt_textformat" value="plain"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
       <label class="form-check-label" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
@@ -441,21 +441,21 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_cnt_ctitle" class="col-sm-2 col-form-label text-right"><a id="cnt_name_click" class="underline text-blue"><?php echo $BL['be_title'] ?></a></label>
+    <label for="cnt_name" class="col-sm-2 col-form-label text-right"><a id="cnt_name_click" class="underline text-blue"><?php echo $BL['be_title'] ?></a></label>
     <div class="col">
       <input name="cnt_name" class="form-control form-control-sm" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" placeholder="<?php echo $BL['be_title'] ?>" maxlength="200" type="text" required>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
+    <label for="cnt_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
     <div class="col">
       <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="200" type="text" required>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+    <label for="news_keyword_autosuggest" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
     <div class="col">
       <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm"  /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
     </div>
@@ -485,7 +485,7 @@ if($news->data['cnt_id']) {
   <?php endif;  ?>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_priorize" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
+      <label for="cnt_prio" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
       <div class="col-sm-4">
         <select name="cnt_prio" id="cnt_prio"  class="custom-select form-control form-control-sm" data-toggle="tooltip" title="<?php echo $BL['be_priorize'] ?>">
           <?php
@@ -520,7 +520,7 @@ if($news->data['cnt_id']) {
   <hr />
 
     <div class="form-group align-items-center form-row">
-        <label for="be_cnt_image" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
+        <label for="cnt_image_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
         <div class="col-sm-4">
             <div class="input-group">
                 <span class="input-group-prepend">
@@ -553,7 +553,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2 text-right"><?php echo $BL['be_cnt_caption'] ?></label></label>
+      <label for="cnt_image_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
       <div class="col">
         <textarea name="cnt_image_caption" id="cnt_image_caption" class="form-control form-control-sm" rows="3"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
            <div class="pt-2">
@@ -571,7 +571,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center form-row">
-        <label for="be_profile_label_website" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_website'] ?></label>
+        <label for="cnt_image_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_website'] ?></label>
         <div class="col">
             <input name="cnt_image_link" class="form-control form-control-sm" id="cnt_image_link" value="<?php echo html($news->data['cnt_image']['link']) ?>" maxlength="500" type="text">
     </div>
@@ -585,7 +585,7 @@ if($news->data['cnt_id']) {
   $news->fileRows = $news->fileCount ? $news->fileCount+1 : 6;
 ?>
   <div class="form-group form-row" >
-      <label for="be_selection" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+      <label for="cfile_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
       <div class="col">
         <select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="custom-select form-control form-control-sm h-100">
       <?php if($news->fileCount) {
@@ -605,7 +605,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2 text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <label for="cnt_file_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
       <div class="col">
         <textarea name="cnt_file_caption" id="cnt_file_caption" class="form-control form-control-sm" rows="<?php echo $news->fileRows ?>"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
            <div class="pt-2">
@@ -628,16 +628,16 @@ if($news->data['cnt_id']) {
     <label class="col-sm-2 col-form-label text-right"></label>
     <div class="form-check form-check-inline col-sm-auto">
             <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
-            <label class="form-check-label" for="be_imagefiles_as_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
+            <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
     </div>
     <div class="form-check form-check-inline col-sm-auto">
             <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
-            <label class="form-check-label" for="be_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label>
+            <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_read_more_link'] ?></label>
+    <label for="cnt_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_read_more_link'] ?></label>
     <div class="col-sm-4">
         <div class="input-group">
           <span class="input-group-prepend">
@@ -660,18 +660,18 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_admin_page_text" class="col-sm-2 col-form-label text-right">URL <?php echo $BL['be_admin_page_text'] ?></label>
+      <label for="cnt_linktext" class="col-sm-2 col-form-label text-right">URL <?php echo $BL['be_admin_page_text'] ?></label>
         <div class="col">
             <input name="cnt_linktext" class="form-control form-control-sm" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="URL <?php echo $BL['be_admin_page_text'] ?>">
         </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_article_username" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_username'] ?></label>
+      <label for="cnt_editor" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_username'] ?></label>
         <div class="col">
             <input name="cnt_editor" class="form-control form-control-sm" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_article_username'] ?>">
         </div>
-       <label for="be_place" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_place'] ?></label>
+       <label for="cnt_place" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_place'] ?></label>
         <div class="col">
             <input name="cnt_place" class="form-control form-control-sm" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_place'] ?>">
         </div>

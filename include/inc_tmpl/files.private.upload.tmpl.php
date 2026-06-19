@@ -344,15 +344,15 @@ document.getElementById("file").onchange = function(e) {
 
   <div class="form-group form-row align-items-center">
     <?php if(isset($file_error["upload"])) { ?>
-      <label for="uploaderror" class="col-sm-2 col-form-label text-right danger"><?php echo $file_error["upload"] ?></label>
+      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["upload"] ?></span>
     <?php }
 
     if(isset($file_error["file"])) {
       ?>
-      <label for="fileerror" class="col-sm-2 col-form-label text-right danger"><?php echo $file_error["file"] ?></label>
+      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["file"] ?></span>
     <?php } ?>
 
-    <label for="fprivup" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fprivup_upload'] ?></label>
+    <label for="file" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fprivup_upload'] ?></label>
     <div class="col-sm-4">
       <!-- JS: input:file mitnehmen -->
       <div class="input-group">
@@ -365,7 +365,7 @@ document.getElementById("file").onchange = function(e) {
   </div>
 <hr />
 	<div class="form-group form-row align-items-center">
-		<label for="be_iptc_data" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+		<label for="file_iptc_as_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
 			<div class="col form-check form-check-inline">
 				<input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($cmsgo['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
 				<label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
@@ -507,14 +507,14 @@ document.getElementById("file").onchange = function(e) {
     <?php echo $k; ?>
 
     <div class="form-group form-row align-items-center">
-      <label for="be_ftptakeover_additional" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
       <div class="col">
      		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo) ?>" maxlength="750">
       </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-      <label for="be_tags" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+      <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
       <div class="col">
      	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" />
      	<input name="file_tags" type="hidden" id="file_tags" value="" />
@@ -522,14 +522,14 @@ document.getElementById("file").onchange = function(e) {
     </div>
 
     <div class="form-group form-row align-items-center">
-      <label for="be_ftptakeover_additional" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+      <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
       <div class="col-sm-4">
      	<input name="file_sort" type="text" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort) ?>" />
       </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-    	<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    	<label for="file_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
     	<div class="form-check form-check-inline">
 				<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> />
 				<label class="form-check-label" for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
@@ -577,7 +577,7 @@ document.getElementById("file").onchange = function(e) {
     ?>" />
 
     <div class="form-group form-row align-items-center mt-3">
-    	<label for="be_ftptakeover_status" class="col-sm-2 col-form-label"></label>
+    	<span class="col-sm-2 col-form-label"></span>
     	<div class="col text-center text-sm-left">
 				<input name="Submit" type="submit" class="btn btn-blue btn-sm mr-1" value="<?php echo $BL['be_fprivup_button'] ?>" />
 				<input type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='cmsgo.php?do=files&amp;f=0'" />

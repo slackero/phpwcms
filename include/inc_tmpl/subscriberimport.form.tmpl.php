@@ -89,7 +89,7 @@ ORIGINAL
   </div>
 
   <div class="form-group align-items-center form-row has-danger">
-      <label for="cat-as-articletitle" class="col-sm-2 col-form-label text-right">
+      <label for="delimeter" class="col-sm-2 col-form-label text-right">
         <?php echo $BL['be_newsletter_delimeter'] ?>
       </label>
     <div class="col-sm-auto">
@@ -114,7 +114,7 @@ if($_userInfo['select_subscr']) {
       <div class="col">
       	<div class="form-check">
 					<input class="form-check-input" name="subscribe_active" id="subscribe_active" type="checkbox" value="1" <?php is_checked($_userInfo['subscribe_active'], 1) ?>/>
-					<label class="form-check-label"><?php echo $BL['be_cnt_activated'] ?></label>
+					<label class="form-check-label" for="subscribe_active"><?php echo $BL['be_cnt_activated'] ?></label>
 				</div>
       </div>
     </div>

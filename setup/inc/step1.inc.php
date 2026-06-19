@@ -23,7 +23,7 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
 <form action="setup.php?step=1" method="post" autocomplete="off">
         <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
-            <td align="right" class="v10" width="120">MySQL host and port:&nbsp;</td>
+            <td align="right" class="v10" width="120"><label for="db_host">MySQL host and port:&nbsp;</label></td>
             <td width="270">
                 <input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($cmsgo["db_host"]) ?>" placeholder="localhost" size="30" style="width:250px" />
                 <input name="db_port" type="text" class="v12" id="db_port" value="<?php echo $cmsgo["db_port"] ?>" placeholder="localhost" size="4" style="width:45px" />
@@ -33,28 +33,28 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB user:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_user">DB user:&nbsp;</label></td>
             <td><input name="db_user" type="text" class="v12" id="db_user" style="width:300px" value="<?php echo html_specialchars($cmsgo["db_user"]) ?>" placeholder="database user" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB password:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_pass">DB password:&nbsp;</label></td>
             <td><input name="db_pass" type="text" class="v12" id="db_pass" style="width:300px" value="<?php echo html_specialchars($cmsgo["db_pass"]) ?>" placeholder="database password" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB database:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_table">DB database:&nbsp;</label></td>
             <td><input name="db_table" type="text" class="v12" id="db_table" style="width:300px" value="<?php echo html_specialchars($cmsgo["db_table"]) ?>" placeholder="database name" size="30" maxlength="255" /></td>
             <td class="chatlist"><em>you have to create it <strong>before</strong> setup!!!</em></td>
           </tr>
           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
           </tr>
           <tr>
-            <td align="right" class="v10">DB table prefix:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_prepend">DB table prefix:&nbsp;</label></td>
             <td><input name="db_prepend" type="text" class="v12" id="db_prepend" style="width:300px" value="<?php echo html_specialchars($prepend) ?>" size="30" maxlength="10" /></td>
             <td class="chatlist"><em>default: none (&quot;&quot;), if filled
                 in it will be <strong>prefix</strong>+<strong>_</strong></em></td>

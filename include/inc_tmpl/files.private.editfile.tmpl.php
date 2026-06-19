@@ -429,25 +429,25 @@ if($ja) {
 ?>
     <div class="tab-pane" id="<?php echo $lang ?>" role="tabpanel">
       <div class="form-group form-row align-items-center">
-        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+        <label for="file_title_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
         <div class="col">
           <input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['title']) ?>" />
         </div>
       </div>
       <div class="form-group form-row">
-        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+        <label for="file_longinfo_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
         <div class="col">
           <textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="form-control autosize" id="file_longinfo_<?php echo $lang ?>"><?php echo html($file_vars[$lang]['longinfo']) ?></textarea>
         </div>
       </div>
       <div class="form-group form-row align-items-center">
-        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+        <label for="file_copyright_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
         <div class="col">
           <input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['copyright']) ?>" />
         </div>
       </div>
       <div class="form-group form-row align-items-center">
-        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+        <label for="file_alt_<?php echo $lang ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
         <div class="col">
           <input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['alt']) ?>" />
        </div>
@@ -468,7 +468,7 @@ if($ja) {
 ?>
 
 <div class="form-group form-row align-items-center">
-  <label for="be_iptc_data" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
 		<div class="col-sm-auto">
 			<div class="form-check form-check-inline">
 				<input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($cmsgo['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
@@ -524,7 +524,7 @@ if($ja) {
 
     ?>
     <div class="form-group form-row align-items-center">
-      <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_keywords'] ?><?php if($k) echo $k; ?> <?php echo $BL['be_ftptakeover_additional'] ?></label>
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_keywords'] ?><?php if($k) echo $k; ?> <?php echo $BL['be_ftptakeover_additional'] ?></label>
       <div class="col"><input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="<?php echo html($file_shortinfo) ?>" maxlength="750">
       </div>
     </div>
@@ -544,7 +544,7 @@ if($ja) {
   </div>
 
   <div class="form-group form-row align-items-center">
-    <label for="file_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
 
       <div class="col">
         <div class="form-check form-check-inline">

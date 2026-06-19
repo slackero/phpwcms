@@ -110,7 +110,7 @@ if(!empty($ja)) {
 		<div class="card-body">
 			<form action="cmsgo.php?do=files&amp;f=0" method="post" name="editdir" id="editdir">
 				<div class="form-group align-items-center form-row">
-						<label for="target_ctype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+						<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
 						<div class="col-sm-4">
 							<strong><?php echo $dir_oldname ?></strong>
 					</div>

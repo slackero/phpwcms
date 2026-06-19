@@ -144,7 +144,7 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
         </div>
 
         <div class="form-group form-row align-items-center">
-            <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right">JS onload</label>
+            <label for="template_jsonload" class="col-sm-2 col-form-label text-right">JS onload</label>
             <div class="col">
                 <input class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="" type="text">
             </div>
@@ -270,14 +270,14 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
 	<?php if($k) echo $k; ?>
 
     <div class="form-group form-row align-items-center">
-      <label for="be_ftptakeover_additional" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
       <div class="col">
      	<input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="" maxlength="250" />
       </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-      <label for="be_tags" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+      <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
       <div class="col">
      	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" />
      	<input name="file_tags" type="hidden" id="file_tags" value="" />
@@ -285,7 +285,7 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
     </div>
 
     <div class="form-group form-row align-items-center">
-    	<label for="be_ftptakeover_status" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
     	<div class="col form-check-inline">
     		<div class="form-check form-check-inline">
 					<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($cmsgo['set_file_active'], 1) ?> />

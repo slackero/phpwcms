@@ -46,14 +46,14 @@ if($action == 'form' && $article_id) {
     $content['current_article'] = _dbGet('cmsgo_article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="p-2">'.LF;
-    echo '<div class="form-group form-row align-items-center my-0"><label class="col-sm-2 col-form-label text-right" for="article_title">'.$BL['be_article_atitle'] .':</label><div class="col-sm-10"> '. html_specialchars($content['current_article'][0]['article_title']).'</div></div>';
-    echo '<div class="form-group form-row align-items-center my-0"><label class="col-sm-2 col-form-label text-right" for="article_keyword">'.$BL['be_article_akeywords'] .':</label><div class="col-sm-10"> '. html_specialchars($content['current_article'][0]['article_keyword']).'</div></div>';
-    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="articles">'.$BL['be_cnt_left'] .':</label><div class="col-sm-10">';
+    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_article_atitle'] .':</span><div class="col-sm-10"> '. html_specialchars($content['current_article'][0]['article_title']).'</div></div>';
+    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_article_akeywords'] .':</span><div class="col-sm-10"> '. html_specialchars($content['current_article'][0]['article_keyword']).'</div></div>';
+    echo '<div class="form-group form-row align-items-center"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_cnt_left'] .':</span><div class="col-sm-10">';
     echo '<a href="cmsgo.php?do=articles&p=2&s=1&id=' . $article_id . '" target="_blank">'.$BL['be_cnt_articles'] .'</a>'.LF;
     echo '| <a href="index.php?aid=' . $article_id . '" target="_blank">'.$BL['be_func_struct_preview'] .'</a></div></div>'.LF;
-    echo '<div class="form-group form-row"><label class="col-sm-2 col-form-label text-right" for="article_description">'.$BL['be_cnt_description'] .':</label><div class="col-sm-10">'.LF;
+    echo '<div class="form-group form-row"><label class="col-sm-2 col-form-label text-right font-weight-bold" for="article_description'.$article_id.'">'.$BL['be_cnt_description'] .':</label><div class="col-sm-10">'.LF;
     echo '<textarea name="article_description" rows="3" class="form-control form-control-sm"" id="article_description'.$article_id.'">'.html_specialchars($content['current_article'][0]['article_description']).'</textarea></div></div>'.LF;
-    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="article_alias">'.$BL['be_article_urlalias'] .':</label><div class="col-sm-10">'.LF;
+    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right font-weight-bold" for="article_alias'.$article_id.'">'.$BL['be_article_urlalias'] .':</label><div class="col-sm-10">'.LF;
     echo '<input name="article_alias" type="text" class="form-control form-control-sm" id="article_alias'. $article_id.'" value="'.html_specialchars($content['current_article'][0]['article_alias']).'" maxlength="230" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
     echo '<div class="form-group form-row align-items-center">'.LF;
     echo '<div class="col-sm-2"></div>'.LF;
@@ -70,15 +70,15 @@ if($action == 'form' && $acat_id) {
     $acat_template = $content['current_template'][0]['template_name'];
 
     echo '<div class="p-2">'.LF;
-    echo '<div class="form-group form-row align-items-center my-0"><label class="col-sm-2 col-form-label text-right" for="acat_name">'.$BL['be_admin_struct_cat'] .'</label><div class="col-sm-10">'. html_specialchars($content['current_articlecat'][0]['acat_name']).'</div></div>';
-    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="template_name">'.$BL['be_admin_struct_template'] .'</label><div class="col-sm-10">'. html_specialchars($content['current_template'][0]['template_name']).'</div></div>'.LF;
+    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_admin_struct_cat'] .'</span><div class="col-sm-10">'. html_specialchars($content['current_articlecat'][0]['acat_name']).'</div></div>';
+    echo '<div class="form-group form-row align-items-center"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_admin_struct_template'] .'</span><div class="col-sm-10">'. html_specialchars($content['current_template'][0]['template_name']).'</div></div>'.LF;
     if ($content['current_articlecat'][0]['acat_keywords']!='') {
-        echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="acat_keywords">'.$BL['be_article_akeywords'] .'</label><div class="col-sm-10">'. html_specialchars($content['current_articlecat'][0]['acat_keywords']).'</div></div>'.LF;
+        echo '<div class="form-group form-row align-items-center"><span class="col-sm-2 col-form-label text-right font-weight-bold">'.$BL['be_article_akeywords'] .'</span><div class="col-sm-10">'. html_specialchars($content['current_articlecat'][0]['acat_keywords']).'</div></div>'.LF;
     }
-    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="acat_alias">'.$BL['be_admin_struct_alias'] .'</label>'.LF;
+    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right font-weight-bold" for="acat_alias'.$acat_id.'">'.$BL['be_admin_struct_alias'] .'</label>'.LF;
     echo '<div class="col-sm-10"><input name="acat_alias" type="text" class="form-control form-control-sm" id="acat_alias'. $acat_id.'" value="'.html_specialchars($content['current_articlecat'][0]['acat_alias']).'" maxlength="230" onfocus="set_article_alias(true,' . "'struct'" . ');" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
 
-    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right" for="acat_pagetitle">'.$BL['be_admin_page_pagetitle'] .'</label>'.LF;
+    echo '<div class="form-group form-row align-items-center"><label class="col-sm-2 col-form-label text-right font-weight-bold" for="acat_pagetitle'.$acat_id.'">'.$BL['be_admin_page_pagetitle'] .'</label>'.LF;
     echo '<div class="col-sm-10"><input name="template" type="hidden" id="template'.$acat_id.'" value="'.$content['current_articlecat'][0]['acat_template'].'">'.LF;
     echo '<input name="acat_pagetitle" class="form-control form-control-sm" id="acat_pagetitle'.$acat_id.'" value="'.html_specialchars($content['current_articlecat'][0]['acat_pagetitle']).'" maxlength="230"></div></div>'.LF;
     echo '<div class="row my-3">'.LF;

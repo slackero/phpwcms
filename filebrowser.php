@@ -184,15 +184,15 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 	  <div id="fileuploader">Upload</div>
     <div class="filebrowser-form">
 			<p>
-				<label class="chatlist"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<label class="chatlist" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
 				<textarea cols="40" rows="3" id="file_longinfo" class="form-control"></textarea>
 			</p>
 			<p>
-				<label class="chatlist"><?php echo $BL['be_copyright'] ?></label>
+				<label class="chatlist" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
 				<input name="file_copyright" type="text" id="file_copyright" class="form-control" maxlength="255" value="" />
 			</p>
 			<p>
-				<label class="chatlist"><?php echo $BL['be_tags'] ?></label>
+				<label class="chatlist" for="file_tags_autosuggest"><?php echo $BL['be_tags'] ?></label>
 				<input type="text" id="file_tags_autosuggest" class="form-control" />
 			</p>
       <div class="btn btb-default" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>

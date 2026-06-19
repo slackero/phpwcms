@@ -104,7 +104,7 @@ if($_SESSION['newsletter_page'] < 1) {
 				echo '<input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
 				echo '"  class="form-control" style="width:30px;font-weight:bold;" />';
 				echo '<div class="input-group-append">';
-				echo '<label class="input-group-text" for="inputGroupSelect01">/'.$_newsletter['pages_total'].'&nbsp;</label>';
+				echo '<label class="input-group-text" for="page">/'.$_newsletter['pages_total'].'&nbsp;</label>';
 				if($_SESSION['newsletter_page'] < $_newsletter['pages_total']) {
 						echo '<a class="btn btn-blue" href="cmsgo.php?do=messages&amp;p=3&amp;page='.($_SESSION['newsletter_page']+1).'">';
 						echo '<i class="fa fa-angle-right fa-fw"></i></a>';

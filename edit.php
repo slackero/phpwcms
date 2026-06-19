@@ -422,7 +422,7 @@ ob_start();
 
 ?>
 <div class="form-group">
-	<label class="sr-only" for="loginname"><?php echo $BL["login_username"] ?></label>
+	<label class="sr-only" for="form_loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
@@ -432,7 +432,7 @@ ob_start();
 </div>
 
 <div class="form-group">
-	<label class="sr-only" for="inputPassword"><?php echo $BL["login_userpass"] ?></label>
+	<label class="sr-only" for="form_password"><?php echo $BL["login_userpass"] ?></label>
     <div class="input-group">
 	    <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
@@ -442,7 +442,7 @@ ob_start();
 </div>
 <hr class="mt-4 mb-3" />
 <div class="form-group">
-	<label for="inputPassword"><?php echo $BL["login_lang"] ?></label>
+	<label for="form_lang"><?php echo $BL["login_lang"] ?></label>
     <div class="input-group">
         <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
         <?php

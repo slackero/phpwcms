@@ -223,7 +223,7 @@ function showAction() {
         <div id="div_folder" style="display: none;">
           <div class="form-group form-row align-items-center">
           	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemfolder']; ?></div>
-						<label for="be_ftptakeover_directory" class="col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+						<label for="file_newdir" class="col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
 						<div class="col-sm-auto">
 							<select name="file_newdir" id="file_newdir" class="custom-select form-control form-control-sm">
 								<option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
@@ -235,7 +235,7 @@ function showAction() {
 
         <div id="div_status" style="display: none;">
           <div class="form-group form-row align-items-center">
-						<label for="be_ftptakeover_status" class="col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+						<label class="col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
 						<div class="col-sm-auto">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1" />
@@ -252,7 +252,7 @@ function showAction() {
         <div id="div_user" style="display: none;">
         	<div class="form-group form-row align-items-center">
           	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemuser']; ?></div>
-						<label for="be_ftptakeover_directory" class="col-form-label text-right"><?php echo $BL["login_username"] ?></label>
+						<label for="file_user" class="col-form-label text-right"><?php echo $BL["login_username"] ?></label>
 						<div class="col">
 							<select name="file_user" id="file_user" class="custom-select form-control form-control-sm col-sm-4">
               <?php

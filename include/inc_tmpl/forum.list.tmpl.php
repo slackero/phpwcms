@@ -127,12 +127,12 @@ if(isset($result[0]['forum_id'])) {
     <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="12"></td></tr>
     <tr bgcolor="#E6EAED">
-        <td align="right" class="chatlist">&nbsp;<?php echo  $BL['be_forum_title'] ?>:&nbsp;</td>
+        <td align="right" class="chatlist">&nbsp;<label for="forum_title"><?php echo  $BL['be_forum_title'] ?></label>:&nbsp;</td>
         <td><input name="forum_title" type="text" class="f11b" id="forum_title" style="width:440px" value="<?php echo html($forum["title"]) ?>" size="50" maxlength="250"></td>
     </tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
     <tr bgcolor="#E6EAED">
-        <td align="right" valign="top" bgcolor="#E6EAED" class="chatlist"><img src="img/leer.gif" alt="" width="5" height="16"><?php echo  $BL['be_cnt_description'] ?>:&nbsp;</td>
+        <td align="right" valign="top" bgcolor="#E6EAED" class="chatlist"><img src="img/leer.gif" alt="" width="5" height="16"><label for="forum_text"><?php echo  $BL['be_cnt_description'] ?></label>:&nbsp;</td>
         <td><textarea name="forum_text" cols="35" rows="6" class="width440" id="forum_text"><?php echo html($forum["text"]); ?></textarea></td>
     </tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
