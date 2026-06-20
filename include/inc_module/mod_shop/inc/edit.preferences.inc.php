@@ -24,17 +24,17 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></span>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_felang" id="pref_felang" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_felang']) ?> onchange="enableSubmit();" />
-                <label class="form-check-label"><?php echo $BLM['shopprod_lang_support'] . ' (' . strtoupper(implode('/', $cmsgo['allowed_lang'])) . ')' ?></label>
+                <label class="form-check-label" for="pref_felang"><?php echo $BLM['shopprod_lang_support'] . ' (' . strtoupper(implode('/', $cmsgo['allowed_lang'])) . ')' ?></label>
             </div>
         </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_email_from" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_currency'] ?></label>
+        <label for="pref_currency" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_currency'] ?></label>
         <div class="col col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_currency" id="pref_currency" value="<?php echo html_specialchars($plugin['data']['shop_pref_currency']) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
         </div>
@@ -42,7 +42,7 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_email_from" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] . ' - ' . $BLM['shopprod_weight'] ?></label>
+        <label for="pref_unit_weight" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] . ' - ' . $BLM['shopprod_weight'] ?></label>
         <div class="col col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_unit_weight" id="pref_unit_weight" value="<?php echo html_specialchars($plugin['data']['shop_pref_unit_weight']) ?>" size="10" maxlength="10" onchange="enableSubmit();" />
         </div>
@@ -50,7 +50,7 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-top">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_vat_rates'] ?></label>
+        <label for="pref_vat" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_vat_rates'] ?></label>
         <div class="col col-sm-4 align-items-top">
             <textarea class="form-control form-control-sm text-right" name="pref_vat" id="pref_vat" rows="3" onchange="enableSubmit();" />
             <?php
@@ -64,28 +64,28 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_email_to" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_to'] ?></label>
+        <label for="pref_email_to" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_to'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_email_to" id="pref_email_to" value="<?php echo html_specialchars(str_replace(';', '; ', $plugin['data']['shop_pref_email_to'])) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_email_from" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_from'] ?></label>
+        <label for="pref_email_from" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_email_from'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_email_from" id="pref_email_from" value="<?php echo html_specialchars($plugin['data']['shop_pref_email_from']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_id_shop" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_shop'] ?></label>
+        <label for="pref_shop_id" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_shop'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_shop_id" id="pref_shop_id" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_shop']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_id_cart" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_cart'] ?></label>
+        <label for="pref_cart_id" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_id_cart'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_cart_id" id="pref_cart_id" value="<?php echo html_specialchars($plugin['data']['shop_pref_id_cart']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
@@ -94,19 +94,19 @@ if (!defined('CMSGO_ROOT')) {
     <hr />
 
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_shipping'] ?></label>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_shipping'] ?></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" name="pref_shipping_calc" type="radio" value="0"<?php is_checked(0, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
-                <label class="form-check-label"><strong><?php echo $BLM['shopprod_weight'].', '.$BLM['shopprod_weight_max'] ?></strong></label>
+                <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_weight" type="radio" value="0"<?php is_checked(0, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
+                <label class="form-check-label" for="pref_shipping_calc_weight"><strong><?php echo $BLM['shopprod_weight'].', '.$BLM['shopprod_weight_max'] ?></strong></label>
             </div>
         </div>
-        <label class="col-sm-2 mb-0">
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_net'] ?></strong>
-        </label>
-        <label class="col-sm-2 mb-0">
+        </span>
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_vat'] ?> %</strong>
-        </label>
+        </span>
     </div>
 
     <?php
@@ -116,7 +116,7 @@ if (!defined('CMSGO_ROOT')) {
 
         echo '
             <div class="form-group form-row align-items-center">
-            <label class="col-sm-2 col-form-label text-right"></label>
+            <span class="col-sm-2 col-form-label text-right"></span>
                 <div class="col-sm-2"><input name="pref_shipping_weight['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['weight'], 3, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -132,21 +132,19 @@ if (!defined('CMSGO_ROOT')) {
     ?>
 
     <div class="form-group form-row align-items-center mt-3">
-      <label class="col-sm-2 col-form-label text-right pt-0"></label>
+      <span class="col-sm-2 col-form-label text-right pt-0"></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                <input class="form-check-input" name="pref_shipping_calc" type="radio" value="1"<?php is_checked(1, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
-                <strong><?php echo $BLM['shopprod_price'].', '.$BLM['shopprod_net'] ?></strong>
-            </label>
+                <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_price" type="radio" value="1"<?php is_checked(1, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();" />
+                <label class="form-check-label" for="pref_shipping_calc_price"><strong><?php echo $BLM['shopprod_price'].', '.$BLM['shopprod_net'] ?></strong></label>
+            </div>
         </div>
-        </div>
-        <label class="col-sm-2 mb-0 ">
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_net'] ?></strong>
-        </label>
-        <label class="col-sm-2 mb-0 ">
+        </span>
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_vat'] ?> %</strong>
-        </label>
+        </span>
     </div>
 
     <?php
@@ -154,7 +152,7 @@ if (!defined('CMSGO_ROOT')) {
 
         echo '
             <div class="form-group form-row align-items-center">
-            <label class="col-sm-2 col-form-label text-right"></label>
+            <span class="col-sm-2 col-form-label text-right"></span>
                 <div class="col-sm-2"><input name="pref_shipping_price['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 html_specialchars( @number_format((float) $plugin['data']['shop_pref_shipping'][$x]['price'], 2, $BLM['dec_point'], $BLM['thousands_sep'] ) ) .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -176,24 +174,22 @@ if (!defined('CMSGO_ROOT')) {
     <?php endif; ?>
 
     <div class="form-group form-row align-items-center mt-3">
-        <label class="col-sm-2 col-form-label text-right pt-0"></label>
+        <span class="col-sm-2 col-form-label text-right pt-0"></span>
         <div class="col-sm-2">
             <div class="form-check form-check-inline">
-                <label class="form-check-label">
-                    <input class="form-check-input" name="pref_shipping_calc" type="radio" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();"<?php if(!ini_get('allow_url_fopen')): ?> disabled="disabled"<?php endif; ?> />
-                    <strong><?php echo $BLM['shopprod_distance'] ?></strong>
-                </label>
+                <input class="form-check-input" name="pref_shipping_calc" id="pref_shipping_calc_distance" type="radio" value="2"<?php is_checked(2, $plugin['data']['shop_pref_shipping_calc']) ?> onchange="enableSubmit();"<?php if(!ini_get('allow_url_fopen')): ?> disabled="disabled"<?php endif; ?> />
+                <label class="form-check-label" for="pref_shipping_calc_distance"><strong><?php echo $BLM['shopprod_distance'] ?></strong></label>
             </div>
         </div>
-        <label class="col-sm-2 mb-0">
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_net'] ?></strong>
-        </label>
-        <label class="col-sm-2 mb-0">
+        </span>
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BLM['shopprod_vat'] ?> %</strong>
-        </label>
-        <label class="col-sm-2 mb-0">
+        </span>
+        <span class="col-sm-2 mb-0">
             <strong><?php echo $BL['be_title'] ?></strong>
-        </label>
+        </span>
     </div>
 
 <?php
@@ -201,7 +197,7 @@ if (!defined('CMSGO_ROOT')) {
 
         echo '
             <div class="form-group form-row align-items-center">
-            <label class="col-sm-2 col-form-label text-right"></label>
+            <span class="col-sm-2 col-form-label text-right"></span>
                 <div class="col-sm-2"><input name="pref_shipping_zone['.$x.']" type="text" class="form-control form-control-sm" value="' .
                 $plugin['data']['shop_pref_shipping'][$x]['zone'] .
                 '" size="10" maxlength="10" onchange="enableSubmit();" /></div>
@@ -222,9 +218,9 @@ if (!defined('CMSGO_ROOT')) {
     <hr />
 
     <div class="form-group form-row align-items-center">
-        <label for="pref_shipping_selfpickup" class="col-sm-2 col-form-label text-right">
+        <span class="col-sm-2 col-form-label text-right">
             <?php echo $BLM['shopprod_selfpickup'] ?>
-        </label>
+        </span>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="pref_shipping_selfpickup" id="pref_shipping_selfpickup" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_shipping_selfpickup']) ?> onchange="enableSubmit();" />
@@ -246,7 +242,7 @@ if (!defined('CMSGO_ROOT')) {
     <hr />
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_id_cart" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_distance_base'] ?></label>
+        <label for="pref_zone_base" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_distance_base'] ?></label>
         <div class="col-sm-4">
             <input type="text" class="form-control form-control-sm" name="pref_zone_base" id="pref_zone_base" value="<?php echo html_specialchars($plugin['data']['shop_pref_zone_base']) ?>" size="30" maxlength="200" onchange="enableSubmit();" />
         </div>
@@ -254,11 +250,11 @@ if (!defined('CMSGO_ROOT')) {
 
     <!-- Low order surcharge -->
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_id_cart" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_loworder'] ?></label>
+        <label for="pref_loworder" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_loworder'] ?></label>
             <div class="col-sm-auto">
                 <div class="form-check-inline">
                     <input class="form-check-input mr-sm-3" type="checkbox" name="pref_loworder" id="pref_loworder" value="1"<?php is_checked('1', $plugin['data']['shop_pref_loworder']['loworder']) ?> onchange="enableSubmit();" />
-                    <label class="form-check-label"><?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?></label>
+                    <label class="form-check-label" for="pref_loworder"><?php echo trim($BLM['shopprod_loworder_under'].' '.html_specialchars($plugin['data']['shop_pref_currency'])) ?></label>
                 </div>
             </div>
             <div class="col-sm-auto">
@@ -280,23 +276,21 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_inventory'] ?></label>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_inventory'] ?></span>
         <div class="col-sm-auto">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" name="pref_autosubtract_off" id="pref_autosubtract_off" value="1"<?php is_checked('1', $plugin['data']['shop_pref_autosubtract_off']) ?> onchange="enableSubmit();" />
-                <label class="form-check-label"><?php echo $BLM['shopprod_autosubtract_off'] ?></label>
+                <label class="form-check-label" for="pref_autosubtract_off"><?php echo $BLM['shopprod_autosubtract_off'] ?></label>
             </div>
         </div>
     </div>
 
     <!-- Discount -->
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_discount" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_discount'] ?></label>
+        <label for="pref_discount" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_discount'] ?></label>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="pref_discount" id="pref_discount" value="1"<?php is_checked('1', $plugin['data']['shop_pref_discount']['discount']) ?> onchange="enableSubmit();" />
-                    </label>
+                    <input class="form-check-input" type="checkbox" name="pref_discount" id="pref_discount" value="1"<?php is_checked('1', $plugin['data']['shop_pref_discount']['discount']) ?> onchange="enableSubmit();" aria-label="<?php echo html_specialchars($BLM['shopprod_discount']) ?>" />
                 </div>
             </div>
             <div class="col-sm-auto">
@@ -310,20 +304,16 @@ if (!defined('CMSGO_ROOT')) {
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
-                <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" name="pref_discount_freeshipping" id="pref_discount_freeshipping" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping']) ?> onchange="enableSubmit();" />
-                     <?php echo $BLM['shopprod_freeshipping'] ?>
-                </label>
+                    <label class="form-check-label" for="pref_discount_freeshipping"><?php echo $BLM['shopprod_freeshipping'] ?></label>
                  </div>
             </div>
     </div>
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label"></label>
+        <span class="col-sm-2 col-form-label"></span>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="pref_discount_1" id="pref_discount_1" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_1']) ?> onchange="enableSubmit();" />
-                    </label>
+                    <input class="form-check-input" type="checkbox" name="pref_discount_1" id="pref_discount_1" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_1']) ?> onchange="enableSubmit();" aria-label="<?php echo html_specialchars($BLM['shopprod_discount'] . ' 1') ?>" />
                 </div>
             </div>
             <div class="col-sm-auto">
@@ -337,20 +327,16 @@ if (!defined('CMSGO_ROOT')) {
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
-                <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" name="pref_discount_freeshipping_1" id="pref_discount_freeshipping_1" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping_1']) ?> onchange="enableSubmit();" />
-                     <?php echo $BLM['shopprod_freeshipping'] ?>
-                </label>
+                    <label class="form-check-label" for="pref_discount_freeshipping_1"><?php echo $BLM['shopprod_freeshipping'] ?></label>
                  </div>
             </div>
     </div>
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label"></label>
+        <span class="col-sm-2 col-form-label"></span>
             <div class="col-sm-auto">
                 <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="pref_discount_2" id="pref_discount_2" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_2']) ?> onchange="enableSubmit();" />
-                    </label>
+                    <input class="form-check-input" type="checkbox" name="pref_discount_2" id="pref_discount_2" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['discount_2']) ?> onchange="enableSubmit();" aria-label="<?php echo html_specialchars($BLM['shopprod_discount'] . ' 2') ?>" />
                 </div>
             </div>
             <div class="col-sm-auto">
@@ -364,10 +350,8 @@ if (!defined('CMSGO_ROOT')) {
             </div>
             <div class="col-sm-auto py-2 py-sm-0">
                 <div class="form-check form-check-inline">
-                <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" name="pref_discount_freeshipping_2" id="pref_discount_freeshipping_2" value="1"<?php is_checked('1', @$plugin['data']['shop_pref_discount']['freeshipping_2']) ?> onchange="enableSubmit();" />
-                     <?php echo $BLM['shopprod_freeshipping'] ?>
-                </label>
+                    <label class="form-check-label" for="pref_discount_freeshipping_2"><?php echo $BLM['shopprod_freeshipping'] ?></label>
                  </div>
             </div>
     </div>
@@ -376,7 +360,7 @@ if (!defined('CMSGO_ROOT')) {
 
     <!-- Payment methods -->
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_payment_method" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_payment_method'] ?></label>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_payment_method'] ?></span>
         <div class="col-sm-2">
             <div class="form-check-inline">
                 <input class="form-check-input" name="pref_payment_paypal" id="pref_payment_paypal" type="checkbox" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['paypal']) ?> onchange="enableSubmit();" />
@@ -392,7 +376,7 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row align-items-center">
-        <label for="shopprod_payment_method" class="col-sm-2 col-form-label text-sm-right"></label>
+        <span class="col-sm-2 col-form-label text-sm-right"></span>
         <div class="col-sm-2">
             <div class="form-check-inline">
                 <input class="form-check-input" name="pref_payment_ccard" id="pref_payment_ccard" type="checkbox" value="1"<?php is_checked(1, $plugin['data']['shop_pref_payment']['ccard']) ?> onchange="enableSubmit();" />
@@ -436,7 +420,7 @@ if (!defined('CMSGO_ROOT')) {
     <hr />
 
     <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label"></label>
+        <span class="col-sm-2 col-form-label"></span>
         <div class="col">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" name="pref_terms_format" id="pref_terms_format" value="0" type="radio" value="0"<?php is_checked('0', $plugin['data']['shop_pref_terms_format']) ?> onchange="enableSubmit();" />
@@ -450,7 +434,7 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
     <div class="form-group form-row">
-        <label for="shopprod_terms" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_terms'] ?></label>
+        <label for="pref_terms" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_terms'] ?></label>
         <div class="col">
             <textarea name="pref_terms" rows="5" class="form-control form-control-sm" id="pref_terms" onchange="enableSubmit();">
                 <?php echo $plugin['data']['shop_pref_terms_format'] ? html_entities($plugin['data']['shop_pref_terms']) : html_specialchars($plugin['data']['shop_pref_terms']); ?>
@@ -459,7 +443,7 @@ if (!defined('CMSGO_ROOT')) {
     </div>
 
   <div class="form-group form-row align-items-center mt-sm-3">
-        <label for="shopprod_payment_method" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_api'] ?></label>
+        <label for="pref_api_access" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_api'] ?></label>
         <div class="col-sm-auto">
             <div class="form-check-inline">
         <input class="form-check-input" name="pref_api_access" id="pref_api_access" type="checkbox" value="1"<?php is_checked('1', $plugin['data']['shop_pref_api_access']); ?> onchange="enableSubmit();" />

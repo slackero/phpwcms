@@ -217,17 +217,17 @@ initJsAutocompleter();
     </div>
 
 	<div class="form-group form-row align-items-center">
-    	<label for="calendar_token" class="col-sm-2 col-form-label text-right"><?php echo $BLM['calendar_token'] ?></label>
+    	<span class="col-sm-2 col-form-label text-right"><?php echo $BLM['calendar_token'] ?></span>
     	<div class="col">
-    		<input type="text" id="calendar_tag_autosuggest" class="form-control form-control-sm" />
+    		<input type="text" id="calendar_tag_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BLM['calendar_token']) ?>" />
     		<input name="calendar_tag" type="hidden" id="calendar_tag" class="form-control form-control-sm" value="<?php echo html(trim($plugin['data']['calendar_tag'])) ?>" maxlength="255" />
     	</div>
     </div>
 
 	<div class="form-group form-row align-items-center">
-    	<label for="be_profile_label_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+    	<span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></span>
     	<div class="col">
-    		<input type="text" id="calendar_lang_autosuggest" class="form-control form-control-sm" />
+    		<input type="text" id="calendar_lang_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_profile_label_lang']) ?>" />
     		<input name="calendar_lang" type="hidden" id="calendar_lang" class="form-control form-control-sm" value="<?php echo html(trim($plugin['data']['calendar_lang'])) ?>" maxlength="50" />
     	</div>
     </div>

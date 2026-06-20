@@ -93,9 +93,9 @@ initJsAutocompleter();
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="news_category" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?></label>
+  <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?></span>
   <div class="col-sm-4">
-   <input type="text" class="form-control form-control-sm" id="news_keyword_autosuggest" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html(implode(', ', $content['news']['news_category'])) ?>" /></td>
+   <input type="text" class="form-control form-control-sm" id="news_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="news_category" id="news_category" value="<?php echo html(implode(', ', $content['news']['news_category'])) ?>" /></td>
   </div>
   <div class="col-sm-auto mt-2 mt-sm-0">
     <select name="news_andor" id="news_andor" class="custom-select form-control form-control-sm">

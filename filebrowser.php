@@ -188,8 +188,8 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 				<input name="file_copyright" type="text" id="file_copyright" class="form-control" maxlength="255" value="" />
 			</p>
 			<p>
-				<label class="chatlist" for="file_tags_autosuggest"><?php echo $BL['be_tags'] ?></label>
-				<input type="text" id="file_tags_autosuggest" class="form-control" />
+				<span class="chatlist"><?php echo $BL['be_tags'] ?></span>
+				<input type="text" id="file_tags_autosuggest" class="form-control" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
 			</p>
       <div class="btn btb-default" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
     </div>

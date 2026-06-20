@@ -675,7 +675,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 23
+			count: 24
 			path: ../filebrowser.php
 
 		-
@@ -4989,13 +4989,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 29
+			count: 30
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 32
+			count: 33
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
@@ -5589,7 +5589,7 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 88
+			count: 91
 			path: ../include/inc_module/mod_shop/inc/edit.preferences.inc.php
 
 		-
@@ -6435,7 +6435,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 123
+			count: 124
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -6747,7 +6747,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 55
+			count: 57
 			path: ../include/inc_tmpl/content/cnt13.inc.php
 
 		-
@@ -7299,7 +7299,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 73
+			count: 74
 			path: ../include/inc_tmpl/content/cnt33.inc.php
 
 		-
@@ -7539,7 +7539,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 106
+			count: 107
 			path: ../include/inc_tmpl/content/cnt8.inc.php
 
 		-
@@ -7827,7 +7827,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 39
+			count: 40
 			path: ../include/inc_tmpl/files.ftptakeover.tmpl.php
 
 		-
@@ -7899,7 +7899,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 38
+			count: 39
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
@@ -8031,7 +8031,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 39
+			count: 40
 			path: ../include/inc_tmpl/files.private.upload.tmpl.php
 
 		-
@@ -8205,7 +8205,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 115
+			count: 116
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-

@@ -48,7 +48,7 @@ $langstr = '';
 <div class="card-header"><h1><?php echo $BL['be_article_estitle'] ?></h1></div>
 <div class="card-body">
   <div class="form-group align-items-center form-row">
-    <label for="be_article_cat" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cat'] ?></label>
+    <label for="article_cid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cat'] ?></label>
     <div class="col-sm-8">
       <select name="article_cid" id="article_cid" class="custom-select form-control form-control-sm">
       <?php
@@ -184,7 +184,7 @@ $langstr = '';
 
 <?php if (count($cmsgo['allowed_lang']) > 1):  ?>
   <div class="form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></span>
       <div class="col-sm-4">
 			<div class="lang-select">
 					<div class="form-check form-check-inline">
@@ -235,7 +235,7 @@ $langstr = '';
     if (intval($article['article_lang_id'])> 0 && $article['article_lang_type'] == 'article') {
         $where = 'article_id = '.$article['article_lang_id'];
         $adata = _dbGet('cmsgo_article', 'article_id, article_alias, article_title', $where, '', '', 1);
-        echo '<br /><label>' . $BL['be_cnt_target'] .' ID['.$adata[0]['article_id'].']:</label> ';
+        echo '<br /><span class="font-weight-bold">' . $BL['be_cnt_target'] .' ID['.$adata[0]['article_id'].']:</span> ';
         if (is_array($adata)) {
             echo '<a href="cmsgo.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . $adata[0]['article_title'] . '">' . $adata[0]['article_alias'] . $cmsgo['rewrite_ext'] .'</a>';
         } else {
@@ -283,49 +283,49 @@ $langstr = '';
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_admin_page_pagetitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
+    <label for="article_pagetitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
     <div class="col">
       <input name="article_pagetitle" type="text" id="article_pagetitle" class="form-control form-control-sm" value="<?php echo html($article['article_pagetitle']) ?>" size="40" maxlength="2000" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="article_menu_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['article_menu_title'] ?></label>
+    <label for="article_menutitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['article_menu_title'] ?></label>
     <div class="col">
       <input name="article_menutitle" type="text" id="article_menutitle" class="form-control form-control-sm" value="<?php echo html($article["article_menutitle"]) ?>" size="40" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_aredirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aredirect'] ?></label>
+    <label for="article_redirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aredirect'] ?></label>
     <div class="col">
       <input name="article_redirect" type="text" id="article_redirect" class="form-control form-control-sm" value="<?php echo html($article["article_redirect"]) ?>" size="40" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_canonical" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_canonical'] ?></label>
+    <label for="article_canonical" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_canonical'] ?></label>
     <div class="col">
       <input name="article_canonical" type="text" id="article_canonical" class="form-control form-control-sm" value="<?php echo html($article["article_canonical"]) ?>" size="40" maxlength="2000" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_akeywords" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_akeywords'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_akeywords'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
     <div class="col">
-      <input class="form-control form-control-sm border py-3 px-2" type="text" id="article_keyword_autosuggest" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article["article_keyword"]) ?>" />
+      <input class="form-control form-control-sm border py-3 px-2" type="text" id="article_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_article_akeywords']) ?>" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article["article_keyword"]) ?>" />
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="article_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <textarea name="article_description" rows="4" class="form-control form-control-sm" id="article_description"><?php echo html($article["article_description"]) ?></textarea>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_admin_struct_template_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?> <?php echo $BL['be_article_forlist'] ?></label>
+    <label for="article_tmpllist" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?> <?php echo $BL['be_article_forlist'] ?></label>
     <div class="col-sm-4">
       <select name="article_tmpllist" id="article_tmpllist" class="custom-select form-control form-control-sm">
         <?php
@@ -351,7 +351,7 @@ $langstr = '';
         </select>
     </div>
 
-    <label for="be_admin_struct_template_full" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?> <?php echo $BL['be_article_forfull'] ?></label>
+    <label for="article_tmplfull" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?> <?php echo $BL['be_article_forfull'] ?></label>
     <div class="col-sm-4">
       <select name="article_tmplfull" id="article_tmplfull" class="custom-select form-control form-control-sm">
         <?php
@@ -378,7 +378,7 @@ $langstr = '';
 
 
   <div class="form-group align-items-center form-row bg-grey py-2">
-    <label for="be_cnt_results_wordlimit" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_results_wordlimit'] ?></label>
+    <label for="article_listmaxwords" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_results_wordlimit'] ?></label>
     <div class="col-sm-4">
       <input class="form-control form-control-sm" name="article_listmaxwords" type="text" id="article_listmaxwords" value="<?php echo empty($article['image']['list_maxwords']) ? '' : intval($article['image']['list_maxwords']) ?>" size="10" maxlength="6" />
     </div>
@@ -390,7 +390,7 @@ $langstr = '';
   </div>
 
   <div class="form-group form-row bg-grey py-2">
-    <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_several'] ?></label>
+    <span class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_several'] ?></span>
     <div class="col">
 
       <div class="form-check">
@@ -444,7 +444,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <hr />
 
   <div class="form-group align-items-center form-row mt-2">
-    <label for="be_article_forfull" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forfull'] ?></label>
+    <label for="cimage_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forfull'] ?></label>
     <div class="col-sm-4">
       <div class="input-group">
         <span class="input-group-prepend">
@@ -460,37 +460,37 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxw" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw'] ?></label>
+    <label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw'] ?></label>
     <div class="col-sm-4">
       <input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxh" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxh'] ?></label>
+    <label for="cimage_height" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxh'] ?></label>
     <div class="col-sm-4">
       <input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" />
     </div>
   </div>
 
   <div class="form-group form-row align-items-center bg-grey py-2">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_several'] ?></label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_several'] ?></span>
     <div class="col">
       <div class="form-check form-check-inline">
         <input class="form-check-input" name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $article['image']['zoom']); ?> />
-        <label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
+        <label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
       </div>
       <div class="form-check form-check-inline">
         <input class="form-check-input" name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
-        <label class="form-check-label"><?php echo $BL['be_cnt_lightbox'] ?></label>
+        <label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
       </div>
     </div>
   </div>
   <div class="form-group form-row">
-    <label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <textarea name="cimage_caption" cols="30" rows="3" class="form-control form-control-sm" id="cimage_caption"><?php echo html($article['image']['caption']) ?></textarea>
-      <label class="col-sm-12 col-form-label pl-0">
+      <span class="col-sm-12 col-form-label pl-0">
         <?php echo $BL['be_cnt_caption']; ?>
         |
         <?php echo $BL['be_caption_alt']; ?>
@@ -500,10 +500,10 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         <?php echo $BL['be_caption_title']; ?>
         |
         <?php echo $BL['be_copyright']; ?>
-      </label>
+      </span>
       <div class="form-check">
-				<input class="form-check-input" type="checkbox" name="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
-				<label class="form-check-label"><?php echo $BL['be_suppress_render_caption']; ?></label>
+				<input class="form-check-input" type="checkbox" name="cimage_caption_suppress" id="cimage_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['caption_suppress']) ? 0 : 1); ?> />
+				<label class="form-check-label" for="cimage_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
       </div>
     </div>
     <?php
@@ -535,14 +535,14 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   }
   ?>
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxh" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_same_as_summary'] ?></label>
+    <label for="cimage_usesummary" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_same_as_summary'] ?></label>
     <div class="col-sm-4">
       <input name="cimage_usesummary" type="checkbox" id="cimage_usesummary" value="1" <?php is_checked(1, $article['image']['list_usesummary']); ?> />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_forlist" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forlist'] ?></label>
+    <label for="cimage_list_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forlist'] ?></label>
     <div class="col-sm-4">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -558,39 +558,39 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxw" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw'] ?></label>
+    <label for="cimage_list_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw'] ?></label>
     <div class="col-sm-4">
       <input name="cimage_list_width" type="text" class="form-control form-control-sm" id="cimage_list_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" />
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxh" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxh'] ?></label>
+    <label for="cimage_list_height" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxh'] ?></label>
     <div class="col-sm-4">
       <input name="cimage_list_height" type="text" class="form-control form-control-sm" id="cimage_list_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" />
     </div>
   </div>
 
   <div class="form-group form-row align-items-center bg-grey py-2">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_several'] ?></label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_several'] ?></span>
     <div class="col">
       <div class="form-check form-check-inline">
 				<input class="form-check-input" name="cimage_list_zoom" type="checkbox" id="cimage_list_zoom" value="1" <?php is_checked(1, $article['image']['list_zoom']); ?> />
-				<label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
+				<label class="form-check-label" for="cimage_list_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
       </div>
       <div class="form-check form-check-inline">
           <input class="form-check-input" name="cimage_list_lightbox" type="checkbox" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_list_zoom').checked=true;}" />
-          <label class="form-check-label">
+          <label class="form-check-label" for="cimage_list_lightbox">
           <?php echo $BL['be_cnt_lightbox'] ?>
         </label>
       </div>
     </div>
   </div>
   <div class="form-group form-row">
-    <label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="cimage_list_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <textarea name="cimage_list_caption" cols="30" rows="3" class="form-control form-control-sm" id="cimage_list_caption"><?php echo html($article['image']['list_caption']) ?></textarea>
-      <label class="col col-form-label pl-0">
+      <span class="col col-form-label pl-0">
         <?php echo $BL['be_cnt_caption']; ?>
         |
         <?php echo $BL['be_caption_alt']; ?>
@@ -600,11 +600,11 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         <?php echo $BL['be_caption_title']; ?>
         |
         <?php echo $BL['be_copyright']; ?>
-      </label>
+      </span>
 
        <div class="form-check">
-				<input class="form-check-input" type="checkbox" name="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
-				<label class="form-check-label"><?php echo $BL['be_suppress_render_caption']; ?></label>
+				<input class="form-check-input" type="checkbox" name="cimage_list_caption_suppress" id="cimage_list_caption_suppress" value="1" <?php is_checked(1, empty($article['image']['list_caption_suppress']) ? 0 : 1); ?> />
+				<label class="form-check-label" for="cimage_list_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
       </div>
     </div>
     <?php
@@ -663,7 +663,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxh" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cache'] ?> <?php echo $BL['be_off'] ?></label>
+    <label for="article_cacheoff" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cache'] ?> <?php echo $BL['be_off'] ?></label>
     <div class="col-sm-4">
       <input name="article_cacheoff" type="checkbox" id="article_cacheoff" value="1" <?php if ($article["article_timeout"] === '0') {
             echo "checked";
@@ -672,10 +672,10 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cache'] ?></label>
+    <label for="article_timeout" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cache'] ?></label>
     <div class="col-sm-4">
       <div class="input-group">
-        <select name="article_timeout" class="custom-select form-control form-control-sm" onchange="document.article.article_cacheoff.checked=false;">
+        <select name="article_timeout" id="article_timeout" class="custom-select form-control form-control-sm" onchange="document.article.article_cacheoff.checked=false;">
             <?php
             echo '<option value=" ">'.$BL['be_admin_tmpl_default']."</option>\n";
             echo '<option value="60"'.is_selected($article["article_timeout"], '60', 0, 0).'>&nbsp;&nbsp;1 '.$BL['be_date_minute']."</option>\n";
@@ -703,7 +703,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <hr />
 
     <div class="form-group align-items-center form-row">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_robots'] ?></label>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_robots'] ?></span>
         <div class="col">
             <div class="form-check">
                 <input class="form-check-input" name="article_meta_noindex" type="checkbox" id="article_meta_noindex" value="1"<?php is_checked(1, $article["article_meta"]['noindex']); ?> />
@@ -721,19 +721,19 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     <hr />
 
   <div class="form-group form-row bg-grey py-2">
-    <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <span class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></span>
     <div class="col">
       <div class="form-check">
         <input class="form-check-input" name="article_nositemap" type="checkbox" id="article_nositemap" value="1"<?php is_checked(1, $article["article_nositemap"]); ?> />
-        <label class="form-check-label"><?php echo  $BL['be_ctype_sitemap'] ?> </label>
+        <label class="form-check-label" for="article_nositemap"><?php echo  $BL['be_ctype_sitemap'] ?> </label>
       </div>
       <div class="form-check">
         <input class="form-check-input"  name="article_nosearch" type="checkbox" id="article_nosearch" value="1" <?php is_checked(1, $article['article_nosearch']); ?> />
-        <label class="form-check-label"><?php echo $BL['be_no_search'] ?></label>
+        <label class="form-check-label" for="article_nosearch"><?php echo $BL['be_no_search'] ?></label>
       </div>
       <div class="form-check">
         <input class="form-check-input"  name="article_norss" type="checkbox" id="article_norss" value="1" <?php is_checked(1, $article['article_norss']); ?> />
-        <label class="form-check-label"><?php echo $BL['be_no_rss'] ?></label>
+        <label class="form-check-label" for="article_norss"><?php echo $BL['be_no_rss'] ?></label>
       </div>
       <?php
 				// Opengraph fallback when creating a new article
@@ -743,22 +743,22 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
       ?>
       <div class="form-check">
         <input class="form-check-input"  name="article_opengraph" type="checkbox" id="article_opengraph" value="1" <?php is_checked(1, $article['article_opengraph']); ?> />
-        <label class="form-check-label"><?php echo $BL['be_opengraph_support'] ?></label>
+        <label class="form-check-label" for="article_opengraph"><?php echo $BL['be_opengraph_support'] ?></label>
       </div>
       <div class="form-check">
         <input class="form-check-input" name="article_aktiv" type="checkbox" id="article_aktiv" value="1"<?php is_checked(1, $article["article_aktiv"]); ?> />
-        <label class="form-check-label"><?php echo $BL['be_admin_struct_visible'] ?></label>
+        <label class="form-check-label" for="article_aktiv"><?php echo $BL['be_admin_struct_visible'] ?></label>
       </div>
       <div class="form-check">
         <input class="form-check-input" name="article_archive" type="checkbox" id="article_archive" value="1" <?php is_checked(1, $article['article_archive_status']); ?> />
-        <label class="form-check-label"><?php echo $BL['be_show_archived'] ?></label>
+        <label class="form-check-label" for="article_archive"><?php echo $BL['be_show_archived'] ?></label>
       </div>
     </div>
   </div>
 <?php if (isset($article["article_date"])) {
           ?>
   <div class="form-group align-items-center form-row">
-    <label for="be_cnt_maxh" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_eslastedit'] ?>: </label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_eslastedit'] ?>: </span>
     <div class="col-sm-4">
       <?php echo (empty($_POST["article_update"]) || !intval($_POST["article_update"])) ? $article["article_date"] : $BL['be_article_esnoupdate']; ?>
     </div>

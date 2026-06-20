@@ -200,15 +200,15 @@ if(empty($content['search']['type'])) {
   </div>
 	<div class="col">
 		<div class="form-group">
-		<label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
-		<input type="text" id="news_lang_autosuggest" class="form-control form-control-sm" /><input type="hidden" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="form-control" />
+		<span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_profile_label_lang'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+		<input type="text" id="news_lang_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_profile_label_lang']) ?>" /><input type="hidden" name="csearch_news_lang" id="news_lang" value="<?php echo html(implode(', ', $content['search']["news_lang"])) ?>" class="form-control" />
 	</div>
 
     <div class="form-group">
-      <label class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+      <span class="col-form-label pt-2 pt-sm-0"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
         <div class="form-row">
           <div class="col mb-3 mb-sm-0">
-            <input type="text" id="news_category_autosuggest" class="form-control form-control-sm" /><input type="hidden" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="form-control" />
+            <input type="text" id="news_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="csearch_news_category" id="news_category" value="<?php echo html(implode(', ', $content['search']["news_category"])) ?>" class="form-control" />
           </div>
           <div class="col-sm-auto">
             <select name="csearch_news_andor" id="news_andor" class="custom-select form-control form-control-sm">

@@ -2,72 +2,66 @@
 
 ul.as-selections {
     list-style: none;
-    padding: 0;
-    margin: 0 1em 0 0;
+    padding: 2px 4px;
+    margin: 0;
     overflow: auto;
-    /*  background-color: #ffffff;
-    border: 1px solid #cccccc;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-       -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);*/
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-height: 31px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+ul.as-selections:focus-within {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
 }
 
 ul.as-selections.loading {
-    background-color: #eee;
+    background-color: #e9ecef;
 }
 
 ul.as-selections li {
     float: left;
-    margin: 0 2px 0 2px;
+    margin: 2px;
     list-style: none;
     padding: 0;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 100%;
     white-space: nowrap;
 }
 
 ul.as-selections li.as-selection-item {
-    color: #2b3840;
-    text-shadow: 0 1px 1px #fff;
-    background: #ddeefe -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ddeefe), to(#bfe0f1));
-    border: 1px solid #acc3ec;
-    border-top-color: #c0d9e9;
-    padding: 1px 7px 0 8px;
-    border-radius: 12px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    box-shadow: 0 1px 1px #e4edf2;
-    -webkit-box-shadow: 0 1px 1px #e4edf2;
-    -moz-box-shadow: 0 1px 1px #e4edf2;
-    margin: 6px 0 4px 5px;
-}
-
-ul.as-selections li.as-selection-item:last-child {
-    margin-left: 30px;
+    color: #495057;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px 4px 2px 0;
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
 }
 
 ul.as-selections li.as-selection-item a.as-close {
     float: right;
-    margin: 0 0 0 4px;
+    margin: 0 6px 0 0;
     padding: 0;
     cursor: pointer;
-    color: #5491be;
+    color: #6c757d;
     font-family: "Helvetica", helvetica, arial, sans-serif;
     font-size: 14px;
     font-weight: bold;
-    text-shadow: 0 1px 1px #fff;
-    -webkit-transition: color .1s ease-in;
     text-decoration: none;
+    line-height: 1;
 }
 
 ul.as-selections li.as-selection-item.blur {
-    color: #333;
-    background: #f4f4f4 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f4f4f4), to(#d5d5d5));
-    border-color: #bbb;
-    border-top-color: #ccc;
-    box-shadow: 0 1px 1px #e9e9e9;
-    -webkit-box-shadow: 0 1px 1px #e9e9e9;
-    -moz-box-shadow: 0 1px 1px #e9e9e9;
+    opacity: 0.85;
 }
 
 ul.as-selections li.as-selection-item.blur a.as-close {
@@ -75,37 +69,43 @@ ul.as-selections li.as-selection-item.blur a.as-close {
 }
 
 ul.as-selections li:hover.as-selection-item {
-    color: #2b3840;
-    background: #bbd4f1 -webkit-gradient(linear, 0% 0%, 0% 100%, from(#bbd4f1), to(#a3c2e5));
-    border-color: #6da0e0;
-    border-top-color: #8bb7ed;
+    background-color: #dee2e6;
+    border-color: #adb5bd;
 }
 
 ul.as-selections li:hover.as-selection-item a.as-close {
-    color: #4d70b0;
+    color: #dc3545;
 }
 
 ul.as-selections li.as-selection-item.selected {
-    border-color: #1f30e4;
+    border-color: #007bff;
+    background-color: #cce5ff;
+    color: #004085;
 }
 
 ul.as-selections li.as-selection-item a:hover.as-close {
-    color: #1b3c65;
+    color: #bd2130;
 }
 
 ul.as-selections li.as-selection-item a:active.as-close {
-    color: #4d70b0;
+    color: #dc3545;
 }
 
 ul.as-selections li.as-original {
-    margin-left: 0;
+    margin: 0;
+    flex-grow: 1;
 }
 
 ul.as-selections li.as-original input {
-    outline: none;
-    font-size: 13px;
-    width: 120px;
-    margin: 3px 0 0 15px;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+    color: #495057;
 }
 
 ul.as-list {
@@ -186,7 +186,8 @@ li.as-result-item.active em {
 /* Opera Hacks  */
 @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
     ul.as-selections li.as-selection-item a.as-close {
-        margin-left: 4px;
+        margin-right: 4px;
+        margin-left: 0;
         margin-top: 0;
     }
 }
@@ -196,7 +197,8 @@ ul.as-list {
 	border: 1px solid #888\9;
 }
 ul.as-selections li.as-selection-item a.as-close {
-	margin-left: 4px\9;
+	margin-right: 4px\9;
+	margin-left: 0\9;
 	margin-top: 0\9;
 }
 

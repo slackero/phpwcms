@@ -455,9 +455,9 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="news_keyword_autosuggest" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
     <div class="col">
-      <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm"  /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
+      <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
     </div>
   </div>
 

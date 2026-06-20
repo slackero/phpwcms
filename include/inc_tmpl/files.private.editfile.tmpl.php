@@ -530,9 +530,9 @@ if($ja) {
     </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right">&nbsp;<?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+    <span class="col-sm-2 col-form-label text-right">&nbsp;<?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
     <div class="col">
-      <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm"  /><input name="file_tags" type="hidden" id="file_tags" value="<?php echo html($file_tags) ?>" />
+      <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input name="file_tags" type="hidden" id="file_tags" value="<?php echo html($file_tags) ?>" />
     </div>
   </div>
 

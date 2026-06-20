@@ -134,7 +134,7 @@ if(empty($content["killdate"])) {
 
   <div class="card-body">
     <div class="form-group align-items-center form-row">
-      <label for="acat_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cat'].' - '.$BL['be_article_atitle']; ?></label>
+      <span class="col-sm-2 col-form-label text-right font-weight-bold"><?php echo $BL['be_article_cat'].' - '.$BL['be_article_atitle']; ?></span>
       <div class="col-sm-auto">
         <strong><?php echo html($content["article"]['acat_name'].' [ID:'.$content['article']['acat_id'].']'.' - '.$content["article"]['article_title']) ?> </strong>
       </div>
@@ -550,7 +550,7 @@ echo $_save_close_buttons;
     <hr />
 
 	  <div class="form-group align-items-center form-row">
-      <label for="ccb" class="col-sm-2 col-form-label text-right"></label>
+      <span class="col-sm-2 col-form-label text-right"></span>
 			<div class="col-sm-auto">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
@@ -564,7 +564,7 @@ echo $_save_close_buttons;
 		</div>
 
     <div class="form-group align-items-center form-row">
-      <label for="ccb" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></label>
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></span>
       <div class="col-sm-auto my-2 my-sm-0">
       	<div class="input-group input-group-sm">
 					<div class="input-group-prepend">
@@ -599,21 +599,21 @@ echo $_save_close_buttons;
     <div class="form-group align-items-center form-row">
       <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
       <div class="col-sm-4">
-				<input name="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
+				<input name="cattr_class" id="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
       </div>
     </div>
 
     <div class="form-group align-items-center form-row">
-      <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
+      <label for="cattr_id" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
       <div class="col-sm-4">
-        <input name="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
+        <input name="cattr_id" id="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
       </div>
     </div>
 
    <hr />
 
     <div class="form-group align-items-center form-row">
-      <label for="be_article_abegin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
+      <label for="set_livedate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
       <div class="col-sm-auto">
         <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], '') ?>' : '';" />
       </div>
@@ -628,7 +628,7 @@ echo $_save_close_buttons;
     </div>
 
     <div class="form-group align-items-center form-row">
-      <label for="be_article_aend" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
+      <label for="set_killdate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
       <div class="col-sm-auto">
         <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], '') ?>' : '';" />
       </div>
@@ -664,7 +664,7 @@ echo $_save_close_buttons;
         });
     </script>
     <div class="form-inline form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></label>
+      <span class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></span>
         <div class="col-sm-auto">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
@@ -680,7 +680,7 @@ echo $_save_close_buttons;
     </div>
 
     <div class="form-inline form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_cnt_sortvalue'] ?></label>
+      <label for="csorting" class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_cnt_sortvalue'] ?></label>
         <div class="col-sm-auto">
           <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
         </div>
