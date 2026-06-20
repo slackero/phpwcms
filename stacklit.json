@@ -404,10 +404,9 @@
     "include/inc_js": {
       "purpose": "Inc Js",
       "language": "javascript",
-      "files": 23,
-      "lines": 6936,
+      "files": 18,
+      "lines": 6100,
       "file_list": [
-        "autosize.min.js",
         "bootstrap-datetimepicker.js",
         "bootstrap-datetimepicker.min.js",
         "bootstrap.bundle.min.js",
@@ -416,16 +415,12 @@
         "cmsgo.min.js",
         "contentpart.js",
         "contentpart.min.js",
-        "date.js",
-        "dynCalendar.js",
-        "dynamicoptionlist.js",
         "exif.min.js",
         "jquery.form.min.js",
         "jquery.uploadfile.min.js",
         "lib.keyword.js",
         "md5.js",
         "moment-with-locales.min.js",
-        "newsletter.form.js",
         "optionselect.js"
       ],
       "activity": "low"
@@ -1621,12 +1616,10 @@
     "template/inc_js": {
       "purpose": "Inc Js",
       "language": "javascript",
-      "files": 5,
-      "lines": 519,
+      "files": 3,
+      "lines": 169,
       "file_list": [
-        "AC_ActiveX.js",
         "AC_QuickTime.js",
-        "AC_WriteActiveX.js",
         "frontend.js",
         "imagezoom.js"
       ],

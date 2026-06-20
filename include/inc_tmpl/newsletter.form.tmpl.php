@@ -22,21 +22,20 @@ initJsCalendar();
 
 <script>
 function showNewsletterTemplateData(tvar) {
-
-  if(tvar == '' || !nltemplate[tvar]) {
+  if (tvar === '' || !nltemplate[tvar]) {
     $("#newsletterTemplateInfo").html('');
     return true;
   }
 
-  var tdata = "";
-  if(nltemplate[tvar]['imgsrc'] != '') {
-    tdata = '<img src="'+nltemplate[tvar]['imgsrc']+'" alt="" border="0" align="left" style="margin:2px 5px 5px 0" />';
+  let tdata = "";
+  if (nltemplate[tvar].imgsrc !== '') {
+    tdata = `<img src="${nltemplate[tvar].imgsrc}" alt="" border="0" align="left" style="margin:2px 5px 5px 0" />`;
   }
-  if(nltemplate[tvar]['title'] != '') {
-    tdata = tdata+'<strong>'+nltemplate[tvar]['title']+'</strong> <br />';
+  if (nltemplate[tvar].title !== '') {
+    tdata += `<strong>${nltemplate[tvar].title}</strong> <br />`;
   }
-  if(nltemplate[tvar]['description'] != '') {
-    tdata = tdata+nltemplate[tvar]['description'];
+  if (nltemplate[tvar].description !== '') {
+    tdata += nltemplate[tvar].description;
   }
   $("#newsletterTemplateInfo").html(tdata);
   return true;
