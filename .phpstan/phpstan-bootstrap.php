@@ -37,6 +37,7 @@ $cmsgo['USER_AGENT'] = [
     'platform' => 'cli',
     'mobile' => false,
     'bot' => false,
+    'webp' => false,
 ];
 $cmsgo['parse_url'] = [
     'host' => 'localhost',

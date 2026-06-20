@@ -194,7 +194,7 @@ define('CMSGO_IMAGE_WIDTH', $cmsgo['img_prev_width']);
 define('CMSGO_IMAGE_HEIGHT', $cmsgo['img_prev_height']);
 define('CMSGO_GDPR_MODE', isset($cmsgo['enable_GDPR']) ? !!$cmsgo['enable_GDPR'] : false);
 define('CMSGO_LOGDIR', CMSGO_CONTENT . 'log');
-define('CMSGO_WEBP', empty($cmsgo['webp_enable']) ? false : $cmsgo['USER_AGENT']['webp']);
+define('CMSGO_WEBP', !empty($cmsgo['webp_enable']) && !empty($cmsgo['USER_AGENT']['webp']));
 define('CMSGO_QUALITY', CMSGO_WEBP ? $cmsgo['webp_quality'] : $cmsgo['jpg_quality']);
 define('CMSGO_RESIZE_ANIMATED_GIF', isset($cmsgo['resize_animated_gif']) ? (bool) $cmsgo['resize_animated_gif'] : true);
 
