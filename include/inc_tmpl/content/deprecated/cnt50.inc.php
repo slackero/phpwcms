@@ -119,7 +119,7 @@ $img_thumbs = '';
     </table><?php
 
 if($img_thumbs) {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
+    echo '<table>
         <tr><td style="padding-bottom:3px;"><br>'.$img_thumbs.'</td></tr>
         </table>';
 }
@@ -134,7 +134,7 @@ if($img_thumbs) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_reference_zoom'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td valign="top"><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="creference_zoom" type="checkbox" id="creference_zoom" value="1" <?php is_checked(1, $content['reference']["zoom"]); ?>></td>
         <td>&nbsp;<?php echo $BL['be_cnt_enlarge'] ?>&nbsp;&nbsp;</td>

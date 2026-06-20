@@ -229,7 +229,7 @@ if ($action === 'exportformresult' && $fid) {
     for ($x = 1; $x < $row; $x++) {
 
         echo '<p style="font-weight:bold">page ' . $x . ' of ' . ($row - 1) . '</p>';
-        echo '<table border="0" cellspacing="0" cellpadding="0" summary="ID:' . $fid . '">';
+        echo '<table summary="ID:' . $fid . '">';
 
         foreach ($export[0] as $key => $value) {
 

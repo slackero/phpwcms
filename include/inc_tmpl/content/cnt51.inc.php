@@ -75,7 +75,7 @@ if(is_array($imglist) && count($imglist)) {
     }
 }
 if($g) {
-    echo '<table  class="table-borderless">'."\n".$g.'</table>';
+    echo '<table class="table-borderless">'."\n".$g.'</table>';
 } else {
     echo '<span class="error">no map available. upload one first.</span>';
 }
@@ -214,7 +214,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
   <div class="col">
     <div class="map-list-container"<?php echo $ck_style ?>>
-      <table width="100%" class="table-borderless">
+      <table class="table-borderless w-100">
       <?php echo $map_list; ?>
       </table>
     </div>

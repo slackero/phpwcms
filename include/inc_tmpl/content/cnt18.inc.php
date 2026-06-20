@@ -41,7 +41,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_alias_ID'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
 
     <tr>
         <td><input name="cguestbook_aliasID" type="text" class="f11b" id="cguestbook_aliasID" style="width: 50px;" size="10"
@@ -85,7 +85,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_guestbook_listing'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -109,7 +109,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist">&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr bgcolor="#E7E8EB">
       <?php
 
@@ -139,7 +139,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_imgupload'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -173,7 +173,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
       <?php
 
@@ -195,7 +195,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo 'Captcha' ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -223,7 +223,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -248,7 +248,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_guestbook_flooding'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="cguestbook_cookie" type="checkbox" value="1"<?php
 
@@ -284,7 +284,7 @@ if(!isset($content["guestbook"]["notify_email"])) {
 ?>
 <tr>
      <td align="right" class="chatlist"><?php echo $BL['be_cnt_email_notify'] ?>:&nbsp;</td>
-     <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+     <td><table bgcolor="#E7E8EB">
 
      <tr>
         <td><input name="cguestbook_notify" id="cguestbook_notify" type="checkbox" value="1" <?php is_checked(1, $content["guestbook"]["notify"]); ?> /></td>

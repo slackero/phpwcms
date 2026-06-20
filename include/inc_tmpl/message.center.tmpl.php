@@ -59,10 +59,10 @@ $msg_get["list"]    = "&l=".$msg_list;
 $msg_get["order"]   = "&o=".$msg_order;
 $msg_get["folder"]  = "&f=".$msg_folder;
 
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="538">
         <tr><td class="title"><?php echo $BL['be_msg_title'] ?></td></tr>
         <tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-        <tr><td><table width="538" border="0" cellpadding="2" cellspacing="0" summary=""><tr>
+        <tr><td><table width="538" cellpadding="2"><tr>
          <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 0) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=0" ?>"><?php echo $count_newmsg." ".$BL['be_msg_new'] ?></a></td>
          <td width="69" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 1) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=1" ?>"><?php echo $count_readmsg." ".$BL['be_msg_old'] ?></a></td>
          <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 2) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=2" ?>"><?php echo $count_sentmsg." ".$BL['be_msg_senttop'] ?></a></td>
@@ -116,7 +116,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             $do_move = 1;
                         }
       ?>
-      <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+      <table width="538">
         <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
         <tr>
           <td width="4"><img src="img/leer.gif" alt="" width="4" height="1"></td>
@@ -159,7 +159,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             } //Ende Anzeigen Nachricht
 
             if($count_newmsg && $msg_folder==0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA;"><?php echo $BL['be_msg_unread'] ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -222,7 +222,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
 
             if($count_readmsg && $msg_folder==1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
         <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></strong></td></tr>
         <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
         <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -285,7 +285,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
 
             if($count_sentmsg && $msg_folder==2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -346,7 +346,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     } //Ende Anzeige unglesene Mitteilungen
 
     if($count_delmsg && $msg_folder==3) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo $BL['be_msg_marked'] ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

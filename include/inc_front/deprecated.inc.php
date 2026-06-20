@@ -119,7 +119,7 @@ function html_parser_deprecated($string='') {
 function nav_table_simple_struct($struct, $act_cat_id, $link_to="index.php") {
 	//returns a simple table based navigation menu of possible
 	//structure levels based on current structure level
-	$nav_table  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" width=\"100%\" summary=\"\">\n<tr>\n";
+	$nav_table  = "<table width=\"100%\">\n<tr>\n";
 	$nav_table .= "<td width=\"10\"><img src=\"img/leer.gif\" width=\"10\" height=\"1\" alt=\"\" /></td>\n";
 	$nav_table .= '<td width="100%"'.(empty($struct[$act_cat_id]["acat_class"]) ? '' : ' class="'.$struct[$act_cat_id]["acat_class"].'"').'><strong>';
 	$nav_table .= html_specialchars($struct[$act_cat_id]["acat_name"]);
@@ -250,7 +250,7 @@ function nav_table_struct ($struct, $act_cat_id, $level, $nav_table_struct, $lin
 	$temp_menu = build_levels ($struct, $level, $temp_tree, $act_cat_id, $nav_table_struct, $level_depth, $c, $link_to); //starts at root level
 	if($temp_menu) {
 		initFrontendJS();
-		return "<table".table_attributes($nav_table_struct, "table", 0)." summary=\"\">\n".$temp_menu."</table>";
+		return "<table".table_attributes($nav_table_struct, "table", 0).">\n".$temp_menu."</table>";
 	}
 	return '';
 }

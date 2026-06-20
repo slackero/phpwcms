@@ -102,7 +102,7 @@ input, textarea {
 </style>
 </head>
 <body>
-<table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
+<table width="100%" cellpadding="2">
 <?php
 
 $gbid = empty($_GET['cid']) ? 0 : intval($_GET['cid']);

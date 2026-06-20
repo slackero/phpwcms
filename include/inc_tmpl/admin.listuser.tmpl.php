@@ -152,7 +152,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     <?php
       if($_userInfo['pages_total'] > 1) {
         echo '<div class="col-sm-auto text-right">';
-        echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+        echo '<table><tr><td>';
         if($_SESSION['list_user_page'] > 1) {
             echo '<a class="btn btn-sm btn-blue" href="cmsgo.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
             echo '<i class="fa fa-angle-left"></i></a>';

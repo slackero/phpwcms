@@ -58,7 +58,7 @@ if($_SESSION["wcs_user_thumb"]) {
 </ul>
 
 
-	<table class="table table-sm bg-grey mt-3" border="0" cellpadding="2" cellspacing="0" summary="">
+	<table class="table table-sm bg-grey mt-3" cellpadding="2">
 		<tr>
 			<?php if($files_folder == 0) { ?>
 			<td class="tableheader text-right">

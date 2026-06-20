@@ -70,7 +70,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $cmsgo) {
                 foreach($file_result as $file_row) {
                     $filename = html($file_row["f_name"]);
                     if(!$file_durchlauf) {
-                        echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"100%\" class=\"table-borderless\" cellpadding=\"0\" cellspacing=\"0\">\n";
+                        echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table class=\"table-borderless w-100\">\n";
                     } else {
 
                     }

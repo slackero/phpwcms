@@ -149,7 +149,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
                     if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
-                        echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"2\"><table class=\"table-sm table-borderless\" width=\"100%\">\n";
+                        echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"2\"><table class=\"table-sm table-borderless w-100\">\n";
                         echo "<!-- start file list: private-functions //-->\n";
                     } else {
 

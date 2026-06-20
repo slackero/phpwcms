@@ -287,7 +287,7 @@ if($media["code"]) {
                 $media["result"] .= "<div align=\"right\">".$media["code"]."</div>";
                 break;
 
-        case 3: $media["result"] .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"left\">\n";
+        case 3: $media["result"] .= "<table align=\"left\">\n";
                 $media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
                 $media["result"] .= ($crow["acontent_title"]) ? "<tr><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td><td>".
                                                         spacer(5,1)."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
@@ -298,7 +298,7 @@ if($media["code"]) {
                 $media["result"] .= "</table>\n";
                 break;
 
-        case 4: $media["result"] .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"right\">\n";
+        case 4: $media["result"] .= "<table align=\"right\">\n";
                 $media["result"] .= "<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n";
                 $media["result"] .= ($crow["acontent_title"]) ? "<tr><td>".spacer(5,1)."</td><td class=\"tableHead\">".html_specialchars($crow["acontent_title"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";
                 $media["result"] .= ($crow["acontent_subtitle"]) ?  "<tr><td>".spacer(5,1)."</td><td class=\"tableSubHead\">".html_specialchars($crow["acontent_subtitle"])."</td></tr>\n<tr><td colspan=\"2\">".spacer(1,3)."</td></tr>\n" : "";

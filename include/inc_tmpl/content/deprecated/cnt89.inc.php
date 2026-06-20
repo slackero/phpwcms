@@ -111,7 +111,7 @@ if(isset($content['poll_list']['images']) && is_array($content['poll_list']['ima
 
 if($img_thumbs)
 {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
+    echo '<table>
         <tr><td style="padding-bottom:3px;"><br>'.$img_thumbs.'</td></tr>
         </table>';
 }

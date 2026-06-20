@@ -206,7 +206,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 
 if(!empty($count_user_files)) { //Listing in case of user files/folders
 
-    echo '<table class="table mt-3" summary="" border="0" cellspacing="0" cellpadding="0">'.LF;
+    echo '<table class="table mt-3">'.LF;
 
     //Anzeige des Festplattensymbols
     $dirname = $BL['ROOT_DIR'];

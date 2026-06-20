@@ -2464,7 +2464,7 @@ if($form_cnt) {
 
     } else {
 
-        $CNT_TMP .= '<table cellspacing="0" cellpadding="0" border="0">';
+        $CNT_TMP .= '<table>';
         $CNT_TMP .= "\n".$form_cnt.'</table>';
 
     }

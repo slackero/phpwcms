@@ -25,10 +25,10 @@ require_once(CMSGO_ROOT."/include/inc_lib/autolink.inc.php");
 
 ?>
 <form action="include/inc_act/act_addchat.php" method="post" name="sendchatmessage" target="_top" onSubmit="window.document.cookie='chatstring=';">
-    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+    <table width="538">
         <tr>
             <td colspan="2" class="title">
-                <table width="490" border="0" cellpadding="0" cellspacing="0" summary="">
+                <table width="490">
                     <tr valign="bottom">
                       <td class="title"><?php echo $BL['be_chat_title'] ?></td>
                       <td align="right" class="chatlist"><?php echo $BL['be_chat_lines'] ?>:&nbsp;<a href="javascript:set_chatlist('5');">5</a>|<a href="javascript:set_chatlist('10');">10</a>|<a href="javascript:set_chatlist('15');">15</a>|<a href="javascript:set_chatlist('25');">25</a>|<a href="javascript:set_chatlist('50');">50</a>|<a href="javascript:set_chatlist('100');">100</a>|<a href="javascript:set_chatlist('99999');">ALL</a><input name="chatlist" type="hidden" value="<?php echo $chatlist ?>"></td>
@@ -47,7 +47,7 @@ require_once(CMSGO_ROOT."/include/inc_lib/autolink.inc.php");
     </table>
 </form>
 
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538">
 <?php
     //Chatlisting
     $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_chat WHERE chat_cat=0 ORDER BY chat_tstamp DESC LIMIT ".$chatlist;

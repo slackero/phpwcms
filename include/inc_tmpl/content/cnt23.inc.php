@@ -961,7 +961,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         echo '<td class="pb-2"><input type="text" name="cform_field_class['.$field_counter.']" value="';
         echo  html($content['form']["fields"][$key]['class']).'" class="form-control form-control-sm"></td>';
         echo '<td colspan="3">
-             <table class="table-borderless w-100" cellpadding="0" cellspacing="0" border="0"><tr>
+             <table class="table-borderless w-100"><tr>
              <td style="width: 80px;" class="text-right pb-2">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
              <td class="pb-2"><input type="text" name="cform_field_style['.$field_counter.']" value="';
         echo html($content['form']["fields"][$key]['style']).'" class="form-control form-control-sm"></td></tr></table></td>';
@@ -1055,7 +1055,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <td colspan="3" align="right">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>&nbsp;</td>
     <td><input type="text" name="cform_field_class[0]" class="form-control form-control-sm" /></td>
     <td colspan="3">
-    <table class="table-borderless w-100" >
+    <table class="table-borderless w-100">
         <tr>
         <td style="width:80px;" align="right">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>&nbsp;</td>
         <td><input type="text" name="cform_field_style[0]" class="form-control form-control-sm" /></td>

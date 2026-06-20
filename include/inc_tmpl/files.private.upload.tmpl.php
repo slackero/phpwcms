@@ -317,7 +317,7 @@ document.getElementById("file").onchange = function(e) {
             }
     }
         if(iptctable !== "") {
-            iptctable = \'<table cellspacing="0" cellpadding="0" border="0" style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
+            iptctable = \'<table style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
         }
         iptcdata.innerHTML = iptctable;
     });

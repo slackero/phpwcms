@@ -43,7 +43,7 @@ if(!isset($content["mailhtml"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sendas'] ?>:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<td><table>
 		<tr bgcolor="#E7E8EB">
 		<td><input name="cmailhtml" type="radio" value="0" <?php is_checked(0, $content["mailhtml"]); ?>></td>
 	    <td class="v10"><?php echo $BL['be_cnt_text'] ?>&nbsp;&nbsp;</td>

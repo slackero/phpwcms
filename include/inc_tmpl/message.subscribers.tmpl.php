@@ -243,7 +243,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
             <?php
             if($_userInfo['pages_total'] > 1) {
               echo '<div class="col-sm-auto text-right">';
-              echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+              echo '<table><tr><td>';
               if($_SESSION['subscriber_page'] > 1) {
                   echo '<a class="btn btn-sm btn-blue" href="cmsgo.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']-1).'">';
                   echo '<i class="fa fa-angle-left"></i></a>';
@@ -311,7 +311,7 @@ if($_userInfo['list_channel']) {
 
     if($_userInfo['select_subscr']) {
       echo '<div id="channelSelect">'.LF;
-      echo '<table cellpadding="0" cellspacing="0" border="0">'.LF;
+      echo '<table>'.LF;
       echo $_userInfo['select_subscr'];
       echo '</table>'.LF;
       echo '</div>';

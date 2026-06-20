@@ -51,7 +51,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 if(count($content['recipe']['all_keywords'])) {
 
 	echo '<tr><td>&nbsp;</td><td>';
-	echo '<table cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB"><tr><td style="padding:2px;">';
+	echo '<table bgcolor="#E7E8EB"><tr><td style="padding:2px;">';
 	echo '<select name="ph1" id="ph1" class="custom-select form-control" ';
 	echo 'onChange="insertAtCursorPos(document.articlecontent.recipe_category, ';
 	echo '\', \'+document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">';
@@ -130,7 +130,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right">Schwierigkeit:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td valign="top"><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="recipe_severity" id="recipe_severity_1" type="radio" value="1" <?php is_checked(1, $content['recipe']['severity']); ?>></td>
         <td><label for="recipe_severity_1">1</label>&nbsp;&nbsp;</td>

@@ -101,7 +101,7 @@ if($file_id) {
 </head>
 
 <body>
-<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#C1D2E2" summary="">
+<table width="100%" align="center" bgcolor="#C1D2E2">
   <tr bgcolor="#C1D2E2">
     <td width="10"></td>
     <td width="20"><img src='img/icons/small_<?php echo extimg($row["f_ext"]) ?>' alt="" border="0" /></td>
@@ -111,7 +111,7 @@ if($file_id) {
   <tr>
     <td bgcolor="#F5F8F9"></td>
     <td bgcolor="#F5F8F9"></td>
-    <td bgcolor="#F5F8F9"><table width="518" border="0" cellpadding="0" cellspacing="0" summary="">
+    <td bgcolor="#F5F8F9"><table width="518">
       <tr>
         <td width="422"><?php echo $BL['CREATED'] ?>: <strong><?php echo date($BL['DATE_FORMAT'], intval($row["f_created"])) ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $BL['SIZE'] ?>: <strong><?php echo fsizelong($row["f_size"]) ?></strong></td>
         <td width="96" align="right"><?php

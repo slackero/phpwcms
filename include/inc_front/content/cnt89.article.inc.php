@@ -71,7 +71,7 @@ if(in_array($remoteIP, $poll_form["ip"])) {
         $poll_total_votes += $value;
     }
     if($poll_total_votes > 0) {
-        $poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
+        $poll_html .= '<table>';
 
         for($key = 0; $key < $poll_count; $key++)
         {
@@ -99,7 +99,7 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 
     $form_name  = "form_".generic_string(6);
     $poll_html .= '<form action="'.FE_CURRENT_URL.'" method="post" name="'.$form_name.'" id="'.$form_name.'">';
-    $poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
+    $poll_html .= '<table>';
 
     for($key = 0; $key < $poll_count; $key++) {
 

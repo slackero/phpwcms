@@ -158,7 +158,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
       <?php
         if($_entry['pages_total'] > 1) {
           echo '<div class="col-sm-auto text-right">';
-          echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+          echo '<table><tr><td>';
           if($_SESSION['redirect_detail_page'] > 1) {
               echo '<a class="btn btn-sm btn-blue" href="cmsgo.php?do=admin&amp;p=14&amp;page='.($_SESSION['redirect_detail_page']-1).'">';
               echo '<i class="fa fa-angle-left"></i></a>';

@@ -22,7 +22,7 @@ $BE['HEADER'][]  = getJavaScriptSourceLink('include/inc_js/lib.keyword.js');
 function backend_list_keywords() {
 
 	$list		 = '<form name="keywordListing" action="'.html(BE_CURRENT_URL).'" method="post">' . LF;
-	$list		.= LF . '<table cellspacing="0" cellpadding="0" border="0" class="listingTable">' . LF;
+	$list		.= LF . '<table class="listingTable">' . LF;
 	$list		.= '	<tr>' . LF;
 	$list		.= '		<th class="checkbox">All</th>' . LF;
 	$list		.= '		<th class="entry">Keyword Name</th>' . LF;

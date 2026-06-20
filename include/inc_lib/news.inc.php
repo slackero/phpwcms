@@ -373,7 +373,7 @@ class cmsgoNews {
 
         if(count($this->news)) {
             $list[] = '<div class="table-responsive">';
-            $list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="table table-sm">';
+            $list[] = '<table class="table table-sm">';
             $list[] = '<tr class="bg-grey">';
 
             $sort_class = array(

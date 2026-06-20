@@ -42,9 +42,7 @@ if(trim($cform[0])) {
 	$CNT_TMP .= "<form action=\"include/inc_act/act_formmailer.php\" method=\"post\" name=\"";
 	$CNT_TMP .= $form_name."\" target=\"_self\" id=\"".$form_name;
 	$CNT_TMP .= "\" style=\"margin:0px 0px 0px 0px; padding: 0px 0px 0px 0px;\">";
-	$CNT_TMP .= "<table border=\"0\" cellspacing=\"2\" cellpadding=\"0\"";
-	$CNT_TMP .= ($template_default["article"]["form_align"]) ? ' align="'.$template_default["article"]["form_align"].'"' : '';
-	$CNT_TMP .= ">\n";
+	$CNT_TMP .= "<table cellspacing=\"2\" "; $CNT_TMP .= ($template_default["article"]["form_align"]) ? ' align="'.$template_default["article"]["form_align"].'"' : ''; $CNT_TMP .= ">\n";
 
 
 	foreach($cform_fields as $key => $value) {
@@ -124,7 +122,7 @@ if(trim($cform[0])) {
 						if(sizeof($cfield_check) && trim($cfield[5])) {
 							$cfield[1] = $cfield[1]."[]";
 							$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\" valign=\"top\">".spacer(1,14).must_filled($cfield[2]).$cfield[3]."</td><td>";
-							$CNT_TMP .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+							$CNT_TMP .= "<table>\n";
 							$count_cell = 0;
 							$cfield_counter = 0;
 
@@ -165,7 +163,7 @@ if(trim($cform[0])) {
 			case "IR":	$cfield_radio = explode("#", $cfield[5]);
 						if(sizeof($cfield_radio) && trim($cfield[5])) {
 							$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\" valign=\"top\">".spacer(1,14).must_filled($cfield[2]).$cfield[3]."</td><td>";
-							$CNT_TMP .= "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
+							$CNT_TMP .= "<table>\n";
 							$count_cell = 0;
 							$cfield_counter = 0;
 
@@ -210,7 +208,7 @@ if(trim($cform[0])) {
 						break;
 						// Captcha Image
 			case "CA":	$CNT_TMP .= "<tr><td class=\"formLabel\" align=\"right\"><label for=\"".$cfield[1]."\">".must_filled($cfield[2]).$cfield[3]."</label></td><td>";
-						$CNT_TMP .= '<table cellpadding="0" cellspacing="0" border="0"><tr><td>';
+						$CNT_TMP .= '<table><tr><td>';
 						$CNT_TMP .= "<input type=\"text\" name=\"".$cfield[1]."\" value=\"".html_specialchars(trim($cfield[5]))."\" size=\"".$cfield_length."\" ";
 						$CNT_TMP .= ($cfield_max_height) ? "maxlength=\"".$cfield_max_height."\" " : "";
 						$CNT_TMP .= "id=\"".$cfield[1]."\" class=\"inputText\"".(($cfield[6])?" style=\"width:".$cfield[6]."px\"":"")." />";

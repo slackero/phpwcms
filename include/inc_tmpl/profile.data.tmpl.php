@@ -65,7 +65,7 @@ if($form_detail_aktion == 'create_detail') {
 
 }
 
-?><form action="cmsgo.php?do=profile&amp;p=1" method="post" name="formprofiledetail" id="formprofiledetail"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="cmsgo.php?do=profile&amp;p=1" method="post" name="formprofiledetail" id="formprofiledetail"><table width="538">
 	<tr><td colspan="3" class="title"><?php echo $BL['be_profile_data_title'] ?></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 	<tr><td colspan="3"><?php echo $BL['be_profile_data_text'] ?></td></tr>

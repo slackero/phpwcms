@@ -832,9 +832,7 @@ if($aktion[2] == 0) {
     switch($pagelayout['layout_render']) {
 
         case 0: //create the page layout table (header, left, content, right, footer)
-                $content['all']  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\"";   //start main table
-                $content['all'] .= td_attributes($pagelayout, 'all', 0);
-                $content['all'] .= align_base_layout($pagelayout['layout_align'])." summary=\"\">".LF;      // align table
+                $content['all']  = "<table "; //start main table $content['all'] .= td_attributes($pagelayout, 'all', 0); $content['all'] .= align_base_layout($pagelayout['layout_align']).">".LF;      // align table
 
                 //header
                 $content['all'] .= colspan_table_row($pagelayout, 'header', $colspan, $block['headertext']); //header row

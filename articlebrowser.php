@@ -170,7 +170,7 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <?php endif; ?>
 </ul>
 
-<table summary="" class="table table-sm" border="0" cellspacing="0" cellpadding="0">
+<table class="table table-sm">
     <?php
 
     $child_count = get_root_childcount(0);
@@ -178,7 +178,7 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $a = '<tr bgcolor="#e8e8e8" class="struct">';
     $a .= '<td>';
-    $a .= '<table class="table-borderless" border="0" width="100%" cellpadding="0" cellspacing="0" summary=""><tr>';
+    $a .= '<table class="table-borderless w-100"><tr>';
     $a .= '<td class="text-nowrap">';
     $a .= $child_count ? '<a href="cmsgo.php?' . CSRF_GET_TOKEN . '&amp;do=articles&amp;open=0:' . (($_SESSION['structure'][0]) ? 0 : 1) . '">' : '';
 
@@ -372,7 +372,7 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         $acontent_count = get_article_content_count($avalue['article_id']);
         $a = '<tr class="struct">';
         $a .= '<td width="100%">';
-        $a .= '<table class="table-borderless" summary=""><tr>';
+        $a .= '<table class="table-borderless"><tr>';
         $a .= '<td class="text-nowrap">';
         $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
         $a .= ' fa-fw alist-' . $counter . '" aria-hidden="true"></i>';
@@ -460,7 +460,7 @@ function struct_articlecontentlist($article, $akey, $counter) {
 
         if ($a) {
             echo '<tr><td colspan="2" class="p-0">';
-            echo '<table class="table-borderless" border="0" cellpadding="0" cellspacing="0" summary="" width="100%">';
+            echo '<table class="table-borderless w-100">';
             echo $a;
             echo '</table></td></tr>';
         }

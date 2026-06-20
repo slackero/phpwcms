@@ -22,7 +22,7 @@ $row_count = 0;
 
 if(!isset($_GET["s"])) {
 // check if subscription should be edited
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="538">
     <tr><td colspan="3" class="title"><?php echo $BL['be_subnav_msg_forum'] ?></td></tr>
     <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
     <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
@@ -116,7 +116,7 @@ if(isset($result[0]['forum_id'])) {
     // show form
 ?>
 <form action="cmsgo.php?<?php echo build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538">
     <tr>
       <td colspan="2" class="title"><?php echo  $BL['be_forum_titleedit'].": ".( $forum["id"] ? $forum["title"] : $BL['be_newsletter_new']); ?></td>
     </tr>

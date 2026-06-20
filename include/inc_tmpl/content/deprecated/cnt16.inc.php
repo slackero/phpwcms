@@ -52,7 +52,7 @@ if(!isset($content["ecard"])) {
 </tr>
 <tr>
   <td align="right"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td valign="top"><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="cecard_selector" type="radio" value="0" <?php is_checked(0, $content["ecard"]["selector"]); ?>></td>
         <td><?php echo $BL['be_cnt_ecardform_radiobutton'] ?>&nbsp;</td>
@@ -132,7 +132,7 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
     </table><?php
 
 if(isset($img_thumbs) && $img_thumbs) {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
+    echo '<table>
         <tr><td style="padding-bottom:3px;"><br>'.$img_thumbs.'</td></tr>
         </table>';
 }
@@ -211,9 +211,9 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
 if(!$content["ecard"]["form"]) {
     $content["ecard"]["form"]  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
-    $content["ecard"]["form"] .= '<table border="0" align="center" cellpadding="4" cellspacing="0" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
+    $content["ecard"]["form"] .= '<table align="center" cellpadding="4" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
     $content["ecard"]["form"] .= "<!--FORM_ERROR_START-->\n";
-    $content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table border="0" cellspacing="0" cellpadding="0">'."\n";
+    $content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table>'."\n";
     $content["ecard"]["form"] .= '<tr><td valign="top"><img src="img/symbole/achtung.gif" width="13" height="11" />&nbsp;</td>'."\n";
     $content["ecard"]["form"] .= '<td valign="top"><strong style="color:#CC3300;">'.$BL['be_cnt_ecardform_err'].'</strong></td>'."\n";
     $content["ecard"]["form"] .= "</tr></table></td></tr>\n";

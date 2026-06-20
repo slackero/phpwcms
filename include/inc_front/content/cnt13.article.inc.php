@@ -719,7 +719,7 @@ if(isset($content["search"]["result_per_page"])) {
         }
         $crow['template']['form'] .= '>';
         $crow['template']['form'] .= '<form action="' . rel_url() . '" method="post">'.LF;
-        $crow['template']['form'] .= '<table cellspacing="0" cellpadding="0" border="0" summary="Search"><tr>';
+        $crow['template']['form'] .= '<table summary="Search"><tr>';
         if($content["search"]["label_input"]) {
             $crow['template']['form'] .= '<td class="formLabel">';
             $crow['template']['form'] .= $content["search"]["label_input"]."</td>";

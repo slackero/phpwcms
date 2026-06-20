@@ -168,7 +168,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
       <?php
 
@@ -235,7 +235,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 <tr>
   <td align="right"><?php echo $BL['be_cnt_guestbook_flooding'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="cguestbook_cookie" type="checkbox" value="1"<?php
         if(!isset($content["guestbook"]["cookie"])) $content["guestbook"]["cookie"] = 1;
@@ -269,7 +269,7 @@ if(!isset($content["guestbook"]["notify_email"])) {
 ?>
 <tr>
      <td align="right"><?php echo $BL['be_cnt_email_notify'] ?>:&nbsp;</td>
-     <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+     <td><table bgcolor="#E7E8EB">
 
      <tr>
         <td><input name="cguestbook_notify" id="cguestbook_notify" type="checkbox" value="1" <?php is_checked(1, $content["guestbook"]["notify"]); ?> /></td>

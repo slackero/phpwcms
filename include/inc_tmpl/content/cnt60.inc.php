@@ -282,7 +282,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'):
 
 elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-            <table border="0" cellpadding="0" cellspacing="0">
+            <table>
                 <tr>
                     <td>
                         <input
@@ -349,7 +349,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
             </table>
             <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
             <div id="image_<?php echo $custom_field.'_'.$key; ?>">
-              <table border="0" cellpadding="0" cellspacing="0">
+              <table>
                   <tr>
                       <td id="img_preview_<?php echo $custom_field.'_'.$key; ?>" rowspan="3" class="backend_preview_img"></td>
                       <td>
@@ -605,7 +605,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'):
 
 elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-    new_entry += '<table border="0" cellpadding="0" cellspacing="0">';
+    new_entry += '<table>';
     new_entry += '  <tr>';
     new_entry += '      <td>';
     new_entry += '          <input';
@@ -655,7 +655,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '<'+'/table>';
     <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
 
-    new_entry += '<table border="0" cellpadding="0" cellspacing="0">';
+    new_entry += '<table>';
     new_entry += '  <tr>';
     new_entry += '      <td>';
     new_entry += '          <input';
