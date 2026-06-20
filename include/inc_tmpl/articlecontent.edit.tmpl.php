@@ -477,7 +477,7 @@ if ($content['cp_setting_mode']):
 
     <script type="text/javascript">
 
-        checkCntBlockPaginate(getObjectById("cblock"));
+        checkCntBlockPaginate(document.getElementById("cblock"));
         loadblock = false;
 
     </script>

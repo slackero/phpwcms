@@ -521,27 +521,12 @@ if (count($plugin['data']['shopprod_files'])) {
 </form>
 <script type="text/javascript">
 
-var img_field = getObjectByIdShop('shopprod_images');
-var files_field = getObjectByIdShop('shopprod_files');
+var img_field = document.getElementById('shopprod_images');
+var files_field = document.getElementById('shopprod_files');
 
-function addFile(value,text) {
-    if(files_field!=null && files_field.options!=null) {
-        newOpt = new Option(text, value);
-        files_field.options.length++;
-        files_field.options[files_field.length-1].text  = newOpt.text;
-        files_field.options[files_field.length-1].value = newOpt.value;
-        files_field.options[files_field.length-1].selected = false;
-    }
-}
-function getObjectByIdShop(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return false;
+function addFile(value, text) {
+    if (files_field && files_field.options) {
+        files_field.add(new Option(text, value));
     }
 }
 </script>

@@ -477,11 +477,11 @@ if (!defined('CMSGO_ROOT')) {
 
 <script type="text/javascript">
     function enableSubmit() {
-        var submit_prefs = getObjectById('save_button');
+        var submit_prefs = document.getElementById('save_button');
         submit_prefs.disabled=false;
     }
     function disableSubmit() {
-        var submit_prefs = getObjectById('save_button');
+        var submit_prefs = document.getElementById('save_button');
         submit_prefs.disabled=true;
     }
 </script>

@@ -218,7 +218,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div>
 	<div class="form-check form-check-inline col-sm-auto">
-		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div>
 	<div class="form-check form-check-inline col-sm-auto">
@@ -560,9 +560,9 @@ if($value['custom_field_items']):
                         href="#"
                         type="button"
                         data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                        onclick="getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                        onclick="document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                         ></a>
                 </span>
@@ -663,26 +663,14 @@ var max_img_h   = <?php echo $cmsgo['img_list_height']; ?>;
 var image_entry = [];
 
 function setCimageCenterInactive() {
-    var cih = $('#cimage_width');
-    var ciw = $('#cimage_height');
-    var cic = $('#cimage_center');
-    var ccp = $('#cimage_crop');
-    var dis = false;
-    if(!parseInt(cih.value, 10)) {
-        cih.value = '';
-        dis = true;
-    }
-    if(!parseInt(ciw.value, 10)) {
-        ciw.value = '';
-        dis = true;
-    }
-    if(dis) {
-        cic.disabled = true;
-        ccp.disabled = true;
-    } else {
-        cic.disabled = false;
-        ccp.disabled = false;
-    }
+    const widthVal = parseInt($('#cimage_width').val(), 10);
+    const heightVal = parseInt($('#cimage_height').val(), 10);
+    const isInvalid = isNaN(widthVal) || isNaN(heightVal) || widthVal <= 0 || heightVal <= 0;
+    
+    if (isNaN(widthVal)) $('#cimage_width').val('');
+    if (isNaN(heightVal)) $('#cimage_height').val('');
+    
+    $('#cimage_center, #cimage_crop').prop('disabled', isInvalid);
 }
 
 function openImageFileBrowser(image_number) {
@@ -906,9 +894,9 @@ function addNewImage(where) {
     new_entry += '          <a class="btn btn-sm btn-danger trash"';
     new_entry += '              href="#" type="button"';
     new_entry += '              data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-    new_entry += '              onclick="getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
+    new_entry += '              onclick="document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';document.getElementById(\'customfield_<?php
                                 echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
     new_entry += '          ></a>';
     new_entry += '      </span>';

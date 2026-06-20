@@ -481,7 +481,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         <label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+        <input class="form-check-input" name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($article['image']['lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
         <label class="form-check-label"><?php echo $BL['be_cnt_lightbox'] ?></label>
       </div>
     </div>
@@ -579,7 +579,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 				<label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
       </div>
       <div class="form-check form-check-inline">
-          <input class="form-check-input" name="cimage_list_lightbox" type="checkbox" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_list_zoom').checked=true;}" />
+          <input class="form-check-input" name="cimage_list_lightbox" type="checkbox" id="cimage_list_lightbox" value="1" <?php is_checked(1, empty($article['image']['list_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_list_zoom').checked=true;}" />
           <label class="form-check-label">
           <?php echo $BL['be_cnt_lightbox'] ?>
         </label>

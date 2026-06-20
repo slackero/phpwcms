@@ -154,21 +154,17 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
     <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
-    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery.form.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery.uploadfile.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/jquery.form.min.js"></script>
+    <script src="include/inc_js/jquery.uploadfile.min.js"></script>
+    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
-    <script src="include/inc_js/cmsgo.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function addFile(obj,text,value) {
-            if(obj!=null && obj.options!=null) {
-                var newOpt = new Option(text, value);
-                obj.options.length++;
-                obj.options[obj.length-1].text  = newOpt.text;
-                obj.options[obj.length-1].value = newOpt.value;
-                obj.options[obj.length-1].selected = false;
+    <script src="include/inc_js/cmsgo.min.js"></script>
+    <script>
+        function addFile(obj, text, value) {
+            if (obj && obj.options) {
+                const newOpt = new Option(text, value, false, false);
+                obj.add(newOpt);
             }
         }
     </script>
@@ -519,7 +515,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . ' ';
         echo implode(LF . ' ', $js_files_all);
         echo LF . ' //if(closewin == true) '."parent.$('#browserModal').modal('hide');";
-        echo LF . ' getObjectById("addAllFilesLink").style.display = "none";';
+        echo LF . ' document.getElementById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(CMSGO_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, CMSGO_CHARSET);

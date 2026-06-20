@@ -1,5 +1,5 @@
 function showImageAds() {
-	var obj = getObjectById('adcampaign_image');
+	var obj = document.getElementById('adcampaign_image');
 	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
 		var boxw = parseInt(getFieldById('adcampaign_width').value, 10) || 0;
@@ -69,7 +69,7 @@ function showHtmlAds() {
 }
 
 function showFlashAds() {
-	var obj = getObjectById('adcampaign_flash');
+	var obj = document.getElementById('adcampaign_flash');
 	var val = obj.options[obj.selectedIndex].value;
 	if(val && val != '') {
 

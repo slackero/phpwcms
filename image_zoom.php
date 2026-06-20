@@ -31,7 +31,7 @@ if(!empty($_GET["show"]) && ($data = json_decode(base64_decode($_GET["show"]), t
 <head>
     <title><?php echo html($name); ?></title>
     <meta charset="<?php echo CMSGO_CHARSET ?>">
-    <script type="text/javascript" src="<?php echo TEMPLATE_PATH; ?>inc_js/imagezoom.js"></script>
+    <script src="<?php echo TEMPLATE_PATH; ?>inc_js/imagezoom.js"></script>
     <link href="<?php echo TEMPLATE_PATH; ?>inc_css/dialog/popup.image.css" rel="stylesheet">
 </head>
 <body><a href="#" title="Close PopUp" onclick="window.close();return false;"><img src="<?php echo html($src); ?>" alt="<?php echo html($name); ?>" /></a></body>

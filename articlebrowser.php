@@ -136,7 +136,6 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
     </style>
 
     <script src="include/inc_js/jquery/jquery.min.js"></script>
-    <script src="include/inc_js/autosize.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/cmsgo.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>

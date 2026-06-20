@@ -444,7 +444,7 @@ ob_start();
 <div class="form-group">
 	<label for="form_lang"><?php echo $BL["login_lang"] ?></label>
     <div class="input-group">
-        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
+        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
         <?php
         // check available languages installed and build language selector menu
         $lang_dirs = opendir(CMSGO_ROOT.'/include/inc_lang/backend');
@@ -474,8 +474,8 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 
 ?>
 <script>
-    getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
-    getObjectById('form_loginname').focus();
+    document.getElementById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
+    document.getElementById('form_loginname').focus();
 <?php if(!empty($cmsgo['browser_check']['be'])):
     $buoop = array('insecure' => isset($cmsgo['browser_check']['insecure']) ? boolval($cmsgo['browser_check']['insecure']) : true);
     if(!empty($cmsgo['browser_check']['vs'])) {

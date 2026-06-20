@@ -28,36 +28,23 @@ function login(fval) {
         return false;
     }
 }
-
-function MM_findObj(n, d) { //v4.01
-    var p, i, x;
-    if (!d) d = document;
-    if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
-        d = parent.frames[n.substring(p + 1)].document;
-        n = n.substring(0, p);
-    }
-    if (!(x = d[n]) && d.all) x = d.all[n];
-    for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
-    for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
-    if (!x && d.getElementById) x = d.getElementById(n);
-    return x;
+function MM_findObj(n, d) {
+    const el = $('#' + n, d || document);
+    return el.length ? el[0] : null;
 }
 
-function MM_swapImage() { //v3.0
-    var i, j = 0, x, a = MM_swapImage.arguments;
+function MM_swapImage() {
+    const args = arguments;
     document.MM_sr = [];
-    for (i = 0; i < (a.length - 2); i += 3) {
-        if ((x = MM_findObj(a[i])) != null) {
-            document.MM_sr[j++] = x;
-            if (!x.oSrc) x.oSrc = x.src;
-            x.src = a[i + 2];
+    for (let i = 0; i < (args.length - 2); i += 3) {
+        const el = $('#' + args[i]);
+        if (el.length) {
+            document.MM_sr.push(el[0]);
+            if (!el.data('oSrc')) {
+                el.data('oSrc', el.attr('src'));
+            }
+            el.attr('src', args[i + 2]);
         }
-    }
-}
-
-function clearText(thefield) {
-    if (thefield.defaultValue == thefield.value) {
-        thefield.value = '';
     }
 }
 
@@ -277,38 +264,41 @@ function flevPopupLink() { // v1.2
     document.MM_returnValue = false;
 }
 
-function MM_showHideLayers() { //v6.0
-    let i,
-        p,
-        v,
-        obj,
-        args = MM_showHideLayers.arguments;
-    for (i = 0; i < (args.length - 2); i += 3) if ((obj = MM_findObj(args[i])) != null) {
-        v = args[i + 2];
-        if (obj.style) {
-            obj = obj.style;
-            v = (v === 'show') ? 'visible' : (v === 'hide') ? 'hidden' : v;
+function MM_showHideLayers() {
+    const args = arguments;
+    for (let i = 0; i < (args.length - 2); i += 3) {
+        const obj = MM_findObj(args[i]);
+        if (obj != null) {
+            let v = args[i + 2];
+            if (obj.style) {
+                v = (v === 'show') ? 'visible' : (v === 'hide') ? 'hidden' : v;
+                obj.style.visibility = v;
+            }
         }
-        obj.visibility = v;
     }
 }
 
 function tmt_winOpen(u, id, f, df) {
-    if (eval(id) == null || eval(id + ".closed")) {
-        eval(id + "=window.open('" + u + "','" + id + "','" + f + "')");
-        eval(id + ".focus()");
+    const win = window[id];
+    if (win == null || win.closed) {
+        window[id] = window.open(u, id, f);
+        if (window[id]) window[id].focus();
     } else if (df) {
-        eval(id + ".focus()");
+        win.focus();
     } else {
-        eval(id + "=window.open('" + u + "','" + id + "','" + f + "')");
-        eval(id + ".focus()");
+        window[id] = window.open(u, id, f);
+        if (window[id]) window[id].focus();
     }
 }
 
 function tmt_winControl(id, c) {
-    const d = eval(id) == null || eval(id + '.closed');
-    if (!d) {
-        eval(id + "." + c);
+    const win = window[id];
+    if (win && !win.closed) {
+        if (c === 'focus()') {
+            win.focus();
+        } else if (c === 'close()') {
+            win.close();
+        }
     }
 }
 
@@ -389,12 +379,9 @@ function showLayer(whichLayer) {
 }
 
 function toggleDisplayById(whichLayer, status) {
-    if (document.getElementById) {
-        document.getElementById(whichLayer).style.display = status;
-    } else if (document.all) {
-        document.all[whichLayer].style.display = status;
-    } else if (document.layers) {
-        document.layers[whichLayer].display = status;
+    const el = document.getElementById(whichLayer);
+    if (el) {
+        el.style.display = status;
     }
 }
 
@@ -415,48 +402,20 @@ function setCursorPos(textObj) {
 
 function insertAtCursorPos(textObj, textFieldValue) {
     textObj.focus();
-    if (document.all) {
-        if (textObj.createTextRange && textObj.cursorPos) {
-            const cursorPos = textObj.cursorPos;
-            cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) === ' ' ? textFieldValue + ' ' : textFieldValue;
-        } else {
-            textObj.value = textObj.value + textFieldValue;
-        }
+    if (typeof textObj.selectionStart === 'number' && typeof textObj.selectionEnd === 'number') {
+        const rangeStart = textObj.selectionStart;
+        const rangeEnd = textObj.selectionEnd;
+        const tempStr1 = textObj.value.substring(0, rangeStart);
+        const tempStr2 = textObj.value.substring(rangeEnd);
+        textObj.value = tempStr1 + textFieldValue + tempStr2;
+        textObj.selectionStart = textObj.selectionEnd = rangeStart + textFieldValue.length;
     } else {
-        if (textObj.setSelectionRange) {
-            const rangeStart = textObj.selectionStart;
-            const rangeEnd = textObj.selectionEnd;
-            const tempStr1 = textObj.value.substring(0, rangeStart);
-            const tempStr2 = textObj.value.substring(rangeEnd);
-            textObj.value = tempStr1 + textFieldValue + tempStr2;
-        } else {
-            alert("This version of Mozilla based browser does not support setSelectionRange");
-        }
+        textObj.value += textFieldValue;
     }
 }
 
 function getFieldById(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return true;
-    }
-}
-
-function getObjectById(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return false;
-    }
+    return document.getElementById(fld) || true;
 }
 
 function switchDisabled(fld) {
@@ -465,12 +424,8 @@ function switchDisabled(fld) {
 }
 
 function enableStatusMessage(fld, showHide, text) {
-    var obj;
-    if (document.getElementById && document.getElementById(fld) != null) {
-        obj = document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        obj = document.layers[fld];
-    } else {
+    const obj = document.getElementById(fld);
+    if (!obj) {
         return true;
     }
     if (text) {
@@ -481,7 +436,6 @@ function enableStatusMessage(fld, showHide, text) {
 }
 
 function create_alias(str, encoding, ucfirst) {
-    str = str.toUpperCase();
     str = str.toLowerCase();
     str = str.replace(/\[br\]/g, ' ');
     str = str.replace(/__/g, ' ');
@@ -522,13 +476,13 @@ function create_alias(str, encoding, ucfirst) {
     str = str.replace(/^\/+|\/+$/g, '');
     str = str.replace(/^-+|-+$/g, '');
     if (ucfirst == 1) {
-        var c = str.charAt(0);
+        const c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
     }
     return str;
 }
 
-var fbw = 450,
+let fbw = 450,
     fbh = 575;
 if (screen.width !== undefined) {
     fbw = Math.ceil(Math.max(screen.width / 5, fbw));
@@ -548,17 +502,17 @@ function openFileBrowser(url) {
 }
 
 function set_article_alias(onempty_only, alias_type, category) {
-    var alias_basis = 'article_title',
+    let alias_basis = 'article_title',
         alias_target = 'article_alias';
     if (alias_type === 'struct') {
         alias_basis = 'acat_name';
         alias_target = 'acat_alias';
     }
-    var aalias = getObjectById(alias_target);
+    const aalias = document.getElementById(alias_target);
     if (onempty_only && aalias.value !== '') {
         return false;
     }
-    var atitle = getObjectById(alias_basis);
+    const atitle = document.getElementById(alias_basis);
     aalias.value = create_alias((category ? category + '/' : '') + atitle.value);
     return false;
 }
@@ -597,6 +551,23 @@ function flush_image_cache(link, url, confirm_msg, success_msg) {
         proceed();
     }
     return false;
+}
+function autosize(elements) {
+    if (!elements) return;
+    const $el = $(elements);
+    if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('field-sizing', 'content')) {
+        $el.css('field-sizing', 'content');
+        return;
+    }
+    $el.css({ 'overflow-y': 'hidden', 'resize': 'none' });
+    $el.off('input.autosize').on('input.autosize', function () {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
+    $el.each(function () {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+    });
 }
 
 // Autosize textarea
