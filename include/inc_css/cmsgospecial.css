@@ -1043,7 +1043,7 @@ tr.hover-gold:hover td {
     width: 80%;
 }
 
-.field-sizing-content {
+.autosize, textarea {
     field-sizing: content;
 }
 

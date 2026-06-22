@@ -552,32 +552,7 @@ function flush_image_cache(link, url, confirm_msg, success_msg) {
     }
     return false;
 }
-function autosize(elements) {
-    if (!elements) return;
-    const $el = $(elements);
-    if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('field-sizing', 'content')) {
-        $el.addClass('field-sizing-content');
-        return;
-    }
-    $el.css({ 'overflow-y': 'hidden', 'resize': 'none' });
-    $el.off('input.autosize').on('input.autosize', function () {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-    });
-    $el.each(function () {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-    });
-}
 
-// Autosize textarea
-var autosizeTextareas = [];
-$(function() {
-    autosizeTextareas = $('textarea.autosize');
-    if (autosizeTextareas.length) {
-        autosize(autosizeTextareas);
-    }
-});
 
 const validation = {
     isEmailAddress: function(str) {
