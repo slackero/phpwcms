@@ -127,8 +127,8 @@ $langstr = '';
   <script type="text/javascript">
       $(function () {
           $('#article_begin').datetimepicker({
-            locale: 'de-ch',
-            format: "DD.MM.YYYY H:mm:ss",
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY HH:mm:ss",
             showClose: true
           });
           $("#article_begin").on("dp.change", function (e) {
@@ -136,8 +136,8 @@ $langstr = '';
           });
 
           $('#article_end').datetimepicker({
-            locale: 'de-ch',
-            format: "DD.MM.YYYY H:mm:ss",
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY HH:mm:ss",
             showClose: true
           });
           $("#article_end").on("dp.change", function (e) {

@@ -75,7 +75,7 @@ function showNewsletterTemplateData(tvar) {
     <script type="text/javascript">
       $(function () {
           $('#datetimepicker').datetimepicker({
-            locale: 'de-ch',
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY"
           });
       });

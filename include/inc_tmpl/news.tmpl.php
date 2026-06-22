@@ -355,14 +355,14 @@ if($news->data['cnt_id']) {
     <script>
       $(function () {
           $('#datetimepickerstartdate').datetimepicker({
-            locale: 'de-ch',
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
             showClose: true
           });
 
           $('#datetimepickerstarttime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm:ss",
             showClose: true
           });
       });
@@ -390,14 +390,14 @@ if($news->data['cnt_id']) {
     <script>
       $(function () {
           $('#datetimepickerenddate').datetimepicker({
-            locale: 'de-ch',
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
             showClose: true
           });
 
           $('#datetimepickerendtime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
             showClose: true
           });
       });
@@ -425,14 +425,14 @@ if($news->data['cnt_id']) {
     <script>
       $(function () {
           $('#datetimepickersortdate').datetimepicker({
-            locale: 'de-ch',
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
             showClose: true
           });
 
           $('#datetimepickersorttime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
             showClose: true
           });
       });

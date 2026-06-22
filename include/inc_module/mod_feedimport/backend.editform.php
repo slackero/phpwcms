@@ -352,7 +352,7 @@ if (!defined('CMSGO_ROOT')) {
 		echo '    <script type="text/javascript">'.LF;
 		echo '    $(function () {'.LF;
 		echo '      $("#datetimepicker_'.$key.'").datetimepicker({'.LF;
-		echo '        locale: "de-ch",'.LF;
+		echo '        locale: "'. $_SESSION['wcs_user_lang'] .'",'.LF;
 		echo '        format: "DD.MM.YYYY",'.LF;
 		echo '        showClose: true'.LF;
 		echo '      });'.LF;

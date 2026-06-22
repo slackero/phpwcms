@@ -658,8 +658,8 @@ echo $_save_close_buttons;
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({
-              locale: 'de-ch',
-              format: "DD.MM.YYYY H:mm:ss",
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY HH:mm:ss",
               showClose: true
             });
             $("#datetimepicker1").on("dp.change", function (e) {
@@ -667,8 +667,8 @@ echo $_save_close_buttons;
             });
 
             $('#datetimepicker2').datetimepicker({
-              locale: 'de-ch',
-              format: "DD.MM.YYYY H:mm:ss",
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY HH:mm:ss",
               showClose: true
             });
             $("#datetimepicker2").on("dp.change", function (e) {

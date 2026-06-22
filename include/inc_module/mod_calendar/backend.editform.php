@@ -100,14 +100,14 @@ initJsAutocompleter();
         <script type="text/javascript">
             $(function () {
                 $('#datetimepickerstartdate').datetimepicker({
-                  locale: 'de-ch',
+                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
                   format: "DD.MM.YYYY",
                   showClose: true
                 });
 
                 $('#datetimepickerstarttime').datetimepicker({
-                  locale: 'de-ch',
-                  format: "H:mm",
+                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+                  format: "HH:mm",
                   showClose: true
                 });
             });
@@ -136,14 +136,14 @@ initJsAutocompleter();
         <script type="text/javascript">
             $(function () {
                 $('#datetimepickerenddate').datetimepicker({
-                  locale: 'de-ch',
+                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
                   format: "DD.MM.YYYY",
                   showClose: true
                 });
 
                 $('#datetimepickerendtime').datetimepicker({
-                  locale: 'de-ch',
-                  format: "H:mm",
+                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+                  format: "HH:mm",
                   showClose: true
                 });
             });
@@ -196,13 +196,13 @@ initJsAutocompleter();
     <script type="text/javascript">
         $(function () {
             $('#calendarrangestart').datetimepicker({
-              locale: 'de-ch',
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY",
               showClose: true
             });
 
             $('#calendarrangeend').datetimepicker({
-              locale: 'de-ch',
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY",
               showClose: true
             });
