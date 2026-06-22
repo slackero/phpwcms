@@ -6483,7 +6483,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 64
+			count: 65
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
@@ -8205,7 +8205,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 116
+			count: 117
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-

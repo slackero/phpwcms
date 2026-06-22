@@ -556,7 +556,7 @@ function autosize(elements) {
     if (!elements) return;
     const $el = $(elements);
     if (typeof CSS !== 'undefined' && CSS.supports && CSS.supports('field-sizing', 'content')) {
-        $el.css('field-sizing', 'content');
+        $el.addClass('field-sizing-content');
         return;
     }
     $el.css({ 'overflow-y': 'hidden', 'resize': 'none' });

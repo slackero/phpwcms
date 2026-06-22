@@ -44,7 +44,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="radio" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format']; ?></label>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format']; ?></label>
   <div class="col">
   	<div class="form-check form-check-inline">
       <input name="ctext_format" type="radio" id="ctext_format0" value="plain" class="form-check-input" <?php is_checked('plain', $content['ctext_format']); ?> />

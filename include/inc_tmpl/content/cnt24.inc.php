@@ -57,7 +57,7 @@ $content["alias"]['alias_status']   = empty($content["alias"]['alias_status']) ?
 </div>
 
 <div class="form-group form-row">
-  <label for="radio" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_setting'] ?></label>
+  <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_setting'] ?></label>
   <div class="col">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" name="cablock" id="cablock" value="1" <?php is_checked(1, $content["alias"]['alias_block']); ?>>

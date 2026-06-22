@@ -305,7 +305,7 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center form-row">
-      <label for="cnt_teasertext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_teasertext'] ?></label>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format'] ?></label>
     <div class="form-check form-check-inline col-sm-auto">
       <input class="form-check-input" type="radio" id="text_format0" name="cnt_textformat" value="plain"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
       <label class="form-check-label" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
@@ -325,7 +325,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2"></label>
+      <label for="cnt_teasertext" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_teasertext'] ?></label>
       <div class="col">
       <textarea name="cnt_teasertext" id="cnt_teasertext" class="form-control form-control-sm" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
     </div>

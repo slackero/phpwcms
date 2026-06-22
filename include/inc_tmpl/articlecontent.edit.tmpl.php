@@ -134,7 +134,9 @@ if(empty($content["killdate"])) {
 
   <div class="card-body">
     <div class="form-group align-items-center form-row">
-      <span class="col-sm-2 col-form-label text-right font-weight-bold"><?php echo $BL['be_article_cat'].' - '.$BL['be_article_atitle']; ?></span>
+      <div class="col-sm-2 text-right">
+        <span data-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fas fa-info-circle text-blue"></i></span>
+      </div>
       <div class="col-sm-auto">
         <strong><?php echo html($content["article"]['acat_name'].' [ID:'.$content['article']['acat_id'].']'.' - '.$content["article"]['article_title']) ?> </strong>
       </div>
@@ -285,6 +287,19 @@ if ($content['cp_setting_mode']):
     }
 ?>
 
+    <div class="form-group align-items-center form-row">
+      <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+      <div class="col-sm-10">
+        <input name="ctitle" type="text" id="ctitle" class="form-control form-control-sm" value="<?php echo html($content["title"]) ?>" maxlength="2000" />
+      </div>
+    </div>
+
+    <div class="form-group align-items-center form-row">
+      <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+      <div class="col-sm-10">
+        <input name="csubtitle" type="text" id="csubtitle" class="form-control form-control-sm" value="<?php echo html($content["subtitle"]) ?>" maxlength="2000" />
+      </div>
+    </div>
 
     <div class="form-group align-items-center form-row">
       <label for="cblock" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_show_content'] ?></label>
@@ -440,17 +455,6 @@ if ($content['cp_setting_mode']):
   }
 ?>
 
-    <div class="form-group align-items-center form-row">
-      <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
-      <div class="col-sm-4">
-        <input name="ctitle" type="text" id="ctitle" class="form-control form-control-sm" value="<?php echo html($content["title"]) ?>" maxlength="2000" />
-      </div>
-      <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
-      <div class="col-sm-4">
-        <input name="csubtitle" type="text" id="csubtitle" class="form-control form-control-sm" value="<?php echo html($content["subtitle"]) ?>" maxlength="2000" />
-      </div>
-    </div>
-
 <?php
 
     // check if it is necessary to display paginate stuff
@@ -565,36 +569,39 @@ echo $_save_close_buttons;
 
     <div class="form-group align-items-center form-row">
       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></span>
-      <div class="col-sm-auto my-2 my-sm-0">
-      	<div class="input-group input-group-sm">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-     					<input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
-    				</div>
-							<span class="input-group-text"><?php echo $BL['be_article_cnt_before'] ?></span>
-					</div>
-					<input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
-					<div class="input-group-append">
-						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-					</div>
-				</div>
+      <div class="col-sm-10">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="my-1 mr-3">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
+                </div>
+                <label class="input-group-text" for="cbefore"><?php echo $BL['be_article_cnt_before'] ?></label>
+              </div>
+              <input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
+              <div class="input-group-append">
+                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
+              </div>
+            </div>
+          </div>
+          <div class="my-1">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
+                </div>
+                <label class="input-group-text" for="cafter"><?php echo $BL['be_article_cnt_after'] ?></label>
+              </div>
+              <input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
+              <div class="input-group-append">
+                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
-      	<div class="input-group input-group-sm">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-     					<input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
-    				</div>
-							<span class="input-group-text"><?php echo $BL['be_article_cnt_after'] ?></span>
-					</div>
-					<input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
-					<div class="input-group-append">
-						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-					</div>
-				</div>
-			</div>
-		</div>
+    </div>
 
     <div class="form-group align-items-center form-row">
       <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
@@ -610,36 +617,42 @@ echo $_save_close_buttons;
       </div>
     </div>
 
-   <hr />
+    <hr />
 
     <div class="form-group align-items-center form-row">
-      <label for="set_livedate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
-      <div class="col-sm-auto">
-        <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], '') ?>' : '';" />
-      </div>
-      <div class="col col-sm-auto">
-        <div class="date input-group" id='datetimepicker1'>
-        <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" />
-        <div class="input-group-append">
-        	<span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-        </div>
-      </div>
-      </div>
-    </div>
-
-    <div class="form-group align-items-center form-row">
-      <label for="set_killdate" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
-      <div class="col-sm-auto">
-        <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], '') ?>' : '';" />
-      </div>
-      <div class="col col-sm-auto">
-        <div class="date input-group" id="datetimepicker2">
-          <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" />
-        	<div class="input-group-append">
-        		<span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-        	</div>
-        </div>
-      </div>
+       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></span>
+       <div class="col-sm-10">
+         <div class="d-flex flex-wrap align-items-center">
+           <div class="my-1 mr-3">
+             <div class="date input-group input-group-sm" id='datetimepicker1'>
+               <div class="input-group-prepend">
+                 <div class="input-group-text">
+                   <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], '') ?>' : '';" />
+                 </div>
+                 <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
+               </div>
+               <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" />
+               <div class="input-group-append">
+                 <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+               </div>
+             </div>
+           </div>
+           <div class="my-1">
+             <div class="date input-group input-group-sm" id="datetimepicker2">
+               <div class="input-group-prepend">
+                 <div class="input-group-text">
+                   <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], '') ?>' : '';" />
+                 </div>
+                 <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+               </div>
+               <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" />
+               <div class="input-group-append">
+                 <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
     </div>
 
     <script type="text/javascript">
