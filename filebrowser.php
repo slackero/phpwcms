@@ -377,6 +377,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
                         $js  = "parent.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
                         $js .= "parent.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
+                        $js .= "if (typeof parent.onImageSelected === 'function') { parent.onImageSelected('".$jst."', '".$file_row["f_id"]."', '".$filename."'); }";
                         break;
 
                     case 2:

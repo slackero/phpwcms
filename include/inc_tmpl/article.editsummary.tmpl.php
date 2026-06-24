@@ -452,7 +452,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         </span>
         <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
         <span class="input-group-append">
-          <a href="#" class="btn btn-sm btn-danger trash"  type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_name.value='';document.article.cimage_id.value='0';this.blur();return false;"></a>
+          <a href="#" class="btn btn-sm btn-danger trash"  type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
         </span>
       </div>
       <input name="cimage_id" type="hidden" value="<?php echo $article['image']['id'] ?>" />
@@ -506,6 +506,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 				<label class="form-check-label" for="cimage_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
       </div>
     </div>
+    <div id="cimage_preview_container" class="col-sm-2 text-right">
     <?php
       $_SESSION['image_browser_article'] = 1;
       $thumb_image = false;
@@ -516,8 +517,9 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         "thumb_name"  =>  md5($article['image']['hash'].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
           ));
       }
-                echo $thumb_image ? '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" />' : '&nbsp;';
+      echo $thumb_image ? '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" />' : '&nbsp;';
       ?>
+    </div>
   </div>
 
   <hr />
@@ -550,7 +552,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
         </div>
         <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
         <div class="input-group-append">
-          <a href="#" class="btn btn-sm btn-danger trash"  type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0';this.blur();return false;"></a>
+          <a href="#" class="btn btn-sm btn-danger trash"  type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
         </div>
       </div>
       <input name="cimage_list_id" type="hidden" value="<?php echo $article['image']['list_id'] ?>" />
@@ -607,6 +609,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 				<label class="form-check-label" for="cimage_list_caption_suppress"><?php echo $BL['be_suppress_render_caption']; ?></label>
       </div>
     </div>
+    <div id="cimage_list_preview_container" class="col-sm-2 text-right">
     <?php
 
     $_SESSION['image_browser_article'] = 1;
@@ -622,6 +625,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
       echo $thumb_image ? '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" />' : '&nbsp;';
 
     ?>
+    </div>
   </div>
 
   <div class="form-group align-items-center form-row">
@@ -843,6 +847,28 @@ $(function(){
 function cancelEdit() {
     document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article["article_id"] ? '&p=2&s=1&id='.$article["article_id"] : '' ?>';
   return false;
+}
+
+function onImageSelected(target, id, name) {
+    if (target === '_') {
+        var container = $('#cimage_preview_container');
+        if (container.length) {
+            if (id && parseInt(id, 10) > 0) {
+                container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
+            } else {
+                container.html('&nbsp;');
+            }
+        }
+    } else if (target === '_list_') {
+        var container = $('#cimage_list_preview_container');
+        if (container.length) {
+            if (id && parseInt(id, 10) > 0) {
+                container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
+            } else {
+                container.html('&nbsp;');
+            }
+        }
+    }
 }
 
 </script>
