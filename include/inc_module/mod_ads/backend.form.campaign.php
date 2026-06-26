@@ -150,45 +150,35 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			</div>
 
 			<div class="form-group row align-items-center">
-				<label for="adcampaign_date_start" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
 				<div class="col-sm-9">
-					<div class="form-row">
-						<div class="col-auto mb-2 mb-sm-0">
-							<div class="date input-group input-group-sm" id="datetimepickerstartdate">
-								<input type="text" class="form-control datetimepicker" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-								<div class="input-group-append">
+					<div class="d-flex flex-wrap align-items-center">
+						<div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+							<div class="input-group input-group-sm datetime-picker-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_start" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_date_start" data-toggle="datetimepicker">
 									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
 								</div>
-							</div>
-						</div>
-						<div class="col-auto mb-2 mb-sm-0">
-							<div class="date input-group input-group-sm" id="datetimepickerstarttime">
-								<input type="text" class="form-control datetimepicker" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-								<div class="input-group-append">
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_start" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_time_start" data-toggle="datetimepicker">
 									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group row align-items-center">
-				<label for="adcampaign_date_end" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_end'] ?></label>
-				<div class="col-sm-9">
-					<div class="form-row">
-						<div class="col-auto mb-2 mb-sm-0">
-							<div class="date input-group input-group-sm" id="datetimepickerenddate">
-								<input type="text" class="form-control datetimepicker" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-								<div class="input-group-append">
+						<div class="my-1">
+							<div class="input-group input-group-sm datetime-picker-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_end" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_date_end" data-toggle="datetimepicker">
 									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
 								</div>
-							</div>
-						</div>
-						<div class="col-auto mb-2 mb-sm-0">
-							<div class="date input-group input-group-sm" id="datetimepickerendtime">
-								<input type="text" class="form-control datetimepicker" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-								<div class="input-group-append">
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_end" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_time_end" data-toggle="datetimepicker">
 									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
 								</div>
 							</div>
@@ -469,28 +459,36 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 
 <script type="text/javascript">
 $(function () {
-	$('#datetimepickerstartdate').datetimepicker({
+	$('#adcampaign_date_start').datetimepicker({
 		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
 		format: "DD.MM.YYYY",
-		showClose: true
+		buttons: {
+			showClose: true
+		}
 	});
 
-	$('#datetimepickerstarttime').datetimepicker({
+	$('#adcampaign_time_start').datetimepicker({
 		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
 		format: "HH:mm",
-		showClose: true
+		buttons: {
+			showClose: true
+		}
 	});
 
-	$('#datetimepickerenddate').datetimepicker({
+	$('#adcampaign_date_end').datetimepicker({
 		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
 		format: "DD.MM.YYYY",
-		showClose: true
+		buttons: {
+			showClose: true
+		}
 	});
 
-	$('#datetimepickerendtime').datetimepicker({
+	$('#adcampaign_time_end').datetimepicker({
 		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
 		format: "HH:mm",
-		showClose: true
+		buttons: {
+			showClose: true
+		}
 	});
 });
 </script>

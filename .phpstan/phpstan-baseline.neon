@@ -4821,13 +4821,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 16
+			count: 18
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
@@ -4857,13 +4857,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 18
+			count: 20
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 33
+			count: 32
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
@@ -4989,13 +4989,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 30
+			count: 32
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 33
+			count: 32
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
@@ -6435,7 +6435,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 128
+			count: 133
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -6483,7 +6483,19 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 65
+			count: 69
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_livedate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_killdate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
@@ -8205,7 +8217,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 117
+			count: 118
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-
@@ -8217,7 +8229,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 32
+			count: 33
 			path: ../include/inc_tmpl/newsletter.form.tmpl.php
 
 		-

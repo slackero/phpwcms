@@ -86,13 +86,13 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             $article['article_nosearch']    = $row['article_nosearch'];
             $article['article_nositemap']   = $row['article_nositemap'];
 
-            if(is_null($article["article_begin"])) {
+            if (empty($article['article_begin']) || $article['article_begin'] === '0000-00-00 00:00:00' || $article['article_begin'] === '0000-00-00') {
                 $set_begin = 0;
             } else {
                 $set_begin = 1;
             }
 
-            if(is_null($article["article_end"])) {
+            if (empty($article['article_end']) || $article['article_end'] === '0000-00-00 00:00:00' || $article['article_end'] === '0000-00-00') {
                 $set_end = 0;
             } else {
                 $set_end = 1;
@@ -536,8 +536,22 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                 $content['tid']             = $row['acontent_tid'];
                 $content["attr_class"]      = $row['acontent_attr_class'];
                 $content["attr_id"]         = $row['acontent_attr_id'];
-                $content["livedate"]        = $row['acontent_livedate'];
-                $content["killdate"]        = $row['acontent_killdate'];
+                $content['livedate']        = $row['acontent_livedate'];
+                $content['killdate']        = $row['acontent_killdate'];
+
+                if (empty($content['livedate']) || $content['livedate'] === '0000-00-00 00:00:00') {
+                    $content['livedate'] = '';
+                    $set_livedate = 0;
+                } else {
+                    $set_livedate = 1;
+                }
+
+                if (empty($content['killdate']) || $content['killdate'] === '0000-00-00 00:00:00') {
+                    $content['killdate'] = '';
+                    $set_killdate = 0;
+                } else {
+                    $set_killdate = 1;
+                }
 
                 if($content["type"] != 30 && is_file(CMSGO_ROOT.'/include/inc_lib/content/cnt'.$content["type"].'.takeval.inc.php')) {
 
@@ -558,11 +572,15 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             }
 
         } else {
-            $content["id"] = 0;
-            $content["aid"] = intval($_GET["id"]);
+            $content['id'] = 0;
+            $content['aid'] = intval($_GET['id']);
             $content['tid'] = 0;
-            $content["attr_class"] = '';
-            $content["attr_id"] = '';
+            $content['attr_class'] = '';
+            $content['attr_id'] = '';
+            $content['livedate'] = '';
+            $content['killdate'] = '';
+            $set_livedate = 0;
+            $set_killdate = 0;
 
             if(isset($_POST["ctype"])) {
 

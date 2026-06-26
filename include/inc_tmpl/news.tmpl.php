@@ -334,106 +334,109 @@ if($news->data['cnt_id']) {
   <hr />
 
     <div class="form-group form-row align-items-center">
-      <label for="start_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
-      <div class="col-sm-auto">
-        <div class="date input-group mb-2 mb-sm-0" id="datetimepickerstartdate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
+      <div class="col-sm-10">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#start_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#start_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickerstarttime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+          <div class="my-1">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#end_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#end_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <script>
       $(function () {
-          $('#datetimepickerstartdate').datetimepicker({
+          $('#start_date').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
           });
 
-          $('#datetimepickerstarttime').datetimepicker({
+          $('#start_time').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "HH:mm:ss",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>
 
     <div class="form-group form-row align-items-center">
-      <label for="end_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_end'] ?></label>
-      <div class="col-sm-auto">
-        <div class="input-group mb-2 mb-sm-0" id="datetimepickerenddate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_sort_date'] ?></label>
+      <div class="col-sm-10">
+        <div class="input-group input-group-sm datetime-picker-group">
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_date" id="sort_date" value="<?php echo $news->data['cnt_sort_date']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#sort_date" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_date" data-toggle="datetimepicker">
             <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+          </div>
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_time" id="sort_time" value="<?php echo $news->data['cnt_sort_time']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#sort_time" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_time" data-toggle="datetimepicker">
+            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
           </div>
         </div>
       </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickerendtime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
-            </div>
-        </div>
-      </div>
     </div>
     <script>
       $(function () {
-          $('#datetimepickerenddate').datetimepicker({
+          $('#sort_date').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
           });
 
-          $('#datetimepickerendtime').datetimepicker({
+          $('#sort_time').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "HH:mm",
-            showClose: true
-          });
-      });
-    </script>
-
-    <div class="form-group form-row align-items-center">
-      <label for="sort_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_sort_date'] ?></label>
-      <div class="col-sm-auto">
-        <div class="input-group mb-2 mb-sm-0" id="datetimepickersortdate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="sort_date" id="sort_date" value="<?php echo $news->data['cnt_sort_date']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickersorttime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="sort_time" id="sort_time" value="<?php echo $news->data['cnt_sort_time']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
-            </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      $(function () {
-          $('#datetimepickersortdate').datetimepicker({
-            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-            format: "DD.MM.YYYY",
-            showClose: true
-          });
-
-          $('#datetimepickersorttime').datetimepicker({
-            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-            format: "HH:mm",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>

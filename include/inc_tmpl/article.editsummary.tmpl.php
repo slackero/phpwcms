@@ -95,30 +95,36 @@ $langstr = '';
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="set_begin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
-    <div class="col-sm-auto">
-      <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="document.article.article_begin.value = this.checked ? '<?php echo cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], '') ?>' : '';">
-    </div>
- 		<div class="col-sm-auto">
-      <div id="article_begin" class="input-group">
-        <input name="article_begin" type="text" class="form-control form-control-sm datetimepicker" placeholder="DD-MM-YYYY HH:MM:SS" value="<?php echo cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], ''); ?>" >
-        <div class="input-group-append">
-          <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
+    <div class="col-sm-10">
+      <div class="d-flex flex-wrap align-items-center">
+        <div class="my-1 mr-3">
+          <div id="article_begin" class="input-group input-group-sm" data-target-input="#article_begin_input">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input name="set_begin" type="checkbox" id="set_begin" value="1"<?php is_checked(1, $set_begin) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($article['article_begin'], $BL['be_longdatetime'], '') ?>'; $('#article_begin').datetimepicker('date', d || moment()); } else { $('#article_begin').datetimepicker('clear'); }">
+              </div>
+              <label class="input-group-text" for="article_begin_input"><?php echo $BL['be_msg_from'] ?></label>
+            </div>
+            <input name="article_begin" type="text" id="article_begin_input" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], ''); ?>" data-target="#article_begin" autocomplete="off" >
+            <div class="input-group-append" data-target="#article_begin" data-toggle="datetimepicker">
+              <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group align-items-center form-row">
-    <label for="set_end" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
-    <div class="col-sm-auto">
-      <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="document.article.article_end.value = this.checked ? '<?php echo cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], '') ?>' : '';">
-    </div>
- 		<div class="col-sm-auto">
-      <div id="article_end" class="input-group">
-        <input name="article_end" type="text" class="form-control form-control-sm datetimepicker" placeholder="DD-MM-YYYY HH:MM:SS" value="<?php echo cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], ''); ?>" >
-        <div class="input-group-append">
-          <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+        <div class="my-1">
+          <div id="article_end" class="input-group input-group-sm" data-target-input="#article_end_input">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input name="set_end" type="checkbox" id="set_end" value="1"<?php is_checked(1, $set_end) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($article['article_end'], $BL['be_longdatetime'], '') ?>'; $('#article_end').datetimepicker('date', d || moment()); } else { $('#article_end').datetimepicker('clear'); }">
+              </div>
+              <label class="input-group-text" for="article_end_input"><?php echo $BL['be_article_aend'] ?></label>
+            </div>
+            <input name="article_end" type="text" id="article_end_input" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], ''); ?>" data-target="#article_end" autocomplete="off" >
+            <div class="input-group-append" data-target="#article_end" data-toggle="datetimepicker">
+              <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -129,19 +135,29 @@ $langstr = '';
           $('#article_begin').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY HH:mm:ss",
-            showClose: true
+            useCurrent: false,
+            buttons: {
+              showClose: true
+            }
           });
-          $("#article_begin").on("dp.change", function (e) {
-            document.article.set_begin.checked = true;
+          $("#article_begin").on("change.datetimepicker", function (e) {
+            if (e.date !== undefined) {
+              document.article.set_begin.checked = !!e.date;
+            }
           });
 
           $('#article_end').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY HH:mm:ss",
-            showClose: true
+            useCurrent: false,
+            buttons: {
+              showClose: true
+            }
           });
-          $("#article_end").on("dp.change", function (e) {
-            document.article.set_end.checked = true;
+          $("#article_end").on("change.datetimepicker", function (e) {
+            if (e.date !== undefined) {
+              document.article.set_end.checked = !!e.date;
+            }
           });
       });
   </script>

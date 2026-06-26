@@ -72,82 +72,83 @@ initJsAutocompleter();
 <hr />
 
     <div class="form-group form-row align-items-center">
-    	<label for="calendar_start_date" class="col-sm-2 col-form-label text-right"><?php echo $BLM['calendar_start'] ?></label>
-        <div class="col-sm-auto">
-        	<div class="date input-group input-group-sm" id="datetimepickerstartdate">
-            	<input type="text" class="form-control datetimepicker" name="calendar_start_date" id="calendar_start_date" value="<?php echo html($plugin['data']['calendar_start_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-              <div class="input-group-append">
-              	<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+    	<label class="col-sm-2 col-form-label text-right"><?php echo $BLM['calendar_start'] ?></label>
+        <div class="col-sm-10">
+          <div class="d-flex flex-wrap align-items-center">
+            <div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+              <div class="input-group input-group-sm datetime-picker-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+                </div>
+                <input type="text" class="form-control datetimepicker-input" name="calendar_start_date" id="calendar_start_date" value="<?php echo html($plugin['data']['calendar_start_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#calendar_start_date" autocomplete="off" />
+                <div class="input-group-append" data-target="#calendar_start_date" data-toggle="datetimepicker">
+                  <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control datetimepicker-input" name="calendar_start_time" id="calendar_start_time" value="<?php echo html($plugin['data']['calendar_start_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#calendar_start_time" autocomplete="off" />
+                <div class="input-group-append" data-target="#calendar_start_time" data-toggle="datetimepicker">
+                  <span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+                </div>
               </div>
             </div>
-        </div>
-        <div class="col-sm-auto">
-        	<div class="date input-group input-group-sm" id="datetimepickerstarttime">
-            	<input type="text" class="form-control datetimepicker" name="calendar_start_time" id="calendar_start_time" value="<?php echo html($plugin['data']['calendar_start_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-              <div class="input-group-append">
-                <span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+            <div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+              <div class="input-group input-group-sm datetime-picker-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+                </div>
+                <input type="text" class="form-control datetimepicker-input" name="calendar_end_date" id="calendar_end_date" value="<?php echo html($plugin['data']['calendar_end_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#calendar_end_date" autocomplete="off" />
+                <div class="input-group-append" data-target="#calendar_end_date" data-toggle="datetimepicker">
+                  <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+                </div>
+                <input type="text" class="form-control datetimepicker-input" name="calendar_end_time" id="calendar_end_time" value="<?php echo html($plugin['data']['calendar_end_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#calendar_end_time" autocomplete="off" />
+                <div class="input-group-append" data-target="#calendar_end_time" data-toggle="datetimepicker">
+                  <span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+                </div>
               </div>
             </div>
+            <div class="my-1 form-check form-check-inline align-self-center">
+              <input type="checkbox" name="calendar_allday" id="calendar_allday" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['calendar_allday']) ?> onchange="setCalendarAllDay();" />
+              <label for="calendar_allday" class="form-check-label mb-0" onclick="setCalendarAllDay()">
+                <?php echo $BLM['all_day'] ?>
+              </label>
+            </div>
+          </div>
         </div>
-        <div class="col form-check-inline">
-
-          	<input type="checkbox" name="calendar_allday" id="calendar_allday" class="form-check-input" value="1"<?php is_checked(1, $plugin['data']['calendar_allday']) ?> onchange="setCalendarAllDay();" />
-            <label for="calendar_allday" class="form-check-label" onclick="setCalendarAllDay()">
-          	  	<?php echo $BLM['all_day'] ?>
-          	    </label>
-		      </div>
     </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepickerstartdate').datetimepicker({
-                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-                  format: "DD.MM.YYYY",
-                  showClose: true
-                });
-
-                $('#datetimepickerstarttime').datetimepicker({
-                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-                  format: "HH:mm",
-                  showClose: true
-                });
+    <script type="text/javascript">
+        $(function () {
+            $('#calendar_start_date').datetimepicker({
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY",
+              buttons: {
+                showClose: true
+              }
             });
-        </script>
 
-    <div class="form-group form-row align-items-center">
-    	<label for="calendar_end_date" class="col-sm-2 col-form-label text-right"><?php echo $BLM['calendar_end'] ?></label>
-        <div class="col-sm-auto">
-        	<div class="date input-group input-group-sm" id="datetimepickerenddate">
-            	<input type="text" class="form-control datetimepicker" name="calendar_end_date" id="calendar_end_date" value="<?php echo html($plugin['data']['calendar_end_date']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-              <div class="input-group-append">
-              	<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-              </div>
-            </div>
-        </div>
-        <div class="col-sm-auto">
-        	<div class="date input-group input-group-sm" id="datetimepickerendtime">
-            	<input type="text" class="form-control datetimepicker" name="calendar_end_time" id="calendar_end_time" value="<?php echo html($plugin['data']['calendar_end_time']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-              <div class="input-group-append">
-                <span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
-              </div>
-            </div>
-        </div>
-
-    </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepickerenddate').datetimepicker({
-                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-                  format: "DD.MM.YYYY",
-                  showClose: true
-                });
-
-                $('#datetimepickerendtime').datetimepicker({
-                  locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-                  format: "HH:mm",
-                  showClose: true
-                });
+            $('#calendar_start_time').datetimepicker({
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "HH:mm",
+              buttons: {
+                showClose: true
+              }
             });
-        </script>
+
+            $('#calendar_end_date').datetimepicker({
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY",
+              buttons: {
+                showClose: true
+              }
+            });
+
+            $('#calendar_end_time').datetimepicker({
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "HH:mm",
+              buttons: {
+                showClose: true
+              }
+            });
+        });
+    </script>
 
   <div class="form-group form-row align-items-center">
     <label for="be_admin_tmpl_js" class="col-sm-2 col-form-label text-right"><?php echo $BLM['repeat'] ?></label>
@@ -177,17 +178,17 @@ initJsAutocompleter();
     <div id="rDate0" class="form-group form-row align-items-center">
       <label for="calendar_end_date" class="col-sm-2 col-form-label text-right"><?php echo $BLM['repeat_till'] ?></label>
       <div class="col-sm-auto">
-        <div class="date input-group input-group-sm" id="calendarrangestart">
-          <input type="text" class="form-control datetimepicker" name="calendar_range_start" id="calendar_range_start" value="<?php echo html($plugin['data']['calendar_rangestart']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
+        <div class="date input-group input-group-sm" data-target-input="#calendar_range_start">
+          <input type="text" class="form-control datetimepicker-input" name="calendar_range_start" id="calendar_range_start" value="<?php echo html($plugin['data']['calendar_rangestart']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#calendar_range_start" autocomplete="off" />
+          <div class="input-group-append" data-target="#calendar_range_start" data-toggle="datetimepicker">
             <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
         </div>
       </div>
       <div class="col-sm-auto mt-3 mt-sm-0">
-        <div class="date input-group input-group-sm" id="calendarrangeend">
-          <input type="text" class="form-control datetimepicker" name="calendar_range_end" id="calendar_range_end" value="<?php echo html($plugin['data']['calendar_rangeend']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
+        <div class="date input-group input-group-sm" data-target-input="#calendar_range_end">
+          <input type="text" class="form-control datetimepicker-input" name="calendar_range_end" id="calendar_range_end" value="<?php echo html($plugin['data']['calendar_rangeend']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#calendar_range_end" autocomplete="off" />
+          <div class="input-group-append" data-target="#calendar_range_end" data-toggle="datetimepicker">
             <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
         </div>
@@ -195,16 +196,20 @@ initJsAutocompleter();
     </div>
     <script type="text/javascript">
         $(function () {
-            $('#calendarrangestart').datetimepicker({
+            $('#calendar_range_start').datetimepicker({
               locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY",
-              showClose: true
+              buttons: {
+                showClose: true
+              }
             });
 
-            $('#calendarrangeend').datetimepicker({
+            $('#calendar_range_end').datetimepicker({
               locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY",
-              showClose: true
+              buttons: {
+                showClose: true
+              }
             });
         });
     </script>
@@ -389,11 +394,13 @@ $(function(){
 function setCalendarAllDay() {
 
     if($('#calendar_allday').is(':checked')) {
-      $('#datetimepickerstarttime').hide();
-      $('#datetimepickerendtime').hide();
+      $('#calendar_start_time, #calendar_start_time + .input-group-append').hide();
+      $('#calendar_end_time, #calendar_end_time + .input-group-append').hide();
+      $('.datetime-picker-group').addClass('all-day-active');
     } else {
-      $('#datetimepickerstarttime').show();
-      $('#datetimepickerendtime').show();
+      $('#calendar_start_time, #calendar_start_time + .input-group-append').show();
+      $('#calendar_end_time, #calendar_end_time + .input-group-append').show();
+      $('.datetime-picker-group').removeClass('all-day-active');
     }
 
 }

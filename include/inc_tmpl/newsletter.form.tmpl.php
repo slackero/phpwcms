@@ -64,9 +64,9 @@ function showNewsletterTemplateData(tvar) {
     <div class="form-group form-row align-items-center">
       <label for="newsletter_pub" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
       <div class="col-sm-auto">
-        <div class="date input-group" id="datetimepicker">
-          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm datetimepicker" placeholder="DD-MM-YYYY" value="<?php echo cmsgo_strtotime($newsletter["newsletter_pub"], 'd.m.Y', ''); ?>" required />
-          <div class="input-group-append">
+        <div class="date input-group" id="datetimepicker" data-target-input="#newsletter_pub">
+          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo cmsgo_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" data-target="#newsletter_pub" autocomplete="off" required />
+          <div class="input-group-append" data-target="#newsletter_pub" data-toggle="datetimepicker">
             <span class="datepickerbutton input-group-text btn form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
         </div>
@@ -74,9 +74,12 @@ function showNewsletterTemplateData(tvar) {
     </div>
     <script type="text/javascript">
       $(function () {
-          $('#datetimepicker').datetimepicker({
+          $('#newsletter_pub').datetimepicker({
             locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-            format: "DD.MM.YYYY"
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>

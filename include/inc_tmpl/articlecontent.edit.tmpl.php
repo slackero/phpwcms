@@ -29,20 +29,6 @@ if(empty($content['article']['acat_id'])) { // Root structure
     $content['article']['acat_id']          = 0;
     $content['article']['acat_template']    = $indexpage['acat_template'];
 }
-
-// Livedate / killdate fallback
-if(empty($content["livedate"])) {
-    $content["livedate"] = '';
-    $set_livedate = 0;
-} else {
-    $set_livedate = 1;
-}
-if(empty($content["killdate"])) {
-    $content["killdate"] = '';
-    $set_killdate = 0;
-} else {
-    $set_killdate = 1;
-}
 ?>
 <script type="text/javascript">
     function validate_before_after(elem, checkElem) {
@@ -624,29 +610,29 @@ echo $_save_close_buttons;
        <div class="col-sm-10">
          <div class="d-flex flex-wrap align-items-center">
            <div class="my-1 mr-3">
-             <div class="date input-group input-group-sm" id='datetimepicker1'>
+             <div class="date input-group input-group-sm" id="datetimepicker1" data-target-input="#clivedate">
                <div class="input-group-prepend">
                  <div class="input-group-text">
-                   <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], '') ?>' : '';" />
+                   <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['livedate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker1').datetimepicker('date', d || moment()); } else { $('#datetimepicker1').datetimepicker('clear'); }" />
                  </div>
                  <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
                </div>
-               <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" />
-               <div class="input-group-append">
+               <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker1" autocomplete="off" />
+               <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
                </div>
              </div>
            </div>
            <div class="my-1">
-             <div class="date input-group input-group-sm" id="datetimepicker2">
+             <div class="date input-group input-group-sm" id="datetimepicker2" data-target-input="#ckilldate">
                <div class="input-group-prepend">
                  <div class="input-group-text">
-                   <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], '') ?>' : '';" />
+                   <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker2').datetimepicker('date', d || moment()); } else { $('#datetimepicker2').datetimepicker('clear'); }" />
                  </div>
                  <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
                </div>
-               <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" />
-               <div class="input-group-append">
+               <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker2" autocomplete="off" />
+               <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
                </div>
              </div>
@@ -660,19 +646,29 @@ echo $_save_close_buttons;
             $('#datetimepicker1').datetimepicker({
               locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY HH:mm:ss",
-              showClose: true
+              useCurrent: false,
+              buttons: {
+                showClose: true
+              }
             });
-            $("#datetimepicker1").on("dp.change", function (e) {
-              document.articlecontent.set_livedate.checked = true;
+            $("#datetimepicker1").on("change.datetimepicker", function (e) {
+              if (e.date !== undefined) {
+                document.articlecontent.set_livedate.checked = !!e.date;
+              }
             });
 
             $('#datetimepicker2').datetimepicker({
               locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
               format: "DD.MM.YYYY HH:mm:ss",
-              showClose: true
+              useCurrent: false,
+              buttons: {
+                showClose: true
+              }
             });
-            $("#datetimepicker2").on("dp.change", function (e) {
-              document.articlecontent.set_killdate.checked = true;
+            $("#datetimepicker2").on("change.datetimepicker", function (e) {
+              if (e.date !== undefined) {
+                document.articlecontent.set_killdate.checked = !!e.date;
+              }
             });
         });
     </script>
