@@ -25,7 +25,7 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
     }
 }
 // Include uploader scripts http://hayageek.com/docs/jquery-upload-file.php
-$GLOBALS['BE']['HEADER']['uploadfile.css'] = '<link href="include/inc_css/uploadfile.css" rel="stylesheet">';
+$GLOBALS['BE']['HEADER']['uploadfile.css'] = '<link href="include/inc_css/uploadfile.min.css" rel="stylesheet">';
 $GLOBALS['BE']['HEADER']['jquery.form.min.js'] = getJavaScriptSourceLink('include/inc_js/jquery.form.min.js');
 $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('include/inc_js/jquery.uploadfile.min.js');
 ?>

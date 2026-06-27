@@ -116,7 +116,7 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <style>
         tr.struct:hover {

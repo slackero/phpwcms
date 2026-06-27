@@ -1066,7 +1066,7 @@ function initJsOptionSelect() {
 function initJsAutocompleter() {
     initJQuery();
     $GLOBALS['BE']['HEADER']['autosuggest.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
-    $GLOBALS['BE']['HEADER']['autosuggest.css'] = ' <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
+    $GLOBALS['BE']['HEADER']['autosuggest.css'] = ' <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />';
 }
 function initJQuery() {
 //  unset($GLOBALS['BE']['HEADER']['mootools.js']);

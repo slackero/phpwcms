@@ -148,11 +148,11 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <title><?php echo $titel ?></title>
     <meta charset="<?php echo CMSGO_CHARSET ?>" />
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/uploadfile.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/uploadfile.min.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery.min.js"></script>
     <script src="include/inc_js/jquery.form.min.js"></script>

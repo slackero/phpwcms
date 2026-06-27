@@ -319,7 +319,7 @@ $reason_types = array(
 	<meta name="robots" content="noindex, nofollow">
 	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/login.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($cmsgo['default_lang'] == 'ar' || $cmsgo['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>

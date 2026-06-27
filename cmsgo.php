@@ -155,7 +155,7 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
