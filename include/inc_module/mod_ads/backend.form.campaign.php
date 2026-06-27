@@ -49,7 +49,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 			<div class="form-group row">
 				<label for="adcampaign_place" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['adplace'] ?></label>
 				<div class="col-sm-9">
-					<select name="adcampaign_place" id="adcampaign_place" class="custom-select custom-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
+					<select name="adcampaign_place" id="adcampaign_place" class="custom-select form-control form-control-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
 						$sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_ads_place ap ';
 						$sql .= 'LEFT JOIN '.DB_PREPEND.'cmsgo_ads_formats af ON ';
@@ -136,7 +136,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 								<div class="input-group-prepend">
 									<span class="input-group-text"><?php echo $BLM['open_in'] ?></span>
 								</div>
-								<select name="adcampaign_target" id="adcampaign_target" class="custom-select form-control">
+								<select name="adcampaign_target" id="adcampaign_target" class="custom-select form-control form-control-sm">
 									<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
 									<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
 									<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>
@@ -298,7 +298,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
-								<select name="adcampaign_image" id="adcampaign_image" class="custom-select custom-select-sm" style="width: 200px;">
+								<select name="adcampaign_image" id="adcampaign_image" class="custom-select form-control form-control-sm" style="width: 200px;">
 									<option value="">&nbsp;</option>
 									<?php echo $plugin['data']['image'] ?>
 								</select>
@@ -324,7 +324,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
-								<select name="adcampaign_flash" id="adcampaign_flash" class="custom-select custom-select-sm" style="width: 200px;">
+								<select name="adcampaign_flash" id="adcampaign_flash" class="custom-select form-control form-control-sm" style="width: 200px;">
 									<option value="">&nbsp;</option>
 									<?php echo $plugin['data']['flash'] ?>
 								</select>
@@ -348,7 +348,7 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($cmsgo['modules'][$module][
 					<div class="col-sm-9">
 						<div class="form-row align-items-center">
 							<div class="col-auto">
-								<select name="adcampaign_css" id="adcampaign_css" class="custom-select custom-select-sm" style="width: 200px;">
+								<select name="adcampaign_css" id="adcampaign_css" class="custom-select form-control form-control-sm" style="width: 200px;">
 									<option value="">&nbsp;</option>
 									<?php echo $plugin['data']['css'] ?>
 								</select>

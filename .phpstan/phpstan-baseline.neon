@@ -6435,19 +6435,19 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 133
+			count: 130
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
-			count: 51
+			count: 53
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$cmsgo might not be defined\.$#'
 			identifier: variable.undefined
-			count: 23
+			count: 24
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -6487,18 +6487,6 @@ parameters:
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
-			message: '#^Variable \$set_livedate might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
-
-		-
-			message: '#^Variable \$set_killdate might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
-
-		-
 			message: '#^Variable \$anchor_title might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -6526,6 +6514,18 @@ parameters:
 			message: '#^Variable \$indexpage might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_killdate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_livedate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-

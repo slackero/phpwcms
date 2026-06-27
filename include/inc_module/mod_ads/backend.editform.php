@@ -85,7 +85,7 @@ initJsCalendar();
 			<div class="form-group row">
 				<label for="adcampaign_format" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_format'] ?></label>
 				<div class="col-sm-9">
-					<select name="adcampaign_format" id="adcampaign_format" class="custom-select custom-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
+					<select name="adcampaign_format" id="adcampaign_format" class="custom-select form-control form-control-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
 						$sql = 'SELECT * FROM '.DB_PREPEND.'cmsgo_ads_formats WHERE adformat_status=1';
 						$plugin['ad_formats']		= _dbQuery($sql);
@@ -177,7 +177,7 @@ initJsCalendar();
 			<div class="form-group row">
 				<label for="adcampaign_target" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['open_in'] ?></label>
 				<div class="col-sm-9">
-					<select name="adcampaign_target" id="adcampaign_target" class="custom-select custom-select-sm" style="max-width: 200px;">
+					<select name="adcampaign_target" id="adcampaign_target" class="custom-select form-control form-control-sm" style="max-width: 200px;">
 						<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
 						<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
 						<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>

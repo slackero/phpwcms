@@ -180,7 +180,7 @@ if (!defined('CMSGO_ROOT')) {
 		if($value == 'MULTISELECT') {
 			echo '    <select id="'.$key.'" class="form-control form-control-sm" style="max-width:450px;" name="'.$key.'[]" multiple="multiple" size="6">'.LF;
 		} else {
-			echo '    <select id="'.$key.'" class="custom-select custom-select-sm" style="max-width:450px;" name="'.$key.'">'.LF;
+			echo '    <select id="'.$key.'" class="custom-select form-control form-control-sm" style="max-width:450px;" name="'.$key.'">'.LF;
 		}
 
 		$_options_pre = array();

@@ -45,7 +45,7 @@ if (!defined('CMSGO_ROOT')) {
 			<div class="form-group row">
 				<label for="adplace_format" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_format'] ?></label>
 				<div class="col-sm-10">
-					<select name="adplace_format" id="adplace_format" class="custom-select custom-select-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
+					<select name="adplace_format" id="adplace_format" class="custom-select form-control form-control-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
 						<?php
 						$sql = 'SELECT * FROM '.DB_PREPEND.'cmsgo_ads_formats WHERE adformat_status=1';
 						$plugin['ad_formats']		= _dbQuery($sql);

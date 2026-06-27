@@ -175,7 +175,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     <div class="col-sm-auto px-3 py-3 py-sm-0">
         <div class="input-group input-group-sm align-items-center">
                 <label for="shopprod_vat" class="col-form-label mr-2"><?php echo $BLM['shopprod_vat'] ?></label>
-                    <select name="shopprod_vat" id="shopprod_vat" class="form-control-sm custom-select">
+                    <select name="shopprod_vat" id="shopprod_vat" class="custom-select form-control form-control-sm">
                         <?php
                         if (! $plugin['data']['shop_pref_vat'] = _getConfig('shop_pref_vat')) {
                                 $plugin['data']['shop_pref_vat'] = array('0.00');

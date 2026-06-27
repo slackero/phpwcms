@@ -424,6 +424,15 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
   height: 36px !important;
 }
 
-
-
-
+/* Custom styles for article edit summary alias buttons */
+.btn-alias-action {
+  border: 1px solid #ced4da !important;
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.btn-alias-action:hover {
+  background-color: #e2e6ea !important;
+  border-color: #dae0e5 !important;
+  color: #495057 !important;
+}

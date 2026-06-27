@@ -122,9 +122,11 @@ foreach($plugin['fields'] as $key => $value) {
 			echo '<div class="form-group row">';
 			echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>';
 			echo '  <div class="col-sm-10">';
-			echo '    <select id="'.$key.'" class="form-control form-control-sm" style="min-width:75px;" name="'.$key;
-			echo $value === 'MULTISELECT' ? '[]" multiple="multiple" size="6"' : '"';
-			echo '>';
+			if ($value === 'MULTISELECT') {
+				echo '    <select id="' . $key . '" class="form-control form-control-sm" style="min-width:75px;" name="' . $key . '[]" multiple="multiple" size="6">';
+			} else {
+				echo '    <select id="' . $key . '" class="custom-select form-control form-control-sm" style="min-width:75px;" name="' . $key . '">';
+			}
 
 			$_options_pre = array();
 			$_options_end = array();
