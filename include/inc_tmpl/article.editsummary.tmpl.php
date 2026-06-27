@@ -559,10 +559,13 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
       $article['image']['list_caption']   = '';
   }
   ?>
-  <div class="form-group align-items-center form-row">
-    <label for="cimage_usesummary" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_same_as_summary'] ?></label>
-    <div class="col-sm-4">
-      <input name="cimage_usesummary" type="checkbox" id="cimage_usesummary" value="1" <?php is_checked(1, $article['image']['list_usesummary']); ?> />
+  <div class="form-group form-row">
+    <span class="col-sm-2 col-form-label text-sm-right pt-0"></span>
+    <div class="col-sm-10">
+      <div class="form-check">
+        <input class="form-check-input" name="cimage_usesummary" type="checkbox" id="cimage_usesummary" value="1" <?php is_checked(1, $article['image']['list_usesummary']); ?> />
+        <label class="form-check-label" for="cimage_usesummary"><?php echo $BL['be_cnt_same_as_summary'] ?></label>
+      </div>
     </div>
   </div>
 
