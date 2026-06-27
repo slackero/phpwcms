@@ -469,22 +469,30 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <div class="form-group align-items-center form-row mt-2">
     <label for="cimage_name" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forfull'] ?></label>
     <div class="col-sm-10">
-      <div class="input-group input-group-sm">
-        <span class="input-group-prepend">
-          <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" ></button>
-        </span>
-        <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
-        <span class="input-group-append mr-2">
-          <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
-        </span>
-        <div class="input-group-prepend">
-          <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+      <div class="form-row">
+        <div class="col-12 col-lg-7 mb-2 mb-lg-0">
+          <div class="input-group input-group-sm">
+            <span class="input-group-prepend">
+              <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=summary" ></button>
+            </span>
+            <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
+            <span class="input-group-append">
+              <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
+            </span>
+          </div>
         </div>
-        <input name="cimage_width" type="text" class="form-control form-control-sm mr-2" id="cimage_width" size="4" maxlength="4" style="max-width: 80px;" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" />
-        <div class="input-group-prepend">
-          <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+        <div class="col-12 col-lg-5">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+            </div>
+            <input name="cimage_width" type="text" class="form-control form-control-sm mr-2" id="cimage_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" />
+            <div class="input-group-prepend">
+              <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+            </div>
+            <input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" />
+          </div>
         </div>
-        <input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" size="4" maxlength="4" style="max-width: 80px;" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" />
       </div>
       <input name="cimage_id" type="hidden" value="<?php echo $article['image']['id'] ?>" />
     </div>
@@ -565,22 +573,30 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
   <div class="form-group align-items-center form-row">
     <label for="cimage_list_name" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_image'] ?>: <?php echo $BL['be_article_forlist'] ?></label>
     <div class="col-sm-10">
-      <div class="input-group input-group-sm">
-        <div class="input-group-prepend">
-          <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" ></button>
+      <div class="form-row">
+        <div class="col-12 col-lg-7 mb-2 mb-lg-0">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=list" ></button>
+            </div>
+            <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
+            <div class="input-group-append">
+              <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
+            </div>
+          </div>
         </div>
-        <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
-        <div class="input-group-append mr-2">
-          <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bootstrapConfirm('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>', 'danger'); this.blur();return false;"></a>
+        <div class="col-12 col-lg-5">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+            </div>
+            <input name="cimage_list_width" type="text" class="form-control form-control-sm mr-2" id="cimage_list_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" />
+            <div class="input-group-prepend">
+              <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+            </div>
+            <input name="cimage_list_height" type="text" class="form-control form-control-sm" id="cimage_list_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" />
+          </div>
         </div>
-        <div class="input-group-prepend">
-          <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
-        </div>
-        <input name="cimage_list_width" type="text" class="form-control form-control-sm mr-2" id="cimage_list_width" size="4" maxlength="4" style="max-width: 80px;" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" />
-        <div class="input-group-prepend">
-          <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
-        </div>
-        <input name="cimage_list_height" type="text" class="form-control form-control-sm" id="cimage_list_height" size="4" maxlength="4" style="max-width: 80px;" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" />
       </div>
       <input name="cimage_list_id" type="hidden" value="<?php echo $article['image']['list_id'] ?>" />
     </div>
