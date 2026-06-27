@@ -1587,3 +1587,12 @@ $BL['modal_delete'] = 'Verwijderen';
 $BL['modal_move'] = 'Verplaatsen';
 $BL['modal_copy'] = 'Kopiëren';
 $BL['modal_flush'] = 'Leegmaken';
+$BL['be_metadata'] = 'Metadata';
+$BL['be_content'] = 'Inhoud';
+$BL['be_images'] = 'Afbeeldingen';
+$BL['be_article_show'] = 'Weergeven';
+$BL['be_active'] = 'Actief';
+
+
+
+

@@ -1629,3 +1629,12 @@ $BL['modal_delete'] = 'Usuń';
 $BL['modal_move'] = 'Przenieś';
 $BL['modal_copy'] = 'Kopiuj';
 $BL['modal_flush'] = 'Wyczyść';
+$BL['be_metadata'] = 'Metadane';
+$BL['be_content'] = 'Treść';
+$BL['be_images'] = 'Obrazy';
+$BL['be_article_show'] = 'Wyświetl';
+$BL['be_active'] = 'Aktywny';
+
+
+
+

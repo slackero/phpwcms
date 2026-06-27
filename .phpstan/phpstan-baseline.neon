@@ -6435,13 +6435,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 130
+			count: 132
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
-			count: 53
+			count: 33
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-

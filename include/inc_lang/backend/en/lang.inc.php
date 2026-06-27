@@ -1645,3 +1645,12 @@ $BL['modal_delete'] = 'Delete';
 $BL['modal_move'] = 'Move';
 $BL['modal_copy'] = 'Copy';
 $BL['modal_flush'] = 'Flush';
+$BL['be_metadata'] = 'Meta data';
+$BL['be_content'] = 'Content';
+$BL['be_images'] = 'Images';
+$BL['be_article_show'] = 'Show';
+$BL['be_active'] = 'Active';
+
+
+
+

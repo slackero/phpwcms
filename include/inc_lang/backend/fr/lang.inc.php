@@ -1116,3 +1116,12 @@ $BL['modal_delete'] = 'Supprimer';
 $BL['modal_move'] = 'Déplacer';
 $BL['modal_copy'] = 'Copier';
 $BL['modal_flush'] = 'Vider';
+$BL['be_metadata'] = 'Métadonnées';
+$BL['be_content'] = 'Contenu';
+$BL['be_images'] = 'Images';
+$BL['be_article_show'] = 'Afficher';
+$BL['be_active'] = 'Actif';
+
+
+
+

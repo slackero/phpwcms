@@ -1512,3 +1512,12 @@ $BL['modal_delete'] = 'Eliminar';
 $BL['modal_move'] = 'Mover';
 $BL['modal_copy'] = 'Copiar';
 $BL['modal_flush'] = 'Vaciar';
+$BL['be_metadata'] = 'Metadatos';
+$BL['be_content'] = 'Contenido';
+$BL['be_images'] = 'Imágenes';
+$BL['be_article_show'] = 'Mostrar';
+$BL['be_active'] = 'Activo';
+
+
+
+
