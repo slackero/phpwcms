@@ -482,15 +482,23 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
           </div>
         </div>
         <div class="col-12 col-lg-5">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+          <div class="form-row">
+            <div class="col-6">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+                </div>
+                <input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" />
+              </div>
             </div>
-            <input name="cimage_width" type="text" class="form-control form-control-sm mr-2" id="cimage_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['width']) ? $template_default['article']['image_default_width'] : $article['image']['width']; ?>" />
-            <div class="input-group-prepend">
-              <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+            <div class="col-6">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+                </div>
+                <input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" />
+              </div>
             </div>
-            <input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['height']) ? $template_default['article']['image_default_height'] : $article['image']['height']; ?>" />
           </div>
         </div>
       </div>
@@ -586,15 +594,23 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
           </div>
         </div>
         <div class="col-12 col-lg-5">
-          <div class="input-group input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+          <div class="form-row">
+            <div class="col-6">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+                </div>
+                <input name="cimage_list_width" type="text" class="form-control form-control-sm" id="cimage_list_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" />
+              </div>
             </div>
-            <input name="cimage_list_width" type="text" class="form-control form-control-sm mr-2" id="cimage_list_width" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_width']) ? $template_default['article']['imagelist_default_width'] : $article['image']['list_width']; ?>" />
-            <div class="input-group-prepend">
-              <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+            <div class="col-6">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+                </div>
+                <input name="cimage_list_height" type="text" class="form-control form-control-sm" id="cimage_list_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" />
+              </div>
             </div>
-            <input name="cimage_list_height" type="text" class="form-control form-control-sm" id="cimage_list_height" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($article['image']['list_height']) ? $template_default['article']['imagelist_default_height'] : $article['image']['list_height']; ?>" />
           </div>
         </div>
       </div>
