@@ -474,6 +474,8 @@ $BL['be_article_err4']                  = 'La fecha de terminaci&oacute;n es inc
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'Editar la informaci&oacute;n b&aacute;sica del art&iacute;culo';
 $BL['be_article_eslastedit']            = '&Uacute;ltima edici&oacute;n';
+$BL['be_article_created_at']            = 'creado el';
+$BL['be_article_updated_at']            = 'actualizado el';
 $BL['be_article_esnoupdate']            = 'No actualizado';
 $BL['be_article_esbutton']              = 'Actualizar la informaci&oacute;n del art&iacute;culo';
 

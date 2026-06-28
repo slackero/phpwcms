@@ -478,6 +478,8 @@ $BL['be_article_err4']                  = 'De einddatum kan niet voor de beginda
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'Artikel-basisinformatie';
 $BL['be_article_eslastedit']            = 'Bewerkingsdatum';
+$BL['be_article_created_at']            = 'gemaakt op';
+$BL['be_article_updated_at']            = 'geupdate op';
 $BL['be_article_esnoupdate']            = 'Formulier niet geupdate';
 $BL['be_article_esbutton']              = 'Opslaan';
 

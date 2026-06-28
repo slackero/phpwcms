@@ -502,6 +502,8 @@ $BL['be_article_err4']                  = 'end date given was wrong - set to now
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edit article basis information';
 $BL['be_article_eslastedit']            = 'last edit';
+$BL['be_article_created_at']            = 'created at';
+$BL['be_article_updated_at']            = 'updated at';
 $BL['be_article_esnoupdate']            = 'form not updated';
 $BL['be_article_esbutton']              = 'update article data';
 

@@ -256,12 +256,12 @@ $(function() {
           <div class="table-responsive">
           <table class="table table-sm mt-3 tdMorepace">
             <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
-              <td><?php echo cmsgo_strtotime($article["article_date"], $BL['be_longdatetime'], '') ?></td>
+              <td class="text-secondary"><?php echo $BL['be_article_updated_at'] ?>:&nbsp;</td>
+              <td><?php echo cmsgo_strtotime($article['article_date'], $BL['be_longdatetime'], '') ?></td>
             </tr>
             <tr>
-              <td class="text-secondary"><?php echo $BL['be_fprivedit_created'] ?>:&nbsp;</td>
-              <td><?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
+              <td class="text-secondary"><?php echo $BL['be_article_created_at'] ?>:&nbsp;</td>
+              <td><?php echo date($BL['be_longdatetime'], $article['article_created']) ?></td>
             </tr>
             <tr>
               <td class="text-secondary text-nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>

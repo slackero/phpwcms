@@ -498,6 +498,8 @@ $BL['be_article_err4'] = 'Falsches Enddatum - auf JETZT + 1 Woche gesetzt';
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Artikel Basisinformation bearbeiten';
 $BL['be_article_eslastedit'] = 'zuletzt';
+$BL['be_article_created_at'] = 'erstellt am';
+$BL['be_article_updated_at'] = 'aktualisiert am';
 $BL['be_article_esnoupdate'] = 'Keine Aktualisierung';
 $BL['be_article_esbutton'] = 'Artikeldaten aktualisieren';
 

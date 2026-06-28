@@ -475,6 +475,8 @@ $BL['be_article_err4']                  = 'data di termine errata - corretta ad 
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edita informazioni articolo';
 $BL['be_article_eslastedit']            = 'ultimo edit';
+$BL['be_article_created_at']            = 'creato il';
+$BL['be_article_updated_at']            = 'aggiornato il';
 $BL['be_article_esnoupdate']            = 'form non aggiornato';
 $BL['be_article_esbutton']              = 'aggiorna dati articolo';
 

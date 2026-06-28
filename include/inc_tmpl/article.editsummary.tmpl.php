@@ -505,6 +505,25 @@ $langstr = '';
           </div>
         </div>
       </div>
+      <hr>
+    <?php if (!empty($article['article_created']) || isset($article['article_date'])) { ?>
+      <div class="form-group align-items-center form-row">
+        <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_article_created_at'] ?>: </span>
+        <div class="col-sm-10 d-flex flex-wrap align-items-center">
+          <?php if (!empty($article['article_created'])) { ?>
+            <div class="my-1 mr-4">
+              <?php echo date($BL['be_longdatetime'], $article['article_created']); ?>
+            </div>
+          <?php } ?>
+          <?php if (isset($article['article_date'])) { ?>
+            <div class="my-1">
+              <strong class="mr-1"><?php echo $BL['be_article_updated_at'] ?>:</strong>
+              <?php echo (empty($_POST['article_update']) || !intval($_POST['article_update'])) ? cmsgo_strtotime($article['article_date'], $BL['be_longdatetime'], '') : $BL['be_article_esnoupdate']; ?>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
+    <?php } ?>
     </div>
 
     <!-- SETTINGS TAB -->
@@ -833,14 +852,7 @@ $langstr = '';
         </div>
       </div>
 
-    <?php if (isset($article['article_date'])) { ?>
-      <div class="form-group align-items-center form-row">
-        <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_article_eslastedit'] ?>: </span>
-        <div class="col-sm-4">
-          <?php echo (empty($_POST['article_update']) || !intval($_POST['article_update'])) ? $article['article_date'] : $BL['be_article_esnoupdate']; ?>
-        </div>
-      </div>
-    <?php } ?>
+
     </div>
   </div>
 

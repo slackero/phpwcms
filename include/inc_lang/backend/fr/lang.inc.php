@@ -474,6 +474,8 @@ $BL['be_article_err4']                  = 'date de fin erronn&eacute;e - entrez 
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = '&eacute;diter les informations de base de l&#39;article';
 $BL['be_article_eslastedit']            = 'derni&egrave;re &eacute;dition';
+$BL['be_article_created_at']            = 'cr&eacute;&eacute; le';
+$BL['be_article_updated_at']            = 'mise &agrave; jour le';
 $BL['be_article_esnoupdate']            = 'la forme n&#39;a pas &eacute;t&eacute; mise &agrave; jour';
 $BL['be_article_esbutton']              = 'valider les modifications';
 

@@ -479,6 +479,8 @@ $BL['be_article_err4'] = 'Data zakończenia wyświetlania jest podana. Ale-ustaw
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Edycja podstawowych danych artykułu';
 $BL['be_article_eslastedit'] = 'Aktualizowany';
+$BL['be_article_created_at'] = 'utworzony o';
+$BL['be_article_updated_at'] = 'zaktualizowany o';
 $BL['be_article_esnoupdate'] = 'Formularz nie zaktualizowany';
 $BL['be_article_esbutton'] = 'Zaktualizuj dane artykułu';
 
