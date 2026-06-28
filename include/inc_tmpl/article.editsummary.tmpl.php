@@ -480,6 +480,15 @@ $langstr = '';
           <textarea name="article_description" rows="4" class="form-control form-control-sm" id="article_description"><?php echo html($article['article_description']) ?></textarea>
         </div>
       </div>
+
+      <hr>
+      <div class="form-group align-items-center form-row">
+        <label for="article_username" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_article_username'] ?></label>
+        <div class="col-sm-10">
+          <input name="article_username" type="text" id="article_username" class="form-control form-control-sm" value="<?php echo html($article['article_username']) ?>" size="40" maxlength="200" />
+        </div>
+      </div>
+
       <hr>
       <div class="form-group align-items-center form-row">
         <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_robots'] ?></span>
@@ -718,36 +727,27 @@ $langstr = '';
       <hr>
 
       <div class="form-group align-items-center form-row">
-        <span class="col-sm-2 col-form-label text-sm-right"></span>
-        <div class="col-sm-10">
-          <div class="form-row align-items-center">
-            <div class="col-sm-5 d-flex align-items-center">
-              <label for="article_uid" class="col-form-label mr-2 mb-0"><?php echo $BL['be_article_articleowner'] ?></label>
-              <select name="article_uid" id="article_uid" class="custom-select form-control form-control-sm flex-grow-1 mr-2">
-                <?php
-                $u_sql = 'SELECT usr_id, usr_name, usr_login, usr_admin FROM ' .DB_PREPEND. 'cmsgo_user WHERE usr_aktiv=1 ORDER BY usr_admin DESC, usr_name';
-                $u_result = _dbQuery($u_sql);
-                if (isset($u_result[0]['usr_id'])) {
-                    foreach ($u_result as $u_row) {
-                        echo '<option value="'.$u_row['usr_id'].'"';
-                        if ($u_row['usr_id'] == $article['article_uid']) {
-                            echo ' selected="selected"';
-                        }
-                        if ((int)$u_row['usr_admin']) {
-                            echo ' class="option-admin"';
-                        }
-                        echo '>'.html($u_row['usr_name'] ?: $u_row['usr_login']).'</option>';
+        <label for="article_uid" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_article_articleowner'] ?></label>
+        <div class="col-sm-10 d-flex align-items-center">
+          <select name="article_uid" id="article_uid" class="custom-select form-control form-control-sm mr-2" style="max-width: 250px;">
+            <?php
+            $u_sql = 'SELECT usr_id, usr_name, usr_login, usr_admin FROM ' .DB_PREPEND. 'cmsgo_user WHERE usr_aktiv=1 ORDER BY usr_admin DESC, usr_name';
+            $u_result = _dbQuery($u_sql);
+            if (isset($u_result[0]['usr_id'])) {
+                foreach ($u_result as $u_row) {
+                    echo '<option value="'.$u_row['usr_id'].'"';
+                    if ($u_row['usr_id'] == $article['article_uid']) {
+                        echo ' selected="selected"';
                     }
+                    if ((int)$u_row['usr_admin']) {
+                        echo ' class="option-admin"';
+                    }
+                    echo '>'.html($u_row['usr_name'] ?: $u_row['usr_login']).'</option>';
                 }
-                ?>
-              </select>
-              <span class="small text-muted text-nowrap"><?php echo $BL['be_article_adminuser'] ?></span>
-            </div>
-            <div class="col-sm-5 d-flex align-items-center">
-              <label for="article_username" class="col-form-label mr-2 mb-0"><?php echo $BL['be_article_username'] ?></label>
-              <input name="article_username" type="text" id="article_username" class="form-control form-control-sm flex-grow-1" value="<?php echo html($article['article_username']) ?>" size="40" maxlength="200" />
-            </div>
-          </div>
+            }
+            ?>
+          </select>
+          <span class="small text-muted text-nowrap"><?php echo $BL['be_article_adminuser'] ?></span>
         </div>
       </div>
 
