@@ -1043,9 +1043,22 @@ tr.hover-gold:hover td {
     width: 80%;
 }
 
-.autosize, textarea {
+.autosize, textarea, .field-sizing-content {
     field-sizing: content;
 }
+.field-sizing-content-1, textarea[rows="1"] { min-block-size: 1lh; }
+.field-sizing-content-2, textarea[rows="2"] { min-block-size: 2lh; }
+.field-sizing-content-3, textarea[rows="3"] { min-block-size: 3lh; }
+.field-sizing-content-4, textarea[rows="4"] { min-block-size: 4lh; }
+.field-sizing-content-5, textarea[rows="5"] { min-block-size: 5lh; }
+.field-sizing-content-6, textarea[rows="6"] { min-block-size: 6lh; }
+.field-sizing-content-7, textarea[rows="7"] { min-block-size: 7lh; }
+.field-sizing-content-8, textarea[rows="8"] { min-block-size: 8lh; }
+.field-sizing-content-9, textarea[rows="9"] { min-block-size: 9lh; }
+.field-sizing-content-10, textarea[rows="10"] { min-block-size: 10lh; }
+.field-sizing-content-12, textarea[rows="12"] { min-block-size: 12lh; }
+.field-sizing-content-15, textarea[rows="15"] { min-block-size: 15lh; }
+.field-sizing-content-20, textarea[rows="20"] { min-block-size: 20lh; }
 
 /* Custom styles for article edit summary alias buttons */
 .btn-alias-action {

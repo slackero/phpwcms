@@ -64,7 +64,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plaintext']; ?></label>
   <div class="col">
-    <textarea name="ctext" rows="10" class="form-control form-control-sm" id="ctext"><?php
+    <textarea name="ctext" rows="10" class="form-control form-control-sm field-sizing-content field-sizing-content-10" id="ctext"><?php
     if(empty($content["text"])) {
 
       echo '';

@@ -41,6 +41,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_linklist']; ?></label>
   <div class="col">
-  <textarea name="ctext" rows="20" wrap="VIRTUAL" class="form-control form-control-sm" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea>
+  <textarea name="ctext" rows="20" wrap="VIRTUAL" class="form-control form-control-sm field-sizing-content field-sizing-content-20" id="ctext"><?php echo  isset($content["text"]) ? html($content["text"]) : '' ?></textarea>
   </div>
 </div>

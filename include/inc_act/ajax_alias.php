@@ -52,7 +52,7 @@ if($action == 'form' && $article_id) {
     echo '<a href="cmsgo.php?do=articles&p=2&s=1&id=' . $article_id . '" target="_blank">'.$BL['be_cnt_articles'] .'</a>'.LF;
     echo '| <a href="index.php?aid=' . $article_id . '" target="_blank">'.$BL['be_func_struct_preview'] .'</a></div></div>'.LF;
     echo '<div class="form-group form-row"><label class="col-sm-3 col-form-label text-right font-weight-bold" for="article_description'.$article_id.'">'.$BL['be_cnt_description'] .':</label><div class="col-sm-9">'.LF;
-    echo '<textarea name="article_description" rows="3" class="form-control form-control-sm"" id="article_description'.$article_id.'">'.html_specialchars($content['current_article'][0]['article_description']).'</textarea></div></div>'.LF;
+    echo '<textarea name="article_description" rows="3" class="form-control form-control-sm field-sizing-content field-sizing-content-3" id="article_description'.$article_id.'">'.html_specialchars($content['current_article'][0]['article_description']).'</textarea></div></div>'.LF;
     echo '<div class="form-group form-row align-items-center"><label class="col-sm-3 col-form-label text-right font-weight-bold" for="article_alias'.$article_id.'">'.$BL['be_article_urlalias'] .':</label><div class="col-sm-9">'.LF;
     echo '<input name="article_alias" type="text" class="form-control form-control-sm" id="article_alias'. $article_id.'" value="'.html_specialchars($content['current_article'][0]['article_alias']).'" maxlength="230" onfocus="set_article_alias(true);" onchange="this.value=create_alias(this.value);" /></div></div>'.LF;
     echo '<div class="form-group form-row align-items-center">'.LF;
