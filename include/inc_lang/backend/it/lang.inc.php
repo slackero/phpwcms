@@ -506,7 +506,7 @@ $BL['be_article_cnt_add']               = 'aggiungi nuova parte contenuto';
 $BL['be_article_cnt_up']                = 'muovi contenuto su';
 $BL['be_article_cnt_down']              = 'muovi contenuto gi&ugrave;';
 $BL['be_article_cnt_edit']              = 'aggiungi parte contenuto';
-$BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto articolo';
+$BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto';
 $BL['be_article_cnt_delpartjs']         = 'Cancella questa parte contenuto?';
 $BL['be_article_cnt_center']            = 'centro articoli';
 

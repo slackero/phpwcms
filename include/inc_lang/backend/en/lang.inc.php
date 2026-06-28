@@ -537,7 +537,7 @@ $BL['be_article_cnt_addtitle']          = 'add new content part';
 $BL['be_article_cnt_up']                = 'move content up';
 $BL['be_article_cnt_down']              = 'move content down';
 $BL['be_article_cnt_edit']              = 'edit content part';
-$BL['be_article_cnt_delpart']           = 'delete this article content part';
+$BL['be_article_cnt_delpart']           = 'delete content part';
 $BL['be_article_cnt_delpartjs']         = 'Delete content part?';
 $BL['be_article_cnt_center']            = 'article center';
 

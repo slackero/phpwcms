@@ -505,7 +505,7 @@ $BL['be_article_cnt_add']               = 'Agregar nuevo contenido';
 $BL['be_article_cnt_up']                = 'Desplazar el contenido hacia arriba';
 $BL['be_article_cnt_down']              = 'Desplazar el contenido hacia abajo';
 $BL['be_article_cnt_edit']              = 'Editar el contenido';
-$BL['be_article_cnt_delpart']           = 'Eliminar este contenido del art&iacute;culo';
+$BL['be_article_cnt_delpart']           = 'Eliminar este contenido';
 $BL['be_article_cnt_delpartjs']         = 'Elimina este contenido?';
 $BL['be_article_cnt_center']            = 'Centro de art&iacute;culos';
 

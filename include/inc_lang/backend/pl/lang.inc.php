@@ -514,8 +514,8 @@ $BL['be_article_cnt_addtitle'] = 'Dodaj nową treść';
 $BL['be_article_cnt_up'] = 'Przesuń w górę treść';
 $BL['be_article_cnt_down'] = 'Przesuń w dół treść';
 $BL['be_article_cnt_edit'] = 'Edytuj treść';
-$BL['be_article_cnt_delpart'] = 'Usuń treść z artykułu';
-$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść z artykułu?';
+$BL['be_article_cnt_delpart'] = 'Usuń treść';
+$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść?';
 $BL['be_article_cnt_center'] = 'Centrum artykułów';
 
 // content forms

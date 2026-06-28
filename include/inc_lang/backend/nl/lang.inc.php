@@ -967,12 +967,12 @@ $BL['be_admin_struct_adduser_this']      = 'Neem controle over van geselecteerde
 $BL['be_admin_struct_remove_all']        = 'Verwijder alle gebruikers';
 $BL['be_admin_struct_remove_this']       = 'Verwijder geselecteerde gebruiker';
 
-$BL['be_ctype_alias']                    = 'Contentpart alias';
+$BL['be_ctype_alias']                    = 'Content-onderdeel-alias';
 $BL['be_cnt_setting']                    = 'Neem over';
-$BL['be_cnt_spaces']                     = 'Ruimte in contentpart alias';
-$BL['be_cnt_toplink']                    = 'Top link instelling van contentpart alias';
-$BL['be_cnt_block']                      = 'Laat de (blok) instelling van de contentpart alias zien';
-$BL['be_cnt_title']                      = 'Titels van de contentpart alias';
+$BL['be_cnt_spaces']                     = 'Ruimte in content-onderdeel-alias';
+$BL['be_cnt_toplink']                    = 'Top link instelling van content-onderdeel-alias';
+$BL['be_cnt_block']                      = 'Laat de (blok) instelling van de content-onderdeel-alias zien';
+$BL['be_cnt_title']                      = 'Titels van de content-onderdeel-alias';
 
 $BL['be_file_replace']                   = 'Vervang titel bestanden';
 
@@ -997,7 +997,7 @@ $BL['be_cnt_transparent']                = 'Flash transparant';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']     = 'Datum verlopen';
-$BL['be_func_switch_contentpart']        = 'Weet je zeker dat je wilt wisselen tussen de content parts? \n\nWees hier voorzichtig mee! \nBelangrijke instellingen kunnen hierdoor overschreven worden! \n';
+$BL['be_func_switch_contentpart']        = 'Weet je zeker dat je wilt wisselen tussen de content-onderdelen? \n\nWees hier voorzichtig mee! \nBelangrijke instellingen kunnen hierdoor overschreven worden! \n';
 $BL["cmsgo_code_snippets_dir_exists"]  = '<strong>LET OP!</strong> De &quot;CODE-SNIPPETS&quot; directory is nog steeds aanwezig! Verwijder de map <strong>cmsgo_code_snippets</strong> - Het is een potentieel beveiligings probleem.';
 
 $BL['be_ctype_poll'] = 'poll';
@@ -1044,7 +1044,7 @@ $BL['be_cnt_search_show_forall']        = 'Altijd zichtbaar';
 $BL['be_cnt_search_startlevel']         = 'Zoeken starten';
 $BL['be_cnt_results_minchar']           = 'Minimale aantal karakters voor het zoekformulier';
 
-$BL['be_cnt_pagination']                = 'Pagineer content parts';
+$BL['be_cnt_pagination']                = 'Pagineer content-onderdelen';
 $BL['be_article_pagination']            = 'Pagineer artikelen';
 $BL['be_article_per_page']              = 'Artikelen per pagina';
 $BL['be_pagination']                    = 'Pagineer';
@@ -1100,7 +1100,7 @@ $BL['be_last_edited']                   = 'Laatst gewijzigd';
 $BL['be_total']                         = 'Totaal';
 
 $BL['be_settings']                      = 'Instellingen';
-$BL['be_ctype']                         = 'Contentpart';
+$BL['be_ctype']                         = 'Content-onderdeel';
 $BL['be_selection']                     = 'Selectie';
 
 $BL['be_ctype_module']                  = 'Plug-in';

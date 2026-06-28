@@ -63,8 +63,8 @@ $BL['nocount']         = 'Alle Aliaseintr&auml;ge sind vorhanden';
 $BL['counttotal']    = ' Aliaseintr&auml;ge eingetragen';
 $BL['f_alias']       = '<p><b>Alias-Felder wurden in der Datenbank hinzugef&uuml;gt</b></p>';
 
-//Content parts templates
-$BL['be_ctptemp'] = 'Contentpart Templates';
+// Inhaltsabschnitt-Vorlagen
+$BL['be_ctptemp'] = 'Inhaltsabschnitt-Vorlagen';
 $BL['file_copy']       = 'Template kopieren';
 $BL['file_rename']     = 'Template umbenennen';
 $BL['file_delete']     = 'Template l&ouml;schen';
