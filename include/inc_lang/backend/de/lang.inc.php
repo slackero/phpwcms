@@ -1641,6 +1641,9 @@ $BL['be_content'] = 'Inhalt';
 $BL['be_images'] = 'Bilder';
 $BL['be_article_show'] = 'Anzeigen';
 $BL['be_active'] = 'Aktiv';
+$BL['be_cnt_summary_label'] = 'Zusammenfassung';
+$BL['be_cnt_max_words'] = 'max. Anzahl Worte';
+
 
 
 

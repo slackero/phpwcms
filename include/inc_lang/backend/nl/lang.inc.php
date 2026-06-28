@@ -1592,6 +1592,9 @@ $BL['be_content'] = 'Inhoud';
 $BL['be_images'] = 'Afbeeldingen';
 $BL['be_article_show'] = 'Weergeven';
 $BL['be_active'] = 'Actief';
+$BL['be_cnt_summary_label'] = 'Samenvatting';
+$BL['be_cnt_max_words'] = 'Max. aantal woorden';
+
 
 
 

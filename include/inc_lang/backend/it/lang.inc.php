@@ -1517,6 +1517,9 @@ $BL['be_content'] = 'Contenuto';
 $BL['be_images'] = 'Immagini';
 $BL['be_article_show'] = 'Mostra';
 $BL['be_active'] = 'Attivo';
+$BL['be_cnt_summary_label'] = 'Riassunto';
+$BL['be_cnt_max_words'] = 'n. max parole';
+
 
 
 

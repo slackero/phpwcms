@@ -1650,6 +1650,9 @@ $BL['be_content'] = 'Content';
 $BL['be_images'] = 'Images';
 $BL['be_article_show'] = 'Show';
 $BL['be_active'] = 'Active';
+$BL['be_cnt_summary_label'] = 'Summary';
+$BL['be_cnt_max_words'] = 'max. words';
+
 
 
 

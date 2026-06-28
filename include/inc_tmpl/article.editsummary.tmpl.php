@@ -612,7 +612,7 @@ $langstr = '';
       <hr>
       <div class="form-group align-items-center form-row">
         <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_admin_struct_template'] ?></span>
-        <div class="col-sm-5">
+        <div class="col-sm-5 mb-1 mb-sm-0">
           <div class="input-group input-group-sm">
             <div class="input-group-prepend">
               <label class="input-group-text" for="article_tmpllist"><?php echo $BL['be_article_forlist'] ?></label>
@@ -680,15 +680,19 @@ $langstr = '';
 
       <hr>
       <div class="form-group align-items-center form-row">
-        <label for="article_listmaxwords" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_results_wordlimit'] ?></label>
+        <label for="article_listmaxwords" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_summary_label'] ?></label>
         <div class="col-sm-4">
-          <input class="form-control form-control-sm" name="article_listmaxwords" type="text" id="article_listmaxwords" value="<?php echo empty($article['image']['list_maxwords']) ? '' : intval($article['image']['list_maxwords']) ?>" size="10" maxlength="6" />
+          <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"><?php echo $BL['be_cnt_max_words'] ?></span>
+              </div>
+            <input class="form-control" name="article_listmaxwords" type="number" id="article_listmaxwords" value="<?php echo empty($article['image']['list_maxwords']) ? '' : (int)$article['image']['list_maxwords'] ?>" size="10" maxlength="6" />
+          </div>
         </div>
       </div>
 
       <div class="form-group form-row">
-        <span class="col-sm-2 col-form-label text-sm-right pt-0"><?php echo $BL['be_cnt_several'] ?></span>
-        <div class="col">
+        <div class="col-sm-10 offset-sm-2">
           <div class="form-row">
             <div class="col-sm-6">
               <div class="form-check">
