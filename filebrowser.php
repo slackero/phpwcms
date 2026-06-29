@@ -521,7 +521,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         if(CMSGO_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, CMSGO_CHARSET);
         }
-        echo LF . ' bootstrapConfirm("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
+        echo LF . ' bsConfirmInfo("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 
         echo LF . SCRIPT_CDATA_END;

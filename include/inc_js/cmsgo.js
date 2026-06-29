@@ -48,9 +48,9 @@ function MM_swapImage() {
     }
 }
 
-function bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText) {
-    if (window.parent && window.parent !== window && typeof window.parent.bootstrapConfirm === 'function') {
-        window.parent.bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText);
+function bsConfirm(confirmType, message, callback, customConfirmText, customCancelText) {
+    if (window.parent && window.parent !== window && typeof window.parent.bsConfirm === 'function') {
+        window.parent.bsConfirm(confirmType, message, callback, customConfirmText, customCancelText);
         return;
     }
 
@@ -146,9 +146,41 @@ function bootstrapConfirm(message, callback, customConfirmText, confirmType, cus
     $modal.modal('show');
 }
 
-function bootstrapAlert(message, callback) {
-    if (window.parent && window.parent !== window && typeof window.parent.bootstrapAlert === 'function') {
-        window.parent.bootstrapAlert(message, callback);
+function bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText) {
+    bsConfirm(confirmType, message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmWarning(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('warning', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmDanger(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('danger', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmInfo(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('info', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmSuccess(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('success', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmDelete(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('delete', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmMove(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('move', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmFlush(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('flush', message, callback, customConfirmText, customCancelText);
+}
+
+function bsAlert(message, callback) {
+    if (window.parent && window.parent !== window && typeof window.parent.bsAlert === 'function') {
+        window.parent.bsAlert(message, callback);
         return;
     }
 
@@ -197,13 +229,17 @@ function bootstrapAlert(message, callback) {
     $modal.modal('show');
 }
 
+function bootstrapAlert(message, callback) {
+    bsAlert(message, callback);
+}
+
 // Global alert override
 window.alert = function(msg) {
-    bootstrapAlert(msg);
+    bsAlert(msg);
 };
 
 function confirmGoUrl(confirmtext, jumpurl) {
-    bootstrapConfirm(confirmtext, function() {
+    bsConfirm('info', confirmtext, function() {
         location.href = jumpurl;
     });
 }

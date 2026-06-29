@@ -183,9 +183,9 @@ function emptyNews() {
 var initialNewsFormData = '';
 function closeForm() {
   if ($('#newsform').serialize() !== initialNewsFormData) {
-    bootstrapConfirm('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+    bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
       document.location.href='<?php echo $news->base_url_decoded ?>';
-    }, '<?php echo js_singlequote($BL["be_yes"]); ?>', 'warning', '<?php echo js_singlequote($BL["be_no"]); ?>');
+    }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
   } else {
     document.location.href='<?php echo $news->base_url_decoded ?>';
   }

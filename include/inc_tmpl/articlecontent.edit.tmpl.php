@@ -38,9 +38,9 @@ if(empty($content['article']['acat_id'])) { // Root structure
 
     function cancelContentEdit() {
         if ($('#articlecontent').serialize() !== initialContentFormData) {
-            bootstrapConfirm('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+            bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
                 location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
-            }, '<?php echo js_singlequote($BL["be_yes"]); ?>', 'warning', '<?php echo js_singlequote($BL["be_no"]); ?>');
+            }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
         } else {
             location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
         }
