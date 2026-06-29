@@ -48,9 +48,9 @@ function MM_swapImage() {
     }
 }
 
-function bootstrapConfirm(message, callback, customConfirmText, confirmType) {
+function bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText) {
     if (window.parent && window.parent !== window && typeof window.parent.bootstrapConfirm === 'function') {
-        window.parent.bootstrapConfirm(message, callback, customConfirmText, confirmType);
+        window.parent.bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText);
         return;
     }
 
@@ -87,7 +87,7 @@ function bootstrapConfirm(message, callback, customConfirmText, confirmType) {
         });
     }
 
-    const cancelText = (window.CMSGO_LANG && window.CMSGO_LANG.cancel) || 'Cancel';
+    const cancelText = customCancelText || (window.CMSGO_LANG && window.CMSGO_LANG.cancel) || 'Cancel';
     $modal.find('.cancel-btn').text(cancelText);
 
     const confirmText = customConfirmText || (window.CMSGO_LANG && window.CMSGO_LANG.ok) || 'OK';

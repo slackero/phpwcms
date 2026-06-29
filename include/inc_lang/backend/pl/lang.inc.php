@@ -1151,7 +1151,7 @@ $BL['be_cnt_imagecenterv'] = 'wyśrodkowanie w pionie';
 
 $BL['be_overwrite_default'] = 'Zostaną zmienione domyślne ustawienia pliku konfiguracyjnego';
 $BL['be_cnt_sortvalue'] = 'sortowanie&nbsp;wartość';
-$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy naprawdę chcesz kontynuować?';
+$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy chcesz anulować?';
 $BL['be_cnt_paginate_subsection'] = 'Podrozdział';
 $BL['be_cnt_subsection_tite'] = 'Tytuł podrozdziału';
 $BL['be_cnt_subsection_warning'] = 'Numeracja podrozdziałów (paginate content parts) jest możliwa dla\nmain column (CONTENT) tylko!';

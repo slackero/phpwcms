@@ -1188,7 +1188,7 @@ $BL['be_check_against_category_alias']  = 'link single article inside structure 
 
 $BL['be_overwrite_default']             = 'Will overwrite default settings of config file';
 $BL['be_cnt_sortvalue']                 = 'sort&nbsp;value';
-$BL['be_dialog_warn_nosave']            = 'If you continue no change will be saved!\nAre you sure you want to continue?';
+$BL['be_dialog_warn_nosave']            = 'If you continue no changes will be saved!\nDo you want to cancel?';
 $BL['be_cnt_paginate_subsection']       = 'subsection';
 $BL['be_cnt_subsection_tite']           = 'subsection title';
 $BL['be_cnt_subsection_warning']        = 'Numbering subsections (paginate content parts) is available for\nmain column (CONTENT) only!';

@@ -991,7 +991,7 @@ function cancelEdit() {
     if ($('#article').serialize() !== initialFormData) {
         bootstrapConfirm('<?php echo js_singlequote($BL['be_dialog_warn_nosave']); ?>', function() {
             document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article['article_id'] ? '&p=2&s=1&id='.$article['article_id'] : '' ?>';
-        }, null, 'warning');
+        }, '<?php echo js_singlequote($BL['be_yes']); ?>', 'warning', '<?php echo js_singlequote($BL['be_no']); ?>');
     } else {
         document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article['article_id'] ? '&p=2&s=1&id='.$article['article_id'] : '' ?>';
     }
