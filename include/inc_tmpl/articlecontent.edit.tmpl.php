@@ -31,6 +31,22 @@ if(empty($content['article']['acat_id'])) { // Root structure
 }
 ?>
 <script type="text/javascript">
+    var initialContentFormData = '';
+    $(function() {
+        initialContentFormData = $('#articlecontent').serialize();
+    });
+
+    function cancelContentEdit() {
+        if ($('#articlecontent').serialize() !== initialContentFormData) {
+            bootstrapConfirm('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+                location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+            }, null, 'danger');
+        } else {
+            location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+        }
+        return false;
+    }
+
     function validate_before_after(elem, checkElem) {
         if(elem.value.length === 1 && (elem.value === '-' || elem.value === '+')) {
             return true;
@@ -504,7 +520,7 @@ ob_start();
 ?>
     <input name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo $sendbutton ?>" />
     <input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
+    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelContentEdit();" />
     <?php echo $buttonAction; ?>
 <?php
 
