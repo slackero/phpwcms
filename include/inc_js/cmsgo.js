@@ -146,9 +146,7 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
     $modal.modal('show');
 }
 
-function bootstrapConfirm(message, callback, customConfirmText, confirmType, customCancelText) {
-    bsConfirm(confirmType, message, callback, customConfirmText, customCancelText);
-}
+
 
 function bsConfirmWarning(message, callback, customConfirmText, customCancelText) {
     bsConfirm('warning', message, callback, customConfirmText, customCancelText);
@@ -229,9 +227,7 @@ function bsAlert(message, callback) {
     $modal.modal('show');
 }
 
-function bootstrapAlert(message, callback) {
-    bsAlert(message, callback);
-}
+
 
 // Global alert override
 window.alert = function(msg) {
@@ -582,7 +578,7 @@ function flush_image_cache(link, url, confirm_msg, success_msg) {
         const $link = $(link);
         const customConfirmText = $link.attr('data-confirm-action');
         const confirmType = $link.attr('data-confirm-type');
-        bootstrapConfirm(confirm_msg, proceed, customConfirmText, confirmType);
+        bsConfirm(confirmType, confirm_msg, proceed, customConfirmText);
     } else {
         proceed();
     }
