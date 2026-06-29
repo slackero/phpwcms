@@ -39,7 +39,7 @@ $langstr = '';
     <div class="form-group align-items-center">
       <input name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" />
       <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-      <input name="donotsubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
+      <input name="donotsubmit" type="submit" class="btn btn-sm btn-danger ml-3" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
     </div>
   </div>
 </div>
@@ -867,7 +867,7 @@ $langstr = '';
 <div class="form-group align-items-center text-center text-sm-right mt-4">
   <input name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" />
   <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-  <input name="donotsubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
+  <input name="donotsubmit" type="submit" class="btn btn-sm btn-danger ml-3" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
 </div>
 
 </form>
