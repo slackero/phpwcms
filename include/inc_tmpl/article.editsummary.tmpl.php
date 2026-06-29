@@ -873,6 +873,7 @@ $langstr = '';
 </form>
 
 <script type="text/javascript">
+var initialFormData = '';
 $(function(){
 
   $("#article_keyword_autosuggest").autoSuggest('<?php echo CMSGO_URL ?>include/inc_act/ajax_connector.php', {
@@ -982,11 +983,19 @@ $(function(){
       updateAliasTooltips();
     }
   });
+
+  initialFormData = $('#article').serialize();
 });
 
 function cancelEdit() {
-    document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article['article_id'] ? '&p=2&s=1&id='.$article['article_id'] : '' ?>';
-  return false;
+    if ($('#article').serialize() !== initialFormData) {
+        bootstrapConfirm('<?php echo js_singlequote($BL['be_dialog_warn_nosave']); ?>', function() {
+            document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article['article_id'] ? '&p=2&s=1&id='.$article['article_id'] : '' ?>';
+        }, null, 'danger');
+    } else {
+        document.location.href='cmsgo.php'+'?<?php echo CSRF_GET_TOKEN; ?>&do=articles<?php echo $article['article_id'] ? '&p=2&s=1&id='.$article['article_id'] : '' ?>';
+    }
+    return false;
 }
 
 function onImageSelected(target, id, name) {

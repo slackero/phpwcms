@@ -6429,13 +6429,13 @@ parameters:
 		-
 			message: '#^Constant CSRF_GET_TOKEN not found\.$#'
 			identifier: constant.notFound
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 135
+			count: 136
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
