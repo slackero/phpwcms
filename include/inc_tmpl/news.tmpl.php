@@ -180,8 +180,15 @@ function emptyNews() {
   return false;
 }
 
+var initialNewsFormData = '';
 function closeForm() {
-  document.location.href='<?php echo $news->base_url_decoded ?>';
+  if ($('#newsform').serialize() !== initialNewsFormData) {
+    bootstrapConfirm('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+      document.location.href='<?php echo $news->base_url_decoded ?>';
+    }, null, 'warning');
+  } else {
+    document.location.href='<?php echo $news->base_url_decoded ?>';
+  }
   return false;
 }
 
@@ -253,6 +260,7 @@ $(function(){
     }
   });
 
+  initialNewsFormData = $('#newsform').serialize();
 });
 
 </script>
@@ -271,7 +279,7 @@ $(function(){
       <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
       <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
-      <input name="close" type="button" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
 
@@ -725,7 +733,7 @@ if($news->data['cnt_id']) {
       <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
       <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
-      <input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
 
