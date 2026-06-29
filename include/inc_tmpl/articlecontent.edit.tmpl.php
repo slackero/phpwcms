@@ -40,7 +40,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
         if ($('#articlecontent').serialize() !== initialContentFormData) {
             bootstrapConfirm('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
                 location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
-            }, null, 'danger');
+            }, null, 'warning');
         } else {
             location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
         }
