@@ -1177,7 +1177,7 @@ $BL['be_cnt_imagecenterv'] = 'vertikal zentrieren';
 
 $BL['be_overwrite_default'] = '&Uuml;berschreibt Standardeinstellungen der Konfigurationsdatei';
 $BL['be_cnt_sortvalue'] = 'Sort.Wert';
-$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie den Vorgang fortsetzen?';
+$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie abbrechen?';
 $BL['be_cnt_paginate_subsection'] = 'Abschnitt';
 $BL['be_cnt_subsection_tite'] = 'Abschnittstitel';
 $BL['be_cnt_subsection_warning'] = 'Die Nummerierung von Abschnitten (Inhaltsabschnitt-Paginierung)\nist nur f&uuml;r die Ausgabe in\nder Hauptspalte (CONTENT) m&ouml;glich!';
