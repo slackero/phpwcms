@@ -271,6 +271,7 @@ $(function(){
       <h1><?php echo $BL['be_news'] ?></h1>
     </div>
     <div class="col-sm text-center text-sm-right mb-3">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <?php if($news->data['cnt_id']) { ?>
       <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
@@ -278,7 +279,6 @@ $(function(){
       <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
-      <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
@@ -725,6 +725,7 @@ if($news->data['cnt_id']) {
 
   <div class="row mt-4 text-right">
     <div class="col">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <?php if($news->data['cnt_id']) { ?>
       <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
@@ -732,7 +733,6 @@ if($news->data['cnt_id']) {
       <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
-      <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
