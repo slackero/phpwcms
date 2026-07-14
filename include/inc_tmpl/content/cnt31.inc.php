@@ -698,20 +698,24 @@ function setIdName(field, file_id, file_name) {
 }
 
 function deleteImageData(image_number, e) {
-    $('#cimage_name_'+image_number).val('');
-    $('#cimage_id_'+image_number).val('0');
+    var imageNameField = $('#cimage_name_' + image_number);
+    var imageName = imageNameField.val();
+    bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
+        imageNameField.val('');
+        $('#cimage_id_' + image_number).val('0');
+        var img_num_parts = image_number.split('_');
+        if (img_num_parts[1]) {
+            updatePreviewImage(img_num_parts[1]);
+        }
+    }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>');
     e.blur();
-    image_number = image_number.split('_');
-    if(image_number[1]) {
-        updatePreviewImage(image_number[1]);
-    }
     return false;
 }
 
 function updatePreviewImage(image_number) {
     var preview = '';
-    var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
-    var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
+    var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).val();
+    var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).val();
     if(cimage_id_thumb) {
             preview += getBackendImgSrc(cimage_id_thumb);
     }
