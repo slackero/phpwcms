@@ -16,7 +16,7 @@ composer.lock
 /content/cache/*.*
 !/content/cache/.htaccess
 !/content/cache/index.html
-/filearchive/*.*
+/filearchive/*
 !/filearchive/image_memoryinfo.png
 !/filearchive/image_placeholder.png
 !/filearchive/index.html

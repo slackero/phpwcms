@@ -9,7 +9,7 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-cmsgo-v2.0 | php | 123 modules | 215,915 lines
+cmsgo-v2.0 | php | 113 modules | 176,731 lines
 test: make test
 
 modules:
@@ -22,21 +22,16 @@ modules:
   include/inc_act/deprecated      deprecated
   include/inc_ext                 inc ext
   include/inc_ext/ConvertCharset  convertcharset
-  include/inc_ext/GoogleMapsAPI   googlemapsapi
   include/inc_ext/ckeditor        ckeditor
   include/inc_ext/ckeditor/adapt  adapters
   include/inc_ext/ckeditor/lang   lang
   include/inc_ext/ckeditor/plugi  plugins
-  include/inc_ext/uploader        uploader
   include/inc_front               inc front
   include/inc_front/content       content
   include/inc_front/content/cnt_  cnt functions
   include/inc_front/lib           shared library code
   include/inc_js                  inc js
   include/inc_js/jquery           jquery
-  include/inc_js/mootools         mootools
-  include/inc_js/mootools/cnet    cnet
-  include/inc_js/uploader         uploader
   include/inc_lang                inc lang
   include/inc_lang/backend/de     de
   include/inc_lang/backend/en     en
@@ -122,21 +117,16 @@ modules:
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
   template/lib/fancybox           fancybox
-  template/lib/html5shiv          html5shiv
-  template/lib/ie7-js             ie7-js
   template/lib/jquery             jquery
   template/lib/jquery/plugin      plugin
   template/lib/js-cookie          js-cookie
   template/lib/mootools           mootools
   template/lib/mootools/more      more
   template/lib/mootools/more-1.4  more-1.4
-  template/lib/respond            respond
   template/lib/simplegmaps        simplegmaps
   template/lib/slick              slick
   template/lib/slimbox            slimbox
-  template/lib/swfobject          swfobject
-  template/lib/syntaxhighlighter  syntaxhighlighter
 
-hot: .gitignore (3 commits/90d), DEPENDENCIES.md (3 commits/90d), stacklit.json (3 commits/90d)
+hot: .phpstan/phpstan-baseline.neon (24 commits/90d), include/inc_tmpl/article.editsummary.tmpl.php (23 commits/90d), include/inc_css/cmsgospecial.min.css (20 commits/90d)
 ```
 # end stacklit map

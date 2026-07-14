@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-05-25T14:34:07Z",
+  "generated_at": "2026-07-10T19:10:54Z",
   "stacklit_version": "dev",
-  "merkle_hash": "788c7356407e7d88af4165076ca17e017a4b495e91d2353d8dd2c332c823d1fb",
+  "merkle_hash": "ea233925ed3a46bc4f9e47ea8d40a874a06d21ac86854f5665a571784c99cbe1",
   "project": {
     "name": "cmsgo-v2.0",
     "root": ".",
@@ -13,12 +13,12 @@
     "primary_language": "php",
     "languages": {
       "javascript": {
-        "files": 639,
-        "lines": 57075
+        "files": 574,
+        "lines": 23561
       },
       "php": {
-        "files": 821,
-        "lines": 157376
+        "files": 812,
+        "lines": 151706
       },
       "ruby": {
         "files": 1,
@@ -32,19 +32,19 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1463,
-    "total_lines": 215915
+    "total_files": 1389,
+    "total_lines": 176731
   },
   "modules": {
     ".phpstan": {
       "purpose": ".phpstan",
       "language": "php",
       "files": 1,
-      "lines": 86,
+      "lines": 92,
       "file_list": [
         "phpstan-bootstrap.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "cmsgo-extended/cmsgo-fancyBox/template/inc_script": {
       "purpose": "Inc Script",
@@ -78,7 +78,7 @@
       "purpose": "Img",
       "language": "php",
       "files": 5,
-      "lines": 663,
+      "lines": 665,
       "file_list": [
         "blank.php",
         "captcha.php",
@@ -107,8 +107,8 @@
     "include/inc_act": {
       "purpose": "Inc Act",
       "language": "php",
-      "files": 28,
-      "lines": 4129,
+      "files": 26,
+      "lines": 3952,
       "file_list": [
         "act_addchat.php",
         "act_articlecontent.php",
@@ -125,11 +125,11 @@
         "act_message.php",
         "act_multiupload-list.php",
         "act_multiupload.php",
-        "act_phpinfo.php",
         "act_schedule.php",
         "act_sendnewsletter.php",
         "act_startuptext.php",
-        "act_structure.php"
+        "act_structure.php",
+        "act_user.php"
       ],
       "activity": "low"
     },
@@ -177,33 +177,6 @@
       ],
       "type_defs": {
         "ConvertCharset": "ConvertCharset"
-      },
-      "activity": "low"
-    },
-    "include/inc_ext/GoogleMapsAPI": {
-      "purpose": "GoogleMapsAPI",
-      "language": "php",
-      "files": 4,
-      "lines": 7718,
-      "file_list": [
-        "JSMin.php",
-        "cmsgoGoogleMap.php",
-        "cmsgoGoogleMapAPI.class.php",
-        "cmsgoGoogleMapAPIv3.class.php"
-      ],
-      "exports": [
-        "GoogleMapAPI",
-        "JSMin",
-        "JSMin_UnterminatedCommentException",
-        "JSMin_UnterminatedRegExpException",
-        "JSMin_UnterminatedStringException"
-      ],
-      "type_defs": {
-        "GoogleMapAPI": "GoogleMapAPI",
-        "JSMin": "function minify ($js); function __construct ($input); function min ()",
-        "JSMin_UnterminatedCommentException": "JSMin_UnterminatedCommentException",
-        "JSMin_UnterminatedRegExpException": "JSMin_UnterminatedRegExpException",
-        "JSMin_UnterminatedStringException": "JSMin_UnterminatedStringException"
       },
       "activity": "low"
     },
@@ -288,29 +261,11 @@
       ],
       "activity": "low"
     },
-    "include/inc_ext/uploader": {
-      "purpose": "Uploader",
-      "language": "php",
-      "files": 3,
-      "lines": 653,
-      "file_list": [
-        "endpoint-cors.php",
-        "endpoint.php",
-        "handler.php"
-      ],
-      "exports": [
-        "UploadHandler"
-      ],
-      "type_defs": {
-        "UploadHandler": "function getName (); function getInitialFiles (); function getUploadName (); function combineChunks ($uploadDirectory, $name = null); function handleUpload ($uploadDirectory, $name = null); function handleDelete ($uploadDirectory, $name=null)"
-      },
-      "activity": "low"
-    },
     "include/inc_front": {
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10216,
+      "lines": 10222,
       "file_list": [
         "calendar.func.inc.php",
         "cnt.lang.inc.php",
@@ -329,7 +284,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 37,
-      "lines": 12153,
+      "lines": 12162,
       "file_list": [
         "cnt0.article.inc.php",
         "cnt1.article.inc.php",
@@ -404,13 +359,14 @@
     "include/inc_js": {
       "purpose": "Inc Js",
       "language": "javascript",
-      "files": 18,
-      "lines": 6100,
+      "files": 16,
+      "lines": 4801,
       "file_list": [
         "bootstrap-datetimepicker.js",
         "bootstrap-datetimepicker.min.js",
         "bootstrap.bundle.min.js",
         "cmsgo-addons.js",
+        "cmsgo-addons.min.js",
         "cmsgo.js",
         "cmsgo.min.js",
         "contentpart.js",
@@ -423,7 +379,7 @@
         "moment-with-locales.min.js",
         "optionselect.js"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_js/jquery": {
       "purpose": "Jquery",
@@ -438,65 +394,6 @@
       ],
       "activity": "low"
     },
-    "include/inc_js/mootools": {
-      "purpose": "Mootools",
-      "language": "javascript",
-      "files": 8,
-      "lines": 4587,
-      "file_list": [
-        "compat-mootools-core.js",
-        "compat-mootools-more.js",
-        "mootools-1.1-yc.js",
-        "mootools-1.1-yc.src.js",
-        "mootools-1.2-core-yc.js",
-        "mootools-1.2-core.js",
-        "mootools-1.2-more.js",
-        "mootools-compat-custom.js"
-      ],
-      "activity": "low"
-    },
-    "include/inc_js/mootools/cnet": {
-      "purpose": "Cnet",
-      "language": "javascript",
-      "files": 3,
-      "lines": 656,
-      "file_list": [
-        "Autocompleter.Remote.js",
-        "Autocompleter.js",
-        "Observer.js"
-      ],
-      "activity": "low"
-    },
-    "include/inc_js/uploader": {
-      "purpose": "Uploader",
-      "language": "javascript",
-      "files": 11,
-      "lines": 23759,
-      "file_list": [
-        "dnd.js",
-        "dnd.min.js",
-        "fileuploader.js",
-        "fileuploader.min.js",
-        "fileuploader.php",
-        "fine-uploader.core.js",
-        "fine-uploader.core.min.js",
-        "fine-uploader.js",
-        "fine-uploader.min.js",
-        "jquery.fine-uploader.js",
-        "jquery.fine-uploader.min.js"
-      ],
-      "exports": [
-        "qqFileUploader",
-        "qqUploadedFileForm",
-        "qqUploadedFileXhr"
-      ],
-      "type_defs": {
-        "qqFileUploader": "function getUploadName (); function getFileSize (); function getFileExtension (); function getFileType (); function getName ()",
-        "qqUploadedFileForm": "qqUploadedFileForm",
-        "qqUploadedFileXhr": "qqUploadedFileXhr"
-      },
-      "activity": "low"
-    },
     "include/inc_lang": {
       "purpose": "Inc Lang",
       "language": "php",
@@ -505,89 +402,89 @@
       "file_list": [
         "code.lang.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/de": {
       "purpose": "De",
       "language": "php",
       "files": 3,
-      "lines": 1766,
+      "lines": 1811,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
         "lang.pp.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/en": {
       "purpose": "En",
       "language": "php",
       "files": 3,
-      "lines": 1779,
+      "lines": 1819,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
         "lang.pp.inc.php"
       ],
-      "activity": "low"
+      "activity": "medium"
     },
     "include/inc_lang/backend/es": {
       "purpose": "Es",
       "language": "php",
       "files": 3,
-      "lines": 811,
+      "lines": 1686,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
         "lang.pp.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/fr": {
       "purpose": "Fr",
       "language": "php",
       "files": 3,
-      "lines": 1247,
+      "lines": 1293,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
         "lang.pp.inc.php"
       ],
-      "activity": "low"
+      "activity": "medium"
     },
     "include/inc_lang/backend/it": {
       "purpose": "It",
       "language": "php",
       "files": 2,
-      "lines": 702,
+      "lines": 1576,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/nl": {
       "purpose": "Nl",
       "language": "php",
       "files": 2,
-      "lines": 1151,
+      "lines": 1651,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/backend/pl": {
       "purpose": "Pl",
       "language": "php",
       "files": 3,
-      "lines": 1627,
+      "lines": 1800,
       "file_list": [
         "lang.ext.inc.php",
         "lang.inc.php",
         "lang.pp.inc.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_lang/date": {
       "purpose": "Date",
@@ -879,7 +776,7 @@
       "purpose": "Inc Lib",
       "language": "php",
       "files": 46,
-      "lines": 16718,
+      "lines": 17056,
       "file_list": [
         "admin.functions.inc.php",
         "admin.structure.inc.php",
@@ -908,7 +805,7 @@
         "cmsgoNews"
       ],
       "type_defs": {
-        "Cmsgo_Image_lib": "function __construct ($props = [])",
+        "Cmsgo_Image_lib": "function __construct ($props = []); function clear (); function initialize ($props = []); function resize (); function crop_centered_resize (); function crop (); function rotate (); function image_process_gd ($action = 'resize'); function image_process_imagemagick ($action = 'resize'); function image_process_netpbm ($action = 'resize'); function image_rotate_gd (); function image_mirror_gd (); function watermark (); function overlay_watermark (); function text_watermark (); function image_create_gd ($path = '', $image_type = ''); function gd_fix_orientation (\u0026$im, $imagename); function image_save_gd ($resource); function image_display_gd ($resource); function image_reproportion (); function get_image_properties ($path = '', $return = false); function size_calculator ($vals); function explode_name ($source_image, $ext_only = false); function gd_loaded (); function gd_version (); function set_error ($msg); function display_errors ($open = '\u003cp\u003e', $close = '\u003c/p\u003e', $wrap_open = '', $wr...",
         "cmsgoImageGallery": "cmsgoImageGallery",
         "cmsgoNews": "function formAction (); function getNews (); function countAll (); function getPagination (); function setQueryDefaults (); function filter (); function getNewsCategories (); function getNewsLanguages (); function listBackend (); function getFiles ($mode='backend'); function edit (); function getPostData ()"
       },
@@ -958,7 +855,7 @@
       "purpose": "Content",
       "language": "php",
       "files": 111,
-      "lines": 5148,
+      "lines": 5147,
       "file_list": [
         "cnt0.readform.inc.php",
         "cnt0.sql.inc.php",
@@ -1045,7 +942,7 @@
       "purpose": "Mod Addresses",
       "language": "php",
       "files": 6,
-      "lines": 833,
+      "lines": 758,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1060,7 +957,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 4,
-      "lines": 925,
+      "lines": 902,
       "file_list": [
         "conf.inc.php",
         "functions.inc.php",
@@ -1073,7 +970,7 @@
       "purpose": "Lang",
       "language": "php",
       "files": 2,
-      "lines": 104,
+      "lines": 108,
       "file_list": [
         "de.lang.php",
         "en.lang.php"
@@ -1094,7 +991,7 @@
       "purpose": "Mod Ads",
       "language": "php",
       "files": 8,
-      "lines": 1330,
+      "lines": 1208,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1111,7 +1008,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 14,
-      "lines": 1419,
+      "lines": 1401,
       "file_list": [
         "ads.fe_init.inc.php",
         "ads.fe_render.inc.php",
@@ -1134,7 +1031,7 @@
       "purpose": "Lang",
       "language": "php",
       "files": 3,
-      "lines": 231,
+      "lines": 303,
       "file_list": [
         "de.lang.php",
         "en.lang.php",
@@ -1156,7 +1053,7 @@
       "purpose": "Mod Calendar",
       "language": "php",
       "files": 6,
-      "lines": 996,
+      "lines": 1023,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1202,7 +1099,7 @@
       "purpose": "Mod Feedimport",
       "language": "php",
       "files": 5,
-      "lines": 1040,
+      "lines": 985,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1239,7 +1136,7 @@
       "purpose": "Mod Glossary",
       "language": "php",
       "files": 6,
-      "lines": 571,
+      "lines": 532,
       "file_list": [
         "backend.default.php",
         "backend.editform.php",
@@ -1317,7 +1214,7 @@
       "purpose": "Mod Seolog",
       "language": "php",
       "files": 3,
-      "lines": 283,
+      "lines": 266,
       "file_list": [
         "backend.default.php",
         "backend.listing.php",
@@ -1356,7 +1253,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 20,
-      "lines": 4022,
+      "lines": 3974,
       "file_list": [
         "cart.items.inc.php",
         "cart.parse.inc.php",
@@ -1418,7 +1315,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 9,
-      "lines": 1038,
+      "lines": 1058,
       "file_list": [
         "listing.downloads.inc.php",
         "listing.guestbook.inc.php",
@@ -1447,8 +1344,8 @@
     "include/inc_tmpl": {
       "purpose": "Inc Tmpl",
       "language": "php",
-      "files": 50,
-      "lines": 14801,
+      "files": 51,
+      "lines": 15187,
       "file_list": [
         "about.tmpl.php",
         "admin.aliaslist.tmpl.php",
@@ -1461,6 +1358,7 @@
         "admin.listuser.tmpl.php",
         "admin.newuser.tmpl.php",
         "admin.pagelayout.tmpl.php",
+        "admin.phpinfo.tmpl.php",
         "admin.redirect.tmpl.php",
         "admin.settings.tmpl.php",
         "admin.startup.tmpl.php",
@@ -1468,16 +1366,15 @@
         "admin.structlist.tmpl.php",
         "admin.templates.tmpl.php",
         "article.editsummary.tmpl.php",
-        "article.structlist.tmpl.php",
-        "articlecontent.edit.tmpl.php"
+        "article.structlist.tmpl.php"
       ],
-      "activity": "low"
+      "activity": "high"
     },
     "include/inc_tmpl/content": {
       "purpose": "Content",
       "language": "php",
       "files": 75,
-      "lines": 12119,
+      "lines": 12159,
       "file_list": [
         "cnt0.inc.php",
         "cnt0.list.inc.php",
@@ -1529,7 +1426,7 @@
       "purpose": "Root package",
       "language": "php",
       "files": 14,
-      "lines": 3672,
+      "lines": 3762,
       "file_list": [
         "articlebrowser.php",
         "cmsgo.php",
@@ -1552,7 +1449,7 @@
       "purpose": "Setup",
       "language": "php",
       "files": 4,
-      "lines": 654,
+      "lines": 656,
       "file_list": [
         "get_conf_file.php",
         "index.php",
@@ -1617,7 +1514,7 @@
       "purpose": "Inc Js",
       "language": "javascript",
       "files": 3,
-      "lines": 169,
+      "lines": 438,
       "file_list": [
         "AC_QuickTime.js",
         "frontend.js",
@@ -1740,29 +1637,6 @@
         "jquery.fancybox-1.3.4.js",
         "jquery.fancybox-1.3.4.min.js",
         "jquery.mousewheel-3.0.4.min.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/html5shiv": {
-      "purpose": "Html5shiv",
-      "language": "javascript",
-      "files": 4,
-      "lines": 858,
-      "file_list": [
-        "html5shiv-printshiv.js",
-        "html5shiv-printshiv.min.js",
-        "html5shiv.js",
-        "html5shiv.min.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/ie7-js": {
-      "purpose": "Ie7-js",
-      "language": "javascript",
-      "files": 1,
-      "lines": 6,
-      "file_list": [
-        "IE9.js"
       ],
       "activity": "low"
     },
@@ -1892,16 +1766,6 @@
       ],
       "activity": "low"
     },
-    "template/lib/respond": {
-      "purpose": "Respond",
-      "language": "javascript",
-      "files": 1,
-      "lines": 6,
-      "file_list": [
-        "respond.min.js"
-      ],
-      "activity": "low"
-    },
     "template/lib/simplegmaps": {
       "purpose": "Simplegmaps",
       "language": "javascript",
@@ -1934,45 +1798,6 @@
         "slimbox.jquery.js"
       ],
       "activity": "low"
-    },
-    "template/lib/swfobject": {
-      "purpose": "Swfobject",
-      "language": "javascript",
-      "files": 1,
-      "lines": 4,
-      "file_list": [
-        "swfobject.js"
-      ],
-      "activity": "low"
-    },
-    "template/lib/syntaxhighlighter": {
-      "purpose": "Syntaxhighlighter",
-      "language": "javascript",
-      "files": 28,
-      "lines": 1701,
-      "file_list": [
-        "shAutoloader.js",
-        "shBrushAS3.js",
-        "shBrushAppleScript.js",
-        "shBrushBash.js",
-        "shBrushCSharp.js",
-        "shBrushColdFusion.js",
-        "shBrushCpp.js",
-        "shBrushCss.js",
-        "shBrushDelphi.js",
-        "shBrushDiff.js",
-        "shBrushErlang.js",
-        "shBrushGroovy.js",
-        "shBrushJScript.js",
-        "shBrushJava.js",
-        "shBrushJavaFX.js",
-        "shBrushPerl.js",
-        "shBrushPhp.js",
-        "shBrushPlain.js",
-        "shBrushPowerShell.js",
-        "shBrushPython.js"
-      ],
-      "activity": "low"
     }
   },
   "dependencies": {
@@ -1988,7 +1813,7 @@
       "include/inc_act/deprecated",
       "include/inc_ext",
       "include/inc_ext/ConvertCharset",
-      "include/inc_ext/GoogleMapsAPI"
+      "include/inc_ext/ckeditor"
     ],
     "isolated": [
       ".phpstan",
@@ -2000,21 +1825,16 @@
       "include/inc_act/deprecated",
       "include/inc_ext",
       "include/inc_ext/ConvertCharset",
-      "include/inc_ext/GoogleMapsAPI",
       "include/inc_ext/ckeditor",
       "include/inc_ext/ckeditor/adapters",
       "include/inc_ext/ckeditor/lang",
       "include/inc_ext/ckeditor/plugins",
-      "include/inc_ext/uploader",
       "include/inc_front",
       "include/inc_front/content",
       "include/inc_front/content/cnt_functions",
       "include/inc_front/lib",
       "include/inc_js",
       "include/inc_js/jquery",
-      "include/inc_js/mootools",
-      "include/inc_js/mootools/cnet",
-      "include/inc_js/uploader",
       "include/inc_lang",
       "include/inc_lang/backend/de",
       "include/inc_lang/backend/en",
@@ -2100,128 +1920,123 @@
       "template/lib/cookieconsent3",
       "template/lib/cookieconsent3/core",
       "template/lib/fancybox",
-      "template/lib/html5shiv",
-      "template/lib/ie7-js",
       "template/lib/jquery",
       "template/lib/jquery/plugin",
       "template/lib/js-cookie",
       "template/lib/mootools",
       "template/lib/mootools/more",
       "template/lib/mootools/more-1.4",
-      "template/lib/respond",
       "template/lib/simplegmaps",
       "template/lib/slick",
-      "template/lib/slimbox",
-      "template/lib/swfobject",
-      "template/lib/syntaxhighlighter"
+      "template/lib/slimbox"
     ]
   },
   "git": {
     "hot_files": [
       {
-        "path": ".gitignore",
-        "commits_90d": 3
+        "path": ".phpstan/phpstan-baseline.neon",
+        "commits_90d": 24
       },
       {
-        "path": "DEPENDENCIES.md",
-        "commits_90d": 3
+        "path": "include/inc_tmpl/article.editsummary.tmpl.php",
+        "commits_90d": 23
       },
       {
-        "path": "stacklit.json",
-        "commits_90d": 3
+        "path": "include/inc_css/cmsgospecial.min.css",
+        "commits_90d": 20
       },
       {
-        "path": ".claude/settings.local.json",
-        "commits_90d": 2
+        "path": "include/inc_css/cmsgospecial.css",
+        "commits_90d": 19
       },
       {
-        "path": "CLAUDE.md",
-        "commits_90d": 2
+        "path": "include/inc_lang/backend/it/lang.inc.php",
+        "commits_90d": 14
       },
       {
-        "path": "composer.json",
-        "commits_90d": 2
+        "path": "filebrowser.php",
+        "commits_90d": 12
       },
       {
-        "path": "include/vendor/composer/installed.php",
-        "commits_90d": 2
+        "path": "include/inc_js/cmsgo.js",
+        "commits_90d": 12
       },
       {
-        "path": "phpstan.neon",
-        "commits_90d": 2
-      },
-      {
-        "path": "phpstan.neon.default",
-        "commits_90d": 2
-      },
-      {
-        "path": "stacklit.html",
-        "commits_90d": 2
-      },
-      {
-        "path": ".mcp.json",
-        "commits_90d": 1
-      },
-      {
-        "path": ".phpstan/phpstan-bootstrap.php",
-        "commits_90d": 1
-      },
-      {
-        "path": ".phpstan/phpstan.neon",
-        "commits_90d": 1
-      },
-      {
-        "path": "content/cache/.htaccess",
-        "commits_90d": 1
-      },
-      {
-        "path": "content/cache/index.html",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_front/content.func.inc.php",
-        "commits_90d": 1
-      },
-      {
-        "path": "include/inc_lang/backend/de/lang.ext.inc.php",
-        "commits_90d": 1
+        "path": "cmsgo.php",
+        "commits_90d": 11
       },
       {
         "path": "include/inc_lang/backend/de/lang.inc.php",
-        "commits_90d": 1
+        "commits_90d": 11
       },
       {
-        "path": "include/inc_lang/backend/de/lang.pp.inc.php",
-        "commits_90d": 1
+        "path": "include/inc_lang/backend/es/lang.inc.php",
+        "commits_90d": 11
       },
       {
-        "path": "include/inc_lang/backend/en/lang.ext.inc.php",
-        "commits_90d": 1
+        "path": "include/inc_lang/backend/nl/lang.inc.php",
+        "commits_90d": 11
+      },
+      {
+        "path": "include/inc_lang/backend/pl/lang.inc.php",
+        "commits_90d": 11
+      },
+      {
+        "path": "include/inc_js/cmsgo.min.js",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_lang/backend/en/lang.inc.php",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_tmpl/articlecontent.edit.tmpl.php",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_tmpl/news.tmpl.php",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_lang/backend/fr/lang.inc.php",
+        "commits_90d": 9
+      },
+      {
+        "path": "articlebrowser.php",
+        "commits_90d": 8
+      },
+      {
+        "path": "edit.php",
+        "commits_90d": 7
+      },
+      {
+        "path": "include/inc_tmpl/articlecontent.list.tmpl.php",
+        "commits_90d": 7
       }
     ],
     "recent": [
-      ".claude/settings.local.json",
-      ".gitignore",
-      ".phpstan/phpstan-bootstrap.php",
-      ".phpstan/phpstan.neon",
-      "composer.json",
-      "include/vendor/composer/installed.php",
-      "phpstan.neon",
-      "phpstan.neon.default",
-      "include/inc_module/mod_shop/inc/listing.categories.inc.php",
-      "include/inc_module/mod_shop/inc/listing.orders.inc.php"
+      "include/inc_js/cmsgo.js",
+      "include/inc_js/cmsgo.min.js",
+      "filebrowser.php",
+      "include/inc_js/cmsgo-addons.js",
+      "include/inc_js/cmsgo-addons.min.js",
+      "include/inc_tmpl/article.editsummary.tmpl.php",
+      "include/inc_tmpl/articlecontent.edit.tmpl.php",
+      "include/inc_tmpl/news.tmpl.php",
+      ".phpstan/phpstan-baseline.neon",
+      "include/inc_lang/backend/en/lang.inc.php"
     ],
     "stable": [
+      ".agents/AGENTS.md",
+      ".htaccess",
       ".mcp.json",
-      ".phpstan/phpstan-bootstrap.php",
-      ".phpstan/phpstan.neon",
+      "README.md",
+      "_.htaccess",
       "content/cache/.htaccess",
       "content/cache/index.html",
-      "include/inc_front/content.func.inc.php",
-      "include/inc_lang/backend/de/lang.ext.inc.php",
-      "include/inc_lang/backend/de/lang.inc.php",
-      "include/inc_lang/backend/de/lang.pp.inc.php",
-      "include/inc_lang/backend/en/lang.ext.inc.php"
+      "img/blank.php",
+      "img/dynCal/dynCalendar.gif",
+      "img/dynCal/next.gif"
     ]
   },
   "hints": {
