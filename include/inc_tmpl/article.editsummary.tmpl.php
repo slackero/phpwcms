@@ -243,7 +243,7 @@ $langstr = '';
                 </span>
                 <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo html($article['image']['name']) ?>" onfocus="this.blur()" />
                 <span class="input-group-append">
-                  <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+                  <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['id']) ? ' disabled' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_name.value ? '\n[' + document.article.cimage_name.value + ']' : ''), function() { document.article.cimage_name.value='';document.article.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
                 </span>
               </div>
             </div>
@@ -355,7 +355,7 @@ $langstr = '';
                 </div>
                 <input name="cimage_list_name" type="text" id="cimage_list_name" class="form-control form-control-sm" value="<?php echo html($article['image']['list_name']) ?>" onfocus="this.blur()" />
                 <div class="input-group-append">
-                  <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+                  <a href="#" id="cimage_list_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($article['image']['list_id']) ? ' disabled' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.article.cimage_list_name.value ? '\n[' + document.article.cimage_list_name.value + ']' : ''), function() { document.article.cimage_list_name.value='';document.article.cimage_list_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_list_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
                 </div>
               </div>
             </div>
@@ -999,22 +999,39 @@ function cancelEdit() {
 }
 
 function onImageSelected(target, id, name) {
+    var hasImage = (id && parseInt(id, 10) > 0);
     if (target === '_') {
         var container = $('#cimage_preview_container');
         if (container.length) {
-            if (id && parseInt(id, 10) > 0) {
+            if (hasImage) {
                 container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
             } else {
                 container.html('&nbsp;');
             }
         }
+        var btn = $('#cimage_delete_button');
+        if (btn.length) {
+            if (hasImage) {
+                btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+            } else {
+                btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+            }
+        }
     } else if (target === '_list_') {
         var container = $('#cimage_list_preview_container');
         if (container.length) {
-            if (id && parseInt(id, 10) > 0) {
+            if (hasImage) {
                 container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
             } else {
                 container.html('&nbsp;');
+            }
+        }
+        var btn = $('#cimage_list_delete_button');
+        if (btn.length) {
+            if (hasImage) {
+                btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+            } else {
+                btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
             }
         }
     }

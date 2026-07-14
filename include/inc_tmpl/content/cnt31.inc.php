@@ -349,7 +349,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     </span>
                     <input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" maxlength="250" onfocus="this.blur()" />
                     <span class="input-group-append">
-                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
+                        <a href="#" id="cimage_delete_button_thumb_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['thumb_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['thumb_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
                     </span>
                 </div>
             </div>
@@ -363,7 +363,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     </span>
                     <input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['zoom_name']) ?>" maxlength="250" onfocus="this.blur()" />
                     <span class="input-group-append">
-                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
+                        <a href="#" id="cimage_delete_button_zoom_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['zoom_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['zoom_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
                     </span>
                 </div>
             </div>
@@ -682,9 +682,20 @@ function setImgIdName(image_number, file_id, file_name) {
     if(file_id == null || file_name == null) return null;
     $('#cimage_id_'+image_number).val(file_id);
     $('#cimage_name_'+image_number).val(file_name);
-    image_number = image_number.split('_');
-    if(image_number[1]) {
-        updatePreviewImage(image_number[1]);
+    
+    var hasImage = (file_id && parseInt(file_id, 10) > 0);
+    var btn = $('#cimage_delete_button_' + image_number);
+    if (btn.length) {
+        if (hasImage) {
+            btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+        } else {
+            btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+        }
+    }
+
+    var img_num_parts = image_number.split('_');
+    if(img_num_parts[1]) {
+        updatePreviewImage(img_num_parts[1]);
     }
 }
 
@@ -703,6 +714,12 @@ function deleteImageData(image_number, e) {
     bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
         imageNameField.val('');
         $('#cimage_id_' + image_number).val('0');
+        
+        var btn = $('#cimage_delete_button_' + image_number);
+        if (btn.length) {
+            btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+        }
+
         var img_num_parts = image_number.split('_');
         if (img_num_parts[1]) {
             updatePreviewImage(img_num_parts[1]);
@@ -777,7 +794,7 @@ function addNewImage(where) {
     new_entry += '</span>';
     new_entry += '<input name="cimage_name_thumb['+entry_number+']" type="text" id="cimage_name_thumb_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
     new_entry += '<span class="input-group-append chatlist">';
-    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
+    new_entry += '<a href="#" id="cimage_delete_button_thumb_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
     new_entry += '</span>';
     new_entry += '</div>';
     new_entry += '</div>';
@@ -791,7 +808,7 @@ function addNewImage(where) {
     new_entry += '</span>';
     new_entry += '<input name="cimage_name_zoom['+entry_number+']" type="text" id="cimage_name_zoom_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
     new_entry += '<span class="input-group-append chatlist">';
-    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
+    new_entry += '<a href="#" id="cimage_delete_button_zoom_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
     new_entry += '</span>';
     new_entry += '</div>';
     new_entry += '</div>';

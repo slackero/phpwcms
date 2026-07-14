@@ -63,13 +63,22 @@ if(empty($content['article']['acat_id'])) { // Root structure
     }
 
     function onImageSelected(target, id, name) {
+        var hasImage = (id && parseInt(id, 10) > 0);
         if (target === '_') {
             var container = $('#cimage_preview_container');
             if (container.length) {
-                if (id && parseInt(id, 10) > 0) {
+                if (hasImage) {
                     container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
                 } else {
                     container.html('&nbsp;');
+                }
+            }
+            var btn = $('#cimage_delete_button');
+            if (btn.length) {
+                if (hasImage) {
+                    btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+                } else {
+                    btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
                 }
             }
         }
