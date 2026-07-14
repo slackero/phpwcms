@@ -288,6 +288,7 @@ function extimg($ext) {
                  "gif"  => "file-image",
                  "png"  => "file-image",
                  "webp" => "file-image",
+                 "svg"  => "file-image",
                  "psd"  => "file",
                  "rar"  => "file-archive",
                  "zip"  => "file-archive",

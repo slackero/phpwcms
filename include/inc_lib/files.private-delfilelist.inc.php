@@ -22,14 +22,17 @@ $file_result = _dbQuery($file_sql);
 if(isset($file_result[0]['f_id'])) {
 
     $file_durchlauf = 0;
+    $bg_toggle = false;
 
     foreach($file_result as $file_row) {
 
         $filename = html($file_row["f_name"]);
+        $bg_toggle = !$bg_toggle;
+        $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
-        echo "<tr>\n";
-        echo "<td width=\"13\">";
-             echo '<i class="fa fa-lg fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+        echo '<tr'.$row_class.">\n";
+        echo '<td width="30">';
+             echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
         echo "</td>\n<td>";
         echo '<a href="fileinfo.php?fid='.$file_row["f_id"];
         echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";

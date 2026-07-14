@@ -351,6 +351,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
         $target_form = (empty($_SESSION['image_browser_article'])) ? 'articlecontent' : 'article';
 
+        $bg_toggle = false;
         foreach($file_result as $file_durchlauf => $file_row) {
 
             $filename = html($file_row["f_name"]);
@@ -366,6 +367,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             }
 
             if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18, 19))) {
+
+                $bg_toggle = !$bg_toggle;
+                $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
                 $js_files_select[$file_durchlauf] = '     [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
                 $add_all = false;
@@ -459,7 +463,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
                 }
 
-                echo '<tr><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
@@ -478,7 +482,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr style="border-bottom: 1px solid #ccc;"><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
+                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
                     if($js_aktion == 16 || $js_aktion == 17) {
                       echo "tmt_winControl('self','close()');\">";
                     } else {

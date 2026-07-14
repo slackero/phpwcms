@@ -803,6 +803,7 @@ li.sortme {
 }
 
 .admin-slist {
+    display: inline-block;
     margin-left: 1.7rem;
 }
 
@@ -1071,6 +1072,37 @@ tr.hover-gold:hover td {
   background-color: #e2e6ea !important;
   border-color: #dae0e5 !important;
   color: #495057 !important;
+}
+
+.file-row-even, .file-row-even td {
+  background-color: #ffffff !important;
+}
+.file-row-odd, .file-row-odd td {
+  background-color: #f9fafb !important;
+}
+
+.file-row-even td:first-child, .file-row-odd td:first-child {
+  padding-left: 0.3rem !important;
+}
+.file-row-even td:last-child, .file-row-odd td:last-child {
+  padding-right: 0.3rem !important;
+}
+
+@media (min-width: 992px) {
+  .tabs-flex-container {
+    border-bottom: 1px solid #dee2e6;
+  }
+  .tabs-flex-container .nav-tabs {
+    border-bottom: none !important;
+  }
+}
+@media (max-width: 991.98px) {
+  .tabs-flex-container {
+    border-bottom: none !important;
+  }
+  .tabs-flex-container .nav-tabs {
+    border-bottom: 1px solid #dee2e6 !important;
+  }
 }
 
 

@@ -142,20 +142,23 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
             if(isset($file_result[0]['f_id'])) {
 
                 $file_durchlauf = 0;
+                $bg_toggle = false;
 
                 foreach($file_result as $file_row) {
                     $filename = html($file_row["f_name"]);
+                    $bg_toggle = !$bg_toggle;
+                    $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
                     $file_row["edit"] = '<a href="'.$zieldatei."&amp;editfile=".$file_row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_editfile'].": ".$filename.'">';
 
                     if(!$file_durchlauf) { //Aufbau der Zeile zum Einfließen der Filelisten-Tabelle
-                        echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"2\"><table class=\"table-sm table-borderless w-100\">\n";
+                        echo '<tr bgcolor="#FFFFFF"><td colspan="2" class="p-0"><table class="table-sm table-borderless w-100">'."\n";
                         echo "<!-- start file list: private-functions //-->\n";
                     } else {
 
                     }
 
-                    echo "<tr>\n";
+                    echo '<tr'.$row_class.">\n";
                     echo "<td width=30>";
                     echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
@@ -228,16 +231,16 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $cmsgo) {
                             ));
 
                             if($thumb_image != false) {
-                                echo "<tr>\n";
-                                echo "<td></td>\n<td colspan=\"2\">";
+                                echo '<tr'.$row_class.">\n";
+                                echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                                 echo $file_row['edit'];
                                 echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
                                 echo "\n</tr>\n";
                             }
 
                         } else {
-                            echo "<tr>\n";
-                            echo "<td></td>\n<td colspan=\"2\">";
+                            echo '<tr'.$row_class.">\n";
+                            echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                             echo $file_row['edit'];
                             echo '<img src="'.CMSGO_RESIZE_IMAGE.'/'.$cmsgo["img_list_width"].'x'.$cmsgo["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$cmsgo["img_list_width"].'px;height:auto;"></a></td>';
                             echo "\n</tr>\n";

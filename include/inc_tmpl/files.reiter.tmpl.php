@@ -42,67 +42,57 @@ if($_SESSION["wcs_user_thumb"]) {
   <div class="card-header"><h2><?php echo $BL['be_subnav_file_center'] ?></h2></div>
   <div class="card-body">
 
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link<?php echo ($files_folder == 0 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=0"><?php echo $BL['be_ftab_private'] ?></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link<?php echo ($files_folder == 1 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=1"><?php echo $BL['be_ftab_public'] ?></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link<?php echo ($files_folder == 3 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=3"><?php echo $BL['be_ftab_search'] ?></a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link<?php echo ($files_folder == 2 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=2"><?php echo $BL['be_ftab_trash'] ?></a>
-  </li>
-</ul>
-
-
-	<table class="table table-sm bg-grey mt-3" cellpadding="2">
-		<tr>
-			<?php if($files_folder == 0) { ?>
-			<td class="tableheader text-right">
-				<a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;upload=0" data-toggle="tooltip" title="<?php echo $BL['be_ftab_upload'] ?>">
-					<i class="fa fa-fw fa-upload"></i>
-				</a>
-			<?php echo $add_paste_icon ?>
-				<a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
-					<i class="fa fa-fw fa-info"></i>
-				</a>
-				<a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=open" data-toggle="tooltip" title="<?php echo $BL['be_ftab_open'] ?>">
-					<i class="fa fa-fw fa-folder-open"></i>
-				</a>
-				<a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
-					<i class="fa fa-fw fa-folder"></i>
-				</a>
-				<?php echo $change_thumbnail_icon ?>
-			</td>
-			<?php } elseif($files_folder == 1) { ?>
-			<td class="tableheader text-right">
-				<a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
-					<i class="fa fa-fw fa-info"></i>
-				</a>
-				<a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
-					<i class="fa fa-fw fa-folder"></i>
-				</a>
-			<?php echo $change_thumbnail_icon ?></td>
-			<?php } elseif($files_folder == 2) { ?>
-			<td class="tableheader text-right">
-				<a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
-					<i class="fa fa-fw fa-info"></i>
-				</a>
-			</td>
-			<?php } elseif($files_folder == 3) { ?>
-			<td class="tableheader text-right">
-				<a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
-					<i class="fa fa-fw fa-info"></i>
-				</a>
-				<?php echo $change_thumbnail_icon ?></td>
-			<?php } else { ?>
-			<td  class="chatlist">&nbsp;</td>
-			<?php } ?>
-		</tr>
-	</table>
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center tabs-flex-container mb-3 pb-2 pb-lg-0">
+  <ul class="nav nav-tabs order-2 order-lg-1 mb-2 mb-lg-0 w-100 w-lg-auto align-self-lg-end">
+    <li class="nav-item">
+      <a class="nav-link<?php echo ($files_folder == 0 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=0"><?php echo $BL['be_ftab_private'] ?></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link<?php echo ($files_folder == 1 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=1"><?php echo $BL['be_ftab_public'] ?></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link<?php echo ($files_folder == 3 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=3"><?php echo $BL['be_ftab_search'] ?></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link<?php echo ($files_folder == 2 ? ' active' : '');?>" href="cmsgo.php?do=files&amp;f=2"><?php echo $BL['be_ftab_trash'] ?></a>
+    </li>
+  </ul>
+  <div class="pb-1 align-self-end align-self-lg-center order-1 order-lg-2 text-nowrap">
+    <?php if($files_folder == 0) { ?>
+      <a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;upload=0" data-toggle="tooltip" title="<?php echo $BL['be_ftab_upload'] ?>">
+        <i class="fa fa-fw fa-upload"></i>
+      </a>
+      <?php echo $add_paste_icon ?>
+      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+        <i class="fa fa-fw fa-info"></i>
+      </a>
+      <a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=open" data-toggle="tooltip" title="<?php echo $BL['be_ftab_open'] ?>">
+        <i class="fa fa-fw fa-folder-open"></i>
+      </a>
+      <a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
+        <i class="fa fa-fw fa-folder"></i>
+      </a>
+      <?php echo $change_thumbnail_icon ?>
+    <?php } elseif($files_folder == 1) { ?>
+      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+        <i class="fa fa-fw fa-info"></i>
+      </a>
+      <a class="btn btn-blue btn-sm" href="cmsgo.php?do=files&amp;f=0&amp;all=close" data-toggle="tooltip" title="<?php echo $BL['be_ftab_close'] ?>">
+        <i class="fa fa-fw fa-folder"></i>
+      </a>
+      <?php echo $change_thumbnail_icon ?>
+    <?php } elseif($files_folder == 2) { ?>
+      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+        <i class="fa fa-fw fa-info"></i>
+      </a>
+    <?php } elseif($files_folder == 3) { ?>
+      <a class="btn btn-blue btn-sm" data-toggle="modal" data-target="#help" style="cursor: pointer;">
+        <i class="fa fa-fw fa-info"></i>
+      </a>
+      <?php echo $change_thumbnail_icon ?>
+    <?php } ?>
+  </div>
+</div>
 
 	<div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
