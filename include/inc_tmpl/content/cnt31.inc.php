@@ -707,7 +707,7 @@ function deleteImageData(image_number, e) {
         if (img_num_parts[1]) {
             updatePreviewImage(img_num_parts[1]);
         }
-    }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>');
+    }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>');
     e.blur();
     return false;
 }
