@@ -61,6 +61,19 @@ if(empty($content['article']['acat_id'])) { // Root structure
             elem.value = '';
         }
     }
+
+    function onImageSelected(target, id, name) {
+        if (target === '_') {
+            var container = $('#cimage_preview_container');
+            if (container.length) {
+                if (id && parseInt(id, 10) > 0) {
+                    container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
+                } else {
+                    container.html('&nbsp;');
+                }
+            }
+        }
+    }
 </script>
 <form action="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $content["aid"]."&amp;acid=".$content["id"] ?>" method="post" name="articlecontent" id="articlecontent" class="form-horizontal" <?php
 

@@ -84,9 +84,9 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
       <span class="input-group-prepend">
         <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" ></button>
       </span>
-      <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo  isset($content["image_name"]) ? html($content["image_name"]) : '' ?>" maxlength="250" onfocus="this.blur()" />
+      <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" maxlength="250" onfocus="this.blur()" />
       <span class="input-group-append">
-        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"></a>
+        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_cnt_delimage']); ?>'); this.blur();return false;"></a>
       </span>
     </div>
     <input name="cimage_id" type="hidden" value="<?php echo isset($content["image_id"]) ? $content["image_id"] : '' ?>" />
@@ -185,18 +185,20 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
     <div class="col">
       <textarea name="cimage_caption_title" cols="30" rows="2" class="form-control form-control-sm" id="cimage_caption_title" ><?php echo  isset($image_caption[0]) ? html_specialchars($image_caption[0]) : '' ?></textarea>
     </div>
-		<div class="col-sm-auto">
+		<div id="cimage_preview_container" class="col-sm-auto">
 			<?php
-				if(isset($content["image_hash"])) {
+				if(isset($content['image_hash'])) {
 						$thumb_image = get_cached_image(array(
-										"target_ext"    =>  $content["image_ext"],
-										"image_name"    =>  $content["image_hash"] . '.' . $content["image_ext"],
-										"thumb_name"    =>  md5($content["image_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
+										'target_ext'    =>  $content['image_ext'],
+										'image_name'    =>  $content['image_hash'] . '.' . $content['image_ext'],
+										'thumb_name'    =>  md5($content['image_hash'].$cmsgo['img_list_width'].$cmsgo['img_list_height'].$cmsgo['sharpen_level'].$cmsgo['colorspace'])
 						));
 
 						if($thumb_image != false) {
 								echo '<img class="p-1" src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
 						}
+				} else {
+						echo '&nbsp;';
 				}
 				?>
 		</div>
