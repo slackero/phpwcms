@@ -1470,8 +1470,8 @@ $BL['iptc_SubjectNewsCode'] = 'ID tematu';
 $BL['iptc_iimVersion'] = 'Wersja';
 
 $BL['be_suppress_render_caption'] = 'Tłumienie renderowania podpisu';
-$BL['be_cnt_attribute_class'] = 'Klasa CSS';
-$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
 $BL['be_not_set'] = 'Nie ustawiony';
 $BL['be_licensed_under_GPL'] = 'Na licencji GPL.';

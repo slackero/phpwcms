@@ -1577,8 +1577,8 @@ $BL['iptc_SubjectNewsCode'] = 'Betreffkennung';
 $BL['iptc_iimVersion'] = 'Version';
 
 $BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
-$BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
-$BL['be_cnt_attribute_id'] = 'CSS ID [id]';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
 $BL['be_not_set'] = 'nicht gesetzt';
 $BL['be_licensed_under_GPL'] = 'Lizenziert unter GPL.';

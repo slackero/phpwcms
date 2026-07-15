@@ -577,19 +577,6 @@ echo $_save_close_buttons;
 ?>
     <hr />
 
-	  <div class="form-group align-items-center form-row">
-      <span class="col-sm-2 col-form-label text-right"></span>
-			<div class="col-sm-auto">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
-					<label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
-				</div>
-				<div class="form-check form-check-inline mx-sm-3">
-					<input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
-					<label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
-				</div>
-			</div>
-		</div>
 
     <div class="form-group align-items-center form-row">
       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></span>
@@ -613,7 +600,7 @@ echo $_save_close_buttons;
             <div class="input-group input-group-sm">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
+                  <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo 'checked';} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
                 </div>
                 <label class="input-group-text" for="cafter"><?php echo $BL['be_article_cnt_after'] ?></label>
               </div>
@@ -627,19 +614,16 @@ echo $_save_close_buttons;
       </div>
     </div>
 
-    <div class="form-group align-items-center form-row">
-      <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
-      <div class="col-sm-4">
-				<input name="cattr_class" id="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
+      <div class="form-group align-items-center form-row">
+          <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
+          <div class="col-sm-4">
+              <input name="cattr_class" id="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
+          </div>
+          <label for="cattr_id" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
+          <div class="col-sm-4">
+              <input name="cattr_id" id="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
+          </div>
       </div>
-    </div>
-
-    <div class="form-group align-items-center form-row">
-      <label for="cattr_id" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
-      <div class="col-sm-4">
-        <input name="cattr_id" id="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
-      </div>
-    </div>
 
     <hr />
 
@@ -661,20 +645,28 @@ echo $_save_close_buttons;
                </div>
              </div>
            </div>
-           <div class="my-1">
-             <div class="date input-group input-group-sm" id="datetimepicker2" data-target-input="#ckilldate">
-               <div class="input-group-prepend">
-                 <div class="input-group-text">
-                   <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker2').datetimepicker('date', d || moment()); } else { $('#datetimepicker2').datetimepicker('clear'); }" />
-                 </div>
-                 <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
-               </div>
-               <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker2" autocomplete="off" />
-               <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                 <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-               </div>
-             </div>
-           </div>
+           <div class="my-1 mr-3">
+              <div class="date input-group input-group-sm" id="datetimepicker2" data-target-input="#ckilldate">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker2').datetimepicker('date', d || moment()); } else { $('#datetimepicker2').datetimepicker('clear'); }" />
+                  </div>
+                  <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+                </div>
+                <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker2" autocomplete="off" />
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="my-1">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="csorting"><?php echo $BL['be_cnt_sortvalue'] ?></label>
+                </div>
+                <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+              </div>
+            </div>
          </div>
        </div>
     </div>
@@ -724,14 +716,20 @@ echo $_save_close_buttons;
             <label class="form-check-label" for="cgranted"><?php echo $BL['be_granted_feuser'] ?></label>
           </div>
         </div>
-    </div>
-
-    <div class="form-inline form-group align-items-center form-row">
-      <label for="csorting" class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_cnt_sortvalue'] ?></label>
         <div class="col-sm-auto">
-          <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
+            <label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
+          </div>
+        </div>
+        <div class="col-sm-auto">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
+            <label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
+          </div>
         </div>
     </div>
+
 
     <hr />
 
