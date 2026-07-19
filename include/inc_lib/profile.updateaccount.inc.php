@@ -73,7 +73,8 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
         $sql  = "UPDATE ".DB_PREPEND."phpwcms_user SET usr_login="._dbEscape($new_username).", ";
 
         if(!empty($new_password)) {
-            $sql .= "usr_pass="._dbEscape(md5(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'))).", ";
+            $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
+            $sql .= "usr_pass="._dbEscape($bcrypt_pass).", ";
         }
 
         $sql .= "usr_email="._dbEscape($new_email);

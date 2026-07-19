@@ -34,7 +34,7 @@ $phpwcms['site_ssl_port'] = 443; // The Port on which your SSL Service serve the
 
 $phpwcms['admin_name'] = 'Webmaster';
 $phpwcms['admin_user'] = 'admin';
-$phpwcms['admin_pass'] = 'acf977c1cfa27a463246f6963055cb11'; //MD5
+$phpwcms['admin_pass'] = '$2y$10$x86lqaTKNepOVObOPj8dPORQowIIIwFYzfSEd3LR1LWNKvPY/VhVS'; //Password hash
 $phpwcms['admin_email'] = 'noreply@'.str_replace('www.', '', get_url_origin(true, false, false));
 
 // paths

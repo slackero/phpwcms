@@ -1604,3 +1604,11 @@ $BL['be_copy_link'] = 'copy link';
 
 $BL['be_deprecated'] = 'deprecated';
 $BL['be_deprecated_info'] = 'This feature is deprecated and will be removed in future versions of phpwcms. Please avoid using it in new projects and consider replacing it in existing projects.';
+
+$BL['be_about_headline'] = 'phpwcms content management system';
+$BL['be_about_version'] = 'Version';
+$BL['be_about_maintainer'] = 'Maintainer';
+$BL['be_about_website'] = 'Website';
+$BL['be_about_copyright'] = 'Copyright';
+$BL['be_about_contributors'] = 'and contributors';
+$BL['be_about_and_contributors'] = 'and other contributors (including Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, and others) &ndash; see <a href="https://github.com/slackero/phpwcms" title="Source code on GitHub" target="_blank">source code</a> for detailed copyright and license information.';

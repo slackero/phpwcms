@@ -77,6 +77,7 @@ done
 unzip -q langs4.zip
 
 git apply patches/*
+git add --intent-to-add .
 
 # stop script if there is no lang updates
 git diff --quiet && git diff --cached --quiet && exit 0

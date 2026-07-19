@@ -73,6 +73,7 @@ return array(
     'Nette\\Utils\\AssertionException' => $vendorDir . '/nette/utils/src/Utils/exceptions.php',
     'Nette\\Utils\\Callback' => $vendorDir . '/nette/utils/src/Utils/Callback.php',
     'Nette\\Utils\\DateTime' => $vendorDir . '/nette/utils/src/Utils/DateTime.php',
+    'Nette\\Utils\\DateTimeImmutable' => $vendorDir . '/nette/utils/src/Utils/DateTimeImmutable.php',
     'Nette\\Utils\\FileInfo' => $vendorDir . '/nette/utils/src/Utils/FileInfo.php',
     'Nette\\Utils\\FileSystem' => $vendorDir . '/nette/utils/src/Utils/FileSystem.php',
     'Nette\\Utils\\Finder' => $vendorDir . '/nette/utils/src/Utils/Finder.php',

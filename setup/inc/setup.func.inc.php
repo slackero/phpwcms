@@ -148,7 +148,7 @@ function write_conf_file($val) {
 
     $conf_file .= "\$phpwcms['admin_name'] = '" . escape_quote($val["admin_name"]) . "'; //default: Webmaster\n";
     $conf_file .= "\$phpwcms['admin_user'] = '" . escape_quote($val["admin_user"]) . "'; //default: admin\n";
-    $conf_file .= "\$phpwcms['admin_pass'] = '" . escape_quote($val["admin_pass"]) . "'; //MD5(phpwcms)\n";
+    $conf_file .= "\$phpwcms['admin_pass'] = '" . escape_quote($val["admin_pass"]) . "'; //Password hash\n";
     $conf_file .= "\$phpwcms['admin_email'] = '" . escape_quote($val["admin_email"]) . "'; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";
