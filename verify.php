@@ -94,7 +94,7 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
 
 // some replacements
 $page = replaceGlobalRT($page);
-$page = str_replace('{EMAIL}', $email, $page);
+$page = str_replace('{EMAIL}', html($email), $page);
 
 // send non caching page header
 headerAvoidPageCaching();
