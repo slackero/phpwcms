@@ -42,8 +42,9 @@ if(empty($_GET["msg"])) {
     $msg = 0;
     $msg_get["msg"] = '';
 } else {
-    $msg_get["msg"]     = "&msg=".$_GET["msg"];
-    list($msg, $msg_read) = explode(":", $_GET["msg"]);
+    $msg = clean_slweg($_GET["msg"]);
+    $msg_get["msg"] = '&msg=' . rawurlencode($msg);
+    list($msg, $msg_read) = explode(":", $msg);
     $msg = intval($msg);
 }
 

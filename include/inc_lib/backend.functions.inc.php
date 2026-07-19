@@ -273,56 +273,93 @@ function getArticleReSorted($cat_id, $ordered_by) {
 
 function phpwcmsversionCheck() {
 
+    global $phpwcms;
+    global $BL;
+
+    if(empty($phpwcms['version_check'])) {
+        $version = '<div class="versioncheck">';
+        $version .= '<h1>' . $BL['Version_information'] . '</h1>';
+        $version .= '<p class="alert alert-info">';
+        $version .= sprintf($BL['Current_version_info'], PHPWCMS_VERSION . ' ('. PHPWCMS_RELEASE_DATE. ', r' . PHPWCMS_REVISION . ')');
+        $version .= '</p>';
+        $version .= '</div>';
+
+        return $version;
+    }
+
     if(!empty($_SESSION['phpwcms_version_check'])) {
         return $_SESSION['phpwcms_version_check'];
     }
 
     // Check for new version
 
-    global $phpwcms;
-    global $BL;
-
-    if(empty($phpwcms['version_check'])) {
-        return '';
-    }
-
     $errno          = 0;
     $errstr         = '';
     $version_info   = '';
     $get_info       = false;
+    $has_sockets    = false;
 
     $identify  = '?version='.rawurlencode(PHPWCMS_VERSION.' '.str_replace('/', '', PHPWCMS_RELEASE_DATE));
     $identify .= '&hash='.md5($_SERVER['REQUEST_URI']);
     $identify .= '&url='.rawurlencode(PHPWCMS_URL);
     $identify .= '&revision='.rawurlencode(PHPWCMS_REVISION);
 
-    if(function_exists('fsockopen') && $fsock = @fsockopen('www.phpwcms.org', 80, $errno, $errstr, 10)) {
+    if(function_exists('fsockopen')) {
+        $has_sockets = true;
+        if($fsock = @fsockopen('ssl://www.phpwcms.org', 443, $errno, $errstr, 10)) {
 
-        @fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
-        @fputs($fsock, "HOST: www.phpwcms.org\r\n");
-        @fputs($fsock, "Connection: close\r\n\r\n");
+            @fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
+            @fputs($fsock, "Host: www.phpwcms.org\r\n");
+            @fputs($fsock, "Connection: close\r\n\r\n");
 
-        while (!@feof($fsock)) {
-            if($get_info) {
-                $version_info .= @fread($fsock, 1024);
-            } elseif (@fgets($fsock, 1024) == "\r\n") {
-                $get_info = true;
+            $response_header = '';
+            while (!@feof($fsock)) {
+                if($get_info) {
+                    $version_info .= @fread($fsock, 1024);
+                } else {
+                    $line = @fgets($fsock, 1024);
+                    $response_header .= $line;
+                    if ($line === "\r\n") {
+                        $get_info = true;
+                    }
+                }
+            }
+            @fclose($fsock);
+
+            if (preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $response_header, $status_match)) {
+                $status_code = intval($status_match[1]);
+                if ($status_code !== 200) {
+                    $errstr = 'HTTP Error ' . $status_code;
+                    $get_info = false;
+                }
             }
         }
-        @fclose($fsock);
+    }
 
-    } elseif(function_exists('file_get_contents')) {
-
-        $version_info = @file_get_contents('http://www.phpwcms.org/versioncheck/'.$identify);
-        $get_info = true;
-
-    } elseif($errstr) {
-
-        $version_info = '<p class="error">' . sprintf($BL['Connect_socket_error'], $errstr) . '</p>';
-
-    } else {
-
-        $version_info = '<p>' . $BL['Socket_functions_disabled'] . '</p>';
+    if(!$get_info && function_exists('file_get_contents') && ini_get('allow_url_fopen')) {
+        $has_sockets = true;
+        $context = stream_context_create([
+            'http' => [
+                'ignore_errors' => true,
+                'timeout' => 10,
+                'header' => 'User-Agent: phpwcms/' . PHPWCMS_VERSION . "\r\n"
+            ]
+        ]);
+        $version_info = @file_get_contents('https://www.phpwcms.org/versioncheck/'.$identify, false, $context);
+        if ($version_info !== false) {
+            $get_info = true;
+            if (isset($http_response_header[0])) {
+                if (preg_match('/^HTTP\/1\.[01]\s+(\d+)/i', $http_response_header[0], $status_match)) {
+                    $status_code = (int)$status_match[1];
+                    if ($status_code !== 200) {
+                        $errstr = 'HTTP Error ' . $status_code;
+                        $get_info = false;
+                    }
+                }
+            }
+        } else {
+            $errstr = 'file_get_contents failed';
+        }
     }
 
     if($get_info && preg_match('/.*BEGIN -->(.+)<!-- END.*/s', $version_info, $match)) {
@@ -330,7 +367,7 @@ function phpwcmsversionCheck() {
         $version_info       = explode(LF, $match[1]);
         $latest_version     = trim($version_info[0]);
         $latest_revdate     = trim($version_info[1]);
-        $latest_revision    = intval(trim($version_info[2]));
+        $latest_revision    = (int)trim($version_info[2]);
         $latest_time        = strtotime($latest_revdate.' 00:00:00');
         $version_time       = strtotime(PHPWCMS_RELEASE_DATE.' 00:00:00');
 
@@ -365,10 +402,12 @@ function phpwcmsversionCheck() {
         $version_info .= '<p>' . sprintf($BL['Latest_version_info'], $latest_version.' ('.$latest_revdate.', r'.$latest_revision.')'). '<br />';
         $version_info .= sprintf($BL['Current_version_info'], $mark_rev_prefix.PHPWCMS_VERSION.$mark_rev_suffix.' ('.$mark_date_prefix.PHPWCMS_RELEASE_DATE.$mark_date_suffix.', r'.PHPWCMS_REVISION.')') . '</p>';
 
-    } else {
-
+    } elseif ($errstr) {
+        $version_info = '<p class="error">' . sprintf($BL['Connect_socket_error'], $errstr) . '</p>';
+    } elseif (!$has_sockets) {
         $version_info = '<p>' . $BL['Socket_functions_disabled'] . '</p>';
-
+    } else {
+        $version_info = '<p class="error">' . sprintf($BL['Connect_socket_error'], 'Invalid response format') . '</p>';
     }
 
     $_SESSION['phpwcms_version_check'] = '<div class="versioncheck"><h1>'.$BL['Version_information'].'</h1> '.$version_info.'</div>';
