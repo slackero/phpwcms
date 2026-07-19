@@ -2007,7 +2007,7 @@ parameters:
 		-
 			message: '#^Variable \$capt_row might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 1
 			path: ../include/inc_front/img.func.inc.php
 
 		-
@@ -3265,12 +3265,6 @@ parameters:
 			path: ../include/inc_lib/general.inc.php
 
 		-
-			message: '#^Offset ''bits'' does not exist on null\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../include/inc_lib/general.inc.php
-
-		-
 			message: '#^PHPDoc tag @param has invalid value \(bool\)\: Unexpected token "\\n ", expected variable at offset 83 on line 5$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -3841,7 +3835,7 @@ parameters:
 			path: ../include/inc_module/mod_calendar/frontend.render.php
 
 		-
-			message: '#^Offset 1 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
+			message: '#^Offset 1 on array\{non\-empty\-list\<string\>, non\-empty\-list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.offset
 			count: 1
 			path: ../include/inc_module/mod_calendar/inc/calendar.class.php
@@ -4583,6 +4577,12 @@ parameters:
 			identifier: variable.undefined
 			count: 5
 			path: ../include/inc_module/mod_shop/inc/tabs.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: ../include/inc_tmpl/about.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -6562,12 +6562,6 @@ parameters:
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 22
-			path: ../include/inc_tmpl/profile.data.tmpl.php
-
-		-
-			message: '#^Variable \$detail might not be defined\.$#'
-			identifier: variable.undefined
-			count: 18
 			path: ../include/inc_tmpl/profile.data.tmpl.php
 
 		-
