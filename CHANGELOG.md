@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.2] - 2026-07-19
+
+### Fixed
+- **WYSIWYG Editor Selection Persistence:** Resolved a bug where selecting CKEditor as the default editor in the user profile was not correctly persisted across login sessions, always reverting to TinyMCE.
+
 ## [1.12.1] - 2026-07-19
 
 ### Added
