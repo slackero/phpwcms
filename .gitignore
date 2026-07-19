@@ -18,6 +18,7 @@ composer.lock
 include/config.codekit3
 /include/build
 /.htaccess
+/.phpstan
 
 # Ignore files of the composer packages
 /include/vendor/erusev/parsedown/.github/
