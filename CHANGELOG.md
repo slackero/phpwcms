@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.3] - 2026-07-19
+
+### Fixed
+- **WYSIWYG Editor Config Override:** Fixed a bug in `login.php` where initializing the session incorrectly overrode the configured default editor (e.g. TinyMCE 8 / value 2) to CKEditor (value 1), causing wrong options to be loaded and stored in the user profile.
+
 ## [1.12.2] - 2026-07-19
 
 ### Fixed
