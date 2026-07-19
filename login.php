@@ -135,7 +135,7 @@ if(!empty($_SESSION['wcs_user_lang_custom'])) {
 //WYSIWYG EDITOR:
 //0 = no wysiwyg editor (default)
 //1 = CKEditor
-$phpwcms['wysiwyg_editor'] = empty($phpwcms['wysiwyg_editor']) ? 0 : 1;
+$phpwcms['wysiwyg_editor'] = empty($phpwcms['wysiwyg_editor']) ? 0 : (int)$GLOBALS['phpwcms']['wysiwyg_editor'];
 $_SESSION['WYSIWYG_EDITOR'] = $phpwcms['wysiwyg_editor'];
 
 destroyBackendSessionData();
