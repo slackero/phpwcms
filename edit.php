@@ -234,8 +234,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 $result[0]["usr_vars"] = array();
             }
 
-            // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? 0 : intval($result[0]["usr_wysiwyg"]);
+            // Fallback to configured global editor
+            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? $cmsgo["wysiwyg_editor"] : intval($result[0]["usr_wysiwyg"]);
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
             $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 
