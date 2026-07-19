@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'bdf1d8b3f891a9001ee48948d8eb8cb1755ea041',
+        'reference' => '4f75faa9d30315bfc640932a2eafcd4fcd32ccaf',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'bdf1d8b3f891a9001ee48948d8eb8cb1755ea041',
+            'reference' => '4f75faa9d30315bfc640932a2eafcd4fcd32ccaf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../../',
             'aliases' => array(),
@@ -255,15 +255,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'phpstan/phpstan' => array(
-            'pretty_version' => '2.2.5',
-            'version' => '2.2.5.0',
-            'reference' => '909c1e5fef7989ac0d0c1c5c42e32a5c4f6198a0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpstan/phpstan',
-            'aliases' => array(),
-            'dev_requirement' => true,
-        ),
         'psr/event-dispatcher' => array(
             'pretty_version' => '1.0.0',
             'version' => '1.0.0.0',
@@ -335,17 +326,6 @@
             'install_path' => __DIR__ . '/../ralouphie/getallheaders',
             'aliases' => array(),
             'dev_requirement' => false,
-        ),
-        'roave/security-advisories' => array(
-            'pretty_version' => 'dev-latest',
-            'version' => 'dev-latest',
-            'reference' => '4fac0729c45b6dba8d6171a94eccb1d5d9514bf9',
-            'type' => 'metapackage',
-            'install_path' => null,
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'dev_requirement' => true,
         ),
         'simplepie/simplepie' => array(
             'pretty_version' => 'dev-master',
