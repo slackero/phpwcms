@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.12.1] - 2026-07-19
 
 ### Added
 - **Prism.js Highlighting Support:** Added modern code highlighting templates (`JavaScript-Prism.tmpl` and `PHP-Prism.tmpl`) under `template/inc_cntpart/code/example/` using Prism.js.
@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 - **CDN Fallback for IE Polyfills:** Updated legacy IE polyfills (`html5shiv` and `respond`) to load from CDN. 
   - The loader now checks for the existence of local files at `template/lib/html5shiv/html5shiv.min.js` and `template/lib/respond/respond.min.js`. If they are missing, it automatically falls back to secure public CDN hosting.
 - **CDN Fallback for SWFObject:** Updated `swfobject` loading in `js.inc.php` to fall back to CDN if local files at `template/lib/swfobject/swfobject.js` are missing.
+- **Dependencies Upgrade:** Ran Composer updates on production vendor packages including TinyMCE 8.8.0, PhpSpreadsheet 5.9.0, CommonMark 2.8.3, and Symfony polyfill updates.
 
 ### Removed
 - **Unused Local Polyfills and Libraries:** Deleted local library directories to reduce repository bloat:
@@ -27,6 +28,11 @@ All notable changes to this project will be documented in this file.
 ### Security Fixes
 - **Email Regex ReDoS (High):** Optimized the email validation pattern in `include/inc_js/phpwcms.js` to prevent potential Regular Expression Denial of Service (ReDoS) backtracking attacks. Added support for plus-addressing (e.g., `user+tag@domain.com`).
 - **DOM XSS in Ads Module (High):** Cast input dimension fields (`width` and `height`) to integers using `parseInt()` in `include/inc_module/mod_ads/template/ads.js` before writing them to the document context via `document.write()`, preventing potential DOM XSS.
+- **Password Hashing Hardening:** Upgraded backend password updates and setup installations to use secure PHP `password_hash()` instead of legacy MD5, and disabled client-side MD5 pre-hashing on login.
+- **Email Replacements XSS in verify.php:** Escaped subscriber email address templates with the `html()` helper to prevent stored XSS (migrated from cmsgo).
+- **Scheme Validation Bypass in image_zoom.php:** Resolved scheme validation bypass by checking `scheme` instead of `schema` via `parse_url` results.
+- **Version Check Hardening:** Refactored `phpwcmsversionCheck()` to enforce HTTPS connections, set proper request timeouts, and strictly validate HTTP response status codes.
+- **WebP PHP Notice Warning:** Added validation to verify the `webp` key exists in the `USER_AGENT` global array before defining the `PHPWCMS_WEBP` constant.
 
 ---
 
