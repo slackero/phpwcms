@@ -18,9 +18,9 @@ $(function () {
         const action = $this.attr('data-confirm-action');
         const confirmType = $this.attr('data-confirm-type') || 'info';
         const href = $this.attr('href');
-        bootstrapConfirm(message, function () {
+        bsConfirm(confirmType, message, function () {
             window.location.href = href;
-        }, action, confirmType);
+        }, action);
     });
 
     // Intercept native confirm calls in inline onclick attributes dynamically
@@ -37,7 +37,7 @@ $(function () {
             const confirmMsg = match[2];
             const action = $el.attr('data-confirm-action');
             const confirmType = $el.attr('data-confirm-type') || 'info';
-            bootstrapConfirm(confirmMsg, function() {
+            bsConfirm(confirmType, confirmMsg, function() {
                 if ($el.is('a')) {
                     const href = $el.attr('href');
                     if (href && href !== '#') {
@@ -89,7 +89,7 @@ $(function () {
         }
     });
 
-    autosize($('textarea'));
+
 
     $('[data-toggle="tooltip"]').tooltip({
         delay: {

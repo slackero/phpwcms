@@ -148,27 +148,23 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <title><?php echo $titel ?></title>
     <meta charset="<?php echo CMSGO_CHARSET ?>" />
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/uploadfile.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/uploadfile.min.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
-    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery.form.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery.uploadfile.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/jquery.form.min.js"></script>
+    <script src="include/inc_js/jquery.uploadfile.min.js"></script>
+    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
-    <script src="include/inc_js/cmsgo.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function addFile(obj,text,value) {
-            if(obj!=null && obj.options!=null) {
-                var newOpt = new Option(text, value);
-                obj.options.length++;
-                obj.options[obj.length-1].text  = newOpt.text;
-                obj.options[obj.length-1].value = newOpt.value;
-                obj.options[obj.length-1].selected = false;
+    <script src="include/inc_js/cmsgo.min.js"></script>
+    <script>
+        function addFile(obj, text, value) {
+            if (obj && obj.options) {
+                const newOpt = new Option(text, value, false, false);
+                obj.add(newOpt);
             }
         }
     </script>
@@ -184,16 +180,16 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 	  <div id="fileuploader">Upload</div>
     <div class="filebrowser-form">
 			<p>
-				<label class="chatlist"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<label class="chatlist" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
 				<textarea cols="40" rows="3" id="file_longinfo" class="form-control"></textarea>
 			</p>
 			<p>
-				<label class="chatlist"><?php echo $BL['be_copyright'] ?></label>
+				<label class="chatlist" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
 				<input name="file_copyright" type="text" id="file_copyright" class="form-control" maxlength="255" value="" />
 			</p>
 			<p>
-				<label class="chatlist"><?php echo $BL['be_tags'] ?></label>
-				<input type="text" id="file_tags_autosuggest" class="form-control" />
+				<span class="chatlist"><?php echo $BL['be_tags'] ?></span>
+				<input type="text" id="file_tags_autosuggest" class="form-control" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
 			</p>
       <div class="btn btb-default" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
     </div>
@@ -210,7 +206,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 
 if(!empty($count_user_files)) { //Listing in case of user files/folders
 
-    echo '<table class="table mt-3" summary="" border="0" cellspacing="0" cellpadding="0">'.LF;
+    echo '<table class="table mt-3">'.LF;
 
     //Anzeige des Festplattensymbols
     $dirname = $BL['ROOT_DIR'];
@@ -255,7 +251,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
     //Tabelle
 
-    echo '<table class="table table-no-border mt-2">'.LF;
+    echo '<table class="table table-borderless mt-2">'.LF;
     $file_sql  = "SELECT * FROM ".DB_PREPEND."cmsgo_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     switch($js_aktion) {
 
@@ -355,6 +351,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
         $target_form = (empty($_SESSION['image_browser_article'])) ? 'articlecontent' : 'article';
 
+        $bg_toggle = false;
         foreach($file_result as $file_durchlauf => $file_row) {
 
             $filename = html($file_row["f_name"]);
@@ -371,6 +368,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
             if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18, 19))) {
 
+                $bg_toggle = !$bg_toggle;
+                $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
+
                 $js_files_select[$file_durchlauf] = '     [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
                 $add_all = false;
 
@@ -381,6 +381,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
                         $js  = "parent.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
                         $js .= "parent.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
+                        $js .= "if (typeof parent.onImageSelected === 'function') { parent.onImageSelected('".$jst."', '".$file_row["f_id"]."', '".$filename."'); }";
                         break;
 
                     case 2:
@@ -410,7 +411,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     case 4:
-                        $js = "addFile(parent.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list),'".$filename."','".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
@@ -462,7 +463,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
                 }
 
-                echo '<tr><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }
@@ -481,7 +482,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr style="border-bottom: 1px solid #ccc;"><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
+                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
                     if($js_aktion == 16 || $js_aktion == 17) {
                       echo "tmt_winControl('self','close()');\">";
                     } else {
@@ -519,12 +520,12 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . ' ';
         echo implode(LF . ' ', $js_files_all);
         echo LF . ' //if(closewin == true) '."parent.$('#browserModal').modal('hide');";
-        echo LF . ' getObjectById("addAllFilesLink").style.display = "none";';
+        echo LF . ' document.getElementById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(CMSGO_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, CMSGO_CHARSET);
         }
-        echo LF . ' bootstrapConfirm("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
+        echo LF . ' bsConfirmInfo("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 
         echo LF . SCRIPT_CDATA_END;

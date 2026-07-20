@@ -107,9 +107,7 @@ function imagetable($cmsgo, & $image, $rand="0:0:0:0", $align=0) {
         }
         $tablewidth += $rand[2] + $rand[3];
 
-        $table .= '<table width="'.$tablewidth.'" border="0" cellspacing="0" cellpadding="0" ';
-        $table .= ($align) ? 'align="'.$align.'"' : '';
-        $table .= $table_bgcolor.$table_class.">\n";
+        $table .= '<table width="'.$tablewidth.'" '; $table .= ($align) ? 'align="'.$align.'"' : ''; $table .= $table_bgcolor.$table_class.">\n";
         $table .= ($rand[0]) ? '<tr><td'.$colspan.'>'.spacer(1,$rand[0])."</td></tr>\n" : '';
         $table .= '<tr>';
         $table .= ($rand[2]) ? '<td>'.spacer($rand[2],1).'</td>' : '';
@@ -362,7 +360,7 @@ function imagelisttable($imagelist, $rand="0:0:0:0", $align=0, $type=0) {
         $table = LF;
 
         if($usetable) {
-            $table .= ' <table border="0" cellspacing="0" cellpadding="0"'.$align.$table_bgcolor.$table_class.' summary="">'.LF;
+            $table .= ' <table '.$align.$table_bgcolor.$table_class.'>'.LF;
         } else {
             $table .= ' <div class="';
             if(empty($imagelist['class'])) {

@@ -180,8 +180,15 @@ function emptyNews() {
   return false;
 }
 
+var initialNewsFormData = '';
 function closeForm() {
-  document.location.href='<?php echo $news->base_url_decoded ?>';
+  if ($('#newsform').serialize() !== initialNewsFormData) {
+    bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+      document.location.href='<?php echo $news->base_url_decoded ?>';
+    }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
+  } else {
+    document.location.href='<?php echo $news->base_url_decoded ?>';
+  }
   return false;
 }
 
@@ -253,6 +260,7 @@ $(function(){
     }
   });
 
+  initialNewsFormData = $('#newsform').serialize();
 });
 
 </script>
@@ -263,6 +271,7 @@ $(function(){
       <h1><?php echo $BL['be_news'] ?></h1>
     </div>
     <div class="col-sm text-center text-sm-right mb-3">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <?php if($news->data['cnt_id']) { ?>
       <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
@@ -270,8 +279,7 @@ $(function(){
       <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
-      <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
-      <input name="close" type="button" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
 
@@ -289,14 +297,14 @@ if($news->data['cnt_id']) {
 
 <div class="card-body">
   <div class="form-group align-items-center form-row">
-    <label for="be_article_cnt_ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+    <label for="cnt_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
     <div class="col">
       <input name="cnt_title" class="form-control form-control-sm" id="cnt_title" value="<?php echo html($news->data['cnt_title']) ?>" maxlength="250" type="text" required >
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_asubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+    <label for="cnt_subtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
     <div class="col">
       <input name="cnt_subtitle" class="form-control form-control-sm" id="cnt_subtitle" value="<?php echo html($news->data['cnt_subtitle']) ?>" maxlength="250" type="text">
     </div>
@@ -305,7 +313,7 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center form-row">
-      <label for="be_teasertext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_teasertext'] ?></label>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format'] ?></label>
     <div class="form-check form-check-inline col-sm-auto">
       <input class="form-check-input" type="radio" id="text_format0" name="cnt_textformat" value="plain"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
       <label class="form-check-label" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
@@ -325,7 +333,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2"></label>
+      <label for="cnt_teasertext" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_teasertext'] ?></label>
       <div class="col">
       <textarea name="cnt_teasertext" id="cnt_teasertext" class="form-control form-control-sm" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
     </div>
@@ -334,106 +342,109 @@ if($news->data['cnt_id']) {
   <hr />
 
     <div class="form-group form-row align-items-center">
-      <label for="start_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
-      <div class="col-sm-auto">
-        <div class="date input-group mb-2 mb-sm-0" id="datetimepickerstartdate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
+      <div class="col-sm-10">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#start_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#start_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickerstarttime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+          <div class="my-1">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#end_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#end_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <script>
       $(function () {
-          $('#datetimepickerstartdate').datetimepicker({
-            locale: 'de-ch',
+          $('#start_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
           });
 
-          $('#datetimepickerstarttime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
-            showClose: true
+          $('#start_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm:ss",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>
 
     <div class="form-group form-row align-items-center">
-      <label for="end_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_end'] ?></label>
-      <div class="col-sm-auto">
-        <div class="input-group mb-2 mb-sm-0" id="datetimepickerenddate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_sort_date'] ?></label>
+      <div class="col-sm-10">
+        <div class="input-group input-group-sm datetime-picker-group">
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_date" id="sort_date" value="<?php echo $news->data['cnt_sort_date']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#sort_date" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_date" data-toggle="datetimepicker">
             <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+          </div>
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_time" id="sort_time" value="<?php echo $news->data['cnt_sort_time']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#sort_time" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_time" data-toggle="datetimepicker">
+            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
           </div>
         </div>
       </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickerendtime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
-            </div>
-        </div>
-      </div>
     </div>
     <script>
       $(function () {
-          $('#datetimepickerenddate').datetimepicker({
-            locale: 'de-ch',
+          $('#sort_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
             format: "DD.MM.YYYY",
-            showClose: true
+            buttons: {
+              showClose: true
+            }
           });
 
-          $('#datetimepickerendtime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
-            showClose: true
-          });
-      });
-    </script>
-
-    <div class="form-group form-row align-items-center">
-      <label for="sort_date" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_sort_date'] ?></label>
-      <div class="col-sm-auto">
-        <div class="input-group mb-2 mb-sm-0" id="datetimepickersortdate">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="sort_date" id="sort_date" value="<?php echo $news->data['cnt_sort_date']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-auto">
-        <div class="input-group" id="datetimepickersorttime">
-          <input type="text" class="form-control form-control-sm datetimepicker" name="sort_time" id="sort_time" value="<?php echo $news->data['cnt_sort_time']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" />
-          <div class="input-group-append">
-            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
-            </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      $(function () {
-          $('#datetimepickersortdate').datetimepicker({
-            locale: 'de-ch',
-            format: "DD.MM.YYYY",
-            showClose: true
-          });
-
-          $('#datetimepickersorttime').datetimepicker({
-            locale: 'de-ch',
-            format: "H:mm",
-            showClose: true
+          $('#sort_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>
@@ -441,23 +452,23 @@ if($news->data['cnt_id']) {
   <hr />
 
   <div class="form-group align-items-center form-row">
-    <label for="be_article_cnt_ctitle" class="col-sm-2 col-form-label text-right"><a id="cnt_name_click" class="underline text-blue"><?php echo $BL['be_title'] ?></a></label>
+    <label for="cnt_name" class="col-sm-2 col-form-label text-right"><a id="cnt_name_click" class="underline text-blue"><?php echo $BL['be_title'] ?></a></label>
     <div class="col">
       <input name="cnt_name" class="form-control form-control-sm" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" placeholder="<?php echo $BL['be_title'] ?>" maxlength="200" type="text" required>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
+    <label for="cnt_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
     <div class="col">
       <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="200" type="text" required>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="be_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></label>
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
     <div class="col">
-      <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm"  /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
+      <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
     </div>
   </div>
 
@@ -485,7 +496,7 @@ if($news->data['cnt_id']) {
   <?php endif;  ?>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_priorize" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
+      <label for="cnt_prio" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
       <div class="col-sm-4">
         <select name="cnt_prio" id="cnt_prio"  class="custom-select form-control form-control-sm" data-toggle="tooltip" title="<?php echo $BL['be_priorize'] ?>">
           <?php
@@ -520,7 +531,7 @@ if($news->data['cnt_id']) {
   <hr />
 
     <div class="form-group align-items-center form-row">
-        <label for="be_cnt_image" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
+        <label for="cnt_image_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
         <div class="col-sm-4">
             <div class="input-group">
                 <span class="input-group-prepend">
@@ -553,7 +564,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2 text-right"><?php echo $BL['be_cnt_caption'] ?></label></label>
+      <label for="cnt_image_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
       <div class="col">
         <textarea name="cnt_image_caption" id="cnt_image_caption" class="form-control form-control-sm" rows="3"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
            <div class="pt-2">
@@ -571,7 +582,7 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center form-row">
-        <label for="be_profile_label_website" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_website'] ?></label>
+        <label for="cnt_image_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_website'] ?></label>
         <div class="col">
             <input name="cnt_image_link" class="form-control form-control-sm" id="cnt_image_link" value="<?php echo html($news->data['cnt_image']['link']) ?>" maxlength="500" type="text">
     </div>
@@ -585,7 +596,7 @@ if($news->data['cnt_id']) {
   $news->fileRows = $news->fileCount ? $news->fileCount+1 : 6;
 ?>
   <div class="form-group form-row" >
-      <label for="be_selection" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+      <label for="cfile_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
       <div class="col">
         <select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="custom-select form-control form-control-sm h-100">
       <?php if($news->fileCount) {
@@ -598,14 +609,14 @@ if($news->data['cnt_id']) {
       </div>
       <div class="col-sm-auto">
         <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(getObjectById('cfile_list'));return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(getObjectById('cfile_list'));return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
-        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(getObjectById('cfile_list'));return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
       </div>
   </div>
 
   <div class="form-group form-row">
-      <label class="col-form-label col-sm-2 text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <label for="cnt_file_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
       <div class="col">
         <textarea name="cnt_file_caption" id="cnt_file_caption" class="form-control form-control-sm" rows="<?php echo $news->fileRows ?>"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
            <div class="pt-2">
@@ -628,16 +639,16 @@ if($news->data['cnt_id']) {
     <label class="col-sm-2 col-form-label text-right"></label>
     <div class="form-check form-check-inline col-sm-auto">
             <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
-            <label class="form-check-label" for="be_imagefiles_as_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
+            <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
     </div>
     <div class="form-check form-check-inline col-sm-auto">
             <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
-            <label class="form-check-label" for="be_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label>
+            <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_read_more_link'] ?></label>
+    <label for="cnt_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_read_more_link'] ?></label>
     <div class="col-sm-4">
         <div class="input-group">
           <span class="input-group-prepend">
@@ -660,18 +671,18 @@ if($news->data['cnt_id']) {
   </div>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_admin_page_text" class="col-sm-2 col-form-label text-right">URL <?php echo $BL['be_admin_page_text'] ?></label>
+      <label for="cnt_linktext" class="col-sm-2 col-form-label text-right">URL <?php echo $BL['be_admin_page_text'] ?></label>
         <div class="col">
             <input name="cnt_linktext" class="form-control form-control-sm" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="URL <?php echo $BL['be_admin_page_text'] ?>">
         </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-      <label for="be_article_username" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_username'] ?></label>
+      <label for="cnt_editor" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_username'] ?></label>
         <div class="col">
             <input name="cnt_editor" class="form-control form-control-sm" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_article_username'] ?>">
         </div>
-       <label for="be_place" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_place'] ?></label>
+       <label for="cnt_place" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_place'] ?></label>
         <div class="col">
             <input name="cnt_place" class="form-control form-control-sm" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_place'] ?>">
         </div>
@@ -714,6 +725,7 @@ if($news->data['cnt_id']) {
 
   <div class="row mt-4 text-right">
     <div class="col">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
       <?php if($news->data['cnt_id']) { ?>
       <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
@@ -721,8 +733,7 @@ if($news->data['cnt_id']) {
       <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
       <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
      <?php } ?>
-      <input name="new" type="button" class="btn btn-sm btn-blue mx-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
-      <input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
   </div>
 

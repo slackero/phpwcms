@@ -71,7 +71,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 </div>
 
 <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right" for="be_cookie_runtime"><?php echo $BL['be_cookie_runtime'] ?></label>
+    <label class="col-sm-2 col-form-label text-right" for="cookie_expire"><?php echo $BL['be_cookie_runtime'] ?></label>
     <div class="col-sm-auto">
         <input name="cookie_expire" type="text" class="form-control form-control-sm" id="cookie_expire" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" value="<?php echo $content['felogin']['felogin_cookie_expire']; ?>"/>
     </div>
@@ -81,7 +81,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 </div>
 
 <div class="form-group align-items-center form-row">
-    <label class="col-sm-2 col-form-label text-right" for="be_date_format"><?php echo $BL['be_date_format'] ?></label>
+    <label class="col-sm-2 col-form-label text-right" for="date_format"><?php echo $BL['be_date_format'] ?></label>
     <div class="col-sm-auto">
         <input name="date_format" type="text" class="form-control form-control-sm" id="date_format" value="<?php echo $content['felogin']['felogin_date_format']; ?>"/>
     </div>
@@ -91,7 +91,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 </div>
 
 <div class="form-group align-items-center form-row">
-    <label class="col-sm-2 col-form-label text-right" for="be_locale"><?php echo $BL['be_locale'] ?></label>
+    <label class="col-sm-2 col-form-label text-right" for="locale"><?php echo $BL['be_locale'] ?></label>
     <div class="col-sm-auto">
         <input name="locale" type="text" class="form-control form-control-sm" id="locale" value="<?php echo $content['felogin']['felogin_locale']; ?>"/>
     </div>
@@ -104,7 +104,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 </div>
 
 <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right pt-0" for="be_check_login_against"><?php echo $BL['be_check_login_against'] ?></label>
+    <label class="col-sm-2 col-form-label text-right pt-0" for="validate_userdetail"><?php echo $BL['be_check_login_against'] ?></label>
     <div class="col-sm-auto">
         <div class="form-check">
             <input type="checkbox" class="form-check-input" name="validate_userdetail" id="validate_userdetail" value="1"<?php echo is_checked(1, $content['felogin']['felogin_validate_userdetail']); ?> />
@@ -122,7 +122,7 @@ if (!isset($content['felogin']['felogin_accept_email_login'])) {
 </div>
 
 <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right pt-0" for="be_check_feuser_profile"><?php echo $BL['be_check_feuser_profile'] ?></label>
+    <label class="col-sm-2 col-form-label text-right pt-0" for="profile_registration"><?php echo $BL['be_check_feuser_profile'] ?></label>
     <div class="col-sm-auto">
         <div class="form-check">
             <input type="checkbox" class="form-check-input" name="profile_registration" id="profile_registration" value="1"<?php echo is_checked(1, $content['felogin']['felogin_profile_registration']); ?> />

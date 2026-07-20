@@ -288,6 +288,7 @@ function extimg($ext) {
                  "gif"  => "file-image",
                  "png"  => "file-image",
                  "webp" => "file-image",
+                 "svg"  => "file-image",
                  "psd"  => "file",
                  "rar"  => "file-archive",
                  "zip"  => "file-archive",
@@ -374,10 +375,9 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
 
 function which_folder_active($ist, $soll, $ac = "#9BBECA", $nc = "#363E57", $nclass = "msgreiter") {
     if ($ist == $soll) {
-        echo "bgcolor='" . $ac . "' class='" . $nclass . "'";
+        echo "style=\"background-color: " . $ac . ";\" class=\"" . $nclass . " msgreiter-active\"";
     } else {
-        echo "bgcolor='" . $nc . "' class='" . $nclass . "' ";
-        echo "onMouseOver=\"bgColor='#FF6600'\" onMouseOut=\"bgColor='" . $nc . "'\"";
+        echo "style=\"background-color: " . $nc . ";\" class=\"" . $nclass . " msgreiter-inactive\"";
     }
 }
 
@@ -2064,7 +2064,7 @@ function xss_clean($val) {
     $found = true; // keep replacing as long as the previous round replaced something
     while ($found == true) {
         $val_before = $val;
-        for ($i = 0; $i < count($ra); $i++) {
+        for ($i = 0, $ra_count = count($ra); $i < $ra_count; $i++) {
             $pattern = '/';
             for ($j = 0; $j < strlen($ra[$i]); $j++) {
                 if ($j > 0) {
@@ -2218,7 +2218,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
             '</p>',
             '<strong>',
             '</strong>',
-            '<span class="nowrap">',
+            '<span class="text-nowrap">',
             '</span>',
         );
 
@@ -2271,7 +2271,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
     $search[21] = '/\[strong\](.*?)\[\/strong\]/is';
     $replace[21] = '<strong>$1</strong>';
     $search[22] = '/\[nowrap\](.*?)\[\/nowrap\]/is';
-    $replace[22] = '<span class="nowrap">$1</span>';
+    $replace[22] = '<span class="text-nowrap">$1</span>';
     $search[23] = '/\[blockquote\](.*?)\[\/blockquote\]/is';
     $replace[23] = '<blockquote>$1</blockquote>';
 

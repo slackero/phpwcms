@@ -234,8 +234,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
                 $result[0]["usr_vars"] = array();
             }
 
-            // Fallback to CKeditor?
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? 0 : intval($result[0]["usr_wysiwyg"]);
+            // Fallback to configured global editor
+            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? $cmsgo["wysiwyg_editor"] : intval($result[0]["usr_wysiwyg"]);
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
             $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 
@@ -319,7 +319,7 @@ $reason_types = array(
 	<meta name="robots" content="noindex, nofollow">
 	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/login.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
 	<link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($cmsgo['default_lang'] == 'ar' || $cmsgo['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>
@@ -422,7 +422,7 @@ ob_start();
 
 ?>
 <div class="form-group">
-	<label class="sr-only" for="loginname"><?php echo $BL["login_username"] ?></label>
+	<label class="sr-only" for="form_loginname"><?php echo $BL["login_username"] ?></label>
 	<div class="input-group">
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-user fa-fw"></i></span>
@@ -432,7 +432,7 @@ ob_start();
 </div>
 
 <div class="form-group">
-	<label class="sr-only" for="inputPassword"><?php echo $BL["login_userpass"] ?></label>
+	<label class="sr-only" for="form_password"><?php echo $BL["login_userpass"] ?></label>
     <div class="input-group">
 	    <div class="input-group-prepend">
             <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
@@ -442,9 +442,9 @@ ob_start();
 </div>
 <hr class="mt-4 mb-3" />
 <div class="form-group">
-	<label for="inputPassword"><?php echo $BL["login_lang"] ?></label>
+	<label for="form_lang"><?php echo $BL["login_lang"] ?></label>
     <div class="input-group">
-        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="getObjectById('json').value='2';login(this.form);">
+        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
         <?php
         // check available languages installed and build language selector menu
         $lang_dirs = opendir(CMSGO_ROOT.'/include/inc_lang/backend');
@@ -474,8 +474,8 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 
 ?>
 <script>
-    getObjectById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
-    getObjectById('form_loginname').focus();
+    document.getElementById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
+    document.getElementById('form_loginname').focus();
 <?php if(!empty($cmsgo['browser_check']['be'])):
     $buoop = array('insecure' => isset($cmsgo['browser_check']['insecure']) ? boolval($cmsgo['browser_check']['insecure']) : true);
     if(!empty($cmsgo['browser_check']['vs'])) {

@@ -30,9 +30,9 @@ if(empty($content['reference']["tmpl"]) && is_file(CMSGO_TEMPLATE.'inc_default/r
 
 } else {
 
-	$content['reference']["tmpl"] = '	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	$content['reference']["tmpl"] = '	<table width="100%">
 	  <tr>
-	    <td width="1%" valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	    <td width="1%" valign="top"><table width="100%">
 	      <tr><td>[REF]{REF}[/REF]</td></tr>
 	      [CAPTION]<tr><td>{CAPTION}</td></tr>[/CAPTION]
 	    </table>
@@ -223,7 +223,7 @@ if($content['reference']['ref_count']) {
 		// close table row if horizontal
 		$content['reference']['ref_list'] .= $content['reference']['x3'];
 		// wrap it in the table
-		$content['reference']['ref_list']  = '<table border="0" cellspacing="0" cellpadding="0">'.$content['reference']['ref_list'].'</table>';
+		$content['reference']['ref_list']  = '<table>'.$content['reference']['ref_list'].'</table>';
 	}
 
 }

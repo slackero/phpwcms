@@ -70,7 +70,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <div class="form-group form-row">
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
       <tr>
         <td align="right"><?php echo $BL['be_cnt_mediatype']  ?>:&nbsp;</td>
         <td bgcolor="#E7E8EB"><input name="cmedia_type" type="radio" value="0" <?php is_checked(0, $content["media_type"]); ?> onchange="if(cmedia_player[3].checked) cmedia_player[0].click();" /></td>
@@ -107,7 +107,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <div class="form-group form-row">
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
       <tr>
         <td align="right"><?php echo $BL['be_cnt_source'] ?>:&nbsp;</td>
         <td bgcolor="#E7E8EB"><input name="cmedia_src" type="radio" value="0" <?php is_checked(0, $content["media_src"]); ?> /></td>
@@ -150,7 +150,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_width'] ?></label>
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
       <tr>
         <td><input name="cmedia_width" type="text" class="form-control" id="cmedia_width" style="width: 50px;" size="3" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["media_width"]) ? $content["media_width"] : '' ?>" /></td>
         <td>&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
@@ -170,7 +170,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['alt_image'] ?></label>
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
       <tr>
         <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 300px; color: #727889;" value="<?php echo html($content["image_name"]) ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
         <td><img src="img/button/open_image_button.gif" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" alt="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" width="20" height="15" border="0" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" class="modalButton" /></td>
@@ -184,7 +184,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['alt_text'] ?></label>
   <div class="col">
-    <table class="table-no-border">
+    <table class="table-borderless">
         <tr>
           <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="form-control" id="cimage_caption"><?php echo html($content["image_caption"]) ?></textarea></td>
           <td valign="top"><?php if($content["image_id"]): ?><img src="<?php echo CMSGO_RESIZE_IMAGE.'/'.$cmsgo["img_list_width"].'x'.$cmsgo["img_list_height"].'/'.$content["image_id"] ?>" border="0" /><?php endif; ?>&nbsp;</td>

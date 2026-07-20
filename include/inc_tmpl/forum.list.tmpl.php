@@ -22,7 +22,7 @@ $row_count = 0;
 
 if(!isset($_GET["s"])) {
 // check if subscription should be edited
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="538">
     <tr><td colspan="3" class="title"><?php echo $BL['be_subnav_msg_forum'] ?></td></tr>
     <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
     <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
@@ -116,7 +116,7 @@ if(isset($result[0]['forum_id'])) {
     // show form
 ?>
 <form action="cmsgo.php?<?php echo build_QueryString('&amp;', 'do=messages', 'p=6', 's='.$forum["id"]) ?>" method="post" name="forums" target="_self">
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538">
     <tr>
       <td colspan="2" class="title"><?php echo  $BL['be_forum_titleedit'].": ".( $forum["id"] ? $forum["title"] : $BL['be_newsletter_new']); ?></td>
     </tr>
@@ -127,12 +127,12 @@ if(isset($result[0]['forum_id'])) {
     <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="12"></td></tr>
     <tr bgcolor="#E6EAED">
-        <td align="right" class="chatlist">&nbsp;<?php echo  $BL['be_forum_title'] ?>:&nbsp;</td>
+        <td align="right" class="chatlist">&nbsp;<label for="forum_title"><?php echo  $BL['be_forum_title'] ?></label>:&nbsp;</td>
         <td><input name="forum_title" type="text" class="f11b" id="forum_title" style="width:440px" value="<?php echo html($forum["title"]) ?>" size="50" maxlength="250"></td>
     </tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
     <tr bgcolor="#E6EAED">
-        <td align="right" valign="top" bgcolor="#E6EAED" class="chatlist"><img src="img/leer.gif" alt="" width="5" height="16"><?php echo  $BL['be_cnt_description'] ?>:&nbsp;</td>
+        <td align="right" valign="top" bgcolor="#E6EAED" class="chatlist"><img src="img/leer.gif" alt="" width="5" height="16"><label for="forum_text"><?php echo  $BL['be_cnt_description'] ?></label>:&nbsp;</td>
         <td><textarea name="forum_text" cols="35" rows="6" class="width440" id="forum_text"><?php echo html($forum["text"]); ?></textarea></td>
     </tr>
     <tr bgcolor="#E6EAED"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>

@@ -100,140 +100,130 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 
 
 ?>
-<form action="<?php echo MODULE_HREF ?>&amp;listcampaign=1" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-	<tr>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
+	<div class="card-body">
+		<form action="<?php echo MODULE_HREF ?>&amp;listcampaign=1" method="post" name="paginate" id="paginate">
+			<input type="hidden" name="do_pagination" value="1" />
+			<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+			<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+			<div class="form-row align-items-center mb-3">
+				<div class="col-auto">
+					<div class="btn-group btn-group-sm">
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+							<i class="fas fa-eye"></i>
+						</button>
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+							<i class="fas fa-eye-slash"></i>
+						</button>
+					</div>
+				</div>
 
-				<td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> /></td>
-				<td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-				<td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
-				<td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
+				<?php if($_entry['pages_total'] > 1): ?>
+					<div class="col-auto">
+						<div class="input-group input-group-sm">
+							<div class="input-group-prepend">
+								<?php if($_SESSION['ads_page'] > 1): ?>
+									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+								<?php endif; ?>
+							</div>
+							<input type="number" name="page" id="page" value="<?php echo $_SESSION['ads_page'] ?>" class="form-control form-control-sm text-center w-25" />
+							<div class="input-group-append">
+								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+								<?php if($_SESSION['ads_page'] < $_entry['pages_total']): ?>
+									<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;page=<?php echo ($_SESSION['ads_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+				<?php else: ?>
+					<input type="hidden" name="page" id="page" value="1" />
+				<?php endif; ?>
 
-<?php
-if($_entry['pages_total'] > 1) {
+				<div class="col-auto">
+					<div class="input-group input-group-sm">
+						<input type="search" name="filter" id="filter" size="15" value="<?php
+						if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+							echo html(implode(' ', $_POST['filter']));
+						}
+						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
 
-	echo '<td class="chatlist">|&nbsp;</td>';
-	echo '<td>';
-	if($_SESSION['ads_page'] > 1) {
-		echo '<a href="'.MODULE_HREF.'&amp;listcampaign=1&amp;page='.($_SESSION['ads_page']-1).'">';
-		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td>';
-	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['ads_page'];
-	echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-	echo '<td class="chatlist">/'.$_entry['pages_total'].'&nbsp;</td>';
-	echo '<td>';
-	if($_SESSION['ads_page'] < $_entry['pages_total']) {
-		echo '<a href="'.MODULE_HREF.'&amp;listcampaign=1&amp;page='.($_SESSION['ads_page']+1).'">';
-		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
+				<div class="col text-right">
+					<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(MODULE_HREF) ?>&amp;listcampaign=1&amp;c=' + this.value;">
+						<?php foreach([10, 25, 50, 100, 250] as $c): ?>
+							<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
+						<?php endforeach; ?>
+						<option value="all"<?php if($_SESSION['list_user_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+					</select>
+				</div>
+			</div>
+		</form>
 
-} else {
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover mb-0">
+				<thead>
+					<tr>
+						<th style="width: 40px;" class="text-center">&nbsp;</th>
+						<th><?php echo $BLM['campaign_entry'] ?></th>
+						<th><?php echo $BLM['ad_from-to'] ?></th>
+						<th><?php echo $BLM['adplace'] ?></th>
+						<th style="width: 160px;" class="text-right">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$row_count = 0;
 
-	echo '<td class="chatlist">|&nbsp;<input type="hidden" name="page" id="page" value="1" /></td>';
-
-}
-?>
-				<td><input type="search" name="filter" id="filter" size="10" value="<?php
-
-				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html(implode(' ', $_POST['filter']));
+				$sql  = 'SELECT *, UNIX_TIMESTAMP(ac.adcampaign_datestart) AS adcampaign_start, ';
+				$sql .= 'UNIX_TIMESTAMP(ac.adcampaign_dateend) AS adcampaign_end ';
+				$sql .= 'FROM '.DB_PREPEND.'cmsgo_ads_campaign ac ';
+				$sql .= 'LEFT JOIN '.DB_PREPEND.'cmsgo_ads_place ap ON ';
+				$sql .=	'ac.adcampaign_place=ap.adplace_id  ';
+				$sql .= 'WHERE '.$_entry['query'];
+				if($_SESSION['ads_page'] > 0 && $_SESSION['list_user_count']) {
+					$sql .= ' LIMIT '.(($_SESSION['ads_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
 				}
+				$data = _dbQuery($sql);
 
-				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-
-			</tr>
-		</table></td>
-
-	<td class="chatlist" align="right">
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=10">10</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=25">25</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=50">50</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=100">100</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=250">250</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;listcampaign=1&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
-	</td>
-
-	</tr>
-</table>
-</form>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="" class="ads">
-
-	<tr>
-		<th width="25">&nbsp;</th>
-		<th><?php echo $BLM['campaign_entry'] ?></th>
-		<th class="listFormat nowrap" nowrap="nowrap"><?php echo $BLM['ad_from-to'] ?></th>
-		<th class="listFormat"><?php echo $BLM['adplace'] ?></th>
-		<th>&nbsp;</th>
-	</tr>
-
-<?php
-// loop listing available newsletters
-$row_count = 0;
-
-
-$sql  = 'SELECT *, UNIX_TIMESTAMP(ac.adcampaign_datestart) AS adcampaign_start, ';
-$sql .= 'UNIX_TIMESTAMP(ac.adcampaign_dateend) AS adcampaign_end ';
-$sql .= 'FROM '.DB_PREPEND.'cmsgo_ads_campaign ac ';
-$sql .= 'LEFT JOIN '.DB_PREPEND.'cmsgo_ads_place ap ON ';
-$sql .=	'ac.adcampaign_place=ap.adplace_id  ';
-$sql .= 'WHERE '.$_entry['query'];
-if($_SESSION['ads_page'] > 0 && $_SESSION['list_user_count']) {
-	$sql .= ' LIMIT '.(($_SESSION['ads_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
-}
-$data = _dbQuery($sql);
-
-if($data) {
-
-	foreach($data as $row) {
-
-		echo '<tr'.( ($row_count % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
-		echo '	<td width="25" style="padding:2px 3px 2px 4px;"><img src="img/famfamfam/transmit.gif" alt="'.$BLM['campaign_entry'].'" /></td>'.LF;
-		echo '	<td width="50%">'.html($row["adcampaign_title"])."</td>\n";
-
-		echo '	<td class="listFormat nowrap">&nbsp;'.html(date($BLM['list_date_format'], $row["adcampaign_start"]).'&#8211;'.date($BLM['list_date_format'], $row["adcampaign_end"]))."&nbsp;</td>\n";
-
-		echo '	<td class="listFormat nowrap">'.$row["adplace_width"].'x'.$row["adplace_height"].' {ADS_'.$row["adplace_id"]."}&nbsp;</td>\n";
-
-		echo '	<td align="right" class="button_td nowrap">';
-
-		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;edit='.$row["adcampaign_id"].'">';
-		echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
-
-		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;duplicate='.$row["adcampaign_id"].'" ';
-		echo 'title="'.$BLM['duplicate_title'].'" onclick="return confirm(\''.js_singlequote($BLM['duplicate_campaign']).' \n'.js_singlequote($BLM['campaign_title'].': '.html('"'.$row["adcampaign_title"].'"')).'\');"';
-		echo '><img src="img/button/copy_13x13.gif" border="0" alt="" /></a>';
-
-		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;editid='.$row["adcampaign_id"].'&amp;verify=';
-		echo (($row["adcampaign_status"]) ? '0' : '1').'">';
-		echo '<img src="img/button/aktiv_12x13_'.$row["adcampaign_status"].'.gif" border="0" alt="" /></a>';
-
-		echo '<a href="'.MODULE_HREF.'&amp;campaign=1&amp;delete='.$row["adcampaign_id"];
-		echo '" title="delete: '.html($row["adcampaign_title"]).'"';
-		echo ' onclick="return confirm(\''.$BLM['delete_entry'].js_singlequote($row["adcampaign_title"]).'\');">';
-		echo '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>';
-
-		echo "</td>\n</tr>\n";
-
-		$row_count++;
-	}
-
-	echo '<tr><td colspan="5" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
-
-} else {
-
-	echo '<tr><td colspan="5" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
-
-}
-
-?>
-</table>
+				if($data) {
+					foreach($data as $row) {
+						echo '<tr>';
+						echo '<td class="text-center"><i class="fas fa-bullhorn text-muted"></i></td>';
+						echo '<td>' . html($row["adcampaign_title"]) . '</td>';
+						echo '<td>' . html(date($BLM['list_date_format'], $row["adcampaign_start"]) . ' – ' . date($BLM['list_date_format'], $row["adcampaign_end"])) . '</td>';
+						echo '<td>' . $row["adplace_width"] . 'x' . $row["adplace_height"] . ' {ADS_' . $row["adplace_id"] . '}</td>';
+						echo '<td class="text-right">';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;edit=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue mr-1" title="Edit"><i class="fas fa-edit fa-fw"></i></a>';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-secondary mr-1" title="' . $BLM['duplicate_title'] . '"';
+						echo ' onclick="return confirm(\'' . js_singlequote($BLM['duplicate_campaign']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
+						echo '<i class="fas fa-copy fa-fw"></i></a>';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;editid=' . $row["adcampaign_id"] . '&amp;verify=' . (($row["adcampaign_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["adcampaign_status"]) ? 'btn-success' : 'btn-secondary') . ' mr-1" title="Toggle Status">';
+						echo '<i class="fas ' . (($row["adcampaign_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger" title="Delete"';
+						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . js_singlequote($row["adcampaign_title"]) . '\');">';
+						echo '<i class="fas fa-trash fa-fw"></i></a>';
+						
+						echo '</td>';
+						echo '</tr>';
+						$row_count++;
+					}
+				} else {
+					echo '<tr><td colspan="5" class="text-center text-muted py-3">' . $BL['be_empty_search_result'] . '</td></tr>';
+				}
+				?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

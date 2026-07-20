@@ -475,6 +475,8 @@ $BL['be_article_err4']                  = 'data di termine errata - corretta ad 
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edita informazioni articolo';
 $BL['be_article_eslastedit']            = 'ultimo edit';
+$BL['be_article_created_at']            = 'creato il';
+$BL['be_article_updated_at']            = 'aggiornato il';
 $BL['be_article_esnoupdate']            = 'form non aggiornato';
 $BL['be_article_esbutton']              = 'aggiorna dati articolo';
 
@@ -504,7 +506,7 @@ $BL['be_article_cnt_add']               = 'aggiungi nuova parte contenuto';
 $BL['be_article_cnt_up']                = 'muovi contenuto su';
 $BL['be_article_cnt_down']              = 'muovi contenuto gi&ugrave;';
 $BL['be_article_cnt_edit']              = 'aggiungi parte contenuto';
-$BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto articolo';
+$BL['be_article_cnt_delpart']           = 'cancella questa parte contenuto';
 $BL['be_article_cnt_delpartjs']         = 'Cancella questa parte contenuto?';
 $BL['be_article_cnt_center']            = 'centro articoli';
 
@@ -1073,7 +1075,7 @@ $BL['be_cnt_imagecenterv'] = 'centra verticalmente';
 $BL['be_check_against_category_alias'] = 'collega il singolo articolo all\'interno del livello di struttura con il livello di struttura';
 $BL['be_overwrite_default'] = 'Sovrascriverà le impostazioni predefinite del file di configurazione';
 $BL['be_cnt_sortvalue'] = 'valore&nbsp;ordinamento';
-$BL['be_dialog_warn_nosave'] = 'Se continui nessuna modifica verrà salvata!\nSei sicuro di voler continuare?';
+$BL['be_dialog_warn_nosave'] = 'Se continui le modifiche non verranno salvate!\nVuoi annullare?';
 $BL['be_cnt_paginate_subsection'] = 'sottosezione';
 $BL['be_cnt_subsection_tite'] = 'titolo sottosezione';
 $BL['be_cnt_subsection_warning'] = 'La numerazione delle sottosezioni (impaginazione delle parti di contenuto) è disponibile solo\nper la colonna principale (CONTENT)!';
@@ -1429,8 +1431,8 @@ $BL['iptc_IntellectualGenre'] = 'genere intellettuale';
 $BL['iptc_SubjectNewsCode'] = 'codice notizie soggetto';
 $BL['iptc_iimVersion'] = 'versione';
 $BL['be_suppress_render_caption'] = 'sopprimi il rendering della didascalia';
-$BL['be_cnt_attribute_class'] = 'classe CSS';
-$BL['be_cnt_attribute_id'] = 'ID CSS';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'consenti solo valori univoci';
 $BL['be_not_set'] = 'non impostato';
 $BL['be_licensed_under_GPL'] = 'Rilasciato sotto licenza GPL.';
@@ -1512,3 +1514,15 @@ $BL['modal_delete'] = 'Elimina';
 $BL['modal_move'] = 'Sposta';
 $BL['modal_copy'] = 'Copia';
 $BL['modal_flush'] = 'Svuota';
+$BL['be_metadata'] = 'Metadati';
+$BL['be_content'] = 'Contenuto';
+$BL['be_images'] = 'Immagini';
+$BL['be_article_show'] = 'Mostra';
+$BL['be_active'] = 'Attivo';
+$BL['be_cnt_summary_label'] = 'Riassunto';
+$BL['be_cnt_max_words'] = 'n. max parole';
+
+
+
+
+

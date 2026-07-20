@@ -86,22 +86,22 @@ if($file_id) {
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="robots" content="noindex, nofollow" />
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css" />
-    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
-    <script src="include/inc_js/cmsgo.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/include/inc_js/autosize.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function ResizeAndCenter(){
-            var width = 590;
-            var height = <?php if(!empty($thumb_image)): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
+    <script src="include/inc_js/cmsgo.min.js"></script>
+    <script>
+        function resizeAndCenter() {
+            const width = 590;
+            const height = <?php if(!empty($thumb_image)): ?>(screen.availHeight < 490) ? 420 : 570<?php else: ?>300<?php endif; ?>;
             window.moveTo(5,5);
             window.resizeTo(width,height);
         }
+        window.addEventListener('DOMContentLoaded', resizeAndCenter);
     </script>
 </head>
 
-<body onload="ResizeAndCenter();">
-<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#C1D2E2" summary="">
+<body>
+<table width="100%" align="center" bgcolor="#C1D2E2">
   <tr bgcolor="#C1D2E2">
     <td width="10"></td>
     <td width="20"><img src='img/icons/small_<?php echo extimg($row["f_ext"]) ?>' alt="" border="0" /></td>
@@ -111,7 +111,7 @@ if($file_id) {
   <tr>
     <td bgcolor="#F5F8F9"></td>
     <td bgcolor="#F5F8F9"></td>
-    <td bgcolor="#F5F8F9"><table width="518" border="0" cellpadding="0" cellspacing="0" summary="">
+    <td bgcolor="#F5F8F9"><table width="518">
       <tr>
         <td width="422"><?php echo $BL['CREATED'] ?>: <strong><?php echo date($BL['DATE_FORMAT'], intval($row["f_created"])) ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $BL['SIZE'] ?>: <strong><?php echo fsizelong($row["f_size"]) ?></strong></td>
         <td width="96" align="right"><?php

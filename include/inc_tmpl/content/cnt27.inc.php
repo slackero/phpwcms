@@ -76,12 +76,12 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 <tr>
               <td align="right" class="chatlist"><?php echo  $BL['be_cnt_image'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+              <td valign="top"><table>
                 <tr>
-                  <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 200px; color: #727889;" value="<?php echo  isset($content["image_name"]) ? html($content["image_name"]) : '' ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo  $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
-                    <input name="cimage_id" type="hidden" value="<?php echo  isset($content["image_id"]) ? $content["image_id"] : '' ?>" /></td>
+                  <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 200px; color: #727889;" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
+                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser']; ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
+                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" id="cimage_delete_button" class="<?php echo empty($content['image_id']) ? 'disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
+                    <input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" /></td>
                 </tr>
               </table></td>
               </tr>
@@ -89,7 +89,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </tr>
             <tr>
               <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+              <td valign="top"><table>
                 <tr>
                   <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["image_width"]) ? $content["image_width"] : '' ?>" /></td>
                   <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
@@ -106,22 +106,24 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </tr>
             <tr>
               <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+              <td valign="top"><table>
                   <tr>
                     <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300 autosize" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
                     <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
-                    <td valign="top"><?php
+                    <td id="cimage_preview_container" valign="top"><?php
 
-if(isset($content["image_hash"])) {
+if(isset($content['image_hash'])) {
     $thumb_image = get_cached_image(array(
-        "target_ext"    =>  $content["image_ext"],
-        "image_name"    =>  $content["image_hash"] . '.' . $content["image_ext"],
-        "thumb_name"    =>  md5($content["image_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
+        'target_ext'    =>  $content['image_ext'],
+        'image_name'    =>  $content['image_hash'] . '.' . $content['image_ext'],
+        'thumb_name'    =>  md5($content['image_hash'].$cmsgo['img_list_width'].$cmsgo['img_list_height'].$cmsgo['sharpen_level'].$cmsgo['colorspace'])
     ));
 
     if($thumb_image != false) {
         echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
     }
+} else {
+    echo '&nbsp;';
 }
 
 ?></td>

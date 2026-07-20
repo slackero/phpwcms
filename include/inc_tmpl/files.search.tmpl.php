@@ -141,7 +141,7 @@ if(isset($_POST["file_search"])) {
 if(isset($search["result"])) {
     //Beginn Tabelle für Dateilisting
     echo "<div class=\"table-responsive\">\n";
-    echo "<table class=\"table table-sm mt-3 mb-0\">\n";
+    echo "<table class=\"table table-sm table-borderless border-top mb-0\">\n";
 
     $sl=0;
     $search["filelist"] = " ";
@@ -169,11 +169,15 @@ if(isset($search["result"])) {
         } else {
             $has_filedelete_permission = true;
         }
+        $bg_toggle = false;
         foreach($file_result as $file_row) {
             $filename = html($file_row["f_name"]);
-            echo "<tr>";
-            echo "<td width=\"13\">";
-            echo '<i class="fa fa-lg fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            $bg_toggle = !$bg_toggle;
+            $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
+
+            echo '<tr'.$row_class.'>';
+            echo '<td width="30">';
+            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
             echo "</td>";
             echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {
@@ -186,26 +190,7 @@ if(isset($search["result"])) {
 
             }
             echo $filename."</a>";
-            echo "</td><td>";
-            if($_SESSION["wcs_user_thumb"]) {
-                $thumb_image = get_cached_image(array(
-                    "target_ext" => $file_row["f_ext"],
-                    "image_name" => $file_row["f_hash"] . '.' . $file_row["f_ext"],
-                    "thumb_name" => md5($file_row["f_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
-                ));
-
-                if($thumb_image != false) {
-                    if($file_row['edit']) {
-                        echo $file_row['edit'];
-                    } else {
-                        echo "<a href=\"fileinfo.php?public&amp;fid=";
-                        echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
-                        echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                    }
-                    echo '<img src="'.CMSGO_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a>";
-                }
-            }
-            echo "</td><td class=\"text-right text-nowrap\">";
+            echo "</td><td></td><td class=\"text-right text-nowrap\">";
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
@@ -222,11 +207,32 @@ if(isset($search["result"])) {
                 echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
                 echo "');\">", '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
             } else {
-                echo '<div class="dropdown-item"><i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt disabled" aria-hidden="true"></i></div>';
+                echo '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt disabled" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
             }
             echo "</td>";
-            //Ende Aufbau
             echo "</tr>";
+
+            if($_SESSION["wcs_user_thumb"]) {
+                $thumb_image = get_cached_image(array(
+                    "target_ext" => $file_row["f_ext"],
+                    "image_name" => $file_row["f_hash"] . '.' . $file_row["f_ext"],
+                    "thumb_name" => md5($file_row["f_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
+                ));
+
+                if($thumb_image != false) {
+                    echo '<tr'.$row_class.'>'."\n";
+                    echo '<td></td>'."\n";
+                    echo '<td colspan="3" class="pt-0 pb-2">';
+                    if($file_row['edit']) {
+                        echo $file_row['edit'];
+                    } else {
+                        echo "<a href=\"fileinfo.php?public&amp;fid=";
+                        echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
+                        echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
+                    }
+                    echo '<img src="'.CMSGO_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n</tr>\n";
+                }
+            }
             $file_durchlauf++;
         }
         if($file_durchlauf) { //Abschluss der Filelisten-Tabelle

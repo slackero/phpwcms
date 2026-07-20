@@ -21,7 +21,7 @@ if ($err) {
 <form action="setup.php?step=2" method="post">
     <table border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>
-            <td align="right" class="v10">site basis:&nbsp;</td>
+            <td align="right" class="v10"><label for="site">site basis:</label>&nbsp;</td>
             <td><input name="site" type="text" class="f11b" id="site"
                        value="<?php echo html_specialchars($cmsgo["site"]) ?>" size="30" style="width:275px"
                        placeholder="<?php echo get_url_origin(true); ?>"></td>
@@ -51,7 +51,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">from/reply-to&nbsp;email:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_from_email">from/reply-to&nbsp;email:</label>&nbsp;</td>
             <td><input name="smtp_from_email" type="text" class="f11b" id="smtp_from_email"
                        value="<?php echo ($cmsgo['SMTP_FROM_EMAIL']) ? html_specialchars($cmsgo['SMTP_FROM_EMAIL']) : html_specialchars($cmsgo["admin_email"]) ?>"
                        size="30" style="width:275px"></td>
@@ -61,7 +61,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">from/reply-to&nbsp;name:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_from_name">from/reply-to&nbsp;name:</label>&nbsp;</td>
             <td><input name="smtp_from_name" type="text" class="f11b" id="smtp_from_name" style="width:275px"
                        value="<?php echo ($cmsgo['SMTP_FROM_NAME']) ? html_specialchars($cmsgo['SMTP_FROM_NAME']) : 'webmaster' ?>"
                        size="30"></td>
@@ -71,7 +71,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">SMTP&nbsp;server:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_host">SMTP&nbsp;server:</label>&nbsp;</td>
             <td><input name="smtp_host" type="text" class="f11b" id="smtp_host"
                        value="<?php echo ($cmsgo['SMTP_HOST']) ? html_specialchars($cmsgo['SMTP_HOST']) : 'localhost' ?>"
                        size="30" style="width:275px"></td>
@@ -81,7 +81,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">SMTP&nbsp;port :&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_port">SMTP&nbsp;port :</label>&nbsp;</td>
             <td><input name="smtp_port" type="text" class="f11b" id="smtp_port" style="width:275px"
                        value="<?php echo ($cmsgo['SMTP_PORT']) ? intval($cmsgo['SMTP_PORT']) : '25'; ?>" size="30">
             </td>
@@ -91,7 +91,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">mail&nbsp;method :&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_mailer">mail&nbsp;method :</label>&nbsp;</td>
             <td><select name="smtp_mailer" id="smtp_mailer">
                     <option value="mail"<?php if (strtolower($cmsgo['SMTP_MAILER']) == 'mail') echo ' selected="selected"'; ?>>
                         PHP mail()
@@ -109,7 +109,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">use&nbsp;SMTP_AUTH :&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_auth">use&nbsp;SMTP_AUTH :</label>&nbsp;</td>
             <td><input name="smtp_auth" type="checkbox" id="smtp_auth"
                        value="1"<?php if (intval($cmsgo['SMTP_AUTH']) == 1) echo ' checked="checked"'; ?> /></td>
             <td class="chatlist"><em>&nbsp;default: ON </em></td>
@@ -118,7 +118,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">SMTP login:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_user">SMTP login:</label>&nbsp;</td>
             <td><input name="smtp_user" type="text" class="f11b" id="smtp_user"
                        value="<?php echo html_specialchars($cmsgo['SMTP_USER']) ?>" size="30" style="width:275px">
             </td>
@@ -128,7 +128,7 @@ if ($err) {
             <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
         </tr>
         <tr>
-            <td align="right" class="v10">SMTP&nbsp;password:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_pass">SMTP&nbsp;password:</label>&nbsp;</td>
             <td><input name="smtp_pass" type="text" class="f11b" id="smtp_pass" style="width:275px"
                        value="<?php echo html_specialchars($cmsgo['SMTP_PASS']) ?>" size="30"></td>
             <td class="chatlist">&nbsp;</td>
@@ -139,7 +139,7 @@ if ($err) {
         </tr>
 
         <tr>
-            <td align="right" class="v10">secure connection:&nbsp;</td>
+            <td align="right" class="v10"><label for="smtp_secure">secure connection:</label>&nbsp;</td>
             <td><select name="smtp_secure" id="smtp_secure">
                     <option value=""<?php if (empty($cmsgo['SMTP_SECURE'])) echo ' selected="selected"'; ?>>default
                         (no secure connection)

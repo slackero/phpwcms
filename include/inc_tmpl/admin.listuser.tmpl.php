@@ -152,7 +152,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     <?php
       if($_userInfo['pages_total'] > 1) {
         echo '<div class="col-sm-auto text-right">';
-        echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+        echo '<table><tr><td>';
         if($_SESSION['list_user_page'] > 1) {
             echo '<a class="btn btn-sm btn-blue" href="cmsgo.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
             echo '<i class="fa fa-angle-left"></i></a>';
@@ -161,8 +161,8 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             echo '<i class="fa fa-angle-left"></i></a>';
         }
         echo '</td>';
-        echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
-        echo '"  class="form-control form-control-sm" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+        echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
+        echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
         echo '<td>/'.$_userInfo['pages_total'].'&nbsp;</td>';
         echo '<td>';
         if($_SESSION['list_user_page'] < $_userInfo['pages_total']) {
@@ -208,14 +208,14 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     $result = _dbQuery($sql);
     if(isset($result[0]['usr_id'])) {
         foreach($result as $userlist) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-grey' : 'bg-row-white';
             if($userlist["usr_id"] == $new_user_id) {
-                $bg_color = "#FFF4CB";
+                $bg_class = "bg-row-highlight-amber";
             }
             $goto = "cmsgo.php?do=admin&amp;s=2&amp;u=".$userlist["usr_id"];
 ?>
 
-      <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#f5f5f5'" onmouseout="bgColor='<?php echo  $bg_color ?>'">
+      <tr class="hover-light <?php echo $bg_class ?>">
       <td width="30" class="align-middle"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
 
             if($userlist["usr_aktiv"] == 1) {

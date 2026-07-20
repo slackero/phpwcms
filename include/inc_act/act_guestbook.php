@@ -102,7 +102,7 @@ input, textarea {
 </style>
 </head>
 <body>
-<table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
+<table width="100%" cellpadding="2">
 <?php
 
 $gbid = empty($_GET['cid']) ? 0 : intval($_GET['cid']);
@@ -191,7 +191,7 @@ if(isset($result[0]['guestbook_cid'])) {
   </tr>
   <tr>
       <td valign="top">msg:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
-      <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
+      <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350 field-sizing-content field-sizing-content-10"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
   </tr>
   <tr>
     <td valign="top" class="v10">display:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>

@@ -46,12 +46,12 @@ $BLM['ad_type_0']               = 'Bild';
 $BLM['ad_upload_image']         = 'Bild *.gif, *.jpg, *.jpeg oder *.png ausw&auml;hlen';
 $BLM['ad_upload_flash']         = 'Flash-Film *.swf ausw&auml;hlen';
 $BLM['ad_upload_css']           = 'Custom CSS Datei *.css ausw&auml;hlen';
-$BLM['ad_type_1']               = 'Flash';
+$BLM['ad_type_1']               = 'Flash (veraltet)';
 
 $BLM['ad_info']                 = 'Erst nach Anlegen des Datensatzes k&ouml;nnen passende Medien hochgeladen und der Kampagne zugeordnet werden!';
 
 $BLM['ad_type_2']               = 'HTML';
-$BLM['ad_type_3']               = 'Flash Layer';
+$BLM['ad_type_3']               = 'Flash Layer (veraltet)';
 $BLM['ad_type_4']               = 'HTML Prefix';
 $BLM['ad_type_5']               = 'HTML Suffix';
 $BLM['ad_type_6']               = 'Remote HTML';
@@ -81,3 +81,27 @@ $BLM['duplicate_title']         = 'Bannerkampagne duplizieren';
 $BLM['under_construction']      = 'Das Modul &#8220;Bannerwerbung&#8221; soll an dieser Stelle um Auswertungen und Statistik erweitert werden. Dies wird jedoch nur bei entsprechender Unterst&uuml;tzung m&ouml;glich sein.';
 $BLM['donate']                  = 'Spenden';
 $BLM['own']                     = 'Eigener Betrag';
+
+$BLM['format_leaderboard'] = 'Leaderboard';
+$BLM['format_banner'] = 'Banner';
+$BLM['format_small_square'] = 'Kleines Quadrat';
+$BLM['format_square'] = 'Quadrat';
+$BLM['format_medium_rectangle'] = 'Mittleres Rechteck';
+$BLM['format_large_rectangle'] = 'Großes Rechteck';
+$BLM['format_skyscraper'] = 'Wolkenkratzer (Skyscraper)';
+$BLM['format_wide_skyscraper'] = 'Breiter Wolkenkratzer';
+$BLM['format_half_banner'] = 'Halbes Banner';
+$BLM['format_square_button'] = 'Quadratischer Button';
+$BLM['format_small_rectangle'] = 'Kleines Rechteck';
+$BLM['format_vertical_banner'] = 'Vertikales Banner';
+$BLM['format_mini_square'] = 'Mini-Quadrat';
+$BLM['format_medium_scyscraper'] = 'Mittlerer Wolkenkratzer';
+$BLM['format_micro_bar'] = 'Mikro-Leiste';
+$BLM['format_vertical_rectangle'] = 'Vertikales Rechteck';
+$BLM['format_vertical_button'] = 'Vertikaler Button';
+$BLM['format_half_mini_square'] = 'Halbes Mini-Quadrat';
+$BLM['format_half_page_ad'] = 'Halbseitenanzeige';
+$BLM['format_universal_flash_layer'] = 'Universelle Flash-Ebene';
+$BLM['format_popup'] = 'PopUp';
+$BLM['format_target_button'] = 'Ziel-Button';
+

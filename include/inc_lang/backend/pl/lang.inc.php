@@ -479,6 +479,8 @@ $BL['be_article_err4'] = 'Data zakończenia wyświetlania jest podana. Ale-ustaw
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Edycja podstawowych danych artykułu';
 $BL['be_article_eslastedit'] = 'Aktualizowany';
+$BL['be_article_created_at'] = 'utworzony o';
+$BL['be_article_updated_at'] = 'zaktualizowany o';
 $BL['be_article_esnoupdate'] = 'Formularz nie zaktualizowany';
 $BL['be_article_esbutton'] = 'Zaktualizuj dane artykułu';
 
@@ -512,8 +514,8 @@ $BL['be_article_cnt_addtitle'] = 'Dodaj nową treść';
 $BL['be_article_cnt_up'] = 'Przesuń w górę treść';
 $BL['be_article_cnt_down'] = 'Przesuń w dół treść';
 $BL['be_article_cnt_edit'] = 'Edytuj treść';
-$BL['be_article_cnt_delpart'] = 'Usuń treść z artykułu';
-$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść z artykułu?';
+$BL['be_article_cnt_delpart'] = 'Usuń treść';
+$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść?';
 $BL['be_article_cnt_center'] = 'Centrum artykułów';
 
 // content forms
@@ -1149,7 +1151,7 @@ $BL['be_cnt_imagecenterv'] = 'wyśrodkowanie w pionie';
 
 $BL['be_overwrite_default'] = 'Zostaną zmienione domyślne ustawienia pliku konfiguracyjnego';
 $BL['be_cnt_sortvalue'] = 'sortowanie&nbsp;wartość';
-$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy naprawdę chcesz kontynuować?';
+$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy chcesz anulować?';
 $BL['be_cnt_paginate_subsection'] = 'Podrozdział';
 $BL['be_cnt_subsection_tite'] = 'Tytuł podrozdziału';
 $BL['be_cnt_subsection_warning'] = 'Numeracja podrozdziałów (paginate content parts) jest możliwa dla\nmain column (CONTENT) tylko!';
@@ -1468,8 +1470,8 @@ $BL['iptc_SubjectNewsCode'] = 'ID tematu';
 $BL['iptc_iimVersion'] = 'Wersja';
 
 $BL['be_suppress_render_caption'] = 'Tłumienie renderowania podpisu';
-$BL['be_cnt_attribute_class'] = 'Klasa CSS';
-$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
 $BL['be_not_set'] = 'Nie ustawiony';
 $BL['be_licensed_under_GPL'] = 'Na licencji GPL.';
@@ -1629,3 +1631,15 @@ $BL['modal_delete'] = 'Usuń';
 $BL['modal_move'] = 'Przenieś';
 $BL['modal_copy'] = 'Kopiuj';
 $BL['modal_flush'] = 'Wyczyść';
+$BL['be_metadata'] = 'Metadane';
+$BL['be_content'] = 'Treść';
+$BL['be_images'] = 'Obrazy';
+$BL['be_article_show'] = 'Wyświetl';
+$BL['be_active'] = 'Aktywny';
+$BL['be_cnt_summary_label'] = 'Podsumowanie';
+$BL['be_cnt_max_words'] = 'maks. słów';
+
+
+
+
+

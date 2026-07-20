@@ -350,16 +350,16 @@ switch($acat_hidden) {
     </div>
     <div class="form-group col-sm-auto mr-sm-3">
       <label for="be_admin_struct_topcount"><strong><?php echo  $BL['be_admin_struct_topcount'] ?></strong></label>
-      <input name="acat_topcount" type="text" id="acat_topcount" class="form-control form-control-sm" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" />
+      <input name="acat_topcount" type="number" id="acat_topcount" class="form-control form-control-sm" value="<?php echo  intval($acat_topcount) ?>" size="10" maxlength="10" />
     </div>
     <div class="form-group col-sm-auto mr-sm-3">
       <label for="be_article_per_page"><strong><?php echo $BL['be_article_per_page'] ?></strong></label>
-      <input name="acat_maxlist" type="text" id="acat_maxlist" class="form-control form-control-sm" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" />
+      <input name="acat_maxlist" type="number" id="acat_maxlist" class="form-control form-control-sm" value="<?php echo empty($acat_maxlist) ? '' : intval($acat_maxlist); ?>" size="10" maxlength="10" />
     </div>
   <?php if($acat_struct_mode != 'INDEX'): ?>
     <div class="form-group col-sm-auto">
       <label for="be_cnt_sortvalue"><strong><?php echo  $BL['be_cnt_sortvalue'] ?></strong></label>
-      <input name="acat_sort" type="text" id="acat_sort" class="form-control form-control-sm" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" />
+      <input name="acat_sort" type="number" id="acat_sort" class="form-control form-control-sm" value="<?php echo $acat_sort; ?>" size="11" maxlength="11" />
     </div>
   <?php endif; ?>
   </div>

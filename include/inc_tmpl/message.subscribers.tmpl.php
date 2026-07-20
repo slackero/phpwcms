@@ -243,7 +243,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
             <?php
             if($_userInfo['pages_total'] > 1) {
               echo '<div class="col-sm-auto text-right">';
-              echo '<table border="0" cellpadding="0" cellspacing="0" summary=""><tr><td>';
+              echo '<table><tr><td>';
               if($_SESSION['subscriber_page'] > 1) {
                   echo '<a class="btn btn-sm btn-blue" href="cmsgo.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']-1).'">';
                   echo '<i class="fa fa-angle-left"></i></a>';
@@ -252,8 +252,8 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
                   echo '<i class="fa fa-angle-left"></i></a>';
               }
               echo '</td>';
-              echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
-              echo '"  class="form-control form-control-sm" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
+              echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
+              echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
               echo '<td>/'.$_userInfo['pages_total'].'&nbsp;</td>';
               echo '<td>';
               if($_SESSION['subscriber_page'] < $_userInfo['pages_total']) {
@@ -311,7 +311,7 @@ if($_userInfo['list_channel']) {
 
     if($_userInfo['select_subscr']) {
       echo '<div id="channelSelect">'.LF;
-      echo '<table cellpadding="0" cellspacing="0" border="0">'.LF;
+      echo '<table>'.LF;
       echo $_userInfo['select_subscr'];
       echo '</table>'.LF;
       echo '</div>';
@@ -366,7 +366,7 @@ if($_userInfo['list_channel']) {
 		echo '<i class="fa fa-user" aria-hidden="true"></i></td>'."\n";
 		echo '<td width="1%" class="dir text-nowrap">'.$row["address_email"]."</td>".LF;
 		echo '<td class="dir" width="95%">'.html($row["address_name"])."</td>".LF;
-		echo '<td align="right" nowrap="nowrap" class="button_td">'.LF;
+		echo '<td align="right" class="button_td text-nowrap">'.LF;
 
 		echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
 

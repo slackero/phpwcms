@@ -27,7 +27,7 @@ if (!defined('PHP8')) {
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
   </tr>
   <tr>
-    <td align="right" class="v10">root path :&nbsp;</td>
+    <td align="right" class="v10"><label for="doc_root">root path :</label>&nbsp;</td>
     <td><input name="doc_root" type="text" class="f11b" id="doc_root" style="width:300px" value="<?php echo html_specialchars($cmsgo["DOC_ROOT"]) ?>" size="30" maxlength="100"></td>
     <td class="chatlist"><em>&nbsp;default: $_SERVER['DOCUMENT_ROOT'] </em></td>
   </tr>
@@ -46,7 +46,7 @@ if (!defined('PHP8')) {
     <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td>
   </tr>
   <tr>
-    <td align="right" class="v10">cmsgo root:&nbsp;</td>
+    <td align="right" class="v10"><label for="root">cmsgo root:</label>&nbsp;</td>
     <td><input name="root" type="text" class="f11b" id="root" style="width:300px" value="<?php echo html_specialchars($cmsgo["root"]) ?>" size="30" maxlength="100">
     </td>
     <td class="chatlist"><em>&nbsp;default: (empty)</em></td>
@@ -62,7 +62,7 @@ if (!defined('PHP8')) {
           </tr>
 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
-            <td align="right" class="v10">filestorage:&nbsp;</td>
+            <td align="right" class="v10"><label for="file_path">filestorage:</label>&nbsp;</td>
             <td><input name="file_path" type="text" class="f11b" id="file_path" style="width:300px" value="<?php echo html_specialchars($cmsgo["file_path"]) ?>" size="30" maxlength="100"></td>
             <td class="chatlist"><em>&nbsp;default: filearchive </em></td>
           </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
@@ -72,7 +72,7 @@ if (!defined('PHP8')) {
           </tr>
 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
-            <td align="right" class="v10">templates:&nbsp;</td>
+            <td align="right" class="v10"><label for="templates">templates:</label>&nbsp;</td>
             <td><input name="templates" type="text" class="f11b" id="templates" style="width:300px" value="<?php echo html_specialchars($cmsgo["templates"]) ?>" size="30" maxlength="100"></td>
             <td class="chatlist"><em>&nbsp;default: template</em></td>
           </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
@@ -87,7 +87,7 @@ if (!defined('PHP8')) {
           </tr>
 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
           <tr>
-            <td align="right" class="v10">ftp&nbsp;takeover:&nbsp;</td>
+            <td align="right" class="v10"><label for="ftp_path">ftp&nbsp;takeover:</label>&nbsp;</td>
             <td><input name="ftp_path" type="text" class="f11b" id="ftp_path" style="width:300px" value="<?php echo html_specialchars($cmsgo["ftp_path"]) ?>" size="30" maxlength="100"></td>
             <td class="chatlist"><em>&nbsp;default: upload </em></td>
           </tr>

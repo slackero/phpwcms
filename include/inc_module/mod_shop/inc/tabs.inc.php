@@ -21,13 +21,20 @@ $_entry['query']			= '';
 <h1 class="text-center text-sm-left"><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="card">
-<div class="card-body">
-
-<div id="tabsG" class="mb-4">
-  <ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link<?php if($controller == 'orders') echo ' active'; ?>" href="<?php echo shop_url('controller=order') ?>"><?php echo $BLM['tab_orders'] ?></a></li>
-        <li class="nav-item"><a class="nav-link<?php if($controller == 'products') echo ' active'; ?>" href="<?php echo shop_url('controller=prod') ?>"><?php echo $BLM['tab_products'] ?></a></li>
-        <li class="nav-item"><a class="nav-link<?php if($controller == 'categories') echo ' active'; ?>" href="<?php echo shop_url('controller=cat') ?>"><?php echo $BLM['tab_categories'] ?></a></li>
-        <li class="nav-item"><a class="nav-link<?php if($controller == 'preferences') echo ' active'; ?>" href="<?php echo shop_url('controller=pref') ?>"><?php echo $BLM['tab_preferences'] ?></a></li>
-    </ul>
-</div>
+	<div class="card-header">
+		<ul class="nav nav-tabs card-header-tabs">
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'orders') echo ' active'; ?>" href="<?php echo shop_url('controller=order') ?>"><?php echo $BLM['tab_orders'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'products') echo ' active'; ?>" href="<?php echo shop_url('controller=prod') ?>"><?php echo $BLM['tab_products'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'categories') echo ' active'; ?>" href="<?php echo shop_url('controller=cat') ?>"><?php echo $BLM['tab_categories'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'preferences') echo ' active'; ?>" href="<?php echo shop_url('controller=pref') ?>"><?php echo $BLM['tab_preferences'] ?></a>
+			</li>
+		</ul>
+	</div>
+	<div class="card-body">

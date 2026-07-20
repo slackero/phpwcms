@@ -21,7 +21,7 @@ if (!defined('CMSGO_ROOT')) {
     <div class="card-body">
 
       <div class="form-group form-row align-items-center">
-        <label for="address_tstamp" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_last_edited'] ?></label>
+        <span class="col-sm-2 col-form-label text-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></span>
         <div class="col">
          <?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?>
         </div>
@@ -65,7 +65,7 @@ if (!defined('CMSGO_ROOT')) {
 								$_userInfo['subscr_all']   = 0;
 
 							}
-							$_userInfo['select_subscr'] .= ' /><label class="form-check-label">'.
+							$_userInfo['select_subscr'] .= ' /><label class="form-check-label" for="subscribe_to'.$value['subscription_id'].'">'.
 								html($value['subscription_name']).
 								'</label>
 							</div>
@@ -85,11 +85,11 @@ if (!defined('CMSGO_ROOT')) {
       </div>
 
       <div class="form-group form-row align-items-center">
-        <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+        <label class="col-sm-2 col-form-label text-right" for="subscribe_active"><?php echo $BL['be_ftptakeover_status'] ?></label>
         <div class="col">
           <div class="form-check">
 						<input class="form-check-input" name="subscribe_active" type="checkbox" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> />
-						<label class="form-check-label"><?php echo $BL['be_cnt_activated']; ?></label>
+						<label class="form-check-label" for="subscribe_active"><?php echo $BL['be_cnt_activated']; ?></label>
           </div>
         </div>
       </div>

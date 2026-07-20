@@ -22,7 +22,7 @@ if(!isset($_GET["s"])) {
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_page_title'] ?></h2></div>
 <div class="card-body">
-<table class="table table-striped table-sm mb-4" border="0" cellpadding="0" cellspacing="0" summary="">
+<table class="table table-striped table-sm mb-4">
 <?php
     // loop listing available pagelayouts
     $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
@@ -38,7 +38,7 @@ if(!isset($_GET["s"])) {
 
             echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : '';
 
-            echo "</a></td>\n".'<td class="text-right" nowrap="nowrap">';
+            echo "</a></td>\n".'<td class="text-right text-nowrap">';
 
             echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="cmsgo.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
             echo '<i class="fa fa-pencil-alt"></i></a>';
@@ -429,16 +429,16 @@ if(!isset($_GET["s"])) {
     <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
       <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_margin']  ?></label>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_bottom" id="layout_border_bottom" value="<?php echo $pagelayout["layout_border_bottom"] ?>" placeholder="<?php echo $BL['be_admin_page_bottom'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_bottom" id="layout_border_bottom" value="<?php echo $pagelayout["layout_border_bottom"] ?>" placeholder="<?php echo $BL['be_admin_page_bottom'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_left" id="layout_border_left" value="<?php echo $pagelayout["layout_border_left"] ?>" placeholder="<?php echo $BL['be_admin_page_left'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_left" id="layout_border_left" value="<?php echo $pagelayout["layout_border_left"] ?>" placeholder="<?php echo $BL['be_admin_page_left'] ?>">
       </div>
       <div class="col">
-        <input type="text" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
+        <input type="number" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
       </div>
       <div class="col">
       	<div class="form-check form-check-inline">

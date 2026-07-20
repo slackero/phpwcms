@@ -218,7 +218,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div>
 	<div class="form-check form-check-inline col-sm-auto">
-		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+		<input class="form-check-input" id="cimage_lightbox" name="cimage_lightbox" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div>
 	<div class="form-check form-check-inline col-sm-auto">
@@ -349,7 +349,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     </span>
                     <input name="cimage_name_thumb[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" maxlength="250" onfocus="this.blur()" />
                     <span class="input-group-append">
-                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
+                        <a href="#" id="cimage_delete_button_thumb_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['thumb_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['thumb_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('thumb_<?php echo $key ?>', this);"></a>
                     </span>
                 </div>
             </div>
@@ -363,7 +363,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     </span>
                     <input name="cimage_name_zoom[<?php echo $key ?>]" type="text" id="cimage_name_zoom_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['zoom_name']) ?>" maxlength="250" onfocus="this.blur()" />
                     <span class="input-group-append">
-                        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
+                        <a href="#" id="cimage_delete_button_zoom_<?php echo $key ?>" class="btn btn-sm btn-danger trash<?php echo empty($value['zoom_id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['zoom_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass('disabled')) return false; return deleteImageData('zoom_<?php echo $key ?>', this);"></a>
                     </span>
                 </div>
             </div>
@@ -560,9 +560,9 @@ if($value['custom_field_items']):
                         href="#"
                         type="button"
                         data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                        onclick="getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                        onclick="document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                         ></a>
                 </span>
@@ -663,26 +663,14 @@ var max_img_h   = <?php echo $cmsgo['img_list_height']; ?>;
 var image_entry = [];
 
 function setCimageCenterInactive() {
-    var cih = $('#cimage_width');
-    var ciw = $('#cimage_height');
-    var cic = $('#cimage_center');
-    var ccp = $('#cimage_crop');
-    var dis = false;
-    if(!parseInt(cih.value, 10)) {
-        cih.value = '';
-        dis = true;
-    }
-    if(!parseInt(ciw.value, 10)) {
-        ciw.value = '';
-        dis = true;
-    }
-    if(dis) {
-        cic.disabled = true;
-        ccp.disabled = true;
-    } else {
-        cic.disabled = false;
-        ccp.disabled = false;
-    }
+    const widthVal = parseInt($('#cimage_width').val(), 10);
+    const heightVal = parseInt($('#cimage_height').val(), 10);
+    const isInvalid = isNaN(widthVal) || isNaN(heightVal) || widthVal <= 0 || heightVal <= 0;
+    
+    if (isNaN(widthVal)) $('#cimage_width').val('');
+    if (isNaN(heightVal)) $('#cimage_height').val('');
+    
+    $('#cimage_center, #cimage_crop').prop('disabled', isInvalid);
 }
 
 function openImageFileBrowser(image_number) {
@@ -694,9 +682,20 @@ function setImgIdName(image_number, file_id, file_name) {
     if(file_id == null || file_name == null) return null;
     $('#cimage_id_'+image_number).val(file_id);
     $('#cimage_name_'+image_number).val(file_name);
-    image_number = image_number.split('_');
-    if(image_number[1]) {
-        updatePreviewImage(image_number[1]);
+    
+    var hasImage = (file_id && parseInt(file_id, 10) > 0);
+    var btn = $('#cimage_delete_button_' + image_number);
+    if (btn.length) {
+        if (hasImage) {
+            btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+        } else {
+            btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+        }
+    }
+
+    var img_num_parts = image_number.split('_');
+    if(img_num_parts[1]) {
+        updatePreviewImage(img_num_parts[1]);
     }
 }
 
@@ -710,20 +709,30 @@ function setIdName(field, file_id, file_name) {
 }
 
 function deleteImageData(image_number, e) {
-    $('#cimage_name_'+image_number).val('');
-    $('#cimage_id_'+image_number).val('0');
+    var imageNameField = $('#cimage_name_' + image_number);
+    var imageName = imageNameField.val();
+    bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
+        imageNameField.val('');
+        $('#cimage_id_' + image_number).val('0');
+        
+        var btn = $('#cimage_delete_button_' + image_number);
+        if (btn.length) {
+            btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+        }
+
+        var img_num_parts = image_number.split('_');
+        if (img_num_parts[1]) {
+            updatePreviewImage(img_num_parts[1]);
+        }
+    }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>');
     e.blur();
-    image_number = image_number.split('_');
-    if(image_number[1]) {
-        updatePreviewImage(image_number[1]);
-    }
     return false;
 }
 
 function updatePreviewImage(image_number) {
     var preview = '';
-    var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).attr('value');
-    var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).attr('value');
+    var cimage_id_thumb = $('#cimage_id_thumb_'+image_number).val();
+    var cimage_id_zoom = $('#cimage_id_zoom_'+image_number).val();
     if(cimage_id_thumb) {
             preview += getBackendImgSrc(cimage_id_thumb);
     }
@@ -785,7 +794,7 @@ function addNewImage(where) {
     new_entry += '</span>';
     new_entry += '<input name="cimage_name_thumb['+entry_number+']" type="text" id="cimage_name_thumb_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
     new_entry += '<span class="input-group-append chatlist">';
-    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
+    new_entry += '<a href="#" id="cimage_delete_button_thumb_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'thumb_'+entry_number+'\', this);"></a>';
     new_entry += '</span>';
     new_entry += '</div>';
     new_entry += '</div>';
@@ -799,7 +808,7 @@ function addNewImage(where) {
     new_entry += '</span>';
     new_entry += '<input name="cimage_name_zoom['+entry_number+']" type="text" id="cimage_name_zoom_'+entry_number+'" class="form-control form-control-sm" value="" maxlength="250" onfocus="this.blur()" />';
     new_entry += '<span class="input-group-append chatlist">';
-    new_entry += '<a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
+    new_entry += '<a href="#" id="cimage_delete_button_zoom_'+entry_number+'" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; return deleteImageData(\'zoom_'+entry_number+'\', this);"></a>';
     new_entry += '</span>';
     new_entry += '</div>';
     new_entry += '</div>';
@@ -906,9 +915,9 @@ function addNewImage(where) {
     new_entry += '          <a class="btn btn-sm btn-danger trash"';
     new_entry += '              href="#" type="button"';
     new_entry += '              data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-    new_entry += '              onclick="getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
+    new_entry += '              onclick="document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';document.getElementById(\'customfield_<?php
                                 echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
     new_entry += '          ></a>';
     new_entry += '      </span>';

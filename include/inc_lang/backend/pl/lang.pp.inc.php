@@ -62,7 +62,7 @@ $BL['nocount'] = 'Wszystkie wpisy aliasów istnieją';
 $BL['counttotal'] = ' wpisów aliasów wprowadzono';
 $BL['f_alias'] = '<p><b>Pola aliasów zostały dodane do bazy danych</b></p>';
 
-//Content parts templates
+// Szablony komponentów
 $BL['be_ctptemp'] = 'Szablony komponentów';
 $BL['file_copy'] = 'Kopiuj szablon';
 $BL['file_rename'] = 'Zmień nazwę szablonu';

@@ -151,7 +151,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
       <label for="form_newpassword" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_userpass"] ?></label>
       <div class="col">
         <input type="password" class="form-control form-control-sm col-sm-5" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password">
-        <span class="text-blue small" onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer" />
+        <span class="text-blue small" onclick="this.innerText=(togglePasswordVisibility('form_newpassword') === 'hide' ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>');" style="cursor:pointer">
            <?php echo $BL['be_password_show']; ?>
         </span>
       </div>
@@ -174,7 +174,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 <hr />
 
   <div class="form-row align-items-center">
-    <label for="be_admin_usr_issection" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_issection']  ?></label>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_issection']  ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
@@ -192,7 +192,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   </div>
 
   <div class="form-row align-items-center">
-    <label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_setactive'] ?></label>
+    <label for="form_active" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_setactive'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
@@ -202,7 +202,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   </div>
 
   <div class="form-row align-items-center">
-    <label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
+    <label for="form_admin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
@@ -212,7 +212,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
   </div>
 
   <div class="form-row align-items-center">
-    <label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_verify'] ?></label>
+    <label for="verification_email" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_verify'] ?></label>
     <div class="col">
     <div class="form-check form-check-inline">
       <input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
@@ -235,23 +235,23 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
 
       <div class="tab-content my-3">
         <div id="select_cp" class="tab-pane in active checkbox-list" role="tabpanel">
-           <div class="form-check form-check-inline">
-            <div class="form-row">
+             <div class="form-row">
 						<?php
 						$has_allowed_cp = isset($set_allowed_cp) ? count($set_allowed_cp) : 0;
 						foreach($wcs_content_type as $key => $value):
 								// count used CPs so it is easier to decide if needed or not
 								$used_count = _dbCount('SELECT COUNT(*) FROM '.DB_PREPEND.'cmsgo_articlecontent WHERE acontent_trash=0 AND acontent_type='._dbEscape($key));
 						 ?>
-          <div class="col-sm-6 col-md-4">
-						<input class="form-check-input" type="checkbox" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
-						<label class="form-check-label"><?php echo html($value).' ('.$used_count.')' ?></label>
+          <div class="col-sm-6 col-md-4 mb-2">
+            <div class="form-check">
+							<input class="form-check-input" type="checkbox" id="allowed_cp_<?php echo $key ?>" name="allowed_cp[<?php echo $key ?>]" value="<?php echo $key ?>"<?php if(!$has_allowed_cp || isset($set_allowed_cp[$key])): ?> checked="checked"<?php endif; ?> />
+							<label class="form-check-label" for="allowed_cp_<?php echo $key ?>"><?php echo html($value).' ('.$used_count.')' ?></label>
+            </div>
           </div>
 
         <?php endforeach; ?>
                   <input type="hidden" name="cp_total" value="<?php echo count($wcs_content_type) ?>" />
                 </div>
-           </div>
         </div>
         <?php
         if (isset($new_user_id)) {

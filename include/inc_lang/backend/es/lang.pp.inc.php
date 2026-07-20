@@ -62,7 +62,7 @@ $BL['nocount'] = 'Todos los alias existen';
 $BL['counttotal'] = ' entradas de alias introducidas';
 $BL['f_alias'] = '<p><b>Los campos de alias han sido agregados a la base de datos</b></p>';
 
-//Content parts templates
+// Plantillas de componentes
 $BL['be_ctptemp'] = 'Plantillas de componentes';
 $BL['file_copy'] = 'Copiar plantilla';
 $BL['file_rename'] = 'Renombrar plantilla';

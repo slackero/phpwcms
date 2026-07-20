@@ -56,7 +56,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </div>
 
 <div class="form-group form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_htmltext']; ?></label>
+  <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_htmltext']; ?></label>
   <div class="col"><?php
 
 $wysiwyg_editor = array(
@@ -78,15 +78,15 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <hr />
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
+  <label for="cimage_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
   <div class="col-sm-4">
     <div class="input-group">
       <span class="input-group-prepend">
         <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist" ></button>
       </span>
-      <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo  isset($content["image_name"]) ? html($content["image_name"]) : '' ?>" maxlength="250" onfocus="this.blur()" />
+      <input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" maxlength="250" onfocus="this.blur()" />
       <span class="input-group-append">
-        <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0';this.blur();return false;"></a>
+        <a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($content['image_id']) ? ' disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
       </span>
     </div>
     <input name="cimage_id" type="hidden" value="<?php echo isset($content["image_id"]) ? $content["image_id"] : '' ?>" />
@@ -94,7 +94,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo  $BL['be_cnt_position'] ?></label>
+  <label for="cimage_pos" class="col-sm-2 col-form-label text-right"><?php echo  $BL['be_cnt_position'] ?></label>
   <div class="col-sm-auto">
     <select name="cimage_pos" id="cimage_pos" class="custom-select form-control form-control-sm">
       <option value="0" <?php
@@ -126,7 +126,7 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+  <label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 
   <div class="col-sm-auto my-2 my-sm-0">
     <div class="input-group input-group-sm">
@@ -160,14 +160,14 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
+  <label for="cimage_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
   <div class="col">
   <div class="form-check form-check-inline">
 		<input name="cimage_zoom" class="form-check-input" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, empty($content["image_zoom"]) ? 0 : 1); ?> />
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div>
   <div class="form-check form-check-inline">
-		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($content['cimage']['cimage_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, empty($content['cimage']['cimage_lightbox']) ? 0 : 1); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div>
   <div class="form-check form-check-inline">
@@ -181,43 +181,45 @@ include CMSGO_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
 <legend><?php echo $BL['be_cnt_caption'] ?></legend>
 	<div class="form-group form-row">
-    <label for="be_profile_label_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_title'] ?></label>
+    <label for="cimage_caption_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_title'] ?></label>
     <div class="col">
       <textarea name="cimage_caption_title" cols="30" rows="2" class="form-control form-control-sm" id="cimage_caption_title" ><?php echo  isset($image_caption[0]) ? html_specialchars($image_caption[0]) : '' ?></textarea>
     </div>
-		<div class="col-sm-auto">
+		<div id="cimage_preview_container" class="col-sm-auto">
 			<?php
-				if(isset($content["image_hash"])) {
+				if(isset($content['image_hash'])) {
 						$thumb_image = get_cached_image(array(
-										"target_ext"    =>  $content["image_ext"],
-										"image_name"    =>  $content["image_hash"] . '.' . $content["image_ext"],
-										"thumb_name"    =>  md5($content["image_hash"].$cmsgo["img_list_width"].$cmsgo["img_list_height"].$cmsgo["sharpen_level"].$cmsgo['colorspace'])
+										'target_ext'    =>  $content['image_ext'],
+										'image_name'    =>  $content['image_hash'] . '.' . $content['image_ext'],
+										'thumb_name'    =>  md5($content['image_hash'].$cmsgo['img_list_width'].$cmsgo['img_list_height'].$cmsgo['sharpen_level'].$cmsgo['colorspace'])
 						));
 
 						if($thumb_image != false) {
 								echo '<img class="p-1" src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
 						}
+				} else {
+						echo '&nbsp;';
 				}
 				?>
 		</div>
   </div>
 
 	<div class="form-group form-row">
-    <label for="be_cnt_description" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="cimage_caption_alt" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <textarea name="cimage_caption_alt" cols="30" rows="2" class="form-control form-control-sm" id="cimage_caption_alt" ><?php echo isset($image_caption[1]) ? html_specialchars($image_caption[1]) : '' ?></textarea>
     </div>
   </div>
 
 	<div class="form-group align-items-center form-row">
-    <label for="be_admin_page_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+    <label for="cimage_caption_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
     <div class="col">
       <input name="cimage_caption_url" type="text" id="cimage_caption_url" class="form-control form-control-sm" value="<?php echo  isset($image_caption_link[0]) ? html_specialchars($image_caption_link[0]) : '' ?>" maxlength="250" />
     </div>
   </div>
 
 	<div class="form-group align-items-center form-row">
-    <label for="be_cnt_target" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_target'] ?></label>
+    <label for="cimage_caption_target" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_target'] ?></label>
     <div class="col">
 			<select name="cimage_caption_target" id="cimage_caption_target" class="custom-select form-control form-control-sm">
 				<option value="" <?php

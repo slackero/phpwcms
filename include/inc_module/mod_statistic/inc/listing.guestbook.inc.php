@@ -15,7 +15,7 @@ if (!defined('CMSGO_ROOT')) {
 }
 // ----------------------------------------------------------------
 // now retrieve all downloads
-$sql  = "SELECT * FROM " . DB_PREPEND . "cmsgo_articlecontent ac";
+$sql  = "SELECT * FROM " . DB_PREPEND . "cmsgo_articlecontent ac ";
 $sql .= "INNER JOIN " . DB_PREPEND . "cmsgo_article ar ON ";
 $sql .= "ar.article_id = ac.acontent_aid ";
 $sql .= " WHERE acontent_trash=0 AND acontent_type=18";
@@ -23,34 +23,30 @@ $sql .= " WHERE acontent_trash=0 AND acontent_type=18";
 $result = _dbQuery($sql);
 
 ?>
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_guestbook'] ?></h2></div>
-  <div class="card-body">
+<h2 class="mb-3"><?php echo $BLM['listing_guestbook'] ?></h2>
 
-  <table class="table table-sm">
-    <tr class="header">
-      <th><?php echo $BLM['guestbookname'] ?></th>
-      <th><?php echo $BLM['guestbookcounts'] ?></th>
-    </tr>
-  <?php
-
-  $x = 0;
-
-  foreach($result as $data) {
-    // now add article URL
-    echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
-      echo '		<td width="80%"><a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
-
-
-
-    echo '		<td>'._dbQuery("SELECT guestbook_id FROM ".DB_PREPEND."cmsgo_guestbook  WHERE guestbook_trashed=0 AND guestbook_cid=".$data['acontent_id'], 'COUNT')."&nbsp;</td>" . LF;
-    echo '		</tr>' . LF;
-
-    $x++;
-  }
-  ?>
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover mb-0">
+    <thead>
+      <tr>
+        <th><?php echo $BLM['guestbookname'] ?></th>
+        <th><?php echo $BLM['guestbookcounts'] ?></th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php
+    $x = 0;
+    foreach($result as $data) {
+      // now add article URL
+      echo '	<tr title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
+      echo '		<td width="80%"><a href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
+      echo '		<td>'._dbQuery("SELECT guestbook_id FROM ".DB_PREPEND."cmsgo_guestbook  WHERE guestbook_trashed=0 AND guestbook_cid=".$data['acontent_id'], 'COUNT')."&nbsp;</td>" . LF;
+      echo '		</tr>' . LF;
+      $x++;
+    }
+    ?>
+    </tbody>
   </table>
-  </div>
 </div>
 
 </div>

@@ -498,6 +498,8 @@ $BL['be_article_err4'] = 'Falsches Enddatum - auf JETZT + 1 Woche gesetzt';
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Artikel Basisinformation bearbeiten';
 $BL['be_article_eslastedit'] = 'zuletzt';
+$BL['be_article_created_at'] = 'erstellt am';
+$BL['be_article_updated_at'] = 'aktualisiert am';
 $BL['be_article_esnoupdate'] = 'Keine Aktualisierung';
 $BL['be_article_esbutton'] = 'Artikeldaten aktualisieren';
 
@@ -531,8 +533,8 @@ $BL['be_article_cnt_addtitle'] = 'Neuen Inhaltsabschnitt hinzuf&uuml;gen';
 $BL['be_article_cnt_up'] = 'Inhalt nach oben';
 $BL['be_article_cnt_down'] = 'Inhalt nach unten';
 $BL['be_article_cnt_edit'] = 'Inhaltsabschnitt bearbeiten';
-$BL['be_article_cnt_delpart'] = 'Diesen Artikel-Inhaltsabschnitt l&ouml;schen';
-$BL['be_article_cnt_delpartjs'] = 'Artikel-Inhaltsabschnitt l&ouml;schen?';
+$BL['be_article_cnt_delpart'] = 'Diesen Inhaltsabschnitt l&ouml;schen';
+$BL['be_article_cnt_delpartjs'] = 'Inhaltsabschnitt l&ouml;schen?';
 $BL['be_article_cnt_center'] = 'Artikelzentrale';
 
 // content forms
@@ -990,14 +992,14 @@ $BL['be_admin_usr_ifsection1'] = 'Backend';
 $BL['be_admin_usr_ifsection2'] = 'Frontend und Backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
-$BL['be_func_content_edit'] = 'Diesen Content Part bearbeiten';
+$BL['be_func_content_edit'] = 'Diesen Inhaltsabschnitt bearbeiten';
 $BL['be_func_content_paste0'] = 'Diesem Artikel hinzuf&uuml;gen';
-$BL['be_func_content_paste'] = 'Nach dem letzten Content Part einf&uuml;gen';
-$BL['be_func_content_cut'] = 'Diesen Content Part ausschneiden';
-$BL['be_func_content_no_cut'] = "Es ist nicht m&ouml;glich, diesen Content Part auszuschneiden!";
-$BL['be_func_content_copy'] = 'Diesen Content Part kopieren';
-$BL['be_func_content_no_copy'] = "Es ist nicht m&ouml;glich, diesen Content Part zu kopieren!";
-$BL['be_func_content_paste_cancel'] = 'Content Part &Auml;nderung abbrechen';
+$BL['be_func_content_paste'] = 'Nach dem letzten Inhaltsabschnitt einf&uuml;gen';
+$BL['be_func_content_cut'] = 'Diesen Inhaltsabschnitt ausschneiden';
+$BL['be_func_content_no_cut'] = 'Es ist nicht m&ouml;glich, diesen Inhaltsabschnitt auszuschneiden!';
+$BL['be_func_content_copy'] = 'Diesen Inhaltsabschnitt kopieren';
+$BL['be_func_content_no_copy'] = 'Es ist nicht m&ouml;glich, diesen Inhaltsabschnitt zu kopieren!';
+$BL['be_func_content_paste_cancel'] = 'Inhaltsabschnitt-&Auml;nderung abbrechen';
 
 $BL['be_cnt_move_deleted'] = 'Dateien final l&ouml;schen';
 $BL['be_cnt_move_deleted_msg'] = 'Sollen wirklich alle Dateien,  \ndie als gel&ouml;scht markiert sind in den  \nL&ouml;schordner verschoben werden?  \n';
@@ -1008,13 +1010,13 @@ $BL['be_admin_struct_adduser_this'] = 'Ausgew&auml;hlten Benutzer &uuml;bernehme
 $BL['be_admin_struct_remove_all'] = 'Alle Benutzer entfernen';
 $BL['be_admin_struct_remove_this'] = 'Ausgew&auml;hlten Benutzer entfernen';
 
-$BL['be_ctype_alias'] = 'Contentpart Alias';
+$BL['be_ctype_alias'] = 'Inhaltsabschnitt-Alias';
 $BL['be_cnt_setting'] = '&Uuml;bernahme';
-$BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias Contentparts';
-$BL['be_cnt_toplink'] = 'Top-Link Einstellung des Alias Contentparts';
-$BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias Contentparts';
-$BL['be_cnt_title'] = '&Uuml;berschriften des Alias Contentparts';
-$BL['be_cnt_status'] = 'Sichtbarkeit des Alias Contentparts';
+$BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias-Inhaltsabschnitts';
+$BL['be_cnt_toplink'] = 'Top-Link-Einstellung des Alias-Inhaltsabschnitts';
+$BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias-Inhaltsabschnitts';
+$BL['be_cnt_title'] = '&Uuml;berschriften des Alias-Inhaltsabschnitts';
+$BL['be_cnt_status'] = 'Sichtbarkeit des Alias-Inhaltsabschnitts';
 $BL['be_cnt_plugin_n.a.'] = 'Plugin nicht verf&uuml;gbar';
 
 $BL['be_file_replace'] = 'Ersetze gleichnamige Dateien';
@@ -1037,7 +1039,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Inhaltsabschnitt wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["cmsgo_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;cmsgo_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
 $BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
@@ -1084,7 +1086,7 @@ $BL['be_cnt_search_searchnot'] = 'Suche nicht';
 $BL['be_cnt_results_minchar'] = 'Minimale Anzahl Zeichen der Sucheingabe';
 $BL['be_cnt_search_hidesummary'] = 'Such-Teasertext ausblenden';
 
-$BL['be_cnt_pagination'] = 'Content Parts paginieren';
+$BL['be_cnt_pagination'] = 'Inhaltsabschnitte paginieren';
 $BL['be_article_pagination'] = 'Artikel paginieren';
 $BL['be_article_per_page'] = 'Artikel je Seite';
 $BL['be_pagination'] = 'Paginierung';
@@ -1140,7 +1142,7 @@ $BL['be_last_edited'] = 'zuletzt bearbeitet';
 $BL['be_total'] = 'gesamt';
 
 $BL['be_settings'] = 'Einstellungen';
-$BL['be_ctype'] = 'Contentpart';
+$BL['be_ctype'] = 'Inhaltsabschnitt';
 $BL['be_selection'] = 'Auswahl';
 
 $BL['be_ctype_module'] = 'Plug-in';
@@ -1175,10 +1177,10 @@ $BL['be_cnt_imagecenterv'] = 'vertikal zentrieren';
 
 $BL['be_overwrite_default'] = '&Uuml;berschreibt Standardeinstellungen der Konfigurationsdatei';
 $BL['be_cnt_sortvalue'] = 'Sort.Wert';
-$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie den Vorgang fortsetzen?';
+$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie abbrechen?';
 $BL['be_cnt_paginate_subsection'] = 'Abschnitt';
 $BL['be_cnt_subsection_tite'] = 'Abschnittstitel';
-$BL['be_cnt_subsection_warning'] = 'Die Nummerierung von Abschnitten (Content Part Paginierung)\nist nur f&uuml;r die Ausgabe in\nder Hauptspalte (CONTENT) m&ouml;glich!';
+$BL['be_cnt_subsection_warning'] = 'Die Nummerierung von Abschnitten (Inhaltsabschnitt-Paginierung)\nist nur f&uuml;r die Ausgabe in\nder Hauptspalte (CONTENT) m&ouml;glich!';
 
 $BL['be_no_search'] = 'keine Suche';
 $BL['be_priorize'] = 'Priorisierung';
@@ -1332,8 +1334,8 @@ $BL['fancyupload_required_error'] = 'Eine erforderliche Datei wurde nicht gefund
 $BL['fancyupload_flash_error'] = 'Installieren Sie das neueste Adobe Flash Plugin, um den integrierten Uploader zu aktivieren.';
 
 $BL['be_cnt_function_validate'] = 'PHP-Validierung';
-$BL['be_structform_selected_cp'] = 'Auswahl nutzbarer Content Parts begrenzen';
-$BL['be_structform_select_cp'] = 'Content Parts w&auml;hlen';
+$BL['be_structform_selected_cp'] = 'Auswahl nutzbarer Inhaltsabschnitte begrenzen';
+$BL['be_structform_select_cp'] = 'Inhaltsabschnitte w&auml;hlen';
 
 $BL['source_image_not_found'] = 'Quelldatei Fehler: Die Datei %s konnte nicht gefunden werden.';
 $BL['form_force_ssl'] = 'Formularversand per SSL erzwingen';
@@ -1575,8 +1577,8 @@ $BL['iptc_SubjectNewsCode'] = 'Betreffkennung';
 $BL['iptc_iimVersion'] = 'Version';
 
 $BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
-$BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
-$BL['be_cnt_attribute_id'] = 'CSS ID [id]';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
 $BL['be_not_set'] = 'nicht gesetzt';
 $BL['be_licensed_under_GPL'] = 'Lizenziert unter GPL.';
@@ -1636,3 +1638,15 @@ $BL['modal_delete'] = 'Löschen';
 $BL['modal_move'] = 'Verschieben';
 $BL['modal_copy'] = 'Kopieren';
 $BL['modal_flush'] = 'Leeren';
+$BL['be_metadata'] = 'Meta-Daten';
+$BL['be_content'] = 'Inhalt';
+$BL['be_images'] = 'Bilder';
+$BL['be_article_show'] = 'Anzeigen';
+$BL['be_active'] = 'Aktiv';
+$BL['be_cnt_summary_label'] = 'Zusammenfassung';
+$BL['be_cnt_max_words'] = 'max. Anzahl Worte';
+
+
+
+
+

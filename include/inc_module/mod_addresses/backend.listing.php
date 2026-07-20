@@ -107,146 +107,134 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<div class="navBarLeft imgButton chatlist">
-    <a href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><img src="<?php echo MODULE_BASEPATH ?>template/image/vcard_add.gif" alt="Add" border="0" /><span><?php echo $BLM['create_new'] ?></span></a>
+<div class="form-group mb-3 text-center text-sm-left">
+    <a class="btn btn-sm btn-blue" href="<?php echo MODULE_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-address-card fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
+<div class="card">
+	<div class="card-body">
+		<form action="<?php echo MODULE_HREF ?>" method="post" name="paginate" id="paginate">
+			<input type="hidden" name="do_pagination" value="1" />
+			<input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+			<input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+			<div class="form-row align-items-center mb-3">
+				<div class="col-auto">
+					<div class="btn-group btn-group-sm">
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+							<i class="fas fa-eye"></i>
+						</button>
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+							<i class="fas fa-eye-slash"></i>
+						</button>
+					</div>
+				</div>
 
-<form action="<?php echo MODULE_HREF ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-    <tr>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
+				<?php if($_entry['pages_total'] > 1): ?>
+					<div class="col-auto">
+						<div class="input-group input-group-sm">
+							<div class="input-group-prepend">
+								<?php if($_SESSION['userdetail_page'] > 1): ?>
+									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']-1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-left"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-left"></i></button>
+								<?php endif; ?>
+							</div>
+							<input type="number" name="page" id="page" value="<?php echo $_SESSION['userdetail_page'] ?>" class="form-control text-center w-25" />
+							<div class="input-group-append">
+								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+								<?php if($_SESSION['userdetail_page'] < $_entry['pages_total']): ?>
+									<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;page=<?php echo ($_SESSION['userdetail_page']+1) ?>" class="btn btn-secondary"><i class="fas fa-chevron-right"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary" disabled><i class="fas fa-chevron-right"></i></button>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+				<?php else: ?>
+					<input type="hidden" name="page" id="page" value="1" />
+				<?php endif; ?>
 
-                <td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> /></td>
-                <td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-                <td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
-                <td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
+				<div class="col-auto">
+					<div class="input-group input-group-sm">
+						<input type="search" name="filter" id="filter" size="15" value="<?php
+						if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+							echo html_specialchars(implode(' ', $_POST['filter']));
+						}
+						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
+						<select name="filter_country" id="filter_country" class="form-control" onchange="this.form.submit();">
+							<option value="-">- <?php echo $BLM['detail_country'] ?> -</option>
+							<?php echo list_country( isset($_SESSION['filter_country']) ? $_SESSION['filter_country'] : '-'  ); ?>
+						</select>
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
 
-<?php
-if($_entry['pages_total'] > 1) {
+				<div class="col text-right">
+					<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(MODULE_HREF) ?>&amp;c=' + this.value;">
+						<?php foreach([10, 25, 50, 100] as $c): ?>
+							<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
+						<?php endforeach; ?>
+						<option value="all"<?php if($_SESSION['list_user_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+					</select>
+				</div>
+			</div>
+		</form>
 
-    echo '<td class="chatlist">|&nbsp;</td>';
-    echo '<td>';
-    if($_SESSION['userdetail_page'] > 1) {
-        echo '<a href="'.MODULE_HREF.'&amp;page='.($_SESSION['userdetail_page']-1).'">';
-        echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
-    } else {
-        echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
-    }
-    echo '</td>';
-    echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['userdetail_page'];
-    echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-    echo '<td class="chatlist">/'.$_entry['pages_total'].'&nbsp;</td>';
-    echo '<td>';
-    if($_SESSION['userdetail_page'] < $_entry['pages_total']) {
-        echo '<a href="'.MODULE_HREF.'&amp;page='.($_SESSION['userdetail_page']+1).'">';
-        echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
-    } else {
-        echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
-    }
-    echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover mb-0">
+				<thead>
+					<tr>
+						<th style="width: 40px;" class="text-center">&nbsp;</th>
+						<th><?php echo $BLM['detail_company'].'/'.$BLM['detail_lastname'] ?></th>
+						<th><?php echo $BLM['detail_city'] ?></th>
+						<th>C</th>
+						<th>S</th>
+						<th style="width: 120px;" class="text-right">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$row_count = 0;
 
-} else {
+				$sql  = 'SELECT detail_id, detail_company, detail_firstname, detail_lastname, detail_city, detail_zip, detail_country, detail_int2, detail_aktiv FROM '.DB_PREPEND.'cmsgo_userdetail WHERE '.$_entry['query'].' ';
+				$sql .= 'ORDER BY detail_company, detail_city, detail_country ';
+				$sql .= 'LIMIT '.(($_SESSION['userdetail_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
+				$data = _dbQuery($sql);
 
-    echo '<td class="chatlist">|&nbsp;<input type="hidden" name="page" id="page" value="1" /></td>';
-
-}
-?>
-                <td><input type="text" name="filter" id="filter" size="10" value="<?php
-
-                if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-                    echo html_specialchars(implode(' ', $_POST['filter']));
-                }
-
-                ?>" class="textinput width100" style="margin:0 2px 0 0;text-align:left;" title="filter results by username, name or email" /></td>
-                <td>&nbsp;</td>
-
-                <td><select name="filter_country" id="filter_country" class="drop width100" onchange="this.form.submit();">
-<option value="-">- <?php echo $BLM['detail_country'] ?> -</option>
-<?php
-    echo list_country( isset($_SESSION['filter_country']) ? $_SESSION['filter_country'] : '-'  );
-?>
-                </select></td>
-                <td>&nbsp;</td>
-                <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-
-
-            </tr>
-        </table></td>
-
-    <td class="chatlist" align="right">
-        <a href="<?php echo MODULE_HREF ?>&amp;c=10">10</a>
-        <a href="<?php echo MODULE_HREF ?>&amp;c=25">25</a>
-        <a href="<?php echo MODULE_HREF ?>&amp;c=50">50</a>
-        <a href="<?php echo MODULE_HREF ?>&amp;c=100">100</a>
-        <a href="<?php echo MODULE_HREF ?>&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
-    </td>
-
-    </tr>
-</table>
-</form>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-
-    <tr><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-    <tr>
-        <th>&nbsp;</th>
-        <th class="navtext">&nbsp;<?php echo $BLM['detail_company'].'/'.$BLM['detail_lastname'] ?></th>
-        <th class="navtext"><?php echo $BLM['detail_city'] ?></th>
-        <th class="navtext">C&nbsp;</th>
-        <th class="navtext">S&nbsp;</th>
-        <th>&nbsp;</th>
-    </tr>
-
-
-    <tr><td colspan="6" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-
-<?php
-// loop listing available newsletters
-$row_count = 0;
-
-$sql  = 'SELECT detail_id, detail_company, detail_firstname, detail_lastname, detail_city, detail_zip, detail_country, detail_int2, detail_aktiv FROM '.DB_PREPEND.'cmsgo_userdetail WHERE '.$_entry['query'].' ';
-$sql .= 'ORDER BY detail_company, detail_city, detail_country ';
-$sql .= 'LIMIT '.(($_SESSION['userdetail_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
-$data = _dbQuery($sql);
-
-foreach($data as $row) {
-
-    $row['listname'] = trim($row["detail_company"] . ', ' . trim($row["detail_firstname"] . ' ' . $row["detail_lastname"]), ', ');
-
-    echo '<tr style="cursor:pointer"'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' );
-    echo ' onclick="document.location=\''.MODULE_HREF.'&amp;edit='.$row["detail_id"].'\';">';
-    echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-    echo '<img src="' . MODULE_BASEPATH . 'template/image/vcard.gif" alt="'.$BLM['dealer_entry'].'" /></td>';
-    echo '<td class="dir" width="50%" style="padding-left:3px">'.html($row['listname'])."</td>";
-    echo '<td class="dir" width="40%">'.html($row["detail_city"].($row["detail_zip"]?', '.$row["detail_zip"]:''))."&nbsp;</td>";
-    echo '<td class="dir" width="4%">'.html($row["detail_country"])."&nbsp;</td>";
-    echo '<td class="dir" width="1%">'.(intval($row["detail_int2"]) ? $row["detail_int2"] : '')."&nbsp;</td>";
-    echo '<td width="10%" align="right" nowrap="nowrap" class="button_td">';
-    echo '<a href="'.MODULE_HREF.'&amp;edit='.$row["detail_id"].'">';
-    echo '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>';
-    echo '<a href="'.MODULE_HREF.'&amp;editid='.$row["detail_id"].'&amp;verify=';
-    echo (($row["detail_aktiv"]) ? '0' : '1').'">';
-    echo '<img src="img/button/aktiv_12x13_'.$row["detail_aktiv"].'.gif" border="0" alt="" /></a>';
-    echo '<a href="'.MODULE_HREF.'&amp;delete='.$row["detail_id"];
-    echo '" title="delete: '.html($row['listname']).'"';
-    echo ' onclick="return confirm(\''.$BLM['delete_entry'].' '.js_singlequote($row["detail_company"]).'\');">';
-    echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
-    echo "</td></tr>";
-
-    $row_count++;
-}
-
-if($row_count) {
-    echo '<tr><td colspan="6" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
-}
-
-?>
-
-    <tr><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
-</table>
+				if($data) {
+					foreach($data as $row) {
+						$row['listname'] = trim($row["detail_company"] . ', ' . trim($row["detail_firstname"] . ' ' . $row["detail_lastname"]), ', ');
+						echo '<tr>';
+						echo '<td class="text-center"><i class="fas fa-address-card text-muted"></i></td>';
+						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="text-dark font-weight-bold">' . html($row['listname']) . '</a></td>';
+						echo '<td>' . html($row["detail_city"] . ($row["detail_zip"] ? ', ' . $row["detail_zip"] : '')) . '</td>';
+						echo '<td>' . html($row["detail_country"]) . '</td>';
+						echo '<td>' . (intval($row["detail_int2"]) ? $row["detail_int2"] : '') . '</td>';
+						echo '<td class="text-right">';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue mr-1" title="Edit"><i class="fas fa-edit fa-fw"></i></a>';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["detail_id"] . '&amp;verify=' . (($row["detail_aktiv"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["detail_aktiv"]) ? 'btn-success' : 'btn-secondary') . ' mr-1" title="Toggle Status">';
+						echo '<i class="fas ' . (($row["detail_aktiv"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
+						
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger" title="Delete"';
+						echo ' onclick="event.stopPropagation(); return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_company"]) . '\');">';
+						echo '<i class="fas fa-trash fa-fw"></i></a>';
+						
+						echo '</td>';
+						echo '</tr>';
+						$row_count++;
+					}
+				} else {
+					echo '<tr><td colspan="6" class="text-center text-muted py-3">' . $BL['be_empty_search_result'] . '</td></tr>';
+				}
+				?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -57,7 +57,7 @@ $_entry['list_active']		= isset($_SESSION['list_active'])	? $_SESSION['list_acti
 $_entry['list_inactive']	= isset($_SESSION['list_inactive'])	? $_SESSION['list_inactive']	: 1;
 
 
-$_entry['query'] = '';
+$_entry['query'] = '1=1';
 
 if(isset($_SESSION['filter_seo']) && is_array($_SESSION['filter_seo']) && count($_SESSION['filter_seo'])) {
 
@@ -81,11 +81,10 @@ if(isset($_SESSION['filter_seo']) && is_array($_SESSION['filter_seo']) && count(
 }
 
 
-$sql  = 'SELECT * FROM '.DB_PREPEND.'cmsgo_log_seo ';
-if($_entry['query']) {
+$sql  = 'SELECT COUNT(DISTINCT hash) FROM '.DB_PREPEND.'cmsgo_log_seo ';
+if($_entry['query'] && $_entry['query'] != '1=1') {
 	$sql .= 'WHERE '.$_entry['query'].' ';
 }
-$sql .= 'GROUP BY hash';
 
 // paginating values
 $_entry['count_total'] = _dbQuery($sql, 'COUNT');
@@ -97,114 +96,98 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
-<form action="<?php echo MODULE_HREF ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-	<tr>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-<?php
-if($_entry['pages_total'] > 1) {
+<h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-	echo '<td>';
-	if($_SESSION['seolog_page'] > 1) {
-		echo '<a href="'.MODULE_HREF.'&amp;page='.($_SESSION['seolog_page']-1).'">';
-		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td>';
-	echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['seolog_page'];
-	echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-	echo '<td class="chatlist">/'.$_entry['pages_total'].'&nbsp;</td>';
-	echo '<td>';
-	if($_SESSION['seolog_page'] < $_entry['pages_total']) {
-		echo '<a href="'.MODULE_HREF.'&amp;page='.($_SESSION['seolog_page']+1).'">';
-		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
-	} else {
-		echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
-	}
-	echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
+<div class="card">
+	<div class="card-body">
+		<form action="<?php echo MODULE_HREF ?>" method="post" name="paginate" id="paginate">
+			<input type="hidden" name="do_pagination" value="1" />
+			<div class="form-row align-items-center mb-3">
+				<?php if($_entry['pages_total'] > 1): ?>
+					<div class="col-auto">
+						<div class="input-group input-group-sm">
+							<div class="input-group-prepend">
+								<?php if($_SESSION['seolog_page'] > 1): ?>
+									<a href="<?php echo MODULE_HREF ?>&amp;page=<?php echo ($_SESSION['seolog_page']-1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-left"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-left"></i></button>
+								<?php endif; ?>
+							</div>
+							<input type="number" name="page" id="page" value="<?php echo $_SESSION['seolog_page'] ?>" class="form-control form-control-sm text-center w-25" />
+							<div class="input-group-append">
+								<span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+								<?php if($_SESSION['seolog_page'] < $_entry['pages_total']): ?>
+									<a href="<?php echo MODULE_HREF ?>&amp;page=<?php echo ($_SESSION['seolog_page']+1) ?>" class="btn btn-secondary btn-sm"><i class="fas fa-chevron-right"></i></a>
+								<?php else: ?>
+									<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-chevron-right"></i></button>
+								<?php endif; ?>
+							</div>
+						</div>
+					</div>
+				<?php else: ?>
+					<input type="hidden" name="page" id="page" value="1" />
+				<?php endif; ?>
 
-} else {
+				<div class="col-auto">
+					<div class="input-group input-group-sm">
+						<input type="search" name="filter" id="filter" size="15" value="<?php
+						if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
+							echo html(implode(' ', $_POST['filter']));
+						}
+						?>" class="form-control" placeholder="<?php echo html($BL['be_ftab_search']); ?>..." title="<?php echo html($BL['be_filter']); ?>" style="min-width: 250px;" />
+						<div class="input-group-append">
+							<button class="btn btn-secondary" type="submit" name="gofilter" title="<?php echo html($BL['be_filter']); ?>"><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
 
-	echo '<td class="chatlist"><input type="hidden" name="page" id="page" value="1" /></td>';
+				<div class="col text-right">
+					<select class="custom-select custom-select-sm" style="width: auto; display: inline-block;" onchange="location.href='<?php echo decode_entities(MODULE_HREF) ?>&amp;c=' + this.value;">
+						<?php foreach([10, 25, 50, 100, 250] as $c): ?>
+							<option value="<?php echo $c ?>"<?php if($_SESSION['list_user_count'] == $c) echo ' selected'; ?>><?php echo $c ?></option>
+						<?php endforeach; ?>
+						<option value="all"<?php if($_SESSION['list_user_count'] == 99999) echo ' selected'; ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+					</select>
+				</div>
+			</div>
+		</form>
 
-}
-?>
-				<td><input type="search" name="filter" id="filter" size="10" value="<?php
+		<div class="table-responsive">
+			<table class="table table-sm table-striped table-hover mb-0">
+				<thead>
+					<tr>
+						<th style="width: 80px;" class="text-center">Count</th>
+						<th>Domain / Referrer</th>
+						<th>Query</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$row_count = 0;
 
-				if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-					echo html(implode(' ', $_POST['filter']));
+				$sql  = 'SELECT domain, referrer, query, hash, COUNT(*) AS occurance FROM '.DB_PREPEND.'cmsgo_log_seo ';
+				if($_entry['query'] && $_entry['query'] != '1=1') {
+					$sql .= 'WHERE '.$_entry['query'].' ';
 				}
+				$sql .= 'GROUP BY hash, domain, referrer, query ORDER BY occurance DESC ';
+				$sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
+				$data = _dbQuery($sql);
 
-				?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results" /></td>
-				<td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-
-			</tr>
-		</table></td>
-
-	<td class="chatlist" align="right">
-		<a href="<?php echo MODULE_HREF ?>&amp;c=10">10</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;c=25">25</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;c=50">50</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;c=100">100</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;c=250">250</a>
-		<a href="<?php echo MODULE_HREF ?>&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
-	</td>
-
-	</tr>
-</table>
-</form>
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-
-	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-	<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-
-<?php
-// loop listing available newsletters
-$row_count = 0;
-
-$sql  = 'SELECT *, COUNT(*) AS occurance FROM '.DB_PREPEND.'cmsgo_log_seo ';
-if($_entry['query']) {
-	$sql .= 'WHERE '.$_entry['query'].' ';
-}
-$sql .= 'GROUP BY hash ORDER BY occurance DESC ';
-$sql .= 'LIMIT '.(($_SESSION['seolog_page']-1) * $_SESSION['list_user_count']).','.$_SESSION['list_user_count'];
-$data = _dbQuery($sql);
-
-if($data) {
-
-	foreach($data as $row) {
-
-		echo '<tr'.( ($row_count % 2) ? ' bgcolor="#F3F5F8"' : '' ).'>';
-
-		echo '<td class="tdbottom3 tdtop3" align="center">&nbsp;';
-		echo $row['occurance'];
-		echo '&nbsp;</td>';
-
-		echo '<td class="tdbottom3 tdtop3"><a href="';
-		echo html($row['referrer']).'" target="_blank">'.html($row['domain']);
-		echo '</a></td>';
-
-		echo '<td class="tdbottom3 tdtop3">';
-		echo html(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']);
-		echo '</td>';
-
-		echo "</tr>\n";
-
-		$row_count++;
-	}
-
-	echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
-
-} else {
-
-	echo '<tr><td colspan="3" class="tdtop5">'.$BL['be_empty_search_result'].'</td></tr>';
-}
-
-?>
-
-	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-</table>
+				if($data) {
+					foreach($data as $row) {
+						echo '<tr>';
+						echo '<td class="text-center">' . $row['occurance'] . '</td>';
+						echo '<td><a href="' . html($row['referrer']) . '" target="_blank">' . html($row['domain']) . '</a></td>';
+						echo '<td>' . html(CMSGO_CHARSET != 'utf-8' && cmsgo_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', CMSGO_CHARSET, false) : $row['query']) . '</td>';
+						echo '</tr>';
+						$row_count++;
+					}
+				} else {
+					echo '<tr><td colspan="3" class="text-center text-muted py-3">' . $BL['be_empty_search_result'] . '</td></tr>';
+				}
+				?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

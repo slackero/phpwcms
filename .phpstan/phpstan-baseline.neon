@@ -675,7 +675,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 23
+			count: 24
 			path: ../filebrowser.php
 
 		-
@@ -1087,30 +1087,6 @@ parameters:
 			path: ../include/inc_act/act_structure.php
 
 		-
-			message: '#^Call to function is_bool\(\) with true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''allowed_upload_ext'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''file_maxsize'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 4
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
 			message: '#^Offset ''admin_email'' does not exist on array\{SESSION_START\: true\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 2
@@ -1193,54 +1169,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_act/ajax_imagealias.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_addchat.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./inc_lib/default\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_addchat.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_frontendcss.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./inc_lib/default\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_frontendcss.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_message.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./inc_lib/default\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_message.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_startuptext.php
-
-		-
-			message: '#^Path in require_once\(\) "\.\./inc_lib/default\.inc\.php" is not a file or it does not exist\.$#'
-			identifier: requireOnce.fileNotFound
-			count: 1
-			path: ../include/inc_act/deprecated/act_startuptext.php
 
 		-
 			message: '#^Call to function is_array\(\) with non\-empty\-array\<string, string\> will always evaluate to true\.$#'
@@ -1457,12 +1385,6 @@ parameters:
 			identifier: ternary.alwaysTrue
 			count: 1
 			path: ../include/inc_ext/php_calendar.php
-
-		-
-			message: '#^Variable \$url might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_ext/uploader/handler.php
 
 		-
 			message: '#^Constant FEUSER_LOGIN_STATUS not found\.$#'
@@ -2829,7 +2751,7 @@ parameters:
 		-
 			message: '#^Variable \$capt_row might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 1
 			path: ../include/inc_front/img.func.inc.php
 
 		-
@@ -2897,12 +2819,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_front/pdf.inc.php
-
-		-
-			message: '#^Property qqFileUploader\:\:\$fileType is unused\.$#'
-			identifier: property.unused
-			count: 1
-			path: ../include/inc_js/uploader/fileuploader.php
 
 		-
 			message: '#^Binary operation "\*" between ''Čia galima atlikti…'' and '' naudoti negalima\.…'' results in an error\.$#'
@@ -4021,210 +3937,6 @@ parameters:
 			path: ../include/inc_lib/content/cnt9.takeval.inc.php
 
 		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt10.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt10.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt10.takeval.inc.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
-			count: 2
-			path: ../include/inc_lib/content/deprecated/cnt16.readform.inc.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt16.readform.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt16.readform.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt16.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt16.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt16.takeval.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt18.readform.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt18.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt18.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt18.takeval.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt26.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 6
-			path: ../include/inc_lib/content/deprecated/cnt26.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt26.takeval.inc.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt27.readform.inc.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt27.readform.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: ../include/inc_lib/content/deprecated/cnt27.readform.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt27.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_lib/content/deprecated/cnt27.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_lib/content/deprecated/cnt27.takeval.inc.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt50.readform.inc.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt50.readform.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_lib/content/deprecated/cnt50.readform.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt50.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt50.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt50.takeval.inc.php
-
-		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
-			count: 2
-			path: ../include/inc_lib/content/deprecated/cnt89.readform.inc.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt89.readform.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt89.readform.inc.php
-
-		-
-			message: '#^Variable \$SQL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/content/deprecated/cnt89.sql.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_lib/content/deprecated/cnt89.sql.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_lib/content/deprecated/cnt89.takeval.inc.php
-
-		-
 			message: '#^Call to function is_int\(\) with non\-empty\-string will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -4785,25 +4497,25 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 16
 			path: ../include/inc_module/mod_addresses/backend.editform.php
 
 		-
 			message: '#^Variable \$plugin might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 9
 			path: ../include/inc_module/mod_addresses/backend.editform.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 5
 			path: ../include/inc_module/mod_addresses/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 9
+			count: 8
 			path: ../include/inc_module/mod_addresses/backend.listing.php
 
 		-
@@ -4857,13 +4569,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 18
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 21
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
@@ -4875,7 +4587,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.form.adplace.php
 
 		-
@@ -4893,13 +4605,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 20
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 41
+			count: 32
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
@@ -4953,19 +4665,19 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_ads/inc/listing.adplace.inc.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 9
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
@@ -5025,7 +4737,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 29
+			count: 32
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
@@ -5077,7 +4789,7 @@ parameters:
 			path: ../include/inc_module/mod_calendar/frontend.render.php
 
 		-
-			message: '#^Offset 1 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
+			message: '#^Offset 1 on array\{non\-empty\-list\<string\>, non\-empty\-list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
 			identifier: isset.offset
 			count: 1
 			path: ../include/inc_module/mod_calendar/inc/calendar.class.php
@@ -5151,7 +4863,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 9
 			path: ../include/inc_module/mod_feedimport/backend.editform.php
 
 		-
@@ -5169,13 +4881,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
@@ -5247,13 +4959,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 11
+			count: 10
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 7
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
@@ -5265,13 +4977,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
@@ -5373,7 +5085,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_seolog/backend.listing.php
 
 		-
@@ -5625,7 +5337,7 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 88
+			count: 91
 			path: ../include/inc_module/mod_shop/inc/edit.preferences.inc.php
 
 		-
@@ -5685,7 +5397,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 8
 			path: ../include/inc_module/mod_shop/inc/listing.categories.inc.php
 
 		-
@@ -5721,7 +5433,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 4
+			count: 6
 			path: ../include/inc_module/mod_shop/inc/listing.products.inc.php
 
 		-
@@ -5865,7 +5577,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_statistic/inc/listing.downloads.inc.php
 
 		-
@@ -5907,29 +5619,23 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 4
 			path: ../include/inc_module/mod_statistic/inc/listing.seo.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 3
 			path: ../include/inc_module/mod_statistic/inc/listing.seo.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 22
+			count: 21
 			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
 
 		-
 			message: '#^Variable \$data might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
@@ -6471,25 +6177,25 @@ parameters:
 		-
 			message: '#^Constant CSRF_GET_TOKEN not found\.$#'
 			identifier: constant.notFound
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 123
+			count: 140
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
-			count: 51
+			count: 33
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$cmsgo might not be defined\.$#'
 			identifier: variable.undefined
-			count: 23
+			count: 24
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -6525,7 +6231,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 64
+			count: 72
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
@@ -6556,6 +6262,18 @@ parameters:
 			message: '#^Variable \$indexpage might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_killdate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_livedate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
@@ -6681,7 +6399,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 43
+			count: 46
 			path: ../include/inc_tmpl/content/cnt1.inc.php
 
 		-
@@ -6789,7 +6507,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 55
+			count: 57
 			path: ../include/inc_tmpl/content/cnt13.inc.php
 
 		-
@@ -7095,7 +6813,7 @@ parameters:
 		-
 			message: '#^Variable \$row might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/content/cnt24.list.inc.php
 
 		-
@@ -7161,7 +6879,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 13
 			path: ../include/inc_tmpl/content/cnt27.inc.php
 
 		-
@@ -7281,7 +6999,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 76
+			count: 79
 			path: ../include/inc_tmpl/content/cnt31.inc.php
 
 		-
@@ -7341,7 +7059,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 73
+			count: 74
 			path: ../include/inc_tmpl/content/cnt33.inc.php
 
 		-
@@ -7581,7 +7299,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 106
+			count: 107
 			path: ../include/inc_tmpl/content/cnt8.inc.php
 
 		-
@@ -7651,210 +7369,6 @@ parameters:
 			path: ../include/inc_tmpl/content/cnt9.list.inc.php
 
 		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../include/inc_tmpl/content/deprecated/cnt10.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt10.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt10.list.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 36
-			path: ../include/inc_tmpl/content/deprecated/cnt16.inc.php
-
-		-
-			message: '#^Variable \$caption_box in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt16.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt16.inc.php
-
-		-
-			message: '#^Variable \$img_thumbs in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.variable
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt16.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt16.list.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt16.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../include/inc_tmpl/content/deprecated/cnt16.list.inc.php
-
-		-
-			message: '#^Constant CSRF_GET_TOKEN not found\.$#'
-			identifier: constant.notFound
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt18.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 29
-			path: ../include/inc_tmpl/content/deprecated/cnt18.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/content/deprecated/cnt18.inc.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt18.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt18.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/content/deprecated/cnt18.list.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 5
-			path: ../include/inc_tmpl/content/deprecated/cnt26.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt26.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/content/deprecated/cnt26.list.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 11
-			path: ../include/inc_tmpl/content/deprecated/cnt27.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt27.inc.php
-
-		-
-			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt27.list.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt27.list.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt27.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 5
-			path: ../include/inc_tmpl/content/deprecated/cnt27.list.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 42
-			path: ../include/inc_tmpl/content/deprecated/cnt50.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt50.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt50.list.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt50.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../include/inc_tmpl/content/deprecated/cnt50.list.inc.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 9
-			path: ../include/inc_tmpl/content/deprecated/cnt89.inc.php
-
-		-
-			message: '#^Variable \$cmsgo might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
-			path: ../include/inc_tmpl/content/deprecated/cnt89.inc.php
-
-		-
-			message: '#^Variable \$article might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_tmpl/content/deprecated/cnt89.list.inc.php
-
-		-
-			message: '#^Variable \$row might not be defined\.$#'
-			identifier: variable.undefined
-			count: 7
-			path: ../include/inc_tmpl/content/deprecated/cnt89.list.inc.php
-
-		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 2
@@ -7869,7 +7383,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 39
+			count: 40
 			path: ../include/inc_tmpl/files.ftptakeover.tmpl.php
 
 		-
@@ -7941,7 +7455,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 38
+			count: 39
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
@@ -8073,7 +7587,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 39
+			count: 40
 			path: ../include/inc_tmpl/files.private.upload.tmpl.php
 
 		-
@@ -8111,12 +7625,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_tmpl/files.private.upload.tmpl.php
-
-		-
-			message: '#^Function list_public invoked with 6 parameters, 5 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: ../include/inc_tmpl/files.public.list.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -8247,7 +7755,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 115
+			count: 121
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-
@@ -8259,7 +7767,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 32
+			count: 33
 			path: ../include/inc_tmpl/newsletter.form.tmpl.php
 
 		-
@@ -8314,12 +7822,6 @@ parameters:
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 22
-			path: ../include/inc_tmpl/profile.data.tmpl.php
-
-		-
-			message: '#^Variable \$detail might not be defined\.$#'
-			identifier: variable.undefined
-			count: 18
 			path: ../include/inc_tmpl/profile.data.tmpl.php
 
 		-

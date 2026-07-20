@@ -27,34 +27,39 @@ echo cmsgoversionCheck();
     <p>
         <strong>cmsGO!</strong> Copyright &copy; 2002&#8212;<?php echo date('Y') ?>
         <a title="send email to info@pixels-points.ch" href="mailto:info@pixels-points.ch">pixels & points GmbH</a>.
-        Extensions are copyright of their respective owners. Visit
-        <a href="http://www.pixels-points.ch" target="_blank">http://www.pixels-points.ch</a>
-        for details. Obstructing the appearance of this notice is prohibited by law.
     </p>
     <p>
+        Extensions are copyright of their respective owners.<br>
+        Visit <a href="http://www.pixels-points.ch" target="_blank">http://www.pixels-points.ch</a>
+        for details. <br>
+        Obstructing the appearance of this notice is prohibited by law.
+    </p>
+    <hr>
+    <p class="text-monospace">
         cmsGO! is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published
         by the Free Software Foundation; either version 2 of the License,
         or (at your option) any later version.
     </p>
-    <p>
+    <p class="text-monospace">
         cmsGO! is distributed in the hope that it will be useful,
         but WITHOUT ANY WARRANTY; without even the implied warranty of
         MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
         <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU General Public License</a>
         for more details.
     </p>
-    <p>
+    <p class="text-monospace">
         You should have received a copy of the GNU General Public License
         along with this program; if not, write to the
     </p>
-    <p style="margin-top:-.5em;margin-left:2em;">
+    <p class="text-monospace ml-4">
         Free Software Foundation, Inc.,<br/>
         59 Temple Place,<br/>
         Suite 330,<br/>
         Boston, MA 02111-1307<br/>
         USA
     </p>
+    <hr>
 </div>
 <div id="licenseExtensions">
   <p><strong>Extensions are copyright of their respective owners:</strong></p>

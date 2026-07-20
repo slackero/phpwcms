@@ -61,7 +61,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   </div>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_ordernumber'] ?></label>
+    <label for="shopprod_ordernumber" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_ordernumber'] ?></label>
     <div class="col-sm-4">
       <input name="shopprod_ordernumber" type="text" id="shopprod_ordernumber" class="form-control form-control-sm<?php
           //error class
@@ -72,7 +72,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     </div>
     <div class="col-sm-6">
       <div class="row align-items-center">
-        <label class="col-sm-auto col-form-label text-right ml-sm-5"><?php echo $BLM['shopprod_model'] ?></label>
+        <label for="shopprod_model" class="col-sm-auto col-form-label text-right ml-sm-5"><?php echo $BLM['shopprod_model'] ?></label>
           <div class="col">
            <input name="shopprod_model" type="text" id="shopprod_model" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" />
           </div>
@@ -82,7 +82,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
   <?php if (SHOP_FELANG_SUPPORT): ?>
   <div class="form-group form-row align-items-center">
-      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang']  ?></label>
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang']  ?></span>
       <div class="col">
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="shopprod_lang" id="shopprod_lang_0" value=""<?php is_checked($plugin['data']['shopprod_lang'], '') ?> />
@@ -100,7 +100,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   <?php endif; ?>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name1'] ?></label>
+    <label for="shopprod_name1" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name1'] ?></label>
     <div class="col">
       <input name="shopprod_name1" type="text" id="shopprod_name1" class="form-control form-control-sm<?php
           //error class
@@ -112,14 +112,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   </div>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name2'] ?></label>
+    <label for="shopprod_name2" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name2'] ?></label>
     <div class="col">
       <input name="shopprod_name2" type="text" id="shopprod_name2" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" />
     </div>
   </div>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_weight'] ?></label>
+    <label for="shopprod_weight" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_weight'] ?></label>
     <div class="col-sm-4">
         <div class="input-group input-group-sm">
       <input name="shopprod_weight" type="text" id="shopprod_weight" class="form-control" value="<?php echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']); ?>" size="30" maxlength="200" />
@@ -146,14 +146,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
     </div>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] ?></label>
+    <label for="shopprod_unit" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] ?></label>
     <div class="col-sm-4">
       <input name="shopprod_unit" type="text" id="shopprod_unit" class="form-control form-control-sm" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" />
     </div>
   </div>
 
   <div class="form-group form-row align-items-center">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_price'] ?></label>
+    <label for="shopprod_price" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_price'] ?></label>
     <div class="col-sm-4">
         <div class="input-group input-group-sm">
         <input name="shopprod_price" type="text" id="shopprod_price" class="form-control<?php if (!empty($plugin['error']['shopprod_price'])) {
@@ -174,8 +174,8 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
     <div class="col-sm-auto px-3 py-3 py-sm-0">
         <div class="input-group input-group-sm align-items-center">
-                <label class="col-form-label mr-2"><?php echo $BLM['shopprod_vat'] ?></label>
-                    <select name="shopprod_vat" id="shopprod_id" class="form-control-sm custom-select">
+                <label for="shopprod_vat" class="col-form-label mr-2"><?php echo $BLM['shopprod_vat'] ?></label>
+                    <select name="shopprod_vat" id="shopprod_vat" class="custom-select form-control form-control-sm">
                         <?php
                         if (! $plugin['data']['shop_pref_vat'] = _getConfig('shop_pref_vat')) {
                                 $plugin['data']['shop_pref_vat'] = array('0.00');
@@ -213,13 +213,13 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   <hr />
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_size'] ?></label>
+    <label for="shopprod_size" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_size'] ?></label>
     <div class="col-sm-4">
       <textarea name="shopprod_size" id="shopprod_size" class="form-control form-control-sm" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea>
     </div>
     <div class="col-sm-6">
     <div class="form-row">
-    <label class="col-sm-3 col-form-label text-right"><?php echo $BLM['shopprod_color'] ?></label>
+    <label for="shopprod_color" class="col-sm-3 col-form-label text-right"><?php echo $BLM['shopprod_color'] ?></label>
             <div class="col">
               <textarea name="shopprod_color" id="shopprod_color" class="form-control form-control-sm" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea>
       </div>
@@ -230,7 +230,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   <hr />
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description0'] ?></label>
+    <label for="shopprod_description0" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description0'] ?></label>
     <div class="col">
       <?php
         $wysiwyg_editor = array(
@@ -248,7 +248,7 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="shopprod_description1" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <?php
 
@@ -269,14 +269,14 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description1'] ?></label>
+    <label for="shopprod_description2" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description1'] ?></label>
     <div class="col">
       <textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="form-control form-control-sm"><?php echo html_specialchars($plugin['data']['shopprod_description2']) ?></textarea>
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description2'] ?></label>
+    <label for="shopprod_description3" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description2'] ?></label>
     <div class="col">
       <textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="form-control form-control-sm"><?php echo html_specialchars($plugin['data']['shopprod_description3']) ?></textarea>
     </div>
@@ -356,7 +356,7 @@ if ($img_count) {
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
+    <label for="shopprod_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
     <div class="col">
       <textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="form-control form-control-sm" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea>
     </div>
@@ -366,7 +366,7 @@ if ($img_count) {
 
   <!-- Attachments -->
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+    <label for="shopprod_files" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
     <div class="col">
       <div class="row">
         <div class="col"><select name="shopprod_files[]" size="<?php
@@ -400,7 +400,7 @@ if (count($plugin['data']['shopprod_files'])) {
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <label for="shopprod_filecaption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
     <div class="col">
       <textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="form-control form-control-sm" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea>
     </div>
@@ -408,14 +408,14 @@ if (count($plugin['data']['shopprod_files'])) {
 <!-- End Attachments -->
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_url'] ?></label>
+    <label for="shopprod_url" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_url'] ?></label>
     <div class="col">
       <input name="shopprod_url" type="text" id="shopprod_url" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" />
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['prod_cat'] ?></label>
+    <label for="shopprod_category" class="col-sm-2 col-form-label text-right"><?php echo $BLM['prod_cat'] ?></label>
     <div class="col-sm-4">
         <select name="shopprod_category[]" size="7" multiple="multiple" class="custom-select form-control form-control-sm" id="shopprod_category">
         <?php
@@ -446,24 +446,24 @@ if (count($plugin['data']['shopprod_files'])) {
   </div>
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_tag'] ?></label>
+    <label for="shopprod_tag" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_tag'] ?></label>
     <div class="col">
       <input name="shopprod_tag" type="text" id="shopprod_tag" class="form-control form-control-sm" value="<?php echo html_specialchars(trim($plugin['data']['shopprod_tag'], ',')) ?>" size="30" maxlength="250" />
     </div>
   </div>
 
     <div class="form-group form-row">
-        <label class="col-2 col-form-label text-right"><?php echo $BLM['shopprod_on_request'] ?></label>
+        <span class="col-2 col-form-label text-right"><?php echo $BLM['shopprod_on_request'] ?></span>
         <div class="col-10 col-sm-1">
             <div class="form-check pt-2">
-                <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
+                <input class="form-check-input" type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
+                <label class="form-check-label" for="shopprod_on_request">
                     <?php echo $BL['be_cnt_activated'] ?>
                 </label>
             </div>
         </div>
         <div class="col-3 col-sm-2 text-right">
-            <label class="col-form-label"><?php echo $BLM['shopprod_on_request_button'] ?></label>
+            <label for="shopprod_on_request_url" class="col-form-label"><?php echo $BLM['shopprod_on_request_button'] ?></label>
         </div>
         <div class="col-9 col-sm-7">
             <input name="shopprod_on_request_url" type="text" id="shopprod_on_request_url" class="form-control form-control-sm" value="<?php echo html($plugin['data']['shopprod_on_request_url']) ?>" size="30" maxlength="250" title="<?php echo $BLM['shopprod_on_request_url'] ?>" placeholder="<?php echo $BLM['shopprod_on_request_url'] ?>" />
@@ -473,40 +473,40 @@ if (count($plugin['data']['shopprod_files'])) {
     <hr />
 
   <div class="form-group form-row">
-    <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <span class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></span>
     <div class="col">
         <div class="form-check">
-        <label class="form-check-label">
             <input class="form-check-input" type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
-            <strong><?php echo $BL['be_cnt_activated'] ?></strong>
-        </label>
+            <label class="form-check-label" for="shopprod_status">
+                <strong><?php echo $BL['be_cnt_activated'] ?></strong>
+            </label>
         </div>
         <div class="form-check">
-        <label class="form-check-label">
             <input class="form-check-input" type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
-            <?php echo $BLM['shopprod_listall'] ?>
-        </label>
+            <label class="form-check-label" for="shopprod_listall">
+                <?php echo $BLM['shopprod_listall'] ?>
+            </label>
         </div>
         <div class="form-check">
-        <label class="form-check-label">
             <input class="form-check-input" type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
-            <?php echo $BLM['shopprod_overwrite_meta'] ?>
-        </label>
+            <label class="form-check-label" for="shopprod_overwrite_meta">
+                <?php echo $BLM['shopprod_overwrite_meta'] ?>
+            </label>
         </div>
         <div class="form-check">
-        <label class="form-check-label">
             <input class="form-check-input" type="checkbox" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
-            <?php echo $BL['be_opengraph_support'] ?>
-        </label>
+            <label class="form-check-label" for="shopprod_opengraph">
+                <?php echo $BL['be_opengraph_support'] ?>
+            </label>
         </div>
 
 <!-- save as duplicate -->
 <?php   if ($plugin['data']['shopprod_id']): ?>
                 <div class="form-check">
-                <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
-                    <?php echo $BL['be_save_copy'] ?>
-                </label>
+                    <label class="form-check-label" for="shopprod_duplicate">
+                        <?php echo $BL['be_save_copy'] ?>
+                    </label>
                 </div>
 <?php   endif;  ?>
     </div>
@@ -521,27 +521,12 @@ if (count($plugin['data']['shopprod_files'])) {
 </form>
 <script type="text/javascript">
 
-var img_field = getObjectByIdShop('shopprod_images');
-var files_field = getObjectByIdShop('shopprod_files');
+var img_field = document.getElementById('shopprod_images');
+var files_field = document.getElementById('shopprod_files');
 
-function addFile(value,text) {
-    if(files_field!=null && files_field.options!=null) {
-        newOpt = new Option(text, value);
-        files_field.options.length++;
-        files_field.options[files_field.length-1].text  = newOpt.text;
-        files_field.options[files_field.length-1].value = newOpt.value;
-        files_field.options[files_field.length-1].selected = false;
-    }
-}
-function getObjectByIdShop(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return false;
+function addFile(value, text) {
+    if (files_field && files_field.options) {
+        files_field.add(new Option(text, value));
     }
 }
 </script>

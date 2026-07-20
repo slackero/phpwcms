@@ -57,7 +57,7 @@ if($wysiwyg_editor['editor']) {
 		echo '	height: "' . $wysiwyg_editor['height'] . '",' . LF;
 		echo '	plugins: "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount",' . LF;
 		echo '	menubar: false,' . LF;
-		echo '	toolbar: "undo redo | blocks fontfamily fontsize | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table | code fullscreen",' . LF;
+		echo '	toolbar: "undo redo | blocks | bold italic underline forecolor backcolor | link image media table | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | fontfamily fontsize | code fullscreen",' . LF;
 		$tinymce_lang = $wysiwyg_editor['lang'];
 		$tinymce_lang_file = 'include/vendor/mklkj/tinymce-i18n/langs/' . $tinymce_lang . '.js';
 		if ($tinymce_lang !== 'en' && is_file(CMSGO_ROOT . '/' . $tinymce_lang_file)) {

@@ -150,7 +150,7 @@ if($alinkmenu['link']) {
 
     if(!$alinkmenu['ul']) {
 
-        $alinkmenu['link'] = '<table border="0" cellspacing="0" cellpadding="0">' . LF . $alinkmenu['link'] . "</table>" . LF;
+        $alinkmenu['link'] = '<table>' . LF . $alinkmenu['link'] . "</table>" . LF;
 
         if(!empty($alinkmenu['class'])) {
             $alinkmenu['link'] = '<div class="' . html_specialchars($alinkmenu['class']) . "\">\n" . $alinkmenu['link'] . "</div>\n";

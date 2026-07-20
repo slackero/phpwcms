@@ -138,7 +138,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 				//check if radio button or javascript
 				if(!$ecard["selector"]) {
 
-					$temp_cap  = '<table '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">'."\n<tr>\n";
+					$temp_cap  = '<table '.$template_default["article"]["ecard_chooser_css"].'>'."\n<tr>\n";
 					$temp_cap .= '<td valign="top"><input type="radio" name="ecard_chooser" id="ecard_chooser_'.$ecard_count.'" value="'.$key.'" ';
 					if(isset($ecard["chooser"]) && $ecard["chooser"] == $key) {
 						$temp_cap .= ' checked="checked" ';
@@ -148,7 +148,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 
 				} else {
 
-					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">';
+					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].'>';
 					$temp_cap .= '<tr><td id="ecard'.$key.'" '.$template_default["article"]["ecard_chooser_text"];
 					if($ecard["onover"]) {
 						$temp_cap .= ' onmouseover="'.$ecard["onover"].'"';

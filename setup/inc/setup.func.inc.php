@@ -332,7 +332,7 @@ function parsePHPModules() {
     $s = preg_replace('/<td[^>]*>([^<]+)<\/td>/', "<info>\\1</info>", $s);
     $vTmp = preg_split('/(<h2>[^<]+<\/h2>)/', $s, -1, PREG_SPLIT_DELIM_CAPTURE);
     $vModules = [];
-    for ($i = 1; $i < count($vTmp); $i++) {
+    for ($i = 1, $count = count($vTmp); $i < $count; $i++) {
         if (preg_match('/<h2>([^<]+)<\/h2>/', $vTmp[$i], $vMat)) {
             $vName = trim($vMat[1]);
             $vTmp2 = explode("\n", $vTmp[$i + 1]);

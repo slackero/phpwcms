@@ -85,7 +85,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 
 <div class="form-group form-row">
-	<label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images']; ?></label>
+	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images']; ?></label>
 		<div class="col">
         <select class="custom-select" name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple="multiple" class="form-control form-control-sm" id="cimage_list">
 <?php
@@ -182,7 +182,7 @@ if($img_thumbs) {
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+  <label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 
   <div class="col-sm-auto my-2 my-sm-0">
     <div class="input-group input-group-sm">
@@ -280,7 +280,7 @@ if($img_thumbs) {
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 	</div>
   <div class="form-check form-check-inline">
-		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
 	</div>
   <div class="form-check form-check-inline">

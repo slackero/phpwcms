@@ -27,20 +27,21 @@ $file_result = _dbQuery($file_sql);
 if(isset($file_result[0]['f_id'])) {
 
     $file_durchlauf = 0;
+    $bg_toggle = false;
 
     $zieldatei = "cmsgo.php?do=files&amp;f=0";
 
     foreach($file_result as $file_row) {
         $filename = html($file_row["f_name"]);
+        $bg_toggle = !$bg_toggle;
+        $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
         $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
 
         if(!$file_durchlauf) {
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table class=\"table-no-border\" width=\"100%\">\n";
-        } else {
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"3\"></td></tr>\n";
+            echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
         }
-        echo "<tr>\n";
+        echo '<tr'.$row_class.">\n";
         echo "<td width=30>";
         echo "<span class=\"admin-slist \" data-toggle=\"tooltip\" data-html=\"true\" ";
 
@@ -55,7 +56,7 @@ if(isset($file_result[0]['f_id'])) {
         echo $file_row['edit'] . $filename."</a></td>\n";
 
         //Aufbauen Buttonleiste für jeweilige Datei
-        echo '</td><td class="text-right px-0" nowrap="nowrap">'.LF;
+        echo '</td><td class="text-right text-nowrap px-0">'.LF;
         echo '<div class="btn-group" role="group">'.LF;
 
         //Button zum Bearbeiten der Dateiinformationn
@@ -116,16 +117,16 @@ if(isset($file_result[0]['f_id'])) {
                 ));
 
                 if($thumb_image != false) {
-                    echo "<tr>\n";
-                    echo "<td></td>\n<td colspan=\"2\">";
+                    echo '<tr'.$row_class.">\n";
+                    echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                     echo $file_row['edit'];
                     echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
                     echo "\n</tr>\n";
                 }
 
             } else {
-                echo "<tr>\n";
-                echo "<td></td>\n<td colspan=\"2\">";
+                echo '<tr'.$row_class.">\n";
+                echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                 echo $file_row['edit'];
                 echo '<img src="'.CMSGO_RESIZE_IMAGE.'/'.$cmsgo["img_list_width"].'x'.$cmsgo["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$cmsgo["img_list_width"].'px;height:auto;"></a></td>';
                 echo "\n</tr>\n";

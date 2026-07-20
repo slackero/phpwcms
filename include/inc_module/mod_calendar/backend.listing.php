@@ -165,7 +165,7 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
 		</div>
     </div>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="calendar" summary="">
+<table width="100%" class="calendar">
 <?php
 // list current calendar here
 if($plugin['current_month'] == 12) {

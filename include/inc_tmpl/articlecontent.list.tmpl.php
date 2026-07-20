@@ -82,7 +82,7 @@ $(function() {
       <div class="row">
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace" border="0" cellpadding="0" cellspacing="0">
+          <table class="table table-sm mt-3 tdMorepace">
             <tr>
               <td class="text-secondary"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
               <td><strong><?php echo html($article["article_alias"]); ?></strong></td>
@@ -237,7 +237,7 @@ $(function() {
                 </tr>
 
                 <tr>
-                  <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+                  <td class="text-secondary text-nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
                   <td>
                       <span class="badge <?php echo ($article["article_nositemap"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_ctype_sitemap'] ?></span>
                       <span class="badge <?php echo ($article["article_nosearch"] ? 'badge-secondary' : 'badge-success') ?> mt-1"><?php echo $BL['be_fsearch_searchlabel'] ?></span>
@@ -254,17 +254,17 @@ $(function() {
 
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace" border="0" cellpadding="0" cellspacing="0" summary="">
+          <table class="table table-sm mt-3 tdMorepace">
             <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_eslastedit'] ?>:&nbsp;</td>
-              <td><?php echo cmsgo_strtotime($article["article_date"], $BL['be_longdatetime'], '') ?></td>
+              <td class="text-secondary"><?php echo $BL['be_article_updated_at'] ?>:&nbsp;</td>
+              <td><?php echo cmsgo_strtotime($article['article_date'], $BL['be_longdatetime'], '') ?></td>
             </tr>
             <tr>
-              <td class="text-secondary"><?php echo $BL['be_fprivedit_created'] ?>:&nbsp;</td>
-              <td><?php echo date($BL['be_longdatetime'], $article["article_created"]) ?></td>
+              <td class="text-secondary"><?php echo $BL['be_article_created_at'] ?>:&nbsp;</td>
+              <td><?php echo date($BL['be_longdatetime'], $article['article_created']) ?></td>
             </tr>
             <tr>
-              <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
+              <td class="text-secondary text-nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
               <td><?php echo $set_begin ? cmsgo_strtotime($article["article_begin"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
             </tr>
             <tr>
@@ -272,7 +272,7 @@ $(function() {
               <td><?php echo $set_end ? cmsgo_strtotime($article["article_end"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
             </tr>
             <tr>
-              <td class="text-secondary" nowrap="nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
+              <td class="text-secondary text-nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
               <td><?php echo $article["article_sort"] ?></td>
             </tr>
             <tr>
@@ -365,35 +365,29 @@ $(function() {
                   foreach($sbutton as $key => $value) {
                       if($key == 1) {
                           // if 1st content part in list
-                          $sbutton[$key]["top"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
-
+                          $sbutton[$key]["top"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-up fa-fw text-muted" aria-hidden="true"></i></button>';
                       } elseif(isset($sbutton[$key-1]["block"]) && $sbutton[$key-1]["block"] != $sbutton[$key]["block"]) {
                           // if this content part is selected for different block than previous
-                          $sbutton[$key]["top"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
-
-
-              } else {
-                $sbutton[$key]["top"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
-                $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
-                '" data-toggle="tooltip" title="'.$BL['be_article_cnt_up'].'"><i class="fa fa-chevron-up text-dark" aria-hidden="true"></i></a>';
-              }
-              if($key == $sc) {
-                // if this is the last content part in list
-                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-up text-muted" aria-hidden="true"></i>';
-
-              } elseif(isset($sbutton[$key+1]["block"]) && $sbutton[$key+1]["block"] != $sbutton[$key]["block"]) {
-                // if this is the last content part in current block and next is different
-                $sbutton[$key]["bottom"] = '<i class="fa fa-chevron-down text-muted" aria-hidden="true"></i>';
-
-              } else {
-                $sbutton[$key]["bottom"] = "<a href=\"include/inc_act/act_articlecontent.php?sort=".
-                $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
-                $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
-                '" data-toggle="tooltip" title="'.$BL['be_article_cnt_down'].'"><i class="fa fa-chevron-down text-dark" aria-hidden="true"></i></a>';
-              }
-              $sbutton_string[$sbutton[$key]["id"]] = $sbutton[$key]["top"].
-              $sbutton[$key]["bottom"];
+                          $sbutton[$key]["top"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-up fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } else {
+                          $sbutton[$key]["top"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
+                          $sbutton[$key]["id"].":".$sbutton[$key-1]["sort"]."|".
+                          $sbutton[$key-1]["id"].":".$sbutton[$key]["sort"].
+                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_up']."\"><i class=\"fa fa-chevron-up fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                      }
+                      if($key == $sc) {
+                          // if this is the last content part in list
+                          $sbutton[$key]["bottom"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-down fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } elseif(isset($sbutton[$key+1]["block"]) && $sbutton[$key+1]["block"] != $sbutton[$key]["block"]) {
+                          // if this is the last content part in current block and next is different
+                          $sbutton[$key]["bottom"] = '<button class="btn btn-xs btn-light py-0 px-1" disabled><i class="fa fa-chevron-down fa-fw text-muted" aria-hidden="true"></i></button>';
+                      } else {
+                          $sbutton[$key]["bottom"] = "<a class=\"btn btn-xs btn-light py-0 px-1\" href=\"include/inc_act/act_articlecontent.php?sort=".
+                          $sbutton[$key]["id"].":".$sbutton[$key+1]["sort"]."|".
+                          $sbutton[$key+1]["id"].":".$sbutton[$key]["sort"].
+                          "\" data-toggle=\"tooltip\" title=\"".$BL['be_article_cnt_down']."\"><i class=\"fa fa-chevron-down fa-fw text-dark\" aria-hidden=\"true\"></i></a>";
+                      }
+                      $sbutton_string[$sbutton[$key]["id"]] = '<div class="btn-group" role="group">' . $sbutton[$key]["top"] . $sbutton[$key]["bottom"] . '</div>';
               }
               unset($sbutton);
             }
@@ -549,7 +543,7 @@ $(function() {
       </div>
       <div class="col">
         <div class="row">
-          <div class="col small" style="font-weight:bold;text-transform:uppercase;"><?php
+          <div class="col small font-weight-bold text-uppercase"><?php
             $cntpart_title = $wcs_content_type[$row["acontent_type"]];
             if(!empty($row["acontent_module"])) {
               $cntpart_title .= ': '.$BL['modules'][$row["acontent_module"]]['listing_title'];
@@ -594,15 +588,15 @@ $(function() {
           ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
             <?php echo $sbutton_string[$row["acontent_id"]]; ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" style="color:#727889;" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-muted">
             [ID:<?php echo $row["acontent_id"] ?>]
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" nowrap="nowrap">
+          <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
               <?php
                   echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
                   if($contentpart_block != 'CPSET') {

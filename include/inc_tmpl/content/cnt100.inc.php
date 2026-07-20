@@ -47,6 +47,6 @@ if(empty($content['bulletlist']["list_type"])) $content['bulletlist']["list_type
 <div class="form-group form-row">
   <label for="ctext" class="col-sm-2 col-form-label text-right"></label>
   <div class="col">
-    <textarea name="ctext" rows="20" class="form-control form-control-sm" id="ctext"><?php echo  isset($content["text"]) ? $content["text"] : '' ?></textarea>
+    <textarea name="ctext" rows="20" class="form-control form-control-sm field-sizing-content field-sizing-content-20" id="ctext"><?php echo  isset($content["text"]) ? $content["text"] : '' ?></textarea>
   </div>
 </div>

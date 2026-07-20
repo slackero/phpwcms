@@ -474,6 +474,8 @@ $BL['be_article_err4']                  = 'La fecha de terminaci&oacute;n es inc
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'Editar la informaci&oacute;n b&aacute;sica del art&iacute;culo';
 $BL['be_article_eslastedit']            = '&Uacute;ltima edici&oacute;n';
+$BL['be_article_created_at']            = 'creado el';
+$BL['be_article_updated_at']            = 'actualizado el';
 $BL['be_article_esnoupdate']            = 'No actualizado';
 $BL['be_article_esbutton']              = 'Actualizar la informaci&oacute;n del art&iacute;culo';
 
@@ -503,7 +505,7 @@ $BL['be_article_cnt_add']               = 'Agregar nuevo contenido';
 $BL['be_article_cnt_up']                = 'Desplazar el contenido hacia arriba';
 $BL['be_article_cnt_down']              = 'Desplazar el contenido hacia abajo';
 $BL['be_article_cnt_edit']              = 'Editar el contenido';
-$BL['be_article_cnt_delpart']           = 'Eliminar este contenido del art&iacute;culo';
+$BL['be_article_cnt_delpart']           = 'Eliminar este contenido';
 $BL['be_article_cnt_delpartjs']         = 'Elimina este contenido?';
 $BL['be_article_cnt_center']            = 'Centro de art&iacute;culos';
 
@@ -842,8 +844,8 @@ $BL['be_cnt_admin'] = 'administrador';
 $BL['be_cnt_alignment'] = 'alineaci&oacute;n';
 $BL['be_cnt_answer'] = 'respuesta';
 $BL['be_cnt_articlemenu_maxchar'] = 'm&aacute;x. caracteres';
-$BL['be_cnt_attribute_class'] = 'clase CSS';
-$BL['be_cnt_attribute_id'] = 'ID CSS';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_available'] = 'disponible';
 $BL['be_cnt_avoid_duplicates'] = 'permitir solo valores &uacute;nicos';
 $BL['be_cnt_behavior'] = 'comportamiento';
@@ -1084,7 +1086,7 @@ $BL['be_date_year'] = 'a&ntilde;o';
 $BL['be_delete_dataset'] = '&iquest;Eliminar el conjunto de datos seleccionado?';
 $BL['be_delete_selected_files'] = 'Eliminar archivos seleccionados';
 $BL['be_delete_selected_files_confirm'] = '&iquest;Realmente quiere eliminar todos los archivos seleccionados?';
-$BL['be_dialog_warn_nosave'] = '&iexcl;Si contin&uacute;a no se guardar&aacute; ning&uacute;n cambio!\n&iquest;Est&aacute; seguro de que desea continuar?';
+$BL['be_dialog_warn_nosave'] = '&iexcl;Si contin&uacute;a no se guardar&aacute;n los cambios!\n&iquest;Desea cancelar?';
 $BL['be_display_html5_only'] = 'solo HTML5';
 $BL['be_empty_search_result'] = 'La b&uacute;squeda no devolvi&oacute; resultados.';
 $BL['be_error_while_save'] = 'Fallo al guardar los datos.';
@@ -1512,3 +1514,15 @@ $BL['modal_delete'] = 'Eliminar';
 $BL['modal_move'] = 'Mover';
 $BL['modal_copy'] = 'Copiar';
 $BL['modal_flush'] = 'Vaciar';
+$BL['be_metadata'] = 'Metadatos';
+$BL['be_content'] = 'Contenido';
+$BL['be_images'] = 'Imágenes';
+$BL['be_article_show'] = 'Mostrar';
+$BL['be_active'] = 'Activo';
+$BL['be_cnt_summary_label'] = 'Resumen';
+$BL['be_cnt_max_words'] = 'máx. palabras';
+
+
+
+
+

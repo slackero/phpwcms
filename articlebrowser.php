@@ -116,7 +116,7 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     <link href="include/inc_css/cmsgo.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <style>
         tr.struct:hover {
@@ -136,7 +136,6 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
     </style>
 
     <script src="include/inc_js/jquery/jquery.min.js"></script>
-    <script src="include/inc_js/autosize.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/cmsgo.min.js"></script>
     <script src="include/inc_js/bootstrap.bundle.min.js"></script>
@@ -171,7 +170,7 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <?php endif; ?>
 </ul>
 
-<table summary="" class="table table-sm" border="0" cellspacing="0" cellpadding="0">
+<table class="table table-sm">
     <?php
 
     $child_count = get_root_childcount(0);
@@ -179,8 +178,8 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
 
     $a = '<tr bgcolor="#e8e8e8" class="struct">';
     $a .= '<td>';
-    $a .= '<table class="table-no-border" border="0" width="100%" cellpadding="0" cellspacing="0" summary=""><tr>';
-    $a .= '<td nowrap="nowrap">';
+    $a .= '<table class="table-borderless w-100"><tr>';
+    $a .= '<td class="text-nowrap">';
     $a .= $child_count ? '<a href="cmsgo.php?' . CSRF_GET_TOKEN . '&amp;do=articles&amp;open=0:' . (($_SESSION['structure'][0]) ? 0 : 1) . '">' : '';
 
     $a .= '<i class="fa fa-caret-' . (($child_count) ? (($_SESSION['structure'][0] == 0) ? 'right' : 'down') : 'right');
@@ -212,10 +211,10 @@ require_once CMSGO_ROOT . '/include/inc_lib/backend.functions.inc.php';
             if ($js_aktion == 6) {
                 echo 'parent.$("#browserModal").modal("hide");';
             } elseif ($js_aktion == 2) {
-                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('input:radio[name=\"article_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
                 echo "parent.$('#browserModal').modal('hide');";
             } elseif ($js_aktion != 16) {
-                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').attr('checked',true);";
+                echo "parent.$('input:radio[name=\"acat_lang_type\"][value=\"'+$(this).attr('data-idtype')+'\"]').prop('checked',true).trigger('change');";
                 echo "parent.$('#browserModal').modal('hide');";
             }
             ?>
@@ -260,8 +259,8 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $an = html($struct[$key]['acat_name']);
     $a = '<tr class="structarticle">';
     $a .= '<td width="80%">';
-    $a .= '<table class="table-no-border"' . '><tr>';
-    $a .= '<td nowrap="nowrap" class="text-right">';
+    $a .= '<table class="table-borderless"' . '><tr>';
+    $a .= '<td class="text-right text-nowrap">';
     $a .= ($child_count) ? '<a href="articlebrowser.php?' . CSRF_GET_TOKEN . '&amp;opt=' . $js_aktion . '&amp;' . $page_val . '&amp;open=' . rawurlencode($struct[$key]['acat_id'] . ':' . (!empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 0 : 1)) . '">' : '';
     $a .= '<i class="fa fa-caret-' . ($child_count ? (empty($_SESSION['structure'][$struct[$key]['acat_id']]) ? 'right' : 'down') : 'right') . ' fa-fw slist-' . $counter . '" aria-hidden="true"></i>' . ($child_count ? '</a>' : '');
 
@@ -373,8 +372,8 @@ function struct_articlelist($struct_id, $counter, $article_order, $js, $js_aktio
         $acontent_count = get_article_content_count($avalue['article_id']);
         $a = '<tr class="struct">';
         $a .= '<td width="100%">';
-        $a .= '<table class="table-no-border" summary=""><tr>';
-        $a .= '<td nowrap="nowrap">';
+        $a .= '<table class="table-borderless"><tr>';
+        $a .= '<td class="text-nowrap">';
         $a .= '<i class="fa fa-caret-' . ($acontent_count ? (!empty($_SESSION['structure']['article'][$avalue['article_id']]) ? 'down' : 'right') : 'right');
         $a .= ' fa-fw alist-' . $counter . '" aria-hidden="true"></i>';
 
@@ -461,7 +460,7 @@ function struct_articlecontentlist($article, $akey, $counter) {
 
         if ($a) {
             echo '<tr><td colspan="2" class="p-0">';
-            echo '<table class="table-no-border" border="0" cellpadding="0" cellspacing="0" summary="" width="100%">';
+            echo '<table class="table-borderless w-100">';
             echo $a;
             echo '</table></td></tr>';
         }

@@ -270,14 +270,14 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 
         foreach($result as $grouplist) {
 
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-light' : 'bg-row-white';
             if($grouplist["group_id"] == $new_group_id) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
             $goto = "cmsgo.php?do=admin&amp;p=1&amp;s=2&amp;u=".$grouplist["group_id"];
             $grouplist["group_name"] = ($grouplist['group_syskey']) ? $groupnames[$grouplist["group_syskey"]] : $grouplist["group_name"];
 ?>
-        <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#DBFF48'" onmouseout="bgColor='<?php echo $bg_color ?>'">
+        <tr class="hover-highlight <?php echo $bg_class ?>">
           <td width="25" align="center"><i class="fa fa-users <?php echo $grouplist["group_active"] == 1 ? 'text-blue' : 'text-muted'; ?>" aria-hidden="true"></i></td>
           <td class="<?php echo $grouplist["group_active"] ? 'dir' : 'inaktiv'; ?>"><a href="<?php echo $goto ?>"><?php
 

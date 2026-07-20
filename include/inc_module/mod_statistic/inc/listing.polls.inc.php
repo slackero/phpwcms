@@ -21,40 +21,40 @@ $sql .= "ar.article_id = ac.acontent_aid WHERE ac.acontent_trash=0 AND ac.aconte
 $result = _dbQuery($sql);
 
 ?>
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_polls'] ?></h2></div>
-  <div class="card-body">
-    <table class="table table-sm">
-      <tr class="header">
-        <th class="column"><?php echo $BLM['pollname'] ?></th>
-        <th class="column"><?php echo $BLM['pollcounts'] ?></th>
+<h2 class="mb-3"><?php echo $BLM['listing_polls'] ?></h2>
+
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover mb-0">
+    <thead>
+      <tr>
+        <th><?php echo $BLM['pollname'] ?></th>
+        <th><?php echo $BLM['pollcounts'] ?></th>
       </tr>
-      <?php
-
+    </thead>
+    <tbody>
+    <?php
     $x = 0;
-
     foreach($result as $data) {
-
       // now add article URL
-      echo '	<tr class="row'.($x%2?' alt': '').'" title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
-        echo '		<td width="80%"><a href="cmsgo.php?do=articles&p=2&s=1&id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
+      echo '	<tr title="'.html_specialchars('[ID:'.$data["acontent_id"].'] '.$data["acontent_title"]).'">';
+      echo '		<td width="80%"><a href="cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id='.$data["acontent_aid"].'" target="_blank">' . html_specialchars($data["article_title"])." - ".html_specialchars($data["acontent_title"]) . "</a>&nbsp;</td>" . LF;
 
       $poll_form			= @unserialize($data["acontent_form"], ['allowed_classes' => false]);
 
       $poll_total_votes = 0;
-      foreach($poll_form["count"] as $key => $value) {
-        $poll_total_votes += $value;
+      if (isset($poll_form["count"]) && is_array($poll_form["count"])) {
+        foreach($poll_form["count"] as $key => $value) {
+          $poll_total_votes += $value;
+        }
       }
 
       echo '		<td>'.$poll_total_votes."&nbsp;</td>" . LF;
       echo '		</tr>' . LF;
-
       $x++;
     }
-
     ?>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>
 
 </div>

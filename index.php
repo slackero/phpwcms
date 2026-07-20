@@ -177,7 +177,7 @@ if(!empty($cmsgo['browser_check']['fe'])) {
     if(!empty($cmsgo['browser_check']['required'])) {
         $buoop['required'] = '{' . trim($cmsgo['browser_check']['required'], '{}') . '}';
     }
-    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>var $buoop = ' . json_encode($buoop) . '; </script>';
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>const $buoop = ' . json_encode($buoop) . '; </script>';
     $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://browser-update.org/update.min.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';

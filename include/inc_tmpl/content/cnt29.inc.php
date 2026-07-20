@@ -190,26 +190,14 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 
 <script type="text/javascript">
     function setCimageCenterInactive() {
-        var cih = getObjectById('cimage_width');
-        var ciw = getObjectById('cimage_height');
-        var cic = getObjectById('cimage_center');
-        var ccp = getObjectById('cimage_crop');
-        var dis = false;
-        if(!parseInt(cih.value, 10)) {
-            cih.value = '';
-            dis = true;
-        }
-        if(!parseInt(ciw.value, 10)) {
-            ciw.value = '';
-            dis = true;
-        }
-        if(dis) {
-            cic.disabled = true;
-            ccp.disabled = true;
-        } else {
-            cic.disabled = false;
-            ccp.disabled = false;
-        }
+        const widthVal = parseInt($('#cimage_width').val(), 10);
+        const heightVal = parseInt($('#cimage_height').val(), 10);
+        const isInvalid = isNaN(widthVal) || isNaN(heightVal) || widthVal <= 0 || heightVal <= 0;
+        
+        if (isNaN(widthVal)) $('#cimage_width').val('');
+        if (isNaN(heightVal)) $('#cimage_height').val('');
+        
+        $('#cimage_center, #cimage_crop').prop('disabled', isInvalid);
     }
     setCimageCenterInactive();
 </script>
@@ -222,7 +210,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
 			<label class="form-check-label"><?php echo $BL['be_cnt_enlarge'] ?></label>
         </div>
         <div class="form-check form-check-inline">
-			<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" />
+			<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
 			<label class="form-check-label"><?php echo $BL['be_cnt_lightbox'] ?></label>
         </div>
         <div class="form-check form-check-inline">
@@ -487,9 +475,9 @@ if($content['custom_field_items']):
                     <span class="input-group-append ">
                         <a class="btn btn-sm btn-danger trash" href="#" type="button"
                            data-toggle="tooltip" title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                           onclick="getObjectById('customfield_<?php
-                            echo $custom_field; ?>_name').value='';getObjectById('customfield_<?php
-                            echo $custom_field; ?>_id').value='';getObjectById('customfield_<?php
+                           onclick="document.getElementById('customfield_<?php
+                            echo $custom_field; ?>_name').value='';document.getElementById('customfield_<?php
+                            echo $custom_field; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field; ?>_description').value='';this.blur();return false;"
                         ></a>
                     </span>

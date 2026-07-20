@@ -98,7 +98,7 @@ if($msg_send_ok) {
 
 ?>
 <form name="sendmsg" action="cmsgo.php?do=messages&p=1" method="post">
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538">
     <tr><td colspan="3" class="title"><?php echo $BL['be_msg_newmsgtitle'] ?></td></tr>
     <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
     <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

@@ -65,7 +65,7 @@ if($form_detail_aktion == 'create_detail') {
 
 }
 
-?><form action="cmsgo.php?do=profile&amp;p=1" method="post" name="formprofiledetail" id="formprofiledetail"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="cmsgo.php?do=profile&amp;p=1" method="post" name="formprofiledetail" id="formprofiledetail"><table width="538">
 	<tr><td colspan="3" class="title"><?php echo $BL['be_profile_data_title'] ?></td></tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
 	<tr><td colspan="3"><?php echo $BL['be_profile_data_text'] ?></td></tr>
@@ -82,27 +82,27 @@ if($form_detail_aktion == 'create_detail') {
         <td><img src="img/leer.gif" alt="" width="403" height="1"></td>
 	</tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_title'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_title"><?php echo $BL['be_profile_label_title'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_title" type="text" id="form_title" class="v12 width250" value="<?php echo html($detail["detail_title"]) ?>" size="30" maxlength="50"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_firstname'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_firstname"><?php echo $BL['be_profile_label_firstname'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_firstname" type="text" id="form_firstname" class="v12 width250" value="<?php echo html($detail["detail_firstname"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_name'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_lastname"><?php echo $BL['be_profile_label_name'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_lastname" type="text" id="form_lastname" class="v12 width250" value="<?php echo html($detail["detail_lastname"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_company'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_company"><?php echo $BL['be_profile_label_company'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_company" type="text" id="form_company" class="v12 width250" value="<?php echo html($detail["detail_company"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_street'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_street"><?php echo $BL['be_profile_label_street'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_street" type="text" id="form_street" class="v12 width250" value="<?php echo html($detail["detail_street"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
@@ -112,67 +112,67 @@ if($form_detail_aktion == 'create_detail') {
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_city'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_city"><?php echo $BL['be_profile_label_city'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_city" type="text" id="form_city" class="v12 width250" value="<?php echo html($detail["detail_city"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_state'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_region"><?php echo $BL['be_profile_label_state'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_region" type="text" id="form_region" class="v12 width250" value="<?php echo html($detail["detail_region"]) ?>" size="30" maxlength="100"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_zip'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_zip"><?php echo $BL['be_profile_label_zip'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_zip" type="text" id="form_zip" class="v12 width100" value="<?php echo html($detail["detail_zip"]) ?>" size="30" maxlength="50"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_country'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_country"><?php echo $BL['be_profile_label_country'] ?>:&nbsp;</label></td>
 		<td colspan="2"><select name="form_country" id="form_country" class="v12 width250">
 		<?php echo list_country($detail["detail_country"]); ?>
 		</select></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_phone'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_fon"><?php echo $BL['be_profile_label_phone'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_fon" type="text" id="form_fon" class="v12 width250" value="<?php echo html($detail["detail_fon"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_fax'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_fax"><?php echo $BL['be_profile_label_fax'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_fax" type="text" id="form_fax" class="v12 width250" value="<?php echo html($detail["detail_fax"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_cellphone'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_mobile"><?php echo $BL['be_profile_label_cellphone'] ?>:&nbsp;</label></td>
 		<td colspan="2"><input name="form_mobile" type="text" id="form_mobile" class="v12 width250" value="<?php echo html($detail["detail_mobile"]) ?>" size="30" maxlength="30"></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr>
-		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_profile_label_signature'] ?>:&nbsp;</td>
+		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><label for="form_signature"><?php echo $BL['be_profile_label_signature'] ?>:&nbsp;</label></td>
 		<td colspan="2"><textarea name="form_signature" cols="30" rows="3" id="form_signature" class="width400"><?php echo html($detail["detail_signature"]) ?></textarea></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</td>
+		<td align="right" valign="top"><img src="img/leer.gif" alt="" width="1" height="13"><label for="form_notes"><?php echo $BL['be_profile_label_notes'] ?>:&nbsp;</label></td>
 		<td colspan="2"><textarea name="form_notes" cols="30" rows="6" id="form_notes" class="width400"><?php echo html($detail["detail_notes"]) ?></textarea></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_profession'] ?>:&nbsp;</td>
+		<td align="right"><label for="select2"><?php echo $BL['be_profile_label_profession'] ?>:&nbsp;</label></td>
 		<td colspan="2"><select name="form_prof" id="select2" class="v12 width250">
 		<?php list_profession($detail["detail_prof"]); ?>
 		</select></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_newsletter'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_newsletter"><?php echo $BL['be_profile_label_newsletter'] ?>:&nbsp;</label></td>
 		<td><input name="form_newsletter" type="checkbox" id="form_newsletter" value="1"<?php is_checked($detail["detail_newsletter"], "1"); ?>></td>
 		<td><?php echo $BL['be_profile_text_newsletter'] ?></td>
 	</tr>
 	<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 	<tr>
-		<td align="right"><?php echo $BL['be_profile_label_public'] ?>:&nbsp;</td>
+		<td align="right"><label for="form_public"><?php echo $BL['be_profile_label_public'] ?>:&nbsp;</label></td>
 		<td width="25"><input name="form_public" type="checkbox" id="form_public" value="1"<?php is_checked($detail["detail_public"], "1"); ?>></td>
         <td width="403"><?php echo $BL['be_profile_text_public'] ?></td>
 	</tr>

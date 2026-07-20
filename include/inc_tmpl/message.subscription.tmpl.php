@@ -54,14 +54,14 @@ if(!isset($_GET["edit"])) {
         $row_count = 0;
         echo '<tr'.( ($row_count % 2) ? ' bgcolor="#f4f4f4"' : '' ).">\n".LF;
         echo '<td>'.html($BL['be_newsletter_allsubscriptions'])."</td>\n";
-        echo '<td nowrap="nowrap" class="text-right">'.countNewsletterRecipients(0)." ".$BL['be_mailinglist_overview_subscribers']."</td>\n<td></td>\n</tr>\n";
+        echo '<td class="text-right text-nowrap">'.countNewsletterRecipients(0)." ".$BL['be_mailinglist_overview_subscribers']."</td>\n<td></td>\n</tr>\n";
         $row_count++;
         foreach($result as $row) {
             echo '<tr'.( ($row_count % 2) ? ' bgcolor="#f4f4f4"' : '' ).">\n".LF;
             echo '<td>';
             echo '<a href="cmsgo.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1">';
             echo '<strong>'.html($row["subscription_name"])."</strong></a></td>\n";
-            echo '<td nowrap="nowrap" class="text-right">';
+            echo '<td class="text-right text-nowrap">';
             $subscribers = countNewsletterRecipients(array("0" =>$row["subscription_id"]));
             if ($subscribers>0) {
               echo $subscribers." ".$BL['be_mailinglist_overview_subscribers'];
@@ -69,7 +69,7 @@ if(!isset($_GET["edit"])) {
               echo "0 ".$BL['be_mailinglist_overview_subscribers'];
             }
             echo "</td>\n";
-            echo '<td nowrap="nowrap" class="text-right">';
+            echo '<td class="text-right text-nowrap">';
             echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="cmsgo.php?do=messages&amp;p=2&amp;s='.$row["subscription_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
             echo '<button id="abtnsubscription'.$row["subscription_id"].'" class="btn fa btn-sm visible '.($row["subscription_active"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row["subscription_id"].'" data-type="subscription"  data-table="subscription" data-field="subscription_active" data-fieldid="subscription_id" aria-disabled="true" data-toggle="tooltip" title="set '.$row["subscription_name"].' verified/not verified"></button>';
             if ($subscribers>0) {

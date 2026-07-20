@@ -22,21 +22,20 @@ initJsCalendar();
 
 <script>
 function showNewsletterTemplateData(tvar) {
-
-  if(tvar == '' || !nltemplate[tvar]) {
+  if (tvar === '' || !nltemplate[tvar]) {
     $("#newsletterTemplateInfo").html('');
     return true;
   }
 
-  var tdata = "";
-  if(nltemplate[tvar]['imgsrc'] != '') {
-    tdata = '<img src="'+nltemplate[tvar]['imgsrc']+'" alt="" border="0" align="left" style="margin:2px 5px 5px 0" />';
+  let tdata = "";
+  if (nltemplate[tvar].imgsrc !== '') {
+    tdata = `<img src="${nltemplate[tvar].imgsrc}" alt="" border="0" align="left" style="margin:2px 5px 5px 0" />`;
   }
-  if(nltemplate[tvar]['title'] != '') {
-    tdata = tdata+'<strong>'+nltemplate[tvar]['title']+'</strong> <br />';
+  if (nltemplate[tvar].title !== '') {
+    tdata += `<strong>${nltemplate[tvar].title}</strong> <br />`;
   }
-  if(nltemplate[tvar]['description'] != '') {
-    tdata = tdata+nltemplate[tvar]['description'];
+  if (nltemplate[tvar].description !== '') {
+    tdata += nltemplate[tvar].description;
   }
   $("#newsletterTemplateInfo").html(tdata);
   return true;
@@ -65,9 +64,9 @@ function showNewsletterTemplateData(tvar) {
     <div class="form-group form-row align-items-center">
       <label for="newsletter_pub" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
       <div class="col-sm-auto">
-        <div class="date input-group" id="datetimepicker">
-          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm datetimepicker" placeholder="DD-MM-YYYY" value="<?php echo cmsgo_strtotime($newsletter["newsletter_pub"], 'd.m.Y', ''); ?>" required />
-          <div class="input-group-append">
+        <div class="date input-group" id="datetimepicker" data-target-input="#newsletter_pub">
+          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo cmsgo_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" data-target="#newsletter_pub" autocomplete="off" required />
+          <div class="input-group-append" data-target="#newsletter_pub" data-toggle="datetimepicker">
             <span class="datepickerbutton input-group-text btn form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
         </div>
@@ -75,9 +74,12 @@ function showNewsletterTemplateData(tvar) {
     </div>
     <script type="text/javascript">
       $(function () {
-          $('#datetimepicker').datetimepicker({
-            locale: 'de-ch',
-            format: "DD.MM.YYYY"
+          $('#newsletter_pub').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
           });
       });
     </script>

@@ -541,7 +541,7 @@ function handle_csrf_error($reason)
 
     $bootstrap_css = CMSGO_URL . 'include/inc_css/bootstrap.min.css';
     $login_css = CMSGO_URL . 'include/inc_css/login.min.css';
-    $fontawesome_css = CMSGO_URL . 'include/inc_css/cmsgo-fontawesome.css';
+    $fontawesome_css = CMSGO_URL . 'include/inc_css/cmsgo-fontawesome.min.css';
     $special_css = CMSGO_URL . 'include/inc_css/cmsgospecial.min.css';
     $logo_svg = CMSGO_URL . 'img/logo.svg';
 

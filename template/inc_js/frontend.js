@@ -1,122 +1,143 @@
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+/**
+ * Restore swapped images to their original source URLs.
+ * Reverts the images manipulated by MM_swapImage.
+ */
+function MM_swapImgRestore() {
+  const sr = document.MM_sr;
+  if (sr) {
+    for (let i = 0; i < sr.length; i++) {
+      const el = $(sr[i]);
+      const oSrc = el.data('oSrc');
+      if (oSrc) {
+        el.attr('src', oSrc);
+      }
+    }
+  }
 }
 
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
+/**
+ * Locate a DOM element by its ID.
+ * Kept for backwards compatibility with legacy layout dependencies.
+ *
+ * @param {string} n - The element ID.
+ * @param {Document|HTMLElement} d - The context document or element (optional).
+ * @returns {HTMLElement|null} The DOM element if found.
+ */
+function MM_findObj(n, d) {
+  const el = $('#' + n, d || document);
+  return el.length ? el[0] : null;
 }
 
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=[]; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+/**
+ * Swap image source files dynamically (commonly used for image hovers).
+ * Accepts arguments in groups of three: element ID, ignored dummy parameter, and target image URL.
+ */
+function MM_swapImage() {
+  const args = arguments;
+  document.MM_sr = [];
+  for (let i = 0; i < (args.length - 2); i += 3) {
+    const el = $('#' + args[i]);
+    if (el.length) {
+      document.MM_sr.push(el[0]);
+      if (!el.data('oSrc')) {
+        el.data('oSrc', el.attr('src'));
+      }
+      el.attr('src', args[i + 2]);
+    }
+  }
 }
 
-function clearText(thefield){
-if (thefield.defaultValue==thefield.value) thefield.value = "";
-}
-
-function MM_showHideLayers() { //v6.0
-  var i,p,v,obj,args=MM_showHideLayers.arguments;
-  for (i=0; i<(args.length-2); i+=3) if ((obj=MM_findObj(args[i]))!=null) { v=args[i+2];
-    if (obj.style) { obj=obj.style; v=(v=='show')?'visible':(v=='hide')?'hidden':v; }
-    obj.visibility=v; }
-}
-
-function int_only(value) {
-	value = parseInt(value,10);
-	if(value<0) value = value * -1;
-	return (value) ? value+"" : "";
-}
-
+/**
+ * Alert fallback for bookmarking the current page.
+ * Legacy window.sidebar and window.external bookmark methods are defunct in modern browsers.
+ *
+ * @param {string} alerttext - Custom bookmark message (optional).
+ */
 function BookMark_Page(alerttext) {
-	var title = document.title;
-	var url = this.location;
-	if (window.sidebar) { // Mozilla Firefox Bookmark
-		window.sidebar.addPanel(title, url,"");
-	} else if( window.external ) { // IE Favorite
-		window.external.AddFavorite( url, title);
-	} else {
-		if(!alerttext) alerttext = "To bookmark this page use [Ctrl+D]";
-		alert(alerttext);
-	}
-	return false;
+  const alertMsg = alerttext || "To bookmark this page use [Ctrl+D] or [Cmd+D]";
+  alert(alertMsg);
+  return false;
 }
 
-function addText(id,text) {
-	var menuobj = getObjectById(id);
-	if(menuobj !== false) {
-		menuobj.innerHTML=text;
-	}
+/**
+ * Replace the HTML content of a specified container.
+ *
+ * @param {string} id - The container element ID.
+ * @param {string} text - The replacement HTML content.
+ */
+function addText(id, text) {
+  $('#' + id).html(text);
 }
 
-function MM_displayStatusMsg(msgStr) { //v1.0
-  status=msgStr;
+/**
+ * Legacy status bar message handler.
+ * Setting window.status is blocked by modern browsers for security reasons.
+ */
+function MM_displayStatusMsg(msgStr) {
+  window.status = msgStr;
   document.MM_returnValue = true;
 }
 
-var clickZoomImage;
-function clickZoom(url,imgname,windowstatus) {
-	clickZoomImage=window.open(url,imgname,windowstatus);
-	if (window.focus) {
-		clickZoomImage.focus();
-	}
+// Global reference to the popup zoom window instance.
+let clickZoomImage = null;
+
+/**
+ * Open a zoom/preview window for images.
+ *
+ * @param {string} url - Target image/page URL.
+ * @param {string} imgname - Target window name.
+ * @param {string} windowstatus - Specs and features of the popup window.
+ */
+function clickZoom(url, imgname, windowstatus) {
+  clickZoomImage = window.open(url, imgname, windowstatus);
+  if (clickZoomImage && window.focus) {
+    clickZoomImage.focus();
+  }
 }
+
+/**
+ * Close the clickZoom preview popup window if it is currently open.
+ */
 function checkClickZoom() {
-	if (clickZoomImage) {
-		clickZoomImage.close();
-	}
+  if (clickZoomImage && !clickZoomImage.closed) {
+    clickZoomImage.close();
+  }
 }
 
-var layerDisplayStatus = [];
-// switch layer visibility
+// Memory of current CSS display values mapped by layer ID.
+const layerDisplayStatus = {};
+
+/**
+ * Toggle the CSS display mode of a specific element.
+ *
+ * @param {string} whichLayer - The element ID.
+ * @param {string} status - Target CSS display value (e.g. 'none', 'block').
+ */
 function toggleLayerDisplay(whichLayer, status) {
-	// store current layer status
-	layerDisplayStatus[whichLayer] = status;
-	var layer = getObjectById(whichLayer);
-	if(layer !== false) {
-		layer.style.display = status;
-	}
+  layerDisplayStatus[whichLayer] = status;
+  $('#' + whichLayer).css('display', status);
 }
 
-function toggleClassName(whichLayer, newClassName) {
-	var layer = getObjectById(whichLayer);
-	if(layer !== false && newClassName) {
-		layer.className = newClassName;
-	}
-}
-
+/**
+ * Trigger redirection to a mailto mail client scheme.
+ *
+ * @param {string} part1 - The mailbox name.
+ * @param {string} part2 - The target domain name.
+ */
 function mailtoLink(part1, part2) {
-	if(part1 && part2) {
-		window.location.href="mailto:"+part1+"@"+part2;
-		return true;
-	}
-	return false;
+  if (part1 && part2) {
+    window.location.href = `mailto:${part1}@${part2}`;
+    return true;
+  }
+  return false;
 }
 
+/**
+ * Register a callback to fire when the page environment is fully loaded.
+ * Uses jQuery document-ready shortcut internally.
+ *
+ * @param {function} func - The callback function.
+ */
 function addLoadEvent(func) {
-	var oldonload = window.onload;
-	if (typeof window.onload != 'function') {
-		window.onload = func;
-	} else {
-		window.onload = function() {
-			oldonload();
-			func();
-		}
-	}
-}
-
-function getObjectById(fld) {
-	if (document.getElementById && document.getElementById(fld) != null) {
-		return document.getElementById(fld);
-	} else if (document.layers && document.layers[fld] != null) {
-		return document.layers[fld];
-	} else if (document.all) {
-		return document.all(fld);
-	} else {
-		return false;
-	}
+  $(func);
 }

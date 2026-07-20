@@ -19,7 +19,21 @@ $wcsnav                     = array();
 $indexpage                  = array();
 $cmsgo                      = array('SESSION_START' => true);
 $BL                         = array();
-$BE                         = array('HTML' => '', 'BODY_OPEN' => array(), 'BODY_CLOSE' => array(), 'HEADER' => array(), 'LANG' => 'en');
+$BE                         = array(
+    'HTML' => '',
+    'BODY_OPEN' => array(),
+    'BODY_CLOSE' => array(),
+    'HEADER' => array(),
+    'LANG' => 'en',
+    'CSP' => array(
+        'default-src' => array('*'),
+        'img-src' => array("'self'", 'data:', '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'style-src' => array("'self'", 'data:', "'unsafe-inline'"),
+        'script-src' => array("'self'", "'unsafe-inline'", "'unsafe-eval'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'script-src-elem' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
+        'connect-src' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com')
+    )
+);
 $CMSGO_ROOT                 = dirname(__FILE__);
 
 require_once $CMSGO_ROOT.'/include/config/conf.inc.php';
@@ -141,20 +155,19 @@ header('Content-Type: text/html; charset=' . CMSGO_CHARSET);
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CMSGO_CHARSET ?>">
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/cmsgo-fontawesome.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/cmsgo-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/cmsgospecial.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="content-security-policy" content="default-src *; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src-elem 'self' 'unsafe-inline'; connect-src 'self' 'unsafe-inline'">
-    <script>var CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
+    <!-- cmsGO! CSP -->
+    <script>const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';</script>
 <?php
 
 $BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
 $BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
-$BE['HEADER']['alias_slash_var'] = ' <script type="text/javascript"> var aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
+$BE['HEADER']['alias_slash_var'] = ' <script>const aliasAllowSlashes=' . (CMSGO_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (CMSGO_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
 $BE['HEADER']['cmsgo-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['cmsgo.js'] = getJavaScriptSourceLink('include/inc_js/cmsgo.min.js');
-$BE['HEADER']['textarea.autosize.js'] = getJavaScriptSourceLink('include/inc_js/autosize.min.js');
 
 if ($do == "messages" && $p == 1) {
     include CMSGO_ROOT.'/include/inc_lib/message.sendjs.inc.php';
@@ -181,11 +194,11 @@ if($BE['LANG'] == 'ar') {
 <div id="container">
   <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
-      <div id="header-logo" class="navbar-header"><a href="cmsgo.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System"></a></div>
+      <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="cmsgo.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="cmsGO! Content Management System" title="cmsGO! Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
-      <ul class="nav navbar-nav ml-auto navbar-right">
-        <li><a href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="<?php echo CMSGO_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
+        <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
             <form class="dropdown-menu dropdown-menu-right backend-search" action="cmsgo.php?<?php echo get_token_get_string(); ?>" method="POST">
                 <div class="input-group">
                     <input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
@@ -205,10 +218,10 @@ if($BE['LANG'] == 'ar') {
             </form>
         </li>
         <?php if (in_array($_SESSION["wcs_user_id"], $grouparray["profile"])) {
-          $active = ($do == 'profile') ? ' class="active"' : '';
-          echo '<li><a href="cmsgo.php?do=profile"'.$active.'><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
+          $active = ($do == 'profile') ? ' active' : '';
+          echo '<li class="nav-item' . $active . '"><a class="nav-link" href="cmsgo.php?do=profile"><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
-        <li><a href="cmsgo.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="cmsgo.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
       </ul>
     </div>
   </header>
@@ -594,6 +607,15 @@ if ($body_onload) {
 }
 
 //$BE['HEADER'][] = '';
+
+// generate CSP meta tag from late-modified array
+$csp_parts = array();
+foreach ($BE['CSP'] as $directive => $sources) {
+    $csp_parts[] = $directive . ' ' . implode(' ', array_unique($sources));
+}
+$csp_content = implode('; ', $csp_parts);
+$csp_meta = '<meta http-equiv="content-security-policy" content="' . html_specialchars($csp_content) . '">';
+$BE['HTML'] = str_replace('<!-- cmsGO! CSP -->', $csp_meta, $BE['HTML']);
 
 // html head section
 $BE['HTML'] = str_replace('<!-- cmsGO! HEADER -->', implode(LF, $BE['HEADER']), $BE['HTML']);

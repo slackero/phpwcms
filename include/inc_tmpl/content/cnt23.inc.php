@@ -726,7 +726,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         $field_js['showAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'block\'';
         $field_js['hideAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
-        echo '<li class="sortme" id="sortRow_'.$field_counter.'"><table class="table-no-border w-100"><tr'.$field_bg.'>';
+        echo '<li class="sortme" id="sortRow_'.$field_counter.'"><table class="table-borderless w-100"><tr'.$field_bg.'>';
         echo '<td width="30"><em data-toggle="tooltip" title="Sortieren: hoch / Sortieren: runter" class="handle text-secondary"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></td>';
         echo '<td width="30" class="text-center" id="formRow_'.$field_counter.'">';
         echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
@@ -896,7 +896,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 
 
         echo '<tr'.$field_bg.' id="formRow_'.$field_counter.'_1"><td>&nbsp;</td>';
-        echo '<td valign="top"><table class="table-no-border w-100"><tr><td valign="top">';
+        echo '<td valign="top"><table class="table-borderless w-100"><tr><td valign="top">';
         echo '';
         if($field_counter != 1) {
             //echo '<a href="#" onclick="document.articlecontent.cform_order_'.$field_counter.'.value=\'';
@@ -961,7 +961,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         echo '<td class="pb-2"><input type="text" name="cform_field_class['.$field_counter.']" value="';
         echo  html($content['form']["fields"][$key]['class']).'" class="form-control form-control-sm"></td>';
         echo '<td colspan="3">
-             <table class="table-no-border w-100" cellpadding="0" cellspacing="0" border="0"><tr>
+             <table class="table-borderless w-100"><tr>
              <td style="width: 80px;" class="text-right pb-2">&nbsp;'.$BL['be_cnt_css_style'].':&nbsp;</td>
              <td class="pb-2"><input type="text" name="cform_field_style['.$field_counter.']" value="';
         echo html($content['form']["fields"][$key]['style']).'" class="form-control form-control-sm"></td></tr></table></td>';
@@ -983,7 +983,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
 }
 ?></ul>
 
-<table class="table-no-border w-100 bg-grey mb-3">
+<table class="table-borderless w-100 bg-grey mb-3">
   <tr>
     <td width="30">&nbsp;</td>
     <td width="30">&nbsp;</td>
@@ -1055,7 +1055,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
     <td colspan="3" align="right">&nbsp;<?php echo $BL['be_cnt_css_class'] ?>&nbsp;</td>
     <td><input type="text" name="cform_field_class[0]" class="form-control form-control-sm" /></td>
     <td colspan="3">
-    <table class="table-no-border w-100" >
+    <table class="table-borderless w-100">
         <tr>
         <td style="width:80px;" align="right">&nbsp;<?php echo $BL['be_cnt_css_style'] ?>&nbsp;</td>
         <td><input type="text" name="cform_field_style[0]" class="form-control form-control-sm" /></td>

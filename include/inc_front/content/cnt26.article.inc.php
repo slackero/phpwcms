@@ -79,7 +79,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 			}
 			if(isset($temp_val['li'])) {
 				$crow["acontent_form"]['ingredients']	.= '<ul>' . LF . implode(LF, $temp_val['li']) . LF . '</ul>' . LF;
-				$crow["acontent_form"]['i_table']		.= '<table cellpadding="0" cellspacing="0" border="0">' . LF . implode(LF, $temp_val['tr']) . LF . '</table>' . LF;
+				$crow["acontent_form"]['i_table']		.= '<table>' . LF . implode(LF, $temp_val['tr']) . LF . '</table>' . LF;
 			}
 		}
 	}

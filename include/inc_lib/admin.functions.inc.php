@@ -49,10 +49,10 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $forbid_copy    = $struct[$key]["acat_struct"] == $copy_id || $forbid_copy ? 1 : 0;
 
     $an = html($struct[$key]["acat_name"]);
-    $a  = "<tr bgcolor=\"#e8e8e8\" onmouseover=\"this.bgColor='#D2EED9';\" onmouseout=\"this.bgColor='#e8e8e8';\">\n";
-    $a .= '<td width="80%">'.LF;
-    $a .= '<table class="table-no-border"'.">\n<tr>\n";
-    $a .= '<td nowrap="nowrap" class="text-right here">'.LF;
+    $a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
+    $a .= '<td class="w-80">'.LF;
+    $a .= '<table class="table-borderless"'.">\n<tr>\n";
+    $a .= '<td class="text-right here text-nowrap">'.LF;
     $a .= ($child_count) ? "<a href=\"cmsgo.php?".$page_val."&amp;open=".rawurlencode($struct[$key]["acat_id"].":".((!empty($_SESSION["structure"][$struct[$key]["acat_id"]]))?0:1))."\">" : "";
 
     $a .= '<i class="fa fa-caret-'.(($child_count) ? (empty($_SESSION["structure"][$struct[$key]["acat_id"]]) ? "right" : "down") : "right").' fa-fw alist-'.$counter.'" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
@@ -84,7 +84,7 @@ function struct_levellist($struct, $key, $counter, $copy_article_content, $cut_a
     $a .= '<td class="dir" width="95%"><strong><a href="';
     $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($struct[$key]["acat_alias"]) ? 'id='.$struct[$key]["acat_id"] : $struct[$key]["acat_alias"]);
     $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$an.'">';
-    $a .= $an . '</a></strong></td></tr></table></td><td class="nowrap text-right" nowrap="nowrap">'.LF;
+    $a .= $an . '</a></strong></td></tr></table></td><td class="text-nowrap text-right">'.LF;
     $a .= '<span class="mr-3 flag-icon flag-icon-'.$struct[$key]['acat_lang'].'" data-toggle="tooltip" title="" data-original-title="'.$struct[$key]['acat_lang'].'"></span>';
 
     $a .= listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $cut_article_content, $copy_article, $copy_id, $cut_article, $cut_id, $forbid_cut, $forbid_copy, $count_row, $child_sort);
@@ -206,18 +206,18 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $at = html($article[$akey]["article_title"]);
 
         if($cut_article == $article[$akey]["article_id"] ) {
-            $a = "<tr bgColor='#D2EED9'>\n";
+            $a = "<tr class=\"bg-row-success-light\">\n";
         } elseif($copy_article == $article[$akey]["article_id"]){
-            $a = "<tr bgColor='#D2EED9'>\n";
+            $a = "<tr class=\"bg-row-success-light\">\n";
         } else {
-            $a = "<tr bgcolor=\"#f5f5f5\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#f5f5f5';\">\n";
+            $a = "<tr class=\"hover-success bg-row-alt-grey\">\n";
         }
 
-        $a .= '<td width="80%">'.LF;
-        $a .= '<table class="table-no-border">'.LF.'<tr>'.LF;
+        $a .= '<td class="w-80">'.LF;
+        $a .= '<table class="table-borderless">'.LF.'<tr>'.LF;
 
         $acontent_count = get_article_content_count($article[$akey]["article_id"]);
-        $a .= '<td nowrap="nowrap">';
+        $a .= '<td class="text-nowrap">';
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
             $a .= ($acontent_count) ? "<a href=\"cmsgo.php?do=articles&amp;opena=".rawurlencode($article[$akey]["article_id"].":".((!empty($_SESSION["structure"]["article"][$article[$akey]["article_id"]]))?0:1))."\">" : "";
             $a .= "<i class=\"fa fa-caret-".(($acontent_count) ? ((!empty($_SESSION["structure"]["article"][ $article[$akey]["article_id"] ])) ? "down" : "right") : "right");
@@ -251,7 +251,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<td class="dir" width="95%"><a href="';
         $a .= rel_url(array('cmsgo-preview'=>1), array(), empty($article[$akey]["article_alias"]) ? 'aid='.$article[$akey]["article_id"] : $article[$akey]["article_alias"]);
         $a .= '" target="_blank" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].': '.$at.'">';
-        $a .= $at.'</a></td></tr></table></td><td nowrap="nowrap" class="nowrap text-right">';
+        $a .= $at.'</a></td></tr></table></td><td class="text-nowrap text-right">';
         if (!empty($article[$akey]["article_lang"])) {
             $a .= '<span class="mr-3 flag-icon flag-icon-' . $article[$akey]["article_lang"] . '" data-toggle="tooltip" title="" data-original-title="' . $article[$akey]["article_lang"] . '"></span>';
         }
@@ -358,11 +358,11 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $info .= '</table>';
 
             if($cut_article_content == $article_content["acontent_id"] ) {
-                $a .= "<tr bgcolor=\"#FFC4CB\">\n";
+                $a .= "<tr class=\"bg-row-pink\">\n";
             } elseif($copy_article_content == $article_content["acontent_id"]) {
-                $a .= "<tr bgcolor=\"#FFC4CB\">\n";
+                $a .= "<tr class=\"bg-row-pink\">\n";
             } else {
-                $a .= "<tr style=\"border-bottom: 1px solid #dfdfdf;\" onmouseover=\"this.bgColor='#FFF4CB';\" onmouseout=\"this.bgColor='#FFFFFF';\">\n";
+                $a .= "<tr class=\"hover-amber border-bottom-light bg-row-white\">\n";
             }
             $a .= '<td><i class="fa fa-list-alt fa-fw aclist-'.($counter).'" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>&nbsp;';
 
@@ -374,7 +374,7 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= $ab;
 
             $a .= "&nbsp;".html(' {'.$article_content['acontent_block'].'} ').'</td>';
-            $a .= '<td nowrap="nowrap" class="text-right" style="padding:3px 5px 3px 0;white-space:nowrap;">';
+            $a .= '<td class="text-right text-nowrap cell-actions">';
             $at = ' ' . $ab . ' ';
 
             if($cut_article_content) {

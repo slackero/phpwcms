@@ -159,7 +159,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=12">
             <i class="fa fa-fw fa-folder-open"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_internal_name_h264').value='';getObjectById('fmp_internal_id_h264').value='0';this.blur();return false;">
+        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_h264').value='';document.getElementById('fmp_internal_id_h264').value='0';this.blur();return false;">
             <i class="far fa-fw fa-trash-alt"></i>
         </button>
     </div>
@@ -198,7 +198,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=13">
             <i class="fa fa-fw fa-folder-open"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_internal_name_webm').value='';getObjectById('fmp_internal_id_webm').value='0';this.blur();return false;">
+        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_webm').value='';document.getElementById('fmp_internal_id_webm').value='0';this.blur();return false;">
             <i class="far fa-fw fa-trash-alt"></i>
         </button>
     </div>
@@ -237,7 +237,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=14">
             <i class="fa fa-fw fa-folder-open"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_internal_name_ogg').value='';getObjectById('fmp_internal_id_ogg').value='0';this.blur();return false;">
+        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name_ogg').value='';document.getElementById('fmp_internal_id_ogg').value='0';this.blur();return false;">
             <i class="far fa-fw fa-trash-alt"></i>
         </button>
     </div>
@@ -281,7 +281,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=6">
             <i class="fa fa-fw fa-folder-open"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_internal_name').value='';getObjectById('fmp_internal_id').value='0';this.blur();return false;">
+        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_internal_name').value='';document.getElementById('fmp_internal_id').value='0';this.blur();return false;">
             <i class="far fa-fw fa-trash-alt"></i>
         </button>
     </div>
@@ -328,7 +328,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
         <button type="button" class="btn btn-sm btn-blue modalButton" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=7">
             <i class="fa fa-fw fa-folder-open"></i>
         </button>
-        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="getObjectById('fmp_img_name').value='';getObjectById('fmp_img_id').value='0';this.blur();return false;">
+        <button type="button" class="btn btn-sm btn-danger" title="<?php echo $BL['be_cnt_delmedia'] ?>" onclick="document.getElementById('fmp_img_name').value='';document.getElementById('fmp_img_id').value='0';this.blur();return false;">
             <i class="far fa-fw fa-trash-alt"></i>
         </button>
     </div>

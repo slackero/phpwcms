@@ -40,7 +40,7 @@ if($data) {
     foreach($data as $key => $row) {
         echo '<tr'.( ($key % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
 
-        echo '<td class="dir nowrap" width="13%">';
+        echo '<td class="dir text-nowrap" width="13%">';
 
         if(SHOP_FELANG_SUPPORT) {
             $row['order_data']		= @unserialize($row['order_data'], ['allowed_classes' => false]);
@@ -50,7 +50,7 @@ if($data) {
 
         echo html_specialchars($row['order_number'])."&nbsp;</td>\n";
         echo '<td class="dir" width="13%">'.html_specialchars($row['order_fdate'])."</td>\n";
-        echo '<td class="dir nowrap">';
+        echo '<td class="dir text-nowrap">';
         echo html_specialchars($row['order_firstname'].' '.$row['order_name'])."</td>\n";
 
         echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_net'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";

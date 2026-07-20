@@ -16,16 +16,18 @@ if (!defined('CMSGO_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
+<h2 class="mb-3"><?php echo $BLM['listing_user'] ?></h2>
 
-<div class="card mt-4">
-  <div class="card-header"><h2><?php echo $BLM['listing_user'] ?></h2></div>
-    <div class="card-body">
-      <table class="table table-sm table-striped mb-0" summary="">
-        <tr>
-          <th><?php echo $BLM['username'] ?></th>
-          <th><?php echo $BLM['userdatum'] ?></th>
-        </tr>
-        <?php
+<div class="table-responsive">
+  <table class="table table-sm table-striped table-hover mb-0">
+    <thead>
+      <tr>
+        <th><?php echo $BLM['username'] ?></th>
+        <th><?php echo $BLM['userdatum'] ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
       // now retrieve all users
       $result = _dbQuery('SELECT * FROM '.DB_PREPEND.'cmsgo_userlog ORDER BY logged_start DESC LIMIT 0,100');
       $x = 0;
@@ -40,10 +42,9 @@ if (!defined('CMSGO_ROOT')) {
         }
       }
       ?>
-      </table>
-    </div>
-  </div>
+    </tbody>
+  </table>
+</div>
 
-
-  </div>
+</div>
 </div>

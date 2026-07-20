@@ -502,6 +502,8 @@ $BL['be_article_err4']                  = 'end date given was wrong - set to now
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edit article basis information';
 $BL['be_article_eslastedit']            = 'last edit';
+$BL['be_article_created_at']            = 'created at';
+$BL['be_article_updated_at']            = 'updated at';
 $BL['be_article_esnoupdate']            = 'form not updated';
 $BL['be_article_esbutton']              = 'update article data';
 
@@ -535,7 +537,7 @@ $BL['be_article_cnt_addtitle']          = 'add new content part';
 $BL['be_article_cnt_up']                = 'move content up';
 $BL['be_article_cnt_down']              = 'move content down';
 $BL['be_article_cnt_edit']              = 'edit content part';
-$BL['be_article_cnt_delpart']           = 'delete this article content part';
+$BL['be_article_cnt_delpart']           = 'delete content part';
 $BL['be_article_cnt_delpartjs']         = 'Delete content part?';
 $BL['be_article_cnt_center']            = 'article center';
 
@@ -1186,7 +1188,7 @@ $BL['be_check_against_category_alias']  = 'link single article inside structure 
 
 $BL['be_overwrite_default']             = 'Will overwrite default settings of config file';
 $BL['be_cnt_sortvalue']                 = 'sort&nbsp;value';
-$BL['be_dialog_warn_nosave']            = 'If you continue no change will be saved!\nAre you sure you want to continue?';
+$BL['be_dialog_warn_nosave']            = 'If you continue no changes will be saved!\nDo you want to cancel?';
 $BL['be_cnt_paginate_subsection']       = 'subsection';
 $BL['be_cnt_subsection_tite']           = 'subsection title';
 $BL['be_cnt_subsection_warning']        = 'Numbering subsections (paginate content parts) is available for\nmain column (CONTENT) only!';
@@ -1588,8 +1590,8 @@ $BL['iptc_SubjectNewsCode'] = 'subject news code';
 $BL['iptc_iimVersion'] = 'version';
 
 $BL['be_suppress_render_caption'] = 'suppress rendering of the caption';
-$BL['be_cnt_attribute_class'] = 'CSS class';
-$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
 $BL['be_not_set'] = 'not set';
 $BL['be_licensed_under_GPL'] = 'Licensed under GPL.';
@@ -1645,3 +1647,15 @@ $BL['modal_delete'] = 'Delete';
 $BL['modal_move'] = 'Move';
 $BL['modal_copy'] = 'Copy';
 $BL['modal_flush'] = 'Flush';
+$BL['be_metadata'] = 'Meta data';
+$BL['be_content'] = 'Content';
+$BL['be_images'] = 'Images';
+$BL['be_article_show'] = 'Show';
+$BL['be_active'] = 'Active';
+$BL['be_cnt_summary_label'] = 'Summary';
+$BL['be_cnt_max_words'] = 'max. words';
+
+
+
+
+

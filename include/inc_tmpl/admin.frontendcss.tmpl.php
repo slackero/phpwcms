@@ -21,7 +21,7 @@ $frontend_css = ($frontend_css) ? html($frontend_css) : "";
 
 ?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self">
 
-    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+    <table width="538">
 
         <tr>
           <td colspan="2" class="title"><?php echo $BL['be_admin_css_title'] ?></td>

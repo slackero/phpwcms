@@ -24,7 +24,7 @@ if (!defined('CMSGO_ROOT')) {
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
 <div class="table-responsive" style="overflow-x: inherit">
-<table class="table table-sm mb-0" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+<table class="table table-sm mb-0">
 <?php
 
 $listmode = 0;
@@ -65,10 +65,10 @@ $child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
-$a  = "<tr bgcolor=\"#e8e8e8\" onMouseOver=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#e8e8e8';\">\n";
+$a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
 $a .= '<td>';
-$a .= "<table class=\"table-no-border\" border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
-$a .= '<td nowrap="nowrap">';
+$a .= "<table class=\"table-borderless\">\n<tr>\n";
+$a .= '<td class="text-nowrap">';
 $a .= ($child_count) ? '<a href="cmsgo.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
 
 $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
@@ -83,7 +83,7 @@ $a .= "</td>\n";
 $a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td nowrap="nowrap" class="text-right">';
+echo '<td class="text-nowrap text-right">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;

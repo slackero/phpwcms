@@ -83,7 +83,7 @@ if(isset($_GET['open'])) {
   ?>
   <form action="cmsgo.php?do=admin&amp;p=7&amp;fcatid=<?php echo $fcat["id"] ?>" method="post" name="filecategory" id="filecategory" class="mb-4">
 
-  <table border="0" cellpadding="0" cellspacing="0" summary="">
+  <table>
     <?php if(!empty($fcat["error"])) { ?>
     <tr>
       <td style="color:#FF3300;"><?php echo $BL['be_admin_usr_err'] ?>:&nbsp;</td>
@@ -98,12 +98,12 @@ if(isset($_GET['open'])) {
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td class="pb-2"><input name="fcat_sort" type="text" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fcat_sort" type="number" id="fcat_sort" class="form-control" value="<?php echo empty($fcat["sort"]) ? 0 : $fcat["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-      <td class="bg-grey p-2"><table border="0" cellpadding="0" cellspacing="0" summary="">
+      <td class="bg-grey p-2"><table>
         <tr>
           <td><input class="form-check" name="fcat_active" type="checkbox" id="fcat_active" value="1"<?php is_checked(1, empty($fcat["active"]) ? 0 : $fcat["active"]); ?> /></td>
           <td><label for="fcat_active" class="pl-1 pr-3"><?php echo $BL['be_ftptakeover_active'] ?></label></td>
@@ -182,7 +182,7 @@ if(isset($_GET['open'])) {
     }
   ?>
   <form action="cmsgo.php?do=admin&amp;p=7&amp;fkeyid=<?php echo $fkey["id"]."&cid=".$fkey["cid"] ?>" method="post" name="filekey" id="filekey" class="mb-4">
-  <table border="0" cellpadding="0" cellspacing="0" summary="">
+  <table>
   <tr>
       <td><?php echo $BL['be_admin_fcat_fcat'] ?>:&nbsp;</td>
       <td class="pb-2">
@@ -216,12 +216,12 @@ if(isset($_GET['open'])) {
 
     <tr>
       <td><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-      <td class="pb-2"><input name="fkey_sort" type="text" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
+      <td class="pb-2"><input name="fkey_sort" type="number" id="fkey_sort" class="form-control" value="<?php echo empty($fkey["sort"]) ? 0 : $fkey["sort"] ?>" size="10" maxlength="8" /></td>
     </tr>
 
     <tr>
       <td><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-      <td class="bg-grey p-2"><table border="0" cellpadding="0" cellspacing="0" summary="">
+      <td class="bg-grey p-2"><table>
         <tr>
           <td><input class="form-check" name="fkey_active" type="checkbox" id="fkey_active" value="1"<?php is_checked(1, empty($fkey["active"]) ? 0 : $fkey["active"]); ?> /></td>
           <td><label for="fkey_active" class="pl-1"><?php echo $BL['be_ftptakeover_active'] ?></label>&nbsp;&nbsp;</td>
@@ -249,12 +249,12 @@ if(isset($_GET['open'])) {
     $sql = "SELECT * FROM ".DB_PREPEND."cmsgo_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
     if(isset($result[0]['fcat_id'])) {
-        echo '<table border="0" cellpadding="0" cellspacing="0" summary="" class="mb-4">';
+        echo '<table class="mb-4">';
 
         foreach($result as $row) {
 
-            echo "<tr onmouseover=\"this.bgColor='#D2EED9';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
-            echo "<td width=\"483\"><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
+            echo "<tr class=\"hover-success\">\n";
+            echo "<td width=\"483\"><table>\n<tr>\n";
 
             $child_count = get_filecat_childcount($row["fcat_id"]);
 
@@ -265,7 +265,7 @@ if(isset($_GET['open'])) {
             echo "<td><strong".(($row["fcat_needed"])?" style=\"color:#FF3300\"":"").">".html($row["fcat_name"])."</strong> [".$row["fcat_sort"]."]</td>\n";
             echo "</tr>\n</table></td>".LF;
 
-            echo '<td width="66" class="nowrap" align="right">';
+            echo '<td width="66" class="text-nowrap" align="right">';
 
             echo "<a href=\"cmsgo.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" title=\"".$BL['be_admin_fcat_addkey']."\">";
             echo "<img src=\"img/button/add_22x11.gif\" width=\"22\" height=\"11\" border=\"0\"></a>";
@@ -288,8 +288,8 @@ if(isset($_GET['open'])) {
                 $kresult = _dbQuery($ksql);
                 if(isset($kresult[0]['fkey_id'])) {
                     foreach($kresult as $krow) {
-                        echo "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
-                        echo "<td><table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n";
+                        echo "<tr class=\"hover-warning\">\n";
+                        echo "<td><table>\n<tr>\n";
                         echo "<td><img src=\"img/leer.gif\" width=\"11\" height=\"1\"></td>\n";
                         echo "<td><img src=\"img/symbole/key_1.gif\" width=\"11\" height=\"15\"></td>\n";
                         echo "<td>".html($krow['fkey_name'])." [".$krow['fkey_sort']."]</td>\n";

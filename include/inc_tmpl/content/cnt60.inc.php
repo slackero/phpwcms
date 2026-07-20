@@ -282,7 +282,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'):
 
 elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-            <table border="0" cellpadding="0" cellspacing="0">
+            <table>
                 <tr>
                     <td>
                         <input
@@ -313,9 +313,9 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
                     <td><a
                         href="#"
                         title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                        onclick="getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
-                            echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                        onclick="document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
+                            echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                             echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                         ><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
                 </tr>
@@ -349,7 +349,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
             </table>
             <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
             <div id="image_<?php echo $custom_field.'_'.$key; ?>">
-              <table border="0" cellpadding="0" cellspacing="0">
+              <table>
                   <tr>
                       <td id="img_preview_<?php echo $custom_field.'_'.$key; ?>" rowspan="3" class="backend_preview_img"></td>
                       <td>
@@ -382,9 +382,9 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
                       <td><a
                           href="#"
                           title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                          onclick="getObjectById('customfield_<?php
-                              echo $custom_field.'_'.$key; ?>_name').value='';getObjectById('customfield_<?php
-                              echo $custom_field.'_'.$key; ?>_id').value='';getObjectById('customfield_<?php
+                          onclick="document.getElementById('customfield_<?php
+                              echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
+                              echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
                               echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
                           ><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
                   </tr>
@@ -605,7 +605,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'bool'):
 
 elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
 
-    new_entry += '<table border="0" cellpadding="0" cellspacing="0">';
+    new_entry += '<table>';
     new_entry += '  <tr>';
     new_entry += '      <td>';
     new_entry += '          <input';
@@ -628,9 +628,9 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '      <td><a';
     new_entry += '              href="#"';
     new_entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-    new_entry += '              onclick="getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
+    new_entry += '              onclick="document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';document.getElementById(\'customfield_<?php
                                 echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
     new_entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
     new_entry += '  <'+'/tr>';
@@ -655,7 +655,7 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '<'+'/table>';
     <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
 
-    new_entry += '<table border="0" cellpadding="0" cellspacing="0">';
+    new_entry += '<table>';
     new_entry += '  <tr>';
     new_entry += '      <td>';
     new_entry += '          <input';
@@ -678,9 +678,9 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '      <td><a';
     new_entry += '              href="#"';
     new_entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-    new_entry += '              onclick="getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';getObjectById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';getObjectById(\'customfield_<?php
+    new_entry += '              onclick="document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php
+                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';document.getElementById(\'customfield_<?php
                                 echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
     new_entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
     new_entry += '  <'+'/tr>';

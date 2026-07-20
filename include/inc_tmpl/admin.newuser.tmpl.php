@@ -178,7 +178,7 @@ if(empty($user_ok)) {
 				<div class="col">
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
-					<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
+					<label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
 				</div>
 				</div>
 			</div>

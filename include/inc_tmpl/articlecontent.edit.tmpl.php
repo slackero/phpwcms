@@ -29,22 +29,24 @@ if(empty($content['article']['acat_id'])) { // Root structure
     $content['article']['acat_id']          = 0;
     $content['article']['acat_template']    = $indexpage['acat_template'];
 }
-
-// Livedate / killdate fallback
-if(empty($content["livedate"])) {
-    $content["livedate"] = '';
-    $set_livedate = 0;
-} else {
-    $set_livedate = 1;
-}
-if(empty($content["killdate"])) {
-    $content["killdate"] = '';
-    $set_killdate = 0;
-} else {
-    $set_killdate = 1;
-}
 ?>
 <script type="text/javascript">
+    var initialContentFormData = '';
+    $(function() {
+        initialContentFormData = $('#articlecontent').serialize();
+    });
+
+    function cancelContentEdit() {
+        if ($('#articlecontent').serialize() !== initialContentFormData) {
+            bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+                location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+            }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
+        } else {
+            location.href='cmsgo.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+        }
+        return false;
+    }
+
     function validate_before_after(elem, checkElem) {
         if(elem.value.length === 1 && (elem.value === '-' || elem.value === '+')) {
             return true;
@@ -57,6 +59,28 @@ if(empty($content["killdate"])) {
         } else {
             checkbox_element.checked = false;
             elem.value = '';
+        }
+    }
+
+    function onImageSelected(target, id, name) {
+        var hasImage = (id && parseInt(id, 10) > 0);
+        if (target === '_') {
+            var container = $('#cimage_preview_container');
+            if (container.length) {
+                if (hasImage) {
+                    container.html('<img src="img/cmsimage.php/200x200/' + id + '" alt="" />');
+                } else {
+                    container.html('&nbsp;');
+                }
+            }
+            var btn = $('#cimage_delete_button');
+            if (btn.length) {
+                if (hasImage) {
+                    btn.removeClass('disabled').css({'opacity': '', 'pointer-events': ''});
+                } else {
+                    btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+                }
+            }
         }
     }
 </script>
@@ -134,7 +158,9 @@ if(empty($content["killdate"])) {
 
   <div class="card-body">
     <div class="form-group align-items-center form-row">
-      <label for="acat_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cat'].' - '.$BL['be_article_atitle']; ?></label>
+      <div class="col-sm-2 text-right">
+        <span data-toggle="tooltip" title="<?php echo html($BL['be_article_cat'].' - '.$BL['be_article_atitle']); ?>"><i class="fas fa-info-circle text-blue"></i></span>
+      </div>
       <div class="col-sm-auto">
         <strong><?php echo html($content["article"]['acat_name'].' [ID:'.$content['article']['acat_id'].']'.' - '.$content["article"]['article_title']) ?> </strong>
       </div>
@@ -285,6 +311,19 @@ if ($content['cp_setting_mode']):
     }
 ?>
 
+    <div class="form-group align-items-center form-row">
+      <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+      <div class="col-sm-10">
+        <input name="ctitle" type="text" id="ctitle" class="form-control form-control-sm" value="<?php echo html($content["title"]) ?>" maxlength="2000" />
+      </div>
+    </div>
+
+    <div class="form-group align-items-center form-row">
+      <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+      <div class="col-sm-10">
+        <input name="csubtitle" type="text" id="csubtitle" class="form-control form-control-sm" value="<?php echo html($content["subtitle"]) ?>" maxlength="2000" />
+      </div>
+    </div>
 
     <div class="form-group align-items-center form-row">
       <label for="cblock" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_show_content'] ?></label>
@@ -440,17 +479,6 @@ if ($content['cp_setting_mode']):
   }
 ?>
 
-    <div class="form-group align-items-center form-row">
-      <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
-      <div class="col-sm-4">
-        <input name="ctitle" type="text" id="ctitle" class="form-control form-control-sm" value="<?php echo html($content["title"]) ?>" maxlength="2000" />
-      </div>
-      <label for="csubtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
-      <div class="col-sm-4">
-        <input name="csubtitle" type="text" id="csubtitle" class="form-control form-control-sm" value="<?php echo html($content["subtitle"]) ?>" maxlength="2000" />
-      </div>
-    </div>
-
 <?php
 
     // check if it is necessary to display paginate stuff
@@ -477,7 +505,7 @@ if ($content['cp_setting_mode']):
 
     <script type="text/javascript">
 
-        checkCntBlockPaginate(getObjectById("cblock"));
+        checkCntBlockPaginate(document.getElementById("cblock"));
         loadblock = false;
 
     </script>
@@ -514,7 +542,7 @@ ob_start();
 ?>
     <input name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo $sendbutton ?>" />
     <input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='cmsgo.php?do=articles&amp;p=2&amp;s=1&amp;id=<?php echo $content["aid"] ?>'" />
+    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelContentEdit();" />
     <?php echo $buttonAction; ?>
 <?php
 
@@ -549,122 +577,133 @@ echo $_save_close_buttons;
 ?>
     <hr />
 
-	  <div class="form-group align-items-center form-row">
-      <label for="ccb" class="col-sm-2 col-form-label text-right"></label>
-			<div class="col-sm-auto">
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
-					<label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
-				</div>
-				<div class="form-check form-check-inline mx-sm-3">
-					<input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
-					<label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
-				</div>
-			</div>
-		</div>
 
     <div class="form-group align-items-center form-row">
-      <label for="ccb" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></label>
-      <div class="col-sm-auto my-2 my-sm-0">
-      	<div class="input-group input-group-sm">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-     					<input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
-    				</div>
-							<span class="input-group-text"><?php echo $BL['be_article_cnt_before'] ?></span>
-					</div>
-					<input name="cbefore" type="text" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
-					<div class="input-group-append">
-						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-					</div>
-				</div>
-      </div>
-
-      <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
-      	<div class="input-group input-group-sm">
-					<div class="input-group-prepend">
-						<div class="input-group-text">
-     					<input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
-    				</div>
-							<span class="input-group-text"><?php echo $BL['be_article_cnt_after'] ?></span>
-					</div>
-					<input name="cafter" type="text" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
-					<div class="input-group-append">
-						<span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
-					</div>
-				</div>
-			</div>
-		</div>
-
-    <div class="form-group align-items-center form-row">
-      <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
-      <div class="col-sm-4">
-				<input name="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
-      </div>
-    </div>
-
-    <div class="form-group align-items-center form-row">
-      <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
-      <div class="col-sm-4">
-        <input name="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
-      </div>
-    </div>
-
-   <hr />
-
-    <div class="form-group align-items-center form-row">
-      <label for="be_article_abegin" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_abegin'] ?></label>
-      <div class="col-sm-auto">
-        <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="document.articlecontent.clivedate.value = this.checked ? '<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], '') ?>' : '';" />
-      </div>
-      <div class="col col-sm-auto">
-        <div class="date input-group" id='datetimepicker1'>
-        <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" />
-        <div class="input-group-append">
-        	<span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_space'] ?></span>
+      <div class="col-sm-10">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="my-1 mr-3">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input name="ccb" type="checkbox" id="ccb" value="1" <?php if ($content["before"] !== '') {echo "checked";} ?> onclick="if(!this.checked){this.form.cbefore.value='';}else{ if(this.form.cbefore.value=='') this.checked=false;}" />
+                </div>
+                <label class="input-group-text" for="cbefore"><?php echo $BL['be_article_cnt_before'] ?></label>
+              </div>
+              <input name="cbefore" type="number" id="cbefore" class="form-control form-control-sm" value="<?php echo $content["before"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'ccb');" />
+              <div class="input-group-append">
+                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
+              </div>
+            </div>
+          </div>
+          <div class="my-1">
+            <div class="input-group input-group-sm">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input name="cca" type="checkbox" id="cca" value="1" <?php if ($content["after"] !== '') {echo 'checked';} ?> onclick="if(!this.checked){this.form.cafter.value='';}else{ if(this.form.cafter.value=='') this.checked=false;}" />
+                </div>
+                <label class="input-group-text" for="cafter"><?php echo $BL['be_article_cnt_after'] ?></label>
+              </div>
+              <input name="cafter" type="number" id="cafter" class="form-control form-control-sm" value="<?php echo $content["after"] ?>" size="5" maxlength="5" onkeyup="validate_before_after(this, 'cca');" />
+              <div class="input-group-append">
+                <span class="input-group-text"><?php echo empty($template_default['article']['div_spacer_unit']) ? 'px' : $template_default['article']['div_spacer_unit']; ?></span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      </div>
     </div>
 
+      <div class="form-group align-items-center form-row">
+          <label for="cattr_class" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_class'] ?></label>
+          <div class="col-sm-4">
+              <input name="cattr_class" id="cattr_class" type="text" value="<?php echo html($content["attr_class"]); ?>" class="form-control form-control-sm" maxlength="255" />
+          </div>
+          <label for="cattr_id" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_attribute_id']; ?></label>
+          <div class="col-sm-4">
+              <input name="cattr_id" id="cattr_id" type="text" value="<?php echo html($content["attr_id"]); ?>" class="form-control form-control-sm" maxlength="255" />
+          </div>
+      </div>
+
+    <hr />
+
     <div class="form-group align-items-center form-row">
-      <label for="be_article_aend" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_aend'] ?></label>
-      <div class="col-sm-auto">
-        <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="document.articlecontent.ckilldate.value = this.checked ? '<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], '') ?>' : '';" />
-      </div>
-      <div class="col col-sm-auto">
-        <div class="date input-group" id="datetimepicker2">
-          <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker" placeholder="YYYY-MM-DD HH:MM:SS" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" />
-        	<div class="input-group-append">
-        		<span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-        	</div>
-        </div>
-      </div>
+       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></span>
+       <div class="col-sm-10">
+         <div class="d-flex flex-wrap align-items-center">
+           <div class="my-1 mr-3">
+             <div class="date input-group input-group-sm" id="datetimepicker1" data-target-input="#clivedate">
+               <div class="input-group-prepend">
+                 <div class="input-group-text">
+                   <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['livedate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker1').datetimepicker('date', d || moment()); } else { $('#datetimepicker1').datetimepicker('clear'); }" />
+                 </div>
+                 <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
+               </div>
+               <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker1" autocomplete="off" />
+               <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                 <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+               </div>
+             </div>
+           </div>
+           <div class="my-1 mr-3">
+              <div class="date input-group input-group-sm" id="datetimepicker2" data-target-input="#ckilldate">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="if (this.checked) { var d = '<?php echo cmsgo_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker2').datetimepicker('date', d || moment()); } else { $('#datetimepicker2').datetimepicker('clear'); }" />
+                  </div>
+                  <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+                </div>
+                <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo cmsgo_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker2" autocomplete="off" />
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+                </div>
+              </div>
+            </div>
+            <div class="my-1">
+              <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="csorting"><?php echo $BL['be_cnt_sortvalue'] ?></label>
+                </div>
+                <input class="form-control form-control-sm" name="csorting" type="number" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+              </div>
+            </div>
+         </div>
+       </div>
     </div>
 
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({
-              locale: 'de-ch',
-              format: "DD.MM.YYYY H:mm:ss",
-              showClose: true
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY HH:mm:ss",
+              useCurrent: false,
+              buttons: {
+                showClose: true
+              }
             });
-            $("#datetimepicker1").on("dp.change", function (e) {
-              document.articlecontent.set_livedate.checked = true;
+            $("#datetimepicker1").on("change.datetimepicker", function (e) {
+              if (e.date !== undefined) {
+                document.articlecontent.set_livedate.checked = !!e.date;
+              }
             });
 
             $('#datetimepicker2').datetimepicker({
-              locale: 'de-ch',
-              format: "DD.MM.YYYY H:mm:ss",
-              showClose: true
+              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+              format: "DD.MM.YYYY HH:mm:ss",
+              useCurrent: false,
+              buttons: {
+                showClose: true
+              }
             });
-            $("#datetimepicker2").on("dp.change", function (e) {
-              document.articlecontent.set_killdate.checked = true;
+            $("#datetimepicker2").on("change.datetimepicker", function (e) {
+              if (e.date !== undefined) {
+                document.articlecontent.set_killdate.checked = !!e.date;
+              }
             });
         });
     </script>
     <div class="form-inline form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></label>
+      <span class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_ftptakeover_status'] ?></span>
         <div class="col-sm-auto">
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="cvisible" name="cvisible" value="1"<?php is_checked(1, $content["visible"]); ?>/>
@@ -677,14 +716,20 @@ echo $_save_close_buttons;
             <label class="form-check-label" for="cgranted"><?php echo $BL['be_granted_feuser'] ?></label>
           </div>
         </div>
-    </div>
-
-    <div class="form-inline form-group align-items-center form-row">
-      <label class="col-sm-2 col-form-label text-right d-block"><?php echo $BL['be_cnt_sortvalue'] ?></label>
         <div class="col-sm-auto">
-          <input class="form-control form-control-sm" name="csorting" type="text" id="csorting" value="<?php echo $content["sorting"] ?>" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='0';" />
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="ctop" type="checkbox" id="ctop" value="1"<?php is_checked(1, $content["top"]); ?> />
+            <label class="form-check-label" for="ctop"><?php echo $BL['be_article_cnt_toplink'] ?></label>
+          </div>
+        </div>
+        <div class="col-sm-auto">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" name="canchor" type="checkbox" id="canchor" value="1"<?php is_checked(1, $content["anchor"]); echo $anchor_title ?> />
+            <label class="form-check-label" for="canchor"><?php echo $BL['be_article_cnt_anchor'] ?></label>
+          </div>
         </div>
     </div>
+
 
     <hr />
 

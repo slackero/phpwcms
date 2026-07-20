@@ -357,7 +357,6 @@
 }
 
 .cf {
-    *zoom: 1;
 }
 
 .cf:after {
@@ -548,57 +547,7 @@
     text-decoration: none;
 }
 
-.dynCalendar {
-    background-color: silver;
-    border: 1px outset #F0F0F0;
-    position: absolute;
-    visibility: hidden;
-    z-index: 10000;
-}
 
-.dynCalendar select {
-    width: auto !important;
-}
-
-.dynCalendar_day {
-    background-color: #eee;
-    color: #000;
-    font-size: 10px;
-}
-
-.dynCalendar_dayname {
-    background-color: silver;
-    border: 1px solid silver;
-    color: #FFF;
-    font-size: 10px;
-    padding: 2px 3px;
-    text-align: center;
-    width: 21px;
-}
-
-.dynCalendar_header {
-    font-size: 10px;
-    font-weight: 400;
-    white-space: nowrap;
-}
-
-.dynCalendar_header select {
-    width: auto;
-}
-
-.dynCalendar_table {
-    background-color: #eee;
-}
-
-.dynCalendar_table td {
-    padding: 1px;
-}
-
-.dynCalendar_today {
-    background-color: #fff;
-    border: 1px solid silver;
-    font-size: 10px;
-}
 
 .error {
     color: #C30;
@@ -2025,13 +1974,7 @@ td.col1w {
     width: 76px;
 }
 
-td.dynCalendar_day:hover {
-    background-color: #FC3;
-}
 
-td.dynCalendar_today:hover {
-    background-color: #FC3;
-}
 
 td.inlineCheckbox .checkbox {
     margin: 0;
@@ -2062,7 +2005,25 @@ td.right {
 textarea {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 14px;
+    field-sizing: content;
 }
+
+.field-sizing-content {
+    field-sizing: content;
+}
+.field-sizing-content-1, textarea[rows="1"] { min-block-size: 1lh; }
+.field-sizing-content-2, textarea[rows="2"] { min-block-size: 2lh; }
+.field-sizing-content-3, textarea[rows="3"] { min-block-size: 3lh; }
+.field-sizing-content-4, textarea[rows="4"] { min-block-size: 4lh; }
+.field-sizing-content-5, textarea[rows="5"] { min-block-size: 5lh; }
+.field-sizing-content-6, textarea[rows="6"] { min-block-size: 6lh; }
+.field-sizing-content-7, textarea[rows="7"] { min-block-size: 7lh; }
+.field-sizing-content-8, textarea[rows="8"] { min-block-size: 8lh; }
+.field-sizing-content-9, textarea[rows="9"] { min-block-size: 9lh; }
+.field-sizing-content-10, textarea[rows="10"] { min-block-size: 10lh; }
+.field-sizing-content-12, textarea[rows="12"] { min-block-size: 12lh; }
+.field-sizing-content-15, textarea[rows="15"] { min-block-size: 15lh; }
+.field-sizing-content-20, textarea[rows="20"] { min-block-size: 20lh; }
 
 textarea.ajax-loading {
     background: url(../../img/indicator/indicator_arrows_green_19x19.gif) no-repeat right top;

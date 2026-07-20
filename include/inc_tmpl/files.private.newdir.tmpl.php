@@ -107,21 +107,21 @@ if($dir_pid) {
   <?php } ?>
 
   <div class="form-group align-items-center form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+    <label for="dir_newname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
     <div class="col-sm-4">
       <input name="dir_newname" type="text" class="form-control form-control-sm" id="dir_newname" value="<?php echo html($dir_newname) ?>"" maxlength="250" />
     </div>
   </div>
 
   <div class="form-group form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+    <label for="dir_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
     <div class="col-sm-4">
       <textarea name="dir_longinfo" cols="40" rows="4" class="form-control form-control-sm" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea>
     </div>
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_gallery'] ?></label>
+    <label for="dir_gallery" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_gallery'] ?></label>
     <div class="col-sm-4">
     <select name="dir_gallery" id="dir_gallery" class="custom-select form-control form-control-sm">
       <option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
@@ -132,7 +132,7 @@ if($dir_pid) {
   </div>
 
   <div class="form-group align-items-center form-row">
-    <label for="dir_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+    <label for="dir_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
     <div class="col-sm-auto">
       <input name="dir_sort" type="text" id="dir_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($dir_sort) ?>" />
     </div>

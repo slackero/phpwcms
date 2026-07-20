@@ -59,10 +59,10 @@ $msg_get["list"]    = "&l=".$msg_list;
 $msg_get["order"]   = "&o=".$msg_order;
 $msg_get["folder"]  = "&f=".$msg_folder;
 
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="538">
         <tr><td class="title"><?php echo $BL['be_msg_title'] ?></td></tr>
         <tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-        <tr><td><table width="538" border="0" cellpadding="2" cellspacing="0" summary=""><tr>
+        <tr><td><table width="538" cellpadding="2"><tr>
          <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 0) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=0" ?>"><?php echo $count_newmsg." ".$BL['be_msg_new'] ?></a></td>
          <td width="69" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 1) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=1" ?>"><?php echo $count_readmsg." ".$BL['be_msg_old'] ?></a></td>
          <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 2) ?>><a href="cmsgo.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=2" ?>"><?php echo $count_sentmsg." ".$BL['be_msg_senttop'] ?></a></td>
@@ -116,7 +116,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             $do_move = 1;
                         }
       ?>
-      <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+      <table width="538">
         <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
         <tr>
           <td width="4"><img src="img/leer.gif" alt="" width="4" height="1"></td>
@@ -159,7 +159,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             } //Ende Anzeigen Nachricht
 
             if($count_newmsg && $msg_folder==0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA;"><?php echo $BL['be_msg_unread'] ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -188,20 +188,20 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-        <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+          <td width="60" align="right" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;
@@ -222,7 +222,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
 
             if($count_readmsg && $msg_folder==1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
         <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></strong></td></tr>
         <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
         <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -250,16 +250,16 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-        <tr bgcolor="<?php echo $bg_color ?>" onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
           <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
           <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
           <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
@@ -285,7 +285,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
 
 
             if($count_sentmsg && $msg_folder==2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -313,20 +313,20 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
 ?>
-    <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-        <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-        <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-        <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+    <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+        <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+        <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+        <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+        <td width="60" align="right" class="v10"><a href="cmsgo.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;
@@ -346,7 +346,7 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     } //Ende Anzeige unglesene Mitteilungen
 
     if($count_delmsg && $msg_folder==3) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+            ?><table width="538">
     <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo $BL['be_msg_marked'] ?></strong></td></tr>
     <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
     <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -374,13 +374,13 @@ $msg_get["folder"]  = "&f=".$msg_folder;
         $bg_color2 = "#F5F9FA";
         $zaehler = 0;
         foreach($result as $row) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
             $goto = "cmsgo.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
             if(!$row["msg_read"]) {
                 $goto .= "I";
             }
             if($msg == $row["msg_id"]) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-gold";
             }
             // which action?
             if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) {
@@ -396,11 +396,11 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                 $do_del = 5; //Delete normal message
             }
 ?>
-        <tr onMouseOver="bgColor='#FFCC00'" onMouseOut="bgColor='<?php echo $bg_color ?>'" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td bgcolor="<?php echo $bg_color ?>" class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" bgcolor="<?php echo $bg_color ?>" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" bgcolor="<?php echo $bg_color ?>" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $cmsgo["site"].$goto ?>';">
+          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
+          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
+          <td width="60" align="right" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
     </tr>
 <?php
             $zaehler++;
