@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -221,7 +220,7 @@ $phpwcms["root"] = !empty($phpwcms["root"]) ? "/".$phpwcms["root"] : "";
 </table>
 <?php
 
-$this_root = dirname(__FILE__, 3);
+$this_root = dirname(dirname(dirname(__FILE__)));
 $config_setup = read_textfile($this_root.'/setup/setup.conf.inc.php');
 $config_setup = str_replace('?>', "\$NO_ACCESS = true;\n\n", $config_setup);
 $result = false;
@@ -269,10 +268,10 @@ if($result): ?>
 // Create default .htaccess
 if(is_file($this_root.'/.htaccess')):
 ?>
-<p style="font-weight:bold;color:#FF3300;">
-    A <strong>.htaccess</strong> file exists. Compare against the <a href="../_.htaccess" target="_blank">default</a>.
-    If you want to use segmented URLs it is necessary to configure the Rewrite process.
-</p>
+    <p style="font-weight:bold;color:#FF3300;">
+        A <strong>.htaccess</strong> file exists. Compare against the <a href="../_.htaccess" target="_blank">default</a>.
+        If you want to use segmented URLs it is necessary to configure the Rewrite process.
+    </p>
 <?php else:
     $result = false;
     // Try to copy

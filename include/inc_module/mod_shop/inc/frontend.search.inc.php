@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -29,7 +28,7 @@ class ModuleShopSearch {
         }
 
         $shop_url			= _getConfig( 'shop_pref_id_shop', '_shopPref' );
-        $shop_lang_support	= _getConfig( 'shop_pref_felang' );
+        $shop_lang_support	= _getConfig( 'shop_pref_felang' ) ? true : false;
 
         if(!is_intval($shop_url) && is_string($shop_url)) {
             $shop_url	= trim($shop_url);
@@ -114,7 +113,7 @@ class ModuleShopSearch {
                 $this->search_results[$id]['query']		= $shop_url; //.'&amp;shop_cat='.$value['shopprod_category'].'&amp;shop_detail='.$value['shopprod_id'];
                 $this->search_results[$id]['image']		= false;
                 if($this->image_render) {
-                    $value['shopprod_var'] = unserialize($value['shopprod_var']);
+                    $value['shopprod_var'] = unserialize($value['shopprod_var'], ['allowed_classes' => false]);
                     if(isset($value['shopprod_var']['images'][0]['f_hash'])) {
                         $this->search_results[$id]['image'] = array(
                             'id'	=> $value['shopprod_var']['images'][0]['f_id'],

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -52,7 +51,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 if(count($content['recipe']['all_keywords'])) {
 
 	echo '<tr><td>&nbsp;</td><td>';
-	echo '<table cellpadding="0" cellspacing="0" border="0" bgcolor="#E7E8EB"><tr><td style="padding:2px;">';
+	echo '<table bgcolor="#E7E8EB"><tr><td style="padding:2px;">';
 	echo '<select name="ph1" id="ph1" class="v10" ';
 	echo 'onChange="insertAtCursorPos(document.articlecontent.recipe_category, ';
 	echo '\', \'+document.articlecontent.ph1.options[document.articlecontent.ph1.selectedIndex].value);">';
@@ -107,7 +106,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
     <td align="right" class="chatlist">Zuber.Zeit:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<td><table>
 		<tr>
 			<td><input name="recipe_time" type="text" id="recipe_time" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=int_only(this.value);" size="5" /></td>
 			<td class="chatlist" style="width:60px;">&nbsp;<?php echo $BL['be_date_minutes'] ?>&nbsp;</td>
@@ -119,7 +118,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
     <td align="right" class="chatlist">N&auml;hrwert:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<td><table>
 		<tr>
 			<td><input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="f11" style="width:35px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=int_only(this.value);" /></td>
 			<td class="chatlist" style="width:60px;">&nbsp;kJ&nbsp;</td>
@@ -131,7 +130,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
 <tr>
   <td align="right" class="chatlist">Schwierigkeit:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td valign="top"><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="recipe_severity" id="recipe_severity_1" type="radio" value="1" <?php is_checked(1, $content['recipe']['severity']); ?>></td>
         <td class="v10"><label for="recipe_severity_1">1</label>&nbsp;&nbsp;</td>

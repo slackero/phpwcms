@@ -1,18 +1,16 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array();
-$base_dir = dirname(__DIR__);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+require_once '../include/config/conf.inc.php';
+require_once '../include/inc_lib/default.inc.php';
 
 //Random Pic send to browser
 $imgpath = trim($_GET["imgdir"]);
@@ -34,7 +32,7 @@ if($imgpath) {
 	if(is_dir($imgpath)) {
 		$handle = opendir( $imgpath );
 		while($file = readdir( $handle )) {
-   			if(!str_starts_with($file, '.') && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
+   			if(substr($file, 0, 1) !== '.' && is_file($imgpath.$file) && preg_match('/(\.jpg|\.jpeg|\.png|\.gif)$/i', $file) )
 				$imgArray[] = $file;
 		}
 		closedir( $handle );
@@ -43,8 +41,9 @@ if($imgpath) {
 
 $file = dirname(__FILE__)."/leer.gif";
 if(is_array($imgArray) && sizeof($imgArray)) {
-	$randval = array_rand($imgArray, 1);
-	$file = $imgpath.$imgArray[$randval];
+	mt_srand(intval(microtime(true) * 1000000));
+	$randval = mt_rand( 0, sizeof( $imgArray ) - 1 );
+	$file = $imgpath.$imgArray[ $randval ];
 }
 
 $imageinfo = getimagesize($file);

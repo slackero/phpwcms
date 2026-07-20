@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -21,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 //images (gallery)
 $image = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
-$crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
+$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 
 // get template
 if($crow['acontent_template_listmode'] && empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/list.images.tmpl')) {
@@ -190,7 +189,7 @@ if($image['template']) {
                 ));
             }
 
-            if(str_contains($image['tmpl_entry'], '[LANDSCAPE')) {
+            if(strpos($image['tmpl_entry'], '[LANDSCAPE') !== false) {
 
                 $img_landscape = false;
 
@@ -418,6 +417,101 @@ if($image['template']) {
     $image['template'] = render_cnt_template($image['template'], 'TITLE', html_specialchars($crow['acontent_title']));
     $image['template'] = render_cnt_template($image['template'], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
     $image['template'] = render_cnt_template($image['template'], 'TEXT', $crow['acontent_text']);
+
+    // Custom Fields
+    if(empty($image['fieldgroup']) || empty($template_default['settings']['imgdiv_custom_fields'][ $image['fieldgroup'] ]['fields'])) {
+        $image['custom_fields'] = array();
+    } else {
+        $image['custom_fields'] = array_keys($template_default['settings']['imgdiv_custom_fields'][ $image['fieldgroup'] ]['fields']);
+        $image['field_render'] = array('html', 'markdown', 'plain', 'wysiwyg');
+        $image['fieldgroup'] =& $template_default['settings']['imgdiv_custom_fields'][ $image['fieldgroup'] ]['fields'];
+    }
+
+    if($image['custom_fields']) {
+
+        foreach($image['custom_fields'] as $custom_field_key) {
+            $custom_field_value = isset($image['custom'][$custom_field_key]) ? $image['custom'][$custom_field_key] : '';
+            $custom_field_replacer = 'IMGDIV_'.strtoupper($custom_field_key);
+
+            if($custom_field_value === '') {
+                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, '');
+                continue;
+            }
+
+            if($image['fieldgroup'][$custom_field_key]['type'] === 'bool') {
+
+                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, empty($custom_field_value) ? '' : ' ');
+
+            } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'option' || $image['fieldgroup'][$custom_field_key]['type'] === 'select') {
+
+                if(isset($image['fieldgroup'][$custom_field_key]['values'][$custom_field_value])) {
+
+                    // render custom option globally first
+                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, html($custom_field_value));
+
+                    // render option specific replacers
+                    if(strpos($image['template'], $custom_field_replacer.'_') !== false) {
+                        foreach($image['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
+                            if($custom_field_value === $option_key) {
+                                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));
+                            } else {
+                                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer.'_'.strtoupper($option_key), '');
+                            }
+                        }
+                    }
+                }
+
+            } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'int' || $image['fieldgroup'][$custom_field_key]['type'] === 'float') {
+
+                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, $custom_field_value);
+
+            } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
+
+                $news['files_result'] = '';
+
+                if(!empty($custom_field_value['id'])) {
+
+                    $IS_NEWS_CP = true;
+
+                    if (!is_array($value)) {
+                        $value = array();
+                    } elseif (!isset($value['cnt_object']) || !is_array($value['cnt_object'])) {
+                        $value['cnt_object'] = array();
+                    }
+
+                    $value['cnt_object']['cnt_files'] = array(
+                        'id' => array(0 => $custom_field_value['id']),
+                        'caption' => array(0 => $custom_field_value['description']),
+                    );
+                    $value['files_direct_download'] = empty($image['fieldgroup'][$custom_field_key]['direct']) ? 0 : 1;
+                    $value['files_template'] = empty($image['fieldgroup'][$custom_field_key]['template']) ? '' : $image['fieldgroup'][$custom_field_key]['template'];
+
+                    // include content part files renderer
+                    include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
+
+                    unset($IS_NEWS_CP);
+
+                }
+
+                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, $news['files_result']);
+
+            } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
+
+                if($image['fieldgroup'][$custom_field_key]['render'] === 'markdown') {
+                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, parse_markdown($custom_field_value));
+                } elseif($image['fieldgroup'][$custom_field_key]['render'] === 'plain') {
+                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, plaintext_htmlencode($custom_field_value));
+                } else {
+                    $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, $custom_field_value);
+                }
+
+            } else {
+
+                $image['template'] = render_cnt_template($image['template'], $custom_field_replacer, nl2br(html($custom_field_value)));
+
+            }
+        }
+    }
 
     $CNT_TMP .= $image['template'];
 

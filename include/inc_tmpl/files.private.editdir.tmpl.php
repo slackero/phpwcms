@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -105,105 +104,102 @@ if($dir_id) {
 if(!empty($ja)) {
 
 ?>
-<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editdir" id="editdir">
-<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
-    <tr>
-        <td width="67" rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0" /></a></td>
-        <td width="471"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-    </tr>
-    <tr><td class="title"><?php echo $BL['be_fpriv_edittitle'] ?></td></tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr>
-        <td width="67" align="right" class="v09"><?php echo $BL['be_fpriv_name'] ?>:&nbsp;</td>
-        <td class="v10"><strong><?php echo $dir_oldname ?></strong></td>
-    </tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td>
-    </tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <?php if($dir_error > 1) { ?>
-    <tr>
-      <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-      <td class="v10"><strong style="color:#FF3300;"><?php echo $BL['be_fpriv_errordir'] ?></strong></td>
-    </tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
-    <?php } ?>
 
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-        <td class="v10"><select name="dir_pid" id="dir_pid" class="width400">
-            <option value="0"<?php if($dir_pid == 0) echo " selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-            <?php dir_menu(0, $dir_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
-        </select></td>
-    </tr>
+<div class="card">
+	<div class="card-header"><h1><?php echo $BL['be_fpriv_edittitle'] ?></h1></div>
+		<div class="card-body">
+			<form action="phpwcms.php?do=files&amp;f=0" method="post" name="editdir" id="editdir">
+				<div class="form-group align-items-center form-row">
+						<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_name'] ?></label>
+						<div class="col-sm-4">
+							<strong><?php echo $dir_oldname ?></strong>
+					</div>
+				</div>
 
-    <?php if($dir_error === 1 || $dir_error === 3) { ?>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <tr>
-      <td align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-      <td class="v10"><strong style="color:#FF3300;"><?php echo $BL['be_fpriv_error'] ?></strong></td>
-    </tr>
-    <?php } ?>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+					<?php if($dir_error > 1) { ?>
+				<strong style="color:#FF3300;"><?php echo $BL['be_fpriv_errordir'] ?></strong>
+					<?php } ?>
 
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_fpriv_newname'] ?>:&nbsp;</td>
-        <td><input name="dir_newname" type="text" class="width440 v12" id="dir_newname" value="<?php echo html($dir_newname) ?>" size="40" maxlength="250" /></td>
-    </tr>
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-    <tr>
-        <td align="right" valign="top" class="v09 tdtop4"><?php echo $BL['be_ftptakeover_longinfo'] ?>:&nbsp;</td>
-        <td valign="top"><textarea name="dir_longinfo" cols="40" rows="4" class="width440 autosize" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea></td>
-    </tr>
+				<div class="form-group align-items-center form-row">
+					<label for="dir_pid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+					<div class="col-sm-4">
+							<select name="dir_pid" id="dir_pid" class="custom-select form-control form-control-sm">
+									<option value="0"<?php if($dir_pid == 0) echo " selected"; ?>><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+									<?php dir_menu(0, $dir_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
+							</select>
+					</div>
+				</div>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+					<?php if($dir_error === 1 || $dir_error === 3) { ?>
 
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_gallery'] ?>:&nbsp;</td>
-        <td><select name="dir_gallery" id="dir_gallery">
-            <option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
-            <option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
-            <option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
-        </select></td>
-    </tr>
+				<strong style="color:#FF3300;"><?php echo $BL['be_fpriv_error'] ?></strong></td>
 
+					<?php } ?>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+				<div class="form-group align-items-center form-row">
+					<label for="dir_newname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fpriv_newname'] ?></label>
+					<div class="col-sm-4">
+							<input name="dir_newname" type="text" class="form-control form-control-sm" id="dir_newname" value="<?php echo html($dir_newname) ?>" maxlength="250" />
+					</div>
+				</div>
 
-    <tr>
-        <td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-        <td><input name="dir_sort" type="text" id="dir_sort" size="10" class="width50" maxlength="10" value="<?php echo intval($dir_sort) ?>" /></td>
-    </tr>
+				<div class="form-group form-row">
+					<label for="dir_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+					<div class="col-sm-4">
+							<textarea name="dir_longinfo" cols="40" rows="4" class="form-control form-control-sm" id="dir_longinfo"><?php echo html($dir_longinfo) ?></textarea>
+					</div>
+				</div>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+				<div class="form-group align-items-center form-row">
+						<label for="dir_gallery" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_gallery'] ?></label>
+						<div class="col-sm-4">
+							<select name="dir_gallery" id="dir_gallery" class="custom-select form-control form-control-sm">
+									<option value="0"<?php is_selected(0, $dir_gallery) ?>>-</option>
+									<option value="2"<?php is_selected(2, $dir_gallery) ?>><?php echo $BL['be_gallery_root'] ?></option>
+									<option value="3"<?php is_selected(3, $dir_gallery) ?>><?php echo $BL['be_gallery_directory'] ?></option>
+							</select>
+					</div>
+				</div>
 
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_fpriv_status'] ?>:&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr>
-            <td><input name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> /></td>
-            <td class="v10"><strong><?php echo $BL['be_ftptakeover_active'] ?></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td><input name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> /></td>
-            <td class="v10"><strong><?php echo $BL['be_ftptakeover_public'] ?></strong></td>
-        </tr>
-        </table></td>
-    </tr>
-    <tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr>
-        <td width="67" valign="top">
-            <input name="dir_id" type="hidden" id="dir_id" value="<?php echo $dir_id ?>" />
-            <input name="dir_aktion" type="hidden" id="dir_aktion" value="2" />
-        </td>
-        <td>
-            <input name="Submit" type="submit" class="button" value="<?php echo $BL['be_fpriv_updatebutton'] ?>" />
-            <input type="button" class="button" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
-        </td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-    <tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-</table></form>
+				<div class="form-group align-items-center form-row">
+					<label for="dir_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+					<div class="col-sm-4">
+							<input name="dir_sort" type="text" id="dir_sort" size="10" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($dir_sort) ?>" />
+					</div>
+				</div>
+
+				<div class="form-group align-items-center form-row">
+					<label for="dir_aktiv" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_fpriv_status'] ?></label>
+						<div class="col-sm-auto">
+							<div class="form-check form-check-inline">
+								<label class="form-check-label">
+									<input class="form-check-input" name="dir_aktiv" type="checkbox" id="dir_aktiv" value="1"<?php is_checked("1", $dir_aktiv) ?> />
+								<?php echo $BL['be_ftptakeover_active'] ?></label>
+							</div>
+						</div>
+						<div class="col-sm-auto">
+							<div class="form-check form-check-inline">
+								<label class="form-check-label">
+									<input class="form-check-input" name="dir_public" type="checkbox" id="dir_public" value="1"<?php is_checked("1", $dir_public) ?> />
+								<?php echo $BL['be_ftptakeover_public'] ?></label>
+							</div>
+						</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-10">
+							<input name="Submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo $BL['be_fpriv_updatebutton'] ?>" />
+							<input type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+					</div>
+				</div>
+
+				<input name="dir_id" type="hidden" id="dir_id" value="<?php echo $dir_id ?>" />
+				<input name="dir_aktion" type="hidden" id="dir_aktion" value="2" />
+			</form>
+		</div>
+	</div>
+</div>
 <?php
-
 }
-
 ?>

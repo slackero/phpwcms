@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  **/
 
 // ----------------------------------------------------------------
@@ -30,7 +29,10 @@ function str_empty($string) {
 
 function slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
-    if ($text && str_ends_with($text, '>')) {
+    if (!IS_PHP7 && get_magic_quotes_gpc()) {
+        $text = stripslashes($text);
+    }
+    if ($text && substr($text, -1) === '>') {
         $text = preg_replace(array('/<br>$/i', '/<br \/>$/i', '/<p><\/p>$/i', '/<p>&nbsp;<\/p>$/i'), '', rtrim($text));
     }
     if ($trim) {
@@ -45,6 +47,9 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
 
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
+    if (!IS_PHP7 && get_magic_quotes_gpc()) {
+        $text = stripslashes($text);
+    }
     $text = strip_tags($text);
     if ($trim) {
         $text = trim($text);
@@ -266,48 +271,48 @@ function fsizelong($zahl, $spacer = '&nbsp;') {
 
 function extimg($ext) {
     //get extension image
-    $img = array(
-        "exe" => "icon_exe.gif",
-        "com" => "icon_exe.gif",
-        "bat" => "icon_exe.gif",
-        "pdf" => "icon_pdf.gif",
-        "txt" => "icon_txt.gif",
-        "xls" => "icon_xls.gif",
-        "cvs" => "icon_xls.gif",
-        "rtf" => "icon_txt.gif",
-        "htm" => "icon_htm.gif",
-        "html" => "icon_htm.gif",
-        "pix" => "icon_pix.gif",
-        "tif" => "icon_pix.gif",
-        "jpg" => "icon_pix.gif",
-        "jpeg" => "icon_pix.gif",
-        "gif" => "icon_pix.gif",
-        "png" => "icon_pix.gif",
-        "webp" => "icon_pix.gif",
-        "psd" => "icon_pix.gif",
-        "rar" => "icon_rar.gif",
-        "zip" => "icon_zip.gif",
-        "tar" => "icon_zip.gif",
-        "gzip" => "icon_zip.gif",
-        "sit" => "icon_sit.gif",
-        "sea" => "icon_sit.gif",
-        "doc" => "icon_doc.gif",
-        "dot" => "icon_doc.gif",
-        "ai" => "icon_ai.gif",
-        "ps" => "icon_ps.gif",
-        "eps" => "icon_eps.gif",
-        "gz" => "icon_gz.gif",
-        "tgz" => "icon_gz.gif",
-        "aif" => "icon_snd.gif",
-        "aiff" => "icon_snd.gif",
-        "mp3" => "icon_snd.gif",
-        "snd" => "icon_snd.gif",
-        "wav" => "icon_snd.gif",
-        "mid" => "icon_snd.gif",
-        "mov" => "icon_vid.gif",
-        "avi" => "icon_vid.gif",
-        "qt" => "icon_vid.gif",
-        "mpeg" => "icon_vid.gif",
+    $img = array("exe"  => "file",
+                 "com"  => "file",
+                 "bat"  => "filef",
+                 "pdf"  => "file-pdf",
+                 "txt"  => "file-altf",
+                 "xls"  => "file-excel",
+                 "cvs"  => "file-excel",
+                 "rtf"  => "file-alt",
+                 "htm"  => "file-code",
+                 "html" => "file-code",
+                 "pix"  => "file",
+                 "tif"  => "file-image",
+                 "jpg"  => "file-image",
+                 "jpeg" => "file-image",
+                 "gif"  => "file-image",
+                 "png"  => "file-image",
+                 "webp" => "file-image",
+                 "svg"  => "file-image",
+                 "psd"  => "file",
+                 "rar"  => "file-archive",
+                 "zip"  => "file-archive",
+                 "tar"  => "file-archive",
+                 "gzip" => "file-archive",
+                 "sit"  => "file",
+                 "sea"  => "file",
+                 "doc"  => "file-word",
+                 "dot"  => "file",
+                 "ai"   => "file",
+                 "ps"   => "file",
+                 "eps"  => "file",
+                 "gz"   => "file-archive",
+                 "tgz"  => "file-archive",
+                 "aif"  => "file",
+                 "aiff" => "file",
+                 "mp3"  => "file-audio",
+                 "snd"  => "file",
+                 "wav"  => "file-audio",
+                 "mid"  => "file-audio",
+                 "mov"  => "file-video",
+                 "avi"  => "file-video",
+                 "qt"   => "file-video",
+                 "mpeg" => "file-video",
     );
 
     return (isset($img[$ext])) ? $img[$ext] : "icon_generic.gif";
@@ -370,10 +375,9 @@ function cut_string($string, $endchar = '&#8230;', $length = 20, $trim = 1) {
 
 function which_folder_active($ist, $soll, $ac = "#9BBECA", $nc = "#363E57", $nclass = "msgreiter") {
     if ($ist == $soll) {
-        echo "bgcolor='" . $ac . "' class='" . $nclass . "'";
+        echo "style=\"background-color: " . $ac . ";\" class=\"" . $nclass . " msgreiter-active\"";
     } else {
-        echo "bgcolor='" . $nc . "' class='" . $nclass . "' ";
-        echo "onMouseOver=\"bgColor='#FF6600'\" onMouseOut=\"bgColor='" . $nc . "'\"";
+        echo "style=\"background-color: " . $nc . ";\" class=\"" . $nclass . " msgreiter-inactive\"";
     }
 }
 
@@ -625,7 +629,7 @@ function get_tmpl_files($dir = '', $ext = '', $sort = true) {
     if (is_dir($dir)) {
         $ph = opendir($dir);
         while ($pf = readdir($ph)) {
-            if (!str_starts_with($pf, '.') && is_file($dir . '/' . $pf) && preg_match($regexp, $pf)) {
+            if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf) && preg_match($regexp, $pf)) {
                 $fa[] = $pf; //add $pf to file array for current dir
             }
         }
@@ -1032,10 +1036,13 @@ function encode_SpecialHtmlEntities($string = '', $mode = 'ALL') {
 }
 
 function cleanUpFormMailerPostValue($string = '') {
-    if (str_contains("\n", $string)) {
+    if (strpos("\n", $string) !== false) {
         return '';
     }
-    return cleanUpSpecialHtmlEntities(clean_slweg($string));
+    $string = clean_slweg($string);
+    $string = cleanUpSpecialHtmlEntities($string);
+
+    return $string;
 }
 
 function cleanUpForEmailHeader($text = '') {
@@ -1125,6 +1132,23 @@ function getJavaScriptSourceLink($src, $prefix = '  ') {
     return ($src) ? $prefix . '<script' . SCRIPT_ATTRIBUTE_TYPE . ' src="' . $src . '"></script>' : '';
 }
 
+function getJavaScriptTranslations() {
+    global $BL;
+    $translations = [
+        'cancel' => $BL['modal_cancel'] ?? 'Cancel',
+        'ok' => $BL['modal_ok'] ?? 'OK',
+        'confirm' => $BL['modal_confirm'] ?? 'Confirm',
+        'titleConfirm' => $BL['modal_title_confirm'] ?? 'Confirmation',
+        'titleAlert' => $BL['modal_title_alert'] ?? 'Information',
+        'delete' => $BL['modal_delete'] ?? 'Delete',
+        'move' => $BL['modal_move'] ?? 'Move',
+        'copy' => $BL['modal_copy'] ?? 'Copy',
+        'flush' => $BL['modal_flush'] ?? 'Flush'
+    ];
+
+    return '<script' . SCRIPT_ATTRIBUTE_TYPE . '>window.PHPWCMS_LANG = ' . json_encode($translations, JSON_UNESCAPED_UNICODE) . ';</script>';
+}
+
 function convertStringToArray($string = '', $seperator = ',', $mode = 'UNIQUE', $rmvDblWSp = true) {
     // clean up a seperator seperated string and return as array
     if (trim($string) === '') {
@@ -1153,11 +1177,13 @@ function get_unique_array($array, $diff=array('', null, false)) {
 
 function decode_entities($text) {
     $text = @html_entity_decode($text, ENT_QUOTES, PHPWCMS_CHARSET);
-    if (!str_contains($text, '&')) {
+    if (strpos($text, '&') === false) {
         return $text;
     }
     $text = preg_replace_callback('/&#x([0-9a-f]+);/i', 'convertHexNumericToChar', $text);
-    return preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
+    $text = preg_replace_callback('/&#([0-9]+);/', 'convertNumericToChar', $text);
+
+    return $text;
 }
 
 function convertHexNumericToChar($matches) {
@@ -1202,7 +1228,9 @@ function stripped_cache_content($page = '') {
     $page = str_replace('><', '> <', $page);
     $page = strip_tags($page);
     $page = decode_entities($page);
-    return preg_replace('/\s+/s', ' ', $page);
+    $page = preg_replace('/\s+/s', ' ', $page);
+
+    return $page;
 }
 
 function optimizeForSearch() {
@@ -1385,7 +1413,9 @@ function replaceGlobalRT($string = '') {
     $string = str_replace(array('{SITE}', '{PHPWCMS_URL}'), PHPWCMS_URL, $string);
     $string = str_replace('{PHPWCMS_TEMPLATE}', TEMPLATE_PATH, $string);
     $string = str_replace('{IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $string);
-    return renderRTDate($string);
+    $string = renderRTDate($string);
+
+    return $string;
 }
 
 function renderRTDate($string = '') {
@@ -1521,7 +1551,7 @@ function returnSubdirListAsArray($dir = '') {
     $subdir = array();
     $ph = opendir($dir);
     while ($pf = readdir($ph)) {
-        if (!str_starts_with($pf, '.') && is_dir($dir . '/' . $pf)) {
+        if (substr($pf, 0, 1) !== '.' && is_dir($dir . '/' . $pf)) {
             $subdir[] = $pf;
         }
     }
@@ -1544,9 +1574,9 @@ function returnFileListAsArray($dir = '', $extfilter = '') {
     } elseif (!is_array($extfilter)) {
         $extfilter = array();
     }
-    $dofilter = count($extfilter);
+    $dofilter = count($extfilter) ? true : false;
     while ($pf = readdir($ph)) {
-        if (!str_starts_with($pf, '.') && is_file($dir . '/' . $pf)) {
+        if (substr($pf, 0, 1) !== '.' && is_file($dir . '/' . $pf)) {
             $ext = which_ext($pf);
             if ($dofilter && !in_array($ext, $extfilter)) {
                 continue;
@@ -1627,11 +1657,11 @@ function parse_ini_str($Str, $ProcessSections = true, $SplitInNameValue = false)
 
 function getCookieDomain() {
     if (empty($GLOBALS['phpwcms']['parse_url']['host'])) {
-        $domain = parse_url(PHPWCMS_URL);
-        $domain = strtolower($domain['host']);
-        if (str_starts_with($domain, 'www')) {
-            $domain = substr($domain, 3);
-        }
+    $domain = parse_url(PHPWCMS_URL);
+    $domain = strtolower($domain['host']);
+    if (strpos($domain, 'www') === 0) {
+        $domain = substr($domain, 3);
+    }
         $GLOBALS['phpwcms']['parse_url']['host'] = $domain;
     }
     return $GLOBALS['phpwcms']['parse_url']['host'];
@@ -1640,7 +1670,7 @@ function getCookieDomain() {
 function _mkdir($target) {
     // taken from WordPress
     if (file_exists($target)) { // from php.net/mkdir user contributed notes
-        return !!@is_dir($target);
+        return (!@is_dir($target)) ? false : true;
     }
     umask(0);
     if (@mkdir($target)) {   // Attempting to create the directory may clutter up our display.
@@ -1661,6 +1691,9 @@ function _mkdir($target) {
 
 function sanitize_filename($filename) {
     //Filename anpassen und säubern
+    if (!IS_PHP7 && get_magic_quotes_gpc()) {
+        $filename = stripslashes($filename);
+    }
     $remove = array(
         "?",
         "[",
@@ -1916,7 +1949,7 @@ function xss_clean($val) {
     $search .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $search .= '1234567890!@#$%^&*()';
     $search .= '~`";:?+/={}[]-_|\'\\';
-    for ($i = 0; $i < strlen($search); $i++) {
+    for ($i = 0, $iMax = strlen($search); $i < $iMax; $i++) {
         // ;? matches the ;, which is optional
         // 0{0,7} matches any padded zeros, which are optional and go up to 8 chars
         // &#x0040 @ search for the hex values
@@ -2031,7 +2064,7 @@ function xss_clean($val) {
     $found = true; // keep replacing as long as the previous round replaced something
     while ($found == true) {
         $val_before = $val;
-        for ($i = 0; $i < count($ra); $i++) {
+        for ($i = 0, $ra_count = count($ra); $i < $ra_count; $i++) {
             $pattern = '/';
             for ($j = 0; $j < strlen($ra[$i]); $j++) {
                 if ($j > 0) {
@@ -2058,7 +2091,9 @@ function xss_clean($val) {
 function sanitize_multiple_emails($string) {
     $string = preg_replace('/\s|\,]/', ';', $string);
     $string = convertStringToArray($string, ';');
-    return implode(';', $string);
+    $string = implode(';', $string);
+
+    return $string;
 }
 
 function checkLogin($mode = 'REDIRECT') {
@@ -2183,7 +2218,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
             '</p>',
             '<strong>',
             '</strong>',
-            '<span class="nowrap">',
+            '<span class="text-nowrap">',
             '</span>',
         );
 
@@ -2236,7 +2271,7 @@ function render_bbcode_basics($text = '', $mode = 'basic') {
     $search[21] = '/\[strong\](.*?)\[\/strong\]/is';
     $replace[21] = '<strong>$1</strong>';
     $search[22] = '/\[nowrap\](.*?)\[\/nowrap\]/is';
-    $replace[22] = '<span class="nowrap">$1</span>';
+    $replace[22] = '<span class="text-nowrap">$1</span>';
     $search[23] = '/\[blockquote\](.*?)\[\/blockquote\]/is';
     $replace[23] = '<blockquote>$1</blockquote>';
 
@@ -2249,7 +2284,7 @@ function render_bbcode_url($text) {
     }
     $text = preg_replace_callback(array('/\[url=([^ ]+)(.*?)\](.*?)\[\/url\]/', '/\[a=([^ ]+)(.*?)\](.*?)\[\/a\]/'), 'get_bbcode_ahref', $text);
     // Fallback for URL parameter having =[http://
-    if (str_contains($text, '=[')) {
+    if (strpos($text, '=[') !== false) {
         $text = str_replace('=[[', '=####[#[####', $text);
         $text = str_replace('=[', '=####[####', $text);
         $text = preg_replace_callback('/\[(http|https|ftp):\/\/([^ ]+)(.*?)\]/', 'get_link_ahref', $text);
@@ -2327,6 +2362,9 @@ function getBytes($size) {
  * errors based on memory limit.
  */
 function getRealImageSize($imginfo) {
+    if (empty($imginfo) || !is_array($imginfo)) {
+        return 0;
+    }
     $size = 0;
     // check image width and height
     if (!empty($imginfo[0]) && !empty($imginfo[1])) {
@@ -2386,7 +2424,7 @@ function phpwcms_boolval($BOOL, $STRICT = false) {
     }
 
     // let PHP decide
-    return (bool)$BOOL;
+    return $BOOL ? true : false;
 }
 
 // sanitize a text for nice URL/alias or whatever
@@ -2430,7 +2468,7 @@ function convert_rel2abs($text, $base) {
         return $text;
     }
     // Base URL needs trailing /
-    if (!str_ends_with($base, '/')) {
+    if (substr($base, -1, 1) !== '/') {
         $base .= '/';
     }
     // Fix a href
@@ -2440,7 +2478,9 @@ function convert_rel2abs($text, $base) {
     // Fix img src
     $pattern = "/<img([^>]*) src=\"([^http|ftp|https][^\"]*)\"/";
     $replace = "<img\${1} src=\"" . $base . "\${2}\"";
-    return preg_replace($pattern, $replace, $text);
+    $text = preg_replace($pattern, $replace, $text);
+
+    return $text;
 }
 
 /**

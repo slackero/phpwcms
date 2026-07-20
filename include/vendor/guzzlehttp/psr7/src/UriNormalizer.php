@@ -192,7 +192,7 @@ final class UriNormalizer
         $regex = '/(?:%[A-Fa-f0-9]{2})++/';
 
         $callback = function (array $match): string {
-            return Utils::asciiToUpper($match[0]);
+            return strtoupper($match[0]);
         };
 
         return $uri

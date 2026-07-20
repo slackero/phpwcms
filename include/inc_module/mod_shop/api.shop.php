@@ -5,14 +5,13 @@
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // ToDo: Enhance Actions (setstatus)
 
 $phpwcms = array();
-$path = dirname(__FILE__, 4);
+$path = dirname(dirname(dirname(dirname(__FILE__))));
 $module_path = dirname(__FILE__);
 if(is_file($path.'/include/config/conf.inc.php')) {
     require $path.'/include/config/conf.inc.php';
@@ -128,12 +127,12 @@ if($shop_api_access) {
                     'total_vat'     => floatval($row['order_gross']) - floatval($row['order_net']),
                     'total_gross'   => floatval($row['order_gross'])
                 ),
-                'subtotal'      => $row['order_data']['subtotal'] ?? null,
-                'shipping'      => $row['order_data']['shipping'] ?? null,
-                'discount'      => $row['order_data']['discount'] ?? null,
-                'loworder'      => $row['order_data']['loworder'] ?? null,
-                'weight'        => $row['order_data']['weight'] ?? null,
-                'distance'      => $row['order_data']['distance'] ?? null,
+                'subtotal'      => isset($row['order_data']['subtotal']) ? $row['order_data']['subtotal'] : null,
+                'shipping'      => isset($row['order_data']['shipping']) ? $row['order_data']['shipping'] : null,
+                'discount'      => isset($row['order_data']['discount']) ? $row['order_data']['discount'] : null,
+                'loworder'      => isset($row['order_data']['loworder']) ? $row['order_data']['loworder'] : null,
+                'weight'        => isset($row['order_data']['weight']) ? $row['order_data']['weight'] : null,
+                'distance'      => isset($row['order_data']['distance']) ? $row['order_data']['distance'] : null,
                 'positions'     => array()
             );
 

@@ -1,22 +1,21 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
+ *
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
-$action = $_GET['action'] ?? '';
+$action = isset($_GET['action']) ? $_GET['action'] : '';
 $apikey = '';
 $fid = isset($_GET['fid']) ? intval($_GET['fid']) : 0;
 
@@ -53,7 +52,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 // export form results
 if ($action === 'exportformresult' && $fid) {
 
-    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
+    $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%s') AS formresult_date  FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
 
     if (!$data) {
         die('No data returned or another error processing the export.');
@@ -108,7 +107,7 @@ if ($action === 'exportformresult' && $fid) {
         for ($x = 1; $x < $row; $x++) {
             $current = $export[$x];
             foreach($export[0] as $column_title => $column) {
-                $column_value = $current[$column_title] ?? '';
+                $column_value = isset($current[$column_title]) ? $current[$column_title] : '';
                 $sheet->setCellValue([$column, $x+1], $column_value);
             }
         }
@@ -160,7 +159,7 @@ if ($action === 'exportformresult' && $fid) {
         header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0');
 
         header('Content-type: text/html; charset=' . PHPWCMS_CHARSET);
-        header('Content-Disposition: attachment;filename="' . $filename . '.html"');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
 
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
         echo '<html><head>';
@@ -175,7 +174,7 @@ if ($action === 'exportformresult' && $fid) {
 
     exit;
 
-} elseif ($action == 'exportformresultdetail' && $fid) {
+} elseif ($action === 'exportformresultdetail' && $fid) {
 
     $data = _dbQuery("SELECT *, DATE_FORMAT(formresult_createdate, '%Y-%m-%d %H:%i:%S') AS formresult_date FROM " . DB_PREPEND . 'phpwcms_formresult WHERE formresult_pid=' . $fid);
 
@@ -220,17 +219,17 @@ if ($action === 'exportformresult' && $fid) {
     echo '<meta http-equiv="Content-Type" content="text/html; charset=' . PHPWCMS_CHARSET . '"/>';
     echo '<title>Formresult Detail Export ID' . $fid . '</title>';
     echo '<style type="text/css">
-        body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
-        hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
-        td {mso-number-format:\@;font-size:10pt;}
-    </style>';
+		body {font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
+		hr {margin:0;padding:0;height:1px;border:0;border-bottom:1px solid #666666;page-break-after:always;}
+		td {mso-number-format:\@;font-size:10pt;}
+	</style>';
     echo '</head>';
     echo '<body>';
 
     for ($x = 1; $x < $row; $x++) {
 
         echo '<p style="font-weight:bold">page ' . $x . ' of ' . ($row - 1) . '</p>';
-        echo '<table border="0" cellspacing="0" cellpadding="0" summary="ID:' . $fid . '">';
+        echo '<table summary="ID:' . $fid . '">';
 
         foreach ($export[0] as $key => $value) {
 
@@ -261,14 +260,14 @@ if ($action === 'exportformresult' && $fid) {
     echo '</body></html>';
     exit;
 
-} elseif ($action == 'exportsubscriber' && !empty($_SESSION["wcs_user_admin"])) {
+} elseif ($action === 'exportsubscriber' && (has_admin_permission('nl') || has_admin_permission('adm'))) {
 
     // export list of newsletter subscribers
     $_userInfo = array();
 
     // default settings for listing selected users
-    $_userInfo['list_active'] = $_SESSION['list_active'] ?? 1;
-    $_userInfo['list_inactive'] = $_SESSION['list_inactive'] ?? 1;
+    $_userInfo['list_active'] = isset($_SESSION['list_active']) ? $_SESSION['list_active'] : 1;
+    $_userInfo['list_inactive'] = isset($_SESSION['list_inactive']) ? $_SESSION['list_inactive'] : 1;
 
     $_userInfo['where_query'] = '';
 
@@ -386,11 +385,8 @@ if ($action === 'exportformresult' && $fid) {
 
         echo '</table></body></html>';
     }
-
     exit;
 
 } else {
-
     die('No data returned or another error processing the export.');
-
 }

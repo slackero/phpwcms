@@ -1,16 +1,11 @@
-# Makefile for phpwcms-dev development tasks
+# Makefile for phpwcms-v2.0 development tasks
 
-.PHONY: phpstan-analyse phpstan-update stacklit-update check-php help
+.PHONY: phpstan baseline stacklit help
 
-# Default PHP executable (local php is the default)
-# You can override this on the command line if your local php version is incompatible,
-# e.g., make phpstan-analyse PHP=/path/to/php8/bin/php
-PHP ?= php
-PHPSTAN = $(PHP) include/vendor/bin/phpstan
+# Default PHP executable (check for php8 in PATH, fallback to MAMP php8.2.31)
+PHP ?= $(shell which php8 2>/dev/null || echo /Applications/MAMP/bin/php/php8.2.31/bin/php)
+PHPSTAN = $(PHP) -d memory_limit=1G include/vendor/bin/phpstan
 STACKLIT ?= stacklit
-
-# Check PHP version compatibility (PHP >= 8.2 required)
-PHP_VERSION_CHECK := $(shell $(PHP) -r "exit(PHP_VERSION_ID >= 80200 ? 0 : 1);" 2>/dev/null && echo "OK" || echo "FAIL")
 
 # Default target
 all: help
@@ -21,20 +16,11 @@ help:
 	@echo "  make phpstan-update  - Update phpstan baseline file"
 	@echo "  make stacklit-update - Update stacklit index and CLAUDE.md map"
 
-check-php:
-ifeq ($(PHP_VERSION_CHECK),FAIL)
-	@echo "Error: PHP >= 8.2 is required to run PHPStan."
-	@echo "The current PHP executable ($(PHP)) is incompatible."
-	@echo "Please override it on the command line, for example:"
-	@echo "  make phpstan-analyse PHP=/path/to/php8/bin/php"
-	@exit 1
-endif
+phpstan-analyse:
+	$(PHPSTAN) analyse -c .phpstan/phpstan.neon
 
-phpstan-analyse: check-php
-	$(PHPSTAN) analyse -c .phpstan/phpstan.neon --memory-limit=2G
-
-phpstan-update: check-php
-	$(PHPSTAN) analyse -c .phpstan/phpstan.neon --generate-baseline=.phpstan/phpstan-baseline.neon --memory-limit=2G
+phpstan-update:
+	$(PHPSTAN) analyse -c .phpstan/phpstan.neon --generate-baseline=.phpstan/phpstan-baseline.neon
 
 stacklit-update:
 	$(STACKLIT) generate

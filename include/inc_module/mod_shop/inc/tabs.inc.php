@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,15 +18,23 @@ if (!defined('PHPWCMS_ROOT')) {
 $_entry['query']			= '';
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="text-center text-sm-left"><?php echo $BLM['listing_title'] ?></h1>
 
-<div id="tabsG">
-    <ul>
-        <!--<li<?php if($controller == 'default') echo ' class="activeTab"'; ?>><a href="<?php echo shop_url() ?>"><span><?php echo $BLM['tab_default'] ?></span></a></li>-->
-        <li<?php if($controller == 'orders') echo ' class="activeTab"'; ?>><a href="<?php echo shop_url('controller=order') ?>"><span><?php echo $BLM['tab_orders'] ?></span></a></li>
-        <li<?php if($controller == 'products') echo ' class="activeTab"'; ?>><a href="<?php echo shop_url('controller=prod') ?>"><span><?php echo $BLM['tab_products'] ?></span></a></li>
-        <li<?php if($controller == 'categories') echo ' class="activeTab"'; ?>><a href="<?php echo shop_url('controller=cat') ?>"><span><?php echo $BLM['tab_categories'] ?></span></a></li>
-        <li<?php if($controller == 'preferences') echo ' class="activeTab"'; ?>><a href="<?php echo shop_url('controller=pref') ?>"><span><?php echo $BLM['tab_preferences'] ?></span></a></li>
-    </ul>
-    <br class="clear" />
-</div>
+<div class="card">
+	<div class="card-header">
+		<ul class="nav nav-tabs card-header-tabs">
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'orders') echo ' active'; ?>" href="<?php echo shop_url('controller=order') ?>"><?php echo $BLM['tab_orders'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'products') echo ' active'; ?>" href="<?php echo shop_url('controller=prod') ?>"><?php echo $BLM['tab_products'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'categories') echo ' active'; ?>" href="<?php echo shop_url('controller=cat') ?>"><?php echo $BLM['tab_categories'] ?></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link<?php if($controller == 'preferences') echo ' active'; ?>" href="<?php echo shop_url('controller=pref') ?>"><?php echo $BLM['tab_preferences'] ?></a>
+			</li>
+		</ul>
+	</div>
+	<div class="card-body">

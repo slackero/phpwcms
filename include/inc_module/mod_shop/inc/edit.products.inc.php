@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -27,238 +26,213 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 }
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['prod_edit'] ?></h1>
 
 <form action="<?php
-
-    echo shop_url( array('controller=prod', 'edit='.$plugin['data']['shopprod_id']) )
-
-?>" method="post" class="editform" onsubmit="selectAllOptions(this.shopprod_images);selectAllOptions(this.shopprod_files);">
-
-<input type="hidden" name="shopprod_id" value="<?php echo $plugin['data']['shopprod_id'] ?>" /><?php if(SHOP_FELANG_SUPPORT === false): ?><input type="hidden" name="shopprod_lang" value="<?php echo $plugin['data']['shopprod_lang'] ?>" /><?php endif; ?>
-<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-        <td class="v10" width="410"><?php
-
-        echo html_specialchars(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
-
-        if(!empty($plugin['data']['shopprod_createdate'])) {
-        ?>
-        &nbsp;&nbsp;&nbsp;<span class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:</span>
-        <?php
-
-            echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
-        }
-
-        ?></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_ordernumber'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-                <td><input name="shopprod_ordernumber" type="text" id="shopprod_ordernumber" class="v12 width125 bold<?php
-
-        //error class
-        if(!empty($plugin['error']['shopprod_ordernumber'])) echo ' errorInputText';
-
-        ?>" value="<?php echo html_specialchars($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" /></td>
-
-                <td align="right" class="chatlist width100"><?php echo $BLM['shopprod_model'] ?>:&nbsp;</td>
-                <td><input name="shopprod_model" type="text" id="shopprod_model" class="v12 width170" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" /></td>
-            </tr>
-
-            </table></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-<?php if(SHOP_FELANG_SUPPORT): ?>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BL['be_profile_label_lang']  ?>:&nbsp;</td>
-        <td class="v10" width="410"><table cellpadding="0" cellspacing="0" border="0" summary="">
-            <tr>
-                <td><input type="radio" name="shopprod_lang" id="shopprod_lang_0" value=""<?php is_checked($plugin['data']['shopprod_lang'], '') ?> /></td>
-                <td><label for="shopprod_lang_0"><?php echo $BL['be_ftptakeover_all'] ?></label>&nbsp;&nbsp;</td>
-<?php   foreach($phpwcms['allowed_lang'] as $lang):
-
-            $lang = strtolower($lang);
-?>
-        <td><input type="radio" name="shopprod_lang" id="shopprod_lang_<?php echo $lang ?>" value="<?php echo $lang ?>"<?php is_checked(strtolower($plugin['data']['shopprod_lang']), $lang) ?> /></td>
-        <td><label for="shopprod_lang_<?php echo $lang ?>"><img src="img/famfamfam/lang/<?php echo $lang; $lang = strtoupper($lang); ?>.png" alt="<?php echo $lang ?>" title="<?php echo $lang ?>" /></label>&nbsp;&nbsp;</td>
-
-<?php   endforeach; ?>
-            </tr>
-        </table></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-<?php endif; ?>
-
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_name1'] ?>:&nbsp;</td>
-        <td><input name="shopprod_name1" type="text" id="shopprod_name1" class="v12 width400 bold<?php
-
-        //error class
-        if(!empty($plugin['error']['shopprod_name1'])) echo ' errorInputText';
-
-        ?>" value="<?php echo html_specialchars($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" /></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_name2'] ?>:&nbsp;</td>
-        <td><input name="shopprod_name2" type="text" id="shopprod_name2" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" /></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_weight'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-
-                <td><input name="shopprod_weight" type="text" id="shopprod_weight" class="v12 width125 right" value="<?php
-
-                    echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']);
-
-                ?>" size="30" maxlength="200" /></td>
-
-                <td class="chatlist" width="25">&nbsp;<?php
-
-                    if( ! ($plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight')) ) {
-                        $plugin['data']['shop_pref_unit_weight'] = 'kg';
-                        _setConfig('shop_pref_unit_weight',     $plugin['data']['shop_pref_unit_weight'],   'module_shop');
-                    }
-                    echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
-
-                ?></td>
-
-            </tr>
-            </table></td>
-
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_inventory'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-                <tr>
-                    <td><input name="shopprod_inventory" type="text" id="shopprod_inventory" class="v12 width125 right" value="<?php echo $plugin['data']['shopprod_inventory'] ?>" size="30" maxlength="11" /></td>
-                    <td align="right" class="chatlist width100"><?php echo $BLM['shopprod_unit'] ?>:&nbsp;</td>
-                    <td><input name="shopprod_unit" type="text" id="shopprod_unit" class="v12 width170" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" /></td>
-                </tr>
-        </table></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_price'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-
-                <td><input name="shopprod_price" type="text" id="shopprod_price" class="v12 width125 bold right<?php
-
-            if(!empty($plugin['error']['shopprod_price'])) echo ' errorInputText';
-
-            ?>" value="<?php
-
-            $dec_lenght = strlen(strrchr($plugin['data']['shopprod_price'],'.')) - 1;
-            if($dec_lenght < 2) $dec_lenght = 2;
-            echo number_format($plugin['data']['shopprod_price'], $dec_lenght, $BLM['dec_point'], $BLM['thousands_sep']);
-
-        ?>" size="30" maxlength="200" /></td>
-
-            <td>&nbsp;</td>
-            <td width="25" align="right"><input type="checkbox" name="shopprod_netgross" id="shopprod_netgross" value="1"<?php is_checked(1, $plugin['data']['shopprod_netgross']) ?>  title="<?php echo $BLM['shopprod_netgross_info'] ?>" /></td>
-            <td width="75"><label for="shopprod_netgross" title="<?php echo $BLM['shopprod_netgross_info'] ?>"><?php echo $BLM['shopprod_netgross'] ?></label>&nbsp;&nbsp;&nbsp;</td>
-
-            <td class="chatlist"><?php echo $BLM['shopprod_vat'] ?>:&nbsp;</td>
-            <td><select name="shopprod_vat" id="shopprod_id" class="v12">
-
-    <?php
-
-    if( ! $plugin['data']['shop_pref_vat'] = _getConfig('shop_pref_vat') ) {
-        $plugin['data']['shop_pref_vat'] = array('0.00');
-        _setConfig('shop_pref_vat',     $plugin['data']['shop_pref_vat'],   'module_shop');
-    }
-
-    $add_option = '';
-    $add_vat    = array();
-
-    foreach( $plugin['data']['shop_pref_vat'] as $value ) {
-        echo '<option value="'.$value.'"';
-        if($plugin['data']['shopprod_vat'] == $value) {
-            echo ' selected="selected"';
-        } elseif( ! empty($plugin['data']['shopprod_vat']) && ! in_array($plugin['data']['shopprod_vat'], $plugin['data']['shop_pref_vat']) ) {
-            $plugin['data']['shop_pref_vat'][] = $plugin['data']['shopprod_vat'];
-            natsort($plugin['data']['shop_pref_vat']);
-            _setConfig('shop_pref_vat',     $plugin['data']['shop_pref_vat'],   'module_shop');
-
-            $add_option .= LF . '<option value="'.$plugin['data']['shopprod_vat'].'" selected="selected">';
-            $add_option .= number_format($plugin['data']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']);
-            $add_option .= '</option>';
-        }
-        echo '>';
-        echo number_format($value, 2, $BLM['dec_point'], $BLM['thousands_sep']);
-        echo '</option>' . LF;
-    }
-    echo $add_option;
-
-    ?>
-
-            </select></td>
-
-            <td>&nbsp;%</td>
-
-
-        </tr>
-
-            </table></td>
-
-    </tr>
-
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_size'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-                <td><textarea name="shopprod_size" id="shopprod_size" class="v12 width125" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea></td>
-
-                <td align="right" class="chatlist width100 tdtop4"><?php echo $BLM['shopprod_color'] ?>:&nbsp;</td>
-                <td><textarea name="shopprod_color" id="shopprod_color" class="v12 width170" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea></td>
-
-                </tr>
-
-            </table></td>
-    </tr>
-
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-
-    <tr>
-        <td align="right" class="chatlist tdbottom3"><?php echo $BLM['shopprod_description0'] ?>:&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="2" class="tdbottom4"><?php
-
+    echo shop_url(array('controller=prod', 'edit='.$plugin['data']['shopprod_id']))
+?>" method="post" onsubmit="selectAllOptions(this.shopprod_images);selectAllOptions(this.shopprod_files);">
+
+  <div class="row align-items-center">
+    <div class="col-sm">
+      <h1 class="mb-2 mb-sm-0 text-center text-sm-left"><?php echo $BLM['prod_edit'] ?></h1>
+    </div>
+    <div class="col-sm">
+      <div class="form-group text-center text-sm-right mb-0">
+          <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+          <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+          <input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+       </div>
+     </div>
+  </div>
+<hr />
+
+  <div class="form-group align-items-center form-row">
+    <input type="hidden" name="shopprod_id" value="<?php echo $plugin['data']['shopprod_id'] ?>" /><?php if (SHOP_FELANG_SUPPORT === false): ?><input type="hidden" name="shopprod_lang" value="<?php echo $plugin['data']['shopprod_lang'] ?>" /><?php endif; ?>
+            <label class="col-sm-2 col-form-label text-right"></label>
+            <div class="col">
+            <?php echo $BL['be_cnt_last_edited']  ?>: <?php echo html_specialchars(date($BL['be_fprivedit_dateformat'], $plugin['data']['shopprod_changedate'])) ;
+                if (!empty($plugin['data']['shopprod_createdate'])) {
+            ?>
+            <br /><span class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:</span>
+            <?php
+                    echo html_specialchars(date($BL['be_fprivedit_dateformat'], strtotime($plugin['data']['shopprod_createdate'])));
+             }
+            ?>
+        </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_ordernumber" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_ordernumber'] ?></label>
+    <div class="col-sm-4">
+      <input name="shopprod_ordernumber" type="text" id="shopprod_ordernumber" class="form-control form-control-sm<?php
+          //error class
+          if (!empty($plugin['error']['shopprod_ordernumber'])) {
+              echo ' errorInputText';
+          }
+      ?>" value="<?php echo html_specialchars($plugin['data']['shopprod_ordernumber']) ?>" size="30" maxlength="20" />
+    </div>
+    <div class="col-sm-6">
+      <div class="row align-items-center">
+        <label for="shopprod_model" class="col-sm-auto col-form-label text-right ml-sm-5"><?php echo $BLM['shopprod_model'] ?></label>
+          <div class="col">
+           <input name="shopprod_model" type="text" id="shopprod_model" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_model']) ?>" size="30" maxlength="200" />
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <?php if (SHOP_FELANG_SUPPORT): ?>
+  <div class="form-group form-row align-items-center">
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang']  ?></span>
+      <div class="col">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="shopprod_lang" id="shopprod_lang_0" value=""<?php is_checked($plugin['data']['shopprod_lang'], '') ?> />
+          <label class="form-check-label" for="shopprod_lang_0"><?php echo $BL['be_ftptakeover_all'] ?></label>
+        </div>
+    <?php foreach ($phpwcms['allowed_lang'] as $lang):
+          $lang = strtolower($lang);
+    ?><div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="shopprod_lang" id="shopprod_lang_<?php echo $lang ?>" value="<?php echo $lang ?>"<?php is_checked(strtolower($plugin['data']['shopprod_lang']), $lang) ?> />
+        <label class="form-check-label" for="shopprod_lang_<?php echo $lang ?>"><span class="flag-icon flag-icon-<?php echo $lang; $lang = strtoupper($lang); ?> mt-1" data-toggle="tooltip" title="<?php echo $lang ?>"></span></label>
+      </div>
+  <?php endforeach; ?>
+    </div>
+  </div>
+  <?php endif; ?>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_name1" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name1'] ?></label>
+    <div class="col">
+      <input name="shopprod_name1" type="text" id="shopprod_name1" class="form-control form-control-sm<?php
+          //error class
+          if (!empty($plugin['error']['shopprod_name1'])) {
+              echo ' errorInputText';
+          }
+      ?>" value="<?php echo html_specialchars($plugin['data']['shopprod_name1']) ?>" size="30" maxlength="200" />
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_name2" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_name2'] ?></label>
+    <div class="col">
+      <input name="shopprod_name2" type="text" id="shopprod_name2" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_name2']) ?>" size="30" maxlength="200" />
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_weight" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_weight'] ?></label>
+    <div class="col-sm-4">
+        <div class="input-group input-group-sm">
+      <input name="shopprod_weight" type="text" id="shopprod_weight" class="form-control" value="<?php echo number_format($plugin['data']['shopprod_weight'], 3, $BLM['dec_point'], $BLM['thousands_sep']); ?>" size="30" maxlength="200" />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <?php
+                        if (! ($plugin['data']['shop_pref_unit_weight'] = _getConfig('shop_pref_unit_weight'))) {
+                                $plugin['data']['shop_pref_unit_weight'] = 'kg';
+                                _setConfig('shop_pref_unit_weight', $plugin['data']['shop_pref_unit_weight'], 'module_shop');
+                        }
+                        echo html_specialchars($plugin['data']['shop_pref_unit_weight']);
+                        ?>
+                    </div>
+                </div>
+            </div>
+    </div>
+  </div>
+
+    <div class="form-group form-row align-items-center">
+        <label class="col-sm-2 col-form-label text-right" for="shopprod_inventory"><?php echo $BLM['shopprod_inventory'] ?></label>
+        <div class="col-sm-4">
+            <input name="shopprod_inventory" type="text" id="shopprod_inventory" class="form-control form-control-sm" value="<?php echo $plugin['data']['shopprod_inventory'] ?>" size="30" maxlength="11" />
+        </div>
+    </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_unit" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_unit'] ?></label>
+    <div class="col-sm-4">
+      <input name="shopprod_unit" type="text" id="shopprod_unit" class="form-control form-control-sm" value="<?php echo html($plugin['data']['shopprod_unit']) ?>" size="30" maxlength="100" />
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
+    <label for="shopprod_price" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_price'] ?></label>
+    <div class="col-sm-4">
+        <div class="input-group input-group-sm">
+        <input name="shopprod_price" type="text" id="shopprod_price" class="form-control<?php if (!empty($plugin['error']['shopprod_price'])) {
+                            echo ' errorInputText';
+                    } ?>" value="<?php $dec_lenght = strlen(strrchr($plugin['data']['shopprod_price'], '.')) - 1; if ($dec_lenght < 2) {
+                            $dec_lenght = 2;
+                    } echo number_format($plugin['data']['shopprod_price'], $dec_lenght, $BLM['dec_point'], $BLM['thousands_sep']); ?>" size="30" maxlength="200" />
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="shopprod_netgross" id="shopprod_netgross" value="1"<?php is_checked(1, $plugin['data']['shopprod_netgross']) ?>  title="<?php echo $BLM['shopprod_netgross_info'] ?>" />
+                            <label  class="form-check-label" for="shopprod_netgross" title="<?php echo $BLM['shopprod_netgross_info'] ?>"><?php echo $BLM['shopprod_netgross'] ?></label>
+                        </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-auto px-3 py-3 py-sm-0">
+        <div class="input-group input-group-sm align-items-center">
+                <label for="shopprod_vat" class="col-form-label mr-2"><?php echo $BLM['shopprod_vat'] ?></label>
+                    <select name="shopprod_vat" id="shopprod_vat" class="custom-select form-control form-control-sm">
+                        <?php
+                        if (! $plugin['data']['shop_pref_vat'] = _getConfig('shop_pref_vat')) {
+                                $plugin['data']['shop_pref_vat'] = array('0.00');
+                                _setConfig('shop_pref_vat', $plugin['data']['shop_pref_vat'], 'module_shop');
+                        }
+                        $add_option = '';
+                        $add_vat    = array();
+                        foreach ($plugin['data']['shop_pref_vat'] as $value) {
+                                echo '<option value="'.$value.'"';
+                                if ($plugin['data']['shopprod_vat'] == $value) {
+                                        echo ' selected="selected"';
+                                } elseif (! empty($plugin['data']['shopprod_vat']) && ! in_array($plugin['data']['shopprod_vat'], $plugin['data']['shop_pref_vat'])) {
+                                        $plugin['data']['shop_pref_vat'][] = $plugin['data']['shopprod_vat'];
+                                        natsort($plugin['data']['shop_pref_vat']);
+                                        _setConfig('shop_pref_vat', $plugin['data']['shop_pref_vat'], 'module_shop');
+
+                                        $add_option .= LF . '<option value="'.$plugin['data']['shopprod_vat'].'" selected="selected">';
+                                        $add_option .= number_format($plugin['data']['shopprod_vat'], 2, $BLM['dec_point'], $BLM['thousands_sep']);
+                                        $add_option .= '</option>';
+                                }
+                                echo '>';
+                                echo number_format($value, 2, $BLM['dec_point'], $BLM['thousands_sep']);
+                                echo '</option>' . LF;
+                        }
+                        echo $add_option;
+                        ?>
+                    </select>
+                    <div class="input-group-append">
+                        <div class="input-group-text">%</div>
+                </div>
+            </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="form-group form-row">
+    <label for="shopprod_size" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_size'] ?></label>
+    <div class="col-sm-4">
+      <textarea name="shopprod_size" id="shopprod_size" class="form-control form-control-sm" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_size']) ?></textarea>
+    </div>
+    <div class="col-sm-6">
+    <div class="form-row">
+    <label for="shopprod_color" class="col-sm-3 col-form-label text-right"><?php echo $BLM['shopprod_color'] ?></label>
+            <div class="col">
+              <textarea name="shopprod_color" id="shopprod_color" class="form-control form-control-sm" rows="5" cols="15"><?php echo html_specialchars($plugin['data']['shopprod_color']) ?></textarea>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="form-group form-row">
+    <label for="shopprod_description0" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description0'] ?></label>
+    <div class="col">
+      <?php
         $wysiwyg_editor = array(
             'value'     => $plugin['data']['shopprod_description0'],
             'field'     => 'shopprod_description0',
@@ -268,18 +242,15 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
             'editor'    => $_SESSION["WYSIWYG_EDITOR"],
             'lang'      => 'en'
         );
-
         include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+        ?>
+    </div>
+  </div>
 
-        ?></td>
-    </tr>
-
-    <tr>
-        <td align="right" class="chatlist tdbottom3"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="2" class="tdbottom4"><?php
+  <div class="form-group form-row">
+    <label for="shopprod_description1" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <div class="col">
+      <?php
 
         $wysiwyg_editor = array(
             'value'     => $plugin['data']['shopprod_description1'],
@@ -293,43 +264,47 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
 
         include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
-        ?></td>
-    </tr>
+        ?>
+    </div>
+  </div>
 
-    <tr>
-        <td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description1'] ?>:&nbsp;</td>
-        <td colspan="2" class="tdbottom3"><textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description2']) ?></textarea></td>
-    </tr>
+  <div class="form-group form-row">
+    <label for="shopprod_description2" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description1'] ?></label>
+    <div class="col">
+      <textarea name="shopprod_description2" id="shopprod_description2" rows="5" class="form-control form-control-sm"><?php echo html_specialchars($plugin['data']['shopprod_description2']) ?></textarea>
+    </div>
+  </div>
 
-    <tr>
-        <td align="right" class="chatlist tdtop4"><?php echo $BLM['shopprod_description2'] ?>:&nbsp;</td>
-        <td colspan="2"><textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="v12 width400"><?php echo html_specialchars($plugin['data']['shopprod_description3']) ?></textarea></td>
-    </tr>
+  <div class="form-group form-row">
+    <label for="shopprod_description3" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_description2'] ?></label>
+    <div class="col">
+      <textarea name="shopprod_description3" id="shopprod_description3" rows="5" class="form-control form-control-sm"><?php echo html_specialchars($plugin['data']['shopprod_description3']) ?></textarea>
+    </div>
+  </div>
 
+<hr />
 
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-<tr>
-    <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td valign="top"><select name="shopprod_images[]" size="<?php
+  <div class="form-group form-row">
+    <label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
+    <div class="col">
+      <div class="row">
+        <div class="col"><select name="shopprod_images[]" size="<?php
 
     $img_count = isset($plugin['data']['shopprod_images']) && is_array($plugin['data']['shopprod_images']) ? count($plugin['data']['shopprod_images']) : 0;
 
     echo $img_count+5
 
-        ?>" multiple="multiple" class="f11 width360" id="shopprod_images">
+        ?>" multiple="multiple" class="custom-select form-control form-control-sm h-100" id="shopprod_images">
 <?php
 
 $img_thumbs = '';
 $imgx = 0;
 
-if($img_count) {
+if ($img_count) {
 
     // browse images and list available
     // will be visible only when aceessible
-    foreach($plugin['data']['shopprod_images'] as $key => $value) {
+    foreach ($plugin['data']['shopprod_images'] as $key => $value) {
 
         // 0   :1       :2   :3        :4    :5     :6      :7       :8
         // dbid:filename:hash:extension:width:height:caption:position:zoom
@@ -339,253 +314,219 @@ if($img_count) {
             "thumb_name"    =>  md5($plugin['data']['shopprod_images'][$key]['f_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
         ));
 
-        if($thumb_image != false) {
+        if ($thumb_image != false) {
 
             // image found
             echo '<option value="' . $plugin['data']['shopprod_images'][$key]['f_id'] . '">';
             $img_name = html_specialchars($plugin['data']['shopprod_images'][$key]['f_name']);
             echo $img_name . '</option>'.LF;
 
-            if($imgx == 4) {
-                $img_thumbs .= '<br /><img src="img/leer.gif" alt="" width="1" height="2" /><br />';
-                $imgx = 0;
-            }
-            if($imgx) {
-                $img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1" />';
-            }
-            $img_thumbs .= '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
+
+            $img_thumbs .= '<img class="my-1 mr-1" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
 
             $plugin['data']['shopprod_caption'][] = html_specialchars($plugin['data']['shopprod_images'][$key]['caption']);
 
             $imgx++;
         }
-
     }
-
 }
 
 ?>
-          </select></td>
-                  <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1" /></td>
-                  <td valign="top">
-                  <a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=5&amp;target=nolist');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
-                  <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(img_field);return false;"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0" /></a><a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(img_field);return false;"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0" /></a>
-                  <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" onclick="removeSelectedOptions(img_field);return false;" title="<?php echo $BL['be_cnt_delimage'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0" /></a></td>
-      </tr>
-              </table>
-<?php
+          </select>
+        </div>
+        <div class="col-sm-auto pl-0">
+          <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=5&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(img_field);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(img_field);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
+          <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(img_field);return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col mt-1">
+  <?php
 
-    if($img_thumbs) {
-        echo '
-        <table border="0" cellspacing="0" cellpadding="0" summary="">
-        <tr>
-                <td style="padding:5px 0 5px 0;">'.$img_thumbs.'</td>
-            </tr>
-        </table>';
-    }
+      if ($img_thumbs) {
+          echo $img_thumbs;
+      }
 
-?></td>
-    </tr>
+  ?>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <tr>
-        <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-        <td valign="top"><textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea></td>
-    </tr>
+  <div class="form-group form-row">
+    <label for="shopprod_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
+    <div class="col">
+      <textarea name="shopprod_caption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="form-control form-control-sm" id="shopprod_caption"><?php echo implode(' '.LF, $plugin['data']['shopprod_caption']) ?></textarea>
+    </div>
+  </div>
 
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<hr />
 
-
-    <!-- Attachments -->
-    <tr>
-    <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_files'] ?>:&nbsp;</td>
-    <td valign="top" class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td valign="top"><select name="shopprod_files[]" size="<?php
-
+  <!-- Attachments -->
+  <div class="form-group form-row">
+    <label for="shopprod_files" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+    <div class="col">
+      <div class="row">
+        <div class="col"><select name="shopprod_files[]" size="<?php
     $files_count = isset($plugin['data']['shopprod_files']) && is_array($plugin['data']['shopprod_files']) ? count($plugin['data']['shopprod_files']) : 0;
-
-    echo $files_count+4
-
-        ?>" multiple="multiple" class="f11 width360" id="shopprod_files">
+    echo $files_count+5
+        ?>" multiple="multiple" class="custom-select form-control form-control-sm h-100" id="shopprod_files">
 <?php
 
-if(count($plugin['data']['shopprod_files'])) {
-
+if (count($plugin['data']['shopprod_files'])) {
     // browse images and list available
-    // will be visible only when aceessible
-    foreach($plugin['data']['shopprod_files'] as $key => $value) {
-
+    // will be visible only when accessible
+    foreach ($plugin['data']['shopprod_files'] as $key => $value) {
         echo '<option value="' . $plugin['data']['shopprod_files'][$key]['f_id'] . '">';
         echo html_specialchars($plugin['data']['shopprod_files'][$key]['f_name']);
         echo '</option>'.LF;
 
         $plugin['data']['shopprod_filecaption'][] = html_specialchars($plugin['data']['shopprod_files'][$key]['caption']);
-
     }
-
 }
-
 ?>
-        </select></td>
+          </select>
+        </div>
+        <div class="col-sm-auto pl-0">
+            <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
+            <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(files_field);return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1" /></td>
-        <td valign="top">
-        <a href="#" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=9&amp;target=nolist');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
-        <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(files_field);return false;"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0" /></a><a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(files_field);return false;"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0" /></a>
-        <br /><img src="img/leer.gif" alt="" width="1" height="4" /><br /><a href="#" onclick="removeSelectedOptions(files_field);return false;" title="<?php echo $BL['be_cnt_delfile'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0" /></a></td>
-      </tr>
-    </table>
-        </td>
-    </tr>
+  <div class="form-group form-row">
+    <label for="shopprod_filecaption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+    <div class="col">
+      <textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="form-control form-control-sm" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea>
+    </div>
+  </div>
+<!-- End Attachments -->
 
-    <tr>
-        <td align="right" valign="top" class="chatlist tdtop4"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top"><textarea name="shopprod_filecaption" cols="40" rows="<?php echo $img_count+5 ?>" wrap="off" class="f11 width400" id="shopprod_filecaption"><?php echo implode(' '.LF, $plugin['data']['shopprod_filecaption']) ?></textarea></td>
-    </tr>
-    <!-- End Attachments -->
+  <div class="form-group form-row">
+    <label for="shopprod_url" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_url'] ?></label>
+    <div class="col">
+      <input name="shopprod_url" type="text" id="shopprod_url" class="form-control form-control-sm" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" />
+    </div>
+  </div>
 
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_url'] ?>:&nbsp;</td>
-        <td><input name="shopprod_url" type="text" id="shopprod_url" class="v12 width400" value="<?php echo html_specialchars($plugin['data']['shopprod_url']) ?>" size="30" maxlength="250" /></td>
-    </tr>
-
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist tdtop3"><?php echo $BLM['prod_cat'] ?>:&nbsp;</td>
-        <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-                <td><select name="shopprod_category[]" size="7" multiple="multiple" class="v12 width400" id="shopprod_category">
+  <div class="form-group form-row">
+    <label for="shopprod_category" class="col-sm-2 col-form-label text-right"><?php echo $BLM['prod_cat'] ?></label>
+    <div class="col-sm-4">
+        <select name="shopprod_category[]" size="7" multiple="multiple" class="custom-select form-control form-control-sm" id="shopprod_category">
         <?php
         $t = array();
-        foreach($plugin['data']['categories'] as $value) {
-
+        foreach ($plugin['data']['categories'] as $value) {
             echo '<option value="'.$value['cat_id'].'"';
-            if(in_array($value['cat_id'], $plugin['data']['shopprod_category'])) {
+            if (in_array($value['cat_id'], $plugin['data']['shopprod_category'])) {
                 echo ' selected="selected"';
-                $t[] = $value['category'];
+                $t[] = $value['category'] . "\n";
             }
-            if($value['cat_status'] == 0) {
+            if ($value['cat_status'] == 0) {
                 echo ' style="font-style:italic;"';
             }
             echo '>';
-            if($value['cat_pid']) {
+            if ($value['cat_pid']) {
                 echo '&nbsp;&nbsp;&nbsp;';
             }
             echo html_specialchars($value['cat_name']).'</option>'.LF;
-
         }
-
         ?>
-            </select></td>
-            </tr>
-        <?php   if(count($t)) {     ?>
-            <tr>
-                <td class="tdtop3 v10"><?php echo nl2br(html_specialchars(implode(', ', $t))) ?></td>
-            </tr>
-        <?php   }   ?>
+        </select>
+    </div>
+        <?php if (count($t)) {
+            ?>
+             <div class="col"><?php echo nl2br(html_specialchars(implode(' ', $t))) ?></div>
+        <?php
+        }   ?>
+  </div>
 
-        </table></td>
+  <div class="form-group form-row">
+    <label for="shopprod_tag" class="col-sm-2 col-form-label text-right"><?php echo $BLM['shopprod_tag'] ?></label>
+    <div class="col">
+      <input name="shopprod_tag" type="text" id="shopprod_tag" class="form-control form-control-sm" value="<?php echo html_specialchars(trim($plugin['data']['shopprod_tag'], ',')) ?>" size="30" maxlength="250" />
+    </div>
+  </div>
 
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_tag'] ?>:&nbsp;</td>
-        <td><input name="shopprod_tag" type="text" id="shopprod_tag" class="v12 width400" value="<?php echo html_specialchars( trim($plugin['data']['shopprod_tag'], ',') ) ?>" size="30" maxlength="250" /></td>
-    </tr>
-
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_on_request'] ?>:&nbsp;</td>
-        <td class="tdtop1">
-            <div>
-                <label>
-                    <input type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
-                    <strong><?php echo $BL['be_cnt_activated'] ?></strong>
+    <div class="form-group form-row">
+        <span class="col-2 col-form-label text-right"><?php echo $BLM['shopprod_on_request'] ?></span>
+        <div class="col-10 col-sm-1">
+            <div class="form-check pt-2">
+                <input class="form-check-input" type="checkbox" name="shopprod_on_request" id="shopprod_on_request" value="1"<?php is_checked($plugin['data']['shopprod_on_request'], 1) ?> />
+                <label class="form-check-label" for="shopprod_on_request">
+                    <?php echo $BL['be_cnt_activated'] ?>
                 </label>
             </div>
-        </td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr>
-        <td align="right" class="chatlist"><?php echo $BLM['shopprod_on_request_button'] ?>:&nbsp;</td>
-        <td><input name="shopprod_on_request_url" type="text" id="shopprod_on_request_url" class="v12 width400" value="<?php echo html($plugin['data']['shopprod_on_request_url']) ?>" size="30" maxlength="250" title="<?php echo $BLM['shopprod_on_request_url'] ?>" placeholder="<?php echo $BLM['shopprod_on_request_url'] ?>" /></td>
-    </tr>
+        </div>
+        <div class="col-3 col-sm-2 text-right">
+            <label for="shopprod_on_request_url" class="col-form-label"><?php echo $BLM['shopprod_on_request_button'] ?></label>
+        </div>
+        <div class="col-9 col-sm-7">
+            <input name="shopprod_on_request_url" type="text" id="shopprod_on_request_url" class="form-control form-control-sm" value="<?php echo html($plugin['data']['shopprod_on_request_url']) ?>" size="30" maxlength="250" title="<?php echo $BLM['shopprod_on_request_url'] ?>" placeholder="<?php echo $BLM['shopprod_on_request_url'] ?>" />
+        </div>
+    </div>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+    <hr />
 
-    <tr>
-        <td align="right" class="chatlist tdtop4"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-        <td class="tdtop1">
-            <div>
-                <label>
-                    <input type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
-                    <strong><?php echo $BL['be_cnt_activated'] ?></strong>
-                </label>
-                &nbsp;
-                <label>
-                    <input type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
-                    <?php echo $BLM['shopprod_listall'] ?>
-                </label>
-            </div>
-            <div>
-                <label>
-                    <input type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
-                    <?php echo $BLM['shopprod_overwrite_meta'] ?>
-                </label>
-            </div>
-            <div>
-                <label>
-                    <input type="checkbox" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
-                    <?php echo $BL['be_opengraph_support'] ?>
-                </label>
-            </div>
+  <div class="form-group form-row">
+    <span class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></span>
+    <div class="col">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="shopprod_status" id="shopprod_status" value="1"<?php is_checked($plugin['data']['shopprod_status'], 1) ?> />
+            <label class="form-check-label" for="shopprod_status">
+                <strong><?php echo $BL['be_cnt_activated'] ?></strong>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="shopprod_listall" id="shopprod_listall" value="1"<?php is_checked($plugin['data']['shopprod_listall'], 1) ?> />
+            <label class="form-check-label" for="shopprod_listall">
+                <?php echo $BLM['shopprod_listall'] ?>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="shopprod_overwrite_meta" id="shopprod_overwrite_meta" value="1"<?php is_checked($plugin['data']['shopprod_overwrite_meta'], 1) ?> />
+            <label class="form-check-label" for="shopprod_overwrite_meta">
+                <?php echo $BLM['shopprod_overwrite_meta'] ?>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="shopprod_opengraph" id="shopprod_opengraph" value="1"<?php is_checked($plugin['data']['shopprod_opengraph'], 1) ?> />
+            <label class="form-check-label" for="shopprod_opengraph">
+                <?php echo $BL['be_opengraph_support'] ?>
+            </label>
+        </div>
 
 <!-- save as duplicate -->
-<?php   if($plugin['data']['shopprod_id']): ?>
-            <div>
-                <label>
-                    <input type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
-                    <?php echo $BL['be_save_copy'] ?>
-                </label>
-            </div>
+<?php   if ($plugin['data']['shopprod_id']): ?>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="shopprod_duplicate" id="shopprod_duplicate" value="1"<?php is_checked($plugin['data']['shopprod_duplicate'], 1) ?> />
+                    <label class="form-check-label" for="shopprod_duplicate">
+                        <?php echo $BL['be_save_copy'] ?>
+                    </label>
+                </div>
 <?php   endif;  ?>
+    </div>
+  </div>
 
-        </td>
-    </tr>
+      <div class="form-group text-center text-sm-right mb-0">
+          <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+          <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+          <input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+       </div>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>
-            <input name="submit" type="submit" class="button10" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-            <input name="save" type="submit" class="button10" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <input name="close" type="submit" class="button10" value="<?php echo $BL['be_admin_struct_close'] ?>" />
-        </td>
-    </tr>
-</table>
 </form>
 <script type="text/javascript">
 
-var img_field = getObjectById('shopprod_images');
-var files_field = getObjectById('shopprod_files');
-function addFile(value,text) {
-    if(files_field!=null && files_field.options!=null) {
-        newOpt = new Option(text, value);
-        files_field.options.length++;
-        files_field.options[files_field.length-1].text  = newOpt.text;
-        files_field.options[files_field.length-1].value = newOpt.value;
-        files_field.options[files_field.length-1].selected = false;
+var img_field = document.getElementById('shopprod_images');
+var files_field = document.getElementById('shopprod_files');
+
+function addFile(value, text) {
+    if (files_field && files_field.options) {
+        files_field.add(new Option(text, value));
     }
 }
-
 </script>

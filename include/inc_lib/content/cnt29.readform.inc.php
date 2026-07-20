@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,13 +18,13 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images
 
-$content["image_list"] 		= $_POST["cimage_list"] ?? array();
+$content["image_list"] 		= isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
 $content["image_pos"] 		= empty($_POST["cimage_pos"]) ? 0 : intval($_POST["cimage_pos"]);
 
-$content["image_width"] 	= intval($_POST["cimage_width"]) ?: '';
+$content["image_width"] 	= intval($_POST["cimage_width"]) ? intval($_POST["cimage_width"]) : '';
 $temp_width 				= $content["image_width"];
 
-$content["image_height"] 	= intval($_POST["cimage_height"]) ?: '';
+$content["image_height"] 	= intval($_POST["cimage_height"]) ? intval($_POST["cimage_height"]) : '';
 $temp_height 				= $content["image_height"];
 
 $content["image_space"] 	= intval($_POST["cimage_space"]);
@@ -100,3 +99,65 @@ if($content['image_list']['center_image'] > 3) {
 } elseif($content['image_list']['center_image'] < 0) {
 	$content['image_list']['center_image'] = 0;
 }
+
+// Custom Fields
+$cnt_fieldgroup_fields = null;
+$cnt_fieldgroup_field_render = array('html', 'markdown', 'wysiwyg');
+if(empty($_POST['cnt_fieldgroup'])) {
+    $content['cnt_fieldgroup'] = '';
+} else {
+    $content['cnt_fieldgroup'] = clean_slweg($_POST['cnt_fieldgroup']);
+    if($content['cnt_fieldgroup'] && isset($template_default['settings']['imgdiv_custom_fields'][ $content['cnt_fieldgroup'] ]['fields'])) {
+        $cnt_fieldgroup_fields =& $template_default['settings']['imgdiv_custom_fields'][ $content['cnt_fieldgroup'] ]['fields'];
+    }
+}
+
+$content['custom_fields'] = array();
+
+// first read all defined custom field values
+if(!empty($cnt_fieldgroup_fields)) {
+    foreach($cnt_fieldgroup_fields as $custom_field => $custom_field_definition) {
+        $custom_field_value = isset($_POST['customfield'][$custom_field]) ? $_POST['customfield'][$custom_field] : null;
+        $_POST['customfield'][$custom_field] = null;
+        unset($_POST['customfield'][$custom_field]);
+
+        if(isset($cnt_fieldgroup_fields[$custom_field]['render']) && in_array($cnt_fieldgroup_fields[$custom_field]['render'], $cnt_fieldgroup_field_render)) {
+            $content['custom_fields'][$custom_field] = slweg($custom_field_value);
+        } elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'int') {
+            $content['custom_fields'][$custom_field] = intval($custom_field_value);
+        } elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'float') {
+            $content['custom_fields'][$custom_field] = floatval($custom_field_value);
+        } elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'bool') {
+            $content['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
+        } elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'file') {
+
+            $content['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
+
+            if(!empty($custom_field_value['id']) && ($custom_field_value['id'] = intval($custom_field_value['id']))) {
+                $content['custom_fields'][$custom_field]['id'] = $custom_field_value['id'];
+            }
+            if(!empty($custom_field_value['name']) && $content['custom_fields'][$custom_field]['id']) {
+                $content['custom_fields'][$custom_field]['name'] = clean_slweg($custom_field_value['name']);
+            }
+            if(!empty($custom_field_value['description']) && $content['custom_fields'][$custom_field]['id']) {
+                $content['custom_fields'][$custom_field]['description'] = clean_slweg($custom_field_value['description']);
+            }
+
+        } else {
+            $content['custom_fields'][$custom_field] = clean_slweg($custom_field_value);
+        }
+    }
+}
+
+// parse all non-defined custom fields (maybe left over from old definitions)
+if(!empty($_POST['customfield']) && count($_POST['customfield'])) {
+    foreach($_POST['customfield'] as $custom_field => $custom_field_value) {
+        if($custom_field_value === null) {
+            continue;
+        }
+        $content['custom_fields'][$custom_field] = slweg($custom_field_value); // keep the value as is
+    }
+}
+
+$content['image_list']['fieldgroup'] = $content['cnt_fieldgroup'];
+$content['image_list']['custom'] = $content['custom_fields'];

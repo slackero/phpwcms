@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -161,6 +160,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
                      "address_url2="._dbEscape($content["newsletter"]["url2"])." ".
                      "WHERE address_id="._dbEscape($content["newsletter"]["reffering_id"]);
             $content["newsletter"]["updated"] = 1;
+            //Eintrag Logfile Subscription update
+            log_message('1', aporeplace($content["newsletter"]["email_name"])."::".aporeplace($content["newsletter"]["email_address"]), aporeplace($content["newsletter"]["reffering_id"]));
+            //end
             _dbQuery($e_sql, 'UPDATE');
 
         } else {
@@ -176,6 +178,9 @@ if(isset($_POST["newsletter_send"]) && intval($_POST["newsletter_send"])) {
                      _dbEscape($content["newsletter"]["url1"]).", ".
                      _dbEscape($content["newsletter"]["url2"]).")";
             $content["newsletter"]["updated"] = 0;
+            //Eintrag Logfile Subscription insert
+            log_message('2', aporeplace($content["newsletter"]["email_name"])."::".aporeplace($content["newsletter"]["email_address"]), 0);
+            //end
             _dbQuery($e_sql, 'INSERT');
 
         }
@@ -248,15 +253,15 @@ if($content["newsletter"]["success"]) {
 
     switch($content["newsletter"]["pos"]) {
         case 1:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-left');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-left');
             break;
 
         case 2:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' center-block');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' mx-auto d-block');
             break;
 
         case 3:
-            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' pull-right');
+            $content["newsletter"]["class"] = trim($template_default['classes']['newsletter-table'].' float-right');
             break;
 
         default:
@@ -274,13 +279,13 @@ if($content["newsletter"]["success"]) {
     $CNT_TMP .= '<fieldset class="subscriber">';
 
     $CNT_TMP .= '<div class="form-group">';
-    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_email"] ?: "@@email:@@") . '</label> ';
-    $CNT_TMP .= '<input name="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
+    $CNT_TMP .= '<label class="formLabel" for="newsletter_email">' . ($content["newsletter"]["label_email"] ? $content["newsletter"]["label_email"] : "@@email:@@") . '</label> ';
+    $CNT_TMP .= '<input name="newsletter_email" id="newsletter_email" type="email" class="'.$template_default['classes']['newsletter-input-email'].'" size="30" maxlength="250" ';
     $CNT_TMP .= 'value="'.$content["newsletter"]["email_address"].'" required="required" placeholder="@@newsletter email@@" /></div>';
 
     $CNT_TMP .= '<div class="form-group">';
-    $CNT_TMP .= '<label class="formLabel">' . ($content["newsletter"]["label_name"] ?: '@@name:@@') . '</label> ';
-    $CNT_TMP .= '<input name="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
+    $CNT_TMP .= '<label class="formLabel" for="newsletter_name">' . ($content["newsletter"]["label_name"] ? $content["newsletter"]["label_name"] : '@@name:@@') . '</label> ';
+    $CNT_TMP .= '<input name="newsletter_name" id="newsletter_name" type="text" class="'.$template_default['classes']['newsletter-input-name'].'" size="30" maxlength="250" ';
     $CNT_TMP .= 'value="'.$content["newsletter"]["email_name"].'" placeholder="@@newsletter name@@" /></div>';
 
     $CNT_TMP .= '</fieldset>' . LF;
@@ -323,17 +328,18 @@ if($content["newsletter"]["success"]) {
 
         }
 
-        if($content["newsletter"]['c']) {
-
+            //if only 1 subsribtion selected tnen checkbox hidden
+            if ($content["newsletter"]['c'] == 1) {
+              $CNT_TMP .= '<input name="email_subscription['.$nlkey.']" id="email_subscription['.$nlkey.']" type="hidden" value="'.$nlkey.'" />';
+            } else if($content["newsletter"]['c']) {
+            //end
             $CNT_TMP .= '<fieldset class="subscriptions">' . LF;
             $CNT_TMP .= '<legend>' . (empty($content["newsletter"]["label_subscriptions"]) ? '@@subscribe&nbsp;to:@@' : html($content["newsletter"]["label_subscriptions"])) . '</legend>' . LF;
             $CNT_TMP .= '<ul class="'.$template_default['classes']['newsletter-table-subscription'].'">' . LF;
             $CNT_TMP .= $content["newsletter"]['t'];
             $CNT_TMP .= '</ul>' . LF;
             $CNT_TMP .= '</fieldset>' . LF;
-
         }
-
     }
 
     // reCAPTCHA v2
@@ -356,7 +362,7 @@ if($content["newsletter"]["success"]) {
 
     $CNT_TMP .= '<fieldset class="subscribe-buttons">' . LF;
 
-        // reCAPTCHA v2
+    // reCAPTCHA v2
     if($content["newsletter"]["recaptcha"] === 2) {
 
         $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($content["newsletter"]["recaptcha_config"]['lang'], true);
@@ -374,7 +380,7 @@ if($content["newsletter"]["success"]) {
         $CNT_TMP .= '<button type="submit" class="'.$template_default['classes']['newsletter-submit-button'].'">';
     }
 
-    $CNT_TMP .= $content["newsletter"]["button_text"] ?: '@@Subscribe@@';
+    $CNT_TMP .= $content["newsletter"]["button_text"] ? $content["newsletter"]["button_text"] : '@@Subscribe@@';
     $CNT_TMP .= '</button>' . LF;
     $CNT_TMP .= '<input name="newsletter_send" type="hidden" value="1" />';
 

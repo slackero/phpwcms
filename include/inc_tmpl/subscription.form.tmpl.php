@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -64,31 +63,36 @@ if($subscription["id"]) {
     }
 }
 
-    // show form
+// show form
 ?>
-<form action="phpwcms.php?do=messages&amp;p=2&amp;s=<?php echo $subscription["id"] ?>&amp;edit=1" method="post" name="subscriptions" id="subscriptions" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 10px 15px 10px">
-    <table border="0" cellpadding="0" cellspacing="0" summary="newsletter subscription form">
+<form action="phpwcms.php?do=messages&amp;p=2&amp;s=<?php echo $subscription["id"] ?>&amp;edit=1" method="post" name="subscriptions" id="subscriptions">
+<input name="subscription_id" type="hidden" value="<?php echo $subscription["id"] ?>" />
+  <div class="card mb-2">
+    <div class="card-header"><h2><?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_titleedit']) ?></h2></div>
+    <div class="card-body">
 
-        <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_newsletter_name'] ?>:&nbsp;</td>
-            <td><input name="subscription_name" type="text" class="f11b" id="subscription_name" style="width:440px" value="<?php echo  empty($subscription["name"]) ? '' : html($subscription["name"]) ?>" size="50" maxlength="250" /></td>
-        </tr>
+      <div class="form-group form-row align-items-center">
+          <label for="subscription_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_name'] ?></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" name="subscription_name" id="subscription_name" value="<?php echo  empty($subscription["name"]) ? '' : html($subscription["name"]) ?>" size="50" maxlength="250"  required />
+          </div>
+      </div>
 
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-        <tr>
-            <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_newsletter_info'] ?>:&nbsp;</td>
-            <td><textarea name="subscription_info" cols="35" rows="6" class="width440 autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea></td>
-        </tr>
+      <div class="form-group form-row">
+          <label for="subscription_info" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_info'] ?></label>
+          <div class="col-sm-10">
+            <textarea name="subscription_info" cols="35" rows="6" class="form-control form-control-sm autosize" id="subscription_info"><?php echo empty($subscription["info"]) ? '' : html($subscription["info"]); ?></textarea>
+          </div>
+      </div>
 
-        <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
+      <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+          <input name="Submit" type="submit" class="btn btn-sm btn-blue mt-1" value="<?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?>" />
+          <input type="button" class="btn btn-sm btn-blue mt-1" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=2';" />
+        </div>
+      </div>
 
-        <tr>
-            <td>&nbsp;<input name="subscription_id" type="hidden" value="<?php echo $subscription["id"] ?>" /></td>
-            <td>
-                <input name="Submit" type="submit" class="button" value="<?php echo $BL['be_newsletter_button_save'] ?>" />
-                &nbsp;&nbsp;
-                <input type="button" class="button" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=2';" /></td>
-        </tr>
-
-    </table>
+    </div>
+  </div>
 </form>

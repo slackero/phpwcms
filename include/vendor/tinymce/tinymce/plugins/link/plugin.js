@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 8.8.0 (2026-07-15)
+ * TinyMCE version 8.7.0 (2026-07-01)
  */
 
 (function () {
@@ -1446,8 +1446,7 @@
         if (a) {
             const href = getHref(a);
             if (/^#/.test(href)) {
-                const id = removeLeading(href, '#');
-                const targetEl = editor.dom.select(`[id="${id}"],[name="${id}"]`);
+                const targetEl = editor.dom.select(`${href},[name="${removeLeading(href, '#')}"]`);
                 if (targetEl.length) {
                     editor.selection.scrollIntoView(targetEl[0], true);
                 }

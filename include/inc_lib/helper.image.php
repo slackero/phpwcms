@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,103 +16,104 @@
  * @author      EllisLab Dev Team
  * @copyright   Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
  * @author      Oliver Georgi <og@phpwcms.org>
- * @copyright   Copyright (c) 2012, Oliver Georgi (http://phpwcms.org/)
+ * @copyright   Copyright (c) 2012, Oliver Georgi (https://www.phpwcms.org)
  */
-class Phpwcms_Image_lib {
-
-    var $image_library = 'gd2';    // Can be: imagemagick, graphicsmagick, netpbm, gd, gd2
-    var $library_path = '';
-    var $dynamic_output = false;    // Whether to send to browser or write to disk
-    var $source_image = '';
-    var $dest_image = '';
-    var $new_image = '';
-    var $width = '';
-    var $height = '';
-    var $quality = PHPWCMS_QUALITY;
-    var $create_thumb = false;
-    var $thumb_marker = '_thumb';
-    var $maintain_ratio = true;     // Whether to maintain aspect ratio when resizing or use hard values
-    var $master_dim = 'auto';   // auto, height, or width.  Determines what to use as the master dimension
-    var $rotation_angle = '';
-    var $x_axis = '';
-    var $y_axis = '';
-    var $sharpen = false;
-    var $target_ext = 'jpg';
+class Phpwcms_Image_lib
+{
+    public $image_library = 'gd2';    // Can be: imagemagick, graphicsmagick, netpbm, gd, gd2
+    public $library_path = '';
+    public $dynamic_output = false;    // Whether to send to browser or write to disk
+    public $source_image = '';
+    public $dest_image = '';
+    public $new_image = '';
+    public $width = '';
+    public $height = '';
+    public $quality = PHPWCMS_QUALITY;
+    public $create_thumb = false;
+    public $thumb_marker = '_thumb';
+    public $maintain_ratio = true;     // Whether to maintain aspect ratio when resizing or use hard values
+    public $master_dim = 'auto';   // auto, height, or width.  Determines what to use as the master dimension
+    public $rotation_angle = '';
+    public $x_axis = '';
+    public $y_axis = '';
+    public $sharpen = false;
+    public $target_ext = 'jpg';
 
     // Watermark Vars
-    var $wm_text = '';           // Watermark text if graphic is not used
-    var $wm_type = 'text';       // Type of watermarking.  Options:  text/overlay
-    var $wm_x_transp = 4;
-    var $wm_y_transp = 4;
-    var $wm_overlay_path = '';           // Watermark image path
-    var $wm_font_path = '';           // TT font
-    var $wm_font_size = 17;           // Font size (different versions of GD will either use points or pixels)
-    var $wm_vrt_alignment = 'B';          // Vertical alignment:   T M B
-    var $wm_hor_alignment = 'C';          // Horizontal alignment: L R C
-    var $wm_padding = 0;            // Padding around text
-    var $wm_hor_offset = 0;            // Lets you push text to the right
-    var $wm_vrt_offset = 0;            // Lets you push  text down
-    var $wm_font_color = '#ffffff';    // Text color
-    var $wm_shadow_color = '';           // Dropshadow color
-    var $wm_shadow_distance = 2;            // Dropshadow distance
-    var $wm_opacity = 50;           // Image opacity: 1 - 100  Only works with image
+    public $wm_text = '';           // Watermark text if graphic is not used
+    public $wm_type = 'text';       // Type of watermarking.  Options:  text/overlay
+    public $wm_x_transp = 4;
+    public $wm_y_transp = 4;
+    public $wm_overlay_path = '';           // Watermark image path
+    public $wm_font_path = '';           // TT font
+    public $wm_font_size = 17;           // Font size (different versions of GD will either use points or pixels)
+    public $wm_vrt_alignment = 'B';          // Vertical alignment:   T M B
+    public $wm_hor_alignment = 'C';          // Horizontal alignment: L R C
+    public $wm_padding = 0;            // Padding around text
+    public $wm_hor_offset = 0;            // Lets you push text to the right
+    public $wm_vrt_offset = 0;            // Lets you push  text down
+    public $wm_font_color = '#ffffff';    // Text color
+    public $wm_shadow_color = '';           // Dropshadow color
+    public $wm_shadow_distance = 2;            // Dropshadow distance
+    public $wm_opacity = 50;           // Image opacity: 1 - 100  Only works with image
 
     // Private Vars
-    var $source_folder = '';
-    var $dest_folder = '';
-    var $mime_type = '';
-    var $orig_width = '';
-    var $orig_height = '';
-    var $source_ext = '';
-    var $image_type = '';
-    var $size_str = '';
-    var $full_src_path = '';
-    var $full_dst_path = '';
-    var $create_fnc = 'imagecreatetruecolor';
-    var $copy_fnc = 'imagecopyresampled';
-    var $error_msg = [];
-    var $wm_use_drop_shadow = false;
-    var $wm_use_truetype = false;
-    var $image_cache = [];
-    var $image_current_vals = [];
-    var $graphicsmagick = '';
-    var $colorspace = 'RGB';
-    var $animated_gif = false;
+    public $source_folder = '';
+    public $dest_folder = '';
+    public $mime_type = '';
+    public $orig_width = '';
+    public $orig_height = '';
+    public $source_ext = '';
+    public $image_type = '';
+    public $size_str = '';
+    public $full_src_path = '';
+    public $full_dst_path = '';
+    public $create_fnc = 'imagecreatetruecolor';
+    public $copy_fnc = 'imagecopyresampled';
+    public $error_msg = [];
+    public $wm_use_drop_shadow = false;
+    public $wm_use_truetype = false;
+    public $image_cache = [];
+    public $image_current_vals = [];
+    public $graphicsmagick = '';
+    public $colorspace = 'RGB';
+    public $animated_gif = false;
 
     // Language strings
-    var $lang = [
-        'imglib_source_image_required' => "You must specify a source image in your preferences.",
-        'imglib_gd_required' => "The GD image library is required for this feature.",
-        'imglib_gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
-        'imglib_unsupported_imagecreate' => "Your server does not support the GD function required to process this type of image.",
-        'imglib_gif_not_supported' => "GIF images are often not supported due to licensing restrictions. You may have to use JPG or PNG images instead.",
-        'imglib_jpg_not_supported' => "JPG images are not supported.",
-        'imglib_png_not_supported' => "PNG images are not supported.",
-        'imglib_webp_not_supported' => "WebP images are not supported.",
-        'imglib_webp_animated_not_supported' => "Animated WebP images are not supported.",
-        'imglib_jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
-        'imglib_copy_error' => "An error was encountered while attempting to replace the file. Please make sure your file directory is writable.",
-        'imglib_rotate_unsupported' => "Image rotation does not appear to be supported by your server.",
-        'imglib_libpath_invalid' => "The path to your image library is not correct.  Please set the correct path in your image preferences.",
-        'imglib_image_process_failed' => "Image processing failed. Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
-        'imglib_rotation_angle_required' => "An angle of rotation is required to rotate the image.",
-        'imglib_writing_failed_gif' => "GIF image.",
-        'imglib_invalid_path' => "The path to the image is not correct.",
-        'imglib_copy_failed' => "The image copy routine failed.",
-        'imglib_missing_font' => "Unable to find a font to use.",
-        'imglib_save_failed' => "Unable to save the image. Please make sure the image and file directory are writable.",
+    public $lang = [
+        'imglib_source_image_required' => 'You must specify a source image in your preferences.',
+        'imglib_gd_required' => 'The GD image library is required for this feature.',
+        'imglib_gd_required_for_props' => 'Your server must support the GD image library in order to determine the image properties.',
+        'imglib_unsupported_imagecreate' => 'Your server does not support the GD function required to process this type of image.',
+        'imglib_gif_not_supported' => 'GIF images are often not supported due to licensing restrictions. You may have to use JPG or PNG images instead.',
+        'imglib_jpg_not_supported' => 'JPG images are not supported.',
+        'imglib_png_not_supported' => 'PNG images are not supported.',
+        'imglib_webp_not_supported' => 'WebP images are not supported.',
+        'imglib_webp_animated_not_supported' => 'Animated WebP images are not supported.',
+        'imglib_jpg_or_png_required' => 'The image resize protocol specified in your preferences only works with JPEG or PNG image types.',
+        'imglib_copy_error' => 'An error was encountered while attempting to replace the file. Please make sure your file directory is writable.',
+        'imglib_rotate_unsupported' => 'Image rotation does not appear to be supported by your server.',
+        'imglib_libpath_invalid' => 'The path to your image library is not correct.  Please set the correct path in your image preferences.',
+        'imglib_image_process_failed' => 'Image processing failed. Please verify that your server supports the chosen protocol and that the path to your image library is correct.',
+        'imglib_rotation_angle_required' => 'An angle of rotation is required to rotate the image.',
+        'imglib_writing_failed_gif' => 'GIF image.',
+        'imglib_invalid_path' => 'The path to the image is not correct.',
+        'imglib_copy_failed' => 'The image copy routine failed.',
+        'imglib_missing_font' => 'Unable to find a font to use.',
+        'imglib_save_failed' => 'Unable to save the image. Please make sure the image and file directory are writable.',
         'imglib_image_cannot_opened' => 'Unable to open the image. This might happen if the image source is broken or the image is damaged.',
     ];
-    var $lang_localized = false;        // set to TRUE if overwritten once
+    public $lang_localized = false;        // set to TRUE if overwritten once
 
     /**
      * Constructor
      *
-     * @param   array $props
+     * @param array $props
      *
      * @return  void
      */
-    public function __construct($props = []) {
+    public function __construct($props = [])
+    {
         if (PHPWCMS_WEBP) {
             $this->target_ext = 'webp';
         }
@@ -131,7 +131,8 @@ class Phpwcms_Image_lib {
      *
      * @return  void
      */
-    function clear() {
+    public function clear()
+    {
         $props = [
             'library_path',
             'source_image',
@@ -179,7 +180,7 @@ class Phpwcms_Image_lib {
         $this->wm_opacity = 50;
         $this->create_fnc = 'imagecreatetruecolor';
         $this->copy_fnc = 'imagecopyresampled';
-        $this->error_msg = array();
+        $this->error_msg = [];
         $this->wm_use_drop_shadow = false;
         $this->wm_use_truetype = false;
         $this->sharpen = false;
@@ -194,11 +195,12 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   array $props
+     * @param array $props
      *
      * @return  bool
      */
-    function initialize($props = array()) {
+    public function initialize($props = [])
+    {
         /*
          * Convert array elements into class variables
          */
@@ -389,7 +391,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function resize() {
+    public function resize()
+    {
         $protocol = 'image_process_' . ($this->image_library === 'gd2' ? 'gd' : $this->image_library);
         return $this->$protocol('resize');
     }
@@ -403,7 +406,8 @@ class Phpwcms_Image_lib {
      *
      * @return  bool
      */
-    function crop_centered_resize() {
+    public function crop_centered_resize()
+    {
         $protocol = 'image_process_' . ($this->image_library === 'gd2' ? 'gd' : $this->image_library);
         $action = $this->image_library === 'imagemagick' ? 'crop-resize-center' : 'crop';
         return $this->$protocol($action);
@@ -420,7 +424,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function crop() {
+    public function crop()
+    {
         $protocol = 'image_process_' . ($this->image_library === 'gd2' ? 'gd' : $this->image_library);
         return $this->$protocol('crop');
     }
@@ -436,9 +441,10 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function rotate() {
+    public function rotate()
+    {
         // Allowed rotation values
-        $degs = array(90, 180, 270, 'vrt', 'hor');
+        $degs = [90, 180, 270, 'vrt', 'hor'];
         if ($this->rotation_angle == '' || !in_array($this->rotation_angle, $degs)) {
             $this->set_error('imglib_rotation_angle_required');
             return false;
@@ -458,9 +464,9 @@ class Phpwcms_Image_lib {
         }
         if ($this->rotation_angle === 'hor' || $this->rotation_angle === 'vrt') {
             return $this->image_mirror_gd();
-        } else {
-            return $this->image_rotate_gd();
         }
+
+        return $this->image_rotate_gd();
     }
 
     // --------------------------------------------------------------------
@@ -472,15 +478,18 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $action
+     * @param string $action
      *
      * @return  bool
      */
-    function image_process_gd($action = 'resize') {
+    public function image_process_gd($action = 'resize')
+    {
         if ($this->animated_gif) {
             if (is_file($this->full_dst_path)) {
                 return true;
-            } elseif (!PHPWCMS_RESIZE_ANIMATED_GIF) {
+            }
+
+            if (!PHPWCMS_RESIZE_ANIMATED_GIF) {
                 $copied = @copy($this->full_src_path, $this->full_dst_path);
                 if ($copied) {
                     @chmod($this->full_dst_path, 0666);
@@ -492,14 +501,14 @@ class Phpwcms_Image_lib {
         $v2_override = false;
         // If the target width/height match the source, AND if the new file name is not equal to the old file name
         // we'll simply make a copy of the original with the new name... assuming dynamic rendering is off.
-        if ($this->dynamic_output === false && $this->colorspace != 'GRAY' && $this->orig_width == $this->width && $this->orig_height == $this->height) {
+        if ($this->dynamic_output === false && $this->colorspace !== 'GRAY' && $this->orig_width == $this->width && $this->orig_height == $this->height) {
             if ($this->source_image != $this->new_image && @copy($this->full_src_path, $this->full_dst_path)) {
                 @chmod($this->full_dst_path, 0666);
             }
             return true;
         }
         // Let's set up our values based on the action
-        if ($action == 'crop') {
+        if ($action === 'crop') {
             // Reassign the source width/height if cropping
             $this->orig_width = $this->width;
             $this->orig_height = $this->height;
@@ -543,7 +552,7 @@ class Phpwcms_Image_lib {
             imagefilledrectangle($dst_img, 0, 0, $this->width, $this->height, $transparent_index);
         }
         $copy($dst_img, $src_img, 0, 0, $this->x_axis, $this->y_axis, $this->width, $this->height, $this->orig_width, $this->orig_height);
-        if ($this->colorspace == 'GRAY' && $create == 'imagecreatetruecolor') {
+        if ($this->colorspace === 'GRAY' && $create === 'imagecreatetruecolor') {
             imagefilter($dst_img, IMG_FILTER_GRAYSCALE);
         }
         // Show the image
@@ -570,11 +579,12 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $action
+     * @param string $action
      *
      * @return  bool
      */
-    function image_process_imagemagick($action = 'resize') {
+    public function image_process_imagemagick($action = 'resize')
+    {
         //  Do we have a vaild library path?
         if ($this->library_path == '') {
             $this->set_error('imglib_libpath_invalid');
@@ -595,7 +605,9 @@ class Phpwcms_Image_lib {
             if ($this->animated_gif) {
                 if (is_file($this->full_dst_path)) {
                     return true;
-                } elseif (!PHPWCMS_RESIZE_ANIMATED_GIF) {
+                }
+
+                if (!PHPWCMS_RESIZE_ANIMATED_GIF) {
                     $copied = @copy($this->full_src_path, $this->full_dst_path);
                     if ($copied) {
                         @chmod($this->full_dst_path, 0666);
@@ -662,13 +674,13 @@ class Phpwcms_Image_lib {
                     break;
             }
         }
-        if ($action == 'crop') {
+        if ($action === 'crop') {
             $cmd .= ' -crop ' . $this->width . 'x' . $this->height . '+' . $this->x_axis . '+' . $this->y_axis . ' ' . escapeshellarg($this->full_src_path . $picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
-        } elseif ($action == 'crop-resize-center') {
+        } elseif ($action === 'crop-resize-center') {
             // combined centered crop and resize
             $cmd .= ' -resize x' . ($this->height * 2) . " -resize '" . ($this->width * 2) . "x<' -resize 50% -gravity center ";
             $cmd .= ' -crop ' . $this->width . 'x' . $this->height . '+0+0 +repage ' . escapeshellarg($this->full_src_path . $picnum) . ' -strip ' . escapeshellarg($this->full_dst_path) . ' 2>&1';
-        } elseif ($action == 'rotate') {
+        } elseif ($action === 'rotate') {
             switch ($this->rotation_angle) {
                 case 'hor'  :
                     $angle = '-flop';
@@ -711,11 +723,12 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $action
+     * @param string $action
      *
      * @return  bool
      */
-    function image_process_netpbm($action = 'resize') {
+    public function image_process_netpbm($action = 'resize')
+    {
         if ($this->library_path == '') {
             $this->set_error('imglib_libpath_invalid');
             return false;
@@ -729,28 +742,31 @@ class Phpwcms_Image_lib {
             case IMAGETYPE_JPEG:
                 $cmd_in = 'jpegtopnm';
                 $cmd_out = 'ppmtojpeg';
-                if ($this->colorspace == 'GRAY') {
+                if ($this->colorspace === 'GRAY') {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
             case IMAGETYPE_PNG:
                 $cmd_in = 'pngtopnm';
                 $cmd_out = 'ppmtopng';
-                if (strtoupper($this->colorspace) == 'GRAY') {
+                if (strtoupper($this->colorspace) === 'GRAY') {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
             case IMAGETYPE_WEBP:
                 $cmd_in = 'webptopnm';
                 $cmd_out = 'ppmtowebp';
-                if (strtoupper($this->colorspace) == 'GRAY') {
+                if (strtoupper($this->colorspace) === 'GRAY') {
                     $cmd_out .= ' -grayscale';
                 }
                 break;
+            default:
+                $this->set_error('imglib_image_process_failed');
+                return false;
         }
-        if ($action == 'crop') {
+        if ($action === 'crop') {
             $cmd_inner = 'pnmcut -left ' . $this->x_axis . ' -top ' . $this->y_axis . ' -width ' . $this->width . ' -height ' . $this->height;
-        } elseif ($action == 'rotate') {
+        } elseif ($action === 'rotate') {
             switch ($this->rotation_angle) {
                 case 90:
                     $angle = 'r270';
@@ -807,7 +823,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function image_rotate_gd() {
+    public function image_rotate_gd()
+    {
         // Create the image handle
         if (!($src_img = $this->image_create_gd())) {
             return false;
@@ -844,7 +861,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function image_mirror_gd() {
+    public function image_mirror_gd()
+    {
         if (!$src_img = $this->image_create_gd()) {
             return false;
         }
@@ -878,7 +896,7 @@ class Phpwcms_Image_lib {
             }
         }
         // Show the image
-        if ($this->dynamic_output == true) {
+        if ($this->dynamic_output) {
             $this->image_display_gd($src_img);
         } elseif (!$this->image_save_gd($src_img)) // ... or save it
         {
@@ -901,11 +919,10 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string
-     *
      * @return  bool
      */
-    function watermark() {
+    public function watermark()
+    {
         return ($this->wm_type === 'overlay') ? $this->overlay_watermark() : $this->text_watermark();
     }
 
@@ -917,7 +934,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function overlay_watermark() {
+    public function overlay_watermark()
+    {
         if (!function_exists('imagecolortransparent')) {
             $this->set_error('imglib_gd_required');
             return false;
@@ -940,10 +958,10 @@ class Phpwcms_Image_lib {
         // offset when the image is at the right
         $this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
         $this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
-        if ($this->wm_vrt_alignment == 'B') {
+        if ($this->wm_vrt_alignment === 'B') {
             $this->wm_vrt_offset *= -1;
         }
-        if ($this->wm_hor_alignment == 'R') {
+        if ($this->wm_hor_alignment === 'R') {
             $this->wm_hor_offset *= -1;
         }
         // Set the base x and y axis values
@@ -988,7 +1006,7 @@ class Phpwcms_Image_lib {
             imagecopymerge($src_img, $wm_img, $x_axis, $y_axis, 0, 0, (int)$wm_width, (int)$wm_height, (int)$this->wm_opacity);
         }
         // Output the image
-        if ($this->dynamic_output == true) {
+        if ($this->dynamic_output) {
             $this->image_display_gd($src_img);
         } elseif (!$this->image_save_gd($src_img)) // ... or save it
         {
@@ -1007,7 +1025,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  bool
      */
-    function text_watermark() {
+    public function text_watermark()
+    {
         if (!($src_img = $this->image_create_gd())) {
             return false;
         }
@@ -1101,7 +1120,7 @@ class Phpwcms_Image_lib {
             imagestring($src_img, (int)$this->wm_font_size, $x_axis, $y_axis, $this->wm_text, $txt_color);
         }
         // Output the final image
-        if ($this->dynamic_output == true) {
+        if ($this->dynamic_output) {
             $this->image_display_gd($src_img);
         } else {
             $this->image_save_gd($src_img);
@@ -1120,12 +1139,13 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $path
-     * @param   string $image_type
+     * @param string $path
+     * @param string $image_type
      *
      * @return  resource|false
      */
-    function image_create_gd($path = '', $image_type = '') {
+    public function image_create_gd($path = '', $image_type = '')
+    {
         if ($path == '') {
             $path = $this->full_src_path;
         }
@@ -1136,31 +1156,31 @@ class Phpwcms_Image_lib {
         switch ($image_type) {
             case IMAGETYPE_GIF:
                 if (!function_exists('imagecreatefromgif')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_gif_not_supported']);
                     return false;
                 }
                 $im = @imagecreatefromgif($path);
                 break;
             case IMAGETYPE_JPEG:
                 if (!function_exists('imagecreatefromjpeg')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_jpg_not_supported']);
                     return false;
                 }
                 $im = @imagecreatefromjpeg($path);
                 break;
             case IMAGETYPE_PNG:
                 if (!function_exists('imagecreatefrompng')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_png_not_supported']);
                     return false;
                 }
                 $im = @imagecreatefrompng($path);
                 break;
             case IMAGETYPE_WEBP:
                 if (!function_exists('imagecreatefromwebp')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_webp_not_supported']);
                     return false;
                 }
-                // Animated WebP isn't supported yet, needs to be detected and rejected or the user forces it
+                // Animated WebP isn't supported yet, needs to be detected and rejected here
                 $head_data = file_get_contents($path, false, null, 12, 30);
                 $head_data = strtoupper($head_data);
                 $webp_type = substr($head_data, 0, 4);
@@ -1181,7 +1201,7 @@ class Phpwcms_Image_lib {
             $this->gd_fix_orientation($im, $path);
             return $im;
         }
-        $this->set_error(array('imglib_unsupported_imagecreate'));
+        $this->set_error(['imglib_unsupported_imagecreate']);
         return false;
     }
 
@@ -1190,12 +1210,13 @@ class Phpwcms_Image_lib {
      *
      * @access public
      *
-     * @param  mixed &$im
-     * @param  mixed  $imagename
+     * @param mixed &$im
+     * @param mixed $imagename
      *
      * @return bool
      */
-    function gd_fix_orientation(&$im, $imagename) {
+    public function gd_fix_orientation(&$im, $imagename)
+    {
         // Try to handle exif based orientation
         if (!$im || !function_exists('exif_read_data')) {
             return false;
@@ -1242,18 +1263,19 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   resource|string $resource
+     * @param resource|string $resource
      *
      * @return  bool
      */
-    function image_save_gd($resource) {
+    public function image_save_gd($resource)
+    {
         if (PHPWCMS_WEBP && $this->target_ext === 'webp' && function_exists('imagewebp') && imagewebp($resource, $this->full_dst_path, $this->quality)) {
             return true;
         }
         switch ($this->image_type) {
             case IMAGETYPE_GIF:
                 if (!function_exists('imagegif')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_gif_not_supported']);
                     return false;
                 }
                 if (!@imagegif($resource, $this->full_dst_path)) {
@@ -1263,7 +1285,7 @@ class Phpwcms_Image_lib {
                 break;
             case IMAGETYPE_JPEG:
                 if (!function_exists('imagejpeg')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_jpg_not_supported']);
                     return false;
                 }
                 if (!@imagejpeg($resource, $this->full_dst_path, $this->quality)) {
@@ -1273,7 +1295,7 @@ class Phpwcms_Image_lib {
                 break;
             case IMAGETYPE_PNG:
                 if (!function_exists('imagepng')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_png_not_supported']);
                     return false;
                 }
                 if (!@imagepng($resource, $this->full_dst_path)) {
@@ -1283,7 +1305,7 @@ class Phpwcms_Image_lib {
                 break;
             case IMAGETYPE_WEBP:
                 if (!function_exists('imagewebp')) {
-                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_png_not_supported']);
                     return false;
                 }
                 if (!@imagewebp($resource, $this->full_dst_path, $this->quality)) {
@@ -1303,11 +1325,12 @@ class Phpwcms_Image_lib {
     /**
      * Dynamically outputs an image
      *
-     * @param   resource $resource
+     * @param resource $resource
      *
      * @return  void
      */
-    function image_display_gd($resource) {
+    public function image_display_gd($resource)
+    {
         header('Content-Disposition: filename=' . $this->source_image . ';');
         header('Content-Type: ' . $this->mime_type);
         header('Content-Transfer-Encoding: binary');
@@ -1346,7 +1369,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  void
      */
-    function image_reproportion() {
+    public function image_reproportion()
+    {
         if (($this->width == 0 && $this->height == 0) || $this->orig_width == 0 || $this->orig_height == 0
             || (!preg_match('/^[0-9]+$/', $this->width) && !preg_match('/^[0-9]+$/', $this->height))
             || !preg_match('/^[0-9]+$/', $this->orig_width)
@@ -1354,8 +1378,8 @@ class Phpwcms_Image_lib {
             return;
         }
         // Sanitize so we don't call preg_match() anymore
-        $this->width = (int) $this->width;
-        $this->height = (int) $this->height;
+        $this->width = (int)$this->width;
+        $this->height = (int)$this->height;
         if ($this->master_dim !== 'width' && $this->master_dim !== 'height') {
             if ($this->width > 0 && $this->height > 0) {
                 $this->master_dim = ((($this->orig_height / $this->orig_width) - ($this->height / $this->width)) < 0) ? 'width' : 'height';
@@ -1366,9 +1390,9 @@ class Phpwcms_Image_lib {
             return;
         }
         if ($this->master_dim === 'width') {
-            $this->height = (int) ceil($this->width * $this->orig_height / $this->orig_width);
+            $this->height = (int)ceil($this->width * $this->orig_height / $this->orig_width);
         } else {
-            $this->width = (int) ceil($this->orig_width * $this->height / $this->orig_height);
+            $this->width = (int)ceil($this->orig_width * $this->height / $this->orig_height);
         }
     }
 
@@ -1381,12 +1405,13 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $path
-     * @param   bool $return
+     * @param string $path
+     * @param bool $return
      *
      * @return  mixed
      */
-    function get_image_properties($path = '', $return = false) {
+    public function get_image_properties($path = '', $return = false)
+    {
         // For now we require GD but we should
         // find a way to determine this using IM or NetPBM
         if ($path === '') {
@@ -1403,24 +1428,24 @@ class Phpwcms_Image_lib {
                 if (!isset($vals[2])) {
                     return false;
                 }
-            } elseif(!isset($vals[2])) {
+            } elseif (!isset($vals[2])) {
                 return true; // the image lib might handle this format
             }
-            $types = array(
+            $types = [
                 IMAGETYPE_GIF => 'gif',
                 IMAGETYPE_JPEG => 'jpeg',
                 IMAGETYPE_PNG => 'png',
                 IMAGETYPE_WEBP => 'webp'
-            );
+            ];
             $mime = isset($vals[2]) && isset($types[$vals[2]]) ? 'image/' . $types[$vals[2]] : 'image/jpg';
             $this->image_current_vals = $vals;
-            $this->image_cache[$cache] = array(
-                'orig_width'  => $vals[0],
+            $this->image_cache[$cache] = [
+                'orig_width' => $vals[0],
                 'orig_height' => $vals[1],
-                'image_type'  => $vals[2],
-                'size_str'    => $vals[3],
-                'mime_type'   => $mime,
-            );
+                'image_type' => $vals[2],
+                'size_str' => $vals[3],
+                'mime_type' => $mime,
+            ];
         }
         if ($return) {
             return $this->image_cache[$cache];
@@ -1451,15 +1476,16 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   array $vals
+     * @param array $vals
      *
      * @return  array|null
      */
-    function size_calculator($vals) {
+    public function size_calculator($vals)
+    {
         if (!is_array($vals)) {
             return null;
         }
-        $allowed = array('new_width', 'new_height', 'width', 'height');
+        $allowed = ['new_width', 'new_height', 'width', 'height'];
         foreach ($allowed as $item) {
             if (!isset($vals[$item]) || $vals[$item] == '') {
                 $vals[$item] = 0;
@@ -1490,12 +1516,13 @@ class Phpwcms_Image_lib {
      *
      * @access  public
      *
-     * @param   string $source_image
-     * @param   bool $ext_only
+     * @param string $source_image
+     * @param bool $ext_only
      *
      * @return  array|string
      */
-    function explode_name($source_image, $ext_only = false) {
+    public function explode_name($source_image, $ext_only = false)
+    {
         $ext = strrchr($source_image, '.');
         $name = ($ext === false) ? $source_image : substr($source_image, 0, -strlen($ext));
         return $ext_only ? strtolower(trim($ext, '.')) : ['ext' => $ext, 'name' => $name];
@@ -1508,7 +1535,8 @@ class Phpwcms_Image_lib {
      *
      * @return  bool
      */
-    function gd_loaded() {
+    public function gd_loaded()
+    {
         if (!extension_loaded('gd')) {
             /* As it is stated in the PHP manual, dl() is not always available
              * and even if so - it could generate an E_WARNING message on failure
@@ -1526,7 +1554,8 @@ class Phpwcms_Image_lib {
      * @access  public
      * @return  string|false
      */
-    function gd_version() {
+    public function gd_version()
+    {
         if (function_exists('gd_info')) {
             $gd_version = @gd_info();
             return preg_replace('/\D/', '', $gd_version['GD Version']);
@@ -1539,15 +1568,17 @@ class Phpwcms_Image_lib {
     /**
      * Set error message
      *
-     * @param   string $msg
+     * @param string|string[] $msg
      *
      * @return  void
      */
-    function set_error($msg) {
+    public function set_error($msg)
+    {
         if (!$this->lang_localized) {
-            $local_lang = strtolower($_SESSION["wcs_user_lang"] ?? $GLOBALS['phpwcms']['DOCTYPE_LANG']);
+            $local_lang = strtolower($_SESSION['wcs_user_lang'] ?? $GLOBALS['phpwcms']['DOCTYPE_LANG']);
             if ($local_lang && is_file(PHPWCMS_ROOT . '/include/inc_lang/image/image.' . $local_lang . '.php')) {
                 include PHPWCMS_ROOT . '/include/inc_lang/image/image.' . $local_lang . '.php';
+                assert(isset($ci_lang) && is_array($ci_lang));
                 $this->lang = array_merge($this->lang, $ci_lang);
                 $this->lang_localized = true;
             }
@@ -1566,14 +1597,15 @@ class Phpwcms_Image_lib {
     /**
      * Show error messages
      *
-     * @param   string $open
-     * @param   string $close
-     * @param   string $wrap_open
-     * @param   string $wrap_close
+     * @param string $open
+     * @param string $close
+     * @param string $wrap_open
+     * @param string $wrap_close
      *
      * @return  string
      */
-    function display_errors($open = '<p>', $close = '</p>', $wrap_open = '', $wrap_close = '') {
+    public function display_errors($open = '<p>', $close = '</p>', $wrap_open = '', $wrap_close = '')
+    {
         return (count($this->error_msg) > 0) ? $wrap_open . $open . implode($close . $open, $this->error_msg) . $close . $wrap_close : '';
     }
 

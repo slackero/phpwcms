@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,7 +24,7 @@ if( !empty($crow["acontent_form"]) && is_string($crow["acontent_form"]) ) {
 }
 
 // Feed
-if(!empty($rssfeed['rssurl'])) {
+if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 
 	if( empty($rssfeed['template']) || !is_file(PHPWCMS_TEMPLATE.'inc_cntpart/rssfeed/'.$rssfeed['template']) ) {
 		$rssfeed['template'] = render_device( @file_get_contents(PHPWCMS_TEMPLATE.'inc_default/rssfeed.tmpl') );

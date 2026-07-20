@@ -1,17 +1,16 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 
 // Language: English, Language Code: en
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
 
 
@@ -106,11 +105,11 @@ $BL['be_ctype_newsletter']              = 'newsletter';
 
 // profile.create.inc.php
 $BL['be_profile_create_success']        = 'Profile successfully created.';
-$BL['be_profile_create_error']          = 'An error occured while creating.';
+$BL['be_profile_create_error']          = 'An error occurred while creating.';
 
 // profile.update.inc.php
 $BL['be_profile_update_success']        = 'Profile data successful updated.';
-$BL['be_profile_update_error']          = 'An error occured while updating.';
+$BL['be_profile_update_error']          = 'An error occurred while updating.';
 
 // profile.updateaccount.inc.php
 $BL['be_profile_account_err1']          = 'username {VAL} is invalid';
@@ -190,6 +189,26 @@ $BL['be_ftab_open']                     = 'open all directories';
 $BL['be_ftab_close']                    = 'close all open directories';
 $BL['be_ftab_upload']                   = 'upload file to root directory';
 $BL['be_ftab_filehelp']                 = 'open file help';
+
+// files.reiter.tmpl.php Info modal
+$BL['be_ftabhelp_add']                  = 'add new private directory';
+$BL['be_ftabhelp_upload']               = 'upload new file to private directory';
+$BL['be_ftabhelp_disablethumb']         = 'disable thumbnails in file list';
+$BL['be_ftabhelp_enablethumb']          = 'enable thumbnails in file list';
+$BL['be_ftabhelp_edit']                 = 'edit file information details';
+$BL['be_ftabhelp_cut']                  = 'cut file into clipboard for moving to another directory';
+$BL['be_ftabhelp_cutmark']              = 'marked file is in clipboard';
+$BL['be_ftabhelp_paste']                = 'paste file into this directory';
+$BL['be_ftabhelp_download']             = 'download file (if it is a picture or text it will open in new browser window - maybe / on PC use right mouse click and save under in context menu / on mac hold down control key and mouse click...)';
+$BL['be_ftabhelp_delete']               = 'delete directory or move file to trash or if the file is in trash delete file';
+$BL['be_ftabhelp_cantdelete']           = 'directory can\'t be deleted because it contains files or subdirectories';
+$BL['be_ftabhelp_restore']              = 'restore file from trash can (undo) and move back to private file list (file will be moved back to the root dir)';
+$BL['be_ftabhelp_openfolder']           = 'fold out (open) every directory and its subdirectories';
+$BL['be_ftabhelp_closefolder']          = 'fold in (close) every directory and its subdirectories';
+$BL['be_ftabhelp_inactive']             = 'file or directory is inactive - click on it to switch status to active';
+$BL['be_ftabhelp_active']               = 'file or directory is active - click on it to switch status to inactive';
+$BL['be_ftabhelp_private']              = 'file or directory is private - click on it to switch status to public';
+$BL['be_ftabhelp_public']               = 'file or directory is public - click on it to switch status to private';
 
 // files.private.newdir.tmpl.php
 $BL['be_fpriv_rootdir']                 = 'root directory';
@@ -483,6 +502,8 @@ $BL['be_article_err4']                  = 'end date given was wrong - set to now
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = 'edit article basis information';
 $BL['be_article_eslastedit']            = 'last edit';
+$BL['be_article_created_at']            = 'created at';
+$BL['be_article_updated_at']            = 'updated at';
 $BL['be_article_esnoupdate']            = 'form not updated';
 $BL['be_article_esbutton']              = 'update article data';
 
@@ -516,7 +537,7 @@ $BL['be_article_cnt_addtitle']          = 'add new content part';
 $BL['be_article_cnt_up']                = 'move content up';
 $BL['be_article_cnt_down']              = 'move content down';
 $BL['be_article_cnt_edit']              = 'edit content part';
-$BL['be_article_cnt_delpart']           = 'delete this article content part';
+$BL['be_article_cnt_delpart']           = 'delete content part';
 $BL['be_article_cnt_delpartjs']         = 'Delete content part?';
 $BL['be_article_cnt_center']            = 'article center';
 
@@ -1043,7 +1064,7 @@ $BL['be_WYSIWYG']                       = 'WYSIWYG editor';
 $BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor disabled';
 $BL['be_admin_struct_acat_hiddenactive'] = 'visible when active';
 
-$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is neccessary in the backend!';
+$BL['be_login_jsinfo']                  = 'Please enable JavaScript which is necessary in the backend!';
 
 $BL['be_admin_struct_maxlist']          = 'max. articles in list mode';
 
@@ -1167,7 +1188,7 @@ $BL['be_check_against_category_alias']  = 'link single article inside structure 
 
 $BL['be_overwrite_default']             = 'Will overwrite default settings of config file';
 $BL['be_cnt_sortvalue']                 = 'sort&nbsp;value';
-$BL['be_dialog_warn_nosave']            = 'If you continue no change will be saved!\nAre you sure you want to continue?';
+$BL['be_dialog_warn_nosave']            = 'If you continue no changes will be saved!\nDo you want to cancel?';
 $BL['be_cnt_paginate_subsection']       = 'subsection';
 $BL['be_cnt_subsection_tite']           = 'subsection title';
 $BL['be_cnt_subsection_warning']        = 'Numbering subsections (paginate content parts) is available for\nmain column (CONTENT) only!';
@@ -1184,7 +1205,7 @@ $BL['be_image_crop']                    = 'crop thumbnail';
 $BL['be_image_cropit']                  = 'crop image';
 $BL['be_image_align']                   = 'image alignment';
 
-$BL['be_ctype_flashplayer']             = 'HTML5/Video.js media player';
+$BL['be_ctype_flashplayer']             = 'HTML5/Flash media player';
 $BL['be_flashplayer_caption']           = 'caption';
 $BL['be_flashplayer_thumbnail']         = 'thumbnail';
 $BL['be_flashplayer_selectsize']        = 'Select player size';
@@ -1318,7 +1339,7 @@ $BL['googleapi_load']                   = 'use CDN';
 
 $BL['fancyupload_clear_list']           = 'Clear List';
 $BL['fancyupload_file_uploaded']        = 'File was uploaded';
-$BL['fancyupload_file_error']           = 'An error occured';
+$BL['fancyupload_file_error']           = 'An error occurred';
 $BL['fancyupload_adblock_error']        = 'To enable the embedded uploader, unblock it in your browser and refresh (see Adblock).';
 $BL['fancyupload_flashblock_error']     = 'To enable the embedded uploader, enable the blocked Flash movie (see Flashblock).';
 $BL['fancyupload_required_error']       = 'A required file was not found, please be patient and we fix this.';
@@ -1389,6 +1410,8 @@ $BL['be_system_container']              = 'system container';
 $BL['be_system_container_norender']     = 'no regular frontend rendering';
 $BL['be_custom_scriptlogic']            = 'custom (script logic)';
 $BL['be_flush_image_cache']             = 'flush image cache';
+$BL['be_flush_image_cache_confirm']     = 'Do you really want to empty the image cache?';
+$BL['be_flush_image_cache_success']     = 'Image cache emptied successfully. %d file(s) deleted.';
 
 $BL['be_caption_alt']                   = 'alt attr.';
 $BL['be_caption_title']                 = 'title attr.';
@@ -1567,12 +1590,15 @@ $BL['iptc_SubjectNewsCode'] = 'subject news code';
 $BL['iptc_iimVersion'] = 'version';
 
 $BL['be_suppress_render_caption'] = 'suppress rendering of the caption';
-$BL['be_cnt_attribute_class'] = 'CSS class';
-$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'allow unique values only';
 $BL['be_not_set'] = 'not set';
 $BL['be_licensed_under_GPL'] = 'Licensed under GPL.';
 $BL['be_extensions_copyright'] = 'Extensions are copyright of their respective owners.';
+
+$BL['be_allowed_filetypes'] = 'Allowed file types';
+$BL['be_imagediv_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';
 
 $BL['be_password_show'] = 'Show password';
 $BL['be_password_hide'] = 'Hide password';
@@ -1596,14 +1622,11 @@ $BL['disposition_inline_description'] = 'display in browser';
 $BL['be_robots'] = 'Search index';
 $BL['be_robots_noindex'] = 'block search indexing (noindex)';
 $BL['be_robots_nofollow'] = 'do not follow the links (nofollow)';
-
 $BL['be_cnt_form_direct_download'] = 'allow download';
 $BL['be_cnt_form_direct_download_apikey'] = 'API key';
 $BL['be_cnt_form_apikey_reset'] = 'reset';
 $BL['be_copy_link'] = 'copy link';
-
-$BL['be_deprecated'] = 'deprecated';
-$BL['be_deprecated_info'] = 'This feature is deprecated and will be removed in future versions of phpwcms. Please avoid using it in new projects and consider replacing it in existing projects.';
+$BL['be_articlebrowser_selector'] = 'Article browser';
 
 $BL['be_about_headline'] = 'phpwcms content management system';
 $BL['be_about_version'] = 'Version';
@@ -1611,4 +1634,25 @@ $BL['be_about_maintainer'] = 'Maintainer';
 $BL['be_about_website'] = 'Website';
 $BL['be_about_copyright'] = 'Copyright';
 $BL['be_about_contributors'] = 'and contributors';
-$BL['be_about_and_contributors'] = 'and other contributors (including Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, and others) &ndash; see <a href="https://github.com/slackero/phpwcms" title="Source code on GitHub" target="_blank">source code</a> for detailed copyright and license information.';
+$BL['be_about_and_contributors'] = 'and other contributors (including Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, and others) &ndash; see <a href="https://github.com/systron-dev/phpwcms" title="Source code on GitHub" target="_blank">source code</a> for detailed copyright and license information.';
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Confirm';
+$BL['modal_cancel'] = 'Cancel';
+$BL['modal_title_confirm'] = 'Confirmation';
+$BL['modal_title_alert'] = 'Information';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Delete';
+$BL['modal_move'] = 'Move';
+$BL['modal_copy'] = 'Copy';
+$BL['modal_flush'] = 'Flush';
+$BL['be_metadata'] = 'Meta data';
+$BL['be_content'] = 'Content';
+$BL['be_images'] = 'Images';
+$BL['be_article_show'] = 'Show';
+$BL['be_active'] = 'Active';
+$BL['be_cnt_summary_label'] = 'Summary';
+$BL['be_cnt_max_words'] = 'max. words';
+
+$BL['be_dashboard_support'] = 'Contact & Support';

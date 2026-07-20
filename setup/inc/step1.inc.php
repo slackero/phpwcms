@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -24,7 +23,7 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
 <form action="setup.php?step=1" method="post" autocomplete="off">
         <table border="0" cellpadding="0" cellspacing="0" summary="">
           <tr>
-            <td align="right" class="v10" width="120">MySQL host and port:&nbsp;</td>
+            <td align="right" class="v10" width="120"><label for="db_host">MySQL host and port:&nbsp;</label></td>
             <td width="270">
                 <input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:250px" />
                 <input name="db_port" type="text" class="v12" id="db_port" value="<?php echo $phpwcms["db_port"] ?>" placeholder="localhost" size="4" style="width:45px" />
@@ -34,28 +33,28 @@ if(isset($_POST["dbsavesubmit"]) && $err) {
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB user:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_user">DB user:&nbsp;</label></td>
             <td><input name="db_user" type="text" class="v12" id="db_user" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB password:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_pass">DB password:&nbsp;</label></td>
             <td><input name="db_pass" type="text" class="v12" id="db_pass" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" size="30" /></td>
             <td class="chatlist">&nbsp;</td>
           </tr>
            <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
            </tr>
           <tr>
-            <td align="right" class="v10">DB database:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_table">DB database:&nbsp;</label></td>
             <td><input name="db_table" type="text" class="v12" id="db_table" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" size="30" maxlength="255" /></td>
             <td class="chatlist"><em>you have to create it <strong>before</strong> setup!!!</em></td>
           </tr>
           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
           </tr>
           <tr>
-            <td align="right" class="v10">DB table prefix:&nbsp;</td>
+            <td align="right" class="v10"><label for="db_prepend">DB table prefix:&nbsp;</label></td>
             <td><input name="db_prepend" type="text" class="v12" id="db_prepend" style="width:300px" value="<?php echo html_specialchars($prepend) ?>" size="30" maxlength="10" /></td>
             <td class="chatlist"><em>default: none (&quot;&quot;), if filled
                 in it will be <strong>prefix</strong>+<strong>_</strong></em></td>
@@ -82,7 +81,7 @@ if(!empty($db_additional)) {
             <h1>
                 <span class="number">4.</span>
                 Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> settings
-                <a href="https://dev.mysql.com/doc/refman/5.7/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
+                <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
             </h1>
         </td>
     </tr>
@@ -182,10 +181,8 @@ if(!empty($db_init)) {
 
     }
 
-
     if(empty($db_fine)) {
         // show info
-
 ?>
       <tr>
         <td align="right" class="v10">&nbsp;</td>
@@ -248,7 +245,6 @@ if(!empty($db_init)) {
 
     }
 }
-
 
 //  OK now lets create superuser
 if(!empty($_SESSION['admin_set'])) {

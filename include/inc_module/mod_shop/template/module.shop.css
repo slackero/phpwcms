@@ -3,7 +3,6 @@
 label {
     cursor:	pointer;
 }
-
 .editform {
     background:#F3F5F8;
     border-top:1px solid #92A1AF;
@@ -12,33 +11,18 @@ label {
     padding:10px 8px 15px 8px;
 }
 
-form.editform1 {
-    margin:0 0 0 0;
-    padding:10px 8px 10px 8px;
-}
-
 table.shop {
-
     margin: 8px 0 3px 0;
-
 }
-
 table.shop tr {
-
-
-
 }
 table.shop tr.adsAltRow {
-
     background-color: #F3F5F8;
-
 }
 table.shop tr:hover {
     background-color: #FFCC33;
 }
-
 table.shop th {
-
     padding: 2px 0 3px 0;
     border-bottom: 1px solid #92A1AF;
     border-top: 1px solid #92A1AF;
@@ -46,9 +30,7 @@ table.shop th {
     font-size: 10px;
     color: #000000;
     background-color: #FFFFFF;
-
 }
-
 table.shop th.listDate {
     text-align: center;
     padding: 2px 3px 3px 3px;
@@ -68,14 +50,12 @@ table.shop td.listNumber {
     padding: 3px 5px 3px 3px;
     text-align:	right;
 }
-
 input.disabled {
     background-color:#F3F5F8;
     border:1px inset #F3F5F8;
     padding: 1px 3px 1px 3px;
     color: #666666;
 }
-
 input.width40	{	width:	40px;	}
 input.width45	{	width:	45px;	}
 input.width60	{	width:	60px;	}
@@ -84,28 +64,21 @@ input.width375, textarea.width375	{	width:	375px;	}
 input.width80	{	width:	80px;	}
 input.width100	{	width:	100px;	}
 input.width250	{	width:	250px;	}
-
-
-
 input.right, textarea.right {
     text-align: right;
 }
-
 td.colorfield {
     border: 1px solid #BBBBBB;
     background-color: #F3F5F8;
 }
-
 input.width400, textarea.width400 {
     width:	400px;
 }
-
 td.upload input {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 10px;
     width: 220px;
 }
-
 td.newimage {
     padding: 0 0 0 23px;
     background: url(../../../../img/famfamfam/image_add.gif) no-repeat 4px;
@@ -139,15 +112,13 @@ input.rt {
     background-color: #F7F7F7;
 }
 textarea.code {
-    font-family: "Courier New", Courier, monospace;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 12px;
 }
 
 .show {
-    border-top: 1px solid #92A1AF;
-    border-bottom: 1px solid #92A1AF;
-    margin: 0 0 5px 0;
-    padding: 10px 8px 15px 8px;
+    border-top: 0 solid #92A1AF;
+    border-bottom: 0 solid #92A1AF;
 }
 .show td.chatlist {
     color: #406C94;

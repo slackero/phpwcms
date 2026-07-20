@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,10 +17,12 @@ if (!defined('PHPWCMS_ROOT')) {
 
 if(!isset($_GET["s"])) {
 // check if pagelayout should be edited or list should be shown
-?><table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr><td colspan="3" class="title"><?php echo $BL['be_admin_page_title'] ?></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+?>
+<h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_admin_pagelayout'] ?></h1>
+<div class="card">
+<div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_page_title'] ?></h2></div>
+<div class="card-body">
+<table class="table table-striped table-sm mb-4">
 <?php
     // loop listing available pagelayouts
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
@@ -30,24 +31,22 @@ if(!isset($_GET["s"])) {
     if(isset($result[0]['pagelayout_id'])) {
         foreach($result as $row) {
 
-            echo "<tr".( ($row_count % 2) ? " bgcolor=\"#F3F5F8\"" : "" ).">\n<td width=\"1%\" style=\"padding:2px 5px 2px 3px\">";
-
-            echo '<img src="img/famfamfam/layout.gif" alt="" border="0" /></td>'."\n";
+            echo "<tr>\n";
 
             echo '<td class="dir"><a href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"];
             echo '"><strong>'.html($row["pagelayout_name"])."</strong>";
 
             echo ($row["pagelayout_default"]) ? " (".$BL['be_admin_tmpl_default'].")" : '';
 
-            echo "</a></td>\n".'<td align="right" class="nowrap" style="padding:2px 3px 0 5px">';
+            echo "</a></td>\n".'<td class="text-right text-nowrap">';
 
-            echo '<a href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
-            echo '<img src="img/button/edit_22x13.gif" alt="" border="0" /></a>';
+            echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=8&amp;s='.$row["pagelayout_id"].'" title="'.$BL['be_admin_page_edit'].'">';
+            echo '<i class="fa fa-pencil-alt"></i></a>';
 
-            echo '<a href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
-            echo 'title="delete pagelayout: '.html($row["pagelayout_name"]);
-            echo '" style="margin-left:3px" onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
-            echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
+            echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
+            echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
+            echo ' onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
+            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo "</td>\n</tr>\n";
 
@@ -56,12 +55,10 @@ if(!isset($_GET["s"])) {
     } // end listing
 
 ?>
-    <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="8"></td>
-    </tr>
-    <tr><td colspan="3"><form action="phpwcms.php?do=admin&p=8&s=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_page_add'] ?>" class="button" title="<?php echo $BL['be_admin_page_add'] ?>"></form></td>
-    </tr>
 </table>
+<form action="phpwcms.php?do=admin&p=8&s=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_page_add'] ?>" class="btn btn-blue"></form>
+</div>
+</div>
 <?php
 
 } else {
@@ -299,395 +296,397 @@ if(!isset($_GET["s"])) {
 
 ?>
 <form action="phpwcms.php?do=admin&p=8&s=<?php echo $pagelayout["id"] ?>" method="post" name="pagelayout" target="_self">
-    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr><td colspan="2" class="title"><?php echo $BL['be_admin_page_title'] ?></td></tr>
-            <tr>
-                <td width="90"><img src="img/leer.gif" alt="" width="35" height="6"></td>
-                <td width="448"><img src="img/leer.gif" alt="" width="1" height="1"></td>
-            </tr>
-            <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-            <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-            <tr bgcolor="#F3F5F8">
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_name'] ?>:&nbsp;</td>
-              <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                 <tr>
-                    <td><input name="layout_name" type="text" class="f11b" id="layout_name" style="width: 350px;" value="<?php echo  isset($pagelayout["layout_name"]) ? html($pagelayout["layout_name"]) : '' ?>" size="20" maxlength="150"></td>
-                    <td>&nbsp;&nbsp;</td>
-                    <td><input name="layout_default" id="layout_default" type="checkbox" value="1" <?php is_checked($pagelayout["layout_default"] ?? 0, 1) ?>></td>
-                    <td class="v10"><label for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label></td>
-                 </tr>
-              </table></td>
-            </tr>
-            <tr bgcolor="#F3F5F8"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 
-            <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
 
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_render'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED" class="tdtop3 tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                    <tr id="radio-group-layout-render">
-                        <td>&nbsp;</td>
-                        <td align="center"><input name="layout_render" type="radio" id="layout_render_2" value="2" <?php is_checked(2, $pagelayout["layout_render"]); ?>></td>
-                        <td><label for="layout_render_2">&nbsp;<strong><?php echo $BL['be_admin_page_custom'].'</strong> <span class="v09">('.$BL['be_admin_page_custominfo'].')</span>' ?></label>&nbsp;&nbsp;</td>
-                        <td align="center"><input name="layout_render" type="radio" id="layout_render_0" value="0" <?php is_checked(0, $pagelayout["layout_render"]); ?>></td>
-                        <td><label for="layout_render_0">&nbsp;<?php echo $BL['be_admin_page_table'] ?></label>&nbsp;&nbsp;</td>
-                        <td align="center"><input name="layout_render" type="radio" id="layout_render_1" value="1" <?php is_checked(1, $pagelayout["layout_render"]); ?>></td>
-                        <td><label for="layout_render_1">&nbsp;<?php echo $BL['be_admin_page_div'] ?></label></td>
-                    </tr>
-                </table></td>
-            </tr>
+<div class="row align-items-center">
+	<div class="col col-sm-auto text-center text-sm-left">
+		<h1><?php echo $BL['be_subnav_admin_pagelayout'] ?></h1>
+	</div>
+<div class="col-12 col-sm text-center text-sm-right mb-3">
+	 <div class="form-group">
+		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
+		<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_page_button'] ?>">
+		<input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';">
+     </div>
+</div>
+</div>
 
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+<div class="card">
+	<div class="card-header"><h2><?php echo $BL['be_admin_page_title'] ?></h2></div>
+	<div class="card-body">
 
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED" class="tdtop3 tdbottom3">
-                &nbsp;<input name="layout_customblocks" type="text" class="f10" id="layout_customblocks" style="width: 400px;" value="<?php echo  isset($pagelayout["layout_customblocks"]) ? html($pagelayout["layout_customblocks"]) : '' ?>" size="20">
-                </td>
-            </tr>
+    <div class="form-group form-row align-items-center">
+      <label for="layout_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_name'] ?></label>
+      <div class="col-sm-7">
+        <input name="layout_name" type="text" class="form-control form-control-sm" id="layout_name" value="<?php echo  isset($pagelayout["layout_name"]) ? html($pagelayout["layout_name"]) : '' ?>" >
+      </div>
+      <div class="col-sm-3 mt-2 mt-sm-0">
+      	<div class="form-check">
+					<input class="form-check-input" name="layout_default" type="checkbox" id="layout_default" value="1" <?php is_checked(isset($pagelayout["layout_default"]) ? $pagelayout["layout_default"] : 0, 1) ?>>
+					<label class="form-check-label" for="layout_default"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+				</div>
+      </div>
+    </div>
 
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+<hr>
 
-        <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_pagetitle'] ?>:&nbsp;</td>
-              <td><input name="layout_title" type="text" class="f11b" id="layout_title" style="width: 400px;" value="<?php echo html($pagelayout["layout_title"]); ?>" size="20" maxlength="100"></td>
-            </tr>
-            <tr><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_addtotitle'] ?>:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><select name="layout_title_order" id="layout_title_order" class="v11">
+<div class="form-group form-row">
+  <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_page_render'] ?></label>
+  <div class="col-sm-10">
+    <div class="form-check">
+			<input class="form-check-input" name="layout_render" id="layout_render_2" value="2" type="radio" <?php is_checked(2, $pagelayout["layout_render"]); ?>>
+			<label class="form-check-label" for="layout_render_2" ><strong><?php echo $BL['be_admin_page_custom'].'</strong> <span>('.$BL['be_admin_page_custominfo'].')</span>' ?></label>
+    </div>
+    <div class="form-check">
+			<input class="form-check-input" name="layout_render" id="layout_render_0" value="0" type="radio" <?php is_checked(0, $pagelayout["layout_render"]); ?>>
+			<label class="form-check-label" for="layout_render_0"><?php echo $BL['be_admin_page_table'] ?></label>
+    </div>
+    <div class="form-check">
+			<input class="form-check-input" name="layout_render" id="layout_render_1" value="1" type="radio" <?php is_checked(1, $pagelayout["layout_render"]); ?>>
+			<label class="form-check-label" for="layout_render_1"><?php echo $BL['be_admin_page_div'] ?></label>
+    </div>
+  </div>
+</div>
 
-    <?php
+<div class="form-group form-row align-items-center">
+	<label for="layout_customblocks" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_blocks'].', '.$BL['be_admin_page_customblocks'] ?></label>
+	<div class="col">
+		<input type="text" class="form-control form-control-sm" name="layout_customblocks" id="layout_customblocks" value="<?php echo isset($pagelayout["layout_customblocks"]) ? html($pagelayout["layout_customblocks"]) : '' ?>" >
+	</div>
+</div>
 
-    if(empty($pagelayout["layout_title_order"])) {
-        $pagelayout["layout_title_order"] = 0;
-    }
-    if(empty($pagelayout["layout_title_spacer"])) {
-        $pagelayout["layout_title_spacer"] = ' | ';
-    }
+<div class="form-group form-row align-items-center">
+	<label for="layout_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_pagetitle'] ?></label>
+	<div class="col">
+		<input type="text" class="form-control form-control-sm" name="layout_title" id="layout_title" value="<?php echo html($pagelayout["layout_title"]); ?>" >
+	</div>
+</div>
 
-    ?>
-    <option value="0"<?php is_selected(0, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
-    <option value="1"<?php is_selected(1, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
-    <option value="2"<?php is_selected(2, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-    <option value="3"<?php is_selected(3, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
-    <option value="4"<?php is_selected(4, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-    <option value="5"<?php is_selected(5, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
+<div class="form-group form-row align-items-center">
+	<label for="be_admin_page_addtotitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_addtotitle'] ?></label>
+	<div class="col-sm-5">
+		<select name="layout_title_order" type="text" class="custom-select form-control form-control-sm" id="layout_title_order" >
+					<?php
+			if(empty($pagelayout["layout_title_order"])) {
+					$pagelayout["layout_title_order"] = 0;
+			}
+			if(empty($pagelayout["layout_title_spacer"])) {
+					$pagelayout["layout_title_spacer"] = ' | ';
+			}
+			?>
+			<option value="0"<?php is_selected(0, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
+			<option value="1"<?php is_selected(1, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
+			<option value="2"<?php is_selected(2, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+			<option value="3"<?php is_selected(3, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
+			<option value="4"<?php is_selected(4, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+			<option value="5"<?php is_selected(5, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
 
-    <option value="6"<?php is_selected(6, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
-    <option value="7"<?php is_selected(7, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
-    <option value="8"<?php is_selected(8, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
-    <option value="9"<?php is_selected(9, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
-    <option value="10"<?php is_selected(10, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
-    <option value="11"<?php is_selected(11, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+			<option value="6"<?php is_selected(6, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_category'] ?></option>
+			<option value="7"<?php is_selected(7, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'].', '.$BL['be_admin_page_articlename'] ?></option>
+			<option value="8"<?php is_selected(8, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_articlename'] ?></option>
+			<option value="9"<?php is_selected(9, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'].', '.$BL['be_admin_page_pagetitle'] ?></option>
+			<option value="10"<?php is_selected(10, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_category'] ?></option>
+			<option value="11"<?php is_selected(11, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'].', '.$BL['be_admin_page_pagetitle'] ?></option>
 
-    <option value="12"<?php is_selected(12, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'] ?></option>
-    <option value="13"<?php is_selected(13, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'] ?></option>
-    <option value="14"<?php is_selected(14, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'] ?></option>
+			<option value="12"<?php is_selected(12, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_pagetitle'] ?></option>
+			<option value="13"<?php is_selected(13, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_category'] ?></option>
+			<option value="14"<?php is_selected(14, $pagelayout["layout_title_order"]) ?>><?php echo $BL['be_admin_page_articlename'] ?></option>
+		</select>
 
-                  </select></td>
+		</div>
+	<div class="col-sm-5">
+		<div class="row align-items-center">
+			<label class="col-sm-3 col-form-label text-right"><?php echo $BL['be_cnt_field']['break'] ?></label>
+				<div class="col">
+					<input class="form-control form-control-sm col" name="layout_title_spacer" type="text" id="layout_title_spacer" value="<?php echo html($pagelayout["layout_title_spacer"]); ?>">
+				</div>
+		</div>
+	</div>
+</div>
 
-                  <td align="right" class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_field']['break'] ?>:&nbsp;</td>
-                  <td><input name="layout_title_spacer" type="text" class="v11 width40" id="layout_title_spacer" value="<?php echo html($pagelayout["layout_title_spacer"]); ?>" size="20" maxlength="100"></td>
+<hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
 
-                </tr>
-              </table></td>
-            </tr>
+	<fieldset class="form-group pagelayout-editable"<?php echo $pagelayout['editable_hidden']; ?>>
+		<div class="form-row align-items-center">
+			<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_align']  ?></label>
+			<div class="col">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
+					<label class="form-check-label" for="layout_align_0"><img src="img/symbole/layout_left.svg" alt="<?php echo $BL['be_admin_page_align_left'] ?>" width="56" height="44" border="0"></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_1" value="1" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
+					<label class="form-check-label" for="layout_align_1"><img src="img/symbole/layout_center.svg" alt="<?php echo $BL['be_admin_page_align_center'] ?>" width="56" height="44" border="0"></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="layout_align" id="layout_align_2" value="2" <?php is_checked(0, $pagelayout["layout_align"]); ?>>
+					<label class="form-check-label" for="layout_align_2" ><img src="img/symbole/layout_right.svg" alt="<?php echo $BL['be_admin_page_align_right'] ?>" width="56" height="44" border="0"></label>
+				</div>
+			</div>
+		</div>
+	</fieldset>
 
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_margin']  ?></label>
+      <div class="col">
+        <input type="number" class="form-control form-control-sm" name="layout_border_top" id="layout_border_top" value="<?php echo $pagelayout["layout_border_top"] ?>" placeholder="<?php echo $BL['be_admin_page_top'] ?>">
+      </div>
+      <div class="col">
+        <input type="number" class="form-control form-control-sm" name="layout_border_bottom" id="layout_border_bottom" value="<?php echo $pagelayout["layout_border_bottom"] ?>" placeholder="<?php echo $BL['be_admin_page_bottom'] ?>">
+      </div>
+      <div class="col">
+        <input type="number" class="form-control form-control-sm" name="layout_border_left" id="layout_border_left" value="<?php echo $pagelayout["layout_border_left"] ?>" placeholder="<?php echo $BL['be_admin_page_left'] ?>">
+      </div>
+      <div class="col">
+        <input type="number" class="form-control form-control-sm" name="layout_border_right" id="layout_border_right" value="<?php echo $pagelayout["layout_border_right"] ?>" placeholder="<?php echo $BL['be_admin_page_right'] ?>">
+      </div>
+      <div class="col">
+      	<div class="form-check form-check-inline">
+					<input class="form-check-input" name="layout_noborder" type="checkbox" id="layout_noborder" value="1" <?php is_checked(1, isset($pagelayout["layout_noborder"]) ? $pagelayout["layout_noborder"] : 0) ?>>
+					<label class="form-check-label" for="layout_noborder"> <?php echo $BL['be_admin_page_disable'] ?></label>
+        </div>
+      </div>
+    </div>
 
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_admin_page_align']  ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr><td colspan="9"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
-                  <tr>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="7" height="50"></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_align_0"><img src="img/symbole/layout_left.gif" alt="<?php echo $BL['be_admin_page_align_left'] ?>" width="56" height="44" border="0"></label></td>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="15" height="1"></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_align_1"><img src="img/symbole/layout_center.gif" alt="<?php echo $BL['be_admin_page_align_center'] ?>" width="56" height="44" border="0"></label></td>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="15" height="1"></td>
-                    <td><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_align_2"><img src="img/symbole/layout_right.gif" alt="<?php echo $BL['be_admin_page_align_right'] ?>" width="56" height="44" border="0"></label></td>
-                  </tr>
-                  <tr>
-                    <td align="center" valign="top"><input name="layout_align" type="radio" id="layout_align_0" value="0" <?php is_checked(0, $pagelayout["layout_align"]); ?>></td>
-                    <td align="center" valign="top"><input type="radio" name="layout_align" id="layout_align_1" value="1" <?php is_checked(1, $pagelayout["layout_align"]); ?>></td>
-                    <td align="center" valign="top"><input type="radio" name="layout_align" id="layout_align_2" value="2" <?php is_checked(2, $pagelayout["layout_align"]); ?>></td>
-                  </tr>
-                </table></td>
-              </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_margin']  ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_top'] ?>:&nbsp;</td>
-                  <td><input name="layout_border_top" type="text" class="f10" id="layout_border_top" style="width: 30px;" value="<?php echo $pagelayout["layout_border_top"] ?>" size="3" maxlength="3"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_bottom'] ?>:&nbsp;</td>
-                  <td><input name="layout_border_bottom" type="text" class="f10" id="layout_border_bottom" style="width: 30px;" value="<?php echo $pagelayout["layout_border_bottom"] ?>" size="3" maxlength="3"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_left'] ?>:&nbsp;</td>
-                  <td><input name="layout_border_left" type="text" class="f10" id="layout_border_left" style="width: 30px;" value="<?php echo $pagelayout["layout_border_left"] ?>" size="3" maxlength="3"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
-                  <td><input name="layout_border_right" type="text" class="f10" id="layout_border_right" style="width: 30px;" value="<?php echo $pagelayout["layout_border_right"] ?>" size="3" maxlength="3"></td>
-                  <td class="v10">&nbsp;px&nbsp;&nbsp;</td>
-                  <td><input name="layout_noborder" id="layout_noborder" type="checkbox" value="1" <?php is_checked(1, $pagelayout["layout_noborder"] ?? 0) ?>></td>
-                  <td class="v10"><label for="layout_noborder"><?php echo $BL['be_admin_page_disable'] ?></label></td>
-                </tr>
-              </table></td>
-              </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_bg'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td><input name="layout_bgcolor" type="text" class="f10" id="layout_bgcolor2" style="width: 55px;" value="<?php echo html($pagelayout["layout_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td><input name="layout_bgimage" type="text" class="f10" id="layout_bgimage" style="width: 270px;" value="<?php echo html($pagelayout["layout_bgimage"]); ?>" size="20"></td>
-                  <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_text'] ?>:&nbsp;</td>
-                  <td><input name="layout_textcolor" type="text" class="f10" id="layout_textcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_textcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_link'] ?>:&nbsp;</td>
-                  <td><input name="layout_linkcolor" type="text" class="f10" id="layout_linkcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_linkcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_visited'] ?>:&nbsp;</td>
-                  <td><input name="layout_vcolor" type="text" class="f10" id="layout_vcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_vcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td class="v10">&nbsp;&nbsp;<?php echo $BL['be_ftptakeover_active'] ?>:&nbsp;</td>
-                  <td><input name="layout_acolor" type="text" class="f10" id="layout_acolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_acolor"]); ?>" size="7" maxlength="7"></td>
-                  <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-             </tr>
-             <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_js'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                    <td class="v10">&nbsp;&nbsp;onload:&nbsp;</td>
-                    <td><input name="layout_jsonload" type="text" class="f10" id="layout_jsonload" style="width: 382px;" value="<?php echo html($pagelayout["layout_jsonload"]); ?>" size="20"></td>
-                    <td><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-               </table></td>
-             </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td colspan="2" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
 
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_admin_page_blocks'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr><td colspan="12"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
-                  <tr>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="7" height="50"></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_type_0"><img src="img/symbole/3_column_layout.gif" alt="<?php echo $BL['be_admin_page_col1'] ?>" width="39" height="44" border="0"></label></td>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="32" height="1"></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_type_1"><img src="img/symbole/2_column_layout.gif" alt="<?php echo $BL['be_admin_page_col2'] ?>" width="39" height="44" border="0"></label></td>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="32" height="1"></td>
-                    <td><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_type_2"><img src="img/symbole/4_column_layout.gif" alt="<?php echo $BL['be_admin_page_col3'] ?>" width="39" height="44" border="0"></label></td>
-                    <td rowspan="2"><img src="img/leer.gif" alt="" width="32" height="1"></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="25" height="1"></td>
-                    <td rowspan="2" valign="top"><label for="layout_type_3"><img src="img/symbole/1_column_layout.gif" alt="<?php echo $BL['be_admin_page_col4'] ?>" width="39" height="44" border="0"></label></td>
-                  </tr>
-                  <tr>
-                    <td align="center" valign="top"><input name="layout_type" type="radio" id="layout_type_0" value="0" <?php is_checked(0, $pagelayout["layout_type"]); ?>></td>
-                    <td align="center" valign="top"><input type="radio" name="layout_type" id="layout_type_1" value="1" <?php is_checked(1, $pagelayout["layout_type"]); ?>></td>
-                    <td align="center" valign="top"><input type="radio" name="layout_type" id="layout_type_2" value="2" <?php is_checked(2, $pagelayout["layout_type"]); ?>></td>
-                    <td align="center" valign="top"><input type="radio" name="layout_type" id="layout_type_3" value="3" <?php is_checked(3, $pagelayout["layout_type"]); ?>></td>
-                  </tr>
-                </table></td>
-            </tr>
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_bg'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_bgcolor" type="text" id="layout_bgcolor2" value="<?php echo html($pagelayout["layout_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_bgimage" type="text" id="layout_bgimage" value="<?php echo html($pagelayout["layout_bgimage"]); ?>"  placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+    </div>
 
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_color'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_textcolor" type="text" id="layout_textcolor" value="<?php echo html($pagelayout["layout_textcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_text'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_linkcolor" type="text" id="layout_linkcolor" value="<?php echo html($pagelayout["layout_linkcolor"]); ?>"  placeholder="<?php echo $BL['be_admin_page_link'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_vcolor" type="text" id="layout_vcolor" value="<?php echo html($pagelayout["layout_vcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_visited'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_acolor" type="text" id="layout_acolor" value="<?php echo html($pagelayout["layout_acolor"]); ?>"  placeholder="<?php echo $BL['be_ftptakeover_active'] ?>">
+		</div>
+    </div>
 
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_allblocks'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                    <td width="35"><input name="layout_all_width" type="text" class="f10" id="layout_all_width" style="width: 35px;" value="<?php echo $pagelayout["layout_all_width"] ?>" size="4" maxlength="4"></td>
-                    <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_all_bgcolor" type="text" class="f10" id="layout_all_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_all_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_all_bgimage" type="text" class="f10" id="layout_all_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_all_bgimage"]); ?>" size="7"></td>
-                    <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_all_class" type="text" class="f10" id="layout_all_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_all_class"]); ?>" size="7"></td>
-                    <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_left'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                  <td width="35"><input name="layout_left_width" type="text" class="f10" id="layout_left_width" style="width: 35px;" value="<?php echo $pagelayout["layout_left_width"] ?>" size="4" maxlength="4"></td>
-                  <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_left_bgcolor" type="text" class="f10" id="layout_left_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_left_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_left_bgimage" type="text" class="f10" id="layout_left_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_left_bgimage"]); ?>" size="7"></td>
-                  <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_left_class" type="text" class="f10" id="layout_left_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_left_class"]); ?>" size="7"></td>
-                  <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_leftspace'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                  <td width="35"><input name="layout_leftspace_width" type="text" class="f10" id="layout_leftspace_width" style="width: 35px;" value="<?php echo $pagelayout["layout_leftspace_width"] ?>" size="4" maxlength="4"></td>
-                  <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_leftspace_bgcolor" type="text" class="f10" id="layout_leftspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_leftspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_leftspace_bgimage" type="text" class="f10" id="layout_leftspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_leftspace_bgimage"]); ?>" size="7"></td>
-                  <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_leftspace_class" type="text" class="f10" id="layout_leftspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_leftspace_class"]); ?>" size="7"></td>
-                  <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_main']."&nbsp;[".$phpwcms["content_width"]?>]:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                  <td width="35"><input name="layout_content_width" type="text" class="f10" id="layout_content_width" style="width: 35px;" value="<?php echo $pagelayout["layout_content_width"] ?>" size="4" maxlength="4"></td>
-                  <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_content_bgcolor" type="text" class="f10" id="layout_content_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_content_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_content_bgimage" type="text" class="f10" id="layout_content_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_content_bgimage"]); ?>" size="7"></td>
-                  <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_content_class" type="text" class="f10" id="layout_content_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_content_class"]); ?>" size="7"></td>
-                  <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-              </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_rightspace'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                  <td width="35"><input name="layout_rightspace_width" type="text" class="f10" id="layout_rightspace_width" style="width: 35px;" value="<?php echo $pagelayout["layout_rightspace_width"] ?>" size="4" maxlength="4"></td>
-                  <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_rightspace_bgcolor" type="text" class="f10" id="layout_rightspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_rightspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_rightspace_bgimage" type="text" class="f10" id="layout_rightspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_rightspace_bgimage"]); ?>" size="7"></td>
-                  <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_rightspace_class" type="text" class="f10" id="layout_rightspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_rightspace_class"]); ?>" size="7"></td>
-                  <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-              </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_right'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-                  <td width="35"><input name="layout_right_width" type="text" class="f10" id="layout_right_width" style="width: 35px;" value="<?php echo $pagelayout["layout_right_width"] ?>" size="4" maxlength="4"></td>
-                  <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_right_bgcolor" type="text" class="f10" id="layout_right_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_right_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                  <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                  <td width="100"><input name="layout_right_bgimage" type="text" class="f10" id="layout_right_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_right_bgimage"]); ?>" size="7"></td>
-                  <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                  <td width="55"><input name="layout_right_class" type="text" class="f10" id="layout_right_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_right_class"]); ?>" size="7"></td>
-                  <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                </tr>
-              </table></td>
-              </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_header'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-                    <td width="35"><input name="layout_header_height" type="text" class="f10" id="layout_header_height" style="width: 35px;" value="<?php echo $pagelayout["layout_header_height"] ?>" size="4" maxlength="4"></td>
-                    <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_header_bgcolor" type="text" class="f10" id="layout_header_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_header_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_header_bgimage" type="text" class="f10" id="layout_header_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_header_bgimage"]); ?>" size="7"></td>
-                    <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_header_class" type="text" class="f10" id="layout_header_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_header_class"]); ?>" size="7"></td>
-                    <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_topspace'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-                    <td width="35"><input name="layout_topspace_height" type="text" class="f10" id="layout_topspace_height" style="width: 35px;" value="<?php echo $pagelayout["layout_topspace_height"] ?>" size="4" maxlength="4"></td>
-                    <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_topspace_bgcolor" type="text" class="f10" id="layout_topspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_topspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_topspace_bgimage" type="text" class="f10" id="layout_topspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_topspace_bgimage"]); ?>" size="7"></td>
-                    <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_topspace_class" type="text" class="f10" id="layout_topspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_topspace_class"]); ?>" size="7"></td>
-                    <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                  </tr>
-                </table></td>
-              </tr>
-              <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-                <td align="right" class="chatlist"><?php echo $BL['be_admin_page_bottomspace'] ?>:&nbsp;</td>
-                <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-                    <td width="35"><input name="layout_bottomspace_height" type="text" class="f10" id="layout_bottomspace_height" style="width: 35px;" value="<?php echo $pagelayout["layout_bottomspace_height"] ?>" size="4" maxlength="4"></td>
-                    <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_bottomspace_bgcolor" type="text" class="f10" id="layout_bottomspace_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_bottomspace_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_bottomspace_bgimage" type="text" class="f10" id="layout_bottomspace_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_bottomspace_bgimage"]); ?>" size="7"></td>
-                    <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_bottomspace_class" type="text" class="f10" id="layout_bottomspace_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_bottomspace_class"]); ?>" size="7"></td>
-                    <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
-              <td align="right" class="chatlist"><?php echo $BL['be_admin_page_footer'] ?>:&nbsp;</td>
-              <td bgcolor="#E6EAED"><table width="440" border="0" cellpadding="0" cellspacing="0" summary="">
-                  <tr>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-                    <td width="35"><input name="layout_footer_height" type="text" class="f10" id="layout_footer_height" style="width: 35px;" value="<?php echo $pagelayout["layout_footer_height"] ?>" size="4" maxlength="4"></td>
-                    <td width="43" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_color'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_footer_bgcolor" type="text" class="f10" id="layout_footer_bgcolor" style="width: 55px;" value="<?php echo html($pagelayout["layout_footer_bgcolor"]); ?>" size="7" maxlength="7"></td>
-                    <td width="53" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_image'] ?>:&nbsp;</td>
-                    <td width="100"><input name="layout_footer_bgimage" type="text" class="f10" id="layout_footer_bgimage" style="width: 100px;" value="<?php echo html($pagelayout["layout_footer_bgimage"]); ?>" size="7"></td>
-                    <td width="45" class="v10">&nbsp;&nbsp;<?php echo $BL['be_admin_page_class'] ?>:&nbsp;</td>
-                    <td width="55"><input name="layout_footer_class" type="text" class="f10" id="layout_footer_class" style="width: 55px;" value="<?php echo html($pagelayout["layout_footer_class"]); ?>" size="7"></td>
-                    <td width="1"><img src="img/leer.gif" alt="" width="1" height="20"></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr class="pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>><td><img src="img/leer.gif" alt="" width="1" height="1"></td><td bgcolor="#E6EAED"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+		<div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+			<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_js'] ?></label>
+			<label for="layout_name" class="col-sm-auto col-form-label text-right">onload:</label>
+			<div class="col">
+				<input class="form-control form-control-sm" name="layout_jsonload" type="text" id="layout_jsonload" value="<?php echo html($pagelayout["layout_jsonload"]); ?>">
+			</div>
+		</div>
 
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="20"></td></tr>
-            <tr>
-                <td><img src="img/leer.gif" alt="" width="90" height="1"><input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>"></td>
-                <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_page_button'] ?>">&nbsp;&nbsp;<input type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';"></td>
-            </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-    </table>
+<hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
+
+		<fieldset class="form-group pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+			<div class="form-row align-items-center">
+				<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_blocks'] ?></label>
+				<div class="col-sm-10">
+					<div class="form-row">
+						<div class="col-sm-auto form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_0" value="0" <?php is_checked(0, $pagelayout["layout_type"]); ?>>
+							<label class="form-check-label" for="layout_type_0"><img src="img/symbole/3_column_layout.svg" alt="<?php echo $BL['be_admin_page_col1'] ?>" width="56" height="44" border="0"></label>
+						</div>
+						<div class="col-sm-auto form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_1" value="1" <?php is_checked(1, $pagelayout["layout_type"]); ?>>
+							<label class="form-check-label" for="layout_type_1"><img src="img/symbole/2_column_layout.svg" alt="<?php echo $BL['be_admin_page_col2'] ?>" width="56" height="44" border="0"></label>
+						</div>
+						<div class="col-sm-auto form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="layout_type" id="layout_type_2" value="2" <?php is_checked(2, $pagelayout["layout_type"]); ?>>
+							<label class="form-check-label" for="layout_type_2"><img src="img/symbole/4_column_layout.svg" alt="<?php echo $BL['be_admin_page_col3'] ?>" width="56" height="44" border="0"></label>
+						</div>
+						<div class="col form-check form-check-inline">
+							<input class="form-check-input" type="radio" name="layout_type" id="layout_align_3" value="3" <?php is_checked(3, $pagelayout["layout_type"]); ?>>
+							<label class="form-check-label" for="layout_align_3"><img src="img/symbole/1_column_layout.svg" alt="<?php echo $BL['be_admin_page_col4'] ?>" width="56" height="44" border="0"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_allblocks'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_all_width" type="text" id="layout_all_width" value="<?php echo $pagelayout["layout_all_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_all_bgcolor" type="text" id="layout_all_bgcolor" value="<?php echo html($pagelayout["layout_all_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_all_bgimage" type="text" id="layout_all_bgimage" value="<?php echo html($pagelayout["layout_all_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_all_class" type="text" id="layout_all_class" value="<?php echo html($pagelayout["layout_all_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_left_width" type="text" id="layout_left_width" value="<?php echo $pagelayout["layout_left_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_left_bgcolor" type="text" id="layout_left_bgcolor" value="<?php echo html($pagelayout["layout_left_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_left_bgimage" type="text" id="layout_left_bgimage" value="<?php echo html($pagelayout["layout_left_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_left_class" type="text" id="layout_left_class" value="<?php echo html($pagelayout["layout_left_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_leftspace'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_leftspace_width" type="text" id="layout_leftspace_width" value="<?php echo $pagelayout["layout_leftspace_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_leftspace_bgcolor" type="text" id="layout_leftspace_bgcolor" value="<?php echo html($pagelayout["layout_leftspace_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_leftspace_bgimage" type="text" id="layout_leftspace_bgimage" value="<?php echo html($pagelayout["layout_leftspace_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_leftspace_class" type="text" id="layout_leftspace_class" value="<?php echo html($pagelayout["layout_leftspace_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main']."&nbsp;[".$phpwcms["content_width"]?>]</label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_content_width" type="text" id="layout_content_width" value="<?php echo $pagelayout["layout_content_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_content_bgcolor" type="text" id="layout_content_bgcolor" value="<?php echo html($pagelayout["layout_content_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_content_bgimage" type="text" id="layout_content_bgimage" value="<?php echo html($pagelayout["layout_content_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_content_class" type="text" id="layout_content_class" value="<?php echo html($pagelayout["layout_content_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_rightspace'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_rightspace_width" type="text" id="layout_rightspace_width" value="<?php echo $pagelayout["layout_rightspace_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_rightspace_bgcolor" type="text" id="layout_rightspace_bgcolor" value="<?php echo html($pagelayout["layout_rightspace_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_rightspace_bgimage" type="text" id="layout_rightspace_bgimage" value="<?php echo html($pagelayout["layout_rightspace_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_rightspace_class" type="text" id="layout_rightspace_class" value="<?php echo html($pagelayout["layout_rightspace_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_right_width" type="text" id="layout_right_width" value="<?php echo $pagelayout["layout_right_width"] ?>" placeholder="<?php echo $BL['be_admin_page_width'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_right_bgcolor" type="text" id="layout_right_bgcolor" value="<?php echo html($pagelayout["layout_right_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_right_bgimage" type="text" id="layout_right_bgimage" value="<?php echo html($pagelayout["layout_right_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_right_class" type="text" id="layout_right_class" value="<?php echo html($pagelayout["layout_right_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+<hr class="pagelayout-editable" <?php echo  $pagelayout['editable_hidden']; ?>/>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_header_height" type="text" id="layout_header_height" value="<?php echo $pagelayout["layout_header_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_header_bgcolor" type="text" id="layout_header_bgcolor" value="<?php echo html($pagelayout["layout_header_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_header_bgimage" type="text" id="layout_header_bgimage" value="<?php echo html($pagelayout["layout_header_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_header_class" type="text" id="layout_header_class" value="<?php echo html($pagelayout["layout_header_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_topspace'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_topspace_height" type="text" id="layout_topspace_height" value="<?php echo $pagelayout["layout_topspace_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_topspace_bgcolor" type="text" id="layout_topspace_bgcolor" value="<?php echo html($pagelayout["layout_topspace_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_topspace_bgimage" type="text" id="layout_topspace_bgimage" value="<?php echo html($pagelayout["layout_topspace_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_topspace_class" type="text" id="layout_topspace_class" value="<?php echo html($pagelayout["layout_topspace_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_bottomspace'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_bottomspace_height" type="text" id="layout_bottomspace_height" value="<?php echo $pagelayout["layout_bottomspace_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_bottomspace_bgcolor" type="text" id="layout_bottomspace_bgcolor" value="<?php echo html($pagelayout["layout_bottomspace_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_bottomspace_bgimage" type="text" id="layout_bottomspace_bgimage" value="<?php echo html($pagelayout["layout_bottomspace_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_bottomspace_class" type="text" id="layout_bottomspace_class" value="<?php echo html($pagelayout["layout_bottomspace_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    <div class="form-group form-row align-items-center pagelayout-editable"<?php echo  $pagelayout['editable_hidden']; ?>>
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_footer_height" type="text" id="layout_footer_height" value="<?php echo $pagelayout["layout_footer_height"] ?>" placeholder="<?php echo $BL['be_admin_page_height'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_footer_bgcolor" type="text" id="layout_footer_bgcolor" value="<?php echo html($pagelayout["layout_footer_bgcolor"]); ?>" placeholder="<?php echo $BL['be_admin_page_color'] ?>">
+		</div>
+        <div class="col">
+         	<input class="form-control form-control-sm" name="layout_footer_bgimage" type="text" id="layout_footer_bgimage" value="<?php echo html($pagelayout["layout_footer_bgimage"]); ?>" placeholder="<?php echo $BL['be_admin_page_image'] ?>">
+		</div>
+        <div class="col">
+        	<input class="form-control form-control-sm" name="layout_footer_class" type="text" id="layout_footer_class" value="<?php echo html($pagelayout["layout_footer_class"]); ?>" placeholder="<?php echo $BL['be_admin_page_class'] ?>">
+		</div>
+    </div>
+
+    </div>
+</div>
+
+	<div class="form-group align-items-center text-center text-sm-right mt-4 mb-0">
+		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
+		<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_page_button'] ?>">
+		<input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';">
+	</div>
+
 </form>
+
 <script type="text/javascript">
 $(function(){
-    var $pagelayout_editable_items = $('tr.pagelayout-editable'),
+    var $pagelayout_editable_items = $('.pagelayout-editable'),
         $pagelayout_radio_group = $('#radio-group-layout-render'),
         $pagelayout_radio_group_items = $("input[name='layout_render']"),
         $pagelayout_layout_render_value = <?php echo $pagelayout["layout_render"]; ?>,

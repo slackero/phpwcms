@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -72,7 +71,7 @@ $map['map_img'] = '';
 if(file_exists(PHPWCMS_TEMPLATE.'inc_cntpart/map/map_img/'.$map['image'])) {
     $map['map_img'] .= '<img src="img/mapimage.php?';
     $map['map_img'] .= 'i='.rawurlencode($map['image']).'&amp;xy='.rawurlencode(implode(',', $map['p']));
-    $map['map_img'] .= '&amp;v='.rawurlencode($map['tmpl_var'] ?: '1,7,7,FFFFFF,FF4000');
+    $map['map_img'] .= '&amp;v='.rawurlencode(($map['tmpl_var']) ? $map['tmpl_var'] : '1,7,7,FFFFFF,FF4000');
     $map['map_img'] .= '" hspace="0" vspace="0" alt="" usemap="#locations" />';
     if($map['map']) $map['map_img'] .= '<map name="locations">'.$map['map'].'</map>';
 }

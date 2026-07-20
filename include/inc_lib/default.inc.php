@@ -1,11 +1,11 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
+ *
  **/
 
 // ----------------------------------------------------------------
@@ -92,7 +92,7 @@ if (defined('CUSTOM_CONTENT_TYPE')) {
 
 $phpwcms["site"] = $phpwcms["site"] === '' ? get_url_origin(true) : rtrim($phpwcms["site"], '/');
 $phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms["site"] : rtrim($phpwcms["site_ssl_url"], '/');
-if (str_starts_with($phpwcms['site_ssl_url'], 'http:')) {
+if (substr($phpwcms['site_ssl_url'], 0, 5) == 'http:') {
     $phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
 }
 $phpwcms['site_ssl_port'] = abs(intval($phpwcms['site_ssl_port']));
@@ -101,7 +101,7 @@ if ($phpwcms['site_ssl_port'] !== 443) {
 }
 
 if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
-    if (str_starts_with($phpwcms['site'], 'http:')) {
+    if (substr($phpwcms['site'], 0, 5) == 'http:') {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
     }
     define('PHPWCMS_SSL', true);
@@ -138,18 +138,17 @@ if (empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', true);
     define('PHPWCMS_RESIZE_IMAGE', 'im');
 }
-define('PHPWCMS_REWRITE_EXT', $phpwcms['rewrite_ext'] ?? '.html');
-define('PHPWCMS_ALIAS_WSLASH', !empty($phpwcms['alias_allow_slash']));
+define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
+define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
 define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8'));
-
+define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
+define('IS_PHP5', IS_PHP523);
 if (defined('PHP_MAJOR_VERSION')) {
-    define('IS_PHP5', PHP_MAJOR_VERSION >= 5 && PHP_MINOR_VERSION >= 6);
     define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
     define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
     define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
     define('IS_PHP82', IS_PHP81 && PHP_MINOR_VERSION === 2);
 } else {
-    define('IS_PHP5', version_compare(PHP_VERSION, '5.6.0', '>='));
     define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
     define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
     define('IS_PHP81', IS_PHP8 && version_compare(PHP_VERSION, '8.1.0', '>='));
@@ -189,15 +188,15 @@ define('PHPWCMS_RSS', PHPWCMS_CONTENT . 'rss');
 define('PHPWCMS_STORAGE', PHPWCMS_ROOT . $phpwcms["file_path"]);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
-define('RESPONSIVE_MODE', !empty($phpwcms['responsive']));
-define('PHPWCMS_PRESERVE_IMAGENAME', !empty($phpwcms['preserve_image_name']));
+define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
+define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
-define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) && !!$phpwcms['enable_GDPR']);
+define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : false);
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT . 'log');
 define('PHPWCMS_WEBP', !empty($phpwcms['webp_enable']) && !empty($phpwcms['USER_AGENT']['webp']));
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
-define('PHPWCMS_RESIZE_ANIMATED_GIF', !isset($phpwcms['resize_animated_gif']) || (bool)$phpwcms['resize_animated_gif']);
+define('PHPWCMS_RESIZE_ANIMATED_GIF', isset($phpwcms['resize_animated_gif']) ? (bool) $phpwcms['resize_animated_gif'] : true);
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -246,7 +245,7 @@ if (isset($phpwcms['image_library'])) {
     if (!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
         $phpwcms['image_library'] = 'gd2';
     }
-    // Fallback to old setting
+// Fallback to old setting
 } else {
 
     $phpwcms['image_library'] = empty($phpwcms["imagick"]) ? 'gd2' : 'imagemagick';
@@ -577,6 +576,7 @@ if (empty($phpwcms['mode_XHTML'])) {
     define('XHTML_MODE', false);
     define('PHPWCMS_DOCTYPE_LANG', ' lang="{DOCTYPE_LANG}"');
     define('HTML5_MODE', false);
+
 } elseif ($phpwcms['mode_XHTML'] == 2) {
 
     define('PHPWCMS_DOCTYPE', '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . LF . '%s<html xmlns="http://www.w3.org/1999/xhtml"%s%s>%s' . LF . '<head>%s%s');
@@ -587,6 +587,7 @@ if (empty($phpwcms['mode_XHTML'])) {
     define('XHTML_MODE', true);
     define('PHPWCMS_DOCTYPE_LANG', ' xml:lang="{DOCTYPE_LANG}" lang="{DOCTYPE_LANG}"');
     define('HTML5_MODE', false);
+
 } elseif ($phpwcms['mode_XHTML'] == 3) {
 
     define('PHPWCMS_DOCTYPE', '<!DOCTYPE html>' . LF . '%s<html%s%s>%s' . LF . '<head>%s%s');
@@ -619,7 +620,7 @@ define('PHPWCMS_HEADER_COMMENT', '
   <!--%s
     phpwcms | free open source content management system
     created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
-    phpwcms is copyright 2002-' . date('Y') . ' of Oliver Georgi. Extensions are copyright of
+    phpwcms is copyright 2002-\' . date(\'Y\') . \' of Oliver Georgi. Extensions are copyright of
     their respective owners. Visit project page for details: http://www.phpwcms.org/
   -->
 ');
@@ -658,18 +659,16 @@ function dumpVar($var, $commented = false) {
     //just a simple funcction returning formatted print_r()
     if ($commented === 1) {
         echo LF . '<!--' . LF;
-        print_r($var);
+                    print_r($var);
         echo LF . '//-->' . LF;
-
         return null;
     } elseif ($commented === 2) {
         return '<pre>' . html(print_r($var, true)) . '</pre>';
     }
 
     echo '<pre>';
-    echo html(print_r($var, true));
-    echo '</pre>';
-
+                    echo html(print_r($var, true));
+                    echo '</pre>';
     return null;
 }
 
@@ -685,7 +684,7 @@ function buildGlobalGET($return = '') {
     if ($_getCount && $_getCount >= $_queryCount) {
 
         // solve the problem that dots inside alias can get lost using GET variable
-        if (!empty($_queryVal[0]) && str_contains($_queryVal[0], '.')) {
+        if (!empty($_queryVal[0]) && strpos($_queryVal[0], '.') !== false) {
             array_shift($_GET);
             $_GET = array($_queryVal[0] => '') + $_GET;
         }
@@ -703,7 +702,11 @@ function buildGlobalGET($return = '') {
     reset($GLOBALS['_getVar']);
     $_getVar_first = key($GLOBALS['_getVar']);
 
-    unset($_GET[session_name()], $GLOBALS['_getVar'][session_name()], $GLOBALS['_getVar']['']);
+    unset(
+        $_GET[session_name()],
+        $GLOBALS['_getVar'][session_name()],
+        $GLOBALS['_getVar']['']
+    );
 
     if (!empty($GLOBALS['phpwcms']['unregister_getVar']) && is_array($GLOBALS['phpwcms']['unregister_getVar'])) {
         foreach ($GLOBALS['phpwcms']['unregister_getVar'] as $key) {
@@ -715,6 +718,12 @@ function buildGlobalGET($return = '') {
         unset($GLOBALS['_getVar'][$_getVar_first]);
         $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
         $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
+    }
+
+    if (!IS_PHP7 && get_magic_quotes_gpc()) {
+        foreach ($GLOBALS['_getVar'] as $key => $value) {
+            $GLOBALS['_getVar'][$key] = stripslashes($value);
+        }
     }
 
     if ($return === 'getQuery') {
@@ -911,7 +920,7 @@ function cleanupPOSTandGET() {
     // remove possible unsecure PHP replacement tags in GET and POST vars
     if (isset($_POST) && count($_POST)) {
         foreach ($_POST as $key => $value) {
-            if (!is_array($value)) {
+            if (!is_array($_POST[$key])) {
                 $_POST[$key] = remove_unsecure_rptags($value);
             }
         }
@@ -981,7 +990,7 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
 
 function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params'] = session_get_cookie_params();
-    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']);
+    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']) ? true : false;
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
     $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
@@ -1035,7 +1044,7 @@ function getAnonymizedIp() {
 function phpwcms_getUserAgent($USER_AGENT = '') {
 
     if (empty($USER_AGENT)) {
-        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $index = 'USER_AGENT';
     } else {
         $index = 'USER_AGENT_' . md5($USER_AGENT);
@@ -1056,7 +1065,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         $pixelratio = 1;
     }
 
-    if (!empty($_SERVER['HTTP_ACCEPT']) && str_contains($_SERVER['HTTP_ACCEPT'], 'image/webp')) {
+    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
         $webp = true;
     } else {
         $webp = false;
@@ -1138,7 +1147,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
 
     $USER_AGENT = strtolower($USER_AGENT);
 
-    if (str_contains($USER_AGENT, 'android')) {
+    if (strpos($USER_AGENT, 'android') !== false) {
         if ($agent === 'Edge') {
             $platform = 'Edge';
         } else {
@@ -1151,75 +1160,75 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         } else {
             $device = 'Tablet';
         }
-    } elseif (str_contains($USER_AGENT, 'windows phone')) {
+    } elseif (strpos($USER_AGENT, 'windows phone') !== false) {
         $agent = 'IEMobile';
         $platform = 'WinPhone';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (str_contains($USER_AGENT, 'windows ce')) {
+    } elseif (strpos($USER_AGENT, 'windows ce') !== false) {
         $platform = 'WinCE';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (str_contains($USER_AGENT, 'win')) {
+    } elseif (strpos($USER_AGENT, 'win') !== false) {
         $platform = 'Win';
         $device = 'Desktop';
-    } elseif (str_contains($USER_AGENT, 'iphone')) {
+    } elseif (strpos($USER_AGENT, 'iphone') !== false) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (str_contains($USER_AGENT, 'ipad')) {
+    } elseif (strpos($USER_AGENT, 'ipad') !== false) {
         $platform = 'iOS';
         $device = 'Tablet';
-    } elseif (str_contains($USER_AGENT, 'ipod')) {
+    } elseif (strpos($USER_AGENT, 'ipod') !== false) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (str_contains($USER_AGENT, 'mac')) {
+    } elseif (strpos($USER_AGENT, 'mac') !== false) {
         $platform = 'Mac';
         $device = 'Desktop';
-    } elseif (str_contains($USER_AGENT, 'googletv')) {
+    } elseif (strpos($USER_AGENT, 'googletv') !== false) {
         $platform = 'GoogleTV';
         $device = 'TV';
         $engine = 'WebKit';
-    } elseif (str_contains($USER_AGENT, 'rim tablet')) {
+    } elseif (strpos($USER_AGENT, 'rim tablet') !== false) {
         $platform = 'Blackberry';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (str_contains($USER_AGENT, 'blackberry')) {
+    } elseif (strpos($USER_AGENT, 'blackberry') !== false) {
         $platform = 'Blackberry';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (str_contains($USER_AGENT, 'webos')) {
+    } elseif (strpos($USER_AGENT, 'webos') !== false) {
         $platform = 'WebOS';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (str_contains($USER_AGENT, 'kindle')) {
+    } elseif (strpos($USER_AGENT, 'kindle') !== false) {
         $platform = 'Android';
         $mobile = 1;
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (str_contains($USER_AGENT, 'silk')) {
+    } elseif (strpos($USER_AGENT, 'silk') !== false) {
         $platform = 'Linux';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (str_contains($USER_AGENT, 'linux')) {
+    } elseif (strpos($USER_AGENT, 'linux') !== false) {
         $platform = 'Linux';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (str_contains($USER_AGENT, 'unix')) {
+    } elseif (strpos($USER_AGENT, 'unix') !== false) {
         $platform = 'Unix';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (str_contains($USER_AGENT, 'freebsd')) {
+    } elseif (strpos($USER_AGENT, 'freebsd') !== false) {
         $platform = 'FreeBSD';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (str_contains($USER_AGENT, 'symbian')) {
+    } elseif (strpos($USER_AGENT, 'symbian') !== false) {
         $platform = 'Symbian';
         $mobile = 1;
         $device = 'Smartphone';
@@ -1240,45 +1249,19 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         }
     }
 
-    $ver = intval($ver);
-
     $GLOBALS['phpwcms'][$index] = array(
         'agent' => $agent,
-        'version' => $ver,
+        'version' => intval($ver),
         'platform' => $platform,
         'mobile' => $mobile,
         'device' => $device,
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? $GLOBALS['phpwcms']["default_lang"]
+        'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
     );
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
-
-    if (!$webp) {
-        switch ($agent) {
-            case 'Chrome':
-            case 'Opera':
-            case 'Edge':
-                if ($ver > 50) {
-                    $webp = true;
-                }
-                break;
-            case 'Firefox':
-                if ($ver > 70) {
-                    $webp = true;
-                }
-                break;
-            case 'Safari':
-                if ($platform === 'Mac' && $ver > 15) {
-                    $webp = true;
-                } elseif ($platform === 'iOS' && $ver > 13) {
-                    $webp = true;
-                }
-                break;
-        }
-    }
     $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
 
     return $GLOBALS['phpwcms'][$index];
@@ -1311,7 +1294,7 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
         'log_data2' => '',
         'log_data3' => '',
         'log_msg' => '',
-    );
+        );
 
     if (is_array($type)) {
         foreach ($type as $key => $value) {
@@ -1338,7 +1321,23 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
 }
 
 function destroyBackendSessionData() {
-    unset($_SESSION["wcs_user"], $_SESSION["wcs_user_name"], $_SESSION["wcs_user_id"], $_SESSION["wcs_user_aktiv"], $_SESSION["wcs_user_rechte"], $_SESSION["wcs_user_email"], $_SESSION["wcs_user_avatar"], $_SESSION["structure"], $_SESSION["klapp"], $_SESSION["pklapp"], $_SESSION["wcs_user_admin"], $_SESSION["wcs_user_thumb"], $_SESSION["wcs_user_cp"], $_SESSION["wcs_allowed_cp"], $_SESSION['phpwcms_version_check']);
+    unset(
+        $_SESSION["wcs_user"],
+        $_SESSION["wcs_user_name"],
+        $_SESSION["wcs_user_id"],
+        $_SESSION["wcs_user_aktiv"],
+        $_SESSION["wcs_user_rechte"],
+        $_SESSION["wcs_user_email"],
+        $_SESSION["wcs_user_avatar"],
+        $_SESSION["structure"],
+        $_SESSION["klapp"],
+        $_SESSION["pklapp"],
+        $_SESSION["wcs_user_admin"],
+        $_SESSION["wcs_user_thumb"],
+        $_SESSION["wcs_user_cp"],
+        $_SESSION["wcs_allowed_cp"],
+        $_SESSION['phpwcms_version_check']
+    );
 }
 
 function checkLoginCount() {
@@ -1391,19 +1390,23 @@ function init_frontend_edit() {
     return null;
 }
 
-function html($string, $double_encode = false) {
-    $string = (string)$string;
-    return $string === '' ? '' : htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+if (IS_PHP523) {
+    function html($string, $double_encode = false) {
+        return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
+    }
+} else {
+    function html($string, $double_encode = false) {
+        return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET);
+    }
 }
-
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
-    return htmlentities($string, $quote_mode, $charset);
+    return htmlentities((string)$string, $quote_mode, $charset);
 }
 
 function html_specialchars($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
     //used to replace the htmlspecialchars original php function
     //not compatible with many international chars like turkish, polish
-    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', $string); //works correct for "&#8230;" and/or "&ndash;"
+    $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', (string)$string); //works correct for "&#8230;" and/or "&ndash;"
     $string = str_replace(array('<', '>', '"', "'", "\\"), array('&lt;', '&gt;', '&quot;', '&#039;', '&#92;'), $string);
 
     return $string;
@@ -1438,7 +1441,7 @@ function get_login_file() {
 
         return PHPWCMS_LOGIN_PHP;
     }
-    die('Login.php cannot be found. We stop here!');
+    die($login . ' cannot be found. We stop here!');
 }
 
 /**
@@ -1486,7 +1489,7 @@ function get_user_rc($g = '', $pu = 501289, $pr = 506734, $e = array('SAAAAA', '
     $c = '';
     foreach (str_split(strval($$g)) as $a) {
         $c .= $e[intval($a)];
-    }
+}
 
     return $c;
 }
@@ -1497,7 +1500,7 @@ function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://') : '';
     $port = intval($_SERVER['SERVER_PORT']);
     $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;

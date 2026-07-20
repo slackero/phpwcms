@@ -9,12 +9,12 @@ table.ads {
 table.ads tr {
 
 
-	
+
 }
 table.ads tr.adsAltRow {
 
 	background-color: #F3F5F8;
-	
+
 }
 table.ads tr:hover {
 	background-color: #FFCC33;
@@ -131,6 +131,6 @@ input.rt {
 	background-color: #F7F7F7;
 }
 textarea.code {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 	font-size: 12px;
 }

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -75,6 +74,7 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
         $image_entry['caption']     = clean_slweg($_POST['cimage_caption'][$key]);
         $image_entry['freetext']    = slweg($_POST['cimage_freetext'][$key]);
         $image_entry['url']         = clean_slweg($_POST['cimage_url'][$key]);
+        $image_entry['active']      = empty($_POST['cimage_active'][$key]) ? 0 : 1;
 
         if(!$image_entry['thumb_id']) {
             $image_entry['thumb_id']    = '';
@@ -113,28 +113,28 @@ if(isset($_POST['cimage_id_thumb']) && is_array($_POST['cimage_id_thumb']) && co
         if(!empty($tab_fieldgroup_fields)) {
             foreach($tab_fieldgroup_fields as $custom_field => $custom_field_definition) {
 
-                $custom_field_value = $_POST['customfield'][$key][$custom_field] ?? null;
+                $custom_field_value = isset($_POST['customfield'][$key][$custom_field]) ? $_POST['customfield'][$key][$custom_field] : null;
 
                 $_POST['customfield'][$key][$custom_field] = null;
                 unset($_POST['customfield'][$key][$custom_field]);
 
-                if(isset($custom_field_definition['render']) && in_array($custom_field_definition['render'], $tab_fieldgroup_field_render)) {
+                if(isset($tab_fieldgroup_fields[$custom_field]['render']) && in_array($tab_fieldgroup_fields[$custom_field]['render'], $tab_fieldgroup_field_render)) {
 
                     $image_entry['custom_fields'][$custom_field] = slweg($custom_field_value);
 
-                } elseif($custom_field_definition['type'] === 'int') {
+                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'int') {
 
                     $image_entry['custom_fields'][$custom_field] = intval($custom_field_value);
 
-                } elseif($custom_field_definition['type'] === 'float') {
+                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'float') {
 
                     $image_entry['custom_fields'][$custom_field] = floatval($custom_field_value);
 
-                } elseif($custom_field_definition['type'] === 'bool') {
+                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'bool') {
 
                     $image_entry['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 
-                } elseif($custom_field_definition['type'] === 'file') {
+                } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'file') {
 
                     $image_entry['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'description' => '');
 

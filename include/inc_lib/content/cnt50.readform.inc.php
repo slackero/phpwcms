@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,11 +17,11 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type Reference
-$content['reference']["list"]       = $_POST["cimage_list"] ?? array();
-$content['reference']["width"]      = intval($_POST["creference_width"])  ?: '';
-$content['reference']["height"]     = intval($_POST["creference_height"]) ?: '';
-$content['reference']["blockwidth"] = intval($_POST["creference_blockwidth"])  ?: '';
-$content['reference']["blockheight"]= intval($_POST["creference_blockheight"]) ?: '';
+$content['reference']["list"]       = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
+$content['reference']["width"]      = (intval($_POST["creference_width"]))  ? intval($_POST["creference_width"])  : '';
+$content['reference']["height"]     = (intval($_POST["creference_height"])) ? intval($_POST["creference_height"]) : '';
+$content['reference']["blockwidth"] = (intval($_POST["creference_blockwidth"]))  ? intval($_POST["creference_blockwidth"])  : '';
+$content['reference']["blockheight"]= (intval($_POST["creference_blockheight"])) ? intval($_POST["creference_blockheight"]) : '';
 $temp_width                         = $content['reference']["width"];
 $temp_height                        = $content['reference']["height"];
 $content['reference']["space"]      = intval($_POST["creference_space"]);

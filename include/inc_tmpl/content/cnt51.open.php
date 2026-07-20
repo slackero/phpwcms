@@ -1,18 +1,18 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-$phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 3);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+session_start();
+
+$phpwcms = array();
+require_once '../../config/conf.inc.php';
+require_once '../../../include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -25,9 +25,9 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
 	<title>Choose Location</title>
 	<script type="text/javascript">
-		var ie4 = document.all && navigator.userAgent.indexOf("Opera") === -1,
-            ns6 = document.getElementById && !document.all,
-            ns4 = document.layers;
+		var ie4 = document.all&&navigator.userAgent.indexOf("Opera")==-1;
+		var ns6 = document.getElementById&&!document.all;
+		var ns4 = document.layers;
 
 		function setLocationXY(kx,ky) {
 			window.opener.document.articlecontent.cmap_location_x.value=kx;

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -41,7 +40,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TI
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html_specialchars($crow['acontent_subtitle']));
 
 $crow["acontent_form"] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
-$crow["acontent_form"] = $crow["acontent_form"]['ctext_format'] ?? 'plain';
+$crow["acontent_form"] = isset($crow["acontent_form"]['ctext_format']) ? $crow["acontent_form"]['ctext_format'] : 'plain';
 
 switch($crow["acontent_form"]) {
 

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -69,7 +68,7 @@ if(!empty($content["poll_form"]["choice"]) && is_array($content["poll_form"]["ch
 <tr>
     <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
     <td valign="top">
-    <table border="0" cellpadding="0" cellspacing="0" summary="">
+    <table>
     <tr>
         <td valign="top">
         <select name="cimage_list[]" size="<?php echo is_array($content["poll_select"]) && count($content["poll_select"]) ? count($content["poll_select"])+5 : 5 ?>" multiple="multiple" class="width300" id="cimage_list">
@@ -117,7 +116,7 @@ if(isset($content['poll_list']['images']) && is_array($content['poll_list']['ima
 
 if($img_thumbs)
 {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
+    echo '<table>
         <tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
         </table>';
 }
@@ -129,7 +128,7 @@ if($img_thumbs)
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
   <td valign="top">
-   <table border="0" cellpadding="0" cellspacing="0" summary="">
+   <table>
      <tr>
         <td><input name="cpoll_width" type="text" class="f11b" id="cpoll_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>"></td>
         <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>

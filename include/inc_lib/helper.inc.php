@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -28,7 +27,7 @@ function i18n_get_language($complex=false) {
 		$phpwcms['i18_lang'] = $phpwcms['default_lang'];
 		return $phpwcms['i18_lang'];
 	}
-	$complex = $phpwcms['i18n_complex'] ?? $complex;
+	$complex = isset($phpwcms['i18n_complex']) ? $phpwcms['i18n_complex'] : $complex;
 	if($complex) {
 		$lang = explode(';', trim($_SERVER['HTTP_ACCEPT_LANGUAGE']), 2);
 		$lang = explode(',', $lang[0], 2);
@@ -59,10 +58,10 @@ function i18n_get_file_open_text() {
 // substitutes a single token
 function i18n_substitute_text_token($token) {
 	global $i18n_tokens;
-	$a = trim($token[1] ?? $token);
-    if($a === '') {
-        return '';
-    }
+	$a = trim(isset($token[1]) ? $token[1] : $token);
+	if($a === '') {
+		return '';
+	}
 	if(isset($i18n_tokens[$a])) {
 		return $i18n_tokens[$a];
 	} else {

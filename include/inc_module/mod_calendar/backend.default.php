@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -41,7 +40,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
 	// put translation back to have easier access to it - use it as relation
 	$BLM = & $BL['modules'][$module];
 	define('MODULE_HREF', 'phpwcms.php?'.get_token_get_string().'&amp;do=modules&amp;module='.$module);
-	$glossary = [];
+	$glossary = array();
+
 
 	if(isset($_GET['edit'])) {
 

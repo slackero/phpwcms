@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -29,12 +28,12 @@ if($dl) {
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_trash=0 AND f_kid=1 AND f_id=".$dl." ";
 
     if($pl === 0) {
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= "AND f_uid=".intval($_SESSION["wcs_user_id"]).' ';
         }
     } else {
         $sql .= "AND f_aktiv=1 AND (f_public=1";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('file') && !has_admin_permission('filecent')) {
             $sql .= " OR f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         $sql .= ") ";

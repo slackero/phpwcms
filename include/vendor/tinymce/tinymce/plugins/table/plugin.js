@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 8.8.0 (2026-07-15)
+ * TinyMCE version 8.7.0 (2026-07-01)
  */
 
 (function () {
@@ -3199,6 +3199,7 @@
         });
     };
     const open = (editor, insertNewTable) => {
+        const dom = editor.dom;
         let tableElm;
         let data = extractDataFromSettings(editor, hasAdvancedTableTab(editor));
         // Cases for creation/update of tables:
@@ -3217,10 +3218,7 @@
             }
         }
         else {
-            tableElm = getSelectionCellOrCaption(getSelectionStart(editor), getIsRoot(editor))
-                .bind((cellOrCaption) => table(cellOrCaption, getIsRoot(editor)))
-                .map((table) => table.dom)
-                .getOrNull();
+            tableElm = dom.getParent(editor.selection.getStart(), 'table', editor.getBody());
             if (tableElm) {
                 // Case 2 - isNew == false && table parent
                 data = extractDataFromTableElement(editor, tableElm, hasAdvancedTableTab(editor));

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -36,6 +35,43 @@ function headline($head, $subhead, $layout) {
         $c .= $layout["content_subhead_after"];
     }
     return $c;
+}
+
+//defines multimedia plugin specific values for width or height
+function plugin_size($mediatype, $player, $width, $height) {
+
+    switch($mediatype) {
+        case 0: //Video
+                switch($player) {
+                    case 0: //Quicktime
+                            $width = ($width) ? $width : "";
+                            $height = ($height) ? $height+16 : "";
+                            break;
+
+                    case 1: //RealPlayer
+                            $width = ($width) ? $width : "";
+                            $width = ($height) ? $height+36 : "";
+                            break;
+
+                    case 2: //MediaPlayer
+                            $width = ($width) ? $width : "";
+                            $width = ($height) ? $height : "";
+                            break;
+
+                    case 3: //Flash
+                            $width = ($width) ? $width : "";
+                            $width = ($height) ? $height : "";
+                            break;
+                }
+                break;
+
+        case 1: //Audio
+                break;
+
+        case 2: //Flash
+                break;
+
+    }
 }
 
 function must_filled($c) {
@@ -776,7 +812,7 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
                 if($redirect['target'] != ' target="_blank"') {
                     $js .= " onclick=\"location.href='".js_singlequote($link)."';return false;\"";
                 } else {
-                    $js .= " onclick=\"window.open('".js_singlequote($link)."', 'phpwcmnewwin');return false;\"";
+                    $js .= " onclick=\"window.open('".js_singlequote($link)."', 'phpwcmsnewwin');return false;\"";
                 }
 
                 $js_act = $js;
@@ -2118,7 +2154,7 @@ function get_keyword_link($keywords) {
         if(isset($result[0])) {
             if(count($result) === 1) {
                 // if only 1 article found
-                $link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($result[0])).'" title="'.html_specialchars($result[0]['article_title']).'">'.$keyword_list.'</a>';
+                $link .= '<a href="'.rel_url(array(), array(), setGetArticleAid($result[0])).'" title="'.html_specialchars($article_list[0]['article_title']).'">'.$keyword_list.'</a>';
             } else {
                 // if more than one article found
                 foreach($result as $key => $value) {
@@ -3766,7 +3802,7 @@ function parseLightboxCaption($caption='') {
     return html_specialchars($caption);
 }
 
-function get_article_morelink($article) {
+function get_article_morelink(& $article) {
     if($article['article_redirect']) {
         $link = explode(' ', $article['article_redirect']);
         if($link[0]) {
@@ -3820,7 +3856,7 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
 
         //enym new edit structure
         case 'structure':   if(isset($GLOBALS['content']['struct'][$id_1]['acat_struct'])) {
-                                $href  = 'do=admin&amp;p=6&amp;struct=';
+                                $href  = 'do=articles&amp;p=6&amp;struct=';
                                 $href .= $id_1 ? $GLOBALS['content']['struct'][$id_1]['acat_struct'].'&amp;cat='.$id_1 : 'index';
                                 $title = '@@Backend: edit Structure Level@@';
                             }

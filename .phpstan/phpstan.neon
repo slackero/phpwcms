@@ -13,3 +13,6 @@ parameters:
         - phpstan-bootstrap.php
     tmpDir: cache
     treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+
+

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -32,8 +31,7 @@ if(empty($_SESSION['list_user_count'])) {
 
 $_userInfo = array();
 
-
-// get filter and paginating form values
+// Get filter and paginating form values
 if(isset($_POST['do_pagination'])) {
 
     $_SESSION['list_admin']     = empty($_POST['showadmin']) ? 0 : 1;
@@ -54,16 +52,16 @@ if(empty($_SESSION['list_user_page'])) {
     $_SESSION['list_user_page'] = 1;
 }
 
-$_userInfo['list_admin']    = $_SESSION['list_admin'] ?? 0;
-$_userInfo['list_befe']     = $_SESSION['list_befe'] ?? 0;
-$_userInfo['list_norm']     = $_SESSION['list_norm'] ?? 0;
-$_userInfo['list_fe']       = $_SESSION['list_fe'] ?? 0;
+$_userInfo['list_admin']    = isset($_SESSION['list_admin']) ? $_SESSION['list_admin'] : 0;
+$_userInfo['list_befe']     = isset($_SESSION['list_befe']) ? $_SESSION['list_befe'] : 0;
+$_userInfo['list_norm']     = isset($_SESSION['list_norm']) ? $_SESSION['list_norm'] : 0;
+$_userInfo['list_fe']       = isset($_SESSION['list_fe']) ? $_SESSION['list_fe'] : 0;
 
 $_userInfo['list']          = array();
 // if admin user should be listed
 $_userInfo['where_query']    = ' WHERE usr_aktiv != 9';
 if($_userInfo['list_admin']) {
-$_userInfo['where_query']   .= ' AND usr_admin=1';
+    $_userInfo['where_query']   .= ' AND usr_admin=1';
 }
 if($_userInfo['list_befe']) {
     $_userInfo['list'][]    = ' usr_fe=2 ';
@@ -87,11 +85,8 @@ if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results'])) {
         $_userInfo['filter_array'][] = "CONCAT(usr_name, usr_login, usr_email) LIKE '%".aporeplace($_userInfo['filter'])."%'";
     }
     if(count($_userInfo['filter_array'])) {
-
         $_userInfo['where_query'] .= ' AND ('.implode('OR', $_userInfo['filter_array']).')';
-
     }
-
 }
 
 // paginating values
@@ -100,83 +95,108 @@ $_userInfo['pages_total'] = ceil($_userInfo['count_total'] / $_SESSION['list_use
 if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     $_SESSION['list_user_page'] = empty($_userInfo['pages_total']) ? 1 : $_userInfo['pages_total'];
 }
-
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr><td colspan="3" class="title"><?php echo $BL['be_admin_usr_ltitle'] ?></td></tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-        <tr><td colspan="3"><form action="phpwcms.php?do=admin" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-        <tr>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-
-                    <td><input type="checkbox" name="showadmin" id="showadmin" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_admin'], 1) ?> /></td>
-                    <td><label for="showadmin"><img src="img/usricon/usr_admin.gif" alt="" /></label></td>
-                    <td><input type="checkbox" name="showbefe" id="showbefe" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?> /></td>
-                    <td><label for="showbefe"><img src="img/usricon/usr_befe.gif" alt="" /></label></td>
-                    <td><input type="checkbox" name="shownorm" id="shownorm" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?> /></td>
-                    <td><label for="shownorm"><img src="img/usricon/usr_norm.gif" alt="" /></label></td>
-                    <td><input type="checkbox" name="showfe" id="showfe" value="1" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_fe'], 1) ?> /></td>
-                    <td><label for="showfe"><img src="img/usricon/usr_16.gif" alt="" /></label></td>
-
-<?php
-if($_userInfo['pages_total'] > 1) {
-
-    echo '<td class="chatlist">|&nbsp;</td>';
-    echo '<td>';
-    if($_SESSION['list_user_page'] > 1) {
-        echo '<a href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
-        echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" /></a>';
-    } else {
-        echo '<img src="img/famfamfam/action_back.gif" alt="" border="0" class="inactive" />';
-    }
-    echo '</td>';
-    echo '<td><input type="text" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
-    echo '"  class="textinput" style="margin:0 3px 0 5px;width:30px;font-weight:bold;" /></td>';
-    echo '<td class="chatlist">/'.$_userInfo['pages_total'].'&nbsp;</td>';
-    echo '<td>';
-    if($_SESSION['list_user_page'] < $_userInfo['pages_total']) {
-        echo '<a href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']+1).'">';
-        echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" /></a>';
-    } else {
-        echo '<img src="img/famfamfam/action_forward.gif" alt="" border="0" class="inactive" />';
-    }
-    echo '</td><td class="chatlist">&nbsp;|&nbsp;</td>';
-
-} else {
-
-    echo '<td class="chatlist">|&nbsp;<input type="hidden" name="page" id="page" value="1" /></td>';
-
-}
 ?>
 
-    <td><input type="search" name="filter" id="filter" size="10" value="<?php
+<div class="row align-items-center">
+	<div class="col col-sm-auto text-center text-sm-left">
+    <h1><?php echo $BL['be_subnav_admin_users_overview']; ?></h1>
+  </div>
+	<div class="col-12 col-sm text-center text-sm-right mb-3">
+    <form action="phpwcms.php?do=admin&amp;s=1" method="post">
+    	<div class="form-group">
+      <input type="submit" value="<?php echo $BL['be_admin_usr_create'] ?>" class="btn btn-sm btn-blue" title="<?php echo $BL['be_admin_usr_create'] ?>">
+      </div>
+    </form>
+  </div>
+</div>
 
-    if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
-        echo html(implode(' ', $_SESSION['filter_results']));
-    }
+<div class="card">
+  <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_usr_ltitle'] ?></h2></div>
+  <div class="card-body">
+<form action="phpwcms.php?do=admin" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" />
 
-    ?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-    <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" alt="" /></td>
-            </table></td>
-            <td class="chatlist" align="right">
-                <a href="phpwcms.php?do=admin&amp;c=10">10</a>
-                <a href="phpwcms.php?do=admin&amp;c=25">25</a>
-                <a href="phpwcms.php?do=admin&amp;c=50">50</a>
-                <a href="phpwcms.php?do=admin&amp;c=100">100</a>
-                <a href="phpwcms.php?do=admin&amp;c=250">250</a>
-                <a href="phpwcms.php?do=admin&amp;c=all"><?php echo $BL['be_ftptakeover_all'] ?></a>
-            </td>
-        </tr>
-    </table>
-    </form></td></tr>
+  <div class="row align-items-center mb-3">
+      <div class="col-12 col-sm">
+          <div class="form-row">
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showadmin" id="showadmin" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_admin'], 1) ?>>
+                  <label for="showadmin" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-info"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showbefe" id="showbefe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_befe'], 1) ?>>
+                  <label for="showbefe" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-success"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="shownorm" id="shownorm" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_norm'], 1) ?>>
+                  <label for="shownorm" class="form-check-label"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+              <div class="col-sm-auto form-check form-check-inline">
+                  <input class="form-check-input" name="showfe" id="showfe" value="1" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_userInfo['list_fe'], 1) ?>>
+                  <label for="showfe" class="form-check-label"> <span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-warning"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></label>
+              </div>
+          </div>
+      </div>
+      <div class="col-12 col-sm-auto">
+          <div class="input-group my-3 my-sm-0">
+              <input type="search" name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_user'] ?>" class="form-control form-control-sm" value="<?php
+              if(isset($_SESSION['filter_results']) && count($_SESSION['filter_results']) ) {
+                  echo html(implode(' ', $_SESSION['filter_results']));
+              }
+              ?>">
+              <div class="input-group-append">
+                  <input class="btn btn-sm btn-secondary" name="gofilter" type="button" value="<?php echo $BL['be_filter'] ?>">
+              </div>
+          </div>
+  	  </div>
 
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+    <?php
+      if($_userInfo['pages_total'] > 1) {
+        echo '<div class="col-sm-auto text-right">';
+        echo '<table><tr><td>';
+        if($_SESSION['list_user_page'] > 1) {
+            echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
+            echo '<i class="fa fa-angle-left"></i></a>';
+         } else {
+            echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']-1).'">';
+            echo '<i class="fa fa-angle-left"></i></a>';
+        }
+        echo '</td>';
+        echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['list_user_page'];
+        echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
+        echo '<td>/'.$_userInfo['pages_total'].'&nbsp;</td>';
+        echo '<td>';
+        if($_SESSION['list_user_page'] < $_userInfo['pages_total']) {
+            echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']+1).'">';
+            echo '<i class="fa fa-angle-right"></i></a>';
+        } else {
+          echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=admin&amp;page='.($_SESSION['list_user_page']+1).'">';
+          echo '<i class="fa fa-angle-right"></i></a>';
+        }
+        echo '</td></tr></table></div>';
+      } else {
+        echo '<input type="hidden" name="page" id="page" value="1" />';
+      }
+      ?>
 
-        <tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <?php
+    <div class="col-12 col-sm-auto text-right">
+    <select class="form-control form-control-sm custom-select">
+      <option <?php echo ($_SESSION['list_user_count'] == '') ? 'selected ' : ''; ?>><?php echo $BL['be_amount_results'] ?></option>
+        <option <?php echo ($_SESSION['list_user_count'] == '5') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=5'">5</option>
+        <option <?php echo ($_SESSION['list_user_count'] == '10') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=10'">10</option>
+        <option <?php echo ($_SESSION['list_user_count'] == '25') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=25'">25</option>
+        <option <?php echo ($_SESSION['list_user_count'] == '50') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=50'">50</option>
+        <option <?php echo ($_SESSION['list_user_count'] == '100') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=100'">100</option>
+        <option <?php echo ($_SESSION['list_user_count'] == '99999') ? 'selected ' : ''; ?>onClick="window.location = 'phpwcms.php?do=admin&amp;c=all'"><?php echo $BL['be_ftptakeover_all']; ?></option>
+    </select>
+  	</div>
+</div>
+
+</form>
+
+    <table class="table table-sm">
+    <?php
     $bg_color1 = "#FFFFFF";
-    $bg_color2 = "#F3F5F8";
+    $bg_color2 = "#f5f5f5";
     $zaehler = 0;
     if(!isset($new_user_id)) {
         $new_user_id = 0;
@@ -188,32 +208,32 @@ if($_userInfo['pages_total'] > 1) {
     $result = _dbQuery($sql);
     if(isset($result[0]['usr_id'])) {
         foreach($result as $userlist) {
-            $bg_color = ($zaehler % 2) ? $bg_color2 : $bg_color1;
+            $bg_class = ($zaehler % 2) ? 'bg-row-alt-grey' : 'bg-row-white';
             if($userlist["usr_id"] == $new_user_id) {
-                $bg_color = "#FFCC00";
+                $bg_class = "bg-row-highlight-amber";
             }
             $goto = "phpwcms.php?do=admin&amp;s=2&amp;u=".$userlist["usr_id"];
 ?>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr bgcolor="<?php echo  $bg_color ?>" onmouseover="bgColor='#DBFF48'" onmouseout="bgColor='<?php echo  $bg_color ?>'">
-          <td width="19" align="center"><img src="img/usricon/usr_<?php
+
+      <tr class="hover-light <?php echo $bg_class ?>">
+      <td width="30" class="align-middle"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
 
             if($userlist["usr_aktiv"] == 1) {
                 if(!$userlist["usr_admin"]) {
                     switch($userlist["usr_fe"]) {
-                        case 0: echo '16'; break;
-                        case 1: echo 'norm'; break;
-                        case 2: echo 'befe'; break;
+                        case 0: echo 'warning'; break;
+                        case 1: echo 'primary'; break;
+                        case 2: echo 'success'; break;
                     }
                 } else {
-                    echo "admin";
+                    echo "info";
                 }
             } else {
                 echo "inaktiv";
             }
 
-          ?>.gif" alt="" width="19" height="16" border="0"></td>
-          <td width="458" <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php
+          ?>"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></td>
+          <td class="align-middle" <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php
 
             if($userlist["usr_name"]) {
                 $userlist["usr_name"] = html($userlist["usr_name"]." (".$userlist["usr_login"].")");
@@ -223,43 +243,32 @@ if($_userInfo['pages_total'] > 1) {
             echo $userlist["usr_name"];
 
           ?></a></td>
-          <td width="61" align="right"><a href="include/inc_act/act_user.php?aktiv=<?php
-            echo $userlist["usr_id"].":";
-            if($userlist["usr_aktiv"]) {
-                echo "0";
-            } else {
-                echo "1";
-            }
-            ?>"><img src="img/button/<?php
-            if(!$userlist["usr_aktiv"]) echo "in";
-            ?>aktiv_mini.gif" alt="" width="14" height="15" border="0"></a><a href="<?php echo $goto ?>"><img src="img/button/edit.gif" alt="" width="24" height="15" border="0" title="<?php echo $BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]) ?>"></a><a href="include/inc_act/act_user.php?del=<?php
-          echo urlencode($userlist["usr_id"].":".$userlist["usr_email"]);
-          ?>" onclick="return confirm('Delete user <?php echo js_singlequote($userlist["usr_name"]) ?>');"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0" title="<?php echo $BL['be_admin_usr_ldel']." ".html($userlist["usr_login"]) ?>"></a></td>
+          <td class="align-middle text-nowrap text-right">
+          <?php
+
+          echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+          echo '<a class="btn btn-sm btn-blue '.($userlist["usr_aktiv"]==0 ? "btn-info" : "btn-success").' mr-1" role="button" aria-disabled="true" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<a class="btn btn-sm btn-danger" data-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" onclick="return confirm(\''. $BL['be_admin_usr_ldel'].' \n'.js_singlequote($userlist['usr_login']).'\');"><i class="far fa-trash-alt"></i></a>';
+            ?>
+
+          </td>
         </tr>
         <?php
             $zaehler++;
         }
     } //Ende Schleife Anzeige User
-
-        if($zaehler) {
-            echo '<tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
-            echo '<tr><td colspan="3" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>';
-        }
-
-        ?>
-        <tr>
-          <td><img src="img/leer.gif" alt="" width="19" height="5"></td>
-          <td><img src="img/leer.gif" alt="" width="458" height="1"></td>
-          <td><img src="img/leer.gif" alt="" width="61" height="1"></td>
-        </tr>
-        <tr>
-          <td colspan="3"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-              <tr>
-                <td><form action="phpwcms.php?do=admin&amp;s=1" method="post"><input type="submit" value="<?php echo $BL['be_admin_usr_create'] ?>" class="button" title="<?php echo $BL['be_admin_usr_create'] ?>"></form></td>
-                <td>&nbsp;&nbsp;</td>
-                <td align="right"><img src="img/symbols/userlegende1.gif" alt="" width="225" height="13"></td>
-              </tr>
-            </table></td>
-        </tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
+?>
 </table>
+<hr />
+<div class="alert alert-secondary mb-0">
+  <div class="row">
+    <div class="col-sm-auto"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-info"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span> Admin User</div>
+    <div class="col-sm-auto"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-success"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span> Frontend & Backend User</div>
+    <div class="col-sm-auto"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span> Backend User</div>
+    <div class="col-sm-auto"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-warning"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span> Frontend User</div>
+  </div>
+</div>
+
+
+</div>
+</div>

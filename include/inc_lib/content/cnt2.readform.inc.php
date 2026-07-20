@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,13 +18,13 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Images
 
-$content["image_list"]      = $_POST["cimage_list"] ?? array();
+$content["image_list"]      = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
 $content["image_pos"]       = intval($_POST["cimage_pos"]);
 
-$content["image_width"]     = intval($_POST["cimage_width"]) ?: "";
+$content["image_width"]     = (intval($_POST["cimage_width"])) ? intval($_POST["cimage_width"]) : "";
 $temp_width                 = $content["image_width"];
 
-$content["image_height"]    = intval($_POST["cimage_height"]) ?: "";
+$content["image_height"]    = (intval($_POST["cimage_height"])) ? intval($_POST["cimage_height"]) : "";
 $temp_height                = $content["image_height"];
 
 $content["image_space"]     = intval($_POST["cimage_space"]);

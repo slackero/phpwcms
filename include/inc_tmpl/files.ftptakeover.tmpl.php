@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,28 +24,34 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
         $deleteFiles[$_POST['ftp_file'][$key]] = $_POST['ftp_filename'][$key];
     }
 }
-
+// Include uploader scripts http://hayageek.com/docs/jquery-upload-file.php
+$GLOBALS['BE']['HEADER']['uploadfile.css'] = '<link href="include/inc_css/uploadfile.min.css" rel="stylesheet">';
+$GLOBALS['BE']['HEADER']['jquery.form.min.js'] = getJavaScriptSourceLink('include/inc_js/jquery.form.min.js');
+$GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('include/inc_js/jquery.uploadfile.min.js');
 ?>
-<h1 class="title"><?php echo $BL['be_file_multiple_upload'] ?></h1>
-<div class="uploader">
-    <div class="uploader-button" id="upload-file-select"></div>
+
+<h1 class="text-center text-sm-left"><?php echo $BL['be_nav_files'] ?></h1>
+<div class="card mb-4">
+  <div class="card-header"><h2><?php echo $BL['be_file_multiple_upload'] ?></h2></div>
+  <div class="card-body">
+    <div id="fileuploader">Upload</div>
+  </div>
 </div>
 
-<h1 class="title"><?php echo $BL['be_files_select_available'] ?></h1>
+<div class="card">
+  <div class="card-header"><h2><?php echo $BL['be_files_select_available'] ?></h2></div>
+  <div class="card-body">
 
-<form action="include/inc_act/act_ftptakeover.php" method="post" name="ftptakeover" id="ftptakeover">
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-          <tr bgcolor="#D9DEE3">
-            <td width="35" align="center" class="v09"><?php echo $BL['be_ftptakeover_mark'] ?></td>
-            <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="14" /></td>
-            <td width="21"><img src="img/leer.gif" alt="" width="21" height="1" /></td>
-            <td width="400" class="v09"><?php echo $BL['be_ftptakeover_available'] ?></td>
-            <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td width="80" align="right" class="v09"><?php echo $BL['be_ftptakeover_size'] ?>&nbsp;&nbsp;</td>
-          </tr>
-          <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-<?php
+    <form action="include/inc_act/act_ftptakeover.php" method="post" name="ftptakeover" id="ftptakeover">
+      <div id="filelist" class="table-responsive">
+        <table class="table table-sm">
+            <tr bgcolor="#f3f3f3">
+              <th><?php echo $BL['be_ftptakeover_mark'] ?></th>
+              <th><?php echo $BL['be_ftptakeover_available'] ?></th>
+              <th><?php echo $BL['be_ftptakeover_size'] ?></th>
+            </tr>
+
+  <?php
         //Browse FTP Open Directory
         $multiple_upload_files = returnFileListAsArray(PHPWCMS_ROOT.$phpwcms["ftp_path"], $extfilter = '');
 
@@ -59,32 +64,29 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
             foreach ($multiple_upload_files as $file) {
 
-                // test if the file should be deleted
+                    // test if the file should be deleted
                 $file_base64 = base64_encode($file['filename']);
 
                 if(isset($deleteFiles[$file_base64]) && @unlink($file['path'])) {
-                    continue;
-                }
+                            continue;
+                        }
 
-                $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
+                    $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
                 $fxsg += $file['filesize'];
                 $fxe = extimg($file['ext']);
-                 // there is a big problem with special chars on Mac OS X and seems Windows too
-                $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file['filename']) ? str_replace('?', '', mb_convert_encoding($file['filename'], PHPWCMS_CHARSET)) : $file['filename'];
-                $filename = html($filename);
+                     // there is a big problem with special chars on Mac OS X and seems Windows too
+                    $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file['filename']) ? str_replace('?', '', mb_convert_encoding($file['filename'], PHPWCMS_CHARSET)) : $file['filename'];
+                    $filename = html($filename);
 ?>
-                <tr<?php echo $fxb ?>>
-                    <td align="center" class="tdtop2 tdbottom2"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
-                    <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-                    <td align="center"><img src="img/icons/small_<?php echo $fxe ?>" alt="" width="13" height="11" /></td>
-                    <td class="v10 tdtop3"><?php echo $filename ?></td>
-                    <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-                    <td align="right" class="v10 tdtop3">
-                        <?php echo fsizelong($file['filesize']); ?>&nbsp;
-                        <input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
-                        <input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
-                    </td>
-                </tr>
+          <tr<?php echo $fxb ?>>
+            <td align="center" width="30"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
+            <td><?php echo $filename ?></td>
+            <td>
+                <?php echo fsizelong($file['filesize']) ?>
+                <input class="form-control" name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
+                <input class="form-control" name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
+            </td>
+          </tr>
                 <?php
 
                 $fx++;
@@ -93,167 +95,144 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
 
         if(!$fx) {
 ?>
-            <tr>
-                <td colspan="5" class="dir" style="padding: 5px;"><?php echo $BL['be_ftptakeover_nofile']; ?></td>
-                <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-            </tr>
+          <tr>
+            <td colspan="2" class="dir">&nbsp;<?php echo $BL['be_ftptakeover_nofile'] ?></td>
+            <td></td>
+        </tr>
 <?php
         } else {
 ?>
-            <tr bgcolor="#92A1AF">
-                <td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
 
-            <tr bgcolor="#EAEDF0">
-                <td align="center" class="subnavactive tdtop3 tdbottom3"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-                <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-                <td>&nbsp;</td>
-                <td class="v10"><button id="delete-selected-files" style="display:none;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button></td>
-                <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-                <td align="right" class="v10"><?php echo fsizelong($fxsg) ?>&nbsp;</td>
-            </tr>
-            <tr bgcolor="#92A1AF">
-                <td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            </tr>
+          <tr bgcolor="#e3e3e3" height="40">
+            <td width="30" class="text-center"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
+            <td><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-blue my-1"><?php echo $BL['be_delete_selected_files'] ?></button></td>
+            <td><?php echo fsizelong($fxsg) ?>&nbsp;</td>
+        </tr>
 <?php
         }
 ?>
-            <tr bgcolor="#D9DEE3">
-                <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
-                <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-                <td><img src="img/leer.gif" alt="" width="21" height="1" /></td>
-                <td><img src="img/leer.gif" alt="" width="400" height="1" /></td>
-                <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-                <td><img src="img/leer.gif" alt="" width="80" height="1" /></td>
-            </tr>
-        </table><?php
-        //Nur Zeigen wenn Dateien vorhanden
-        if($fx) {
+        </table>
+      </div>
 
-?>
-       <table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="background:#EBF2F4">
-           <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-           <tr>
-               <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-               <td width="471" class="v10">
-                   <select name="file_dir" id="file_dir" class="v14 width400">
-                       <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-                       <?php dir_menu(0, 0, "-", $_SESSION["wcs_user_id"], "-"); ?>
-                   </select>
-               </td>
-           </tr>
-           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-           <tr>
-               <td width="67" align="right" class="v09"><?php echo $BL['be_ftptakeover_new_folder']; ?>:&nbsp;</td>
-               <td width="471" class="v10">
-                   <input type="text" name="file_dir_new" id="file_dir_new" class="v11 width400" placeholder="<?php echo $BL['be_ftptakeover_new_folder_placeholder']; ?>">
-               </td>
-           </tr>
+    <hr />
 
-           <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-           <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-           <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+    <div  id="showform" style="display: <?php echo ($fx) ? 'block' : 'none'; ?>;">
 
-           <tr bgcolor="#F5F8F9">
-               <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
-               <td>
-                   <table border="0" cellpadding="0" cellspacing="0" summary="">
-                       <tr>
-                           <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
-                           <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
-                       </tr>
-                   </table><div id="iptc-info"></div>
-               </td>
-           </tr>
+        <div class="form-group form-row align-items-center">
+            <label for="be_ftptakeover_directory" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+            <div class="col">
+                <select name="file_dir" class="custom-select form-control form-control-sm" id="file_dir">
+                    <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+                    <?php dir_menu(0, 0, "-", $_SESSION["wcs_user_id"], "-"); ?>
+                </select>
+            </div>
+        </div>
 
-           <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-           <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-           <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
+        <div class="form-group form-row align-items-center">
+            <label for="file_dir_new" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_new_folder']; ?></label>
+            <div class="col">
+                <input type="text" name="file_dir_new" id="file_dir_new" class="form-control form-control-sm" placeholder="<?php echo $BL['be_ftptakeover_new_folder_placeholder']; ?>">
+            </div>
+        </div>
+
+        <div class="form-group form-row align-items-center">
+            <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+            <div class="col form-check-inline">
+                <input class="form-check-input" type="checkbox" name="file_iptc_as_caption" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> >
+                <label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
+            </div>
+        </div>
+
+        <div class="form-group form-row align-items-center">
+            <label for="template_jsonload" class="col-sm-2 col-form-label text-right">JS onload</label>
+            <div class="col">
+                <input class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="" type="text">
+            </div>
+        </div>
+
+        <hr />
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 
-    <tr>
-        <td>&nbsp;</td>
-        <td class="incell-tabs">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
+                <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>"></span> <?php echo $BL['be_admin_tmpl_default'] ?>
+        </a>
+      </li>
+        <?php foreach($phpwcms['allowed_lang'] as $lang):
+            $lang = strtolower($lang);
+            if($lang == $phpwcms['default_lang']) {
+                continue;
+            }
+        ?>
+      <li class="nav-item">
+        <a href="#<?php echo $lang ?>" data-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
+            <span class="flag-icon flag-icon-<?php echo $lang ?>"></span> <?php echo strtoupper($lang) ?>
+        </a>
+      </li>
+        <?php   endforeach; ?>
+    </ul>
 
-            <a href="#" rel="<?php echo $phpwcms['default_lang'] ?>" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" class="active">
-                <img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" /> <?php echo $BL['be_admin_tmpl_default'] ?>
-            </a>
-
-            <?php foreach($phpwcms['allowed_lang'] as $lang):
-
-                $lang = strtolower($lang);
-
-                if($lang == $phpwcms['default_lang']) {
-                    continue;
-                }
-
-            ?>
-
-            <a href="#" rel="<?php echo $lang ?>" title="<?php echo get_language_name($lang) ?>">
-                <img src="img/famfamfam/lang/<?php echo $lang ?>.png" /> <?php echo strtoupper($lang) ?>
-            </a>
-
-            <?php   endforeach; ?>
-
-        </td>
-    </tr>
-
+    <div class="tab-content mt-4">
 <?php   endif; ?>
 
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_attr_title'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_title" type="text" id="file_title" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo" cols="40" rows="4" class="width400 autosize" id="file_longinfo"></textarea></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09 nowrap">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
-        <td><input name="file_alt" type="text" id="file_alt" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
+    <div class="tab-pane active" id="<?php echo $phpwcms['default_lang'] ?>" role="tabpanel">
+      <div class="form-group form-row align-items-center">
+        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+        <div class="col"><input name="file_title" type="text" id="file_title" class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
 
-<?php   if(count($phpwcms['allowed_lang']) > 1):
+      <div class="form-group form-row">
+          <label for="file_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+          <div class="col"><textarea name="file_longinfo" cols="40" rows="4" class="form-control form-control-sm autosize" id="file_longinfo"></textarea></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+        <label for="file_copyright" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+        <div class="col"><input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+          <label for="file_alt" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+          <div class="col"><input name="file_alt" type="text" id="file_alt" class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
+    </div>
 
-            foreach($phpwcms['allowed_lang'] as $lang):
+<?php
+   if(count($phpwcms['allowed_lang']) > 1):
+      foreach($phpwcms['allowed_lang'] as $lang):
+         $lang = strtolower($lang);
 
-                $lang = strtolower($lang);
+          if($lang == $phpwcms['default_lang']) {
+              continue;
+          }
+?>
+    <div class="tab-pane" id="<?php echo $lang ?>" role="tabpanel">
+      <div class="form-group form-row align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+          <div class="col"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>"  class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
+      <div class="form-group form-row">
+          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+          <div class="col"><textarea name="file_longinfo_<?php echo $lang ?>" rows="4" class="form-control form-control-sm autosize" id="file_longinfo_<?php echo $lang ?>"></textarea></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+          <div class="col"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+          <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+          <div class="col"><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="" /></div>
+      </div>
+    </div>
 
-                if($lang == $phpwcms['default_lang']) {
-                    continue;
-                }
-
+<?php
+    endforeach;
+    echo '</div>';
+  endif;
 ?>
 
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_attr_title'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="width400 autosize" id="file_longinfo_<?php echo $lang ?>"></textarea></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09 nowrap">&nbsp;<?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
-        <td><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="" /></td>
-    </tr>
+    <hr />
 
-<?php       endforeach;
-        endif;
-?>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-    <tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
     <?php
 
     //Auswahlliste vordefinierte Keywörter
@@ -266,8 +245,9 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
             if(get_filecat_childcount($row["fcat_id"])) {
 
                 $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : "<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;";
-                $k .= "<tr>\n<td class=\"f10b\">".$ke.html($row["fcat_name"]).":&nbsp;</td>\n";
-                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"width300\">\n";
+                $k .= "<div class=\"form-group form-row align-items-center\">\n";
+                $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-right\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
+                $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"custom-select form-control form-control-sm\">\n";
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>\n";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
@@ -277,150 +257,107 @@ if(isset($_POST['ftp_mark']) && is_array($_POST['ftp_mark']) && count($_POST['ft
                         $k .= "<option value=\"".$krow["fkey_id"]."\">".html($krow["fkey_name"])."</option>";
                     }
                 }
-
-                $k .= "</select></td>\n</tr>\n";
-                $k .= "<tr>\n<td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\"></td>\n</tr>\n";
+                $k .= "</select></div>\n";
+                $k .= "</div>\n";
 
             }
         }
     }
     //Ende vordefinierte Keywörter
-
     ?>
-    <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <?php if($k) echo $k; ?>
-        <tr>
-            <td class="f10b"><?php echo $BL['be_ftptakeover_additional'] ?>:&nbsp;</td>
-            <td><input name="file_shortinfo" type="text" class="width300" id="file_shortinfo" value="" size="40" maxlength="250" /></td>
-        </tr>
-        </table></td>
-    </tr>
+	<legend class="col-form-legend"><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
 
-    <tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+	<?php if($k) echo $k; ?>
 
-    <tr bgcolor="#F5F8F9">
-        <td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
-        <td><input type="text" id="file_tags_autosuggest" /><input name="file_tags" type="hidden" id="file_tags" value="" /></td>
-    </tr>
+    <div class="form-group form-row align-items-center">
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
+      <div class="col">
+     	<input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="" maxlength="250" />
+      </div>
+    </div>
 
+    <div class="form-group form-row align-items-center">
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+      <div class="col">
+     	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+     	<input name="file_tags" type="hidden" id="file_tags" value="" />
+      </div>
+    </div>
 
-    <tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+    <div class="form-group form-row align-items-center">
+    	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    	<div class="col form-check-inline">
+    		<div class="form-check form-check-inline">
+					<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
+          <label class="form-check-label" for="file_aktiv">
+					<?php echo $BL['be_ftptakeover_active'] ?>
+				</label>
+			</div>
+    		<div class="form-check form-check-inline">
+					<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> />
+          <label class="form-check-label" for="file_public">
+					<?php echo $BL['be_ftptakeover_public'] ?>
+				</label>
+			</div>
+    		<div class="form-check form-check-inline">
+					<input class="form-check-input" name="file_replace" type="checkbox" id="file_replace" value="1" />
+          <label class="form-check-label" for="file_replace">
+					<?php echo $BL['be_file_replace'] ?>
+				</label>
+			</div>
+      </div>
+    </div>
 
-            <tr>
-              <td align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-        <td>
-            <table border="0" cellpadding="1" cellspacing="0" summary="">
-                  <tr>
-                    <td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> /></td>
-                    <td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;</td>
-                    <td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked($phpwcms['set_file_active'], 1) ?> /></td>
-                    <td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;</td>
-                    <td><input name="file_replace" type="checkbox" id="file_replace" value="1" /></td>
-                    <td class="v10"><strong><label for="file_replace"><?php echo $BL['be_file_replace'] ?></label></strong>&nbsp;</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-    <tr><td colspan="2" align="right" class="v09"><img src="img/leer.gif" alt="" width="1" height="12" /></td></tr>
-            <tr>
-              <td width="67" valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" /></td>
-              <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_ftptakeover_button'] ?>" /></td>
-          </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
-    <tr bgcolor="#92A1AF"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-</table>
-<?php }
+    <div class="form-group mt-3 text-center text-sm-right">
+		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
+        <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_ftptakeover_button'] ?>" />
+	</div>
 
+</div>
+<?php
 initJsAutocompleter();
-$GLOBALS['BE']['HEADER']['fileuploader.css']    = ' <link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />';
-$GLOBALS['BE']['HEADER']['fileuploader.js']     = getJavaScriptSourceLink('include/inc_js/uploader/fileuploader.min.js');
-
 $fileuploaderAllowedExtensions = '';
 if(is_string($phpwcms['allowed_upload_ext'])) {
     $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
-    if(str_contains($fileuploaderAllowedExtensions, ',')) {
+    if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
         $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
     }
 } elseif(count($phpwcms['allowed_upload_ext'])) {
     $fileuploaderAllowedExtensions = "'" . implode("','", $phpwcms['allowed_upload_ext']) . "'";
 }
-
 ?>
 </form>
+
+</div>
+</div>
+
 <script>
-$(function() {
 
-    var uploadButton = $('#upload-file-select');
-
-    if(uploadButton) {
-
-        var uploadFileCount = 0;
-
-        // File Uploading
-        var uploader = new qq.FileUploader({
-            element: uploadButton[0],
-            action: '<?php echo PHPWCMS_URL ?>include/inc_act/act_upload.php?<?php echo get_token_get_string(); ?>',
-            multiple: true,
-            autoUpload: true,
-            allowedExtensions: [<?php echo $fileuploaderAllowedExtensions ?>],
-            uploadButtonText: '<?php echo $BL['be_fileuploader_uploadButtonText'] ?>',
-            cancelButtonText: '<?php echo $BL['be_newsletter_button_cancel'] ?>',
-            failUploadText: '<?php echo $BL['be_error_while_save'] ?>',
-            dragText: '<?php echo $BL['be_fileuploader_dragText'] ?>',
-            sizeLimit: <?php
-
-                if(ini_get('post_max_size')) {
-                    $post_max_size = return_bytes(ini_get('post_max_size'));
-                    if($post_max_size < $phpwcms['file_maxsize']) {
-                        $phpwcms['file_maxsize'] = $post_max_size;
-                    }
-                } else {
-                    $post_max_size = $phpwcms['file_maxsize'];
+$(function () {
+    $("#fileuploader").uploadFile({
+        url: "include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>",
+        fileName: "myfile",
+        dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
+        abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        onSuccess: function (files, data, xhr, pd) {
+            $.ajax({
+                url: 'include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (data) {
+                    $("#filelist").html(data);
+                    $("#showform").show();
+                    ppInitFunction();
                 }
-                if(ini_get('upload_max_filesize')) {
-                    $upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
-                    if($upload_max_filesize < $phpwcms['file_maxsize']) {
-                        $phpwcms['file_maxsize'] = $upload_max_filesize;
-                    }
-                } else {
-                    $upload_max_filesize = $phpwcms['file_maxsize'];
-                }
+            });
+        }
+    });
 
-                echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+    ppInitFunction();
+});
 
-            ?>,
-            messages: {
-                typeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_typeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-                sizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_sizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-                minSizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_minSizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-                emptyError: "<?php echo makeCharsetConversion($BL['be_fileuploader_emptyError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-                noFilesError: "<?php echo makeCharsetConversion($BL['be_fileuploader_noFilesError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-                onLeave: "<?php echo makeCharsetConversion($BL['be_fileuploader_onLeave'], 'utf-8', PHPWCMS_CHARSET) ?>"
-            },
-            disableDefaultDropzone: false,
-            onSubmit: function(id, fileName) {
-                uploadFileCount++;
-            },
-            onCancel: function(id, fileName) {
-                uploadFileCount--;
-            },
-            onComplete: function(id, fileName, responseJSON) {
-                if(responseJSON.success) {
-                    uploadFileCount--;
-                    if(!uploadFileCount) {
-                        document.location.reload(true);
-                    }
-                }
-            }
-        });
-
-    }
-
-<?php if($fx): ?>
+function ppInitFunction() {
 
     var ftpTakeOverForm = $('#ftptakeover'),
         deleteFiles = $('#delete-selected-files'),
@@ -482,7 +419,7 @@ $(function() {
         selectedValuesProp: 'cat_name',
         searchObjProps: "cat_name",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         preFill: $("#file_tags").val(),
         neverSubmit: true,
@@ -500,7 +437,7 @@ $(function() {
     });
 
 <?php
-        if(count($phpwcms['allowed_lang']) > 1): ?>
+  if(count($phpwcms['allowed_lang']) > 1): ?>
 
     var tab_content = $('tr.tab-content');
     var tabs        = $('td.incell-tabs a');
@@ -523,10 +460,9 @@ $(function() {
     });
 
 <?php
-        endif;
-    endif;
+  endif;
 ?>
 
-});
+}
 
 </script>

@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // added by jens for content type 89: poll
 function showPollImage($image, $zoom = 0) {
-    $html = '';
-    $image_border = ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
+
+    $image_border       = ' border="'.intval($GLOBALS["template_default"]["article"]["imagelist_border"]).'"';
     if(empty($GLOBALS["template_default"]["article"]["imagelist_imgclass"])) {
         $image_imgclass = '';
     } else {
@@ -267,7 +266,7 @@ function is_float_ex($pNum) {
             }
             $i++;
         }
-        return !(($v < 0));
+        return ($v < 0) ? false : true;
     }
 }
 
@@ -399,7 +398,7 @@ function showSelectedContent($param='', $cpsql=null, $listmode=false) {
     // Article Mode
     if($type === 'AS') {
 
-        if(str_ends_with($mode, 'P')) {
+        if(substr($mode, -1) == 'P') {
             $mode = substr($mode, 0, -1);
             $priorize = 'article_priorize DESC, ';
         } else {
@@ -919,7 +918,7 @@ function parse_images($matches) {
 
         $alt        = isset($alt[1]) ? html_specialchars(trim($alt[1])) : '';
 
-        if(str_starts_with($value[0], '.')) {
+        if(substr($value[0], 0, 1) == '.') {
             $ext    = trim($value[0]);
         } else {
             $ext    = '.jpg';

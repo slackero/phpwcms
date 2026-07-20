@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,7 +12,7 @@
 // for the excellent JavaScript menu at http://deluxe-menu.com
 
 
-if(str_contains($content["all"], '{DELUXE_MENU')) {
+if(strpos($content["all"],'{DELUXE_MENU') !== false) {
 
 
     // now lets define some default array values
@@ -226,14 +225,8 @@ if(str_contains($content["all"], '{DELUXE_MENU')) {
 
     $GLOBALS['DeluxeMenuParam']['start_at_ID'] = 0;
     $content['all'] = str_replace('{DELUXE_MENU}', '{DELUXE_MENU:0}', $content['all']);
-    $content['all'] = preg_replace_callback(
-        '/\{DELUXE_MENU:(.*?)\}/',
-        function($matches) {
-            $GLOBALS["DeluxeMenuParam"]["start_at_ID"] = $matches[1];
-            return "{DELUXE_MENU}";
-        },
-        $content['all']
-    );
+    $content['all'] = preg_replace_callback('/\{DELUXE_MENU:(.*?)\}/', function($matches) {$GLOBALS["DeluxeMenuParam"]["start_at_ID"] = $matches[1]; return "{DELUXE_MENU}";}, $content['all']);
+
     $DeluxeMenuParam['start_at_ID'] = intval($GLOBALS['DeluxeMenuParam']['start_at_ID']);
 
     $DeluxeMenuParam['js'] .= createDeluxeMenuJSCode($DeluxeMenuParam['start_at_ID'], $counter=0, $DeluxeMenuParam);

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -99,7 +98,7 @@ if($msg_send_ok) {
 
 ?>
 <form name="sendmsg" action="phpwcms.php?do=messages&p=1" method="post">
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+<table width="538">
     <tr><td colspan="3" class="title"><?php echo $BL['be_msg_newmsgtitle'] ?></td></tr>
     <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
     <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>

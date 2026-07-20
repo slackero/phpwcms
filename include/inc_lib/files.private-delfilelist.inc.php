@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,49 +22,41 @@ $file_result = _dbQuery($file_sql);
 if(isset($file_result[0]['f_id'])) {
 
     $file_durchlauf = 0;
+    $bg_toggle = false;
 
     foreach($file_result as $file_row) {
 
         $filename = html($file_row["f_name"]);
+        $bg_toggle = !$bg_toggle;
+        $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
-        if(!$file_durchlauf) {
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=2><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
-        } else {
-            echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
-        }
-        echo "<tr>\n";
-        echo "<td width=\"6\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\"></td>\n";
-        echo "<td width=\"13\" class=\"msglist\">";
-        echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"></td>\n";
-        echo "<td width=\"419\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\">";
-        echo "<a href=\"fileinfo.php?fid=".$file_row["f_id"];
+        echo '<tr'.$row_class.">\n";
+        echo '<td width="30">';
+             echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+        echo "</td>\n<td>";
+        echo '<a href="fileinfo.php?fid='.$file_row["f_id"];
         echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
         echo $filename."</a></td>\n";
 
-        echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
-
-        echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"]."|0".
-             "\" title=\"".$BL['be_ftrash_undo'].": ".$filename."\" onclick=\"return confirm('".
+        echo "<td class=\"text-right text-nowrap\">";
+        echo '<a class="btn btn-sm btn-blue mr-1" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|0'.
+             '" data-toggle="tooltip" title="'.$BL['be_ftrash_undo'].': '.$filename."\" onclick=\"return confirm('".
              str_replace('{VAL}', $filename, $BL['be_ftrash_restore'])."');\">".
-             "<img src=\"img/button/cancel_trash_13x13.gif\" border=\"0\"></a>";
-        echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">";
+             '<i class="fa fa-arrow-up fa-fw"></i></a>';
 
-        echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"]."|9".
-             "\" title=\"".$BL['be_ftrash_delfinal'].": ".$filename."\" onclick=\"return confirm('".
+        echo '<a class="btn btn-sm btn-danger" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|9'.
+             '" data-toggle="tooltip" title="'.$BL['be_ftrash_delfinal'].': '.$filename."\" onclick=\"return confirm('".
              str_replace('{VAL}', $filename, $BL['be_ftrash_delete'])."');\">".
-             "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\"></a>";
-        echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">";
+             '<i class="far fa-trash-alt fa-fw"></i></a>';
         echo "</td>\n";
-
         echo "</tr>\n";
 
         $file_durchlauf++;
-
     }
 
     if($file_durchlauf) {
         echo "</table>\n";
-        echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
+        echo "</div>\n";
     }
 
 }

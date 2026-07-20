@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -62,7 +61,7 @@ if($is_mysql_error === false) {
 // deprecated function for escaping db items
 function aporeplace($value='') {
     if (!$GLOBALS['db']) {
-        return str_replace(array("\\", "\x00", "\n", "\r", "'",  '"', "\x1a"), array("\\\\", "\\0", "\\n", "\\r", "\'", '\"', "\\Z"), $value);
+        return str_replace(["\\", "\x00", "\n", "\r", "'",  '"', "\x1a"], ["\\\\", "\\0", "\\n", "\\r", "\'", '\"', "\\Z"], $value);
     }
     return mysqli_real_escape_string($GLOBALS['db'], $value);
 }
@@ -90,7 +89,7 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
         return false;
     }
 
-    $queryResult = array();
+    $queryResult = [];
     $queryCount  = 0;
     if ($_queryMode === 'SET') {
         $result = @mysqli_query($GLOBALS['db'], $query);
@@ -178,7 +177,7 @@ function _dbCount($query='') {
 }
 
 // function for simplified insert
-function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
+function _dbInsert($table='', $data=[], $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -189,8 +188,8 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
     }
 
     $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
-    $fields = array();
-    $values = array();
+    $fields = [];
+    $values = [];
     $x      = 0;
 
     foreach($data as $key => $value) {
@@ -214,7 +213,7 @@ function _dbInsert($table='', $data=array(), $special='', $prefix=null) {
 
 }
 
-function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
+function _dbInsertOrUpdate($table='', $data=[], $where='', $prefix=null) {
 
     // INSERT ... ON DUPLICATE KEY UPDATE is available for MySQL >= 4.1.0
     // $where is necessary OR if $where is empty first array $data element
@@ -229,9 +228,9 @@ function _dbInsertOrUpdate($table='', $data=array(), $where='', $prefix=null) {
     }
 
     $table  = (is_string($prefix) ? $prefix : DB_PREPEND).$table;
-    $fields = array();
-    $values = array();
-    $set    = array();
+    $fields = [];
+    $values = [];
+    $set    = [];
     $x      = 0;
 
     foreach($data as $key => $value) {
@@ -304,7 +303,7 @@ function _dbGet($table='', $select='*', $where='', $group_by='', $order_by='', $
 }
 
 // function for simplified update
-function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=null) {
+function _dbUpdate($table='', $data=[], $where='', $special='', $prefix=null) {
 
     if(empty($table)) {
         return false;
@@ -315,7 +314,7 @@ function _dbUpdate($table='', $data=array(), $where='', $special='', $prefix=nul
     }
 
     $table  = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
-    $sets   = array();
+    $sets   = [];
 
     foreach($data as $key => $value) {
         $sets[] = '`'.$key.'`=' . _dbEscape($value);
@@ -392,14 +391,14 @@ function _dbLogError($log_msg='') {
 
 function _dbInitialize() {
 
-    $mysql_set = array();
+    $mysql_set = [];
 
     if(isset($GLOBALS['phpwcms']['db_sql_mode']) && is_string($GLOBALS['phpwcms']['db_sql_mode'])) {
         $mysql_set['mode'] = 'SESSION sql_mode = '._dbEscape($GLOBALS['phpwcms']['db_sql_mode']);
     }
 
     if(empty($GLOBALS['phpwcms']['db_charset'])) {
-        $mysql_charset_map = array(
+        $mysql_charset_map = [
             'big5'         => 'big5',   'cp-866'       => 'cp866',  'euc-jp'       => 'ujis',
             'euc-kr'       => 'euckr',  'gb2312'       => 'gb2312', 'gbk'          => 'gbk',
             'iso-8859-1'   => 'latin1', 'iso-8859-2'   => 'latin2', 'iso-8859-7'   => 'greek',
@@ -408,7 +407,7 @@ function _dbInitialize() {
             'shift_jis'    => 'sjis',   'tis-620'      => 'tis620', 'utf-8'        => 'utf8',
             'windows-1250' => 'cp1250', 'windows-1251' => 'cp1251', 'windows-1252' => 'latin1',
             'windows-1256' => 'cp1256', 'windows-1257' => 'cp1257'
-        );
+        ];
         $GLOBALS['phpwcms']['db_charset'] = $mysql_charset_map[PHPWCMS_CHARSET] ?? 'utf8';
     }
 
@@ -430,7 +429,7 @@ function _dbInitialize() {
 }
 
 // duplicate a DB record based on 1 unique column
-function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=array(), $prefix=null) {
+function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=[], $prefix=null) {
 
     // use exceptions to define duplicate values: 'field_name' => 'value' (INT/STRING)
     // to avoid problems with UNIQUE/auto increment columns set 'field_name' => '--UNIQUE--'
@@ -444,7 +443,7 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
     }
 
     if(!is_array($exception)) {
-        $exception = array();
+        $exception = [];
     }
 
     $table = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
@@ -475,8 +474,8 @@ function _dbDuplicateRow($table='', $unique_field='', $id_value=0, $exception=ar
         }
     }
 
-    $_VALUE = array();
-    $_SET   = array();
+    $_VALUE = [];
+    $_SET   = [];
     $c      = 0;
 
     // build INSERT query
@@ -528,7 +527,7 @@ function _setConfig($key, $value=null, $group='', $status=1) {
     $status     = intval($status);
 
     if (! is_array($key)) {
-        $key = array($key => $value);
+        $key = [$key => $value];
     }
 
     foreach($key as $k => $value) {
@@ -552,18 +551,18 @@ function _setConfig($key, $value=null, $group='', $status=1) {
             $value   = '';
         }
 
-        $data = array(
+        $data = [
             'sysvalue_key' => $k,
             'sysvalue_group' => $group,
             'sysvalue_lastchange' => $time,
             'sysvalue_status' => $status,
             'sysvalue_vartype' => $vartype,
             'sysvalue_value' => $value
-        );
+        ];
 
         if ( ! _dbInsertOrUpdate('phpwcms_sysvalue', $data) ) {
             $mysql_error = _dbError();
-            trigger_error('_setConfig failed' .(empty($mysql_error) ? '' : ' with MySQL error: '.$mysql_error), E_USER_WARNING);
+            trigger_error('_setConfig failed' . (empty($mysql_error) ? '' : ' with MySQL error: ' . $mysql_error), E_USER_WARNING);
         }
 
     }
@@ -607,45 +606,62 @@ function _getConfig($key, $set_global='phpwcms') {
         }
         $return = 'value';
         $string = $key;
-        $key = array($key);
+        $key = [$key];
     }
     if(is_array($key) && count($key)) {
-        $result = array();
+        $result = [];
+        $to_fetch = [];
         foreach($key as $value) {
             if($set_global && isset($GLOBALS[$set_global][$value])) {
                 $result[ $value ] = $GLOBALS[$set_global][$value];
-                continue;
+            } else {
+                $to_fetch[] = $value;
             }
-            $sql = 'SELECT * FROM '.DB_PREPEND."phpwcms_sysvalue WHERE sysvalue_status=1 AND sysvalue_key='".mysqli_real_escape_string($GLOBALS['db'], $value)."'";
-            $row = _dbQuery($sql);
-            if(isset($row[0]['sysvalue_vartype'])) {
-                switch($row[0]['sysvalue_vartype']) {
-                    case 'string':
-                        $result[ $value ] = (string) $row[0]['sysvalue_value'];
-                        break;
-                    case 'int':
-                        $result[ $value ] = (int) $row[0]['sysvalue_value'];
-                        break;
-                    case 'float':
-                        $result[ $value ] = (float) $row[0]['sysvalue_value'];
-                        break;
-                    case 'bool':
-                        $result[ $value ] = (bool) $row[0]['sysvalue_value'];
-                        break;
-                    case 'array':
-                        $result[ $value ] = (array) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
-                        break;
-                    case 'object':
-                        $result[ $value ] = (object) @unserialize($row[0]['sysvalue_value'], ['allowed_classes' => false]);
-                        break;
-                    default:
-                        $result[ $value ] = $row[0]['sysvalue_value'];
+        }
+        if(count($to_fetch)) {
+            $escaped_keys = [];
+            foreach($to_fetch as $value) {
+                $escaped_keys[] = "'" . mysqli_real_escape_string($GLOBALS['db'], $value) . "'";
+            }
+            $sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_sysvalue WHERE sysvalue_status=1 AND sysvalue_key IN (' . implode(',', $escaped_keys) . ')';
+            $rows = _dbQuery($sql);
+            if(is_array($rows) && count($rows)) {
+                $fetched_map = [];
+                foreach($rows as $row) {
+                    $fetched_map[$row['sysvalue_key']] = $row;
+                }
+                foreach($to_fetch as $value) {
+                    if(isset($fetched_map[$value])) {
+                        $row = $fetched_map[$value];
+                        switch($row['sysvalue_vartype']) {
+                            case 'string':
+                                $result[ $value ] = (string) $row['sysvalue_value'];
+                                break;
+                            case 'int':
+                                $result[ $value ] = (int) $row['sysvalue_value'];
+                                break;
+                            case 'float':
+                                $result[ $value ] = (float) $row['sysvalue_value'];
+                                break;
+                            case 'bool':
+                                $result[ $value ] = (bool) $row['sysvalue_value'];
+                                break;
+                            case 'array':
+                                $result[ $value ] = (array) @unserialize($row['sysvalue_value'], ['allowed_classes' => false]);
+                                break;
+                            case 'object':
+                                $result[ $value ] = (object) @unserialize($row['sysvalue_value'], ['allowed_classes' => false]);
+                                break;
+                            default:
+                                $result[ $value ] = $row['sysvalue_value'];
+                        }
+                    }
                 }
             }
         }
         if($set_global && count($result)) {
-            foreach($result as $key => $value) {
-                $GLOBALS[$set_global][$key] = $value;
+            foreach($result as $key_name => $value) {
+                $GLOBALS[$set_global][$key_name] = $value;
             }
         }
         if($return === 'array') {

@@ -63,7 +63,7 @@ $BLM['shopprod_cart']           = 'Warenkorb';
 $BLM['shopprod_max_cartitem']   = 'max. Produkte/Warenkorb';
 $BLM['shopprod_vat_rates']      = 'MwSt.-S&auml;tze';
 
-$BLM['shopprod_size']           = 'z.B. Gr&ouml;&szlig;e&nbsp;&nbsp;<br/>Titel&nbsp;&nbsp;<br />Beschr.|+/-Preis|Anhang';
+$BLM['shopprod_size']           = 'z.B. Gr&ouml;sse<br/>Titel<br />Beschr.|+/-Preis|Anhang';
 $BLM['shopprod_color']          = 'z.B. Farbe';
 
 $BLM['shopprod_url']            = 'Produktlink';
@@ -141,6 +141,9 @@ $BLM['shopprod_api_key'] = 'API-Schl&uuml;ssel';
 
 $BLM['shopprod_inventory'] = 'Bestand';
 $BLM['shopprod_autosubtract_off'] = 'bei Bestellung NICHT um die Bestellmenge verringern';
+
+//NEW entries PPMO
+$BLM['order_edit']              = 'Bestellung bearbeiten';
 
 $BLM['shopprod_on_request'] = 'Nur auf Anfrage';
 $BLM['shopprod_on_request_button'] = 'Anfrage-URL';

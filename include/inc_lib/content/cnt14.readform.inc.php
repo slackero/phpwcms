@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -37,17 +36,17 @@ $content['custom_fields'] = array();
 // first read all defined custom field values
 if(!empty($cnt_fieldgroup_fields)) {
 	foreach($cnt_fieldgroup_fields as $custom_field => $custom_field_definition) {
-		$custom_field_value = $_POST['customfield'][$custom_field] ?? null;
+		$custom_field_value = isset($_POST['customfield'][$custom_field]) ? $_POST['customfield'][$custom_field] : null;
 		$_POST['customfield'][$custom_field] = null;
 		unset($_POST['customfield'][$custom_field]);
 
-		if(isset($custom_field_definition['render']) && in_array($custom_field_definition['render'], $cnt_fieldgroup_field_render)) {
+		if(isset($cnt_fieldgroup_fields[$custom_field]['render']) && in_array($cnt_fieldgroup_fields[$custom_field]['render'], $cnt_fieldgroup_field_render)) {
 			$content['custom_fields'][$custom_field] = slweg($custom_field_value);
-		} elseif($custom_field_definition['type'] === 'int') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'int') {
 			$content['custom_fields'][$custom_field] = intval($custom_field_value);
-		} elseif($custom_field_definition['type'] === 'float') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'float') {
 			$content['custom_fields'][$custom_field] = floatval($custom_field_value);
-		} elseif($custom_field_definition['type'] === 'bool') {
+		} elseif($cnt_fieldgroup_fields[$custom_field]['type'] === 'bool') {
 			$content['custom_fields'][$custom_field] = empty($custom_field_value) ? 0 : 1;
 		} else {
 			$content['custom_fields'][$custom_field] = clean_slweg($custom_field_value);

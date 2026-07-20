@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -72,7 +71,7 @@ if(isset($_POST['ecard_chooser'])) {
 
 		$ecard["send"] = str_replace('###ECARD_TITLE###', html(chop($ecard["capt"][$ecard["chooser"]])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_IMAGE###', $list_img_temp, $ecard["send"]);
-		$ecard["send"] = str_replace('###RECIPIENT_NAME###', html($ecard["recipient_name"] ?: $ecard["recipient_email"]), $ecard["send"]);
+		$ecard["send"] = str_replace('###RECIPIENT_NAME###', html($ecard["recipient_name"] ? $ecard["recipient_name"] : $ecard["recipient_email"]), $ecard["send"]);
 		$ecard["send"] = str_replace('###RECIPIENT_EMAIL###', html($ecard["recipient_email"]), $ecard["send"]);
 		$ecard["send"] = str_replace('###SENDER_MESSAGE###', nl2br(html($ecard["sender_msg"])), $ecard["send"]);
 		$ecard["send"] = str_replace('###ECARD_SUBJECT###', html($ecard["subject"]), $ecard["send"]);
@@ -82,7 +81,7 @@ if(isset($_POST['ecard_chooser'])) {
 		$ecard["mailer"]->setFrom($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addReplyTo($ecard["sender_email"], $ecard["sender_name"]);
 		$ecard["mailer"]->addAddress($ecard["recipient_email"], $ecard["recipient_name"]);
-		$ecard["mailer"]->Subject = ($ecard["subject"]) ?: 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
+		$ecard["mailer"]->Subject = ($ecard["subject"]) ? $ecard["subject"] : 'E-Card: '.chop($ecard["capt"][$ecard["chooser"]]);
 
 		$thumb_image = get_cached_image(array(
 			"target_ext"	=>	$ecard['images'][$ecard["chooser"]][3],
@@ -134,12 +133,12 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 			$ecard['temp_caption'] = explode('|', $ecard['images'][$key][6], 2);
 			$ecard['images'][$key][6] = $ecard['temp_caption'][0];
 			//check if image should be available as e-card
-			if(!str_starts_with($ecard['images'][$key][6], '~')) {
+			if(substr($ecard['images'][$key][6], 0, 1) != '~') {
 
 				//check if radio button or javascript
 				if(!$ecard["selector"]) {
 
-					$temp_cap  = '<table '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">'."\n<tr>\n";
+					$temp_cap  = '<table '.$template_default["article"]["ecard_chooser_css"].'>'."\n<tr>\n";
 					$temp_cap .= '<td valign="top"><input type="radio" name="ecard_chooser" id="ecard_chooser_'.$ecard_count.'" value="'.$key.'" ';
 					if(isset($ecard["chooser"]) && $ecard["chooser"] == $key) {
 						$temp_cap .= ' checked="checked" ';
@@ -149,7 +148,7 @@ if(is_array($ecard['images']) && count($ecard['images']) && !$ecard["send_succes
 
 				} else {
 
-					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].' border="0" cellpadding="0" cellspacing="0">';
+					$temp_cap  = '<table width="100%" '.$template_default["article"]["ecard_chooser_css"].'>';
 					$temp_cap .= '<tr><td id="ecard'.$key.'" '.$template_default["article"]["ecard_chooser_text"];
 					if($ecard["onover"]) {
 						$temp_cap .= ' onmouseover="'.$ecard["onover"].'"';

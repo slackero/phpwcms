@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -21,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $content["text"] = html_specialchars(slweg($_POST["ctext"], 65500));
 
 // check if minimum of 1 delimeter '~' available
-if(!str_starts_with($content['text'], '~')) $content['text'] = '~'.$content['text'];
+if(substr($content['text'], 0, 1) != '~') $content['text'] = '~'.$content['text'];
 if($content['text'] == '~') $content['text'] = '';
 
 $content['bulletlist']["list_type"] = intval($_POST['clist_type']);

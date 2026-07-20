@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,7 +18,7 @@ function phpwcms_revision_r554() {
     $status = true;
 
     // do former revision check – fallback to r553
-    if (phpwcms_revision_check_temp('553') !== true) {
+    if(phpwcms_revision_check_temp('553') !== true) {
         $status = phpwcms_revision_check('553');
     }
 
@@ -178,7 +177,7 @@ function phpwcms_revision_r554() {
         'phpwcms_keyword' => phpwcms_revision_r554_update_datetime(
             'phpwcms_keyword',
             [
-                'keyword_updated' => 'CURRENT_TIMESTAMP_UPDATE',
+                'keyword_updated' => 'CURRENT_TIMESTAMP',
             ]
         ),
 

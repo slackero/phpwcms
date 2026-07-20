@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -67,7 +66,7 @@ if(isset($phpwcms['modules'][$module]['path'])) {
     include_once $phpwcms['modules'][$module]['path'].'inc/functions.backend.inc.php';
     include_once $phpwcms['modules'][$module]['path'].'inc/functions.global.inc.php';
 
-    define('SHOP_FELANG_SUPPORT', (bool)_getConfig('shop_pref_felang'));
+    define('SHOP_FELANG_SUPPORT', _getConfig( 'shop_pref_felang' ) ? true : false);
 
     // put translation back to have easier access to it - use it as relation
     $BLM = & $BL['modules'][$module];
@@ -128,5 +127,8 @@ if(isset($phpwcms['modules'][$module]['path'])) {
     } else {
         include_once $phpwcms['modules'][$module]['path'].'inc/listing.' . $controller . '.inc.php';
     }
+
+    // footer
+    include_once $phpwcms['modules'][$module]['path'].'inc/footer.inc.php';
 
 }

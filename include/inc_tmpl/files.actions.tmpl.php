@@ -1,15 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
- *
- * @author Marus Köhl <info@pagewerkstatt.ch>
- * @link http://www.pagewerkstatt.ch
- *
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -103,28 +98,28 @@ if($file_action['action'] === 1 && $file_action["mark"]) {
 ?>
 <script type=text/javascript>
 function showAction() {
-    let divid = parseInt(document.filetakeover.file_action.value, 10);
-    if (divid === 0) {
+    divid = document.filetakeover.file_action.value;
+    if (divid === '0') {
         document.getElementById("div_button").style.display='none';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === 1) {
+    } else if (divid === '1') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === 2) {
+    } else if (divid === '2') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='block';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === 3) {
+    } else if (divid === '3') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='block';
         document.getElementById("div_folder").style.display='none';
         document.getElementById("div_user").style.display='none';
-    } else if (divid === 4) {
+    } else if (divid === '4') {
         document.getElementById("div_button").style.display='block';
         document.getElementById("div_status").style.display='none';
         document.getElementById("div_folder").style.display='none';
@@ -133,200 +128,173 @@ function showAction() {
 }
 </script>
 
-<h1 class="title"><?php echo $BL['be_subnav_file_actions'] ?></h1>
-<?php if($file_action_msg) { echo '<p><b>'.$file_action_msg.'</b></p>'; } ?>
+<h1 class="text-center text-sm-left"><?php echo $BL['be_nav_files'] ?></h1>
 
-<form action="phpwcms.php?do=files&amp;p=4" method="post" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 10px 8px" name="folderform" id="folderform">
-    <strong><?php echo $BL['file_actions_step1'] ?></strong><br />
-    <select name="file_dir" id="file_dir" class="v11 width400" onchange="submit();">
-        <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-        <?php //get folders for user
-            dir_menu(0, $file_action["file_dir"], "+", $_SESSION["wcs_user_id"], "+");
-        ?>
-    </select>
-</form>
+<div class="card">
+  <div class="card-header"><h2><?php echo $BL['be_subnav_file_actions'] ?></h2></div>
+  <div class="card-body">
+    <?php if($file_action_msg) { echo '<div class="alert alert-success">'.$file_action_msg.'</div>'; } ?>
 
-&nbsp;&nbsp;<strong><?php echo $BL['file_actions_step2'] ?><strong>
-<form action="phpwcms.php?do=files&amp;p=4" method="post" name="filetakeover" id="filetakeover" style="margin-top:3px">
-    <input name="file_dir" type="hidden" value="<?php echo $file_action["file_dir"] ?>" />
-
-<table width="538" border="0" cellpadding="0" cellspacing="0" summary="" style="margin-bottom:10px">
-    <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-    </tr>
-        <tr bgcolor="#D9DEE3">
-            <td width="35" align="center" class="v09"><?php echo $BL['be_ftptakeover_mark'] ?></td>
-            <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="14" /></td>
-            <td width="21"><img src="img/leer.gif" alt="" width="21" height="1" /></td>
-            <td width="420" class="v09"><?php echo $BL['be_ftptakeover_available'] ?></td>
-            <td width="1" bgcolor="#F2F3F5"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-            <td width="50" align="right" class="v09"><?php echo $BL['be_ftptakeover_status'] ?>&nbsp;&nbsp;</td>
-        </tr>
-        <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-    </tr>
-<?php
-//Browse files in selected folder
-$fx = 0;
-$file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=" . $file_action["file_dir"] .
-            " AND f_trash=0 AND f_kid = 1 AND f_uid = " . $_SESSION["wcs_user_id"] . " ORDER BY f_name";
-$file_result = _dbQuery($file_sql);
-if(isset($file_result[0]['f_id'])) {
-
-    foreach($file_result as $file_row) {
-        $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
-        // there is a big problem with special chars on Mac OS X and seems Windows too
-        if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) {
-            $filename = str_replace('?', '', mb_convert_encoding($file_row["f_name"], PHPWCMS_CHARSET));
-        } else {
-            $filename = $file_row["f_name"];
-        }
-        $filename = html($filename);
-?>
-    <tr<?php echo $fxb ?>>
-        <td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
-        <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-        <td align="center"><img src="img/icons/small_<?php echo extimg($file_row["f_ext"]) ?>" alt="" width="13" height="11" /></td>
-        <td class="v10"><?php echo $filename ?></td>
-        <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        <td align="right" class="v10">
-            <?php
-            //Icons Public/Non-Public
-            echo "<img src=\"img/button/aktiv_12x13_".$file_row["f_aktiv"].".gif\" border=\"0\">";
-            echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\">";
-             ?>&nbsp;
-            <input name="ftp_fileid[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_row["f_id"] ?>" />
-        </td>
-    </tr>
-<?php
-        $fx++;
-    }
-}
-if(!$fx) {
-?>
-    <tr>
-        <td colspan="5" class="dir">&nbsp;<?php echo $BL['file_actions_no'] ?></td>
-        <td><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-    </tr>
-<?php } else { ?>
-    <tr bgcolor="#92A1AF"><td colspan="6" bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-    <tr bgcolor="#EAEDF0">
-        <td align="center" class="subnavactive"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-        <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="17" /></td>
-        <td>&nbsp;</td>
-        <td class="v10">
-            <?php echo $BL['be_ftptakeover_all'] ?>
-            <button id="delete-selected-files" style="display:none;margin-left:3em;" class="v10"><?php echo $BL['be_delete_selected_files'] ?></button>
-        </td>
-        <td bgcolor="#D9DEE3"><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        <td align="right" class="v10"></td>
-    </tr>
-    <tr bgcolor="#92A1AF"><td colspan="6"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-<?php } ?>
-    <tr bgcolor="#D9DEE3">
-        <td><img src="img/leer.gif" alt="" width="35" height="1" /></td>
-        <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        <td><img src="img/leer.gif" alt="" width="21" height="1" /></td>
-        <td><img src="img/leer.gif" alt="" width="400" height="1" /></td>
-        <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-        <td><img src="img/leer.gif" alt="" width="50" height="1" /></td>
-    </tr>
-</table>
-<?php
-//if files available
-if($fx) {
-?>
-<div style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-    <div class="mb-4">
-        <?php echo $BL['file_actions_step3'] ?>
-        <select name="file_action" id="file_action" class="v12" onChange="showAction()">
-            <option value="0">- <?php echo $BL['file_actions_pdl_empty'] ?> -</option>
-            <option value="1"><?php echo $BL['file_actions_pdl_delete'] ?></option>
-            <option value="2"><?php echo $BL['file_actions_pdl_move'] ?></option>
-            <option value="3"><?php echo $BL['file_actions_pdl_status'] ?></option>
-            <option value="4"><?php echo $BL['file_actions_pdl_user'] ?></option>
-        </select>
+    <div class="card">
+      <div class="card-body">
+        <form action="phpwcms.php?do=files&amp;p=4" method="post" name="folderform" id="folderform">
+            <legend><?php echo $BL['file_actions_step1'] ?></legend>
+            <select name="file_dir" id="file_dir" class="custom-select form-control form-control-sm col-sm-4" onchange="submit();">
+                <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+                <?php //get folders for user
+                    dir_menu(0, $file_action["file_dir"], "+", $_SESSION["wcs_user_id"], "+");
+                ?>
+            </select>
+        </form>
+      </div>
     </div>
 
+    <form action="phpwcms.php?do=files&amp;p=4" method="post" name="filetakeover" id="filetakeover" class="mt-3">
+    <input name="file_dir" type="hidden" value="<?php echo $file_action["file_dir"] ?>" />
+    <div class="card">
+      <div class="card-body">
+        <legend><?php echo $BL['file_actions_step2'] ?></legend>
+        <div class="table-responsive">
+        <table class="table table-sm">
+          <tr bgcolor="#e3e3e3">
+              <th width="35"><?php echo $BL['be_ftptakeover_mark'] ?></th>
+              <th><?php echo $BL['be_ftptakeover_available'] ?></th>
+              <th class="text-right"><?php echo $BL['be_ftptakeover_status'] ?>&nbsp;&nbsp;</th>
+          </tr>
+        <?php
+        //Browse files in selected folder
+        $fx = 0;
+        $file_sql = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=" . $file_action["file_dir"] .
+                    " AND f_trash=0 AND f_kid = 1 AND f_uid = " . $_SESSION["wcs_user_id"] . " ORDER BY f_name";
+        $file_result = _dbQuery($file_sql);
+        if(isset($file_result[0]['f_id'])) {
+
+            foreach($file_result as $file_row) {
+                $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
+                // there is a big problem with special chars on Mac OS X and seems Windows too
+                if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) {
+                    $filename = str_replace('?', '', mb_convert_encoding($file_row["f_name"], PHPWCMS_CHARSET));
+                } else {
+                    $filename = $file_row["f_name"];
+                }
+                $filename = html($filename);
+        ?>
+          <tr<?php echo $fxb ?>>
+            <td align="center"><input name="ftp_mark[<?php echo $file_row["f_id"] ?>]" type="checkbox" id="ftp_mark_<?php echo $file_row["f_id"] ?>" value="1" class="ftp_mark" /></td>
+            <td><i class="fa fa-file-image mr-2"></i> <?php echo $filename ?></td>
+            <td class="text-right text-nowrap">
+                <?php
+                //Icons Public/Non-Public
+                echo '<div class="btn fa btn-sm visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1 disabled"></div>';
+                echo '<div class="btn fa btn-sm public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").' disabled"></div>';
+                 ?>&nbsp;
+                <input name="ftp_fileid[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_row["f_id"] ?>" />
+            </td>
+          </tr>
+        <?php
+                $fx++;
+            }
+        }
+        if(!$fx) {
+        ?>
+          <tr>
+            <td colspan="3">&nbsp;<?php echo $BL['file_actions_no'] ?></td>
+          </tr>
+        <?php } else { ?>
+          <tr bgcolor="#e3e3e3">
+            <td class="subnavactive text-center"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
+            <td colspan="2"><?php echo $BL['be_ftptakeover_all'] ?></td>
+          </tr>
+        <?php } ?>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <?php
+    //if files available
+    if($fx) {
+    ?>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <legend><?php echo $BL['file_actions_step3'] ?></legend>
 
         <div id="div_folder" style="display: none;">
-        <table>
-            <tr>
-                <td>&nbsp;</td>
-                <td><?php echo $BL['file_actions_bemfolder']; ?></td>
-            </tr>
-            <tr>
-                <td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-                <td class="v10">
-                <select name="file_newdir" id="file_newdir" class="v11 width400">
-                    <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-                    <?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
-                </select></td>
-            </tr>
-        </table>
+          <div class="form-group form-row align-items-center">
+          	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemfolder']; ?></div>
+						<label for="file_newdir" class="col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+						<div class="col-sm-auto">
+							<select name="file_newdir" id="file_newdir" class="custom-select form-control form-control-sm">
+								<option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+								<?php dir_menu(0, 0, "+", $_SESSION["wcs_user_id"], "+"); ?>
+							</select>
+						</div>
+					</div>
         </div>
+
         <div id="div_status" style="display: none;">
-        <table>
-            <tr>
-            <td align="right" class="v09" valign="top"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-            <td>
-            <table border="0" cellpadding="1" cellspacing="0" bgcolor="#E6EAED" summary="">
-                <tr>
-                    <td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1" /></td>
-                    <td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;</td>
-                    <td><input name="file_public" type="checkbox" id="file_public" value="1" /></td>
-                    <td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;</td>
-                </tr>
-            </table>
-            </td>
-        </tr>
-        </table>
+          <div class="form-group form-row align-items-center">
+						<label class="col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+						<div class="col-sm-auto">
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1" />
+								<label class="form-check-label" for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1" />
+								<label class="form-check-label" for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label>
+							</div>
+						</div>
+					</div>
         </div>
+
         <div id="div_user" style="display: none;">
-        <table>
-            <tr>
-                <td align="right" class="chatlist" valign="top"><?php echo $BL["login_username"]; ?>:&nbsp;</td>
-                <td class="v10">
-                    <select name="file_user" id="file_user" class="v12b">
-                        <option value="">--- <?php echo $BL['be_selection'] ?> ---</option>
-<?php
-    $result = _dbGet('phpwcms_user', 'usr_id, usr_name, usr_aktiv', '', '', 'usr_name');
-    if(isset($result[0]['usr_id'])):
-        $this_uid = intval($_SESSION["wcs_user_id"]);
-        foreach($result as $row):
-?>
-            <option value="<?php echo $row['usr_id']; ?>"<?php if (intval($row['usr_id']) === $this_uid): ?> disabled="disabled"<?php endif; ?>>
-                <?php echo html($row['usr_name']); ?>
-                <?php if (!$row['usr_aktiv']): ?>(<?php echo $BL['be_inactive']; ?>)
-                <?php elseif ($row['usr_aktiv'] == 9): ?>(<?php echo $BL['be_msg_del']; ?>)
-                <?php endif; ?>
-            </option>
-<?php
-        endforeach;
-    endif;
-?>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td class="tdtop3 tdbottom3"><?php echo $BL['file_actions_bemuser']; ?></td>
-            </tr>
-         </table>
-         </div>
-
-        <div id="div_button" style="display: none;" class="mt-5">
-            <input name="Submit" type="submit" class="button" value="<?php echo $BL['file_actions_button'] ?>" />
+        	<div class="form-group form-row align-items-center">
+          	<div class="col-12 mb-3"><?php echo $BL['file_actions_bemuser']; ?></div>
+						<label for="file_user" class="col-form-label text-right"><?php echo $BL["login_username"] ?></label>
+						<div class="col">
+							<select name="file_user" id="file_user" class="custom-select form-control form-control-sm col-sm-4">
+              <?php
+                $sql = "SELECT usr_id, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE usr_aktiv=1 AND usr_id !=".intval($_SESSION["wcs_user_id"])." ORDER BY usr_name";
+                $result = _dbQuery($sql);
+                if(isset($result[0]['usr_id'])) {
+                  foreach($result as $row) {
+                    echo "<option value='".$row['usr_id']."'>".html($row['usr_name'])."</option>\n";
+                  }
+                }
+              ?>
+              </select>
+						</div>
+					</div>
         </div>
-</div>
 
-<?php } ?>
-</form>
+				<div class="form-group align-items-center form-row mt-3">
+					<div class="col-sm-4">
+						<select name="file_action" id="file_action" class="custom-select form-control form-control-sm" onChange="showAction()">
+							<option value="0">- <?php echo $BL['file_actions_pdl_empty'] ?> -</option>
+							<option value="1"><?php echo $BL['file_actions_pdl_delete'] ?></option>
+							<option value="2"><?php echo $BL['file_actions_pdl_move'] ?></option>
+							<option value="3"><?php echo $BL['file_actions_pdl_status'] ?></option>
+							<option value="4"><?php echo $BL['file_actions_pdl_user'] ?></option>
+						</select>
+					</div>
+					<div class="col-sm-auto">
+						<div id="div_button" style="display: none;"><input name="Submit" type="submit" class="btn btn-blue btn-sm ml-2" value="<?php echo $BL['file_actions_button'] ?>" /></div>
+          </div>
+        </div>
+
+    <?php } ?>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
 <?php if($fx) { ?>
 <script type="text/javascript">
-$('toggle').addEvent('change',function(e) {
-    var toggle = $('toggle').checked;
-    $$('#filetakeover input.ftp_mark').each(function(check) {
-        check.checked = toggle;
-    });
+
+$('#toggle').change(function () {
+  $('input:checkbox').prop('checked', this.checked);
 });
 </script>
 <?php } ?>

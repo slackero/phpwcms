@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -42,12 +41,12 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_alias_ID'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
 
     <tr>
         <td><input name="cguestbook_aliasID" type="text" class="f11b" id="cguestbook_aliasID" style="width: 50px;" size="10"
             maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';"
-            value="<?php echo $content["guestbook"]["aliasID"] ?? '' ?>" /></td>
+            value="<?php echo  isset($content["guestbook"]["aliasID"]) ? $content["guestbook"]["aliasID"] : '' ?>" /></td>
 
         <td>&nbsp;</td>
 <?php
@@ -86,7 +85,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_guestbook_listing'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -99,7 +98,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <td class="v10" bgcolor="#E7E8EB"><label for="cguestbook_listing0"><?php echo $BL['be_cnt_guestbook_listing_all'] ?></label>&nbsp;&nbsp;</td>
         <td bgcolor="#E7E8EB"><input name="cguestbook_listing" id="cguestbook_listing1" type="radio" value="1" <?php is_checked(1, $content["guestbook"]["listing"]); ?> /></td>
         <td class="v10" bgcolor="#E7E8EB"><label for="cguestbook_listing1"><?php echo $BL['be_cnt_guestbook_list'] ?>&nbsp;</label></td>
-        <td bgcolor="#E7E8EB"><input name="cguestbook_listcount" type="text" class="f11b" id="cguestbook_listcount" style="width: 40px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo $content["guestbook"]["listcount"] ?? '' ?>" /></td>
+        <td bgcolor="#E7E8EB"><input name="cguestbook_listcount" type="text" class="f11b" id="cguestbook_listcount" style="width: 40px;" size="10" maxlength="10" onkeyup="if(!parseInt(this.value,10))this.value='';" value="<?php echo  isset($content["guestbook"]["listcount"]) ? $content["guestbook"]["listcount"] : '' ?>" /></td>
         <td class="v10" bgcolor="#E7E8EB">&nbsp;<?php echo $BL['be_cnt_guestbook_perpage'] ?>&nbsp;</td>
         <td><img src="img/leer.gif" alt="" width="1" height="22" /></td>
       </tr>
@@ -110,7 +109,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist">&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr bgcolor="#E7E8EB">
       <?php
 
@@ -140,7 +139,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_imgupload'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -174,7 +173,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
       <?php
 
@@ -196,7 +195,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo 'Captcha' ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -224,7 +223,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_profile_label_website'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td><table>
       <tr>
       <?php
 
@@ -249,7 +248,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 </tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_guestbook_flooding'] ?>:&nbsp;</td>
-  <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="cguestbook_cookie" type="checkbox" value="1"<?php
 
@@ -285,7 +284,7 @@ if(!isset($content["guestbook"]["notify_email"])) {
 ?>
 <tr>
      <td align="right" class="chatlist"><?php echo $BL['be_cnt_email_notify'] ?>:&nbsp;</td>
-     <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+     <td><table bgcolor="#E7E8EB">
 
      <tr>
         <td><input name="cguestbook_notify" id="cguestbook_notify" type="checkbox" value="1" <?php is_checked(1, $content["guestbook"]["notify"]); ?> /></td>

@@ -1,16 +1,14 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // redirect verify to correct newsletter action
-
 $phpwcms = [];
 require_once __DIR__ . '/include/config/conf.inc.php';
 require_once __DIR__ . '/include/inc_lib/default.inc.php';
@@ -18,6 +16,22 @@ require_once __DIR__ . '/include/inc_lib/default.inc.php';
 $page = '';
 $type = '';
 $email = 'n.a.';
+
+// counter open newsletter
+if (!empty($_GET['o'])) {
+
+    require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+    require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
+    require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
+
+    $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_newsletterqueue ';
+    $sql .= 'SET queue_opener=1 ';
+    $sql .= "WHERE queue_id=" . intval($_GET['o']);
+    _dbQuery($sql, 'UPDATE');
+
+    headerRedirect(PHPWCMS_URL . 'img/leer.gif', 301);
+    exit;
+}
 
 if (!empty($_GET['s']) || !empty($_GET['u'])) {
 
@@ -51,6 +65,11 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
                 $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_address ';
                 $sql .= 'SET address_verified=1, address_tstamp=NOW() ';
                 $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
+
+                // Logfile Subscription verified
+                log_message('3', $data[0]['address_email'] . ' ' . $data[0]['address_name'], $data[0]['address_id']);
+                // end
+
                 if (isset($data[0]['address_verified'])) {
                     $result = _dbQuery($sql, 'UPDATE');
                 }
@@ -67,6 +86,11 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
                 $sql = 'DELETE FROM ' . DB_PREPEND . 'phpwcms_address ';
                 $sql .= "WHERE address_key='" . aporeplace($hash) . "'";
                 $result = _dbQuery($sql, 'DELETE');
+
+                // Logfile Subscription deleted
+                log_message('4', $data[0]['address_email'] . ' ' . $data[0]['address_name'], $data[0]['address_id']);
+                // end
+
                 if (!empty($data[0]['address_url2'])) {
                     headerRedirect($data[0]['address_url2']);
                 }
@@ -78,7 +102,6 @@ if (!empty($_GET['s']) || !empty($_GET['u'])) {
                 break;
 
         }
-
 
     } else {
 

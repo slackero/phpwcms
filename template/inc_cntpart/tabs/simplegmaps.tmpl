@@ -1,0 +1,36 @@
+<!-- Based on SimpleGmaps https://github.com/SubZane/simplegmaps -->
+
+<!--TABS_START//-->
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TABS_ENTRIES]<div id="simplemap-{ID}" class="google-map">
+{TABS_ENTRIES}
+</div>
+<!-- JS:https://maps.googleapis.com/maps/api/js -->
+<!-- JS:{TEMPLATE}lib/simplegmaps/jquery.simplegmaps.min.js -->
+<!-- JS:READY
+	$('#simplemap-{ID}').simplegmaps({
+		MapOptions: {
+			zoomControlOptions: {position: google.maps.ControlPosition.TOP_LEFT},
+			mapTypeControl: false, //mapTypeControlOptions: {position: google.maps.ControlPosition.TOP_RIGHT},
+			streetViewControl: false,
+			styles: [{"stylers":[{"visibility":"on"},{"saturation":-100},{"gamma":0.54}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#4d4946"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"labels.text","stylers":[{"visibility":"simplified"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"gamma":0.48}]},{"featureType":"transit.station","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"gamma":7.18}]}]
+		}
+	});
+-->
+[/TABS_ENTRIES]
+<!--TABS_END//-->
+
+<!--TABS_ENTRY_START//-->
+	<div class="map-marker"
+		data-title="[TABTITLE]{TABTITLE}[/TABTITLE][TABTITLE_ELSE][TABHEADLINE]{TABHEADLINE}[/TABHEADLINE][/TABTITLE_ELSE]"[TAB_GEOLOCATION]
+		data-address="{TAB_GEOLOCATION}"[/TAB_GEOLOCATION][TAB_GEOLOCATION_ELSE]
+		data-latlng="{TAB_LAT},{TAB_LON}"[/TAB_GEOLOCATION_ELSE][TAB_MARKERICON]
+		data-icon="{TEMPLATE}img/mapicons/{TAB_MARKERICON}.png" data-icon2x="{TEMPLATE}img/mapicons/{TAB_MARKERICON}@2x.png"[/TAB_MARKERICON]>[TAB_INFOBOX][TABCONTENT]
+		<div class="map-infowindow">
+			[TABHEADLINE]<h2>{TABHEADLINE}</h2>[/TABHEADLINE][TABTEXT]
+			{TABTEXT}[/TABTEXT]
+			[TABLINK]<p><a href="{TABLINK}"{TARGET} class="read-more">@@read more@@</a></p>[/TABLINK]
+		</div>
+	[/TABCONTENT][/TAB_INFOBOX]</div>
+<!--TABS_ENTRY_END//-->

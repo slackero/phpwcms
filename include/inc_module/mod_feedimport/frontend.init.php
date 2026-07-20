@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -51,16 +50,16 @@ if(!empty($_getVar['feedimport'])) {
 		$rss_obj = new \SimplePie\SimplePie();
 
 		// Feed URL
-		$rss_obj->set_feed_url( $feedimport_result['cnt_text'] );
+		$rss_obj->set_feed_url($feedimport_result['cnt_text']);
 
 		// Output Encoding Charset
-		$rss_obj->set_output_encoding( PHPWCMS_CHARSET );
+		$rss_obj->set_output_encoding(PHPWCMS_CHARSET);
 
 		// Disable Feed cache
-		$rss_obj->enable_cache( false );
+		$rss_obj->enable_cache(false);
 
 		// Remove surrounding DIV
-		$rss_obj->remove_div( true );
+		$rss_obj->remove_div(true);
 
 
 		// Init Feed
@@ -142,7 +141,7 @@ if(!empty($_getVar['feedimport'])) {
 				}
 				if($article_summary && $article_summary == strip_tags($article_summary)) {
 					$article_summary = plaintext_htmlencode($article_summary);
-				} elseif($article_summary && str_contains($article_summary, '<')) {
+				} elseif($article_summary && strpos($article_summary, '<') !== false) {
 					$article_summary = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',
@@ -150,7 +149,7 @@ if(!empty($_getVar['feedimport'])) {
 						'/<.+?[^>]*>'.preg_quote(html_entities($article_title), '/').'<\/.+?>/'
 					), '', $article_summary);
 				}
-				if($article_content && str_contains($article_content, '<')) {
+				if($article_content && strpos($article_content, '<') !== false) {
 					$article_content = preg_replace(array(
 						'/<.+?[^>]*>\s*<\/.+?>/',
 						'/<.+?[^>]*><\/.+?>/',

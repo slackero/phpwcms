@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -34,7 +33,7 @@ $phpwcms['site_ssl_port']        = 443; // The Port on which your SSL Service se
 
 $phpwcms['admin_name']           = 'Webmaster';
 $phpwcms['admin_user']           = 'admin';
-$phpwcms['admin_pass']           = '$2y$10$x86lqaTKNepOVObOPj8dPORQowIIIwFYzfSEd3LR1LWNKvPY/VhVS'; //Password hash
+$phpwcms['admin_pass']           = '$2y$10$ZqMmglioxdphO.MLEUI8yeQaocFljNiJUWSNqFDlcY0BgHvT/vHbG'; //password_hash
 $phpwcms['admin_email']          = 'noreply@example.com';
 
 // paths
@@ -66,7 +65,7 @@ $phpwcms['rewrite_ext']          = '.html'; // The extension for URL ReWrite, '.
 $phpwcms['alias_allow_slash']    = 1; // Allow slashes / in ALIAS
 $phpwcms['alias_allow_utf8']     = 1; // If charset is utf-8 special chars will survive alias checking
 $phpwcms['wysiwyg_editor']       = 2; // 0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8
-$phpwcms['default_lang']         = 'en'; // default language
+$phpwcms['default_lang']         = 'de'; // default language
 $phpwcms['DOCTYPE_LANG']         = ''; // by default same as $phpwcms['default_lang'], but can be injected by whatever you like
 $phpwcms['allowed_lang']         = array('en', 'de', 'fr', 'es'); //array of allowed languages
 $phpwcms['use_content_lang']     = false; // if true use content language based on article and/or structure level
@@ -76,7 +75,7 @@ $phpwcms['php_charset']          = false; // set PHP default charset to $phpwcms
 $phpwcms['allow_remote_URL']     = 0; // 0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
 $phpwcms['jpg_quality']          = 85; // JPG Quality Range 25-100
 $phpwcms['webp_enable']          = 1; // Render all images as WebP if the client browser supports it
-$phpwcms['webp_quality']         = 85; // Set the WebP quality, 0-100
+$phpwcms['webp_quality']         = 85; // Set the WebP quality
 $phpwcms['resize_animated_gif']  = true; // Try to resize animated GIF, this can lead to bigger file sizes
 $phpwcms['sharpen_level']        = 1; // Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp
 $phpwcms['allow_ext_init']       = 1; // allow including of custom external scripts at frontend initialization
@@ -110,7 +109,7 @@ $phpwcms['i18n_parse']           = 1; // enable|disable browser based language p
 $phpwcms['i18n_complex']         = 0; // enable|disable the way browser language setting should be used, false = the easier way (always 2 chars "en"), true - "en-gb"...
 $phpwcms['FCK_FileBrowser']      = 1; // enable|disable phpwcms Filebrowser in FCKeditor instead of built-in FCK file bowser support
 $phpwcms['feuser_regkey']        = 'FEUSER';
-$phpwcms['login.php']            = 'login.php';
+$phpwcms['login.php']             = 'login.php';
 $phpwcms['js_lib']               = array(); // extends default lib settings array('jquery'=>'jQuery 1.3','mootools-1.4'=>'MooTools 1.4','mootools-1.1'=>'MooTools 1.1);
 $phpwcms['video-js']             = ''; // can be stored locally too 'template/lib/video-js/ (https://vjs.zencdn.net/8.23.4/)
 $phpwcms['render_device']        = 0; // allow user agent specific rendering templates <!--if:mobile-->DoMobile<!--/if--><!--!if:mobile-->DoNotMobile<!--/!if--><!--!if:default-->Default<!--/!if-->
@@ -156,6 +155,8 @@ $phpwcms['disable_generator']    = false; // Disable <meta name="generator"> and
 $phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 $phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
 $phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
+$phpwcms['enable_backend_newsletter'] = false; // Enable newsletter menu item in the backend, disabled by default
+$phpwcms['enable_backend_module'] = false; // Enable module menu item in the backend, disabled by default
 $phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
@@ -175,5 +176,13 @@ $phpwcms['SMTP_CLIENT_SECRET']   = ''; // The client secret for OAuth2 authentic
 $phpwcms['SMTP_TENANT_ID']       = ''; // The tenant ID for Microsoft OAuth2 authentication
 $phpwcms['SMTP_REFRESH_TOKEN']   = ''; // The OAuth2 refresh token (see the backend to obtain it)
 $phpwcms['SMTP_DEBUG']           = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages, 3 = plus connection status, 4 = low-level data
+
+// Backend Dashboard Support/Contact settings
+$phpwcms['support'] = array(
+    'name'    => '', // Custom company/support name
+    'address' => '', // Custom support address
+    'phone'   => '', // Custom support phone number
+    'email'   => ''  // Custom support email address (falls back to GitHub support page if empty)
+);
 
 define('PHPWCMS_INCLUDE_CHECK', true);

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -18,7 +17,7 @@ function createSocialBookmark($matches) {
 
     if(empty($matches[1])) return '';
 
-    if(!str_contains($matches[1], '<!--DETAIL_ONLY-->')) {
+    if(strpos($matches[1], '<!--DETAIL_ONLY-->') === false) {
 
         if(empty($GLOBALS['aktion'][1])) {
             $bm['url']  = PHPWCMS_URL.'index.php?id='.$GLOBALS['aktion'][0];

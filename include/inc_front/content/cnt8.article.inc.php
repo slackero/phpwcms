@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -22,7 +21,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // Check if custom array is given or parse it based on the default behavior
 if(!isset($content['alink']['inject'])) {
 
-    $content['alink'] = @unserialize($crow['acontent_form'], ['allowed_classes' => false]);
+    $content['alink'] = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
     if(!isset($content['alink']['alink_id'])) {
         $content['alink']['alink_id'] = explode(':', $crow['acontent_alink']);
@@ -35,7 +34,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
         $content['UNIQUE_ALINK'] = array();
     }
 
-    $crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
+    $crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 
     if($crow['acontent_template_listmode'] && !empty($content['alink']['alink_template']) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/teaser/list.'.$content['alink']['alink_template'])) {
 
@@ -326,7 +325,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
 
             $content['alink']['alink_id'] = array();
 
-            if($content['alink']['alink_category_count'] && !str_ends_with($content['alink']['alink_andor'], 'OR')) {
+            if($content['alink']['alink_category_count'] && substr($content['alink']['alink_andor'], -2) !== 'OR') {
 
                 foreach($content['alink']['result'] as $value) {
 
@@ -444,7 +443,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article list image
-                    if(str_contains($content['alink']['tr'][$key], 'IMAGE')) {
+                    if(strpos($content['alink']['tr'][$key], 'IMAGE') !== false) {
 
                         $img_thumb_name     = '';
                         $img_thumb_rel      = '';
@@ -476,7 +475,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                             $img_thumb_hash                         = empty($row['article_image']['list_hash']) ? '' : $row['article_image']['list_hash'];
                             $img_thumb_crop                         = empty($content['alink']['alink_crop']) ? 0 : 1;
 
-                            if(str_contains($content['alink']['tr'][$key], 'cmsimage.php') && $img_thumb_hash) {
+                            if(strpos($content['alink']['tr'][$key], 'cmsimage.php') !== false && $img_thumb_hash) {
 
                                 $content['alink']['tr'][$key]   = render_cnt_template($content['alink']['tr'][$key], 'IMAGE', $img_thumb_hash);
 
@@ -550,7 +549,7 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article detail image
-                    if(str_contains($content['alink']['tr'][$key], 'IMAGE_DETAIL') && isset($row['article_image']['hash'])) {
+                    if(strpos($content['alink']['tr'][$key], 'IMAGE_DETAIL') !== false && isset($row['article_image']['hash'])) {
 
                         $row['article_image']['name'] = html_specialchars($row['article_image']['name']);
 
@@ -629,13 +628,13 @@ if((is_array($content['alink']['alink_id']) && count($content['alink']['alink_id
                     }
 
                     // article summary
-                    if(str_contains($content['alink']['tr'][$key], 'SUMMARY_RAW')) {
+                    if(strpos($content['alink']['tr'][$key], 'SUMMARY_RAW') !== false) {
 
                         $content['alink']['tr'][$key] = render_cnt_template($content['alink']['tr'][$key], 'SUMMARY_RAW', empty($content['alink']['alink_hidesummary']) ? $row['article_summary'] : '');
 
                     }
 
-                    if(str_contains($content['alink']['tr'][$key], 'SUMMARY')) {
+                    if(strpos($content['alink']['tr'][$key], 'SUMMARY') !== false) {
                         if(empty($content['alink']['alink_hidesummary'])) {
                             if(empty($content['alink']['alink_wordlimit']) && !empty($row['article_image']['list_maxwords'])) {
                                 $content['alink']['alink_wordlimit'] = $row['article_image']['list_maxwords'];

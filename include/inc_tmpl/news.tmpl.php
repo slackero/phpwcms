@@ -1,18 +1,17 @@
- <?php
+<?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+   die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
@@ -20,95 +19,122 @@ if (!defined('PHPWCMS_ROOT')) {
 $news = new phpwcmsNews();
 
 ?>
-<h1 class="title"><?php echo $BL['be_news'] ?></h1>
 
 <?php
-
-    if(isset($_GET['cntid'])) {
-
-        $news->edit();
-
-    } else {
-
-        $news->filter();
-        $news->countAll();
-        $news_categories = $news->getNewsCategories();
-
+  if(isset($_GET['cntid'])) {
+    $news->edit();
+  } else {
+    $news->filter();
+    $news->countAll();
+    $news_categories = $news->getNewsCategories();
 ?>
-    <div class="navBarLeft imgButton chatlist">
-        &nbsp;&nbsp;
-        <a href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><img src="img/famfamfam/page_white_add.gif" alt="New" border="0" /><span><?php echo $BL['be_news_create'] ?></span></a>
-    </div>
+
+<div class="row">
+  <div class="col text-center text-sm-left">
+    <h1><?php echo $BL['be_news'] ?></h1>
+  </div>
+  <div class="col text-center text-sm-right mb-3">
+    <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
+  </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><h2><?php echo $BL['be_news_list'] ?></h2></div>
+    <div class="card-body">
 
     <form action="<?php echo $news->base_url ?>" method="post" id="paginate">
-    <input type="hidden" name="filter" value="1" />
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-        <tr>
-            <td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                    <td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 1 ) ? 1 : 0 ) ?> /></td>
-                    <td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" /></label></td>
-                    <td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> /></td>
-                    <td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" /></label></td>
-                    <td class="chatlist"><?php echo $BL['be_cnt_sorting'] ?>:</td>
-                    <td>
-                        <select name="sort" onchange="this.form.submit();" class="v11">
-                            <option value="prio_asc"<?php is_selected('prio_asc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-                            <option value="prio_desc"<?php is_selected('prio_desc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-                            <option value="name_asc"<?php is_selected('name_asc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-                            <option value="name_desc"<?php is_selected('name_desc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-                            <option value="start_asc"<?php is_selected('start_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-                            <option value="start_desc"<?php is_selected('start_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-                            <option value="end_asc"<?php is_selected('end_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-                            <option value="end_desc"<?php is_selected('end_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-                            <option value="sort_asc"<?php is_selected('sort_asc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
-                            <option value="sort_desc"<?php is_selected('sort_desc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
-                        </select>
-                    </td>
-                    <td class="chatlist">&nbsp;<?php echo $BL['be_tag'] ?>:</td>
-                    <td>
-                        <select name="keyword" onchange="this.form.submit();" class="v11">
-                            <option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
-<?php   if(count($news_categories)):
-            foreach($news_categories as $item):
-?>
-                            <option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html(ucfirst($item)) ?></option>
+    <div class="form-group mb-2">
+        <input type="hidden" name="filter" value="1" />
+      <div class="form-row align-items-center">
+        <div class="col-12 col-sm">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text bg-success border-0">
+                <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 1 ) ? 1 : 0 ) ?> />
+              </div>
+              <div class="input-group-text bg-danger border-0">
+                  <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> />
+              </div>
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
+            </div>
+          </div>
+        </div>
+      <div class="col-sm-auto my-2 my-sm-0">
+        <select name="sort" class="custom-select form-control form-control-sm" onchange="this.form.submit();" >
+            <option value="prio_asc"<?php is_selected('prio_asc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+            <option value="prio_desc"<?php is_selected('prio_desc', $news->filter_sort) ?>><?php echo $BL['be_priorize'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+            <option value="name_asc"<?php is_selected('name_asc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+            <option value="name_desc"<?php is_selected('name_desc', $news->filter_sort) ?>><?php echo $BL['be_title'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+            <option value="start_asc"<?php is_selected('start_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+            <option value="start_desc"<?php is_selected('start_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_start'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+            <option value="end_asc"<?php is_selected('end_asc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+            <option value="end_desc"<?php is_selected('end_desc', $news->filter_sort) ?>><?php echo $BL['be_article_cnt_end'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+            <option value="sort_asc"<?php is_selected('sort_asc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderasc'] ?></option>
+            <option value="sort_desc"<?php is_selected('sort_desc', $news->filter_sort) ?>><?php echo $BL['be_sort_date'], ', ', $BL['be_admin_struct_orderdesc'] ?></option>
+        </select>
+      </div>
+
+      <div class="col-sm-auto">
+            <select name="keyword" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_tags'] ?>" class="custom-select form-control form-control-sm" onchange="this.form.submit();">
+                <option value=""<?php is_selected('', $news->filter_keyword) ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+                    <?php if(count($news_categories)):
+                        foreach($news_categories as $item):
+                    ?>
+                <option value="<?php echo html($item) ?>"<?php is_selected($item, $news->filter_keyword) ?>><?php echo html(ucfirst($item)) ?></option>
+                    <?php
+                        endforeach;
+                        endif;
+                    ?>
+            </select>
+      </div>
+
+        <div class="col-sm-auto my-2 my-sm-0">
+            <div class="input-group">
+                <input name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_text_full'] ?>" class="form-control form-control-sm" value="<?php echo html($news->filter) ?>" type="search">
+                <span class="input-group-append">
+                    <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
+                </span>
+            </div>
+        </div>
+
+        <div class="col-sm-auto text-sm-right">
+            <?php echo getItemsPerPageMenu(); ?>
+            <script>
+                $(function(){
+                    $('#news-paginate').on('change', function() {
+                        window.location = '<?php echo $news->base_url_decoded; ?>&showipp=' + $(this).val();
+                    });
+                });
+            </script>
+        </div>
+
+      </div>
+  </div>
+</form>
+
 <?php
-            endforeach;
-        endif;
+    echo $news->listBackend();
+    $phpwcms['be_parse_lang_process'] = true;
 ?>
-                        </select>
-                    </td>
-
-                    <td><input type="search" name="filter" id="filter" size="20" value="<?php echo html($news->filter) ?>" class="v12 width125" /></td>
-                    <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-left:2px" /></td>
-                    <td class="nowrap">&nbsp;&nbsp;<?php echo $news->getPagination(); ?>&nbsp;&nbsp;</td>
-                </tr>
-            </table></td>
-            <td class="chatlist items-per-page" align="right">
-                <?php echo getItemsPerPageMenu( $news->base_url ); ?>
-            </td>
-        </tr>
-    </table>
-    </form>
+</div>
+</div>
+<div class="form-group text-center text-sm-right mt-4">
+  <a class="btn btn-sm btn-blue" href="<?php echo $news->base_url ?>&amp;cntid=0&amp;action=edit" title="<?php echo $BL['be_news_create'] ?>"><i class="fa fa-plus"></i> <?php echo $BL['be_news_create'] ?></a>
+</div>
 
 <?php
-        echo $news->listBackend();
-
-        $phpwcms['be_parse_lang_process'] = true;
-
-    }
-
-    // Begin news form
-    if(count($news->data)) {
-
-        // some JavaScripts wee need
-        initJsCalendar();
-        initJsOptionSelect();
-        initJsAutocompleter();
-
+  }
+  // Begin news form
+  if(count($news->data)) {
+    // some JavaScripts wee need
+    initJsCalendar();
+    initJsOptionSelect();
+    initJsAutocompleter();
 ?>
-<script type="text/javascript">
+<!-- NEWSDETAIL START -->
+<script>
 
 function setImgIdName(file_id, file_name) {
     if(typeof file_id === 'undefined' || file_id === null) {
@@ -117,553 +143,606 @@ function setImgIdName(file_id, file_name) {
     if(typeof file_name === 'undefined' || file_name === null) {
         file_name = '';
     }
-    $('#cnt_image_id').val(file_id);
-    $('#cnt_image_name').val(file_name);
+  $('#cnt_image_id').val(file_id);
+  $('#cnt_image_name').val(file_name);
 
-    showImage();
+  showImage();
 }
 
 function showImage() {
-    var id  = parseInt($('#cnt_image_id').val(),10);
-    var img = $('#cnt_image');
-    if(id > 0) {
-        img.html('<img src="<?php echo PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0">');
-        img.show();
-    } else {
-        img.hide();
-    }
+  var id  = parseInt($('#cnt_image_id').val(), 10);
+  var img = $('#cnt_image');
+  if(id) {
+    img.html('<img src="<?php echo PHPWCMS_URL.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms['img_list_width'].'x'.$phpwcms['img_list_height'] ?>/'+id+'" alt="" border="0" />');
+    img.show();
+  } else {
+    img.hide();
+  }
 }
 
 function addFile(file_id, file_name) {
-    var obj = document.getElementById('cfile_list');
-    if(obj!=null && obj.options!=null) {
-        var newOpt = new Option(file_name, file_id);
-        obj.options.length++;
-        obj.options[obj.length-1].text      = newOpt.text;
-        obj.options[obj.length-1].value     = newOpt.value;
-        obj.options[obj.length-1].selected  = false;
-        if(obj.options.length > 5) {
-            obj.size = obj.options.length;
-            $('#cnt_file_caption').attr('rows', obj.size+1);
-        }
+  var obj = document.getElementById('cfile_list');
+  if(obj!=null && obj.options!=null) {
+    var newOpt = new Option(file_name, file_id);
+    obj.options.length++;
+    obj.options[obj.length-1].text    = newOpt.text;
+    obj.options[obj.length-1].value   = newOpt.value;
+    obj.options[obj.length-1].selected  = false;
+    if(obj.options.length > 5) {
+      obj.size = obj.options.length;
+      $('#cnt_file_caption').attr('rows', obj.size+1);
     }
+  }
 }
 
 function emptyNews() {
-    document.location.href='<?php echo $news->base_url_decoded ?>&cntid=0&action=edit';
-    return false;
+  document.location.href='<?php echo $news->base_url_decoded ?>&cntid=0&action=edit';
+  return false;
 }
 
+var initialNewsFormData = '';
 function closeForm() {
+  if ($('#newsform').serialize() !== initialNewsFormData) {
+    bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
+      document.location.href='<?php echo $news->base_url_decoded ?>';
+    }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
+  } else {
     document.location.href='<?php echo $news->base_url_decoded ?>';
-    return false;
-}
-
-
-// Calendar
-function aStart(date, month, year) {
-    $('#calendar_start_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
-}
-function aEnd(date, month, year) {
-    $('#calendar_end_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
-}
-function aSort(date, month, year) {
-    $('#sort_date').val(subrstr('00' + date, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BL['default_date_delimiter'] ?>' + year);
+  }
+  return false;
 }
 
 $(function(){
 
-    /* Autocompleter for categories/tags */
-    $("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-        selectedItemProp: "cat_name",
-        selectedValuesProp: 'cat_name',
-        searchObjProps: "cat_name",
-        queryParam: 'value',
-        extraParams: '&method=json&action=newstags',
-        startText: '',
-        preFill: $("#cnt_category").val(),
-        neverSubmit: true,
-        asHtmlID: 'keyword-autosuggest',
-        emptyText: '<?php echo $BL['be_cnt_noresult']; ?>'
-    });
+  /* Autocompleter for categories/tags */
+  $("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+    selectedItemProp: "cat_name",
+    selectedValuesProp: 'cat_name',
+    searchObjProps: "cat_name",
+    queryParam: 'value',
+    extraParams: '&method=json&action=newstags&<?php echo get_token_get_string(); ?>',
+    startText: '',
+    preFill: $("#cnt_category").val(),
+    neverSubmit: true,
+    asHtmlID: 'keyword-autosuggest',
+    emptyText: '<?php echo $BL['be_cnt_noresult']; ?>'
+  });
 
-    $('#newsform').submit(function(event){
+  $('#newsform').submit(function(event){
 
-        $("#cnt_category").val($('#as-values-keyword-autosuggest').val());
-        $('#cfile_list option').prop('selected', true);
+    $("#cnt_category").val($('#as-values-keyword-autosuggest').val());
+    $('#cfile_list option').prop('selected', true);
 
-    });
+  });
 
-    var cnt_title = $('#cnt_title'),
-        change_name_value = '-',
-        change_alias_value  = '-';
+  var cnt_title = $('#cnt_title'),
+      change_name_value = '-',
+      change_alias_value  = '-';
 
-    // set name field
-    $('#cnt_name_click').on('click', function(){
-        var cnt_name = cnt_title.val().trim();
-        if(cnt_name === '') {
-            cnt_title.val( $('#cnt_name').val().trim() );
-        } else {
-            $('#cnt_name').val(cnt_name);
-        }
-    });
+  // set name field
+  $('#cnt_name_click').on('click', function(){
+    var cnt_name = cnt_title.val().trim();
+    if(cnt_name === '') {
+      cnt_title.val( $('#cnt_name').val().trim() );
+    } else {
+      $('#cnt_name').val(cnt_name);
+    }
+  });
 
-    $('#cnt_alias_click').on('click', function(){
-        var cnt_alias = $('#cnt_name').val().trim();
-        if(cnt_alias === '') {
-            cnt_alias = cnt_title.val().trim();
-            $('#cnt_name').val(cnt_alias);
-        } else {
-            $('#cnt_alias').val(create_alias(cnt_alias));
-        }
-    });
+  $('#cnt_alias_click').on('click', function(){
+    var cnt_alias = $('#cnt_name').val().trim();
+    if(cnt_alias === '') {
+      cnt_alias = cnt_title.val().trim();
+      $('#cnt_name').val(cnt_alias);
+    } else {
+      $('#cnt_alias').val( create_alias(cnt_alias) );
+    }
+  });
 
-    cnt_title.on({
-        focus: function(){
-            change_name_value   = $('#cnt_name').val().trim();
-            change_alias_value  = $('#cnt_alias').val().trim();
-        },
-        keyup: function() {
-            if(change_name_value === ''){
-                $('#cnt_name').val(cnt_title.val());
-            }
-            if(change_alias_value === '') {
-                $('#cnt_alias').val(create_alias( $('#cnt_name').val() ));
-            }
-        }
-    });
+  cnt_title.on({
+    focus: function(){
+      change_name_value   = $('#cnt_name').val().trim();
+      change_alias_value  = $('#cnt_alias').val().trim();
+    },
+    keyup: function() {
+      if(change_name_value === ''){
+        $('#cnt_name').val(cnt_title.val());
+      }
+      if(change_alias_value === '') {
+        $('#cnt_alias').val(create_alias( $('#cnt_name').val() ));
+      }
+    }
+  });
 
-    $('#cnt_image_lightbox').on('click', function(){
-        if($(this).is(':checked')) {
-            $('#cnt_image_zoom').attr('checked', true);
-        }
-    });
+  $('#cnt_image_lightbox').on('click', function(){
+    if($(this).is(':checked')) {
+      $('#cnt_image_zoom').attr('checked', true);
+    }
+  });
 
+  initialNewsFormData = $('#newsform').serialize();
 });
 
 </script>
-<form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform">
 
-
-    <p class="break filled important">
-        <label><?php echo $BL['be_article_cnt_ctitle'] ?></label>
-        <input type="text" name="cnt_title" id="cnt_title" value="<?php echo html($news->data['cnt_title']) ?>" class="text" maxlength="250" />
-    </p>
-
-    <p>
-        <label><?php echo $BL['be_article_asubtitle'] ?></label>
-        <input type="text" name="cnt_subtitle" id="cnt_subtitle" value="<?php echo html($news->data['cnt_subtitle']) ?>" class="text" maxlength="250" />
-    </p>
-
-    <div>
-
-
-        <table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
-                <td><label><?php echo $BL['be_teasertext'] ?></label></td>
-
-                <td class="v10 nowrap tdbottom2 tdtop1">
-                    <label for="text_format0" class="normal">
-                        <input name="cnt_textformat" type="radio" id="text_format0" value="plain" <?php is_checked('plain', $news->data['cnt_textformat']); ?> />
-                        <?php echo $BL['be_ctype_plaintext'] ?>
-                    </label>
-
-                    <label for="text_format1" class="normal">
-                        <input name="cnt_textformat" type="radio" id="text_format1" value="markdown" <?php is_checked('markdown', $news->data['cnt_textformat']); ?> />
-                        MarkDown (<a href="http://en.wikipedia.org/wiki/Markdown" target="_blank" title="Wikipedia: Markdown">?</a>)
-                    </label>
-
-                    <label for="text_format2" class="normal">
-                        <input name="cnt_textformat" type="radio" id="text_format2" value="textile" <?php is_checked('textile', $news->data['cnt_textformat']); ?> />
-                        Textile (<a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" target="_blank" title="Wikipedia: Textile">?</a>)
-                    </label>
-
-                    <label for="text_format3" class="normal">
-                        <input name="cnt_textformat" type="radio" id="text_format3" value="br" <?php is_checked('br', $news->data['cnt_textformat']); ?> />
-                        BR
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <textarea name="cnt_teasertext" id="cnt_teasertext" class="text autosize" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
-                </td>
-        </table>
+<form action="<?php echo $news->formAction() ?>" method="post" class="free" id="newsform" name="newsform" required>
+  <div class="row">
+    <div class="col-sm-auto text-center text-sm-left">
+      <h1><?php echo $BL['be_news'] ?></h1>
     </div>
-
-    <div class="paragraph filled border_top border_bottom">
-    <table border="0" cellpadding="0" cellspacing="0" summary="">
-
-            <tr>
-                <td class="chatlist">&nbsp;</td>
-                <td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_date_format'] ?></td>
-                <td class="chatlist">&nbsp;</td>
-                <td colspan="2" class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_time_format'] ?></td>
-            </tr>
-
-            <tr>
-                <td><label><?php echo $BL['be_article_cnt_start'] ?></label></td>
-                <td><input name="calendar_start_date" type="text" id="calendar_start_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_start'] ?>" size="30" /></td>
-        <td><script type="text/javascript">
-
-        // Calendar start
-        var calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
-        calStart.setMonthCombo(true);
-        calStart.setYearCombo(true);
-
-        </script></td>
-        <td><input name="calendar_start_time" type="text" id="calendar_start_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_start'] ?>" size="30" /></td>
-            </tr>
-
-        <tr><td colspan="4" style="font:5px;line-height:5px">&nbsp;</td></tr>
-
-            <tr>
-                <td class="chatlist">&nbsp;</td>
-                <td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_date_format'] ?></td>
-                <td class="chatlist">&nbsp;</td>
-                <td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_time_format'] ?></td>
-            </tr>
-
-            <tr>
-                <td><label><?php echo $BL['be_article_cnt_end'] ?></label></td>
-                <td><input name="calendar_end_date" type="text" id="calendar_end_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_date_end'] ?>" size="30" /></td>
-        <td><script type="text/javascript">
-
-        var calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
-        calEnd.setMonthCombo(true);
-        calEnd.setYearCombo(true);
-
-        </script></td>
-        <td><input name="calendar_end_time" type="text" id="calendar_end_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_time_end'] ?>" size="30" /></td>
-            </tr>
-
-
-        <tr><td colspan="4" style="font:5px;line-height:5px">&nbsp;</td></tr>
-
-            <tr>
-                <td class="chatlist">&nbsp;</td>
-                <td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_date_format'] ?></td>
-                <td class="chatlist">&nbsp;</td>
-                <td class="chatlist" style="padding-bottom:2px"><?php echo $BL['default_time_format'] ?></td>
-            </tr>
-
-            <tr>
-                <td><label><?php echo $BL['be_sort_date'] ?></label></td>
-                <td><input name="sort_date" type="text" id="sort_date" class="v12" style="width:100px;" value="<?php echo $news->data['cnt_sort_date'] ?>" size="30" /></td>
-        <td><script type="text/javascript">
-        var calSort = new dynCalendar('calSort', 'aSort', 'img/dynCal/');
-        calSort.setMonthCombo(true);
-        calSort.setYearCombo(true);
-        </script></td>
-        <td><input name="sort_time" type="text" id="sort_time" class="v12" style="width:55px;" value="<?php echo $news->data['cnt_sort_time'] ?>" size="30" /></td>
-            </tr>
-
-        </table>
+    <div class="col-sm text-center text-sm-right mb-3">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
+      <?php if($news->data['cnt_id']) { ?>
+      <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
+      <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+    <?php } else { ?>
+      <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
+      <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+     <?php } ?>
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
     </div>
+  </div>
 
 
-    <p class="space_top">
-        <label><a id="cnt_name_click" style="cursor:pointer;text-decoration:underline;"><?php echo $BL['be_title'] ?></a></label>
-        <input type="text" name="cnt_name" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" class="text" maxlength="200" placeholder="<?php echo $BL['be_title'] ?>" />
-    </p>
+<div class="card">
+<div class="card-header"><h2><?php
+if($news->data['cnt_id']) {
+  echo $BL['be_news_edit'];
+} else if (isset($_GET["button"]) && $_GET["button"] === 'copy') {
+  echo $BL['be_news_copy'];
+} else {
+  echo $BL['be_news_add'];
+}
+?></h2></div>
 
-    <p>
-        <label><a id="cnt_alias_click" style="cursor:pointer;text-decoration:underline;"><?php echo $BL['be_alias'] ?></a></label>
-        <input type="text" name="cnt_alias" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" class="text" maxlength="230" placeholder="<?php echo $BL['be_alias'] ?>" />
-    </p>
+<div class="card-body">
+  <div class="form-group align-items-center form-row">
+    <label for="cnt_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_ctitle'] ?></label>
+    <div class="col">
+      <input name="cnt_title" class="form-control form-control-sm" id="cnt_title" value="<?php echo html($news->data['cnt_title']) ?>" maxlength="250" type="text" required >
+    </div>
+  </div>
 
-    <div class="cf">
-        <label><?php echo $BL['be_tags'] ?></label>
-        <div style="float:left;position:relative;" class="width400">
-            <input type="text" id="news_keyword_autosuggest" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
+  <div class="form-group align-items-center form-row">
+    <label for="cnt_subtitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asubtitle'] ?></label>
+    <div class="col">
+      <input name="cnt_subtitle" class="form-control form-control-sm" id="cnt_subtitle" value="<?php echo html($news->data['cnt_subtitle']) ?>" maxlength="250" type="text">
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="form-group align-items-center form-row">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_media_format'] ?></label>
+    <div class="form-check form-check-inline col-sm-auto">
+      <input class="form-check-input" type="radio" id="text_format0" name="cnt_textformat" value="plain"<?php is_checked('plain', $news->data['cnt_textformat']); ?> />
+      <label class="form-check-label" for="text_format0"><?php echo $BL['be_ctype_plaintext'] ?></label>
+    </div>
+    <div class="form-check form-check-inline col-sm-auto">
+      <input class="form-check-input" type="radio" id="text_format1" name="cnt_textformat" value="markdown"<?php is_checked('markdown', $news->data['cnt_textformat']); ?> />
+      <label class="form-check-label" for="text_format1">MarkDown <a href="http://en.wikipedia.org/wiki/Markdown" target="_blank" data-toggle="tooltip" title="Wikipedia: Markdown"><i class="fas fa-info-circle text-blue"></i></a></label>
+    </div>
+    <div class="form-check form-check-inline col-sm-auto">
+            <input class="form-check-input" type="radio" id="text_format2" name="cnt_textformat" value="textile" <?php is_checked('textile', $news->data['cnt_textformat']); ?> />
+            <label class="form-check-label" for="text_format2">Textile <a href="http://en.wikipedia.org/wiki/Textile_%28markup_language%29" target="_blank" data-toggle="tooltip" title="Wikipedia: Textile"><i class="fas fa-info-circle text-blue"></i></a></label>
+    </div>
+    <div class="form-check form-check-inline col">
+      <input class="form-check-input" type="radio" id="text_format3" name="cnt_textformat" value="br" <?php is_checked('br', $news->data['cnt_textformat']); ?> />
+      <label class="form-check-label" for="text_format3">BR</label>
+    </div>
+  </div>
+
+  <div class="form-group form-row">
+      <label for="cnt_teasertext" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_teasertext'] ?></label>
+      <div class="col">
+      <textarea name="cnt_teasertext" id="cnt_teasertext" class="form-control form-control-sm" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
+    </div>
+  </div>
+
+  <hr />
+
+    <div class="form-group form-row align-items-center">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
+      <div class="col-sm-10">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_date" id="start_date" value="<?php echo $news->data['cnt_date_start']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#start_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_start_time" id="start_time" value="<?php echo $news->data['cnt_time_start']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#start_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#start_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="my-1">
+            <div class="input-group input-group-sm datetime-picker-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_date" id="end_date" value="<?php echo $news->data['cnt_date_end']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#end_date" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-sm datetimepicker-input" name="calendar_end_time" id="end_time" value="<?php echo $news->data['cnt_time_end']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#end_time" autocomplete="off" />
+              <div class="input-group-append" data-target="#end_time" data-toggle="datetimepicker">
+                <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+          $('#start_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#start_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm:ss",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#end_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
+            buttons: {
+              showClose: true
+            }
+          });
+      });
+    </script>
+
+    <div class="form-group form-row align-items-center">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_sort_date'] ?></label>
+      <div class="col-sm-10">
+        <div class="input-group input-group-sm datetime-picker-group">
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_date" id="sort_date" value="<?php echo $news->data['cnt_sort_date']; ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#sort_date" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_date" data-toggle="datetimepicker">
+            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-calendar-alt fa-fw"></i></span>
+          </div>
+          <input type="text" class="form-control form-control-sm datetimepicker-input" name="sort_time" id="sort_time" value="<?php echo $news->data['cnt_sort_time']; ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#sort_time" autocomplete="off" />
+          <div class="input-group-append" data-target="#sort_time" data-toggle="datetimepicker">
+            <span class="datepickerbutton btn-blue input-group-text form-control form-control-sm"><i class="far fa-clock"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(function () {
+          $('#sort_date').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "DD.MM.YYYY",
+            buttons: {
+              showClose: true
+            }
+          });
+
+          $('#sort_time').datetimepicker({
+            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+            format: "HH:mm",
+            buttons: {
+              showClose: true
+            }
+          });
+      });
+    </script>
+
+  <hr />
+
+  <div class="form-group align-items-center form-row">
+    <label for="cnt_name" class="col-sm-2 col-form-label text-right"><a id="cnt_name_click" class="underline text-blue"><?php echo $BL['be_title'] ?></a></label>
+    <div class="col">
+      <input name="cnt_name" class="form-control form-control-sm" id="cnt_name" value="<?php echo html($news->data['cnt_name']) ?>" placeholder="<?php echo $BL['be_title'] ?>" maxlength="200" type="text" required>
+    </div>
+  </div>
+
+  <div class="form-group align-items-center form-row">
+    <label for="cnt_alias" class="col-sm-2 col-form-label text-right"><a id="cnt_alias_click" class="underline text-blue"><?php echo $BL['be_alias'] ?></a></label>
+    <div class="col">
+      <input name="cnt_alias" class="form-control form-control-sm" id="cnt_alias" value="<?php echo html($news->data['cnt_alias']) ?>" placeholder="<?php echo $BL['be_alias'] ?>" maxlength="200" type="text" required>
+    </div>
+  </div>
+
+  <div class="form-group align-items-center form-row">
+    <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+    <div class="col">
+      <input type="text" id="news_keyword_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" /><input type="hidden" name="cnt_category" id="cnt_category" value="<?php echo html($news->data['cnt_category']) ?>" />
+    </div>
+  </div>
+
+  <?php if(count($phpwcms['allowed_lang']) > 1):  ?>
+    <div class="form-group form-row align-items-center">
+        <label for="cnt_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+        <div class="col-sm-4">
+           <select name="cnt_lang" id="cnt_lang" class="custom-select form-control form-control-sm">
+            <?php
+              echo '  <option value=""';
+              is_selected('', $news->data['cnt_lang']);
+              echo '>'. $BL['be_admin_tmpl_default'].'</option>';
+              foreach($phpwcms['allowed_lang'] as $key => $lang):
+                $lang = strtolower($lang);
+                echo '  <option value="'.$lang.'"';
+                is_selected($lang, $news->data['cnt_lang']);
+                echo '>'. get_language_name($lang) .'</option>';
+              endforeach;
+            ?>
+          </select>
+        </div>
+    </div>
+  <?php else: ?>
+    <input type="hidden" name="cnt_lang" value="<?php echo html($news->data['cnt_lang']) ?>" />
+  <?php endif;  ?>
+
+  <div class="form-group align-items-center form-row">
+      <label for="cnt_prio" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_priorize'] ?></label>
+      <div class="col-sm-4">
+        <select name="cnt_prio" id="cnt_prio"  class="custom-select form-control form-control-sm" data-toggle="tooltip" title="<?php echo $BL['be_priorize'] ?>">
+          <?php
+              for($x=30; $x>=-30; $x--) {
+              echo '  <option value="'.$x.'"';
+              is_selected($x, $news->data['cnt_prio']);
+              echo '>'.( $x==0 ? $BL['be_cnt_default'] : $x ).'</option>'.LF;
+              }
+            ?>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group form-row mt-3">
+      <div class="col">
+<?php
+
+    $wysiwyg_editor = array(
+      'value'   => $news->data['cnt_text'],
+      'field'   => 'cnt_text',
+      'height'  => '250px',
+      'rows'    => '10',
+      'editor'  => $_SESSION["WYSIWYG_EDITOR"],
+      'lang'    => 'en'
+    );
+
+    include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+
+  ?>
+    </div>
+  </div>
+  <hr />
+
+    <div class="form-group align-items-center form-row">
+        <label for="cnt_image_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image'] ?></label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <span class="input-group-prepend">
+                    <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=7&amp;target=summary" ></button>
+                </span>
+                <input name="cnt_image_name" type="text" id="cnt_image_name" class="form-control form-control-sm" value="<?php echo html($news->data['cnt_image']['name']) ?>" maxlength="250" onfocus="this.blur()" />
+                <span class="input-group-append">
+                    <a href="#" class="btn btn-sm btn-danger trash" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"></a>
+                </span>
+            </div>
+            <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
         </div>
     </div>
 
-<?php   if(count($phpwcms['allowed_lang']) > 1):    ?>
+  <div class="form-group align-items-center form-row">
+    <label class="col-sm-2 col-form-label text-right"></label>
+    <div class="form-check form-check-inline col-sm-auto">
+            <input class="form-check-input" type="checkbox" id="cnt_image_zoom" name="cnt_image_zoom" value="1"<?php is_checked(1, $news->data['cnt_image']['zoom']); ?> />
+            <label class="form-check-label" for="cnt_image_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+    </div>
+    <div class="form-check form-check-inline col-sm-auto">
+            <input class="form-check-input" type="checkbox" id="cnt_image_lightbox" name="cnt_image_lightbox" value="1"<?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> />
+            <label class="form-check-label" for="cnt_image_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
+    </div>
+  </div>
 
+  <div class="form-group align-items-center form-row">
+    <label class="col-sm-2"></label>
+    <div id="cnt_image" class="col-sm-auto"></div>
+  </div>
 
-    <div class="cf">
-        <label><?php echo $BL['be_profile_label_lang'] ?></label>
+  <div class="form-group form-row">
+      <label for="cnt_image_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
+      <div class="col">
+        <textarea name="cnt_image_caption" id="cnt_image_caption" class="form-control form-control-sm" rows="3"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
+           <div class="pt-2">
+            <?php echo $BL['be_cnt_caption']; ?>
+            |
+            <?php echo $BL['be_caption_alt']; ?>
+            |
+            <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+            |
+            <?php echo $BL['be_caption_title']; ?>
+            |
+            <?php echo $BL['be_copyright']; ?>
+          </div>
+      </div>
+  </div>
 
-        <span class="lang-select">
+  <div class="form-group align-items-center form-row">
+        <label for="cnt_image_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_website'] ?></label>
+        <div class="col">
+            <input name="cnt_image_link" class="form-control form-control-sm" id="cnt_image_link" value="<?php echo html($news->data['cnt_image']['link']) ?>" maxlength="500" type="text">
+    </div>
+  </div>
 
-            <label title="<?php echo $BL['be_admin_tmpl_default'] ?>">
-                <input type="radio" name="cnt_lang" class="lang-default" value=""<?php if(empty($news->data['cnt_lang'])): ?> checked="checked"<?php endif; ?> />
-                <img src="img/famfamfam/lang/all.png" /><?php echo ' '.$BL['be_admin_tmpl_default'] ?>
-            </label>
+  <hr />
 
-<?php   foreach($phpwcms['allowed_lang'] as $key => $lang):
-
-            $lang = strtolower($lang);
+<?php
+  $news->files = $news->getFiles();
+  $news->fileCount = count($news->files);
+  $news->fileRows = $news->fileCount ? $news->fileCount+1 : 6;
 ?>
-            <label title="<?php echo get_language_name($lang) ?>">
-                <input type="radio" name="cnt_lang" value="<?php echo $lang ?>"<?php is_checked($lang, $news->data['cnt_lang']) ?> class="lang-opt" />
-                <img src="img/famfamfam/lang/<?php echo $lang ?>.png" />
-            </label>
-
-<?php       endforeach; ?>
-
-        </span>
-    </div>
-
-<?php   else:   ?>
-
-    <input type="hidden" name="cnt_lang" value="<?php echo html($news->data['cnt_lang']) ?>" />
-
-<?php   endif;  ?>
-
-
-    <p>
-        <label><?php echo $BL['be_priorize'] ?></label>
-        <select name="cnt_prio" id="cnt_prio" style="width:auto" title="<?php echo $BL['be_priorize'] ?>">
-        <?php
-
-            for($x=30; $x>=-30; $x--) {
-
-                echo '  <option value="'.$x.'"';
-                is_selected($x, $news->data['cnt_prio']);
-                echo '>'.( $x==0 ? $BL['be_cnt_default'] : $x ).'</option>'.LF;
-
-            }
-
-        ?>
-        </select>
-    </p>
-
-    <div class="paragraph"><?php
-
-        $wysiwyg_editor = array(
-            'value'     => $news->data['cnt_text'],
-            'field'     => 'cnt_text',
-            'height'    => '250px',
-            'width'     => '100%',
-            'rows'      => '10',
-            'editor'    => $_SESSION["WYSIWYG_EDITOR"],
-            'lang'      => 'en'
-        );
-
-        include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-
-    ?></div>
-
-    <div class="paragraph filled border_bottom border_top">
-
-        <table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-                <td><label><?php echo $BL['be_cnt_image'] ?></label></td>
-                <td><input type="text" name="cnt_image_name" id="cnt_image_name" value="<?php echo html($news->data['cnt_image']['name']) ?>" class="file" maxlength="250" /></td>
-                <td style="padding:2px 0 0 5px" width="100">
-                    <a href="#" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=7');return false;"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a>
-                    <a href="#" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="setImgIdName();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
-                    <input name="cnt_image_id" id="cnt_image_id" type="hidden" value="<?php echo $news->data['cnt_image']['id'] ?>" />
-                </td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td colspan="2" class="tdtop5 tdbottom5">
-
-                <table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-              <td><input name="cnt_image_zoom" type="checkbox" id="cnt_image_zoom" value="1" <?php is_checked(1, $news->data['cnt_image']['zoom']); ?> /></td>
-                  <td><label for="cnt_image_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
-
-                  <td><input name="cnt_image_lightbox" type="checkbox" id="cnt_image_lightbox" value="1" <?php is_checked(1, $news->data['cnt_image']['lightbox']); ?> /></td>
-                  <td><label for="cnt_image_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>
-                </tr>
-                </table>
-
-                <div id="cnt_image" style="padding-top:3px;"></div>
-
-                </td>
-            </tr>
-
-        <tr>
-                <td class="top"><label><?php echo $BL['be_cnt_caption'] ?></label></td>
-                <td colspan="2" class="tdbottom4">
-                    <textarea name="cnt_image_caption" id="cnt_image_caption" class="text autosize" rows="2"><?php echo html($news->data['cnt_image']['caption']) ?></textarea>
-                    <span class="caption width350">
-                        <?php echo $BL['be_cnt_caption']; ?>
-                        |
-                        <?php echo $BL['be_caption_alt']; ?>
-                        |
-                        <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
-                        |
-                        <?php echo $BL['be_caption_title']; ?>
-                        |
-                        <?php echo $BL['be_copyright']; ?>
-                    </span>
-                </td>
-            </tr>
-
-            <tr>
-                <td><label><?php echo $BL['be_profile_label_website'] ?></label></td>
-                <td colspan="2"><input type="text" name="cnt_image_link" id="cnt_image_link" class="text" maxlength="500" value="<?php echo html($news->data['cnt_image']['link']) ?>" /></td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="paragraph border_bottom">
-        <table border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr>
-            <td class="top"><label><?php echo $BL['be_cnt_files'];
-
-            $news->files = $news->getFiles();
-            $news->fileCount = count($news->files);
-            $news->fileRows = $news->fileCount ? $news->fileCount+1 : 3;
-
-             ?></label></td>
-            <td style="padding:0 5px 5px 0;"><select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="">
-<?php   if($news->fileCount) {
+  <div class="form-group form-row" >
+      <label for="cfile_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+      <div class="col">
+        <select name="cnt_files[]" size="<?php echo $news->fileRows ?>" multiple="multiple" id="cfile_list" class="custom-select form-control form-control-sm h-100">
+      <?php if($news->fileCount) {
             foreach($news->files as $f_id => $item) {
-                echo '<option value="' . $item['f_id'] . '">' . (empty($item['f_name']) ? '-- ' . $BL['be_msg_del'] . ' --' : html($item['f_name'])) . '</option>' . LF;
+              echo '<option value="' . $item['f_id'] . '">' . (empty($item['f_name']) ? '-- ' . $BL['be_msg_del'] . ' --' : html($item['f_name'])) . '</option>' . LF;
             }
-        }
-?>
-            </select></td>
-            <td valign="top" width="20">
-            <a href="#" title="<?php echo $BL['be_cnt_openfilebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=9');return false"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" vspace="2" /></a>
-            <a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(getObjectById('cfile_list'));return false;"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0" /></a><a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(getObjectById('cfile_list'));return false;"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0" /></a>
-            <a href="#" onclick="removeSelectedOptions(getObjectById('cfile_list'));return false;" title="<?php echo $BL['be_cnt_delfile'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0" vspace="2" /></a>
-            </td>
-        </tr>
+          }
+      ?>
+        </select>
+      </div>
+      <div class="col-sm-auto">
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=9&amp;target=summary" ><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.getElementById('cfile_list'));return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br />
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.getElementById('cfile_list'));return false;" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delfile'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+      </div>
+  </div>
 
-        <tr>
-            <td class="top"><label><?php echo $BL['be_cnt_description'] ?></label></td>
-            <td colspan="2">
-                <textarea name="cnt_file_caption" cols="40" rows="<?php echo $news->fileRows ?>" class="text autosize" id="cnt_file_caption"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
-                <span class="caption width350 nowrap">
-                    <?php echo $BL['be_caption_descr.']; ?>
-                    |
-                    <?php echo $BL['be_fprivedit_filename']; ?>
-                    |
-                    <?php echo $BL['be_caption_file_title']; ?>
-                    |
-                    <?php echo $BL['be_cnt_target']; ?>
-                    |
-                    <?php echo $BL['be_caption_file_imagesize']; ?>
-                    |
-                    <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
-                </span>
-            </td>
-        </tr>
+  <div class="form-group form-row">
+      <label for="cnt_file_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="col">
+        <textarea name="cnt_file_caption" id="cnt_file_caption" class="form-control form-control-sm" rows="<?php echo $news->fileRows ?>"><?php echo html($news->data['cnt_files']['caption']) ?></textarea>
+           <div class="pt-2">
+          <?php echo $BL['be_caption_descr.']; ?>
+          |
+          <?php echo $BL['be_fprivedit_filename']; ?>
+          |
+          <?php echo $BL['be_caption_file_title']; ?>
+          |
+          <?php echo $BL['be_cnt_target']; ?>
+          |
+          <?php echo $BL['be_caption_file_imagesize']; ?>
+          |
+          <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+          </div>
+      </div>
+  </div>
 
-        <tr>
-            <td>&nbsp;</td>
-            <td colspan="2" class="tdtop5">
-                <table cellpadding="0" cellspacing="0" border="0" summary="">
-
-                    <tr>
-                        <td><input name="cnt_file_gallery" type="checkbox" id="cnt_file_gallery" value="1" <?php is_checked(1, $news->data['cnt_files']['gallery']); ?> /></td>
-                        <td><label class="checkbox" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label></td>
-                    </tr>
-
-                    <tr>
-                        <td><input name="cnt_file_gallery_download" type="checkbox" id="cnt_file_gallery_download" value="1" <?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> /></td>
-                        <td><label class="checkbox" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label></td>
-                    </tr>
-
-                </table>
-            </td>
-        </tr>
-        </table>
+  <div class="form-group align-items-center form-row mb-3">
+    <label class="col-sm-2 col-form-label text-right"></label>
+    <div class="form-check form-check-inline col-sm-auto">
+            <input class="form-check-input" type="checkbox" id="cnt_file_gallery" name="cnt_file_gallery" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery']); ?> />
+            <label class="form-check-label" for="cnt_file_gallery"><?php echo $BL['be_imagefiles_as_gallery'] ?></label>
     </div>
-
-    <p class="space_top">
-        <label><?php echo $BL['be_read_more_link'] ?></label>
-        <input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="text" maxlength="250" title="<?php echo $BL['be_read_more_link'] ?>" />
-    </p>
-
-    <p>
-        <label>URL <?php echo $BL['be_admin_page_text'] ?></label>
-        <input type="text" name="cnt_linktext" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" class="text" maxlength="250" title="URL <?php echo $BL['be_admin_page_text'] ?>" />
-    </p>
-
-    <p class="space_top border_top">
-        <label><?php echo $BL['be_article_username'] ?>/<?php echo $BL['be_place'] ?></label>
-        <input type="text" name="cnt_editor" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" class="width200" maxlength="250" title="<?php echo $BL['be_article_username'] ?>" />
-        <input type="text" name="cnt_place" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" class="width140" maxlength="250" title="<?php echo $BL['be_place'] ?>" />
-    </p>
-
-    <div class="filled border_top paragraph border_bottom">
-
-        <table cellpadding="0" cellspacing="0" border="0" summary="">
-
-            <tr>
-                <td><label><?php echo $BL['be_ftptakeover_status'] ?></label></td>
-                <td><input name="cnt_readmore" type="checkbox" id="cnt_readmore" value="1" <?php is_checked(1, $news->data['cnt_readmore']); ?> /></td>
-                <td><label class="checkbox" for="cnt_readmore"><?php echo $BL['be_article_morelink'] ?></label></td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><input name="cnt_searchoff" type="checkbox" id="cnt_searchoff" value="1" <?php is_checked(1, $news->data['cnt_searchoff']); ?> /></td>
-                <td><label class="checkbox" for="cnt_searchoff"><?php echo $BL['be_no_search'] ?></label></td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><input name="cnt_opengraph" type="checkbox" id="cnt_opengraph" value="1" <?php is_checked(1, $news->data['cnt_opengraph']); ?> /></td>
-                <td><label class="checkbox" for="cnt_opengraph"><?php echo $BL['be_opengraph_support'] ?></label></td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><input name="cnt_archive_status" type="checkbox" id="cnt_archive_status" value="1" <?php is_checked(1, $news->data['cnt_archive_status']); ?> /></td>
-                <td><label class="checkbox" for="cnt_archive_status"><?php echo $BL['be_show_archived'] ?></label></td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><input name="cnt_duplicate" type="checkbox" id="cnt_duplicate" value="1" <?php is_checked(1, $news->data['cnt_duplicate']); ?> /></td>
-                <td><label class="checkbox" for="cnt_duplicate"><?php echo $BL['be_save_copy'] ?></label></td>
-            </tr>
-
-            <tr>
-                <td colspan="3" style="line-height:5px;font-size:1px;">&nbsp;</td>
-            </tr>
-
-            <tr>
-                <td>&nbsp;</td>
-                <td><input name="cnt_status" type="checkbox" id="cnt_status" value="1" <?php is_checked(1, $news->data['cnt_status']); ?> /></td>
-                <td><label class="checkbox" for="cnt_status"><strong><?php echo $BL['be_published'] ?></strong></label></td>
-            </tr>
-
-        </table>
-
+    <div class="form-check form-check-inline col-sm-auto">
+            <input class="form-check-input" type="checkbox" id="cnt_file_gallery_download" name="cnt_file_gallery_download" value="1"<?php is_checked(1, $news->data['cnt_files']['gallery_download']); ?> />
+            <label class="form-check-label" for="cnt_file_gallery_download"><?php echo $BL['be_gallerydownload'] ?></label>
     </div>
+  </div>
 
+  <div class="form-group form-row">
+    <label for="cnt_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_read_more_link'] ?></label>
+    <div class="col-sm-4">
+        <div class="input-group">
+          <span class="input-group-prepend">
+            <button class="modalButton btn btn-sm btn-blue sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=1" ></button>
+          </span>
+          <input type="text" name="cnt_link" id="cnt_link" value="<?php echo html_entities($news->data['cnt_link']) ?>" class="form-control form-control-sm" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_read_more_link'] ?>" />
+        </div><?php
+          if (intval($news->data['cnt_link'])> 0) {
+            $adata = get_article_data($news->data['cnt_link']);
+            echo '<small><label class="mt-1">' . $BL['be_cnt_target'] .':&nbsp;</label>';
+            if (is_array($adata)) {
+              echo '<a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . $adata['article_title'] . '">' . $adata['article_alias'] . $phpwcms['rewrite_ext'] .'</a>';
+            } else {
+              echo $BL['be_admin_usr_err'];
+            }
+            echo '</small>';
+          }
+          ?>
+    </div>
+  </div>
 
-    <p style="padding:10px 0 10px 0" class="border_bottom">
+  <div class="form-group align-items-center form-row">
+      <label for="cnt_linktext" class="col-sm-2 col-form-label text-right">URL <?php echo $BL['be_admin_page_text'] ?></label>
+        <div class="col">
+            <input name="cnt_linktext" class="form-control form-control-sm" id="cnt_linktext" value="<?php echo html_entities($news->data['cnt_linktext']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="URL <?php echo $BL['be_admin_page_text'] ?>">
+        </div>
+  </div>
 
-        <label>&nbsp;</label>
+  <div class="form-group align-items-center form-row">
+      <label for="cnt_editor" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_username'] ?></label>
+        <div class="col">
+            <input name="cnt_editor" class="form-control form-control-sm" id="cnt_editor" value="<?php echo html($news->data['cnt_editor']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_article_username'] ?>">
+        </div>
+       <label for="cnt_place" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_place'] ?></label>
+        <div class="col">
+            <input name="cnt_place" class="form-control form-control-sm" id="cnt_place" value="<?php echo html($news->data['cnt_place']) ?>" maxlength="250" type="text" data-toggle="tooltip" title="<?php echo $BL['be_place'] ?>">
+        </div>
+  </div>
 
-        <?php if($news->data['cnt_id']) { ?>
+ <hr />
 
-            <input name="submit" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
-            <input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+    <div class="form-group form-row bg-grey py-2 mb-0">
+    <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    <div class="col-sm-10">
+      <div class="form-check">
+                <input class="form-check-input" name="cnt_readmore" type="checkbox" id="cnt_readmore" value="1"<?php is_checked(1, $news->data['cnt_readmore']); ?> />
+                <label class="form-check-label" for="cnt_readmore"><?php echo $BL['be_article_morelink'] ?></label>
+      </div>
+      <div class="form-check">
+                <input class="form-check-input"  name="cnt_searchoff" type="checkbox" id="cnt_searchoff" value="1"<?php is_checked(1, $news->data['cnt_searchoff']); ?> />
+                <label class="form-check-label" for="cnt_searchoff"><?php echo $BL['be_no_search'] ?></label>
+      </div>
+      <div class="form-check">
+                <input class="form-check-input"  name="cnt_opengraph" type="checkbox" id="cnt_opengraph" value="1"<?php is_checked(1, $news->data['cnt_opengraph']); ?> />
+                <label class="form-check-label" for="cnt_opengraph"><?php echo $BL['be_opengraph_support'] ?></label>
+      </div>
+      <div class="form-check">
+                <input class="form-check-input" name="cnt_archive_status" type="checkbox" id="cnt_archive_status" value="1"<?php is_checked(1, $news->data['cnt_archive_status']); ?> />
+                <label class="form-check-label" for="cnt_archive_status"><?php echo $BL['be_show_archived'] ?></label>
+      </div>
+      <div class="form-check">
+                <input class="form-check-input" name="cnt_duplicate" type="checkbox" id="cnt_duplicate" value="1"<?php is_checked(1, $news->data['cnt_duplicate']); ?> />
+                <label class="form-check-label" for="cnt_duplicate"><?php echo $BL['be_save_copy'] ?></label>
+      </div>
+      <div class="form-check">
+                <input class="form-check-input" name="cnt_status" type="checkbox" id="cnt_status" value="1"<?php is_checked(1, $news->data['cnt_status']); ?> />
+                <label class="form-check-label" for="cnt_status"><strong><?php echo $BL['be_published'] ?></strong></label>
+      </div>
+    </div>
+  </div>
 
-        <?php } else { ?>
+</div> <!-- END CARD BODY -->
+</div> <!-- END CARD -->
 
-            <input name="submit" type="submit" class="button" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
-            <input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-
-        <?php } ?>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="emptyNews();" />
-        <input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
-
-    </p>
+  <div class="row mt-4 text-right">
+    <div class="col">
+      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
+      <?php if($news->data['cnt_id']) { ?>
+      <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
+      <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+    <?php } else { ?>
+      <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
+      <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+     <?php } ?>
+      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+    </div>
+  </div>
 
 </form>
 
 <script type="text/javascript">
-    showImage();
+  showImage();
 </script>
 <?php
 
-    }
-    // Stop news form
+  }
+  // Stop news form

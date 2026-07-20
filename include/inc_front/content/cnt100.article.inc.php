@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -81,7 +80,7 @@ if(substr_count ($crow["acontent_text"], '~')) {
 
             $clist_level[$key] = 0;
 
-            while(str_starts_with($value, '~')) {
+            while(substr($value,0,1) == '~') {
 
                 $value = substr($value, 1);
                 $clist_level[$key]++;

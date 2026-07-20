@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -79,7 +78,7 @@ if($news['list_mode']) {
 
         case 0: // include archived
                 $news['sql_where'][] = 'AND ' . $news['cnt_ts_livedate'] . ' < ' . $news['now'];
-                $news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR pc.cnt_archive_status = 1)';
+                $news['sql_where'][] = 'AND (' . $news['cnt_ts_killdate'] . ' > ' . $news['now'] . ' OR cnt_archive_status = 1)';
                 break;
 
         case 1: // exclude archived
@@ -89,7 +88,7 @@ if($news['list_mode']) {
 
         case 2: // archived only
                 $news['sql_where'][] = 'AND ' . $news['cnt_ts_killdate'] . ' < ' . $news['now'];
-                $news['sql_where'][] = 'AND pc.cnt_archive_status = 1';
+                $news['sql_where'][] = 'AND cnt_archive_status = 1';
                 break;
 
         case 3: // all items
@@ -176,10 +175,10 @@ if($news['list_mode']) {
 
     if($news['news_skip']) {
         $news['sql_limit']  = ' LIMIT '.$news['news_skip'].', ';
-        $news['sql_limit'] .= $news['news_limit'] ?: 99999999;
+        $news['sql_limit'] .= $news['news_limit'] ? $news['news_limit'] : 99999999;
     } elseif($news['news_limit']) {
         $news['sql_limit']  = ' LIMIT ';
-        $news['sql_limit'] .= $news['news_skip'] ?: 0;
+        $news['sql_limit'] .= $news['news_skip'] ? $news['news_skip'] : 0;
         $news['sql_limit'] .= ', ' . $news['news_limit'];
     } else {
         $news['sql_limit'] = '';
@@ -481,7 +480,7 @@ if($news['template']) {
                 } else {
                     $value['detail_link']   = date('Ymd', $value['cnt_ts_livedate']) . '-' . $crow['acontent_aid'] . '_' ;
                     $value['detail_link']  .= empty($value['cnt_alias']) ? $value['cnt_id'] : urlencode( $value['cnt_alias'] );
-                    $news['entries'][$key]  = render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (str_contains($news['base_href'], '?') ? '&amp;' : '?') . 'newsdetail=' . $value['detail_link']);
+                    $news['entries'][$key]  = render_cnt_template($news['entries'][$key], 'NEWS_DETAIL_LINK', $news['base_href'] . (strpos($news['base_href'], '?') !== false ? '&amp;' : '?') . 'newsdetail=' . $value['detail_link']);
                 }
 
             // news list link (back)
@@ -740,8 +739,8 @@ if($news['template']) {
                                         }
 
                                         $value['gallery_captions'][$ikey] = array(
-                                            'caption' => $ivalue['f_longinfo'] ?? '',
-                                            'copyright' => $ivalue['f_copyright'] ?? ''
+                                            'caption' => isset($ivalue['f_longinfo']) ? $ivalue['f_longinfo'] : '',
+                                            'copyright' => isset($ivalue['f_copyright']) ? $ivalue['f_copyright'] : ''
                                         );
                                     }
 

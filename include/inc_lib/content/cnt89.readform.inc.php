@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,12 +16,12 @@ if(!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Content Type 89: Poll            jens
-$content["poll_list"] = $_POST["cimage_list"] ?? [];
+$content["poll_list"] = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : [];
 
-$content["img_width"] = intval($_POST["cpoll_width"]) ?: "";
+$content["img_width"] = intval($_POST["cpoll_width"]) ? intval($_POST["cpoll_width"]) : "";
 $temp_width = $content["img_width"];
 
-$content["img_height"] = intval($_POST["cpoll_height"]) ?: "";
+$content["img_height"] = intval($_POST["cpoll_height"]) ? intval($_POST["cpoll_height"]) : "";
 $temp_height = $content["img_height"];
 
 $content["poll_caption"] = clean_slweg($_POST["cpoll_caption"], 65000);

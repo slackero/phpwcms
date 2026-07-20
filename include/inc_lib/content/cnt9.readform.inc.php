@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -28,9 +27,9 @@ $content["media_transparent"]	= empty($_POST["cmedia_transparent"]) ? 0 : 1;
 $content["media_control"] 		= empty($_POST["cmedia_control"]) ? 0 : 1;
 $content["media_pos"] 			= intval($_POST["cimage_pos"]);
 $content["media_width"] 		= intval($_POST["cmedia_width"]);
-$content["media_width"] 		= $content["media_width"] ?: '';
+$content["media_width"] 		= ($content["media_width"]) ? $content["media_width"] : '';
 $content["media_height"] 		= intval($_POST["cmedia_height"]);
-$content["media_height"] 		= $content["media_height"] ?: '';
+$content["media_height"] 		= ($content["media_height"]) ? $content["media_height"] : '';
 $content["media_id"] 			= intval($_POST["cmedia_id"]);
 $content["media_name"] 			= clean_slweg($_POST["cmedia_name"]);
 $content["media_extern"] 		= clean_slweg($_POST["cmedia_extern"]);

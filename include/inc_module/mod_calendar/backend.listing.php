@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
@@ -26,13 +25,14 @@ if(!empty($BLM['locale_string'])) {
     setlocale(LC_TIME, $BLM['locale_string']);
 }
 
-$_entry['query'] = '';
+$_entry['query']            = '';
 
 // define some defaults
 if(isset($_GET['calendardate'])) {
-    $_SESSION['calendardate'] = substr(clean_slweg($_GET['calendardate']), 0, 7);
-}
 
+    $_SESSION['calendardate'] = substr(clean_slweg($_GET['calendardate']), 0, 7);
+
+}
 if(!empty($_SESSION['calendardate'])) {
 
     @list($plugin['current_month'], $plugin['current_year']) = explode('-', $_SESSION['calendardate']);
@@ -41,10 +41,10 @@ if(!empty($_SESSION['calendardate'])) {
     $plugin['current_year']     = intval($plugin['current_year']);
 
     if(empty($plugin['current_year'])) {
-        $plugin['current_year']  = gmdate('Y');
+        $plugin['current_year']     = gmdate('Y');
     }
     if(empty($plugin['current_month'])) {
-        $plugin['current_month'] = gmdate('n');
+        $plugin['current_month']        = gmdate('n');
     }
 
 } else {
@@ -113,8 +113,8 @@ if(isset($_POST['do_pagination'])) {
 }
 
 
-$_entry['list_active']      = $_SESSION['list_active'] ?? 1;
-$_entry['list_inactive']    = $_SESSION['list_inactive'] ?? 1;
+$_entry['list_active']      = isset($_SESSION['list_active'])   ? $_SESSION['list_active']      : 1;
+$_entry['list_inactive']    = isset($_SESSION['list_inactive']) ? $_SESSION['list_inactive']    : 1;
 
 
 // set correct status query
@@ -133,7 +133,7 @@ if($_entry['list_active'] != $_entry['list_inactive']) {
 
 if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar']) && count($_SESSION['filter_calendar'])) {
 
-    $_entry['filter_array'] = [];
+    $_entry['filter_array'] = array();
 
     foreach($_SESSION['filter_calendar'] as $_entry['filter']) {
         //usr_name, usr_login, usr_email
@@ -151,56 +151,23 @@ if(isset($_SESSION['filter_calendar']) && is_array($_SESSION['filter_calendar'])
     $_entry['query'] .= $_SESSION['filter_calendar'];
 
 }
-
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
+<h1><?php echo $BLM['listing_title'] ?></h1>
+<div class="card">
+<div class="card-header"><?php echo $BLM['listing_title_overview'] ?></div>
+<div class="card-body">
 
-<!-- <form action="<?php echo MODULE_HREF ?>" method="post" name="paginate" id="paginate"><input type="hidden" name="do_pagination" value="1" /> -->
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="paginate" summary="">
-    <tr>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
+	<div class="mb-3 text-center">
+		<div class="btn-group btn-group">
+			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;"><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></button>
+			<button class="btn btn-muted btn-sm" onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button>
+			<button class="btn btn-blue btn-sm" onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;"><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></button>
+		</div>
+    </div>
 
-            <!--
-                <td><input type="checkbox" name="showactive" id="showactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> /></td>
-                <td><label for="showactive"><img src="img/button/aktiv_12x13_1.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-                <td><input type="checkbox" name="showinactive" id="showinactive" value="1" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> /></td>
-                <td><label for="showinactive"><img src="img/button/aktiv_12x13_0.gif" alt="" style="margin:1px 1px 0 1px;" /></label></td>
-
-                <td class="chatlist">|&nbsp;</td>
-
-                <td><input type="search" name="filter" id="filter" size="10" value="<?php
-
-                if(isset($_POST['filter']) && is_array($_POST['filter']) ) {
-                    echo html(implode(' ', $_POST['filter']));
-                }
-
-                ?>" class="textinput" style="margin:0 2px 0 0;width:110px;text-align:left;" title="filter results by username, name or email" /></td>
-                <td><input type="image" name="gofilter" src="img/famfamfam/action_go.gif" style="margin-right:3px;" /></td>
-
-                <td class="chatlist">|&nbsp;</td>
-            // -->
-                <td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_prev_month'] ?>';return false;">&lt;</button></td>
-                <td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_this_month'] ?>';return false;"><?php echo $BLM['today'] ?></button></td>
-                <td class="calendarButton"><button onclick="location.href='<?php echo $plugin['loc_next_month'] ?>';return false;">&gt;</button></td>
-
-            </tr>
-        </table></td>
-
-    <td class="chatlist" align="right">&nbsp;
-
-    </td>
-
-    </tr>
-</table>
-<!-- </form> -->
-
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="calendar" summary="">
-
+<table width="100%" class="calendar">
 <?php
-
 // list current calendar here
-
 if($plugin['current_month'] == 12) {
     $plugin['end_month']    = 1;
     $plugin['end_year']     = $plugin['current_year'] + 1;
@@ -223,7 +190,7 @@ $sql .= "calendar_start < '".aporeplace($plugin['end_year'].'-'.$plugin['end_mon
 $plugin['dates'] = _dbQuery($sql);
 
 // run through dates and put in right day, fist for all non-repeating dates
-$_entry['dates'] = [];
+$_entry['dates'] = array();
 if($plugin['dates']) {
     foreach($plugin['dates'] as $_entry['x']) {
 
@@ -334,8 +301,8 @@ $plugin['day_names'] = returnDayNameArray();
 // head row
 
 echo '<tr>';
-echo '<th class="calendarWeek">'.$BLM['weekNrTitle'].'</th>';
-echo '<th><img src="img/famfamfam/calendar_view_month.gif" alt="" /></th>';
+echo '<th class="calendarWeek" style="font-size:10px;">'.$BLM['weekNrTitle'].'</th>';
+echo '<th><i class="far fa-calendar-alt" aria-hidden="true"></i></th>';
 echo '<th width="95%" class="calendarMonth">';
 
 echo $plugin['this_date'];
@@ -417,14 +384,18 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
             }
             $_entry['link '] = html($_entry['link '], false);
 
-            echo '<p><a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
+            echo '<p class="mb-1"><a class="btn btn-sm btn-blue" data-toggle="tooltip" title="'.$BLM['be_tt_edit'].'" href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
+            if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
+            echo '><i class="fa fa-pencil-alt" aria-hidden="true"></i></a>';
+
+            echo '<a class="btn btn-sm btn-danger ml-1 mr-2" href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'];
+            echo '" data-toggle="tooltip" title="'.$BLM['delete'].': '. $_entry['link '] .'"';
+            echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
+            echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
+
+            echo '<a href="'.MODULE_HREF.'&amp;edit='.$_entry['date']['calendar_id'].'"';
             if($_entry['date']['calendar_status'] == 0) echo ' class="off"';
             echo '>' . $_entry['link '] . '</a>';
-
-            echo '<a href="'.MODULE_HREF.'&amp;delete='.$_entry['date']['calendar_id'].'" class="calendarDateDel"';
-            echo ' title="'.$BLM['delete'].': '. $_entry['link '] .'"';
-            echo ' onclick="return confirm(\''.$BLM['delete_entry'].' \n'.js_singlequote($_entry['date']['calendar_title']).'\');">';
-            echo '<img src="img/button/del_9x9.gif" alt="" border="0" /></a>';
 
             /*
             echo '<img src="img/button/';
@@ -445,9 +416,9 @@ for($_entry['x'] = 1, $_entry['timestamp']=$plugin['first_of_month']; $_entry['x
     echo '</td>';
 
     echo '<td class="calendarButton'.$_entry['class'].'">';
-    echo '<a href="'.MODULE_HREF.'&amp;edit=0&amp;defaultdate=';
-    echo $_entry['x'].'-'.$plugin['current_month'].'-'.$plugin['current_year'].'" title="'.$BLM['add_event'].'">';
-    echo '<img src="img/famfamfam/calendar_add.gif" alt="" border="0" />';
+    echo '<a class="btn btn-sm btn-blue" href="'.MODULE_HREF.'&amp;edit=0&amp;defaultdate=';
+    echo $_entry['x'].'-'.$plugin['current_month'].'-'.$plugin['current_year'].'" data-toggle="tooltip" title="'.$BLM['add_event'].'">';
+    echo '<i class="far fa-calendar-plus" aria-hidden="true"></i>';
     echo '</a></td>';
 
     echo '</tr>'.LF;
@@ -462,3 +433,5 @@ if(!empty($BLM['locale_string'])) {
 ?>
 
 </table>
+</div>
+</div>

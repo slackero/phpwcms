@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -34,22 +33,22 @@ function phpwcms_revision_r497() {
 	// switch crossreference field type from INT to VARCHAR
 	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_crossreference LIKE 'cref_type'");
 
-	if(isset($result[0]['Type']) && str_starts_with(strtolower($result[0]['Type']), 'int')) {
+	if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) == 'int') {
 
-        // Drop index first
-        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference DROP INDEX cref_type', 'ALTER');
+		// Drop index first
+		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference DROP INDEX cref_type', 'ALTER');
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_crossreference CHANGE cref_type cref_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 
-        // Add new index
-        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_type)', 'ALTER');
-        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_int)', 'ALTER');
-        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_rid)', 'ALTER');
-        _dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_str)', 'ALTER');
+		// Add new index
+		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_type)', 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_int)', 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_rid)', 'ALTER');
+		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_str)', 'ALTER');
 
-        if ($result) {
-            // Update feedimport References
-            _dbUpdate('phpwcms_crossreference', array('cref_type' => 'feed_to_article_import'), "cref_str LIKE 'feedimport_%'");
-        }
+		if ($result) {
+			// Update feedimport References
+			_dbUpdate('phpwcms_crossreference', array('cref_type'=>'feed_to_article_import'), "cref_str LIKE 'feedimport_%'");
+		}
 	}
 
 	// add language to article category, article and content part

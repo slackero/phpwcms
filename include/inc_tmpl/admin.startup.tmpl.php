@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -20,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $startup_default = read_textfile(PHPWCMS_TEMPLATE."inc_default/startup.php"); //reads the css template
 $startup_default = ($startup_default) ? html($startup_default) : "";
 
-?><form action="include/inc_act/act_startuptext.php" method="post" name="startup" target="_self"><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><form action="include/inc_act/act_startuptext.php" method="post" name="startup" target="_self"><table width="538">
 
 	<tr>
 	  <td colspan="2" class="title"><?php echo $BL['be_admin_startup_title'] ?></td>

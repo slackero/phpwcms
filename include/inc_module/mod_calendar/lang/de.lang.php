@@ -4,6 +4,7 @@
 $BLM['backend_menu']            = 'Kalender/Events';
 
 $BLM['listing_title']           = 'Kalender';
+$BLM['listing_title_overview']  = 'Kalenderübersicht';
 $BLM['create_new']              = 'Neuer Kalendereintrag';
 $BLM['calendar_entry']          = 'Kalendereintrag';
 $BLM['calendar_title']          = 'Was';
@@ -77,3 +78,6 @@ $BLM['more_info']               = '(erzeugt weiterf&uuml;hrenden Link im Fronten
 
 $BLM['repeat_till']             = 'Zeitraum';
 $BLM['till']                    = 'bis';
+
+$BLM['be_tt_edit'] = 'Termin/Event bearbeiten';
+

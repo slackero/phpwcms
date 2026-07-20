@@ -14,19 +14,23 @@ RedirectMatch 404 /phpstan\.neon
 #   php_flag magic_quotes_runtime Off
 #   php_flag register_globals Off
 
-#Sometimes necessary to add special types
-#   AddType application/x-javascript .js
-#   AddType text/css .css
-#   AddType video/ogg .ogv
-#   AddType video/ogg .ogg
-#   AddType video/mp4 .mp4
-#   AddType video/x-m4v .m4v
-#   AddType video/webm .webm
-#   AddType image/svg+xml .svg
-#   AddType application/font-woff .woff
-#   AddType application/vnd.ms-fontobject .eot
-#   AddType application/x-font-ttf .ttf
-#   AddType application/x-font-opentype .otf
+# Add charset UTF-8 for css and js files
+AddCharset UTF-8 .css .js
+
+# Add MIME types for fonts, svg and videos
+AddType application/x-javascript .js
+AddType text/css .css
+AddType video/ogg .ogv
+AddType video/ogg .ogg
+AddType video/mp4 .mp4
+AddType video/x-m4v .m4v
+AddType video/webm .webm
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+AddType application/font-woff .woff
+AddType application/vnd.ms-fontobject .eot
+AddType application/x-font-ttf .ttf
+AddType application/x-font-opentype .otf
 
 # Options:
 #   Options +FollowSymlinks

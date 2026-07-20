@@ -1,13 +1,12 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
- **/
+ * **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
@@ -18,262 +17,236 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Module/Plug-in Ads/Banner Management
 
-
-$BE['HEADER']['date.js']			= getJavaScriptSourceLink('include/inc_js/date.js');
-$BE['HEADER']['dynCalendar.js']		= getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+initJsCalendar();
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['form_title'] ?></h1>
+<h1 class="title mb-3"><?php echo $BLM['form_title'] ?></h1>
 
-<form action="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=<?php echo $plugin['data']['adcampaign_id'] ?>" method="post" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-<input type="hidden" name="adcampaign_id" value="<?php echo $plugin['data']['adcampaign_id'] ?>" />
-<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
+<div class="card">
+	<div class="card-body">
+		<form action="<?php echo MODULE_HREF ?>&amp;campaign=1&amp;edit=<?php echo $plugin['data']['adcampaign_id'] ?>" method="post">
+			<input type="hidden" name="adcampaign_id" value="<?php echo $plugin['data']['adcampaign_id'] ?>" />
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></td>
-	</tr>
+			<div class="form-group row align-items-center">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
+				<div class="col-sm-9">
+					<span class="text-muted"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_changed'], $BL['be_fprivedit_dateformat'], '')) ?></span>
+					<?php if(!empty($plugin['data']['adcampaign_created'])): ?>
+						<span class="text-muted ml-3 small">(<?php echo $BL['be_fprivedit_created'] ?>: <?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?>)</span>
+					<?php endif; ?>
+				</div>
+			</div>
 
-	<?php if(!empty($plugin['data']['adcampaign_created'])) { ?>
+			<div class="form-group row">
+				<label for="adcampaign_title" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['campaign_entry'] ?></label>
+				<div class="col-sm-9">
+					<input name="adcampaign_title" type="text" id="adcampaign_title" class="form-control form-control-sm<?php if(!empty($plugin['error']['adcampaign_title'])) echo ' is-invalid'; ?>" value="<?php echo html($plugin['data']['adcampaign_title']) ?>" maxlength="200" />
+				</div>
+			</div>
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html(phpwcms_strtotime($plugin['data']['adcampaign_created'], $BL['be_fprivedit_dateformat'], '')) ?></td>
-	</tr>
+			<div class="form-group row align-items-center">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['calendar_start'] ?></label>
+				<div class="col-sm-9">
+					<div class="d-flex flex-wrap align-items-center">
+						<div class="my-1 mr-sm-3 mb-2 mb-sm-0">
+							<div class="input-group input-group-sm datetime-picker-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_start" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_date_start" data-toggle="datetimepicker">
+									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_start" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_time_start" data-toggle="datetimepicker">
+									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								</div>
+							</div>
+						</div>
+						<div class="my-1">
+							<div class="input-group input-group-sm datetime-picker-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_end" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_date_end" data-toggle="datetimepicker">
+									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								</div>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_end" autocomplete="off" />
+								<div class="input-group-append" data-target="#adcampaign_time_end" data-toggle="datetimepicker">
+									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	<?php } ?>
+			<div class="form-group row">
+				<label for="adcampaign_format" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['ad_format'] ?></label>
+				<div class="col-sm-9">
+					<select name="adcampaign_format" id="adcampaign_format" class="custom-select form-control form-control-sm" onchange="setFormat(this.options[this.selectedIndex].value);">
+						<?php
+						$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_formats WHERE adformat_status=1';
+						$plugin['ad_formats']		= _dbQuery($sql);
+						$plugin['ad_formats_js']	= array();
+						foreach($plugin['ad_formats'] as $_entry['value']) {
+							echo '	<option value="'.$_entry['value']['adformat_id'].'"';
+							if($_entry['value']['adformat_id'] == $plugin['data']['adcampaign_format']) {
+								$plugin['data']['adcampaign_data']['width']		= $_entry['value']['adformat_width'];
+								$plugin['data']['adcampaign_data']['height']	= $_entry['value']['adformat_height'];
+								echo ' selected="selected"';
+							}
+							echo '>';
+							$_format_key = 'format_' . strtolower(str_replace(array(' ', '-'), '_', $_entry['value']['adformat_title']));
+							$_format_title = isset($BLM[$_format_key]) ? $BLM[$_format_key] : $_entry['value']['adformat_title'];
+							echo html($_format_title.' ('.$_entry['value']['adformat_width'].'x'.$_entry['value']['adformat_height'].')');
+							echo '</option>'.LF;
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+							$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ]  = '		ad_formats['.$_entry['value']['adformat_id'].'] = ';
+							$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= '["'.$_entry['value']['adformat_width'].'", "';
+							$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= $_entry['value']['adformat_height'].'"];';
+						}
+						?>
+					</select>
+				</div>
+			</div>
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['campaign_entry'] ?>:&nbsp;</td>
-		<td><input name="adcampaign_title" type="text" id="adcampaign_title" class="v12<?php
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
+					<div class="form-row align-items-center">
+						<div class="col-auto">
+							<span class="small text-muted font-weight-bold mr-1"><?php echo $BL['be_admin_page_width'] ?>:</span>
+							<input type="text" name="adcampaign_width" id="adcampaign_width" value="<?php echo $plugin['data']['adcampaign_data']['width'] ?>" class="form-control form-control-sm d-inline-block text-center" style="width: 60px;" readonly onfocus="this.blur()" />
+							<span class="small text-muted ml-1"><?php echo $BLM['pixel'] ?></span>
+						</div>
+						<div class="col-auto">
+							<span class="small text-muted font-weight-bold mx-2">/</span>
+						</div>
+						<div class="col-auto">
+							<span class="small text-muted font-weight-bold mr-1"><?php echo $BL['be_admin_page_height'] ?>:</span>
+							<input type="text" name="adcampaign_height" id="adcampaign_height" value="<?php echo $plugin['data']['adcampaign_data']['height'] ?>" class="form-control form-control-sm d-inline-block text-center" style="width: 60px;" readonly onfocus="this.blur()" />
+							<span class="small text-muted ml-1"><?php echo $BLM['pixel'] ?></span>
+						</div>
+					</div>
+					<script type="text/javascript">
+					var ad_formats = [];
+					<?php echo implode(LF, $plugin['ad_formats_js']) ?>
 
-		//error class
-		if(!empty($plugin['error']['adcampaign_title'])) echo ' errorInputText';
+					function setFormat(value) {
+						if(ad_formats[value]) {
+							getFieldById('adcampaign_width').value = ad_formats[value][0];
+							getFieldById('adcampaign_height').value = ad_formats[value][1];
+						}
+					}
+					</script>
+				</div>
+			</div>
 
-		?>" style="width:400px;" value="<?php echo html($plugin['data']['adcampaign_title']) ?>" size="30" maxlength="200" /></td>
-	</tr>
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['tracking_base'] ?></label>
+				<div class="col-sm-9">
+					<div class="form-row">
+						<div class="col-auto">
+							<div class="input-group input-group-sm">
+								<input type="number" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['max_views'] ?>" class="form-control" />
+								<div class="input-group-append">
+									<span class="input-group-text"><?php echo $BLM['max_view'] ?></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto">
+							<div class="input-group input-group-sm">
+								<input type="number" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_data']['max_click']) ? '' : $plugin['data']['adcampaign_data']['max_click'] ?>" class="form-control" />
+								<div class="input-group-append">
+									<span class="input-group-text"><?php echo $BLM['max_click'] ?></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			<div class="form-group row">
+				<label for="adcampaign_url" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['target_url'] ?></label>
+				<div class="col-sm-9">
+					<input type="text" name="adcampaign_url" id="adcampaign_url" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['url'] ?>" class="form-control form-control-sm" />
+				</div>
+			</div>
 
-	<tr>
-		<td align="right" class="chatlist" valign="top" style="padding-top:18px"><?php echo $BLM['calendar_start'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+			<div class="form-group row">
+				<label for="adcampaign_target" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['open_in'] ?></label>
+				<div class="col-sm-9">
+					<select name="adcampaign_target" id="adcampaign_target" class="custom-select form-control form-control-sm" style="max-width: 200px;">
+						<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
+						<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
+						<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>
+						<option value="_self"<?php is_selected('_self', $plugin['data']['adcampaign_data']['target']) ?>>_self</option>
+						<option value="_parent"<?php is_selected('_parent', $plugin['data']['adcampaign_data']['target']) ?>>_parent</option>
+					</select>
+				</div>
+			</div>
 
-			<tr>
-				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['date_format'] ?></td>
-				<td class="chatlist">&nbsp;</td>
-				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['time_format'] ?></td>
-				<td colspan="2">&nbsp;</td>
-			</tr>
+			<div class="form-group row">
+				<label for="adcampaign_comment" class="col-sm-3 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['comment'] ?></label>
+				<div class="col-sm-9">
+					<textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="form-control form-control-sm"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea>
+				</div>
+			</div>
 
-			<tr>
-				<td><input name="adcampaign_date_start" type="text" id="adcampaign_date_start" class="v12<?php
+			<div class="form-group row">
+				<div class="col-sm-9 offset-sm-3">
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> />
+						<label class="custom-control-label" for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label>
+					</div>
+				</div>
+			</div>
 
-		//error class
-		if(!empty($plugin['error']['adcampaign_date_start'])) echo ' errorInputText';
+			<div class="form-group row mt-4 mb-0">
+				<div class="col-sm-9 offset-sm-3">
+					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-success mr-1"><i class="fas fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;campaign=1&amp;edit=0" class="btn btn-sm btn-info mr-1"><i class="fas fa-plus-circle mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-sm btn-secondary"><i class="fas fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 
-		?>" style="width:100px;" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" size="30" /></td>
-		<td>&nbsp;</td>
-		<td><input name="adcampaign_time_start" type="text" id="adcampaign_time_start" class="v12" style="width:80px;" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" size="30" /></td>
-		<td>&nbsp;<script type="text/javascript">
-		function aStart(date, month, year) {
-			getFieldById('adcampaign_date_start').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
-
-			var timestart = getFieldById('adcampaign_time_start');
-			if(Trim(timestart.value) === '') {
-				timestart.value = '00:00';
-			}
+<script type="text/javascript">
+$(function () {
+	$('#adcampaign_date_start').datetimepicker({
+		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+		format: "DD.MM.YYYY",
+		buttons: {
+			showClose: true
 		}
-		calStart = new dynCalendar('calStart', 'aStart', 'img/dynCal/');
-		calStart.setMonthCombo(false);
-		calStart.setYearCombo(false);
-		</script></td>
+	});
 
-			</tr>
-		</table></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist" valign="top" style="padding-top:18px"><?php echo $BLM['calendar_end'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-
-			<tr>
-				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['date_format'] ?></td>
-				<td class="chatlist">&nbsp;</td>
-				<td class="chatlist" style="padding-bottom:2px"><?php echo $BLM['time_format'] ?></td>
-			</tr>
-
-			<tr>
-				<td><input name="adcampaign_date_end" type="text" id="adcampaign_date_end" class="v12<?php
-
-		//error class
-		if(!empty($plugin['error']['adcampaign_date_end'])) echo ' errorInputText';
-
-		?>" style="width:100px;" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" size="30" /></td>
-		<td>&nbsp;</td>
-		<td><input name="adcampaign_time_end" type="text" id="adcampaign_time_end" class="v12" style="width:80px;" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" size="30" /></td>
-		<td>&nbsp;<script type="text/javascript">
-		function aEnd(date, month, year) {
-			getFieldById('adcampaign_date_end').value = subrstr('00' + date, 2) + '<?php echo $BLM['date_delimiter'] ?>' + subrstr('00' + month, 2) + '<?php echo $BLM['date_delimiter'] ?>' + year;
-			var timeend = getFieldById('adcampaign_time_end');
-			if(Trim(timeend.value) === '') {
-				timeend.value = '23:59';
-			}
+	$('#adcampaign_time_start').datetimepicker({
+		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+		format: "HH:mm",
+		buttons: {
+			showClose: true
 		}
-		calEnd = new dynCalendar('calEnd', 'aEnd', 'img/dynCal/');
-		calEnd.setMonthCombo(false);
-		calEnd.setYearCombo(false);
-		</script></td>
+	});
 
-			</tr>
-		</table></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['ad_format'] ?>:&nbsp;</td>
-		<td><select name="adcampaign_format" id="adcampaign_format" class="v12" onchange="setFormat(this.options[this.selectedIndex].value);">
-
-<?php
-
-	$sql = 'SELECT * FROM '.DB_PREPEND.'phpwcms_ads_formats WHERE adformat_status=1';
-	$plugin['ad_formats']		= _dbQuery($sql);
-	$plugin['ad_formats_js']	= array();
-	foreach($plugin['ad_formats'] as $_entry['value']) {
-
-		echo '	<option value="'.$_entry['value']['adformat_id'].'"';
-		if($_entry['value']['adformat_id'] == $plugin['data']['adcampaign_format']) {
-
-			$plugin['data']['adcampaign_data']['width']		= $_entry['value']['adformat_width'];
-			$plugin['data']['adcampaign_data']['height']	= $_entry['value']['adformat_height'];
-
-			echo ' selected="selected"';
-
+	$('#adcampaign_date_end').datetimepicker({
+		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+		format: "DD.MM.YYYY",
+		buttons: {
+			showClose: true
 		}
-		echo '>';
-		echo html($_entry['value']['adformat_title'].' ('.$_entry['value']['adformat_width'].'x'.$_entry['value']['adformat_height'].')');
-		echo '</option>'.LF;
+	});
 
-		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ]  = '		ad_formats['.$_entry['value']['adformat_id'].'] = ';
-		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= '["'.$_entry['value']['adformat_width'].'", "';
-		$plugin['ad_formats_js'][ $_entry['value']['adformat_id'] ] .= $_entry['value']['adformat_height'].'"];';
-
-	}
-
-?>
-
-				</select></td>
-	</tr>
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-	<tr>
-
-		<td>&nbsp;</td>
-		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td class="chatlist"><?php echo $BL['be_admin_page_width'] ?>:&nbsp;</td>
-				<td><input type="text" name="adcampaign_width" id="adcampaign_width" value="<?php echo $plugin['data']['adcampaign_data']['width'] ?>" class="v11 disabled width45" onfocus="this.blur()" /></td>
-				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?>&nbsp;/&nbsp;<?php echo $BL['be_admin_page_height'] ?>:&nbsp;</td>
-				<td><input type="text" name="adcampaign_height" id="adcampaign_height" value="<?php echo $plugin['data']['adcampaign_data']['height'] ?>" class="v11 disabled width45" onfocus="this.blur()" /></td>
-				<td class="chatlist">&nbsp;<?php echo $BLM['pixel'] ?></td>
-			</tr>
-		</table><script type="text/javascript">
-		var ad_formats = [];
-<?php echo implode(LF, $plugin['ad_formats_js']) ?>
-
-		function setFormat(value) {
-
-			if(ad_formats[value]) {
-				getFieldById('adcampaign_width').value = ad_formats[value][0];
-				getFieldById('adcampaign_height').value = ad_formats[value][1];
-			}
-
+	$('#adcampaign_time_end').datetimepicker({
+		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
+		format: "HH:mm",
+		buttons: {
+			showClose: true
 		}
-		</script></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-	<tr>
-
-		<td align="right" class="chatlist"><?php echo $BLM['tracking_base'] ?>:&nbsp;</td>
-		<td><table summary="" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td><input type="text" name="adcampaign_max_views" id="adcampaign_max_views" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['max_views'] ?>" class="v12 width60" /></td>
-				<td class="chatlist">&nbsp;<?php echo $BLM['max_view'] ?>&nbsp;&nbsp;&nbsp;</td>
-				<td><input type="text" name="adcampaign_max_click" id="adcampaign_max_click" value="<?php echo empty($plugin['data']['adcampaign_data']['max_click']) ? '' : $plugin['data']['adcampaign_data']['max_click'] ?>" class="v12 width60" /></td>
-				<td class="chatlist">&nbsp;<?php echo $BLM['max_click'] ?></td>
-			</tr>
-		</table></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-
-	<tr>
-
-		<td align="right" class="chatlist"><?php echo $BLM['target_url'] ?>:&nbsp;</td>
-		<td><input type="text" name="adcampaign_url" id="adcampaign_url" value="<?php echo empty($plugin['data']['adcampaign_data']['max_views']) ? '' : $plugin['data']['adcampaign_data']['url'] ?>" class="v12 width400" /></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
-
-	<tr>
-
-		<td align="right" class="chatlist"><?php echo $BLM['open_in'] ?>:&nbsp;</td>
-		<td><select name="adcampaign_target" id="adcampaign_target" class="v12">
-		<option value=""<?php is_selected('', $plugin['data']['adcampaign_data']['target']) ?>>&nbsp;</option>
-		<option value="_blank"<?php is_selected('_blank', $plugin['data']['adcampaign_data']['target']) ?>>_blank</option>
-		<option value="_top"<?php is_selected('_top', $plugin['data']['adcampaign_data']['target']) ?>>_top</option>
-		<option value="_self"<?php is_selected('_self', $plugin['data']['adcampaign_data']['target']) ?>>_self</option>
-		<option value="_parent"<?php is_selected('_parent', $plugin['data']['adcampaign_data']['target']) ?>>_parent</option>
-		</select></td>
-
-	</tr>
-
-
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist" style="padding-top:4px;vertical-align:top;"><?php echo $BLM['comment'] ?>:&nbsp;</td>
-		<td colspan="2"><textarea name="adcampaign_comment" id="adcampaign_comment" rows="5" class="width400"><?php echo html($plugin['data']['adcampaign_comment']) ?></textarea></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-				<td><input type="checkbox" name="adcampaign_status" id="adcampaign_status" value="1"<?php is_checked($plugin['data']['adcampaign_status'], 1) ?> /></td>
-				<td><label for="adcampaign_status"><?php echo $BL['be_cnt_activated'] ?></label></td>
-			</tr>
-		</table></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-			<input name="submit" type="submit" class="button" value="<?php echo empty($plugin['data']['adcampaign_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&campaign=1&edit=0';return false;" />
-			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
-		</td>
-	</tr>
-
-</table>
-
-</form>
+	});
+});
+</script>

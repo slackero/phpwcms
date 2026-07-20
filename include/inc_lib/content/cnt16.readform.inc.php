@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,10 +18,10 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type E-Card
 $content['ecard']['images']     = array();
-$content["ecard"]["list"]       = $_POST["cimage_list"] ?? array();
+$content["ecard"]["list"]       = isset($_POST["cimage_list"]) ? $_POST["cimage_list"] : array();
 
-$content["ecard"]["width"]      = intval($_POST["cecard_width"])  ?: '';
-$content["ecard"]["height"]     = intval($_POST["cecard_height"]) ?: '';
+$content["ecard"]["width"]      = (intval($_POST["cecard_width"]))  ? intval($_POST["cecard_width"])  : '';
+$content["ecard"]["height"]     = (intval($_POST["cecard_height"])) ? intval($_POST["cecard_height"]) : '';
 $temp_width                     = $content["ecard"]["width"];
 $temp_height                    = $content["ecard"]["height"];
 

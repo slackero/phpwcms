@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -179,7 +178,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
             'nginx.conf', // Nginx
         );
 
-        if(str_starts_with($fileName, '.') || in_array(strtolower($fileName), $forbiddenUploadName)) {
+        if(substr($fileName, 0, 1) === '.' || in_array(strtolower($fileName), $forbiddenUploadName)) {
             $file_error["file"] = sprintf($BL['be_fprivup_err7'], $fileName);
         }
 
@@ -316,9 +315,9 @@ document.getElementById("file").onchange = function(e) {
                     }
                 }
             }
-        }
+    }
         if(iptctable !== "") {
-            iptctable = \'<table cellspacing="0" cellpadding="0" border="0" style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
+            iptctable = \'<table style="width:95%;border-top:1px solid #9BBECA;margin:3px 5px 0 0;">\' + iptctable + \'</table>\';
         }
         iptcdata.innerHTML = iptctable;
     });
@@ -326,113 +325,98 @@ document.getElementById("file").onchange = function(e) {
 </script>';
 
 ?>
+<div class="row">
+  <div class="col"><h1><?php echo $BL['be_fprivup_title'] ?></h1></div>
+  <div class="col text-right"><a href="phpwcms.php?do=files&amp;f=0"><span aria-hidden="true"><i class="fas fa-times-square fa-2x text-danger"></i></span></a></div>
+</div>
+
 <form action="phpwcms.php?do=files&amp;f=0" method="post" enctype="multipart/form-data" name="uploadfile" id="uploadfile">
-<table border="0" cellpadding="0" cellspacing="0" bgcolor="#EBF2F4" summary="">
-    <tr>
-        <td rowspan="2" valign="top"><a href="phpwcms.php?do=files&amp;f=0"><img src="img/button/close_reiter.gif" alt="" width="45" height="12" border="0" /></a></td>
-        <td><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-    </tr>
-    <tr><td class="title"><?php echo $BL['be_fprivup_title'] ?></td></tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_ftptakeover_directory'] ?>:&nbsp;</td>
-        <td class="v10"><select name="file_pid" id="file_pid" class="width400">
-            <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
-            <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
-    </select></td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1" /></td></tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+
+  <div class="form-group form-row align-items-center">
+    <label for="file_pid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_directory'] ?></label>
+    <div class="col-sm-4">
+      <select name="file_pid" id="file_pid" class="custom-select form-control form-control-sm">
+        <option value="0"><?php echo $BL['be_ftptakeover_rootdir'] ?></option>
+        <?php dir_menu(0, $file_pid, "+", $_SESSION["wcs_user_id"], "+"); ?>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group form-row align-items-center">
     <?php if(isset($file_error["upload"])) { ?>
-    <tr>
-      <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-      <td class="v10"><strong style="color:#FF3300"><?php echo $file_error["upload"] ?></strong></td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["upload"] ?></span>
     <?php }
 
     if(isset($file_error["file"])) {
-?>
-    <tr>
-      <td><img src="img/leer.gif" alt="" width="1" height="1" /></td>
-      <td class="v10"><strong style="color:#FF3300"><?php echo $file_error["file"] ?></strong></td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td></tr>
+      ?>
+      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["file"] ?></span>
     <?php } ?>
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_fprivup_upload'] ?>:&nbsp;</td>
-        <td><input name="file" type="file" id="file" size="40" /></td>
-    </tr>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
-    <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+    <label for="file" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fprivup_upload'] ?></label>
+    <div class="col-sm-4">
+      <!-- JS: input:file mitnehmen -->
+      <div class="input-group">
+        <div class="custom-file">
+          <input name="file" type="file" class="custom-file-input" id="file" />
+          <label class="custom-file-label" for="file"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+<hr />
+	<div class="form-group form-row align-items-center">
+		<label for="file_iptc_as_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
+			<div class="col form-check form-check-inline">
+				<input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
+				<label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
+			</div>
+		<div id="iptc-info"></div>
+	</div>
 
-    <tr bgcolor="#F5F8F9">
-        <td align="right" class="v09 tdtop1"><?php echo $BL['be_iptc_data'] ?>:&nbsp;</td>
-        <td>
-            <table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                    <td><input name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> /></td>
-                    <td class="v10"><label for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label></td>
-                </tr>
-            </table><div id="iptc-info"></div>
-        </td>
-    </tr>
+		<?php if(count($phpwcms['allowed_lang']) > 1): ?>
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#<?php echo $phpwcms['default_lang'] ?>"  title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" role="tab">
+          <span class="flag-icon flag-icon-<?php echo $phpwcms['default_lang'] ?>"></span> <?php echo $BL['be_admin_tmpl_default'] ?>
+        </a>
+      </li>
+        <?php foreach($phpwcms['allowed_lang'] as $lang):
+            $lang = strtolower($lang);
+            if($lang == $phpwcms['default_lang']) {
+                continue;
+            }
+        ?>
+      <li class="nav-item">
+        <a href="#<?php echo $lang ?>" data-toggle="tab" title="<?php echo get_language_name($lang) ?>" class="nav-link" role="tab">
+            <span class="flag-icon flag-icon-<?php echo $lang ?>"></span> <?php echo strtoupper($lang) ?>
+        </a>
+      </li>
+        <?php   endforeach; ?>
+    </ul>
 
-    <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-
-<?php   if(count($phpwcms['allowed_lang']) > 1): ?>
-
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
-
-    <tr>
-        <td>&nbsp;</td>
-        <td class="incell-tabs">
-
-            <a href="#" rel="<?php echo $phpwcms['default_lang'] ?>" title="<?php echo get_language_name($phpwcms['default_lang']) . ' ('.$BL['be_admin_tmpl_default'].')' ?>" class="active">
-                <img src="img/famfamfam/lang/<?php echo $phpwcms['default_lang'] ?>.png" /> <?php echo $BL['be_admin_tmpl_default'] ?>
-            </a>
-
-            <?php foreach($phpwcms['allowed_lang'] as $lang):
-
-                $lang = strtolower($lang);
-
-                if($lang == $phpwcms['default_lang']) {
-                    continue;
-                }
-
-            ?>
-
-            <a href="#" rel="<?php echo $lang ?>" title="<?php echo get_language_name($lang) ?>">
-                <img src="img/famfamfam/lang/<?php echo $lang ?>.png" /> <?php echo strtoupper($lang) ?>
-            </a>
-
-            <?php   endforeach; ?>
-
-        </td>
-    </tr>
+<div class="tab-content mt-4">
 
 <?php   endif; ?>
 
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_attr_title'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_title" type="text" id="file_title" size="40" class="width400" maxlength="1000" value="<?php echo html($file_title) ?>" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo" cols="40" rows="4" class="width400 autosize" id="file_longinfo"><?php echo html($file_longinfo) ?></textarea></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_copyright" type="text" id="file_copyright" size="40" class="width400" maxlength="1000" value="<?php echo html($file_copyright) ?>" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $phpwcms['default_lang'] ?>">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
-        <td><input name="file_alt" type="text" id="file_alt" size="40" class="width400" maxlength="1000" value="<?php echo html($file_alt) ?>" /></td>
-    </tr>
+    <div class="tab-pane active" id="<?php echo $phpwcms['default_lang'] ?>" role="tabpanel">
+      <div class="form-group form-row align-items-center">
+        <label for="file_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+        <div class="col"><input name="file_title" type="text" id="file_title" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_title) ?>" /></div>
+      </div>
 
+      <div class="form-group form-row">
+          <label for="file_longinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+          <div class="col"><textarea name="file_longinfo" cols="40" rows="4" class="form-control form-control-sm autosize" id="file_longinfo"><?php echo html($file_longinfo) ?></textarea></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+        <label for="file_copyright" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+        <div class="col"><input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_copyright) ?>" /></div>
+      </div>
+      <div class="form-group form-row align-items-center">
+        <label for="file_alt" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+        <div class="col"><input name="file_alt" type="text" id="file_alt" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_alt) ?>" /></div>
+      </div>
+    </div>
 
 <?php   if(count($phpwcms['allowed_lang']) > 1):
 
@@ -465,33 +449,29 @@ document.getElementById("file").onchange = function(e) {
                 }
 
 ?>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_attr_title'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['title']) ?>" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" valign="top" class="v09 tdtop5"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_description'] ?>:&nbsp;</td>
-        <td valign="top" class="tdbottom2"><textarea name="file_longinfo_<?php echo $lang ?>" cols="40" rows="4" class="width400 autosize" id="file_longinfo_<?php echo $lang ?>"><?php echo html($file_vars[$lang]['longinfo']) ?></textarea></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_copyright'] ?>:&nbsp;</td>
-        <td class="tdbottom2"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['copyright']) ?>" /></td>
-    </tr>
-    <tr class="tab-content finfo<?php echo $lang ?>" style="display:none">
-        <td align="right" class="v09"><?php echo $BL['be_attr_alt'] ?>:&nbsp;</td>
-        <td><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" size="40" class="width400" maxlength="1000" value="<?php echo html($file_vars[$lang]['alt']) ?>" /></td>
-    </tr>
 
+<div class="tab-pane" id="<?php echo $lang ?>" role="tabpanel">
+  <div class="form-group form-row align-items-center">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_title'] ?></label>
+      <div class="col"><input name="file_title_<?php echo $lang ?>" type="text" id="file_title_<?php echo $lang ?>"  class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['title']) ?>" /></div>
+  </div>
+  <div class="form-group form-row">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+      <div class="col"><textarea name="file_longinfo_<?php echo $lang ?>" rows="4" class="form-control form-control-sm autosize" id="file_longinfo_<?php echo $lang ?>"><?php echo html($file_vars[$lang]['longinfo']) ?></textarea></div>
+  </div>
+  <div class="form-group form-row align-items-center">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_copyright'] ?></label>
+      <div class="col"><input name="file_copyright_<?php echo $lang ?>" type="text" id="file_copyright_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['copyright']) ?>" /></div>
+  </div>
+  <div class="form-group form-row align-items-center">
+      <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_attr_alt'] ?></label>
+      <div class="col"><input name="file_alt_<?php echo $lang ?>" type="text" id="file_alt_<?php echo $lang ?>" class="form-control form-control-sm" maxlength="1000" value="<?php echo html($file_vars[$lang]['alt']) ?>" /></div>
+  </div>
+</div>
 
 <?php       endforeach;
+        echo '</div>';
         endif;
-?>
-
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="2" valign="top"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
-    <tr bgcolor="#F5F8F9"><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-
-    <?php
 
     //Auswahlliste vordefinierte Keywörter
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
@@ -502,10 +482,10 @@ document.getElementById("file").onchange = function(e) {
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
-                $k .= "<tr><td class=\"f10b\">";
+                $k .= "<tr><td>";
                 $k .= isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
                 $k .= html($row["fcat_name"]).":&nbsp;</td>";
-                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"width300\">";
+                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"custom-select form-control\">";
                 $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>";
 
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
@@ -517,101 +497,100 @@ document.getElementById("file").onchange = function(e) {
                         $k .= ">".html($krow["fkey_name"])."</option>\n";
                     }
                 }
-
                 $k .= "</select></td></tr>";
-                $k .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"2\"></td>\n</tr>";
-
             }
         }
     }
-
     ?>
-    <tr bgcolor="#F5F8F9">
-        <td align="right" valign="top" class="v09 tdtop1"><?php echo $BL['be_ftptakeover_keywords'] ?>:&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <?php echo $k; ?>
-        <tr>
-            <td class="f10b"><?php echo $BL['be_ftptakeover_additional'] ?>:&nbsp;</td>
-            <td><input name="file_shortinfo" type="text" class="width300" id="file_shortinfo" value="<?php echo html($file_shortinfo) ?>" size="40" maxlength="750"></td>
-        </tr>
-        </table></td>
-    </tr>
+		<hr />
+    <legend><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
+    <?php echo $k; ?>
 
-    <tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3" /></td></tr>
+    <div class="form-group form-row align-items-center">
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
+      <div class="col">
+     		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo) ?>" maxlength="750">
+      </div>
+    </div>
 
-    <tr bgcolor="#F5F8F9">
-        <td align="right" class="v09">&nbsp;<?php echo $BL['be_tags'] ?>:&nbsp;</td>
-        <td><input type="text" id="file_tags_autosuggest" /><input name="file_tags" type="hidden" id="file_tags" value="<?php echo html($file_tags) ?>" /></td>
-    </tr>
+    <div class="form-group form-row align-items-center">
+      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+      <div class="col">
+     	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+     	<input name="file_tags" type="hidden" id="file_tags" value="" />
+      </div>
+    </div>
 
-    <tr bgcolor="#F5F8F9"><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="2"><img src="img/lines/line-bluelight.gif" alt="" width="538" height="1"></td></tr>
+    <div class="form-group form-row align-items-center">
+      <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+      <div class="col-auto">
+     	<input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort) ?>" />
+      </div>
+    </div>
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+    <div class="form-group form-row align-items-center">
+    	<label for="file_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
+    	<div class="form-check form-check-inline">
+				<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> />
+				<label class="form-check-label" for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
+			</div>
+    	<div class="form-check form-check-inline">
+				<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> />
+				<label class="form-check-label" for="file_public">
+				<?php echo $BL['be_ftptakeover_public'] ?>
+				</label>
+			</div>
+    	<div class="form-check-inline">
+				<input class="form-check-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?> />
+        <label class="form-check-label" for="file_granted">
+					<?php echo $BL['be_granted_download'] ?>
+				</label>
+			</div>
+    	<div class="form-check form-check-inline">
+				<input class="form-check-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1" <?php is_checked(1, $file_gallerydownload) ?> />
+				<label class="form-check-label" for="file_gallerydownload">
+				<?php echo $BL['be_gallerydownload'] ?>
+			</label>
+			</div>
+    </div>
 
-    <tr>
-        <td align="right" class="v09">&nbsp;<?php echo $BL['be_cnt_sorting'] ?>:&nbsp;</td>
-        <td><input name="file_sort" type="text" id="file_sort" size="10" class="width50" maxlength="10" value="<?php echo intval($file_sort) ?>" /></td>
-    </tr>
+		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php
+			if(ini_get('post_max_size')) {
+					$post_max_size = return_bytes(ini_get('post_max_size'));
+					if($post_max_size < $phpwcms['file_maxsize']) {
+							$phpwcms['file_maxsize'] = $post_max_size;
+					}
+			} else {
+					$post_max_size = $phpwcms['file_maxsize'];
+			}
+			if(ini_get('upload_max_filesize')) {
+					$upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
+					if($upload_max_filesize < $phpwcms['file_maxsize']) {
+							$phpwcms['file_maxsize'] = $upload_max_filesize;
+					}
+			} else {
+					$upload_max_filesize = $phpwcms['file_maxsize'];
+			}
 
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+			echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+    ?>" />
 
-    <tr>
-        <td align="right" class="v09 tdtop3"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr>
-            <td><input name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> /></td>
-            <td class="v10"><strong><label for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-
-            <td><input name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?>></td>
-            <td class="v10"><label for="file_granted"><?php echo $BL['be_granted_download'] ?></label></td>
-        </tr>
-        <tr>
-            <td><input name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> /></td>
-            <td class="v10"><strong><label for="file_public"><?php echo $BL['be_ftptakeover_public'] ?></label></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-
-            <td><input name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload) ?>></td>
-            <td class="v10"><label for="file_gallerydownload"><?php echo $BL['be_gallerydownload'] ?></label></td>
-        </tr>
-        </table></td>
-    </tr>
-
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-    <tr>
-        <td valign="top"><input name="file_aktion" type="hidden" id="file_aktion" value="1" />
-            <input type="hidden" name="MAX_FILE_SIZE" value="<?php
-
-            if(ini_get('post_max_size')) {
-                $post_max_size = return_bytes(ini_get('post_max_size'));
-                if($post_max_size < $phpwcms['file_maxsize']) {
-                    $phpwcms['file_maxsize'] = $post_max_size;
-                }
-            } else {
-                $post_max_size = $phpwcms['file_maxsize'];
-            }
-            if(ini_get('upload_max_filesize')) {
-                $upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
-                if($upload_max_filesize < $phpwcms['file_maxsize']) {
-                    $phpwcms['file_maxsize'] = $upload_max_filesize;
-                }
-            } else {
-                $upload_max_filesize = $phpwcms['file_maxsize'];
-            }
-
-            echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
-
-        ?>" /></td>
-        <td>
-            <input name="Submit" type="submit" class="button" value="<?php echo $BL['be_fprivup_button'] ?>" />
-            <input type="button" class="button" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
-        </td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-    <tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-</table>
+    <div class="form-group form-row align-items-center mt-3">
+    	<span class="col-sm-2 col-form-label"></span>
+    	<div class="col text-center text-sm-left">
+				<input name="Submit" type="submit" class="btn btn-blue btn-sm mr-1" value="<?php echo $BL['be_fprivup_button'] ?>" />
+				<input type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+			</div>
+		</div>
 </form>
+
 <script type="text/javascript">
+
+$('input:file').change(
+  function(e){
+    $("label[for='file']").text(e.target.files[0].name);
+});
 
 $(function(){
 
@@ -620,7 +599,7 @@ $(function(){
         selectedValuesProp: 'cat_name',
         searchObjProps: "cat_name",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         preFill: $("#file_tags").val(),
         neverSubmit: true,

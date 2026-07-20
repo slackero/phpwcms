@@ -1,18 +1,18 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-$phpwcms = ['SESSION_START' => true];
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+$phpwcms = array('SESSION_START' => true);
+$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
+
+require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
+require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -26,16 +26,16 @@ $new_fileId = 0;
 
 $ftp = array(
     'error' => 0,
-    'mark' => $_POST["ftp_mark"] ?? false,
-    'file' => $_POST["ftp_file"] ?? false,
-    'filename' => $_POST["ftp_filename"] ?? false
+    'mark' => isset($_POST["ftp_mark"]) ? $_POST["ftp_mark"] : false,
+    'file' => isset($_POST["ftp_file"]) ? $_POST["ftp_file"] : false,
+    'filename' => isset($_POST["ftp_filename"]) ? $_POST["ftp_filename"] : false
 );
 
 if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     foreach($ftp["mark"] as $key => $value) {
         if(intval($ftp["mark"][$key])) {
             $ftp["file"][$key] = base64_decode($ftp["file"][$key]);
-            if (str_starts_with($ftp["file"][$key], '.') || str_contains($ftp["file"][$key], '/') || str_contains($ftp["file"][$key], "\\") || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
+            if (substr($ftp["file"][$key], 0, 1) === '.' || strpos($ftp["file"][$key], '/') !== false || strpos($ftp["file"][$key], "\\") !== false || !is_file(PHPWCMS_ROOT.$phpwcms["ftp_path"].$ftp["file"][$key])) {
                 unset(
                     $ftp["mark"][$key],
                     $ftp["file"][$key],
@@ -108,7 +108,7 @@ if(!$ftp["error"]) {
     $ftp['long_info']   = slweg($_POST['file_longinfo']);
     $ftp['copyright']   = slweg($_POST['file_copyright']);
     $ftp['tags']        = trim( trim( clean_slweg($_POST['file_tags']), ',') );
-    $ftp['keywords']    = $_POST['file_keywords'] ?? array();
+    $ftp['keywords']    = isset($_POST['file_keywords']) ? $_POST['file_keywords'] : array();
     $ftp['keys']        = '';
     $ftp['file_vars']   = array();
 
@@ -136,7 +136,7 @@ if(!$ftp["error"]) {
                 'alt' => ''
             );
 
-            if($phpwcms['default_lang'] == $lang) {
+            if($phpwcms['default_lang'] === $lang) {
                 $ftp['file_vars'][$lang]['longinfo'] = $ftp["long_info"];
                 $ftp['file_vars'][$lang]['copyright'] = $ftp["copyright"];
                 $ftp['file_vars'][$lang]['title'] = $ftp["title"];
@@ -161,7 +161,7 @@ if(!$ftp["error"]) {
     if ($ftp['dir_new']) {
         if ($ftp['dir']) {
             $where = 'f_kid=0 AND f_trash=0 AND f_id=' . $ftp['dir'];
-            if(empty($_SESSION["wcs_user_admin"])) {
+            if(!has_admin_permission('filecent') && !has_admin_permission('fileupload')) {
                 $where .= ' AND f_uid='.intval($_SESSION["wcs_user_id"]);
             }
             $target_dir = _dbGet('phpwcms_file', '*', $where, '', '', 1);

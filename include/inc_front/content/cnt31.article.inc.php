@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,7 +22,7 @@ if (!defined('PHPWCMS_ROOT')) {
 //images (gallery)
 
 $image  = @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
-$crow['acontent_template_listmode'] = !empty($crow['acontent_template_listmode']);
+$crow['acontent_template_listmode'] = empty($crow['acontent_template_listmode']) ? false : true;
 if(empty($image['fieldgroup'])) {
     $image['fieldgroup'] = '';
 }
@@ -134,6 +133,10 @@ if($image['template']) {
         $col    = 0;
 
         foreach($image['images'] as $key => $value) {
+            // Do not show inactive images
+            if (isset($value['active']) && !$value['active']) {
+                continue;
+            }
 
             $thumb_image        = false;
             $zoominfo           = false;
@@ -402,7 +405,7 @@ if($image['template']) {
 
             if($image['custom_tab_fields']) {
                 foreach($image['custom_tab_fields'] as $custom_field_key) {
-                    $custom_field_value = $value['custom_fields'][$custom_field_key] ?? '';
+                    $custom_field_value = isset($value['custom_fields'][$custom_field_key]) ? $value['custom_fields'][$custom_field_key] : '';
                     $custom_field_replacer = 'IMGSPCL_'.strtoupper($custom_field_key);
 
                     if($custom_field_value === '') {
@@ -422,7 +425,7 @@ if($image['template']) {
                             $img_a = render_cnt_template($img_a, $custom_field_replacer, html($custom_field_value));
 
                             // render option specific replacers
-                            if(str_contains($img_a, $custom_field_replacer . '_')) {
+                            if(strpos($img_a, $custom_field_replacer.'_') !== false) {
                                 foreach($image['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
                                     if($custom_field_value === $option_key) {
                                         $img_a = render_cnt_template($img_a, $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));
@@ -439,12 +442,12 @@ if($image['template']) {
 
                     } elseif($image['fieldgroup'][$custom_field_key]['type'] === 'file') {
 
-                        $_preserve_acontent_html = $crow['acontent_html'];
                         $news['files_result'] = '';
 
                         if(!empty($custom_field_value['id'])) {
 
                             $IS_NEWS_CP = true;
+                            $_crow = $crow; // temporary save
 
                             if (!is_array($value)) {
                                 $value = array();
@@ -462,13 +465,12 @@ if($image['template']) {
                             // include content part files renderer
                             include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-                            unset($IS_NEWS_CP);
+                            $crow = $_crow;
+                            unset($IS_NEWS_CP, $_crow);
 
                         }
 
                         $img_a = render_cnt_template($img_a, $custom_field_replacer, $news['files_result']);
-                        $crow['acontent_html'] = $_preserve_acontent_html;
-                        unset($_preserve_acontent_html);
 
                     } elseif(isset($image['fieldgroup'][$custom_field_key]['render']) && in_array($image['fieldgroup'][$custom_field_key]['render'], $image['field_render'])) {
 

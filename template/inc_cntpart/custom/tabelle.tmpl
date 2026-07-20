@@ -1,0 +1,91 @@
+<!--CUSTOM_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+; settings will overwrite CP settings
+;width          = 100
+;height         = 100
+width_zoom     = 200
+height_zoom    = 180
+col            = 3
+;space          = 10
+;zoom           = 1
+;lightbox       = 1
+;nocaption      = 0
+thumb_class    = img-responsive
+; 0 = no center, 1 = horizontal/vertical, 2 = horizontal, 3 = vertical
+;center         = 2
+crop           = 0
+crop_zoom      = 0
+;fx1            = 0
+;fx2            = 0
+;fx3            = 0
+; InfoText render: plain, text, html, markdown, textile
+text_render = plain
+<!--CUSTOM_SETTINGS_END//-->
+
+<!--CUSTOM_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3>{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+
+[TEXT]{TEXT}[/TEXT]
+
+  <table class="table" id="images{ID}">
+<!--CUSTOM_HEADER_END//-->
+
+
+<!--CUSTOM_ENTRY_START//-->
+<tr>
+<td>[CUSTCTP_IMAGE1]{CUSTCTP_IMAGE1}[/CUSTCTP_IMAGE1]</td>
+<td>[CUSTCTP_STRING1]{CUSTCTP_STRING1}[/CUSTCTP_STRING1]</td>
+<td>[CUSTCTP_STRING2]{CUSTCTP_STRING2}[/CUSTCTP_STRING2]</td>
+<td>[CUSTCTP_STRING3]{CUSTCTP_STRING3}[/CUSTCTP_STRING3]</td>
+<td>[CUSTCTP_TEXTAREA1]{CUSTCTP_TEXTAREA1}[/CUSTCTP_TEXTAREA1]</td>
+<td>[CUSTCTP_WYSIWYG1]{CUSTCTP_WYSIWYG1}[/CUSTCTP_WYSIWYG1][CUSTCTP_WYSIWYG1_ELSE]<!--nada-->[/CUSTCTP_WYSIWYG1_ELSE]</td>
+</tr>
+<!--CUSTOM_ENTRY_END//-->
+
+
+<!--CUSTOM_ENTRY_SPACER_START//-->
+
+    <!-- space between images {SPACE}px -->
+
+<!--CUSTOM_ENTRY_SPACER_END//-->
+
+
+<!--CUSTOM_ROW_SPACER_START//-->
+
+    <!-- space between image rows {SPACE}px -->
+
+<!--CUSTOM_ROW_SPACER_END//-->
+
+
+<!--CUSTOM_FOOTER_START//-->
+
+  </table>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--CUSTOM_FOOTER_END//-->
+
+
+Thumbnail image: {THUMB_NAME}
+  ID/Hash/Ext:      {THUMB_ID}/{THUMB_HASH}/{THUMB_EXT}
+  relative:         {THUMB_REL}
+  absolute:         {THUMB_ABS}
+  height/width:     {THUMB_HEIGHT}px/{THUMB_WIDTH}px
+  height/width max: {THUMB_HEIGHT_MAX}px/{THUMB_WIDTH_MAX}px
+  columns:          {THUMB_COLUMNS}
+
+If you are not sure wrap zoomed image:
+[ZOOM]
+Zoomed (big) image: {IMAGE_NAME}
+  ID/Hash/Ext:      {IMAGE_ID}/{IMAGE_HASH}/{IMAGE_EXT}
+  relative:         {IMAGE_REL}
+  absolute:         {IMAGE_ABS}
+  height/width:     {IMAGE_HEIGHT}px/{IMAGE_WIDTH}px
+[/ZOOM]
+
+Image URL: {IMAGE_URL}, Target: {IMAGE_TARGET}
+
+Custom Fields
+[CUSTCTP_xxxx]{CUSTCTP_xxxx}[/CUSTCTP_xxxx]

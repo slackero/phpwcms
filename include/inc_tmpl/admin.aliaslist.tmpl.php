@@ -1,76 +1,102 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
-
-
-echo '<h1 class="title">', $BL['be_alias'], '</h1>'; //' ('.$BL['be_ftptakeover_active'].
-
-// now retrieve all articles
-$sql  = '(';
-$sql .=	"	SELECT article_id AS id, article_title AS title, article_alias AS alias, ";
-$sql .= "	UNIX_TIMESTAMP(article_tstamp) AS timestamp, 'article' AS type, article_aktiv AS active, ";
-$sql .= "	IF(article_begin < NOW() AND (article_end IS NULL OR article_end > NOW()), 0, 1) AS hidden, '' AS struct";
-$sql .= "	FROM ".DB_PREPEND."phpwcms_article WHERE article_deleted=0";
-$sql .= ') UNION (';
-$sql .=	"	SELECT acat_id AS id, acat_name AS title, acat_alias AS alias, ";
-$sql .= "	UNIX_TIMESTAMP(acat_tstamp) AS timestamp, 'category' AS type, acat_aktiv AS active, ";
-$sql .= "	acat_hidden AS hidden, acat_struct AS struct";
-$sql .= "	FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
-$sql .= "	acat_trash=0";
-$sql .= ') ';
-$sql .= "ORDER BY alias";
-
-$result = _dbQuery($sql);
-
 ?>
 
-<table width="100%" border="0" cellpadding="0" cellspacing="0" class="listing" summary="">
-
-	<tr class="header">
-		<th class="column news"><?php echo $BL['be_alias'] ?></th>
-		<th class="column">&nbsp;&nbsp;&nbsp;ID&nbsp;</th>
-		<th class="column"><?php echo $BL['be_newsletter_changed'] ?></th>
-		<th class="column collast"> </th>
-	</tr>
+<h1 class="text-center text-sm-left"><?php echo $BL['be_alias'] ?></h1>
+<div class="card mb-2">
+  <div class="card-header"><h2><?php echo $BL['be_article_urlalias'] ?> <?php echo $BL['be_ftptakeover_active'] ?></h2></div>
+  <div class="card-body">
 
 <?php
+// now retrieve all structur items
+$sql  = "SELECT *, DATE_FORMAT(acat_tstamp, '%Y-%m-%d') AS acat_timestamp ";
+$sql .= "FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+$sql .= "acat_public=1 AND acat_aktiv=1 AND acat_trash=0 ";
+$sql .= "ORDER BY acat_alias";
 
-foreach($result as $key => $data) {
+$result = _dbQuery($sql);
+if(isset($result[0]['acat_id'])) {
+  $x = 0;
+  echo '<form action="" method="post" name="editstructur">';
+   echo '<table class="table table-sm table-hover mb-0">';
 
-	echo '<tr class="row', ($key%2?' alt': ''), '" title="';
-	if($data["type"] === 'article') {
-		echo $BL['be_cnt_articles'];
-		$data['link'] = 'articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id='.$data["id"];
-		$data['icon'] = empty($data["hidden"]) ? 'page_6.gif' : 'page_3.gif';
-	} else { // category
-		echo $BL['be_cnt_sitelevel'];
-		$data['link'] = 'admin&amp;p=6&amp;struct='.$data["struct"].'&amp;cat='.$data["id"];
-		$data['icon'] = empty($data["hidden"]) ? 'page_1.gif' : 'page_7.gif';
-	}
-	echo ': ', html($data["title"]), ' [ID:', $data["id"], ']">';
-   	echo '<td width="80%" class="colfirst" style="background-image:url(img/symbole/', $data['icon'], ')">';
-   	echo (empty($data["alias"]) ? '-' : html($data["alias"])), "&nbsp;</td>";
-	echo '<td align="right">', $data["id"], "&nbsp;</td>";
-	echo '<td class="nowrap">', date($BL['default_date'], $data["timestamp"]), "</td>";
-	echo '<td align="right" width="30"><a href="phpwcms.php?do=', $data['link'], '">';
-	echo '<img src="img/button/edit_22x13.gif" alt="" border="0" height="13" width="22" /></a></td></tr>';
+  foreach($result as $data) {
 
+    // now add article URL
+    echo '<tr>';
+    echo '<td>';
+    echo '<div class="btn btn-sm '.(empty($data["acat_alias"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
+    echo '<div class="btn btn-sm '.(empty($data["acat_pagetitle"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_pagetitle'].'">T</div>';
+
+    $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_template WHERE template_trash=0 AND template_id = " . $data["acat_template"];
+    $content['current_template'] = _dbGet('phpwcms_template', '*', 'template_trash=0 AND template_id='._dbEscape($data["acat_template"]), '', '', 1);
+    echo '<span class="ml-2">' . $content['current_template'][0]['template_name'] . ' | ' . '</span>';
+    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'">'.(empty($data["acat_alias"]) ? 'no alias' : html_specialchars($data["acat_alias"]) ).'</a>';
+	  echo '</td >';
+
+		echo '<td class="text-right">';
+    echo '<a href="phpwcms.php?do=articles&p=6&struct=0&cat='.$data["acat_id"].'" class="btn btn-sm btn-blue float-right" title="'.$BL['be_func_struct_sedit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+    echo "</td>" . LF;
+    echo '</tr>';
+    $x++;
+  }
+	echo '</table>';
+  echo '</form>';
 }
+?>
+  </div>
+</div>
 
+<div class="card mt-4">
+  <div class="card-header"><h2><?php echo $BL['be_acat_urlalias'] ?> <?php echo $BL['be_ftptakeover_active'] ?></h2></div>
+  <div class="card-body">
+  <?php
+// now retrieve all articles
+$sql  = "SELECT *, DATE_FORMAT(article_tstamp, '%Y-%m-%d') AS article_timestamp ";
+$sql .= "FROM ".DB_PREPEND."phpwcms_article WHERE ";
+$sql .= "article_public=1 AND article_aktiv=1 AND article_deleted=0 ";
+$sql .= "ORDER BY article_alias";
+
+$result = _dbQuery($sql);
+if(isset($result[0]['article_id'])) {
+  $x = 0;
+  echo '<form action="" method="post" name="editartikel">';
+  echo '<table class="table table-sm table-hover mb-0">';
+  foreach($result as $data) {
+
+    // now add article URL
+    echo '<tr>';
+    echo '<td>';
+    echo '<div class="btn btn-sm '.(empty($data["article_alias"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_acat_alias'].'">A</div>';
+    echo '<div class="btn btn-sm '.(empty($data["article_description"]) ? "btn-danger" : "btn-success").' mr-1 py-0" data-toggle="tooltip" title="'.$BL['be_article_description'].'">D</div>';
+    echo '<a class="ml-2" href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'">'.(empty($data["article_alias"]) ? 'no alias' : html_specialchars($data["article_alias"]) ).'</a>';
+    echo '</td >';
+
+		echo '<td class="text-right">';
+    echo '<a href="phpwcms.php?do=articles&p=2&s=1&id='.$data["article_id"].'" class="btn btn-sm btn-blue" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip"><i class="fa fa-pencil-alt"></i></a>';
+    echo "</td>" . LF;
+    echo '</tr>';
+    $x++;
+  }
+  echo '</table>';
+  echo '</form>';
+}
 ?>
 
-</table>
+  </div>
+</div>
+

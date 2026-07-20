@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -68,6 +67,7 @@ if($acat_id) {
         $acat_canonical     = $row_acat['acat_canonical'];
         $acat_breadcrumb    = intval($row_acat['acat_breadcrumb']);
         $acat_onepage       = empty($row_acat['acat_onepage']) ? 0 : 1;
+        $acat_struct        = $row_acat['acat_struct'];
 
     }
 

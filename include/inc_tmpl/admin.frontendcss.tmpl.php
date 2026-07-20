@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -22,7 +21,7 @@ $frontend_css = ($frontend_css) ? html($frontend_css) : "";
 
 ?><form action="include/inc_act/act_frontendcss.php" method="post" name="css" target="_self">
 
-    <table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+    <table width="538">
 
         <tr>
           <td colspan="2" class="title"><?php echo $BL['be_admin_css_title'] ?></td>

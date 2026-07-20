@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -30,33 +29,26 @@ $wcs_content_type = array(
     15 => $BL['be_ctype_articlemenu'],
      9 => $BL['be_ctype_multimedia'],
      7 => $BL['be_ctype_filelist'],
-    16 => $BL['be_ctype_ecard'],
+    //16 => $BL['be_ctype_ecard'],
     23 => $BL['be_ctype_simpleform'],
-    10 => $BL['be_ctype_emailform'],
+    //10 => $BL['be_ctype_emailform'].' [old]',
     12 => $BL['be_ctype_newsletter'],
     13 => $BL['be_ctype_search'],
-    18 => $BL['be_ctype_guestbook'],
+    //18 => $BL['be_ctype_guestbook'],
     19 => $BL['be_ctype_sitemap'],
     21 => $BL['be_ctype_pages'],
     22 => $BL['be_ctype_rssfeed'],
-    50 => $BL['be_ctype_reference'],
+    //50 => $BL['be_ctype_reference'],
     51 => $BL['be_ctype_map'],
     52 => $BL['be_ctype_phpvar'],
     24 => $BL['be_ctype_alias'],
-    89 => $BL['be_ctype_poll'], // jens poll
-    26 => $BL['be_ctype_recipe'],
-    27 => $BL['be_ctype_faq'],
+    //89 => $BL['be_ctype_poll'], // jens poll
+    //26 => $BL['be_ctype_recipe'],
+    //27 => $BL['be_ctype_faq'],
     28 => $BL['be_ctype_felogin'],
-    25 => $BL['be_ctype_flashplayer']
+    25 => $BL['be_ctype_flashplayer'],
+    60 => $BL['be_ctype_custom'] //custom contentpart
 );
-
-// remove deprecated content types if disabled
-if (empty($phpwcms['enable_deprecated'])) {
-    unset(
-        $wcs_content_type[9], // multimedia
-        $wcs_content_type[10], // emailform
-    );
-}
 
 // set module content parts = 30
 if(count($phpwcms['modules'])) {

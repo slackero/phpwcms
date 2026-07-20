@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,11 +22,11 @@ $cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
 $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
 
-$row["acontent_form"] = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
 unset($row['acontent_form']['tabwysiwygoff'], $row['acontent_form']['tab_fieldgroup']);
 
 if($cinfo["result"] || count($row["acontent_form"])) {
-	echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+	echo "<div class=\"col-sm-auto\">";
 	echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article["article_id"].'&amp;acid='.$row["acontent_id"].'">';
 	echo $cinfo["result"];
 
@@ -40,5 +39,5 @@ if($cinfo["result"] || count($row["acontent_form"])) {
 
 	}
 
-	echo "</a></td><td>&nbsp;</td></tr>";
+	echo "</a></div>";
 }

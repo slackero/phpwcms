@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -47,9 +46,9 @@ foreach($cinfo as $value) {
 }
 $cinfo["result"] = str_replace("\n", " / ", html(trim($cinfo["result"])));
 if($cinfo["result"] || $cinfo_image) { //Zeige Inhaltinfo
-    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+    echo "<div class=\"col-sm-auto\">";
     echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
     echo $cinfo["result"];
     if($cinfo["result"] && $cinfo_image) echo "<br />";
-    echo $cinfo_image."</a></td><td>&nbsp;</td></tr>";
+    echo $cinfo_image."</a></div>";
 }

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -40,7 +39,7 @@ $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'AT
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'TITLE', html($crow['acontent_title']));
 $crow["acontent_template"] = render_cnt_template($crow["acontent_template"], 'SUBTITLE', html($crow['acontent_subtitle']));
 
-$crow['custom_fields'] = empty($crow["acontent_form"]) ? null : @unserialize($crow["acontent_form"]);
+$crow['custom_fields'] = empty($crow["acontent_form"]) ? null : @unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields'])) {
 
@@ -57,7 +56,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 
     if($crow['custom_cnt_fields'] && isset($crow['fieldgroup'])) {
         foreach($crow['custom_cnt_fields'] as $custom_field_key) {
-			$custom_field_value = $crow['custom_fields'][$custom_field_key] ?? '';
+			$custom_field_value = isset($crow['custom_fields'][$custom_field_key]) ? $crow['custom_fields'][$custom_field_key] : '';
 			$custom_field_replacer = 'WYSIWYG_'.strtoupper($custom_field_key);
 
 			if($custom_field_value === '') {
@@ -77,7 +76,7 @@ if(is_array($crow['custom_fields']) && !empty($crow["custom_fields"]['cnt_fields
 					$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer, html($custom_field_value));
 
 					// render option specific replacers
-					if(str_contains($crow["acontent_template"], $custom_field_replacer . '_')) {
+					if(strpos($crow["acontent_template"], $custom_field_replacer.'_') !== false) {
 						foreach($crow['fieldgroup'][$custom_field_key]['values'] as $option_key => $option_label) {
 							if($custom_field_value === $option_key) {
 								$crow["acontent_template"] = render_cnt_template($crow["acontent_template"], $custom_field_replacer.'_'.strtoupper($option_key), html($option_key));

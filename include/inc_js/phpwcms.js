@@ -1,15 +1,18 @@
 /*!
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  */
 
-var imageBrowser, uploadWin, temp_url;
+function toggle_visibility(classstr) {
+    const e = document.getElementByClass(classstr);
+    e.style.display = e.style.display === 'block' ? 'none' : 'block';
+}
 
+var imageBrowser, uploadWin, temp_url;
 function login(fval) {
     if (fval.json.value == '2') {
         fval.customlang.value = 1;
@@ -25,48 +28,221 @@ function login(fval) {
         return false;
     }
 }
-
-function MM_findObj(n, d) { //v4.01
-    var p, i, x;
-    if (!d) d = document;
-    if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
-        d = parent.frames[n.substring(p + 1)].document;
-        n = n.substring(0, p);
-    }
-    if (!(x = d[n]) && d.all) x = d.all[n];
-    for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
-    for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
-    if (!x && d.getElementById) x = d.getElementById(n);
-    return x;
+function MM_findObj(n, d) {
+    const el = $('#' + n, d || document);
+    return el.length ? el[0] : null;
 }
 
-function MM_swapImage() { //v3.0
-    var i, j = 0, x, a = MM_swapImage.arguments;
+function MM_swapImage() {
+    const args = arguments;
     document.MM_sr = [];
-    for (i = 0; i < (a.length - 2); i += 3) {
-        if ((x = MM_findObj(a[i])) != null) {
-            document.MM_sr[j++] = x;
-            if (!x.oSrc) x.oSrc = x.src;
-            x.src = a[i + 2];
+    for (let i = 0; i < (args.length - 2); i += 3) {
+        const el = $('#' + args[i]);
+        if (el.length) {
+            document.MM_sr.push(el[0]);
+            if (!el.data('oSrc')) {
+                el.data('oSrc', el.attr('src'));
+            }
+            el.attr('src', args[i + 2]);
         }
     }
 }
 
-function clearText(thefield) {
-    if (thefield.defaultValue == thefield.value) {
-        thefield.value = '';
+function bsConfirm(confirmType, message, callback, customConfirmText, customCancelText) {
+    if (window.parent && window.parent !== window && typeof window.parent.bsConfirm === 'function') {
+        window.parent.bsConfirm(confirmType, message, callback, customConfirmText, customCancelText);
+        return;
     }
+
+    const modalId = 'bootstrapConfirmModal';
+    let $modal = $('#' + modalId);
+    if ($modal.length === 0) {
+        var modalHtml =
+            '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
+            '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
+            '    <div class="modal-content border-0 bg-transparent">' +
+            '      <div class="alert shadow-lg mb-0 p-4 alert-container" role="alert" style="border-radius: 8px;">' +
+            '        <div class="d-flex align-items-start">' +
+            '          <div class="mr-3 icon-container" style="font-size: 2rem; line-height: 1;">' +
+            '            <i></i>' +
+            '          </div>' +
+            '          <div style="flex: 1; min-width: 0;">' +
+            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <div class="d-flex justify-content-end">' +
+            '              <button type="button" class="btn btn-secondary mr-2 cancel-btn" data-dismiss="modal"></button>' +
+            '              <button type="button" class="btn confirm-btn font-weight-bold"></button>' +
+            '            </div>' +
+            '          </div>' +
+            '        </div>' +
+            '      </div>' +
+            '    </div>' +
+            '  </div>' +
+            '</div>';
+        $('body').append(modalHtml);
+        $modal = $('#' + modalId);
+        $modal.on('hide.bs.modal', function () {
+            if ($modal.has(document.activeElement).length) {
+                document.activeElement.blur();
+            }
+        });
+    }
+
+    const cancelText = customCancelText || (window.PHPWCMS_LANG && window.PHPWCMS_LANG.cancel) || 'Cancel';
+    $modal.find('.cancel-btn').text(cancelText);
+
+    const confirmText = customConfirmText || (window.PHPWCMS_LANG && window.PHPWCMS_LANG.ok) || 'OK';
+    const type = (confirmType || 'info').toLowerCase().trim();
+
+    let btnClass = 'btn-info text-white';
+    let textClass = 'text-info';
+    let iconClass = 'fas fa-info-circle';
+
+    if (type === 'danger' || type === 'delete') {
+        btnClass = 'btn-danger text-white';
+        textClass = 'text-danger';
+        iconClass = 'fas fa-trash-alt';
+    } else if (type === 'primary' || type === 'move') {
+        btnClass = 'btn-primary text-white';
+        textClass = 'text-primary';
+        iconClass = 'fas fa-arrows-alt';
+    } else if (type === 'warning' || type === 'flush') {
+        btnClass = 'btn-warning text-dark';
+        textClass = 'text-warning';
+        iconClass = 'fas fa-exclamation-triangle';
+    } else if (type === 'success') {
+        btnClass = 'btn-success text-white';
+        textClass = 'text-success';
+        iconClass = 'fas fa-check-circle';
+    }
+
+    $modal.find('.alert-container')
+        .removeClass('alert-warning alert-danger alert-primary alert-info alert-success')
+        .addClass('alert-light')
+        .css('border', '1px solid #dee2e6');
+
+    $modal.find('.icon-container')
+        .removeClass('text-warning text-danger text-primary text-info text-success')
+        .addClass(textClass);
+
+    $modal.find('.icon-container i')
+        .removeClass()
+        .addClass(iconClass);
+
+    $modal.find('.confirm-btn')
+        .removeClass('btn-danger btn-primary btn-info btn-warning btn-success text-white text-dark')
+        .addClass(btnClass)
+        .text(confirmText);
+
+    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
+    $modal.find('.confirm-message').html(formattedMsg);
+
+    $modal.find('.confirm-btn').off('click').on('click', function() {
+        $modal.modal('hide');
+        if (typeof callback === 'function') {
+            callback();
+        }
+    });
+
+    $modal.modal('show');
 }
 
-function confirmGoUrl(confirmtext, jumpurl) {
-    if (confirm(confirmtext)) {
-        location.href = jumpurl;
+
+
+function bsConfirmWarning(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('warning', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmDanger(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('danger', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmInfo(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('info', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmSuccess(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('success', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmDelete(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('delete', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmMove(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('move', message, callback, customConfirmText, customCancelText);
+}
+
+function bsConfirmFlush(message, callback, customConfirmText, customCancelText) {
+    bsConfirm('flush', message, callback, customConfirmText, customCancelText);
+}
+
+function bsAlert(message, callback) {
+    if (window.parent && window.parent !== window && typeof window.parent.bsAlert === 'function') {
+        window.parent.bsAlert(message, callback);
+        return;
     }
+
+    const modalId = 'bootstrapAlertModal';
+    let $modal = $('#' + modalId);
+    if ($modal.length === 0) {
+        var modalHtml =
+            '<div class="modal fade" id="' + modalId + '" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 2000;">' +
+            '  <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 400px;">' +
+            '    <div class="modal-content border-0 bg-transparent">' +
+            '      <div class="alert alert-light shadow-lg mb-0 p-4" role="alert" style="border-radius: 8px; border: 1px solid #dee2e6;">' +
+            '        <div class="d-flex align-items-start">' +
+            '          <div class="mr-3 text-primary" style="font-size: 2rem; line-height: 1;">' +
+            '            <i class="fas fa-info-circle"></i>' +
+            '          </div>' +
+            '          <div style="flex: 1; min-width: 0;">' +
+            '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
+            '            <div class="d-flex justify-content-end">' +
+            '              <button type="button" class="btn btn-primary confirm-btn text-white font-weight-bold" data-dismiss="modal">OK</button>' +
+            '            </div>' +
+            '          </div>' +
+            '        </div>' +
+            '      </div>' +
+            '    </div>' +
+            '  </div>' +
+            '</div>';
+        $('body').append(modalHtml);
+        $modal = $('#' + modalId);
+        $modal.on('hide.bs.modal', function () {
+            if ($modal.has(document.activeElement).length) {
+                document.activeElement.blur();
+            }
+        });
+    }
+
+    const formattedMsg = (message || '').replace(/\\n/g, '<br>').replace(/\r?\n/g, '<br>');
+    $modal.find('.confirm-message').html(formattedMsg);
+
+    $modal.find('.confirm-btn').off('click').on('click', function() {
+        $modal.modal('hide');
+        if (typeof callback === 'function') {
+            callback();
+        }
+    });
+
+    $modal.modal('show');
+}
+
+
+
+// Global alert override
+window.alert = function(msg) {
+    bsAlert(msg);
+};
+
+function confirmGoUrl(confirmtext, jumpurl) {
+    bsConfirm('info', confirmtext, function() {
+        location.href = jumpurl;
+    });
 }
 
 function wordcount(s) {
     var formcontent = Trim(s);
-    if (formcontent == "") {
+    if (formcontent === '') {
         return 0;
     } else {
         formcontent = formcontent.split(" ");
@@ -75,12 +251,12 @@ function wordcount(s) {
 }
 
 function LTrim(str) {
-    var whitespace = new String(" \t\n\r");
-    var s = new String(str);
-    if (whitespace.indexOf(s.charAt(0)) != -1) {
-        var j = 0,
+    const whitespace = String(' \t\n\r');
+    let s = String(str);
+    if (whitespace.indexOf(s.charAt(0)) !== -1) {
+        let j = 0,
             i = s.length;
-        while (j < i && whitespace.indexOf(s.charAt(j)) != -1) {
+        while (j < i && whitespace.indexOf(s.charAt(j)) !== -1) {
             j++;
             s = s.substring(j, i);
         }
@@ -89,11 +265,11 @@ function LTrim(str) {
 }
 
 function RTrim(str) {
-    var whitespace = new String(" \t\n\r");
-    var s = new String(str);
-    if (whitespace.indexOf(s.charAt(s.length - 1)) != -1) {
-        var i = s.length - 1;
-        while (i >= 0 && whitespace.indexOf(s.charAt(i)) != -1) {
+    const whitespace = String(' \t\n\r');
+    let s = String(str);
+    if (whitespace.indexOf(s.charAt(s.length - 1)) !== -1) {
+        let i = s.length - 1;
+        while (i >= 0 && whitespace.indexOf(s.charAt(i)) !== -1) {
             i--;
             s = s.substring(0, i + 1);
         }
@@ -111,7 +287,7 @@ function set_chatlist(lines) {
 }
 
 function flevPopupLink() { // v1.2
-    var v1 = arguments,
+    const v1 = arguments,
         v2 = window.open(v1[0], v1[1], v1[2]),
         v3 = (v1.length > 3) ? v1[3] : false;
     if (v3) {
@@ -120,45 +296,52 @@ function flevPopupLink() { // v1.2
     document.MM_returnValue = false;
 }
 
-function MM_showHideLayers() { //v6.0
-    var i, p, v, obj, args = MM_showHideLayers.arguments;
-    for (i = 0; i < (args.length - 2); i += 3) if ((obj = MM_findObj(args[i])) != null) {
-        v = args[i + 2];
-        if (obj.style) {
-            obj = obj.style;
-            v = (v == 'show') ? 'visible' : (v == 'hide') ? 'hidden' : v;
+function MM_showHideLayers() {
+    const args = arguments;
+    for (let i = 0; i < (args.length - 2); i += 3) {
+        const obj = MM_findObj(args[i]);
+        if (obj != null) {
+            let v = args[i + 2];
+            if (obj.style) {
+                v = (v === 'show') ? 'visible' : (v === 'hide') ? 'hidden' : v;
+                obj.style.visibility = v;
+            }
         }
-        obj.visibility = v;
     }
 }
 
 function tmt_winOpen(u, id, f, df) {
-    if (eval(id) == null || eval(id + ".closed")) {
-        eval(id + "=window.open('" + u + "','" + id + "','" + f + "')");
-        eval(id + ".focus()");
+    const win = window[id];
+    if (win == null || win.closed) {
+        window[id] = window.open(u, id, f);
+        if (window[id]) window[id].focus();
     } else if (df) {
-        eval(id + ".focus()");
+        win.focus();
     } else {
-        eval(id + "=window.open('" + u + "','" + id + "','" + f + "')");
-        eval(id + ".focus()");
+        window[id] = window.open(u, id, f);
+        if (window[id]) window[id].focus();
     }
 }
 
 function tmt_winControl(id, c) {
-    var d = eval(id) == null || eval(id + ".closed");
-    if (!d) {
-        eval(id + "." + c);
+    const win = window[id];
+    if (win && !win.closed) {
+        if (c === 'focus()') {
+            win.focus();
+        } else if (c === 'close()') {
+            win.close();
+        }
     }
 }
 
 function get_cookie(Name) {
     var search = Name + "=";
     if (document.cookie.length > 0) {
-        var offset = document.cookie.indexOf(search);
+        let offset = document.cookie.indexOf(search);
         // if cookie exists
         if (offset !== -1) {
             offset += search.length; // set index of beginning of value
-            var end = document.cookie.indexOf(";", offset); // set index of end of cookie value
+            let end = document.cookie.indexOf(';', offset); // set index of end of cookie value
             if (end === -1) {
                 end = document.cookie.length;
             }
@@ -184,14 +367,14 @@ function changeImagePos(x, f) {
     } else {
         document.articlecontent.cimage_pos.selectedIndex = x;
     }
-    for (var i = 0; i <= 9; i++) {
+    for (let i = 0; i <= 9; i++) {
         MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
 }
 
 function changeImagePosMenu(f) {
-    var x = f ? document.article.cimage_pos.selectedIndex : document.articlecontent.cimage_pos.selectedIndex;
-    for (var i = 0; i <= 9; i++) {
+    const x = f ? document.article.cimage_pos.selectedIndex : document.articlecontent.cimage_pos.selectedIndex;
+    for (let i = 0; i <= 9; i++) {
         MM_swapImage('imgpos' + i, '', i === x ? 'img/symbole/content_selected.gif' : 'img/leer.gif', 0);
     }
     if (f) {
@@ -206,7 +389,7 @@ function switchToggleFTP(field) {
 }
 
 function toggleAllFTP(field, proof) {
-    for (var i = 0; i < field.length; i++) {
+    for (let i = 0; i < field.length; i++) {
         field[i].checked = !!proof;
     }
 }
@@ -228,12 +411,9 @@ function showLayer(whichLayer) {
 }
 
 function toggleDisplayById(whichLayer, status) {
-    if (document.getElementById) {
-        document.getElementById(whichLayer).style.display = status;
-    } else if (document.all) {
-        document.all[whichLayer].style.display = status;
-    } else if (document.layers) {
-        document.layers[whichLayer].display = status;
+    const el = document.getElementById(whichLayer);
+    if (el) {
+        el.style.display = status;
     }
 }
 
@@ -254,48 +434,20 @@ function setCursorPos(textObj) {
 
 function insertAtCursorPos(textObj, textFieldValue) {
     textObj.focus();
-    if (document.all) {
-        if (textObj.createTextRange && textObj.cursorPos) {
-            var cursorPos = textObj.cursorPos;
-            cursorPos.text = cursorPos.text.charAt(cursorPos.text.length - 1) === ' ' ? textFieldValue + ' ' : textFieldValue;
-        } else {
-            textObj.value = textObj.value + textFieldValue;
-        }
+    if (typeof textObj.selectionStart === 'number' && typeof textObj.selectionEnd === 'number') {
+        const rangeStart = textObj.selectionStart;
+        const rangeEnd = textObj.selectionEnd;
+        const tempStr1 = textObj.value.substring(0, rangeStart);
+        const tempStr2 = textObj.value.substring(rangeEnd);
+        textObj.value = tempStr1 + textFieldValue + tempStr2;
+        textObj.selectionStart = textObj.selectionEnd = rangeStart + textFieldValue.length;
     } else {
-        if (textObj.setSelectionRange) {
-            var rangeStart = textObj.selectionStart;
-            var rangeEnd = textObj.selectionEnd;
-            var tempStr1 = textObj.value.substring(0, rangeStart);
-            var tempStr2 = textObj.value.substring(rangeEnd);
-            textObj.value = tempStr1 + textFieldValue + tempStr2;
-        } else {
-            alert("This version of Mozilla based browser does not support setSelectionRange");
-        }
+        textObj.value += textFieldValue;
     }
 }
 
 function getFieldById(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return true;
-    }
-}
-
-function getObjectById(fld) {
-    if (document.getElementById && document.getElementById(fld) != null) {
-        return document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        return document.layers[fld];
-    } else if (document.all) {
-        return document.all(fld);
-    } else {
-        return false;
-    }
+    return document.getElementById(fld) || true;
 }
 
 function switchDisabled(fld) {
@@ -304,12 +456,8 @@ function switchDisabled(fld) {
 }
 
 function enableStatusMessage(fld, showHide, text) {
-    var obj;
-    if (document.getElementById && document.getElementById(fld) != null) {
-        obj = document.getElementById(fld);
-    } else if (document.layers && document.layers[fld] != null) {
-        obj = document.layers[fld];
-    } else {
+    const obj = document.getElementById(fld);
+    if (!obj) {
         return true;
     }
     if (text) {
@@ -320,7 +468,6 @@ function enableStatusMessage(fld, showHide, text) {
 }
 
 function create_alias(str, encoding, ucfirst) {
-    str = str.toUpperCase();
     str = str.toLowerCase();
     str = str.replace(/\[br\]/g, ' ');
     str = str.replace(/__/g, ' ');
@@ -361,13 +508,13 @@ function create_alias(str, encoding, ucfirst) {
     str = str.replace(/^\/+|\/+$/g, '');
     str = str.replace(/^-+|-+$/g, '');
     if (ucfirst == 1) {
-        var c = str.charAt(0);
+        const c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
     }
     return str;
 }
 
-var fbw = 450,
+let fbw = 450,
     fbh = 575;
 if (screen.width !== undefined) {
     fbw = Math.ceil(Math.max(screen.width / 5, fbw));
@@ -387,78 +534,94 @@ function openFileBrowser(url) {
 }
 
 function set_article_alias(onempty_only, alias_type, category) {
-    var alias_basis = 'article_title',
+    let alias_basis = 'article_title',
         alias_target = 'article_alias';
     if (alias_type === 'struct') {
         alias_basis = 'acat_name';
         alias_target = 'acat_alias';
     }
-    var aalias = getObjectById(alias_target);
+    const aalias = document.getElementById(alias_target);
     if (onempty_only && aalias.value !== '') {
         return false;
     }
-    var atitle = getObjectById(alias_basis);
+    const atitle = document.getElementById(alias_basis);
     aalias.value = create_alias((category ? category + '/' : '') + atitle.value);
     return false;
 }
 
-function flush_image_cache(link, url) {
-    link.addClass('ajax-running');
-    new Ajax(url, {
-        method: 'get',
-        onComplete: function () {
-            link.removeClass('ajax-running');
-        }
-    }).request();
+function flush_image_cache(link, url, confirm_msg, success_msg) {
+    const proceed = function() {
+        link.classList.add('ajax-running');
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            xhrFields: {
+                withCredentials: true,
+            },
+            success: function(response) {
+                link.classList.remove('ajax-running');
+                if (response && response.status === 'ok') {
+                    var msg = success_msg ? success_msg.replace('%d', response.file_count || 0) : 'Success';
+                    alert(msg);
+                } else {
+                    alert('Error flushing image cache');
+                }
+            },
+            error: function() {
+                link.classList.remove('ajax-running');
+                alert('Error connecting to server');
+            },
+        });
+    };
+
+    if (confirm_msg) {
+        const $link = $(link);
+        const customConfirmText = $link.attr('data-confirm-action');
+        const confirmType = $link.attr('data-confirm-type');
+        bsConfirm(confirmType, confirm_msg, proceed, customConfirmText);
+    } else {
+        proceed();
+    }
     return false;
 }
 
-// Autosize textarea
-var autosizeTextareas = [];
-$(function () {
-    autosizeTextareas = $('textarea.autosize');
-    if (autosizeTextareas.length) {
-        autosize(autosizeTextareas);
-    }
-});
 
-
-var validation = {
-    isEmailAddress: function (str) {
-        var pattern = /^[\w+]+(?:[.-][\w+]+)*@\w+(?:[.-]\w+)*(?:\.\w{2,3})+$/;
+const validation = {
+    isEmailAddress: function(str) {
+        const pattern = /^[\w+]+(?:[.-][\w+]+)*@\w+(?:[.-]\w+)*(?:\.\w{2,3})+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isNotEmpty: function (str) {
-        var pattern = /\S+/;
+    isNotEmpty: function(str) {
+        const pattern = /\S+/;
         return pattern.test(str);  // returns a boolean
     },
-    isNumber: function (str) {
-        var pattern = /^\d+$/;
+    isNumber: function(str) {
+        const pattern = /^\d+$/;
         return pattern.test(str);  // returns a boolean
     },
-    isSame: function (str1, str2) {
+    isSame: function(str1, str2) {
         return str1 === str2;
     },
-    isInt: function (str) {
-        var pattern = /^(\-?|\+?)\d+$/;
+    isInt: function(str) {
+        const pattern = /^(\-?|\+?)\d+$/;
         return pattern.test(str);  // returns a boolean
     },
 };
 
 function togglePasswordVisibility(id) {
-    var pwdField = document.getElementById(id);
+    const pwdField = document.getElementById(id);
     pwdField.type = pwdField.type === "password" ? "text" : "password";
     return pwdField.type === 'text' ? 'hide' : 'show';
 }
 
 function copyToClipboard(str) {
-    var el = document.createElement('textarea');
+    const el = document.createElement('textarea');
     el.value = str;
     el.setAttribute('readonly', '');
     el.style.position = 'absolute';
     el.style.left = '-9999px';
     document.body.appendChild(el);
-    var selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);

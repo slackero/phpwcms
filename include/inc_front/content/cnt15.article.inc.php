@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -151,7 +150,7 @@ if($alinkmenu['link']) {
 
     if(!$alinkmenu['ul']) {
 
-        $alinkmenu['link'] = '<table border="0" cellspacing="0" cellpadding="0">' . LF . $alinkmenu['link'] . "</table>" . LF;
+        $alinkmenu['link'] = '<table>' . LF . $alinkmenu['link'] . "</table>" . LF;
 
         if(!empty($alinkmenu['class'])) {
             $alinkmenu['link'] = '<div class="' . html_specialchars($alinkmenu['class']) . "\">\n" . $alinkmenu['link'] . "</div>\n";

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,13 +18,13 @@ class phpwcmsRecaptcha {
 
     public function __construct($sitekey=null, $secretkey=null) {
 
-        if(is_string($sitekey)) {
+        if($sitekey !== null && is_string($sitekey)) {
             $this->sitekey = $sitekey;
         } elseif(!empty($GLOBALS['phpwcms']['recaptcha_site_key'])) {
             $this->sitekey = $GLOBALS['phpwcms']['recaptcha_site_key'];
         }
 
-        if(is_string($secretkey)) {
+        if($secretkey !== null && is_string($secretkey)) {
             $this->secretkey = $secretkey;
         } elseif(!empty($GLOBALS['phpwcms']['recaptcha_secret_key'])) {
             $this->secretkey = $GLOBALS['phpwcms']['recaptcha_secret_key'];
@@ -97,7 +96,7 @@ class phpwcmsRecaptcha {
 
         }
 
-        return $src;
+        return $api_src;
 
     }
 

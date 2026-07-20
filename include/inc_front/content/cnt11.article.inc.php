@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -36,7 +35,7 @@ if(empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/co
 if($crow["acontent_text"]) {
     $crow["acontent_text"] = str_replace(array(' ', "\t", '[', ']', '{', '}'), array('&nbsp;', '&nbsp;&nbsp;&nbsp;&nbsp;', '&#x5B;', '&#x5D;', '&#x7B;', '&#x7D;'), html($crow["acontent_text"]));
 
-    if(!str_contains($crow["acontent_template"], '<pre')) {
+    if(strpos($crow["acontent_template"], '<pre') === false) {
         $crow["acontent_text"] = nl2br($crow["acontent_text"]);
     }
 }

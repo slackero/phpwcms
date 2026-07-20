@@ -1,19 +1,19 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array();
-require_once __DIR__ . '/include/config/conf.inc.php';
-require_once __DIR__ . '/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+$basepath = str_replace('\\', '/', dirname(__FILE__));
+require_once $basepath.'/include/config/conf.inc.php';
+require_once $basepath.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
 // database accessible again?
 if($is_mysql_error === false) {
@@ -25,11 +25,11 @@ header('HTTP/1.1 503 Service Temporarily Unavailable');
 header('Retry-After: 3600');
 
 ?><!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="<?php echo $phpwcms['DOCTYPE_LANG']; ?>">
 <head>
-    <meta charset="utf-8">
+    <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <title>Sorry</title>
-    <style type="text/css">
+    <style>
         body {
             background-color: #fff;
             margin: 50px;
@@ -50,8 +50,8 @@ header('Retry-After: 3600');
 </head>
 
 <body>
-    <h1>We are sorry!</h1>
-    <p>For service reasons the system is temporarily not attainable.</p>
-    <p>Visit us later again!</p>
+    <h1>Diese Seite ist im Moment nicht verf&uuml;gbar!</h1>
+    <p>Unsere Seite wird im Moment aktualisiert.</p>
+    <p>Besuchen Sie uns sp&auml;ter wieder!</p>
 </body>
 </html>

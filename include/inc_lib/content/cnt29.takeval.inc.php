@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,11 +16,9 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
-
 // Content Type Images
 $content["image_template"]	= $row["acontent_template"];
-$content["image_list"]		= unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$content["image_list"]		= unserialize($row["acontent_form"], ['allowed_classes' => false]);
 
 if(!isset($content["image_list"]['lightbox'])) {
 	$content["image_list"]['lightbox'] = 0;
@@ -32,5 +29,9 @@ if(!isset($content["image_list"]['nocaption'])) {
 if(!isset($content['image_list']['crop'])) {
 	$content['image_list']['crop'] = 0;
 }
+if(!isset($content['image_list']['custom'])) {
+    $content['image_list']['custom'] = array();
+}
 
 $content["text"] = $row["acontent_text"];
+$content['custom_fields'] = $content['image_list']['custom'];

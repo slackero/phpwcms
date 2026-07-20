@@ -1,18 +1,16 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -26,7 +24,7 @@ if(empty($_SESSION['REFERER_URL'])) {
     $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
-if($_SESSION["wcs_user_admin"] == 1 && trim($_POST["scat_name"])) {
+if(has_admin_permission('adm') && trim($_POST["scat_name"])) {
 
     if(intval($_POST["scat_new"]) === 1 && intval($_POST["scat_id"]) === 0 ) {
 

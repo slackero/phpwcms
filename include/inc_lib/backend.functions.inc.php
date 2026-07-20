@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -35,6 +34,42 @@ if(isset($phpwcms['set_sociallink']) && is_array($phpwcms['set_sociallink'])) {
     $phpwcms['set_sociallink'] = array('article' => false, 'articlecat' => false, 'news' => false, 'shop' => false, 'render' => true);
 }
 
+//new function to build file icons
+function ext_icon($ext) {
+  $image = array("jpg","jpeg","png","gif","tif","tiff","bmp","pic","psd","eps","ai","svg","ps");
+  $code = array("html","xml","ini","sql","db");
+  $pdf = array("pdf");
+  $archive = array("zip","rar","7z","s7z","dmg","bz2","gz","tar","tgz");
+  $video = array("mkv","webm","vob","ogg","ogv","mov","qt","wmv","mpg","mpeg","mp3","mp4","m4p","flv","f4v","f4p","f4a","f4b");
+  $powerpoint = array("ppt","pptx");
+  $word = array("doc","docx");
+  $excel = array("xls","xlsx");
+  $text = array("odt","odm","odg","ods","odp","odf","odc","odb","sxw","sxc","sxi","csv","txt","rtf");
+
+  if (in_array($ext, $image)) {
+    $faicon = 'file-image';
+  } elseif (in_array($ext, $code)) {
+    $faicon = 'file-code';
+  } elseif (in_array($ext, $pdf)) {
+    $faicon = 'file-pdf';
+  } elseif (in_array($ext, $archive)) {
+    $faicon = 'file-archive';
+  } elseif (in_array($ext, $video)) {
+    $faicon = 'file-video';
+  } elseif (in_array($ext, $powerpoint)) {
+    $faicon = 'file-powerpoint';
+  } elseif (in_array($ext, $word)) {
+    $faicon = 'file-word';
+  } elseif (in_array($ext, $excel)) {
+    $faicon = 'file-excel';
+  } elseif (in_array($ext, $text)) {
+    $faicon = 'file-text';
+  } else {
+    $faicon = 'file';
+  }
+  return $faicon;
+}
+
 // general functions used in backend only
 function update_cache() {
     // used to update cache setting all current cache entries
@@ -44,11 +79,11 @@ function update_cache() {
 }
 
 function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
-    if($do === "chat" && $p == 1) {
+    if($do == "chat" && $p == 1) {
         echo "<script type=\"text/javascript\"> ";
         echo "document.sendchatmessage.chatmsg.focus(); document.sendchatmessage.chatmsg.value=get_cookie('chatstring');";
         echo "timer = chat_reload(20000); function chat_reload(zeit) {";
-        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?" . CSRF_GET_TOKEN . "&do=chat&p=1&l=" . urlencode($GLOBALS['chatlist'] ?? 0) . "'\", zeit);";
+        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
         echo "return timer;\n} function restart_reload(timer) {";
         echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
     }
@@ -61,20 +96,14 @@ function forward_to($to, $link, $time=2500) { //Javascript forwarding
 }
 
 function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
-    //generate subnavigation based on text
-    $id = "subnavid".generic_string(5);
+    //generate ul based subnavigation based on text
     $sn = '';
-    if($is == $should) {
-        $sn .= '<tr><td><img src="img/subnav/subnav_B.gif" width="15" height="13" border="0" alt="" /></td>';
-        $sn .= '<td class="subnavactive"><a href="'.$link.'">'.$text.'</a></td></tr>';
+    if ($is == $should) {
+        $sn .= '<li class="subnavactive"><a href="' . $link . '">' . $text . '</a></li>';
     } else {
-        $sn .= "<tr><td><img name=\"".$id."\" src=\"img/subnav/subnav_A.gif\" width=\"15\" height=\"13\" border=\"0\" alt=\"\" /></td>";
-        $sn .= "<td class=\"subnavinactive\"><a href=\"".$link."\" ".$js;
-        $sn .= "onmouseover=\"".$id.".src='img/subnav/subnav_B.gif'\" onmouseout=\"".$id;
-        $sn .= ".src='img/subnav/subnav_A.gif'\">".$text."</a></td></tr>";
+        $sn .= '<li class="subnavinactive"><a href="' . $link . '" ' . $js . '>' . $text . '</a></li>';
     }
-    $sn .= "\n";
-    if(!$getback) {
+    if (!$getback) {
         return $sn;
     } else {
         echo $sn;
@@ -84,39 +113,14 @@ function subnavtext($text, $link, $is, $should, $getback=1, $js='') {
 }
 
 function subnavtextext($text, $link, $target='_blank', $getback=1) {
-    //generate subnavigation based on text and links to new page
-    $id  = 'subnavid'.generic_string(5);
-    $sn  = '<tr><td><img src="img/subnav/subnav_A.gif" width="15" height="13" border="0" name="'.$id.'" alt="" /></td>';
-    $sn .= '<td class="subnavinactive"><a href="'.$link.'" target="'.$target.'" ';
-    $sn .= "onmouseover=\"".$id.".src='img/subnav/subnav_B.gif'\" onmouseout=\"".$id.".src='img/subnav/subnav_A.gif'\"";
-    $sn .= '>'.$text.'</a></td></tr>';
-    $sn .= "\n";
+    //generate ul based subnavigation based on text and links to new page
+    $sn = '<li class="subnavinactive"><a href="' . $link . '" target="' . $target . '" >' . $text . '</a></li>';
 
-    if($getback) {
-        echo $sn;
+    if (!$getback) {
+        return $sn;
     }
-    return $sn;
-}
-
-function subnavback($text, $link, $h_before=0, $h_after=0) {
-    $id = "subbackid".generic_string(5);
-    $sn  = "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">";
-    if(intval($h_before)) {
-        $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"" . intval($h_before) . "\" alt=\"\" /></td></tr>";
-    }
-    $sn .= "<tr>";
-    $sn .= "<td><img name=\"".$id."\" src=\"img/subnav/subnav_back_0.gif\" width=\"9\" height=\"9\" border=\"0\" alt=\"\" /></td>";
-    $sn .= "<td class=\"subnavinactive\">&nbsp;<a href=\"".$link."\" onmouseover=\"".$id.".src='img/subnav/subnav_back_1.gif'\" ";
-    $sn .= "onmouseout=\"".$id.".src='img/subnav/subnav_back_0.gif'\"><strong>".$text."</strong></a></td>";
-    $sn .= "</tr>";
-    if(intval($h_after)) {
-        $sn .= "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"".intval($h_after)."\" alt=\"\" /></td></tr>";
-    }
-    $sn .= "</table>";
     echo $sn;
 }
-
-
 
 /**
  * check_image_extension function.
@@ -147,7 +151,7 @@ function check_image_extension($file, $filename, $file_image_size) {
             case  4: $result = 'swf'; break;
             case  5: $result = 'psd'; break;
             case  6: $result = 'bmp'; break;
-            case  7: $result = 'tif'; break; //(intel byte order),
+            case  7:                         //(intel byte order),
             case  8: $result = 'tif'; break; //(motorola byte order),
             case  9: $result = 'jpc'; break;
             case 10: $result = 'jp2'; break;
@@ -164,7 +168,6 @@ function check_image_extension($file, $filename, $file_image_size) {
             case 15: // there seems to be a problem with getimagesize and Quicktime VR
                      // mov -> wmbf ? why ever!
                      // do an additional extension check and compare against mov
-
                      $result = strtolower(which_ext($filename)) === 'mov' ? 'mov' : 'wbmp';
                      break;
 
@@ -272,7 +275,6 @@ function getArticleReSorted($cat_id, $ordered_by) {
 }
 
 function phpwcmsversionCheck() {
-
     global $phpwcms;
     global $BL;
 
@@ -292,7 +294,6 @@ function phpwcmsversionCheck() {
     }
 
     // Check for new version
-
     $errno          = 0;
     $errstr         = '';
     $version_info   = '';
@@ -307,7 +308,6 @@ function phpwcmsversionCheck() {
     if(function_exists('fsockopen')) {
         $has_sockets = true;
         if($fsock = @fsockopen('ssl://www.phpwcms.org', 443, $errno, $errstr, 10)) {
-
             @fputs($fsock, "GET /versioncheck/".$identify." HTTP/1.1\r\n");
             @fputs($fsock, "Host: www.phpwcms.org\r\n");
             @fputs($fsock, "Connection: close\r\n\r\n");
@@ -431,60 +431,41 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
 
     $option['rows']         = empty($option['rows']) || !intval($option['rows']) ? 5 : $option['rows'];
     $option['delimeter']    = empty($option['delimeter']) ? ',' : $option['delimeter'];
-    $option['encode']       = !((isset($option['encode']) && $option['encode'] === false));
+    $option['encode']       = (isset($option['encode']) && $option['encode'] === false) ? false : true;
     $option['style']        = empty($option['style']) ? '' : ' style="'.$option['style'].'"';
-    $option['class']        = empty($option['class']) ? ' class="#SIDE#"' : ' class="#SIDE# '.$option['class'].'"';
+    $option['class']        = empty($option['class']) ? ' class="#SIDE#"' : ' class="#SIDE# '.$option['class'].' form-control form-control-sm mb-1"';
     $option['formname']     = empty($option['formname']) ? 'document.forms[0]' : 'document.getElementById(\''.$option['formname'].'\')';
 
+    initJsOptionSelect();
 
-    $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
-
-    $table .= '<table border="0" cellspacing="0" cellpadding="0">'.LF.'<tr>'.LF;
-
+    $table .= '<div class="row">'.LF;
     // left select list
-    $table .= '<td valign><select name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
+    $table .= '<div class="col"><select class="custom-select" name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
     $table .= $option['style'].str_replace('#SIDE#', 'leftSide', $option['class']).' ondblclick="'.$option_object.'.transferRight()">'.LF;
     if(!empty($leftData) && is_array($leftData)) {
         foreach($leftData as $key => $value) {
             $table .= '     <option value="'.$key.'">'.$value.'</option>'.LF;
         }
-    }   $table .= '</select></td>'.LF;
-
-    // left <-> right buttons
-    $table .= '<td'.$option['style'].$option['class'].'>';
-    $table .= '<img src="img/leer.gif" alt="" width="1" height="1" />'.LF;
-    $table .= '</td>'.LF;
+    }
+    $table .= '</select>'.LF;
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();" /><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_this'].'" onclick="'.$option_object.'.transferRight();" /><i class="fa fa-angle-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_remove_all'].'" onclick="'.$option_object.'.transferAllRight();" /><i class="fa fa-angle-double-right fa-fw" aria-hidden="true"></i></div>';
+    $table .= '</div>'.LF;
 
     // right select list
-    $table .= '<td><select name="'.$id_right_box.'" id="'.$id_right_box.'" size="'.$option['rows'].'" multiple="multiple"';
+    $table .= '<div class="col"><select class="custom-select" name="'.$id_right_box.'" id="'.$id_right_box.'" size="'.$option['rows'].'" multiple="multiple"';
     $table .= $option['style'].str_replace('#SIDE#', 'rightSide', $option['class']).' ondblclick="'.$option_object.'.transferLeft()">'.LF;
     if(!empty($rightData) && is_array($rightData)) {
         foreach($rightData as $key => $value) {
             $table .= '     <option value="'.$key.'">'.$value.'</option>'.LF;
         }
     }
-    $table .= '</select></td>'.LF;
-    $table .= '</tr>'.LF;
-
-    $table .= '<tr>'.LF.'<td>';
-    $table .= '<img src="img/button/list_pos_up.gif" alt="" border="0" onclick="moveOptionUp('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();">';
-    $table .= '<img src="img/leer.gif" width="2" height="2" alt="" />';
-    $table .= '<img src="img/button/list_pos_down.gif" alt="" border="0" onclick="moveOptionDown('.$option['formname'].'.'.$id_left_box.');'.$option_object.'.update();">';
-    $table .= '<img src="img/leer.gif" width="4" height="4" alt="" />';
-    $table .= '<img src="img/button/put_right_a.gif" alt="Move selected to right" border="0" onclick="'.$option_object.'.transferRight();" />';
-    $table .= '<img src="img/leer.gif" width="2" height="2" alt="" />';
-    $table .= '<img src="img/button/put_right.gif" alt="Move all to right" border="0" onclick="'.$option_object.'.transferAllRight();"/>';
-    $table .= '</td>'.LF;
-
-    $table .= '<td><img src="img/leer.gif" alt="" width="1" height="1" /></td>'.LF;
-
-    $table .= '<td>';
-    $table .= '<img src="img/button/put_left_a.gif" alt="Move selected to left" border="0" onclick="'.$option_object.'.transferLeft();" />';
-    $table .= '<img src="img/leer.gif" width="2" height="2" alt="" />';
-    $table .= '<img src="img/button/put_left.gif" alt="Move all to left" border="0" onclick="'.$option_object.'.transferAllLeft();" />';
-    $table .= '</td>'.LF;
-
-    $table .= '</tr>'.LF.'</table>'.LF;
+    $table .= '</select>'.LF;
+    $table .= '<div class="btn btn-sm btn-secondary mr-1" data-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_all'].'" onclick="'.$option_object.'.transferAllLeft();" /><i class="fa fa-angle-double-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '<div class="btn btn-sm btn-secondary" data-toggle="tooltip" title="'.$BL['be_admin_struct_adduser_this'].'" onclick="'.$option_object.'.transferLeft();" /><i class="fa fa-angle-left fa-fw" aria-hidden="true"></i></div>';
+    $table .= '</div></div>'.LF;
 
     $table .= '<input type="hidden" name="'.$id_left.'" id="'.$id_left.'" value="" />';
     $table .= '<input type="hidden" name="'.$id_right.'" id="'.$id_right.'" value="" />';
@@ -507,10 +488,11 @@ function countNewsletterRecipients($target) {
     // try to count all recipients for special newsletter
     $recipients = _dbQuery('SELECT * FROM '.DB_PREPEND.'phpwcms_address WHERE address_verified=1');
     $counter    = 0;
-    $check      = !((empty($target) || !is_array($target) || !count($target)));
+    $check      = (empty($target) || !is_array($target) || !count($target)) ? false : true;
     foreach($recipients as $value) {
         if(empty($value['address_subscription'])) {
             $counter++;
+            continue;
         } elseif($check) {
             $value['address_subscription'] = @unserialize($value['address_subscription'], ['allowed_classes' => false]);
             if(is_array($value['address_subscription']) && count($value['address_subscription'])) {
@@ -613,7 +595,7 @@ function show_status_message($return_status=false) {
     if(empty($_SESSION['system_status']['msg'])) {
         $status = '';
     } else {
-        $status  = '<div class="status_message_' . $_SESSION['system_status']['type'] .'">';
+        $status  = '<div  class="alert alert-' . $_SESSION['system_status']['type'] .'">';
         $status .= nl2br( trim( html($_SESSION['system_status']['msg']) ) ) . '</div>';
         $_SESSION['system_status']['msg'] = '';
     }
@@ -637,7 +619,7 @@ function set_status_message($msg='', $type='info', $replace=array()) {
     switch($type) {
         case 'success':
         case 'info':
-        case 'help':
+        case 'danger':
         case 'error':
         case 'warning': break;
         default: $type = 'info';
@@ -696,7 +678,7 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     // Test against existing folders to avoid problems with rewrite
-    if(PHPWCMS_ALIAS_WSLASH && str_contains($alias, '/')) {
+    if(PHPWCMS_ALIAS_WSLASH && strpos($alias, '/') !== false) {
 
         $root_folders = returnSubdirListAsArray(PHPWCMS_ROOT);
 
@@ -744,8 +726,8 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     // new reserved alias can be defined in $phpwcms['reserved_alias']
-    if(isset($GLOBALS['phpwcms']['reserved_alias']) && is_array($GLOBALS['phpwcms']['reserved_alias']) && count($GLOBALS['phpwcms']['reserved_alias'])) {
-        $reserved = array_merge($reserved, $GLOBALS['phpwcms']['reserved_alias']);
+    if(isset($phpwcms['reserved_alias']) && is_array($phpwcms['reserved_alias']) && count($phpwcms['reserved_alias'])) {
+        $reserved = array_merge($reserved, $phpwcms['reserved_alias']);
     }
 
     if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
@@ -840,30 +822,32 @@ function _getTime($time='', $delimeter=':', $default_time='H:i:s') {
     for($x=0; $x<=2; $x++) {
         if(isset($timeformat[$x])) {
             switch(substr(trim($timeformat[$x]), 0, 1)) {
+                case 'H':
+                    if(isset($time[$x])) {
+                        $hour = intval($time[$x]);
+                        if($hour < 0 || $hour > 23) {
+                            $hour = 0;
+                        }
+                    }
+                    break;
 
-                case 'H':   if(isset($time[$x])) {
-                                $hour = intval($time[$x]);
-                                if($hour < 0 || $hour > 23) {
-                                    $hour = 0;
-                                }
-                            }
-                            break;
+                case 'i':
+                    if(isset($time[$x])) {
+                        $minute = intval($time[$x]);
+                        if($minute < 0 || $minute > 59) {
+                            $minute = 0;
+                        }
+                    }
+                    break;
 
-                case 'i':   if(isset($time[$x])) {
-                                $minute = intval($time[$x]);
-                                if($minute < 0 || $minute > 59) {
-                                    $minute = 0;
-                                }
-                            }
-                            break;
-
-                case 's':   if(isset($time[$x])) {
-                                $second = intval($time[$x]);
-                                if($second < 0 || $second > 59) {
-                                    $second = 0;
-                                }
-                            }
-                            break;
+                case 's':
+                    if(isset($time[$x])) {
+                        $second = intval($time[$x]);
+                        if($second < 0 || $second > 59) {
+                            $second = 0;
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -891,32 +875,37 @@ function _getDate($date='', $delimeter='', $default_date='') {
     $year           = '';
 
     for($x=0; $x<=2; $x++) {
+
         if(isset($dateformat[$x])) {
+
             switch(substr(strtolower(trim($dateformat[$x])), 0, 1)) {
 
-                case 'y':   if(isset($date[$x])) {
-                                $year = intval($date[$x]);
-                                if($year < 0) {
-                                    $year = '';
-                                }
-                            }
-                            break;
+                case 'y':
+                    if(isset($date[$x])) {
+                        $year = intval($date[$x]);
+                        if($year < 0) {
+                            $year = '';
+                        }
+                    }
+                    break;
 
-                case 'd':   if(isset($date[$x])) {
-                                $day = intval($date[$x]);
-                                if($day < 1 || $day > 31) {
-                                    $day = '';
-                                }
-                            }
-                            break;
+                case 'd':
+                    if(isset($date[$x])) {
+                        $day = intval($date[$x]);
+                        if($day < 1 || $day > 31) {
+                            $day = '';
+                        }
+                    }
+                    break;
 
-                case 'm':   if(isset($date[$x])) {
-                                $month = intval($date[$x]);
-                                if($month < 1 || $month > 12) {
-                                    $month = '';
-                                }
-                            }
-                            break;
+                case 'm':
+                    if(isset($date[$x])) {
+                        $month = intval($date[$x]);
+                        if($month < 1 || $month > 12) {
+                            $month = '';
+                        }
+                    }
+                    break;
 
             }
         }
@@ -996,37 +985,52 @@ function setItemsPerPage($default=25) {
     return $ipp;
 }
 
-function getItemsPerPageMenu($base_url='', $steps=array(10,25,50,100,250,0), $separator=' ') {
+function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separator='') {
 
-    $ipp = $_SESSION['PAGE_FILTER']['IPP'] ?? setItemsPerPage();
+    $ipp = isset($_SESSION['PAGE_FILTER']['IPP']) ? $_SESSION['PAGE_FILTER']['IPP'] : setItemsPerPage();
 
     if(!in_array($ipp, $steps)) {
         array_unshift($steps, $ipp);
     }
 
     $menu = array();
-    $x = 0;
-    foreach($steps as $item) {
-
-        $menu[$x]  = '<a href="'.$base_url.'&amp;showipp='.$item.'"';
+    foreach($steps as $x => $item) {
+        $menu[$x]  = '<option value="'.$item.'"';
         if($ipp == $item) {
-            $menu[$x] .= ' class="active"';
+            $menu[$x] .= ' selected="selected"';
         }
         $menu[$x] .= '>';
         $menu[$x] .= $item == 0 ? $GLOBALS['BL']['be_ftptakeover_all'] : $item;
-        $menu[$x] .= '</a>';
-
-        $x++;
+        $menu[$x] .= '</option>';
     }
 
-    return implode($separator, $menu);
+    return '<select class="custom-select form-control-sm" id="news-paginate">' . implode($separator, $menu) . '</select>';
 }
 
 function initJsCalendar() {
-    $GLOBALS['BE']['HEADER']['date.js'] = getJavaScriptSourceLink('include/inc_js/date.js');
-    $GLOBALS['BE']['HEADER']['dynCalendar.js'] = getJavaScriptSourceLink('include/inc_js/dynCalendar.js');
+    $GLOBALS['BE']['HEADER']['bootstrap-datetimepicker.min.css']    = '<link href="include/inc_css/bootstrap-datetimepicker.css?v=5.39.0" rel="stylesheet">';
+    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.min.js');
+    $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker.js']     = getJavaScriptSourceLink('include/inc_js/bootstrap-datetimepicker.js?v=5.39.0');
+    $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker-config'] = '<script>
+        if ($.fn.datetimepicker && $.fn.datetimepicker.Constructor) {
+            $.fn.datetimepicker.Constructor.Default = $.extend(true, {}, $.fn.datetimepicker.Constructor.Default, {
+                useCurrent: false,
+                icons: {
+                    time: \'far fa-clock\',
+                    date: \'far fa-calendar-alt\',
+                    up: \'fas fa-arrow-up\',
+                    down: \'fas fa-arrow-down\',
+                    previous: \'fas fa-chevron-left\',
+                    next: \'fas fa-chevron-right\',
+                    today: \'far fa-calendar-check\',
+                    clear: \'far fa-trash-alt\',
+                    close: \'fas fa-times\'
+                }
+            });
+        }
+    </script>';
 }
-function initMootools($mode='1.1', $more=array()) {
+/*function initMootools($mode='1.1', $more=array()) {
     switch($mode) {
         // MooTools 1.1
         case '1.1':
@@ -1055,19 +1059,19 @@ function initMootoolsAutocompleter($mode='1.1') {
     $GLOBALS['BE']['HEADER']['Autocompleter.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.js');
     $GLOBALS['BE']['HEADER']['Autocompleter.Remote.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.Remote.js');
     $GLOBALS['BE']['HEADER']['Observer.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
-}
+}*/
 function initJsOptionSelect() {
     $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 }
 function initJsAutocompleter() {
     initJQuery();
     $GLOBALS['BE']['HEADER']['autosuggest.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
-    $GLOBALS['BE']['HEADER']['autosuggest.css'] = ' <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />';
+    $GLOBALS['BE']['HEADER']['autosuggest.css'] = ' <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />';
 }
 function initJQuery() {
-    unset($GLOBALS['BE']['HEADER']['mootools.js']);
+//  unset($GLOBALS['BE']['HEADER']['mootools.js']);
     // add jQuery at first position and keep the key
-    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery.min.js')) + $GLOBALS['BE']['HEADER'];
+    $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js')) + $GLOBALS['BE']['HEADER'];
 }
 
 // make phpwcms compatibility and upgrade check
@@ -1098,7 +1102,7 @@ function phpwcms_revision_check($revision) {
         $GLOBALS['phpwcms']['revision_return'] = '';
         if( call_user_func($revision_function) !== false ) {
             $GLOBALS['phpwcms']['check_r'.$revision] = true;
-            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n" . $GLOBALS['phpwcms']['revision_return'];
+            $phpwcms_revision_return = empty($GLOBALS['phpwcms']['revision_return']) ? '' : "\n\nReturn:\n-------\n".strval($GLOBALS['phpwcms']['revision_return']);
             @write_textfile(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp', date('Y-d-m H:i:s').$phpwcms_revision_return);
             return true;
         } else {
@@ -1117,153 +1121,6 @@ function phpwcms_revision_check_temp($revision) {
     return is_file(PHPWCMS_TEMP.'r'.$revision.'.checked.tmp');
 }
 
-/*
- * Parse backend for language related BBCode [EN][/EN] or {EN}{/EN} unsing JavaScript
- *
- * To enable backend language parser set config in conf.inc.php
- * $phpwcms['be_lang_parse'] = 'BBCode'; // to enable parsing for [EN][/EN]
- * $phpwcms['be_lang_parse'] = 'BraceCode'; // to enable parsing for {EN}{/EN}
- * $phpwcms['be_lang_parse'] = 'i18n'; // ToDo: to enable parsing for @@Default@@
- * $phpwcms['be_lang_parse'] = false; // to disable backend language parsing
- */
-function backend_language_parser() {
-
-    global $phpwcms, $BE, $BL;
-
-
-    if(!$phpwcms['be_parse_lang_process'] || empty($phpwcms['be_lang_parse'])) {
-
-        return backend_language_replace('');
-
-    } elseif(empty($phpwcms['allowed_lang']) || !is_array($phpwcms['allowed_lang']) || count($phpwcms['allowed_lang']) < 2) {
-
-        return backend_language_replace('');
-
-    } else {
-
-        $parse_mode = strtoupper($phpwcms['be_lang_parse']);
-
-        if(!in_array($parse_mode, array('BBCODE', 'BRACECODE'))) { // i18n later
-
-            return backend_language_replace('');
-
-        }
-
-    }
-
-    // cut main backend content innerHTML
-    $html_pos1  = strpos($BE['HTML'], '<!--BE_MAIN_CONTENT_START//-->');
-    $html_pos2  = strpos($BE['HTML'], '<!--BE_MAIN_CONTENT_END//-->');
-
-    if($html_pos1 !== false && $html_pos2 !== false) {
-
-        $html_pos1 += strlen('<!--BE_MAIN_CONTENT_START//-->');
-        $html_pos2 -= 1;
-
-    }
-
-    $html       = trim( preg_replace('/\s+/', ' ', substr($BE['HTML'], $html_pos1, $html_pos2-$html_pos1) ) );
-    $BE['HTML'] = substr($BE['HTML'], 0, $html_pos1) . substr($BE['HTML'], $html_pos2);
-
-    // load MooTools too
-    if(empty($phpwcms['mootools_mode'])) {
-        initMootools();
-    }
-
-    // init language replacements
-    $regexp     = array( 'search' => array(), 'replace' => array() );
-    $bracket    = array('BBCODE_OPEN' => '[', 'BRACECODE_OPEN' => '{', 'BBCODE_CLOSE' => ']', 'BRACECODE_CLOSE' => '}');
-    $cookie     = (empty($_COOKIE['phpwcms_be_parse_lang']) || !in_array($_COOKIE['phpwcms_be_parse_lang'], $phpwcms['allowed_lang'])) ? false : $_COOKIE['phpwcms_be_parse_lang'];
-
-    // init menu
-    $menu       = array(
-        '<ul id="be_lang">',
-        '<li class="be-lang-label chatlist">'.$BL['be_profile_label_lang'].':</li>',
-        '<li><a href="#" class="be-disabled'.
-            ($cookie === false ? ' be-active' : '').
-            '" rel="disabled" title="'.
-            $BL['be_profile_label_lang'].': '.$BL['be_off'].'">'.$BL['be_off'].'</a></li>'
-    );
-
-    // Header CSS section
-    $BE['HEADER']['be_parse_lang']  = ' <style type="text/css">' . LF;
-
-    // JavaScript section
-    $BE['BODY_CLOSE']['hidden_main_content']  = '   <script type="text/javascript">' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= "       var be_lang_html = [];" . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= "       var cur_be_lang = 'disabled';" . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= "       be_lang_html['disabled'] = '" . trim(str_replace(array("\\", "'"), array("\\\\", "\\'"), $html)) . "';" . LF . LF;
-
-    // build regular expression at first
-    foreach($phpwcms['allowed_lang'] as $lang) {
-        $regexp['search'][$lang]    = '/\\'.$bracket[$parse_mode.'_OPEN'].$lang.'\\'.$bracket[$parse_mode.'_CLOSE'].'(.*?)\\'.$bracket[$parse_mode.'_OPEN'].'\/'.$lang.'\\'.$bracket[$parse_mode.'_CLOSE'].'/is';
-        $regexp['replace'][$lang]   = '';
-    }
-    // parse each language at second
-    foreach($phpwcms['allowed_lang'] as $lang) {
-        $replace        = $regexp['replace'];
-        $replace[$lang] = '$1';
-        $lang_html      = preg_replace($regexp['search'], $replace, $html);
-
-        $BE['HEADER']['be_parse_lang'] .= ' #be_lang a.be-lang-'.$lang.' {background-image:url(img/famfamfam/lang/'.$lang.'.png);}'.LF;
-
-
-        $menu_item      = '<li><a href="#" class="be-lang be-lang-'.$lang;
-
-        // check which is current default
-        if($lang == $cookie) {
-            $new_html = $lang_html; // phpwcms should use the curent lang html
-            $BE['BODY_CLOSE']['hidden_main_content'] .= "       cur_be_lang = '" . $lang . "';" . LF;
-            $menu_item .= ' be-active';
-        }
-
-        $menu[] = $menu_item . '" rel="'.$lang.'" title="'.$BL['be_profile_label_lang'].': '.strtoupper($lang).'">'.$lang.'</a></li>';
-
-        $BE['BODY_CLOSE']['hidden_main_content'] .= "       be_lang_html['".$lang."'] = '" . trim(str_replace(array("\\", "'"), array("\\\\", "\\'"), $lang_html)) . "';" . LF . LF;
-    }
-
-    $BE['HEADER']['be_parse_lang']           .= '   </style>';
-
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '   window.addEvent("domready", function() {' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '       var be_lang = $("be_lang");' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '       var be_lang_cnt = $("be_lang_cnt");' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '       if(be_lang && be_lang_cnt) {' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '           var be_lang_items = be_lang.getElements("a");' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '           be_lang_items.each(function(l) {' . LF;
-
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '               l.addEvent("click", function(){' . LF;
-
-    $BE['BODY_CLOSE']['hidden_main_content'] .= "                   if(cur_be_lang == l.rel) {return;}" . LF;
-
-    $BE['BODY_CLOSE']['hidden_main_content'] .= "                   cur_be_lang = l.rel;" . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '                   be_lang_items.each(function(el){el.removeClass("be-active");});' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '                   l.addClass("be-active");' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '                   be_lang_cnt.setHTML(be_lang_html[l.rel]);' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '                   Cookie.set("phpwcms_be_parse_lang", cur_be_lang);' . LF;
-
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '               });' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '           });' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '       }' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '   });' . LF;
-    $BE['BODY_CLOSE']['hidden_main_content'] .= '   </script>';
-
-    $menu[] = '</ul>';
-
-    // wrap current lang/html with <div>
-    $BE['HTML'] = replace_tmpl_section('BE_MAIN_CONTENT', $BE['HTML'], '<div id="be_lang_cnt">' . (empty($new_html) ? $html : $new_html) . '</div>');
-
-    backend_language_replace( implode(LF, $menu) );
-
-    return null;
-}
-
-function backend_language_replace($result) {
-
-    $GLOBALS['BE']['HTML'] = str_replace('{BE_PARSE_LANG}', $result, $GLOBALS['BE']['HTML']);
-
-    return null;
-}
-
 function get_language_name($lang='', $default=true) {
 
     if(empty($lang)) {
@@ -1275,7 +1132,7 @@ function get_language_name($lang='', $default=true) {
 
     $lang = strtoupper($lang);
 
-    return $GLOBALS['BL'][$lang] ?? $lang;
+    return isset($GLOBALS['BL'][$lang]) ? $GLOBALS['BL'][$lang] : $lang;
 
 }
 
@@ -1287,9 +1144,9 @@ function get_pix_or_percent($val) {
     $val = trim($val);
     $intval = intval($val);
     if(strlen($val) > 1 && strlen($val)-1 == strrpos($val, "%") && $intval) {
-        $val = ($intval > 100 ? "100" : $intval) . "%";
+        $val = (($intval > 100) ? "100" : $intval)."%";
     } else {
-        $val = $intval ?: "";
+        $val = ($intval) ? $intval : "";
     }
     return $val;
 }
@@ -1440,7 +1297,7 @@ function render_iptc_fileinfo($iptc_data) {
                     $iptc_value = $iptc_value[0];
                 } else {
                     $iptc_value = implode($GLOBALS['phpwcms']['iptc_separator'], $iptc_value);
-                }
+    }
 
             }
 
@@ -1457,7 +1314,7 @@ function render_iptc_fileinfo($iptc_data) {
 
         foreach($fileinfo as $field => $value) {
 
-            if((str_contains($value, '{') && str_contains($value, '}')) || str_contains($value, '[/')) {
+            if((strpos($value, '{') !== false && strpos($value, '}') !== false) || strpos($value, '[/') !== false) {
 
                 foreach($iptc_keys as $iptc_key => $iptc_value) {
 
@@ -1485,7 +1342,8 @@ function render_custom_tag($text='', $tag='', $value='', $value_else='', $case_s
         $text = preg_replace('/\['.$tag.'\].*?\[\/'.$tag.'\]/'.$case_sensitive.'s', '', $text);
         $text = str_replace('{'.$tag.'_ELSE}', $value_else, $text);
     }
-    return str_replace('{'.$tag.'}', $value, $text);
+    $text = str_replace('{'.$tag.'}', $value, $text);
+    return $text;
 }
 
 function get_template_file_select($block='', $name='', $selected='', $path='') {
@@ -1499,7 +1357,7 @@ function get_template_file_select($block='', $name='', $selected='', $path='') {
         if(is_dir($path)) {
             $files = get_tmpl_files($path, 'tmpl,html,tpl');
             if(count($files)) {
-                $select = '<select name="' . $name .'" class="mb-3">';
+                $select = '<select name="' . $name .'" class="custom-select form-control form-control-sm mb-1">';
                 $select .= '<option value=""';
                 if($selected === '') {
                     $select .= ' selected="selected"';

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -62,7 +61,7 @@ if(isset($_POST["file_search"])) {
                     $search["string"] .= add_keywords_to_search ($file_key, $row["f_keywords"]); //fügt freie Keywords zum Suchstring hinzu
 
                     foreach($search["key"] as $value) {
-                        if(preg_match("/".preg_quote($value,"/")."/i", $search["string"])) {
+                        if(preg_match('/' .preg_quote($value, '/'). '/i', $search["string"])) {
                             if($search["andor"]) {
                                 if(!isset($search["result"][$row["f_id"]])) {
                                     $search["result"][$row["f_id"]] = 1;
@@ -80,7 +79,9 @@ if(isset($_POST["file_search"])) {
                     //gilt nur, wenn Anzahl Suchworte = Anzahl Funde im String
                     $search["count_key"] = sizeof($search["key"]);
                     foreach($search["result"] as $key => $value) {
-                        if($search["count_key"] != $value) unset($search["result"][$key]);
+                        if($search["count_key"] != $value) {
+                            unset($search["result"][$key]);
+                        }
                     }
                 }
             }
@@ -91,74 +92,56 @@ if(isset($_POST["file_search"])) {
         $search["error"][1] = $BL['be_fsearch_err1'];
     }
 }
-
 ?>
-<form action="phpwcms.php?do=files&amp;f=3" method="post" enctype="multipart/form-data" name="searchfile" id="searchfile">
-<table width="538" border="0" cellpadding="0" cellspacing="0" bgcolor='#EBF2F4' summary="">
-    <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-    <tr>
-    <td width="67" rowspan="3" align="right" valign="top"><img src="img/leer.gif" alt="" width="10" height="1" /><img src="img/symbole/lupe_suche.gif" alt="" width="23" height="21" /><img src="img/leer.gif" alt="" width="10" height="1" /></td>
-    <td width="471" class="title"><?php echo $BL['be_fsearch_title'] ?></td>
-    </tr>
-    <tr><td valign="top"><img src="img/leer.gif" alt="" width="1" height="4" /></td></tr>
-    <tr><td class="v09"><?php echo $BL['be_fsearch_infotext'] ?></td></tr>
-    <tr>
-      <td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-      </tr>
-      <?php if(isset($search["error"])) { //fehler suche anfang ?>
-        <tr>
-            <td valign="top">&nbsp;</td>
-            <td valign="top" class="error"><?php
-                    $zz=0;
-                    foreach($search["error"] as $value) {
-                        if($zz) echo "<br />";
-                        echo html($value);
-                        $zz++;
+
+<div class="card mt-4">
+  <div class="card-header"><h2><i class="fa fa-search" aria-hidden="true"></i> <?php echo $BL['be_fsearch_title'] ?></h2></div>
+  <div class="card-body">
+    <div class="alert alert-info"><?php echo $BL['be_fsearch_infotext'] ?></div>
+    <?php if(isset($search["error"])) { //fehler suche anfang ?>
+         <div class="alert alert-danger"><?php
+            $zz=0;
+            foreach($search["error"] as $value) {
+                if($zz) echo "<br />";
+                echo html($value);
+                $zz++;
+            }
+    ?></div>
+    <?php   } //fehler suche ende   ?>
+    <form action="phpwcms.php?do=files&amp;f=3" method="post" enctype="multipart/form-data" name="searchfile" id="searchfile" class="form-inline mb-2">
+
+      <label class="form-label mr-2" for="file_search"><?php echo $BL['be_fsearch_searchlabel'] ?></label>
+      <input name="file_search" type="search" id="file_search" class="form-control form-control-sm mr-2 my-2 my-sm-0" value="<?php
+                    if(!empty($_SESSION['file_search_query']['file_search'])) {
+                        echo html($_SESSION['file_search_query']['file_search']);
                     }
-      ?></td>
-      </tr>
-      <tr><td colspan="2" valign="top"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-      <?php   } //fehler suche ende   ?>
-    <tr>
-        <td align="right" class="v09"><?php echo $BL['be_fsearch_searchlabel'] ?>:&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr>
-            <td>
-                <input name="file_search" type="search" class="v11" id="file_search" style="font-weight:bold;width:260px;" value="<?php
-                if(!empty($_SESSION['file_search_query']["file_search"])) {
-                    echo html($_SESSION['file_search_query']["file_search"]);
-                }
-            ?>" size="40" maxlength="250" /><img src="img/leer.gif" alt="" width="2" height="1" /><script type="text/javascript"> document.searchfile.file_search.focus(); </script></td>
-            <td><select name="file_andor" id="file_andor" class="v11">
-            <?php
+                ?>" maxlength="250" />
+      <script type="text/javascript"> document.searchfile.file_search.focus(); </script>
 
-            $s1 = $_POST["file_andor"] ?? 1;
-            $s2 = $_POST["file_which"] ?? 2;
+      <select name="file_andor" id="file_andor" class="custom-select form-control form-control-sm mr-2 my-2 my-sm-0">
+        <?php
 
-            ?>
-              <option value="1" <?php is_selected("1", $s1) ?>><?php echo $BL['be_fsearch_and'] ?></option>
-              <option value="0" <?php is_selected("0", $s1) ?>><?php echo $BL['be_fsearch_or'] ?></option>
-              </select><select name="file_which" id="file_which" class="v11">
-              <option value="2" <?php is_selected("2", $s2) ?>><?php echo $BL['be_fsearch_all'] ?></option>
-              <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
-              <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
-              </select><img src="img/leer.gif" alt="" width="3" height="1" /></td>
-            <td><input name="submit" type="image" id="submit" src="img/button/go_search.gif" alt="<?php echo $BL['be_fsearch_startsearch'] ?>" width="22" height="14" /></td>
-            </tr>
-          </table></td>
-    </tr>
-    <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-    </tr>
-    <tr><td colspan="2" bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4" /></td>
-    </tr>
-</table>
-</form>
+        $s1 = $_POST['file_andor'] ?? 1;
+        $s2 = $_POST['file_which'] ?? 2;
+
+        ?>
+          <option value="1" <?php is_selected("1", $s1) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+          <option value="0" <?php is_selected("0", $s1) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+        </select>
+        <select name="file_which" id="file_which" class="custom-select form-control form-control-sm mr-2 my-2 my-sm-0">
+          <option value="2" <?php is_selected("2", $s2) ?>><?php echo $BL['be_fsearch_all'] ?></option>
+          <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
+          <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
+      </select>
+      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><?php echo $BL['be_fsearch_startsearch'] ?></button>
+    </form>
+
 <?php
 
 if(isset($search["result"])) {
     //Beginn Tabelle für Dateilisting
-    echo "<table width=\"538\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
-    echo "<tr><td colspan=\"2\"><img src=\"img/leer.gif\" width=\"1\" height=\"1\" /></td></tr>\n";
+    echo "<div class=\"table-responsive\">\n";
+    echo "<table class=\"table table-sm table-borderless border-top mb-0\">\n";
 
     $sl=0;
     $search["filelist"] = " ";
@@ -174,53 +157,62 @@ if(isset($search["result"])) {
     $file_result = _dbQuery($file_sql);
     if(isset($file_result[0]['f_id'])) {
         $file_durchlauf = 0;
+        //new delete button
+        if (empty($_SESSION["wcs_user_admin"])) {
+            $result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_id');
+            if (isset($result[0])) {
+                foreach ($result as $grouplist) {
+                    $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
+                }
+            }
+            $has_filedelete_permission = !empty($grouparray['filedelete']) && in_array($_SESSION['wcs_user_id'], $grouparray['filedelete']);
+        } else {
+            $has_filedelete_permission = true;
+        }
+        $bg_toggle = false;
         foreach($file_result as $file_row) {
             $filename = html($file_row["f_name"]);
-            if(!$file_durchlauf) { //Aufbau der Zeile zum Einflie�en der Filelisten-Tavbelle
-                echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
-            } else {
-                echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" /></td></tr>\n";
-            }
-            echo "<tr>\n";
-            echo "<td width=\"6\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\" /></td>\n";
-            echo "<td width=\"13\" class=\"msglist\">";
-            echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\"></td>\n";
-            echo "<td width=\"482\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" />";
+            $bg_toggle = !$bg_toggle;
+            $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
+            echo '<tr'.$row_class.'>';
+            echo '<td width="30">';
+            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            echo "</td>";
+            echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {
-
                 echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];
                 echo "\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=yes,resizable=yes,width=500,height=400',1);return document.MM_returnValue;\">";
-
                 $file_row['edit'] = '';
-
             } else {
-
-                $file_row['edit'] = '<a href="phpwcms.php?do=files&amp;f=0&amp;editfile='.$file_row["f_id"].'" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
+                $file_row['edit'] = '<a href="phpwcms.php?do=files&amp;f=0&amp;editfile='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
                 echo $file_row['edit'];
 
             }
-
             echo $filename."</a>";
-
-            echo "</td>\n";
-            echo "<td width=\"37\" align=\"right\" class=\"msglist\">";
+            echo "</td><td></td><td class=\"text-right text-nowrap\">";
 
             if($file_row['edit']) {
                 echo $file_row['edit'];
-                echo "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";
+                echo '<i class="btn btn-sm btn-blue fa fa-pencil-alt mr-1"></i></a>';
             }
 
-            echo "<a href=\"include/inc_act/act_download.php?pl=1&dl=".$file_row["f_id"];
-            echo "\" target=\"_blank\" title=\"".$BL['be_fprivfunc_dlfile'].": ".$filename."\" target=\"_blank\">";
-            echo "<img src=\"img/button/download_disc.gif\" border=\"0\" /></a>";
-            echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\" />"; //Spacer
-            echo "</td>\n";
-            //Ende Aufbau
-            echo "</tr>\n";
+            echo '<a href="include/inc_act/act_download.php?pl=1&dl='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'" target="_blank">';
+            echo '<i class="btn btn-sm btn-blue mr-1 fa fa-download" aria-hidden="true"></i></a>';
+
+            if ($has_filedelete_permission || $file_row['f_uid'] == intval($_SESSION['wcs_user_id'])) {
+                //if user is owner then delete button is active
+                echo '<a href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.'" ';
+                echo 'data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"alert('";
+                echo $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
+                echo "');\">", '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt" aria-hidden="true"></i></a>';
+            } else {
+                echo '<i class="btn btn-sm btn-blue mr-1 fa fa-trash-alt disabled" aria-hidden="true" style="pointer-events: none; opacity: 0.5;"></i>';
+            }
+            echo "</td>";
+            echo "</tr>";
 
             if($_SESSION["wcs_user_thumb"]) {
-
                 $thumb_image = get_cached_image(array(
                     "target_ext" => $file_row["f_ext"],
                     "image_name" => $file_row["f_hash"] . '.' . $file_row["f_ext"],
@@ -228,11 +220,9 @@ if(isset($search["result"])) {
                 ));
 
                 if($thumb_image != false) {
-
-                    echo "<tr>\n";
-                    echo "<td width=\"6\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\" border=\"0\"></td>\n";
-                    echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
-                    echo "482\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
+                    echo '<tr'.$row_class.'>'."\n";
+                    echo '<td></td>'."\n";
+                    echo '<td colspan="3" class="pt-0 pb-2">';
                     if($file_row['edit']) {
                         echo $file_row['edit'];
                     } else {
@@ -240,35 +230,32 @@ if(isset($search["result"])) {
                         echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
                         echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
                     }
-                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n";
-                    echo "<td width=\"37\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-                    echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-
+                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n</tr>\n";
                 }
-
             }
-
             $file_durchlauf++;
         }
         if($file_durchlauf) { //Abschluss der Filelisten-Tabelle
-            echo "</table>\n";
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Abstand vor
+
         } else {
             echo "<tr><td colspan=\"2\">";
-            echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
+            echo "<div class=\"alert alert-danger mt-3\">";
             echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
-            echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"10\"></td></tr>\n";
+            echo "</div></td></tr>\n";
         }
     } //Ende Liste Dateien
 
     echo "</table>\n"; //Ende Tabelle
+    echo "</div>\n";
 
 } elseif(isset($search["string"])) { //kein gültiges Suchergebnis
-    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br /><span class=\"error\" style=\"font-weight: bold;\">";
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_nonfound'];
-    echo "</span><br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
+    echo "<div class=\"alert alert-danger mt-3\">";
+    echo $BL['be_fsearch_nonfound'];
+    echo "</div>";
 } else {
-    echo "<img src=\"img/leer.gif\" width=\"1\" height=\"6\"><br />";
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;".$BL['be_fsearch_fillin'];
-    echo "<br /><img src=\"img/leer.gif\" width=\"1\" height=\"6\">";
+    echo $BL['be_fsearch_fillin'];
 }
+
+?>
+  </div>
+</div>

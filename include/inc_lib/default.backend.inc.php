@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // user is admin
-define('IS_ADMIN', !empty($_SESSION["wcs_user_admin"]));
+define('IS_ADMIN',			empty($_SESSION["wcs_user_admin"]) ? false : true);
 define('BE_CURRENT_URL',	PHPWCMS_URL.'phpwcms.php?'.$_SERVER['QUERY_STRING']);
 define('ACTIVE_REFERER',	$_SESSION['REFERER_URL']);
 

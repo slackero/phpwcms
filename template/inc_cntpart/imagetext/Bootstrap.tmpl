@@ -1,0 +1,257 @@
+<!--IMAGETEXT_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+class_top_left				= top-left
+class_top_center			= top-center
+class_top_right				= top-right
+class_bottom_left			= bottom-left
+class_bottom_center			= bottom-center
+class_bottom_right			= bottom-right
+class_float_left			= float-left
+class_float_right			= float-right
+class_column_left			= column-left
+class_column_right			= column-right
+class_column_left_image		= image-left
+class_column_right_image	= image-right
+class_column_left_text		= text-left
+class_column_right_text		= text-right
+; width						= 300
+; height					= 200
+; zoom						= 1
+; crop						= 1
+; lightbox					= 1
+; nocaption					= 0
+<!--IMAGETEXT_SETTINGS_END//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+    <div class="row image-text">
+
+[TOP_LEFT]
+        <!-- top left -->[IMAGE]
+        <div class="col-xs-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE][TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_LEFT]
+
+[TOP_CENTER]
+        <!-- top center -->[IMAGE]
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE][TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_CENTER]
+
+[TOP_RIGHT]
+        <!-- top right -->[IMAGE]
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE][TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_RIGHT]
+
+[BOTTOM_LEFT]
+        <!-- bottom left -->[TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="col-xs-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE]
+[/BOTTOM_LEFT]
+
+[BOTTOM_CENTER]
+        <!-- bottom center -->[TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE]
+[/BOTTOM_CENTER]
+
+[BOTTOM_RIGHT]
+        <!-- bottom right -->[TITLE]
+        <div class="col-xs-12">
+            <h3>{TITLE}</h3>[SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE]
+        </div>[/TITLE][TITLE_ELSE][SUBTITLE]
+        <div class="col-xs-12">
+            <h4>{SUBTITLE}</h4>
+        </div>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="col-xs-12">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="col-sm-6 col-sm-offset-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>[/IMAGE]
+[/BOTTOM_RIGHT]
+
+[FLOAT_LEFT]
+        <!-- float left -->
+        <div class="col-xs-12">[IMAGE]
+            <figure class="img-pull-left img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>[/IMAGE][TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>
+[/FLOAT_LEFT]
+
+[FLOAT_RIGHT]
+        <!-- float right -->
+        <div class="col-xs-12">[IMAGE]
+            <figure class="img-pull-right img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>[/IMAGE][TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>
+[/FLOAT_RIGHT]
+
+[COLUMN_LEFT]
+        <!-- column left -->[IMAGE]
+        <div class="col-sm-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>
+        <div class="col-sm-6">[TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>[/IMAGE][IMAGE_ELSE]
+        <div class="col-sm-6 col-sm-offset-6">[TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>[/IMAGE_ELSE]
+[/COLUMN_LEFT]
+
+[COLUMN_RIGHT]
+        <!-- column right -->[IMAGE]
+        <div class="col-sm-6 col-sm-push-6">
+            <figure class="img-responsive">
+                {IMAGE}[CAPTION]
+                <figcaption>
+                    {CAPTION}[COPYRIGHT], <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]
+                </figcaption>[/CAPTION]
+            </figure>
+        </div>
+        <div class="col-sm-6 col-sm-pull-6">[TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>[/IMAGE][IMAGE_ELSE]
+        <div class="col-sm-6">[TITLE]
+            <h3>{TITLE}</h3>[/TITLE][SUBTITLE]
+            <h4>{SUBTITLE}</h4>[/SUBTITLE][TEXT]
+            {TEXT}[/TEXT]
+        </div>[/IMAGE_ELSE]
+[/COLUMN_RIGHT]
+
+    </div>
+
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+<!-- CSS:https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css -->
+<!-- CSS:
+    /* Put these inside of you CSS */
+    figure.img-responsive img {
+        display: block; max-width:100%; height: auto;
+    }
+    .image-text .img-pull-right {
+        float: right;
+        max-width: 33%;
+        margin-left: 30px;
+        margin-bottom: 20px;
+    }
+    .image-text .img-pull-left {
+        float: left;
+        max-width: 33%;
+        margin-right: 30px;
+        margin-bottom: 20px;
+    }
+-->

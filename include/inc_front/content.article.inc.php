@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -385,7 +384,7 @@ if(isset($result[0]['article_id'])) {
                     $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'] === '' ? '#'.$paginate_count : $crow['acontent_paginate_title'];
 
                 // check if content part title is set but starts with '#'
-                } elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] !== '' && str_starts_with($content['CpPageTitles'][$crow['acontent_paginate_page']], '#')) {
+                } elseif(isset($content['CpPageTitles'][ $crow['acontent_paginate_page'] ]) && $crow['acontent_paginate_title'] !== '' && substr($content['CpPageTitles'][ $crow['acontent_paginate_page'] ], 0, 1) === '#') {
 
                     $content['CpPageTitles'][ $crow['acontent_paginate_page'] ] = $crow['acontent_paginate_title'];
 
@@ -495,7 +494,7 @@ if(isset($result[0]['article_id'])) {
         $row["article_image"]['tmplfull'] = render_cnt_template($row["article_image"]['tmplfull'], 'CLASS', $row['article_meta']['class']);
 
         // Render SYSTEM
-        if(str_contains($row["article_image"]['tmplfull'], '[SYSTEM]')) {
+        if(strpos($row["article_image"]['tmplfull'], '[SYSTEM]') !== false) {
             // Search for all system related content parts
             $sql_cnt  = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_articlecontent WHERE acontent_aid=' . $content["article_id"] . ' ';
             $sql_cnt .= "AND acontent_visible=1 AND acontent_trash=0 AND acontent_block='SYSTEM' AND acontent_tid IN (2, 3) "; // 2 = article detail, 3 = article detail OR list
@@ -574,7 +573,7 @@ if(isset($result[0]['article_id'])) {
         }
 
         // if type of content part not enabled available
-        if(!isset($wcs_content_type[ $crow["acontent_type"] ]) ||  ($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]]))) {
+        if(!isset($wcs_content_type[ $crow["acontent_type"] ]) || ($crow["acontent_type"] == 30 && !isset($phpwcms['modules'][$crow["acontent_module"]]))) {
             continue;
         }
 

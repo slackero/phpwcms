@@ -1,18 +1,12 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
- *
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.html or http://ckeditor.com/license
  *
  * CP Tabs loads this configration
  */
 
 CKEDITOR.editorConfig = function( config ) {
-    // Define changes to default configuration here. For example:
-    // config.language = 'fr';
-    // config.uiColor = '#AADC6E';
-
+    // Define changes to default configuration here.
     // For the complete reference:
     // http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
@@ -56,14 +50,13 @@ CKEDITOR.editorConfig = function( config ) {
     //config.height = 200;
 
     //config.extraPlugins = 'magicline,image2';
-    //config.removePlugins = 'resize';
-
-    // Allow classes for all tags
-    //config.extraAllowedContent = '*(*)';
-    //config.extraAllowedContent = 'div;p;span;ul;ol;li;table;td;style;*[id];*(*);*{*}';
+    //config.removePlugins = 'image,flash'; //,resize
 
     //config.toolbarCanCollapse = true;
     //config.toolbarStartupExpanded = false;
+
+    // Allow classes for all tags
+    //config.extraAllowedContent = '*(*)';
 
     //config.forcePasteAsPlainText = true;
     //config.pasteFromWordRemoveFontStyles = true;
@@ -73,10 +66,6 @@ CKEDITOR.editorConfig = function( config ) {
     //config.contentsCss = 'template/config/ckeditor/ckeditor.custom.css';
     //config.protectedSource.push( /<i[\s\S]*?\>/g ); //allows beginning <i> tag
     //config.protectedSource.push( /<\/i[\s\S]*?\>/g ); //allows ending </i> tag
-    //config.protectedSource.push( /<button[\s\S]*?\>/g ); //allows beginning <button> tag
-    //config.protectedSource.push( /<\/button[\s\S]*?\>/g ); //allows ending </button> tag
-    //config.protectedSource.push( /<span[\s\S]*?\>/g ); //allows beginning <span> tag
-    //config.protectedSource.push( /<\/span[\s\S]*?\>/g ); //allows ending </span> tag
 
     //config.contentsCss = 'assets/config/ckeditor/ckeditor.custom.css';
     //config.colorButton_colors = "00F"; //000,FFF,...
@@ -84,8 +73,8 @@ CKEDITOR.editorConfig = function( config ) {
     //config.format_uppercase = { element: 'span', attributes: {'class': 'uppercase'}, name: 'UPPERCASE' };
     //config.format_blockquote = { element: 'blockquote', name: 'Blockquote' };
 
-    //config.image2_altRequired = true;
-    //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
-    //config.image2_captionedClass = 'image-captioned';
+     //config.image2_altRequired = true;
+     //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
+     //config.image2_captionedClass = 'image-captioned';
 
 };

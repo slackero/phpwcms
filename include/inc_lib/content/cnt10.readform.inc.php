@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -41,7 +40,7 @@ if(is_array($content["mailform"]) && count($content["mailform"])) {
         if(in_array($content["mailform"][$key][0], array("IT", "IP", "IH", "TA", "SM", "SL", "IC", "IR", "SC", "IN", "CA"))) {
 
             $content["mailform"][$key][1] = isset($content["mailform"][$key][1]) ? trim($content["mailform"][$key][1]) : '';
-            $content["mailform"][$key][1] = $content["mailform"][$key][1] ?: "field_" . generic_string(3);
+            $content["mailform"][$key][1] = ($content["mailform"][$key][1]) ? $content["mailform"][$key][1] : "field_" . generic_string(3);
 
             $content["mailform"][$key][2] = isset($content["mailform"][$key][2]) ? intval($content["mailform"][$key][2]) : 0;
             $content["mailform"][$key][3] = isset($content["mailform"][$key][3]) ? trim($content["mailform"][$key][3]) : '';
@@ -54,18 +53,18 @@ if(is_array($content["mailform"]) && count($content["mailform"])) {
 				$field_length = 0;
 				$field_max_height = 0;
 			}
-            $field_length = $field_length ?: 10;
+            $field_length = ($field_length) ? $field_length : 10;
             switch ($content["mailform"][$key][0]) {
-                case "TA": $field_max_height = $field_max_height ?: 3;
+                case "TA": $field_max_height = ($field_max_height) ? $field_max_height : 3;
                     break;
                 case "IR":
                 case "IC":
-                case "SL": $field_max_height = $field_max_height ?: 0;
+                case "SL": $field_max_height = ($field_max_height) ? $field_max_height : 0;
                     break;
                 case "CA": $content["mailform"][$key][1] = 'Captcha_Validation';
 						   $content["mailform"][$key][2] = 1;
 					break;
-                default: $field_max_height = $field_max_height ?: 100;
+                default: $field_max_height = ($field_max_height) ? $field_max_height : 100;
             }
 
             $content["mailform"][$key][5] = isset($content["mailform"][$key][5]) ? trim($content["mailform"][$key][5]) : '';

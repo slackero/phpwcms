@@ -1,0 +1,39 @@
+[HTML]
+	[TITLE]<h3>{TITLE}</h3>[/TITLE]
+	[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+	<div class="embed-responsive embed-responsive-16by9 video-container" data-videoid="{HTML}">
+		<img class="video-thumb" src="//i.ytimg.com/vi/{HTML}/hqdefault.jpg"><span class="video-play fa fa-play-circle"></span>
+	</div>
+<!-- CSS: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css -->
+<!-- CSS: https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css -->
+<!-- CSS: .video-play {
+	height: 72px;
+	width: 72px;
+	left: 50%;
+	top: 50%;
+	margin-left: -36px;
+	margin-top: -36px;
+	position: absolute;
+	text-align: center;
+	line-height: 72px;
+	font-size: 70px;
+	color: #fff;
+}
+.video-play:hover {
+	color: yellow;
+	cursor: pointer;
+}
+-->
+<!-- JS:
+$(function(){
+	var $playButtons = $('.video-play').one('touchstart click', function() {
+		var $this = $(this);
+		var $videoContainer = $this.parent();
+		var $videoId = $.trim($videoContainer.data('videoid'));
+		var $children = $videoContainer.children();
+		$videoContainer.append('<iframe src="//www.youtube.com/embed/'+$videoId+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0" class="embed-responsive-item" frameborder="0" />');
+		$children.remove();
+	});
+});
+-->
+[/HTML]

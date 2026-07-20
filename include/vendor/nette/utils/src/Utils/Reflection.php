@@ -230,7 +230,7 @@ final class Reflection
 		try {
 			$tokens = \PhpToken::tokenize($code, TOKEN_PARSE);
 		} catch (\ParseError $e) {
-			trigger_error($e->getMessage());
+			trigger_error($e->getMessage(), E_USER_NOTICE);
 			$tokens = [];
 		}
 

@@ -5,7 +5,7 @@
 User-Agent: *
 
 # Be careful with these settings related to phpwcms
-# =================================================
+# ================================================
 #
 # exclude downloadable files from indexing
 #Disallow: /download.php*

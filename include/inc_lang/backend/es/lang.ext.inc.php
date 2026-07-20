@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,7 +13,7 @@
 // Language Code: es
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -22,7 +21,7 @@ $BL['FOLDER_LIST']       = 'Lista de carpetas';
 $BL['FILES']             = 'Archivos';
 $BL['SHOW_FILES']        = 'Mostrar archivos dentro del directorio ra&iacute;z';
 $BL['SHOW_FILES1']       = 'Mostrar archivos dentro de la carpeta';
-$BL['TAKE_IMAGE']        = 'Tomar este archivo y agregarlo;';
+$BL['TAKE_IMAGE']        = 'Tomar este archivo y agregarlo&#8230;';
 $BL['NO_FILE']           = 'Ning&uacute;n archivo';
 $BL['OPEN_DIR']          = 'Abrir la carpeta';
 $BL['CLOSE_DIR']         = 'Cerrar la carpeta';
@@ -42,5 +41,7 @@ $BL['SIZE']              = 'Tama&ntilde;o';
 $BL['DOWNLOAD_FILE']     = 'Bajar el archivo';
 $BL['FILE_IN_TRASH']     = 'El archivo est&aacute; en la papelera';
 $BL['KEYWORDS']          = 'Palabras clave';
-$BL['DOWNLOAD_ERR3']     = 'Error al leer la informaci&oacute;n del archivo<br />Cerrar la ventana e intentar nuevamente...';
+$BL['DOWNLOAD_ERR3']     = 'Error al leer la informaci&oacute;n del archivo<br />Cerrar la ventana e intentar nuevamente&#8230;';
+$BL['ADD_ALL_FILES']     = 'A&ntilde;adir todos los archivos';
+$BL['ADD_ALL_CONFIRM']   = '&iexcl;Todos los archivos del directorio &raquo;{VAL}&laquo; fueron a&ntilde;adidos!\n\nHaga clic en [Aceptar] para cerrar el navegador de archivos&#8230;';
 

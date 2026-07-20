@@ -4,6 +4,10 @@
  * Defines necessary constants and loads configuration/default libraries safely.
  */
 
+use staabm\PHPStanDba\QueryReflection\MysqliQueryReflector;
+use staabm\PHPStanDba\QueryReflection\QueryReflection;
+use staabm\PHPStanDba\QueryReflection\RuntimeConfiguration;
+
 // Initialize key global arrays expected by phpwcms
 global $phpwcms, $content, $BL, $template_default, $indexpage;
 $phpwcms = [];
@@ -42,11 +46,10 @@ $phpwcms['parse_url'] = [
 ];
 $phpwcms['host_root'] = '/';
 
-// Load configuration with fallback to dist config
+
+// Load configuration
 if (file_exists($projectRoot . '/include/config/conf.inc.php')) {
     require_once $projectRoot . '/include/config/conf.inc.php';
-} elseif (file_exists($projectRoot . '/include/config/dist.conf.inc.php')) {
-    require_once $projectRoot . '/include/config/dist.conf.inc.php';
 }
 
 // Load default settings and constant definitions under output buffering to swallow headers
@@ -62,22 +65,26 @@ if (file_exists($projectRoot . '/include/inc_lib/default.inc.php')) {
     require_once $projectRoot . '/include/inc_lang/code.lang.inc.php';
     require_once $projectRoot . '/include/inc_lang/backend/en/lang.inc.php';
     require_once $projectRoot . '/include/inc_lang/backend/en/lang.ext.inc.php';
+    require_once $projectRoot . '/include/inc_lang/backend/en/lang.pp.inc.php';
+    require_once $projectRoot . '/include/inc_lang/image/image.en.php';
     ob_end_clean();
 }
 
 // Configure PHPStan DBA (Database Analysis) dynamic connection using conf.inc.php with fallbacks
-if (class_exists('staabm\PHPStanDba\QueryReflection\QueryReflection')) {
+if (class_exists(QueryReflection::class)) {
+    // 1. Read parameters from conf.inc.php ($phpwcms array) with environment and hardcoded fallbacks
     $host = getenv('DBA_HOST') ?: ($phpwcms['db_host'] ?? '127.0.0.1');
-    $user = getenv('DBA_USER') ?: ($phpwcms['db_user'] ?? 'root');
-    $pass = getenv('DBA_PASS') ?: ($phpwcms['db_pass'] ?? '');
-    $dbname = getenv('DBA_DBNAME') ?: ($phpwcms['db_table'] ?? '');
+    $user = getenv('DBA_USER') ?: ($phpwcms['db_user'] ?? 'phpwcms');
+    $pass = getenv('DBA_PASS') ?: ($phpwcms['db_pass'] ?? 'phpwcms!');
+    $dbname = getenv('DBA_DBNAME') ?: ($phpwcms['db_table'] ?? 'phpwcms_v2');
 
+    // 2. Establish a connection for query reflection analysis
     try {
         $mysqli = @new \mysqli($host, $user, $pass, $dbname);
         if (!$mysqli->connect_error) {
-            $config = new \staabm\PHPStanDba\QueryReflection\RuntimeConfiguration();
-            $reflector = new \staabm\PHPStanDba\QueryReflection\MysqliQueryReflector($mysqli);
-            \staabm\PHPStanDba\QueryReflection\QueryReflection::setupReflector($reflector, $config);
+            $config = new RuntimeConfiguration();
+            $reflector = new MysqliQueryReflector($mysqli);
+            QueryReflection::setupReflector($reflector, $config);
         }
     } catch (\Throwable $e) {
         // Suppress connection exceptions during analysis

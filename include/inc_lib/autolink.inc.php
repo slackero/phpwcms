@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -74,10 +73,11 @@ function auto_link($str) {
   $tar[] = "<\\1 BORDER=0>";
 
   # If not MSIE, disable embed tag
-  if(!str_contains($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
+  if(!preg_match("/MSIE/", $_SERVER['HTTP_USER_AGENT'])) {
     $src[] = "/<embed/i";
     $tar[] = "&lt;embed";
   }
 
-  return preg_replace($src, $tar, $str);
+  $str = preg_replace($src,$tar,$str);
+  return $str;
 }

@@ -1,28 +1,27 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // general wrapper for ajax based queries
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+
+require '../config/conf.inc.php';
+require '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+require PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
 if(empty($_SESSION['wcs_user']) || empty($_SESSION['PHPWCMS_BROWSER_HASH']) || $_SESSION['PHPWCMS_BROWSER_HASH'] !== $GLOBALS['phpwcms']['USER_AGENT']['hash']) {
-    headerRedirect('', 401);
-    die();
+	headerRedirect('', 401);
+	die('Sorry, access forbidden');
 }
 
 if(isset($_POST['action'])) {
@@ -48,61 +47,78 @@ if(empty($value)) {
 
 // do charset conversions for value
 if(PHPWCMS_CHARSET !== 'utf-8') {
-    $value = mb_convert_encoding($value, PHPWCMS_CHARSET, 'utf-8');
+    $value = mb_convert_encoding( $value, PHPWCMS_CHARSET, 'utf-8' );
 }
 
 $data = array();
 
 switch($action) {
 
-    case 'category':
-        $where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
-        $where .= "cat_name LIKE '%" . _dbEscape(preg_replace('/[^\w\-\/]/', '', $value), false) . "%'";
-        $result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
+	case 'category':
+		$where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
+		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/', '', $value), false ) . "%'";
+		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
-        if(isset($result[0])) {
-            foreach($result as $value) {
-                $value = mb_convert_encoding($value['cat_name'], 'UTF-8');
-                $data[] = $jquery ? array('cat_name' => $value) : $value;
-            }
-        }
-        break;
+		if(isset($result[0])) {
+			foreach($result as $value) {
+				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
+				$data[] = $jquery ? array('cat_name' => $value) : $value;
+			}
+		}
+		break;
 
-    case 'newstags':
-        $where  = "cat_status=1 AND cat_type='news' AND ";
-        $where .= "SUBSTRING(cat_name, 1, 5) != '*CSS-' AND ";
-        $where .= "cat_name LIKE '%" . _dbEscape(preg_replace('/[^\w\-\/]/', '', $value), false) . "%'";
-        $result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
+	case 'newstags':
+		$where  = "cat_status=1 AND cat_type='news' AND ";
+		$where .= "SUBSTRING(cat_name, 1, 5) != '*CSS-' AND ";
+		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/', '', $value), false ) . "%'";
+		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
-        if(isset($result[0])) {
-            foreach($result as $value) {
-                $value = mb_convert_encoding($value['cat_name'], 'UTF-8');
-                $data[] = $jquery ? array('cat_name' => $value) : $value;
-            }
-        }
-        break;
+		if(isset($result[0])) {
+			foreach($result as $value) {
+				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
+				$data[] = $jquery ? array('cat_name' => $value) : $value;
+			}
+		}
+		break;
 
-    case 'lang':
-        $data = is_array($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) ? $phpwcms['allowed_lang'] : array($phpwcms['default_lang']);
-        sort($data);
-        break;
+	case 'lang':
+		$data1 = is_array($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) ? $phpwcms['allowed_lang'] : array($phpwcms['default_lang']);
+		sort($data1);
+		foreach($data1 as $value) {
+			$data[]['allowed_lang'] = $value;
+		}
+		break;
 
-    case 'flush_image_cache':
-        if (empty($_SESSION['wcs_user_admin'])) {
-            headerRedirect('', 401);
-            die();
-        }
-        $files = returnFileListAsArray(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
-        $data = array('file_count' => 0, 'status' => 'ok');
-        if(is_array($files)) {
-            $data['file_count'] = count($files);
-            foreach($files as $file) {
-                @unlink(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES.$file['filename']);
-            }
-        } else {
-            $data['status'] = '';
-        }
-        break;
+	case 'flush_image_cache':
+		if (!has_admin_permission('adm')) {
+			headerRedirect('', 401);
+			die();
+		}
+		$files = returnFileListAsArray(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES, array('jpg', 'png', 'gif', 'svg', 'webp'));
+		$data = array('file_count' => 0, 'status' => 'ok');
+		if(is_array($files)) {
+			$data['file_count'] = count($files);
+			foreach($files as $file) {
+				@unlink(PHPWCMS_ROOT.'/'.PHPWCMS_IMAGES.$file['filename']);
+			}
+		} else {
+			$data['status'] = '';
+		}
+		break;
+
+  //deleting article ajax
+  case 'atitle':
+    $where  = "article_deleted=0 AND ";
+    $where .= "article_title LIKE '%" ._dbEscape( $value, false ) . "%'";
+    $result = _dbGet('phpwcms_article', 'article_title', $where, 'article_title', 'article_title', 20);
+
+    if(isset($result[0])) {
+      foreach($result as $key => $value) {
+        $data[] = array('article_title' => mb_convert_encoding($value['cat_name'], 'UTF-8'));
+      }
+    }
+    break;
+  //end
 }
 
 if($method === 'json') {

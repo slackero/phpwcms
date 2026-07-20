@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -51,9 +50,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     $_loginData['reminder_success'] = get_tmpl_section('REMINDER_SUCCESS', $_loginData['template']);
     $_loginData['reminder_email']   = get_tmpl_section('REMINDER_EMAIL', $_loginData['template']);
 
-
     $_loginData['session_key']  = session_id();
-
     $_loginData['template']     = $_loginData['form'];
     $_loginData['error']        = false;
     $_loginData['login']        = '';
@@ -86,7 +83,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                 setcookie(
                     'phpwcmsFeLoginRemember',
                     $_loginData['login'].'##-|-##'.md5($_loginData['password']).'##-|-##'.$_loginData['validate_db']['userdetail'].'##-|-##'.$_loginData['validate_db']['backenduser'],
-                    time()+$_loginData['felogin_cookie_expire'],
+                    time() + $_loginData['felogin_cookie_expire'],
                     '/',
                     getCookieDomain(),
                     PHPWCMS_SSL,
@@ -104,7 +101,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
     } elseif(isset($_POST['feReminder'])) {
 
         $_loginData['remind_data'] = slweg($_POST['feReminder']);
-        $_loginData['remind_login_known'] = !empty($_POST['feReminderLoginKnown']);
+        $_loginData['remind_login_known'] = empty($_POST['feReminderLoginKnown']) ? false : true;
 
         // check if valid email - send login
         if($_loginData['remind_data'] && !$_loginData['remind_login_known'] && is_valid_email($_loginData['remind_data']) ) {
@@ -129,7 +126,7 @@ if(!empty($crow["acontent_template"]) && is_file(PHPWCMS_TEMPLATE.'inc_cntpart/f
                     $_loginData['remind_login'] = $result[0];
                 }
             }
-        }
+            }
 
         // otherwise check login and send password
         if($_loginData['remind_data'] && empty($_loginData['remind_login'])) {

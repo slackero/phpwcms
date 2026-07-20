@@ -50,9 +50,7 @@ class SessionCookieJar extends CookieJar
         /** @var SetCookie $cookie */
         foreach ($this as $cookie) {
             if (CookieJar::shouldPersist($cookie, $this->storeSessionCookies)) {
-                $data = $cookie->toArray();
-                $data['HostOnly'] = $cookie->getHostOnly();
-                $json[] = $data;
+                $json[] = $cookie->toArray();
             }
         }
 
@@ -80,17 +78,12 @@ class SessionCookieJar extends CookieJar
 
         $data = \json_decode($json, true);
         if (\is_array($data)) {
-            $cookies = [];
             foreach ($data as $cookie) {
-                if (!\is_array($cookie) || !\array_key_exists('HostOnly', $cookie) || !\is_bool($cookie['HostOnly'])) {
+                if (!\is_array($cookie)) {
                     throw new \RuntimeException('Invalid cookie data');
                 }
 
-                $cookies[] = new SetCookie($cookie);
-            }
-
-            foreach ($cookies as $cookie) {
-                $this->setCookie($cookie);
+                $this->setCookie(new SetCookie($cookie));
             }
         } elseif (\is_scalar($data) && \strlen((string) $data)) {
             throw new \RuntimeException('Invalid cookie data');

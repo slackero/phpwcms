@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -21,6 +20,8 @@ $newsletter                                     = array();
 // should show newsletter form
 $newsletter["newsletter_id"]                    = intval($_GET["s"]);
 $newsletter["newsletter_subject"]               = '';
+$newsletter["newsletter_pub"]                   = '';
+$newsletter["newsletter_lang"]                   = '';
 $newsletter["newsletter_date"]                  = time();
 if(!isset($newsletter["newsletter_vars"])) {
     $newsletter["newsletter_vars"]              = array();
@@ -46,6 +47,8 @@ if(isset($_POST["newsletter_id"])) {
     // read the create or edit subscription form data
     $newsletter["newsletter_id"]                    = intval($_POST["newsletter_id"]);
     $newsletter["newsletter_subject"]               = clean_slweg($_POST["newsletter_subject"]);
+    $newsletter["newsletter_pub"]                   = date('Y-m-d', strtotime($_POST["newsletter_pub"]));
+    $newsletter["newsletter_lang"]                  = clean_slweg($_POST["newsletter_lang"]);
     if(!$newsletter["newsletter_subject"])  $newsletter['error']['subject'] = 1;
 
     $newsletter['newsletter_vars']['from_name']     = clean_slweg($_POST["newsletter_fromname"]);
@@ -67,13 +70,21 @@ if(isset($_POST["newsletter_id"])) {
     if(!empty($_POST['newsletter_subscription']) && count($_POST['newsletter_subscription'])) {
         foreach($_POST['newsletter_subscription'] as $value) {
             $value = intval($value);
-            $newsletter['newsletter_vars']['subscription'][$value] = $value;
+            if($value) {
+                $newsletter['newsletter_vars']['subscription'][$value] = intval($value);
+            } else {
+                unset($newsletter['newsletter_vars']['subscription']);
+                $newsletter['newsletter_vars']['subscription'][0] = 0;
+                break;
+            }
         }
     } else {
         $newsletter['newsletter_vars']['subscription'][0] = 0;
     }
 
-    $sql  = "newsletter_subject="._dbEscape($newsletter["newsletter_subject"]).", ";
+    $sql  = "newsletter_pub="._dbEscape($newsletter["newsletter_pub"]).", ";
+    $sql .= "newsletter_lang="._dbEscape($newsletter["newsletter_lang"]).", ";
+    $sql .= "newsletter_subject="._dbEscape($newsletter["newsletter_subject"]).", ";
     $sql .= "newsletter_vars="._dbEscape(serialize($newsletter['newsletter_vars']))." ";
 
     if($newsletter["newsletter_id"]) {

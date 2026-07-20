@@ -1,4 +1,12 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
 // first define main language vars
 $BLM['backend_menu']            = 'Negozio/prodotti';
@@ -56,7 +64,7 @@ $BLM['shopprod_tag']            = 'Tag (*,*)';
 $BLM['shopprod_weight']         = 'Peso';
 $BLM['shopprod_weight_max']     = 'massimale';
 $BLM['shopprod_units_weight']   = 'kg, oz, g';
-$BLM['shopprod_unit']           = 'Unit&agrave;';
+$BLM['shopprod_unit']           = 'Unità';
 $BLM['shopprod_currency']       = 'Valuta';
 $BLM['shopprod_cart']           = 'Carrello';
 $BLM['shopprod_max_cartitem']   = 'Max. prodotti/carrello';
@@ -77,6 +85,7 @@ $BLM['shopprod_payby_prepay']   = 'Bonifico bancario';
 $BLM['shopprod_payby_pod']      = 'Contrassegno';
 $BLM['shopprod_payby_onbill']   = 'Alla consegna';
 $BLM['shopprod_payby_ccard']    = 'Carta di credito';
+$BLM['shopprod_payby_cash']     = 'Contanti';
 
 $BLM['shopprod_email_paypal']   = 'Email di Paypal';
 $BLM['shopprod_supported_ccard']= 'supportato';
@@ -85,3 +94,64 @@ $BLM['shopprod_terms']          = 'Termini &amp; condizioni';
 $BLM['shop_order']              = 'Ordine';
 
 $BLM['shopprod_order_subject']  = 'Il Vostro ordine';
+$BLM['shopprod_subcategory']    = 'Sottocategoria&nbsp;di';
+$BLM['shopprod_is_main_cat']    = 'Categoria principale';
+$BLM['shopprod_listall']        = 'Elenca sotto &quot;Tutti i prodotti&quot;';
+
+$BLM['shopprod_id_shop']        = 'Target negozio';
+$BLM['shopprod_id_cart']        = 'Target carrello';
+
+$BLM['shopprod_order']          = 'Dettagli dell\'ordine';
+$BLM['shopprod_order_date']     = 'Data dell\'ordine';
+$BLM['shopprod_order_address']  = 'Indirizzo';
+$BLM['shopprod_order_region']   = 'Regione';
+$BLM['shopprod_custom_field']   = 'Campo aggiuntivo';
+$BLM['shopprod_date_long']      = 'd/m/Y, H:i:s';
+
+$BLM['shopprod_total_net']      = 'Totale netto';
+$BLM['shopprod_total_vat']      = 'IVA';
+$BLM['shopprod_total_gross']    = 'Totale lordo';
+
+$BLM['shopprod_subtotal']       = 'Subtotale';
+
+$BLM['shopprod_email_customer'] = 'Mail al cliente';
+$BLM['shopprod_email_shop']     = 'Mail al negozio';
+$BLM['shopprod_ordered']        = 'Prodotti ordinati';
+$BLM['shopprod_quantity']       = 'Quantità';
+$BLM['shopprod_total']          = 'Totale';
+$BLM['shopprod_status_paid']    = 'Pagato';
+$BLM['shopprod_status_sent']    = 'Spedito/Ritirato';
+$BLM['shopprod_status_done']    = 'Completato';
+$BLM['shopprod_status_back']    = 'Reso';
+$BLM['shopprod_status_msg']     = 'Lo stato dell\'ordine è cambiato.';
+
+$BLM['shopprod_loworder']           = 'Ordine minimo';
+$BLM['shopprod_loworder_under']     = 'sotto';
+$BLM['shopprod_loworder_charge']    = 'supplemento';
+
+$BLM['shopprod_discount']           = 'Sconto';
+$BLM['shopprod_discount_from']      = 'da importo netto';
+$BLM['shopprod_freeshipping']       = 'spedizione gratuita';
+$BLM['shopprod_selfpickup']         = 'Ritiro in sede';
+$BLM['shopprod_allowed']            = 'permesso';
+$BLM['shopprod_is_selfpickup']      = 'Sì';
+$BLM['shopprod_isnot_selfpickup']   = 'No';
+
+$BLM['shopprod_lang_support']   = 'Supporto lingua frontend';
+$BLM['shopprod_overwrite_meta'] = 'Il dettaglio del prodotto sovrascrive i metadati';
+
+$BLM['shopprod_distance'] = 'Distanza (km)';
+$BLM['shopprod_distance_base'] = 'Indirizzo di partenza';
+$BLM['shopprod_api'] = 'API';
+$BLM['shopprod_api_access'] = 'consenti l\'accesso';
+$BLM['shopprod_api_key'] = 'Chiave API';
+
+$BLM['shopprod_inventory'] = 'Magazzino';
+$BLM['shopprod_autosubtract_off'] = 'NON ridurre l\'inventario all\'ordine';
+
+//NEW entries PPMO
+$BLM['order_edit']              = 'Modifica ordine';
+
+$BLM['shopprod_on_request'] = 'Ordine su richiesta';
+$BLM['shopprod_on_request_button'] = 'URL della richiesta';
+$BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

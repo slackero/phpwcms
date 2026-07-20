@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -28,7 +27,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert != 1 && $wert != 0) $wert = 0;
     $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_aktiv=".$wert.", f_changed='".time()."' WHERE f_id=".$id;
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -40,7 +39,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert != 1 && $wert != 0) $wert = 0;
     $sql = "UPDATE ".DB_PREPEND."phpwcms_file SET f_public=".$wert.", f_changed='".time()."' WHERE f_id=".$id;
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -52,7 +51,7 @@ if(isset($_GET["aktiv"])) {
     $wert   = intval($wert);
     if($wert == 9) {
         $sql = "UPDATE ".DB_PREPEND."phpwcms_file SET f_trash=9, f_changed='".time()."' WHERE f_id=".$id;
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('filedelete')) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         _dbQuery($sql, 'UPDATE');
@@ -66,7 +65,7 @@ if(isset($_GET["aktiv"])) {
     if($wert == 1 || $wert == 9 || $wert == 0) {
         $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=0, f_trash=".$wert.", f_changed='".time()."' WHERE f_kid=1 AND ";
         $sql .= $id ? "f_id=".$id : "f_trash=1";
-        if(empty($_SESSION["wcs_user_admin"])) {
+        if(!has_admin_permission('filedelete')) {
             $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
         }
         _dbQuery($sql, 'UPDATE');
@@ -78,7 +77,7 @@ if(isset($_GET["aktiv"])) {
     $file_id    = intval($file_id);
     $dir_id     = intval($dir_id);
     $sql  = "UPDATE ".DB_PREPEND."phpwcms_file SET f_pid=".$dir_id.", f_changed='".time()."' WHERE f_id=".$file_id." AND f_kid=1";
-    if(empty($_SESSION["wcs_user_admin"])) {
+    if(!has_admin_permission('fileaction')) {
         $sql .= " AND f_uid=".intval($_SESSION["wcs_user_id"]);
     }
     _dbQuery($sql, 'UPDATE');
@@ -89,9 +88,9 @@ if(isset($_GET["thumbnail"])) {
     $_SESSION["wcs_user_thumb"] = intval($_GET["thumbnail"]);
 }
 
-if(!empty($_SESSION["wcs_user_admin"])) { // If user has admin permissions
+if(has_admin_permission('adm') || has_admin_permission('filedelete')) { // If user has admin permissions
 
-    $phpwcms['trash_delete_files'] = !empty($phpwcms['trash_delete_files']);
+    $phpwcms['trash_delete_files'] = empty($phpwcms['trash_delete_files']) ? false : true;
 
     //move deleted files into final deletion directory
     if(isset($_GET['movedeletedfiles']) && intval($_GET['movedeletedfiles']) === intval($_SESSION["wcs_user_id"])) {

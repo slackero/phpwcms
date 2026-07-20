@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,7 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-?><table width="538" border="0" cellpadding="0" cellspacing="0" summary="">
+?><table width="538">
 <tr><td class="title"><?php echo $BL['be_chat_title'] ?></td></tr>
 <tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr valign="top"><td width="538"><?php echo $BL['be_chat_info'] ?></td></tr>

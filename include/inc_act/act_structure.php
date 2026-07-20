@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,9 +12,9 @@
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -29,7 +28,7 @@ if(empty($_SESSION['REFERER_URL'])) {
     $ref = empty($_SESSION['REFERER_URL']) ? PHPWCMS_URL.'phpwcms.php?'.get_token_get_string() : $_SESSION['REFERER_URL'];
 }
 
-if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
+if(has_admin_permission('artstruc')) { // Only for admin users
 
     if(isset($_POST["acat_access"]) && is_array($_POST["acat_access"]) && count($_POST["acat_access"])) {
 
@@ -226,13 +225,13 @@ if($_SESSION["wcs_user_admin"] === 1) { // Only for admin users
 }
 
 // Diverse actions
-$do = explode("|", $_GET["do"] ?? '');
+$do = explode("|", isset($_GET["do"]) ? $_GET["do"] : '');
 $action = intval($do[0]);
 
 if($action) {
 
     // Admin related actions only
-    if($_SESSION["wcs_user_admin"] === 1) {
+    if(has_admin_permission('artstruc')) {
 
         // Insert
         if($action === 1) {
@@ -283,17 +282,17 @@ if($action) {
 
                 // 1.) get all structure level IDs and put into an array
                 $struct_del = array();
-                $GLOBALS['article_del'] = array();
+                $article_del = array();
 
                 $struct_del[] = $do[1]; //start
 
                 get_struct_del_id($do[1]);
 
                 // create SQL query to set articles deleted
-                if(count($GLOBALS['article_del'])) {
+                if(count($article_del)) {
 
                     $a_del = array();
-                    foreach($GLOBALS['article_del'] as $value) {
+                    foreach($article_del as $value) {
                         //delete cached articles
                         $sql = "DELETE FROM ".DB_PREPEND."phpwcms_cache WHERE cache_aid=".intval($value);
                         _dbQuery($sql, 'DELETE');
@@ -440,7 +439,7 @@ _setConfig('structure_array_vmode_editor', '', 'frontend_render', 1);
 _setConfig('structure_array_vmode_admin', '', 'frontend_render', 1);
 
 if(isset($_POST['SubmitClose'])) {
-    headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=admin&p=6');
+    headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles');
 } else {
     headerRedirect($ref);
 }

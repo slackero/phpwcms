@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,56 +16,42 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="" class="shop">
-
-    <tr>
-        <th>&nbsp;</th>
-        <th>&nbsp;<?php echo $BLM['th_ordnr'] ?></th>
-        <th>&nbsp;&nbsp;<?php echo $BLM['th_date'] ?></th>
-        <th>&nbsp;&nbsp;<?php echo $BLM['th_customer'] ?></th>
-        <th>&nbsp;&nbsp;<?php echo $BLM['th_net'] ?>&nbsp;</th>
-        <th>&nbsp;&nbsp;<?php echo $BLM['th_gross'] ?>&nbsp;</th>
-        <th>&nbsp;<?php echo $BLM['th_payment'] ?></th>
-        <th>&nbsp;&nbsp;&nbsp;</th>
+<div class="table-responsive">
+<table class="table table-sm mb-0">
+    <tr bgcolor="#f3f3f3">
+        <th><?php echo $BLM['th_ordnr'] ?></th>
+        <th><?php echo $BLM['th_date'] ?></th>
+        <th><?php echo $BLM['th_customer'] ?></th>
+        <th><?php echo $BLM['th_net'] ?>&nbsp;</th>
+        <th><?php echo $BLM['th_gross'] ?>&nbsp;</th>
+        <th><?php echo $BLM['th_payment'] ?></th>
+        <th></th>
     </tr>
-
 
 <?php
 
 // loop listing available orders
 $BLM['shopprod_payby_INVOICE'] = $BLM['shopprod_payby_onbill'];
-
 $sql  = "SELECT *, DATE_FORMAT(order_date,'%d.%m.%Y') AS order_fdate FROM ".DB_PREPEND."phpwcms_shop_orders WHERE ";
 $sql .= "order_status NOT IN ('ARCHIVED', 'CLOSED') ORDER BY order_date DESC";
-
 $data = _dbQuery($sql);
-
 $_controller_link =  shop_url('controller=order');
-
 if($data) {
-
     foreach($data as $key => $row) {
-
         echo '<tr'.( ($key % 2) ? ' class="adsAltRow"' : '' ).'>'.LF;
 
-        echo '<td width="25" style="padding:2px 3px 2px 4px;">';
-
-        echo '<a href="'.$_controller_link.'&amp;show='.$row["order_id"].'">';
-        echo '<img src="img/famfamfam/cart_go.gif" alt="'.$BLM['shop_order'].'" border="0" />';
-        echo '</a></td>'.LF;
-
-        echo '<td class="dir nowrap" width="13%">';
+        echo '<td class="dir text-nowrap" width="13%">';
 
         if(SHOP_FELANG_SUPPORT) {
             $row['order_data']		= @unserialize($row['order_data'], ['allowed_classes' => false]);
             $row['shopprod_lang']	= empty($row['order_data']['lang']) ? '' : html_specialchars(strtolower($row['order_data']['lang']));
-            echo '<img src="img/famfamfam/lang/'.($row['shopprod_lang'] ?: 'all').'.png" alt="'.$row['shopprod_lang'].'" style="position:relative;top:1px;margin:0 3px 0 3px;" />';
+            echo '<span class="mr-2 flag-icon flag-icon-'.($row['shopprod_lang'] ? $row['shopprod_lang'] : ' fa fa-globe').' mt-1" data-toggle="tooltip" title="'.$row['shopprod_lang'].'"></span>';
         }
 
         echo html_specialchars($row['order_number'])."&nbsp;</td>\n";
-        echo '<td class="dir" align="right" width="13%">&nbsp;'.html_specialchars($row['order_fdate'])."&nbsp;</td>\n";
-        echo '<td class="dir nowrap" width="50%">&nbsp;<a href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'">';
-        echo html_specialchars($row['order_firstname'].' '.$row['order_name'])."</a>&nbsp;</td>\n";
+        echo '<td class="dir" width="13%">'.html_specialchars($row['order_fdate'])."</td>\n";
+        echo '<td class="dir text-nowrap">';
+        echo html_specialchars($row['order_firstname'].' '.$row['order_name'])."</td>\n";
 
         echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_net'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
         echo '<td class="dir listNumber" width="10%">'.html_specialchars( number_format( round($row['order_gross'], 2) , 2, $BLM['dec_point'], $BLM['thousands_sep'] ) )."&nbsp;</td>\n";
@@ -74,20 +59,25 @@ if($data) {
         $payment_name = isset($BLM[$payby_key]) ? $BLM[$payby_key] : (empty($row['order_payment']) ? '-' : $row['order_payment']);
         echo '<td class="dir" width="10%">'.html_specialchars($payment_name)."&nbsp;&nbsp;</td>\n";
 
-        echo '<td width="5%" align="right" class="button_td nowrap">';
+        echo '<td class="text-right text-nowrap" width="15%">';
+        echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;show='.$row["order_id"].'" data-toggle="tooltip" title="'.$BLM['order_edit'].'">';
+        echo '<i class="fa fa-pencil-alt fa-fw"></i>';
+        echo '</a>'.LF;
 
-        echo '<a href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
+        echo '<a class="btn btn-sm btn-blue" href="mailto:'.$row['order_email'].'?subject='.rawurlencode($BLM['shopprod_order_subject'].' #'.$row['order_number']).'" data-toggle="tooltip" title="'.$BLM['shopprod_email_customer'].'">';
+        echo '<i class="fa fa-envelope fa-fw"></i>';
+        echo '</a>'.LF;
+
+
+        echo '<a class="btn btn-sm btn-danger" href="'.$_controller_link.'&amp;delete='.$row["order_id"].'" data-toggle="tooltip" title="'.$BL['be_cnt_delete'].': '.html($row['order_number']).'"';
         echo ' onclick="return confirm(\''.$BLM['delete_order'].js_singlequote($row['order_number']).'\');">';
-        echo '<img src="img/button/trash_13x13_1.gif" border="0" alt="" /></a>';
+        echo '<i class="far fa-trash-alt fa-fw"></i></a>';
 
         echo '</td>'.LF;
         echo '</tr>'.LF;
-
     }
-
-} else {
-    echo '<tr><td colspan="8" bgcolor="#92A1AF"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>';
 }
 
 ?>
 </table>
+</div>

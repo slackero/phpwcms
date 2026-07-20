@@ -1,15 +1,14 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-define('PHPWCMS_JSLIB', 'mootools-1.2');
+const PHPWCMS_JSLIB = 'mootools-1.2';
 
 /**
  * Init Mootools 1.2.x Library
@@ -61,7 +60,7 @@ function init_frontend_edit_js() {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string|void
+ * @return string
  */
 function jsOnDomReady($js='', $return=false, $prefix='  ') {
 
@@ -88,7 +87,7 @@ function jsOnDomReady($js='', $return=false, $prefix='  ') {
  * @param   false   $return
  * @param   string  $prefix
  *
- * @return string|void
+ * @return string
  */
 function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 
@@ -119,7 +118,7 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
 function initJSPlugin($plugin='', $more=false) {
 	// enhance teplate JS parser for MooTools More
 	// sample: <!-- JS: MORE:Fx/Fx.Elements,Fx/Fx.Accordion -->
-	if(is_string($plugin) && $more === false && str_starts_with(strtoupper($plugin), 'MORE:')) {
+	if(is_string($plugin) && $more === false && substr(strtoupper($plugin), 0, 5) == 'MORE:') {
 		$plugin	= trim(substr($plugin, 5));
 		$more	= true;
 	}

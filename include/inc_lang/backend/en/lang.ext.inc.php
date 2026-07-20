@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -14,7 +13,7 @@
 // Language Code: en
 
 // please use HTML safe strings ONLY
-// this is neccessary to reduce the processing time
+// this is necessary to reduce the processing time
 
 // normal line break:    '&#13'
 // JavaScript Linebreak: '\n'
@@ -32,7 +31,7 @@ $BL['MEDIA_TITLE']       = 'phpwcms media browser';
 $BL['IMAGE_FILES']       = 'image files';
 $BL['MEDIA_FILES']       = 'media files';
 $BL['ROOT_DIR']          = 'storage (root dir)';
-$BL['DOWNLOAD_ERR1']     = 'An error (NR:{VAL}) occured while trying to download a file.';
+$BL['DOWNLOAD_ERR1']     = 'An error (NR:{VAL}) occurred while trying to download a file.';
 $BL['DOWNLOAD_ERR2']     = 'If you think that this might be a technical problem send an email to the <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
 $BL['DOWNLOAD_TITLE']    = 'File Download Error';
 $BL['FILEINFO_TITLE']    = 'phpwcms: file info';
@@ -44,5 +43,4 @@ $BL['FILE_IN_TRASH']     = 'file is in trash can';
 $BL['KEYWORDS']          = 'keywords';
 $BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and try again&#8230;';
 $BL['ADD_ALL_FILES']     = 'Add all files';
-$BL['ADD_ALL_CONFIRM']   = 'All files inside directory »{VAL}« were taken!\n\nClick [OK] to close the file browser';
-
+$BL['ADD_ALL_CONFIRM']   = 'All files inside directory &raquo;{VAL}&laquo; were taken!\n\nClick [OK] to close the file browser&#8230;';

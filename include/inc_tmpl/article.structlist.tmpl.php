@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -21,10 +20,11 @@ if (!defined('PHPWCMS_ROOT')) {
 //31-03-2005 Fernando Batista -> Copy/Cut Article Content http://fernandobatista.net
 
 ?>
-<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
-<tr><td colspan="2" class="title"><?php echo $BL['be_article_title'] ?></td></tr>
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
+<h1 class="text-center text-sm-left"><?php echo $BL['be_subnav_article_center'] ?></h1>
+<div class="card">
+<div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
+<div class="table-responsive" style="overflow-x: inherit">
+<table class="table table-sm mb-0">
 <?php
 
 $listmode = 0;
@@ -33,6 +33,8 @@ $cut_article = (isset($_GET["acut"])) ? intval($_GET["acut"]) : 0;
 
 $copy_id = (isset($_GET["cop"])) ? intval($_GET["cop"]) : 0;
 $copy_article = (isset($_GET["acopy"])) ? intval($_GET["acopy"]) : 0;
+$cut_article_content	= empty($_GET["accut"]) ? 0 : intval($_GET["accut"]);
+$copy_article_content	= empty($_GET["accopy"]) ? 0 : intval($_GET["accopy"]);
 
 if(isset($_GET["open"])) {
     list($open_id, $open_value) = explode(":", $_GET["open"]);
@@ -63,27 +65,25 @@ $child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
-$a  = "<tr onMouseOver=\"this.bgColor='#CCFF00';\" onMouseOut=\"this.bgColor='#FFFFFF';\">\n";
-$a .= '<td width="461">';
-$a .= "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" summary=\"\">\n<tr>\n";
-$a .= '<td class="nowrap">';
-$a .= ($child_count) ? "<a href=\"phpwcms.php?do=articles&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
-$a .= "<img src=\"img/symbole/plus_".($child_count ? (empty($_SESSION["structure"][0]) ? "open" : "close") : "empty");
-$a .= ".gif\" width=\"15\" height=\"15\" border=\"0\" alt=\"\">".(($child_count) ? "</a>" : "");
+$a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
+$a .= '<td>';
+$a .= "<table class=\"table-borderless\">\n<tr>\n";
+$a .= '<td class="text-nowrap">';
+$a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
 
-$a .= "<img src=\"img/symbole/page_1.gif\" width=\"11\" height=\"15\" ";
+$a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
+$a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 
-$info  = 'ID: <b>0</b><br />';
-$info .= 'ALIAS: '.html($indexpage["acat_alias"]);
+$info  = '<table class="text-left"><tr><td>ID:</td><td><b>0</b></td></tr>';
+$info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= 'onmouseover="Tip(\''.$info.'\');" onmouseout="UnTip()" alt="" />';
+$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
-$a .= "<td><img src=\"img/leer.gif\" width=\"2\" height=\"15\" alt=\"\" /></td>\n";
-$a .= '<td class="dir" width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
-echo '<td width="77" class="nowrap">';
+echo '<td class="text-nowrap text-right">';
 
 $struct[0]["acat_id"]       = 0;
 $struct[0]["acat_aktiv"]    = 1;
@@ -98,5 +98,6 @@ if(is_array($_SESSION["structure"]) && !empty($_SESSION["structure"][0])) {
     struct_list(0, $copy_article_content, $cut_article_content, $copy_id, $copy_article, $cut_id, $cut_article, $listmode);
 }
 ?>
-    <tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 </table>
+</div>
+</div>

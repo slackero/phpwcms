@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -27,7 +26,6 @@ $send_verification  = 1;
 $user_err           = '';
 
 if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
-
     // Create Account
     $new_login          = trim(slweg($_POST["form_newloginname"]));
     $new_password       = slweg($_POST["form_newpassword"]);
@@ -89,113 +87,113 @@ if(isset($_POST["form_aktion"]) && $_POST["form_aktion"] === "create_account") {
 
 if(empty($user_ok)) {
 
-?><form action="phpwcms.php?do=admin&amp;s=1" method="post" name="edituser" autocomplete="off"><table border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr>
-            <td colspan="2"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><img src="img/usricon/usr_add.gif" alt="" width="19" height="16"></td>
-                  <td class="title">&nbsp;<?php echo $BL['be_admin_usr_title'] ?></td>
-                </tr>
-              </table></td>
-          </tr>
-          <tr>
-            <td><img src="img/leer.gif" alt="" width="105" height="1"></td>
-            <td><img src="img/leer.gif" alt="" width="1" height="5"></td>
-          </tr>
+?><form action="phpwcms.php?do=admin&amp;s=1" method="post" name="edituser">
+
+		<h1><?php echo $BL['be_subnav_admin_users'] ?></h1>
+		<div class="card mb-4">
+		<div class="card-header"><h2><i class="fa fa-user-plus" aria-hidden="true"></i> <?php echo $BL['be_admin_usr_title'] ?></h2></div>
+		<div class="card-body">
+
+				<?php
+				if(!empty($user_err)) {
+				?>
+				<div class="alert alert-danger"><?php echo $BL['be_admin_usr_err'] ?>: <?php echo nl2br(chop($user_err)) ?></div>
+				<?php
+				} //Ende Fehler New User
+				?>
+
+				<div class="form-group form-row align-items-center">
+					<label for="form_newloginname" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_username"]  ?></label>
+					<div class="col">
+						<input type="text" class="form-control form-control-sm col-sm-5" name="form_newloginname" id="form_newloginname" value="<?php echo html($new_login); ?>" maxlength="200" autocomplete="off" required="required" />
+					</div>
+				</div>
+
+				<div class="form-group form-row">
+					<label for="form_newpassword" class="col-sm-2 col-form-label text-right"><?php echo $BL["login_userpass"] ?></label>
+					<div class="col">
+						<input type="password" class="form-control form-control-sm col-sm-5" name="form_newpassword" id="form_newpassword" value="<?php echo html($new_password); ?>" maxlength="200" autocomplete="new-password" />
+						<span class="text-blue small" onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
+							<?php echo $BL['be_password_show']; ?>
+						</span>
+					</div>
+				</div>
+
+				<div class="form-group form-row align-items-center">
+					<label for="form_newemail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
+					<div class="col">
+						<input type="email" class="form-control form-control-sm col-sm-5" name="form_newemail" id="form_newemail" value="<?php echo html($new_email); ?>" maxlength="250" autocomplete="off" required="required" />
+					</div>
+				</div>
+
+				<div class="form-group form-row align-items-center">
+					<label for="form_newrealname" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_usr_realname'] ?></label>
+					<div class="col">
+						<input type="text" class="form-control form-control-sm col-sm-5" name="form_newrealname" id="form_newrealname" value="<?php echo html($new_name); ?>" maxlength="200" autocomplete="off" required="required" />
+					</div>
+				</div>
+
+		<hr />
+
+			<div class="form-row align-items-center">
+				<label for="be_admin_usr_realname" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_issection']  ?></label>
+				<div class="col">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> />
+					<label class="form-check-label" for="form_feuser"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> />
+					<label class="form-check-label" for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> />
+					<label class="form-check-label" for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label>
+				</div>
+				</div>
+			</div>
+
+			<div class="form-row align-items-center">
+				<label for="be_admin_usr_setactive" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_setactive'] ?></label>
+				<div class="col">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> />
+					<label class="form-check-label" for="form_active"><?php echo $BL['be_admin_usr_iflogin'] ?></label>
+				</div>
+				</div>
+			</div>
+
+			<div class="form-row align-items-center">
+				<label for="be_admin_usr_isadmin" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_isadmin'] ?></label>
+				<div class="col">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> />
+					<label class="form-check-label" for="form_admin"><strong><?php echo $BL['be_admin_usr_ifadmin'] ?>!</strong></label>
+				</div>
+				</div>
+			</div>
+
+			<div class="form-row align-items-center">
+				<label for="be_admin_usr_verify" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_admin_usr_verify'] ?></label>
+				<div class="col">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?> />
+					<label class="form-check-label" for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label>
+				</div>
+				</div>
+			</div>
+
+			<div class="text-right">
+				<input name="form_aktion" type="hidden" value="create_account" />
+				<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_usr_button'] ?>" />
+			</div>
+
+    </div>
+  </div>
+</form>
+
 <?php
-        if(!empty($user_err)):
-?>
-          <tr valign="top">
-            <td align="right" class="error"><strong><?php echo $BL['be_admin_usr_err'] ?>:</strong>&nbsp;</td>
-            <td class="error"><strong><?php echo nl2br(chop($user_err)) ?></strong></td>
-          </tr>
-          <tr valign="top"><td colspan="2" align="right" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="7"></td></tr>
-<?php
-        endif;
-?>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL["login_username"]  ?>:&nbsp;</td>
-            <td><input name="form_newloginname" type="text" id="form_newloginname" value="<?php echo html($new_login); ?>" size="30" maxlength="200" autocomplete="off" class="width250" required="required" /></td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL["login_userpass"] ?>:&nbsp;</td>
-            <td class="nowrap">
-                <input name="form_newpassword" type="password" id="form_newpassword" value="<?php echo html($new_password); ?>" size="30" maxlength="200" autocomplete="new-password" class="width250" required="required" />
-                <span onclick="this.innerText = (togglePasswordVisibility('form_newpassword') === 'hide') ? '<?php echo $BL['be_password_hide']; ?>' : '<?php echo $BL['be_password_show']; ?>';" style="cursor:pointer">
-                    <?php echo $BL['be_password_show']; ?>
-                </span>
-            </td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_profile_label_email'] ?>:&nbsp;</td>
-            <td><input name="form_newemail" type="email" id="form_newemail" value="<?php echo html($new_email); ?>" size="30" maxlength="250" autocomplete="off" class="width250" required="required" /></td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_realname'] ?>:&nbsp;</td>
-            <td><input name="form_newrealname" type="text" id="form_newrealname" value="<?php echo html($new_name); ?>" size="30" maxlength="200" autocomplete="off" class="width250" required="required" /></td>
-          </tr>
-
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_issection']  ?>:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-                <tr>
-                  <td><input name="form_feuser" type="radio" id="form_feuser0" value="0"<?php is_checked($set_user_fe, 0); ?> /></td>
-                  <td><label for="form_feuser0"><?php echo $BL['be_admin_usr_ifsection0'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser1" value="1"<?php is_checked($set_user_fe, 1); ?> /></td>
-                  <td><label for="form_feuser1"><?php echo $BL['be_admin_usr_ifsection1'] ?></label>&nbsp;&nbsp;</td>
-                  <td><input name="form_feuser" type="radio" id="form_feuser2" value="2"<?php is_checked($set_user_fe, 2); ?> /></td>
-                  <td><label for="form_feuser2"><?php echo $BL['be_admin_usr_ifsection2'] ?></label></td>
-                  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
-                </tr>
-              </table></td>
-          </tr>
-
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_setactive'] ?>:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><input name="form_active" type="checkbox" id="form_active" value="1"<?php is_checked($set_user_aktiv, 1); ?> /></td>
-                  <td><label for="form_active"><?php echo  $BL['be_admin_usr_iflogin'] ?></label></td>
-                </tr>
-              </table></td>
-          </tr>
-
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-          <tr>
-            <td align="right" class="chatlist" style="color:#FF0000"><?php echo $BL['be_admin_usr_isadmin']  ?>:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><input name="form_admin" type="checkbox" id="form_admin" value="1"<?php is_checked($set_user_admin, 1); ?> /></td>
-                  <td><label for="form_admin"><?php echo  $BL['be_admin_usr_ifadmin'] ?> <strong class="error">!!!</strong></label></td>
-                </tr>
-              </table></td>
-          </tr>
-          <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_admin_usr_verify'] ?>:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-                <tr bgcolor="#E7E8EB">
-                  <td><input name="verification_email" type="checkbox" id="verification_email" value="1"<?php is_checked($send_verification, 1); ?>></td>
-                  <td><label for="verification_email"><?php echo $BL['be_admin_usr_sendemail'] ?></label></td>
-                  <td><img src="img/leer.gif" alt="" width="4" height="21"></td>
-                </tr>
-                <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-              </table></td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"><input name="form_aktion" type="hidden" value="create_account" /></td></tr>
-          <tr>
-            <td>&nbsp;</td>
-            <td><input name="Submit" type="submit" class="button" value="<?php echo $BL['be_admin_usr_button'] ?>" /></td>
-          </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15"></td></tr>
-      </table></form><img src="img/lines/l538_70.gif" alt="" width="538" height="1"><br /><img src="img/leer.gif" alt="" width="1" height="5"><?php
-
-
 } else {
     echo "<script type=\"text/javascript\"> timer=setTimeout(\"self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=admin'\", 0); </script>";
 }
+?>

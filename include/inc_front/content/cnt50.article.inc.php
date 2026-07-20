@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // Content Type Reference
 
-$content['reference'] = unserialize($crow["acontent_form"]);
+$content['reference'] = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default/reference.tmpl')) {
 
@@ -31,9 +30,9 @@ if(empty($content['reference']["tmpl"]) && is_file(PHPWCMS_TEMPLATE.'inc_default
 
 } else {
 
-	$content['reference']["tmpl"] = '	<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	$content['reference']["tmpl"] = '	<table width="100%">
 	  <tr>
-	    <td width="1%" valign="top"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+	    <td width="1%" valign="top"><table width="100%">
 	      <tr><td>[REF]{REF}[/REF]</td></tr>
 	      [CAPTION]<tr><td>{CAPTION}</td></tr>[/CAPTION]
 	    </table>
@@ -153,7 +152,7 @@ if($content['reference']['ref_count']) {
 				$zoominfo = get_cached_image(array(
 					"target_ext"	=>	$content['reference']["list"][$captkey][3],
 					"image_name"	=>	$content['reference']["list"][$captkey][2] . '.' . $content['reference']["list"][$captkey][3],
-					"max_width"		=>	$phpwcms["img_prev_width"],
+					"max_width"	=>	$phpwcms["img_prev_width"],
 					"max_height"	=>	$phpwcms["img_prev_height"],
 					"thumb_name"	=>	md5($content['reference']["list"][$captkey][2].$phpwcms["img_prev_width"].$phpwcms["img_prev_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
 				));
@@ -224,7 +223,7 @@ if($content['reference']['ref_count']) {
 		// close table row if horizontal
 		$content['reference']['ref_list'] .= $content['reference']['x3'];
 		// wrap it in the table
-		$content['reference']['ref_list']  = '<table border="0" cellspacing="0" cellpadding="0">'.$content['reference']['ref_list'].'</table>';
+		$content['reference']['ref_list']  = '<table>'.$content['reference']['ref_list'].'</table>';
 	}
 
 }

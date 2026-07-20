@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -105,7 +104,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
 
     if(count($content['highlight'])) {
 
-        if(str_contains($crow['template']['item'], '{IMAGE')) {
+        if(strpos($crow['template']['item'], '{IMAGE') !== false) {
             $crow['template']['image_render'] = true;
         }
 
@@ -342,7 +341,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 }
 
                 // Search for {SHOW_CONTENT}
-                if(str_contains($s_text, '{SHOW_CONTENT')) {
+                if(strpos($s_text, '{SHOW_CONTENT') !== false) {
                     $s_text = preg_replace_callback('/\{SHOW_CONTENT:(.*?)\}/', 'showSelectedContent', $s_text);
                 }
 
@@ -520,7 +519,7 @@ if(!empty($_POST["search_input_field"]) || !empty($_GET['searchwords'])) {
                 }
 
                 if(empty($s_list[$s_key]['link'])) {
-                    if(str_contains($s_list[$s_key]['query'], 'index.php') || str_starts_with($s_list[$s_key]['query'], 'http')) {
+                    if(strpos($s_list[$s_key]['query'], 'index.php') !== false || strpos($s_list[$s_key]['query'], 'http') === 0) {
                         $s_list[$s_key]['link'] = $s_list[$s_key]['query'];
                     } elseif($content['search']['highlight_result']) {
                         $s_list[$s_key]['link'] = str_replace(array('___GOTO___', '___HIGHLIGHT__'), array($s_list[$s_key]['query'], $s_result_highlight), $_search_link_highlight);
@@ -710,7 +709,7 @@ if(isset($content["search"]["result_per_page"])) {
 
     $crow['template']['form'] = ' ';
 
-    if(str_contains($crow['template']['result'], '{FORM}')) {
+    if(strpos($crow['template']['result'], '{FORM}') !== false) {
 
         $crow['template']['form'] = '<div class="search_form"';
         if($content["search"]["align"] === 1) {
@@ -720,7 +719,7 @@ if(isset($content["search"]["result_per_page"])) {
         }
         $crow['template']['form'] .= '>';
         $crow['template']['form'] .= '<form action="' . rel_url() . '" method="post">'.LF;
-        $crow['template']['form'] .= '<table cellspacing="0" cellpadding="0" border="0" summary="Search"><tr>';
+        $crow['template']['form'] .= '<table summary="Search"><tr>';
         if($content["search"]["label_input"]) {
             $crow['template']['form'] .= '<td class="formLabel">';
             $crow['template']['form'] .= $content["search"]["label_input"]."</td>";

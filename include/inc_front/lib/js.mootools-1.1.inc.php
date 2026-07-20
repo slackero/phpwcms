@@ -1,15 +1,14 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-define('PHPWCMS_JSLIB', 'mootools-1.1');
+const PHPWCMS_JSLIB = 'mootools-1.1';
 
 /**
  * Init Mootools 1.1.x Library
@@ -114,7 +113,6 @@ function jsOnUnLoad($js='', $return=false, $prefix='  ') {
  * Simple MooTools Plugin Loader
  *
  * @param   string  $plugin
- * @param   false   $more
  *
  * @return bool
  */

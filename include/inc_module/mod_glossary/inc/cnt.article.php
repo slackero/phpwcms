@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -116,7 +115,7 @@ if(!empty($GLOBALS['_getVar']['glossaryid'])) {
             $content['glossary']['filter'][0]   = substr($content['glossary']['filter'][0], 0, 1);
             $content['glossary']['filter'][1]   = empty($content['glossary']['filter'][1]) ? '?' : substr($content['glossary']['filter'][1], 0, 1);
             // is there start and end
-            if(str_contains($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][0]) && str_contains($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][1])) {
+            if(strpos($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][0]) !== false && strpos($content['glossary']['glossary_alphabet'], $content['glossary']['filter'][1]) !== false) {
 
                 $content['glossary']['glossary_alphabet']   = preg_split('//', $content['glossary']['glossary_alphabet'], -1, PREG_SPLIT_NO_EMPTY);
                 $content['glossary']['filters']             = array();

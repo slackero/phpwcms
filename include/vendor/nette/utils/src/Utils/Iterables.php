@@ -195,7 +195,7 @@ final class Iterables
 		return new class ($factory(...)) implements \IteratorAggregate {
 			public function __construct(
 				/** @var \Closure(): iterable<mixed, mixed> */
-				private readonly \Closure $factory,
+				private \Closure $factory,
 			) {
 			}
 

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -20,7 +19,7 @@ if (!defined('PHPWCMS_ROOT')) {
 $content["text"] 			= $row["acontent_text"];
 $content["template"]		= $row["acontent_template"];
 $content["ctext_format"]	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
-$content["ctext_format"]	= $content["ctext_format"]['ctext_format'] ?? 'plain';
+$content["ctext_format"]	= isset($content["ctext_format"]['ctext_format']) ? $content["ctext_format"]['ctext_format'] : 'plain';
 
 switch($content["ctext_format"]) {
 	case 'plain':

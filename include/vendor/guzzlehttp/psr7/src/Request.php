@@ -47,7 +47,7 @@ class Request implements RequestInterface
         }
 
         self::warnOnMethodCasingChange($method);
-        $this->method = Utils::asciiToUpper($method);
+        $this->method = strtoupper($method);
         $this->uri = $uri;
         $this->setHeaders($headers);
         $this->protocol = $version;
@@ -108,7 +108,7 @@ class Request implements RequestInterface
         $this->assertMethod($method);
         self::warnOnMethodCasingChange($method);
         $new = clone $this;
-        $new->method = Utils::asciiToUpper($method);
+        $new->method = strtoupper($method);
 
         return $new;
     }
@@ -184,7 +184,7 @@ class Request implements RequestInterface
 
     private static function warnOnMethodCasingChange(string $method): void
     {
-        if ($method !== Utils::asciiToUpper($method)) {
+        if ($method !== strtoupper($method)) {
             \trigger_deprecation(
                 'guzzlehttp/psr7',
                 '2.11',

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -16,11 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Sitemap
-
 if(!isset($content['sitemap'])) {
-
 	$content['sitemap']["before"]			= '';
 	$content['sitemap']["after"]			= '';
 	$content['sitemap']["catimg"]			= '';
@@ -31,80 +27,94 @@ if(!isset($content['sitemap'])) {
 	$content['sitemap']["articleclass"]		= '';
 	$content['sitemap']["classcount"]		= 0;
 	$content['sitemap']["without_parent"]	= 0;
-
 }
-
 ?>
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
-<tr>
-  <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_before'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_before" cols="40" rows="3" class="code width440 autosize" id="csitemap_before"><?php echo html($content["sitemap"]["before"]) ?></textarea></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-<tr>
-  <td align="right" class="chatlist" valign="top"><img src="img/leer.gif" alt="" width="1" height="15"><?php echo $BL['be_cnt_guestbook_after'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="csitemap_after" cols="40" rows="3" class="code width440 autosize" id="csitemap_after"><?php echo html($content["sitemap"]["after"]) ?></textarea></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_catimage'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-  <tr><td><input name="csitemap_catimg" type="text" id="csitemap_catimg" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["catimg"]) ?>" size="40"></td><td>&nbsp;<?php
-  if($content["sitemap"]["catimg"]) echo '<img src="'.$content["sitemap"]["catimg"].'" border="0">';
-  ?></td></tr></table></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_articleimage'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-  <tr><td><input name="csitemap_articleimg" type="text" id="csitemap_articleimg" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["articleimg"]) ?>" size="40"></td><td>&nbsp;<?php
-  if($content["sitemap"]["articleimg"]) echo '<img src="'.$content["sitemap"]["articleimg"].'" border="0">';
-  ?></td></tr></table></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+<div class="form-group form-row">
+  <label for="csitemap_before" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_guestbook_before'] ?></label>
+  <div class="col">
+    <textarea name="csitemap_before" cols="40" rows="3" class="form-control form-control-sm" id="csitemap_before"><?php echo html($content["sitemap"]["before"]) ?></textarea>
+  </div>
+</div>
 
-<tr>
-	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_startid'] ?>:&nbsp;</td>
-	<td><select name="csitemap_startid" id="csitemap_startid" class="width325">
-<?php
-	echo "<option value='0'".((!$content["sitemap"]["startid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
-	struct_select_menu(0, 0, $content["sitemap"]["startid"]);
-?></select></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
+<div class="form-group form-row">
+  <label for="csitemap_after" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_guestbook_after'] ?></label>
+  <div class="col"><textarea name="csitemap_after" cols="40" rows="3" class="form-control form-control-sm" id="csitemap_after"><?php echo html($content["sitemap"]["after"]) ?></textarea>
+  </div>
+</div>
 
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_display'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-  <tr>
-  	<td><input name="csitemap_display" id="csitemap_display0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["display"]) ?>></td>
-	<td><label for="csitemap_display0"><?php echo $BL['be_cnt_sitemap_structuronly'] ?></label>&nbsp;&nbsp;</td>
-	<td><input name="csitemap_display" id="csitemap_display1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["display"]) ?>></td>
-	<td><label for="csitemap_display1"><?php echo $BL['be_cnt_sitemap_structurarticle'] ?></label>&nbsp;&nbsp;</td>
-	<td><input name="csitemap_without_parent" id="csitemap_without_parent" type="checkbox" value="1" <?php is_checked(1, $content["sitemap"]["without_parent"]) ?>></td>
-	<td><label for="csitemap_without_parent"><?php echo $BL['be_cnt_sitemap_without_parent'] ?></label>&nbsp;&nbsp;</td>
-  </tr></table></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_catclass'] ?>:&nbsp;</td>
-  <td valign="top"><input name="csitemap_catclass" type="text" id="csitemap_catclass" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["catclass"]) ?>" size="40"></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_articleclass'] ?>:&nbsp;</td>
-  <td valign="top"><input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="f11" style="width: 350px" value="<?php echo html($content["sitemap"]["articleclass"]) ?>" size="40"></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_sitemap_count'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
-  <tr>
-  	<td><input name="csitemap_classcount" id="csitemap_classcount0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["classcount"]) ?>></td>
-	<td><label for="csitemap_classcount0"><?php echo $BL['be_cnt_sitemap_noclasscount'] ?></label>&nbsp;&nbsp;</td>
-	<td><input name="csitemap_classcount" id="csitemap_classcount1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["classcount"]) ?>></td>
-	<td><label for="csitemap_classcount1"><?php echo $BL['be_cnt_sitemap_classcount'] ?></label>&nbsp;&nbsp;</td>
-  </tr></table></td>
-</tr>
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_catimg" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_catimage'] ?></label>
+  <div class="col-sm-4"><input name="csitemap_catimg" type="text" id="csitemap_catimg" class="form-control form-control-sm" value="<?php echo html($content["sitemap"]["catimg"]) ?>" >
+  <?php if($content["sitemap"]["catimg"]) echo '<img src="'.$content["sitemap"]["catimg"].'" border="0">';
+  ?>
+  </div>
+</div>
 
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_articleimg" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_articleimage'] ?></label>
+  <div class="col-sm-4"><input name="csitemap_articleimg" type="text" id="csitemap_articleimg" class="form-control form-control-sm" value="<?php echo html($content["sitemap"]["articleimg"]) ?>" size="40">
+  	<?php if($content["sitemap"]["articleimg"]) echo '<img src="'.$content["sitemap"]["articleimg"].'" border="0">'; ?>
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_startid" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_startid'] ?></label>
+  <div class="col-sm-4">
+    <select name="csitemap_startid" id="csitemap_startid" class="custom-select form-control form-control-sm">
+  <?php
+    echo "<option value='0'".((!$content["sitemap"]["startid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n";
+    struct_select_menu(0, 0, $content["sitemap"]["startid"]);
+  ?></select>
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_display" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_display'] ?></label>
+  <div class="col">
+  	<div class="form-check form-check-inline">
+			<input class="form-check-input" name="csitemap_display" id="csitemap_display0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["display"]) ?>>
+			<label class="form-check-label" for="csitemap_display0"><?php echo $BL['be_cnt_sitemap_structuronly'] ?>
+		</label>
+	</div>
+  	<div class="form-check form-check-inline">
+			<input class="form-check-input" name="csitemap_display" id="csitemap_display1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["display"]) ?>>
+			<label class="form-check-label" for="csitemap_display1"><?php echo $BL['be_cnt_sitemap_structurarticle'] ?>
+		</label>
+	</div>
+  	<div class="form-check form-check-inline">
+			<input class="form-check-input" name="csitemap_without_parent" id="csitemap_without_parent" type="checkbox" value="1" <?php is_checked(1, $content["sitemap"]["without_parent"]) ?>>
+			<label class="form-check-label" for="csitemap_without_parent"><?php echo $BL['be_cnt_sitemap_without_parent'] ?>
+		</label>
+	</div>
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_catclass" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_catclass'] ?></label>
+  <div class="col-sm-4">
+    <input name="csitemap_catclass" type="text" id="csitemap_catclass" class="form-control form-control-sm" value="<?php echo html($content["sitemap"]["catclass"]) ?>">
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_articleclass" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_articleclass'] ?></label>
+  <div class="col-sm-4">
+    <input name="csitemap_articleclass" type="text" id="csitemap_articleclass" class="form-control form-control-sm" value="<?php echo html($content["sitemap"]["articleclass"]) ?>">
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="csitemap_display" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitemap_count'] ?></label>
+  <div class="col">
+  	<div class="form-check form-check-inline">
+			<input class="form-check-input" name="csitemap_classcount" id="csitemap_classcount0" type="radio" value="0" <?php is_checked(0, $content["sitemap"]["classcount"]) ?>>
+			<label class="form-check-label" for="csitemap_classcount0"><?php echo $BL['be_cnt_sitemap_noclasscount'] ?>
+		</label>
+	</div>
+  	<div class="form-check form-check-inline">
+			<input class="form-check-input" name="csitemap_classcount" id="csitemap_classcount1" type="radio" value="1" <?php is_checked(1, $content["sitemap"]["classcount"]) ?>>
+			<label class="form-check-label" for="csitemap_classcount1"><?php echo $BL['be_cnt_sitemap_classcount'] ?></label>
+	</div>
+  </div>
+</div>

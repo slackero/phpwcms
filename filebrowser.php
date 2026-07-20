@@ -1,32 +1,21 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-/**
- * Sept. 2009
- * enhancement to enable phpwcms filebrowser support in FCK Editor
- * based on concept and work of Markus Köhl <www.pagewerkstatt.ch>
- *
- * April 2011
- * - enhancement to enable phpwcms filebrowser support in CKEditor
- *   based on concept and work of Markus Köhl <www.leanux.ch>
- * - Issue 265 based on TB's post
- */
-
 $phpwcms            = array('SESSION_START' => true);
+$phpwcms_root       = rtrim(str_replace('\\', '/', dirname(__FILE__)), '/');
 $js_files_all       = array();
 $js_files_select    = array();
 
-require_once __DIR__ . '/include/config/conf.inc.php';
-require_once __DIR__ . '/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
+require_once $phpwcms_root.'/include/config/conf.inc.php';
+require_once $phpwcms_root.'/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 
 if( empty($_SESSION["wcs_user_lang"]) ) {
 
@@ -153,79 +142,71 @@ if(isset($_GET["files"])) {
 $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_aktiv=1 AND (f_public=1 OR f_uid=".intval($_SESSION["wcs_user_id"]).") AND f_trash=0";
 $count_user_files = _dbQuery($sql, 'COUNT');
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $user_lang; ?>">
+?><!DOCTYPE html>
+<html lang="<?php echo $user_lang; ?>">
 <head>
-
     <title><?php echo $titel ?></title>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>" />
-
+    <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_js/uploader/fileuploader.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/autoSuggest.css" rel="stylesheet" type="text/css" />
-    <script src="include/inc_js/jquery/jquery.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/uploader/fileuploader.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/phpwcms.min.js" type="text/javascript"></script>
-    <script src="include/inc_js/autosize.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        function addFile(obj,text,value) {
-            if(obj!=null && obj.options!=null) {
-                var newOpt = new Option(text, value);
-                obj.options.length++;
-                obj.options[obj.length-1].text  = newOpt.text;
-                obj.options[obj.length-1].value = newOpt.value;
-                obj.options[obj.length-1].selected = false;
+    <link href="include/inc_css/uploadfile.min.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
+    <link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
+    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/jquery.form.min.js"></script>
+    <script src="include/inc_js/jquery.uploadfile.min.js"></script>
+    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js"></script>
+    <?php echo getJavaScriptTranslations(); ?>
+    <script src="include/inc_js/phpwcms.min.js"></script>
+    <script>
+        function addFile(obj, text, value) {
+            if (obj && obj.options) {
+                const newOpt = new Option(text, value, false, false);
+                obj.add(newOpt);
             }
         }
     </script>
 </head>
-<body class="filebrowser">
-<div class="uploader filebrowser-uploader closed" id="filebrowser-uploader">
+<body class="filebrowser m-3">
 
-    <h1 class="title" id="fileupload-switch"><?php echo $BL['be_file_multiple_upload'] ?></h1>
-
-    <div class="uploader-button" id="upload-file-select"></div>
-
+<h2 class="mb-1"><?php echo $BL['FILE_TITLE'] ?></h2>
+  <?php if ($js_aktion == 16) { ?>
+  <h2 class="mb-1"><?php echo $BL['be_article_title'] ?></h2><?php } ?>
+<hr />
+<button type="button" class="btn btn-blue btn-sm mb-3" id="showuploader"><?php echo $BL['be_file_multiple_upload'] ?></button>
+	<div class="uploader filebrowser-uploader" id="filebrowser-uploader" style="display:none">
+	  <div id="fileuploader">Upload</div>
     <div class="filebrowser-form">
-        <p>
-            <label class="chatlist"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
-            <textarea cols="40" rows="3" id="file_longinfo"></textarea>
-        </p>
-        <p>
-            <label class="chatlist"><?php echo $BL['be_copyright'] ?></label>
-            <input name="file_copyright" type="text" id="file_copyright" size="40" maxlength="255" value="" />
-        </p>
-        <p>
-            <label class="chatlist"><?php echo $BL['be_tags'] ?></label>
-            <input type="text" id="file_tags_autosuggest" />
-        </p>
-
-        <div class="uploader-button qq-upload-button" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
+			<p>
+				<label class="chatlist" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<textarea cols="40" rows="3" id="file_longinfo" class="form-control"></textarea>
+			</p>
+			<p>
+				<label class="chatlist" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
+				<input name="file_copyright" type="text" id="file_copyright" class="form-control" maxlength="255" value="" />
+			</p>
+			<p>
+				<span class="chatlist"><?php echo $BL['be_tags'] ?></span>
+				<input type="text" id="file_tags_autosuggest" class="form-control" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+			</p>
+      <div class="btn btb-default" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
     </div>
+	</div>
 
-</div>
-<table summary="" border="0" cellspacing="0" cellpadding="0" style="margin:4px;">
+<table class="table table-sm">
   <tr>
-        <td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
-        <td rowspan="4"><img src="img/leer.gif" alt="" width="5" height="1" border="0" /></td>
-        <td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
+    <th class="bg-grey" >&nbsp;<?php echo $BL['FOLDER_LIST'] ?></th>
+    <th class="bg-grey px-3">&nbsp;</th>
+    <th class="bg-grey">&nbsp;<?php echo $filetype ?></th>
   </tr>
   <tr>
-    <td bgcolor="#7C98A2" class="msgreiter">&nbsp;<?php echo $BL['FOLDER_LIST'] ?>&nbsp;</td>
-    <td bgcolor="#7C98A2" class="msgreiter">&nbsp;<?php echo $filetype ?>&nbsp;</td>
-  </tr>
-  <tr>
-        <td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
-        <td bgcolor="#7C98A2"><img src="img/leer.gif" alt="" width="1" height="1" border="0" /></td>
-  </tr>
-  <tr>
-    <td valign="top"><?php
+    <td class="align-top w-50 p-0"><?php
 
 if(!empty($count_user_files)) { //Listing in case of user files/folders
 
-    echo '<table summary="" bgColor="#FCFDFD" border="0" cellspacing="0" cellpadding="0">'.LF;
+    echo '<table class="table mt-3">'.LF;
 
     //Anzeige des Festplattensymbols
     $dirname = $BL['ROOT_DIR'];
@@ -233,33 +214,30 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         $folder[0] = 0;
     }
     $folder_status = true_false($folder[0]);
+    $counter = 0;
 
     $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=0 AND f_aktiv=1 AND f_trash=0 AND (f_public=1 OR f_uid=".$_SESSION["wcs_user_id"].")";
 
     if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
-        $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
-        $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
+        $count  = '<a href="filebrowser.php?opt='.$js_aktion.'&amp;folder=0';
+        $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0, $counter).'</a>';
     } else {
-        $count = '<img src="img/leer.gif" height="1" width="13" alt="" border="0" />';
-    }
+        $count = on_off($folder_status, $dirname, 0, $counter);
+        }
 
     // define current directory name
     $current_dirname = $dirname;
 
     $dirname    =  "<a href=\"filebrowser.php?opt=".$js_aktion."&amp;files=0\" title=\"".$BL['SHOW_FILES'].'">'.$dirname."</a>";
-    $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FED83F"' : '';
+    $bgcol      = (isset($row["f_id"]) && $row["f_id"] == $_SESSION["imgdir"]) ? ' bgcolor="#FFF5C9"' : '';
 
-    echo '<tr'.$bgcol.'><td colspan="2"><img src="img/leer.gif" height="2" width="1" border="0" alt="" /></td></tr>'.LF; //Abstand vor
-    echo '<tr'.$bgcol.'><td class="msglist nowrap" nowrap="nowrap">';
-    echo $count.'<img src="img/leer.gif" height="1" width="4" border="0" alt="" /><img src="img/icons/harddisk_16x11.gif" border="0" alt="" />'; //Zellinhalt 1. Spalte
-    echo '<img src="img/leer.gif" height="1" width="4" alt="" border="0" />'.$dirname.'</td><td><img src="img/leer.gif" height="1" width="5" border="0" alt="" /></td></tr>'.LF;
-    //Aufbau trennende Tabellen-Zeile
-    echo '<tr'.$bgcol.'><td colspan="2"><img src="img/leer.gif" height="1" width="1" border="0" alt="" /></td></tr>'.LF; //Abstand nach
-    echo '<tr bgcolor="#CDDEE4"><td colspan="2"><img src="img/leer.gif" height="1" width="1" border="0" alt="" /></td></tr>'.LF;
+    echo '<tr'.$bgcol.'><td class="text-nowrap">';
+    echo $count.'<i class="fa fa-desktop fa-fw pl-1 mr-2" aria-hidden="true"></i>';
+    echo $dirname.'</td></tr>'.LF;
 
     //Wenn überhaupt Ordner für User vorhanden, dann Listing
     if(!$folder_status && $count_wert) {
-        folder_list(0, 18, "filebrowser.php?opt=".$js_aktion."&amp;");
+        folder_list(0, 1, "filebrowser.php?opt=".$js_aktion."&amp;");
     }
 
     echo '</table>';
@@ -268,34 +246,35 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 }
 
     ?></td>
-    <td valign="top"><?php
+    <td class="align-top px-3">&nbsp;</td>
+    <td class="align-top w-50 p-0"><?php
 
     //Tabelle
 
-    echo '<table summary="" bgColor="#FFFFFF" width="100%" border="0" cellspacing="0" cellpadding="0">'.LF;
+    echo '<table class="table table-borderless mt-2">'.LF;
     $file_sql  = "SELECT * FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$_SESSION["imgdir"]." AND ";
     switch($js_aktion) {
 
         case 6:
             $file_sql .= "f_ext IN ('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'mp3', 'aac', 'webp') AND ";
-            break;
+                    break;
 
-            // H.264
+                    // H.264
         case 12:
             $file_sql .= "f_ext IN ('mp4', 'm4p', 'mov', 'm4p', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac') AND ";
-            break;
+                    break;
 
-            // WebM
+                    // WebM
         case 13:
             $file_sql .= "f_ext IN ('webm') AND ";
-            break;
+                    break;
 
-            // Ogg
+                    // Ogg
         case 14:
             $file_sql .= "f_ext IN ('ogg', 'ogv', 'oga', 'ogx') AND ";
-            break;
+                    break;
 
-            // Typical Doc files
+                    // Typical Doc files
         case 18:
             $file_sql .= "f_ext IN ('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers') AND ";
             // no break here
@@ -322,7 +301,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             if(!empty($_GET['field']) && ($entry_id = preg_replace('/[^a-z0-9_-]/i', '', $_GET['field']))) {
                 $_SESSION['filebrowser_field'] = $entry_id;
             }
-            break;
+                    break;
 
         case 11:
         case 17:
@@ -335,25 +314,25 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 $file_sql .= ", 'pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps', 'webp'";
             }
             $file_sql .= ") AND ";
-            break;
+                    break;
 
         case 2:
             $default_ext  = "f_ext IN ('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', ";
-            $default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
-            $default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
+                    $default_ext .= "'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', ";
+                    $default_ext .= "'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid', 'midi')";
 
-            if(!empty($phpwcms["multimedia_ext"])) {
+                    if(!empty($phpwcms["multimedia_ext"])) {
 
-                $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
-                if(count($allowed_ext)) {
+                        $allowed_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
+                        if(count($allowed_ext)) {
                     $default_ext = "f_ext IN ('" . implode("', '", $allowed_ext) . "')";
-                }
+                        }
 
-            }
+                    }
 
-            $file_sql .= $default_ext." AND ";
+                    $file_sql .= $default_ext." AND ";
 
-            break;
+                    break;
 
     }
     $file_sql .= "f_aktiv=1 AND f_kid=1 AND f_trash=0 AND ";
@@ -372,6 +351,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
         $target_form = (empty($_SESSION['image_browser_article'])) ? 'articlecontent' : 'article';
 
+        $bg_toggle = false;
         foreach($file_result as $file_durchlauf => $file_row) {
 
             $filename = html($file_row["f_name"]);
@@ -388,118 +368,126 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 
             if($thumb_image != false || in_array($js_aktion, array(6, 10, 12, 13, 14, 16, 18, 19))) {
 
+                $bg_toggle = !$bg_toggle;
+                $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
+
                 $js_files_select[$file_durchlauf] = '     [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
                 $add_all = false;
 
+                //change js call so it works inside modal
                 switch($js_aktion) {
                     case 0:
                         $jst = empty($_SESSION['filebrowser_image_target']) ? '_' : $_SESSION['filebrowser_image_target'];
 
-                        $js  = "window.opener.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
-                        $js .= "window.opener.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
+                        $js  = "parent.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
+                        $js .= "parent.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
+                        $js .= "if (typeof parent.onImageSelected === 'function') { parent.onImageSelected('".$jst."', '".$file_row["f_id"]."', '".$filename."'); }";
                         break;
 
                     case 2:
-                        $js  = "window.opener.document.articlecontent.cmedia_name.value='".$filename."';";
-                        $js .= "window.opener.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
+                        $js  = "parent.document.articlecontent.cmedia_name.value='".$filename."';";
+                        $js .= "parent.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
                         break;
 
                     case 6:
                     case 12:
                     case 13:
                     case 14:
-                        $js = "window.opener.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
+                        $js = "parent.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
                         break;
 
                     case 19:
-                        $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');tmt_winControl('self','close()');";
-                        break;
-
                     case 18:
                     case 15:
-                        $js = "window.opener.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
                         break;
 
                     case 7:
-                        $js = "window.opener.setImgIdName('".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setImgIdName('".$file_row["f_id"]."', '".$filename."');";
                         break;
 
                     case 8:
-                        $js = "window.opener.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
                         break;
 
                     case 4:
-                        $js = "addFile(window.opener.document.articlecontent.cfile_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list),'".$filename."','".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
 
                     case 9:
-                        $js = "window.opener.addFile('".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.addFile('".$file_row["f_id"]."', '".$filename."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
 
                     case 5:
-                        $js = "addFile(window.opener.img_field,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.img_field,'".$filename."','".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
 
                     //mod
                     case 10:
-                        $js  = "window.opener.SetUrl('download.php?f=".$file_row["f_hash"] . "');";
+                        $js  = "parent.SetUrl('download.php?f=" . $file_row["f_hash"] . "');";
                         break;
 
                     case 11:
-                        $js  = "window.opener.SetUrl('".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
+                        $js  = "parent.SetUrl('".PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"] . "');";
                         break;
 
-                     //TinyMCE / CKEditor
-                     case 16:
-                         $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('download.php?f=" . $file_row["f_hash"] . "');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');}";
-                         break;
- 
-                     case 17:
-                         $resize_url = PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"];
-                         $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('".$resize_url."');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".$resize_url."');}";
-                         break;
+                    //TinyMCE / CKEditor
+                    case 16:
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('download.php?f=" . $file_row["f_hash"] . "');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", 'download.php?f=" . $file_row["f_hash"] . "');}";
+                        break;
+
+                    case 17:
+                        $resize_url = PHPWCMS_RESIZE_IMAGE."/".$phpwcms['img_prev_width']."x".$phpwcms['img_prev_height']."/" . $file_row["f_hash"] . '.' . $file_row["f_ext"];
+                        $js  = "if(window.opener && window.opener.activeTinyMceCallback){window.opener.activeTinyMceCallback('".$resize_url."');window.close();}else{window.opener.CKEDITOR.tools.callFunction(".$ckeditor_action.", '".$resize_url."');}";
+                        break;
 
                     default:
-                        $js = "addFile(window.opener.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
-                        $add_all = true;
+                         $add_all = true;
                 }
 
                 // show "add all files"
                 if($file_durchlauf === 0 && $add_all) {
 
-                    echo '<tr id="addAllFilesLink"><td colspan="4" class="add_all_files"><a href="#" onclick="addAllFiles();return false;" title="';
+                    echo '<tr id="addAllFilesLink"><td colspan="4"><a href="#" class="btn btn-sm btn-blue" onclick="addAllFiles();return false;" data-toggle="tooltip" title="';
                     echo $BL['ADD_ALL_FILES'];
                     echo '">';
                     echo $BL['ADD_ALL_FILES'];
-                    echo '<img src="img/button/add_9x9a.gif" alt="" border="0" /></a></td></tr>';
-                    echo '<tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" alt="" border="0" /></td></tr>';
-
+                    echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
                 }
 
-                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" border="0" alt="" /></td></tr>';
-                echo '<tr><td><img src="img/icons/small_'.extimg($file_row["f_ext"]).'" alt="" hspace="3" vspace="1" /></td>';
-                echo '<td class="msglist">';
+                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                    if($file_row["f_copyright"]) {
+                        echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
+                    }
+                    echo '"></i></td>';
+                echo '<td>';
 
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
-                    echo $filename.'</td><td><img src="img/leer.gif" width="5" height="1" alt="" />';
+                    echo $filename.'</td><td class="text-right py-1">';
+                } else if($js_aktion == 16 || $js_aktion == 17) {
+                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td class="text-right py-1">';
                 } else {
-                    echo '<a href="#" onclick="'.$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td align="right">';
+                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td class="text-right py-1">';
                 }
 
-                echo '<a href="#" onclick="'.$js.'return false;" title="'.$BL['TAKE_IMAGE'].'">';
-                echo '<img src="img/button/add_9x9a.gif" alt="" hspace="5" vspace="2" /></a></td>';
-                echo '<td><img src="img/leer.gif" alt="" /></td></tr>';
-                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="1" alt="" /></td></tr>';
+                echo '<a href="#" class="btn btn-sm btn-blue" onclick="'.$js.'return false;" data-toggle="tooltip" title="'.$BL['TAKE_IMAGE'].'">';
+                echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
+                echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr><td>&nbsp;</td><td colspan="3"><a href="#" onclick="'.$js;
-                    echo "tmt_winControl('self','close()');\">";
+                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
+                    if($js_aktion == 16 || $js_aktion == 17) {
+                      echo "tmt_winControl('self','close()');\">";
+                    } else {
+                      echo "parent.$('#browserModal').modal('hide');\">";
+                    }
                     if($file_row['f_svg']) {
                         echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" />';
                     } else {
@@ -507,17 +495,13 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     }
                     echo '</a></td></tr>';
                 }
-                echo '<tr><td colspan="4"><img src="img/leer.gif" width="1" height="2" alt="" /></td></tr>';
-                echo '<tr><td colspan="4" bgcolor="#CDDEE4"><img src="img/leer.gif" width="1" height="1" alt="" /></td></tr>';
             }
 
         }
         if(empty($filename)) { //Abschluss der Filelisten-Tabelle
-            echo '<tr><td colspan="4"><img src="img/leer.gif" width="3" height="2" alt="" /></td></tr>';
             echo '<tr><td colspan="4" class="msglist">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
-            echo '<tr><td colspan="4"><img src="img/leer.gif" width="3" height="2" alt="" /></td></tr>';
         }
-    }
+      }
 
     echo '</table>';
 
@@ -535,13 +519,13 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo 'function addAllFiles() {';
         echo LF . ' ';
         echo implode(LF . ' ', $js_files_all);
-        echo LF . ' //if(closewin == true) tmt_winControl("self","close()");';
-        echo LF . ' getObjectById("addAllFilesLink").style.display = "none";';
+        echo LF . ' //if(closewin == true) '."parent.$('#browserModal').modal('hide');";
+        echo LF . ' document.getElementById("addAllFilesLink").style.display = "none";';
         $confirm = str_replace('{VAL}', $current_dirname, $BL['ADD_ALL_CONFIRM']);
         if(PHPWCMS_CHARSET !== 'utf-8') {
             $confirm = mb_convert_encoding($confirm, PHPWCMS_CHARSET);
         }
-        echo LF . ' if(confirm("' . $confirm . '")) tmt_winControl("self","close()");';
+        echo LF . ' bsConfirmInfo("' . addslashes($confirm) . '", function() { parent.$(\'#browserModal\').modal(\'hide\'); });';
         echo LF . '}' . LF;
 
         echo LF . SCRIPT_CDATA_END;
@@ -552,7 +536,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
     $fileuploaderAllowedExtensions = '';
     if(is_string($phpwcms['allowed_upload_ext'])) {
         $fileuploaderAllowedExtensions = strtolower($phpwcms['allowed_upload_ext']);
-        if(str_contains($fileuploaderAllowedExtensions, ',')) {
+        if(strpos($fileuploaderAllowedExtensions, ',') !== false) {
             $fileuploaderAllowedExtensions = "'" . str_replace(',', "','", $fileuploaderAllowedExtensions) . "'";
         }
     } elseif(count($phpwcms['allowed_upload_ext'])) {
@@ -564,122 +548,57 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 </table>
 <script>
 $(function() {
-
-    var fileuploader = $('#filebrowser-uploader'),
-        fileuploadSwitch = $('#fileupload-switch'),
-        uploadTrigger = $('#upload-trigger-send'),
-        fileBrowserForm = $('div.filebrowser-form'),
-        uploadFileCount = 0;
-
-    fileuploadSwitch.click(function(){
-        if(fileuploader.hasClass('closed')) {
-            fileuploader.removeClass('closed');
-            if(uploadFileCount) {
-                fileBrowserForm.show();
-            }
-        } else {
-            fileBrowserForm.hide();
-            fileuploader.addClass('closed');
-        }
-    });
-
-    // File Uploading
-    var uploader = new qq.FileUploader({
-        element: $('#upload-file-select')[0],
-        action: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_upload.php?<?php echo get_token_get_string(); ?>',
-        multiple: true,
-        autoUpload: false,
-        allowedExtensions: [<?php echo $fileuploaderAllowedExtensions; ?>],
-        uploadButtonText: '<?php echo $BL['be_fileuploader_uploadButtonText'] ?>',
-        cancelButtonText: '<?php echo $BL['be_newsletter_button_cancel'] ?>',
-        failUploadText: '<?php echo $BL['be_error_while_save'] ?>',
-        dragText: '<?php echo $BL['be_fileuploader_dragText'] ?>',
-        sizeLimit: <?php
-
-            if(ini_get('post_max_size')) {
-                $post_max_size = return_bytes(ini_get('post_max_size'));
-                if($post_max_size < $phpwcms['file_maxsize']) {
-                    $phpwcms['file_maxsize'] = $post_max_size;
-                }
-            } else {
-                $post_max_size = $phpwcms['file_maxsize'];
-            }
-            if(ini_get('upload_max_filesize')) {
-                $upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
-                if($upload_max_filesize < $phpwcms['file_maxsize']) {
-                    $phpwcms['file_maxsize'] = $upload_max_filesize;
-                }
-            } else {
-                $upload_max_filesize = $phpwcms['file_maxsize'];
-            }
-
-            echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
-
-        ?>,
-        messages: {
-            typeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_typeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-            sizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_sizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-            minSizeError: "<?php echo makeCharsetConversion($BL['be_fileuploader_minSizeError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-            emptyError: "<?php echo makeCharsetConversion($BL['be_fileuploader_emptyError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-            noFilesError: "<?php echo makeCharsetConversion($BL['be_fileuploader_noFilesError'], 'utf-8', PHPWCMS_CHARSET) ?>",
-            onLeave: "<?php echo makeCharsetConversion($BL['be_fileuploader_onLeave'], 'utf-8', PHPWCMS_CHARSET) ?>"
-        },
-        disableDefaultDropzone: false,
-        onSubmit: function(id, fileName) {
-            if(!uploadFileCount) {
-                fileBrowserForm.show();
-            }
-            uploadFileCount++;
-        },
-        onCancel: function(id, fileName) {
-            uploadFileCount--;
-            if(!uploadFileCount) {
-                fileBrowserForm.hide();
-            }
-        },
-        onComplete: function(id, fileName, responseJSON) {
-            if(responseJSON.success) {
-                uploadFileCount--;
-                if(!uploadFileCount) {
-                    document.location.reload(true);
-                }
-            }
-        }
-    });
-
-    uploadTrigger.click(function() {
-
-        uploader.setParams({
-            file_dir: <?php echo $_SESSION["imgdir"] ?>,
-            file_aktiv: 1,
-            file_public: 1,
-            file_longinfo: $('#file_longinfo').val(),
-            file_copyright: $('#file_copyright').val(),
-            file_tags: $('#as-values-keyword-autosuggest').val()
-        });
-
-        uploader.uploadStoredFiles();
-    });
-
     $("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
         selectedItemProp: "cat_name",
         selectedValuesProp: 'cat_name',
         searchObjProps: "cat_name",
         queryParam: 'value',
-        extraParams: '&method=json&action=category',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
         startText: '',
         neverSubmit: true,
         asHtmlID: 'keyword-autosuggest'
     });
 
-});
+    $('.structarticle').on('click', function () {
+        parent.$('#browserModal').modal('hide');
+    });
 
+    $("#fileuploader").uploadFile({
+        url: "<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
+        fileName: "myfile",
+        dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
+        abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        onSuccess: function (files, data, xhr, pd) {
+            $.ajax({
+                url: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    file_dir: <?php echo $_SESSION["imgdir"] ?>,
+                    file_aktiv: 1,
+                    file_public: 1,
+                    file_longinfo: $('#file_longinfo').val(),
+                    file_copyright: $('#file_copyright').val(),
+                    file_tags: $('#as-values-keyword-autosuggest').val()
+                },
+                success: function (data) {
+                    document.location.reload();
+                }
+            });
+        }
+    });
+
+    $('#showuploader').on('click', function () {
+        $('#filebrowser-uploader').toggle();
+    });
+});
 </script>
 </body>
 </html>
 <?php
 
-function folder_list($pid, $vor, $zieldatei) {
+function folder_list($pid, $counter, $zieldatei) {
     global $current_dirname;
     $folder = $_SESSION["folder"];
     $pid = intval($pid);
@@ -699,36 +618,34 @@ function folder_list($pid, $vor, $zieldatei) {
             if(empty($folder[$row["f_id"]])) {
                 $folder[ $row["f_id"] ] = 0;
             }
-            $folder_status = true_false($folder[ $row["f_id"] ]);
+            $folder_status = true_false($folder[$row["f_id"]]);
 
             //Ermitteln, ob überhaupt abhängige Dateien/Ordner existieren
             $count_sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE f_pid=".$row["f_id"]." AND f_trash=0 AND f_aktiv=1 AND (f_public=1 OR f_uid=".$userID.")";
 
             if(($count_wert = _dbQuery($count_sql, 'COUNT'))) {
-                $count  = '<img src="img/leer.gif" height="1" width="2" alt="" border="0" /><a href="'.$zieldatei."folder=".$row["f_id"];
-                $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0).'</a>';
+                $count  = '<a href="'.$zieldatei."folder=".$row["f_id"];
+                $count .= '%7C'.$folder_status.'">'.on_off($folder_status, $dirname, 0, $counter).'</a>';
             } else {
-                $count = '<img src="img/leer.gif" height="1" width="13" alt="" border="0" />';
+                $count = on_off($folder_status, $dirname, 0, $counter);
             }
 
-            $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
+            $dirname = '<a href="'.$zieldatei."files=".$row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['SHOW_FILES1'].'">'. $dirname . '</a>';
 
             if($row["f_id"] == $_SESSION["imgdir"]) {
-                $bgcol = ' bgcolor="#FED83F"';
+                $bgcol = ' bgcolor="#FFF5C9"';
                 $current_dirname = $row["f_name"];
             } else {
                 $bgcol = '';
             }
 
-            echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-            echo "<tr".$bgcol."><td class=\"msglist nowrap\" nowrap=\"nowrap\">";
-            echo $count."<img src=\"img/leer.gif\" height=\"1\" width=\"".($vor+6)."\" border=\"0\" alt=\"\" /><img src=\"img/icons/folder_zu.gif\" border=\"0\" alt=\"\" />";
-            echo "<img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" />".$dirname."</td><td><img src=\"img/leer.gif\" height=\"1\" width=\"5\" alt=\"\" border=\"0\" /></td></tr>\n";
-            echo "<tr".$bgcol."><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
-            echo "<tr bgcolor=\"#CDDEE4\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" alt=\"\" border=\"0\" /></td></tr>\n";
+            echo "<tr".$bgcol."><td class=\"text-nowrap\">";
+            echo $count.'<i class="fa fa-folder mx-1 fa-fw" aria-hidden="true"></i>';
+            echo "".$dirname."</td></tr>\n";
+
 
             if(!$folder_status && $count_wert) {
-                folder_list($row["f_id"], $vor+18, $zieldatei);
+                folder_list($row["f_id"], $counter+1, $zieldatei);
             }
 
             $_SESSION["list_zaehler"]++;
@@ -736,16 +653,15 @@ function folder_list($pid, $vor, $zieldatei) {
     }
 }
 
-function on_off($wert, $string, $art = 1) {
+function on_off($wert, $string, $art=1, $counter=0) {
     //Erzeugt das Status-Zeichen für Klapp-Auf/Zu
     //Wenn Art = 1 dann als Zeichen, ansonsten als Bild
     if($wert) {
-        return $art == 1 ? "+" : "<img src=\"img/symbols/klapp_zu.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['OPEN_DIR'].": ".$string."\" />";
+        return ($art == 1) ? "+" : '<i class="far fa-plus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_opendir'].': '.$string.'"></i>';
     } else {
-        return $art == 1 ? "-" : "<img src=\"img/symbols/klapp_auf.gif\" border=\"0\" alt=\"\" title=\"".$GLOBALS['BL']['CLOSE_DIR'].": ".$string."\" />";
+        return ($art == 1) ? "-" : '<i class="far fa-minus-square fa-fw px-1 slist-'.$counter.'" aria-hidden="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_closedir'].': '.$string.'"></i>';
     }
 }
-
 function true_false($wert) {
     // Swap true / false
     return intval($wert) ? 0 : 1;

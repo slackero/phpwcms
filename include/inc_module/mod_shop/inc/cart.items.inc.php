@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -310,7 +309,7 @@ foreach( _getConfig( 'shop_pref_shipping', '_shopPref' ) as $item_key => $row ) 
                 $subtotal['shipping_gross']	= $subtotal['shipping_net'] * ( 1 + ($row['zone_vat'] / 100) );
                 $subtotal['shipping_vat']	= $subtotal['shipping_gross'] - $subtotal['shipping_net'];
 
-                $subtotal['shipping_distance_details']['label'] = $row['zone_label'] ?: $row['zone'];
+                $subtotal['shipping_distance_details']['label'] = $row['zone_label'] ? $row['zone_label'] : $row['zone'];
 
                 break;
             }

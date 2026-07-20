@@ -1,6 +1,36 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Function struct_list invoked with 11 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Variable \$indexpage might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Variable \$user_lang might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../articlebrowser.php
+
+		-
+			message: '#^Offset ''DOCTYPE_LANG'' does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../dbdown.php
+
+		-
 			message: '#^Variable \$is_mysql_error might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -59,6 +89,18 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../feeds.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0\|1\|3\|5\|6\|7\|8\|10\|11\|17\|18\|19 and 16 will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: ../filebrowser.php
+
+		-
+			message: '#^Loose comparison using \=\= between 4\|10 and 17 will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: ../filebrowser.php
 
 		-
 			message: '#^Offset ''allowed_upload_ext'' does not exist on array\{SESSION_START\: true\}\.$#'
@@ -123,7 +165,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 29
+			count: 24
 			path: ../filebrowser.php
 
 		-
@@ -135,7 +177,7 @@ parameters:
 		-
 			message: '#^Variable \$entry_id might not be defined\.$#'
 			identifier: variable.undefined
-			count: 3
+			count: 2
 			path: ../filebrowser.php
 
 		-
@@ -193,10 +235,10 @@ parameters:
 			path: ../fileinfo.php
 
 		-
-			message: '#^Variable \$img_source might not be defined\.$#'
+			message: '#^Variable \$user_lang might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
-			path: ../image_resized.php
+			count: 1
+			path: ../fileinfo.php
 
 		-
 			message: '#^Offset ''DOCTYPE_LANG'' does not exist on array\{\}\.$#'
@@ -298,7 +340,7 @@ parameters:
 			message: '#^Call to function update_cache\(\) on a separate line has no effect\.$#'
 			identifier: function.resultUnused
 			count: 1
-			path: ../include/inc_act/act_cache.php
+			path: ../include/inc_act/act_articlesort.php
 
 		-
 			message: '#^If condition is always true\.$#'
@@ -355,8 +397,20 @@ parameters:
 			path: ../include/inc_act/act_formmailer.php
 
 		-
-			message: '#^Offset ''enable_deprecated'' on array\{\} in empty\(\) does not exist\.$#'
+			message: '#^Offset ''SMTP_FROM_NAME'' does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Offset ''formmailer_set'' on array\{\} in empty\(\) does not exist\.$#'
 			identifier: empty.offset
+			count: 1
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Offset ''formmailer_set'' on array\{\} in isset\(\) does not exist\.$#'
+			identifier: isset.offset
 			count: 1
 			path: ../include/inc_act/act_formmailer.php
 
@@ -379,9 +433,33 @@ parameters:
 			path: ../include/inc_act/act_formmailer.php
 
 		-
-			message: '#^Unreachable statement \- code above always terminates\.$#'
-			identifier: deadCode.unreachable
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 4
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Variable \$form might not be defined\.$#'
+			identifier: variable.undefined
 			count: 1
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Variable \$recipient might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Variable \$recipient_name might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_act/act_formmailer.php
+
+		-
+			message: '#^Variable \$translate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
 			path: ../include/inc_act/act_formmailer.php
 
 		-
@@ -427,33 +505,63 @@ parameters:
 			path: ../include/inc_act/act_ftptakeover.php
 
 		-
-			message: '#^If condition is always true\.$#'
-			identifier: if.alwaysTrue
-			count: 1
-			path: ../include/inc_act/act_sendnewsletter.php
+			message: '#^Offset ''ftp_path'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: ../include/inc_act/act_multiupload-list.php
 
 		-
-			message: '#^Left side of && is always true\.$#'
-			identifier: booleanAnd.leftAlwaysTrue
-			count: 1
-			path: ../include/inc_act/act_sendnewsletter.php
+			message: '#^Variable \$BE might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_act/act_multiupload-list.php
 
 		-
-			message: '#^Negated boolean expression is always false\.$#'
-			identifier: booleanNot.alwaysFalse
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: ../include/inc_act/act_multiupload-list.php
+
+		-
+			message: '#^Offset ''allowed_upload_ext'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
-			path: ../include/inc_act/act_sendnewsletter.php
+			path: ../include/inc_act/act_multiupload.php
+
+		-
+			message: '#^Offset ''file_maxsize'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 4
+			path: ../include/inc_act/act_multiupload.php
+
+		-
+			message: '#^Parameter \#1 \$dir_handle of function closedir expects resource\|null, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_act/act_multiupload.php
+
+		-
+			message: '#^Parameter \#1 \$path of function pathinfo expects string, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_act/act_multiupload.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_act/act_multiupload.php
+
+		-
+			message: '#^Variable \$retf might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
+			path: ../include/inc_act/act_multiupload.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 4
-			path: ../include/inc_act/act_sendnewsletter.php
-
-		-
-			message: '#^Variable \$temp_lang might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
 			path: ../include/inc_act/act_sendnewsletter.php
 
 		-
@@ -469,30 +577,6 @@ parameters:
 			path: ../include/inc_act/act_structure.php
 
 		-
-			message: '#^Call to function is_bool\(\) with true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''allowed_upload_ext'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Offset ''file_maxsize'' does not exist on array\{SESSION_START\: true\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 4
-			path: ../include/inc_act/act_upload.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_act/act_upload.php
-
-		-
 			message: '#^Offset ''admin_email'' does not exist on array\{SESSION_START\: true\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 2
@@ -503,6 +587,18 @@ parameters:
 			identifier: offsetAccess.notFound
 			count: 2
 			path: ../include/inc_act/act_user.php
+
+		-
+			message: '#^Offset ''charset'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../include/inc_act/ajax_alias.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 24
+			path: ../include/inc_act/ajax_alias.php
 
 		-
 			message: '#^Function clean_slweg invoked with 3 parameters, 1\-2 required\.$#'
@@ -521,6 +617,48 @@ parameters:
 			identifier: argument.unresolvableType
 			count: 1
 			path: ../include/inc_act/ajax_connector.php
+
+		-
+			message: '#^Offset ''img_list_height'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Offset ''img_list_width'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Offset ''sharpen_level'' does not exist on array\{SESSION_START\: true\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Variable \$f_alias might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Variable \$file_name might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
+
+		-
+			message: '#^Variable \$imagesrc might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_act/ajax_imagealias.php
 
 		-
 			message: '#^Call to function is_array\(\) with non\-empty\-array\<string, string\> will always evaluate to true\.$#'
@@ -667,8 +805,26 @@ parameters:
 			path: ../include/inc_ext/htmlfilter.php
 
 		-
+			message: '#^Function unspace\(\) has invalid return type attvalue\.$#'
+			identifier: class.notFound
+			count: 1
+			path: ../include/inc_ext/htmlfilter.php
+
+		-
+			message: '#^Function unspace\(\) should return attvalue but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: ../include/inc_ext/htmlfilter.php
+
+		-
 			message: '#^Left side of \|\| is always false\.$#'
 			identifier: booleanOr.leftAlwaysFalse
+			count: 1
+			path: ../include/inc_ext/htmlfilter.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(attvalue  The attribute value before extraneous spaces removed\.\)\: Unexpected token "The", expected variable at offset 229 on line 6$#'
+			identifier: phpDoc.parseError
 			count: 1
 			path: ../include/inc_ext/htmlfilter.php
 
@@ -701,6 +857,12 @@ parameters:
 			identifier: deadCode.unreachable
 			count: 3
 			path: ../include/inc_ext/htmlfilter.php
+
+		-
+			message: '#^Function gmmktime invoked with 7 parameters, 1\-6 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_ext/php_calendar.php
 
 		-
 			message: '#^If condition is always true\.$#'
@@ -967,6 +1129,12 @@ parameters:
 			path: ../include/inc_front/content/cnt12.article.inc.php
 
 		-
+			message: '#^Variable \$nlkey might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_front/content/cnt12.article.inc.php
+
+		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
 			count: 9
@@ -1135,6 +1303,12 @@ parameters:
 			path: ../include/inc_front/content/cnt18.article.inc.php
 
 		-
+			message: '#^Parameter \#2 \$strict of function base64_decode expects bool, array\<string, false\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_front/content/cnt18.article.inc.php
+
+		-
 			message: '#^Parameter \#2 \$value of function setcookie expects string, int\<1, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1262,6 +1436,12 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$string of function trim expects string, bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_front/content/cnt23.article.inc.php
+
+		-
+			message: '#^Parameter \#3 \$length of function substr expects int\|null, string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../include/inc_front/content/cnt23.article.inc.php
@@ -1483,6 +1663,12 @@ parameters:
 			path: ../include/inc_front/content/cnt29.article.inc.php
 
 		-
+			message: '#^Variable \$value might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_front/content/cnt29.article.inc.php
+
+		-
 			message: '#^Variable \$CNT_TMP might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
@@ -1551,17 +1737,11 @@ parameters:
 		-
 			message: '#^Variable \$crow might not be defined\.$#'
 			identifier: variable.undefined
-			count: 11
+			count: 12
 			path: ../include/inc_front/content/cnt32.article.inc.php
 
 		-
 			message: '#^Variable \$template_default might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_front/content/cnt32.article.inc.php
-
-		-
-			message: '#^Variable \$value might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_front/content/cnt32.article.inc.php
@@ -1667,6 +1847,42 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: ../include/inc_front/content/cnt6.article.inc.php
+
+		-
+			message: '#^Variable \$CNT_TMP might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_front/content/cnt60.article.inc.php
+
+		-
+			message: '#^Variable \$crow might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_front/content/cnt60.article.inc.php
+
+		-
+			message: '#^Variable \$image might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_front/content/cnt60.article.inc.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../include/inc_front/content/cnt60.article.inc.php
+
+		-
+			message: '#^Variable \$template_default might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_front/content/cnt60.article.inc.php
+
+		-
+			message: '#^Variable \$value might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_front/content/cnt60.article.inc.php
 
 		-
 			message: '#^Constant FEUSER_LOGIN_STATUS not found\.$#'
@@ -1837,9 +2053,21 @@ parameters:
 			path: ../include/inc_front/ext.func.inc.php
 
 		-
+			message: '#^Function get_article_data invoked with 5 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_front/ext.func.inc.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
+			path: ../include/inc_front/ext.func.inc.php
+
+		-
+			message: '#^Undefined variable\: \$html$#'
+			identifier: variable.undefined
+			count: 2
 			path: ../include/inc_front/ext.func.inc.php
 
 		-
@@ -1963,6 +2191,12 @@ parameters:
 			path: ../include/inc_front/front.func.inc.php
 
 		-
+			message: '#^Undefined variable\: \$article_list$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_front/front.func.inc.php
+
+		-
 			message: '#^Variable \$cache_file might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -2053,10 +2287,16 @@ parameters:
 			path: ../include/inc_front/js.inc.php
 
 		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$more$#'
-			identifier: parameter.notFound
-			count: 1
-			path: ../include/inc_front/lib/js.mootools-1.1.inc.php
+			message: '#^Function jsOnDomReady\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: ../include/inc_front/lib/js.mootools-1.2.inc.php
+
+		-
+			message: '#^Function jsOnUnLoad\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: ../include/inc_front/lib/js.mootools-1.2.inc.php
 
 		-
 			message: '#^Variable \$content might not be defined\.$#'
@@ -2071,16 +2311,34 @@ parameters:
 			path: ../include/inc_front/pdf.inc.php
 
 		-
-			message: '#^Property qqFileUploader\:\:\$fileType is unused\.$#'
-			identifier: property.unused
-			count: 1
-			path: ../include/inc_js/uploader/fileuploader.php
-
-		-
 			message: '#^Binary operation "\*" between ''Čia galima atlikti…'' and '' naudoti negalima\.…'' results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
-			path: ../include/inc_lang/backend/lt/lang.inc.php
+			path: ../include/inc_lang/disable lang/lt/lang.inc.php
+
+		-
+			message: '#^Function struct_articlecontentlist invoked with 6 parameters, 3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_lib/admin.functions.inc.php
+
+		-
+			message: '#^Function struct_articlelist invoked with 7 parameters, 5 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_lib/admin.functions.inc.php
+
+		-
+			message: '#^Function struct_levellist invoked with 13 parameters, 12 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_lib/admin.functions.inc.php
+
+		-
+			message: '#^Function struct_list invoked with 11 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_lib/admin.functions.inc.php
 
 		-
 			message: '#^Parameter \#1 \$string of function md5 expects string, int given\.$#'
@@ -2109,7 +2367,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 37
+			count: 31
 			path: ../include/inc_lib/article.contenttype.inc.php
 
 		-
@@ -2122,6 +2380,18 @@ parameters:
 			message: '#^Call to function update_cache\(\) on a separate line has no effect\.$#'
 			identifier: function.resultUnused
 			count: 3
+			path: ../include/inc_lib/article.editcontent.inc.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: ../include/inc_lib/article.editcontent.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
 			path: ../include/inc_lib/article.editcontent.inc.php
 
 		-
@@ -2167,14 +2437,50 @@ parameters:
 			path: ../include/inc_lib/backend.functions.inc.php
 
 		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
 			message: '#^Parameter \#2 \$value of function setcookie expects string, int given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../include/inc_lib/backend.functions.inc.php
 
 		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
+			message: '#^Undefined variable\: \$chatlist$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
+			message: '#^Undefined variable\: \$phpwcms$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_lib/backend.functions.inc.php
+
+		-
+			message: '#^Variable \$phpwcms in isset\(\) is never defined\.$#'
+			identifier: isset.variable
 			count: 1
 			path: ../include/inc_lib/backend.functions.inc.php
 
@@ -2233,6 +2539,12 @@ parameters:
 			path: ../include/inc_lib/classes/class.iptc.php
 
 		-
+			message: '#^Undefined variable\: \$api_src$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_lib/classes/class.recaptcha.php
+
+		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 2
@@ -2273,6 +2585,18 @@ parameters:
 			identifier: variable.undefined
 			count: 3
 			path: ../include/inc_lib/content/cnt0.takeval.inc.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt1.readform.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt1.readform.inc.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
@@ -2451,6 +2775,12 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: ../include/inc_lib/content/cnt16.readform.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
 			count: 1
 			path: ../include/inc_lib/content/cnt16.readform.inc.php
 
@@ -2519,6 +2849,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_lib/content/cnt19.takeval.inc.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: ../include/inc_lib/content/cnt2.readform.inc.php
 
 		-
 			message: '#^Negated boolean expression is always false\.$#'
@@ -2693,6 +3029,18 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_lib/content/cnt26.takeval.inc.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt27.readform.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt27.readform.inc.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
@@ -2887,6 +3235,18 @@ parameters:
 			path: ../include/inc_lib/content/cnt5.takeval.inc.php
 
 		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt50.readform.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: ../include/inc_lib/content/cnt50.readform.inc.php
+
+		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
 			count: 4
@@ -2971,6 +3331,24 @@ parameters:
 			path: ../include/inc_lib/content/cnt6.takeval.inc.php
 
 		-
+			message: '#^Variable \$SQL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_lib/content/cnt60.sql.inc.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_lib/content/cnt60.sql.inc.php
+
+		-
+			message: '#^Variable \$row might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_lib/content/cnt60.takeval.inc.php
+
+		-
 			message: '#^Function slweg invoked with 3 parameters, 1\-2 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -3015,6 +3393,12 @@ parameters:
 		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: ../include/inc_lib/content/cnt89.readform.inc.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
 			count: 1
 			path: ../include/inc_lib/content/cnt89.readform.inc.php
 
@@ -3079,12 +3463,6 @@ parameters:
 			path: ../include/inc_lib/default.inc.php
 
 		-
-			message: '#^Comparison operation "\>\=" between 8 and 5 is always true\.$#'
-			identifier: greaterOrEqual.alwaysTrue
-			count: 1
-			path: ../include/inc_lib/default.inc.php
-
-		-
 			message: '#^Comparison operation "\>\=" between 8 and 7 is always true\.$#'
 			identifier: greaterOrEqual.alwaysTrue
 			count: 1
@@ -3097,8 +3475,14 @@ parameters:
 			path: ../include/inc_lib/default.inc.php
 
 		-
-			message: '#^Comparison operation "\>\=" between int\<2, 5\> and 6 is always false\.$#'
-			identifier: greaterOrEqual.alwaysFalse
+			message: '#^Function get_magic_quotes_gpc not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: ../include/inc_lib/default.inc.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
 			count: 1
 			path: ../include/inc_lib/default.inc.php
 
@@ -3112,6 +3496,12 @@ parameters:
 			message: '#^Left side of && is always true\.$#'
 			identifier: booleanAnd.leftAlwaysTrue
 			count: 3
+			path: ../include/inc_lib/default.inc.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
 			path: ../include/inc_lib/default.inc.php
 
 		-
@@ -3171,7 +3561,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 9
+			count: 6
 			path: ../include/inc_lib/files.private-filelist.inc.php
 
 		-
@@ -3259,9 +3649,27 @@ parameters:
 			path: ../include/inc_lib/general.inc.php
 
 		-
+			message: '#^Function get_magic_quotes_gpc not found\.$#'
+			identifier: function.notFound
+			count: 3
+			path: ../include/inc_lib/general.inc.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
+			path: ../include/inc_lib/general.inc.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: ../include/inc_lib/general.inc.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 3
 			path: ../include/inc_lib/general.inc.php
 
 		-
@@ -3283,6 +3691,12 @@ parameters:
 			path: ../include/inc_lib/general.inc.php
 
 		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 3
+			path: ../include/inc_lib/general.inc.php
+
+		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
@@ -3295,14 +3709,14 @@ parameters:
 			path: ../include/inc_lib/general.inc.php
 
 		-
-			message: '#^Offset 2 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
 			path: ../include/inc_lib/helper.image.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(string\)\: Unexpected token "\\n     \*", expected variable at offset 207 on line 9$#'
-			identifier: phpDoc.parseError
+			message: '#^Offset 2 on array\{0\: int\<0, max\>, 1\: int\<0, max\>, 2\: int, 3\: string, mime\: string, channels\?\: int, bits\?\: int\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
 			count: 1
 			path: ../include/inc_lib/helper.image.php
 
@@ -3439,12 +3853,6 @@ parameters:
 			path: ../include/inc_lib/helper.image.php
 
 		-
-			message: '#^Parameter \#1 \$msg of method Phpwcms_Image_lib\:\:set_error\(\) expects string, array\<int, string\> given\.$#'
-			identifier: argument.type
-			count: 9
-			path: ../include/inc_lib/helper.image.php
-
-		-
 			message: '#^Parameter \#1 \$resource of method Phpwcms_Image_lib\:\:image_display_gd\(\) expects resource, \(GdImage\|false\) given\.$#'
 			identifier: argument.type
 			count: 1
@@ -3487,46 +3895,10 @@ parameters:
 			path: ../include/inc_lib/helper.image.php
 
 		-
-			message: '#^Variable \$ci_lang might not be defined\.$#'
-			identifier: variable.undefined
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
-			path: ../include/inc_lib/helper.image.php
-
-		-
-			message: '#^Variable \$cmd_in might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/helper.image.php
-
-		-
-			message: '#^Variable \$cmd_out might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/helper.image.php
-
-		-
-			message: '#^Comparison operation "\>" between \*NEVER\* and 0 results in an error\.$#'
-			identifier: greater.invalid
-			count: 2
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#1 \$num of function bcpow expects numeric\-string, int\<0, max\> given\.$#'
-			identifier: argument.type
-			count: 2
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#2 \$exponent of function bcpow expects numeric\-string, float given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_lib/helper.session.php
-
-		-
-			message: '#^Parameter \#2 \$exponent of function bcpow expects numeric\-string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_lib/helper.session.php
+			path: ../include/inc_lib/imagick.convert.inc.php
 
 		-
 			message: '#^Left side of && is always false\.$#'
@@ -3549,7 +3921,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 7
+			count: 54
 			path: ../include/inc_lib/navi_text.inc.php
 
 		-
@@ -3559,7 +3931,7 @@ parameters:
 			path: ../include/inc_lib/news.inc.php
 
 		-
-			message: '#^Offset ''newsletter_vars'' on array\{newsletter_id\: int, newsletter_subject\: '''', newsletter_date\: int\<1, max\>\} in isset\(\) does not exist\.$#'
+			message: '#^Offset ''newsletter_vars'' on array\{newsletter_id\: int, newsletter_subject\: '''', newsletter_pub\: '''', newsletter_lang\: '''', newsletter_date\: int\<1, max\>\} in isset\(\) does not exist\.$#'
 			identifier: isset.offset
 			count: 1
 			path: ../include/inc_lib/newsletter.form.inc.php
@@ -3601,6 +3973,102 @@ parameters:
 			path: ../include/inc_lib/revision/r514.php
 
 		-
+			message: '#^Variable \$adminids might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_lib/revision/r544.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: ../include/inc_lib/subscriberimport.form.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_addresses/backend.default.php
+
+		-
+			message: '#^Variable \$module might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../include/inc_module/mod_addresses/backend.default.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 18
+			path: ../include/inc_module/mod_addresses/backend.editform.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 16
+			path: ../include/inc_module/mod_addresses/backend.editform.php
+
+		-
+			message: '#^Variable \$plugin might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
+			path: ../include/inc_module/mod_addresses/backend.editform.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../include/inc_module/mod_addresses/backend.listing.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: ../include/inc_module/mod_addresses/backend.listing.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_addresses/frontend.render.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_module/mod_addresses/frontend.render.php
+
+		-
+			message: '#^Constant MODULE_HREF_DECODE not found\.$#'
+			identifier: constant.notFound
+			count: 2
+			path: ../include/inc_module/mod_addresses/inc/processing.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../include/inc_module/mod_addresses/inc/processing.inc.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_addresses/inc/search.addresses.php
+
+		-
+			message: '#^Variable \$news might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_module/mod_addresses/inc/search.addresses.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_module/mod_addresses/inc/search.addresses.php
+
+		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -3615,13 +4083,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 18
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 21
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.editform.php
 
 		-
@@ -3633,7 +4101,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 13
+			count: 12
 			path: ../include/inc_module/mod_ads/backend.form.adplace.php
 
 		-
@@ -3651,13 +4119,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 20
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 41
+			count: 32
 			path: ../include/inc_module/mod_ads/backend.form.campaign.php
 
 		-
@@ -3711,19 +4179,19 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_ads/inc/listing.adplace.inc.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 9
 			path: ../include/inc_module/mod_ads/inc/listing.campaign.inc.php
 
 		-
@@ -3783,13 +4251,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 19
+			count: 32
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 47
+			count: 32
 			path: ../include/inc_module/mod_calendar/backend.editform.php
 
 		-
@@ -3807,7 +4275,7 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 22
+			count: 24
 			path: ../include/inc_module/mod_calendar/backend.listing.php
 
 		-
@@ -3909,7 +4377,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 9
 			path: ../include/inc_module/mod_feedimport/backend.editform.php
 
 		-
@@ -3927,13 +4395,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_feedimport/backend.listing.php
 
 		-
@@ -3957,6 +4425,12 @@ parameters:
 		-
 			message: '#^Cannot use array destructuring on string\.$#'
 			identifier: offsetAccess.nonArray
+			count: 2
+			path: ../include/inc_module/mod_feedimport/inc/processing.inc.php
+
+		-
+			message: '#^Constant MODULE_HREF_DECODE not found\.$#'
+			identifier: constant.notFound
 			count: 2
 			path: ../include/inc_module/mod_feedimport/inc/processing.inc.php
 
@@ -4005,13 +4479,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 11
+			count: 10
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 7
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.editform.php
 
 		-
@@ -4023,13 +4497,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 6
 			path: ../include/inc_module/mod_glossary/backend.listing.php
 
 		-
@@ -4096,6 +4570,30 @@ parameters:
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
+			path: ../include/inc_module/mod_modules/backend.default.php
+
+		-
+			message: '#^Variable \$module might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_modules/backend.default.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_modules/backend.default.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: ../include/inc_module/mod_modules/backend.listing.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_module/mod_seolog/backend.default.php
 
 		-
@@ -4107,7 +4605,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 5
 			path: ../include/inc_module/mod_seolog/backend.listing.php
 
 		-
@@ -4125,7 +4623,7 @@ parameters:
 		-
 			message: '#^Variable \$module might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 11
 			path: ../include/inc_module/mod_shop/backend.default.php
 
 		-
@@ -4359,7 +4857,7 @@ parameters:
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 88
+			count: 91
 			path: ../include/inc_module/mod_shop/inc/edit.preferences.inc.php
 
 		-
@@ -4395,7 +4893,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 28
+			count: 32
 			path: ../include/inc_module/mod_shop/inc/edit.products.inc.php
 
 		-
@@ -4419,13 +4917,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 4
+			count: 8
 			path: ../include/inc_module/mod_shop/inc/listing.categories.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 3
 			path: ../include/inc_module/mod_shop/inc/listing.categories.inc.php
 
 		-
@@ -4455,13 +4953,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 6
 			path: ../include/inc_module/mod_shop/inc/listing.products.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 12
+			count: 10
 			path: ../include/inc_module/mod_shop/inc/listing.products.inc.php
 
 		-
@@ -4551,32 +5049,152 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 12
 			path: ../include/inc_module/mod_shop/inc/show.orders.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 75
+			count: 74
 			path: ../include/inc_module/mod_shop/inc/show.orders.inc.php
 
 		-
 			message: '#^Variable \$plugin might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 22
 			path: ../include/inc_module/mod_shop/inc/show.orders.inc.php
 
 		-
 			message: '#^Variable \$BLM might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 5
 			path: ../include/inc_module/mod_shop/inc/tabs.inc.php
 
 		-
 			message: '#^Variable \$controller might not be defined\.$#'
 			identifier: variable.undefined
-			count: 5
+			count: 4
 			path: ../include/inc_module/mod_shop/inc/tabs.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_statistic/backend.default.php
+
+		-
+			message: '#^Variable \$module might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../include/inc_module/mod_statistic/backend.default.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_statistic/backend.default.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../include/inc_module/mod_statistic/inc/listing.downloads.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
+			path: ../include/inc_module/mod_statistic/inc/listing.downloads.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_statistic/inc/listing.guestbook.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 42
+			path: ../include/inc_module/mod_statistic/inc/listing.overview.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 16
+			path: ../include/inc_module/mod_statistic/inc/listing.overview.inc.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_module/mod_statistic/inc/listing.overview.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_statistic/inc/listing.polls.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../include/inc_module/mod_statistic/inc/listing.seo.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_statistic/inc/listing.seo.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 21
+			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
+
+		-
+			message: '#^Variable \$total might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../include/inc_module/mod_statistic/inc/listing.subscriptions.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_statistic/inc/listing.user.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_module/mod_statistic/inc/listing.user.inc.php
+
+		-
+			message: '#^Undefined variable\: \$_controller_link$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_module/mod_statistic/inc/statistic.functions.inc.php
+
+		-
+			message: '#^Variable \$BLM might not be defined\.$#'
+			identifier: variable.undefined
+			count: 8
+			path: ../include/inc_module/mod_statistic/inc/tabs.inc.php
+
+		-
+			message: '#^Variable \$controller might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: ../include/inc_module/mod_statistic/inc/tabs.inc.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -4587,7 +5205,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 11
 			path: ../include/inc_tmpl/admin.aliaslist.tmpl.php
 
 		-
@@ -4599,7 +5217,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 27
+			count: 31
+			path: ../include/inc_tmpl/admin.edituser.tmpl.php
+
+		-
+			message: '#^Variable \$groupnames might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/admin.edituser.tmpl.php
 
 		-
@@ -4611,7 +5235,7 @@ parameters:
 		-
 			message: '#^Variable \$new_login might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/admin.edituser.tmpl.php
 
 		-
@@ -4677,7 +5301,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 32
+			count: 33
 			path: ../include/inc_tmpl/admin.filecat.tmpl.php
 
 		-
@@ -4695,14 +5319,38 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 25
+			count: 32
+			path: ../include/inc_tmpl/admin.groups.tmpl.php
+
+		-
+			message: '#^Variable \$groupnames might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
 			path: ../include/inc_tmpl/admin.groups.tmpl.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/admin.groups.tmpl.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: ../include/inc_tmpl/admin.imagealiaslist.tmpl.php
+
+		-
+			message: '#^Variable \$sqlquery might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/admin.imagealiaslist.tmpl.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: ../include/inc_tmpl/admin.keyword.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -4713,7 +5361,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 12
 			path: ../include/inc_tmpl/admin.listuser.tmpl.php
 
 		-
@@ -4725,7 +5373,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 26
+			count: 27
 			path: ../include/inc_tmpl/admin.newuser.tmpl.php
 
 		-
@@ -4749,7 +5397,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 129
+			count: 133
 			path: ../include/inc_tmpl/admin.pagelayout.tmpl.php
 
 		-
@@ -4767,7 +5415,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 57
+			count: 61
 			path: ../include/inc_tmpl/admin.redirect.tmpl.php
 
 		-
@@ -4785,7 +5433,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 90
+			count: 97
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
 
 		-
@@ -4839,7 +5487,7 @@ parameters:
 		-
 			message: '#^Variable \$acat_disable301 might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
 
 		-
@@ -4851,7 +5499,7 @@ parameters:
 		-
 			message: '#^Variable \$acat_id might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
 
 		-
@@ -4981,6 +5629,12 @@ parameters:
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
 
 		-
+			message: '#^Variable \$groupnames might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/admin.structform.tmpl.php
+
+		-
 			message: '#^Variable \$indexpage might not be defined\.$#'
 			identifier: variable.undefined
 			count: 16
@@ -4997,6 +5651,12 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: ../include/inc_tmpl/admin.structform.tmpl.php
+
+		-
+			message: '#^Function struct_list invoked with 8 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_tmpl/admin.structlist.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -5025,7 +5685,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 166
+			count: 167
 			path: ../include/inc_tmpl/admin.templates.tmpl.php
 
 		-
@@ -5043,25 +5703,25 @@ parameters:
 		-
 			message: '#^Constant CSRF_GET_TOKEN not found\.$#'
 			identifier: constant.notFound
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 108
+			count: 140
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
-			count: 42
+			count: 33
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 16
+			count: 24
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
@@ -5077,9 +5737,21 @@ parameters:
 			path: ../include/inc_tmpl/article.editsummary.tmpl.php
 
 		-
+			message: '#^Function struct_articlelist invoked with 7 parameters, 5 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_tmpl/article.structlist.tmpl.php
+
+		-
+			message: '#^Function struct_list invoked with 8 parameters, 1\-2 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: ../include/inc_tmpl/article.structlist.tmpl.php
+
+		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/article.structlist.tmpl.php
 
 		-
@@ -5091,13 +5763,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 67
+			count: 72
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
 			message: '#^Variable \$anchor_title might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
@@ -5125,15 +5797,33 @@ parameters:
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
+			message: '#^Variable \$set_killdate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
+			message: '#^Variable \$set_livedate might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
+
+		-
 			message: '#^Variable \$wcs_content_type might not be defined\.$#'
 			identifier: variable.undefined
 			count: 2
 			path: ../include/inc_tmpl/articlecontent.edit.tmpl.php
 
 		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
+
+		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 77
+			count: 79
 			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
 
 		-
@@ -5145,13 +5835,25 @@ parameters:
 		-
 			message: '#^Variable \$contentpart_block_color might not be defined\.$#'
 			identifier: variable.undefined
-			count: 2
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 12
+			count: 20
+			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
+
+		-
+			message: '#^Variable \$sbutton might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
+
+		-
+			message: '#^Variable \$sbutton_string might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/articlecontent.list.tmpl.php
 
 		-
@@ -5181,7 +5883,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 18
+			count: 21
+			path: ../include/inc_tmpl/be_start.tmpl.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
 			path: ../include/inc_tmpl/be_start.tmpl.php
 
 		-
@@ -5223,7 +5931,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 41
+			count: 46
 			path: ../include/inc_tmpl/content/cnt1.inc.php
 
 		-
@@ -5259,7 +5967,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 8
+			count: 7
 			path: ../include/inc_tmpl/content/cnt10.inc.php
 
 		-
@@ -5331,7 +6039,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 52
+			count: 57
 			path: ../include/inc_tmpl/content/cnt13.inc.php
 
 		-
@@ -5361,7 +6069,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 4
+			count: 5
 			path: ../include/inc_tmpl/content/cnt14.inc.php
 
 		-
@@ -5407,8 +6115,8 @@ parameters:
 			path: ../include/inc_tmpl/content/cnt16.inc.php
 
 		-
-			message: '#^Variable \$caption_box on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
+			message: '#^Variable \$caption_box in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
 			count: 1
 			path: ../include/inc_tmpl/content/cnt16.inc.php
 
@@ -5499,7 +6207,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 44
+			count: 45
 			path: ../include/inc_tmpl/content/cnt2.inc.php
 
 		-
@@ -5553,7 +6261,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 25
+			count: 24
 			path: ../include/inc_tmpl/content/cnt22.inc.php
 
 		-
@@ -5613,7 +6321,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 9
+			count: 10
 			path: ../include/inc_tmpl/content/cnt24.inc.php
 
 		-
@@ -5629,9 +6337,15 @@ parameters:
 			path: ../include/inc_tmpl/content/cnt24.list.inc.php
 
 		-
-			message: '#^Variable \$row might not be defined\.$#'
+			message: '#^Variable \$article might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
+			path: ../include/inc_tmpl/content/cnt24.list.inc.php
+
+		-
+			message: '#^Variable \$row might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
 			path: ../include/inc_tmpl/content/cnt24.list.inc.php
 
 		-
@@ -5643,7 +6357,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 67
+			count: 70
 			path: ../include/inc_tmpl/content/cnt25.inc.php
 
 		-
@@ -5697,7 +6411,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 13
 			path: ../include/inc_tmpl/content/cnt27.inc.php
 
 		-
@@ -5755,9 +6469,15 @@ parameters:
 			path: ../include/inc_tmpl/content/cnt28.list.inc.php
 
 		-
+			message: '#^Parameter \#2 \$decimals of function number_format expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_tmpl/content/cnt29.inc.php
+
+		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 30
+			count: 42
 			path: ../include/inc_tmpl/content/cnt29.inc.php
 
 		-
@@ -5811,7 +6531,13 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 77
+			count: 79
+			path: ../include/inc_tmpl/content/cnt31.inc.php
+
+		-
+			message: '#^Variable \$key might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/content/cnt31.inc.php
 
 		-
@@ -5829,7 +6555,7 @@ parameters:
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 4
 			path: ../include/inc_tmpl/content/cnt31.list.inc.php
 
 		-
@@ -5841,7 +6567,7 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$decimals of function number_format expects int, float given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 2
 			path: ../include/inc_tmpl/content/cnt32.inc.php
 
 		-
@@ -5865,7 +6591,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 75
+			count: 74
 			path: ../include/inc_tmpl/content/cnt33.inc.php
 
 		-
@@ -6019,6 +6745,60 @@ parameters:
 			path: ../include/inc_tmpl/content/cnt6.list.inc.php
 
 		-
+			message: '#^Parameter \#2 \$decimals of function number_format expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: ../include/inc_tmpl/content/cnt60.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 41
+			path: ../include/inc_tmpl/content/cnt60.inc.php
+
+		-
+			message: '#^Variable \$is_wysiwyg might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/content/cnt60.inc.php
+
+		-
+			message: '#^Variable \$key might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: ../include/inc_tmpl/content/cnt60.inc.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: ../include/inc_tmpl/content/cnt60.inc.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: ../include/inc_tmpl/content/cnt60.list.inc.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../include/inc_tmpl/content/cnt60.list.inc.php
+
+		-
+			message: '#^Variable \$article might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../include/inc_tmpl/content/cnt60.list.inc.php
+
+		-
+			message: '#^Variable \$row might not be defined\.$#'
+			identifier: variable.undefined
+			count: 9
+			path: ../include/inc_tmpl/content/cnt60.list.inc.php
+
+		-
 			message: '#^If condition is always true\.$#'
 			identifier: if.alwaysTrue
 			count: 1
@@ -6027,7 +6807,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 18
+			count: 16
 			path: ../include/inc_tmpl/content/cnt7.inc.php
 
 		-
@@ -6051,7 +6831,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 105
+			count: 107
 			path: ../include/inc_tmpl/content/cnt8.inc.php
 
 		-
@@ -6099,7 +6879,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 36
+			count: 37
 			path: ../include/inc_tmpl/content/cnt9.inc.php
 
 		-
@@ -6129,19 +6909,19 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 34
+			count: 31
 			path: ../include/inc_tmpl/files.actions.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 45
+			count: 40
 			path: ../include/inc_tmpl/files.ftptakeover.tmpl.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 26
+			count: 18
 			path: ../include/inc_tmpl/files.ftptakeover.tmpl.php
 
 		-
@@ -6199,13 +6979,7 @@ parameters:
 			path: ../include/inc_tmpl/files.private.editdir.tmpl.php
 
 		-
-			message: '#^Parameter \#5 \$inline of function rel_download expects null, false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
-
-		-
-			message: '#^Parameter \#5 \$inline of function rel_download expects null, true given\.$#'
+			message: '#^Parameter \#2 \$strict of function base64_decode expects bool, array\<string, false\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
@@ -6213,13 +6987,19 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 42
+			count: 39
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
 			message: '#^Variable \$file_aktiv might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
+			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
+
+		-
+			message: '#^Variable \$file_alias might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
@@ -6250,12 +7030,6 @@ parameters:
 			message: '#^Variable \$file_longinfo might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
-			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
-
-		-
-			message: '#^Variable \$file_name might not be defined\.$#'
-			identifier: variable.undefined
-			count: 4
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
@@ -6297,7 +7071,7 @@ parameters:
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 19
+			count: 16
 			path: ../include/inc_tmpl/files.private.editfile.tmpl.php
 
 		-
@@ -6345,7 +7119,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 38
+			count: 40
 			path: ../include/inc_tmpl/files.private.upload.tmpl.php
 
 		-
@@ -6381,7 +7155,7 @@ parameters:
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 35
+			count: 32
 			path: ../include/inc_tmpl/files.private.upload.tmpl.php
 
 		-
@@ -6399,7 +7173,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 15
+			count: 32
 			path: ../include/inc_tmpl/files.reiter.tmpl.php
 
 		-
@@ -6489,43 +7263,61 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 6
+			count: 16
 			path: ../include/inc_tmpl/message.subscribers.tmpl.php
 
 		-
-			message: '#^Variable \$BL might not be defined\.$#'
+			message: '#^Variable \$_entry might not be defined\.$#'
 			identifier: variable.undefined
-			count: 3
+			count: 2
+			path: ../include/inc_tmpl/message.subscribers.tmpl.php
+
+		-
+			message: '#^Ternary operator condition is always false\.$#'
+			identifier: ternary.alwaysFalse
+			count: 1
 			path: ../include/inc_tmpl/message.subscription.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 106
+			count: 16
+			path: ../include/inc_tmpl/message.subscription.tmpl.php
+
+		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 121
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-
 			message: '#^Variable \$phpwcms might not be defined\.$#'
 			identifier: variable.undefined
-			count: 4
+			count: 5
 			path: ../include/inc_tmpl/news.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 25
+			count: 33
 			path: ../include/inc_tmpl/newsletter.form.tmpl.php
 
 		-
 			message: '#^Variable \$newsletter might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 13
+			path: ../include/inc_tmpl/newsletter.form.tmpl.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
 			path: ../include/inc_tmpl/newsletter.form.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 11
+			count: 21
 			path: ../include/inc_tmpl/newsletter.list.tmpl.php
 
 		-
@@ -6549,7 +7341,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 12
+			count: 13
 			path: ../include/inc_tmpl/profile.account.tmpl.php
 
 		-
@@ -6567,7 +7359,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 12
+			count: 11
 			path: ../include/inc_tmpl/subscriber.form.tmpl.php
 
 		-
@@ -6579,7 +7371,7 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 10
+			count: 12
 			path: ../include/inc_tmpl/subscriberimport.form.tmpl.php
 
 		-
@@ -6603,12 +7395,24 @@ parameters:
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
-			count: 4
+			count: 7
 			path: ../include/inc_tmpl/subscription.form.tmpl.php
+
+		-
+			message: '#^Binary operation "\+" between string and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: ../index.php
 
 		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
+			count: 1
+			path: ../index.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
 			count: 1
 			path: ../index.php
 
@@ -6819,7 +7623,7 @@ parameters:
 		-
 			message: '#^Result of \|\| is always true\.$#'
 			identifier: booleanOr.alwaysTrue
-			count: 2
+			count: 1
 			path: ../index.php
 
 		-
@@ -6933,7 +7737,7 @@ parameters:
 		-
 			message: '#^Offset ''default_lang'' does not exist on array\{SESSION_START\: true, wysiwyg_editor\: 0\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 1
+			count: 2
 			path: ../login.php
 
 		-
@@ -6987,11 +7791,17 @@ parameters:
 		-
 			message: '#^Offset ''login_username'' does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 1
+			count: 2
 			path: ../login.php
 
 		-
 			message: '#^Offset ''login_userpass'' does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: ../login.php
+
+		-
+			message: '#^Offset ''login_welcome'' does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../login.php
@@ -7039,12 +7849,6 @@ parameters:
 			path: ../login.php
 
 		-
-			message: '#^Offset ''wysiwyg_editor'' on array\{SESSION_START\: true\} in empty\(\) does not exist\.$#'
-			identifier: empty.offset
-			count: 1
-			path: ../login.php
-
-		-
 			message: '#^Offset string on array\{\} in isset\(\) does not exist\.$#'
 			identifier: isset.offset
 			count: 3
@@ -7057,15 +7861,21 @@ parameters:
 			path: ../login.php
 
 		-
-			message: '#^Result of \|\| is always true\.$#'
-			identifier: booleanOr.alwaysTrue
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
 			count: 1
-			path: ../login.php
+			path: ../phpwcms-extended/phpwcms-fancyBox/template/inc_script/frontend_render/fancyBox.php
 
 		-
-			message: '#^Cannot unset offset ''admin'' on array\{\}\|array\{articles\: non\-falsy\-string\}\|array\{chat\: non\-falsy\-string\}\|array\{discuss\: non\-falsy\-string\}\|array\{files\: non\-falsy\-string\}\|array\{messages\: non\-falsy\-string\}\|array\{modules\: non\-falsy\-string\}\|array\{profile\: non\-falsy\-string\}\.$#'
-			identifier: unset.offset
-			count: 1
+			message: '#^Variable \$block might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../phpwcms-extended/phpwcms-fancyBox/template/inc_script/frontend_render/fancyBox.php
+
+		-
+			message: '#^Binary operation "\+" between string and string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
 			path: ../phpwcms.php
 
 		-
@@ -7076,24 +7886,6 @@ parameters:
 
 		-
 			message: '#^Offset ''acat_name'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''admin'' does not exist on array\{\}\|array\{articles\: non\-falsy\-string\}\|array\{chat\: non\-falsy\-string\}\|array\{discuss\: non\-falsy\-string\}\|array\{files\: non\-falsy\-string\}\|array\{messages\: non\-falsy\-string\}\|array\{modules\: non\-falsy\-string\}\|array\{profile\: non\-falsy\-string\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''articles'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_aboutlink_title'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7129,25 +7921,7 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_cnt_move_deleted'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_cnt_move_deleted_msg'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
 			message: '#^Offset ''be_ctype_search'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_extensions_copyright'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7159,13 +7933,25 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_flush_image_cache'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			message: '#^Offset ''be_fsearch_startsearch'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_licensed_under_GPL'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			message: '#^Offset ''be_func_struct_close'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_func_struct_preview'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_imagealias'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7177,7 +7963,43 @@ parameters:
 			path: ../phpwcms.php
 
 		-
+			message: '#^Offset ''be_nav_admin'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_nav_articles'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_nav_files'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
 			message: '#^Offset ''be_nav_logout'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_nav_messages'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_nav_modules'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Offset ''be_nav_profile'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7201,12 +8023,6 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_subnav_admin_css'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
 			message: '#^Offset ''be_subnav_admin_filecat'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -7220,18 +8036,6 @@ parameters:
 
 		-
 			message: '#^Offset ''be_subnav_admin_pagelayout'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_admin_sitestructure'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_admin_starttext'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7261,18 +8065,6 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_subnav_chat_internal'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_chat_main'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
 			message: '#^Offset ''be_subnav_file_actions'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -7280,18 +8072,6 @@ parameters:
 
 		-
 			message: '#^Offset ''be_subnav_file_center'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_msg_center'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_msg_new'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7315,61 +8095,13 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''be_subnav_profile_login'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''be_subnav_profile_personal'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''chat'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''discuss'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''enable_deprecated'' on array\{SESSION_START\: true, be_parse_lang_process\: false\} in empty\(\) does not exist\.$#'
+			message: '#^Offset ''enable_backend…'' on array\{SESSION_START\: true, be_parse_lang_process\: false\} in empty\(\) does not exist\.$#'
 			identifier: empty.offset
-			count: 4
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''enable_messages'' on array\{SESSION_START\: true, be_parse_lang_process\: false\} in empty\(\) does not exist\.$#'
-			identifier: empty.offset
-			count: 2
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''files'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''messages'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
+			count: 3
 			path: ../phpwcms.php
 
 		-
 			message: '#^Offset ''modules'' does not exist on array\{SESSION_START\: true, be_parse_lang_process\: false\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''modules'' does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../phpwcms.php
@@ -7381,26 +8113,20 @@ parameters:
 			path: ../phpwcms.php
 
 		-
-			message: '#^Offset ''profile'' does not exist on array\{\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''usergroup_support'' on array\{SESSION_START\: true, be_parse_lang_process\: false\} in empty\(\) does not exist\.$#'
-			identifier: empty.offset
-			count: 1
-			path: ../phpwcms.php
-
-		-
-			message: '#^Offset ''usr_online'' does not exist on array\{modules\: array\{\}, be_admin_optgroup_label\: array, be_cnt_field\: array, be_admin_struct_index\: mixed\}\|array\{modules\: array\{\}, be_admin_struct_index\: mixed\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: ../phpwcms.php
-
-		-
 			message: '#^Offset mixed does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
+			count: 1
+			path: ../phpwcms.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
+			path: ../phpwcms.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
 			count: 1
 			path: ../phpwcms.php
 
@@ -7453,14 +8179,20 @@ parameters:
 			path: ../setup/inc/setup.func.inc.php
 
 		-
-			message: '#^Constant CMSGO_CHARSET not found\.$#'
-			identifier: constant.notFound
-			count: 1
+			message: '#^Function get_magic_quotes_gpc not found\.$#'
+			identifier: function.notFound
+			count: 2
 			path: ../setup/inc/setup.func.inc.php
 
 		-
 			message: '#^Offset ''charset'' does not exist on array\{\}\.$#'
 			identifier: offsetAccess.notFound
+			count: 1
+			path: ../setup/inc/showsql.php
+
+		-
+			message: '#^Path in require_once\(\) "\.\./config/conf\.inc\.php" is not a file or it does not exist\.$#'
+			identifier: requireOnce.fileNotFound
 			count: 1
 			path: ../setup/inc/showsql.php
 
@@ -7591,6 +8323,12 @@ parameters:
 			path: ../sitemap.php
 
 		-
+			message: '#^Variable \$BL might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: ../template/inc_default/startup.php
+
+		-
 			message: '#^Constant FELOGIN_LEVEL_ID not found\.$#'
 			identifier: constant.notFound
 			count: 1
@@ -7601,6 +8339,18 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: ../template/inc_script/frontend_init/disabled/felogin.init.php
+
+		-
+			message: '#^Loose comparison using \!\= between 0 and 2 will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: ../template/inc_script/frontend_init/disabled/lang.init.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: ../template/inc_script/frontend_init/disabled/lang.init.php
 
 		-
 			message: '#^Variable \$content might not be defined\.$#'
@@ -7773,8 +8523,62 @@ parameters:
 		-
 			message: '#^Variable \$content might not be defined\.$#'
 			identifier: variable.undefined
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/grouped-accordion.php
+
+		-
+			message: '#^Variable \$template_default might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: ../template/inc_script/frontend_render/disabled/grouped-accordion.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
 			count: 2
 			path: ../template/inc_script/frontend_render/disabled/h3_menu.php
+
+		-
+			message: '#^Elseif condition is always false\.$#'
+			identifier: elseif.alwaysFalse
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 2
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^Loose comparison using \=\= between '''' and '''' will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^Variable \$LEVEL_ID might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^Variable \$LEVEL_KEY might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^Variable \$content might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
+
+		-
+			message: '#^Variable \$phpwcms might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: ../template/inc_script/frontend_render/disabled/lang.render.php
 
 		-
 			message: '#^Variable \$content might not be defined\.$#'
@@ -7859,12 +8663,6 @@ parameters:
 			identifier: variable.undefined
 			count: 3
 			path: ../template/inc_script/frontend_render/disabled/opengraph.php
-
-		-
-			message: '#^Variable \$content might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../template/inc_script/frontend_render/disabled/range-calendar.php
 
 		-
 			message: '#^Variable \$content might not be defined\.$#'

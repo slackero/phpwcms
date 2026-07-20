@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -76,21 +75,18 @@ if(isset($_SESSION['teaser_filter_category_by_tags'])) {
     $content['alink']['filter_tags'] = null;
 }
 
-
 $BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 
 // necessary JavaScript libraries
-initMootools();
-initMootoolsAutocompleter();
+initJsAutocompleter();
 
 ?>
-<td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-    <td><select name="calink_template" id="calink_template">
+<div class="form-group align-items-center form-row">
+  <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+  <div class="col-sm-4">
+    <select name="calink_template" id="calink_template" class="custom-select form-control form-control-sm">
 <?php
-
     echo '<option value="">'.$BL['be_admin_tmpl_default'].' &lt;ul&gt;&lt;li&gt;</option>'.LF;
 
     // templates for forum
@@ -98,7 +94,7 @@ initMootoolsAutocompleter();
     if(is_array($tmpllist) && count($tmpllist)) {
         foreach($tmpllist as $val) {
             // do not show listmode templates
-            if(str_starts_with($val, 'list.')) {
+            if(substr($val, 0, 5) == 'list.') {
                 continue;
             }
             $vals = ($val == $content['alink']['alink_template']) ? ' selected="selected"' : '';
@@ -106,98 +102,99 @@ initMootoolsAutocompleter();
             echo '<option value="'.$val.'"'.$vals.'>'.$val."</option>\n";
         }
     }
-
 ?>
-    </select></td>
-</tr>
+    </select>
+  </div>
+</div>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+<div class="form-group align-items-center form-row">
+  <label for="be_article_rendering" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_rendering'] ?></label>
+  <div class="col-sm-auto">
+    <div class="form-check-inline">
+      <input class="form-check-input" type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> />
+      <label class="form-check-label" for="calink_unique"><?php echo $BL['be_unique_teaser_entry'] ?></label>
+    </div>
+  </div>
+  <div class="col form-inline ml-sm-3">
+    <label for="be_cnt_column" class="col-form-label text-right mx-sm-3"><?php echo $BL['be_cnt_column'] ?></label>
+    <input name="calink_columns" type="text" id="calink_columns" class="form-control form-control-sm" value="<?php echo $content['alink']['alink_columns']; ?>" maxlength="3" />
+  </div>
+</div>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_article_rendering'] ?>:&nbsp;</td>
-    <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td bgcolor="#E7E8EB"><input type="checkbox" name="calink_unique" id="calink_unique" value="1"<?php is_checked(1, $content['alink']['alink_unique']) ?> /></td>
-        <td bgcolor="#E7E8EB" class="chatlist"><label for="calink_unique">&nbsp;<?php echo $BL['be_unique_teaser_entry'] ?>&nbsp;&nbsp;</label></td>
+<div class="form-group align-items-center form-row">
+  <label for="be_article_morelink" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_morelink'] ?></label>
+  <div class="col-sm-auto">
+    <div class="form-check-inline">
+      <input class="form-check-input" type="checkbox" name="calink_categoryalias" id="calink_categoryalias" value="1"<?php is_checked(1, $content['alink']['alink_categoryalias']) ?> />
+      <label class="form-check-label" for="calink_categoryalias"><?php echo $BL['be_check_against_category_alias'] ?></label>
+    </div>
+  </div>
+</div>
 
-        <td>&nbsp;&nbsp;&nbsp;</td>
-        <td class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
-        <td><input name="calink_columns" type="text" id="calink_columns" class="f11b" style="width: 35px" value="<?php echo $content['alink']['alink_columns']; ?>" size="3" maxlength="3" /></td>
-    </tr>
-    </table>
-    </td>
-</tr>
+<div class="form-group align-items-center form-row">
+  <label for="be_article_asummary" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_asummary'] ?></label>
+  <div class="col-sm-auto">
+    <div class="form-inline">
+      <input name="calink_wordlimit" type="text" id="calink_wordlimit" class="form-control form-control-sm mr-sm-3" value="<?php echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit']; ?>" maxlength="5" />
+      <?php echo $BL['be_cnt_results_wordlimit'] ?>
+    </div>
+  </div>
+  <div class="col mt-2 mt-sm-0">
+    <div class="form-inline">
+			<input class="form-check-input ml-sm-3" name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> />
+			<label class="form-check-label" for="calink_hidesummary"><?php echo $BL['be_article_nosummary'] ?></label>
+    </div>
+  </div>
+</div>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+<div class="form-group align-items-center form-row">
+  <label for="ctitle" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_allowed_tags'] ?></label>
+  <div class="col-sm-4">
+    <input name="calink_allowedtags" type="text" id="calink_allowedtags" class="form-control form-control-sm" value="<?php echo html($content['alink']['alink_allowedtags']); ?>" />
+  </div>
+</div>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_article_morelink'] ?>:&nbsp;</td>
-    <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td bgcolor="#E7E8EB"><input type="checkbox" name="calink_categoryalias" id="calink_categoryalias" value="1"<?php is_checked(1, $content['alink']['alink_categoryalias']) ?> /></td>
-        <td bgcolor="#E7E8EB" class="chatlist"><label for="calink_categoryalias">&nbsp;<?php echo $BL['be_check_against_category_alias'] ?>&nbsp;&nbsp;</label></td>
-    </tr>
-    </table>
-    </td>
-</tr>
+<div class="form-group align-items-center form-row">
+  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+  <div class="col-sm-auto my-2 my-sm-0">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+			</div>
+			<input name="calink_width" type="text" class="form-control form-control-sm" id="calink_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_article_asummary'] ?>:&nbsp;</td>
-    <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td><input name="calink_wordlimit" type="text" id="calink_wordlimit" class="f11b" style="width: 35px" value="<?php
-            echo empty($content['alink']['alink_wordlimit']) ? '' : $content['alink']['alink_wordlimit'];
-            ?>" size="3" maxlength="5" /></td>
-        <td class="chatlist">&nbsp;<?php echo $BL['be_cnt_results_wordlimit'] ?></td>
+  <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="calink_height" type="text" class="form-control form-control-sm" id="calink_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
 
-        <td>&nbsp;&nbsp;&nbsp;</td>
+  <div class="col my-2 my-sm-0 ml-sm-3">
+    <div class="form-check form-check-inline">
+			<input class="form-check-input ml-sm-3" name="calink_crop" type="checkbox" id="calink_crop" value="1"<?php is_checked(1, $content['alink']['alink_crop']); ?> />
+			<label class="form-check-label" for="calink_crop"><?php echo $BL['be_image_crop'] ?></label>
+		</div>
+	</div>
+</div>
 
-        <td><input name="calink_hidesummary" type="checkbox" id="calink_hidesummary" value="1"<?php is_checked(1, $content['alink']['alink_hidesummary']); ?> /></td>
-        <td class="chatlist"><label for="calink_hidesummary">&nbsp;<?php echo $BL['be_article_nosummary'] ?></label></td>
+<hr />
 
-    </tr>
-    </table>
-    </td>
-</tr>
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_allowed_tags'] ?>:&nbsp;</td>
-    <td><input name="calink_allowedtags" type="text" id="calink_allowedtags" class="f11b width450" value="<?php echo html($content['alink']['alink_allowedtags']); ?>" size="20" /></td>
-</tr>
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
-
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr>
-            <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-            <td><input name="calink_width" type="text" class="f11b" id="calink_width" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_width']) ? '' : $content['alink']['alink_width']; ?>" /></td>
-            <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-            <td><input name="calink_height" type="text" class="f11b" id="calink_height" style="width: 35px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['alink']['alink_height']) ? '' : $content['alink']['alink_height']; ?>" /></td>
-            <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-
-            <td><input type="checkbox" name="calink_crop" id="calink_crop" value="1" <?php is_checked(1, $content['alink']['alink_crop']); ?> /></td>
-            <td class="v10 chatlist"><label for="calink_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
-
-        </tr>
-        </table></td>
-</tr>
-
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></td></tr>
-
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
-    <td valign="top"><table cellpadding="0" cellspacing="0" border="0" summary="">
-        <tr>
-            <td>
-
-    <select name="calink_type" id="calink_type" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
-
+<div class="form-group align-items-center form-row">
+  <label for="be_article_asummary" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_selector'] ?></label>
+  <div class="col-sm-auto">
+    <select name="calink_type" id="calink_type"  class="custom-select form-control form-control-sm" onchange="showHide_TeaserArticleSelection(this.options[this.selectedIndex].value)">
         <optgroup label="<?php echo $BL['be_sorted']; ?>">
             <option value="0"<?php is_selected(0, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_ordermanual'] ?></option>
             <option value="1"<?php is_selected(1, $content['alink']['alink_type']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
@@ -215,11 +212,9 @@ initMootoolsAutocompleter();
             <option value="24"<?php is_selected(24, $content['alink']['alink_type']) ?>><?php echo $BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
             <option value="25"<?php is_selected(25, $content['alink']['alink_type']) ?>><?php echo $BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderasc'] ?></option>
         </optgroup>
-
         <optgroup label="<?php echo $BL['be_random']; ?>">
             <option value="9"<?php is_selected(9, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'] ?></option>
         </optgroup>
-
         <optgroup label="<?php echo $BL['be_random'].', '.$BL['be_sorted']; ?>">
             <option value="10"<?php is_selected(10, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
             <option value="11"<?php is_selected(11, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderasc'] ?></option>
@@ -234,26 +229,21 @@ initMootoolsAutocompleter();
             <option value="26"<?php is_selected(26, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
             <option value="27"<?php is_selected(27, $content['alink']['alink_type']) ?>><?php echo $BL['be_random'].', '.$BL['be_cnt_sorting'].', '.$BL['be_admin_struct_orderasc'] ?></option>
         </optgroup>
-
     </select>
+  </div>
+  <div class="col mt-2 mt-sm-0">
+    <div class="form-check form-check-inline" id="prio0">
+			<input class="form-check-input ml-sm-3" type="checkbox" name="calink_prio" id="calink_prio" value="1"<?php is_checked(1, $content['alink']['alink_prio']) ?> />
+			<label class="form-check-label" for="calink_prio"><?php echo $BL['be_use_prio'] ?></label>
+    </div>
+  </div>
+</div>
 
-            </td>
-            <td>&nbsp;&nbsp;</td>
-            <td bgcolor="#e7e8eb" id="prio0"><input type="checkbox" name="calink_prio" id="calink_prio" value="1"<?php is_checked(1, $content['alink']['alink_prio']) ?> /></td>
-            <td bgcolor="#e7e8eb" id="prio1"><label for="calink_prio">&nbsp;<?php echo $BL['be_use_prio'] ?>&nbsp;&nbsp;</label></td>
-        </tr>
-        </table></td>
-</tr>
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td></tr>
-
-<tr id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-<td align="right" valign="top" class="chatlist tdtop3"><?php echo $BL['be_selection'] ?>:&nbsp;</td>
-<td class="tdbottom3"><table border="0" cellpadding="0" cellspacing="0" summary="">
-
-    <tr>
-        <td rowspan="2"><select name="calink[]" size="15" multiple="multiple" class="listrow width540" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
-<?php
+<div class="form-group form-row" id="calink_manual_0"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="be_article_morelink" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_selection'] ?></label>
+  <div class="col">
+    <select name="calink[]" size="15" multiple="multiple" class="custom-select form-control form-control-sm" id="calink" ondblclick="moveSelectedOptions(teaser_items,source_items,true);">
+    <?php
         //Auslesen der kompletten Public Artikel
         $sql  = "SELECT article_id, article_title, acat_name, acat_alias, article_cid, article_aktiv, article_keyword ";
         $sql .= "FROM ".DB_PREPEND."phpwcms_article ar ";
@@ -287,21 +277,18 @@ initMootoolsAutocompleter();
                         unset($content['alink']['alink_id'][$key]);
                         $k = 1;
                     }
-
                 }
 
                 if(!$k) {
-
                     // filter by category
                     if($content['alink']['filter_category'] !== null && $content['alink']['filter_category'] !== intval($row['article_cid'])) {
                         continue;
                     }
-
                     // filter by tag
                     if(is_array($content['alink']['filter_tags']) && count($content['alink']['filter_tags'])) {
                         $content['alink']['filter_tags_active'] = false;
                         foreach($content['alink']['filter_tags'] as $_tag) {
-                            if(str_contains($row['article_keyword'], $_tag)) {
+                            if(strpos($row['article_keyword'], $_tag) !== false) {
                                 $content['alink']['filter_tags_active'] = true;
                                 break;
                             }
@@ -310,144 +297,126 @@ initMootoolsAutocompleter();
                             continue;
                         }
                     }
-
                     $carticle_list .= '<option value="'.$row['article_id'].'" title="'.$k1.'">'.html($row['article_title']).$alias_add.'</option>'.LF;
                 }
             }
         }
-
         echo implode(LF, $carticle_link);
-
       ?>
-        </select></td>
+    </select>
+  </div>
+  <div class="col-sm-auto">
+    <a class="btn btn-secondary btn-sm mb-1" href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(teaser_items);return false;"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></a>
+    <br />
+    <a class="btn btn-secondary btn-sm mb-3" href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></a></td>
+    <br />
+    <a class="btn btn-danger btn-sm" href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></a>
+  </div>
+</div>
 
-        <td rowspan="2">&nbsp;</td>
-        <td valign="top">
-        <a href="#" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(teaser_items);return false;"><img src="img/button/list_pos_up.gif" alt="" width="15" height="15" border="0" /></a>
-        <br />
-        <a href="#" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(teaser_items);return false;"><img src="img/button/list_pos_down.gif" alt="" width="15" height="15" border="0" /></a></td>
-    </tr>
-    <tr>
-      <td valign="bottom"><a href="#" title="<?php echo $BL['be_cnt_removearticleto'] ?>" onclick="moveSelectedOptions(teaser_items,source_items,false);return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a></td>
-     </tr>
-    </table></td>
-</tr>
+<div class="form-group form-row" id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="be_cnt_articles" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_articles'] ?></label>
+  <div class="col">
+    <select name="calinklist" size="15" multiple="multiple" class="custom-select form-control form-control-sm" id="calinklist" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
+          <?php echo $carticle_list; ?>
+    </select>
+  </div>
+  <div class="col-sm-auto">
+    <a class="btn btn-secondary btn-sm" href="#" title="<?php echo $BL['be_cnt_movearticleto'] ?>" onclick="moveSelectedOptions(source_items,teaser_items,false);return false"><i class="fa fa-angle-double-up fa-fw" aria-hidden="true"></i></a>
+  </div>
+</div>
 
-<tr id="calink_manual_1"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-    <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_articles'] ?>:&nbsp;</td>
-      <td><table border="0" cellpadding="0" cellspacing="0" summary="">
+<div class="form-group align-items-center form-row" id="calink_manual_2"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label for="be_filter" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_filter'] ?></label>
+  <div class="col-sm-auto">
+    <select name="teaser_filter_category" class="custom-select form-control form-control-sm">
+      <option value=""><?php echo $BL['be_filter_not_selected'] ?></option>
+      <option value="0"<?php
+        if($content['alink']['filter_category'] !== null) {
+          is_selected(0, $content['alink']['filter_category']);
+          $content['alink']['filter_category'] = array($content['alink']['filter_category']);
+            } else {
+              $content['alink']['filter_category'] = array();
+            }
+          ?>><?php echo html($indexpage['acat_name']) ?></option>
+       <?php struct_select_list(0, 0, $content['alink']['filter_category'], true); ?>
+     </select>
+  </div>
+  <div class="col">
+    <div class="form-inline">
+			<input class="form-check-input ml-sm-3" type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> />
+			<label class="form-check-label" for="filter_category_by_tags"><?php echo $BL['be_filter_with_tags'] ?><button class="btn btn-blue btn-sm ml-sm-1" name="Submit"><i class="fa fa-search"></i></button></label>
+    </div>
+  </div>
+</div>
 
-    <tr>
-        <td><select name="calinklist" size="25" multiple="multiple" class="listrow width540" id="calinklist" ondblclick="moveSelectedOptions(source_items,teaser_items,false);">
-      <?php echo $carticle_list; ?>
-                </select></td>
+<div class="form-group form-row" id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label class="col-sm-2 col-form-label text-right"></label>
+  <div class="col">
+    <div class="form-inline">
+      <?php echo $BL['be_cnt_rssfeed_max'] ?>
+      <input name="calink_max" type="text" id="calink_max" class="form-control form-control-sm mx-sm-2" value="<?php echo empty($content['alink']['alink_max']) ? '' : $content['alink']['alink_max']; ?>" size="5" maxlength="5" />
+      <?php echo $BL['be_cnt_articles'] ?>
+    </div>
+  </div>
+</div>
 
-      <td>&nbsp;</td>
-      <td valign="top"><a href="#" title="<?php echo $BL['be_cnt_movearticleto'] ?>" onclick="moveSelectedOptions(source_items,teaser_items,false);return false"><img src="img/button/list_copy.gif" alt="" width="15" height="15" border="0" /></a></td>
-    </tr>
-    </table></td>
-</tr>
-<tr id="calink_manual_2"<?php if($content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-    <td align="right" class="chatlist tdtop6"><?php echo $BL['be_filter'] ?>:&nbsp;</td>
-    <td class="tdtop3">
-          <table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
-                <td>
-                    <select name="teaser_filter_category" class="width250">
-                        <option value=""><?php echo $BL['be_filter_not_selected'] ?></option>
-                        <option value="0"<?php
-                            if($content['alink']['filter_category'] !== null) {
-                                is_selected(0, $content['alink']['filter_category']);
-                                $content['alink']['filter_category'] = array($content['alink']['filter_category']);
-                            } else {
-                                $content['alink']['filter_category'] = array();
-                            }
-                        ?>><?php echo html($indexpage['acat_name']) ?></option>
-                        <?php struct_select_list(0, 0, $content['alink']['filter_category'], true); ?>
-                    </select>
-                </td>
-                <td>&nbsp;</td>
-                <td><input type="checkbox" name="teaser_filter_category_by_tags" id="filter_category_by_tags" value="1"<?php if($content['alink']['filter_tags'] !== null) echo ' checked="checked"'; ?> /></td>
-                <td class="chatlist"><label for="teaser_filter_category_by_tags">&nbsp;<?php echo $BL['be_filter_with_tags'] ?>&nbsp;</label></td>
-                <td><input type="image" src="img/famfamfam/magnifier.png" class="backend-search-button" name="Submit"></td>
-            </tr>
-        </table>
-    </td>
-</tr>
-
-<tr id="calink_auto_0"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-    <td align="right" valign="top" class="chatlist" style="padding-top:3px;"><?php echo $BL['be_cnt_rssfeed_max'] ?>:&nbsp;</td>
-    <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-
-    <tr>
-        <td><input name="calink_max" type="text" id="calink_max" class="f11b" style="width: 35px" value="<?php
-            echo empty($content['alink']['alink_max']) ? '' : $content['alink']['alink_max'];
-            ?>" size="5" maxlength="5" /></td>
-        <td class="chatlist">&nbsp;<?php echo $BL['be_cnt_articles'] ?></td>
-    </tr>
-
-    </table></td>
-</tr>
-<tr id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
-    <td align="right" valign="top" class="chatlist" style="padding-top:6px;"><?php echo $BL['be_cnt_sitelevel'] ?>:&nbsp;</td>
-    <td style="padding-top:3px;"><select name="calink_level[]" size="30" multiple="multiple" class="optionhover width540" id="calink_level">
-<?php
+<div class="form-group form-row" id="calink_auto_1"<?php if(!$content['alink']['alink_type']) echo ' style="display:none"'; ?>>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sitelevel'] ?></label>
+  <div class="col">
+    <select name="calink_level[]" size="15" multiple="multiple" class="custom-select optionhover form-control form-control-sm" id="calink_level">
+      <?php
         echo '<option value="0"';
         if(in_array(0, $content['alink']['alink_level'])) {
             echo ' selected="selected"';
         }
         echo '>'.html($indexpage['acat_name']).'</option>'.LF;
         struct_select_list(0, 0, $content['alink']['alink_level'], true);
-?>
-    </select></td>
-</tr>
+      ?>
+    </select>
+  </div>
+</div>
 
+<hr />
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td></tr>
+<div class="form-group form-row">
+  <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" data-container="body" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+  <div class="col">
+    <input type="text" id="calink_category_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+    <input type="hidden" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" />
+  </div>
+  <div class="col-sm-auto">
+    <select name="calink_andor" id="calink_andor" class="custom-select form-control form-control-sm">
+      <option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
+      <option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
+      <option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
+      <option value="NOR"<?php is_selected('NOR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_nor'] ?></option>
+    </select>
+  </div>
+</div>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_tags'] ?>:&nbsp;</td>
-    <td><table cellpadding="0" cellspacing="0" border="0" summary="">
-        <tr>
-            <td><input type="text" name="calink_category" id="calink_category" value="<?php echo html(implode(', ', $content['alink']['alink_category'])) ?>" class="width450 bold" /></td>
-            <td>&nbsp;&nbsp;</td>
-            <td><select name="calink_andor" id="calink_andor">
-                <option value="OR"<?php is_selected('OR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_or'] ?></option>
-                <option value="AND"<?php is_selected('AND', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_and'] ?></option>
-                <option value="NOT"<?php is_selected('NOT', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_not'] ?></option>
-                <option value="NOR"<?php is_selected('NOR', $content['alink']['alink_andor']) ?>><?php echo $BL['be_fsearch_nor'] ?></option>
-            </select></td>
-        </tr>
-        </table>
+<script type="text/javascript">
 
-        <script type="text/javascript">
+$(function(){
 
-window.addEvent('domready', function(){
-
-    /* Autocompleter for categories/tags */
-    var searchCategory = $('calink_category');
-    var indicator2 = new Element('span', {'class': 'autocompleter-loading', 'styles': {'display': 'none'}}).setHTML('').injectAfter($('calink_andor'));
-    var completer2 = new Autocompleter.Ajax.Json(searchCategory, 'include/inc_act/ajax_connector.php', {
-        multi: true,
-        maxChoices: 30,
-        autotrim: true,
-        minLength: 0,
-        allowDupes: false,
-        postData: {action: 'category', method: 'json'},
-        onRequest: function(el) {
-            indicator2.setStyle('display', '');
-        },
-        onComplete: function(el) {
-            indicator2.setStyle('display', 'none');
-        }
+    $("#calink_category_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+        selectedItemProp: "calink_category",
+        selectedValuesProp: 'calink_category',
+        searchObjProps: "calink_category",
+        queryParam: 'value',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
+        startText: '',
+        preFill: $("#calink_category").val(),
+        neverSubmit: true,
+        asHtmlID: 'keyword-autosuggest'
     });
 
+    $('#articlecontent').submit(function(event){
+        $("#calink_category").val($('#as-values-keyword-autosuggest').val());
+    });
 });
 
 var teaser_items = document.getElementById('calink');
 var source_items = document.getElementById('calinklist');
 
 </script>
-
-        </td>
-</tr>

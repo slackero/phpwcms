@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -61,7 +60,7 @@ if(!isset($content["ecard"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_selector'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" bgcolor="#E7E8EB" summary="">
+  <td valign="top"><table bgcolor="#E7E8EB">
       <tr>
         <td><input name="cecard_selector" type="radio" value="0" <?php is_checked(0, $content["ecard"]["selector"]); ?>></td>
         <td class="v10"><?php echo $BL['be_cnt_ecardform_radiobutton'] ?>&nbsp;</td>
@@ -90,7 +89,7 @@ if(!isset($content["ecard"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td valign="top"><table>
       <tr>
         <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content["ecard"]["select"]) && count($content["ecard"]["select"]) ? count($content["ecard"]["select"])+5 : 5 ?>" multiple="multiple" class="width200" id="cimage_list">
 <?php
@@ -143,7 +142,7 @@ if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) 
     </table><?php
 
 if(isset($img_thumbs) && $img_thumbs) {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
+    echo '<table>
         <tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
         </table>';
 }
@@ -166,7 +165,7 @@ if(isset($img_thumbs) && $img_thumbs) {
 </tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td valign="top"><table>
       <tr>
         <td><input name="cecard_width" type="text" class="f11b" id="cecard_width" style="width: 50px;" size="3" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content["ecard"]["width"] ?>"></td>
         <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
@@ -180,7 +179,7 @@ if(isset($img_thumbs) && $img_thumbs) {
 </tr>
 <tr>
   <td align="right" class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
-  <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
+  <td valign="top"><table>
       <tr>
         <td><select name="cecard_col" id="cecard_col">
 <?php
@@ -210,7 +209,7 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 </tr>
 <tr>
   <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_ecardtext'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="cecard_caption" cols="40" rows="3" wrap="off" class="width440" id="cecard_caption"><?php echo $caption_box ?? '' ?></textarea></td>
+  <td valign="top"><textarea name="cecard_caption" cols="40" rows="3" wrap="off" class="width440" id="cecard_caption"><?php echo isset($caption_box) ? $caption_box : '' ?></textarea></td>
 </tr>
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
 <tr><td colspan="2"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
@@ -232,9 +231,9 @@ for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
 
 if(!$content["ecard"]["form"]) {
     $content["ecard"]["form"]  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
-    $content["ecard"]["form"] .= '<table border="0" align="center" cellpadding="4" cellspacing="0" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
+    $content["ecard"]["form"] .= '<table align="center" cellpadding="4" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
     $content["ecard"]["form"] .= "<!--FORM_ERROR_START-->\n";
-    $content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table border="0" cellspacing="0" cellpadding="0">'."\n";
+    $content["ecard"]["form"] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table>'."\n";
     $content["ecard"]["form"] .= '<tr><td valign="top"><img src="img/symbole/achtung.gif" width="13" height="11" />&nbsp;</td>'."\n";
     $content["ecard"]["form"] .= '<td valign="top"><strong style="color:#CC3300;">'.$BL['be_cnt_ecardform_err'].'</strong></td>'."\n";
     $content["ecard"]["form"] .= "</tr></table></td></tr>\n";

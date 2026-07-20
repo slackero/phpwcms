@@ -1,12 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
- *
  **/
 
 // ----------------------------------------------------------------
@@ -32,29 +30,28 @@ if(empty($template_default['imagegallery_default_column'])) {
     }
 }
 
-$template_default['imagegallery_default_width']  = $template_default['imagegallery_default_width'] ?? '';
-$template_default['imagegallery_default_height'] = $template_default['imagegallery_default_height'] ?? '';
-$template_default['imagegallery_default_space']  = $template_default['imagegallery_default_space'] ?? '';
+$template_default['imagegallery_default_width']  = isset($template_default['imagegallery_default_width']) ? $template_default['imagegallery_default_width'] : '' ;
+$template_default['imagegallery_default_height'] = isset($template_default['imagegallery_default_height']) ? $template_default['imagegallery_default_height'] : '' ;
+$template_default['imagegallery_default_space']  = isset($template_default['imagegallery_default_space']) ? $template_default['imagegallery_default_space'] : '' ;
 
 if(!isset($content['image_list'])) {
 
     $content['image_list'] = array(
 
-        'pos'       => 0,
-        'width'     => $template_default['imagegallery_default_width'],
-        'height'    => $template_default['imagegallery_default_height'],
-        'col'       => $template_default['imagegallery_default_column'],
-        'space'     => $template_default['imagegallery_default_space'],
-        'zoom'      => 0,
-        'caption'   => '',
-        'lightbox'  => 0,
-        'nocaption' => 0,
-        'crop'      => 0,
-        'random'    => 0,
-        'limit'     => 0
+            'pos'       => 0,
+            'width'     => $template_default['imagegallery_default_width'],
+            'height'    => $template_default['imagegallery_default_height'],
+            'col'       => $template_default['imagegallery_default_column'],
+            'space'     => $template_default['imagegallery_default_space'],
+            'zoom'      => 0,
+            'caption'   => '',
+            'lightbox'  => 0,
+            'nocaption' => 0,
+            'crop'      => 0,
+            'random'    => 0,
+            'limit'     => 0
 
     );
-
 }
 
 if(!isset($content['image_list']['limit'])) {
@@ -62,11 +59,11 @@ if(!isset($content['image_list']['limit'])) {
 }
 
 ?>
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template']; ?>:&nbsp;</td>
-    <td><select name="template" id="template">
+<div class="form-group align-items-center form-row">
+  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+  <div class="col-sm-4">
+    <select name="template" id="template" class="custom-select form-control form-control-sm">
 <?php
 
     echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
@@ -82,21 +79,20 @@ if(is_array($tmpllist) && count($tmpllist)) {
 }
 
 ?>
-        </select></td>
-</tr>
+    </select>
+  </div>
+</div>
 
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
 
-<tr>
-    <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-    <tr>
-        <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple="multiple" class="width300" id="cimage_list">
+<div class="form-group form-row">
+	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images']; ?></label>
+		<div class="col">
+        <select class="custom-select" name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple="multiple" class="form-control form-control-sm" id="cimage_list">
 <?php
 if(isset($content['image_list']['images']) && is_array($content['image_list']['images']) && count($content['image_list']['images'])) {
 
     // browse images and list available
-    // will be visible only when aceessible
+    // will be visible only when accessible
     foreach($content['image_list']['images'] as $key => $value) {
 
         $caption_box .= html($content['image_list']['images'][$key][6])."\n";
@@ -116,14 +112,11 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
             $img_name = html($content['image_list']['images'][$key][1]);
             echo $img_name . "</option>\n";
 
-            if($imgx == 4) {
-                $img_thumbs .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
-                $imgx = 0;
-            }
+
             if($imgx) {
-                $img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1">';
+                $img_thumbs .= '';
             }
-            $img_thumbs .= '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
+            $img_thumbs .= '<img class="m-1" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" data-toggle="tooltip" title="'.$img_name.'">';
 
             $imgx++;
         }
@@ -133,178 +126,184 @@ if(isset($content['image_list']['images']) && is_array($content['image_list']['i
 }
 
 ?>
-                  </select></td>
-                  <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1"></td>
-                  <td valign="top"><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"
-                  onclick="openFileBrowser('filebrowser.php?opt=1&amp;target=nolist');"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a><br /><img src="img/leer.gif" alt="" width="1" height="4"><br /><a href="javascript:;"
-                  title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0"></a><a href="javascript:;"
-                  title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0"></a><br /><img src="img/leer.gif" alt="" width="1" height="4"><br /><a href="javascript:;"
-                  onclick="removeSelectedOptions(document.articlecontent.cimage_list);" title="<?php echo $BL['be_cnt_delimage'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0"></a></td>
-                </tr>
-              </table><?php
+    </select>
+    </div>
 
+    <div class="col-sm-auto">
+        <button type="button" class="modalButton btn btn-sm btn-blue mb-1" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button><br>
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button><br>
+        <button type="button" class="btn btn-sm btn-secondary mb-1" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button><br>
+        <button type="button" class="btn btn-sm btn-danger mb-1" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+    </div>
+</div>
+
+<?php
 if($img_thumbs) {
-    echo '<table border="0" cellspacing="0" cellpadding="0">
-        <tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
-        </table>';
-}
-
-?></td>
-              </tr>
-              <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_cnt_position'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><select name="cimage_pos" id="cimage_pos" onChange="changeImagePosMenu();">
-                <option value="0" <?php is_selected(0, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos0'] ?></option>
-                <option value="1" <?php is_selected(1, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos1'] ?></option>
-                <option value="2" <?php is_selected(2, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos2'] ?></option>
-                <option value="3" <?php is_selected(3, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos3'] ?></option>
-                <option value="4" <?php is_selected(4, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos4'] ?></option>
-                <option value="5" <?php is_selected(5, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos5'] ?></option>
-                <option value="6" <?php is_selected(6, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos6'] ?></option>
-                <option value="7" <?php is_selected(7, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos7'] ?></option>
-              </select></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1"></td>
-                  <td><img src="img/symbole/content_selected.gif" alt="" name="imgpos0" width="7" height="10" id="imgpos0"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(0);this.blur();return false;" title="<?php echo $BL['be_cnt_pos0i'] ?>"><img src="img/button/image_pos0.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos1" width="7" height="10" id="imgpos1"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(1);this.blur();return false;" title="<?php echo $BL['be_cnt_pos1i'] ?>"><img src="img/button/image_pos1.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos2" width="7" height="10" id="imgpos2"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(2);this.blur();return false;" title="<?php echo $BL['be_cnt_pos2i'] ?>"><img src="img/button/image_pos2.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos3" width="7" height="10" id="imgpos3"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(3);this.blur();return false;" title="<?php echo $BL['be_cnt_pos3i'] ?>"><img src="img/button/image_pos3.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos4" width="7" height="10" id="imgpos4"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(4);this.blur();return false;" title="<?php echo $BL['be_cnt_pos4i'] ?>"><img src="img/button/image_pos4.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos5" width="7" height="10" id="imgpos5"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(5);this.blur();return false;" title="<?php echo $BL['be_cnt_pos5i'] ?>"><img src="img/button/image_pos5.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos6" width="7" height="10" id="imgpos6"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(6);this.blur();return false;" title="<?php echo $BL['be_cnt_pos6i'] ?>"><img src="img/button/image_pos6.gif" alt="" width="15" height="15" border="0"></a></td>
-                  <td><img src="img/leer.gif" alt="" name="imgpos7" width="7" height="10" id="imgpos7"></td>
-                  <td><a href="javascript:;" onclick="changeImagePos(7);this.blur();return false;" title="<?php echo $BL['be_cnt_pos7i'] ?>"><img src="img/button/image_pos7.gif" alt="" width="15" height="15" border="0"></a></td>
-
-                  <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td><input type="checkbox" name="cimage_usetable" id="cimage_usetable" value="1" <?php is_checked(1, empty($content['image_list']['usetable']) ? 0 : 1); ?> /></td>
-                  <td class="v10"><label for="cimage_usetable" class="checkbox"><?php echo $BL['be_admin_page_table'] ?></label></td>
-
-                </tr>
-              </table><script type="text/javascript">
-              <!--
-              changeImagePos(<?php echo intval($content['image_list']['pos']); ?>);
-              //-->
-              </script></td>
-              </tr>
-
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['width']) ? $template_default['imagegallery_default_width'] : $content['image_list']['width']; ?>"></td>
-                  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
-                  <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['height']) ? $template_default['imagegallery_default_height'] : $content['image_list']['height']; ?>"></td>
-                  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-
-                <td><input type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> /></td>
-                <td class="v10"><label for="cimage_crop" class="checkbox"><?php echo $BL['be_image_crop'] ?></label></td>
-
-                </tr>
-              </table></td>
-              </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-<tr>
-   <td align="right" class="chatlist"><?php echo $BL['limit_image_from_list'] ?>:&nbsp;</td>
-   <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-         <tr>
-            <td><select name="cimage_limit" id="cimage_limit">
-        <option value="0"<?php is_selected(0, $content['image_list']['limit']); ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
-<?php
-// take max images from list
-if($imgx) {
-    $max_limit = $imgx + 10;
-} else {
-    $max_limit = 10;
-}
-for($max_image_limit = 1; $max_image_limit <= $max_limit; $max_image_limit++) {
-
-    echo '<option value="'.$max_image_limit.'" ';
-    is_selected($max_image_limit, $content['image_list']['limit']);
-    echo '>'.$max_image_limit."</option>\n";
-}
-?>            </select></td>
-            <td>&nbsp;&nbsp;</td>
-            <td><input name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, $content['image_list']['random']); ?> /></td>
-            <td class="v10"><label for="cimage_random" class="checkbox"><?php echo $BL['random_image'] ?></label></td>
-         </tr>
-      </table>
-   </td>
-</tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_cnt_column'] ?>:&nbsp;</td>
-              <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                  <td><select name="cimage_col" id="cimage_col">
-<?php
-
-// list select menu for max image columns
-for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
-
-    echo '<option value="'.$max_image_col.'" ';
-    is_selected($max_image_col, $content['image_list']['col']);
-    echo '>'.$max_image_col."</option>\n";
-
+    echo '<div class="row">
+    		<label for="template" class="col-sm-2 col-form-label text-right"></label>
+    		<div class="col">
+       			'.$img_thumbs.'
+        	</div>
+        </div>';
 }
 
 ?>
-                  </select></td>
-                  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
-                  <td><input name="cimage_space" type="text" class="f11b" id="cimage_space" style="width: 50px;" size="2" maxlength="3" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" /></td>
-                  <td class="chatlist">&nbsp;px</td>
-                </tr>
-              </table></td>
-              </tr>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
+<hr />
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_cnt_behavior'] ?>:&nbsp;</td>
-    <td valign="top"><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
-                <td><input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?> /></td>
-                <td class="v10"><label for="cimage_zoom" class="checkbox"><?php echo $BL['be_cnt_enlarge'] ?></label></td>
+<div class="form-group align-items-center form-row">
+  <label for="cimage_pos" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_position'] ?></label>
+  <div class="col-sm-auto">
+    <select name="cimage_pos" id="cimage_pos" class="custom-select form-control form-control-sm">
+        <option value="0" <?php is_selected(0, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos0'] ?></option>
+        <option value="1" <?php is_selected(1, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos1'] ?></option>
+        <option value="2" <?php is_selected(2, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos2'] ?></option>
+        <option value="3" <?php is_selected(3, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos3'] ?></option>
+        <option value="4" <?php is_selected(4, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos4'] ?></option>
+        <option value="5" <?php is_selected(5, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos5'] ?></option>
+        <option value="6" <?php is_selected(6, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos6'] ?></option>
+        <option value="7" <?php is_selected(7, $content['image_list']['pos']) ?>><?php echo $BL['be_cnt_pos7'] ?></option>
+      </select>
+  </div>
+  <div class="col-sm-auto mt-2 mt-sm-0">
+    <div id="imgpos0" class="btn <?php echo ($content['image_list']['pos']==0 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos0.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos0i'] ?>"></div>
+    <div id="imgpos1" class="btn <?php echo ($content['image_list']['pos']==1 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos1.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos1i'] ?>"></div>
+    <div id="imgpos2" class="btn <?php echo ($content['image_list']['pos']==2 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos2.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos2i'] ?>"></div>
+    <div id="imgpos3" class="btn <?php echo ($content['image_list']['pos']==3 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos3.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos3i'] ?>"></div>
+    <div id="imgpos4" class="btn <?php echo ($content['image_list']['pos']==4 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos4.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos4i'] ?>"></div>
+    <div id="imgpos5" class="btn <?php echo ($content['image_list']['pos']==5 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos5.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos5i'] ?>"></div>
+    <div id="imgpos6" class="btn <?php echo ($content['image_list']['pos']==6 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos6.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos6i'] ?>"></div>
+    <div id="imgpos7" class="btn <?php echo ($content['image_list']['pos']==7 ? "btn-success" : "btn-blue");?>"><img src="img/button/image_pos7.svg" alt="" width="16" height="16" border="0"data-toggle="tooltip" title="<?php echo $BL['be_cnt_pos7i'] ?>"></div>
+  </div>
+  <div class="col form-check form-check-inline">
+		<input type="checkbox" class="form-check-input" name="cimage_usetable" id="cimage_usetable" value="1" <?php is_checked(1, empty($content['image_list']['usetable']) ? 0 : 1); ?> />
+		<label for="cimage_usetable" class="form-check-label"><?php echo $BL['be_admin_page_table'] ?></label>
+  </div>
+</div>
 
-                <td>&nbsp;</td>
-                <td><input name="cimage_lightbox" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){getObjectById('cimage_zoom').checked=true;}" /></td>
-                <td class="v10"><label for="cimage_lightbox" class="checkbox"><?php echo $BL['be_cnt_lightbox'] ?></label></td>
+<div class="form-group align-items-center form-row">
+  <label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 
-                <td>&nbsp;</td>
-                <td><input name="cimage_nocaption" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_list']['nocaption']); ?> /></td>
-                <td class="v10"><label for="cimage_nocaption" class="checkbox"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label></td>
+  <div class="col-sm-auto my-2 my-sm-0">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+			</div>
+			<input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['width']) ? $template_default['imagegallery_default_width'] : $content['image_list']['width']; ?>">
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
 
-            </tr>
-        </table>
-    </td>
-</tr>
+  <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" style="width: 50px;" size="4" maxlength="4" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['height']) ? $template_default['imagegallery_default_height'] : $content['image_list']['height']; ?>">
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
 
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr>
-    <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-    <td valign="top">
-        <textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="width440 autosize" id="cimage_caption"><?php echo $caption_box; ?></textarea>
-        <span class="caption width440">
-            <?php echo $BL['be_cnt_caption']; ?>
-            |
-            <?php echo $BL['be_caption_alt']; ?>
-            |
-            <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
-            |
-            <?php echo $BL['be_caption_title']; ?>
-            |
-            <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
-        </span>
-    </td>
-</tr>
+  <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="form-check form-check-inline">
+			<input class="form-check-input" type="checkbox" name="cimage_crop" id="cimage_crop" value="1" <?php is_checked(1, $content['image_list']['crop']); ?> />
+			<label class="form-check-label" for="cimage_crop"><?php echo $BL['be_image_crop'] ?></label>
+		</div>
+	</div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="cimage_limit" class="col-sm-2 col-form-label text-right"><?php echo $BL['limit_image_from_list'] ?></label>
+  <div class="col-sm-auto">
+		<select name="cimage_limit" id="cimage_limit" class="custom-select form-control form-control-sm">
+			<option value="0"<?php is_selected(0, $content['image_list']['limit']); ?>><?php echo $BL['be_ftptakeover_all'] ?></option>
+			<?php
+			// take max images from list
+			if($imgx) {
+					$max_limit = $imgx + 10;
+			} else {
+					$max_limit = 10;
+			}
+			for($max_image_limit = 1; $max_image_limit <= $max_limit; $max_image_limit++) {
+
+					echo '<option value="'.$max_image_limit.'" ';
+					is_selected($max_image_limit, $content['image_list']['limit']);
+					echo '>'.$max_image_limit."</option>\n";
+			}
+			?>
+		</select>
+	</div>
+	<div class="col">
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" name="cimage_random" type="checkbox" id="cimage_random" value="1" <?php is_checked(1, $content['image_list']['random']); ?> />
+			<label class="form-check-label" for="cimage_random"><?php echo $BL['random_image'] ?></label>
+		</div>
+	</div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="cimage_col" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
+  <div class="col-sm-auto">
+		<select name="cimage_col" id="cimage_col" class="custom-select form-control form-control-sm">
+			<?php
+			// list select menu for max image columns
+			for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
+					echo '<option value="'.$max_image_col.'" ';
+					is_selected($max_image_col, $content['image_list']['col']);
+					echo '>'.$max_image_col."</option>\n";
+			}
+			?>
+		</select>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
+			</div>
+      <input name="cimage_space" type="text" class="form-control form-control-sm" id="cimage_space" maxlength="3" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo empty($content['image_list']['space']) ? $template_default['imagegallery_default_space'] : $content['image_list']['space']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
+</div>
+
+<div class="form-group align-items-center form-row">
+  <label for="cimage_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
+  <div class="col">
+  <div class="form-check form-check-inline">
+		<input class="form-check-input" name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, $content['image_list']['zoom']); ?>/>
+		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+	</div>
+  <div class="form-check form-check-inline">
+		<input name="cimage_lightbox" class="form-check-input" type="checkbox" id="cimage_lightbox" value="1" <?php is_checked(1, $content['image_list']['lightbox']); ?> onchange="if(this.checked){document.getElementById('cimage_zoom').checked=true;}" />
+		<label class="form-check-label" for="cimage_lightbox"><?php echo $BL['be_cnt_lightbox'] ?></label>
+	</div>
+  <div class="form-check form-check-inline">
+		<input class="form-check-input" name="cimage_nocaption" type="checkbox" id="cimage_nocaption" value="1" <?php is_checked(1, $content['image_list']['nocaption']); ?> />
+		<label class="form-check-label" for="cimage_nocaption"><?php echo $BL['be_cnt_imglist_nocaption'] ?></label>
+	</div>
+  </div>
+</div>
+
+<div class="form-group form-row">
+  <label for="cimage_caption" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_caption'] ?></label>
+  <div class="col">
+    <textarea name="cimage_caption" cols="40" rows="3" wrap="off" class="form-control form-control-sm" id="cimage_caption"><?php echo $caption_box; ?></textarea>
+    <div class="pt-2">
+        <?php echo $BL['be_cnt_caption']; ?>
+        |
+        <?php echo $BL['be_caption_alt']; ?>
+        |
+        <?php echo $BL['be_admin_page_link']; ?> <em><?php echo $BL['be_cnt_target']; ?></em>
+        |
+        <?php echo $BL['be_caption_title']; ?>
+        |
+        <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+    </div>
+  </div>
+</div>

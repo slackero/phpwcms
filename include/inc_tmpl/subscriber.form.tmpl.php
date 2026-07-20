@@ -1,127 +1,105 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+  die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-
 ?>
-<form action="phpwcms.php?do=messages&amp;p=4&amp;s=<?php echo $_userInfo['subscriber_data']['address_id'] ?>&amp;edit=1" method="post" name="editsubscriber" id="editsubscriber" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 10px 15px 10px">
-<table border="0" cellpadding="0" cellspacing="0" summary="">
+<form action="phpwcms.php?do=messages&amp;p=4&amp;s=<?php echo $_userInfo['subscriber_data']['address_id'] ?>&amp;edit=1" method="post" name="editsubscriber" id="editsubscriber">
+  <div class="card mb-3">
+    <div class="card-body">
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?></td>
-	</tr>
+      <div class="form-group form-row align-items-center">
+        <span class="col-sm-2 col-form-label text-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></span>
+        <div class="col">
+         <?php echo html($_userInfo['subscriber_data']['address_tstamp']) ?>
+        </div>
+      </div>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-	</tr>
+      <div class="form-group form-row align-items-center">
+        <label for="subscribe_email" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_email'] ?></label>
+        <div class="col">
+          <input type="email" class="form-control form-control-sm" name="subscribe_email" id="subscribe_email" value="<?php echo html($_userInfo['subscriber_data']['address_email']) ?>" maxlength="250" required />
+        </div>
+      </div>
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_profile_label_email']  ?>:&nbsp;</td>
-		<td><input name="subscribe_email" type="text" id="subscribe_email" class="f11b<?php
+      <div class="form-group form-row align-items-center">
+        <label for="subscribe_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_name'] ?></label>
+        <div class="col">
+          <input type="text" class="form-control form-control-sm" name="subscribe_name" id="subscribe_name" value="<?php echo html($_userInfo['subscriber_data']['address_name']) ?>" maxlength="250" required />
+        </div>
+      </div>
 
-		//error class
-		if(!empty($_userInfo['error']['email'])) echo ' errorInputText';
+      <div class="form-group form-row">
+        <label class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_cnt_subscription'] ?></label>
+        <div class="col">
 
-		?>" style="width:300px;" value="<?php echo html($_userInfo['subscriber_data']['address_email']) ?>" size="30" /></td>
-	</tr>
+				<?php
+					//retrieve available subscriptions
+					$_userInfo['select_subscr'] = '';
+					$_userInfo['subscr_all']  = 1;
+					$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="2" /></td>
-	</tr>
+					$_userInfo['subscriber_data']['subscriptions']  = unserialize($_userInfo['subscriber_data']['address_subscription'], ['allowed_classes' => false]);
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_cnt_ecardform_name']  ?>:&nbsp;</td>
-		<td><input name="subscribe_name" type="text" id="subscribe_name" class="f11b" style="width:300px;" value="<?php echo html($_userInfo['subscriber_data']['address_name']) ?>" size="30" /></td>
-	</tr>
+					if($_userInfo['subscriptions']) {
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
+						foreach($_userInfo['subscriptions'] as $value) {
 
-	<tr>
-		<td align="right" class="chatlist" valign="top" style="padding-top: 4px;"><?php
+							$_userInfo['select_subscr'] .= '
+								<div class="form-check"><input class="form-check-input" type="checkbox" name="subscribe_to[]" id="subscribe_to'.$value['subscription_id'].'" value="'.$value['subscription_id'].'"';
+							if(is_array($_userInfo['subscriber_data']['subscriptions']) && in_array($value['subscription_id'], $_userInfo['subscriber_data']['subscriptions'])) {
 
-	echo $BL['be_cnt_subscription'] ;
+								$_userInfo['select_subscr'] .= ' checked="checked"';
+								$_userInfo['subscr_all']   = 0;
 
-	//retrieve available subscriptions
-	$_userInfo['select_subscr'] = '';
-	$_userInfo['subscr_all']	= 1;
-	$_userInfo['subscriptions'] = _dbQuery("SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name");
+							}
+							$_userInfo['select_subscr'] .= ' /><label class="form-check-label" for="subscribe_to'.$value['subscription_id'].'">'.
+								html($value['subscription_name']).
+								'</label>
+							</div>
+							';
+						}
+					}
+				?>
 
-	$_userInfo['subscriber_data']['subscriptions']	= unserialize($_userInfo['subscriber_data']['address_subscription'], ['allowed_classes' => false]);
+         <div class="form-check">
+            <label class="form-check-label align-items-center">
+              <input class="form-check-input" name="subscribe_all" type="checkbox" id="subscribe_all" value="1"<?php is_checked($_userInfo['subscr_all'], 1) ?> />
+               <?php echo $BL['be_newsletter_allsubscriptions']; ?>
+            </label>
+          </div>
+        <?php echo $_userInfo['select_subscr'] ?>
+        </div>
+      </div>
 
-	if($_userInfo['subscriptions']) {
+      <div class="form-group form-row align-items-center">
+        <label class="col-sm-2 col-form-label text-right" for="subscribe_active"><?php echo $BL['be_ftptakeover_status'] ?></label>
+        <div class="col">
+          <div class="form-check">
+						<input class="form-check-input" name="subscribe_active" type="checkbox" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> />
+						<label class="form-check-label" for="subscribe_active"><?php echo $BL['be_cnt_activated']; ?></label>
+          </div>
+        </div>
+      </div>
 
-		foreach($_userInfo['subscriptions'] as $value) {
+			<div class="text-left">
+				<input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
+				<input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+				<input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=messages&p=4';return false;" />
+			</div>
 
-			$_userInfo['select_subscr'] .= '		<tr>
-				<td><input type="checkbox" name="subscribe_to[]" id="subscribe_to'.$value['subscription_id'].'" value="'.$value['subscription_id'].'"';
-			if(is_array($_userInfo['subscriber_data']['subscriptions']) && in_array($value['subscription_id'], $_userInfo['subscriber_data']['subscriptions'])) {
-
-				$_userInfo['select_subscr'] .= ' checked="checked"';
-				$_userInfo['subscr_all']	 = 0;
-
-			}
-			$_userInfo['select_subscr'] .= ' /></td>
-				<td><label for="subscribe_to'.$value['subscription_id'].'">'.
-				html($value['subscription_name']).
-				'</label></td>
-			</tr>
-			';
-		}
-
-	}
-
-
-	?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-
-			<tr>
-				<td><input type="checkbox" name="subscribe_all" id="subscribe_all" value="1"<?php is_checked($_userInfo['subscr_all'], 1) ?> /></td>
-				<td><label for="subscribe_all"><?php echo $BL['be_newsletter_allsubscriptions'] ?></label></td>
-			</tr>
-
-	<?php echo $_userInfo['select_subscr'] ?>
-
-		</table></td>
-
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-				<td><input type="checkbox" name="subscribe_active" id="subscribe_active" value="1"<?php is_checked($_userInfo['subscriber_data']['address_verified'], 1) ?> /></td>
-				<td><label for="subscribe_active"><?php echo $BL['be_cnt_activated'] ?></label></td>
-			</tr>
-		</table></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-			<input name="submit" type="submit" class="button" value="<?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='phpwcms.php?do=messages&p=4&s=0&edit=1';return false;" />
-			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=messages&p=4';return false;" />
-		</td>
-	</tr>
-
-</table>
+    </div>
+  </div>
 </form>

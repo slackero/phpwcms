@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -15,7 +14,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 	$struct_id = intval($struct_id);
 	$selected_id = intval($selected_id);
 	$counter = intval($counter) + 1;
-    $structure = array();
+		$structure = array();
 
 	$sql  = 'SELECT acat_id, acat_name, acat_aktiv, acat_regonly, acat_opengraph FROM '.DB_PREPEND.'phpwcms_articlecat ';
 	$sql .= 'WHERE acat_trash=0 AND acat_struct='.$struct_id.' ORDER BY acat_sort';
@@ -58,7 +57,7 @@ function struct_select_menu($counter=0, $struct_id=0, $selected_id=0, $return='o
 
 				echo '<option value="', $value["acat_id"], '"';
 				if($selected_id==$value["acat_id"]) {
-					define('ACAT_OPENGRAPH_STATUS', !empty($value["acat_opengraph"]));
+					define('ACAT_OPENGRAPH_STATUS', empty($value["acat_opengraph"]) ? false : true);
 					echo ' selected="selected"';
 				}
 				echo '>', $value["acat_name"], '</option>', LF;
@@ -93,20 +92,20 @@ function struct_select_list($counter, $struct_id, $selected_id, $add_alias=false
 	if(isset($struct[0]['acat_id'])) {
 		foreach($struct as $key => $value) {
 
-			$value['acat_name'] = html($value["acat_name"]);
-			if($add_alias && $value["acat_alias"]) {
-				$value['acat_name'] .= ' ('. $value["acat_alias"].')';
+			$value['acat_name'] = html($struct[$key]["acat_name"]);
+			if($add_alias && $struct[$key]["acat_alias"]) {
+				$value['acat_name'] .= ' ('.$struct[$key]["acat_alias"].')';
 			}
 
-			echo '<option value="', $value["acat_id"], '"';
-			if(in_array($value["acat_id"], $selected_id)) {
+			echo '<option value="', $struct[$key]["acat_id"], '"';
+			if(in_array($struct[$key]["acat_id"], $selected_id)) {
 				echo ' selected="selected"';
 			}
 			echo ' title="', $value['acat_name'], '">';
 			echo str_repeat("&#8212;", $counter), ' ', $value['acat_name'];
 			echo '</option>'.LF;
 
-			struct_select_list($counter, $value["acat_id"], $selected_id, $add_alias);
+			struct_select_list($counter, $struct[$key]["acat_id"], $selected_id, $add_alias);
 		}
 	}
 }
@@ -126,7 +125,7 @@ function struct_checkbox_list($counter=0, $struct_id=0, $selected_id=array(), $a
         $counter = $counter + 1;
         $list .= '<ul class="checkbox-list checkbox-list-level-'.$counter.'">';
 
-		foreach($struct as $key => $value) {
+		foreach($struct as $value) {
 
             $value['acat_name'] = html($value["acat_name"]);
 
@@ -182,7 +181,7 @@ function struct_radio_list($counter=0, $struct_id=0, $selected_id=array(), $add_
         $counter = $counter + 1;
         $list .= '<ul class="radio-list radio-list-level-'.$counter.'">';
 
-		foreach($struct as $key => $value) {
+		foreach($struct as $value) {
 
             $value['acat_name'] = html($value["acat_name"]);
 

@@ -459,7 +459,7 @@ class IPTC {
 	private static function convIPTCHelper( $data, $charset ) {
 		if ( $charset ) {
 			//MediaWiki\suppressWarnings();
-			$data = iconv( $charset, PHPWCMS_CHARSET, $data );
+			$data = @iconv( $charset, PHPWCMS_CHARSET, $data );
 			//MediaWiki\restoreWarnings();
 			if ( $data === false ) {
 				$data = "";

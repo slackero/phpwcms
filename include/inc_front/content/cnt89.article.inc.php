@@ -1,12 +1,10 @@
 <?php
-
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -73,7 +71,7 @@ if(in_array($remoteIP, $poll_form["ip"])) {
         $poll_total_votes += $value;
     }
     if($poll_total_votes > 0) {
-        $poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
+        $poll_html .= '<table>';
 
         for($key = 0; $key < $poll_count; $key++)
         {
@@ -101,7 +99,7 @@ if(in_array($remoteIP, $poll_form["ip"])) {
 
     $form_name  = "form_".generic_string(6);
     $poll_html .= '<form action="'.FE_CURRENT_URL.'" method="post" name="'.$form_name.'" id="'.$form_name.'">';
-    $poll_html .= '<table cellpadding="0" cellspacing="0" border="0">';
+    $poll_html .= '<table>';
 
     for($key = 0; $key < $poll_count; $key++) {
 

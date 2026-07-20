@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -28,15 +27,15 @@ foreach($cinfo as $value) {
 $cinfo["result"] = str_replace("\n", " / ", trim($cinfo["result"]));
 
 
-echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+echo "<div class=\"col-sm-auto\">";
 if($cinfo["result"]) { //Zeige Inhaltinfo
 	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=";
 	echo $row["acontent_id"]."\">".$cinfo["result"].'</a>';
 }
-$form = unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$form = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if($form['subject']) {
 	if($cinfo["result"]) echo '<br>';
 	echo html($form['subject']);
 }
 unset($form);
-echo "</td><td>&nbsp;</td></tr>";
+echo "</div>";

@@ -1,18 +1,19 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-// Language: Polish, Language Code: pl UTF-8 for ver.1.10.2 (2024/01/06, 554)
+
+// Language: Polish, Language Code: pl UTF-8 for ver.1.8.6-rc.2 (2017/01/31, 545)
 //Zięba Bogusław http://www.krynica.malopolska.pl
 // please use HTML safe strings ONLY,neccessary to reduce processing time
 // normal line break:    '&#13;', JavaScript Linebreak: '\n'
+
 
 $BL['usr_online'] = 'Zalogowani użytkownicy';
 
@@ -35,7 +36,7 @@ $BL['be_nav_profile'] = 'PROFILE';
 $BL['be_nav_admin'] = 'ADMINISTRACJA';
 $BL['be_nav_discuss'] = 'DYSKUSJA';
 
-$BL['be_page_title'] = 'Zaplecze phpwcms (administracja)';
+$BL['be_page_title'] = 'Zaplecze gmsgo (administracja)';
 
 $BL['be_subnav_article_center'] = 'Centrum artykułów';
 $BL['be_subnav_article_new'] = 'Nowy artykuł';
@@ -170,8 +171,6 @@ $BL['be_ftptakeover_active'] = 'Aktywny';
 $BL['be_ftptakeover_public'] = 'Publiczne';
 $BL['be_ftptakeover_createthumb'] = 'Utwórz miniaturkę';
 $BL['be_ftptakeover_button'] = 'Odbierz wybrane pliki';
-$BL['be_ftptakeover_new_folder'] = 'utwórz folder';
-$BL['be_ftptakeover_new_folder_placeholder'] = 'nazwa nowego folderu w katalogu głównym';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title'] = 'Centrum plików';
@@ -311,7 +310,7 @@ $BL['be_msg_RE'] = 'ODP';
 $BL['be_msg_by'] = 'wysłana przez';
 $BL['be_msg_on'] = 'w dniu';
 $BL['be_msg_msg'] = 'Wiadomość';
-$BL['be_msg_err1'] = 'Zapomniałeś ustsawić odbiorcę...';
+$BL['be_msg_err1'] = 'Zapomniałeś udtsawić odbiorcę...';
 $BL['be_msg_err2'] = 'Wypełnij pole tytułu (odbiorcy będzie łatwiej czytać Twoją wiadomość)';
 $BL['be_msg_err3'] = 'nie ma sensu wysyłać wiadomości bez treści ;-)';
 $BL['be_msg_sent'] = 'Nowa Wiadomość została wysłana!';
@@ -480,6 +479,8 @@ $BL['be_article_err4'] = 'Data zakończenia wyświetlania jest podana. Ale-ustaw
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Edycja podstawowych danych artykułu';
 $BL['be_article_eslastedit'] = 'Aktualizowany';
+$BL['be_article_created_at'] = 'utworzony o';
+$BL['be_article_updated_at'] = 'zaktualizowany o';
 $BL['be_article_esnoupdate'] = 'Formularz nie zaktualizowany';
 $BL['be_article_esbutton'] = 'Zaktualizuj dane artykułu';
 
@@ -513,8 +514,8 @@ $BL['be_article_cnt_addtitle'] = 'Dodaj nową treść';
 $BL['be_article_cnt_up'] = 'Przesuń w górę treść';
 $BL['be_article_cnt_down'] = 'Przesuń w dół treść';
 $BL['be_article_cnt_edit'] = 'Edytuj treść';
-$BL['be_article_cnt_delpart'] = 'Usuń treść z artykułu';
-$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść z artykułu?';
+$BL['be_article_cnt_delpart'] = 'Usuń treść';
+$BL['be_article_cnt_delpartjs'] = 'Czy na pewno usunąć treść?';
 $BL['be_article_cnt_center'] = 'Centrum artykułów';
 
 // content forms
@@ -640,7 +641,7 @@ $BL['be_cnt_result'] = 'Rezultat';
 $BL['be_cnt_next'] = 'Następny';
 $BL['be_cnt_previous'] = 'Poprzedni';
 $BL['be_cnt_align'] = 'Wyrównanie';
-$BL['be_cnt_searchformtext'] = 'Wstaw swoje komunikaty gdy użytkownik otworzy stronę wyszukiwarki lub gdy nie ma rezultatów.';
+$BL['be_cnt_searchformtext'] = 'Wstaw swoje komunikaty gdy użytkownik otworzy strone wyszukiwarki lub gdy nie ma rezultatów.';
 $BL['be_cnt_intro'] = 'Nagłówek';
 $BL['be_cnt_noresult'] = 'Brak&nbsp; rezultatów';
 $BL['be_cnt_search_default_type'] = 'Domyślny typ wyszukiwania';
@@ -861,8 +862,6 @@ $BL['be_date_week'] = 'Tydzień';
 $BL['be_date_weeks'] = 'Tygodnie';
 $BL['be_date_month'] = 'Miesiąc';
 $BL['be_date_months'] = 'Miesiące';
-$BL['be_off'] = 'Wył.';
-$BL['be_on'] = 'Wł.';
 $BL['be_cache'] = 'Pamięć podręczna';
 $BL['be_cache_timeout'] = 'Czas wygaśn.';
 
@@ -1152,7 +1151,7 @@ $BL['be_cnt_imagecenterv'] = 'wyśrodkowanie w pionie';
 
 $BL['be_overwrite_default'] = 'Zostaną zmienione domyślne ustawienia pliku konfiguracyjnego';
 $BL['be_cnt_sortvalue'] = 'sortowanie&nbsp;wartość';
-$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy naprawdę chcesz kontynuować?';
+$BL['be_dialog_warn_nosave'] = 'Jeżeli będziesz kontynuował zmiany nie zostaną zapisane!\nCzy chcesz anulować?';
 $BL['be_cnt_paginate_subsection'] = 'Podrozdział';
 $BL['be_cnt_subsection_tite'] = 'Tytuł podrozdziału';
 $BL['be_cnt_subsection_warning'] = 'Numeracja podrozdziałów (paginate content parts) jest możliwa dla\nmain column (CONTENT) tylko!';
@@ -1169,7 +1168,7 @@ $BL['be_image_crop'] = 'Kadruj miniaturę';
 $BL['be_image_cropit'] = 'Kadruj obrazek';
 $BL['be_image_align'] = 'Wyrównanie obrazka';
 
-$BL['be_ctype_flashplayer'] = 'HTML5/Video.js odtwarzacz multimedialny';
+$BL['be_ctype_flashplayer'] = 'HTML5/Flash odtwarzacz multimedialny';
 $BL['be_flashplayer_caption'] = 'Podpis';
 $BL['be_flashplayer_thumbnail'] = 'Miniaturka';
 $BL['be_flashplayer_selectsize'] = 'Wybierz rozmiar odtwarzacza';
@@ -1285,7 +1284,7 @@ $BL['group_guest'] = 'Gość';
 $BL['php_function'] = 'Funkcja PHP';
 $BL['article_menu_title'] = 'Tytuł menu';
 
-$BL['content_type'] = 'Rodzaj treści';
+$BL['content_type'] = 'Content-Type';
 $BL['automatic'] = 'automatycznie';
 
 $BL['random_image'] = 'Losowy obraz';
@@ -1414,28 +1413,23 @@ $BL['be_no'] = 'Nie';
 $BL['be_attr_title'] = 'Tytuł (Atrybut)';
 $BL['be_attr_alt'] = 'Alternatywny Tekst';
 $BL['be_ie8ignore'] = 'WYŁĄCZ <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">komentarze warunkowe</a> dla IE8';
-$BL['be_cookie_consent_enable'] = 'Włącz wtyczkę Zgody Cookie';
+$BL['be_cookie_consent_enable'] = 'Włącz wtyczkę Zgody Cookie v2';
 $BL['be_cookie_consent_message'] = 'Komunikat zgody';
 $BL['cookie_consent_message'] = 'Witryna ta wykorzystuje cookies, aby uzyskać najlepszą jakość na naszej stronie internetowej';
-$BL['be_cookie_consent_dismiss'] = 'Przycisk tekstu zezwolenia';
+$BL['be_cookie_consent_dismiss'] = 'Przycisk tekstu zwolenia';
 $BL['cookie_consent_dismiss'] = 'Rozumiem!';
 $BL['be_cookie_consent_more'] = 'Tekst przycisku dowiedz się więcej';
 $BL['cookie_consent_more'] = 'Więcej informacji';
 $BL['be_cookie_consent_link'] = 'Polityka Cookie url/alias';
 $BL['be_cookie_consent_theme'] = 'Motyw (puste = brak CSS)';
 $BL['be_google_analytics_enable'] = 'Użyj Google Analytics';
-$BL['be_piwik_enable'] = 'Użyj Matomo/Piwik';
+$BL['be_piwik_enable'] = 'Użyj Piwik';
 $BL['be_tracking_anonymize'] = 'Utajnij IP';
 $BL['be_tracking_id'] = 'Śledzenie ID';
 $BL['be_site_id'] = 'ID witryny';
-$BL['be_piwik_url'] = 'Matomo/Piwik URL';
+$BL['be_piwik_url'] = 'Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blokowany przez <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'wsparcie dla pliku Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
-$BL['be_consent_cookie_name'] = 'Nazwa ciasteczka zgody';
-$BL['be_consent_cookie_value'] = 'Zgoda na zawartość pliku cookie';
-$BL['be_respect_donottrack'] = 'Przestrzegaj ustawienia przeglądarki Do-Not-Track';
-$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
-$BL['placeholder_require_cookie_value'] = 'tak';
 
 $BL['be_iptc_data'] = 'Dane IPTC';
 $BL['be_iptc_as_caption'] = 'Użyj do podpisu, Praw autorskich itp. korzytaj , gdy nie jest ustawiony';
@@ -1476,39 +1470,173 @@ $BL['iptc_SubjectNewsCode'] = 'ID tematu';
 $BL['iptc_iimVersion'] = 'Wersja';
 
 $BL['be_suppress_render_caption'] = 'Tłumienie renderowania podpisu';
-$BL['be_cnt_attribute_class'] = 'Klasa CSS';
-$BL['be_cnt_attribute_id'] = 'CSS id';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Pozwalaj tylko na unikalne wartości';
 $BL['be_not_set'] = 'Nie ustawiony';
 $BL['be_licensed_under_GPL'] = 'Na licencji GPL.';
 $BL['be_extensions_copyright'] = 'Rozszerzenia są chronione prawami autorskimi ich właścicieli.';
 
+// Added missing keys
+$BL['be_ftptakeover_new_folder'] = 'utwórz folder';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'nazwa nowego folderu w katalogu głównym';
+$BL['be_ftabhelp_add'] = 'dodaj nowy katalog prywatny';
+$BL['be_ftabhelp_upload'] = 'prześlij nowy plik do katalogu prywatnego';
+$BL['be_ftabhelp_disablethumb'] = 'wyłącz miniatury na liście plików';
+$BL['be_ftabhelp_enablethumb'] = 'włącz miniatury na liście plików';
+$BL['be_ftabhelp_edit'] = 'edytuj szczegóły informacji o pliku';
+$BL['be_ftabhelp_cut'] = 'wytnij plik do schowka, aby przenieść go do innego katalogu';
+$BL['be_ftabhelp_cutmark'] = 'zaznaczony plik znajduje się w schowku';
+$BL['be_ftabhelp_paste'] = 'wklej plik do tego katalogu';
+$BL['be_ftabhelp_download'] = 'pobierz plik (jeśli to obraz lub tekst, otworzy się w nowym oknie przeglądarki - na PC użyj prawego przycisku myszy i opcji „Zapisz jako...” w menu kontekstowym / na Macu przytrzymaj klawisz Control i kliknij myszą...)';
+$BL['be_ftabhelp_delete'] = 'usuń katalog lub przenieś plik do kosza, a jeśli plik jest w koszu, usuń go trwale';
+$BL['be_ftabhelp_cantdelete'] = 'katalog nie może zostać usunięty, ponieważ zawiera pliki lub podkatalogi';
+$BL['be_ftabhelp_restore'] = 'przywróć plik z kosza (cofnij) i przenieś z powrotem na listę plików prywatnych (plik zostanie przeniesiony z powrotem do katalogu głównego)';
+$BL['be_ftabhelp_openfolder'] = 'rozwiń (otwórz) każdy katalog i jego podkatalogi';
+$BL['be_ftabhelp_closefolder'] = 'zwiń (zamknij) każdy katalog i jego podkatalogi';
+$BL['be_ftabhelp_inactive'] = 'plik lub katalog jest nieaktywny - kliknij go, aby zmienić status na aktywny';
+$BL['be_ftabhelp_active'] = 'plik lub katalog jest aktywny - kliknij go, aby zmienić status na nieaktywny';
+$BL['be_ftabhelp_private'] = 'plik lub katalog jest prywatny - kliknij go, aby zmienić status na publiczny';
+$BL['be_ftabhelp_public'] = 'plik lub katalog jest publiczny - kliknij go, aby zmienić status na prywatny';
+$BL['be_cnt_pages_php_render_warning'] = 'osadzony kod PHP <code>$phpwcms[&#39;enable_inline_php&#39;]</code> jest wyłączony';
+$BL['be_newsletter_entriesfound'] = 'znalezionych wpisów';
+$BL['be_newsletter_foundinfile'] = 'w pliku';
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = 'aktywuj Double Opt-In zgodnie z <a href="https://pl.wikipedia.org/wiki/Ogólne_rozporządzenie_o_ochronie_danych" target="_blank">Ogólnym rozporządzeniem o ochronie danych</a> (RODO)';
+$BL['be_cnt_novalidate'] = 'Novalidate';
+$BL['be_cnt_fpro_usecaption'] = 'użyj centrum plików &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
+$BL['gd_not_loaded'] = '<strong>Brak dostępnych funkcji GD!</strong> Upewnij się, że biblioteka PHP GD jest włączona, w przeciwnym razie przetwarzanie obrazów nie będzie działać stabilnie.';
+$BL['be_check_login_allow_email'] = 'Zezwalaj na e-mail jako login';
+$BL['be_hidden_for_feuser'] = 'Ukryte dla zalogowanych użytkowników witryny (frontend)';
+$BL['be_visible_for_everybody'] = 'Widoczne dla wszystkich (domyślnie)';
+$BL['be_hide_downloadbutton'] = 'ukryj przycisk pobierania HTML5';
+$BL['be_cookie_consent_translatable'] = 'Ta instalacja ma włączoną obsługę wielu języków (&#36;phpwcms[&#39;allowed_lang&#39;]). W przypadku przetłumaczonych tekstów zgody na pliki cookie użyj składni <b>@@Tekst@@</b> i sprawdź „template/template_lang” po wyrenderowaniu.';
+$BL['be_google_tag_manager_enable'] = 'użyj Google Tag Manager';
+$BL['be_tracking_cookie_flags'] = 'włącz <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>flagi plików cookie</u> (generowane automatycznie)</a>';
+$BL['be_tracking_custom_properties'] = 'niestandardowe <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>parametry konfiguracyjne</u></a> (prop1: val1, prop2: val2)';
+$BL['be_require_consent'] = 'Dezaktywuj kod śledzący bez zgody';
+$BL['be_consent_cookie_name'] = 'Nazwa pliku cookie zgody';
+$BL['be_consent_cookie_value'] = 'Wartość pliku cookie zgody';
+$BL['be_respect_donottrack'] = 'Respektuj ustawienie przeglądarki Do-Not-Track';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
+$BL['be_cc_v3_enable'] = 'włącz wtyczkę Cookie Consent v3 (v2 zostanie wyłączona)';
+$BL['be_cc_v3_title'] = 'tytuł okna modalnego plików cookie';
+$BL['cc_v3_title_placeholder'] = 'Cenimy Twoją prywatność';
+$BL['be_cc_v3_description'] = 'opis';
+$BL['cc_v3_description_placeholder'] = 'Używamy plików cookie, aby ułatwić Ci korzystanie z naszej strony, wyświetlać spersonalizowane reklamy lub treści oraz analizować ruch. Klikając &quot;Zaakceptuj wszystkie&quot;, wyrażasz zgodę na korzystanie przez nas z plików cookie.';
+$BL['be_cc_v3_accept_all'] = 'przycisk &quot;zaakceptuj wszystkie&quot;';
+$BL['cc_v3_accept_all_placeholder'] = 'Zaakceptuj wszystkie';
+$BL['be_cc_v3_accept_necessary'] = 'przycisk &quot;zaakceptuj niezbędne&quot;';
+$BL['cc_v3_accept_necessary_placeholder'] = 'Zaakceptuj niezbędne';
+$BL['be_cc_v3_accept_selected'] = 'przycisk &quot;zaakceptuj zaznaczone&quot;';
+$BL['cc_v3_accept_selected_placeholder'] = 'Zaakceptuj aktualny wybór';
+$BL['be_cc_v3_reject_all'] = 'przycisk &quot;odrzuć wszystkie&quot;';
+$BL['cc_v3_reject_all_placeholder'] = 'Odrzuć wszystkie';
+$BL['be_cc_v3_customize'] = 'przycisk &quot;ustawienia&quot;';
+$BL['cc_v3_customize_placeholder'] = 'Dostosuj';
+$BL['be_cc_v3_link'] = 'adres URL/alias polityki plików cookie';
+$BL['be_cc_v3_more'] = 'tekst więcej informacji';
+$BL['be_cc_v3_theme'] = 'motyw (pusty = jasny)';
+$BL['cc_v3_more_placeholder'] = 'więcej informacji';
+$BL['be_cc_v3_sections'] = 'sekcje plików cookie';
+$BL['be_cc_v3_sections_title'] = 'tytuł';
+$BL['be_cc_v3_sections_description'] = 'opis';
+$BL['be_cc_v3_sections_active'] = 'pokaż sekcję';
+$BL['be_cc_v3_section_general'] = 'ogólne';
+$BL['be_cc_v3_section_general_title_placeholder'] = 'Zarządzaj swoimi plikami cookie';
+$BL['be_cc_v3_section_general_description_placeholder'] = 'Używamy plików cookie, aby pomóc w sprawnej nawigacji i wykonywaniu określonych funkcji. Szczegółowe informacje o wszystkich plikach cookie znajdziesz pod każdą kategorią zgody poniżej. Pliki cookie sklasyfikowane jako &quot;Niezbędne&quot; są przechowywane w Twojej przeglądarce, ponieważ są kluczowe dla włączenia podstawowych funkcji witryny. Używamy również plików cookie stron trzecich, które pomagają nam analizować sposób korzystania z tej witryny, zapisywać Twoje preferencje oraz dostarczać odpowiednie treści i reklamy. Te pliki cookie będą przechowywane w Twojej przeglądarce wyłącznie za Twoją uprzednią zgodą. Możesz włączyć lub wyłączyć niektóre lub wszystkie z tych plików cookie, ale wyłączenie niektórych z nich może wpłynąć na komfort przeglądania strony.';
+$BL['be_cc_v3_section_necessary'] = 'niezbędne';
+$BL['be_cc_v3_section_necessary_title_placeholder'] = 'Ściśle niezbędne pliki cookie';
+$BL['be_cc_v3_section_necessary_description_placeholder'] = 'Niezbędne pliki cookie są wymagane do włączenia podstawowych funkcji tej witryny, takich jak zapewnienie bezpiecznego logowania czy dostosowanie preferencji dotyczących zgody. Te pliki cookie nie przechowują żadnych danych umożliwiających identyfikację tożsamości.';
+$BL['be_cc_v3_section_functional'] = 'funkcjonalne';
+$BL['be_cc_v3_section_functional_title_placeholder'] = 'Funkcjonalne pliki cookie';
+$BL['be_cc_v3_section_functional_description_placeholder'] = 'Funkcjonalne pliki cookie służą do poprawy wydajności witryn internetowych, ponieważ bez nich niektóre funkcje strony mogą być niedostępne. Na przykład umożliwiają zapisywanie ważnych informacji i preferencji użytkownika. Informacje te mogą obejmować dane logowania, region, język i rozszerzoną zawartość.';
+$BL['be_cc_v3_section_analytics'] = 'analityka';
+$BL['be_cc_v3_section_analytics_title_placeholder'] = 'Wydajnościowe i analityczne pliki cookie';
+$BL['be_cc_v3_section_analytics_description_placeholder'] = 'Analityczne pliki cookie służą do zrozumienia, jak odwiedzający wchodzą w interakcję z witryną. Pomagają one dostarczać informacji na temat wskaźników, takich jak liczba odwiedzających, współczynnik odrzuceń, źródło ruchu itp.';
+$BL['be_cc_v3_section_marketing'] = 'marketing';
+$BL['be_cc_v3_section_marketing_title_placeholder'] = 'Reklamowe i marketingowe pliki cookie';
+$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Reklamowe i marketingowe pliki cookie służą do dostarczania reklam bardziej dopasowanych do Ciebie i Twoich zainteresowań. Mogą być również używane do ograniczania liczby wyświetleń danej reklamy oraz pomiaru skuteczności kampanii reklamowych. Sieci reklamowe zazwyczaj umieszczają je za zgodą operatora witryny.';
+$BL['be_cc_v3_section_social'] = 'społecznościowe';
+$BL['be_cc_v3_section_social_title_placeholder'] = 'Pliki cookie mediów społecznościowych';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Pliki cookie mediów społecznościowych służą do zrozumienia, w opiniach odwiedzający wchodzą w interakcję z mediami społecznościowymi. Pliki te mogą być używane do wyświetlania odpowiednich reklam na innych platformach.';
+$BL['be_cc_v3_section_more'] = 'więcej';
+$BL['be_cc_v3_section_more_title_placeholder'] = 'Więcej informacji';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'W przypadku jakichkolwiek pytań dotyczących naszej polityki plików cookie oraz Twoich wyborów, &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;skontaktuj się z nami&lt;/a&gt;.';
+$BL['be_cc_v3_builtin'] = 'wbudowany';
+$BL['be_cc_v3_default'] = 'domyślny';
+$BL['be_cc_v3_btn_flip'] = 'zamień przyciski';
+$BL['be_cc_v3_btn_equal'] = 'przyciski o równej wadze';
+$BL['be_cc_v3_consent_modal'] = 'okno modalne zgody';
+$BL['be_cc_v3_preferences_modal'] = 'okno modalne preferencji';
+$BL['be_cc_v3_layout'] = 'układ';
+$BL['be_cc_v3_position'] = 'pozycja';
+$BL['be_cc_v3_top_left'] = 'lewy górny róg';
+$BL['be_cc_v3_top_center'] = 'środek góry';
+$BL['be_cc_v3_top_right'] = 'prawy górny róg';
+$BL['be_cc_v3_middle_left'] = 'środek po lewej';
+$BL['be_cc_v3_middle_center'] = 'dokładny środek';
+$BL['be_cc_v3_middle_right'] = 'środek po prawej';
+$BL['be_cc_v3_bottom_left'] = 'lewy dolny róg';
+$BL['be_cc_v3_bottom_center'] = 'środek dołu';
+$BL['be_cc_v3_bottom_right'] = 'prawy dolny róg';
+$BL['be_cc_v3_left'] = 'lewa strona';
+$BL['be_cc_v3_right'] = 'prawa strona';
+$BL['be_cc_v3_top'] = 'góra';
+$BL['be_cc_v3_bottom'] = 'dół';
+$BL['be_cc_v3_reload_on_change'] = 'przeładuj stronę po zmianie ustawień plików cookie';
+$BL['be_cc_v3_on_change'] = 'przy zmianie';
+$BL['be_allowed_filetypes'] = 'Dozwolone typy plików';
+$BL['be_imagediv_template_toggle_warning'] = 'Zmiana szablonu może spowodować zmianę pól niestandardowych i utratę istniejących wartości.\\n\\nCzy na pewno chcesz kontynuować?';
 $BL['be_password_show'] = 'Pokaż hasło';
 $BL['be_password_hide'] = 'Ukryj hasło';
-
-$BL['be_admin_template_choose_file'] = 'Szablon tekstowy, alternatywnie wybierz plik szablonu';
-
-$BL['be_flashplayer_marker'] = 'Marker';
-$BL['be_marker_time'] = 'Czas (sekundy, n.p. 10.5)';
+$BL['be_admin_template_choose_file'] = 'Szablon tekstowy, ewentualnie wybierz szablon pliku';
+$BL['be_flashplayer_marker'] = 'Znacznik';
+$BL['be_marker_time'] = 'Czas (sekundy, np. 10.5)';
 $BL['be_marker_text'] = 'Tekst';
-$BL['be_marker_overlaytext'] = 'Nakładka tekstowa';
-
-$BL['copy_to_clipboard'] = 'Skopiuj do schowka';
+$BL['be_marker_overlaytext'] = 'Tekst nakładki';
+$BL['copy_to_clipboard'] = 'Kopiuj do schowka';
 $BL['url_parameter'] = 'Parametr URL';
 $BL['file_extension'] = 'Rozszerzenie';
-$BL['download_link'] = 'Link pobrania';
+$BL['download_link'] = 'Link do pobrania';
 $BL['disposition_attachment'] = 'Załącznik';
-$BL['disposition_attachment_description'] = 'pobieranie bezpośrednie';
-$BL['disposition_inline'] = 'Inline';
+$BL['disposition_attachment_description'] = 'bezpośrednie pobieranie';
+$BL['disposition_inline'] = 'W tekście';
 $BL['disposition_inline_description'] = 'wyświetl w przeglądarce';
-
-$BL['be_robots'] = 'Search index';
-$BL['be_robots_noindex'] = 'block search indexing (noindex)';
+$BL['be_robots'] = 'Indeks wyszukiwania';
+$BL['be_robots_noindex'] = 'blokuj indeksowanie wyszukiwarki (noindex)';
 $BL['be_robots_nofollow'] = 'nie podążaj za linkami (nofollow)';
-
 $BL['be_cnt_form_direct_download'] = 'zezwól na pobieranie';
-$BL['be_cnt_form_direct_download_apikey'] = 'API key';
+$BL['be_cnt_form_direct_download_apikey'] = 'Klucz API';
 $BL['be_cnt_form_apikey_reset'] = 'resetuj';
 $BL['be_copy_link'] = 'kopiuj link';
+$BL['be_articlebrowser_selector'] = 'Przeglądarka artykułów';
+$BL['be_about_headline'] = 'System zarządzania treścią phpwcms';
+$BL['be_about_version'] = 'Wersja';
+$BL['be_about_maintainer'] = 'Opiekun projektu';
+$BL['be_about_website'] = 'Strona internetowa';
+$BL['be_about_copyright'] = 'Prawa autorskie';
+$BL['be_about_contributors'] = 'oraz współtwórcy';
+$BL['be_about_and_contributors'] = 'oraz inni współtwórcy (w tym Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 i inni) &ndash; zobacz <a href="https://github.com/systron-dev/phpwcms" title="Kod źródłowy w serwisie GitHub" target="_blank">kod źródłowy</a>, aby uzyskać szczegółowe informacje o prawach autorskich i licencjach.';
 
-$BL['be_deprecated'] = 'przestarzałe';
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Potwierdź';
+$BL['modal_cancel'] = 'Anuluj';
+$BL['modal_title_confirm'] = 'Potwierdzenie';
+$BL['modal_title_alert'] = 'Informacja';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Usuń';
+$BL['modal_move'] = 'Przenieś';
+$BL['modal_copy'] = 'Kopiuj';
+$BL['modal_flush'] = 'Wyczyść';
+$BL['be_metadata'] = 'Metadane';
+$BL['be_content'] = 'Treść';
+$BL['be_images'] = 'Obrazy';
+$BL['be_article_show'] = 'Wyświetl';
+$BL['be_active'] = 'Aktywny';
+$BL['be_cnt_summary_label'] = 'Podsumowanie';
+$BL['be_cnt_max_words'] = 'maks. słów';
+
+$BL['be_dashboard_support'] = 'Kontakt i Wsparcie';

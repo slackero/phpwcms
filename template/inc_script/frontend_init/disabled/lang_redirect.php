@@ -39,12 +39,12 @@ if(isset($LEVEL_ID[1])) {
 
     foreach( $_DOMAIN_REDIRECT as $key => $value ) {
 
-        if($LEVEL_ID[1] == $value['ID'] && str_contains($_DOMAIN_URI, strtolower($key))) {
+        if($LEVEL_ID[1] == $value['ID'] && strpos($_DOMAIN_URI, strtolower($key)) !== false ) {
 
             $_DOMAIN_STATUS = false;
             break;
 
-        } elseif($LEVEL_ID[1] == $value['ID'] && !str_contains($_DOMAIN_URI, strtolower($key))) {
+        } elseif($LEVEL_ID[1] == $value['ID'] && strpos($_DOMAIN_URI, strtolower($key)) === false ) {
 
             headerRedirect($value['HOME_URL'], 301);
 
@@ -52,6 +52,7 @@ if(isset($LEVEL_ID[1])) {
     }
 
     if($_DOMAIN_STATUS) {
+        reset($_DOMAIN_REDIRECT);
         $value = current($_DOMAIN_REDIRECT);
         headerRedirect($value['HOME_URL'], 301);
     }
@@ -71,6 +72,7 @@ if(isset($LEVEL_ID[1])) {
 
     }
 
+    reset($_DOMAIN_REDIRECT);
     $value = current($_DOMAIN_REDIRECT);
     headerRedirect($value['HOME_URL'], 301);
 

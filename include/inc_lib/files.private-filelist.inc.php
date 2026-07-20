@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -28,68 +27,78 @@ $file_result = _dbQuery($file_sql);
 if(isset($file_result[0]['f_id'])) {
 
     $file_durchlauf = 0;
+    $bg_toggle = false;
 
     $zieldatei = "phpwcms.php?do=files&amp;f=0";
 
     foreach($file_result as $file_row) {
         $filename = html($file_row["f_name"]);
+        $bg_toggle = !$bg_toggle;
+        $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
-        $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
+        $file_row['edit'] = '<a href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'">';
 
         if(!$file_durchlauf) {
-            echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><table width=\"538\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">\n";
-        } else {
-            echo "<tr bgcolor=\"#FFFFFF\"><td colspan=\"5\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n";
+            echo '<tr><td colspan="2" class="p-0"><table class="table-borderless w-100">'."\n";
         }
-        echo "<tr>\n";
-        echo "<td width=\"19\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"19\" border=\"0\"></td>\n";
-        echo "<td width=\"13\" class=\"msglist\">";
-        echo "<img src=\"img/icons/small_".extimg($file_row["f_ext"])."\" border=\"0\" ";
-        echo 'onmouseover="Tip(\'ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"];
-        echo '&lt;br&gt;Name: '.html($file_row["f_name"]);
+        echo '<tr'.$row_class.">\n";
+        echo "<td width=30>";
+        echo "<span class=\"admin-slist \" data-toggle=\"tooltip\" data-html=\"true\" ";
+
+        echo 'title="ID: '.$file_row["f_id"].' <br>Sort: . '.$file_row["f_sort"];
+        echo '<br>Name: '.html($file_row["f_name"]);
         if($file_row["f_copyright"]) {
             echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
         }
-        echo '\');" onmouseout="UnTip()" alt=""';
-        echo " /></td>\n";
-        echo "<td width=\"406\" class=\"msglist\"><img src=\"img/leer.gif\" height=\"1\" width=\"5\" />";
+        echo '">';
+        echo "<i class=\"fa fa-".extimg($file_row["f_ext"])."\"";
+        echo "></i></span></td>\n<td>";
         echo $file_row['edit'] . $filename."</a></td>\n";
+
         //Aufbauen Buttonleiste für jeweilige Datei
-        echo "<td width=\"100\" align=\"right\" class=\"msglist\">";
+        echo '</td><td class="text-right text-nowrap px-0">'.LF;
+        echo '<div class="btn-group" role="group">'.LF;
+
+        //Button zum Bearbeiten der Dateiinformationn
+        echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
+
+        echo '<div class="btn-group" role="group">';
+        echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
+        echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
+
         //Button zum Downloaden der Datei
-        echo "<a href=\"include/inc_act/act_download.php?dl=".$file_row["f_id"].
-             "\" target=\"_blank\" title=\"".$BL['be_fprivfunc_dlfile'].": ".$filename."\">".
-             "<img src=\"img/button/download_disc.gif\" border=\"0\"></a>";
+        echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
+             '"  target="_blank" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'">'.
+             '<i class="ml-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'</a>'; //target='_blank'
         //Button zum Erzeugen eines Neuen Unterverzeichnisses
         if($cutID == $file_row["f_id"]) {
-            echo "<img src=\"img/button/cut_13x13_1.gif\" border=\"0\" title=\"".$BL['be_fprivfunc_clipfile'].": ".$filename."\">";
+            echo '<i class="fa fa-cut disabled" aria-hidden="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_clipfile'].': '.$filename.'"></i>';
         } else {
-            echo "<a href=\"".$zieldatei."&cut=".$file_row["f_id"]."\" title=\"".$BL['be_fprivfunc_cutfile'].": ".$filename."\">";
-            echo "<img src=\"img/button/cut_13x13_0.gif\" border=\"0\"></a>";
+            echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
+            echo '<i class="fa-fw ml-1 fa fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'</a>';
         }
-        //Button zum Bearbeiten der Dateiinformationn
-        echo $file_row['edit'] . "<img src=\"img/button/edit_22x13.gif\" border=\"0\"></a>";
-        //Button zum Umschalten zwischen Aktiv/Inaktiv
-        echo "<a href=\"include/inc_act/act_file.php?aktiv=".$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
-             "\" title=\"".$BL['be_fprivfunc_cactivefile'].": ".$filename."\">";
-        echo "<img src=\"img/button/aktiv_12x13_".$file_row["f_aktiv"].".gif\" border=\"0\"></a>";
-        //Button zum Umschalten zwischen Public/Non-Public
-        echo "<a href=\"include/inc_act/act_file.php?public=".$file_row["f_id"].'%7C'.true_false($file_row["f_public"]).
-             "\" title=\"".$BL['be_fprivfunc_cpublicfile'].": ".$filename."\">";
-        echo "<img src=\"img/button/public_12x13_".$file_row["f_public"].".gif\" border=\"0\"></a>";
-        echo "<img src=\"img/leer.gif\" width=\"5\" height=\"1\">"; //Spacer
-        // button delete file
-        if($file_row["f_uid"] === intval($_SESSION["wcs_user_id"]) || !empty($_SESSION["wcs_user_admin"])) {
+        //Button zum Löschen der Datei
+        if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
             //if user is owner then delete button is active
-            echo "<a href=\"include/inc_act/act_file.php?trash=".$file_row["f_id"].'%7C'."1".
-             "\" title=\"".$BL['be_fprivfunc_movetrash'].": ".$filename."\" onclick=\"return confirm('".$BL['be_fprivfunc_jsmovetrash1'].
-             "\\n[".$filename."]  \\n".$BL['be_fprivfunc_jsmovetrash2']."');\">".
-             "<img src=\"img/button/trash_13x13_1.gif\" border=\"0\"></a>";
+            echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.
+             '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"return confirm('".
+             $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
+             "');\">".
+             '<i class="fa-fw ml-1 far fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
         } else {
-            echo "<img src=\"img/button/trash_13x13_0.gif\" border=\"0\">";
+            echo '<div class="dropdown-item"><i class="fa-fw ml-1 far fa-trash-alt disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
         }
-        echo "<img src=\"img/leer.gif\" width=\"2\" height=\"1\">"; //Spacer
-        echo "</td>\n";
+        echo "</div></div></div>";
+
+        //Button zum Umschalten zwischen Aktiv/Inaktiv
+        echo '<a href="include/inc_act/act_file.php?aktiv='.$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
+             '" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'">';
+        echo '<div class="btn fa btn-sm ml-1 visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' ml-1"></div></a>';
+        //Button zum Umschalten zwischen Public/Non-Public
+        echo '<a href="include/inc_act/act_file.php?public='.$file_row["f_id"].'%7C'.true_false($file_row["f_public"]).
+             '" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'">';
+        echo '<div class="btn fa btn-sm ml-1 public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").'"></div></a>';
+
         // end
         echo "</tr>\n";
 
@@ -108,29 +117,19 @@ if(isset($file_result[0]['f_id'])) {
                 ));
 
                 if($thumb_image != false) {
-
-                    echo "<tr>\n";
-                    echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
-                    echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
-                    echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
+                    echo '<tr'.$row_class.">\n";
+                    echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                     echo $file_row['edit'];
                     echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
-                    echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-                    echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-
+                    echo "\n</tr>\n";
                 }
 
             } else {
-
-                echo "<tr>\n";
-                echo "<td width=\"19\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n";
-                echo "<td width=\"13\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n<td width=\"";
-                echo "406\"><img src=\"img/leer.gif\" height=\"1\" width=\"6\">";
+                echo '<tr'.$row_class.">\n";
+                echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                 echo $file_row['edit'];
                 echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"></a></td>';
-                echo "<td width=\"100\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-                echo "<tr><td colspan=\"4\"><img src=\"img/leer.gif\" height=\"2\" width=\"1\" border=\"0\"></td>\n</tr>\n";
-
+                echo "\n</tr>\n";
             }
 
         }
@@ -138,6 +137,5 @@ if(isset($file_result[0]['f_id'])) {
     }
     if($file_durchlauf) { // close file list tables
         echo "</table>\n";
-        echo "<tr bgcolor=\"#F5F8F9\"><td colspan=\"2\"><img src=\"img/leer.gif\" height=\"1\" width=\"1\"></td></tr>\n"; //Abstand vor
     }
 } // end listing files

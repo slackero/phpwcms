@@ -1,16 +1,13 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
+ * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
+ * For licensing, see LICENSE.html or http://ckeditor.com/license
  *
  * Adopted for phpwcms, Oliver Georgi
  * Default CKEditor configuration in phpwcms backend
  */
 
 CKEDITOR.editorConfig = function( config ) {
-    // Define changes to default configuration here. For example:
-    // config.language = 'fr';
-    // config.uiColor = '#AADC6E';
-
+    // Define changes to default configuration here.
     // For the complete reference:
     // http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
@@ -54,11 +51,10 @@ CKEDITOR.editorConfig = function( config ) {
     config.height = 400;
 
     config.extraPlugins = 'magicline,image2';
-    //config.removePlugins = 'resize';
+    config.removePlugins = 'image,flash'; //,resize
 
     // Allow classes for all tags
     config.extraAllowedContent = '*(*)';
-    //config.extraAllowedContent = 'div;p;span;ul;ol;li;table;td;style;*[id];*(*);*{*}';
 
     config.toolbarCanCollapse = true;
     config.toolbarStartupExpanded = true;
@@ -82,8 +78,8 @@ CKEDITOR.editorConfig = function( config ) {
     //config.format_uppercase = { element: 'span', attributes: {'class': 'uppercase'}, name: 'UPPERCASE' };
     //config.format_blockquote = { element: 'blockquote', name: 'Blockquote' };
 
-    //config.image2_altRequired = true;
-    //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
-    //config.image2_captionedClass = 'image-captioned';
+     //config.image2_altRequired = true;
+     //config.image2_alignClasses = ['image-left', 'image-center', 'image-right'];
+     //config.image2_captionedClass = 'image-captioned';
 
 };

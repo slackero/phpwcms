@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -97,7 +96,7 @@ if(isset($fmp_data['fmp_template'])) {
 
     }
 
-    $fmp_data['fmp_set_html5only']  = !empty($fmp_data['fmp_set_html5only']);
+    $fmp_data['fmp_set_html5only']  = empty($fmp_data['fmp_set_html5only']) ? false : true;
     $fmp_data['fmp_set_audio']      = empty($fmp_data['fmp_set_audio']) ? 'video' : 'audio';
 
     // Set some defaults used to build SwfObject Call
@@ -213,20 +212,18 @@ if(isset($fmp_data['fmp_template'])) {
         $fmp_data['flashvars']['onClick'] = rawurlencode(trim($fmp_data['fmp_link'][0]));
     }
 
-    // Flash fallback – deprecated – but still available, delete lib/nonverblaster/ for removal
-    $nonverblaster_path = PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
-    if($fmp_data['file'] && is_file($nonverblaster_path)) {
+    if($fmp_data['file']) {
         // Define Flash Vars
 
         // NonverBlaster:hover
-        $fmp_data['player_swf'] = $nonverblaster_path;
+        $fmp_data['player_swf'] = PHPWCMS_URL.TEMPLATE_PATH.'lib/nonverblaster/NonverBlaster.swf';
 
         $fmp_data['flashvars']['mediaURL']          = rawurlencode($fmp_data['file']);
         $fmp_data['flashvars']['loop']              = 'false';
         $fmp_data['flashvars']['showScalingButton'] = 'true';
         $fmp_data['flashvars']['scaleIfFullScreen'] = 'true';
         $fmp_data['flashvars']['crop']              = 'false';
-        $fmp_data['flashvars']['defaultVolume']     = $fmp_data['fmp_set_volume'] ?? '100';
+        $fmp_data['flashvars']['defaultVolume']     = isset($fmp_data['fmp_set_volume']) ? $fmp_data['fmp_set_volume'] : '100';
         $fmp_data['flashvars']['buffer']            = '6';
         $fmp_data['flashvars']['allowSmoothing']    = 'true';
         $fmp_data['flashvars']['controlsEnabled']   = $fmp_data['fmp_set_showcontrols'];
@@ -391,9 +388,9 @@ if(isset($fmp_data['fmp_template'])) {
                         if(!empty($_marker[0]) && $_marker[0] = floatval($_marker[0])) {
                             $fmp_data['fmp_marker'][] = array(
                                 'time' => $_marker[0],
-                                'text' => $_marker[1] ?? '',
-                                'overlayText' => $_marker[2] ?? '',
-                                'class' => $_marker[3] ?? ''
+                                'text' => isset($_marker[1]) ? $_marker[1] : '',
+                                'overlayText' => isset($_marker[2]) ? $_marker[2] : '',
+                                'class' => isset($_marker[3]) ? $_marker[3] : ''
                             );
                         }
                     }
@@ -419,7 +416,7 @@ if(isset($fmp_data['fmp_template'])) {
                 $_fmp_time[0] = intval($_fmp_time[0]);
                 if ($_fmp_time[0] && isset($_fmp_time[1]) && $_fmp_time[0] == $crow["acontent_id"]) {
                     $fmp_data['init_videojs'] .= LF . "  var videoJS_scrollTo = '" . $fmp_data['id'] ."';";
-                    if (str_starts_with($_fmp_time[1], 'm')) {
+                    if (substr($_fmp_time[1], 0, 1) === 'm') {
                         $_fmp_time[1] = intval(substr($_fmp_time[1], 1));
                         if ($_fmp_time[1] && count($_fmp_marker) >= $_fmp_time[1]) {
                             $_fmp_time[1] = $_fmp_marker[ $_fmp_time[1] - 1 ]['time'];
@@ -482,7 +479,7 @@ if(isset($fmp_data['fmp_template'])) {
             }
         }
 
-        $fmp_data['video_tag']['header'] .= 'preload="' . ($fmp_data['fmp_set_preload'] ?? 'auto') . '">';
+        $fmp_data['video_tag']['header'] .= 'preload="' . (isset($fmp_data['fmp_set_preload']) ? $fmp_data['fmp_set_preload'] : 'auto') . '">';
 
         foreach($fmp_data['video'] as $param_name => $param_value) {
             $fmp_data['video_tag'][] = '    <source src="'.html_specialchars($param_value).'" type="'.$param_name.'" />';

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -17,118 +16,83 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<h1 class="title" style="margin-bottom:10px"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
-<form action="<?php echo GLOSSARY_HREF ?>&amp;edit=<?php echo $glossary['data']['glossary_id'] ?>" method="post" style="background:#F3F5F8;border-top:1px solid #92A1AF;border-bottom:1px solid #92A1AF;margin:0 0 5px 0;padding:10px 8px 15px 8px">
-<input type="hidden" name="glossary_id" value="<?php echo $glossary['data']['glossary_id'] ?>" />
-<table border="0" cellpadding="0" cellspacing="0" width="100%" summary="">
+<div class="card">
+	<div class="card-body">
+		<form action="<?php echo GLOSSARY_HREF ?>&amp;edit=<?php echo $glossary['data']['glossary_id'] ?>" method="post">
+			<input type="hidden" name="glossary_id" value="<?php echo $glossary['data']['glossary_id'] ?>" />
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_cnt_last_edited']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($glossary['data']['glossary_changed']))) ?></td>
-	</tr>
+			<div class="form-group row align-items-center">
+				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_cnt_last_edited'] ?></label>
+				<div class="col-sm-10">
+					<span class="text-muted"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($glossary['data']['glossary_changed']))) ?></span>
+					<?php if(!empty($glossary['data']['glossary_created'])): ?>
+						<span class="text-muted ml-3 small">(<?php echo $BL['be_fprivedit_created'] ?>: <?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($glossary['data']['glossary_created']))) ?>)</span>
+					<?php endif; ?>
+				</div>
+			</div>
 
-	<?php if(!empty($glossary['data']['glossary_created'])) { ?>
+			<div class="form-group row">
+				<label for="glossary_title" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['glossary_title'] ?></label>
+				<div class="col-sm-10">
+					<input name="glossary_title" type="text" id="glossary_title" class="form-control form-control-sm<?php if(!empty($glossary['error']['glossary_title'])) echo ' is-invalid'; ?>" value="<?php echo html($glossary['data']['glossary_title']) ?>" maxlength="1000" />
+				</div>
+			</div>
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_fprivedit_created']  ?>:&nbsp;</td>
-		<td class="v10"><?php echo html(date($BL['be_fprivedit_dateformat'], strtotime($glossary['data']['glossary_created']))) ?></td>
-	</tr>
+			<div class="form-group row">
+				<label for="glossary_keyword" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['glossary_keyword'] ?></label>
+				<div class="col-sm-10">
+					<input name="glossary_keyword" type="text" id="glossary_keyword" class="form-control form-control-sm<?php if(!empty($glossary['error']['glossary_keyword'])) echo ' is-invalid'; ?>" value="<?php echo html($glossary['data']['glossary_keyword']) ?>" maxlength="200" />
+				</div>
+			</div>
 
-	<?php } ?>
+			<div class="form-group row">
+				<label for="glossary_tag" class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['glossary_token'] ?></label>
+				<div class="col-sm-10">
+					<input name="glossary_tag" type="text" id="glossary_tag" class="form-control form-control-sm" value="<?php echo html($glossary['data']['glossary_tag']) ?>" maxlength="220" />
+				</div>
+			</div>
 
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BLM['glossary_text'] ?></label>
+				<div class="col-sm-10">
+					<?php
+					$wysiwyg_editor = array(
+						'value'		=> $glossary['data']['glossary_text'],
+						'field'		=> 'glossary_text',
+						'height'	=> '400px',
+						'width'		=> '100%',
+						'rows'		=> '15',
+						'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
+						'lang'		=> 'en'
+					);
+					include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
+					?>
+				</div>
+			</div>
 
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['glossary_title'] ?>:&nbsp;</td>
-		<td><input name="glossary_title" type="text" id="glossary_title" class="f11b<?php
+			<div class="form-group row">
+				<div class="col-sm-10 offset-sm-2">
+					<div class="custom-control custom-checkbox mb-2">
+						<input type="checkbox" class="custom-control-input" name="glossary_highlight" id="glossary_highlight" value="1"<?php is_checked($glossary['data']['glossary_highlight'], 1) ?> />
+						<label class="custom-control-label" for="glossary_highlight"><?php echo $BLM['highlight_descr'] ?></label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" name="glossary_status" id="glossary_status" value="1"<?php is_checked($glossary['data']['glossary_status'], 1) ?> />
+						<label class="custom-control-label" for="glossary_status"><?php echo $BL['be_cnt_activated'] ?></label>
+					</div>
+				</div>
+			</div>
 
-		//error class
-		if(!empty($glossary['error']['glossary_title'])) echo ' errorInputText';
-
-		?>" style="width:400px;" value="<?php echo html($glossary['data']['glossary_title']) ?>" size="30" maxlength="1000" /></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['glossary_keyword'] ?>:&nbsp;</td>
-		<td><input name="glossary_keyword" type="text" id="glossary_keyword" class="f11b<?php
-
-		//error class
-		if(!empty($glossary['error']['glossary_keyword'])) echo ' errorInputText';
-
-		?>" style="width:400px;" value="<?php echo html($glossary['data']['glossary_keyword']) ?>" size="30" maxlength="200" /></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['glossary_token'] ?>:&nbsp;</td>
-		<td><input name="glossary_tag" type="text" id="glossary_tag" class="f11" style="width:400px;" value="<?php echo html($glossary['data']['glossary_tag']) ?>" size="30" maxlength="220" /></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td></tr>
-
-	<tr>
-		<td class="chatlist" colspan="2" style="padding-bottom:4px"><?php echo $BLM['glossary_text'] ?>:&nbsp;</td>
-	</tr>
-
-	<tr>
-		<td colspan="2" align="center"><?php
-
-		$wysiwyg_editor = array(
-			'value'		=> $glossary['data']['glossary_text'],
-			'field'		=> 'glossary_text',
-			'height'	=> '400px',
-			'width'		=> '100%',
-			'rows'		=> '15',
-			'editor'	=> $_SESSION["WYSIWYG_EDITOR"],
-			'lang'		=> 'en'
-		);
-
-		include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-
-		?></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="15" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BLM['highlight'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-				<td><input type="checkbox" name="glossary_highlight" id="glossary_highlight" value="1"<?php is_checked($glossary['data']['glossary_highlight'], 1) ?> /></td>
-				<td><label for="glossary_highlight"><?php echo $BLM['highlight_descr'] ?></label></td>
-			</tr>
-		</table></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td></tr>
-
-	<tr>
-		<td align="right" class="chatlist"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
-		<td><table border="0" cellpadding="0" cellspacing="0" summary="">
-			<tr>
-				<td><input type="checkbox" name="glossary_status" id="glossary_status" value="1"<?php is_checked($glossary['data']['glossary_status'], 1) ?> /></td>
-				<td><label for="glossary_status"><?php echo $BL['be_cnt_activated'] ?></label></td>
-			</tr>
-		</table></td>
-	</tr>
-
-	<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="10" /></td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-			<input name="submit" type="submit" class="button" value="<?php echo empty($glossary['data']['glossary_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="save" type="submit" class="button" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			&nbsp;&nbsp;&nbsp;&nbsp;
-			<input name="new" type="button" class="button" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>&edit=0';return false;" />
-			<input name="close" type="button" class="button" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(GLOSSARY_HREF) ?>';return false;" />
-		</td>
-	</tr>
-
-</table>
-
-</form>
+			<div class="form-group row mt-4 mb-0">
+				<div class="col-sm-10 offset-sm-2">
+					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo empty($glossary['data']['glossary_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-success mr-1"><i class="fas fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo decode_entities(GLOSSARY_HREF) ?>&amp;edit=0" class="btn btn-sm btn-info mr-1"><i class="fas fa-plus-circle mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(GLOSSARY_HREF) ?>" class="btn btn-sm btn-secondary"><i class="fas fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

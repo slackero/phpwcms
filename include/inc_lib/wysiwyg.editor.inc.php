@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -38,7 +37,7 @@ if($wysiwyg_editor['editor']) {
         $wysiwyg_editor['rows'] = '15';
     }
 
-    $wysiwyg_editor['lang']	= $_SESSION["wcs_user_lang"] ?? 'en';
+    $wysiwyg_editor['lang']	= isset($_SESSION["wcs_user_lang"]) ? $_SESSION["wcs_user_lang"] : 'en';
     $wysiwyg_editor['id'] = trim(preg_replace('/[^a-z0-9\-\_]/', '_', $wysiwyg_editor['field']), '_');
     $wysiwyg_editor['is_tab'] = !empty($wysiwyg_editor['config']) && $wysiwyg_editor['config'] === 'tabs';
 
@@ -58,7 +57,7 @@ if($wysiwyg_editor['editor']) {
 		echo '	height: "' . $wysiwyg_editor['height'] . '",' . LF;
 		echo '	plugins: "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount",' . LF;
 		echo '	menubar: false,' . LF;
-		echo '	toolbar: "undo redo | blocks fontfamily fontsize | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | link image media table | code fullscreen",' . LF;
+		echo '	toolbar: "undo redo | blocks | bold italic underline forecolor backcolor | link image media table | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | fontfamily fontsize | code fullscreen",' . LF;
 		$tinymce_lang = $wysiwyg_editor['lang'];
 		$tinymce_lang_file = 'include/vendor/mklkj/tinymce-i18n/langs/' . $tinymce_lang . '.js';
 		if ($tinymce_lang !== 'en' && is_file(PHPWCMS_ROOT . '/' . $tinymce_lang_file)) {
@@ -119,7 +118,7 @@ if($wysiwyg_editor['editor']) {
 			width: '" . $wysiwyg_editor['width'] . "',
 			height: '" . $wysiwyg_editor['height'] . "',
 			extraPlugins: 'magicline,image2',
-			removePlugins: 'image',
+			removePlugins: 'image,flash',
 			toolbarCanCollapse: true,
 			toolbarStartupExpanded: " . ($wysiwyg_editor['is_tab'] ? 'false' : 'true') . ",
 			forcePasteAsPlainText: true,
@@ -131,7 +130,8 @@ if($wysiwyg_editor['editor']) {
 
 		if (!empty($phpwcms['FCK_FileBrowser'])) {
 			echo ',' . LF;
-			echo '		filebrowserBrowseUrl: "'.PHPWCMS_URL.'filebrowser.php?opt=16",' . LF;
+			// adding article browser
+			echo '		filebrowserBrowseUrl: "'.PHPWCMS_URL.'articlebrowser.php?opt=16",' . LF;
 			echo '		filebrowserImageBrowseUrl : "'.PHPWCMS_URL.'filebrowser.php?opt=17",' . LF;
 			echo '		filebrowserWindowWidth: "640",' . LF;
 			echo '		filebrowserWindowHeight: "480"';

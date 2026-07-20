@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -65,10 +64,10 @@ class phpwcmsNews {
         global $BL;
         global $phpwcms;
 
-        $this->BL               = &$BL;
-        $this->phpwcms          = &$phpwcms;
-        $this->csrf_token       = get_token_get_string();
-        $this->base_url         = PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
+        $this->BL = &$BL;
+        $this->phpwcms = &$phpwcms;
+        $this->csrf_token = get_token_get_string();
+        $this->base_url = PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&amp;do=articles&amp;p=3';
         $this->base_url_decoded = PHPWCMS_URL.'phpwcms.php?'.$this->csrf_token.'&do=articles&p=3';
 
     }
@@ -179,8 +178,6 @@ class phpwcmsNews {
 
     public function getPagination() {
 
-        initMootools();
-
         $paginate = '<input type="hidden" name="page" id="filterPage" value="' . $this->filter_page . '" />';
 
         if( $this->limit > 0 && $this->news_total > $this->limit ) {
@@ -209,11 +206,11 @@ class phpwcmsNews {
             } else {
                 $paginate .= ' onclick="$(\'filterPage\').value='.$prev_page.';$(\'paginate\').submit();"';
             }
-            $paginate .= ' /></td><td class="chatlist nowrap">';
+            $paginate .= ' /></td><td class="chatlist text-nowrap">';
 
             $paginate .= '&nbsp;<b>' . $current_page . '</b>/' . $max_page . '&nbsp;';
 
-            $paginate .= '</td><td class="nowrap"><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
+            $paginate .= '</td><td class="text-nowrap"><img src="img/famfamfam/action_forward.gif" alt="" border="0"';
             if($current_page == $max_page) {
                 $paginate .= ' class="inactive"';
             } else {
@@ -375,9 +372,9 @@ class phpwcmsNews {
         $x = 0;
 
         if(count($this->news)) {
-
-            $list[] = '<table cellpadding="0" cellspacing="0" border="0" summary="" class="listing" style="width:100%; min-width:750px">';
-            $list[] = '<tr class="header">';
+            $list[] = '<div class="table-responsive">';
+            $list[] = '<table class="table table-sm">';
+            $list[] = '<tr class="bg-grey">';
 
             $sort_class = array(
                 'prio'  => 'sort-off',
@@ -411,33 +408,34 @@ class phpwcmsNews {
 
             foreach($this->news as $news) {
 
-                $list[] = '<tr class="row'.($x%2?' alt':'').'">';
+                $list[] = '<tr class="row2'.($x%2?' alt':'').'">';
 
                 $news['live']       = $news['cnt_startdate'];
                 $news['live']       = $news['live'] == false || $news['live'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['live']);
                 $news['kill']       = phpwcms_strtotime($news['cnt_killdate'], $this->BL['be_shortdatetime'], $this->BL['be_func_struct_empty']);
                 $news['sort']       = $news['cnt_sortdate'] == false || $news['cnt_sortdate'] <= 0 ? $this->BL['be_func_struct_empty'] : date($this->BL['be_shortdatetime'], $news['cnt_sortdate']);
 
-                $list[] = '<td class="column colfirst news" style="background-image:url(img/famfamfam/lang/'.(!$news['cnt_lang'] ? 'all' : $news['cnt_lang']).'.png)">';
+                $list[] = '<td class="column colfirst news"><span class="flag-icon flag-icon-'.(!$news['cnt_lang'] ? 'eu' : $news['cnt_lang']).'"></span>';
                 $list[] = html($news['cnt_name']);
                 $list[] = '</td>';
-                $list[] = '<td class="column nowrap">'.$news['live'].'</td>';
-                $list[] = '<td class="column nowrap">'.$news['kill'].'</td>';
-                $list[] = '<td class="column nowrap">'.$news['sort'].'</td>';
+                $list[] = '<td class="column text-nowrap">'.$news['live'].'</td>';
+                $list[] = '<td class="column text-nowrap">'.$news['kill'].'</td>';
+                $list[] = '<td class="column text-nowrap">'.$news['sort'].'</td>';
                 $list[] = '<td class="column">'.$news['cnt_prio'].'</td>';
-                $list[] = '<td class="column collast nowrap">
+                $list[] = '<td class="column collast text-nowrap text-right">
 
-                    <a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">'.
-                    '<img src="img/button/edit_22x13.gif" border="0" alt="" /></a>'.
+                    <button id="abtncontent'.$news["cnt_id"].'" class="btn fa btn-sm visible '.($news["cnt_status"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$news["cnt_id"].'" data-type="content" data-table="content" data-field="cnt_status" data-fieldid="cnt_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></button>
 
-                    '<a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status='.
-                    ($news['cnt_status'] ? '0' : '1').'">'.
-                    '<img src="img/button/aktiv_12x13_'.$news['cnt_status'].'.gif" border="0" alt="" /></a>'.
+                    <a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit">
+                    <i class="fa fa-pencil-alt"></i></a>'.
 
-                    '<a href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
-                    '" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
+                    '<a class="btn btn-sm btn-blue mr-1" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;action=edit&button=copy">'.
+                    '<i class="fa fa-copy"></i></a>'.
+
+                    '<a class="btn btn-sm btn-danger" href="'.$this->base_url.'&amp;cntid='.$news['cnt_id'].'&amp;status=9'.
+                    '" data-toggle="tooltip" title="'.$this->BL['be_delete_dataset'].' '.html($news['cnt_name']).'" onclick="return confirm(\''.
                     $this->BL['be_delete_dataset'].' \n'.js_singlequote($news['cnt_name']).'\');">'.
-                    '<img src="img/button/trash_13x13_1.gif" border="0" alt=""></a>
+                    '<i class="far fa-trash-alt"></i></a>
 
                 </td>';
 
@@ -445,9 +443,8 @@ class phpwcmsNews {
 
                 $x++;
             }
-
-
             $list[] = '</table>';
+            $list[] = '</div>';
         }
 
         return implode(LF, $list);
@@ -531,7 +528,7 @@ class phpwcmsNews {
             'cnt_place'             => '',
             'cnt_teasertext'        => '',
             'cnt_text'              => '',
-            'cnt_duplicate'         => 0,
+            'cnt_duplicate'         => isset($_GET['button']) && $_GET['button'] === 'copy' ? 1 : 0,
             'cnt_lang'              => '',
             'cnt_prio'              => 0,
             'cnt_readmore'          => 1,
@@ -609,7 +606,7 @@ class phpwcmsNews {
                     if($result != false) {
                         $success = true;
 
-                        set_status_message($this->BL['be_successfully_updated'] . LF . $post['cnt_name'], 'success');
+                        set_status_message($this->BL['be_successfully_updated'] . '&nbsp;' . $post['cnt_name'], 'success');
                     }
 
                 }
@@ -636,7 +633,7 @@ class phpwcmsNews {
                 // error while storing data
                 } else {
 
-                    set_status_message($this->BL['be_error_while_save'].trim( html( _dbErrorNum().': '._dbError() ) ), 'warning');
+                    set_status_message($this->BL['be_error_while_save'] . ' ' . trim( html( _dbErrorNum().': '._dbError() ) ), 'warning');
 
                 }
 
@@ -647,7 +644,7 @@ class phpwcmsNews {
         } elseif($this->newsId > 0) {
 
             $result = _dbGet('phpwcms_content', '*', 'cnt_status!=9 AND cnt_id='.$this->newsId, '', '', '1');
-            if(isset($result[0])) {
+            if(isset($result[0]['cnt_object'])) {
 
                 $result[0]['cnt_object'] = @unserialize($result[0]['cnt_object'], ['allowed_classes' => false]);
                 if(is_array($result[0]['cnt_object']['cnt_image'])) {

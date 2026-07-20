@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 
 // Language: French, Language Code: fr
 // 04-04-2007 updated by Marcos Peebles www.piezo.be
-// please use HTML safe strings ONLY,neccessary to reduce processing time
+// please use HTML safe strings ONLY, necessary to reduce processing time
 // normal line break:    '&#13', JavaScript Linebreak: '\n'
 
 
@@ -78,10 +77,10 @@ $BL['be_func_struct_insert_level']      = 'ins&eacute;rer la branche dans';
 $BL['be_func_struct_paste_level']       = 'coller la branche';
 $BL['be_func_struct_cut_level']         = 'couper la branche';
 $BL['be_func_struct_no_cut']            = "impossible de couper la branche de base!";
-$BL['be_func_struct_no_paste1']         = "impossible de coller &agrave; l'\endroit souhait&eacute;!";
+$BL['be_func_struct_no_paste1']         = "impossible de coller &agrave; l'endroit souhait&eacute;!";
 $BL['be_func_struct_no_paste2']         = 'est enfant du r&eacute;peroire de base de l&#39;arborescence';
 $BL['be_func_struct_no_paste3']         = 'devrait etre coll&eacute; ici';
-$BL['be_func_struct_paste_cancel']      = 'annuler les modifications apport&eacute;es &agrave; l\arborescence';
+$BL['be_func_struct_paste_cancel']      = 'annuler les modifications apport&eacute;es &agrave; l&#39;arborescence';
 $BL['be_func_struct_del_struct']        = 'effacer la branche';
 $BL['be_func_struct_del_sjsmsg']        = 'voulez-vous vraiment effacer cette branche?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open']              = 'ouvrir';
@@ -349,7 +348,7 @@ $BL['be_admin_usr_button']              = 'valider les modifications';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = '&eacute;diter le compte utlisateur';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - donn&eacute;es compte utilisateur modifi&eacute;es';
-$BL['be_admin_usr_emailbody']           = "Compte utilisateur PHPWCMS, donn&eacute;es modifi&eacute;es\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\Vous pouvez vous connecter ici: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "Compte utilisateur PHPWCMS, donn&eacute;es modifi&eacute;es\n\n    identifiant: {LOGIN}\n    mot de passe: {PASSWORD}\n\n\nVous pouvez vous connecter ici: {LOGIN_PAGE}\n\nphpwcms admin\n ";
 $BL['be_admin_usr_passnochange']        = '[Aucune modification - Utilisez le mot de passe existant]';
 $BL['be_admin_usr_ebutton']             = 'valider les modifications';
 
@@ -475,6 +474,8 @@ $BL['be_article_err4']                  = 'date de fin erronn&eacute;e - entrez 
 // article.editsummary.tmpl.php
 $BL['be_article_estitle']               = '&eacute;diter les informations de base de l&#39;article';
 $BL['be_article_eslastedit']            = 'derni&egrave;re &eacute;dition';
+$BL['be_article_created_at']            = 'cr&eacute;&eacute; le';
+$BL['be_article_updated_at']            = 'mise &agrave; jour le';
 $BL['be_article_esnoupdate']            = 'la forme n&#39;a pas &eacute;t&eacute; mise &agrave; jour';
 $BL['be_article_esbutton']              = 'valider les modifications';
 
@@ -582,8 +583,8 @@ $BL['be_cnt_articles']                  = 'articles';
 $BL['be_cnt_movearticleto']             = 'd&eacute;placer l&#39;article s&eacute;lectionn&eacute; vers la liste de liens articles';
 $BL['be_cnt_removearticleto']           = 'supprimer l&#39;article s&eacute;lectionn&eacute; de la liste de liens articles';
 $BL['be_cnt_mediatype']                 = 'type de m&eacute;dia';
-$BL['be_cnt_control']                   = 'contrôle';
-$BL['be_cnt_showcontrol']               = 'afficher la barre de contrôle';
+$BL['be_cnt_control']                   = 'contr&ocirc;le';
+$BL['be_cnt_showcontrol']               = 'afficher la barre de contr&ocirc;le';
 $BL['be_cnt_autoplay']                  = 'lecture automatique';
 $BL['be_cnt_source']                    = 'source';
 $BL['be_cnt_internal']                  = 'interne';
@@ -621,7 +622,7 @@ $BL['be_admin_tmpl_nolayout']           = 'aucune mise en page disponible!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'rechercher';
 $BL['be_cnt_results']                   = 'r&eacute;sultats';
-$BL['be_cnt_results_per_page']          = 'par page (vide = 25)';
+$BL['be_cnt_results_per_page']          = 'par page (vide = tous)';
 $BL['be_cnt_opennewwin']                = 'ouvrir une nouvele fen&egrave;tre';
 $BL['be_cnt_searchlabeltext']           = 'valeurs de texte pr&eacute;d&eacute;finies du formulaire de recherche et de la page de r&eacute;sultats.';
 $BL['be_cnt_input']                     = 'entr&eacute;e';
@@ -725,7 +726,7 @@ $BL['be_newsletter_attention1']         = 'Si vous avez modifi&eacute; des donn&
 $BL['be_newsletter_testemail']          = 'Email de test';
 $BL['be_newsletter_sendnlbutton']       = 'envoyez la lettre d&#39;infos';
 $BL['be_newsletter_sendprocess']        = 'processus d&#39;envoi';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de façon automatique.';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Svp n&#39;arr&ecirc;tez pas le processus d&#39;envoi. Vous risquez d&#39;envoyer le lettre d&#39;infos au m&ecirc;me destinataire plusieurs fois. Quand l&#39;envoi pr&eacute;sente des probl&egrave;mes les destinataires non atteints sont stock&eacute;s dans une table, juqu&#39;au prochain envoi, et sont r&eacute;envoy&eacute;s de fa&ccedil;on automatique.';
 $BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">l&#39;adresse de test <strong>###TEST###</strong> n&#39;est PAS valide!<br />&nbsp;<br />Veuillez r&eacute;essayer svp!';
 $BL['be_newsletter_to']                 = 'Destinataires';
 $BL['be_newsletter_ready']              = 'envoi de lettre d&#39;infos: FAIT';
@@ -734,8 +735,8 @@ $BL['be_subnav_msg_subscribers']        = 'lettres d&#39;infos > abonn&eacute;s'
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap']                 = 'plan du site';
-$BL['be_cnt_sitemap_catimage']          = 'icône du niveau';
-$BL['be_cnt_sitemap_articleimage']      = 'icône de l&#39;article';
+$BL['be_cnt_sitemap_catimage']          = 'ic&ocirc;ne du niveau';
+$BL['be_cnt_sitemap_articleimage']      = 'ic&ocirc;ne de l&#39;article';
 $BL['be_cnt_sitemap_display']           = 'montrer';
 $BL['be_cnt_sitemap_structuronly']      = 'seulement les structures des niveaux';
 $BL['be_cnt_sitemap_structurarticle']   = 'structure des niveaux + articles';
@@ -1006,7 +1007,7 @@ $BL['be_cnt_sysadmin_system']           = 'syst&egrave;me';
 
 // version check - taken from phpBB ;-)
 $BL['Version_up_to_date']               = 'Votre version de phpwcms est &agrave; jour, il n&#39;y a pas de mises &agrave; jour disponibles.';
-$BL['Version_not_up_to_date']           = 'Votre version n\est <b>pas</b> &agrave; jour. Il existe des versions plus neuves, svp visitez le forum &agrave; <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> pour obtenir la dern&egrave;re version.';
+$BL['Version_not_up_to_date']           = 'Votre version n&#39;est <b>pas</b> &agrave; jour. Il existe des versions plus neuves, svp visitez le forum &agrave; <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> pour obtenir la dern&egrave;re version.';
 $BL['Latest_version_info']              = 'La derni&egrave;re version est <b>phpwcms %s</b>.';
 $BL['Current_version_info']             = 'Vous avez la version <b>phpwcms %s</b>.';
 $BL['Connect_socket_error']             = 'Impossible de se conncter au serveur phpwcms, l&#39;erreur rapport&eacute;e est:<br />%s';
@@ -1097,4 +1098,32 @@ $BL['CSRF_BTN_BACK'] = 'Retour';
 $BL['CSRF_BTN_LOGIN'] = 'connection';
 $BL['CSRF_BTN_DASHBOARD'] = 'Tableau de bord';
 
+$BL['be_about_headline'] = 'syst&egrave;me de gestion de contenu phpwcms';
+$BL['be_about_version'] = 'Version';
+$BL['be_about_maintainer'] = 'D&eacute;veloppeur';
+$BL['be_about_website'] = 'Site internet';
+$BL['be_about_copyright'] = 'Copyright';
+$BL['be_about_contributors'] = 'et contributeurs';
+$BL['be_about_and_contributors'] = 'et autres contributeurs (dont Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 et autres) &ndash; voir le <a href="https://github.com/systron-dev/phpwcms" title="Code source sur GitHub" target="_blank">code source</a> pour les informations d&eacute;taill&eacute;es sur le droit d&#39;auteur et la licence.';
 
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Confirmer';
+$BL['modal_cancel'] = 'Annuler';
+$BL['modal_title_confirm'] = 'Confirmation';
+$BL['modal_title_alert'] = 'Information';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Supprimer';
+$BL['modal_move'] = 'Déplacer';
+$BL['modal_copy'] = 'Copier';
+$BL['modal_flush'] = 'Vider';
+$BL['be_metadata'] = 'Métadonnées';
+$BL['be_content'] = 'Contenu';
+$BL['be_images'] = 'Images';
+$BL['be_article_show'] = 'Afficher';
+$BL['be_active'] = 'Actif';
+$BL['be_cnt_summary_label'] = 'Sommaire';
+$BL['be_cnt_max_words'] = 'mots max.';
+
+$BL['be_dashboard_support'] = 'Contact et Support';

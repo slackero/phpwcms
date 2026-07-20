@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,11 +24,7 @@ if(!isset($content["mailhtml"])) {
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x0 row"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
-
-<tr><td colspan="2" class="tdleft10 tdright10 tdtop5 tdbottom5 error1"><?php echo $BL['be_deprecated_info']; ?></td></tr>
-
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1" /></td></tr>
+<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>
@@ -48,7 +43,7 @@ if(!isset($content["mailhtml"])) {
 <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
 <tr>
 	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sendas'] ?>:&nbsp;</td>
-	<td><table border="0" cellpadding="0" cellspacing="0" summary="">
+	<td><table>
 		<tr bgcolor="#E7E8EB">
 		<td><input name="cmailhtml" type="radio" value="0" <?php is_checked(0, $content["mailhtml"]); ?>></td>
 	    <td class="v10"><?php echo $BL['be_cnt_text'] ?>&nbsp;&nbsp;</td>

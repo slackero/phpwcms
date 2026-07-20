@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -25,7 +24,7 @@ $cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtit
 // same as image list
 
 // get image array
-$image_list = unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$image_list = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 
 if(isset($image_list['images']) && is_array($image_list['images']) && count($image_list['images'])) {
 

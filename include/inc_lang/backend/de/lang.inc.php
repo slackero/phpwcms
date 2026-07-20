@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -24,27 +23,27 @@ $BL["login_button"] = 'Anmelden';
 $BL["login_lang"] = 'Backend-Sprache';
 
 // phpwcms.php
-$BL['be_nav_logout'] = 'LOGOUT';
-$BL['be_nav_articles'] = 'ARTIKEL';
-$BL['be_nav_files'] = 'DATEI';
-$BL['be_nav_modules'] = 'MODULE';
-$BL['be_nav_messages'] = 'KOMMUNIKATION';
-$BL['be_nav_chat'] = 'CHAT';
-$BL['be_nav_profile'] = 'PROFIL';
-$BL['be_nav_admin'] = 'ADMIN';
-$BL['be_nav_discuss'] = 'DISKUSSION';
+$BL['be_nav_logout'] = 'Abmelden';
+$BL['be_nav_articles'] = 'Artikelverwaltung';
+$BL['be_nav_files'] = 'Dateiverwaltung';
+$BL['be_nav_modules'] = 'Module';
+$BL['be_nav_messages'] = 'Newsletter';
+$BL['be_nav_chat'] = 'Chat';
+$BL['be_nav_profile'] = 'mein Profil';
+$BL['be_nav_admin'] = 'Einstellungen';
+$BL['be_nav_discuss'] = 'Diskussion';
 
 $BL['be_page_title'] = 'phpwcms Backend (Verwaltung)';
 
-$BL['be_subnav_article_center'] = 'Artikelzentrale';
+$BL['be_subnav_article_center'] = 'Artikel&uuml;bersicht';
 $BL['be_subnav_article_new'] = 'Neuer Artikel';
-$BL['be_subnav_file_center'] = 'Dateizentrale';
+$BL['be_subnav_file_center'] = 'Datei&uuml;bersicht';
 $BL['be_subnav_file_ftptakeover'] = 'FTP &Uuml;bernahme';
 $BL['be_subnav_file_actions'] = 'Dateiaktionen';
 $BL['be_subnav_mod_artists'] = 'K&uuml;nstler, Kategorie, Genre';
 $BL['be_subnav_msg_center'] = 'Nachrichtenzentrale';
 $BL['be_subnav_msg_new'] = 'Neue Nachricht';
-$BL['be_subnav_msg_newsletter'] = 'Newsletter Abonnement';
+$BL['be_subnav_msg_newsletter'] = 'Mailinglisten';
 $BL['be_subnav_chat_main'] = 'Chat Hauptseite';
 $BL['be_subnav_chat_internal'] = 'Interner Chat';
 $BL['be_subnav_profile_login'] = 'Anmeldedaten';
@@ -82,7 +81,7 @@ $BL['be_func_struct_paste_cancel'] = 'Strukturebenen-Wechsel abbrechen';
 $BL['be_func_struct_del_struct'] = 'L&ouml;schen der Strukturebene';
 $BL['be_func_struct_del_sjsmsg'] = 'M&ouml;chten Sie die Strukturebene \nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open'] = '&Ouml;ffnen';
-$BL['be_func_struct_close'] = 'Schlie&szlig;en';
+$BL['be_func_struct_close'] = 'Schliessen';
 $BL['be_func_struct_empty'] = 'leer';
 
 // article.contenttype.inc.php
@@ -122,7 +121,7 @@ $BL['be_profile_label_title'] = 'Titel';
 $BL['be_profile_label_firstname'] = 'Vorname';
 $BL['be_profile_label_name'] = 'Nachname';
 $BL['be_profile_label_company'] = 'Firma';
-$BL['be_profile_label_street'] = 'Stra&szlig;e';
+$BL['be_profile_label_street'] = 'Strasse';
 $BL['be_profile_label_city'] = 'Stadt';
 $BL['be_profile_label_state'] = 'Bundesland';
 $BL['be_profile_label_zip'] = 'PLZ';
@@ -154,7 +153,7 @@ $BL['be_profile_label_lang'] = 'Sprache';
 $BL['be_ftptakeover_title'] = 'Dateien aus FTP Verzeichnis &uuml;bernehmen';
 $BL['be_ftptakeover_mark'] = 'Wahl';
 $BL['be_ftptakeover_available'] = 'Verf&uuml;gbare Dateien';
-$BL['be_ftptakeover_size'] = 'Gr&ouml;&szlig;e';
+$BL['be_ftptakeover_size'] = 'Gr&ouml;sse';
 $BL['be_ftptakeover_nofile'] = 'Keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP oder Mehrfachupload hochladen.';
 $BL['be_ftptakeover_all'] = 'Alle';
 $BL['be_ftptakeover_directory'] = 'Ordner';
@@ -183,9 +182,29 @@ $BL['be_ftab_public'] = '&Ouml;ffentliche';
 $BL['be_ftab_search'] = 'Suche';
 $BL['be_ftab_trash'] = 'Papierkorb';
 $BL['be_ftab_open'] = 'Alle Verzeichnisse &ouml;ffnen';
-$BL['be_ftab_close'] = 'Alle Verzeichnisse schlie&szlig;en';
+$BL['be_ftab_close'] = 'Alle Verzeichnisse schliessen';
 $BL['be_ftab_upload'] = 'Datei in das Wurzelverzeichnis hochladen';
 $BL['be_ftab_filehelp'] = 'Dateihilfe &ouml;ffnen';
+
+// files.reiter.tmpl.php Info modal
+$BL['be_ftabhelp_add']                  = 'Ordner erstellen';
+$BL['be_ftabhelp_upload']               = 'Datei hochladen';
+$BL['be_ftabhelp_disablethumb']         = 'Vorschaubilder ausblenden';
+$BL['be_ftabhelp_enablethumb']          = 'Vorschaubilder einblenden';
+$BL['be_ftabhelp_edit']                 = 'Datei Details bearbeiten';
+$BL['be_ftabhelp_cut']                  = 'Datei ausschneiden';
+$BL['be_ftabhelp_cutmark']              = 'markierte Datei ist in der Zwischenablage';
+$BL['be_ftabhelp_paste']                = 'Datei in diesen Ordner einf&uuml;gen';
+$BL['be_ftabhelp_download']             = 'Datei herunterladen';
+$BL['be_ftabhelp_delete']               = 'Datei l&ouml;schen';
+$BL['be_ftabhelp_cantdelete']           = 'Datei kann nicht gel&ouml;scht werden';
+$BL['be_ftabhelp_restore']              = 'Datei in Root Ordner wiederherstellen';
+$BL['be_ftabhelp_openfolder']           = 'Alle Ordner ausklappen';
+$BL['be_ftabhelp_closefolder']          = 'Alle Ordner zuklappen';
+$BL['be_ftabhelp_inactive']             = 'Datei oder Ordner sind versteckt';
+$BL['be_ftabhelp_active']               = 'Datei oder Ordner wird angezeigt';
+$BL['be_ftabhelp_private']              = 'Datei oder Ordner ist Privat';
+$BL['be_ftabhelp_public']               = 'Datei oder Ordner ist &Ouml;ffentlich';
 
 // files.private.newdir.tmpl.php
 $BL['be_fpriv_rootdir'] = 'Wurzelverzeichnis';
@@ -204,7 +223,7 @@ $BL['be_fpriv_updatebutton'] = 'Verzeichnis aktualisieren';
 
 // files.private.upload.tmpl.php
 $BL['be_fprivup_err1'] = 'Datei zum Hochladen ausw&auml;hlen';
-$BL['be_fprivup_err2'] = 'Hochgeladene Datei ist gr&ouml;&szlig;er als';
+$BL['be_fprivup_err2'] = 'Hochgeladene Datei ist gr&ouml;sser als';
 $BL['be_fprivup_err3'] = 'Fehler beim schreiben in den Speicher';
 $BL['be_fprivup_err4'] = 'Fehler beim Erstellen des Benutzerverzeichnisses.';
 $BL['be_fprivup_err5'] = 'Keine Vorschau vorhanden';
@@ -225,7 +244,7 @@ $BL['be_fprivedit_err1'] = 'Dateiname &uuml;berpr&uuml;fen (zur&uuml;ckgesetzt)'
 $BL['be_fprivedit_clockwise'] = 'Vorschau im Uhrzeigersinn drehen [Originaldatei +90&deg;]';
 $BL['be_fprivedit_cclockwise'] = 'Vorschau entgegen Uhrzeigersinn drehen [Originaldatei -90&deg;]';
 $BL['be_fprivedit_button'] = 'Aktualisieren';
-$BL['be_fprivedit_size'] = 'Gr&ouml;&szlig;e';
+$BL['be_fprivedit_size'] = 'Gr&ouml;sse';
 
 // files.private-functions.inc.php
 $BL['be_fprivfunc_upload'] = 'Datei hochladen in Verzeichnis';
@@ -238,7 +257,7 @@ $BL['be_fprivfunc_deldir'] = 'Verzeichnis l&ouml;schen';
 $BL['be_fprivfunc_jsdeldir'] = 'M&ouml;chten Sie das Verzeichnis \nwirklich l&ouml;schen?';
 $BL['be_fprivfunc_notempty'] = 'Das Verzeichnis {VAL} ist nicht leer!';
 $BL['be_fprivfunc_opendir'] = 'Verzeichnis &ouml;ffnen';
-$BL['be_fprivfunc_closedir'] = 'Verzeichnis schlie&szlig;en';
+$BL['be_fprivfunc_closedir'] = 'Verzeichnis schliessen';
 $BL['be_fprivfunc_dlfile'] = 'Datei herunterladen';
 $BL['be_fprivfunc_clipfile'] = 'Datei in Zwischenablage';
 $BL['be_fprivfunc_cutfile'] = 'Ausschneiden';
@@ -269,8 +288,8 @@ $BL['be_ftrash_delfinal'] = 'endg&uuml;ltig l&ouml;schen';
 // files.search.tmpl.php
 $BL['be_fsearch_err1'] = 'Die Sucheingabe ist leer.';
 $BL['be_fsearch_title'] = 'Dateisuche';
-$BL['be_fsearch_infotext'] = 'Das ist eine einfache Suche nach Datei-Informationen. Es wird in den Schl&uuml;sselw&ouml;rtern,<br />dem Dateinamen sowie der ausf&uuml;hrlichen Information gesucht.<br />Es werden keine Platzhalter (Wildcards) unterst&uuml;tzt. Mehrere Suchworte bitte <br />mit Leerzeichen voneinander trennen. W&auml;hlen Sie bitte die Option UND/ODER <br />und welche Dateien gesucht werden sollen: eigene/&ouml;ffentlich.';
-$BL['be_fsearch_nonfound'] = 'F&uuml;r die Sucheingabe konnten keine Dateien gefunden werden.<br />&nbsp;&nbsp;&nbsp;&nbsp;Bitte versuchen Sie es erneut!';
+$BL['be_fsearch_infotext'] = 'Das ist eine einfache Suche nach Datei-Informationen. Es wird in den Schl&uuml;sselw&ouml;rtern, dem Dateinamen sowie der ausf&uuml;hrlichen Information gesucht. Es werden keine Platzhalter (Wildcards) unterst&uuml;tzt. Mehrere Suchworte bitte mit Leerzeichen voneinander trennen. W&auml;hlen Sie bitte die Option UND/ODER und welche Dateien gesucht werden sollen: eigene/&ouml;ffentlich.';
+$BL['be_fsearch_nonfound'] = 'F&uuml;r die Sucheingabe konnten keine Dateien gefunden werden. Bitte versuchen Sie es erneut!';
 $BL['be_fsearch_fillin'] = 'Bitte geben Sie eine Suchanweisung im entsprechendem Feld ein.';
 $BL['be_fsearch_searchlabel'] = 'Suche';
 $BL['be_fsearch_startsearch'] = 'Suchen';
@@ -295,7 +314,7 @@ $BL['be_msg_del'] = 'gel&ouml;scht';
 $BL['be_msg_from'] = 'von';
 $BL['be_msg_subject'] = 'Betreff';
 $BL['be_msg_date'] = 'Datum/Zeit';
-$BL['be_msg_close'] = 'Nachricht schlie&szlig;en';
+$BL['be_msg_close'] = 'Nachricht schliessen';
 $BL['be_msg_create'] = 'Neue Nachricht erstellen';
 $BL['be_msg_reply'] = 'Auf Nachricht antworten';
 $BL['be_msg_move'] = 'Nachricht in Papierkorb legen';
@@ -322,13 +341,13 @@ $BL['be_msg_available'] = 'Verf&uuml;gbare Empf&auml;nger';
 $BL['be_msg_all'] = 'Nachricht an alle ausgew&auml;hlten Empf&auml;nger senden';
 
 // message.subscription.tmpl.php
-$BL['be_newsletter_title'] = 'Newsletter Abonnements';
-$BL['be_newsletter_titleedit'] = 'Newsletter Abonnement bearbeiten';
+$BL['be_newsletter_title'] = 'Mailinglisten';
+$BL['be_newsletter_titleedit'] = 'Mailingliste bearbeiten';
 $BL['be_newsletter_new'] = 'Neu erstellen';
 $BL['be_newsletter_add'] = 'Newsletter Abonnement hinzuf&uuml;gen';
-$BL['be_newsletter_name'] = 'Name';
-$BL['be_newsletter_info'] = 'Info';
-$BL['be_newsletter_button_save'] = 'Newsletter Abo speichern';
+$BL['be_newsletter_name'] = 'Name Mailingliste';
+$BL['be_newsletter_info'] = 'Informationen';
+$BL['be_newsletter_button_save'] = 'Mailingliste speichern';
 $BL['be_newsletter_button_cancel'] = 'Abbrechen';
 
 // admin.newuser.tmpl.php
@@ -338,7 +357,7 @@ $BL['be_admin_usr_err3'] = 'Kennwort ist leer (ben&ouml;tigt)';
 $BL['be_admin_usr_err4'] = "E-Mail ist ung&uuml;ltig";
 $BL['be_admin_usr_err'] = 'Fehler';
 $BL['be_admin_usr_mailsubject'] = 'Willkommen im phpwcms Backend';
-$BL['be_admin_usr_mailbody'] = "WILLKOMMEN IM PHPWCMS BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_mailbody'] = "WILLKOMMEN IM PHPWCMS! BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
 $BL['be_admin_usr_title'] = 'Neuen Benutzer anlegen';
 $BL['be_admin_usr_realname'] = 'Wahrer Name';
 $BL['be_admin_usr_setactive'] = 'Aktivieren';
@@ -347,13 +366,13 @@ $BL['be_admin_usr_isadmin'] = 'Administrator';
 $BL['be_admin_usr_ifadmin'] = 'Benutzer erh&auml;lt Administrator-Rechte';
 $BL['be_admin_usr_verify'] = '&Uuml;berpr&uuml;fung';
 $BL['be_admin_usr_sendemail'] = 'E-Mail mit den Anmeldedaten an den neuen Benutzer senden';
-$BL['be_admin_usr_button'] = 'Benutzerdaten senden';
+$BL['be_admin_usr_button'] = 'Benutzerdaten speichern';
 
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle'] = 'Benutzerdaten bearbeiten';
 $BL['be_admin_usr_emailsubject'] = 'phpwcms - Anmeldedaten ge&auml;ndert';
-$BL['be_admin_usr_emailbody'] = "PHPWCMS ANMELDEDATEN GEÄNDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie können sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
-$BL['be_admin_usr_passnochange'] = '[KEINE ÄNDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
+$BL['be_admin_usr_emailbody'] = "PHPWCMS! ANMELDEDATEN GE&Auml;NDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_passnochange'] = '[KEINE &Auml;NDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
 $BL['be_admin_usr_ebutton'] = 'Benutzerdaten aktualisieren';
 
 // admin.listuser.tmpl.php
@@ -375,7 +394,7 @@ $BL['be_admin_struct_template'] = 'Vorlage';
 $BL['be_admin_struct_alias'] = 'Alias der Seitenebene';
 $BL['be_admin_struct_visible'] = 'sichtbar';
 $BL['be_admin_struct_button'] = 'Struktur sichern';
-$BL['be_admin_struct_close'] = 'Schlie&szlig;en';
+$BL['be_admin_struct_close'] = 'Schliessen';
 
 // admin.filecat.tmpl.php
 $BL['be_admin_fcat_title'] = 'Dateikategorien';
@@ -432,7 +451,7 @@ $BL['be_admin_page_col2'] = '2-Spalten-Layout &#13;(Hauptspalte rechts, Navigati
 $BL['be_admin_page_col3'] = '2-Spalten-Layout &#13;(Hauptspalte links, Navigationsspalte rechts)';
 $BL['be_admin_page_col4'] = '1-Spalten-Layout';
 $BL['be_admin_page_header'] = 'Kopfzeile';
-$BL['be_admin_page_footer'] = 'Fu&szlig;zeile';
+$BL['be_admin_page_footer'] = 'Fusszeile';
 $BL['be_admin_page_topspace'] = 'Abstand oben';
 $BL['be_admin_page_bottomspace'] = 'Abstand unten';
 $BL['be_admin_page_button'] = 'Seitenlayout speichern';
@@ -479,6 +498,8 @@ $BL['be_article_err4'] = 'Falsches Enddatum - auf JETZT + 1 Woche gesetzt';
 // article.editsummary.tmpl.php
 $BL['be_article_estitle'] = 'Artikel Basisinformation bearbeiten';
 $BL['be_article_eslastedit'] = 'zuletzt';
+$BL['be_article_created_at'] = 'erstellt am';
+$BL['be_article_updated_at'] = 'aktualisiert am';
 $BL['be_article_esnoupdate'] = 'Keine Aktualisierung';
 $BL['be_article_esbutton'] = 'Artikeldaten aktualisieren';
 
@@ -512,12 +533,12 @@ $BL['be_article_cnt_addtitle'] = 'Neuen Inhaltsabschnitt hinzuf&uuml;gen';
 $BL['be_article_cnt_up'] = 'Inhalt nach oben';
 $BL['be_article_cnt_down'] = 'Inhalt nach unten';
 $BL['be_article_cnt_edit'] = 'Inhaltsabschnitt bearbeiten';
-$BL['be_article_cnt_delpart'] = 'Diesen Artikel-Inhaltsabschnitt l&ouml;schen';
-$BL['be_article_cnt_delpartjs'] = 'Artikel-Inhaltsabschnitt l&ouml;schen?';
+$BL['be_article_cnt_delpart'] = 'Diesen Inhaltsabschnitt l&ouml;schen';
+$BL['be_article_cnt_delpartjs'] = 'Inhaltsabschnitt l&ouml;schen?';
 $BL['be_article_cnt_center'] = 'Artikelzentrale';
 
 // content forms
-$BL['be_cnt_plaintext'] = 'Einf. Text';
+$BL['be_cnt_plaintext'] = 'Einfacher Text';
 $BL['be_cnt_htmltext'] = 'HTML Text';
 $BL['be_cnt_image'] = 'Bild';
 $BL['be_cnt_position'] = 'Position';
@@ -539,7 +560,7 @@ $BL['be_cnt_pos6i'] = 'Bild innerhalb des Textblocks links anordnen';
 $BL['be_cnt_pos7i'] = 'Bild innerhalb des Textblocks rechts anordnen';
 $BL['be_cnt_maxw'] = 'max.&nbsp;Breite';
 $BL['be_cnt_maxh'] = 'max.&nbsp;H&ouml;he';
-$BL['be_cnt_enlarge'] = 'Klick&nbsp;vergr&ouml;&szlig;ern';
+$BL['be_cnt_enlarge'] = 'Klick&nbsp;vergr&ouml;ssern';
 $BL['be_cnt_caption'] = 'Bildunterzeile';
 $BL['be_cnt_subject'] = 'Betreff';
 $BL['be_cnt_recipient'] = 'Empf&auml;nger';
@@ -608,12 +629,12 @@ $BL['be_cnt_mediapos1i'] = 'Mediainhalt zentriert &uuml;ber dem Absatz ausrichte
 $BL['be_cnt_mediapos2i'] = 'Mediainhalt rechts &uuml;ber dem Absatz ausrichten';
 $BL['be_cnt_mediapos3i'] = 'Mediainhalt innerhalb des Absatzes links ausrichten';
 $BL['be_cnt_mediapos4i'] = 'Mediainhalt innerhalb des Absatzes rechts ausrichten';
-$BL['be_cnt_setsize'] = 'Ma&szlig;e setzen';
-$BL['be_cnt_set1'] = 'Mediama&szlig; auf 160x120px einstellen';
-$BL['be_cnt_set2'] = 'Mediama&szlig; auf 240x180px einstellen';
-$BL['be_cnt_set3'] = 'Mediama&szlig; auf 320x240px einstellen';
-$BL['be_cnt_set4'] = 'Mediama&szlig; auf 480x360px einstellen';
-$BL['be_cnt_set5'] = 'Mediama&szlig;e entfernen';
+$BL['be_cnt_setsize'] = 'Masse setzen';
+$BL['be_cnt_set1'] = 'Mediamass auf 160x120px einstellen';
+$BL['be_cnt_set2'] = 'Mediamass auf 240x180px einstellen';
+$BL['be_cnt_set3'] = 'Mediamass auf 320x240px einstellen';
+$BL['be_cnt_set4'] = 'Mediamass auf 480x360px einstellen';
+$BL['be_cnt_set5'] = 'Mediamasse entfernen';
 
 // added: 28-12-2003
 $BL['be_admin_page_add'] = 'Neues Seitenlayout anlegen';
@@ -632,7 +653,7 @@ $BL['be_ctype_search'] = 'Suche';
 $BL['be_cnt_results'] = 'Ergebnisse';
 $BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige max. 25)';
 $BL['be_cnt_opennewwin'] = '&Ouml;ffne neues Fenster';
-$BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;&szlig;er ist';
+$BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;sser ist';
 $BL['be_cnt_input'] = 'Eingabe';
 $BL['be_cnt_style'] = 'Stil';
 $BL['be_cnt_result'] = 'Ergebnis';
@@ -736,7 +757,7 @@ $BL['be_newsletter_testerror'] = '<p style="color:#CC3300;">Die Test E-Mail Adre
 $BL['be_newsletter_to'] = 'Empf&auml;nger';
 $BL['be_newsletter_ready'] = 'Newsletter-Versand: FERTIG';
 $BL['be_newsletter_readyfailed'] = 'Nicht erfolgreich gesendet an';
-$BL['be_subnav_msg_subscribers'] = 'Newsletter Abonnenten';
+$BL['be_subnav_msg_subscribers'] = 'Abonnenten Verwaltung';
 
 // added: 20-04-2004
 $BL['be_ctype_sitemap'] = 'Sitemap';
@@ -779,8 +800,8 @@ $BL['be_cnt_reference_basis'] = 'Anordnung';
 $BL['be_cnt_reference_horizontal'] = 'horizontal';
 $BL['be_cnt_reference_vertical'] = 'vertikal';
 $BL['be_cnt_reference_aligntext'] = 'Kleine Referenzbilder';
-$BL['be_cnt_reference_largetext'] = 'Gro&szlig;es Referenzbild';
-$BL['be_cnt_reference_zoom'] = 'Vergr&ouml;&szlig;ern';
+$BL['be_cnt_reference_largetext'] = 'Grosses Referenzbild';
+$BL['be_cnt_reference_zoom'] = 'Vergr&ouml;ssern';
 $BL['be_cnt_reference_middle'] = 'mittig';
 $BL['be_cnt_reference_border'] = 'Rand';
 $BL['be_cnt_reference_block'] = 'Block BxH';
@@ -810,7 +831,7 @@ $BL['be_newsletter_importtitle'] = 'Newsletter Abonnenten importieren';
 $BL['be_newsletter_addresses'] = 'Adressen';
 $BL['be_newsletter_csverror'] = 'Die importierte CSV Datei scheint inkorrekt zu sein! Pr&uuml;fen Sie das Delimeter-Zeichen!';
 $BL['be_newsletter_addressesadded'] = 'Adressen hinzugef&uuml;gt';
-$BL['be_newsletter_newimport'] = 'Import';
+$BL['be_newsletter_newimport'] = 'Importieren';
 $BL['be_newsletter_importerror'] = 'Folgende Daten sind fehlerhaft:';
 $BL['be_newsletter_shouldbe1'] = 'Die CSV/TXT Datei sollte wie folgt aufgebaut sein:';
 $BL['be_newsletter_shouldbe2'] = 'Standard = <b>;</b>';
@@ -881,7 +902,7 @@ $BL['be_forum_titleedit'] = 'Forum bearbeiten';
 $BL['be_admin_page_customblocks'] = 'Eigene';
 $BL['be_show_content'] = 'Ausgabe';
 $BL['be_main_content'] = 'Hauptspalte';
-$BL['be_admin_template_jswarning'] = 'Achtung!!! \nEs kann zu Änderungen der \nnutzerdefinierten Blöcke kommen! \n\nWenn Sie abbrechen, setzen Sie \nden Wert für das Seitenlayout zurück! \n\nWirklich Vorlage ändern?\n\n';
+$BL['be_admin_template_jswarning'] = 'Achtung!!! \nEs kann zu &Auml;nderungen der \nnutzerdefinierten Bl&ouml;cke kommen! \n\nWenn Sie abbrechen, setzen Sie \nden Wert f&uuml;r das Seitenlayout zur&uuml;ck! \n\nWirklich Vorlage &auml;ndern?\n\n';
 
 $BL['be_ctype_rssfeed'] = 'RSS Feed';
 $BL['be_cnt_rssfeed_url'] = 'RSS URL';
@@ -971,14 +992,14 @@ $BL['be_admin_usr_ifsection1'] = 'Backend';
 $BL['be_admin_usr_ifsection2'] = 'Frontend und Backend';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
-$BL['be_func_content_edit'] = 'Diesen Content Part bearbeiten';
+$BL['be_func_content_edit'] = 'Diesen Inhaltsabschnitt bearbeiten';
 $BL['be_func_content_paste0'] = 'Diesem Artikel hinzuf&uuml;gen';
-$BL['be_func_content_paste'] = 'Nach dem letzten Content Part einf&uuml;gen';
-$BL['be_func_content_cut'] = 'Diesen Content Part ausschneiden';
-$BL['be_func_content_no_cut'] = "Es ist nicht m&ouml;glich, diesen Content Part auszuschneiden!";
-$BL['be_func_content_copy'] = 'Diesen Content Part kopieren';
-$BL['be_func_content_no_copy'] = "Es ist nicht m&ouml;glich, diesen Content Part zu kopieren!";
-$BL['be_func_content_paste_cancel'] = 'Content Part &Auml;nderung abbrechen';
+$BL['be_func_content_paste'] = 'Nach dem letzten Inhaltsabschnitt einf&uuml;gen';
+$BL['be_func_content_cut'] = 'Diesen Inhaltsabschnitt ausschneiden';
+$BL['be_func_content_no_cut'] = 'Es ist nicht m&ouml;glich, diesen Inhaltsabschnitt auszuschneiden!';
+$BL['be_func_content_copy'] = 'Diesen Inhaltsabschnitt kopieren';
+$BL['be_func_content_no_copy'] = 'Es ist nicht m&ouml;glich, diesen Inhaltsabschnitt zu kopieren!';
+$BL['be_func_content_paste_cancel'] = 'Inhaltsabschnitt-&Auml;nderung abbrechen';
 
 $BL['be_cnt_move_deleted'] = 'Dateien final l&ouml;schen';
 $BL['be_cnt_move_deleted_msg'] = 'Sollen wirklich alle Dateien,  \ndie als gel&ouml;scht markiert sind in den  \nL&ouml;schordner verschoben werden?  \n';
@@ -989,13 +1010,13 @@ $BL['be_admin_struct_adduser_this'] = 'Ausgew&auml;hlten Benutzer &uuml;bernehme
 $BL['be_admin_struct_remove_all'] = 'Alle Benutzer entfernen';
 $BL['be_admin_struct_remove_this'] = 'Ausgew&auml;hlten Benutzer entfernen';
 
-$BL['be_ctype_alias'] = 'Contentpart Alias';
+$BL['be_ctype_alias'] = 'Inhaltsabschnitt-Alias';
 $BL['be_cnt_setting'] = '&Uuml;bernahme';
-$BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias Contentparts';
-$BL['be_cnt_toplink'] = 'Top-Link Einstellung des Alias Contentparts';
-$BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias Contentparts';
-$BL['be_cnt_title'] = '&Uuml;berschriften des Alias Contentparts';
-$BL['be_cnt_status'] = 'Sichtbarkeit des Alias Contentparts';
+$BL['be_cnt_spaces'] = 'Abst&auml;nde des Alias-Inhaltsabschnitts';
+$BL['be_cnt_toplink'] = 'Top-Link-Einstellung des Alias-Inhaltsabschnitts';
+$BL['be_cnt_block'] = 'Ausgabe-Einstellung des Alias-Inhaltsabschnitts';
+$BL['be_cnt_title'] = '&Uuml;berschriften des Alias-Inhaltsabschnitts';
+$BL['be_cnt_status'] = 'Sichtbarkeit des Alias-Inhaltsabschnitts';
 $BL['be_cnt_plugin_n.a.'] = 'Plugin nicht verf&uuml;gbar';
 
 $BL['be_file_replace'] = 'Ersetze gleichnamige Dateien';
@@ -1018,7 +1039,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Content Part wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Inhaltsabschnitt wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;u&szlig;erst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;phpwcms_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
 $BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
@@ -1065,7 +1086,7 @@ $BL['be_cnt_search_searchnot'] = 'Suche nicht';
 $BL['be_cnt_results_minchar'] = 'Minimale Anzahl Zeichen der Sucheingabe';
 $BL['be_cnt_search_hidesummary'] = 'Such-Teasertext ausblenden';
 
-$BL['be_cnt_pagination'] = 'Content Parts paginieren';
+$BL['be_cnt_pagination'] = 'Inhaltsabschnitte paginieren';
 $BL['be_article_pagination'] = 'Artikel paginieren';
 $BL['be_article_per_page'] = 'Artikel je Seite';
 $BL['be_pagination'] = 'Paginierung';
@@ -1078,7 +1099,7 @@ $BL['be_cnt_answer'] = 'Antwort';
 $BL['be_cnt_same_as_summary'] = 'Daten des Artikelbildes nutzen';
 $BL['be_cnt_sorting'] = 'Sortierung';
 $BL['be_cnt_imgupload'] = 'Bildupload';
-$BL['be_cnt_filesize'] = 'Dateigr&ouml;&szlig;e';
+$BL['be_cnt_filesize'] = 'Dateigr&ouml;sse';
 $BL['be_cnt_captchalength'] = 'L&auml;nge des Captcha Codes';
 $BL['be_cnt_chars'] = 'Zeichen';
 $BL['be_cnt_download'] = 'Download';
@@ -1121,7 +1142,7 @@ $BL['be_last_edited'] = 'zuletzt bearbeitet';
 $BL['be_total'] = 'gesamt';
 
 $BL['be_settings'] = 'Einstellungen';
-$BL['be_ctype'] = 'Contentpart';
+$BL['be_ctype'] = 'Inhaltsabschnitt';
 $BL['be_selection'] = 'Auswahl';
 
 $BL['be_ctype_module'] = 'Plug-in';
@@ -1156,28 +1177,28 @@ $BL['be_cnt_imagecenterv'] = 'vertikal zentrieren';
 
 $BL['be_overwrite_default'] = '&Uuml;berschreibt Standardeinstellungen der Konfigurationsdatei';
 $BL['be_cnt_sortvalue'] = 'Sort.Wert';
-$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie den Vorgang fortsetzen?';
+$BL['be_dialog_warn_nosave'] = 'Wenn Sie fortsetzen, werden &Auml;nderungen nicht gespeichert!\nM&ouml;chten Sie abbrechen?';
 $BL['be_cnt_paginate_subsection'] = 'Abschnitt';
 $BL['be_cnt_subsection_tite'] = 'Abschnittstitel';
-$BL['be_cnt_subsection_warning'] = 'Die Nummerierung von Abschnitten (Content Part Paginierung)\nist nur f&uuml;r die Ausgabe in\nder Hauptspalte (CONTENT) m&ouml;glich!';
+$BL['be_cnt_subsection_warning'] = 'Die Nummerierung von Abschnitten (Inhaltsabschnitt-Paginierung)\nist nur f&uuml;r die Ausgabe in\nder Hauptspalte (CONTENT) m&ouml;glich!';
 
 $BL['be_no_search'] = 'keine Suche';
 $BL['be_priorize'] = 'Priorisierung';
 $BL['be_change_articleID'] = 'Artikel-ID &auml;ndern';
-$BL['be_title_wrap'] = 'Artikeltitel umschlie&szlig;en';
+$BL['be_title_wrap'] = 'Artikeltitel umschliessen';
 
 $BL['be_no_rss'] = 'RSS';
 $BL['be_article_urlalias'] = 'Artikelalias';
 
-$BL['be_image_crop'] = 'Vorschau auf Gr&ouml;&szlig;e schneiden';
-$BL['be_image_cropit'] = 'Bild auf Gr&ouml;&szlig;e schneiden';
+$BL['be_image_crop'] = 'Vorschau auf Gr&ouml;sse schneiden';
+$BL['be_image_cropit'] = 'Bild auf Gr&ouml;sse schneiden';
 $BL['be_image_align'] = 'Bildausrichtung';
 
-$BL['be_ctype_flashplayer'] = 'HTML5/Video.js Media-Player';
+$BL['be_ctype_flashplayer'] = 'HTML5/Flash Media-Player';
 $BL['be_flashplayer_caption'] = 'Beschreibung';
 $BL['be_flashplayer_thumbnail'] = 'Vorschau';
-$BL['be_flashplayer_selectsize'] = 'Playergr&ouml;&szlig;e w&auml;hlen';
-$BL['be_flash_media'] = 'Video.js';
+$BL['be_flashplayer_selectsize'] = 'Playergr&ouml;sse w&auml;hlen';
+$BL['be_flash_media'] = 'Flash';
 $BL['be_html5_media'] = 'HTML5';
 $BL['be_html5_h264'] = 'MPEG/H.264';
 $BL['be_html5_webm'] = 'WebM';
@@ -1201,10 +1222,10 @@ $BL['be_image_WxHpx'] = 'B x H px';
 $BL['be_fx_1'] = 'Effekt 1';
 $BL['be_fx_2'] = 'Effekt 2';
 $BL['be_fx_3'] = 'Effekt 3';
-$BL['be_image_zoom'] = 'Gro&szlig;ansicht';
+$BL['be_image_zoom'] = 'Grossansicht';
 $BL['be_image_delete_js'] = 'Soll der Bildeintrag wirklich entfernt werden?';
 
-$BL['be_news'] = 'News';
+$BL['be_news'] = 'Newsverwaltung';
 $BL['be_news_create'] = 'Neue News erstellen';
 $BL['be_tags'] = 'Tag/Schlagwort';
 $BL['be_title'] = 'Bezeichnung';
@@ -1244,9 +1265,9 @@ $BL['be_granted_download'] = 'gesch&uuml;tzter Download im Frontend';
 $BL['be_granted_feuser'] = 'Nur sichtbar f&uuml;r angemeldete Frontend Benutzer';
 $BL['be_hidden_for_feuser'] = 'Ausblenden f&uuml;r angemeldete Frontend Benutzer';
 $BL['be_visible_for_everybody'] = 'F&uuml;r jeden sichtbar (Standard)';
-$BL['be_fileuploader_typeError'] = "{file} hat eine nicht zulässige Erweiterung. Zulässig: {extensions}";
-$BL['be_fileuploader_sizeError'] = "{file} ist zu groß, Dateigröße maximal {sizeLimit}.";
-$BL['be_fileuploader_minSizeError'] = "{file} ist zu klein, Dateigröße mindestens {minSizeLimit}.";
+$BL['be_fileuploader_typeError'] = "{file} hat eine nicht zul&auml;ssige Erweiterung. Zul&auml;ssig: {extensions}";
+$BL['be_fileuploader_sizeError'] = "{file} ist zu gro&szlig;, Dateigr&ouml;&szlig;e maximal {sizeLimit}.";
+$BL['be_fileuploader_minSizeError'] = "{file} ist zu klein, Dateigr&ouml;&szlig;e mindestens {minSizeLimit}.";
 $BL['be_fileuploader_emptyError'] = "{file} ist leer. Diese Datei bitte auslassen.";
 $BL['be_fileuploader_noFilesError'] = "Keine Dateien zum Hochladen.";
 $BL['be_fileuploader_onLeave'] = "Das Hochladen l&auml;uft gerade. Wenn Sie jetzt beenden, wird das Hochladen abgebrochen.";
@@ -1265,8 +1286,8 @@ $BL['be_pagniate_count'] = 'Eintr&auml;ge pro Seite';
 $BL['be_limit_to'] = 'limitieren auf';
 $BL['be_archived_items'] = 'Archiveintr&auml;ge';
 $BL['be_include'] = 'einbeziehen';
-$BL['be_exclude'] = 'ausschlie&szlig;en';
-$BL['be_solely'] = 'ausschlie&szlig;lich';
+$BL['be_exclude'] = 'ausschliessen';
+$BL['be_solely'] = 'ausschliesslich';
 $BL['be_fsearch_not'] = 'NICHT';
 $BL['be_date_year'] = 'Jahr';
 $BL['be_archive_link'] = 'Archivlink';
@@ -1313,8 +1334,8 @@ $BL['fancyupload_required_error'] = 'Eine erforderliche Datei wurde nicht gefund
 $BL['fancyupload_flash_error'] = 'Installieren Sie das neueste Adobe Flash Plugin, um den integrierten Uploader zu aktivieren.';
 
 $BL['be_cnt_function_validate'] = 'PHP-Validierung';
-$BL['be_structform_selected_cp'] = 'Auswahl nutzbarer Content Parts begrenzen';
-$BL['be_structform_select_cp'] = 'Content Parts w&auml;hlen';
+$BL['be_structform_selected_cp'] = 'Auswahl nutzbarer Inhaltsabschnitte begrenzen';
+$BL['be_structform_select_cp'] = 'Inhaltsabschnitte w&auml;hlen';
 
 $BL['source_image_not_found'] = 'Quelldatei Fehler: Die Datei %s konnte nicht gefunden werden.';
 $BL['form_force_ssl'] = 'Formularversand per SSL erzwingen';
@@ -1376,13 +1397,15 @@ $BL['be_system_container'] = 'Systemcontainer';
 $BL['be_system_container_norender'] = 'ohne regul&auml;re Ausgabe im Frontend';
 $BL['be_custom_scriptlogic'] = 'benutzerdefiniert (Scriptlogik)';
 $BL['be_flush_image_cache'] = 'Bildcache leeren';
+$BL['be_flush_image_cache_confirm'] = 'Soll der Bildcache wirklich geleert werden?';
+$BL['be_flush_image_cache_success'] = 'Bildcache erfolgreich geleert. %d Datei(en) gelöscht.';
 
 $BL['be_caption_alt'] = 'alt Attr.';
 $BL['be_caption_title'] = 'title Attr.';
 $BL['be_caption_file_imagesize'] = 'BxHxC <em>(wenn Bild)</em>';
 $BL['be_caption_file_title'] = 'Dateititel';
 $BL['be_caption_descr.'] = 'Beschr.';
-$BL['be_display_html5_only'] = 'ausschlie&szlig;lich HTML5';
+$BL['be_display_html5_only'] = 'ausschliesslich HTML5';
 $BL['be_audio_only'] = 'nur Audio';
 $BL['be_hide_downloadbutton'] = 'HTML5 Download-Button ausblenden';
 
@@ -1390,7 +1413,7 @@ $BL['be_filter'] = 'Filter';
 $BL['be_filter_with_tags'] = 'nach Schlagwort';
 $BL['be_filter_not_selected'] = 'Keine Kategorie ausgew&auml;hlt';
 $BL['be_empty_search_result'] = 'Die Suche lieferte ein leeres Ergebnis.';
-$BL['confirm_cp_tab_warning'] = 'Der gewählte Abschnitt ist unbenannt und auch keiner Nummer zugeordnet. Beim Speichen bzw. Aktualisieren geht die Auswahl verloren.';
+$BL['confirm_cp_tab_warning'] = 'Der gew&auml;hlte Abschnitt ist unbenannt und auch keiner Nummer zugeordnet. Beim Speichern bzw. Aktualisieren geht die Auswahl verloren.';
 
 $BL['be_canonical'] = 'Canonical Link';
 $BL['be_breadcrumb'] = 'Breadcrumb Anzeigeverhalten';
@@ -1410,7 +1433,7 @@ $BL['be_parental_alias'] = 'Eltern-Alias';
 $BL['be_fsearch_nor'] = 'KEINES';
 $BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
 $BL['be_custom_textfield'] = 'Freitext';
-$BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder ändern und Werte verloren gehen.\n\nMöchten Sie wirklich fortfahren?';
+$BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder &auml;ndern und Werte verloren gehen.\n\nM&ouml;chten Sie wirklich fortfahren?';
 
 $BL['be_onepage_id'] = 'OnePage ID (#Anker) Unterst&uuml;tzung';
 $BL['be_onepage_template'] = 'Als OnePage Vorlage behandeln';
@@ -1487,7 +1510,7 @@ $BL['be_cc_v3_section_marketing_title_placeholder'] = 'Cookies f&uuml;r Werbung 
 $BL['be_cc_v3_section_marketing_description_placeholder'] = 'Cookie f&uuml;r Werbung und Marketing werden verwendet, um Werbung bereitzustellen, die f&uuml;r Sie und Ihre Interessen relevanter ist. Kann auch verwendet werden, um die H&auml;ufigkeit, mit der Sie eine Werbung sehen, zu begrenzen und die Wirksamkeit von Werbekampagnen zu messen. Werbenetzwerke platzieren sie in der Regel mit der Erlaubnis des Website-Betreibers.';
 $BL['be_cc_v3_section_social'] = 'Soziale Medien';
 $BL['be_cc_v3_section_social_title_placeholder'] = 'Cookies f&uuml;r soziale Medien';
-$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies f&uuml;r soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. Diese Cookies k&ouml;nnen verwendet werden, um f&uuml;r Sie relevante Werbung auf anderen Plattformen zu schalten.';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies f&uuml;r soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. These Cookies k&ouml;nnen verwendet werden, um f&uuml;r Sie relevante Werbung auf anderen Plattformen zu schalten.';
 $BL['be_cc_v3_section_more'] = 'Sonstiges';
 $BL['be_cc_v3_section_more_title_placeholder'] = 'Weitere Informationen';
 $BL['be_cc_v3_section_more_description_placeholder'] = 'Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlm&ouml;glichkeiten &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;kontaktieren Sie uns bitte&lt;/a&gt;.';
@@ -1554,8 +1577,8 @@ $BL['iptc_SubjectNewsCode'] = 'Betreffkennung';
 $BL['iptc_iimVersion'] = 'Version';
 
 $BL['be_suppress_render_caption'] = 'Ausgabe der Bildunterschrift unterdr&uuml;cken';
-$BL['be_cnt_attribute_class'] = 'CSS Klasse [class]';
-$BL['be_cnt_attribute_id'] = 'CSS ID [id]';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
 $BL['be_cnt_avoid_duplicates'] = 'Nur eindeutige Werte zulassen';
 $BL['be_not_set'] = 'nicht gesetzt';
 $BL['be_licensed_under_GPL'] = 'Lizenziert unter GPL.';
@@ -1564,6 +1587,8 @@ $BL['be_extensions_copyright'] = 'Erweiterungen sind urheberrechtlich gesch&uuml
 $BL['be_password_show'] = 'Passwort anzeigen';
 $BL['be_password_hide'] = 'Password verstecken';
 
+$BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
+$BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder &auml;ndern und Werte verloren gehen.\n\nM&ouml;chten Sie wirklich fortfahren?';
 $BL['be_admin_template_choose_file'] = 'Textvorlage, alternativ Dateivorlage ausw&auml;hlen';
 
 $BL['be_flashplayer_marker'] = 'Markierung';
@@ -1583,14 +1608,11 @@ $BL['disposition_inline_description'] = 'im Browser anzeigen';
 $BL['be_robots'] = 'Suchindex';
 $BL['be_robots_noindex'] = 'Indizierung blockieren (noindex)';
 $BL['be_robots_nofollow'] = 'Links nicht folgen (nofollow)';
-
 $BL['be_cnt_form_direct_download'] = 'Download gestatten';
 $BL['be_cnt_form_direct_download_apikey'] = 'API-Schl&uuml;ssel';
 $BL['be_cnt_form_apikey_reset'] = 'zur&uuml;cksetzen';
 $BL['be_copy_link'] = 'Link kopieren';
-
-$BL['be_deprecated'] = 'veraltet';
-$BL['be_deprecated_info'] = 'Dieser Content-Typ ist veraltet und wird in zuk&uuml;nftigen Versionen von phpwcms nicht mehr unterst&uuml;tzt. Bitte verwenden Sie eine alternative L&ouml;sung.';
+$BL['be_articlebrowser_selector'] = 'Artikelauswahl';
 
 $BL['be_about_headline'] = 'phpwcms Content Management System';
 $BL['be_about_version'] = 'Version';
@@ -1598,4 +1620,30 @@ $BL['be_about_maintainer'] = 'Entwickler';
 $BL['be_about_website'] = 'Website';
 $BL['be_about_copyright'] = 'Urheberrecht';
 $BL['be_about_contributors'] = 'und Mitwirkende';
-$BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/slackero/phpwcms" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
+$BL['be_about_and_contributors'] = 'und andere Mitwirkende (darunter Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 und andere) &ndash; detaillierte Copyright- und Lizenzinformationen entnehmen Sie bitte dem <a href="https://github.com/systron-dev/phpwcms" title="Quellcode auf GitHub" target="_blank">Quellcode</a>.';
+
+$BL['be_newsletter_entriesfound']       = 'Eintr&auml;ge gefunden';
+$BL['be_newsletter_foundinfile']        = 'in Datei';
+$BL['be_cnt_fpro_usecaption']            = 'Dateizentrums-&quot;'.$BL['be_ftptakeover_longinfo'].'&quot; verwenden';
+
+
+
+// Bootstrap Modal & Alert translations
+$BL['modal_confirm'] = 'Bestätigen';
+$BL['modal_cancel'] = 'Abbrechen';
+$BL['modal_title_confirm'] = 'Bestätigung';
+$BL['modal_title_alert'] = 'Information';
+$BL['modal_ok'] = 'OK';
+$BL['modal_delete'] = 'Löschen';
+$BL['modal_move'] = 'Verschieben';
+$BL['modal_copy'] = 'Kopieren';
+$BL['modal_flush'] = 'Leeren';
+$BL['be_metadata'] = 'Meta-Daten';
+$BL['be_content'] = 'Inhalt';
+$BL['be_images'] = 'Bilder';
+$BL['be_article_show'] = 'Anzeigen';
+$BL['be_active'] = 'Aktiv';
+$BL['be_cnt_summary_label'] = 'Zusammenfassung';
+$BL['be_cnt_max_words'] = 'max. Anzahl Worte';
+
+$BL['be_dashboard_support'] = 'Kontakt und Support';

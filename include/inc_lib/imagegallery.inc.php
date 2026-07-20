@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -428,7 +427,7 @@ class phpwcmsImageGallery {
 			array_unshift($listing, $this->list_header);
 
 			// add gallery listing footer
-			$listing[] = $this->list_footer;
+			array_push($listing, $this->list_footer);
 
 			return implode($this->line_break, $listing);
 		}

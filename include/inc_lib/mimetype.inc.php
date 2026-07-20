@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -271,7 +270,7 @@ function get_mimetype_by_extension($ext='') {
 }
 
 function is_mimetype_by_extension($ext) {
-	return !(empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext]));
+	return empty($ext) || !isset($GLOBALS['phpwcms']['mime_types'][$ext]) ? false : true;
 }
 
 /**

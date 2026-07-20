@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -78,14 +77,13 @@ function dl_file_resume($file='', $fileinfo=array(), $onsuccess = false) {
     }
 
     if(empty($fileinfo['mimetype'])) {
-        $fileinfo['mimetype'] = $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] ?? 'application/force-download';
+        $fileinfo['mimetype'] = isset($GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']]) ? $GLOBALS['phpwcms']['mime_types'][$fileinfo['extension']] : 'application/force-download';
     }
 
     // Disable output compression.
     //@apache_setenv('no-gzip', 1); // disabled because using this the download fails
     @ini_set('zlib.output_compression', 'Off');
 
-    // Prevent caching.
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
     header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
     header('Cache-Control: post-check=0, pre-check=0', false);
@@ -160,7 +158,7 @@ function rangeDownload($file) {
         // Extract the range string
         list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
         // Make sure the client hasn't sent us a multibyte range
-        if (str_contains($range, ',')) {
+        if (strpos($range, ',') !== false) {
 
             // (?) Shoud this be issued here, or should the first
             // range be used? Or should the header be ignored and
@@ -173,7 +171,7 @@ function rangeDownload($file) {
         // If the range starts with an '-' we start from the beginning
         // If not, we forward the file pointer
         // And make sure to get the end byte if spesified
-        if (str_starts_with($range, '-')) {
+        if (substr($range, 0, 1) === '-') {
 
             // The n-number of the last bytes is requested
             $c_start = $size - substr($range, 1);

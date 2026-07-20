@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -19,7 +18,7 @@ if (!defined('PHPWCMS_ROOT')) {
 include_once PHPWCMS_ROOT.'/include/inc_front/content/cnt_functions/cnt23.func.inc.php';
 
 // Form
-$cnt_form = unserialize($crow['acontent_form'], ['allowed_classes' => false]);
+$cnt_form = unserialize($crow["acontent_form"], ['allowed_classes' => false]);
 
 if(empty($cnt_form['anchor_off'])) {
     $CNT_TMP .= '<a id="';
@@ -36,8 +35,8 @@ if($crow['acontent_attr_id']) {
 }
 
 if(($crow['attr_class_id'] = implode(' ', $crow['attr_class_id']))) {
-    $CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
-    $crow['attr_class_id_close'] = '</div>';
+$CNT_TMP .= '<div '.$crow['attr_class_id'].'>';
+$crow['attr_class_id_close'] = '</div>';
 } else {
     $crow['attr_class_id_close'] = '';
 }
@@ -104,14 +103,14 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
     $POST_DO = false;
 
     $cnt_form['regx_pattern'] = array(
-        'A-Z'           => '/^[A-Z]+$/',
-        'a-Z'           => '/^[a-zA-Z]+$/',
-        'a-z'           => '/^[a-z]+$/',
-        '0-9'           => '/^[0-9]+$/',
-        'PHONE'         => '/^[+]?([0-9]*[\.\s\-\(\)\/]|[0-9]+){3,24}$/',
-        'INT'           => '/^[0-9\-\+]+$/',
-        'WORD'          => '/^[\w]+$/',
-        'LETTER+SPACE'  => '/^[a-z _\-\:]+$/i'
+            'A-Z'           => '/^[A-Z]+$/',
+            'a-Z'           => '/^[a-zA-Z]+$/',
+            'a-z'           => '/^[a-z]+$/',
+            '0-9'           => '/^[0-9]+$/',
+            'PHONE'         => '/^[+]?([0-9]*[\.\s\-\(\)\/]|[0-9]+){3,24}$/',
+            'INT'           => '/^[0-9\-\+]+$/',
+            'WORD'          => '/^[\w]+$/',
+            'LETTER+SPACE'  => '/^[a-z _\-\:]+$/i'
     );
 
     if(!empty($_POST['cpID'.$crow["acontent_id"]]) && intval($_POST['cpID'.$crow["acontent_id"]]) == $crow["acontent_id"]) {
@@ -247,13 +246,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.recaptcha.php';
 
                 $cnt_form['recaptcha'] = array(
-                    'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
-                    'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
-                    'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
-                    'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'light' : $cnt_form["fields"][$key]['value']['theme'],
-                    'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
-                    'size' => empty($cnt_form["fields"][$key]['value']['size']) ? 'normal' : $cnt_form["fields"][$key]['value']['size'],
-                    'error' => null
+                        'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
+                        'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
+                        'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
+                        'theme' => empty($cnt_form["fields"][$key]['value']['theme']) ? 'light' : $cnt_form["fields"][$key]['value']['theme'],
+                        'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
+                        'size' => empty($cnt_form["fields"][$key]['value']['size']) ? 'normal' : $cnt_form["fields"][$key]['value']['size'],
+                        'error' => null
                 );
 
                 $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
@@ -271,18 +270,18 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     if(isset($_POST['g-recaptcha-response'])) {
 
-                        $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
 
-                        if($cnt_form['recaptcha']['response']['success'] === false) {
-                            if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
-                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
-                            } else {
-                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
-                            }
-                            $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
-                            $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
+                    if($cnt_form['recaptcha']['response']['success'] === false) {
+                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
+                        } else {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
                         }
+                        $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+                        $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
+                }
                 }
 
                 $form_field  = '<div class="g-recaptcha"';
@@ -307,13 +306,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.recaptcha.php';
 
                 $cnt_form['recaptcha'] = array(
-                    'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
-                    'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
-                    'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
-                    'badge' => empty($cnt_form["fields"][$key]['value']['badge']) ? 'bottomright' : $cnt_form["fields"][$key]['value']['badge'],
-                    'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
-                    'size' => empty($cnt_form["fields"][$key]['value']['size']) ? '' : $cnt_form["fields"][$key]['value']['size'],
-                    'error' => null
+                        'site_key' => empty($cnt_form["fields"][$key]['value']['site_key']) ? get_user_rc('pu') : $cnt_form["fields"][$key]['value']['site_key'],
+                        'secret_key' => empty($cnt_form["fields"][$key]['value']['secret_key']) ? get_user_rc('pr') : $cnt_form["fields"][$key]['value']['secret_key'],
+                        'lang' => empty($cnt_form["fields"][$key]['value']['lang']) ? $phpwcms['default_lang'] : $cnt_form["fields"][$key]['value']['lang'],
+                        'badge' => empty($cnt_form["fields"][$key]['value']['badge']) ? 'bottomright' : $cnt_form["fields"][$key]['value']['badge'],
+                        'type' => empty($cnt_form["fields"][$key]['value']['type']) ? 'image' : $cnt_form["fields"][$key]['value']['type'],
+                        'size' => empty($cnt_form["fields"][$key]['value']['size']) ? '' : $cnt_form["fields"][$key]['value']['size'],
+                        'error' => null
                 );
 
                 $recaptcha = new phpwcmsRecaptcha($cnt_form['recaptcha']['site_key'], $cnt_form['recaptcha']['secret_key']);
@@ -331,18 +330,18 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     if(isset($_POST['g-recaptcha-response'])) {
 
-                        $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
+                    $cnt_form['recaptcha']['response'] = $recaptcha->verify_response($_POST['g-recaptcha-response']);
 
-                        if($cnt_form['recaptcha']['response']['success'] === false) {
-                            if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
-                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
-                            } else {
-                                $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
-                            }
-                            $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
-                            $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
+                    if($cnt_form['recaptcha']['response']['success'] === false) {
+                        if(is_array($cnt_form['recaptcha']['response']['error-codes']) && count($cnt_form['recaptcha']['response']['error-codes'])) {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.current($cnt_form['recaptcha']['response']['error-codes']).'@@';
+                        } else {
+                            $cnt_form['recaptcha']['error'] = '@@recaptcha-error:'.$cnt_form['recaptcha']['response']['error-codes'].'@@';
                         }
+                        $POST_ERR[$key] = empty($cnt_form["fields"][$key]['error']) ? $cnt_form['recaptcha']['error'] : $cnt_form["fields"][$key]['error'];
+                        $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     }
+                }
                 }
 
                 $block['custom_htmlhead']['recaptcha_api.js'] = '  ' . $recaptcha->get_api_src($cnt_form['recaptcha']['lang'], true);
@@ -354,7 +353,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $crow['recaptcha_submit_data'] .= ' data-size="'.$cnt_form['recaptcha']['size'].'"';
                 $crow['recaptcha_submit_data'] .= ' data-callback="'.$recaptcha->get_callback().'"';
 
-                                break;
+                break;
 
             case 'special':
                 /*
@@ -377,11 +376,11 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         foreach($cnt_form['special_value'] as $cnt_form['special_key'] => $cnt_form['special_val']) {
                             $temp_array = explode('=', $cnt_form['special_val']);
                             if($temp_array[0] === 'default') {
-                                $cnt_form['special_attribute']['default'] = $temp_array[1] ?? '';
+                                $cnt_form['special_attribute']['default'] = isset($temp_array[1]) ? $temp_array[1] : '';
                             } elseif($temp_array[0] === 'type') {
-                                $cnt_form['special_attribute']['type'] = $temp_array[1] ?? 'MIX';
+                                $cnt_form['special_attribute']['type'] = isset($temp_array[1]) ? $temp_array[1] : 'MIX';
                             } elseif($temp_array[0] === 'dateformat') {
-                                $cnt_form['special_attribute']['dateformat'] = $temp_array[1] ?? 'Y-m-d';
+                                $cnt_form['special_attribute']['dateformat'] = isset($temp_array[1]) ? $temp_array[1] : 'Y-m-d';
                             } elseif($temp_array[0] === 'pattern') {
                                 $cnt_form['special_attribute']['pattern'] = isset($temp_array[1]) ? ('/' . trim($temp_array[1], '/') . '/') : '/.*?/'; //#%+~
                             } elseif($temp_array[0] === 'validatedateformat') {
@@ -391,7 +390,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
 
-                $cnt_form["fields"][$key]['value'] = $cnt_form['special_attribute']['default'] ?? '';
+                $cnt_form["fields"][$key]['value'] = isset($cnt_form['special_attribute']['default']) ? $cnt_form['special_attribute']['default'] : '';
 
                 if($POST_DO && isset($_POST[$POST_name])) {
                     $POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
@@ -421,7 +420,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 }
                                 break;
 
-                            case 'DEC':
+                                case 'DEC':
                             case 'FLOAT':
                                 if($cnt_form["fields"][$key]['value'] !== '' && !is_float_ex($cnt_form["fields"][$key]['value'])) {
                                     $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
@@ -430,7 +429,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                             case 'IDENT':
                                 if(isset($cnt_form['special_attribute']['default']) &&
-                                    decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
+                                decode_entities($cnt_form['special_attribute']['default']) != decode_entities($cnt_form["fields"][$key]['value'])) {
                                     $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
                                 }
                                 break;
@@ -445,7 +444,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         }
                     }
                 } elseif(isset($cnt_form['special_attribute']['default']) && isset($cnt_form['special_attribute']['type']) && $cnt_form['special_attribute']['type'] === 'DATE' && $cnt_form['special_attribute']['default'] === 'NOW') {
-                    $cnt_form["fields"][$key]['value'] = date($cnt_form['special_attribute']['dateformat'] ?? 'm/d/Y');
+                    $cnt_form["fields"][$key]['value'] = date(isset($cnt_form['special_attribute']['dateformat']) ? $cnt_form['special_attribute']['dateformat'] : 'm/d/Y');
                 }
 
                 $form_field_type = 'text';
@@ -692,10 +691,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 }
                 //
 
-                $form_field .= '<select name="'.$form_name.'" id="'.$form_name.'"';
-                if($cnt_form["fields"][$key]['class']) {
-                    $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
-                }
+                $form_field .= '<select name="'.$form_name.'" id="'.$form_name.'" ';
+                $form_field .= 'class="' . ($cnt_form["fields"][$key]['class'] ? $cnt_form["fields"][$key]['class'] : 'form-control custom-select') . '"';
                 if($cnt_form["fields"][$key]['style']) {
                     $form_field .= ' style="'.$cnt_form["fields"][$key]['style'].'"';
                 }
@@ -725,7 +722,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_field .= list_country($option_value, $form_value['lang'], $form_value['prepend']);
 
 
-                // build value/option select menu
+                    // build value/option select menu
                 } else {
 
                     $form_value = explode("\n", $cnt_form["fields"][$key]['value']);
@@ -736,7 +733,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         foreach($form_value as $option_value) {
 
                             // search for OPTGROUP
-                            if(str_starts_with(strtoupper($option_value), 'OPTGROUP')) {
+                            if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
                                 $option_value = explode(' ', $option_value, 2);
                                 if(isset($option_value[1]) ) {
                                     $option_value = trim($option_value[1]);
@@ -746,7 +743,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                     $form_optgroup = true;
                                 }
                                 continue;
-                            } elseif(str_starts_with(strtoupper($option_value), '/OPTGROUP')) {
+                            } elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
                                 if($form_optgroup == true) {
                                     $form_field .= '</optgroup>'.LF;
                                     $form_optgroup = false;
@@ -757,9 +754,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             // check if select item has specila value and name
                             $option_value = explode('-|-', $option_value, 2);
                             $option_label = $option_value[0];
-                            $option_value = $option_value[1] ?? $option_label;
+                            $option_value = isset($option_value[1]) ? $option_value[1] : $option_label;
 
-                            if(str_ends_with($option_label, ' -')) {
+                            if(substr($option_label, -2) === ' -') {
                                 $option_label = trim( substr($option_label, 0, strlen($option_label) -2) );
                             }
                             $option_label = str_replace(' selected', '', $option_label);
@@ -769,7 +766,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                             }
 
                             $option_value = html_specialchars($option_value);
-                            if(str_ends_with($option_value, ' -')) {
+                            if(substr($option_value, -2) === ' -') {
                                 $form_field .= '<option value=""';
                                 $option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
                             } elseif(strtolower(substr($option_value, -9)) != ' selected') {
@@ -803,7 +800,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
                         $POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
                     }
-                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] == '')) {
+                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
                         $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     } else {
@@ -811,7 +808,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
                 //
-                $form_field .= '<select id="'.$form_name.'"';
+                $form_field .= '<select class="custom-select" id="'.$form_name.'"';
                 if($cnt_form["fields"][$key]['size']) {
                     $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
                 }
@@ -838,7 +835,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     foreach($form_value as $option_value) {
 
                         // search for OPTGROUP
-                        if(str_starts_with(strtoupper($option_value), 'OPTGROUP')) {
+                        if( strpos(strtoupper($option_value), 'OPTGROUP') === 0 ) {
                             $option_value = explode(' ', $option_value, 2);
                             if(isset($option_value[1]) ) {
                                 $option_value = trim($option_value[1]);
@@ -848,7 +845,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                                 $form_optgroup = true;
                             }
                             continue;
-                        } elseif(str_starts_with(strtoupper($option_value), '/OPTGROUP')) {
+                        } elseif(strpos(strtoupper($option_value), '/OPTGROUP') === 0) {
                             if($form_optgroup == true) {
                                 $form_field .= '</optgroup>'.LF;
                                 $form_optgroup = false;
@@ -871,10 +868,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         }
 
                         $option_value = html_specialchars($option_value);
-                        if(str_ends_with($option_value, ' -')) {
+                        if(substr($option_value, -2) === ' -') {
                             $form_field .= '<option value=""';
                             $option_value = trim( substr($option_value, 0, strlen($option_value) -2) );
-                        } elseif(!str_ends_with($option_value, ' selected')) {
+                        } elseif(substr($option_value, -9) != ' selected') {
                             $form_field .= '<option value="'.$option_value.'"';
                         } else {
                             $option_value = str_replace(' selected', '', $option_value);
@@ -916,7 +913,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
                         $POST_val[$POST_name] = '';
                     }
-                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] == '')) {
+                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
                         $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     } else {
@@ -930,13 +927,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $checkbox_style = $cnt_form["fields"][$key]['style'] ? ' style="'.$cnt_form["fields"][$key]['style'].'"' : '';
                 if (count($form_value) > 1) {
                     $form_value_single = false;
-                    $form_value_inline = !$cnt_form["fields"][$key]['size'];
+                    $form_value_inline = $cnt_form["fields"][$key]['size'] ? false : true;
                 } else {
                     $form_value_single = true;
                     $form_value_inline = false;
                 }
 
-                if (str_starts_with($cnt_form["fields"][$key]['max'], 'B')) {
+                if (substr($cnt_form["fields"][$key]['max'], 0, 1) === 'B') {
                     $form_bs = intval(substr($cnt_form["fields"][$key]['max'], -1));
                     $form_field_prefix = '<div class="'.trim('form-check '.$cnt_form["fields"][$key]['class']);
                     if ($form_value_inline) {
@@ -955,9 +952,9 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $checkbox_value = trim($checkbox_value);
                     $checkbox_value = explode('-|-', $checkbox_value, 2);
                     $checkbox_label = $checkbox_value[0];
-                    $checkbox_value = $checkbox_value[1] ?? $checkbox_label;
+                    $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
                     $checkbox_label = str_replace(' checked', '', $checkbox_label);
-                    if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ?: $form_name)) {
+                    if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
                         $checkbox_value .= ' checked';
                     }
                     $checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
@@ -968,7 +965,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if ($form_bs > 3) {
                         $form_field .= ' class="form-check-input" ';
                     }
-                    if(!str_ends_with($checkbox_value, ' checked')) {
+                    if(substr($checkbox_value, -8) != ' checked') {
                         $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
                         $checkbox_value = str_replace(' checked', '', $checkbox_value);
@@ -989,7 +986,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     foreach($form_value as $checkbox_value) {
                         $checkbox_value = explode('-|-', $checkbox_value, 2);
                         $checkbox_label = $checkbox_value[0];
-                        $checkbox_value = $checkbox_value[1] ?? $checkbox_label;
+                        $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
                         $checkbox_label = str_replace(' checked', '', $checkbox_label);
                         if(isset($POST_val[$POST_name]) && is_array($POST_val[$POST_name])) {
                             foreach($POST_val[$POST_name] as $postvar_value) {
@@ -1015,7 +1012,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         if ($form_bs > 3) {
                             $form_field .= ' class="form-check-input" ';
                         }
-                        if(!str_ends_with($checkbox_value, ' checked')) {
+                        if(substr($checkbox_value, -8) !== ' checked') {
                             $form_field .= 'value="' . $checkbox_value . '"';
                         } else {
                             $checkbox_value = str_replace(' checked', '', $checkbox_value);
@@ -1038,7 +1035,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                  */
                 if($POST_DO && ( $cnt_form["fields"][$key]['required'] || isset($_POST[$POST_name]) ) ) {
                     $POST_val[$POST_name] = isset($_POST[$POST_name]) ? remove_unsecure_rptags(clean_slweg($_POST[$POST_name])) : false;
-                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] == '')) {
+                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
                         $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     } else {
@@ -1052,13 +1049,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $checkbox_style = $cnt_form["fields"][$key]['style'] ? ' style="'.$cnt_form["fields"][$key]['style'].'"' : '';
                 if (count($form_value) > 1) {
                     $form_value_single = false;
-                    $form_value_inline = !$cnt_form["fields"][$key]['size'];
+                    $form_value_inline = $cnt_form["fields"][$key]['size'] ? false : true;
                 } else {
                     $form_value_single = true;
                     $form_value_inline = false;
                 }
 
-                if (str_starts_with($cnt_form["fields"][$key]['max'], 'B')) {
+                if (substr($cnt_form["fields"][$key]['max'], 0, 1) === 'B') {
                     $form_bs = intval(substr($cnt_form["fields"][$key]['max'], -1));
                     $form_field_prefix = '<div class="'.trim('form-check '.$cnt_form["fields"][$key]['class']);
                     if ($form_value_inline) {
@@ -1077,10 +1074,10 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $checkbox_value = trim($checkbox_value);
                     $checkbox_value = explode('-|-', $checkbox_value, 2);
                     $checkbox_label = $checkbox_value[0];
-                    $checkbox_value = $checkbox_value[1] ?? $checkbox_label;
+                    $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
                     $checkbox_label = str_replace(' checked', '', $checkbox_label);
 
-                    if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ?: $form_name)) {
+                    if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == ($checkbox_value ? $checkbox_value : $form_name)) {
                         $checkbox_value .= ' checked';
                     }
                     $checkbox_value = $checkbox_value ? html_specialchars($checkbox_value) : $form_name;
@@ -1090,8 +1087,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.'" ';
                     if ($form_bs > 3) {
                         $form_field .= ' class="form-check-input" ';
-                    }
-                    if(!str_ends_with($checkbox_value, ' checked')) {
+                  }
+                    if(substr($checkbox_value, -8) != ' checked') {
                         $form_field .= 'value="' . $checkbox_value . '" ';
                     } else {
                         $checkbox_value = str_replace(' checked', '', $checkbox_value);
@@ -1113,7 +1110,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                         $checkbox_value = explode('-|-', $checkbox_value, 2);
                         $checkbox_label = $checkbox_value[0];
-                        $checkbox_value = $checkbox_value[1] ?? $checkbox_label;
+                        $checkbox_value = isset($checkbox_value[1]) ? $checkbox_value[1] : $checkbox_label;
                         $checkbox_label = str_replace(' checked', '', $checkbox_label);
                         if(isset($POST_val[$POST_name]) && $POST_val[$POST_name] == $checkbox_value) {
                             $checkbox_value .= ' checked';
@@ -1134,8 +1131,8 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                         $form_field .= '<input type="radio" name="'.$form_name.'" id="'.$form_name.$checkbox_counter.'" ';
                         if ($form_bs > 3) {
                             $form_field .= ' class="form-check-input" ';
-                        }
-                        if(!str_ends_with($checkbox_value, ' checked')) {
+                    }
+                        if(substr($checkbox_value, -8) !== ' checked') {
                             $form_field .= 'value="' . $checkbox_value . '" ';
                         } else {
                             $checkbox_value = str_replace(' checked', '', $checkbox_value);
@@ -1219,30 +1216,30 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } elseif(!empty($_FILES[$POST_name]['name'])) {
                         $cnt_form['upload_value']['filename'] = time().'_'.sanitize_filename($_FILES[$POST_name]['name']);
                         if(
-                            (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
-                          ||
-                            (!empty($cnt_form['upload_value']['exclude']) && preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
-                          ||
-                            (!empty($cnt_form['upload_value']['accept']) && !preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
-                          ||
-                            !@move_uploaded_file(
-                                $_FILES[$POST_name]['tmp_name'],
-                                PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename']
-                            )
-                        ) {
+                                (!empty($cnt_form['upload_value']['maxlength']) && $_FILES[$POST_name]['size'] > intval($cnt_form['upload_value']['maxlength']))
+                                ||
+                                (!empty($cnt_form['upload_value']['exclude']) && preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
+                                ||
+                                (!empty($cnt_form['upload_value']['accept']) && !preg_match($cnt_form['upload_value']['regexp'], strtolower($_FILES[$POST_name]['name'])))
+                                ||
+                                !@move_uploaded_file(
+                                        $_FILES[$POST_name]['tmp_name'],
+                                        PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename']
+                                        )
+                                ) {
 
-                           $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
-                           $POST_ERR[$key] = str_replace('{MAXLENGTH}', empty($cnt_form['upload_value']['maxlength']) ? '' : fsize($cnt_form['upload_value']['maxlength'], ' '), $POST_ERR[$key]);
-                           $POST_ERR[$key] = str_replace('{FILESIZE}', fsize(empty($_FILES[$POST_name]['size']) ? 0 : $_FILES[$POST_name]['size'], ' '), $POST_ERR[$key]);
-                           $POST_ERR[$key] = str_replace('{FILENAME}', empty($_FILES[$POST_name]['name']) || trim($_FILES[$POST_name]['name'])=='' ? '"n.a."' : $_FILES[$POST_name]['name'], $POST_ERR[$key]);
-                           $POST_ERR[$key] = str_replace('{FILEEXT}', '.'.str_replace('|', ', .', str_replace(',', ', .', $cnt_form['upload_value']['exclude'])), $POST_ERR[$key]);
+                                    $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
+                                    $POST_ERR[$key] = str_replace('{MAXLENGTH}', empty($cnt_form['upload_value']['maxlength']) ? '' : fsize($cnt_form['upload_value']['maxlength'], ' '), $POST_ERR[$key]);
+                                    $POST_ERR[$key] = str_replace('{FILESIZE}', fsize(empty($_FILES[$POST_name]['size']) ? 0 : $_FILES[$POST_name]['size'], ' '), $POST_ERR[$key]);
+                                    $POST_ERR[$key] = str_replace('{FILENAME}', empty($_FILES[$POST_name]['name']) || trim($_FILES[$POST_name]['name'])=='' ? '"n.a."' : $_FILES[$POST_name]['name'], $POST_ERR[$key]);
+                                    $POST_ERR[$key] = str_replace('{FILEEXT}', '.'.str_replace('|', ', .', str_replace(',', ', .', $cnt_form['upload_value']['exclude'])), $POST_ERR[$key]);
 
-                        } else {
+                                } else {
 
-                            $POST_val[$POST_name]['name'] = $cnt_form['upload_value']['filename'];
-                            @chmod(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename'], 0644);
+                                    $POST_val[$POST_name]['name'] = $cnt_form['upload_value']['filename'];
+                                    @chmod(PHPWCMS_ROOT.'/'.$cnt_form['upload_value']['folder'].'/'.$cnt_form['upload_value']['filename'], 0644);
 
-                        }
+                                }
                     }
                     if(isset($POST_ERR[$key])) {
                         @unlink($_FILES[$POST_name]['tmp_name']);
@@ -1285,7 +1282,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 $cnt_form["fields"][$key]['class'] = trim('phpwcms-recaptcha-class '.$cnt_form["fields"][$key]['class']);
                 $cnt_form["fields"][$key]['recaptchainv'] = ' data-recaptchainv-submit';
 
-                if(!str_contains(strtolower($cnt_form["fields"][$key]['value']), 'src=')) {
+                if(strpos(strtolower($cnt_form["fields"][$key]['value']), 'src=') === false) {
                     $form_field .= '<button type="submit" name="'.$form_name.'" id="'.$form_name.'" ';
                     $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
                     if($cnt_form["fields"][$key]['style']) {
@@ -1309,7 +1306,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                 /*
                  * Reset
                  */
-                if(!str_contains(strtolower($cnt_form["fields"][$key]['value']), 'src=')) {
+                if(strpos(strtolower($cnt_form["fields"][$key]['value']), 'src=') === false) {
                     $form_field .= '<button type="reset" name="'.$form_name.'" id="'.$form_name.'" ';
                     if($cnt_form["fields"][$key]['class']) {
                         $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
@@ -1487,7 +1484,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     }
 
-                // avoid subtraction with results < 0
+                    // avoid subtraction with results < 0
                 } elseif($mathspam_operation === '-') {
 
                     $mathspam_number_2 = rand(0, $mathspam_number_1);
@@ -1540,7 +1537,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     } else {
                         $POST_val[$POST_name] = isset($_POST[$POST_name]) ? remove_unsecure_rptags(clean_slweg($_POST[$POST_name])) : false;
                     }
-                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] == '')) {
+                    if($cnt_form["fields"][$key]['required'] && ($POST_val[$POST_name] === false || $POST_val[$POST_name] == '')) {
                         $POST_ERR[$key] = $cnt_form["fields"][$key]['error'];
                         $cnt_form["fields"][$key]['class'] = getFieldErrorClass($value['class'], $cnt_form["error_class"]);
                     } else {
@@ -1652,7 +1649,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                     $form_field .= '<label for="'.$form_name.$checkbox_counter.'"' . $checkbox_style . '>';
                     $form_field .= '<input type="checkbox" name="'.$form_name.'[]" id="'.$form_name.$checkbox_counter.'" ';
-                    if(!str_ends_with($checkbox_key, ' checked') && !str_ends_with($checkbox_value, ' checked')) {
+                    if(substr($checkbox_key, -8) != ' checked' && substr($checkbox_value, -8) != ' checked') {
                         $form_field .= 'value="' . $checkbox_key . '" />';
                     } else {
                         $checkbox_key   = str_replace(' checked', '', $checkbox_key);
@@ -1730,10 +1727,12 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     if($cnt_form["fields"][$key]['type'] != 'break') {
                         $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'">'.'<td class="form-label'.$cnt_form['requiredClass'].'">';
                         if($cnt_form["fields"][$key]['label'] != '') {
+                            $form_cnt .= '<label class="mb-0" for="'.$form_name.'">';
                             $form_cnt .= $cnt_form['label_wrap'][0];
                             $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
                             $form_cnt .= $cnt_form['labelReqMark'];
                             $form_cnt .= $cnt_form['label_wrap'][1];
+                            $form_cnt .= '</label>';
                         } else {
                             $form_cnt .= '&nbsp;';
                         }
@@ -1749,7 +1748,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     // DIV based
                     $form_cnt .= '<div class="'.$cnt_form['typeClass'].' form-field'.$cnt_form['requiredClass'];
                     if($cnt_form["fields"][$key]['label'] !== '') {
-                        $form_cnt .= '">' . LF . '  <label class="form-label'.$cnt_form['requiredClass'].'">';
+                        $form_cnt .= '">' . LF . '  <label class="form-label'.$cnt_form['requiredClass'].'" for="'.$form_name.'">';
                         $form_cnt .= $cnt_form['label_wrap'][0];
                         $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
                         $form_cnt .= $cnt_form['labelReqMark'];
@@ -1764,10 +1763,13 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
 
                     // label:field
                     if($cnt_form["fields"][$key]['label'] !== '') {
-                        $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">'.$cnt_form['label_wrap'][0];
+                        $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-label'.$cnt_form['requiredClass'].'">';
+                        $form_cnt .= '<label class="mb-0" for="'.$form_name.'">';
+                        $form_cnt .= $cnt_form['label_wrap'][0];
                         $form_cnt .= html_specialchars($cnt_form["fields"][$key]['label']);
                         $form_cnt .= $cnt_form['labelReqMark'];
-                        $form_cnt .= $cnt_form['label_wrap'][1]."</td></tr>\n";
+                        $form_cnt .= $cnt_form['label_wrap'][1];
+                        $form_cnt .= "</label></td></tr>\n";
                     }
                     $form_cnt .= '<tr class="'.$cnt_form['typeClass'].$cnt_form['requiredClass'].'"><td class="form-field">'.$form_field."</td></tr>\n";
 
@@ -1865,7 +1867,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
             if(is_array($POST_keyval)) {
                 if (isset($POST_keyval['folder'])) {
-                    // check if this is an array - and is an upload value
+                // check if this is an array - and is an upload value
                     if (empty($POST_keyval['name'])) {
                         $POST_keyval = $POST_keyval['text_no_upload'];
                     } else {
@@ -1873,7 +1875,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
                         if ( isset( $POST_keyval['attachment'] ) && $POST_keyval['attachment'] ) {
                             $POST_attach[] = PHPWCMS_ROOT . '/' . $POST_keyval['folder'] . '/' . $POST_keyval['name'];
                         }
-                        if ( ! $cnt_form['template_format'] ) {
+                        if(!$cnt_form['template_format']) {
                             $POST_keyval = $POST_valurl;
                         }
                     }
@@ -1956,7 +1958,7 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
 
         $cnt_form["onsuccess"]  = str_replace('{REMOTE_IP}', PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP(), $cnt_form["onsuccess"]);
 
-        if(str_contains($cnt_form["onsuccess"], 'EMAIL_COPY')) {
+        if(strpos($cnt_form["onsuccess"], 'EMAIL_COPY') !== false) {
             if($cnt_form["onsuccess_redirect"] === 1) {
                 $cnt_form["onsuccess"] = render_cnt_template($cnt_form["onsuccess"], 'EMAIL_COPY', empty($cnt_form['sendcopy']) || $cnt_form['option_email_copy'] === false ? '' : rawurlencode($cnt_form["copyto"]));
             } else {
@@ -2010,7 +2012,9 @@ if((!empty($POST_DO) && empty($POST_ERR)) || !empty($doubleoptin_values)) {
     // get email addresses of recipients and senders
     $cnt_form["target"] = convertStringToArray($cnt_form["target"], ';');
     if(empty($cnt_form["subject"])) {
-        $cnt_form["subject"]  = 'Webform: ' . parse_url($phpwcms['site'], PHP_URL_HOST);
+        $cnt_form["alt_subj"] = str_replace('http://', '', $phpwcms['site']);
+        $cnt_form["alt_subj"] = substr($cnt_form["alt_subj"], 0, trim($phpwcms['site'], '/'));
+        $cnt_form["subject"]  = 'Webform: '.$cnt_form["alt_subj"];
     }
 
     // check for BCC Addresses
@@ -2132,9 +2136,9 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
             } else {
                 unset($cnt_form["copytoError"]);
             }
-
-            unset($mail);
         }
+
+        unset($mail);
 
         // now send original message
         $mail = new PhpwcmsMailer($phpwcms);
@@ -2356,12 +2360,12 @@ if((!empty($POST_DO) && empty($POST_ERR)) || (!empty($doubleoptin_values) && !$d
 
     if(isset($_FILES)) {
         foreach($_FILES as $file_key => $file_val) {
-            @unlink($file_val['tmp_name']);
+            @unlink($_FILES[$file_key]['tmp_name']);
         }
         if(isset($POST_val) && count($POST_val)) {
             foreach($POST_val as $file_key => $file_val) {
-                if(isset($file_val['name'])) {
-                    @unlink(PHPWCMS_ROOT.'/'. $file_val['folder']. $file_val['name']);
+                if(isset($POST_val[$file_key]['name'])) {
+                    @unlink(PHPWCMS_ROOT.'/'.$POST_val[$file_key]['folder'].$POST_val[$file_key]['name']);
                 }
             }
         }
@@ -2425,7 +2429,7 @@ if($form_cnt) {
         $cnt_form['class'] = '';
     }
     $CNT_TMP .= $form_error_text;
-    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.abs_url();
+    $CNT_TMP .= '<form id="phpwcmsForm'.$crow["acontent_id"].'"'.$cnt_form['class'].' action="'.rel_url();
     if(empty($cnt_form['anchor_off'])) {
         $CNT_TMP .= '#';
         $CNT_TMP .= empty($cnt_form['anchor_name']) ? html($cnt_form['anchor_name']) : 'jumpForm'.$crow["acontent_id"];
@@ -2434,11 +2438,13 @@ if($form_cnt) {
     if($cnt_form['is_enctype']) {
         $CNT_TMP .= 'enctype="multipart/form-data" ';
     }
-    $CNT_TMP .= 'method="post" role="form"';
+    //add data-toggle
+    $CNT_TMP .= 'method="post" data-toggle="validator" role="form"';
     if(!empty($cnt_form['novalidate'])) {
         $CNT_TMP .= ' novalidate';
     }
     $CNT_TMP .= '>';
+    //end
 
 
     if($cnt_form['labelpos'] == 2) {
@@ -2458,7 +2464,7 @@ if($form_cnt) {
 
     } else {
 
-        $CNT_TMP .= '<table cellspacing="0" cellpadding="0" border="0">';
+        $CNT_TMP .= '<table>';
         $CNT_TMP .= "\n".$form_cnt.'</table>';
 
     }

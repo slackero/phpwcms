@@ -1,17 +1,16 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 // set page processiong start time
 list($usec, $sec) = explode(' ', microtime());
-$phpwcms_rendering_start = (float) $usec + (float) $sec;
+$phpwcms_rendering_start = $usec + $sec;
 
 // define some general vars
 $content            = array();
@@ -21,15 +20,16 @@ $template_default   = array();
 $indexpage          = array();
 
 // load general configuration
-if(!is_file(__DIR__ . '/include/config/conf.inc.php')) {
-    if(is_file(__DIR__ . '/setup/index.php')) {
+$basepath           = str_replace('\\', '/', dirname(__FILE__));
+if(!is_file($basepath.'/include/config/conf.inc.php')) {
+    if(is_file($basepath.'/setup/index.php')) {
         header('Location: setup/index.php');
         exit();
     }
     die('Error: Config file missing. Check your setup!');
 }
-require_once __DIR__ . '/include/config/conf.inc.php';
-require_once __DIR__ . '/include/inc_lib/default.inc.php';
+require_once $basepath.'/include/config/conf.inc.php';
+require_once $basepath.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 
@@ -68,7 +68,7 @@ require PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
 require PHPWCMS_ROOT.'/include/inc_front/content.func.inc.php';
 
 // SEO logging
-if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && !str_contains($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME'])) {
+if(!empty($phpwcms['enable_seolog']) && !empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], $_SERVER['SERVER_NAME']) === false) {
     $phpwcms['seo_referrer_data'] = seReferrer( $_SERVER['HTTP_REFERER'] );
     if( is_array( $phpwcms['seo_referrer_data'] ) ) {
         $phpwcms['seo_referrer_data']['hash'] = md5(strtolower($phpwcms['seo_referrer_data']['domain'].$phpwcms['seo_referrer_data']['query']));
@@ -170,14 +170,14 @@ if(count($block['bodyjs'])) {
     $content['page_end'] .= implode(LF, $block['bodyjs']);
 }
 if(!empty($phpwcms['browser_check']['fe'])) {
-    $buoop = array('insecure' => !isset($phpwcms['browser_check']['insecure']) || boolval($phpwcms['browser_check']['insecure']));
+    $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
     if(!empty($phpwcms['browser_check']['vs'])) {
         $buoop['vs'] = $phpwcms['browser_check']['vs'];
     }
     if(!empty($phpwcms['browser_check']['required'])) {
         $buoop['required'] = '{' . trim($phpwcms['browser_check']['required'], '{}') . '}';
     }
-    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>var $buoop = ' . json_encode($buoop) . '; </script>';
+    $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.'>const $buoop = ' . json_encode($buoop) . '; </script>';
     $content['page_end'] .= '<script'.SCRIPT_ATTRIBUTE_TYPE.' src="https://browser-update.org/update.min.js"></script>';
 }
 $content['page_end'] .= LF.'</body>'.LF.'</html>';
@@ -207,7 +207,7 @@ if(empty($phpwcms['disable_generator'])) {
 // retrieve complete processing time
 if(empty($phpwcms['disable_processed_in'])) {
     list($usec, $sec) = explode(' ', microtime());
-    header('X-phpwcms-Page-Processed-In: ' . number_format(1000 * ((float) $usec + (float) $sec - $phpwcms_rendering_start), 3) . ' ms');
+    header('X-phpwcms-Page-Processed-In: ' . number_format(1000 * ($usec + $sec - $phpwcms_rendering_start), 3) . ' ms');
 }
 
 // print PDF

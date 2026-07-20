@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -127,7 +126,11 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
             break;
     }
 
-    $result = imagecopyresized($new_img, $img_source, 0, 0, 0, 0, $img_width, $img_height, $img_info[0], $img_info[1]);
+    if (isset($img_source)) {
+        $result = imagecopyresized($new_img, $img_source, 0, 0, 0, 0, $img_width, $img_height, $img_info[0], $img_info[1]);
+    } else {
+        $result = false;
+    }
 
     if ($result) {
         header('Content-type: ' . $img_mimetype);
@@ -146,10 +149,10 @@ if ($img_file !== '' && is_readable($img_file) && $img_info = getimagesize($img_
                 $result = imagegif($new_img);
                 break;
         }
-    }
 
-    imagedestroy($new_img);
-    imagedestroy($img_source);
+        imagedestroy($new_img);
+        imagedestroy($img_source); // @phpstan-ignore-line
+    }
 }
 
 // Error / no image

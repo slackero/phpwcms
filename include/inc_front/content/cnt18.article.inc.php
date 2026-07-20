@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -208,7 +207,7 @@ if($guestbook['visible']) {
 
             } elseif(!empty($_POST['guestbook_hiddenfile'])) { //same file was just uploaded
 
-                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile']), ['allowed_classes' => false]);
+                $guestbook['hidden'] = unserialize(base64_decode($_POST['guestbook_hiddenfile'], ['allowed_classes' => false]));
 
                 $guestbook['image']['name'] = $guestbook['hidden']['name'];
                 $guestbook['image']['hash'] = $guestbook['hidden']['hash'];
@@ -283,12 +282,12 @@ if($guestbook['visible']) {
 
         // image width
         $guestbook['imgdata'][0] = empty($guestbook['imgdata'][0]) ? '' : intval($guestbook['imgdata'][0]);
-        if($guestbook['imgdata'][0] == 0) {
+        if($guestbook['imgdata'][0] === 0) {
             $guestbook['imgdata'][0] = '';
         }
         // image height
         $guestbook['imgdata'][1] = empty($guestbook['imgdata'][1]) ? '' : intval($guestbook['imgdata'][1]);
-        if($guestbook['imgdata'][1] == 0) {
+        if($guestbook['imgdata'][1] === 0) {
             $guestbook['imgdata'][1] = '';
         }
         // image zoom
@@ -633,7 +632,7 @@ if($guestbook['visible']) {
             $guestbook['nav'] = preg_replace_callback('/{PAGE:(\d+):(.*?)}/s', 'guestbook_pages', $guestbook['nav']);
 
             // archive (form)
-            if( ! (!str_contains($guestbook['nav'], '{ARCHIVE')) ) {
+            if( ! ( strpos($guestbook['nav'],'{ARCHIVE')===false ) ) {
                 preg_match('/{ARCHIVE:(.*?)}/s', $guestbook['nav'], $guestbook['archiveval']);
                 $guestbook['archiveval'] = explode('|', $guestbook['archiveval'][1]);
                 $guestbook['archive']  = '<form name="guestbookarchive" id="guestbookarchive" method="post" action="index.php?id='.implode(',', $aktion).'">';
@@ -686,7 +685,7 @@ if($guestbook['visible']) {
             }
 
             // jump to menu (form)
-            if( ! (!str_contains($guestbook['nav'], '{JUMP')) ) {
+            if( ! ( strpos($guestbook['nav'],'{JUMP')===false ) ) {
                 preg_match('/{JUMP:(.*?)}/s', $guestbook['nav'], $guestbook['jumpval']);
                 $guestbook['jumpval'] = explode('|', $guestbook['jumpval'][1]);
                 $guestbook['jump']  = '<form name="guestbookjump" id="guestbookjump" method="post" action="index.php?id='.implode(',', $aktion).'">';

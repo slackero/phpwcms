@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -13,25 +12,25 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
 // Content Type Page/ext. Content
-$content['page_file']['source'] = intval($_POST['cpage_source']);
+$content['page_file']['source'] = (int)$_POST['cpage_source'];
 
 if (!$content['page_file']['source']) {
 
-	$content['page_file']['pfile'] = isset($_POST['cpage_file']) ? clean_slweg($_POST['cpage_file']) : '';
-	if (!file_exists($content['page_file']['pfile'])) {
-		$content['page_file']['pfile'] = '';
-	}
+    $content['page_file']['pfile'] = isset($_POST['cpage_file']) ? clean_slweg($_POST['cpage_file']) : '';
+    if (!file_exists($content['page_file']['pfile'])) {
+        $content['page_file']['pfile'] = '';
+    }
 
 } else {
 
-	$content['page_file']['pfile'] = clean_slweg($_POST['cpage_custom']);
+    $content['page_file']['pfile'] = clean_slweg($_POST['cpage_custom']);
 
-	if (!is_file($content['page_file']['pfile'])) {
+    if (!is_file($content['page_file']['pfile'])) {
         $content['page_file']['pfile'] = filter_var($content['page_file']['pfile'], FILTER_SANITIZE_URL);
         if (filter_var($content['page_file']['pfile'], FILTER_VALIDATE_URL)) {
             list($content['page_file']['checkurl']) = explode('?', $content['page_file']['pfile']);
@@ -42,6 +41,5 @@ if (!$content['page_file']['source']) {
         } else {
             $content['page_file']['pfile'] = '';
         }
-	}
-
+    }
 }

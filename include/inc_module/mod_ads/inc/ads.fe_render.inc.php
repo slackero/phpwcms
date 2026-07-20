@@ -1,12 +1,11 @@
 <?php
 
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -92,7 +91,7 @@ function renderAds($match) {
 	}
 
 	$ad_media	= '';
-	$ad_title	= ' title="'.html($ad['adcampaign_data']['title_text'] ?: $ad['adcampaign_data']['url']).'"';
+	$ad_title	= ' title="'.html($ad['adcampaign_data']['title_text'] ? $ad['adcampaign_data']['title_text'] : $ad['adcampaign_data']['url']).'"';
 	$ad_alt		= $ad['adcampaign_data']['alt_text'] ? ' alt="'.html_specialchars($ad['adcampaign_data']['alt_text']).'"' : ' alt=""';
 	$ad_wxh		= ' style="width:'.$ad['adplace_width'].'px;height:'.$ad['adplace_height'].'px;"';
 	$ad_imgsrc	= $ad['content_dir'].$ad['adcampaign_data']['image'];

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -23,7 +22,7 @@ $cinfo["result"]  = ($row["acontent_title"])?(cut_string($row["acontent_title"],
 $cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"])?(" / "):("");
 $cinfo["result"] .= ($row["acontent_subtitle"])?(cut_string($row["acontent_subtitle"],'&#8230;', 55)):("");
 
-$reference = unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$reference = unserialize($row["acontent_form"], ['allowed_classes' => false]);
 if(is_array($reference["list"]) && count($reference["list"])) {
 
     $imgx=0;

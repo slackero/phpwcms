@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -63,7 +62,13 @@ if($tabs['template']) {
     $tabs['total_entries'] = count($tabs['tabs']);
 
     foreach($tabs['tabs'] as $key => $entry) {
+        if (isset($entry['tabactive']) && $entry['tabactive'] === 0) {
+            $tabs['total_entries']--;
+            continue;
+        }
+
         $tab_id = $key+1;
+
         $tabs['entries'][$key] = str_replace('{TABID}', $tab_id, $tabs['tmpl_entry']);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'FIRST', $tab_id > 1 ? '' : $tab_id);
         $tabs['entries'][$key] = render_cnt_template($tabs['entries'][$key], 'LAST', $tab_id === $tabs['total_entries'] ? $tab_id : '');
@@ -124,9 +129,10 @@ if($tabs['template']) {
                     if(!empty($custom_field_value['id'])) {
 
                         $IS_NEWS_CP = true;
+                        $_crow = $crow; // temporary save
 
-                        if (!is_array($value)) {
-                            $value = array();
+                        if (!isset($value) || !is_array($value)) {
+                            $value = array('cnt_object' => array());
                         } elseif (!isset($value['cnt_object']) || !is_array($value['cnt_object'])) {
                             $value['cnt_object'] = array();
                         }
@@ -141,7 +147,8 @@ if($tabs['template']) {
                         // include content part files renderer
                         include PHPWCMS_ROOT.'/include/inc_front/content/cnt7.article.inc.php';
 
-                        unset($IS_NEWS_CP);
+                        $crow = $_crow;
+                        unset($IS_NEWS_CP, $_crow);
 
                     }
 

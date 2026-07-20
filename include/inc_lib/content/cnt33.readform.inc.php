@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -63,8 +62,8 @@ if( ! in_array($content['news']['news_andor'], array('OR', 'AND', 'NOT')) ) {
 }
 
 if(is_intval($content['news']['news_detail_link'])) {
-	$content['news']['news_detail_link'] = intval($content['news']['news_detail_link']) ?: '';
+	$content['news']['news_detail_link'] = intval($content['news']['news_detail_link']) ? intval($content['news']['news_detail_link']) : '';
 }
 if(is_intval($content['news']['news_archive_link'])) {
-	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ?: '';
+	$content['news']['news_archive_link'] = intval($content['news']['news_archive_link']) ? intval($content['news']['news_archive_link']) : '';
 }

@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
- * @author Oliver Georgi <oliver@phpwcms.org>
+ * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -112,7 +111,6 @@ if($action == 'edit') {
         $plugin['data']['shopprod_tag']				= strtolower( preg_replace('/[^0-9a-z, \-_]/i', '', phpwcms_remove_accents($_POST['shopprod_tag']) ) );
         $plugin['data']['shopprod_tag']				= implode(', ', convertStringToArray($plugin['data']['shopprod_tag']));
 
-
         // Images
         $plugin['data']['shopprod_caption']			= clean_slweg($_POST["shopprod_caption"], 0 , false);
         $plugin['data']['shopprod_caption'] 		= explode(LF, $plugin['data']['shopprod_caption']);
@@ -202,7 +200,7 @@ if($action == 'edit') {
         // Duplicate it?
         $plugin['data']['shopprod_duplicate'] = empty($_POST['shopprod_duplicate']) ? 0 : 1;
 
-        $plugin['data']['shopprod_on_request'] = empty($_POST['shopprod_on_request']) ? 0 : 1;
+        $plugin['data']['shopprod_on_request'] = empty($_POST['shopprod_on_request']) ? 0 : 1;;
         $plugin['data']['shopprod_on_request_url'] = clean_slweg($_POST['shopprod_on_request_url']);
 
         if(empty($plugin['error'] )) {
@@ -384,8 +382,8 @@ if($action == 'edit') {
             }
             $plugin['data']['shopprod_caption']		= array();
             $plugin['data']['shopprod_filecaption']	= array();
-            $plugin['data']['shopprod_url']			= $plugin['data']['shopprod_var']['url'] ?? '';
-            $plugin['data']['shopprod_unit']		= $plugin['data']['shopprod_unit'] ?? '';
+            $plugin['data']['shopprod_url']			= isset($plugin['data']['shopprod_var']['url']) ? $plugin['data']['shopprod_var']['url'] : '';
+            $plugin['data']['shopprod_unit']		= isset($plugin['data']['shopprod_unit']) ? $plugin['data']['shopprod_unit'] : '';
             $plugin['data']['shopprod_opengraph']	= empty($plugin['data']['shopprod_opengraph']) ? 0 : 1;
             $plugin['data']['shopprod_overwrite_meta']	= empty($plugin['data']['shopprod_overwrite_meta']) ? 0 : 1;
 

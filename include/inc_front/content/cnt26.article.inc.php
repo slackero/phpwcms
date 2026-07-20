@@ -1,11 +1,10 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
@@ -45,7 +44,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 	foreach($crow["acontent_form"]['ingredients'] as $temp_val) {
 		$temp_val = html_specialchars($temp_val);
 
-		if(str_starts_with($temp_val, '*')) {	//headline
+		if(substr($temp_val, 0, 1) === '*') {	//headline
 			if(isset($crow["acontent_form"]['temp'][$ingrediens_counter]['h'])) {
 				$ingrediens_counter++;
 			}
@@ -80,7 +79,7 @@ if(count($crow["acontent_form"]['ingredients'])) {
 			}
 			if(isset($temp_val['li'])) {
 				$crow["acontent_form"]['ingredients']	.= '<ul>' . LF . implode(LF, $temp_val['li']) . LF . '</ul>' . LF;
-				$crow["acontent_form"]['i_table']		.= '<table cellpadding="0" cellspacing="0" border="0">' . LF . implode(LF, $temp_val['tr']) . LF . '</table>' . LF;
+				$crow["acontent_form"]['i_table']		.= '<table>' . LF . implode(LF, $temp_val['tr']) . LF . '</table>' . LF;
 			}
 		}
 	}

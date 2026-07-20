@@ -1,27 +1,26 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
-// build Google Sitemap based on available articles and news
+// build Google Sitemap based on available articles
 
 $phpwcms = [];
-require_once __DIR__ . '/include/config/conf.inc.php';
+require_once 'include/config/conf.inc.php';
 
-// set necessary charset
+// set neccessary charset
 $phpwcms['charset'] = 'utf-8';
-define('CUSTOM_CONTENT_TYPE', 'Content-Type: text/xml');
+const CUSTOM_CONTENT_TYPE = 'Content-Type: text/xml';
 
-require_once __DIR__ . '/include/inc_lib/default.inc.php';
+require_once 'include/inc_lib/default.inc.php';
 
 // Caching logic using PHPWCMS_CONTENT to prevent DB/server overload
-$cache_dir = PHPWCMS_CONTENT . 'cache';
+$cache_dir = PHPWCMS_CONTENT . '/cache';
 $cache_file = $cache_dir . '/sitemap.cache.xml';
 $cache_time = 12 * 3600; // 12 hours in seconds
 
@@ -33,7 +32,7 @@ if (is_file($cache_file) && (time() - filemtime($cache_file) < $cache_time)) {
 
 ob_start();
 
-define('VISIBLE_MODE', 0);
+const VISIBLE_MODE = 0;
 require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT . '/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
@@ -47,7 +46,7 @@ echo 'xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 ';
 echo 'http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">' . LF . LF;
 echo '  <!-- Google Sitemap, https://www.google.com/webmasters/sitemaps/ -->' . LF . LF;
 
-// reads complete structure as array
+//reads complete structure as array
 $struct = get_struct_data();
 
 // fallback value when no article available
@@ -81,7 +80,7 @@ if ($phpwcms['sitemap_set_default']) {
 
         foreach ($result as $data) {
 
-            // first proof if this article is within a "public" structure section
+            // first proof if this article is within an "public" structure section
             if (isset($struct[$data['article_cid']])) {
                 $_CAT = $struct[$data['article_cid']];
                 if ($_CAT['acat_regonly'] || $_CAT['acat_nosearch'] || !$_CAT['acat_nositemap']) {

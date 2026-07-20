@@ -1,18 +1,17 @@
 <?php
 /**
- * phpwcms content management system
+ * phpwcms
  *
  * @author Oliver Georgi <og@phpwcms.org>
  * @copyright Copyright (c) 2002-2026, Oliver Georgi
  * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- * @link http://www.phpwcms.org
  *
  **/
 
 $phpwcms = array('SESSION_START' => true);
-$base_dir = dirname(__DIR__, 2);
-require_once $base_dir . '/include/config/conf.inc.php';
-require_once $base_dir . '/include/inc_lib/default.inc.php';
+
+require_once '../config/conf.inc.php';
+require_once '../inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -103,7 +102,7 @@ input, textarea {
 </style>
 </head>
 <body>
-<table width="100%" border="0" cellpadding="2" cellspacing="0" summary="">
+<table width="100%" cellpadding="2">
 <?php
 
 $gbid = empty($_GET['cid']) ? 0 : intval($_GET['cid']);
@@ -127,7 +126,7 @@ if(isset($result[0]['guestbook_cid'])) {
 ?>
   <tr bgcolor="#E7E8EB">
     <td><strong><?php echo date('Y-m-d H:i', intval($row['guestbook_created'])).' | IP: <a href="http://www.dnsstuff.com/tools/ptr.ch?ip='.$row['guestbook_ip'].'" target="_blank">'.$row['guestbook_ip'].'</a> | <a href="http://www.dnsstuff.com/tools/whois.ch?ip='.$row['guestbook_ip'].'" target="_blank">WHOIS</a>' ?></strong></td>
-    <td align="right"><a href="act_guestbook.php?<?php echo $action_basis.'edit='.$row['guestbook_id'] ?>" target="_self"><img src="../../img/button/edit_22x13.gif" width="22" height="13" border="0" alt="edit guestbook entry" /></a><img src="../../img/leer.gif" alt="" width="2" height="1" /><a href="act_guestbook.php?<?php echo $action_basis.'del='.$row['guestbook_id'] ?>" target="_self" onclick="return confirm('Do you really want to \ndelete this guestbook entry?');"><img src="../../img/button/trash_13x13_1.gif" alt="delete entry" width="13" height="13" border="0" /></a></td>
+    <td align="right"><a href="act_guestbook.php?<?php echo $action_basis.'edit='.$row['guestbook_id'] ?>" target="_self"><img src="../../img/button/edit_22x13.gif" width="22" height="13" border="0" alt="edit guestbook entry" /></a><img src="../../img/leer.gif" alt="" width="2" height="1" /><a href="act_guestbook.php?<?php echo $action_basis.'del='.$row['guestbook_id'] ?>" target="_self" class="confirm-link" data-confirm-type="danger" data-confirm-action="<?php echo html($GLOBALS['BL']['modal_delete']); ?>" data-confirm="Do you really want to delete this guestbook entry?"><img src="../../img/button/trash_13x13_1.gif" alt="delete entry" width="13" height="13" border="0" /></a></td>
   </tr>
   <tr>
     <td colspan="2"><?php
@@ -192,7 +191,7 @@ if(isset($result[0]['guestbook_cid'])) {
   </tr>
   <tr>
       <td valign="top">msg:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>
-      <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
+      <td><textarea name="gbmsg" rows="10" id="gbmsg" class="width350 field-sizing-content field-sizing-content-10"><?php echo htmlspecialchars($row['guestbook_msg']) ?></textarea></td>
   </tr>
   <tr>
     <td valign="top" class="v10">display:<img src="../../img/leer.gif" alt="" width="1" height="15" />&nbsp;</td>

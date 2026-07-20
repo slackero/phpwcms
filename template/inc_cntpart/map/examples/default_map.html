@@ -1,0 +1,23 @@
+<p style="background-color:#D7E3E2 "><strong>location point setting</strong><strong><br>
+</strong>INT border, INT width, INT height, HEX background color, HEX fill color
+(no spaces please) </p>
+<p>
+<!--VAR_START//-->1,9,9,FFFFFF,FF4000<!--VAR_END//-->
+</p>
+<p style="background-color:#D7E3E2 "><strong>content formatting <br>
+</strong>[TEXT]{TEXT}[/TEXT], [MAP]{MAP}[/MAP], [LOCATION]{LOCATION}[/LOCATION]</p>
+<p>
+<!--CONTENT_START//-->
+[MAP]<div style="float:right;">{MAP}</div>[/MAP]
+[TEXT]<p class="articleText">{TEXT}</p>[/TEXT]
+[LOCATION]{LOCATION}[/LOCATION]
+<!--CONTENT_END//-->
+
+<p style="background-color:#D7E3E2 "><strong>content formatting <br>
+</strong>{TITLE}, [ZIP]{ZIP}[/ZIP], [CITY]{CITY}[/CITY], [ENTRY]{ENTRY}[/ENTRY] </p>
+<p>
+<!--LOCATION_START//-->
+<h3>{TITLE}</h3>
+<div>[ZIP]<strong>{ZIP}</strong> [/ZIP][CITY]<strong>{CITY}</strong>[/CITY]
+[ENTRY]<br />{ENTRY}[/ENTRY]</div>
+<!--LOCATION_END//-->
