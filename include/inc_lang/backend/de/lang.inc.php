@@ -1398,7 +1398,7 @@ $BL['be_system_container_norender'] = 'ohne regul&auml;re Ausgabe im Frontend';
 $BL['be_custom_scriptlogic'] = 'benutzerdefiniert (Scriptlogik)';
 $BL['be_flush_image_cache'] = 'Bildcache leeren';
 $BL['be_flush_image_cache_confirm'] = 'Soll der Bildcache wirklich geleert werden?';
-$BL['be_flush_image_cache_success'] = 'Bildcache erfolgreich geleert. %d Datei(en) gelöscht.';
+$BL['be_flush_image_cache_success'] = 'Bildcache erfolgreich geleert. %d Datei(en) gel&ouml;scht.';
 
 $BL['be_caption_alt'] = 'alt Attr.';
 $BL['be_caption_title'] = 'title Attr.';
@@ -1420,7 +1420,7 @@ $BL['be_breadcrumb'] = 'Breadcrumb Anzeigeverhalten';
 $BL['be_breadcrumb_nothidden'] = 'sichtbar, wenn Seitenebene versteckt';
 $BL['be_breadcrumb_nolink'] = 'nicht verlinken';
 
-$BL['CSRF_ERROR_TITLE'] = 'Sicherheitsüberprüfung fehlgeschlagen';
+$BL['CSRF_ERROR_TITLE'] = 'Sicherheits&uuml;berpr&uuml;fung fehlgeschlagen';
 $BL['CSRF_POST_INVALID'] = 'Keine POST <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fparameter gefunden. Formular&uuml;bermittlung abgebrochen.';
 $BL['CSRF_POST_FAILED'] = 'Die POST <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fung ist fehlgeschlagen. Formular&uuml;bermittlung abgebrochen.';
 $BL['CSRF_GET_INVALID'] = 'Keine GET <a href="https://de.wikipedia.org/wiki/Cross-Site-Request-Forgery" target="_blank" rel="noopener noreferrer">CSRF</a>-Pr&uuml;fparameter gefunden. Navigation abgebrochen.';
@@ -1629,12 +1629,12 @@ $BL['be_cnt_fpro_usecaption']            = 'Dateizentrums-&quot;'.$BL['be_ftptak
 
 
 // Bootstrap Modal & Alert translations
-$BL['modal_confirm'] = 'Bestätigen';
+$BL['modal_confirm'] = 'Best&auml;tigen';
 $BL['modal_cancel'] = 'Abbrechen';
-$BL['modal_title_confirm'] = 'Bestätigung';
+$BL['modal_title_confirm'] = 'Best&auml;tigung';
 $BL['modal_title_alert'] = 'Information';
 $BL['modal_ok'] = 'OK';
-$BL['modal_delete'] = 'Löschen';
+$BL['modal_delete'] = 'L&ouml;schen';
 $BL['modal_move'] = 'Verschieben';
 $BL['modal_copy'] = 'Kopieren';
 $BL['modal_flush'] = 'Leeren';

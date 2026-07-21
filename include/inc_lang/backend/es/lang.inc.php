@@ -622,7 +622,7 @@ $BL['be_admin_tmpl_nolayout']           = '&iexcl;No hay composici&oacute;n de p
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'Buscar';
 $BL['be_cnt_results']                   = 'Resultados';
-$BL['be_cnt_results_per_page']          = 'Por&nbsp;p&aacute;gina (si está vac&iacute;o mostrar todo)';
+$BL['be_cnt_results_per_page']          = 'Por&nbsp;p&aacute;gina (si est&aacute; vac&iacute;o mostrar todo)';
 $BL['be_cnt_opennewwin']                = 'Abrir nueva ventana';
 $BL['be_cnt_searchlabeltext']           = 'Estos son textos y valores predefinidos para el formulario de b&uacute;squeda y para los resultados.';
 $BL['be_cnt_input']                     = 'Input';
@@ -648,18 +648,18 @@ $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Visible s&oacute;lo para usuarios registrados';
-$BL['be_admin_struct_status']           = 'Estado del menú frontend';
+$BL['be_admin_struct_status']           = 'Estado del men&uacute; frontend';
 
 // added: 15-02-2004
 $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
-$BL['CSRF_ERROR_TITLE'] = 'Fallo de Validación de Seguridad';
-$BL['CSRF_POST_INVALID'] = 'No se encontraron parámetros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Envío de formulario abortado.';
-$BL['CSRF_POST_FAILED'] = 'Fallo al validar los parámetros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Envío de formulario abortado.';
-$BL['CSRF_GET_INVALID'] = 'No se encontraron parámetros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegación abortada.';
-$BL['CSRF_GET_FAILED'] = 'Fallo al validar los parámetros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegación abortada.';
+$BL['CSRF_ERROR_TITLE'] = 'Fallo de Validaci&oacute;n de Seguridad';
+$BL['CSRF_POST_INVALID'] = 'No se encontraron par&aacute;metros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Env&iacute;o de formulario abortado.';
+$BL['CSRF_POST_FAILED'] = 'Fallo al validar los par&aacute;metros POST <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Env&iacute;o de formulario abortado.';
+$BL['CSRF_GET_INVALID'] = 'No se encontraron par&aacute;metros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegaci&oacute;n abortada.';
+$BL['CSRF_GET_FAILED'] = 'Fallo al validar los par&aacute;metros GET <a href="https://es.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a>. Navegaci&oacute;n abortada.';
 $BL['CSRF_BTN_BACK'] = 'Volver';
 $BL['CSRF_BTN_LOGIN'] = 'Ingresar';
 $BL['CSRF_BTN_DASHBOARD'] = 'Tablero';
@@ -1507,8 +1507,8 @@ $BL['be_cnt_field']                     = array(
 // Bootstrap Modal & Alert translations
 $BL['modal_confirm'] = 'Confirmar';
 $BL['modal_cancel'] = 'Cancelar';
-$BL['modal_title_confirm'] = 'Confirmación';
-$BL['modal_title_alert'] = 'Información';
+$BL['modal_title_confirm'] = 'Confirmaci&oacute;n';
+$BL['modal_title_alert'] = 'Informaci&oacute;n';
 $BL['modal_ok'] = 'Aceptar';
 $BL['modal_delete'] = 'Eliminar';
 $BL['modal_move'] = 'Mover';
@@ -1516,10 +1516,10 @@ $BL['modal_copy'] = 'Copiar';
 $BL['modal_flush'] = 'Vaciar';
 $BL['be_metadata'] = 'Metadatos';
 $BL['be_content'] = 'Contenido';
-$BL['be_images'] = 'Imágenes';
+$BL['be_images'] = 'Im&aacute;genes';
 $BL['be_article_show'] = 'Mostrar';
 $BL['be_active'] = 'Activo';
 $BL['be_cnt_summary_label'] = 'Resumen';
-$BL['be_cnt_max_words'] = 'máx. palabras';
+$BL['be_cnt_max_words'] = 'm&aacute;x. palabras';
 
 $BL['be_dashboard_support'] = 'Contacto y Soporte';
