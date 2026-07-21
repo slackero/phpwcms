@@ -1251,6 +1251,9 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
  */
 function correct_charset($text='', $js=false) {
 
+    if (strpos($text, '&') !== false) {
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
     if(PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($text)) {
         $text = mb_convert_encoding($text, PHPWCMS_CHARSET);
     }

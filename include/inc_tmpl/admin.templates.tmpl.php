@@ -409,7 +409,7 @@ if(!isset($_GET["s"])) {
     ?>
     <script type="text/javascript">
         function doPageLayoutChange() {
-        if(confirm('<?php echo $BL['be_admin_template_jswarning'] ?>')) {
+        if(confirm('<?php echo correct_charset($BL['be_admin_template_jswarning'], true); ?>')) {
                 document.blocks.submit();
                 return true;
             }
