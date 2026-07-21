@@ -172,6 +172,7 @@ function check_image_extension($file, $filename, $file_image_size) {
                      break;
 
             case 16: $result = 'xbm'; break;
+            case 18:
             case 32: $result = 'webp'; break;
         }
     }

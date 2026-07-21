@@ -95,7 +95,8 @@ function image_manipulate($config=array()) {
         'create_thumb' => false,
         'target_ext' => $config["target_ext"],
         'colorspace' => $phpwcms['colorspace'],
-        'animated_gif' => $config["animated_gif"]
+        'animated_gif' => $config["animated_gif"],
+        'animated_webp' => $config["animated_webp"] ?? false
     );
 
     $IMG = new Phpwcms_Image_lib($image_config);
@@ -199,7 +200,8 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
             'crop_image'  => false,
             'crop_pos' => '',
             'img_filename' => '',
-            'animated_gif' => false
+            'animated_gif' => false,
+            'animated_webp' => false
         ),
         $val
     );
@@ -255,13 +257,13 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
 
     }
 
-    // Check if animated GIF
+    // Check if animated GIF or animated WebP
     if ($val['target_ext'] === 'gif' && is_animated_gif($val['image_dir'].$val['image_name'])) {
         $val['animated_gif'] = true; // Try to preserve animated GIF
+    } elseif ($val['target_ext'] === 'webp' && is_animated_webp($val['image_dir'].$val['image_name'])) {
+        $val['animated_webp'] = true; // Try to preserve animated WebP
     } elseif (PHPWCMS_WEBP) { // Test against WebP support
         $val['target_ext'] = 'webp';
-    } elseif ($val['target_ext'] === 'webp') {
-        $val['target_ext'] = 'jpg';
     }
 
     // Try to catch file name from database
@@ -338,6 +340,9 @@ function get_cached_image($val=array(), $db_track=true, $return_all_imageinfo=tr
     } elseif (is_file($thumb_check.'.gif')) {
         $thumb_image_info[0] = $val['thumb_name'].'.gif';
         $thumb_image_info['type'] = 'image/gif';
+    } elseif (is_file($thumb_check.'.webp')) {
+        $thumb_image_info[0] = $val['thumb_name'].'.webp';
+        $thumb_image_info['type'] = 'image/webp';
         // check if current file's extension is handable by ImageMagick or GD
     } elseif ($val["target_ext"] = is_ext_true($val["target_ext"])) {
         $create_preview = image_manipulate($val);
@@ -583,5 +588,14 @@ function is_animated_gif($file) {
         return $frames > 1;
     }
 
+    return false;
+}
+
+function is_animated_webp($file) {
+    if (is_string($file) && is_file($file) && $fp = @fopen($file, 'rb')) {
+        $header = fread($fp, 40);
+        fclose($fp);
+        return (str_contains($header, 'WEBP') && str_contains($header, 'VP8X') && str_contains($header, 'ANIM'));
+    }
     return false;
 }

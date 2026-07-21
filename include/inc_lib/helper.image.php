@@ -78,6 +78,7 @@ class Phpwcms_Image_lib
     public $graphicsmagick = '';
     public $colorspace = 'RGB';
     public $animated_gif = false;
+    public $animated_webp = false;
 
     // Language strings
     public $lang = [
@@ -186,6 +187,7 @@ class Phpwcms_Image_lib
         $this->sharpen = false;
         $this->colorspace = 'RGB';
         $this->animated_gif = false;
+        $this->animated_webp = false;
     }
 
     // --------------------------------------------------------------------
@@ -497,15 +499,26 @@ class Phpwcms_Image_lib
                 }
                 return false;
             }
+        } elseif ($this->animated_webp || $this->is_animated_webp($this->full_src_path)) {
+            if (is_file($this->full_dst_path)) {
+                return true;
+            }
+            if ($this->target_ext === 'webp') {
+                $copied = @copy($this->full_src_path, $this->full_dst_path);
+                if ($copied) {
+                    @chmod($this->full_dst_path, 0666);
+                    return true;
+                }
+            }
         }
         $v2_override = false;
         // If the target width/height match the source, AND if the new file name is not equal to the old file name
         // we'll simply make a copy of the original with the new name... assuming dynamic rendering is off.
-        if ($this->dynamic_output === false && $this->colorspace !== 'GRAY' && $this->orig_width == $this->width && $this->orig_height == $this->height) {
+        if ($this->dynamic_output === false && $this->colorspace !== 'GRAY' && $this->source_ext === $this->target_ext && !$this->animated_gif && !$this->is_animated_webp($this->full_src_path) && $this->orig_width == $this->width && $this->orig_height == $this->height) {
             if ($this->source_image != $this->new_image && @copy($this->full_src_path, $this->full_dst_path)) {
                 @chmod($this->full_dst_path, 0666);
+                return true;
             }
-            return true;
         }
         // Let's set up our values based on the action
         if ($action === 'crop') {
@@ -1176,19 +1189,36 @@ class Phpwcms_Image_lib
                 $im = @imagecreatefrompng($path);
                 break;
             case IMAGETYPE_WEBP:
-                if (!function_exists('imagecreatefromwebp')) {
+                $im = function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($path) : false;
+                if ($im === false) {
+                    // Try pure PHP frame extraction for animated WebP
+                    $im = $this->extract_first_webp_frame($path);
+                }
+                if ($im === false && function_exists('shell_exec')) {
+                    // Attempt CLI fallback with full environment PATH if pure PHP extraction failed
+                    $cmd = '';
+                    if (!empty($this->library_path)) {
+                        $im_bin = rtrim($this->library_path, '/');
+                        if (!preg_match('/' . $this->graphicsmagick . 'convert$/i', $im_bin)) {
+                            $im_bin .= '/' . $this->graphicsmagick . 'convert';
+                        }
+                        $cmd = escapeshellarg($im_bin) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';
+                    }
+                    if (!$cmd) {
+                        $env_path = 'PATH="/usr/local/bin:/opt/local/bin:/opt/local/lib/ImageMagick7/bin:/opt/homebrew/bin:/usr/bin:/bin"';
+                        $exec_path = @shell_exec($env_path . ' which convert 2>/dev/null || ' . $env_path . ' which magick 2>/dev/null');
+                        if ($exec_path && ($exec_path = trim(explode("\n", $exec_path)[0]))) {
+                            $cmd = escapeshellarg($exec_path) . ' ' . escapeshellarg($path . '[0]') . ' png:- 2>/dev/null';
+                        }
+                    }
+                    if ($cmd && ($png_data = @shell_exec($cmd))) {
+                        $im = @imagecreatefromstring($png_data);
+                    }
+                }
+                if ($im === false) {
                     $this->set_error(['imglib_unsupported_imagecreate', 'imglib_webp_not_supported']);
                     return false;
                 }
-                // Animated WebP isn't supported yet, needs to be detected and rejected here
-                $head_data = file_get_contents($path, false, null, 12, 30);
-                $head_data = strtoupper($head_data);
-                $webp_type = substr($head_data, 0, 4);
-                if ($webp_type === 'VP8X' && strpos($head_data, 'ANIM') !== false) {
-                    $this->set_error('imglib_webp_animated_not_supported');
-                    return false;
-                }
-                $im = @imagecreatefromwebp($path);
                 break;
             default:
                 $im = null;
@@ -1202,6 +1232,65 @@ class Phpwcms_Image_lib
             return $im;
         }
         $this->set_error(['imglib_unsupported_imagecreate']);
+        return false;
+    }
+
+    /**
+     * Check if a WebP file is animated
+     *
+     * @param string $file
+     * @return bool
+     */
+    public function is_animated_webp($file = '')
+    {
+        if ($file === '') {
+            $file = $this->full_src_path;
+        }
+        if (is_string($file) && is_file($file) && $fp = @fopen($file, 'rb')) {
+            $header = fread($fp, 40);
+            fclose($fp);
+            return (str_contains($header, 'WEBP') && str_contains($header, 'VP8X') && str_contains($header, 'ANIM'));
+        }
+        return false;
+    }
+
+    /**
+     * Extract the first frame of an animated WebP file in pure PHP
+     *
+     * @param string $file
+     * @return resource|object|false
+     */
+    public function extract_first_webp_frame($file = '')
+    {
+        if ($file === '') {
+            $file = $this->full_src_path;
+        }
+        if (!is_string($file) || !is_file($file) || !($fp = @fopen($file, 'rb'))) {
+            return false;
+        }
+        $header = fread($fp, 30);
+        if (substr($header, 0, 4) !== 'RIFF' || substr($header, 8, 4) !== 'WEBP') {
+            fclose($fp);
+            return false;
+        }
+        $data = $header . fread($fp, 131072);
+        fclose($fp);
+        $offset = 12;
+        $len = strlen($data);
+        while ($offset < $len - 8) {
+            $fourcc = substr($data, $offset, 4);
+            $size = unpack('V', substr($data, $offset + 4, 4))[1];
+            $chunk_offset = $offset + 8;
+            if ($fourcc === 'ANMF' && $size > 16 && $chunk_offset + $size <= $len) {
+                $sub_data = substr($data, $chunk_offset + 16, $size - 16);
+                $riff = 'RIFF' . pack('V', 4 + strlen($sub_data)) . 'WEBP' . $sub_data;
+                $im = @imagecreatefromstring($riff);
+                if ($im) {
+                    return $im;
+                }
+            }
+            $offset = $chunk_offset + $size + ($size % 2);
+        }
         return false;
     }
 
@@ -1269,7 +1358,7 @@ class Phpwcms_Image_lib
      */
     public function image_save_gd($resource)
     {
-        if (PHPWCMS_WEBP && $this->target_ext === 'webp' && function_exists('imagewebp') && imagewebp($resource, $this->full_dst_path, $this->quality)) {
+        if ($this->target_ext === 'webp' && function_exists('imagewebp') && imagewebp($resource, $this->full_dst_path, $this->quality)) {
             return true;
         }
         switch ($this->image_type) {
@@ -1304,8 +1393,19 @@ class Phpwcms_Image_lib
                 }
                 break;
             case IMAGETYPE_WEBP:
+                if ($this->target_ext === 'jpg') {
+                    if (!function_exists('imagejpeg')) {
+                        $this->set_error(['imglib_unsupported_imagecreate', 'imglib_jpg_not_supported']);
+                        return false;
+                    }
+                    if (!@imagejpeg($resource, $this->full_dst_path, $this->quality)) {
+                        $this->set_error('imglib_save_failed');
+                        return false;
+                    }
+                    break;
+                }
                 if (!function_exists('imagewebp')) {
-                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_png_not_supported']);
+                    $this->set_error(['imglib_unsupported_imagecreate', 'imglib_webp_not_supported']);
                     return false;
                 }
                 if (!@imagewebp($resource, $this->full_dst_path, $this->quality)) {
