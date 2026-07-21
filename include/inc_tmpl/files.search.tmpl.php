@@ -230,7 +230,7 @@ if(isset($search["result"])) {
                         echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
                         echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
                     }
-                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n</tr>\n";
+                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3]."></a></td>\n</tr>\n";
                 }
             }
             $file_durchlauf++;

@@ -113,7 +113,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                                 echo '<td colspan="3" class="pt-0 pb-2"><a href="fileinfo.php?public&amp;fid=';
                                 echo $file_row["f_id"].'" target="_blank" onclick="flevPopupLink(this.href,\'filedetail\',\'scrollbars=';
                                 echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                                echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3];
+                                echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3];
                                 echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" onmouseout="UnTip()" alt=""';
                                 echo '></a></td>'."\n";
                                 echo "</tr>\n";
@@ -124,7 +124,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                             echo '<td colspan="3" class="pt-0 pb-2"><a href="fileinfo.php?public&amp;fid=';
                             echo $file_row["f_id"].'" target="_blank" onclick="flevPopupLink(this.href,\'filedetail\',\'scrollbars=';
                             echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                            echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"';
+                            echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"';
                             echo ' onmouseover="Tip(\'ID: '.$file_row["f_id"].'\');" onmouseout="UnTip()" alt=""';
                             echo '></a></td>'."\n";
                             echo "</tr>\n";

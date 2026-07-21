@@ -49,8 +49,8 @@ $phpwcms['ads_path']             = 'marketing'; // it's the former 'ads' dir in 
 // content values
 $phpwcms['file_maxsize']         = 52428800; // Bytes (50 x 1024 x 1024)
 $phpwcms['content_width']        = 978; // max width of the article content column - important for rendering multi column images
-$phpwcms['img_list_width']       = 160; // max width of the list thumbnail image
-$phpwcms['img_list_height']      = 120; // max height of the list thumbnail image
+$phpwcms['img_list_width']       = 160; // max width of the list thumbnail image (16:10)
+$phpwcms['img_list_height']      = 100; // max height of the list thumbnail image (100px)
 $phpwcms['img_prev_width']       = 978; // max width of the large preview image
 $phpwcms['img_prev_height']      = 734; // max height of the large preview image
 $phpwcms['max_time']             = 1800; // logout after max_time/60 seconds

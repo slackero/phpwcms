@@ -66,7 +66,7 @@ if(isset($file_result[0]['f_id'])) {
                 echo "505\"><a href=\"fileinfo.php?fid=";
                 echo $file_row["f_id"]."\" target=\"_blank\" onclick=\"flevPopupLink(this.href,'filedetail','scrollbars=";
                 echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3]."></a></td>\n";
+                echo '<img src="' . $thumb_image['src'] .'" alt="" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3]."></a></td>\n";
                 echo "<td width=\"15\"></td>\n</tr>\n";
             }
 

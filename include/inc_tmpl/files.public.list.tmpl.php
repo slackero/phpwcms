@@ -149,7 +149,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                                     echo '<td colspan="2" class="pt-0 pb-2"><a href="fileinfo.php?public&amp;fid=';
                                     echo $file_row["f_id"].'" target="_blank" onclick="flevPopupLink(this.href,\'filedetail\',\'scrollbars=';
                                     echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" '.$thumb_image[3]."></a></td>\n</tr>\n";
+                                    echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3]."></a></td>\n</tr>\n";
                                 }
                             } else {
                                 echo '<tr'.$row_class.'>'."\n";
@@ -157,7 +157,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                                 echo '<td colspan="2" class="pt-0 pb-2"><a href="fileinfo.php?public&amp;fid=';
                                 echo $file_row["f_id"].'" target="_blank" onclick="flevPopupLink(this.href,\'filedetail\',\'scrollbars=';
                                 echo "yes,resizable=yes,width=500,height=400',1); return document.MM_returnValue;\">";
-                                echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;">';
+                                echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;">';
                                 echo "</a></td>\n</tr>\n";
                             }
                         }

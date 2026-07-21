@@ -234,7 +234,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                                 echo '<tr'.$row_class.">\n";
                                 echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                                 echo $file_row['edit'];
-                                echo '<img src="' . $thumb_image['src'] .'" border="0" '.$thumb_image[3].'></a></td>'."\n";
+                                echo '<img src="' . $thumb_image['src'] .'" border="0" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;" '.$thumb_image[3].'></a></td>'."\n";
                                 echo "\n</tr>\n";
                             }
 
@@ -242,7 +242,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                             echo '<tr'.$row_class.">\n";
                             echo '<td></td>'."\n".'<td colspan="2" class="pt-0 pb-2">';
                             echo $file_row['edit'];
-                            echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-width:'.$phpwcms["img_list_width"].'px;height:auto;"></a></td>';
+                            echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row["f_hash"].'.'.$file_row["f_ext"].'" style="max-height:'.$phpwcms["img_list_height"].'px;max-width:100%;width:auto;height:auto;"></a></td>';
                             echo "\n</tr>\n";
                         }
 

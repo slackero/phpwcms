@@ -235,7 +235,7 @@ $phpwcms['modules_fe_render'] = array();
 $phpwcms['modules_fe_init'] = array();
 
 $phpwcms['img_list_width']  = empty($phpwcms['img_list_width']) ? 160 : (int)$phpwcms['img_list_width'];
-$phpwcms['img_list_height'] = empty($phpwcms['img_list_height']) ? 120 : (int)$phpwcms['img_list_height'];
+$phpwcms['img_list_height'] = empty($phpwcms['img_list_height']) ? 100 : (int)$phpwcms['img_list_height'];
 $phpwcms['img_prev_width']  = empty($phpwcms['img_prev_width']) ? 978 : (int)$phpwcms['img_prev_width'];
 $phpwcms['img_prev_height'] = empty($phpwcms['img_prev_height']) ? 734 : (int)$phpwcms['img_prev_height'];
 
