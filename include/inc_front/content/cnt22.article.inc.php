@@ -86,7 +86,7 @@ if( isset($rssfeed['rssurl']) && !empty($rssfeed['rssurl']) ) {
 	$rss_obj->remove_div( true );
 
 	// Strip all HTML Tags
-	$rss_obj->strip_htmltags( true );
+	$rss_obj->strip_htmltags();
 
 	// Limit items
 	if($rssfeed["item"]) {
