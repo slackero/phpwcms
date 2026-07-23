@@ -1404,11 +1404,6 @@ parameters:
 			count: 1
 			path: ../include/inc_front/content/cnt22.article.inc.php
 
-		-
-			message: '#^Parameter \#1 \$tags of method SimplePie\\SimplePie\:\:strip_htmltags\(\) expects array\<string\>\|string\|false, true given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../include/inc_front/content/cnt22.article.inc.php
 
 		-
 			message: '#^Variable \$CNT_TMP might not be defined\.$#'
