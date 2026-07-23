@@ -4596,7 +4596,11 @@ function parse_markdown(string $text) {
         return '';
     }
     init_markdown();
-    return $GLOBALS['phpwcms']['commonmark_class']->convert($text);
+    $html = (string) $GLOBALS['phpwcms']['commonmark_class']->convert($text);
+    if (PHPWCMS_CHARSET !== 'utf-8') {
+        $html = mb_encode_numericentity($html, [0x80, 0x10ffff, 0, 0x1fffff], 'UTF-8');
+    }
+    return $html;
 }
 
 /**
@@ -4609,5 +4613,9 @@ function parse_textile(string $text) {
         return '';
     }
     init_textile();
-    return $GLOBALS['phpwcms']['textile_class']->parse($text);
+    $html = $GLOBALS['phpwcms']['textile_class']->parse($text);
+    if (PHPWCMS_CHARSET !== 'utf-8') {
+        $html = mb_encode_numericentity($html, [0x80, 0x10ffff, 0, 0x1fffff], 'UTF-8');
+    }
+    return $html;
 }
