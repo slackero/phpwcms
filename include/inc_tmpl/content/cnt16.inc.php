@@ -126,7 +126,7 @@ if(!isset($content['ecard'])) {
 				</select>
 			</div>
 			<div>
-				<a href="javascript:" class="btn btn-sm btn-light border mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=3&amp;target=nolist')"><i class="fas fa-folder-open fa-fw text-primary"></i></a>
+				<button type="button" class="modalButton btn btn-sm btn-light border mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=3&amp;target=nolist"><i class="fas fa-folder-open fa-fw text-primary"></i></button>
 				<a href="javascript:" class="btn btn-sm btn-light border mb-1 d-inline-block" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fas fa-caret-up fa-fw"></i></a>
 				<a href="javascript:" class="btn btn-sm btn-light border mb-1 d-inline-block" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fas fa-caret-down fa-fw"></i></a>
 				<a href="javascript:" class="btn btn-sm btn-light border d-block" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="fas fa-trash fa-fw text-danger"></i></a>
