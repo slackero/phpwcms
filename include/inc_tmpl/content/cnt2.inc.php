@@ -87,7 +87,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images']; ?></label>
 		<div class="col">
-        <select class="custom-select" name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+5 : 5 ?>" multiple="multiple" class="form-control form-control-sm" id="cimage_list">
+        <select name="cimage_list[]" size="<?php echo isset($content["image_list"]) && count($content["image_list"]) ? count($content["image_list"])+6 : 6 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
 <?php
 if(isset($content['image_list']['images']) && is_array($content['image_list']['images']) && count($content['image_list']['images'])) {
 

@@ -15,7 +15,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Reference
 
 if(!isset($content['reference'])) {
@@ -42,163 +41,226 @@ $imgx=0;
 $img_thumbs = '';
 
 ?>
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-    <td><select name="creference_tmpl" id="creference_tmpl">
-<?php
+<div class="form-group form-row">
+	<label for="creference_tmpl" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+	<div class="col-sm-4">
+		<select name="creference_tmpl" id="creference_tmpl" class="custom-select form-control form-control-sm">
+			<?php
+			echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
+			$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/reference');
+			if(is_array($tmpllist) && count($tmpllist)) {
+				foreach($tmpllist as $val) {
+					$val = htmlspecialchars($val);
+					echo '<option value="' . $val . '"' . ($val == $content["reference"]['tmpl'] ? ' selected="selected"' : '' ).'>' . $val . "</option>\n";
+				}
+			}
+			?>
+		</select>
+	</div>
+</div>
 
-    // templates for Reference
-    echo '<option value="">'.$BL['be_admin_tmpl_default'].'</option>'.LF;
-    $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/reference');
-    if(is_array($tmpllist) && count($tmpllist)) {
-        foreach($tmpllist as $val) {
-            $val = htmlspecialchars($val);
-            echo '<option value="' . $val . '"' . ($val == $content["reference"]['tmpl'] ? ' selected="selected"' : '' ).'>' . $val . "</option>\n";
-        }
-    }
+<hr />
 
-?>
-      </select></td></tr>
+<div class="form-group form-row">
+	<label for="creference_text" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plaintext'] ?></label>
+	<div class="col-sm-10">
+		<textarea name="creference_text" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15" id="creference_text"><?php echo $content['reference']["text"] ?></textarea>
+	</div>
+</div>
 
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<hr />
 
-<tr>
-<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_plaintext'] ?>:&nbsp;</td>
-<td valign="top"><textarea name="creference_text" rows="15" wrap="VIRTUAL" class="width440 autosize" id="creference_text"><?php echo  $content['reference']["text"] ?></textarea></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8"></td></tr>
-<tr>
-  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-  <td valign="top"><table>
-      <tr>
-        <td valign="top"><select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 5 : 5; ?>" multiple="multiple" class="width300" id="cimage_list">
-            <?php
-                    if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
+<div class="form-group form-row">
+	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
+	<div class="col">
+		<select name="cimage_list[]" size="<?php echo isset($content['reference']["select"]) && count($content['reference']["select"]) ? count($content['reference']["select"]) + 6 : 6; ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
+			<?php
+			if(is_array($content['reference']["list"]) && count($content['reference']["list"])) {
+				foreach($content['reference']["list"] as $key => $value) {
+					$thumb_image = get_cached_image(array(
+						"target_ext"    =>  $content['reference']["list"][$key][3],
+						"image_name"    =>  $content['reference']["list"][$key][2] . '.' . $content['reference']["list"][$key][3],
+						"thumb_name"    =>  md5($content['reference']["list"][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
+					));
 
-                        foreach($content['reference']["list"] as $key => $value) {
+					if($thumb_image != false) {
+						echo "<option value=\"".$content['reference']["list"][$key][0]."\">";
+						$img_name = html($content['reference']["list"][$key][1]);
+						echo $img_name."</option>\n";
 
-                            $thumb_image = get_cached_image(array(
-                                "target_ext"    =>  $content['reference']["list"][$key][3],
-                                "image_name"    =>  $content['reference']["list"][$key][2] . '.' . $content['reference']["list"][$key][3],
-                                "thumb_name"    =>  md5($content['reference']["list"][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-                            ));
+						if($imgx == 4) {
+							$img_thumbs .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
+							$imgx = 0;
+						}
+						if($imgx) {
+							$img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1">';
+						}
+						$img_thumbs .= '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . $img_name . '" title="' . $img_name . '">';
+						$imgx++;
+					}
+				}
+			}
+			?>
+		</select>
+	</div>
+	<div class="col-sm-auto">
+		<button type="button" class="modalButton btn btn-sm btn-blue mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=3&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-sm btn-secondary mb-1 d-block" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
+		<button type="button" class="btn btn-sm btn-danger d-block" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+	</div>
+</div>
 
-                            if($thumb_image != false) {
+<?php if($img_thumbs): ?>
+	<div class="form-group form-row">
+		<div class="col-sm-10 offset-sm-2">
+			<?php echo $img_thumbs; ?>
+		</div>
+	</div>
+<?php endif; ?>
 
-                                echo "<option value=\"".$content['reference']["list"][$key][0]."\">";
-                                $img_name = html($content['reference']["list"][$key][1]);
-                                echo $img_name."</option>\n";
+<div class="form-group form-row">
+	<label for="creference_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption'] ?></label>
+	<div class="col-sm-10">
+		<textarea name="creference_caption" rows="5" class="form-control form-control-sm field-sizing-content field-sizing-content-5" id="creference_caption"><?php echo html($content['reference']["caption"]) ?></textarea>
+	</div>
+</div>
 
-                                if($imgx == 4) {
-                                    $img_thumbs .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
-                                    $imgx = 0;
-                                }
-                                if($imgx) {
-                                    $img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1">';
-                                }
-                                $img_thumbs .= '<img src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'">';
+<div class="form-group form-row align-items-center">
+	<label for="creference_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_zoom'] ?></label>
+	<div class="col-sm-10">
+		<div class="custom-control custom-checkbox custom-control-inline">
+			<input name="creference_zoom" type="checkbox" id="creference_zoom" value="1" class="custom-control-input" <?php is_checked(1, $content['reference']["zoom"]); ?> />
+			<label class="custom-control-label" for="creference_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+		</div>
+	</div>
+</div>
 
-                                $imgx++;
+<hr />
 
-                            }
+<div class="form-group form-row align-items-center">
+	<label class="col-sm-2 col-form-label text-right text-muted font-weight-bold"><?php echo $BL['be_cnt_reference_largetext']; ?></label>
+	<div class="col-sm-10"></div>
+</div>
 
-                        }
+<div class="form-group form-row align-items-center">
+	<label for="creference_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+	<div class="col-sm-auto my-2 my-sm-0">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+			</div>
+			<input name="creference_width" type="text" class="form-control form-control-sm" id="creference_width" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["width"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="creference_height" type="text" class="form-control form-control-sm" id="creference_height" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["height"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_reference_border'] ?></span>
+			</div>
+			<input name="creference_border" type="text" class="form-control form-control-sm" id="creference_border" style="width: 50px;" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["border"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+</div>
 
-                    }
-                    ?>
-          </select></td>
-        <td valign="top"><img src="img/leer.gif" alt="" width="5" height="1"></td>                                          <!-- browser_image.php //-->
-        <td valign="top"><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" onclick="openFileBrowser('filebrowser.php?opt=3&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0"></a><br />
-          <img src="img/leer.gif" alt="" width="1" height="4"><br />
-          <a href="javascript:;" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><img src="img/button/image_pos_up.gif" alt="" width="10" height="9" border="0"></a><a href="javascript:;" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><img src="img/button/image_pos_down.gif" alt="" width="10" height="9" border="0"></a><br />
-          <img src="img/leer.gif" alt="" width="1" height="4"><br />
-          <a href="javascript:;" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" title="<?php echo $BL['be_cnt_delimage'] ?>"><img src="img/button/del_image_button1.gif" alt="" width="20" height="15" border="0"></a></td>
-      </tr>
-    </table><?php
+<hr />
 
-if($img_thumbs) {
-    echo '<table>
-        <tr><td style="padding-bottom:3px;"><img src="img/leer.gif" width="1" height="5"><br>'.$img_thumbs.'</td></tr>
-        </table>';
-}
+<div class="form-group form-row align-items-center">
+	<label class="col-sm-2 col-form-label text-right text-muted font-weight-bold"><?php echo $BL['be_cnt_reference_aligntext'] ?></label>
+	<div class="col-sm-10"></div>
+</div>
 
-?></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr>
-  <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-  <td valign="top"><textarea name="creference_caption" cols="40" rows="5" wrap="off" class="width440 autosize" id="creference_caption"><?php echo html($content['reference']["caption"]) ?></textarea></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_zoom'] ?>:&nbsp;</td>
-  <td valign="top"><table bgcolor="#E7E8EB">
-      <tr>
-        <td><input name="creference_zoom" type="checkbox" id="creference_zoom" value="1" <?php is_checked(1, $content['reference']["zoom"]); ?>></td>
-        <td class="v10">&nbsp;<?php echo $BL['be_cnt_enlarge'] ?>&nbsp;&nbsp;</td>
-      </tr>
-    </table></td>
-</tr>
+<div class="form-group form-row align-items-center">
+	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_basis'] ?></label>
+	<div class="col-sm-10">
+		<div class="form-inline">
+			<div class="custom-control custom-radio custom-control-inline mr-3">
+				<input name="creference_basis" id="creference_basis_0" type="radio" value="0" class="custom-control-input" <?php is_checked(0, $content["reference"]["basis"]); ?> />
+				<label class="custom-control-label" for="creference_basis_0"><?php echo $BL['be_cnt_reference_horizontal'] ?></label>
+			</div>
+			<div class="custom-control custom-radio custom-control-inline mr-4">
+				<input name="creference_basis" id="creference_basis_1" type="radio" value="1" class="custom-control-input" <?php is_checked(1, $content["reference"]["basis"]); ?> />
+				<label class="custom-control-label" for="creference_basis_1"><?php echo $BL['be_cnt_reference_vertical'] ?></label>
+			</div>
+			
+			<select name="creference_pos" id="creference_pos" class="custom-select custom-select-sm">
+				<option value="0" <?php is_selected(0, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_default'] ?></option>
+				<option value="1" <?php is_selected(1, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'] . ', ' . $BL['be_admin_page_top'] ?></option>
+				<option value="2" <?php is_selected(2, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'] . ', ' . $BL['be_cnt_reference_middle'] ?></option>
+				<option value="3" <?php is_selected(3, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'] . ', ' . $BL['be_admin_page_bottom'] ?></option>
+				<option value="4" <?php is_selected(4, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'] . ', ' . $BL['be_admin_page_top'] ?></option>
+				<option value="5" <?php is_selected(5, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'] . ', ' . $BL['be_cnt_reference_middle'] ?></option>
+				<option value="6" <?php is_selected(6, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'] . ', ' . $BL['be_admin_page_bottom'] ?></option>
+				<option value="7" <?php is_selected(7, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'] . ', ' . $BL['be_admin_page_top'] ?></option>
+				<option value="8" <?php is_selected(8, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'] . ', ' . $BL['be_cnt_reference_middle'] ?></option>
+				<option value="9" <?php is_selected(9, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'] . ', ' . $BL['be_admin_page_bottom'] ?></option>
+			</select>
+		</div>
+	</div>
+</div>
 
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-
-<tr><td><img src="img/leer.gif" alt="" width="1" height="22"></td><td class="chatlist"><strong><?php echo $BL['be_cnt_reference_largetext']; ?>:</strong></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-  <td valign="top"><table>
-      <tr>
-        <td><input name="creference_width" type="text" class="f11b" id="creference_width" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["width"] ?>"></td>
-        <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp;</td>
-        <td><input name="creference_height" type="text" class="f11b" id="creference_height" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["height"] ?>"></td>
-        <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;<?php echo $BL['be_cnt_reference_border'] ?>:&nbsp;</td>
-        <td><input name="creference_border" type="text" class="f11b" id="creference_border" style="width: 30px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["border"] ?>"></td>
-      </tr>
-    </table></td>
-</tr>
-
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-
-<tr><td><img src="img/leer.gif" alt="" width="1" height="22"></td><td class="chatlist"><strong><?php echo $BL['be_cnt_reference_aligntext'] ?>:</strong></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_basis'] ?>:&nbsp;</td>
-  <td valign="top"><table>
-    <tr>
-      <td bgcolor="#E7E8EB"><input name="creference_basis" type="radio" value="0" <?php is_checked(0, $content["reference"]["basis"]); ?>></td>
-      <td class="v10" bgcolor="#E7E8EB"><?php echo $BL['be_cnt_reference_horizontal'] ?>&nbsp;</td>
-      <td bgcolor="#E7E8EB"><input name="creference_basis" type="radio" value="1" <?php is_checked(1, $content["reference"]["basis"]); ?>></td>
-      <td class="v10" bgcolor="#E7E8EB"><?php echo $BL['be_cnt_reference_vertical'] ?>&nbsp;&nbsp;</td>
-      <td class="chatlist">&nbsp;&nbsp;&nbsp;</td>
-      <td><select name="creference_pos" id="creference_pos">
-        <option value="0" <?php is_selected(0, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_default'] ?></option>
-        <option value="1" <?php is_selected(1, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'].', '.$BL['be_admin_page_top'] ?></option>
-        <option value="2" <?php is_selected(2, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'].', '.$BL['be_cnt_reference_middle'] ?></option>
-        <option value="3" <?php is_selected(3, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_left'].', '.$BL['be_admin_page_bottom'] ?></option>
-        <option value="4" <?php is_selected(4, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'].', '.$BL['be_admin_page_top'] ?></option>
-        <option value="5" <?php is_selected(5, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'].',. '.$BL['be_cnt_reference_middle'] ?></option>
-        <option value="6" <?php is_selected(6, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_center'].', '.$BL['be_admin_page_bottom'] ?></option>
-        <option value="7" <?php is_selected(7, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'].', '.$BL['be_admin_page_top'] ?></option>
-        <option value="8" <?php is_selected(8, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'].', '.$BL['be_cnt_reference_middle'] ?></option>
-        <option value="9" <?php is_selected(9, $content['reference']["pos"]) ?>><?php echo $BL['be_cnt_right'].', '.$BL['be_admin_page_bottom'] ?></option>
-        </select></td>
-      </tr>
-  </table></td>
-</tr>
-
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-<tr>
-  <td align="right" class="chatlist"><?php echo $BL['be_cnt_reference_block'] ?>:&nbsp;</td>
-  <td valign="top"><table>
-      <tr>
-
-        <td><input name="creference_blockwidth" type="text" class="f11b" id="creference_blockwidth" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>"></td>
-        <td class="chatlist">&nbsp;x&nbsp;</td>
-        <td><input name="creference_blockheight" type="text" class="f11b" id="creference_blockheight" style="width: 50px;" size="5" maxlength="5" onKeyUp="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["blockheight"] ?>"></td>
-        <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;<?php echo $BL['be_cnt_imagespace'] ?>:&nbsp;</td>
-        <td><input name="creference_space" type="text" class="f11b" id="creference_space" style="width: 50px;" size="2" maxlength="2" onKeyUp="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["space"] ?>"></td>
-        <td class="chatlist">&nbsp;px&nbsp;&nbsp;<?php echo $BL['be_cnt_reference_border'] ?>:&nbsp;</td>
-        <td><input name="creference_listborder" type="text" class="f11b" id="creference_listborder" style="width: 30px;" size="3" maxlength="3" onKeyUp="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["listborder"] ?>"></td>
-      </tr>
-    </table></td>
-</tr>
+<div class="form-group form-row align-items-center">
+	<label for="creference_blockwidth" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_block'] ?></label>
+	<div class="col-sm-auto my-2 my-sm-0">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
+			</div>
+			<input name="creference_blockwidth" type="text" class="form-control form-control-sm" id="creference_blockwidth" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["blockwidth"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="creference_blockheight" type="text" class="form-control form-control-sm" id="creference_blockheight" style="width: 50px;" maxlength="5" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['reference']["blockheight"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
+			</div>
+			<input name="creference_space" type="text" class="form-control form-control-sm" id="creference_space" style="width: 50px;" maxlength="2" onkeyup="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["space"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_reference_border'] ?></span>
+			</div>
+			<input name="creference_listborder" type="text" class="form-control form-control-sm" id="creference_listborder" style="width: 50px;" maxlength="3" onkeyup="if(!parseInt(this.value,10)) this.value='0';" value="<?php echo $content['reference']["listborder"] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+	</div>
+</div>

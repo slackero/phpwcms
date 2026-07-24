@@ -225,7 +225,7 @@ $cnt_fieldgroups_active = isset($cnt_fieldgroup_templates['default']) ? $cnt_fie
     <div class="col">
         <div class="form-row">
             <div class="col">
-                <select name="cimage_list[]" size="<?php echo $img_count+5 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
+                <select name="cimage_list[]" size="<?php echo $img_count+6 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
 <?php
 if($img_count) {
 
