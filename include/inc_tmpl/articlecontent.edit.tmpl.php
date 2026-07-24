@@ -172,10 +172,7 @@ if(empty($content['article']['acat_id'])) { // Root structure
         $enable_disable = '';
     ?></label>
       <div class="col-sm-4">
-        <select name="target_ctype" id="target_ctype" class="custom-select form-control form-control-sm" onchange="if(confirm('<?php
-    // echo Message for JS dialog
-    echo $BL['be_func_switch_contentpart'];
-
+<?php
     // Menü mit Content Typen erstellen
     // build select box options and remember the "old" value for javascript
     $temp_select                = '';
@@ -216,14 +213,34 @@ if(empty($content['article']['acat_id'])) { // Root structure
         }
     }
 
-?>')){ this.form.submit(); } else { this.form.target_ctype.selectedIndex = <?php echo $contentpart_temp_selected; ?>; return false; }">
+?>
+        <select name="target_ctype" id="target_ctype" class="custom-select form-control form-control-sm" data-prev-index="<?php echo $contentpart_temp_selected; ?>">
 <?php
-
-    //Menü mit Content Typen erstellen
-    echo $temp_select
-
+    echo $temp_select;
 ?>
         </select>
+<?php
+$BE['BODY_CLOSE'][] = '
+<script type="text/javascript">
+$(function() {
+	var $select = $("#target_ctype");
+	var prevIndex = $select.attr("data-prev-index");
+	$select.on("change", function(e) {
+		var $this = $(this);
+		bsConfirmWarning("' . js_singlequote($BL['be_func_switch_contentpart']) . '", function() {
+			$this.closest("form").submit();
+		}, "' . js_singlequote($BL['be_yes']) . '", "' . js_singlequote($BL['be_no']) . '");
+		
+		$("#bootstrapConfirmModal").one("hidden.bs.modal", function() {
+			setTimeout(function() {
+				$select.prop("selectedIndex", prevIndex);
+			}, 100);
+		});
+	});
+});
+</script>
+';
+?>
       </div>
     </div>
 
