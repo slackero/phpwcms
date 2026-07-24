@@ -86,19 +86,29 @@ if (!defined('PHPWCMS_ROOT')) {
 	</div>
 
 	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
-	<div class="col-sm-4 d-flex align-items-center">
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	<div class="col-sm-auto my-2 my-sm-0">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
 			</div>
-			<input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
+			<input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
 			</div>
-			<input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
+			<input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3 d-flex align-items-center">
 		<div class="custom-control custom-checkbox custom-control-inline">
 			<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="custom-control-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
 			<label class="custom-control-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>

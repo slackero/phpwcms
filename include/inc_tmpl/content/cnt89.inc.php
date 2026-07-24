@@ -121,19 +121,29 @@ if(!empty($content['poll_form']['choice']) && is_array($content['poll_form']['ch
 
 <div class="form-group form-row align-items-center">
 	<label for="cpoll_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
-	<div class="col-sm-10 d-flex align-items-center">
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	<div class="col-sm-auto my-2 my-sm-0">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
 			</div>
-			<input name="cpoll_width" type="text" class="form-control form-control-sm" id="cpoll_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>" />
+			<input name="cpoll_width" type="text" class="form-control form-control-sm" id="cpoll_width" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
 			</div>
-			<input name="cpoll_height" type="text" class="form-control form-control-sm" id="cpoll_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>" />
+			<input name="cpoll_height" type="text" class="form-control form-control-sm" id="cpoll_height" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3 d-flex align-items-center">
 		<div class="custom-control custom-checkbox custom-control-inline">
 			<input name="cpoll_zoom" type="checkbox" id="cpoll_zoom" value="1" class="custom-control-input" <?php is_checked(1, $content['poll_list']['zoom']); ?> />
 			<label class="custom-control-label" for="cpoll_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>

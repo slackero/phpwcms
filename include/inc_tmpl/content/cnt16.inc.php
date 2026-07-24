@@ -152,18 +152,26 @@ if(!isset($content['ecard'])) {
 	</div>
 	
 	<label for="cecard_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
-	<div class="col-sm-4 d-flex align-items-center">
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	<div class="col-sm-auto my-2 my-sm-0">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
 			</div>
-			<input name="cecard_width" type="text" class="form-control form-control-sm" id="cecard_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['ecard']['width']; ?>" />
+			<input name="cecard_width" type="text" class="form-control form-control-sm" id="cecard_width" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['ecard']['width']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
-		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+		<div class="input-group input-group-sm">
 			<div class="input-group-prepend">
 				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
 			</div>
-			<input name="cecard_height" type="text" class="form-control form-control-sm" id="cecard_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['ecard']['height']; ?>" />
+			<input name="cecard_height" type="text" class="form-control form-control-sm" id="cecard_height" style="width: 50px;" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['ecard']['height']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
 		</div>
 	</div>
 </div>
