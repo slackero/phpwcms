@@ -15,60 +15,61 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+// email form
 
-//email form
-
-if(!isset($content["mailhtml"])) {
-	$content["mailhtml"] = 0;
+if (!isset($content['mailhtml'])) {
+	$content['mailhtml'] = 0;
 }
 
 ?>
 
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<div class="form-group form-row">
+	<label for="cmailsubject" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_subject']; ?></label>
+	<div class="col-sm-10">
+		<input name="cmailsubject" type="text" id="cmailsubject" class="form-control form-control-sm" value="<?php echo isset($content['mailsubject']) ? html($content['mailsubject']) : ''; ?>" maxlength="250" />
+	</div>
+</div>
 
-<tr>
-	<td align="right" class="chatlist"><?php echo $BL['be_cnt_subject'] ?>:&nbsp;</td>
-	<td><input name="cmailsubject" type="text" id="cmailsubject" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailsubject"]) ?  html($content["mailsubject"]) : '' ?>" size="40" maxlength="250"></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-<tr>
-	<td align="right" class="chatlist"><?php echo $BL['be_cnt_recipient'] ?>:&nbsp;</td>
-	<td><input name="cmailrecipient" type="text" id="cmailrecipient" class="f11b" style="width: 440px" value="<?php echo  isset($content["mailrecipient"]) ? html($content["mailrecipient"]) : '' ?>" size="40" maxlength="250"></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-<tr>
-	<td align="right" class="chatlist"><?php echo $BL['be_cnt_buttontext']  ?>:&nbsp;</td>
-	<td><input name="cmailbutton" type="text" id="cmailbutton" class="f11b" style="width: 150px" value="<?php echo  isset($content["mailbutton"]) ? html($content["mailbutton"]) : '' ?>" size="20" maxlength="35"></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-<tr>
-	<td align="right" class="chatlist"><?php echo $BL['be_cnt_sendas'] ?>:&nbsp;</td>
-	<td><table>
-		<tr bgcolor="#E7E8EB">
-		<td><input name="cmailhtml" type="radio" value="0" <?php is_checked(0, $content["mailhtml"]); ?>></td>
-	    <td class="v10"><?php echo $BL['be_cnt_text'] ?>&nbsp;&nbsp;</td>
-	    <td><input name="cmailhtml" type="radio" value="1" <?php is_checked(1, $content["mailhtml"]); ?>></td>
-	    <td class="v10"><?php echo $BL['be_cnt_html'] ?>&nbsp;</td>
-		<td><img src="img/leer.gif" alt="" width="6" height="15"></td>
-		</tr>
-		</table></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-<tr>
-	<td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13"><?php echo $BL['be_cnt_formfields'] ?>:&nbsp;</td>
-	<td valign="top"><textarea name="cmailform" rows="15" wrap="off" class="width440 autosize" id="cmailform"><?php
+<div class="form-group form-row">
+	<label for="cmailrecipient" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient']; ?></label>
+	<div class="col-sm-10">
+		<input name="cmailrecipient" type="text" id="cmailrecipient" class="form-control form-control-sm" value="<?php echo isset($content['mailrecipient']) ? html($content['mailrecipient']) : ''; ?>" maxlength="250" />
+	</div>
+</div>
 
-	if(isset($content["mailform"])) {
-		if(is_array($content["mailform"])) {
-			foreach($content["mailform"] as $formkey => $valform) {
-				echo html($content["mailform"][$formkey]['field'])."\n";
+<div class="form-group form-row">
+	<label for="cmailbutton" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_buttontext']; ?></label>
+	<div class="col-sm-4">
+		<input name="cmailbutton" type="text" id="cmailbutton" class="form-control form-control-sm" value="<?php echo isset($content['mailbutton']) ? html($content['mailbutton']) : ''; ?>" maxlength="35" />
+	</div>
+	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sendas']; ?></label>
+	<div class="col-sm-4 d-flex align-items-center">
+		<div class="form-check form-check-inline">
+			<input name="cmailhtml" type="radio" id="cmailhtml_0" value="0" class="form-check-input" <?php is_checked(0, $content['mailhtml']); ?> />
+			<label class="form-check-label" for="cmailhtml_0"><?php echo $BL['be_cnt_text']; ?></label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input name="cmailhtml" type="radio" id="cmailhtml_1" value="1" class="form-check-input" <?php is_checked(1, $content['mailhtml']); ?> />
+			<label class="form-check-label" for="cmailhtml_1"><?php echo $BL['be_cnt_html']; ?></label>
+		</div>
+	</div>
+</div>
+
+<div class="form-group form-row">
+	<label for="cmailform" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_formfields']; ?></label>
+	<div class="col-sm-10">
+		<textarea name="cmailform" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15" id="cmailform"><?php
+		if (isset($content['mailform'])) {
+			if (is_array($content['mailform'])) {
+				foreach ($content['mailform'] as $formkey => $valform) {
+					echo html($content['mailform'][$formkey]['field']) . "\n";
+				}
+			} else {
+				echo html($content['mailform']);
 			}
 		} else {
-			echo html($content["mailform"]);
+			echo '';
 		}
-	} else {
-		echo '';
-	}
-
-	 ?></textarea></td>
-</tr>
+		?></textarea>
+	</div>
+</div>

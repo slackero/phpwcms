@@ -565,6 +565,7 @@ $BL['be_cnt_caption'] = 'Bildunterzeile';
 $BL['be_cnt_subject'] = 'Betreff';
 $BL['be_cnt_recipient'] = 'Empf&auml;nger';
 $BL['be_cnt_buttontext'] = 'Button';
+$BL['be_cnt_poll_choices'] = 'Antworten';
 $BL['be_cnt_sendas'] = 'Senden als';
 $BL['be_cnt_text'] = 'Text';
 $BL['be_cnt_html'] = 'HTML';

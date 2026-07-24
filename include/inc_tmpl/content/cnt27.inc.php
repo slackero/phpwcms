@@ -18,115 +18,103 @@ if (!defined('PHPWCMS_ROOT')) {
 //FAQ
 
 ?>
-<tr><td colspan="2" class="rowspacer0x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
 
-<tr>
-    <td align="right" class="chatlist"><?php echo $BL['be_admin_struct_template'] ?>:&nbsp;</td>
-    <td><select name="faq_template" id="faq_template">
-<?php
+<div class="form-group form-row">
+	<label for="faq_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+	<div class="col-sm-4">
+		<select name="faq_template" id="faq_template" class="custom-select form-control form-control-sm">
+			<?php
+			$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE . 'inc_cntpart/faq');
+			if (is_array($tmpllist) && count($tmpllist)) {
+				foreach ($tmpllist as $val) {
+					if (isset($content['faq']['faq_template']) && $val == $content['faq']['faq_template']) {
+						$selected_val = ' selected="selected"';
+					} else {
+						$selected_val = '';
+					}
+					$val = html($val);
+					echo '			<option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+				}
+			}
+			?>
+		</select>
+	</div>
+</div>
 
-// templates for recipes
-$tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE.'inc_cntpart/faq');
-if(is_array($tmpllist) && count($tmpllist)) {
-    foreach($tmpllist as $val) {
-        if(isset($content['faq']['faq_template']) && $val == $content['faq']['faq_template']) {
-            $selected_val = ' selected="selected"';
-        } else {
-            $selected_val = '';
-        }
-        $val = html($val);
-        echo '  <option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
-    }
-}
+<hr />
 
-?>
-    </select></td>
-</tr>
+<div class="form-group form-row">
+	<label for="faq_question" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_question']; ?></label>
+	<div class="col-sm-10">
+		<textarea name="faq_question" rows="4" class="form-control form-control-sm field-sizing-content field-sizing-content-4" id="faq_question"><?php echo empty($content['faq_question']) ? '' : $content['faq_question']; ?></textarea>
+	</div>
+</div>
 
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
+<div class="form-group form-row">
+	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_answer']; ?></label>
+	<div class="col-sm-10">
+		<?php
+		$wysiwyg_editor = array(
+			'value'     => isset($content['faq_answer']) ? $content['faq_answer'] : '',
+			'field'     => 'faq_answer',
+			'height'    => '300px',
+			'width'     => '100%',
+			'rows'      => '15',
+			'editor'    => $_SESSION['WYSIWYG_EDITOR'],
+			'lang'      => 'en'
+		);
+		include PHPWCMS_ROOT . '/include/inc_lib/wysiwyg.editor.inc.php';
+		?>
+	</div>
+</div>
 
-<tr>
-    <td class="chatlist tdtop3" align="right">&nbsp;<?php echo $BL['be_cnt_question'] ?>:&nbsp;</td>
-    <td><textarea name="faq_question" rows="4" class="width440 autosize" id="faq_question"><?php
+<hr />
 
-    echo empty($content["faq_question"]) ? '' : $content["faq_question"];
+<div class="form-group form-row">
+	<label for="cimage_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
+	<div class="col-sm-4">
+		<div class="form-inline">
+			<input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm mr-2" style="width: 150px; color: #727889;" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" onfocus="this.blur()" />
+			<a href="javascript:;" class="btn btn-sm btn-light border mr-1" title="<?php echo $BL['be_cnt_openimagebrowser']; ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=nolist')"><i class="fas fa-folder-open fa-fw text-primary"></i></a>
+			<a href="javascript:;" id="cimage_delete_button" class="btn btn-sm btn-light border <?php echo empty($content['image_id']) ? 'disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fas fa-trash fa-fw text-danger"></i></a>
+			<input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" />
+		</div>
+	</div>
+	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw']; ?></label>
+	<div class="col-sm-4">
+		<div class="form-inline">
+			<input name="cimage_width" type="text" class="form-control form-control-sm mr-2" id="cimage_width" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
+			<span class="mr-2"><?php echo $BL['be_cnt_maxh']; ?>:</span>
+			<input name="cimage_height" type="text" class="form-control form-control-sm mr-2" id="cimage_height" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
+			
+			<div class="custom-control custom-checkbox custom-control-inline">
+				<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="custom-control-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
+				<label class="custom-control-label" for="cimage_zoom"><i class="fas fa-search-plus" title="<?php echo $BL['be_cnt_enlarge']; ?>"></i></label>
+			</div>
+		</div>
+	</div>
+</div>
 
-?></textarea></td>
-</tr>
-<tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="8" /></td>
-</tr>
-<tr><td colspan="2" class="chatlist">&nbsp;<?php echo $BL['be_cnt_answer'] ?>:&nbsp;</td></tr>
-<tr><td colspan="2"><?php
+<div class="form-group form-row">
+	<label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_caption']; ?></label>
+	<div class="col-sm-10">
+		<div class="d-flex align-items-start">
+			<textarea name="cimage_caption" rows="4" class="form-control form-control-sm mr-3 field-sizing-content field-sizing-content-4" id="cimage_caption"><?php echo isset($content['image_caption']) ? html($content['image_caption']) : ''; ?></textarea>
+			<div id="cimage_preview_container">
+				<?php
+				if (isset($content['image_hash'])) {
+					$thumb_image = get_cached_image(array(
+						'target_ext'    =>  $content['image_ext'],
+						'image_name'    =>  $content['image_hash'] . '.' . $content['image_ext'],
+						'thumb_name'    =>  md5($content['image_hash'].$phpwcms['img_list_width'].$phpwcms['img_list_height'].$phpwcms['sharpen_level'].$phpwcms['colorspace'])
+					));
 
-$wysiwyg_editor = array(
-    'value'     => isset($content["faq_answer"]) ? $content["faq_answer"] : '',
-    'field'     => 'faq_answer',
-    'height'    => '300px',
-    'width'     => '540px',
-    'rows'      => '15',
-    'editor'    => $_SESSION["WYSIWYG_EDITOR"],
-    'lang'      => 'en'
-);
-
-include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
-
-?></td></tr>
-
-<tr><td colspan="2" class="rowspacer7x7"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-
-<tr>
-              <td align="right" class="chatlist"><?php echo  $BL['be_cnt_image'] ?>:&nbsp;</td>
-              <td valign="top"><table>
-                <tr>
-                  <td><input name="cimage_name" type="text" id="cimage_name" class="f11b" style="width: 200px; color: #727889;" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" size="40" maxlength="250" onfocus="this.blur()" /></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" title="<?php echo $BL['be_cnt_openimagebrowser']; ?>" onclick="openFileBrowser('filebrowser.php?opt=0&amp;target=nolist')"><img src="img/button/open_image_button.gif" alt="" width="20" height="15" border="0" /></a></td>
-                  <td><img src="img/leer.gif" alt="" width="3" height="1" /><a href="javascript:;" id="cimage_delete_button" class="<?php echo empty($content['image_id']) ? 'disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
-                    <input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" /></td>
-                </tr>
-              </table></td>
-              </tr>
-          <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="5" /></td>
-</tr>
-            <tr>
-              <td align="right" class="chatlist"><?php echo $BL['be_cnt_maxw'] ?>:&nbsp;</td>
-              <td valign="top"><table>
-                <tr>
-                  <td><input name="cimage_width" type="text" class="f11b" id="cimage_width" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["image_width"]) ? $content["image_width"] : '' ?>" /></td>
-                  <td class="chatlist">&nbsp;&nbsp;<?php echo $BL['be_cnt_maxh'] ?>:&nbsp; </td>
-                  <td><input name="cimage_height" type="text" class="f11b" id="cimage_height" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo  isset($content["image_height"]) ? $content["image_height"] : '' ?>" /></td>
-                  <td class="chatlist">&nbsp;px&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td bgcolor="#E7E8EB">&nbsp;</td>
-                  <td bgcolor="#E7E8EB"><input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" <?php is_checked(1, isset($content["image_zoom"]) ? $content["image_zoom"] : 0); ?> /></td>
-                  <td bgcolor="#E7E8EB" class="v10">&nbsp;<label for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>&nbsp;</td>
-                  <td bgcolor="#E7E8EB"><img src="img/leer.gif" alt="" width="6" height="15" /></td>
-                </tr>
-              </table></td>
-              </tr>
-            <tr><td colspan="2"><img src="img/leer.gif" alt="" width="1" height="6" /></td>
-</tr>
-            <tr>
-              <td align="right" valign="top" class="chatlist"><img src="img/leer.gif" alt="" width="1" height="13" /><?php echo $BL['be_cnt_caption'] ?>:&nbsp;</td>
-              <td valign="top"><table>
-                  <tr>
-                    <td valign="top"><textarea name="cimage_caption" cols="30" rows="4" class="width300 autosize" id="cimage_caption"><?php echo  isset($content["image_caption"]) ? html($content["image_caption"]) : '' ?></textarea></td>
-                    <td valign="top"><img src="img/leer.gif" alt="" width="15" height="1" /></td>
-                    <td id="cimage_preview_container" valign="top"><?php
-
-if(isset($content['image_hash'])) {
-    $thumb_image = get_cached_image(array(
-        'target_ext'    =>  $content['image_ext'],
-        'image_name'    =>  $content['image_hash'] . '.' . $content['image_ext'],
-        'thumb_name'    =>  md5($content['image_hash'].$phpwcms['img_list_width'].$phpwcms['img_list_height'].$phpwcms['sharpen_level'].$phpwcms['colorspace'])
-    ));
-
-    if($thumb_image != false) {
-        echo '<img src="' . $thumb_image['src'] .'" alt="" '.$thumb_image[3].'>';
-    }
-} else {
-    echo '&nbsp;';
-}
-
-?></td>
-                  </tr>
-              </table></td>
-</tr>
+					if ($thumb_image != false) {
+						echo '				<img src="' . $thumb_image['src'] . '" alt="" ' . $thumb_image[3] . ' class="img-thumbnail" />';
+					}
+				}
+				?>
+			</div>
+		</div>
+	</div>
+</div>

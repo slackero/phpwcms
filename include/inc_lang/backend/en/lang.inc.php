@@ -569,6 +569,7 @@ $BL['be_cnt_caption']                   = 'caption';
 $BL['be_cnt_subject']                   = 'subject';
 $BL['be_cnt_recipient']                 = 'recipient';
 $BL['be_cnt_buttontext']                = 'button text';
+$BL['be_cnt_poll_choices']              = 'choices';
 $BL['be_cnt_sendas']                    = 'send as';
 $BL['be_cnt_text']                      = 'text';
 $BL['be_cnt_html']                      = 'html';
