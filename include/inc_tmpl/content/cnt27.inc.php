@@ -70,27 +70,38 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <hr />
 
-<div class="form-group form-row">
+<div class="form-group form-row align-items-center">
 	<label for="cimage_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col-sm-4">
-		<div class="form-inline">
-			<input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm mr-2" style="width: 150px; color: #727889;" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" onfocus="this.blur()" />
-			<button type="button" class="modalButton btn btn-sm btn-light border mr-1" title="<?php echo $BL['be_cnt_openimagebrowser']; ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist"><i class="fas fa-folder-open fa-fw text-primary"></i></button>
-			<a href="javascript:;" id="cimage_delete_button" class="btn btn-sm btn-light border <?php echo empty($content['image_id']) ? 'disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"><i class="fas fa-trash fa-fw text-danger"></i></a>
-			<input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" />
+		<div class="input-group">
+			<span class="input-group-prepend">
+				<button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=0&amp;target=nolist"></button>
+			</span>
+			<input name="cimage_name" type="text" id="cimage_name" class="form-control form-control-sm" value="<?php echo isset($content['image_name']) ? html($content['image_name']) : ''; ?>" maxlength="250" onfocus="this.blur()" />
+			<span class="input-group-append">
+				<a href="#" id="cimage_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($content['image_id']) ? ' disabled' : '' ?>" style="<?php echo empty($content['image_id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (document.articlecontent.cimage_name.value ? '\n[' + document.articlecontent.cimage_name.value + ']' : ''), function() { document.articlecontent.cimage_name.value='';document.articlecontent.cimage_id.value='0'; if (typeof onImageSelected === 'function') onImageSelected('_', '0', ''); }, '<?php echo js_singlequote($BL['be_yes']); ?>', '<?php echo js_singlequote($BL['be_no']); ?>'); this.blur();return false;"></a>
+			</span>
 		</div>
+		<input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" />
 	</div>
-	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw']; ?></label>
-	<div class="col-sm-4">
-		<div class="form-inline">
-			<input name="cimage_width" type="text" class="form-control form-control-sm mr-2" id="cimage_width" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
-			<span class="mr-2"><?php echo $BL['be_cnt_maxh']; ?>:</span>
-			<input name="cimage_height" type="text" class="form-control form-control-sm mr-2" id="cimage_height" style="width: 50px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
-			
-			<div class="custom-control custom-checkbox custom-control-inline">
-				<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="custom-control-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
-				<label class="custom-control-label" for="cimage_zoom"><i class="fas fa-search-plus" title="<?php echo $BL['be_cnt_enlarge']; ?>"></i></label>
+
+	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+	<div class="col-sm-4 d-flex align-items-center">
+		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
 			</div>
+			<input name="cimage_width" type="text" class="form-control form-control-sm" id="cimage_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_width']) ? $content['image_width'] : '' ?>" />
+		</div>
+		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="cimage_height" type="text" class="form-control form-control-sm" id="cimage_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo isset($content['image_height']) ? $content['image_height'] : '' ?>" />
+		</div>
+		<div class="custom-control custom-checkbox custom-control-inline">
+			<input name="cimage_zoom" type="checkbox" id="cimage_zoom" value="1" class="custom-control-input" <?php is_checked(1, isset($content['image_zoom']) ? $content['image_zoom'] : 0); ?> />
+			<label class="custom-control-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 		</div>
 	</div>
 </div>

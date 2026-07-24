@@ -69,68 +69,74 @@ if(!empty($content['poll_form']['choice']) && is_array($content['poll_form']['ch
 
 <div class="form-group form-row">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
-	<div class="col-sm-10">
-		<div class="d-flex align-items-start">
-			<div class="mr-2">
-				<select name="cimage_list[]" size="<?php echo is_array($content['poll_select']) && count($content['poll_select']) ? count($content['poll_select'])+5 : 5 ?>" multiple="multiple" class="form-control form-control-sm" id="cimage_list" style="width: 250px;">
-					<?php
-					if(isset($content['poll_list']['images']) && is_array($content['poll_list']['images']) && count($content['poll_list']['images'])) {
-						foreach($content['poll_list']['images'] as $key => $value) {
-							$thumb_image = get_cached_image(array(
-								'target_ext' => $content['poll_list']['images'][$key][3],
-								'image_name' => $content['poll_list']['images'][$key][2] . '.' . $content['poll_list']['images'][$key][3],
-								'thumb_name' => md5($content['poll_list']['images'][$key][2].$phpwcms['img_list_width'].$phpwcms['img_list_height'].$phpwcms['sharpen_level'].$phpwcms['colorspace'])
-							));
+	<div class="col d-flex align-items-start">
+		<div class="w-100 mr-2">
+			<select name="cimage_list[]" size="<?php echo is_array($content['poll_select']) && count($content['poll_select']) ? count($content['poll_select'])+5 : 5 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
+				<?php
+				if(isset($content['poll_list']['images']) && is_array($content['poll_list']['images']) && count($content['poll_list']['images'])) {
+					foreach($content['poll_list']['images'] as $key => $value) {
+						$thumb_image = get_cached_image(array(
+							'target_ext' => $content['poll_list']['images'][$key][3],
+							'image_name' => $content['poll_list']['images'][$key][2] . '.' . $content['poll_list']['images'][$key][3],
+							'thumb_name' => md5($content['poll_list']['images'][$key][2].$phpwcms['img_list_width'].$phpwcms['img_list_height'].$phpwcms['sharpen_level'].$phpwcms['colorspace'])
+						));
 
-							if($thumb_image != false) {
-								echo '					<option value="' . $content['poll_list']['images'][$key][0] . '">';
-								$img_name = html($content['poll_list']['images'][$key][1]);
-								echo $img_name . "</option>\n";
+						if($thumb_image != false) {
+							echo '					<option value="' . $content['poll_list']['images'][$key][0] . '">';
+							$img_name = html($content['poll_list']['images'][$key][1]);
+							echo $img_name . "</option>\n";
 
-								if($imgx == 4) {
-									$img_thumbs .= '<br /><img src="img/leer.gif" alt="" width="1" height="2"><br />';
-									$imgx = 0;
-								}
-								if($imgx) {
-									$img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1" />';
-								}
-								$img_thumbs .= '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
-
-								$imgx++;
+							if($imgx == 4) {
+								$img_thumbs .= '<br /><img src="img/leer.gif" alt="" width="1" height="2"><br />';
+								$imgx = 0;
 							}
+							if($imgx) {
+								$img_thumbs .= '<img src="img/leer.gif" alt="" width="2" height="1" />';
+							}
+							$img_thumbs .= '<img src="'.$thumb_image['src'].'" '.$thumb_image[3].' alt="'.$img_name.'" title="'.$img_name.'" />';
+
+							$imgx++;
 						}
 					}
-					?>
-				</select>
-			</div>
-			<div>
-				<button type="button" class="modalButton btn btn-sm btn-light border mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist"><i class="fas fa-folder-open fa-fw text-primary"></i></button>
-				<a href="javascript:;" class="btn btn-sm btn-light border mb-1 d-inline-block" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fas fa-caret-up fa-fw"></i></a>
-				<a href="javascript:;" class="btn btn-sm btn-light border mb-1 d-inline-block" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fas fa-caret-down fa-fw"></i></a>
-				<a href="javascript:;" class="btn btn-sm btn-light border d-block" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="fas fa-trash fa-fw text-danger"></i></a>
-			</div>
+				}
+				?>
+			</select>
 		</div>
-		<?php if($img_thumbs): ?>
-			<div class="mt-2">
-				<?php echo $img_thumbs; ?>
-			</div>
-		<?php endif; ?>
+		<div class="col-sm-auto px-0">
+			<button type="button" class="modalButton btn btn-sm btn-blue mb-1 d-block" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=1&amp;target=nolist"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-sm btn-secondary mb-1 d-inline-block" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortup'] ?>" onclick="moveOptionUp(document.articlecontent.cimage_list);"><i class="fa fa-angle-up fa-fw" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-sm btn-secondary mb-1 d-inline-block" data-toggle="tooltip" title="<?php echo $BL['be_cnt_sortdown'] ?>" onclick="moveOptionDown(document.articlecontent.cimage_list);"><i class="fa fa-angle-down fa-fw" aria-hidden="true"></i></button>
+			<button type="button" class="btn btn-sm btn-danger d-block" onclick="removeSelectedOptions(document.articlecontent.cimage_list);" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>"><i class="far fa-trash-alt fa-fw" aria-hidden="true"></i></button>
+		</div>
 	</div>
 </div>
 
-<div class="form-group form-row">
-	<label for="cpoll_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_maxw'] ?></label>
-	<div class="col-sm-10">
-		<div class="form-inline">
-			<input name="cpoll_width" type="text" class="form-control form-control-sm mr-2" id="cpoll_width" style="width: 70px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>" />
-			<span class="mr-3"><?php echo $BL['be_cnt_maxh'] ?>:</span>
-			<input name="cpoll_height" type="text" class="form-control form-control-sm mr-2" id="cpoll_height" style="width: 70px;" size="3" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>" />
-			<span class="mr-4 text-muted small">px</span>
-			
-			<div class="custom-control custom-checkbox custom-control-inline">
-				<input name="cpoll_zoom" type="checkbox" id="cpoll_zoom" value="1" class="custom-control-input" <?php is_checked(1, $content['poll_list']['zoom']); ?> />
-				<label class="custom-control-label" for="cpoll_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
+<?php if($img_thumbs): ?>
+	<div class="form-group form-row">
+		<div class="col-sm-10 offset-sm-2">
+			<?php echo $img_thumbs; ?>
+		</div>
+	</div>
+<?php endif; ?>
+
+<div class="form-group form-row align-items-center">
+	<label for="cpoll_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
+	<div class="col-sm-10 d-flex align-items-center">
+		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxw'] ?></span>
 			</div>
+			<input name="cpoll_width" type="text" class="form-control form-control-sm" id="cpoll_width" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['width'] ?>" />
+		</div>
+		<div class="input-group input-group-sm mr-2" style="max-width: 120px;">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_maxh'] ?></span>
+			</div>
+			<input name="cpoll_height" type="text" class="form-control form-control-sm" id="cpoll_height" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['poll_list']['height'] ?>" />
+		</div>
+		<div class="custom-control custom-checkbox custom-control-inline">
+			<input name="cpoll_zoom" type="checkbox" id="cpoll_zoom" value="1" class="custom-control-input" <?php is_checked(1, $content['poll_list']['zoom']); ?> />
+			<label class="custom-control-label" for="cpoll_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
 		</div>
 	</div>
 </div>
