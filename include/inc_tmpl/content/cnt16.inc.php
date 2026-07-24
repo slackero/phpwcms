@@ -98,7 +98,7 @@ if(!isset($content['ecard'])) {
 <div class="form-group form-row">
 	<label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_image']; ?></label>
 	<div class="col">
-		<select name="cimage_list[]" size="<?php echo isset($content['ecard']['select']) && count($content['ecard']['select']) ? count($content['ecard']['select'])+5 : 5 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
+		<select name="cimage_list[]" size="<?php echo isset($content['ecard']['select']) && count($content['ecard']['select']) ? count($content['ecard']['select'])+6 : 6 ?>" multiple="multiple" class="custom-select form-control form-control-sm" id="cimage_list">
 			<?php
 			if(is_array($content['ecard']['images']) && count($content['ecard']['images'])) {
 				foreach($content['ecard']['images'] as $key => $value) {
