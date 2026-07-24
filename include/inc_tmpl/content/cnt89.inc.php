@@ -52,6 +52,9 @@ if(!empty($content['poll_form']['choice']) && is_array($content['poll_form']['ch
 	<div class="col-sm-4">
 		<input name="cpoll_buttonstyle" type="text" class="form-control form-control-sm" id="cpoll_buttonstyle" value="<?php echo html($content['poll_text']['poll_buttonstyle']) ?>" />
 	</div>
+</div>
+
+<div class="form-group form-row">
 	<label for="cpoll_buttontext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_buttontext']; ?></label>
 	<div class="col-sm-4">
 		<input name="cpoll_buttontext" type="text" class="form-control form-control-sm" id="cpoll_buttontext" value="<?php echo html($content['poll_text']['poll_buttontext']) ?>" />

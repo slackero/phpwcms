@@ -74,15 +74,21 @@ if(!isset($content['ecard'])) {
 
 <div class="form-group form-row">
 	<label for="cecard_over" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_over']; ?></label>
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<input name="cecard_onover" type="text" id="cecard_over" class="form-control form-control-sm" value="<?php echo html($content['ecard']['onover']); ?>" />
 	</div>
+</div>
+
+<div class="form-group form-row">
 	<label for="cecard_onclick" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_click']; ?></label>
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<input name="cecard_onclick" type="text" id="cecard_onclick" class="form-control form-control-sm" value="<?php echo html($content['ecard']['onclick']); ?>" />
 	</div>
+</div>
+
+<div class="form-group form-row">
 	<label for="cecard_onout" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform_out']; ?></label>
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<input name="cecard_onout" type="text" id="cecard_onout" class="form-control form-control-sm" value="<?php echo html($content['ecard']['onout']); ?>" />
 	</div>
 </div>
@@ -150,7 +156,9 @@ if(!isset($content['ecard'])) {
 			<option value="2" <?php is_selected(2, $content['ecard']['pos']) ?>><?php echo $BL['be_cnt_right'] ?></option>
 		</select>
 	</div>
-	
+</div>
+
+<div class="form-group form-row align-items-center">
 	<label for="cecard_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 	<div class="col-sm-auto my-2 my-sm-0">
 		<div class="input-group input-group-sm">

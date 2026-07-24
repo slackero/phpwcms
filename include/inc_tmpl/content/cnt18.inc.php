@@ -211,7 +211,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 <div class="form-group form-row">
 	<label for="cguestbook_cookie" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_guestbook_flooding']; ?></label>
-	<div class="col-sm-4">
+	<div class="col-sm-10">
 		<div class="form-inline">
 			<div class="custom-control custom-checkbox custom-control-inline mr-2">
 				<input name="cguestbook_cookie" id="cguestbook_cookie" type="checkbox" value="1" class="custom-control-input" <?php if (!isset($content['guestbook']['cookie'])) $content['guestbook']['cookie'] = 1; is_checked(1, intval($content['guestbook']['cookie'])); ?> />
@@ -221,8 +221,11 @@ if (!defined('PHPWCMS_ROOT')) {
 			<span class="text-muted small">s</span>
 		</div>
 	</div>
+</div>
+
+<div class="form-group form-row">
 	<label for="cguestbook_notify" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_email_notify']; ?></label>
-	<div class="col-sm-4">
+	<div class="col-sm-10">
 		<div class="form-inline">
 			<?php
 			if (!isset($content['guestbook']['notify'])) {

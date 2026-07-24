@@ -42,8 +42,11 @@ if (!isset($content['mailhtml'])) {
 	<div class="col-sm-4">
 		<input name="cmailbutton" type="text" id="cmailbutton" class="form-control form-control-sm" value="<?php echo isset($content['mailbutton']) ? html($content['mailbutton']) : ''; ?>" maxlength="35" />
 	</div>
+</div>
+
+<div class="form-group align-items-center form-row">
 	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sendas']; ?></label>
-	<div class="col-sm-4 d-flex align-items-center">
+	<div class="col-sm-10">
 		<div class="form-check form-check-inline">
 			<input name="cmailhtml" type="radio" id="cmailhtml_0" value="0" class="form-check-input" <?php is_checked(0, $content['mailhtml']); ?> />
 			<label class="form-check-label" for="cmailhtml_0"><?php echo $BL['be_cnt_text']; ?></label>
