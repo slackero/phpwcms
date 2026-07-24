@@ -84,7 +84,9 @@ if (!defined('PHPWCMS_ROOT')) {
 		</div>
 		<input name="cimage_id" type="hidden" value="<?php echo isset($content['image_id']) ? $content['image_id'] : ''; ?>" />
 	</div>
+</div>
 
+<div class="form-group form-row align-items-center">
 	<label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_size'] ?></label>
 	<div class="col-sm-auto my-2 my-sm-0">
 		<div class="input-group input-group-sm">
