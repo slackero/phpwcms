@@ -33,6 +33,12 @@ $(function() {
         onDrop: function ($item, container, _super, event) {
             $item.removeClass(container.group.options.draggedClass).removeAttr("style");
             $("body").removeClass(container.group.options.bodyClass);
+
+            $item.addClass('sort-just-moved');
+            setTimeout(function() {
+                $item.removeClass('sort-just-moved');
+            }, 2500);
+
             var sort_order = '';
             $('#sortable-list-0 li').each(function() {
                 sort_order = sort_order + $(this).attr('id') + '|';
@@ -490,6 +496,8 @@ $(function() {
         onDrop: function ($item, container, _super, event) {
           $item.removeClass(container.group.options.draggedClass).removeAttr("style");
           $("body").removeClass(container.group.options.bodyClass);
+          $item.addClass("sort-just-moved");
+          setTimeout(function() { $item.removeClass("sort-just-moved"); }, 2500);
           var sort_order = \'\';
           $(\'#sortable-list-'. $listingflag .' li\').each(function() {
             sort_order = sort_order +  $(this).attr(\'id\')  + \'|\';

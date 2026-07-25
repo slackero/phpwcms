@@ -2178,5 +2178,38 @@ ul.radio-list ul {
     scroll-margin-top: 120px;
 }
 
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+
+ul.dropable-list li.placeholder {
+    background-color: #eef6ff !important;
+    border: 2px dashed #007bff !important;
+    min-height: 48px;
+    margin: 4px 0;
+
+}
+
+ul.dropable-list li.dragged {
+    opacity: 0.85;
+    z-index: 2000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+ul.dropable-list li.sort-just-moved {
+    animation: sortMovedHighlight 2.5s ease-out;
+}
+
+@keyframes sortMovedHighlight {
+    0% {
+        background-color: #fff3cd;
+        box-shadow: 0 0 12px rgba(255, 193, 7, 0.75);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
 
 
