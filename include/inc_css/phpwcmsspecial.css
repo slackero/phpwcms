@@ -1138,5 +1138,96 @@ ul.dropable-list li.sort-just-moved {
         box-shadow: none;
     }
 }
+.scroll-anchor {
+    scroll-margin-top: 120px;
+}
+
+div#images, div#tabs {
+    margin: 3px 0 0;
+    padding: 0;
+}
+
+div#images a, div#tabs a {
+    margin-left: 3px;
+}
+
+div#images em.handle, div#tabs em.handle {
+    background: transparent url(../../img/button/sort_up_down.gif) no-repeat left top;
+    cursor: move;
+    float: right;
+    height: 16px;
+    position: relative;
+    right: 2px;
+    width: 16px;
+}
+
+div#images > div, div#tabs > div {
+    background: url(../../img/lines/be_dotted_line.gif) repeat-x left top;
+    list-style: none;
+    margin: 0 3px 0 0;
+    padding: 6px 4px 7px;
+}
+
+div#images > div.nomove, div#tabs > div.nomove {
+    background: #f3f5f8;
+    border-bottom: 1px solid #4e789f;
+    border-top: 1px solid #4e789f;
+    margin-top: 10px;
+}
+
+div#images > div:hover, div#tabs > div:hover {
+    background-color: #f3f5f8;
+}
+
+div#images td.backend_preview_img {
+    height: 1px;
+}
+
+div#images td.backend_preview_img img {
+    margin: 5px 0 3px;
+}
+
+div.checkbox-list {
+    background-color: #fff;
+    border: 1px solid #dee9ec;
+    padding: 2px;
+}
+
+div.checkbox-list.checkbox-list-darker {
+    border-color: #ccc;
+}
+
+ul.checkbox-list, ul.radio-list {
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+}
+
+ul.checkbox-list ul, ul.radio-list ul {
+    margin-left: 20px;
+}
+
+.checkbox-list label, .radio-list label {
+    display: block;
+    font-size: 12px !important;
+}
+
+.checkbox-list label:hover, .radio-list label:hover {
+    background-color: #f3f5f8;
+    color: #2b6183;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.checkbox-list label.disabled, .radio-list label.disabled {
+    color: #ccc;
+}
+
+.checkbox-list label.disabled:hover, .radio-list label.disabled:hover {
+    background-color: transparent;
+    color: #ccc;
+    cursor: default;
+    font-weight: 400;
+}
 
 
