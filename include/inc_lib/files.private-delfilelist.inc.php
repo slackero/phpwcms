@@ -39,15 +39,17 @@ if(isset($file_result[0]['f_id'])) {
         echo $filename."</a></td>\n";
 
         echo "<td class=\"text-right text-nowrap\">";
+        $restore_msg = str_replace('{VAL}', $filename, $BL['be_ftrash_restore']);
+        $delete_msg  = str_replace('{VAL}', $filename, $BL['be_ftrash_delete']);
+
         echo '<a class="btn btn-sm btn-blue mr-1" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|0'.
-             '" data-toggle="tooltip" title="'.$BL['be_ftrash_undo'].': '.$filename."\" onclick=\"return confirm('".
-             str_replace('{VAL}', $filename, $BL['be_ftrash_restore'])."');\">".
+             '" data-toggle="tooltip" title="'.$BL['be_ftrash_undo'].': '.$filename.'" data-confirm-warning="'.html_specialchars($restore_msg).'">'.
              '<i class="fa fa-arrow-up fa-fw"></i></a>';
 
         echo '<a class="btn btn-sm btn-danger" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'|9'.
-             '" data-toggle="tooltip" title="'.$BL['be_ftrash_delfinal'].': '.$filename."\" onclick=\"return confirm('".
-             str_replace('{VAL}', $filename, $BL['be_ftrash_delete'])."');\">".
+             '" data-toggle="tooltip" title="'.$BL['be_ftrash_delfinal'].': '.$filename.'" data-confirm-danger="'.html_specialchars($delete_msg).'">'.
              '<i class="far fa-trash-alt fa-fw"></i></a>';
+
         echo "</td>\n";
         echo "</tr>\n";
 

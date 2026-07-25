@@ -164,6 +164,29 @@ function bsConfirmSuccess(message, callback, customConfirmText, customCancelText
     bsConfirm('success', message, callback, customConfirmText, customCancelText);
 }
 
+$(document).on('click', '[data-confirm], [data-confirm-danger], [data-confirm-warning]', function (e) {
+    const $el = $(this);
+    const href = $el.attr('href');
+    const msg = $el.attr('data-confirm') || $el.attr('data-confirm-danger') || $el.attr('data-confirm-warning');
+    const type = $el.attr('data-confirm-type') || ($el.attr('data-confirm-danger') ? 'danger' : ($el.attr('data-confirm-warning') ? 'warning' : 'danger'));
+    const btnText = $el.attr('data-confirm-btn');
+
+    if (!msg) {
+        return true;
+    }
+
+    e.preventDefault();
+    bsConfirm(type, msg, function () {
+        if (href && href !== '#' && href !== 'javascript:void(0);') {
+            window.location.href = href;
+        } else if ($el.is(':submit') || $el.is('button[type="submit"]')) {
+            $el.closest('form').submit();
+        }
+    }, btnText);
+    return false;
+});
+
+
 function bsConfirmDelete(message, callback, customConfirmText, customCancelText) {
     bsConfirm('delete', message, callback, customConfirmText, customCancelText);
 }

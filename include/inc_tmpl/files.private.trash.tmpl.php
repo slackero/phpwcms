@@ -26,8 +26,9 @@ if($count_user_files) {
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-delfilelist.inc.php";
     //echo "</table>\n";
 
-    echo '<div class="text-center text-sm-left"><a class="btn btn-sm btn-blue mt-3" href="include/inc_act/act_file.php?trash=0|9'.
-             '" title="'.$BL['be_ftrash_delall']."\" onclick=\"return confirm('". str_replace("\n", "\\n", $BL['be_ftrash_delall'])."');\">".$BL['be_ftrash_delallfiles']."</a></div>";
+    echo '<div class="text-center text-sm-left"><a class="btn btn-sm btn-blue mt-3" href="include/inc_act/act_file.php?trash=0|9"' .
+         ' title="' . html_specialchars($BL['be_ftrash_delall']) . '" data-confirm-danger="' . html_specialchars($BL['be_ftrash_delall']) . '">' .
+         $BL['be_ftrash_delallfiles'] . '</a></div>';
 } else { //Wenn keinerlei Datensatz innerhalb Files durchlaufen wurde, dann
   echo $BL['be_ftrash_nofiles']."&nbsp;&nbsp;[<a href=\"phpwcms.php?do=files&amp;f=0\">".$BL['be_ftrash_show']."</a>]";
 }
