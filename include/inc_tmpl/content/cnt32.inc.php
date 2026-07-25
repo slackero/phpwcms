@@ -79,20 +79,19 @@ if(is_array($tmpllist) && count($tmpllist)) {
       <?php echo $tab_template_options; ?>
     </select>
   </div>
-</div>
-
-<div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"></label>
+  <label class="col-sm-2 col-form-label text-right"></label>
+  <div class="col-sm-4">
   	<div class="form-check form-check-inline col-sm-auto">
       <input class="form-check-input" type="checkbox" name="tabwysiwygoff" id="tabwysiwygoff" value="1"<?php is_checked(1, $content['tabwysiwygoff']) ?> />
       <label class="form-check-label" for="tabwysiwygoff">&nbsp;<?php echo $BL['be_cnt_no_wysiwyg_editor'] ?></label>
   	</div>
+  </div>
 </div>
 
 <hr />
 
 <div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right"></label>
+	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_top" onclick="return addNewTab('top');">
 			<i class="fa fa-plus"></i>
@@ -121,8 +120,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
   $value['custom_field_items'] = $custom_tab_fields;
   $custom_tab_fields_hidden = array();
   $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
-
+  $max_tab_key = 0;
   foreach($content['tabs'] as $key => $value):
+      $max_tab_key = max($max_tab_key, $key);
 
       if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
 
@@ -137,9 +137,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
       }
 
 ?>
-    <li id="tab_<?php echo $key ?>" class="card my-3 p-0">
+    <li id="tab_<?php echo $key ?>" class="card my-3 p-0 scroll-anchor">
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col-sm-auto">
               <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
                   <span class="fa-stack">
@@ -147,6 +147,9 @@ if(is_array($tmpllist) && count($tmpllist)) {
                       <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
                   </span>
               </em>
+            </div>
+            <div class="col">
+              <h2><strong>#<?php echo $key + 1 ?></strong></h2>
             </div>
             <div class="col text-right">
                 <?php
@@ -384,18 +387,22 @@ if(is_array($tmpllist) && count($tmpllist)) {
     ?>
 <script type="text/javascript">
 
-var entries = 0;
+var entries = <?php echo $max_tab_key; ?>;
 
 function addNewTab(pos) {
   entries++;
+  var tab_index = $("#tabs").children().length + 1;
 
   var entry = `
         <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-sm-auto">
                     <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
                         <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
                     </em>
+                </div>
+                <div class="col">
+                    <h2><strong>#${tab_index}</strong></h2>
                 </div>
                 <div class="col text-right">
                     <a class="btn btn-sm btn-danger" role="button" href="#" onclick="return setTabActive(this, 'tabactive${entries}')">
@@ -536,19 +543,17 @@ function addNewTab(pos) {
         </div>
 `;
 
-        var $li = $("<li>", {id: 'tab_'+entries, "class": "card my-3 p-0"});
-        if (pos === 'top') {
+        var $li = $("<li>", {id: 'tab_'+entries, "class": "card my-3 p-0 scroll-anchor"});
+        if (pos === 'top' && $('#btn_add_tab_bottom').length > 0) {
             $("#tabs").prepend($li);
         } else {
             $("#tabs").append($li);
         }
 
         $li.html(entry);
+        window.location.hash = 'tab_' + entries;
         <?php if($content['wysiwyg']): ?>EnableCKEditor(entries);<?php endif; ?>
 
-        $('button.modalButton').on('click', function() {
-            $("#browserModal iframe").attr({'src': $(this).data('src'), 'height': '100%', 'width': '100%'});
-        });
         return false;
     }
 
@@ -680,14 +685,12 @@ function addNewTab(pos) {
   }
 
   $(function() {
-    entries = $("ul#tabs").children().length;
-
     <?php if($content['wysiwyg']): ?>
-    if (entries > 0) {
-        for(let x = 0; x < entries; x++) {
-            EnableCKEditor(x);
-        }
-    }
+    $("ul#tabs textarea[id^='tabtext']").each(function() {
+        var id = $(this).attr('id');
+        var index = id.replace('tabtext', '');
+        EnableCKEditor(index);
+    });
     <?php endif; ?>
 
     $("ul.dropable-list").sortable({
@@ -724,8 +727,9 @@ function addNewTab(pos) {
   </script>
 </div>
 
+<?php if(count($content['tabs'])): ?>
 <div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right"></label>
+	<label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name'] ?></label>
 	<div class="col">
 		<button type="button" class="btn btn-sm btn-blue" id="btn_add_tab_bottom" onclick="return addNewTab('bottom');">
 			<i class="fa fa-plus"></i>
@@ -733,3 +737,4 @@ function addNewTab(pos) {
         </button>
 	</div>
 </div>
+<?php endif; ?>

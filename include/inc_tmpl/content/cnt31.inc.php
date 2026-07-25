@@ -246,10 +246,10 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 <hr />
 
 <div class="form-group align-items-center form-row">
-    <label class="col-sm-2 col-form-label text-right"></label>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images'] ?></label>
     <div class="col">
         <button class="btn btn-blue btn-sm" onclick="return addNewImage('top');">
-           <i class="fa fa-plus"></i> <?php echo $BL['be_ctype_images'] ?> <?php echo $BL['be_article_cnt_add'] ?>
+           <i class="fa fa-plus"></i> <?php echo $BL['be_cnt_image'] ?> <?php echo $BL['be_article_cnt_add'] ?>
         </button>
     </div>
 </div>
@@ -258,36 +258,37 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
 <?php
 
-    // Sort/Up Down Title
-    $sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
+  // Sort/Up Down Title
+  $sort_up_down = $BL['be_func_struct_sort_up'] . ' / '. $BL['be_func_struct_sort_down'];
+  if($tab_fieldgroups_active && isset($template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active])) {
+    $tab_fieldgroup =& $template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active];
+  } else {
+    $tab_fieldgroup = null;
+  }
+  if($tab_fieldgroup !== null && isset($tab_fieldgroup['fields']) && is_array($tab_fieldgroup['fields']) && count($tab_fieldgroup['fields'])) {
+    $custom_tab_fields = array_keys($tab_fieldgroup['fields']);
+  } else {
+    $custom_tab_fields = array();
+    $tab_fieldgroup = null;
+  }
 
-    if($tab_fieldgroups_active && isset($template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active])) {
-        $tab_fieldgroup =& $template_default['settings']['imagespecial_custom_fields'][$tab_fieldgroups_active];
-    } else {
-        $tab_fieldgroup = null;
-    }
-    if($tab_fieldgroup !== null && isset($tab_fieldgroup['fields']) && is_array($tab_fieldgroup['fields']) && count($tab_fieldgroup['fields'])) {
-        $custom_tab_fields = array_keys($tab_fieldgroup['fields']);
-    } else {
-        $custom_tab_fields = array();
-        $tab_fieldgroup = null;
-    }
+  $value['custom_field_items'] = $custom_tab_fields;
+  $custom_tab_fields_hidden = array();
+  $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file');
 
-    $value['custom_field_items'] = $custom_tab_fields;
-    $custom_tab_fields_hidden = array();
-    $custom_tab_field_types = array('str', 'textarea', 'option', 'select', 'int', 'float', 'bool', 'file', 'image');
+  foreach($content['image_special']['images'] as $key => $value):
 
-    // loop available image entries
-    foreach($content['image_special']['images'] as $key => $value) {
-        if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
-            if(count($custom_tab_fields)) {
-                $value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
-            } else {
-                $value['custom_field_items'] = array_keys($value['custom_fields']);
-            }
+      if(isset($value['custom_fields']) && is_array($value['custom_fields']) && count($value['custom_fields'])) {
+
+        if(count($custom_tab_fields)) {
+          $value['custom_field_items'] = array_unique( array_merge($custom_tab_fields, array_keys($value['custom_fields'])) );
         } else {
-            $value['custom_field_items'] = $custom_tab_fields;
+          $value['custom_field_items'] = array_keys($value['custom_fields']);
         }
+
+      } else {
+        $value['custom_field_items'] = $custom_tab_fields;
+      }
 
         // image tab title
         if ($value['thumb_name'] !== '') {
@@ -299,7 +300,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
         }
 ?>
 
-  <li id="image_<?php echo $key ?>" class="card my-3 p-0 sortme">
+  <li id="image_<?php echo $key ?>" class="card my-3 p-0 sortme scroll-anchor">
 
     <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
         <div class="row align-items-center">
@@ -615,7 +616,7 @@ endif;
   </li>
 
 <?php
-}
+endforeach;
 // close image entry looping
 ?>
 </ul>
@@ -625,10 +626,10 @@ endif;
 if (count($content['image_special']['images'])) {
 ?>
 <div class="form-group align-items-center form-row mb-3">
-    <label class="col-sm-2 col-form-label text-right"></label>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ctype_images'] ?></label>
     <div class="col">
-        <button class="btn btn-blue btn-sm" onclick="return addNewImage('bottom');">
-           <i class="fa fa-plus"></i> <?php echo $BL['be_ctype_images'] ?> <?php echo $BL['be_article_cnt_add'] ?>
+        <button id="btn_add_image_bottom" class="btn btn-blue btn-sm" onclick="return addNewImage('bottom');">
+           <i class="fa fa-plus"></i> <?php echo $BL['be_cnt_image'] ?> <?php echo $BL['be_article_cnt_add'] ?>
         </button>
     </div>
 </div>
@@ -756,13 +757,26 @@ function updatePreviewImageAll() {
         var image_number = $(this).attr('id').split('_');
         if (image_number.length > 1) {
             updatePreviewImage(image_number[1]);
-            image_entry[image_number[1]] = $('cimage_sort_' + image_number[1]).value;
+        }
+    });
+    updateImageSort();
+}
+
+function updateImageSort() {
+    image_entry = [];
+    $("li[id^='image_']").each(function() {
+        var image_number = $(this).attr('id').split('_');
+        if (image_number[1]) {
+            var idx = parseInt(image_number[1], 10);
+            image_entry[idx] = idx;
         }
     });
 }
 
 function addNewImage(where) {
+    updateImageSort();
     var entry_number = image_entry.length;
+    image_entry.push(entry_number);
     var new_entry = '';
 
     new_entry += '<div class="card-header p-2 border-1" role="tab" id="heading_'+entry_number+'">';
@@ -777,7 +791,7 @@ function addNewImage(where) {
     new_entry += '<a class="btn btn-sm btn-blue mr-1" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<i class="fa fa-ellipsis-h" aria-hidden="true"></i>';
     new_entry += '</a>';
-    new_entry += '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"></i></a></div>';
+    new_entry += '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\')"><i class="far fa-trash-alt"></i></a></div>';
     new_entry += '</div>';
     new_entry += '</div>';
     new_entry += '<div id="collapse_'+entry_number+'" class="collapse show" role="tabpanel" aria-labelledby="heading_'+entry_number+'" data-parent="#images">';
@@ -894,7 +908,7 @@ function addNewImage(where) {
 
     new_entry += '  <div class="input-group mb-3">';
     new_entry += '    <span class="input-group-prepend">';
-    new_entry += '      <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"  /></button>';
+    new_entry += '      <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=19&field=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>';
     new_entry += '    </span>';
     new_entry += '          <input';
     new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]"';
@@ -947,8 +961,8 @@ function addNewImage(where) {
     new_entry += '</div>';
     new_entry += '</div>'; //end card-body
 
-    var $li = $("<li>", {id: 'image_'+entry_number, "class": "card my-3 p-0 sortme nomove"});
-    if (where === 'top') {
+    var $li = $("<li>", {id: 'image_'+entry_number, "class": "card my-3 p-0 sortme nomove scroll-anchor"});
+    if (where === 'top' && $('#btn_add_image_bottom').length > 0) {
         $("#images").prepend($li);
     } else {
         $("#images").append($li);
@@ -956,9 +970,6 @@ function addNewImage(where) {
     $('#image_'+entry_number).html(new_entry);
     window.location.hash='image_'+entry_number;
 
-    $('button.modalButton').on('click', function() {
-        $("#browserModal iframe").attr({'src': $(this).data('src'), 'height': '100%', 'width': '100%'});
-    });
     return false;
 }
 
@@ -982,6 +993,7 @@ function setImgActive(button, id) {
 function deleteImgElement(id) {
     if(confirm('<?php echo $BL['be_image_delete_js'] ?>')) {
         $("#" + id).remove();
+        updateImageSort();
     }
     return false;
 }

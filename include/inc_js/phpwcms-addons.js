@@ -6,12 +6,20 @@ let topOffset = 95;
 let height = (this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height;
 
 $(function () {
+    const $doc = $(document);
+    const $win = $(window);
+    const $body = $('body');
+    const $pageWrapper = $('#page-wrapper');
+    const $modalBody = $('.modal .modal-body');
+    const $iframe = $('#browserModal iframe');
+    const $modalHeader = $('#browserModal h2');
+
     $('#button-menu').on('click', function (e) {
         e.preventDefault();
         $('#column-left').toggleClass('active');
     });
 
-    $(document).on('click', '.confirm-link', function (e) {
+    $doc.on('click', '.confirm-link', function (e) {
         e.preventDefault();
         const $this = $(this);
         const message = $this.attr('data-confirm') || 'Are you sure?';
@@ -24,7 +32,7 @@ $(function () {
     });
 
     // Intercept native confirm calls in inline onclick attributes dynamically
-    $(document).on('click', 'a[onclick*="confirm("], button[onclick*="confirm("], input[type="submit"][onclick*="confirm("], input[type="button"][onclick*="confirm("]', function(e) {
+    $doc.on('click', 'a[onclick*="confirm("], button[onclick*="confirm("], input[type="submit"][onclick*="confirm("], input[type="button"][onclick*="confirm("]', function(e) {
         const $el = $(this);
         const onclickStr = $el.attr('onclick');
         if (!onclickStr) return;
@@ -70,7 +78,7 @@ $(function () {
         }
     });
 
-    $(window).bind("load resize", function () {
+    $win.bind("load resize", function () {
         topOffset = 95;
         let width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
         if (width < 768) {
@@ -85,13 +93,14 @@ $(function () {
             height = 1;
         }
         if (height > topOffset) {
-            $("#page-wrapper").css("min-height", (height) + "px");
+            $pageWrapper.css("min-height", (height) + "px");
         }
     });
 
 
 
-    $('[data-toggle="tooltip"]').tooltip({
+    $body.tooltip({
+        selector: '[data-toggle="tooltip"]',
         delay: {
             show: 250,
             hide: 0
@@ -100,43 +109,18 @@ $(function () {
         sanitize: false
     });
 
-    $('img.modalButton').on('click', function (e) {
-        let $this = $(this);
+    $doc.on('click', '.modalButton', function (e) {
+        const $this = $(this);
         const src = $this.attr('data-src');
-        const modaltitle = $this.attr('alt');
+        const modaltitle = $this.attr('alt') || '';
 
-        $('.modal .modal-body').css({
+        $modalBody.css({
             'overflow-y': 'auto',
-            'min-height': $(window).height() * 0.8
+            'min-height': $win.height() * 0.8
         });
 
-        $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
-        $("#browserModal h2").html(modaltitle);
-    });
-
-    $('button.modalButton').on('click', function (e) {
-        const src = $(this).attr('data-src');
-        $('.modal .modal-body').css({
-            'overflow-y': 'auto',
-            'min-height': $(window).height() * 0.8
-        });
-
-        $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
-    });
-
-    $('input.modalButton').on('click', function (e) {
-        const src = $(this).attr('data-src');
-        //var height = $(this).attr('data-height') || 300;
-        //var width = $(this).attr('data-width') || 400;
-        //var modaltitle = $(this).attr('data-title');
-
-        $('.modal .modal-body').css({
-            'overflow-y': 'auto',
-            'min-height': $(window).height() * 0.8
-        });
-
-        $("#browserModal iframe").attr({'src': src, 'height': '100%', 'width': '100%'});
-        //$("#browserModal h2").html(modaltitle);
+        $iframe.attr({'src': src, 'height': '100%', 'width': '100%'});
+        $modalHeader.html(modaltitle);
     });
 
     //ajaxfunction
