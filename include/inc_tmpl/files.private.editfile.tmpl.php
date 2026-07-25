@@ -496,44 +496,57 @@ if($ja) {
     // List of predefined keywords (File Categories & Keys)
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
-    $first_cat = true;
     if(isset($result[0]['fcat_id'])) {
+        $k_rows = '';
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
                 $has_error = isset($file_error["keywords"][$row["fcat_id"]]);
-?>
-    <div class="form-group row align-items-center">
-        <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-sm-2 col-form-label text-sm-right font-weight-bold">
-            <?php if($first_cat) { echo $BL['be_ftptakeover_keywords']; $first_cat = false; } else { echo '&nbsp;'; } ?>
-        </label>
-        <div class="col-sm-10 d-flex align-items-center">
-            <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-form-label mr-3 text-nowrap" style="min-width: 160px;">
-                <?php if($has_error): ?><span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span><?php endif; ?>
-                <?php echo html($row["fcat_name"]); ?>:
-            </label>
-            <select name="file_keywords[<?php echo $row["fcat_id"]; ?>]" id="file_keywords_<?php echo $row["fcat_id"]; ?>" class="custom-select custom-select-sm<?php echo $has_error ? ' is-invalid' : ''; ?>" style="max-width: 350px;">
-                <option value="<?php echo ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0"); ?>">
-                    <?php echo ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']); ?>
-                </option>
-<?php
+                $k_rows .= '<tr class="mb-2">' . LF;
+                $k_rows .= '  <td class="pr-3 text-nowrap align-middle" style="width: 1%;">';
+                $k_rows .= '    <label for="file_keywords_' . $row["fcat_id"] . '" class="col-form-label py-1">';
+                if ($has_error) {
+                    $k_rows .= '<span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span>';
+                }
+                $k_rows .= html($row["fcat_name"]) . ':</label>';
+                $k_rows .= '  </td>' . LF;
+                $k_rows .= '  <td class="align-middle py-1">' . LF;
+                $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="custom-select custom-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
+                $k_rows .= '      <option value="' . ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0") . '">' . ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']) . '</option>' . LF;
+
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
                 $kresult = _dbQuery($ksql);
 
                 if(isset($kresult[0]['fkey_id'])) {
                     foreach($kresult as $krow) {
                         $selected = (isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"]) ? ' selected="selected"' : '';
-                        echo '                <option value="' . $krow["fkey_id"] . '"' . $selected . '>' . html($krow["fkey_name"]) . '</option>' . LF;
+                        $k_rows .= '      <option value="' . $krow["fkey_id"] . '"' . $selected . '>' . html($krow["fkey_name"]) . '</option>' . LF;
                     }
                 }
+                $k_rows .= '    </select>' . LF;
+                $k_rows .= '  </td>' . LF;
+                $k_rows .= '</tr>' . LF;
+            }
+        }
+
+        if ($k_rows !== '') {
 ?>
-            </select>
+    <div class="form-group row align-items-start mb-2">
+        <label class="col-sm-2 col-form-label text-sm-right font-weight-bold pt-1">
+            <?php echo $BL['be_ftptakeover_keywords']; ?>:
+        </label>
+        <div class="col-sm-10">
+            <table class="table table-borderless table-sm mb-0 w-auto">
+                <tbody>
+                    <?php echo $k_rows; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 <?php
-            }
         }
     }
     ?>
+
 
     <div class="form-group row align-items-center">
         <label for="file_shortinfo" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_ftptakeover_additional']; ?>:</label>
