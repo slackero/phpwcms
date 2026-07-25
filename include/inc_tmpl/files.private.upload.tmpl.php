@@ -473,25 +473,26 @@ document.getElementById("file").onchange = function(e) {
         echo '</div>';
         endif;
 ?>
-		<hr />
-    <legend><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
 <?php
-
     // List of predefined keywords (File Categories & Keys)
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
+    $first_cat = true;
     if(isset($result[0]['fcat_id'])) {
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
                 $has_error = isset($file_error["keywords"][$row["fcat_id"]]);
 ?>
     <div class="form-group row align-items-center">
-        <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-sm-2 col-form-label text-sm-right">
-            <?php if($has_error): ?><span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span><?php endif; ?>
-            <?php echo html($row["fcat_name"]); ?>:
+        <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-sm-2 col-form-label text-sm-right font-weight-bold">
+            <?php if($first_cat) { echo $BL['be_ftptakeover_keywords']; $first_cat = false; } else { echo '&nbsp;'; } ?>
         </label>
-        <div class="col-sm-6">
-            <select name="file_keywords[<?php echo $row["fcat_id"]; ?>]" id="file_keywords_<?php echo $row["fcat_id"]; ?>" class="custom-select custom-select-sm<?php echo $has_error ? ' is-invalid' : ''; ?>">
+        <div class="col-sm-10 d-flex align-items-center">
+            <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-form-label mr-3 text-nowrap" style="min-width: 160px;">
+                <?php if($has_error): ?><span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span><?php endif; ?>
+                <?php echo html($row["fcat_name"]); ?>:
+            </label>
+            <select name="file_keywords[<?php echo $row["fcat_id"]; ?>]" id="file_keywords_<?php echo $row["fcat_id"]; ?>" class="custom-select custom-select-sm<?php echo $has_error ? ' is-invalid' : ''; ?>" style="max-width: 350px;">
                 <option value="<?php echo ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0"); ?>">
                     <?php echo ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']); ?>
                 </option>
@@ -517,10 +518,11 @@ document.getElementById("file").onchange = function(e) {
 
     <div class="form-group row align-items-center">
       <label for="file_shortinfo" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_ftptakeover_additional']; ?>:</label>
-      <div class="col-sm-8">
+      <div class="col-sm-10">
      		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
       </div>
     </div>
+
 
     <div class="form-group form-row align-items-center">
       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
