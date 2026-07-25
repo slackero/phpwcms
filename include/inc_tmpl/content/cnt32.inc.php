@@ -696,7 +696,7 @@ function addNewTab(pos) {
     var el = document.getElementById("tabs");
     if (el) {
         new Sortable(el, {
-            handle: 'em.handle, .handle',
+            handle: '.handle',
             animation: 150,
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',

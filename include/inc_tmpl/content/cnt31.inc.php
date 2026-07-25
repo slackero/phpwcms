@@ -1005,7 +1005,7 @@ $(function(){
     var el = document.getElementById("images");
     if (el) {
         new Sortable(el, {
-            handle: 'em.handle, .handle',
+            handle: '.handle',
             animation: 150,
             ghostClass: 'sortable-ghost',
             chosenClass: 'sortable-chosen',
