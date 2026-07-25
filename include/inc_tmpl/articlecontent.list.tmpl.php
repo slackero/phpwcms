@@ -26,33 +26,44 @@ $buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');
 
 ?>
 <script>
-$(function() {
-    $("ul.dropable-list").sortable({
-        group: 'no-drop',
+function initSortableList(el, listId) {
+    if (!el) return;
+    new Sortable(el, {
         handle: '.handle',
-        onDrop: function ($item, container, _super) {
-            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-            $("body").removeClass(container.group.options.bodyClass);
-
-            _super($item, container);
-
-            $item.addClass('sort-just-moved');
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        dragClass: 'sortable-drag',
+        scroll: true,
+        scrollSensitivity: 60,
+        scrollSpeed: 10,
+        onEnd: function (evt) {
+            var item = evt.item;
+            item.classList.add('sort-just-moved');
             setTimeout(function() {
-                $item.removeClass('sort-just-moved');
+                item.classList.remove('sort-just-moved');
             }, 2500);
 
             var sort_order = '';
-            $('#sortable-list-0 li').each(function() {
-                sort_order = sort_order + $(this).attr('id') + '|';
-            });
+            var listEl = document.getElementById(listId);
+            if (listEl) {
+                var items = listEl.querySelectorAll('li[id]');
+                items.forEach(function(li) {
+                    sort_order += li.id + '|';
+                });
+            }
             $.ajax({
                 url: 'include/inc_act/act_articlesort.php?<?php echo get_token_get_string(); ?>&sortid=' + sort_order,
-                xhrFields: {
-                    withCredentials: true
-                }
+                xhrFields: { withCredentials: true }
             });
         }
-  });
+    });
+}
+$(function() {
+    var mainList = document.getElementById('sortable-list-0');
+    if (mainList) {
+        initSortableList(mainList, 'sortable-list-0');
+    }
 });
 </script>
 
@@ -489,28 +500,15 @@ $(function() {
     <?php
     if ($listingflag == 0) {
       echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0">';
-    } else {      echo '<script>
+    } else {
+      echo '<script>
       $(function() {
-        $("ul.dropable-list.' . $listingflag . '").sortable({
-        group: \'no-drop' . $listingflag . '\',
-        handle: \'.handle\',
-        onDrop: function ($item, container, _super) {
-          $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-          $("body").removeClass(container.group.options.bodyClass);
-          _super($item, container);
-          $item.addClass("sort-just-moved");
-          setTimeout(function() { $item.removeClass("sort-just-moved"); }, 2500);
-          var sort_order = \'\';
-          $(\'#sortable-list-' . $listingflag . ' li\').each(function() {
-            sort_order = sort_order +  $(this).attr(\'id\')  + \'|\';
-          });
-          $.ajax({url: \'include/inc_act/act_articlesort.php?' . get_token_get_string() . '&sortid=\' + sort_order, xhrFields: {withCredentials: true}});
-        }
-        });
+        var el = document.getElementById("sortable-list-' . $listingflag . '");
+        if (el) { initSortableList(el, "sortable-list-' . $listingflag . '"); }
       });
       </script>';
-        echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0 '. $listingflag .'">';
-      }
+      echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0 '. $listingflag .'">';
+    }
       $listingflag = $listingflag+1;
     }
 

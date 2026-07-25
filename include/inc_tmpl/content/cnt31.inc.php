@@ -1002,16 +1002,19 @@ function deleteImgElement(id) {
 $(function(){
     setCimageCenterInactive();
     updatePreviewImageAll();
-    $("#images").sortable({
-        group: 'no-drop',
-        handle: 'em.handle',
-        onDrag: function ($item, container, _super, event) {
-            $(".collapse").collapse('hide');
-        },
-        onDrop: function ($item, container, _super, event) {
-            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-            $("body").removeClass(container.group.options.bodyClass);
-        }
-    });
+    var el = document.getElementById("images");
+    if (el) {
+        new Sortable(el, {
+            handle: 'em.handle, .handle',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            scroll: true,
+            onStart: function() {
+                $(".collapse").collapse('hide');
+            }
+        });
+    }
 });
 </script>

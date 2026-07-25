@@ -36,20 +36,25 @@ $(function() {
         }
     });
 
-    $("ul.dropable-list").sortable({
-        group: "no-drop",
-        handle: "em.handle",
-        onDrop: function($item, container, _super, event) {
-            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-            $("body").removeClass(container.group.options.bodyClass);
-            let i=1;
-            $("#sortable-list li").each(function(element) {
-                let res = $(this).attr("id").split("_");
-                $("#cform_order_"+res[1]).val(i);
-                i++;
-            });
-        }
-    });
+    var el = document.getElementById("sortable-list");
+    if (el) {
+        new Sortable(el, {
+            handle: "em.handle, .handle",
+            animation: 150,
+            ghostClass: "sortable-ghost",
+            chosenClass: "sortable-chosen",
+            dragClass: "sortable-drag",
+            scroll: true,
+            onEnd: function() {
+                let i = 1;
+                $("#sortable-list li").each(function() {
+                    let res = $(this).attr("id").split("_");
+                    $("#cform_order_" + res[1]).val(i);
+                    i++;
+                });
+            }
+        });
+    }
 });
 </script>';
 

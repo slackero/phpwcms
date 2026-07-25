@@ -693,36 +693,39 @@ function addNewTab(pos) {
     });
     <?php endif; ?>
 
-    $("ul.dropable-list").sortable({
-        group: 'no-drop',
-        handle: 'em.handle',
-        onDrag: function ($item, container, _super, event) {
-            $(".collapse").collapse('hide');
-            <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
-            $item.find('textarea').each(function() {
-                var id = $(this).attr('id');
-                if (id && tinymce.get(id)) {
-                    tinymce.execCommand('mceRemoveEditor', false, id);
-                }
-            });
-            <?php endif; ?>
-            _super($item, container);
-        },
-        onDrop: function ($item, container, _super, event) {
-            $item.removeClass(container.group.options.draggedClass).removeAttr("style");
-            $("body").removeClass(container.group.options.bodyClass);
-            _super($item, container);
-            <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
-            $item.find('textarea').each(function() {
-                var id = $(this).attr('id');
-                if (id && id.indexOf('tabtext') === 0) {
-                    var x = id.substring(7);
-                    EnableCKEditor(x);
-                }
-            });
-            <?php endif; ?>
-        }
-    });
+    var el = document.getElementById("tabs");
+    if (el) {
+        new Sortable(el, {
+            handle: 'em.handle, .handle',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            scroll: true,
+            onStart: function(evt) {
+                $(".collapse").collapse('hide');
+                <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+                $(evt.item).find('textarea').each(function() {
+                    var id = $(this).attr('id');
+                    if (id && tinymce.get(id)) {
+                        tinymce.execCommand('mceRemoveEditor', false, id);
+                    }
+                });
+                <?php endif; ?>
+            },
+            onEnd: function(evt) {
+                <?php if($content['wysiwyg'] && $_SESSION["WYSIWYG_EDITOR"] == 2): ?>
+                $(evt.item).find('textarea').each(function() {
+                    var id = $(this).attr('id');
+                    if (id && id.indexOf('tabtext') === 0) {
+                        var x = id.substring(7);
+                        EnableCKEditor(x);
+                    }
+                });
+                <?php endif; ?>
+            }
+        });
+    }
   });
   </script>
 </div>

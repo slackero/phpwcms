@@ -258,7 +258,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 <?php
 
 $BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
-$BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-sortable.min.js');
+$BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/Sortable.min.js');
 $BE['HEADER']['alias_slash_var'] = ' <script>const aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.min.js');
