@@ -59,26 +59,42 @@ $msg_get["list"]    = "&l=".$msg_list;
 $msg_get["order"]   = "&o=".$msg_order;
 $msg_get["folder"]  = "&f=".$msg_folder;
 
-?><table width="538">
-        <tr><td class="title"><?php echo $BL['be_msg_title'] ?></td></tr>
-        <tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-        <tr><td><table width="538" cellpadding="2"><tr>
-         <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 0) ?>><a href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=0" ?>"><?php echo $count_newmsg." ".$BL['be_msg_new'] ?></a></td>
-         <td width="69" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 1) ?>><a href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=1" ?>"><?php echo $count_readmsg." ".$BL['be_msg_old'] ?></a></td>
-         <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 2) ?>><a href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=2" ?>"><?php echo $count_sentmsg." ".$BL['be_msg_senttop'] ?></a></td>
-         <td width="70" align="center" background="img/background/bg_eckeli.gif" <?php which_folder_active($msg_folder, 3) ?>><a href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=3" ?>"><?php echo $count_delmsg." ".$BL['be_msg_del'] ?></a></td>
-         <td width="239" align="right" bgcolor="#FFFFFF" class="chatlist">
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=10".$msg_get["msg"] ?>">10</a>
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=25".$msg_get["msg"] ?>">25</a>
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=50".$msg_get["msg"] ?>">50</a>
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=100".$msg_get["msg"] ?>">100</a>
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=500".$msg_get["msg"] ?>">250</a>
-            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=99999".$msg_get["msg"] ?>"><?php echo $BL['be_ftptakeover_all'] ?></a>
-        </td>
-        </tr></table></td>
-        <tr><td bgcolor="#9BBECA"><img src="img/leer.gif" alt="" width="1" height="4"></td></tr>
-        <tr><td><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-      </table>
+?><div class="card shadow-sm mb-4">
+    <div class="card-header d-flex flex-column flex-sm-row justify-content-between align-items-sm-center py-2">
+        <span class="font-weight-bold mb-2 mb-sm-0"><?php echo $BL['be_msg_title']; ?></span>
+        <ul class="nav nav-pills card-header-pills small">
+            <li class="nav-item">
+                <a class="nav-link py-1 px-2 <?php echo ($msg_folder == 0) ? 'active' : ''; ?>" href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=0"; ?>">
+                    <?php echo $count_newmsg." ".$BL['be_msg_new']; ?>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-1 px-2 <?php echo ($msg_folder == 1) ? 'active' : ''; ?>" href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=1"; ?>">
+                    <?php echo $count_readmsg." ".$BL['be_msg_old']; ?>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-1 px-2 <?php echo ($msg_folder == 2) ? 'active' : ''; ?>" href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=2"; ?>">
+                    <?php echo $count_sentmsg." ".$BL['be_msg_senttop']; ?>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-1 px-2 <?php echo ($msg_folder == 3) ? 'active' : ''; ?>" href="phpwcms.php?do=messages<?php echo $msg_get["list"].$msg_get["order"]."&f=3"; ?>">
+                    <?php echo $count_delmsg." ".$BL['be_msg_del']; ?>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="text-right small text-muted mb-3">
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=10".$msg_get["msg"]; ?>">10</a> | 
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=25".$msg_get["msg"]; ?>">25</a> | 
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=50".$msg_get["msg"]; ?>">50</a> | 
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=100".$msg_get["msg"]; ?>">100</a> | 
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=500".$msg_get["msg"]; ?>">250</a> | 
+            <a href="phpwcms.php?do=messages<?php echo $msg_get["folder"].$msg_get["order"]."&l=99999".$msg_get["msg"]; ?>"><?php echo $BL['be_ftptakeover_all']; ?></a>
+        </div>
+
             <?php
             //Read the List of User_ID and User_Name
             $msg_user = _dbQuery("SELECT usr_id, usr_login, usr_name, usr_email FROM ".DB_PREPEND."phpwcms_user");
@@ -116,64 +132,52 @@ $msg_get["folder"]  = "&f=".$msg_folder;
                             $do_move = 1;
                         }
       ?>
-      <table width="538">
-        <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr>
-          <td width="4"><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td><img src="img/leer.gif" alt="" width="530" height="1"></td>
-          <td width="4"><img src="img/leer.gif" alt="" width="4" height="1"></td>
-        </tr>
-        <tr bgcolor="#FFE57F">
-          <td width="4"><img src="img/leer.gif" alt="" width="4" height="18"></td>
-          <td width="530"><span class="v10"><?php echo $BL['be_msg_from'] ?>:</span> <?php echo gib_part($msg_user_list[$msgdetail["msg_from"]], 1, "###")." (".gib_part($msg_user_list[$msgdetail["msg_from"]], 0, "###").")"; ?>&nbsp;&nbsp;<span class="v10"><?php echo $BL['be_msg_date'] ?>:</span> <?php echo $msgdetail["msg_date"] ?></td>
-          <td width="4"><img src="img/leer.gif" alt="" width="4" height="1"></td>
-        </tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr><td colspan="3" class="title"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr bgcolor="#FFF8DF">
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td class="msgtext"><strong><?php echo html($msgdetail["msg_subject"]) ?></strong></td>
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-        </tr>
-        <tr bgcolor="#FFF8DF">
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td class="msgtext"><?php echo auto_link(nl2br(html($msgdetail["msg_text"]))) ?></td>
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-        </tr>
-        <tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="5"></td></tr>
-        <tr bgcolor="#FFF8DF">
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-          <td><a href="phpwcms.php?do=messages<?php echo $msg_get["all"] ?>" title="<?php echo $BL['be_msg_close'] ?>"><img src="img/button/close_message.gif" alt="" width="14" height="14" border="0"></a><img src="img/leer.gif" alt="" width="12" height="1"><a href="phpwcms.php?do=messages&p=1" title="<?php echo $BL['be_msg_create'] ?>"><img src="img/button/new_message1.gif" alt="" width="68" height="14" border="0"></a><img src="img/leer.gif" alt="" width="4" height="1"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $msgdetail["msg_id"].":"; if(!$msgdetail["msg_read"]) echo "I"; ?>" title="<?php echo $BL['be_msg_reply'] ?>"><img src="img/button/reply_to_message1.gif" alt="" width="83" height="14" border="0"></a><img src="img/leer.gif" alt="" width="4" height="1"><?php if($msg_folder<>3) {?><a href="include/inc_act/act_message.php?do=<?php echo $do_move ?>.<?php echo $msgdetail["msg_id"] ?>.1" title="<?php echo $BL['be_msg_move'] ?>"><img src="img/button/message_to_trash.gif" alt="" width="71" height="14" border="0"></a><?php } // ?></td>
-          <td width=4><img src="img/leer.gif" alt="" width="4" height="1"></td>
-        </tr>
-        <tr bgcolor="#FFF8DF"><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="10"></td></tr>
-      </table>
+      <div class="card bg-light mb-4">
+        <div class="card-header bg-warning font-weight-bold d-flex justify-content-between align-items-center py-2">
+            <span><?php echo $BL['be_msg_from']; ?>: <?php echo gib_part($msg_user_list[$msgdetail["msg_from"]], 1, "###")." (".gib_part($msg_user_list[$msgdetail["msg_from"]], 0, "###").")"; ?></span>
+            <span class="small"><?php echo $BL['be_msg_date']; ?>: <?php echo $msgdetail["msg_date"]; ?></span>
+        </div>
+        <div class="card-body">
+            <h6 class="card-title font-weight-bold mb-3"><?php echo html($msgdetail["msg_subject"]); ?></h6>
+            <div class="card-text mb-4"><?php echo auto_link(nl2br(html($msgdetail["msg_text"]))); ?></div>
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="phpwcms.php?do=messages<?php echo $msg_get["all"]; ?>" class="btn btn-secondary" title="<?php echo $BL['be_msg_close']; ?>">
+                    <i class="fa fa-times fa-fw"></i> <?php echo $BL['be_msg_close']; ?>
+                </a>
+                <a href="phpwcms.php?do=messages&amp;p=1" class="btn btn-blue" title="<?php echo $BL['be_msg_create']; ?>">
+                    <i class="fa fa-plus fa-fw"></i> <?php echo $BL['be_msg_create']; ?>
+                </a>
+                <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $msgdetail["msg_id"].":"; if(!$msgdetail["msg_read"]) echo "I"; ?>" class="btn btn-blue" title="<?php echo $BL['be_msg_reply']; ?>">
+                    <i class="fa fa-reply fa-fw"></i> <?php echo $BL['be_msg_reply']; ?>
+                </a>
+                <?php if ($msg_folder != 3) { ?>
+                <a href="include/inc_act/act_message.php?do=<?php echo $do_move; ?>.<?php echo $msgdetail["msg_id"]; ?>.1" class="btn btn-danger" title="<?php echo $BL['be_msg_move']; ?>">
+                    <i class="far fa-trash-alt fa-fw"></i> <?php echo $BL['be_msg_move']; ?>
+                </a>
+                <?php } ?>
+            </div>
+        </div>
+      </div>
       <?php
                     } //Bedingung für Abfrage
                 } //Ende Anzeige komplette gewählte Nachricht
             } //Ende Anzeigen Nachricht
 
-            if($count_newmsg && $msg_folder==0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538">
-    <tr><td colspan="4"><strong style="color:#9BBECA;"><?php echo $BL['be_msg_unread'] ?></strong></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr bgcolor="#EBF2F4">
-          <td width="135" class="columnhead"><img src="img/leer.gif" alt="" width="1" height="1"><span style="color:#727889"><?php echo $BL['be_msg_from'] ?></span>:</td>
-          <td width="250" class="columnhead"><?php echo $BL['be_msg_subject'] ?>:</td>
-          <td width="93" class="columnhead"><?php echo $BL['be_msg_date'] ?>:</td>
-          <td width="60"><img src="img/leer.gif" alt="" width="60" height="1"></td>
-    </tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-<?php
+            if ($count_newmsg && $msg_folder == 0) { //Wenn Count > 0 dann Listing der neuen Nachrichten
+            ?>
+            <h6 class="font-weight-bold text-primary mb-2"><?php echo $BL['be_msg_unread']; ?></h6>
+            <div class="table-responsive mb-4">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
+                            <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
+                            <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
+                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        <?php
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
             "DATE_FORMAT(msg_tstamp, '%m/%d/%y %H:%i') AS msg_date ".
@@ -183,59 +187,50 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     $result = _dbQuery($sql);
 
     if(isset($result[0]['msg_id'])) {
-    //falls new messages listing schleife
-        $bg_color1 = "#FFFFFF";
-        $bg_color2 = "#F5F9FA";
         $zaehler = 0;
-        foreach($result as $row) {
-            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
+        foreach ($result as $row) {
             $goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
-            if(!$row["msg_read"]) {
+            if (!$row["msg_read"]) {
                 $goto .= "I";
             }
-            if($msg == $row["msg_id"]) {
-                $bg_class = "bg-row-highlight-gold";
-            }
+            $is_active = ($msg == $row["msg_id"]) ? ' table-warning' : '';
 ?>
-        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $is_active; ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto; ?>';">
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
+          <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
+          <td class="text-right">
+              <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+          </td>
     </tr>
 <?php
             $zaehler++;
         } //Ende Listing Schleife
     } //Ende Listing new messages
 ?>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr>
-        <td><img src="img/leer.gif" alt="" width="135" height="1"></td>
-        <td><img src="img/leer.gif" alt="" width="250" height="1"></td>
-        <td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
-        <td width="60"><img src="img/leer.gif" alt="" width="60" height="10"></td>
-    </tr>
-</table><?php
+                    </tbody>
+                </table>
+            </div>
+<?php
             $no_durchlauf++;
             } //Ende Anzeige unglesene Mitteilungen
 
 
-            if($count_readmsg && $msg_folder==1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
-            ?><table width="538">
-        <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></strong></td></tr>
-        <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-        <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr bgcolor="#EBF2F4">
-          <td width="135" class="columnhead"><img src="img/leer.gif" alt="" width="1" height="1"><span style="color:#727889"><?php echo $BL['be_msg_from'] ?></span>:</td>
-          <td width="250" class="columnhead"><?php echo $BL['be_msg_subject'] ?>:</td>
-          <td width="93" class="columnhead"><?php echo $BL['be_msg_date'] ?>:</td>
-          <td width="60"><img src="img/leer.gif" alt="" width="60" height="1"></td>
-        </tr>
-        <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-        <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+            if ($count_readmsg && $msg_folder == 1) { //Wenn Count > 0 dann Listing der bereits gelesenen Nachrichten
+            ?>
+            <h6 class="font-weight-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastread']); ?></h6>
+            <div class="table-responsive mb-4">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
+                            <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
+                            <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
+                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
         <?php
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
@@ -245,60 +240,50 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     $result = _dbQuery($sql);
 
     if(isset($result[0]['msg_id'])) {
-    //falls new messages listing schleife
-        $bg_color1 = "#FFFFFF";
-        $bg_color2 = "#F5F9FA";
         $zaehler = 0;
-        foreach($result as $row) {
-            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
+        foreach ($result as $row) {
             $goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
-            if(!$row["msg_read"]) {
+            if (!$row["msg_read"]) {
                 $goto .= "I";
             }
-            if($msg == $row["msg_id"]) {
-                $bg_class = "bg-row-highlight-gold";
-            }
+            $is_active = ($msg == $row["msg_id"]) ? ' table-warning' : '';
 ?>
-        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $is_active; ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto; ?>';">
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
+          <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
+          <td class="text-right">
+              <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=1.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+          </td>
         </tr>
         <?php
             $zaehler++;
         } //Ende Listing Schleife
     } //Ende Listing new messages
 ?>
-        <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-        <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-        <tr>
-          <td><img src="img/leer.gif" alt="" width="135" height="1"></td>
-          <td><img src="img/leer.gif" alt="" width="250" height="1"></td>
-          <td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
-          <td width="60"><img src="img/leer.gif" alt="" width="60" height="10"></td>
-        </tr>
-      </table>
+                    </tbody>
+                </table>
+            </div>
       <?php
             $no_durchlauf++;
             } //Ende Anzeige gelesene Mitteilungen
 
 
-            if($count_sentmsg && $msg_folder==2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538">
-    <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></strong></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr bgcolor="#EBF2F4">
-          <td width="135" class="columnhead"><img src="img/leer.gif" alt="" width="1" height="1"><span style="color:#727889"><?php echo $BL['be_msg_from'] ?></span>:</td>
-          <td width="250" class="columnhead"><?php echo $BL['be_msg_subject'] ?>:</td>
-          <td width="93" class="columnhead"><?php echo $BL['be_msg_date'] ?>:</td>
-          <td width="60"><img src="img/leer.gif" alt="" width="60" height="1"></td>
-    </tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+            if ($count_sentmsg && $msg_folder == 2) { //Wenn Count > 0 dann Listing der neuen Nachrichten
+            ?>
+            <h6 class="font-weight-bold text-muted mb-2"><?php echo str_replace('{VAL}', $msg_list, $BL['be_msg_lastsent']); ?></h6>
+            <div class="table-responsive mb-4">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
+                            <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
+                            <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
+                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 <?php
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
@@ -308,58 +293,49 @@ $msg_get["folder"]  = "&f=".$msg_folder;
     $result = _dbQuery($sql);
 
     if(isset($result[0]['msg_id'])) {
-    //falls new messages listing schleife
-        $bg_color1 = "#FFFFFF";
-        $bg_color2 = "#F5F9FA";
         $zaehler = 0;
-        foreach($result as $row) {
-            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
+        foreach ($result as $row) {
             $goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
-            if(!$row["msg_read"]) {
+            if (!$row["msg_read"]) {
                 $goto .= "I";
             }
-            if($msg == $row["msg_id"]) {
-                $bg_class = "bg-row-highlight-gold";
-            }
+            $is_active = ($msg == $row["msg_id"]) ? ' table-warning' : '';
 ?>
-    <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-        <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-        <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-        <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
-        <td width="60" align="right" class="v10"><a href="phpwcms.php?do=messages&p=1&msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>"><img src="img/button/reply_mini.gif" alt="" width="40" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"] ?>.1"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a></td>
+    <tr class="hover-gold <?php echo $is_active; ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto; ?>';">
+        <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+        <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
+        <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
+        <td class="text-right">
+            <a href="phpwcms.php?do=messages&amp;p=1&amp;msg=<?php echo $row["msg_id"].":"; if(!$row["msg_read"]) echo "I"; ?>" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_reply']; ?>"><i class="fa fa-reply fa-fw"></i></a>
+            <a href="include/inc_act/act_message.php?do=2.<?php echo $row["msg_id"]; ?>.1" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_move']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+        </td>
     </tr>
 <?php
             $zaehler++;
         } //Ende Listing Schleife
     } //Ende Listing new messages
 ?>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr>
-        <td><img src="img/leer.gif" alt="" width="135" height="1"></td>
-        <td><img src="img/leer.gif" alt="" width="250" height="1"></td>
-        <td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
-        <td width="60"><img src="img/leer.gif" alt="" width="60" height="10"></td>
-    </tr>
-</table><?php
+                    </tbody>
+                </table>
+            </div>
+<?php
             $no_durchlauf++;
     } //Ende Anzeige unglesene Mitteilungen
 
-    if($count_delmsg && $msg_folder==3) { //Wenn Count > 0 dann Listing der neuen Nachrichten
-            ?><table width="538">
-    <tr><td colspan="4"><strong style="color:#9BBECA"><?php echo $BL['be_msg_marked'] ?></strong></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr bgcolor="#EBF2F4">
-          <td width="135" class="columnhead"><img src="img/leer.gif" alt="" width="1" height="1"><span style="color:#727889"><?php echo $BL['be_msg_from'] ?></span>:</td>
-          <td width="250" class="columnhead"><?php echo $BL['be_msg_subject'] ?>:</td>
-          <td width="93" class="columnhead"><?php echo $BL['be_msg_date'] ?>:</td>
-          <td width="60"><img src="img/leer.gif" alt="" width="60" height="1"></td>
-    </tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
+    if ($count_delmsg && $msg_folder == 3) { //Wenn Count > 0 dann Listing der neuen Nachrichten
+            ?>
+            <h6 class="font-weight-bold text-muted mb-2"><?php echo $BL['be_msg_marked']; ?></h6>
+            <div class="table-responsive mb-4">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col"><?php echo $BL['be_msg_from']; ?></th>
+                            <th scope="col"><?php echo $BL['be_msg_subject']; ?></th>
+                            <th scope="col" style="width: 130px;"><?php echo $BL['be_msg_date']; ?></th>
+                            <th scope="col" class="text-right" style="width: 80px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
 <?php
     //Listing new messages
     $sql =  "SELECT msg_id, msg_pid, msg_uid, msg_subject, msg_from, msg_read, ".
@@ -369,60 +345,47 @@ $msg_get["folder"]  = "&f=".$msg_folder;
             "ORDER BY msg_tstamp DESC LIMIT ".$msg_list;
     $result = _dbQuery($sql);
     if(isset($result[0]['msg_id'])) {
-        //falls new messages listing schleife
-        $bg_color1 = "#FFFFFF";
-        $bg_color2 = "#F5F9FA";
         $zaehler = 0;
-        foreach($result as $row) {
-            $bg_class = ($zaehler % 2) ? 'bg-row-alt-blue' : 'bg-row-white';
+        foreach ($result as $row) {
             $goto = "phpwcms.php?do=messages".$msg_get["folder"].$msg_get["order"].$msg_get["list"]."&msg=".$row["msg_id"].":";
-            if(!$row["msg_read"]) {
+            if (!$row["msg_read"]) {
                 $goto .= "I";
             }
-            if($msg == $row["msg_id"]) {
-                $bg_class = "bg-row-highlight-gold";
+            if ($row["msg_from"] == $_SESSION["wcs_user_id"]) {
+                $do_undo = 4;
+                $do_del  = 4;
             }
-            // which action?
-            if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) {
-                $do_undo = 4; //Undo sent message
+            if ($row["msg_uid"] == $_SESSION["wcs_user_id"]) {
+                $do_undo = 3;
+                $do_del  = 3;
             }
-            if($row["msg_deleted"] == 1 && $row["msg_uid"] == $_SESSION["wcs_user_id"]) {
-                $do_undo = 3; //Undo normal message
-            }
-            if($row["msg_from_del"] == 1 && $row["msg_from"] == $_SESSION["wcs_user_id"]) {
-                $do_del = 6; //Delete sent message
-            }
-            if($row["msg_deleted"] == 1 && $row["msg_uid"] == $_SESSION["wcs_user_id"]) {
-                $do_del = 5; //Delete normal message
-            }
+            $is_active = ($msg == $row["msg_id"]) ? ' table-warning' : '';
 ?>
-        <tr class="hover-gold <?php echo $bg_class ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto ?>';">
-          <td class="msglist"><img src="img/leer.gif" alt="" width="1" height="1"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
-          <td class="msglist"><a href="<?php echo $goto ?>" title="<?php echo $row["msg_subject"] ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40) ?></a></td>
-          <td width="93" class="msglist"><?php echo $row["msg_date"] ?></td>
-          <td width="60" align="right" class="v10"><a href="include/inc_act/act_message.php?do=<?php echo $do_undo ?>.<?php echo $row["msg_id"] ?>.0"><img src="img/button/undo_message.gif" alt="" width="29" height="15" border="0"></a><a href="include/inc_act/act_message.php?do=<?php echo $do_del ?>.<?php echo $row["msg_id"] ?>.9"><img src="img/button/del_message_final.gif" alt="" width="22" height="15" border="0"></a></td>
+        <tr class="hover-gold <?php echo $is_active; ?>" onclick="location.href='<?php echo $phpwcms["site"].$goto; ?>';">
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo gib_part($msg_user_list[$row["msg_from"]], 1, "###"); ?></a></td>
+          <td class="msglist"><a href="<?php echo $goto; ?>" title="<?php echo html($row["msg_subject"]); ?>"><?php echo cut_string($row["msg_subject"], "&#8230;", 40); ?></a></td>
+          <td class="msglist text-muted small"><?php echo $row["msg_date"]; ?></td>
+          <td class="text-right">
+              <a href="include/inc_act/act_message.php?do=<?php echo $do_undo; ?>.<?php echo $row["msg_id"]; ?>.0" class="btn btn-sm btn-blue py-0 px-1" title="<?php echo $BL['be_msg_undo']; ?>"><i class="fa fa-undo fa-fw"></i></a>
+              <a href="include/inc_act/act_message.php?do=<?php echo $do_del; ?>.<?php echo $row["msg_id"]; ?>.9" class="btn btn-sm btn-danger py-0 px-1" title="<?php echo $BL['be_msg_del']; ?>"><i class="far fa-trash-alt fa-fw"></i></a>
+          </td>
     </tr>
 <?php
             $zaehler++;
         } //Ende Listing Schleife
     } //Ende Listing new messages
 ?>
-    <tr><td colspan="4"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-    <tr><td colspan="4"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr>
-        <td><img src="img/leer.gif" alt="" width="135" height="1"></td>
-        <td><img src="img/leer.gif" alt="" width="250" height="1"></td>
-        <td width="93"><img src="img/leer.gif" alt="" width="93" height="1"></td>
-        <td width="60"><img src="img/leer.gif" alt="" width="60" height="10"></td>
-    </tr>
-</table><?php
+                    </tbody>
+                </table>
+            </div>
+<?php
             $no_durchlauf++;
         } //Ende Anzeige Dateien im Papierkorb
 
-if(!$no_durchlauf) {
-    echo $BL['be_msg_nomsg']."<br /><img src='img/leer.gif' width=1 height=4>";
+if (!$no_durchlauf) {
+    echo '<div class="alert alert-info mb-0">' . $BL['be_msg_nomsg'] . '</div>';
 }
-echo "<table width=538 border=0 cellspacing=0 cellpadding=0>\n";
-echo "<tr><td bgcolor='#9BBECA'><img src='img/leer.gif' width=1 height=4></td><tr>\n";
-echo "<tr><td><img src='img/leer.gif' width=1 height=15></td><tr>\n";
-echo "</table>\n";
+?>
+    </div>
+</div>
+

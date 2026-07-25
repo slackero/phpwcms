@@ -217,50 +217,51 @@ if(!isset($content['ecard'])) {
 <hr />
 
 <?php
-if(!$content['ecard']['form']) {
-    $content['ecard']['form']  = '<div align="center" style="margin:0 0 0 0;padding:10px 0 10px 0;">###ECARD_CHOOSER###</div>'."\n";
-    $content['ecard']['form'] .= '<table align="center" cellpadding="4" style="font-size:11px;font-family:Verdana,Arial,sans-serif;">'."\n";
-    $content['ecard']['form'] .= "<!--FORM_ERROR_START-->\n";
-    $content['ecard']['form'] .= '<tr><td colspan="5" style="margin:0 0 0 0;padding:0 0 0 0;"><table>'."\n";
-    $content['ecard']['form'] .= '<tr><td valign="top"><img src="img/symbole/achtung.gif" width="13" height="11" />&nbsp;</td>'."\n";
-    $content['ecard']['form'] .= '<td valign="top"><strong style="color:#CC3300;">'.$BL['be_cnt_ecardform_err'].'</strong></td>'."\n";
-    $content['ecard']['form'] .= "</tr></table></td></tr>\n";
-    $content['ecard']['form'] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="2" /></td></tr>'."\n";
-    $content['ecard']['form'] .= "<!--FORM_ERROR_END-->\n";
-    $content['ecard']['form'] .= "<tr>\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_sender'].'</strong></td>'."\n";
-    $content['ecard']['form'] .= '<td rowspan="5"><img src="img/leer.gif" width="3" height="1" /></td>'."\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#99CC00"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_recipient'].'</strong></td>'."\n";
-    $content['ecard']['form'] .= "</tr><tr>\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-    $content['ecard']['form'] .= "</tr>\n";
-    $content['ecard']['form'] .= "<tr>\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px;" value="###SENDER_NAME###" size="25" /></td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_cnt_ecardform_name'].':</td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_NAME###" type="text" style="font-size:12px; width:150px;margin-right:3px" value="###RECIPIENT_NAME###" size="25" /></td>'."\n";
-    $content['ecard']['form'] .= "</tr>\n";
-    $content['ecard']['form'] .= "<tr>\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF"><input name="###SENDER_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###SENDER_EMAIL###" size="25" /></td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF">&nbsp;'.$BL['be_profile_label_email'].'<span style="color:#CC3300;">*</span>:</td>'."\n";
-    $content['ecard']['form'] .= '<td bgcolor="#F8FFDF"><input name="###RECIPIENT_EMAIL###" type="text" style="font-size:12px; width:150px;" value="###RECIPIENT_EMAIL###" size="25" /></td>'."\n";
-    $content['ecard']['form'] .= "</tr>\n";
-    $content['ecard']['form'] .= "<tr>\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-    $content['ecard']['form'] .= '<td colspan="2" bgcolor="#F8FFDF" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td>'."\n";
-    $content['ecard']['form'] .= "</tr>\n";
-    $content['ecard']['form'] .= '<tr><td colspan="5"><img src="img/leer.gif" width="1" height="3" /></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr bgcolor="#99CC00"><td colspan="5"><strong style="color:#FFFFFF;">&nbsp;'.$BL['be_cnt_ecardform_msgtext'].'</strong></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:2px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr align="center" bgcolor="#F8FFDF">'."\n";
-    $content['ecard']['form'] .= '<td colspan="5"><textarea name="###SENDER_MESSAGE###" cols="50" rows="6" id="ecard_sender_msg" class="width440 autosize">###SENDER_MESSAGE###</textarea></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr bgcolor="#F8FFDF"><td colspan="5" style="margin:0 0 0 0;padding:4px 0 0 0;"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr align="center" bgcolor="#F8FFDF"><td colspan="5"><input name="###BUTTON###" type="submit" value="'.$BL['be_cnt_ecardform_button'].'" style="font-size:12px;" /></td></tr>'."\n";
-    $content['ecard']['form'] .= '<tr bgcolor="#F8FFDF"><td colspan="5"><img src="img/leer.gif" width="1" height="1" /></td></tr>'."\n";
-    $content['ecard']['form'] .= '</table>';
+if (!$content['ecard']['form']) {
+    $content['ecard']['form']  = '<div class="text-center my-3">###ECARD_CHOOSER###</div>' . "\n";
+    $content['ecard']['form'] .= '<!--FORM_ERROR_START-->' . "\n";
+    $content['ecard']['form'] .= '<div class="alert alert-danger d-flex align-items-center" role="alert">' . "\n";
+    $content['ecard']['form'] .= '  <i class="fa fa-exclamation-triangle mr-2"></i>' . "\n";
+    $content['ecard']['form'] .= '  <div><strong>' . $BL['be_cnt_ecardform_err'] . '</strong></div>' . "\n";
+    $content['ecard']['form'] .= '</div>' . "\n";
+    $content['ecard']['form'] .= '<!--FORM_ERROR_END-->' . "\n";
+    $content['ecard']['form'] .= '<div class="card mb-3">' . "\n";
+    $content['ecard']['form'] .= '  <div class="card-body">' . "\n";
+    $content['ecard']['form'] .= '    <div class="row">' . "\n";
+    $content['ecard']['form'] .= '      <div class="col-md-6 mb-3">' . "\n";
+    $content['ecard']['form'] .= '        <h6 class="card-title font-weight-bold text-success">' . $BL['be_cnt_ecardform_sender'] . '</h6>' . "\n";
+    $content['ecard']['form'] .= '        <div class="form-group mb-2">' . "\n";
+    $content['ecard']['form'] .= '          <label class="small">' . $BL['be_cnt_ecardform_name'] . ':</label>' . "\n";
+    $content['ecard']['form'] .= '          <input name="###SENDER_NAME###" type="text" class="form-control form-control-sm" value="###SENDER_NAME###" />' . "\n";
+    $content['ecard']['form'] .= '        </div>' . "\n";
+    $content['ecard']['form'] .= '        <div class="form-group mb-0">' . "\n";
+    $content['ecard']['form'] .= '          <label class="small">' . $BL['be_profile_label_email'] . ' <span class="text-danger">*</span>:</label>' . "\n";
+    $content['ecard']['form'] .= '          <input name="###SENDER_EMAIL###" type="text" class="form-control form-control-sm" value="###SENDER_EMAIL###" />' . "\n";
+    $content['ecard']['form'] .= '        </div>' . "\n";
+    $content['ecard']['form'] .= '      </div>' . "\n";
+    $content['ecard']['form'] .= '      <div class="col-md-6 mb-3">' . "\n";
+    $content['ecard']['form'] .= '        <h6 class="card-title font-weight-bold text-success">' . $BL['be_cnt_ecardform_recipient'] . '</h6>' . "\n";
+    $content['ecard']['form'] .= '        <div class="form-group mb-2">' . "\n";
+    $content['ecard']['form'] .= '          <label class="small">' . $BL['be_cnt_ecardform_name'] . ':</label>' . "\n";
+    $content['ecard']['form'] .= '          <input name="###RECIPIENT_NAME###" type="text" class="form-control form-control-sm" value="###RECIPIENT_NAME###" />' . "\n";
+    $content['ecard']['form'] .= '        </div>' . "\n";
+    $content['ecard']['form'] .= '        <div class="form-group mb-0">' . "\n";
+    $content['ecard']['form'] .= '          <label class="small">' . $BL['be_profile_label_email'] . ' <span class="text-danger">*</span>:</label>' . "\n";
+    $content['ecard']['form'] .= '          <input name="###RECIPIENT_EMAIL###" type="text" class="form-control form-control-sm" value="###RECIPIENT_EMAIL###" />' . "\n";
+    $content['ecard']['form'] .= '        </div>' . "\n";
+    $content['ecard']['form'] .= '      </div>' . "\n";
+    $content['ecard']['form'] .= '    </div>' . "\n";
+    $content['ecard']['form'] .= '    <div class="form-group mb-3">' . "\n";
+    $content['ecard']['form'] .= '      <label class="font-weight-bold text-success">' . $BL['be_cnt_ecardform_msgtext'] . '</label>' . "\n";
+    $content['ecard']['form'] .= '      <textarea name="###SENDER_MESSAGE###" rows="5" id="ecard_sender_msg" class="form-control form-control-sm">###SENDER_MESSAGE###</textarea>' . "\n";
+    $content['ecard']['form'] .= '    </div>' . "\n";
+    $content['ecard']['form'] .= '    <div class="text-center">' . "\n";
+    $content['ecard']['form'] .= '      <input name="###BUTTON###" type="submit" value="' . $BL['be_cnt_ecardform_button'] . '" class="btn btn-sm btn-success" />' . "\n";
+    $content['ecard']['form'] .= '    </div>' . "\n";
+    $content['ecard']['form'] .= '  </div>' . "\n";
+    $content['ecard']['form'] .= '</div>';
 }
+
 ?>
 
 <div class="form-group form-row">
