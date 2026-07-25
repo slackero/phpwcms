@@ -467,25 +467,27 @@ if($ja) {
     if(!empty($file_image_iptc)):
 ?>
 
-<div class="form-group form-row align-items-center">
-  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data'] ?></label>
-		<div class="col-sm-auto">
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
-				<label class="form-check-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption'] ?></label>
-				<input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(serialize($file_image_iptc)); ?>" />
-			</div>
-		</div>
-		<div class="col-sm-auto">
-		<?php
-			ksort($file_image_iptc);
-			foreach($file_image_iptc as $iptc_key => $iptc_value):
-				echo $BL['iptc_'.$iptc_key];
-				echo html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value);
-      endforeach;
-		?>
-		</div>
+<div class="form-group row align-items-center mb-3">
+    <label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_iptc_data']; ?>:</label>
+    <div class="col-sm-10">
+        <div class="custom-control custom-checkbox mb-2">
+            <input class="custom-control-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
+            <label class="custom-control-label" for="file_iptc_as_caption"><?php echo $BL['be_iptc_as_caption']; ?></label>
+            <input type="hidden" name="file_image_iptc" value="<?php echo base64_encode(serialize($file_image_iptc)); ?>" />
+        </div>
+        <div class="d-flex flex-wrap align-items-center">
+        <?php
+            ksort($file_image_iptc);
+            foreach($file_image_iptc as $iptc_key => $iptc_value):
+                $label = isset($BL['iptc_'.$iptc_key]) ? $BL['iptc_'.$iptc_key] : $iptc_key;
+                $val = html(is_array($iptc_value) ? implode(', ', $iptc_value) : $iptc_value);
+                echo '<span class="badge badge-light border p-2 mr-2 mb-2"><strong class="text-secondary">' . $label . ':</strong> ' . $val . '</span>';
+            endforeach;
+        ?>
+        </div>
+    </div>
 </div>
+
 
 <?php
     endif;
