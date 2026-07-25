@@ -468,7 +468,7 @@ if($ja) {
 ?>
 
 <div class="form-group row align-items-center mb-3">
-    <label class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_iptc_data']; ?></label>
+    <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_iptc_data']; ?></label>
     <div class="col-sm-10">
         <div class="custom-control custom-checkbox mb-2">
             <input class="custom-control-input" name="file_iptc_as_caption" type="checkbox" id="file_iptc_as_caption" value="1"<?php if(!empty($phpwcms['iptc_as_caption'])): ?> checked="checked"<?php endif; ?> />
@@ -533,7 +533,7 @@ if($ja) {
         if ($k_rows !== '') {
 ?>
     <div class="form-group row align-items-start mb-2">
-        <label class="col-sm-2 col-form-label text-sm-right font-weight-bold pt-1">
+        <label class="col-sm-2 col-form-label text-right pt-1">
             <?php echo $BL['be_ftptakeover_keywords']; ?>
         </label>
         <div class="col-sm-10">
@@ -551,14 +551,14 @@ if($ja) {
 
 
     <div class="form-group row align-items-center">
-        <label for="file_shortinfo" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_ftptakeover_additional']; ?></label>
+        <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional']; ?></label>
         <div class="col-sm-10">
             <input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
         </div>
     </div>
 
     <div class="form-group row align-items-center">
-        <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-sm-right">
+        <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right">
             <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ml-1" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
         </label>
         <div class="col-sm-10">
@@ -568,15 +568,16 @@ if($ja) {
     </div>
 
     <div class="form-group row align-items-center">
-        <label for="file_sort" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_cnt_sorting']; ?></label>
+        <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting']; ?></label>
         <div class="col-sm-3">
             <input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort); ?>" />
         </div>
     </div>
 
     <div class="form-group row align-items-center">
-        <span class="col-sm-2 col-form-label text-sm-right font-weight-bold"><?php echo $BL['be_ftptakeover_status']; ?></span>
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status']; ?></span>
         <div class="col-sm-10 d-flex flex-wrap align-items-center">
+
 
             <div class="custom-control custom-checkbox mr-3">
                 <input class="custom-control-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
