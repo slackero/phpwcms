@@ -409,32 +409,19 @@ function ppInitFunction() {
 
     deleteFiles.on('click', function(evt) {
         evt.preventDefault();
-        if(confirm('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, PHPWCMS_CHARSET)) ?>')) {
+        bsConfirmDanger('<?php echo str_replace("'", "\\'", html_entity_decode($BL['be_delete_selected_files_confirm'], ENT_QUOTES, PHPWCMS_CHARSET)); ?>', function() {
             ftpTakeOverForm.attr('action', 'phpwcms.php'+'?<?php echo get_token_get_string(); ?>&do=files&p=8').submit();
-        }
+        });
     });
 
-    $("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-        selectedItemProp: "cat_name",
-        selectedValuesProp: 'cat_name',
-        searchObjProps: "cat_name",
-        queryParam: 'value',
-        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
-        startText: '',
-        preFill: $("#file_tags").val(),
-        neverSubmit: true,
-        asHtmlID: 'keyword-autosuggest'
-    });
+    initTomSelectTagAutosuggest('#file_tags_autosuggest', '#file_tags', 'category');
 
     ftpTakeOverForm.submit(function(evt) {
-
-        if($('input.ftp_mark:checked').length) {
-            $("#file_tags").val($('#as-values-keyword-autosuggest').val());
-        } else {
+        if (!$('input.ftp_mark:checked').length) {
             evt.preventDefault();
         }
-
     });
+
 
 <?php
   if(count($phpwcms['allowed_lang']) > 1): ?>

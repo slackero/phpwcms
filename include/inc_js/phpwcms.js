@@ -191,6 +191,65 @@ function bsConfirmDelete(message, callback, customConfirmText, customCancelText)
     bsConfirm('delete', message, callback, customConfirmText, customCancelText);
 }
 
+function initTomSelectTagAutosuggest(inputSelector, hiddenSelector, actionType, options) {
+    const $input = $(inputSelector);
+    const $hidden = $(hiddenSelector);
+    if (!$input.length || typeof TomSelect !== 'function') {
+        return null;
+    }
+
+    const initialValues = ($hidden.val() || '').split(',').map(s => s.trim()).filter(Boolean);
+    const initialOptions = initialValues.map(v => ({ value: v, text: v }));
+
+    const config = Object.assign({
+        plugins: ['remove_button'],
+        valueField: 'text',
+        labelField: 'text',
+        searchField: 'text',
+        create: true,
+        createFilter: function(input) {
+            return input.trim().length > 0;
+        },
+        options: initialOptions,
+        items: initialValues,
+        load: function(query, callback) {
+            if (!query.length) return callback();
+            const baseUrl = (window.PHPWCMS_URL || '') + 'include/inc_act/ajax_connector.php';
+            $.ajax({
+                url: baseUrl,
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    action: actionType || 'category',
+                    method: 'json',
+                    value: query
+                },
+                error: function() { callback(); },
+                success: function(res) {
+                    const results = (res || []).map(item => {
+                        const val = typeof item === 'object' ? (item.cat_name || item.text || item.allowed_lang) : item;
+                        return { value: val, text: val };
+                    });
+                    callback(results);
+                }
+            });
+        },
+        onChange: function(values) {
+            const valStr = Array.isArray(values) ? values.join(', ') : (values || '');
+            $hidden.val(valStr);
+        }
+    }, options || {});
+
+    const ts = new TomSelect($input[0], config);
+    $input.closest('form').on('submit', function() {
+        const valStr = ts.getValue().join(', ');
+        $hidden.val(valStr);
+    });
+
+    return ts;
+}
+
+
 function bsConfirmMove(message, callback, customConfirmText, customCancelText) {
     bsConfirm('move', message, callback, customConfirmText, customCancelText);
 }
