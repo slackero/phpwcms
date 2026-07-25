@@ -472,49 +472,59 @@ document.getElementById("file").onchange = function(e) {
 <?php       endforeach;
         echo '</div>';
         endif;
+?>
+		<hr />
+    <legend><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
+<?php
 
-    //Auswahlliste vordefinierte Keywörter
+    // List of predefined keywords (File Categories & Keys)
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_filecat WHERE fcat_deleted=0 ORDER BY fcat_sort, fcat_name";
     $result = _dbQuery($sql);
-    $k = '';
-
     if(isset($result[0]['fcat_id'])) {
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
-
-                $k .= "<tr><td>";
-                $k .= isset($file_error["keywords"][$row["fcat_id"]]) ? '<img src="img/symbole/error.gif" width="8" height="9" alt="" />&nbsp;' : '';
-                $k .= html($row["fcat_name"]).":&nbsp;</td>";
-                $k .= "<td><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"custom-select form-control\">";
-                $k .= "<option value=\"".(($row["fcat_needed"])?"0_".$row["fcat_needed"]."\">".$BL['be_ftptakeover_needed']:'0">'.$BL['be_ftptakeover_optional'])."</option>";
-
+                $has_error = isset($file_error["keywords"][$row["fcat_id"]]);
+?>
+    <div class="form-group row align-items-center">
+        <label for="file_keywords_<?php echo $row["fcat_id"]; ?>" class="col-sm-2 col-form-label text-sm-right">
+            <?php if($has_error): ?><span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span><?php endif; ?>
+            <?php echo html($row["fcat_name"]); ?>:
+        </label>
+        <div class="col-sm-6">
+            <select name="file_keywords[<?php echo $row["fcat_id"]; ?>]" id="file_keywords_<?php echo $row["fcat_id"]; ?>" class="custom-select custom-select-sm<?php echo $has_error ? ' is-invalid' : ''; ?>">
+                <option value="<?php echo ($row["fcat_needed"] ? "0_".$row["fcat_needed"] : "0"); ?>">
+                    <?php echo ($row["fcat_needed"] ? $BL['be_ftptakeover_needed'] : $BL['be_ftptakeover_optional']); ?>
+                </option>
+<?php
                 $ksql = "SELECT * FROM ".DB_PREPEND."phpwcms_filekey WHERE fkey_deleted=0 AND fkey_cid=".$row["fcat_id"]." ORDER BY fkey_name";
                 $kresult = _dbQuery($ksql);
+
                 if(isset($kresult[0]['fkey_id'])) {
                     foreach($kresult as $krow) {
-                        $k .= "<option value=\"".$krow["fkey_id"]."\"";
-                        $k .= isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"] ? ' selected="selected"' : '';
-                        $k .= ">".html($krow["fkey_name"])."</option>\n";
+                        $selected = (isset($file_keywords[$row["fcat_id"]]) && $file_keywords[$row["fcat_id"]] == $krow["fkey_id"]) ? ' selected="selected"' : '';
+                        echo '                <option value="' . $krow["fkey_id"] . '"' . $selected . '>' . html($krow["fkey_name"]) . '</option>' . LF;
                     }
                 }
-                $k .= "</select></td></tr>";
+?>
+            </select>
+        </div>
+    </div>
+<?php
             }
         }
     }
     ?>
-		<hr />
-    <legend><?php echo $BL['be_ftptakeover_keywords'] ?></legend>
-    <?php echo $k; ?>
 
-    <div class="form-group form-row align-items-center">
-      <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional'] ?></label>
-      <div class="col">
-     		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo) ?>" maxlength="750">
+    <div class="form-group row align-items-center">
+      <label for="file_shortinfo" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_ftptakeover_additional']; ?>:</label>
+      <div class="col-sm-8">
+     		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
       </div>
     </div>
 
     <div class="form-group form-row align-items-center">
       <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
+
       <div class="col">
      	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
      	<input name="file_tags" type="hidden" id="file_tags" value="" />
