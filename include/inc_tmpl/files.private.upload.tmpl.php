@@ -615,9 +615,22 @@ $('input:file').change(
 });
 
 $(function(){
-    initTomSelectTagAutosuggest('#file_tags_autosuggest', '#file_tags', 'category');
-});
 
+    $("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+        selectedItemProp: "cat_name",
+        selectedValuesProp: 'cat_name',
+        searchObjProps: "cat_name",
+        queryParam: 'value',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
+        startText: '',
+        preFill: $("#file_tags").val(),
+        neverSubmit: true,
+        asHtmlID: 'keyword-autosuggest'
+    });
+
+    $('#uploadfile').submit(function(){
+        $("#file_tags").val($('#as-values-keyword-autosuggest').val());
+    });
 
 <?php   if(count($phpwcms['allowed_lang']) > 1): ?>
 

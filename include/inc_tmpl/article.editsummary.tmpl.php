@@ -876,8 +876,21 @@ $langstr = '';
 var initialFormData = '';
 $(function(){
 
-  initTomSelectTagAutosuggest('#article_keyword_autosuggest', '#article_keyword', 'category');
+  $("#article_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+    selectedItemProp: "cat_name",
+    selectedValuesProp: 'cat_name',
+    searchObjProps: "cat_name",
+    queryParam: 'value',
+    extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
+    startText: '',
+    preFill: $("#article_keyword").val(),
+    neverSubmit: true,
+    asHtmlID: 'keyword-autosuggest'
+  });
 
+  $('#article').submit(function(){
+    $("#article_keyword").val($('#as-values-keyword-autosuggest').val());
+  });
 
   // Handle language switch change
   const langIdSelectParts = $('.lang-id-select-part');

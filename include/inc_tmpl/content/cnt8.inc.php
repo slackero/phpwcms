@@ -398,9 +398,23 @@ initJsAutocompleter();
 <script type="text/javascript">
 
 $(function(){
-    initTomSelectTagAutosuggest('#calink_category_autosuggest', '#calink_category', 'category');
-});
 
+    $("#calink_category_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
+        selectedItemProp: "calink_category",
+        selectedValuesProp: 'calink_category',
+        searchObjProps: "calink_category",
+        queryParam: 'value',
+        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
+        startText: '',
+        preFill: $("#calink_category").val(),
+        neverSubmit: true,
+        asHtmlID: 'keyword-autosuggest'
+    });
+
+    $('#articlecontent').submit(function(event){
+        $("#calink_category").val($('#as-values-keyword-autosuggest').val());
+    });
+});
 
 var teaser_items = document.getElementById('calink');
 var source_items = document.getElementById('calinklist');

@@ -1056,10 +1056,9 @@ function initJsOptionSelect() {
 }
 function initJsAutocompleter() {
     initJQuery();
-    $GLOBALS['BE']['HEADER']['tom-select.js'] = getJavaScriptSourceLink('include/inc_js/jquery/tom-select.complete.min.js');
-    $GLOBALS['BE']['HEADER']['tom-select.css'] = ' <link href="include/inc_css/tom-select.bootstrap4.css" rel="stylesheet" type="text/css" />';
+    $GLOBALS['BE']['HEADER']['autosuggest.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery.autoSuggest.min.js');
+    $GLOBALS['BE']['HEADER']['autosuggest.css'] = ' <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />';
 }
-
 function initJQuery() {
 //  unset($GLOBALS['BE']['HEADER']['mootools.js']);
     // add jQuery at first position and keep the key
