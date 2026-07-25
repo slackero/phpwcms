@@ -78,16 +78,6 @@ function update_cache() {
     //_dbQuery($sql, 'UPDATE');
 }
 
-function set_chat_focus($do, $p) { //set_chat_focus("chat", 1)
-    if($do == "chat" && $p == 1) {
-        echo "<script type=\"text/javascript\"> ";
-        echo "document.sendchatmessage.chatmsg.focus(); document.sendchatmessage.chatmsg.value=get_cookie('chatstring');";
-        echo "timer = chat_reload(20000); function chat_reload(zeit) {";
-        echo "timer=setTimeout(\"write_cookie(1);self.location.href='phpwcms.php'+'?".CSRF_GET_TOKEN."&do=chat&p=1&l=".$chatlist."'\", zeit);";
-        echo "return timer;\n} function restart_reload(timer) {";
-        echo "if(timer != null) { clearTimeout(timer); timer=null; timer = chat_reload(20000); } return timer;} </script>";
-    }
-}
 
 function forward_to($to, $link, $time=2500) { //Javascript forwarding
     if($to) {

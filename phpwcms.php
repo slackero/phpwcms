@@ -396,6 +396,7 @@ if($BE['LANG'] == 'ar') {
             }
 
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
+
                 $active = ($do == 'admin' && $p != 6) ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
@@ -654,9 +655,6 @@ if($BE['LANG'] == 'ar') {
 </div>
 
 <?php
-
-//Set Focus for chat insert filed
-set_chat_focus($do, $p);
 
 //If new message was sent -> automatic forwarding to message center
 forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 2500);

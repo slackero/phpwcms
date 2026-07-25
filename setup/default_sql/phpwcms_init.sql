@@ -318,15 +318,6 @@ CREATE TABLE `phpwcms_categories` (
   KEY `cat_opengraph` (`cat_opengraph`)
 );
 
-CREATE TABLE `phpwcms_chat` (
-  `chat_id` int(11) NOT NULL AUTO_INCREMENT,
-  `chat_uid` int(11) NOT NULL DEFAULT '0',
-  `chat_name` varchar(30) NOT NULL DEFAULT '',
-  `chat_tstamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `chat_text` varchar(255) NOT NULL DEFAULT '',
-  `chat_cat` int(5) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`chat_id`)
-);
 
 CREATE TABLE `phpwcms_content` (
   `cnt_id` int(11) NOT NULL AUTO_INCREMENT,

@@ -102,7 +102,6 @@ $phpwcms['SESSION_FEinit']       = 0; // set 1 to enable sessions in frontend, 0
 $phpwcms['Login_IPcheck']        = 0;
 $phpwcms['frontend_edit']        = 0; // enable content specific direct links - linking direct into the backend
 $phpwcms['gd_memcheck_off']      = 0; // disable GD php memory check before resize an image
-$phpwcms['enable_chat']          = 0; // enable or disable chat function, by default it is disabled - not recommend anymore to use it
 $phpwcms['enable_messages']      = 0; // enable or disable internal messags, by default it is disabled - not recommend anymore to use it
 $phpwcms['enable_seolog']        = 1; // enable or disable logging of search engine referrer data
 $phpwcms['i18n_parse']           = 1; // enable|disable browser based language parser - all @@Text@@ will be parsed and checked for translation/var based replacement
@@ -155,8 +154,8 @@ $phpwcms['disable_generator']    = false; // Disable <meta name="generator"> and
 $phpwcms['disable_processed_in'] = false; // Hide header `X-phpwcms-Page-Processed-In`
 $phpwcms['session.cookie_httponly.off'] = false; // Set this to `true` if the session Cookie should also be accessible by JavaScript
 $phpwcms['session.cookie_samesite'] = 'Lax'; // Define the Cookie sameSite setting None (deprecated), Lax, Strict, use PHP 7.3+ otherwise it's not or not well supported
-$phpwcms['enable_backend_newsletter'] = false; // Enable newsletter menu item in the backend, disabled by default
-$phpwcms['enable_backend_module'] = false; // Enable module menu item in the backend, disabled by default
+$phpwcms['enable_backend_newsletter'] = true; // Enable newsletter menu item in the backend, disabled by default
+$phpwcms['enable_backend_module'] = true; // Enable module menu item in the backend, disabled by default
 $phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
