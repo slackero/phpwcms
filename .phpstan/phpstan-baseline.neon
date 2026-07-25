@@ -2455,11 +2455,6 @@ parameters:
 			count: 2
 			path: ../include/inc_lib/backend.functions.inc.php
 
-		-
-			message: '#^Undefined variable\: \$chatlist$#'
-			identifier: variable.undefined
-			count: 1
-			path: ../include/inc_lib/backend.functions.inc.php
 
 		-
 			message: '#^Undefined variable\: \$phpwcms$#'
@@ -5300,12 +5295,6 @@ parameters:
 			path: ../include/inc_tmpl/admin.filecat.tmpl.php
 
 		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/admin.frontendcss.tmpl.php
-
-		-
 			message: '#^Ternary operator condition is always false\.$#'
 			identifier: ternary.alwaysFalse
 			count: 1
@@ -5418,12 +5407,6 @@ parameters:
 			identifier: variable.undefined
 			count: 2
 			path: ../include/inc_tmpl/admin.redirect.tmpl.php
-
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/admin.startup.tmpl.php
 
 		-
 			message: '#^Variable \$BL might not be defined\.$#'
@@ -5894,18 +5877,7 @@ parameters:
 			path: ../include/inc_tmpl/be_start.tmpl.php
 
 		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 2
-			path: ../include/inc_tmpl/chat.list.tmpl.php
 
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: ../include/inc_tmpl/chat.main.tmpl.php
-
-		-
 			message: '#^Variable \$BL might not be defined\.$#'
 			identifier: variable.undefined
 			count: 5
