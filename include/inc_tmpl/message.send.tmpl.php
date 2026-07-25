@@ -90,88 +90,109 @@ if(isset($_POST['msg_send_aktion']) && intval($_POST['msg_send_aktion'])) {
     }
 }
 
-if($msg_send_ok) {
-    echo "<span class=\"title\">".$BL['be_msg_sent']."</span><br /><img src='img/leer.gif' width=1 height=6><br />";
-    echo $BL['be_msg_fwd']." <br /><a href='phpwcms.php?do=messages&p=1'>".$BL['be_msg_create']."</a>.";
+if ($msg_send_ok) {
+    echo '<div class="alert alert-success shadow-sm mb-4">';
+    echo '<h5 class="alert-heading">' . $BL['be_msg_sent'] . '</h5>';
+    echo '<p class="mb-0">' . $BL['be_msg_fwd'] . ' <a href="phpwcms.php?do=messages&amp;p=1" class="alert-link">' . $BL['be_msg_create'] . '</a>.</p>';
+    echo '</div>';
     $forward_to_message_center = 1;
 } else { //Mitteilungszusammenstellung
 
 ?>
-<form name="sendmsg" action="phpwcms.php?do=messages&p=1" method="post">
-<table width="538">
-    <tr><td colspan="3" class="title"><?php echo $BL['be_msg_newmsgtitle'] ?></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-<?php
-    //Errormeldung wenn Fehler beim Nachrichtenversand
-    if(!empty($msg_err)) {
-?>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="1"></td></tr>
-    <tr><td colspan="3"><strong style="color:#FF6600"><?php echo $BL['be_msg_err'].":<br />".nl2br(chop($msg_err)) ?></strong></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="3"><img src="img/lines/l538_70.gif" alt="" width="538" height="1"></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="3"></td></tr>
-<?php
-  } //Ende Fehler Nachrichtenversand
-?>
-    <tr>
-        <td width="253" class="v09"><?php echo $BL['be_msg_sendto'] ?>:</td>
-        <td width="30"><img src="img/leer.gif" alt="" width="30" height="1"></td>
-        <td width="255" class="v09"><?php echo $BL['be_msg_available'] ?>:</td>
-    </tr>
-    <tr valign="top">
-        <td class="v09"><select name="msg_send_to" size="10" multiple="multiple" class="width250" onDblClick="opt.transferRight()">
+<form name="sendmsg" action="phpwcms.php?do=messages&amp;p=1" method="post">
+<div class="card shadow-sm mb-4">
+    <div class="card-header font-weight-bold py-2">
+        <?php echo $BL['be_msg_newmsgtitle']; ?>
+    </div>
+    <div class="card-body">
+        <?php if (!empty($msg_err)): ?>
+            <div class="alert alert-danger mb-4">
+                <strong><?php echo $BL['be_msg_err']; ?>:</strong><br>
+                <?php echo nl2br(chop($msg_err)); ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="form-group row">
+            <div class="col-md-5">
+                <label for="msg_send_to" class="font-weight-bold"><?php echo $BL['be_msg_sendto']; ?>:</label>
+                <select name="msg_send_to" size="10" multiple="multiple" class="form-control" onDblClick="opt.transferRight()">
 <?php
     $where1 = 'WHERE usr_aktiv=1 ';
-    if(!empty($msg_to)) {
+    if (!empty($msg_to)) {
         $msg_receivers = explode(":", $msg_to);
-        foreach($msg_receivers as $value) {
-            if(empty($where)) {
-                $where = "usr_id=".intval($value);
-                $where1 = "WHERE usr_aktiv=1 AND usr_id<>".intval($value);
+        foreach ($msg_receivers as $value) {
+            if (empty($where)) {
+                $where = "usr_id=" . intval($value);
+                $where1 = "WHERE usr_aktiv=1 AND usr_id<>" . intval($value);
             } else {
-                $where .= " OR usr_id=".intval($value);
-                $where1 .= " AND usr_id<>".intval($value);
+                $where .= " OR usr_id=" . intval($value);
+                $where1 .= " AND usr_id<>" . intval($value);
             }
         }
 
-        $sql = "SELECT usr_id, usr_login, usr_name FROM ".DB_PREPEND."phpwcms_user WHERE ".$where." ORDER BY usr_name ASC";
+        $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "phpwcms_user WHERE " . $where . " ORDER BY usr_name ASC";
         $result = _dbQuery($sql);
 
-        if(isset($result[0]['usr_id'])) {
-            foreach($result as $row) {
-                echo "<option value=\"".$row['usr_id']."\">".html($row['usr_name']." (".$row['usr_login']).")"."</option>";
+        if (isset($result[0]['usr_id'])) {
+            foreach ($result as $row) {
+                echo "<option value=\"" . $row['usr_id'] . "\">" . html($row['usr_name'] . " (" . $row['usr_login']) . ")" . "</option>";
             }
         }
     }
 ?>
-        </select></td>
-    <td class="v09"><a href="javascript: opt.transferRight();"><img src="img/icons/trash.gif" alt="" width="15" height="15" border="0"></a><input name="msg_send_receiver" type="hidden" id="msg_send_receiver2"><input name="msg_send_aktion" type="hidden" id="msg_send_aktion" value="1"><input name="msg_send_pid" type="hidden" value="<?php echo intval($msg) ?>"></td>
-    <td class="v09"><select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="width250" onChange="opt.transferLeft()">
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex flex-column align-items-center justify-content-center my-2 my-md-0">
+                <button type="button" class="btn btn-sm btn-secondary mb-2" onclick="opt.transferRight();" title="Remove selected">
+                    <i class="fa fa-arrow-right d-none d-md-inline"></i>
+                    <i class="fa fa-arrow-down d-inline d-md-none"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="opt.transferLeft();" title="Add selected">
+                    <i class="fa fa-arrow-left d-none d-md-inline"></i>
+                    <i class="fa fa-arrow-up d-inline d-md-none"></i>
+                </button>
+                <input name="msg_send_receiver" type="hidden" id="msg_send_receiver2">
+                <input name="msg_send_aktion" type="hidden" id="msg_send_aktion" value="1">
+                <input name="msg_send_pid" type="hidden" value="<?php echo intval($msg); ?>">
+            </div>
+
+            <div class="col-md-5">
+                <label for="msg_send_list" class="font-weight-bold"><?php echo $BL['be_msg_available']; ?>:</label>
+                <select name="msg_send_list" size="10" multiple="multiple" id="msg_send_list" class="form-control" onDblClick="opt.transferLeft()">
 <?php
     //Create the list of possible recipients
-    $sql = "SELECT usr_id, usr_login, usr_name FROM ".DB_PREPEND."phpwcms_user ".$where1." ORDER BY usr_name ASC";
+    $sql = "SELECT usr_id, usr_login, usr_name FROM " . DB_PREPEND . "phpwcms_user " . $where1 . " ORDER BY usr_name ASC";
     $result = _dbQuery($sql);
 
-    if(isset($result[0]['usr_id'])) {
-        foreach($result as $row) {
-            echo "<option value=\"".$row['usr_id']."\">".html($row['usr_name']." (".$row['usr_login']).")"."</option>";
+    if (isset($result[0]['usr_id'])) {
+        foreach ($result as $row) {
+            echo "<option value=\"" . $row['usr_id'] . "\">" . html($row['usr_name'] . " (" . $row['usr_login']) . ")" . "</option>";
         }
     }
 ?>
-        </select></td>
-    </tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="2"></td></tr>
-    <tr><td colspan="3" class="v09"><?php echo $BL['be_msg_subject'] ?>:</td></tr>
-    <tr><td colspan="3"><input name="msg_send_subject" type="text" id="msg_send_subject" class="code width540" value="<?php echo html($msg_subject); ?>" size="40" maxlength="125"></td></tr>
-    <tr><td colspan="3" class="v09"><?php echo $BL['be_msg_msg'] ?>:</td></tr>
-    <tr><td colspan="3"><textarea name="msg_send_msg" cols="40" rows="15" id="msg_send_msg" class="code width540 autosize"><?php echo html($msg_message); ?></textarea></td></tr>
-    <tr><td colspan="3"><img src="img/leer.gif" alt="" width="1" height="6"></td></tr>
-    <tr><td colspan="3"><input name="submit" type="image" id="submit" src="img/button/send_message.gif" alt="<?php echo $BL['be_msg_all'] ?>" width="87" height="17" border="0"></td></tr>
-    <tr><td colspan="3">&nbsp;</td></tr>
-</table>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="msg_send_subject" class="font-weight-bold"><?php echo $BL['be_msg_subject']; ?>:</label>
+            <input name="msg_send_subject" type="text" id="msg_send_subject" class="form-control form-control-sm" value="<?php echo html($msg_subject); ?>" maxlength="125">
+        </div>
+
+        <div class="form-group mb-0">
+            <label for="msg_send_msg" class="font-weight-bold"><?php echo $BL['be_msg_msg']; ?>:</label>
+            <textarea name="msg_send_msg" cols="40" rows="10" id="msg_send_msg" class="form-control form-control-sm autosize"><?php echo html($msg_message); ?></textarea>
+        </div>
+    </div>
+    <div class="card-footer text-right">
+        <button type="submit" name="submit" class="btn btn-sm btn-blue font-weight-bold">
+            <i class="fa fa-paper-plane mr-1"></i><?php echo $BL['be_msg_all']; ?>
+        </button>
+    </div>
+</div>
 </form>
 <?php
 } //Ende Mitteilungszusammenstellung
 ?>
+
