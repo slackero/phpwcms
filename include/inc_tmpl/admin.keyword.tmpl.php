@@ -23,34 +23,23 @@ include_once PHPWCMS_ROOT.'/include/inc_lib/lib.keywords.inc.php';
 echo '<h3 class="title">'.$BL['be_admin_keywords'].'</h3>'.LF;
 
 // check if rights to edit keywords
-if(!IS_ADMIN) {
+if (!IS_ADMIN) {
 
-    echo '<p>Sorry, you have no rights to edit keywords</p>';
+    echo '<div class="alert alert-danger mb-4">Sorry, you have no rights to edit keywords.</div>';
 
-// list keywords
-} elseif(empty($_POST['keyword_action'])) {
-
-    echo backend_list_keywords();
-
-// new keyword
-} elseif($_POST['keyword_action'] == 'update') {
-
-
-// update keyword
-} elseif($_POST['keyword_action'] == 'edit') {
+// new/edit keyword form
+} elseif (!empty($_POST['keyword_action']) && $_POST['keyword_action'] === 'edit') {
 
     echo backend_edit_keywords();
 
 // delete keyword
-}  elseif($_POST['keyword_action'] == 'delete') {
+} elseif (!empty($_POST['keyword_action']) && ($_POST['keyword_action'] === 'delete' || $_POST['keyword_action'] === 'delete_single')) {
 
+    backend_delete_keywords();
 
-// error
+// list keywords (default)
 } else {
 
-    echo '<p>There seems to be a problem editing keywords. Contact admin.</p>';
+    echo backend_list_keywords();
 
 }
-
-// old
-$keyword["id"] = 0;

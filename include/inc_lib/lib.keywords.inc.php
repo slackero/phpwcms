@@ -21,38 +21,56 @@ $BE['HEADER'][]  = getJavaScriptSourceLink('include/inc_js/lib.keyword.js');
 
 function backend_list_keywords() {
 
-	$list		 = '<form name="keywordListing" action="'.html(BE_CURRENT_URL).'" method="post">' . LF;
-	$list		.= LF . '<table class="listingTable">' . LF;
-	$list		.= '	<tr>' . LF;
-	$list		.= '		<th class="checkbox">All</th>' . LF;
-	$list		.= '		<th class="entry">Keyword Name</th>' . LF;
-	$list		.= '		<th class="actions">&nbsp;</th>' . LF;
-	$list		.= '	</tr>' . LF;
+	$list  = '<form name="keywordListing" action="' . html(BE_CURRENT_URL) . '" method="post" id="keywordListing">' . LF;
+	$list .= '<div class="card shadow-sm mb-4">' . LF;
+	$list .= '	<div class="card-header d-flex justify-content-between align-items-center py-2">' . LF;
+	$list .= '		<h5 class="mb-0 font-weight-bold"><i class="fa fa-tags mr-2 text-primary"></i>' . ($GLOBALS['BL']['be_admin_keywords'] ?? 'Keywords') . '</h5>' . LF;
+	$list .= '		<div>' . LF;
+	$list .= '			<button type="button" class="btn btn-sm btn-blue font-weight-bold mr-2" onclick="keyword_submit_action(this, 0, \'edit\');"><i class="fa fa-plus mr-1"></i>' . ($GLOBALS['BL']['be_newsletter_new'] ?? 'New Keyword') . '</button>' . LF;
+	$list .= '			<button type="button" class="btn btn-sm btn-danger confirm-link" data-confirm="' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete selected items?') . '" onclick="keyword_submit_delete(this);"><i class="far fa-trash-alt mr-1"></i>' . ($GLOBALS['BL']['be_cnt_delete'] ?? 'Delete Selected') . '</button>' . LF;
+	$list .= '		</div>' . LF;
+	$list .= '	</div>' . LF;
+	$list .= '	<div class="card-body p-0">' . LF;
+	$list .= '		<div class="table-responsive">' . LF;
+	$list .= '			<table class="table table-sm table-hover mb-0">' . LF;
+	$list .= '				<thead class="thead-light">' . LF;
+	$list .= '					<tr>' . LF;
+	$list .= '						<th style="width: 40px;" class="text-center"><input type="checkbox" id="checkAllKeywords" onclick="toggleKeywordCheckboxes(this);" /></th>' . LF;
+	$list .= '						<th style="width: 60px;">ID</th>' . LF;
+	$list .= '						<th>Keyword Name</th>' . LF;
+	$list .= '						<th class="text-right" style="width: 100px;">Actions</th>' . LF;
+	$list .= '					</tr>' . LF;
+	$list .= '				</thead>' . LF;
+	$list .= '				<tbody>' . LF;
 
 	$sql		 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 ORDER BY keyword_name";
 	$keywords	 = _dbQuery($sql);
 
-	$c			 = 0;
-
-	foreach($keywords as $value) {
-
-		// set alternating class name
-		$aclass  = ($c % 2) ? ' class="alternating"' : '';
-
-		$list	.= '	<tr'.$aclass.'>' . LF;
-		$list	.= '		<td class="checkbox"><input type="checkbox" value="1" name="check['.$value['keyword_id'].']" id="check_'.$value['keyword_id'].'" /></td>' . LF;
-		$list	.= '		<td class="entry">' . html($value['keyword_name']) . '</td>' . LF;
-		$list	.= '		<td class="actions"><button type="button" onclick="keyword_submit_edit(this, '.$value['keyword_id'].');">Edit</button></td>' .LF;
-		$list	.= '	</tr>' . LF;
-
-		$c++;
-
+	if (!empty($keywords[0]['keyword_id'])) {
+		foreach ($keywords as $value) {
+			$list .= '					<tr>' . LF;
+			$list .= '						<td class="text-center"><input type="checkbox" class="keyword-checkbox" value="1" name="check[' . $value['keyword_id'] . ']" id="check_' . $value['keyword_id'] . '" /></td>' . LF;
+			$list .= '						<td><span class="badge badge-light border">' . $value['keyword_id'] . '</span></td>' . LF;
+			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="font-weight-bold text-dark">' . html($value['keyword_name']) . '</a></td>' . LF;
+			$list .= '						<td class="text-right text-nowrap">' . LF;
+			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 mr-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa fa-edit"></i></button>' . LF;
+			$list .= '							<button type="button" class="btn btn-sm btn-danger py-0 px-1" onclick="if(confirm(\'' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete keyword?') . '\')) keyword_submit_action(this, ' . $value['keyword_id'] . ', \'delete_single\');" title="Delete"><i class="far fa-trash-alt"></i></button>' . LF;
+			$list .= '						</td>' . LF;
+			$list .= '					</tr>' . LF;
+		}
+	} else {
+		$list .= '					<tr><td colspan="4" class="text-muted p-3">No keywords available.</td></tr>' . LF;
 	}
 
-	$list		.= '</table>' . LF;
-	$list		.= '<input type="hidden" name="keyword_selected_id" value="0" />';
-	$list 		.= '<input type="hidden" name="keyword_action" value="" />';
-	$list		.= LF . '</form>' . LF;
+	$list .= '				</tbody>' . LF;
+	$list .= '			</table>' . LF;
+	$list .= '		</div>' . LF;
+	$list .= '	</div>' . LF;
+	$list .= '</div>' . LF;
+
+	$list .= '<input type="hidden" name="keyword_selected_id" value="0" />' . LF;
+	$list .= '<input type="hidden" name="keyword_action" value="" />' . LF;
+	$list .= '</form>' . LF;
 
 	return $list;
 
@@ -62,82 +80,119 @@ function backend_edit_keywords() {
 
 	$list		 = '';
 	$keyword_id	 = empty($_POST['keyword_selected_id']) ? 0 : intval($_POST['keyword_selected_id']);
+	$msg         = '';
+	$msg_type    = 'info';
 
-	// UPDATE keyword
-	if(isset($_POST['send_update'])) {
+	// UPDATE or INSERT keyword
+	if (isset($_POST['send_update']) || isset($_POST['send_insert'])) {
 
-		$update = backend_getKeywordPostValues();
+		$input = backend_getKeywordPostValues();
 
-		if(empty($update['keyword_name'])) {
-			// False, empty Keyword Name
-			$list .= '<p>Proof your input. Keyword name had no value. Value was reset.</p>';
-		} else {
+		if (empty($input['keyword_name'])) {
+			$msg = 'Please enter a valid keyword name.';
+			$msg_type = 'danger';
+		} elseif (!empty($_POST['send_update']) && $keyword_id > 0) {
 
 			$sql 	 = "UPDATE ".DB_PREPEND."phpwcms_keyword SET ";
-			$sql	.= "keyword_name=" . _dbEscape($update['keyword_name']) ." ";
+			$sql	.= "keyword_name=" . _dbEscape($input['keyword_name']) ." ";
 			$sql	.= "WHERE keyword_id=".$keyword_id." ";
-			$sql	.= "AND keyword_name!=" . _dbEscape($update['keyword_name']) ." LIMIT 1";
+			$sql	.= "AND keyword_name!=" . _dbEscape($input['keyword_name']) ." LIMIT 1";
 
-			$update['result'] = _dbQuery($sql, 'UPDATE');
+			_dbQuery($sql, 'UPDATE');
+			headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=8');
 
-		}
-
-	// INSERT keyword
-	} elseif(isset($_POST['send_insert'])) {
-
-		$insert = backend_getKeywordPostValues();
-
-		if(empty($insert['keyword_name'])) {
-			// False, empty Keyword Name
-			$list .= '<p>Proof your input. Keyword name had no value. Value was reset.</p>';
 		} else {
 
-			// 1st check if keyword does not exist
-			$sql  	 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword ";
-			$sql	.= "WHERE keyword_trash=0 AND keyword_name=" . _dbEscape($insert['keyword_name']);
+			// Check uniqueness
+			$sql  	 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 AND keyword_name=" . _dbEscape($input['keyword_name']);
 			$check	 = _dbQuery($sql);
 
-			if(empty($check[0])) {
+			if (empty($check[0])) {
 
 				$sql  = "INSERT INTO ".DB_PREPEND."phpwcms_keyword SET ";
-				$sql .= "keyword_name=" . _dbEscape($insert['keyword_name']);
+				$sql .= "keyword_name=" . _dbEscape($input['keyword_name']);
 
-				$insert['result'] = _dbQuery($sql, 'INSERT');
-				$keyword_id		  = $insert['result']['INSERT_ID'];
+				$result = _dbQuery($sql, 'INSERT');
+				if (isset($result['INSERT_ID'])) {
+					headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=8');
+				}
 
 			} else {
-
-				$list .= '<p>No new keyword created. Keyword name must be unique.</p>';
-
+				$msg = 'No new keyword created. Keyword name must be unique.';
+				$msg_type = 'danger';
 			}
 		}
 
 	}
 
-	$sql		 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 AND keyword_id=" . $keyword_id." LIMIT 1";
-	$keyword	 = _dbQuery($sql);
+	$keyword_name = '';
 
-	if(!$keyword) return '<p>No keyword could be found for the given ID</p>';
+	if ($keyword_id > 0) {
+		$sql		 = "SELECT * FROM ".DB_PREPEND."phpwcms_keyword WHERE keyword_trash=0 AND keyword_id=" . $keyword_id." LIMIT 1";
+		$keyword	 = _dbQuery($sql);
+		if (isset($keyword[0]['keyword_name'])) {
+			$keyword_name = $keyword[0]['keyword_name'];
+		}
+	}
 
-	$list		.= '<form name="keywordEditing" action="'.html(BE_CURRENT_URL).'" method="post">' . LF;
+	$list .= '<form name="keywordEditing" action="' . html(BE_CURRENT_URL) . '" method="post">' . LF;
+	$list .= '<div class="card shadow-sm mb-4">' . LF;
+	$list .= '	<div class="card-header font-weight-bold py-2">' . LF;
+	$list .= '		<i class="fa fa-tag mr-2 text-primary"></i>' . ($keyword_id ? 'Edit Keyword' : 'New Keyword') . LF;
+	$list .= '	</div>' . LF;
+	$list .= '	<div class="card-body">' . LF;
 
-	// edit values
-	$list		.= '<div class="inputText">';
-	$list		.= '<label for="keyword_name">Keyword name:</label>';
-	$list		.= '<input type="text" name="keyword_name" id="keyword_name" value="'.html($keyword[0]['keyword_name']).'" />';
-	$list		.= '</div>' . LF;
+	if (!empty($msg)) {
+		$list .= '		<div class="alert alert-' . $msg_type . ' mb-3">' . $msg . '</div>' . LF;
+	}
 
-	$list		.= '<div class="inputButton">';
-	$list		.= '<button type="submit" name="send_update">Update</button>';
-	$list		.= '<button type="submit" name="send_insert">New</button>';
-	$list		.= '</div>' . LF;
+	$list .= '		<div class="form-group row mb-0">' . LF;
+	$list .= '			<label for="keyword_name" class="col-sm-3 col-form-label text-sm-right font-weight-bold">Keyword Name:</label>' . LF;
+	$list .= '			<div class="col-sm-7">' . LF;
+	$list .= '				<input type="text" name="keyword_name" id="keyword_name" class="form-control form-control-sm" value="' . html($keyword_name) . '" maxlength="250" autofocus />' . LF;
+	$list .= '			</div>' . LF;
+	$list .= '		</div>' . LF;
 
-	// hidden values
-	$list		.= '<input type="hidden" name="keyword_selected_id" value="'.$keyword_id.'" />';
-	$list 		.= '<input type="hidden" name="keyword_action" value="edit" />';
-	$list		.= LF . '</form>' . LF;
+	$list .= '	</div>' . LF;
+	$list .= '	<div class="card-footer text-right">' . LF;
+
+	if ($keyword_id > 0) {
+		$list .= '		<button type="submit" name="send_update" class="btn btn-sm btn-blue font-weight-bold mr-2"><i class="fa fa-check mr-1"></i>Update</button>' . LF;
+	} else {
+		$list .= '		<button type="submit" name="send_insert" class="btn btn-sm btn-blue font-weight-bold mr-2"><i class="fa fa-plus mr-1"></i>Create</button>' . LF;
+	}
+
+	$list .= '		<button type="button" class="btn btn-sm btn-secondary" onclick="location.href=\'phpwcms.php?do=admin&amp;p=8\';">' . ($GLOBALS['BL']['be_newsletter_button_cancel'] ?? 'Cancel') . '</button>' . LF;
+	$list .= '	</div>' . LF;
+	$list .= '</div>' . LF;
+
+	$list .= '<input type="hidden" name="keyword_selected_id" value="' . $keyword_id . '" />' . LF;
+	$list .= '<input type="hidden" name="keyword_action" value="edit" />' . LF;
+	$list .= '</form>' . LF;
 
 	return $list;
+
+}
+
+function backend_delete_keywords() {
+
+	if (!empty($_POST['keyword_selected_id'])) {
+
+		$delete_id = intval($_POST['keyword_selected_id']);
+		$sql = "UPDATE ".DB_PREPEND."phpwcms_keyword SET keyword_trash=1 WHERE keyword_id=".$delete_id." LIMIT 1";
+		_dbQuery($sql, 'UPDATE');
+
+	} elseif (!empty($_POST['check']) && is_array($_POST['check'])) {
+
+		$delete_ids = array_map('intval', array_keys($_POST['check']));
+		if (!empty($delete_ids)) {
+			$sql = "UPDATE ".DB_PREPEND."phpwcms_keyword SET keyword_trash=1 WHERE keyword_id IN (" . implode(',', $delete_ids) . ")";
+			_dbQuery($sql, 'UPDATE');
+		}
+
+	}
+
+	headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=admin&p=8');
 
 }
 
@@ -148,3 +203,4 @@ function backend_getKeywordPostValues() {
 	return $value;
 
 }
+
