@@ -649,32 +649,32 @@ echo $_save_close_buttons;
        <div class="col-sm-10">
          <div class="d-flex flex-wrap align-items-center">
            <div class="my-1 mr-3">
-             <div class="date input-group input-group-sm" id="datetimepicker1" data-target-input="#clivedate">
-               <div class="input-group-prepend">
-                 <div class="input-group-text">
-                   <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> onclick="if (this.checked) { var d = '<?php echo phpwcms_strtotime($content['livedate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker1').datetimepicker('date', d || moment()); } else { $('#datetimepicker1').datetimepicker('clear'); }" />
-                 </div>
-                 <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
-               </div>
-               <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker1" autocomplete="off" />
-               <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                 <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
-               </div>
-             </div>
-           </div>
-           <div class="my-1 mr-3">
-              <div class="date input-group input-group-sm" id="datetimepicker2" data-target-input="#ckilldate">
+              <div class="input-group input-group-sm" id="datetimepicker1">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
-                    <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> onclick="if (this.checked) { var d = '<?php echo phpwcms_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>'; $('#datetimepicker2').datetimepicker('date', d || moment()); } else { $('#datetimepicker2').datetimepicker('clear'); }" />
+                    <input name="set_livedate" type="checkbox" id="set_livedate" value="1"<?php is_checked(1, $set_livedate) ?> />
                   </div>
-                  <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+                  <label class="input-group-text" for="clivedate"><?php echo $BL['be_msg_from'] ?></label>
                 </div>
-                <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" data-target="#datetimepicker2" autocomplete="off" />
-                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+                <input name="clivedate" type="text" id="clivedate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["livedate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
+                <div class="input-group-append">
+                  <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue" style="cursor:pointer;" onclick="document.getElementById('clivedate')._flatpickr&&document.getElementById('clivedate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
                 </div>
               </div>
+            </div>
+            <div class="my-1 mr-3">
+               <div class="input-group input-group-sm" id="datetimepicker2">
+                 <div class="input-group-prepend">
+                   <div class="input-group-text">
+                     <input name="set_killdate" type="checkbox" id="set_killdate" value="1"<?php is_checked(1, $set_killdate) ?> />
+                   </div>
+                   <label class="input-group-text" for="ckilldate"><?php echo $BL['be_article_aend'] ?></label>
+                 </div>
+                 <input name="ckilldate" type="text" id="ckilldate" class="form-control form-control-sm datetimepicker-input" placeholder="<?php echo $BL['default_date_format'] . ' ' . $BL['default_time_format'] . ':SS'; ?>" value="<?php echo phpwcms_strtotime($content["killdate"], $BL['be_longdatetime'], ''); ?>" autocomplete="off" />
+                 <div class="input-group-append">
+                   <span class="datepickerbutton input-group-text form-control form-control-sm btn-blue" style="cursor:pointer;" onclick="document.getElementById('ckilldate')._flatpickr&&document.getElementById('ckilldate')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
+                 </div>
+               </div>
             </div>
             <div class="my-1">
               <div class="input-group input-group-sm">
@@ -690,32 +690,42 @@ echo $_save_close_buttons;
 
     <script type="text/javascript">
         $(function () {
-            $('#datetimepicker1').datetimepicker({
-              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-              format: "DD.MM.YYYY HH:mm:ss",
-              useCurrent: false,
-              buttons: {
-                showClose: true
-              }
+            var fpLive = flatpickr('#clivedate', {
+                enableTime: true,
+                enableSeconds: true,
+                dateFormat: 'd.m.Y H:i:S',
+                time_24hr: true,
+                allowInput: true,
+                onChange: function(sel, str) {
+                    document.articlecontent.set_livedate.checked = str !== '';
+                }
             });
-            $("#datetimepicker1").on("change.datetimepicker", function (e) {
-              if (e.date !== undefined) {
-                document.articlecontent.set_livedate.checked = !!e.date;
-              }
+            $('#set_livedate').on('change', function() {
+                if (this.checked) {
+                    var d = '<?php echo phpwcms_strtotime($content['livedate'], $BL['be_longdatetime'], '') ?>';
+                    fpLive.setDate(d || new Date(), true);
+                } else {
+                    fpLive.clear();
+                }
             });
 
-            $('#datetimepicker2').datetimepicker({
-              locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-              format: "DD.MM.YYYY HH:mm:ss",
-              useCurrent: false,
-              buttons: {
-                showClose: true
-              }
+            var fpKill = flatpickr('#ckilldate', {
+                enableTime: true,
+                enableSeconds: true,
+                dateFormat: 'd.m.Y H:i:S',
+                time_24hr: true,
+                allowInput: true,
+                onChange: function(sel, str) {
+                    document.articlecontent.set_killdate.checked = str !== '';
+                }
             });
-            $("#datetimepicker2").on("change.datetimepicker", function (e) {
-              if (e.date !== undefined) {
-                document.articlecontent.set_killdate.checked = !!e.date;
-              }
+            $('#set_killdate').on('change', function() {
+                if (this.checked) {
+                    var d = '<?php echo phpwcms_strtotime($content['killdate'], $BL['be_longdatetime'], '') ?>';
+                    fpKill.setDate(d || new Date(), true);
+                } else {
+                    fpKill.clear();
+                }
             });
         });
     </script>

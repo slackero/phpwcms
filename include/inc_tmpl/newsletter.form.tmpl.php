@@ -64,22 +64,19 @@ function showNewsletterTemplateData(tvar) {
     <div class="form-group form-row align-items-center">
       <label for="newsletter_pub" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_article_cnt_start'] ?></label>
       <div class="col-sm-auto">
-        <div class="date input-group" id="datetimepicker" data-target-input="#newsletter_pub">
-          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm datetimepicker datetimepicker-input" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo phpwcms_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" data-target="#newsletter_pub" autocomplete="off" required />
-          <div class="input-group-append" data-target="#newsletter_pub" data-toggle="datetimepicker">
-            <span class="datepickerbutton input-group-text btn form-control-sm btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+        <div class="input-group" id="newsletter_pub_wrap">
+          <input name="newsletter_pub" type="text" id="newsletter_pub" class="form-control form-control-sm" placeholder="<?php echo $BL['default_date_format']; ?>" value="<?php echo phpwcms_strtotime($newsletter['newsletter_pub'], 'd.m.Y', ''); ?>" autocomplete="off" required />
+          <div class="input-group-append">
+            <span class="datepickerbutton input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('newsletter_pub')._flatpickr && document.getElementById('newsletter_pub')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
           </div>
         </div>
       </div>
     </div>
     <script type="text/javascript">
       $(function () {
-          $('#newsletter_pub').datetimepicker({
-            locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-            format: "DD.MM.YYYY",
-            buttons: {
-              showClose: true
-            }
+          flatpickr('#newsletter_pub', {
+              dateFormat: 'd.m.Y',
+              allowInput: true
           });
       });
     </script>

@@ -999,28 +999,11 @@ function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separato
 }
 
 function initJsCalendar() {
-    $GLOBALS['BE']['HEADER']['bootstrap-datetimepicker.min.css']    = '<link href="include/inc_css/bootstrap-datetimepicker.css?v=5.39.0" rel="stylesheet">';
-    $GLOBALS['BE']['HEADER']['moment.js']  = getJavaScriptSourceLink('include/inc_js/moment-with-locales.min.js');
-    $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker.js']     = getJavaScriptSourceLink('include/inc_js/bootstrap-datetimepicker.js?v=5.39.0');
-    $GLOBALS['BE']['BODY_CLOSE']['bootstrap-datetimepicker-config'] = '<script>
-        if ($.fn.datetimepicker && $.fn.datetimepicker.Constructor) {
-            $.fn.datetimepicker.Constructor.Default = $.extend(true, {}, $.fn.datetimepicker.Constructor.Default, {
-                useCurrent: false,
-                icons: {
-                    time: \'far fa-clock\',
-                    date: \'far fa-calendar-alt\',
-                    up: \'fas fa-arrow-up\',
-                    down: \'fas fa-arrow-down\',
-                    previous: \'fas fa-chevron-left\',
-                    next: \'fas fa-chevron-right\',
-                    today: \'far fa-calendar-check\',
-                    clear: \'far fa-trash-alt\',
-                    close: \'fas fa-times\'
-                }
-            });
-        }
-    </script>';
+    $GLOBALS['BE']['HEADER']['flatpickr.min.css'] = '<link href="include/inc_css/flatpickr.min.css" rel="stylesheet">';
+    $GLOBALS['BE']['HEADER']['dayjs.js']          = getJavaScriptSourceLink('include/inc_js/dayjs.min.js');
+    $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']  = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
 }
+
 /*function initMootools($mode='1.1', $more=array()) {
     switch($mode) {
         // MooTools 1.1

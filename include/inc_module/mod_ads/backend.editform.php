@@ -53,13 +53,13 @@ initJsCalendar();
 								<div class="input-group-prepend">
 									<span class="input-group-text"><?php echo $BL['be_msg_from'] ?></span>
 								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_start" autocomplete="off" />
-								<div class="input-group-append" data-target="#adcampaign_date_start" data-toggle="datetimepicker">
-									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_start" id="adcampaign_date_start" value="<?php echo html($plugin['data']['adcampaign_date_start']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_start')._flatpickr&&document.getElementById('adcampaign_date_start')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
 								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_start" autocomplete="off" />
-								<div class="input-group-append" data-target="#adcampaign_time_start" data-toggle="datetimepicker">
-									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_start" id="adcampaign_time_start" value="<?php echo html($plugin['data']['adcampaign_time_start']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_start')._flatpickr&&document.getElementById('adcampaign_time_start')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
 								</div>
 							</div>
 						</div>
@@ -68,13 +68,13 @@ initJsCalendar();
 								<div class="input-group-prepend">
 									<span class="input-group-text"><?php echo $BL['be_article_aend'] ?></span>
 								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" data-target="#adcampaign_date_end" autocomplete="off" />
-								<div class="input-group-append" data-target="#adcampaign_date_end" data-toggle="datetimepicker">
-									<span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_date_end" id="adcampaign_date_end" value="<?php echo html($plugin['data']['adcampaign_date_end']) ?>" maxlength="10" placeholder="<?php echo $BL['default_date_format'] ?>" autocomplete="off" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_date_end')._flatpickr&&document.getElementById('adcampaign_date_end')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>
 								</div>
-								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" data-target="#adcampaign_time_end" autocomplete="off" />
-								<div class="input-group-append" data-target="#adcampaign_time_end" data-toggle="datetimepicker">
-									<span class="input-group-text btn-blue"><i class="far fa-clock fa-fw"></i></span>
+								<input type="text" class="form-control datetimepicker-input" name="adcampaign_time_end" id="adcampaign_time_end" value="<?php echo html($plugin['data']['adcampaign_time_end']) ?>" maxlength="5" placeholder="<?php echo $BL['default_time_format'] ?>" autocomplete="off" />
+								<div class="input-group-append">
+									<span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById('adcampaign_time_end')._flatpickr&&document.getElementById('adcampaign_time_end')._flatpickr.open();"><i class="far fa-clock fa-fw"></i></span>
 								</div>
 							</div>
 						</div>
@@ -217,36 +217,9 @@ initJsCalendar();
 
 <script type="text/javascript">
 $(function () {
-	$('#adcampaign_date_start').datetimepicker({
-		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-		format: "DD.MM.YYYY",
-		buttons: {
-			showClose: true
-		}
-	});
-
-	$('#adcampaign_time_start').datetimepicker({
-		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-		format: "HH:mm",
-		buttons: {
-			showClose: true
-		}
-	});
-
-	$('#adcampaign_date_end').datetimepicker({
-		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-		format: "DD.MM.YYYY",
-		buttons: {
-			showClose: true
-		}
-	});
-
-	$('#adcampaign_time_end').datetimepicker({
-		locale: '<?php echo $_SESSION['wcs_user_lang'] ?>',
-		format: "HH:mm",
-		buttons: {
-			showClose: true
-		}
-	});
+	flatpickr('#adcampaign_date_start', { dateFormat: 'd.m.Y', allowInput: true });
+	flatpickr('#adcampaign_time_start', { enableTime: true, noCalendar: true, dateFormat: 'H:i', time_24hr: true, allowInput: true });
+	flatpickr('#adcampaign_date_end',   { dateFormat: 'd.m.Y', allowInput: true });
+	flatpickr('#adcampaign_time_end',   { enableTime: true, noCalendar: true, dateFormat: 'H:i', time_24hr: true, allowInput: true });
 });
 </script>

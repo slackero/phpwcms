@@ -343,26 +343,20 @@ if (!defined('PHPWCMS_ROOT')) {
 		echo '<div class="form-group row align-items-center">'.LF;
 		echo '  <label for="'.$key.'" class="col-sm-2 col-form-label text-sm-right font-weight-bold">'.$BLM[$key].'</label>'.LF;
 		echo '  <div class="col-sm-10">'.LF;
-		echo '    <div class="date input-group input-group-sm" id="datetimepicker_'.$key.'" data-target-input="#'.$key.'">'.LF;
-		echo '      <input type="text" class="form-control datetimepicker datetimepicker-input" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" maxlength="10" placeholder="'.$BL['default_date_format'].'" data-target="#'.$key.'" autocomplete="off" />'.LF;
-		echo '      <div class="input-group-append" data-target="#'.$key.'" data-toggle="datetimepicker">'.LF;
-		echo '        <span class="input-group-text btn-blue"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
+		echo '    <div class="input-group input-group-sm">'.LF;
+		echo '      <input type="text" class="form-control datetimepicker-input" name="'.$key.'" id="'.$key.'" value="'.html($plugin['data'][$key]).'" maxlength="10" placeholder="'.$BL['default_date_format'].'" autocomplete="off" />'.LF;
+		echo '      <div class="input-group-append">'.LF;
+		echo '        <span class="input-group-text btn-blue" style="cursor:pointer;" onclick="document.getElementById(\''. $key .'\')._flatpickr&&document.getElementById(\''. $key .'\')._flatpickr.open();"><i class="far fa-calendar-alt fa-fw"></i></span>'.LF;
 		echo '      </div>'.LF;
 		echo '    </div>'.LF;
 		echo '    <script type="text/javascript">'.LF;
 		echo '    $(function () {'.LF;
-		echo '      $("#'.$key.'").datetimepicker({'.LF;
-		echo '        locale: "'. $_SESSION['wcs_user_lang'] .'",'.LF;
-		echo '        format: "DD.MM.YYYY",'.LF;
-		echo '        buttons: {'.LF;
-		echo '          showClose: true'.LF;
-		echo '        }'.LF;
-		echo '      });'.LF;
+		echo '      flatpickr("#'.$key.'", { dateFormat: \'d.m.Y\', allowInput: true });'.LF;
 		echo '    });'.LF;
 		echo '    </script>'.LF;
 		echo '  </div>'.LF;
 		echo '</div>'.LF;
-							break;
+				break;
 
 			case 'DECIMAL':
 
