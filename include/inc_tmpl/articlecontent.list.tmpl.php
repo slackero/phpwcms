@@ -38,12 +38,6 @@ function initSortableList(el, listId) {
         scrollSensitivity: 60,
         scrollSpeed: 10,
         onEnd: function (evt) {
-            var item = evt.item;
-            item.classList.add('sort-just-moved');
-            setTimeout(function() {
-                item.classList.remove('sort-just-moved');
-            }, 2500);
-
             var sort_order = '';
             var listEl = document.getElementById(listId);
             if (listEl) {
