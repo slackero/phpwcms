@@ -644,9 +644,8 @@ $(function(){
 
 <?php   endif; ?>
 
-});
-
 </script>
+
 
 <?php
 }
