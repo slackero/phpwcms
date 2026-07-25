@@ -120,6 +120,34 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
   </div>
 </div>
 
+<div class="form-group form-row align-items-center">
+	<label for="be_cnt_column" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
+	<div class="col-sm-auto">
+	<select class="custom-select form-control form-control-sm" name="cimage_col" id="cimage_col">
+			<?php
+			// list select menu for max image columns
+			for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
+					echo '<option value="'.$max_image_col.'" ';
+					is_selected($max_image_col, $content['image_special']['col']);
+					echo '>'.$max_image_col.'</option>'.LF;
+			}
+			?>
+	</select>
+	</div>
+	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
+    <div class="input-group input-group-sm">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
+			</div>
+				<input class="form-control form-control-sm text-right" name="cimage_space" id="cimage_space" value="1" type="text" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['image_special']['space']; ?>" />
+			<div class="input-group-append">
+				<span class="input-group-text">px</span>
+			</div>
+		</div>
+  </div>
+</div>
+
+
 <div class="form-group align-items-center form-row">
   <label for="be_flashplayer_thumbnail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
   <div class="col-sm-auto my-2 my-sm-0">
@@ -182,33 +210,6 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 			<label class="form-check-label" for="be_image_cropit"><?php echo $BL['be_image_cropit'] ?></label>
 		</div>
 	</div>
-</div>
-
-<div class="form-group form-row align-items-center">
-	<label for="be_cnt_column" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
-	<div class="col-sm-auto">
-	<select class="custom-select form-control form-control-sm" name="cimage_col" id="cimage_col">
-			<?php
-			// list select menu for max image columns
-			for($max_image_col = 1; $max_image_col <= 25; $max_image_col++) {
-					echo '<option value="'.$max_image_col.'" ';
-					is_selected($max_image_col, $content['image_special']['col']);
-					echo '>'.$max_image_col.'</option>'.LF;
-			}
-			?>
-	</select>
-	</div>
-	<div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
-    <div class="input-group input-group-sm">
-			<div class="input-group-prepend">
-				<span class="input-group-text"><?php echo $BL['be_cnt_imagespace'] ?></span>
-			</div>
-				<input class="form-control form-control-sm text-right" name="cimage_space" id="cimage_space" value="1" type="text" style="width: 50px;" size="4" maxlength="4" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['image_special']['space']; ?>" />
-			<div class="input-group-append">
-				<span class="input-group-text">px</span>
-			</div>
-		</div>
-  </div>
 </div>
 
 <div class="form-group align-items-center form-row">
