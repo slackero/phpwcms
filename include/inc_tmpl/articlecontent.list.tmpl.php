@@ -29,10 +29,12 @@ $buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');
 $(function() {
     $("ul.dropable-list").sortable({
         group: 'no-drop',
-        handle: 'span.handle',
-        onDrop: function ($item, container, _super, event) {
+        handle: '.handle',
+        onDrop: function ($item, container, _super) {
             $item.removeClass(container.group.options.draggedClass).removeAttr("style");
             $("body").removeClass(container.group.options.bodyClass);
+
+            _super($item, container);
 
             $item.addClass('sort-just-moved');
             setTimeout(function() {
@@ -487,27 +489,27 @@ $(function() {
     <?php
     if ($listingflag == 0) {
       echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0">';
-    } else {
-      echo '<script>
+    } else {      echo '<script>
       $(function() {
-        $("ul.dropable-list'. $listingflag .'").sortable({
-        group: \'no-drop'. $listingflag .'\',
-        handle: \'em.handle\',
-        onDrop: function ($item, container, _super, event) {
+        $("ul.dropable-list.' . $listingflag . '").sortable({
+        group: \'no-drop' . $listingflag . '\',
+        handle: \'.handle\',
+        onDrop: function ($item, container, _super) {
           $item.removeClass(container.group.options.draggedClass).removeAttr("style");
           $("body").removeClass(container.group.options.bodyClass);
+          _super($item, container);
           $item.addClass("sort-just-moved");
           setTimeout(function() { $item.removeClass("sort-just-moved"); }, 2500);
           var sort_order = \'\';
-          $(\'#sortable-list-'. $listingflag .' li\').each(function() {
+          $(\'#sortable-list-' . $listingflag . ' li\').each(function() {
             sort_order = sort_order +  $(this).attr(\'id\')  + \'|\';
           });
           $.ajax({url: \'include/inc_act/act_articlesort.php?' . get_token_get_string() . '&sortid=\' + sort_order, xhrFields: {withCredentials: true}});
         }
         });
       });
-      </script>
-        <ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0 '. $listingflag .'">';
+      </script>';
+        echo '<ul id="sortable-list-'. $listingflag .'" class="list-group list-group-flush dropable-list pl-0 '. $listingflag .'">';
       }
       $listingflag = $listingflag+1;
     }
