@@ -232,42 +232,11 @@ if(empty($content['search']['type'])) {
 
   <script type="text/javascript">
   $(function(){
-
-    $("#news_category_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-      selectedItemProp: "cat_name",
-      selectedValuesProp: 'cat_name',
-      searchObjProps: "cat_name",
-      queryParam: 'value',
-      extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
-      startText: '',
-      preFill: $("#news_category").val(),
-      neverSubmit: true,
-      asHtmlID: 'keyword-autosuggest1'
-    });
-
-    $("#news_lang_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-      selectedItemProp: "allowed_lang",
-      selectedValuesProp: 'allowed_lang',
-      searchObjProps: "allowed_lang",
-      queryParam: 'value',
-      extraParams: '&method=json&action=lang&<?php echo get_token_get_string(); ?>',
-      startText: '',
-      preFill: $("#news_lang").val(),
-      neverSubmit: true,
-      asHtmlID: 'keyword-autosuggest2'
-    });
-
-    $('#articlecontent').submit(function(event){
-      $("#news_category").val($('#as-values-keyword-autosuggest1').val());
-      $("#news_lang").val($('#as-values-keyword-autosuggest2').val());
-    });
-
-    $("#keyword-autosuggest2").keyup(function(event) {
-      $(this).val( $(this).val().replace(/[^a-z]/g,'') );
-    });
-
+    initTomSelectTagAutosuggest('#news_category_autosuggest', '#news_category', 'category');
+    initTomSelectTagAutosuggest('#news_lang_autosuggest', '#news_lang', 'lang');
   });
   </script>
+
   </div>
 </div>
 

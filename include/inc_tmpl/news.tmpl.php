@@ -195,25 +195,12 @@ function closeForm() {
 $(function(){
 
   /* Autocompleter for categories/tags */
-  $("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-    selectedItemProp: "cat_name",
-    selectedValuesProp: 'cat_name',
-    searchObjProps: "cat_name",
-    queryParam: 'value',
-    extraParams: '&method=json&action=newstags&<?php echo get_token_get_string(); ?>',
-    startText: '',
-    preFill: $("#cnt_category").val(),
-    neverSubmit: true,
-    asHtmlID: 'keyword-autosuggest',
-    emptyText: '<?php echo $BL['be_cnt_noresult']; ?>'
-  });
+  initTomSelectTagAutosuggest('#news_keyword_autosuggest', '#cnt_category', 'newstags');
 
   $('#newsform').submit(function(event){
-
-    $("#cnt_category").val($('#as-values-keyword-autosuggest').val());
     $('#cfile_list option').prop('selected', true);
-
   });
+
 
   var cnt_title = $('#cnt_title'),
       change_name_value = '-',

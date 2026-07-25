@@ -217,21 +217,8 @@ initJsAutocompleter();
 	}
 
   $(function(){
-    $("#news_keyword_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-      selectedItemProp: "cat_name",
-      selectedValuesProp: 'cat_name',
-      searchObjProps: "cat_name",
-      queryParam: 'value',
-      extraParams: '&method=json&action=newstags&<?php echo get_token_get_string(); ?>',
-      startText: '',
-      preFill: $("#news_category").val(),
-      neverSubmit: true,
-      asHtmlID: 'keyword-autosuggest'
-    });
+    initTomSelectTagAutosuggest('#news_keyword_autosuggest', '#news_category', 'newstags');
 
-    $('#articlecontent').submit(function(event){
-      $("#news_category").val($('#as-values-keyword-autosuggest').val());
-    });
 
 		setPaginateBasis();
 
