@@ -488,7 +488,7 @@ document.getElementById("file").onchange = function(e) {
                 if ($has_error) {
                     $k_rows .= '<span class="text-danger mr-1"><i class="fa fa-exclamation-circle"></i></span>';
                 }
-                $k_rows .= html($row["fcat_name"]) . ':</label>';
+                $k_rows .= html($row["fcat_name"]) . '</label>';
                 $k_rows .= '  </td>' . LF;
                 $k_rows .= '  <td class="align-middle py-1">' . LF;
                 $k_rows .= '    <select name="file_keywords[' . $row["fcat_id"] . ']" id="file_keywords_' . $row["fcat_id"] . '" class="custom-select custom-select-sm' . ($has_error ? ' is-invalid' : '') . '" style="max-width: 350px;">' . LF;
@@ -511,11 +511,11 @@ document.getElementById("file").onchange = function(e) {
 
         if ($k_rows !== '') {
 ?>
-    <div class="form-group row align-items-start mb-2">
-        <label class="col-sm-2 col-form-label text-sm-right font-weight-bold pt-1">
-            <?php echo $BL['be_ftptakeover_keywords']; ?>:
+    <div class="form-group form-row align-items-start mb-2">
+        <label class="col-sm-2 col-form-label text-right pt-1">
+            <?php echo $BL['be_ftptakeover_keywords']; ?>
         </label>
-        <div class="col-sm-10">
+        <div class="col">
             <table class="table table-borderless table-sm mb-0 w-auto">
                 <tbody>
                     <?php echo $k_rows; ?>
@@ -529,55 +529,52 @@ document.getElementById("file").onchange = function(e) {
     ?>
 
 
-    <div class="form-group row align-items-center">
-      <label for="file_shortinfo" class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_ftptakeover_additional']; ?>:</label>
-      <div class="col-sm-10">
-     		<input name="file_shortinfo" type="text" id="file_shortinfo" class="form-control form-control-sm" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
-      </div>
-    </div>
-
-
     <div class="form-group form-row align-items-center">
-      <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tags'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
-
-      <div class="col">
-     	<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
-     	<input name="file_tags" type="hidden" id="file_tags" value="" />
-      </div>
+        <label for="file_shortinfo" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_additional']; ?></label>
+        <div class="col">
+            <input name="file_shortinfo" type="text" class="form-control form-control-sm" id="file_shortinfo" value="<?php echo html($file_shortinfo); ?>" maxlength="750">
+        </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-      <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
-      <div class="col-auto">
-     	<input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort) ?>" />
-      </div>
+        <label for="file_tags_autosuggest" class="col-sm-2 col-form-label text-right">
+            <?php echo $BL['be_tags']; ?> <i class="fas fa-info-circle text-blue ml-1" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab']; ?>"></i>
+        </label>
+        <div class="col">
+            <input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']); ?>" />
+            <input name="file_tags" type="hidden" id="file_tags" value="" />
+        </div>
     </div>
 
     <div class="form-group form-row align-items-center">
-    	<label for="file_aktiv" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status'] ?></label>
-    	<div class="form-check form-check-inline">
-				<input class="form-check-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv) ?> />
-				<label class="form-check-label" for="file_aktiv"><?php echo $BL['be_ftptakeover_active'] ?></label>
-			</div>
-    	<div class="form-check form-check-inline">
-				<input class="form-check-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public) ?> />
-				<label class="form-check-label" for="file_public">
-				<?php echo $BL['be_ftptakeover_public'] ?>
-				</label>
-			</div>
-    	<div class="form-check-inline">
-				<input class="form-check-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted) ?> />
-        <label class="form-check-label" for="file_granted">
-					<?php echo $BL['be_granted_download'] ?>
-				</label>
-			</div>
-    	<div class="form-check form-check-inline">
-				<input class="form-check-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1" <?php is_checked(1, $file_gallerydownload) ?> />
-				<label class="form-check-label" for="file_gallerydownload">
-				<?php echo $BL['be_gallerydownload'] ?>
-			</label>
-			</div>
+        <label for="file_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting']; ?></label>
+        <div class="col-auto">
+            <input name="file_sort" type="number" id="file_sort" class="form-control form-control-sm" maxlength="10" value="<?php echo intval($file_sort); ?>" />
+        </div>
     </div>
+
+    <div class="form-group form-row align-items-center">
+        <span class="col-sm-2 col-form-label text-right"><?php echo $BL['be_ftptakeover_status']; ?></span>
+        <div class="col d-flex flex-wrap align-items-center">
+            <div class="custom-control custom-checkbox mr-3">
+                <input class="custom-control-input" name="file_aktiv" type="checkbox" id="file_aktiv" value="1"<?php is_checked("1", $file_aktiv); ?> />
+                <label class="custom-control-label font-weight-bold" for="file_aktiv"><?php echo $BL['be_ftptakeover_active']; ?></label>
+            </div>
+            <div class="custom-control custom-checkbox mr-3">
+                <input class="custom-control-input" name="file_granted" type="checkbox" id="file_granted" value="1"<?php is_checked("1", $file_granted); ?> />
+                <label class="custom-control-label font-weight-bold" for="file_granted"><?php echo $BL['be_granted_download']; ?></label>
+            </div>
+            <div class="custom-control custom-checkbox mr-3">
+                <input class="custom-control-input" name="file_public" type="checkbox" id="file_public" value="1"<?php is_checked("1", $file_public); ?> />
+                <label class="custom-control-label" for="file_public"><?php echo $BL['be_ftptakeover_public']; ?></label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" name="file_gallerydownload" type="checkbox" id="file_gallerydownload" value="1"<?php is_checked(1, $file_gallerydownload); ?> />
+                <label class="custom-control-label" for="file_gallerydownload"><?php echo $BL['be_gallerydownload']; ?></label>
+            </div>
+        </div>
+    </div>
+
 
 		<input name="file_aktion" type="hidden" id="file_aktion" value="1" />
     <input type="hidden" name="MAX_FILE_SIZE" value="<?php
