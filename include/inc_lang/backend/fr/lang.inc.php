@@ -1127,3 +1127,12 @@ $BL['be_cnt_summary_label'] = 'Sommaire';
 $BL['be_cnt_max_words'] = 'mots max.';
 
 $BL['be_dashboard_support'] = 'Contact et Support';
+
+$BL['be_fileuploader_uploadButtonText'] = 'S&eacute;lectionnez des fichiers ou d&eacute;posez-les ici';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">S&eacute;lectionnez des fichiers ou d&eacute;posez-les ici</span><br><small class="text-muted">Cliquez ou glissez-d&eacute;posez vos fichiers ici</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Votre navigateur ne prend pas en charge le glisser-d&eacute;poser.';
+$BL['be_fileuploader_dictFileTooBig'] = 'Le fichier est trop volumineux ({{filesize}}Mo). Taille max: {{maxFilesize}}Mo.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Vous ne pouvez pas t&eacute;l&eacute;verser ce type de fichier.';
+$BL['be_fileuploader_dictResponseError'] = 'Le serveur a r&eacute;pondu avec le code {{statusCode}}.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Annuler le t&eacute;l&eacute;versement';
+$BL['be_fileuploader_dictRemoveFile'] = 'Supprimer le fichier';

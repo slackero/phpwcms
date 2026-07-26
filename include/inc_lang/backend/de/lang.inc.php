@@ -1274,6 +1274,16 @@ $BL['be_fileuploader_noFilesError'] = "Keine Dateien zum Hochladen.";
 $BL['be_fileuploader_onLeave'] = "Das Hochladen l&auml;uft gerade. Wenn Sie jetzt beenden, wird das Hochladen abgebrochen.";
 $BL['be_fileuploader_dragText'] = "Dateien zum Upload hierher ziehen!";
 $BL['be_fileuploader_uploadButtonText'] = 'Dateien w&auml;hlen oder hier ablegen';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Dateien w&auml;hlen oder hier ablegen</span><br><small class="text-muted">Klicken oder Dateien per Drag & Drop hineinziehen</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Ihr Browser unterst&uuml;tzt Drag & Drop Dateiuploads nicht.';
+$BL['be_fileuploader_dictFallbackText'] = 'Bitte nutzen Sie das untenstehende Formular zum Hochladen Ihrer Dateien.';
+$BL['be_fileuploader_dictFileTooBig'] = 'Datei ist zu gro&szlig; ({{filesize}}MiB). Maximale Dateigr&ouml;&szlig;e: {{maxFilesize}}MiB.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Dateien dieses Typs k&ouml;nnen nicht hochgeladen werden.';
+$BL['be_fileuploader_dictResponseError'] = 'Server antwortete mit Code {{statusCode}}.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Upload abbrechen';
+$BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Soll dieser Upload wirklich abgebrochen werden?';
+$BL['be_fileuploader_dictRemoveFile'] = 'Datei entfernen';
+$BL['be_fileuploader_dictMaxFilesExceeded'] = 'Sie k&ouml;nnen keine weiteren Dateien hochladen.';
 $BL['be_delete_selected_files'] = 'Markierte Dateien l&ouml;schen';
 $BL['be_delete_selected_files_confirm'] = 'Sollen wirklich alle markierten Dateien gel&ouml;scht werden?';
 

@@ -1285,6 +1285,16 @@ $BL['be_fileuploader_noFilesError']     = "No files to upload.";
 $BL['be_fileuploader_onLeave']          = "The files are being uploaded, if you leave now the upload will be cancelled.";
 $BL['be_fileuploader_dragText']         = "Drop files here to upload!";
 $BL['be_fileuploader_uploadButtonText'] = 'Select files or drop here';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Select files or drop here</span><br><small class="text-muted">Click or drag & drop files into this area</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Your browser does not support drag and drop file uploads.';
+$BL['be_fileuploader_dictFallbackText'] = 'Please use the fallback form below to upload your files like in the olden days.';
+$BL['be_fileuploader_dictFileTooBig'] = 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'You cannot upload files of this type.';
+$BL['be_fileuploader_dictResponseError'] = 'Server responded with {{statusCode}} code.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Cancel upload';
+$BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Are you sure you want to cancel this upload?';
+$BL['be_fileuploader_dictRemoveFile'] = 'Remove file';
+$BL['be_fileuploader_dictMaxFilesExceeded'] = 'You cannot upload any more files.';
 $BL['be_delete_selected_files']         = 'Delete selected files';
 $BL['be_delete_selected_files_confirm'] = 'Do you really want to delete all selected files?';
 

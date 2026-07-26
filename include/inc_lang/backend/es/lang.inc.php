@@ -1107,6 +1107,13 @@ $BL['be_fileuploader_onLeave'] = 'Los archivos se est&aacute;n subiendo; si sale
 $BL['be_fileuploader_sizeError'] = '{file} es demasiado grande, el tama&ntilde;o m&aacute;ximo de archivo es {sizeLimit}.';
 $BL['be_fileuploader_typeError'] = '{file} tiene una extensi&oacute;n no v&aacute;lida. Extensi&oacute;n(es) v&aacute;lida(s): {extensions}.';
 $BL['be_fileuploader_uploadButtonText'] = 'Seleccione archivos o arr&aacute;strelos aqu&iacute;';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Seleccione archivos o arr&aacute;strelos aqu&iacute;</span><br><small class="text-muted">Haga clic o arrastre archivos aqu&iacute;</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Su navegador no admite la funci&oacute;n de arrastrar y soltar archivos.';
+$BL['be_fileuploader_dictFileTooBig'] = 'El archivo es demasiado grande ({{filesize}}MiB). Tama&ntilde;o m&aacute;ximo: {{maxFilesize}}MiB.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'No puede subir archivos de este tipo.';
+$BL['be_fileuploader_dictResponseError'] = 'El servidor respondi&oacute; con el c&oacute;digo {{statusCode}}.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Cancelar subida';
+$BL['be_fileuploader_dictRemoveFile'] = 'Eliminar archivo';
 $BL['be_filter'] = 'filtro';
 $BL['be_filter_not_selected'] = 'ninguna categor&iacute;a seleccionada';
 $BL['be_filter_with_tags'] = 'por tag';
