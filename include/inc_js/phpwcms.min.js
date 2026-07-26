@@ -197,6 +197,9 @@ function initTomSelectTagAutosuggest(inputSelector, hiddenSelector, actionType, 
     if (!$input.length || typeof TomSelect !== 'function') {
         return null;
     }
+    if ($input[0].tomselect) {
+        return $input[0].tomselect;
+    }
 
     const initialValues = ($hidden.val() || '').split(',').map(s => s.trim()).filter(Boolean);
     const initialOptions = initialValues.map(v => ({ value: v, text: v }));
@@ -242,7 +245,8 @@ function initTomSelectTagAutosuggest(inputSelector, hiddenSelector, actionType, 
 
     const ts = new TomSelect($input[0], config);
     $input.closest('form').on('submit', function() {
-        const valStr = ts.getValue().join(', ');
+        const val = ts.getValue();
+        const valStr = Array.isArray(val) ? val.join(', ') : (val || '');
         $hidden.val(valStr);
     });
 
