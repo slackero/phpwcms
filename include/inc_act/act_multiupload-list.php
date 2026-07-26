@@ -52,21 +52,19 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 					$fx = 0;
 					$fxsg = 0;
 							while($file = @readdir($handle)) {
-									if(!is_dir($file) && $file !== "." && $file !== ".." && substr($file, 0, 1) !== '.' && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+                                if(!is_dir($file) && $file !== "." && $file !== ".." && substr($file, 0, 1) !== '.' && $fxs = filesize(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
 
-											// test if the file should be deleted
-											$file_base64 = base64_encode($file);
+                                    // test if the file should be deleted
+                                    $file_base64 = base64_encode($file);
 
-											if(isset($deleteFiles[$file_base64]) && @unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
-															continue;
-													}
+                                    if(isset($deleteFiles[$file_base64]) && @unlink(PHPWCMS_ROOT.$phpwcms["ftp_path"].$file)) {
+                                        continue;
+                                    }
 
-											$fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
-											$fxsg += $fxs;
-											$fxe = extimg(which_ext($file));
-											 // there is a big problem with special chars on Mac OS X and seems Windows too
-											$filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file) ? str_replace('?', '', mb_convert_encoding($file, PHPWCMS_CHARSET)) : $file;
-											$filename = html($filename);
+                                    $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
+                                    $fxsg += $fxs;
+                                    $fxe = extimg(which_ext($file));
+                                    $filename = html(makeCharsetConversion($file, 'utf-8', PHPWCMS_CHARSET));
 	?>
 						<tr<?php echo $fxb ?>>
 							<td align="center" width="30"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>

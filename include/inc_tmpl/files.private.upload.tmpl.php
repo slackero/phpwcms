@@ -168,7 +168,11 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
     } else {
 
-        $fileName = sanitize_filename($_FILES["file"]["name"]);
+        $fileName = $_FILES["file"]["name"];
+        if(PHPWCMS_CHARSET !== 'utf-8') {
+            $fileName = makeCharsetConversion($fileName, 'utf-8', PHPWCMS_CHARSET);
+        }
+        $fileName = sanitize_filename($fileName);
         if(false === ($fileExt = check_image_extension($_FILES["file"]["tmp_name"], $fileName, $file_image_size))) {
             $fileExt = which_ext($fileName);
         }

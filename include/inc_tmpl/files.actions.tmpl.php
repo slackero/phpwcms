@@ -171,12 +171,7 @@ function showAction() {
 
             foreach($file_result as $file_row) {
                 $fxb = ($fx % 2) ? " bgColor=\"#F9FAFB\"" : "";
-                // there is a big problem with special chars on Mac OS X and seems Windows too
-                if(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($file_row["f_name"])) {
-                    $filename = str_replace('?', '', mb_convert_encoding($file_row["f_name"], PHPWCMS_CHARSET));
-                } else {
-                    $filename = $file_row["f_name"];
-                }
+                $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file_row["f_name"]) ? makeCharsetConversion($file_row["f_name"], 'utf-8', PHPWCMS_CHARSET) : $file_row["f_name"];
                 $filename = html($filename);
         ?>
           <tr<?php echo $fxb ?>>

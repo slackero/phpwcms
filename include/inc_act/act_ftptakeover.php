@@ -216,6 +216,9 @@ if(!$ftp["error"]) {
                 $file_ext = which_ext($file);
             }
             $file_name      = sanitize_filename($ftp["filename"][$key]);
+            if(PHPWCMS_CHARSET !== 'utf-8') {
+                $file_name  = makeCharsetConversion($file_name, 'utf-8', PHPWCMS_CHARSET);
+            }
             $file_hash      = md5( $file_name . microtime() );
             $file_check     = getimagesize($file_path, $file_image_info);
             $file_title     = $ftp["title"];

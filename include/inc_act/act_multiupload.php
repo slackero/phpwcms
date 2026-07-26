@@ -126,7 +126,6 @@ if (!empty($_GET['filepublic'])) {
 	);
 
 	if(PHPWCMS_CHARSET != 'utf-8') {
-		$data['f_name']			= makeCharsetConversion($data['f_name'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_longinfo']		= makeCharsetConversion($data['f_longinfo'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_copyright']	= makeCharsetConversion($data['f_copyright'], 'utf-8', PHPWCMS_CHARSET);
 		$data['f_tags']			= makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);

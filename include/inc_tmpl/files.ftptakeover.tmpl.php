@@ -74,9 +74,7 @@ $GLOBALS['BE']['HEADER']['jquery.uploadfile.min.js'] = getJavaScriptSourceLink('
                     $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
                 $fxsg += $file['filesize'];
                 $fxe = extimg($file['ext']);
-                     // there is a big problem with special chars on Mac OS X and seems Windows too
-                    $filename = PHPWCMS_CHARSET !== 'utf-8' && phpwcms_seems_utf8($file['filename']) ? str_replace('?', '', mb_convert_encoding($file['filename'], PHPWCMS_CHARSET)) : $file['filename'];
-                    $filename = html($filename);
+                $filename = html(makeCharsetConversion($file['filename'], 'utf-8', PHPWCMS_CHARSET));
 ?>
           <tr<?php echo $fxb ?>>
             <td align="center" width="30"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
