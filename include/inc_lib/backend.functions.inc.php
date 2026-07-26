@@ -999,9 +999,9 @@ function getItemsPerPageMenu($steps=array(5, 10, 25, 50, 100, 250, 0), $separato
 }
 
 function initJsCalendar() {
-    $GLOBALS['BE']['HEADER']['material-plugins.min.css'] = '<link href="include/inc_css/material-plugins.min.css" rel="stylesheet">';
-    $GLOBALS['BE']['HEADER']['dayjs.js']                = getJavaScriptSourceLink('include/inc_js/dayjs.min.js');
-    $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']        = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
+    $GLOBALS['BE']['HEADER']['flatpickr-material.min.css'] = '<link href="include/inc_css/flatpickr-material.min.css" rel="stylesheet">';
+    $GLOBALS['BE']['HEADER']['dayjs.js']                   = getJavaScriptSourceLink('include/inc_js/dayjs.min.js');
+    $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']           = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
 }
 
 /*function initMootools($mode='1.1', $more=array()) {
