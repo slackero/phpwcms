@@ -33,6 +33,12 @@ $file_sort              = 0;
 $file_title     = '';
 $file_alt       = '';
 
+// Detect POST Content-Length overflow before form check
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
+    $max_post = ini_get('post_max_size');
+    $file_error["file"] = sprintf($BL['be_fprivup_err10'], $max_post);
+}
+
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
@@ -248,7 +254,6 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
 
             if ($dir = @opendir($useruploadpath)) {
                 if(!@move_uploaded_file($_FILES["file"]["tmp_name"], $usernewfile)) {
-
                     $file_error["upload"] = $BL['be_fprivup_err3'].' (1)';
                 }
             } else {
@@ -266,19 +271,14 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) {
                 @chmod($usernewfile, 0666);
             }
             if(empty($file_error["upload"])) {
-
                 // store tags
                 _dbSaveCategories($file_tags, 'file', $new_fileId, ',');
 
                 //after successful upload go back to clear post (form) var
                 headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=files&f=0&uploaded=1');
-
             } else {
-
-                echo $file_error["upload"]."<br />";
                 $file_error["upload"] = str_replace('{VAL}', $phpwcms["admin_email"], $BL['be_fprivup_err6']);
                 _dbQuery("DELETE FROM ".DB_PREPEND."phpwcms_file WHERE f_id=".$new_fileId." AND f_uid=".$_SESSION["wcs_user_id"], 'DELETE');
-
             }
         }
     }
@@ -342,17 +342,8 @@ document.getElementById("file").onchange = function(e) {
     </div>
   </div>
 
-  <div class="form-group form-row align-items-center">
-    <?php if(isset($file_error["upload"])) { ?>
-      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["upload"] ?></span>
-    <?php }
-
-    if(isset($file_error["file"])) {
-      ?>
-      <span class="col-sm-2 col-form-label text-right text-danger"><?php echo $file_error["file"] ?></span>
-    <?php } ?>
-
-    <label for="file" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fprivup_upload'] ?></label>
+  <div class="form-group form-row">
+    <label for="file" class="col-sm-2 col-form-label text-sm-right pt-0 pt-sm-2"><?php echo $BL['be_fprivup_upload'] ?></label>
     <div class="col-sm-4">
       <!-- JS: input:file mitnehmen -->
       <div class="input-group">
@@ -361,6 +352,18 @@ document.getElementById("file").onchange = function(e) {
           <label class="custom-file-label" for="file"></label>
         </div>
       </div>
+      <?php if(!empty($file_error["upload"])) { ?>
+        <div class="alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">
+          <i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>
+          <div><?php echo $file_error["upload"]; ?></div>
+        </div>
+      <?php } ?>
+      <?php if(!empty($file_error["file"])) { ?>
+        <div class="alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">
+          <i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>
+          <div><?php echo $file_error["file"]; ?></div>
+        </div>
+      <?php } ?>
     </div>
   </div>
 <hr />
@@ -609,9 +612,36 @@ document.getElementById("file").onchange = function(e) {
 
 <script type="text/javascript">
 
-$('input:file').change(
-  function(e){
-    $("label[for='file']").text(e.target.files[0].name);
+$('input:file').change(function(e){
+    if (e.target.files && e.target.files[0]) {
+        var file = e.target.files[0];
+        $(this).next('.custom-file-label').text(file.name);
+        var maxBytes = parseInt($('input[name="MAX_FILE_SIZE"]').val() || 0);
+        if (maxBytes > 0 && file.size > maxBytes) {
+            var fileSizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            var maxFormatted = (maxBytes / (1024 * 1024)).toFixed(2) + ' MB';
+            var msg = <?php echo json_encode($BL['be_fprivup_err11']); ?>;
+            msg = msg.replace('%s', file.name).replace('%s', fileSizeFormatted).replace('%s', maxFormatted);
+            alert(msg);
+        }
+    }
+});
+
+$('#file_upload_form, form[name="upload_form"]').on('submit', function(e) {
+    var fileInput = $('input:file')[0];
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+        var file = fileInput.files[0];
+        var maxBytes = parseInt($('input[name="MAX_FILE_SIZE"]').val() || 0);
+        if (maxBytes > 0 && file.size > maxBytes) {
+            var fileSizeFormatted = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            var maxFormatted = (maxBytes / (1024 * 1024)).toFixed(2) + ' MB';
+            var msg = <?php echo json_encode($BL['be_fprivup_err11']); ?>;
+            msg = msg.replace('%s', file.name).replace('%s', fileSizeFormatted).replace('%s', maxFormatted);
+            alert(msg);
+            e.preventDefault();
+            return false;
+        }
+    }
 });
 
 $(function(){

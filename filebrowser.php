@@ -566,8 +566,33 @@ $(function() {
     $("#fileuploader").uploadFile({
         url: "<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
         fileName: "myfile",
+        maxFileSize: <?php
+            $post_max_size = ini_get('post_max_size') ? return_bytes(ini_get('post_max_size')) : $phpwcms['file_maxsize'];
+            $upload_max_filesize = ini_get('upload_max_filesize') ? return_bytes(ini_get('upload_max_filesize')) : $phpwcms['file_maxsize'];
+            echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+        ?>,
+        allowedTypes: "<?php echo is_array($phpwcms['allowed_upload_ext']) ? implode(',', $phpwcms['allowed_upload_ext']) : (is_string($phpwcms['allowed_upload_ext']) ? $phpwcms['allowed_upload_ext'] : '*'); ?>",
+        uploadStr: "<?php echo $BL['be_fprivup_upload'] ?>",
         dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
         abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        cancelStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
+        deleteStr: "<?php echo $BL["be_cnt_delete"] ?>",
+        doneStr: "OK",
+        errorClass: "alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small",
+        sizeErrorStr: <?php
+            $str = html_entity_decode($BL['be_fileuploader_sizeError'], ENT_QUOTES | ENT_HTML5, PHPWCMS_CHARSET);
+            if (PHPWCMS_CHARSET !== 'utf-8') { $str = mb_convert_encoding($str, 'UTF-8', PHPWCMS_CHARSET); }
+            echo json_encode($str);
+        ?>,
+        extErrorStr: <?php
+            $str = html_entity_decode($BL['be_fileuploader_typeError'], ENT_QUOTES | ENT_HTML5, PHPWCMS_CHARSET);
+            if (PHPWCMS_CHARSET !== 'utf-8') { $str = mb_convert_encoding($str, 'UTF-8', PHPWCMS_CHARSET); }
+            echo json_encode($str);
+        ?>,
+        customErrorKeyStr: "jquery-upload-file-error",
+        onSelect: function(files) {
+            return true;
+        },
         onSuccess: function (files, data, xhr, pd) {
             $.ajax({
                 url: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',

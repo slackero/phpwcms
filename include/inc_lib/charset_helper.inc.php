@@ -46,6 +46,9 @@ function phpwcms_remove_accents($string) {
 	if(!preg_match('/[\x80-\xff]/', $string)) {
 		return $string;
 	}
+	if (class_exists('Normalizer')) {
+		$string = Normalizer::normalize($string, Normalizer::FORM_C);
+	}
 	if(phpwcms_seems_utf8($string)) {
 		$chars = array(
 			// Decompositions for Latin-1 Supplement

@@ -15,8 +15,23 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
+$user_lang = !empty($_SESSION["wcs_user_lang"]) ? strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) : 'en';
+require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
+$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
+if(is_file($cust_lang)) {
+    include $cust_lang;
+}
+
 if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
-    die('{"success":false}');
+    $errMsg = !empty($BL['CSRF_GET_FAILED']) ? strip_tags($BL['CSRF_GET_FAILED']) : 'Session or CSRF failure';
+    die(json_encode(array('jquery-upload-file-error' => $errMsg)));
+}
+
+// Detect POST Content-Length overflow
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
+    $max_post = ini_get('post_max_size');
+    $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
+    die(json_encode(array('jquery-upload-file-error' => strip_tags($errMsg))));
 }
 
 if(@ini_get('post_max_size')) {
@@ -50,29 +65,36 @@ if(isset($_FILES["myfile"]))
   echo json_encode($custom_error);
   die();
 */
-  $error =$_FILES["myfile"]["error"];
+  $error = $_FILES["myfile"]["error"];
+  if ($error == UPLOAD_ERR_INI_SIZE || $error == UPLOAD_ERR_FORM_SIZE) {
+      $max_post = ini_get('upload_max_filesize');
+      $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
+      die(json_encode(array('jquery-upload-file-error' => strip_tags($errMsg))));
+  }
   //You need to handle  both cases
   //If Any browser does not support serializing of multiple files using FormData()
   if(!is_array($_FILES["myfile"]["name"])) //single file
   {
-    $retf[0]["fileName"] = $_FILES["myfile"]["name"];
+    $fileName = sanitize_filename($_FILES["myfile"]["name"]);
+    $retf[0]["fileName"] = $fileName;
     $retf[0]["fileType"] = $_FILES["myfile"]["type"];
     $retf[0]["fileSize"] = $_FILES["myfile"]["size"];
-    $retf[0]["fileExt"] = pathinfo($_FILES["myfile"]["name"], PATHINFO_EXTENSION);
-    move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$_FILES["myfile"]["name"]);
-    $ret[]= $_FILES["myfile"]["name"];
+    $retf[0]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
+    move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName);
+    $ret[]= $fileName;
   }
   else  //Multiple files, file[]
   {
     $fileCount = count($_FILES["myfile"]["name"]);
     for($i=0; $i < $fileCount; $i++)
     {
-      $retf[$i]["fileName"] = $_FILES["myfile"]["name"][$i];
+      $fileName = sanitize_filename($_FILES["myfile"]["name"][$i]);
+      $retf[$i]["fileName"] = $fileName;
       $retf[$i]["fileType"] = $_FILES["myfile"]["type"][$i];
       $retf[$i]["fileSize"] = $_FILES["myfile"]["size"][$i];
-      $retf[$i]["fileExt"] = pathinfo($_FILES["myfile"]["name"], PATHINFO_EXTENSION);
-      move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$_FILES["myfile"]["name"][$i]);
-      $ret[]= $_FILES["myfile"]["name"][$i];
+      $retf[$i]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
+      move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$fileName);
+      $ret[]= $fileName;
 
     }
 

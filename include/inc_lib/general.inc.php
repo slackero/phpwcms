@@ -1694,9 +1694,33 @@ function _mkdir($target) {
 }
 
 function sanitize_filename($filename) {
-    //Filename anpassen und säubern
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        $filename = stripslashes($filename);
+    if (class_exists('Normalizer')) {
+        $filename = Normalizer::normalize($filename, Normalizer::FORM_C);
+    } else {
+        // Comprehensive fallback for NFD decomposed Latin characters if ext-intl is missing
+        $nfd_map = array(
+            // Umlauts / Diaeresis (\xCC\x88)
+            "a\xCC\x88" => 'ä', "o\xCC\x88" => 'ö', "u\xCC\x88" => 'ü',
+            "A\xCC\x88" => 'Ä', "O\xCC\x88" => 'Ö', "U\xCC\x88" => 'Ü',
+            "e\xCC\x88" => 'ë', "E\xCC\x88" => 'Ë', "i\xCC\x88" => 'ï', "I\xCC\x88" => 'Ï', "y\xCC\x88" => 'ÿ', "Y\xCC\x88" => 'Ÿ',
+            // Acute accents (\xCC\x81)
+            "a\xCC\x81" => 'á', "e\xCC\x81" => 'é', "i\xCC\x81" => 'í', "o\xCC\x81" => 'ó', "u\xCC\x81" => 'ú', "y\xCC\x81" => 'ý', "c\xCC\x81" => 'ć', "n\xCC\x81" => 'ń', "s\xCC\x81" => 'ś', "z\xCC\x81" => 'ź',
+            "A\xCC\x81" => 'Á', "E\xCC\x81" => 'É', "I\xCC\x81" => 'Í', "O\xCC\x81" => 'Ó', "U\xCC\x81" => 'Ú', "Y\xCC\x81" => 'Ý', "C\xCC\x81" => 'Ć', "N\xCC\x81" => 'Ń', "S\xCC\x81" => 'Ś', "Z\xCC\x81" => 'Ź',
+            // Grave accents (\xCC\x80)
+            "a\xCC\x80" => 'à', "e\xCC\x80" => 'è', "i\xCC\x80" => 'ì', "o\xCC\x80" => 'ò', "u\xCC\x80" => 'ù',
+            "A\xCC\x80" => 'À', "E\xCC\x80" => 'È', "I\xCC\x80" => 'Ì', "O\xCC\x80" => 'Ò', "U\xCC\x80" => 'Ù',
+            // Circumflex (\xCC\x82)
+            "a\xCC\x82" => 'â', "e\xCC\x82" => 'ê', "i\xCC\x82" => 'î', "o\xCC\x82" => 'ô', "u\xCC\x82" => 'û',
+            "A\xCC\x82" => 'Â', "E\xCC\x82" => 'Ê', "I\xCC\x82" => 'Î', "O\xCC\x82" => 'Ô', "U\xCC\x82" => 'Û',
+            // Tilde (\xCC\x83)
+            "n\xCC\x83" => 'ñ', "a\xCC\x83" => 'ã', "o\xCC\x83" => 'õ',
+            "N\xCC\x83" => 'Ñ', "A\xCC\x83" => 'Ã', "O\xCC\x83" => 'Õ',
+            // Cedilla (\xCC\xA7)
+            "c\xCC\xA7" => 'ç', "C\xCC\xA7" => 'Ç', "s\xCC\xA7" => 'ş', "S\xCC\xA7" => 'Ş',
+            // Ring (\xCC\x8A)
+            "a\xCC\x8A" => 'å', "A\xCC\x8A" => 'Å'
+        );
+        $filename = strtr($filename, $nfd_map);
     }
     $remove = array(
         "?",
@@ -1724,11 +1748,16 @@ function sanitize_filename($filename) {
         "!",
         "{",
         "}",
-        chr(0),
     );
+    // Strip control characters (0x00-0x1F, 0x7F)
+    for ($i = 0; $i < 32; $i++) {
+        $remove[] = chr($i);
+    }
+    $remove[] = chr(127);
+
     $filename = str_replace($remove, '', $filename);
-    $filename = preg_replace('/[\s-]+/', '-', $filename);
-    $filename = trim($filename, ' .-_');
+    $filename = preg_replace('/[ \t\n\r\f\v]+/', ' ', $filename);
+    $filename = trim($filename, " \t\n\r\0\x0B.");
 
     return $filename;
 }
@@ -1762,7 +1791,13 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
         'type' => '',
     );
     if (!isset($_FILES[$file]) || !is_uploaded_file($_FILES[$file]['tmp_name'])) {
-        $file_status['error'] = 'Upload not defined';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
+            $max_post = ini_get('post_max_size');
+            $file_status['error'] = !empty($GLOBALS['BL']['be_fprivup_err10']) ? sprintf($GLOBALS['BL']['be_fprivup_err10'], $max_post) : "The uploaded file or request exceeds the server limit (post_max_size: {$max_post}). Please upload a smaller file.";
+            $file_status['error_num'] = 413;
+        } else {
+            $file_status['error'] = !empty($GLOBALS['BL']['be_fprivup_err1']) ? $GLOBALS['BL']['be_fprivup_err1'] : 'Upload not defined';
+        }
 
         return $file_status;
     }

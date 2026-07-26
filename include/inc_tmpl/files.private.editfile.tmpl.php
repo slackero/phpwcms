@@ -27,6 +27,12 @@ $file_image_width = 0;
 $file_image_height = 0;
 $file_name = '';
 
+// Detect POST Content-Length overflow before form check
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
+    $max_post = ini_get('post_max_size');
+    $file_error["file"] = sprintf($BL['be_fprivup_err10'], $max_post);
+}
+
 //Auswerten des Formulars
 if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
 	$file_id                = intval($_POST["file_id"]);

@@ -474,15 +474,15 @@ if($BE['LANG'] == 'ar') {
                               if (isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2)) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php';
                               }
-                              if (isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1)) {
+                              if (isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && !isset($_GET["editfile"]))) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php';
                               }
-                              if (isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2)) {
+                              if (isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && isset($_GET["editfile"]))) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php';
                               }
-                              if (!isset($_GET["upload"]) && !isset($_GET["editfile"]) && !isset($_GET["editdir"]) && !isset($_GET["mkdir"])) {
+                              if (!isset($_GET["upload"]) && !isset($_GET["editfile"]) && !isset($_GET["editdir"]) && !isset($_GET["mkdir"]) && !($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0)) {
                                   include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Add listing function
-                                include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //additional privat functions
+                                  include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //additional privat functions
                               }
                               break;
 

@@ -208,6 +208,8 @@ $BL['be_fprivup_err3']                  = 'erreur durant l&#39;&eacute;criture d
 $BL['be_fprivup_err4']                  = 'erreur lors de la cr&eacute;ation du r&eacute;pertoire utilisateur.';
 $BL['be_fprivup_err5']                  = 'la vignette n&#39;existe pas';
 $BL['be_fprivup_err6']                  = 'attention. Erreur serveur. Ne pas r&eacute;essayer. Veuillez contacter votre <a href="mailto:{VAL}">webmaster</a>!';
+$BL['be_fprivup_err10']                 = 'Le fichier ou la requ&ecirc;te d&eacute;passe la limite du serveur (post_max_size: %s). Veuillez envoyer un fichier plus petit.';
+$BL['be_fprivup_err11']                 = 'Le fichier "%s" est trop volumineux (%s). La taille maximale autoris&eacute;e est %s.';
 $BL['be_fprivup_title']                 = 'charger les fichiers';
 $BL['be_fprivup_button']                = 'charger les fichiers';
 $BL['be_fprivup_upload']                = 'charger';
