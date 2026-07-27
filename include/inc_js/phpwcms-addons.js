@@ -102,10 +102,11 @@ $(function () {
     $body.tooltip({
         selector: '[data-toggle="tooltip"]',
         delay: {
-            show: 250,
-            hide: 0
+            show: 200,
+            hide: 50
         },
         container: 'body',
+        boundary: 'window',
         sanitize: false
     });
 

@@ -34,6 +34,7 @@ td label {
 
 .tooltip {
     font-size: .75rem;
+    pointer-events: none;
 }
 
 .h1, h1, .h2, h2 {
