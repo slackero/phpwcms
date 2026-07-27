@@ -100,6 +100,7 @@ $_last10_article = _dbQuery($_asql_1);
     <th>&nbsp;</th>
   </tr>
   </thead>
+  <tbody>
 <?php
   if (count($_last10_article)) {
       $row_count = 0;
@@ -115,15 +116,15 @@ $_last10_article = _dbQuery($_asql_1);
           if(count($phpwcms['allowed_lang'])) {
               echo '<span class="mr-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
           }
-          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value["article_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'];
-          echo '"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<button id="abtnarticle'.$value['article_id'].'" class="btn fa btn-sm visible '.($value['article_aktiv'] == 0 ? 'btn-danger' : 'btn-success').' mr-1" data-id="'.$value['article_id'].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.html($BL['be_func_struct_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
           echo '</td>';
           echo '</tr>';
           $row_count++;
       }
   }
 ?>
+  </tbody>
 </table>
     <input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='phpwcms.php?<?php echo get_token_get_string(); ?>&do=articles'" />
     <input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='phpwcms.php?<?php echo get_token_get_string(); ?>&do=articles&amp;p=1&amp;struct=0'" />
@@ -171,6 +172,7 @@ $_last10_article = _dbQuery($_asql_1);
     <th>&nbsp;</th>
   </tr>
   </thead>
+  <tbody>
 <?php
 
   if (count($_last10_articlecontent)) {
@@ -202,10 +204,8 @@ $_last10_article = _dbQuery($_asql_1);
           echo '  <td class="overflow-ellipsis home-cp" style="font-weight:normal" width="90%">'.$value['notice'].'</td>'.LF;
           echo '  <td class="text-nowrap">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
           echo '  <td class="text-right text-nowrap">';
-          echo '<button id="abtncontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value["acontent_visible"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$value['acontent_id'].'" data-type="content" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-          echo '<a class="btn btn-sm btn-blue" title="'.$BL['be_func_content_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;';
-          echo 'id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'];
-          echo '"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<button id="abtncontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-danger' : 'btn-success').' mr-1" data-id="'.$value['acontent_id'].'" data-type="content" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
+          echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';
           echo '</td>'.LF;
           echo '</tr>'.LF;
           $row_count++;
@@ -213,6 +213,7 @@ $_last10_article = _dbQuery($_asql_1);
   }
 
 ?>
+  </tbody>
 </table>
 </div>
 </div>

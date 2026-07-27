@@ -625,7 +625,7 @@ define('PHPWCMS_HEADER_COMMENT', '
   <!--%s
     phpwcms | free open source content management system
     created by Oliver Georgi (oliver at phpwcms dot de) and licensed under GNU/GPL.
-    phpwcms is copyright 2002-\' . date(\'Y\') . \' of Oliver Georgi. Extensions are copyright of
+    phpwcms is copyright 2002-' . date('Y') . ' of Oliver Georgi. Extensions are copyright of
     their respective owners. Visit project page for details: http://www.phpwcms.org/
   -->
 ');

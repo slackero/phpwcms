@@ -306,7 +306,7 @@ if($BE['LANG'] == 'ar') {
                     ?>" class="form-control" aria-describedby="basic-search" />
                     <div class="input-group-append" id="basic-search">
                         <button class="btn btn-blue">
-                            <i class="fa fa-search fw"></i>
+                            <i class="fa fa-search fa-fw"></i>
                         </button>
                     </div>
                 </div>
@@ -707,7 +707,7 @@ foreach ($BE['CSP'] as $directive => $sources) {
     $csp_parts[] = $directive . ' ' . implode(' ', array_unique($sources));
 }
 $csp_content = implode('; ', $csp_parts);
-$csp_meta = '<meta http-equiv="content-security-policy" content="' . html_specialchars($csp_content) . '">';
+$csp_meta = '<meta http-equiv="content-security-policy" content="' . html_specialchars($csp_content, ENT_COMPAT) . '">';
 $BE['HTML'] = str_replace('<!-- phpwcms CSP -->', $csp_meta, $BE['HTML']);
 
 // html head section
