@@ -19,8 +19,8 @@ function get_customfield_str($output, $key, $custom_field ,$fields, $value, $cus
       $srccode .= '['.$key.']';
     }
     $srccode .= '['.$custom_field.']" value="';
-    if(isset($custom_field)) {
-      $srccode .= html($custom_field);
+    if(isset($value) && $value !== '') {
+      $srccode .= html($value);
     }
     $srccode .= '"';
     if(!empty($fields['maxlength'])) {

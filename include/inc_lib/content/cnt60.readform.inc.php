@@ -17,8 +17,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 // Content Type Images Special
-$content["custom_html"]      = slweg($_POST['custom_html']);
-$content["custom_template"]  = clean_slweg($_POST['template']);
+$content["custom_html"]      = isset($_POST['custom_html']) ? slweg($_POST['custom_html']) : '';
+$content["custom_template"]  = isset($_POST['template']) ? clean_slweg($_POST['template']) : '';
 $content['custom_form']   = array(
     'custom_elements' => array(),
     'fieldgroup' => ''
@@ -132,7 +132,7 @@ if(isset($_POST['customfield']) && is_array($_POST['customfield']) && count($_PO
 
                 } elseif($tab_fieldgroup_fields[$custom_field]['type'] === 'image') {
 
-                    $custom_entry['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'alt' => '', 'title' => '', 'f_hash' => '', 'f_ext' => '');
+                    $custom_entry['custom_fields'][$custom_field] = array('id' => '', 'name' => '', 'alt' => '', 'title' => '', 'description' => '', 'f_hash' => '', 'f_ext' => '');
 
                     if(!empty($custom_field_value['id']) && ($custom_field_value['id'] = intval($custom_field_value['id']))) {
                         $custom_entry['custom_fields'][$custom_field]['id'] = $custom_field_value['id'];
@@ -148,6 +148,9 @@ if(isset($_POST['customfield']) && is_array($_POST['customfield']) && count($_PO
                     }
                     if(!empty($custom_field_value['name']) && $custom_entry['custom_fields'][$custom_field]['id']) {
                         $custom_entry['custom_fields'][$custom_field]['name'] = clean_slweg($custom_field_value['name']);
+                    }
+                    if(!empty($custom_field_value['description']) && $custom_entry['custom_fields'][$custom_field]['id']) {
+                        $custom_entry['custom_fields'][$custom_field]['description'] = clean_slweg($custom_field_value['description']);
                     }
                     if(!empty($custom_field_value['alt']) && $custom_entry['custom_fields'][$custom_field]['id']) {
                         $custom_entry['custom_fields'][$custom_field]['alt'] = clean_slweg($custom_field_value['alt']);

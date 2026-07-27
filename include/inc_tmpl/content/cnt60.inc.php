@@ -115,7 +115,7 @@ if(isset($template_default['settings']['customctp_custom_fields']) && is_array($
 <div class="form-group align-items-center form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_custom_entry'] ?></label>
   <div class="col-sm-5">
-    <button onclick="return addNewElement('top');" class="btn btn-blue btn-sm"><?php echo $BL['be_article_cnt_add'] ?></button>
+    <button onclick="return addNewElement('top');" class="btn btn-blue btn-sm"><i class="fa fa-plus"></i> <?php echo $BL['be_article_cnt_add'] ?></button>
   </div>
 </div>
 
@@ -163,7 +163,7 @@ if(isset($template_default['settings']['customctp_custom_fields']) && is_array($
     <div class="card-header p-1 border-1 bg-grey" role="tab" id="heading_<?php echo $key ?>">
       <div class="row align-items-center">
         <div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>
-        <div class="col"><h2># <?php echo $key ?></h2></div>
+        <div class="col"><h2># <?php echo ($key + 1); ?></h2></div>
             <div class="col-sm-auto text-right">
               <a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_<?php echo $key ?>" aria-expanded="<?php echo (0 == $key) ? 'true' : 'false'; ?>" aria-controls="collapse_<?php echo $key ?>">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
@@ -202,7 +202,6 @@ if($value['custom_field_items']):
               } else {
                   echo $BL['be_custom_textfield'].' #'.($custom_field_key+1);
               }
-              echo ':';
           }
       ?></label>
         <?php if($is_wysiwyg): ?>
@@ -349,61 +348,69 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
             </table>
             <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
             <div id="image_<?php echo $custom_field.'_'.$key; ?>">
-              <table>
-                  <tr>
-                      <td id="img_preview_<?php echo $custom_field.'_'.$key; ?>" rowspan="3" class="backend_preview_img"></td>
-                      <td>
-                          <input
-                              name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
-                              type="hidden"
-                              id="customfield_<?php echo $custom_field.'_'.$key; ?>_id"
-                              class="form-control"
-                              value="<?php
-                              if(isset($value['custom_fields'][$custom_field]['id'])) {
-                                  echo $value['custom_fields'][$custom_field]['id'];
-                              }
-                              ?>"
-                          />
-                          <input
-                              name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
-                              type="text"
-                              id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
-                              class="form-control"
-                              value="<?php
-                              if(isset($value['custom_fields'][$custom_field]['name'])) {
-                                  echo html($value['custom_fields'][$custom_field]['name']);
-                              }
-                              ?>"
-                              size="40"
-                              onfocus="this.blur()"
-                          />
-                      </td>
-                      <td><img src="img/button/open_image_button.gif" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" alt="<?php echo $BL['be_cnt_openmediabrowser'] ?>" border="0" hspace="3" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=<?php echo $custom_field.'_'.$key; ?>&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" class="modalButton" /></td>
-                      <td><a
-                          href="#"
-                          title="<?php echo $BL['be_cnt_delmedia'] ?>"
-                          onclick="document.getElementById('customfield_<?php
-                              echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php
-                              echo $custom_field.'_'.$key; ?>_id').value='';document.getElementById('customfield_<?php
-                              echo $custom_field.'_'.$key; ?>_description').value='';this.blur();return false;"
-                          ><img src="img/button/del_image_button.gif" alt="" border="0" /></a></td>
-                  </tr>
-                 <tr>
-                    <td><div class="form-group"><?php echo html($tab_fieldgroup['fields'][$custom_field]['alt-label']);?>:<input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][alt]" value="<?php
-                              if(isset($value['custom_fields'][$custom_field]['alt'])) {
-                                  echo html($value['custom_fields'][$custom_field]['alt']);
-                              } ?>" class="form-control" /></div></td>
-                    <td colspan="2"></td>
-                </tr>
-                <tr>
-                    <td><div class="form-group"><?php echo html($tab_fieldgroup['fields'][$custom_field]['title-label']);?>:<input type="text" name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][title]" value="<?php
-                              if(isset($value['custom_fields'][$custom_field]['title'])) {
-                                  echo html($value['custom_fields'][$custom_field]['title']);
-                              } ?>" class="form-control" /></div></td>
-                    <td colspan="2"></td>
-                </tr>
-             </table>
-           </div>
+              <div class="row align-items-start">
+                <div class="col">
+                  <div class="input-group">
+                    <span class="input-group-prepend">
+                      <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=<?php echo $custom_field.'_'.$key; ?>&amp;allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>
+                    </span>
+                    <input
+                        name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][name]"
+                        type="text"
+                        id="customfield_<?php echo $custom_field.'_'.$key; ?>_name"
+                        class="form-control form-control-sm"
+                        value="<?php
+                        if(isset($value['custom_fields'][$custom_field]['name'])) {
+                            echo html($value['custom_fields'][$custom_field]['name']);
+                        }
+                        ?>"
+                        onfocus="this.blur()"
+                    />
+                    <span class="input-group-append">
+                      <a href="#" id="customfield_<?php echo $custom_field.'_'.$key; ?>_delete_button" class="btn btn-sm btn-danger trash<?php echo empty($value['custom_fields'][$custom_field]['id']) ? ' disabled' : '' ?>" style="<?php echo empty($value['custom_fields'][$custom_field]['id']) ? 'opacity: 0.5; pointer-events: none;' : '' ?>" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass('disabled')) return false; document.getElementById('customfield_<?php echo $custom_field.'_'.$key; ?>_name').value='';document.getElementById('customfield_<?php echo $custom_field.'_'.$key; ?>_id').value='0';document.getElementById('customfield_<?php echo $custom_field.'_'.$key; ?>_description').value='';updatePreviewImage('<?php echo $custom_field.'_'.$key; ?>', '0');this.blur();return false;"></a>
+                    </span>
+                  </div>
+                  <input
+                      name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][id]"
+                      type="hidden"
+                      id="customfield_<?php echo $custom_field.'_'.$key; ?>_id"
+                      value="<?php
+                      if(isset($value['custom_fields'][$custom_field]['id'])) {
+                          echo $value['custom_fields'][$custom_field]['id'];
+                      }
+                      ?>"
+                  />
+                  <div class="mt-2">
+                      <textarea
+                          name="customfield[<?php echo $key; ?>][<?php echo $custom_field; ?>][description]"
+                          cols="40"
+                          rows="2"
+                          class="form-control form-control-sm autosize"
+                          id="customfield_<?php echo $custom_field.'_'.$key; ?>_description"><?php
+                          if(isset($value['custom_fields'][$custom_field]['description'])) {
+                              echo html($value['custom_fields'][$custom_field]['description']);
+                          } elseif(isset($value['custom_fields'][$custom_field]['alt']) || isset($value['custom_fields'][$custom_field]['title'])) {
+                              echo html(trim(($value['custom_fields'][$custom_field]['alt'] ?? '') . "\n" . ($value['custom_fields'][$custom_field]['title'] ?? '')));
+                          }
+                          ?></textarea>
+                      <div class="caption pt-2">
+                          <?php echo $BL['be_cnt_description']; ?>
+                          |
+                          <?php echo $BL['be_fprivedit_filename']; ?>
+                          |
+                          <?php echo $BL['be_caption_file_title']; ?>
+                          |
+                          <?php echo $BL['be_cnt_target']; ?>
+                          |
+                          <?php echo $BL['be_caption_file_imagesize']; ?>
+                          |
+                          <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;
+                      </div>
+                  </div>
+                </div>
+                <div id="img_preview_<?php echo $custom_field.'_'.$key; ?>" class="col-auto backend_preview_img pl-0"></div>
+              </div>
+            </div>
            <?php endif; ?>
         </div>
       </div>
@@ -429,7 +436,7 @@ if (count($content['custom_form']['custom_elements'])) {
 <div class="form-group align-items-center form-row">
   <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_custom_entry'] ?></label>
   <div class="col-sm-5">
-    <button onclick="return addNewElement('top');" class="btn btn-blue btn-sm"><?php echo $BL['be_article_cnt_add'] ?></button>
+    <button onclick="return addNewElement('top');" class="btn btn-blue btn-sm"><i class="fa fa-plus"></i> <?php echo $BL['be_article_cnt_add'] ?></button>
   </div>
 </div>
 <?php
@@ -484,6 +491,12 @@ function updatePreviewImage(field, file_id) {
     var preview = '';
     preview += getBackendImgSrc( file_id );
     $('#img_preview_'+field).html(preview);
+    var $trash = $('#customfield_'+field+'_delete_button');
+    if (parseInt(file_id, 10)) {
+        $trash.removeClass('disabled').css({'opacity': '1', 'pointer-events': 'auto'});
+    } else {
+        $trash.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});
+    }
 }
 
 function getBackendImgSrc(file_id) {
@@ -522,16 +535,17 @@ function addNewElement(where) {
     updateCustomSort();
 
     var entry_number = custom_entry.length;
+    var display_number = entry_number + 1;
     var new_entry = '';
     new_entry += '<'+'div class="card-header p-1 border-1 bg-grey" role="tab" id="heading_'+entry_number+'">';
     new_entry += '<'+'div class="row align-items-center">';
     new_entry += '<'+'div class="col-sm-auto text-right pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"><'+'/i><i class="fa fa-sort fa-stack-1x fa-inverse"><'+'/i><'+'/span><'+'/em><'+'/div>';
-    new_entry += '<'+'div class="col"><h2># '+entry_number+'<'+'/h2><'+'/div>';
+    new_entry += '<'+'div class="col"><h2># '+display_number+'<'+'/h2><'+'/div>';
     new_entry += '<'+'div class="col-sm-auto text-right">';
     new_entry += '<'+'a class="btn btn-sm btn-blue" data-toggle="collapse" href="#collapse_'+entry_number+'" aria-expanded="true" aria-controls="collapse_'+entry_number+'">';
     new_entry += '<'+'i class="fa fa-ellipsis-h" aria-hidden="true"><'+'/i>';
     new_entry += '<'+'/a>';
-    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'image_'+entry_number+'\'"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
+    new_entry += '<'+'a class="btn btn-sm btn-danger" role="button" aria-disabled="true" href="#" onclick="return deleteImgElement(\'custom_element_'+entry_number+'\');"><i class="far fa-trash-alt"><'+'/i><'+'/a><'+'/div>';
     new_entry += '<'+'/div>';
     new_entry += '<'+'/div>';
 
@@ -564,7 +578,6 @@ function addNewElement(where) {
             } else {
                 echo "new_entry += '".$BL['be_custom_textfield'].' #'.($custom_field_key+1)."';";
             }
-            echo "new_entry += ':';";
         }
     ?>
     new_entry += '<'+'/label>';
@@ -655,58 +668,34 @@ elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'file'): ?>
     new_entry += '<'+'/table>';
     <?php   elseif($tab_fieldgroup['fields'][$custom_field]['type'] === 'image'): ?>
 
-    new_entry += '<table>';
-    new_entry += '  <tr>';
-    new_entry += '      <td>';
-    new_entry += '          <input';
-    new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]"';
-    new_entry += '              type="hidden"';
-    new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_id"';
-    new_entry += '              value=""';
-    new_entry += '          />';
-    new_entry += '          <input';
-    new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][name]"';
-    new_entry += '              type="text"';
-    new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_name"';
-    new_entry += '              class="width375 greyed"';
-    new_entry += '              value=""';
-    new_entry += '              size="40"';
-    new_entry += '              onfocus="this.blur()"';
-    new_entry += '          />';
-    new_entry += '      </td>';
-    new_entry += '      <td><img src="img/button/open_image_button.gif" title="<?php echo $BL['be_cnt_openmediabrowser'] ?>" alt="<?php echo $BL['be_cnt_openmediabrowser'] ?>" border="0" hspace="3" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=<?php echo $custom_field; ?>_' + entry_number + '&allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>" class="modalButton" /><'+'/td>';
-    new_entry += '      <td><a';
-    new_entry += '              href="#"';
-    new_entry += '              title="<?php echo $BL['be_cnt_delmedia'] ?>"';
-    new_entry += '              onclick="document.getElementById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_id\').value=\'\';document.getElementById(\'customfield_<?php
-                                echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';this.blur();return false;"';
-    new_entry += '          ><img src="img/button/del_image_button.gif" alt="" border="0" /><'+'/a><'+'/td>';
-    new_entry += '  <'+'/tr>';
-    new_entry += '  <tr>';
-    new_entry += '      <td colspan="3" class="tdtop5">';
-    new_entry += '          <textarea';
-    new_entry += '              name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]"';
-    new_entry += '              cols="40"';
-    new_entry += '              rows="2"';
-    new_entry += '              class="width375 autosize"';
-    new_entry += '              id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
-    new_entry += '          <span class="caption width400">';
-    new_entry += '              <?php echo $BL['be_cnt_description']; ?> |';
-    new_entry += '              <?php echo $BL['be_fprivedit_filename']; ?> |';
-    new_entry += '              <?php echo $BL['be_caption_file_title']; ?> |';
-    new_entry += '              <?php echo $BL['be_cnt_target']; ?> |';
-    new_entry += '              <?php echo $BL['be_caption_file_imagesize']; ?> |';
-    new_entry += '              <?php echo $BL['be_copyright']; ?>';
-    new_entry += '          <'+'/span>';
-    new_entry += '      <'+'/td>';
-    new_entry += '  <'+'/tr>';
-    new_entry += '  <'+'tr>';
-    new_entry += '  <'+'td class="spacerrow"><'+'/td>';
-    new_entry += '  <'+'td id="img_preview_<?php echo $custom_field; ?>'+entry_number+'" colspan="3" class="backend_preview_img"><'+'/td>';
-    new_entry += '  <'+'/tr>';
-    new_entry += '  <'+'/table>';
+    new_entry += '<div id="image_<?php echo $custom_field; ?>_' + entry_number + '">';
+    new_entry += '  <div class="row align-items-start">';
+    new_entry += '    <div class="col">';
+    new_entry += '      <div class="input-group">';
+    new_entry += '        <span class="input-group-prepend">';
+    new_entry += '          <button class="modalButton btn btn-sm btn-blue folder-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=<?php echo $custom_field; ?>_' + entry_number + '&amp;allowed=<?php echo $tab_fieldgroup['fields'][$custom_field]['filetypes']; ?>"></button>';
+    new_entry += '        </span>';
+    new_entry += '        <input name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][name]" type="text" id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_name" class="form-control form-control-sm" value="" onfocus="this.blur()" />';
+    new_entry += '        <span class="input-group-append">';
+    new_entry += '          <a href="#" id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_delete_button" class="btn btn-sm btn-danger trash disabled" style="opacity: 0.5; pointer-events: none;" type="button" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage']; ?>" onclick="if ($(this).hasClass(\'disabled\')) return false; document.getElementById(\'customfield_<?php echo $custom_field; ?>_' + entry_number + '_name\').value=\'\';document.getElementById(\'customfield_<?php echo $custom_field; ?>_' + entry_number + '_id\').value=\'0\';document.getElementById(\'customfield_<?php echo $custom_field; ?>_' + entry_number + '_description\').value=\'\';updatePreviewImage(\'<?php echo $custom_field; ?>_' + entry_number + '\', \'0\');this.blur();return false;"></a>';
+    new_entry += '        </span>';
+    new_entry += '      </div>';
+    new_entry += '      <input name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][id]" type="hidden" id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_id" value="" />';
+    new_entry += '      <div class="mt-2">';
+    new_entry += '        <textarea name="customfield[' + entry_number + '][<?php echo $custom_field; ?>][description]" cols="40" rows="2" class="form-control form-control-sm autosize" id="customfield_<?php echo $custom_field; ?>_' + entry_number + '_description"></textarea>';
+    new_entry += '        <div class="caption pt-2">';
+    new_entry += '            <?php echo $BL['be_cnt_description']; ?> |';
+    new_entry += '            <?php echo $BL['be_fprivedit_filename']; ?> |';
+    new_entry += '            <?php echo $BL['be_caption_file_title']; ?> |';
+    new_entry += '            <?php echo $BL['be_cnt_target']; ?> |';
+    new_entry += '            <?php echo $BL['be_caption_file_imagesize']; ?> |';
+    new_entry += '            <?php echo $BL['be_copyright']; ?>&nbsp;&crarr;&nbsp;&hellip;';
+    new_entry += '        </div>';
+    new_entry += '      </div>';
+    new_entry += '    </div>';
+    new_entry += '    <div id="img_preview_<?php echo $custom_field; ?>_' + entry_number + '" class="col-auto backend_preview_img pl-0"></div>';
+    new_entry += '  </div>';
+    new_entry += '</div>';
 <?php   endif; ?>
     new_entry += '<'+'/div><'+'/div>';
 <?php
