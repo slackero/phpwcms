@@ -491,9 +491,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                       echo "parent.$('#browserModal').modal('hide');\">";
                     }
                     if($file_row['f_svg']) {
-                        echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; object-fit: contain;" />';
+                        echo '<img src="'.PHPWCMS_RESIZE_IMAGE.'/'.$phpwcms["img_list_width"].'x'.$phpwcms["img_list_height"].'/'.$file_row['f_hash'].'.'.$file_row['f_ext'].'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
                     } else {
-                        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" alt="" class="img-fluid img-thumbnail" style="max-height: 150px; object-fit: contain;" />';
+                        echo '<img src="'.PHPWCMS_IMAGES . $thumb_image[0] .'" alt="" class="img-fluid img-thumbnail" style="max-height: '.$phpwcms["img_list_height"].'px; object-fit: contain;" />';
                     }
                     echo '</a></td></tr>';
                 }
