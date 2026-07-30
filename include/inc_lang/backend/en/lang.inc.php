@@ -237,6 +237,7 @@ $BL['be_fprivup_err8']                  = 'File with extension %s is not allowed
 $BL['be_fprivup_err9']                  = 'File without extension is not allowed for upload. Allowed extensions are: %s.';
 $BL['be_fprivup_err10']                 = 'The uploaded file or request exceeds the server limit (post_max_size: %s). Please upload a smaller file.';
 $BL['be_fprivup_err11']                 = 'The file "%s" is too large (%s). Maximum allowed size is %s.';
+$BL['be_fprivup_err12']                 = 'File <strong>%s</strong> already exists in the destination directory.';
 $BL['be_fprivup_title']                 = 'upload files';
 $BL['be_fprivup_button']                = 'upload files';
 $BL['be_fprivup_upload']                = 'upload';

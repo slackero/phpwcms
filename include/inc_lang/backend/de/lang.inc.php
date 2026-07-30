@@ -233,6 +233,7 @@ $BL['be_fprivup_err8'] = 'Datei mit der Erweiterung %s darf nicht hochladen werd
 $BL['be_fprivup_err9'] = 'Datei ohne Erweiterung darf nicht hochladen werden.<br />Zul&auml;ssig sind: %s.';
 $BL['be_fprivup_err10'] = 'Die hochgeladene Datei bzw. Anfrage &uuml;berschreitet das Server-Limit (post_max_size: %s). Bitte eine kleinere Datei hochladen.';
 $BL['be_fprivup_err11'] = 'Die Datei "%s" ist zu gro&szlig; (%s). Maximal zul&auml;ssige Gr&ouml;&szlig;e ist %s.';
+$BL['be_fprivup_err12'] = 'Die Datei <strong>%s</strong> existiert bereits im Zielverzeichnis.';
 $BL['be_fprivup_title'] = 'Datei hochladen';
 $BL['be_fprivup_button'] = 'Datei hochladen';
 $BL['be_fprivup_upload'] = 'Hochladen';

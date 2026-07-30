@@ -9,8 +9,9 @@
  **/
 
 $phpwcms = array('SESSION_START' => true);
-require_once '../config/conf.inc.php';
-require_once '../inc_lib/default.inc.php';
+$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
+require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
+require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -40,12 +41,15 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 ?>
 
 <div class="table-responsive">
-	<table class="table table-sm">
-		<tr bgcolor="#D9DEE3">
-			<th><?php echo $BL['be_ftptakeover_mark'] ?></th>
-			<th><?php echo $BL['be_ftptakeover_available'] ?></th>
-			<th><?php echo $BL['be_ftptakeover_size'] ?></th>
-		</tr>
+	<table class="table table-hover table-sm align-middle mb-0">
+		<thead class="thead-light">
+			<tr>
+				<th width="40" class="text-center"><?php echo $BL['be_ftptakeover_mark'] ?></th>
+				<th><?php echo $BL['be_ftptakeover_available'] ?></th>
+				<th width="150" class="text-right"><?php echo $BL['be_ftptakeover_size'] ?></th>
+			</tr>
+		</thead>
+		<tbody>
 	<?php
 					//Browse FTP Open Directory
 					$handle = @opendir(PHPWCMS_ROOT.$phpwcms["ftp_path"]);
@@ -61,19 +65,18 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
                                         continue;
                                     }
 
-                                    $fxb = ($fx % 2) ? ' bgColor="#F9FAFB"' : '';
                                     $fxsg += $fxs;
-                                    $fxe = extimg(which_ext($file));
                                     $filename = html(makeCharsetConversion($file, 'utf-8', PHPWCMS_CHARSET));
 	?>
-						<tr<?php echo $fxb ?>>
-							<td align="center" width="30"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
-							<td><?php echo $filename ?></td>
-							<td>
+						<tr>
+							<td class="text-center align-middle"><input name="ftp_mark[<?php echo $fx ?>]" type="checkbox" id="ftp_mark_<?php echo $fx ?>" value="1" class="ftp_mark" /></td>
+							<td class="align-middle"><?php echo $filename ?></td>
+							<td class="text-right align-middle">
 									<?php echo fsizelong($fxs) ?>
 									<input name="ftp_file[<?php echo $fx ?>]" type="hidden" value="<?php echo $file_base64 ?>" />
 									<input name="ftp_filename[<?php echo $fx ?>]" type="hidden" value="<?php echo $filename ?>" />
 							</td>
+						</tr>
 	<?php               $fx++;
 									}
 							}
@@ -82,21 +85,21 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
 					if(!$fx) {
 	?>
 						<tr>
-							<td colspan="2" class="dir">&nbsp;<?php echo $BL['be_ftptakeover_nofile'] ?></td>
-							<td></td>
-					</tr>
-	<?php
-					} else {
-	?>
-
-						<tr bgcolor="#EAEDF0">
-							<td align="center" width="30"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
-							<td><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-blue my-1"><?php echo $BL['be_delete_selected_files'] ?></button></td>
-							<td><?php echo fsizelong($fxsg) ?>&nbsp;</td>
-					</tr>
+							<td colspan="3" class="text-muted py-3 text-center"><?php echo $BL['be_ftptakeover_nofile'] ?></td>
+						</tr>
 	<?php
 					}
 	?>
+		</tbody>
+	<?php if($fx) { ?>
+		<tfoot class="bg-light border-top">
+			<tr>
+				<td class="text-center align-middle"><input name="toggle" type="checkbox" id="toggle" value="1" title="<?php echo $BL['be_ftptakeover_all'] ?>" /></td>
+				<td class="align-middle"><button id="delete-selected-files" style="display:none;" class="btn btn-sm btn-danger py-1"><i class="fas fa-trash-alt mr-1"></i><?php echo $BL['be_delete_selected_files'] ?></button></td>
+				<td class="text-right align-middle font-weight-bold"><?php echo fsizelong($fxsg) ?></td>
+			</tr>
+		</tfoot>
+	<?php } ?>
 	</table>
 </div>
 

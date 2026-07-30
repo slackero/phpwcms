@@ -148,7 +148,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <title><?php echo $titel ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/uploadfile.min.css" rel="stylesheet" type="text/css" />
+    <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
@@ -156,7 +156,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery.min.js"></script>
     <script src="include/inc_js/jquery.form.min.js"></script>
-    <script src="include/inc_js/jquery.uploadfile.min.js"></script>
+    <script src="include/inc_js/dropzone.min.js"></script>
     <script src="include/inc_js/jquery/jquery.autoSuggest.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
@@ -171,28 +171,30 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 </head>
 <body class="filebrowser m-3">
 
-<h2 class="mb-1"><?php echo $BL['FILE_TITLE'] ?></h2>
-  <?php if ($js_aktion == 16) { ?>
-  <h2 class="mb-1"><?php echo $BL['be_article_title'] ?></h2><?php } ?>
-<hr />
-<button type="button" class="btn btn-blue btn-sm mb-3" id="showuploader"><?php echo $BL['be_file_multiple_upload'] ?></button>
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2 class="m-0"><?php echo ($js_aktion == 16) ? $BL['be_article_title'] : $BL['FILE_TITLE']; ?></h2>
+  <button type="button" class="btn btn-blue btn-sm" id="showuploader"><i class="fas fa-cloud-upload-alt mr-1"></i><?php echo $BL['be_file_multiple_upload'] ?></button>
+</div>
 	<div class="uploader filebrowser-uploader" id="filebrowser-uploader" style="display:none">
-	  <div id="fileuploader">Upload</div>
-    <div class="filebrowser-form">
-			<p>
-				<label class="chatlist" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
-				<textarea cols="40" rows="3" id="file_longinfo" class="form-control"></textarea>
-			</p>
-			<p>
-				<label class="chatlist" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
-				<input name="file_copyright" type="text" id="file_copyright" class="form-control" maxlength="255" value="" />
-			</p>
-			<p>
-				<span class="chatlist"><?php echo $BL['be_tags'] ?></span>
-				<input type="text" id="file_tags_autosuggest" class="form-control" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
-			</p>
-      <div class="btn btb-default" id="upload-trigger-send"><?php echo $BL['be_files_upload'] ?></div>
-    </div>
+      <form action="include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>" class="dropzone mb-2" id="filebrowser-dropzone"></form>
+      <div id="dropzone-errors" class="mb-3"></div>
+      <div class="filebrowser-form card card-body bg-light p-3 mb-3">
+			<div class="form-group mb-2">
+				<label class="font-weight-bold small mb-1" for="file_longinfo"><?php echo $BL['be_ftptakeover_longinfo'] ?></label>
+				<textarea cols="40" rows="2" id="file_longinfo" class="form-control form-control-sm"></textarea>
+			</div>
+			<div class="form-group mb-2">
+				<label class="font-weight-bold small mb-1" for="file_copyright"><?php echo $BL['be_copyright'] ?></label>
+				<input name="file_copyright" type="text" id="file_copyright" class="form-control form-control-sm" maxlength="255" value="" />
+			</div>
+			<div class="form-group mb-0">
+				<span class="font-weight-bold small mb-1 d-block"><?php echo $BL['be_tags'] ?></span>
+				<input type="text" id="file_tags_autosuggest" class="form-control form-control-sm" aria-label="<?php echo html_specialchars($BL['be_tags']) ?>" />
+			</div>
+			<div class="mt-3 text-right">
+				<button type="button" class="btn btn-success btn-sm font-weight-bold px-3" id="upload-trigger-send"><i class="fas fa-upload mr-1"></i><?php echo $BL['be_files_upload'] ?></button>
+			</div>
+      </div>
 	</div>
 
 <table class="table table-sm">
@@ -563,51 +565,213 @@ $(function() {
         parent.$('#browserModal').modal('hide');
     });
 
-    $("#fileuploader").uploadFile({
-        url: "<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>",
-        fileName: "myfile",
-        maxFileSize: <?php
-            $post_max_size = ini_get('post_max_size') ? return_bytes(ini_get('post_max_size')) : $phpwcms['file_maxsize'];
-            $upload_max_filesize = ini_get('upload_max_filesize') ? return_bytes(ini_get('upload_max_filesize')) : $phpwcms['file_maxsize'];
-            echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+    Dropzone.autoDiscover = false;
+
+    var maxMB = <?php
+        $post_max_size = ini_get('post_max_size') ? return_bytes(ini_get('post_max_size')) : $phpwcms['file_maxsize'];
+        $upload_max_filesize = ini_get('upload_max_filesize') ? return_bytes(ini_get('upload_max_filesize')) : $phpwcms['file_maxsize'];
+        $maxBytes = min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
+        echo round($maxBytes / 1048576, 2);
+    ?>;
+
+    var bs4PreviewTemplate = '<div class="dz-preview dz-file-preview dz-preview-bs4 d-flex align-items-center justify-content-between">' +
+        '<div class="d-flex align-items-center overflow-hidden mr-3" style="min-width: 0;">' +
+            '<div class="mr-3 flex-shrink-0 dz-thumb-container">' +
+                '<img data-dz-thumbnail class="dz-thumbnail d-none" />' +
+                '<div class="dz-icon-placeholder"><i class="fas fa-file"></i></div>' +
+            '</div>' +
+            '<div class="overflow-hidden" style="min-width: 0;">' +
+                '<div class="font-weight-bold text-truncate text-dark" data-dz-name></div>' +
+                '<div class="small text-muted d-flex align-items-center">' +
+                    '<span data-dz-size class="mr-2"></span>' +
+                '</div>' +
+                '<div class="progress dz-progress-bar d-none"><div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" data-dz-uploadprogress></div></div>' +
+            '</div>' +
+        '</div>' +
+        '<div class="flex-shrink-0 ml-2">' +
+            '<button class="btn btn-outline-danger py-1 px-3" data-dz-remove><i class="fas fa-times mr-1"></i><?php echo str_replace("'", "\\'", $BL["be_newsletter_button_cancel"]); ?></button>' +
+        '</div>' +
+    '</div>';
+
+    function getFileIconClass(filename) {
+        var ext = filename.split('.').pop().toLowerCase();
+        switch(ext) {
+            case 'pdf': return 'fas fa-file-pdf text-danger';
+            case 'doc': case 'docx': return 'fas fa-file-word text-primary';
+            case 'xls': case 'xlsx': case 'csv': return 'fas fa-file-excel text-success';
+            case 'ppt': case 'pptx': return 'fas fa-file-powerpoint text-warning';
+            case 'zip': case 'tar': case 'gz': case '7z': case 'rar': return 'fas fa-file-archive text-warning';
+            case 'mp3': case 'wav': case 'ogg': case 'm4a': return 'fas fa-file-audio text-info';
+            case 'mp4': case 'mov': case 'webm': case 'avi': case 'm4v': return 'fas fa-file-video text-secondary';
+            case 'txt': case 'html': case 'css': case 'js': case 'php': case 'json': case 'xml': return 'fas fa-file-code text-secondary';
+            default: return 'fas fa-file text-muted';
+        }
+    }
+
+    if ($("#filebrowser-dropzone").data("dropzone")) {
+        $("#filebrowser-dropzone").data("dropzone").destroy();
+    }
+
+    var fileDropzone = new Dropzone("#filebrowser-dropzone", {
+        paramName: "file",
+        maxFilesize: maxMB,
+        autoProcessQueue: false,
+        parallelUploads: 10,
+        previewTemplate: bs4PreviewTemplate,
+        acceptedFiles: <?php
+            if (is_array($phpwcms['allowed_upload_ext']) && count($phpwcms['allowed_upload_ext'])) {
+                echo json_encode('.' . implode(',.', $phpwcms['allowed_upload_ext']));
+            } elseif (is_string($phpwcms['allowed_upload_ext']) && $phpwcms['allowed_upload_ext'] !== '') {
+                echo json_encode('.' . str_replace(',', ',.', $phpwcms['allowed_upload_ext']));
+            } else {
+                echo "null";
+            }
         ?>,
-        allowedTypes: "<?php echo is_array($phpwcms['allowed_upload_ext']) ? implode(',', $phpwcms['allowed_upload_ext']) : (is_string($phpwcms['allowed_upload_ext']) ? $phpwcms['allowed_upload_ext'] : '*'); ?>",
-        uploadStr: "<?php echo $BL['be_fprivup_upload'] ?>",
-        dragDropStr: "<span><b><?php echo $BL["be_fileuploader_uploadButtonText"] ?></b></span>",
-        abortStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
-        cancelStr: "<?php echo $BL["be_newsletter_button_cancel"] ?>",
-        deleteStr: "<?php echo $BL["be_cnt_delete"] ?>",
-        doneStr: "OK",
-        errorClass: "alert alert-danger d-flex align-items-start mt-2 mb-0 py-2 px-3 small",
-        sizeErrorStr: <?php
-            $str = html_entity_decode($BL['be_fileuploader_sizeError'], ENT_QUOTES | ENT_HTML5, PHPWCMS_CHARSET);
-            if (PHPWCMS_CHARSET !== 'utf-8') { $str = mb_convert_encoding($str, 'UTF-8', PHPWCMS_CHARSET); }
-            echo json_encode($str);
-        ?>,
-        extErrorStr: <?php
-            $str = html_entity_decode($BL['be_fileuploader_typeError'], ENT_QUOTES | ENT_HTML5, PHPWCMS_CHARSET);
-            if (PHPWCMS_CHARSET !== 'utf-8') { $str = mb_convert_encoding($str, 'UTF-8', PHPWCMS_CHARSET); }
-            echo json_encode($str);
-        ?>,
-        customErrorKeyStr: "jquery-upload-file-error",
-        onSelect: function(files) {
-            return true;
+        accept: function(file, done) {
+            var existingFiles = [];
+            $("table.table tr td:nth-child(2) a, table.table tr td:nth-child(3) a").each(function() {
+                existingFiles.push($.trim($(this).text()).toLowerCase());
+            });
+            if (existingFiles.indexOf(file.name.toLowerCase()) !== -1) {
+                var errStr = <?php
+                    $err = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists in destination.';
+                    echo json_encode(html_entity_decode($err, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                ?>;
+                done(errStr.replace('%s', file.name));
+            } else {
+                done();
+            }
         },
-        onSuccess: function (files, data, xhr, pd) {
-            $.ajax({
-                url: '<?php echo PHPWCMS_URL; ?>include/inc_act/act_multiupload-list.php?<?php echo get_token_get_string(); ?>',
-                xhrFields: {
-                    withCredentials: true
-                },
-                data: {
-                    file_dir: <?php echo $_SESSION["imgdir"] ?>,
-                    file_aktiv: 1,
-                    file_public: 1,
-                    file_longinfo: $('#file_longinfo').val(),
-                    file_copyright: $('#file_copyright').val(),
-                    file_tags: $('#as-values-keyword-autosuggest').val()
-                },
-                success: function (data) {
+        dictDefaultMessage: <?php
+            $msg = !empty($BL['be_fileuploader_dictDefaultMessage']) ? $BL['be_fileuploader_dictDefaultMessage'] : $BL['be_fileuploader_uploadButtonText'];
+            echo json_encode(html_entity_decode($msg, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictFallbackMessage: <?php
+            $msg = !empty($BL['be_fileuploader_dictFallbackMessage']) ? $BL['be_fileuploader_dictFallbackMessage'] : 'Your browser does not support drag and drop.';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictFallbackText: <?php
+            $msg = !empty($BL['be_fileuploader_dictFallbackText']) ? $BL['be_fileuploader_dictFallbackText'] : '';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictFileTooBig: <?php
+            $msg = !empty($BL['be_fileuploader_dictFileTooBig']) ? $BL['be_fileuploader_dictFileTooBig'] : 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictInvalidFileType: <?php
+            $msg = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictResponseError: <?php
+            $msg = !empty($BL['be_fileuploader_dictResponseError']) ? $BL['be_fileuploader_dictResponseError'] : 'Server error {{statusCode}}.';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictCancelUpload: <?php
+            $msg = !empty($BL['be_fileuploader_dictCancelUpload']) ? $BL['be_fileuploader_dictCancelUpload'] : 'Cancel';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictCancelUploadConfirmation: <?php
+            $msg = !empty($BL['be_fileuploader_dictCancelUploadConfirmation']) ? $BL['be_fileuploader_dictCancelUploadConfirmation'] : 'Cancel upload?';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictRemoveFile: <?php
+            $msg = !empty($BL['be_fileuploader_dictRemoveFile']) ? $BL['be_fileuploader_dictRemoveFile'] : 'Remove';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        dictMaxFilesExceeded: <?php
+            $msg = !empty($BL['be_fileuploader_dictMaxFilesExceeded']) ? $BL['be_fileuploader_dictMaxFilesExceeded'] : 'Max files exceeded.';
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        ?>,
+        addRemoveLinks: false,
+        init: function() {
+            var self = this;
+            this.on("addedfile", function(file) {
+                if (file.previewElement) {
+                    var icon = file.previewElement.querySelector(".dz-icon-placeholder i");
+                    if (icon) {
+                        icon.className = getFileIconClass(file.name);
+                    }
+                }
+            });
+            this.on("thumbnail", function(file, dataUrl) {
+                if (file.previewElement) {
+                    var img = file.previewElement.querySelector("[data-dz-thumbnail]");
+                    var icon = file.previewElement.querySelector(".dz-icon-placeholder");
+                    if (img) {
+                        img.src = dataUrl;
+                        img.classList.remove("d-none");
+                    }
+                    if (icon) {
+                        icon.classList.add("d-none");
+                    }
+                }
+            });
+            this.on("sending", function(file, xhr, formData) {
+                formData.append("file_longinfo", $('#file_longinfo').val());
+                formData.append("file_copyright", $('#file_copyright').val());
+                formData.append("file_tags", $('#as-values-keyword-autosuggest').val());
+                if (file.previewElement) {
+                    var pBar = file.previewElement.querySelector(".dz-progress-bar");
+                    if (pBar) {
+                        pBar.classList.remove("d-none");
+                    }
+                }
+            });
+            this.on("error", function(file, message, xhr) {
+                var errText = "Upload error";
+                if (typeof message === "string") {
+                    try {
+                        var parsed = JSON.parse(message);
+                        errText = parsed.error || parsed["jquery-upload-file-error"] || message;
+                    } catch(e) {
+                        errText = message;
+                    }
+                } else if (message && typeof message === "object") {
+                    errText = message.error || message["jquery-upload-file-error"] || JSON.stringify(message);
+                }
+
+                var errorId = "dz-err-" + (file.upload ? file.upload.uuid : Math.random().toString(36).substr(2, 9));
+                
+                if ($("#" + errorId).length === 0) {
+                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger alert-dismissible fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
+                        '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +
+                        '<div>' + errText + '</div>' +
+                        '<button type="button" class="close ml-auto pl-2 py-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
+                        '<span aria-hidden="true">&times;</span>' +
+                        '</button>' +
+                        '</div>';
+                    $("#dropzone-errors").append(alertHtml);
+
+                    $("#" + errorId + " .dz-alert-close").on("click", function() {
+                        self.removeFile(file);
+                        $("#" + errorId).remove();
+                    });
+                }
+            });
+            this.on("removedfile", function(file) {
+                if (file.upload && file.upload.uuid) {
+                    $("#dz-err-" + file.upload.uuid).remove();
+                }
+            });
+            this.on("success", function(file, response) {
+                if (file.upload && file.upload.uuid) {
+                    $("#dz-err-" + file.upload.uuid).remove();
+                }
+                setTimeout(function() {
+                    self.removeFile(file);
+                }, 1000);
+            });
+            this.on("queuecomplete", function() {
+                if (self.getQueuedFiles().length === 0 && self.getUploadingFiles().length === 0) {
+                    document.location.reload();
+                }
+            });
+
+            $("#upload-trigger-send").on("click", function(e) {
+                e.preventDefault();
+                if (self.getQueuedFiles().length > 0) {
+                    self.processQueue();
+                } else {
                     document.location.reload();
                 }
             });

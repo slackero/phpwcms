@@ -9,8 +9,9 @@
  **/
 
 $phpwcms = array('SESSION_START' => true);
-require_once '../config/conf.inc.php';
-require_once '../inc_lib/default.inc.php';
+$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
+require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
+require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -55,45 +56,62 @@ if(is_string($phpwcms['allowed_upload_ext'])) {
   $phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
 }
 $output_dir = PHPWCMS_ROOT.$phpwcms["ftp_path"];
-if(isset($_FILES["myfile"]))
+$file_field = isset($_FILES["file"]) ? "file" : (isset($_FILES["filepond"]) ? "filepond" : (isset($_FILES["myfile"]) ? "myfile" : (!empty($_FILES) ? key($_FILES) : null)));
+
+if($file_field && isset($_FILES[$file_field]))
 {
   $ret = array();
 
-//  This is for custom errors;
-/*  $custom_error= array();
-  $custom_error['jquery-upload-file-error']="File already exists";
-  echo json_encode($custom_error);
-  die();
-*/
-  $error = $_FILES["myfile"]["error"];
+  $error = $_FILES[$file_field]["error"];
+  $charset = defined('PHPWCMS_CHARSET') ? PHPWCMS_CHARSET : (!empty($phpwcms['charset']) ? $phpwcms['charset'] : 'UTF-8');
   if ($error == UPLOAD_ERR_INI_SIZE || $error == UPLOAD_ERR_FORM_SIZE) {
+      http_response_code(400);
+      header('Content-Type: text/plain; charset=utf-8');
       $max_post = ini_get('upload_max_filesize');
-      $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
-      die(json_encode(array('jquery-upload-file-error' => strip_tags($errMsg))));
+      $tmpl = !empty($BL['be_fprivup_err10']) ? $BL['be_fprivup_err10'] : 'Server limit exceeded: %s';
+      $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
+      if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
+      die(sprintf($tmpl, $max_post));
   }
   //You need to handle  both cases
   //If Any browser does not support serializing of multiple files using FormData()
-  if(!is_array($_FILES["myfile"]["name"])) //single file
+  if(!is_array($_FILES[$file_field]["name"])) //single file
   {
-    $fileName = sanitize_filename($_FILES["myfile"]["name"]);
+    $fileName = sanitize_filename($_FILES[$file_field]["name"]);
+    if (is_file($output_dir . $fileName)) {
+        http_response_code(400);
+        header('Content-Type: text/plain; charset=utf-8');
+        $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
+        $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
+        if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
+        die(sprintf($tmpl, $fileName));
+    }
     $retf[0]["fileName"] = $fileName;
-    $retf[0]["fileType"] = $_FILES["myfile"]["type"];
-    $retf[0]["fileSize"] = $_FILES["myfile"]["size"];
+    $retf[0]["fileType"] = $_FILES[$file_field]["type"];
+    $retf[0]["fileSize"] = $_FILES[$file_field]["size"];
     $retf[0]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
-    move_uploaded_file($_FILES["myfile"]["tmp_name"],$output_dir.$fileName);
+    move_uploaded_file($_FILES[$file_field]["tmp_name"],$output_dir.$fileName);
     $ret[]= $fileName;
   }
   else  //Multiple files, file[]
   {
-    $fileCount = count($_FILES["myfile"]["name"]);
+    $fileCount = count($_FILES[$file_field]["name"]);
     for($i=0; $i < $fileCount; $i++)
     {
-      $fileName = sanitize_filename($_FILES["myfile"]["name"][$i]);
+      $fileName = sanitize_filename($_FILES[$file_field]["name"][$i]);
+      if (is_file($output_dir . $fileName)) {
+          http_response_code(400);
+          header('Content-Type: text/plain; charset=utf-8');
+          $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
+          $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
+          if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
+          die(sprintf($tmpl, $fileName));
+      }
       $retf[$i]["fileName"] = $fileName;
-      $retf[$i]["fileType"] = $_FILES["myfile"]["type"][$i];
-      $retf[$i]["fileSize"] = $_FILES["myfile"]["size"][$i];
+      $retf[$i]["fileType"] = $_FILES[$file_field]["type"][$i];
+      $retf[$i]["fileSize"] = $_FILES[$file_field]["size"][$i];
       $retf[$i]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
-      move_uploaded_file($_FILES["myfile"]["tmp_name"][$i],$output_dir.$fileName);
+      move_uploaded_file($_FILES[$file_field]["tmp_name"][$i],$output_dir.$fileName);
       $ret[]= $fileName;
 
     }
