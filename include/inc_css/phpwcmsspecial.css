@@ -1275,5 +1275,14 @@ body .dropzone .dz-preview-bs4 .progress {
   margin-top: 0.25rem;
 }
 
+/* File Manager Preview Image Constraints */
+body.filebrowser table img,
+.filebrowser table img {
+  max-width: 100%;
+  max-height: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
 
 
