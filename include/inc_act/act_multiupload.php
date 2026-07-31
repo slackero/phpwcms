@@ -127,6 +127,13 @@ if ($file_field && isset($_FILES[$file_field])) {
         }
         $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
+        if (!empty($phpwcms['allowed_upload_ext']) && is_array($phpwcms['allowed_upload_ext']) && !in_array($fileExt, $phpwcms['allowed_upload_ext'])) {
+            http_response_code(400);
+            header('Content-Type: text/plain; charset=utf-8');
+            $tmpl = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
+            die(html_entity_decode(strip_tags($tmpl), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        }
+
         if ($is_filebrowser_upload) {
             // Direct upload to file archive storage (phpwcms_file DB + filearchive)
             $fileHash = md5($fileName . microtime());
@@ -181,7 +188,8 @@ if ($file_field && isset($_FILES[$file_field])) {
             }
         } else {
             // FTP takeover upload: move directly to temporary FTP takeover dir
-            if (is_file($ftp_dir . $fileName)) {
+            $ftpFileName = sanitize_filename(clean_slweg($fileItem['name']));
+            if (is_file($ftp_dir . $ftpFileName)) {
                 http_response_code(400);
                 header('Content-Type: text/plain; charset=utf-8');
                 $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
@@ -189,11 +197,15 @@ if ($file_field && isset($_FILES[$file_field])) {
                 if (strtolower($charset) !== 'utf-8') {
                     $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8');
                 }
-                die(sprintf($tmpl, $fileName));
+                die(sprintf($tmpl, $ftpFileName));
             }
 
-            if (move_uploaded_file($fileItem['tmp_name'], $ftp_dir . $fileName)) {
-                $ret[] = $fileName;
+            if (move_uploaded_file($fileItem['tmp_name'], $ftp_dir . $ftpFileName)) {
+                $ret[] = $ftpFileName;
+            } else {
+                http_response_code(500);
+                header('Content-Type: text/plain; charset=utf-8');
+                die($BL['be_error_while_save']);
             }
         }
     }
