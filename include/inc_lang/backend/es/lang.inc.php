@@ -1112,7 +1112,7 @@ $BL['be_fileuploader_uploadButtonText'] = 'Seleccione archivos o arr&aacute;stre
 $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Seleccione archivos o arr&aacute;strelos aqu&iacute;</span><br><small class="text-muted">Haga clic o arrastre archivos aqu&iacute;</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Su navegador no admite la funci&oacute;n de arrastrar y soltar archivos.';
 $BL['be_fileuploader_dictFileTooBig'] = 'El archivo es demasiado grande ({{filesize}}MiB). Tama&ntilde;o m&aacute;ximo: {{maxFilesize}}MiB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'No puede subir archivos de este tipo.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'No puede subir archivos de este tipo en el modo de filtro actual.';
 $BL['be_fileuploader_dictResponseError'] = 'El servidor respondi&oacute; con el c&oacute;digo {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Cancelar subida';
 $BL['be_fileuploader_dictRemoveFile'] = 'Eliminar archivo';

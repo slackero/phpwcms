@@ -114,12 +114,11 @@ if(isset($_SESSION["folder"])) {
 
 if(isset($_GET["folder"])) {
     list($folder_id, $folder_value) = explode('|', $_GET["folder"]);
+    $folder_id          = intval($folder_id);
     $folder_value       = intval($folder_value);
     $folder[$folder_id] = $folder_value;
     $_SESSION["folder"] = $folder; // Return array with current opened folder session values
-    if($folder_value) {
-        $_SESSION["imgdir"] = $folder_id;
-    }
+    $_SESSION["imgdir"] = $folder_id;
 }
 $_SESSION["list_zaehler"] = 0;
 
@@ -176,7 +175,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
   <button type="button" class="btn btn-blue btn-sm" id="showuploader"><i class="fas fa-cloud-upload-alt mr-1"></i><?php echo $BL['be_file_multiple_upload'] ?></button>
 </div>
 	<div class="uploader filebrowser-uploader" id="filebrowser-uploader" style="display:none">
-      <form action="include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>&filepublic=1&filedir=<?php echo $_SESSION["imgdir"] ?>" class="dropzone mb-2" id="filebrowser-dropzone"></form>
+      <form action="include/inc_act/act_multiupload.php?<?php echo get_token_get_string(); ?>" class="dropzone mb-2" id="filebrowser-dropzone"></form>
       <div id="dropzone-errors" class="mb-3"></div>
       <div class="filebrowser-form card card-body bg-light p-3 mb-3">
 			<div class="form-group mb-2">
@@ -619,10 +618,62 @@ $(function() {
         parallelUploads: 10,
         previewTemplate: bs4PreviewTemplate,
         acceptedFiles: <?php
-            if (is_array($phpwcms['allowed_upload_ext']) && count($phpwcms['allowed_upload_ext'])) {
-                echo json_encode('.' . implode(',.', $phpwcms['allowed_upload_ext']));
-            } elseif (is_string($phpwcms['allowed_upload_ext']) && $phpwcms['allowed_upload_ext'] !== '') {
-                echo json_encode('.' . str_replace(',', ',.', $phpwcms['allowed_upload_ext']));
+            $modal_ext = array();
+            switch($js_aktion) {
+                case 6:
+                    $modal_ext = array('swf', 'mp3', 'flv', 'mp4', 'm4v', 'f4v', 'jpg', 'jpeg', 'png', 'gif', 'aac', 'webp');
+                    break;
+                case 12:
+                    $modal_ext = array('mp4', 'm4p', 'mov', 'm4a', 'm4v', 'mp3', 'mpeg', 'aac');
+                    break;
+                case 13:
+                    $modal_ext = array('webm');
+                    break;
+                case 14:
+                    $modal_ext = array('ogg', 'ogv', 'oga', 'ogx');
+                    break;
+                case 18:
+                    $modal_ext = array('pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'ppt', 'pptx', 'odt', 'ods', 'odp', 'pages', 'key', 'numbers');
+                    break;
+                case 19:
+                    $modal_ext = empty($_SESSION['filebrowser_allowed_ext']) ? array() : $_SESSION['filebrowser_allowed_ext'];
+                    break;
+                case 0:
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 11:
+                case 17:
+                    $modal_ext = array('jpeg', 'jpg', 'png', 'gif', 'svg', 'webp');
+                    if ($phpwcms['image_library'] !== 'gd2') {
+                        $modal_ext = array_merge($modal_ext, array('pdf', 'ai', 'psd', 'tif', 'tiff', 'bmp', 'eps'));
+                    }
+                    break;
+                case 2:
+                    if (!empty($phpwcms["multimedia_ext"])) {
+                        $modal_ext = convertStringToArray(strtolower($phpwcms["multimedia_ext"]));
+                    } else {
+                        $modal_ext = array('aif', 'aiff', 'mov', 'movie', 'mp3', 'mpeg', 'mpeg4', 'mpeg2', 'wav', 'swf', 'ram', 'ra', 'wma', 'wmv', 'avi', 'au', 'midi', 'moov', 'rm', 'rpm', 'mid');
+                    }
+                    break;
+            }
+
+            // Intersect modal-specific allowed extensions with global allowed_upload_ext
+            $global_ext = is_array($phpwcms['allowed_upload_ext']) ? $phpwcms['allowed_upload_ext'] : (is_string($phpwcms['allowed_upload_ext']) && $phpwcms['allowed_upload_ext'] !== '' ? convertStringToArray(strtolower($phpwcms['allowed_upload_ext'])) : array());
+            if (count($modal_ext)) {
+                if (count($global_ext)) {
+                    $effective_ext = array_intersect($modal_ext, $global_ext);
+                } else {
+                    $effective_ext = $modal_ext;
+                }
+            } else {
+                $effective_ext = $global_ext;
+            }
+
+            if (count($effective_ext)) {
+                echo json_encode('.' . implode(',.', array_values($effective_ext)));
             } else {
                 echo "null";
             }
@@ -707,6 +758,8 @@ $(function() {
                 }
             });
             this.on("sending", function(file, xhr, formData) {
+                formData.append("filepublic", "1");
+                formData.append("filedir", "<?php echo (int)$_SESSION['imgdir']; ?>");
                 formData.append("file_longinfo", $('#file_longinfo').val());
                 formData.append("file_copyright", $('#file_copyright').val());
                 formData.append("file_tags", $('#as-values-keyword-autosuggest').val());
@@ -757,22 +810,23 @@ $(function() {
                 if (file.upload && file.upload.uuid) {
                     $("#dz-err-" + file.upload.uuid).remove();
                 }
-                setTimeout(function() {
-                    self.removeFile(file);
-                }, 1000);
             });
             this.on("queuecomplete", function() {
+                // If all files in queue have finished processing and at least one succeeded:
                 if (self.getQueuedFiles().length === 0 && self.getUploadingFiles().length === 0) {
-                    document.location.reload();
+                    if (self.getFilesWithStatus(Dropzone.SUCCESS).length > 0) {
+                        // Delay slightly so user can observe success state if needed
+                        document.location.reload();
+                    }
                 }
             });
 
             $("#upload-trigger-send").on("click", function(e) {
                 e.preventDefault();
-                if (self.getQueuedFiles().length > 0) {
+                var queued = self.getQueuedFiles();
+                if (queued.length > 0) {
+                    self.options.autoProcessQueue = true;
                     self.processQueue();
-                } else {
-                    document.location.reload();
                 }
             });
         }

@@ -1166,7 +1166,7 @@ $BL['be_fileuploader_uploadButtonText'] = 'Seleziona i file o trascinali qui';
 $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Seleziona i file o trascinali qui</span><br><small class="text-muted">Clicca o trascina i file qui</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Il tuo browser non supporta il trascinamento dei file.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Il file &egrave; troppo grande ({{filesize}}MB). Dimensione massima: {{maxFilesize}}MB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'Non puoi caricare file di questo tipo.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Non puoi caricare file di questo tipo nella modalit&agrave; di filtro attuale.';
 $BL['be_fileuploader_dictResponseError'] = 'Il server ha risposto con il codice {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Annulla caricamento';
 $BL['be_fileuploader_dictRemoveFile'] = 'Rimuovi file';

@@ -1274,7 +1274,7 @@ $BL['be_fileuploader_uploadButtonText'] = 'Selecteer bestanden of sleep ze hierh
 $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Selecteer bestanden of sleep ze hierheen</span><br><small class="text-muted">Klik of sleep bestanden naar dit vak</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Uw browser ondersteunt geen drag & drop bestandsuploads.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Bestand is te groot ({{filesize}}MB). Maximale grootte: {{maxFilesize}}MB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'U kunt dit type bestand niet uploaden.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'U kunt dit type bestand niet uploaden in de huidige filtermodus.';
 $BL['be_fileuploader_dictResponseError'] = 'Server reageerde met code {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Upload annuleren';
 $BL['be_fileuploader_dictRemoveFile'] = 'Bestand verwijderen';

@@ -8,205 +8,195 @@
  *
  **/
 
-$phpwcms = array('SESSION_START' => true);
-$PHPWCMS_ROOT = dirname(dirname(dirname(__FILE__)));
-require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
-require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
+$phpwcms = ['SESSION_START' => true];
+$PHPWCMS_ROOT = dirname(__FILE__, 3);
+require_once $PHPWCMS_ROOT . '/include/config/conf.inc.php';
+require_once $PHPWCMS_ROOT . '/include/inc_lib/default.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/helper.session.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/dbcon.inc.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/general.inc.php';
 
-$user_lang = !empty($_SESSION["wcs_user_lang"]) ? strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) : 'en';
-require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
-if(is_file($cust_lang)) {
+$user_lang = !empty($_SESSION['wcs_user_lang']) ? strtolower(substr($_SESSION['wcs_user_lang'], 0, 2)) : 'en';
+require_once PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.inc.php';
+$cust_lang = PHPWCMS_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
+if (is_file($cust_lang)) {
     include $cust_lang;
 }
 
-if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {
+if (empty($_SESSION['wcs_user_id']) || !validate_csrf_get_token()) {
     $errMsg = !empty($BL['CSRF_GET_FAILED']) ? strip_tags($BL['CSRF_GET_FAILED']) : 'Session or CSRF failure';
-    die(json_encode(array('jquery-upload-file-error' => $errMsg)));
+    die(json_encode(['jquery-upload-file-error' => $errMsg]));
 }
 
 // Detect POST Content-Length overflow
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0) {
     $max_post = ini_get('post_max_size');
     $errMsg = sprintf($BL['be_fprivup_err10'], $max_post);
-    die(json_encode(array('jquery-upload-file-error' => strip_tags($errMsg))));
+    die(json_encode(['jquery-upload-file-error' => strip_tags($errMsg)]));
 }
 
-if(@ini_get('post_max_size')) {
-  $post_max_size = return_bytes(ini_get('post_max_size'));
-  if($post_max_size < $phpwcms['file_maxsize']) {
-    $phpwcms['file_maxsize'] = $post_max_size - 1;
-  }
-} else {
-  $post_max_size = $phpwcms['file_maxsize'];
-}
-if(@ini_get('upload_max_filesize')) {
-  $upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
-  if($upload_max_filesize < $phpwcms['file_maxsize']) {
-    $phpwcms['file_maxsize'] = $upload_max_filesize - 1;
-  }
-} else {
-  $upload_max_filesize = $phpwcms['file_maxsize'];
-}
-
-if(is_string($phpwcms['allowed_upload_ext'])) {
-  $phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
-}
-$output_dir = PHPWCMS_ROOT.$phpwcms["ftp_path"];
-$file_field = isset($_FILES["file"]) ? "file" : (isset($_FILES["filepond"]) ? "filepond" : (isset($_FILES["myfile"]) ? "myfile" : (!empty($_FILES) ? key($_FILES) : null)));
-
-if($file_field && isset($_FILES[$file_field]))
-{
-  $ret = array();
-
-  $error = $_FILES[$file_field]["error"];
-  $charset = defined('PHPWCMS_CHARSET') ? PHPWCMS_CHARSET : (!empty($phpwcms['charset']) ? $phpwcms['charset'] : 'UTF-8');
-  if ($error == UPLOAD_ERR_INI_SIZE || $error == UPLOAD_ERR_FORM_SIZE) {
-      http_response_code(400);
-      header('Content-Type: text/plain; charset=utf-8');
-      $max_post = ini_get('upload_max_filesize');
-      $tmpl = !empty($BL['be_fprivup_err10']) ? $BL['be_fprivup_err10'] : 'Server limit exceeded: %s';
-      $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
-      if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
-      die(sprintf($tmpl, $max_post));
-  }
-  //You need to handle  both cases
-  //If Any browser does not support serializing of multiple files using FormData()
-  if(!is_array($_FILES[$file_field]["name"])) //single file
-  {
-    $fileName = sanitize_filename($_FILES[$file_field]["name"]);
-    if (is_file($output_dir . $fileName)) {
-        http_response_code(400);
-        header('Content-Type: text/plain; charset=utf-8');
-        $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
-        $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
-        if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
-        die(sprintf($tmpl, $fileName));
+if (@ini_get('post_max_size')) {
+    $post_max_size = return_bytes(ini_get('post_max_size'));
+    if ($post_max_size < $phpwcms['file_maxsize']) {
+        $phpwcms['file_maxsize'] = $post_max_size - 1;
     }
-    $retf[0]["fileName"] = $fileName;
-    $retf[0]["fileType"] = $_FILES[$file_field]["type"];
-    $retf[0]["fileSize"] = $_FILES[$file_field]["size"];
-    $retf[0]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
-    move_uploaded_file($_FILES[$file_field]["tmp_name"],$output_dir.$fileName);
-    $ret[]= $fileName;
-  }
-  else  //Multiple files, file[]
-  {
-    $fileCount = count($_FILES[$file_field]["name"]);
-    for($i=0; $i < $fileCount; $i++)
-    {
-      $fileName = sanitize_filename($_FILES[$file_field]["name"][$i]);
-      if (is_file($output_dir . $fileName)) {
-          http_response_code(400);
-          header('Content-Type: text/plain; charset=utf-8');
-          $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
-          $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
-          if (strtolower($charset) !== 'utf-8') { $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8'); }
-          die(sprintf($tmpl, $fileName));
-      }
-      $retf[$i]["fileName"] = $fileName;
-      $retf[$i]["fileType"] = $_FILES[$file_field]["type"][$i];
-      $retf[$i]["fileSize"] = $_FILES[$file_field]["size"][$i];
-      $retf[$i]["fileExt"] = pathinfo($fileName, PATHINFO_EXTENSION);
-      move_uploaded_file($_FILES[$file_field]["tmp_name"][$i],$output_dir.$fileName);
-      $ret[]= $fileName;
+} else {
+    $post_max_size = $phpwcms['file_maxsize'];
+}
+if (@ini_get('upload_max_filesize')) {
+    $upload_max_filesize = return_bytes(ini_get('upload_max_filesize'));
+    if ($upload_max_filesize < $phpwcms['file_maxsize']) {
+        $phpwcms['file_maxsize'] = $upload_max_filesize - 1;
+    }
+} else {
+    $upload_max_filesize = $phpwcms['file_maxsize'];
+}
 
+if (is_string($phpwcms['allowed_upload_ext'])) {
+    $phpwcms['allowed_upload_ext'] = convertStringToArray(strtolower($phpwcms['allowed_upload_ext']));
+}
+
+$file_field = !empty($_FILES) ? array_key_first($_FILES) : null;
+
+if ($file_field && isset($_FILES[$file_field])) {
+    $ret = [];
+    $charset = defined('PHPWCMS_CHARSET') ? PHPWCMS_CHARSET : (!empty($phpwcms['charset']) ? $phpwcms['charset'] : 'UTF-8');
+
+    $is_filebrowser_upload = !empty($_POST['filepublic']);
+    $target_dir = (int)($_POST['filedir'] ?? ($_SESSION['imgdir'] ?? 0));
+
+    $ftp_dir = PHPWCMS_ROOT . $phpwcms['ftp_path'];
+    $file_dir = PHPWCMS_ROOT . $phpwcms['file_path'];
+
+    if ($is_filebrowser_upload) {
+        $file_longinfo = isset($_POST['file_longinfo']) ? slweg($_POST['file_longinfo']) : '';
+        $file_copyright = isset($_POST['file_copyright']) ? slweg($_POST['file_copyright']) : '';
+        $file_tags = isset($_POST['file_tags']) ? clean_slweg($_POST['file_tags']) : '';
+
+        if (PHPWCMS_CHARSET !== 'utf-8') {
+            $file_longinfo = makeCharsetConversion($file_longinfo, 'utf-8', PHPWCMS_CHARSET);
+            $file_copyright = makeCharsetConversion($file_copyright, 'utf-8', PHPWCMS_CHARSET);
+            $file_tags = makeCharsetConversion($file_tags, 'utf-8', PHPWCMS_CHARSET);
+        }
     }
 
-  }
-    echo json_encode($ret);
- }
+    // Normalize $_FILES into a clean list of files to process
+    $filesList = [];
+    if (!is_array($_FILES[$file_field]['name'])) {
+        $filesList[] = [
+            'name' => $_FILES[$file_field]['name'],
+            'type' => $_FILES[$file_field]['type'],
+            'tmp_name' => $_FILES[$file_field]['tmp_name'],
+            'error' => $_FILES[$file_field]['error'],
+            'size' => $_FILES[$file_field]['size']
+        ];
+    } else {
+        $fileCount = count($_FILES[$file_field]['name']);
+        for ($i = 0; $i < $fileCount; $i++) {
+            $filesList[] = [
+                'name' => $_FILES[$file_field]['name'][$i],
+                'type' => $_FILES[$file_field]['type'][$i],
+                'tmp_name' => $_FILES[$file_field]['tmp_name'][$i],
+                'error' => $_FILES[$file_field]['error'][$i],
+                'size' => $_FILES[$file_field]['size'][$i]
+            ];
+        }
+    }
 
-
-
-if (!empty($_GET['filepublic'])) {
-	require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
-
-	$data = array(
-		'f_pid'			=> intval($_GET['filedir']),
-		'f_uid'			=> intval($_SESSION["wcs_user_id"]),
-		'f_kid'			=> 1,
-		'f_aktiv'		=> 1,
-		'f_public'		=> 1,
-		'f_name'		=> $retf[0]["fileName"],
-		'f_created'		=> now(),
-		'f_size'		=> $retf[0]["fileSize"],
-		'f_type'		=> $retf[0]["fileType"],
-		'f_ext'			=> strtolower($retf[0]["fileExt"]),
-		'f_svg'         => 0,
-		'f_longinfo'	=> slweg($_GET['file_longinfo']),
-		'f_hash'		=> md5( $retf[0]["fileName"] . microtime() ),
-		'f_copyright'	=> slweg($_GET['file_copyright']),
-		'f_tags'		=> clean_slweg($_GET['file_tags'])
-	);
-
-	if(PHPWCMS_CHARSET != 'utf-8') {
-		$data['f_longinfo']		= makeCharsetConversion($data['f_longinfo'], 'utf-8', PHPWCMS_CHARSET);
-		$data['f_copyright']	= makeCharsetConversion($data['f_copyright'], 'utf-8', PHPWCMS_CHARSET);
-		$data['f_tags']			= makeCharsetConversion($data['f_tags'], 'utf-8', PHPWCMS_CHARSET);
-	}
-
-	$userftppath = PHPWCMS_ROOT.$phpwcms["ftp_path"];
-
-	// Try to detect image data
-    if($file_image_size = getimagesize($userftppath.$retf[0]["fileName"])) {
-
-        $data['f_image_width'] = $file_image_size[0];
-        $data['f_image_height'] = $file_image_size[1];
-
-    } elseif($data['f_ext'] === 'svg') {
-
-        require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.svg-reader.php';
-
-        if($file_svg = @SVGMetadataExtractor::getMetadata($userftppath.$retf[0]["fileName"])) {
-            $data['f_type'] = 'image/svg+xml';
-            $data['f_svg'] = 1;
-            $data['f_image_width'] = $file_svg['width'];
-            $data['f_image_height'] = $file_svg['height'];
+    foreach ($filesList as $fileItem) {
+        if ($fileItem['error'] == UPLOAD_ERR_INI_SIZE || $fileItem['error'] == UPLOAD_ERR_FORM_SIZE) {
+            http_response_code(400);
+            header('Content-Type: text/plain; charset=utf-8');
+            $max_post = ini_get('upload_max_filesize');
+            $tmpl = !empty($BL['be_fprivup_err10']) ? $BL['be_fprivup_err10'] : 'Server limit exceeded: %s';
+            $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
+            if (strtolower($charset) !== 'utf-8') {
+                $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8');
+            }
+            die(sprintf($tmpl, $max_post));
         }
 
+        if ($fileItem['error'] !== UPLOAD_ERR_OK || empty($fileItem['tmp_name']) || !is_uploaded_file($fileItem['tmp_name'])) {
+            continue;
+        }
+
+        $fileName = clean_slweg($fileItem['name']);
+        $fileName = sanitize_filename($fileName);
+        if (PHPWCMS_CHARSET !== 'utf-8') {
+            $fileName = makeCharsetConversion($fileName, 'utf-8', PHPWCMS_CHARSET);
+        }
+        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if ($is_filebrowser_upload) {
+            // Direct upload to file archive storage (phpwcms_file DB + filearchive)
+            $fileHash = md5($fileName . microtime());
+            $data = [
+                'f_pid' => $target_dir,
+                'f_uid' => (int)$_SESSION['wcs_user_id'],
+                'f_kid' => 1,
+                'f_aktiv' => 1,
+                'f_public' => 1,
+                'f_name' => $fileName,
+                'f_created' => now(),
+                'f_size' => (int)$fileItem['size'],
+                'f_type' => $fileItem['type'],
+                'f_ext' => $fileExt,
+                'f_svg' => 0,
+                'f_longinfo' => $file_longinfo,
+                'f_hash' => $fileHash,
+                'f_copyright' => $file_copyright,
+                'f_tags' => $file_tags
+            ];
+
+            // Extract image / SVG dimensions from uploaded tmp file directly
+            if ($file_image_size = getimagesize($fileItem['tmp_name'])) {
+                $data['f_image_width'] = $file_image_size[0];
+                $data['f_image_height'] = $file_image_size[1];
+            } elseif ($fileExt === 'svg') {
+                require_once PHPWCMS_ROOT . '/include/inc_lib/classes/class.svg-reader.php';
+                if ($file_svg = @SVGMetadataExtractor::getMetadata($fileItem['tmp_name'])) {
+                    $data['f_type'] = 'image/svg+xml';
+                    $data['f_svg'] = 1;
+                    $data['f_image_width'] = $file_svg['width'];
+                    $data['f_image_height'] = $file_svg['height'];
+                }
+            }
+
+            $insert = _dbInsert('phpwcms_file', $data);
+
+            if (!empty($insert['INSERT_ID'])) {
+                $destFile = $file_dir . $fileHash . ($fileExt !== '' ? '.' . $fileExt : '');
+                if (move_uploaded_file($fileItem['tmp_name'], $destFile)) {
+                    @chmod($destFile, 0666);
+                    if (!empty($data['f_tags'])) {
+                        _dbSaveCategories($data['f_tags'], 'file', $insert['INSERT_ID'], ',');
+                    }
+                    $ret[] = $fileName;
+                } else {
+                    _dbQuery('DELETE FROM ' . DB_PREPEND . 'phpwcms_file WHERE f_id=' . _dbEscape($insert['INSERT_ID']));
+                    http_response_code(500);
+                    header('Content-Type: text/plain; charset=utf-8');
+                    die($BL['be_error_while_save']);
+                }
+            }
+        } else {
+            // FTP takeover upload: move directly to temporary FTP takeover dir
+            if (is_file($ftp_dir . $fileName)) {
+                http_response_code(400);
+                header('Content-Type: text/plain; charset=utf-8');
+                $tmpl = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists.';
+                $tmpl = html_entity_decode($tmpl, ENT_QUOTES | ENT_HTML5, $charset);
+                if (strtolower($charset) !== 'utf-8') {
+                    $tmpl = makeCharsetConversion($tmpl, $charset, 'utf-8');
+                }
+                die(sprintf($tmpl, $fileName));
+            }
+
+            if (move_uploaded_file($fileItem['tmp_name'], $ftp_dir . $fileName)) {
+                $ret[] = $fileName;
+            }
+        }
     }
 
-	$insert = _dbInsert('phpwcms_file', $data);
-
-	// move uploaded file
-	if(!empty($insert['INSERT_ID'])) {
-
-		$useruploadpath = PHPWCMS_ROOT.$phpwcms["file_path"];
-		$usernewfile	= $useruploadpath.$data['f_hash'];
-
-		if($data['f_ext']) {
-			$usernewfile .= '.'.$data['f_ext'];
-		}
-
-		$oldmask = umask(0);
-
-		if($dir = @opendir($useruploadpath) && @copy($userftppath.$retf[0]["fileName"], $usernewfile)) {
-
-			@unlink($userftppath.$retf[0]["fileName"]);
-
-		} else {
-
-			require PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
-			$cust_lang = PHPWCMS_ROOT.'/include/inc_lang/backend/' . strtolower(substr($_SESSION["wcs_user_lang"], 0, 2)) . '/lang.inc.php';
-			if(is_file($cust_lang)) {
-				include $cust_lang;
-			}
-
-			$retf[0]['success'] = false;
-			$retf[0]['error'] = $BL['be_error_while_save'];
-
-			_dbQuery('DELETE FROM '.DB_PREPEND.'phpwcms_file WHERE f_id='._dbEscape($insert['INSERT_ID']));
-
-		}
-
-		if(!empty($dir)) {
-			@closedir($dir);
-		}
-
-	}
-
+    echo json_encode($ret);
 }

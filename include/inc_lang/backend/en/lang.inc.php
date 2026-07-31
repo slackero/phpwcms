@@ -1292,7 +1292,7 @@ $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt f
 $BL['be_fileuploader_dictFallbackMessage'] = 'Your browser does not support drag and drop file uploads.';
 $BL['be_fileuploader_dictFallbackText'] = 'Please use the fallback form below to upload your files like in the olden days.';
 $BL['be_fileuploader_dictFileTooBig'] = 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'You cannot upload files of this type.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Files of this type cannot be uploaded in the current filter mode.';
 $BL['be_fileuploader_dictResponseError'] = 'Server responded with {{statusCode}} code.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Cancel upload';
 $BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Are you sure you want to cancel this upload?';

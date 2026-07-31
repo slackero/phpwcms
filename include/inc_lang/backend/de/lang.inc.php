@@ -1281,7 +1281,7 @@ $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt f
 $BL['be_fileuploader_dictFallbackMessage'] = 'Ihr Browser unterst&uuml;tzt Drag & Drop Dateiuploads nicht.';
 $BL['be_fileuploader_dictFallbackText'] = 'Bitte nutzen Sie das untenstehende Formular zum Hochladen Ihrer Dateien.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Datei ist zu gro&szlig; ({{filesize}}MiB). Maximale Dateigr&ouml;&szlig;e: {{maxFilesize}}MiB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'Dateien dieses Typs k&ouml;nnen nicht hochgeladen werden.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Dateien dieses Typs k&ouml;nnen im derzeitigen Filtermodus nicht hochgeladen werden.';
 $BL['be_fileuploader_dictResponseError'] = 'Server antwortete mit Code {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Upload abbrechen';
 $BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Soll dieser Upload wirklich abgebrochen werden?';

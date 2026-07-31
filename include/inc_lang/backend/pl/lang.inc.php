@@ -1250,7 +1250,7 @@ $BL['be_fileuploader_uploadButtonText'] = 'Wybierz pliki lub upu&#347;&#263; tut
 $BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Wybierz pliki lub upu&#347;&#263; tutaj</span><br><small class="text-muted">Kliknij lub przeci&#261;gnij pliki tutaj</small>';
 $BL['be_fileuploader_dictFallbackMessage'] = 'Twoja przegl&#261;darka nie obs&#322;uguje przesuwania plik&oacute;w.';
 $BL['be_fileuploader_dictFileTooBig'] = 'Plik jest zbyt du&#380;y ({{filesize}}MB). Maksymalny rozmiar: {{maxFilesize}}MB.';
-$BL['be_fileuploader_dictInvalidFileType'] = 'Nie mo&#380;esz przesy&#322;a&#263; plik&oacute;w tego typu.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Nie mo&#380;esz przesy&#322;a&#263; plik&oacute;w tego typu w bie&#380;&#261;cym trybie filtrowania.';
 $BL['be_fileuploader_dictResponseError'] = 'Serwer odpowiedzia&#322; kodem {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Anuluj przesy&#322;anie';
 $BL['be_fileuploader_dictRemoveFile'] = 'Usu&#324; plik';

@@ -111,7 +111,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         //Button zum Löschen des Verzeichnisses, wenn leer
         if(!$count_wert) {
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?delete='.$row["f_id"].'%7C'.'9'.
-                 '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname."\" onclick=\"return confirm('".$GLOBALS['BL']['be_fprivfunc_jsdeldir'] ." \\n[".$dirname."]? ');\">";
+                 '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'" data-confirm-danger="'.html_specialchars($GLOBALS['BL']['be_fprivfunc_jsdeldir'] . " \n[".$dirname."]? ").'">';
             echo '<i class="ml-1 disabled far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'</a>';
         } else {
             echo '<div class="dropdown-item"><i class="ml-1 disabled far fa-fw fa-trash-alt text-muted" aria-hidden="true" data-toggle="tooltip" title="';
@@ -197,11 +197,10 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     //Button zum Löschen der Datei
                     if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
                         //if user is owner then delete button is active
-                        echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash='.$file_row["f_id"].'%7C'.'1'.
-                         '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename."\" onclick=\"return confirm('".
-                         $GLOBALS['BL']['be_fprivfunc_jsmovetrash1']."\\n[".$filename."]\\n".$GLOBALS['BL']['be_fprivfunc_jsmovetrash2'].
-                         "');\">".
-                         '<i class="ml-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_movetrash'].': '.$filename.'</a>';
+                        $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
+                        echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
+                             '" data-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
+                             '<i class="ml-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '</a>';
                     } else {
                         echo '<div class="dropdown-item"><i class="ml-1 far fa-fw fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
                     }
