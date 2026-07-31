@@ -426,9 +426,6 @@ function createOptionTransferSelectList($id, $leftData, $rightData, $option = ar
     $option['style']        = empty($option['style']) ? '' : ' style="'.$option['style'].'"';
     $option['class']        = empty($option['class']) ? ' class="#SIDE#"' : ' class="#SIDE# '.$option['class'].' form-control form-control-sm mb-1"';
     $option['formname']     = empty($option['formname']) ? 'document.forms[0]' : 'document.getElementById(\''.$option['formname'].'\')';
-
-    initJsOptionSelect();
-
     $table .= '<div class="row">'.LF;
     // left select list
     $table .= '<div class="col"><select class="custom-select" name="'.$id_left_box.'" id="'.$id_left_box.'" size="'.$option['rows'].'" multiple="multiple"';
@@ -1004,39 +1001,8 @@ function initJsCalendar() {
     $GLOBALS['BE']['BODY_CLOSE']['flatpickr.js']           = getJavaScriptSourceLink('include/inc_js/flatpickr.min.js');
 }
 
-/*function initMootools($mode='1.1', $more=array()) {
-    switch($mode) {
-        // MooTools 1.1
-        case '1.1':
-            $GLOBALS['BE']['HEADER']['mootools.js'] = getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.1-yc.js');
-            break;
 
-        // MooTools 1.2 + More
-        default:
-            unset($GLOBALS['BE']['HEADER']['mootools.js']);
-            $GLOBALS['BE']['HEADER']['mootools-1.2-core.js'] = getJavaScriptSourceLink('include/inc_js/mootools/mootools-1.2-core-yc.js');
 
-            if(is_array($more) && count($more)) {
-                array_unshift($more, 'Core/More');
-                foreach($more as $item) {
-                    $name = 'mootools-more-'.$item;
-                    if(empty($GLOBALS['BE']['HEADER'][$name]) && is_file(PHPWCMS_TEMPLATE.'lib/mootools/more/'.$item.'.js')) {
-                        $GLOBALS['BE']['HEADER'][$name] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/mootools/more/'.$item.'.js');
-                    }
-                }
-            }
-    }
-    $GLOBALS['phpwcms']['mootools_mode'] = $mode;
-}
-function initMootoolsAutocompleter($mode='1.1') {
-    initMootools($mode);
-    $GLOBALS['BE']['HEADER']['Autocompleter.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.js');
-    $GLOBALS['BE']['HEADER']['Autocompleter.Remote.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Autocompleter.Remote.js');
-    $GLOBALS['BE']['HEADER']['Observer.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
-}*/
-function initJsOptionSelect() {
-    // Merged into core phpwcms.js
-}
 function initJsAutocompleter() {
     initJQuery();
     $GLOBALS['BE']['HEADER']['tom-select.js'] = getJavaScriptSourceLink('include/inc_js/jquery/tom-select.complete.min.js');

@@ -86,7 +86,7 @@ if($file_id) {
     <meta http-equiv="cache-control" content="no-cache" />
     <meta name="robots" content="noindex, nofollow" />
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
-    <script src="include/inc_js/jquery/jquery.min.js"></script>
+    <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script>

@@ -130,7 +130,6 @@ $news = new phpwcmsNews();
   if(count($news->data)) {
     // some JavaScripts wee need
     initJsCalendar();
-    initJsOptionSelect();
     initJsAutocompleter();
 ?>
 <!-- NEWSDETAIL START -->

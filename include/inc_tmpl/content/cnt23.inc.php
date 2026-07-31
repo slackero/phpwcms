@@ -18,7 +18,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // CP Form
 
 $field_counter = 0;
-$BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
 $BE['BODY_CLOSE']['custom_js'] = '<script type="text/javascript">
 function initMathSpam() {
     document.getElementById("cform_field_value_0").value = "+ = ' .

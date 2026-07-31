@@ -264,19 +264,7 @@ $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
 
-if ($do == "messages" && $p == 1) {
-    include PHPWCMS_ROOT.'/include/inc_lib/message.sendjs.inc.php';
-} elseif ($do == "articles") {
-    if ($p == 2 && isset($_GET["aktion"]) && intval($_GET["aktion"]) == 2) {
-        initJsOptionSelect();
-    }
-    if ($p == 6) {
-        initJsOptionSelect();
-    }
-} elseif ($do == 'admin' && ($p == 6 || $p == 11)) {
-    // struct editor
-    initJsOptionSelect();
-}
+
 
 if($BE['LANG'] == 'ar') {
     $BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';

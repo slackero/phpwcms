@@ -75,8 +75,6 @@ if(isset($_SESSION['teaser_filter_category_by_tags'])) {
     $content['alink']['filter_tags'] = null;
 }
 
-$BE['HEADER']['contentpart.js'] = getJavaScriptSourceLink('include/inc_js/contentpart.js');
-
 // necessary JavaScript libraries
 initJsAutocompleter();
 
