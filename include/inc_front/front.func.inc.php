@@ -818,11 +818,11 @@ function build_levels($struct, $level, $temp_tree, $act_cat_id, $nav_table_struc
                 $js_act = $js;
                 $js .= ' onmouseover="';
                 if($nav_table_struct["linkimage_over_js"]) {
-                    $js .= "MM_swapImage('".$link_image_id."','','".$nav_table_struct["linkimage_over_js"]."',1);";
+                    $js .= "swapImage('".$link_image_id."','','".$nav_table_struct["linkimage_over_js"]."',1);";
                 }
                 if($nav_table_struct["row_over_bgcolor"]) $js .= "this.bgColor='".$nav_table_struct["row_over_bgcolor"]."';";
                 $js .= '" onmouseout="';
-                if($nav_table_struct["linkimage_over_js"]) $js .= "MM_swapImgRestore();";
+                if($nav_table_struct["linkimage_over_js"]) $js .= "restoreSwappedImages();";
                 if($nav_table_struct["row_norm_bgcolor"]) $js .= "this.bgColor='".$nav_table_struct["row_norm_bgcolor"]."';";
                 $js .= '"';
             } else {

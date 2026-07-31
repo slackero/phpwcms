@@ -311,39 +311,8 @@ initJsAutocompleter();
 
 $(function(){
 
-    $("#calendar_tag_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-        selectedItemProp: "calendar_tag",
-        selectedValuesProp: 'calendar_tag',
-        searchObjProps: "cat_name",
-        queryParam: 'value',
-        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
-        startText: '',
-        preFill: $("#calendar_tag").val(),
-        neverSubmit: true,
-        asHtmlID: 'keyword-autosuggest1'
-    });
-
-    $("#calendar_lang_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-        selectedItemProp: "allowed_lang",
-        selectedValuesProp: 'allowed_lang',
-        searchObjProps: "allowed_lang",
-        queryParam: 'value',
-        extraParams: '&method=json&action=lang&<?php echo get_token_get_string(); ?>',
-        startText: '',
-        preFill: $("#calendar_lang").val(),
-        neverSubmit: true,
-        asHtmlID: 'keyword-autosuggest2'
-    });
-
-    $('#calendar_form').submit(function(event){
-        $("#calendar_tag").val($('#as-values-keyword-autosuggest1').val());
-        $("#calendar_lang").val($('#as-values-keyword-autosuggest2').val());
-    });
-
-    $("#calendar_lang").keyup(function(){
-      this.value = this.value.replace(/[^a-z\-]/g, '');
-      alert(this.value);
-    });
+    initTomSelectTagAutosuggest('#calendar_tag_autosuggest', '#calendar_tag', 'category');
+    initTomSelectTagAutosuggest('#calendar_lang_autosuggest', '#calendar_lang', 'lang');
 
     setCalendarAllDay();
     setRangeDates(<?php echo $plugin['data']['calendar_range'] ?>);

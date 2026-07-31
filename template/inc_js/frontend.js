@@ -2,50 +2,41 @@
  * Restore swapped images to their original source URLs.
  * Reverts the images manipulated by MM_swapImage.
  */
-function MM_swapImgRestore() {
+function restoreSwappedImages() {
   const sr = document.MM_sr;
-  if (sr) {
+  if (sr && Array.isArray(sr)) {
     for (let i = 0; i < sr.length; i++) {
-      const el = $(sr[i]);
-      const oSrc = el.data('oSrc');
-      if (oSrc) {
-        el.attr('src', oSrc);
+      const el = sr[i];
+      if (el && el.dataset && el.dataset.oSrc) {
+        el.src = el.dataset.oSrc;
       }
     }
   }
 }
-
-/**
- * Locate a DOM element by its ID.
- * Kept for backwards compatibility with legacy layout dependencies.
- *
- * @param {string} n - The element ID.
- * @param {Document|HTMLElement} d - The context document or element (optional).
- * @returns {HTMLElement|null} The DOM element if found.
- */
-function MM_findObj(n, d) {
-  const el = $('#' + n, d || document);
-  return el.length ? el[0] : null;
+function MM_swapImgRestore() {
+  restoreSwappedImages();
 }
 
+
+
 /**
- * Swap image source files dynamically (commonly used for image hovers).
+ * Swap image source files dynamically.
  * Accepts arguments in groups of three: element ID, ignored dummy parameter, and target image URL.
  */
-function MM_swapImage() {
-  const args = arguments;
-  document.MM_sr = [];
+function swapImage(...args) {
+  document.MM_sr = document.MM_sr || [];
   for (let i = 0; i < (args.length - 2); i += 3) {
-    const el = $('#' + args[i]);
-    if (el.length) {
-      document.MM_sr.push(el[0]);
-      if (!el.data('oSrc')) {
-        el.data('oSrc', el.attr('src'));
+    const el = document.getElementById(args[i]);
+    if (el) {
+      document.MM_sr.push(el);
+      if (!el.dataset.oSrc) {
+        el.dataset.oSrc = el.src;
       }
-      el.attr('src', args[i + 2]);
+      el.src = args[i + 2];
     }
   }
 }
+
 
 /**
  * Alert fallback for bookmarking the current page.
@@ -70,12 +61,10 @@ function addText(id, text) {
 }
 
 /**
- * Legacy status bar message handler.
- * Setting window.status is blocked by modern browsers for security reasons.
+ * Legacy status bar message handler stub.
  */
-function MM_displayStatusMsg(msgStr) {
-  window.status = msgStr;
-  document.MM_returnValue = true;
+function MM_displayStatusMsg() {
+  return true;
 }
 
 // Global reference to the popup zoom window instance.

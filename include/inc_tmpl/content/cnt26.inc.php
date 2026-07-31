@@ -103,7 +103,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 	<label for="recipe_time" class="col-sm-2 col-form-label text-right">Zuber.Zeit</label>
 	<div class="col-sm-10">
 		<div class="form-inline">
-			<input name="recipe_time" type="text" id="recipe_time" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=int_only(this.value);" size="5" />
+			<input name="recipe_time" type="text" id="recipe_time" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['time']) ? '' : intval($content['recipe']['time']) ?>" onkeyup="this.value=this.value.replace(/\D/g,'');" size="5" />
 			<span class="mr-2 text-muted small"><?php echo $BL['be_date_minutes'] ?></span>
 			<input name="recipe_time_add" type="text" id="recipe_time_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['time_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />
 		</div>
@@ -114,7 +114,7 @@ $content['recipe']['all_keywords'] = convertStringToArray($content['recipe']['al
 	<label for="recipe_calorificvalue" class="col-sm-2 col-form-label text-right">N&auml;hrwert</label>
 	<div class="col-sm-10">
 		<div class="form-inline">
-			<input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=int_only(this.value);" />
+			<input name="recipe_calorificvalue" type="text" id="recipe_calorificvalue" class="form-control form-control-sm mr-1" style="width: 50px;" value="<?php echo empty($content['recipe']['calorificvalue']) ? '' : intval($content['recipe']['calorificvalue']) ?>" size="5" onkeyup="this.value=this.value.replace(/\D/g,'');" />
 			<span class="mr-2 text-muted small">kJ</span>
 			<input name="recipe_calorificvalue_add" type="text" id="recipe_calorificvalue_add" class="form-control form-control-sm" style="width: 120px;" value="<?php echo html($content['recipe']['calorificvalue_add']) ?>" placeholder="<?php echo $BL['be_cnt_additional'] ?>" />
 		</div>

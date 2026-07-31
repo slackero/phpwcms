@@ -148,15 +148,12 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
     <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/autoSuggest.min.css" rel="stylesheet" type="text/css" />
     <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
     <link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery.min.js"></script>
-    <script src="include/inc_js/jquery.form.min.js"></script>
     <script src="include/inc_js/dropzone.min.js"></script>
-    <script src="include/inc_js/jquery/jquery.autoSuggest.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
     <script>
@@ -549,16 +546,8 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
 </table>
 <script>
 $(function() {
-    $("#file_tags_autosuggest").autoSuggest('<?php echo PHPWCMS_URL ?>include/inc_act/ajax_connector.php', {
-        selectedItemProp: "cat_name",
-        selectedValuesProp: 'cat_name',
-        searchObjProps: "cat_name",
-        queryParam: 'value',
-        extraParams: '&method=json&action=category&<?php echo get_token_get_string(); ?>',
-        startText: '',
-        neverSubmit: true,
-        asHtmlID: 'keyword-autosuggest'
-    });
+    initTomSelectTagAutosuggest('#file_tags_autosuggest', '#file_tags', 'category');
+});
 
     $('.structarticle').on('click', function () {
         parent.$('#browserModal').modal('hide');

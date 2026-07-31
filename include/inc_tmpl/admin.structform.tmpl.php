@@ -163,14 +163,14 @@ switch($acat_hidden) {
   <div class="form-group align-items-center form-row">
       <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_cat'] ?></label>
       <div class="col">
-          <input name="acat_name" class="form-control form-control-sm" id="acat_name" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title) ?>" size="50" maxlength="2000" type="text">
+          <input name="acat_name" class="form-control form-control-sm" id="acat_name" onchange="this.value=this.value.trim();" value="<?php echo html($acat_title) ?>" size="50" maxlength="2000" type="text">
       </div>
   </div>
 
   <div class="form-group align-items-center form-row">
       <label for="be_admin_struct_cat" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_alt'] ?></label>
       <div class="col">
-          <input name="acat_title" class="form-control form-control-sm" id="acat_title" onchange="this.value=Trim(this.value);" value="<?php echo html($acat_title_alt) ?>" size="50" maxlength="2000" type="text">
+          <input name="acat_title" class="form-control form-control-sm" id="acat_title" onchange="this.value=this.value.trim();" value="<?php echo html($acat_title_alt) ?>" size="50" maxlength="2000" type="text">
       </div>
   </div>
 

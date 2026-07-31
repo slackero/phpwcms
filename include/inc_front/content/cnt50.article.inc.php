@@ -203,7 +203,7 @@ if($content['reference']['ref_count']) {
 				// switch large image onmouseover
 				$content['reference']['ref_list'] .= 'onmouseover="';
 				if($over_image != false) {
-					$content['reference']['ref_list'] .= "MM_swapImage('".$content['reference']['ref_id'];
+					$content['reference']['ref_list'] .= "swapImage('".$content['reference']['ref_id'];
 					$content['reference']['ref_list'] .= "','','".$over_image['src']."',1);";
 				}
 				// make single quotes js compatible
@@ -213,8 +213,7 @@ if($content['reference']['ref_count']) {
 					$content['reference']['ref_list'] .= "addText('refcaptid".$crow['acontent_id']."','";
 					$content['reference']['ref_list'] .= $content['reference']['x7']."');";
 				}
-				$content['reference']['ref_list'] .= "MM_displayStatusMsg('".$content['reference']['x7']."');return ";
-				$content['reference']['ref_list'] .= 'document.MM_returnValue;"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
+				$content['reference']['ref_list'] .= 'return false;"' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE;
 				$content['reference']['ref_list'] .= $content['reference']['x6'] . "</td>\n" . $content['reference']['x4'];
 
 			}

@@ -142,7 +142,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <script>
         const CSRF_GET_TOKEN = '<?php echo CSRF_GET_TOKEN; ?>';
     </script>
-    <script src="include/inc_js/phpwcms-addons.min.js"></script>
+
 
     <?php if ($js_aktion == 16): ?>
         <script type="text/javascript">

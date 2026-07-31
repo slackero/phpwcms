@@ -681,7 +681,7 @@ forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 25
 <?php
 
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
-$BE['BODY_CLOSE']['phpwcms-addons.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms-addons.min.js');
+
 
 // retrieve complete processing time
 [$usec, $sec] = explode(' ', microtime());
