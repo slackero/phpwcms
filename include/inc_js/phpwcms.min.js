@@ -836,3 +836,265 @@ function SendDataSort(sVar) {
 
 
 
+
+// Select Box & OptionTransfer Helpers
+function hasOptions(obj) {
+    return obj != null && obj.options != null;
+}
+
+function selectUnselectMatchingOptions(obj, regex, which, only) {
+    if (!window.RegExp || !hasOptions(obj)) return;
+    const selected1 = which === 'select';
+    const selected2 = !selected1;
+    const re = new RegExp(regex);
+    for (let i = 0; i < obj.options.length; i++) {
+        if (re.test(obj.options[i].text)) {
+            obj.options[i].selected = selected1;
+        } else if (only) {
+            obj.options[i].selected = selected2;
+        }
+    }
+}
+
+function selectMatchingOptions(obj, regex) {
+    selectUnselectMatchingOptions(obj, regex, 'select', false);
+}
+
+function selectOnlyMatchingOptions(obj, regex) {
+    selectUnselectMatchingOptions(obj, regex, 'select', true);
+}
+
+function unSelectMatchingOptions(obj, regex) {
+    selectUnselectMatchingOptions(obj, regex, 'unselect', false);
+}
+
+function sortSelect(obj) {
+    if (!hasOptions(obj)) return;
+    const opts = Array.from(obj.options).map(o => new Option(o.text, o.value, o.defaultSelected, o.selected));
+    if (!opts.length) return;
+    opts.sort((a, b) => a.text.localeCompare(b.text));
+    for (let i = 0; i < opts.length; i++) {
+        obj.options[i] = opts[i];
+    }
+}
+
+function selectAllOptions(obj) {
+    if (!hasOptions(obj)) return;
+    for (let i = 0; i < obj.options.length; i++) {
+        obj.options[i].selected = true;
+    }
+}
+
+function moveSelectedOptions(from, to, autoSort = true, regex = '') {
+    if (regex) {
+        unSelectMatchingOptions(from, regex);
+    }
+    if (!hasOptions(from)) return;
+    for (let i = 0; i < from.options.length; i++) {
+        const o = from.options[i];
+        if (o.selected) {
+            const index = hasOptions(to) ? to.options.length : 0;
+            to.options[index] = new Option(o.text, o.value, false, false);
+        }
+    }
+    for (let i = from.options.length - 1; i >= 0; i--) {
+        if (from.options[i].selected) {
+            from.options[i] = null;
+        }
+    }
+    if (autoSort) {
+        sortSelect(from);
+        sortSelect(to);
+    }
+    from.selectedIndex = -1;
+    to.selectedIndex = -1;
+}
+
+function copySelectedOptions(from, to, autoSort = true) {
+    const existing = {};
+    if (hasOptions(to)) {
+        for (let i = 0; i < to.options.length; i++) {
+            existing[to.options[i].value] = to.options[i].text;
+        }
+    }
+    if (!hasOptions(from)) return;
+    for (let i = 0; i < from.options.length; i++) {
+        const o = from.options[i];
+        if (o.selected && existing[o.value] === undefined) {
+            const index = hasOptions(to) ? to.options.length : 0;
+            to.options[index] = new Option(o.text, o.value, false, false);
+        }
+    }
+    if (autoSort) {
+        sortSelect(to);
+    }
+    from.selectedIndex = -1;
+    to.selectedIndex = -1;
+}
+
+function moveAllOptions(from, to, autoSort = true, regex = '') {
+    selectAllOptions(from);
+    moveSelectedOptions(from, to, autoSort, regex);
+}
+
+function copyAllOptions(from, to, autoSort = true) {
+    selectAllOptions(from);
+    copySelectedOptions(from, to, autoSort);
+}
+
+function swapOptions(obj, i, j) {
+    const o = obj.options;
+    const iSel = o[i].selected;
+    const jSel = o[j].selected;
+    const tempI = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+    const tempJ = new Option(o[j].text, o[j].value, o[j].defaultSelected, o[j].selected);
+    o[i] = tempJ;
+    o[j] = tempI;
+    o[i].selected = jSel;
+    o[j].selected = iSel;
+}
+
+function moveOptionUp(obj) {
+    if (!hasOptions(obj)) return;
+    for (let i = 0; i < obj.options.length; i++) {
+        if (obj.options[i].selected && i !== 0 && !obj.options[i - 1].selected) {
+            swapOptions(obj, i, i - 1);
+            obj.options[i - 1].selected = true;
+        }
+    }
+}
+
+function moveOptionDown(obj) {
+    if (!hasOptions(obj)) return;
+    for (let i = obj.options.length - 1; i >= 0; i--) {
+        if (obj.options[i].selected && i !== obj.options.length - 1 && !obj.options[i + 1].selected) {
+            swapOptions(obj, i, i + 1);
+            obj.options[i + 1].selected = true;
+        }
+    }
+}
+
+function removeSelectedOptions(from) {
+    if (!hasOptions(from)) return;
+    for (let i = from.options.length - 1; i >= 0; i--) {
+        if (from.options[i].selected) {
+            from.options[i] = null;
+        }
+    }
+    from.selectedIndex = -1;
+}
+
+function removeAllOptions(from) {
+    if (!hasOptions(from)) return;
+    for (let i = from.options.length - 1; i >= 0; i--) {
+        from.options[i] = null;
+    }
+    from.selectedIndex = -1;
+}
+
+function addOption(obj, text, value, selected) {
+    if (hasOptions(obj)) {
+        obj.options[obj.options.length] = new Option(text, value, false, selected);
+    }
+}
+
+class OptionTransfer {
+    constructor(left, right) {
+        this.form = null;
+        this.left = left;
+        this.right = right;
+        this.autoSort = true;
+        this.delimiter = ',';
+        this.staticOptionRegex = '';
+        this.originalLeftValues = {};
+        this.originalRightValues = {};
+        this.removedLeftField = null;
+        this.removedRightField = null;
+        this.addedLeftField = null;
+        this.addedRightField = null;
+        this.newLeftField = null;
+        this.newRightField = null;
+    }
+
+    init(theForm) {
+        this.form = theForm;
+        if (!theForm[this.left] || !theForm[this.right]) {
+            return false;
+        }
+        this.left = theForm[this.left];
+        this.right = theForm[this.right];
+
+        for (let i = 0; i < this.left.options.length; i++) {
+            this.originalLeftValues[this.left.options[i].value] = 1;
+        }
+        for (let i = 0; i < this.right.options.length; i++) {
+            this.originalRightValues[this.right.options[i].value] = 1;
+        }
+
+        if (this.removedLeftField) this.removedLeftField = theForm[this.removedLeftField];
+        if (this.removedRightField) this.removedRightField = theForm[this.removedRightField];
+        if (this.addedLeftField) this.addedLeftField = theForm[this.addedLeftField];
+        if (this.addedRightField) this.addedRightField = theForm[this.addedRightField];
+        if (this.newLeftField) this.newLeftField = theForm[this.newLeftField];
+        if (this.newRightField) this.newRightField = theForm[this.newRightField];
+
+        this.update();
+    }
+
+    transferLeft() {
+        moveSelectedOptions(this.right, this.left, this.autoSort, this.staticOptionRegex);
+        this.update();
+    }
+
+    transferRight() {
+        moveSelectedOptions(this.left, this.right, this.autoSort, this.staticOptionRegex);
+        this.update();
+    }
+
+    transferAllLeft() {
+        moveAllOptions(this.right, this.left, this.autoSort, this.staticOptionRegex);
+        this.update();
+    }
+
+    transferAllRight() {
+        moveAllOptions(this.left, this.right, this.autoSort, this.staticOptionRegex);
+        this.update();
+    }
+
+    saveRemovedLeftOptions(f) { this.removedLeftField = f; }
+    saveRemovedRightOptions(f) { this.removedRightField = f; }
+    saveAddedLeftOptions(f) { this.addedLeftField = f; }
+    saveAddedRightOptions(f) { this.addedRightField = f; }
+    saveNewLeftOptions(f) { this.newLeftField = f; }
+    saveNewRightOptions(f) { this.newRightField = f; }
+
+    setDelimiter(val) { this.delimiter = val; }
+    setAutoSort(val) { this.autoSort = val; }
+    setStaticOptionRegex(val) { this.staticOptionRegex = val; }
+
+    update() {
+        const removedLeft = {}, removedRight = {}, addedLeft = {}, addedRight = {}, newLeft = {}, newRight = {};
+        for (let i = 0; i < this.left.options.length; i++) {
+            const o = this.left.options[i];
+            newLeft[o.value] = 1;
+            if (this.originalLeftValues[o.value] === undefined) {
+                addedLeft[o.value] = 1;
+                removedRight[o.value] = 1;
+            }
+        }
+        for (let i = 0; i < this.right.options.length; i++) {
+            const o = this.right.options[i];
+            newRight[o.value] = 1;
+            if (this.originalRightValues[o.value] === undefined) {
+                addedRight[o.value] = 1;
+                removedLeft[o.value] = 1;
+            }
+        }
+        if (this.removedLeftField) this.removedLeftField.value = Object.keys(removedLeft).join(this.delimiter);
+        if (this.removedRightField) this.removedRightField.value = Object.keys(removedRight).join(this.delimiter);
+        if (this.addedLeftField) this.addedLeftField.value = Object.keys(addedLeft).join(this.delimiter);
+        if (this.addedRightField) this.addedRightField.value = Object.keys(addedRight).join(this.delimiter);
+        if (this.newLeftField) this.newLeftField.value = Object.keys(newLeft).join(this.delimiter);
+        if (this.newRightField) this.newRightField.value = Object.keys(newRight).join(this.delimiter);
+    }
+}

@@ -6,7 +6,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-$GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 $GLOBALS['BE']['CSP']['connect-src'][] = 'nominatim.openstreetmap.org';
 
 ?>

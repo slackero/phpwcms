@@ -14,9 +14,6 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-//user group
-$GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
-
 // Optimization: Load all group modkeys at once to avoid querying inside a loop
 $existing_groups = array();
 $sql = "SELECT group_modkey FROM ".DB_PREPEND."phpwcms_usergroup WHERE group_modkey != '' AND group_trash = 0";

@@ -1035,7 +1035,7 @@ function initMootoolsAutocompleter($mode='1.1') {
     $GLOBALS['BE']['HEADER']['Observer.js'] = getJavaScriptSourceLink('include/inc_js/mootools/cnet/Observer.js');
 }*/
 function initJsOptionSelect() {
-    $GLOBALS['BE']['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
+    // Merged into core phpwcms.js
 }
 function initJsAutocompleter() {
     initJQuery();

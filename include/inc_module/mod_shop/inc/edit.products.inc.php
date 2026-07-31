@@ -16,8 +16,6 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 
-$BE['HEADER']['optionselect.js'] = getJavaScriptSourceLink('include/inc_js/optionselect.js');
-
 if(!isset($plugin['data']['shopprod_duplicate'])) {
     $plugin['data']['shopprod_duplicate'] = 0;
 }

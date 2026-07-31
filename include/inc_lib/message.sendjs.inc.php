@@ -11,7 +11,6 @@
 
 $body_onload = ' onload="opt.init(document.forms[0])"';
 
-$BE['HEADER']['optionselect.js']	 = getJavaScriptSourceLink('include/inc_js/optionselect.js');
 $BE['HEADER']['message']			 = JS_START;
 $BE['HEADER']['message']			.= 'var opt = new OptionTransfer("msg_send_to","msg_send_list");'.LF;
 $BE['HEADER']['message']			.= 'opt.setAutoSort(true);'.LF;
