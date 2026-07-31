@@ -37,10 +37,15 @@ $(function () {
         const onclickStr = $el.attr('onclick');
         if (!onclickStr) return;
 
-        const match = onclickStr.match(/confirm\(\s*(['"])(.*?)\1\s*\)/);
+        const match = onclickStr.match(/confirm\(\s*(['"])([\s\S]*?)\1\s*\)/);
         if (match) {
             e.preventDefault();
             e.stopImmediatePropagation();
+
+            // Temporarily disable native window.confirm during any bubbling handler
+            const origConfirm = window.confirm;
+            window.confirm = function() { return false; };
+            setTimeout(function() { window.confirm = origConfirm; }, 1);
 
             const confirmMsg = match[2];
             const action = $el.attr('data-confirm-action');

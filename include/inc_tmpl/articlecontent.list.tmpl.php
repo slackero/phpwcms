@@ -87,7 +87,7 @@ $(function() {
         <div class="col text-right">
           <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil-alt"></i></a>
           <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-danger" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
-          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" onclick="return confirm('<?php echo $BL['be_article_cnt_ldeljs'].'\n'.html($article["article_title"]); ?>');"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" data-confirm-danger="<?php echo html_specialchars($BL['be_article_cnt_ldeljs']."\n[".$article["article_title"]."]"); ?>"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
@@ -617,12 +617,12 @@ $(function() {
             </a>
             <?php
             // duplicate content part
-            echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" data-toggle="tooltip" onclick="return confirm(\''.js_singlequote($BL['be_func_content_copy']).': \n'.js_singlequote($cntpart_title.' [ID:'.$row["acontent_id"].']').'\');"><i class="fa fa-copy"></i></a>';
+            echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="'.html($BL['be_func_content_copy']).'" data-confirm="'.html_specialchars($BL['be_func_content_copy'].': ' . $cntpart_title . ' [ID:'.$row["acontent_id"].']').'"><i class="fa fa-copy"></i></a>';
 
             echo '<a id="abtnacontent'.$row["acontent_id"].'" class="btn fa btn-sm visible '.($row["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$row["acontent_id"].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
 
             ?>
-            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" onclick="return confirm('<?php echo $BL['be_article_cnt_delpartjs'] ?> \n[ID: <?php echo $row["acontent_id"]?>]\n ');"><i class="far fa-trash-alt"></i></a>
+            <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" data-confirm-danger="<?php echo html_specialchars($BL['be_article_cnt_delpartjs'] . " [ID: " . $row["acontent_id"] . "]"); ?>"><i class="far fa-trash-alt"></i></a>
           </div>
         </div>
         <?php

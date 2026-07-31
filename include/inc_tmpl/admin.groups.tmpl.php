@@ -303,7 +303,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             ?>
             <a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="<?php echo $BL['be_admin_group_ldel']." ".html($grouplist["group_name"]); ?>" data-toggle="tooltip" href="include/inc_act/act_usergroup.php?del=<?php
                 echo urlencode($grouplist["group_id"].":".$grouplist["group_name"]);
-            ?>" onclick="return confirm('Delete group <?php echo js_singlequote($grouplist["group_name"]) ?>');"><i class="far fa-trash-alt fa-fw"></i></a>
+            ?>" data-confirm-danger="Delete group <?php echo html($grouplist["group_name"]) ?>"><i class="far fa-trash-alt fa-fw"></i></a>
             <?php }  ?></td>
         </tr>
         <?php
