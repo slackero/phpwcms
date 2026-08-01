@@ -484,10 +484,6 @@ $block['onepage'] = !empty($block['onepage']);
 // set the one page constant
 define('IS_ONEPAGE_TEMPLATE', $block['onepage']);
 
-// support conditional comments for IE8
-define('IE8_CC', empty($block['ie8ignore']));
-$block['ie8ignore'] = false;
-
 // check if template_defaults should be overwritten
 if(!empty($block['overwrite'])) {
     $block['overwrite'] = str_replace('/', '', $block['overwrite']);
@@ -1486,34 +1482,7 @@ $content['all'] = preg_replace_callback('/\[HTML_SPECIAL\](.*?)\[\/HTML_SPECIAL\
 parse_CKEDitor_resized_images();
 
 // cleanup document to enhance XHTML Strict compatibility
-if(HTML5_MODE && IE8_CC) {
-
-    $phpwcms['html5shiv_disabled'] = !empty($phpwcms['html5shiv_disabled']);
-    $phpwcms['respondjs_disabled'] = !empty($phpwcms['respondjs_disabled']);
-
-    $html5shiv_path = TEMPLATE_PATH.'lib/html5shiv/html5shiv.min.js';
-    $html5shiv_src = (PHPWCMS_USE_CDN || !file_exists(PHPWCMS_ROOT . '/' . $html5shiv_path))
-        ? 'https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js'
-        : PHPWCMS_URL.$html5shiv_path;
-
-    $respondjs_path = TEMPLATE_PATH.'lib/respond/respond.min.js';
-    $respondjs_src = (PHPWCMS_USE_CDN || !file_exists(PHPWCMS_ROOT . '/' . $respondjs_path))
-        ? 'https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js'
-        : PHPWCMS_URL.$respondjs_path;
-
-    // put it as first item
-    if(!$phpwcms['html5shiv_disabled'] && !$phpwcms['respondjs_disabled']) {
-        $block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]>
-    <script src="'.$html5shiv_src.'"></script>
-    <script src="'.$respondjs_src.'"></script>
-  <![endif]-->';
-    } elseif(!$phpwcms['html5shiv_disabled']) {
-        $block['custom_htmlhead']['html5shiv'] = '  <!--[if lt IE 9]><script src="'.$html5shiv_src.'"></script><![endif]-->';
-    } elseif(!$phpwcms['respondjs_disabled']) {
-        $block['custom_htmlhead']['respondjs'] = '  <!--[if lt IE 9]><script src="'.$respondjs_src.'"></script><![endif]-->';
-    }
-
-} elseif($phpwcms['mode_XHTML'] === 2) {
+if($phpwcms['mode_XHTML'] === 2) {
 
     $content['all'] = preg_replace(['/ border="[0-9]+?"/', '/ target=".+?"/'], '', $content['all'] );
 

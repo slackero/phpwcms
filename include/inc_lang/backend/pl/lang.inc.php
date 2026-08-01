@@ -1421,7 +1421,7 @@ $BL['be_yes'] = 'Tak';
 $BL['be_no'] = 'Nie';
 $BL['be_attr_title'] = 'Tytu&#322; (Atrybut)';
 $BL['be_attr_alt'] = 'Alternatywny Tekst';
-$BL['be_ie8ignore'] = 'WY&#321;&#260;CZ <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">komentarze warunkowe</a> dla IE8';
+$BL['be_ie8ignore'] = 'WY&#321;&#260;CZ <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">komentarze warunkowe</a> dla IE8 (deprecated)';
 $BL['be_cookie_consent_enable'] = 'W&#322;&#261;cz wtyczk&#281; Zgody Cookie v2';
 $BL['be_cookie_consent_message'] = 'Komunikat zgody';
 $BL['cookie_consent_message'] = 'Witryna ta wykorzystuje cookies, aby uzyska&#263; najlepsz&#261; jako&#347;&#263; na naszej stronie internetowej';

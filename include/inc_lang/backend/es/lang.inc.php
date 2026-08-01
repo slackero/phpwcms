@@ -1200,7 +1200,7 @@ $BL['be_http_status307'] = 'redirecci&oacute;n temporal';
 $BL['be_http_status401'] = 'no autorizado';
 $BL['be_http_status404'] = 'no encontrado';
 $BL['be_http_status503'] = 'servicio no disponible';
-$BL['be_ie8ignore'] = 'desactivar <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">comentarios condicionales</a> para IE8';
+$BL['be_ie8ignore'] = 'desactivar <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">comentarios condicionales</a> para IE8 (deprecated)';
 $BL['be_image_WxHpx'] = 'An x Al px';
 $BL['be_image_align'] = 'alineaci&oacute;n de imagen';
 $BL['be_image_crop'] = 'recortar miniatura';

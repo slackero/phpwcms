@@ -642,11 +642,12 @@ if(isset($result[0]['pagelayout_id'])) {
                 <div class="form-group form-row">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
+<?php if (!empty($template['ie8ignore'])): ?>
                         <div class="form-check">
-                            <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1"<?php is_checked($template['ie8ignore'], 1); ?>>
-                            <label class="form-check-label" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
+                            <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1" checked disabled readonly>
+                            <label class="form-check-label text-muted" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
                         </div>
-
+<?php endif; ?>
                         <div class="form-check">
                             <label class="form-check-label" for="template_ga">
                                 <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>

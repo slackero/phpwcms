@@ -1455,7 +1455,7 @@ $BL['be_yes'] = 'Ja';
 $BL['be_no'] = 'Nein';
 $BL['be_attr_title'] = 'Titel (Attribut)';
 $BL['be_attr_alt'] = 'Alternativer Text';
-$BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren';
+$BL['be_ie8ignore'] = '<a href="https://de.wikipedia.org/wiki/Conditional_Comments" target="_blank" class="underline">Conditional Comments</a> f&uuml;r IE8 deaktivieren (deprecated)';
 $BL['be_cookie_consent_enable'] = 'Cookie Consent v2 Plugin aktivieren (v3 wird deaktiviert)';
 $BL['be_cookie_consent_message'] = 'Zustimmungstext';
 $BL['be_cookie_consent_translatable'] = 'Diese Installation unterst&uuml;tzt mehrere Sprachen (&#36;phpwcms[&#39;allowed_lang&#39;]). Mittels <b>@@Text@@</b> Syntax k&ouml;nnen Cookie Consent Texte &uuml;bersetzt werden. Nach dem Rendern `template/template_lang` pr&uuml;fen.';

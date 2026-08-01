@@ -1415,7 +1415,7 @@ $BL['be_yes'] = 'Ja';
 $BL['be_no'] = 'Nee';
 $BL['be_attr_title'] = 'titel (attribuut)';
 $BL['be_attr_alt'] = 'alternatieve tekst';
-$BL['be_ie8ignore'] = 'schakel <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">conditional comments</a> uit voor IE8';
+$BL['be_ie8ignore'] = 'schakel <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">conditional comments</a> uit voor IE8 (deprecated)';
 $BL['be_cookie_consent_enable'] = 'Cookie Consent v2-plugin inschakelen (v3 wordt uitgeschakeld)';
 $BL['be_cookie_consent_message'] = 'toestemmingsbericht';
 $BL['be_cookie_consent_translatable'] = 'Deze installatie heeft ondersteuning voor meerdere talen (&#36;phpwcms[&#39;allowed_lang&#39;]) ingeschakeld. Gebruik voor vertaalde cookie-toestemmingsteksten de <b>@@Text@@</b> syntaxis en controleer `template/template_lang` na het renderen.';
