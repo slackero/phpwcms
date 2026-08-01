@@ -495,10 +495,10 @@ $(function () {
                 var errorId = "dz-err-" + (file.upload ? file.upload.uuid : Math.random().toString(36).substr(2, 9));
 
                 if ($("#" + errorId).length === 0) {
-                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger alert-dismissible fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
+                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
                         '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +
                         '<div>' + errText + '</div>' +
-                        '<button type="button" class="close ml-auto pl-2 py-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
+                        '<button type="button" class="close ml-auto pl-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
                         '<span aria-hidden="true">&times;</span>' +
                         '</button>' +
                         '</div>';

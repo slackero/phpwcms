@@ -670,7 +670,7 @@ $(function() {
             if (existingFiles.indexOf(file.name.toLowerCase()) !== -1) {
                 var errStr = <?php
                     $err = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists in destination.';
-                    echo json_encode(html_entity_decode($err));
+                    echo json_encode(html_entity_decode($err, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
                 ?>;
                 done(errStr.replace('%s', file.name));
             } else {
@@ -679,43 +679,43 @@ $(function() {
         },
         dictDefaultMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictDefaultMessage']) ? $BL['be_fileuploader_dictDefaultMessage'] : $BL['be_fileuploader_uploadButtonText'];
-            echo json_encode(html_entity_decode($msg));
+            echo json_encode(html_entity_decode($msg, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictFallbackMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackMessage']) ? $BL['be_fileuploader_dictFallbackMessage'] : 'Your browser does not support drag and drop.';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictFallbackText: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackText']) ? $BL['be_fileuploader_dictFallbackText'] : '';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictFileTooBig: <?php
             $msg = !empty($BL['be_fileuploader_dictFileTooBig']) ? $BL['be_fileuploader_dictFileTooBig'] : 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictInvalidFileType: <?php
             $msg = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictResponseError: <?php
             $msg = !empty($BL['be_fileuploader_dictResponseError']) ? $BL['be_fileuploader_dictResponseError'] : 'Server error {{statusCode}}.';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictCancelUpload: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUpload']) ? $BL['be_fileuploader_dictCancelUpload'] : 'Cancel';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictCancelUploadConfirmation: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUploadConfirmation']) ? $BL['be_fileuploader_dictCancelUploadConfirmation'] : 'Cancel upload?';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictRemoveFile: <?php
             $msg = !empty($BL['be_fileuploader_dictRemoveFile']) ? $BL['be_fileuploader_dictRemoveFile'] : 'Remove';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         dictMaxFilesExceeded: <?php
             $msg = !empty($BL['be_fileuploader_dictMaxFilesExceeded']) ? $BL['be_fileuploader_dictMaxFilesExceeded'] : 'Max files exceeded.';
-            echo json_encode(html_entity_decode(strip_tags($msg)));
+            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
         ?>,
         addRemoveLinks: false,
         init: function() {
@@ -770,10 +770,10 @@ $(function() {
                 var errorId = "dz-err-" + (file.upload ? file.upload.uuid : Math.random().toString(36).substr(2, 9));
 
                 if ($("#" + errorId).length === 0) {
-                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger alert-dismissible fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
+                    var alertHtml = '<div id="' + errorId + '" class="alert alert-danger fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
                         '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +
                         '<div>' + errText + '</div>' +
-                        '<button type="button" class="close ml-auto pl-2 py-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
+                        '<button type="button" class="close ml-auto pl-2 dz-alert-close" data-file-uuid="' + (file.upload ? file.upload.uuid : '') + '" aria-label="Close">' +
                         '<span aria-hidden="true">&times;</span>' +
                         '</button>' +
                         '</div>';
