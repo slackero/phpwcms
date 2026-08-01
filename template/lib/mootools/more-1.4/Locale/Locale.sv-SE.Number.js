@@ -1,1 +1,0 @@
-Locale.define("sv-SE","Number",{currency:{prefix:"SEK "}}).inherit("EU","Number");

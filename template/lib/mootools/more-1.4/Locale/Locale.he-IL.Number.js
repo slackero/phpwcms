@@ -1,1 +1,0 @@
-Locale.define("he-IL","Number",{decimal:".",group:",",currency:{suffix:" ₪"}});

@@ -1,1 +1,0 @@
-Locale.define("en-US","Number",{decimal:".",group:",",currency:{prefix:"$ "}});

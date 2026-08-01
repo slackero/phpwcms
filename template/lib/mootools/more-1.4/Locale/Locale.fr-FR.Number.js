@@ -1,1 +1,0 @@
-Locale.define("fr-FR","Number",{group:" "}).inherit("EU","Number");

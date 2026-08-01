@@ -288,9 +288,7 @@ $phpwcms['js_lib_default'] = array(
         'jquery-1.12-migrate' => 'jQuery 1.12.4 + Migrate 1.4.1',
         'jquery-2.2' => 'jQuery 2.2.4',
         'jquery-2.2-migrate' => 'jQuery 2.2.4 + Migrate 1.4.1',
-    'MooTools' => '-',
-        'mootools-1.2' => 'MooTools 1.2.6',
-        'mootools-1.1' => 'MooTools 1.12',
+
     'jQuery Archive' => '-',
         'jquery-3.6' => 'jQuery 3.6.4',
         'jquery-3.6-migrate' => 'jQuery 3.6.4 + Migrate 3.6.0',

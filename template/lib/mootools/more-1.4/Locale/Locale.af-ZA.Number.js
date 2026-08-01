@@ -1,1 +1,0 @@
-Locale.define("af-ZA").inherit("ZA","Number");

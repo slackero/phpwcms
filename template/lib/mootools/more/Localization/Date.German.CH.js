@@ -1,1 +1,0 @@
-MooTools.lang.set("de-CH","cascade",["de-DE"]);

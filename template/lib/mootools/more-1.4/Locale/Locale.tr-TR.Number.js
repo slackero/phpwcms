@@ -1,1 +1,0 @@
-Locale.define("tr-TR","Number",{currency:{decimals:0,suffix:" TL"}}).inherit("EU","Number");

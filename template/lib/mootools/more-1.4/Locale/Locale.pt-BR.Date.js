@@ -1,1 +1,0 @@
-Locale.define("pt-BR","Date",{shortDate:"%d/%m/%Y"}).inherit("pt-PT","Date");

@@ -1,1 +1,0 @@
-Locale.define("de-CH").inherit("de-DE","Date");

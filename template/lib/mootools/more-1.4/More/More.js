@@ -1,1 +1,0 @@
-MooTools.More={version:"1.4.3.1dev",build:"%build%"};

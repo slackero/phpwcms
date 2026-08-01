@@ -120,11 +120,7 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>,
         <a href="http://www.fsf.org/licensing/licenses/gpl.html" target="_blank">GNU GPL</a>
     </li>
-    <li>
-        <a href="http://mootools.net/" target="_blank"><strong>MooTools</strong></a>,
-        Copyright &copy; 2006-2009 Valerio Proietti,
-        <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>
-    </li>
+
     <li>
         <a href="https://github.com/thephpleague/oauth2-client" target="_blank"><strong>OAuth2 Client &amp; Providers (Google, Azure)</strong></a>,
         Copyright &copy; The League of Extraordinary Packages / greew,
