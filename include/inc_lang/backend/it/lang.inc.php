@@ -1311,7 +1311,14 @@ $BL['be_ie8ignore'] = 'disabilita i <a href="https://en.wikipedia.org/wiki/Condi
 $BL['be_cookie_consent_enable'] = 'abilita il plugin Cookie Consent v2 (v3 sar&agrave; disabilitato)';
 $BL['be_cookie_consent_message'] = 'messaggio di consenso';
 $BL['be_cookie_consent_translatable'] = 'Questa installazione ha il supporto abilitato per pi&ugrave; lingue (&#36;phpwcms[&#39;allowed_lang&#39;]). Per i testi del consenso sui cookie tradotti, usa la sintassi <b>@@Testo@@</b> e controlla `template/template_lang` dopo il rendering.';
-$BL['cookie_consent_message'] = 'Questo sito utilizza i cookie per assicurarti la migliore esperienza di navigazione';
+$BL['cookie_consent_message'] = 'Questo sito web utilizza i cookie per offrirti la migliore esperienza sul nostro sito web';
+$BL['be_cnt_poll_choices'] = 'Opzioni di risposta';
+$BL['be_flush_image_cache_confirm'] = 'Sei sicuro di voler svuotare la cache delle immagini?';
+$BL['be_flush_image_cache_success'] = 'La cache delle immagini &egrave; stata svuotata con successo.';
+$BL['be_fprivup_err12'] = 'Il file <strong>%s</strong> esiste gi&agrave; nella destinazione.';
+$BL['be_fileuploader_dictFallbackText'] = 'Utilizza il modulo sottostante per caricare i tuoi file.';
+$BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Sei sicuro di voler annullare questo caricamento?';
+$BL['be_fileuploader_dictMaxFilesExceeded'] = 'Non puoi caricare altri file.';
 $BL['be_cookie_consent_dismiss'] = 'testo del pulsante di rifiuto/chiusura';
 $BL['cookie_consent_dismiss'] = 'Accetto!';
 $BL['be_cookie_consent_more'] = 'testo del pulsante di maggiori informazioni';
