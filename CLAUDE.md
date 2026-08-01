@@ -9,8 +9,8 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 77 modules | 140,994 lines
-test: make test
+phpwcms-dev | php | 107 modules | 169,508 lines
+test: npm test
 
 modules:
   .phpstan                        .phpstan
@@ -28,6 +28,7 @@ modules:
   include/inc_front/content/cnt_  cnt functions
   include/inc_front/lib           shared library code
   include/inc_js                  inc js
+  include/inc_js/dayjs-locale     dayjs-locale
   include/inc_js/jquery           jquery
   include/inc_lang                inc lang
   include/inc_lang/backend/de     de
@@ -38,6 +39,27 @@ modules:
   include/inc_lang/backend/nl     nl
   include/inc_lang/backend/pl     pl
   include/inc_lang/date           date
+  include/inc_lang/disable lang/  ar
+  include/inc_lang/disable lang/  bg
+  include/inc_lang/disable lang/  bs
+  include/inc_lang/disable lang/  ca
+  include/inc_lang/disable lang/  cs
+  include/inc_lang/disable lang/  cz
+  include/inc_lang/disable lang/  da
+  include/inc_lang/disable lang/  et
+  include/inc_lang/disable lang/  fi
+  include/inc_lang/disable lang/  gr
+  include/inc_lang/disable lang/  hu
+  include/inc_lang/disable lang/  lt
+  include/inc_lang/disable lang/  no
+  include/inc_lang/disable lang/  pt
+  include/inc_lang/disable lang/  ro
+  include/inc_lang/disable lang/  ru
+  include/inc_lang/disable lang/  se
+  include/inc_lang/disable lang/  sk
+  include/inc_lang/disable lang/  sl
+  include/inc_lang/disable lang/  tr
+  include/inc_lang/disable lang/  vn
   include/inc_lang/formmailer     formmailer
   include/inc_lang/image          image
   include/inc_lib                 inc lib
@@ -45,6 +67,10 @@ modules:
   include/inc_lib/constants       constants
   include/inc_lib/content         content
   include/inc_lib/revision        revision
+  include/inc_module/mod_address  mod addresses
+  include/inc_module/mod_address  inc
+  include/inc_module/mod_address  lang
+  include/inc_module/mod_address  template
   include/inc_module/mod_ads      mod ads
   include/inc_module/mod_ads/inc  inc
   include/inc_module/mod_ads/lan  lang
@@ -59,13 +85,20 @@ modules:
   include/inc_module/mod_glossar  inc
   include/inc_module/mod_glossar  lang
   include/inc_module/mod_glossar  template
+  include/inc_module/mod_modules  mod modules
+  include/inc_module/mod_modules  lang
   include/inc_module/mod_seolog   mod seolog
   include/inc_module/mod_seolog/  lang
   include/inc_module/mod_shop     mod shop
   include/inc_module/mod_shop/in  inc
   include/inc_module/mod_shop/la  lang
+  include/inc_module/mod_statist  mod statistic
+  include/inc_module/mod_statist  inc
+  include/inc_module/mod_statist  lang
   include/inc_tmpl                inc tmpl
   include/inc_tmpl/content        content
+  phpwcms-extended/phpwcms-fancy  inc script
+  phpwcms-extended/phpwcms-fancy  shared library code
   root                            root package
   setup                           setup
   setup/default_sql               default sql
@@ -81,17 +114,14 @@ modules:
   template/lib/cookieconsent2     cookieconsent2
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
+  template/lib/fancybox           fancybox
   template/lib/jquery             jquery
   template/lib/jquery/plugin      plugin
   template/lib/js-cookie          js-cookie
-  template/lib/mootools           mootools
-  template/lib/mootools/more      more
-  template/lib/mootools/more-1.4  more-1.4
   template/lib/simplegmaps        simplegmaps
   template/lib/slick              slick
-  template/lib/slimbox            slimbox
 
-hot: .phpstan/phpstan-baseline.neon (7 commits/90d), include/inc_lib/revision/revision.php (6 commits/90d), include/vendor/composer/installed.json (6 commits/90d)
+hot: include/inc_lib/backend.functions.inc.php (15 commits/90d), include/inc_tmpl/files.private.editfile.tmpl.php (14 commits/90d), include/inc_js/phpwcms.js (12 commits/90d)
 do-not-touch: .github/
 ```
 # end stacklit map

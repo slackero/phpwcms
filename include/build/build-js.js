@@ -24,7 +24,8 @@ async function buildJs() {
         { src: '../../node_modules/dropzone/dist/min/dropzone.min.js', dest: 'inc_js/dropzone.min.js' },
         { src: '../../node_modules/flatpickr/dist/flatpickr.min.js', dest: 'inc_js/flatpickr.min.js' },
         { src: '../../node_modules/dayjs/dayjs.min.js', dest: 'inc_js/dayjs.min.js' },
-        { src: '../../node_modules/jquery/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.7.1.min.js' }
+        { src: '../../node_modules/jquery/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.7.1.min.js' },
+        { src: '../../node_modules/video.js/dist/video.min.js', dest: '../template/lib/video-js/video.min.js' }
     ];
 
     for (const item of copyMap) {

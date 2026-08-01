@@ -38,13 +38,15 @@ const copyMap = [
     { src: '../../node_modules/dropzone/dist/min/dropzone.min.css', dest: 'inc_css/dropzone.min.css' },
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
-    { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap4.css', dest: 'inc_css/tom-select.bootstrap4.css' }
+    { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap4.css', dest: 'inc_css/tom-select.bootstrap4.css' },
+    { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' }
 ];
 
 for (const item of copyMap) {
     const srcPath = path.join(__dirname, item.src);
     const destPath = path.join(includeDir, item.dest);
     if (fs.existsSync(srcPath)) {
+        fs.mkdirSync(path.dirname(destPath), { recursive: true });
         fs.copyFileSync(srcPath, destPath);
         console.log(`[✓] Synced ${item.dest}`);
     } else {

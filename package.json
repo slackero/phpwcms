@@ -18,6 +18,7 @@
     "jquery": "^3.7.1",
     "lightningcss": "^1.29.2",
     "terser": "^5.49.0",
-    "tom-select": "^2.6.2"
+    "tom-select": "^2.6.2",
+    "video.js": "^8.23.9"
   }
 }
