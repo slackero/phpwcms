@@ -403,6 +403,7 @@ export interface Classes {
   "tox-ai-chat-history-list__item-content-date": string;
   "tox-sidebar-content__message": string;
   "tox-sidebar-content__message-action": string;
+  "tox-ai-chat-action-button": string;
   "tox-ai-removed-content": string;
   "tox-ai-html-content": string;
   "tox-ai__preview-host": string;
@@ -633,8 +634,8 @@ export interface Classes {
   "tox-suggestededits__card--review-buttons": string;
   "tox-suggestededits__card--feedback-buttons": string;
   "tox-suggestededits__card--hidden": string;
-  "tox-suggestededits__card--resolved": string;
   "tox-suggestededits__card--active": string;
+  "tox-suggestededits__card--resolved": string;
   "tox-dialog-loading": string;
   "tox-tab": string;
   "tox-dialog__content-js": string;
