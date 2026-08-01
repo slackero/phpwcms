@@ -1,57 +1,37 @@
 <!--IMAGES_HEADER_START//-->
-
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
-[TEXT]{TEXT}[/TEXT]
 
-<div class="slider" id="slider_container_{ID}">
-	<div id="slider_{ID}" class="inner">  
+<div style="margin:10px 0 10px 0;">
+	<a href="#" id="move_left">&laquo; left</a> | <a href="#" id="move_right">right &raquo;</a>
+</div>
+
+<div id="slider_container_{ID}" class="slider">
+<div class="inner">
 <!--IMAGES_HEADER_END//-->
 
-
 <!--IMAGES_ENTRY_START//-->
-		[ZOOM]<a href="{IMAGE_ABS}" {LIGHTBOX_CAPTION}target="_blank"{LIGHTBOX}><img src="{THUMB_ABS}" alt="{THUMB_NAME}" border="0" /></a>		
-[/ZOOM][ZOOM_ELSE]
-		[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_TARGET}>[/IMAGE_URL]<img src="{THUMB_ABS}" alt="{THUMB_NAME}" border="0" />[IMAGE_URL]</a>[/IMAGE_URL]
-[/ZOOM_ELSE]
+	[THUMB_BUILD]<a href="{IMAGE_LINK}"{TARGET}>[/THUMB_BUILD]{THUMB}[THUMB_BUILD]</a>[/THUMB_BUILD]
 <!--IMAGES_ENTRY_END//-->
 
-
-<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
-
-
-<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
-
-
 <!--IMAGES_FOOTER_START//-->
-	</div>
 </div>
-<a href="#" id="move_left">Left</a> | <a href="#" id="move_right">Right</a>
-<!-- CSS: 
+</div>
+<!-- CSS:
 	div.slider {
-		margin: 10px 0 10px 0;
-		padding: 5px 0 5px 0;
-		background-color: #666666;
+		width: 320px;
+		height: 80px;
 		overflow: hidden;
-		width: 535px;
-		position: relative;
-		height: 141px;
+		border: 1px solid #000000;
 	}
 	div.slider div.inner {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		height: 141px;
-		width: 5000px;
-		position: absolute;
-		left: 0;
-		top: 5px;
+		width: 10000px;
 	}
 	div.slider div.inner a {
-		border: 3px solid #FFFFFF;
-		padding: 0;
+		display: block;
 		float: left;
-		background-color: #000000;
+		padding: 2px;
+		border: 1px solid #CCCCCC;
 		margin: 0 0 0 5px;
 	}
 	div.slider div.inner a:hover {
@@ -62,47 +42,34 @@
 	}
 -->
 <!-- JS: 
-	// needs MooTools
-	window.addEvent(\'domready\', function(){
-	
-		var slider_width	= 0;
-		var step			= 106;
-		var scroll_x		= 0;
-		var slider_parent	= $(\'slider_container_{ID}\').getSize().size.x;
-		
-		$$(\'div.slider a\').each( function(e) {
-			
-			slider_width += e.getSize().size.x + 5;
-			
+	$(function() {
+		var $container = $('#slider_container_{ID}');
+		var scroll_x = 0;
+		var step = 106;
+		var slider_parent = $container.outerWidth();
+		var slider_width = 0;
+
+		$('div.slider a').each(function() {
+			slider_width += $(this).outerWidth(true);
 		});
-				
-		var scroll = new Fx.Scroll(\'slider_container_{ID}\', {
-			wait: false,
-			duration: 550,
-			offset: {\'x\': 0, \'y\': 0},
-			transition: Fx.Transitions.Quad.easeOut
-		});
-		
-		scroll.scrollTo(0, 0);
-		
-		$(\'move_right\').addEvent(\'click\', function(event) {
-			event = new Event(event).stop();
-			if(slider_width-slider_parent <= scroll_x) {
-				scroll_x = scroll_x - 106;
+
+		$('#move_right').on('click', function(e) {
+			e.preventDefault();
+			if (slider_width - slider_parent <= scroll_x) {
+				scroll_x = scroll_x - step;
 			}
-			scroll_x = scroll_x + 106;
-			scroll.scrollTo(scroll_x, 0);
+			scroll_x = scroll_x + step;
+			$container.animate({ scrollLeft: scroll_x }, 400);
 		});
-		
-		$(\'move_left\').addEvent(\'click\', function(event) {
-			event = new Event(event).stop();
-			scroll_x = scroll_x - 106;
-			if(scroll_x < 0) {
+
+		$('#move_left').on('click', function(e) {
+			e.preventDefault();
+			scroll_x = scroll_x - step;
+			if (scroll_x < 0) {
 				scroll_x = 0;
 			}
-			scroll.scrollTo(scroll_x, 0);
+			$container.animate({ scrollLeft: scroll_x }, 400);
 		});
 	});
-	
 -->
 <!--IMAGES_FOOTER_END//-->

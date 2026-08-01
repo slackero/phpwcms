@@ -1010,7 +1010,7 @@ function initJsAutocompleter() {
 }
 
 function initJQuery() {
-//  unset($GLOBALS['BE']['HEADER']['mootools.js']);
+
     // add jQuery at first position and keep the key
     $GLOBALS['BE']['HEADER'] = array('jquery.js' => getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js')) + $GLOBALS['BE']['HEADER'];
 }
