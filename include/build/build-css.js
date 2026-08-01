@@ -53,7 +53,8 @@ const copyMap = [
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
     { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap4.css', dest: 'inc_css/tom-select.bootstrap4.css' },
-    { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' }
+    { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' },
+    { src: '../../node_modules/glightbox/dist/css/glightbox.min.css', dest: '../template/lib/glightbox/glightbox.min.css' }
 ];
 
 for (const item of copyMap) {

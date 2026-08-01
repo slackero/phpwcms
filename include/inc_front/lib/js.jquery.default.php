@@ -14,8 +14,39 @@
  */
 function initSlimbox() {
     initJSLib();
-    $GLOBALS['block']['custom_htmlhead']['lightbox.css'] = '  <link href="'.TEMPLATE_PATH.'lib/slimbox/slimbox.css" rel="stylesheet" type="text/css" media="screen" />';
-    $GLOBALS['block']['custom_htmlhead']['slimbox.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/slimbox/slimbox.jquery.js');
+    $GLOBALS['block']['custom_htmlhead']['glightbox.css'] = '  <link href="'.TEMPLATE_PATH.'lib/glightbox/glightbox.min.css" rel="stylesheet" type="text/css" media="screen" />';
+    $GLOBALS['block']['custom_htmlhead']['glightbox.js']  = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/glightbox/glightbox.min.js');
+    if (empty($GLOBALS['block']['custom_htmlhead']['glightbox.init'])) {
+        $options = array('selector' => 'a[rel^="lightbox"]');
+        if (!empty($GLOBALS['phpwcms']['glightbox_options']) && is_array($GLOBALS['phpwcms']['glightbox_options'])) {
+            $options = array_merge($options, $GLOBALS['phpwcms']['glightbox_options']);
+        }
+        $overlayColor   = isset($options['overlayColor']) ? trim($options['overlayColor']) : null;
+        $overlayOpacity = isset($options['overlayOpacity']) ? (float)$options['overlayOpacity'] : null;
+        unset($options['overlayColor'], $options['overlayOpacity']);
+
+        if ($overlayColor !== null || $overlayOpacity !== null) {
+            $overlayColor   = $overlayColor ?: '#000000';
+            $overlayOpacity = $overlayOpacity ?? 0.65;
+            $cssColor = $overlayColor;
+            if (str_starts_with($overlayColor, '#')) {
+                $hex = ltrim($overlayColor, '#');
+                if (strlen($hex) === 3) {
+                    $r = hexdec(str_repeat(substr($hex, 0, 1), 2));
+                    $g = hexdec(str_repeat(substr($hex, 1, 1), 2));
+                    $b = hexdec(str_repeat(substr($hex, 2, 1), 2));
+                } else {
+                    $r = hexdec(substr($hex, 0, 2));
+                    $g = hexdec(substr($hex, 2, 2));
+                    $b = hexdec(substr($hex, 4, 2));
+                }
+                $cssColor = 'rgba(' . $r . ', ' . $g . ', ' . $b . ', ' . $overlayOpacity . ')';
+            }
+            $GLOBALS['block']['custom_htmlhead']['glightbox.overlay.css'] = '  <style>.goverlay{background: ' . $cssColor . ' !important;}</style>';
+        }
+        $jsonOptions = json_encode($options, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        $GLOBALS['block']['custom_htmlhead']['glightbox.init'] = '  <script'.SCRIPT_ATTRIBUTE_TYPE.'>' . LF . SCRIPT_CDATA_START . LF . '  document.addEventListener("DOMContentLoaded", function() { if (typeof GLightbox === "function") { GLightbox(' . $jsonOptions . '); } });' . LF . SCRIPT_CDATA_END . LF . '  </script>';
+    }
 }
 
 /**

@@ -337,6 +337,10 @@ if (!empty($phpwcms['enable_deprecated'])) {
     $phpwcms['js_lib'] = array_merge($phpwcms['js_lib'], $phpwcms['js_lib_deprecated']);
 }
 
+if (!isset($phpwcms['glightbox_options']) || !is_array($phpwcms['glightbox_options'])) {
+    $phpwcms['glightbox_options'] = array();
+}
+
 $phpwcms['default_template_classes'] = array(
     'link-top' => 'link-top',
     'link-internal' => 'link-internal',

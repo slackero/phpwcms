@@ -15,6 +15,7 @@
     "dropzone": "^5.9.3",
     "flag-icons": "^7.5.0",
     "flatpickr": "^4.6.13",
+    "glightbox": "^3.3.1",
     "jquery": "^3.7.1",
     "lightningcss": "^1.29.2",
     "terser": "^5.49.0",

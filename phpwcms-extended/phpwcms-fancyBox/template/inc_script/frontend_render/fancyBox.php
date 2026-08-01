@@ -15,10 +15,14 @@ if(substr($block['jslib'], 0, 6) === 'jquery' && version_compare(substr($block['
 
 	$phpwcms['fancybox_swipe_support'] = true;
 
-	// Remove Slimbox support
+	// Remove Slimbox / GLightbox support
 	unset(
 		$block['custom_htmlhead']['lightbox.css'],
-		$block['custom_htmlhead']['slimbox.js']
+		$block['custom_htmlhead']['slimbox.js'],
+		$block['custom_htmlhead']['glightbox.css'],
+		$block['custom_htmlhead']['glightbox.overlay.css'],
+		$block['custom_htmlhead']['glightbox.js'],
+		$block['custom_htmlhead']['glightbox.init']
 	);
 
 	set_css_link('lib/fancybox/jquery.fancybox.css');
