@@ -149,6 +149,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
+    <script src="include/inc_js/bootstrap.bundle.min.js"></script>
     <script src="include/inc_js/dropzone.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>
     <script src="include/inc_js/phpwcms.min.js"></script>
@@ -161,7 +162,7 @@ $count_user_files = _dbQuery($sql, 'COUNT');
         }
     </script>
 </head>
-<body class="filebrowser m-3">
+<body class="filebrowser">
 
 <div class="d-flex align-items-center justify-content-between mb-3">
   <h2 class="m-0"><?php echo ($js_aktion == 16) ? $BL['be_article_title'] : $BL['FILE_TITLE']; ?></h2>
@@ -349,6 +350,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         foreach($file_result as $file_durchlauf => $file_row) {
 
             $filename = html($file_row["f_name"]);
+            $filename_json = json_encode($filename);
 
             $thumb_image = true;
             if( !$file_row['f_svg'] && !in_array($js_aktion, array(2, 4, 9, 10, 16, 18, 19)) ) {
@@ -365,7 +367,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                 $bg_toggle = !$bg_toggle;
                 $row_class = $bg_toggle ? ' class="file-row-even"' : ' class="file-row-odd"';
 
-                $js_files_select[$file_durchlauf] = '     [' . $file_durchlauf .', ' . $file_row["f_id"] . ', "' . $filename . '"]';
+                $js_files_select[] = array(count($js_files_select), (int)$file_row["f_id"], $filename);
                 $add_all = false;
 
                 //change js call so it works inside modal
@@ -373,13 +375,13 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     case 0:
                         $jst = empty($_SESSION['filebrowser_image_target']) ? '_' : $_SESSION['filebrowser_image_target'];
 
-                        $js  = "parent.document.".$target_form.".cimage".$jst."name.value='".$filename."';";
+                        $js  = "parent.document.".$target_form.".cimage".$jst."name.value=" . $filename_json . ";";
                         $js .= "parent.document.".$target_form.".cimage".$jst."id.value='".$file_row["f_id"]."';";
-                        $js .= "if (typeof parent.onImageSelected === 'function') { parent.onImageSelected('".$jst."', '".$file_row["f_id"]."', '".$filename."'); }";
+                        $js .= "if (typeof parent.onImageSelected === 'function') { parent.onImageSelected('".$jst."', '".$file_row["f_id"]."', " . $filename_json . "); }";
                         break;
 
                     case 2:
-                        $js  = "parent.document.articlecontent.cmedia_name.value='".$filename."';";
+                        $js  = "parent.document.articlecontent.cmedia_name.value=" . $filename_json . ";";
                         $js .= "parent.document.articlecontent.cmedia_id.value='".$file_row["f_id"]."';";
                         break;
 
@@ -387,37 +389,37 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     case 12:
                     case 13:
                     case 14:
-                        $js = "parent.setIdName('".$file_row["f_id"]."', '".$filename."', ".$js_aktion.");";
+                        $js = "parent.setIdName('".$file_row["f_id"]."', " . $filename_json . ", ".$js_aktion.");";
                         break;
 
                     case 19:
                     case 18:
                     case 15:
-                        $js = "parent.setIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setIdName('".$entry_id."', '".$file_row["f_id"]."', " . $filename_json . ");";
                         break;
 
                     case 7:
-                        $js = "parent.setImgIdName('".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setImgIdName('".$file_row["f_id"]."', " . $filename_json . ");";
                         break;
 
                     case 8:
-                        $js = "parent.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.setImgIdName('".$entry_id."', '".$file_row["f_id"]."', " . $filename_json . ");";
                         break;
 
                     case 4:
-                        $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list),'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.getElementById('cfile_list') || (parent.document.articlecontent && parent.document.articlecontent.cfile_list)," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
 
                     case 9:
-                        $js = "parent.addFile('".$file_row["f_id"]."', '".$filename."');";
+                        $js = "parent.addFile('".$file_row["f_id"]."', " . $filename_json . ");";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
 
                     case 5:
-                        $js = "addFile(parent.img_field,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.img_field," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
                         $add_all = true;
                         break;
@@ -442,9 +444,9 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                         break;
 
                     default:
-                        $js = "addFile(parent.document.articlecontent.cimage_list,'".$filename."','".$file_row["f_id"]."');";
+                        $js = "addFile(parent.document.articlecontent.cimage_list," . $filename_json . ",'".$file_row["f_id"]."');";
                         $js_files_all[] = $js;
-                         $add_all = true;
+                        $add_all = true;
                 }
 
                 // show "add all files"
@@ -464,19 +466,21 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     echo '"></i></td>';
                 echo '<td>';
 
+                $js_attr = html($js);
+
                 if($js_aktion != 4 && $js_aktion != 10 && $js_aktion != 16) {
                     echo $filename.'</td><td class="text-right py-1">';
                 } else if($js_aktion == 16 || $js_aktion == 17) {
-                  echo "<a href=\"#\" onclick=\"".$js."tmt_winControl('self','close()');\">".$filename.'</a></td><td class="text-right py-1">';
+                  echo '<a href="#" onclick="' . $js_attr . 'tmt_winControl(\'self\',\'close()\');">' . $filename . '</a></td><td class="text-right py-1">';
                 } else {
-                    echo "<a href=\"#\" onclick=\"".$js."parent.$('#browserModal').modal('hide');\">".$filename.'</a></td><td class="text-right py-1">';
+                    echo '<a href="#" onclick="' . $js_attr . 'parent.$(\'#browserModal\').modal(\'hide\');">' . $filename . '</a></td><td class="text-right py-1">';
                 }
 
-                echo '<a href="#" class="btn btn-sm btn-blue" onclick="'.$js.'return false;" data-toggle="tooltip" title="'.$BL['TAKE_IMAGE'].'">';
+                echo '<a href="#" class="btn btn-sm btn-blue" onclick="' . $js_attr . 'return false;" data-toggle="tooltip" title="' . html($BL['TAKE_IMAGE']) . '">';
                 echo '<i class="fa fa-plus" aria-hidden="true"></i></a></td>';
                 echo '</tr>';
                 if((!empty($thumb_image[0]) || $file_row['f_svg']) && in_array( $js_aktion, array(0, 1, 3, 5, 6, 7, 8, 10, 11, 17, 18, 19) ) ) {
-                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="py-1" colspan="2"><a href="#" onclick="'.$js;
+                    echo '<tr style="border-bottom: 1px solid #ccc;"'.$row_class.'><td class="py-1" >&nbsp;</td><td class="pb-1 pt-0" colspan="2"><a href="#" onclick="' . $js_attr;
                     if($js_aktion == 16 || $js_aktion == 17) {
                       echo "tmt_winControl('self','close()');\">";
                     } else {
@@ -492,10 +496,12 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
             }
 
         }
-        if(empty($filename)) { //Abschluss der Filelisten-Tabelle
-            echo '<tr><td colspan="4" class="msglist">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
+        if(count($js_files_select) === 0) { //Abschluss der Filelisten-Tabelle
+            echo '<tr><td colspan="4" class="msglist py-2 text-muted">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
         }
-      }
+    } else {
+        echo '<tr><td colspan="4" class="msglist py-2 text-muted">&nbsp;'.$BL['NO_FILE'].'&nbsp;&nbsp;</td></tr>';
+    }
 
     echo '</table>';
 
@@ -504,10 +510,8 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
         echo LF . '<script type="text/javascript">';
         echo LF . SCRIPT_CDATA_START . LF;
 
-        echo 'var files_all = new Array(' . LF;
-        echo implode(','.LF, $js_files_select);
-        echo LF . ' );';
-        echo LF . 'var files_total = ' . $file_durchlauf . ';';
+        echo 'var files_all = ' . json_encode($js_files_select) . ';';
+        echo LF . 'var files_total = ' . count($js_files_select) . ';';
 
         echo LF . LF;
         echo 'function addAllFiles() {';
@@ -541,15 +545,14 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
   </tr>
 </table>
 <script>
+Dropzone.autoDiscover = false;
+
 $(function() {
     initTomSelectTagAutosuggest('#file_tags_autosuggest', '#file_tags', 'category');
-});
 
     $('.structarticle').on('click', function () {
         parent.$('#browserModal').modal('hide');
     });
-
-    Dropzone.autoDiscover = false;
 
     var maxMB = <?php
         $post_max_size = ini_get('post_max_size') ? return_bytes(ini_get('post_max_size')) : $phpwcms['file_maxsize'];
@@ -577,7 +580,7 @@ $(function() {
         '</div>' +
     '</div>';
 
-    function getFileIconClass(filename) {
+    const getFileIconClass = (filename) => {
         var ext = filename.split('.').pop().toLowerCase();
         switch(ext) {
             case 'pdf': return 'fas fa-file-pdf text-danger';
@@ -590,7 +593,7 @@ $(function() {
             case 'txt': case 'html': case 'css': case 'js': case 'php': case 'json': case 'xml': return 'fas fa-file-code text-secondary';
             default: return 'fas fa-file text-muted';
         }
-    }
+    };
 
     if ($("#filebrowser-dropzone").data("dropzone")) {
         $("#filebrowser-dropzone").data("dropzone").destroy();
@@ -657,11 +660,7 @@ $(function() {
                 $effective_ext = $global_ext;
             }
 
-            if (count($effective_ext)) {
-                echo json_encode('.' . implode(',.', array_values($effective_ext)));
-            } else {
-                echo "null";
-            }
+            echo count($effective_ext) ? json_encode('.' . implode(',.', array_values($effective_ext))) : 'null';
         ?>,
         accept: function(file, done) {
             var existingFiles = [];
@@ -671,7 +670,7 @@ $(function() {
             if (existingFiles.indexOf(file.name.toLowerCase()) !== -1) {
                 var errStr = <?php
                     $err = !empty($BL['be_fprivup_err12']) ? $BL['be_fprivup_err12'] : 'File <strong>%s</strong> already exists in destination.';
-                    echo json_encode(html_entity_decode($err, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                    echo json_encode(html_entity_decode($err));
                 ?>;
                 done(errStr.replace('%s', file.name));
             } else {
@@ -680,43 +679,43 @@ $(function() {
         },
         dictDefaultMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictDefaultMessage']) ? $BL['be_fileuploader_dictDefaultMessage'] : $BL['be_fileuploader_uploadButtonText'];
-            echo json_encode(html_entity_decode($msg, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode($msg));
         ?>,
         dictFallbackMessage: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackMessage']) ? $BL['be_fileuploader_dictFallbackMessage'] : 'Your browser does not support drag and drop.';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictFallbackText: <?php
             $msg = !empty($BL['be_fileuploader_dictFallbackText']) ? $BL['be_fileuploader_dictFallbackText'] : '';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictFileTooBig: <?php
             $msg = !empty($BL['be_fileuploader_dictFileTooBig']) ? $BL['be_fileuploader_dictFileTooBig'] : 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictInvalidFileType: <?php
             $msg = !empty($BL['be_fileuploader_dictInvalidFileType']) ? $BL['be_fileuploader_dictInvalidFileType'] : 'Invalid file type.';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictResponseError: <?php
             $msg = !empty($BL['be_fileuploader_dictResponseError']) ? $BL['be_fileuploader_dictResponseError'] : 'Server error {{statusCode}}.';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictCancelUpload: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUpload']) ? $BL['be_fileuploader_dictCancelUpload'] : 'Cancel';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictCancelUploadConfirmation: <?php
             $msg = !empty($BL['be_fileuploader_dictCancelUploadConfirmation']) ? $BL['be_fileuploader_dictCancelUploadConfirmation'] : 'Cancel upload?';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictRemoveFile: <?php
             $msg = !empty($BL['be_fileuploader_dictRemoveFile']) ? $BL['be_fileuploader_dictRemoveFile'] : 'Remove';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         dictMaxFilesExceeded: <?php
             $msg = !empty($BL['be_fileuploader_dictMaxFilesExceeded']) ? $BL['be_fileuploader_dictMaxFilesExceeded'] : 'Max files exceeded.';
-            echo json_encode(html_entity_decode(strip_tags($msg), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            echo json_encode(html_entity_decode(strip_tags($msg)));
         ?>,
         addRemoveLinks: false,
         init: function() {
@@ -769,7 +768,7 @@ $(function() {
                 }
 
                 var errorId = "dz-err-" + (file.upload ? file.upload.uuid : Math.random().toString(36).substr(2, 9));
-                
+
                 if ($("#" + errorId).length === 0) {
                     var alertHtml = '<div id="' + errorId + '" class="alert alert-danger alert-dismissible fade show d-flex align-items-start mt-2 mb-0 py-2 px-3 small" role="alert">' +
                         '<i class="fas fa-exclamation-triangle mr-2 mt-1 flex-shrink-0"></i>' +

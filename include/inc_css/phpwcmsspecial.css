@@ -8,6 +8,10 @@ body {
     background-color: #EAEAEA;
 }
 
+body.filebrowser {
+    background-color: #ffffff;
+}
+
 a {
     color: #30709b;
     cursor: pointer;

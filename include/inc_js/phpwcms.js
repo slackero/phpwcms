@@ -685,16 +685,18 @@ $(function () {
         }
     });
 
-    $body.tooltip({
-        selector: '[data-toggle="tooltip"]',
-        delay: {
-            show: 200,
-            hide: 50
-        },
-        container: 'body',
-        boundary: 'window',
-        sanitize: false
-    });
+    if (typeof $.fn.tooltip === 'function') {
+        $body.tooltip({
+            selector: '[data-toggle="tooltip"]',
+            delay: {
+                show: 200,
+                hide: 50
+            },
+            container: 'body',
+            boundary: 'window',
+            sanitize: false
+        });
+    }
 
     $doc.on('click', '.modalButton', function (e) {
         const $this = $(this);
