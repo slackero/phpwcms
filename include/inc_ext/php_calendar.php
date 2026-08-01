@@ -9,15 +9,15 @@
  * - 2020-04-15: refactored, solve deprecated functions
  **/
 
-function generate_calendar($param = array()) {
+function generate_calendar($param = []) {
     if (!defined('THIS_YEAR')) {
-        define('THIS_YEAR', date('Y'));
+        define('THIS_YEAR', (int)date('Y'));
     }
     if (!defined('THIS_MONTH')) {
-        define('THIS_MONTH', date('n'));
+        define('THIS_MONTH', (int)date('n'));
     }
     if (!defined('THIS_DAY')) {
-        define('THIS_DAY', date('j'));
+        define('THIS_DAY', (int)date('j'));
     }
 
     $year            = empty($param['year']) ? THIS_YEAR : $param['year'];
@@ -28,8 +28,8 @@ function generate_calendar($param = array()) {
     $weekNr          = empty($param['weekNr']) ? TRUE : $param['weekNr'];
     $weekNrTitle     = empty($param['weekNrTitle']) ? 'Wno' : $param['weekNrTitle'];
     $styleAdd        = empty($param['styleAdd']) ? '' : $param['styleAdd'];
-    $pn              = isset($param['pn']) && is_array($param['pn']) ? $param['pn'] : array();
-    $days            = isset($param['days']) && is_array($param['days']) ? $param['days'] : array();
+    $pn              = isset($param['pn']) && is_array($param['pn']) ? $param['pn'] : [];
+    $days            = isset($param['days']) && is_array($param['days']) ? $param['days'] : [];
     $locale          = empty($param['locale']) ? FALSE : $param['locale'];
 
     // set correct locale
@@ -43,8 +43,8 @@ function generate_calendar($param = array()) {
     // for instance, mktime(0,0,0,12,32,1997) will be the date for Jan 1, 1998
     // this provides a built in "rounding" feature to generate_calendar()
 
-    $day_names = array(); //generate all the day names according to the current locale
-    for ($n = 0, $t = (3 + $first_day) * 86400; $n < 7; $n++, $t += 86400) {//January 4, 1970 was a Sunday
+    $day_names = []; //generate all the day names according to the current locale
+    for ($n = 0, $t = (3 + $first_day) * 86400; $n < 7; $n++, $t += 86400) { //January 4, 1970, was a Sunday
         $day_names[$n] = ucfirst(gmdate('l', $t)); //%A means full textual day name
     }
 
@@ -114,7 +114,7 @@ function generate_calendar($param = array()) {
             $weekStart++;
         }
 
-        $thisSelected = intval($year) == THIS_YEAR && intval($month) == THIS_MONTH && $day == THIS_DAY;
+        $thisSelected = (int)$year == THIS_YEAR && (int)$month == THIS_MONTH && (int)$day == THIS_DAY;
 
         $checkDay = $YYYYmm . substr('0' . $day, -2);
         if (isset($days[$checkDay]) && is_array($days[$checkDay])) {
@@ -152,12 +152,5 @@ function generate_calendar($param = array()) {
 }
 
 function tzdelta($iTime = 0) {
-    if (!$iTime) {
-        $iTime = time();
-    }
-    $ar = localtime($iTime);
-    $ar[5] += 1900;
-    $ar[4]++;
-    $iTztime = gmmktime($ar[2], $ar[1], $ar[0], $ar[4], $ar[3], $ar[5], $ar[8]);
-    return ($iTztime - $iTime);
+    return (int) date('Z', $iTime ?: time());
 }

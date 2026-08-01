@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------------------
   SPAF_FormValidator.class.php
  ------------------------------------------------------------------------------
-  version  : 1.01
+  version  : 1.02
   author   : martynas@solmetra.com
  ------------------------------------------------------------------------------
   Form validation class
@@ -10,8 +10,8 @@
 
 class SPAF_FormValidator {
     // !!! EDITABLE CONFIGURATION ===============================================
-    var $lib_dir = 'lib/';
-    var $backgrounds = array(
+    public string $lib_dir = 'lib/';
+    public array $backgrounds = [
         '01.png',
         '02.png',
         '03.png',
@@ -24,258 +24,175 @@ class SPAF_FormValidator {
         '10.png',
         '11.png',
         '12.png',
-    );
-    var $fonts = array(
+    ];
+    public array $fonts = [
         'solmetra1.ttf',
         'solmetra2.ttf',
         'solmetra3.ttf',
         'solmetra4.ttf',
-    );
-    var $font_sizes = array( 13, 14, 15 );
-    var $colors = array(
-        array( 221, 27, 27 ),
-        array( 94, 71, 212 ),
-        array( 212, 71, 210 ),
-        array( 8, 171, 0 ),
-        array( 234, 142, 0 ),
-    );
-    var $shadow_color = array( 255, 255, 255 );
-    var $hide_shadow = false;
-    var $char_num = 5;
-    var $chars = array(
-        'A',
-        'C',
-        'D',
-        'E',
-        'F',
-        'H',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'R',
-        'S',
-        'T',
-        'Y',
-        '3',
-        '4',
-        '6',
-        '7',
-        '9',
-    );
-    var $session_var = 'spaf_form_validator_tag';
+    ];
+    public array $font_sizes = [13, 14, 15];
+    public array $colors = [
+        [221, 27, 27],
+        [94, 71, 212],
+        [212, 71, 210],
+        [8, 171, 0],
+        [234, 142, 0],
+    ];
+    public array $shadow_color = [255, 255, 255];
+    public bool $hide_shadow = false;
+    public int $char_num = 5;
+    public array $chars = [
+        'A', 'C', 'D', 'E', 'F', 'H', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'R', 'S', 'T', 'Y', '3', '4', '6', '7', '9',
+    ];
+    public string $session_var = 'spaf_form_validator_tag';
 
-    var $no_session = false;  // If this is set to true following config
-    // variables must also be set
+    public bool $no_session = false;
 
-    var $work_dir = 'work'; // If $no_session is set to true set this variable
-    // to the directory in which FormValidator will
-    // create its temporary files.
-    // If path begins with a backslash (i.e. /tmp),
-    // FormValidator will assume it's an absolute path
-    // Otherwise path will be treated as relative to
-    // FormValidator class location.
-    // Please note that this directory must be
-    // writable to PHP scripts.
-
-    var $work_ext = 'spaf'; // An extention to use for temporary work files
-
-    var $tag_ttl = 120;    // Number of minutes to consider user tag valid
-    // Used only in conjunction with:
-    // $no_session = true
-
-    var $tag_cookie = 'spaf_formvalidator'; // the name of cookie to be used
-    // for tagging a user
-
-    var $gc_prob = 1;      // Percental probability for garbage collector to
-    // launch per each instance of FormValidator
-    // class. Garbage collector is needed to remove
-    // old user tag files from disk if you use
-    // $no_session = true
-    // 0 means GC will never launch
-    // 100 means GC will launch everytime you
-    // instantiate this class
+    public string $work_dir = 'work';
+    public string $work_ext = 'spaf';
+    public int $tag_ttl = 120;
+    public string $tag_cookie = 'spaf_formvalidator';
+    public int $gc_prob = 1;
 
     // !!! DO NOT CHANGE ANYTHING BELOW THIS LINE ===============================
-    var $img_func_suffix = 'png';
+    public string $img_func_suffix = 'png';
 
-    function __construct() {
-        // set properties that might have been accidentally removed
-        if ( ! isset( $this->session_var ) ) {
-            $this->session_var = 'spaf_formvalidator';
-        }
-        if ( ! isset( $this->no_session ) ) {
-            $this->no_session = false;
-        }
-
-        // below tasks are only required if $no_session is set to true
-        if ( isset( $this->no_session ) && $this->no_session ) {
-            // set class directory if none specified
-            if ( $this->work_dir == '' ) {
-                $this->work_dir = dirname( __FILE__ ) . '/';
-            } // set a relative path
-            elseif ( substr( $this->work_dir, 0, 1 ) != '/' ) {
-                $this->work_dir = dirname( __FILE__ ) . '/' . $this->work_dir;
+    public function __construct() {
+        if ($this->no_session) {
+            if ($this->work_dir === '') {
+                $this->work_dir = __DIR__ . '/';
+            } elseif (!str_starts_with($this->work_dir, '/')) {
+                $this->work_dir = __DIR__ . '/' . $this->work_dir;
             }
 
-            // add backslash at the end of path if necessary
-            if ( substr( $this->work_dir, - 1 ) != '/' ) {
+            if (!str_ends_with($this->work_dir, '/')) {
                 $this->work_dir .= '/';
             }
 
-            // launch garbage collector
-            if ( mt_rand( 1, 100 ) < $this->gc_prob ) {
+            if (random_int(1, 100) < $this->gc_prob) {
                 $this->launchGC();
             }
-        } // tasks that are required for session enabled operation
-        else {
-            // check if session is started
-            if ( ! isset( $_SESSION ) ) {
-                session_start();
-            }
+        } elseif (!isset($_SESSION)) {
+            session_start();
         }
     }
 
-    function setLibDir( $dir ) {
+    public function setLibDir(string $dir): void {
         $this->lib_dir = $dir;
     }
 
-    function tagUser() {
-        if ( $this->no_session ) {
-            // generate validation word and secret identity cookie
-            $tag    = $this->getRandomString( $this->char_num );
-            $cookie = md5( microtime() . $_SERVER['REMOTE_ADDR'] );
+    public function tagUser(): bool {
+        if ($this->no_session) {
+            $tag    = $this->getRandomString($this->char_num);
+            $cookie = md5(microtime() . $_SERVER['REMOTE_ADDR']);
 
-            // set cookie
-            setcookie( $this->tag_cookie, $cookie, 0, '/' );
-            $_COOKIE[ $this->tag_cookie ] = $cookie;
+            setcookie($this->tag_cookie, $cookie, 0, '/');
+            $_COOKIE[$this->tag_cookie] = $cookie;
 
-            // write to a file
-            $this->writeFile( $this->work_dir . $cookie . '.' . $this->work_ext, $tag );
+            $this->writeFile($this->work_dir . $cookie . '.' . $this->work_ext, $tag);
         } else {
-            // set session variable
-            // ATTENTION! Session must be already started with session_start()
-            $_SESSION[ $this->session_var ] = $this->getRandomString( $this->char_num );
+            $_SESSION[$this->session_var] = $this->getRandomString($this->char_num);
         }
 
         return true;
     }
 
-    function getUserTag() {
-        // get current tag
-        if ( $this->no_session ) {
-            if ( ! isset( $_COOKIE[ $this->tag_cookie ] ) || isset( $_GET['regen'] ) ) {
-                // user is not tagged - issue new tag
+    public function getUserTag(): ?string {
+        if ($this->no_session) {
+            $cookie = isset($_COOKIE[$this->tag_cookie]) ? preg_replace('/[^a-f0-9]/i', '', $_COOKIE[$this->tag_cookie]) : '';
+            if (isset($_GET['regen']) || strlen($cookie) !== 32) {
                 $this->tagUser();
+                $cookie = $_COOKIE[$this->tag_cookie];
             }
 
-            // get the work file
-            if ( ! file_exists( $this->work_dir . $_COOKIE[ $this->tag_cookie ] . '.' . $this->work_ext ) ) {
-                // file does not exist - reissue the tag once again to recreate the file
+            $filePath = $this->work_dir . $cookie . '.' . $this->work_ext;
+            if (!file_exists($filePath)) {
                 $this->tagUser();
+                $filePath = $this->work_dir . $_COOKIE[$this->tag_cookie] . '.' . $this->work_ext;
             }
 
-            return @file_get_contents( $this->work_dir . $_COOKIE[ $this->tag_cookie ] . '.' . $this->work_ext );
-        } else {
-            if ( ! isset( $_SESSION[ $this->session_var ] ) || isset( $_GET['regen'] ) ) {
-                // user is not tagged - issue new tag
-                $this->tagUser();
-            }
-
-            return $_SESSION[ $this->session_var ];
+            $content = @file_get_contents($filePath);
+            return $content !== false ? $content : null;
         }
+
+        if (!isset($_SESSION[$this->session_var]) || isset($_GET['regen'])) {
+            $this->tagUser();
+        }
+
+        return $_SESSION[$this->session_var] ?? null;
     }
 
-    function validRequest( $req ) {
-        return strtolower( $this->getUserTag() ) === strtolower( $req );
+    public function validRequest(mixed $req): bool {
+        return strtolower((string) $this->getUserTag()) === strtolower((string) $req);
     }
 
-    function getRandomString( $chars = 5 ) {
+    public function getRandomString(int $chars = 5): string {
         $str = '';
-        $cnt = sizeof( $this->chars );
-        for ( $i = 0; $i < $chars; $i ++ ) {
-            $str .= $this->chars[ mt_rand( 0, $cnt - 1 ) ];
+        $cnt = count($this->chars);
+        for ($i = 0; $i < $chars; $i++) {
+            $str .= $this->chars[random_int(0, $cnt - 1)];
         }
 
         return $str;
     }
 
-    function streamImage() {
-        // select random background
-        $background = $this->backgrounds[ mt_rand( 0, sizeof( $this->backgrounds ) - 1 ) ];
+    public function streamImage(): bool {
+        $background = $this->backgrounds[random_int(0, count($this->backgrounds) - 1)];
 
-        // set proper image format according to selected background image
-        $this->setImageFormat( $background );
+        $this->setImageFormat($background);
 
-        // create image resource
-        $function = "imagecreatefrom" . $this->img_func_suffix;
-        $image    = $function( $this->lib_dir . $background );
+        $function = 'imagecreatefrom' . $this->img_func_suffix;
+        $image    = $function($this->lib_dir . $background);
 
-        // create color resources
-        $colors      = array();
-        $color_count = sizeof( $this->colors );
-        for ( $i = 0; $i < $color_count; $i ++ ) {
-            $colors[] = imagecolorallocate( $image, $this->colors[ $i ][0], $this->colors[ $i ][1],
-                $this->colors[ $i ][2] );
+        $colors      = [];
+        $color_count = count($this->colors);
+        foreach ($this->colors as $iValue) {
+            $colors[] = imagecolorallocate($image, $iValue[0], $iValue[1], $iValue[2]);
         }
-        $shadow = imagecolorallocate( $image, $this->shadow_color[0], $this->shadow_color[1], $this->shadow_color[2] );
+        $shadow = imagecolorallocate($image, $this->shadow_color[0], $this->shadow_color[1], $this->shadow_color[2]);
 
-        // get secret word from session
-        $word = $this->getUserTag();
+        $word = (string) $this->getUserTag();
 
-        // calculate geometrics
-        $width  = imagesx( $image );
-        $height = imagesy( $image );
-        $lenght = strlen( $word );
-        $step   = floor( ( $width / $lenght ) * 0.9 );
+        $width  = imagesx($image);
+        $height = imagesy($image);
+        $lenght = strlen($word);
+        $step   = (int) floor(($width / $lenght) * 0.9);
 
-        // put letters on background
-        for ( $i = 0; $i < $lenght; $i ++ ) {
-            // get current character
-            $char = substr( $word, $i, 1 );
+        for ($i = 0; $i < $lenght; $i++) {
+            $char = substr($word, $i, 1);
 
-            // randomize letter display characteristics
-            $font_size = $this->font_sizes[ mt_rand( 0, sizeof( $this->font_sizes ) - 1 ) ];
-            $data      = array(
+            $font_size = $this->font_sizes[random_int(0, count($this->font_sizes) - 1)];
+            $data      = [
                 'size'  => $font_size,
-                'angle' => mt_rand( - 20, 20 ),
+                'angle' => random_int(-20, 20),
                 'x'     => $step * $i + 5,
-                'y'     => mt_rand( $font_size + 5, $height - 5 ),
-                'color' => $colors[ mt_rand( 0, $color_count - 1 ) ],
-                'font'  => $this->lib_dir . $this->fonts[ mt_rand( 0, sizeof( $this->fonts ) - 1 ) ],
-            );
+                'y'     => random_int($font_size + 5, $height - 5),
+                'color' => $colors[random_int(0, $color_count - 1)],
+                'font'  => $this->lib_dir . $this->fonts[random_int(0, count($this->fonts) - 1)],
+            ];
 
-            // put a shadow
-            if ( ! isset( $this->hide_shadow ) || ! $this->hide_shadow ) {
-                imagettftext( $image, $font_size, $data['angle'], $data['x'] + 1, $data['y'] + 1, $shadow,
-                    $data['font'], $char );
+            if (!$this->hide_shadow) {
+                imagettftext($image, $font_size, $data['angle'], $data['x'] + 1, $data['y'] + 1, $shadow, $data['font'], $char);
             }
 
-            // put a letter
-            imagettftext( $image, $font_size, $data['angle'], $data['x'], $data['y'], $data['color'], $data['font'],
-                $char );
+            imagettftext($image, $font_size, $data['angle'], $data['x'], $data['y'], $data['color'], $data['font'], $char);
         }
 
-        // stream image to browser
-        $function = "image" . $this->img_func_suffix;
+        $function = 'image' . $this->img_func_suffix;
 
-        header( 'Content-Type: image/' . $this->img_func_suffix );
-        $function( $image );
-        imagedestroy( $image );
+        header('Content-Type: image/' . $this->img_func_suffix);
+        $function($image);
 
         return true;
     }
 
-    function setImageFormat( $file ) {
-        // get extention
-        $arr = explode( '.', $file );
-        $ext = strtolower( $arr[ sizeof( $arr ) - 1 ] );
+    public function setImageFormat(string $file): void {
+        $arr = explode('.', $file);
+        $ext = strtolower(end($arr));
 
-        // set appropriate formats
-        switch ( $ext ) {
+        switch ($ext) {
             case 'gif':
             case 'png':
             case 'jpeg':
@@ -285,48 +202,47 @@ class SPAF_FormValidator {
                 $this->img_func_suffix = 'jpeg';
                 break;
             default:
-                // critical error - unsupported format
-                die( 'ERROR: Unsupported format!' );
+                die('ERROR: Unsupported format!');
         }
     }
 
-    function destroy() {
-        if ( $this->no_session ) {
-            // remove physical file and cookie
-            @unlink( $this->work_dir . $_COOKIE[ $this->tag_cookie ] . '.' . $this->work_ext );
-            unset( $_COOKIE[ $this->tag_cookie ] );
-            setcookie( $this->tag_cookie, '', 0, '/' );
+    public function destroy(): bool {
+        if ($this->no_session) {
+            $cookie = isset($_COOKIE[$this->tag_cookie]) ? preg_replace('/[^a-f0-9]/i', '', $_COOKIE[$this->tag_cookie]) : '';
+            if (strlen($cookie) === 32) {
+                @unlink($this->work_dir . $cookie . '.' . $this->work_ext);
+            }
+            unset($_COOKIE[$this->tag_cookie]);
+            setcookie($this->tag_cookie, '', 0, '/');
         } else {
-            // remove session variable
-            unset( $_SESSION[ $this->session_var ] );
+            unset($_SESSION[$this->session_var]);
         }
 
         return true;
     }
 
-    function launchGC() {
-        // open work directory
-        if ( $dir = @opendir( $this->work_dir ) ) {
-            // check each file
-            while ( false !== ( $file = @readdir( $dir ) ) ) {
-                $fdata = pathinfo( $file );
-                if ( $fdata['extension'] == $this->work_ext && ( filemtime( $this->work_dir . $file ) < ( time() - ( $this->tag_ttl * 60 ) ) ) ) {
-                    // remove expired file
-                    @unlink( $this->work_dir . $file );
+    public function launchGC(): bool {
+        if ($dir = @opendir($this->work_dir)) {
+            while (false !== ($file = @readdir($dir))) {
+                $fdata = pathinfo($file);
+                if (isset($fdata['extension']) && $fdata['extension'] === $this->work_ext && (filemtime($this->work_dir . $file) < (time() - ($this->tag_ttl * 60)))) {
+                    @unlink($this->work_dir . $file);
                 }
             }
-            @closedir( $dir );
+            @closedir($dir);
         }
 
         return true;
     }
 
-    function writeFile( $file, $content ) {
-        $fl  = @fopen( $file, 'w' );
-        $ret = @fwrite( $fl, $content );
-        @fclose( $fl );
+    public function writeFile(string $file, string $content): int|false {
+        $fl  = @fopen($file, 'w');
+        if ($fl === false) {
+            return false;
+        }
+        $ret = @fwrite($fl, $content);
+        @fclose($fl);
 
         return $ret;
     }
-
 }
