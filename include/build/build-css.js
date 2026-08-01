@@ -67,3 +67,16 @@ for (const item of copyMap) {
         console.warn(`[!] Warning: Source not found: ${srcPath}`);
     }
 }
+
+// 3. Sync FontAwesome webfonts to include/webfonts/
+const fontSrcDir = path.join(__dirname, '../../node_modules/@fortawesome/fontawesome-free/webfonts');
+const fontDestDir = path.join(includeDir, 'webfonts');
+
+if (fs.existsSync(fontSrcDir)) {
+    fs.mkdirSync(fontDestDir, { recursive: true });
+    const fonts = fs.readdirSync(fontSrcDir);
+    for (const font of fonts) {
+        fs.copyFileSync(path.join(fontSrcDir, font), path.join(fontDestDir, font));
+    }
+    console.log(`[✓] Synced ${fonts.length} FontAwesome webfonts to include/webfonts/`);
+}
