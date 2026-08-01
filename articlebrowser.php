@@ -114,10 +114,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/backend.functions.inc.php';
     <meta charset="<?php echo PHPWCMS_CHARSET ?>">
     <title><?php echo $BL['be_articlebrowser_selector']; ?></title>
 
-    <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <style>
         tr.struct:hover {
             background-color: #CCFF00;

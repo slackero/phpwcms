@@ -146,12 +146,8 @@ $count_user_files = _dbQuery($sql, 'COUNT');
 <head>
     <title><?php echo $titel ?></title>
     <meta charset="<?php echo PHPWCMS_CHARSET ?>" />
-    <link href="include/inc_css/phpwcms.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css" />
-    <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/dropzone.min.css" rel="stylesheet" type="text/css">
     <script src="include/inc_js/jquery/jquery-3.7.1.min.js"></script>
     <script src="include/inc_js/dropzone.min.js"></script>
     <?php echo getJavaScriptTranslations(); ?>

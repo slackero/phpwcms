@@ -1,0 +1,23 @@
+{
+  "name": "phpwcms",
+  "version": "2.0.0-dev",
+  "description": "phpwcms web content management system asset build scripts",
+  "private": true,
+  "scripts": {
+    "build:css": "node include/build/build-css.js",
+    "build:js": "node include/build/build-js.js",
+    "build": "npm run build:css && npm run build:js"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "bootstrap": "^4.6.2",
+    "dayjs": "^1.11.21",
+    "dropzone": "^5.9.3",
+    "flag-icons": "^7.5.0",
+    "flatpickr": "^4.6.13",
+    "jquery": "^3.7.1",
+    "lightningcss": "^1.29.2",
+    "terser": "^5.49.0",
+    "tom-select": "^2.6.2"
+  }
+}

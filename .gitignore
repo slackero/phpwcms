@@ -19,7 +19,6 @@ composer.lock
 !.htaccess
 !.gitignore
 include/config.codekit3
-/include/build
 /.htaccess
 
 # Ignore files of the composer packages
@@ -57,3 +56,5 @@ include/config.codekit3
 /stacklit.html
 /.mcp.json
 /.phpstan/cache/
+node_modules/
+

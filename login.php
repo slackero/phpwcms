@@ -317,10 +317,7 @@ $reason_types = array(
 	<meta charset="<?php echo PHPWCMS_CHARSET ?>">
 	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
 	<meta name="robots" content="noindex, nofollow">
-	<link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/login.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
-	<link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
+	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>
 <?php endif; ?>

@@ -68,7 +68,7 @@ if(is_array($ftp["mark"]) && count($ftp["mark"])) {
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta name="robots" content="noindex,nofollow">
-    <link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
+    <link href="../inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         body {
             background-color: #EBF2F4;

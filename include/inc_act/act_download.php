@@ -93,7 +93,7 @@ if($err):
 <head>
 <title>phpwcms File Error</title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-<link href="../inc_css/phpwcms.min.css" rel="stylesheet" type="text/css">
+<link href="../inc_css/backend.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <h1>Download Error</h1>

@@ -539,10 +539,7 @@ function handle_csrf_error($reason)
         $reason_desc = $BL['CSRF_GET_FAILED'] ?? 'Validating <a href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parameters failed. Navigation aborted.';
     }
 
-    $bootstrap_css = PHPWCMS_URL . 'include/inc_css/bootstrap.min.css';
-    $login_css = PHPWCMS_URL . 'include/inc_css/login.min.css';
-    $fontawesome_css = PHPWCMS_URL . 'include/inc_css/phpwcms-fontawesome.min.css';
-    $special_css = PHPWCMS_URL . 'include/inc_css/phpwcmsspecial.min.css';
+    $backend_css = PHPWCMS_URL . 'include/inc_css/backend.min.css';
     $logo_svg = PHPWCMS_URL . 'img/logo.svg';
 
     ?>
@@ -552,10 +549,7 @@ function handle_csrf_error($reason)
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo html_specialchars($reason_title); ?> - phpwcms</title>
-        <link href="<?php echo $bootstrap_css; ?>" rel="stylesheet" type="text/css">
-        <link href="<?php echo $login_css; ?>" rel="stylesheet" type="text/css">
-        <link href="<?php echo $fontawesome_css; ?>" rel="stylesheet" type="text/css">
-        <link href="<?php echo $special_css; ?>" rel="stylesheet" type="text/css">
+        <link href="<?php echo $backend_css; ?>" rel="stylesheet" type="text/css">
     </head>
     <body id="login">
     <div id="container">

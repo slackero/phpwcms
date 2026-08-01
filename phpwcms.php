@@ -247,10 +247,7 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 <head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
-    <link href="include/inc_css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/flag-icon.min.css" rel="stylesheet">
-    <link href="include/inc_css/phpwcms-fontawesome.min.css" rel="stylesheet" type="text/css">
-    <link href="include/inc_css/phpwcmsspecial.min.css" rel="stylesheet" type="text/css">
+    <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- phpwcms CSP -->
