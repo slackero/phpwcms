@@ -142,10 +142,6 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a>
     </li>
     <li>
-        <a href="http://www.JavascriptToolbox.com" target="_blank"><strong>JavascriptToolbox.com</strong></a> JavaScripts,
-        Matt Kruse &lt;matt@mattkruse.com&gt;
-    </li>
-    <li>
         <a href="https://jquery.com/" target="_blank"><strong>jQuery</strong></a>,
         Copyright &copy; OpenJS Foundation and jQuery contributors,
         <a href="https://jquery.org/license/" target="_blank">MIT License</a>
@@ -218,11 +214,6 @@ if (!defined('PHPWCMS_ROOT')) {
         <a href="https://videojs.com/" target="_blank"><strong>Video.js</strong></a>,
         Copyright &copy; Brightcove, Inc.,
         <a href="https://github.com/videojs/video.js/blob/main/LICENSE" target="_blank">Apache-2.0 License</a>
-    </li>
-    <li>
-        <a href="http://www.walterzorn.com/" target="_blank"><strong>wz_js Scripts</strong></a>,
-        Copyright &copy; 2002-2009 Walter Zorn,
-        <a href="http://www.fsf.org/licensing/licenses/lgpl.html" target="_blank">GNU LGPL</a>
     </li>
     <li>
         <?php echo $BL['be_about_and_contributors']; ?>
