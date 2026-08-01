@@ -14,11 +14,6 @@ function phpwcms_revision_r427() {
 
 	$status = true;
 
-	// do former revision check – fallback to r427
-	$r421 = '421';
-	if(phpwcms_revision_check_temp($r421) !== true) {
-		$status = phpwcms_revision_check($r421);
-	}
 
 	// Change some missing default values for older releases
 	$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article CHANGE article_menutitle article_menutitle VARCHAR(255) NOT NULL DEFAULT  ''", 'ALTER');

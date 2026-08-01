@@ -14,10 +14,6 @@ function phpwcms_revision_r549() {
 
     $status = true;
 
-    // do former revision check – fallback to r548
-    if(phpwcms_revision_check_temp('548') !== true) {
-        $status = phpwcms_revision_check('548');
-    }
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_title'");
 

@@ -14,10 +14,6 @@ function phpwcms_revision_r529() {
 
 	$status = true;
 
-	// do former revision check – fallback to r528
-	if(phpwcms_revision_check_temp('528') !== true) {
-		$status = phpwcms_revision_check('528');
-	}
 
 	// reset article and file manager status (open/close)
 	_dbUpdate('phpwcms_user', array(

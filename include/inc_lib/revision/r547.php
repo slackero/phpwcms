@@ -14,10 +14,6 @@ function phpwcms_revision_r547() {
 
     $status = true;
 
-    // do former revision check – fallback to r546
-    if(phpwcms_revision_check_temp('546') !== true) {
-        $status = phpwcms_revision_check('546');
-    }
 
     if($status) {
         // Update file image dimensions

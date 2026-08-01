@@ -13,10 +13,6 @@ function phpwcms_revision_r553() {
 
 	$status = true;
 
-	// do former revision check – fallback to r552
-	if(phpwcms_revision_check_temp('552') !== true) {
-		$status = phpwcms_revision_check('552');
-	}
 
     setcookie('phpwcmsBELang', '', time() - 42000);
     unset($_COOKIE['phpwcmsBELang']);

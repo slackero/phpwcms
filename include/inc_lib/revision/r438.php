@@ -14,10 +14,6 @@ function phpwcms_revision_r438() {
 
 	$status = true;
 
-	// do former revision check – fallback to r427
-	if(phpwcms_revision_check_temp('427') !== true) {
-		$status = phpwcms_revision_check('427');
-	}
 
 	// Fix possible problem
 	_dbQuery('UPDATE '.DB_PREPEND."phpwcms_article SET article_subtitle = '' WHERE article_subtitle = '0'", 'UPDATE');

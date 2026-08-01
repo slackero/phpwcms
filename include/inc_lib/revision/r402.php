@@ -12,11 +12,6 @@
 // Revision 402 Update Check
 function phpwcms_revision_r402() {
 
-	// do former revision check
-	$r401 = '401';
-	if(phpwcms_revision_check_temp($r401) !== true) {
-		phpwcms_revision_check($r401);
-	}
 
 	return true;
 }

@@ -14,17 +14,10 @@ function phpwcms_revision_r533() {
 
 	$status = true;
 
-	// do former revision check – fallback to r532
-	if(phpwcms_revision_check_temp('532') !== true) {
-		$status = phpwcms_revision_check('532');
-	}
 
-	$result = _dbQuery("SHOW TABLES LIKE '".DB_PREPEND."phpwcms_shop_products'");
+	if(_dbTableExists('phpwcms_shop_products')) {
 
-	if(!empty($result)) {
-
-		$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_shop_products LIKE 'shopprod_overwrite_meta'");
-		if(empty($result)) {
+		if(!_dbColumnExists('phpwcms_shop_products', 'shopprod_overwrite_meta')) {
 			$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_shop_products ADD shopprod_overwrite_meta INT(1) NOT NULL DEFAULT '1'", 'ALTER');
 		}
 

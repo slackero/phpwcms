@@ -17,10 +17,6 @@ function phpwcms_revision_r554() {
 
     $status = true;
 
-    // do former revision check – fallback to r553
-    if(phpwcms_revision_check_temp('553') !== true) {
-        $status = phpwcms_revision_check('553');
-    }
 
     if (!$status) {
         return false;

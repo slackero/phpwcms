@@ -15,17 +15,10 @@ function phpwcms_revision_r416() {
 	$status = true;
 
 	// Add column for default content part
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_cpdefault'");
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_cpdefault')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_cpdefault INT(10) UNSIGNED NOT NULL DEFAULT '0'", 'ALTER');
 	}
 
-	// do former revision check
-	// r415 requires no action, so fallback to r414
-	$r414 = '414';
-	if(phpwcms_revision_check_temp($r414) !== true) {
-		$status = phpwcms_revision_check($r414);
-	}
 
 	return $status;
 

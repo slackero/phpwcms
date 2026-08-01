@@ -12,9 +12,7 @@
 function phpwcms_revision_r401() {
 
 	// check if article description field exists
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_article LIKE 'article_description'", 'COUNT_SHOW');
-
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_article', 'article_description')) {
 		return _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_description VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 	}
 

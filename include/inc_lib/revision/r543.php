@@ -14,14 +14,8 @@ function phpwcms_revision_r543() {
 
 	$status = true;
 
-	// do former revision check – fallback to r542
-	if(phpwcms_revision_check_temp('542') !== true) {
-		$status = phpwcms_revision_check('542');
-	}
 
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_title'");
-
-	if(!isset($result[0])) {
+	if(!_dbColumnExists('phpwcms_file', 'f_title')) {
 
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_title` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
 
@@ -31,8 +25,7 @@ function phpwcms_revision_r543() {
 
 		} else {
 
-    		$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_alt'");
-        	if(!isset($result[0])) {
+    		if(!_dbColumnExists('phpwcms_file', 'f_alt')) {
 
         		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_file` ADD `f_alt` VARCHAR(1000) NOT NULL DEFAULT '' AFTER `f_sort`", 'ALTER');
 

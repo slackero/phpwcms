@@ -14,10 +14,6 @@ function phpwcms_revision_r514() {
 
 	$status = true;
 
-	// do former revision check – fallback to r509
-	if(phpwcms_revision_check_temp('509') !== true) {
-		$status = phpwcms_revision_check('509');
-	}
 
 	// Delete
 

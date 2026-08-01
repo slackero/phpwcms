@@ -401,14 +401,18 @@ ob_start();
     }
 
     if(file_exists(PHPWCMS_ROOT.'/phpwcms_code_snippets')) {
-        echo '<div class="alert alert-danger">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
+        echo '<div class="alert alert-danger" role="alert">'.$BL["phpwcms_code_snippets_dir_exists"].'</div>';
+    }
+
+    if(!empty($GLOBALS['phpwcms']['revision_error'])) {
+        echo '<div class="alert alert-danger" role="alert">'.html_specialchars($GLOBALS['phpwcms']['revision_error']).'</div>';
     }
 
     if(($phpwcms['image_library'] === 'gd' || $phpwcms['image_library'] === 'gd2') && (!extension_loaded('gd') || !function_exists('gd_info'))) {
-        echo '<div class="alert alert-danger" style="font-weight:normal;">'.$BL['gd_not_loaded'].'</div>';
+        echo '<div class="alert alert-danger" role="alert">'.$BL['gd_not_loaded'].'</div>';
     }
 
-    echo '<div class="alert alert-danger"';
+    echo '<div class="alert alert-danger" role="alert"';
     if(!$err) {
         echo ' style="display:none;"';
     }

@@ -14,13 +14,8 @@ function phpwcms_revision_r551() {
 
 	$status = true;
 
-	// do former revision check – fallback to r550
-	if(phpwcms_revision_check_temp('550') !== true) {
-		$status = phpwcms_revision_check('550');
-	}
 
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_meta'");
-	if(!isset($result[0])) {
+	if(!_dbColumnExists('phpwcms_article', 'article_meta')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` ADD `article_meta` MEDIUMTEXT NOT NULL DEFAULT ''", 'ALTER');
 		if(!$insert) {
 			$status = false;

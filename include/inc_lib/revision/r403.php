@@ -14,31 +14,19 @@ function phpwcms_revision_r403() {
 
 	$status = true;
 
-	// do former revision check
-	// r402 required no action, so fallback to r401
-	$r401 = '401';
-	if(phpwcms_revision_check_temp($r401) !== true) {
-		$status = phpwcms_revision_check($r401);
-	}
 
 	// check if article content tab field exists
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecontent LIKE 'acontent_tab'", 'COUNT_SHOW');
-
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecontent', 'acontent_tab')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD acontent_tab VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 	}
 
 	// check if new structure level class field exists
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_class'", 'COUNT_SHOW');
-
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_class')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_class VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 	}
 
 	// check if new structure level keywords field exists
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_keywords'", 'COUNT_SHOW');
-
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_keywords')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_keywords VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 	}
 

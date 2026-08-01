@@ -13,10 +13,6 @@ function phpwcms_revision_r552() {
 
 	$status = true;
 
-	// do former revision check – fallback to r551
-	if(phpwcms_revision_check_temp('551') !== true) {
-		$status = phpwcms_revision_check('551');
-	}
 
     // Try to fix SVG again
     // Search existing SVG files and try to set width and height

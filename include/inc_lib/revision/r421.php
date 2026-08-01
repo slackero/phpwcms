@@ -15,17 +15,11 @@ function phpwcms_revision_r421() {
 	$status = true;
 
 	// Add column for default content part
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_categories LIKE 'cat_sort'");
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_categories', 'cat_sort')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_categories ADD cat_sort INT(11) NOT NULL DEFAULT '0'", 'ALTER');
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_categories ADD INDEX (cat_sort)", 'ALTER');
 	}
 
-	// do former revision check – fallback to r416
-	$r416 = '416';
-	if(phpwcms_revision_check_temp($r416) !== true) {
-		$status = phpwcms_revision_check($r416);
-	}
 
 	return $status;
 

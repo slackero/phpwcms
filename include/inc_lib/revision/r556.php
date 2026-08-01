@@ -13,10 +13,6 @@ function phpwcms_revision_r556() {
 
 	$status = true;
 
-	// do former revision check – fallback to r555
-	if(phpwcms_revision_check_temp('555') !== true) {
-		$status = phpwcms_revision_check('555');
-	}
 
     // Alter phpwcms_usergroup varchar field lengths to 255
     _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` CHANGE `group_name` `group_name` VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');

@@ -14,15 +14,9 @@ function phpwcms_revision_r497() {
 
 	$status = true;
 
-	// do former revision check – fallback to r438
-	if(phpwcms_revision_check_temp('438') !== true) {
-		$status = phpwcms_revision_check('438');
-	}
 
 	// Check if seo log hash (for filter unique items) field exists
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_log_seo LIKE 'hash'", 'COUNT_SHOW');
-
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_log_seo', 'hash')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_log_seo ADD hash CHAR(32) NOT NULL DEFAULT ''", 'ALTER');
 		if($result) {
 			_dbQuery('UPDATE '.DB_PREPEND.'phpwcms_log_seo SET hash=MD5(LOWER(CONCAT(domain,query)))', 'UPDATE');
@@ -36,14 +30,24 @@ function phpwcms_revision_r497() {
 	if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 3) == 'int') {
 
 		// Drop index first
-		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference DROP INDEX cref_type', 'ALTER');
+		if (_dbIndexExists('phpwcms_crossreference', 'cref_type')) {
+			_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference DROP INDEX cref_type', 'ALTER');
+		}
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_crossreference CHANGE cref_type cref_type VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 
 		// Add new index
-		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_type)', 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_int)', 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_rid)', 'ALTER');
-		_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_str)', 'ALTER');
+		if (!_dbIndexExists('phpwcms_crossreference', 'cref_type')) {
+			_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_type)', 'ALTER');
+		}
+		if (!_dbIndexExists('phpwcms_crossreference', 'cref_int')) {
+			_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_int)', 'ALTER');
+		}
+		if (!_dbIndexExists('phpwcms_crossreference', 'cref_rid')) {
+			_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_rid)', 'ALTER');
+		}
+		if (!_dbIndexExists('phpwcms_crossreference', 'cref_str')) {
+			_dbQuery("ALTER TABLE ".DB_PREPEND. 'phpwcms_crossreference ADD INDEX (cref_str)', 'ALTER');
+		}
 
 		if ($result) {
 			// Update feedimport References
@@ -52,18 +56,15 @@ function phpwcms_revision_r497() {
 	}
 
 	// add language to article category, article and content part
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_lang'", 'COUNT_SHOW');
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_lang')) {
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD INDEX (acat_lang)", 'ALTER');
 	}
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_article LIKE 'article_lang'", 'COUNT_SHOW');
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_article', 'article_lang')) {
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD INDEX (article_lang)", 'ALTER');
 	}
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecontent LIKE 'acontent_lang'", 'COUNT_SHOW');
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecontent', 'acontent_lang')) {
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD acontent_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecontent ADD INDEX (acontent_lang)", 'ALTER');
 	}

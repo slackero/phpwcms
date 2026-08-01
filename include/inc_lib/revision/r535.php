@@ -14,10 +14,6 @@ function phpwcms_revision_r535() {
 
 	$status = true;
 
-	// do former revision check – fallback to r534
-	if(phpwcms_revision_check_temp('534') !== true) {
-		$status = phpwcms_revision_check('534');
-	}
 
 	// change type of some content related fields from TEXT to MEDIUMTEXT
 

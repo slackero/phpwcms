@@ -14,10 +14,6 @@ function phpwcms_revision_r550() {
 
     $status = true;
 
-    // do former revision check – fallback to r548
-    if(phpwcms_revision_check_temp('549') !== true) {
-        $status = phpwcms_revision_check('549');
-    }
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_shop_products` WHERE Field='shopprod_inventory'");
 

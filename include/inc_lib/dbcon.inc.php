@@ -168,12 +168,47 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
 
     }
 
+    if ($_queryMode === 'ALTER') {
+        $errno = _dbErrorNum();
+        // 1060: Duplicate column name, 1061: Duplicate key name, 1091: Can't DROP key/column
+        if ($errno === 1060 || $errno === 1061 || $errno === 1091) {
+            return true;
+        }
+    }
+
     _dbLogError(_dbError('LOG', $query));
     return false;
 }
 
 function _dbCount($query='') {
     return _dbQuery($query, 'COUNT');
+}
+
+function _dbColumnExists($table='', $column_name='', $prefix=null) {
+    if (empty($table) || empty($column_name)) {
+        return false;
+    }
+    $table_name = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $result = _dbQuery('SHOW COLUMNS FROM `' . _dbEscape($table_name, false) . '` LIKE ' . _dbEscape($column_name));
+    return !empty($result);
+}
+
+function _dbTableExists($table='', $prefix=null) {
+    if (empty($table)) {
+        return false;
+    }
+    $table_name = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $result = _dbQuery('SHOW TABLES LIKE ' . _dbEscape($table_name));
+    return !empty($result);
+}
+
+function _dbIndexExists($table='', $index_name='', $prefix=null) {
+    if (empty($table) || empty($index_name)) {
+        return false;
+    }
+    $table_name = (is_string($prefix) ? $prefix : DB_PREPEND) . $table;
+    $result = _dbQuery('SHOW INDEX FROM `' . _dbEscape($table_name, false) . '` WHERE Key_name=' . _dbEscape($index_name));
+    return !empty($result);
 }
 
 // function for simplified insert

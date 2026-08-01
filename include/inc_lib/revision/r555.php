@@ -13,18 +13,12 @@ function phpwcms_revision_r555() {
 
 	$status = true;
 
-	// do former revision check – fallback to r554
-	if(phpwcms_revision_check_temp('554') !== true) {
-		$status = phpwcms_revision_check('554');
-	}
 
 	// Self-healing check for group_syskey and group_modkey columns
-	$check_syskey = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_usergroup` LIKE 'group_syskey'");
-	if (empty($check_syskey)) {
+	if(!_dbColumnExists('phpwcms_usergroup', 'group_syskey')) {
 		_dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` ADD `group_syskey` VARCHAR(255) NOT NULL DEFAULT '' AFTER `group_active`", 'ALTER');
 	}
-	$check_modkey = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_usergroup` LIKE 'group_modkey'");
-	if (empty($check_modkey)) {
+	if(!_dbColumnExists('phpwcms_usergroup', 'group_modkey')) {
 		_dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_usergroup` ADD `group_modkey` VARCHAR(20) NOT NULL AFTER `group_active`", 'ALTER');
 	}
 

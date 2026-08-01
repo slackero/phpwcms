@@ -14,10 +14,6 @@ function phpwcms_revision_r544() {
 
     $status = true;
 
-    // do former revision check – fallback to r543
-    if(phpwcms_revision_check_temp('543') !== true) {
-        $status = phpwcms_revision_check('543');
-    }
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_calendar` WHERE Field='calendar_refid'");
 
@@ -34,36 +30,30 @@ function phpwcms_revision_r544() {
     //modifications
 
     // Add column newsletter_pub for Newsletter modification
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_newsletter LIKE 'newsletter_pub'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_newsletter', 'newsletter_pub')) {
         $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletter ADD newsletter_pub datetime DEFAULT NULL", 'ALTER');
     }
     // Add column newsletter_lang for Newsletter modification
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_newsletter LIKE 'newsletter_lang'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_newsletter', 'newsletter_lang')) {
         $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletter ADD newsletter_lang VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
     }
     // Add column queue_opener for opene newsletter counter
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_newsletterqueue LIKE 'queue_opener'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_newsletterqueue', 'queue_opener')) {
         $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_newsletterqueue ADD queue_opener INT(11) NOT NULL DEFAULT '0'", 'ALTER');
     }
 
     // Add column f_alias for filealias modification
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_file LIKE 'f_alias'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_file', 'f_alias')) {
         $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_file ADD f_alias VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
     }
 
     // Add column group_modkey for usergroup modules
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_usergroup LIKE 'group_modkey'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_usergroup', 'group_modkey')) {
        $result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_modkey VARCHAR(20) NOT NULL AFTER `group_active`", 'ALTER');
     }
 
     // Add column group_sys for adding Sysrecords to user groups
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_usergroup LIKE 'group_syskey'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_usergroup', 'group_syskey')) {
         if(_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_usergroup ADD group_syskey VARCHAR(10) NOT NULL AFTER `group_active`", 'ALTER')) {
             //now we add new sys groups to phpwcms_usergroup
             //first we get all admin users and prepare insert value

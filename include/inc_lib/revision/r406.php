@@ -26,37 +26,27 @@ function phpwcms_revision_r406() {
     }
 
     // sysvalue_value
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_value'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_sysvalue', 'sysvalue_value')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD sysvalue_value MEDIUMTEXT NOT NULL DEFAULT ''", 'ALTER');
     } elseif(isset($result[0]['Type']) && ($result[0]['Type'] == 'text' OR $result[0]['Type'] == 'mediumblob')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue CHANGE sysvalue_value sysvalue_value MEDIUMTEXT NOT NULL", 'ALTER');
     }
 
     // sysvalue_lastchange
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_lastchange'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_sysvalue', 'sysvalue_lastchange')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD sysvalue_lastchange INT(11) NOT NULL DEFAULT 0", 'ALTER');
     }
     // sysvalue_group
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_group'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_sysvalue', 'sysvalue_group')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD sysvalue_group VARCHAR(255) NOT NULL DEFAULT ''", 'ALTER');
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD INDEX (sysvalue_group)", 'ALTER');
     }
     // sysvalue_status
-    $result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_sysvalue LIKE 'sysvalue_status'");
-    if(empty($result)) {
+    if(!_dbColumnExists('phpwcms_sysvalue', 'sysvalue_status')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD sysvalue_status INT(1) NOT NULL DEFAULT 0", 'ALTER');
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_sysvalue ADD INDEX (sysvalue_status)", 'ALTER');
     }
 
-	// do former revision check
-	// r404/405 required no action, so fallback to r403
-	$r403 = '403';
-	if(phpwcms_revision_check_temp($r403) !== true) {
-		$status = phpwcms_revision_check($r403);
-	}
 
 	return $status;
 

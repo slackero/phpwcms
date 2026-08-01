@@ -14,13 +14,8 @@ function phpwcms_revision_r542() {
 
 	$status = true;
 
-	// do former revision check – fallback to r541
-	if(phpwcms_revision_check_temp('541') !== true) {
-		$status = phpwcms_revision_check('541');
-	}
 
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_onepage'");
-	if(!isset($result[0])) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_onepage')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_articlecat` ADD `acat_onepage` INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
 		if(!$insert) {
 			$status = false;

@@ -14,10 +14,6 @@ function phpwcms_revision_r539() {
 
 	$status = true;
 
-	// do former revision check – fallback to r538
-	if(phpwcms_revision_check_temp('538') !== true) {
-		$status = phpwcms_revision_check('538');
-	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_description'");
 	if(isset($result[0]['Type']) && substr(strtolower($result[0]['Type']), 0, 7) == 'varchar') {

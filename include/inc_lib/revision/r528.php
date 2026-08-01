@@ -14,14 +14,9 @@ function phpwcms_revision_r528() {
 
 	$status = true;
 
-	// do former revision check – fallback to r514
-	if(phpwcms_revision_check_temp('514') !== true) {
-		$status = phpwcms_revision_check('514');
-	}
 
 	// add field to disable forced 302 redirect for article to structure level
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_articlecat LIKE 'acat_disable301'", 'COUNT_SHOW');
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_articlecat', 'acat_disable301')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_articlecat ADD acat_disable301 INT(1) unsigned NOT NULL DEFAULT '0'", 'ALTER');
 	}
 

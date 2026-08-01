@@ -14,10 +14,6 @@ function phpwcms_revision_r548() {
 
     $status = true;
 
-    // do former revision check – fallback to r547
-    if(phpwcms_revision_check_temp('547') !== true) {
-        $status = phpwcms_revision_check('547');
-    }
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_file` WHERE Field='f_svg'");
 

@@ -14,10 +14,6 @@ function phpwcms_revision_r538() {
 
 	$status = true;
 
-	// do former revision check – fallback to r537
-	if(phpwcms_revision_check_temp('537') !== true) {
-		$status = phpwcms_revision_check('537');
-	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecat` WHERE Field='acat_public'");
 	if(isset($result[0]['Default']) && $result[0]['Default'] == 0) {

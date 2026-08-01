@@ -14,10 +14,6 @@ function phpwcms_revision_r536() {
 
 	$status = true;
 
-	// do former revision check – fallback to r535
-	if(phpwcms_revision_check_temp('535') !== true) {
-		$status = phpwcms_revision_check('535');
-	}
 
 	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_public'");
 	if(isset($result[0]['Default']) && $result[0]['Default'] == 0) {
@@ -26,8 +22,7 @@ function phpwcms_revision_r536() {
 			$status = false;
 		}
 	}
-	$result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_article` WHERE Field='article_opengraph'");
-	if(!isset($result[0])) {
+	if(!_dbColumnExists('phpwcms_article', 'article_opengraph')) {
 		$insert = _dbQuery("ALTER TABLE `".DB_PREPEND."phpwcms_article` ADD `article_opengraph` INT(1) UNSIGNED NOT NULL DEFAULT '1', ADD INDEX (`article_opengraph`)", 'ALTER');
 		if(!$insert) {
 			$status = false;

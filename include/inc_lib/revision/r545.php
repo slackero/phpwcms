@@ -14,10 +14,6 @@ function phpwcms_revision_r545() {
 
     $status = true;
 
-    // do former revision check – fallback to r544
-    if(phpwcms_revision_check_temp('544') !== true) {
-        $status = phpwcms_revision_check('544');
-    }
 
     $result = _dbQuery("SHOW COLUMNS FROM `".DB_PREPEND."phpwcms_articlecontent` WHERE Field='acontent_attr_class'");
 

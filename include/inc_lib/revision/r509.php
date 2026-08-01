@@ -14,14 +14,9 @@ function phpwcms_revision_r509() {
 
 	$status = true;
 
-	// do former revision check – fallback to r502
-	if(phpwcms_revision_check_temp('502') !== true) {
-		$status = phpwcms_revision_check('502');
-	}
 
 	// Hide article from teaser list
-	$result = _dbQuery("SHOW COLUMNS FROM ".DB_PREPEND."phpwcms_article LIKE 'article_noteaser'", 'COUNT_SHOW');
-	if(empty($result)) {
+	if(!_dbColumnExists('phpwcms_article', 'article_noteaser')) {
 		$result = _dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD article_noteaser INT(1) UNSIGNED NOT NULL DEFAULT '0' AFTER article_morelink", 'ALTER');
 		_dbQuery("ALTER TABLE ".DB_PREPEND."phpwcms_article ADD INDEX (article_noteaser)", 'ALTER');
 	}

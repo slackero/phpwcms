@@ -14,14 +14,8 @@ function phpwcms_revision_r532() {
 
 	$status = true;
 
-	// do former revision check – fallback to r529
-	if(phpwcms_revision_check_temp('529') !== true) {
-		$status = phpwcms_revision_check('529');
-	}
 
-	$result = _dbQuery('SHOW TABLES LIKE '._dbEscape(DB_PREPEND.'phpwcms_redirect'));
-
-	if(!isset($result[0])) {
+	if(!_dbTableExists('phpwcms_redirect')) {
 
 		$sql = "CREATE TABLE IF NOT EXISTS `".DB_PREPEND."phpwcms_redirect` (
 					`rid` int(11) unsigned NOT NULL AUTO_INCREMENT,
