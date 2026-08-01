@@ -111,7 +111,7 @@ $langstr = '';
           <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_profile_label_lang'] ?></span>
           <div class="col-sm-10">
               <div class="input-group input-group-sm col-sm-10 px-0">
-                  <select class="form-control col-sm-3" name="article_lang" id="article_lang" style="max-width: 150px;">
+                  <select class="form-control col-sm-3" name="article_lang" id="article_lang" style="max-width: 200px;">
                       <option value=""<?php echo $article['article_lang'] === '' ? ' selected="selected"' : ''; ?>>
                           <?php echo get_language_name($phpwcms['default_lang']) . ' (' . $BL['be_admin_tmpl_default'] . ')'; ?>
                       </option>
