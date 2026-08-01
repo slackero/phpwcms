@@ -8,9 +8,7 @@ const cssFiles = [
     path.join(__dirname, '../../node_modules/bootstrap/dist/css/bootstrap.min.css'),
     path.join(__dirname, '../../node_modules/flag-icons/css/flag-icons.min.css'),
     path.join(includeDir, 'inc_css/phpwcms-fontawesome.css'),
-    path.join(includeDir, 'inc_css/phpwcms.css'),
-    path.join(includeDir, 'inc_css/phpwcmsspecial.css'),
-    path.join(includeDir, 'inc_css/login.css')
+    path.join(includeDir, 'inc_css/phpwcmsspecial.css')
 ];
 
 let combined = '';
@@ -22,7 +20,7 @@ for (const file of cssFiles) {
     }
 }
 
-// 1. Build backend.min.css
+// 1. Build backend.min.css with lightningcss
 const res = lightningcss.transform({
     filename: 'backend.css',
     code: Buffer.from(combined),
@@ -31,7 +29,23 @@ const res = lightningcss.transform({
 
 const targetCss = path.join(includeDir, 'inc_css/backend.min.css');
 fs.writeFileSync(targetCss, res.code);
-console.log(`[✓] backend.min.css built from node_modules + phpwcms styles (${(res.code.length / 1024).toFixed(2)} KB)`);
+console.log(`[✓] backend.min.css built with lightningcss (${(res.code.length / 1024).toFixed(2)} KB)`);
+
+// 2. Build phpwcms.min.css from phpwcms.css
+const phpwcmsCssPath = path.join(includeDir, 'inc_css/phpwcms.css');
+if (fs.existsSync(phpwcmsCssPath)) {
+    const phpwcmsCssContent = fs.readFileSync(phpwcmsCssPath, 'utf8');
+    const phpwcmsMinRes = lightningcss.transform({
+        filename: 'phpwcms.css',
+        code: Buffer.from(phpwcmsCssContent),
+        minify: true
+    });
+    const phpwcmsMinTarget = path.join(includeDir, 'inc_css/phpwcms.min.css');
+    fs.writeFileSync(phpwcmsMinTarget, phpwcmsMinRes.code);
+    console.log(`[✓] phpwcms.min.css built with lightningcss (${(phpwcmsMinRes.code.length / 1024).toFixed(2)} KB)`);
+}
+
+
 
 // 2. Copy conditional CSS assets from node_modules
 const copyMap = [
