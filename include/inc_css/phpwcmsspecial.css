@@ -382,8 +382,6 @@ header .dropdown-toggle::after {
 
 /* Action buttons wrapping prevention & icon consistency */
 .cell-actions,
-td.align-middle,
-td.text-right,
 .btn-group,
 .action-buttons {
     white-space: nowrap !important;
