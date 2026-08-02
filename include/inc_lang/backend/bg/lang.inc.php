@@ -72,8 +72,10 @@ $BL['be_func_struct_sort_down']         = 'надолу';
 $BL['be_func_struct_del_article']       = 'изтрии статията';
 $BL['be_func_struct_del_jsmsg']         = 'Наистина ли искате \nда изтриете статията?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'създаване на нова статия в нивото';
+$BL['be_func_struct_new_article_short']   = 'създаване на нова статия';
 $BL['be_func_struct_paste_article']     = 'вмъкване на статията в нивото';
 $BL['be_func_struct_insert_level']      = 'създаване на категория';
+$BL['be_func_struct_insert_level_short'] = 'създаване на категория';
 $BL['be_func_struct_paste_level']       = 'вмъкване на категория';
 $BL['be_func_struct_cut_level']         = 'изрязване на категория';
 $BL['be_func_struct_no_cut']            = "Не може да изрежете главното ниво!";
@@ -225,15 +227,16 @@ $BL['be_fprivedit_button']              = 'обнови информацията
 $BL['be_fprivedit_size']                = 'размер';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'качване файла в папка';
-$BL['be_fprivfunc_makenew']             = 'създаване на нова папка вътре';
-$BL['be_fprivfunc_paste']               = 'вмъкване файл от Обмена в папката';
+$BL['be_fprivfunc_upload']              = 'Качване на файл';
+$BL['be_fprivfunc_makenew']             = 'Създаване на нова папка';
+$BL['be_fprivfunc_paste']               = 'Вмъкване на файл';
 $BL['be_fprivfunc_edit']                = 'редактиране на папка';
 $BL['be_fprivfunc_cactive']             = 'активен/неактивен';
 $BL['be_fprivfunc_cpublic']             = 'публичен/личен';
 $BL['be_fprivfunc_deldir']              = 'изтриване на папка';
 $BL['be_fprivfunc_jsdeldir']            = 'Наистина ли искате \nда изтриете папката';
 $BL['be_fprivfunc_notempty']            = 'папката {VAL} не е празна!';
+$BL['be_fprivfunc_notempty_short']        = 'папката не е празна!';
 $BL['be_fprivfunc_opendir']             = 'отваряне на папка';
 $BL['be_fprivfunc_closedir']            = 'затваряне на папка';
 $BL['be_fprivfunc_dlfile']              = 'сваляне на файл';
@@ -755,3 +758,6 @@ $BL['be_cnt_bid_startbid']              = 'start bid';
 // added: 29-04-2004
 $BL['be_cnt_bid_nextbidadd']            = 'increase&nbsp;by';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'по подразбиране';

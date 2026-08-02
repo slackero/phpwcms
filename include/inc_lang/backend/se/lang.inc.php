@@ -77,8 +77,10 @@ $BL['be_func_struct_sort_down']         = 'flytta ned&aring;t';
 $BL['be_func_struct_del_article']       = 'radera artikel';
 $BL['be_func_struct_del_jsmsg']         = 'Vill du verkligen radera denna artikel?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'Skapa ny artikel i denna kategori';
+$BL['be_func_struct_new_article_short']   = 'Skapa ny artikel';
 $BL['be_func_struct_paste_article']     = 'Kopiera artikel till denna kategori';
 $BL['be_func_struct_insert_level']      = 'Skapa underkategori';
+$BL['be_func_struct_insert_level_short'] = 'Skapa underkategori';
 $BL['be_func_struct_paste_level']       = 'Kopiera till denna kategori';
 $BL['be_func_struct_cut_level']         = 'flytta kategori';
 $BL['be_func_struct_no_cut']            = 'Denna kategori kan inte flyttas!';
@@ -229,15 +231,16 @@ $BL['be_fprivedit_button']              = '&auml;ndra filinfo';
 $BL['be_fprivedit_size']                = 'storlek';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'h&auml;mta fil till katalogen';
-$BL['be_fprivfunc_makenew']             = 'skapa ny underkatalog';
-$BL['be_fprivfunc_paste']               = 'flytta fil till denna katalog';
+$BL['be_fprivfunc_upload']              = 'Hämta fil';
+$BL['be_fprivfunc_makenew']             = 'Skapa ny underkatalog';
+$BL['be_fprivfunc_paste']               = 'Flytta fil';
 $BL['be_fprivfunc_edit']                = '&auml;ndra katalog';
 $BL['be_fprivfunc_cactive']             = 'byt till aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic']             = 'byt till offentlig/icke offentlig';
 $BL['be_fprivfunc_deldir']              = 'radera katalog';
 $BL['be_fprivfunc_jsdeldir']            = 'Vill du verkligen radera denna katalog?';
 $BL['be_fprivfunc_notempty']            = 'katalogen {VAL} &auml;r inte tom!';
+$BL['be_fprivfunc_notempty_short']        = 'Katalogen är inte tom!';
 $BL['be_fprivfunc_opendir']             = 'öppna katalog';
 $BL['be_fprivfunc_closedir']            = 'st&auml;ng katalogen';
 $BL['be_fprivfunc_dlfile']              = 'h&auml;mta fil';
@@ -658,3 +661,6 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'standard';

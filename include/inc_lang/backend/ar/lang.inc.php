@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'ترتيب تنازلي';
 $BL['be_func_struct_del_article']       = 'مسح مقال';
 $BL['be_func_struct_del_jsmsg']         = 'هل ترغب حقاً  \nفي مسح المقال؟'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'إنشاء مقال جديد في بنية الموقع';
+$BL['be_func_struct_new_article_short']   = 'إنشاء مقال جديد';
 $BL['be_func_struct_paste_article']     = 'لصق مقال في بنية الموقع ';
 $BL['be_func_struct_insert_level']      = ' إدراج تركيب بنية الموقع في';
+$BL['be_func_struct_insert_level_short'] = 'إدراج بنية الموقع';
 $BL['be_func_struct_paste_level']       = 'لصق بنية الموقع في';
 $BL['be_func_struct_cut_level']         = 'قص بنية الموقع من';
 $BL['be_func_struct_no_cut']            = "من المستحيل قص التركيب البنيوي الجذر";
@@ -223,15 +225,16 @@ $BL['be_fprivedit_button']              = 'تحديث معلومات الملف'
 $BL['be_fprivedit_size']                = 'الحجم';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'تحميل الملف للمجلد';
-$BL['be_fprivfunc_makenew']             = 'إنشاء مجلد جديد داخل';
-$BL['be_fprivfunc_paste']               = 'لصق ملف من الحافظة داخل المجلد';
+$BL['be_fprivfunc_upload']              = 'تحميل الملف';
+$BL['be_fprivfunc_makenew']             = 'إنشاء مجلد جديد';
+$BL['be_fprivfunc_paste']               = 'لصق ملف';
 $BL['be_fprivfunc_edit']                = 'تحرير مجلد';
 $BL['be_fprivfunc_cactive']             = 'تحويل نشط/غير نشط';
 $BL['be_fprivfunc_cpublic']             = 'تحويل عام/غير عام';
 $BL['be_fprivfunc_deldir']              = 'مسح مجلد';
 $BL['be_fprivfunc_jsdeldir']            = 'هل ترغب حقاً  \nبحذف المجلد';
 $BL['be_fprivfunc_notempty']            = 'المجلد {VAL}غير فارغ!';
+$BL['be_fprivfunc_notempty_short']        = 'المجلد غير فارغ!';
 $BL['be_fprivfunc_opendir']             = 'فتح مجلد';
 $BL['be_fprivfunc_closedir']            = 'إغلاق مجلد';
 $BL['be_fprivfunc_dlfile']              = 'تحميل ملف';
@@ -647,3 +650,6 @@ $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTMLترميز لغة ';
 $BL['be_admin_struct_regonly']          = 'مرئي للزوار الذين قاموا بتسجيل الدخول للموقع فقط';
 $BL['be_admin_struct_status']           = 'حالة قائمة إعدادات واجهة زوار الموقع';
 
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'افتراضي';

@@ -34,7 +34,7 @@ if (count($content['alias_list_title'])) {
 }
 echo $BL['be_alias_ID'] . ': ';
 if(empty($content["alias"]['alias_ID'])) {
-    $content["alias"]['alias_ID'] = '–';
+    $content["alias"]['alias_ID'] = '&ndash;';
 } else {
     $content["alias"]['alias_ID'] = intval($content["alias"]['alias_ID']);
     $cntresult = _dbGet('phpwcms_articlecontent', '*', 'acontent_id=' . $content["alias"]['alias_ID'] . ' AND acontent_trash=0');
@@ -46,7 +46,7 @@ if(empty($content["alias"]['alias_ID'])) {
         $content['alias_link'] .= $wcs_content_type[$cntresult[0]['acontent_type']] . '</a>';
         $content["alias"]['alias_ID'] = '<strong>' . $content["alias"]['alias_ID'] . '</strong>';
     } else {
-        $content["alias"]['alias_ID'] = '–';
+        $content["alias"]['alias_ID'] = '&ndash;';
     }
 }
 

@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'sortiraj dole';
 $BL['be_func_struct_del_article']       = 'izbrisi clanak';
 $BL['be_func_struct_del_jsmsg']         = 'da li stvarno zelite \nizbrisati clanak?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'kreiraj novi clanak u strukturnom nivou';
+$BL['be_func_struct_new_article_short']   = 'kreiraj novi članak';
 $BL['be_func_struct_paste_article']     = 'zalijepi clanak u strukturni nivo';
 $BL['be_func_struct_insert_level']      = 'ubaci strukturni nivo u';
+$BL['be_func_struct_insert_level_short'] = 'ubaci strukturni nivo';
 $BL['be_func_struct_paste_level']       = 'zalijepi u strukturni nivo';
 $BL['be_func_struct_cut_level']         = 'izrezi strukturni nivo';
 $BL['be_func_struct_no_cut']            = "Ne moze se izrezati korijenski nivo!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'OK';
 $BL['be_fprivedit_size']                = 'velicina';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'ubaci datoteku u direktorij';
-$BL['be_fprivfunc_makenew']             = 'napravi novi direktorij u ';
-$BL['be_fprivfunc_paste']               = 'umetni datoteku iz memorije u';
+$BL['be_fprivfunc_upload']              = 'Ubaci datoteku';
+$BL['be_fprivfunc_makenew']             = 'Napravi novi direktorij';
+$BL['be_fprivfunc_paste']               = 'Umetni datoteku';
 $BL['be_fprivfunc_edit']                = 'izmjeni direktorij';
 $BL['be_fprivfunc_cactive']             = 'vidljivo/nevidljivo';
 $BL['be_fprivfunc_cpublic']             = 'javno/privatno';
 $BL['be_fprivfunc_deldir']              = 'izbrisi direktorij';
 $BL['be_fprivfunc_jsdeldir']            = 'Da li stvarno zelite da \nizbrisete direktorij';
 $BL['be_fprivfunc_notempty']            = 'direktorij {VAL} nije prazan!';
+$BL['be_fprivfunc_notempty_short']        = 'direktorij nije prazan!';
 $BL['be_fprivfunc_opendir']             = 'otvori direktorij';
 $BL['be_fprivfunc_closedir']            = 'zatvori direktorij';
 $BL['be_fprivfunc_dlfile']              = 'preuzmi datoteku na kompjuter';
@@ -1237,3 +1240,6 @@ $BL['automatic']                        = 'automatski';
 
 $BL['random_image']                     = 'nasumicna slika';
 $BL['random_image_from_list']           = 'Oznaci jednu nasumicnu sliku iz liste slika';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'podrazumijevano';

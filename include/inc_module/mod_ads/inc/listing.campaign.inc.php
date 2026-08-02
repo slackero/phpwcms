@@ -197,7 +197,7 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						echo '<tr>';
 						echo '<td class="text-center"><i class="fas fa-bullhorn text-muted"></i></td>';
 						echo '<td>' . html($row["adcampaign_title"]) . '</td>';
-						echo '<td>' . html(date($BLM['list_date_format'], $row["adcampaign_start"]) . ' – ' . date($BLM['list_date_format'], $row["adcampaign_end"])) . '</td>';
+						echo '<td>' . html(date($BLM['list_date_format'], $row["adcampaign_start"])) . ' &ndash; ' . html(date($BLM['list_date_format'], $row["adcampaign_end"])) . '</td>';
 						echo '<td>' . $row["adplace_width"] . 'x' . $row["adplace_height"] . ' {ADS_' . $row["adplace_id"] . '}</td>';
 						echo '<td class="text-right text-nowrap">';
 						echo '<div class="btn-group btn-group-sm" role="group" aria-label="campaign-actions-' . $row["adcampaign_id"] . '">';

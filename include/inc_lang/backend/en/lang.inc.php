@@ -72,8 +72,10 @@ $BL['be_func_struct_sort_down']         = 'sort down';
 $BL['be_func_struct_del_article']       = 'delete article';
 $BL['be_func_struct_del_jsmsg']         = 'Do you really want \nto delete article?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'create new article in structure level';
+$BL['be_func_struct_new_article_short']   = 'create new article';
 $BL['be_func_struct_paste_article']     = 'paste article in structure level';
 $BL['be_func_struct_insert_level']      = 'insert structure level in';
+$BL['be_func_struct_insert_level_short'] = 'insert structure level';
 $BL['be_func_struct_paste_level']       = 'paste in structure level';
 $BL['be_func_struct_cut_level']         = 'cut structure level';
 $BL['be_func_struct_no_cut']            = "It's not possible to cut the root level!";
@@ -254,15 +256,16 @@ $BL['be_fprivedit_button']              = 'update file info';
 $BL['be_fprivedit_size']                = 'size';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'upload file to directory';
-$BL['be_fprivfunc_makenew']             = 'make new dir inside';
-$BL['be_fprivfunc_paste']               = 'paste clipboard file into dir';
+$BL['be_fprivfunc_upload']              = 'upload file';
+$BL['be_fprivfunc_makenew']             = 'make new directory';
+$BL['be_fprivfunc_paste']               = 'paste clipboard file';
 $BL['be_fprivfunc_edit']                = 'edit dir';
 $BL['be_fprivfunc_cactive']             = 'switch active/inactive';
 $BL['be_fprivfunc_cpublic']             = 'switch public/nonpublic';
 $BL['be_fprivfunc_deldir']              = 'delete dir';
 $BL['be_fprivfunc_jsdeldir']            = 'Do you really want \nto delete directory';
 $BL['be_fprivfunc_notempty']            = 'dir {VAL} not empty!';
+$BL['be_fprivfunc_notempty_short']        = 'folder is not empty!';
 $BL['be_fprivfunc_opendir']             = 'open directory';
 $BL['be_fprivfunc_closedir']            = 'close directory';
 $BL['be_fprivfunc_dlfile']              = 'download file';
@@ -1670,3 +1673,6 @@ $BL['be_cnt_summary_label'] = 'Summary';
 $BL['be_cnt_max_words'] = 'max. words';
 
 $BL['be_dashboard_support'] = 'Contact & Support';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'default';

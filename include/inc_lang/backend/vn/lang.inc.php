@@ -106,8 +106,10 @@ $BL['be_func_struct_sort_down']         = 's&#7855;p x&#7871;p chi&#7873;u gi&#7
 $BL['be_func_struct_del_article']       = 'xo&#225; tin';
 $BL['be_func_struct_del_jsmsg']         = 'B&#7841;n c&#243; mu&#7889;n \nxo&#225; tin/m&#7909;c tin n&#224;y kh&#244;ng?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 't&#7841;o tin/m&#7909;c tin m&#7899;i';
+$BL['be_func_struct_new_article_short']   = 'tạo tin/mục tin mới';
 $BL['be_func_struct_paste_article']     = 'd&#225;n tin';
 $BL['be_func_struct_insert_level']      = 'ch&#232;n th&#234;m c&#7845;u tr&#250;c m&#7899;i';
+$BL['be_func_struct_insert_level_short'] = 'chèn thêm cấu trúc mới';
 $BL['be_func_struct_paste_level']       = 'd&#225;n c&#7845;u tr&#250;c m&#7899;i';
 $BL['be_func_struct_cut_level']         = 'c&#7855;t m&#7913;c c&#7845;u tr&#250;c';
 $BL['be_func_struct_no_cut']            = "Kh&#244;ng th&#7875; c&#7855;t m&#7913;c c&#7845;u tr&#250;c g&#7889;c!";
@@ -261,15 +263,16 @@ $BL['be_fprivedit_button']              = 'c&#7853;p nh&#7853;t th&#244;ng tin f
 $BL['be_fprivedit_size']                = 'k&#237;ch th&#432;&#7899;c';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'upload file v&#224;o th&#432; m&#7909;c';
-$BL['be_fprivfunc_makenew']             = 't&#7841;o th&#432; m&#7909;c m&#7899;i &#7903; trong';
-$BL['be_fprivfunc_paste']               = 'd&#225;n file trong clipboard v&#224;o th&#432; m&#7909;c';
+$BL['be_fprivfunc_upload']              = 'Upload file';
+$BL['be_fprivfunc_makenew']             = 'Tạo thư mục mới';
+$BL['be_fprivfunc_paste']               = 'Dán file';
 $BL['be_fprivfunc_edit']                = 's&#7917;a th&#432; m&#7909;c';
 $BL['be_fprivfunc_cactive']             = 'chuy&#7875;n k&#237;ch ho&#7841;t/kh&#244;ng k&#237;ch ho&#7841;t';
 $BL['be_fprivfunc_cpublic']             = 'chuy&#7875;n public/kh&#244;ng public';
 $BL['be_fprivfunc_deldir']              = 'xo&#225; th&#432; m&#7909;c';
 $BL['be_fprivfunc_jsdeldir']            = 'B&#7841;n c&#243; th&#7921;c s&#7921; mu&#7889;n \n xo&#225; th&#432; m&#7909;c';
 $BL['be_fprivfunc_notempty']            = 'th&#432; m&#7909;c {VAL} kh&#244;ng h&#7907;p l&#7879;!';
+$BL['be_fprivfunc_notempty_short']        = 'thư mục không hợp lệ!';
 $BL['be_fprivfunc_opendir']             = 'm&#7903; th&#432; m&#7909;c';
 $BL['be_fprivfunc_closedir']            = '&#273;&#243;ng th&#432; m&#7909;c';
 $BL['be_fprivfunc_dlfile']              = 'download file';
@@ -992,3 +995,6 @@ $BL['be_cnt_guests']                    = 'kh&#225;ch';
 $BL['be_cnt_admin']                        = 'qu&#7843;n tr&#7883;';
 $BL['be_cnt_write']                        = 'vi&#7871;t';
 $BL['be_cnt_read']                        = '&#273;&#7885;c';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'mặc định';

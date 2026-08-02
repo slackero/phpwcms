@@ -78,8 +78,10 @@ $BL['be_func_struct_sort_down']         = 'flytt ned';
 $BL['be_func_struct_del_article']       = 'slett artikkel';
 $BL['be_func_struct_del_jsmsg']         = 'er du sikker p&#229; at du vil slette\ndenne artikkel?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'oprett ny artikkel i dette strukturniv&#229;';
+$BL['be_func_struct_new_article_short']   = 'opprett ny artikkel';
 $BL['be_func_struct_paste_article']     = 'lim artikkel inn i dette strukturniv&#229;';
 $BL['be_func_struct_insert_level']      = 'Sett inn menypunkt under';
+$BL['be_func_struct_insert_level_short'] = 'sett inn menypunkt';
 $BL['be_func_struct_paste_level']       = 'lim inn i dette strukturniv&#229;';
 $BL['be_func_struct_cut_level']         = 'klipp strukturniv&#229;';
 $BL['be_func_struct_no_cut']            = "det er ikke mulig &#229; klippe ut root niv&#229;!";
@@ -230,15 +232,16 @@ $BL['be_fprivedit_button']              = 'oppdater filinfo';
 $BL['be_fprivedit_size']                = 'st&#248;rrelse';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'last opp fil til mappen';
-$BL['be_fprivfunc_makenew']             = 'opprett ny mappe inne i denne';
-$BL['be_fprivfunc_paste']               = 'lim fil fra klippebordet til denne mappen';
+$BL['be_fprivfunc_upload']              = 'Last opp fil';
+$BL['be_fprivfunc_makenew']             = 'Opprett ny mappe';
+$BL['be_fprivfunc_paste']               = 'Lim inn fil';
 $BL['be_fprivfunc_edit']                = 'rediger mappe';
 $BL['be_fprivfunc_cactive']             = 'skift aktiver/deaktiver';
 $BL['be_fprivfunc_cpublic']             = 'skift offentlig/privat';
 $BL['be_fprivfunc_deldir']              = 'slett mappe';
 $BL['be_fprivfunc_jsdeldir']            = '&#248;nsker du virkelig\n&#229; slette denne mappen';
 $BL['be_fprivfunc_notempty']            = 'mappen {VAL} er ikke tom!';
+$BL['be_fprivfunc_notempty_short']        = 'mappen er ikke tom!';
 $BL['be_fprivfunc_opendir']             = '&#229;pne mappe';
 $BL['be_fprivfunc_closedir']            = 'lukk mappe';
 $BL['be_fprivfunc_dlfile']              = 'hent fil';
@@ -949,3 +952,6 @@ $BL['be_func_content_paste_cancel']      = 'avbryt endringer i artikkelinnhold';
 
 
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'standard';

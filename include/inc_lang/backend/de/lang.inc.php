@@ -62,15 +62,17 @@ $BL['be_func_struct_edit'] = 'Artikel bearbeiten';
 $BL['be_func_struct_sedit'] = 'Seitenstruktur bearbeiten';
 $BL['be_func_struct_cut'] = 'Artikel ausschneiden';
 $BL['be_func_struct_nocut'] = 'Artikel ausschneiden aufheben';
-$BL['be_func_struct_svisible'] = 'Wechsel sichtbar/nicht sichtbar';
-$BL['be_func_struct_spublic'] = 'Wechsel &ouml;ffentlich/nicht &ouml;ffentlich';
+$BL['be_func_struct_svisible'] = 'Sichtbarkeit umschalten';
+$BL['be_func_struct_spublic'] = '&Ouml;ffentlichkeit umschalten';
 $BL['be_func_struct_sort_up'] = 'Sortieren: hoch';
 $BL['be_func_struct_sort_down'] = 'Sortieren: runter';
 $BL['be_func_struct_del_article'] = 'Artikel l&ouml;schen';
 $BL['be_func_struct_del_jsmsg'] = 'M&ouml;chten Sie den Artikel \nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article'] = 'Neuen Artikel erstellen in Strukturebene';
+$BL['be_func_struct_new_article_short']   = 'Neuen Artikel erstellen';
 $BL['be_func_struct_paste_article'] = 'Artikel einf&uuml;gen in Strukturebene';
 $BL['be_func_struct_insert_level'] = 'Strukturebene einsetzen in';
+$BL['be_func_struct_insert_level_short'] = 'Strukturebene einsetzen';
 $BL['be_func_struct_paste_level'] = 'Strukturebene einf&uuml;gen in';
 $BL['be_func_struct_cut_level'] = 'Strukturebene ausschneiden';
 $BL['be_func_struct_no_cut'] = "Die oberste Ebene kann nicht ausgeschnitten werden!";
@@ -78,7 +80,7 @@ $BL['be_func_struct_no_paste1'] = "Kein Einf&uuml;gen an dieser Stelle m&ouml;gl
 $BL['be_func_struct_no_paste2'] = 'Ist Kind in der Wurzelebene der Baumstruktur';
 $BL['be_func_struct_no_paste3'] = 'Sollte hier eingef&uuml;gt werden';
 $BL['be_func_struct_paste_cancel'] = 'Strukturebenen-Wechsel abbrechen';
-$BL['be_func_struct_del_struct'] = 'L&ouml;schen der Strukturebene';
+$BL['be_func_struct_del_struct'] = 'Strukturebene l&ouml;schen';
 $BL['be_func_struct_del_sjsmsg'] = 'M&ouml;chten Sie die Strukturebene \nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open'] = '&Ouml;ffnen';
 $BL['be_func_struct_close'] = 'Schliessen';
@@ -250,15 +252,16 @@ $BL['be_fprivedit_button'] = 'Aktualisieren';
 $BL['be_fprivedit_size'] = 'Gr&ouml;sse';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload'] = 'Datei hochladen in Verzeichnis';
-$BL['be_fprivfunc_makenew'] = 'Neues Verzeichnis erstellen in';
-$BL['be_fprivfunc_paste'] = 'Zwischenablage-Datei einf&uuml;gen in Verzeichnis';
+$BL['be_fprivfunc_upload'] = 'Datei hochladen';
+$BL['be_fprivfunc_makenew'] = 'Neues Verzeichnis erstellen';
+$BL['be_fprivfunc_paste'] = 'Einf&uuml;gen';
 $BL['be_fprivfunc_edit'] = 'Verzeichnis bearbeiten';
 $BL['be_fprivfunc_cactive'] = 'Wechsel aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic'] = 'Wechsel &ouml;ffentlich/nicht &ouml;ffentlich';
 $BL['be_fprivfunc_deldir'] = 'Verzeichnis l&ouml;schen';
 $BL['be_fprivfunc_jsdeldir'] = 'M&ouml;chten Sie das Verzeichnis \nwirklich l&ouml;schen?';
 $BL['be_fprivfunc_notempty'] = 'Das Verzeichnis {VAL} ist nicht leer!';
+$BL['be_fprivfunc_notempty_short']        = 'Verzeichnis ist nicht leer!';
 $BL['be_fprivfunc_opendir'] = 'Verzeichnis &ouml;ffnen';
 $BL['be_fprivfunc_closedir'] = 'Verzeichnis schliessen';
 $BL['be_fprivfunc_dlfile'] = 'Datei herunterladen';
@@ -525,7 +528,7 @@ $BL['be_article_cnt_button3'] = 'Sichern';
 $BL['be_article_cnt_ltitle'] = 'Artikelinformation';
 $BL['be_article_cnt_ledit'] = 'Artikel bearbeiten';
 $BL['be_article_cnt_lvisible'] = 'Wechsel sichtbar/nicht sichtbar';
-$BL['be_article_cnt_ldel'] = 'Diesen Artikel l&ouml;schen';
+$BL['be_article_cnt_ldel'] = 'Artikel l&ouml;schen';
 $BL['be_article_cnt_ldeljs'] = 'Artikel l&ouml;schen?';
 $BL['be_article_cnt_redirect'] = 'Weiterleitung';
 $BL['be_article_cnt_edited'] = 'bearbeitet von';
@@ -536,7 +539,7 @@ $BL['be_article_cnt_addtitle'] = 'Neuen Inhaltsabschnitt hinzuf&uuml;gen';
 $BL['be_article_cnt_up'] = 'Inhalt nach oben';
 $BL['be_article_cnt_down'] = 'Inhalt nach unten';
 $BL['be_article_cnt_edit'] = 'Inhaltsabschnitt bearbeiten';
-$BL['be_article_cnt_delpart'] = 'Diesen Inhaltsabschnitt l&ouml;schen';
+$BL['be_article_cnt_delpart'] = 'Inhaltsabschnitt l&ouml;schen';
 $BL['be_article_cnt_delpartjs'] = 'Inhaltsabschnitt l&ouml;schen?';
 $BL['be_article_cnt_center'] = 'Artikelzentrale';
 
@@ -1661,3 +1664,6 @@ $BL['be_cnt_summary_label'] = 'Zusammenfassung';
 $BL['be_cnt_max_words'] = 'max. Anzahl Worte';
 
 $BL['be_dashboard_support'] = 'Kontakt und Support';
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'Standard';

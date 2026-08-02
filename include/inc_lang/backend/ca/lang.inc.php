@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'Ordre descendent';
 $BL['be_func_struct_del_article']       = 'Elimina l\'article';
 $BL['be_func_struct_del_jsmsg']         = 'Esteu segur que voleu eliminar l\'article?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'Crea nou article dins nivell d\'estructura';
+$BL['be_func_struct_new_article_short']   = 'Crea nou article';
 $BL['be_func_struct_paste_article']     = 'Enganxa article dins nivell d\'estructura';
 $BL['be_func_struct_insert_level']      = 'Inserta nivell d\'estructura a';
+$BL['be_func_struct_insert_level_short'] = 'Inserta nivell d\'estructura';
 $BL['be_func_struct_paste_level']       = 'Enganxa en nivell d\'estructura';
 $BL['be_func_struct_cut_level']         = 'Elimina nivell d\'estructura';
 $BL['be_func_struct_no_cut']            = "No es pot eliminar el nivell arrel";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'Actualitza la informaci&oacute; del f
 $BL['be_fprivedit_size']                = 'Mida';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'Envia fitxer a la carpeta';
-$BL['be_fprivfunc_makenew']             = 'Crea carpeta nova dins';
-$BL['be_fprivfunc_paste']               = 'Enganxa el contingut del portapapers dins la carpeta';
+$BL['be_fprivfunc_upload']              = 'Envia fitxer';
+$BL['be_fprivfunc_makenew']             = 'Crea carpeta nova';
+$BL['be_fprivfunc_paste']               = 'Enganxa contingut';
 $BL['be_fprivfunc_edit']                = 'Edita la carpeta';
 $BL['be_fprivfunc_cactive']             = 'Canvia actiu/inactiu';
 $BL['be_fprivfunc_cpublic']             = 'Canvia p&uacute;blic/no p&uacute;blic';
 $BL['be_fprivfunc_deldir']              = 'Elimina carpeta';
 $BL['be_fprivfunc_jsdeldir']            = 'Esteu segur que voleu eliminar la carpeta?';
 $BL['be_fprivfunc_notempty']            = '&iexcl;La carpeta {VAL} no &eacute;s buida!';
+$BL['be_fprivfunc_notempty_short']        = '¡La carpeta no és buida!';
 $BL['be_fprivfunc_opendir']             = 'Obre la carpeta';
 $BL['be_fprivfunc_closedir']            = 'Tanca la carpeta';
 $BL['be_fprivfunc_dlfile']              = 'Baixa el fitxer';
@@ -819,3 +822,6 @@ $BL['be_admin_struct_orderdesc']        = 'Descendent';
 $BL['be_admin_struct_orderasc']         = 'Ascendent';
 $BL['be_admin_struct_ordermanual']      = 'Manual (fletxa amunt/avall)';
 $BL['be_cnt_sitemap_startid']           = 'Comen&ccedil;ant per';
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'per defecte';

@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'опустить на уровень'
 $BL['be_func_struct_del_article']       = 'удалить стьтью';
 $BL['be_func_struct_del_jsmsg']         = 'Вы действительно хотите \nудалить статью?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'создать новую статью в данной категории';
+$BL['be_func_struct_new_article_short']   = 'создать новую статью';
 $BL['be_func_struct_paste_article']     = 'переместить статью в данную категорию';
 $BL['be_func_struct_insert_level']      = 'создать категорию';
+$BL['be_func_struct_insert_level_short'] = 'создать категорию';
 $BL['be_func_struct_paste_level']       = 'переместить в категорию';
 $BL['be_func_struct_cut_level']         = 'вырезать категорию';
 $BL['be_func_struct_no_cut']            = "Невозможно вырезать корневой уровень!";
@@ -223,15 +225,16 @@ $BL['be_fprivedit_button']              = 'обновить информацию
 $BL['be_fprivedit_size']                = 'размер';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'загрузить файл в директорию';
-$BL['be_fprivfunc_makenew']             = 'создать новую подкатегорию';
-$BL['be_fprivfunc_paste']               = 'вставить файл из буфера обмена';
+$BL['be_fprivfunc_upload']              = 'Загрузить файл';
+$BL['be_fprivfunc_makenew']             = 'Создать новую папку';
+$BL['be_fprivfunc_paste']               = 'Вставить файл';
 $BL['be_fprivfunc_edit']                = 'изменить директорию';
 $BL['be_fprivfunc_cactive']             = 'включить активный/неактивный';
 $BL['be_fprivfunc_cpublic']             = 'включить общий/частный';
 $BL['be_fprivfunc_deldir']              = 'удалить директорию';
 $BL['be_fprivfunc_jsdeldir']            = 'Вы действительно хотите \n удалить директорию?';
 $BL['be_fprivfunc_notempty']            = 'директория {VAL} не пустая!';
+$BL['be_fprivfunc_notempty_short']        = 'директория не пустая!';
 $BL['be_fprivfunc_opendir']             = 'открыть директорию';
 $BL['be_fprivfunc_closedir']            = 'закрыть директорию';
 $BL['be_fprivfunc_dlfile']              = 'загрузить файл';
@@ -760,3 +763,6 @@ $BL['be_cnt_pages_manually']            = 'путь до файла или URL';
 $BL['be_cnt_pages_cust']                = 'файл/URL';
 $BL['be_cnt_pages_from']                = 'источник';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'по умолчанию';

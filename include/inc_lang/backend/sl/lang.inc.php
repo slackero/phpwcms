@@ -75,8 +75,10 @@ $BL['be_func_struct_sort_down']         = 'sortiraj navzdol';
 $BL['be_func_struct_del_article']       = 'zbriši članek';
 $BL['be_func_struct_del_jsmsg']         = 'Ali res želiš \nizbrisati članek?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'ustvari nov članek';
+$BL['be_func_struct_new_article_short']   = 'ustvari nov članek';
 $BL['be_func_struct_paste_article']     = 'prilepi članek v strukturo';
 $BL['be_func_struct_insert_level']      = 'vstavi strukturo v';
+$BL['be_func_struct_insert_level_short'] = 'vstavi strukturo';
 $BL['be_func_struct_paste_level']       = 'prilepi v strukturo';
 $BL['be_func_struct_cut_level']         = 'izreži strukturo';
 $BL['be_func_struct_no_cut']            = "najvišjega nivoja ni možno izrezati!";
@@ -228,15 +230,16 @@ $BL['be_fprivedit_button']              = 'popravi informacije o datoteki';
 $BL['be_fprivedit_size']                = 'velikost';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'naloži datoteko v imenik';
-$BL['be_fprivfunc_makenew']             = 'ustvari nov imenik znotraj';
-$BL['be_fprivfunc_paste']               = 'prilepi datoteko z odložišča v imenik';
+$BL['be_fprivfunc_upload']              = 'Naloži datoteko';
+$BL['be_fprivfunc_makenew']             = 'Ustvari nov imenik';
+$BL['be_fprivfunc_paste']               = 'Prilepi datoteko';
 $BL['be_fprivfunc_edit']                = 'uredi imenik';
 $BL['be_fprivfunc_cactive']             = 'preklopi aktivno/neaktivno';
 $BL['be_fprivfunc_cpublic']             = 'preklopi javno/zasebno';
 $BL['be_fprivfunc_deldir']              = 'izbriši imenik';
 $BL['be_fprivfunc_jsdeldir']            = 'Ali res želite \nizbrisati direktorij';
 $BL['be_fprivfunc_notempty']            = 'imenik {VAL} ni prazen!';
+$BL['be_fprivfunc_notempty_short']        = 'imenik ni prazen!';
 $BL['be_fprivfunc_opendir']             = 'odpri imenik';
 $BL['be_fprivfunc_closedir']            = 'zapri imenik';
 $BL['be_fprivfunc_dlfile']              = 'snemi datoteko';
@@ -1222,3 +1225,6 @@ $BL['be_gallery_directory'] = "poddirektorij galerije";
 $BL['be_gallery'] = "galerija";
 
 $BL['be_sort_date'] = "uredi po datumu";
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'privzeto';

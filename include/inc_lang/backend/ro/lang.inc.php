@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'sorteaza jos';
 $BL['be_func_struct_del_article']       = 'sterge articol';
 $BL['be_func_struct_del_jsmsg']         = 'Doresti sa  \nto stergi articolul?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'creaza articol nou in nivelul de structura';
+$BL['be_func_struct_new_article_short']   = 'creează articol nou';
 $BL['be_func_struct_paste_article']     = 'paste articol in nivelul de structura';
 $BL['be_func_struct_insert_level']      = 'introdu nivelul de structura in';
+$BL['be_func_struct_insert_level_short'] = 'introdu nivel de structură';
 $BL['be_func_struct_paste_level']       = 'paste nivelul de structura';
 $BL['be_func_struct_cut_level']         = 'Taie nivelul de structura';
 $BL['be_func_struct_no_cut']            = "Nu este posibil sa tai nivelul root!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'actualizeaza info fisier';
 $BL['be_fprivedit_size']                = 'marime';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'incarca fisier in director';
-$BL['be_fprivfunc_makenew']             = 'creaza director nou';
-$BL['be_fprivfunc_paste']               = 'paste fisier clipboard in director';
+$BL['be_fprivfunc_upload']              = 'Încarcă fișier';
+$BL['be_fprivfunc_makenew']             = 'Creează director nou';
+$BL['be_fprivfunc_paste']               = 'Paste fișier';
 $BL['be_fprivfunc_edit']                = 'editeaza director';
 $BL['be_fprivfunc_cactive']             = 'schimba activ/inactiv';
 $BL['be_fprivfunc_cpublic']             = 'schimba public/privat';
 $BL['be_fprivfunc_deldir']              = 'sterge director';
 $BL['be_fprivfunc_jsdeldir']            = 'Doresti sa \nto stergi directorul';
 $BL['be_fprivfunc_notempty']            = 'dir {VAL} nu este gol!';
+$BL['be_fprivfunc_notempty_short']        = 'directorul nu este gol!';
 $BL['be_fprivfunc_opendir']             = 'deschide director';
 $BL['be_fprivfunc_closedir']            = 'inchide director';
 $BL['be_fprivfunc_dlfile']              = 'download fisier';
@@ -966,3 +969,6 @@ $BL['be_alias_articleID'] = 'alias ID';
 $BL['be_alias_useAll'] = "utilizeaza acest articlol&#8217;s date header";
 $BL['be_article_morelink'] = '[more&#8230;] link';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'implicit';

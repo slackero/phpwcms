@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'žemyn';
 $BL['be_func_struct_del_article']       = 'ištrinti straipsnį';
 $BL['be_func_struct_del_jsmsg']         = 'Ar tikrai norite \ništrinti straipsnį?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'sukurti naują straipsnį šiame struktūros lygyje';
+$BL['be_func_struct_new_article_short']   = 'sukurti naują straipsnį';
 $BL['be_func_struct_paste_article']     = 'įklijuoti straipsnį šiame struktūros lygyje';
 $BL['be_func_struct_insert_level']      = 'įterpti struktūros lygį';
+$BL['be_func_struct_insert_level_short'] = 'įterpti struktūros lygį';
 $BL['be_func_struct_paste_level']       = 'įklijuoti struktūros lygį';
 $BL['be_func_struct_cut_level']         = 'iškirpti struktūros lygį';
 $BL['be_func_struct_no_cut']            = "Neįmanoma iškirpti pradinio lygio!";
@@ -223,15 +225,16 @@ $BL['be_fprivedit_button']              = 'atnaujinti failo aprašymą';
 $BL['be_fprivedit_size']                = 'dydis';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'užkrauti failą į direktoriją';
-$BL['be_fprivfunc_makenew']             = 'viduje sukurti naują direktoriją';
-$BL['be_fprivfunc_paste']               = 'nukopijuoti failą iš atminties į direktoriją';
+$BL['be_fprivfunc_upload']              = 'Užkrauti failą';
+$BL['be_fprivfunc_makenew']             = 'Sukurti naują direktoriją';
+$BL['be_fprivfunc_paste']               = 'Nukopijuoti failą';
 $BL['be_fprivfunc_edit']                = 'redaguoti direktoriją';
 $BL['be_fprivfunc_cactive']             = 'perjungti į aktyvią/neaktyvią';
 $BL['be_fprivfunc_cpublic']             = 'perjungti į viešą/neviešą';
 $BL['be_fprivfunc_deldir']              = 'Ištrinti direktoriją';
 $BL['be_fprivfunc_jsdeldir']            = 'Ar tikrai norite \ništrinti direktoriją?';
 $BL['be_fprivfunc_notempty']            = 'direktorija {VAL} nėra tuščia!';
+$BL['be_fprivfunc_notempty_short']        = 'direktorija nėra tuščia!';
 $BL['be_fprivfunc_opendir']             = 'atidaryti direktoriją';
 $BL['be_fprivfunc_closedir']            = 'uždaryti direktoriją';
 $BL['be_fprivfunc_dlfile']              = 'atisiųsti failą';
@@ -653,3 +656,6 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'numatytasis';

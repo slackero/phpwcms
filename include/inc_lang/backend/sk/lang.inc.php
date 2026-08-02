@@ -70,8 +70,10 @@ $BL['be_func_struct_sort_down']         = 'zatriedi&#357; dole';
 $BL['be_func_struct_del_article']       = 'vymaza&#357; &#269;l&aacute;nok';
 $BL['be_func_struct_del_jsmsg']         = 'Chcete naozaj \nzmaza&#357; &#269;l&aacute;nok?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'vytvori&#357; nov&yacute; &#269;l&aacute;nok v &uacute;rovni &scaron;trukt&uacute;ry';
+$BL['be_func_struct_new_article_short']   = 'vytvoriť nový článok';
 $BL['be_func_struct_paste_article']     = 'prilepi&#357; &#269;l&aacute;nok v &uacute;rovni &scaron;trukt&uacute;ry';
 $BL['be_func_struct_insert_level']      = 'vlo&#382;i&#357; &uacute;rove&#328; &scaron;trukt&uacute;ry v';
+$BL['be_func_struct_insert_level_short'] = 'vložiť úroveň štruktúry';
 $BL['be_func_struct_paste_level']       = 'vlo&#382;i&#357; do &uacute;rovni &scaron;trukt&uacute;ry';
 $BL['be_func_struct_cut_level']         = 'vystrihn&uacute;&#357; &uacute;rove&#328; &scaron;trukt&uacute;ry';
 $BL['be_func_struct_no_cut']            = "Z&aacute;kladn&uacute; &uacute;rove&#328; nie je mo&#382;n&eacute; vystrihn&uacute;&#357;!";
@@ -222,15 +224,16 @@ $BL['be_fprivedit_button']              = 'aktualizova&#357; inform&aacute;cie s
 $BL['be_fprivedit_size']                = 've&#318;kos&#357;';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'nahra&#357; s&uacute;bor do adres&aacute;ra';
-$BL['be_fprivfunc_makenew']             = 'vytvori&#357; nov&yacute; adres&aacute;r vo vn&uacute;tri';
-$BL['be_fprivfunc_paste']               = 'prilepi&#357; s&uacute;bor zo schr&aacute;nky do adres&aacute;ra';
+$BL['be_fprivfunc_upload']              = 'Nahrať súbor';
+$BL['be_fprivfunc_makenew']             = 'Vytvoriť nový adresár';
+$BL['be_fprivfunc_paste']               = 'Prilepiť súbor';
 $BL['be_fprivfunc_edit']                = 'editova&#357; adres&aacute;r';
 $BL['be_fprivfunc_cactive']             = 'prepn&uacute;&#357; akt&iacute;vne/neakt&iacute;vne';
 $BL['be_fprivfunc_cpublic']             = 'prepn&uacute;&#357; verejn&eacute;/neverejn&eacute;';
 $BL['be_fprivfunc_deldir']              = 'zmaza&#357; adres&aacute;r';
 $BL['be_fprivfunc_jsdeldir']            = 'Naozaj chcete \nzmaza&#357; adres&aacute;r?';
 $BL['be_fprivfunc_notempty']            = 'adres&aacute;r {VAL} nie je pr&aacute;zdny!';
+$BL['be_fprivfunc_notempty_short']        = 'adresár nie je prázdny!';
 $BL['be_fprivfunc_opendir']             = 'otvori&#357; adres&aacute;r';
 $BL['be_fprivfunc_closedir']            = 'zavrie&#357; adres&aacute;r';
 $BL['be_fprivfunc_dlfile']              = 'stiahn&uacute;&#357; s&uacute;bor';
@@ -781,3 +784,6 @@ $BL['be_article_forfull']               = 'zobrazi&#357; cel&yacute; &#269;l&aac
 
 
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'predvolené';

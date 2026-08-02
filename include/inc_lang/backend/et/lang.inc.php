@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'liiguta alla';
 $BL['be_func_struct_del_article']       = 'kustuta artikkel';
 $BL['be_func_struct_del_jsmsg']         = 'Kas soovid \nto artikli kustutada?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'loo sellel struktuuritasemel uus artikkel';
+$BL['be_func_struct_new_article_short']   = 'loo uus artikkel';
 $BL['be_func_struct_paste_article']     = 'kleebi sellel struktuuritasemel artikkel';
 $BL['be_func_struct_insert_level']      = 'lisa struktuuritase';
+$BL['be_func_struct_insert_level_short'] = 'lisa struktuuritase';
 $BL['be_func_struct_paste_level']       = 'kleebi struktuuritase';
 $BL['be_func_struct_cut_level']         = 'teisalda struktuuritase lõikepuhvrisse';
 $BL['be_func_struct_no_cut']            = "Juurtaset ei saa teisaldada lõikepuhvrisse!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'värskenda faili andmeid';
 $BL['be_fprivedit_size']                = 'suurus';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'laadi fail kataloogi';
-$BL['be_fprivfunc_makenew']             = 'loo kataloogi sees uus kataloog';
-$BL['be_fprivfunc_paste']               = 'kleebi lõikepuhvris olev fail kataloogi';
+$BL['be_fprivfunc_upload']              = 'Laadi fail';
+$BL['be_fprivfunc_makenew']             = 'Loo uus kataloog';
+$BL['be_fprivfunc_paste']               = 'Kleebi fail';
 $BL['be_fprivfunc_edit']                = 'muuda kataloogi';
 $BL['be_fprivfunc_cactive']             = 'lülita aktiivne/mitteaktiivne';
 $BL['be_fprivfunc_cpublic']             = 'lülita avalik/mitteavalik';
 $BL['be_fprivfunc_deldir']              = 'kustuta kataloog';
 $BL['be_fprivfunc_jsdeldir']            = 'Kas soovid \nto kustutada kataloogi?';
 $BL['be_fprivfunc_notempty']            = 'kataloog {VAL} sisaldab faile!';
+$BL['be_fprivfunc_notempty_short']        = 'kataloog sisaldab faile!';
 $BL['be_fprivfunc_opendir']             = 'ava kataloog';
 $BL['be_fprivfunc_closedir']            = 'sule kataloog';
 $BL['be_fprivfunc_dlfile']              = 'faili allalaadimine';
@@ -822,3 +825,6 @@ $BL['be_admin_struct_ordermanual']      = 'käsitsi (nool üles/alla)';
 $BL['be_cnt_sitemap_startid']           = 'alusta';
 
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'vaikeväärtus';

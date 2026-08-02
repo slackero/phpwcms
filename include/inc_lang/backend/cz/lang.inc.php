@@ -69,8 +69,10 @@ $BL['be_func_struct_sort_down']         = 'zatøídit dolù';
 $BL['be_func_struct_del_article']       = 'vymazat èlánek';
 $BL['be_func_struct_del_jsmsg']         = 'Chcete opravdu \nsmazat èlánek?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'vytvoøit nový èlánek v úrovni struktury';
+$BL['be_func_struct_new_article_short']   = 'vytvořit nový článek';
 $BL['be_func_struct_paste_article']     = 'vloit èlánek v úrovni struktury';
 $BL['be_func_struct_insert_level']      = 'vloit úroveò struktury v';
+$BL['be_func_struct_insert_level_short'] = 'vložit úroveň struktury';
 $BL['be_func_struct_paste_level']       = 'vloit do úrovnì struktury';
 $BL['be_func_struct_cut_level']         = 'vyjmout úroveò struktury';
 $BL['be_func_struct_no_cut']            = "Základní úroveò není moné vyjmout!";
@@ -221,15 +223,16 @@ $BL['be_fprivedit_button']              = 'aktualizovat informace souboru';
 $BL['be_fprivedit_size']                = 'velikost';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'nahrát soubor do adresáøe';
-$BL['be_fprivfunc_makenew']             = 'vytvoøit nový adresáø uvnitø';
-$BL['be_fprivfunc_paste']               = 'vloit soubor ze schránky do adresáøe';
+$BL['be_fprivfunc_upload']              = 'Nahrát soubor';
+$BL['be_fprivfunc_makenew']             = 'Vytvořit nový adresář';
+$BL['be_fprivfunc_paste']               = 'Vložit soubor';
 $BL['be_fprivfunc_edit']                = 'editovat adresáø';
 $BL['be_fprivfunc_cactive']             = 'pøepnout aktivní/neaktivní';
 $BL['be_fprivfunc_cpublic']             = 'pøepnout veøejné/neveøejné';
 $BL['be_fprivfunc_deldir']              = 'smazat adresáø';
 $BL['be_fprivfunc_jsdeldir']            = 'Opravdu chcete \nsmazat adresáø?';
 $BL['be_fprivfunc_notempty']            = 'adresáø {VAL} není prázdný!';
+$BL['be_fprivfunc_notempty_short']        = 'adresář není prázdný!';
 $BL['be_fprivfunc_opendir']             = 'otevøít adresáø';
 $BL['be_fprivfunc_closedir']            = 'zavøít adresáø';
 $BL['be_fprivfunc_dlfile']              = 'stáhnout soubor';
@@ -937,3 +940,6 @@ $BL['be_func_content_no_copy']           = "Není moné kopírovat tuto èást
 $BL['be_func_content_paste_cancel']      = 'zruit akci s touto èástí èlánku';
 
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'výchozí';

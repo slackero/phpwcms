@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'átrendezés: le';
 $BL['be_func_struct_del_article']       = 'cikk törlése';
 $BL['be_func_struct_del_jsmsg']         = 'Biztos törli a \ncikket?';
 $BL['be_func_struct_new_article']       = 'új cikk létrehozása a struktúra szinten belül';
+$BL['be_func_struct_new_article_short']   = 'új cikk létrehozása';
 $BL['be_func_struct_paste_article']     = 'cikk beillestése a struktúra szinten belülre';
 $BL['be_func_struct_insert_level']      = 'struktúra szint beillesztése ide:';
+$BL['be_func_struct_insert_level_short'] = 'struktúra szint beillesztése';
 $BL['be_func_struct_paste_level']       = 'beillesztés a struktúra szintbe:';
 $BL['be_func_struct_cut_level']         = 'kivágás, struktúra szint:';
 $BL['be_func_struct_no_cut']            = "Nem lehetséges a gyökér szintet kivágni!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'file információk módosítása';
 $BL['be_fprivedit_size']                = 'méret';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'file feltöltése a könyvtárba';
-$BL['be_fprivfunc_makenew']             = 'új könyvtár létrehozása ezen belülre';
-$BL['be_fprivfunc_paste']               = 'a vágólapon levõ file beillesztése a könyvtárba';
+$BL['be_fprivfunc_upload']              = 'Fájl feltöltése';
+$BL['be_fprivfunc_makenew']             = 'Új könyvtár létrehozása';
+$BL['be_fprivfunc_paste']               = 'Fájl beillesztése';
 $BL['be_fprivfunc_edit']                = 'könyvtár szerkesztése';
 $BL['be_fprivfunc_cactive']             = 'váltás aktív/inaktív';
 $BL['be_fprivfunc_cpublic']             = 'vátás publikus/nem publikus';
 $BL['be_fprivfunc_deldir']              = 'könyvtár törlése';
 $BL['be_fprivfunc_jsdeldir']            = 'Biztos törli \na könyvtárat?';
 $BL['be_fprivfunc_notempty']            = 'a könyvtár {VAL} nem üres';
+$BL['be_fprivfunc_notempty_short']        = 'a könyvtár nem üres!';
 $BL['be_fprivfunc_opendir']             = 'könyvtár megnyitása';
 $BL['be_fprivfunc_closedir']            = 'könyvtár bezárása';
 $BL['be_fprivfunc_dlfile']              = 'file letöltése';
@@ -822,3 +825,6 @@ $BL['be_admin_struct_ordermanual']      = 'manualis (nyil fel/le)';
 $BL['be_cnt_sitemap_startid']           = 'ezzel&nbspkezdõdik';
 
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'alapértelmezett';

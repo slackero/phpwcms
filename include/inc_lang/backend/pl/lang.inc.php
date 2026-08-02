@@ -72,8 +72,10 @@ $BL['be_func_struct_sort_down'] = 'Sortuj w d&oacute;&#322;';
 $BL['be_func_struct_del_article'] = 'Usu&#324; artyku&#322;';
 $BL['be_func_struct_del_jsmsg'] = 'Czy na pewno chcesz \nusunąć artykuł?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article'] = 'Utw&oacute;rz nowy artyku&#322; na tym poziomie struktury';
+$BL['be_func_struct_new_article_short']   = 'Utwórz nowy artykuł';
 $BL['be_func_struct_paste_article'] = 'Wklej artyku&#322; na ten poziom struktury';
 $BL['be_func_struct_insert_level'] = 'Wstaw w poziom struktury';
+$BL['be_func_struct_insert_level_short'] = 'Wstaw poziom struktury';
 $BL['be_func_struct_paste_level'] = 'Wklej na ten poziom struktury';
 $BL['be_func_struct_cut_level'] = 'Wytnij ten poziom struktury';
 $BL['be_func_struct_no_cut'] = "Nie mo&#380;na wyci&#261;&#263; g&#322;&oacute;wnego poziomu struktury!";
@@ -230,15 +232,16 @@ $BL['be_fprivedit_button'] = 'Uaktualnij informacj&#281; o pliku';
 $BL['be_fprivedit_size'] = 'Rozmiar';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload'] = 'Wgraj pliki do katalogu';
-$BL['be_fprivfunc_makenew'] = 'Utw&oacute;rz nowy katalog wewn&#261;trz';
-$BL['be_fprivfunc_paste'] = 'Wklej plik ze schowka do katalogu';
+$BL['be_fprivfunc_upload'] = 'Wgraj pliki';
+$BL['be_fprivfunc_makenew'] = 'Utwórz nowy katalog';
+$BL['be_fprivfunc_paste'] = 'Wklej plik';
 $BL['be_fprivfunc_edit'] = 'Edytuj katalog';
 $BL['be_fprivfunc_cactive'] = 'Prze&#322;&#261;cz aktywny/nieaktywny';
 $BL['be_fprivfunc_cpublic'] = 'Prze&#322;&#261;cz publiczny/niepubliczny';
 $BL['be_fprivfunc_deldir'] = 'Usu&#324; katalog';
 $BL['be_fprivfunc_jsdeldir'] = 'Czy na pewno chcesz \nusun&#261;&#263; katalog';
 $BL['be_fprivfunc_notempty'] = 'katalog {VAL} nie jest pusty!';
+$BL['be_fprivfunc_notempty_short']        = 'Katalog nie jest pusty!';
 $BL['be_fprivfunc_opendir'] = 'Otw&oacute;rz katalog';
 $BL['be_fprivfunc_closedir'] = 'Zamknij katalog';
 $BL['be_fprivfunc_dlfile'] = '&#346;ci&#261;gnij plik';
@@ -1656,3 +1659,6 @@ $BL['be_cnt_summary_label'] = 'Podsumowanie';
 $BL['be_cnt_max_words'] = 'maks. s&#322;&oacute;w';
 
 $BL['be_dashboard_support'] = 'Kontakt i Wsparcie';
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'domy&#359;lny';

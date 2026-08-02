@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'Orden descendente';
 $BL['be_func_struct_del_article']       = 'Eliminar el art&iacute;culo';
 $BL['be_func_struct_del_jsmsg']         = 'Quiere eliminar \nel art&iacute;culo?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'Crear nuevo art&iacute;culo en nivel de estructura';
+$BL['be_func_struct_new_article_short']   = 'Crear nuevo artículo';
 $BL['be_func_struct_paste_article']     = 'Pegar art&iacute;culo en nivel de estructura';
 $BL['be_func_struct_insert_level']      = 'Insertar nivel de estructura en';
+$BL['be_func_struct_insert_level_short'] = 'Insertar nivel de estructura';
 $BL['be_func_struct_paste_level']       = 'Pegar en nivel de estructura';
 $BL['be_func_struct_cut_level']         = 'Eliminar nivel de estructura';
 $BL['be_func_struct_no_cut']            = "&iexcl;No es posible eliminar el nivel ra&iacute;z!";
@@ -234,6 +236,7 @@ $BL['be_fprivfunc_cpublic']             = 'Cambiar p&uacute;blico/no p&uacute;bl
 $BL['be_fprivfunc_deldir']              = 'Borrar carpeta';
 $BL['be_fprivfunc_jsdeldir']            = 'Quiere eliminar \nla carpeta';
 $BL['be_fprivfunc_notempty']            = '&iexcl;La carpeta {VAL} no esta vac&iacute;a!';
+$BL['be_fprivfunc_notempty_short']        = '¡La carpeta no está vacía!';
 $BL['be_fprivfunc_opendir']             = 'Abrir la carpeta';
 $BL['be_fprivfunc_closedir']            = 'Cerrar la carpeta';
 $BL['be_fprivfunc_dlfile']              = 'Bajar el archivo';
@@ -1539,3 +1542,6 @@ $BL['be_cnt_summary_label'] = 'Resumen';
 $BL['be_cnt_max_words'] = 'm&aacute;x. palabras';
 
 $BL['be_dashboard_support'] = 'Contacto y Soporte';
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'por defecto';

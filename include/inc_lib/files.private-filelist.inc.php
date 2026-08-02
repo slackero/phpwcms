@@ -65,17 +65,18 @@ if(isset($file_result[0]['f_id'])) {
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
+        echo '<h6 class="dropdown-header">'.$filename.'</h6>';
 
         //Button zum Downloaden der Datei
         echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
              '"  target="_blank" data-toggle="tooltip" title="'.$BL['be_fprivfunc_dlfile'].': '.$filename.'">'.
-             '<i class="ml-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'</a>'; //target='_blank'
+             '<i class="ml-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
         //Button zum Erzeugen eines Neuen Unterverzeichnisses
         if($cutID == $file_row["f_id"]) {
             echo '<i class="fa fa-cut disabled" aria-hidden="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_clipfile'].': '.$filename.'"></i>';
         } else {
             echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
-            echo '<i class="fa-fw ml-1 fa fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'</a>';
+            echo '<i class="fa-fw ml-1 fa fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
         }
         //Button zum Löschen der Datei
         if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
@@ -83,7 +84,7 @@ if(isset($file_result[0]['f_id'])) {
             $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                  '" data-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
-                 '<i class="fa-fw ml-1 far fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '</a>';
+                 '<i class="fa-fw ml-1 far fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
         } else {
             echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ml-1 far fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
         }

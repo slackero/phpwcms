@@ -70,8 +70,10 @@ $BL['be_func_struct_sort_down']         = 'alt s&#305;raya ta&#351;&#305;';
 $BL['be_func_struct_del_article']       = 'ba&#351;l&#305;&#287;&#305; sil';
 $BL['be_func_struct_del_jsmsg']         = 'Ba&#351;l&#305;&#287;&#305; silmek istedi&#287;inize emin misiniz?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'Bu kategoride yeni bir konu ba&#351;l&#305;&#287;&#305; olu&#351;tur';
+$BL['be_func_struct_new_article_short']   = 'Yeni konu başlığı oluştur';
 $BL['be_func_struct_paste_article']     = 'konu ba&#351;l&#305;&#287;&#305;n&#305; bu kategoriye yap&#305;&#351;t&#305;r';
 $BL['be_func_struct_insert_level']      = 'Kategori i&ccedil;ine ekle';
+$BL['be_func_struct_insert_level_short'] = 'Kategori ekle';
 $BL['be_func_struct_paste_level']       = 'Kategori i&ccedil;ine yap&#305;&#351;t&#305;r';
 $BL['be_func_struct_cut_level']         = 'Kategoriyi kes';
 $BL['be_func_struct_no_cut']            = "k&ouml;k seviyesini kesmeniz m&uuml;mk&uuml;n de&#287;il!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'dosya bilgilerini g&uuml;ncelle';
 $BL['be_fprivedit_size']                = 'boyut';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'dosyay&#305; klas&ouml;re g&ouml;nder';
-$BL['be_fprivfunc_makenew']             = 'yeni klas&ouml;rde olu&#351;tur';
-$BL['be_fprivfunc_paste']               = 'kesilmi&#351; dosyay&#305; bu klas&ouml;re yap&#305;&#351;t&#305;r';
+$BL['be_fprivfunc_upload']              = 'Dosya yükle';
+$BL['be_fprivfunc_makenew']             = 'Yeni klasör oluştur';
+$BL['be_fprivfunc_paste']               = 'Yapıştır';
 $BL['be_fprivfunc_edit']                = 'klas&ouml;r&uuml; d&uuml;zenle';
 $BL['be_fprivfunc_cactive']             = 'aktif/pasif de&#287;i&#351;tir';
 $BL['be_fprivfunc_cpublic']             = 'genel(public)/&ouml;zel(nonpublic) de&#287;i&#351;tir';
 $BL['be_fprivfunc_deldir']              = 'kals&ouml;r&uuml; sil';
 $BL['be_fprivfunc_jsdeldir']            = 'Ger&ccedil;ekten bu klas&ouml;r&uuml; silmek istiyor musunuz?';
 $BL['be_fprivfunc_notempty']            = '{VAL} kalas&ouml;r bo&#351; de&#287;il!';
+$BL['be_fprivfunc_notempty_short']        = 'Klasör boş değil!';
 $BL['be_fprivfunc_opendir']             = 'klas&ouml;r&uuml; a&ccedil;';
 $BL['be_fprivfunc_closedir']            = 'klas&ouml;r&uuml; kapat';
 $BL['be_fprivfunc_dlfile']              = 'dosyay&#305; indir';
@@ -1151,3 +1154,6 @@ $BL['be_check_feuser_profile']          = '&ouml;nplan kullan&#305;c&#305; profi
 $BL['be_check_feuser_registration']     = 'kay&#305;t';
 $BL['be_check_feuser_manage']           = 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
 
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'varsayılan';

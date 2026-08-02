@@ -95,26 +95,27 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
         echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$row["f_id"].'">';
+        echo '<h6 class="dropdown-header">'.$dirname.'</h6>';
 
         //Button zum Uploaden einer Datei in dieses Verzeichnisses
         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;upload='.$row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_upload'].': '.$dirname.'">';
-        echo '<i class="ml-1 fa fa-fw fa-upload" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_upload'].': '.$dirname.'</a>';
+        echo '<i class="ml-1 fa fa-fw fa-upload" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_upload'].'</a>';
         if(!$cutID) { //Button zum Erzeugen eines Neuen Unterverzeichnisses
             echo '<a class="dropdown-item" role="button" href="'.$zieldatei.'&amp;mkdir='.$row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_makenew'].': '.$dirname.'">';
-            echo '<i class="ml-1 fa fa-fw fa-plus" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_makenew'].': '.$dirname.'</a>';
+            echo '<i class="ml-1 fa fa-fw fa-plus" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_makenew'].'</a>';
         } else {  //Button zum Einfügen der Clipboard-Datei in das Verzeichnis
             echo '<a class="dropdown-item" role="button" href="include/inc_act/act_file.php?paste='.$cutID.'%7C'.$row["f_id"].
                  '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_paste'].': '.$dirname.'">';
-            echo '<i class="ml-1 fa fa-fw fa-clipboard" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_paste'].': '.$dirname.'</a>';
+            echo '<i class="ml-1 fa fa-fw fa-clipboard" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_paste'].'</a>';
         }
         //Button zum Löschen des Verzeichnisses, wenn leer
         if(!$count_wert) {
             echo '<a class="dropdown-item" href="include/inc_act/act_file.php?delete='.$row["f_id"].'%7C'.'9'.
                  '" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'" data-confirm-danger="'.html_specialchars($GLOBALS['BL']['be_fprivfunc_jsdeldir'] . " \n[".$dirname."]? ") . '">';
-            echo '<i class="ml-1 disabled far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].': '.$dirname.'</a>';
+            echo '<i class="ml-1 disabled far fa-fw fa-trash-alt" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_deldir'].'</a>';
         } else {
             echo '<div class="dropdown-item disabled text-muted"><i class="ml-1 disabled far fa-fw fa-trash-alt text-muted" aria-hidden="true" data-toggle="tooltip" title="';
-            echo str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'"></i> '.str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'</div>';
+            echo str_replace('{VAL}', $dirname, $GLOBALS['BL']['be_fprivfunc_notempty']).'"></i> '.$GLOBALS['BL']['be_fprivfunc_notempty_short'].'</div>';
         }
         echo '</div></div>';
 
@@ -182,17 +183,18 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                     echo '<div class="btn-group btn-group-sm" role="group">';
                     echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
                     echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
+                    echo '<h6 class="dropdown-header">'.$filename.'</h6>';
 
                     //Button zum Downloaden der Datei
                     echo '<a class="dropdown-item" href="include/inc_act/act_download.php?dl='.$file_row["f_id"].
                          '"  target="_blank" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'">'.
-                         '<i class="ml-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].': '.$filename.'</a>'; //target='_blank'
+                         '<i class="ml-1 fa fa-fw fa-download" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_dlfile'].'</a>'; //target='_blank'
                     //Button zum Erzeugen eines Neuen Unterverzeichnisses
                     if($cutID == $file_row["f_id"]) {
-                        echo '<a class="dropdown-item" href="#"><i class="fa fa-fw fa-cut ml-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'</a>';
+                        echo '<a class="dropdown-item" href="#"><i class="fa fa-fw fa-cut ml-1" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     } else {
                         echo '<a class="dropdown-item" href="'.$zieldatei.'&amp;cut='.$file_row["f_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'">';
-                        echo '<i class="ml-1 fa fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].': '.$filename.'</a>';
+                        echo '<i class="ml-1 fa fa-fw fa-cut" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_cutfile'].'</a>';
                     }
                     //Button zum Löschen der Datei
                     if ($file_row["f_uid"] == intval($_SESSION["wcs_user_id"])) {
@@ -200,7 +202,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
                         $confirm_msg = $GLOBALS['BL']['be_fprivfunc_jsmovetrash1'] . "\n[" . $filename . "]\n" . $GLOBALS['BL']['be_fprivfunc_jsmovetrash2'];
                         echo '<a class="dropdown-item" href="include/inc_act/act_file.php?trash=' . $file_row["f_id"] . '%7C' . '1' .
                              '" data-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
-                             '<i class="ml-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '</a>';
+                             '<i class="ml-1 far fa-fw fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . '</a>';
                     } else {
                         echo '<div class="dropdown-item disabled text-muted"><i class="ml-1 far fa-fw fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
                     }

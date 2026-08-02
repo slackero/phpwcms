@@ -74,8 +74,10 @@ $BL['be_func_struct_sort_down']         = 'Categorie omlaag verplaatsen';
 $BL['be_func_struct_del_article']       = 'Artikel verwijderen';
 $BL['be_func_struct_del_jsmsg']         = 'Artikel verwijderen?';
 $BL['be_func_struct_new_article']       = 'Artikel aanmaken ';
+$BL['be_func_struct_new_article_short']   = 'Artikel aanmaken';
 $BL['be_func_struct_paste_article']     = 'Artikel plakken';
 $BL['be_func_struct_insert_level']      = 'Subcategorie invoegen';
+$BL['be_func_struct_insert_level_short'] = 'Subcategorie invoegen';
 $BL['be_func_struct_paste_level']       = 'Categorie plakken';
 $BL['be_func_struct_cut_level']         = 'Categorie knippen';
 $BL['be_func_struct_no_cut']            = "Het is onmogelijk om de root van de structuur te verwijderen!";
@@ -230,15 +232,16 @@ $BL['be_fprivedit_button']              = 'Opslaan';
 $BL['be_fprivedit_size']                = 'Grootte';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'Bestand uploaden naar directory';
+$BL['be_fprivfunc_upload']              = 'Bestand uploaden';
 $BL['be_fprivfunc_makenew']             = 'Nieuwe directory aanmaken';
-$BL['be_fprivfunc_paste']               = 'Kopieren naar directory';
+$BL['be_fprivfunc_paste']               = 'Kopiëren';
 $BL['be_fprivfunc_edit']                = 'Directory-info bewerken';
 $BL['be_fprivfunc_cactive']             = 'Schakelen actief/non actief';
 $BL['be_fprivfunc_cpublic']             = 'Schakelen openbaar/niet openbaar';
 $BL['be_fprivfunc_deldir']              = 'Directory verwijderen';
 $BL['be_fprivfunc_jsdeldir']            = 'Weet u zeker dat u deze\ndirectory wilt verwijderen?';
 $BL['be_fprivfunc_notempty']            = 'Directory {VAL} is niet leeg!';
+$BL['be_fprivfunc_notempty_short']        = 'Directory is niet leeg!';
 $BL['be_fprivfunc_opendir']             = 'Directory openen';
 $BL['be_fprivfunc_closedir']            = 'Directory sluiten';
 $BL['be_fprivfunc_dlfile']              = 'Bestand openen in browser';
@@ -1614,3 +1617,6 @@ $BL['be_cnt_summary_label'] = 'Samenvatting';
 $BL['be_cnt_max_words'] = 'Max. aantal woorden';
 
 $BL['be_dashboard_support'] = 'Contact & Support';
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'standaard';

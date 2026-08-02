@@ -72,8 +72,10 @@ $BL['be_func_struct_sort_down']         = 'tri d&eacute;croissant';
 $BL['be_func_struct_del_article']       = 'effacer article';
 $BL['be_func_struct_del_jsmsg']         = 'Souhaitez-vous r&eacute;ellement effacer cet article?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'cr&eacute;er un nouvel article &agrave; ce niveau de l&#39;arborescence';
+$BL['be_func_struct_new_article_short']   = 'créer un nouvel article';
 $BL['be_func_struct_paste_article']     = 'coller l&#39;article &agrave; ce niveau de l&#39;arborescence';
 $BL['be_func_struct_insert_level']      = 'ins&eacute;rer la branche dans';
+$BL['be_func_struct_insert_level_short'] = 'insérer la branche';
 $BL['be_func_struct_paste_level']       = 'coller la branche';
 $BL['be_func_struct_cut_level']         = 'couper la branche';
 $BL['be_func_struct_no_cut']            = "impossible de couper la branche de base!";
@@ -226,15 +228,16 @@ $BL['be_fprivedit_button']              = 'valider les modifications';
 $BL['be_fprivedit_size']                = 'taille';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'charger le fichier dans le r&eacute;pertoire';
-$BL['be_fprivfunc_makenew']             = 'cr&eacute;er un nouveau r&eacute;pertoire dans';
-$BL['be_fprivfunc_paste']               = 'coller le contenu du presse papiers dans le r&eacute;pertoire';
+$BL['be_fprivfunc_upload']              = 'Charger le fichier';
+$BL['be_fprivfunc_makenew']             = 'Créer un nouveau répertoire';
+$BL['be_fprivfunc_paste']               = 'Coller le fichier';
 $BL['be_fprivfunc_edit']                = '&eacute;diter le r&eacute;pertoire';
 $BL['be_fprivfunc_cactive']             = 'rendre actif/inactif';
 $BL['be_fprivfunc_cpublic']             = 'rendre public/non public';
 $BL['be_fprivfunc_deldir']              = 'supprimer le r&eacute;pertoire';
 $BL['be_fprivfunc_jsdeldir']            = 'souhaitez-vous r&eacute;ellement supprimer ce r&eacute;pertoire';
 $BL['be_fprivfunc_notempty']            = 'le r&eacute;pertoire {VAL} n&#39;est pas vide!';
+$BL['be_fprivfunc_notempty_short']        = 'Le répertoire n\'est pas vide!';
 $BL['be_fprivfunc_opendir']             = 'ouvrir le r&eacute;pertoire';
 $BL['be_fprivfunc_closedir']            = 'fermer le r&eacute;pertoire';
 $BL['be_fprivfunc_dlfile']              = 't&eacute;l&eacute;charger le fichier';
@@ -1138,3 +1141,6 @@ $BL['be_fileuploader_dictInvalidFileType'] = 'Vous ne pouvez pas t&eacute;l&eacu
 $BL['be_fileuploader_dictResponseError'] = 'Le serveur a r&eacute;pondu avec le code {{statusCode}}.';
 $BL['be_fileuploader_dictCancelUpload'] = 'Annuler le t&eacute;l&eacute;versement';
 $BL['be_fileuploader_dictRemoveFile'] = 'Supprimer le fichier';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'par d&eacute;faut';

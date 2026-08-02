@@ -77,8 +77,10 @@ $BL['be_func_struct_sort_down']         = 'flyt ned';
 $BL['be_func_struct_del_article']       = 'slet artikel';
 $BL['be_func_struct_del_jsmsg']         = 'Er du sikker p&aring; at du vil \nslette denne artikel?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'opret ny artikel i dette stukuturniveau';
+$BL['be_func_struct_new_article_short']   = 'opret ny artikel';
 $BL['be_func_struct_paste_article']     = 'inds&aelig;t artikel i dette strukturniveau';
 $BL['be_func_struct_insert_level']      = 'inds&aelig;t menupunkt under';
+$BL['be_func_struct_insert_level_short'] = 'indsæt menupunkt';
 $BL['be_func_struct_paste_level']       = 'inds&aelig;t i dette niveau';
 $BL['be_func_struct_cut_level']         = 'klip strukturniveau';
 $BL['be_func_struct_no_cut']            = 'Det er ikke muligt at klippe dette niveau!';
@@ -229,15 +231,16 @@ $BL['be_fprivedit_button']              = 'opdatér filinfo';
 $BL['be_fprivedit_size']                = 'st&oslash;rrelse';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'upload fil til mappen';
-$BL['be_fprivfunc_makenew']             = 'opret ny mappe inden i denne';
-$BL['be_fprivfunc_paste']               = 'inds&aelig;t fil fra klipbordet i denne mappe';
+$BL['be_fprivfunc_upload']              = 'Upload fil';
+$BL['be_fprivfunc_makenew']             = 'Opret ny mappe';
+$BL['be_fprivfunc_paste']               = 'Indsæt fil';
 $BL['be_fprivfunc_edit']                = 'redigér mappe';
 $BL['be_fprivfunc_cactive']             = 'skift til aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic']             = 'skift til offentlig/ikke offentlig';
 $BL['be_fprivfunc_deldir']              = 'slet mappe';
 $BL['be_fprivfunc_jsdeldir']            = '&oslash;nsker du virkelig \nat slette denne mappe?';
 $BL['be_fprivfunc_notempty']            = 'mappen {VAL} er ikke tom!';
+$BL['be_fprivfunc_notempty_short']        = 'mappen er ikke tom!';
 $BL['be_fprivfunc_opendir']             = '&aring;ben mappe';
 $BL['be_fprivfunc_closedir']            = 'luk mappe';
 $BL['be_fprivfunc_dlfile']              = 'hent fil';
@@ -658,3 +661,6 @@ $BL['be_ctype_articlemenu']             = 'article menu';
 $BL['be_cnt_sitelevel']                 = 'site level';
 $BL['be_cnt_sitecurrent']               = 'current site level';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'standard';

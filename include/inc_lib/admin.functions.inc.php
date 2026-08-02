@@ -274,10 +274,13 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article[$akey]["article_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
         $a .= '<div class="dropdown-menu" aria-labelledby="dropdownAcontentLink'.$article[$akey]["article_id"].'">';
+        $a .= '<h6 class="dropdown-header">'.$at.'</h6>';
         //copy article
-        $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;acopy='.$article[$akey]["article_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_copy'].' ['.$at.'] </a>';
+        $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;acopy='.$article[$akey]["article_id"].'">';
+        $a .= '<i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_copy'].'</a>';
         //cut article
-        $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;acut='.$article[$akey]["article_id"].'"><i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_cut'].' ['.$at.'] </a>';
+        $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;acut='.$article[$akey]["article_id"].'">';
+        $a .= '<i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_cut'].'</a>';
         //sort article up
         if($sort_up) {
           $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=4%7C'.$article[$akey]["article_id"] . '%7C' . $article[$akey]['sort_up'] . '%7C'.$article[$akey-1]["article_id"] . '%7C' . $article[$akey]['article_sort'].'"><i class="fa fa-caret-up fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_sort_up'].'</a>';
@@ -290,7 +293,7 @@ function struct_articlelist($struct_id, $counter, $copy_article_content, $cut_ar
         if($article[$akey]["article_uid"] == $_SESSION["wcs_user_id"] || $_SESSION["wcs_user_admin"]) {
           $a .= '<a class="dropdown-item confirm-link" href="include/inc_act/act_articlecontent.php?do=1,'.$article[$akey]["article_id"].'"';
           $a .= " data-confirm-type=\"danger\" data-confirm-action=\"".html($GLOBALS['BL']['modal_delete'])."\" data-confirm=\"".html($GLOBALS['BL']['be_func_struct_del_jsmsg']." [".$at."]")."\">";
-          $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
+          $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
         }
         $a .= '</div></div>';
         $a .= '<button id="abtnarticle'.$article[$akey]["article_id"].'" class="btn fa btn-xs visible '.($article[$akey]["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$article[$akey]["article_id"].'" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].'"></button>';
@@ -409,13 +412,14 @@ function struct_articlecontentlist($article, $akey, $copy_article_content, $cut_
             $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownAcontentLink'.$article_content["acontent_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
             $a .= '<div class="dropdown-menu" aria-labelledby="dropdownAcontentLink'.$article_content["acontent_id"].'">';
+            $a .= '<h6 class="dropdown-header">'.$at.'</h6>';
             //copy content part
-            $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;accopy='.$article_content["acontent_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_copy'].' ['.$at.'] </a>';
+            $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;accopy='.$article_content["acontent_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_copy'].'</a>';
             //cut content part
-            $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;accut='.$article_content["acontent_id"].'"><i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_cut'].' ['.$at.'] </a>';
+            $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;accut='.$article_content["acontent_id"].'"><i class="fa fa-cut fa-fw disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_content_cut'].'</a>';
             $a .= '<a class="dropdown-item" href="include/inc_act/act_articlecontent.php?do=9,'.$article_content["acontent_aid"].','.$article_content["acontent_id"].'"';
-            $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ')\">";
-            $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].' ['.$at.']</a>';
+            $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_article_cnt_delpart']." \\n[".js_singlequote($at)."] ?')\">";
+            $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_article_cnt_delpart'].'</a>';
             $a .= '</div></div>';
             $a .= '<button id="abtnarticlecontent'.$article_content["acontent_id"].'" class="btn fa btn-xs visible '.($article_content["acontent_visible"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$article_content["acontent_id"].'" data-type="articlecontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_fprivfunc_cactivefile'].'"></button>';
 
@@ -489,15 +493,16 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 $a .= '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownStrucLink'.$struct[$key]["acat_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
 
                 $a .= '<div class="dropdown-menu" aria-labelledby="dropdownStrucLink'.$struct[$key]["acat_id"].'">';
-                $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=6&amp;struct='.$struct[$key]["acat_id"].'&amp;sort='.$child_sort.'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_insert_level'].' ['.$an.']"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-folder fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_insert_level'].' ['.$an.']</a>';
-                 $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=1&amp;struct='.$struct[$key]["acat_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_new_article'].'"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-file fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_new_article'].'</a>';
+                $a .= '<h6 class="dropdown-header">'.$an.'</h6>';
+                $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=6&amp;struct='.$struct[$key]["acat_id"].'&amp;sort='.$child_sort.'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_insert_level'].' ['.$an.']"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-folder fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_insert_level_short'].'</a>';
+                 $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;p=1&amp;struct='.$struct[$key]["acat_id"].'" data-toggle="tooltip" title="'.$GLOBALS['BL']['be_func_struct_new_article'].'"><i class="fa fa-plus fa-fw" aria-hidden="true"></i> <i class="fa fa-file fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_new_article_short'].'</a>';
                 //copy structur
                 if($struct[$key]["acat_id"]) {
-                  $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;cop='.$struct[$key]["acat_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_copy_level'].' ['.$an.'] </a>';
+                  $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;cop='.$struct[$key]["acat_id"].'"><i class="fa fa-copy fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_copy_level'].'</a>';
                 }
                 //cut structur
                 if($struct[$key]["acat_id"]) {
-                  $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;cut='.$struct[$key]["acat_id"].'"><i class="fa fa-cut disabled fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_cut_level'].' ['.$an.'] </a>';
+                  $a .= '<a class="dropdown-item" href="phpwcms.php?do=articles&amp;cut='.$struct[$key]["acat_id"].'"><i class="fa fa-cut disabled fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_cut_level'].'</a>';
                 }
                 //sort structur up
                 if($sort_up) {
@@ -512,8 +517,8 @@ function listmode_edits($listmode, $struct, $key, $an, $copy_article_content, $c
                 //delete structur
                 if($struct[$key]["acat_id"]) {
                   $a .= '<a class="dropdown-item" href="include/inc_act/act_structure.php?do=9'.'%7C'.$struct[$key]["acat_id"].'"';
-                  $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_struct']." \\n[".js_singlequote($an)."] ')\">";
-                  $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_del_struct'].' ['.$an.']</a>';
+                  $a .= " onclick=\"return confirm('".$GLOBALS['BL']['be_func_struct_del_struct']." \\n[".js_singlequote($an)."] ?')\">";
+                  $a .= '<i class="far fa-trash-alt fa-fw" aria-hidden="true"></i> '.$GLOBALS['BL']['be_func_struct_del_struct'].'</a>';
                 }
 
                 $a .= '</div></div>'.LF;

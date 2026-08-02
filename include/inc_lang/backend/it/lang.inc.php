@@ -73,8 +73,10 @@ $BL['be_func_struct_sort_down']         = 'ordine discendente';
 $BL['be_func_struct_del_article']       = 'cancella articolo';
 $BL['be_func_struct_del_jsmsg']         = 'Comfermi?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'crea un articolo nuovo nel livello';
+$BL['be_func_struct_new_article_short']   = 'crea articolo nuovo';
 $BL['be_func_struct_paste_article']     = 'incolla articolo nel livello';
 $BL['be_func_struct_insert_level']      = 'inserisci il livello di struttura in';
+$BL['be_func_struct_insert_level_short'] = 'inserisci livello di struttura';
 $BL['be_func_struct_paste_level']       = 'incolla nel livello';
 $BL['be_func_struct_cut_level']         = 'taglia il livello';
 $BL['be_func_struct_no_cut']            = "Non si pu&ograve; cancellare la root!";
@@ -227,15 +229,16 @@ $BL['be_fprivedit_button']              = 'aggiorna le informazioni sul file';
 $BL['be_fprivedit_size']                = 'dimensione';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'carica files nella cartella';
-$BL['be_fprivfunc_makenew']             = 'crea nuova directory interna';
-$BL['be_fprivfunc_paste']               = 'incolla file in memoria nella cartella';
+$BL['be_fprivfunc_upload']              = 'Carica files';
+$BL['be_fprivfunc_makenew']             = 'Crea nuova directory';
+$BL['be_fprivfunc_paste']               = 'Incolla file';
 $BL['be_fprivfunc_edit']                = 'edita cartella';
 $BL['be_fprivfunc_cactive']             = 'cambia attivo/inattivo';
 $BL['be_fprivfunc_cpublic']             = 'cambia pubblico/non pubblico';
 $BL['be_fprivfunc_deldir']              = 'cancella cartella';
 $BL['be_fprivfunc_jsdeldir']            = 'Vuoi davvero \ncancellare la cartella';
 $BL['be_fprivfunc_notempty']            = 'cartella {VAL} non vuota!';
+$BL['be_fprivfunc_notempty_short']        = 'cartella non vuota!';
 $BL['be_fprivfunc_opendir']             = 'apri cartella';
 $BL['be_fprivfunc_closedir']            = 'chiudi cartella';
 $BL['be_fprivfunc_dlfile']              = 'scarica file';
@@ -1539,3 +1542,6 @@ $BL['be_cnt_summary_label'] = 'Riassunto';
 $BL['be_cnt_max_words'] = 'n. max parole';
 
 $BL['be_dashboard_support'] = 'Contatti e Supporto';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'predefinito';

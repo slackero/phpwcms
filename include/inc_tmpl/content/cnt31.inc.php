@@ -314,7 +314,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
               <div id="img_previewsmall_<?php echo $key ?>" class="backend_previewsmall_img"></div>
             </div>
             <div class="col">
-                <h2><strong>#<?= $key+1 ?></strong><?php if ($tab_title): echo ' – ' . html($tab_title); endif; ?></h2>
+                <h2><strong>#<?= $key+1 ?></strong><?php if ($tab_title): echo ' &ndash; ' . html($tab_title); endif; ?></h2>
             </div>
             <div class="col-sm-auto text-right">
                 <?php

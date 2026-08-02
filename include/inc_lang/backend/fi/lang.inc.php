@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'Siirr&auml; alas';
 $BL['be_func_struct_del_article']       = 'Poista artikkeli';
 $BL['be_func_struct_del_jsmsg']         = 'Haluatko varmasti poistaa \nkyseisen artikkelin?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'Luo uusi artikkelin hakemistorakenteen t&auml;h&auml;n kohtaan';
+$BL['be_func_struct_new_article_short']   = 'Luo uusi artikkeli';
 $BL['be_func_struct_paste_article']     = 'Liit&auml; artikkeli hakemistorakenteeseen';
 $BL['be_func_struct_insert_level']      = 'Lis&auml;&auml; taso hakemistorakenteeseen';
+$BL['be_func_struct_insert_level_short'] = 'Lisää taso rakenteeseen';
 $BL['be_func_struct_paste_level']       = 'Liit&auml; hakemistorakenteeseen';
 $BL['be_func_struct_cut_level']         = 'Leikkaa hakemistorakenteesta';
 $BL['be_func_struct_no_cut']            = "Liittäminen ei mahdollista!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'P&auml;ivit&auml; tiedoston tiedot';
 $BL['be_fprivedit_size']                = 'Koko';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'Lataa tiedosto hakemistoon';
+$BL['be_fprivfunc_upload']              = 'Lataa tiedosto';
 $BL['be_fprivfunc_makenew']             = 'Luo uusi alihakemisto';
-$BL['be_fprivfunc_paste']               = 'Liit&auml; leikep&ouml;yd&auml;n tiedosto kansioon';
+$BL['be_fprivfunc_paste']               = 'Liitä tiedosto';
 $BL['be_fprivfunc_edit']                = 'Muokkaa hakemistoa';
 $BL['be_fprivfunc_cactive']             = 'Muuta aktiiviseksi/passiiviseksi';
 $BL['be_fprivfunc_cpublic']             = 'Muuta julkiseksi/yksityiseksi';
 $BL['be_fprivfunc_deldir']              = 'Poista kansio';
 $BL['be_fprivfunc_jsdeldir']            = 'Haluatko todella \npoistaa hakemiston';
 $BL['be_fprivfunc_notempty']            = 'Hakemisto {VAL} ei ole tyhj&auml;!';
+$BL['be_fprivfunc_notempty_short']        = 'Hakemisto ei ole tyhjä!';
 $BL['be_fprivfunc_opendir']             = 'Avaa hakemisto';
 $BL['be_fprivfunc_closedir']            = 'Sulje hakemisto';
 $BL['be_fprivfunc_dlfile']              = 'Lataa tiedosto';
@@ -882,3 +885,6 @@ $BL['be_cnt_rssfeed_max']               = 'max.';
 $BL['be_cnt_rssfeed_cut']               = 'piilota 1. aihe';
 
 
+
+$BL['be_legacy'] = 'Legacy';
+$BL['be_default'] = 'oletus';

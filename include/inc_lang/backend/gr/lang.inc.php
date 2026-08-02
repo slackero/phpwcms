@@ -71,8 +71,10 @@ $BL['be_func_struct_sort_down']         = 'ταξινόμηση προς τα κ
 $BL['be_func_struct_del_article']       = 'διαγραφή άρθρου';
 $BL['be_func_struct_del_jsmsg']         = 'Θέλετε πραγματικά \nνα διαγράψετε το άρθρο?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'δημιουργία νέου άρθρου στην υπάρχουσα κατηγορία';
+$BL['be_func_struct_new_article_short']   = 'δημιουργία νέου άρθρου';
 $BL['be_func_struct_paste_article']     = 'επικόλληση άρθρου στην υπάρχουσα κατηγορία';
 $BL['be_func_struct_insert_level']      = 'δημιουργία κατηγορίας';
+$BL['be_func_struct_insert_level_short'] = 'δημιουργία κατηγορίας';
 $BL['be_func_struct_paste_level']       = 'επικόλληση στην κατηγορία';
 $BL['be_func_struct_cut_level']         = 'αποκοπή κατηγορίας';
 $BL['be_func_struct_no_cut']            = "Δεν είναι δυνατό να κοπεί το ριζικό επίπεδο!";
@@ -224,15 +226,16 @@ $BL['be_fprivedit_button']              = 'ενημέρωση πληροφορι
 $BL['be_fprivedit_size']                = 'μέγεθος';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'φορτώστε το αρχείο στον φάκελο';
-$BL['be_fprivfunc_makenew']             = 'δημιουργία νεου φακέλου μεσα';
-$BL['be_fprivfunc_paste']               = 'paste clipboard file into dir';
+$BL['be_fprivfunc_upload']              = 'Φορτώστε αρχείο';
+$BL['be_fprivfunc_makenew']             = 'Δημιουργία νέου φακέλου';
+$BL['be_fprivfunc_paste']               = 'Paste clipboard file';
 $BL['be_fprivfunc_edit']                = 'επεξεργασία φακέλου';
 $BL['be_fprivfunc_cactive']             = 'εναλλαγή ενεργό/ανενεργό';
 $BL['be_fprivfunc_cpublic']             = 'εναλλαγή δημόσιο/προσωπικό';
 $BL['be_fprivfunc_deldir']              = 'διαγραφή φακέλου';
 $BL['be_fprivfunc_jsdeldir']            = 'Θέλετε όντως \nνα διαγράψετε τόν φάκελο?';
 $BL['be_fprivfunc_notempty']            = 'ο φάκελος {VAL} δέν είναι άδειος!';
+$BL['be_fprivfunc_notempty_short']        = 'ο φάκελος δεν είναι άδειος!';
 $BL['be_fprivfunc_opendir']             = 'άνοιγμα φακέλου';
 $BL['be_fprivfunc_closedir']            = 'κλείσιμο φακέλου';
 $BL['be_fprivfunc_dlfile']              = 'κατεβάστε το αρχείο';
@@ -959,3 +962,6 @@ $BL['be_cnt_toplink'] = 'top link setting of contentpart alias';
 $BL['be_cnt_block'] = 'display (block) setting of contentpart alias';
 $BL['be_cnt_title'] = 'titles of contentpart alias';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'προεπιλογή';

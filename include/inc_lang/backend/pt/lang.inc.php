@@ -73,8 +73,10 @@ $BL['be_func_struct_sort_down']         = 'ordenar para baixo';
 $BL['be_func_struct_del_article']       = 'apagar artigo';
 $BL['be_func_struct_del_jsmsg']         = 'Tem certeza que \npretende apagar o artigo?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'criar novo artigo no nível da estrutura';
+$BL['be_func_struct_new_article_short']   = 'criar novo artigo';
 $BL['be_func_struct_paste_article']     = 'colocar artigo no nível da estrutura';
 $BL['be_func_struct_insert_level']      = 'colocar nível da estrutura em';
+$BL['be_func_struct_insert_level_short'] = 'colocar nível da estrutura';
 $BL['be_func_struct_paste_level']       = 'colar nível da estrutura em';
 $BL['be_func_struct_cut_level']         = 'cortar nível da estrutura';
 $BL['be_func_struct_no_cut']            = "Não é possível cortar o nível da raiz!";
@@ -226,15 +228,16 @@ $BL['be_fprivedit_button']              = 'actualizar a informação do ficheiro
 $BL['be_fprivedit_size']                = 'tamanho';
 
 // files.private-functions.inc.php
-$BL['be_fprivfunc_upload']              = 'copiar arquivo para o diretório';
-$BL['be_fprivfunc_makenew']             = 'criar novo diretório dentro de';
-$BL['be_fprivfunc_paste']               = 'colar ficheiro do clipboard no diretório';
+$BL['be_fprivfunc_upload']              = 'Copiar arquivo';
+$BL['be_fprivfunc_makenew']             = 'Criar novo diretório';
+$BL['be_fprivfunc_paste']               = 'Colar ficheiro';
 $BL['be_fprivfunc_edit']                = 'editar diretório';
 $BL['be_fprivfunc_cactive']             = 'mudar visível/invisível';
 $BL['be_fprivfunc_cpublic']             = 'mudar público/não público';
 $BL['be_fprivfunc_deldir']              = 'apagar diretório';
 $BL['be_fprivfunc_jsdeldir']            = 'Tem certeza que \npretende apagar este diretório?';
 $BL['be_fprivfunc_notempty']            = 'diretório {VAL} não está vazio !';
+$BL['be_fprivfunc_notempty_short']        = 'diretório não está vazio!';
 $BL['be_fprivfunc_opendir']             = 'abrir diretório';
 $BL['be_fprivfunc_closedir']            = 'fechar diretório';
 $BL['be_fprivfunc_dlfile']              = 'descarregar arquivo';
@@ -782,3 +785,6 @@ $BL['be_article_nosummary']             = 'não mostrar o sumário com o artigo 
 $BL['be_article_forlist']               = 'listagem de artigos';
 $BL['be_article_forfull']               = 'mostrar artigo completo';
 
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'padr&atilde;o';
