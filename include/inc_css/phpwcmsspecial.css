@@ -597,14 +597,22 @@ a.filein {
     padding: 8px 15px;
 }
 
+#side-menu li li a {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 15px;
+}
+
 #side-menu li li a::before {
     content: "\f101";
     font-size: 13px;
     font-family: "Font Awesome 5 Free";
-    margin-left: 30px;
-    margin-right: 5px;
+    margin-left: 20px;
+    margin-right: 8px;
     transition: margin ease 0.5s;
     font-weight: 900;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 #side-menu .fa {
