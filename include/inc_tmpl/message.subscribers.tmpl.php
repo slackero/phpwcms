@@ -210,62 +210,57 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 
     <hr />
 
-    <div class="form-row align-items-center">
-      <div class="col-12 col-sm">
-        <input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
-        <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
-        <div class="col-12 col-sm-auto">
-          <div class="btn-group btn-group-sm" role="group" aria-label="subscribers-filter">
-            <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
-              <i class="fas fa-eye"></i>
-            </button>
-            <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
-              <i class="fas fa-eye-slash"></i>
-            </button>
-          </div>
+    <div class="form-row align-items-center mb-3">
+      <input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+      <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+      <div class="col-12 col-sm-auto">
+        <div class="btn-group btn-group-sm" role="group" aria-label="subscribers-filter">
+          <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+            <i class="fas fa-eye-slash"></i>
+          </button>
         </div>
+      </div>
 
       <div class="col-12 col-sm-auto">
-        <div class="input-group my-3 my-sm-0">
-          <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern nach Benutzername, Name oder E-Mail" class="form-control form-control-sm" value="<?php
+        <div class="input-group input-group-sm my-2 my-sm-0">
+          <input name="filter" id="filter" size="15" data-toggle="tooltip" title="Filtern nach Benutzername, Name oder E-Mail" class="form-control" value="<?php
   if(isset($_SESSION['filter_subscriber']) && count($_SESSION['filter_subscriber']) ) {
     echo html(implode(' ', $_SESSION['filter_subscriber']));
   }
   ?>" type="search">
           <span class="input-group-append">
-            <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="button">
+            <input class="btn btn-secondary" name="gofilter" value="Filter" type="button">
           </span>
         </div>
       </div>
 
-            <?php
-            if($_userInfo['pages_total'] > 1) {
-              echo '<div class="col-sm-auto text-right">';
-              echo '<table><tr><td>';
-              if($_SESSION['subscriber_page'] > 1) {
-                  echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']-1).'">';
-                  echo '<i class="fa fa-angle-left"></i></a>';
-               } else {
-                  echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']-1).'">';
-                  echo '<i class="fa fa-angle-left"></i></a>';
-              }
-              echo '</td>';
-              echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['newsletter_page'];
-              echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
-              echo '<td>/'.$_userInfo['pages_total'].'&nbsp;</td>';
-              echo '<td>';
-              if($_SESSION['subscriber_page'] < $_userInfo['pages_total']) {
-                  echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']+1).'">';
-                  echo '<i class="fa fa-angle-right"></i></a>';
-              } else {
-                  echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=messages&amp;p=4&amp;page='.($_SESSION['subscriber_page']+1).'">';
-                  echo '<i class="fa fa-angle-right"></i></a>';
-              }
-              echo '</td></tr></table></div>';
-            } else {
-              echo '<input type="hidden" name="page" id="page" value="1" />';
-            }
-            ?>
+      <?php if($_userInfo['pages_total'] > 1): ?>
+        <div class="col-12 col-sm-auto">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <?php if($_SESSION['subscriber_page'] > 1): ?>
+                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']-1) ?>"><i class="fa fa-angle-left"></i></a>
+              <?php else: ?>
+                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-left"></i></button>
+              <?php endif; ?>
+            </div>
+            <input type="number" name="page" id="page" value="<?php echo $_SESSION['subscriber_page'] ?>" class="form-control text-center font-weight-bold" style="width: 60px;" />
+            <div class="input-group-append">
+              <span class="input-group-text">/ <?php echo $_userInfo['pages_total'] ?></span>
+              <?php if($_SESSION['subscriber_page'] < $_userInfo['pages_total']): ?>
+                <a class="btn btn-blue" href="phpwcms.php?do=messages&amp;p=4&amp;page=<?php echo ($_SESSION['subscriber_page']+1) ?>"><i class="fa fa-angle-right"></i></a>
+              <?php else: ?>
+                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-right"></i></button>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      <?php else: ?>
+        <input type="hidden" name="page" id="page" value="1" />
+      <?php endif; ?>
 
     <div class="col-12 col-sm-auto text-right">
         <select class="form-control form-control-sm custom-select">
