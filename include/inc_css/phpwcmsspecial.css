@@ -380,37 +380,102 @@ header .dropdown-toggle::after {
     font-weight: 900;
 }
 
+/* Action buttons wrapping prevention & icon consistency */
+.cell-actions,
+td.align-middle,
+td.text-right,
+.btn-group,
+.action-buttons {
+    white-space: nowrap !important;
+}
+
+/* 1px subtle separation border between adjacent buttons in button groups */
+.btn-group > .btn + .btn,
+.btn-group > .btn + .btn-group,
+.btn-group > .btn-group + .btn,
+.btn-group > .btn-group + .btn-group {
+    border-left: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
+
 .visible.btn-success,
-.visible.btn-danger {
+.visible.btn-danger,
+.visible.btn-warning,
+.public.btn-success,
+.public.btn-danger,
+.public.btn-warning {
     min-width: 32px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Distinct pastel amber/orange styling for inactive/invisible status toggle buttons */
+.visible.btn-danger,
+.public.btn-danger,
+.btn-group > .btn-danger:not([title*="Delete"]):not([onclick*="delete"]):not([onclick*="confirm"]):not([href*="delete"]):not([href*="trash"]) {
+    color: #fff !important;
+    background-color: #f0ad4e !important;
+    border-color: #eea236 !important;
+}
+
+.visible.btn-danger:hover,
+.public.btn-danger:hover,
+.btn-group > .btn-danger:not([title*="Delete"]):not([onclick*="delete"]):not([onclick*="confirm"]):not([href*="delete"]):not([href*="trash"]):hover {
+    color: #fff !important;
+    background-color: #ec971f !important;
+    border-color: #d58512 !important;
 }
 
 .visible.btn-success:before {
     content: "\f06e";
     font-family: "Font Awesome 5 Free";
-    line-height: 1.5;
+    font-weight: 900;
+    line-height: 1;
+    width: 1.25em;
+    text-align: center;
+    display: inline-block;
 }
 
-.visible.btn-danger:before {
+.visible.btn-danger:before,
+.visible.btn-warning:before {
     content: "\f070";
     font-family: "Font Awesome 5 Free";
-    line-height: 1.5;
+    font-weight: 900;
+    line-height: 1;
+    width: 1.25em;
+    text-align: center;
+    display: inline-block;
 }
 
 .public.btn-success:before {
     content: "\f09c";
     font-family: "Font Awesome 5 Free";
-    line-height: 1.5;
+    font-weight: 900;
+    line-height: 1;
+    width: 1.25em;
+    text-align: center;
+    display: inline-block;
 }
 
-.public.btn-danger:before {
+.public.btn-danger:before,
+.public.btn-warning:before {
     content: "\f023";
     font-family: "Font Awesome 5 Free";
-    line-height: 1.5;
+    font-weight: 900;
+    line-height: 1;
+    width: 1.25em;
+    text-align: center;
+    display: inline-block;
 }
 
-.btn.fa.ml-1.btn-sm {
+.btn.fa.ml-1.btn-sm,
+.btn.fa.me-1.btn-sm {
     width: 2.5em;
+}
+
+/* Ensure buttons in action containers never wrap */
+.btn-sm, .btn {
+    white-space: nowrap;
 }
 
 .ffolder.fa-caret-right {

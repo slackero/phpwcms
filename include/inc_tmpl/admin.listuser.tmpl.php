@@ -245,12 +245,13 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
           ?></a></td>
           <td class="align-middle text-nowrap text-right">
           <?php
-
-          echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
-          echo '<a class="btn btn-sm btn-blue '.($userlist["usr_aktiv"]==0 ? "btn-info" : "btn-success").' mr-1" role="button" aria-disabled="true" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '<div class="btn-group btn-group-sm" role="group" aria-label="user-actions-'.$userlist['usr_id'].'">';
+          echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+          echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_admin_usr_editusr'].": ".html($userlist["usr_login"]).'" data-toggle="tooltip" href="'.$goto .'"><i class="fa fa-pencil-alt"></i></a>';
+          echo '</div>';
           $confirm_usr = $BL['be_admin_usr_ldel'] . "\n[" . $userlist['usr_login'] . "]";
-          echo '<a class="btn btn-sm btn-danger" data-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" data-confirm-danger="'.html_specialchars($confirm_usr).'"><i class="far fa-trash-alt"></i></a>';
-            ?>
+          echo '<a class="btn btn-sm btn-danger ml-1" data-toggle="tooltip" href="include/inc_act/act_user.php?del='. urlencode($userlist["usr_id"].":".$userlist["usr_email"]).'" title="'.$BL['be_admin_usr_ldel'].' '.html($userlist['usr_login']).'" data-confirm-danger="'.html_specialchars($confirm_usr).'"><i class="far fa-trash-alt"></i></a>';
+          ?>
 
           </td>
         </tr>

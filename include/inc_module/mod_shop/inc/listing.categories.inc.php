@@ -116,7 +116,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
 					<i class="fas fa-eye"></i>
 				</button>
-				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
 					<i class="fas fa-eye-slash"></i>
 				</button>
 			</div>
@@ -182,13 +182,15 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
                 echo html_specialchars($row['category']) . "</td>\n";
                 echo '<td class="dir" width="3%" align="center">&nbsp;' . $row['cat_sort'] . '&nbsp;</td>';
                 echo '<td width="10%" class="text-right text-nowrap">';
-                echo '<a class="btn btn-sm btn-blue mr-1" href="' . $_controller_link . '&amp;edit=' . $row['cat_id'] . '">';
+                echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-cat-actions-' . $row['cat_id'] . '">';
+                echo '<a class="btn btn-sm btn-blue" href="' . $_controller_link . '&amp;edit=' . $row['cat_id'] . '">';
                 echo '<i class="fa fa-pencil-alt"></i></a>';
                 echo '<button id="abtnshop' . $row['cat_id'] . '" class="btn fa btn-sm visible ';
-                echo ((int)$row['cat_status'] === 0 ? 'btn-danger' : 'btn-success') . ' mr-1" data-id="' . $row['cat_id'];
+                echo ((int)$row['cat_status'] === 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['cat_id'];
                 echo '" data-type="shop" data-table="categories" data-field="cat_status" data-fieldid="cat_id" aria-disabled="true" data-toggle="tooltip" title="';
                 echo $BL['be_tooltip_visibility'] . '"></button>';
-                echo '<a class="btn btn-sm btn-danger mr-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
+                echo '</div>';
+                echo '<a class="btn btn-sm btn-danger ml-1" href="' . $_controller_link . '&amp;delete=' . $row['cat_id'];
                 echo '" title="delete: ' . html_specialchars($row['cat_name']) . '"';
                 echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . js_singlequote($row['cat_name']) . '\');">';
                 echo '<i class="far fa-trash-alt"></i></a>';

@@ -119,7 +119,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 				<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
 					<i class="fas fa-eye"></i>
 				</button>
-				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+				<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
 					<i class="fas fa-eye-slash"></i>
 				</button>
 			</div>
@@ -193,7 +193,8 @@ if($data) {
 
     echo '<td class="text-right text-nowrap">';
 
-      echo '<a class="btn btn-sm btn-blue mr-1" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
+      echo '<div class="btn-group btn-group-sm" role="group" aria-label="shop-prod-actions-'.$row['shopprod_id'].'">';
+      echo '<a class="btn btn-sm btn-blue" href="'.$_controller_link.'&amp;edit='.$row["shopprod_id"].'">';
       echo '<i class="fa fa-pencil-alt"></i></a>';
 
       $row["shopprod_var"] = @unserialize($row["shopprod_var"], ['allowed_classes' => false]);
@@ -201,16 +202,17 @@ if($data) {
       echo '<button id="abtnshop'.$row['shopprod_id'].'" class="btn fa btn-sm visible ';
 
       if (empty($row["shopprod_status"])) {
-          echo "btn-danger";
+          echo "btn-warning";
       } elseif (!empty($row["shopprod_var"]['request']) && !empty($row["shopprod_var"]['request_url'])) {
           echo "btn-warning";
       } else {
           echo "btn-success";
       }
 
-      echo ' mr-1" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      echo '" data-id="'.$row['shopprod_id'].'" data-type="shop" data-table="shop_products" data-field="shopprod_status" data-fieldid="shopprod_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';
+      echo '</div>';
 
-      echo '<a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
+      echo '<a class="btn btn-sm btn-danger ml-1" href="'.$_controller_link.'&amp;delete='.$row["shopprod_id"];
       echo '" title="delete: '.html_specialchars($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'"';
       echo ' onclick="return confirm(\''.$BLM['delete_product'].js_singlequote($row['shopprod_ordernumber'].' / '.$row['shopprod_name1']).'\');">';
       echo '<i class="far fa-trash-alt"></i></a>';

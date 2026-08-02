@@ -46,19 +46,16 @@ $news = new phpwcmsNews();
     <div class="form-group mb-2">
         <input type="hidden" name="filter" value="1" />
       <div class="form-row align-items-center">
-        <div class="col-12 col-sm">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text bg-success border-0">
-                <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 1 ) ? 1 : 0 ) ?> />
-              </div>
-              <div class="input-group-text bg-danger border-0">
-                  <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php  is_checked(1, ( $news->filter_status == 0 || $news->filter_status == 2 ) ? 1 : 0 ) ?> />
-              </div>
-            </div>
-            <div class="input-group-append">
-              <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
-            </div>
+        <input type="hidden" name="showactive" id="showactive_input" value="<?php echo ($news->filter_status == 0 || $news->filter_status == 1) ? 1 : 0 ?>" />
+        <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo ($news->filter_status == 0 || $news->filter_status == 2) ? 1 : 0 ?>" />
+        <div class="col-12 col-sm-auto">
+          <div class="btn-group btn-group-sm" role="group" aria-label="news-filter">
+            <button type="button" class="btn btn-sm <?php echo ($news->filter_status == 0 || $news->filter_status == 1) ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button type="button" class="btn btn-sm <?php echo ($news->filter_status == 0 || $news->filter_status == 2) ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+              <i class="fas fa-eye-slash"></i>
+            </button>
           </div>
         </div>
       <div class="col-sm-auto my-2 my-sm-0">

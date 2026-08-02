@@ -125,7 +125,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
 							<i class="fas fa-eye"></i>
 						</button>
-						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
 							<i class="fas fa-eye-slash"></i>
 						</button>
 					</div>
@@ -214,17 +214,18 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 						echo '<td>' . html($row["detail_city"] . ($row["detail_zip"] ? ', ' . $row["detail_zip"] : '')) . '</td>';
 						echo '<td>' . html($row["detail_country"]) . '</td>';
 						echo '<td>' . (intval($row["detail_int2"]) ? $row["detail_int2"] : '') . '</td>';
-						echo '<td class="text-right">';
+						echo '<td class="text-right text-nowrap">';
+						echo '<div class="btn-group btn-group-sm" role="group" aria-label="address-actions-' . $row["detail_id"] . '">';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue mr-1" title="Edit"><i class="fas fa-edit fa-fw"></i></a>';
+						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["detail_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["detail_id"] . '&amp;verify=' . (($row["detail_aktiv"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["detail_aktiv"]) ? 'btn-success' : 'btn-secondary') . ' mr-1" title="Toggle Status">';
+						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["detail_id"] . '&amp;verify=' . (($row["detail_aktiv"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["detail_aktiv"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["detail_aktiv"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
+						echo '</div>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger" title="Delete"';
-						echo ' onclick="event.stopPropagation(); return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_company"]) . '\');">';
-						echo '<i class="fas fa-trash fa-fw"></i></a>';
-						
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["detail_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row["detail_name"]) . '"';
+						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["detail_name"]) . '\');">';
+						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

@@ -133,17 +133,17 @@ $_controller_link =  statistic_url('controller=subscriptions');
           if ($data["log_type"] == 1) {
             echo '    <td width="70%" class="align-middle"><a href="phpwcms.php?do=messages&amp;p=4&amp;s='.$data["log_user_id"].'&amp;edit=1" target="_blank">' . html_specialchars($data["log_msg"]). "</a>&nbsp;</td>" . LF;
             echo '    <td class="text-right p-1 align-middle text-nowrap">';
-            echo '      <a class="btn btn-sm mr-1 '.($data["address_verified"] ? 'btn-success' : 'btn-secondary').'" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$data["address_id"].'&amp;verify='.($data["address_verified"] ? '0' : '1').'" title="set '.$data["address_email"].' verified/not verified"><i class="fas '.($data["address_verified"] ? 'fa-check' : 'fa-clock').'"></i></a>';
+            echo '      <a class="btn btn-sm '.($data["address_verified"] ? 'btn-success' : 'btn-warning').'" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$data["address_id"].'&amp;verify='.($data["address_verified"] ? '0' : '1').'" title="set '.$data["address_email"].' verified/not verified"><i class="fas '.($data["address_verified"] ? 'fa-check' : 'fa-clock').'"></i></a>';
           } else {
             echo '    <td width="70%" class="align-middle">' . html_specialchars($data["log_msg"]). "&nbsp;</td>" . LF;
             echo '    <td class="text-right p-1 align-middle text-nowrap">';
           }
 
-          echo '      <a class="btn btn-sm btn-danger mr-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';
+          echo '      <a class="btn btn-sm btn-danger ml-1" href="'.$_controller_link.'&amp;delete='.$data["log_id"].'" title="delete: '.html_specialchars($data["log_msg"]).'" onclick="return confirm(\''.$BLM['log_delete_entry'].' \');"><i class="fas fa-trash-alt"></i></a>';
 
           if (stristr($data["log_msg"], '::')) {
             $email_array = explode('::', $data["log_msg"]);
-            echo '    <a class="btn btn-sm btn-dark" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fas fa-ban"></i></a>';
+            echo '    <a class="btn btn-sm btn-dark ml-1" href="'.$_controller_link.'&amp;blacklist='.$email_array[1].'" title="Add to blacklist: '.html_specialchars($email_array[1]).'" onclick="return confirm(\''.html_specialchars($email_array[1]).' '.$BLM['log_insert_blacklist'].' \');"><i class="fas fa-ban"></i></a>';
           }
           echo '    </td></tr>' . LF;
           $x++;

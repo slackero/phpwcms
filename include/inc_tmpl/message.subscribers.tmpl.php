@@ -212,20 +212,18 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
 
     <div class="form-row align-items-center">
       <div class="col-12 col-sm">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text bg-success border-0">
-              <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> />
-            </div>
-            <div class="input-group-text bg-danger border-0">
-          	   <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> />
-            </div>
-          </div>
-          <div class="input-group-append">
-            <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
+        <input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+        <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+        <div class="col-12 col-sm-auto">
+          <div class="btn-group btn-group-sm" role="group" aria-label="subscribers-filter">
+            <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+              <i class="fas fa-eye-slash"></i>
+            </button>
           </div>
         </div>
-      </div>
 
       <div class="col-12 col-sm-auto">
         <div class="input-group my-3 my-sm-0">
@@ -367,12 +365,13 @@ if($_userInfo['list_channel']) {
 		echo '<td width="1%" class="dir text-nowrap">'.$row["address_email"]."</td>".LF;
 		echo '<td class="dir" width="95%">'.html($row["address_name"])."</td>".LF;
 		echo '<td align="right" class="button_td text-nowrap">'.LF;
+		echo '<div class="btn-group btn-group-sm" role="group" aria-label="subscriber-actions-'.$row["address_id"].'">';
+		echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
 
-		echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;edit=1"><i class="fa fa-pencil-alt"></i></a>';
+		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" aria-disabled="true" data-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
+		echo '</div>';
 
-		echo '<button id="abtnaddress'.$row["address_id"].'" class="btn fa btn-sm visible '.($row["address_verified"]==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$row["address_id"].'" data-type="address" data-table="address" data-field="address_verified" data-fieldid="address_id" aria-disabled="true" data-toggle="tooltip" title="'.sprintf($BL['be_mailinglist_verified'], $row["address_email"]).' "></button>';
-
-		echo '<a class="btn btn-sm btn-danger" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="far fa-trash-alt"></i></a>'.LF;
+		echo '<a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="'.$BL['be_mailinglist_delete_subscriber'].': '.html_specialchars($row["address_email"]).'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=4&amp;s='.$row["address_id"].'&amp;del='.$row["address_id"].'" onclick="return confirm(\''.$BL['be_mailinglist_delete_subscriber'].' '.js_singlequote($row["address_email"]).'\');"><i class="far fa-trash-alt"></i></a>'.LF;
 
 		echo "</td>\n</tr>".LF;
 

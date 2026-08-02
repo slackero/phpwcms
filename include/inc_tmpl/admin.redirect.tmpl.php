@@ -139,50 +139,43 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     <?php if($_entry['pages_total'] <= 1): ?><input type="hidden" name="page" id="page" value="1" /><?php endif; ?>
     <div class="form-row align-items-center mb-4">
 
-      <div class="col-12 col-sm">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text bg-success border-0">
-              <input name="showactive" id="showactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_active'], 1) ?> />
-            </div>
-            <div class="input-group-text bg-danger border-0">
-          	   <input name="showinactive" id="showinactive" type="checkbox" onclick="this.form.submit();"<?php is_checked(1, $_entry['list_inactive'], 1) ?> />
-            </div>
-          </div>
-          <div class="input-group-append">
-            <span class="input-group-text border-0" id="basic-addon2"><i class="fas fa-eye"></i></span>
-          </div>
+      <input type="hidden" name="showactive" id="showactive_input" value="<?php echo $_entry['list_active'] ?>" />
+      <input type="hidden" name="showinactive" id="showinactive_input" value="<?php echo $_entry['list_inactive'] ?>" />
+      <div class="col-12 col-sm-auto">
+        <div class="btn-group btn-group-sm" role="group" aria-label="redirect-filter">
+          <button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+            <i class="fas fa-eye-slash"></i>
+          </button>
         </div>
       </div>
 
-      <?php
-        if($_entry['pages_total'] > 1) {
-          echo '<div class="col-sm-auto text-right">';
-          echo '<table><tr><td>';
-          if($_SESSION['redirect_detail_page'] > 1) {
-              echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page='.($_SESSION['redirect_detail_page']-1).'">';
-              echo '<i class="fa fa-angle-left"></i></a>';
-           } else {
-              echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=admin&amp;p=14&amp;page='.($_SESSION['redirect_detail_page']-1).'">';
-              echo '<i class="fa fa-angle-left"></i></a>';
-          }
-          echo '</td>';
-          echo '<td><input type="number" name="page" id="page" maxlength="4" size="4" value="'.$_SESSION['redirect_detail_page'];
-          echo '"  class="form-control form-control-sm font-weight-bold ml-2 mr-1 w-25" /></td>';
-          echo '<td>/'.$_entry['pages_total'].'&nbsp;</td>';
-          echo '<td>';
-          if($_SESSION['redirect_detail_page'] < $_entry['pages_total']) {
-              echo '<a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page='.($_SESSION['redirect_detail_page']+1).'">';
-              echo '<i class="fa fa-angle-right"></i></a>';
-          } else {
-            echo '<a class="btn btn-sm btn-blue disabled" href="phpwcms.php?do=admin&amp;p=14&amp;page='.($_SESSION['redirect_detail_page']+1).'">';
-            echo '<i class="fa fa-angle-right"></i></a>';
-          }
-          echo '</td></tr></table></div>';
-        } else {
-          echo '<input type="hidden" name="page" id="page" value="1" />';
-        }
-        ?>
+      <?php if($_entry['pages_total'] > 1): ?>
+        <div class="col-12 col-sm-auto">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <?php if($_SESSION['redirect_detail_page'] > 1): ?>
+                <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page=<?php echo ($_SESSION['redirect_detail_page']-1) ?>"><i class="fa fa-angle-left"></i></a>
+              <?php else: ?>
+                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-left"></i></button>
+              <?php endif; ?>
+            </div>
+            <input type="number" name="page" id="page" value="<?php echo $_SESSION['redirect_detail_page'] ?>" class="form-control text-center font-weight-bold" style="width: 60px;" />
+            <div class="input-group-append">
+              <span class="input-group-text">/ <?php echo $_entry['pages_total'] ?></span>
+              <?php if($_SESSION['redirect_detail_page'] < $_entry['pages_total']): ?>
+                <a class="btn btn-blue" href="phpwcms.php?do=admin&amp;p=14&amp;page=<?php echo ($_SESSION['redirect_detail_page']+1) ?>"><i class="fa fa-angle-right"></i></a>
+              <?php else: ?>
+                <button class="btn btn-blue" disabled type="button"><i class="fa fa-angle-right"></i></button>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      <?php else: ?>
+        <input type="hidden" name="page" id="page" value="1" />
+      <?php endif; ?>
 
       <div class="col-12 col-sm-auto">
         <div class="input-group my-3 my-sm-0">
@@ -261,10 +254,11 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
     echo '    <td>' . $data["views"] . "</td>" . LF;
     echo '    <td>'.date($BL['default_date'], $data["timestamp"])."</td>" . LF;
     echo '    <td class="text-right text-nowrap">';
-
-    echo '<a class="btn btn-sm btn-blue mr-1" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
-
-    echo '<button id="abtnredirect'.$data['aid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-danger" : "btn-success").' mr-1" data-id="'.$data['aid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="aid" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
+    echo '<div class="btn-group btn-group-sm" role="group" aria-label="redirect-actions-'.$data["rid"].'">';
+    echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_tt_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=admin&amp;p=14&amp;rid='.$data["rid"].'"><i class="fa fa-pencil-alt"></i></a>';
+    echo '<button id="abtnredirect'.$data['rid'].'" class="btn fa btn-sm visible '.($data['active']==0 ? "btn-warning" : "btn-success").'" data-id="'.$data['rid'].'" data-type="redirect" data-table="redirect" data-field="active" data-fieldid="rid" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactive'].'"></button>';
+    echo '</div>';
+    echo '</td>'.LF;
     $x++;
   }
 

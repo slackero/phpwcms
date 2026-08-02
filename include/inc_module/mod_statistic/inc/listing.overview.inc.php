@@ -203,8 +203,10 @@ if (!defined('PHPWCMS_ROOT')) {
             echo '  <td><strong>'.html_specialchars($value['article_title']).'</strong></td>'.LF;
             echo '  <td align="center" class="text-nowrap">&nbsp;'.$value['article_date'].'&nbsp;</td>'.LF;
             echo '  <td class="text-right text-nowrap p-1">';
-            echo '<button class="btn btn-sm mr-1 '.($value["article_aktiv"]==0 ? "btn-danger" : "btn-success").'" data-id="'.$value['article_id'].'" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fas '.($value["article_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").'"></i></button>';
-            echo '<a class="btn btn-sm btn-info" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+            echo '<div class="btn-group btn-group-sm" role="group" aria-label="stat-overview-actions-'.$value['article_id'].'">';
+            echo '<button class="btn btn-sm '.($value["article_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$value['article_id'].'" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"><i class="fas '.($value["article_aktiv"]==0 ? "fa-eye-slash" : "fa-eye").'"></i></button>';
+            echo '<a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_struct_edit'].'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;id='.$value['article_id'].'"><i class="fa fa-pencil-alt"></i></a>';
+            echo '</div>';
             echo '</td>'.LF;
             echo '</tr>'.LF;
             $row_count++;

@@ -734,10 +734,14 @@ $(function () {
                 'fieldid': fieldid,
             },
             success: function (data) {
-                if ($(thisbtn).hasClass('btn-success')) {
-                    $(thisbtn).removeClass('btn-success').addClass('btn-danger');
+                let $target = $(thisbtn);
+                if (!$target.length) {
+                    $target = $this;
+                }
+                if ($target.hasClass('btn-success')) {
+                    $target.removeClass('btn-success').addClass('btn-warning');
                 } else {
-                    $(thisbtn).removeClass('btn-danger').addClass('btn-success');
+                    $target.removeClass('btn-warning btn-danger').addClass('btn-success');
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

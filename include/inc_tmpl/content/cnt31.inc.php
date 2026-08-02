@@ -323,7 +323,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
                     $value['active'] = 1;
                 }
                 ?>
-                <a class="btn btn-sm <?= $value['active'] ? 'btn-success' : 'btn-danger'; ?>" role="button" href="#" onclick="return setImgActive(this, 'imgactive<?php echo $key ?>')">
+                <a class="btn btn-sm <?= $value['active'] ? 'btn-success' : 'btn-warning'; ?>" role="button" href="#" onclick="return setImgActive(this, 'imgactive<?php echo $key ?>')">
                     <i class="fa <?= $value['active'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="imgactive<?php echo $key ?>-icon"></i>
                     <input type="hidden" name="cimage_active[<?php echo $key ?>]" id="imgactive<?php echo $key ?>" value="<?php echo $value['active']; ?>">
                 </a>
@@ -978,12 +978,12 @@ function setImgActive(button, id) {
     let item = document.getElementById(id);
     if (item.value === '1') {
         item.value = '0';
-        button.classList.add('btn-danger');
-        button.classList.remove('btn-success');
+        button.classList.add('btn-warning');
+        button.classList.remove('btn-success', 'btn-danger');
         document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye-slash');
     } else {
         item.value = '1';
-        button.classList.remove('btn-danger');
+        button.classList.remove('btn-warning', 'btn-danger');
         button.classList.add('btn-success');
         document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye');
     }

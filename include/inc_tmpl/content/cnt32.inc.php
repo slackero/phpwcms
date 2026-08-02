@@ -158,7 +158,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
                     $value['tabactive'] = 1;
                 }
                 ?>
-                <a class="btn btn-sm <?= $value['tabactive'] ? 'btn-success' : 'btn-danger'; ?>" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
+                <a class="btn btn-sm <?= $value['tabactive'] ? 'btn-success' : 'btn-warning'; ?>" role="button" href="#" onclick="return setTabActive(this, 'tabactive<?php echo $key ?>')">
                     <i class="fa <?= $value['tabactive'] ? 'fa-eye' : 'fa-eye-slash'; ?>" id="tabactive<?php echo $key ?>-icon"></i>
                     <input type="hidden" name="tabactive[<?php echo $key ?>]" id="tabactive<?php echo $key ?>" value="<?php echo $value['tabactive']; ?>">
                 </a>
@@ -663,12 +663,12 @@ function addNewTab(pos) {
       let tab = document.getElementById(id);
       if (tab.value === '1') {
           tab.value = '0';
-          link.classList.add('btn-danger');
-          link.classList.remove('btn-success');
+          link.classList.add('btn-warning');
+          link.classList.remove('btn-success', 'btn-danger');
           document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye-slash');
       } else {
           tab.value = '1';
-          link.classList.remove('btn-danger');
+          link.classList.remove('btn-warning', 'btn-danger');
           link.classList.add('btn-success');
           document.getElementById(id + '-icon').setAttribute('class', 'fa fa-eye');
       }

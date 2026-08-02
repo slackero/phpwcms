@@ -38,17 +38,18 @@ if (!defined('PHPWCMS_ROOT')) {
 						echo '<td class="text-center"><i class="fas fa-rss text-muted"></i></td>';
 						echo '<td><a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="text-dark font-weight-bold">' . html($row['cnt_name']) . '</a></td>';
 						echo '<td>' . html($url) . '</td>';
-						echo '<td class="text-right">';
+						echo '<td class="text-right text-nowrap">';
+						echo '<div class="btn-group btn-group-sm" role="group" aria-label="feed-actions-' . $row["cnt_id"] . '">';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="btn btn-sm btn-blue mr-1" title="Edit"><i class="fas fa-edit fa-fw"></i></a>';
+						echo '<a href="' . MODULE_HREF . '&amp;edit=' . $row["cnt_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["cnt_id"] . '&amp;active=' . (($row["cnt_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["cnt_status"]) ? 'btn-success' : 'btn-secondary') . ' mr-1" title="Toggle Status">';
+						echo '<a href="' . MODULE_HREF . '&amp;editid=' . $row["cnt_id"] . '&amp;active=' . (($row["cnt_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["cnt_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["cnt_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
+						echo '</div>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["cnt_id"] . '" class="btn btn-sm btn-danger" title="' . $BL['be_cnt_delete'] . ': ' . html($row['cnt_name']) . '"';
+						echo '<a href="' . MODULE_HREF . '&amp;delete=' . $row["cnt_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html($row['cnt_name']) . '"';
 						echo ' onclick="event.stopPropagation(); return confirm(\'' . js_singlequote($BLM['delete_entry'] . ' ' . $row['cnt_name']) . '\');">';
-						echo '<i class="fas fa-trash fa-fw"></i></a>';
-						
+						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

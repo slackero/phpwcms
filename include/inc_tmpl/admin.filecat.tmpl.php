@@ -270,17 +270,19 @@ if(isset($_GET['open'])) {
           echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge badge-light border ml-1\">".$row["fcat_sort"]."</span></td>\n";
 
           echo '<td class="text-right text-nowrap">';
+          echo '<div class="btn-group btn-group-sm" role="group" aria-label="fcat-actions-'.$row["fcat_id"].'">';
 
-          echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue py-0 px-1 mr-1\" title=\"".$BL['be_admin_fcat_addkey']."\">";
-          echo "<i class=\"fa fa-plus-circle\"></i></a>";
+          echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=0&cid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_addkey']."\">";
+          echo "<i class=\"fa fa-plus\"></i></a>";
 
-          echo "<a href=\"phpwcms.php?do=admin&p=7&fcatid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue py-0 px-1 mr-1\" title=\"".$BL['be_admin_fcat_editcat']."\">";
-          echo "<i class=\"fa fa-edit\"></i></a>";
+          echo "<a href=\"phpwcms.php?do=admin&p=7&fcatid=".$row["fcat_id"]."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editcat']."\">";
+          echo "<i class=\"fa fa-pencil-alt\"></i></a>";
 
-          echo "<a href=\"include/inc_act/act_filecat.php?do=1,".$row["fcat_id"].",".(($row["fcat_aktiv"])?0:1)."\" class=\"btn btn-sm ".($row["fcat_aktiv"] ? 'btn-success' : 'btn-secondary')." py-0 px-1 mr-1\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
-          echo "<i class=\"fa ".($row["fcat_aktiv"] ? 'fa-check' : 'fa-clock')."\"></i></a>";
+          echo "<a href=\"include/inc_act/act_filecat.php?do=1,".$row["fcat_id"].",".(($row["fcat_aktiv"])?0:1)."\" class=\"btn btn-sm ".($row["fcat_aktiv"] ? 'btn-success' : 'btn-warning')."\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
+          echo "<i class=\"fas ".($row["fcat_aktiv"] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
+          echo '</div>';
 
-          echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" class=\"btn btn-sm btn-danger py-0 px-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delcatmsg']." [".html($row["fcat_name"])."]\" title=\"".$BL['be_admin_fcat_delcat']."\">";
+          echo "<a href=\"include/inc_act/act_filecat.php?do=8,".$row["fcat_id"]."\" class=\"btn btn-sm btn-danger ml-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delcatmsg']." [".html($row["fcat_name"])."]\" title=\"".$BL['be_admin_fcat_delcat']."\">";
           echo "<i class=\"far fa-trash-alt\"></i></a>";
 
           echo "</td>\n</tr>\n";
@@ -294,12 +296,14 @@ if(isset($_GET['open'])) {
                       echo "<tr>\n";
                       echo "<td class=\"pl-4\"><i class=\"fa fa-key text-muted mr-2\"></i>".html($krow['fkey_name'])." <span class=\"badge badge-light border ml-1\">".$krow['fkey_sort']."</span></td>\n";
                       echo "<td class=\"text-right text-nowrap\">";
-                      echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" class=\"btn btn-sm btn-blue py-0 px-1 mr-1\" title=\"".$BL['be_admin_fcat_editkey']."\">";
-                      echo "<i class=\"fa fa-edit\"></i></a>";
-                      echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".(($krow['fkey_aktiv'])?0:1)."\" class=\"btn btn-sm ".($krow['fkey_aktiv'] ? 'btn-success' : 'btn-secondary')." py-0 px-1 mr-1\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
-                      echo "<i class=\"fa ".($krow['fkey_aktiv'] ? 'fa-check' : 'fa-clock')."\"></i></a>";
+                      echo '<div class="btn-group btn-group-sm" role="group" aria-label="fkey-actions-'.$krow['fkey_id'].'">';
+                      echo "<a href=\"phpwcms.php?do=admin&p=7&fkeyid=".$krow['fkey_id']."&cid=".$row['fcat_id']."\" class=\"btn btn-sm btn-blue\" title=\"".$BL['be_admin_fcat_editkey']."\">";
+                      echo "<i class=\"fa fa-pencil-alt\"></i></a>";
+                      echo "<a href=\"include/inc_act/act_filecat.php?do=2,".$krow['fkey_id'].",".(($krow['fkey_aktiv'])?0:1)."\" class=\"btn btn-sm ".($krow['fkey_aktiv'] ? 'btn-success' : 'btn-warning')."\" title=\"".$BL['be_fprivfunc_cactivefile']."\">";
+                      echo "<i class=\"fas ".($krow['fkey_aktiv'] ? 'fa-eye' : 'fa-eye-slash')."\"></i></a>";
+                      echo '</div>';
 
-                      echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" class=\"btn btn-sm btn-danger py-0 px-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delmsg']." [".html($krow['fkey_name'])."]\" title=\"".$BL['be_admin_fcat_delkey']."\">";
+                      echo "<a href=\"include/inc_act/act_filecat.php?do=9,".$krow['fkey_id'].",".($krow['fkey_cid'])."\" class=\"btn btn-sm btn-danger ml-1 confirm-link\" data-confirm=\"".$BL['be_admin_fcat_delmsg']." [".html($krow['fkey_name'])."]\" title=\"".$BL['be_admin_fcat_delkey']."\">";
                       echo "<i class=\"far fa-trash-alt\"></i></a>";
                       echo "</td>\n</tr>\n";
                   }
@@ -315,13 +319,6 @@ if(isset($_GET['open'])) {
         <button type="submit" class="btn btn-blue btn-sm font-weight-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
             <i class="fa fa-plus mr-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
         </button>
-    </form>
-</div>
-</div>
-?>
-
-    <form action="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
-        <input type="submit" value="<?php echo $BL['be_admin_fcat_addcat'] ?>" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_fcat_addcat'] ?>" />
     </form>
 </div>
 </div>

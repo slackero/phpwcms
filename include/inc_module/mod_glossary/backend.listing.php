@@ -121,7 +121,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						<button type="button" class="btn btn-sm <?php echo $_entry['list_active'] ? 'btn-success' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showactive_input').value = (document.getElementById('showactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Active">
 							<i class="fas fa-eye"></i>
 						</button>
-						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-danger' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
+						<button type="button" class="btn btn-sm <?php echo $_entry['list_inactive'] ? 'btn-warning' : 'btn-outline-secondary' ?>" onclick="document.getElementById('showinactive_input').value = (document.getElementById('showinactive_input').value == '1' ? '0' : '1'); this.form.submit();" title="Inactive">
 							<i class="fas fa-eye-slash"></i>
 						</button>
 					</div>
@@ -208,17 +208,18 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 						echo '<td>' . html($row["glossary_title"]) . '</td>';
 						echo '<td>' . html($row["glossary_keyword"]) . '</td>';
 						echo '<td>' . html($row["glossary_tag"]) . '</td>';
-						echo '<td class="text-right">';
+						echo '<td class="text-right text-nowrap">';
+						echo '<div class="btn-group btn-group-sm" role="group" aria-label="glossary-actions-' . $row["glossary_id"] . '">';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;edit=' . $row["glossary_id"] . '" class="btn btn-sm btn-blue mr-1" title="Edit"><i class="fas fa-edit fa-fw"></i></a>';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;edit=' . $row["glossary_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;editid=' . $row["glossary_id"] . '&amp;verify=' . (($row["glossary_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["glossary_status"]) ? 'btn-success' : 'btn-secondary') . ' mr-1" title="Toggle Status">';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;editid=' . $row["glossary_id"] . '&amp;verify=' . (($row["glossary_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["glossary_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["glossary_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
+						echo '</div>';
 						
-						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger" title="Delete"';
+						echo '<a href="' . GLOSSARY_HREF . '&amp;delete=' . $row["glossary_id"] . '" class="btn btn-sm btn-danger ml-1" title="Delete"';
 						echo ' onclick="return confirm(\'' . $BLM['delete_entry'] . ' ' . js_singlequote($row["glossary_title"]) . '\');">';
-						echo '<i class="fas fa-trash fa-fw"></i></a>';
-						
+						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';
 						$row_count++;

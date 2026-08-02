@@ -56,13 +56,13 @@ if(isset($file_result[0]['f_id'])) {
         echo $file_row['edit'] . $filename."</a></td>\n";
 
         //Aufbauen Buttonleiste für jeweilige Datei
-        echo '</td><td class="text-right text-nowrap px-0">'.LF;
-        echo '<div class="btn-group" role="group">'.LF;
+        echo '<td class="text-right text-nowrap px-0">'.LF;
+        echo '<div class="btn-group btn-group-sm" role="group">'.LF;
 
         //Button zum Bearbeiten der Dateiinformationn
         echo '<a class="btn btn-xs btn-blue" role="button" aria-disabled="true" title="'.$BL['be_fprivfunc_editfile'].": ".$filename.'" href="'.$zieldatei.'&amp;editfile='.$file_row["f_id"].'"><i class="fa fa-pencil-alt fa-fw mt-1"></i></a>';
 
-        echo '<div class="btn-group" role="group">';
+        echo '<div class="btn-group btn-group-sm" role="group">';
         echo '<a class="btn btn-xs btn-blue darken dropdown-toggle" role="button" type="button" href="#" id="dropdownFcontentLink'.$file_row["f_id"].'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$GLOBALS['BL']['be_func_struct_more_action'].'</a>';
         echo '<div class="dropdown-menu" aria-labelledby="dropdownFcontentLink'.$file_row["f_id"].'">';
 
@@ -85,19 +85,15 @@ if(isset($file_result[0]['f_id'])) {
                  '" data-toggle="tooltip" title="' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '" data-confirm-danger="' . html_specialchars($confirm_msg) . '">' .
                  '<i class="fa-fw ml-1 far fa-trash-alt" aria-hidden="true"></i> ' . $GLOBALS['BL']['be_fprivfunc_movetrash'] . ': ' . $filename . '</a>';
         } else {
-
-            echo '<div class="dropdown-item"><i class="fa-fw ml-1 far fa-trash-alt disabled" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
+            echo '<div class="dropdown-item disabled text-muted"><i class="fa-fw ml-1 far fa-trash-alt text-muted" aria-hidden="true"></i> '.$GLOBALS['BL']['be_fprivfunc_notrash'].'</div>';
         }
-        echo "</div></div></div>";
+        echo '</div></div>'; // Close dropdown-menu & inner btn-group
 
         //Button zum Umschalten zwischen Aktiv/Inaktiv
-        echo '<a href="include/inc_act/act_file.php?aktiv='.$file_row["f_id"].'%7C'.true_false($file_row["f_aktiv"]).
-             '" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'">';
-        echo '<div class="btn fa btn-sm ml-1 visible '.($file_row["f_aktiv"]==0 ? "btn-danger" : "btn-success").' ml-1"></div></a>';
+        echo '<button id="abtnfileaktiv'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs visible '.($file_row["f_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="fileaktiv" data-table="file" data-field="f_aktiv" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cactivefile'].': '.$filename.'"></button>';
         //Button zum Umschalten zwischen Public/Non-Public
-        echo '<a href="include/inc_act/act_file.php?public='.$file_row["f_id"].'%7C'.true_false($file_row["f_public"]).
-             '" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'">';
-        echo '<div class="btn fa btn-sm ml-1 public '.($file_row["f_public"]==0 ? "btn-danger" : "btn-success").'"></div></a>';
+        echo '<button id="abtnfilepublic'.$file_row["f_id"].'" class="btn fa fa-fw btn-xs public '.($file_row["f_public"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$file_row["f_id"].'" data-type="filepublic" data-table="file" data-field="f_public" data-fieldid="f_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_fprivfunc_cpublicfile'].': '.$filename.'"></button>';
+        echo '</div>'; // Close outer btn-group
 
         // end
         echo "</tr>\n";

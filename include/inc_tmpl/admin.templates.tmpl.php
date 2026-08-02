@@ -169,13 +169,15 @@ if(!isset($_GET["s"])) {
                             echo " (" . $BL['be_admin_tmpl_default'] . ")";
                         }
                         echo "</a></td>" . '<td class="text-right text-nowrap">';
-                        echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="phpwcms.php?' . $edit_link;
+                        echo '<div class="btn-group btn-group-sm" role="group" aria-label="tmpl-actions-' . $row["template_id"] . '">';
+                        echo '<a class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="' . $BL['be_tt_edit'] . '" href="phpwcms.php?' . $edit_link;
                         echo '"><i class="fa fa-pencil-alt"></i></a>';
 
-                        echo '<a class="btn btn-blue btn-sm mr-1" role="button" data-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="phpwcms.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
+                        echo '<a class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="' . $BL['be_tt_duplicate'] . '" href="phpwcms.php?' . $edit_link . '&amp;c=1'; // c=1 -> do copy
                         echo '"><i class="fa fa-copy"></i></a>';
+                        echo '</div>';
 
-                        echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
+                        echo '<a class="btn btn-danger btn-sm ml-1" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
                         echo 'title="' . $BL['be_cnt_delete'] . ': ' . html($row["template_name"]) . '" ';
                         echo 'onclick="return confirm(\'' . js_singlequote($BL['be_cnt_delete'] . ': ' . html($row["template_name"])) . '\');">';
                         echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
