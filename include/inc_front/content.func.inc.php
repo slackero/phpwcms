@@ -2055,7 +2055,23 @@ if(strpos($content['all'], 'index.php?aid=') || strpos($content['all'], 'index.p
     }
 }
 
-// Global parsing for i18 @@Text@@ replacements
+// Global parsing for i18 @@Text@@ replacements and [LANG:xx]...[/LANG] block tags
+if(!empty($phpwcms['lang_parse']) && !empty($phpwcms['allowed_lang']) && is_array($phpwcms['allowed_lang'])) {
+    $current_frontend_lang = i18n_get_language();
+    $lang_regexp_search = [];
+    $lang_regexp_replace = [];
+
+    foreach($phpwcms['allowed_lang'] as $allowed_l) {
+        $allowed_l_escaped = preg_quote($allowed_l, '/');
+        // Support both [LANG:de]...[/LANG] and legacy [de]...[/de]
+        $lang_regexp_search[]  = '/\[(?:LANG:)?' . $allowed_l_escaped . '\](.*?)\[\/(?:LANG:)?' . $allowed_l_escaped . '\]/is';
+        $lang_regexp_replace[] = ($allowed_l === $current_frontend_lang || substr($current_frontend_lang, 0, 2) === $allowed_l) ? '$1' : '';
+    }
+
+    $content['all']       = preg_replace($lang_regexp_search, $lang_regexp_replace, $content['all']);
+    $content['pagetitle'] = preg_replace($lang_regexp_search, $lang_regexp_replace, $content['pagetitle']);
+}
+
 if(!empty($phpwcms['i18n_parse'])) {
     $content['all']         = i18n_substitute_text($content['all']);
     $content['pagetitle']   = i18n_substitute_text($content['pagetitle']);

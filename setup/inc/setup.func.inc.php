@@ -199,6 +199,8 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
     $conf_file .= "\$phpwcms['wysiwyg_editor'] = 2; //0 = no wysiwyg editor, 1 = CKEditor (legacy), 2 = TinyMCE 8\n";
     $conf_file .= "\$phpwcms['allowed_lang'] = array('en','de','fr','es'); //array of allowed languages: array('en', 'de', 'fr', 'es')\n";
+    $conf_file .= "\$phpwcms['frontend_lang_key'] = 'phpwcms_frontend_lang'; // session and cookie key for frontend language selection\n";
+    $conf_file .= "\$phpwcms['lang_parse'] = true; // enable|disable global frontend language block tag parsing [LANG:xx]...[/LANG] / [xx]...[/xx]\n";
     $conf_file .= "\$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
