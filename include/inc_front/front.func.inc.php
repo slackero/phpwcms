@@ -37,47 +37,10 @@ function headline($head, $subhead, $layout) {
     return $c;
 }
 
-//defines multimedia plugin specific values for width or height
-function plugin_size($mediatype, $player, $width, $height) {
-
-    switch($mediatype) {
-        case 0: //Video
-                switch($player) {
-                    case 0: //Quicktime
-                            $width = ($width) ? $width : "";
-                            $height = ($height) ? $height+16 : "";
-                            break;
-
-                    case 1: //RealPlayer
-                            $width = ($width) ? $width : "";
-                            $width = ($height) ? $height+36 : "";
-                            break;
-
-                    case 2: //MediaPlayer
-                            $width = ($width) ? $width : "";
-                            $width = ($height) ? $height : "";
-                            break;
-
-                    case 3: //Flash
-                            $width = ($width) ? $width : "";
-                            $width = ($height) ? $height : "";
-                            break;
-                }
-                break;
-
-        case 1: //Audio
-                break;
-
-        case 2: //Flash
-                break;
-
-    }
-}
-
 function must_filled($c) {
     //spaceholder for form fields that have to be filled
     //with some content or has to be marked or like that
-    return intval($c) ? ('<img src="img/article/fill_in_here.gif" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE) : '';
+    return (int)$c ? '<img src="img/article/fill_in_here.gif" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE : '';
 }
 
 //to add all relevant attributes that contains values to a string maybe a html tag
@@ -105,9 +68,9 @@ function html_attribute($attribute='', $val='', $space='', $allow_empty=false) {
     return add_attribute($attribute, $val, $space, $allow_empty, true);
 }
 
-//to return only 1 well formatted attributes and values
+//to return only 1 well formatted attribute and value
 function html_height_attribute($val=0) {
-    return ' style="height:'.intval($val).'px;" ';
+    return ' style="height:'. (int)$val .'px;" ';
 }
 
 function get_body_attributes($values) {
@@ -1445,6 +1408,9 @@ function list_articles_summary($alt=NULL, $topcount=99999, $template='') {
     return $listing;
 }
 
+/**
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
+ */
 function get_html_part($value, $class="", $link="", $span_or_div=1) {
     // returns a content part for html output like
     // <span class="xxx">html</span>
@@ -1462,6 +1428,10 @@ function get_html_part($value, $class="", $link="", $span_or_div=1) {
     }
 }
 
+/**
+ * @deprecated Possibly dead code — only referenced as a literal template tag string in cnt23.article.inc.php
+ *             but never called as a PHP function. Verify before removing.
+ */
 function span_class($value, $class) {
     return !empty($class) ? '<span class="'.$class.'">'.$value.'</span>' : $value;
 }
@@ -2080,6 +2050,9 @@ function get_new_articles($template_default, $max_cnt_links=0, $cat='', $dbcon=n
     return $new_links;
 }
 
+/**
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
+ */
 function get_article_idlink($article_id=0, $link_text="", $dbcon=null) {
     // returns the internal article link to given article ID/category
     $article_id     = intval($article_id);
@@ -2607,6 +2580,9 @@ function render_date($text='', $date=0, $rt='DATE') {
     return $text;
 }
 
+/**
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
+ */
 function render_keywords($text='', $keywords=null, $separator=',') {
 
     if($keywords === null || $text == '' || !str_contains($text, '{KEYWORDS')) {
@@ -2841,6 +2817,10 @@ function combined_POST_cleaning($val) {
     return remove_unsecure_rptags(clean_slweg($val));
 }
 
+/**
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Originally related to forum user info.
+ *             Verify before removing.
+ */
 function get_fe_userinfo($forum_userID) {
     // get frontend user information
     $forum_userID = intval($forum_userID);
@@ -3581,6 +3561,9 @@ function getClickZoomImageParameter($src='', $size='', $name='') {
     return 'show='.rawurlencode(base64_encode(json_encode(array('src' => $src, 'attr' => $size, 'name' => $name))));
 }
 
+/**
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
+ */
 function getPageInfoGetValue($type='string') {
     // type can be
     // 'string' -> 'pageinfo=/...';
@@ -4162,6 +4145,8 @@ function set_meta($name='', $content=null, $type=FALSE, $return=false, $allow_mu
 
 /**
  * Add HTML Head link tag
+ *
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
  */
 function set_link($attributes) {
     if(empty($attributes)) {
@@ -4185,6 +4170,8 @@ function set_link($attributes) {
 /**
  * Search for replacement tag {LEVELX_ID} while X is integer like {LEVEL3_ID}
  * and return ID of the level or 0 if level is not set
+ *
+ * @deprecated Possibly dead code — no call sites found as of 2026-08. Verify before removing.
  */
 function replace_level_id($match) {
     $level = intval($match[1]);
