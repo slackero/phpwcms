@@ -12,13 +12,17 @@
 
 $phpwcms = array();
 
-require_once 'include/config/conf.inc.php';
-require_once 'include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
+if (!defined('FEUSER_LOGIN_STATUS')) {
+    define('FEUSER_LOGIN_STATUS', 0);
+}
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/front.func.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_front/ext.func.inc.php';
+require_once PHPWCMS_ROOT.'/include/inc_front/cnt.lang.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 
@@ -58,12 +62,10 @@ $default = isset($feeds['default']) ? 'default' : key($feeds);
 $custom  = isset($_GET['feed']) ? strval(clean_slweg($_GET['feed'])) : $default;
 
 if(!isset($feeds[$custom])) {
-
     if($custom != '') {
         $feeds[$default]['structureID'] = $custom;
     }
     $custom = $default;
-
 }
 
 $FEED                   = $feeds[$custom];
@@ -237,6 +239,26 @@ $rss->saveFeed($FEED['defaultFormat'], $FEED['filename']);
 
 function combinedParser($string, $charset='utf-8', $allowed_tags='') {
 
+    global $phpwcms;
+
+    if(!empty($phpwcms['lang_parse']) && !empty($phpwcms['allowed_lang']) && is_array($phpwcms['allowed_lang'])) {
+        $current_frontend_lang = !empty($phpwcms['default_lang']) ? $phpwcms['default_lang'] : i18n_get_language();
+        $lang_regexp_search = array();
+        $lang_regexp_replace = array();
+
+        foreach($phpwcms['allowed_lang'] as $allowed_l) {
+            $allowed_l_escaped = preg_quote($allowed_l, '/');
+            $lang_regexp_search[]  = '/\[(?:LANG:)?' . $allowed_l_escaped . '\](.*?)\[\/(?:LANG:)?' . $allowed_l_escaped . '\]/is';
+            $lang_regexp_replace[] = ($allowed_l === $current_frontend_lang || substr($current_frontend_lang, 0, 2) === $allowed_l) ? '$1' : '';
+        }
+
+        $string = preg_replace($lang_regexp_search, $lang_regexp_replace, $string);
+    }
+
+    if(!empty($phpwcms['i18n_parse'])) {
+        $string = i18n_substitute_text($string);
+    }
+
     $string = html_parser($string);
     $string = clean_replacement_tags($string, $allowed_tags);
     $string = str_replace('&nbsp;', ' ', $string);
@@ -245,9 +267,10 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
 
     if(!empty($string) && PHPWCMS_CHARSET != $charset) {
         $string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
-    } else {
-        $string = html_specialchars($string);
     }
+    // When charsets are the same the string is already clean UTF-8 after
+    // decode_entities() + cleanUpSpecialHtmlEntities(). Calling html_specialchars()
+    // would double-encode quotes (' → &#039;) and corrupt multibyte Cyrillic/etc.
 
     // Strip away unwanted UTF-8 chars to avoid XML fatal parsing error
     // http://www.phpwact.org/php/i18n/charsets#common_problem_areas_with_utf-8
