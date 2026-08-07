@@ -20,7 +20,7 @@ $template_default   = array();
 $indexpage          = array();
 
 // load general configuration
-$basepath           = str_replace('\\', '/', dirname(__FILE__));
+$basepath           = __DIR__;
 if(!is_file($basepath.'/include/config/conf.inc.php')) {
     if(is_file($basepath.'/setup/index.php')) {
         header('Location: setup/index.php');

@@ -34,10 +34,9 @@ $BE                         = array(
         'connect-src' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com')
     )
 );
-$PHPWCMS_ROOT                 = dirname(__FILE__);
 
-require_once $PHPWCMS_ROOT.'/include/config/conf.inc.php';
-require_once $PHPWCMS_ROOT.'/include/inc_lib/default.inc.php';
+require_once __DIR__.'/include/config/conf.inc.php';
+require_once __DIR__.'/include/inc_lib/default.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';

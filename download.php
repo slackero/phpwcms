@@ -10,13 +10,16 @@
 
 $phpwcms = array();
 
-require_once 'include/config/conf.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
 
 if( !empty($phpwcms['SESSION_FEinit']) ) {
     $phpwcms['SESSION_START'] = true;
 }
 
-require_once 'include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
+if (!defined('FEUSER_LOGIN_STATUS')) {
+    define('FEUSER_LOGIN_STATUS', 0);
+}
 require_once PHPWCMS_ROOT.'/include/inc_lib/helper.session.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
@@ -30,7 +33,7 @@ if(empty($phpwcms['sanitize_dlname'])) {
 // try to get hash for file download
 $success    = false;
 $hash       = false;
-$countonly  = empty($_GET['countonly']) ? false : true;
+$countonly  = !empty($_GET['countonly']);
 $hash       = empty($_GET['f']) ? '' : clean_slweg($_GET['f']);
 
 if(isset($_GET['target'])) {

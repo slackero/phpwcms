@@ -11,13 +11,16 @@
 // build Google Sitemap based on available articles
 
 $phpwcms = [];
-require_once 'include/config/conf.inc.php';
+require_once __DIR__ . '/include/config/conf.inc.php';
 
 // set neccessary charset
 $phpwcms['charset'] = 'utf-8';
 const CUSTOM_CONTENT_TYPE = 'Content-Type: text/xml';
 
-require_once 'include/inc_lib/default.inc.php';
+require_once __DIR__ . '/include/inc_lib/default.inc.php';
+if (!defined('FEUSER_LOGIN_STATUS')) {
+    define('FEUSER_LOGIN_STATUS', 0);
+}
 
 // Caching logic using PHPWCMS_CONTENT to prevent DB/server overload
 $cache_dir = PHPWCMS_CONTENT . '/cache';
