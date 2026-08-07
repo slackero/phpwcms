@@ -339,8 +339,8 @@ $reason_types = array(
 
         <div id="content">
             <div class="container-fluid">
-                <div class="row justify-content-md-center">
-                    <div class="col-12 col-md-6 col-lg-4">
+                <div class="row justify-content-sm-center">
+                    <div class="col-12 col-sm-9 col-md-6 col-lg-5 col-xl-4">
                         <div class="card mt-5">
                             <div class="card-header">
                                 <h2 class="card-title"><strong><?php echo $BL["login_text"]; ?></strong></h2>
