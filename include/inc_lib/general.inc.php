@@ -1206,7 +1206,7 @@ function convertDecChar($decChar) {
     } elseif ($decChar < 65536) {
         return chr(($decChar >> 12) + 224) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
     } elseif ($decChar < 2097152) {
-        return chr($decChar >> 18 + 240) . chr((($decChar >> 12) & 63) + 128) . chr(($decChar >> 6) & 63 + 128) . chr($decChar & 63 + 128);
+        return chr(($decChar >> 18) + 240) . chr((($decChar >> 12) & 63) + 128) . chr((($decChar >> 6) & 63) + 128) . chr(($decChar & 63) + 128);
     }
 
     return $decChar;

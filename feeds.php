@@ -262,12 +262,20 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
     $string = html_parser($string);
     $string = clean_replacement_tags($string, $allowed_tags);
     $string = str_replace('&nbsp;', ' ', $string);
-    $string = decode_entities($string);
-    $string = cleanUpSpecialHtmlEntities($string);
 
-    if(!empty($string) && PHPWCMS_CHARSET != $charset) {
-        $string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
+    if(!empty($string) && strtolower(PHPWCMS_CHARSET) !== strtolower($charset)) {
+        // If string is already valid UTF-8, skip forced ISO->UTF-8 conversion
+        if (strtolower($charset) !== 'utf-8' || !mb_check_encoding($string, 'UTF-8')) {
+            if (function_exists('mb_convert_encoding')) {
+                $string = @mb_convert_encoding($string, $charset, PHPWCMS_CHARSET);
+            } else {
+                $string = makeCharsetConversion($string, PHPWCMS_CHARSET, $charset);
+            }
+        }
     }
+
+    $string = html_entity_decode($string, ENT_QUOTES | ENT_HTML5, $charset);
+    $string = cleanUpSpecialHtmlEntities($string);
     // When charsets are the same the string is already clean UTF-8 after
     // decode_entities() + cleanUpSpecialHtmlEntities(). Calling html_specialchars()
     // would double-encode quotes (' → &#039;) and corrupt multibyte Cyrillic/etc.
@@ -275,7 +283,7 @@ function combinedParser($string, $charset='utf-8', $allowed_tags='') {
     // Strip away unwanted UTF-8 chars to avoid XML fatal parsing error
     // http://www.phpwact.org/php/i18n/charsets#common_problem_areas_with_utf-8
     if($charset === 'utf-8') {
-        $string = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
+        $string = preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]+/u', ' ', $string);
     }
 
     return $string;
