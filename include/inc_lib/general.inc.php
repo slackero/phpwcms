@@ -1246,8 +1246,8 @@ function optimizeForSearch() {
             $text .= ' ' . func_get_arg($i);
         }
         $text = stripped_cache_content($text);
-        $text = cleanUpSpecialHtmlEntities($text);
         $text = decode_entities($text);
+        $text = cleanUpSpecialHtmlEntities($text);
         $text = str_replace(
             array(
                 '!',
