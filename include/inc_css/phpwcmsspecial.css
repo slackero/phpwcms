@@ -26,12 +26,6 @@ a:hover {
     text-decoration: none;
 }
 
-.tableheader {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #ccc;
-    padding: 5px !important;
-}
-
 td label {
     margin-bottom: 0;
 }
@@ -329,11 +323,6 @@ header .dropdown-toggle::after {
     border: 0;
 }
 
-.btn-calender:before {
-    content: "\f073";
-    font-family: "Font Awesome 5 Free";
-}
-
 .nav .btn-sm {
     font-size: .75rem;
 }
@@ -493,13 +482,6 @@ header .dropdown-toggle::after {
     margin-right: 5px;
 }
 
-.fa-folder-lock {
-    background: url("folder-lock.svg");
-    background-size: cover;
-    height: 12px;
-    width: 16px;
-}
-
 .fa-folder {
     color: #f4c017;
 }
@@ -520,10 +502,6 @@ a.filein {
 /*.btn-group .visible {
   margin-top: 2px;
 }*/
-
-.status_message_info {
-    margin-bottom: 1em;
-}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #f5f5f5;
@@ -660,11 +638,6 @@ body.dragging, body.dragging * {
     cursor: move !important;
 }
 
-.graycolor {
-    background: #eeeeee;
-    width: 100%
-}
-
 .dragged {
     position: absolute;
     opacity: 0.5;
@@ -734,24 +707,6 @@ li.sortme {
 
 .p_menu {
     display: none;
-}
-
-.ui-tooltip-content img {
-    vertical-align: middle;
-    height: 15px;
-    padding-right: 10px;
-}
-
-.ui-tooltip-content ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-left: 0;
-}
-
-.ui-tooltip-content ul li ul {
-    padding-left: 25px;
-    top: 0;
 }
 
 /*NEWSLETTER FORM*/
@@ -887,16 +842,8 @@ li.sortme {
     color: #7D7E7D;
 }
 
-.fa-filef {
-    color: #000000;
-}
-
 .fa-file-pdf {
     color: #E00000;
-}
-
-.fa-file-altf {
-    color: #A36300;
 }
 
 .fa-file-excel {
@@ -941,10 +888,6 @@ li.sortme {
     #column-left + #content, #column-left + #content + #footer {
         left: 0;
         margin-left: 250px;
-    }
-
-    .btn-menu {
-        display: none;
     }
 
     .bootstrap-vertical-nav .collapse {
@@ -1054,9 +997,6 @@ tr.hover-gold:hover td {
 }
 .bg-row-alt-grey {
     background-color: #f5f5f5;
-}
-.bg-row-alt-blue {
-    background-color: #F5F9FA;
 }
 .bg-row-alt-light {
     background-color: #F3F5F8;

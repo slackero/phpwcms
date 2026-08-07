@@ -31,20 +31,6 @@ const targetCss = path.join(includeDir, 'inc_css/backend.min.css');
 fs.writeFileSync(targetCss, res.code);
 console.log(`[✓] backend.min.css built with lightningcss (${(res.code.length / 1024).toFixed(2)} KB)`);
 
-// 2. Build phpwcms.min.css from phpwcms.css
-const phpwcmsCssPath = path.join(includeDir, 'inc_css/phpwcms.css');
-if (fs.existsSync(phpwcmsCssPath)) {
-    const phpwcmsCssContent = fs.readFileSync(phpwcmsCssPath, 'utf8');
-    const phpwcmsMinRes = lightningcss.transform({
-        filename: 'phpwcms.css',
-        code: Buffer.from(phpwcmsCssContent),
-        minify: true
-    });
-    const phpwcmsMinTarget = path.join(includeDir, 'inc_css/phpwcms.min.css');
-    fs.writeFileSync(phpwcmsMinTarget, phpwcmsMinRes.code);
-    console.log(`[✓] phpwcms.min.css built with lightningcss (${(phpwcmsMinRes.code.length / 1024).toFixed(2)} KB)`);
-}
-
 
 
 // 2. Copy conditional CSS assets from node_modules
