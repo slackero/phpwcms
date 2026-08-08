@@ -29,9 +29,6 @@ function str_empty($string) {
 
 function slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        $text = stripslashes($text);
-    }
     if ($text && substr($text, -1) === '>') {
         $text = preg_replace(array('/<br>$/i', '/<br \/>$/i', '/<p><\/p>$/i', '/<p>&nbsp;<\/p>$/i'), '', rtrim($text));
     }
@@ -47,9 +44,6 @@ function slweg($text = '', $maxlen = 0, $trim = true) {
 
 function clean_slweg($text = '', $maxlen = 0, $trim = true) {
     $text = (string) $text;
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        $text = stripslashes($text);
-    }
     $text = strip_tags($text);
     if ($trim) {
         $text = trim($text);

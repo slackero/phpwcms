@@ -85,9 +85,6 @@ class SVGReader {
     		// libxml_disable_entity_loader() to avoid arbitrary local file
     		// inclusion, or even arbitrary code execution if the expect
 		// extension is installed (T48859).
-    		if (!IS_PHP8) {
-    		    $oldDisable = libxml_disable_entity_loader( true );
-            }
     		$this->reader->setParserProperty( XMLReader::SUBST_ENTITIES, true );
 
     		$this->metadata['width'] = self::DEFAULT_WIDTH;
@@ -103,9 +100,6 @@ class SVGReader {
     		// try catch thing to make sure warnings get restored. Seems like there should
     		// be a better way.
     		$this->read();
-    		if(!IS_PHP8) {
-                libxml_disable_entity_loader($oldDisable);
-            }
 	}
 
 	/**

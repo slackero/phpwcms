@@ -8,32 +8,31 @@
  *
  **/
 
-// set page processiong start time
-list($usec, $sec) = explode(' ', microtime());
-$phpwcms_rendering_start = $usec + $sec;
+// set page processing start time
+$phpwcms_rendering_start = hrtime(true);
 
 //define used var names
-$body_onload                = '';
-$forward_to_message_center  = false;
-$wcsnav                     = array();
-$indexpage                  = array();
-$phpwcms                      = array('SESSION_START' => true);
-$BL                         = array();
-$BE                         = array(
+$body_onload = '';
+$forward_to_message_center = false;
+$wcsnav = [];
+$indexpage = [];
+$phpwcms = ['SESSION_START' => true];
+$BL = [];
+$BE = [
     'HTML' => '',
-    'BODY_OPEN' => array(),
-    'BODY_CLOSE' => array(),
-    'HEADER' => array(),
+    'BODY_OPEN' => [],
+    'BODY_CLOSE' => [],
+    'HEADER' => [],
     'LANG' => 'en',
-    'CSP' => array(
-        'default-src' => array('*'),
-        'img-src' => array("'self'", 'data:', '*.google.com', '*.googleapis.com', '*.gstatic.com'),
-        'style-src' => array("'self'", 'data:', "'unsafe-inline'"),
-        'script-src' => array("'self'", "'unsafe-inline'", "'unsafe-eval'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
-        'script-src-elem' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'),
-        'connect-src' => array("'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com')
-    )
-);
+    'CSP' => [
+        'default-src' => ['*'],
+        'img-src' => ["'self'", 'data:', '*.google.com', '*.googleapis.com', '*.gstatic.com'],
+        'style-src' => ["'self'", 'data:', "'unsafe-inline'"],
+        'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'", '*.google.com', '*.googleapis.com', '*.gstatic.com'],
+        'script-src-elem' => ["'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'],
+        'connect-src' => ["'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com']
+    ]
+];
 
 require_once __DIR__.'/include/config/conf.inc.php';
 require_once __DIR__.'/include/inc_lib/default.inc.php';
@@ -42,8 +41,8 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/dbcon.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/general.inc.php';
 
 // check against user's language
-if(!empty($_SESSION["wcs_user_lang"]) && preg_match('/[a-z]{2}/i', $_SESSION["wcs_user_lang"])) {
-    $BE['LANG'] = $_SESSION["wcs_user_lang"];
+if(!empty($_SESSION['wcs_user_lang']) && preg_match('/[a-z]{2}/i', $_SESSION['wcs_user_lang'])) {
+    $BE['LANG'] = $_SESSION['wcs_user_lang'];
 }
 
 checkLogin();
@@ -54,11 +53,11 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php'; //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.pp.inc.php';
-include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
+include_once PHPWCMS_ROOT. '/include/inc_lang/code.lang.inc.php';
 
-$BL['modules'] = array();
+$BL['modules'] = [];
 
-if(!empty($_SESSION["wcs_user_lang_custom"])) {
+if(!empty($_SESSION['wcs_user_lang_custom'])) {
     //use custom lang if available -> was set in login.php
     $BL['merge_lang_array'][0]      = $BL['be_admin_optgroup_label'];
     $BL['merge_lang_array'][1]      = $BL['be_cnt_field'];
@@ -86,52 +85,52 @@ include PHPWCMS_ROOT.'/include/inc_lib/article.contenttype.inc.php';
 
 $BL['be_admin_struct_index'] = html_specialchars($indexpage['acat_name']);
 
-$subnav                           = ''; //Sub Navigation
-$p                                = isset($_GET["p"])  ? intval($_GET["p"]) : 0; //which page should be opened
-$do                               = isset($_GET["do"]) ? $_GET["do"] : 'default'; //which backend section and which $do action
-$module                           = isset($_GET['module'])  ? clean_slweg($_GET['module']) : ''; //which module
-$phpwcms['be_parse_lang_process']   = false; // limit parsing for BBCode/BraceCode languages only to some sections
-$modulearray                      = [];
+$subnav = ''; //Sub Navigation
+$p = isset($_GET['p']) ? (int)$_GET['p'] : 0; //which page should be opened
+$do = $_GET['do'] ?? 'default'; //which backend section and which $do action
+$module = isset($_GET['module']) ? clean_slweg($_GET['module']) : ''; //which module
+$phpwcms['be_parse_lang_process'] = false; // limit parsing for BBCode/BraceCode languages only to some sections
+$modulearray = [];
 
-$grouparray = array(
-    'artcent'     => array(),
-    'artnew'      => array(),
-    'artnews'     => array(),
-    'file'        => array(),
-    'filecent'    => array(),
-    'fileaction'  => array(),
-    'fileupload'  => array(),
-    'filedelete'  => array(),
-    'module'      => array(),
-    'nl'          => array(),
-    'nllist'      => array(),
-    'nlrecip'     => array(),
-    'nlabo'       => array(),
-    'adm'         => array(),
-    'admlayout'   => array(),
-    'admtempl'    => array(),
-    'admuser'     => array(),
-    'admugroup'   => array(),
-    'admfc'       => array(),
-    'admalias'    => array(),
-    'admialias'   => array(),
-    'admctptemp'  => array(),
-    'admlink'     => array(),
-    'profile'     => array(),
-    'admfilecat'  => array()
-);
+$grouparray = [
+    'artcent'     => [],
+    'artnew'      => [],
+    'artnews'     => [],
+    'file'        => [],
+    'filecent'    => [],
+    'fileaction'  => [],
+    'fileupload'  => [],
+    'filedelete'  => [],
+    'module'      => [],
+    'nl'          => [],
+    'nllist'      => [],
+    'nlrecip'     => [],
+    'nlabo'       => [],
+    'adm'         => [],
+    'admlayout'   => [],
+    'admtempl'    => [],
+    'admuser'     => [],
+    'admugroup'   => [],
+    'admfc'       => [],
+    'admalias'    => [],
+    'admialias'   => [],
+    'admctptemp'  => [],
+    'admlink'     => [],
+    'profile'     => [],
+    'admfilecat'  => []
+];
 
 // Ensure all admin users have permissions in SYSGROUPs
 $adminusers = _dbQuery('SELECT `usr_id` FROM `' . DB_PREPEND . 'phpwcms_user` WHERE `usr_admin` = 1');
 $adminids = [];
 if (!empty($adminusers)) {
     foreach ($adminusers as $admins) {
-        $adminids[] = intval($admins['usr_id']);
+        $adminids[] = (int)$admins['usr_id'];
     }
 }
 $admin_member_str = implode(',', $adminids);
 
-$sys_groups = array(
+$sys_groups = [
     'artcent'     => 'SYSGROUP',
     'artnew'      => 'SYSGROUP',
     'artnews'     => 'SYSGROUP',
@@ -157,12 +156,12 @@ $sys_groups = array(
     'admlink'     => 'SYSGROUP',
     'profile'     => 'SYSGROUP',
     'admfilecat'  => 'SYSGROUP'
-);
+];
 
 foreach ($sys_groups as $syskey => $groupname) {
     $existing = _dbQuery('SELECT `group_id`, `group_member` FROM `' . DB_PREPEND . 'phpwcms_usergroup` WHERE `group_syskey` = ' . _dbEscape($syskey));
     if (empty($existing)) {
-        $data = array(
+        $data = [
             'group_name'   => $groupname,
             'group_member' => $admin_member_str,
             'group_value'  => '',
@@ -170,7 +169,7 @@ foreach ($sys_groups as $syskey => $groupname) {
             'group_trash'  => 0,
             'group_syskey' => $syskey,
             'group_modkey' => ''
-        );
+        ];
         _dbInsert(DB_PREPEND . 'phpwcms_usergroup', $data);
     } else {
         $members = convertStringToArray($existing[0]['group_member']);
@@ -182,7 +181,7 @@ foreach ($sys_groups as $syskey => $groupname) {
             }
         }
         if ($updated) {
-            _dbUpdate('phpwcms_usergroup', array('group_member' => implode(',', $members)), 'group_id = ' . intval($existing[0]['group_id']));
+            _dbUpdate('phpwcms_usergroup', ['group_member' => implode(',', $members)], 'group_id = ' . (int)$existing[0]['group_id']);
         }
     }
 }
@@ -190,12 +189,12 @@ foreach ($sys_groups as $syskey => $groupname) {
 $result = _dbGet('phpwcms_usergroup', '*', 'group_active != 9', '', 'group_id');
 if (isset($result[0])) {
     foreach ($result as $grouplist) {
-        $grouparray[$grouplist["group_syskey"]] = convertStringToArray($grouplist["group_member"]);
-        if ($grouplist["group_modkey"] !== '') {
-            if ($grouplist["group_trash"] == '0' && $grouplist["group_active"] == '1') {
-                $modulearray[$grouplist["group_modkey"]] = convertStringToArray($grouplist["group_member"]);
+        $grouparray[$grouplist['group_syskey']] = convertStringToArray($grouplist['group_member']);
+        if ($grouplist['group_modkey'] !== '') {
+            if ($grouplist['group_trash'] == '0' && $grouplist['group_active'] == '1') {
+                $modulearray[$grouplist['group_modkey']] = convertStringToArray($grouplist['group_member']);
             } else {
-                $modulearray[$grouplist["group_modkey"]] = array();
+                $modulearray[$grouplist['group_modkey']] = [];
             }
         }
     }
@@ -203,32 +202,30 @@ if (isset($result[0])) {
 
 switch ($do) {
 
-    case "articles":    //articles
+    case 'articles':    //articles
         include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
         include PHPWCMS_ROOT.'/include/inc_lib/article.functions.inc.php'; //load article funtions
         break;
 
-    case "files":       //files
+    case 'files':       //files
         break;
 
-    case "modules":        //modules
+    case 'modules':        //modules
         break;
 
-    case "profile":        //profile
-        if (!empty($_POST["form_aktion"])) {
-            switch ($_POST["form_aktion"]) { //Aktualisieren der wcs account & profile Daten
-                case "update_account":    include PHPWCMS_ROOT.'/include/inc_lib/profile.updateaccount.inc.php';
-                break;
-            }
+    case 'profile':        //profile
+        if (!empty($_POST['form_aktion']) && $_POST['form_aktion'] === 'update_account') {
+            //Aktualisieren der wcs account & profile Daten
+            include PHPWCMS_ROOT . '/include/inc_lib/profile.updateaccount.inc.php';
         }
         break;
 
-    case "logout":      //Logout
+    case 'logout':      //Logout
         logout_user();
         break;
 
-    case "admin":       //Admin
-        if(!empty($_SESSION["wcs_user_admin"])) {
+    case 'admin':       //Admin
+        if(!empty($_SESSION['wcs_user_admin'])) {
             include PHPWCMS_ROOT.'/include/inc_lib/admin.functions.inc.php';
         }
         break;
@@ -255,15 +252,15 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 
 $BE['HEADER']['jquery.js'] = getJavaScriptSourceLink('include/inc_js/jquery/jquery-3.7.1.min.js');
 $BE['HEADER']['jquery-sortable.js'] = getJavaScriptSourceLink('include/inc_js/jquery/Sortable.min.js');
-$BE['HEADER']['alias_slash_var'] = ' <script>const aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ', aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . '; </script>';
+$BE['HEADER']['alias_slash_var'] = ' <script>
+   const aliasAllowSlashes=' . (PHPWCMS_ALIAS_WSLASH ? 'true' : 'false') . ';
+   const aliasUtf8=' . (PHPWCMS_ALIAS_UTF8 ? 'true' : 'false') . ';
+  </script>';
 $BE['HEADER']['phpwcms-lang.js'] = getJavaScriptTranslations();
 $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js');
 
-
-
-
-if($BE['LANG'] == 'ar') {
-    $BE['HEADER'][] = '<style type="text/css">' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
+if($BE['LANG'] === 'ar') {
+    $BE['HEADER'][] = '<style>' . LF . '<!--' . LF . '* {direction: rtl;}' . LF . '// -->' . LF . '</style>';
 }
 
 ?>
@@ -300,8 +297,8 @@ if($BE['LANG'] == 'ar') {
                 </div>
             </form>
         </li>
-        <?php if (in_array($_SESSION["wcs_user_id"], $grouparray["profile"])) {
-          $active = ($do == 'profile') ? ' active' : '';
+        <?php if (in_array($_SESSION['wcs_user_id'], $grouparray['profile'])) {
+          $active = ($do === 'profile') ? ' active' : '';
           echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
         <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
@@ -318,49 +315,49 @@ if($BE['LANG'] == 'ar') {
             // create backend main navigation
 
             echo '<li class="nav-item';
-            if ($do == 'default') {
+            if ($do === 'default') {
                 echo ' active';
             }
             echo '"><a href="phpwcms.php?' . get_token_get_string() . '"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
 
-            $active = ($do == 'articles' || ($do == 'admin' && $p == 6)) ? ' active' : '';
+            $active = ($do === 'articles' || ($do === 'admin' && $p == 6)) ? ' active' : '';
             //only access if admin or permission set
-            if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artcent"]) || in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
+            if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['artcent']) || in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["artcent"])) {
-                    $subnav .= subnavtext($BL['be_subnav_article_center'], "phpwcms.php?do=articles", ($p == 0 || $p == 2) ? 0 : $p, 0, 0);
-                    $subnav .= subnavtext($BL['be_subnav_article_new'], "phpwcms.php?do=articles&amp;p=1&amp;struct=0", $p, 1, 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['artcent'])) {
+                    $subnav .= subnavtext($BL['be_subnav_article_center'], 'phpwcms.php?do=articles', ($p == 0 || $p == 2) ? 0 : $p, 0, 0);
+                    $subnav .= subnavtext($BL['be_subnav_article_new'], 'phpwcms.php?do=articles&amp;p=1&amp;struct=0', $p, 1, 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["artnews"])) {
-                    $subnav .= subnavtext($BL['be_news'], "phpwcms.php?do=articles&amp;p=3", $p, 3, 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
+                    $subnav .= subnavtext($BL['be_news'], 'phpwcms.php?do=articles&amp;p=3', $p, 3, 0);
                 }
-                echo '<ul class="submenu">'.$subnav."</ul></li>";
+                echo '<ul class="submenu">'.$subnav. '</ul></li>';
             }
 
-            $active = $do == 'files' ? ' active' : '';
+            $active = $do === 'files' ? ' active' : '';
             //only access if admin or permission set
-            if (!empty($_SESSION["wcs_user_admin"]) || in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
+            if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="arrow fa fa-angle-down"></span></a> ';
 
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["filecent"])) {
-                    $subnav = subnavtext($BL['be_subnav_file_center'], "phpwcms.php?do=files", $p, 0, 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
+                    $subnav = subnavtext($BL['be_subnav_file_center'], 'phpwcms.php?do=files', $p, 0, 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["fileaction"])) {
-                    $subnav .= subnavtext($BL['be_subnav_file_actions'], "phpwcms.php?do=files&amp;p=4", $p, 4, 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['fileaction'])) {
+                    $subnav .= subnavtext($BL['be_subnav_file_actions'], 'phpwcms.php?do=files&amp;p=4', $p, 4, 0);
                 }
-                if (in_array($_SESSION["wcs_user_id"], $grouparray["fileupload"])) {
-                    $subnav .= subnavtext($BL['be_file_multiple_upload'], "phpwcms.php?do=files&amp;p=8", $p, 8, 0);
+                if (in_array($_SESSION['wcs_user_id'], $grouparray['fileupload'])) {
+                    $subnav .= subnavtext($BL['be_file_multiple_upload'], 'phpwcms.php?do=files&amp;p=8', $p, 8, 0);
                 }
-                echo '<ul class="submenu">'.$subnav."</ul></li>";
+                echo '<ul class="submenu">'.$subnav. '</ul></li>';
             }
 
-            if (!empty($phpwcms['enable_backend_module']) && in_array($_SESSION["wcs_user_id"], $grouparray["module"])) {
-                $active = ($do == 'modules') ? ' active' : '';
+            if (!empty($phpwcms['enable_backend_module']) && in_array($_SESSION['wcs_user_id'], $grouparray['module'])) {
+                $active = ($do === 'modules') ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 foreach ($phpwcms['modules'] as $value) {
-                    if (isset($modulearray[$value['name']]) && in_array($_SESSION["wcs_user_id"], $modulearray[$value['name']])) {
+                    if (isset($modulearray[$value['name']]) && in_array($_SESSION['wcs_user_id'], $modulearray[$value['name']])) {
                         $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
                     }
                 }
@@ -368,8 +365,8 @@ if($BE['LANG'] == 'ar') {
             }
 
             //newsletter
-            if (!empty($phpwcms['enable_backend_newsletter']) && in_array($_SESSION["wcs_user_id"], $grouparray["nl"])) {
-                $active = $do == 'messages' ? ' active' : '';
+            if (!empty($phpwcms['enable_backend_newsletter']) && in_array($_SESSION['wcs_user_id'], $grouparray['nl'])) {
+                $active = $do === 'messages' ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
@@ -386,7 +383,7 @@ if($BE['LANG'] == 'ar') {
 
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
 
-                $active = ($do == 'admin' && $p != 6) ? ' active' : '';
+                $active = ($do === 'admin' && $p != 6) ? ' active' : '';
                 echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
@@ -441,11 +438,11 @@ if($BE['LANG'] == 'ar') {
 
     switch ($do) {
 
-        case "profile":    //Profile
+        case 'profile':    //Profile
               include PHPWCMS_ROOT.'/include/inc_tmpl/profile.account.tmpl.php';
               break;
 
-        case "files":    // File manager
+        case 'files':    // File manager
               if ($p === 8) { //FTP File upload
 
                 include PHPWCMS_ROOT.'/include/inc_tmpl/files.ftptakeover.tmpl.php';
@@ -456,19 +453,19 @@ if($BE['LANG'] == 'ar') {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.reiter.tmpl.php'; //Files Navigation/Reiter
                   switch ($files_folder) {
                       case 0:    //Listing der Privaten Dateien
-                              if (isset($_GET["mkdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 1)) {
+                              if (isset($_GET['mkdir']) || (isset($_POST['dir_aktion']) && (int)$_POST['dir_aktion'] == 1)) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.newdir.tmpl.php';
                               }
-                              if (isset($_GET["editdir"]) || (isset($_POST["dir_aktion"]) && intval($_POST["dir_aktion"]) == 2)) {
+                              if (isset($_GET['editdir']) || (isset($_POST['dir_aktion']) && (int)$_POST['dir_aktion'] == 2)) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editdir.tmpl.php';
                               }
-                              if (isset($_GET["upload"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 1) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && !isset($_GET["editfile"]))) {
+                              if (isset($_GET['upload']) || (isset($_POST['file_aktion']) && (int)$_POST['file_aktion'] == 1) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && !isset($_GET['editfile']))) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.upload.tmpl.php';
                               }
-                              if (isset($_GET["editfile"]) || (isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) == 2) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && isset($_GET["editfile"]))) {
+                              if (isset($_GET['editfile']) || (isset($_POST['file_aktion']) && (int)$_POST['file_aktion'] == 2) || ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0 && isset($_GET['editfile']))) {
                                   include PHPWCMS_ROOT.'/include/inc_tmpl/files.private.editfile.tmpl.php';
                               }
-                              if (!isset($_GET["upload"]) && !isset($_GET["editfile"]) && !isset($_GET["editdir"]) && !isset($_GET["mkdir"]) && !($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0)) {
+                              if (!isset($_GET['upload']) && !isset($_GET['editfile']) && !isset($_GET['editdir']) && !isset($_GET['mkdir']) && !($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && (int)$_SERVER['CONTENT_LENGTH'] > 0)) {
                                   include PHPWCMS_ROOT.'/include/inc_lib/files.private-functions.inc.php'; //Add listing function
                                   include PHPWCMS_ROOT.'/include/inc_lib/files.private.additions.inc.php'; //additional privat functions
                               }
@@ -491,7 +488,7 @@ if($BE['LANG'] == 'ar') {
               }
               break;
 
-      case "messages":    //Messages
+      case 'messages':    //Messages
             if (empty($phpwcms['enable_backend_newsletter'])) {
                 $do = 'default';
                 $p = 0;
@@ -504,17 +501,17 @@ if($BE['LANG'] == 'ar') {
                     //case 0: include PHPWCMS_ROOT.'/include/inc_tmpl/message.center.tmpl.php'; break; //Messages Overview
                     //case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/message.send.tmpl.php';   break;    //New Message
                     case 2: //Newsletter subscription
-                        if ($_SESSION["wcs_user_admin"] == 1) {
+                        if ($_SESSION['wcs_user_admin'] == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscription.tmpl.php';
                         }
                         break;
                     case 3: //Newsletter
-                        if ($_SESSION["wcs_user_admin"] == 1) {
+                        if ($_SESSION['wcs_user_admin'] == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/newsletter.list.tmpl.php';
                         }
                         break;
                     case 4: //Newsletter subscribers
-                        if ($_SESSION["wcs_user_admin"] == 1) {
+                        if ($_SESSION['wcs_user_admin'] == 1) {
                             include PHPWCMS_ROOT . '/include/inc_tmpl/message.subscribers.tmpl.php';
                         }
                         break;
@@ -522,7 +519,7 @@ if($BE['LANG'] == 'ar') {
             }
             break;
 
-      case "modules":    //Modules
+      case 'modules':    //Modules
             // if a module is selected
             if (isset($phpwcms['modules'][$module])) {
                 include $phpwcms['modules'][$module]['path'].'backend.default.php';
@@ -534,7 +531,7 @@ if($BE['LANG'] == 'ar') {
             switch ($p) {
             case 0: //User Administration
               if (has_admin_permission('admuser')) {
-                  switch (!empty($_GET['s']) ? intval($_GET["s"]) : 0) {
+                  switch (!empty($_GET['s']) ? (int)$_GET['s'] : 0) {
                       case 1: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.newuser.tmpl.php';  break; //New User
                       case 2: include PHPWCMS_ROOT.'/include/inc_tmpl/admin.edituser.tmpl.php'; break; //Edit User
                   }
@@ -593,7 +590,7 @@ if($BE['LANG'] == 'ar') {
         break;
 
         // articles
-      case "articles":
+      case 'articles':
         $_SESSION['image_browser_article'] = 0; //set how image file browser should work
         switch ($p) {
 
@@ -617,7 +614,7 @@ if($BE['LANG'] == 'ar') {
 
             case 6: // Artikel structur
               include PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php';
-              if (isset($_GET["struct"])) {
+              if (isset($_GET['struct'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php';
               }
               break;
@@ -625,7 +622,7 @@ if($BE['LANG'] == 'ar') {
         break;
 
       // about phpwcms
-      case "about":
+      case 'about':
           include PHPWCMS_ROOT.'/include/inc_tmpl/about.tmpl.php';
           break;
 
@@ -646,7 +643,7 @@ if($BE['LANG'] == 'ar') {
 <?php
 
 //If new message was sent -> automatic forwarding to message center
-forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 2500);
+forward_to($forward_to_message_center, PHPWCMS_URL. 'phpwcms.php?do=messages', 2500);
 
 ?>
 <!-- phpwcms BODY_CLOSE -->
@@ -655,7 +652,7 @@ forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 25
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-body d-flex align-items-stretch modal-body-iframe">
-        <iframe src="" id="infobrowser" class="iframe flex-grow-1" name="infobrowser" seamless="seamless" frameborder="0"></iframe>
+        <iframe src="about:blank" id="infobrowser" class="iframe flex-grow-1 border-0" name="infobrowser"></iframe>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-blue" data-dismiss="modal"><?php echo $BL['be_func_struct_close'] ?></button>
@@ -670,10 +667,8 @@ forward_to($forward_to_message_center, PHPWCMS_URL."phpwcms.php?do=messages", 25
 
 $BE['BODY_CLOSE']['bootstrap.min.js'] = getJavaScriptSourceLink('include/inc_js/bootstrap.bundle.min.js');
 
-
 // retrieve complete processing time
-[$usec, $sec] = explode(' ', microtime());
-header('X-phpwcms-Page-Processed-In: ' . number_format(1000*($usec + $sec - $phpwcms_rendering_start), 3) .' ms');
+header('X-phpwcms-Page-Processed-In: ' . number_format((hrtime(true) - $phpwcms_rendering_start) / 1e9, 4) . ' s');
 
 $BE['HTML'] = ob_get_clean();
 
@@ -690,7 +685,7 @@ if ($body_onload) {
 //$BE['HEADER'][] = '';
 
 // generate CSP meta tag from late-modified array
-$csp_parts = array();
+$csp_parts = [];
 foreach ($BE['CSP'] as $directive => $sources) {
     $csp_parts[] = $directive . ' ' . implode(' ', array_unique($sources));
 }

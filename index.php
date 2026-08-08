@@ -8,9 +8,8 @@
  *
  **/
 
-// set page processiong start time
-list($usec, $sec) = explode(' ', microtime());
-$phpwcms_rendering_start = $usec + $sec;
+// set page processing start time
+$phpwcms_rendering_start = hrtime(true);
 
 // define some general vars
 $content            = array();
@@ -206,8 +205,7 @@ if(empty($phpwcms['disable_generator'])) {
 
 // retrieve complete processing time
 if(empty($phpwcms['disable_processed_in'])) {
-    list($usec, $sec) = explode(' ', microtime());
-    header('X-phpwcms-Page-Processed-In: ' . number_format(1000 * ($usec + $sec - $phpwcms_rendering_start), 3) . ' ms');
+    header('X-phpwcms-Page-Processed-In: ' . number_format((hrtime(true) - $phpwcms_rendering_start) / 1e9, 4) . ' s');
 }
 
 // print PDF

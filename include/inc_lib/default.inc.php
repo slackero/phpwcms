@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_INCLUDE_CHECK')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
@@ -23,7 +23,7 @@ if (!empty($phpwcms['php_timezone'])) {
 
 // i18n charsets that might be accessible - in general used in MySQL
 // but a few more as listed here http://www.w3.org/International/O-charset-list.html
-$phpwcms['charsets'] = array(
+$phpwcms['charsets'] = [
     'iso-2022-kr',
     'iso-2022-jp',
     'iso-8859-1',
@@ -68,40 +68,33 @@ $phpwcms['charsets'] = array(
     'ks_c_5601-1987',
     'tis-620',
     'shift_jis',
-);
+];
 
-define('PHPWCMS_CHARSET', empty($phpwcms["charset"]) ? 'utf-8' : strtolower($phpwcms["charset"]));
+define('PHPWCMS_CHARSET', empty($phpwcms['charset']) ? 'utf-8' : strtolower($phpwcms['charset']));
 
 if (!empty($phpwcms['php_charset'])) {
     @ini_set('default_charset', PHPWCMS_CHARSET);
-    @ini_set('iconv.input_encoding', PHPWCMS_CHARSET);
-    @ini_set('iconv.internal_encoding', PHPWCMS_CHARSET);
-    @ini_set('iconv.output_encoding', PHPWCMS_CHARSET);
-    @ini_set('mbstring.internal_encoding', PHPWCMS_CHARSET);
-    @ini_set('mbstring.http_output', PHPWCMS_CHARSET);
 }
 
 if (defined('CUSTOM_CONTENT_TYPE')) {
-
     header(CUSTOM_CONTENT_TYPE);
 } else {
-
     header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
     $_use_content_type = 'text/html';
 }
 
-$phpwcms["site"] = $phpwcms["site"] === '' ? get_url_origin(true) : rtrim($phpwcms["site"], '/');
-$phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms["site"] : rtrim($phpwcms["site_ssl_url"], '/');
-if (substr($phpwcms['site_ssl_url'], 0, 5) == 'http:') {
+$phpwcms['site'] = $phpwcms['site'] === '' ? get_url_origin(true) : rtrim($phpwcms['site'], '/');
+$phpwcms['site_ssl_url'] = empty($phpwcms['site_ssl_url']) ? $phpwcms['site'] : rtrim($phpwcms['site_ssl_url'], '/');
+if (str_starts_with($phpwcms['site_ssl_url'], 'http:')) {
     $phpwcms['site_ssl_url'] = 'https' . substr($phpwcms['site_ssl_url'], 4);
 }
-$phpwcms['site_ssl_port'] = abs(intval($phpwcms['site_ssl_port']));
+$phpwcms['site_ssl_port'] = abs((int)$phpwcms['site_ssl_port']);
 if ($phpwcms['site_ssl_port'] !== 443) {
     $phpwcms['site_ssl_url'] .= ':' . $phpwcms['site_ssl_port'];
 }
 
 if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
-    if (substr($phpwcms['site'], 0, 5) == 'http:') {
+    if (str_starts_with($phpwcms['site'], 'http:')) {
         $phpwcms['site'] = $phpwcms['site_ssl_url'];
     }
     define('PHPWCMS_SSL', true);
@@ -111,25 +104,25 @@ if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
     define('PHPWCMS_HTTP_SCHEMA', 'http');
 }
 
-$phpwcms["site"] .= '/';
+$phpwcms['site'] .= '/';
 $phpwcms['site_ssl_url'] .= '/';
 
 // define the real path of this phpwcms installation
 // important for the script to know the real path
 $phpwcms['DOC_ROOT'] = rtrim(str_replace("\\", '/', $phpwcms['DOC_ROOT']), '/');
-if (empty($phpwcms["root"])) {
-    $phpwcms["root"] = '';
-    $phpwcms["host_root"] = '';
+if (empty($phpwcms['root'])) {
+    $phpwcms['root'] = '';
+    $phpwcms['host_root'] = '';
 } else {
-    $phpwcms["root"] = trim($phpwcms["root"], '/');
-    $phpwcms["host_root"] = '/' . $phpwcms["root"];
-    $phpwcms['DOC_ROOT'] .= '/' . $phpwcms["root"];
-    $phpwcms["root"] .= '/';
+    $phpwcms['root'] = trim($phpwcms['root'], '/');
+    $phpwcms['host_root'] = '/' . $phpwcms['root'];
+    $phpwcms['DOC_ROOT'] .= '/' . $phpwcms['root'];
+    $phpwcms['root'] .= '/';
 }
 
 define('PHPWCMS_ROOT', $phpwcms['DOC_ROOT']);
-define('PHPWCMS_FILES', $phpwcms["file_path"] . '/');
-define('PHPWCMS_BASEPATH', '/' . $phpwcms["root"]);
+define('PHPWCMS_FILES', $phpwcms['file_path'] . '/');
+define('PHPWCMS_BASEPATH', '/' . $phpwcms['root']);
 define('PHPWCMS_USER_KEY', md5(getRemoteIP() . $phpwcms['DOC_ROOT'] . $phpwcms['db_pass']));
 if (empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', false);
@@ -138,22 +131,9 @@ if (empty($phpwcms['rewrite_url'])) {
     define('PHPWCMS_REWRITE', true);
     define('PHPWCMS_RESIZE_IMAGE', 'im');
 }
-define('PHPWCMS_REWRITE_EXT', isset($phpwcms['rewrite_ext']) ? $phpwcms['rewrite_ext'] : '.html');
-define('PHPWCMS_ALIAS_WSLASH', empty($phpwcms['alias_allow_slash']) ? false : true);
+define('PHPWCMS_REWRITE_EXT', $phpwcms['rewrite_ext'] ?? '.html');
+define('PHPWCMS_ALIAS_WSLASH', !empty($phpwcms['alias_allow_slash']));
 define('PHPWCMS_ALIAS_UTF8', !(empty($phpwcms['alias_allow_utf8']) || PHPWCMS_CHARSET !== 'utf-8'));
-define('IS_PHP523', version_compare(PHP_VERSION, '5.2.3', '>='));
-define('IS_PHP5', IS_PHP523);
-if (defined('PHP_MAJOR_VERSION')) {
-    define('IS_PHP7', PHP_MAJOR_VERSION >= 7);
-    define('IS_PHP8', PHP_MAJOR_VERSION >= 8);
-    define('IS_PHP81', IS_PHP8 && PHP_MINOR_VERSION === 1);
-    define('IS_PHP82', IS_PHP81 && PHP_MINOR_VERSION === 2);
-} else {
-    define('IS_PHP7', version_compare(PHP_VERSION, '7.0.0', '>='));
-    define('IS_PHP8', version_compare(PHP_VERSION, '8.0.0', '>='));
-    define('IS_PHP81', IS_PHP8 && version_compare(PHP_VERSION, '8.1.0', '>='));
-    define('IS_PHP82', IS_PHP81 && version_compare(PHP_VERSION, '8.2.0', '>='));
-}
 
 // Mime-Type definitions
 require_once PHPWCMS_ROOT . '/include/inc_lib/mimetype.inc.php';
@@ -165,38 +145,38 @@ define('BROWSER_NAME', $phpwcms['USER_AGENT']['agent']);
 define('BROWSER_NUMBER', $phpwcms['USER_AGENT']['version']);
 define('BROWSER_OS', $phpwcms['USER_AGENT']['platform']);
 define('BROWSER_MOBILE', $phpwcms['USER_AGENT']['mobile']);
-$phpwcms["file_path"] = '/' . $phpwcms["file_path"] . '/';  // "/phpwcms_filestorage/"
-define('TEMPLATE_PATH', $phpwcms["templates"] . '/');
-$phpwcms["templates"] = '/' . $phpwcms["templates"] . '/';  // "/phpwcms_template/"
-$phpwcms["content_path"] = $phpwcms["content_path"] . '/';  // "content/"
-define('CONTENT_PATH', $phpwcms["content_path"]);
-$phpwcms["cimage_path"] = $phpwcms["cimage_path"] . '/';  // "images/"
-$phpwcms["ftp_path"] = '/' . $phpwcms["ftp_path"] . '/';  // "/phpwcms_ftp/"
+$phpwcms['file_path'] = '/' . $phpwcms['file_path'] . '/';  // "/phpwcms_filestorage/"
+define('TEMPLATE_PATH', $phpwcms['templates'] . '/');
+$phpwcms['templates'] = '/' . $phpwcms['templates'] . '/';  // "/phpwcms_template/"
+$phpwcms['content_path'] .= '/';  // "content/"
+define('CONTENT_PATH', $phpwcms['content_path']);
+$phpwcms['cimage_path'] .= '/';  // "images/"
+$phpwcms['ftp_path'] = '/' . $phpwcms['ftp_path'] . '/';  // "/phpwcms_ftp/"
 
-define('PHPWCMS_TEMPLATE', PHPWCMS_ROOT . $phpwcms["templates"]);
-define('PHPWCMS_URL', $phpwcms["site"] . $phpwcms["root"]);
+define('PHPWCMS_TEMPLATE', PHPWCMS_ROOT . $phpwcms['templates']);
+define('PHPWCMS_URL', $phpwcms['site'] . $phpwcms['root']);
 $phpwcms['parse_url'] = parse_url(PHPWCMS_URL);
 
 define('PHPWCMS_DOMAIN', $phpwcms['parse_url']['host']);
 define('PHPWCMS_BASEURL', $phpwcms['parse_url']['scheme'] . '://' . $phpwcms['parse_url']['host'] . (empty($phpwcms['parse_url']['port']) || $phpwcms['parse_url']['port'] === 443 || $phpwcms['parse_url']['port'] === 80 ? '' : ':' . $phpwcms['parse_url']['port']));
-define('PHPWCMS_HOST', $phpwcms['parse_url']['host'] . $phpwcms["host_root"]);
-define('PHPWCMS_IMAGES', $phpwcms["content_path"] . $phpwcms["cimage_path"]);
-define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms["content_path"] . 'tmp/');
-define('PHPWCMS_CONTENT', PHPWCMS_ROOT . '/' . $phpwcms["content_path"]);
-define('PHPWCMS_THUMB', PHPWCMS_CONTENT . $phpwcms["cimage_path"]);
+define('PHPWCMS_HOST', $phpwcms['parse_url']['host'] . $phpwcms['host_root']);
+define('PHPWCMS_IMAGES', $phpwcms['content_path'] . $phpwcms['cimage_path']);
+define('PHPWCMS_TEMP', PHPWCMS_ROOT . '/' . $phpwcms['content_path'] . 'tmp/');
+define('PHPWCMS_CONTENT', PHPWCMS_ROOT . '/' . $phpwcms['content_path']);
+define('PHPWCMS_THUMB', PHPWCMS_CONTENT . $phpwcms['cimage_path']);
 define('PHPWCMS_RSS', PHPWCMS_CONTENT . 'rss');
-define('PHPWCMS_STORAGE', PHPWCMS_ROOT . $phpwcms["file_path"]);
+define('PHPWCMS_STORAGE', PHPWCMS_ROOT . $phpwcms['file_path']);
 define('LF', "\n");  //global new line Feed
 define('FEUSER_REGKEY', empty($phpwcms['feuser_regkey']) ? 'FEUSER' : $phpwcms['feuser_regkey']);
-define('RESPONSIVE_MODE', empty($phpwcms['responsive']) ? false : true);
-define('PHPWCMS_PRESERVE_IMAGENAME', empty($phpwcms['preserve_image_name']) ? false : true);
+define('RESPONSIVE_MODE', !empty($phpwcms['responsive']));
+define('PHPWCMS_PRESERVE_IMAGENAME', !empty($phpwcms['preserve_image_name']));
 define('PHPWCMS_IMAGE_WIDTH', $phpwcms['img_prev_width']);
 define('PHPWCMS_IMAGE_HEIGHT', $phpwcms['img_prev_height']);
-define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) ? !!$phpwcms['enable_GDPR'] : false);
+define('PHPWCMS_GDPR_MODE', isset($phpwcms['enable_GDPR']) && $phpwcms['enable_GDPR']);
 define('PHPWCMS_LOGDIR', PHPWCMS_CONTENT . 'log');
 define('PHPWCMS_WEBP', !empty($phpwcms['webp_enable']) && !empty($phpwcms['USER_AGENT']['webp']));
 define('PHPWCMS_QUALITY', PHPWCMS_WEBP ? $phpwcms['webp_quality'] : $phpwcms['jpg_quality']);
-define('PHPWCMS_RESIZE_ANIMATED_GIF', isset($phpwcms['resize_animated_gif']) ? (bool) $phpwcms['resize_animated_gif'] : true);
+define('PHPWCMS_RESIZE_ANIMATED_GIF', !isset($phpwcms['resize_animated_gif']) || $phpwcms['resize_animated_gif']);
 
 if (function_exists('mb_substr')) {
     define('MB_SAFE', true); //mbstring safe - better to do a check here
@@ -206,11 +186,13 @@ if (function_exists('mb_substr')) {
     function mb_substr($str = '', $start = 0, $length = null, $encoding = '') {
         if ($length !== null) {
             return phpwcms_seems_utf8($str) ? mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start, $length), 'UTF-8') : substr($str, $start, $length);
-        } elseif (phpwcms_seems_utf8($str)) {
-            return mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start), 'UTF-8');
-        } else {
-            return substr($str, $start);
         }
+
+        if (phpwcms_seems_utf8($str)) {
+            return mb_convert_encoding(substr(mb_convert_encoding($str, PHPWCMS_CHARSET), $start), 'UTF-8');
+        }
+
+        return substr($str, $start);
     }
 
     function mb_strlen($str = '', $encoding = '') {
@@ -219,10 +201,10 @@ if (function_exists('mb_substr')) {
 
     // fallback for mb_convert_encoding()
     function mb_convert_encoding($string = '', $out_charset = 'utf-8', $in_charset = 'utf-8') {
-        if (strtolower($in_charset) == 'utf-16be') {
+        if (strtolower($in_charset) === 'utf-16be') {
             $in_charset = 'utf-8';
         }
-        if (strtolower($out_charset) == 'utf-16be') {
+        if (strtolower($out_charset) === 'utf-16be') {
             $out_charset = 'utf-8';
         }
 
@@ -230,9 +212,9 @@ if (function_exists('mb_substr')) {
     }
 }
 
-$phpwcms['modules'] = array();
-$phpwcms['modules_fe_render'] = array();
-$phpwcms['modules_fe_init'] = array();
+$phpwcms['modules'] = [];
+$phpwcms['modules_fe_render'] = [];
+$phpwcms['modules_fe_init'] = [];
 
 $phpwcms['img_list_width']  = empty($phpwcms['img_list_width']) ? 160 : (int)$phpwcms['img_list_width'];
 $phpwcms['img_list_height'] = empty($phpwcms['img_list_height']) ? 100 : (int)$phpwcms['img_list_height'];
@@ -247,16 +229,16 @@ if (isset($phpwcms['image_library'])) {
     $phpwcms['image_library'] = strtolower($phpwcms['image_library']);
     $phpwcms['library_path'] = empty($phpwcms['library_path']) ? '' : $phpwcms['library_path'];
 
-    if (!in_array($phpwcms['image_library'], array('gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'))) {
+    if (!in_array($phpwcms['image_library'], ['gd2', 'imagemagick', 'gm', 'graphicsmagick', 'netpbm', 'gd'])) {
         $phpwcms['image_library'] = 'gd2';
     }
 // Fallback to old setting
 } else {
 
-    $phpwcms['image_library'] = empty($phpwcms["imagick"]) ? 'gd2' : 'imagemagick';
-    $phpwcms['library_path'] = empty($phpwcms["imagick_path"]) ? '' : str_replace('//', '/', str_replace("\\", '/', $phpwcms["imagick_path"] . '/'));
+    $phpwcms['image_library'] = empty($phpwcms['imagick']) ? 'gd2' : 'imagemagick';
+    $phpwcms['library_path'] = empty($phpwcms['imagick_path']) ? '' : str_replace('//', '/', str_replace("\\", '/', $phpwcms['imagick_path'] . '/'));
 
-    unset($phpwcms["imagick_path"], $phpwcms["imagick"]);
+    unset($phpwcms['imagick_path'], $phpwcms['imagick']);
 }
 
 // Set default colorspace in General RGB or sRGB
@@ -269,13 +251,13 @@ if (empty($phpwcms['SMTP_MAILER'])) {
     $phpwcms['SMTP_MAILER'] = 'mail';
 }
 if (empty($phpwcms['SMTP_FROM_EMAIL'])) {
-    $phpwcms['SMTP_FROM_EMAIL'] = $phpwcms["admin_email"];
+    $phpwcms['SMTP_FROM_EMAIL'] = $phpwcms['admin_email'];
 }
 
 $phpwcms['default_lang'] = strtolower($phpwcms['default_lang']);
 $phpwcms['DOCTYPE_LANG'] = empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['default_lang'] : strtolower(trim($phpwcms['DOCTYPE_LANG']));
 
-$phpwcms['js_lib_default'] = array(
+$phpwcms['js_lib_default'] = [
     'jQuery' => '-',
         'jquery-4.0' => 'jQuery 4.0.0',
         'jquery-4.0-migrate' => 'jQuery 4.0.0 + Migrate 4.0.2',
@@ -324,12 +306,12 @@ $phpwcms['js_lib_default'] = array(
         'jquery-1.8' => 'jQuery 1.8.3',
         'jquery-1.7' => 'jQuery 1.7.2',
         'jquery-1.6' => 'jQuery 1.6.4',
-);
-$phpwcms['js_lib_deprecated'] = array(
+];
+$phpwcms['js_lib_deprecated'] = [
     'jquery-1.5' => 'jQuery 1.5.2',
     'jquery-1.4' => 'jQuery 1.4.4',
     'jquery' => 'jQuery 1.3.2',
-);
+];
 
 $phpwcms['js_lib'] = isset($phpwcms['js_lib']) ? array_merge($phpwcms['js_lib_default'], $phpwcms['js_lib']) : $phpwcms['js_lib_default'];
 
@@ -338,10 +320,10 @@ if (!empty($phpwcms['enable_deprecated'])) {
 }
 
 if (!isset($phpwcms['glightbox_options']) || !is_array($phpwcms['glightbox_options'])) {
-    $phpwcms['glightbox_options'] = array();
+    $phpwcms['glightbox_options'] = [];
 }
 
-$phpwcms['default_template_classes'] = array(
+$phpwcms['default_template_classes'] = [
     'link-top' => 'link-top',
     'link-internal' => 'link-internal',
     'link-external' => 'link-external',
@@ -440,18 +422,18 @@ $phpwcms['default_template_classes'] = array(
     'newsletter-input-name' => 'form-control',
     'newsletter-checkbox-item' => 'form-row-checkbox',
     'newsletter-submit-button' => 'btn btn-primary',
-);
+];
 
-$phpwcms['search_highlight'] = array(
+$phpwcms['search_highlight'] = [
     'prefix' => '<em class="highlight">',
     'suffix' => '</em>',
-);
+];
 
-$phpwcms['default_template_attributes'] = array(
+$phpwcms['default_template_attributes'] = [
     'navlist-bs-dropdown-data' => 'data-toggle="dropdown"',
     'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
     'cpgroup' => 'data', // data = <span>, href = <a>
-    'cp-paginate' => array(
+    'cp-paginate' => [
         'wrap-prefix' => '<ul>',
         'wrap-suffix' => '</ul>',
         'link-prefix' => '<li>',
@@ -459,12 +441,12 @@ $phpwcms['default_template_attributes'] = array(
         'value-prefix' => '',
         'value-suffix' => '',
         'href-disabled' => '#',
-    ),
+    ],
     'data-gallery' => 'gallery',
-);
+];
 
 if (empty($phpwcms['allowed_upload_ext'])) {
-    $phpwcms['allowed_upload_ext'] = array(
+    $phpwcms['allowed_upload_ext'] = [
         'jpg',
         'jpeg',
         'png',
@@ -538,17 +520,17 @@ if (empty($phpwcms['allowed_upload_ext'])) {
         'f4p',
         'f4a',
         'f4b',
-    );
+    ];
 }
 
 if (!isset($phpwcms['preserve_getVar'])) {
-    $phpwcms['preserve_getVar'] = array();
+    $phpwcms['preserve_getVar'] = [];
 }
 if (!isset($phpwcms['global_unregister_getVar'])) {
     /**
      * This var can be overwritten in conf.inc.php
      */
-    $phpwcms['global_unregister_getVar'] = array(
+    $phpwcms['global_unregister_getVar'] = [
         'page',
         'listpage',
         'newsdetail',
@@ -562,7 +544,7 @@ if (!isset($phpwcms['global_unregister_getVar'])) {
         'gallery',
         'subgallery',
         'fmp',
-    );
+    ];
 }
 if (is_array($phpwcms['preserve_getVar']) && count($phpwcms['preserve_getVar'])) {
     $phpwcms['global_unregister_getVar'] = array_diff($phpwcms['global_unregister_getVar'], $phpwcms['preserve_getVar']);
@@ -632,21 +614,21 @@ define('PHPWCMS_HEADER_COMMENT', '
   -->
 ');
 
-if (empty($phpwcms['lazy_loading']) || !in_array($phpwcms['lazy_loading'], array('lazy', 'eager', 'auto'))) {
+if (empty($phpwcms['lazy_loading']) || !in_array($phpwcms['lazy_loading'], ['lazy', 'eager', 'auto'])) {
     define('PHPWCMS_LAZY_LOADING', '');
 } else {
     define('PHPWCMS_LAZY_LOADING', ' loading="' . $phpwcms['lazy_loading'] . '"');
 }
 
 // Todo: Later remove these
-$phpwcms["release"] = PHPWCMS_VERSION;
-$phpwcms["release_date"] = PHPWCMS_RELEASE_DATE;
-$phpwcms["revision"] = PHPWCMS_REVISION;
+$phpwcms['release'] = PHPWCMS_VERSION;
+$phpwcms['release_date'] = PHPWCMS_RELEASE_DATE;
+$phpwcms['revision'] = PHPWCMS_REVISION;
 
 // We need a global var for callback functions, mainly dates
 $phpwcms['callback'] = null;
 
-$translate = array();
+$translate = [];
 
 // -------------------------------------------------------------
 
@@ -666,34 +648,36 @@ function dumpVar($var, $commented = false) {
     //just a simple funcction returning formatted print_r()
     if ($commented === 1) {
         echo LF . '<!--' . LF;
-                    print_r($var);
+        print_r($var);
         echo LF . '//-->' . LF;
         return null;
-    } elseif ($commented === 2) {
+    }
+
+    if ($commented === 2) {
         return '<pre>' . html(print_r($var, true)) . '</pre>';
     }
 
     echo '<pre>';
-                    echo html(print_r($var, true));
-                    echo '</pre>';
+    echo html(print_r($var, true));
+    echo '</pre>';
     return null;
 }
 
 function buildGlobalGET($return = '') {
     // build internal array containing all GET values
     // and remove session from this array
-    $GLOBALS['_getVar'] = array();
+    $GLOBALS['_getVar'] = [];
 
-    $_queryVal = empty($_SERVER['QUERY_STRING']) ? array() : explode('&', remove_unsecure_rptags($_SERVER['QUERY_STRING']));
+    $_queryVal = empty($_SERVER['QUERY_STRING']) ? [] : explode('&', remove_unsecure_rptags($_SERVER['QUERY_STRING']));
     $_queryCount = count($_queryVal);
     $_getCount = is_array($_GET) ? count($_GET) : 0;
 
     if ($_getCount && $_getCount >= $_queryCount) {
 
         // solve the problem that dots inside alias can get lost using GET variable
-        if (!empty($_queryVal[0]) && strpos($_queryVal[0], '.') !== false) {
+        if (!empty($_queryVal[0]) && str_contains($_queryVal[0], '.')) {
             array_shift($_GET);
-            $_GET = array($_queryVal[0] => '') + $_GET;
+            $_GET = [$_queryVal[0] => ''] + $_GET;
         }
 
         $GLOBALS['_getVar'] = $_GET;
@@ -724,13 +708,7 @@ function buildGlobalGET($return = '') {
     if ($_getVar_first && $GLOBALS['_getVar'][$_getVar_first] === '') {
         unset($GLOBALS['_getVar'][$_getVar_first]);
         $_getVar_first = trim($_getVar_first, " \t\n\r\0\x0B/"); // cleanup alias
-        $GLOBALS['_getVar'] = array($_getVar_first => '') + $GLOBALS['_getVar'];
-    }
-
-    if (!IS_PHP7 && get_magic_quotes_gpc()) {
-        foreach ($GLOBALS['_getVar'] as $key => $value) {
-            $GLOBALS['_getVar'][$key] = stripslashes($value);
-        }
+        $GLOBALS['_getVar'] = [$_getVar_first => ''] + $GLOBALS['_getVar'];
     }
 
     if ($return === 'getQuery') {
@@ -741,7 +719,7 @@ function buildGlobalGET($return = '') {
 }
 
 // build phpwcms specific relative url
-function rel_url($add = array(), $remove = array(), $id_alias = '', $format = 'htmlspecialchars', $glue = '&', $bind = '=') {
+function rel_url($add = [], $remove = [], $id_alias = '', $format = 'htmlspecialchars', $glue = '&', $bind = '=') {
     $query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
     if (empty($query)) {
         return PHPWCMS_URL;
@@ -752,7 +730,7 @@ function rel_url($add = array(), $remove = array(), $id_alias = '', $format = 'h
 }
 
 // build phpwcms specific absolute url
-function abs_url($add = array(), $remove = array(), $id_alias = '', $format = 'htmlspecialchars', $glue = '&', $bind = '=') {
+function abs_url($add = [], $remove = [], $id_alias = '', $format = 'htmlspecialchars', $glue = '&', $bind = '=') {
     $query = returnGlobalGET_QueryString($format, $add, $remove, $id_alias, $glue, $bind);
     $index = PHPWCMS_REWRITE ? '' : 'index.php';
 
@@ -760,16 +738,16 @@ function abs_url($add = array(), $remove = array(), $id_alias = '', $format = 'h
 }
 
 // build a URL query string based on current values
-function returnGlobalGET_QueryString($format = '', $add = array(), $remove = array(), $id_alias = '', $glue = '&', $bind = '=', $query_string_separator = '?') {
+function returnGlobalGET_QueryString($format = '', $add = [], $remove = [], $id_alias = '', $glue = '&', $bind = '=', $query_string_separator = '?') {
 
-    $queryString = array();
+    $queryString = [];
     if (empty($GLOBALS['_getVar']) || $remove === true) {
-        $remove = array(); // force URL without any get parameter
+        $remove = []; // force URL without any get parameter
         if ($id_alias === '' && count($GLOBALS['_getVar'])) {
             reset($GLOBALS['_getVar']);
-            $_getVarTemp = array(key($GLOBALS['_getVar']) => current($GLOBALS['_getVar']));
+            $_getVarTemp = [key($GLOBALS['_getVar']) => current($GLOBALS['_getVar'])];
         } else {
-            $_getVarTemp = array();
+            $_getVarTemp = [];
         }
     } else {
         $_getVarTemp = $GLOBALS['_getVar'];
@@ -785,9 +763,9 @@ function returnGlobalGET_QueryString($format = '', $add = array(), $remove = arr
             $id_alias[1] = isset($id_alias[1]) ? trim($id_alias[1]) : '';
             if (count($_getVarTemp)) {
                 array_shift($_getVarTemp);
-                $_getVarTemp = array($id_alias[0] => $id_alias[1]) + $_getVarTemp;
+                $_getVarTemp = [$id_alias[0] => $id_alias[1]] + $_getVarTemp;
             } else {
-                $_getVarTemp = array($id_alias[0] => $id_alias[1]);
+                $_getVarTemp = [$id_alias[0] => $id_alias[1]];
             }
         }
     }
@@ -878,7 +856,9 @@ function returnGlobalGET_QueryString($format = '', $add = array(), $remove = arr
 function getQueryString_htmlentities($key = '', $value = '', $bind = '=') {
     if ($value !== '') {
         return html_entities(urlencode($key) . $bind . str_replace('%2C', ',', urlencode($value)));
-    } elseif (PHPWCMS_ALIAS_WSLASH) {
+    }
+
+    if (PHPWCMS_ALIAS_WSLASH) {
         return html_entities(str_replace('%2F', '/', urlencode($key)));
     }
 
@@ -888,7 +868,9 @@ function getQueryString_htmlentities($key = '', $value = '', $bind = '=') {
 function getQueryString_htmlspecialchars($key = '', $value = '', $bind = '=') {
     if ($value !== '') {
         return html(urlencode($key) . $bind . str_replace('%2C', ',', urlencode($value)));
-    } elseif (PHPWCMS_ALIAS_WSLASH) {
+    }
+
+    if (PHPWCMS_ALIAS_WSLASH) {
         return html(str_replace('%2F', '/', urlencode($key)));
     }
 
@@ -898,7 +880,9 @@ function getQueryString_htmlspecialchars($key = '', $value = '', $bind = '=') {
 function getQueryString_urlencode($key = '', $value = '', $bind = '=') {
     if ($value !== '') {
         return urlencode($key) . $bind . urlencode($value);
-    } elseif (PHPWCMS_ALIAS_WSLASH) {
+    }
+
+    if (PHPWCMS_ALIAS_WSLASH) {
         return str_replace('%2F', '/', urlencode($key));
     }
 
@@ -908,7 +892,9 @@ function getQueryString_urlencode($key = '', $value = '', $bind = '=') {
 function getQueryString_rawurlencode($key = '', $value = '', $bind = '=') {
     if ($value !== '') {
         return rawurlencode($key) . $bind . rawurlencode($value);
-    } elseif (PHPWCMS_ALIAS_WSLASH) {
+    }
+
+    if (PHPWCMS_ALIAS_WSLASH) {
         return str_replace('%2F', '/', rawurlencode($key));
     }
 
@@ -927,7 +913,7 @@ function cleanupPOSTandGET() {
     // remove possible unsecure PHP replacement tags in GET and POST vars
     if (isset($_POST) && count($_POST)) {
         foreach ($_POST as $key => $value) {
-            if (!is_array($_POST[$key])) {
+            if (!is_array($value)) {
                 $_POST[$key] = remove_unsecure_rptags($value);
             }
         }
@@ -942,9 +928,9 @@ function cleanupPOSTandGET() {
 function remove_unsecure_rptags($check) {
     // remove special replacement tags for security reasons
     // bc input fields can be used for code injection
-    $check = preg_replace(array('/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'), '$1', $check);
+    $check = preg_replace(['/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'], '$1', $check);
 
-    return str_replace(array('[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'), array('[ PHP ]', '[ /PHP ]', '{ PHP :', '{ PHPVAR :', '{ URL :'), $check);
+    return str_replace(['[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'], ['[ PHP ]', '[ /PHP ]', '{ PHP :', '{ PHPVAR :', '{ URL :'], $check);
 }
 
 /**
@@ -997,7 +983,7 @@ function headerRedirect($target = '', $type = 0, $session_close = true) {
 
 function _initSession() {
     $GLOBALS['phpwcms']['session_cookie_params'] = session_get_cookie_params();
-    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']) ? true : false;
+    $GLOBALS['phpwcms']['session_cookie_params']['httponly'] = empty($GLOBALS['phpwcms']['session.cookie_httponly.off']);
     $GLOBALS['phpwcms']['session_cookie_params']['domain'] = $GLOBALS['phpwcms']['parse_url']['host'];
     $GLOBALS['phpwcms']['session_cookie_params']['path'] = PHPWCMS_BASEPATH;
     $GLOBALS['phpwcms']['session_cookie_params']['secure'] = PHPWCMS_SSL;
@@ -1011,7 +997,7 @@ function _initSession() {
     if (!session_id()) {
         session_start();
     }
-    if (empty($_SESSION['phpwcmsSessionInit']) && function_exists("session_regenerate_id")) {
+    if (empty($_SESSION['phpwcmsSessionInit']) && function_exists('session_regenerate_id')) {
         session_regenerate_id(true);
         $_SESSION['phpwcmsSessionInit'] = true;
     }
@@ -1051,7 +1037,7 @@ function getAnonymizedIp() {
 function phpwcms_getUserAgent($USER_AGENT = '') {
 
     if (empty($USER_AGENT)) {
-        $USER_AGENT = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $USER_AGENT = $_SERVER['HTTP_USER_AGENT'] ?? '';
         $index = 'USER_AGENT';
     } else {
         $index = 'USER_AGENT_' . md5($USER_AGENT);
@@ -1064,7 +1050,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
     if (empty($GLOBALS['phpwcms']['detect_pixelratio'])) {
         $pixelratio = 1;
     } elseif (isset($_COOKIE['phpwcms_pixelratio'])) {
-        $pixelratio = floatval($_COOKIE['phpwcms_pixelratio']);
+        $pixelratio = (float)$_COOKIE['phpwcms_pixelratio'];
         if ($pixelratio < 1 || $pixelratio > 3) {
             $pixelratio = 1;
         }
@@ -1072,14 +1058,14 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         $pixelratio = 1;
     }
 
-    if (!empty($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'image/webp') !== false || ($USER_AGENT && strpos($USER_AGENT, ' Chrome/') !== false)) {
+    if (!empty($_SERVER['HTTP_ACCEPT']) && str_contains($_SERVER['HTTP_ACCEPT'], 'image/webp') || ($USER_AGENT && str_contains($USER_AGENT, ' Chrome/'))) {
         $webp = true;
     } else {
         $webp = false;
     }
 
     if (empty($USER_AGENT)) {
-        return $GLOBALS['phpwcms'][$index] = array(
+        return $GLOBALS['phpwcms'][$index] = [
             'agent' => 'Other',
             'version' => 0,
             'platform' => 'Other',
@@ -1089,7 +1075,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
             'engine' => 'Other',
             'pixelratio' => $pixelratio,
             'webp' => $webp,
-        );
+        ];
     }
 
     $mobile = 0;
@@ -1154,7 +1140,7 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
 
     $USER_AGENT = strtolower($USER_AGENT);
 
-    if (strpos($USER_AGENT, 'android') !== false) {
+    if (str_contains($USER_AGENT, 'android')) {
         if ($agent === 'Edge') {
             $platform = 'Edge';
         } else {
@@ -1167,75 +1153,75 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
         } else {
             $device = 'Tablet';
         }
-    } elseif (strpos($USER_AGENT, 'windows phone') !== false) {
+    } elseif (str_contains($USER_AGENT, 'windows phone')) {
         $agent = 'IEMobile';
         $platform = 'WinPhone';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'windows ce') !== false) {
+    } elseif (str_contains($USER_AGENT, 'windows ce')) {
         $platform = 'WinCE';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'win') !== false) {
+    } elseif (str_contains($USER_AGENT, 'win')) {
         $platform = 'Win';
         $device = 'Desktop';
-    } elseif (strpos($USER_AGENT, 'iphone') !== false) {
+    } elseif (str_contains($USER_AGENT, 'iphone')) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'ipad') !== false) {
+    } elseif (str_contains($USER_AGENT, 'ipad')) {
         $platform = 'iOS';
         $device = 'Tablet';
-    } elseif (strpos($USER_AGENT, 'ipod') !== false) {
+    } elseif (str_contains($USER_AGENT, 'ipod')) {
         $platform = 'iOS';
         $mobile = 1;
         $device = 'Smartphone';
-    } elseif (strpos($USER_AGENT, 'mac') !== false) {
+    } elseif (str_contains($USER_AGENT, 'mac')) {
         $platform = 'Mac';
         $device = 'Desktop';
-    } elseif (strpos($USER_AGENT, 'googletv') !== false) {
+    } elseif (str_contains($USER_AGENT, 'googletv')) {
         $platform = 'GoogleTV';
         $device = 'TV';
         $engine = 'WebKit';
-    } elseif (strpos($USER_AGENT, 'rim tablet') !== false) {
+    } elseif (str_contains($USER_AGENT, 'rim tablet')) {
         $platform = 'Blackberry';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'blackberry') !== false) {
+    } elseif (str_contains($USER_AGENT, 'blackberry')) {
         $platform = 'Blackberry';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'webos') !== false) {
+    } elseif (str_contains($USER_AGENT, 'webos')) {
         $platform = 'WebOS';
         $mobile = 1;
         $device = 'Smartphone';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'kindle') !== false) {
+    } elseif (str_contains($USER_AGENT, 'kindle')) {
         $platform = 'Android';
         $mobile = 1;
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'silk') !== false) {
+    } elseif (str_contains($USER_AGENT, 'silk')) {
         $platform = 'Linux';
         $device = 'Tablet';
         $engine = 'Webkit';
-    } elseif (strpos($USER_AGENT, 'linux') !== false) {
+    } elseif (str_contains($USER_AGENT, 'linux')) {
         $platform = 'Linux';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'unix') !== false) {
+    } elseif (str_contains($USER_AGENT, 'unix')) {
         $platform = 'Unix';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'freebsd') !== false) {
+    } elseif (str_contains($USER_AGENT, 'freebsd')) {
         $platform = 'FreeBSD';
         if (strpos($USER_AGENT, 'x11')) {
             $device = 'Desktop';
         }
-    } elseif (strpos($USER_AGENT, 'symbian') !== false) {
+    } elseif (str_contains($USER_AGENT, 'symbian')) {
         $platform = 'Symbian';
         $mobile = 1;
         $device = 'Smartphone';
@@ -1245,28 +1231,28 @@ function phpwcms_getUserAgent($USER_AGENT = '') {
             $mobile = 1;
         }
 
-        if (empty($GLOBALS['phpwcms']["BOTS"]) || !is_array($GLOBALS['phpwcms']["BOTS"])) {
-            $GLOBALS['phpwcms']["BOTS"] = array('googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler');
+        if (empty($GLOBALS['phpwcms']['BOTS']) || !is_array($GLOBALS['phpwcms']['BOTS'])) {
+            $GLOBALS['phpwcms']['BOTS'] = ['googlebot', 'msnbot', 'bingbot', 'baiduspider', 'yandex', 'sosospider', 'ia_archiver', 'altavista', 'slurp', 'yahoo', 'jeeves', 'teoma', 'lycos', 'crawler'];
         }
 
-        if (preg_match('/(' . implode('|', $GLOBALS['phpwcms']["BOTS"]) . ')/i', $USER_AGENT, $match_bot)) {
+        if (preg_match('/(' . implode('|', $GLOBALS['phpwcms']['BOTS']) . ')/i', $USER_AGENT, $match_bot)) {
             $agent = $match_bot[1];
             $bot = 1;
             $device = 'Bot';
         }
     }
 
-    $GLOBALS['phpwcms'][$index] = array(
+    $GLOBALS['phpwcms'][$index] = [
         'agent' => $agent,
-        'version' => intval($ver),
+        'version' => (int)$ver,
         'platform' => $platform,
         'mobile' => $mobile,
         'device' => $device,
         'bot' => $bot,
         'engine' => $engine,
         'pixelratio' => $pixelratio,
-        'lang' => isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : $GLOBALS['phpwcms']["default_lang"]
-    );
+        'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? $GLOBALS['phpwcms']['default_lang']
+    ];
 
     $GLOBALS['phpwcms'][$index]['hash'] = md5(implode('', $GLOBALS['phpwcms'][$index]) . getRemoteIP());
     $GLOBALS['phpwcms'][$index]['webp'] = $webp; // do not use webp to generate the hash index, seems it likely fails on some browsers with XMLHttpRequest (Ajax)
@@ -1288,7 +1274,7 @@ function now($format = null) {
  */
 function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
 
-    $log = array(
+    $log = [
         'log_created' => date('Y-m-d H:i:s', now()),
         'log_type' => 'UNDEFINED',
         'log_ip' => getRemoteIP(),
@@ -1301,7 +1287,7 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
         'log_data2' => '',
         'log_data3' => '',
         'log_msg' => '',
-        );
+    ];
 
     if (is_array($type)) {
         foreach ($type as $key => $value) {
@@ -1311,7 +1297,7 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
         }
     } else {
         $log['log_type'] = trim($type);
-        $log['log_user_id'] = intval($userid);
+        $log['log_user_id'] = (int)$userid;
         $log['log_msg'] = trim($message);
     }
 
@@ -1329,36 +1315,36 @@ function log_message($type = 'UNDEFINED', $message = '', $userid = 0) {
 
 function destroyBackendSessionData() {
     unset(
-        $_SESSION["wcs_user"],
-        $_SESSION["wcs_user_name"],
-        $_SESSION["wcs_user_id"],
-        $_SESSION["wcs_user_aktiv"],
-        $_SESSION["wcs_user_rechte"],
-        $_SESSION["wcs_user_email"],
-        $_SESSION["wcs_user_avatar"],
-        $_SESSION["structure"],
-        $_SESSION["klapp"],
-        $_SESSION["pklapp"],
-        $_SESSION["wcs_user_admin"],
-        $_SESSION["wcs_user_thumb"],
-        $_SESSION["wcs_user_cp"],
-        $_SESSION["wcs_allowed_cp"],
+        $_SESSION['wcs_user'],
+        $_SESSION['wcs_user_name'],
+        $_SESSION['wcs_user_id'],
+        $_SESSION['wcs_user_aktiv'],
+        $_SESSION['wcs_user_rechte'],
+        $_SESSION['wcs_user_email'],
+        $_SESSION['wcs_user_avatar'],
+        $_SESSION['structure'],
+        $_SESSION['klapp'],
+        $_SESSION['pklapp'],
+        $_SESSION['wcs_user_admin'],
+        $_SESSION['wcs_user_thumb'],
+        $_SESSION['wcs_user_cp'],
+        $_SESSION['wcs_allowed_cp'],
         $_SESSION['phpwcms_version_check']
     );
 }
 
 function checkLoginCount() {
     $check = 0;
-    if (!empty($_SESSION["wcs_user"])) {
-        $sql = "SELECT COUNT(*) FROM " . DB_PREPEND . "phpwcms_userlog WHERE logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
+    if (!empty($_SESSION['wcs_user'])) {
+        $sql = 'SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE logged_user=' . _dbEscape($_SESSION['wcs_user']) . ' AND logged_in=1';
         if (!PHPWCMS_GDPR_MODE && !empty($phpwcms['Login_IPcheck'])) {
-            $sql .= " AND logged_ip=" . _dbEscape(getRemoteIP());
+            $sql .= ' AND logged_ip=' . _dbEscape(getRemoteIP());
         }
         $check = _dbCount($sql);
 
         if ($check) {
-            $sql = "UPDATE " . DB_PREPEND . "phpwcms_userlog SET logged_change=" . time() . " WHERE ";
-            $sql .= "logged_user=" . _dbEscape($_SESSION["wcs_user"]) . " AND logged_in=1";
+            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_userlog SET logged_change=' . time() . ' WHERE ';
+            $sql .= 'logged_user=' . _dbEscape($_SESSION['wcs_user']) . ' AND logged_in=1';
             _dbQuery($sql, 'UPDATE');
         } else {
             destroyBackendSessionData();
@@ -1374,7 +1360,7 @@ function checkLoginCount() {
 // 2 = admin user mode
 function init_frontend_edit() {
 
-    if (empty($GLOBALS['phpwcms']['frontend_edit']) || empty($_SESSION["wcs_user_id"])) {
+    if (empty($GLOBALS['phpwcms']['frontend_edit']) || empty($_SESSION['wcs_user_id'])) {
         define('VISIBLE_MODE', 0);
         define('FE_EDIT_LINK', false);
 
@@ -1382,7 +1368,7 @@ function init_frontend_edit() {
     }
     // Check Backend session
     checkLoginCount();
-    if (empty($_SESSION["wcs_user_id"])) {
+    if (empty($_SESSION['wcs_user_id'])) {
         define('VISIBLE_MODE', 0);
         define('FE_EDIT_LINK', false);
     } else {
@@ -1397,14 +1383,8 @@ function init_frontend_edit() {
     return null;
 }
 
-if (IS_PHP523) {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
-    }
-} else {
-    function html($string, $double_encode = false) {
-        return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET);
-    }
+function html($string, $double_encode = false) {
+    return htmlspecialchars((string)$string, ENT_QUOTES, PHPWCMS_CHARSET, $double_encode);
 }
 function html_entities($string = '', $quote_mode = ENT_QUOTES, $charset = PHPWCMS_CHARSET) {
     return htmlentities((string)$string, $quote_mode, $charset);
@@ -1414,19 +1394,7 @@ function html_specialchars($string = '', $quote_mode = ENT_QUOTES, $charset = PH
     //used to replace the htmlspecialchars original php function
     //not compatible with many international chars like turkish, polish
     $string = preg_replace('/&(?!((#[0-9]+)|[a-z]+);)/s', '&amp;', (string)$string); //works correct for "&#8230;" and/or "&ndash;"
-    $string = str_replace(array('<', '>', '"', "'", "\\"), array('&lt;', '&gt;', '&quot;', '&#039;', '&#92;'), $string);
-
-    return $string;
-}
-
-function getMicrotime() {
-    list($usec, $sec) = explode(' ', microtime());
-
-    return ((float)$usec + (float)$sec);
-}
-
-function getMicrotimeDiff($start = 0) {
-    return (getMicrotime() - $start);
+    return str_replace(['<', '>', '"', "'", "\\"], ['&lt;', '&gt;', '&quot;', '&#039;', '&#92;'], $string);
 }
 
 /**
@@ -1485,29 +1453,31 @@ function phpwcms_decrypt($crypttext, $password = PHPWCMS_USER_KEY) {
 function get_user_vmode() {
     if (VISIBLE_MODE === 1) {
         return 'editor';
-    } elseif (VISIBLE_MODE === 2) {
+    }
+
+    if (VISIBLE_MODE === 2) {
         return 'admin';
     }
 
     return 'all';
 }
 
-function get_user_rc($g = '', $pu = 501289, $pr = 506734, $e = array('SAAAAA', 'PT96y0w', '5k4kWtC', '8RAoSD4', 'Jp6RmA', '6LfyU74', 'OVQRK5f', 'kbHQ6qx', 'YdgUgX-', 'H808le')) {
+function get_user_rc($g = '', $pu = 501289, $pr = 506734, $e = ['SAAAAA', 'PT96y0w', '5k4kWtC', '8RAoSD4', 'Jp6RmA', '6LfyU74', 'OVQRK5f', 'kbHQ6qx', 'YdgUgX-', 'H808le']) {
     $c = '';
-    foreach (str_split(strval($$g)) as $a) {
-        $c .= $e[intval($a)];
+    foreach (str_split((string)$$g) as $a) {
+        $c .= $e[(int)$a];
 }
 
     return $c;
 }
 
 function get_url_origin($use_forwarded_host = false, $set_protocol = true) {
-    $ssl = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off');
+    $ssl = !empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off';
     $sp = strtolower($_SERVER['SERVER_PROTOCOL']);
     $protocol = $set_protocol ? (substr($sp, 0, strpos($sp, '/')) . ($ssl ? 's' : '') . '://') : '';
-    $port = intval($_SERVER['SERVER_PORT']);
+    $port = $_SERVER['SERVER_PORT'];
     $port = (!$ssl && $port === 80) || ($ssl && $port === 443) ? '' : (':' . $port);
-    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    $host = $use_forwarded_host && isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : ($_SERVER['HTTP_HOST'] ?? null);
     $host = empty($host) ? $_SERVER['SERVER_NAME'] . $port : $host;
 
     return $protocol . $host;
@@ -1535,9 +1505,9 @@ function logdir_exists() {
 }
 
 function get_default_article_meta() {
-    return array(
+    return [
         'class' => '',
         'noindex' => 0,
         'nofollow' => 0,
-    );
+    ];
 }
