@@ -24,6 +24,9 @@ help:
 css-minify:
 	npm run build:css
 
+css-minify-dev:
+	npm run build:css:dev
+
 js-minify:
 	npm run build:js
 

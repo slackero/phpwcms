@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "build:css": "node include/build/build-css.js",
+    "build:css:dev": "node include/build/build-css.js --no-minify",
     "build:js": "node include/build/build-js.js",
-    "build": "npm run build:css && npm run build:js"
+    "build": "npm run build:css && npm run build:js",
+    "build:dev": "npm run build:css:dev && npm run build:js"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",

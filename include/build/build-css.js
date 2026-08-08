@@ -20,16 +20,18 @@ for (const file of cssFiles) {
     }
 }
 
+const noMinify = process.argv.includes('--no-minify') || process.env.MINIFY === 'false';
+
 // 1. Build backend.min.css with lightningcss
 const res = lightningcss.transform({
     filename: 'backend.css',
     code: Buffer.from(combined),
-    minify: true
+    minify: !noMinify
 });
 
 const targetCss = path.join(includeDir, 'inc_css/backend.min.css');
 fs.writeFileSync(targetCss, res.code);
-console.log(`[✓] backend.min.css built with lightningcss (${(res.code.length / 1024).toFixed(2)} KB)`);
+console.log(`[✓] backend.min.css built with lightningcss (minified: ${!noMinify}) (${(res.code.length / 1024).toFixed(2)} KB)`);
 
 
 

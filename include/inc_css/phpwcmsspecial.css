@@ -194,7 +194,7 @@ select.form-control-sm:not([size]):not([multiple]) {
     text-decoration: none;
 }
 
-header .dropdown-menu {
+#header .dropdown-menu {
     position: absolute !important;
     left: -1px;
     min-width: 15rem;
@@ -205,7 +205,13 @@ header .dropdown-menu {
     border: 1px solid #dfdfdf;
 }
 
-header .dropdown-toggle::after {
+#header .dropdown-menu-right,
+#header .dropdown-menu.dropdown-menu-right {
+    left: auto;
+    right: -1px;
+}
+
+#header .dropdown-toggle::after {
     display: none;
 }
 
@@ -214,13 +220,31 @@ header .dropdown-toggle::after {
 }
 
 #header .navbar-nav > .nav-item:hover,
+#header .navbar-nav > .nav-item.active,
+#header .navbar-nav > .nav-item.show .dropdown-toggle,
 #button-menu:hover {
     background-color: #eee;
+}
+
+#header .navbar-nav > .nav-item.active .nav-link,
+#header .navbar-nav > .nav-item.show .nav-link,
+#header .navbar-nav > .nav-item.show .dropdown-toggle,
+#header .navbar-nav > .nav-item .nav-link.active {
+    color: #000;
 }
 
 #header .navbar-nav .nav-link.dropdown-toggle {
     padding-left: 10px;
     padding-right: 10px;
+}
+
+#header .navbar-nav .nav-item:hover,
+#header .navbar-nav .dropdown.show {
+    border-left: 1px solid #dfdfdf;
+}
+#header .navbar-nav .nav-item:hover + .nav-item,
+#header .navbar-nav .dropdown.show + .nav-item {
+    border-left: 1px solid #dfdfdf;
 }
 
 .navbar-brand {

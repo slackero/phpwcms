@@ -277,8 +277,12 @@ if($BE['LANG'] == 'ar') {
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
-        <li class="nav-item dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-search fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span></a>
-            <form class="dropdown-menu dropdown-menu-right backend-search" action="phpwcms.php?<?php echo get_token_get_string(); ?>" method="POST">
+        <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-search fa-fw"></i>
+                <span class="d-none d-sm-inline-block"><?php echo $BL['be_fsearch_startsearch'] ?></span>
+            </a>
+            <form class="dropdown-menu dropdown-menu-right" style="min-width: 22rem;" action="phpwcms.php?<?php echo get_token_get_string(); ?>" method="POST">
                 <div class="input-group">
                     <input type="search" name="backend_search_input" placeholder="<?php echo $BL['be_ctype_search'] ?>" value="<?php
                     if (isset($_POST['backend_search_input'])) {
