@@ -92,9 +92,7 @@ if(!$ftp["error"]) {
 
     if(!empty($_POST['file_iptc_as_caption'])) {
         require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
-        require_once PHPWCMS_ROOT.'/include/inc_lib/constants/timestamp.php';
         require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.iptc.php';
-        require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.convertibletimestamp.php';
     }
 
     $ftp['dir']         = intval($_POST['file_dir']);

@@ -73,9 +73,7 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/checkmessage.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.template_default.inc.php';
 require_once PHPWCMS_ROOT.'/include/config/conf.indexpage.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/imagick.convert.inc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/constants/timestamp.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.iptc.php';
-require_once PHPWCMS_ROOT.'/include/inc_lib/classes/class.convertibletimestamp.php';
 
 // check modules
 require_once PHPWCMS_ROOT.'/include/inc_lib/modules.check.inc.php';
