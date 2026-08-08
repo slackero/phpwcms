@@ -8,7 +8,7 @@
  *
  **/
 
-if (!defined('PHP8')) {
+if (!defined('PHPWCMS_SETUP')) {
     die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 

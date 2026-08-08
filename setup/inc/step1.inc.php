@@ -8,399 +8,245 @@
  *
  **/
 
-if (!defined('PHP8')) {
+if (!defined('PHPWCMS_SETUP')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 
 ?>
-<h1><span class="number">3.</span> MySQL database settings </h1>
-<?php
-if(isset($_POST["dbsavesubmit"]) && $err) {
-    echo errorWarning('Please proof your database settings!');
-    $_SESSION['admin_set'] = false;
-}
-?>
+<h2 class="h4 text-primary font-weight-normal mb-3">2. MySQL Database Configuration</h2>
+
+<?php if (isset($_POST["dbsavesubmit"]) && $err): ?>
+    <div class="alert alert-danger mb-4">
+        <i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.
+    </div>
+    <?php $_SESSION['admin_set'] = false; ?>
+<?php endif; ?>
+
 <form action="setup.php?step=1" method="post" autocomplete="off">
-        <table border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr>
-            <td align="right" class="v10" width="120"><label for="db_host">MySQL host and port:&nbsp;</label></td>
-            <td width="270">
-                <input name="db_host" type="text" class="v12" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" size="30" style="width:250px" />
-                <input name="db_port" type="text" class="v12" id="db_port" value="<?php echo $phpwcms["db_port"] ?>" placeholder="localhost" size="4" style="width:45px" />
-            </td>
-            <td class="chatlist"><em>default: localhost / 3306</em></td>
-          </tr>
-           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-           </tr>
-          <tr>
-            <td align="right" class="v10"><label for="db_user">DB user:&nbsp;</label></td>
-            <td><input name="db_user" type="text" class="v12" id="db_user" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" size="30" /></td>
-            <td class="chatlist">&nbsp;</td>
-          </tr>
-           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-           </tr>
-          <tr>
-            <td align="right" class="v10"><label for="db_pass">DB password:&nbsp;</label></td>
-            <td><input name="db_pass" type="text" class="v12" id="db_pass" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" size="30" /></td>
-            <td class="chatlist">&nbsp;</td>
-          </tr>
-           <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-           </tr>
-          <tr>
-            <td align="right" class="v10"><label for="db_table">DB database:&nbsp;</label></td>
-            <td><input name="db_table" type="text" class="v12" id="db_table" style="width:300px" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" size="30" maxlength="255" /></td>
-            <td class="chatlist"><em>you have to create it <strong>before</strong> setup!!!</em></td>
-          </tr>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-          </tr>
-          <tr>
-            <td align="right" class="v10"><label for="db_prepend">DB table prefix:&nbsp;</label></td>
-            <td><input name="db_prepend" type="text" class="v12" id="db_prepend" style="width:300px" value="<?php echo html_specialchars($prepend) ?>" size="30" maxlength="10" /></td>
-            <td class="chatlist"><em>default: none (&quot;&quot;), if filled
-                in it will be <strong>prefix</strong>+<strong>_</strong></em></td>
-          </tr>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="6" /></td>
-          </tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-                <tr>
-                <td><input name="db_pers" type="checkbox" id="db_pers" value="1" <?php echo ($phpwcms["db_pers"]) ? "checked" : ""; ?> /></td>
-                <td><label for="db_pers" class="v12">&nbsp;use&nbsp;persistent&nbsp;database&nbsp;connection&nbsp;</label></td>
-                </tr>
-            </table></td>
-            <td class="chatlist"><em>it should be safe to enable it</em></td>
-          </tr>
 
-<?php
-if(!empty($db_additional)) {
+    <div class="card mb-4 border">
+        <div class="card-header bg-light font-weight-bold">Database Server Connection</div>
+        <div class="card-body">
+            <div class="form-group row">
+                <label for="db_host" class="col-sm-3 col-form-label font-weight-bold">Host &amp; Port</label>
+                <div class="col-sm-6 d-flex">
+                    <input name="db_host" type="text" class="form-control mr-2" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" />
+                    <input name="db_port" type="text" class="form-control" id="db_port" style="max-width: 90px;" value="<?php echo $phpwcms["db_port"] ?>" placeholder="3306" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Default: localhost / 3306</div>
+            </div>
 
-?>
-    <tr>
-        <td colspan="3" style="padding: 10px 0 10px 0;">
-            <h1>
-                <span class="number">4.</span>
-                Charset &amp; MySQL <span class="v11">(v<?php echo html_specialchars($row[0]) ?>)</span> settings
-                <a href="http://dev.mysql.com/doc/refman/4.1/en/charset.html" target="_blank" title="MySQL information"><img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon" /></a>
-            </h1>
-        </td>
-    </tr>
-    <tr>
-            <td align="right" class="v10">
-                <a href="https://www.w3.org/International/articles/http-charset/index" target="_blank" title="HTTP charset">
-                    <img src="../img/famfamfam/icon_info.gif" alt="Info" border="0" class="icon1" />
-                </a>Charset:&nbsp;</td>
-            <td><select name="charset">
+            <div class="form-group row">
+                <label for="db_user" class="col-sm-3 col-form-label font-weight-bold">DB Username</label>
+                <div class="col-sm-6">
+                    <input name="db_user" type="text" class="form-control" id="db_user" value="<?php echo html_specialchars($phpwcms["db_user"]) ?>" placeholder="database user" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Database user name</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="db_pass" class="col-sm-3 col-form-label font-weight-bold">DB Password</label>
+                <div class="col-sm-6">
+                    <input name="db_pass" type="password" class="form-control" id="db_pass" value="<?php echo html_specialchars($phpwcms["db_pass"]) ?>" placeholder="database password" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Database password</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="db_table" class="col-sm-3 col-form-label font-weight-bold">Database Name</label>
+                <div class="col-sm-6">
+                    <input name="db_table" type="text" class="form-control" id="db_table" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" maxlength="255" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Must exist before setup</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="db_prepend" class="col-sm-3 col-form-label font-weight-bold">Table Prefix</label>
+                <div class="col-sm-6">
+                    <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($prepend) ?>" maxlength="10" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Appends prefix_ to tables</div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <div class="col-sm-9 offset-sm-3">
+                    <div class="custom-control custom-checkbox">
+                        <input name="db_pers" type="checkbox" class="custom-control-input" id="db_pers" value="1" <?php echo ($phpwcms["db_pers"]) ? "checked" : ""; ?> />
+                        <label class="custom-control-label" for="db_pers">Use persistent database connection</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php if (!empty($db_additional)): ?>
+    <div class="card mb-4 border">
+        <div class="card-header bg-light font-weight-bold">Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
+        <div class="card-body">
+            <div class="form-group row mb-0">
+                <label for="charset" class="col-sm-3 col-form-label font-weight-bold">System Charset</label>
+                <div class="col-sm-6">
+                    <select name="charset" class="custom-select" id="charset">
+                    <?php
+                    foreach ($available_languages as $key => $value) {
+                        list(, $_lang_charset)  = explode('-', $value[1], 2);
+                        list(, $_lang_en)       = explode('|', $value[0]);
+
+                        echo '<option value="' . $key . '"';
+                        if ($key === strtolower(str_replace('-', '', $phpwcms['default_lang']) . '-' . $phpwcms['charset'])) {
+                            echo ' selected="selected"';
+                        }
+                        echo '>';
+                        echo empty($value[3]) ? '' : $value[3] . ' - ';
+                        echo ucfirst($_lang_en);
+                        echo ' [' . $_lang_charset;
+                        if (!empty($mysql_charset_map[$_lang_charset])) {
+                            echo ' / ' . $mysql_charset_map[$_lang_charset];
+                        }
+                        echo ']';
+                        echo "</option>";
+                    }
+                    ?>
+                    </select>
+                    <input type="hidden" name="collation" value="utf8mb4_general_ci" />
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($db_init)): ?>
+    <div class="card mb-4 border">
+        <div class="card-header bg-light font-weight-bold">3. Database Schema Initialization</div>
+        <div class="card-body">
             <?php
-
-            foreach($available_languages as $key => $value) {
-
-                list(, $_lang_charset)  = explode('-', $value[1], 2);
-                list(, $_lang_en)       = explode('|', $value[0]);
-
-                echo '<option value="'.$key.'"';
-
-                if($key === strtolower(str_replace('-', '', $phpwcms['default_lang']) .'-'. $phpwcms['charset'])) {
-                    echo ' selected="selected"';
-                }
-
-                echo '>';
-                echo empty($value[3]) ? '' : $value[3].' - ';
-                echo ucfirst($_lang_en);
-                echo ' ['.$_lang_charset;
-                if(!empty($mysql_charset_map[$_lang_charset])) {
-                    echo ' / '.$mysql_charset_map[$_lang_charset];
-                }
-                echo ']';
-                echo "</option>";
+            if (empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
+                echo '<div class="alert alert-warning mb-3">phpwcms tables already exist in chosen database. Consider changing the table prefix.</div>';
+                $_SESSION['admin_set'] = false;
             }
 
+            if (isset($db_create_err) && count($db_create_err)) {
+                echo '<div class="alert alert-danger mb-3">Errors while creating initial tables. Please resolve manually:<pre class="bg-dark text-light p-2 mt-2 rounded">' . html_specialchars(implode(";\n\n", $db_create_err) . ';') . '</pre></div>';
+                $_SESSION['admin_set']  = false;
+                $sql_data               = false;
+                $db_sql                 = false;
+
+            } elseif (isset($db_create_err) || !empty($db_no_create)) {
+                $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
+                $check = _dbQuery("SHOW TABLES LIKE '" . $_db_prepend . "phpwcms_%'");
+
+                if ($check && count($check)) {
+                    $sql_data   = false;
+                    $db_sql     = false;
+                    $db_fine    = true;
+                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.<input type="hidden" name="db_sql_hidden" value="1" /></div>';
+                } else {
+                    $_SESSION['admin_set']  = false;
+                    $sql_data               = false;
+                    $db_sql                 = false;
+                    echo '<div class="alert alert-danger mb-0">No phpwcms database tables found. Please check setup!<input type="hidden" name="db_sql_hidden" value="1" /></div>';
+                }
+            }
+
+            if (empty($db_fine)) {
+                ?>
+                <div class="custom-control custom-checkbox">
+                    <input name="db_sql" type="checkbox" class="custom-control-input" id="db_sql" value="1" <?php if (!empty($db_sql)) echo 'checked="checked"' ?> />
+                    <label class="custom-control-label font-weight-bold" for="db_sql">Create initial phpwcms database tables</label>
+                    <input type="hidden" name="db_sql_hidden" value="1" />
+                </div>
+                <?php
+            }
             ?>
-            </select><input type="hidden" name="collation" value="utf8mb4_general_ci" /></td>
-            <td class="chatlist"></td>
-          </tr>
-
-<?php
-
-}
-
-// now show setting which enables creating database
-if(!empty($db_init)) {
-
-?>
-    <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">5.</span> Default phpwcms database schema</h1></td></tr>
-<?php
-
-    if(empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
-        echo '<tr><td>&nbsp;</td><td colspan="2">';
-        echo errorWarning('phpwcms tables still exists in choosen database. Rename table prefix might help!');
-        echo "</td></tr>\n";
-        $_SESSION['admin_set'] = false;
-    }
-    if(isset($db_create_err) && count($db_create_err)) {
-        echo '<tr><td>&nbsp;</td><td colspan="2">';
-        echo errorWarning('Errors while creating initial phpwcms tables. Solve it manually:</b></p><pre class="errorBox">'.html_specialchars(implode(";\n\n", $db_create_err).';').'</pre><p><b> ');
-        echo "</td></tr>\n";
-
-        $_SESSION['admin_set']  = false;
-        $sql_data               = false;
-        $db_sql                 = false;
-
-    } elseif(isset($db_create_err) || !empty($db_no_create)) {
-
-        // OK fine - initial tables were created without error
-        $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
-        $check = _dbQuery("SHOW TABLES LIKE '".$_db_prepend."phpwcms_%'");
-
-        if($check && count($check)) {
-
-            $sql_data   = false;
-            $db_sql     = false;
-            $db_fine    = true;
-
-?>
-      <tr>
-        <td align="right" class="v10">&nbsp;</td>
-        <td colspan="2"><img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" /><strong>Fine!</strong> All initial phpwcms tables were created or still exists.<input type="hidden" name="db_sql_hidden" value="1" /></td>
-      </tr>
-<?php
-
-        } else {
-
-            $_SESSION['admin_set']  = false;
-
-            $sql_data               = false;
-            $db_sql                 = false;
-
-            echo '<tr><td>&nbsp;</td><td colspan="2">';
-            echo errorWarning('No phpwcms database table exists. Check before you continue!');
-            echo '<input type="hidden" name="db_sql_hidden" value="1" />';
-            echo "</td></tr>\n";
-
-        }
-
-    }
-
-    if(empty($db_fine)) {
-        // show info
-?>
-      <tr>
-        <td align="right" class="v10">&nbsp;</td>
-        <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-            <tr>
-            <td><input name="db_sql" type="checkbox" id="db_sql" value="1"<?php if(!empty($db_sql)) echo ' checked="checked"' ?> /></td>
-            <td><label for="db_sql" class="v12">&nbsp;create phpwcms db tables&nbsp;</label><input type="hidden" name="db_sql_hidden" value="1" /></td>
-            </tr>
-        </table></td>
-        <td class="chatlist">&nbsp;</td>
-      </tr>
-
-<?php
-
-    }
-
-    if(!empty($sql_data)) {
-
-        $sql_data = explode(';', $sql_data);
-        $c = 0;
-        foreach($sql_data as $key => $value) {
-
-            $value = trim(preg_replace('/--\s/', '', trim($value)));
-
-            if(empty($value)) {
-                unset($sql_data[$key]);
-                continue;
-            }
-
-            $value = html_specialchars($value);
-            $value = str_replace(' ', '&nbsp;', $value);
-            $value = nl2br($value);
-
-            $sql_data[$key]  = '<div style="margin:0;padding:0 5px 0 5px;';
-            if($c % 2) {
-                $sql_data[$key] .= ';background-color:#F6F8FA;';
-            }
-            $sql_data[$key] .= '"><p>'.$value;
-
-            if(!str_starts_with(strtoupper(trim($value)), 'INSERT')) {
-                $sql_data[$key] .= ' DEFAULT';
-                $sql_data[$key] .= ' CHARACTER SET '.$phpwcms['db_charset'];
-                $sql_data[$key] .= ' COLLATE '.$phpwcms['db_collation'];
-            }
-
-            $sql_data[$key] .= ';</p></div>';
-            $c++;
-        }
-
-        $sql_data = implode("\n", $sql_data);
-
-        echo '<tr><td>&nbsp;';
-        if(empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
-            echo '<input type="hidden" name="db_create" value="1" />';
-        }
-        echo '</td><td colspan="2">';
-        echo '<div id="license" style="width:550px">';
-        echo $sql_data;
-        echo "</div></td></tr>\n";
-
-    }
-}
-
-//  OK now lets create superuser
-if(!empty($_SESSION['admin_set'])) {
-
-?>
-    <tr><td colspan="3" style="padding: 10px 0 10px 0;"><h1><span class="number">6.</span> Superuser settings</h1></td></tr>
-<?php
-
-    // as long as admin info wasn't written
-    if(empty($_SESSION['admin_save'])) {
-
-?>
-    <tr>
-        <td align="right" class="v10">Name:&nbsp;</td>
-        <td><input name="admin_name" type="text" id="admin_name" class="v12" style="width:300px" value="<?php echo empty($phpwcms["admin_name"]) ? "Webmaster" : html_specialchars($phpwcms["admin_name"]) ?>" size="30" /></td>
-        <td class="chatlist"><em>&nbsp;default: Webmaster</em></td>
-    </tr>
-
-    <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-    </tr>
-
-    <tr>
-        <td align="right" class="v10">Admin login:&nbsp;</td>
-        <td><input name="admin_user" type="text" id="admin_user" class="v12" style="width:300px" value="<?php echo empty($phpwcms["admin_user"]) ? "webmaster" : html_specialchars($phpwcms["admin_user"]) ?>" size="30" /></td>
-        <td class="chatlist"><em>&nbsp;default: admin </em></td>
-    </tr>
-
-    <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td></tr>
-
-<?php
-    if(!empty($admin_err_pass)) {
-        echo '<tr><td>&nbsp;</td><td colspan="2">';
-        echo errorWarning('Invalid password! Password is case senitive, empty password not allowed.');
-        echo "</td></tr>\n";
-    }
-?>
-
-    <tr>
-        <td align="right" class="v10">Admin password:&nbsp;</td>
-        <td><input name="admin_pass" type="password" id="admin_pass" class="v12" style="width:300px" size="30" autocomplete="new-password" /></td>
-        <td class="chatlist"><em>&nbsp;default: phpwcms </em></td>
-    </tr>
-
-    <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-    </tr>
-
-    <tr>
-        <td align="right" class="v10">Repeat password:&nbsp;</td>
-        <td><input name="admin_passrepeat" type="password" id="admin_passrepeat" class="v12" style="width:300px" size="30" autocomplete="new-password" /></td>
-        <td class="chatlist"><em>&nbsp;</em></td>
-    </tr>
-
-    <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4" /></td>
-    </tr>
-
-    <tr>
-        <td align="right" class="v10">Admin email:&nbsp;</td>
-        <td><input name="admin_email" type="text" id="admin_email" class="v12" style="width:300px" value="<?php echo html_specialchars($phpwcms["admin_email"]) ?>" size="30" /></td>
-        <td class="chatlist"><em>&nbsp;is used site wide</em></td>
-    </tr>
-<?php
-
-    } else {
-
-        $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
-
-        //show Info that admin info was saved
-        //and also if stored in database
-
-        $user_check = _dbQuery('SELECT * FROM '.$_db_prepend."phpwcms_user WHERE usr_login='".mysqli_real_escape_string($db, $phpwcms['admin_user'])."'");
-
-        if($user_check !== false && count($user_check)) {
-
-            //hm user still exists - so try to update
-            $sql  = "UPDATE ".$_db_prepend."phpwcms_user SET ";
-            $sql .= "usr_login      = '".mysqli_real_escape_string($db, $phpwcms['admin_user'])."', ";
-            $sql .= "usr_pass       = '".mysqli_real_escape_string($db, $phpwcms["admin_pass"])."', ";
-            $sql .= "usr_email      = '".mysqli_real_escape_string($db, $phpwcms["admin_email"])."', ";
-            $sql .= "usr_admin      = 1, ";
-            $sql .= "usr_aktiv      = 1, ";
-            $sql .= "usr_name       = '".mysqli_real_escape_string($db, $phpwcms['admin_name'])."', ";
-            $sql .= "usr_lang       = '".mysqli_real_escape_string($db, $phpwcms['default_lang'])."', ";
-            $sql .= "usr_wysiwyg    = 2, ";
-            $sql .= "usr_fe         = 2 ";
-            $sql .= "WHERE usr_login='".mysqli_real_escape_string($db, $phpwcms['admin_user'])."' LIMIT 1";
-
-            $update_user = _dbQuery($sql, 'UPDATE');
-
-        } elseif($user_check !== false) {
-
-            //fine lets create new user
-            $sql  = "INSERT INTO ".$_db_prepend."phpwcms_user (";
-            $sql .= "usr_login, usr_pass, usr_email, ";
-            $sql .= "usr_admin, usr_aktiv, usr_name, ";
-            $sql .= "usr_var_structure, usr_var_publicfile, usr_var_privatefile, ";
-            $sql .= "usr_lang, usr_wysiwyg, usr_fe, usr_vars";
-            $sql .= ") VALUES (";
-            $sql .= "'".mysqli_real_escape_string($db, $phpwcms['admin_user'])."', ";
-            $sql .= "'".mysqli_real_escape_string($db, $phpwcms["admin_pass"])."', ";
-            $sql .= "'".mysqli_real_escape_string($db, $phpwcms["admin_email"])."', ";
-            $sql .= "1, 1, ";
-            $sql .= "'".mysqli_real_escape_string($db, $phpwcms['admin_name'])."', ";
-            $sql .= "'', ";
-            $sql .= "'', ";
-            $sql .= "'', ";
-            $sql .= "'".mysqli_real_escape_string($db, $phpwcms['default_lang'])."', ";
-            $sql .= "2, 2, ''";
-            $sql .= ")";
-
-            $create_user = _dbQuery($sql, 'INSERT');
-
-        } else {
-
-            $user_check = false;
-
-        }
-
-        echo '<tr><td>&nbsp;</td><td colspan="2">';
-
-        if(!empty($create_user)) {
-
-            // update
-            echo '<img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" />';
-            echo '<strong>Done!</strong> Account for user <b>'.html_specialchars($phpwcms['admin_user']).'</b> was created.';
-            echo '<input type="hidden" name="user_account" value="1" />';
-
-        }
-
-        if(!empty($update_user)) {
-
-            // update
-            echo '<img src="../img/famfamfam/icon_accept.gif" alt="Juchu" class="icon1" />';
-            echo '<strong>Done!</strong> Account of user <b>'.html_specialchars($phpwcms['admin_user']).'</b> was updated.';
-            echo '<input type="hidden" name="user_account" value="1" />';
-
-        }
-
-        if($user_check === false) {
-
-            // db error
-            echo errorWarning('There is a database problem!');
-            echo '<p>Account for user <b>'.html_specialchars($phpwcms['admin_user']).'</b> was not created or updated.<br />Click <b>continue</b> to try again.</p>';
-            $_SESSION['admin_save'] = false;
-
-        }
-
-        echo '</td></tr>';
-
-    }
-
-}
-
-?>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="15" /></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="dbsavesubmit" type="submit" value="Continue" /></td>
-          </tr>
-</table><input name="do" type="hidden" value="1" /></form>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($_SESSION['admin_set'])): ?>
+    <div class="card mb-4 border">
+        <div class="card-header bg-light font-weight-bold">4. Superuser Administrator Settings</div>
+        <div class="card-body">
+            <?php if (empty($_SESSION['admin_save'])): ?>
+                <div class="form-group row">
+                    <label for="admin_name" class="col-sm-3 col-form-label font-weight-bold">Admin Full Name</label>
+                    <div class="col-sm-6">
+                        <input name="admin_name" type="text" id="admin_name" class="form-control" value="<?php echo empty($phpwcms["admin_name"]) ? "Webmaster" : html_specialchars($phpwcms["admin_name"]) ?>" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="admin_user" class="col-sm-3 col-form-label font-weight-bold">Admin Username</label>
+                    <div class="col-sm-6">
+                        <input name="admin_user" type="text" id="admin_user" class="form-control" value="<?php echo empty($phpwcms["admin_user"]) ? "webmaster" : html_specialchars($phpwcms["admin_user"]) ?>" />
+                    </div>
+                </div>
+
+                <?php if (!empty($admin_err_pass)): ?>
+                    <div class="alert alert-danger">Invalid password! Passwords are case sensitive, empty password not allowed.</div>
+                <?php endif; ?>
+
+                <div class="form-group row">
+                    <label for="admin_pass" class="col-sm-3 col-form-label font-weight-bold">Password</label>
+                    <div class="col-sm-6">
+                        <input name="admin_pass" type="password" id="admin_pass" class="form-control" autocomplete="new-password" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="admin_passrepeat" class="col-sm-3 col-form-label font-weight-bold">Repeat Password</label>
+                    <div class="col-sm-6">
+                        <input name="admin_passrepeat" type="password" id="admin_passrepeat" class="form-control" autocomplete="new-password" />
+                    </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                    <label for="admin_email" class="col-sm-3 col-form-label font-weight-bold">Admin Email</label>
+                    <div class="col-sm-6">
+                        <input name="admin_email" type="email" id="admin_email" class="form-control" value="<?php echo html_specialchars($phpwcms["admin_email"]) ?>" />
+                    </div>
+                </div>
+            <?php else: ?>
+                <?php
+                $_db_prepend = $phpwcms["db_prepend"] ? mysqli_real_escape_string($db, $phpwcms["db_prepend"]) . '_' : '';
+                $user_check = _dbQuery('SELECT * FROM ' . $_db_prepend . "phpwcms_user WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "'");
+
+                if ($user_check !== false && count($user_check)) {
+                    $sql  = "UPDATE " . $_db_prepend . "phpwcms_user SET ";
+                    $sql .= "usr_login      = '" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', ";
+                    $sql .= "usr_pass       = '" . mysqli_real_escape_string($db, $phpwcms["admin_pass"]) . "', ";
+                    $sql .= "usr_email      = '" . mysqli_real_escape_string($db, $phpwcms["admin_email"]) . "', ";
+                    $sql .= "usr_admin      = 1, usr_aktiv = 1, ";
+                    $sql .= "usr_name       = '" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', ";
+                    $sql .= "usr_lang       = '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', ";
+                    $sql .= "usr_wysiwyg    = 2, usr_fe = 2 ";
+                    $sql .= "WHERE usr_login='" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "' LIMIT 1";
+                    $update_user = _dbQuery($sql, 'UPDATE');
+                } elseif ($user_check !== false) {
+                    $sql  = "INSERT INTO " . $_db_prepend . "phpwcms_user (";
+                    $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_vars";
+                    $sql .= ") VALUES (";
+                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_pass"]) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_email"]) . "', 1, 1, ";
+                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, '')";
+                    $create_user = _dbQuery($sql, 'INSERT');
+                } else {
+                    $user_check = false;
+                }
+
+                if (!empty($create_user) || !empty($update_user)) {
+                    echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Account for administrator <strong>' . html_specialchars($phpwcms['admin_user']) . '</strong> saved.<input type="hidden" name="user_account" value="1" /></div>';
+                } elseif ($user_check === false) {
+                    echo '<div class="alert alert-danger mb-0"><i class="fa fa-exclamation-triangle"></i> Database error: Administrator account could not be saved.</div>';
+                    $_SESSION['admin_save'] = false;
+                }
+                ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+        <a href="setup.php?step=0" class="btn btn-secondary">&larr; Previous Step</a>
+        <button name="dbsavesubmit" type="submit" class="btn btn-primary btn-lg">Save &amp; Continue &rarr;</button>
+    </div>
+    <input name="do" type="hidden" value="1" />
+</form>

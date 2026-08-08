@@ -13,108 +13,124 @@ session_start();
 
 $phpwcms = array();
 
-require_once __DIR__ .'/inc/setup.func.inc.php';
-require_once $DOCROOT.'/setup/setup.conf.inc.php';
+require_once __DIR__ . '/inc/setup.func.inc.php';
+require_once $DOCROOT . '/setup/setup.conf.inc.php';
 
 if (is_file($DOCROOT . '/include/config/conf.inc.php')) {
-    header('HTTP/1.1 401 Authorization Required');
-    header('Location: ../login.php');
+    header('Location: index.php');
     exit();
 }
 
-$step		= isset($_GET["step"]) ? intval($_GET["step"]) : 0;
-$do			= isset($_POST["do"]) ? intval($_POST["do"]) : 0;
-$err		= 0;
-$prepend	= $phpwcms["db_prepend"];
+$step     = isset($_GET["step"]) ? intval($_GET["step"]) : 0;
+$do       = isset($_POST["do"]) ? intval($_POST["do"]) : 0;
+$err      = 0;
+$prepend  = $phpwcms["db_prepend"];
 
-if($do) require_once($DOCROOT.'/setup/inc/setup.check.inc.php');
+if ($do) {
+    require_once($DOCROOT . '/setup/inc/setup.check.inc.php');
+}
 
-
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+?><!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $phpwcms['charset'] ?>" />
-<title>phpwcms Install</title>
-<link href="inc/install.css" rel="stylesheet" type="text/css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>phpwcms Setup - Step <?php echo $step ?></title>
+<link href="../include/inc_css/backend.min.css" rel="stylesheet" type="text/css" />
 </head>
+<body class="bg-light">
 
-<body>
-<table width="770" border="0" align="center" cellpadding="0" cellspacing="0" summary="">
-  <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="[beliebiger Wert]" width="1" height="7" /></td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="15" height="1" /><a href="http://www.phpwcms.org" target="_blank"><img src="../img/backend/backend_r1_c3.jpg" alt="phpwcms" width="95" height="24" border="0" /></a></td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="7" /></td>
-  </tr>
-  <tr bgcolor="#FFFFFF">
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><img src="../img/backend/backend_r3_c1.jpg" alt="" width="15" height="40" /></td>
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><table width="740" border="0" cellpadding="0" cellspacing="0" summary="">
-        <tr>
-          <td colspan="2"><img src="../img/leer.gif" alt="" width="1" height="9" /></td>
-        </tr>
-        <tr>
-          <td valign="top" class="navtext">
-              PHPWCMS SETUP VERSION&nbsp;<?php echo $phpwcms_version.', RELEASE '.$phpwcms_release_date ?>
-          </td>
-          <td align="right" valign="top" class="navtext">
-              <a href="../index.php" target="_top">HOME</a>
-              |
-              <a href="index.php" target="_top">LICENCE</a>
-              |
-              <a href="../<?php echo $phpwcms['login.php'] ?>" target="_top">LOGIN</a>
-          </td>
-        </tr>
-    </table></td>
-    <td valign="top" style="background: url(../img/backend/backend_r3_c4.gif) repeat-x;"><img src="../img/backend/backend_r3_c7.jpg" alt="" width="15" height="40" /></td>
-  </tr>
-  <tr bgcolor="#FFFFFF">
-    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c2.gif) repeat-y;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
-    <td valign="top" bgcolor="#FFFFFF"><?php
+<div class="container my-4" style="max-width: 900px;">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header text-white d-flex justify-content-between align-items-center py-3" style="background-color: #4B6F92;">
+            <div class="d-flex align-items-center">
+                <a href="https://www.phpwcms.org" target="_blank" class="d-inline-block">
+                    <img src="../img/backend/phpwcms-logo-white.svg" alt="phpwcms" height="38" class="align-middle">
+                </a>
+                <span class="badge badge-primary ml-3">SETUP</span>
+            </div>
+            <div class="text-right small text-white-50">
+                <div>VERSION <?php echo html_specialchars($phpwcms_version) ?></div>
+                <div>RELEASE <?php echo html_specialchars($phpwcms_release_date) ?></div>
+            </div>
+        </div>
 
-		if(empty($NO_ACCESS)) {
+        <div class="card-body p-4">
+            <nav class="nav nav-pills nav-justified mb-4">
+                <a class="nav-link <?php echo $step === 0 ? 'active' : '' ?>" href="setup.php?step=0">1. Check</a>
+                <a class="nav-link <?php echo $step === 1 ? 'active' : '' ?>" href="setup.php?step=1">2. DB Config</a>
+                <a class="nav-link <?php echo $step === 2 ? 'active' : '' ?>" href="setup.php?step=2">3. DB Create</a>
+                <a class="nav-link <?php echo $step === 3 ? 'active' : '' ?>" href="setup.php?step=3">4. Admin User</a>
+                <a class="nav-link <?php echo $step === 4 ? 'active' : '' ?>" href="setup.php?step=4">5. Paths</a>
+                <a class="nav-link <?php echo $step === 5 ? 'active' : '' ?>" href="setup.php?step=5">6. Finish</a>
+            </nav>
 
-			switch($step) {
-				case  1:	include $DOCROOT.'/setup/inc/step1.inc.php'; break;
-				case  2:	include $DOCROOT.'/setup/inc/step2.inc.php'; break;
-				case  3:	include $DOCROOT.'/setup/inc/step3.inc.php'; break;
-				case  4:	include $DOCROOT.'/setup/inc/step4.inc.php'; break;
-				case  5:	include $DOCROOT.'/setup/inc/step5.inc.php'; break;
-				default:	include $DOCROOT.'/setup/inc/step0.inc.php';
-			}
+            <?php
+            if (empty($NO_ACCESS)) {
 
-		} else {
-			?>
-    <h1><img src="../img/famfamfam/action_stop.gif" alt="Setup STOP" class="icon" /> Setup
-      stopped </h1>
-			<p>Access on setup process is restricted if the setup config file is downloaded once. To re-enable setup remove the line</p>
-			<p class="code">$NO_ACCESS = true;</p>
-			<p>in setup.conf.inc.php.</p>
-			<?php
-		}
-		?></td>
-    <td width="15" bgcolor="#FFFFFF" style="background: url(../img/backend/preinfo2_r7_c7.gif) repeat-y right;"><img src="../img/leer.gif" alt="" width="15" height="1" /></td>
-  </tr>
-  <tr>
-    <td><img src="../img/backend/backend_a_r1_c1.gif" alt="" width="15" height="15" border="0" /></td>
-    <td valign="bottom" bgcolor="#FFFFFF" class="navtext"><img src="../img/backend/backend_r6_c2.jpg" alt="" width="740" height="15" border="0" /></td>
-    <td valign="bottom" class="navtext"><img src="../img/backend/backend_a_r1_c7.gif" alt="" width="15" height="15" border="0" /></td>
-  </tr>
-  <tr>
-    <td width="15"><img src="../img/leer.gif" alt="" width="14" height="20" /></td>
-    <td colspan="2" valign="bottom" class="navtext">
-		<a href="http://www.phpwcms.org" target="_blank">phpwcms</a>
-		&copy; 2003&#8212;<?php echo date('Y') ?>
-		<a title="oliver at phpwcms dot de" onclick="location.href='mailto:oliver'+'@'+'phpwcms'+'.'+'de';return false;" href="#">Oliver Georgi</a>.
-		Licensed under <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPL</a>.
-        Extensions are copyright of their respective owners.
-	</td>
-  </tr>
-  <tr>
-    <td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="8" /></td>
-  </tr>
-</table>
+                switch ($step) {
+                    case 1:  include $DOCROOT . '/setup/inc/step1.inc.php'; break;
+                    case 2:  include $DOCROOT . '/setup/inc/step2.inc.php'; break;
+                    case 3:  include $DOCROOT . '/setup/inc/step3.inc.php'; break;
+                    case 4:  include $DOCROOT . '/setup/inc/step4.inc.php'; break;
+                    case 5:  include $DOCROOT . '/setup/inc/step5.inc.php'; break;
+                    default: include $DOCROOT . '/setup/inc/step0.inc.php';
+                }
+
+            } else {
+                ?>
+                <div class="alert alert-danger my-4">
+                    <h4 class="alert-heading"><i class="fa fa-exclamation-triangle"></i> Setup Restricted</h4>
+                    <p>Access to the setup process is restricted after downloading the configuration file once.</p>
+                    <hr>
+                    <p class="mb-0">To re-enable setup, remove the line <code>$NO_ACCESS = true;</code> in <code>setup.conf.inc.php</code>.</p>
+                </div>
+                <?php
+            }
+            ?>
+        </div>
+
+        <div class="card-footer bg-white text-muted d-flex justify-content-between align-items-center py-3 small">
+            <div>
+                &copy; 2002&ndash;<?php echo date('Y') ?> <a href="https://www.phpwcms.org" target="_blank">Oliver Georgi</a>. Released under the <a href="#" data-toggle="modal" data-target="#gplModal">GNU General Public License</a>.
+            </div>
+            <div>
+                <a href="../<?php echo $phpwcms['login.php'] ?>">Login</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="gplModal" tabindex="-1" role="dialog" aria-labelledby="gplModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title font-weight-bold" id="gplModalLabel">GNU General Public License (GPL-2.0)</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4" style="font-size: 0.9rem; line-height: 1.5;">
+                <h6 class="text-center font-weight-bold mb-1">GNU GENERAL PUBLIC LICENSE</h6>
+                <p class="text-center text-muted small mb-3">Version 2, June 1991</p>
+                <p class="text-center text-muted small">Copyright (C) 1989, 1991 Free Software Foundation, Inc.<br>59 Temple Place, Suite 330, Boston, MA 02111-1307 USA</p>
+                <hr>
+                <h6 class="font-weight-bold mt-3">Preamble</h6>
+                <p>The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it. You can apply it to your programs, too.</p>
+                <p>When we speak of free software, we are referring to freedom, not price. Our General Public Licenses are designed to make sure that you have the freedom to distribute copies of free software (and charge for this service if you wish), that you receive source code or can get it if you want it, that you can change the software or use pieces of it in new free programs; and that you know you can do these things.</p>
+                <p>To protect your rights, we need to make restrictions that forbid anyone to deny you these rights or to ask you to surrender the rights. These restrictions translate to certain responsibilities for you if you distribute copies of the software, or if you modify it.</p>
+
+                <h6 class="font-weight-bold mt-3">NO WARRANTY</h6>
+                <p class="small text-uppercase">BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../include/inc_js/jquery/jquery-3.7.1.min.js"></script>
+<script src="../include/inc_js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -8,91 +8,68 @@
  *
  **/
 
-if (!defined('PHP8')) {
+if (!defined('PHPWCMS_SETUP')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 
-?><p class="title">phpwcms content values</p>
-<form action="setup.php?step=4" method="post"><table border="0" cellpadding="0" cellspacing="0" summary="">
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">this is the max size of files can
-              be uploaded</td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">upload file size:&nbsp;</td>
-            <td><input name="file_maxsize" type="text" class="f11b" id="file_maxsize" style="width:125px" value="<?php echo $phpwcms["file_maxsize"] ?>" size="30" maxlength="100"></td>
-            <td class="chatlist"><em>&nbsp;default: 2 x 1024 x 1024 = 2097152
-                Bytes </em></td>
-          </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">the width of the frontend main content
-              block<br />
-              base value of creating image lists</td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">content width:&nbsp;</td>
-            <td><input name="content_width" type="text" class="f11b" id="content_width" style="width:125px" value="<?php echo $phpwcms["content_width"] ?>" size="30" maxlength="100"></td>
-            <td class="chatlist"><em>&nbsp;default: 538</em></td>
-          </tr>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">width and height of list image thumbnails</td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">list image:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-              <tr>
-                <td><input name="img_list_width" type="text" class="f11b" id="img_list_width" style="width:55px" value="<?php echo $phpwcms["img_list_width"] ?>" size="30" maxlength="100"></td>
-                <td class="v10">&nbsp;x&nbsp;</td>
-                <td><input name="img_list_height" type="text" class="f11b" id="img_list_height" style="width:55px" value="<?php echo $phpwcms["img_list_height"] ?>" size="30" maxlength="100"></td>
-              </tr>
-            </table></td>
-            <td class="chatlist"><em>&nbsp;default: width 100 x height 75</em></td>
-          </tr><tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">width and height of preview images<br />
-              recommend is to use the same width as main<br />
-              content block - for better quality use larger<br />
-              if the source image is smaller it will not be<br />
-              sized to this larger values</td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">preview image:&nbsp;</td>
-            <td><table border="0" cellpadding="0" cellspacing="0" summary="">
-              <tr>
-                <td><input name="img_prev_width" type="text" class="f11b" id="img_prev_width" style="width:55px" value="<?php echo $phpwcms["img_prev_width"] ?>" size="30" maxlength="100">                </td>
-                <td class="v10">&nbsp;x&nbsp;</td>
-                <td><input name="img_prev_height" type="text" class="f11b" id="img_prev_height" style="width:55px" value="<?php echo $phpwcms["img_prev_height"] ?>" size="30" maxlength="100">                </td>
-              </tr>
-            </table></td>
-            <td class="chatlist"><em>&nbsp;default: width 538 x height 400</em></td>
-          </tr>
-          <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="4"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2" class="chatlist">if there is no activities within
-              the backend<br />
-              you will be automaticly logged out after<br />
-              that time (seconds)</td>
-          </tr>
-		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="2"></td></tr>
-          <tr>
-            <td align="right" class="v10">logout time:&nbsp;</td>
-            <td><input name="max_time" type="text" class="f11b" id="max_time" style="width:125px" value="<?php echo $phpwcms["max_time"] ?>" size="30" maxlength="100"></td>
-            <td class="chatlist"><em>&nbsp;default: 1800 seconds</em></td>
-          </tr>
- 		  <tr><td colspan="3"><img src="../img/leer.gif" alt="" width="1" height="20"></td></tr>
-          <tr>
-            <td align="right" class="v10">&nbsp;</td>
-            <td colspan="2"><input name="Submit" type="submit" class="button" value="send content values"></td>
-          </tr>
-</table>
-<input name="do" type="hidden" value="1"></form>
+?>
+<h2 class="h4 text-primary font-weight-normal mb-3">7. Content &amp; Media Defaults</h2>
+
+<form action="setup.php?step=4" method="post">
+    <div class="card mb-4 border">
+        <div class="card-header bg-light font-weight-bold">Content &amp; Image Dimension Limits</div>
+        <div class="card-body">
+
+            <div class="form-group row">
+                <label for="file_maxsize" class="col-sm-3 col-form-label font-weight-bold">Max File Upload Size</label>
+                <div class="col-sm-6">
+                    <input name="file_maxsize" type="text" class="form-control" id="file_maxsize" value="<?php echo (int)$phpwcms["file_maxsize"] ?>" maxlength="100" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">In Bytes (e.g. 52428800 = 50 MB)</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="content_width" class="col-sm-3 col-form-label font-weight-bold">Content Column Width</label>
+                <div class="col-sm-6">
+                    <input name="content_width" type="text" class="form-control" id="content_width" value="<?php echo (int)$phpwcms["content_width"] ?>" maxlength="100" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Base width in pixels (Default: 538)</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="img_list_width" class="col-sm-3 col-form-label font-weight-bold">Thumbnail Dimensions</label>
+                <div class="col-sm-6 d-flex align-items-center">
+                    <input name="img_list_width" type="text" class="form-control mr-2" id="img_list_width" value="<?php echo (int)$phpwcms["img_list_width"] ?>" placeholder="Width" />
+                    <span class="mr-2 text-muted">&times;</span>
+                    <input name="img_list_height" type="text" class="form-control" id="img_list_height" value="<?php echo (int)$phpwcms["img_list_height"] ?>" placeholder="Height" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Width x Height (Default: 100 x 75)</div>
+            </div>
+
+            <div class="form-group row">
+                <label for="img_prev_width" class="col-sm-3 col-form-label font-weight-bold">Preview Dimensions</label>
+                <div class="col-sm-6 d-flex align-items-center">
+                    <input name="img_prev_width" type="text" class="form-control mr-2" id="img_prev_width" value="<?php echo (int)$phpwcms["img_prev_width"] ?>" placeholder="Width" />
+                    <span class="mr-2 text-muted">&times;</span>
+                    <input name="img_prev_height" type="text" class="form-control" id="img_prev_height" value="<?php echo (int)$phpwcms["img_prev_height"] ?>" placeholder="Height" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Width x Height (Default: 538 x 400)</div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <label for="max_time" class="col-sm-3 col-form-label font-weight-bold">Session Timeout</label>
+                <div class="col-sm-6">
+                    <input name="max_time" type="text" class="form-control" id="max_time" value="<?php echo (int)$phpwcms["max_time"] ?>" maxlength="100" />
+                </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">In Seconds (Default: 1800)</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+        <a href="setup.php?step=3" class="btn btn-secondary">&larr; Previous Step</a>
+        <button type="submit" class="btn btn-primary btn-lg">Save &amp; Continue &rarr;</button>
+    </div>
+    <input name="do" type="hidden" value="1" />
+</form>
