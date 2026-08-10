@@ -449,7 +449,7 @@ $(function() {
                     case 'CONTENT':
                       $contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
                       if($article['article_paginate']) {
-                        $contentpart_block_name .= ' / <img src="img/symbole/content_cppaginate.gif" alt="" style="margin-right:2px;" />';
+                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted" style="margin-right:2px;"></i>';
                         $contentpart_block_name .= $BL['be_cnt_pagination'];
                       }
                       $contentpart_block_color = '#F5CCCC';
@@ -606,7 +606,7 @@ $(function() {
                   if($contentpart_block != 'CPSET') {
                     //Display cp paginate page number
                     if($article["article_paginate"]) {
-                      echo '<img src="img/symbole/content_cppaginate.gif" alt="subsection" data-toggle="tooltip" title="subsection" />';
+                      echo '<i class="fas fa-indent text-muted" data-toggle="tooltip" title="subsection"></i>';
                       echo $row["acontent_paginate_page"] == 0 ? 1 : $row["acontent_paginate_page"];
                     }
                   }

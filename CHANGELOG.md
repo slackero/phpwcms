@@ -41,7 +41,7 @@ All notable changes to this project will be documented in this file.
 - **Branding – login page**: Removed company name suffix from the copyright footer in `login.php`; now reads `Oliver Georgi.`.
 - **Branding – HTML header comment**: Restored the standard open-source attribution comment block (`PHPWCMS_HEADER_COMMENT`) from `v1.10-dev` in `include/inc_lib/default.inc.php`.
 - **Branding – README maintainer badge**: Updated badge from "pixels & points" to "Oliver Georgi".
-- **Backend logo**: Replaced logo asset (`img/logo.svg`) with the official phpwcms SVG brand mark.
+- **Backend logo**: Replaced logo asset (`img/phpwcms-logo.svg`) with the official phpwcms SVG brand mark.
 - **Backend header**: Restored backend header bar to white background (`#FFFFFF`) with standard gray link styling.
 - **Backend sidebar**: Applied deep slate-blue (`#2b3e51`) background to the sidebar/left column with matching hover and border tones.
 - **FontAwesome stylesheets**: Merged `fontawesome.brands.min.css`, `fontawesome.regular.min.css`, `fontawesome.solid.min.css`, and `fontawesome.min.css` directly into `phpwcms-fontawesome.css` (and its `.min.css` counterpart) to eliminate nested `@import` rules causing out-of-order glyph loading.

@@ -30,7 +30,7 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
         <div class="card-header text-white d-flex justify-content-between align-items-center py-3" style="background-color: #4B6F92;">
             <div class="d-flex align-items-center">
                 <a href="https://www.phpwcms.org" target="_blank" class="d-inline-block">
-                    <img src="../img/backend/phpwcms-logo-white.svg" alt="phpwcms" height="38" class="align-middle">
+                    <img src="../img/phpwcms-logo-white.svg" alt="phpwcms" height="38" class="align-middle">
                 </a>
                 <span class="badge badge-primary ml-3">SETUP</span>
             </div>

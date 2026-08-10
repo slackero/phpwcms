@@ -540,7 +540,7 @@ function handle_csrf_error($reason)
     }
 
     $backend_css = PHPWCMS_URL . 'include/inc_css/backend.min.css';
-    $logo_svg = PHPWCMS_URL . 'img/logo.svg';
+    $logo_svg = PHPWCMS_URL . 'img/phpwcms-logo.svg';
 
     ?>
     <!DOCTYPE html>

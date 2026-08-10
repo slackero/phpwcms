@@ -268,7 +268,7 @@ if($BE['LANG'] === 'ar') {
 <div id="container">
   <header id="header" class="navbar navbar-expand navbar-static-top">
     <div class="container-fluid px-0 px-sm-3">
-      <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System"></a></div>
+      <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav ml-auto">
         <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>

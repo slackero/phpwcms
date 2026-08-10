@@ -44,62 +44,6 @@
     position: relative;
 }
 
-#filebrowser-uploader h1 {
-    background: url(../../img/symbols/klapp_auf.gif) no-repeat left bottom;
-    cursor: pointer;
-    left: .35em;
-    margin: 0;
-    overflow: hidden;
-    padding-left: 0;
-    position: absolute;
-    text-indent: -999em;
-    top: .75em;
-    width: 16px;
-}
-
-#filebrowser-uploader p {
-    margin: 0 0 .25em;
-    position: relative;
-    width: 100%;
-}
-
-#filebrowser-uploader p input {
-    display: block;
-    margin: 0;
-    position: relative;
-    width: 95%;
-}
-
-#filebrowser-uploader p label {
-    display: block;
-    margin-bottom: 2px;
-    margin-left: 1px;
-    position: relative;
-}
-
-#filebrowser-uploader p textarea {
-    display: block;
-    margin: 0;
-    position: relative;
-    width: 95%;
-}
-
-#filebrowser-uploader.closed {
-    height: 1em;
-}
-
-#filebrowser-uploader.closed div {
-    display: none;
-}
-
-#filebrowser-uploader.closed h1 {
-    background: url(../../img/symbols/klapp_zu.gif) no-repeat left center;
-    padding-left: 1em;
-    text-indent: 0;
-    top: .65em;
-    width: auto;
-}
-
 #licenseExtensions {
     font-size: 12px;
     margin-top: 15px;
@@ -144,10 +88,22 @@
 }
 
 .ajax-running {
-    background: url(../../img/indicator/indicator_arrows_green.gif) no-repeat right center;
     padding-right: 18px;
     position: relative;
     white-space: nowrap;
+}
+
+.ajax-running::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f110";
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: fa-spin 1s infinite linear;
+    color: #28a745;
 }
 
 .caption {
@@ -293,10 +249,26 @@
 }
 
 .errorInputText {
-    background: #FFECEC url(../../img/famfamfam/cancel.gif) no-repeat right;
     border: 1px solid #C30;
     color: #C30;
     padding: 2px 1px;
+}
+
+table.listing td.colfirst {
+    position: relative;
+    padding-left: 21px;
+    white-space: nowrap;
+}
+
+table.listing td.colfirst::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f15b";
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
 }
 
 .f10 {
@@ -955,11 +927,19 @@ div.tab .tab-delete {
 }
 
 div.tab .toggle-item {
-    background: transparent url(../../img/symbole/plus_close.gif) no-repeat center center;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    font-style: normal;
     display: inline-block;
-    height: 9px;
+    height: 14px;
     position: relative;
     width: 20px;
+    text-align: center;
+    color: #347199;
+}
+
+div.tab .toggle-item::before {
+    content: "\f146";
 }
 
 div.tab em.handle {
@@ -987,8 +967,8 @@ div.tab.tab-collapsed .tab-collapsable-row {
     display: none;
 }
 
-div.tab.tab-collapsed .toggle-item {
-    background-image: url(../../img/symbole/plus_open.gif);
+div.tab.tab-collapsed .toggle-item::before {
+    content: "\f0fe";
 }
 
 div.tab:hover {
@@ -1025,23 +1005,21 @@ table.listing {
 }
 
 table.listing .sort-asc:after {
-    background: url(../../img/symbole/content_space_after.gif) no-repeat -3px 0;
-    content: '';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0de";
     display: inline-block;
-    height: 6px;
-    position: relative;
-    top: -1px;
-    width: 7px;
+    margin-left: 3px;
+    font-size: 10px;
 }
 
 table.listing .sort-desc:after {
-    background: url(../../img/symbole/content_space_before.gif) no-repeat -3px 0;
-    content: '';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f0dd";
     display: inline-block;
-    height: 6px;
-    position: relative;
-    top: -1px;
-    width: 7px;
+    margin-left: 3px;
+    font-size: 10px;
 }
 
 table.listing .sort-off {
@@ -1054,12 +1032,6 @@ table.listing td {
 
 table.listing td a {
     padding: 0 1px;
-}
-
-table.listing td.colfirst {
-    background: url(../../img/famfamfam/page_white.gif) no-repeat 1px center;
-    padding-left: 21px;
-    white-space: nowrap;
 }
 
 table.listing td.collast {

@@ -46,9 +46,9 @@ $template_default['nav_table_struct']['cell_active_class']      = 'nav-table-act
 $template_default['nav_table_struct']['js_over_effects']        = 1;
 $template_default['nav_table_struct']['all_nodes_active']       = 1;
 //
-$template_default['nav_table_struct']['linkimage_norm']         = '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
-$template_default['nav_table_struct']['linkimage_over']         = '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
-$template_default['nav_table_struct']['linkimage_active']       = '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
+$template_default['nav_table_struct']['linkimage_norm']         = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%236c757d\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'4\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['linkimage_over']         = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%23007bff\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'6\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['linkimage_active']       = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%2328a745\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'8\'/%3E%3C/svg%3E" alt="" />';
 //
 $template_default['nav_table_struct']['link_before']            = '';
 $template_default['nav_table_struct']['link_after']             = '';
@@ -72,9 +72,9 @@ $template_default['nav_table_struct']['row_space_bgcolor']      = '#4A5966';
  * ['array_struct'][1] => the number represents level ID
  * so root level is [0] and so on...
 
-$template_default['nav_table_struct']['array_struct'][1]['linkimage_norm']      = '<img src="img/article/nav_link_0.gif" alt="" border="0" />';
-$template_default['nav_table_struct']['array_struct'][1]['linkimage_over']      = '<img src="img/article/nav_link_1.gif" alt="" border="0" />';
-$template_default['nav_table_struct']['array_struct'][1]['linkimage_active']    = '<img src="img/article/nav_link_2.gif" alt="" border="0" />';
+$template_default['nav_table_struct']['array_struct'][1]['linkimage_norm']      = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%236c757d\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'4\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['array_struct'][1]['linkimage_over']      = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%23007bff\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'6\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['array_struct'][1]['linkimage_active']    = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%2328a745\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'8\'/%3E%3C/svg%3E" alt="" />';
 
 $template_default['nav_table_struct']['array_struct'][1]['link_before']         = '';
 $template_default['nav_table_struct']['array_struct'][1]['link_after']          = '';
@@ -164,7 +164,7 @@ $template_default['article']['link_email_after']        = '</div>';
 $template_default['article']['bullet_sign']             = '&gt; ';
 $template_default['article']['link_sign']               = '&gt; ';
 $template_default['article']['back_sign']               = '&lt; ';
-$template_default['article']['top_sign']                = '<img src="img/article/top_link_0.gif" border="0" alt="" />';
+$template_default['article']['top_sign']                = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' fill=\'%23007bff\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z\'/%3E%3C/svg%3E" alt="top" />';
 $template_default['article']['top_sign_before']         = '<div class="link-top">';
 $template_default['article']['top_sign_after']          = '</div>';
 
@@ -235,7 +235,7 @@ $template_default['time']['long']           = 'H:i:s';      // 15:25:45
 $template_default['time']['short']          = 'H:i';        // 15:25
 
 // rss image
-$template_default['rss']['image']   = '<img src="img/article/rss_valid.gif" width="64" height="13" border="0" alt="Valid RSS" />';
+$template_default['rss']['image']   = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' fill=\'%23fd7e14\' viewBox=\'0 0 16 16\'%3E%3Cpath d=\'M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0 4a5 5 0 0 1 5 5h-2a3 3 0 0 0-3-3V6.5zm0 4a1 1 0 0 1 1 1h-1v-1z\'/%3E%3C/svg%3E" alt="Valid RSS" />';
 
 // related articles based on keywords
 $template_default['related']['before']          = '<div class="related">';

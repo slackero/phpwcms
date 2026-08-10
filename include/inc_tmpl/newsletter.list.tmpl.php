@@ -197,7 +197,7 @@ if($_SESSION['newsletter_page'] < 1) {
 
           echo '<td class="v10 text-nowrap" align="center">'.$count_recipient.'/'.$count_queue.'/'.$count_sent.'/'.$count_opener;
           if($count_sent && !$count_queue && $row["newsletter_active"]) {
-            echo '<img src="img/symbole/valid.gif" border="0" alt="valid" style="margin: 0 0 0 3px" />';
+            echo '<i class="fas fa-check-circle text-success ml-1" title="valid"></i>';
           }
           echo '&nbsp;</td>';
 

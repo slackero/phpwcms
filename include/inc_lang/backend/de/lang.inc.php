@@ -636,12 +636,12 @@ $BL['be_cnt_mediapos1i'] = 'Mediainhalt zentriert &uuml;ber dem Absatz ausrichte
 $BL['be_cnt_mediapos2i'] = 'Mediainhalt rechts &uuml;ber dem Absatz ausrichten';
 $BL['be_cnt_mediapos3i'] = 'Mediainhalt innerhalb des Absatzes links ausrichten';
 $BL['be_cnt_mediapos4i'] = 'Mediainhalt innerhalb des Absatzes rechts ausrichten';
-$BL['be_cnt_setsize'] = 'Masse setzen';
-$BL['be_cnt_set1'] = 'Mediamass auf 160x120px einstellen';
-$BL['be_cnt_set2'] = 'Mediamass auf 240x180px einstellen';
-$BL['be_cnt_set3'] = 'Mediamass auf 320x240px einstellen';
-$BL['be_cnt_set4'] = 'Mediamass auf 480x360px einstellen';
-$BL['be_cnt_set5'] = 'Mediamasse entfernen';
+$BL['be_cnt_setsize'] = 'Ma&szlig;e setzen';
+$BL['be_cnt_set1'] = 'Mediama&szlig; auf 160x120px einstellen';
+$BL['be_cnt_set2'] = 'Mediama&szlig; auf 240x180px einstellen';
+$BL['be_cnt_set3'] = 'Mediama&szlig; auf 320x240px einstellen';
+$BL['be_cnt_set4'] = 'Mediama&szlig; auf 480x360px einstellen';
+$BL['be_cnt_set5'] = 'Mediama&szlig;e entfernen';
 
 // added: 28-12-2003
 $BL['be_admin_page_add'] = 'Neues Seitenlayout anlegen';

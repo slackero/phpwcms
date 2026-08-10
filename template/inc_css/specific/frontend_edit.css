@@ -12,40 +12,35 @@ a.fe-link {
 	z-index: 10000;
 	position: relative;
 }
-a.fe-link span {
-	display: none;
+a.fe-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	font-size: 14px;
+	color: #6c757d;
+	text-decoration: none;
 }
 a.fe-link:hover {
 	text-decoration: none;
 	background-color: transparent;
+	color: #007bff;
 }
-a.fe-link.fe-article {
-	background-image: url(../../../img/famfamfam/page_go.png);
-}
-a.fe-link.fe-summary {
-	background-image: url(../../../img/famfamfam/page_edit.png);
-}
-a.fe-link.fe-CP {
-	background-image: url(../../../img/famfamfam/page_white_edit.png);
-}
-a.fe-link.fe-module {
-	background-image: url(../../../img/famfamfam/plugin_go.png);
-}
-a.fe-link.fe-news {
-	background-image: url(../../../img/famfamfam/pencil.png);
-}
-a.fe-link.fe-structure {
-	background-image: url(../../../img/famfamfam/folder_edit.png);
-}
+a.fe-link.fe-article::before { content: "\f15c"; }
+a.fe-link.fe-summary::before { content: "\f044"; }
+a.fe-link.fe-CP::before { content: "\f15b"; }
+a.fe-link.fe-module::before { content: "\f1e6"; }
+a.fe-link.fe-news::before { content: "\f304"; }
+a.fe-link.fe-structure::before { content: "\f07c"; }
+
 #fe-link {
 	position: fixed;
 	right: 5px;
 	top: 5px;
-	color: #FFF;
+	color: #333;
 	border: 1px solid #999;
     padding: 0;
-	background-position: center center;
-	background-repeat: no-repeat;
 	height: 22px;
 	width: 22px;
 	cursor: pointer;
@@ -53,19 +48,29 @@ a.fe-link.fe-structure {
 	border-radius: 3px;
 	box-shadow: 1px 1px 3px rgba(23, 23, 23, 0.25);
 	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	font-size: 12px;
 }
 #fe-link.enabled {
     background-color: #E1FFC4;
-	background-image: url(../../../img/famfamfam/pencil_delete.png);
+}
+#fe-link.enabled::before {
+    content: "\f056";
 }
 #fe-link.disabled {
     background-color: #FFDDDD;
-	background-image: url(../../../img/famfamfam/pencil_add.png);
+}
+#fe-link.disabled::before {
+    content: "\f055";
 }
 #fe-link.disabled:hover {
     background-color: #95d757;
 }
 #fe-link.enabled:hover {
     background-color: #e94f4f;
-	background-image: url(../../../img/famfamfam/pencil_delete.png);
+    color: #fff;
 }

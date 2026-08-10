@@ -96,8 +96,8 @@ if ($_files_force_rendering || $_files_count) {
     $_files_settings = get_tmpl_section('FILE_SETTINGS', $crow["acontent_template"]);
     $_files_settings = parse_ini_str($_files_settings, false);
     $_files_settings = array_merge(array(
-        'icon_path'        => 'img/icons/',
-        'icon_name'        => 'small_icon_{FILE_EXT}.gif',
+        'icon_path'        => '',
+        'icon_name'        => '',
         'thumbnail'        => 0,
         'thumbnail_width'  => 50,
         'thumbnail_height' => 50,

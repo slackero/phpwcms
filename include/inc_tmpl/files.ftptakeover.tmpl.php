@@ -242,7 +242,7 @@ $GLOBALS['BE']['HEADER']['dropzone.js'] = getJavaScriptSourceLink('include/inc_j
         foreach($result as $row) {
             if(get_filecat_childcount($row["fcat_id"])) {
 
-                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : "<img src=\"img/symbole/error.gif\" width=\"8\" height=\"9\">&nbsp;";
+                $ke = empty($file_error["keywords"][$row["fcat_id"]])? '' : '<i class="fas fa-exclamation-circle text-danger mr-1"></i>';
                 $k .= "<div class=\"form-group form-row align-items-center\">\n";
                 $k .= "<label for=\"be_ftptakeover_additional\" class=\"col-sm-2 col-form-label text-right\">".$ke.html($row["fcat_name"]).":&nbsp;</label>\n";
                 $k .= "<div class=\"col-sm-5\"><select name=\"file_keywords[".$row["fcat_id"]."]\" class=\"custom-select form-control form-control-sm\">\n";

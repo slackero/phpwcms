@@ -32,7 +32,7 @@ if(count($clink)) {
         $clink_link = trim($clink_link[0]);
         $clink_liste .= "<a href=\"".$clink_link."\" target=\"_blank\" ";
         $clink_liste .= "title=\"Link: ".html($clink_link.trim(' '.$clink_target))."\">";
-        $clink_liste .= "<img src=\"img/symbole/link_to_1.gif\" border=\"0\" alt=\"\" />";
+        $clink_liste .= '<i class="fas fa-link mr-1"></i>';
         $clink_liste .= html($clink_name ? $clink_name : $clink_link)."</a>\n";
     }
     unset($clink);

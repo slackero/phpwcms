@@ -332,7 +332,7 @@ $reason_types = array(
         <header id="header" class="navbar navbar-static-top">
             <div class="container-fluid">
                 <div id="header-logo" class="navbar-header">
-                    <a href="index.php" class="navbar-brand"><img class="border-0" src="img/logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
+                    <a href="index.php" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
                 </div>
                 <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a> </div>
         </header>

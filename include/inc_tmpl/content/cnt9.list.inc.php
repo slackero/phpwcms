@@ -32,14 +32,14 @@ switch($media["media_type"]) {
     case 2: $media["media_type"]="FLASH"; break;
 }
 switch($media["media_player"]) {
-    case 0: $media["media_player"]="quicktime_player.gif"; break;
-    case 1: $media["media_player"]="real_player.gif"; break;
-    case 2: $media["media_player"]="windowsmedia_player.gif"; break;
-    case 3: $media["media_player"]="flash_player.gif"; break;
+    case 0: $media["media_player"] = 'fab fa-apple text-secondary'; break;
+    case 1: $media["media_player"] = 'fas fa-play-circle text-primary'; break;
+    case 2: $media["media_player"] = 'fab fa-windows text-info'; break;
+    case 3: $media["media_player"] = 'fab fa-adobe text-danger'; break;
 }
 $media["media_src"] =  $media["media_id"] ? "INTERNAL SOURCE" : "EXTERNAL SOURCE";
 if($media["media_cnt"]) {
-    $cinfo["media"]  = '<img src="img/symbole/'.$media["media_player"].'" border="0" alt="" align="left" style="margin-right:5px" />';
+    $cinfo["media"]  = '<i class="' . $media["media_player"] . ' fa-2x mr-2 float-left" title="' . $media["media_type"] . '"></i>';
     $cinfo["media"] .= ($cinfo[1] || $cinfo[2]) ? '<br />' : '';
     $cinfo["media"] .= "<strong>".$media["media_src"]."<br />".$media["media_type"]."</strong>";
 }

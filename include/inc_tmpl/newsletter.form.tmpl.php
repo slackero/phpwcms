@@ -303,7 +303,7 @@ function showNewsletterTemplateData(tvar) {
       </div>
     </div>
 
-    <div id="statusMessage"><img src="img/indicator/indicator_arrows_green.gif" alt="Indicator" width="16" height="16" class="icon" /><p><?php echo $BL['be_cnt_newsletter_prepare2'] ?></p></div>
+    <div id="statusMessage"><i class="fas fa-spinner fa-spin text-success mr-2"></i><p><?php echo $BL['be_cnt_newsletter_prepare2'] ?></p></div>
   </div>
 </div>
 

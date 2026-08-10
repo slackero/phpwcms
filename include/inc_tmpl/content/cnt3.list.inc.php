@@ -36,8 +36,8 @@ foreach($cinfo as $value) {
 $cinfo["result"] .= str_replace("\n", " / ", html(chop($cinfo["result"])));
 echo "<div class=\"col-sm-auto\">";
 echo "<a href=\"" . $content["link"] . "\" target=\"_blank\">";
-echo "<img src=\"img/symbole/link_to.gif\" border=\"0\" ";
-echo "title=\"test link to: " . html($content["link"]) . "\"></a>";
+echo '<i class="fas fa-external-link-alt mr-1"></i>';
+echo "</a>";
 if($cinfo["result"]) { //Zeige Inhaltinfo
     echo " <a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"];
     echo "&amp;acid=" . $row["acontent_id"] . "\">" . $cinfo["result"] . "</a>";

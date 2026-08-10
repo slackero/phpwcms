@@ -351,7 +351,7 @@ function parsePHPModules() {
 }
 
 function errorWarning($warning = '') {
-    $t = '<p class="error"><img src="../img/famfamfam/icon_alert.gif" alt="Alert" class="icon1" /><b>';
+    $t = '<p class="error"><i class="fas fa-exclamation-triangle text-danger mr-2"></i><b>';
     $t .= $warning;
     $t .= '</b></p>';
     return $t;

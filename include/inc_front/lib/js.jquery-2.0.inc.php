@@ -19,10 +19,8 @@ function initJSLib() {
     if(empty($GLOBALS['block']['custom_htmlhead']['jquery.js'])) {
         if(PHPWCMS_USE_CDN) {
             // use jQuery CDN
-            
-                $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-2.0.3.min.js');
-            }
-        } else
+            $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(PHPWCMS_HTTP_SCHEMA.'://code.jquery.com/jquery-2.0.3.min.js');
+        } else {
             $GLOBALS['block']['custom_htmlhead']['jquery.js'] = getJavaScriptSourceLink(TEMPLATE_PATH.'lib/jquery/jquery-2.0.3.min.js');
         }
     }

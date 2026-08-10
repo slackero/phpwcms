@@ -7,7 +7,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<h1 class="title mb-3" style="padding-left:24px;background:url(img/famfamfam/rss.png) no-repeat left center;"><?php echo $BLM['listing_title'] ?></h1>
+<h1 class="title mb-3"><i class="fas fa-rss text-warning mr-2"></i><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="card">
 	<div class="card-body">

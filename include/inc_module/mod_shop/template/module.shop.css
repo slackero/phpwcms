@@ -79,27 +79,50 @@ td.upload input {
     font-size: 10px;
     width: 220px;
 }
-td.newimage {
-    padding: 0 0 0 23px;
-    background: url(../../../../img/famfamfam/image_add.gif) no-repeat 4px;
+td.newimage, td.newflash, td.newcss, td.warning, td.warning1 {
+    position: relative;
+    padding-left: 23px;
 }
-td.newflash {
-    padding: 0 0 0 23px;
-    background: url(../../../../img/famfamfam/film_add.gif) no-repeat 4px;
+td.newimage::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f302";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
 }
-td.newcss {
-    padding: 0 0 0 23px;
-    background: url(../../../../img/famfamfam/css_add.gif) no-repeat 4px;
+td.newflash::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f008";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
 }
-td.warning {
-    padding: 0 20px 15px 20px;
-    background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 -1px;
+td.newcss::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f13b";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+td.warning, td.warning1 {
     color: #CC3300;
-    font-weight: bold;
 }
-td.warning1 {
-    padding: 5px 20px 5px 20px;
-    background: url(../../../../img/famfamfam/icon_alert.gif) no-repeat 0 4px;
+td.warning::before, td.warning1::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f071";
+    position: absolute;
+    left: 0;
+    top: 4px;
     color: #CC3300;
 }
 input.rt {

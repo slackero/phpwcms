@@ -40,7 +40,7 @@ function headline($head, $subhead, $layout) {
 function must_filled($c) {
     //spaceholder for form fields that have to be filled
     //with some content or has to be marked or like that
-    return (int)$c ? '<img src="img/article/fill_in_here.gif" alt=""' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE : '';
+    return (int)$c ? '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%23dc3545\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'8\'/%3E%3C/svg%3E" alt="*" ' . PHPWCMS_LAZY_LOADING . HTML_TAG_CLOSE : '';
 }
 
 //to add all relevant attributes that contains values to a string maybe a html tag

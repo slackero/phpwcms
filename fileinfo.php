@@ -104,7 +104,7 @@ if($file_id) {
 <table width="100%" align="center" bgcolor="#C1D2E2">
   <tr bgcolor="#C1D2E2">
     <td width="10"></td>
-    <td width="20"><img src='img/icons/small_<?php echo extimg($row["f_ext"]) ?>' alt="" border="0" /></td>
+    <td width="20"><i class="fa fa-fw fa-<?php echo extimg($row["f_ext"]) ?> text-secondary"></i></td>
     <td width="518" class="h14b"><strong><?php echo $filename ?></strong></td>
     <td width="10"></td>
   </tr>
@@ -124,11 +124,11 @@ if($file_id) {
                 echo '&amp;pl=1';
             }
 
-        ?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><img src="img/button/download_disc_large.gif" alt="" width="61" height="13" border="0" /></a><?php
+        ?>" target="_blank" title="<?php echo $BL['DOWNLOAD_FILE'].": ".$filename ?>"><i class="fas fa-download text-primary mr-2" title="<?php echo $BL['DOWNLOAD_FILE'] ?>"></i></a><?php
         } else {
-            echo "<img src=\"img/button/file_in_trash.gif\" width=\"61\" height=\"13\" border=\"0\" title=\"".$BL['FILE_IN_TRASH']."\">";
+            echo '<i class="fas fa-trash-alt text-danger mr-2" title="'.$BL['FILE_IN_TRASH'].'"></i>';
         }
-        ?><img src="img/button/aktiv_12x13_<?php echo $row["f_aktiv"] ?>.gif" alt="" width="12" height="13" /><img src="img/button/public_12x13_<?php echo $row["f_public"] ?>.gif" alt="" width="12" height="13" /></td>
+        ?><i class="fas fa-check-circle <?php echo $row["f_aktiv"] ? 'text-success' : 'text-muted' ?> mr-1" title="Active"></i><i class="fas fa-eye <?php echo $row["f_public"] ? 'text-info' : 'text-muted' ?>" title="Public"></i></td>
       </tr>
     </table></td>
     <td bgcolor="#F5F8F9"></td>
