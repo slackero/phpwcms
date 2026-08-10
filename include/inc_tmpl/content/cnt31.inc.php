@@ -600,9 +600,13 @@ if($value['custom_field_items']):
                           if(isset($value['custom_fields'][$custom_field])) { echo html($value['custom_fields'][$custom_field]); }
                           ?>" />
                       <input name="cimage_sort[<?php echo $key ?>]" id="cimage_sort_<?php echo $key ?>" type="hidden" value="<?php echo $value['sort'] ?>" />
-                      <input name="cimage_name_thumb<?php echo $custom_field; ?>[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" size="30" onfocus="this.blur();" />
-                  <img src="img/button/open_image_button.gif" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>" alt="<?php echo $BL['be_cnt_openimagebrowser'] ?>" width="20" height="15" border="0" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&target=nolist&entry_id=thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" class="modalButton" />
-                  <a href="#" data-toggle="tooltip" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $custom_field; ?>_<?php echo $key ?>', this);"><img src="img/button/del_image_button.gif" alt="" width="15" height="15" border="0" /></a>
+                      <div class="input-group input-group-sm">
+                    <input name="cimage_name_thumb<?php echo $custom_field; ?>[<?php echo $key ?>]" type="text" id="cimage_name_thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" class="form-control form-control-sm" value="<?php echo html($value['thumb_name']) ?>" onfocus="this.blur();" />
+                    <div class="input-group-append">
+                      <button type="button" class="modalButton btn btn-sm btn-blue folder-open" data-toggle="modal" data-target="#browserModal" data-src="filebrowser.php?opt=8&amp;target=nolist&amp;entry_id=thumb_<?php echo $custom_field; ?>_<?php echo $key ?>" title="<?php echo $BL['be_cnt_openimagebrowser'] ?>"></button>
+                      <button type="button" class="btn btn-sm btn-danger trash" title="<?php echo $BL['be_cnt_delimage'] ?>" onclick="return deleteImageData('thumb_<?php echo $custom_field; ?>_<?php echo $key ?>', this);"></button>
+                    </div>
+                  </div>
 
           <?php endif; ?>
         </div>
