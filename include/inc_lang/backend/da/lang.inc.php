@@ -559,7 +559,6 @@ $BL['be_cnt_default']                   = 'standard';
 $BL['be_cnt_left']                      = 'ventre';
 $BL['be_cnt_center']                    = 'centrér';
 $BL['be_cnt_right']                     = 'h&oslash;jre';
-$BL['be_cnt_buttontext']                = 'undertekst';
 $BL['be_cnt_successtext']               = 'udf&oslash;rt-tekst';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
@@ -664,3 +663,31 @@ $BL['be_cnt_sitecurrent']               = 'current site level';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'standard';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'mapper';
+$BL['FILES']             = 'filer';
+$BL['SHOW_FILES']        = 'vis filer i roden';
+$BL['SHOW_FILES1']       = 'vis filer i mappen';
+$BL['TAKE_IMAGE']        = 'tag denne fil og tilf&oslash;j&#8230;';
+$BL['NO_FILE']           = 'ingen fil';
+$BL['OPEN_DIR']          = '&aring;bn mappe';
+$BL['CLOSE_DIR']         = 'luk mapppe';
+$BL['FILE_TITLE']        = 'phpwcms filbrowser';
+$BL['IMAGE_TITLE']       = 'phpwcms billedbrowser';
+$BL['MEDIA_TITLE']       = 'phpwcms mediebrowser';
+$BL['IMAGE_FILES']       = 'billedfiler';
+$BL['MEDIA_FILES']       = 'mediefiler';
+$BL['ROOT_DIR']          = 'lager (roden)';
+$BL['DOWNLOAD_ERR1']     = 'En fejl (NR:{VAL}) opstod da filen fors&oslash;gt hentet.';
+$BL['DOWNLOAD_ERR2']     = 'Hvis du tror det kan skyldes et teknisk problem - kontakt da venligst <a href="mailto:{VAL}"><strong>webmasteren</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Fejl da fil fors&oslash;gt hentet';
+$BL['FILEINFO_TITLE']    = 'phpwcms: filinfo';
+$BL['CREATED']           = 'oprettet';
+$BL['DATE_FORMAT']       = 'm-d-Y H:i';
+$BL['SIZE']              = 'st&oslash;rrelse';
+$BL['DOWNLOAD_FILE']     = 'hent fil';
+$BL['FILE_IN_TRASH']     = 'filen er i skraldespanden';
+$BL['KEYWORDS']          = 'n&oslash;gleord';
+$BL['DOWNLOAD_ERR3']     = 'fejl opstod da filinfo blev fors&oslash;gt l&AElig;st<br />luk vinduet og pr&oslash;v igen...';

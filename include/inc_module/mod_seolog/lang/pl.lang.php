@@ -1,4 +1,7 @@
 <?php
-// first define main language vars
-$BLM['backend_menu'] = 'Dziennik SEO';
-$BLM['listing_title'] = 'Dziennik SEO';
+
+// Language: PL
+// Language Code: pl
+
+$BLM['backend_menu'] = 'SEO&nbsp;Log';
+$BLM['listing_title'] = 'SEO&nbsp;Log';

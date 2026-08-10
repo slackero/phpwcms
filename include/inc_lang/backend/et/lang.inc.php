@@ -554,7 +554,6 @@ $BL['be_cnt_default']                   = 'vaikimisi';
 $BL['be_cnt_left']                      = 'vasakule';
 $BL['be_cnt_center']                    = 'keskele';
 $BL['be_cnt_right']                     = 'paremale';
-$BL['be_cnt_buttontext']                = 'tekst&nbsp;nupul';
 $BL['be_cnt_successtext']               = '"saadetud"&nbsp;tekst';
 $BL['be_cnt_regmail']                   = 'regist.e-mail';
 $BL['be_cnt_logoffmail']                = 'logoff.e-mail';
@@ -828,3 +827,31 @@ $BL['be_cnt_sitemap_startid']           = 'alusta';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'vaikeväärtus';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'kaustad';
+$BL['FILES']             = 'failid';
+$BL['SHOW_FILES']        = 'näita juurkataloogis asuvaid faile';
+$BL['SHOW_FILES1']       = 'näita kaustas asuvaid faile';
+$BL['TAKE_IMAGE']        = 'vali fail ja lisa&#8230;';
+$BL['NO_FILE']           = 'fail puudub';
+$BL['OPEN_DIR']          = 'ava kataloog';
+$BL['CLOSE_DIR']         = 'sule kataloog';
+$BL['FILE_TITLE']        = 'phpwcms failihaldur';
+$BL['IMAGE_TITLE']       = 'phpwcms pildihaldur';
+$BL['MEDIA_TITLE']       = 'phpwcms meediahaldur';
+$BL['IMAGE_FILES']       = 'pildifailid';
+$BL['MEDIA_FILES']       = 'meediafailid';
+$BL['ROOT_DIR']          = 'salvestuskoht (juurkataloog)';
+$BL['DOWNLOAD_ERR1']     = 'Viga (NR:{VAL}) faili allalaadimisel.';
+$BL['DOWNLOAD_ERR2']     = 'Probleemide korral teata <a href="mailto:{VAL}"><strong>veebilehe haldajale</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Viga faili allalaadimisel';
+$BL['FILEINFO_TITLE']    = 'phpwcms: faili omadused';
+$BL['CREATED']           = 'loodud';
+$BL['DATE_FORMAT']       = 'd-m-Y H:i';
+$BL['SIZE']              = 'suurus';
+$BL['DOWNLOAD_FILE']     = 'laadi alla';
+$BL['FILE_IN_TRASH']     = 'fail on prügikastis';
+$BL['KEYWORDS']          = 'võtmesõnad';
+$BL['DOWNLOAD_ERR3']     = 'viga faili omaduste lugemisel,<br />sule aken ja proovi uuesti...';

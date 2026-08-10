@@ -560,7 +560,6 @@ $BL['be_cnt_default']                   = 'standard';
 $BL['be_cnt_left']                      = 'venstre';
 $BL['be_cnt_center']                    = 'sentrer';
 $BL['be_cnt_right']                     = 'h&#248;yre';
-$BL['be_cnt_buttontext']                = 'tekst&nbsp;p&#229;&nbsp;knapp';
 $BL['be_cnt_successtext']               = 'utf&#248;rt&nbsp;tekst';
 $BL['be_cnt_regmail']                   = 'regist.epost';
 $BL['be_cnt_logoffmail']                = 'logg av.epost';
@@ -955,3 +954,31 @@ $BL['be_func_content_paste_cancel']      = 'avbryt endringer i artikkelinnhold';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'standard';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'mappeliste';
+$BL['FILES']             = 'filer';
+$BL['SHOW_FILES']        = 'Vis filer i root mappen';
+$BL['SHOW_FILES1']       = 'Vis filer i mappen';
+$BL['TAKE_IMAGE']        = 'legg til denne filen&#8230;';
+$BL['NO_FILE']           = 'ingen fil';
+$BL['OPEN_DIR']          = 'åpne mappe';
+$BL['CLOSE_DIR']         = 'lukk mappe';
+$BL['FILE_TITLE']        = 'phpwcms fil browser';
+$BL['IMAGE_TITLE']       = 'phpwcms bilder browser';
+$BL['MEDIA_TITLE']       = 'phpwcms media browser';
+$BL['IMAGE_FILES']       = 'bilde filer';
+$BL['MEDIA_FILES']       = 'media filer';
+$BL['ROOT_DIR']          = 'laveste mappe';
+$BL['DOWNLOAD_ERR1']     = 'En feil  (NR:{VAL}) har oppstått når du prøvde å laste ned en fil.';
+$BL['DOWNLOAD_ERR2']     = 'Vis du tror dette kan hvere et teknisk problem send en epost til <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Nedlasting av fil feilet';
+$BL['FILEINFO_TITLE']    = 'phpwcms: fil info';
+$BL['CREATED']           = 'opprettet';
+$BL['DATE_FORMAT']       = ' d-m-Y H:i';
+$BL['SIZE']              = 'størrelse';
+$BL['DOWNLOAD_FILE']     = 'last ned fil';
+$BL['FILE_IN_TRASH']     = 'filen er i papirkurven';
+$BL['KEYWORDS']          = 'nøkkelord';
+$BL['DOWNLOAD_ERR3']     = 'kan ikke lese fil info<br />lukk vinduet og prøv på nytt...';

@@ -554,7 +554,6 @@ $BL['be_cnt_default']                   = 'Oletus';
 $BL['be_cnt_left']                      = 'Vasen';
 $BL['be_cnt_center']                    = 'Keskitetty';
 $BL['be_cnt_right']                     = 'Oikea';
-$BL['be_cnt_buttontext']                = 'Painikkeen teksti';
 $BL['be_cnt_successtext']               = 'OK-teksti';
 $BL['be_cnt_regmail']                   = 'Rekisteröinti-s&auml;hk&ouml;posti';
 $BL['be_cnt_logoffmail']                = 'Uloskirjaus-s&auml;hk&ouml;posti';
@@ -647,7 +646,6 @@ $BL['be_article_adminuser']             = 'Admin-k&auml;ytt&auml;j&auml;';
 $BL['be_article_username']              = 'Artisti';
 
 // added: 10-01-2004
-$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'N&auml;kyviss&auml; vain kirjautuneille k&auml;ytt&auml;jille';
@@ -888,3 +886,31 @@ $BL['be_cnt_rssfeed_cut']               = 'piilota 1. aihe';
 
 $BL['be_legacy'] = 'Legacy';
 $BL['be_default'] = 'oletus';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'Kansiolistaus';
+$BL['FILES']             = 'Tiedostot';
+$BL['SHOW_FILES']        = 'N&auml;yt&auml; juurihakemiston sis&auml;lt&auml;m&auml;t tiedostot';
+$BL['SHOW_FILES1']       = 'N&auml;yt&auml; hakemiston sis&auml;lt&auml;m&auml;t tiedostot';
+$BL['TAKE_IMAGE']        = 'Valitse tiedosto ja lis&auml;&auml;&#8230;';
+$BL['NO_FILE']           = 'Ei tiedostoa';
+$BL['OPEN_DIR']          = 'Avaa hakemisto';
+$BL['CLOSE_DIR']         = 'Sulje hakemisto';
+$BL['FILE_TITLE']        = 'phpwcms-tiedostoselain';
+$BL['IMAGE_TITLE']       = 'phpwcms-kuvaselain';
+$BL['MEDIA_TITLE']       = 'phpwcms-mediaselain';
+$BL['IMAGE_FILES']       = 'Kuvatiedostot';
+$BL['MEDIA_FILES']       = 'Multimediatiedostot';
+$BL['ROOT_DIR']          = 'Tallennuspaikka (juurihakemisto)';
+$BL['DOWNLOAD_ERR1']     = 'Virhe (NRO:{VAL}) tiedostoa palvelimelle ladattaessa.';
+$BL['DOWNLOAD_ERR2']     = 'Mik&auml;li ep&auml;ilet kyseess&auml; olevan j&auml;rjestelm&auml;virheen, ota yhteytt&auml; <a href="mailto:{VAL}"><strong>sivuston yll&auml;pitoon</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Tiedoston lataaminen ep&auml;onnistui';
+$BL['FILEINFO_TITLE']    = 'phpwcms: tiedoston tiedot';
+$BL['CREATED']           = 'Luotu';
+$BL['DATE_FORMAT']       = 'd.m.Y H:i';
+$BL['SIZE']              = 'Koko';
+$BL['DOWNLOAD_FILE']     = 'Lataa tiedosto';
+$BL['FILE_IN_TRASH']     = 'Tiedosto on roskakorissa';
+$BL['KEYWORDS']          = 'Avainsanat';
+$BL['DOWNLOAD_ERR3']     = 'Virhe k&auml;sitelt&auml;ess&auml; tiedostoa<br />sulje ikkuna ja yrit&auml; uudestaan...';

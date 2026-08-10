@@ -557,7 +557,6 @@ $BL['be_cnt_default']                   = 'προεπιλεγμένο';
 $BL['be_cnt_left']                      = 'αριστερά';
 $BL['be_cnt_center']                    = 'κέντρο';
 $BL['be_cnt_right']                     = 'δεξιά';
-$BL['be_cnt_buttontext']                = 'button&nbsp;text';
 $BL['be_cnt_successtext']               = 'success&nbsp;text';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
@@ -965,3 +964,31 @@ $BL['be_cnt_title'] = 'titles of contentpart alias';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'προεπιλογή';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'folder list';
+$BL['FILES']             = 'files';
+$BL['SHOW_FILES']        = 'show files inside root directory';
+$BL['SHOW_FILES1']       = 'show files inside directory';
+$BL['TAKE_IMAGE']        = 'take this file and add&#8230;';
+$BL['NO_FILE']           = 'no file';
+$BL['OPEN_DIR']          = 'open directory';
+$BL['CLOSE_DIR']         = 'close directory';
+$BL['FILE_TITLE']        = 'phpwcms file browser';
+$BL['IMAGE_TITLE']       = 'phpwcms image browser';
+$BL['MEDIA_TITLE']       = 'phpwcms media browser';
+$BL['IMAGE_FILES']       = 'image files';
+$BL['MEDIA_FILES']       = 'media files';
+$BL['ROOT_DIR']          = 'storage (root dir)';
+$BL['DOWNLOAD_ERR1']     = 'An error (NR:{VAL}) occured while trying to download a file.';
+$BL['DOWNLOAD_ERR2']     = 'If you think that this might be a technical problem send an email to the <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'File Download Error';
+$BL['FILEINFO_TITLE']    = 'phpwcms: file info';
+$BL['CREATED']           = 'created';
+$BL['DATE_FORMAT']       = 'm-d-Y H:i';
+$BL['SIZE']              = 'size';
+$BL['DOWNLOAD_FILE']     = 'download file';
+$BL['FILE_IN_TRASH']     = 'file is in trash can';
+$BL['KEYWORDS']          = 'keywords';
+$BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and try again...';

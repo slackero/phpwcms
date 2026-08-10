@@ -17,6 +17,7 @@ $BL['CZ'] = '&#268;esky (CZ)';
 $BL['CS'] = '&#268;esky (CS)';
 $BL['DA'] = 'Dansk';
 $BL['DE'] = 'Deutsch';
+$BL['DE-CH'] = 'Deutsch (CH)';
 $BL['ET'] = 'Eesti';
 $BL['ES'] = 'Espa&ntilde;ol';
 $BL['FR'] = 'Fran&ccedil;ais';

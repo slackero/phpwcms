@@ -1,107 +1,87 @@
 <?php
 
 // first define main language vars
-$BLM['backend_menu']            = 'Banner ads';
-
-$BLM['listing_title']           = 'Banner ads';
-$BLM['create_new']              = 'Create new campaign';
-$BLM['form_title']              = 'Edit campaign';
-$BLM['delete_entry']            = 'Delete selected banner ads campaign?\n';
-$BLM['campaign_entry']          = 'Campaign';
-$BLM['ad_format']               = 'Banner ads format';
-$BLM['to_date']                 = 'End';
-$BLM['from_date']               = 'Start';
-
-$BLM['list_date_format']        = 'd/m/y';
-$BLM['comment']                 = 'Annotations';
-$BLM['campaign_title']          = 'Title of campaign';
-
-$BLM['calendar_start']          = 'When';
-$BLM['calendar_end']            = 'To';
-
-$BLM['date_format']             = 'DD/MM/YYYY';
-$BLM['date_delimiter']          = '/';
-$BLM['time_format']             = 'HH:MM';
-
-$BLM['pixel']                   = 'px';
-
-$BLM['tracking_base']           = 'Limit to';
-$BLM['max_click']               = 'Max. clicks';
-$BLM['max_view']                = 'Max. views';
-$BLM['unique']                  = 'Unique (cookie)';
-$BLM['max_view_user']           = 'Max. views/visitor';
-
-
-$BLM['target_url']              = 'Target URL';
-$BLM['open_in']                 = 'Target';
-$BLM['new_adplace']             = 'Create ad place';
-$BLM['form_adplace_title']      = 'Edit ad place (frontend)';
-$BLM['adplace_prefix']          = 'HTML prefix';
-$BLM['adplace_suffix']          = 'HTML suffix';
-$BLM['adplace_title']           = 'Ad place title';
-$BLM['adplace']                 = 'Ad place';
-$BLM['delete_adplace']          = 'Delete selected ad place?\n';
-
-$BLM['ad_type']                 = 'Ad type';
-$BLM['ad_type_0']               = 'Image';
-$BLM['ad_type_1']               = 'Flash (deprecated)';
-$BLM['ad_type_2']               = 'HTML';
-$BLM['ad_type_3']               = 'Flash layer (deprecated)';
-$BLM['ad_type_4']               = 'HTML prefix';
-$BLM['ad_type_5']               = 'HTML suffix';
-$BLM['ad_type_6']               = 'Remote HTML';
-$BLM['ad_upload_image']         = 'select image *.gif, *.jpg, *.jpeg oder *.png';
-$BLM['ad_upload_flash']         = 'select flash file *.swf';
-$BLM['ad_upload_css']           = 'select custom CSS file *.css';
-
-$BLM['ad_info']                 = 'Uploading and selecting media files is possible only when new campaign entry is created!';
-
-$BLM['ad_alt_image']            = 'Alternative image';
-
-$BLM['ad_alt_text']             = 'ALT text';
-$BLM['ad_title_text']           = 'TITLE text';
-
-$BLM['ad_summary']              = 'summary';
-$BLM['ad_statistics']           = 'statistics';
-
-$BLM['ad_wxh']                  = 'WxH';
-$BLM['ad_from-to']              = 'from&#8211;to';
-
-$BLM['ad_template_code']        = 'banner code';
-$BLM['ad_template_code_info']   = 'Paste banner code in your frontend template at same position as ads banner should be displayed.';
-
-$BLM['ad_bgcolor']              = 'Background color';
-$BLM['ad_bordercolor']          = 'Border color';
-$BLM['ad_flashversion']         = 'Flash version';
-
-$BLM['save_copy']               = 'save entry as duplicate';
-$BLM['duplicate_campaign']      = 'Make copy of selected banner ads campaign?';
-$BLM['duplicate_title']         = 'Create copy of banner ads campaign';
-
-$BLM['under_construction']      = 'Module &#8220;Banner ads&#8221; should be enhanced by analysis and statistics at this point. But it will be possible with your support only.';
-$BLM['donate']                  = 'Donate';
-$BLM['own']                     = 'define payment';
-
+$BLM['backend_menu'] = 'Banner&nbsp;ads';
+$BLM['listing_title'] = 'Banner&nbsp;ads';
+$BLM['create_new'] = 'Create&nbsp;new&nbsp;campaign';
+$BLM['form_title'] = 'Edit&nbsp;campaign';
+$BLM['delete_entry'] = 'Delete&nbsp;selected&nbsp;banner&nbsp;ads&nbsp;campaign?\n';
+$BLM['campaign_entry'] = 'Campaign';
+$BLM['ad_format'] = 'Banner&nbsp;ads&nbsp;format';
+$BLM['to_date'] = 'End';
+$BLM['from_date'] = 'Start';
+$BLM['list_date_format'] = 'd.m.y';
+$BLM['comment'] = 'Annotations';
+$BLM['campaign_title'] = 'Title&nbsp;of&nbsp;campaign';
+$BLM['calendar_start'] = 'When';
+$BLM['calendar_end'] = 'To';
+$BLM['date_format'] = 'DD/MM/YYYY';
+$BLM['date_delimiter'] = '.';
+$BLM['time_format'] = 'HH:MM';
+$BLM['pixel'] = 'px';
+$BLM['tracking_base'] = 'Limit&nbsp;to';
+$BLM['max_click'] = 'Max.&nbsp;clicks';
+$BLM['max_view'] = 'Max.&nbsp;views';
+$BLM['unique'] = 'Unique&nbsp;(cookie)';
+$BLM['max_view_user'] = 'Max.&nbsp;views/visitor';
+$BLM['target_url'] = 'Target&nbsp;URL';
+$BLM['open_in'] = 'Target';
+$BLM['new_adplace'] = 'Create&nbsp;ad&nbsp;place';
+$BLM['form_adplace_title'] = 'Edit&nbsp;ad&nbsp;place&nbsp;(frontend)';
+$BLM['adplace_prefix'] = 'HTML&nbsp;prefix';
+$BLM['adplace_suffix'] = 'HTML&nbsp;suffix';
+$BLM['adplace_title'] = 'Ad&nbsp;place&nbsp;title';
+$BLM['adplace'] = 'Ad&nbsp;place';
+$BLM['delete_adplace'] = 'Delete&nbsp;selected&nbsp;ad&nbsp;place?\n';
+$BLM['ad_type'] = 'Ad&nbsp;type';
+$BLM['ad_type_0'] = 'Image';
+$BLM['ad_type_1'] = 'Flash&nbsp;(deprecated)';
+$BLM['ad_type_2'] = 'HTML';
+$BLM['ad_type_3'] = 'Flash&nbsp;layer&nbsp;(deprecated)';
+$BLM['ad_type_4'] = 'HTML&nbsp;prefix';
+$BLM['ad_type_5'] = 'HTML&nbsp;suffix';
+$BLM['ad_type_6'] = 'Remote&nbsp;HTML';
+$BLM['ad_upload_image'] = 'select&nbsp;image&nbsp;*.gif,&nbsp;*.jpg,&nbsp;*.jpeg&nbsp;oder&nbsp;*.png';
+$BLM['ad_upload_flash'] = 'select&nbsp;flash&nbsp;file&nbsp;*.swf';
+$BLM['ad_upload_css'] = 'select&nbsp;custom&nbsp;CSS&nbsp;file&nbsp;*.css';
+$BLM['ad_info'] = 'Uploading&nbsp;and&nbsp;selecting&nbsp;media&nbsp;files&nbsp;is&nbsp;possible&nbsp;only&nbsp;when&nbsp;new&nbsp;campaign&nbsp;entry&nbsp;is&nbsp;created!';
+$BLM['ad_alt_image'] = 'Alternative&nbsp;image';
+$BLM['ad_alt_text'] = 'ALT&nbsp;text';
+$BLM['ad_title_text'] = 'TITLE&nbsp;text';
+$BLM['ad_summary'] = 'summary';
+$BLM['ad_statistics'] = 'statistics';
+$BLM['ad_wxh'] = 'WxH';
+$BLM['ad_from-to'] = 'from&#8211;to';
+$BLM['ad_template_code'] = 'banner&nbsp;code';
+$BLM['ad_template_code_info'] = 'Paste&nbsp;banner&nbsp;code&nbsp;in&nbsp;your&nbsp;frontend&nbsp;template&nbsp;at&nbsp;same&nbsp;position&nbsp;as&nbsp;ads&nbsp;banner&nbsp;should&nbsp;be&nbsp;displayed.';
+$BLM['ad_bgcolor'] = 'Background&nbsp;color';
+$BLM['ad_bordercolor'] = 'Border&nbsp;color';
+$BLM['ad_flashversion'] = 'Flash&nbsp;version';
+$BLM['save_copy'] = 'save&nbsp;entry&nbsp;as&nbsp;duplicate';
+$BLM['duplicate_campaign'] = 'Make&nbsp;copy&nbsp;of&nbsp;selected&nbsp;banner&nbsp;ads&nbsp;campaign?';
+$BLM['duplicate_title'] = 'Create&nbsp;copy&nbsp;of&nbsp;banner&nbsp;ads&nbsp;campaign';
+$BLM['under_construction'] = 'Module&nbsp;&#8220;Banner&nbsp;ads&#8221;&nbsp;should&nbsp;be&nbsp;enhanced&nbsp;by&nbsp;analysis&nbsp;and&nbsp;statistics&nbsp;at&nbsp;this&nbsp;point.&nbsp;But&nbsp;it&nbsp;will&nbsp;be&nbsp;possible&nbsp;with&nbsp;your&nbsp;support&nbsp;only.';
+$BLM['donate'] = 'Donate';
+$BLM['own'] = 'define&nbsp;payment';
 $BLM['format_leaderboard'] = 'Leaderboard';
 $BLM['format_banner'] = 'Banner';
-$BLM['format_small_square'] = 'Small Square';
+$BLM['format_small_square'] = 'Small&nbsp;Square';
 $BLM['format_square'] = 'Square';
-$BLM['format_medium_rectangle'] = 'Medium Rectangle';
-$BLM['format_large_rectangle'] = 'Large Rectangle';
+$BLM['format_medium_rectangle'] = 'Medium&nbsp;Rectangle';
+$BLM['format_large_rectangle'] = 'Large&nbsp;Rectangle';
 $BLM['format_skyscraper'] = 'Skyscraper';
-$BLM['format_wide_skyscraper'] = 'Wide Skyscraper';
-$BLM['format_half_banner'] = 'Half Banner';
-$BLM['format_square_button'] = 'Square Button';
-$BLM['format_small_rectangle'] = 'Small Rectangle';
-$BLM['format_vertical_banner'] = 'Vertical Banner';
-$BLM['format_mini_square'] = 'Mini Square';
-$BLM['format_medium_scyscraper'] = 'Medium Skyscraper';
-$BLM['format_micro_bar'] = 'Micro Bar';
-$BLM['format_vertical_rectangle'] = 'Vertical Rectangle';
-$BLM['format_vertical_button'] = 'Vertical Button';
-$BLM['format_half_mini_square'] = 'Half Mini Square';
-$BLM['format_half_page_ad'] = 'Half Page Ad';
-$BLM['format_universal_flash_layer'] = 'Universal Flash Layer';
+$BLM['format_wide_skyscraper'] = 'Wide&nbsp;Skyscraper';
+$BLM['format_half_banner'] = 'Half&nbsp;Banner';
+$BLM['format_square_button'] = 'Square&nbsp;Button';
+$BLM['format_small_rectangle'] = 'Small&nbsp;Rectangle';
+$BLM['format_vertical_banner'] = 'Vertical&nbsp;Banner';
+$BLM['format_mini_square'] = 'Mini&nbsp;Square';
+$BLM['format_medium_scyscraper'] = 'Medium&nbsp;Skyscraper';
+$BLM['format_micro_bar'] = 'Micro&nbsp;Bar';
+$BLM['format_vertical_rectangle'] = 'Vertical&nbsp;Rectangle';
+$BLM['format_vertical_button'] = 'Vertical&nbsp;Button';
+$BLM['format_half_mini_square'] = 'Half&nbsp;Mini&nbsp;Square';
+$BLM['format_half_page_ad'] = 'Half&nbsp;Page&nbsp;Ad';
+$BLM['format_universal_flash_layer'] = 'Universal&nbsp;Flash&nbsp;Layer';
 $BLM['format_popup'] = 'PopUp';
-$BLM['format_target_button'] = 'Target Button';
-
+$BLM['format_target_button'] = 'Target&nbsp;Button';

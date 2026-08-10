@@ -551,7 +551,6 @@ $BL['be_cnt_default']                   = 'pøednastavené';
 $BL['be_cnt_left']                      = 'vlevo';
 $BL['be_cnt_center']                    = 'na støedu';
 $BL['be_cnt_right']                     = 'vpravo';
-$BL['be_cnt_buttontext']                = 'text&nbsp;tlaèítka';
 $BL['be_cnt_successtext']               = 'úspìný&nbsp;text';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
@@ -943,3 +942,31 @@ $BL['be_func_content_paste_cancel']      = 'zruit akci s touto èástí èlán
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'výchozí';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST'] = 'seznam sloek';
+$BL['FILES'] = 'soubory';
+$BL['SHOW_FILES'] = 'uka soubory uvnitø root adresáøe';
+$BL['SHOW_FILES1'] = 'uka soubory uvnitø adresáøe';
+$BL['TAKE_IMAGE'] = 'vezmi tento soubor a pøidej';
+$BL['NO_FILE'] = 'ádný soubor';
+$BL['OPEN_DIR'] = 'otevøi adresáø';
+$BL['CLOSE_DIR'] = 'zavøi adresáø';
+$BL['FILE_TITLE'] = 'phpwcms prohlíeè souborov';
+$BL['IMAGE_TITLE'] = 'phpwcms prohlíeè obrázkù';
+$BL['MEDIA_TITLE'] = 'phpwcms prohlíeè mediál. soub.';
+$BL['IMAGE_FILES'] = 'obrázky';
+$BL['MEDIA_FILES'] = 'multimédia';
+$BL['ROOT_DIR'] = 'Skladitì (root adresáø)';
+$BL['DOWNLOAD_ERR1'] = 'Nastala chyba (NR:{VAL}) pøi pokusu o stáhnutí souboru.';
+$BL['DOWNLOAD_ERR2'] = 'Pokud si myslíte, e je toto technický problém, polete email <a href="mailto:{VAL}"><strong>webmastrovi</strong></a>.';
+$BL['DOWNLOAD_TITLE'] = 'Chyba pøi stahování souboru';
+$BL['FILEINFO_TITLE'] = 'phpwcms: souborové info';
+$BL['CREATED'] = 'vytvoøeno';
+$BL['DATE_FORMAT'] = 'm-d-Y H:i';
+$BL['SIZE'] = 'velikost';
+$BL['DOWNLOAD_FILE'] = 'stáhnout soubor';
+$BL['FILE_IN_TRASH'] = 'soubor je v koi';
+$BL['KEYWORDS'] = 'klíè. slova';
+$BL['DOWNLOAD_ERR3'] = 'chyba pøi naèítání informace o souboru<br />zavøete okno a zkuste to znovu...';

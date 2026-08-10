@@ -1,74 +1,66 @@
 <?php
 
-// first define main language vars
-$BLM['backend_menu']			= 'Statistiken';
+// Language: FR
+// Language Code: fr
 
-$BLM['listing_title']			= 'Statistiken';
-$BLM['listing_overview']		= '&Uuml;bersicht';
-$BLM['listing_overview_cnt']		= 'Verwendete Contentparts';
-$BLM['listing_overview_del']		= 'Abgelaufene Artikel';
-$BLM['listing_overview_img']		= 'Bilderalias';
-$BLM['listing_polls']			= 'Umfragen';
-$BLM['listing_subscriptions']	= 'Newsletter';
-$BLM['listing_subscriptions2']	= 'Mutationen Abonnenten';
-$BLM['listing_guestbook']		= 'G&auml;stebuch';
-$BLM['listing_user']			= 'Logfile Benutzer';
-$BLM['listing_activ']			= 'Aktivierungen';
-$BLM['listing_seo']			= 'SEO Log';
-$BLM['listing_seo_top']			= 'top 20';
-
-$BLM['overview_end']		= 'Abgelaufen am';
-$BLM['overview_mit']		= 'Container ';
-$BLM['searcharticle']		= 'Gefundene Artikel mit Container ';
-$BLM['overview_alias']		= 'Bilder ohne Alias';
-$BLM['overview_zentrale']	= 'Bilder in Dateizentrale';
-$BLM['overview_fehlende']	= 'Fehlende Alias oder Beschreibungen erg&auml;nzen';
-$BLM['overview_beschr']		= 'Artikelbeschreibung noch nicht eingetragen';
-$BLM['overview_aalias']		= 'Artikelalias noch nicht eingetragen';
-$BLM['overview_endd']		= 'Enddatum erreicht, wird nicht mehr angezeigt';
-$BLM['overview_start']		= 'Startdatum noch nicht erreicht, wird noch nicht angezeigt';
-$BLM['overview_status']		= 'Status dieser Artikel:';
-$BLM['overview_aktiv']		= 'Aktive Artikel:';
-
-$BLM['filename']				= 'Filename';
-$BLM['downloads_start']			= 'Downloads gestartet';
-$BLM['downloads_end']			= 'Downloads abgeschlossen';
-$BLM['erstellt']				= 'Hochgeladen';
-
-$BLM['pollname']				= 'Umfrage';
-$BLM['pollcounts']				= 'Teilnehmer';
-
-$BLM['guestbookname']			= 'G&auml;stebuch';
-$BLM['guestbookcounts']			= 'Eintr&auml;ge';
-
-$BLM['subscriptionsname']		= 'Newsletter Abonnement';
-$BLM['subscriptionscounts']		= 'Abonnenten';
-$BLM['subscriptionslogtyp']		= 'Aktion';
-$BLM['subscriptionslogart']		= 'Abonnent';
-$BLM['subscriptionslogdate']	= 'Datum';
-$BLM['subscriptionsall']		= 'Alle Abonnemente';
-$BLM['subscriptionstatus']		= 'Status';
-$BLM['subscriptionactiv']		= 'Aktiviert';
-$BLM['subscriptioninactiv']		= 'Deaktiviert';
-$BLM['log_delete_entry']		= 'Logeintrag l&ouml;schen';
-$BLM['log_insert_blacklist']	= 'Hinzuf&uuml;gen zur Blacklist';
-$BLM['log_blacklist']			= 'Blacklist';
-
-$BLM['subscriptionslegend']		= '1=Erneut angemeldet<br />2=Erstmals Angemeldet<br />3=Anmeldungbest&auml;tigt<br />4=Abgemeldet';
-$BLM['listing_Colum1']	= 'Datum';
-$BLM['listing_Colum2']	= 'Erneut angemeldet';
-$BLM['listing_Colum3']	= 'Erstmals Angemeldet';
-$BLM['listing_Colum4']	= 'Anmeldungbest&auml;tigt';
-$BLM['listing_Colum5']	= 'Abgemeldet';
-
-
-$BLM['tab_overview']			= '&Uuml;bersicht';
-$BLM['tab_downloads']			= 'Downloads';
-$BLM['tab_polls']				= 'Umfragen';
-$BLM['tab_subscriptions']		= 'Newsletter';
-$BLM['tab_guestbook']			= 'G&auml;stebuch';
-$BLM['tab_user']				= 'Benutzer';
-$BLM['tab_seo']					= 'SEO';
-
-$BLM['username']				= 'Benutzer';
-$BLM['userdatum']				= 'Login';
+$BLM['backend_menu'] = 'Statistiques';
+$BLM['listing_title'] = 'Statistiques';
+$BLM['listing_overview'] = 'Aper&ccedil;u';
+$BLM['listing_overview_cnt'] = '&Eacute;l&eacute;ments&nbsp;de&nbsp;contenu&nbsp;utilis&eacute;s';
+$BLM['listing_overview_del'] = 'Articles&nbsp;expir&eacute;s';
+$BLM['listing_overview_img'] = 'Aliases&nbsp;d&#039;images';
+$BLM['listing_polls'] = 'Sondages';
+$BLM['listing_subscriptions'] = 'Newsletter';
+$BLM['listing_subscriptions2'] = 'Mutations&nbsp;des&nbsp;abonn&eacute;s';
+$BLM['listing_guestbook'] = 'Livre&nbsp;d&#039;or';
+$BLM['listing_user'] = 'Journal&nbsp;des&nbsp;utilisateurs';
+$BLM['listing_activ'] = 'Activations';
+$BLM['listing_seo'] = 'Journal&nbsp;SEO';
+$BLM['listing_seo_top'] = 'Top&nbsp;20';
+$BLM['overview_end'] = 'Expir&eacute;&nbsp;le';
+$BLM['overview_mit'] = 'Conteneur&nbsp;';
+$BLM['searcharticle'] = 'Articles&nbsp;trouv&eacute;s&nbsp;avec&nbsp;le&nbsp;conteneur&nbsp;';
+$BLM['overview_alias'] = 'Images&nbsp;sans&nbsp;alias';
+$BLM['overview_zentrale'] = 'Images&nbsp;dans&nbsp;le&nbsp;centre&nbsp;de&nbsp;fichiers';
+$BLM['overview_fehlende'] = 'Ajouter&nbsp;les&nbsp;alias&nbsp;ou&nbsp;descriptions&nbsp;manquants';
+$BLM['overview_beschr'] = 'Description&nbsp;de&nbsp;l&#039;article&nbsp;non&nbsp;encore&nbsp;saisie';
+$BLM['overview_aalias'] = 'Alias&nbsp;d&#039;article&nbsp;non&nbsp;encore&nbsp;saisi';
+$BLM['overview_endd'] = 'Date&nbsp;de&nbsp;fin&nbsp;atteinte,&nbsp;n&#039;est&nbsp;plus&nbsp;affich&eacute;';
+$BLM['overview_start'] = 'Date&nbsp;de&nbsp;d&eacute;but&nbsp;non&nbsp;atteinte,&nbsp;pas&nbsp;encore&nbsp;affich&eacute;';
+$BLM['overview_status'] = 'Statut&nbsp;de&nbsp;ces&nbsp;articles&nbsp;:';
+$BLM['overview_aktiv'] = 'Articles&nbsp;actifs&nbsp;:';
+$BLM['filename'] = 'Nom&nbsp;de&nbsp;fichier';
+$BLM['downloads_start'] = 'T&eacute;l&eacute;chargements&nbsp;d&eacute;marr&eacute;s';
+$BLM['downloads_end'] = 'T&eacute;l&eacute;chargements&nbsp;termin&eacute;s';
+$BLM['erstellt'] = 'T&eacute;l&eacute;vers&eacute;';
+$BLM['pollname'] = 'Sondage';
+$BLM['pollcounts'] = 'Participants';
+$BLM['guestbookname'] = 'Livre&nbsp;d&#039;or';
+$BLM['guestbookcounts'] = 'Entr&eacute;es';
+$BLM['subscriptionsname'] = 'Abonnement&nbsp;newsletter';
+$BLM['subscriptionscounts'] = 'Abonn&eacute;s';
+$BLM['subscriptionslogtyp'] = 'Action';
+$BLM['subscriptionslogart'] = 'Abonn&eacute;';
+$BLM['subscriptionslogdate'] = 'Date';
+$BLM['subscriptionsall'] = 'Tous&nbsp;les&nbsp;abonnements';
+$BLM['subscriptionstatus'] = 'Statut';
+$BLM['subscriptionactiv'] = 'Activ&eacute;';
+$BLM['subscriptioninactiv'] = 'D&eacute;sactiv&eacute;';
+$BLM['log_delete_entry'] = 'Supprimer&nbsp;l&#039;entr&eacute;e&nbsp;du&nbsp;journal';
+$BLM['log_insert_blacklist'] = 'Ajouter&nbsp;&agrave;&nbsp;la&nbsp;liste&nbsp;noire';
+$BLM['log_blacklist'] = 'Liste&nbsp;noire';
+$BLM['subscriptionslegend'] = '1=R&eacute;inscrit<br&nbsp;/>2=Inscrit&nbsp;pour&nbsp;la&nbsp;premi&egrave;re&nbsp;fois<br&nbsp;/>3=Inscription&nbsp;confirm&eacute;e<br&nbsp;/>4=D&eacute;sinscrit';
+$BLM['listing_Colum1'] = 'Date';
+$BLM['listing_Colum2'] = 'R&eacute;inscrit';
+$BLM['listing_Colum3'] = 'Inscrit&nbsp;pour&nbsp;la&nbsp;premi&egrave;re&nbsp;fois';
+$BLM['listing_Colum4'] = 'Inscription&nbsp;confirm&eacute;e';
+$BLM['listing_Colum5'] = 'D&eacute;sinscrit';
+$BLM['tab_overview'] = 'Aper&ccedil;u';
+$BLM['tab_downloads'] = 'T&eacute;l&eacute;chargements';
+$BLM['tab_polls'] = 'Sondages';
+$BLM['tab_subscriptions'] = 'Newsletter';
+$BLM['tab_guestbook'] = 'Livre&nbsp;d&#039;or';
+$BLM['tab_user'] = 'Utilisateurs';
+$BLM['tab_activ'] = 'Activations';
+$BLM['tab_seo'] = 'Journal&nbsp;SEO';
+$BLM['seo_title'] = 'Top&nbsp;20&nbsp;des&nbsp;pages&nbsp;demand&eacute;es';

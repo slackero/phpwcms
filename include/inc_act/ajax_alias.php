@@ -18,8 +18,6 @@ require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 if($_SESSION["wcs_user_lang_custom"]) { //use custom lang if available -> was set in login.php
     include(PHPWCMS_ROOT.'/include/inc_lang/backend/'.substr($_SESSION["wcs_user_lang"],0,2).'/lang.inc.php');
-    //Adding specific language files
-    include PHPWCMS_ROOT.'/include/inc_lang/backend/'. substr($_SESSION["wcs_user_lang"],0,2) .'/lang.pp.inc.php';
 }
 
 if(empty($_SESSION["wcs_user_id"]) || !validate_csrf_get_token()) {

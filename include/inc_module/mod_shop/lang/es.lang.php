@@ -1,157 +1,122 @@
 <?php
-/**
- * phpwcms
- *
- * @author Oliver Georgi <og@phpwcms.org>
- * @copyright Copyright (c) 2002-2026, Oliver Georgi
- * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
- *
- **/
 
-// first define main language vars
-$BLM['backend_menu']            = 'Tienda/Productos';
-$BLM['listing_title']           = 'Tienda/Productos';
-$BLM['tab_default']             = 'Resumen de Tienda';
-$BLM['tab_products']            = 'Productos';
-$BLM['tab_categories']          = 'Categorías';
-$BLM['tab_orders']              = 'Pedidos';
-$BLM['tab_preferences']         = 'Preferencias';
+// Language: ES
+// Language Code: es
 
-$BLM['create_new']              = 'Añadir categoría';
-$BLM['create_new_prod']         = 'Añadir producto';
-$BLM['shop_category']           = 'Categoría del producto';
-$BLM['shop_product']            = 'Producto de la tienda';
-$BLM['prod_cat']                = 'Categoría de producto';
-
-$BLM['cat_edit']                = 'Editar categoría del producto';
-$BLM['prod_edit']               = 'Editar producto';
-$BLM['pref_edit']               = 'Editar preferencias';
-$BLM['delete_entry']            = '¡La categoría seleccionada será eliminada!\n¡Todas las subcategorías también serán eliminadas!\nEliminar categoría: ';
-$BLM['delete_product']          = '¿Eliminar producto?\n';
-$BLM['delete_order']            = '¿Eliminar pedido?\n';
-
-$BLM['th_ordnr']                = 'Nº ped.';
-$BLM['th_modnr']                = 'Nº mod.';
-$BLM['th_product']              = 'producto';
-$BLM['th_price']                = 'precio';
-
-$BLM['th_customer']             = 'cliente';
-$BLM['th_net']                  = 'total&nbsp;neto';
-$BLM['th_gross']                = 'total&nbsp;bruto';
-$BLM['th_payment']              = 'pagar&nbsp;con';
-$BLM['th_date']                 = 'fecha';
-
-$BLM['dec_point']               = ',';
-$BLM['thousands_sep']           = '.';
-
-$BLM['shopprod_description0']   = 'Descripción corta';
-$BLM['shopprod_description1']   = 'Información del producto 1';
-$BLM['shopprod_description2']   = 'Información del producto 2';
-$BLM['shopprod_description3']   = 'Información del producto 3';
-$BLM['shopprod_price']          = 'Precio';
-$BLM['shopprod_name1']          = 'Producto';
-$BLM['shopprod_name2']          = 'Adicional';
-$BLM['shopprod_model']          = 'Modelo/Tipo';
-$BLM['shopprod_ordernumber']    = 'Número de pedido';
-
-$BLM['shopprod_netgross']       = 'Bruto';
-$BLM['shopprod_net']            = 'Neto';
-$BLM['shopprod_netgross_info']  = 'Precio basado en: Neto (desmarcado) = IVA excl., Bruto (marcado) = precio IVA incl.';
-$BLM['shopprod_vat']            = 'IVA';
-
-$BLM['shopprod_tag']            = 'Etiqueta (*,*)';
-
-$BLM['shopprod_weight']         = 'Peso';
-$BLM['shopprod_weight_max']     = 'máx.';
-$BLM['shopprod_units_weight']   = 'kg, oz, g';
-$BLM['shopprod_unit']           = 'Unidad';
-$BLM['shopprod_currency']       = 'Moneda';
-$BLM['shopprod_cart']           = 'Carrito';
-$BLM['shopprod_max_cartitem']   = 'Máx. productos/carrito';
-$BLM['shopprod_vat_rates']      = 'Tasas de IVA';
-
-$BLM['shopprod_size']           = 'p.ej. tamaño&nbsp;&nbsp;<br />título&nbsp;&nbsp;<br />descr|+/-precio|#sufijo';
-$BLM['shopprod_color']          = 'p.ej. color';
-
-$BLM['shopprod_url']            = 'Enlace del producto';
-
-$BLM['shopprod_email_to']       = 'Correo nuevo pedido (Para)';
-$BLM['shopprod_email_from']     = 'Remitente del correo (De)';
-
-$BLM['shopprod_shipping']       = 'Envío';
-$BLM['shopprod_payment_method'] = 'Método de pago';
-$BLM['shopprod_payby_paypal']   = 'PayPal';
-$BLM['shopprod_payby_prepay']   = 'Pago por adelantado';
-$BLM['shopprod_payby_pod']      = 'Pago contra reembolso';
-$BLM['shopprod_payby_onbill']   = 'A cuenta';
-$BLM['shopprod_payby_ccard']    = 'Tarjeta de crédito';
-$BLM['shopprod_payby_cash']     = 'Efectivo';
-
-$BLM['shopprod_email_paypal']   = 'Correo de PayPal';
-$BLM['shopprod_supported_ccard']= 'admitido';
-
-$BLM['shopprod_terms']          = 'Términos y condiciones';
-$BLM['shop_order']              = 'Pedido';
-
-$BLM['shopprod_order_subject']  = 'Su pedido';
-$BLM['shopprod_subcategory']    = 'Subcategoría&nbsp;de';
-$BLM['shopprod_is_main_cat']    = 'Categoría principal';
-$BLM['shopprod_listall']        = 'Listar en &quot;Todos los productos&quot;';
-
-$BLM['shopprod_id_shop']        = 'Destino de tienda';
-$BLM['shopprod_id_cart']        = 'Destino de carrito';
-
-$BLM['shopprod_order']          = 'Detalles del pedido';
-$BLM['shopprod_order_date']     = 'Fecha del pedido';
-$BLM['shopprod_order_address']  = 'Dirección';
-$BLM['shopprod_order_region']   = 'Región';
-$BLM['shopprod_custom_field']   = 'Campo adicional';
-$BLM['shopprod_date_long']      = 'd/m/Y, H:i:s';
-
-$BLM['shopprod_total_net']      = 'Total neto';
-$BLM['shopprod_total_vat']      = 'IVA';
-$BLM['shopprod_total_gross']    = 'Total bruto';
-
-$BLM['shopprod_subtotal']       = 'Subtotal';
-
-$BLM['shopprod_email_customer'] = 'Correo al cliente';
-$BLM['shopprod_email_shop']     = 'Correo a la tienda';
-$BLM['shopprod_ordered']        = 'Productos pedidos';
-$BLM['shopprod_quantity']       = 'Cantidad';
-$BLM['shopprod_total']          = 'Total';
-$BLM['shopprod_status_paid']    = 'Pagado';
-$BLM['shopprod_status_sent']    = 'Enviado/Recogido';
-$BLM['shopprod_status_done']    = 'Completado';
-$BLM['shopprod_status_back']    = 'Devolución';
-$BLM['shopprod_status_msg']     = 'El estado del pedido ha cambiado.';
-
-$BLM['shopprod_loworder']           = 'Pedido mínimo';
-$BLM['shopprod_loworder_under']     = 'por debajo de';
-$BLM['shopprod_loworder_charge']    = 'recargo';
-
-$BLM['shopprod_discount']           = 'Descuento';
-$BLM['shopprod_discount_from']      = 'desde importe neto';
-$BLM['shopprod_freeshipping']       = 'envío gratuito';
-$BLM['shopprod_selfpickup']         = 'Recogida local';
-$BLM['shopprod_allowed']            = 'permitido';
-$BLM['shopprod_is_selfpickup']      = 'Sí';
-$BLM['shopprod_isnot_selfpickup']   = 'No';
-
-$BLM['shopprod_lang_support']   = 'Soporte de idiomas en frontend';
-$BLM['shopprod_overwrite_meta'] = 'El detalle del producto sobrescribe los metadatos';
-
-$BLM['shopprod_distance'] = 'Distancia (km)';
-$BLM['shopprod_distance_base'] = 'Dirección de partida';
+$BLM['backend_menu'] = 'Shop/Products';
+$BLM['listing_title'] = 'Shop/Products';
+$BLM['tab_default'] = 'Shop&nbsp;Summary';
+$BLM['tab_products'] = 'Products';
+$BLM['tab_categories'] = 'Categories';
+$BLM['tab_orders'] = 'Orders';
+$BLM['tab_preferences'] = 'Preferences';
+$BLM['create_new'] = 'Add&nbsp;category';
+$BLM['create_new_prod'] = 'Add&nbsp;product';
+$BLM['shop_category'] = 'Shop&nbsp;product&nbsp;category';
+$BLM['shop_product'] = 'Shop&nbsp;product';
+$BLM['prod_cat'] = 'Product&nbsp;category';
+$BLM['cat_edit'] = 'Edit&nbsp;shop&nbsp;product&nbsp;category';
+$BLM['prod_edit'] = 'Edit&nbsp;shop&nbsp;product';
+$BLM['pref_edit'] = 'Edit&nbsp;preferences';
+$BLM['delete_entry'] = 'The&nbsp;selected&nbsp;category&nbsp;will&nbsp;be&nbsp;deleted!\nAll&nbsp;sub&nbsp;categories&nbsp;will&nbsp;be&nbsp;deleted&nbsp;too!\nDelete&nbsp;category:&nbsp;';
+$BLM['delete_product'] = 'Delete&nbsp;product?\n';
+$BLM['delete_order'] = 'Delete&nbsp;order?\n';
+$BLM['th_ordnr'] = 'Ord#';
+$BLM['th_modnr'] = 'Model#';
+$BLM['th_product'] = 'Product';
+$BLM['th_price'] = 'Price';
+$BLM['th_customer'] = 'Customer';
+$BLM['th_net'] = 'Net&nbsp;total';
+$BLM['th_gross'] = 'Gross&nbsp;total';
+$BLM['th_payment'] = 'Pay&nbsp;by';
+$BLM['th_date'] = 'Date';
+$BLM['dec_point'] = ',';
+$BLM['thousands_sep'] = '.';
+$BLM['shopprod_description0'] = 'Short&nbsp;description';
+$BLM['shopprod_description1'] = 'Product&nbsp;info&nbsp;1';
+$BLM['shopprod_description2'] = 'Product&nbsp;info&nbsp;2';
+$BLM['shopprod_description3'] = 'Product&nbsp;info&nbsp;3';
+$BLM['shopprod_price'] = 'Price';
+$BLM['shopprod_name1'] = 'Product';
+$BLM['shopprod_name2'] = 'Additioal';
+$BLM['shopprod_model'] = 'Model/type';
+$BLM['shopprod_ordernumber'] = 'Order&nbsp;number';
+$BLM['shopprod_netgross'] = 'Gross';
+$BLM['shopprod_net'] = 'Netto';
+$BLM['shopprod_netgross_info'] = 'Price&nbsp;based&nbsp;on:&nbsp;Net&nbsp;(unchecked)&nbsp;=&nbsp;excl.&nbsp;VAT,&nbsp;Gross&nbsp;(checked)&nbsp;=&nbsp;price&nbsp;incl.&nbsp;VAT';
+$BLM['shopprod_vat'] = 'VAT';
+$BLM['shopprod_tag'] = 'Tag&nbsp;(*,*)';
+$BLM['shopprod_weight'] = 'Weight';
+$BLM['shopprod_weight_max'] = 'Max.';
+$BLM['shopprod_units_weight'] = 'kg,&nbsp;oz,&nbsp;g';
+$BLM['shopprod_unit'] = 'Unit';
+$BLM['shopprod_currency'] = 'Currency';
+$BLM['shopprod_cart'] = 'Cart';
+$BLM['shopprod_max_cartitem'] = 'Max.&nbsp;products/cart';
+$BLM['shopprod_vat_rates'] = 'VAT&nbsp;rates';
+$BLM['shopprod_size'] = 'E.g.&nbsp;size&nbsp;&nbsp;<br&nbsp;/>title&nbsp;&nbsp;<br&nbsp;/>descr|+/-price|#suffix';
+$BLM['shopprod_color'] = 'E.g.&nbsp;color';
+$BLM['shopprod_url'] = 'Product&nbsp;link';
+$BLM['shopprod_email_to'] = 'Email&nbsp;new&nbsp;order&nbsp;(To)';
+$BLM['shopprod_email_from'] = 'Email&nbsp;sender&nbsp;(From)';
+$BLM['shopprod_shipping'] = 'Shipping';
+$BLM['shopprod_payment_method'] = 'Payment&nbsp;method';
+$BLM['shopprod_payby_paypal'] = 'PayPal';
+$BLM['shopprod_payby_prepay'] = 'Cash&nbsp;with&nbsp;order';
+$BLM['shopprod_payby_pod'] = 'Cash&nbsp;on&nbsp;delivery';
+$BLM['shopprod_payby_onbill'] = 'On&nbsp;account';
+$BLM['shopprod_payby_ccard'] = 'Credit&nbsp;card';
+$BLM['shopprod_payby_cash'] = 'Cash';
+$BLM['shopprod_email_paypal'] = 'PayPal&nbsp;email';
+$BLM['shopprod_supported_ccard'] = 'Supported';
+$BLM['shopprod_terms'] = 'Terms&nbsp;&&nbsp;conditions';
+$BLM['shop_order'] = 'Order';
+$BLM['shopprod_order_subject'] = 'Your&nbsp;order';
+$BLM['shopprod_subcategory'] = 'Sub&nbsp;category&nbsp;of';
+$BLM['shopprod_is_main_cat'] = 'Main&nbsp;category';
+$BLM['shopprod_listall'] = 'List&nbsp;under&nbsp;"All&nbsp;products"';
+$BLM['shopprod_id_shop'] = 'Shop&nbsp;target';
+$BLM['shopprod_id_cart'] = 'Cart&nbsp;target';
+$BLM['shopprod_order'] = 'Order&nbsp;details';
+$BLM['shopprod_order_date'] = 'Order&nbsp;date';
+$BLM['shopprod_order_address'] = 'Address';
+$BLM['shopprod_order_region'] = 'Region';
+$BLM['shopprod_custom_field'] = 'Additional&nbsp;field';
+$BLM['shopprod_date_long'] = 'd.m.Y,&nbsp;H:i:s&nbsp;\U\h\r';
+$BLM['shopprod_total_net'] = 'Total&nbsp;net';
+$BLM['shopprod_total_vat'] = 'VAT';
+$BLM['shopprod_total_gross'] = 'Total&nbsp;gross';
+$BLM['shopprod_subtotal'] = 'Subtotal';
+$BLM['shopprod_email_customer'] = 'Mail&nbsp;to&nbsp;customer';
+$BLM['shopprod_email_shop'] = 'Mail&nbsp;to&nbsp;shop';
+$BLM['shopprod_ordered'] = 'Ordered&nbsp;products';
+$BLM['shopprod_quantity'] = 'Quantity';
+$BLM['shopprod_total'] = 'Total';
+$BLM['shopprod_status_paid'] = 'Paid';
+$BLM['shopprod_status_sent'] = 'Sent/Picked&nbsp;up';
+$BLM['shopprod_status_done'] = 'Completed';
+$BLM['shopprod_status_back'] = 'Return';
+$BLM['shopprod_status_msg'] = 'Order&nbsp;status&nbsp;changed.';
+$BLM['shopprod_loworder'] = 'Low&nbsp;order';
+$BLM['shopprod_loworder_under'] = 'Below';
+$BLM['shopprod_loworder_charge'] = 'Surcharge';
+$BLM['shopprod_discount'] = 'Discount';
+$BLM['shopprod_discount_from'] = 'From&nbsp;net&nbsp;amount';
+$BLM['shopprod_freeshipping'] = 'Free&nbsp;shipping';
+$BLM['shopprod_selfpickup'] = 'Self&nbsp;pickup';
+$BLM['shopprod_allowed'] = 'Allowed';
+$BLM['shopprod_is_selfpickup'] = 'Yes';
+$BLM['shopprod_isnot_selfpickup'] = 'No';
+$BLM['shopprod_lang_support'] = 'Frontend&nbsp;language&nbsp;support';
+$BLM['shopprod_overwrite_meta'] = 'Product&nbsp;detail&nbsp;overwrites&nbsp;metadata';
+$BLM['shopprod_distance'] = 'Distance&nbsp;(km)';
+$BLM['shopprod_distance_base'] = 'Starting&nbsp;address';
 $BLM['shopprod_api'] = 'API';
-$BLM['shopprod_api_access'] = 'permitir acceso';
-$BLM['shopprod_api_key'] = 'Clave API';
-
-$BLM['shopprod_inventory'] = 'Inventario';
-$BLM['shopprod_autosubtract_off'] = 'NO reducir inventario al realizar pedido';
-
-//NEW entries PPMO
-$BLM['order_edit']              = 'Editar pedido';
-
-$BLM['shopprod_on_request'] = 'Pedido bajo petición';
-$BLM['shopprod_on_request_button'] = 'URL de petición';
+$BLM['shopprod_api_access'] = 'Enable&nbsp;access';
+$BLM['shopprod_api_key'] = 'API&nbsp;key';
+$BLM['shopprod_inventory'] = 'Inventory';
+$BLM['shopprod_autosubtract_off'] = 'Do&nbsp;NOT&nbsp;reduce&nbsp;inventory&nbsp;on&nbsp;order';
+$BLM['order_edit'] = 'Edit&nbsp;order';
+$BLM['shopprod_on_request'] = 'Order&nbsp;on&nbsp;reqeuest';
+$BLM['shopprod_on_request_button'] = 'Request&nbsp;url';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

@@ -556,7 +556,6 @@ $BL['be_cnt_default']                   = 'default';
 $BL['be_cnt_left']                      = 'esquerda';
 $BL['be_cnt_center']                    = 'centro';
 $BL['be_cnt_right']                     = 'direita';
-$BL['be_cnt_buttontext']                = 'texto do botão';
 $BL['be_cnt_successtext']               = 'texto&nbsp;do&nbsp;sucesso';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
@@ -788,3 +787,31 @@ $BL['be_article_forfull']               = 'mostrar artigo completo';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'padr&atilde;o';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'lista de diretórios';
+$BL['FILES']             = 'arquivos';
+$BL['SHOW_FILES']        = 'mostrar arquivos dentro do diretório raiz';
+$BL['SHOW_FILES1']       = 'mostrar arquvios dentro do diretório';
+$BL['TAKE_IMAGE']        = 'tomar este arquivo e adicionar&#8230;';
+$BL['NO_FILE']           = 'nenhum arquivo';
+$BL['OPEN_DIR']          = 'abrir diretório';
+$BL['CLOSE_DIR']         = 'fechar diretório';
+$BL['FILE_TITLE']        = 'phpwcms browser de arquivos';
+$BL['IMAGE_TITLE']       = 'phpwcms browser de imagems';
+$BL['MEDIA_TITLE']       = 'phpwcms browser de media';
+$BL['IMAGE_FILES']       = 'arquivos de imagems';
+$BL['MEDIA_FILES']       = 'arquivos de media';
+$BL['ROOT_DIR']          = 'diretório (diretório raiz)';
+$BL['DOWNLOAD_ERR1']     = 'Ocurreu um erro (NR:{VAL}) no download do arquivo.';
+$BL['DOWNLOAD_ERR2']     = 'Se pensa que é um problema técnico contacte: <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'erro no download do arquivo';
+$BL['FILEINFO_TITLE']    = 'phpwcms: informação arquivos';
+$BL['CREATED']           = 'criado';
+$BL['DATE_FORMAT']       = 'd-m-Y H:i';
+$BL['SIZE']              = 'tamanho';
+$BL['DOWNLOAD_FILE']     = 'download do arquivo';
+$BL['FILE_IN_TRASH']     = 'arquivo para a lixeira';
+$BL['KEYWORDS']          = 'palavras-chave';
+$BL['DOWNLOAD_ERR3']     = 'erro ao ler a informação do arquivo <br />fecha a janela e tenta novamente...';

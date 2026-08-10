@@ -554,7 +554,6 @@ $BL['be_cnt_default']                   = 'alapértelmezett';
 $BL['be_cnt_left']                      = 'balra';
 $BL['be_cnt_center']                    = 'középre';
 $BL['be_cnt_right']                     = 'jobbra';
-$BL['be_cnt_buttontext']                = 'gomb&nbsp;szöveg';
 $BL['be_cnt_successtext']               = 'sikeres&nbsp;szöveg';
 $BL['be_cnt_regmail']                   = 'regisztrációs email';
 $BL['be_cnt_logoffmail']                = 'kijelentkezõ email';
@@ -828,3 +827,31 @@ $BL['be_cnt_sitemap_startid']           = 'ezzel&nbspkezdõdik';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'alapértelmezett';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'mappa lista';
+$BL['FILES']             = 'file-ok';
+$BL['SHOW_FILES']        = 'a gyökér könytár file listájának megjelenítése';
+$BL['SHOW_FILES1']       = 'a könyvtár file listájának megjelenítése';
+$BL['TAKE_IMAGE']        = 'a file kiválasztása és hozzádása&#8230;';
+$BL['NO_FILE']           = 'nincs file';
+$BL['OPEN_DIR']          = 'könyvtár megnyitása';
+$BL['CLOSE_DIR']         = 'könyvtár bezárása';
+$BL['FILE_TITLE']        = 'phpwcms file böngésző';
+$BL['IMAGE_TITLE']       = 'phpwcms image böngésző';
+$BL['MEDIA_TITLE']       = 'phpwcms media böngésző';
+$BL['IMAGE_FILES']       = 'kép file-ok';
+$BL['MEDIA_FILES']       = 'média file-ok';
+$BL['ROOT_DIR']          = 'tároló (gyökér konyvtár)';
+$BL['DOWNLOAD_ERR1']     = 'Hiba (NR:{VAL}) a file letöltésekor';
+$BL['DOWNLOAD_ERR2']     = 'Ha úgy gondolja, hogy ez technikai hiba, köldjön email-t <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'File letöltési hiba';
+$BL['FILEINFO_TITLE']    = 'phpwcms: file info';
+$BL['CREATED']           = 'létrehozva';
+$BL['DATE_FORMAT']       = 'm-d-Y H:i';
+$BL['SIZE']              = 'méret';
+$BL['DOWNLOAD_FILE']     = 'file letöltése';
+$BL['FILE_IN_TRASH']     = 'a file a lomtárban van';
+$BL['KEYWORDS']          = 'kulcsszavak';
+$BL['DOWNLOAD_ERR3']     = 'hiba a file info olvasásakor <br /> zárja be az ablakot és próbálja újra...';

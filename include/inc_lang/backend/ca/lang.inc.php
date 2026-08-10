@@ -555,7 +555,6 @@ $BL['be_cnt_default']                   = 'Predeterminada';
 $BL['be_cnt_left']                      = 'Esquerra';
 $BL['be_cnt_center']                    = 'Centre';
 $BL['be_cnt_right']                     = 'Dreta';
-$BL['be_cnt_buttontext']                = 'Text bot&oacute;';
 $BL['be_cnt_successtext']               = 'Satisfactori';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
@@ -650,7 +649,6 @@ $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'Visible nom&eacute;s per usuaris registrats';
-$BL['be_admin_struct_status']           = 'Estat del men&uacute; \'frontend\'';
 
 // added: 15-02-2004
 $BL['be_ctype_articlemenu']             = 'Men&uacute; d\'articles';
@@ -825,3 +823,31 @@ $BL['be_cnt_sitemap_startid']           = 'Comen&ccedil;ant per';
 
 $BL['be_legacy'] = 'Legacy';
 $BL['be_default'] = 'per defecte';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'llista de carpetes';
+$BL['FILES']             = 'fitxers';
+$BL['SHOW_FILES']        = 'mostra els fitxers del directori arrel';
+$BL['SHOW_FILES1']       = 'mostra els fitxers del directori';
+$BL['TAKE_IMAGE']        = 'afegeix aquest fitxer&#8230;';
+$BL['NO_FILE']           = 'no hi ha cap fitxer';
+$BL['OPEN_DIR']          = 'obre directori';
+$BL['CLOSE_DIR']         = 'tanca directori';
+$BL['FILE_TITLE']        = 'explorador de fitxers phpwcms';
+$BL['IMAGE_TITLE']       = 'explorador d\'imatges phpwcms';
+$BL['MEDIA_TITLE']       = 'explorador de mitjans phpwcms';
+$BL['IMAGE_FILES']       = 'fitxers d\'imatge';
+$BL['MEDIA_FILES']       = 'fitxers de mitjans';
+$BL['ROOT_DIR']          = 'magatzem (dir arrel)';
+$BL['DOWNLOAD_ERR1']     = 'S\'ha produit un error (NR:{VAL}) en intentar baixar un fitxer.';
+$BL['DOWNLOAD_ERR2']     = 'Si creieu que pot ser un problema t&egrave;cnic, envieu un missatge al <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Error de desc&agrave;rrega';
+$BL['FILEINFO_TITLE']    = 'phpwcms: informació de fitxer';
+$BL['CREATED']           = 'creat';
+$BL['DATE_FORMAT']       = 'd-m-Y H:i';
+$BL['SIZE']              = 'mida';
+$BL['DOWNLOAD_FILE']     = 'descarrega el fitxer';
+$BL['FILE_IN_TRASH']     = 'l\'arxiu &eacute;s a la paperera';
+$BL['KEYWORDS']          = 'mots clau';
+$BL['DOWNLOAD_ERR3']     = 'Error al llegir informaci&oacute; del fitxer. <br />Tanqueu la finestra i torneu-ho a intentar...';

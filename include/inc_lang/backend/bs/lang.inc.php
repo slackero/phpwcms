@@ -558,7 +558,6 @@ $BL['be_cnt_default']                   = 'default';
 $BL['be_cnt_left']                      = 'lijevo';
 $BL['be_cnt_center']                    = 'centar';
 $BL['be_cnt_right']                     = 'desno';
-$BL['be_cnt_buttontext']                = 'tekst&nbsp;dugmeta';
 $BL['be_cnt_successtext']               = 'tekst&nbsp;o uspjehu';
 $BL['be_cnt_regmail']                   = 'registruj email';
 $BL['be_cnt_logoffmail']                = 'odjavi email';
@@ -1192,8 +1191,6 @@ $BL['be_file_multiple_upload']          = 'ubacivanje vise datoteka';
 $BL['be_files_browse']                  = 'Izaberite datoteke';
 $BL['be_files_upload']                  = 'Ubacite oznacene datoteke';
 $BL['be_archive']                       = 'arhiva';
-$BL['be_off']                           = 'iskljuceno';
-$BL['be_on']                            = 'ukljuceno';
 $BL['be_random']                        = 'nasumicno';
 $BL['be_sorted']                        = 'sortirano';
 $BL['be_granted_download']              = 'samo "secure download" na frontend-u';
@@ -1243,3 +1240,33 @@ $BL['random_image_from_list']           = 'Oznaci jednu nasumicnu sliku iz liste
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'podrazumijevano';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'lista direktorija';
+$BL['FILES']             = 'datoteke';
+$BL['SHOW_FILES']        = 'prikazi datoteku unutar glavnog direktorija';
+$BL['SHOW_FILES1']       = 'prikazi datoteke unutar direktorija';
+$BL['TAKE_IMAGE']        = 'preuzmi ovu datoteku i dodaj&#8230;';
+$BL['NO_FILE']           = 'nema datoteke';
+$BL['OPEN_DIR']          = 'otvori direktorij';
+$BL['CLOSE_DIR']         = 'zatvori direktorij';
+$BL['FILE_TITLE']        = 'phpwcms preglednik datoteka';
+$BL['IMAGE_TITLE']       = 'phpwcms preglednik slika';
+$BL['MEDIA_TITLE']       = 'phpwcms preglednik medija';
+$BL['IMAGE_FILES']       = 'slikovne datoteke';
+$BL['MEDIA_FILES']       = 'medija datoteke';
+$BL['ROOT_DIR']          = 'skladisni prostor (glavni dir)';
+$BL['DOWNLOAD_ERR1']     = 'Greska (NR:{VAL}) se dogodila dok se datoteka dobavljala.';
+$BL['DOWNLOAD_ERR2']     = 'Ako mislite da je to greska u sistemu kontaktirajte <a href="mailto:{VAL}"><strong>webmastera</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Greska kod dobavljanja datoteke';
+$BL['FILEINFO_TITLE']    = 'phpwcms: info datoteke';
+$BL['CREATED']           = 'kreirano';
+$BL['DATE_FORMAT']       = 'm-d-G S:m';
+$BL['SIZE']              = 'velicina';
+$BL['DOWNLOAD_FILE']     = 'dobavi datoteku';
+$BL['FILE_IN_TRASH']     = 'datoteka je u kanti za smece';
+$BL['KEYWORDS']          = 'kljucne rijeci';
+$BL['DOWNLOAD_ERR3']     = 'greska prilikom dobavljanja informacija datoteke<br />zatvorite ovaj prozor i pokusajte ponovo...';
+$BL['ADD_ALL_FILES']     = 'Dodaj sve datoteke';
+$BL['ADD_ALL_CONFIRM']   = 'Sve datoteke iz direktorija »{VAL}« su uzete!\n\nKliknite na [OK] da zatvorite ovaj prozor';

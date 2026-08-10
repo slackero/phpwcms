@@ -1,0 +1,56 @@
+<?php
+
+// Language: DE-CH
+// Language Code: de-ch
+
+$BLM['backend_menu'] = 'phpwcms&nbsp;Adressen';
+$BLM['listing_title'] = 'phpwcms&nbsp;Adressverwaltung';
+$BLM['create_new'] = 'Neuer&nbsp;Eintrag';
+$BLM['dealer_entry'] = 'Adresseintrag';
+$BLM['dealer_title'] = 'Titel';
+$BLM['delete_entry'] = 'L&ouml;schen&nbsp;des&nbsp;Eintrags:';
+$BLM['listview'] = 'Listenansicht';
+$BLM['max_words'] = 'Max.&nbsp;Anzahl&nbsp;Worte&nbsp;aus&nbsp;der&nbsp;Beschreibung';
+$BLM['no_entry'] = 'Kein&nbsp;Eintrag&nbsp;gefunden&nbsp;Text';
+$BLM['detail_title'] = 'Anrede';
+$BLM['detail_firstname'] = 'Vorname';
+$BLM['detail_lastname'] = 'Name';
+$BLM['detail_company'] = 'Firma';
+$BLM['detail_street'] = 'Strasse';
+$BLM['detail_add'] = 'Zusatz';
+$BLM['detail_city'] = 'Stadt';
+$BLM['detail_zip'] = 'PLZ';
+$BLM['detail_region'] = 'Region';
+$BLM['detail_country'] = 'Land';
+$BLM['detail_fon'] = 'Telefon';
+$BLM['detail_fax'] = 'Fax';
+$BLM['detail_mobile'] = 'Mobil';
+$BLM['detail_public'] = '&Ouml;ffentlich';
+$BLM['detail_aktiv'] = 'Aktiv';
+$BLM['detail_signature'] = 'Signatur';
+$BLM['detail_newsletter'] = 'Newsletter';
+$BLM['detail_website'] = 'Website';
+$BLM['detail_varchar1'] = 'Sprache';
+$BLM['detail_varchar2'] = 'Repr&auml;sentanz';
+$BLM['detail_email'] = 'E-Mail';
+$BLM['detail_float1'] = 'Geo&nbsp;Latitude&nbsp;&#966;';
+$BLM['detail_float2'] = 'Geo&nbsp;Longitude&nbsp;&#955;';
+$BLM['geo_pos'] = 'Geo&nbsp;Pos&nbsp;&#966;/&#955;';
+$BLM['detail_text1'] = 'Anmerkungen';
+$BLM['detail_text2'] = 'Auch&nbsp;f&uuml;r';
+$BLM['detail_varchar3'] = 'PLZ-Gebiet';
+$BLM['detail_varchar4'] = 'Standort';
+$BLM['detail_int2'] = 'Sortierwert';
+$BLM['detail_text3'] = 'Dateiliste';
+$BLM['get_coordinates'] = 'Koordinaten&nbsp;holen';
+$BLM['show_map'] = 'Karte&nbsp;zeigen';
+$BLM['proof_address'] = 'Bitte&nbsp;Adresse&nbsp;pr&uuml;fen!';
+$BLM['proof_address_alert1'] = 'Die&nbsp;Geokoordinaten&nbsp;f&uuml;r&nbsp;die&nbsp;Adresse&nbsp;\n[%s]\nkonnten&nbsp;nicht&nbsp;ermittelt&nbsp;werden.';
+$BLM['proof_address_alert2'] = 'Die&nbsp;Adressdaten&nbsp;sind&nbsp;unvollst&auml;ndig!\nGeben&nbsp;Sie&nbsp;mindestens&nbsp;Strasse,&nbsp;Postleitzahl&nbsp;und&nbsp;Ort&nbsp;ein.';
+$BLM['geocoding_error'] = 'Fehler&nbsp;bei&nbsp;der&nbsp;Geokodierung:&nbsp;';
+$BLM['forminfo'] = '<b>Bitte&nbsp;geben&nbsp;Sie&nbsp;m&ouml;glichst&nbsp;vollst&auml;ndige&nbsp;und&nbsp;gepr&uuml;fte&nbsp;Daten&nbsp;ein!</b>';
+$BLM['error_zip'] = 'Die&nbsp;Eingabe&nbsp;der&nbsp;PLZ&nbsp;ist&nbsp;zwingend';
+$BLM['error_member'] = 'Die&nbsp;Mitgliedsnummer&nbsp;ist&nbsp;zwingend&nbsp;und&nbsp;muss&nbsp;eindeutig&nbsp;sein';
+$BLM['error_company'] = 'Die&nbsp;Eingabe&nbsp;der&nbsp;Firma&nbsp;oder&nbsp;des&nbsp;Namens&nbsp;ist&nbsp;zwingend.';
+$BLM['error_email'] = 'Keine&nbsp;g&uuml;ltige&nbsp;E-Mail&nbsp;Adresse&nbsp;eingegeben.';
+$BLM['save_success'] = 'Daten&nbsp;erfolgreich&nbsp;gesichert:&nbsp;';

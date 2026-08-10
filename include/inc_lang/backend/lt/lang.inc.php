@@ -554,7 +554,6 @@ $BL['be_cnt_default']                   = 'pagal nutylėjimą';
 $BL['be_cnt_left']                      = 'kairėje';
 $BL['be_cnt_center']                    = 'per vidurį';
 $BL['be_cnt_right']                     = 'dešineje';
-$BL['be_cnt_buttontext']                = 'mygtuko&nbsp;tekstas';
 $BL['be_cnt_successtext']               = 'tektas&nbsp;po&nbsp;registr.';
 $BL['be_cnt_regmail']                   = 'registravimo&nbsp;el. pašto adresas';
 $BL['be_cnt_logoffmail']                = 'išregistravimo&nbsp;el. pašto adresas';
@@ -649,7 +648,6 @@ $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
 $BL['be_admin_struct_regonly']          = 'visible for users logged on only';
-$BL['be_admin_struct_status']           = 'frontend menu status';
 
 // added: 15-02-2004
 $BL['be_ctype_articlemenu']             = 'article menu';
@@ -659,3 +657,31 @@ $BL['be_cnt_sitecurrent']               = 'current site level';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'numatytasis';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'direktorijų sąrašas';
+$BL['FILES']             = 'failai';
+$BL['SHOW_FILES']        = 'rodyti failus esančius pagrindinėje direktorijoje';
+$BL['SHOW_FILES1']       = 'rodyti failus esančius direktorijoje';
+$BL['TAKE_IMAGE']        = 'paimti šitą failą ir pridėti&#8230;';
+$BL['NO_FILE']           = 'failų nėra';
+$BL['OPEN_DIR']          = 'atidaryti direktoriją';
+$BL['CLOSE_DIR']         = 'uždaryti direktoriją';
+$BL['FILE_TITLE']        = 'phpwcms failų naršyklė';
+$BL['IMAGE_TITLE']       = 'phpwcms paveikslėlių naršyklė';
+$BL['MEDIA_TITLE']       = 'phpwcms media naršyklė';
+$BL['IMAGE_FILES']       = 'paveikslėlių failai';
+$BL['MEDIA_FILES']       = 'media failai';
+$BL['ROOT_DIR']          = 'saugykla (pagrindinė direktorija)';
+$BL['DOWNLOAD_ERR1']     = 'Įvyko klaida (NR:{VAL}) bandant atsisiųsti failą.';
+$BL['DOWNLOAD_ERR2']     = 'Jei manote, jog tai gali būti techninė klaida, nusiųskite el. laišką <a href="mailto:{VAL}"><strong>administratoriui</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Failo atsisiuntimo klaida';
+$BL['FILEINFO_TITLE']    = 'phpwcms: failo informacija';
+$BL['CREATED']           = 'sukurtas';
+$BL['DATE_FORMAT']       = 'Y-m-d H:i';
+$BL['SIZE']              = 'dydis';
+$BL['DOWNLOAD_FILE']     = 'atsisiųsti failą';
+$BL['FILE_IN_TRASH']     = 'failas yra šiukšlių dėžėje';
+$BL['KEYWORDS']          = 'raktiniai žodžiai';
+$BL['DOWNLOAD_ERR3']     = 'klaida nuskaitant failo informaciją<br />uždarykite langą ir bandykite iš naujo...';

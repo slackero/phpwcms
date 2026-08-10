@@ -329,7 +329,7 @@ $BL['be_msg_all']                       = 'Versturen naar de geselecteerde ontva
 // message.subscription.tmpl.php
 $BL['be_newsletter_title']              = 'Nieuwsbriefabonnementen';
 $BL['be_newsletter_titleedit']          = 'Wijzig nieuwsbrief subscription';
-$BL['be_newsletter_new']                = 'Nieuw';
+$BL[] = ;
 $BL['be_newsletter_add']                = 'Abonnement toevoegen';
 $BL['be_newsletter_name']               = 'Naam';
 $BL['be_newsletter_info']               = 'Info';
@@ -565,7 +565,6 @@ $BL['be_cnt_default']                   = 'Standaard';
 $BL['be_cnt_left']                      = 'Links';
 $BL['be_cnt_center']                    = 'Midden';
 $BL['be_cnt_right']                     = 'Rechts';
-$BL['be_cnt_buttontext']                = 'Knoptekst';
 $BL['be_cnt_successtext']               = 'Schermtekst&nbsp&nbsp&#13na&nbsp;aanmelding';
 $BL['be_cnt_regmail']                   = 'E-mailbericht&nbsp&nbsp&#13na&nbsp;aanmelding';
 $BL['be_cnt_logoffmail']                = 'E-mailbericht&nbsp&nbsp&#13na&nbsp;afmelding';
@@ -961,9 +960,7 @@ $BL['be_func_content_no_cut']            = 'Het is niet mogelijk om dit artikeli
 $BL['be_func_content_copy']              = 'Kopieer dit artikelinhoudsdeel';
 $BL['be_func_content_no_copy']           = 'Het is niet mogelijk om dit artikelinhoudsdeel te kopieren!';
 $BL['be_func_content_paste_cancel']      = 'Annuleer deze inhoudsdeel wijziging';
-$BL['be_article_cnt_button3']            = 'Opslaan &amp; sluiten';
 
-$BL['be_cnt_move_deleted']               = 'Verwijder bestanden uit de prullenbak';
 $BL['be_cnt_move_deleted_msg']           = 'Weet je zeker dat je alle bestanden wilt verwijderen?\n';
 
 $BL['be_admin_struct_permit']            = 'Geautorizeerd voor toegang';
@@ -995,14 +992,12 @@ $BL['be_admin_keywords_err']             = 'Voeg een uniek KEYWORD naam in';
 $BL['be_admin_keyword_edit']             = 'Wijzig KEYWORD';
 $BL['be_admin_keyword_del']              = 'Verwijder KEYWORD';
 $BL['be_admin_keyword_delmsg']           = 'Weet je zeker dat je\nto het KEYWORD wilt verwijderen?';
-$BL['be_admin_keyword_add']              = 'KEYWORD toevoegen';
 
 $BL['be_cnt_transparent']                = 'Flash transparant';
 
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']     = 'Datum verlopen';
-$BL['be_func_switch_contentpart']        = 'Weet je zeker dat je wilt wisselen tussen de content-onderdelen? \n\nWees hier voorzichtig mee! \nBelangrijke instellingen kunnen hierdoor overschreven worden! \n';
 $BL["phpwcms_code_snippets_dir_exists"]  = '<strong>LET OP!</strong> De &quot;CODE-SNIPPETS&quot; directory is nog steeds aanwezig! Verwijder de map <strong>phpwcms_code_snippets</strong> - Het is een potentieel beveiligings probleem.';
 
 $BL['be_ctype_poll'] = 'poll';
@@ -1620,3 +1615,103 @@ $BL['be_dashboard_support'] = 'Contact & Support';
 
 $BL['be_legacy'] = 'Legacy';
 $BL['be_default'] = 'standaard';
+
+
+// Merged from lang.ext.inc.php
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+
+
+// Fallback keys from EN
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;
+$BL[] = ;

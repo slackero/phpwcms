@@ -1,107 +1,87 @@
 <?php
 
 // first define main language vars
-$BLM['backend_menu']            = 'Bannerwerbung';
-
-$BLM['listing_title']           = 'Bannerwerbung';
-$BLM['form_title']              = 'Bannerwerbung: Kampagne editieren';
-$BLM['create_new']              = 'Neue Kampagne erstellen';
-$BLM['delete_entry']            = 'Die Kampagne wirklich l&ouml;schen?\n';
-$BLM['campaign_entry']          = 'Kampagne';
-$BLM['ad_format']               = 'Bannerformat';
-$BLM['to_date']                 = 'endet am';
-$BLM['from_date']               = 'beginnt am';
-
-$BLM['list_date_format']        = 'd.m.y';
-$BLM['comment']                 = 'Anmerkungen';
-$BLM['campaign_title']          = 'Name der Kampagne';
-
-$BLM['calendar_start']          = 'Wann';
-$BLM['calendar_end']            = 'Bis';
-
-$BLM['date_format']             = 'TT.MM.JJJJ';
-$BLM['date_delimiter']          = '.';
-$BLM['time_format']             = 'HH:MM';
-
-$BLM['pixel']                   = 'px';
-
-$BLM['tracking_base']           = 'Begrenzt auf';
-$BLM['max_click']               = 'max. Klicks';
-$BLM['max_view']                = 'max. Views';
-$BLM['unique']                  = 'Unique (Cookie)';
-$BLM['max_view_user']           = 'max. Views/Besucher';
-
-$BLM['target_url']              = 'Ziel URL';
-$BLM['open_in']                 = 'Target';
-$BLM['new_adplace']             = 'Bannerplatz erstellen';
-$BLM['adplace_title']           = 'Bannerplatz Titel';
-$BLM['form_adplace_title']      = 'Bannerwerbung: Werbeplatz (Frontend) editieren';
-$BLM['adplace_prefix']          = 'HTML Prefix';
-$BLM['adplace_suffix']          = 'HTML Suffix';
-$BLM['adplace']                 = 'Bannerplatz';
-$BLM['delete_adplace']          = 'Den Bannerplatz wirklich l&ouml;schen?\n';
-
-$BLM['ad_type']                 = 'Bannertyp';
-$BLM['ad_type_0']               = 'Bild';
-$BLM['ad_upload_image']         = 'Bild *.gif, *.jpg, *.jpeg oder *.png ausw&auml;hlen';
-$BLM['ad_upload_flash']         = 'Flash-Film *.swf ausw&auml;hlen';
-$BLM['ad_upload_css']           = 'Custom CSS Datei *.css ausw&auml;hlen';
-$BLM['ad_type_1']               = 'Flash (veraltet)';
-
-$BLM['ad_info']                 = 'Erst nach Anlegen des Datensatzes k&ouml;nnen passende Medien hochgeladen und der Kampagne zugeordnet werden!';
-
-$BLM['ad_type_2']               = 'HTML';
-$BLM['ad_type_3']               = 'Flash Layer (veraltet)';
-$BLM['ad_type_4']               = 'HTML Prefix';
-$BLM['ad_type_5']               = 'HTML Suffix';
-$BLM['ad_type_6']               = 'Remote HTML';
-
-$BLM['ad_alt_image']            = 'Alternatives Bild';
-
-$BLM['ad_alt_text']             = 'ALT Text';
-$BLM['ad_title_text']           = 'TITLE Text';
-
-$BLM['ad_summary']              = 'Zusammenfassung';
-$BLM['ad_statistics']           = 'Statistik';
-
-$BLM['ad_wxh']                  = 'BxH';
-$BLM['ad_from-to']              = 'von&#8211;bis';
-
-$BLM['ad_template_code']        = 'Bannercode';
-$BLM['ad_template_code_info']   = 'Den Bannercode f&uuml;gen Sie in Ihrer Vorlage an der Stelle ein, an der die Ausgabe des Werbebanners erfolgen soll.';
-
-$BLM['ad_bgcolor']              = 'Hintergrundfarbe';
-$BLM['ad_bordercolor']          = 'Rahmenfarbe';
-$BLM['ad_flashversion']         = 'Flash Version';
-
-$BLM['save_copy']               = 'Eintrag als Duplikat speichern';
-$BLM['duplicate_campaign']      = 'Soll eine Kopie der Bannerkampagne erstellt werden?';
-$BLM['duplicate_title']         = 'Bannerkampagne duplizieren';
-
-$BLM['under_construction']      = 'Das Modul &#8220;Bannerwerbung&#8221; soll an dieser Stelle um Auswertungen und Statistik erweitert werden. Dies wird jedoch nur bei entsprechender Unterst&uuml;tzung m&ouml;glich sein.';
-$BLM['donate']                  = 'Spenden';
-$BLM['own']                     = 'Eigener Betrag';
-
+$BLM['backend_menu'] = 'Bannerwerbung';
+$BLM['listing_title'] = 'Bannerwerbung';
+$BLM['form_title'] = 'Bannerwerbung:&nbsp;Kampagne&nbsp;editieren';
+$BLM['create_new'] = 'Neue&nbsp;Kampagne&nbsp;erstellen';
+$BLM['delete_entry'] = 'Die&nbsp;Kampagne&nbsp;wirklich&nbsp;l&ouml;schen?\n';
+$BLM['campaign_entry'] = 'Kampagne';
+$BLM['ad_format'] = 'Bannerformat';
+$BLM['to_date'] = 'Endet&nbsp;am';
+$BLM['from_date'] = 'Beginnt&nbsp;am';
+$BLM['list_date_format'] = 'd.m.y';
+$BLM['comment'] = 'Anmerkungen';
+$BLM['campaign_title'] = 'Name&nbsp;der&nbsp;Kampagne';
+$BLM['calendar_start'] = 'Wann';
+$BLM['calendar_end'] = 'Bis';
+$BLM['date_format'] = 'TT.MM.JJJJ';
+$BLM['date_delimiter'] = '.';
+$BLM['time_format'] = 'HH:MM';
+$BLM['pixel'] = 'px';
+$BLM['tracking_base'] = 'Begrenzt&nbsp;auf';
+$BLM['max_click'] = 'Max.&nbsp;Klicks';
+$BLM['max_view'] = 'Max.&nbsp;Views';
+$BLM['unique'] = 'Unique&nbsp;(Cookie)';
+$BLM['max_view_user'] = 'Max.&nbsp;Views/Besucher';
+$BLM['target_url'] = 'Ziel&nbsp;URL';
+$BLM['open_in'] = 'Target';
+$BLM['new_adplace'] = 'Bannerplatz&nbsp;erstellen';
+$BLM['adplace_title'] = 'Bannerplatz&nbsp;Titel';
+$BLM['form_adplace_title'] = 'Bannerwerbung:&nbsp;Werbeplatz&nbsp;(Frontend)&nbsp;editieren';
+$BLM['adplace_prefix'] = 'HTML&nbsp;Prefix';
+$BLM['adplace_suffix'] = 'HTML&nbsp;Suffix';
+$BLM['adplace'] = 'Bannerplatz';
+$BLM['delete_adplace'] = 'Den&nbsp;Bannerplatz&nbsp;wirklich&nbsp;l&ouml;schen?\n';
+$BLM['ad_type'] = 'Bannertyp';
+$BLM['ad_type_0'] = 'Bild';
+$BLM['ad_upload_image'] = 'Bild&nbsp;*.gif,&nbsp;*.jpg,&nbsp;*.jpeg&nbsp;oder&nbsp;*.png&nbsp;ausw&auml;hlen';
+$BLM['ad_upload_flash'] = 'Flash-Film&nbsp;*.swf&nbsp;ausw&auml;hlen';
+$BLM['ad_upload_css'] = 'Custom&nbsp;CSS&nbsp;Datei&nbsp;*.css&nbsp;ausw&auml;hlen';
+$BLM['ad_type_1'] = 'Flash&nbsp;(veraltet)';
+$BLM['ad_info'] = 'Erst&nbsp;nach&nbsp;Anlegen&nbsp;des&nbsp;Datensatzes&nbsp;k&ouml;nnen&nbsp;passende&nbsp;Medien&nbsp;hochgeladen&nbsp;und&nbsp;der&nbsp;Kampagne&nbsp;zugeordnet&nbsp;werden!';
+$BLM['ad_type_2'] = 'HTML';
+$BLM['ad_type_3'] = 'Flash&nbsp;Layer&nbsp;(veraltet)';
+$BLM['ad_type_4'] = 'HTML&nbsp;Prefix';
+$BLM['ad_type_5'] = 'HTML&nbsp;Suffix';
+$BLM['ad_type_6'] = 'Remote&nbsp;HTML';
+$BLM['ad_alt_image'] = 'Alternatives&nbsp;Bild';
+$BLM['ad_alt_text'] = 'ALT&nbsp;Text';
+$BLM['ad_title_text'] = 'TITLE&nbsp;Text';
+$BLM['ad_summary'] = 'Zusammenfassung';
+$BLM['ad_statistics'] = 'Statistik';
+$BLM['ad_wxh'] = 'BxH';
+$BLM['ad_from-to'] = 'Von&ndash;bis';
+$BLM['ad_template_code'] = 'Bannercode';
+$BLM['ad_template_code_info'] = 'Den&nbsp;Bannercode&nbsp;f&uuml;gen&nbsp;Sie&nbsp;in&nbsp;Ihrer&nbsp;Vorlage&nbsp;an&nbsp;der&nbsp;Stelle&nbsp;ein,&nbsp;an&nbsp;der&nbsp;die&nbsp;Ausgabe&nbsp;des&nbsp;Werbebanners&nbsp;erfolgen&nbsp;soll.';
+$BLM['ad_bgcolor'] = 'Hintergrundfarbe';
+$BLM['ad_bordercolor'] = 'Rahmenfarbe';
+$BLM['ad_flashversion'] = 'Flash&nbsp;Version';
+$BLM['save_copy'] = 'Eintrag&nbsp;als&nbsp;Duplikat&nbsp;speichern';
+$BLM['duplicate_campaign'] = 'Soll&nbsp;eine&nbsp;Kopie&nbsp;der&nbsp;Bannerkampagne&nbsp;erstellt&nbsp;werden?';
+$BLM['duplicate_title'] = 'Bannerkampagne&nbsp;duplizieren';
+$BLM['under_construction'] = 'Das&nbsp;Modul&nbsp;&ldquo;Bannerwerbung&rdquo;&nbsp;soll&nbsp;an&nbsp;dieser&nbsp;Stelle&nbsp;um&nbsp;Auswertungen&nbsp;und&nbsp;Statistik&nbsp;erweitert&nbsp;werden.&nbsp;Dies&nbsp;wird&nbsp;jedoch&nbsp;nur&nbsp;bei&nbsp;entsprechender&nbsp;Unterst&uuml;tzung&nbsp;m&ouml;glich&nbsp;sein.';
+$BLM['donate'] = 'Spenden';
+$BLM['own'] = 'Eigener&nbsp;Betrag';
 $BLM['format_leaderboard'] = 'Leaderboard';
 $BLM['format_banner'] = 'Banner';
-$BLM['format_small_square'] = 'Kleines Quadrat';
+$BLM['format_small_square'] = 'Kleines&nbsp;Quadrat';
 $BLM['format_square'] = 'Quadrat';
-$BLM['format_medium_rectangle'] = 'Mittleres Rechteck';
-$BLM['format_large_rectangle'] = 'Großes Rechteck';
-$BLM['format_skyscraper'] = 'Wolkenkratzer (Skyscraper)';
-$BLM['format_wide_skyscraper'] = 'Breiter Wolkenkratzer';
-$BLM['format_half_banner'] = 'Halbes Banner';
-$BLM['format_square_button'] = 'Quadratischer Button';
-$BLM['format_small_rectangle'] = 'Kleines Rechteck';
-$BLM['format_vertical_banner'] = 'Vertikales Banner';
+$BLM['format_medium_rectangle'] = 'Mittleres&nbsp;Rechteck';
+$BLM['format_large_rectangle'] = 'Gro&szlig;es&nbsp;Rechteck';
+$BLM['format_skyscraper'] = 'Wolkenkratzer&nbsp;(Skyscraper)';
+$BLM['format_wide_skyscraper'] = 'Breiter&nbsp;Wolkenkratzer';
+$BLM['format_half_banner'] = 'Halbes&nbsp;Banner';
+$BLM['format_square_button'] = 'Quadratischer&nbsp;Button';
+$BLM['format_small_rectangle'] = 'Kleines&nbsp;Rechteck';
+$BLM['format_vertical_banner'] = 'Vertikales&nbsp;Banner';
 $BLM['format_mini_square'] = 'Mini-Quadrat';
-$BLM['format_medium_scyscraper'] = 'Mittlerer Wolkenkratzer';
+$BLM['format_medium_scyscraper'] = 'Mittlerer&nbsp;Wolkenkratzer';
 $BLM['format_micro_bar'] = 'Mikro-Leiste';
-$BLM['format_vertical_rectangle'] = 'Vertikales Rechteck';
-$BLM['format_vertical_button'] = 'Vertikaler Button';
-$BLM['format_half_mini_square'] = 'Halbes Mini-Quadrat';
+$BLM['format_vertical_rectangle'] = 'Vertikales&nbsp;Rechteck';
+$BLM['format_vertical_button'] = 'Vertikaler&nbsp;Button';
+$BLM['format_half_mini_square'] = 'Halbes&nbsp;Mini-Quadrat';
 $BLM['format_half_page_ad'] = 'Halbseitenanzeige';
-$BLM['format_universal_flash_layer'] = 'Universelle Flash-Ebene';
+$BLM['format_universal_flash_layer'] = 'Universelle&nbsp;Flash-Ebene';
 $BLM['format_popup'] = 'PopUp';
 $BLM['format_target_button'] = 'Ziel-Button';
-

@@ -32,8 +32,6 @@ if(!empty($_SESSION["wcs_user_lang_custom"])) {
     $BL['merge_lang_array'][0]      = $BL['be_admin_optgroup_label'];
     $BL['merge_lang_array'][1]      = $BL['be_cnt_field'];
     include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php';
-    // Adding specific language files
-    include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.pp.inc.php';
     $BL['be_admin_optgroup_label']  = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
     $BL['be_cnt_field']             = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
     unset($BL['merge_lang_array']);

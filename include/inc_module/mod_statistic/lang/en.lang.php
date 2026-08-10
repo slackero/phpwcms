@@ -1,74 +1,64 @@
 <?php
 
 // first define main language vars
-$BLM['backend_menu']			= 'Statistiken';
-
-$BLM['listing_title']			= 'Statistiken';
-$BLM['listing_overview']		= '&Uuml;bersicht';
-$BLM['listing_overview_cnt']		= 'Verwendete Contentparts';
-$BLM['listing_overview_del']		= 'Abgelaufene Artikel';
-$BLM['listing_overview_img']		= 'Bilderalias';
-$BLM['listing_polls']			= 'Umfragen';
-$BLM['listing_subscriptions']	= 'Newsletter';
-$BLM['listing_subscriptions2']	= 'Mutationen Abonnenten';
-$BLM['listing_guestbook']		= 'G&auml;stebuch';
-$BLM['listing_user']			= 'Logfile Benutzer';
-$BLM['listing_activ']			= 'Aktivierungen';
-$BLM['listing_seo']			= 'SEO Log';
-$BLM['listing_seo_top']			= 'Top 20';
-
-$BLM['overview_end']		= 'Abgelaufen am';
-$BLM['overview_mit']		= 'Container ';
-$BLM['searcharticle']		= 'Gefundene Artikel mit Container ';
-$BLM['overview_alias']		= 'Bilder ohne Alias';
-$BLM['overview_zentrale']	= 'Bilder in Dateizentrale';
-$BLM['overview_fehlende']	= 'Fehlende Alias oder Beschreibungen erg&auml;nzen';
-$BLM['overview_beschr']		= 'Artikelbeschreibung noch nicht eingetragen';
-$BLM['overview_aalias']		= 'Artikelalias noch nicht eingetragen';
-$BLM['overview_endd']		= 'Enddatum erreicht, wird nicht mehr angezeigt';
-$BLM['overview_start']		= 'Startdatum noch nicht erreicht, wird noch nicht angezeigt';
-$BLM['overview_status']		= 'Status dieser Artikel:';
-$BLM['overview_aktiv']		= 'Aktive Artikel:';
-
-$BLM['filename']				= 'Filename';
-$BLM['downloads_start']			= 'Downloads gestartet';
-$BLM['downloads_end']			= 'Downloads abgeschlossen';
-$BLM['erstellt']				= 'Hochgeladen';
-
-$BLM['pollname']				= 'Umfrage';
-$BLM['pollcounts']				= 'Teilnehmer';
-
-$BLM['guestbookname']			= 'G&auml;stebuch';
-$BLM['guestbookcounts']			= 'Eintr&auml;ge';
-
-$BLM['subscriptionsname']		= 'Newsletter Abonnement';
-$BLM['subscriptionscounts']		= 'Abonnenten';
-$BLM['subscriptionslogtyp']		= 'Aktion';
-$BLM['subscriptionslogart']		= 'Abonnent';
-$BLM['subscriptionslogdate']	= 'Datum';
-$BLM['subscriptionsall']		= 'Alle Abonnemente';
-$BLM['subscriptionstatus']		= 'Status';
-$BLM['subscriptionactiv']		= 'Aktiviert';
-$BLM['subscriptioninactiv']		= 'Deaktiviert';
-$BLM['log_delete_entry']		= 'Logeintrag l&ouml;schen';
-$BLM['log_insert_blacklist']	= 'Hinzuf&uuml;gen zur Blacklist';
-$BLM['log_blacklist']			= 'Blacklist';
-
-$BLM['subscriptionslegend']		= '1=Erneut angemeldet<br />2=Erstmals Angemeldet<br />3=Anmeldungbest&auml;tigt<br />4=Abgemeldet';
-$BLM['listing_Colum1']	= 'Datum';
-$BLM['listing_Colum2']	= 'Erneut angemeldet';
-$BLM['listing_Colum3']	= 'Erstmals Angemeldet';
-$BLM['listing_Colum4']	= 'Anmeldungbest&auml;tigt';
-$BLM['listing_Colum5']	= 'Abgemeldet';
-
-
-$BLM['tab_overview']			= '&Uuml;bersicht';
-$BLM['tab_downloads']			= 'Downloads';
-$BLM['tab_polls']				= 'Umfragen';
-$BLM['tab_subscriptions']		= 'Newsletter';
-$BLM['tab_guestbook']			= 'G&auml;stebuch';
-$BLM['tab_user']				= 'Benutzer';
-$BLM['tab_seo']					= 'SEO';
-
-$BLM['username']				= 'Benutzer';
-$BLM['userdatum']				= 'Login';
+$BLM['backend_menu'] = 'Statistics';
+$BLM['listing_title'] = 'Statistics';
+$BLM['listing_overview'] = 'Overview';
+$BLM['listing_overview_cnt'] = 'Content&nbsp;parts&nbsp;used';
+$BLM['listing_overview_del'] = 'Expired&nbsp;articles';
+$BLM['listing_overview_img'] = 'Image&nbsp;aliases';
+$BLM['listing_polls'] = 'Polls';
+$BLM['listing_subscriptions'] = 'Newsletter';
+$BLM['listing_subscriptions2'] = 'Subscriber&nbsp;mutations';
+$BLM['listing_guestbook'] = 'Guestbook';
+$BLM['listing_user'] = 'User&nbsp;log&nbsp;file';
+$BLM['listing_activ'] = 'Activations';
+$BLM['listing_seo'] = 'SEO&nbsp;Log';
+$BLM['listing_seo_top'] = 'Top&nbsp;20';
+$BLM['overview_end'] = 'Expired&nbsp;on';
+$BLM['overview_mit'] = 'Container&nbsp;';
+$BLM['searcharticle'] = 'Articles&nbsp;found&nbsp;with&nbsp;container&nbsp;';
+$BLM['overview_alias'] = 'Images&nbsp;without&nbsp;alias';
+$BLM['overview_zentrale'] = 'Images&nbsp;in&nbsp;file&nbsp;center';
+$BLM['overview_fehlende'] = 'Add&nbsp;missing&nbsp;aliases&nbsp;or&nbsp;descriptions';
+$BLM['overview_beschr'] = 'Article&nbsp;description&nbsp;not&nbsp;entered&nbsp;yet';
+$BLM['overview_aalias'] = 'Article&nbsp;alias&nbsp;not&nbsp;entered&nbsp;yet';
+$BLM['overview_endd'] = 'End&nbsp;date&nbsp;reached,&nbsp;no&nbsp;longer&nbsp;displayed';
+$BLM['overview_start'] = 'Start&nbsp;date&nbsp;not&nbsp;reached&nbsp;yet,&nbsp;not&nbsp;displayed&nbsp;yet';
+$BLM['overview_status'] = 'Status&nbsp;of&nbsp;these&nbsp;articles:';
+$BLM['overview_aktiv'] = 'Active&nbsp;articles:';
+$BLM['filename'] = 'Filename';
+$BLM['downloads_start'] = 'Downloads&nbsp;started';
+$BLM['downloads_end'] = 'Downloads&nbsp;completed';
+$BLM['erstellt'] = 'Uploaded';
+$BLM['pollname'] = 'Poll';
+$BLM['pollcounts'] = 'Participants';
+$BLM['guestbookname'] = 'Guestbook';
+$BLM['guestbookcounts'] = 'Entries';
+$BLM['subscriptionsname'] = 'Newsletter&nbsp;subscription';
+$BLM['subscriptionscounts'] = 'Subscribers';
+$BLM['subscriptionslogtyp'] = 'Action';
+$BLM['subscriptionslogart'] = 'Subscriber';
+$BLM['subscriptionslogdate'] = 'Date';
+$BLM['subscriptionsall'] = 'All&nbsp;subscriptions';
+$BLM['subscriptionstatus'] = 'Status';
+$BLM['subscriptionactiv'] = 'Activated';
+$BLM['subscriptioninactiv'] = 'Deactivated';
+$BLM['log_delete_entry'] = 'Delete&nbsp;log&nbsp;entry';
+$BLM['log_insert_blacklist'] = 'Add&nbsp;to&nbsp;blacklist';
+$BLM['log_blacklist'] = 'Blacklist';
+$BLM['subscriptionslegend'] = '1=Re-subscribed<br&nbsp;/>2=First&nbsp;time&nbsp;subscribed<br&nbsp;/>3=Subscription&nbsp;confirmed<br&nbsp;/>4=Unsubscribed';
+$BLM['listing_Colum1'] = 'Date';
+$BLM['listing_Colum2'] = 'Re-subscribed';
+$BLM['listing_Colum3'] = 'First&nbsp;time&nbsp;subscribed';
+$BLM['listing_Colum4'] = 'Subscription&nbsp;confirmed';
+$BLM['listing_Colum5'] = 'Unsubscribed';
+$BLM['tab_overview'] = 'Overview';
+$BLM['tab_downloads'] = 'Downloads';
+$BLM['tab_polls'] = 'Polls';
+$BLM['tab_subscriptions'] = 'Newsletter';
+$BLM['tab_guestbook'] = 'Guestbook';
+$BLM['tab_user'] = 'User';
+$BLM['tab_activ'] = 'Activations';
+$BLM['tab_seo'] = 'SEO&nbsp;Log';
+$BLM['seo_title'] = 'Top&nbsp;20&nbsp;Requested&nbsp;Pages';

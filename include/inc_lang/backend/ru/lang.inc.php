@@ -553,7 +553,6 @@ $BL['be_cnt_default']                   = 'по умолчанию';
 $BL['be_cnt_left']                      = 'слева';
 $BL['be_cnt_center']                    = 'по центру';
 $BL['be_cnt_right']                     = 'справа';
-$BL['be_cnt_buttontext']                = 'текст&nbsp;кнопки';
 $BL['be_cnt_successtext']               = 'рабочий&nbsp;текст';
 $BL['be_cnt_regmail']                   = 'зарегистрировать email';
 $BL['be_cnt_logoffmail']                = 'выйти';
@@ -766,3 +765,31 @@ $BL['be_cnt_pages_from']                = 'источник';
 
 $BL['be_legacy'] = 'legacy';
 $BL['be_default'] = 'по умолчанию';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'список папок';
+$BL['FILES']             = 'файлы';
+$BL['SHOW_FILES']        = 'показать файлы в корневой директории';
+$BL['SHOW_FILES1']       = 'показать файлы в директории';
+$BL['TAKE_IMAGE']        = 'добавить этот файл&#8230;';
+$BL['NO_FILE']           = 'нет файла';
+$BL['OPEN_DIR']          = 'открыть директорию';
+$BL['CLOSE_DIR']         = 'закрыть директорию';
+$BL['FILE_TITLE']        = 'файл-браузер phpwcms';
+$BL['IMAGE_TITLE']       = 'браузер изображений phpwcms ';
+$BL['MEDIA_TITLE']       = 'медиа-браузер phpwcms';
+$BL['IMAGE_FILES']       = 'файлы изображений';
+$BL['MEDIA_FILES']       = 'медиа-файлы';
+$BL['ROOT_DIR']          = 'корневая директория';
+$BL['DOWNLOAD_ERR1']     = 'Возникла ошибка (NR:{VAL}) во время загрузки файла.';
+$BL['DOWNLOAD_ERR2']     = 'Если Вы предполагаете что это техническая проблема пошлите письмо <a href="mailto:{VAL}"><strong>вебмастеру</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Ошибка загрузки файла';
+$BL['FILEINFO_TITLE']    = 'phpwcms: информация о файле';
+$BL['CREATED']           = 'создан';
+$BL['DATE_FORMAT']       = 'd.m.Y H:i';
+$BL['SIZE']              = 'размер';
+$BL['DOWNLOAD_FILE']     = 'загрузить файл';
+$BL['FILE_IN_TRASH']     = 'файл в корзине';
+$BL['KEYWORDS']          = 'ключевые слова';
+$BL['DOWNLOAD_ERR3']     = 'во время чтения файла произошла ошибка<br />закройте окно и попробуйте снова...';

@@ -557,7 +557,6 @@ $BL['be_cnt_default']                   = 'varsay&#305;lan';
 $BL['be_cnt_left']                      = 'sol';
 $BL['be_cnt_center']                    = 'ortal&#305;';
 $BL['be_cnt_right']                     = 'sa&#287;';
-$BL['be_cnt_buttontext']                = 'buton&nbsp;yaz&#305;s&#305;';
 $BL['be_cnt_successtext']               = 'onay&nbsp;yaz&#305;s&#305;';
 $BL['be_cnt_regmail']                   = 'email.kayit';
 $BL['be_cnt_logoffmail']                = 'email.&ccedil;ikis';
@@ -990,9 +989,6 @@ $BL['be_admin_struct_orderkilldate']   = 'tarihi s&#305;f&#305;rla';
 $BL['be_func_switch_contentpart'] = 'Ger&ccedil;ekten i&ccedil;erik par&ccedil;as&#305; se&ccedil;imini de&#287;i&#351;tirmek istiyor musunuz? \n\nBunu yaparken dikkatli olun! \nAyarlar&#305; yeniden girmeniz gerekebilir! \n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>DIKKAT!</strong>CODE-SNIPPETS&quot; klas&ouml;r&uuml; mevcut! Bu kas&ouml;r&uuml; siliniz <strong>phpwcms_code_snippets</strong> - Bu klas&ouml;r potansiyel g&uuml;venlik problemidir.';
 // added: 02-04-2006
-$BL['be_admin_struct_orderkilldate']   = 'sonlanma tarihi';
-$BL['be_func_switch_contentpart'] = 'Ger&ccedil;ekten i&ccedil;erik par&ccedil;asini degistirmek istiyor musunuz? \n\nBunu yaparken dikatli olmalisiniz! \n&ouml;nemli ayarlarin &uuml;zerine yazilacaktir! \n';
-$BL["phpwcms_code_snippets_dir_exists"] = '<strong>DIKKAT!</strong> CODE-SNIPPETS&quot; dizini hala mevcut! Bu dizini siliniz. <strong>phpwcms_code_snippets</strong> - Bu potansiyel g&uuml;venlik problemidir.';
 
 $BL['be_ctype_poll'] = 'anket';
 $BL['be_cnt_pos8']                      = 'tablo, sol';
@@ -1157,3 +1153,31 @@ $BL['be_check_feuser_manage']           = 'kullan&#305;c&#305; taraf&#305;ndan y
 
 $BL['be_legacy'] = 'Legacy';
 $BL['be_default'] = 'varsayılan';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'Klas&ouml;r Listesi';
+$BL['FILES']             = 'dosyalar';
+$BL['SHOW_FILES']        = 'k&ouml;k dizin i&ccedil;erisindeki dosyalalar&#305; g&ouml;ster';
+$BL['SHOW_FILES1']       = 'klas&ouml;r i&ccedil;erisindeki dosyalar&#305; g&ouml;ster';
+$BL['TAKE_IMAGE']        = 'Bu dosyay&#305; ver ve ekle&#8230;';
+$BL['NO_FILE']           = 'dosya yok';
+$BL['OPEN_DIR']          = 'klas&ouml;rü a&ccedil;';
+$BL['CLOSE_DIR']         = 'klas&ouml;rü kapat';
+$BL['FILE_TITLE']        = 'dosya y&ouml;neticisi';
+$BL['IMAGE_TITLE']       = 'resim y&ouml;neticisi';
+$BL['MEDIA_TITLE']       = '&ccedil;oklu ortam y&ouml;neticisi';
+$BL['IMAGE_FILES']       = 'resim dosyalar&#305;';
+$BL['MEDIA_FILES']       = '&ccedil;oklu ortam dosyalar&#305;';
+$BL['ROOT_DIR']          = 'depolama (k&ouml;k dizin)';
+$BL['DOWNLOAD_ERR1']     = 'Hata! (NR:{VAL}) bir dosya indirilmeye &ccedil;al&#305;s&#305;rken olustu';
+$BL['DOWNLOAD_ERR2']     = 'Eger teknik bir problem oldugunu dü&#351;ünüyorsan&#305;z email at&#305;n&#305;z <a href="mailto:{VAL}"><strong>site y&ouml;neticisi</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Dosya indirme hatas&#305;';
+$BL['FILEINFO_TITLE']    = 'dosya bilgileri';
+$BL['CREATED']           = 'olu&#351;turuldu';
+$BL['DATE_FORMAT']       = 'd-m-Y H:i';
+$BL['SIZE']              = 'boyut';
+$BL['DOWNLOAD_FILE']     = 'dosyay&#305; indir';
+$BL['FILE_IN_TRASH']     = 'dosya geri d&ouml;nü&#351;üm kutusunda';
+$BL['KEYWORDS']          = 'anahtar kelimeler';
+$BL['DOWNLOAD_ERR3']     = 'dosya bilgisi okunurken hata olu&#351;tu<br />pencereyi kapat&#305;p tekrar deneyiniz...';
