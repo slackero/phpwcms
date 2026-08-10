@@ -58,11 +58,11 @@ if(empty($content["alist"]["label"])) {
 ?>
 
 <div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right" for="be_cnt_sitelevel"><?php echo $BL['be_cnt_sitelevel'] ?></label>
+	<label class="col-sm-2 col-form-label text-right" for="calist_cat_0"><?php echo $BL['be_cnt_sitelevel'] ?></label>
 	<div class="col">
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" name="calist_cat" type="radio" value="0" <?php is_checked(0, intval($content["alist"]["cat"])) ?>>
-			<label class="form-check-label"><strong><?php echo $BL['be_cnt_sitecurrent'] ?></strong></label>
+			<input class="form-check-input" name="calist_cat" id="calist_cat_0" type="radio" value="0" <?php is_checked(0, intval($content["alist"]["cat"])) ?>>
+			<label class="form-check-label" for="calist_cat_0"><strong><?php echo $BL['be_cnt_sitecurrent'] ?></strong></label>
 		</div>
 	</div>
 </div>
@@ -71,8 +71,8 @@ if(empty($content["alist"]["label"])) {
 	<label class="col-sm-2 col-form-label"></label>
 	<div class="col">
 		<div class="form-check">
-			<input class="form-check-input mt-2" name="calist_cat" type="radio" value="1" <?php is_checked(1, intval($content["alist"]["cat"])) ?>>
-			<label class="form-check-label">
+			<input class="form-check-input mt-2" name="calist_cat" id="calist_cat_1" type="radio" value="1" <?php is_checked(1, intval($content["alist"]["cat"])) ?>>
+			<label class="form-check-label" for="calist_cat_1">
 				<select name="calist_catid" class="custom-select form-control form-control-sm">
 					<?php echo "<option value='0'".((!$content["alist"]["catid"])?" selected":"").">".$BL['be_admin_struct_index']."</option>\n"; struct_select_menu(0, 0, $content["alist"]["catid"]); ?>
 				</select>
@@ -82,11 +82,11 @@ if(empty($content["alist"]["label"])) {
 </div>
 
 <div class="form-group align-items-center form-row my-sm-3">
-	<label class="col-sm-2 col-form-label text-right" for="be_show_content"><?php echo $BL['be_show_content'] ?></label>
+	<label class="col-sm-2 col-form-label text-right" for="calist_ul1"><?php echo $BL['be_show_content'] ?></label>
 	<div class="col-sm-auto">
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" type="radio" name="calist_ul" id="calist_ul1" value="1" <?php is_checked(1, intval($content["alist"]["ul"])) ?>>
-			<label class="form-check-label" id="calist_ul1">&lt;ul&gt;&nbsp;</label>
+			<label class="form-check-label" for="calist_ul1">&lt;ul&gt;&nbsp;</label>
 		</div>
 		<div class="form-check form-check-inline">
 			<input class="form-check-input" type="radio" name="calist_ul" id="calist_ul2" value="2" <?php is_checked(2, intval($content["alist"]["ul"])) ?>>
@@ -107,7 +107,7 @@ if(empty($content["alist"]["label"])) {
 	</div>
 	<div class="col">
 		<div class="form-group align-items-center form-row mb-0 ml-sm-3">
-  			<div class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_css_class'] ?></div>
+  			<label class="col-form-label font-weight-normal" for="calist_class"><?php echo $BL['be_cnt_css_class'] ?></label>
     		<div class="col-sm-auto"><input type="text" name="calist_class" id="calist_class" class="form-control form-control-sm" value="<?php echo html($content["alist"]["class"]) ?>" ></div>
   		</div>
 	</div>
@@ -124,13 +124,13 @@ if(empty($content["alist"]["label"])) {
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_label'] ?></label>
+			<label class="col-form-label font-weight-normal" for="calist_label"><?php echo $BL['be_cnt_label'] ?></label>
 			<input type="text" name="calist_label" id="calist_label" class="form-control form-control-sm" value="<?php echo html($content["alist"]["label"]) ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_field']['break'] ?></label>
+			<label class="col-form-label font-weight-normal" for="calist_break"><?php echo $BL['be_cnt_field']['break'] ?></label>
 			<input type="text" name="calist_break" id="calist_break" class="form-control form-control-sm" value="<?php echo html($content["alist"]["break"]) ?>">
 		</div>
     </div>
@@ -146,20 +146,20 @@ if(empty($content["alist"]["label"])) {
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
+			<label class="col-form-label font-weight-normal" for="calist_maxchar"><?php echo $BL['be_cnt_articlemenu_maxchar'] ?></label>
 			<input type="text" name="calist_maxchar" id="calist_maxchar" class="form-control form-control-sm" value="<?php echo $content["alist"]["maxchar"] ?>">
 		</div>
     </div>
     <div class="col-sm-auto">
     	<div class="form-row form-inline ml-sm-3">
-			<label class="col-form-label font-weight-normal"><?php echo $BL['be_article_morelink'] ?></label>
+			<label class="col-form-label font-weight-normal" for="calist_morelink"><?php echo $BL['be_article_morelink'] ?></label>
 			<input type="text" name="calist_morelink" id="calist_morelink" class="form-control form-control-sm" value="<?php echo html($content["alist"]["morelink"]) ?>">
 		</div>
     </div>
 </div>
 
 <div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label text-right" for="be_cnt_sitelevel"><?php echo $BL['be_title_wrap'] ?></label>
+	<label class="col-sm-2 col-form-label text-right" for="calist_titlewrap"><?php echo $BL['be_title_wrap'] ?></label>
 	<div class="col-sm-auto">
 		<select name="calist_titlewrap" id="calist_titlewrap" class="custom-select form-control form-control-sm">
 		<?php
@@ -182,5 +182,4 @@ if(empty($content["alist"]["label"])) {
 			<label class="form-check-label" for="calist_hideactive"><?php echo $BL['be_hide_active_articlelink'] ?></label>
 		</div>
 	</div>
-
 </div>

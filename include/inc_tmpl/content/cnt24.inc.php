@@ -44,13 +44,13 @@ $content["alias"]['alias_status']   = empty($content["alias"]['alias_status']) ?
 ?>
 
 <div class="form-group align-items-center form-row">
-  <label for="be_alias_ID" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_alias_ID'] ?></label>
+  <label for="calias_id" class="col-sm-2 col-form-label text-right pt-0"><?php echo $BL['be_alias_ID'] ?></label>
   <div class="col-sm-4">
     <div class="input-group">
       <span class="input-group-prepend">
         <button class="modalButton btn btn-sm btn-secondary sitemap-open" type="button" data-toggle="modal" data-target="#browserModal" data-src="articlebrowser.php?opt=5" ></button>
       </span>
-      	<input type="text" name="calias" id="calias" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control form-control-sm" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
+      	<input type="text" name="calias" id="calias_id" value="<?php echo $content["alias"]['alias_ID'] ?>" class="form-control form-control-sm" maxlength="250" data-toggle="tooltip" title="<?php echo $BL['be_alias_ID'] ?>" />
     </div>
     <?php echo $content['alias_link']; ?>
   </div>

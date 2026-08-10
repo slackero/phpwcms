@@ -20,7 +20,7 @@ $content['file']['direct_download'] = empty($content['file']['direct_download'])
 
 ?>
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+  <label for="cfile_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
   <div class="col-sm-4">
     <select name="cfile_template" id="cfile_template" class="custom-select form-control form-control-sm">
 
@@ -58,7 +58,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 </div>
 
 <div class="form-group align-items-center form-row">
-	<label for="cimage_center" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_download'] ?></label>
+	<label for="cfile_direct" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_download'] ?></label>
 	<div class="col-sm-auto form-check form-check-inline">
 		<input class="form-check-input" name="cfile_direct" id="cfile_direct" type="checkbox" value="1" <?php
 					is_checked(1, $content['file']['direct_download']);
@@ -66,7 +66,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 							echo ' disabled="disabled"';
 					}
 			?> />
-		<label class="form-check-label" for="be_cnt_download_direct"><?php echo $BL['be_cnt_download_direct'] ?></label>
+		<label class="form-check-label" for="cfile_direct"><?php echo $BL['be_cnt_download_direct'] ?></label>
 	</div>
 	<div class="col form-check form-check-inline">
 		<?php
@@ -78,7 +78,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
 </div>
 
 <div class="form-group form-row">
-  <label for="cimage_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
+  <label for="cfile_list" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_files'] ?></label>
     <div class="col">
         <select name="cfile_list[]" size="8" multiple class="custom-select form-control form-control-sm" id="cfile_list">
         <?php
@@ -126,7 +126,7 @@ if(is_file(PHPWCMS_ROOT.'/'.PHPWCMS_FILES.'.htaccess') && ($content['file']['dir
   </div>
 
 <div class="form-group form-row mb-5">
-  <label for="cimage_caption" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
+  <label for="cfile_descr" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_description'] ?></label>
   <div class="col">
     <textarea name="cfile_descr" cols="40" rows="5" class="form-control form-control-sm" id="cfile_descr"><?php
 

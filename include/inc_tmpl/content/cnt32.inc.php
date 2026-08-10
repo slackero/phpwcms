@@ -174,17 +174,17 @@ if(is_array($tmpllist) && count($tmpllist)) {
 
         <div class="card-body pb-1">
             <div class="form-group align-items-center form-row">
-                <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name']; ?></label>
+                <label class="col-sm-2 col-form-label text-right" for="tabtitle<?php echo $key ?>"><?php echo $BL['be_tab_name']; ?></label>
                 <div class="col"><input type="text" name="tabtitle[<?php echo $key ?>]" id="tabtitle<?php echo $key ?>" value="<?php echo html($value['tabtitle']); ?>" class="form-control form-control-sm" /></div>
             </div>
 
             <div id="collapse_<?php echo $key ?>" class="collapse <?php echo (0 !== $key) ?: 'show'; ?>" role="tabpanel" aria-labelledby="heading_<?php echo $key ?>" data-parent="#tabs">
                 <div class="form-group align-items-center form-row">
-					<label for="be_headline" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
+					<label for="tabheadline<?php echo $key ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tabheadline[<?php echo $key ?>]" id="tabheadline<?php echo $key ?>" value="<?php echo html($value['tabheadline']); ?>" class="form-control form-control-sm" />
 					</div>
-					<label for="be_admin_page_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+					<label for="tablink<?php echo $key ?>" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tablink[<?php echo $key ?>]" id="tablink<?php echo $key ?>" value="<?php echo (isset($value['tablink']) ? html($value['tablink']) : ''); ?>" class="form-control form-control-sm" />
 					</div>
@@ -420,16 +420,16 @@ function addNewTab(pos) {
         </div>
         <div class="card-body pb-1">
             <div class="form-group align-items-center form-row">
-                <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_tab_name']; ?></label>
+                <label class="col-sm-2 col-form-label text-right" for="tabtitle${entries}"><?php echo $BL['be_tab_name']; ?></label>
                 <div class="col"><input type="text" name="tabtitle[${entries}]" id="tabtitle${entries}" value="" class="form-control form-control-sm" /></div>
             </div>
             <div id="collapse_${entries}" class="collapse show" role="tabpanel" aria-labelledby="heading_${entries}" data-parent="#tabs">
                 <div class="form-group align-items-center form-row">
-					<label for="be_headline" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
+					<label for="tabheadline${entries}" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_headline'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tabheadline[${entries}]" id="tabheadline${entries}" value="" class="form-control form-control-sm" />
 					</div>
-					<label for="be_admin_page_link" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
+					<label for="tablink${entries}" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_link'] ?></label>
 					<div class="col-sm-4">
 						<input type="text" name="tablink[${entries}]" id="tablink${entries}" value="" class="form-control form-control-sm" />
 					</div>

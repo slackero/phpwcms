@@ -162,7 +162,7 @@ if($map_selected) {
 </div>
 
 <div class="form-group form-row">
-  <label for="cmap_location_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_title'] ?></label>
+  <label for="cmap_title" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_title'] ?></label>
   <div class="col">
     <input name="cmap_location_title" type="text" class="form-control" value="<?php echo  empty($content['location']["title"]) ? '' : html($content['location']["title"]) ?>" onChange="doMapChange();">
   </div>
@@ -170,11 +170,11 @@ if($map_selected) {
 
 
 <div class="form-group form-row">
-  <label for="cmap_location_zip" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_zip'] ?></label>
+  <label for="cmap_zip" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_zip'] ?></label>
   <div class="col">
     <table class="table-borderless">
       <tr>
-      <td style="width:55px;"><input name="cmap_location_zip" type="text" class="form-control" value="<?php echo  empty($content['location']["zip"]) ? '' : html($content['location']["zip"]) ?>" onChange="doMapChange();"></td>
+      <td style="width:55px;"><input name="cmap_location_zip" id="cmap_zip" type="text" class="form-control" value="<?php echo  empty($content['location']["zip"]) ? '' : html($content['location']["zip"]) ?>" onChange="doMapChange();"></td>
       <td align="right">&nbsp;&nbsp;<?php echo $BL['be_profile_label_city'] ?>:&nbsp;</td>
       <td style="width:300px;"><input name="cmap_location_city" type="text" class="form-control" value="<?php echo  empty($content['location']["city"]) ? '' : html($content['location']["city"]) ?>" onChange="doMapChange();"></td>
       </tr>
@@ -211,7 +211,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 ?>
 
 <div class="form-group form-row">
-  <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_map_list'] ?></label>
   <div class="col">
     <div class="map-list-container"<?php echo $ck_style ?>>
       <table class="table-borderless w-100">
@@ -227,8 +227,8 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 ?>
 
 <div class="form-group form-row">
-  <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_text'] ?></label>
+  <label for="cmap_text" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_text'] ?></label>
   <div class="col">
-    <textarea name="cmap_text" cols="40" rows="8" class="form-control"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea>
+    <textarea name="cmap_text" id="cmap_text" cols="40" rows="8" class="form-control"><?php echo empty($content["map"]["text"]) ? '' : html($content["map"]["text"]) ?></textarea>
     </div>
 </div>

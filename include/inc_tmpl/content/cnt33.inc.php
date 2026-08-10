@@ -59,9 +59,9 @@ initJsAutocompleter();
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="news_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
+  <label for="cnews_sort" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_sorting'] ?></label>
   <div class="col-sm-4">
-      <select name="news_sort" id="calink_type" class="custom-select form-control form-control-sm">
+      <select name="news_sort" id="cnews_sort" class="custom-select form-control form-control-sm">
           <option value="9"<?php is_selected(9, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
           <option value="10"<?php is_selected(10, $content['news']['news_sort']) ?>><?php echo $BL['be_sort_date'].', '.$BL['be_admin_struct_orderasc'] ?></option>
           <option value="1"<?php is_selected(1, $content['news']['news_sort']) ?>><?php echo $BL['be_admin_struct_orderdate'].', '.$BL['be_admin_struct_orderdesc'] ?></option>
@@ -108,7 +108,7 @@ initJsAutocompleter();
 
 <?php if(count($phpwcms['allowed_lang']) > 1):  ?>
 <div class="form-group align-items-center form-row">
-  <label for="news_lang" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
+  <label for="langAll" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_lang'] ?></label>
   <div class="col">
     <div class="form-check form-check-inline">
         <input type="checkbox" name="news_lang[]" class="form-check-input lang-default" id="langAll" value=""<?php

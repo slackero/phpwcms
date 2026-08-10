@@ -109,7 +109,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_image_align']; ?></label>
+  <label for="cimage_center" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_image_align']; ?></label>
   <div class="col-sm-4">
      <select name="cimage_center" id="cimage_center" class="custom-select form-control form-control-sm">
         <option value="0"<?php is_selected(0, $content['image_special']['center']); ?>><?php echo $BL['be_cnt_imagenocenter'] ?></option>
@@ -121,7 +121,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 </div>
 
 <div class="form-group form-row align-items-center">
-	<label for="be_cnt_column" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
+	<label for="cimage_col" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_column'] ?></label>
 	<div class="col-sm-auto">
 	<select class="custom-select form-control form-control-sm" name="cimage_col" id="cimage_col">
 			<?php
@@ -149,7 +149,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 
 
 <div class="form-group align-items-center form-row">
-  <label for="be_flashplayer_thumbnail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
+  <label for="cimage_width" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_flashplayer_thumbnail'] ?></label>
   <div class="col-sm-auto my-2 my-sm-0">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -181,7 +181,7 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="be_cnt_reference_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_zoom'] ?></label>
+  <label for="cimage_width_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_zoom'] ?></label>
   <div class="col-sm-auto my-2 my-sm-0">
     <div class="input-group input-group-sm">
 			<div class="input-group-prepend">
@@ -206,14 +206,14 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
   </div>
   <div class="col-sm-auto my-2 my-sm-0 ml-sm-3">
     <div class="form-check form-check-inline">
-    	<input class="form-check-input" type="checkbox" name="cimage_crop_zoom" id="cimage_crop_zoom" value="1" <?php is_checked(1, $content['image_special']['crop']); ?> />
-			<label class="form-check-label" for="be_image_cropit"><?php echo $BL['be_image_cropit'] ?></label>
+    	<input class="form-check-input" type="checkbox" name="cimage_crop_zoom" id="cimage_crop_zoom" value="1" <?php is_checked(1, $content['image_special']['crop_zoom']); ?> />
+			<label class="form-check-label" for="cimage_crop_zoom"><?php echo $BL['be_image_cropit'] ?></label>
 		</div>
 	</div>
 </div>
 
 <div class="form-group align-items-center form-row">
-	<label for="be_cnt_behavior" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
+	<label for="cimage_zoom" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_behavior'] ?></label>
 	<div class="form-check form-check-inline col-sm-auto">
 		<input class="form-check-input" id="cimage_zoom" name="cimage_zoom" type="checkbox" value="1"<?php is_checked(1, $content['image_special']['zoom']); ?> />
 		<label class="form-check-label" for="cimage_zoom"><?php echo $BL['be_cnt_enlarge'] ?></label>
@@ -672,10 +672,10 @@ function setCimageCenterInactive() {
     const widthVal = parseInt($('#cimage_width').val(), 10);
     const heightVal = parseInt($('#cimage_height').val(), 10);
     const isInvalid = isNaN(widthVal) || isNaN(heightVal) || widthVal <= 0 || heightVal <= 0;
-    
+
     if (isNaN(widthVal)) $('#cimage_width').val('');
     if (isNaN(heightVal)) $('#cimage_height').val('');
-    
+
     $('#cimage_center, #cimage_crop').prop('disabled', isInvalid);
 }
 
@@ -688,7 +688,7 @@ function setImgIdName(image_number, file_id, file_name) {
     if(file_id == null || file_name == null) return null;
     $('#cimage_id_'+image_number).val(file_id);
     $('#cimage_name_'+image_number).val(file_name);
-    
+
     var hasImage = (file_id && parseInt(file_id, 10) > 0);
     var btn = $('#cimage_delete_button_' + image_number);
     if (btn.length) {
@@ -720,7 +720,7 @@ function deleteImageData(image_number, e) {
     bsConfirmDanger('<?php echo js_singlequote($BL['be_image_delete_js']); ?>' + (imageName ? '\n[' + imageName + ']' : ''), function() {
         imageNameField.val('');
         $('#cimage_id_' + image_number).val('0');
-        
+
         var btn = $('#cimage_delete_button_' + image_number);
         if (btn.length) {
             btn.addClass('disabled').css({'opacity': '0.5', 'pointer-events': 'none'});

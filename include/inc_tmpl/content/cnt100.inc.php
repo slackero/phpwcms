@@ -20,7 +20,7 @@ if(empty($content['bulletlist']["list_type"])) $content['bulletlist']["list_type
 ?>
 
 <div class="form-group align-items-center form-row">
-  <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ullist']; ?></label>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ullist']; ?></label>
   <div class="col">
   	<div class="form-check form-check-inline">
 			<input class="form-check-input mr-1" type="radio" name="clist_type" id="clist_type0" value="0"<?php echo is_checked('0', $content['bulletlist']["list_type"], 0, 0) ?> />

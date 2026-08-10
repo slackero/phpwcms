@@ -65,7 +65,7 @@ if(!isset($fmp_data['fmp_set_downloadbutton'])) {
 
 ?>
 <div class="form-group align-items-center form-row">
-    <label for="template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
+    <label for="fmp_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template']; ?></label>
     <div class="col-sm-4">
         <select name="fmp_template" id="fmp_template" class="custom-select form-control form-control-sm">
 <?php

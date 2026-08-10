@@ -229,9 +229,9 @@ $BE['BODY_CLOSE'][] = '<script type="text/javascript">document.getElementById("t
 <input type="hidden" name="target_ctype" value="23" />
 
 <div class="form-group align-items-center form-row">
-  <label for="cform_subjectselect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
+  <label for="cform_subjecttype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_msg_subject'] ?></label>
   <div class="col-sm-3">
-        <select name="cform_subjectselect" class="custom-select form-control form-control-sm">
+        <select name="cform_subjectselect" id="cform_subjecttype" class="custom-select form-control form-control-sm">
             <option value=""><?php echo $BL['be_msg_subject'] ?></option>
 <?php
 $cc_listing         = '';
@@ -362,9 +362,9 @@ echo $subject_option;
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="cform_targettype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'] ?></label>
+  <label for="cform_recipienttype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'] ?></label>
   <div class="col-sm-3">
-        <select name="cform_targettype" class="custom-select form-control form-control-sm">
+        <select name="cform_targettype" id="cform_recipienttype" class="custom-select form-control form-control-sm">
     <?php
         echo '<option value="email"'. is_selected('email', $content['form']['targettype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
         echo $recipient_option;
@@ -379,7 +379,7 @@ echo $subject_option;
 <div class="form-group align-items-center form-row">
   <label for="cform_sendertype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromemail'] ?></label>
   <div class="col-sm-3">
-        <select name="cform_sendertype" class="custom-select form-control form-control-sm">
+        <select name="cform_sendertype" id="cform_sendertype" class="custom-select form-control form-control-sm">
     <?php
         echo '<option value="email"'. is_selected('email', $content['form']['sendertype'],0,0) .'>'.$BL['be_profile_label_email'].'</option>'.LF;
         echo '<option value="system"'. is_selected('system', $content['form']['sendertype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($phpwcms['SMTP_FROM_EMAIL']).'</option>'.LF;
@@ -395,7 +395,7 @@ echo $subject_option;
 <div class="form-group align-items-center form-row">
   <label for="cform_sendernametype" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_newsletter_fromname'] ?></label>
   <div class="col-sm-3">
-        <select name="cform_sendernametype" class="custom-select form-control form-control-sm">
+        <select name="cform_sendernametype" id="cform_sendernametype" class="custom-select form-control form-control-sm">
     <?php
             echo '<option value="custom"'. is_selected('custom', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_ecardform_name'].'</option>'.LF;
             echo '<option value="system"'. is_selected('system', $content['form']['sendernametype'],0,0) .'>'.$BL['be_cnt_sysadmin_system'].': '.html($phpwcms['SMTP_FROM_NAME']).'</option>'.LF;
@@ -411,7 +411,7 @@ echo $subject_option;
 <div class="form-group align-items-center form-row">
   <label for="cform_sendcopy" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_send_copy_to']?></label>
   <div class="col-sm-1 text-right">
-        <input type="checkbox" name="cform_sendcopy" title="send copy to selected field" value="1"<?php echo is_checked('1', $content['form']["sendcopy"], 0, 0) ?>  />
+        <input type="checkbox" name="cform_sendcopy" id="cform_sendcopy" title="send copy to selected field" value="1"<?php echo is_checked('1', $content['form']["sendcopy"], 0, 0) ?>  />
     </div>
   <div class="col-sm-2">
     <select name="cform_copyto" class="custom-select form-control form-control-sm"><?php echo $cc_listing; ?></select>
@@ -521,7 +521,7 @@ echo $subject_option;
 <hr />
 
 <div class="form-group align-items-center form-row mb-0">
-  <label for="cform_startup_html" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+  <label for="cform_startup_html0" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_default'] ?></label>
   <div class="col">
   	<div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="cform_startup_html" id="cform_startup_html0" title="Text" value="0"<?php echo is_checked('0', $content['form']["startup_html"], 0, 0) ?>  />
@@ -535,7 +535,7 @@ echo $subject_option;
 </div>
 
 <div class="form-group form-row">
-  <label class="col-sm-2 col-form-label"></label>
+    <label class="col-sm-2 col-form-label" for="cform_startup"></label>
     <div class="col">
         <textarea name="cform_startup" id="cform_startup" rows="3" class="form-control form-control-sm"><?php echo html($content['form']["startup"]) ?></textarea>
   	</div>
@@ -544,7 +544,7 @@ echo $subject_option;
 <hr />
 
 <div class="form-group align-items-center form-row mb-2">
-  <label for="cform_onsuccess_redirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onsuccess'] ?></label>
+  <label for="cform_onsuccess_redirect0" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onsuccess'] ?></label>
   <div class="col-sm-auto">
   	<div class="form-check form-check-inline">
         <input class="form-check-input" type="radio" name="cform_onsuccess_redirect" id="cform_onsuccess_redirect0" value="0"<?php echo is_checked('0', $content['form']["onsuccess_redirect"], 0, 0) ?> title="redirect on success" />
@@ -592,35 +592,34 @@ echo $subject_option;
 <hr />
 
 <div class="form-group align-items-center form-row mb-0">
-  <label for="cform_onsuccess_redirect" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onerror'] ?></label>
-  <div class="col">
-  	<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect0" title="redirect on success" value="0"<?php echo is_checked('0', $content['form']["onerror_redirect"], 0, 0) ?> />
-      <label class="form-check-label" for="cform_onerror_redirect0">
-			Text</label>
-		</div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect2" title="redirect on success" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect"], 0, 0) ?> />
-      <label class="form-check-label" for="cform_onerror_redirect2">HTML&nbsp;</label>
+    <label for="cform_onerror_redirect0" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_onerror'] ?></label>
+    <div class="col">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect0" title="redirect on success" value="0"<?php echo is_checked('0', $content['form']["onerror_redirect"], 0, 0) ?> />
+            <label class="form-check-label" for="cform_onerror_redirect0">Text</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect2" title="redirect on success" value="2"<?php echo is_checked('2', $content['form']["onerror_redirect"], 0, 0) ?> />
+            <label class="form-check-label" for="cform_onerror_redirect2">HTML</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect1" title="redirect on success" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect"], 0, 0) ?> />
+            <label class="form-check-label" for="cform_onerror_redirect1">Redirect</label>
+        </div>
     </div>
-		<div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="cform_onerror_redirect" id="cform_onerror_redirect1" title="redirect on success" value="1"<?php echo is_checked('1', $content['form']["onerror_redirect"], 0, 0) ?> />
-			<label class="form-check-label" for="cform_onerror_redirect1">Redirect</label>
-    </div>
-  </div>
 </div>
 
 <div class="form-group form-row">
-  <label class="col-sm-2 col-form-label"></label>
+    <label class="col-sm-2 col-form-label"></label>
     <div class="col">
-    <textarea name="cform_onerror" rows="3" class="form-control form-control-sm"><?php echo html($content['form']["onerror"]) ?></textarea>
-  	</div>
+        <textarea name="cform_onerror" rows="3" class="form-control form-control-sm"><?php echo html($content['form']["onerror"]) ?></textarea>
+    </div>
 </div>
 
 <hr />
 
 <div class="form-group align-items-center form-row">
-  <label for="cform_labelpos" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_basis'] ?></label>
+  <label for="cform_labelpos3" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_reference_basis'] ?></label>
   <div class="col">
       <?php
       if(!isset($content['form']["labelpos"])) {
@@ -1143,19 +1142,17 @@ if(!empty($field_counter) && $field_counter > 1) {
 <hr />
 <a name="anchor_template" id="anchor_template"></a>
 <div class="form-group align-items-center form-row">
-  <label for="cform_template_format" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'].' - '.$BL['be_admin_struct_template'] ?></label>
-  <div class="col-sm-auto">
-    <div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_template_format" id="cform_template_text" value="0"<?php is_checked('0', $content['form']["template_format"]) ?> onchange="this.form.submit();" />
-      <label class="form-check-label" for="cform_template_text">
-			Text&nbsp;</label>
+    <label for="cform_template_text" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_recipient'] . ' - ' . $BL['be_admin_struct_template'] ?></label>
+    <div class="col-sm-auto">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_template_format" id="cform_template_text" value="0"<?php is_checked('0', $content['form']["template_format"]) ?> onchange="this.form.submit();" />
+            <label class="form-check-label" for="cform_template_text">Text</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_template_format" id="cform_template_html" value="1"<?php is_checked('1', $content['form']["template_format"]) ?> onchange="this.form.submit();" />
+            <label class="form-check-label" for="cform_template_html">HTML</label>
+        </div>
     </div>
-    <div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_template_format" id="cform_template_html" value="1"<?php is_checked('1', $content['form']["template_format"]) ?> onchange="this.form.submit();" />
-      <label class="form-check-label" for="cform_template_html">
-			HTML&nbsp;</label>
-    </div>
-  </div>
 
 	<div class="col-sm-auto px-sm-4">
 		<?php
@@ -1215,7 +1212,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 <!-- copy mail template //-->
 <a name="anchor_template_copy" id="anchor_template_copy"></a>
 <div class="form-group align-items-center form-row">
-  <label for="be_cnt_send_copy_to" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_send_copy_to'].' - '.$BL['be_admin_struct_template'] ?></label>
+  <label for="cform_template_copy" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_send_copy_to'].' - '.$BL['be_admin_struct_template'] ?></label>
   <div class="col">
     <div class="form-check form-check-inline">
 			<input class="form-check-input" type="checkbox" name="cform_template_equal" id="cform_template_equal" value="1"<?php is_checked(1, $content['form']["template_equal"]) ?> onchange="showhidecopy();" />
@@ -1235,18 +1232,16 @@ if(!empty($field_counter) && $field_counter > 1) {
 </div>
 
 <div class="form-group align-items-center form-row">
-	<label class="col-sm-2 col-form-label"></label>
-	<div id="copytemplate1" class="col-sm-auto">
-		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_template_format_copy" id="cform_template_text_copy" value="0"<?php is_checked(0, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" />
-      <label class="form-check-label" for="cform_template_text_copy">
-			Text&nbsp;</label>
-    </div>
-    <div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="cform_template_format_copy" id="cform_template_html_copy" value="1"<?php is_checked(1, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" />
-      <label class="form-check-label" for="cform_template_html_copy  pr-sm-4">
-			HTML&nbsp;</label>
-    </div>
+    <label class="col-sm-2 col-form-label"></label>
+    <div id="copytemplate1" class="col-sm-auto">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_template_format_copy" id="cform_template_text_copy" value="0"<?php is_checked(0, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" />
+            <label class="form-check-label" for="cform_template_text_copy">Text</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="cform_template_format_copy" id="cform_template_html_copy" value="1"<?php is_checked(1, $content['form']["template_format_copy"]) ?> onchange="this.form.submit();" />
+            <label class="form-check-label pr-sm-4" for="cform_template_html_copy">HTML</label>
+        </div>
   </div>
 
 	<div class="col-sm-auto">
@@ -1299,15 +1294,15 @@ if(!empty($field_counter) && $field_counter > 1) {
 </div>
 
 <div class="form-group align-items-center form-row">
-  <label for="php_function" class="col-sm-2 col-form-label text-right"><?php echo $BL['php_function']?></label>
+  <label for="cform_onsuccess" class="col-sm-2 col-form-label text-right"><?php echo $BL['php_function']?></label>
   <div class="col">
     <input name="cform_function_cc" type="text" id="cform_function_cc" class="form-control form-control-sm" value="<?php echo html($content['form']['function_cc']) ?>" />
   </div>
 </div>
 
-<a name="anchor_customform" id="anchor_customform"></a>
+<a id="anchor_customform"></a>
 <div class="form-group align-items-center form-row">
-  <label for="be_admin_struct_template" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
+  <label class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_struct_template'] ?></label>
   <div class="col-sm-auto">
 		<?php
 		if($for_select_2 != '') {
