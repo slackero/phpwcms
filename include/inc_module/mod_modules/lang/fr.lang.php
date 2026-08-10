@@ -3,12 +3,12 @@
 // Language: FR
 // Language Code: fr
 
-$BLM['backend_menu'] = 'Modules&nbsp;phpwcms';
-$BLM['listing_title'] = 'Modules&nbsp;phpwcms';
-$BLM['listing_intro'] = 'De&nbsp;nombreux&nbsp;modules&nbsp;puissants&nbsp;sont&nbsp;disponibles&nbsp;pour&nbsp;phpwcms&nbsp;pour&nbsp;r&eacute;pondre&nbsp;&agrave;&nbsp;des&nbsp;besoins&nbsp;sp&eacute;cifiques.&nbsp;Nous&nbsp;souhaitons&nbsp;vous&nbsp;en&nbsp;pr&eacute;senter&nbsp;quelques-uns&nbsp;ici.';
-$BLM['listing_shop'] = 'Module&nbsp;Boutique&nbsp;PHPWCMS';
-$BLM['promotext_shop'] = 'Le&nbsp;module&nbsp;Boutique&nbsp;de&nbsp;phpwcms&nbsp;permet&nbsp;de&nbsp;cr&eacute;er&nbsp;une&nbsp;boutique&nbsp;en&nbsp;ligne&nbsp;simple.';
-$BLM['listing_calendar'] = 'Module&nbsp;Calendrier&nbsp;phpwcms';
-$BLM['promotext_calendar'] = 'Le&nbsp;module&nbsp;Calendrier&nbsp;de&nbsp;phpwcms&nbsp;permet&nbsp;de&nbsp;cr&eacute;er&nbsp;un&nbsp;calendrier&nbsp;complet.';
-$BLM['listing_user'] = 'Module&nbsp;de&nbsp;gestion&nbsp;des&nbsp;utilisateurs&nbsp;phpwcms';
-$BLM['promotext_user'] = 'Le&nbsp;module&nbsp;de&nbsp;gestion&nbsp;des&nbsp;utilisateurs&nbsp;de&nbsp;phpwcms&nbsp;permet&nbsp;de&nbsp;g&eacute;rer&nbsp;les&nbsp;donn&eacute;es&nbsp;des&nbsp;utilisateurs.';
+$BLM['backend_menu'] = 'Modules phpwcms';
+$BLM['listing_title'] = 'Modules phpwcms';
+$BLM['listing_intro'] = 'De nombreux modules puissants sont disponibles pour phpwcms pour r&eacute;pondre &agrave; des besoins sp&eacute;cifiques. Nous souhaitons vous en pr&eacute;senter quelques-uns ici.';
+$BLM['listing_shop'] = 'Module Boutique PHPWCMS';
+$BLM['promotext_shop'] = 'Le module Boutique de phpwcms permet de cr&eacute;er une boutique en ligne simple.';
+$BLM['listing_calendar'] = 'Module Calendrier phpwcms';
+$BLM['promotext_calendar'] = 'Le module Calendrier de phpwcms permet de cr&eacute;er un calendrier complet.';
+$BLM['listing_user'] = 'Module de gestion des utilisateurs phpwcms';
+$BLM['promotext_user'] = 'Le module de gestion des utilisateurs de phpwcms permet de g&eacute;rer les donn&eacute;es des utilisateurs.';

@@ -3,19 +3,19 @@
 // Language: PL
 // Language Code: pl
 
-$BLM['backend_menu'] = 'S&#322;ownik&nbsp;poj&#289;&#263;';
-$BLM['listing_title'] = 'S&#322;ownik&nbsp;poj&#289;&#263;';
-$BLM['create_new'] = 'Utw&oacute;rz&nbsp;has&#322;o&nbsp;s&#322;ownika';
-$BLM['glossary_entry'] = 'Has&#322;o&nbsp;s&#322;ownika';
+$BLM['backend_menu'] = 'S&#322;ownik poj&#289;&#263;';
+$BLM['listing_title'] = 'S&#322;ownik poj&#289;&#263;';
+$BLM['create_new'] = 'Utw&oacute;rz has&#322;o s&#322;ownika';
+$BLM['glossary_entry'] = 'Has&#322;o s&#322;ownika';
 $BLM['glossary_title'] = 'Has&#322;o';
-$BLM['glossary_token'] = 'Glossary&nbsp;tag';
+$BLM['glossary_token'] = 'Znacznik s&#322;ownika';
 $BLM['glossary_text'] = 'Wyja&#345;nienie';
-$BLM['delete_entry'] = 'Usu&#324;&nbsp;has&#322;o&nbsp;ze&nbsp;s&#322;ownika:';
-$BLM['input_filter'] = 'Glossary&nbsp;filter';
-$BLM['input_filter_descr'] = 'Define&nbsp;frontend&nbsp;glossary&nbsp;filter:<br&nbsp;/><strong>A&nbsp;B&nbsp;C&nbsp;D&nbsp;E&nbsp;&#8230;&nbsp;Z</strong>&nbsp;or&nbsp;<strong>A-D&nbsp;E-H&nbsp;&#8230;&nbsp;W-Z</strong>';
-$BLM['listview'] = 'List&nbsp;view';
-$BLM['max_words'] = 'Max.&nbsp;count&nbsp;of&nbsp;description&nbsp;words';
-$BLM['no_entry'] = 'No&nbsp;entry&nbsp;found&nbsp;text';
-$BLM['glossary_keyword'] = 'Glossary&nbsp;keyword';
-$BLM['highlight'] = 'Highlight';
-$BLM['highlight_descr'] = 'Catch&nbsp;glossary&nbsp;keyword&nbsp;in&nbsp;frontend';
+$BLM['delete_entry'] = 'Usu&#324; has&#322;o ze s&#322;ownika:';
+$BLM['input_filter'] = 'Filtr s&#322;ownika';
+$BLM['input_filter_descr'] = 'Define frontend glossary filter:<br /><strong>A B C D E &#8230; Z</strong> or <strong>A-D E-H &#8230; W-Z</strong>';
+$BLM['listview'] = 'Widok listy';
+$BLM['max_words'] = 'Max. count of description words';
+$BLM['no_entry'] = 'Nie znaleziono wpisu';
+$BLM['glossary_keyword'] = 'S&#322;owo kluczowe s&#322;ownika';
+$BLM['highlight'] = 'Wyr&oacute;&#380;nienie';
+$BLM['highlight_descr'] = 'Wyr&oacute;&#380;niaj s&#322;owa kluczowe s&#322;ownika w frontendzie';

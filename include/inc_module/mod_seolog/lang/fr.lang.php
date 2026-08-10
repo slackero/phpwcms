@@ -3,5 +3,5 @@
 // Language: FR
 // Language Code: fr
 
-$BLM['backend_menu'] = 'SEO&nbsp;Log';
-$BLM['listing_title'] = 'SEO&nbsp;Log';
+$BLM['backend_menu'] = 'Journal SEO';
+$BLM['listing_title'] = 'Journal SEO';

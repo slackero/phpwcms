@@ -3,12 +3,12 @@
 // Language: ES
 // Language Code: es
 
-$BLM['backend_menu'] = 'M&oacute;dulos&nbsp;phpwcms';
-$BLM['listing_title'] = 'M&oacute;dulos&nbsp;phpwcms';
-$BLM['listing_intro'] = 'Hay&nbsp;muchos&nbsp;m&oacute;dulos&nbsp;potentes&nbsp;disponibles&nbsp;para&nbsp;phpwcms&nbsp;para&nbsp;necesidades&nbsp;espec&iacute;ficas.&nbsp;Queremos&nbsp;presentarle&nbsp;algunos&nbsp;de&nbsp;ellos&nbsp;aqu&iacute;.';
-$BLM['listing_shop'] = 'M&oacute;dulo&nbsp;Tienda&nbsp;PHPWCMS';
-$BLM['promotext_shop'] = 'El&nbsp;m&oacute;dulo&nbsp;Tienda&nbsp;de&nbsp;phpwcms&nbsp;permite&nbsp;crear&nbsp;una&nbsp;tienda&nbsp;en&nbsp;l&iacute;nea&nbsp;sencilla.';
-$BLM['listing_calendar'] = 'M&oacute;dulo&nbsp;Calendario&nbsp;phpwcms';
-$BLM['promotext_calendar'] = 'El&nbsp;m&oacute;dulo&nbsp;Calendario&nbsp;de&nbsp;phpwcms&nbsp;permite&nbsp;crear&nbsp;un&nbsp;calendario&nbsp;completo.';
-$BLM['listing_user'] = 'M&oacute;dulo&nbsp;de&nbsp;gesti&oacute;n&nbsp;de&nbsp;usuarios&nbsp;phpwcms';
-$BLM['promotext_user'] = 'El&nbsp;m&oacute;dulo&nbsp;de&nbsp;gesti&oacute;n&nbsp;de&nbsp;usuarios&nbsp;de&nbsp;phpwcms&nbsp;permite&nbsp;gestionar&nbsp;datos&nbsp;de&nbsp;usuarios.';
+$BLM['backend_menu'] = 'M&oacute;dulos phpwcms';
+$BLM['listing_title'] = 'M&oacute;dulos phpwcms';
+$BLM['listing_intro'] = 'Hay muchos m&oacute;dulos potentes disponibles para phpwcms para necesidades espec&iacute;ficas. Queremos presentarle algunos de ellos aqu&iacute;.';
+$BLM['listing_shop'] = 'M&oacute;dulo Tienda PHPWCMS';
+$BLM['promotext_shop'] = 'El m&oacute;dulo Tienda de phpwcms permite crear una tienda en l&iacute;nea sencilla.';
+$BLM['listing_calendar'] = 'M&oacute;dulo Calendario phpwcms';
+$BLM['promotext_calendar'] = 'El m&oacute;dulo Calendario de phpwcms permite crear un calendario completo.';
+$BLM['listing_user'] = 'M&oacute;dulo de gesti&oacute;n de usuarios phpwcms';
+$BLM['promotext_user'] = 'El m&oacute;dulo de gesti&oacute;n de usuarios de phpwcms permite gestionar datos de usuarios.';

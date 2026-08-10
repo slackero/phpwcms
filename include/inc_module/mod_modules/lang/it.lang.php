@@ -3,12 +3,12 @@
 // Language: IT
 // Language Code: it
 
-$BLM['backend_menu'] = 'Moduli&nbsp;phpwcms';
-$BLM['listing_title'] = 'Moduli&nbsp;phpwcms';
-$BLM['listing_intro'] = 'Sono&nbsp;disponibili&nbsp;molti&nbsp;potenti&nbsp;moduli&nbsp;per&nbsp;phpwcms&nbsp;per&nbsp;esigenze&nbsp;specifiche.&nbsp;Desideriamo&nbsp;presentarne&nbsp;alcuni&nbsp;qui.';
-$BLM['listing_shop'] = 'Modulo&nbsp;Negozio&nbsp;PHPWCMS';
-$BLM['promotext_shop'] = 'Il&nbsp;modulo&nbsp;Negozio&nbsp;di&nbsp;phpwcms&nbsp;consente&nbsp;di&nbsp;creare&nbsp;un&nbsp;semplice&nbsp;negozio&nbsp;online.';
-$BLM['listing_calendar'] = 'Modulo&nbsp;Calendario&nbsp;phpwcms';
-$BLM['promotext_calendar'] = 'Il&nbsp;modulo&nbsp;Calendario&nbsp;di&nbsp;phpwcms&nbsp;consente&nbsp;di&nbsp;creare&nbsp;un&nbsp;calendario&nbsp;completo.';
-$BLM['listing_user'] = 'Modulo&nbsp;gestione&nbsp;utenti&nbsp;phpwcms';
-$BLM['promotext_user'] = 'Il&nbsp;modulo&nbsp;gestione&nbsp;utenti&nbsp;di&nbsp;phpwcms&nbsp;consente&nbsp;di&nbsp;gestire&nbsp;i&nbsp;dati&nbsp;degli&nbsp;utenti.';
+$BLM['backend_menu'] = 'Moduli phpwcms';
+$BLM['listing_title'] = 'Moduli phpwcms';
+$BLM['listing_intro'] = 'Sono disponibili molti potenti moduli per phpwcms per esigenze specifiche. Desideriamo presentarne alcuni qui.';
+$BLM['listing_shop'] = 'Modulo Negozio PHPWCMS';
+$BLM['promotext_shop'] = 'Il modulo Negozio di phpwcms consente di creare un semplice negozio online.';
+$BLM['listing_calendar'] = 'Modulo Calendario phpwcms';
+$BLM['promotext_calendar'] = 'Il modulo Calendario di phpwcms consente di creare un calendario completo.';
+$BLM['listing_user'] = 'Modulo gestione utenti phpwcms';
+$BLM['promotext_user'] = 'Il modulo gestione utenti di phpwcms consente di gestire i dati degli utenti.';

@@ -3,5 +3,5 @@
 // Language: IT
 // Language Code: it
 
-$BLM['backend_menu'] = 'SEO&nbsp;Log';
-$BLM['listing_title'] = 'SEO&nbsp;Log';
+$BLM['backend_menu'] = 'Registro SEO';
+$BLM['listing_title'] = 'Registro SEO';
