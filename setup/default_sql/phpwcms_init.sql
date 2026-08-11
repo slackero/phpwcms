@@ -368,6 +368,7 @@ CREATE TABLE `phpwcms_country` (
   `country_continent_code` char(2) NOT NULL DEFAULT '',
   `country_name` varchar(255) NOT NULL DEFAULT '',
   `country_name_de` varchar(255) NOT NULL DEFAULT '',
+  `country_name_native` varchar(255) NOT NULL DEFAULT '',
   `country_continent` varchar(255) NOT NULL DEFAULT '',
   `country_continent_de` varchar(255) NOT NULL DEFAULT '',
   `country_region` varchar(255) NOT NULL DEFAULT '',
@@ -405,6 +406,7 @@ CREATE TABLE `phpwcms_file` (
   `f_tstamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `f_name` varchar(255) NOT NULL DEFAULT '',
   `f_cat` varchar(255) NOT NULL DEFAULT '',
+  `f_alias` varchar(255) NOT NULL DEFAULT '',
   `f_created` int(11) NOT NULL DEFAULT '0',
   `f_changed` int(11) NOT NULL DEFAULT '0',
   `f_size` int(15) unsigned NOT NULL DEFAULT '0',
@@ -620,6 +622,8 @@ CREATE TABLE `phpwcms_newsletter` (
   `newsletter_id` int(11) NOT NULL AUTO_INCREMENT,
   `newsletter_created` timestamp NULL DEFAULT NULL,
   `newsletter_lastsending` timestamp NULL DEFAULT NULL,
+  `newsletter_pub` datetime DEFAULT NULL,
+  `newsletter_lang` varchar(255) NOT NULL DEFAULT '',
   `newsletter_subject` text NOT NULL,
   `newsletter_changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `newsletter_vars` mediumblob NOT NULL,
@@ -636,6 +640,7 @@ CREATE TABLE `phpwcms_newsletterqueue` (
   `queue_pid` int(11) NOT NULL DEFAULT '0',
   `queue_rid` int(11) NOT NULL DEFAULT '0',
   `queue_errormsg` varchar(255) NOT NULL DEFAULT '',
+  `queue_opener` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`queue_id`),
   KEY `nlqueue` (`queue_pid`,`queue_status`)
 );
@@ -855,8 +860,8 @@ CREATE TABLE `phpwcms_usergroup` (
   `group_timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `group_trash` int(1) NOT NULL DEFAULT '0',
   `group_active` int(1) NOT NULL DEFAULT '0',
-  `group_modkey` varchar(255) NOT NULL,
-  `group_syskey` varchar(255) NOT NULL,
+  `group_modkey` varchar(255) NOT NULL DEFAULT '',
+  `group_syskey` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`group_id`),
   KEY `group_member` (`group_member`(255))
 );

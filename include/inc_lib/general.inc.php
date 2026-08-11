@@ -118,7 +118,11 @@ function getCountry($lang = '', $get = 'COUNTRY_ARRAY') {
     if (empty($lang)) {
         $lang = isset($_SESSION["wcs_user_lang"]) ? strtolower($_SESSION["wcs_user_lang"]) : $GLOBALS['phpwcms']['default_lang'];
     }
-    $lang = strtolower(substr($lang, 0, 2));
+    if (strtolower($lang) === 'native') {
+        $lang = 'native';
+    } else {
+        $lang = strtolower(substr($lang, 0, 2));
+    }
     $country_lang_var = $get . '_' . $lang;
     if (!empty($phpwcms['country'][$country_lang_var])) {
         return $phpwcms['country'][$country_lang_var];

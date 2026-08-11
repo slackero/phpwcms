@@ -265,7 +265,7 @@ if(!empty($step)) {
                 $err = 1;
             } else {
                 mysqli_query($db, 'SET SQL_MODE=NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION');
-                mysqli_query($db, "SET NAMES '".mysqli_real_escape_string($db, $phpwcms['charset'])."'");
+                mysqli_query($db, "SET NAMES '" . mysqli_real_escape_string($db, $phpwcms['db_charset']) . "'");
                 $_db_prepend = $phpwcms['db_prepend'] ? mysqli_real_escape_string($db, $phpwcms['db_prepend']) . '_' : '';
                 $sql =  'INSERT INTO ' . $_db_prepend . 'phpwcms_user (usr_login, usr_pass, usr_email, '.
                         "usr_admin, usr_aktiv, usr_name, usr_fe, usr_wysiwyg ) VALUES ('".

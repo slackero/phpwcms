@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-08-11T20:01:39Z",
+  "generated_at": "2026-08-11T20:18:51Z",
   "stacklit_version": "dev",
-  "merkle_hash": "a8e9b07f99e469c7659158be375ff90c4481249c56e8b30f0341575773fd702e",
+  "merkle_hash": "c37b041ddc67c2943a40e30dce815e8204f6e209a3f8a6d7253715242efff60d",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -17,8 +17,8 @@
         "lines": 18907
       },
       "php": {
-        "files": 765,
-        "lines": 165815
+        "files": 766,
+        "lines": 166116
       },
       "ruby": {
         "files": 1,
@@ -26,7 +26,7 @@
       },
       "sql": {
         "files": 2,
-        "lines": 1445
+        "lines": 1452
       },
       "typescript": {
         "files": 2,
@@ -36,8 +36,8 @@
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1223,
-    "total_lines": 186221
+    "total_files": 1224,
+    "total_lines": 186529
   },
   "modules": {
     ".phpstan": {
@@ -78,7 +78,7 @@
         "feeds.ini.php",
         "sitemap.custom.php"
       ],
-      "activity": "medium"
+      "activity": "low"
     },
     "include/inc_act": {
       "purpose": "Inc Act",
@@ -818,8 +818,8 @@
     "include/inc_lib/revision": {
       "purpose": "Revision",
       "language": "php",
-      "files": 41,
-      "lines": 2400,
+      "files": 42,
+      "lines": 2701,
       "file_list": [
         "r401.php",
         "r402.php",
@@ -1407,7 +1407,7 @@
       "purpose": "Default Sql",
       "language": "sql",
       "files": 2,
-      "lines": 1445,
+      "lines": 1452,
       "file_list": [
         "phpwcms_init.sql",
         "phpwcms_inserts.sql"
@@ -1889,21 +1889,21 @@
         "commits_90d": 9
       },
       {
-        "path": "include/config/dist.conf.inc.php",
+        "path": "include/build/build-css.js",
         "commits_90d": 9
       }
     ],
     "recent": [
       "CLAUDE.md",
-      "DEPENDENCIES.md",
       "include/build/build-css.js",
       "include/build/build-js.js",
       "include/inc_front/content.func.inc.php",
-      "include/inc_tmpl/admin.templates.tmpl.php",
       "package-lock.json",
       "package.json",
       "stacklit.json",
-      "template/lib/cookieconsent3/lang/ar.json"
+      "template/lib/cookieconsent2/cookieconsent.min.js",
+      "template/lib/cookieconsent2/dark-bottom.css",
+      "template/lib/cookieconsent2/dark-floating-tada.css"
     ],
     "stable": [
       ".mcp.json",

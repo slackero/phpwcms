@@ -81,10 +81,10 @@ if (!defined('PHPWCMS_SETUP')) {
 
 <?php if (!empty($db_additional)): ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
+        <div class="card-header bg-light font-weight-bold">Language &amp; Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
         <div class="card-body">
             <div class="form-group row mb-0">
-                <label for="charset" class="col-sm-3 col-form-label font-weight-bold">System Charset</label>
+                <label for="charset" class="col-sm-3 col-form-label font-weight-bold">Default Language</label>
                 <div class="col-sm-6">
                     <select name="charset" class="custom-select" id="charset">
                     <?php
@@ -99,15 +99,11 @@ if (!defined('PHPWCMS_SETUP')) {
                         echo '>';
                         echo empty($value[3]) ? '' : $value[3] . ' - ';
                         echo ucfirst($_lang_en);
-                        echo ' [' . $_lang_charset;
-                        if (!empty($mysql_charset_map[$_lang_charset])) {
-                            echo ' / ' . $mysql_charset_map[$_lang_charset];
-                        }
-                        echo ']';
                         echo "</option>";
                     }
                     ?>
                     </select>
+                    <small class="form-text text-muted mt-2">All new installations strictly use <strong>UTF-8</strong> (Unicode) with <strong>utf8mb4</strong> database character set.</small>
                     <input type="hidden" name="collation" value="utf8mb4_general_ci" />
                 </div>
             </div>
