@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-08-11T20:18:51Z",
+  "generated_at": "2026-08-11T20:45:35Z",
   "stacklit_version": "dev",
-  "merkle_hash": "c37b041ddc67c2943a40e30dce815e8204f6e209a3f8a6d7253715242efff60d",
+  "merkle_hash": "8060a5ddfeeaefb02bbfc4d5dc00d26b3804aeaab5d92b1ffa65ad552eac6072",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -18,7 +18,7 @@
       },
       "php": {
         "files": 766,
-        "lines": 166116
+        "lines": 166233
       },
       "ruby": {
         "files": 1,
@@ -26,7 +26,7 @@
       },
       "sql": {
         "files": 2,
-        "lines": 1452
+        "lines": 1453
       },
       "typescript": {
         "files": 2,
@@ -37,7 +37,7 @@
   "structure": {
     "entrypoints": null,
     "total_files": 1224,
-    "total_lines": 186529
+    "total_lines": 186647
   },
   "modules": {
     ".phpstan": {
@@ -726,7 +726,7 @@
       "purpose": "Inc Lib",
       "language": "php",
       "files": 46,
-      "lines": 17386,
+      "lines": 17390,
       "file_list": [
         "admin.functions.inc.php",
         "admin.structure.inc.php",
@@ -819,7 +819,7 @@
       "purpose": "Revision",
       "language": "php",
       "files": 42,
-      "lines": 2701,
+      "lines": 2818,
       "file_list": [
         "r401.php",
         "r402.php",
@@ -1407,7 +1407,7 @@
       "purpose": "Default Sql",
       "language": "sql",
       "files": 2,
-      "lines": 1452,
+      "lines": 1453,
       "file_list": [
         "phpwcms_init.sql",
         "phpwcms_inserts.sql"
@@ -1418,7 +1418,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 10,
-      "lines": 1721,
+      "lines": 1717,
       "file_list": [
         "setup.check.inc.php",
         "setup.func.inc.php",
@@ -1895,15 +1895,15 @@
     ],
     "recent": [
       "CLAUDE.md",
-      "include/build/build-css.js",
-      "include/build/build-js.js",
-      "include/inc_front/content.func.inc.php",
-      "package-lock.json",
-      "package.json",
+      "include/inc_lib/general.inc.php",
+      "include/inc_lib/revision/r557.php",
+      "include/inc_lib/revision/revision.php",
+      "setup/default_sql/phpwcms_init.sql",
+      "setup/default_sql/phpwcms_inserts.sql",
+      "setup/inc/setup.check.inc.php",
+      "setup/inc/step1.inc.php",
       "stacklit.json",
-      "template/lib/cookieconsent2/cookieconsent.min.js",
-      "template/lib/cookieconsent2/dark-bottom.css",
-      "template/lib/cookieconsent2/dark-floating-tada.css"
+      "include/build/build-css.js"
     ],
     "stable": [
       ".mcp.json",

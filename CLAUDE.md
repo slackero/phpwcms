@@ -14,7 +14,7 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 108 modules | 186,529 lines
+phpwcms-dev | php | 108 modules | 186,647 lines
 test: npm test
 
 modules:
