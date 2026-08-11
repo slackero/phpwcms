@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "الموافقة على الكوكيز",
+        "title": "نحن نقدر خصوصيتك",
+        "description": "نستخدم ملفات تعريف الارتباط لتحسين تجربة التصفح وتقديم إعلانات مخصصة وتحليل حركة المرور. بالنقر على \"قبول الكل\"، فإنك توافق على استخدامنا لملفات تعريف الارتباط.",
+        "acceptAllBtn": "قبول الكل",
+        "acceptNecessaryBtn": "رفض الكل",
+        "showPreferencesBtn": "تخصيص",
+        "footer": "<a href=\"#link\">حماية البيانات</a>\n<a href=\"#link\">الشروط والأحكام</a>"
+    },
+    "preferencesModal": {
+        "title": "إدارة تفضيلات الكوكيز",
+        "acceptAllBtn": "قبول الكل",
+        "acceptNecessaryBtn": "الضرورية فقط",
+        "savePreferencesBtn": "قبول المحدد",
+        "closeIconLabel": "إغلاق",
+        "serviceCounterLabel": "الخدمات",
+        "sections": {
+            "general": {
+                "title": "إدارة تفضيلات الكوكيز",
+                "description": "نستخدم ملفات تعريف الارتباط لمساعدتك على التنقل بكفاءة وأداء وظائف معينة."
+            },
+            "necessary": {
+                "title": "ملفات تعريف الارتباط الضرورية للغاية",
+                "description": "ملفات تعريف الارتباط الضرورية حاسمة للوظائف الأساسية للموقع.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "ملفات تعريف الارتباط الوظيفية",
+                "description": "تساعد الكوكيز الوظيفية في حفظ إعداداتك وتفضيلاتك.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "ملفات تعريف الارتباط للأداء والتحليل",
+                "description": "تُستخدم الكوكيز التحليلية لفهم كيفية تفاعل الزوار مع الموقع.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "الاسم",
+                        "description": "الوصف",
+                        "Service": "الخدمة"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "يُستخدم لتتبعك ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "ملفات تعريف ارتباط الإعلانات والتسويق",
+                "description": "تُستخدم الكوكيز التسويقية لتقديم إعلانات مخصصة بناءً على اهتماماتك.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "ملفات تعريف ارتباط وسائل التواصل الاجتماعي",
+                "description": "تسمح كوكيز وسائل التواصل الاجتماعي بمشاركة المحتوى على المنصات الاجتماعية.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "معلومات إضافية",
+                "description": "لأية استفسارات بخصوص سياسة الكوكيز لدينا، يرجى <a class=\"cc__link\" href=\"#yourdomain.com\">الاتصال بنا</a>."
+            }
+        }
+    }
+}

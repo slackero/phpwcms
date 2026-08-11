@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Согласие на использование файлов cookie",
+        "title": "Мы ценим вашу конфиденциальность",
+        "description": "Мы используем файлы cookie для улучшения работы сайта, персонализации рекламы или контента, а также для анализа нашего трафика. Нажимая «Принять все», вы соглашаетесь на использование файлов cookie.",
+        "acceptAllBtn": "Принять все",
+        "acceptNecessaryBtn": "Отклонить все",
+        "showPreferencesBtn": "Настроить",
+        "footer": "<a href=\"#link\">Защита данных</a>\n<a href=\"#link\">Условия использования</a>"
+    },
+    "preferencesModal": {
+        "title": "Управление файлами cookie",
+        "acceptAllBtn": "Принять все",
+        "acceptNecessaryBtn": "Принять только необходимые",
+        "savePreferencesBtn": "Принять выбранные",
+        "closeIconLabel": "Закрыть",
+        "serviceCounterLabel": "Услуги",
+        "sections": {
+            "general": {
+                "title": "Управление файлами cookie",
+                "description": "Мы используем файлы cookie, чтобы помочь вам эффективно перемещаться по сайту и выполнять определенные функции."
+            },
+            "necessary": {
+                "title": "Строго необходимые файлы cookie",
+                "description": "Необходимые файлы cookie критически важны для базовых функций сайта.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Функциональные файлы cookie",
+                "description": "Функциональные файлы cookie помогают сохранять ваши настройки и предпочтения.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Аналитические файлы cookie",
+                "description": "Аналитические файлы cookie используются для анализа взаимодействия посетителей с сайтом.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Имя",
+                        "description": "Описание",
+                        "Service": "Служба"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Используется для отслеживания ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Рекламные и маркетинговые файлы cookie",
+                "description": "Маркетинговые файлы cookie используются для показа релевантной рекламы.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Файлы cookie социальных сетей",
+                "description": "Файлы cookie социальных сетей используются для интеграции с социальными платформами.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Дополнительная информация",
+                "description": "По любым вопросам относительно политики использования cookie, пожалуйста, <a class=\"cc__link\" href=\"#yourdomain.com\">свяжитесь с нами</a>."
+            }
+        }
+    }
+}

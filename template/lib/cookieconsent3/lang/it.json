@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Consenso ai cookie",
+        "title": "Valorizziamo la tua privacy",
+        "description": "Utilizziamo i cookie per migliorare la tua esperienza di navigazione, mostrare annunci o contenuti personalizzati e analizzare il nostro traffico. Facendo clic su \"Accetta tutto\", acconsenti al nostro utilizzo dei cookie.",
+        "acceptAllBtn": "Accetta tutto",
+        "acceptNecessaryBtn": "Rifiuta tutto",
+        "showPreferencesBtn": "Personalizza",
+        "footer": "<a href=\"#link\">Protezione dei dati</a>\n<a href=\"#link\">Termini e condizioni</a>"
+    },
+    "preferencesModal": {
+        "title": "Gestisci i tuoi cookie",
+        "acceptAllBtn": "Accetta tutto",
+        "acceptNecessaryBtn": "Accetta necessari",
+        "savePreferencesBtn": "Accetta la selezione corrente",
+        "closeIconLabel": "Chiudi",
+        "serviceCounterLabel": "Servizi",
+        "sections": {
+            "general": {
+                "title": "Gestisci i tuoi cookie",
+                "description": "Utilizziamo i cookie per aiutarti a navigare in modo efficiente ed eseguire determinate funzioni. Troverai informazioni dettagliate su tutti i cookie sotto ciascuna categoria di consenso qui sotto. I cookie classificati come \"Necessari\" vengono memorizzati sul tuo browser in quanto sono essenziali per abilitare le funzionalità di base del sito. Utilizziamo anche cookie di terze parti che ci aiutano ad analizzare come utilizzi questo sito web, memorizzare le tue preferenze e fornire contenuti e pubblicità rilevanti per te. Questi cookie verranno memorizzati nel tuo browser solo con il tuo preventivo consenso. Puoi scegliere di abilitare o disabilitare alcuni o tutti questi cookie, ma la disattivazione di alcuni di essi potrebbe influire sulla tua esperienza di navigazione."
+            },
+            "necessary": {
+                "title": "Cookie strettamente necessari",
+                "description": "I cookie necessari sono richiesti per abilitare le funzionalità di base di questo sito, come fornire un accesso sicuro o regolare le preferenze di consenso. Questi cookie non memorizzano alcun dato identificativo personale.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Cookie funzionali",
+                "description": "I cookie di funzionalità vengono utilizzati per migliorare le prestazioni dei siti web, poiché senza di essi alcune funzionalità del sito potrebbero non essere disponibili. Ad esempio, consentono di salvare informazioni importanti e preferenze dell'utente. Le informazioni possono includere dettagli di accesso, regione, lingua e contenuti avanzati.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookie di prestazione e analisi",
+                "description": "I cookie analitici vengono utilizzati per capire come i visitatori interagiscono con il sito web. Questi cookie aiutano a fornire informazioni su metriche quali il numero di visitatori, la frequenza di rimbalzo, la sorgente di traffico, ecc.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nome",
+                        "description": "Descrizione",
+                        "Service": "Servizio"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Utilizzato per tracciarti ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookie pubblicitari e di marketing",
+                "description": "I cookie pubblicitari e di marketing vengono utilizzati per fornire annunci pubblicitari più pertinenti a te e ai tuoi interessi. Possono anche essere utilizzati per limitare il numero di volte in cui visualizzi una pubblicità e misurare l'efficacia delle campagne pubblicitarie. Le reti pubblicitarie di solito li posizionano con il permesso del gestore del sito web.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookie dei social media",
+                "description": "I cookie dei social media vengono utilizzati per comprendere come i visitatori interagiscono con i social media. Questi cookie possono essere utilizzati per fornire pubblicità pertinente su altre piattaforme.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Maggiori informazioni",
+                "description": "Per qualsiasi domanda in relazione alla nostra politica sui cookie e alle tue scelte, ti preghiamo di <a class=\"cc__link\" href=\"#yourdomain.com\">contattarci</a>."
+            }
+        }
+    }
+}

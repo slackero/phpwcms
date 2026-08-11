@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Συγκατάθεση cookies",
+        "title": "Εκτιμούμε το απόρρητό σας",
+        "description": "Χρησιμοποιούμε cookies για να βελτιώσουμε την εμπειρία περιήγησής σας, να προβάλλουμε εξατομικευμένες διαφημίσεις ή περιεχόμενο και να αναλύουμε την επισκεψιμότητά μας. Κάνοντας κλικ στο \"Αποδοχή όλων\", συναινείτε στη χρήση των cookies.",
+        "acceptAllBtn": "Αποδοχή όλων",
+        "acceptNecessaryBtn": "Απόρριψη όλων",
+        "showPreferencesBtn": "Προσαρμογή",
+        "footer": "<a href=\"#link\">Προστασία δεδομένων</a>\n<a href=\"#link\">Όροι και προϋποθέσεις</a>"
+    },
+    "preferencesModal": {
+        "title": "Διαχείριση προτιμήσεων cookies",
+        "acceptAllBtn": "Αποδοχή όλων",
+        "acceptNecessaryBtn": "Μόνο τα απαραίτητα",
+        "savePreferencesBtn": "Αποδοχή επιλεγμένων",
+        "closeIconLabel": "Κλείσιμο",
+        "serviceCounterLabel": "Υπηρεσίες",
+        "sections": {
+            "general": {
+                "title": "Διαχείριση προτιμήσεων cookies",
+                "description": "Χρησιμοποιούμε cookies για να σας βοηθήσουμε να πλοηγηθείτε αποτελεσματικά και να εκτελέσετε συγκεκριμένες λειτουργίες."
+            },
+            "necessary": {
+                "title": "Απολύτως απαραίτητα cookies",
+                "description": "Τα απαραίτητα cookies είναι κρίσιμα για τις βασικές λειτουργίες του ιστότοπου.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Λειτουργικά cookies",
+                "description": "Τα λειτουργικά cookies βοηθούν στην αποθήκευση των προτιμήσεων και των ρυθμίσεών σας.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookies απόδοσης και ανάλυσης",
+                "description": "Τα αναλυτικά cookies χρησιμοποιούνται για να κατανοήσουμε πώς οι επισκέπτες αλληλεπιδρούν με τον ιστότοπο.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Όνομα",
+                        "description": "Περιγραφή",
+                        "Service": "Υπηρεσία"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Χρησιμοποιείται για την παρακολούθησή σας ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookies διαφήμισης και μάρκετινγκ",
+                "description": "Τα cookies μάρκετινγκ χρησιμοποιούνται για την παροχή εξατομικευμένων διαφημίσεων βάσει των ενδιαφερόντων σας.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookies κοινωνικών δικτύων",
+                "description": "Τα cookies κοινωνικών δικτύων επιτρέπουν την κοινή χρήση περιεχομένου σε πλατφόρμες κοινωνικής δικτύωσης.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Πρόσθετες πληροφορίες",
+                "description": "Για οποιαδήποτε απορία σχετικά με την πολιτική μας για τα cookies, παρακαλούμε <a class=\"cc__link\" href=\"#yourdomain.com\">επικοινωνήστε μαζί μας</a>."
+            }
+        }
+    }
+}

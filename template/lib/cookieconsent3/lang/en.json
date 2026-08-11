@@ -6,15 +6,16 @@
         "acceptAllBtn": "Accept all",
         "acceptNecessaryBtn": "Reject all",
         "showPreferencesBtn": "Customize",
-        "footer": "<a href=\"#link\">data protection</a>\n<a href=\"#link\">terms and conditions</a>"
+        "closeIconLabel": "Close",
+        "footer": "<a href=\"#link\">Privacy Policy</a>\n<a href=\"#link\">Terms and conditions</a>"
     },
     "preferencesModal": {
         "title": "Manage cookie preferences",
         "acceptAllBtn": "Accept all",
         "acceptNecessaryBtn": "Accept necessary",
-        "savePreferencesBtn": "Accept current selection",
-        "closeIconLabel": "Close",
-        "serviceCounterLabel": "Services",
+        "savePreferencesBtn": "Save preferences",
+        "closeIconLabel": "Close modal",
+        "serviceCounterLabel": "Service|Services",
         "sections": {
             "general": {
                 "title": "Manage your cookies",
@@ -43,7 +44,7 @@
                     "body": [
                         {
                             "name": "_ga_*, _gid",
-                            "description": "Used to track you ...",
+                            "description": "Used to track and analyze website traffic and visitor interactions anonymously.",
                             "Service": "Google Analytics"
                         }
                     ]
@@ -61,7 +62,7 @@
             },
             "more": {
                 "title": "More information",
-                "description": "For any query in relation to our policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact us</a>."
+                "description": "For any queries in relation to our policy on cookies and your choices, please <a class=\"cc__link\" href=\"#yourdomain.com\">contact us</a>."
             }
         }
     }

@@ -6,7 +6,7 @@
         "acceptAllBtn": "Alle akzeptieren",
         "acceptNecessaryBtn": "Alle ablehnen",
         "showPreferencesBtn": "Anpassen",
-        "closeIconLabel": "Schließen",
+        "closeIconLabel": "Schliessen",
         "footer": "<a href=\"#link\">Datenschutzerklärung</a>\n<a href=\"#link\">Impressum</a>"
     },
     "preferencesModal": {
@@ -14,7 +14,7 @@
         "acceptAllBtn": "Alle akzeptieren",
         "acceptNecessaryBtn": "Nur notwendige akzeptieren",
         "savePreferencesBtn": "Auswahl speichern",
-        "closeIconLabel": "Modal schließen",
+        "closeIconLabel": "Modal schliessen",
         "serviceCounterLabel": "Dienst|Dienste",
         "sections": {
             "general": {

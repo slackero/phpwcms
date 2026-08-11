@@ -1664,9 +1664,9 @@ if(isset($result[0]['pagelayout_id'])) {
         $('#cc_v3_preferences_layout').on('change', function(){
             let $preferences_position = $('#cc_v3_preferences_position');
             if($(this).val() === 'box') {
-                $preferences_position.prop('disabled', 'disabled').attr('disabled', 'disabled');
+                $preferences_position.prop('disabled', true).attr('disabled', 'disabled');
             } else {
-                $preferences_position.prop('disabled', 'false').removeAttr('disabled');
+                $preferences_position.prop('disabled', false).removeAttr('disabled');
             }
         });
         $('#cc_v3_consent_layout').on('change', function(){

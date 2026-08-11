@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Slapukų sutikimas",
+        "title": "Vertiname jūsų privatumą",
+        "description": "Mes naudojame slapukus, kad pagerintume jūsų naršymo patirtį, rodytume pritaikytus skelbimus ar turinį ir analizuotume mūsų srautą. Paspaudę „Priimti visus“, sutinkate su slapukų naudojimu.",
+        "acceptAllBtn": "Priimti visus",
+        "acceptNecessaryBtn": "Atmesti visus",
+        "showPreferencesBtn": "Pritaikyti",
+        "footer": "<a href=\"#link\">Duomenų apsauga</a>\n<a href=\"#link\">Taisyklės ir sąlygos</a>"
+    },
+    "preferencesModal": {
+        "title": "Slapukų nuostatų valdymas",
+        "acceptAllBtn": "Priimti visus",
+        "acceptNecessaryBtn": "Tik būtini",
+        "savePreferencesBtn": "Priimti pasirinktus",
+        "closeIconLabel": "Uždaryti",
+        "serviceCounterLabel": "Paslaugos",
+        "sections": {
+            "general": {
+                "title": "Slapukų nuostatų valdymas",
+                "description": "Naudojame slapukus, kad padėtume jums efektyviai naršyti ir atlikti tam tikras funkcijas."
+            },
+            "necessary": {
+                "title": "Griežtai būtini slapukai",
+                "description": "Būtini slapukai yra labai svarbūs pagrindinėms svetainės funkcijoms.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkciniai slapukai",
+                "description": "Funkciniai slapukai padeda išsaugoti jūsų nustatymus ir nuostatas.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Našumo ir analitiniai slapukai",
+                "description": "Analitiniai slapukai naudojami norint suprasti, kaip lankytojai sąveikauja su svetaine.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Pavadinimas",
+                        "description": "Aprašymas",
+                        "Service": "Paslauga"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Naudojama jūsų stebėjimui ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Reklamos ir rinkodaros slapukai",
+                "description": "Rinkodaros slapukai naudojami pritaikytiems skelbimams teikti pagal jūsų interesus.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Socialinių tinklų slapukai",
+                "description": "Socialinių tinklų slapukai leidžia dalytis turiniu socialinėse platformose.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Papildoma informacija",
+                "description": "Kilus klausimams dėl mūsų slapukų politikos, prašome <a class=\"cc__link\" href=\"#yourdomain.com\">susisiekti su mumis</a>."
+            }
+        }
+    }
+}

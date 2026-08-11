@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Cookie-samtykke",
+        "title": "Vi værdsætter dit privatliv",
+        "description": "Vi bruger cookies til at forbedre din browseroplevelse, vise personlige annoncer eller indhold og analysere vores trafik. Ved at klikke på \"Accepter alle\" giver du samtykke til vores brug af cookies.",
+        "acceptAllBtn": "Accepter alle",
+        "acceptNecessaryBtn": "Afvis alle",
+        "showPreferencesBtn": "Tilpas",
+        "footer": "<a href=\"#link\">Databeskyttelse</a>\n<a href=\"#link\">Vilkår og betingelser</a>"
+    },
+    "preferencesModal": {
+        "title": "Administrer dine præferencer",
+        "acceptAllBtn": "Accepter alle",
+        "acceptNecessaryBtn": "Kun nødvendige",
+        "savePreferencesBtn": "Accepter valgte",
+        "closeIconLabel": "Luk",
+        "serviceCounterLabel": "Tjenester",
+        "sections": {
+            "general": {
+                "title": "Administrer dine præferencer",
+                "description": "Vi bruger cookies til at hjælpe dig med at navigere effektivt og udføre visse funktioner."
+            },
+            "necessary": {
+                "title": "Strengt nødvendige cookies",
+                "description": "Nødvendige cookies er afgørende for webstedets grundlæggende funktioner.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funktionelle cookies",
+                "description": "Funktionelle cookies hjælper med at gemme dine indstillinger og præferencer.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Ydelses- og analysecookies",
+                "description": "Analysecookies bruges til at forstå, hvordan besøgende interagerer med webstedet.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Navn",
+                        "description": "Beskrivelse",
+                        "Service": "Tjeneste"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Bruges til at spore dig ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Annonce- og markedsføringscookies",
+                "description": "Markedsføringscookies bruges til at levere tilpassede annoncer baseret på dine interesser.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sociale medier-cookies",
+                "description": "Sociale medier-cookies gør det muligt at dele indhold på sociale platforme.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Yderligere oplysninger",
+                "description": "For spørgsmål om vores cookie-politik, <a class=\"cc__link\" href=\"#yourdomain.com\">kontakt os venligst</a>."
+            }
+        }
+    }
+}

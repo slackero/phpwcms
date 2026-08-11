@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Đồng ý cookie",
+        "title": "Chúng tôi tôn trọng quyền riêng tư của bạn",
+        "description": "Chúng tôi sử dụng cookie để nâng cao trải nghiệm duyệt web của bạn, phân phối quảng cáo hoặc nội dung được cá nhân hóa và phân tích lưu lượng truy cập của chúng tôi. Bằng cách nhấp vào \"Chấp nhận tất cả\", bạn đồng ý với việc chúng tôi sử dụng cookie.",
+        "acceptAllBtn": "Chấp nhận tất cả",
+        "acceptNecessaryBtn": "Từ chối tất cả",
+        "showPreferencesBtn": "Tùy chỉnh",
+        "footer": "<a href=\"#link\">Bảo vệ dữ liệu</a>\n<a href=\"#link\">Điều khoản và điều kiện</a>"
+    },
+    "preferencesModal": {
+        "title": "Quản lý tùy chọn cookie",
+        "acceptAllBtn": "Chấp nhận tất cả",
+        "acceptNecessaryBtn": "Chỉ cần thiết",
+        "savePreferencesBtn": "Chấp nhận đã chọn",
+        "closeIconLabel": "Đóng",
+        "serviceCounterLabel": "Dịch vụ",
+        "sections": {
+            "general": {
+                "title": "Quản lý tùy chọn cookie",
+                "description": "Chúng tôi sử dụng cookie để giúp bạn điều hướng hiệu quả và thực hiện các chức năng nhất định."
+            },
+            "necessary": {
+                "title": "Cookie thực sự cần thiết",
+                "description": "Cookie cần thiết là tối quan trọng đối với các chức năng cơ bản của trang web.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Cookie chức năng",
+                "description": "Cookie chức năng giúp lưu cài đặt và tùy chọn của bạn.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookie hiệu suất và phân tích",
+                "description": "Cookie phân tích được sử dụng để hiểu cách khách truy cập tương tác với trang web.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Tên",
+                        "description": "Mô tả",
+                        "Service": "Dịch vụ"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Được sử dụng để theo dõi bạn ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookie quảng cáo và tiếp thị",
+                "description": "Cookie tiếp thị được sử dụng để phân phối quảng cáo được cá nhân hóa.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookie mạng xã hội",
+                "description": "Cookie mạng xã hội cho phép chia sẻ nội dung trên các nền tảng mạng xã hội.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Thông tin bổ sung",
+                "description": "Mọi thắc mắc liên quan đến chính sách cookie của chúng tôi, vui lòng <a class=\"cc__link\" href=\"#yourdomain.com\">liên hệ với chúng tôi</a>."
+            }
+        }
+    }
+}

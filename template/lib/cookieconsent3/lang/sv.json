@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Samtycke till kakor",
+        "title": "Vi värdesätter din integritet",
+        "description": "Vi använder cookies för att förbättra din webbupplevelse, visa personliga annonser eller innehåll och analysera vår trafik. Genom att klicka på \"Acceptera alla\" godkänner du vår användning av cookies.",
+        "acceptAllBtn": "Acceptera alla",
+        "acceptNecessaryBtn": "Avvisa alla",
+        "showPreferencesBtn": "Anpassa",
+        "footer": "<a href=\"#link\">Dataskydd</a>\n<a href=\"#link\">Villkor</a>"
+    },
+    "preferencesModal": {
+        "title": "Hantera dina inställningar",
+        "acceptAllBtn": "Acceptera alla",
+        "acceptNecessaryBtn": "Endast nödvändiga",
+        "savePreferencesBtn": "Acceptera valda",
+        "closeIconLabel": "Stäng",
+        "serviceCounterLabel": "Tjänster",
+        "sections": {
+            "general": {
+                "title": "Hantera dina inställningar",
+                "description": "Vi använder cookies för att hjälpa dig att navigera effektivt och utföra vissa funktioner."
+            },
+            "necessary": {
+                "title": "Strikt nödvändiga cookies",
+                "description": "Nödvändiga cookies är avgörande för webbplatsens grundläggande funktioner.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funktionella cookies",
+                "description": "Funktionella cookies hjälper webbplatsen att komma ihåg dina val.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Prestanda- och analyscookies",
+                "description": "Analytiska cookies används för att förstå hur besökare interagerar med webbplatsen.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Namn",
+                        "description": "Beskrivning",
+                        "Service": "Tjänst"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Används för att spåra dig ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Annons- och marknadsföringscookies",
+                "description": "Marknadsföringscookies används för att leverera anpassade annonser baserat på dina intressen.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sociala medier-cookies",
+                "description": "Sociala medier-cookies gör det möjligt att dela innehåll på sociala plattformar.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Mer information",
+                "description": "För frågor om vår cookie-policy, <a class=\"cc__link\" href=\"#yourdomain.com\">kontakta oss gärna</a>."
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Consentimiento de cookies",
+        "title": "Valoramos su privacidad",
+        "description": "Utilizamos cookies para mejorar su experiencia de navegación, ofrecer anuncios o contenido personalizados y analizar nuestro tráfico. Al hacer clic en \"Aceptar todo\", acepta nuestro uso de cookies.",
+        "acceptAllBtn": "Aceptar todo",
+        "acceptNecessaryBtn": "Rechazar todo",
+        "showPreferencesBtn": "Personalizar",
+        "footer": "<a href=\"#link\">Protección de datos</a>\n<a href=\"#link\">Términos y condiciones</a>"
+    },
+    "preferencesModal": {
+        "title": "Gestionar sus cookies",
+        "acceptAllBtn": "Aceptar todo",
+        "acceptNecessaryBtn": "Aceptar necesarias",
+        "savePreferencesBtn": "Aceptar selección actual",
+        "closeIconLabel": "Cerrar",
+        "serviceCounterLabel": "Servicios",
+        "sections": {
+            "general": {
+                "title": "Gestionar sus cookies",
+                "description": "Utilizamos cookies para ayudarle a navegar eficientemente y realizar ciertas funciones. Encontrará información detallada sobre todas las cookies bajo cada categoría de consentimiento a continuación. Las cookies categorizadas como \"Necesarias\" se guardan en su navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio. También utilizamos cookies de terceros que nos ayudan a analizar cómo utiliza este sitio web, guardar sus preferencias y proporcionar el contenido y los anuncios que son relevantes para usted. Estas cookies solo se almacenarán en su navegador con su consentimiento previo. Puede elegir activar o desactivar algunas o todas estas cookies, pero la desactivación de algunas de ellas puede afectar su experiencia de navegación."
+            },
+            "necessary": {
+                "title": "Cookies estrictamente necesarias",
+                "description": "Las cookies necesarias son obligatorias para permitir las funciones básicas de este sitio, como proporcionar un inicio de sesión seguro o ajustar sus preferencias de consentimiento. Estas cookies no almacenan ningún dato de identificación personal.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Cookies funcionales",
+                "description": "Las cookies de funcionalidad se utilizan para mejorar el rendimiento de los sitios web, ya que sin ellas ciertas funciones del sitio web pueden no estar disponibles. Por ejemplo, permiten guardar información importante y preferencias del usuario. La información puede incluir detalles de inicio de sesión, región, idioma y contenido mejorado.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookies de rendimiento y analíticas",
+                "description": "Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como el número de visitantes, el porcentaje de rebote, la fuente de tráfico, etc.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nombre",
+                        "description": "Descripción",
+                        "Service": "Servicio"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Se utiliza para rastrearle ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookies de publicidad y marketing",
+                "description": "Las cookies de publicidad y marketing se utilizan para entregar anuncios que sean más relevantes para usted y sus intereses. También pueden usarse para limitar la cantidad de veces que ve un anuncio y medir la efectividad de las campañas publicitarias. Las redes publicitarias generalmente las colocan con el permiso del operador del sitio web.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookies de redes sociales",
+                "description": "Las cookies de redes sociales se utilizan para comprender cómo interactúan los visitantes con las redes sociales. Estas cookies pueden usarse para entregar publicidad relevante en otras plataformas.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Más información",
+                "description": "Para cualquier consulta en relación con nuestra política de cookies y sus opciones, por favor <a class=\"cc__link\" href=\"#yourdomain.com\">póngase en contacto con nosotros</a>."
+            }
+        }
+    }
+}

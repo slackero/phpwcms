@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Consentimento de cookies",
+        "title": "Valorizamos a sua privacidade",
+        "description": "Utilizamos cookies para melhorar a sua experiência de navegação, apresentar anúncios ou conteúdos personalizados e analisar o nosso tráfego. Ao clicar em \"Aceitar todos\", consente a utilização de cookies.",
+        "acceptAllBtn": "Aceitar todos",
+        "acceptNecessaryBtn": "Rejeitar todos",
+        "showPreferencesBtn": "Personalizar",
+        "footer": "<a href=\"#link\">Proteção de dados</a>\n<a href=\"#link\">Termos e condições</a>"
+    },
+    "preferencesModal": {
+        "title": "Gerir as suas preferências de cookies",
+        "acceptAllBtn": "Aceitar todos",
+        "acceptNecessaryBtn": "Aceitar necessários",
+        "savePreferencesBtn": "Aceitar selecionados",
+        "closeIconLabel": "Fechar",
+        "serviceCounterLabel": "Serviços",
+        "sections": {
+            "general": {
+                "title": "Gerir as suas preferências de cookies",
+                "description": "Utilizamos cookies para o ajudar a navegar de forma eficiente e a executar certas funcionalidades. Poderá encontrar informações detalhadas sobre todos os cookies em cada categoria de consentimento abaixo."
+            },
+            "necessary": {
+                "title": "Cookies estritamente necessários",
+                "description": "Os cookies necessários são essenciais para ativar as funcionalidades básicas deste site.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Cookies funcionais",
+                "description": "Os cookies funcionais ajudam a melhorar o desempenho do site, guardando as suas preferências.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookies de desempenho e análise",
+                "description": "Os cookies analíticos são utilizados para compreender como os visitantes interagem com o site.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nome",
+                        "description": "Descrição",
+                        "Service": "Serviço"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Usado para rastrear você ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookies de publicidade e marketing",
+                "description": "Os cookies de marketing são utilizados para fornecer anúncios personalizados de acordo com os seus interesses.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookies de redes sociais",
+                "description": "Os cookies de redes sociais são utilizados para compreender as interações com plataformas sociais.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Informações adicionais",
+                "description": "Para quaisquer dúvidas sobre a nossa política de cookies, por favor <a class=\"cc__link\" href=\"#yourdomain.com\">contacte-nos</a>."
+            }
+        }
+    }
+}

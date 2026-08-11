@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Consimțământ pentru module cookie",
+        "title": "Apreciem confidențialitatea dvs.",
+        "description": "Folosim cookie-uri pentru a vă îmbunătăți experiența de navigare, pentru a afișa reclame sau conținut personalizat și pentru a analiza traficul nostru. Făcând clic pe \"Acceptă tot\", sunteți de acord cu utilizarea cookie-urilor.",
+        "acceptAllBtn": "Acceptă tot",
+        "acceptNecessaryBtn": "Refuză tot",
+        "showPreferencesBtn": "Personalizează",
+        "footer": "<a href=\"#link\">Protecția datelor</a>\n<a href=\"#link\">Termeni și condiții</a>"
+    },
+    "preferencesModal": {
+        "title": "Gestionați preferințele de cookie-uri",
+        "acceptAllBtn": "Acceptă tot",
+        "acceptNecessaryBtn": "Doar cele necesare",
+        "savePreferencesBtn": "Acceptă selectate",
+        "closeIconLabel": "Închide",
+        "serviceCounterLabel": "Servicii",
+        "sections": {
+            "general": {
+                "title": "Gestionați preferințele de cookie-uri",
+                "description": "Folosim cookie-uri pentru a vă ajuta să navigați eficient și să executați anumite funcții."
+            },
+            "necessary": {
+                "title": "Cookie-uri strict necesare",
+                "description": "Cookie-urile necesare sunt esențiale pentru funcțiile de bază ale site-ului.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Cookie-uri funcționale",
+                "description": "Cookie-urile funcționale permit salvarea setărilor și preferințelor dvs.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Cookie-uri de performanță și analiză",
+                "description": "Cookie-urile analitice sunt utilizate pentru a înțelege modul în care vizitatorii interacționează cu site-ul.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nume",
+                        "description": "Descriere",
+                        "Service": "Serviciu"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Utilizat pentru a vă urmări ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Cookie-uri de publicitate și marketing",
+                "description": "Cookie-urile de marketing sunt utilizate pentru a furniza reclame personalizate pe baza intereselor dvs.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Cookie-uri de rețele sociale",
+                "description": "Cookie-urile de rețele sociale permit partajarea conținutului pe platformele sociale.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Informații suplimentare",
+                "description": "Pentru orice întrebări referitoare la politica noastră de cookie-uri, vă rugăm să <a class=\"cc__link\" href=\"#yourdomain.com\">ne contactați</a>."
+            }
+        }
+    }
+}

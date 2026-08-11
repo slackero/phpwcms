@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Consentiment de galetes",
+        "title": "Valorem la vostra privadesa",
+        "description": "Utilitzem galetes per millorar la vostra experiència de navegació, oferir anuncis o contingut personalitzat i analitzar el trànsit. En fer clic a \"Accepta-ho tot\", accepteu el nostre ús de galetes.",
+        "acceptAllBtn": "Accepta-ho tot",
+        "acceptNecessaryBtn": "Rebutja-ho tot",
+        "showPreferencesBtn": "Personalitza",
+        "footer": "<a href=\"#link\">Protecció de dades</a>\n<a href=\"#link\">Termes i condicions</a>"
+    },
+    "preferencesModal": {
+        "title": "Gestió de preferències de galetes",
+        "acceptAllBtn": "Accepta-ho tot",
+        "acceptNecessaryBtn": "Només les necessàries",
+        "savePreferencesBtn": "Accepta les seleccionades",
+        "closeIconLabel": "Tancar",
+        "serviceCounterLabel": "Serveis",
+        "sections": {
+            "general": {
+                "title": "Gestió de preferències de galetes",
+                "description": "Utilitzem galetes per ajudar-vos a navegar eficaçment i executar determinades funcions."
+            },
+            "necessary": {
+                "title": "Galetes estrictament necessàries",
+                "description": "Les galetes necessàries són essencials per a les funcions bàsiques del lloc web.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Galetes funcionals",
+                "description": "Les galetes funcionals permeten desar les vostres preferències i configuracions.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Galetes de rendiment i anàlisi",
+                "description": "Les galetes analítiques s'utilitzen per entendre com interactuen els visitants amb el lloc.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nom",
+                        "description": "Descripció",
+                        "Service": "Servei"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Utilitzat per fer seguiment ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Galetes publicitàries i de màrqueting",
+                "description": "Les galetes de màrqueting s'utilitzen per oferir anuncis personalitzats segons els vostres interessos.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Galetes de xarxes socials",
+                "description": "Les galetes de xarxes socials permeten compartir contingut a les plataformes socials.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Més informació",
+                "description": "Per a qualsevol dubte sobre la nostra política de galetes, si us plau <a class=\"cc__link\" href=\"#yourdomain.com\">contacteu amb nosaltres</a>."
+            }
+        }
+    }
+}

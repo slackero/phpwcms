@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Pristanak za kolačiće",
+        "title": "Cijenimo vašu privatnost",
+        "description": "Koristimo kolačiće kako bismo poboljšali vaše iskustvo pregledanja, prikazali personalizirane oglase ili sadržaj i analizirali naš promet. Klikom na \"Prihvati sve\" pristajete na našu upotrebu kolačića.",
+        "acceptAllBtn": "Prihvati sve",
+        "acceptNecessaryBtn": "Odbij sve",
+        "showPreferencesBtn": "Prilagodi",
+        "footer": "<a href=\"#link\">Zaštita podataka</a>\n<a href=\"#link\">Uslovi i odredbe</a>"
+    },
+    "preferencesModal": {
+        "title": "Upravljanje postavkama kolačića",
+        "acceptAllBtn": "Prihvati sve",
+        "acceptNecessaryBtn": "Samo neophodni",
+        "savePreferencesBtn": "Prihvati odabrano",
+        "closeIconLabel": "Zatvori",
+        "serviceCounterLabel": "Usluge",
+        "sections": {
+            "general": {
+                "title": "Upravljanje postavkama kolačića",
+                "description": "Koristimo kolačiće kako bismo vam pomogli da se efikasno krećete i izvršavate određene funkcije."
+            },
+            "necessary": {
+                "title": "Strogo neophodni kolačići",
+                "description": "Neophodni kolačići su ključni za osnovne funkcije web stranice.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkcionalni kolačići",
+                "description": "Funkcionalni kolačići pomažu u spremanju vaših postavki i preferencija.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Kolačići za performanse i analitiku",
+                "description": "Analitički kolačići se koriste za razumijevanje načina na koji posjetioci komuniciraju sa stranicom.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Naziv",
+                        "description": "Opis",
+                        "Service": "Usluga"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Koristi se za praćenje ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Kolačići za oglašavanje i marketing",
+                "description": "Marketinški kolačići se koriste za prikazivanje prilagođenih oglasa na osnovu vaših interesa.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Kolačići društvenih mreža",
+                "description": "Kolačići društvenih mreža omogućavaju dijeljenje sadržaja na društvenim platformama.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Dodatne informacije",
+                "description": "Za sva pitanja u vezi s našom politikom kolačića, molimo <a class=\"cc__link\" href=\"#yourdomain.com\">kontaktirajte nas</a>."
+            }
+        }
+    }
+}

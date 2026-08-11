@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Toestemming voor cookies",
+        "title": "We waarderen uw privacy",
+        "description": "We gebruiken cookies om uw browse-ervaring te verbeteren, gepersonaliseerde advertenties of inhoud te tonen en ons verkeer te analyseren. Door op \"Alles accepteren\" te klikken, stemt u in met ons gebruik van cookies.",
+        "acceptAllBtn": "Alles accepteren",
+        "acceptNecessaryBtn": "Alles weigeren",
+        "showPreferencesBtn": "Aanpassen",
+        "footer": "<a href=\"#link\">Gegevensbescherming</a>\n<a href=\"#link\">Algemene voorwaarden</a>"
+    },
+    "preferencesModal": {
+        "title": "Beheer uw cookies",
+        "acceptAllBtn": "Alles accepteren",
+        "acceptNecessaryBtn": "Noodzakelijke accepteren",
+        "savePreferencesBtn": "Accepteer huidige selectie",
+        "closeIconLabel": "Sluiten",
+        "serviceCounterLabel": "Diensten",
+        "sections": {
+            "general": {
+                "title": "Beheer uw cookies",
+                "description": "We gebruiken cookies om u te helpen efficiënt te navigeren en bepaalde functies uit te voeren. Gedetailleerde informatie over alle cookies vindt u onder elke toestemmingscategorie hieronder. De cookies die zijn gecategoriseerd als \"Noodzakelijk\" worden in uw browser opgeslagen omdat ze essentieel zijn voor de basisfuncties van de site. We gebruiken ook cookies van derden die ons helpen analyseren hoe u deze website gebruikt, uw voorkeuren opslaan en de inhoud en advertenties aanbieden die voor u relevant zijn. Deze cookies worden pas na uw voorafgaande toestemming in uw browser opgeslagen. U kunt ervoor kiezen om sommige of alle van deze cookies in of uit te schakelen, maar het uitschakelen van sommige ervan kan uw browse-ervaring beïnvloeden."
+            },
+            "necessary": {
+                "title": "Strikt noodzakelijke cookies",
+                "description": "Noodzakelijke cookies zijn vereist om de basisfuncties van deze site mogelijk te maken, zoals het aanbieden van een veilige login of het aanpassen van uw toestemmingsvoorkeuren. Deze cookies slaan geen persoonlijk identificeerbare gegevens op.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Functionele cookies",
+                "description": "Functionele cookies worden gebruikt om de prestaties van websites te verbeteren, omdat zonder deze cookies bepaalde functies van de website mogelijk niet beschikbaar zijn. Ze maken het bijvoorbeeld mogelijk om belangrijke informatie en gebruikersvoorkeuren op te slaan. Deze informatie kan inloggegevens, regio, taal en verbeterde inhoud omvatten.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Prestatie- en analytische cookies",
+                "description": "Analytische cookies worden gebruikt om te begrijpen hoe bezoekers met de website omgaan. Deze cookies helpen informatie te verstrekken over statistieken zoals het aantal bezoekers, bouncepercentage, verkeersbron, enz.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Naam",
+                        "description": "Beschrijving",
+                        "Service": "Dienst"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Wordt gebruikt om u te volgen ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Advertentie- en marketingcookies",
+                "description": "Advertentie- en marketingcookies worden gebruikt om advertenties te leveren die relevanter zijn voor u en uw interesses. Ze kunnen ook worden gebruikt om het aantal keren dat u een advertentie ziet te beperken en de effectiviteit van advertentiecampagnes te meten. Advertentienetwerken plaatsen ze meestal met toestemming van de websitebeheerder.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Social media cookies",
+                "description": "Social media cookies worden gebruikt om te begrijpen hoe bezoekers omgaan met sociale media. Deze cookies kunnen worden gebruikt om relevante advertenties op andere platforms te tonen.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Meer informatie",
+                "description": "Voor vragen over ons cookiebeleid en uw keuzes kunt u <a class=\"cc__link\" href=\"#yourdomain.com\">contact met ons opnemen</a>."
+            }
+        }
+    }
+}

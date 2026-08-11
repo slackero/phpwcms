@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Çerez onayı",
+        "title": "Gizliliğinize değer veriyoruz",
+        "description": "Tarama deneyiminizi geliştirmek, kişiselleştirilmiş reklamlar veya içerik sunmak ve trafiğimizi analiz etmek için çerezleri kullanıyoruz. \"Tümünü Kabul Et\" seçeneğine tıklayarak çerez kullanımımıza izin vermiş olursunuz.",
+        "acceptAllBtn": "Tümünü Kabul Et",
+        "acceptNecessaryBtn": "Tümünü Reddet",
+        "showPreferencesBtn": "Özelleştir",
+        "footer": "<a href=\"#link\">Veri koruma</a>\n<a href=\"#link\">Şartlar ve koşullar</a>"
+    },
+    "preferencesModal": {
+        "title": "Çerez Tercihlerinizi Yönetin",
+        "acceptAllBtn": "Tümünü Kabul Et",
+        "acceptNecessaryBtn": "Gerekli Olanları Kabul Et",
+        "savePreferencesBtn": "Seçilenleri Kabul Et",
+        "closeIconLabel": "Kapat",
+        "serviceCounterLabel": "Hizmetler",
+        "sections": {
+            "general": {
+                "title": "Çerez Tercihlerinizi Yönetin",
+                "description": "Web sitesinde gezinmenize ve belirli işlevleri çalıştırmanıza yardımcı olmak için çerezler kullanıyoruz. Aşağıdaki her bir onay kategorisi altında tüm çerezler hakkında ayrıntılı bilgi bulabilirsiniz."
+            },
+            "necessary": {
+                "title": "Kesinlikle Gerekli Çerezler",
+                "description": "Gerekli çerezler, bu sitenin temel özelliklerini etkinleştirmek için çok önemlidir.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "İşlevsel Çerezler",
+                "description": "İşlevsel çerezler, web sitesinin performansını artırmaya ve tercihlerinizi kaydetmeye yardımcı olur.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Performans ve Analiz Çerezleri",
+                "description": "Analitik çerezler, ziyaretçilerin web sitesiyle nasıl etkileşime girdiğini anlamak için kullanılır.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "İsim",
+                        "description": "Açıklama",
+                        "Service": "Hizmet"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Sizi takip etmek için kullanılır ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Reklam ve Pazarlama Çerezleri",
+                "description": "Pazarlama çerezleri, ziyaretçilere ilgi alanlarına göre özelleştirilmiş reklamlar sunmak için kullanılır.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sosyal Medya Çerezleri",
+                "description": "Sosyal medya çerezleri, sosyal medya platformlarıyla olan etkileşimleri anlamak için kullanılır.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Daha Fazla Bilgi",
+                "description": "Çerez politikamızla ilgili sorularınız için lütfen <a class=\"cc__link\" href=\"#yourdomain.com\">bizimle iletişime geçin</a>."
+            }
+        }
+    }
+}

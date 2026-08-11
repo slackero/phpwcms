@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Zgoda na pliki cookie",
+        "title": "Cenimy Twoją prywatność",
+        "description": "Używamy plików cookie, aby ułatwić Ci korzystanie z naszej strony, wyświetlać spersonalizowane reklamy lub treści oraz analizować ruch. Klikając \"Zaakceptuj wszystkie\", wyrażasz zgodę na korzystanie przez nas z plików cookie.",
+        "acceptAllBtn": "Zaakceptuj wszystkie",
+        "acceptNecessaryBtn": "Odrzuć wszystkie",
+        "showPreferencesBtn": "Dostosuj",
+        "footer": "<a href=\"#link\">Ochrona danych</a>\n<a href=\"#link\">Regulamin</a>"
+    },
+    "preferencesModal": {
+        "title": "Zarządzaj swoimi plikami cookie",
+        "acceptAllBtn": "Zaakceptuj wszystkie",
+        "acceptNecessaryBtn": "Zaakceptuj niezbędne",
+        "savePreferencesBtn": "Zaakceptuj aktualny wybór",
+        "closeIconLabel": "Zamknij",
+        "serviceCounterLabel": "Usługi",
+        "sections": {
+            "general": {
+                "title": "Zarządzaj swoimi plikami cookie",
+                "description": "Używamy plików cookie, aby pomóc w sprawnej nawigacji i wykonywaniu określonych funkcji. Szczegółowe informacje o wszystkich plikach cookie znajdziesz pod każdą kategorią zgody poniżej. Pliki cookie sklasyfikowane jako \"Niezbędne\" są przechowywane w Twojej przeglądarce, ponieważ są kluczowe dla włączenia podstawowych funkcji witryny. Używamy również plików cookie stron trzecich, które pomagają nam analizować sposób korzystania z tej witryny, zapisywać Twoje preferencje oraz dostarczać odpowiednie treści i reklamy. Te pliki cookie będą przechowywane w Twojej przeglądarce wyłącznie za Twoją uprzednią zgodą. Możesz włączyć lub wyłączyć niektóre lub wszystkie z tych plików cookie, ale wyłączenie niektórych z nich może wpłynąć na komfort przeglądania strony."
+            },
+            "necessary": {
+                "title": "Ściśle niezbędne pliki cookie",
+                "description": "Niezbędne pliki cookie są wymagane do włączenia podstawowych funkcji tej witryny, takich jak zapewnienie bezpiecznego logowania czy dostosowanie preferencji dotyczących zgody. Te pliki cookie nie przechowują żadnych danych umożliwiających identyfikację tożsamości.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkcjonalne pliki cookie",
+                "description": "Funkcjonalne pliki cookie służą do poprawy wydajności witryn internetowych, ponieważ bez nich niektóre funkcje strony mogą być niedostępne. Na przykład umożliwiają zapisywanie ważnych informacji i preferencji użytkownika. Informacje te mogą obejmować dane logowania, region, język i rozszerzoną zawartość.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Wydajnościowe i analityczne pliki cookie",
+                "description": "Analityczne pliki cookie służą do zrozumienia, jak odwiedzający wchodzą w interakcję z witryną. Pomagają one dostarczać informacji na temat wskaźników, takich jak liczba odwiedzających, współczynnik odrzuceń, źródło ruchu itp.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nazwa",
+                        "description": "Opis",
+                        "Service": "Usługa"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Używane do śledzenia ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Reklamowe i marketingowe pliki cookie",
+                "description": "Reklamowe i marketingowe pliki cookie służą do dostarczania reklam bardziej dopasowanych do Ciebie i Twoich zainteresowań. Mogą być również używane do ograniczania liczby wyświetleń danej reklamy oraz pomiaru skuteczności kampanii reklamowych. Sieci reklamowe zazwyczaj umieszczają je za zgodą operatora witryny.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Pliki cookie mediów społecznościowych",
+                "description": "Pliki cookie mediów społecznościowych służą do zrozumienia, w opiniach odwiedzający wchodzą w interakcję z mediami społecznościowymi. Pliki te mogą być używane do wyświetlania odpowiednich reklam na innych platformach.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Więcej informacji",
+                "description": "W przypadku jakichkolwiek pytań dotyczących naszej polityki plików cookie oraz Twoich wyborów, <a class=\"cc__link\" href=\"#yourdomain.com\">skontaktuj się z nami</a>."
+            }
+        }
+    }
+}

@@ -566,7 +566,7 @@ $phpwcms['cookie_consent_v3'] = [
 ];
 if (empty($block['require_consent']['cookie_name'])) {
     if (empty($phpwcms['cookie_consent_name'])) {
-        $phpwcms['cookie_consent_name'] = 'cookieconsent_dismissed';
+        $phpwcms['cookie_consent_name'] = !empty($block['cc_v3']['enable']) ? 'cc_cookie' : 'cookieconsent_dismissed';
     }
 } else {
     $phpwcms['cookie_consent_name'] = $block['require_consent']['cookie_name'];
@@ -579,45 +579,45 @@ if (empty($block['require_consent']['cookie_value'])) {
     $phpwcms['cookie_consent_value'] = $block['require_consent']['cookie_value'];
 }
 if (!empty($block['cc_v3']['enable'])) {
-    $phpwcms['cookie_consent_name'] = 'cc_cookie';
+    if (empty($phpwcms['cookie_consent_name']) || $phpwcms['cookie_consent_name'] === 'cookieconsent_dismissed') {
+        $phpwcms['cookie_consent_name'] = 'cc_cookie';
+    }
     $phpwcms['cookie_consent_value'] = '';
-}
-if (!empty($block['require_consent']['enable'])) {
+    if (isset($_COOKIE[$phpwcms['cookie_consent_name']])) {
+        $cookie_consent_v3 = json_decode($_COOKIE[$phpwcms['cookie_consent_name']], true);
+        if (!empty($cookie_consent_v3['categories']) && is_array($cookie_consent_v3['categories'])) {
+            if (in_array('necessary', $cookie_consent_v3['categories'])) {
+                $phpwcms['cookie_consent'] = false; // necessary cookies are always allowed
+            }
+            if (in_array('functionality', $cookie_consent_v3['categories'])) {
+                $phpwcms['cookie_consent_v3']['functionality'] =  true;
+            }
+            if (in_array('analytics', $cookie_consent_v3['categories'])) {
+                $phpwcms['cookie_consent_v3']['analytics'] =  true;
+            } else {
+                $block['tracking_ga']['enable'] = false;
+                $block['tracking_piwik']['enable'] = false;
+                $block['tracking_gtm']['enable'] = false;
+            }
+            if (in_array('marketing', $cookie_consent_v3['categories'])) {
+                $phpwcms['cookie_consent_v3']['marketing'] =  true;
+            }
+            if (in_array('social', $cookie_consent_v3['categories'])) {
+                $phpwcms['cookie_consent_v3']['social'] =  true;
+            }
+        } elseif (!empty($block['require_consent']['enable'])) {
+            $phpwcms['donottrack'] = true;
+        }
+    } elseif (!empty($block['require_consent']['enable'])) {
+        $phpwcms['donottrack'] = true;
+    }
+} elseif (!empty($block['require_consent']['enable'])) {
     if (isset($_COOKIE[$phpwcms['cookie_consent_name']])) {
         $phpwcms['cookie_consent'] = true;
-        if (empty($block['cc_v3']['enable'])) {
-            // old cookie consent
-            if (strpos($_COOKIE[$phpwcms['cookie_consent_name']], $phpwcms['cookie_consent_value']) !== false) {
-                $phpwcms['cookie_consent_dismiss'] = true;
-            } else {
-                $phpwcms['donottrack'] = true;
-            }
+        if (strpos($_COOKIE[$phpwcms['cookie_consent_name']], $phpwcms['cookie_consent_value']) !== false) {
+            $phpwcms['cookie_consent_dismiss'] = true;
         } else {
-            // cookie consent v3
-            $cookie_consent_v3 = json_decode($_COOKIE[$phpwcms['cookie_consent_name']], true);
-            if (!empty($cookie_consent_v3['categories']) && is_array($cookie_consent_v3['categories'])) {
-                if (in_array('necessary', $cookie_consent_v3['categories'])) {
-                    $phpwcms['cookie_consent'] = false; // necessary cookies are always allowed
-                }
-                if (in_array('functionality', $cookie_consent_v3['categories'])) {
-                    $phpwcms['cookie_consent_v3']['functionality'] =  true;
-                }
-                if (in_array('analytics', $cookie_consent_v3['categories'])) {
-                    $phpwcms['cookie_consent_v3']['analytics'] =  true;
-                } else {
-                    $block['tracking_ga']['enable'] = false;
-                    $block['tracking_piwik']['enable'] = false;
-                    $block['tracking_gtm']['enable'] = false;
-                }
-                if (in_array('marketing', $cookie_consent_v3['categories'])) {
-                    $phpwcms['cookie_consent_v3']['marketing'] =  true;
-                }
-                if (in_array('social', $cookie_consent_v3['categories'])) {
-                    $phpwcms['cookie_consent_v3']['social'] =  true;
-                }
-            } else {
-                $phpwcms['donottrack'] = true;
-            }
+            $phpwcms['donottrack'] = true;
         }
     } else {
         $phpwcms['donottrack'] = true;
@@ -1499,8 +1499,8 @@ if (!$phpwcms['cookie_consent']) {
         ];
 
         if (PHPWCMS_USE_CDN) {
-            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" />';
-            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>';
+            $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css" />';
+            $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.umd.js"></script>';
         } else {
             $block['custom_htmlhead']['cookieconsent_v3'] = '  <link rel="stylesheet" type="text/css" href="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.css" />';
             $block['custom_htmlhead']['cookieconsent.js'] = '  <script src="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent3/cookieconsent.umd.js"></script>';
@@ -1519,16 +1519,22 @@ if (!$phpwcms['cookie_consent']) {
                 'preferencesModal' => [
                     'layout' => empty($block['cc_v3']['gui']['preferences']['layout']) ? 'bar wide' : $block['cc_v3']['gui']['preferences']['layout'],
                     'position' => empty($block['cc_v3']['gui']['preferences']['position']) ? 'right' : $block['cc_v3']['gui']['preferences']['position'],
-                    'equalWeightButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal']),
-                    'flipButtons' =>  !empty($block['cc_v3']['gui']['position']['btn_equal'])
+                    'equalWeightButtons' => !empty($block['cc_v3']['gui']['preferences']['btn_equal']),
+                    'flipButtons' => !empty($block['cc_v3']['gui']['preferences']['btn_flip']),
                 ]
             ],
             'language' => [
                 'default' => $cc_v3_lang,
-                'autoDetect' => 'browser',
+                'autoDetect' => 'document',
                 'translations' => [],
             ],
         ];
+
+        if (!empty($phpwcms['cookie_consent_name']) && $phpwcms['cookie_consent_name'] !== 'cc_cookie') {
+            $cc_v3_config['cookie'] = [
+                'name' => $phpwcms['cookie_consent_name']
+            ];
+        }
 
         // Default translations
         $cc_v3_load_lang = $cc_v3_lang;
@@ -1601,8 +1607,13 @@ if (!$phpwcms['cookie_consent']) {
             $cc_v3_translation['consentModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
             $cc_v3_translation['preferencesModal']['acceptAllBtn'] = $block['cc_v3']['accept_all'];
         }
+        if (!empty($block['cc_v3']['reject_all'])) {
+            $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['reject_all'];
+        }
         if (!empty($block['cc_v3']['accept_necessary'])) {
-            $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+            if (empty($block['cc_v3']['reject_all'])) {
+                $cc_v3_translation['consentModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
+            }
             $cc_v3_translation['preferencesModal']['acceptNecessaryBtn'] = $block['cc_v3']['accept_necessary'];
         }
         if (!empty($block['cc_v3']['customize'])) {

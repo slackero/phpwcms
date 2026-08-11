@@ -42,7 +42,13 @@ const copyMap = [
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
     { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap4.css', dest: 'inc_css/tom-select.bootstrap4.css' },
     { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' },
-    { src: '../../node_modules/glightbox/dist/css/glightbox.min.css', dest: '../template/lib/glightbox/glightbox.min.css' }
+    { src: '../../node_modules/glightbox/dist/css/glightbox.min.css', dest: '../template/lib/glightbox/glightbox.min.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.css', dest: '../template/lib/cookieconsent3/cookieconsent.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/css-components/base.css', dest: '../template/lib/cookieconsent3/css-components/base.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/css-components/consent-modal.css', dest: '../template/lib/cookieconsent3/css-components/consent-modal.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/css-components/dark-scheme.css', dest: '../template/lib/cookieconsent3/css-components/dark-scheme.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/css-components/light-scheme.css', dest: '../template/lib/cookieconsent3/css-components/light-scheme.css' },
+    { src: '../../node_modules/vanilla-cookieconsent/dist/css-components/preferences-modal.css', dest: '../template/lib/cookieconsent3/css-components/preferences-modal.css' }
 ];
 
 for (const item of copyMap) {

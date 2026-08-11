@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Evästeiden suostumus",
+        "title": "Kunnioitamme yksityisyyttäsi",
+        "description": "Käytämme evästeitä parantaaksemme selauskokemustasi, näyttääksemme personoituja mainoksia tai sisältöä sekä analysoidaksemme liikennettämme. Klikkaamalla \"Hyväksy kaikki\" hyväksyt evästeiden käytön.",
+        "acceptAllBtn": "Hyväksy kaikki",
+        "acceptNecessaryBtn": "Hylkää kaikki",
+        "showPreferencesBtn": "Mukauta",
+        "footer": "<a href=\"#link\">Tietosuoja</a>\n<a href=\"#link\">Käyttöehdot</a>"
+    },
+    "preferencesModal": {
+        "title": "Evästeasetusten hallinta",
+        "acceptAllBtn": "Hyväksy kaikki",
+        "acceptNecessaryBtn": "Vain välttämättömät",
+        "savePreferencesBtn": "Hyväksy valitut",
+        "closeIconLabel": "Sulje",
+        "serviceCounterLabel": "Palvelut",
+        "sections": {
+            "general": {
+                "title": "Evästeasetusten hallinta",
+                "description": "Käytämme evästeitä auttamaan sinua navigoimaan tehokkaasti ja suorittamaan tiettyjä toimintoja."
+            },
+            "necessary": {
+                "title": "Välttämättömät evästeet",
+                "description": "Välttämättömät evästeet ovat ratkaisevan tärkeitä verkkosivuston perustoiminnoille.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Toiminnalliset evästeet",
+                "description": "Toiminnalliset evästeet auttavat tallentamaan asetuksesi ja mieltymyksesi.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Suorituskyky- ja analytiikkaevästeet",
+                "description": "Analyyttisiä evästeitä käytetään ymmärtämään, miten kävijät ovat vuorovaikutuksessa sivuston kanssa.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nimi",
+                        "description": "Kuvaus",
+                        "Service": "Palvelu"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Käytetään seurantaan ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Mainos- ja markkinointievästeet",
+                "description": "Markkinointievästeitä käytetään kohdennettujen mainosten näyttämiseen.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sosiaalisen median evästeet",
+                "description": "Sosiaalisen median evästeet mahdollistavat sisällön jakamisen sosiaalisissa kanavissa.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Lisätietoja",
+                "description": "Jos sinulla on kysyttävää evästekäytännöstämme, <a class=\"cc__link\" href=\"#yourdomain.com\">ota meihin yhteyttä</a>."
+            }
+        }
+    }
+}

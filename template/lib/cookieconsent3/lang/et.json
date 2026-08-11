@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Küpsiste nõusolek",
+        "title": "Väärtustame teie privaatsust",
+        "description": "Kasutame küpsiseid teie sirvimiskogemuse parandamiseks, isikupärastatud reklaamide või sisu kuvamiseks ja liikluse analüüsimiseks. Klõpsates \"Nõustu kõigiga\", nõustute meie küpsiste kasutamisega.",
+        "acceptAllBtn": "Nõustu kõigiga",
+        "acceptNecessaryBtn": "Keeldu kõigist",
+        "showPreferencesBtn": "Kohanda",
+        "footer": "<a href=\"#link\">Andmekaitse</a>\n<a href=\"#link\">Tingimused</a>"
+    },
+    "preferencesModal": {
+        "title": "Küpsise-eelistuste haldamine",
+        "acceptAllBtn": "Nõustu kõigiga",
+        "acceptNecessaryBtn": "Ainult vajalikud",
+        "savePreferencesBtn": "Nõustu valitutega",
+        "closeIconLabel": "Sulge",
+        "serviceCounterLabel": "Teenused",
+        "sections": {
+            "general": {
+                "title": "Küpsise-eelistuste haldamine",
+                "description": "Kasutame küpsiseid, et aidata teil tõhusalt navigeerida ja teatud funktsioone täita."
+            },
+            "necessary": {
+                "title": "Rangelt vajalikud küpsised",
+                "description": "Vajalikud küpsised on veebisaidi põhifunktsioonide jaoks hädavajalikud.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funktsionaalsed küpsised",
+                "description": "Funktsionaalsed küpsised aitavad salvestada teie eelistusi ja seadistusi.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Jõudlus- ja analüütilised küpsised",
+                "description": "Analüütilisi küpsiseid kasutatakse selleks, et mõista, kuidas külastajad saidiga suhtlevad.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Nimi",
+                        "description": "Kirjeldus",
+                        "Service": "Teenus"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Kasutatakse teie jälgimiseks ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Reklaami- ja turundusküpsised",
+                "description": "Turundusküpsiseid kasutatakse isikupärastatud reklaamide edastamiseks.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sotsiaalmeedia küpsised",
+                "description": "Sotsiaalmeedia küpsised võimaldavad sisu jagamist sotsiaalsetel platvormidel.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Lisateave",
+                "description": "Kui teil on küsimusi meie küpsisepoliitika kohta, võtke meiega <a class=\"cc__link\" href=\"#yourdomain.com\">ühendust</a>."
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Súhlas s cookies",
+        "title": "Vážime si vaše súkromie",
+        "description": "Používame súbory cookie na zlepšenie vášho zážitku z prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej návštevnosti. Kliknutím na \"Prijať všetko\" súhlasíte s naším používaním súborov cookie.",
+        "acceptAllBtn": "Prijať všetko",
+        "acceptNecessaryBtn": "Odmietnuť všetko",
+        "showPreferencesBtn": "Prispôsobiť",
+        "footer": "<a href=\"#link\">Ochrana údajov</a>\n<a href=\"#link\">Zmluvné podmienky</a>"
+    },
+    "preferencesModal": {
+        "title": "Správa preferencií cookies",
+        "acceptAllBtn": "Prijať všetko",
+        "acceptNecessaryBtn": "Iba nevyhnutné",
+        "savePreferencesBtn": "Prijať vybrané",
+        "closeIconLabel": "Zavrieť",
+        "serviceCounterLabel": "Služby",
+        "sections": {
+            "general": {
+                "title": "Správa preferencií cookies",
+                "description": "Súbory cookie používame na to, aby sme vám pomohli efektívne prehliadať a vykonávať určité funkcie."
+            },
+            "necessary": {
+                "title": "Nevyhnutne potrebné súbory cookie",
+                "description": "Nevyhnutné súbory cookie sú zásadné pre základné funkcie webu.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkčné súbory cookie",
+                "description": "Funkčné súbory cookie pomáhajú ukladať vaše preferencie a nastavenia.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Výkonnostné a analytické súbory cookie",
+                "description": "Analytické súbory cookie slúžia na pochopenie toho, ako návštevníci pracujú s webom.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Názov",
+                        "description": "Popis",
+                        "Service": "Služba"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Používa sa na sledovanie ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Reklamné a marketingové súbory cookie",
+                "description": "Marketingové súbory cookie sa používajú na poskytovanie prispôsobených reklám na základe vašich záujmov.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Súbory cookie sociálnych médií",
+                "description": "Súbory cookie sociálnych médií umožňujú zdieľanie obsahu na sociálnych platformách.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Ďalšie informácie",
+                "description": "V prípade akýchkoľvek otázok ohľadom našich zásad používania súborov cookie nás prosím <a class=\"cc__link\" href=\"#yourdomain.com\">kontaktujte</a>."
+            }
+        }
+    }
+}

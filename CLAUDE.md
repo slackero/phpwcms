@@ -14,7 +14,7 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 107 modules | 169,508 lines
+phpwcms-dev | php | 108 modules | 186,198 lines
 test: npm test
 
 modules:
@@ -36,40 +36,39 @@ modules:
   include/inc_js/dayjs-locale     dayjs-locale
   include/inc_js/jquery           jquery
   include/inc_lang                inc lang
+  include/inc_lang/backend/ar     ar
+  include/inc_lang/backend/bg     bg
+  include/inc_lang/backend/bs     bs
+  include/inc_lang/backend/ca     ca
+  include/inc_lang/backend/cs     cs
+  include/inc_lang/backend/da     da
   include/inc_lang/backend/de     de
+  include/inc_lang/backend/de-ch  de-ch
   include/inc_lang/backend/en     en
   include/inc_lang/backend/es     es
+  include/inc_lang/backend/et     et
+  include/inc_lang/backend/fi     fi
   include/inc_lang/backend/fr     fr
+  include/inc_lang/backend/gr     gr
+  include/inc_lang/backend/hu     hu
   include/inc_lang/backend/it     it
+  include/inc_lang/backend/lt     lt
   include/inc_lang/backend/nl     nl
+  include/inc_lang/backend/no     no
   include/inc_lang/backend/pl     pl
+  include/inc_lang/backend/pt     pt
+  include/inc_lang/backend/ro     ro
+  include/inc_lang/backend/ru     ru
+  include/inc_lang/backend/sk     sk
+  include/inc_lang/backend/sl     sl
+  include/inc_lang/backend/sv     sv
+  include/inc_lang/backend/tr     tr
+  include/inc_lang/backend/vi     vi
   include/inc_lang/date           date
-  include/inc_lang/disable lang/  ar
-  include/inc_lang/disable lang/  bg
-  include/inc_lang/disable lang/  bs
-  include/inc_lang/disable lang/  ca
-  include/inc_lang/disable lang/  cs
-  include/inc_lang/disable lang/  cz
-  include/inc_lang/disable lang/  da
-  include/inc_lang/disable lang/  et
-  include/inc_lang/disable lang/  fi
-  include/inc_lang/disable lang/  gr
-  include/inc_lang/disable lang/  hu
-  include/inc_lang/disable lang/  lt
-  include/inc_lang/disable lang/  no
-  include/inc_lang/disable lang/  pt
-  include/inc_lang/disable lang/  ro
-  include/inc_lang/disable lang/  ru
-  include/inc_lang/disable lang/  se
-  include/inc_lang/disable lang/  sk
-  include/inc_lang/disable lang/  sl
-  include/inc_lang/disable lang/  tr
-  include/inc_lang/disable lang/  vn
   include/inc_lang/formmailer     formmailer
   include/inc_lang/image          image
   include/inc_lib                 inc lib
   include/inc_lib/classes         classes
-  include/inc_lib/constants       constants
   include/inc_lib/content         content
   include/inc_lib/revision        revision
   include/inc_module/mod_address  mod addresses
@@ -120,13 +119,15 @@ modules:
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
   template/lib/fancybox           fancybox
+  template/lib/glightbox          glightbox
   template/lib/jquery             jquery
   template/lib/jquery/plugin      plugin
   template/lib/js-cookie          js-cookie
   template/lib/simplegmaps        simplegmaps
   template/lib/slick              slick
+  template/lib/video-js           video-js
 
-hot: include/inc_lib/backend.functions.inc.php (15 commits/90d), include/inc_tmpl/files.private.editfile.tmpl.php (14 commits/90d), include/inc_js/phpwcms.js (12 commits/90d)
+hot: include/inc_css/phpwcmsspecial.css (17 commits/90d), include/inc_lib/backend.functions.inc.php (16 commits/90d), phpwcms.php (15 commits/90d)
 do-not-touch: .github/
 ```
 # end stacklit map

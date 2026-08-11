@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Süti hozzájárulás",
+        "title": "Nagyra értékeljük a magánéletét",
+        "description": "Sütiket használunk a böngészési élmény javítása, személyre szabott hirdetések vagy tartalom megjelenítése, valamint a forgalom elemzése céljából. Az \"Összes elfogadása\" gombra kattintva hozzájárul a sütik használatához.",
+        "acceptAllBtn": "Összes elfogadása",
+        "acceptNecessaryBtn": "Összes elutasítása",
+        "showPreferencesBtn": "Testreszabás",
+        "footer": "<a href=\"#link\">Adatvédelem</a>\n<a href=\"#link\">Felhasználási feltételek</a>"
+    },
+    "preferencesModal": {
+        "title": "Süti beállítások kezelése",
+        "acceptAllBtn": "Összes elfogadása",
+        "acceptNecessaryBtn": "Csak a szükségesek",
+        "savePreferencesBtn": "Kiválasztottak elfogadása",
+        "closeIconLabel": "Bezárás",
+        "serviceCounterLabel": "Szolgáltatások",
+        "sections": {
+            "general": {
+                "title": "Süti beállítások kezelése",
+                "description": "Sütiket használunk, hogy segítsük a hatékony navigációt és bizonyos funkciók végrehajtását."
+            },
+            "necessary": {
+                "title": "Feltétlenül szükséges sütik",
+                "description": "A szükséges sütik elengedhetetlenek a webhely alapvető funkcióihoz.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkcionális sütik",
+                "description": "A funkcionális sütik segítenek megjegyezni a felhasználói beállításokat.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Teljesítmény és analitikai sütik",
+                "description": "Az analitikai sütik segítenek megérteni, hogyan használják a látogatók a weboldalt.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Név",
+                        "description": "Leírás",
+                        "Service": "Szolgáltatás"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Az Ön nyomon követésére használatos ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Hirdetési és marketing sütik",
+                "description": "A marketing sütik személyre szabott hirdetések megjelenítésére szolgálnak.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Közösségi média sütik",
+                "description": "A közösségi média sütik lehetővé teszik a tartalom megosztását a közösségi felületeken.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "További információk",
+                "description": "A süti szabályzattal kapcsolatos kérdéseivel <a class=\"cc__link\" href=\"#yourdomain.com\">forduljon hozzánk</a>."
+            }
+        }
+    }
+}

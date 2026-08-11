@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Soglasje za piškotke",
+        "title": "Cenimo vašo zasebnost",
+        "description": "Piškotke uporabljamo za izboljšanje vaše izkušnje brskanja, prikazovanje prilagojenih oglasov ali vsebin ter analizo našega prometa. S klikom na \"Sprejmi vse\" se strinjate z našo uporabo piškotkov.",
+        "acceptAllBtn": "Sprejmi vse",
+        "acceptNecessaryBtn": "Zavrni vse",
+        "showPreferencesBtn": "Prilagodi",
+        "footer": "<a href=\"#link\">Varstvo podatkov</a>\n<a href=\"#link\">Pogoji uporabe</a>"
+    },
+    "preferencesModal": {
+        "title": "Upravljanje nastavitev piškotkov",
+        "acceptAllBtn": "Sprejmi vse",
+        "acceptNecessaryBtn": "Samo nujni",
+        "savePreferencesBtn": "Sprejmi izbrane",
+        "closeIconLabel": "Zapri",
+        "serviceCounterLabel": "Storitve",
+        "sections": {
+            "general": {
+                "title": "Upravljanje nastavitev piškotkov",
+                "description": "Piškotke uporabljamo za lažje krmarjenje in izvajanje določenih funkcij."
+            },
+            "necessary": {
+                "title": "Nujno potrebni piškotki",
+                "description": "Nujni piškotki so bistveni za osnovne funkcije spletnega mesta.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funkcionalni piškotki",
+                "description": "Funkcionalni piškotki omogočajo shranjevanje vaših nastavitev.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Piškotki za učinkovitost in analitiko",
+                "description": "Analitični piškotki se uporabljajo za razumevanje interakcije obiskovalcev s spletnim mestom.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Ime",
+                        "description": "Opis",
+                        "Service": "Storitev"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Uporablja se za sledenje ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Oglasni in trženjski piškotki",
+                "description": "Trženjski piškotki se uporabljajo za zagotavljanje prilagojenih oglasov.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Piškotki družbenih omrežij",
+                "description": "Piškotki družbenih omrežij omogočajo deljenje vsebin na družbenih platformah.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Dodatne informacije",
+                "description": "Za vprašanja glede naše politike piškotkov nas <a class=\"cc__link\" href=\"#yourdomain.com\">kontaktirajte</a>."
+            }
+        }
+    }
+}

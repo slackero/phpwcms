@@ -1,0 +1,68 @@
+{
+    "consentModal": {
+        "label": "Samtykke til informasjonskapsler",
+        "title": "Vi verdsetter personvernet ditt",
+        "description": "Vi bruker informasjonskapsler for å forbedre nettleseropplevelsen din, vise personlig tilpassede annonser eller innhold, og analysere trafikken vår. Ved å klikke «Godta alle» samtykker du til vår bruk av informasjonskapsler.",
+        "acceptAllBtn": "Godta alle",
+        "acceptNecessaryBtn": "Avvis alle",
+        "showPreferencesBtn": "Tilpass",
+        "footer": "<a href=\"#link\">Personvern</a>\n<a href=\"#link\">Vilkår og betingelser</a>"
+    },
+    "preferencesModal": {
+        "title": "Administrer dine innstillinger",
+        "acceptAllBtn": "Godta alle",
+        "acceptNecessaryBtn": "Kun nødvendige",
+        "savePreferencesBtn": "Godta valgte",
+        "closeIconLabel": "Lukk",
+        "serviceCounterLabel": "Tjenester",
+        "sections": {
+            "general": {
+                "title": "Administrer dine innstillinger",
+                "description": "Vi bruker informasjonskapsler for å hjelpe deg med å navigere effektivt og utføre visse funksjoner."
+            },
+            "necessary": {
+                "title": "Strengt nødvendige informasjonskapsler",
+                "description": "Nødvendige informasjonskapsler er avgjørende for de grunnleggende funksjonene på nettstedet.",
+                "linkedCategory": "necessary"
+            },
+            "functionality": {
+                "title": "Funksjonelle informasjonskapsler",
+                "description": "Funksjonelle informasjonskapsler gjør at nettstedet kan huske valgene dine.",
+                "linkedCategory": "functionality"
+            },
+            "analytics": {
+                "title": "Ytelses- og analyseinformasjonskapsler",
+                "description": "Analytiske informasjonskapsler brukes til å forstå hvordan besøkende samhandler med nettstedet.",
+                "linkedCategory": "analytics",
+                "cookieTable": {
+                    "headers": {
+                        "name": "Navn",
+                        "description": "Beskrivelse",
+                        "Service": "Tjeneste"
+                    },
+                    "body": [
+                        {
+                            "name": "_ga_*, _gid",
+                            "description": "Brukes til å spore deg ...",
+                            "Service": "Google Analytics"
+                        }
+                    ]
+                }
+            },
+            "marketing": {
+                "title": "Annonserings- og markedsføringsinformasjonskapsler",
+                "description": "Markedsføringsinformasjonskapsler brukes til å levere tilpassede annonser basert på dine interesser.",
+                "linkedCategory": "marketing"
+            },
+            "social": {
+                "title": "Sosiale medier-informasjonskapsler",
+                "description": "Sosiale medier-informasjonskapsler gjør det mulig å dele innhold på sosiale plattformer.",
+                "linkedCategory": "social"
+            },
+            "more": {
+                "title": "Mer informasjon",
+                "description": "For spørsmål om retningslinjene våre, vennligst <a class=\"cc__link\" href=\"#yourdomain.com\">kontakt oss</a>."
+            }
+        }
+    }
+}

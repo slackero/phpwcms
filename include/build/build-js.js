@@ -26,7 +26,10 @@ async function buildJs() {
         { src: '../../node_modules/dayjs/dayjs.min.js', dest: 'inc_js/dayjs.min.js' },
         { src: '../../node_modules/jquery/dist/jquery.min.js', dest: 'inc_js/jquery/jquery-3.7.1.min.js' },
         { src: '../../node_modules/video.js/dist/video.min.js', dest: '../template/lib/video-js/video.min.js' },
-        { src: '../../node_modules/glightbox/dist/js/glightbox.min.js', dest: '../template/lib/glightbox/glightbox.min.js' }
+        { src: '../../node_modules/glightbox/dist/js/glightbox.min.js', dest: '../template/lib/glightbox/glightbox.min.js' },
+        { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.umd.js', dest: '../template/lib/cookieconsent3/cookieconsent.umd.js' },
+        { src: '../../node_modules/vanilla-cookieconsent/dist/core/cookieconsent-core.umd.js', dest: '../template/lib/cookieconsent3/core/cookieconsent-core.umd.js' },
+        { src: '../../node_modules/vanilla-cookieconsent/LICENSE', dest: '../template/lib/cookieconsent3/LICENSE' }
     ];
 
     for (const item of copyMap) {
