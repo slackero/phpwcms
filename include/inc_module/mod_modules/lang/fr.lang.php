@@ -6,7 +6,7 @@
 $BLM['backend_menu'] = 'Modules phpwcms';
 $BLM['listing_title'] = 'Modules phpwcms';
 $BLM['listing_intro'] = 'De nombreux modules puissants sont disponibles pour phpwcms pour r&eacute;pondre &agrave; des besoins sp&eacute;cifiques. Nous souhaitons vous en pr&eacute;senter quelques-uns ici.';
-$BLM['listing_shop'] = 'Module Boutique PHPWCMS';
+$BLM['listing_shop'] = 'Module Boutique phpwcms';
 $BLM['promotext_shop'] = 'Le module Boutique de phpwcms permet de cr&eacute;er une boutique en ligne simple.';
 $BLM['listing_calendar'] = 'Module Calendrier phpwcms';
 $BLM['promotext_calendar'] = 'Le module Calendrier de phpwcms permet de cr&eacute;er un calendrier complet.';

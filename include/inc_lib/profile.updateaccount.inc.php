@@ -48,7 +48,18 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
         }
     }
 
-    $new_language = isset($_POST["form_lang"]) ? slweg(trim($_POST["form_lang"])) : $phpwcms["default_lang"];
+    $lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
+    $new_language = isset($_POST['form_lang']) ? strtolower(trim(slweg($_POST['form_lang']))) : strtolower($phpwcms['default_lang']);
+    if (isset($lang_aliases[$new_language])) {
+        $new_language = $lang_aliases[$new_language];
+    }
+    if (!preg_match('/^[a-z]{2}(?:-[a-z]{2})?$/', $new_language) || !is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$new_language.'/lang.inc.php')) {
+        $default_lang = strtolower($phpwcms['default_lang']);
+        if (isset($lang_aliases[$default_lang])) {
+            $default_lang = $lang_aliases[$default_lang];
+        }
+        $new_language = is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$default_lang.'/lang.inc.php') ? $default_lang : 'en';
+    }
 
     $new_wysiwyg = empty($_POST['form_wysiwyg']) ? 0 : intval($_POST['form_wysiwyg']);
     $user_var['template'] = empty($_POST['form_wysiwyg_template']) ? '' : clean_slweg($_POST['form_wysiwyg_template']);

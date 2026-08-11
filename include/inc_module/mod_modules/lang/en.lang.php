@@ -1,12 +1,12 @@
 <?php
 
 // first define main language vars
-$BLM['backend_menu'] = 'PHPWCMS Module';
-$BLM['listing_title'] = 'PHPWCMS Module';
-$BLM['listing_intro'] = 'F�r PHPWCMS stehen viele leistungsstarke Module f�r spezielle Anforderungen zur Verf�gung. Wir m�chten Ihnen einige dieser Module hier vorstellen. Kundenspezifische Module f�r komplexe Anforderungen k�nnen nat�rlich auch entwickelt werden.';
-$BLM['listing_shop'] = 'PHPWCMS Shop Modul';
-$BLM['promotext_shop'] = 'Das Shop Modul von PHPWCMS erm�glich den Aufbau eines einfachen Online Shops.';
-$BLM['listing_calendar'] = 'PHPWCMS Kalender Modul';
-$BLM['promotext_calendar'] = 'Das Kalender Modul von PHPWCMS erm�glich den Aufbau eines umfangreichen Kalenders. Das Modul eigent sich f�r ..';
-$BLM['listing_user'] = 'PHPWCMS Benutzerverwaltung Modul';
-$BLM['promotext_user'] = 'Das Benutzerverwaltungs Modul von PHPWCMS erm�glich die Verwaltung von Benutzerdaten wie zB von Kunden, Verbandsmitgliedern. Das Modul kann f�r die Mitlgiederverwaltung von Vereinen, f�r die zugangssteuerung von Kundenbereichen  usw. genutzt werden.';
+$BLM['backend_menu'] = 'phpwcms modules';
+$BLM['listing_title'] = 'phpwcms modules';
+$BLM['listing_intro'] = 'There are many powerful modules available for phpwcms to meet special requirements. We would like to present some of these modules here. Custom modules for complex requirements can also be developed.';
+$BLM['listing_shop'] = 'phpwcms shop module';
+$BLM['promotext_shop'] = 'The phpwcms shop module enables you to set up a simple online store.';
+$BLM['listing_calendar'] = 'phpwcms calendar module';
+$BLM['promotext_calendar'] = 'The phpwcms calendar module enables you to build a feature-rich calendar.';
+$BLM['listing_user'] = 'phpwcms user management module';
+$BLM['promotext_user'] = 'The phpwcms user management module allows managing user data such as customers or association members.';

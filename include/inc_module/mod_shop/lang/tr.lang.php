@@ -38,7 +38,7 @@ $BLM['th_price']                = 'fiyat';
 $BLM['th_customer']             = 'tedarikçi';
 $BLM['th_net']                  = 'net toplam';
 $BLM['th_gross']                = 'vergiler dahil toplam';
-$BLM['th_payment']              = 'birlikte öde ';
+$BLM['th_payment']              = 'birlikte öde';
 $BLM['th_date']                 = 'tarih';
 
 $BLM['dec_point']               = '.';
@@ -70,7 +70,7 @@ $BLM['shopprod_cart']           = 'satış';
 $BLM['shopprod_max_cartitem']   = 'en fazla ürünler/satış';
 $BLM['shopprod_vat_rates']      = 'vergi oranları';
 
-$BLM['shopprod_size']           = 'ör boy  title  <br />descr|+/-price|#suffix';
+$BLM['shopprod_size']           = 'ör boy title <br />descr|+/-price|#suffix';
 $BLM['shopprod_color']          = 'ör. renk';
 
 $BLM['shopprod_url']            = 'ürün linki';

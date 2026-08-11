@@ -1682,8 +1682,19 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 
     }
 
-    $lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.substr($language, 0, 2).'.date.lang.php';
-    if(is_file($lang_include)) {
+    $lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
+    $lang_req = strtolower(substr($language, 0, 5));
+    $lang_code_2 = substr($lang_req, 0, 2);
+    if(is_file(PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_req.'.date.lang.php')) {
+        $lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_req.'.date.lang.php';
+    } elseif(isset($lang_aliases[$lang_code_2]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_aliases[$lang_code_2].'.date.lang.php')) {
+        $lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_aliases[$lang_code_2].'.date.lang.php';
+    } elseif(is_file(PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_code_2.'.date.lang.php')) {
+        $lang_include = PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_code_2.'.date.lang.php';
+    } else {
+        $lang_include = '';
+    }
+    if($lang_include && is_file($lang_include)) {
 
         include $lang_include;
         $date_format_function = array (

@@ -61,12 +61,16 @@ $plugin['first_day']        = 0;
 $plugin['weekday']          = ((int)gmdate('w', $plugin['first_of_month']) + 7 - $plugin['first_day']) % 7; //adjust for $first_day
 
 // Load localized date strings
+$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
 if (!empty($BLM['locale_string'])) {
-    $_lang_code = substr($BLM['locale_string'], 0, 2);
+    $_lang_code = strtolower(substr($BLM['locale_string'], 0, 2));
 } elseif (!empty($GLOBALS['phpwcms']['default_lang'])) {
-    $_lang_code = substr($GLOBALS['phpwcms']['default_lang'], 0, 2);
+    $_lang_code = strtolower(substr($GLOBALS['phpwcms']['default_lang'], 0, 2));
 } else {
     $_lang_code = 'en';
+}
+if (isset($lang_aliases[$_lang_code])) {
+    $_lang_code = $lang_aliases[$_lang_code];
 }
 $_date_lang_file = PHPWCMS_ROOT . '/include/inc_lang/date/' . $_lang_code . '.date.lang.php';
 if (is_file($_date_lang_file)) {

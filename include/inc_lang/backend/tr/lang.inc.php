@@ -9,128 +9,128 @@
  **/
 
 
-// Language: Turk&ccedil;e, Language Code: tr
+// Language: Turkçe, Language Code: tr
 // please use HTML safe strings ONLY,neccessary to reduce processing time
-// normal line break:    '&#13;', JavaScript Linebreak: '\n'
+// normal line break:    '', JavaScript Linebreak: '\n'
 
 
-$BL['usr_online']                       = 'Ba&#287;l&#305; Kullan&#305;c&#305;lar';
+$BL['usr_online']                       = 'Bağlı Kullanıcılar';
 
 // Login Page
-$BL["login_text"]                       = 'G&uuml;venlik bilgilerinizi giriniz';
-$BL['login_error']                      = 'Giri&#351; s&#305;ras&#305;nda hata olu&#351;tu!';
-$BL["login_username"]                   = 'kullan&#305;c&#305; ad&#305;';
+$BL["login_text"]                       = 'Güvenlik bilgilerinizi giriniz';
+$BL['login_error']                      = 'Giriş sırasında hata oluştu!';
+$BL["login_username"]                   = 'kullanıcı adı';
 $BL["login_userpass"]                   = 'parola';
-$BL["login_button"]                     = 'Giri&#351;';
-$BL["login_lang"]                       = 'Ara y&uuml;z dili';
+$BL["login_button"]                     = 'Giriş';
+$BL["login_lang"]                       = 'Ara yüz dili';
 
 // phpwcms.php
-$BL['be_nav_logout']                    = '&Ccedil;IKI&#350;';
-$BL['be_nav_articles']                  = 'KONU BA&#350;LIKLARI';
+$BL['be_nav_logout']                    = 'ÇIKIŞ';
+$BL['be_nav_articles']                  = 'KONU BAŞLIKLARI';
 $BL['be_nav_files']                     = 'DOSYA';
-$BL['be_nav_modules']                   = 'MOD&Uuml;LLER';
+$BL['be_nav_modules']                   = 'MODÜLLER';
 $BL['be_nav_messages']                  = 'MESAJ';
 $BL['be_nav_chat']                      = 'SOHBET';
-$BL['be_nav_profile']                   = 'PROF&#304;L';
-$BL['be_nav_admin']                     = 'Y&Ouml;NET&#304;C&#304;';
-$BL['be_nav_discuss']                   = 'TARTI&#350;MA';
+$BL['be_nav_profile']                   = 'PROFİL';
+$BL['be_nav_admin']                     = 'YÖNETİCİ';
+$BL['be_nav_discuss']                   = 'TARTIŞMA';
 
-$BL['be_page_title']                    = 'site arkas&#305; (y&ouml;netim)';
+$BL['be_page_title']                    = 'site arkası (yönetim)';
 
-$BL['be_subnav_article_center']         = 'konu ba&#351;l&#305;klar&#305;';
-$BL['be_subnav_article_new']            = 'yeni konu ba&#351;l&#305;&#287;&#305;';
+$BL['be_subnav_article_center']         = 'konu başlıkları';
+$BL['be_subnav_article_new']            = 'yeni konu başlığı';
 $BL['be_subnav_file_center']            = 'dosyalar';
-$BL['be_subnav_file_ftptakeover']       = 'ftp den &ccedil;ek';
-$BL['be_subnav_mod_artists']            = 'sanat&ccedil;&#305;, kategori, t&uuml;r';
+$BL['be_subnav_file_ftptakeover']       = 'ftp den çek';
+$BL['be_subnav_mod_artists']            = 'sanatçı, kategori, tür';
 $BL['be_subnav_msg_center']             = 'mesaj merkezi';
 $BL['be_subnav_msg_new']                = 'yeni mesaj';
-$BL['be_subnav_msg_newsletter']         = 'haber ba&#351;l&#305;&#287;&#305;';
-$BL['be_subnav_chat_main']              = 'sohbet ana sayfas&#305;';
-$BL['be_subnav_chat_internal']          = 'kullan&#305;c&#305;lar aras&#305; sohbet';
-$BL['be_subnav_profile_login']          = 'G&uuml;venlik bilgileri';
-$BL['be_subnav_profile_personal']       = 'ki&#351;isel bilgiler';
-$BL['be_subnav_admin_pagelayout']       = 'sayfa plan&#305;';
-$BL['be_subnav_admin_templates']        = '&#351;ablonlar';
-$BL['be_subnav_admin_css']              = 'varsay&#305;lan css';
-$BL['be_subnav_admin_sitestructure']    = 'site yap&#305;s&#305;';
-$BL['be_subnav_admin_users']            = 'kullan&#305;c&#305; y&ouml;netimi';
+$BL['be_subnav_msg_newsletter']         = 'haber başlığı';
+$BL['be_subnav_chat_main']              = 'sohbet ana sayfası';
+$BL['be_subnav_chat_internal']          = 'kullanıcılar arası sohbet';
+$BL['be_subnav_profile_login']          = 'Güvenlik bilgileri';
+$BL['be_subnav_profile_personal']       = 'kişisel bilgiler';
+$BL['be_subnav_admin_pagelayout']       = 'sayfa planı';
+$BL['be_subnav_admin_templates']        = 'şablonlar';
+$BL['be_subnav_admin_css']              = 'varsayılan css';
+$BL['be_subnav_admin_sitestructure']    = 'site yapısı';
+$BL['be_subnav_admin_users']            = 'kullanıcı yönetimi';
 $BL['be_subnav_admin_filecat']          = 'dosya kategorileri';
 
 // admin.functions.inc.php
-$BL['be_func_struct_articleID']         = 'ba&#351;l&#305;k ID';
-$BL['be_func_struct_preview']           = '&ouml;nizleme';
-$BL['be_func_struct_edit']              = 'ba&#351;l&#305;&#287;&#305; d&uuml;zenle';
-$BL['be_func_struct_sedit']             = 'kategoriyi d&uuml;zenle';
+$BL['be_func_struct_articleID']         = 'başlık ID';
+$BL['be_func_struct_preview']           = 'önizleme';
+$BL['be_func_struct_edit']              = 'başlığı düzenle';
+$BL['be_func_struct_sedit']             = 'kategoriyi düzenle';
 $BL['be_func_struct_cut']               = 'konu basligini kes';
-$BL['be_func_struct_nocut']             = 'konu ba&#351;l&#305;&#287;&#305; kesilemez';
-$BL['be_func_struct_svisible']          = 'g&ouml;r&uuml;n&uuml;r/g&ouml;r&uuml;nmez se&ccedil;imi';
-$BL['be_func_struct_spublic']           = 'genel(public)/&ouml;zel(non public) de&#287;i&#351;tir';
-$BL['be_func_struct_sort_up']           = '&uuml;st s&#305;raya ta&#351;&#305;';
-$BL['be_func_struct_sort_down']         = 'alt s&#305;raya ta&#351;&#305;';
-$BL['be_func_struct_del_article']       = 'ba&#351;l&#305;&#287;&#305; sil';
-$BL['be_func_struct_del_jsmsg']         = 'Ba&#351;l&#305;&#287;&#305; silmek istedi&#287;inize emin misiniz?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_new_article']       = 'Bu kategoride yeni bir konu ba&#351;l&#305;&#287;&#305; olu&#351;tur';
+$BL['be_func_struct_nocut']             = 'konu başlığı kesilemez';
+$BL['be_func_struct_svisible']          = 'görünür/görünmez seçimi';
+$BL['be_func_struct_spublic']           = 'genel(public)/özel(non public) değiştir';
+$BL['be_func_struct_sort_up']           = 'üst sıraya taşı';
+$BL['be_func_struct_sort_down']         = 'alt sıraya taşı';
+$BL['be_func_struct_del_article']       = 'başlığı sil';
+$BL['be_func_struct_del_jsmsg']         = 'Başlığı silmek istediğinize emin misiniz?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_new_article']       = 'Bu kategoride yeni bir konu başlığı oluştur';
 $BL['be_func_struct_new_article_short']   = 'Yeni konu başlığı oluştur';
-$BL['be_func_struct_paste_article']     = 'konu ba&#351;l&#305;&#287;&#305;n&#305; bu kategoriye yap&#305;&#351;t&#305;r';
-$BL['be_func_struct_insert_level']      = 'Kategori i&ccedil;ine ekle';
+$BL['be_func_struct_paste_article']     = 'konu başlığını bu kategoriye yapıştır';
+$BL['be_func_struct_insert_level']      = 'Kategori içine ekle';
 $BL['be_func_struct_insert_level_short'] = 'Kategori ekle';
-$BL['be_func_struct_paste_level']       = 'Kategori i&ccedil;ine yap&#305;&#351;t&#305;r';
+$BL['be_func_struct_paste_level']       = 'Kategori içine yapıştır';
 $BL['be_func_struct_cut_level']         = 'Kategoriyi kes';
-$BL['be_func_struct_no_cut']            = "k&ouml;k seviyesini kesmeniz m&uuml;mk&uuml;n de&#287;il!";
-$BL['be_func_struct_no_paste1']         = "Buraya yap&#305;&#351;t&#305;rman&#305;z m&uuml;mk&uuml;n de&#287;il!";
+$BL['be_func_struct_no_cut']            = "kök seviyesini kesmeniz mümkün değil!";
+$BL['be_func_struct_no_paste1']         = "Buraya yapıştırmanız mümkün değil!";
 $BL['be_func_struct_no_paste2']         = 'Kendi alt kategorisi';
-$BL['be_func_struct_no_paste3']         = 'Buraya yapi&#351;tiramazs&#305;n&#305;z';
-$BL['be_func_struct_paste_cancel']      = 'Kategorideki de&#287;i&#351;ikli&#287;i iptal et';
+$BL['be_func_struct_no_paste3']         = 'Buraya yapiştiramazsınız';
+$BL['be_func_struct_paste_cancel']      = 'Kategorideki değişikliği iptal et';
 $BL['be_func_struct_del_struct']        = 'Kategoriyi sil';
 $BL['be_func_struct_del_sjsmsg']        = 'Kategoriyi silmek istediginize emin misiniz?'; // "\n" = JavaScript Linebreak
-$BL['be_func_struct_open']              = 'a&ccedil;';
+$BL['be_func_struct_open']              = 'aç';
 $BL['be_func_struct_close']             = 'kapat';
-$BL['be_func_struct_empty']             = 'bo&#351;';
+$BL['be_func_struct_empty']             = 'boş';
 
 // article.contenttype.inc.php
-$BL['be_ctype_plaintext']               = 'd&uuml;z metin';
+$BL['be_ctype_plaintext']               = 'düz metin';
 $BL['be_ctype_html']                    = 'html';
 $BL['be_ctype_code']                    = 'kod';
-$BL['be_ctype_textimage']               = 'yaz&#305; w/resim';
+$BL['be_ctype_textimage']               = 'yazı w/resim';
 $BL['be_ctype_images']                  = 'resimler';
 $BL['be_ctype_bulletlist']              = 'liste (tablo)';
 $BL['be_ctype_ullist']                  = 'liste';
 $BL['be_ctype_link']                    = 'link &amp; email';
 $BL['be_ctype_linklist']                = 'link listesi';
-$BL['be_ctype_linkarticle']             = 'ba&#351;l&#305;k ba&#287;lant&#305;s&#305;';
-$BL['be_ctype_multimedia']              = '&ccedil;oklu ortam (multimedya)';
+$BL['be_ctype_linkarticle']             = 'başlık bağlantısı';
+$BL['be_ctype_multimedia']              = 'çoklu ortam (multimedya)';
 $BL['be_ctype_filelist']                = 'dosya listesi';
-$BL['be_ctype_emailform']               = 'email form &uuml;reteci';
+$BL['be_ctype_emailform']               = 'email form üreteci';
 $BL['be_ctype_newsletter']              = 'haber';
 
 // profile.create.inc.php
-$BL['be_profile_create_success']        = 'Profil ba&#351;ar&#305;yla olu&#351;turuldu.';
-$BL['be_profile_create_error']          = 'olu&#351;turma s&#305;ras&#305;nda bir hata olu&#351;tu.';
+$BL['be_profile_create_success']        = 'Profil başarıyla oluşturuldu.';
+$BL['be_profile_create_error']          = 'oluşturma sırasında bir hata oluştu.';
 
 // profile.update.inc.php
-$BL['be_profile_update_success']        = 'Profil bilgisi ba&#351;ar&#305;yla g&uuml;ncellendi.';
-$BL['be_profile_update_error']          = 'g&uuml;ncelleme s&#305;ras&#305;nda bir hata olu&#351;tu.';
+$BL['be_profile_update_success']        = 'Profil bilgisi başarıyla güncellendi.';
+$BL['be_profile_update_error']          = 'güncelleme sırasında bir hata oluştu.';
 
 // profile.updateaccount.inc.php
-$BL['be_profile_account_err1']          = '{VAL} kullanici adi ge&ccedil;ersiz';
-$BL['be_profile_account_err2']          = '&#351;ifre &ccedil;ok kisa  (sadece {VAL} karakter: en az 5 karakter olmal&#305;)';
-$BL['be_profile_account_err3']          = '&#351;ifreniz tekrar yazd&#305;&#287;in&#305;z &#351;ifre ile ayn&#305; olmak zorunda';
-$BL['be_profile_account_err4']          = 'email {VAL} ge&ccedil;ersiz';
+$BL['be_profile_account_err1']          = '{VAL} kullanici adi geçersiz';
+$BL['be_profile_account_err2']          = 'şifre çok kisa (sadece {VAL} karakter: en az 5 karakter olmalı)';
+$BL['be_profile_account_err3']          = 'şifreniz tekrar yazdığinız şifre ile aynı olmak zorunda';
+$BL['be_profile_account_err4']          = 'email {VAL} geçersiz';
 
 // profile.data.tmpl.php
-$BL['be_profile_data_title']            = 'ki&#351;isel bilgileriniz';
-$BL['be_profile_data_text']             = 'ki&#351;isel bilgiler se&ccedil;ime ba&#287;l&#305;d&#305;r. Di&#287;er kullan&#305;c&#305;lara  yada site ziyaret&ccedil;ilerine hakk&#305;n&#305;zda bilmediklerinden daha fazlas&#305;n&#305;, ilgi alanlar&#305;n&#305;z yada yeteneklerinizi &ouml;grenmelerinde yardim edebilir. e&#287;er uygun kutuyu i&#351;aretlerseniz kullan&#305;c&#305;lar size ait ba&#351;l&#305;klarda bu bilgileri g&ouml;rebilirler (yada tam tersi).';
-$BL['be_profile_label_title']           = '&uuml;nvan';
+$BL['be_profile_data_title']            = 'kişisel bilgileriniz';
+$BL['be_profile_data_text']             = 'kişisel bilgiler seçime bağlıdır. Diğer kullanıcılara yada site ziyaretçilerine hakkınızda bilmediklerinden daha fazlasını, ilgi alanlarınız yada yeteneklerinizi ögrenmelerinde yardim edebilir. eğer uygun kutuyu işaretlerseniz kullanıcılar size ait başlıklarda bu bilgileri görebilirler (yada tam tersi).';
+$BL['be_profile_label_title']           = 'ünvan';
 $BL['be_profile_label_firstname']       = 'isim';
 $BL['be_profile_label_name']            = 'soyad';
-$BL['be_profile_label_company']         = 'kurum / &#351;irket';
+$BL['be_profile_label_company']         = 'kurum / şirket';
 $BL['be_profile_label_street']          = 'sokak';
-$BL['be_profile_label_city']            = '&#351;ehir';
+$BL['be_profile_label_city']            = 'şehir';
 $BL['be_profile_label_state']           = 'il, durum';
 $BL['be_profile_label_zip']             = 'alan, posta kodu';
-$BL['be_profile_label_country']         = '&uuml;lke';
+$BL['be_profile_label_country']         = 'ülke';
 $BL['be_profile_label_phone']           = 'telefon';
-$BL['be_profile_label_fax']             = 'belge ge&ccedil;er';
+$BL['be_profile_label_fax']             = 'belge geçer';
 $BL['be_profile_label_cellphone']       = 'GSM';
 $BL['be_profile_label_signature']       = 'imza';
 $BL['be_profile_label_notes']           = 'not';
@@ -138,856 +138,856 @@ $BL['be_profile_label_profession']      = 'meslek';
 $BL['be_profile_label_newsletter']      = 'haber';
 $BL['be_profile_text_newsletter']       = 'Genel phpwcms haberlerini almak istiyorum.';
 $BL['be_profile_label_public']          = 'genel';
-$BL['be_profile_text_public']           = 'Herhangi birisi profilimi g&ouml;rebilir';
-$BL['be_profile_label_button']          = 'ki&#351;isel bilgileri g&uuml;ncelle';
+$BL['be_profile_text_public']           = 'Herhangi birisi profilimi görebilir';
+$BL['be_profile_label_button']          = 'kişisel bilgileri güncelle';
 
 // profile.account.tmpl.php
-$BL['be_profile_account_title']         = 'Giri&#350; bilgileri';
-$BL['be_profile_account_text']          = 'Kullan&#305;c&#305; ad&#305;n&#305;z&#305; de&#287;i&#351;tirmeye normalde ihtiyac&#305;n&#305;z yoktur.<br />G&uuml;venlik nedeniyle zaman zaman &#351;ifrenizi degi&#351;tirmelisiniz.';
-$BL['be_profile_label_err']             = 'l&uuml;tfen kontrol edin';
-$BL['be_profile_label_username']        = 'kullan&#305;ci ad&#305;';
-$BL['be_profile_label_newpass']         = 'yeni &#351;ifre';
-$BL['be_profile_label_repeatpass']      = 'tekrar yeni &#351;ifre';
+$BL['be_profile_account_title']         = 'GiriŞ bilgileri';
+$BL['be_profile_account_text']          = 'Kullanıcı adınızı değiştirmeye normalde ihtiyacınız yoktur.<br />Güvenlik nedeniyle zaman zaman şifrenizi degiştirmelisiniz.';
+$BL['be_profile_label_err']             = 'lütfen kontrol edin';
+$BL['be_profile_label_username']        = 'kullanıci adı';
+$BL['be_profile_label_newpass']         = 'yeni şifre';
+$BL['be_profile_label_repeatpass']      = 'tekrar yeni şifre';
 $BL['be_profile_label_email']           = 'email';
-$BL['be_profile_account_button']        = 'g&uuml;ncelle';
+$BL['be_profile_account_button']        = 'güncelle';
 $BL['be_profile_label_lang']            = 'dil';
 
 
 // files.ftptakeover.tmpl.php
-$BL['be_ftptakeover_title']             = 'dosyalar&#305; FTP den al';
-$BL['be_ftptakeover_mark']              = 'i&#351;aretle';
+$BL['be_ftptakeover_title']             = 'dosyaları FTP den al';
+$BL['be_ftptakeover_mark']              = 'işaretle';
 $BL['be_ftptakeover_available']         = 'dosyalar mevcut';
 $BL['be_ftptakeover_size']              = 'boyut';
-$BL['be_ftptakeover_nofile']            = 'al&#305;nabilecek dosya yok &#8211; dosyalar&#305; via ftp ye g&ouml;ndermelisiniz';
-$BL['be_ftptakeover_all']               = 'T&Uuml;M&Uuml;';
-$BL['be_ftptakeover_directory']         = 'Klas&ouml;r';
-$BL['be_ftptakeover_rootdir']           = 'K&ouml;k dizin';
-$BL['be_ftptakeover_needed']            = 'gerekli!!! (birini se&ccedil;in)';
-$BL['be_ftptakeover_optional']          = 'opsiyonel (se&ccedil;ime ba&#287;l&#305;)';
+$BL['be_ftptakeover_nofile']            = 'alınabilecek dosya yok – dosyaları via ftp ye göndermelisiniz';
+$BL['be_ftptakeover_all']               = 'TÜMÜ';
+$BL['be_ftptakeover_directory']         = 'Klasör';
+$BL['be_ftptakeover_rootdir']           = 'Kök dizin';
+$BL['be_ftptakeover_needed']            = 'gerekli!!! (birini seçin)';
+$BL['be_ftptakeover_optional']          = 'opsiyonel (seçime bağlı)';
 $BL['be_ftptakeover_keywords']          = 'anahtar kelime';
 $BL['be_ftptakeover_additional']        = 'ilave';
 $BL['be_ftptakeover_longinfo']          = 'uzun bilgi';
 $BL['be_ftptakeover_status']            = 'nitelik';
 $BL['be_ftptakeover_active']            = 'aktif';
 $BL['be_ftptakeover_public']            = 'genel';
-$BL['be_ftptakeover_createthumb']       = 'k&uuml;&ccedil;&uuml;k resim olu&#351;tur';
-$BL['be_ftptakeover_button']            = 'se&ccedil;ilidosyalar&#305; &ccedil;ek';
+$BL['be_ftptakeover_createthumb']       = 'küçük resim oluştur';
+$BL['be_ftptakeover_button']            = 'seçilidosyaları çek';
 
 // files.reiter.tmpl.php
 $BL['be_ftab_title']                    = 'dosya merkezi';
-$BL['be_ftab_createnew']                = 'k&ouml;k dizinde yeni bir klas&ouml;r olustur';
-$BL['be_ftab_paste']                    = 'kesilmi&#351; dosyay&#305; k&ouml;k dizine yap&#305;st&#305;r';
-$BL['be_ftab_disablethumb']             = 'k&uuml;&ccedil;&uuml;k resim tablosu devred&#305;&#351;&#305;';
-$BL['be_ftab_enablethumb']              = 'k&uuml;&ccedil;&uuml;k resim tablosu etkin';
-$BL['be_ftab_private']                  = '&ouml;zel&nbsp;dosyalar';
-$BL['be_ftab_public']                   = 'genel&nbsp;dosyalar';
+$BL['be_ftab_createnew']                = 'kök dizinde yeni bir klasör olustur';
+$BL['be_ftab_paste']                    = 'kesilmiş dosyayı kök dizine yapıstır';
+$BL['be_ftab_disablethumb']             = 'küçük resim tablosu devredışı';
+$BL['be_ftab_enablethumb']              = 'küçük resim tablosu etkin';
+$BL['be_ftab_private']                  = 'özel dosyalar';
+$BL['be_ftab_public']                   = 'genel dosyalar';
 $BL['be_ftab_search']                   = 'ara';
-$BL['be_ftab_trash']                    = '&ccedil;&ouml;p kutusu';
-$BL['be_ftab_open']                     = 't&uuml;m klas&ouml;rleri a&ccedil;';
-$BL['be_ftab_close']                    = 't&uuml;m klas&ouml;rleri kapa';
-$BL['be_ftab_upload']                   = 'dosyay&#305; k&ouml;k dizine g&ouml;nder';
-$BL['be_ftab_filehelp']                 = 'dosya yard&#305;m&#305;n&#305; a&ccedil;';
+$BL['be_ftab_trash']                    = 'çöp kutusu';
+$BL['be_ftab_open']                     = 'tüm klasörleri aç';
+$BL['be_ftab_close']                    = 'tüm klasörleri kapa';
+$BL['be_ftab_upload']                   = 'dosyayı kök dizine gönder';
+$BL['be_ftab_filehelp']                 = 'dosya yardımını aç';
 
 
 // files.private.newdir.tmpl.php
-$BL['be_fpriv_rootdir']                 = 'k&ouml;k dizin';
-$BL['be_fpriv_title']                   = 'yeni klas&ouml;r';
-$BL['be_fpriv_inside']                  = 'i&ccedil;erisi';
-$BL['be_fpriv_error']                   = 'hata: klas&ouml;r ismi doldurulmal&#305;';
+$BL['be_fpriv_rootdir']                 = 'kök dizin';
+$BL['be_fpriv_title']                   = 'yeni klasör';
+$BL['be_fpriv_inside']                  = 'içerisi';
+$BL['be_fpriv_error']                   = 'hata: klasör ismi doldurulmalı';
 $BL['be_fpriv_name']                    = 'isim';
-$BL['be_fpriv_status']                  = 'stat&uuml;';
-$BL['be_fpriv_button']                  = 'yeni klas&ouml;r';
+$BL['be_fpriv_status']                  = 'statü';
+$BL['be_fpriv_button']                  = 'yeni klasör';
 
 // files.private.editdir.tmpl.php
-$BL['be_fpriv_edittitle']               = 'Klas&ouml;r&uuml; d&uuml;zenle';
-$BL['be_fpriv_newname']                 = 'yeniden adland&#305;r';
-$BL['be_fpriv_updatebutton']            = 'klas&ouml;r bigilerini g&uuml;ncelle';
+$BL['be_fpriv_edittitle']               = 'Klasörü düzenle';
+$BL['be_fpriv_newname']                 = 'yeniden adlandır';
+$BL['be_fpriv_updatebutton']            = 'klasör bigilerini güncelle';
 
 // files.private.upload.tmpl.php
-$BL['be_fprivup_err1']                  = 'g&ouml;ndermek i&ccedil;in bir dosya se&ccedil;in';
-$BL['be_fprivup_err2']                  = 'g&ouml;nderilen dosya boyutu b&uuml;y&uuml;k';
-$BL['be_fprivup_err3']                  = 'Depo alan&#305;na dosya yazma hatas&#305;';
-$BL['be_fprivup_err4']                  = 'Kullan&#305;c&#305; klas&ouml;r&uuml; olu&#351;tururken hata.';
-$BL['be_fprivup_err5']                  = 'k&uuml;&ccedil;&uuml;k resim mevcut de&#287;il';
-$BL['be_fprivup_err6']                  = 'L&uuml;tfen tekrar deneyin - Sunucu hatas&#305;! haber verin <a href="mailto:{VAL}">y&ouml;netici</a> yak&#305;nda m&uuml;mk&uuml;n olacak!';
-$BL['be_fprivup_title']                 = 'dosyalar&#305; g&ouml;nder';
-$BL['be_fprivup_button']                = 'dosyalar&#305; g&ouml;nder';
-$BL['be_fprivup_upload']                = 'g&ouml;nder';
+$BL['be_fprivup_err1']                  = 'göndermek için bir dosya seçin';
+$BL['be_fprivup_err2']                  = 'gönderilen dosya boyutu büyük';
+$BL['be_fprivup_err3']                  = 'Depo alanına dosya yazma hatası';
+$BL['be_fprivup_err4']                  = 'Kullanıcı klasörü oluştururken hata.';
+$BL['be_fprivup_err5']                  = 'küçük resim mevcut değil';
+$BL['be_fprivup_err6']                  = 'Lütfen tekrar deneyin - Sunucu hatası! haber verin <a href="mailto:{VAL}">yönetici</a> yakında mümkün olacak!';
+$BL['be_fprivup_title']                 = 'dosyaları gönder';
+$BL['be_fprivup_button']                = 'dosyaları gönder';
+$BL['be_fprivup_upload']                = 'gönder';
 
 // files.private.editfile.tmpl.php
-$BL['be_fprivedit_title']               = 'dosya bilgilerini d&uuml;zenle';
-$BL['be_fprivedit_filename']            = 'dosya ad&#305;';
-$BL['be_fprivedit_created']             = 'olu&#351;turuldu';
+$BL['be_fprivedit_title']               = 'dosya bilgilerini düzenle';
+$BL['be_fprivedit_filename']            = 'dosya adı';
+$BL['be_fprivedit_created']             = 'oluşturuldu';
 $BL['be_fprivedit_dateformat']          = 'd-m-Y H:i';
-$BL['be_fprivedit_err1']                = 'dosyanin deneme ad&#305; (orjinaline geri d&ouml;n)';
-$BL['be_fprivedit_clockwise']           = 'k&uuml;&ccedil;&uuml;k resimi saat y&ouml;n&uuml;nde d&ouml;nd&uuml;r [orjinal dosya +90&deg;]';
-$BL['be_fprivedit_cclockwise']          = 'k&uuml;&ccedil;&uuml;k resimi saatin tersi y&ouml;nde d&ouml;nd&uuml;r [orijinal dosya -90&deg;]';
-$BL['be_fprivedit_button']              = 'dosya bilgilerini g&uuml;ncelle';
+$BL['be_fprivedit_err1']                = 'dosyanin deneme adı (orjinaline geri dön)';
+$BL['be_fprivedit_clockwise']           = 'küçük resimi saat yönünde döndür [orjinal dosya +90°]';
+$BL['be_fprivedit_cclockwise']          = 'küçük resimi saatin tersi yönde döndür [orijinal dosya -90°]';
+$BL['be_fprivedit_button']              = 'dosya bilgilerini güncelle';
 $BL['be_fprivedit_size']                = 'boyut';
 
 // files.private-functions.inc.php
 $BL['be_fprivfunc_upload']              = 'Dosya yükle';
 $BL['be_fprivfunc_makenew']             = 'Yeni klasör oluştur';
 $BL['be_fprivfunc_paste']               = 'Yapıştır';
-$BL['be_fprivfunc_edit']                = 'klas&ouml;r&uuml; d&uuml;zenle';
-$BL['be_fprivfunc_cactive']             = 'aktif/pasif de&#287;i&#351;tir';
-$BL['be_fprivfunc_cpublic']             = 'genel(public)/&ouml;zel(nonpublic) de&#287;i&#351;tir';
-$BL['be_fprivfunc_deldir']              = 'kals&ouml;r&uuml; sil';
-$BL['be_fprivfunc_jsdeldir']            = 'Ger&ccedil;ekten bu klas&ouml;r&uuml; silmek istiyor musunuz?';
-$BL['be_fprivfunc_notempty']            = '{VAL} kalas&ouml;r bo&#351; de&#287;il!';
+$BL['be_fprivfunc_edit']                = 'klasörü düzenle';
+$BL['be_fprivfunc_cactive']             = 'aktif/pasif değiştir';
+$BL['be_fprivfunc_cpublic']             = 'genel(public)/özel(nonpublic) değiştir';
+$BL['be_fprivfunc_deldir']              = 'kalsörü sil';
+$BL['be_fprivfunc_jsdeldir']            = 'Gerçekten bu klasörü silmek istiyor musunuz?';
+$BL['be_fprivfunc_notempty']            = '{VAL} kalasör boş değil!';
 $BL['be_fprivfunc_notempty_short']        = 'Klasör boş değil!';
-$BL['be_fprivfunc_opendir']             = 'klas&ouml;r&uuml; a&ccedil;';
-$BL['be_fprivfunc_closedir']            = 'klas&ouml;r&uuml; kapat';
-$BL['be_fprivfunc_dlfile']              = 'dosyay&#305; indir';
-$BL['be_fprivfunc_clipfile']            = 'pano dosyas&#305;';
+$BL['be_fprivfunc_opendir']             = 'klasörü aç';
+$BL['be_fprivfunc_closedir']            = 'klasörü kapat';
+$BL['be_fprivfunc_dlfile']              = 'dosyayı indir';
+$BL['be_fprivfunc_clipfile']            = 'pano dosyası';
 $BL['be_fprivfunc_cutfile']             = 'kes';
-$BL['be_fprivfunc_editfile']            = 'dosya bilgisini d&uuml;zenle';
-$BL['be_fprivfunc_cactivefile']         = 'aktif/pasif de&#287;i&#351;tir';
-$BL['be_fprivfunc_cpublicfile']         = 'genel(public)/&ouml;zel(nonpublic) de&#287;i&#351;tir';
-$BL['be_fprivfunc_movetrash']           = '&ccedil;&ouml;pe at';
-$BL['be_fprivfunc_jsmovetrash1']        = 'b&#305;rakmak istediginize emin misiniz?';
-$BL['be_fprivfunc_jsmovetrash2']        = '&ccedil;&ouml;p kutusuna b&#305;rak?';
+$BL['be_fprivfunc_editfile']            = 'dosya bilgisini düzenle';
+$BL['be_fprivfunc_cactivefile']         = 'aktif/pasif değiştir';
+$BL['be_fprivfunc_cpublicfile']         = 'genel(public)/özel(nonpublic) değiştir';
+$BL['be_fprivfunc_movetrash']           = 'çöpe at';
+$BL['be_fprivfunc_jsmovetrash1']        = 'bırakmak istediginize emin misiniz?';
+$BL['be_fprivfunc_jsmovetrash2']        = 'çöp kutusuna bırak?';
 
 // files.private.additions.inc.php
-$BL['be_fprivadd_nofolders']            = 'dosyalar yada klas&ouml;rler genel yetkiye sahip degil!';
+$BL['be_fprivadd_nofolders']            = 'dosyalar yada klasörler genel yetkiye sahip degil!';
 
 // files.public.list.tmpl.php
-$BL['be_fpublic_user']                  = 'kullan&#305;c&#305;';
-$BL['be_fpublic_nofiles']               = 'dosyalar yada klas&ouml;rler genel yetkiye sahip de&#287;il!';
+$BL['be_fpublic_user']                  = 'kullanıcı';
+$BL['be_fpublic_nofiles']               = 'dosyalar yada klasörler genel yetkiye sahip değil!';
 
 // files.private.trash.tmpl.php
-$BL['be_ftrash_nofiles']                = '&ccedil;&ouml;p kutusu bo&#351;alt&#305;labilir';
-$BL['be_ftrash_show']                   = '&ouml;zel dosyalar&#305; g&ouml;ster';
+$BL['be_ftrash_nofiles']                = 'çöp kutusu boşaltılabilir';
+$BL['be_ftrash_show']                   = 'özel dosyaları göster';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore']                = '{VAL} dosyas&#305;n&#305; &ouml;zel listeye geri alamak istiyor musunuz?';
-$BL['be_ftrash_delete']                 = '{VAL} dosyas&#305;n&#305; silmek istiyor musunuz?';
-$BL['be_ftrash_undo']                   = 'silineni geri al (geri d&ouml;n&uuml;s&uuml;m kutusundan al)';
+$BL['be_ftrash_restore']                = '{VAL} dosyasını özel listeye geri alamak istiyor musunuz?';
+$BL['be_ftrash_delete']                 = '{VAL} dosyasını silmek istiyor musunuz?';
+$BL['be_ftrash_undo']                   = 'silineni geri al (geri dönüsüm kutusundan al)';
 $BL['be_ftrash_delfinal']               = 'tamamen sil';
 
 // files.search.tmpl.php
-$BL['be_fsearch_err1']                  = 'aranacak kelime grubu bo&#351; b&#305;rak&#305;ld&#305;.';
+$BL['be_fsearch_err1']                  = 'aranacak kelime grubu boş bırakıldı.';
 $BL['be_fsearch_title']                 = 'dosyalarda ara';
-$BL['be_fsearch_infotext']              = 'Dosya bilgilerinde temel arama. Bu arama anahtar kelime kriterlerine g&ouml;re ,<br />dosya ad&#305; ve uzun dosya bilgisine g&ouml;re yap&#305;l&#305;r. &Ccedil;oklu aramalarda kelimeler boslukla par&ccedil;alan&#305;r. <br /> VE/VEYA ve bulunacak dosyalara &ouml;zg&uuml; : &ouml;zel(ki&#351;isel)/genel se&ccedil;imi yap&#305;l&#305;r.';
-$BL['be_fsearch_nonfound']              = 'Araman&#305;z sonucunda hi&ccedil; bir dosya bulunamad&#305;. Do&#287;ru arama verileri!';
-$BL['be_fsearch_fillin']                = 'L&uuml;tfen &ouml;nce aranacak kelimeleri giriniz.';
+$BL['be_fsearch_infotext']              = 'Dosya bilgilerinde temel arama. Bu arama anahtar kelime kriterlerine göre ,<br />dosya adı ve uzun dosya bilgisine göre yapılır. Çoklu aramalarda kelimeler boslukla parçalanır. <br />VE/VEYA ve bulunacak dosyalara özgü : özel(kişisel)/genel seçimi yapılır.';
+$BL['be_fsearch_nonfound']              = 'Aramanız sonucunda hiç bir dosya bulunamadı. Doğru arama verileri!';
+$BL['be_fsearch_fillin']                = 'Lütfen önce aranacak kelimeleri giriniz.';
 $BL['be_fsearch_searchlabel']           = 'aranacak';
-$BL['be_fsearch_startsearch']           = 'aramaya ba&#351;la';
+$BL['be_fsearch_startsearch']           = 'aramaya başla';
 $BL['be_fsearch_and']                   = 'VE';
 $BL['be_fsearch_or']                    = 'VEYA';
-$BL['be_fsearch_all']                   = 't&uuml;m dosyalar';
-$BL['be_fsearch_personal']              = '&ouml;zel';
+$BL['be_fsearch_all']                   = 'tüm dosyalar';
+$BL['be_fsearch_personal']              = 'özel';
 $BL['be_fsearch_public']                = 'genel(public)';
 
 // chat.main.tmpl.php & chat.list.tmpl.php
-$BL['be_chat_title']                    = 'kullan&#305;c&#305;lar aras&#305; sohbet';
-$BL['be_chat_info']                     = 'Burada sitenin arka plan kullan&#305;c&#305;lar&#305; ile hangi konuda istiyorsan&#305;z sohbet edebilirsiniz. Bu arabirim ger&ccedil;ek zamanl&#305; konu&#351;ma sa&#287;lar. Ancak siz mesaji yazarken ayn&#305; anda  bu mesaj&#305; herkes okuyabilir. E&#287;er di&#287;er kullan&#305;c&#305;larla fikir al&#305;&#351;veri&#351;i yapmak isterseniz  l&uuml;tfen (sonraki phpwcms s&uuml;r&uuml;m&uuml;).';
-$BL['be_chat_start']                    = 'Sohbete ba&#287;lamak i&ccedil;in buraya t&#305;klay&#305;n';
-$BL['be_chat_lines']                    = 'Sohbet sat&#305;rlar&#305;';
+$BL['be_chat_title']                    = 'kullanıcılar arası sohbet';
+$BL['be_chat_info']                     = 'Burada sitenin arka plan kullanıcıları ile hangi konuda istiyorsanız sohbet edebilirsiniz. Bu arabirim gerçek zamanlı konuşma sağlar. Ancak siz mesaji yazarken aynı anda bu mesajı herkes okuyabilir. Eğer diğer kullanıcılarla fikir alışverişi yapmak isterseniz lütfen (sonraki phpwcms sürümü).';
+$BL['be_chat_start']                    = 'Sohbete bağlamak için buraya tıklayın';
+$BL['be_chat_lines']                    = 'Sohbet satırları';
 
 // message.center.tmpl.php
 $BL['be_msg_title']                     = 'mesaj merkezi';
 $BL['be_msg_new']                       = 'yeni';
 $BL['be_msg_old']                       = 'eski';
-$BL['be_msg_senttop']                   = 'g&ouml;nder';
-$BL['be_msg_del']                       = 'silinmi&#351;';
+$BL['be_msg_senttop']                   = 'gönder';
+$BL['be_msg_del']                       = 'silinmiş';
 $BL['be_msg_from']                      = 'kimden';
 $BL['be_msg_subject']                   = 'konu';
 $BL['be_msg_date']                      = 'tarih/saat';
-$BL['be_msg_close']                     = 'mesaj&#305; kapat';
-$BL['be_msg_create']                    = 'yeni bir mesaj olu&#351;tur';
-$BL['be_msg_reply']                     = 'bu mesaj&#305; yan&#305;tla';
-$BL['be_msg_move']                      = 'bu mesaji &ccedil;&ouml;p kutusuna g&ouml;nder';
-$BL['be_msg_unread']                    = 'okunmam&#305;&#351; yada yeni mesaj';
-$BL['be_msg_lastread']                  = 'son {VAL} okunmu&#351; mesaj';
-$BL['be_msg_lastsent']                  = 'son {VAL} g&ouml;nderilmis mesaj';
-$BL['be_msg_marked']                    = 'silmek i&ccedil;in i&#351;aretlenmi&#351; (&ccedil;&ouml;p kutusu)';
-$BL['be_msg_nomsg']                     = 'bu klas&ouml;r i&ccedil;erisinde mesaj bulunamad&#305;';
+$BL['be_msg_close']                     = 'mesajı kapat';
+$BL['be_msg_create']                    = 'yeni bir mesaj oluştur';
+$BL['be_msg_reply']                     = 'bu mesajı yanıtla';
+$BL['be_msg_move']                      = 'bu mesaji çöp kutusuna gönder';
+$BL['be_msg_unread']                    = 'okunmamış yada yeni mesaj';
+$BL['be_msg_lastread']                  = 'son {VAL} okunmuş mesaj';
+$BL['be_msg_lastsent']                  = 'son {VAL} gönderilmis mesaj';
+$BL['be_msg_marked']                    = 'silmek için işaretlenmiş (çöp kutusu)';
+$BL['be_msg_nomsg']                     = 'bu klasör içerisinde mesaj bulunamadı';
 
 // message.send.tmpl.php
 $BL['be_msg_RE']                        = 'YNT';
-$BL['be_msg_by']                        = 'G&ouml;nderen';
+$BL['be_msg_by']                        = 'Gönderen';
 $BL['be_msg_on']                        = 'da';
 $BL['be_msg_msg']                       = 'mesaj';
-$BL['be_msg_err1']                      = 'al&#305;c&#305; b&ouml;l&uuml;m&uuml;n&uuml; doldurmay&#305; unuttunuz...';
-$BL['be_msg_err2']                      = 'konu alan&#305;n&#305; doldurunuz. (mesaji alan ki&#351;i mesaj&#305;n&#305;z&#305; de&#287;erlendirebilsin.)';
-$BL['be_msg_err3']                      = 'mesaji kendiniz d&#305;&#351;&#305;nda birine g&ouml;ndermelisiniz. ;-)';
-$BL['be_msg_sent']                      = 'yeni mesaj g&ouml;nderildi!';
-$BL['be_msg_fwd']                       = 'mesaj&#305; mesaj merkezi ile ileteceksiniz.';
+$BL['be_msg_err1']                      = 'alıcı bölümünü doldurmayı unuttunuz...';
+$BL['be_msg_err2']                      = 'konu alanını doldurunuz. (mesaji alan kişi mesajınızı değerlendirebilsin.)';
+$BL['be_msg_err3']                      = 'mesaji kendiniz dışında birine göndermelisiniz. ;-)';
+$BL['be_msg_sent']                      = 'yeni mesaj gönderildi!';
+$BL['be_msg_fwd']                       = 'mesajı mesaj merkezi ile ileteceksiniz.';
 $BL['be_msg_newmsgtitle']               = 'yeni mesaj yaz';
-$BL['be_msg_err']                       = 'mesaj g&ouml;nderilirken hata olu&#351;tu.';
-$BL['be_msg_sendto']                    = 'mesaj&#305; al&#305;c&#305;ya g&ouml;nder g&ouml;nder';
-$BL['be_msg_available']                 = 'al&#305;c&#305;lar&#305;n listesi';
-$BL['be_msg_all']                       = 't&uuml;m se&ccedil;ilmis al&#305;c&#305;lara mesaj&#305; g&ouml;nder';
+$BL['be_msg_err']                       = 'mesaj gönderilirken hata oluştu.';
+$BL['be_msg_sendto']                    = 'mesajı alıcıya gönder gönder';
+$BL['be_msg_available']                 = 'alıcıların listesi';
+$BL['be_msg_all']                       = 'tüm seçilmis alıcılara mesajı gönder';
 
 // message.subscription.tmpl.php
-$BL['be_newsletter_title']              = 'haber &uuml;yeli&#287;i';
-$BL['be_newsletter_titleedit']          = 'haber &uuml;yeli&#287;ini d&uuml;zenle';
-$BL['be_newsletter_new']                = 'yeni olu&#351;tur';
-$BL['be_newsletter_add']                = 'haber&nbsp;&uuml;yeli&#287;i&nbsp;ekle';
+$BL['be_newsletter_title']              = 'haber üyeliği';
+$BL['be_newsletter_titleedit']          = 'haber üyeliğini düzenle';
+$BL['be_newsletter_new']                = 'yeni oluştur';
+$BL['be_newsletter_add']                = 'haber üyeliği ekle';
 $BL['be_newsletter_name']               = 'isim';
 $BL['be_newsletter_info']               = 'bilgi';
-$BL['be_newsletter_button_save']        = '&Uuml;yeli&#287;i kaydet';
-$BL['be_newsletter_button_cancel']      = '&#304;ptal';
+$BL['be_newsletter_button_save']        = 'Üyeliği kaydet';
+$BL['be_newsletter_button_cancel']      = 'İptal';
 
 // admin.newuser.tmpl.php
-$BL['be_admin_usr_err1']                = 'kullan&#305;c&#305; ad&#305; hatal&#305; yeni bir tane se&ccedil;in';
-$BL['be_admin_usr_err2']                = 'kullan&#305;c&#305; ad&#305; bo&#351; olamaz';
-$BL['be_admin_usr_err3']                = '&#351;ifre bo&#351; olamaz';
-$BL['be_admin_usr_err4']                = "email ge&ccedil;erli de&#287;il";
+$BL['be_admin_usr_err1']                = 'kullanıcı adı hatalı yeni bir tane seçin';
+$BL['be_admin_usr_err2']                = 'kullanıcı adı boş olamaz';
+$BL['be_admin_usr_err3']                = 'şifre boş olamaz';
+$BL['be_admin_usr_err4']                = "email geçerli değil";
 $BL['be_admin_usr_err']                 = 'hata';
-$BL['be_admin_usr_mailsubject']         = 'phpwcms site arkas&#305; y&ouml;netime hos geldiniz.';
-$BL['be_admin_usr_mailbody']            = "PHPWCMS SITE ARKASI Y&Ouml;NETIMINE HOS GELDINIZ\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuraya giri&#351; yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_title']               = 'yeni kullan&#305;c&#305; hesab&#305;';
-$BL['be_admin_usr_realname']            = 'ger&ccedil;ek isim';
-$BL['be_admin_usr_setactive']           = 'kullan&#305;c&#305; aktifle&#351;tir';
-$BL['be_admin_usr_iflogin']             = 'e&#287;er se&ccedil;erseniz kullan&#305;c&#305; giri&#351; yapabilir.';
-$BL['be_admin_usr_isadmin']             = 'admin kullan&#305;c&#305; (y&ouml;netici)';
-$BL['be_admin_usr_ifadmin']             = 'e&#287;er se&ccedil;erseniz kullan&#305;c&#305; admin(y&ouml;netici) olur.';
+$BL['be_admin_usr_mailsubject']         = 'phpwcms site arkası yönetime hos geldiniz.';
+$BL['be_admin_usr_mailbody']            = "PHPWCMS SITE ARKASI YÖNETIMINE HOS GELDINIZ\n\n    kullanıcı adı: {LOGIN}\n    şifre: {PASSWORD}\n\n\nBuraya giriş yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n";
+$BL['be_admin_usr_title']               = 'yeni kullanıcı hesabı';
+$BL['be_admin_usr_realname']            = 'gerçek isim';
+$BL['be_admin_usr_setactive']           = 'kullanıcı aktifleştir';
+$BL['be_admin_usr_iflogin']             = 'eğer seçerseniz kullanıcı giriş yapabilir.';
+$BL['be_admin_usr_isadmin']             = 'admin kullanıcı (yönetici)';
+$BL['be_admin_usr_ifadmin']             = 'eğer seçerseniz kullanıcı admin(yönetici) olur.';
 $BL['be_admin_usr_verify']              = 'onaylama';
-$BL['be_admin_usr_sendemail']           = 'yeni kullanic&#305;ya hesap bilgilerini email ile bildir.';
-$BL['be_admin_usr_button']              = 'kullan&#305;c&#305; bilgilerini g&ouml;nder';
+$BL['be_admin_usr_sendemail']           = 'yeni kullanicıya hesap bilgilerini email ile bildir.';
+$BL['be_admin_usr_button']              = 'kullanıcı bilgilerini gönder';
 
 // admin.edituser.tmpl.php
-$BL['be_admin_usr_etitle']              = 'kullan&#305;c&#305; hesap bilgilerini d&uuml;zenle';
+$BL['be_admin_usr_etitle']              = 'kullanıcı hesap bilgilerini düzenle';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - hesap bilgileri degistirildi';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS KULLANICI HESAP B&#304;LG&#304;LER&#304; DE&#286;I&#350;T&#304;R&#304;LD&#304;\n\n    kullan&#305;c&#305; ad&#305;: {LOGIN}\n    &#351;ifre: {PASSWORD}\n\n\nBuradan giri&#351; yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n ";
-$BL['be_admin_usr_passnochange']        = '[DE&#286;&#304;&#350;MEZ - B&#304;L&#304;NEN &#350;&#304;FREY&#304; KULLANIN]';
-$BL['be_admin_usr_ebutton']             = 'kullan&#305;c&#305; bilgilerini g&uuml;ncelle';
+$BL['be_admin_usr_emailbody']           = "PHPWCMS KULLANICI HESAP BİLGİLERİ DEĞIŞTİRİLDİ\n\n    kullanıcı adı: {LOGIN}\n    şifre: {PASSWORD}\n\n\nBuradan giriş yapabilirsiniz: {LOGIN_PAGE}\n\nphpwcms admin\n";
+$BL['be_admin_usr_passnochange']        = '[DEĞİŞMEZ - BİLİNEN ŞİFREYİ KULLANIN]';
+$BL['be_admin_usr_ebutton']             = 'kullanıcı bilgilerini güncelle';
 
 // admin.listuser.tmpl.php
-$BL['be_admin_usr_ltitle']              = 'phpwcms kullan&#305;c&#305; bilgileri';
-$BL['be_admin_usr_ldel']                = 'D&#304;KKAT!&#13;Kullan&#305;c&#305;y&#305; silemk &uuml;zeresiniz';
-$BL['be_admin_usr_create']              = 'yeni kullan&#305;c&#305; olu&#351;tur';
-$BL['be_admin_usr_editusr']             = 'kullan&#305;c&#305; bilgilerini d&uuml;zenle';
+$BL['be_admin_usr_ltitle']              = 'phpwcms kullanıcı bilgileri';
+$BL['be_admin_usr_ldel']                = 'DİKKAT!Kullanıcıyı silemk üzeresiniz';
+$BL['be_admin_usr_create']              = 'yeni kullanıcı oluştur';
+$BL['be_admin_usr_editusr']             = 'kullanıcı bilgilerini düzenle';
 
 // admin.structform.tmpl.php
-$BL['be_admin_struct_title']            = 'Site Yap&#305;s&#305;';
-$BL['be_admin_struct_child']            = '(&uuml;st baslik)';
-$BL['be_admin_struct_index']            = 'ana sayfa (web sitesinde ilk g&ouml;re&uuml;necek)';
-$BL['be_admin_struct_cat']              = 'kategori ba&#351;l&#351;&#287;&#305;';
+$BL['be_admin_struct_title']            = 'Site Yapısı';
+$BL['be_admin_struct_child']            = '(üst baslik)';
+$BL['be_admin_struct_index']            = 'ana sayfa (web sitesinde ilk göreünecek)';
+$BL['be_admin_struct_cat']              = 'kategori başlşğı';
 $BL['be_admin_struct_hide1']            = 'gizle';
-$BL['be_admin_struct_hide2']            = 'bu&nbsp;kategori&nbsp;menu&nbsp;i&ccedil;inde';
+$BL['be_admin_struct_hide2']            = 'bu kategori menu içinde';
 $BL['be_admin_struct_info']             = 'kategori bilgileri';
-$BL['be_admin_struct_template']         = '&#351;ablon';
-$BL['be_admin_struct_alias']            = 'bu kategorinin di&#287;er ismi';
-$BL['be_admin_struct_visible']          = 'g&ouml;r&uuml;nebilir';
-$BL['be_admin_struct_button']           = 'kategori bilgilerini g&ouml;nder';
+$BL['be_admin_struct_template']         = 'şablon';
+$BL['be_admin_struct_alias']            = 'bu kategorinin diğer ismi';
+$BL['be_admin_struct_visible']          = 'görünebilir';
+$BL['be_admin_struct_button']           = 'kategori bilgilerini gönder';
 $BL['be_admin_struct_close']            = 'kapat';
 
 // admin.filecat.tmpl.php
 $BL['be_admin_fcat_title']              = 'dosya kategorileri';
-$BL['be_admin_fcat_err']                = 'kategori ad&#305; bo&#351;!';
-$BL['be_admin_fcat_name']               = 'kategori ad&#305;';
+$BL['be_admin_fcat_err']                = 'kategori adı boş!';
+$BL['be_admin_fcat_name']               = 'kategori adı';
 $BL['be_admin_fcat_needed']             = 'gerekli';
-$BL['be_admin_fcat_button1']            = 'g&uuml;necelle';
-$BL['be_admin_fcat_button2']            = 'olu&#351;tur';
-$BL['be_admin_fcat_delmsg']             = 'Dosya anahtar kelimelerini silmek \nistedi&#287;inize emin misiniz?';
+$BL['be_admin_fcat_button1']            = 'günecelle';
+$BL['be_admin_fcat_button2']            = 'oluştur';
+$BL['be_admin_fcat_delmsg']             = 'Dosya anahtar kelimelerini silmek\nistediğinize emin misiniz?';
 $BL['be_admin_fcat_fcat']               = 'dosya kategorisi';
-$BL['be_admin_fcat_err1']               = 'dosya anahtar kelimesi bo&#351;!';
+$BL['be_admin_fcat_err1']               = 'dosya anahtar kelimesi boş!';
 $BL['be_admin_fcat_fkeyname']           = 'dosya anahtar kelimesi';
 $BL['be_admin_fcat_exit']               = 'iptal';
 $BL['be_admin_fcat_addkey']             = 'yeni anahtar kelime ekle';
-$BL['be_admin_fcat_editcat']            = 'kategori bilgisini d&uuml;zenle';
-$BL['be_admin_fcat_delcatmsg']          = 'dosya kategorisini silmek\nistedi&#287;iniz emin misiniz??';
+$BL['be_admin_fcat_editcat']            = 'kategori bilgisini düzenle';
+$BL['be_admin_fcat_delcatmsg']          = 'dosya kategorisini silmek\nistediğiniz emin misiniz??';
 $BL['be_admin_fcat_delcat']             = 'dosya kategosrisini sil';
 $BL['be_admin_fcat_delkey']             = 'dosya anahtar kelimesini sil';
-$BL['be_admin_fcat_editkey']            = 'anahtar&#305; d&uuml;zenle';
-$BL['be_admin_fcat_addcat']             = 'yeni dosya kategorisi olu&#351;tur';
+$BL['be_admin_fcat_editkey']            = 'anahtarı düzenle';
+$BL['be_admin_fcat_addcat']             = 'yeni dosya kategorisi oluştur';
 
 // admin.pagelayout.tmpl.php
-$BL['be_admin_page_title']              = '&ouml;n y&uuml;z ayalarlari: sayfa plan&#305;';
+$BL['be_admin_page_title']              = 'ön yüz ayalarlari: sayfa planı';
 $BL['be_admin_page_align']              = 'dosya hizalama';
-$BL['be_admin_page_align_left']         = 'sayfa i&ccedil;eri&#287;i i&ccedil;in standart hiza (sola)';
-$BL['be_admin_page_align_center']       = 'sayfa i&ccedil;eri&#287;ini ortala';
-$BL['be_admin_page_align_right']        = 'sayfa i&ccedil;eri&#287;ini sa&#287;a yasla';
+$BL['be_admin_page_align_left']         = 'sayfa içeriği için standart hiza (sola)';
+$BL['be_admin_page_align_center']       = 'sayfa içeriğini ortala';
+$BL['be_admin_page_align_right']        = 'sayfa içeriğini sağa yasla';
 $BL['be_admin_page_margin']             = 'mekez';
-$BL['be_admin_page_top']                = '&uuml;st';
+$BL['be_admin_page_top']                = 'üst';
 $BL['be_admin_page_bottom']             = 'alt';
 $BL['be_admin_page_left']               = 'sol';
-$BL['be_admin_page_right']              = 'sa&#287;';
+$BL['be_admin_page_right']              = 'sağ';
 $BL['be_admin_page_bg']                 = 'arka plan';
 $BL['be_admin_page_color']              = 'renk';
-$BL['be_admin_page_height']             = 'y&uuml;kseklik';
-$BL['be_admin_page_width']              = 'geni&#351;lik';
-$BL['be_admin_page_main']               = 'anab&ouml;l&uuml;m';
-$BL['be_admin_page_leftspace']          = 'sol bo&#351;luk';
-$BL['be_admin_page_rightspace']         = 'sa&#287; bo&#351;luk';
+$BL['be_admin_page_height']             = 'yükseklik';
+$BL['be_admin_page_width']              = 'genişlik';
+$BL['be_admin_page_main']               = 'anabölüm';
+$BL['be_admin_page_leftspace']          = 'sol boşluk';
+$BL['be_admin_page_rightspace']         = 'sağ boşluk';
 $BL['be_admin_page_class']              = 'sinif';
 $BL['be_admin_page_image']              = 'resim';
-$BL['be_admin_page_text']               = 'yaz&#305;';
-$BL['be_admin_page_link']               = 'k&ouml;pr&uuml;(link)';
+$BL['be_admin_page_text']               = 'yazı';
+$BL['be_admin_page_link']               = 'köprü(link)';
 $BL['be_admin_page_js']                 = 'javascript';
 $BL['be_admin_page_visited']            = 'ziyaret edilmis';
-$BL['be_admin_page_pagetitle']          = 'sayfa&nbsp;basligi';
-$BL['be_admin_page_addtotitle']         = 'ba&#351;l&#305;k&nbsp;ekle';
+$BL['be_admin_page_pagetitle']          = 'sayfa basligi';
+$BL['be_admin_page_addtotitle']         = 'başlık ekle';
 $BL['be_admin_page_category']           = 'kategori';
-$BL['be_admin_page_articlename']        = 'konu&nbsp;ad&#305;';
+$BL['be_admin_page_articlename']        = 'konu adı';
 $BL['be_admin_page_blocks']             = 'alanlar';
-$BL['be_admin_page_allblocks']          = 't&uuml;m alanlar';
-$BL['be_admin_page_col1']               = '3 kolonlu yerle&#351;im';
-$BL['be_admin_page_col2']               = '2 kolonlu yerle&#351;im (ana kolon sa&#287;daki, ba&#351;l&#305;klar&#305;n oldu&#287;u kolon soldaki)';
-$BL['be_admin_page_col3']               = '2 kolonlu yerle&#351;im (ana kolon soldaki, ba&#351;l&#305;klar&#305;n oldu&#287;u kolon sa&#287;daki)';
-$BL['be_admin_page_col4']               = '1 kolonlu yerle&#351;im';
-$BL['be_admin_page_header']             = 'sayfa ba&#351;&#305;';
+$BL['be_admin_page_allblocks']          = 'tüm alanlar';
+$BL['be_admin_page_col1']               = '3 kolonlu yerleşim';
+$BL['be_admin_page_col2']               = '2 kolonlu yerleşim (ana kolon sağdaki, başlıkların olduğu kolon soldaki)';
+$BL['be_admin_page_col3']               = '2 kolonlu yerleşim (ana kolon soldaki, başlıkların olduğu kolon sağdaki)';
+$BL['be_admin_page_col4']               = '1 kolonlu yerleşim';
+$BL['be_admin_page_header']             = 'sayfa başı';
 $BL['be_admin_page_footer']             = 'sayfa sonu';
-$BL['be_admin_page_topspace']           = '&uuml;st&nbsp;bo&#351;luk';
-$BL['be_admin_page_bottomspace']        = 'alt&nbsp;bo&#351;luk';
-$BL['be_admin_page_button']             = 'sayfa yerle&#351;imini kaydet';
+$BL['be_admin_page_topspace']           = 'üst boşluk';
+$BL['be_admin_page_bottomspace']        = 'alt boşluk';
+$BL['be_admin_page_button']             = 'sayfa yerleşimini kaydet';
 
 // admin.frontendcss.tmpl.php
-$BL['be_admin_css_title']               = '&ouml;ny&uuml;z ayarlar&#305;: css bilgileri';
+$BL['be_admin_css_title']               = 'önyüz ayarları: css bilgileri';
 $BL['be_admin_css_css']                 = 'css';
 $BL['be_admin_css_button']              = 'css bilgilerini kaydet';
 
 // admin.templates.tmpl.php
-$BL['be_admin_tmpl_title']              = '&ouml;ny&uuml;z ayalar&#305;: sayfa sablonu';
-$BL['be_admin_tmpl_default']            = 'varsay&#305;lan';
-$BL['be_admin_tmpl_add']                = 'kal&#305;p&nbsp;ekle';
-$BL['be_admin_tmpl_edit']               = 'sayfa &#351;ablonunu d&uuml;zenle';
-$BL['be_admin_tmpl_new']                = 'yeni olu&#351;tur';
-$BL['be_admin_tmpl_css']                = 'css dosyas&#305;';
+$BL['be_admin_tmpl_title']              = 'önyüz ayaları: sayfa sablonu';
+$BL['be_admin_tmpl_default']            = 'varsayılan';
+$BL['be_admin_tmpl_add']                = 'kalıp ekle';
+$BL['be_admin_tmpl_edit']               = 'sayfa şablonunu düzenle';
+$BL['be_admin_tmpl_new']                = 'yeni oluştur';
+$BL['be_admin_tmpl_css']                = 'css dosyası';
 $BL['be_admin_tmpl_head']               = 'html head';
-$BL['be_admin_tmpl_js']                 = 'js y&uuml;klendi&#287;inde';
+$BL['be_admin_tmpl_js']                 = 'js yüklendiğinde';
 $BL['be_admin_tmpl_error']              = 'hata';
-$BL['be_admin_tmpl_button']             = '&#351;ablonu kaydet';
+$BL['be_admin_tmpl_button']             = 'şablonu kaydet';
 $BL['be_admin_tmpl_name']               = 'isim';
 
 // article.structlist.tmpl.php
-$BL['be_article_title']                 = 'site yap&#305;s&#305; ve b&ouml;l&uuml;m listesi';
+$BL['be_article_title']                 = 'site yapısı ve bölüm listesi';
 
 // article.new.tmpl.php
-$BL['be_article_err1']                  = 'bo&#351; olan bu b&ouml;l&uuml;m i&ccedil;in ba&#351;l&#305;k';
-$BL['be_article_err2']                  = 'ba&#351;lang&#305;&ccedil; zaman&#305; hatal&#305; - yeniden ayalarla';
-$BL['be_article_err3']                  = 'biti&#351; zaman&#305;n&#305; ayarla - yeniden ayarla';
+$BL['be_article_err1']                  = 'boş olan bu bölüm için başlık';
+$BL['be_article_err2']                  = 'başlangıç zamanı hatalı - yeniden ayalarla';
+$BL['be_article_err3']                  = 'bitiş zamanını ayarla - yeniden ayarla';
 $BL['be_article_title1']                = 'konunun temel bilgileri';
 $BL['be_article_cat']                   = 'kategori';
-$BL['be_article_atitle']                = 'konu ba&#351;l&#305;g&#305;';
-$BL['be_article_asubtitle']             = 'alt ba&#351;l&#305;k';
-$BL['be_article_abegin']                = 'ba&#351;lang&#305;&ccedil;';
-$BL['be_article_aend']                  = 'biti&#351;';
-$BL['be_article_aredirect']             = 'y&ouml;nlendir';
+$BL['be_article_atitle']                = 'konu başlıgı';
+$BL['be_article_asubtitle']             = 'alt başlık';
+$BL['be_article_abegin']                = 'başlangıç';
+$BL['be_article_aend']                  = 'bitiş';
+$BL['be_article_aredirect']             = 'yönlendir';
 $BL['be_article_akeywords']             = 'anahtar kelimeler';
-$BL['be_article_asummary']              = '&ouml;zet';
-$BL['be_article_abutton']               = 'yeni b&ouml;l&uuml;m olu&#351;tur.';
+$BL['be_article_asummary']              = 'özet';
+$BL['be_article_abutton']               = 'yeni bölüm oluştur.';
 
 //article.editcontent.inc.php
-$BL['be_article_err4']                  = 'biti&#351; zaman&#305; hatal&#305; - &#351;u an + 1 hafta';
+$BL['be_article_err4']                  = 'bitiş zamanı hatalı - şu an + 1 hafta';
 
 // article.editsummary.tmpl.php
-$BL['be_article_estitle']               = 'B&ouml;l&uuml;m temel bilgilerini d&uuml;zenle';
-$BL['be_article_eslastedit']            = 'son d&uuml;zenleme';
-$BL['be_article_esnoupdate']            = 'taraf&#305;ndan g&uuml;ncellenemez';
-$BL['be_article_esbutton']              = 'b&ouml;l&uuml;m bilgilerini g&uuml;ncelle';
+$BL['be_article_estitle']               = 'Bölüm temel bilgilerini düzenle';
+$BL['be_article_eslastedit']            = 'son düzenleme';
+$BL['be_article_esnoupdate']            = 'tarafından güncellenemez';
+$BL['be_article_esbutton']              = 'bölüm bilgilerini güncelle';
 
 // articlecontent.edit.tmpl.php
-$BL['be_article_cnt_title']             = 'B&ouml;l&uuml;m i&ccedil;erigi';
-$BL['be_article_cnt_type']              = 'i&ccedil;erik t&uuml;r&uuml;';
-$BL['be_article_cnt_space']             = 'bo&#351;luk';
-$BL['be_article_cnt_before']            = '&ouml;nce';
+$BL['be_article_cnt_title']             = 'Bölüm içerigi';
+$BL['be_article_cnt_type']              = 'içerik türü';
+$BL['be_article_cnt_space']             = 'boşluk';
+$BL['be_article_cnt_before']            = 'önce';
 $BL['be_article_cnt_after']             = 'sonra';
-$BL['be_article_cnt_top']               = '&uuml;st';
-$BL['be_article_cnt_toplink']           = 'sayfa ba&#351;&#305; linki';
-$BL['be_article_cnt_ctitle']            = 'i&ccedil;erik ba&#351;l&#305;&#287;&#305;';
-$BL['be_article_cnt_back']              = 'konu bilgisi tamamland&#305;';
-$BL['be_article_cnt_button1']           = 'G&uuml;ncelle';
-$BL['be_article_cnt_button2']           = 'Olu&#351;tur';
+$BL['be_article_cnt_top']               = 'üst';
+$BL['be_article_cnt_toplink']           = 'sayfa başı linki';
+$BL['be_article_cnt_ctitle']            = 'içerik başlığı';
+$BL['be_article_cnt_back']              = 'konu bilgisi tamamlandı';
+$BL['be_article_cnt_button1']           = 'Güncelle';
+$BL['be_article_cnt_button2']           = 'Oluştur';
 $BL['be_article_cnt_button3']           = 'Kaydet &amp; Kapat';
 
 // articlecontent.list.tmpl.php
-$BL['be_article_cnt_ltitle']            = 'B&ouml;l&uuml;m bilgileri';
-$BL['be_article_cnt_ledit']             = 'B&ouml;l&uuml;m&uuml; d&uuml;zenle';
-$BL['be_article_cnt_lvisible']          = 'G&ouml;r&uuml;n&uuml;r / g&ouml;r&uuml;nmez de&#287;i&#351;tir';
-$BL['be_article_cnt_ldel']              = 'Bu b&ouml;l&uuml;m&uuml; sil';
-$BL['be_article_cnt_ldeljs']            = 'B&ouml;l&uuml;m silinsin mi?';
-$BL['be_article_cnt_redirect']          = 'y&ouml;nlendirme';
-$BL['be_article_cnt_edited']            = 'd&uuml;zenleyen';
-$BL['be_article_cnt_start']             = 'ba&#351;lang&#305;&ccedil; g&uuml;n&uuml;';
-$BL['be_article_cnt_end']               = 'biti&#351; g&uuml;n&uuml;';
+$BL['be_article_cnt_ltitle']            = 'Bölüm bilgileri';
+$BL['be_article_cnt_ledit']             = 'Bölümü düzenle';
+$BL['be_article_cnt_lvisible']          = 'Görünür / görünmez değiştir';
+$BL['be_article_cnt_ldel']              = 'Bu bölümü sil';
+$BL['be_article_cnt_ldeljs']            = 'Bölüm silinsin mi?';
+$BL['be_article_cnt_redirect']          = 'yönlendirme';
+$BL['be_article_cnt_edited']            = 'düzenleyen';
+$BL['be_article_cnt_start']             = 'başlangıç günü';
+$BL['be_article_cnt_end']               = 'bitiş günü';
 $BL['be_article_cnt_add']               = 'ekle';
-$BL['be_article_cnt_addtitle']          = 'yeni i&ccedil;eerik par&ccedil;asi ekle';
-$BL['be_article_cnt_up']                = 'i&ccedil;erigi yukar&#305; ta&#351;&#305;';
-$BL['be_article_cnt_down']              = 'i&ccedil;erigi asa&#287;&#305; ta&#351;&#305;';
-$BL['be_article_cnt_edit']              = 'i&ccedil;erik par&ccedil;as&#305;n&#305; d&uuml;zenle';
-$BL['be_article_cnt_delpart']           = 'bu i&ccedil;erik par&ccedil;as&#305;n&#305; sil';
-$BL['be_article_cnt_delpartjs']         = 'I&ccedil;erik par&ccedil;asi silnsin mi?';
-$BL['be_article_cnt_center']            = 'Konu ba&#351;l&#305;klar&#305;';
+$BL['be_article_cnt_addtitle']          = 'yeni içeerik parçasi ekle';
+$BL['be_article_cnt_up']                = 'içerigi yukarı taşı';
+$BL['be_article_cnt_down']              = 'içerigi asağı taşı';
+$BL['be_article_cnt_edit']              = 'içerik parçasını düzenle';
+$BL['be_article_cnt_delpart']           = 'bu içerik parçasını sil';
+$BL['be_article_cnt_delpartjs']         = 'Içerik parçasi silnsin mi?';
+$BL['be_article_cnt_center']            = 'Konu başlıkları';
 
 // content forms
 $BL['be_cnt_plaintext']                 = 'sade metin';
 $BL['be_cnt_htmltext']                  = 'html metin';
 $BL['be_cnt_image']                     = 'resim';
 $BL['be_cnt_position']                  = 'pozisyon';
-$BL['be_cnt_pos0']                      = '&Uuml;st, solda';
-$BL['be_cnt_pos1']                      = '&Uuml;st, ortal&#305;';
-$BL['be_cnt_pos2']                      = '&Uuml;st, Sa&#287;da';
+$BL['be_cnt_pos0']                      = 'Üst, solda';
+$BL['be_cnt_pos1']                      = 'Üst, ortalı';
+$BL['be_cnt_pos2']                      = 'Üst, Sağda';
 $BL['be_cnt_pos3']                      = 'Alt, solda';
-$BL['be_cnt_pos4']                      = 'Alt, ortal&#305;';
-$BL['be_cnt_pos5']                      = 'Alt, sa&#287;da';
-$BL['be_cnt_pos6']                      = 'Yaz&#305; i&ccedil;inde, solda';
-$BL['be_cnt_pos7']                      = 'Yaz&#305; i&ccedil;inde, sa&#287;da';
-$BL['be_cnt_pos0i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde &uuml;st ve sola hizal&#305;';
-$BL['be_cnt_pos1i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde &uuml;stte ve ortal&#305;';
-$BL['be_cnt_pos2i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde &uuml;st ve saga hizal&#305;';
-$BL['be_cnt_pos3i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde alt ve sola hizal&#305;';
-$BL['be_cnt_pos4i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde altta ve ortal&#305;';
-$BL['be_cnt_pos5i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde alt ve sa&#287;a hizal&#305;';
-$BL['be_cnt_pos6i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde yaz&#305; i&ccedil;inde ve sola hizal&#305;';
-$BL['be_cnt_pos7i']                     = 'resim yaz&#305; blo&#287;u i&ccedil;inde yaz&#305; i&ccedil;inde ve sa&#287;da hizal&#305;';
-$BL['be_cnt_maxw']                      = 'enfazla.&nbsp;geni&#351;lik';
-$BL['be_cnt_maxh']                      = 'enfazla.&nbsp;y&uuml;kseklik';
-$BL['be_cnt_enlarge']                   = 't&#305;kland&#305;&#287;&#305;nda&nbsp;b&uuml;y&uuml;t';
+$BL['be_cnt_pos4']                      = 'Alt, ortalı';
+$BL['be_cnt_pos5']                      = 'Alt, sağda';
+$BL['be_cnt_pos6']                      = 'Yazı içinde, solda';
+$BL['be_cnt_pos7']                      = 'Yazı içinde, sağda';
+$BL['be_cnt_pos0i']                     = 'resim yazı bloğu içinde üst ve sola hizalı';
+$BL['be_cnt_pos1i']                     = 'resim yazı bloğu içinde üstte ve ortalı';
+$BL['be_cnt_pos2i']                     = 'resim yazı bloğu içinde üst ve saga hizalı';
+$BL['be_cnt_pos3i']                     = 'resim yazı bloğu içinde alt ve sola hizalı';
+$BL['be_cnt_pos4i']                     = 'resim yazı bloğu içinde altta ve ortalı';
+$BL['be_cnt_pos5i']                     = 'resim yazı bloğu içinde alt ve sağa hizalı';
+$BL['be_cnt_pos6i']                     = 'resim yazı bloğu içinde yazı içinde ve sola hizalı';
+$BL['be_cnt_pos7i']                     = 'resim yazı bloğu içinde yazı içinde ve sağda hizalı';
+$BL['be_cnt_maxw']                      = 'enfazla. genişlik';
+$BL['be_cnt_maxh']                      = 'enfazla. yükseklik';
+$BL['be_cnt_enlarge']                   = 'tıklandığında büyüt';
 $BL['be_cnt_caption']                   = 'etiket';
 $BL['be_cnt_subject']                   = 'konu';
-$BL['be_cnt_recipient']                 = 'al&#305;c&#305;';
-$BL['be_cnt_buttontext']                = 'buton yaz&#305;s&#305;';
-$BL['be_cnt_sendas']                    = 'farkl&#305; g&ouml;nder';
-$BL['be_cnt_text']                      = 'yaz&#305;';
+$BL['be_cnt_recipient']                 = 'alıcı';
+$BL['be_cnt_buttontext']                = 'buton yazısı';
+$BL['be_cnt_sendas']                    = 'farklı gönder';
+$BL['be_cnt_text']                      = 'yazı';
 $BL['be_cnt_html']                      = 'html';
-$BL['be_cnt_formfields']                = 'form alanlar&#305;';
+$BL['be_cnt_formfields']                = 'form alanları';
 $BL['be_cnt_code']                      = 'kod';
-$BL['be_cnt_infotext']                  = 'bilgi&nbsp;yaz&#305;s&#305;';
-$BL['be_cnt_subscription']              = '&uuml;yelik';
-$BL['be_cnt_labelemail']                = 'email&nbsp;etiketi';
-$BL['be_cnt_tablealign']                = 'tablo&nbsp;hizas&#305;';
-$BL['be_cnt_labelname']                 = 'isim&nbsp;etiketi';
-$BL['be_cnt_labelsubsc']                = '&uuml;yelik&nbsp;etiketi';
-$BL['be_cnt_allsubsc']                  = 't&uuml;m&nbsp;&uuml;yelikler';
-$BL['be_cnt_default']                   = 'varsay&#305;lan';
+$BL['be_cnt_infotext']                  = 'bilgi yazısı';
+$BL['be_cnt_subscription']              = 'üyelik';
+$BL['be_cnt_labelemail']                = 'email etiketi';
+$BL['be_cnt_tablealign']                = 'tablo hizası';
+$BL['be_cnt_labelname']                 = 'isim etiketi';
+$BL['be_cnt_labelsubsc']                = 'üyelik etiketi';
+$BL['be_cnt_allsubsc']                  = 'tüm üyelikler';
+$BL['be_cnt_default']                   = 'varsayılan';
 $BL['be_cnt_left']                      = 'sol';
-$BL['be_cnt_center']                    = 'ortal&#305;';
-$BL['be_cnt_right']                     = 'sa&#287;';
-$BL['be_cnt_successtext']               = 'onay&nbsp;yaz&#305;s&#305;';
+$BL['be_cnt_center']                    = 'ortalı';
+$BL['be_cnt_right']                     = 'sağ';
+$BL['be_cnt_successtext']               = 'onay yazısı';
 $BL['be_cnt_regmail']                   = 'email.kayit';
-$BL['be_cnt_logoffmail']                = 'email.&ccedil;ikis';
-$BL['be_cnt_changemail']                = 'email.de&#287;i&#351;.';
-$BL['be_cnt_openimagebrowser']          = 'resim y&ouml;neticisini a&ccedil;';
-$BL['be_cnt_openfilebrowser']           = 'dosya y&ouml;neticisini a&ccedil;';
-$BL['be_cnt_sortup']                    = 'yukar&#305; ta&#351;&#305;';
-$BL['be_cnt_sortdown']                  = 'a&#351;a&#287;&#305; ta&#351;&#305;';
-$BL['be_cnt_delimage']                  = 'se&ccedil;ili resimi sil';
-$BL['be_cnt_delfile']                   = 'se&ccedil;ili dosyay&#305; sil';
-$BL['be_cnt_delmedia']                  = 'se&ccedil;ili &ccedil;oklu ortam&#305; sil';
+$BL['be_cnt_logoffmail']                = 'email.çikis';
+$BL['be_cnt_changemail']                = 'email.değiş.';
+$BL['be_cnt_openimagebrowser']          = 'resim yöneticisini aç';
+$BL['be_cnt_openfilebrowser']           = 'dosya yöneticisini aç';
+$BL['be_cnt_sortup']                    = 'yukarı taşı';
+$BL['be_cnt_sortdown']                  = 'aşağı taşı';
+$BL['be_cnt_delimage']                  = 'seçili resimi sil';
+$BL['be_cnt_delfile']                   = 'seçili dosyayı sil';
+$BL['be_cnt_delmedia']                  = 'seçili çoklu ortamı sil';
 $BL['be_cnt_column']                    = 'kolon';
-$BL['be_cnt_imagespace']                = 'resim&nbsp;bo&#351;lu&#287;u';
-$BL['be_cnt_directlink']                = 'do&#287;rudan link';
+$BL['be_cnt_imagespace']                = 'resim boşluğu';
+$BL['be_cnt_directlink']                = 'doğrudan link';
 $BL['be_cnt_target']                    = 'hedef';
 $BL['be_cnt_target1']                   = 'yeni pencerede';
-$BL['be_cnt_target2']                   = 'pencerenin t&uuml;m&uuml;n&uuml; kapasayacak &#351;ekilde';
-$BL['be_cnt_target3']                   = 'ayn&#305; pencere i&ccedil;inde "frame" olmdan';
-$BL['be_cnt_target4']                   = 'ayn&#305; "frame" yada pencere i&ccedil;inde';
+$BL['be_cnt_target2']                   = 'pencerenin tümünü kapasayacak şekilde';
+$BL['be_cnt_target3']                   = 'aynı pencere içinde "frame" olmdan';
+$BL['be_cnt_target4']                   = 'aynı "frame" yada pencere içinde';
 $BL['be_cnt_bullet']                    = 'liste (tablo)';
 $BL['be_cnt_ullist']                    = 'liste';
-$BL['be_cnt_ullist_desc']               = '~ = 1. seviye, &nbsp; ~~ = 2. seviye, &nbsp; etc.';
+$BL['be_cnt_ullist_desc']               = '~ = 1. seviye, ~~ = 2. seviye, etc.';
 $BL['be_cnt_linklist']                  = 'link listesi';
 $BL['be_cnt_plainhtml']                 = 'sade metin';
 $BL['be_cnt_files']                     = 'dosyalar';
-$BL['be_cnt_description']               = 'tan&#305;mlama';
-$BL['be_cnt_linkarticle']               = 'b&ouml;l&uuml;m linkleri';
+$BL['be_cnt_description']               = 'tanımlama';
+$BL['be_cnt_linkarticle']               = 'bölüm linkleri';
 $BL['be_cnt_articles']                  = 'konular';
-$BL['be_cnt_movearticleto']             = 'se&ccedil;ili konuyu, konu linkleri listesine ta&#351;&#305;';
-$BL['be_cnt_removearticleto']           = 'se&ccedil;ili konuyu konu linkleri listesinden sil';
-$BL['be_cnt_mediatype']                 = 'ortam t&uuml;r&uuml;';
+$BL['be_cnt_movearticleto']             = 'seçili konuyu, konu linkleri listesine taşı';
+$BL['be_cnt_removearticleto']           = 'seçili konuyu konu linkleri listesinden sil';
+$BL['be_cnt_mediatype']                 = 'ortam türü';
 $BL['be_cnt_control']                   = 'kontrol';
-$BL['be_cnt_showcontrol']               = 'kontrol &ccedil;ubugunu g&ouml;ster';
+$BL['be_cnt_showcontrol']               = 'kontrol çubugunu göster';
 $BL['be_cnt_autoplay']                  = 'otomatik oynat';
 $BL['be_cnt_source']                    = 'kaynak';
 $BL['be_cnt_internal']                  = 'dahili';
-$BL['be_cnt_openmediabrowser']          = 'medya y&ouml;neticisini a&ccedil;';
+$BL['be_cnt_openmediabrowser']          = 'medya yöneticisini aç';
 $BL['be_cnt_external']                  = 'harici';
-$BL['be_cnt_mediapos0']                 = 'sol (varsay&#305;lan)';
-$BL['be_cnt_mediapos1']                 = 'ortal&#305;';
-$BL['be_cnt_mediapos2']                 = 'sa&#287;';
+$BL['be_cnt_mediapos0']                 = 'sol (varsayılan)';
+$BL['be_cnt_mediapos1']                 = 'ortalı';
+$BL['be_cnt_mediapos2']                 = 'sağ';
 $BL['be_cnt_mediapos3']                 = 'sol, blok';
-$BL['be_cnt_mediapos4']                 = 'sa&#287;, b&ouml;l&uuml;m';
-$BL['be_cnt_mediapos0i']                = 'meydyay&#305; yaz&#305; blo&#287;unda &uuml;st ve sola hizala';
-$BL['be_cnt_mediapos1i']                = 'meydyay&#305; yaz&#305; blo&#287;unda &uuml;stte ve ortal&#305;';
-$BL['be_cnt_mediapos2i']                = 'meydyay&#305; yaz&#305; blo&#287;unda &uuml;st ve sa&#287;a hizala';
-$BL['be_cnt_mediapos3i']                = 'meydyay&#305; yaz&#305; blo&#287;unda yaz&#305; i&ccedil;inde ve solda';
-$BL['be_cnt_mediapos4i']                = 'meydyay&#305; yaz&#305; blo&#287;unda yaz&#305; i&ccedil;inde ve sa&#287;da';
+$BL['be_cnt_mediapos4']                 = 'sağ, bölüm';
+$BL['be_cnt_mediapos0i']                = 'meydyayı yazı bloğunda üst ve sola hizala';
+$BL['be_cnt_mediapos1i']                = 'meydyayı yazı bloğunda üstte ve ortalı';
+$BL['be_cnt_mediapos2i']                = 'meydyayı yazı bloğunda üst ve sağa hizala';
+$BL['be_cnt_mediapos3i']                = 'meydyayı yazı bloğunda yazı içinde ve solda';
+$BL['be_cnt_mediapos4i']                = 'meydyayı yazı bloğunda yazı içinde ve sağda';
 $BL['be_cnt_setsize']                   = 'boyutunu ayarla';
 $BL['be_cnt_set1']                      = 'boyutu 160x120px olarak ayarla';
 $BL['be_cnt_set2']                      = 'boyutu 240x180px olarak ayarla';
 $BL['be_cnt_set3']                      = 'boyutu 320x240px olarak ayarla';
 $BL['be_cnt_set4']                      = 'boyutu 480x360px olarak ayarla';
-$BL['be_cnt_set5']                      = 'medya geni&#351;li&#287;ini ve y&uuml;ksekli&#287;ini temizle';
+$BL['be_cnt_set5']                      = 'medya genişliğini ve yüksekliğini temizle';
 
 // added: 28-12-2003
-$BL['be_admin_page_add']                = 'yeni sayfa &#351;ablonu olu&#351;tur';
-$BL['be_admin_page_name']               = '&#351;ablon ad&#305;';
-$BL['be_admin_page_edit']               = 'sayfa &#351;ablonunu d&uuml;zenle';
-$BL['be_admin_page_render']             = 'sayfa plan&#305;';
+$BL['be_admin_page_add']                = 'yeni sayfa şablonu oluştur';
+$BL['be_admin_page_name']               = 'şablon adı';
+$BL['be_admin_page_edit']               = 'sayfa şablonunu düzenle';
+$BL['be_admin_page_render']             = 'sayfa planı';
 $BL['be_admin_page_table']              = 'tablo';
 $BL['be_admin_page_div']                = 'css div';
-$BL['be_admin_page_custom']             = 'se&ccedil;ime bagl&#305;';
-$BL['be_admin_page_custominfo']         = 'ana blok kal&#305;b&#305;ndan';
-$BL['be_admin_tmpl_layout']             = '&#351;ablon';
-$BL['be_admin_tmpl_nolayout']           = 'sayfa &#351;ablonu mevcut de&#287;il!';
+$BL['be_admin_page_custom']             = 'seçime baglı';
+$BL['be_admin_page_custominfo']         = 'ana blok kalıbından';
+$BL['be_admin_tmpl_layout']             = 'şablon';
+$BL['be_admin_tmpl_nolayout']           = 'sayfa şablonu mevcut değil!';
 
 // added: 31-12-2003
-$BL['be_ctype_search']                  = 'aramalara a&ccedil;&#305;k/kapal&#305;';
+$BL['be_ctype_search']                  = 'aramalara açık/kapalı';
 $BL['be_cnt_results']                   = 'bulunanlar';
-$BL['be_cnt_results_per_page']          = 'sayfa&nbsp;ba&#351;&#305;na (eger bo&#351;sa hepsini g&ouml;ster)';
-$BL['be_cnt_opennewwin']                = 'yeni pencere a&ccedil;';
-$BL['be_cnt_searchlabeltext']           = 'aranan ve bulunarak g&ouml;sterilen sayfalar ve metinler i&ccedil;in bunlar &ouml;ntan&#305;ml&#305; metinler ve de&#287;erlerdir. "Sayfa ba&#351;&#305;na bulunanlar"da daha fazla say&#305;da sonu&ccedil; g&ouml;r&uuml;lebilir. ';
-$BL['be_cnt_input']                     = 'giri&#351;';
+$BL['be_cnt_results_per_page']          = 'sayfa başına (eger boşsa hepsini göster)';
+$BL['be_cnt_opennewwin']                = 'yeni pencere aç';
+$BL['be_cnt_searchlabeltext']           = 'aranan ve bulunarak gösterilen sayfalar ve metinler için bunlar öntanımlı metinler ve değerlerdir. "Sayfa başına bulunanlar"da daha fazla sayıda sonuç görülebilir.';
+$BL['be_cnt_input']                     = 'giriş';
 $BL['be_cnt_style']                     = 'stil';
-$BL['be_cnt_result']                    = 'd&ouml;n&uuml;&#351;';
+$BL['be_cnt_result']                    = 'dönüş';
 $BL['be_cnt_next']                      = 'sonraki';
-$BL['be_cnt_previous']                  = '&ouml;nceki';
+$BL['be_cnt_previous']                  = 'önceki';
 $BL['be_cnt_align']                     = 'hizalama';
-$BL['be_cnt_searchformtext']            = 'takibeden yaz&#305;lar arama sonras&#305;nda g&ouml;r&uuml;nt&uuml;lenecek yaz&#305;lard&#305;r.';
-$BL['be_cnt_intro']                     = 'giri&#351;';
-$BL['be_cnt_noresult']                  = 'kay&#305;t yok';
+$BL['be_cnt_searchformtext']            = 'takibeden yazılar arama sonrasında görüntülenecek yazılardır.';
+$BL['be_cnt_intro']                     = 'giriş';
+$BL['be_cnt_noresult']                  = 'kayıt yok';
 
 // added: 02-01-2004
-$BL['be_admin_page_disable']            = 'etkin de&#287;il';
+$BL['be_admin_page_disable']            = 'etkin değil';
 
 // added: 09-01-2004
-$BL['be_article_articleowner']          = 'b&ouml;l&uuml;m sahibi';
-$BL['be_article_adminuser']             = 'y&ouml;netici';
+$BL['be_article_articleowner']          = 'bölüm sahibi';
+$BL['be_article_adminuser']             = 'yönetici';
 $BL['be_article_username']              = 'yazar';
 
 // added: 10-01-2004
 $BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
 
 // added, changed: 11-01-2004
-$BL['be_admin_struct_regonly']          = 'sadece bagl&#305; kullan&#305;c&#305;lar g&ouml;rebilir';
-$BL['be_admin_struct_status']           = '&ouml;ny&uuml;z men&uuml;s&uuml; durumu';
+$BL['be_admin_struct_regonly']          = 'sadece baglı kullanıcılar görebilir';
+$BL['be_admin_struct_status']           = 'önyüz menüsü durumu';
 
 // added: 15-02-2004
-$BL['be_ctype_articlemenu']             = 'b&ouml;l&uuml;m men&uuml;s&uuml;';
-$BL['be_cnt_sitelevel']                 = 'sitedeki s&#305;ras&#305;';
-$BL['be_cnt_sitecurrent']               = 'ge&ccedil;erli site s&#305;ralamas&#305;';
+$BL['be_ctype_articlemenu']             = 'bölüm menüsü';
+$BL['be_cnt_sitelevel']                 = 'sitedeki sırası';
+$BL['be_cnt_sitecurrent']               = 'geçerli site sıralaması';
 
 /// added: 24-03-2004
-$BL['be_subnav_admin_starttext']        = 'site arkas&#305; varsy&#305;lan metni';
+$BL['be_subnav_admin_starttext']        = 'site arkası varsyılan metni';
 $BL['be_ctype_ecard']                   = 'e-kart';
 $BL['be_ctype_blog']                    = 'blog';
 $BL['be_cnt_ecardtext']                 = 'baslik/e-kart';
-$BL['be_cnt_ecardtmpl']                 = 'posta kal&#305;p.';
+$BL['be_cnt_ecardtmpl']                 = 'posta kalıp.';
 $BL['be_cnt_ecard_image']               = 'e-kart resim';
-$BL['be_cnt_ecard_title']               = 'e-kart ba&#351;l&#305;k';
+$BL['be_cnt_ecard_title']               = 'e-kart başlık';
 $BL['be_cnt_alignment']                 = 'hizalama';
-$BL['be_cnt_ecardform']                 = '&#351;ablondan';
+$BL['be_cnt_ecardform']                 = 'şablondan';
 $BL['be_cnt_ecardform_err']             = 'zorunlu olarak doldurulacak alanlar *';
-$BL['be_cnt_ecardform_sender']          = 'G&ouml;nderici';
-$BL['be_cnt_ecardform_recipient']       = 'Al&#305;c&#305;';
-$BL['be_cnt_ecardform_name']            = '&#304;sim';
-$BL['be_cnt_ecardform_msgtext']         = 'Mesaj&#305;n&#305;z&#305;n al&#305;c&#305;s&#305;';
-$BL['be_cnt_ecardform_button']          = 'e-kart&#305; g&ouml;nder';
-$BL['be_cnt_ecardsend']                 = 'kal&#305;p g&ouml;nder';
+$BL['be_cnt_ecardform_sender']          = 'Gönderici';
+$BL['be_cnt_ecardform_recipient']       = 'Alıcı';
+$BL['be_cnt_ecardform_name']            = 'İsim';
+$BL['be_cnt_ecardform_msgtext']         = 'Mesajınızın alıcısı';
+$BL['be_cnt_ecardform_button']          = 'e-kartı gönder';
+$BL['be_cnt_ecardsend']                 = 'kalıp gönder';
 
 // added: 28-03-2004
-$BL['be_admin_startup_title']           = 'site arkas&#305; varsay&#305;lan ba&#351;lang&#305;&ccedil; yaz&#305;s&#305;';
-$BL['be_admin_startup_text']            = 'ba&#351;lang&#305;&ccedil; yaz&#305;s&#305;';
-$BL['be_admin_startup_button']          = 'ba&#351;langi&ccedil; yaz&#305;s&#305;n&#305; kaydet';
+$BL['be_admin_startup_title']           = 'site arkası varsayılan başlangıç yazısı';
+$BL['be_admin_startup_text']            = 'başlangıç yazısı';
+$BL['be_admin_startup_button']          = 'başlangiç yazısını kaydet';
 
 // added: 17-04-2004
-$BL['be_ctype_guestbook']               = 'ziyaret&ccedil;i defteri/yorum';
+$BL['be_ctype_guestbook']               = 'ziyaretçi defteri/yorum';
 $BL['be_cnt_guestbook_listing']         = 'listeleniyor';
-$BL['be_cnt_guestbook_listing_all']     = 't&uuml;m&nbsp;girilenlerin&nbsp;listesi';
+$BL['be_cnt_guestbook_listing_all']     = 'tüm girilenlerin listesi';
 $BL['be_cnt_guestbook_list']            = 'liste';
-$BL['be_cnt_guestbook_perpage']         = 'sayfa&nbsp;ba&#351;&#305;na';
+$BL['be_cnt_guestbook_perpage']         = 'sayfa başına';
 $BL['be_cnt_guestbook_form']            = 'kimden';
-$BL['be_cnt_guestbook_signed']          = 'i&#351;aretli';
+$BL['be_cnt_guestbook_signed']          = 'işaretli';
 $BL['be_cnt_guestbook_nav']             = 'gez';
-$BL['be_cnt_guestbook_before']          = '&ouml;nce';
+$BL['be_cnt_guestbook_before']          = 'önce';
 $BL['be_cnt_guestbook_after']           = 'sonra';
-$BL['be_cnt_guestbook_entry']           = 'giri&#351;';
-$BL['be_cnt_guestbook_edit']            = 'd&uuml;zen';
-$BL['be_cnt_ecardform_selector']        = 'se&ccedil;ici';
+$BL['be_cnt_guestbook_entry']           = 'giriş';
+$BL['be_cnt_guestbook_edit']            = 'düzen';
+$BL['be_cnt_ecardform_selector']        = 'seçici';
 $BL['be_cnt_ecardform_radiobutton']     = 'radio tip buton';
-$BL['be_cnt_ecardform_javascript']      = 'JavaScript fonksiyonerli&#287;i';
-$BL['be_cnt_ecardform_over']            = 'Fare&uuml;zerindeyken';
-$BL['be_cnt_ecardform_click']           = 'T&#305;kland&#305;&#287;&#305;nda';
-$BL['be_cnt_ecardform_out']             = 'Fareayr&#305;ld&#305;&#287;&#305;nda';
-$BL['be_admin_struct_topcount']         = 'g&ouml;r&uuml;nt&uuml;lenecek toplam konu say&#305;s&#305;';
+$BL['be_cnt_ecardform_javascript']      = 'JavaScript fonksiyonerliği';
+$BL['be_cnt_ecardform_over']            = 'Fareüzerindeyken';
+$BL['be_cnt_ecardform_click']           = 'Tıklandığında';
+$BL['be_cnt_ecardform_out']             = 'Fareayrıldığında';
+$BL['be_admin_struct_topcount']         = 'görüntülenecek toplam konu sayısı';
 
 // added: 19-04-2004
 $BL['be_subnav_msg_newslettersend']     = 'haber';
 $BL['be_newsletter_addnl']              = 'haber ekle';
-$BL['be_newsletter_titleeditnl']        = 'haberi d&uuml;zenle';
-$BL['be_newsletter_newnl']              = 'yeni olu&#351;tur';
+$BL['be_newsletter_titleeditnl']        = 'haberi düzenle';
+$BL['be_newsletter_newnl']              = 'yeni oluştur';
 $BL['be_newsletter_button_savenl']      = 'haberi kaydet';
-$BL['be_newsletter_fromname']           = 'g&ouml;nderenin ismi';
-$BL['be_newsletter_fromemail']          = 'g&ouml;nderenin emaili';
+$BL['be_newsletter_fromname']           = 'gönderenin ismi';
+$BL['be_newsletter_fromemail']          = 'gönderenin emaili';
 $BL['be_newsletter_replyto']            = 'cavap emaili';
-$BL['be_newsletter_changed']            = 'son degi&#351;iklik';
+$BL['be_newsletter_changed']            = 'son degişiklik';
 $BL['be_newsletter_placeholder']        = 'duvar ilani';
-$BL['be_newsletter_htmlpart']           = 'HTML haber i&ccedil;eri&#287;i';
-$BL['be_newsletter_textpart']           = 'METIN haber i&ccedil;erigi';
-$BL['be_newsletter_allsubscriptions']   = 't&uuml;m &uuml;yelikler';
+$BL['be_newsletter_htmlpart']           = 'HTML haber içeriği';
+$BL['be_newsletter_textpart']           = 'METIN haber içerigi';
+$BL['be_newsletter_allsubscriptions']   = 'tüm üyelikler';
 $BL['be_newsletter_verifypage']         = 'linki onayla';
-$BL['be_newsletter_open']               = 'HTML ve METIN giri&#351;i';
-$BL['be_newsletter_open1']              = '(resmi a&ccedil;mak i&ccedil;in tikla)';
-$BL['be_newsletter_sendnow']            = 'Haberi g&ouml;nder';
+$BL['be_newsletter_open']               = 'HTML ve METIN girişi';
+$BL['be_newsletter_open1']              = '(resmi açmak için tikla)';
+$BL['be_newsletter_sendnow']            = 'Haberi gönder';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Dikkat!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
 $BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
 $BL['be_newsletter_sendnlbutton']       = 'send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
-$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Dikkat!</strong> G&ouml;nderme islemini durdurun. Haberi iki yada daha fazla kullaniciya g&ouml;ndermenin baska bir yolu var. G&ouml;nderme isleminiz iptal edildi ancak t&uuml;m kayitli alicilar oturum dizi i&ccedil;erisine kaydedildi.';
-$BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">deneme email adresi <strong>###TEST###</strong> ge&ccedil;ersiz!<br />&nbsp;<br />Yeniden deneyein l&uuml;tfen!';
-$BL['be_newsletter_to']                 = 'Al&#305;c&#305;lar';
-$BL['be_newsletter_ready']              = 'haber g&ouml;nderildi.';
-$BL['be_newsletter_readyfailed']        = '&#304;lgili al&#305;c&#305;lara haber gg&ouml;nderilemedi';
-$BL['be_subnav_msg_subscribers']        = 'Haber &uuml;yeligi';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Dikkat!</strong> Gönderme islemini durdurun. Haberi iki yada daha fazla kullaniciya göndermenin baska bir yolu var. Gönderme isleminiz iptal edildi ancak tüm kayitli alicilar oturum dizi içerisine kaydedildi.';
+$BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">deneme email adresi <strong>###TEST###</strong> geçersiz!<br /> <br />Yeniden deneyein lütfen!';
+$BL['be_newsletter_to']                 = 'Alıcılar';
+$BL['be_newsletter_ready']              = 'haber gönderildi.';
+$BL['be_newsletter_readyfailed']        = 'İlgili alıcılara haber ggönderilemedi';
+$BL['be_subnav_msg_subscribers']        = 'Haber üyeligi';
 
 // added: 20-04-2004
-$BL['be_ctype_sitemap']                 = 'site haritas&#305;';
+$BL['be_ctype_sitemap']                 = 'site haritası';
 $BL['be_cnt_sitemap_catimage']          = 'seviye simgesi';
-$BL['be_cnt_sitemap_articleimage']      = 'konu ba&#351;l&#305;&#287;&#305; simgesi';
-$BL['be_cnt_sitemap_display']           = 'g&ouml;ster';
+$BL['be_cnt_sitemap_articleimage']      = 'konu başlığı simgesi';
+$BL['be_cnt_sitemap_display']           = 'göster';
 $BL['be_cnt_sitemap_structuronly']      = 'sadece site yapisindaki seviyeler';
-$BL['be_cnt_sitemap_structurarticle']   = 'site yapisindaki seviyeler + konu ba&#351;l&#305;klar&#305;';
-$BL['be_cnt_sitemap_catclass']          = 'seviye s&#305;n&#305;f&#305;';
-$BL['be_cnt_sitemap_articleclass']      = 'konu ba&#351;l&#305;&#287;&#305; s&#305;n&#305;f&#305;';
-$BL['be_cnt_sitemap_count']             = 'saya&ccedil;';
-$BL['be_cnt_sitemap_classcount']        = 's&#305;n&#305;f ismi ekle';
-$BL['be_cnt_sitemap_noclasscount']      = 's&#305;n&#305;f ismi eklenemedi';
+$BL['be_cnt_sitemap_structurarticle']   = 'site yapisindaki seviyeler + konu başlıkları';
+$BL['be_cnt_sitemap_catclass']          = 'seviye sınıfı';
+$BL['be_cnt_sitemap_articleclass']      = 'konu başlığı sınıfı';
+$BL['be_cnt_sitemap_count']             = 'sayaç';
+$BL['be_cnt_sitemap_classcount']        = 'sınıf ismi ekle';
+$BL['be_cnt_sitemap_noclasscount']      = 'sınıf ismi eklenemedi';
 
 // added: 23-04-2004
 $BL['be_ctype_bid']                     = 'bid';
 $BL['be_cnt_bid_bidtext']               = 'bid metin';
-$BL['be_cnt_bid_sendtext']              = 'metini g&ouml;nder';
+$BL['be_cnt_bid_sendtext']              = 'metini gönder';
 $BL['be_cnt_bid_verifiedtext']          = 'onay metni';
 $BL['be_cnt_bid_errortext']             = 'bid silindi';
 $BL['be_cnt_bid_verifyemail']           = 'onaylama emaili';
-$BL['be_cnt_bid_startbid']              = 'bid ba&#351;lat';
+$BL['be_cnt_bid_startbid']              = 'bid başlat';
 
 // added: 29-04-2004
-$BL['be_cnt_bid_nextbidadd']            = 'artt&#305;ran ki&#351;i';
+$BL['be_cnt_bid_nextbidadd']            = 'arttıran kişi';
 
 // added: 10-05-2004
-$BL['be_ctype_pages']                   = 'harici i&ccedil;erik';
-$BL['be_cnt_pages_select']              = 'dosya se&ccedil;';
-$BL['be_cnt_pages_fromfile']            = 'site yap&#305;s&#305;ndan al';
-$BL['be_cnt_pages_manually']            = '&ouml;zel yol/dosya veya URL';
+$BL['be_ctype_pages']                   = 'harici içerik';
+$BL['be_cnt_pages_select']              = 'dosya seç';
+$BL['be_cnt_pages_fromfile']            = 'site yapısından al';
+$BL['be_cnt_pages_manually']            = 'özel yol/dosya veya URL';
 $BL['be_cnt_pages_cust']                = 'dosya/URL';
 $BL['be_cnt_pages_from']                = 'kaynak';
 
 // added: 24-05-2004
-$BL['be_ctype_reference']               = 'etkile&#351;imli(rollover) resimler';
+$BL['be_ctype_reference']               = 'etkileşimli(rollover) resimler';
 $BL['be_cnt_reference_basis']           = 'hizalama';
 $BL['be_cnt_reference_horizontal']      = 'yatay';
-$BL['be_cnt_reference_vertical']        = 'd&uuml;sey';
-$BL['be_cnt_reference_aligntext']       = 'k&uuml;&ccedil;&uuml;k ba&#351;vuru resmi';
-$BL['be_cnt_reference_largetext']       = 'b&uuml;y&uuml;k ba&#351;vuru resmi';
-$BL['be_cnt_reference_zoom']            = 'b&uuml;y&uuml;t';
+$BL['be_cnt_reference_vertical']        = 'düsey';
+$BL['be_cnt_reference_aligntext']       = 'küçük başvuru resmi';
+$BL['be_cnt_reference_largetext']       = 'büyük başvuru resmi';
+$BL['be_cnt_reference_zoom']            = 'büyüt';
 $BL['be_cnt_reference_middle']          = 'orta';
-$BL['be_cnt_reference_border']          = '&ccedil;er&ccedil;eve';
+$BL['be_cnt_reference_border']          = 'çerçeve';
 $BL['be_cnt_reference_block']           = 'blok en x boy';
 
 // added: 31-05-2004
 $BL['be_article_rendering']             = 'sunum';
-$BL['be_article_nosummary']             = 'konunun tam metninde bu &ouml;zet bilgisini g&ouml;sterme';
+$BL['be_article_nosummary']             = 'konunun tam metninde bu özet bilgisini gösterme';
 $BL['be_article_forlist']               = 'konu listeleniyor';
-$BL['be_article_forfull']               = 't&uuml;m konuyu g&ouml;ster';
+$BL['be_article_forfull']               = 'tüm konuyu göster';
 
 // added: 08-07-2004
-$BL["setup_dir_exists"]                 = '<strong>D&#304;KKAT!</strong>SETUP&quot; klas&ouml;r&uuml; mevcut! Bu klas&ouml;r&uuml; silin - Bu klas&ouml;r potansiyel g&uuml;venlik problemidir.';
+$BL["setup_dir_exists"]                 = '<strong>DİKKAT!</strong>SETUP&quot; klasörü mevcut! Bu klasörü silin - Bu klasör potansiyel güvenlik problemidir.';
 
 // added: 12-08-2004
-$BL['be_cnt_guestbook_banned']          = 'yasakl&#305; kelimeler';
-$BL['be_cnt_guestbook_flooding']        = 'ta&#351;ma';
-$BL['be_cnt_guestbook_setcookie']       = '&ccedil;erez aylara';
+$BL['be_cnt_guestbook_banned']          = 'yasaklı kelimeler';
+$BL['be_cnt_guestbook_flooding']        = 'taşma';
+$BL['be_cnt_guestbook_setcookie']       = 'çerez aylara';
 $BL['be_cnt_guestbook_allowed']         = 'sonrakinde izinli';
 $BL['be_cnt_guestbook_seconds']         = 'saniye';
-$BL['be_alias_ID']                      = 'di&#287;er isim ID';
-$BL['be_ftrash_delall']                 = "geri d&ouml;n&uuml;s&uuml;m kutusundaki T&Uuml;M DOSYALARI\n silmek istedi&#287;inize emin misiniz?";
-$BL['be_ftrash_delallfiles']            = 'geri d&ouml;n&uuml;s&uuml;m kutusundaki t&uuml;m dosyalar&#305; sil.';
+$BL['be_alias_ID']                      = 'diğer isim ID';
+$BL['be_ftrash_delall']                 = "geri dönüsüm kutusundaki TÜM DOSYALARI\nsilmek istediğinize emin misiniz?";
+$BL['be_ftrash_delallfiles']            = 'geri dönüsüm kutusundaki tüm dosyaları sil.';
 
 // added: 16-08-2004
-$BL['be_subnav_msg_importsubscribers']  = 'CSV &uuml;yeli&#287;i al';
-$BL['be_newsletter_importtitle']        = 'Haber &uuml;yeli&#287;i al';
-$BL['be_newsletter_entriesfound']       = 'girdi&nbsp;bulundu';
-$BL['be_newsletter_foundinfile']        = 'dosya i&ccedil;inde';
+$BL['be_subnav_msg_importsubscribers']  = 'CSV üyeliği al';
+$BL['be_newsletter_importtitle']        = 'Haber üyeliği al';
+$BL['be_newsletter_entriesfound']       = 'girdi bulundu';
+$BL['be_newsletter_foundinfile']        = 'dosya içinde';
 $BL['be_newsletter_addresses']          = 'adresler';
-$BL['be_newsletter_csverror']           = 'al&#305;nan CSV dosyas&#305; ge&ccedil;ersiz gibi g&ouml;r&uuml;n&uuml;yor! Alan uzunluklar&#305;n&#305; kontrol edin!';
-$BL['be_newsletter_importall']          = 't&uuml;m girdileri al';
+$BL['be_newsletter_csverror']           = 'alınan CSV dosyası geçersiz gibi görünüyor! Alan uzunluklarını kontrol edin!';
+$BL['be_newsletter_importall']          = 'tüm girdileri al';
 $BL['be_newsletter_addressesadded']     = 'adresler eklendi.';
 $BL['be_newsletter_newimport']          = 'yeni al';
-$BL['be_newsletter_importerror']        = 'L&uuml;tfen CSV dosyan&#305;z&#305; kontrol edin - hi&ccedil;bir adres eklenemedi!';
-$BL['be_newsletter_shouldbe1']          = 'CSV dosyan&#305;z&#305;n bi&ccedil;imi desteklenmiyor';
+$BL['be_newsletter_importerror']        = 'Lütfen CSV dosyanızı kontrol edin - hiçbir adres eklenemedi!';
+$BL['be_newsletter_shouldbe1']          = 'CSV dosyanızın biçimi desteklenmiyor';
 $BL['be_newsletter_shouldbe2']          = 'but you can choose a custom delimeter';
-$BL['be_newsletter_sample']             = '&ouml;rnek';
-$BL['be_newsletter_selectCSV']          = 'CSV dosyas&#305; se&ccedil;';
-$BL['be_newsletter_delimeter']          = 'alan uzunluklar&#305;';
-$BL['be_newsletter_importCSV']          = 'CSV dosyas&#305; al';
+$BL['be_newsletter_sample']             = 'örnek';
+$BL['be_newsletter_selectCSV']          = 'CSV dosyası seç';
+$BL['be_newsletter_delimeter']          = 'alan uzunlukları';
+$BL['be_newsletter_importCSV']          = 'CSV dosyası al';
 
 // added: 24-08-2004
-$BL['be_admin_struct_orderarticle']     = 'i&ccedil;eridi&#287;i b&ouml;l&uuml;mlerin s&#305;ralamas&#305;';
-$BL['be_admin_struct_orderdate']        = 'olu&#351;turma tarihine g&ouml;re';
-$BL['be_admin_struct_orderchangedate']  = 'de&#287;i&#351;rme tarihine g&ouml;re';
-$BL['be_admin_struct_orderstartdate']   = 'ba&#351;lang&#305;&ccedil; tarihine g&ouml;re';
+$BL['be_admin_struct_orderarticle']     = 'içeridiği bölümlerin sıralaması';
+$BL['be_admin_struct_orderdate']        = 'oluşturma tarihine göre';
+$BL['be_admin_struct_orderchangedate']  = 'değişrme tarihine göre';
+$BL['be_admin_struct_orderstartdate']   = 'başlangıç tarihine göre';
 $BL['be_admin_struct_orderdesc']        = 'azalan';
 $BL['be_admin_struct_orderasc']         = 'artan';
-$BL['be_admin_struct_ordermanual']      = 'elle (yukar&#305;/asa&#287;&#305; oklar&#305;)';
-$BL['be_cnt_sitemap_startid']           = 'ba&#351;lat';
+$BL['be_admin_struct_ordermanual']      = 'elle (yukarı/asağı okları)';
+$BL['be_cnt_sitemap_startid']           = 'başlat';
 
 // added: 20-10-2004
 $BL['be_ctype_map']                     = 'harita';
 $BL['be_save_btn']                      = 'Kaydet';
-$BL['be_cmap_location_error_notitle']   = 'Bu alan i&ccedil;in bir baslik giriniz.';
-$BL['be_cnt_map_add']                   = 'alan&#305; ekle';
-$BL['be_cnt_map_edit']                  = 'alamn&#305; d&uuml;zenle';
-$BL['be_cnt_map_title']                 = 'alan ba&#351;l&#305;&#287;&#305;';
+$BL['be_cmap_location_error_notitle']   = 'Bu alan için bir baslik giriniz.';
+$BL['be_cnt_map_add']                   = 'alanı ekle';
+$BL['be_cnt_map_edit']                  = 'alamnı düzenle';
+$BL['be_cnt_map_title']                 = 'alan başlığı';
 $BL['be_cnt_map_info']                  = 'girdi/bilgi';
 $BL['be_cnt_map_list']                  = 'alan listesi';
-$BL['be_btn_delete']                    = 'bu alan&#305; silmek istedi&#287;inize \nemin misiniz?';
+$BL['be_btn_delete']                    = 'bu alanı silmek istediğinize\nemin misiniz?';
 
 // added: 05-11-2004
-$BL['be_ctype_phpvar']                  = 'PHP de&#287;iskenleri';
-$BL['be_cnt_vars']                      = 'de&#287;i&#351;kenler';
+$BL['be_ctype_phpvar']                  = 'PHP değiskenleri';
+$BL['be_cnt_vars']                      = 'değişkenler';
 
 // added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
 $BL['be_func_struct_copy']              = 'konuyu kopyala';
 $BL['be_func_struct_nocopy']            = 'konu kopyalama devredisi';
 $BL['be_func_struct_copy_level']        = 'kategoriyi kopyala';
-$BL['be_func_struct_no_copy']           = "k&ouml;k seviyesi kopyalanamaz!";
+$BL['be_func_struct_no_copy']           = "kök seviyesi kopyalanamaz!";
 
 // added: 27-11-2004
 $BL['be_date_minute']                   = 'dakika';
 $BL['be_date_minutes']                  = 'dakika';
 $BL['be_date_hour']                     = 'saat';
 $BL['be_date_hours']                    = 'saat';
-$BL['be_date_day']                      = 'g&uuml;n';
-$BL['be_date_days']                     = 'g&uuml;n';
+$BL['be_date_day']                      = 'gün';
+$BL['be_date_days']                     = 'gün';
 $BL['be_date_week']                     = 'hafta';
 $BL['be_date_weeks']                    = 'hafta';
 $BL['be_date_month']                    = 'ay';
 $BL['be_date_months']                   = 'ay';
-$BL['be_off']                           = 'kapal&#305;';
-$BL['be_on']                            = 'A&ccedil;ik';
+$BL['be_off']                           = 'kapalı';
+$BL['be_on']                            = 'Açik';
 $BL['be_cache']                         = 'tampon';
-$BL['be_cache_timeout']                 = 'zaman a&#351;&#305;m&#305;';
+$BL['be_cache_timeout']                 = 'zaman aşımı';
 
 // added: 13-12-2004
-$BL['be_subnav_admin_groups']           = 'kullan&#305;c&#305; gruplar&#305;';
+$BL['be_subnav_admin_groups']           = 'kullanıcı grupları';
 $BL['be_admin_group_add']               = 'grup ekle';
-$BL['be_admin_group_nogroup']           = 'hi&ccedil;bir kullan&#305;c&#305; grubu bulunamad&#305;';
+$BL['be_admin_group_nogroup']           = 'hiçbir kullanıcı grubu bulunamadı';
 
 // added: 20-12-2004
 $BL['be_ctype_forum']                   = 'forum';
-$BL['be_subnav_msg_forum']              = 'forumlar&#305;n listesi';
-$BL['be_forum_title']                   = 'forum ba&#351;l&#305;&#287;&#305;';
+$BL['be_subnav_msg_forum']              = 'forumların listesi';
+$BL['be_forum_title']                   = 'forum başlığı';
 $BL['be_forum_permission']              = 'izinler';
 $BL['be_forum_add']                     = 'forum ekle';
 $BL['be_forum_titleedit']               = 'edit forum';
 
 // added: 15-01-2005
-$BL['be_admin_page_customblocks']       = 'se&ccedil;ime ba&#287;l&#305;';
-$BL['be_show_content']                  = 'g&ouml;r&uuml;nt&uuml;le';
+$BL['be_admin_page_customblocks']       = 'seçime bağlı';
+$BL['be_show_content']                  = 'görüntüle';
 $BL['be_main_content']                  = 'ana kolon';
-$BL['be_admin_template_jswarning']      = 'Tehlike!!! \nSe&ccedil;ime bagl&#305; bloklar degisebilir! \n\nE&#287;er iptal ederseniz \nsayfa &#351;ablonundaki ayarlar&#305;n&#305;z s&#305;f&#305;rlan&#305;r! \n\n&#350;ablon de&#287;i&#351;sin mi?\n\n';
+$BL['be_admin_template_jswarning']      = 'Tehlike!!!\nSeçime baglı bloklar degisebilir!\n\nEğer iptal ederseniz\nsayfa şablonundaki ayarlarınız sıfırlanır!\n\nŞablon değişsin mi?\n\n';
 
 $BL['be_ctype_rssfeed']                 = 'RSS sonu';
 $BL['be_cnt_rssfeed_url']               = 'RSS url';
 $BL['be_cnt_rssfeed_item']              = 'elemanlar';
 $BL['be_cnt_rssfeed_max']               = 'enfazla';
-$BL['be_cnt_rssfeed_cut']               = 'ilk eleman&#305; gizle';
+$BL['be_cnt_rssfeed_cut']               = 'ilk elemanı gizle';
 
-$BL['be_ctype_simpleform']              = 'email ile ileti&#351;im formu';
+$BL['be_ctype_simpleform']              = 'email ile iletişim formu';
 
-$BL['be_cnt_onsuccess']                 = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda';
-$BL['be_cnt_onerror']                   = 'hata olu&#351;tu&#287;unda';
-$BL['be_cnt_onsuccess_redirect']        = 'ba&#351;ar&#305;ld&#305;&#287;&#305;nda y&ouml;nlendir';
-$BL['be_cnt_onerror_redirect']          = 'hata olustugunda y&ouml;nelendir';
+$BL['be_cnt_onsuccess']                 = 'başarıldığında';
+$BL['be_cnt_onerror']                   = 'hata oluştuğunda';
+$BL['be_cnt_onsuccess_redirect']        = 'başarıldığında yönlendir';
+$BL['be_cnt_onerror_redirect']          = 'hata olustugunda yönelendir';
 
-$BL['be_cnt_form_class']                = 'form s&#305;n&#305;f&#305;';
-$BL['be_cnt_label_wrap']                = 'etiketi ta&#351;&#305;rma';
-$BL['be_cnt_error_class']               = 'hatal&#305; s&#305;n&#305;f';
-$BL['be_cnt_req_mark']                  = 'gerekli i&#351;areti';
-$BL['be_cnt_mark_as_req']               = 'i&#351;aretliler gerekli';
-$BL['be_cnt_mark_as_del']               = 'silmek i&ccedil;in i&#351;aretle';
+$BL['be_cnt_form_class']                = 'form sınıfı';
+$BL['be_cnt_label_wrap']                = 'etiketi taşırma';
+$BL['be_cnt_error_class']               = 'hatalı sınıf';
+$BL['be_cnt_req_mark']                  = 'gerekli işareti';
+$BL['be_cnt_mark_as_req']               = 'işaretliler gerekli';
+$BL['be_cnt_mark_as_del']               = 'silmek için işaretle';
 
 
-$BL['be_cnt_type']                      = 't&uuml;r';
+$BL['be_cnt_type']                      = 'tür';
 $BL['be_cnt_label']                     = 'etiket';
 $BL['be_cnt_needed']                    = 'gerekli';
 $BL['be_cnt_delete']                    = 'sil';
-$BL['be_cnt_value']                     = 'de&#287;er';
+$BL['be_cnt_value']                     = 'değer';
 $BL['be_cnt_error_text']                = 'hata metni';
 $BL['be_cnt_css_style']                 = 'CSS stili';
-$BL['be_cnt_send_copy_to']              = 'Kopyas&#305; gidecek';
+$BL['be_cnt_send_copy_to']              = 'Kopyası gidecek';
 
-$BL['be_cnt_field']                     = array("text"=>'metin (tek-sat&#305;rl&#305;)', "email"=>'email', "textarea"=>'metin (&ccedil;ok-satirli)',
-                                                "hidden"=>'gizli', "password"=>'&#351;ifre', "select"=>'a&ccedil;ll&#305;r kutu',
-                                                "list"=>'liste men&uuml;', "checkbox"=>'i&#351;aret-kutusu', "radio"=>'radyo-buton',
-                                                "upload"=>'dosya', "submit"=>'g&ouml;nder butonu', "reset"=>'temizle butonu',
-                                                "break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (&ouml;zel)');
+$BL['be_cnt_field']                     = array("text"=>'metin (tek-satırlı)', "email"=>'email', "textarea"=>'metin (çok-satirli)',
+                                                "hidden"=>'gizli', "password"=>'şifre', "select"=>'açllır kutu',
+                                                "list"=>'liste menü', "checkbox"=>'işaret-kutusu', "radio"=>'radyo-buton',
+                                                "upload"=>'dosya', "submit"=>'gönder butonu', "reset"=>'temizle butonu',
+                                                "break"=>'kesme', "breaktext"=>'kesme metni', "special"=>'metin (özel)');
 
-$BL['be_cnt_access']                    = 'eri&#351;im';
-$BL['be_cnt_activated']                 = 'aktifle&#351;tirildi';
+$BL['be_cnt_access']                    = 'erişim';
+$BL['be_cnt_activated']                 = 'aktifleştirildi';
 $BL['be_cnt_available']                 = 'mevcut';
-$BL['be_cnt_guests']                    = 'ziyaret&ccedil;iler';
-$BL['be_cnt_admin']                     = 'y&ouml;netici';
+$BL['be_cnt_guests']                    = 'ziyaretçiler';
+$BL['be_cnt_admin']                     = 'yönetici';
 $BL['be_cnt_write']                     = 'yaz';
 $BL['be_cnt_read']                      = 'oku';
 
-$BL['be_cnt_no_wysiwyg_editor']         = ' WYSIWYG edit&ouml;r devre d&#305;&#351;&#305;';
-$BL['be_cnt_cache_update']              = '&ouml;n belle&#287;i temizle';
-$BL['be_cnt_cache_delete']              = '&ouml;n belle&#287;i sil';
-$BL['be_cnt_cache_delete_msg']          = 'tamponu silmek istedi&#287;inizden emin misiniz?  \nBu arama i&#351;lemine de etki edebilir.\n';
+$BL['be_cnt_no_wysiwyg_editor']         = ' WYSIWYG editör devre dışı';
+$BL['be_cnt_cache_update']              = 'ön belleği temizle';
+$BL['be_cnt_cache_delete']              = 'ön belleği sil';
+$BL['be_cnt_cache_delete_msg']          = 'tamponu silmek istediğinizden emin misiniz?\nBu arama işlemine de etki edebilir.\n';
 
-$BL['be_admin_usr_issection']           = 'Yetkili oldu&#287;u b&ouml;l&uuml;m';
-$BL['be_admin_usr_ifsection0']          = '&ouml;ny&uuml;z';
+$BL['be_admin_usr_issection']           = 'Yetkili olduğu bölüm';
+$BL['be_admin_usr_ifsection0']          = 'önyüz';
 $BL['be_admin_usr_ifsection1']          = 'arkaplan';
-$BL['be_admin_usr_ifsection2']          = '&ouml;ny&uuml;z ve arkaplan';
+$BL['be_admin_usr_ifsection2']          = 'önyüz ve arkaplan';
 
 // added: 31-03-2005 -- Copy/Paste Article Content - Fernando Batista http://fernandobatista.net
-$BL['be_func_content_edit']              = 'Bu i&ccedil;erik par&ccedil;as&#305;n&#305; d&uuml;zenle';
-$BL['be_func_content_paste0']            = 'b&ouml;l&uuml;m i&ccedil;erisine yap&#305;&#351;t&#305;r';
-$BL['be_func_content_paste']             = 'i&ccedil;erik par&ccedil;as&#305;n&#305; sonra yap&#305;&#351;t&#305;r';
-$BL['be_func_content_cut']               = 'bu i&ccedil;erik par&ccedil;s&#305;n&#305; kes';
-$BL['be_func_content_no_cut']            = "i&ccedil;erik par&ccedil;as&#305;n&#305;n kesilmesi m&uuml;mk&uuml;n de&#287;il!";
-$BL['be_func_content_copy']              = 'bu i&ccedil;erik par&ccedil;as&#305;n&#305; kopyala';
-$BL['be_func_content_no_copy']           = "i&ccedil;erik par&ccedil;ass&#305;n&#305;n kopyalanmas&#305; m&uuml;mk&uuml;n de&#287;il!";
-$BL['be_func_content_paste_cancel']      = 'i&ccedil;erik par&ccedil;as&#305;ndaki de&#287;i&#351;ikli&#287;i iptal et.';
+$BL['be_func_content_edit']              = 'Bu içerik parçasını düzenle';
+$BL['be_func_content_paste0']            = 'bölüm içerisine yapıştır';
+$BL['be_func_content_paste']             = 'içerik parçasını sonra yapıştır';
+$BL['be_func_content_cut']               = 'bu içerik parçsını kes';
+$BL['be_func_content_no_cut']            = "içerik parçasının kesilmesi mümkün değil!";
+$BL['be_func_content_copy']              = 'bu içerik parçasını kopyala';
+$BL['be_func_content_no_copy']           = "içerik parçassının kopyalanması mümkün değil!";
+$BL['be_func_content_paste_cancel']      = 'içerik parçasındaki değişikliği iptal et.';
 
-$BL['be_cnt_move_deleted'] = 'silinmis dosyalar&#305; temizle';
-$BL['be_cnt_move_deleted_msg'] = 'B&uuml;t&uuml;n dosyalar&#305;n silimis dosyalar klas&ouml;r&uuml;ne \nta&#351;&#305;nm&#305;&#351; olarak i&#351;aretlenmesini istiyor musunuz?  \n';
+$BL['be_cnt_move_deleted'] = 'silinmis dosyaları temizle';
+$BL['be_cnt_move_deleted_msg'] = 'Bütün dosyaların silimis dosyalar klasörüne\ntaşınmış olarak işaretlenmesini istiyor musunuz?\n';
 
-$BL['be_admin_struct_permit'] = 'eri&#351;im izinlileri (bo&#351; ise herkes izinlidir.)';
-$BL['be_admin_struct_adduser_all']   = 't&uuml;m kullan&#305;c&#305;lar&#305; dahil et';
-$BL['be_admin_struct_adduser_this']  = 'se&ccedil;ili kullabn&#305;c&#305;lar&#305; dahil et';
-$BL['be_admin_struct_remove_all']    = 't&uuml;m kullanic&#305;lar&#305; sil';
-$BL['be_admin_struct_remove_this']   = 'se&ccedil;ili kullanicilari sil';
+$BL['be_admin_struct_permit'] = 'erişim izinlileri (boş ise herkes izinlidir.)';
+$BL['be_admin_struct_adduser_all']   = 'tüm kullanıcıları dahil et';
+$BL['be_admin_struct_adduser_this']  = 'seçili kullabnıcıları dahil et';
+$BL['be_admin_struct_remove_all']    = 'tüm kullanicıları sil';
+$BL['be_admin_struct_remove_this']   = 'seçili kullanicilari sil';
 
 
-$BL['be_ctype_alias'] = 'i&ccedil;erik par&ccedil;as&#305;n&#305;n di&#287;er ad&#305;';
+$BL['be_ctype_alias'] = 'içerik parçasının diğer adı';
 $BL['be_cnt_setting'] = 'dahil et';
-$BL['be_cnt_spaces'] = 'i&ccedil;erik par&ccedil;as&#305; i&ccedil;in bo&#351;luk';
-$BL['be_cnt_toplink'] = 'i&ccedil;erik par&ccedil;as&#305; i&ccedil;in sayfa ba&#351;&#305; k&ouml;pr&uuml;s&uuml;';
-$BL['be_cnt_block'] = 'i&ccedil;erik i&ccedil;in g&ouml;r&uuml;nt&uuml; (blok) ayarlar&#305;';
-$BL['be_cnt_title'] = 'i&ccedil;erik i&ccedil;in ba&#351;l&#305;k';
+$BL['be_cnt_spaces'] = 'içerik parçası için boşluk';
+$BL['be_cnt_toplink'] = 'içerik parçası için sayfa başı köprüsü';
+$BL['be_cnt_block'] = 'içerik için görüntü (blok) ayarları';
+$BL['be_cnt_title'] = 'içerik için başlık';
 
-$BL['be_file_replace'] = 'Ayn&#305; isimli dosyayla de&#287;i&#351;tir';
+$BL['be_file_replace'] = 'Aynı isimli dosyayla değiştir';
 
-$BL['be_alias_articleID'] = 'di&#287;er isim ID';
+$BL['be_alias_articleID'] = 'diğer isim ID';
 $BL['be_alias_useAll'] = "bu konunun header bilgilerini kullan";
-$BL['be_article_morelink'] = '[devami&#8230;] k&ouml;pr&uuml;s&uuml;';
-$BL['be_admin_tmpl_copy']               = '&#351;ablonu kopyala';
+$BL['be_article_morelink'] = '[devami…] köprüsü';
+$BL['be_admin_tmpl_copy']               = 'şablonu kopyala';
 
 $BL['be_ctype_filelist1']                = 'dosya listeleme pro';
-$BL['be_cnt_fpro_usecaption']            = 'dosya ortas&#305;nda kullan &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
+$BL['be_cnt_fpro_usecaption']            = 'dosya ortasında kullan &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
 $BL['be_admin_keywords']                = 'Anahtar kelimeler';
 $BL['be_admin_keywords_key']            = 'ANAHTAR KELIME';
-$BL['be_admin_keywords_err']            = 'yanl&#305;zca tek ANAHTAR KELIME ismi';
-$BL['be_admin_keyword_edit']            = 'ANAHTAR KELIME d&uuml;zenle';
+$BL['be_admin_keywords_err']            = 'yanlızca tek ANAHTAR KELIME ismi';
+$BL['be_admin_keyword_edit']            = 'ANAHTAR KELIME düzenle';
 $BL['be_admin_keyword_del']             = 'ANAHTAR KELIME sil';
-$BL['be_admin_keyword_delmsg']          = 'ger&ccedil;ekten ANAHTAR KELIME yi \nsilmek istiyor musunuz?';
+$BL['be_admin_keyword_delmsg']          = 'gerçekten ANAHTAR KELIME yi\nsilmek istiyor musunuz?';
 $BL['be_admin_keyword_add']             = 'ANAHTAR KELIME ekle';
 
 $BL['be_cnt_transparent'] = 'Flash saydam';
 
 
 // added: 02-04-2006
-$BL['be_admin_struct_orderkilldate']   = 'tarihi s&#305;f&#305;rla';
-$BL['be_func_switch_contentpart'] = 'Ger&ccedil;ekten i&ccedil;erik par&ccedil;as&#305; se&ccedil;imini de&#287;i&#351;tirmek istiyor musunuz? \n\nBunu yaparken dikkatli olun! \nAyarlar&#305; yeniden girmeniz gerekebilir! \n';
-$BL["phpwcms_code_snippets_dir_exists"] = '<strong>DIKKAT!</strong>CODE-SNIPPETS&quot; klas&ouml;r&uuml; mevcut! Bu kas&ouml;r&uuml; siliniz <strong>phpwcms_code_snippets</strong> - Bu klas&ouml;r potansiyel g&uuml;venlik problemidir.';
+$BL['be_admin_struct_orderkilldate']   = 'tarihi sıfırla';
+$BL['be_func_switch_contentpart'] = 'Gerçekten içerik parçası seçimini değiştirmek istiyor musunuz?\n\nBunu yaparken dikkatli olun!\nAyarları yeniden girmeniz gerekebilir!\n';
+$BL["phpwcms_code_snippets_dir_exists"] = '<strong>DIKKAT!</strong>CODE-SNIPPETS&quot; klasörü mevcut! Bu kasörü siliniz <strong>phpwcms_code_snippets</strong> - Bu klasör potansiyel güvenlik problemidir.';
 // added: 02-04-2006
 
 $BL['be_ctype_poll'] = 'anket';
@@ -999,44 +999,44 @@ $BL['be_cnt_pos9i']                     = 'resmi tablonun saginda hizala';
 
 $BL['be_WYSIWYG']                       = 'WYSIWYG editor';
 $BL['be_WYSIWYG_disabled']              = 'WYSIWYG editor devredisi';
-$BL['be_admin_struct_acat_hiddenactive'] = 'aktif oldugunda g&ouml;r&uuml;ns&uuml;n';
+$BL['be_admin_struct_acat_hiddenactive'] = 'aktif oldugunda görünsün';
 
 
 
-$BL['be_login_jsinfo']                  = 'L&uuml;tfen JavaScript i etkinletistirin. Site arkasi y&ouml;netimi i&ccedil;in bu sart!';
+$BL['be_login_jsinfo']                  = 'Lütfen JavaScript i etkinletistirin. Site arkasi yönetimi için bu sart!';
 
 $BL['be_admin_struct_maxlist']          = 'listelnme modunda enfazla baslik sayisi';
 
-$BL['be_admin_optgroup_label']          = array(1 => 'd&uuml;z metin', 2 => 'resim', 3 => 'form', 4 => 'admin', 5 => '&ouml;zel');
+$BL['be_admin_optgroup_label']          = array(1 => 'düz metin', 2 => 'resim', 3 => 'form', 4 => 'admin', 5 => 'özel');
 $BL['be_cnt_articlemenu_maxchar']       = 'enfazla Karakter';
 
 $BL['be_cnt_sysadmin_system']           = 'Sistem';
 
 // version check - taken from phpBB ;-)
-$BL['Version_up_to_date']               = 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel,daha g&uuml;ncel bir phpwcms s&uuml;r&uuml;m&uuml;ne rastlamanamadi';
-$BL['Version_not_up_to_date']           = 'S&uuml;r&uuml;m&uuml;n&uuml;z g&uuml;ncel <b>degil</b> g&uuml;ncellemelisiniz. Bu s&uuml;r&uuml;mden daha &uuml;st s&uuml;r&uuml;mlere rastlandi, l&uuml;tfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
+$BL['Version_up_to_date']               = 'Sürümünüz güncel,daha güncel bir phpwcms sürümüne rastlamanamadi';
+$BL['Version_not_up_to_date']           = 'Sürümünüz güncel <b>degil</b> güncellemelisiniz. Bu sürümden daha üst sürümlere rastlandi, lütfen <a href="https://github.com/slackero/phpwcms/releases" target="_blank">GitHub Releases</a> adresinden phpwcms nin son versiyonunu kontrol edin.';
 $BL['Latest_version_info']              = 'Daha yeni bir <b>phpwcms %s</b>. versiyonu mevcut.';
-$BL['Current_version_info']             = '&#351;u anda <b>phpwcms %s</b> ile &ccedil;al&#305;&#351;&#305;yorsunuz.';
-$BL['Connect_socket_error']             = 'phpwcms Sunucusu ile ba&#287;lant&#305; kurulamad&#305;, raporlanan hata :<br />%s';
-$BL['Socket_functions_disabled']        = 'socket fonksiyonu kullan&#305;lam&#305;yor.';
-$BL['Mailing_list_subscribe_reminder']  = 'phpwcms g&uuml;ncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine &uuml;ye olablirsiniz.</a>.';
+$BL['Current_version_info']             = 'şu anda <b>phpwcms %s</b> ile çalışıyorsunuz.';
+$BL['Connect_socket_error']             = 'phpwcms Sunucusu ile bağlantı kurulamadı, raporlanan hata :<br />%s';
+$BL['Socket_functions_disabled']        = 'socket fonksiyonu kullanılamıyor.';
+$BL['Mailing_list_subscribe_reminder']  = 'phpwcms güncellemesi ile ilgili son bilgiler,<a href="http://eepurl.com/bm-BrH" target="_blank">buradan email listesine üye olablirsiniz.</a>.';
 $BL['Version_information']              = 'phpwcms Versiyon bilgileri';
 
 $BL['be_cnt_search_highlight']          = 'hgighlight';
-$BL['be_cnt_results_wordlimit']         = '&ouml;zet bilgisi i&ccedil;in enfazla kelime say&#305;s&#305;';
+$BL['be_cnt_results_wordlimit']         = 'özet bilgisi için enfazla kelime sayısı';
 $BL['be_cnt_page_of_pages']             = 'search navi';
-$BL['be_cnt_page_of_pages_descr']       = '{PREV:&ouml;nceki} sayfa #/##, sonu&ccedil; ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Sonraki}';
-$BL['be_cnt_search_show_top']           = '&uuml;st';
+$BL['be_cnt_page_of_pages_descr']       = '{PREV:önceki} sayfa #/##, sonuç ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Sonraki}';
+$BL['be_cnt_search_show_top']           = 'üst';
 $BL['be_cnt_search_show_bottom']        = 'alt';
-$BL['be_cnt_search_show_next']          = 'sonraki (link olmad&#305;&#287;&#305;nda)';
-$BL['be_cnt_search_show_prev']          = 'previous (link olmad&#305;&#287;&#305;nda)';
-$BL['be_cnt_search_show_forall']        = 'her zaman g&ouml;ster';
-$BL['be_cnt_search_startlevel']         = 'arama ba&#351;lang&#305;c&#305;';
-$BL['be_cnt_results_minchar']           = 'arama girdisi i&ccedil;in en az karakter say&#305;s&#305;';
+$BL['be_cnt_search_show_next']          = 'sonraki (link olmadığında)';
+$BL['be_cnt_search_show_prev']          = 'previous (link olmadığında)';
+$BL['be_cnt_search_show_forall']        = 'her zaman göster';
+$BL['be_cnt_search_startlevel']         = 'arama başlangıcı';
+$BL['be_cnt_results_minchar']           = 'arama girdisi için en az karakter sayısı';
 
-$BL['be_cnt_pagination']                = 'sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;as&#305;';
-$BL['be_article_pagination']            = 'sayfalanmis ba&#351;l&#305;k';
-$BL['be_article_per_page']              = 'sayfa ba&#351;&#305;na d&uuml;&#351;en ba&#351;l&#305;k';
+$BL['be_cnt_pagination']                = 'sayfalanmış içerik parçası';
+$BL['be_article_pagination']            = 'sayfalanmis başlık';
+$BL['be_article_per_page']              = 'sayfa başına düşen başlık';
 $BL['be_pagination']                    = 'sayfalama';
 
 
@@ -1045,110 +1045,110 @@ $BL['be_ctype_faq']                     = 'SSS';
 $BL['be_cnt_additional']                = 'eklenti';
 $BL['be_cnt_question']                  = 'soru';
 $BL['be_cnt_answer']                    = 'cevap';
-$BL['be_cnt_same_as_summary']           = 'ba&#351;l&#305;g&#305;n resim bilgisini kullan';
-$BL['be_cnt_sorting']                   = 's&#305;ralama';
-$BL['be_cnt_imgupload']                 = 'resim&nbsp;y&uuml;kle';
+$BL['be_cnt_same_as_summary']           = 'başlıgın resim bilgisini kullan';
+$BL['be_cnt_sorting']                   = 'sıralama';
+$BL['be_cnt_imgupload']                 = 'resim yükle';
 $BL['be_cnt_filesize']                  = 'dosyaboyu';
 $BL['be_cnt_captchalength']             = 'captcha code length';
 $BL['be_cnt_chars']                     = 'karakterler';
 $BL['be_cnt_download']                  = 'indir';
-$BL['be_cnt_download_direct']           = 'do&#287;rudan';
+$BL['be_cnt_download_direct']           = 'doğrudan';
 $BL['be_cnt_database']                  = 'veritabani';
 $BL['be_cnt_formsave_in_db']            = 'form bilgilerini kaydet';
 
 $BL['be_cnt_email_notify']              = 'emaille bidir';
-$BL['be_cnt_notify_by_email']           = 'email al&#305;c&#305;';
-$BL['be_cnt_last_edited']               = 'son de&#287;i&#351;iklik';
+$BL['be_cnt_notify_by_email']           = 'email alıcı';
+$BL['be_cnt_last_edited']               = 'son değişiklik';
 
-$BL['be_cnt_export_selection']          = 'se&ccedil;imi ihra&ccedil; et';
-$BL['be_cnt_delete_duplicates']         = 'takrarlar&#305; sil';
-$BL['be_cnt_new_recipient']             = 'al&#305;c&#305; ekle';
+$BL['be_cnt_export_selection']          = 'seçimi ihraç et';
+$BL['be_cnt_delete_duplicates']         = 'takrarları sil';
+$BL['be_cnt_new_recipient']             = 'alıcı ekle';
 
 
 $BL['be_cnt_newsletter_prepare']        = 'haberler etkin';
-$BL['be_cnt_newsletter_prepare1']       = 't&uuml;m al&#305;c&#305;lar g&ouml;nderme kuyru&#287;una aktar&#305;lacak';
-$BL['be_cnt_newsletter_prepare2']       = 'g&ouml;nderme kuyru&#287;u g&uuml;ncellendi&#8230;';
+$BL['be_cnt_newsletter_prepare1']       = 'tüm alıcılar gönderme kuyruğuna aktarılacak';
+$BL['be_cnt_newsletter_prepare2']       = 'gönderme kuyruğu güncellendi…';
 
-$BL['be_cnt_export']                    = 'ihra&ccedil;';
-$BL['be_cnt_formsave_profile']          = 'kullan&#305;c&#305; profil bilgilerini kaydet';
+$BL['be_cnt_export']                    = 'ihraç';
+$BL['be_cnt_formsave_profile']          = 'kullanıcı profil bilgilerini kaydet';
 $BL['be_profile_label_add']             = 'eklenti';
 $BL['be_profile_label_website']         = 'url';
 $BL['be_profile_label_gender']          = 'cinsiyet';
-$BL['be_profile_label_birthday']        = 'do&#287;umg&uuml;n&uuml;';
+$BL['be_profile_label_birthday']        = 'doğumgünü';
 
 $BL['be_cnt_store_in']                  = 'alana kaydet';
-$BL['be_aboutlink_title']               = 'phpwcms lisans&#305; hakk&#305;nda bilgi';
+$BL['be_aboutlink_title']               = 'phpwcms lisansı hakkında bilgi';
 
 $BL['be_shortdate']                     = 'j/n/y';
 $BL['be_shortdatetime']                 = 'j/n/y G:i';
 $BL['be_longdatetime']                  = 'd/m/Y H:i:s';
 
-$BL['be_confirm_sending']               = 'G&ouml;nderimi onayla';
-$BL['be_confirm_text']                  = 'Evet, haberi t&uuml;m al&#305;c&#305;lara g&ouml;nder!';
+$BL['be_confirm_sending']               = 'Gönderimi onayla';
+$BL['be_confirm_text']                  = 'Evet, haberi tüm alıcılara gönder!';
 
 $BL['be_cnt_queued']                    = 'kuyruk';
-$BL['be_last_sending']                  = 'son g&ouml;nderim';
-$BL['be_last_edited']                   = 'son d&uuml;zenleme';
+$BL['be_last_sending']                  = 'son gönderim';
+$BL['be_last_edited']                   = 'son düzenleme';
 $BL['be_total']                         = 'toplam';
 
 $BL['be_settings']                      = 'ayarlar';
-$BL['be_ctype']                         = 'i&ccedil;erik par&ccedil;as&#305;';
-$BL['be_selection']                     = 'se&ccedil;im';
+$BL['be_ctype']                         = 'içerik parçası';
+$BL['be_selection']                     = 'seçim';
 
-$BL['be_ctype_module']                  = 'mod&uuml;l';
+$BL['be_ctype_module']                  = 'modül';
 $BL['be_cnt_lightbox']                  = 'galeri resim';
 $BL['be_cnt_behavior']                  = 'olay';
-$BL['be_cnt_imglist_nocaption']         = 'k&uuml;&ccedil;&uuml;k listede ba&#351;l&#305;klar&#305; gizle';
+$BL['be_cnt_imglist_nocaption']         = 'küçük listede başlıkları gizle';
 
-$BL['be_ctype_felogin']                 = '&ouml;nplan giri&#351;i';
-$BL['be_cookie_runtime']                = '&ccedil;erez zaman a&#351;&#305;m&#305;';
+$BL['be_ctype_felogin']                 = 'önplan girişi';
+$BL['be_cookie_runtime']                = 'çerez zaman aşımı';
 $BL['be_locale']                        = 'yerel';
-$BL['be_date_format']                   = 'tarih format&#305;';
+$BL['be_date_format']                   = 'tarih formatı';
 
-$BL['be_check_login_against']           = 'onay i&ccedil;in tekrar giris';
-$BL['be_userprofile_db']                = 'kullan&#305;c&#305; profili veri taban&#305;';
-$BL['be_backenduser_db']                = 'y&ouml;netici kullan&#305;c&#305; veri taban&#305;';
+$BL['be_check_login_against']           = 'onay için tekrar giris';
+$BL['be_userprofile_db']                = 'kullanıcı profili veri tabanı';
+$BL['be_backenduser_db']                = 'yönetici kullanıcı veri tabanı';
 
-$BL['be_gb_post_login']                 = 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar i&ccedil;in g&ouml;nder';
-$BL['be_gb_show_login']                 = 'sadece giri&#351; yapm&#305;&#351; kullan&#305;c&#305;lar g&ouml;ster';
-$BL['be_gb_urlcheck']                   = 'uzak URL do&#287;rulama etkin';
-$BL['be_order']                         = 'Al&#305;&#351;veri&#351;';
+$BL['be_gb_post_login']                 = 'sadece giriş yapmış kullanıcılar için gönder';
+$BL['be_gb_show_login']                 = 'sadece giriş yapmış kullanıcılar göster';
+$BL['be_gb_urlcheck']                   = 'uzak URL doğrulama etkin';
+$BL['be_order']                         = 'Alışveriş';
 
 $BL['be_unique_teaser_entry']           = 'show teaser/link article only once per page';
 $BL['be_allowed_tags']                  = 'izinli tag lar';
-$BL['be_fe_login_url']                  = '&ouml;nplan giri&#351; url';
+$BL['be_fe_login_url']                  = 'önplan giriş url';
 $BL['be_ctype_imagesdiv']               = 'resimler &lt;div&gt;';
 $BL['be_cnt_imagecenter']               = 'merkez dikey/yatay';
-$BL['be_cnt_imagenocenter']             = 'merkez de&#287;il';
+$BL['be_cnt_imagenocenter']             = 'merkez değil';
 $BL['be_cnt_imagecenterh']              = 'yatayda merkez';
-$BL['be_cnt_imagecenterv']              = 'd&uuml;&#351;eyde merkez';
+$BL['be_cnt_imagecenterv']              = 'düşeyde merkez';
 
-$BL['be_overwrite_default']             = 'varsay&#305;an ayarlar konfig&uuml;rasyon dosyas&#305;na yaz&#305;lacak';
-$BL['be_cnt_sortvalue']                 = 's&#305;ra&nbsp;de&#287;eri';
-$BL['be_dialog_warn_nosave']            = 'E&#287;er devam ederseniz hi&ccedil; bir de&#287;isiklik kaydedilmeyecek!\nDevam etmek istiyor musunuz?';
-$BL['be_cnt_paginate_subsection']       = 'altse&ccedil;im';
-$BL['be_cnt_subsection_tite']           = 'alt se&ccedil;im basl&#305;&#287;&#305;';
-$BL['be_cnt_subsection_warning']        = 'ana kolanda sadece (CONTENT) i&ccedil;in\nAlt se&ccedil;im say&#305;s&#305; (sayfalanm&#305;&#351; i&ccedil;erik par&ccedil;alar&#305;) mevcut';
+$BL['be_overwrite_default']             = 'varsayıan ayarlar konfigürasyon dosyasına yazılacak';
+$BL['be_cnt_sortvalue']                 = 'sıra değeri';
+$BL['be_dialog_warn_nosave']            = 'Eğer devam ederseniz hiç bir değisiklik kaydedilmeyecek!\nDevam etmek istiyor musunuz?';
+$BL['be_cnt_paginate_subsection']       = 'altseçim';
+$BL['be_cnt_subsection_tite']           = 'alt seçim baslığı';
+$BL['be_cnt_subsection_warning']        = 'ana kolanda sadece (CONTENT) için\nAlt seçim sayısı (sayfalanmış içerik parçaları) mevcut';
 
 $BL['be_no_search']                     = 'arama yok';
-$BL['be_priorize']                      = '&ouml;nceliklendirme';
-$BL['be_change_articleID']              = 'ba&#351;l&#305;k ID yi de&#287;i&#351;tir';
-$BL['be_title_wrap']                    = 'konu ba&#351;l&#305;&#287;&#305;n&#305; yay';
+$BL['be_priorize']                      = 'önceliklendirme';
+$BL['be_change_articleID']              = 'başlık ID yi değiştir';
+$BL['be_title_wrap']                    = 'konu başlığını yay';
 
 $BL['be_no_rss']                        = 'RSS';
-$BL['be_article_urlalias']              = 'konu ba&#351;l&#305;&#287;&#305; mahlas&#305;';
+$BL['be_article_urlalias']              = 'konu başlığı mahlası';
 
-$BL['be_image_crop']                    = 'k&#305;rp&#305;lm&#305;&#351; k&uuml;&ccedil;&uuml;kboy';
+$BL['be_image_crop']                    = 'kırpılmış küçükboy';
 $BL['be_image_align']                   = 'resim hizlama';
 
 $BL['be_ctype_flashplayer']             = 'flash media player';
-$BL['be_flashplayer_caption']           = 'ba&#351;l&#305;k';
-$BL['be_flashplayer_thumbnail']         = 'k&uuml;&ccedil;&uuml;kboy';
-$BL['be_flashplayer_selectsize']        = 'oynat&#305;c&#305; b&uuml;y&uuml;kl&uuml;&#287;&uuml;n&uuml; se&ccedil;';
+$BL['be_flashplayer_caption']           = 'başlık';
+$BL['be_flashplayer_thumbnail']         = 'küçükboy';
+$BL['be_flashplayer_selectsize']        = 'oynatıcı büyüklüğünü seç';
 
-$BL['be_check_feuser_profile']          = '&ouml;nplan kullan&#305;c&#305; profili';
-$BL['be_check_feuser_registration']     = 'kay&#305;t';
-$BL['be_check_feuser_manage']           = 'kullan&#305;c&#305; taraf&#305;ndan y&ouml;netildi';
+$BL['be_check_feuser_profile']          = 'önplan kullanıcı profili';
+$BL['be_check_feuser_registration']     = 'kayıt';
+$BL['be_check_feuser_manage']           = 'kullanıcı tarafından yönetildi';
 
 
 $BL['be_legacy'] = 'Legacy';
@@ -1156,28 +1156,570 @@ $BL['be_default'] = 'varsayılan';
 
 
 // Merged from lang.ext.inc.php
-$BL['FOLDER_LIST']       = 'Klas&ouml;r Listesi';
+$BL['FOLDER_LIST']       = 'Klasör Listesi';
 $BL['FILES']             = 'dosyalar';
-$BL['SHOW_FILES']        = 'k&ouml;k dizin i&ccedil;erisindeki dosyalalar&#305; g&ouml;ster';
-$BL['SHOW_FILES1']       = 'klas&ouml;r i&ccedil;erisindeki dosyalar&#305; g&ouml;ster';
-$BL['TAKE_IMAGE']        = 'Bu dosyay&#305; ver ve ekle&#8230;';
+$BL['SHOW_FILES']        = 'kök dizin içerisindeki dosyalaları göster';
+$BL['SHOW_FILES1']       = 'klasör içerisindeki dosyaları göster';
+$BL['TAKE_IMAGE']        = 'Bu dosyayı ver ve ekle…';
 $BL['NO_FILE']           = 'dosya yok';
-$BL['OPEN_DIR']          = 'klas&ouml;rü a&ccedil;';
-$BL['CLOSE_DIR']         = 'klas&ouml;rü kapat';
-$BL['FILE_TITLE']        = 'dosya y&ouml;neticisi';
-$BL['IMAGE_TITLE']       = 'resim y&ouml;neticisi';
-$BL['MEDIA_TITLE']       = '&ccedil;oklu ortam y&ouml;neticisi';
-$BL['IMAGE_FILES']       = 'resim dosyalar&#305;';
-$BL['MEDIA_FILES']       = '&ccedil;oklu ortam dosyalar&#305;';
-$BL['ROOT_DIR']          = 'depolama (k&ouml;k dizin)';
-$BL['DOWNLOAD_ERR1']     = 'Hata! (NR:{VAL}) bir dosya indirilmeye &ccedil;al&#305;s&#305;rken olustu';
-$BL['DOWNLOAD_ERR2']     = 'Eger teknik bir problem oldugunu dü&#351;ünüyorsan&#305;z email at&#305;n&#305;z <a href="mailto:{VAL}"><strong>site y&ouml;neticisi</strong></a>.';
-$BL['DOWNLOAD_TITLE']    = 'Dosya indirme hatas&#305;';
+$BL['OPEN_DIR']          = 'klasörü aç';
+$BL['CLOSE_DIR']         = 'klasörü kapat';
+$BL['FILE_TITLE']        = 'dosya yöneticisi';
+$BL['IMAGE_TITLE']       = 'resim yöneticisi';
+$BL['MEDIA_TITLE']       = 'çoklu ortam yöneticisi';
+$BL['IMAGE_FILES']       = 'resim dosyaları';
+$BL['MEDIA_FILES']       = 'çoklu ortam dosyaları';
+$BL['ROOT_DIR']          = 'depolama (kök dizin)';
+$BL['DOWNLOAD_ERR1']     = 'Hata! (NR:{VAL}) bir dosya indirilmeye çalısırken olustu';
+$BL['DOWNLOAD_ERR2']     = 'Eger teknik bir problem oldugunu düşünüyorsanız email atınız <a href="mailto:{VAL}"><strong>site yöneticisi</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Dosya indirme hatası';
 $BL['FILEINFO_TITLE']    = 'dosya bilgileri';
-$BL['CREATED']           = 'olu&#351;turuldu';
+$BL['CREATED']           = 'oluşturuldu';
 $BL['DATE_FORMAT']       = 'd-m-Y H:i';
 $BL['SIZE']              = 'boyut';
-$BL['DOWNLOAD_FILE']     = 'dosyay&#305; indir';
-$BL['FILE_IN_TRASH']     = 'dosya geri d&ouml;nü&#351;üm kutusunda';
+$BL['DOWNLOAD_FILE']     = 'dosyayı indir';
+$BL['FILE_IN_TRASH']     = 'dosya geri dönüşüm kutusunda';
 $BL['KEYWORDS']          = 'anahtar kelimeler';
-$BL['DOWNLOAD_ERR3']     = 'dosya bilgisi okunurken hata olu&#351;tu<br />pencereyi kapat&#305;p tekrar deneyiniz...';
+$BL['DOWNLOAD_ERR3']     = 'dosya bilgisi okunurken hata oluştu<br />pencereyi kapatıp tekrar deneyiniz...';
+
+
+// Added missing translations
+$BL['be_image_cropit'] = 'resmi kırp';
+$BL['be_flash_media'] = 'Flash medya';
+$BL['be_html5_media'] = 'HTML5 medya';
+$BL['be_html5_h264'] = 'H.264 (MP4/M4V/MOV)';
+$BL['be_html5_webm'] = 'WebM (VP8/Vorbis)';
+$BL['be_html5_ogg'] = 'Ogg (Theora/Vorbis)';
+$BL['be_media_format'] = 'medya formatı';
+$BL['be_media_watermark'] = 'filigran';
+$BL['be_skin'] = 'tema';
+$BL['be_foreground_color'] = 'ön plan rengi';
+$BL['be_background_color'] = 'arka plan rengi';
+$BL['be_highlight_color'] = 'vurgu rengi';
+$BL['be_hide_active_articlelink'] = 'etkin makale bağlantısını gizle';
+$BL['be_module_search'] = 'arama modülü';
+$BL['be_ctype_imagesspecial'] = 'özel resimler';
+$BL['be_image_WxHpx'] = 'Genişlik x Yükseklik (px)';
+$BL['be_fx_1'] = 'efekt 1';
+$BL['be_fx_2'] = 'efekt 2';
+$BL['be_fx_3'] = 'efekt 3';
+$BL['be_image_zoom'] = 'resim yakınlaştırma';
+$BL['be_image_delete_js'] = 'Bu resmi silmek istediğinizden emin misiniz?';
+$BL['be_news'] = 'haberler';
+$BL['be_news_create'] = 'haber oluştur';
+$BL['be_tags'] = 'etiketler';
+$BL['be_title'] = 'başlık';
+$BL['be_delete_dataset'] = 'kaydı sil';
+$BL['be_action_notvalid'] = 'işlem geçersiz';
+$BL['be_action_deleted'] = 'kayıt silindi';
+$BL['be_action_status'] = 'durum güncellendi';
+$BL['be_data_select_failed'] = 'veri seçimi başarısız oldu';
+$BL['be_alias'] = 'takma ad';
+$BL['be_url_value'] = 'URL değeri';
+$BL['default_date_format'] = 'd.m.Y';
+$BL['default_date'] = 'varsayılan tarih';
+$BL['default_date_delimiter'] = '.';
+$BL['default_time_format'] = 'H:i';
+$BL['default_time'] = 'varsayılan saat';
+$BL['be_place'] = 'yer';
+$BL['be_teasertext'] = 'özet metin';
+$BL['be_published'] = 'yayınlandı';
+$BL['be_show_archived'] = 'arşivlenenleri göster';
+$BL['be_save_copy'] = 'kopya kaydet';
+$BL['be_read_more_link'] = 'devamını oku bağlantısı';
+$BL['be_news_name_mandatory'] = 'Haber başlığı zorunludur';
+$BL['be_successfully_saved'] = 'Tüm veriler başarıyla kaydedildi!';
+$BL['be_successfully_updated'] = 'Tüm veriler başarıyla güncellendi!';
+$BL['be_error_while_save'] = 'Kaydederken hata oluştu';
+$BL['be_copyright'] = 'telif hakkı';
+$BL['be_file_multiple_upload'] = 'çoklu dosya yükleme';
+$BL['be_files_select_available'] = 'mevcut dosyaları seç';
+$BL['be_files_browse'] = 'dosyalara göz at';
+$BL['be_files_upload'] = 'dosyaları yükle';
+$BL['be_archive'] = 'arşiv';
+$BL['be_random'] = 'rastgele';
+$BL['be_sorted'] = 'sıralı';
+$BL['be_granted_download'] = 'indirme izni verildi';
+$BL['be_granted_feuser'] = 'ön yüz kullanıcısı için izin verildi';
+$BL['be_hidden_for_feuser'] = 'ön yüz kullanıcısından gizlendi';
+$BL['be_visible_for_everybody'] = 'herkes tarafından görülebilir';
+$BL['be_fileuploader_typeError'] = '{file} geçersiz bir uzantıya sahip. Yalnızca {extensions} uzantılarına izin verilir.';
+$BL['be_fileuploader_sizeError'] = '{file} çok büyük, maksimum dosya boyutu {sizeLimit}.';
+$BL['be_fileuploader_minSizeError'] = '{file} çok küçük, minimum dosya boyutu {minSizeLimit}.';
+$BL['be_fileuploader_emptyError'] = '{file} boş, lütfen dosyaları tekrar seçin.';
+$BL['be_fileuploader_noFilesError'] = 'Yüklenecek dosya yok.';
+$BL['be_fileuploader_onLeave'] = 'Dosyalar yükleniyor, şimdi ayrılırsanız yükleme iptal edilecek.';
+$BL['be_fileuploader_dragText'] = 'Yüklemek için dosyaları buraya bırakın';
+$BL['be_fileuploader_dictFallbackText'] = 'Tarayıcınız sürükle ve bırak dosya yüklemelerini desteklemiyor.';
+$BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Bu yüklemeyi iptal etmek istediğinizden emin misiniz?';
+$BL['be_fileuploader_dictMaxFilesExceeded'] = 'Maksimum dosya sayısı aşıldı.';
+$BL['be_delete_selected_files'] = 'seçili dosyaları sil';
+$BL['be_delete_selected_files_confirm'] = 'Seçili dosyaları silmek istediğinizden emin misiniz?';
+$BL['be_ctype_tabs'] = 'sekmeler';
+$BL['be_tab_add'] = 'sekme ekle';
+$BL['be_tab_name'] = 'sekme adı';
+$BL['be_headline'] = 'başlık';
+$BL['be_tab_delete_js'] = 'Bu sekmeyi silmek istediğinizden emin misiniz?';
+$BL['be_pagniate_count'] = 'sayfa başına makale';
+$BL['be_limit_to'] = 'şununla sınırla';
+$BL['be_archived_items'] = 'arşivlenmiş öğeler';
+$BL['be_include'] = 'dahil et';
+$BL['be_exclude'] = 'hariç tut';
+$BL['be_solely'] = 'yalnızca';
+$BL['be_fsearch_not'] = 'DEĞİL';
+$BL['be_date_year'] = 'yıl';
+$BL['be_archive_link'] = 'arşiv bağlantısı';
+$BL['be_use_prio'] = 'önceliği kullan';
+$BL['be_skip_first_items'] = 'ilk öğeleri atla';
+$BL['be_news_detail_link'] = 'ayrıntı bağlantısı';
+$BL['be_gallerydownload'] = 'galeri indirme';
+$BL['be_gallery_root'] = 'galeri kök dizini';
+$BL['be_gallery_directory'] = 'galeri dizini';
+$BL['be_gallery'] = 'galeri';
+$BL['be_sort_date'] = 'tarihe göre sırala';
+$BL['group_superuser'] = 'Süper Yönetici';
+$BL['group_admin'] = 'Yönetici';
+$BL['group_editor'] = 'Editör';
+$BL['group_newsletter'] = 'Bülten';
+$BL['group_client'] = 'Müşteri';
+$BL['group_guest'] = 'Misafir';
+$BL['php_function'] = 'PHP fonksiyonu';
+$BL['article_menu_title'] = 'makale menüsü başlığı';
+$BL['content_type'] = 'içerik türü';
+$BL['automatic'] = 'otomatik';
+$BL['random_image'] = 'rastgele resim';
+$BL['limit_image_from_list'] = 'resimleri listeden sınırla';
+$BL['alt_image'] = 'alternatif resim';
+$BL['alt_text'] = 'alternatif metin';
+$BL['over'] = 'üzerinde';
+$BL['js_lib'] = 'JS kütüphanesi';
+$BL['js_lib_alwaysload'] = 'JS kütüphanesini her zaman yükle';
+$BL['frontendjs_load'] = 'ön yüz JS yükle';
+$BL['googleapi_load'] = 'Google API yükle';
+$BL['fancyupload_clear_list'] = 'listeyi temizle';
+$BL['fancyupload_file_uploaded'] = 'Dosya yüklendi.';
+$BL['fancyupload_file_error'] = 'Dosya yükleme hatası.';
+$BL['fancyupload_adblock_error'] = 'Lütfen reklam engelleyicinizi devre dışı bırakın.';
+$BL['fancyupload_flashblock_error'] = 'Lütfen Flash içeriğine izin verin.';
+$BL['fancyupload_required_error'] = 'Bir dosya seçilmelidir.';
+$BL['fancyupload_flash_error'] = 'Flash mevcut değil.';
+$BL['be_cnt_function_validate'] = 'fonksiyon doğrulama';
+$BL['be_structform_selected_cp'] = 'seçili içerik öğesi';
+$BL['be_structform_select_cp'] = 'içerik öğesi seç';
+$BL['source_image_not_found'] = 'kaynak resim bulunamadı';
+$BL['form_force_ssl'] = 'SSL zorla (HTTPS)';
+$BL['numerize_title'] = 'başlığı numaralandır';
+$BL['be_article_noteaser'] = 'özet yok';
+$BL['be_acat_disable301'] = '301 yönlendirmesini devre dışı bırak';
+$BL['file_actions_step1'] = 'Adım 1: klasör seç';
+$BL['file_actions_step2'] = 'Adım 2: dosyaları seç';
+$BL['file_actions_step3'] = 'Adım 3: işlem seç';
+$BL['file_actions_button'] = 'Dosya işlemini uygula';
+$BL['file_actions_no'] = 'İşlem yok';
+$BL['file_actions_delete'] = 'Dosyaları sil';
+$BL['file_actions_bemuser'] = 'Kullanıcıya ata';
+$BL['file_actions_bemfolder'] = 'Klasöre taşı';
+$BL['file_actions_pdl_empty'] = 'listeyi temizle';
+$BL['file_actions_pdl_delete'] = 'seçimi sil';
+$BL['file_actions_pdl_move'] = 'seçimi taşı';
+$BL['file_actions_pdl_status'] = 'durumu değiştir';
+$BL['file_actions_pdl_user'] = 'kullanıcıyı değiştir';
+$BL['file_actions_msg_move'] = 'Dosyalar başarıyla taşındı';
+$BL['file_actions_msg_delete'] = 'Dosyalar başarıyla silindi';
+$BL['file_actions_msg_status'] = 'Dosya durumları başarıyla değiştirildi';
+$BL['file_actions_msg_error'] = 'Hata oluştu';
+$BL['file_actions_msg_user'] = 'Dosyalar yeni kullanıcıya başarıyla atandı';
+$BL['be_imagefiles_as_gallery'] = 'Resim dosyalarını galeri olarak göster';
+$BL['be_link'] = 'bağlantı';
+$BL['be_links'] = 'bağlantılar';
+$BL['be_redirect'] = 'yönlendirme';
+$BL['be_redirects'] = 'yönlendirmeler';
+$BL['be_views'] = 'görüntülenmeler';
+$BL['be_structure_id'] = 'yapı kimliği';
+$BL['be_shortcut'] = 'kısayol';
+$BL['be_target_type'] = 'hedef türü';
+$BL['be_http_status'] = 'HTTP durum kodu';
+$BL['be_http_status301'] = '301 - Kalıcı olarak taşındı';
+$BL['be_http_status307'] = '307 - Geçici yönlendirme';
+$BL['be_http_status404'] = '404 - Sayfa bulunamadı';
+$BL['be_http_status401'] = '401 - Yetkisiz';
+$BL['be_http_status503'] = '503 - Hizmet kullanılamıyor';
+$BL['be_redirect_error1'] = 'Hedef URL gereklidir';
+$BL['be_redirect_error2'] = 'Takma ad zaten kullanımda';
+$BL['be_redirect_error3'] = 'Geçersiz durum kodu';
+$BL['be_new_linkredirect'] = 'yeni bağlantı yönlendirmesi';
+$BL['be_ctype_accordion'] = 'akordiyon';
+$BL['be_ctype_number'] = 'numara';
+$BL['be_inactive'] = 'etkin değil';
+$BL['be_locked'] = 'kilitli';
+$BL['be_n/a'] = 'yok';
+$BL['be_opengraph_support'] = 'Open Graph desteği';
+$BL['be_player_volume'] = 'Ses seviyesi';
+$BL['be_player_volume_muted'] = 'sessiz';
+$BL['be_keyword'] = 'anahtar kelime';
+$BL['be_tag'] = 'etiket';
+$BL['be_system_container'] = 'sistem kapsayıcısı';
+$BL['be_system_container_norender'] = 'kapsayıcıyı işleme';
+$BL['be_custom_scriptlogic'] = 'özel komut dosyası mantığı';
+$BL['be_flush_image_cache'] = 'resim önbelleğini temizle';
+$BL['be_flush_image_cache_confirm'] = 'Resim önbelleğini temizlemek istediğinizden emin misiniz?';
+$BL['be_flush_image_cache_success'] = 'Resim önbelleği başarıyla temizlendi. %d dosya silindi.';
+$BL['be_caption_alt'] = 'Alternatif Metin (Alt)';
+$BL['be_caption_title'] = 'Başlık (Title)';
+$BL['be_caption_file_imagesize'] = 'Resim Boyutları';
+$BL['be_caption_file_title'] = 'Dosya Başlığı';
+$BL['be_caption_descr.'] = 'Açıklama';
+$BL['be_display_html5_only'] = 'yalnızca HTML5 olarak görüntüle';
+$BL['be_audio_only'] = 'yalnızca ses';
+$BL['be_hide_downloadbutton'] = 'indirme düğmesini gizle';
+$BL['be_filter'] = 'filtre';
+$BL['be_filter_with_tags'] = 'etiketlerle filtrele';
+$BL['be_filter_not_selected'] = 'filtre seçilmedi';
+$BL['be_empty_search_result'] = 'Sonuç bulunamadı';
+$BL['confirm_cp_tab_warning'] = 'Sekmeyi değiştirmek kaydedilmemiş değişikliklerin kaybolmasına neden olabilir.
+
+Devam etmek istiyor musunuz?';
+$BL['be_canonical'] = 'kurallı URL';
+$BL['be_breadcrumb'] = 'içerik haritası';
+$BL['be_breadcrumb_nothidden'] = 'içerik haritasında gizleme';
+$BL['be_breadcrumb_nolink'] = 'içerik haritasında bağlantı yok';
+$BL['be_parental_alias'] = 'üst takma ad';
+$BL['be_fsearch_nor'] = 'HİÇBİRİ';
+$BL['be_tab_toggle'] = 'sekmeyi aç/kapat';
+$BL['be_custom_textfield'] = 'özel metin';
+$BL['be_tab_template_toggle_warning'] = 'Şablonu değiştirmek özel alanları değiştirebilir ve değerlerin kaybolmasına neden olabilir.
+
+Devam etmek istediğinizden emin misiniz?';
+$BL['be_onepage_id'] = 'OnePage ID desteği (#çapa)';
+$BL['be_onepage_template'] = 'OnePage şablonu olarak işle';
+$BL['be_yes'] = 'Evet';
+$BL['be_no'] = 'Hayır';
+$BL['be_attr_title'] = 'başlık (öznitelik)';
+$BL['be_attr_alt'] = 'alternatif metin';
+$BL['be_ie8ignore'] = 'IE8 için <a href="https://tr.wikipedia.org/wiki/Ko%C5%9Fullu_yorum" target="_blank" class="underline">koşullu yorumları</a> devre dışı bırak';
+$BL['be_cookie_consent_enable'] = 'Cookie Consent v2 eklentisini etkinleştir (v3 devre dışı kalır)';
+$BL['be_cookie_consent_message'] = 'onay mesajı';
+$BL['be_cookie_consent_translatable'] = 'Bu kurulum birden çok dili desteklemektedir ($phpwcms[\'allowed_lang\']). Çerez bildirim metinlerini çevirmek için <b>@@Metin@@</b> sözdizimini kullanın ve oluştuktan sonra `template/template_lang` dizinini kontrol edin.';
+$BL['cookie_consent_message'] = 'Bu web sitesi, sitemizde en iyi deneyimi yaşamanızı sağlamak için çerezleri kullanır.';
+$BL['be_cookie_consent_dismiss'] = 'kabul düğmesi metni';
+$BL['cookie_consent_dismiss'] = 'Anladım!';
+$BL['be_cookie_consent_more'] = 'daha fazla bilgi düğmesi metni';
+$BL['cookie_consent_more'] = 'Daha fazla bilgi';
+$BL['be_cookie_consent_link'] = 'Çerez politikası URL/takma adı';
+$BL['be_cookie_consent_theme'] = 'tema (boş = CSS yok)';
+$BL['be_google_analytics_enable'] = 'Google Analytics kullan';
+$BL['be_google_tag_manager_enable'] = 'Google Tag Manager kullan';
+$BL['be_piwik_enable'] = 'Matomo/Piwik kullan';
+$BL['be_tracking_anonymize'] = 'IP adresini anonimleştir';
+$BL['be_tracking_cookie_flags'] = '<a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>çerez bayraklarını</u></a> etkinleştir';
+$BL['be_tracking_custom_properties'] = 'özel <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>yapılandırma parametreleri</u></a> (özellik1: değer1, özellik2: değer2)';
+$BL['be_tracking_id'] = 'İzleme Kimliği';
+$BL['be_site_id'] = 'Site Kimliği';
+$BL['be_piwik_url'] = 'Matomo/Piwik URL';
+$BL['be_filedownload_direct_blocked'] = '<abbr title="%s">.htaccess</abbr> tarafından engellendi';
+$BL['be_tracking_optout'] = 'çıkış çerezi desteği <i><a href="javascript:gaOptout()"></a></i>';
+$BL['be_require_consent'] = 'Onay olmadan izleme kodunu devre dışı bırak';
+$BL['be_consent_cookie_name'] = 'onay çerezinin adı';
+$BL['be_consent_cookie_value'] = 'onay çerezinin değeri';
+$BL['be_respect_donottrack'] = 'Tarayıcının Do-Not-Track ayarına uy';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
+$BL['be_cc_v3_enable'] = 'Cookie Consent v3 eklentisini etkinleştir (v2 devre dışı kalır)';
+$BL['be_cc_v3_title'] = 'çerez iletişim kutusu başlığı';
+$BL['cc_v3_title_placeholder'] = 'Gizliliğinize değer veriyoruz';
+$BL['be_cc_v3_description'] = 'açıklama';
+$BL['cc_v3_description_placeholder'] = 'Tarama deneyiminizi geliştirmek, kişiselleştirilmiş reklamlar veya içerik sunmak ve trafiğimizi analiz etmek için çerezleri kullanıyoruz. "Tümünü Kabul Et" seçeneğine tıklayarak çerez kullanımımıza izin vermiş olursunuz.';
+$BL['be_cc_v3_accept_all'] = '"tümünü kabul et" düğmesi';
+$BL['cc_v3_accept_all_placeholder'] = 'Tümünü Kabul Et';
+$BL['be_cc_v3_accept_necessary'] = '"gerekli olanları kabul et" düğmesi';
+$BL['cc_v3_accept_necessary_placeholder'] = 'Gerekli Olanları Kabul Et';
+$BL['be_cc_v3_accept_selected'] = '"seçilenleri kabul et" düğmesi';
+$BL['cc_v3_accept_selected_placeholder'] = 'Seçilenleri Kabul Et';
+$BL['be_cc_v3_reject_all'] = '"tümünü reddet" düğmesi';
+$BL['cc_v3_reject_all_placeholder'] = 'Tümünü Reddet';
+$BL['be_cc_v3_customize'] = '"özelleştir" düğmesi';
+$BL['cc_v3_customize_placeholder'] = 'Özelleştir';
+$BL['be_cc_v3_link'] = 'Çerez politikası URL/takma adı';
+$BL['be_cc_v3_more'] = 'ek bilgi metni';
+$BL['be_cc_v3_theme'] = 'tema (boş = açık tema)';
+$BL['cc_v3_more_placeholder'] = 'daha fazla bilgi';
+$BL['be_cc_v3_sections'] = 'çerez bölümleri';
+$BL['be_cc_v3_sections_title'] = 'başlık';
+$BL['be_cc_v3_sections_description'] = 'açıklama';
+$BL['be_cc_v3_sections_active'] = 'bölümü göster';
+$BL['be_cc_v3_section_general'] = 'genel';
+$BL['be_cc_v3_section_general_title_placeholder'] = 'Çerez Tercihlerinizi Yönetin';
+$BL['be_cc_v3_section_general_description_placeholder'] = 'Web sitesinde gezinmenize ve belirli işlevleri çalıştırmanıza yardımcı olmak için çerezler kullanıyoruz. Aşağıdaki her bir onay kategorisi altında tüm çerezler hakkında ayrıntılı bilgi bulabilirsiniz.';
+$BL['be_cc_v3_section_necessary'] = 'gerekli';
+$BL['be_cc_v3_section_necessary_title_placeholder'] = 'Kesinlikle Gerekli Çerezler';
+$BL['be_cc_v3_section_necessary_description_placeholder'] = 'Gerekli çerezler, bu sitenin temel özelliklerini etkinleştirmek için çok önemlidir.';
+$BL['be_cc_v3_section_functional'] = 'işlevsel';
+$BL['be_cc_v3_section_functional_title_placeholder'] = 'İşlevsel Çerezler';
+$BL['be_cc_v3_section_functional_description_placeholder'] = 'İşlevsel çerezler, web sitesinin performansını artırmaya ve tercihlerinizi kaydetmeye yardımcı olur.';
+$BL['be_cc_v3_section_analytics'] = 'analitik';
+$BL['be_cc_v3_section_analytics_title_placeholder'] = 'Performans ve Analiz Çerezleri';
+$BL['be_cc_v3_section_analytics_description_placeholder'] = 'Analitik çerezler, ziyaretçilerin web sitesiyle nasıl etkileşime girdiğini anlamak için kullanılır.';
+$BL['be_cc_v3_section_marketing'] = 'pazarlama';
+$BL['be_cc_v3_section_marketing_title_placeholder'] = 'Reklam ve Pazarlama Çerezleri';
+$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Pazarlama çerezleri, ziyaretçilere ilgi alanlarına göre özelleştirilmiş reklamlar sunmak için kullanılır.';
+$BL['be_cc_v3_section_social'] = 'sosyal medya';
+$BL['be_cc_v3_section_social_title_placeholder'] = 'Sosyal Medya Çerezleri';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Sosyal medya çerezleri, sosyal medya platformlarıyla olan etkileşimleri anlamak için kullanılır.';
+$BL['be_cc_v3_section_more'] = 'daha fazla';
+$BL['be_cc_v3_section_more_title_placeholder'] = 'Daha Fazla Bilgi';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'Çerez politikamızla ilgili sorularınız için lütfen <a class="cc__link" href="#yourdomain.com">bizimle iletişime geçin</a>.';
+$BL['be_cc_v3_builtin'] = 'yerleşik';
+$BL['be_cc_v3_default'] = 'varsayılan';
+$BL['be_cc_v3_btn_flip'] = 'düğmeleri ters çevir';
+$BL['be_cc_v3_btn_equal'] = 'eşit genişlikte düğmeler';
+$BL['be_cc_v3_consent_modal'] = 'onay iletişim kutusu';
+$BL['be_cc_v3_preferences_modal'] = 'tercihler iletişim kutusu';
+$BL['be_cc_v3_layout'] = 'düzen';
+$BL['be_cc_v3_position'] = 'konum';
+$BL['be_cc_v3_top_left'] = 'üst sol';
+$BL['be_cc_v3_top_center'] = 'üst orta';
+$BL['be_cc_v3_top_right'] = 'üst sağ';
+$BL['be_cc_v3_middle_left'] = 'orta sol';
+$BL['be_cc_v3_middle_center'] = 'orta merkez';
+$BL['be_cc_v3_middle_right'] = 'orta sağ';
+$BL['be_cc_v3_bottom_left'] = 'alt sol';
+$BL['be_cc_v3_bottom_center'] = 'alt orta';
+$BL['be_cc_v3_bottom_right'] = 'alt sağ';
+$BL['be_cc_v3_left'] = 'sol';
+$BL['be_cc_v3_right'] = 'sağ';
+$BL['be_cc_v3_top'] = 'üst';
+$BL['be_cc_v3_bottom'] = 'alt';
+$BL['be_cc_v3_reload_on_change'] = 'çerez ayarları değiştiğinde sayfayı yeniden yükle';
+$BL['be_cc_v3_on_change'] = 'değişiklikte';
+$BL['be_iptc_data'] = 'IPTC verileri';
+$BL['be_iptc_as_caption'] = 'ayarlanmamışsa altyazı, telif hakkı vb. için kullan';
+$BL['iptc_ImageDescription'] = 'resim açıklaması';
+$BL['iptc_Copyright'] = 'telif hakkı';
+$BL['iptc_Artist'] = 'sanatçı';
+$BL['iptc_Keywords'] = 'anahtar kelimeler';
+$BL['iptc_CountryDest'] = 'ülke';
+$BL['iptc_ProvinceOrStateDest'] = 'eyalet / il';
+$BL['iptc_CityDest'] = 'şehir';
+$BL['iptc_SublocationDest'] = 'alt konum';
+$BL['iptc_ObjectName'] = 'nesne adı';
+$BL['iptc_SpecialInstructions'] = 'özel talimatlar';
+$BL['iptc_Headline'] = 'başlık';
+$BL['iptc_Credit'] = 'kredi';
+$BL['iptc_Source'] = 'kaynak';
+$BL['iptc_EditStatus'] = 'düzenleme durumu';
+$BL['iptc_iimCategory'] = 'kategori';
+$BL['iptc_iimSupplementalCategory'] = 'ek kategori';
+$BL['iptc_Urgency'] = 'acil durum';
+$BL['iptc_FixtureIdentifier'] = 'sabit tanımlayıcı';
+$BL['iptc_LocationDestCode'] = 'konum kodu';
+$BL['iptc_LocationDest'] = 'konum';
+$BL['iptc_Software'] = 'yazılım';
+$BL['iptc_SoftwareVersion'] = 'yazılım sürümü';
+$BL['iptc_ObjectCycle'] = 'nesne döngüsü';
+$BL['iptc_CountryCodeDest'] = 'ülke kodu';
+$BL['iptc_OriginalTransmissionRef'] = 'orijinal iletim referansı';
+$BL['iptc_Contact'] = 'iletişim';
+$BL['iptc_Writer'] = 'yazar';
+$BL['iptc_LanguageCode'] = 'dil kodu';
+$BL['iptc_DateTimeOriginal'] = 'orijinal tarih/saat';
+$BL['iptc_DateTimeDigitized'] = 'sayısallaştırma tarihi/saati';
+$BL['iptc_DateTimeReleased'] = 'yayın tarihi/saati';
+$BL['iptc_DateTimeExpires'] = 'son kullanma tarihi/saati';
+$BL['iptc_IntellectualGenre'] = 'entelektüel tür';
+$BL['iptc_SubjectNewsCode'] = 'haber konu kodu';
+$BL['iptc_iimVersion'] = 'sürüm';
+$BL['be_suppress_render_caption'] = 'altyazıyı işleme';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
+$BL['be_cnt_avoid_duplicates'] = 'yalnızca benzersiz değerlere izin ver';
+$BL['be_not_set'] = 'ayarlanmadı';
+$BL['be_licensed_under_GPL'] = 'GPL altında lisanslanmıştır.';
+$BL['be_extensions_copyright'] = 'Uzantıların telif hakkı ilgili yazarlarına aittir.';
+$BL['be_allowed_filetypes'] = 'İzin verilen dosya türleri';
+$BL['be_imagediv_template_toggle_warning'] = 'Şablonu değiştirmek özel alanları değiştirebilir ve değerlerin kaybolmasına neden olabilir.
+
+Devam etmek istediğinizden emin misiniz?';
+$BL['be_password_show'] = 'Parolayı göster';
+$BL['be_password_hide'] = 'Parolayı gizle';
+$BL['be_admin_template_choose_file'] = 'Metin şablonu veya dosya şablonu seçin';
+$BL['be_flashplayer_marker'] = 'İşaretçi';
+$BL['be_marker_time'] = 'Zaman (saniye, örn. 10.5)';
+$BL['be_marker_text'] = 'Metin';
+$BL['be_marker_overlaytext'] = 'Katman Metni';
+$BL['copy_to_clipboard'] = 'Panoya kopyala';
+$BL['url_parameter'] = 'URL Parametresi';
+$BL['file_extension'] = 'Uzantı';
+$BL['download_link'] = 'İndirme Bağlantısı';
+$BL['disposition_attachment'] = 'Ek';
+$BL['disposition_attachment_description'] = 'doğrudan indirme';
+$BL['disposition_inline'] = 'Satır içi';
+$BL['disposition_inline_description'] = 'tarayıcıda göster';
+$BL['be_robots'] = 'Robotlar Dizini';
+$BL['be_robots_noindex'] = 'arama motoru dizinine eklemeyi engelle (noindex)';
+$BL['be_robots_nofollow'] = 'bağlantıları takip etme (nofollow)';
+$BL['be_cnt_form_direct_download'] = 'indirmeye izin ver';
+$BL['be_cnt_form_direct_download_apikey'] = 'API Anahtarı';
+$BL['be_cnt_form_apikey_reset'] = 'sıfırla';
+$BL['be_copy_link'] = 'bağlantıyı kopyala';
+$BL['be_articlebrowser_selector'] = 'Makale Tarayıcısı Seçici';
+$BL['be_about_headline'] = 'phpwcms içerik yönetim sistemi';
+$BL['be_about_version'] = 'Sürüm';
+$BL['be_about_maintainer'] = 'Geliştirici';
+$BL['be_about_website'] = 'Web sitesi';
+$BL['be_about_copyright'] = 'Telif hakkı';
+$BL['be_about_contributors'] = 've katkıda bulunanlar';
+$BL['be_about_and_contributors'] = 've diğer katkıda bulunanlar (özellikle Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23 ve diğerleri) – lisanslar ve telif hakları için <a href="https://github.com/systron-dev/phpwcms" title="GitHub Kaynak Kodu" target="_blank">kaynak koduna</a> bakın.';
+$BL['modal_confirm'] = 'Onayla';
+$BL['modal_cancel'] = 'İptal';
+$BL['modal_title_confirm'] = 'Onay';
+$BL['modal_title_alert'] = 'Bilgi';
+$BL['modal_ok'] = 'Tamam';
+$BL['modal_delete'] = 'Sil';
+$BL['modal_move'] = 'Taşı';
+$BL['modal_copy'] = 'Kopyala';
+$BL['modal_flush'] = 'Temizle';
+$BL['be_metadata'] = 'Meta veriler';
+$BL['be_content'] = 'İçerik';
+$BL['be_images'] = 'Resimler';
+$BL['be_article_show'] = 'Göster';
+$BL['be_active'] = 'Etkin';
+$BL['be_cnt_summary_label'] = 'Özet';
+$BL['be_cnt_max_words'] = 'maks. kelime sayısı';
+$BL['be_dashboard_support'] = 'İletişim & Destek';
+$BL['be_cnt_openarticlebrowser'] = 'makale tarayıcısını aç';
+$BL['be_nav_toggle_navigation'] = 'Gezinmeyi aç/kapat';
+$BL['be_ctype_custom'] = 'özel içerik öğesi';
+$BL['be_cnt_custom_entry'] = 'Öğe';
+$BL['be_cnt_custom_entries'] = 'Öğeler';
+$BL['be_cnt_title_overview'] = 'Genel Bakış';
+$BL['be_article_opposite_lang'] = 'Diğer diller';
+$BL['be_tooltip_visibility'] = 'etkinleştir / devre dışı bırak';
+$BL['be_tooltip_filter_user'] = 'Kullanıcı adı, isim veya e-postaya göre filtrele';
+$BL['be_tooltip_filter_for'] = 'Şuna göre filtrele';
+$BL['be_btn_preview'] = 'Önizleme';
+$BL['be_cnt_title_multiupload'] = 'Resimleri ve dosyaları bu pencereye sürükleyin';
+$BL['be_input_text_tab'] = 'Terimi girin ve Sekme tuşu ile onaylayın';
+$BL['be_tt_duplicate'] = 'Çoğalt';
+$BL['be_tt_edit'] = 'Düzenle';
+$BL['be_tt_delete'] = 'Sil';
+$BL['be_tt_delete_pagelayout'] = 'Sayfa düzenini sil';
+$BL['be_subnav_admin_users_overview'] = 'Kullanıcı genel bakışı';
+$BL['be_cnt_several'] = 'Diğer';
+$BL['be_mailinglist_new'] = 'Yeni e-posta listesi oluştur';
+$BL['be_mailinglist_overview_subscribers'] = 'Aboneler';
+$BL['be_mailinglist_verified'] = '%s doğrulandı/doğrulanmadı olarak ayarla';
+$BL['be_mailinglist_delete_subscriber'] = 'Aboneyi sil';
+$BL['be_mailinglist_delete_list'] = 'E-posta listesini sil';
+$BL['be_mailinglist_cannotdelete_list'] = 'Abone mevcut olduğundan e-posta listesi silinemez';
+$BL['be_msg_opend'] = 'Açıldı';
+$BL['be_admin_group'] = 'İzinler';
+$BL['be_admin_group_edit'] = 'İzinleri düzenle';
+$BL['be_admin_group_ldel'] = 'İzin grubunu sil';
+$BL['be_imagealias'] = 'Resim Takma Adları';
+$BL['count'] = ' güncellenecek takma ad girişi kaldı';
+$BL['nocount'] = 'Tüm takma ad girişleri mevcut';
+$BL['counttotal'] = ' girilen takma ad girişi';
+$BL['f_alias'] = '<p><b>Takma ad alanları veritabanına eklendi</b></p>';
+$BL['be_ctptemp'] = 'İçerik Öğesi Şablonları';
+$BL['file_copy'] = 'Şablonu kopyala';
+$BL['file_rename'] = 'Şablonu yeniden adlandır';
+$BL['file_delete'] = 'Şablonu sil';
+$BL['list_files'] = 'Bu şablona sahip makaleleri listele';
+$BL['show_code'] = 'Şablon kaynak kodunu göster';
+$BL['label_default'] = 'Varsayılan Şablon (/inc_default)';
+$BL['label_folder'] = 'Dosya Klasörü';
+$BL['label_custom'] = 'Şablonlar';
+$BL['label_sample'] = 'Örnek Klasör';
+$BL['success_msg'] = ' Şablon başarıyla kopyalandı. Lütfen şablonu yeniden adlandırın ve uyarlayın.';
+$BL['success_msg_error'] = ' Şablon kopyalanamadı.';
+$BL['deleted_msg'] = ' Şablon başarıyla kaldırıldı';
+$BL['deleted_msg_error'] = ' Şablon silinemedi.';
+$BL['rename_msg'] = ' Şablon başarıyla yeniden adlandırıldı.';
+$BL['rename_msg_error'] = ' Şablon yeniden adlandırılamadı.';
+$BL['be_acat_urlalias'] = 'Site haritası takma adı';
+$BL['be_acat_pagetitle'] = 'Mevcut sayfa başlığı';
+$BL['be_acat_alias'] = 'Mevcut takma ad';
+$BL['be_article_description'] = 'Mevcut açıklama';
+$BL['be_func_struct_more_action'] = 'Eylemler';
+$BL['be_func_open_articlebrowser'] = 'makale tarayıcısını aç';
+$BL['be_amount_results'] = 'Miktar';
+$BL['be_news_edit'] = 'haberi düzenle';
+$BL['be_news_copy'] = 'haberi kopyala';
+$BL['be_news_add'] = 'haber ekle';
+$BL['be_news_list'] = 'haberler';
+$BL['be_text_full'] = 'tam metin';
+$BL['login_welcome'] = 'Hoş geldiniz';
+$BL['be_sqlshortdate'] = '%d.%m.%y';
+$BL['be_sqlshortdatetime'] = '%d.%m.%y %H:%i';
+$BL['be_sqllongdatetime'] = '%d.%m.%Y %H:%i:%s';
+$BL['be_fprivfunc_notrash'] = 'Silme izni yok';
+$BL['ADD_ALL_FILES'] = 'Tüm Dosyaları Ekle';
+$BL['ADD_ALL_CONFIRM'] = '»{VAL}« klasöründeki tüm dosyalar eklendi!
+
+Dosya tarayıcısını kapatmak için [Tamam] düğmesine tıklayın…';
+$BL['be_subnav_file_actions'] = 'dosya işlemleri';
+$BL['be_ftptakeover_new_folder'] = 'klasör oluştur';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'kök dizindeki yeni klasörün adı';
+$BL['be_fprivup_err7'] = 'Güvenlik nedeniyle %s dosyası yüklenemez.';
+$BL['be_fprivup_err8'] = '%s uzantılı dosyaların yüklenmesine izin verilmez. İzin verilen uzantılar: %s.';
+$BL['be_fprivup_err9'] = 'Uzantısı olmayan dosyaların yüklenmesine izin verilmez. İzin verilen uzantılar: %s.';
+$BL['be_fprivup_err12'] = '<strong>%s</strong> dosyası hedef dizinde zaten mevcut.';
+$BL['be_cnt_pages_php_render_warning'] = 'satır içi PHP <code>$phpwcms[\'enable_inline_php\']</code> devre dışı bırakıldı';
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = '<a href="https://tr.wikipedia.org/wiki/Genel_Veri_Koruma_Y%C3%B6netmeli%C4%9Fi" target="_blank">Genel Veri Koruma Yönetmeliği</a>\'ne (GDPR) göre Double Opt-In\'i etkinleştir';
+$BL['be_cnt_novalidate'] = 'Novalidate';
+$BL['be_cnt_status'] = 'içerik öğesi takma adı görünürlüğü';
+$BL['be_cnt_search_hidesummary'] = 'arama özet metnini gizle';
+$BL['be_cnt_search_searchnot'] = 'şunu arama';
+$BL['be_check_login_allow_email'] = 'E-postayı kullanıcı adı olarak kabul et';
+$BL['be_check_against_category_alias'] = 'yapı seviyesi içindeki tek makaleyi yapı seviyesiyle bağla';
+
+
+// Complete batch 1 additions
+$BL['be_ftabhelp_add'] = 'yeni özel dizin ekle';
+$BL['be_ftabhelp_upload'] = 'özel dizine yeni dosya yükle';
+$BL['be_ftabhelp_disablethumb'] = 'dosya listesinde küçük resimleri devre dışı bırak';
+$BL['be_ftabhelp_enablethumb'] = 'dosya listesinde küçük resimleri etkinleştir';
+$BL['be_ftabhelp_edit'] = 'dosya bilgi ayrıntılarını düzenle';
+$BL['be_ftabhelp_cut'] = 'başka bir dizine taşımak için dosyayı panoya kes';
+$BL['be_ftabhelp_cutmark'] = 'işaretli dosya panoda';
+$BL['be_ftabhelp_paste'] = 'dosyayı bu dizine yapıştır';
+$BL['be_ftabhelp_download'] = 'dosyayı indir';
+$BL['be_ftabhelp_delete'] = 'dizini sil veya dosyayı çöp kutusuna taşı';
+$BL['be_ftabhelp_cantdelete'] = 'dizin dosya veya alt dizin içerdiğinden silinemez';
+$BL['be_ftabhelp_restore'] = 'dosyayı çöp kutusundan geri yükle';
+$BL['be_ftabhelp_openfolder'] = 'tüm dizinleri ve alt dizinleri aç';
+$BL['be_ftabhelp_closefolder'] = 'tüm dizinleri ve alt dizinleri kapat';
+$BL['be_ftabhelp_inactive'] = 'dosya veya dizin etkin değil - etkinleştirmek için tıklayın';
+$BL['be_ftabhelp_active'] = 'dosya veya dizin etkin - devre dışı bırakmak için tıklayın';
+$BL['be_ftabhelp_private'] = 'dosya veya dizin özel - herkese açık yapmak için tıklayın';
+$BL['be_ftabhelp_public'] = 'dosya veya dizin herkese açık - özel yapmak için tıklayın';
+$BL['be_fpriv_errordir'] = 'hata: dizin kendisinin alt dizini olamaz';
+$BL['be_fprivup_err10'] = 'Yüklenen dosya veya istek sunucu sınırını aşıyor (post_max_size: %s). Lütfen daha küçük bir dosya yükleyin.';
+$BL['be_fprivup_err11'] = '"%s" dosyası çok büyük (%s). İzin verilen maksimum boyut: %s.';
+$BL['be_admin_struct_alt'] = 'kategori alternatif başlığı';
+$BL['be_article_created_at'] = 'oluşturulma tarihi';
+$BL['be_article_updated_at'] = 'güncellenme tarihi';
+$BL['be_article_cnt_anchor'] = 'çapa';
+$BL['be_cnt_poll_choices'] = 'seçenekler';
+$BL['be_cnt_search_default_type'] = 'arama türü';
+$BL['be_cnt_sitemap_without_parent'] = 'başlangıç seviyesi olmadan';
+$BL['be_cnt_css_class'] = 'CSS sınıfı';
+$BL['be_cnt_plugin_n.a.'] = 'eklenti mevcut değil';
+$BL['gd_not_loaded'] = '<strong>GD işlevi mevcut değil!</strong> Lütfen PHP GD kütüphanesinin etkinleştirildiğinden emin olun.';
+$BL['be_fileuploader_uploadButtonText'] = 'Dosyaları seçin veya buraya bırakın';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Dosyaları seçin veya buraya bırakın</span><br><small class="text-muted">Bu alana tıklayın veya dosyaları sürükleyip bırakın</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Tarayıcınız sürükle ve bırak dosya yüklemelerini desteklemiyor.';
+$BL['be_fileuploader_dictFileTooBig'] = 'Dosya çok büyük ({{filesize}}MiB). Maksimum dosya boyutu: {{maxFilesize}}MiB.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Bu türdeki dosyalar geçerli filtre modunda yüklenemez.';
+$BL['be_fileuploader_dictResponseError'] = 'Sunucu {{statusCode}} koduyla yanıt verdi.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Yüklemeyi iptal et';
+$BL['be_fileuploader_dictRemoveFile'] = 'Dosyayı kaldır';
+$BL['CSRF_ERROR_TITLE'] = 'Güvenlik Doğrulaması Başarısız Oldu';
+$BL['CSRF_POST_INVALID'] = '<a href="https://tr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parametreleri bulunamadı. Form gönderimi iptal edildi.';
+$BL['CSRF_POST_FAILED'] = '<a href="https://tr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> POST parametreleri doğrulanamadı. Form gönderimi iptal edildi.';
+$BL['CSRF_GET_INVALID'] = '<a href="https://tr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parametreleri bulunamadı. Gezinme iptal edildi.';
+$BL['CSRF_GET_FAILED'] = '<a href="https://tr.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener noreferrer">CSRF</a> GET parametreleri doğrulanamadı. Gezinme iptal edildi.';
+$BL['CSRF_BTN_BACK'] = 'Geri Dön';
+$BL['CSRF_BTN_LOGIN'] = 'Giriş Yap';
+$BL['CSRF_BTN_DASHBOARD'] = 'Kontrol Paneli';

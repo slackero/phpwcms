@@ -69,18 +69,20 @@ if (!defined('PHPWCMS_ROOT')) {
             // check available languages installed and build language selector menu
             include_once PHPWCMS_ROOT."/include/inc_lang/code.lang.inc.php";
             $lang_dirs = opendir(PHPWCMS_ROOT."/include/inc_lang/backend");
+            $lang_options = array();
             while($lang_codes = readdir( $lang_dirs )) {
-                    if( substr($lang_codes, 0, 1) !== '.' && file_exists(PHPWCMS_ROOT."/include/inc_lang/backend/".$lang_codes."/lang.inc.php")) {
-                            echo '<option value="'.$lang_codes.'"';
-                            if($lang_codes == $_SESSION["wcs_user_lang"]) {
-                                    echo ' selected="selected"';
-                            }
-                            echo '>';
-                            echo (isset($BL[strtoupper($lang_codes)])) ? $BL[strtoupper($lang_codes)] : strtoupper($lang_codes);
-                            echo "</option>\n";
-                    }
+                if( substr($lang_codes, 0, 1) !== '.' && is_file(PHPWCMS_ROOT."/include/inc_lang/backend/".$lang_codes."/lang.inc.php")) {
+                    $_lang_code = strtoupper($lang_codes);
+                    $lang_options[$_lang_code]  = '<option value="'.$lang_codes.'"';
+                    $lang_options[$_lang_code] .= ($lang_codes == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
+                    $lang_options[$_lang_code] .= '>';
+                    $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
+                    $lang_options[$_lang_code] .= "</option>\n";
+                }
             }
             closedir( $lang_dirs );
+            ksort($lang_options);
+            echo implode('', $lang_options);
             $wysiwygTemplates['editor'] = empty($_SESSION["WYSIWYG_EDITOR"]) ? 0 : 1;
             ?>
         </select>

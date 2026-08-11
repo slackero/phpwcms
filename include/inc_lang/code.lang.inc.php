@@ -8,32 +8,49 @@
  *
  **/
 
-$BL['EN'] = 'English';
-$BL['AR'] = '&#1593;&#1585;&#1576;&#1610;';
-$BL['BG'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
-$BL['BS'] = 'Bosanski';
-$BL['CA'] = 'Catal&agrave;';
-$BL['CZ'] = '&#268;esky (CZ)';
-$BL['CS'] = '&#268;esky (CS)';
-$BL['DA'] = 'Dansk';
-$BL['DE'] = 'Deutsch';
+$BL['AR']    = 'العربية';
+$BL['BG']    = 'Български';
+$BL['BS']    = 'Bosanski';
+$BL['CA']    = 'Català';
+$BL['CS']    = 'Čeština';
+$BL['CZ']    = 'Česky (CZ)';
+$BL['DA']    = 'Dansk';
+$BL['DE']    = 'Deutsch';
 $BL['DE-CH'] = 'Deutsch (CH)';
-$BL['ET'] = 'Eesti';
-$BL['ES'] = 'Espa&ntilde;ol';
-$BL['FR'] = 'Fran&ccedil;ais';
-$BL['GR'] = '&#917;&#955;&#955;&#951;&#957;&#953;&#954;&#940;';
-$BL['IT'] = 'Italiano';
-$BL['LT'] = 'Lietuviu';
-$BL['HU'] = 'Magyar';
-$BL['NL'] = 'Nederlands';
-$BL['NO'] = 'Norsk';
-$BL['PL'] = 'Polski';
-$BL['PT'] = 'Portugu&ecirc;s';
-$BL['RO'] = 'Rom&acirc;n&#259;';
-$BL['FI'] = 'Suomi';
-$BL['SE'] = 'Svenska';
-$BL['RU'] = '&#1056;&#1091;&#1089;&#1089;&#1082;&#1086;&#1084;';
-$BL['SK'] = 'Sloven&#269;ina';
-$BL['SL'] = 'Sloven&scaron;&#269;ina';
-$BL['TR'] = 'T&uuml;rk&ccedil;e';
-$BL['VN'] = 'Ti&#7871;ng Vi&#7879;t';
+$BL['EL']    = 'Ελληνικά';
+$BL['EN']    = 'English';
+$BL['ES']    = 'Español';
+$BL['ET']    = 'Eesti';
+$BL['FI']    = 'Suomi';
+$BL['FR']    = 'Français';
+$BL['GR']    = 'Ελληνικά';
+$BL['HU']    = 'Magyar';
+$BL['IT']    = 'Italiano';
+$BL['LT']    = 'Lietuvių';
+$BL['NL']    = 'Nederlands';
+$BL['NO']    = 'Norsk';
+$BL['PL']    = 'Polski';
+$BL['PT']    = 'Português';
+$BL['RO']    = 'Română';
+$BL['RU']    = 'Русский';
+$BL['SE']    = 'Svenska';
+$BL['SK']    = 'Slovenčina';
+$BL['SL']    = 'Slovenščina';
+$BL['SV']    = 'Svenska';
+$BL['TR']    = 'Türkçe';
+$BL['VI']    = 'Tiếng Việt';
+$BL['VN']    = 'Tiếng Việt';
+
+if (defined('PHPWCMS_CHARSET') && PHPWCMS_CHARSET !== 'utf-8' && function_exists('mb_encode_numericentity')) {
+    $_lang_keys = [
+        'AR', 'BG', 'BS', 'CA', 'CS', 'CZ', 'DA', 'DE', 'DE-CH', 'EL', 'EN', 'ES',
+        'ET', 'FI', 'FR', 'GR', 'HU', 'IT', 'LT', 'NL', 'NO', 'PL', 'PT', 'RO',
+        'RU', 'SE', 'SK', 'SL', 'SV', 'TR', 'VI', 'VN'
+    ];
+    foreach ($_lang_keys as $_lang_key) {
+        if (isset($BL[$_lang_key])) {
+            $BL[$_lang_key] = mb_encode_numericentity($BL[$_lang_key], [0x80, 0x10FFFF, 0, 0x1FFFFF], 'UTF-8');
+        }
+    }
+    unset($_lang_keys, $_lang_key);
+}

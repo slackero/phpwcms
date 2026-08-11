@@ -67,7 +67,7 @@ $BL['be_func_struct_spublic'] = '&Ouml;ffentlichkeit umschalten';
 $BL['be_func_struct_sort_up'] = 'Sortieren: hoch';
 $BL['be_func_struct_sort_down'] = 'Sortieren: runter';
 $BL['be_func_struct_del_article'] = 'Artikel l&ouml;schen';
-$BL['be_func_struct_del_jsmsg'] = 'M&ouml;chten Sie den Artikel \nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_jsmsg'] = 'M&ouml;chten Sie den Artikel\nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article'] = 'Neuen Artikel erstellen in Strukturebene';
 $BL['be_func_struct_new_article_short']   = 'Neuen Artikel erstellen';
 $BL['be_func_struct_paste_article'] = 'Artikel einf&uuml;gen in Strukturebene';
@@ -81,7 +81,7 @@ $BL['be_func_struct_no_paste2'] = 'Ist Kind in der Wurzelebene der Baumstruktur'
 $BL['be_func_struct_no_paste3'] = 'Sollte hier eingef&uuml;gt werden';
 $BL['be_func_struct_paste_cancel'] = 'Strukturebenen-Wechsel abbrechen';
 $BL['be_func_struct_del_struct'] = 'Strukturebene l&ouml;schen';
-$BL['be_func_struct_del_sjsmsg'] = 'M&ouml;chten Sie die Strukturebene \nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_sjsmsg'] = 'M&ouml;chten Sie die Strukturebene\nwirklich l&ouml;schen?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open'] = '&Ouml;ffnen';
 $BL['be_func_struct_close'] = 'Schliessen';
 $BL['be_func_struct_empty'] = 'leer';
@@ -112,7 +112,7 @@ $BL['be_profile_update_error'] = 'Fehler beim Aktualisieren des Profils.';
 
 // profile.updateaccount.inc.php
 $BL['be_profile_account_err1'] = 'Benutzername {VAL} ist ung&uuml;ltig';
-$BL['be_profile_account_err2'] = 'Kennwort zu kurz  (nur {VAL} Buchstaben: mind. 5 n&ouml;tig)';
+$BL['be_profile_account_err2'] = 'Kennwort zu kurz (nur {VAL} Buchstaben: mind. 5 n&ouml;tig)';
 $BL['be_profile_account_err3'] = 'Kennwortwiederholung stimmt nicht mit Kennwort &uuml;berein';
 $BL['be_profile_account_err4'] = 'E-Mail {VAL} ist ung&uuml;ltig';
 
@@ -259,7 +259,7 @@ $BL['be_fprivfunc_edit'] = 'Verzeichnis bearbeiten';
 $BL['be_fprivfunc_cactive'] = 'Wechsel aktiv/inaktiv';
 $BL['be_fprivfunc_cpublic'] = 'Wechsel &ouml;ffentlich/nicht &ouml;ffentlich';
 $BL['be_fprivfunc_deldir'] = 'Verzeichnis l&ouml;schen';
-$BL['be_fprivfunc_jsdeldir'] = 'M&ouml;chten Sie das Verzeichnis \nwirklich l&ouml;schen?';
+$BL['be_fprivfunc_jsdeldir'] = 'M&ouml;chten Sie das Verzeichnis\nwirklich l&ouml;schen?';
 $BL['be_fprivfunc_notempty'] = 'Das Verzeichnis {VAL} ist nicht leer!';
 $BL['be_fprivfunc_notempty_short']        = 'Verzeichnis ist nicht leer!';
 $BL['be_fprivfunc_opendir'] = 'Verzeichnis &ouml;ffnen';
@@ -286,7 +286,7 @@ $BL['be_ftrash_nofiles'] = 'Papierkorb ist leer';
 $BL['be_ftrash_show'] = 'Eigene Dateien zeigen';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore'] = 'Datei {VAL} \nin in eigene Dateien\nzur&uuml;cklegen?';
+$BL['be_ftrash_restore'] = 'Datei {VAL}\nin in eigene Dateien\nzur&uuml;cklegen?';
 $BL['be_ftrash_delete'] = 'Datei {VAL} wirklich l&ouml;schen?';
 $BL['be_ftrash_undo'] = 'Wiederherstellen (aus Papierkorb herausnehmen)';
 $BL['be_ftrash_delfinal'] = 'endg&uuml;ltig l&ouml;schen';
@@ -363,7 +363,7 @@ $BL['be_admin_usr_err3'] = 'Kennwort ist leer (ben&ouml;tigt)';
 $BL['be_admin_usr_err4'] = "E-Mail ist ung&uuml;ltig";
 $BL['be_admin_usr_err'] = 'Fehler';
 $BL['be_admin_usr_mailsubject'] = 'Willkommen im phpwcms Backend';
-$BL['be_admin_usr_mailbody'] = "WILLKOMMEN IM PHPWCMS! BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_mailbody'] = "WILLKOMMEN IM PHPWCMS! BACKEND\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n";
 $BL['be_admin_usr_title'] = 'Neuen Benutzer anlegen';
 $BL['be_admin_usr_realname'] = 'Wahrer Name';
 $BL['be_admin_usr_setactive'] = 'Aktivieren';
@@ -377,7 +377,7 @@ $BL['be_admin_usr_button'] = 'Benutzerdaten speichern';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle'] = 'Benutzerdaten bearbeiten';
 $BL['be_admin_usr_emailsubject'] = 'phpwcms - Anmeldedaten ge&auml;ndert';
-$BL['be_admin_usr_emailbody'] = "PHPWCMS! ANMELDEDATEN GE&Auml;NDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n ";
+$BL['be_admin_usr_emailbody'] = "PHPWCMS! ANMELDEDATEN GE&Auml;NDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n";
 $BL['be_admin_usr_passnochange'] = '[KEINE &Auml;NDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
 $BL['be_admin_usr_ebutton'] = 'Benutzerdaten aktualisieren';
 
@@ -564,9 +564,9 @@ $BL['be_cnt_pos4i'] = 'Bild zentriert unter dem Textblock anordnen';
 $BL['be_cnt_pos5i'] = 'Bild rechts unter dem Textblock anordnen';
 $BL['be_cnt_pos6i'] = 'Bild innerhalb des Textblocks links anordnen';
 $BL['be_cnt_pos7i'] = 'Bild innerhalb des Textblocks rechts anordnen';
-$BL['be_cnt_maxw'] = 'max.&nbsp;Breite';
-$BL['be_cnt_maxh'] = 'max.&nbsp;H&ouml;he';
-$BL['be_cnt_enlarge'] = 'Klick&nbsp;vergr&ouml;ssern';
+$BL['be_cnt_maxw'] = 'max. Breite';
+$BL['be_cnt_maxh'] = 'max. H&ouml;he';
+$BL['be_cnt_enlarge'] = 'Klick vergr&ouml;ssern';
 $BL['be_cnt_caption'] = 'Bildunterzeile';
 $BL['be_cnt_subject'] = 'Betreff';
 $BL['be_cnt_recipient'] = 'Empf&auml;nger';
@@ -609,7 +609,7 @@ $BL['be_cnt_target3'] = 'im selben Fenster ohne Frames';
 $BL['be_cnt_target4'] = 'im selben Frame oder Fenster';
 $BL['be_cnt_bullet'] = 'Aufz&auml;hlung';
 $BL['be_cnt_ullist'] = 'Liste';
-$BL['be_cnt_ullist_desc'] = '~ = 1. Ebene, &nbsp ~~ = 2. Ebene, &nbsp; usw.';
+$BL['be_cnt_ullist_desc'] = '~ = 1. Ebene, ~~ = 2. Ebene, usw.';
 $BL['be_cnt_linklist'] = 'Linkliste';
 $BL['be_cnt_plainhtml'] = 'reines HTML';
 $BL['be_cnt_files'] = 'Dateien';
@@ -658,7 +658,7 @@ $BL['be_admin_tmpl_nolayout'] = 'Kein Seitenlayout verf&uuml;gbar!';
 // added: 31-12-2003
 $BL['be_ctype_search'] = 'Suche';
 $BL['be_cnt_results'] = 'Ergebnisse';
-$BL['be_cnt_results_per_page'] = 'pro&nbsp;Seite (wenn leer, zeige max. 25)';
+$BL['be_cnt_results_per_page'] = 'pro Seite (wenn leer, zeige max. 25)';
 $BL['be_cnt_opennewwin'] = '&Ouml;ffne neues Fenster';
 $BL['be_cnt_searchlabeltext'] = 'Dies sind vordefinierte Texte und Werte f&uuml;r die Anzeige des Suchformulars sowie der Suchergebnis-Seiten, wenn die Anzahl an Suchergebnissen pro Seite gr&ouml;sser ist';
 $BL['be_cnt_input'] = 'Eingabe';
@@ -720,7 +720,7 @@ $BL['be_ctype_guestbook'] = 'G&auml;stebuch/Kommentar';
 $BL['be_cnt_guestbook_listing'] = 'Anzeige';
 $BL['be_cnt_guestbook_listing_all'] = 'Alle Eintr&auml;ge';
 $BL['be_cnt_guestbook_list'] = 'Zeige';
-$BL['be_cnt_guestbook_perpage'] = 'Eintr&auml;ge&nbsp;je&nbsp;Seite';
+$BL['be_cnt_guestbook_perpage'] = 'Eintr&auml;ge je Seite';
 $BL['be_cnt_guestbook_form'] = 'Formular';
 $BL['be_cnt_guestbook_signed'] = 'Eingetragen';
 $BL['be_cnt_guestbook_nav'] = 'Navigation';
@@ -790,7 +790,7 @@ $BL['be_cnt_bid_errortext'] = 'Gel&ouml;scht';
 $BL['be_cnt_bid_startbid'] = 'Startgebot';
 
 // added: 29-04-2004
-$BL['be_cnt_bid_nextbidadd'] = 'erh&ouml;hen&nbsp;um';
+$BL['be_cnt_bid_nextbidadd'] = 'erh&ouml;hen um';
 
 // added: 10-05-2004
 $BL['be_ctype_pages'] = 'Ext. Content';
@@ -829,7 +829,7 @@ $BL['be_cnt_guestbook_setcookie'] = 'Cookie setzen';
 $BL['be_cnt_guestbook_allowed'] = 'erneut erlaubt nach';
 $BL['be_cnt_guestbook_seconds'] = 'Sekunden';
 $BL['be_alias_ID'] = 'Alias ID';
-$BL['be_ftrash_delall'] = "M&ouml;chten Sie wirklich \nALLE DATEIEN im Papierkorb l&ouml;schen?";
+$BL['be_ftrash_delall'] = "M&ouml;chten Sie wirklich\nALLE DATEIEN im Papierkorb l&ouml;schen?";
 $BL['be_ftrash_delallfiles'] = 'Alle Dateien im Papierkorb l&ouml;schen';
 
 // added: 16-08-2004
@@ -909,7 +909,7 @@ $BL['be_forum_titleedit'] = 'Forum bearbeiten';
 $BL['be_admin_page_customblocks'] = 'Eigene';
 $BL['be_show_content'] = 'Ausgabe';
 $BL['be_main_content'] = 'Hauptspalte';
-$BL['be_admin_template_jswarning'] = 'Achtung!!! \nEs kann zu &Auml;nderungen der \nnutzerdefinierten Bl&ouml;cke kommen! \n\nWenn Sie abbrechen, setzen Sie \nden Wert f&uuml;r das Seitenlayout zur&uuml;ck! \n\nWirklich Vorlage &auml;ndern?\n\n';
+$BL['be_admin_template_jswarning'] = 'Achtung!!!\nEs kann zu &Auml;nderungen der\nnutzerdefinierten Bl&ouml;cke kommen!\n\nWenn Sie abbrechen, setzen Sie\nden Wert f&uuml;r das Seitenlayout zur&uuml;ck!\n\nWirklich Vorlage &auml;ndern?\n\n';
 
 $BL['be_ctype_rssfeed'] = 'RSS Feed';
 $BL['be_cnt_rssfeed_url'] = 'RSS URL';
@@ -991,7 +991,7 @@ $BL['be_cnt_read'] = 'Lesen';
 $BL['be_cnt_no_wysiwyg_editor'] = 'WYSIWYG Editor ausschalten';
 $BL['be_cnt_cache_update'] = 'Cache zur&uuml;cksetzen';
 $BL['be_cnt_cache_delete'] = 'Cache l&ouml;schen';
-$BL['be_cnt_cache_delete_msg'] = 'Soll der Cache wirklich gel&ouml;scht werden?  \nDies kann die Suche beeinflussen.  \n';
+$BL['be_cnt_cache_delete_msg'] = 'Soll der Cache wirklich gel&ouml;scht werden?\nDies kann die Suche beeinflussen.\n';
 
 $BL['be_admin_usr_issection'] = 'Login-Bereich';
 $BL['be_admin_usr_ifsection0'] = 'Frontend';
@@ -1009,7 +1009,7 @@ $BL['be_func_content_no_copy'] = 'Es ist nicht m&ouml;glich, diesen Inhaltsabsch
 $BL['be_func_content_paste_cancel'] = 'Inhaltsabschnitt-&Auml;nderung abbrechen';
 
 $BL['be_cnt_move_deleted'] = 'Dateien final l&ouml;schen';
-$BL['be_cnt_move_deleted_msg'] = 'Sollen wirklich alle Dateien,  \ndie als gel&ouml;scht markiert sind in den  \nL&ouml;schordner verschoben werden?  \n';
+$BL['be_cnt_move_deleted_msg'] = 'Sollen wirklich alle Dateien,\ndie als gel&ouml;scht markiert sind in den\nL&ouml;schordner verschoben werden?\n';
 
 $BL['be_admin_struct_permit'] = 'Zugriffsberechtigt (leer f&uuml;r Jeden)';
 $BL['be_admin_struct_adduser_all'] = 'Alle Benutzer &uuml;bernehmen';
@@ -1039,14 +1039,14 @@ $BL['be_admin_keywords_key'] = 'KEYWORD';
 $BL['be_admin_keywords_err'] = 'Kein eindeutiger Namer f&uuml;r das KEYWORD eintragen';
 $BL['be_admin_keyword_edit'] = 'KEYWORD editieren';
 $BL['be_admin_keyword_del'] = 'KEYWORD l&ouml;schen';
-$BL['be_admin_keyword_delmsg'] = 'Soll das KEYWORD wirklich \ngel&ouml;scht werden?';
+$BL['be_admin_keyword_delmsg'] = 'Soll das KEYWORD wirklich\ngel&ouml;scht werden?';
 $BL['be_admin_keyword_add'] = 'Neues KEYWORD';
 
 $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Enddatum';
-$BL['be_func_switch_contentpart'] = 'Soll der Inhaltsabschnitt wirklich ge&auml;ndert werden? \n\nBitte sind Sie &auml;usserst vorsichtig damit! \nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden! \n';
+$BL['be_func_switch_contentpart'] = 'Soll der Inhaltsabschnitt wirklich ge&auml;ndert werden?\n\nBitte sind Sie &auml;usserst vorsichtig damit!\nWichtige Einstellungen k&ouml;nnten &uuml;berschrieben werden!\n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ACHTUNG!</strong> Das &quot;CODE-SNIPPETS&quot; Verzeichnis ist noch immer vorhanden! L&ouml;schen Sie das Verzeichnis <strong>&quot;phpwcms_code_snippets&quot;</strong>, sonst haben Sie ein potentielles Sicherheitproblem.';
 $BL['gd_not_loaded'] = '<strong>Keine GD-Funktionalit&auml;t vorhanden!</strong> Bitte pr&uuml;fen Sie, dass die PHP GD-Erweiterung aktiviert ist, da sonst das Verarbeiten von Bildern nicht zuverl&auml;ssig funktioniert.';
 
@@ -1467,7 +1467,7 @@ $BL['be_cookie_consent_dismiss'] = 'Best&auml;tigungs-Button';
 $BL['cookie_consent_dismiss'] = 'Verstanden!';
 $BL['be_cookie_consent_more'] = 'Infolink-Button';
 $BL['cookie_consent_more'] = 'Weitere Informationen';
-$BL['be_cookie_consent_link'] = 'Cookie-Richtline URL/Alias';
+$BL['be_cookie_consent_link'] = 'Cookie-Richtlinie URL/Alias';
 $BL['be_cookie_consent_theme'] = 'Vorlage (leer = ohne CSS)';
 $BL['be_google_analytics_enable'] = 'Google Analytics benutzen';
 $BL['be_google_tag_manager_enable'] = 'Google Tag Manager benutzen';
@@ -1518,16 +1518,16 @@ $BL['be_cc_v3_section_necessary_title_placeholder'] = 'Streng notwendige Cookies
 $BL['be_cc_v3_section_necessary_description_placeholder'] = 'Notwendige Cookies sind erforderlich, um die grundlegenden Funktionen dieser Website zu erm&ouml;glichen, wie z.B. das sichere Einloggen oder die Anpassung Ihrer Einwilligungseinstellungen. Diese Cookies speichern keine pers&ouml;nlich identifizierbaren Daten.';
 $BL['be_cc_v3_section_functional'] = 'Funktion';
 $BL['be_cc_v3_section_functional_title_placeholder'] = 'Funktionale Cookies';
-$BL['be_cc_v3_section_functional_description_placeholder'] = 'Funktionalit&auml;ts-Cookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website m&ouml;glicherweise nicht verf&uuml;gbar sind. Funktionscookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website m&ouml;glicherweise nicht verf&uuml;gbar sind. So erm&ouml;glichen diese z.B. das Speichern wichtiger Informationen und Benutzereinstellungen. Zu den Informationen k&ouml;nnen Anmeldedaten, Region, Sprache und erweiterte Inhalte geh&ouml;ren.';
+$BL['be_cc_v3_section_functional_description_placeholder'] = 'Funktionscookies werden verwendet, um die Leistung von Websites zu verbessern, da ohne sie bestimmte Funktionen der Website m&ouml;glicherweise nicht verf&uuml;gbar sind. So erm&ouml;glichen diese z.B. das Speichern wichtiger Informationen und Benutzereinstellungen. Zu den Informationen k&ouml;nnen Anmeldedaten, Region, Sprache und erweiterte Inhalte geh&ouml;ren.';
 $BL['be_cc_v3_section_analytics'] = 'Analyse';
 $BL['be_cc_v3_section_analytics_title_placeholder'] = 'Cookies f&uuml;r Leistung und Analytik';
 $BL['be_cc_v3_section_analytics_description_placeholder'] = 'Analytische Cookies werden verwendet, um zu verstehen, wie Besucher mit der Website interagieren. Diese Cookies helfen dabei, Informationen &uuml;ber Metriken wie die Anzahl der Besucher, Absprungrate, Verkehrsquelle usw. zu liefern.';
 $BL['be_cc_v3_section_marketing'] = 'Marketing';
 $BL['be_cc_v3_section_marketing_title_placeholder'] = 'Cookies f&uuml;r Werbung und Marketing';
-$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Cookie f&uuml;r Werbung und Marketing werden verwendet, um Werbung bereitzustellen, die f&uuml;r Sie und Ihre Interessen relevanter ist. Kann auch verwendet werden, um die H&auml;ufigkeit, mit der Sie eine Werbung sehen, zu begrenzen und die Wirksamkeit von Werbekampagnen zu messen. Werbenetzwerke platzieren sie in der Regel mit der Erlaubnis des Website-Betreibers.';
+$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Cookies f&uuml;r Werbung und Marketing werden verwendet, um Werbung bereitzustellen, die f&uuml;r Sie und Ihre Interessen relevanter ist. Kann auch verwendet werden, um die H&auml;ufigkeit, mit der Sie eine Werbung sehen, zu begrenzen und die Wirksamkeit von Werbekampagnen zu messen. Werbenetzwerke platzieren sie in der Regel mit der Erlaubnis des Website-Betreibers.';
 $BL['be_cc_v3_section_social'] = 'Soziale Medien';
 $BL['be_cc_v3_section_social_title_placeholder'] = 'Cookies f&uuml;r soziale Medien';
-$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies f&uuml;r soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. These Cookies k&ouml;nnen verwendet werden, um f&uuml;r Sie relevante Werbung auf anderen Plattformen zu schalten.';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookies f&uuml;r soziale Medien werden verwendet, um zu verstehen, wie Besucher mit sozialen Medien interagieren. Diese Cookies k&ouml;nnen verwendet werden, um f&uuml;r Sie relevante Werbung auf anderen Plattformen zu schalten.';
 $BL['be_cc_v3_section_more'] = 'Sonstiges';
 $BL['be_cc_v3_section_more_title_placeholder'] = 'Weitere Informationen';
 $BL['be_cc_v3_section_more_description_placeholder'] = 'Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlm&ouml;glichkeiten &lt;a class=&quot;cc__link&quot; href=&quot;#yourdomain.com&quot;&gt;kontaktieren Sie uns bitte&lt;/a&gt;.';
@@ -1572,7 +1572,7 @@ $BL['iptc_Credit'] = 'Nennung';
 $BL['iptc_Source'] = 'Quelle';
 $BL['iptc_EditStatus'] = 'Bearbeitungsstatus';
 $BL['iptc_iimCategory'] = 'Kategorie';
-$BL['iptc_iimSupplementalCategory'] = 'Erg&auml;zende Kategorie';
+$BL['iptc_iimSupplementalCategory'] = 'Erg&auml;nzende Kategorie';
 $BL['iptc_Urgency'] = 'Dringlichkeit';
 $BL['iptc_FixtureIdentifier'] = 'Bezeichner';
 $BL['iptc_LocationDestCode'] = 'Positionscode';
@@ -1602,7 +1602,7 @@ $BL['be_licensed_under_GPL'] = 'Lizenziert unter GPL.';
 $BL['be_extensions_copyright'] = 'Erweiterungen sind urheberrechtlich gesch&uuml;tzt.';
 
 $BL['be_password_show'] = 'Passwort anzeigen';
-$BL['be_password_hide'] = 'Password verstecken';
+$BL['be_password_hide'] = 'Passwort verstecken';
 
 $BL['be_allowed_filetypes'] = 'Zul&auml;ssige Dateitypen';
 $BL['be_imagediv_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die benutzerdefinierten Felder &auml;ndern und Werte verloren gehen.\n\nM&ouml;chten Sie wirklich fortfahren?';
@@ -1661,7 +1661,7 @@ $BL['be_images'] = 'Bilder';
 $BL['be_article_show'] = 'Anzeigen';
 $BL['be_active'] = 'Aktiv';
 $BL['be_cnt_summary_label'] = 'Zusammenfassung';
-$BL['be_cnt_max_words'] = 'max. Anzahl Worte';
+$BL['be_cnt_max_words'] = 'max. Anzahl W&ouml;rter';
 
 $BL['be_dashboard_support'] = 'Kontakt und Support';
 
@@ -1691,14 +1691,14 @@ $BL['be_subnav_admin_users_overview'] = 'Benutzer&uuml;bersicht';
 $BL['be_cnt_several'] = 'Sonstige';
 $BL['be_mailinglist_new'] = 'Neue Mailingliste erstellen';
 $BL['be_mailinglist_overview_subscribers'] = 'Abonnenten';
-$BL['be_mailinglist_verified'] = "Setze %s gepr&uuml;ft/nicht gepr&uuml;ft";
-$BL['be_mailinglist_delete_subscriber'] = "L&ouml;sche Abonnent";
-$BL['be_mailinglist_delete_list'] = "L&ouml;sche Mailingliste";
-$BL['be_mailinglist_cannotdelete_list'] = "Mailingliste kann nicht gel&ouml;scht werden, da Abonnenten vorhanden";
+$BL['be_mailinglist_verified'] = 'Setze %s gepr&uuml;ft/nicht gepr&uuml;ft';
+$BL['be_mailinglist_delete_subscriber'] = 'L&ouml;sche Abonnent';
+$BL['be_mailinglist_delete_list'] = 'L&ouml;sche Mailingliste';
+$BL['be_mailinglist_cannotdelete_list'] = 'Mailingliste kann nicht gel&ouml;scht werden, da Abonnenten vorhanden';
 $BL['be_msg_opend'] = 'Ge&ouml;ffnet';
-$BL['be_admin_group'] = "Berechtigungen";
-$BL['be_admin_group_edit'] = "Berechtigungen bearbeiten";
-$BL['be_admin_group_ldel'] = "Berechtigungen l&ouml;schen";
+$BL['be_admin_group'] = 'Berechtigungen';
+$BL['be_admin_group_edit'] = 'Berechtigungen bearbeiten';
+$BL['be_admin_group_ldel'] = 'Berechtigungen l&ouml;schen';
 $BL['be_imagealias'] = 'Bilder Alias';
 $BL['count']         = ' Aliaseintr&auml;ge sind noch zu aktualisieren';
 $BL['nocount']         = 'Alle Aliaseintr&auml;ge sind vorhanden';

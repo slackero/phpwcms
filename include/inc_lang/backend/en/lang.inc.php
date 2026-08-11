@@ -70,7 +70,7 @@ $BL['be_func_struct_spublic']           = 'switch public/non public';
 $BL['be_func_struct_sort_up']           = 'sort up';
 $BL['be_func_struct_sort_down']         = 'sort down';
 $BL['be_func_struct_del_article']       = 'delete article';
-$BL['be_func_struct_del_jsmsg']         = 'Do you really want \nto delete article?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_jsmsg']         = 'Do you really want\nto delete article?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article']       = 'create new article in structure level';
 $BL['be_func_struct_new_article_short']   = 'create new article';
 $BL['be_func_struct_paste_article']     = 'paste article in structure level';
@@ -84,7 +84,7 @@ $BL['be_func_struct_no_paste2']         = 'is child in root line of the tree lev
 $BL['be_func_struct_no_paste3']         = 'that should paste in here';
 $BL['be_func_struct_paste_cancel']      = 'cancel structure level change';
 $BL['be_func_struct_del_struct']        = 'delete structure level';
-$BL['be_func_struct_del_sjsmsg']        = 'Do you really want \nto delete structure level?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_sjsmsg']        = 'Do you really want\nto delete structure level?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open']              = 'open';
 $BL['be_func_struct_close']             = 'close';
 $BL['be_func_struct_empty']             = 'empty';
@@ -183,10 +183,10 @@ $BL['be_ftab_createnew']                = 'create new dir in root';
 $BL['be_ftab_paste']                    = 'paste clipboard file into root directory';
 $BL['be_ftab_disablethumb']             = 'disable thumbnails in list';
 $BL['be_ftab_enablethumb']              = 'enable thumbnails in list';
-$BL['be_ftab_private']                  = 'private&nbsp;files';
-$BL['be_ftab_public']                   = 'public&nbsp;files';
+$BL['be_ftab_private']                  = 'private files';
+$BL['be_ftab_public']                   = 'public files';
 $BL['be_ftab_search']                   = 'search';
-$BL['be_ftab_trash']                    = 'trash&nbsp;can';
+$BL['be_ftab_trash']                    = 'trash can';
 $BL['be_ftab_open']                     = 'open all directories';
 $BL['be_ftab_close']                    = 'close all open directories';
 $BL['be_ftab_upload']                   = 'upload file to root directory';
@@ -263,7 +263,7 @@ $BL['be_fprivfunc_edit']                = 'edit dir';
 $BL['be_fprivfunc_cactive']             = 'switch active/inactive';
 $BL['be_fprivfunc_cpublic']             = 'switch public/nonpublic';
 $BL['be_fprivfunc_deldir']              = 'delete dir';
-$BL['be_fprivfunc_jsdeldir']            = 'Do you really want \nto delete directory';
+$BL['be_fprivfunc_jsdeldir']            = 'Do you really want\nto delete directory';
 $BL['be_fprivfunc_notempty']            = 'dir {VAL} not empty!';
 $BL['be_fprivfunc_notempty_short']        = 'folder is not empty!';
 $BL['be_fprivfunc_opendir']             = 'open directory';
@@ -290,7 +290,7 @@ $BL['be_ftrash_nofiles']                = 'the trash can is empty';
 $BL['be_ftrash_show']                   = 'show private files';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore']                = 'Do you want to restore {VAL} \nand put it back to private list?';
+$BL['be_ftrash_restore']                = 'Do you want to restore {VAL}\nand put it back to private list?';
 $BL['be_ftrash_delete']                 = 'Do you want to delete {VAL}?';
 $BL['be_ftrash_undo']                   = 'restore (undo trash)';
 $BL['be_ftrash_delfinal']               = 'final deletion';
@@ -354,7 +354,7 @@ $BL['be_msg_all']                       = 'send message to all selected recipien
 $BL['be_newsletter_title']              = 'newsletter subscriptions';
 $BL['be_newsletter_titleedit']          = 'edit newsletter subscription';
 $BL['be_newsletter_new']                = 'create new';
-$BL['be_newsletter_add']                = 'add&nbsp;newsletter&nbsp;subscription';
+$BL['be_newsletter_add']                = 'add newsletter subscription';
 $BL['be_newsletter_name']               = 'name';
 $BL['be_newsletter_info']               = 'info';
 $BL['be_newsletter_button_save']        = 'Save subscription';
@@ -367,7 +367,7 @@ $BL['be_admin_usr_err3']                = 'password is empty (required)';
 $BL['be_admin_usr_err4']                = "email isn't valid";
 $BL['be_admin_usr_err']                 = 'error';
 $BL['be_admin_usr_mailsubject']         = 'welcome to phpwcms backend';
-$BL['be_admin_usr_mailbody']            = "WELCOME TO THE PHPWCMS BACKEND\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody']            = "WELCOME TO THE PHPWCMS BACKEND\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n";
 $BL['be_admin_usr_title']               = 'add new user account';
 $BL['be_admin_usr_realname']            = 'real name';
 $BL['be_admin_usr_setactive']           = 'set user active';
@@ -381,7 +381,7 @@ $BL['be_admin_usr_button']              = 'send user data';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle']              = 'edit user account';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - account data changed';
-$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n";
 $BL['be_admin_usr_passnochange']        = '[NO CHANGE - USE THE KNOWN PASSWORD]';
 $BL['be_admin_usr_ebutton']             = 'update user data';
 
@@ -398,7 +398,7 @@ $BL['be_admin_struct_index']            = 'index (website start)';
 $BL['be_admin_struct_cat']              = 'category title';
 $BL['be_admin_struct_alt']              = 'category alternative title';
 $BL['be_admin_struct_hide1']            = 'hide';
-$BL['be_admin_struct_hide2']            = 'this&nbsp;category&nbsp;in&nbsp;menu';
+$BL['be_admin_struct_hide2']            = 'this category in menu';
 $BL['be_admin_struct_info']             = 'category infotext';
 $BL['be_admin_struct_template']         = 'template';
 $BL['be_admin_struct_alias']            = 'alias this category';
@@ -450,10 +450,10 @@ $BL['be_admin_page_text']               = 'text';
 $BL['be_admin_page_link']               = 'link';
 $BL['be_admin_page_js']                 = 'javascript';
 $BL['be_admin_page_visited']            = 'visited';
-$BL['be_admin_page_pagetitle']          = 'page&nbsp;title';
-$BL['be_admin_page_addtotitle']         = 'add&nbsp;to&nbsp;title';
+$BL['be_admin_page_pagetitle']          = 'page title';
+$BL['be_admin_page_addtotitle']         = 'add to title';
 $BL['be_admin_page_category']           = 'category';
-$BL['be_admin_page_articlename']        = 'article&nbsp;name';
+$BL['be_admin_page_articlename']        = 'article name';
 $BL['be_admin_page_blocks']             = 'blocks';
 $BL['be_admin_page_allblocks']          = 'all blocks';
 $BL['be_admin_page_col1']               = '3 column layout';
@@ -462,8 +462,8 @@ $BL['be_admin_page_col3']               = '2 column layout (main column left, na
 $BL['be_admin_page_col4']               = '1 column layout';
 $BL['be_admin_page_header']             = 'header';
 $BL['be_admin_page_footer']             = 'footer';
-$BL['be_admin_page_topspace']           = 'top&nbsp;space';
-$BL['be_admin_page_bottomspace']        = 'bottom&nbsp;space';
+$BL['be_admin_page_topspace']           = 'top space';
+$BL['be_admin_page_bottomspace']        = 'bottom space';
 $BL['be_admin_page_button']             = 'save page layout';
 
 // admin.frontendcss.tmpl.php
@@ -474,7 +474,7 @@ $BL['be_admin_css_button']              = 'save css data';
 // admin.templates.tmpl.php
 $BL['be_admin_tmpl_title']              = 'frontend setup: templates';
 $BL['be_admin_tmpl_default']            = 'default';
-$BL['be_admin_tmpl_add']                = 'add&nbsp;template';
+$BL['be_admin_tmpl_add']                = 'add template';
 $BL['be_admin_tmpl_edit']               = 'edit template';
 $BL['be_admin_tmpl_new']                = 'create new';
 $BL['be_admin_tmpl_css']                = 'css file';
@@ -568,9 +568,9 @@ $BL['be_cnt_pos4i']                     = 'align the image below and centered of
 $BL['be_cnt_pos5i']                     = 'align the image above and right of the text block';
 $BL['be_cnt_pos6i']                     = 'align the image left within the text block';
 $BL['be_cnt_pos7i']                     = 'align the image right within the text block';
-$BL['be_cnt_maxw']                      = 'max.&nbsp;width';
-$BL['be_cnt_maxh']                      = 'max.&nbsp;height';
-$BL['be_cnt_enlarge']                   = 'click&nbsp;enlarge';
+$BL['be_cnt_maxw']                      = 'max. width';
+$BL['be_cnt_maxh']                      = 'max. height';
+$BL['be_cnt_enlarge']                   = 'click enlarge';
 $BL['be_cnt_caption']                   = 'caption';
 $BL['be_cnt_subject']                   = 'subject';
 $BL['be_cnt_recipient']                 = 'recipient';
@@ -581,18 +581,18 @@ $BL['be_cnt_text']                      = 'text';
 $BL['be_cnt_html']                      = 'html';
 $BL['be_cnt_formfields']                = 'form fields';
 $BL['be_cnt_code']                      = 'code';
-$BL['be_cnt_infotext']                  = 'info&nbsp;text';
+$BL['be_cnt_infotext']                  = 'info text';
 $BL['be_cnt_subscription']              = 'subscription';
-$BL['be_cnt_labelemail']                = 'label&nbsp;email';
-$BL['be_cnt_tablealign']                = 'table&nbsp;align';
-$BL['be_cnt_labelname']                 = 'label&nbsp;name';
-$BL['be_cnt_labelsubsc']                = 'label&nbsp;subscr.';
-$BL['be_cnt_allsubsc']                  = 'all&nbsp;subscr.';
+$BL['be_cnt_labelemail']                = 'label email';
+$BL['be_cnt_tablealign']                = 'table align';
+$BL['be_cnt_labelname']                 = 'label name';
+$BL['be_cnt_labelsubsc']                = 'label subscr.';
+$BL['be_cnt_allsubsc']                  = 'all subscr.';
 $BL['be_cnt_default']                   = 'default';
 $BL['be_cnt_left']                      = 'left';
 $BL['be_cnt_center']                    = 'center';
 $BL['be_cnt_right']                     = 'right';
-$BL['be_cnt_successtext']               = 'success&nbsp;text';
+$BL['be_cnt_successtext']               = 'success text';
 $BL['be_cnt_regmail']                   = 'regist.email';
 $BL['be_cnt_logoffmail']                = 'logoff.email';
 $BL['be_cnt_changemail']                = 'change.email';
@@ -604,7 +604,7 @@ $BL['be_cnt_delimage']                  = 'remove selected image';
 $BL['be_cnt_delfile']                   = 'remove selected file';
 $BL['be_cnt_delmedia']                  = 'remove selected media';
 $BL['be_cnt_column']                    = 'column';
-$BL['be_cnt_imagespace']                = 'image&nbsp;space';
+$BL['be_cnt_imagespace']                = 'image space';
 $BL['be_cnt_directlink']                = 'direct link';
 $BL['be_cnt_target']                    = 'target';
 $BL['be_cnt_target1']                   = 'in a new window';
@@ -613,7 +613,7 @@ $BL['be_cnt_target3']                   = 'in same window without frames';
 $BL['be_cnt_target4']                   = 'in the same frame or window';
 $BL['be_cnt_bullet']                    = 'list (table)';
 $BL['be_cnt_ullist']                    = 'list';
-$BL['be_cnt_ullist_desc']               = '~ = 1st Level, &nbsp; ~~ = 2nd level, &nbsp; etc.';
+$BL['be_cnt_ullist_desc'] = '~ = 1st level, ~~ = 2nd level, etc.';
 $BL['be_cnt_linklist']                  = 'link list';
 $BL['be_cnt_plainhtml']                 = 'plain html';
 $BL['be_cnt_files']                     = 'files';
@@ -662,7 +662,7 @@ $BL['be_admin_tmpl_nolayout']           = 'No page layout available!';
 // added: 31-12-2003
 $BL['be_ctype_search']                  = 'search';
 $BL['be_cnt_results']                   = 'results';
-$BL['be_cnt_results_per_page']          = 'per&nbsp;page (if empty show max. 25)';
+$BL['be_cnt_results_per_page']          = 'per page (if empty show max. 25)';
 $BL['be_cnt_opennewwin']                = 'open new window';
 $BL['be_cnt_searchlabeltext']           = 'these are predefined texts and values for the search form and search result page and texts are shown when more than the given count of results per page should be shown.';
 $BL['be_cnt_input']                     = 'input';
@@ -722,9 +722,9 @@ $BL['be_admin_startup_button']          = 'save startup text';
 // added: 17-04-2004
 $BL['be_ctype_guestbook']               = 'guestbook/comment';
 $BL['be_cnt_guestbook_listing']         = 'listing';
-$BL['be_cnt_guestbook_listing_all']     = 'list&nbsp;all&nbsp;entries';
+$BL['be_cnt_guestbook_listing_all']     = 'list all entries';
 $BL['be_cnt_guestbook_list']            = 'list';
-$BL['be_cnt_guestbook_perpage']         = 'per&nbsp;page';
+$BL['be_cnt_guestbook_perpage']         = 'per page';
 $BL['be_cnt_guestbook_form']            = 'form';
 $BL['be_cnt_guestbook_signed']          = 'signed';
 $BL['be_cnt_guestbook_nav']             = 'nav';
@@ -794,7 +794,7 @@ $BL['be_cnt_bid_verifyemail']           = 'verify email';
 $BL['be_cnt_bid_startbid']              = 'start bid';
 
 // added: 29-04-2004
-$BL['be_cnt_bid_nextbidadd']            = 'increase&nbsp;by';
+$BL['be_cnt_bid_nextbidadd']            = 'increase by';
 
 // added: 10-05-2004
 $BL['be_ctype_pages']                   = 'ext. content';
@@ -833,7 +833,7 @@ $BL['be_cnt_guestbook_setcookie']       = 'set cookie';
 $BL['be_cnt_guestbook_allowed']         = 'allowed again after';
 $BL['be_cnt_guestbook_seconds']         = 'seconds';
 $BL['be_alias_ID']                      = 'alias ID';
-$BL['be_ftrash_delall']                 = "Do you really want to delete \nALL FILES in trash?";
+$BL['be_ftrash_delall']                 = "Do you really want to delete\nALL FILES in trash?";
 $BL['be_ftrash_delallfiles']            = 'delete all files in trash';
 
 // added: 16-08-2004
@@ -872,7 +872,7 @@ $BL['be_cnt_map_edit']                  = 'edit location';
 $BL['be_cnt_map_title']                 = 'location title';
 $BL['be_cnt_map_info']                  = 'entry/info';
 $BL['be_cnt_map_list']                  = 'location list';
-$BL['be_btn_delete']                    = 'Do you really want to \ndelete this location?';
+$BL['be_btn_delete']                    = 'Do you really want to\ndelete this location?';
 
 // added: 05-11-2004
 $BL['be_ctype_phpvar']                  = 'PHP variables';
@@ -917,7 +917,7 @@ $BL['be_forum_titleedit']               = 'edit forum';
 $BL['be_admin_page_customblocks']       = 'custom';
 $BL['be_show_content']                  = 'display';
 $BL['be_main_content']                  = 'main column';
-$BL['be_admin_template_jswarning']      = 'Warning!!! \nCustom blocks may change! \n\nIf you cancel \nreset your pagelayout setting! \n\nChange template?\n\n';
+$BL['be_admin_template_jswarning']      = 'Warning!!!\nCustom blocks may change!\n\nIf you cancel\nreset your pagelayout setting!\n\nChange template?\n\n';
 
 $BL['be_ctype_rssfeed']                 = 'RSS feed';
 $BL['be_cnt_rssfeed_url']               = 'RSS url';
@@ -998,7 +998,7 @@ $BL['be_cnt_read']                      = 'read';
 $BL['be_cnt_no_wysiwyg_editor']         = 'disable WYSIWYG editor';
 $BL['be_cnt_cache_update']              = 'reset cache';
 $BL['be_cnt_cache_delete']              = 'delete cache';
-$BL['be_cnt_cache_delete_msg']          = 'Do you really want to delete cache?  \nThis can affect search too.  \n';
+$BL['be_cnt_cache_delete_msg']          = 'Do you really want to delete cache?\nThis can affect search too.\n';
 
 $BL['be_admin_usr_issection']           = 'login section';
 $BL['be_admin_usr_ifsection0']          = 'frontend';
@@ -1016,7 +1016,7 @@ $BL['be_func_content_no_copy']           = "It's not possible to copy the articl
 $BL['be_func_content_paste_cancel']      = 'cancel article content part change';
 
 $BL['be_cnt_move_deleted'] = 'remove delete files';
-$BL['be_cnt_move_deleted_msg'] = 'Do you really want to move all files  \nmarked as deleted into special deletion folder?  \n';
+$BL['be_cnt_move_deleted_msg'] = 'Do you really want to move all files\nmarked as deleted into special deletion folder?\n';
 
 $BL['be_admin_struct_permit'] = 'authorized to access (let empty for everybody)';
 $BL['be_admin_struct_adduser_all']   = 'take over all users';
@@ -1055,7 +1055,7 @@ $BL['be_cnt_transparent'] = 'Flash transparent';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate']   = 'kill date';
-$BL['be_func_switch_contentpart'] = 'Do you really want to switch content part? \n\nBe very careful doing so! \nImportant settings might be overwritten! \n';
+$BL['be_func_switch_contentpart'] = 'Do you really want to switch content part?\n\nBe very careful doing so!\nImportant settings might be overwritten!\n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>ATTENTION!</strong> The &quot;CODE-SNIPPETS&quot; directory still exists! Delete directory <strong>phpwcms_code_snippets</strong> - this is a potential security problem.';
 $BL['gd_not_loaded'] = '<strong>No GD functionality available!</strong> Please make sure that the PHP GD library is activated, otherwise the processing of images will not work reliably.';
 
@@ -1115,7 +1115,7 @@ $BL['be_cnt_question']                  = 'question';
 $BL['be_cnt_answer']                    = 'answer';
 $BL['be_cnt_same_as_summary']           = 'use article image data';
 $BL['be_cnt_sorting']                   = 'sorting';
-$BL['be_cnt_imgupload']                 = 'image&nbsp;upload';
+$BL['be_cnt_imgupload']                 = 'image upload';
 $BL['be_cnt_filesize']                  = 'filesize';
 $BL['be_cnt_captchalength']             = 'captcha code length';
 $BL['be_cnt_chars']                     = 'chars';
@@ -1193,7 +1193,7 @@ $BL['be_cnt_imagecenterv']              = 'center vertical';
 $BL['be_check_against_category_alias']  = 'link single article inside structure level with structure level';
 
 $BL['be_overwrite_default']             = 'Will overwrite default settings of config file';
-$BL['be_cnt_sortvalue']                 = 'sort&nbsp;value';
+$BL['be_cnt_sortvalue']                 = 'sort value';
 $BL['be_dialog_warn_nosave']            = 'If you continue no changes will be saved!\nDo you want to cancel?';
 $BL['be_cnt_paginate_subsection']       = 'subsection';
 $BL['be_cnt_subsection_tite']           = 'subsection title';
@@ -1373,10 +1373,10 @@ $BL['file_actions_step1']               = "Step 1: select folder";
 $BL['file_actions_step2']               = "Step 2: select file";
 $BL['file_actions_step3']               = "Step 3: select action";
 $BL['file_actions_button']              = 'Perform action';
-$BL['file_actions_no']                  = 'No files for editing. Please select another folder ';
+$BL['file_actions_no']                  = 'No files for editing. Please select another folder';
 $BL['file_actions_delete']              = 'Are you sure that the selected files should be deleted?';
 $BL['file_actions_bemuser']             = 'The selected files will be assigned to the new user and moved to its root.';
-$BL['file_actions_bemfolder']           = 'Please select the destination folder. The selected files are moved to this folder. ';
+$BL['file_actions_bemfolder']           = 'Please select the destination folder. The selected files are moved to this folder.';
 $BL['file_actions_pdl_empty']           = 'select action';
 $BL['file_actions_pdl_delete']          = 'delete files';
 $BL['file_actions_pdl_move']            = 'move files';
@@ -1490,7 +1490,7 @@ $BL['be_site_id'] = 'site ID';
 $BL['be_piwik_url'] = 'Matomo/Piwik URL';
 $BL['be_filedownload_direct_blocked'] = 'blocked by <abbr title="%s">.htaccess</abbr>';
 $BL['be_tracking_optout'] = 'support for Opt-Out cookie <i>&lt;a href=&quot;javascript:gaOptout()&quot;&gt;&lt;/a&gt;</i>';
-$BL['be_require_consent'] = 'Deactivate tracking code widthout consent';
+$BL['be_require_consent'] = 'Deactivate tracking code without consent';
 $BL['be_consent_cookie_name'] = 'Consent cookie name';
 $BL['be_consent_cookie_value'] = 'Consent cookie value';
 $BL['be_respect_donottrack'] = 'Respect the Do-Not-Track browser setting';
@@ -1697,14 +1697,14 @@ $BL['be_subnav_admin_users_overview'] = 'User overview';
 $BL['be_cnt_several'] = 'Other';
 $BL['be_mailinglist_new'] = 'Create new mailing list';
 $BL['be_mailinglist_overview_subscribers'] = 'Subscribers';
-$BL['be_mailinglist_verified'] = "Set %s checked/not checked";
-$BL['be_mailinglist_delete_subscriber'] = "Delete subscriber";
-$BL['be_mailinglist_delete_list'] = "Delete mailing list";
-$BL['be_mailinglist_cannotdelete_list'] = "Mailinglist cannot be deleted because subscribers exist";
+$BL['be_mailinglist_verified'] = 'Set %s checked/not checked';
+$BL['be_mailinglist_delete_subscriber'] = 'Delete subscriber';
+$BL['be_mailinglist_delete_list'] = 'Delete mailing list';
+$BL['be_mailinglist_cannotdelete_list'] = 'Mailing list cannot be deleted because subscribers exist';
 $BL['be_msg_opend'] = 'Open';
-$BL['be_admin_group'] = "Permissions";
-$BL['be_admin_group_edit'] = "Edit permissions";
-$BL['be_admin_group_ldel'] = "Delete permissions group";
+$BL['be_admin_group'] = 'Permissions';
+$BL['be_admin_group_edit'] = 'Edit permissions';
+$BL['be_admin_group_ldel'] = 'Delete permissions group';
 $BL['be_imagealias'] = 'Pictures Alias';
 $BL['count'] = ' Alias entries still to be updated';
 $BL['nocount'] = 'All alias entries exist';

@@ -96,29 +96,74 @@ _dbQuery($sql, 'UPDATE');
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
+$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
+
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {
-    $temp_lang = strtoupper(substr(trim($_COOKIE['phpwcmsBELang']), 0, 2));
-    if (isset($BL[$temp_lang])) {
-        $_SESSION["wcs_user_lang"] = strtolower($temp_lang);
+    $temp_lang = strtolower(trim($_COOKIE['phpwcmsBELang']));
+    if (isset($lang_aliases[$temp_lang])) {
+        $temp_lang = $lang_aliases[$temp_lang];
+    }
+    if (preg_match('/^[a-z]{2}(?:-[a-z]{2})?$/', $temp_lang) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$temp_lang.'/lang.inc.php')) {
+        $_SESSION["wcs_user_lang"] = $temp_lang;
     } else {
         setcookie('phpwcmsBELang', '', time() - 3600, '/', getCookieDomain(), PHPWCMS_SSL, true);
     }
 }
 if(isset($_POST['form_lang'])) {
-    $temp_lang = strtolower(substr(clean_slweg($_POST['form_lang']), 0, 2));
-    $_SESSION["wcs_user_lang"] = $temp_lang;
-    set_language_cookie($temp_lang);
+    $temp_lang = strtolower(trim(clean_slweg($_POST['form_lang'])));
+    if (isset($lang_aliases[$temp_lang])) {
+        $temp_lang = $lang_aliases[$temp_lang];
+    }
+    if (preg_match('/^[a-z]{2}(?:-[a-z]{2})?$/', $temp_lang) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$temp_lang.'/lang.inc.php')) {
+        $_SESSION["wcs_user_lang"] = $temp_lang;
+        set_language_cookie($temp_lang);
+    }
 }
 if(empty($_SESSION["wcs_user_lang"])) {
-    $_SESSION["wcs_user_lang"] = strtolower( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ) : $phpwcms["default_lang"] );
-} else {
-    $_SESSION["wcs_user_lang"] = strtolower( substr($_SESSION["wcs_user_lang"], 0, 2 ) );
+    $detected_lang = '';
+    if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $accepted = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        foreach ($accepted as $al) {
+            $al_parts = explode(';', trim($al));
+            $al_code = strtolower(trim($al_parts[0]));
+            if ($al_code === '') {
+                continue;
+            }
+            if (isset($lang_aliases[$al_code])) {
+                $al_code = $lang_aliases[$al_code];
+            }
+            if (is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$al_code.'/lang.inc.php')) {
+                $detected_lang = $al_code;
+                break;
+            }
+            $base_code = substr($al_code, 0, 2);
+            if (isset($lang_aliases[$base_code])) {
+                $base_code = $lang_aliases[$base_code];
+            }
+            if (is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$base_code.'/lang.inc.php')) {
+                $detected_lang = $base_code;
+                break;
+            }
+        }
+    }
+    if ($detected_lang === '') {
+        $default_lang = strtolower($phpwcms['default_lang'] ?? 'en');
+        if (isset($lang_aliases[$default_lang])) {
+            $default_lang = $lang_aliases[$default_lang];
+        }
+        if (is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$default_lang.'/lang.inc.php')) {
+            $detected_lang = $default_lang;
+        } else {
+            $detected_lang = 'en';
+        }
+    }
+    $_SESSION["wcs_user_lang"] = $detected_lang;
 }
-if(isset($BL[strtoupper($_SESSION["wcs_user_lang"])]) && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
+if(is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$_SESSION["wcs_user_lang"].'/lang.inc.php')) {
     $_SESSION["wcs_user_lang_custom"] = 1;
 } else {
-    $_SESSION["wcs_user_lang"] = 'en'; //by ono
+    $_SESSION["wcs_user_lang"] = 'en';
     $_SESSION["wcs_user_lang_custom"] = 0;
 }
 if(!empty($_SESSION["wcs_user_lang_custom"])) {
@@ -208,8 +253,12 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             $_SESSION["wcs_user_admin"]     = intval($result[0]["usr_admin"]);
             $_SESSION["wcs_user_thumb"]     = 1;
             if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
-                $_SESSION["wcs_user_lang"]  = $result[0]["usr_lang"];
-                set_language_cookie($result[0]["usr_lang"]);
+                $usr_lang = strtolower($result[0]["usr_lang"]);
+                if (isset($lang_aliases[$usr_lang])) {
+                    $usr_lang = $lang_aliases[$usr_lang];
+                }
+                $_SESSION["wcs_user_lang"]  = $usr_lang;
+                set_language_cookie($usr_lang);
             } elseif (!empty($_SESSION["wcs_user_lang"])) {
                 set_language_cookie($_SESSION["wcs_user_lang"]);
             } else {

@@ -1,0 +1,1807 @@
+<?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
+
+
+// Language: Vietnamese, Language Code: vi
+// created by Nguyen Viet Son : nguyenvietson at gmail dot com
+// please use HTML safe strings ONLY,neccessary to reduce processing time
+// normal line break:    '&#13', JavaScript Linebreak: '\n'
+
+
+$BL['usr_online']                       = 'thành viên trực tuyến';
+
+// Login Page
+$BL["login_text"]                       = 'Đăng nhập';
+$BL['login_error']                      = 'Lỗi trong quá trình đăng nhập!';
+$BL["login_username"]                   = 'tên sử dụng';
+$BL["login_userpass"]                   = 'mật khẩu';
+$BL["login_button"]                     = 'Đăng nhập';
+$BL["login_lang"]                       = 'ngôn ngữ';
+$BL["login_welcome"]                    = 'Xin chào';
+$BL["logout_button"]                    = 'Thoát';
+$BL["login_text_welcome"]               = 'Quý khách đã đăng nhập thành công và chào mừng đến với trang web của Văn phòng khu vực miền Bắc , Tổng công ty Hàng không Việt Nam';
+
+//Search
+$BL["search_button"]                    = 'Tìm';
+$BL["search_text"]                      = 'Tìm kiếm';
+
+//Portal
+$BL['new_article_portal']               = 'Thêm tin mới';
+$BL['remove_article_portal']            = 'Gỡ bỏ tin'    ;
+$BL['xemtiep']                          = '<SPAN style = "FONT-SIZE: 7pt; COLOR: #FF0000"><STRONG>chi tiết</STRONG></SPAN>';
+$BL['be_article_asubtitle_image']       = 'Ảnh trích dẫn';
+
+//Thu ngo
+$BL["thu_ngo"]                          = 'Thư ngỏ';
+
+//Tin noi bat
+$BL["tinnoibat"]                        = 'Tin nổi bật';
+
+//Tin cho agents va forwarders
+$BL["agent"]                            = 'Tin Agents & Forwarders';
+//vote
+
+//Noi bo
+$BL["noi_bo"]                           = 'Nội bộ'      ;
+$BL['be_admin_struct_be_news']          = 'hiển thị theo kiểu tin tức';
+
+// phpwcms.php
+$BL['be_nav_logout']                    = 'THOÁT';
+$BL['be_nav_articles']                  = 'TIN BÀI';
+$BL['be_nav_files']                     = 'TỆP';
+$BL['be_nav_portal']                    = 'PORTAL';
+$BL['be_nav_messages']                  = 'NHẮN TIN';
+$BL['be_nav_chat']                      = 'CHAT';
+$BL['be_nav_profile']                   = 'CÁ NHÂN';
+$BL['be_nav_admin']                     = 'QUẢN TRỊ';
+$BL['be_nav_discuss']                   = 'THẢO LUẬN';
+
+$BL['be_page_title']                    = 'Quản trị hệ thống';
+
+$BL['be_subnav_article_center']         = 'trang tin';
+$BL['be_subnav_article_new']            = 'tin bài mới';
+$BL['be_subnav_guestbook']              = 'Guestbook';
+$BL['be_subnav_file_center']            = 'hệ thống file';
+$BL['be_subnav_file_ftptakeover']       = 'ftp';
+$BL['be_subnav_mod_artists']            = 'artist, category, genre';
+$BL['be_subnav_msg_center']             = 'Tin nhắn';
+$BL['be_subnav_msg_new']                = 'tin nhắn mới';
+$BL['be_subnav_msg_newsletter']         = 'đăng ký thư tin tức';
+$BL['be_subnav_chat_main']              = 'trang chat chính';
+$BL['be_subnav_chat_internal']          = 'chat nội bộ';
+$BL['be_subnav_profile_login']          = 'thông tin đăng nhập';
+$BL['be_subnav_profile_personal']       = 'dữ liệu cá nhân';
+$BL['be_subnav_admin_pagelayout']       = 'trang layout';
+$BL['be_subnav_admin_templates']        = 'mẫu trang';
+$BL['be_subnav_admin_css']              = 'css mặc định';
+$BL['be_subnav_admin_sitestructure']    = 'cấu trúc hệ thống';
+$BL['be_subnav_admin_vote']             = 'bình bầu';
+$BL['be_subnav_admin_users']            = 'quản trị thành viên';
+$BL['be_subnav_admin_filecat']          = 'phân loại file';
+$BL['be_subnav_article_editor']         = 'kiểm duyệt tin';
+
+
+//
+$BL['be_article_edited']                = 'đã kiểm duyệt';
+
+
+// admin.functions.inc.php
+$BL['be_func_struct_articleID']         = 'ID các mục';
+$BL['be_func_struct_preview']           = 'xem trước';
+$BL['be_func_struct_edit']              = 'sửa';
+$BL['be_func_struct_sedit']             = 'sửa mức cấu trúc';
+$BL['be_func_struct_cut']               = 'cắt tin';
+$BL['be_func_struct_nocut']             = 'vô hiệu hoá việc cắt tin';
+$BL['be_func_struct_svisible']          = 'chuyển hiển thị/vô hình';
+$BL['be_func_struct_spublic']           = 'chuyển public/không public';
+$BL['be_func_struct_sort_up']           = 'sắp xếp chiều tăng';
+$BL['be_func_struct_sort_down']         = 'sắp xếp chiều giảm';
+$BL['be_func_struct_del_article']       = 'xoá tin';
+$BL['be_func_struct_del_jsmsg']         = 'Bạn có muốn\nxoá tin/mục tin này không?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_new_article']       = 'tạo tin/mục tin mới';
+$BL['be_func_struct_new_article_short']   = 'tạo tin/mục tin mới';
+$BL['be_func_struct_paste_article']     = 'dán tin';
+$BL['be_func_struct_insert_level']      = 'chèn thêm cấu trúc mới';
+$BL['be_func_struct_insert_level_short'] = 'chèn thêm cấu trúc mới';
+$BL['be_func_struct_paste_level']       = 'dán cấu trúc mới';
+$BL['be_func_struct_cut_level']         = 'cắt mức cấu trúc';
+$BL['be_func_struct_no_cut']            = "Không thể cắt mức cấu trúc gốc!";
+$BL['be_func_struct_no_paste1']         = "Không thể dán ở đây!";
+$BL['be_func_struct_no_paste2']         = 'là nhánh con của gốc';
+$BL['be_func_struct_no_paste3']         = 'nên dán ở đây';
+$BL['be_func_struct_paste_cancel']      = 'vô hiệu các thay đổi';
+$BL['be_func_struct_del_struct']        = 'xoá cấu trúc';
+$BL['be_func_struct_del_sjsmsg']        = 'Bạn thực sự muốn\nxoá mức cấu trúc?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_open']              = 'mở';
+$BL['be_func_struct_close']             = 'đóng';
+$BL['be_func_struct_empty']             = 'xoá hết';
+
+// article.contenttype.inc.php
+$BL['be_ctype_plaintext']               = 'văn bản';
+$BL['be_ctype_html']                    = 'html';
+$BL['be_ctype_code']                    = 'mã';
+$BL['be_ctype_textimage']               = 'văn bản & ảnh';
+$BL['be_ctype_images']                  = 'ảnh';
+$BL['be_ctype_bulletlist']              = 'danh sách bullet';
+$BL['be_ctype_link']                    = 'email liên kết';
+$BL['be_ctype_linklist']                = 'danh sách liên kết';
+$BL['be_ctype_linkarticle']             = 'bài liên kết';
+$BL['be_ctype_multimedia']              = 'đa phương tiện';
+$BL['be_ctype_filelist']                = 'danh sách file';
+$BL['be_ctype_emailform']               = 'mẫu email';
+$BL['be_ctype_newsletter']              = 'newsletter';
+
+// profile.create.inc.php
+$BL['be_profile_create_success']        = 'Profile đã được tạo thành công.';
+$BL['be_profile_create_error']          = 'Lỗi trong quá trình tạo.';
+
+// profile.update.inc.php
+$BL['be_profile_update_success']        = 'dữ liệu của profile đã được cập nhật .';
+$BL['be_profile_update_error']          = 'Lỗi trong quá trình cập nhật.';
+
+// profile.updateaccount.inc.php
+$BL['be_profile_account_err1']          = 'tên truy cập {VAL} không hợp lệ';
+$BL['be_profile_account_err2']          = 'mật khẩu quá ngắn (chỉ {VAL} ký tự: ít nhất là 5)';
+$BL['be_profile_account_err3']          = 'mật khẩu không đồng nhất với nhau';
+$BL['be_profile_account_err4']          = 'email {VAL} không hợp lệ';
+
+// profile.data.tmpl.php
+$BL['be_profile_data_title']            = 'dữ liệu cá nhân của bạn';
+$BL['be_profile_data_text']             = 'Thông tin thêm về bạn sẽ giúp người khác hiểu bạn rõ hơn.';
+$BL['be_profile_label_title']           = 'title';
+$BL['be_profile_label_fullname']       = 'họ và tên';
+$BL['be_profile_label_donvi']           = 'đơn vị' ;
+$BL['be_profile_label_company']         = 'công ty';
+$BL['be_profile_label_address']          = 'địa chỉ';
+$BL['be_profile_label_city']            = 'thành phố';
+$BL['be_profile_label_state']           = 'tỉnh';
+$BL['be_profile_label_zip']             = 'mã';
+$BL['be_profile_label_country']         = 'quốc gia';
+$BL['be_profile_label_phone']           = 'điện thoại';
+$BL['be_profile_label_ext']             = 'số lẻ';
+$BL['be_profile_label_fax']             = 'fax';
+$BL['be_profile_label_cellphone']       = 'di động';
+$BL['be_profile_label_signature']       = 'chữ ký';
+$BL['be_profile_label_notes']           = 'ghi chú';
+$BL['be_profile_label_profession']      = 'nghề nghiệp';
+$BL['be_profile_label_newsletter']      = 'email tin tức';
+$BL['be_profile_text_newsletter']       = 'Tôi muốn nhân được email thông báo tin tức của các bạn.';
+$BL['be_profile_label_public']          = 'public';
+$BL['be_profile_text_public']           = 'Bất cứ ai cũng có thể xem các thông tin của tôi.';
+$BL['be_profile_label_button']          = 'cập nhật dữ liệu cá nhân';
+$BL['be_profile_label_union_activity']  = 'đoàn thể';
+
+// profile.account.tmpl.php
+$BL['be_profile_account_title']         = 'thông tin đăng nhập của bạn';
+$BL['be_profile_account_text']          = 'Không cần thiết phải thay đổi tên truy cập.<br />Bạn nên thay đổi mật khẩu thương xuyên để bảo đảm an toàn.';
+$BL['be_profile_label_err']             = 'check';
+$BL['be_profile_label_username']        = 'tên truy cập';
+$BL['be_profile_label_newpass']         = 'mật khẩu mới';
+$BL['be_profile_label_repeatpass']      = 'gõ lại mật khẩu';
+$BL['be_profile_label_email']           = 'email';
+$BL['be_subnav_profile_company']        = 'company profile';
+$BL['be_profile_account_button']        = 'cập nhật thông tin đăng nhập';
+$BL['be_profile_label_lang']            = 'ngôn ngữ';
+
+
+// files.ftptakeover.tmpl.php
+$BL['be_ftptakeover_title']             = 'lấy files upload thông qua giao thức ftp';
+$BL['be_ftptakeover_mark']              = 'mark';
+$BL['be_ftptakeover_available']         = 'files hiện tồn tại';
+$BL['be_ftptakeover_size']              = 'kích thước';
+$BL['be_ftptakeover_nofile']            = 'không có file nào – bạn phải upload thông qua giao thức ftp';
+$BL['be_ftptakeover_all']               = 'Tất cả';
+$BL['be_ftptakeover_directory']         = 'thư mục';
+$BL['be_ftptakeover_rootdir']           = 'thư mục gốc';
+$BL['be_ftptakeover_needed']            = 'cần thiết!!! (bạn phải chọn một)';
+$BL['be_ftptakeover_optional']          = 'lựa chọn';
+$BL['be_ftptakeover_keywords']          = 'từ khoá';
+$BL['be_ftptakeover_additional']        = 'bổ sung';
+$BL['be_ftptakeover_longinfo']          = 'thông tin đầy đủ';
+$BL['be_ftptakeover_status']            = 'trạng thái';
+$BL['be_ftptakeover_active']            = 'kích hoạt';
+$BL['be_ftptakeover_public']            = 'public';
+$BL['be_ftptakeover_createthumb']       = 'tạo thumbnail';
+$BL['be_ftptakeover_button']            = 'lấy các files đã lựa chọn';
+
+// files.reiter.tmpl.php
+$BL['be_ftab_title']                    = 'hệ thống file';
+$BL['be_ftab_createnew']                = 'tạo thư mục mới';
+$BL['be_ftab_paste']                    = 'dán các file ở clipboard vào thư mục gốc';
+$BL['be_ftab_disablethumb']             = 'vô hiệu hoá thumbnails';
+$BL['be_ftab_enablethumb']              = 'kích hoạt thumbnails';
+$BL['be_ftab_private']                  = 'file cá nhân';
+$BL['be_ftab_public']                   = 'file chung';
+$BL['be_ftab_search']                   = 'tìm kiếm';
+$BL['be_ftab_trash']                    = 'thùng rác';
+$BL['be_ftab_open']                     = 'mở tất cả các thư mục';
+$BL['be_ftab_close']                    = 'đóng tất cả các thư mục';
+$BL['be_ftab_upload']                   = 'upload file lên thư mục gốc';
+$BL['be_ftab_filehelp']                 = 'mở file giúp đỡ';
+
+// files.private.newdir.tmpl.php
+$BL['be_fpriv_rootdir']                 = 'thư mục gốc';
+$BL['be_fpriv_title']                   = 'tạo thư mục mới';
+$BL['be_fpriv_inside']                  = 'bên trong';
+$BL['be_fpriv_error']                   = 'lỗi: điền tên thư mục';
+$BL['be_fpriv_name']                    = 'tên';
+$BL['be_fpriv_status']                  = 'trạng thái';
+$BL['be_fpriv_button']                  = 'tạo thư mục mới';
+
+// files.private.editdir.tmpl.php
+$BL['be_fpriv_edittitle']               = 'sửa thư mục';
+$BL['be_fpriv_newname']                 = 'tên mới';
+$BL['be_fpriv_updatebutton']            = 'cập nhật';
+
+// files.private.upload.tmpl.php
+$BL['be_fprivup_err1']                  = 'Chọn file muốn upload';
+$BL['be_fprivup_err2']                  = 'Kích thước của file quá lớn';
+$BL['be_fprivup_err3']                  = 'lỗi trong khi lưu file';
+$BL['be_fprivup_err4']                  = 'Lỗi trong khi tạo thư mục của người dùng.';
+$BL['be_fprivup_err5']                  = 'no thumbnail exists';
+$BL['be_fprivup_err6']                  = 'Đây là lỗi phía server! Liên hệ <a href="mailto:{VAL}">webmaster</a> càng sớm càng tốt!';
+$BL['be_fprivup_title']                 = 'upload files';
+$BL['be_fprivup_button']                = 'upload files';
+$BL['be_fprivup_upload']                = 'upload';
+
+// files.private.editfile.tmpl.php
+$BL['be_fprivedit_title']               = 'sửa thông tin file';
+$BL['be_fprivedit_filename']            = 'tên file';
+$BL['be_fprivedit_created']             = 'đã được tạo';
+$BL['be_fprivedit_dateformat']          = 'd-m-Y H:i';
+$BL['be_fprivedit_err1']                = 'chứng thực tên file (thiết lập trở lại ban đầu)';
+$BL['be_fprivedit_clockwise']           = 'quay thumbnail clockwise [file gốc là +90°]';
+$BL['be_fprivedit_cclockwise']          = 'quay thumbnail counter clockwise [file gốc là -90°]';
+$BL['be_fprivedit_button']              = 'cập nhật thông tin file';
+$BL['be_fprivedit_size']                = 'kích thước';
+
+// files.private-functions.inc.php
+$BL['be_fprivfunc_upload']              = 'Upload file';
+$BL['be_fprivfunc_makenew']             = 'Tạo thư mục mới';
+$BL['be_fprivfunc_paste']               = 'Dán file';
+$BL['be_fprivfunc_edit']                = 'sửa thư mục';
+$BL['be_fprivfunc_cactive']             = 'chuyển kích hoạt/không kích hoạt';
+$BL['be_fprivfunc_cpublic']             = 'chuyển public/không public';
+$BL['be_fprivfunc_deldir']              = 'xoá thư mục';
+$BL['be_fprivfunc_jsdeldir']            = 'Bạn có thực sự muốn\nxoá thư mục';
+$BL['be_fprivfunc_notempty']            = 'thư mục {VAL} không hợp lệ!';
+$BL['be_fprivfunc_notempty_short']        = 'thư mục không hợp lệ!';
+$BL['be_fprivfunc_opendir']             = 'mở thư mục';
+$BL['be_fprivfunc_closedir']            = 'đóng thư mục';
+$BL['be_fprivfunc_dlfile']              = 'download file';
+$BL['be_fprivfunc_clipfile']            = 'clipboard file';
+$BL['be_fprivfunc_cutfile']             = 'cắt';
+$BL['be_fprivfunc_editfile']            = 'sửa thông tin file';
+$BL['be_fprivfunc_cactivefile']         = 'chuyển kích hoạt/không kích hoạt';
+$BL['be_fprivfunc_cpublicfile']         = 'chuyển public/không public';
+$BL['be_fprivfunc_movetrash']           = 'chuyển vào thùng rác';
+$BL['be_fprivfunc_jsmovetrash1']        = 'Bạn chắc chắn chứ';
+$BL['be_fprivfunc_jsmovetrash2']        = 'vào thùng rác?';
+
+// files.private.additions.inc.php
+$BL['be_fprivadd_nofolders']            = 'không có files hay folders nào';
+
+// files.public.list.tmpl.php
+$BL['be_fpublic_user']                  = 'user';
+$BL['be_fpublic_nofiles']               = 'không có files hay folders public nào';
+
+// files.private.trash.tmpl.php
+$BL['be_ftrash_nofiles']                = 'thùng rác rỗng';
+$BL['be_ftrash_show']                   = 'hiển thị các files cá nhân';
+
+// files.private-delfilelist.inc.php
+$BL['be_ftrash_restore']                = 'Bạn có muốn lưu trữ {VAL}\nvà chuyển nó trở lại danh sách cá nhân?';
+$BL['be_ftrash_delete']                 = 'Bạn có muốn xoá {VAL}?';
+$BL['be_ftrash_undo']                   = 'phục hồi (undo trash)';
+$BL['be_ftrash_delfinal']               = 'lệnh xoá cuối';
+
+// files.search.tmpl.php
+$BL['be_fsearch_err1']                  = 'không có từ khoá tìm kiếm.';
+$BL['be_fsearch_title']                 = 'tìm kiếm files';
+$BL['be_fsearch_infotext']              = 'Đây là phần tìm kiếm cơ bản. Nó tìm thông tin tương ứng với từ khoá,<br />. Các từ khoá phân cách bởi khoảng trắng<br />Sử dụng thêm AND/OR .';
+$BL['be_fsearch_nonfound']              = 'không có file nào thoả mãn!';
+$BL['be_fsearch_fillin']                = 'điền chuỗi muốn tìm kiếm vào trường trên.';
+$BL['be_fsearch_searchlabel']           = 'tìm';
+$BL['be_fsearch_startsearch']           = 'bắt đầu tìm kiếm';
+$BL['be_fsearch_and']                   = 'AND';
+$BL['be_fsearch_or']                    = 'OR';
+$BL['be_fsearch_all']                   = 'tất cả các file';
+$BL['be_fsearch_personal']              = 'cá nhân';
+$BL['be_fsearch_public']                = 'public';
+
+// chat.main.tmpl.php & chat.list.tmpl.php
+$BL['be_chat_title']                    = 'chat nội bộ';
+$BL['be_chat_info']                     = 'Ở đây bạn có thể trao đổi trực tiếp với các thành viên khác.';
+$BL['be_chat_start']                    = 'nhấn vào đây để bắt đầu';
+$BL['be_chat_lines']                    = 'chat lines';
+
+// message.center.tmpl.php
+$BL['be_msg_title']                     = 'Tin nhắn';
+$BL['be_msg_new']                       = 'mới';
+$BL['be_msg_old']                       = 'cũ';
+$BL['be_msg_senttop']                   = 'gửi';
+$BL['be_msg_del']                       = 'đã xoá';
+$BL['be_msg_from']                      = 'từ';
+$BL['be_msg_subject']                   = 'chủ đề';
+$BL['be_msg_date']                      = 'ngày/giờ';
+$BL['be_msg_close']                     = 'đóng tin';
+$BL['be_msg_create']                    = 'tạo tin nhắn mới';
+$BL['be_msg_reply']                     = 'trả lời tin nhắn mới';
+$BL['be_msg_move']                      = 'chuyển tin nhắn vào thùng rác';
+$BL['be_msg_unread']                    = 'chưa đọc hoặc tin mới';
+$BL['be_msg_lastread']                  = '{VAL} tin nhắn mới nhất';
+$BL['be_msg_lastsent']                  = '{VAL} tin nhắn gửi đi mới nhất';
+$BL['be_msg_marked']                    = 'tin này đựoc đánh dấu xoá';
+$BL['be_msg_nomsg']                     = 'không có tin nhắn nào';
+
+// message.send.tmpl.php
+$BL['be_msg_RE']                        = 'Trả lời';
+$BL['be_msg_by']                        = 'gửi bởi';
+$BL['be_msg_on']                        = 'ở';
+$BL['be_msg_msg']                       = 'tin nhắn';
+$BL['be_msg_err1']                      = 'bạn quên không điền người nhận...';
+$BL['be_msg_err2']                      = 'xin điền thêm chủ đề';
+$BL['be_msg_err3']                      = '';
+$BL['be_msg_sent']                      = 'tin nhắn đã được gửi!';
+$BL['be_msg_fwd']                       = 'bạn sẽ chuyển tới mục tin nhắn hay';
+$BL['be_msg_newmsgtitle']               = 'soạn tin nhắn mới';
+$BL['be_msg_err']                       = 'lỗi trong quá trình gửi tin';
+$BL['be_msg_sendto']                    = 'gửi tin nhắn tới';
+$BL['be_msg_available']                 = 'danh sách những người nhận hiện có';
+$BL['be_msg_all']                       = 'gửi tin cho tất cả những người trong danh sách';
+
+// message.subscription.tmpl.php
+$BL['be_newsletter_title']              = 'đăng ký thư tin tức';
+$BL['be_newsletter_titleedit']          = 'sửa đăng ký';
+$BL['be_newsletter_new']                = 'tạo mới';
+$BL['be_newsletter_add']                = 'thêm thư tin tức';
+$BL['be_newsletter_name']               = 'tên';
+$BL['be_newsletter_info']               = 'thông tin';
+$BL['be_newsletter_button_save']        = 'lưu đăng ký';
+$BL['be_newsletter_button_cancel']      = 'Thoát';
+
+// admin.newuser.tmpl.php
+$BL['be_admin_usr_err1']                = 'tên truy cập không hợp lệ';
+$BL['be_admin_usr_err2']                = 'chưa điền tên truy cập';
+$BL['be_admin_usr_err3']                = 'mật khẩu để trống';
+$BL['be_admin_usr_err4']                = "email không đúng";
+$BL['be_admin_usr_err']                 = 'lỗi';
+$BL['be_admin_usr_mailsubject']         = 'Chào mứng,chúc bạn vui vẻ';
+$BL['be_admin_usr_mailbody']            = "CHÀO MỪNG BẠN ĐÃ ĐẾN VỚI WEBSITE CỦA CHÚNG TA\n\n    tên truy cập: {LOGIN}\n    mật khẩu: {PASSWORD}\n\n\nBạn có thể đăng nhập ở đây: {LOGIN_PAGE}quản trị\n";
+$BL['be_admin_usr_title']               = 'thêm thành viên mới';
+$BL['be_admin_usr_realname']            = 'tên thật';
+$BL['be_admin_usr_setactive']           = 'thiết lập user này ở trạng thái kích hoạt';
+$BL['be_admin_usr_iflogin']             = 'nếu thiết lập user có thể đăng nhập';
+$BL['be_admin_usr_isadmin']             = 'user là người quản trị';
+$BL['be_admin_usr_iseditor']            = 'user là người kiểm duyệt tin';
+$BL['be_admin_usr_ifadmin']             = 'nếu thiết lập user có quyền quản trị';
+$BL['be_editor_usr_ifadmin']            = 'nếu thiết lập user có quyền kiểm duyệt tin';
+$BL['be_admin_usr_verify']              = 'kiểm chứng';
+$BL['be_admin_usr_sendemail']           = 'gửi email tới user mới bao gồm thông tin cần thiết';
+$BL['be_admin_usr_button']              = 'gửi dữ liệu của user';
+
+// admin.edituser.tmpl.php
+$BL['be_admin_usr_etitle']              = 'chỉnh sửa user';
+$BL['be_admin_usr_emailsubject']        = 'hệ thống đã đựơc thay đổi';
+$BL['be_admin_usr_emailbody']           = "THÔNG TIN USER HỆ THỐNG ĐÃ ĐƯỢC THAY ĐỔI\n\n    tên truy cập: {LOGIN}\n    mật khẩu: {PASSWORD}\n\n\nBạn có thể đăng nhập tại đây: {LOGIN_PAGE}\n\nquản trị\n";
+$BL['be_admin_usr_passnochange']        = '[KHONG CO THAY DOI]';
+$BL['be_admin_usr_ebutton']             = 'cập nhật dữ liệu user';
+
+// admin.listuser.tmpl.php
+$BL['be_admin_usr_ltitle']              = 'danh sách user của hệ thống';
+$BL['be_admin_usr_ldel']                = 'CHÚ Ý!&#13BẠN SẼ XOÁ USER';
+$BL['be_admin_usr_create']              = 'tạo user mới';
+$BL['be_admin_usr_editusr']             = 'chỉnh sửa user';
+
+// admin.structform.tmpl.php
+$BL['be_admin_struct_title']            = 'cấu trúc site';
+$BL['be_admin_struct_child']            = '(nhánh con của)';
+$BL['be_admin_struct_index']            = 'index (website start)';
+$BL['be_admin_struct_cat']              = 'category title';
+$BL['be_admin_struct_hide1']            = 'giấu';
+$BL['be_admin_struct_hide2']            = 'phân laọi trong menu';
+$BL['be_admin_struct_info']             = 'category infotext';
+$BL['be_admin_struct_template']         = 'template';
+$BL['be_admin_struct_alias']            = 'alias category';
+$BL['be_admin_struct_visible']          = 'nhìn thấy';
+$BL['be_admin_struct_button']           = 'gửi dữ liệu đi';
+$BL['be_admin_struct_close']            = 'đóng';
+
+// admin.filecat.tmpl.php
+$BL['be_admin_fcat_title']              = 'phân loại file';
+$BL['be_admin_fcat_err']                = 'tên phân loại này rỗng !';
+$BL['be_admin_fcat_name']               = 'tên phân loại này';
+$BL['be_admin_fcat_needed']             = 'cần thiết';
+$BL['be_admin_fcat_button1']            = 'cập nhật';
+$BL['be_admin_fcat_button2']            = 'tạo';
+$BL['be_admin_fcat_delmsg']             = 'Bạn có muốn\nxoá không?';
+$BL['be_admin_fcat_fcat']               = 'file phân loại';
+$BL['be_admin_fcat_err1']               = 'tên file rỗng!';
+$BL['be_admin_fcat_fkeyname']           = 'tên file';
+$BL['be_admin_fcat_exit']               = 'thoát khỏi chỉnh sửa';
+$BL['be_admin_fcat_addkey']             = 'thêm khoá mới';
+$BL['be_admin_fcat_editcat']            = 'sửa tên phân loại';
+$BL['be_admin_fcat_delcatmsg']          = 'Bạn có muốn\nxoá không?';
+$BL['be_admin_fcat_delcat']             = 'xoá';
+$BL['be_admin_fcat_delkey']             = 'xoá';
+$BL['be_admin_fcat_editkey']            = 'sửa';
+$BL['be_admin_fcat_addcat']             = 'tạo mới';
+
+// admin.pagelayout.tmpl.php
+$BL['be_admin_page_title']              = 'cài đặt: trang layout';
+$BL['be_admin_page_align']              = 'căn trang';
+$BL['be_admin_page_align_left']         = 'căn chỉnh chuẩn (trái) của toàn bộ nội dung trang';
+$BL['be_admin_page_align_center']       = 'căn giữa toàn bộ trang';
+$BL['be_admin_page_align_right']        = 'căn phải toàn bộ trang';
+$BL['be_admin_page_margin']             = 'lề';
+$BL['be_admin_page_top']                = 'trên';
+$BL['be_admin_page_bottom']             = 'dưới';
+$BL['be_admin_page_left']               = 'trái';
+$BL['be_admin_page_right']              = 'phải';
+$BL['be_admin_page_bg']                 = 'nền';
+$BL['be_admin_page_color']              = 'màu sắc';
+$BL['be_admin_page_height']             = 'cao';
+$BL['be_admin_page_width']              = 'rộng';
+$BL['be_admin_page_main']               = 'chính';
+$BL['be_admin_page_leftspace']          = 'khoảng trắng trái';
+$BL['be_admin_page_rightspace']         = 'khoảng trắng phải';
+$BL['be_admin_page_class']              = 'lớp';
+$BL['be_admin_page_image']              = 'ảnh';
+$BL['be_admin_page_text']               = 'văn bản';
+$BL['be_admin_page_link']               = 'liên kết';
+$BL['be_admin_page_js']                 = 'javascript';
+$BL['be_admin_page_visited']            = 'đã được xem';
+$BL['be_admin_page_pagetitle']          = 'đầu đề của trang';
+$BL['be_admin_page_addtotitle']         = 'thêm vào đề mục';
+$BL['be_admin_page_category']           = 'phân loại';
+$BL['be_admin_page_articlename']        = 'tên tin';
+$BL['be_admin_page_blocks']             = 'khối';
+$BL['be_admin_page_allblocks']          = 'tất cả các khối';
+$BL['be_admin_page_col1']               = '3 cột layout';
+$BL['be_admin_page_col2']               = '2 cột layout (cột chính bên phải, menu bên trái)';
+$BL['be_admin_page_col3']               = '2 cột layout (cột chính bên trái, menu phải)';
+$BL['be_admin_page_col4']               = '1 cột layout';
+$BL['be_admin_page_header']             = 'phần đầu';
+$BL['be_admin_page_footer']             = 'phần cuối';
+$BL['be_admin_page_topspace']           = 'khoảng trắng trên';
+$BL['be_admin_page_bottomspace']        = 'khoảng trắng dưới';
+$BL['be_admin_page_button']             = 'lưu lại trang sắp đặt';
+
+// admin.frontendcss.tmpl.php
+$BL['be_admin_css_title']               = 'cài đặt: dữ liệu css';
+$BL['be_admin_css_css']                 = 'css';
+$BL['be_admin_css_button']              = 'lưu css';
+
+// admin.templates.tmpl.php
+$BL['be_admin_tmpl_title']              = 'cài đặt: mẫu';
+$BL['be_admin_tmpl_default']            = 'mặc định';
+$BL['be_admin_tmpl_add']                = 'thêm mẫu';
+$BL['be_admin_tmpl_edit']               = 'sửa mẫu';
+$BL['be_admin_tmpl_new']                = 'tạo mới';
+$BL['be_admin_tmpl_css']                = 'file css';
+$BL['be_admin_tmpl_head']               = 'html head';
+$BL['be_admin_tmpl_js']                 = 'nhúng js';
+$BL['be_admin_tmpl_error']              = 'lỗi';
+$BL['be_admin_tmpl_button']             = 'lưu mẫu';
+$BL['be_admin_tmpl_name']               = 'tên';
+
+// article.structlist.tmpl.php
+$BL['be_article_title']                 = 'cấu trúc site và danh sách các tin/mục tin';
+
+// article.new.tmpl.php
+$BL['be_article_err1']                  = 'tựa đề cho tin/mục tin này rỗng';
+$BL['be_article_err2']                  = 'ngày nhập vào lỗi';
+$BL['be_article_err3']                  = 'ngày nhập vào lỗi';
+$BL['be_article_title1']                = 'thong tin cơ sở';
+$BL['be_article_cat']                   = 'phân loại';
+$BL['be_article_atitle']                = 'tiêu đề tin';
+$BL['be_article_asubtitle']             = 'trích dẫn tin';
+$BL['be_article_abegin']                = 'bắt đầu';
+$BL['be_article_aend']                  = 'kết thúc';
+$BL['be_article_aredirect']             = 'chuyển tiếp tới';
+$BL['be_article_akeywords']             = 'từ khoá';
+$BL['be_article_asummary']              = 'nội dung';
+$BL['be_article_abutton']               = 'tạo tin mới';
+
+// article.editcontent.inc.php
+$BL['be_article_err4']                  = 'ngày nhập vào lỗi + 1 tuần';
+
+// article.editsummary.tmpl.php
+$BL['be_article_estitle']               = 'chỉnh sửa thông tin cới sở';
+$BL['be_article_eslastedit']            = 'lần sửa gần nhất';
+$BL['be_article_esnoupdate']            = 'biểu mẫu không được cập nhật';
+$BL['be_article_esbutton']              = 'cập nhật';
+
+// articlecontent.edit.tmpl.php
+$BL['be_article_cnt_title']             = 'nội dung tin';
+$BL['be_article_cnt_type']              = 'kiểu nội dung';
+$BL['be_article_cnt_space']             = 'khoảng trống';
+$BL['be_article_cnt_before']            = 'trước';
+$BL['be_article_cnt_after']             = 'sau';
+$BL['be_article_cnt_top']               = 'trên';
+$BL['be_article_cnt_ctitle']            = 'tiêu đề nội dung';
+$BL['be_article_cnt_back']              = 'hoàn thiên thông tin cho tin';
+$BL['be_article_cnt_button1']           = 'cập nhật nội dung';
+$BL['be_article_cnt_button2']           = 'tạo nội dung';
+
+// articlecontent.list.tmpl.php
+$BL['be_article_cnt_ltitle']            = 'thông tin về bài viết';
+$BL['be_article_cnt_ledit']             = 'sử tin';
+$BL['be_article_cnt_lvisible']          = 'chuyển hiện/không hiện';
+$BL['be_article_cnt_ldel']              = 'xoá tin';
+$BL['be_article_cnt_ldeljs']            = 'Bạn muốn xoá không?';
+$BL['be_article_cnt_redirect']          = 'tái định hướng';
+$BL['be_article_cnt_edited']            = 'tạo bởi';
+$BL['be_article_cnt_start']             = 'ngày bắt đầu';
+$BL['be_article_cnt_end']               = 'kết thúc';
+$BL['be_article_cnt_add']               = 'thêm phần nội dung mới';
+$BL['be_article_cnt_up']                = 'chuyển nội dung lên trên';
+$BL['be_article_cnt_down']              = 'chuyển nội dung xuống dưới';
+$BL['be_article_cnt_edit']              = 'sửa nội dung';
+$BL['be_article_cnt_delpart']           = 'xoá phần nội dung của tin này';
+$BL['be_article_cnt_delpartjs']         = 'Bạn muốn xoá không?';
+$BL['be_article_cnt_center']            = 'trang tin';
+
+// content forms
+$BL['be_cnt_plaintext']                 = 'văn bản thuần';
+$BL['be_cnt_htmltext']                  = 'html';
+$BL['be_cnt_image']                     = 'ảnh';
+$BL['be_cnt_position']                  = 'vị trí';
+$BL['be_cnt_pos0']                      = 'Trên, trái';
+$BL['be_cnt_pos1']                      = 'Trên, giữa';
+$BL['be_cnt_pos2']                      = 'Trên, phải';
+$BL['be_cnt_pos3']                      = 'Dưới, trái';
+$BL['be_cnt_pos4']                      = 'Dưới, giữa';
+$BL['be_cnt_pos5']                      = 'Dưới, phải';
+$BL['be_cnt_pos6']                      = 'Trong văn bản, trái';
+$BL['be_cnt_pos7']                      = 'Trong văn bản, phải';
+$BL['be_cnt_pos0i']                     = 'căn ảnh ở trên và trái của khối văn bản';
+$BL['be_cnt_pos1i']                     = 'căn ảnh ở trên và giữa của khối văn bản';
+$BL['be_cnt_pos2i']                     = 'căn ảnh ở trên vàâphỉ của khối văn bản';
+$BL['be_cnt_pos3i']                     = 'căn ảnh ở dưới và trái của khối văn bản';
+$BL['be_cnt_pos4i']                     = 'căn ảnh ở dưới và giữa của khối văn bản';
+$BL['be_cnt_pos5i']                     = 'căn ảnh ở trên và phải của khối văn bản';
+$BL['be_cnt_pos6i']                     = 'căn ảnh ở bên trái trong khối văn bản';
+$BL['be_cnt_pos7i']                     = 'căn ảnh ở bên phải trong khối văn bản';
+$BL['be_cnt_maxw']                      = 'tối đa. độ rộng';
+$BL['be_cnt_maxh']                      = 'tối đa. độ cao';
+$BL['be_cnt_enlarge']                   = 'nhấn vào để phóng to';
+$BL['be_cnt_caption']                   = 'phụ đề';
+$BL['be_cnt_subject']                   = 'chủ đề';
+$BL['be_cnt_recipient']                 = 'người nhận';
+$BL['be_cnt_buttontext']                = 'nút dạng chữ';
+$BL['be_cnt_sendas']                    = 'gửi với danh nghĩa';
+$BL['be_cnt_text']                      = 'văn bản';
+$BL['be_cnt_html']                      = 'html';
+$BL['be_cnt_formfields']                = 'các trường của form';
+$BL['be_cnt_code']                      = 'max';
+$BL['be_cnt_infotext']                  = 'thông tin';
+$BL['be_cnt_subscription']              = 'đăng ký';
+$BL['be_cnt_labelemail']                = 'nhãn cho email';
+$BL['be_cnt_tablealign']                = 'bảng căn chỉnh';
+$BL['be_cnt_labelname']                 = 'nhãn cho phần tên';
+$BL['be_cnt_labelsubsc']                = 'nhãn đăng ký .';
+$BL['be_cnt_allsubsc']                  = 'tất cả đăng ký.';
+$BL['be_cnt_default']                   = 'mặc định';
+$BL['be_cnt_left']                      = 'trái';
+$BL['be_cnt_center']                    = 'giữa';
+$BL['be_cnt_right']                     = 'phải';
+$BL['be_cnt_successtext']               = 'thành công';
+$BL['be_cnt_regmail']                   = 'đăng ký.email';
+$BL['be_cnt_logoffmail']                = 'thoát.email';
+$BL['be_cnt_changemail']                = 'thay đổi.email';
+$BL['be_cnt_openimagebrowser']          = 'mở trình duyệt ảnh';
+$BL['be_cnt_openfilebrowser']           = 'mở trình duyệt file';
+$BL['be_cnt_sortup']                    = 'chuyển lên';
+$BL['be_cnt_sortdown']                  = 'chuyển xuống';
+$BL['be_cnt_delimage']                  = 'xoá ảnh được chọn';
+$BL['be_cnt_delfile']                   = 'xoá file được chọn';
+$BL['be_cnt_delmedia']                  = 'xoá file hình được chọn';
+$BL['be_cnt_column']                    = 'cột';
+$BL['be_cnt_imagespace']                = 'ảnh khoảng trắng';
+$BL['be_cnt_directlink']                = 'liên kết trực tiếp';
+$BL['be_cnt_target']                    = 'đích';
+$BL['be_cnt_target1']                   = 'trong cửa sổ mới';
+$BL['be_cnt_target2']                   = 'trong frame cha của cửa sổ';
+$BL['be_cnt_target3']                   = 'trong cùng cửa sổ mà không có frames';
+$BL['be_cnt_target4']                   = 'trong cùng frame hoặc cu&#25ủ¨ sổ';
+$BL['be_cnt_bullet']                    = 'danh sách bullet';
+$BL['be_cnt_linklist']                  = 'danh sách liên kết';
+$BL['be_cnt_plainhtml']                 = 'html đơn giản';
+$BL['be_cnt_files']                     = 'files';
+$BL['be_cnt_description']               = 'mô tả';
+$BL['be_cnt_linkarticle']               = 'tin/mục liên kết';
+$BL['be_cnt_articles']                  = 'tin/mục tin';
+$BL['be_cnt_movearticleto']             = 'chuyển tin/mục tin tới danh sách tin/mục tin liên kết';
+$BL['be_cnt_removearticleto']           = 'xoá tin được lựa chọn';
+$BL['be_cnt_mediatype']                 = 'kiểu media';
+$BL['be_cnt_control']                   = 'điều khiển';
+$BL['be_cnt_showcontrol']               = 'hiện thanh điều khiển';
+$BL['be_cnt_autoplay']                  = 'tự động';
+$BL['be_cnt_source']                    = 'nguồn';
+$BL['be_cnt_internal']                  = 'nội bộ';
+$BL['be_cnt_openmediabrowser']          = 'mở trình duyệt media';
+$BL['be_cnt_external']                  = 'bên ngoài';
+$BL['be_cnt_mediapos0']                 = 'trái (mặc định)';
+$BL['be_cnt_mediapos1']                 = 'giữa';
+$BL['be_cnt_mediapos2']                 = 'phải';
+$BL['be_cnt_mediapos3']                 = 'khối, trái';
+$BL['be_cnt_mediapos4']                 = 'khối, phải';
+$BL['be_cnt_mediapos0i']                = 'cảwn chỉnh file media ở trên và trái của khối văn bản';
+$BL['be_cnt_mediapos1i']                = 'cảwn chỉnh file media ở trên và giữa của khối văn bản';
+$BL['be_cnt_mediapos2i']                = 'cảwn chỉnh file media ở trên và phải của khối văn bản';
+$BL['be_cnt_mediapos3i']                = 'align media left trong khối văn bản';
+$BL['be_cnt_mediapos4i']                = 'cảwn chỉnh file media ở trên và trong khối văn bản';
+$BL['be_cnt_setsize']                   = 'thiết lập kích thước';
+$BL['be_cnt_set1']                      = 'thiết lập kích thước file media 160x120px';
+$BL['be_cnt_set2']                      = 'thiết lập kích thước file media 240x180px';
+$BL['be_cnt_set3']                      = 'thiết lập kích thước file media 320x240px';
+$BL['be_cnt_set4']                      = 'thiết lập kích thước file media 480x360px';
+$BL['be_cnt_set5']                      = 'xoá chiều rộng và cao của file media';
+
+// added: 28-12-2003
+$BL['be_admin_page_add']                = 'tạo mới trang layout';
+$BL['be_admin_page_name']               = 'tên';
+$BL['be_admin_page_edit']               = 'sửa';
+$BL['be_admin_page_render']             = 'rendering';
+$BL['be_admin_page_table']              = 'bảng';
+$BL['be_admin_page_div']                = 'css div';
+$BL['be_admin_page_custom']             = 'tuỳ chỉnh';
+$BL['be_admin_page_custominfo']         = 'từ khối mẫu chính';
+$BL['be_admin_tmpl_layout']             = 'layout';
+$BL['be_admin_tmpl_nolayout']           = 'không có trang layout nào đang tồn tại!';
+
+// added: 31-12-2003
+$BL['be_ctype_search']                  = 'tìm kiếm';
+$BL['be_cnt_results']                   = 'kết quả';
+$BL['be_cnt_results_per_page']          = 'trên trang (nếu rỗng thì hiện tất cả)';
+$BL['be_cnt_opennewwin']                = 'mở cu&#25ủ¨ sổ mới';
+$BL['be_cnt_searchlabeltext']           = '';
+$BL['be_cnt_input']                     = 'nhập';
+$BL['be_cnt_style']                     = 'kiểu';
+$BL['be_cnt_result']                    = 'kết quả';
+$BL['be_cnt_next']                      = 'tiếp theo';
+$BL['be_cnt_previous']                  = 'về trước';
+$BL['be_cnt_align']                     = 'căn chỉnh';
+$BL['be_cnt_searchformtext']            = '';
+$BL['be_cnt_intro']                     = 'giới thiệu';
+$BL['be_cnt_noresult']                  = 'không có kết quả';
+
+// added: 02-01-2004
+$BL['be_admin_page_disable']            = 'vô hiệu hoá';
+
+// added: 09-01-2004
+$BL['be_article_articleowner']          = 'người tạo tin';
+$BL['be_article_adminuser']             = 'quản trị user';
+$BL['be_article_username']              = 'tác giả';
+
+// added: 10-01-2004
+$BL['be_ctype_wysiwyg']                 = 'WYSIWYG HTML';
+
+// added, changed: 11-01-2004
+$BL['be_admin_struct_regonly']          = 'chỉ hiển thị cho user đăng nhập';
+$BL['be_admin_struct_status']           = 'trạng thái menu';
+
+// added: 15-02-2004
+$BL['be_ctype_articlemenu']             = 'menu tin/mục tin';
+$BL['be_cnt_sitelevel']                 = 'cấp của site';
+$BL['be_cnt_sitecurrent']               = 'cấp hiện thời của site';
+// added: 4-4-2004
+$BL['be_admin_startup_title']           = 'Hiển thị mặc định'       ;
+$BL['be_admin_startup_button']          = 'Lưu lại'   ;
+$BL['be_subnav_admin_starttext']        = 'trang hiển thị mặc định'    ;
+$BL['be_admin_startup_text']            = 'nội dung hiển thị'        ;
+// added by Christian Günther (guenther@emediafabrik.de)
+// and Johannes Meyknecht (meyknecht@emediafabrik.de) for VTS phpOpenTracker
+$BL['be_nav_vts']                       = 'THỐNG KÊ';
+$BL['be_subnav_vts_total']                = 'Tổng hợp';
+$BL['be_subnav_vts_currhour']              = 'Trong giờ';
+$BL['be_subnav_vts_lasthour']              = '1 giờ trước';
+$BL['be_subnav_vts_today']              = 'Hôm nay';
+$BL['be_subnav_vts_yesterday']          = 'Hôm qua';
+$BL['be_subnav_vts_currweek']              = 'Tuần này';
+$BL['be_subnav_vts_lastweek']              = 'Tuần trước';
+$BL['be_subnav_vts_curryear']              = 'Năm nay';
+$BL['be_subnav_vts_lastyear']              = 'Năm trước';
+
+$BL['be_vts_currhour']                    = 'Trong giờ';
+$BL['be_vts_lasthour']                    = 'Cách đây 1 giờ';
+$BL['be_vts_today']                        = 'Hôm nay';
+$BL['be_vts_yesterday']                    = 'Hôm qua';
+$BL['be_vts_currweek']                    = 'Tuần này';
+$BL['be_vts_lastweek']                    = 'Tuần trước';
+$BL['be_vts_currmonth']                    = 'Tháng này';
+$BL['be_vts_lastmonth']                    = 'Tháng trước';
+$BL['be_vts_curryear']                    = 'Năm nay';
+$BL['be_vts_lastyear']                    = 'Năm trước';
+
+$BL['be_vts_total']                        = 'tổng';
+$BL['be_vts_one_time_visitors']            = 'một lần';
+$BL['be_vts_returning_visitors']        = 'khách trở lại';
+$BL['be_vts_unique_visitors']            = '1 trang';
+$BL['be_vts_return_visits']                = 'ghé thăm trở lại';
+$BL['be_vts_visitors_online']            = 'trực tuyến';
+
+$BL['be_vts_visits']                    = 'Lần truy cập';
+$BL['be_vts_visitor']                    = 'Khách';
+$BL['be_vts_browser']                    = 'Trình duyệt';
+$BL['be_vts_os']                        = 'Hệ điều hành';
+$BL['be_vts_host']                        = 'Máy chủ';
+$BL['be_vts_document']                    = 'Trang';
+$BL['be_vts_referer']                    = 'Tham chiếu đến';
+
+//added by frold
+$BL['be_vts_name']                    = 'Tên';
+$BL['be_vts_times']                    = 'Tổng';
+$BL['be_vts_procent']                    = 'Phần trăm';
+$BL['be_vts_search_engines']                = 'Tìm kiếm';
+$BL['be_vts_search_keywords']                = 'Từ khoá tìm kiếm';
+$BL['be_vts_search_combi']                = 'Thống kê kết hợp'      ;
+ //email
+$BL['email_this_page']                = 'Gửi email trang này'  ;
+$BL['privacy']                         = 'Những thông tin ở đây không nhằm mục đích marketing';
+$BL['your_email']                      = 'Email của bạn';
+$BL['friend_email']                    = 'Email cần gửi';
+$BL['email_content']                   = 'Toi thay trang web nay rat co ich voi ban,hay thu xem no nhe!';
+$BL['email_subject']                   = 'Mot nguoi ban gioi thieu cho ban trang Web nay!';
+$BL['error1']                           = "Ít nhất một trong 2 địa chỉ email ở trên không hợp lệ.";
+$BL['error2']                           = "Bạn phải điền đầy đủ thông tin vào form email trên" ;
+$BL['welcome']                          = "Bài này gửi từ"  ;
+// added: 17-04-2004
+$BL['be_ctype_guestbook']                = 'guestbook/comment';
+$BL['be_cnt_guestbook_listing']            = 'listing';
+$BL['be_cnt_guestbook_listing_all']        = 'list all entries';
+$BL['be_cnt_guestbook_list']            = 'list';
+$BL['be_cnt_guestbook_perpage']            = 'per page';
+$BL['be_cnt_guestbook_form']            = 'form';
+$BL['be_cnt_guestbook_signed']            = 'signed';
+$BL['be_cnt_guestbook_nav']                = 'nav';
+$BL['be_cnt_guestbook_before']            = 'before';
+$BL['be_cnt_guestbook_after']            = 'after';
+$BL['be_cnt_guestbook_entry']            = 'entry';
+$BL['be_cnt_guestbook_edit']            = 'edit';
+$BL['be_cnt_ecardform_selector']        = 'selector';
+$BL['be_cnt_ecardform_radiobutton']     = 'radio button';
+$BL['be_cnt_ecardform_javascript']      = 'JavaScript functionality';
+$BL['be_cnt_ecardform_over']            = 'onMouseOver';
+$BL['be_cnt_ecardform_click']           = 'onClick';
+$BL['be_cnt_ecardform_out']               = 'onMouseOut';
+$BL['be_admin_struct_topcount']         = 'top article count';
+
+// added: 19-04-2004
+$BL['be_subnav_msg_newslettersend']     = 'thư tin';
+$BL['be_newsletter_addnl']              = 'thêm thư tin';
+$BL['be_newsletter_titleeditnl']        = 'sửa thư tin';
+$BL['be_newsletter_newnl']              = 'tạo mới';
+$BL['be_newsletter_button_savenl']      = 'lưu lại';
+$BL['be_newsletter_fromname']           = 'tên người gửi';
+$BL['be_newsletter_fromemail']          = 'từ địa chỉ mail';
+$BL['be_newsletter_replyto']            = 'phản hồi lại địa chỉ mail';
+$BL['be_newsletter_changed']            = 'thay đổi gần nhất';
+$BL['be_newsletter_placeholder']        = 'placeholder';
+$BL['be_newsletter_htmlpart']           = 'nội dung dạng HTML';
+$BL['be_newsletter_textpart']           = 'nội dung dạng TEXT';
+$BL['be_newsletter_allsubscriptions']   = 'tất cả những người đăng ký';
+$BL['be_newsletter_verifypage']         = 'kiểm tra liên kết';
+$BL['be_newsletter_open']               = 'nhập HTML và TEXT';
+$BL['be_newsletter_open1']              = '(nhấn vào ảnh để mở)';
+$BL['be_newsletter_sendnow']            = 'Gửi';
+$BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Chú ý!</strong> Thư của bạn do gửi cho nhiều người nên rất có thể bị các hệ thống khác coi là spam.Hãy kiểm tra lại từ phía người dùng.';
+$BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
+$BL['be_newsletter_testemail']          = 'test email';
+$BL['be_newsletter_sendnlbutton']       = 'gửi thu tin';
+$BL['be_newsletter_sendprocess']        = 'gửi xử lý đi';
+$BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Chú ý!</strong> Không dừng quá trình gửi vì có thể dẫn đến lặp lại thư tin này.';
+$BL['be_newsletter_testerror']          = '<span style="color:#CC3300;font-size:11px;">việc kiểm tra địa chỉ email <strong>###TEST###</strong> không đúng!<br /> <br />Xin thử lại!';
+$BL['be_newsletter_to']                 = 'người nhận';
+$BL['be_newsletter_ready']              = 'gửi thư tín: Xong';
+$BL['be_newsletter_readyfailed']        = 'gửi bị lỗi';
+$BL['be_subnav_msg_subscribers']        = 'những người đăng ký';
+
+// added: 20-04-2004
+$BL['be_ctype_sitemap']                    = 'sitemap';
+$BL['be_cnt_sitemap_catimage']          = 'icon của các mức';
+$BL['be_cnt_sitemap_articleimage']      = 'icon của bài viết';
+$BL['be_cnt_sitemap_display']           = 'hiển thị';
+$BL['be_cnt_sitemap_structuronly']      = 'chỉ cấu trúc';
+$BL['be_cnt_sitemap_structurarticle']   = 'cấu trúc và bài viết';
+$BL['be_cnt_sitemap_catclass']          = 'lớp cấu trúc';
+$BL['be_cnt_sitemap_articleclass']      = 'lớp bài viết';
+$BL['be_cnt_sitemap_count']             = 'bộ đếm';
+$BL['be_cnt_sitemap_classcount']        = 'thêm vào tên lớp';
+$BL['be_cnt_sitemap_noclasscount']      = 'không thêm tên lớp';
+
+// added: 23-04-2004
+$BL['be_ctype_bid']                        = 'bid';
+$BL['be_cnt_bid_bidtext']               = 'bid text';
+$BL['be_cnt_bid_sendtext']              = 'sent text';
+$BL['be_cnt_bid_verifiedtext']          = 'verified text';
+$BL['be_cnt_bid_errortext']             = 'bid deleted';
+$BL['be_cnt_bid_verifyemail']           = 'kiểm tra email';
+$BL['be_cnt_bid_startbid']              = 'start bid';
+
+// added: 29-04-2004
+$BL['be_cnt_bid_nextbidadd']            = 'tăng bởi';
+
+// added: 10-05-2004
+$BL['be_ctype_pages']                   = 'nội dung mở rọng';
+$BL['be_cnt_pages_select']              = 'chọn tệp';
+$BL['be_cnt_pages_fromfile']            = 'file from structure';
+$BL['be_cnt_pages_manually']            = 'tùy biến đường dẫn/tệp hoặc URL';
+$BL['be_cnt_pages_cust']                = 'tệp/URL';
+$BL['be_cnt_pages_from']                = 'nguồn';
+
+// added: 24-05-2004
+$BL['be_ctype_reference']               = 'rollover images';
+$BL['be_cnt_reference_basis']           = 'alignment';
+$BL['be_cnt_reference_horizontal']      = 'ngang';
+$BL['be_cnt_reference_vertical']        = 'dọc';
+$BL['be_cnt_reference_aligntext']       = 'ảnh tham chiếu nhỏ';
+$BL['be_cnt_reference_largetext']       = 'ảnh tham chiếu lớn';
+$BL['be_cnt_reference_zoom']            = 'zoom';
+$BL['be_cnt_reference_middle']          = 'giữa';
+$BL['be_cnt_reference_border']          = 'viền';
+$BL['be_cnt_reference_block']           = 'khối w x h';
+
+// added: 31-05-2004
+$BL['be_article_rendering']             = 'trát nội dung';
+$BL['be_article_nosummary']             = 'không hiển thị nội dụng ở chế độ đầy đủ';
+$BL['be_article_forlist']               = 'danh sách bài viết';
+$BL['be_article_forfull']               = 'hiển thị bài viết đầy đủ';
+
+// added: 08-07-2004
+$BL["setup_dir_exists"]                 = '<strong>CHÚ Ý!</strong> Thư mục &quot;SETUP&quot; vẫn tồn tại! Xóa đi ngay nhé!\'s lỗi nghiêm trọng đấy.';
+
+// added: 12-08-2004
+$BL['be_cnt_guestbook_banned']          = 'banned words';
+$BL['be_cnt_guestbook_flooding']        = 'flooding';
+$BL['be_cnt_guestbook_setcookie']       = 'thiết lập cookie';
+$BL['be_cnt_guestbook_allowed']         = 'được phép làm lại sau đó';
+$BL['be_cnt_guestbook_seconds']         = 'giây';
+$BL['be_alias_ID']                      = 'alias ID';
+$BL['be_ftrash_delall']                 = "Bạn có muốn xóa\ntất cả các tệp trong thùng rác không?";
+$BL['be_ftrash_delallfiles']            = 'xóa tất cả trong thùng rác';
+
+// added: 16-08-2004
+$BL['be_subnav_msg_importsubscribers']  = 'Nhập người đăng ký bằng tệp CSV';
+$BL['be_newsletter_importtitle']        = 'Nhập người đăng ký';
+$BL['be_newsletter_entriesfound']       = 'địa chỉ được tìm thấy';
+$BL['be_newsletter_foundinfile']        = 'trong tệp';
+$BL['be_newsletter_addresses']          = 'địa chỉ';
+$BL['be_newsletter_csverror']           = 'Tệp CSV hình như lỗi.Bạn thử kiểm tra lại dấu ngăn cách đi!';
+$BL['be_newsletter_importall']          = 'nhập tất cả';
+$BL['be_newsletter_addressesadded']     = 'địa chỉ được thêm.';
+$BL['be_newsletter_newimport']          = 'nhập mới';
+$BL['be_newsletter_importerror']        = 'Hãy k&ểm tra lại tệp CSV. Không có địa chỉ nào được thêm!';
+$BL['be_newsletter_shouldbe1']          = 'Tệp CSV nên được định dạng như sau';
+$BL['be_newsletter_shouldbe2']          = 'nhưng bạn có thể tùy chọn dấu ngăn cách';
+$BL['be_newsletter_sample']             = 'ví dụ';
+$BL['be_newsletter_selectCSV']          = 'chọn tệp CSV';
+$BL['be_newsletter_delimeter']          = 'ngăn cách';
+$BL['be_newsletter_importCSV']          = 'nhập từ tệp CSV';
+
+// added: 24-08-2004
+$BL['be_admin_struct_orderarticle']     = 'thứ tự các bài viết được gán';
+$BL['be_admin_struct_orderdate']        = 'ngày tạo';
+$BL['be_admin_struct_orderchangedate']  = 'ngày thay đổi';
+$BL['be_admin_struct_orderstartdate']   = 'ngày bắt đầu';
+$BL['be_admin_struct_orderdesc']        = 'giảm dần';
+$BL['be_admin_struct_orderasc']         = 'tăng dần';
+$BL['be_admin_struct_ordermanual']      = 'bằng tay (nút lên/xuống)';
+$BL['be_cnt_sitemap_startid']           = 'bắt đầu tại';
+
+// added: 20-10-2004
+$BL['be_ctype_map']                     = 'map';
+$BL['be_save_btn']                      = 'Lưu lại';
+$BL['be_cmap_location_error_notitle']   = 'điền một tiêu đề cho vị trí.';
+$BL['be_cnt_map_add']                   = 'thêm vị trí';
+$BL['be_cnt_map_edit']                  = 'sửa vị trí';
+$BL['be_cnt_map_title']                 = 'tiêu đề vị trí';
+$BL['be_cnt_map_info']                  = 'entry/info';
+$BL['be_cnt_map_list']                  = 'danh sách vị trí';
+$BL['be_btn_delete']                    = 'Bạn có muốn\nxóa vị trí này không?';
+
+// added: 05-11-2004
+$BL['be_ctype_phpvar']                  = 'các biến PHP';
+$BL['be_cnt_vars']                      = 'biến';
+
+// added: 19-11-2004 -- copy - Fernando Batista http://fernandobatista.net
+$BL['be_func_struct_copy']              = 'sao chép bài viết';
+$BL['be_func_struct_nocopy']            = 'không sao chép bài viết nữa';
+$BL['be_func_struct_copy_level']        = 'sao chép mức cấu trúc này';
+$BL['be_func_struct_no_copy']           = "Không thể sao chép mục gốc!";
+
+// added: 27-11-2004
+$BL['be_date_minute']                   = 'phút';
+$BL['be_date_minutes']                  = 'phút';
+$BL['be_date_hour']                     = 'giờ';
+$BL['be_date_hours']                    = 'giờ';
+$BL['be_date_day']                      = 'ngày';
+$BL['be_date_days']                     = 'ngày';
+$BL['be_date_week']                     = 'tuần';
+$BL['be_date_weeks']                    = 'tuần';
+$BL['be_date_month']                    = 'tháng';
+$BL['be_date_months']                   = 'tháng';
+$BL['be_off']                           = 'tắt';
+$BL['be_on']                            = 'bật';
+$BL['be_cache']                         = 'cache';
+$BL['be_cache_timeout']                 = 'timeout';
+
+// added: 13-12-2004
+$BL['be_subnav_admin_groups']            = 'người dùng &amp; nhóm';
+
+// added: 20-12-2004
+$BL['be_ctype_forum']                    = 'diễn đàn';
+$BL['be_subnav_msg_forum']                = 'danh sách diễn đàn';
+$BL['be_forum_title']                    = 'tiêu đề diễn đàn';
+$BL['be_forum_permission']                = 'phân quyền';
+$BL['be_forum_add']                        = 'thêm diễn đàn';
+$BL['be_forum_titleedit']                = 'sửa diễn đàn';
+
+// added: 15-01-2005
+$BL['be_admin_page_customblocks']       = 'tùy biến';
+$BL['be_show_content']                  = 'hiển thị';
+$BL['be_main_content']                  = 'cột chính';
+$BL['be_admin_template_jswarning']      = 'Chú ý!!!\nCác block tùy biến có thể thay đổi!\n\nNếu bạn bỏ đi\nxóa các thiết lập định dạng trang!\n\nThay đổi mẫu trang?\n\n';
+
+$BL['be_ctype_rssfeed']                    = 'RSS feed';
+$BL['be_cnt_rssfeed_url']                = 'địa chỉ của RSS';
+$BL['be_cnt_rssfeed_item']                = 'tin bài';
+$BL['be_cnt_rssfeed_max']                = 'lớn nhất.';
+$BL['be_cnt_rssfeed_cut']                = 'giấu bài đầu tiên';
+
+$BL['be_ctype_simpleform']                = 'mẫu email liên hệ';
+
+$BL['be_cnt_onsuccess']                    = 'khi thành công';
+$BL['be_cnt_onerror']                    = 'khi lỗi';
+$BL['be_cnt_onsuccess_redirect']        = 'chuyển tiếp khi thành công';
+$BL['be_cnt_onerror_redirect']            = 'chuyển tiếp khi có lỗi';
+
+$BL['be_cnt_form_class']                = 'lớp biểu mẫu';
+$BL['be_cnt_label_wrap']                = 'nhãn wrap';
+$BL['be_cnt_error_class']                = 'lớp lỗi';
+$BL['be_cnt_req_mark']                    = 'dấu bắt buộc';
+$BL['be_cnt_mark_as_req']                = 'đánh dấu bắt buộc';
+$BL['be_cnt_mark_as_del']                = 'đánh dấu để xóa';
+
+
+$BL['be_cnt_type']                        = 'kiểu';
+$BL['be_cnt_label']                        = 'nhãn';
+$BL['be_cnt_needed']                    = 'bắt buộc';
+$BL['be_cnt_delete']                    = 'xóa';
+$BL['be_cnt_value']                        = 'giá trị';
+$BL['be_cnt_error_text']                = 'dòng báo lỗi';
+$BL['be_cnt_css_style']                    = 'định dạng CSS';
+$BL['be_article_cnt_button3']           = "Lưu và đóng lại";
+
+$BL['be_cnt_field']                        = array("text"=>'text (dòng đơn)', "email"=>'email', "textarea"=>'text (nhiều dòng)',
+                                                "hidden"=>'giấu', "password"=>'mật khẩu', "select"=>'chọn danh mục',
+                                                "list"=>'danh sách lựa chọn', "checkbox"=>'checkbox', "radio"=>'nút radio',
+                                                "upload"=>'tệp', "submit"=>'nút gửi đi', "reset"=>'nút reset',
+                                                "break"=>'break', "breaktext"=>'break text', "special"=>'text (đặc biệt)');
+
+$BL['be_cnt_access']                    = 'truy cập';
+$BL['be_cnt_activated']                    = 'kích hoạt';
+$BL['be_cnt_available']                    = 'sẵn sàng';
+$BL['be_cnt_guests']                    = 'khách';
+$BL['be_cnt_admin']                        = 'quản trị';
+$BL['be_cnt_write']                        = 'viết';
+$BL['be_cnt_read']                        = 'đọc';
+
+$BL['be_legacy'] = 'legacy';
+$BL['be_default'] = 'mặc định';
+
+
+// Merged from lang.ext.inc.php
+$BL['FOLDER_LIST']       = 'danh sách folder';
+$BL['FILES']             = 'files';
+$BL['SHOW_FILES']        = 'hiển thị files trong thư mục gốc';
+$BL['SHOW_FILES1']       = 'hiển thị files trong thư mục';
+$BL['TAKE_IMAGE']        = 'take this file and add…';
+$BL['NO_FILE']           = 'không có file nào';
+$BL['OPEN_DIR']          = 'mở thư mục';
+$BL['CLOSE_DIR']         = 'đóng thư mục';
+$BL['FILE_TITLE']        = 'trình duyệt file';
+$BL['IMAGE_TITLE']       = 'trình duyệt ảnh';
+$BL['MEDIA_TITLE']       = 'trình duyệt đa phương tiện';
+$BL['IMAGE_FILES']       = 'file ảnh';
+$BL['MEDIA_FILES']       = 'file media';
+$BL['ROOT_DIR']          = 'thư mục gốc';
+$BL['DOWNLOAD_ERR1']     = 'lỗi trong khi download file.';
+$BL['DOWNLOAD_ERR2']     = 'Nếu bạn cho rằng đây là một lỗi kỹ thuật,xin gửi email cho <a href="mailto:{VAL}"><strong>webmaster</strong></a>.';
+$BL['DOWNLOAD_TITLE']    = 'Lỗi file download';
+$BL['FILEINFO_TITLE']    = 'website: thông tin về file';
+$BL['CREATED']           = 'đã được tạo';
+$BL['DATE_FORMAT']       = 'd-m-Y H:i';
+$BL['SIZE']              = 'kích thước';
+$BL['DOWNLOAD_FILE']     = 'download file';
+$BL['FILE_IN_TRASH']     = 'file này đang trong thùng rác';
+$BL['KEYWORDS']          = 'từ khoá';
+$BL['DOWNLOAD_ERR3']     = 'lỗi trong khi đọc file thông tin<br />đóng cửa sổ và thử lại...';
+
+// ----------------------------------------------------------------
+// phpwcms translations (vn)
+// ----------------------------------------------------------------
+$BL['be_change_articleID'] = 'thay đổi ID bài viết';
+$BL['be_title_wrap'] = 'ngắt dòng tiêu đề';
+$BL['be_no_rss'] = 'loại khỏi nguồn cấp RSS';
+$BL['be_article_urlalias'] = 'bí danh URL bài viết';
+$BL['be_image_crop'] = 'cắt ảnh';
+$BL['be_image_cropit'] = 'cắt hình ảnh';
+$BL['be_image_align'] = 'căn chỉnh hình ảnh';
+$BL['be_ctype_flashplayer'] = 'trình phát đa phương tiện';
+$BL['be_flashplayer_caption'] = 'chú thích trình phát';
+$BL['be_flashplayer_thumbnail'] = 'hình thu nhỏ';
+$BL['be_flashplayer_selectsize'] = 'chọn kích thước';
+$BL['be_flash_media'] = 'đa phương tiện Flash';
+$BL['be_html5_media'] = 'đa phương tiện HTML5';
+$BL['be_html5_h264'] = 'H.264 (MP4/M4V/MOV)';
+$BL['be_html5_webm'] = 'WebM (VP8/Vorbis)';
+$BL['be_html5_ogg'] = 'Ogg (Theora/Vorbis)';
+$BL['be_media_format'] = 'định dạng đa phương tiện';
+$BL['be_media_watermark'] = 'hình mờ (watermark)';
+$BL['be_skin'] = 'giao diện';
+$BL['be_foreground_color'] = 'màu tiền cảnh';
+$BL['be_background_color'] = 'màu nền';
+$BL['be_highlight_color'] = 'màu nổi bật';
+$BL['be_check_feuser_profile'] = 'hồ sơ người dùng';
+$BL['be_check_feuser_registration'] = 'đăng ký người dùng';
+$BL['be_check_feuser_manage'] = 'quản lý người dùng';
+$BL['be_hide_active_articlelink'] = 'ẩn liên kết bài viết đang hoạt động';
+$BL['be_module_search'] = 'mô-đun tìm kiếm';
+$BL['be_ctype_imagesspecial'] = 'hình ảnh đặc biệt';
+$BL['be_image_WxHpx'] = 'Rộng x Cao (px)';
+$BL['be_fx_1'] = 'hiệu ứng 1';
+$BL['be_fx_2'] = 'hiệu ứng 2';
+$BL['be_fx_3'] = 'hiệu ứng 3';
+$BL['be_image_zoom'] = 'phóng to hình ảnh';
+$BL['be_image_delete_js'] = 'Bạn có chắc chắn muốn xóa hình ảnh này?';
+$BL['be_news'] = 'tin tức';
+$BL['be_news_create'] = 'tạo tin tức';
+$BL['be_tags'] = 'thẻ / từ khóa';
+$BL['be_title'] = 'tiêu đề';
+$BL['be_delete_dataset'] = 'xóa bản ghi';
+$BL['be_action_notvalid'] = 'hành động không hợp lệ';
+$BL['be_action_deleted'] = 'đã xóa bản ghi';
+$BL['be_action_status'] = 'đã cập nhật trạng thái';
+$BL['be_data_select_failed'] = 'chọn dữ liệu thất bại';
+$BL['be_alias'] = 'bí danh';
+$BL['be_url_value'] = 'giá trị URL';
+$BL['default_date_format'] = 'd.m.Y';
+$BL['default_date'] = 'ngày mặc định';
+$BL['default_date_delimiter'] = '.';
+$BL['default_time_format'] = 'H:i';
+$BL['default_time'] = 'giờ mặc định';
+$BL['be_place'] = 'địa điểm';
+$BL['be_teasertext'] = 'văn bản giới thiệu';
+$BL['be_published'] = 'đã xuất bản';
+$BL['be_show_archived'] = 'hiển thị lưu trữ';
+$BL['be_save_copy'] = 'lưu bản sao';
+$BL['be_read_more_link'] = 'liên kết «đọc tiếp»';
+$BL['be_news_name_mandatory'] = 'Tiêu đề tin tức là bắt buộc';
+$BL['be_successfully_saved'] = 'Tất cả dữ liệu đã được lưu thành công!';
+$BL['be_successfully_updated'] = 'Tất cả dữ liệu đã được cập nhật thành công!';
+$BL['be_error_while_save'] = 'Lỗi khi lưu dữ liệu';
+$BL['be_copyright'] = 'bản quyền';
+$BL['be_file_multiple_upload'] = 'tải lên nhiều tập tin';
+$BL['be_files_select_available'] = 'chọn tập tin có sẵn';
+$BL['be_files_browse'] = 'duyệt tập tin';
+$BL['be_files_upload'] = 'tải lên tập tin';
+$BL['be_archive'] = 'lưu trữ';
+$BL['be_random'] = 'ngẫu nhiên';
+$BL['be_sorted'] = 'đã sắp xếp';
+$BL['be_granted_download'] = 'cho phép tải xuống';
+$BL['be_granted_feuser'] = 'cho phép người dùng trang web';
+$BL['be_hidden_for_feuser'] = 'ẩn với người dùng trang web';
+$BL['be_visible_for_everybody'] = 'hiển thị cho tất cả';
+$BL['be_fileuploader_typeError'] = '{file} có phần mở rộng không hợp lệ. Chỉ cho phép: {extensions}.';
+$BL['be_fileuploader_sizeError'] = '{file} quá lớn, kích thước tối đa là {sizeLimit}.';
+$BL['be_fileuploader_minSizeError'] = '{file} quá nhỏ, kích thước tối thiểu là {minSizeLimit}.';
+$BL['be_fileuploader_emptyError'] = '{file} rỗng, vui lòng chọn lại.';
+$BL['be_fileuploader_noFilesError'] = 'Không có tập tin để tải lên.';
+$BL['be_fileuploader_onLeave'] = 'Các tập tin đang được tải lên. Nếu bạn rời khỏi trang bây giờ, quá trình tải lên sẽ bị hủy.';
+$BL['be_fileuploader_dragText'] = 'Kéo thả tập tin vào đây để tải lên';
+$BL['be_fileuploader_dictFallbackText'] = 'Trình duyệt của bạn không hỗ trợ tải lên bằng cách kéo và thả.';
+$BL['be_fileuploader_dictCancelUploadConfirmation'] = 'Bạn có chắc chắn muốn hủy tải lên này?';
+$BL['be_fileuploader_dictMaxFilesExceeded'] = 'Đã vượt quá số lượng tập tin tối đa.';
+$BL['be_delete_selected_files'] = 'xóa các tập tin đã chọn';
+$BL['be_delete_selected_files_confirm'] = 'Bạn có chắc chắn muốn xóa các tập tin đã chọn?';
+$BL['be_ctype_tabs'] = 'các tab';
+$BL['be_tab_add'] = 'thêm tab';
+$BL['be_tab_name'] = 'tên tab';
+$BL['be_headline'] = 'tiêu đề chính';
+$BL['be_tab_delete_js'] = 'Bạn có chắc chắn muốn xóa tab này?';
+$BL['be_pagniate_count'] = 'bài viết trên mỗi trang';
+$BL['be_limit_to'] = 'giới hạn ở';
+$BL['be_archived_items'] = 'mục đã lưu trữ';
+$BL['be_include'] = 'bao gồm';
+$BL['be_exclude'] = 'loại trừ';
+$BL['be_solely'] = 'chỉ';
+$BL['be_fsearch_not'] = 'KHÔNG';
+$BL['be_date_year'] = 'năm';
+$BL['be_archive_link'] = 'liên kết lưu trữ';
+$BL['be_use_prio'] = 'sử dụng mức độ ưu tiên';
+$BL['be_skip_first_items'] = 'bỏ qua các mục đầu tiên';
+$BL['be_news_detail_link'] = 'liên kết chi tiết';
+$BL['be_gallerydownload'] = 'tải xuống thư viện ảnh';
+$BL['be_gallery_root'] = 'thư mục gốc thư viện ảnh';
+$BL['be_gallery_directory'] = 'thư mục thư viện ảnh';
+$BL['be_gallery'] = 'thư viện ảnh';
+$BL['be_sort_date'] = 'sắp xếp theo ngày';
+$BL['group_superuser'] = 'Quản trị viên cấp cao';
+$BL['group_admin'] = 'Quản trị viên';
+$BL['group_editor'] = 'Biên tập viên';
+$BL['group_newsletter'] = 'Bản tin';
+$BL['group_client'] = 'Khách hàng';
+$BL['group_guest'] = 'Khách';
+$BL['php_function'] = 'hàm PHP';
+$BL['article_menu_title'] = 'tiêu đề menu bài viết';
+$BL['content_type'] = 'loại nội dung';
+$BL['automatic'] = 'tự động';
+$BL['random_image'] = 'hình ảnh ngẫu nhiên';
+$BL['limit_image_from_list'] = 'giới hạn hình ảnh từ danh sách';
+$BL['alt_image'] = 'hình ảnh thay thế';
+$BL['alt_text'] = 'văn bản thay thế';
+$BL['over'] = 'qua';
+$BL['js_lib'] = 'thư viện JS';
+$BL['js_lib_alwaysload'] = 'luôn tải thư viện JS';
+$BL['frontendjs_load'] = 'tải frontend JS';
+$BL['googleapi_load'] = 'tải Google API';
+$BL['fancyupload_clear_list'] = 'xóa danh sách';
+$BL['fancyupload_file_uploaded'] = 'Tập tin đã tải lên.';
+$BL['fancyupload_file_error'] = 'Lỗi khi tải lên tập tin.';
+$BL['fancyupload_adblock_error'] = 'Vui lòng tắt trình chặn quảng cáo.';
+$BL['fancyupload_flashblock_error'] = 'Vui lòng cho phép Flash.';
+$BL['fancyupload_required_error'] = 'Yêu cầu tập tin.';
+$BL['fancyupload_flash_error'] = 'Flash không khả dụng.';
+$BL['be_cnt_function_validate'] = 'xác thực hàm';
+$BL['be_structform_selected_cp'] = 'phần tử nội dung đã chọn';
+$BL['be_structform_select_cp'] = 'chọn phần tử nội dung';
+$BL['source_image_not_found'] = 'không tìm thấy hình ảnh nguồn';
+$BL['form_force_ssl'] = 'bắt buộc SSL (HTTPS)';
+$BL['numerize_title'] = 'đánh số tiêu đề';
+$BL['be_article_noteaser'] = 'không có văn bản giới thiệu';
+$BL['be_acat_disable301'] = 'tắt chuyển hướng 301';
+$BL['file_actions_step1'] = 'Bước 1: chọn thư mục';
+$BL['file_actions_step2'] = 'Bước 2: chọn tập tin';
+$BL['file_actions_step3'] = 'Bước 3: chọn hành động';
+$BL['file_actions_button'] = 'Thực hiện hành động tập tin';
+$BL['file_actions_no'] = 'Không có hành động';
+$BL['file_actions_delete'] = 'Xóa tập tin';
+$BL['file_actions_bemuser'] = 'Gán cho người dùng';
+$BL['file_actions_bemfolder'] = 'Di chuyển vào thư mục';
+$BL['file_actions_pdl_empty'] = 'xóa danh sách';
+$BL['file_actions_pdl_delete'] = 'xóa lựa chọn';
+$BL['file_actions_pdl_move'] = 'di chuyển lựa chọn';
+$BL['file_actions_pdl_status'] = 'thay đổi trạng thái';
+$BL['file_actions_pdl_user'] = 'thay đổi người dùng';
+$BL['file_actions_msg_move'] = 'Các tập tin đã được di chuyển thành công';
+$BL['file_actions_msg_delete'] = 'Các tập tin đã được xóa thành công';
+$BL['file_actions_msg_status'] = 'Trạng thái tập tin đã được thay đổi thành công';
+$BL['file_actions_msg_error'] = 'Đã xảy ra lỗi';
+$BL['file_actions_msg_user'] = 'Các tập tin đã được gán thành công cho người dùng mới';
+$BL['be_imagefiles_as_gallery'] = 'Hiển thị tập tin ảnh dưới dạng bộ sưu tập';
+$BL['be_link'] = 'liên kết';
+$BL['be_links'] = 'các liên kết';
+$BL['be_redirect'] = 'chuyển hướng';
+$BL['be_redirects'] = 'các chuyển hướng';
+$BL['be_views'] = 'lượt xem';
+$BL['be_structure_id'] = 'ID cấu trúc';
+$BL['be_shortcut'] = 'phím tắt';
+$BL['be_target_type'] = 'loại đích';
+$BL['be_http_status'] = 'mã trạng thái HTTP';
+$BL['be_http_status301'] = '301 - Đã di chuyển vĩnh viễn';
+$BL['be_http_status307'] = '307 - Chuyển hướng tạm thời';
+$BL['be_http_status404'] = '404 - Không tìm thấy trang';
+$BL['be_http_status401'] = '401 - Không được phép';
+$BL['be_http_status503'] = '503 - Dịch vụ không khả dụng';
+$BL['be_redirect_error1'] = 'URL đích là bắt buộc';
+$BL['be_redirect_error2'] = 'Bí danh đã được sử dụng';
+$BL['be_redirect_error3'] = 'Mã trạng thái không hợp lệ';
+$BL['be_new_linkredirect'] = 'chuyển hướng liên kết mới';
+$BL['be_ctype_accordion'] = 'accordion (thu gọn/mở rộng)';
+$BL['be_ctype_number'] = 'số';
+$BL['be_inactive'] = 'không hoạt động';
+$BL['be_locked'] = 'đã khóa';
+$BL['be_n/a'] = 'k/c';
+$BL['be_opengraph_support'] = 'hỗ trợ Open Graph';
+$BL['be_player_volume'] = 'Âm lượng trình phát';
+$BL['be_player_volume_muted'] = 'tắt tiếng';
+$BL['be_keyword'] = 'từ khóa';
+$BL['be_tag'] = 'thẻ';
+$BL['be_system_container'] = 'thùng chứa hệ thống';
+$BL['be_system_container_norender'] = 'không kết xuất thùng chứa';
+$BL['be_custom_scriptlogic'] = 'logic tập lệnh tùy chỉnh';
+$BL['be_flush_image_cache'] = 'xóa bộ nhớ đệm hình ảnh';
+$BL['be_flush_image_cache_confirm'] = 'Bạn có chắc chắn muốn xóa bộ nhớ đệm hình ảnh?';
+$BL['be_flush_image_cache_success'] = 'Đã xóa bộ nhớ đệm hình ảnh thành công. Đã xóa %d tập tin.';
+$BL['be_caption_alt'] = 'Văn bản thay thế (Alt)';
+$BL['be_caption_title'] = 'Tiêu đề (Title)';
+$BL['be_caption_file_imagesize'] = 'Kích thước hình ảnh';
+$BL['be_caption_file_title'] = 'Tiêu đề tập tin';
+$BL['be_caption_descr.'] = 'Mô tả';
+$BL['be_display_html5_only'] = 'chỉ hiển thị dưới dạng HTML5';
+$BL['be_audio_only'] = 'chỉ âm thanh';
+$BL['be_hide_downloadbutton'] = 'ẩn nút tải xuống';
+$BL['be_filter'] = 'bộ lọc';
+$BL['be_filter_with_tags'] = 'lọc theo thẻ';
+$BL['be_filter_not_selected'] = 'chưa chọn bộ lọc';
+$BL['be_empty_search_result'] = 'Không tìm thấy kết quả nào';
+$BL['confirm_cp_tab_warning'] = 'Chuyển tab có thể làm mất các thay đổi chưa được lưu.
+
+Bạn có muốn tiếp tục?';
+$BL['be_canonical'] = 'URL chuẩn (canonical)';
+$BL['be_breadcrumb'] = 'thanh điều hướng (breadcrumb)';
+$BL['be_breadcrumb_nothidden'] = 'không ẩn trong thanh điều hướng';
+$BL['be_breadcrumb_nolink'] = 'không liên kết trong thanh điều hướng';
+$BL['be_parental_alias'] = 'bí danh cha';
+$BL['be_fsearch_nor'] = 'KHÔNG CÓ';
+$BL['be_tab_toggle'] = 'mở/đóng tab';
+$BL['be_custom_textfield'] = 'văn bản tùy chỉnh';
+$BL['be_tab_template_toggle_warning'] = 'Thay đổi mẫu có thể thay đổi các trường tùy chỉnh và làm mất dữ liệu.
+
+Bạn có chắc chắn muốn tiếp tục?';
+$BL['be_onepage_id'] = 'hỗ trợ OnePage ID (#neo)';
+$BL['be_onepage_template'] = 'xử lý dưới dạng mẫu OnePage';
+$BL['be_yes'] = 'Có';
+$BL['be_no'] = 'Không';
+$BL['be_attr_title'] = 'tiêu đề (thuộc tính)';
+$BL['be_attr_alt'] = 'văn bản thay thế';
+$BL['be_ie8ignore'] = 'tắt <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">chú thích có điều kiện</a> cho IE8';
+$BL['be_cookie_consent_enable'] = 'bật tiện ích Cookie Consent v2 (v3 sẽ bị tắt)';
+$BL['be_cookie_consent_message'] = 'thông báo đồng ý';
+$BL['be_cookie_consent_translatable'] = 'Cài đặt này hỗ trợ nhiều ngôn ngữ ($phpwcms[\'allowed_lang\']). Để dịch các thông báo cookie, sử dụng cú pháp <b>@@Văn bản@@</b> và kiểm tra `template/template_lang`.';
+$BL['cookie_consent_message'] = 'Trang web này sử dụng cookie để đảm bảo bạn có được trải nghiệm tốt nhất trên trang web của chúng tôi.';
+$BL['be_cookie_consent_dismiss'] = 'văn bản nút chấp nhận';
+$BL['cookie_consent_dismiss'] = 'Đã hiểu!';
+$BL['be_cookie_consent_more'] = 'văn bản nút thêm thông tin';
+$BL['cookie_consent_more'] = 'Thêm thông tin';
+$BL['be_cookie_consent_link'] = 'URL/bí danh chính sách cookie';
+$BL['be_cookie_consent_theme'] = 'chủ đề (trống = không có CSS)';
+$BL['be_google_analytics_enable'] = 'sử dụng Google Analytics';
+$BL['be_google_tag_manager_enable'] = 'sử dụng Google Tag Manager';
+$BL['be_piwik_enable'] = 'sử dụng Matomo/Piwik';
+$BL['be_tracking_anonymize'] = 'ẩn danh địa chỉ IP';
+$BL['be_tracking_cookie_flags'] = 'bật <a href="https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#cookie_flags" target="_blank"><u>cờ cookie</u></a>';
+$BL['be_tracking_custom_properties'] = '<a href="https://developers.google.com/analytics/devguides/collection/gtagjs/" target="_blank"><u>tham số cấu hình</u></a> tùy chỉnh (thuộc_tính1: giá_trị1, thuộc_tính2: giá_trị2)';
+$BL['be_tracking_id'] = 'ID theo dõi';
+$BL['be_site_id'] = 'ID trang web';
+$BL['be_piwik_url'] = 'URL Matomo/Piwik';
+$BL['be_filedownload_direct_blocked'] = 'bị chặn bởi <abbr title="%s">.htaccess</abbr>';
+$BL['be_tracking_optout'] = 'hỗ trợ cookie từ chối <i><a href="javascript:gaOptout()"></a></i>';
+$BL['be_require_consent'] = 'Tắt mã theo dõi khi chưa có sự đồng ý';
+$BL['be_consent_cookie_name'] = 'tên cookie đồng ý';
+$BL['be_consent_cookie_value'] = 'giá trị cookie đồng ý';
+$BL['be_respect_donottrack'] = 'Tuân thủ cài đặt Do-Not-Track của trình duyệt';
+$BL['placeholder_require_cookie_name'] = 'cookieconsent_dismissed';
+$BL['placeholder_require_cookie_value'] = 'yes';
+$BL['be_cc_v3_enable'] = 'bật tiện ích Cookie Consent v3 (v2 sẽ bị tắt)';
+$BL['be_cc_v3_title'] = 'tiêu đề cửa sổ cookie';
+$BL['cc_v3_title_placeholder'] = 'Chúng tôi tôn trọng quyền riêng tư của bạn';
+$BL['be_cc_v3_description'] = 'mô tả';
+$BL['cc_v3_description_placeholder'] = 'Chúng tôi sử dụng cookie để nâng cao trải nghiệm duyệt web của bạn, phân phối quảng cáo hoặc nội dung được cá nhân hóa và phân tích lưu lượng truy cập của chúng tôi. Bằng cách nhấp vào "Chấp nhận tất cả", bạn đồng ý với việc chúng tôi sử dụng cookie.';
+$BL['be_cc_v3_accept_all'] = 'nút "chấp nhận tất cả"';
+$BL['cc_v3_accept_all_placeholder'] = 'Chấp nhận tất cả';
+$BL['be_cc_v3_accept_necessary'] = 'nút "chỉ cần thiết"';
+$BL['cc_v3_accept_necessary_placeholder'] = 'Chỉ cần thiết';
+$BL['be_cc_v3_accept_selected'] = 'nút "chấp nhận đã chọn"';
+$BL['cc_v3_accept_selected_placeholder'] = 'Chấp nhận đã chọn';
+$BL['be_cc_v3_reject_all'] = 'nút "từ chối tất cả"';
+$BL['cc_v3_reject_all_placeholder'] = 'Từ chối tất cả';
+$BL['be_cc_v3_customize'] = 'nút "tùy chỉnh"';
+$BL['cc_v3_customize_placeholder'] = 'Tùy chỉnh';
+$BL['be_cc_v3_link'] = 'URL/bí danh chính sách cookie';
+$BL['be_cc_v3_more'] = 'văn bản thông tin thêm';
+$BL['be_cc_v3_theme'] = 'chủ đề (trống = sáng)';
+$BL['cc_v3_more_placeholder'] = 'thêm thông tin';
+$BL['be_cc_v3_sections'] = 'các phần cookie';
+$BL['be_cc_v3_sections_title'] = 'tiêu đề';
+$BL['be_cc_v3_sections_description'] = 'mô tả';
+$BL['be_cc_v3_sections_active'] = 'hiển thị phần này';
+$BL['be_cc_v3_section_general'] = 'chung';
+$BL['be_cc_v3_section_general_title_placeholder'] = 'Quản lý tùy chọn cookie';
+$BL['be_cc_v3_section_general_description_placeholder'] = 'Chúng tôi sử dụng cookie để giúp bạn điều hướng hiệu quả và thực hiện các chức năng nhất định.';
+$BL['be_cc_v3_section_necessary'] = 'cần thiết';
+$BL['be_cc_v3_section_necessary_title_placeholder'] = 'Cookie thực sự cần thiết';
+$BL['be_cc_v3_section_necessary_description_placeholder'] = 'Cookie cần thiết là tối quan trọng đối với các chức năng cơ bản của trang web.';
+$BL['be_cc_v3_section_functional'] = 'chức năng';
+$BL['be_cc_v3_section_functional_title_placeholder'] = 'Cookie chức năng';
+$BL['be_cc_v3_section_functional_description_placeholder'] = 'Cookie chức năng giúp lưu cài đặt và tùy chọn của bạn.';
+$BL['be_cc_v3_section_analytics'] = 'phân tích';
+$BL['be_cc_v3_section_analytics_title_placeholder'] = 'Cookie hiệu suất và phân tích';
+$BL['be_cc_v3_section_analytics_description_placeholder'] = 'Cookie phân tích được sử dụng để hiểu cách khách truy cập tương tác với trang web.';
+$BL['be_cc_v3_section_marketing'] = 'tiếp thị';
+$BL['be_cc_v3_section_marketing_title_placeholder'] = 'Cookie quảng cáo và tiếp thị';
+$BL['be_cc_v3_section_marketing_description_placeholder'] = 'Cookie tiếp thị được sử dụng để phân phối quảng cáo được cá nhân hóa.';
+$BL['be_cc_v3_section_social'] = 'mạng xã hội';
+$BL['be_cc_v3_section_social_title_placeholder'] = 'Cookie mạng xã hội';
+$BL['be_cc_v3_section_social_description_placeholder'] = 'Cookie mạng xã hội cho phép chia sẻ nội dung trên các nền tảng mạng xã hội.';
+$BL['be_cc_v3_section_more'] = 'thêm';
+$BL['be_cc_v3_section_more_title_placeholder'] = 'Thông tin bổ sung';
+$BL['be_cc_v3_section_more_description_placeholder'] = 'Mọi thắc mắc liên quan đến chính sách cookie của chúng tôi, vui lòng <a class="cc__link" href="#yourdomain.com">liên hệ với chúng tôi</a>.';
+$BL['be_cc_v3_builtin'] = 'tích hợp sẵn';
+$BL['be_cc_v3_default'] = 'mặc định';
+$BL['be_cc_v3_btn_flip'] = 'đổi thứ tự nút';
+$BL['be_cc_v3_btn_equal'] = 'các nút có cùng độ rộng';
+$BL['be_cc_v3_consent_modal'] = 'hộp thoại đồng ý';
+$BL['be_cc_v3_preferences_modal'] = 'hộp thoại tùy chọn';
+$BL['be_cc_v3_layout'] = 'bố cục';
+$BL['be_cc_v3_position'] = 'vị trí';
+$BL['be_cc_v3_top_left'] = 'trên cùng bên trái';
+$BL['be_cc_v3_top_center'] = 'trên cùng ở giữa';
+$BL['be_cc_v3_top_right'] = 'trên cùng bên phải';
+$BL['be_cc_v3_middle_left'] = 'ở giữa bên trái';
+$BL['be_cc_v3_middle_center'] = 'ở chính giữa';
+$BL['be_cc_v3_middle_right'] = 'ở giữa bên phải';
+$BL['be_cc_v3_bottom_left'] = 'dưới cùng bên trái';
+$BL['be_cc_v3_bottom_center'] = 'dưới cùng ở giữa';
+$BL['be_cc_v3_bottom_right'] = 'dưới cùng bên phải';
+$BL['be_cc_v3_left'] = 'bên trái';
+$BL['be_cc_v3_right'] = 'bên phải';
+$BL['be_cc_v3_top'] = 'ở trên';
+$BL['be_cc_v3_bottom'] = 'ở dưới';
+$BL['be_cc_v3_reload_on_change'] = 'tải lại trang khi thay đổi cài đặt cookie';
+$BL['be_cc_v3_on_change'] = 'khi thay đổi';
+$BL['be_iptc_data'] = 'dữ liệu IPTC';
+$BL['be_iptc_as_caption'] = 'sử dụng làm chú thích, bản quyền, v.v. nếu chưa đặt';
+$BL['iptc_ImageDescription'] = 'mô tả hình ảnh';
+$BL['iptc_Copyright'] = 'bản quyền';
+$BL['iptc_Artist'] = 'tác giả / nhiếp ảnh gia';
+$BL['iptc_Keywords'] = 'từ khóa';
+$BL['iptc_CountryDest'] = 'quốc gia';
+$BL['iptc_ProvinceOrStateDest'] = 'tỉnh / bang';
+$BL['iptc_CityDest'] = 'thành phố';
+$BL['iptc_SublocationDest'] = 'địa điểm phụ';
+$BL['iptc_ObjectName'] = 'tên đối tượng';
+$BL['iptc_SpecialInstructions'] = 'hướng dẫn đặc biệt';
+$BL['iptc_Headline'] = 'tiêu đề';
+$BL['iptc_Credit'] = 'ghi nhận tác giả';
+$BL['iptc_Source'] = 'nguồn';
+$BL['iptc_EditStatus'] = 'trạng thái chỉnh sửa';
+$BL['iptc_iimCategory'] = 'danh mục';
+$BL['iptc_iimSupplementalCategory'] = 'danh mục bổ sung';
+$BL['iptc_Urgency'] = 'mức độ khẩn cấp';
+$BL['iptc_FixtureIdentifier'] = 'định danh cố định';
+$BL['iptc_LocationDestCode'] = 'mã địa điểm';
+$BL['iptc_LocationDest'] = 'địa điểm';
+$BL['iptc_Software'] = 'phần mềm';
+$BL['iptc_SoftwareVersion'] = 'phiên bản phần mềm';
+$BL['iptc_ObjectCycle'] = 'chu kỳ đối tượng';
+$BL['iptc_CountryCodeDest'] = 'mã quốc gia';
+$BL['iptc_OriginalTransmissionRef'] = 'tham chiếu truyền gốc';
+$BL['iptc_Contact'] = 'liên hệ';
+$BL['iptc_Writer'] = 'người viết';
+$BL['iptc_LanguageCode'] = 'mã ngôn ngữ';
+$BL['iptc_DateTimeOriginal'] = 'ngày/giờ gốc';
+$BL['iptc_DateTimeDigitized'] = 'ngày/giờ số hóa';
+$BL['iptc_DateTimeReleased'] = 'ngày/giờ phát hành';
+$BL['iptc_DateTimeExpires'] = 'ngày/giờ hết hạn';
+$BL['iptc_IntellectualGenre'] = 'thể loại trí tuệ';
+$BL['iptc_SubjectNewsCode'] = 'mã chủ đề tin tức';
+$BL['iptc_iimVersion'] = 'phiên bản';
+$BL['be_suppress_render_caption'] = 'không kết xuất chú thích';
+$BL['be_cnt_attribute_class'] = 'CSS [class]';
+$BL['be_cnt_attribute_id'] = 'CSS [id]';
+$BL['be_cnt_avoid_duplicates'] = 'chỉ cho phép các giá trị duy nhất';
+$BL['be_not_set'] = 'chưa đặt';
+$BL['be_licensed_under_GPL'] = 'Được cấp phép theo GPL.';
+$BL['be_extensions_copyright'] = 'Các tiện ích mở rộng thuộc bản quyền của các tác giả tương ứng.';
+$BL['be_allowed_filetypes'] = 'Các loại tập tin được phép';
+$BL['be_imagediv_template_toggle_warning'] = 'Thay đổi mẫu có thể thay đổi các trường tùy chỉnh và làm mất dữ liệu.
+
+Bạn có chắc chắn muốn tiếp tục?';
+$BL['be_password_show'] = 'Hiện mật khẩu';
+$BL['be_password_hide'] = 'Ẩn mật khẩu';
+$BL['be_admin_template_choose_file'] = 'Mẫu văn bản hoặc chọn một tập tin mẫu';
+$BL['be_flashplayer_marker'] = 'Đánh dấu';
+$BL['be_marker_time'] = 'Thời gian (giây, vd: 10.5)';
+$BL['be_marker_text'] = 'Văn bản';
+$BL['be_marker_overlaytext'] = 'Văn bản phủ';
+$BL['copy_to_clipboard'] = 'Sao chép vào khay nhớ tạm';
+$BL['url_parameter'] = 'Tham số URL';
+$BL['file_extension'] = 'Phần mở rộng tập tin';
+$BL['download_link'] = 'Liên kết tải xuống';
+$BL['disposition_attachment'] = 'Tập tin đính kèm';
+$BL['disposition_attachment_description'] = 'tải xuống trực tiếp';
+$BL['disposition_inline'] = 'Trong trình duyệt (inline)';
+$BL['disposition_inline_description'] = 'hiển thị trong trình duyệt';
+$BL['be_robots'] = 'Lập chỉ mục bot tìm kiếm';
+$BL['be_robots_noindex'] = 'chặn công cụ tìm kiếm lập chỉ mục (noindex)';
+$BL['be_robots_nofollow'] = 'không theo dõi các liên kết (nofollow)';
+$BL['be_cnt_form_direct_download'] = 'cho phép tải xuống';
+$BL['be_cnt_form_direct_download_apikey'] = 'Khóa API';
+$BL['be_cnt_form_apikey_reset'] = 'đặt lại';
+$BL['be_copy_link'] = 'sao chép liên kết';
+$BL['be_articlebrowser_selector'] = 'Bộ chọn bài viết';
+$BL['be_about_headline'] = 'hệ thống quản trị nội dung phpwcms';
+$BL['be_about_version'] = 'Phiên bản';
+$BL['be_about_maintainer'] = 'Người duy trì';
+$BL['be_about_website'] = 'Trang web';
+$BL['be_about_copyright'] = 'Bản quyền';
+$BL['be_about_contributors'] = 'và các cộng tác viên';
+$BL['be_about_and_contributors'] = 'và các cộng tác viên khác (đặc biệt là Marcus Obst, Fernando Batista, KoMa, geckse, phalancs, q23, v.v.) – xem <a href="https://github.com/systron-dev/phpwcms" title="Mã nguồn GitHub" target="_blank">mã nguồn</a> để biết chi tiết giấy phép.';
+$BL['modal_confirm'] = 'Xác nhận';
+$BL['modal_cancel'] = 'Hủy';
+$BL['modal_title_confirm'] = 'Xác nhận';
+$BL['modal_title_alert'] = 'Thông tin';
+$BL['modal_ok'] = 'Đồng ý';
+$BL['modal_delete'] = 'Xóa';
+$BL['modal_move'] = 'Di chuyển';
+$BL['modal_copy'] = 'Sao chép';
+$BL['modal_flush'] = 'Xóa sạch';
+$BL['be_metadata'] = 'Siêu dữ liệu';
+$BL['be_content'] = 'Nội dung';
+$BL['be_images'] = 'Hình ảnh';
+$BL['be_article_show'] = 'Hiển thị';
+$BL['be_active'] = 'Hoạt động';
+$BL['be_cnt_summary_label'] = 'Tóm tắt';
+$BL['be_cnt_max_words'] = 'số từ tối đa';
+$BL['be_dashboard_support'] = 'Liên hệ & Hỗ trợ';
+$BL['be_cnt_openarticlebrowser'] = 'mở trình duyệt bài viết';
+$BL['be_nav_toggle_navigation'] = 'Bật/tắt thanh điều hướng';
+$BL['be_ctype_custom'] = 'phần tử nội dung tùy chỉnh';
+$BL['be_cnt_custom_entry'] = 'Mục';
+$BL['be_cnt_custom_entries'] = 'Các mục';
+$BL['be_cnt_title_overview'] = 'Tổng quan';
+$BL['be_article_opposite_lang'] = 'Các ngôn ngữ khác';
+$BL['be_tooltip_visibility'] = 'bật / tắt';
+$BL['be_tooltip_filter_user'] = 'Lọc theo tên người dùng, tên hoặc email';
+$BL['be_tooltip_filter_for'] = 'Lọc cho';
+$BL['be_btn_preview'] = 'Xem trước';
+$BL['be_cnt_title_multiupload'] = 'Kéo thả hình ảnh và tập tin vào cửa sổ này';
+$BL['be_input_text_tab'] = 'Nhập cụm từ và xác nhận bằng phím Tab';
+$BL['be_tt_duplicate'] = 'Nhân bản';
+$BL['be_tt_edit'] = 'Chỉnh sửa';
+$BL['be_tt_delete'] = 'Xóa';
+$BL['be_tt_delete_pagelayout'] = 'Xóa bố cục trang';
+$BL['be_subnav_admin_users_overview'] = 'Tổng quan người dùng';
+$BL['be_cnt_several'] = 'Khác';
+$BL['be_mailinglist_new'] = 'Tạo danh sách gửi thư mới';
+$BL['be_mailinglist_overview_subscribers'] = 'Người đăng ký';
+$BL['be_mailinglist_verified'] = 'Đặt %s đã xác minh/chưa xác minh';
+$BL['be_mailinglist_delete_subscriber'] = 'Xóa người đăng ký';
+$BL['be_mailinglist_delete_list'] = 'Xóa danh sách gửi thư';
+$BL['be_mailinglist_cannotdelete_list'] = 'Không thể xóa danh sách gửi thư vì danh sách này có chứa người đăng ký';
+$BL['be_msg_opend'] = 'Đã mở';
+$BL['be_admin_group'] = 'Quyền';
+$BL['be_admin_group_edit'] = 'Chỉnh sửa quyền';
+$BL['be_admin_group_ldel'] = 'Xóa nhóm quyền';
+$BL['be_imagealias'] = 'Bí danh hình ảnh';
+$BL['count'] = ' mục bí danh còn lại cần cập nhật';
+$BL['nocount'] = 'Tất cả các mục bí danh đã tồn tại';
+$BL['counttotal'] = ' mục bí danh đã nhập';
+$BL['f_alias'] = '<p><b>Các trường bí danh đã được thêm vào cơ sở dữ liệu</b></p>';
+$BL['be_ctptemp'] = 'Mẫu phần tử nội dung';
+$BL['file_copy'] = 'Sao chép mẫu';
+$BL['file_rename'] = 'Đổi tên mẫu';
+$BL['file_delete'] = 'Xóa mẫu';
+$BL['list_files'] = 'Liệt kê các bài viết có mẫu này';
+$BL['show_code'] = 'Hiển thị mã nguồn mẫu';
+$BL['label_default'] = 'Mẫu mặc định (/inc_default)';
+$BL['label_folder'] = 'Thư mục tập tin';
+$BL['label_custom'] = 'Mẫu';
+$BL['label_sample'] = 'Thư mục mẫu ví dụ';
+$BL['success_msg'] = ' Mẫu đã được sao chép thành công. Vui lòng đổi tên và điều chỉnh mẫu.';
+$BL['success_msg_error'] = ' Không thể sao chép mẫu.';
+$BL['deleted_msg'] = ' Mẫu đã được xóa thành công';
+$BL['deleted_msg_error'] = ' Không thể xóa mẫu.';
+$BL['rename_msg'] = ' Mẫu đã được đổi tên thành công.';
+$BL['rename_msg_error'] = ' Không thể đổi tên mẫu.';
+$BL['be_acat_urlalias'] = 'Bí danh sơ đồ trang';
+$BL['be_acat_pagetitle'] = 'Tiêu đề trang hiện có';
+$BL['be_acat_alias'] = 'Bí danh hiện có';
+$BL['be_article_description'] = 'Mô tả hiện có';
+$BL['be_func_struct_more_action'] = 'Hành động';
+$BL['be_func_open_articlebrowser'] = 'mở trình duyệt bài viết';
+$BL['be_amount_results'] = 'Số lượng';
+$BL['be_news_edit'] = 'chỉnh sửa tin tức';
+$BL['be_news_copy'] = 'sao chép tin tức';
+$BL['be_news_add'] = 'thêm tin tức';
+$BL['be_news_list'] = 'tin tức';
+$BL['be_text_full'] = 'toàn văn';
+$BL['login_welcome'] = 'Chào mừng';
+$BL['be_sqlshortdate'] = '%d.%m.%y';
+$BL['be_sqlshortdatetime'] = '%d.%m.%y %H:%i';
+$BL['be_sqllongdatetime'] = '%d.%m.%Y %H:%i:%s';
+$BL['be_fprivfunc_notrash'] = 'Không có quyền xóa';
+$BL['be_subnav_file_actions'] = 'hành động tập tin';
+$BL['be_ftptakeover_new_folder'] = 'tạo thư mục';
+$BL['be_ftptakeover_new_folder_placeholder'] = 'tên thư mục mới trong thư mục gốc';
+$BL['be_ftabhelp_add'] = 'thêm thư mục riêng tư mới';
+$BL['be_ftabhelp_upload'] = 'tải tập tin mới lên thư mục riêng tư';
+$BL['be_ftabhelp_disablethumb'] = 'tắt hình thu nhỏ trong danh sách tập tin';
+$BL['be_ftabhelp_enablethumb'] = 'bật hình thu nhỏ trong danh sách tập tin';
+$BL['be_ftabhelp_edit'] = 'chỉnh sửa thông tin tập tin';
+$BL['be_ftabhelp_cut'] = 'cắt tập tin vào khay nhớ tạm';
+$BL['be_ftabhelp_cutmark'] = 'tập tin được đánh dấu đang ở trong khay nhớ tạm';
+$BL['be_ftabhelp_paste'] = 'dán tập tin vào thư mục này';
+$BL['be_ftabhelp_download'] = 'tải xuống tập tin';
+$BL['be_ftabhelp_delete'] = 'xóa thư mục hoặc chuyển tập tin vào thùng rác';
+$BL['be_ftabhelp_cantdelete'] = 'không thể xóa thư mục vì thư mục này chứa tập tin hoặc thư mục con';
+$BL['be_ftabhelp_restore'] = 'khôi phục tập tin từ thùng rác';
+$BL['be_ftabhelp_openfolder'] = 'mở rộng tất cả các thư mục và thư mục con';
+$BL['be_ftabhelp_closefolder'] = 'thu gọn tất cả các thư mục và thư mục con';
+$BL['be_ftabhelp_inactive'] = 'tập tin hoặc thư mục không hoạt động - nhấp để kích hoạt';
+$BL['be_ftabhelp_active'] = 'tập tin hoặc thư mục đang hoạt động - nhấp để hủy kích hoạt';
+$BL['be_ftabhelp_private'] = 'tập tin hoặc thư mục là riêng tư - nhấp để đặt công khai';
+$BL['be_ftabhelp_public'] = 'tập tin hoặc thư mục là công khai - nhấp để đặt riêng tư';
+$BL['be_fpriv_errordir'] = 'lỗi: thư mục không thể là thư mục con của chính nó';
+$BL['be_fprivup_err7'] = 'Vì lý do bảo mật, không thể tải lên tập tin %s.';
+$BL['be_fprivup_err8'] = 'Tập tin có phần mở rộng %s không được phép. Các phần mở rộng được phép: %s.';
+$BL['be_fprivup_err9'] = 'Tập tin không có phần mở rộng không được phép. Các phần mở rộng được phép: %s.';
+$BL['be_fprivup_err10'] = 'Tập tin tải lên vượt quá giới hạn máy chủ (post_max_size: %s). Vui lòng tải lên tập tin nhỏ hơn.';
+$BL['be_fprivup_err11'] = 'Tập tin "%s" quá lớn (%s). Kích thước tối đa cho phép là %s.';
+$BL['be_fprivup_err12'] = 'Tập tin <strong>%s</strong> đã tồn tại trong thư mục đích.';
+$BL['be_admin_struct_alt'] = 'tiêu đề danh mục thay thế';
+$BL['be_article_created_at'] = 'được tạo lúc';
+$BL['be_article_updated_at'] = 'được cập nhật lúc';
+$BL['be_article_cnt_anchor'] = 'neo';
+$BL['be_cnt_poll_choices'] = 'các lựa chọn';
+$BL['be_cnt_search_default_type'] = 'loại tìm kiếm';
+$BL['be_cnt_sitemap_without_parent'] = 'không có cấp bắt đầu';
+$BL['be_cnt_pages_php_render_warning'] = 'PHP nội tuyến <code>$phpwcms[\'enable_inline_php\']</code> bị tắt';
+$BL['be_admin_group_add'] = 'thêm nhóm';
+$BL['be_admin_group_nogroup'] = 'không tìm thấy nhóm người dùng nào';
+$BL['be_cnt_css_class'] = 'lớp CSS';
+$BL['be_cnt_optin'] = 'Double Opt-In';
+$BL['be_cnt_doubleoptin'] = 'bật Double Opt-In theo <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">GDPR</a>';
+$BL['be_cnt_novalidate'] = 'Novalidate';
+$BL['be_cnt_status'] = 'khả năng hiển thị bí danh nội dung';
+$BL['be_cnt_plugin_n.a.'] = 'tiện ích bổ sung không khả dụng';
+$BL['gd_not_loaded'] = '<strong>Chức năng GD không khả dụng!</strong> Hãy đảm bảo thư viện PHP GD đã được bật.';
+$BL['be_cnt_search_hidesummary'] = 'ẩn văn bản giới thiệu tìm kiếm';
+$BL['be_cnt_search_searchnot'] = 'không tìm kiếm';
+$BL['be_longdatetime'] = 'd.m.Y H:i:s';
+$BL['be_cnt_lightbox'] = 'hình ảnh thư viện';
+$BL['be_cnt_behavior'] = 'hành vi';
+$BL['be_cnt_imglist_nocaption'] = 'ẩn chú thích cho hình thu nhỏ';
+$BL['be_cookie_runtime'] = 'thời hạn cookie';
+$BL['be_locale'] = 'ngôn ngữ và định dạng khu vực (locale)';
+$BL['be_date_format'] = 'định dạng ngày';
+$BL['be_check_login_against'] = 'kiểm tra đăng nhập với';
+$BL['be_userprofile_db'] = 'cơ sở dữ liệu hồ sơ người dùng';
+$BL['be_backenduser_db'] = 'cơ sở dữ liệu người dùng quản trị';
+$BL['be_check_login_allow_email'] = 'Chấp nhận email làm tên người dùng';
+$BL['be_gb_post_login'] = 'chỉ người dùng đã đăng nhập mới có thể đăng bài';
+$BL['be_gb_show_login'] = 'chỉ hiển thị cho người dùng đã đăng nhập';
+$BL['be_gb_urlcheck'] = 'bật xác thực URL từ xa';
+$BL['be_order'] = 'thứ tự';
+$BL['be_unique_teaser_entry'] = 'chỉ hiển thị phần giới thiệu/liên kết một lần trên mỗi trang';
+$BL['be_allowed_tags'] = 'các thẻ được phép';
+$BL['be_fe_login_url'] = 'URL đăng nhập FE';
+$BL['be_ctype_imagesdiv'] = 'hình ảnh <div>';
+$BL['be_cnt_imagecenter'] = 'căn giữa theo chiều ngang/dọc';
+$BL['be_cnt_imagenocenter'] = 'không căn giữa';
+$BL['be_cnt_imagecenterh'] = 'căn giữa theo chiều ngang';
+$BL['be_cnt_imagecenterv'] = 'căn giữa theo chiều dọc';
+$BL['be_check_against_category_alias'] = 'liên kết bài viết riêng lẻ trong cấp cấu trúc với cấp cấu trúc';
+$BL['be_overwrite_default'] = 'Sẽ ghi đè các cài đặt mặc định trong tập tin cấu hình';
+$BL['be_dialog_warn_nosave'] = 'Nếu bạn tiếp tục, các thay đổi sẽ không được lưu!
+Bạn có muốn hủy?';
+$BL['be_cnt_paginate_subsection'] = 'phần phụ';
+$BL['be_cnt_subsection_tite'] = 'tiêu đề phần phụ';
+$BL['be_cnt_subsection_warning'] = 'Đánh số phần phụ (phân trang phần tử nội dung)
+chỉ khả dụng cho cột chính (CONTENT)!';
+$BL['be_no_search'] = 'không tìm kiếm';
+$BL['be_priorize'] = 'ưu tiên';
+$BL['ADD_ALL_FILES'] = 'Thêm tất cả các tập tin';
+$BL['ADD_ALL_CONFIRM'] = 'Tất cả các tập tin từ thư mục »{VAL}« đã được thêm!
+
+Nhấp vào [OK] để đóng trình duyệt tập tin…';
+$BL['be_fileuploader_uploadButtonText'] = 'Chọn tập tin hoặc kéo thả vào đây';
+$BL['be_fileuploader_dictDefaultMessage'] = '<i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted d-block"></i><span class="font-weight-bold">Chọn tập tin hoặc kéo thả vào đây</span><br><small class="text-muted">Nhấp hoặc kéo thả tập tin vào khu vực này</small>';
+$BL['be_fileuploader_dictFallbackMessage'] = 'Trình duyệt của bạn không hỗ trợ kéo và thả.';
+$BL['be_fileuploader_dictFileTooBig'] = 'Tập tin quá lớn ({{filesize}}MiB). Kích thước tối đa: {{maxFilesize}}MiB.';
+$BL['be_fileuploader_dictInvalidFileType'] = 'Không thể tải lên các tập tin thuộc loại này trong chế độ lọc hiện tại.';
+$BL['be_fileuploader_dictResponseError'] = 'Máy chủ phản hồi với mã {{statusCode}}.';
+$BL['be_fileuploader_dictCancelUpload'] = 'Hủy tải lên';
+$BL['be_fileuploader_dictRemoveFile'] = 'Xóa tập tin';
+$BL['CSRF_ERROR_TITLE'] = 'Xác thực bảo mật thất bại';
+$BL['CSRF_POST_INVALID'] = 'Không tìm thấy tham số POST <a href="https://vi.wikipedia.org/wiki/CSRF" target="_blank" rel="noopener noreferrer">CSRF</a>. Đã hủy gửi biểu mẫu.';
+$BL['CSRF_POST_FAILED'] = 'Xác thực tham số POST <a href="https://vi.wikipedia.org/wiki/CSRF" target="_blank" rel="noopener noreferrer">CSRF</a> thất bại. Đã hủy gửi biểu mẫu.';
+$BL['CSRF_GET_INVALID'] = 'Không tìm thấy tham số GET <a href="https://vi.wikipedia.org/wiki/CSRF" target="_blank" rel="noopener noreferrer">CSRF</a>. Đã hủy điều hướng.';
+$BL['CSRF_GET_FAILED'] = 'Xác thực tham số GET <a href="https://vi.wikipedia.org/wiki/CSRF" target="_blank" rel="noopener noreferrer">CSRF</a> thất bại. Đã hủy điều hướng.';
+$BL['CSRF_BTN_BACK'] = 'Quay lại';
+$BL['CSRF_BTN_LOGIN'] = 'Đăng nhập';
+$BL['CSRF_BTN_DASHBOARD'] = 'Bảng điều khiển';
+$BL['be_cnt_field']['text'] = 'Trường văn bản';
+$BL['be_cnt_field']['textarea'] = 'Vùng văn bản';
+$BL['be_cnt_field']['hidden'] = 'Trường ẩn';
+$BL['be_cnt_field']['password'] = 'Trường mật khẩu';
+$BL['be_cnt_field']['select'] = 'Menu thả xuống';
+$BL['be_cnt_field']['selectmulti'] = 'Menu chọn nhiều mục';
+$BL['be_cnt_field']['checkbox'] = 'Hộp kiểm';
+$BL['be_cnt_field']['checkboxmulti'] = 'Nhiều hộp kiểm';
+$BL['be_cnt_field']['radio'] = 'Nút radio';
+$BL['be_cnt_field']['radiomulti'] = 'Nhiều nút radio';
+$BL['be_cnt_field']['upload'] = 'Tải lên tập tin';
+$BL['be_cnt_field']['submit'] = 'Nút gửi';
+$BL['be_cnt_field']['reset'] = 'Nút đặt lại';
+$BL['be_cnt_field']['special'] = 'Đặc biệt';
+$BL['be_cnt_field']['email'] = 'Địa chỉ email (kiểm tra)';
+$BL['be_cnt_field']['copy'] = 'Bản sao email gửi người dùng';
+$BL['be_cnt_field']['country'] = 'Quốc gia';
+$BL['be_cnt_field']['state'] = 'Tỉnh / Thành phố';
+$BL['be_cnt_field']['newsletter'] = 'Đăng ký nhận bản tin';
+$BL['be_cnt_field']['break'] = 'Ngắt dòng';
+$BL['be_cnt_field']['button'] = 'Nút bấm';
+$BL['be_cnt_field']['html'] = 'HTML / Văn bản cố định';
+
+$BL['be_admin_optgroup_label'] = array();
+$BL['be_admin_optgroup_label']['custom'] = 'Mẫu tùy chỉnh';
+$BL['be_admin_optgroup_label']['default'] = 'Mẫu mặc định';
+$BL['be_admin_optgroup_label']['sample'] = 'Mẫu ví dụ';
+
+// ----------------------------------------------------------------
+// phpwcms translations (vn)
+// ----------------------------------------------------------------
+$BL['be_nav_modules'] = 'mô-đun';
+$BL['be_ctype_ullist'] = 'danh sách không có thứ tự (ul/li)';
+$BL['be_profile_label_firstname'] = 'tên';
+$BL['be_profile_label_name'] = 'họ';
+$BL['be_profile_label_street'] = 'đường';
+$BL['be_article_cnt_toplink'] = 'liên kết lên đầu';
+$BL['be_article_cnt_addtitle'] = 'thêm phần tử nội dung mới';
+$BL['be_cnt_ullist'] = 'danh sách không có thứ tự (ul/li)';
+$BL['be_cnt_ullist_desc'] = 'danh sách không có thứ tự';
+$BL['be_ctype_ecard'] = 'thiệp điện tử (e-card)';
+$BL['be_ctype_blog'] = 'blog';
+$BL['be_cnt_ecardtext'] = 'văn bản thiệp điện tử';
+$BL['be_cnt_ecardtmpl'] = 'mẫu thiệp điện tử';
+$BL['be_cnt_ecard_image'] = 'hình ảnh thiệp';
+$BL['be_cnt_ecard_title'] = 'tiêu đề thiệp';
+$BL['be_cnt_alignment'] = 'căn chỉnh';
+$BL['be_cnt_ecardform'] = 'biểu mẫu thiệp điện tử';
+$BL['be_cnt_ecardform_err'] = 'Lỗi khi gửi thiệp điện tử!';
+$BL['be_cnt_ecardform_sender'] = 'Người gửi';
+$BL['be_cnt_ecardform_recipient'] = 'Người nhận';
+$BL['be_cnt_ecardform_name'] = 'Tên';
+$BL['be_cnt_ecardform_msgtext'] = 'Tin nhắn';
+$BL['be_cnt_ecardform_button'] = 'Gửi thiệp điện tử';
+$BL['be_cnt_ecardsend'] = 'gửi thiệp điện tử';
+$BL['be_cnt_send_copy_to'] = 'bản sao tới';
+$BL['be_cnt_no_wysiwyg_editor'] = 'tắt trình soạn thảo WYSIWYG';
+$BL['be_cnt_cache_update'] = 'đặt lại bộ nhớ đệm';
+$BL['be_cnt_cache_delete'] = 'xóa bộ nhớ đệm';
+$BL['be_cnt_cache_delete_msg'] = 'Bạn có chắc chắn muốn xóa bộ nhớ đệm?
+Điều này cũng có thể ảnh hưởng đến tìm kiếm.
+';
+$BL['be_admin_usr_issection'] = 'phần đăng nhập';
+$BL['be_admin_usr_ifsection0'] = 'frontend';
+$BL['be_admin_usr_ifsection1'] = 'backend';
+$BL['be_admin_usr_ifsection2'] = 'frontend và backend';
+$BL['be_func_content_edit'] = 'chỉnh sửa phần tử nội dung này';
+$BL['be_func_content_paste0'] = 'dán vào bài viết';
+$BL['be_func_content_paste'] = 'dán phần tử nội dung bên dưới';
+$BL['be_func_content_cut'] = 'cắt phần tử nội dung này';
+$BL['be_func_content_no_cut'] = 'Không thể cắt phần tử nội dung!';
+$BL['be_func_content_copy'] = 'sao chép phần tử nội dung này';
+$BL['be_func_content_no_copy'] = 'Không thể sao chép phần tử nội dung!';
+$BL['be_func_content_paste_cancel'] = 'hủy di chuyển phần tử nội dung';
+$BL['be_cnt_move_deleted'] = 'loại bỏ các tập tin đã xóa';
+$BL['be_cnt_move_deleted_msg'] = 'Bạn có chắc chắn muốn di chuyển tất cả các tập tin
+được đánh dấu là đã xóa vào thư mục xóa đặc biệt?
+';
+$BL['be_admin_struct_permit'] = 'truy cập được ủy quyền (để trống cho tất cả)';
+$BL['be_admin_struct_adduser_all'] = 'thêm tất cả người dùng';
+$BL['be_admin_struct_adduser_this'] = 'chỉ thêm người dùng này';
+$BL['be_admin_struct_remove_all'] = 'xóa tất cả người dùng';
+$BL['be_admin_struct_remove_this'] = 'xóa người dùng này';
+$BL['be_ctype_alias'] = 'bí danh nội dung';
+$BL['be_cnt_setting'] = 'cài đặt';
+$BL['be_cnt_spaces'] = 'khoảng cách';
+$BL['be_cnt_toplink'] = 'liên kết lên đầu';
+$BL['be_cnt_block'] = 'khối';
+$BL['be_cnt_title'] = 'tiêu đề';
+$BL['be_file_replace'] = 'Thay thế các tập tin có cùng tên';
+$BL['be_alias_articleID'] = 'ID bí danh';
+$BL['be_alias_useAll'] = 'sử dụng dữ liệu tiêu đề của bài viết này';
+$BL['be_article_morelink'] = 'liên kết [thêm…]';
+$BL['be_admin_tmpl_copy'] = 'sao chép mẫu';
+$BL['be_ctype_filelist1'] = 'danh sách tập tin pro';
+$BL['be_cnt_fpro_usecaption'] = 'sử dụng thông tin chi tiết của trung tâm tập tin';
+$BL['be_admin_keywords'] = 'Từ khóa';
+$BL['be_admin_keywords_key'] = 'TỪ KHÓA';
+$BL['be_admin_keywords_err'] = 'Nhập tên TỪ KHÓA duy nhất';
+$BL['be_admin_keyword_edit'] = 'chỉnh sửa TỪ KHÓA';
+$BL['be_admin_keyword_del'] = 'xóa TỪ KHÓA';
+$BL['be_admin_keyword_delmsg'] = 'Bạn có chắc chắn muốn xóa
+TỪ KHÓA này?';
+$BL['be_admin_keyword_add'] = 'thêm TỪ KHÓA';
+$BL['be_cnt_transparent'] = 'Flash trong suốt';
+$BL['be_admin_struct_orderkilldate'] = 'ngày hết hạn';
+$BL['be_func_switch_contentpart'] = 'Bạn có chắc chắn muốn đổi phần tử nội dung?
+
+Hãy cẩn thận!
+Các cài đặt quan trọng có thể bị ghi đè!
+';
+$BL['phpwcms_code_snippets_dir_exists'] = '<strong>CHÚ Ý!</strong> Thư mục "CODE-SNIPPETS" vẫn tồn tại! Hãy xóa thư mục <strong>phpwcms_code_snippets</strong>.';
+$BL['be_ctype_poll'] = 'bình chọn / thăm dò';
+$BL['be_cnt_pos8'] = 'bảng, bên trái';
+$BL['be_cnt_pos9'] = 'bảng, bên phải';
+$BL['be_cnt_pos8i'] = 'căn hình ảnh sang trái trong bảng';
+$BL['be_cnt_pos9i'] = 'căn hình ảnh sang phải trong bảng';
+$BL['be_WYSIWYG'] = 'trình soạn thảo WYSIWYG';
+$BL['be_WYSIWYG_disabled'] = 'trình soạn thảo WYSIWYG bị tắt';
+$BL['be_admin_struct_acat_hiddenactive'] = 'hiển thị khi hoạt động';
+$BL['be_login_jsinfo'] = 'Vui lòng bật JavaScript, tính năng cần thiết cho bảng điều khiển quản trị!';
+$BL['be_admin_struct_maxlist'] = 'số bài viết tối đa ở chế độ danh sách';
+$BL['be_cnt_articlemenu_maxchar'] = 'số ký tự tối đa';
+$BL['be_cnt_sysadmin_system'] = 'hệ thống';
+$BL['Version_up_to_date'] = 'Cài đặt của bạn đã được cập nhật, không có bản cập nhật nào.';
+$BL['Version_not_up_to_date'] = 'Cài đặt của bạn <b>chưa</b> được cập nhật. Các bản cập nhật có tại <a href="https://github.com/systron-dev/phpwcms/releases" target="_blank">GitHub Releases</a>.';
+$BL['Latest_version_info'] = 'Phiên bản chính thức mới nhất là <b>phpwcms %s</b>.';
+$BL['Current_version_info'] = 'Bạn đang chạy <b>phpwcms %s</b>.';
+$BL['Connect_socket_error'] = 'Kết nối tới máy chủ phpwcms thất bại, lỗi:<br />%s';
+$BL['Socket_functions_disabled'] = 'Không thể sử dụng các hàm socket.';
+$BL['Mailing_list_subscribe_reminder'] = 'Để nhận thông tin về các bản cập nhật, hãy đăng ký <a href="http://eepurl.com/bm-BrH" target="_blank">bản tin</a> của chúng tôi.';
+$BL['Version_information'] = 'thông tin phiên bản phpwcms';
+$BL['be_cnt_search_highlight'] = 'làm nổi bật';
+$BL['be_cnt_results_wordlimit'] = 'số từ tối đa cho bản tóm tắt';
+$BL['be_cnt_page_of_pages'] = 'điều hướng tìm kiếm';
+$BL['be_cnt_page_of_pages_descr'] = '{PREV:Trước} trang #/##, kết quả ###-####, {NAVI:123}, {NAVI:1-3}, {NEXT:Tiếp}';
+$BL['be_cnt_search_show_top'] = 'ở trên';
+$BL['be_cnt_search_show_bottom'] = 'ở dưới';
+$BL['be_cnt_search_show_next'] = 'tiếp (ngay cả khi không có liên kết)';
+$BL['be_cnt_search_show_prev'] = 'trước (ngay cả khi không có liên kết)';
+$BL['be_cnt_search_show_forall'] = 'luôn hiển thị';
+$BL['be_cnt_search_startlevel'] = 'cấp bắt đầu tìm kiếm';
+$BL['be_cnt_results_minchar'] = 'số ký tự tối thiểu để tìm kiếm';
+$BL['be_cnt_pagination'] = 'phân trang phần tử nội dung';
+$BL['be_article_pagination'] = 'phân trang bài viết';
+$BL['be_article_per_page'] = 'bài viết trên mỗi trang';
+$BL['be_pagination'] = 'phân trang';
+$BL['be_ctype_recipe'] = 'công thức';
+$BL['be_ctype_faq'] = 'câu hỏi thường gặp (FAQ)';
+$BL['be_cnt_additional'] = 'bổ sung';
+$BL['be_cnt_question'] = 'câu hỏi';
+$BL['be_cnt_answer'] = 'câu trả lời';
+$BL['be_cnt_same_as_summary'] = 'sử dụng dữ liệu hình ảnh của bài viết';
+$BL['be_cnt_sorting'] = 'sắp xếp';
+$BL['be_cnt_imgupload'] = 'tải lên hình ảnh';
+$BL['be_cnt_filesize'] = 'kích thước tập tin';
+$BL['be_cnt_captchalength'] = 'độ dài mã captcha';
+$BL['be_cnt_chars'] = 'ký tự';
+$BL['be_cnt_download'] = 'tải xuống';
+$BL['be_cnt_download_direct'] = 'trực tiếp (không khuyến nghị!)';
+$BL['be_cnt_database'] = 'cơ sở dữ liệu';
+$BL['be_cnt_formsave_in_db'] = 'lưu kết quả biểu mẫu';
+$BL['be_cnt_email_notify'] = 'thông báo qua email';
+$BL['be_cnt_notify_by_email'] = 'qua email tới địa chỉ';
+$BL['be_cnt_last_edited'] = 'chỉnh sửa lần cuối';
+$BL['be_cnt_export_selection'] = 'xuất lựa chọn';
+$BL['be_cnt_delete_duplicates'] = 'xóa các mục trùng lặp';
+$BL['be_cnt_new_recipient'] = 'thêm người nhận';
+$BL['be_cnt_newsletter_prepare'] = 'bản tin đang hoạt động';
+$BL['be_cnt_newsletter_prepare1'] = 'tất cả người nhận sẽ được chuyển vào hàng đợi gửi';
+$BL['be_cnt_newsletter_prepare2'] = 'hàng đợi gửi đang được cập nhật…';
+$BL['be_cnt_export'] = 'xuất';
+$BL['be_cnt_formsave_profile'] = 'lưu dữ liệu hồ sơ người dùng';
+$BL['be_profile_label_add'] = 'tiêu đề bổ sung';
+$BL['be_profile_label_website'] = 'trang web';
+$BL['be_profile_label_gender'] = 'giới tính';
+$BL['be_profile_label_birthday'] = 'ngày sinh';
+$BL['be_cnt_store_in'] = 'lưu vào trường';
+$BL['be_aboutlink_title'] = 'thông tin về phpwcms và giấy phép';
+$BL['be_shortdate'] = 'd.m.y';
+$BL['be_shortdatetime'] = 'd.m.y H:i';
+$BL['be_confirm_sending'] = 'xác nhận gửi';
+$BL['be_confirm_text'] = 'Có, gửi bản tin cho tất cả người nhận!';
+$BL['be_cnt_queued'] = 'trong hàng đợi';
+$BL['be_last_sending'] = 'lần gửi cuối';
+$BL['be_last_edited'] = 'chỉnh sửa lần cuối';
+$BL['be_total'] = 'tổng cộng';
+$BL['be_settings'] = 'cài đặt';
+$BL['be_ctype'] = 'phần tử nội dung';
+$BL['be_selection'] = 'lựa chọn';
+$BL['be_ctype_module'] = 'mô-đun / tiện ích';
+$BL['be_ctype_felogin'] = 'đăng nhập frontend';
+$BL['be_cnt_sortvalue'] = 'giá trị sắp xếp';
+

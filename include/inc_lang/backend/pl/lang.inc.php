@@ -36,7 +36,7 @@ $BL['be_nav_profile'] = 'PROFILE';
 $BL['be_nav_admin'] = 'ADMINISTRACJA';
 $BL['be_nav_discuss'] = 'DYSKUSJA';
 
-$BL['be_page_title'] = 'Zaplecze gmsgo (administracja)';
+$BL['be_page_title'] = 'Zaplecze phpwcms (administracja)';
 
 $BL['be_subnav_article_center'] = 'Centrum artyku&#322;&oacute;w';
 $BL['be_subnav_article_new'] = 'Nowy artyku&#322;';
@@ -70,9 +70,9 @@ $BL['be_func_struct_spublic'] = 'Prze&#322;&#261;cz publiczny/niepubliczny';
 $BL['be_func_struct_sort_up'] = 'Sortuj w g&oacute;r&#281;';
 $BL['be_func_struct_sort_down'] = 'Sortuj w d&oacute;&#322;';
 $BL['be_func_struct_del_article'] = 'Usu&#324; artyku&#322;';
-$BL['be_func_struct_del_jsmsg'] = 'Czy na pewno chcesz \nusunąć artykuł?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_jsmsg'] = 'Czy na pewno chcesz\nusun&#261;&#263; artyku&#322;?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_new_article'] = 'Utw&oacute;rz nowy artyku&#322; na tym poziomie struktury';
-$BL['be_func_struct_new_article_short']   = 'Utwórz nowy artykuł';
+$BL['be_func_struct_new_article_short']   = 'Utw&#243;rz nowy artyku&#322;';
 $BL['be_func_struct_paste_article'] = 'Wklej artyku&#322; na ten poziom struktury';
 $BL['be_func_struct_insert_level'] = 'Wstaw w poziom struktury';
 $BL['be_func_struct_insert_level_short'] = 'Wstaw poziom struktury';
@@ -84,7 +84,7 @@ $BL['be_func_struct_no_paste2'] = 'Czy potomek jest r&oacute;wnorz&#281;dny do g
 $BL['be_func_struct_no_paste3'] = 'To powinno zosta&#263; wklejone tutaj';
 $BL['be_func_struct_paste_cancel'] = 'Anuluj zmian&#281; poziomu struktury';
 $BL['be_func_struct_del_struct'] = 'Usu&#324; poziom struktury';
-$BL['be_func_struct_del_sjsmsg'] = 'Czy naprawdę chcesz \nusunąć poziom struktury?'; // "\n" = JavaScript Linebreak
+$BL['be_func_struct_del_sjsmsg'] = 'Czy naprawd&#281; chcesz\nusun&#261;&#263; poziom struktury?'; // "\n" = JavaScript Linebreak
 $BL['be_func_struct_open'] = 'Otw&oacute;rz';
 $BL['be_func_struct_close'] = 'Zamknij';
 $BL['be_func_struct_empty'] = 'Opr&oacute;&#380;nij';
@@ -180,8 +180,8 @@ $BL['be_ftab_createnew'] = 'Utw&oacute;rz nowy katalog w g&#322;&oacute;wnym';
 $BL['be_ftab_paste'] = 'Wklej pliki ze schowka do g&#322;&oacute;wnego katalogu';
 $BL['be_ftab_disablethumb'] = 'Wy&#322;&#261;cz miniaturki w li&#347;cie plik&oacute;w';
 $BL['be_ftab_enablethumb'] = 'W&#322;&#261;cz miniaturki w li&#347;cie plik&oacute;w';
-$BL['be_ftab_private'] = 'Prywatne&nbsp;pliki';
-$BL['be_ftab_public'] = 'Publiczne&nbsp;pliki';
+$BL['be_ftab_private'] = 'Prywatne pliki';
+$BL['be_ftab_public'] = 'Publiczne pliki';
 $BL['be_ftab_search'] = 'Szukaj';
 $BL['be_ftab_trash'] = 'Kosz';
 $BL['be_ftab_open'] = 'Otw&oacute;rz wszystkie katalogi';
@@ -233,13 +233,13 @@ $BL['be_fprivedit_size'] = 'Rozmiar';
 
 // files.private-functions.inc.php
 $BL['be_fprivfunc_upload'] = 'Wgraj pliki';
-$BL['be_fprivfunc_makenew'] = 'Utwórz nowy katalog';
+$BL['be_fprivfunc_makenew'] = 'Utw&#243;rz nowy katalog';
 $BL['be_fprivfunc_paste'] = 'Wklej plik';
 $BL['be_fprivfunc_edit'] = 'Edytuj katalog';
 $BL['be_fprivfunc_cactive'] = 'Prze&#322;&#261;cz aktywny/nieaktywny';
 $BL['be_fprivfunc_cpublic'] = 'Prze&#322;&#261;cz publiczny/niepubliczny';
 $BL['be_fprivfunc_deldir'] = 'Usu&#324; katalog';
-$BL['be_fprivfunc_jsdeldir'] = 'Czy na pewno chcesz \nusun&#261;&#263; katalog';
+$BL['be_fprivfunc_jsdeldir'] = 'Czy na pewno chcesz\nusun&#261;&#263; katalog';
 $BL['be_fprivfunc_notempty'] = 'katalog {VAL} nie jest pusty!';
 $BL['be_fprivfunc_notempty_short']        = 'Katalog nie jest pusty!';
 $BL['be_fprivfunc_opendir'] = 'Otw&oacute;rz katalog';
@@ -266,7 +266,7 @@ $BL['be_ftrash_nofiles'] = 'Kosz jest pusty';
 $BL['be_ftrash_show'] = 'Poka&#380; prywatne pliki';
 
 // files.private-delfilelist.inc.php
-$BL['be_ftrash_restore'] = 'Czy chcesz przywr&oacute;ci&#263; {VAL} \ni przenie&#347;&#263; do prywatnej listy?';
+$BL['be_ftrash_restore'] = 'Czy chcesz przywr&oacute;ci&#263; {VAL}\ni przenie&#347;&#263; do prywatnej listy?';
 $BL['be_ftrash_delete'] = 'Czy chcesz usun&#261;&#263; {VAL}?';
 $BL['be_ftrash_undo'] = 'Przywr&oacute;&#263; (odwr&oacute;&#263; usuwanie)';
 $BL['be_ftrash_delfinal'] = 'Ostateczne usuni&#281;cie';
@@ -277,7 +277,7 @@ $BL['be_fsearch_title'] = 'Szukaj plik&oacute;w';
 $BL['be_fsearch_infotext'] = 'To jest prosta wyszukiwarka informacji o plikach. Przeszukuje ona s&#322;owa kluczowe,<br />nazwy i d&#322;ugie info o plikach.Nie wspiera znak&oacute;w specjalnych. <br />Wybierz I/LUB oraz typy plik&oacute;w: prywatne/publiczne.';
 $BL['be_fsearch_nonfound'] = 'nie znaleziono plik&oacute;w dla twojego zapytania. Zmie&#324; swoje zapytanie!';
 $BL['be_fsearch_fillin'] = 'Prosz&#281; wype&#322;nij pole wyszukiwarki ci&#261;giem znak&oacute;w do wyszukania.';
-$BL['be_fsearch_searchlabel'] = 'Szukaj ';
+$BL['be_fsearch_searchlabel'] = 'Szukaj';
 $BL['be_fsearch_startsearch'] = 'Rozpocznij wyszukiwanie';
 $BL['be_fsearch_and'] = 'I';
 $BL['be_fsearch_or'] = 'LUB';
@@ -330,7 +330,7 @@ $BL['be_msg_all'] = 'Wy&#347;lij widomo&#347;&#263; do wszystkich wybranych Odbi
 $BL['be_newsletter_title'] = 'Subskrypcja wiadomo&#347;ci o nowo&#347;ciach';
 $BL['be_newsletter_titleedit'] = 'Edytuj subskrypcj&#281;';
 $BL['be_newsletter_new'] = 'Utw&oacute;rz nowy/&#261;';
-$BL['be_newsletter_add'] = 'Dodaj&nbsp;wiadomo&#347;&#263;&nbsp;do&nbsp;subskrypcji';
+$BL['be_newsletter_add'] = 'Dodaj wiadomo&#347;&#263; do subskrypcji';
 $BL['be_newsletter_name'] = 'Nazwa';
 $BL['be_newsletter_info'] = 'Info';
 $BL['be_newsletter_button_save'] = 'Zapisz subskrypcj&#281;';
@@ -343,7 +343,7 @@ $BL['be_admin_usr_err3'] = 'Has&#322;o u&#380;ytkownika nie mo&#380;e by&#263; p
 $BL['be_admin_usr_err4'] = "Adres email jest nieprawid&#322;owy";
 $BL['be_admin_usr_err'] = 'B&#322;&#261;d';
 $BL['be_admin_usr_mailsubject'] = 'Witajcie w systemie zarz&#261;dzania phpwcms';
-$BL['be_admin_usr_mailbody'] = "WITAJ W SYSTEMIE ZARZ&#260;DZANIA PHPWCMS\n\n    u&#380;ytkownik: {LOGIN}\n    has&#322;o: {PASSWORD}\n\n\nPrzez t&#261; stron&#281; mo&#380;esz si&#281; zalogowa&#263;: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_mailbody'] = "WITAJ W SYSTEMIE ZARZ&#260;DZANIA PHPWCMS\n\n    u&#380;ytkownik: {LOGIN}\n    has&#322;o: {PASSWORD}\n\n\nPrzez t&#261; stron&#281; mo&#380;esz si&#281; zalogowa&#263;: {SITE}\n\nphpwcms admin\n";
 $BL['be_admin_usr_title'] = 'Dodaj nowe konto u&#380;ytkownika';
 $BL['be_admin_usr_realname'] = 'Prawdziwe imi&#281;';
 $BL['be_admin_usr_setactive'] = 'Ustaw konto jako aktywne';
@@ -357,7 +357,7 @@ $BL['be_admin_usr_button'] = 'Zapisz dane u&#380;ytkownika';
 // admin.edituser.tmpl.php
 $BL['be_admin_usr_etitle'] = 'Edycja konta u&#380;ytkownika';
 $BL['be_admin_usr_emailsubject'] = 'Dane konta - phpwcms - zosta&#322;y zmienione';
-$BL['be_admin_usr_emailbody'] = "KONTO U&#379;YTKOWNIKA W PHPWCMS ZOSTA&#321;O ZMIENIONE \n\n    Nazwa u&#380;ytkownika: {LOGIN}\n    Has&#322;o: {PASSWORD}\n\n\nPrzez t&#261; stron&#281; mo&#380;esz si&#281; zalogowa&#263;:: {SITE}\n\nphpwcms admin\n ";
+$BL['be_admin_usr_emailbody'] = "KONTO U&#379;YTKOWNIKA W PHPWCMS ZOSTA&#321;O ZMIENIONE\n\n    Nazwa u&#380;ytkownika: {LOGIN}\n    Has&#322;o: {PASSWORD}\n\n\nPrzez t&#261; stron&#281; mo&#380;esz si&#281; zalogowa&#263;:: {SITE}\n\nphpwcms admin\n";
 $BL['be_admin_usr_passnochange'] = '[NIE ZMIENIONO - PODAJ PRAWID&#321;OW HAS&#321;O]';
 $BL['be_admin_usr_ebutton'] = 'Uaktualnij dane u&#380;ytkownika';
 
@@ -374,7 +374,7 @@ $BL['be_admin_struct_index'] = 'index (pocz&#261;tek witryny)';
 $BL['be_admin_struct_cat'] = 'Tytu&#322; poziomu';
 $BL['be_admin_struct_alt'] = 'tytu&#322; alternatywny kategorii';
 $BL['be_admin_struct_hide1'] = 'ukryj';
-$BL['be_admin_struct_hide2'] = 'ten&nbsp;poziom&nbsp;w&nbsp;menu';
+$BL['be_admin_struct_hide2'] = 'ten poziom w menu';
 $BL['be_admin_struct_info'] = 'Informacja o poziomie';
 $BL['be_admin_struct_template'] = 'Szablon';
 $BL['be_admin_struct_alias'] = 'Alias poziomu';
@@ -392,7 +392,7 @@ $BL['be_admin_fcat_button2'] = 'Utw&oacute;rz';
 $BL['be_admin_fcat_delmsg'] = 'Czy na pewno chcesz\nskasowa&#263; rozszerzenie plik&oacute;w?';
 $BL['be_admin_fcat_fcat'] = 'Kategoria plik&oacute;w';
 $BL['be_admin_fcat_err1'] = 'Nazwa rozszerzenia jest pusta!';
-$BL['be_admin_fcat_fkeyname'] = 'Nazwa&nbsp;rozszerzenia';
+$BL['be_admin_fcat_fkeyname'] = 'Nazwa rozszerzenia';
 $BL['be_admin_fcat_exit'] = 'Anuluj';
 $BL['be_admin_fcat_addkey'] = 'Dodaj nowe rozszerzenie';
 $BL['be_admin_fcat_editcat'] = 'Edytuj kategori&#281;';
@@ -415,7 +415,7 @@ $BL['be_admin_page_left'] = 'Lewy';
 $BL['be_admin_page_right'] = 'Prawy';
 $BL['be_admin_page_bg'] = 'T&#322;o';
 $BL['be_admin_page_color'] = 'kolor';
-$BL['be_admin_page_height'] = 'wysoko&#347;&#263;&nbsp;';
+$BL['be_admin_page_height'] = 'wysoko&#347;&#263;';
 $BL['be_admin_page_width'] = 'szeroko&#347;&#263;';
 $BL['be_admin_page_main'] = 'G&#322;&oacute;wny';
 $BL['be_admin_page_leftspace'] = 'Lewy odst&#281;p';
@@ -426,10 +426,10 @@ $BL['be_admin_page_text'] = 'Tekst';
 $BL['be_admin_page_link'] = 'Odno&#347;n.';
 $BL['be_admin_page_js'] = 'Javascript';
 $BL['be_admin_page_visited'] = 'odwiedz.';
-$BL['be_admin_page_pagetitle'] = 'Tytu&#322;&nbsp;witryny';
-$BL['be_admin_page_addtotitle'] = 'Dodaj&nbsp;do&nbsp;tytu&#322;u';
+$BL['be_admin_page_pagetitle'] = 'Tytu&#322; witryny';
+$BL['be_admin_page_addtotitle'] = 'Dodaj do tytu&#322;u';
 $BL['be_admin_page_category'] = 'Nazw&#281; poziomu';
-$BL['be_admin_page_articlename'] = 'Tytu&#322;&nbsp;artyku&#322;u';
+$BL['be_admin_page_articlename'] = 'Tytu&#322; artyku&#322;u';
 $BL['be_admin_page_blocks'] = 'Bloki';
 $BL['be_admin_page_allblocks'] = 'Wszystkie bloki';
 $BL['be_admin_page_col1'] = 'Bloki w 3 kolumnach';
@@ -438,8 +438,8 @@ $BL['be_admin_page_col3'] = 'Bloki w 2 kolumnach (g&#322;&oacute;wna kolumna z l
 $BL['be_admin_page_col4'] = 'Bloki w 1 kolumnie';
 $BL['be_admin_page_header'] = 'Nag&#322;&oacute;wek';
 $BL['be_admin_page_footer'] = 'Stopka';
-$BL['be_admin_page_topspace'] = 'G&oacute;rny&nbsp;odst&#281;p';
-$BL['be_admin_page_bottomspace'] = 'Dolny&nbsp;odst&#281;p';
+$BL['be_admin_page_topspace'] = 'G&oacute;rny odst&#281;p';
+$BL['be_admin_page_bottomspace'] = 'Dolny odst&#281;p';
 $BL['be_admin_page_button'] = 'Zapisz uk&#322;ad strony';
 
 // admin.frontendcss.tmpl.php
@@ -450,12 +450,12 @@ $BL['be_admin_css_button'] = 'Zapisz styl css';
 // admin.templates.tmpl.php
 $BL['be_admin_tmpl_title'] = 'Ustawienia witryny: szablony';
 $BL['be_admin_tmpl_default'] = 'Domy&#347;lny';
-$BL['be_admin_tmpl_add'] = 'Dodaj&nbsp;szablon';
+$BL['be_admin_tmpl_add'] = 'Dodaj szablon';
 $BL['be_admin_tmpl_edit'] = 'Edycja szablonu';
 $BL['be_admin_tmpl_new'] = 'Utw&oacute;rz nowy';
 $BL['be_admin_tmpl_css'] = 'Plik css';
-$BL['be_admin_tmpl_head'] = 'Nag&#322;&oacute;wek&nbsp; html';
-$BL['be_admin_tmpl_js'] = 'Skrypt przy&nbsp; otwarciu';
+$BL['be_admin_tmpl_head'] = 'Nag&#322;&oacute;wek html';
+$BL['be_admin_tmpl_js'] = 'Skrypt przy otwarciu';
 $BL['be_admin_tmpl_error'] = 'B&#322;&#261;d';
 $BL['be_admin_tmpl_button'] = 'Zapisz szablon';
 $BL['be_admin_tmpl_name'] = 'Nazwa';
@@ -474,7 +474,7 @@ $BL['be_article_asubtitle'] = 'Podtytu&#322;';
 $BL['be_article_abegin'] = 'Rozp.';
 $BL['be_article_aend'] = 'Zako&#324;.';
 $BL['be_article_aredirect'] = 'Przekieruj do';
-$BL['be_article_akeywords'] = 'S&#322;owa <br/>kluczowe';
+$BL['be_article_akeywords'] = 'S&#322;owa <br />kluczowe';
 $BL['be_article_asummary'] = 'Podsumowanie';
 $BL['be_article_abutton'] = 'Utw&oacute;rz nowy artyku&#322;';
 
@@ -544,30 +544,30 @@ $BL['be_cnt_pos4i'] = 'Wyr&oacute;wnaj obraz pod i po&#347;rodku tekstu';
 $BL['be_cnt_pos5i'] = 'Wyr&oacute;wnaj obraz pod i z prawej strony tekstu';
 $BL['be_cnt_pos6i'] = 'Umie&#347;&#263; obraz wewn&#261;trz tekstu i wyr&oacute;wnaj do lewej';
 $BL['be_cnt_pos7i'] = 'Umie&#347;&#263; obraz wewn&#261;trz tesktu i wyr&oacute;wnaj do prawej';
-$BL['be_cnt_maxw'] = 'maks.&nbsp;Szer.';
-$BL['be_cnt_maxh'] = 'maks.&nbsp;Wys.';
-$BL['be_cnt_enlarge'] = 'w&#322;&#261;cz&nbsp;powi&#281;kszanie';
+$BL['be_cnt_maxw'] = 'maks. Szer.';
+$BL['be_cnt_maxh'] = 'maks. Wys.';
+$BL['be_cnt_enlarge'] = 'w&#322;&#261;cz powi&#281;kszanie';
 $BL['be_cnt_caption'] = 'Podpis';
-$BL['be_cnt_subject'] = 'Tytu&#322;&nbsp;<br/>wiadomo&#347;ci';
+$BL['be_cnt_subject'] = 'Tytu&#322; <br />wiadomo&#347;ci';
 $BL['be_cnt_recipient'] = 'Odbiorca';
 $BL['be_cnt_buttontext'] = 'Tekst przycisku';
 $BL['be_cnt_sendas'] = 'Wy&#347;lij jako';
 $BL['be_cnt_text'] = 'Tekst';
 $BL['be_cnt_html'] = 'HTML';
-$BL['be_cnt_formfields'] = 'Pola&nbsp;<br/> formularza';
+$BL['be_cnt_formfields'] = 'Pola <br />formularza';
 $BL['be_cnt_code'] = 'Kod programistyczny';
-$BL['be_cnt_infotext'] = 'Tekst&nbsp;informacji';
+$BL['be_cnt_infotext'] = 'Tekst informacji';
 $BL['be_cnt_subscription'] = 'Subskrypcja/Kana&#322;';
-$BL['be_cnt_labelemail'] = 'Etykieta&nbsp;email';
-$BL['be_cnt_tablealign'] = 'Wyr&oacute;wnanie&nbsp;tabeli';
-$BL['be_cnt_labelname'] = 'Nazwa&nbsp;etykiety';
-$BL['be_cnt_labelsubsc'] = 'Etykieta&nbspsubskr.;';
-$BL['be_cnt_allsubsc'] = 'Wszyscy&nbsp;subskr.';
+$BL['be_cnt_labelemail'] = 'Etykieta email';
+$BL['be_cnt_tablealign'] = 'Wyr&oacute;wnanie tabeli';
+$BL['be_cnt_labelname'] = 'Nazwa etykiety';
+$BL['be_cnt_labelsubsc'] = 'Etykieta subskr.;';
+$BL['be_cnt_allsubsc'] = 'Wszyscy subskr.';
 $BL['be_cnt_default'] = 'Domy&#347;lny';
 $BL['be_cnt_left'] = 'lewo';
 $BL['be_cnt_center'] = '&#347;rodek';
 $BL['be_cnt_right'] = 'prawo';
-$BL['be_cnt_successtext'] = 'Tekst&nbsp;sukcesu';
+$BL['be_cnt_successtext'] = 'Tekst sukcesu';
 $BL['be_cnt_regmail'] = 'Zarejestr.email';
 $BL['be_cnt_logoffmail'] = 'Wy&#322;&#261;cz.email';
 $BL['be_cnt_changemail'] = 'Zmie&#324;.email';
@@ -579,7 +579,7 @@ $BL['be_cnt_delimage'] = 'usu&#324; wybrane grafiki';
 $BL['be_cnt_delfile'] = 'usu&#324; wybrane pliki';
 $BL['be_cnt_delmedia'] = 'usu&#324; wybrane multimedia';
 $BL['be_cnt_column'] = 'kolumna(y)';
-$BL['be_cnt_imagespace'] = 'odst&#281;p&nbsp;obrazka';
+$BL['be_cnt_imagespace'] = 'odst&#281;p obrazka';
 $BL['be_cnt_directlink'] = 'Bezpo&#347;redni Odno&#347;nik';
 $BL['be_cnt_target'] = 'Cel';
 $BL['be_cnt_target1'] = 'w nowym oknie';
@@ -588,12 +588,12 @@ $BL['be_cnt_target3'] = 'w tym samym oknie';
 $BL['be_cnt_target4'] = 'w tej samej ramce lub oknie';
 $BL['be_cnt_bullet'] = 'Lista (jako tablica)';
 $BL['be_cnt_ullist'] = 'Lista';
-$BL['be_cnt_ullist_desc'] = '~ = 1szy poziom, &nbsp; ~~ = 2gi poziom, &nbsp; itd.';
+$BL['be_cnt_ullist_desc'] = '~ = 1szy poziom, ~~ = 2gi poziom, itd.';
 $BL['be_cnt_linklist'] = 'Lista odno&#347;nik&oacute;w';
 $BL['be_cnt_plainhtml'] = 'czysty HTML';
 $BL['be_cnt_files'] = 'Pliki';
 $BL['be_cnt_description'] = 'Opis';
-$BL['be_cnt_linkarticle'] = 'Odno&#347;niki do&nbsp;<br/>artyku&#322;&oacute;w';
+$BL['be_cnt_linkarticle'] = 'Odno&#347;niki do <br />artyku&#322;&oacute;w';
 $BL['be_cnt_articles'] = 'Artyku&#322;y';
 $BL['be_cnt_movearticleto'] = 'Przesu&#324; wybrane Artyku&#322;y do Listy Artyku&#322;&oacute;w';
 $BL['be_cnt_removearticleto'] = 'usu&#324; wybrane artyku&#322;y z listy artyku&#322;&oacute;w';
@@ -637,7 +637,7 @@ $BL['be_admin_tmpl_nolayout'] = 'Brak uk&#322;adu!';
 // added: 31-12-2003
 $BL['be_ctype_search'] = 'wyszukiwarka';
 $BL['be_cnt_results'] = 'rezultat&oacute;w';
-$BL['be_cnt_results_per_page'] = 'na&nbsp;stron&#281; (je&#347;li puste, pokazuje wszystkie)';
+$BL['be_cnt_results_per_page'] = 'na stron&#281; (je&#347;li puste, pokazuje wszystkie)';
 $BL['be_cnt_opennewwin'] = 'W nowym oknie';
 $BL['be_cnt_searchlabeltext'] = 'Wstaw swoje komunikaty, kt&oacute;re pokazuj&#261; si&#281; gdy jest wi&#281;cej znalezionych artyku&#322;&oacute;w ni&#380; mie&#347;ci jedna strona.';
 $BL['be_cnt_input'] = 'Wybierz';
@@ -648,7 +648,7 @@ $BL['be_cnt_previous'] = 'Poprzedni';
 $BL['be_cnt_align'] = 'Wyr&oacute;wnanie';
 $BL['be_cnt_searchformtext'] = 'Wstaw swoje komunikaty gdy u&#380;ytkownik otworzy strone wyszukiwarki lub gdy nie ma rezultat&oacute;w.';
 $BL['be_cnt_intro'] = 'Nag&#322;&oacute;wek';
-$BL['be_cnt_noresult'] = 'Brak&nbsp; rezultat&oacute;w';
+$BL['be_cnt_noresult'] = 'Brak rezultat&oacute;w';
 $BL['be_cnt_search_default_type'] = 'Domy&#347;lny typ wyszukiwania';
 
 // added: 02-01-2004
@@ -697,9 +697,9 @@ $BL['be_admin_startup_button'] = 'Zapisz tekst';
 // added: 17-04-2004
 $BL['be_ctype_guestbook'] = 'Ksi&#281;ga go&#347;ci/komentarze';
 $BL['be_cnt_guestbook_listing'] = 'Pokazuj';
-$BL['be_cnt_guestbook_listing_all'] = 'Poka&#380;&nbsp;wszystkie&nbsp;wpisy';
+$BL['be_cnt_guestbook_listing_all'] = 'Poka&#380; wszystkie wpisy';
 $BL['be_cnt_guestbook_list'] = 'Wpis&oacute;w';
-$BL['be_cnt_guestbook_perpage'] = 'Na&nbsp;stron&#281;';
+$BL['be_cnt_guestbook_perpage'] = 'Na stron&#281;';
 $BL['be_cnt_guestbook_form'] = 'Formularz';
 $BL['be_cnt_guestbook_signed'] = 'Podpisane';
 $BL['be_cnt_guestbook_nav'] = 'Nawig.';
@@ -724,7 +724,7 @@ $BL['be_newsletter_button_savenl'] = 'Zapisz nowo&#347;&#263;';
 $BL['be_newsletter_fromname'] = 'Od nazwa';
 $BL['be_newsletter_fromemail'] = 'E-mail od';
 $BL['be_newsletter_replyto'] = 'E-mail odp';
-$BL['be_newsletter_changed'] = 'Ostanio&nbsp; zmieniono';
+$BL['be_newsletter_changed'] = 'Ostatnio zmieniono';
 $BL['be_newsletter_placeholder'] = 'Umie&#347;&#263;';
 $BL['be_newsletter_htmlpart'] = 'Tre&#347;&#263; nowo&#347;ci w HTML';
 $BL['be_newsletter_textpart'] = 'Tre&#347;&#263; nowo&#347;ci tekstowa';
@@ -739,7 +739,7 @@ $BL['be_newsletter_testemail'] = 'Testuj email';
 $BL['be_newsletter_sendnlbutton'] = 'Wy&#347;lij nowo&#347;&#263;';
 $BL['be_newsletter_sendprocess'] = 'Proces wysy&#322;ania';
 $BL['be_newsletter_attention2'] = '<strong style="color:#CC3300;">Uwaga!</strong> Prosz&#281; nie przerywa&#263; procesu wysy&#322;ania. Inaczej mo&#380;e zaistnie&#263; mo&#380;liwo&#347;&#263; wys&#322;ania tej samej nowo&#347;ci dwa razy do tego samego odbiorcy.';
-$BL['be_newsletter_testerror'] = '<span style="color:#CC3300;font-size:11px;">adres testowy <strong>###TEST###</strong> jest nie poprawny!<br />&nbsp;<br />Prosz&#281; spr&oacute;buj ponownie!';
+$BL['be_newsletter_testerror'] = '<span style="color:#CC3300;font-size:11px;">adres testowy <strong>###TEST###</strong> jest niepoprawny!<br />&nbsp;<br />Prosz&#281; spr&oacute;buj ponownie!';
 $BL['be_newsletter_to'] = 'Odbiorcy';
 $BL['be_newsletter_ready'] = 'Wysy&#322;anie nowo&#347;ci: zako&#324;czono';
 $BL['be_newsletter_readyfailed'] = 'Nie uda&#322;o si&#281; wys&#322;a&#263; nowo&#347;ci do';
@@ -762,14 +762,14 @@ $BL['be_cnt_sitemap_without_parent'] = 'bez poziomu pocz&#261;tkowego';
 // added: 23-04-2004
 $BL['be_ctype_bid'] = 'Oferta';
 $BL['be_cnt_bid_bidtext'] = 'Tre&#347;&#263; oferty';
-$BL['be_cnt_bid_sendtext'] = 'Tekst do&nbsp; wys&#322;ania';
-$BL['be_cnt_bid_verifiedtext'] = 'Tekst&nbsp; weryfikacji';
-$BL['be_cnt_bid_errortext'] = 'Oferta&nbsp; usuni&#281;ta';
-$BL['be_cnt_bid_verifyemail'] = 'Weryfikacja&nbsp; emaila';
+$BL['be_cnt_bid_sendtext'] = 'Tekst do wys&#322;ania';
+$BL['be_cnt_bid_verifiedtext'] = 'Tekst weryfikacji';
+$BL['be_cnt_bid_errortext'] = 'Oferta usuni&#281;ta';
+$BL['be_cnt_bid_verifyemail'] = 'Weryfikacja emaila';
 $BL['be_cnt_bid_startbid'] = 'Rozpocznij od';
 
 // added: 29-04-2004
-$BL['be_cnt_bid_nextbidadd'] = 'zwi&#281;ksz&nbsp;o';
+$BL['be_cnt_bid_nextbidadd'] = 'zwi&#281;ksz o';
 
 // added: 10-05-2004
 $BL['be_ctype_pages'] = 'Zewn&#281;trzna tre&#347;&#263;';
@@ -801,13 +801,13 @@ $BL['be_article_forfull'] = 'Wy&#347;wietl ca&#322;y artyku&#322;';
 $BL["setup_dir_exists"] = '<strong>Uwaga!</strong> Katalog &quot;SETUP&quot; nadal istnieje! Skasuj ten katalog - mo&#380;e by&#263; on przyczyn&#261; potencjalnych problem&oacute;w z bezpiecze&#324;stwem.';
 
 // added: 12-08-2004
-$BL['be_cnt_guestbook_banned'] = 'Zabronione&nbsp; s&#322;owa';
+$BL['be_cnt_guestbook_banned'] = 'Zabronione s&#322;owa';
 $BL['be_cnt_guestbook_flooding'] = 'Blokady';
 $BL['be_cnt_guestbook_setcookie'] = 'Ustaw cookie';
 $BL['be_cnt_guestbook_allowed'] = 'Zezw&oacute;l ponownie po';
 $BL['be_cnt_guestbook_seconds'] = 'Sekundach';
 $BL['be_alias_ID'] = 'ID aliasu';
-$BL['be_ftrash_delall'] = "Czy chcesz na pewno usun&#261;&#263; \nWSZYSTKIE PLIKI z kosza?";
+$BL['be_ftrash_delall'] = "Czy chcesz na pewno usun&#261;&#263;\nWSZYSTKIE PLIKI z kosza?";
 $BL['be_ftrash_delallfiles'] = 'Usu&#324; wszystkie pliki z kosza';
 
 // added: 16-08-2004
@@ -887,7 +887,7 @@ $BL['be_forum_titleedit'] = 'Edytuj forum';
 $BL['be_admin_page_customblocks'] = 'w&#322;asne';
 $BL['be_show_content'] = 'wy&#347;wietl';
 $BL['be_main_content'] = 'g&#322;&oacute;wna kolumna';
-$BL['be_admin_template_jswarning'] = 'UWAGA!!! \nW&#322;asne bloki mog&#261; si&#281; zmieni&#263;! \n\nJe&#380;eli anulujesz \nlub zresetujesz ustawienia uk&#322;adu! \n\nZmieni&#263; szablon?\n\n';
+$BL['be_admin_template_jswarning'] = 'UWAGA!!!\nW&#322;asne bloki mog&#261; si&#281; zmieni&#263;!\n\nJe&#380;eli anulujesz\nlub zresetujesz ustawienia uk&#322;adu!\n\nZmieni&#263; szablon?\n\n';
 
 $BL['be_ctype_rssfeed'] = 'RSS';
 $BL['be_cnt_rssfeed_url'] = 'adres url RSS';
@@ -924,17 +924,17 @@ $BL['be_cnt_field'] = array(
                 "email"=>'E-mail',
                 "textarea"=>'Tekst (wielo-liniowy)',
                 "hidden"=>'Ukryty',
-                "password"=>'Hasło',
-                "select"=>'Wybór menu',
+                "password"=>'Has&#322;o',
+                "select"=>'Wyb&#243;r menu',
                 "list"=>'Lista menu',
                 "checkbox"=>'Pole wyboru',
-                "checkboxcopy"=>'Pole wyboru (kopia e-mail wł./wył.)',
+                "checkboxcopy"=>'Pole wyboru (kopia e-mail w&#322;./wy&#322;.)',
                 "radio"=>'Przycisk opcji',
                 "upload"=>'Plik',
-                "submit"=>'Przycisk wysyłający',
-                "reset"=>'Przycisk resetujący',
+                "submit"=>'Przycisk wysy&#322;aj&#261;cy',
+                "reset"=>'Przycisk resetuj&#261;cy',
                 "break"=>'Przerwa',
-                "breaktext"=> 'Tekst pomiędzy',
+                "breaktext"=> 'Tekst pomi&#281;dzy',
                 "special"=>'Tekst (specjalny)',
                 "captchaimg"=>'Obraz captcha',
                 "captcha"=>'Kod captcha',
@@ -945,12 +945,12 @@ $BL['be_cnt_field'] = array(
                 'summing'=>'Podsumowanie',
                 'subtract'=>'Odejmij',
                 'divide'=>'Podziel',
-                'multiply'=>'Pomnóż',
+                'multiply'=>'Pomn&#243;&#380;',
                 'calculation'=>'Kalkulacja:',
-                'formtracking_off'=>'Wyłącz śledzenie formularza',
-                'checktofrom'=>'E-mail odbiorcy musi się różnić od nadawcy',
+                'formtracking_off'=>'Wy&#322;&#261;cz &#347;ledzenie formularza',
+                'checktofrom'=>'E-mail odbiorcy musi si&#281; r&#243;&#380;ni&#263; od nadawcy',
                 'recaptcha'=>'reCAPTCHA',
-                'recaptcha_signapikey'=>'Zarejestruj się na reCAPTCHA API key',
+                'recaptcha_signapikey'=>'Zarejestruj si&#281; na reCAPTCHA API key',
     		'recaptchainv' => 'reCAPTCHA niewidoczny',
 );
 
@@ -983,7 +983,7 @@ $BL['be_func_content_no_copy'] = "Nie mo&#380;na skopiowa&#263; tre&#347;ci arty
 $BL['be_func_content_paste_cancel'] = 'Anuluj zmiany';
 
 $BL['be_cnt_move_deleted'] = 'Skasuj usuni&#281;te pliki';
-$BL['be_cnt_move_deleted_msg'] = 'Czy na pewno chcesz przesun&#261;&#263; wszystkie \noznaczone pliki do specjalnego folderu?  \n';
+$BL['be_cnt_move_deleted_msg'] = 'Czy na pewno chcesz przesun&#261;&#263; wszystkie\noznaczone pliki do specjalnego folderu?\n';
 
 $BL['be_admin_struct_permit'] = 'Autoryzacja dost&#281;pu (pozostawione puste - dost&#281;p dla wszystkich)';
 $BL['be_admin_struct_adduser_all'] = 'Dodaj wszystkich u&#380;ytkownik&oacute;w';
@@ -1020,7 +1020,7 @@ $BL['be_cnt_transparent'] = 'Flash prze&#378;roczysty';
 
 // added: 02-04-2006
 $BL['be_admin_struct_orderkilldate'] = 'Daty usuni&#281;cia';
-$BL['be_func_switch_contentpart'] = 'Czy naprawd&#281; chcesz prze&#322;&#261;czy&#263; cz&#281;&#347;&#263; zawarto&#347;ci ? \n\nJest to bardzo wa&#380;na zmiana wi&#281;c! \nIstotne parametry mog&#261; zosta&#263; zmienione! \n';
+$BL['be_func_switch_contentpart'] = 'Czy naprawd&#281; chcesz prze&#322;&#261;czy&#263; cz&#281;&#347;&#263; zawarto&#347;ci ?\n\nJest to bardzo wa&#380;na zmiana wi&#281;c!\nIstotne parametry mog&#261; zosta&#263; zmienione!\n';
 $BL["phpwcms_code_snippets_dir_exists"] = '<strong>UWAGA!</strong> Katalog &quot;CODE-SNIPPETS&quot; nadal istnieje! Usu&#324; katalog <strong>phpwcms_code_snippets</strong> - jest on potencjalnym problemem bezpiecze&#324;stwa.';
 
 $BL['be_ctype_poll'] = 'Ankieta';
@@ -1078,7 +1078,7 @@ $BL['be_cnt_question'] = 'Pytanie';
 $BL['be_cnt_answer'] = 'Odpowied&#378;';
 $BL['be_cnt_same_as_summary'] = 'U&#380;yj danych obrazu artyku&#322;u';
 $BL['be_cnt_sorting'] = 'Sortowanie';
-$BL['be_cnt_imgupload'] = 'Prze&#347;lij&nbsp;obraz';
+$BL['be_cnt_imgupload'] = 'Prze&#347;lij obraz';
 $BL['be_cnt_filesize'] = 'Rozmiar pliku';
 $BL['be_cnt_captchalength'] = 'D&#322;ugo&#347;&#263; kodu captcha';
 $BL['be_cnt_chars'] = 'Znak&oacute;w';
@@ -1155,7 +1155,7 @@ $BL['be_cnt_imagecenterh'] = 'wy&#347;rodkowanie w poziomie';
 $BL['be_cnt_imagecenterv'] = 'wy&#347;rodkowanie w pionie';
 
 $BL['be_overwrite_default'] = 'Zostan&#261; zmienione domy&#347;lne ustawienia pliku konfiguracyjnego';
-$BL['be_cnt_sortvalue'] = 'sortowanie&nbsp;warto&#347;&#263;';
+$BL['be_cnt_sortvalue'] = 'sortowanie warto&#347;&#263;';
 $BL['be_dialog_warn_nosave'] = 'Je&#380;eli b&#281;dziesz kontynuowa&#322; zmiany nie zostan&#261; zapisane!\nCzy chcesz anulowa&#263;?';
 $BL['be_cnt_paginate_subsection'] = 'Podrozdzia&#322;';
 $BL['be_cnt_subsection_tite'] = 'Tytu&#322; podrozdzia&#322;u';
@@ -1332,10 +1332,10 @@ $BL['file_actions_step1'] = "Krok 1: wybierz folder";
 $BL['file_actions_step2'] = "Krok 2: wybierz plik";
 $BL['file_actions_step3'] = "Krok 3: wybierz dzia&#322;anie";
 $BL['file_actions_button'] = 'Wykonaj operacj&#281;';
-$BL['file_actions_no'] = 'Brak plik&oacute;w do edycji. Wybierz inny folder ';
+$BL['file_actions_no'] = 'Brak plik&oacute;w do edycji. Wybierz inny folder';
 $BL['file_actions_delete'] = 'Czy jeste&#347; pewien, &#380;e nale&#380;y usun&#261;&#263; wybrane pliki?';
 $BL['file_actions_bemuser'] = 'Wybrane pliki zostan&#261; przypisane do nowego u&#380;ytkownika i przeniesione do katalogu g&#322;&oacute;wnego.';
-$BL['file_actions_bemfolder'] = 'Prosz&#281; wybra&#263; folder docelowy. Wybrane pliki zostan&#261; przeniesione do tego folderu. ';
+$BL['file_actions_bemfolder'] = 'Prosz&#281; wybra&#263; folder docelowy. Wybrane pliki zostan&#261; przeniesione do tego folderu.';
 $BL['file_actions_pdl_empty'] = 'Wybierz dzia&#322;anie';
 $BL['file_actions_pdl_delete'] = 'Usu&#324; pliki';
 $BL['file_actions_pdl_move'] = 'Przenie&#347; pliki';
@@ -1427,7 +1427,7 @@ $BL['be_attr_alt'] = 'Alternatywny Tekst';
 $BL['be_ie8ignore'] = 'WY&#321;&#260;CZ <a href="https://en.wikipedia.org/wiki/Conditional_comment" target="_blank" class="underline">komentarze warunkowe</a> dla IE8 (deprecated)';
 $BL['be_cookie_consent_enable'] = 'W&#322;&#261;cz wtyczk&#281; Zgody Cookie v2';
 $BL['be_cookie_consent_message'] = 'Komunikat zgody';
-$BL['cookie_consent_message'] = 'Ta strona korzysta z plików cookie, aby zapewnić najlepszą jakość korzystania z naszej witryny';
+$BL['cookie_consent_message'] = 'Ta strona korzysta z plik&#243;w cookie, aby zapewni&#263; najlepsz&#261; jako&#347;&#263; korzystania z naszej witryny';
 $BL['be_cnt_poll_choices'] = 'Opcje wyboru';
 $BL['be_flush_image_cache_confirm'] = 'Czy na pewno chcesz wyczy&#349;ci&#263; pami&#289;&#263; podr&#289;czn&#261; obraz&oacute;w?';
 $BL['be_flush_image_cache_success'] = 'Pami&#289;&#263; podr&#289;czna obraz&oacute;w zosta&#322;a pomy&#349;lnie wyczy&#349;czona.';
@@ -1743,7 +1743,7 @@ $BL['TAKE_IMAGE']        = 'Wybierz plik i dodaj&#8230;';
 $BL['NO_FILE']           = 'Brak pliku';
 $BL['OPEN_DIR']          = 'Otw&oacute;rz katalog';
 $BL['CLOSE_DIR']         = 'Zamknij katalog';
-$BL['FILE_TITLE']        = 'Przegl&#261;darka plik&oacute;w phpwcms ';
+$BL['FILE_TITLE']        = 'Przegl&#261;darka plik&oacute;w phpwcms';
 $BL['IMAGE_TITLE']       = 'Przegl&#261;darka grafiki phpwcms';
 $BL['MEDIA_TITLE']       = 'Przegl&#261;darka multimedi&oacute;w phpwcms';
 $BL['IMAGE_FILES']       = 'Pliki graficzne';
