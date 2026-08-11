@@ -1725,7 +1725,7 @@ if(!$phpwcms['donottrack']) {
                 $_cc_v3_social = $phpwcms['cookie_consent_v3']['social'] ? 'granted' : 'denied';
 
                 $_cc_v3_init  = LF;
-                $_cc_v3_init .= 'let cookieConsentUpdate = {' . LF;
+                $_cc_v3_init .= 'var cookieConsentUpdate = {' . LF;
                 $_cc_v3_init .= '  "ad_storage": "' . $_cc_v3_marketing . '",' . LF;
                 $_cc_v3_init .= '  "ad_user_data": "' . $_cc_v3_marketing . '",' . LF;
                 $_cc_v3_init .= '  "ad_personalization": "' . $_cc_v3_marketing . '",' . LF;
@@ -1736,7 +1736,7 @@ if(!$phpwcms['donottrack']) {
                 $_cc_v3_init .= '  "advertisement_facebookpixel": "' . $_cc_v3_social . '",' . LF;
                 $_cc_v3_init .= '  "security_storage": "granted"' . LF;
                 $_cc_v3_init .= '};' . LF;
-                $_cc_v3_init = 'gtag("consent", "default", cookieConsentUpdate);' . LF;
+                $_cc_v3_init .= 'gtag("consent", "default", cookieConsentUpdate);' . LF;
 
                 $_cc_v3_events  = LF;
                 $_cc_v3_events .= 'const updateGtagConsent = () => {' . LF;
@@ -1754,8 +1754,8 @@ if(!$phpwcms['donottrack']) {
                 $_cc_v3_events .= '  cookieConsentUpdate.advertisement_facebookpixel = ccSocial;' . LF;
                 $_cc_v3_events .= '  gtag("consent", "update", cookieConsentUpdate);' . LF;
                 $_cc_v3_events .= '};' . LF;
-                $_cc_v3_events .= 'window.addEventListener("cc:onConsent", () => { updateGtagConsent(); };' . LF;
-                $_cc_v3_events .= 'window.addEventListener("cc:onChange", () => { updateGtagConsent(); };' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onConsent", () => { updateGtagConsent(); });' . LF;
+                $_cc_v3_events .= 'window.addEventListener("cc:onChange", () => { updateGtagConsent(); });' . LF;
 
                 $template_default['settings']['tracking']['ga']['code'] = str_replace(
                     '//gtagv3_init',
@@ -1778,7 +1778,7 @@ if(!$phpwcms['donottrack']) {
         }
 
         $block['tracking_ga']['config'] = [
-            "cookie_comain: '" . ($phpwcms['session_cookie_params']['domain'] ?? PHPWCMS_DOMAIN) . "'"
+            "cookie_domain: '" . ($phpwcms['session_cookie_params']['domain'] ?? PHPWCMS_DOMAIN) . "'"
         ];
         if (!empty($block['tracking_ga']['anonymize'])) {
             $block['tracking_ga']['config'][] = 'anonymize_ip: true';
