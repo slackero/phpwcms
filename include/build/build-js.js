@@ -43,6 +43,36 @@ async function buildJs() {
             console.warn(`[!] Warning: Source JS not found: ${srcPath}`);
         }
     }
+
+    // 3. Minify and optimize cookieconsent2 (legacy v2)
+    const srcCc2 = path.join(__dirname, '../../node_modules/cookieconsent2/cookieconsent.js');
+    const destCc2 = path.join(rootDir, '../template/lib/cookieconsent2/cookieconsent.min.js');
+    if (fs.existsSync(srcCc2)) {
+        let codeCc2 = fs.readFileSync(srcCc2, 'utf8');
+        codeCc2 = codeCc2.replace('http://silktide.com/cookieconsent', 'https://silktide.com/tools/cookie-consent/');
+        codeCc2 = codeCc2.replace("document.readyState == 'complete'", "(document.readyState === 'complete' || document.readyState === 'interactive')");
+        if (!codeCc2.includes('DOMContentLoaded')) {
+            codeCc2 = codeCc2.replace(
+                "Util.addEventListener(document, 'readystatechange', init);",
+                "Util.addEventListener(document, 'DOMContentLoaded', init);\n  Util.addEventListener(document, 'readystatechange', init);"
+            );
+        }
+        if (!codeCc2.includes('opts.cookie_name')) {
+            codeCc2 = codeCc2.replace(
+                'this.setDismissedCookie();',
+                'if (this.options.cookie_name) { DISMISSED_COOKIE = this.options.cookie_name; }\n      this.setDismissedCookie();'
+            );
+            codeCc2 = codeCc2.replace(
+                'if (document.cookie.indexOf(DISMISSED_COOKIE) > -1',
+                'var opts = window[OPTIONS_VARIABLE] || {}; if (opts.cookie_name) { DISMISSED_COOKIE = opts.cookie_name; }\n  if (document.cookie.indexOf(DISMISSED_COOKIE) > -1'
+            );
+        }
+        const minifiedCc2 = await terser.minify(codeCc2, { compress: true, mangle: true });
+        if (minifiedCc2.code) {
+            fs.writeFileSync(destCc2, minifiedCc2.code);
+            console.log(`[✓] cookieconsent2 minified (${(minifiedCc2.code.length / 1024).toFixed(2)} KB)`);
+        }
+    }
 }
 
 buildJs().catch(err => {

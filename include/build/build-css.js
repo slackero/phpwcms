@@ -75,3 +75,24 @@ if (fs.existsSync(fontSrcDir)) {
     }
     console.log(`[✓] Synced ${fonts.length} FontAwesome webfonts to include/webfonts/`);
 }
+
+// 4. Minify cookieconsent2 CSS themes
+const cc2ThemeDir = path.join(includeDir, '../template/lib/cookieconsent2');
+if (fs.existsSync(cc2ThemeDir)) {
+    const cc2Files = fs.readdirSync(cc2ThemeDir).filter(f => f.endsWith('.css'));
+    for (const f of cc2Files) {
+        const filePath = path.join(cc2ThemeDir, f);
+        const cssContent = fs.readFileSync(filePath, 'utf8');
+        try {
+            const minified = lightningcss.transform({
+                filename: f,
+                code: Buffer.from(cssContent),
+                minify: true
+            });
+            fs.writeFileSync(filePath, minified.code);
+        } catch (e) {
+            console.warn(`[!] Warning: Failed to minify ${f}: ${e.message}`);
+        }
+    }
+    console.log(`[✓] Minified ${cc2Files.length} cookieconsent2 CSS theme files`);
+}

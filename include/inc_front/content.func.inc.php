@@ -1678,12 +1678,27 @@ if (!$phpwcms['cookie_consent']) {
             }
         }
 
+        if (!empty($phpwcms['session_cookie_params']['domain'])) {
+            $block['cookie_consent']['options']['domain'] = $phpwcms['session_cookie_params']['domain'];
+        }
+        $block['cookie_consent']['options']['path'] = !empty($phpwcms['session_cookie_params']['path']) ? $phpwcms['session_cookie_params']['path'] : (PHPWCMS_ROOT_PATH ?: '/');
+        if (!empty($phpwcms['cookie_consent_name']) && $phpwcms['cookie_consent_name'] !== 'cookieconsent_dismissed') {
+            $block['cookie_consent']['options']['cookie_name'] = $phpwcms['cookie_consent_name'];
+        }
+
         if (empty($block['cookie_consent']['theme']) || $block['cookie_consent']['theme'] === 'false') {
             $block['cookie_consent']['options']['theme'] = false;
-        } elseif (!PHPWCMS_USE_CDN && strpos($block['cookie_consent']['theme'], '.css') === false) {
-            $block['cookie_consent']['options']['theme'] = PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent2/' . $block['cookie_consent']['theme'] . '.css';
         } else {
-            $block['cookie_consent']['options']['theme'] = $block['cookie_consent']['theme'];
+            $cc_v2_theme_file = $block['cookie_consent']['theme'];
+            if (strpos($cc_v2_theme_file, '.css') === false) {
+                $cc_v2_theme_file .= '.css';
+            }
+            if (PHPWCMS_USE_CDN) {
+                $block['custom_htmlhead']['cookieconsent_v2.css'] = '  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/' . $cc_v2_theme_file . '">';
+            } else {
+                $block['custom_htmlhead']['cookieconsent_v2.css'] = '  <link rel="stylesheet" href="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent2/' . $cc_v2_theme_file . '">';
+            }
+            $block['cookie_consent']['options']['theme'] = false;
         }
 
         $block['custom_htmlhead']['cookieconsent.js'] = '<script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF . SCRIPT_CDATA_START . LF;
@@ -1691,7 +1706,7 @@ if (!$phpwcms['cookie_consent']) {
         $block['custom_htmlhead']['cookieconsent.js'] .= LF . SCRIPT_CDATA_END . LF . '  </script>' . LF;
 
         if (PHPWCMS_USE_CDN) {
-            $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="' . PHPWCMS_HTTP_SCHEMA . '://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
+            $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>';
         } else {
             $block['custom_htmlhead']['cookieconsent.js'] .= '  <script src="' . PHPWCMS_URL . TEMPLATE_PATH . 'lib/cookieconsent2/cookieconsent.min.js"></script>';
         }
