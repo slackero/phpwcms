@@ -425,8 +425,8 @@ $phpwcms['default_template_classes'] = [
 ];
 
 $phpwcms['search_highlight'] = [
-    'prefix' => '<em class="highlight">',
-    'suffix' => '</em>',
+    'prefix' => '<mark class="highlight">',
+    'suffix' => '</mark>',
 ];
 
 $phpwcms['default_template_attributes'] = [
