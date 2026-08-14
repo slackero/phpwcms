@@ -1,28 +1,25 @@
 <!--TABS_START//-->
-[TITLE]<h3>{TITLE}</h3>[/TITLE]
-[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
 [TABS_ENTRIES]
-<div id="accordion_{ID}" class="accordion">{TABS_ENTRIES}</div>
-<!-- JS: MORE:Fx/Fx.Elements,Fx/Fx.Accordion -->
-<script type="text/javascript">
-window.addEvent('domready', function() {
-	new Accordion($('accordion_{ID}'), 'h3.toggler', 'div.element', {
-		opacity: false,
-		alwaysHide: true,
-		onActive: function(toggler, element){toggler.addClass('active');},
-		onBackground: function(toggler, element){toggler.removeClass('active');}
-	});
-});
-</script>
+<div id="accordion_{ID}" class="accordion mb-4">{TABS_ENTRIES}</div>
 [/TABS_ENTRIES]
 <!--TABS_END//-->
 
 <!--TABS_ENTRY_START//-->
 [TABCONTENT]
-	<h3 class="toggler">{TABTITLE}</h3>
-	<div class="element">
-		[TABHEADLINE]<h4>{TABHEADLINE}</h4>[/TABHEADLINE]
-		[TABTEXT]{TABTEXT}[/TABTEXT]
-	</div>
+<div class="accordion-item">
+    <h2 class="accordion-header" id="heading_{ID}_{TABID}">
+        <button class="accordion-button[TABFIRST] [/TABFIRST][TABFIRST_ELSE]collapsed[/TABFIRST_ELSE]" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{ID}_{TABID}" aria-expanded="[TABFIRST]true[/TABFIRST][TABFIRST_ELSE]false[/TABFIRST_ELSE]" aria-controls="collapse_{ID}_{TABID}">
+            {TABTITLE}
+        </button>
+    </h2>
+    <div id="collapse_{ID}_{TABID}" class="accordion-collapse collapse[TABFIRST] show[/TABFIRST]" aria-labelledby="heading_{ID}_{TABID}" data-bs-parent="#accordion_{ID}">
+        <div class="accordion-body">
+            [TABHEADLINE]<h5 class="h6 mb-2">{TABHEADLINE}</h5>[/TABHEADLINE]
+            [TABTEXT]<div class="tab-text">{TABTEXT}</div>[/TABTEXT]
+        </div>
+    </div>
+</div>
 [/TABCONTENT]
 <!--TABS_ENTRY_END//-->

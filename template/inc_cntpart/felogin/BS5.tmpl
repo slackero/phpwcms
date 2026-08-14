@@ -1,46 +1,174 @@
 <!--LOGIN_SETTINGS_START//-->
 ; this is formatted like WIN.INI
 ; please: do not use comments for value lines
-form_name       = form_felogin
-set_locale      = "en"
+date_format		= "%d.%m.%Y"
+set_locale		= "en"
+cookie_expire	= 7776000
 <!--LOGIN_SETTINGS_END//-->
 
-<!--LOGIN_DEFAULT_START//-->
-<div class="card shadow-sm border-0 mb-4" style="max-width: 420px;">
+<!--LOGIN_FORM_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
     <div class="card-body p-4">
-        [TITLE]<h3 class="card-title h4 mb-2">{TITLE}</h3>[/TITLE]
-        [SUB]<h4 class="card-subtitle h6 text-muted mb-3">{SUB}</h4>[/SUB]
-        [TEXT]<div class="card-text mb-3">{TEXT}</div>[/TEXT]
-        [ERROR]<div class="alert alert-danger py-2 mb-3" role="alert">{ERROR}</div>[/ERROR]
+        [ERROR]
+        <div class="alert alert-danger d-flex align-items-center py-2 mb-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div>@@Login and/or password not valid.@@</div>
+        </div>
+        [/ERROR]
+        [ERROR_ELSE]
+        <h4 class="card-title h5 mb-2">@@Please login@@</h4>
+        <p class="text-muted small mb-3">@@Fill in your account data to access protected areas.@@</p>
+        [/ERROR_ELSE]
 
-        <form action="{ACTION}" method="post" name="{FORM_NAME}" id="{FORM_NAME}">
-            <input type="hidden" name="fe_login" value="1">
+        <form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
             <div class="mb-3">
-                <label for="fe_login_user_{ID}" class="form-label">{LABEL_USER}</label>
-                <input type="text" name="fe_user" id="fe_login_user_{ID}" value="{VALUE_USER}" class="form-control" autocomplete="username" required>
+                <label for="feLogin" class="form-label small fw-semibold">@@Login or Email@@</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light text-muted"><i class="bi bi-person"></i></span>
+                    <input type="text" name="feLogin" id="feLogin" value="{LOGIN}" class="form-control" autocomplete="username" required>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="fe_login_pass_{ID}" class="form-label">{LABEL_PASS}</label>
-                <input type="password" name="fe_pass" id="fe_login_pass_{ID}" class="form-control" autocomplete="current-password" required>
+                <label for="fePassword" class="form-label small fw-semibold">@@Password@@</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light text-muted"><i class="bi bi-key"></i></span>
+                    <input type="password" name="fePassword" id="fePassword" value="{PASSWORD}" class="form-control" autocomplete="current-password" required>
+                </div>
             </div>
-            <button type="submit" name="fe_submit" class="btn btn-primary w-100">{LABEL_BUTTON}</button>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="feRemember" id="feRemember" value="1"{REMEMBER}>
+                <label class="form-check-label small text-muted" for="feRemember">
+                    @@Remember login on this computer@@
+                </label>
+            </div>
+            <button type="submit" name="feSubmit" id="feSubmit" class="btn btn-primary w-100 mb-3">
+                <i class="bi bi-box-arrow-in-right me-1"></i> @@Login@@
+            </button>
+        </form>
+
+        <div class="d-flex justify-content-between align-items-center small border-top pt-3">
+            [REGISTER_PROFILE]<a href="{REGISTER_PROFILE}" class="text-decoration-none"><i class="bi bi-person-plus me-1"></i>@@Register@@</a>[/REGISTER_PROFILE]
+            <a href="{REMINDER_FORM}" class="text-decoration-none text-muted"><i class="bi bi-question-circle me-1"></i>@@Forgot password?@@</a>
+        </div>
+    </div>
+</div>
+<!--LOGIN_FORM_END//-->
+
+<!--LOGIN_IS_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
+    <div class="card-body p-4">
+        <h4 class="card-title h5 mb-2">@@Nice to see you again@@</h4>
+        <p class="text-muted mb-3">@@You are logged in as@@ <strong class="text-dark">{LOGIN}</strong></p>
+
+        [MANAGE_PROFILE]
+        <p class="mb-3"><a href="{MANAGE_PROFILE}" class="btn btn-outline-primary btn-sm"><i class="bi bi-gear me-1"></i>@@Edit user profile@@</a></p>
+        [/MANAGE_PROFILE]
+
+        <form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+            <button type="submit" name="feLogout" id="feLogout" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-box-arrow-right me-1"></i> @@Logout@@
+            </button>
         </form>
     </div>
 </div>
-<!--LOGIN_DEFAULT_END//-->
+<!--LOGIN_IS_END//-->
 
-<!--LOGIN_LOGGED_START//-->
-<div class="card shadow-sm border-0 mb-4" style="max-width: 420px;">
+<!--PROFILE_REGISTER_START//-->
+<div class="card shadow-sm border-0 mb-4">
     <div class="card-body p-4">
-        [TITLE]<h3 class="card-title h4 mb-2">{TITLE}</h3>[/TITLE]
-        [SUB]<h4 class="card-subtitle h6 text-muted mb-3">{SUB}</h4>[/SUB]
-        [TEXT]<div class="card-text mb-3">{TEXT}</div>[/TEXT]
-
-        <form action="{ACTION}" method="post" name="{FORM_NAME}" id="{FORM_NAME}">
-            <input type="hidden" name="fe_logout" value="1">
-            <p class="mb-3">@@Logged in as@@ <strong>{USER}</strong></p>
-            <button type="submit" name="fe_submit" class="btn btn-outline-secondary w-100">{LABEL_BUTTON}</button>
-        </form>
+        <h3 class="card-title h4 mb-3">@@Register account@@</h3>
+        {FE_USER_REGISTER}
+        <div class="mt-3 border-top pt-3">
+            <a href="{LOGIN_URL}" class="btn btn-link btn-sm ps-0 text-decoration-none"><i class="bi bi-arrow-left me-1"></i>@@Back to login@@</a>
+        </div>
     </div>
 </div>
-<!--LOGIN_LOGGED_END//-->
+<!--PROFILE_REGISTER_END//-->
+
+<!--PROFILE_MANAGE_START//-->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-4">
+        <h3 class="card-title h4 mb-3">@@Manage account@@</h3>
+        {FE_USER_MANAGE}
+        <div class="d-flex justify-content-between align-items-center mt-3 border-top pt-3">
+            <a href="{LOGIN_URL}" class="btn btn-link btn-sm ps-0 text-decoration-none"><i class="bi bi-arrow-left me-1"></i>@@Back to profile@@</a>
+            <form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm" class="m-0">
+                <button type="submit" name="feLogout" id="feLogout" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-box-arrow-right me-1"></i> @@Logout@@
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--PROFILE_MANAGE_END//-->
+
+<!--REMINDER_FORM_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
+    <div class="card-body p-4">
+        [ERROR]
+        <div class="alert alert-danger d-flex align-items-center py-2 mb-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <div>@@Please check your input. It has to be valid email or login.@@</div>
+        </div>
+        [/ERROR]
+        [ERROR_ELSE]
+        <h4 class="card-title h5 mb-2">@@Password Reminder@@</h4>
+        <p class="text-muted small mb-3">@@Fill in your login or email to receive a password reset link.@@</p>
+        [/ERROR_ELSE]
+
+        <form action="{FORM_TARGET}" method="post" name="feLoginForm" id="feLoginForm">
+            <div class="mb-3">
+                <label for="feReminder" class="form-label small fw-semibold">@@Login or Email@@</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                    <input type="text" name="feReminder" id="feReminder" value="{REMINDER}" class="form-control" required>
+                    <input type="hidden" name="feReminderLoginKnown" value="0">
+                </div>
+            </div>
+            <button type="submit" name="feSubmit" id="feSubmit" class="btn btn-primary w-100 mb-3">
+                <i class="bi bi-send me-1"></i> @@Send reminder@@
+            </button>
+        </form>
+
+        <div class="d-flex justify-content-between align-items-center small border-top pt-3">
+            [REGISTER_PROFILE]<a href="{REGISTER_PROFILE}" class="text-decoration-none"><i class="bi bi-person-plus me-1"></i>@@Register@@</a>[/REGISTER_PROFILE]
+            <a href="{LOGIN_URL}" class="text-decoration-none text-muted"><i class="bi bi-arrow-left me-1"></i>@@Back to login@@</a>
+        </div>
+    </div>
+</div>
+<!--REMINDER_FORM_END//-->
+
+<!--REMINDER_SUCCESS_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 440px;">
+    <div class="card-body p-4 text-center">
+        <div class="display-6 text-success mb-2"><i class="bi bi-check-circle"></i></div>
+        <h4 class="card-title h5 mb-2">@@Reminder sent@@</h4>
+        <p class="text-muted small mb-4">@@Your request was successful. We have sent a reminder message to your email address.@@</p>
+        <a href="{LOGIN_URL}" class="btn btn-outline-primary btn-sm"><i class="bi bi-box-arrow-in-right me-1"></i>@@Back to login@@</a>
+    </div>
+</div>
+<!--REMINDER_SUCCESS_END//-->
+
+<!--REMINDER_EMAIL_START//-->
+[SUBJECT]
+Your account reminder
+[/SUBJECT]
+
+[LOGIN_EMAIL]
+You have requested this reminder email.
+
+Your login: {LOGIN}
+
+{LOGIN_URL}
+[/LOGIN_EMAIL]
+
+[PASSWORD_EMAIL]
+You have requested this reminder email.
+
+We have reset your password: {PASSWORD}
+
+Please change it after your first login.
+
+{LOGIN_URL}
+[/PASSWORD_EMAIL]
+<!--REMINDER_EMAIL_END//-->

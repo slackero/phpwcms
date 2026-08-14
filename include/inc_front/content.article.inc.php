@@ -214,10 +214,13 @@ if(isset($result[0]['article_id'])) {
     $content['article_username']    = $row["article_username"];
 
     //retrieve image info
-    $row["article_image"] = unserialize($row["article_image"], ['allowed_classes' => false]);
-    $caption = getImageCaption(array('caption' => $row["article_image"]["caption"], 'file' => $row["article_image"]["id"]));
-    $row["article_image"]["caption"]    = $caption[0];
-    $row["article_image"]["copyright"]  = $caption[4];
+    $row['article_image'] = @unserialize($row['article_image'], ['allowed_classes' => false]);
+    if(!is_array($row['article_image'])) {
+        $row['article_image'] = ['caption' => '', 'id' => 0];
+    }
+    $caption = getImageCaption(['caption' => $row['article_image']['caption'] ?? '', 'file' => $row['article_image']['id'] ?? 0]);
+    $row['article_image']['caption']    = $caption[0];
+    $row['article_image']['copyright']  = $caption[4];
 
     //build image/image link
     $thumb_image = false;

@@ -928,9 +928,9 @@ function cleanupPOSTandGET() {
 function remove_unsecure_rptags($check) {
     // remove special replacement tags for security reasons
     // bc input fields can be used for code injection
-    $check = preg_replace(['/\{PHP:(.*?)\}/i', '/\{PHPVAR:(.*?)\}/si', '/\[PHP\](.*?)\[\/PHP\]/si', '/\{URL:(.*?)\}/i'], '$1', $check);
+    $check = preg_replace(['/\{PHP:.*?\}/i', '/\{PHPVAR:.*?\}[\r\n]*/si', '/\[PHP\].*?\[\/PHP\][\r\n]*/si', '/\{URL:.*?\}/i'], '', $check);
 
-    return str_replace(['[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'], ['[ PHP ]', '[ /PHP ]', '{ PHP :', '{ PHPVAR :', '{ URL :'], $check);
+    return str_replace(['[PHP]', '[/PHP]', '{PHP:', '{PHPVAR:', '{URL:'], '', $check);
 }
 
 /**

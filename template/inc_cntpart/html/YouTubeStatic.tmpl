@@ -1,39 +1,27 @@
 [HTML]
-	[TITLE]<h3>{TITLE}</h3>[/TITLE]
-	[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
-	<div class="embed-responsive embed-responsive-16by9 video-container" data-videoid="{HTML}">
-		<img class="video-thumb" src="//i.ytimg.com/vi/{HTML}/hqdefault.jpg"><span class="video-play fa fa-play-circle"></span>
+	[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+	[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+	<div class="ratio ratio-16x9 video-container position-relative overflow-hidden rounded bg-black" data-videoid="{HTML}">
+		<img class="video-thumb w-100 h-100 object-fit-cover" src="https://i.ytimg.com/vi/{HTML}/hqdefault.jpg" alt="YouTube Video Thumbnail">
+		<span class="video-play bi bi-play-circle position-absolute top-50 start-50 translate-middle text-white display-4"></span>
 	</div>
-<!-- CSS: https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css -->
-<!-- CSS: https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css -->
-<!-- CSS: .video-play {
-	height: 72px;
-	width: 72px;
-	left: 50%;
-	top: 50%;
-	margin-left: -36px;
-	margin-top: -36px;
-	position: absolute;
-	text-align: center;
-	line-height: 72px;
-	font-size: 70px;
-	color: #fff;
-}
-.video-play:hover {
-	color: yellow;
-	cursor: pointer;
-}
+<!-- CSS: 
+.video-container { cursor: pointer; }
+.video-container:hover .video-play { color: var(--bs-primary, #0d6efd) !important; transform: translate(-50%, -50%) scale(1.1); transition: transform 0.2s ease, color 0.2s ease; }
 -->
-<!-- JS:
-$(function(){
-	var $playButtons = $('.video-play').one('touchstart click', function() {
-		var $this = $(this);
-		var $videoContainer = $this.parent();
-		var $videoId = $.trim($videoContainer.data('videoid'));
-		var $children = $videoContainer.children();
-		$videoContainer.append('<iframe src="//www.youtube.com/embed/'+$videoId+'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0" class="embed-responsive-item" frameborder="0" />');
-		$children.remove();
-	});
+<!-- JS: 
+document.querySelectorAll('.video-container[data-videoid]').forEach(function(el) {
+	el.addEventListener('click', function() {
+		var vid = this.getAttribute('data-videoid');
+		var iframe = document.createElement('iframe');
+		iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + vid + '?autoplay=1&rel=0');
+		iframe.setAttribute('frameborder', '0');
+		iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+		iframe.setAttribute('allowfullscreen', '1');
+		iframe.className = 'w-100 h-100';
+		this.innerHTML = '';
+		this.appendChild(iframe);
+	}, { once: true });
 });
 -->
 [/HTML]
