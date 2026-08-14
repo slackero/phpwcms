@@ -1,18 +1,4 @@
 a.fe-link {
-	float: left;
-	width: 20px;
-	height: 16px;
-	padding: 0;
-	margin: 0;
-	color: #000000;
-	text-decoration: none;
-	background-position: left center;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	z-index: 10000;
-	position: relative;
-}
-a.fe-link {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -25,7 +11,7 @@ a.fe-link {
 a.fe-link:hover {
 	text-decoration: none;
 	background-color: transparent;
-	color: #007bff;
+	color: #0d6efd;
 }
 a.fe-link.fe-article::before { content: "\f15c"; }
 a.fe-link.fe-summary::before { content: "\f044"; }

@@ -122,7 +122,7 @@ ul.list_top li a:visited, ul.list_level li a:visited {
 
 ul.list_top li a:hover, ul.list_level li a:hover {
     color: Black;
-    background: #92A1AF;;
+    background: #92A1AF;
     border-color: #227;
 }
 
@@ -219,7 +219,7 @@ ul.list_top li.active a, ul.list_level li.active a {
 }
 
 .phpwcmsImgListLeft {
-    text-align: right;
+    text-align: left;
     margin: 0;
     padding: 0;
 }
@@ -239,7 +239,7 @@ ul.list_top li.active a, ul.list_level li.active a {
     margin: 0;
 }
 
-.phpwcmsSearchResult em.highlight, em.highlight {
+.phpwcmsSearchResult mark.highlight, mark.highlight {
     background-color: #FFFF00;
     font-style: inherit;
 }
@@ -259,28 +259,24 @@ ul.list_top li.active a, ul.list_level li.active a {
     padding-top: 5px;
 }
 
-div.cpPagination {
-    margin: 10px 0 10px 0;
-    text-align: right;
+/* BS5 pagination — rendered via .pagination / .page-item / .page-link */
+nav.paginate {
+    margin: 10px 0;
 }
 
-a.cpPaginate, a.cpPaginateActive, a.cpPaginationPrev, a.cpPaginationNext {
-    padding: 0 3px 1px 3px;
-    background-color: #FFFFFF;
-    color: #BBBBBB;
-    text-decoration: none;
-    font-weight: bold;
-    border: 1px solid #CBCBCB;
+.page-link {
+    color: #0d6efd;
 }
 
-a.cpPaginateActive {
-    background-color: #CBCBCB;
-    color: #FFFFFF;
-    border: 1px inset #CBCBCB;
+.page-link.active,
+.active > .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
 }
 
-a.cpPaginationPrev:hover, a.cpPaginationNext:hover, a.cpPaginate:hover {
-    background-color: #DDDDDD;
-    color: #666666;
-    border: 1px inset #CBCBCB;
+.page-link.disabled,
+.disabled > .page-link {
+    color: #6c757d;
+    pointer-events: none;
 }
