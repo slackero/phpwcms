@@ -431,7 +431,7 @@ $phpwcms['search_highlight'] = [
 
 $phpwcms['default_template_attributes'] = [
     'navlist-bs-dropdown-data' => 'data-toggle="dropdown"',
-    'navlist-bs-dropdown-caret' => ' <mark class="caret"></mark>',
+    'navlist-bs-dropdown-caret' => ' <b class="caret"></b>',
     'cpgroup' => 'data', // data = <span>, href = <a>
     'cp-paginate' => [
         'wrap-prefix' => '<ul>',
