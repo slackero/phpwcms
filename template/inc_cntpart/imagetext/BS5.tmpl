@@ -1,0 +1,236 @@
+<!--IMAGETEXT_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+class_top_left				= top-left
+class_top_center			= top-center
+class_top_right				= top-right
+class_bottom_left			= bottom-left
+class_bottom_center			= bottom-center
+class_bottom_right			= bottom-right
+class_float_left			= float-start me-3 mb-2
+class_float_right			= float-end ms-3 mb-2
+class_column_left			= column-left
+class_column_right			= column-right
+class_column_left_image		= image-left
+class_column_right_image	= image-right
+class_column_left_text		= text-left
+class_column_right_text		= text-right
+; width						= 400
+; height					= 300
+; zoom						= 1
+; crop						= 1
+; lightbox					= 1
+; nocaption					= 0
+thumb_class					= figure-img img-fluid rounded
+<!--IMAGETEXT_SETTINGS_END//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+    <div class="image-text mb-4">
+
+[TOP_LEFT]
+        <!-- top left -->[IMAGE]
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <figure class="figure w-100">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE][TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_LEFT]
+
+[TOP_CENTER]
+        <!-- top center -->[IMAGE]
+        <div class="row justify-content-center mb-3">
+            <div class="col-12 col-md-8">
+                <figure class="figure w-100 text-center">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2 text-center">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE][TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_CENTER]
+
+[TOP_RIGHT]
+        <!-- top right -->[IMAGE]
+        <div class="row justify-content-end mb-3">
+            <div class="col-12 col-md-6">
+                <figure class="figure w-100">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE][TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content">
+            {TEXT}
+        </div>[/TEXT]
+[/TOP_RIGHT]
+
+[BOTTOM_LEFT]
+        <!-- bottom left -->[TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content mb-3">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <figure class="figure w-100">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE]
+[/BOTTOM_LEFT]
+
+[BOTTOM_CENTER]
+        <!-- bottom center -->[TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content mb-3">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <figure class="figure w-100 text-center">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2 text-center">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE]
+[/BOTTOM_CENTER]
+
+[BOTTOM_RIGHT]
+        <!-- bottom right -->[TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][TEXT]
+        <div class="image-text-content mb-3">
+            {TEXT}
+        </div>[/TEXT][IMAGE]
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-6">
+                <figure class="figure w-100">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+        </div>[/IMAGE]
+[/BOTTOM_RIGHT]
+
+[FLOAT_LEFT]
+        <!-- float left -->[TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][IMAGE]
+        <figure class="figure float-start me-3 mb-2" style="max-width: 45%;">
+            {IMAGE}[CAPTION]
+            <figcaption class="figure-caption mt-1">
+                {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+            </figcaption>[/CAPTION]
+        </figure>[/IMAGE][TEXT]
+        <div class="image-text-content">
+            {TEXT}
+        </div>[/TEXT]
+        <div class="clearfix"></div>
+[/FLOAT_LEFT]
+
+[FLOAT_RIGHT]
+        <!-- float right -->[TITLE]
+        <h3 class="h4 mb-2">{TITLE}</h3>[SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE][TITLE_ELSE][SUBTITLE]
+        <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE][/TITLE_ELSE][IMAGE]
+        <figure class="figure float-end ms-3 mb-2" style="max-width: 45%;">
+            {IMAGE}[CAPTION]
+            <figcaption class="figure-caption mt-1">
+                {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+            </figcaption>[/CAPTION]
+        </figure>[/IMAGE][TEXT]
+        <div class="image-text-content">
+            {TEXT}
+        </div>[/TEXT]
+        <div class="clearfix"></div>
+[/FLOAT_RIGHT]
+
+[COLUMN_LEFT]
+        <!-- column left -->
+        <div class="row align-items-center g-4">
+            [IMAGE]
+            <div class="col-12 col-md-5 order-md-1">
+                <figure class="figure w-100 mb-0">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+            [/IMAGE]
+            <div class="col-12 [IMAGE]col-md-7 order-md-2[/IMAGE]">
+                [TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+                [SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+                [TEXT]
+                <div class="image-text-content">
+                    {TEXT}
+                </div>
+                [/TEXT]
+            </div>
+        </div>
+[/COLUMN_LEFT]
+
+[COLUMN_RIGHT]
+        <!-- column right -->
+        <div class="row align-items-center g-4">
+            [IMAGE]
+            <div class="col-12 col-md-5 order-md-2">
+                <figure class="figure w-100 mb-0">
+                    {IMAGE}[CAPTION]
+                    <figcaption class="figure-caption mt-2">
+                        {CAPTION}[COPYRIGHT] <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+                    </figcaption>[/CAPTION]
+                </figure>
+            </div>
+            [/IMAGE]
+            <div class="col-12 [IMAGE]col-md-7 order-md-1[/IMAGE]">
+                [TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+                [SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+                [TEXT]
+                <div class="image-text-content">
+                    {TEXT}
+                </div>
+                [/TEXT]
+            </div>
+        </div>
+[/COLUMN_RIGHT]
+
+    </div>
+
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]

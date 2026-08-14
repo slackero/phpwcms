@@ -1,0 +1,52 @@
+<!--FILE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+icon_path           = ""
+icon_name           = ""
+thumbnail           = 1
+thumbnail_width     = 100
+thumbnail_height    = 100
+thumbnail_crop      = 1
+lightbox_init       = 0
+file_size_round     = 1
+file_size_space     = " "
+date_format         = "%m/%d/%y"
+set_locale          = "en_US.UTF-8"
+;set_locale          = "de_DE.UTF-8"
+inline_download     = 1
+<!--FILE_SETTINGS_END//-->
+[HAS_FILES]
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-4" id="filelist-cards-{ID}">
+<!--FILE_ENTRY_START//-->
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0[FIRST] first[/FIRST][LAST] last[/LAST]" id="file-card-{FILE_ID}">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    [FILE_IMAGE]
+                    <div class="flex-shrink-0">
+                        <img src="{FILE_IMAGE}" alt="{FILE_NAME}" class="rounded">
+                    </div>
+                    [/FILE_IMAGE]
+                    <div class="flex-grow-1 min-w-0">
+                        <h5 class="card-title h6 mb-1 text-truncate">
+                            <a href="{FILE_LINK}"{FILE_TARGET} class="text-decoration-none text-dark fw-bold">[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
+                        </h5>
+                        <span class="badge bg-secondary text-uppercase">{FILE_EXT}</span>
+                        <span class="badge bg-light text-dark border ms-1">{FILE_SIZE}</span>
+                    </div>
+                </div>
+                [FILE_DESCRIPTION]<p class="card-text text-muted small mb-3 flex-grow-1">{FILE_DESCRIPTION}</p>[/FILE_DESCRIPTION]
+                <div class="mt-auto pt-2 d-flex justify-content-between align-items-center">
+                    <small class="text-muted">{FILE_DATE}</small>
+                    <a href="{FILE_LINK}"{FILE_TARGET} class="btn btn-primary btn-sm" download>@@Download@@</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--FILE_ENTRY_END//-->
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+[/HAS_FILES]

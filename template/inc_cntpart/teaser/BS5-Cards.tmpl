@@ -1,0 +1,39 @@
+<!--TEASER_HEAD_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEASER]<div class="teaser">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+<!--TEASER_HEAD_END//-->
+
+<!--TEASER_ENTRY_START//-->
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            [IMAGE]<a href="{ARTICLELINK}" class="d-block overflow-hidden text-decoration-none">{IMAGE}</a>[CAPTION]<p class="text-muted small mt-2 mb-0 px-3">{CAPTION}</p>[/CAPTION][/IMAGE]
+            <div class="card-body d-flex flex-column">
+                <h3 class="card-title h5 mb-2">
+                    [ARTICLELINK]<a href="{ARTICLELINK}" class="text-decoration-none">[/ARTICLELINK]
+                        [MENUTITLE]{MENUTITLE}[/MENUTITLE][MENUTITLE_ELSE]{TITLE}[/MENUTITLE_ELSE]
+                    [ARTICLELINK] &raquo;</a>[/ARTICLELINK]
+                </h3>
+                <div class="teaser-subline text-muted small mb-2">{DATE:d/m/y lang=EN}[SUBTITLE] <strong>{SUBTITLE}.</strong>[/SUBTITLE]</div>
+                [SUMMARY]<p class="card-text text-secondary flex-grow-1">{SUMMARY}</p>[/SUMMARY]
+                [ARTICLELINK]<p class="mt-auto mb-0"><a href="{ARTICLELINK}" class="btn btn-sm btn-outline-primary">read more &raquo;</a></p>[/ARTICLELINK]
+            </div>
+        </div>
+    </div>
+<!--TEASER_ENTRY_END//-->
+
+<!--TEASER_ENTRY_SPACER_START//-->
+    <!-- next teaser please -->
+<!--TEASER_ENTRY_SPACER_END//-->
+
+<!--TEASER_ROW_SPACER_START//--><!--TEASER_ROW_SPACER_END//-->
+
+<!--TEASER_FOOTER_START//-->
+</div>
+</div>[/TEASER]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--TEASER_FOOTER_END//-->
+
+<!--TEASER_COLUMN_OVERWRITE_START//--><!--TEASER_COLUMN_OVERWRITE_END//-->

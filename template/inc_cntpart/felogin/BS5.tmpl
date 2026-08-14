@@ -1,0 +1,46 @@
+<!--LOGIN_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+form_name       = form_felogin
+set_locale      = "en"
+<!--LOGIN_SETTINGS_END//-->
+
+<!--LOGIN_DEFAULT_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 420px;">
+    <div class="card-body p-4">
+        [TITLE]<h3 class="card-title h4 mb-2">{TITLE}</h3>[/TITLE]
+        [SUB]<h4 class="card-subtitle h6 text-muted mb-3">{SUB}</h4>[/SUB]
+        [TEXT]<div class="card-text mb-3">{TEXT}</div>[/TEXT]
+        [ERROR]<div class="alert alert-danger py-2 mb-3" role="alert">{ERROR}</div>[/ERROR]
+
+        <form action="{ACTION}" method="post" name="{FORM_NAME}" id="{FORM_NAME}">
+            <input type="hidden" name="fe_login" value="1">
+            <div class="mb-3">
+                <label for="fe_login_user_{ID}" class="form-label">{LABEL_USER}</label>
+                <input type="text" name="fe_user" id="fe_login_user_{ID}" value="{VALUE_USER}" class="form-control" autocomplete="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="fe_login_pass_{ID}" class="form-label">{LABEL_PASS}</label>
+                <input type="password" name="fe_pass" id="fe_login_pass_{ID}" class="form-control" autocomplete="current-password" required>
+            </div>
+            <button type="submit" name="fe_submit" class="btn btn-primary w-100">{LABEL_BUTTON}</button>
+        </form>
+    </div>
+</div>
+<!--LOGIN_DEFAULT_END//-->
+
+<!--LOGIN_LOGGED_START//-->
+<div class="card shadow-sm border-0 mb-4" style="max-width: 420px;">
+    <div class="card-body p-4">
+        [TITLE]<h3 class="card-title h4 mb-2">{TITLE}</h3>[/TITLE]
+        [SUB]<h4 class="card-subtitle h6 text-muted mb-3">{SUB}</h4>[/SUB]
+        [TEXT]<div class="card-text mb-3">{TEXT}</div>[/TEXT]
+
+        <form action="{ACTION}" method="post" name="{FORM_NAME}" id="{FORM_NAME}">
+            <input type="hidden" name="fe_logout" value="1">
+            <p class="mb-3">@@Logged in as@@ <strong>{USER}</strong></p>
+            <button type="submit" name="fe_submit" class="btn btn-outline-secondary w-100">{LABEL_BUTTON}</button>
+        </form>
+    </div>
+</div>
+<!--LOGIN_LOGGED_END//-->

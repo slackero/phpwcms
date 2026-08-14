@@ -13,7 +13,7 @@ $template_default['nav_row']['after']                       = '';
 $template_default['nav_row']['between']                     = ' | ';
 $template_default['nav_row']['link_before']                 = '';
 $template_default['nav_row']['link_after']                  = '';
-$template_default['nav_row']['link_before_active']          = '<span style="text-decoration:none;font-weight:bold;">';
+$template_default['nav_row']['link_before_active']          = '<span class="text-decoration-none fw-bold">';
 $template_default['nav_row']['link_after_active']           = '</span>';
 $template_default['nav_row']['link_direct_before']          = '';
 $template_default['nav_row']['link_direct_after']           = '';
@@ -47,23 +47,23 @@ $template_default['nav_table_struct']['js_over_effects']        = 1;
 $template_default['nav_table_struct']['all_nodes_active']       = 1;
 //
 $template_default['nav_table_struct']['linkimage_norm']         = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%236c757d\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'4\'/%3E%3C/svg%3E" alt="" />';
-$template_default['nav_table_struct']['linkimage_over']         = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%23007bff\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'6\'/%3E%3C/svg%3E" alt="" />';
-$template_default['nav_table_struct']['linkimage_active']       = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%2328a745\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'8\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['linkimage_over']         = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%230d6efd\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'6\'/%3E%3C/svg%3E" alt="" />';
+$template_default['nav_table_struct']['linkimage_active']       = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\' fill=\'%23198754\' viewBox=\'0 0 16 16\'%3E%3Ccircle cx=\'8\' cy=\'8\' r=\'8\'/%3E%3C/svg%3E" alt="" />';
 //
 $template_default['nav_table_struct']['link_before']            = '';
 $template_default['nav_table_struct']['link_after']             = '';
 $template_default['nav_table_struct']['link_active_before']     = '';
 $template_default['nav_table_struct']['link_active_after']      = '';
 //
-$template_default['nav_table_struct']['row_norm_bgcolor']       = '#D9DEE3';
+$template_default['nav_table_struct']['row_norm_bgcolor']       = '';
 $template_default['nav_table_struct']['row_norm_class']         = '';
 //
-$template_default['nav_table_struct']['row_over_bgcolor']       = '#D3ED7D'; //#AAB7C1
-$template_default['nav_table_struct']['row_active_bgcolor']     = '#FFFFFF';
+$template_default['nav_table_struct']['row_over_bgcolor']       = '';
+$template_default['nav_table_struct']['row_active_bgcolor']     = '';
 $template_default['nav_table_struct']['row_active_class']       = '';
 //
 $template_default['nav_table_struct']['row_space']              = 1;
-$template_default['nav_table_struct']['row_space_bgcolor']      = '#4A5966';
+$template_default['nav_table_struct']['row_space_bgcolor']      = '';
 
 /*
  * sublevel layout
@@ -119,7 +119,7 @@ $template_default['top_headline_space']     = '';
 $template_default['top_subheadline_space']  = '';
 $template_default['top_count']              = 1;
 $template_default['article_order']          = 1; // 0 = manual, 2 = creation date, 4 = start date -> + 0 = ASC, + 1 = DESC
-$template_default['article_paginate_navi']  = '<div class="paginate paginate-{POS}">{PREV:&laquo;} {NEXT:&raquo;} page #/##, result ###-####, {NAVI:1-3, |<span>|</span>}</div>'; //
+$template_default['article_paginate_navi']  = '<nav class="paginate paginate-{POS}" aria-label="Pagination">{PREV:&laquo;} {NEXT:&raquo;} @@page@@ #/##, @@result@@ ###-####, {NAVI:1-3, |<span>|</span>}</nav>'; //
 $template_default['article_paginate_show']  = 'top bottom rt{RT}'; //where should the navi be shown - possible values: top and/or bottom and/or rt:{RT}
 $template_default['article_render_anchor']  = false; // render article jumpID anchor true||false
 
@@ -130,7 +130,7 @@ $template_default['list_headline_after']    = '</div>';
 
 // breadcrumb
 $template_default['breadcrumb_spacer']      = ' <span class="breadcrumb-spacer">&gt;</span> ';
-$template_default['breadcrumb_active_prefix'] = '<strong>';
+$template_default['breadcrumb_active_prefix'] = '<strong aria-current="page">';
 $template_default['breadcrumb_active_suffix'] = '</strong>';
 $template_default['breadcrumb_nolink_prefix'] = '<span>';
 $template_default['breadcrumb_nolink_suffix'] = '</span>';
@@ -164,7 +164,7 @@ $template_default['article']['link_email_after']        = '</div>';
 $template_default['article']['bullet_sign']             = '&gt; ';
 $template_default['article']['link_sign']               = '&gt; ';
 $template_default['article']['back_sign']               = '&lt; ';
-$template_default['article']['top_sign']                = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' fill=\'%23007bff\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z\'/%3E%3C/svg%3E" alt="top" />';
+$template_default['article']['top_sign']                = '<img src="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' fill=\'%230d6efd\' viewBox=\'0 0 16 16\'%3E%3Cpath fill-rule=\'evenodd\' d=\'M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z\'/%3E%3C/svg%3E" alt="top" />';
 $template_default['article']['top_sign_before']         = '<div class="link-top">';
 $template_default['article']['top_sign_after']          = '</div>';
 
@@ -183,9 +183,9 @@ $template_default['article']['image_bgcolor']           = '';
 $template_default['article']['image_align']             = '';
 $template_default['article']['image_valign']            = '';
 $template_default['article']['image_border']            = 0;
-$template_default['article']['image_class']             = "image-td";
-$template_default['article']['image_imgclass']          = "image-img";
-$template_default['article']['image_caption_class']     = "image-caption";
+$template_default['article']['image_class']             = 'image-td';
+$template_default['article']['image_imgclass']          = 'image-img';
+$template_default['article']['image_caption_class']     = 'image-caption';
 $template_default['article']['image_caption_bgcolor']   = '';
 $template_default['article']['image_caption_valign']    = '';
 $template_default['article']['image_caption_align']     = 'center';
@@ -241,7 +241,7 @@ $template_default['rss']['image']   = '<img src="data:image/svg+xml,%3Csvg xmlns
 $template_default['related']['before']          = '<div class="related">';
 $template_default['related']['after']           = '</div>';
 $template_default['related']['link_before']     = '<p>';
-$template_default['related']['link_after']      = "</p>";
+$template_default['related']['link_after']      = '</p>';
 $template_default['related']['link_symbol']     = '';
 $template_default['related']['link_target']     = '';
 $template_default['related']['link_length']     = 0; //if 0 no limit
@@ -264,7 +264,7 @@ $template_default['news']['date_after']     = ' - </span>';
 $template_default['news']['sort_by']        = 'cdate'; // 'cdate' = Creation date, or 'udate' = update date, ldate = start date, kdate = end date
 
 // ecards
-$template_default['article']['ecard_table_class']       = "image-table";
+$template_default['article']['ecard_table_class']       = 'image-table';
 $template_default['article']['ecard_table_bgcolor']     = '';
 $template_default['article']['ecard_bgcolor']           = '';
 $template_default['article']['ecard_align']             = '';
@@ -278,8 +278,8 @@ $template_default['article']['ecard_caption_valign']    = '';
 $template_default['article']['ecard_caption_align']     = 'center';
 $template_default['article']['ecard_caption_before']    = '';
 $template_default['article']['ecard_caption_after']     = '';
-$template_default['article']['ecard_chooser_css']       = 'style="margin:3px 0 3px 0;"';
-$template_default['article']['ecard_chooser_text']      = 'style="font-weight:bold;"';
+$template_default['article']['ecard_chooser_css']       = 'class="my-1"';
+$template_default['article']['ecard_chooser_text']      = 'class="fw-bold"';
 
 // this is used to inject <body> Tag by attribute "id" and/or "class"
 // if value is empty '' body tag will not be injected, otherwise it will use
@@ -384,12 +384,12 @@ $template_default['classes'] = array(
     'cpgroup-content'               => 'cpgroup-content',
     'shop-category-menu'            => 'shop-categories',
     'shop-products-menu'            => 'shop-products',
-    'cp-paginate-link'              => 'paginate-link',
-    'cp-paginate-link-active'       => 'paginate-link active',
-    'cp-paginate-link-disabled'     => 'paginate-link disabled',
-    'search-paginate-link'          => 'paginate-link',
-    'search-paginate-link-active'   => 'paginate-link active',
-    'search-paginate-link-disabled' => 'paginate-link disabled',
+    'cp-paginate-link'              => 'page-link',
+    'cp-paginate-link-active'       => 'page-link active',
+    'cp-paginate-link-disabled'     => 'page-link disabled',
+    'search-paginate-link'          => 'page-link',
+    'search-paginate-link-active'   => 'page-link active',
+    'search-paginate-link-disabled' => 'page-link disabled',
     'newsletter-table'              => 'table table-newsletter',
     'newsletter-table-subscription' => 'table table-subscriptions',
     'newsletter-input-email'        => 'form-control',
@@ -399,13 +399,13 @@ $template_default['classes'] = array(
 );
 
 $template_default['search_highlight'] = array(
-    'prefix' => '<em class="highlight">',
-    'suffix' => '</em>'
+    'prefix' => '<mark class="highlight">',
+    'suffix' => '</mark>'
 );
 
 $template_default['attributes'] = array(
     'navlist-bs-dropdown-data'  => 'data-bs-toggle="dropdown"',
-    'navlist-bs-dropdown-caret' => ' <b class="caret"></b>',
+    'navlist-bs-dropdown-caret' => '', // BS5: .dropdown-toggle adds caret via CSS
     'cpgroup'                   => 'data', // data = <span>, href = <a>
     'cpgroup_custom'            => array(
         'bs-row-container' => array( // No underscore allowed here for group index!!!
@@ -420,9 +420,9 @@ $template_default['attributes'] = array(
         ) */
     ),
     'cp-paginate' => array(
-        'wrap-prefix' => '<ul>',
+        'wrap-prefix' => '<ul class="pagination">',
         'wrap-suffix' => '</ul>',
-        'link-prefix' => '<li>',
+        'link-prefix' => '<li class="page-item">',
         'link-suffix' => '</li>',
         'value-prefix' => '',
         'value-suffix' => '',

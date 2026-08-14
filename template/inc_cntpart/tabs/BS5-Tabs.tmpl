@@ -1,0 +1,59 @@
+<!--TABS_START//-->
+<div class="bs-tabs bs-tabs-5">
+[TITLE]    <h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]    <h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TABS_ENTRIES]    <div class="tab-content" id="bs-tabs-content-{ID}">
+{TABS_ENTRIES}
+    </div>
+    <!--
+        This is for example ONLY. Not recommended to use it this way.
+        Place Bootstrap 5 CSS and JavaScript inside your main template so it is loaded once.
+        CSS: https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css
+        JS:  https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/js/bootstrap.bundle.min.js
+        This snippet builds the nav from each panel's title (vanilla JS, no jQuery).
+    -->
+    <!-- JS:
+    (function(){
+        var root = document.getElementById('bs-tabs-content-{ID}');
+        if(!root) return;
+        var panes = root.querySelectorAll(':scope > .tab-pane');
+        if(!panes.length) return;
+        var nav = document.createElement('ul');
+        nav.className = 'nav nav-tabs mb-3';
+        nav.setAttribute('role', 'tablist');
+        panes.forEach(function(pane, i){
+            var label = pane.getAttribute('data-tab-label') || ('Tab ' + (i + 1));
+            var paneId = pane.id || ('bs-tab-pane-{ID}-' + (i + 1));
+            pane.id = paneId;
+            if(i === 0) pane.classList.add('show', 'active');
+            var li = document.createElement('li');
+            li.className = 'nav-item';
+            li.setAttribute('role', 'presentation');
+            var btn = document.createElement('button');
+            btn.className = 'nav-link' + (i === 0 ? ' active' : '');
+            btn.type = 'button';
+            btn.setAttribute('data-bs-toggle', 'tab');
+            btn.setAttribute('data-bs-target', '#' + paneId);
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('aria-controls', paneId);
+            btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            btn.textContent = label;
+            li.appendChild(btn);
+            nav.appendChild(li);
+        });
+        root.parentNode.insertBefore(nav, root);
+    })();
+    -->
+[/TABS_ENTRIES]
+</div>
+<!--TABS_END//-->
+
+<!--TABS_ENTRY_START//-->
+ [TABCONTENT]
+    <div role="tabpanel" class="tab-pane fade" data-tab-label="{TABTITLE}">
+        [TABHEADLINE]<h3 class="h5 mt-2">{TABHEADLINE}</h3>[/TABHEADLINE]
+        [TABTEXT]<div class="tab-text">{TABTEXT}</div>[/TABTEXT]
+        [TABLINK]<p class="mt-3"><a href="{TABLINK}"{TARGET} class="btn btn-sm btn-outline-primary">@@read more@@</a></p>[/TABLINK]
+    </div>
+[/TABCONTENT]
+<!--TABS_ENTRY_END//-->

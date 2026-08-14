@@ -2,7 +2,7 @@
 	<li>
 		[TITLE]<h3>[LINK]<a href="{LINK}" target="_blank">[/LINK]{TITLE}[LINK]</a>[/LINK]</h3>[/TITLE]
 		<p>{DATE:D, j F Y H:i lang=EN}[AUTHOR] by {AUTHOR}[/AUTHOR]</p>
-		[IMAGE]<p class="feeditem-image"><img src="{IMAGE}" alt=""{LAZY_LOADING} /></p>[/IMAGE]
+		[IMAGE]<p class="feeditem-image"><img src="{IMAGE}" alt=""{LAZY_LOADING}></p>[/IMAGE]
 		[DESCRIPTION]<div class="feed-description">{DESCRIPTION}</div>[/DESCRIPTION]
 		[CONTENT]<!-- {CONTENT} -->[/CONTENT]
 		<!-- {DIVIDER} -->
@@ -10,7 +10,7 @@
 <!--ITEM_END//-->
 
 <!--DIVIDER_START//-->
-<hr />
+<hr>
 <!--DIVIDER_END//-->
 
 <!--FEEDINFO_START//-->
@@ -25,6 +25,7 @@
 <!--FEEDINFO_END//-->
 
 <!--RSSFEED_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 <div class="feed">
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
@@ -37,4 +38,6 @@
 {DIVIDER}
 [/ITEMS]
 </div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--RSSFEED_END//-->
+

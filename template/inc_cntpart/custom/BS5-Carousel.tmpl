@@ -1,0 +1,62 @@
+<!--CUSTOM_SETTINGS_START//-->
+; Bootstrap 5 Carousel
+width          = 1200
+height         = 500
+col            = 1
+crop           = 1
+lightbox       = 0
+thumb_class    = d-block w-100
+text_render    = html
+<!--CUSTOM_SETTINGS_END//-->
+
+<!--CUSTOM_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]<div class="mb-4">{TEXT}</div>[/TEXT]
+
+<div id="carouselCustom{ID}" class="carousel slide mb-4" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+        {DATA}
+    </div>
+    <!-- Slides -->
+    <div class="carousel-inner rounded overflow-hidden">
+<!--CUSTOM_HEADER_END//-->
+
+<!--CUSTOM_ENTRY_START//-->
+        <div class="carousel-item[FIRST] active[/FIRST]" id="slide-{IMGID}">
+            [URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>[/URL]
+                {IMAGE}
+            [URL]</a>[/URL]
+            [CAPTION]
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
+                <h5>{CAPTION}</h5>
+                [INFOTEXT]<p class="mb-0">{INFOTEXT}</p>[/INFOTEXT]
+            </div>
+            [/CAPTION]
+        </div>
+<!--CUSTOM_ENTRY_END//-->
+
+<!--CUSTOM_ENTRY_SPACER_START//--><!--CUSTOM_ENTRY_SPACER_END//-->
+<!--CUSTOM_ROW_SPACER_START//--><!--CUSTOM_ROW_SPACER_END//-->
+
+<!--CUSTOM_FOOTER_START//-->
+    </div>
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCustom{ID}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">@@Previous@@</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselCustom{ID}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">@@Next@@</span>
+    </button>
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--CUSTOM_FOOTER_END//-->
+
+<!--CUSTOM_DATA_START//-->
+        <button type="button" data-bs-target="#carouselCustom{ID}" data-bs-slide-to="{ROW_COUNT}"[FIRST] class="active" aria-current="true"[/FIRST] aria-label="Slide {ROW}"></button>
+<!--CUSTOM_DATA_END//-->

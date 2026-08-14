@@ -1,0 +1,62 @@
+<!--IMAGE_SETTINGS_START//-->
+; Bootstrap 5 Carousel
+width          = 1200
+height         = 500
+col            = 1
+zoom           = 0
+crop           = 1
+lightbox       = 0
+nocaption      = 0
+thumb_class    = d-block w-100
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]<div class="mb-4">{TEXT}</div>[/TEXT]
+
+<div id="carouselImages{ID}" class="carousel slide mb-4" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+        {DATA}
+    </div>
+    <!-- Slides -->
+    <div class="carousel-inner rounded overflow-hidden">
+<!--IMAGES_HEADER_END//-->
+
+<!--IMAGES_ENTRY_START//-->
+        <div class="carousel-item[FIRST] active[/FIRST]" id="slide-img-{IMGID}">
+            [ZOOM]<a href="{IMAGE_REL}"{LIGHTBOX}[CAPTION] title="{CAPTION}"[/CAPTION]>[/ZOOM]
+                {IMAGE}
+            [ZOOM]</a>[/ZOOM]
+            [CAPTION]
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3 rounded">
+                <p class="mb-0">{CAPTION}[COPYRIGHT] <small class="text-white-50">&copy; {COPYRIGHT}</small>[/COPYRIGHT]</p>
+            </div>
+            [/CAPTION]
+        </div>
+<!--IMAGES_ENTRY_END//-->
+
+<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
+<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
+
+<!--IMAGES_FOOTER_START//-->
+    </div>
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages{ID}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">@@Previous@@</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselImages{ID}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">@@Next@@</span>
+    </button>
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--IMAGES_FOOTER_END//-->
+
+<!--IMAGES_DATA_START//-->
+        <button type="button" data-bs-target="#carouselImages{ID}" data-bs-slide-to="{ROW_COUNT}"[FIRST] class="active" aria-current="true"[/FIRST] aria-label="Slide {ROW}"></button>
+<!--IMAGES_DATA_END//-->

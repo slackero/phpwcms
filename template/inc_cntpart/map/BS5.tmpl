@@ -1,0 +1,28 @@
+<p class="alert alert-info small"><strong>location point setting</strong><br>
+INT border, INT width, INT height, HEX background color, HEX fill color
+(no spaces please)</p>
+<p>
+<!--VAR_START//-->1,9,9,FFFFFF,FF4000<!--VAR_END//-->
+</p>
+
+<p class="alert alert-info small"><strong>content formatting</strong><br>
+[TEXT]{TEXT}[/TEXT], [MAP]{MAP}[/MAP], [LOCATION]{LOCATION}[/LOCATION]</p>
+<p>
+<!--CONTENT_START//-->
+[MAP]<div class="ratio ratio-21x9 mb-3">{MAP}</div>[/MAP]
+[TEXT]<p class="articleText">{TEXT}</p>[/TEXT]
+[LOCATION]{LOCATION}[/LOCATION]
+<!--CONTENT_END//-->
+
+<p class="alert alert-info small"><strong>content formatting</strong><br>
+{TITLE}, [ZIP]{ZIP}[/ZIP], [CITY]{CITY}[/CITY], [ENTRY]{ENTRY}[/ENTRY]</p>
+<p>
+<!--LOCATION_START//-->
+<div class="card border-0 shadow-sm mb-3">
+    <div class="card-body">
+        [TITLE]<h3 class="h5 mb-2">{TITLE}</h3>[/TITLE]
+        <p class="mb-1">[ZIP]<strong>{ZIP}</strong> [/ZIP][CITY]<strong>{CITY}</strong>[/CITY]</p>
+        [ENTRY]<p class="text-muted small mb-0">{ENTRY}</p>[/ENTRY]
+    </div>
+</div>
+<!--LOCATION_END//-->

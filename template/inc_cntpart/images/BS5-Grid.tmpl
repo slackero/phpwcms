@@ -1,0 +1,40 @@
+<!--IMAGE_SETTINGS_START//-->
+; Bootstrap 5 Responsive Grid
+width          = 450
+height         = 300
+col            = 1
+zoom           = 1
+crop           = 1
+lightbox       = 1
+nocaption      = 0
+thumb_class    = figure-img img-fluid rounded
+<!--IMAGE_SETTINGS_END//-->
+
+<!--IMAGES_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]<div class="mb-4">{TEXT}</div>[/TEXT]
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 mb-4" id="images-grid-{ID}">
+<!--IMAGES_HEADER_END//-->
+
+<!--IMAGES_ENTRY_START//-->
+    <div class="col">
+        <figure class="figure w-100 mb-0[FIRST] first[/FIRST][LAST] last[/LAST]" id="img-{IMGID}">
+            [ZOOM]<a href="{IMAGE_REL}"{LIGHTBOX}[CAPTION] title="{CAPTION}"[/CAPTION] class="d-block overflow-hidden rounded">[/ZOOM]
+                {IMAGE}
+            [ZOOM]</a>[/ZOOM]
+            [CAPTION]<figcaption class="figure-caption mt-2">{CAPTION}[COPYRIGHT] <small class="text-muted">&copy; {COPYRIGHT}</small>[/COPYRIGHT]</figcaption>[/CAPTION]
+        </figure>
+    </div>
+<!--IMAGES_ENTRY_END//-->
+
+<!--IMAGES_ENTRY_SPACER_START//--><!--IMAGES_ENTRY_SPACER_END//-->
+<!--IMAGES_ROW_SPACER_START//--><!--IMAGES_ROW_SPACER_END//-->
+
+<!--IMAGES_FOOTER_START//-->
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--IMAGES_FOOTER_END//-->

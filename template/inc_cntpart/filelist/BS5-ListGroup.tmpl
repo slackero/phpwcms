@@ -1,0 +1,53 @@
+<!--FILE_SETTINGS_START//-->
+; this is formatted like WIN.INI
+; please: do not use comments for value lines
+icon_path           = ""
+icon_name           = ""
+thumbnail           = 1
+thumbnail_width     = 48
+thumbnail_height    = 48
+thumbnail_crop      = 1
+lightbox_init       = 0
+file_size_round     = 1
+file_size_space     = " "
+date_format         = "%m/%d/%y"
+set_locale          = "en_US.UTF-8"
+;set_locale          = "de_DE.UTF-8"
+inline_download     = 1
+<!--FILE_SETTINGS_END//-->
+[HAS_FILES]
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+<div class="list-group mb-4" id="filelist-{ID}">
+<!--FILE_ENTRY_START//-->
+    <div class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3[FIRST] first[/FIRST][LAST] last[/LAST]" id="file-{FILE_ID}">
+        [FILE_IMAGE]
+        <div class="flex-shrink-0">
+            <img src="{FILE_IMAGE}" alt="{FILE_NAME}" class="rounded">
+        </div>
+        [/FILE_IMAGE]
+        <div class="flex-grow-1 min-w-0">
+            <div class="d-flex w-100 justify-content-between align-items-baseline">
+                <h5 class="mb-1 h6 text-truncate">
+                    <a href="{FILE_LINK}"{FILE_TARGET} class="text-decoration-none text-dark fw-bold">[FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]</a>
+                </h5>
+                <small class="text-muted text-nowrap ms-2">{FILE_DATE}</small>
+            </div>
+            [FILE_DESCRIPTION]<p class="mb-1 text-muted small">{FILE_DESCRIPTION}</p>[/FILE_DESCRIPTION]
+            <div class="d-flex align-items-center gap-2 mt-1">
+                <span class="badge bg-secondary text-uppercase">{FILE_EXT}</span>
+                <span class="badge bg-light text-dark border">{FILE_SIZE}</span>
+                [FILE_DOWNLOADS]<span class="badge bg-light text-muted border">{FILE_DOWNLOADS} @@downloads@@</span>[/FILE_DOWNLOADS]
+            </div>
+        </div>
+        <div class="flex-shrink-0">
+            <a href="{FILE_LINK}"{FILE_TARGET} class="btn btn-outline-primary btn-sm" download title="Download [FILE_TITLE]{FILE_TITLE}[/FILE_TITLE][FILE_TITLE_ELSE]{FILE_NAME}[/FILE_TITLE_ELSE]">
+                @@Download@@
+            </a>
+        </div>
+    </div>
+<!--FILE_ENTRY_END//-->
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+[/HAS_FILES]

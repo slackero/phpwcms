@@ -16,7 +16,7 @@ files_template_detail = default
 files_direct_download = 0
 
 ; gallery supported image formats
-gallery_allowed_ext = jpg,jpeg,png,gif,svg
+gallery_allowed_ext = jpg,jpeg,png,gif,svg,webp,avif
 ; use the file info/copyright as used defined in file center
 gallery_filecenter_info = 1
 
@@ -57,13 +57,13 @@ gallery_filecenter_info = 1
 	[IMAGE]
 		[ZOOM_ELSE]
 			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
 			[IMAGE_URL]</a>[/IMAGE_URL]
 			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
 			<a href="{PHPWCMS_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
 			</a>
 			<!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px and {IMAGE_HASH} -->
 		[/ZOOM]
@@ -81,7 +81,7 @@ gallery_filecenter_info = 1
 				<!-- Zoom -->
 				<a href="{PHPWCMS_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
 					<!-- Thumbnail --><!-- Full size, can be used for calculation if needed. Remove the replacers if not needed!!! {IMAGE_WIDTH}x{IMAGE_HEIGHT}px -->
-					<img src="{PHPWCMS_RESIZE_IMAGE}/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+					<img src="{PHPWCMS_RESIZE_IMAGE}/50x50x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}">
 				</a>
 			</div>
 			<!--GALLERY_ITEM_END//-->
@@ -106,7 +106,7 @@ gallery_filecenter_info = 1
 <!--NEWS_LIST_ROW_SPACE_START//-->
 
 	<!-- space between rows of news items -->
-	<hr />
+	<hr>
 
 <!--NEWS_LIST_ROW_SPACE_END//-->
 
@@ -131,13 +131,13 @@ gallery_filecenter_info = 1
 	[IMAGE]
 		[ZOOM_ELSE]
 			[IMAGE_URL]<a href="{IMAGE_URL}"{IMAGE_URL_TARGET}[TITLE] title="{TITLE}"[/TITLE]>[/IMAGE_URL]
-				<img src="{PHPWCMS_RESIZE_IMAGE}/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+				<img src="{PHPWCMS_RESIZE_IMAGE}/150x150x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
 			[IMAGE_URL]</a>[/IMAGE_URL]
 			[CAPTION]<p>{CAPTION}[COPYRIGHT] <span class="copyright">{COPYRIGHT}</span>[/COPYRIGHT]</p>[/CAPTION]
 		[/ZOOM_ELSE]
 		[ZOOM]
 			<a href="{PHPWCMS_RESIZE_IMAGE}/600x400/{IMAGE_ID}{IMAGE_EXT}" target="_blank"{LIGHTBOX}[LIGHTBOX_CAPTION] title="{LIGHTBOX_CAPTION}[LIGHTBOX_COPYRIGHT], {LIGHTBOX_COPYRIGHT}[/LIGHTBOX_COPYRIGHT]"[/LIGHTBOX_CAPTION]>
-				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]" />
+				<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_ID}{IMAGE_EXT}" alt="[ALT]{ALT}[/ALT][ALT_ELSE]{IMAGE}[/ALT_ELSE]">
 			</a>
 		[/ZOOM]
 	[/IMAGE]
@@ -153,7 +153,7 @@ gallery_filecenter_info = 1
 				<!-- Zoom -->
 				<a href="{PHPWCMS_RESIZE_IMAGE}/900x600/{IMAGE_HASH}.{IMAGE_EXT}"[CAPTION] title="{CAPTION}[COPYRIGHT], {COPYRIGHT}[/COPYRIGHT]"[/CAPTION] rel="lightbox" data-gallery="1">
 					<!-- Thumbnail -->
-					<img src="{PHPWCMS_RESIZE_IMAGE}/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}" />
+					<img src="{PHPWCMS_RESIZE_IMAGE}/150x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}">
 				</a>
 			</div>
 			<!--GALLERY_ITEM_END//-->
@@ -169,3 +169,4 @@ gallery_filecenter_info = 1
 </div>
 [ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--NEWS_DETAIL_END//-->
+

@@ -1,0 +1,61 @@
+<!--SEARCH_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]<div class="mb-3">{TEXT}</div>[/TEXT]
+[FORM]
+    <form action="{SEARCH_ACTION}" method="post" class="mb-4">
+        <div class="input-group input-group-lg">
+            [SEARCH_INPUT_LABEL]<span class="input-group-text">{SEARCH_INPUT_LABEL}</span>[/SEARCH_INPUT_LABEL]
+            <input type="text" name="{SEARCH_INPUT}" value="{SEARCH_VALUE}" class="form-control" placeholder="Search&hellip;">
+            <button type="submit" class="btn btn-primary">{SEARCH_BUTTON}</button>
+        </div>
+    </form>
+[/FORM]
+[RESULTS]
+<div class="search-results">
+[PAGINATE_TOP]
+    <div class="mb-3">
+        {PAGINATE_TOP}
+    </div>
+[/PAGINATE_TOP]
+    <div class="search-listing">
+        {RESULTS}
+<!--SEARCH_HEADER_END//-->
+
+<!--SEARCH_ITEM_START//-->
+    <div class="card border-0 shadow-sm mb-3 search-item search-item-ranking-{RANKING}">
+        <div class="card-body">
+            <div class="d-flex gap-3">
+                [IMAGE]<div class="flex-shrink-0">[TITLE]<a href="{LINK}"{LINK_TARGET} class="text-decoration-none">[/TITLE]<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}, ID:{IMAGE_ID}" class="rounded"{LAZY_LOADING}>[TITLE]</a>[/TITLE]</div>[/IMAGE]
+                <div class="flex-grow-1 min-w-0">
+                    [TITLE]<h3 class="h5 mb-1"><a href="{LINK}"{LINK_TARGET} class="text-decoration-none">{TITLE}</a></h3>[/TITLE]
+                    [SUBTITLE]<h4 class="h6 text-muted mb-2">{SUBTITLE}</h4>[/SUBTITLE]
+                    [TEXT]<p class="card-text text-secondary mb-0">{TEXT}</p>[/TEXT]
+                </div>
+            </div>
+        </div>
+    </div>
+<!--SEARCH_ITEM_END//-->
+
+<!--SEARCH_ITEM_SPACER_START//-->
+    <!-- space between search results -->
+<!--SEARCH_ITEM_SPACER_END//-->
+
+<!--SEARCH_FOOTER_START//-->
+    </div>
+[PAGINATE_BOTTOM]
+    <div class="mt-3">
+        {PAGINATE_BOTTOM}
+    </div>
+[/PAGINATE_BOTTOM]
+</div>
+[/RESULTS]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--SEARCH_FOOTER_END//-->
+
+<!--SEARCH_PAGINATE_START//-->
+<nav aria-label="Search pagination" class="search-pagination d-flex justify-content-center align-items-center gap-2 my-3">
+    [PREV]{PREV:&laquo; Previous} | [/PREV]Page #/## | Results ###-####[NAVI] | {NAVI:1-3}[/NAVI][NEXT] | {NEXT:Next &raquo;}[/NEXT]
+</nav>
+<!--SEARCH_PAGINATE_END//-->

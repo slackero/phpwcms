@@ -1,0 +1,28 @@
+<!--FAQ_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+
+<div class="accordion accordion-flush mb-4" id="faqAccordion{ID}">
+<!--FAQ_HEADER_END//-->
+
+<!--FAQ_ENTRY_START//-->
+    <div class="accordion-item" id="faq-item-{FAQID}">
+        <h2 class="accordion-header" id="faq-heading-{ID}-{FAQID}">
+            <button class="accordion-button[FIRST] [/FIRST][FIRST_ELSE]collapsed[/FIRST_ELSE]" type="button" data-bs-toggle="collapse" data-bs-target="#faq-collapse-{ID}-{FAQID}" aria-expanded="[FIRST]true[/FIRST][FIRST_ELSE]false[/FIRST_ELSE]" aria-controls="faq-collapse-{ID}-{FAQID}">
+                {QUESTION}
+            </button>
+        </h2>
+        <div id="faq-collapse-{ID}-{FAQID}" class="accordion-collapse collapse[FIRST] show[/FIRST]" aria-labelledby="faq-heading-{ID}-{FAQID}" data-bs-parent="#faqAccordion{ID}">
+            <div class="accordion-body">
+                {ANSWER}
+            </div>
+        </div>
+    </div>
+<!--FAQ_ENTRY_END//-->
+
+<!--FAQ_FOOTER_START//-->
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--FAQ_FOOTER_END//-->

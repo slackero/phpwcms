@@ -1,0 +1,46 @@
+<!--ITEM_START//-->
+    <li class="feed-item mb-3">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                [TITLE]<h3 class="h5 mb-2">[LINK]<a href="{LINK}" target="_blank" class="text-decoration-none">[/LINK]{TITLE}[LINK]</a>[/LINK]</h3>[/TITLE]
+                <p class="text-muted small mb-2">{DATE:D, j F Y H:i lang=EN}[AUTHOR] &middot; {AUTHOR}[/AUTHOR]</p>
+                [IMAGE]<p class="feeditem-image mb-2"><img src="{IMAGE}" alt="" class="img-fluid rounded"{LAZY_LOADING}></p>[/IMAGE]
+                [DESCRIPTION]<div class="feed-description">{DESCRIPTION}</div>[/DESCRIPTION]
+                [CONTENT]<!-- {CONTENT} -->[/CONTENT]
+            </div>
+        </div>
+    </li>
+<!--ITEM_END//-->
+
+<!--DIVIDER_START//-->
+<hr class="my-3">
+<!--DIVIDER_END//-->
+
+<!--FEEDINFO_START//-->
+    [TITLE]<h2 class="h4 mb-3">{TITLE}</h2>[/TITLE]
+    [DESCRIPTION]
+    <div class="d-flex gap-3 mb-3">
+        [IMAGE]<div class="flex-shrink-0">{IMAGE}</div>[/IMAGE]
+        <p class="mb-0">{DESCRIPTION}</p>
+    </div>
+    [/DESCRIPTION][DESCRIPTION_ELSE]
+    [IMAGE]<p class="feed-image mb-2">{IMAGE}</p>[/IMAGE]
+    [/DESCRIPTION_ELSE]
+<!--FEEDINFO_END//-->
+
+<!--RSSFEED_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+<div class="feed">
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+{FEEDINFO}
+[ITEMS]
+{DIVIDER}
+<ul class="list-unstyled mb-0">
+{ITEMS}
+</ul>
+{DIVIDER}
+[/ITEMS]
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--RSSFEED_END//-->

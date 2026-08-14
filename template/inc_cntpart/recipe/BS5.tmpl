@@ -1,0 +1,20 @@
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+<div class="recipe card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        [TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+        [SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+
+        [INGREDIENTS]<p class="mb-3">{INGREDIENTS}</p>[/INGREDIENTS]
+        [INGREDIENTSTABLE]<div class="table-responsive mb-3">{INGREDIENTSTABLE}</div>[/INGREDIENTSTABLE]
+
+        [CALORIES]<p class="text-muted small mb-3">{CALORIES} kJ / {KCAL} kcal[CALORIESADD] ({CALORIESADD})[/CALORIESADD]</p>[/CALORIES]
+        [PREPARATION]<div class="recipe-preparation mb-3">{PREPARATION}</div>[/PREPARATION]
+
+        <div class="d-flex flex-wrap gap-3 align-items-center">
+            [TIME]<span class="badge bg-light text-dark border"><i class="far fa-clock me-1"></i>{TIME} Minuten[TIMEADD], {TIMEADD}[/TIMEADD]</span>[/TIME]
+            [SEVERITY]<span class="badge bg-warning text-dark">severity: {SEVERITY}</span>[/SEVERITY]
+            [CAT]<span class="badge bg-primary">{CAT}</span>[/CAT]
+        </div>
+    </div>
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]

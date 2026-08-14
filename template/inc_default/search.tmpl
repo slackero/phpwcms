@@ -1,4 +1,5 @@
 <!--SEARCH_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
 [TITLE]<h3>{TITLE}</h3>[/TITLE]
 [SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 [TEXT]{TEXT}[/TEXT]
@@ -9,8 +10,8 @@
 	<form action="{SEARCH_ACTION}" method="post">
 		<p>
 			[SEARCH_INPUT_LABEL]<label>{SEARCH_INPUT_LABEL}</label>[/SEARCH_INPUT_LABEL]
-			<input type="text" name="{SEARCH_INPUT}" value="{SEARCH_VALUE}" />
-			<input type="submit" value="{SEARCH_BUTTON}" />
+			<input type="text" name="{SEARCH_INPUT}" value="{SEARCH_VALUE}">
+			<input type="submit" value="{SEARCH_BUTTON}">
 		</p>
 	</form>
 
@@ -34,7 +35,7 @@
 			[TITLE]<h3><a href="{LINK}"{LINK_TARGET}>{TITLE}</a></h3>[/TITLE]
 			[SUBTITLE]<h4>{SUBTITLE}</h4>[/SUBTITLE]
 			<div class="search-item-details">
-				[IMAGE]<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}, ID:{IMAGE_ID}" class="search-item-image"{LAZY_LOADING} />[/IMAGE]
+				[IMAGE]<img src="{PHPWCMS_RESIZE_IMAGE}/100x100x1/{IMAGE_HASH}.{IMAGE_EXT}" alt="{IMAGE_NAME}, ID:{IMAGE_ID}" class="search-item-image"{LAZY_LOADING}>[/IMAGE]
 				[TEXT]<p>{TEXT}</p>[/TEXT]
 			</div>
 		<!-- </a> Yes, this is allowed with HTML5 -->
@@ -57,6 +58,7 @@
 [/PAGINATE_BOTTOM]
 </div>
 [/RESULTS]
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
 <!--SEARCH_FOOTER_END//-->
 
 <!--SEARCH_PAGINATE_START//-->

@@ -1,0 +1,51 @@
+<!--CUSTOM_SETTINGS_START//-->
+; Bootstrap 5 Custom Card Grid
+width          = 400
+height         = 250
+col            = 1
+crop           = 1
+lightbox       = 1
+thumb_class    = card-img-top
+text_render    = html
+<!--CUSTOM_SETTINGS_END//-->
+
+<!--CUSTOM_HEADER_START//-->
+[ATTR_CLASS]<div class="{ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]<div id="{ATTR_ID}">[/ATTR_ID][/ATTR_CLASS_ELSE]
+
+[TITLE]<h3 class="h4 mb-2">{TITLE}</h3>[/TITLE]
+[SUBTITLE]<h4 class="h6 text-muted mb-3">{SUBTITLE}</h4>[/SUBTITLE]
+[TEXT]<div class="mb-4">{TEXT}</div>[/TEXT]
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4" id="custom-cards-{ID}">
+<!--CUSTOM_HEADER_END//-->
+
+<!--CUSTOM_ENTRY_START//-->
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0[FIRST] first[/FIRST][LAST] last[/LAST]" id="custom-item-{IMGID}">
+            [ZOOM]<a href="{CUSTOM_REL}"{LIGHTBOX}[CAPTION] title="{CAPTION}"[/CAPTION] class="d-block overflow-hidden">[/ZOOM]
+                {IMAGE}
+            [ZOOM]</a>[/ZOOM]
+            <div class="card-body d-flex flex-column">
+                [CAPTION]<h5 class="card-title h5 mb-2">{CAPTION}</h5>[/CAPTION]
+                [INFOTEXT]
+                <div class="card-text text-muted mb-3 flex-grow-1">
+                    {INFOTEXT}
+                </div>
+                [/INFOTEXT]
+                [URL]
+                <div class="mt-auto pt-2">
+                    <a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET] class="btn btn-outline-primary btn-sm">More &raquo;</a>
+                </div>
+                [/URL]
+            </div>
+        </div>
+    </div>
+<!--CUSTOM_ENTRY_END//-->
+
+<!--CUSTOM_ENTRY_SPACER_START//--><!--CUSTOM_ENTRY_SPACER_END//-->
+<!--CUSTOM_ROW_SPACER_START//--><!--CUSTOM_ROW_SPACER_END//-->
+
+<!--CUSTOM_FOOTER_START//-->
+</div>
+[ATTR_CLASS]</div>[/ATTR_CLASS][ATTR_CLASS_ELSE][ATTR_ID]</div>[/ATTR_ID][/ATTR_CLASS_ELSE]
+<!--CUSTOM_FOOTER_END//-->

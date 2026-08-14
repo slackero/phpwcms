@@ -1,0 +1,37 @@
+[ATTR_CLASS]<article class="article-summary {ATTR_CLASS}"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS][ATTR_CLASS_ELSE]<article class="article-summary"[ATTR_ID] id="{ATTR_ID}"[/ATTR_ID]>[/ATTR_CLASS_ELSE]
+    [TITLE]<h1 class="display-5 mb-2">{TITLE}</h1>[/TITLE]
+    [SUB]<h2 class="h4 text-muted mb-4">{SUB}</h2>[/SUB]
+    [IMAGE]
+        <figure class="figure mb-4">
+            [IMAGE_URL]<a href="{IMAGE_URL}"[IMAGE_TARGET] target="{IMAGE_TARGET}"[/IMAGE_TARGET] class="d-inline-block">[/IMAGE_URL]
+                {IMAGE}
+            [IMAGE_URL]</a>[/IMAGE_URL]
+            [CAPTION_SUPPRESS_ELSE][CAPTION]<figcaption class="figure-caption mt-2">
+                {CAPTION}[COPYRIGHT]
+                <span class="copyright text-muted ms-1">&copy; {COPYRIGHT}</span>[/COPYRIGHT]
+            </figcaption>[/CAPTION][/CAPTION_SUPPRESS_ELSE]
+        </figure>
+    [/IMAGE]
+    [SUMMARY]
+        <div class="article-summary-text lead mb-4">
+            {SUMMARY}
+        </div>
+    [/SUMMARY]
+    [SYSTEM]
+        <div class="article-system mb-4">
+            {SYSTEM}
+        </div>
+    [/SYSTEM]
+</article>
+<!--CP_PAGINATE_START//-->
+<nav aria-label="Article pagination" class="my-4">
+    <ul class="pagination">
+        [CP_PAGINATE_PREV]<li class="page-item"><a href="{CP_PAGINATE_PREV}" class="page-link paginate-prev" aria-label="Previous">&laquo; Previous</a></li>[/CP_PAGINATE_PREV]
+        [CP_PAGINATE]{CP_PAGINATE}[/CP_PAGINATE]
+        [CP_PAGINATE_NEXT]<li class="page-item"><a href="{CP_PAGINATE_NEXT}" class="page-link paginate-next" aria-label="Next">Next &raquo;</a></li>[/CP_PAGINATE_NEXT]
+    </ul>
+</nav>
+[CP_PAGINATE_MENU]
+    {CP_PAGINATE_MENU}
+[/CP_PAGINATE_MENU]
+<!--CP_PAGINATE_END//-->

@@ -1,0 +1,32 @@
+[SPACE]<!-- Space -->[/SPACE]
+<div class="col">
+    <div class="card h-100 shadow-sm border-0[CLASS] {CLASS}[/CLASS]">
+        [IMAGE]
+        <div class="card-img-top overflow-hidden">
+            [ARTICLELINK]<a href="{ARTICLELINK}"{TARGET} class="d-block">[/ARTICLELINK]
+                {IMAGE}
+            [ARTICLELINK]</a>[/ARTICLELINK]
+        </div>
+        [/IMAGE]
+        <div class="card-body d-flex flex-column">
+            [TITLE]<h3 class="card-title h4 mb-1">[ARTICLELINK]<a href="{ARTICLELINK}"{TARGET} class="text-decoration-none text-dark">[/ARTICLELINK]{TITLE}[ARTICLELINK]</a>[/ARTICLELINK]</h3>[/TITLE]
+            [SUB]<h4 class="card-subtitle h6 text-muted mb-3">{SUB}</h4>[/SUB]
+            [SUMMARY]
+            <div class="card-text mb-3">
+                <small class="text-muted d-block mb-2">{DATE:j. F Y lang=EN}</small>
+                {SUMMARY}
+            </div>
+            [/SUMMARY]
+            [SYSTEM]
+            <div class="article-list-system mb-3">
+                {SYSTEM}
+            </div>
+            [/SYSTEM]
+            [MORE]
+            <div class="mt-auto pt-2">
+                <a href="{ARTICLELINK}"{TARGET} class="btn btn-outline-primary btn-sm">{MORE} &raquo;</a>
+            </div>
+            [/MORE]
+        </div>
+    </div>
+</div>

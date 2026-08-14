@@ -43,12 +43,12 @@ text_render = plain
         [INFOTEXT]
             {INFOTEXT}
         [/INFOTEXT]
-        [URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>more &raquo;</a>[/URL]
+        [URL]<a href="{URL}"[URL_TARGET] target="{URL_TARGET}"[/URL_TARGET]>@@more &raquo;@@</a>[/URL]
     </div>
 
     <!--ENTRY_DATA_START//-->
         <li data-target="#images{ID}" data-slide-to="{ENTRY_ID}"[FIRST] class="active"[/FIRST]>
-            <a href="#img{IMGID}">Image {ENTRY_NUM}</a>
+            <a href="#img{IMGID}">@@Image@@ {ENTRY_NUM}</a>
         </li>
     <!--ENTRY_DATA_END//-->
 
@@ -76,10 +76,10 @@ text_render = plain
         </ol>
         <div class="controls">
             <a class="prev" href="#images{ID}" role="button" data-slide="prev">
-                <span>Previous</span>
+                <span>@@Previous@@</span>
             </a>
             <a class="next" href="#images{ID}" role="button" data-slide="next">
-                <span>Next</span>
+                <span>@@Next@@</span>
             </a>
         </div>
     [/DATA]
