@@ -292,6 +292,12 @@ function phpwcms_revision_r554_update_datetime($table, $fields, $preserve = []) 
 
     $table = _dbEscape($table, false);
 
+    // Skip if table does not exist in this installation
+    $table_check = _dbQuery("SHOW TABLES LIKE '" . DB_PREPEND . $table . "'");
+    if (empty($table_check)) {
+        return true;
+    }
+
     $alter_table = 'ALTER TABLE `' . DB_PREPEND . $table . '`';
     $drop = [];
     $update = [];
