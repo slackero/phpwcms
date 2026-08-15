@@ -11,6 +11,7 @@ services:
       - .:/var/www/html
     depends_on:
       - db
+      - mailpit
 
   db:
     image: mariadb:10.11
@@ -26,6 +27,16 @@ services:
       MYSQL_PASSWORD: phpwcmspassword
     volumes:
       - db_data:/var/lib/mysql
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: phpwcms-mailpit
+    restart: unless-stopped
+    ports:
+      - "8026:8025"
+      - "1026:1025"
+    environment:
+      MP_MAX_MESSAGES: 500
 
   phpmyadmin:
     image: phpmyadmin:latest

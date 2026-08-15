@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     graphicsmagick \
     netpbm \
     ghostscript \
+    msmtp \
+    msmtp-mta \
     libmagickwand-dev \
     libpng-dev \
     libjpeg-dev \
@@ -61,6 +63,7 @@ RUN { \
     echo 'display_errors = On'; \
     echo 'display_startup_errors = On'; \
     echo 'error_reporting = E_ALL'; \
+    echo 'sendmail_path = "/usr/bin/msmtp -t --host=mailpit --port=1025"'; \
 } > /usr/local/etc/php/conf.d/phpwcms.ini
 
 WORKDIR /var/www/html
