@@ -22,6 +22,11 @@ if (!defined('PHPWCMS_SETUP')) {
     <?php $_SESSION['admin_set'] = false; ?>
 <?php endif; ?>
 
+<?php
+$current_db_host = $phpwcms['db_host'] ?? 'localhost';
+$detected_db_port = detect_mysql_port($current_db_host, $phpwcms['db_port'] ?? null);
+$display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 3306) ? (int)$phpwcms['db_port'] : ($detected_db_port !== 3306 ? $detected_db_port : '');
+?>
 <form action="setup.php?step=1" method="post" autocomplete="off">
 
     <div class="card mb-4 border">
@@ -31,9 +36,9 @@ if (!defined('PHPWCMS_SETUP')) {
                 <label for="db_host" class="col-sm-3 col-form-label font-weight-bold">Host &amp; Port</label>
                 <div class="col-sm-6 d-flex">
                     <input name="db_host" type="text" class="form-control mr-2" id="db_host" value="<?php echo html_specialchars($phpwcms["db_host"]) ?>" placeholder="localhost" />
-                    <input name="db_port" type="text" class="form-control" id="db_port" style="max-width: 90px;" value="<?php echo $phpwcms["db_port"] ?>" placeholder="3306" />
+                    <input name="db_port" type="text" class="form-control" id="db_port" style="max-width: 90px;" value="<?php echo html_specialchars($display_db_port) ?>" placeholder="3306" />
                 </div>
-                <div class="col-sm-3 form-text text-muted small align-self-center">Default: localhost / 3306</div>
+                <div class="col-sm-3 form-text text-muted small align-self-center"><?php echo ($detected_db_port !== 3306) ? 'Auto-detected port: ' . $detected_db_port : 'Default: localhost / 3306' ?></div>
             </div>
 
             <div class="form-group row">

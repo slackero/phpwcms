@@ -906,3 +906,44 @@ function render_format_badges($supported_formats, $standard_formats = array()) {
     }
     return trim($html);
 }
+
+function detect_mysql_port($host = 'localhost', $current_port = null) {
+    if (!empty($current_port) && (int)$current_port > 0) {
+        return (int)$current_port;
+    }
+
+    // 1. Environment variables
+    $env_port = getenv('DB_PORT') ?: (getenv('MYSQL_PORT') ?: getenv('MARIADB_PORT'));
+    if (!empty($env_port) && (int)$env_port > 0) {
+        return (int)$env_port;
+    }
+
+    // 2. PHP configuration
+    $ini_port = (int)ini_get('mysqli.default_port');
+    if ($ini_port > 0 && $ini_port !== 3306) {
+        return $ini_port;
+    }
+
+    // 3. Probe localhost ports
+    $clean_host = trim($host);
+    if (empty($clean_host) || in_array(strtolower($clean_host), array('localhost', '127.0.0.1', '::1'), true)) {
+        // Test standard 3306 first
+        $fp = @fsockopen('127.0.0.1', 3306, $errno, $errstr, 0.15);
+        if ($fp) {
+            fclose($fp);
+            return 3306;
+        }
+
+        // Probe alternative common ports: MAMP (8889), custom MariaDB/Docker (3307, 3308, 33060)
+        $probe_ports = array(8889, 3307, 3308, 33060);
+        foreach ($probe_ports as $p) {
+            $fp = @fsockopen('127.0.0.1', $p, $errno, $errstr, 0.15);
+            if ($fp) {
+                fclose($fp);
+                return $p;
+            }
+        }
+    }
+
+    return 3306;
+}
