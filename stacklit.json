@@ -1,9 +1,9 @@
 {
   "$schema": "https://stacklit.dev/schema/v1.json",
   "version": "1",
-  "generated_at": "2026-08-11T20:45:35Z",
+  "generated_at": "2026-08-15T06:22:33Z",
   "stacklit_version": "dev",
-  "merkle_hash": "8060a5ddfeeaefb02bbfc4d5dc00d26b3804aeaab5d92b1ffa65ad552eac6072",
+  "merkle_hash": "caa3f8643e935b9c5bc87984cd2a2a8b53cae5ecc6d8f0acaf40b9dd3d48440f",
   "project": {
     "name": "phpwcms-dev",
     "root": ".",
@@ -13,12 +13,12 @@
     "primary_language": "php",
     "languages": {
       "javascript": {
-        "files": 453,
-        "lines": 18907
+        "files": 454,
+        "lines": 18914
       },
       "php": {
         "files": 766,
-        "lines": 166233
+        "lines": 167106
       },
       "ruby": {
         "files": 1,
@@ -26,18 +26,21 @@
       },
       "sql": {
         "files": 2,
-        "lines": 1453
+        "lines": 1484
       },
       "typescript": {
         "files": 2,
         "lines": 44
       }
-    }
+    },
+    "frameworks": [
+      "Docker"
+    ]
   },
   "structure": {
     "entrypoints": null,
-    "total_files": 1224,
-    "total_lines": 186647
+    "total_files": 1225,
+    "total_lines": 187558
   },
   "modules": {
     ".phpstan": {
@@ -48,7 +51,7 @@
       "file_list": [
         "phpstan-bootstrap.php"
       ],
-      "activity": "medium"
+      "activity": "low"
     },
     "img": {
       "purpose": "Img",
@@ -78,7 +81,7 @@
         "feeds.ini.php",
         "sitemap.custom.php"
       ],
-      "activity": "low"
+      "activity": "medium"
     },
     "include/inc_act": {
       "purpose": "Inc Act",
@@ -228,7 +231,7 @@
       "purpose": "Inc Front",
       "language": "php",
       "files": 10,
-      "lines": 10240,
+      "lines": 10243,
       "file_list": [
         "calendar.func.inc.php",
         "cnt.lang.inc.php",
@@ -726,7 +729,7 @@
       "purpose": "Inc Lib",
       "language": "php",
       "files": 46,
-      "lines": 17390,
+      "lines": 17510,
       "file_list": [
         "admin.functions.inc.php",
         "admin.structure.inc.php",
@@ -755,7 +758,7 @@
         "phpwcmsNews"
       ],
       "type_defs": {
-        "Phpwcms_Image_lib": "function __construct ($props = []); function clear (); function initialize ($props = []); function resize (); function crop_centered_resize (); function crop (); function rotate (); function image_process_gd ($action = 'resize'); function image_process_imagemagick ($action = 'resize'); function image_process_netpbm ($action = 'resize'); function image_rotate_gd (); function image_mirror_gd (); function watermark (); function overlay_watermark (); function text_watermark (); function image_create_gd ($path = '', $image_type = ''); function is_animated_webp ($file = ''); function extract_first_webp_frame ($file = ''); function gd_fix_orientation (\u0026$im, $imagename); function image_save_gd ($resource); function image_display_gd ($resource); function image_reproportion (); function get_image_properties ($path = '', $return = false); function size_calculator ($vals); function explode_name ($source_image, $ext_only = false); function gd_loaded (); function gd_version (); function set_error ($msg); function display_errors ($open = '\u003cp\u003e', $close = '\u003c/p\u003e', $wrap_open = '', $wr...",
+        "Phpwcms_Image_lib": "function __construct ($props = []); function clear (); function initialize ($props = []); function resize (); function crop_centered_resize (); function crop (); function rotate (); function image_process_gd ($action = 'resize'); function image_process_imagemagick ($action = 'resize'); function image_process_imagick ($action = 'resize'); function image_process_netpbm ($action = 'resize'); function image_rotate_gd (); function image_mirror_gd (); function watermark (); function overlay_watermark (); function text_watermark (); function image_create_gd ($path = '', $image_type = ''); function is_animated_webp ($file = ''); function extract_first_webp_frame ($file = ''); function gd_fix_orientation (\u0026$im, $imagename); function image_save_gd ($resource); function image_display_gd ($resource); function image_reproportion (); function get_image_properties ($path = '', $return = false); function size_calculator ($vals); function explode_name ($source_image, $ext_only = false); function gd_loaded (); function gd_version (); function set_error ($msg); function display_errors ($open = '\u003cp\u003e', $close = '\u003c/p\u003e', $wrap_open = '', $wr...",
         "phpwcmsImageGallery": "phpwcmsImageGallery",
         "phpwcmsNews": "function formAction (); function getNews (); function countAll (); function getPagination (); function setQueryDefaults (); function filter (); function getNewsCategories (); function getNewsLanguages (); function listBackend (); function getFiles ($mode='backend'); function edit (); function getPostData ()"
       },
@@ -1337,7 +1340,7 @@
         "cnt16.inc.php",
         "cnt16.list.inc.php"
       ],
-      "activity": "medium"
+      "activity": "low"
     },
     "phpwcms-extended/phpwcms-fancyBox/template/inc_script": {
       "purpose": "Inc Script",
@@ -1394,7 +1397,7 @@
       "purpose": "Setup",
       "language": "php",
       "files": 4,
-      "lines": 497,
+      "lines": 476,
       "file_list": [
         "get_conf_file.php",
         "index.php",
@@ -1407,7 +1410,7 @@
       "purpose": "Default Sql",
       "language": "sql",
       "files": 2,
-      "lines": 1453,
+      "lines": 1484,
       "file_list": [
         "phpwcms_init.sql",
         "phpwcms_inserts.sql"
@@ -1418,7 +1421,7 @@
       "purpose": "Inc",
       "language": "php",
       "files": 10,
-      "lines": 1717,
+      "lines": 2484,
       "file_list": [
         "setup.check.inc.php",
         "setup.func.inc.php",
@@ -1449,7 +1452,7 @@
       "purpose": "Inc Default",
       "language": "php",
       "files": 1,
-      "lines": 37,
+      "lines": 41,
       "file_list": [
         "startup.php"
       ],
@@ -1538,6 +1541,16 @@
       "lines": 268,
       "file_list": [
         "custom_settings.php"
+      ],
+      "activity": "low"
+    },
+    "template/lib/bootstrap5": {
+      "purpose": "Bootstrap5",
+      "language": "javascript",
+      "files": 1,
+      "lines": 7,
+      "file_list": [
+        "bootstrap.bundle.min.js"
       ],
       "activity": "low"
     },
@@ -1797,6 +1810,7 @@
       "template/inc_script/frontend_init/disabled",
       "template/inc_script/frontend_render/disabled",
       "template/inc_settings/template_default",
+      "template/lib/bootstrap5",
       "template/lib/cookieconsent2",
       "template/lib/cookieconsent3",
       "template/lib/cookieconsent3/core",
@@ -1814,7 +1828,7 @@
     "hot_files": [
       {
         "path": "include/inc_css/phpwcmsspecial.css",
-        "commits_90d": 17
+        "commits_90d": 18
       },
       {
         "path": "include/inc_lib/backend.functions.inc.php",
@@ -1845,6 +1859,10 @@
         "commits_90d": 12
       },
       {
+        "path": "include/inc_lib/default.inc.php",
+        "commits_90d": 12
+      },
+      {
         "path": "login.php",
         "commits_90d": 12
       },
@@ -1869,41 +1887,37 @@
         "commits_90d": 11
       },
       {
+        "path": "include/build/build-css.js",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/config/dist.conf.inc.php",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_css/backend.min.css",
+        "commits_90d": 10
+      },
+      {
+        "path": "include/inc_css/phpwcms.css",
+        "commits_90d": 10
+      },
+      {
         "path": "include/inc_css/phpwcmsspecial.min.css",
         "commits_90d": 10
-      },
-      {
-        "path": "include/inc_js/phpwcms.min.js",
-        "commits_90d": 10
-      },
-      {
-        "path": "include/inc_tmpl/content/cnt16.inc.php",
-        "commits_90d": 10
-      },
-      {
-        "path": "include/inc_tmpl/files.ftptakeover.tmpl.php",
-        "commits_90d": 10
-      },
-      {
-        "path": ".phpstan/phpstan-baseline.neon",
-        "commits_90d": 9
-      },
-      {
-        "path": "include/build/build-css.js",
-        "commits_90d": 9
       }
     ],
     "recent": [
-      "CLAUDE.md",
-      "include/inc_lib/general.inc.php",
-      "include/inc_lib/revision/r557.php",
-      "include/inc_lib/revision/revision.php",
-      "setup/default_sql/phpwcms_init.sql",
-      "setup/default_sql/phpwcms_inserts.sql",
+      "Makefile",
+      "include/inc_css/backend.min.css",
+      "include/inc_css/phpwcms.css",
+      "include/config/dist.conf.inc.php",
+      "include/inc_lib/default.inc.php",
+      "include/inc_lib/helper.image.php",
       "setup/inc/setup.check.inc.php",
-      "setup/inc/step1.inc.php",
-      "stacklit.json",
-      "include/build/build-css.js"
+      "setup/inc/setup.func.inc.php",
+      "setup/inc/step0.inc.php",
+      "setup/inc/step1.inc.php"
     ],
     "stable": [
       ".mcp.json",
@@ -1920,6 +1934,24 @@
   },
   "hints": {
     "test_command": "npm test",
+    "env_vars": [
+      "\"8081",
+      "MYSQL_DATABASE",
+      "MYSQL_PASSWORD",
+      "MYSQL_ROOT_PASSWORD",
+      "MYSQL_USER",
+      "PMA_HOST",
+      "PMA_PORT",
+      "container_name",
+      "db",
+      "db_data",
+      "depends_on",
+      "image",
+      "phpmyadmin",
+      "ports",
+      "restart",
+      "volumes"
+    ],
     "do_not_touch": [
       ".github/"
     ]

@@ -14,8 +14,8 @@
 # regenerate: stacklit derive --inject <target>
 #
 ```
-phpwcms-dev | php | 108 modules | 186,647 lines
-test: npm test
+phpwcms-dev | php | 109 modules | 187,558 lines | Docker
+test: npm test | env: "8081, MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD, MYSQL_USER, PMA_HOST, PMA_PORT, container_name, db, db_data, depends_on, image, phpmyadmin, ports, restart, volumes
 
 modules:
   .phpstan                        .phpstan
@@ -115,6 +115,7 @@ modules:
   template/inc_script/frontend_i  disabled
   template/inc_script/frontend_r  disabled
   template/inc_settings/template  template default
+  template/lib/bootstrap5         bootstrap5
   template/lib/cookieconsent2     cookieconsent2
   template/lib/cookieconsent3     cookieconsent3
   template/lib/cookieconsent3/co  core
@@ -127,7 +128,7 @@ modules:
   template/lib/slick              slick
   template/lib/video-js           video-js
 
-hot: include/inc_css/phpwcmsspecial.css (17 commits/90d), include/inc_lib/backend.functions.inc.php (16 commits/90d), phpwcms.php (15 commits/90d)
+hot: include/inc_css/phpwcmsspecial.css (18 commits/90d), include/inc_lib/backend.functions.inc.php (16 commits/90d), phpwcms.php (15 commits/90d)
 do-not-touch: .github/
 ```
 # end stacklit map
