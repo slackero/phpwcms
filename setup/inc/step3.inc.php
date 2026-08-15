@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">4. Internal Paths &amp; Storage Settings</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">5. Internal Paths &amp; Storage Settings</h2>
 <p class="text-muted">Ensure path values do NOT begin or end with a leading/trailing slash. Using default values is recommended for initial installation.</p>
 
 <form action="setup.php?step=3" method="post">

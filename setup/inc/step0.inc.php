@@ -16,7 +16,7 @@ $_SESSION['admin_set'] = false;
 $setup_recommend = true;
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">1. System Requirements &amp; Environment Check</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">2. System Requirements &amp; Environment Check</h2>
 <p class="text-muted">Please review the system requirements and environment checks below before proceeding with the installation (PHP 8.2+, MySQL 5.6+ recommended).</p>
 
 <div class="card mb-4 border">

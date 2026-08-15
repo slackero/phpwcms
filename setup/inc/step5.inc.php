@@ -16,7 +16,7 @@ $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">6. Finalization &amp; Permissions Check</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">7. Finalization &amp; Permissions Check</h2>
 <p class="text-muted">Review directory permissions and finalize installation.</p>
 
 <div class="card mb-4 border">

@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">3. Site URL &amp; Email Transport</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">4. Site URL &amp; Email Transport</h2>
 
 <?php if ($err): ?>
     <div class="alert alert-danger mb-4"><i class="fa fa-exclamation-triangle"></i> Please check your site and email settings.</div>

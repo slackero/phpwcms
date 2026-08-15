@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">5. Content &amp; Media Defaults</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">6. Content &amp; Media Defaults</h2>
 
 <form action="setup.php?step=4" method="post">
     <div class="card mb-4 border">
@@ -136,10 +136,9 @@ if (empty($suggested_path)) {
                         <option value="GraphicsMagick"<?php echo ($current_img_lib === 'GRAPHICSMAGICK' || $current_img_lib === 'GM') ? ' selected="selected"' : '' ?>>GraphicsMagick CLI &ndash; gm <?php echo $img_tools['graphicsmagick']['installed'] ? ($recommended_engine === 'GRAPHICSMAGICK' ? '&bull; Recommended' : '&bull; Available') : '' ?></option>
                         <option value="GD2"<?php echo ($current_img_lib === 'GD2' || empty($current_img_lib)) ? ' selected="selected"' : '' ?>>GD2 &ndash; PHP GD Library 2.x <?php echo $img_tools['gd']['installed'] ? ($recommended_engine === 'GD2' ? '&bull; Recommended / Default' : '&bull; Installed') : '' ?></option>
                         <option value="NetPBM"<?php echo ($current_img_lib === 'NETPBM') ? ' selected="selected"' : '' ?>>NetPBM CLI Tools <?php echo $img_tools['netpbm']['installed'] ? '&bull; Available' : '' ?></option>
-                        <option value="GD"<?php echo ($current_img_lib === 'GD') ? ' selected="selected"' : '' ?>>GD &ndash; PHP GD Library 1.x (Legacy)</option>
                     </select>
                 </div>
-                <div class="col-sm-3 form-text text-muted small align-self-center">Priority: Imagick &gt; ImageMagick &gt; GraphicsMagick &gt; GD</div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Priority: Imagick &gt; ImageMagick &gt; GraphicsMagick &gt; GD2</div>
             </div>
 
             <div class="form-group row">
