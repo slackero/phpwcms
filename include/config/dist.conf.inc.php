@@ -58,7 +58,7 @@ $phpwcms['responsive']           = 1; // 0 max. image width = $phpwcms['content_
 $phpwcms['preserve_image_name']  = 1; // keep file name for resized versions of the image
 
 // other stuff
-$phpwcms['image_library']        = 'GD2'; // GD, GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM
+$phpwcms['image_library']        = 'GD2'; // GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM
 $phpwcms['library_path']         = ''; // Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']          = 1; // whether URL should be rewritable
 $phpwcms['rewrite_ext']          = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/
