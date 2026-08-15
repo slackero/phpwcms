@@ -20,6 +20,11 @@ help:
 	@echo "  make phpstan-analyse - Run phpstan analysis"
 	@echo "  make phpstan-update  - Update phpstan baseline file"
 	@echo "  make stacklit-update - Update stacklit index and CLAUDE.md map"
+	@echo "  make docker-up       - Start Docker testing containers (web, db, phpmyadmin)"
+	@echo "  make docker-down     - Stop Docker testing containers"
+	@echo "  make docker-build    - Build Docker web container image"
+	@echo "  make docker-logs     - Follow Docker container logs"
+	@echo "  make docker-shell    - Open bash shell inside web container"
 
 css-minify:
 	npm run build:css
@@ -42,3 +47,18 @@ phpstan-update:
 stacklit-update:
 	$(STACKLIT) generate
 	$(STACKLIT) derive --inject claude
+
+docker-up:
+	docker compose up -d
+
+docker-down:
+	docker compose down
+
+docker-build:
+	docker compose build
+
+docker-logs:
+	docker compose logs -f
+
+docker-shell:
+	docker compose exec web bash
