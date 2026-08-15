@@ -61,10 +61,6 @@ legend {
     overflow: hidden;
 }
 
-.input-group-text {
-    padding: .5rem .75rem;
-}
-
 select.form-control-sm:not([size]):not([multiple]) {
     height: calc(2rem + 2px);
 }
