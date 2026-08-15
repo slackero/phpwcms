@@ -13,17 +13,35 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">2. Database Server Connection &amp; Schema</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">3. Database</h2>
 
-<?php if (isset($_POST["dbsavesubmit"]) && $err): ?>
+<?php if (!empty($db_missing)): ?>
+    <div class="alert alert-info mb-4 border">
+        <h5 class="alert-heading font-weight-bold mb-2"><i class="fa fa-database"></i> Database "<?php echo html_specialchars($phpwcms['db_table']) ?>" does not exist</h5>
+        <p class="mb-2">Your database server credentials are valid, but the database <code><?php echo html_specialchars($phpwcms['db_table']) ?></code> has not been created yet.</p>
+        <div class="custom-control custom-checkbox mt-2">
+            <input type="checkbox" name="create_database" class="custom-control-input" id="create_database" value="1" checked="checked" />
+            <label class="custom-control-label font-weight-bold text-dark" for="create_database">Create database "<?php echo html_specialchars($phpwcms['db_table']) ?>" now (UTF-8 / utf8mb4)</label>
+        </div>
+    </div>
+    <?php $_SESSION['admin_set'] = false; ?>
+<?php elseif (isset($_POST["dbsavesubmit"]) && $err): ?>
     <div class="alert alert-danger mb-4">
-        <i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.
+        <div><i class="fa fa-exclamation-triangle"></i> Please check your database connection settings below.</div>
+        <?php if (!empty($db_error_message)): ?>
+            <div class="mt-2 small text-monospace font-weight-bold bg-white p-2 border rounded text-danger"><?php echo html_specialchars($db_error_message) ?></div>
+        <?php endif; ?>
     </div>
     <?php $_SESSION['admin_set'] = false; ?>
 <?php endif; ?>
 
+<?php if (!empty($db_created_notice)): ?>
+    <div class="alert alert-success mb-4"><i class="fa fa-check-circle"></i> Database "<strong><?php echo html_specialchars($phpwcms['db_table']) ?></strong>" created successfully.</div>
+<?php endif; ?>
+
 <?php
-$current_db_host = $phpwcms['db_host'] ?? 'localhost';
+$current_db_host = !empty($phpwcms['db_host']) && $phpwcms['db_host'] !== 'localhost' ? $phpwcms['db_host'] : detect_mysql_host($phpwcms['db_host'] ?? 'localhost');
+$phpwcms['db_host'] = $current_db_host;
 $detected_db_port = detect_mysql_port($current_db_host, $phpwcms['db_port'] ?? null);
 $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 3306) ? (int)$phpwcms['db_port'] : ($detected_db_port !== 3306 ? $detected_db_port : '');
 ?>
@@ -62,54 +80,38 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                 <div class="col-sm-6">
                     <input name="db_table" type="text" class="form-control" id="db_table" value="<?php echo html_specialchars($phpwcms["db_table"]) ?>" placeholder="database name" maxlength="255" />
                 </div>
-                <div class="col-sm-3 form-text text-muted small align-self-center">Must exist before setup</div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Will be created if missing</div>
             </div>
 
             <div class="form-group row">
                 <label for="db_prepend" class="col-sm-3 col-form-label font-weight-bold">Table Prefix</label>
                 <div class="col-sm-6">
-                    <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($prepend) ?>" maxlength="10" />
+                    <input name="db_prepend" type="text" class="form-control" id="db_prepend" value="<?php echo html_specialchars($phpwcms["db_prepend"]) ?>" placeholder="optional" maxlength="10" />
                 </div>
-                <div class="col-sm-3 form-text text-muted small align-self-center">Appends prefix_ to tables</div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Table prefix (e.g. <code>my_</code>)</div>
             </div>
 
             <div class="form-group row mb-0">
-                <div class="col-sm-9 offset-sm-3">
-                    <div class="custom-control custom-checkbox">
-                        <input name="db_pers" type="checkbox" class="custom-control-input" id="db_pers" value="1" <?php echo ($phpwcms["db_pers"]) ? "checked" : ""; ?> />
-                        <label class="custom-control-label" for="db_pers">Use persistent database connection</label>
+                <label for="db_pers" class="col-sm-3 col-form-label font-weight-bold">Persistent Connection</label>
+                <div class="col-sm-6">
+                    <div class="custom-control custom-checkbox pt-2">
+                        <input name="db_pers" type="checkbox" class="custom-control-input" id="db_pers" value="1" <?php if (!empty($phpwcms['db_pers'])) echo 'checked="checked"' ?> />
+                        <label class="custom-control-label" for="db_pers">Enable persistent connection</label>
                     </div>
                 </div>
+                <div class="col-sm-3 form-text text-muted small align-self-center">Default: Enabled (1)</div>
             </div>
+
         </div>
     </div>
 
 <?php if (!empty($db_additional)): ?>
     <?php
-    $db_collations = array();
-    $server_default_collation = '';
-    if (!empty($db) && ($col_res = mysqli_query($db, "SHOW COLLATION LIKE 'utf8mb4%'"))) {
-        while ($col_row = mysqli_fetch_assoc($col_res)) {
-            if (!empty($col_row['Collation'])) {
-                $db_collations[] = $col_row['Collation'];
-                if (isset($col_row['Default']) && strtoupper($col_row['Default']) === 'YES') {
-                    $server_default_collation = $col_row['Collation'];
-                }
-            }
-        }
-        mysqli_free_result($col_res);
-    }
-    if (empty($db_collations)) {
-        $db_collations = array(
-            'utf8mb4_0900_ai_ci',
-            'utf8mb4_unicode_520_ci',
-            'utf8mb4_unicode_ci',
-            'utf8mb4_general_ci',
-            'utf8mb4_bin'
-        );
-    }
+    $db_collations = get_db_collations($db);
+    $server_default_collation = get_server_default_collation($db);
 
     $common_defaults = array(
+        'utf8mb4_uca1400_ai_ci',
         'utf8mb4_0900_ai_ci',
         'utf8mb4_unicode_520_ci',
         'utf8mb4_unicode_ci',
@@ -190,7 +192,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 
 <?php if (!empty($db_init)): ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">3. Database Schema Initialization</div>
+        <div class="card-header bg-light font-weight-bold">Database Schema Initialization</div>
         <div class="card-body">
             <?php
             if (empty($db_no_create) && !empty($_db_prepend_error) && isset($_POST['db_sql_hidden'])) {
@@ -212,6 +214,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                     $sql_data   = false;
                     $db_sql     = false;
                     $db_fine    = true;
+                    $_SESSION['admin_set'] = true;
                     echo '<div class="alert alert-success mb-0"><i class="fa fa-check-circle"></i> Initial phpwcms database tables created successfully.<input type="hidden" name="db_sql_hidden" value="1" /></div>';
                 } else {
                     $_SESSION['admin_set']  = false;
@@ -222,9 +225,10 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
             }
 
             if (empty($db_fine)) {
+                $is_checked_sql = !empty($db_sql) || (!isset($_POST['db_sql_hidden']) && empty($_db_prepend_error));
                 ?>
                 <div class="custom-control custom-checkbox">
-                    <input name="db_sql" type="checkbox" class="custom-control-input" id="db_sql" value="1" <?php if (!empty($db_sql)) echo 'checked="checked"' ?> />
+                    <input name="db_sql" type="checkbox" class="custom-control-input" id="db_sql" value="1" <?php if ($is_checked_sql) echo 'checked="checked"' ?> />
                     <label class="custom-control-label font-weight-bold" for="db_sql">Create initial phpwcms database tables</label>
                     <input type="hidden" name="db_sql_hidden" value="1" />
                 </div>
@@ -237,7 +241,7 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
 
 <?php if (!empty($_SESSION['admin_set'])): ?>
     <div class="card mb-4 border">
-        <div class="card-header bg-light font-weight-bold">4. Superuser Administrator Settings</div>
+        <div class="card-header bg-light font-weight-bold">Superuser Administrator Settings</div>
         <div class="card-body">
             <?php if (empty($_SESSION['admin_save'])): ?>
                 <div class="form-group row">

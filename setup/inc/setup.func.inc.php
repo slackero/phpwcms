@@ -186,7 +186,7 @@ function write_conf_file($val) {
     $val['rewrite_url'] = check_htaccess($val);
 
     $conf_file .= "\n// other stuff\n";
-    $conf_file .= "\$phpwcms['image_library'] = '" . escape_quote($val['image_library'] ?? 'GD2') . "'; //GD, GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM\n";
+    $conf_file .= "\$phpwcms['image_library'] = '" . escape_quote($val['image_library'] ?? 'GD2') . "'; // GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM\n";
     $conf_file .= "\$phpwcms['library_path'] = '" . escape_quote($val['library_path'] ?? '') . "'; //Path to ImageMagick or NetPBM\n";
     $conf_file .= "\$phpwcms['rewrite_url'] = " . ($val['rewrite_url'] ? 1 : 0) . "; // whether URL should be rewritable\n";
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
@@ -907,6 +907,27 @@ function render_format_badges($supported_formats, $standard_formats = array()) {
     return trim($html);
 }
 
+
+function detect_mysql_host($current_host = 'localhost') {
+    $clean_host = trim($current_host);
+    if (!empty($clean_host) && $clean_host !== 'localhost' && $clean_host !== '127.0.0.1') {
+        return $clean_host;
+    }
+    // 1. Check explicit environment variables
+    if ($env_host = getenv('DB_HOST') ?: getenv('MYSQL_HOST')) {
+        return trim($env_host);
+    }
+    // 2. Ultra-safe Docker check: must be inside a container AND 'db:3306' must actively respond
+    if (is_file('/.dockerenv') && function_exists('gethostbyname') && gethostbyname('db') !== 'db') {
+        $fp = @fsockopen('db', 3306, $errno, $errstr, 0.1);
+        if ($fp) {
+            fclose($fp);
+            return 'db';
+        }
+    }
+    return 'localhost';
+}
+
 function detect_mysql_port($host = 'localhost', $current_port = null) {
     if (!empty($current_port) && (int)$current_port > 0) {
         return (int)$current_port;
@@ -924,17 +945,19 @@ function detect_mysql_port($host = 'localhost', $current_port = null) {
         return $ini_port;
     }
 
-    // 3. Probe localhost ports
+    // 3. Probe host ports
     $clean_host = trim($host);
-    if (empty($clean_host) || in_array(strtolower($clean_host), array('localhost', '127.0.0.1', '::1'), true)) {
-        // Test standard 3306 first
-        $fp = @fsockopen('127.0.0.1', 3306, $errno, $errstr, 0.15);
-        if ($fp) {
-            fclose($fp);
-            return 3306;
-        }
+    $target_ip = (empty($clean_host) || in_array(strtolower($clean_host), array('localhost', '127.0.0.1', '::1'), true)) ? '127.0.0.1' : $clean_host;
 
-        // Probe alternative common ports: MAMP (8889), custom MariaDB/Docker (3307, 3308, 33060)
+    // Test standard 3306 first
+    $fp = @fsockopen($target_ip, 3306, $errno, $errstr, 0.15);
+    if ($fp) {
+        fclose($fp);
+        return 3306;
+    }
+
+    // If local, probe alternative common ports: MAMP (8889), custom MariaDB/Docker (3307, 3308, 33060)
+    if ($target_ip === '127.0.0.1') {
         $probe_ports = array(8889, 3307, 3308, 33060);
         foreach ($probe_ports as $p) {
             $fp = @fsockopen('127.0.0.1', $p, $errno, $errstr, 0.15);

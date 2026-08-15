@@ -87,6 +87,10 @@ if(!empty($step)) {
                 $db_host = 'p:'.$db_host;
             }
 
+            $db_error_message = '';
+            $db_missing = false;
+            $db_created_notice = false;
+
             try {
                 $db = mysqli_connect(
                     $db_host,
@@ -95,8 +99,44 @@ if(!empty($step)) {
                     $phpwcms['db_table'],
                     $phpwcms['db_port']
                 );
-            } catch (Exception $e) {
+            } catch (Throwable $e) {
                 $db = false;
+                $db_error_message = $e->getMessage();
+            }
+
+            if (!$db) {
+                // Test if server connection without database succeeds (credentials valid)
+                try {
+                    $server_db = mysqli_connect(
+                        $db_host,
+                        $phpwcms['db_user'],
+                        $phpwcms['db_pass'],
+                        null,
+                        $phpwcms['db_port']
+                    );
+                } catch (Throwable $e) {
+                    $server_db = false;
+                }
+
+                if ($server_db) {
+                    $db_missing = true;
+
+                    // Create database if requested or auto-create checkbox was submitted
+                    if (!empty($_POST['create_database'])) {
+                        $clean_db_name = preg_replace('/[^a-zA-Z0-9_\-]/', '', $phpwcms['db_table']);
+                        $create_sql = 'CREATE DATABASE IF NOT EXISTS `' . $clean_db_name . '` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci';
+                        if (mysqli_query($server_db, $create_sql) && mysqli_select_db($server_db, $phpwcms['db_table'])) {
+                            $db = $server_db;
+                            $db_error_message = '';
+                            $db_missing = false;
+                            $db_created_notice = true;
+                        } else {
+                            $db_error_message = 'Failed to create database: ' . mysqli_error($server_db);
+                        }
+                    }
+                } elseif (empty($db_error_message)) {
+                    $db_error_message = mysqli_connect_error();
+                }
             }
 
             if($db) {
@@ -161,35 +201,41 @@ if(!empty($step)) {
                             $sql_data = $sql_data . read_textfile($DOCROOT . '/setup/default_sql/phpwcms_inserts.sql');
                             $sql_data = preg_replace("/(#|--).*.\n/", '', $sql_data );
                             $sql_data = preg_replace('/ `phpwcms/', ' `'.$_db_prepend.'phpwcms', $sql_data );
+                            $sql_data = preg_replace('/CREATE\s+TABLE\s+(?!IF\s+NOT\s+EXISTS)/i', 'CREATE TABLE IF NOT EXISTS ', $sql_data);
                             $sql_data = str_replace("\r", '', $sql_data);
                             $sql_data = str_replace("\n\n", "\n", $sql_data);
                             $sql_data = trim($sql_data);
 
                             // if True create initial database
-                            if(isset($_POST['db_create'])) {
+                            if(!empty($_POST['db_sql']) || isset($_POST['db_create'])) {
 
                                 $db_create_err = [];
 
                                 //mysqli_query($db, 'SET storage_engine=MYISAM');
-                                mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
+                                try {
+                                    mysqli_query($db, 'SET SQL_MODE=NO_ENGINE_SUBSTITUTION');
+                                } catch (Throwable $e) {}
+
                                 try {
                                     mysqli_query($db, 'SET innodb_default_row_format=DYNAMIC');
                                     $set_dynamic = true;
-                                } catch (Exception $e) {
+                                } catch (Throwable $e) {
                                     $set_dynamic = false;
                                 }
 
                                 if (!$set_dynamic) {
                                     try {
                                         mysqli_query($db, 'SET GLOBAL innodb_default_row_format=DYNAMIC');
-                                    } catch (Exception $e) {
+                                    } catch (Throwable $e) {
                                         // we just go on
                                     }
                                 }
 
                                 $value  = "SET NAMES '". mysqli_real_escape_string($db, $phpwcms['db_charset'])."'";
                                 $value .= empty($phpwcms['db_collation']) ? '' : " COLLATE '".mysqli_real_escape_string($db, $phpwcms['db_collation'])."'";
-                                mysqli_query($db, $value);
+                                try {
+                                    mysqli_query($db, $value);
+                                } catch (Throwable $e) {}
 
                                 $db_create_sql = explode(';', $sql_data);
                                 foreach($db_create_sql as $key => $value) {
@@ -205,13 +251,27 @@ if(!empty($step)) {
                                         $value .= ' DEFAULT';
                                         $value .= ' CHARACTER SET '.$phpwcms['db_charset'];
                                         $value .= ' COLLATE '.$phpwcms['db_collation'];
+                                    } else {
+                                        $value = preg_replace('/^INSERT\s+INTO\s+/i', 'INSERT IGNORE INTO ', $value);
                                     }
 
-                                    // send sql query
-                                    if(!mysqli_query($db, $value)) {
-                                        $db_create_err[] = $value;
-                                        unset($db_create_sql[$key]);
+                                    // send sql query safely with exception handling
+                                    try {
+                                        if(!mysqli_query($db, $value)) {
+                                            $db_create_err[] = $value . ' [Error: ' . mysqli_error($db) . ']';
+                                            unset($db_create_sql[$key]);
+                                        }
+                                    } catch (Throwable $e) {
+                                        // Check if error is benign duplicate entry (code 1062)
+                                        if ($e->getCode() !== 1062 && !str_contains($e->getMessage(), 'Duplicate entry')) {
+                                            $db_create_err[] = $value . ' [Error: ' . $e->getMessage() . ']';
+                                            unset($db_create_sql[$key]);
+                                        }
                                     }
+                                }
+
+                                if (empty($db_create_err)) {
+                                    $_SESSION['admin_set'] = true;
                                 }
 
                             }

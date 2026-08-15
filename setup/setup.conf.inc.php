@@ -1,8 +1,8 @@
 <?php
 
 // database values
-$phpwcms['db_host'] = 'localhost';
-$phpwcms['db_port'] = 3307;
+$phpwcms['db_host'] = 'db';
+$phpwcms['db_port'] = 3306;
 $phpwcms['db_user'] = 'phpwcms';
 $phpwcms['db_pass'] = 'phpwcmspassword';
 $phpwcms['db_table'] = 'phpwcms';
@@ -10,7 +10,7 @@ $phpwcms['db_prepend'] = '';
 $phpwcms['db_pers'] = 1;
 $phpwcms['db_charset'] = 'utf8mb4';
 $phpwcms['db_collation'] = 'utf8mb4_unicode_ci';
-$phpwcms['db_version'] = '';
+$phpwcms['db_version'] = '10.11.18-MariaDB-ubu2204';
 $phpwcms['db_timezone'] = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
 $phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
 $phpwcms['db_errorlog'] = false; // Log DB queries - false|true
@@ -23,8 +23,8 @@ $phpwcms['site_ssl_port'] = 443; // The Port on which you SSL Service serve the 
 
 $phpwcms['admin_name'] = 'Webmaster'; //default: Webmaster
 $phpwcms['admin_user'] = 'admin'; //default: admin
-$phpwcms['admin_pass'] = '$2y$10$ZqMmglioxdphO.MLEUI8yeQaocFljNiJUWSNqFDlcY0BgHvT/vHbG'; //password_hash
-$phpwcms['admin_email'] = 'noreply@localhost:8080'; //default: noreplay@host
+$phpwcms['admin_pass'] = '$2y$10$kyJwwmMZV7o73rxcP7yFuuGuTJK7xiwpr55H51NVPvaH7dKMY7A16'; //password_hash
+$phpwcms['admin_email'] = 'slackero@gmail.com'; //default: noreplay@host
 
 // paths
 $phpwcms['DOC_ROOT'] = $_SERVER['DOCUMENT_ROOT'];// current DOC_ROOT seems to be: '/var/www/html' 
@@ -48,8 +48,8 @@ $phpwcms['responsive'] = 1; // 0 max. image width = $phpwcms['content_width'], 1
 $phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image
 
 // other stuff
-$phpwcms['image_library'] = 'GD2'; //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
-$phpwcms['library_path'] = ''; //Path to ImageMagick or NetPBM
+$phpwcms['image_library'] = 'Imagick'; // GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM
+$phpwcms['library_path'] = '/usr/bin'; //Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url'] = 1; // whether URL should be rewritable
 $phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/
 $phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS
@@ -61,7 +61,7 @@ $phpwcms['lang_parse'] = true; // enable|disable global frontend language block 
 $phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level
 $phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'
 $phpwcms['DOCTYPE_LANG'] = ''; //by default same as $phpwcms['default_lang'], but can be injected by whatever you like
-$phpwcms['default_lang'] = 'en';  //default language
+$phpwcms['default_lang'] = 'de';  //default language
 $phpwcms['charset'] = 'utf-8';  //default charset 'utf-8'
 $phpwcms['php_charset'] = false; // set PHP default charset to $phpwcms['charset']
 $phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed
@@ -152,8 +152,8 @@ $phpwcms['enable_backend_module'] = false; // Enable module menu item in the bac
 $phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted
 
 // Email specific settings (based on phpMailer)
-$phpwcms['SMTP_FROM_EMAIL'] = 'info@localhost'; // reply/from email address
-$phpwcms['SMTP_FROM_NAME'] = 'My Name'; // reply/from name
+$phpwcms['SMTP_FROM_EMAIL'] = 'test@local-phpwcms.example.com'; // reply/from email address
+$phpwcms['SMTP_FROM_NAME'] = 'Oliver Georgi'; // reply/from name
 $phpwcms['SMTP_HOST'] = 'localhost'; // SMTP server (host/IP)
 $phpwcms['SMTP_PORT'] = 25; // SMTP server port (default 25)
 $phpwcms['SMTP_MAILER'] = 'mail'; // mail method: mail (default), smtp, sendmail
@@ -162,12 +162,12 @@ $phpwcms['SMTP_PASS'] = 'pass'; // default SMTP password
 $phpwcms['SMTP_SECURE'] = ''; // secure connection, phpMailer options: '', 'ssl' or 'tls'
 $phpwcms['SMTP_AUTH'] = 0; // SMTP authentication, ON=1/OFF=0
 $phpwcms['SMTP_AUTH_TYPE'] = ''; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2
-$phpwcms['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider, currently 'Google', 'Microsoft' or 'Azure' are supported
+$phpwcms['SMTP_XOAUTH_PROVIDER'] = ''; // XOAUTH2 authentication provider: 'Google', 'Microsoft' or 'Azure'
 $phpwcms['SMTP_CLIENT_ID'] = ''; // The client ID for OAuth2 authentication
 $phpwcms['SMTP_CLIENT_SECRET'] = ''; // The client secret for OAuth2 authentication
 $phpwcms['SMTP_TENANT_ID'] = ''; // The tenant ID for Microsoft OAuth2 authentication
-$phpwcms['SMTP_REFRESH_TOKEN'] = ''; // The OAuth2 refresh token (see the backend to obtain it)
-$phpwcms['SMTP_DEBUG'] = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages, 3 = plus connection status, 4 = low-level data
+$phpwcms['SMTP_REFRESH_TOKEN'] = ''; // The OAuth2 refresh token
+$phpwcms['SMTP_DEBUG'] = 0; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages
 
 // Backend Dashboard Support/Contact settings
 $phpwcms['support'] = array(
