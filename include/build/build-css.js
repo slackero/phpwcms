@@ -8,7 +8,7 @@ const cssFiles = [
     path.join(__dirname, '../../node_modules/bootstrap/dist/css/bootstrap.min.css'),
     path.join(__dirname, '../../node_modules/flag-icons/css/flag-icons.min.css'),
     path.join(includeDir, 'inc_css/phpwcms-fontawesome.css'),
-    path.join(includeDir, 'inc_css/phpwcmsspecial.css')
+    path.join(includeDir, 'inc_css/phpwcms.css')
 ];
 
 let combined = '';
