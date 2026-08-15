@@ -18,17 +18,31 @@ checkLogin();
 validate_csrf_tokens();
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 
-if(isset($_GET["sortid"])) {
-	$values = explode("|", $_GET["sortid"]);
-	$sorti = 10;
-	for ($i = 0, $count = count($values); $i < $count; $i++) {
-        $acontent_id = intval($values[$i]);
-		if ($acontent_id){
-			$sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=" . $sorti . " WHERE (acontent_uid=" . $_SESSION["wcs_user_id"] . " OR " . $_SESSION["wcs_user_admin"] . ") AND acontent_id=" . $acontent_id;
-			_dbQuery($sql, 'UPDATE');
-		}
-		$sorti += 10;
-	}
+$sort_data = isset($_REQUEST['sortid']) ? $_REQUEST['sortid'] : '';
+
+if (is_string($sort_data) && $sort_data !== '') {
+    $values = explode('|', $sort_data);
+    $ids    = array();
+    $cases  = array();
+    $sorti  = 10;
+
+    foreach ($values as $val) {
+        $acontent_id = (int) $val;
+        if ($acontent_id > 0) {
+            $ids[]   = $acontent_id;
+            $cases[] = 'WHEN ' . $acontent_id . ' THEN ' . $sorti;
+            $sorti  += 10;
+        }
+    }
+
+    if (!empty($ids)) {
+        $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
+        $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecontent SET ' .
+               'acontent_sorting = CASE acontent_id ' . implode(' ', $cases) . ' END, ' .
+               'acontent_tstamp = acontent_tstamp ' .
+               'WHERE acontent_id IN (' . implode(',', $ids) . ')' . $where_perm;
+        _dbQuery($sql, 'UPDATE');
+    }
 }
 
 update_cache();

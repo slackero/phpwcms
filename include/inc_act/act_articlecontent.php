@@ -54,28 +54,28 @@ if(isset($_GET["do"])) {
     }
 }
 
-if(isset($_GET["sort"])) {
-    list($value1, $value2) = explode("|", $_GET["sort"]);
-    list($id1, $sort1) = explode(":", $value1);
-    list($id2, $sort2) = explode(":", $value2);
-    $id1 = intval($id1);
-    $id2 = intval($id2);
-    $sort1 = intval($sort1);
-    $sort2 = intval($sort2);
+if(isset($_GET['sort'])) {
+    $sort_parts = explode('|', $_GET['sort']);
+    if(count($sort_parts) >= 2) {
+        $p1    = explode(':', $sort_parts[0]);
+        $p2    = explode(':', $sort_parts[1]);
+        $id1   = isset($p1[0]) ? (int) $p1[0] : 0;
+        $sort1 = isset($p1[1]) ? (int) $p1[1] : 0;
+        $id2   = isset($p2[0]) ? (int) $p2[0] : 0;
+        $sort2 = isset($p2[1]) ? (int) $p2[1] : 0;
 
-    if($sort1 === $sort2) {
-        $sort2 = $sort1+10;
+        if($id1 > 0 && $id2 > 0) {
+            if($sort1 === $sort2) {
+                $sort2 = $sort1 + 10;
+            }
+            $where_perm = empty($_SESSION['wcs_user_admin']) ? ' AND acontent_uid = ' . (int) $_SESSION['wcs_user_id'] : '';
+            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecontent SET ' .
+                   'acontent_sorting = CASE acontent_id WHEN ' . $id1 . ' THEN ' . $sort1 . ' WHEN ' . $id2 . ' THEN ' . $sort2 . ' END, ' .
+                   'acontent_tstamp = acontent_tstamp ' .
+                   'WHERE acontent_id IN (' . $id1 . ', ' . $id2 . ')' . $where_perm;
+            _dbQuery($sql, 'UPDATE');
+        }
     }
-
-    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort1.',acontent_tstamp=acontent_tstamp'.
-           " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
-           " AND acontent_id=".$id1;
-    _dbQuery($sql, 'UPDATE');
-
-    $sql = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET acontent_sorting=".$sort2.',acontent_tstamp=acontent_tstamp'.
-           " WHERE (acontent_uid=".intval($_SESSION["wcs_user_id"])." OR ".intval($_SESSION["wcs_user_admin"]).")".
-           " AND acontent_id=".$id2;
-    _dbQuery($sql, 'UPDATE');
 }
 
 update_cache();

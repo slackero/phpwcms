@@ -186,23 +186,18 @@ function getParentStructArray($structID) {
  */
 function getArticleSortValue($cat_id=0) {
 
-    // Count all articles within the given structure ID
-    $sql  = "SELECT article_id, article_sort FROM ".DB_PREPEND."phpwcms_article ";
-    $sql .= "WHERE article_cid=".intval($cat_id)." ORDER BY article_sort DESC";
+    $cat_id = (int) $cat_id;
 
+    $sql = 'SELECT COUNT(article_id) AS cnt, MAX(article_sort) AS max_sort FROM ' . DB_PREPEND . 'phpwcms_article ' .
+           'WHERE article_cid = ' . $cat_id . ' AND article_deleted = 0';
     $result = _dbQuery($sql);
 
-    if(isset($result[0]['article_id'])) {
-        $count = count($result); // number of articles
-        $max_sort = $result[0]['article_sort']; // get the highest article sort value
-    } else {
-        $count = 0;
-        $max_sort = 0;
-    }
+    $count    = isset($result[0]['cnt']) ? (int) $result[0]['cnt'] : 0;
+    $max_sort = isset($result[0]['max_sort']) ? (int) $result[0]['max_sort'] : 0;
 
     $count = ($count + 1) * 10;
 
-    return ($max_sort < $count) ? $count : $max_sort + 10;
+    return max($count, $max_sort + 10);
 }
 
 /*
@@ -213,52 +208,57 @@ function getArticleReSorted($cat_id, $ordered_by) {
 
     // get all articles including deleted and update sorting
     // in correct sort order by adding sort + 10
+    $cat_id             = (int) $cat_id;
     $sort               = 10;
     $sort_multiply_by   = 1;
     $count_article      = 0;
+    $article            = array();
     $ao                 = get_order_sort($ordered_by);
 
-    $sql  = "SELECT article_id, article_cid, article_title, article_aktiv, article_uid, ";
-    $sql .= "date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date, article_sort, article_deleted, article_tstamp ";
-    $sql .= "FROM ".DB_PREPEND."phpwcms_article ";
-    $sql .= "WHERE article_cid='".$cat_id."' ORDER BY ".$ao[2];
+    $sql  = 'SELECT article_id, article_cid, article_title, article_aktiv, article_uid, ' .
+            "date_format(article_tstamp, '%Y-%m-%d %H:%i:%s') AS article_date, article_sort, article_deleted, article_tstamp " .
+            'FROM ' . DB_PREPEND . 'phpwcms_article ' .
+            'WHERE article_cid = ' . $cat_id . ' ORDER BY ' . $ao[2];
 
     $result = _dbQuery($sql);
 
-    if(isset($result[0]['article_id'])) {
+    if(!empty($result) && is_array($result)) {
 
         // now check if it's sorted manually and DESC
-        // then sort has to be lowerd by -10
-        if($ao[0] == 0 && $ao[1] == 1) {
+        // then sort has to be lowered by -10
+        if($ao[0] === 0 && $ao[1] === 1) {
             $sort = (count($result) + 1) * 10;
             $sort_multiply_by = -1;
         }
 
+        $ids   = array();
+        $cases = array();
+
         // take all entries and build new array with it
         foreach($result as $row) {
 
-            // SQL update query with new sort value
-            $update_sql  = "UPDATE ".DB_PREPEND."phpwcms_article SET ";
-            $update_sql .= "article_sort=".$sort.", ";
-            $update_sql .= "article_tstamp='".$row['article_tstamp']."' ";
-            $update_sql .= "WHERE article_id=".$row['article_id']." LIMIT 1";
-            _dbQuery($update_sql, 'UPDATE');
+            $row_id  = (int) $row['article_id'];
+            $ids[]   = $row_id;
+            $cases[] = 'WHEN ' . $row_id . ' THEN ' . $sort;
 
             // add entry to the returning array only for article_deleted=0
             // drops all deleted articles or articles having another status
-            if(!$row['article_deleted']) {
-
-                $article[$count_article]                    = $row;
-                $article[$count_article]['article_sort']    = $sort;
-
-                // count up for article array index
+            if(empty($row['article_deleted'])) {
+                $row['article_sort']     = $sort;
+                $article[$count_article] = $row;
                 $count_article++;
-
             }
 
             // count sort up by 10
-            $sort = $sort + (10 * $sort_multiply_by);
+            $sort += (10 * $sort_multiply_by);
+        }
 
+        if(!empty($ids)) {
+            $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_article SET ' .
+                          'article_sort = CASE article_id ' . implode(' ', $cases) . ' END, ' .
+                          'article_tstamp = article_tstamp ' .
+                          'WHERE article_id IN (' . implode(',', $ids) . ')';
+            _dbQuery($update_sql, 'UPDATE');
         }
     }
 

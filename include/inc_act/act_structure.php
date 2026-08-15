@@ -251,11 +251,10 @@ if($action) {
             $do[2] = intval($do[2]); //sort NR1
             $do[3] = intval($do[3]); //sort ID2
             $do[4] = intval($do[4]); //sort NR2
-            if($do[1] && $do[2]>=10 && $do[3] && $do[4]>=10) {
-                $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_sort=".$do[2]." WHERE acat_id=".$do[1];
-                _dbQuery($sql, 'UPDATE');
-
-                $sql =  "UPDATE ".DB_PREPEND."phpwcms_articlecat SET acat_sort=".$do[4]." WHERE acat_id=".$do[3];
+            if($do[1] && $do[2] >= 10 && $do[3] && $do[4] >= 10) {
+                $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_articlecat SET ' .
+                       'acat_sort = CASE acat_id WHEN ' . $do[1] . ' THEN ' . $do[2] . ' WHEN ' . $do[3] . ' THEN ' . $do[4] . ' END ' .
+                       'WHERE acat_id IN (' . $do[1] . ', ' . $do[3] . ')';
                 _dbQuery($sql, 'UPDATE');
             }
 
@@ -346,11 +345,11 @@ if($action) {
         $do[2] = intval($do[2]); //article sort NR1
         $do[3] = intval($do[3]); //article sort ID2
         $do[4] = intval($do[4]); //article sort NR2
-        if($do[1] && $do[2]>=10 && $do[3] && $do[4]>=10) {
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_sort=".$do[2].", article_tstamp=article_tstamp WHERE article_id=".$do[1];
-            _dbQuery($sql, 'UPDATE');
-
-            $sql =  "UPDATE ".DB_PREPEND."phpwcms_article SET article_sort=".$do[4].", article_tstamp=article_tstamp WHERE article_id=".$do[3];
+        if($do[1] && $do[2] >= 10 && $do[3] && $do[4] >= 10) {
+            $sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_article SET ' .
+                   'article_sort = CASE article_id WHEN ' . $do[1] . ' THEN ' . $do[2] . ' WHEN ' . $do[3] . ' THEN ' . $do[4] . ' END, ' .
+                   'article_tstamp = article_tstamp ' .
+                   'WHERE article_id IN (' . $do[1] . ', ' . $do[3] . ')';
             _dbQuery($sql, 'UPDATE');
         }
 
