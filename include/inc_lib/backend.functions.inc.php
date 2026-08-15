@@ -768,46 +768,59 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $sql .= "cnt_alias="._dbEscape($alias);
     $content_count = _dbQuery($sql, 'COUNT');
 
-    if( $acat_count > 0 || $article_count > 0 || $content_count > 0 ) {
+    if ($acat_count > 0 || $article_count > 0 || $content_count > 0) {
 
-        $sql  = "SELECT acat_alias FROM ".DB_PREPEND."phpwcms_articlecat WHERE ";
+        if (preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '') {
+            $base_alias = $match[1];
+            $pad_length = max(2, strlen($match[2]));
+            $counter    = (int) $match[2] + 1;
+        } else {
+            $base_alias = $alias;
+            $pad_length = 2;
+            $counter    = 1;
+        }
+
+        $sql  = 'SELECT acat_alias FROM ' . DB_PREPEND . 'phpwcms_articlecat WHERE ';
         $sql .= $where_acat;
-        $sql .= "acat_alias LIKE "._dbEscape($alias, true, '', '%');
+        $sql .= '(acat_alias = ' . _dbEscape($base_alias) . ' OR acat_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
         $all_acat_alias = _dbQuery($sql);
 
-        $sql  = "SELECT article_alias FROM ".DB_PREPEND."phpwcms_article WHERE ";
+        $sql  = 'SELECT article_alias FROM ' . DB_PREPEND . 'phpwcms_article WHERE ';
         $sql .= $where_article;
-        $sql .= "article_alias LIKE "._dbEscape($alias, true, '', '%');
+        $sql .= '(article_alias = ' . _dbEscape($base_alias) . ' OR article_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
         $all_article_alias = _dbQuery($sql);
 
-        $sql  = "SELECT cnt_alias FROM ".DB_PREPEND."phpwcms_content WHERE ";
+        $sql  = 'SELECT cnt_alias FROM ' . DB_PREPEND . 'phpwcms_content WHERE ';
         $sql .= $where_content;
-        $sql .= "cnt_alias LIKE "._dbEscape($alias, true, '', '%');
+        $sql .= '(cnt_alias = ' . _dbEscape($base_alias) . ' OR cnt_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
         $all_content_alias = _dbQuery($sql);
 
         $all_alias = array();
-        foreach($all_acat_alias as $item) {
-            $item = $item['acat_alias'];
-            $all_alias[$item] = $item;
+        if (is_array($all_acat_alias)) {
+            foreach ($all_acat_alias as $item) {
+                $all_alias[$item['acat_alias']] = true;
+            }
         }
-        foreach($all_article_alias as $item) {
-            $item = $item['article_alias'];
-            $all_alias[$item] = $item;
+        if (is_array($all_article_alias)) {
+            foreach ($all_article_alias as $item) {
+                $all_alias[$item['article_alias']] = true;
+            }
         }
-        foreach($all_content_alias as $item) {
-            $item = $item['cnt_alias'];
-            $all_alias[$item] = $item;
-        }
-        $all_alias_count = count($all_alias);
-        while( isset( $all_alias[ $alias.'-'.$all_alias_count ] ) ) {
-            $all_alias_count++;
+        if (is_array($all_content_alias)) {
+            foreach ($all_content_alias as $item) {
+                $all_alias[$item['cnt_alias']] = true;
+            }
         }
 
-        if(preg_match('/\-(\d+)$/', $alias)) {
-            $alias .= $all_alias_count;
-        } else {
-            $alias .= '-'.$all_alias_count;
-        }
+        do {
+            $candidate = $base_alias . '-' . sprintf('%0' . $pad_length . 'd', $counter);
+            $counter++;
+        } while (
+            isset($all_alias[$candidate]) ||
+            (defined('PHPWCMS_REWRITE_EXT') && PHPWCMS_REWRITE_EXT !== '' && is_file(PHPWCMS_ROOT . '/' . $candidate . PHPWCMS_REWRITE_EXT))
+        );
+
+        $alias = $candidate;
     }
 
     return $alias;
