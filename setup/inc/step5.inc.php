@@ -16,26 +16,26 @@ $_SERVER['DOCUMENT_ROOT'] = $phpwcms['DOC_ROOT'];
 $phpwcms["root"] = !empty($phpwcms["root"]) ? "/" . $phpwcms["root"] : "";
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">8. Finalization &amp; Permissions Check</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">6. Finalization &amp; Permissions Check</h2>
 <p class="text-muted">Review directory permissions and finalize installation.</p>
 
 <div class="card mb-4 border">
     <div class="card-header bg-light font-weight-bold">Directory Permissions</div>
     <div class="list-group list-group-flush">
         <?php
-        $dir_checks = [
-            'Filestorage' => $phpwcms["root"] . "/" . $phpwcms["file_path"],
-            'Deleted Files' => $phpwcms["root"] . "/" . $phpwcms["file_path"] . '/can_be_deleted',
-            'Templates' => $phpwcms["root"] . "/" . $phpwcms["templates"],
-            'Template Languages' => $phpwcms["root"] . "/" . trim($phpwcms["templates"], '/') . '/template_lang',
-            'FTP Upload' => $phpwcms["root"] . "/" . $phpwcms["ftp_path"],
-            'Frontend Content' => $phpwcms["root"] . "/" . $phpwcms["content_path"],
-            'Frontend Images' => $phpwcms["root"] . "/" . $phpwcms["content_path"] . "/images",
-            'Frontend Forms' => $phpwcms["root"] . "/" . $phpwcms["content_path"] . "/form",
-            'Frontend Tmp' => $phpwcms["root"] . "/" . $phpwcms["content_path"] . "/tmp",
-            'Frontend RSS' => $phpwcms["root"] . "/" . $phpwcms["content_path"] . "/rss",
-            'Frontend Pages' => $phpwcms["root"] . "/" . $phpwcms["content_path"] . "/pages",
-        ];
+        $dir_checks = array(
+            'Filestorage' => $phpwcms['root'] . '/' . $phpwcms['file_path'],
+            'Deleted Files' => $phpwcms['root'] . '/' . $phpwcms['file_path'] . '/can_be_deleted',
+            'Templates' => $phpwcms['root'] . '/' . $phpwcms['templates'],
+            'Template Languages' => $phpwcms['root'] . '/' . trim($phpwcms['templates'], '/') . '/template_lang',
+            'FTP Upload' => $phpwcms['root'] . '/' . $phpwcms['ftp_path'],
+            'Frontend Content' => $phpwcms['root'] . '/' . $phpwcms['content_path'],
+            'Frontend Images' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/images',
+            'Frontend Forms' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/form',
+            'Frontend Tmp' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/tmp',
+            'Frontend RSS' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/rss',
+            'Frontend Pages' => $phpwcms['root'] . '/' . $phpwcms['content_path'] . '/pages'
+        );
 
         foreach ($dir_checks as $label => $path):
             $status = check_path_status($path);
@@ -101,9 +101,9 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
                 $ht_result = true;
             }
             if ($ht_result):
-                if ($phpwcms["root"] && $htaccess = @read_textfile($this_root . '/.htaccess')) {
+                if ($phpwcms['root'] && $htaccess = @read_textfile($this_root . '/.htaccess')) {
                     $htaccess = str_replace('RewriteBase /', '#RewriteBase /', $htaccess);
-                    $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($phpwcms["root"], '/') . '/', $htaccess);
+                    $htaccess = str_replace('#RewriteBase /subfolder/', 'RewriteBase /' . trim($phpwcms['root'], '/') . '/', $htaccess);
                     write_textfile($this_root . '/.htaccess', $htaccess);
                 }
                 ?>
@@ -116,10 +116,10 @@ if (!is_file($this_root . '/include/config/conf.inc.php')) {
 </div>
 
 <div class="alert alert-danger font-weight-bold py-3 my-4">
-    <i class="fa fa-exclamation-triangle"></i> ATTENTION: Delete the <code>setup</code> directory immediately to secure your installation!
+    <i class="fa fa-exclamation-triangle"></i> ATTENTION: Delete or secure the <code>setup</code> directory before using phpwcms in production!
 </div>
 
 <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
     <a href="setup.php?step=4" class="btn btn-secondary">&larr; Previous Step</a>
-    <a href="../<?php echo $phpwcms['login.php'] ?>" class="btn btn-success btn-lg">Go to Login &rarr;</a>
+    <a href="../login.php" class="btn btn-success">Go to Login &rarr;</a>
 </div>

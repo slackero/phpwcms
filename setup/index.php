@@ -41,13 +41,7 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
         </div>
 
         <div class="card-body p-4">
-            <nav class="nav nav-pills nav-justified mb-4">
-                <a class="nav-link active" href="index.php">1. Licence</a>
-                <a class="nav-link disabled" href="#">2. System Check</a>
-                <a class="nav-link disabled" href="#">3. Database</a>
-                <a class="nav-link disabled" href="#">4. Admin User</a>
-                <a class="nav-link disabled" href="#">5. Configuration</a>
-            </nav>
+            <?php echo render_setup_steps('license'); ?>
 
             <h1 class="h3 font-weight-normal text-primary mb-3">Welcome to the setup of phpwcms</h1>
 
@@ -82,7 +76,7 @@ require_once __DIR__ . '/inc/setup.func.inc.php';
 
                 <div class="d-flex justify-content-between align-items-center mt-4">
                     <a href="../index.php" class="btn btn-secondary">Cancel</a>
-                    <a href="setup.php?step=0" class="btn btn-primary btn-lg">I Agree &amp; Continue &rarr;</a>
+                    <a href="setup.php?step=0" class="btn btn-primary">I Agree &amp; Continue &rarr;</a>
                 </div>
             <?php endif; ?>
         </div>

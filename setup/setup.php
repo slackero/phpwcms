@@ -56,14 +56,7 @@ if ($do) {
         </div>
 
         <div class="card-body p-4">
-            <nav class="nav nav-pills nav-justified mb-4">
-                <a class="nav-link <?php echo $step === 0 ? 'active' : '' ?>" href="setup.php?step=0">1. Check</a>
-                <a class="nav-link <?php echo $step === 1 ? 'active' : '' ?>" href="setup.php?step=1">2. DB Config</a>
-                <a class="nav-link <?php echo $step === 2 ? 'active' : '' ?>" href="setup.php?step=2">3. DB Create</a>
-                <a class="nav-link <?php echo $step === 3 ? 'active' : '' ?>" href="setup.php?step=3">4. Admin User</a>
-                <a class="nav-link <?php echo $step === 4 ? 'active' : '' ?>" href="setup.php?step=4">5. Paths</a>
-                <a class="nav-link <?php echo $step === 5 ? 'active' : '' ?>" href="setup.php?step=5">6. Finish</a>
-            </nav>
+            <?php echo render_setup_steps($step); ?>
 
             <?php
             if (empty($NO_ACCESS)) {

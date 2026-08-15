@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">6. Internal Path &amp; Storage Settings</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">4. Internal Paths &amp; Storage Settings</h2>
 <p class="text-muted">Ensure path values do NOT begin or end with a leading/trailing slash. Using default values is recommended for initial installation.</p>
 
 <form action="setup.php?step=3" method="post">
@@ -66,7 +66,7 @@ if (!defined('PHPWCMS_SETUP')) {
 
     <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
         <a href="setup.php?step=2" class="btn btn-secondary">&larr; Previous Step</a>
-        <button type="submit" class="btn btn-primary btn-lg">Save &amp; Continue &rarr;</button>
+        <button type="submit" class="btn btn-primary">Save &amp; Continue &rarr;</button>
     </div>
     <input name="do" type="hidden" value="1" />
 </form>

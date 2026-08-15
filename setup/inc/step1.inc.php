@@ -13,7 +13,7 @@ if (!defined('PHPWCMS_SETUP')) {
 }
 
 ?>
-<h2 class="h4 text-primary font-weight-normal mb-3">2. MySQL Database Configuration</h2>
+<h2 class="h4 text-primary font-weight-normal mb-3">2. Database Server Connection &amp; Schema</h2>
 
 <?php if (isset($_POST["dbsavesubmit"]) && $err): ?>
     <div class="alert alert-danger mb-4">
@@ -80,10 +80,66 @@ if (!defined('PHPWCMS_SETUP')) {
     </div>
 
 <?php if (!empty($db_additional)): ?>
+    <?php
+    $db_collations = array();
+    $server_default_collation = '';
+    if (!empty($db) && ($col_res = mysqli_query($db, "SHOW COLLATION LIKE 'utf8mb4%'"))) {
+        while ($col_row = mysqli_fetch_assoc($col_res)) {
+            if (!empty($col_row['Collation'])) {
+                $db_collations[] = $col_row['Collation'];
+                if (isset($col_row['Default']) && strtoupper($col_row['Default']) === 'YES') {
+                    $server_default_collation = $col_row['Collation'];
+                }
+            }
+        }
+        mysqli_free_result($col_res);
+    }
+    if (empty($db_collations)) {
+        $db_collations = array(
+            'utf8mb4_0900_ai_ci',
+            'utf8mb4_unicode_520_ci',
+            'utf8mb4_unicode_ci',
+            'utf8mb4_general_ci',
+            'utf8mb4_bin'
+        );
+    }
+
+    $common_defaults = array(
+        'utf8mb4_0900_ai_ci',
+        'utf8mb4_unicode_520_ci',
+        'utf8mb4_unicode_ci',
+        'utf8mb4_general_ci'
+    );
+
+    $chosen_default = '';
+    if (!empty($server_default_collation) && in_array($server_default_collation, $db_collations, true)) {
+        $chosen_default = $server_default_collation;
+    } else {
+        foreach ($common_defaults as $cd) {
+            if (in_array($cd, $db_collations, true)) {
+                $chosen_default = $cd;
+                break;
+            }
+        }
+    }
+    if (empty($chosen_default) && !empty($db_collations)) {
+        $chosen_default = reset($db_collations);
+    }
+
+    $selected_collation = !empty($_POST['collation'])
+        ? $_POST['collation']
+        : (!empty($phpwcms['db_collation']) && in_array($phpwcms['db_collation'], $db_collations, true) && $phpwcms['db_collation'] !== 'utf8mb4_general_ci'
+            ? $phpwcms['db_collation']
+            : $chosen_default);
+
+    if (!empty($selected_collation) && !in_array($selected_collation, $db_collations, true)) {
+        array_unshift($db_collations, $selected_collation);
+    }
+    ?>
     <div class="card mb-4 border">
         <div class="card-header bg-light font-weight-bold">Language &amp; Charset Settings (MySQL v<?php echo html_specialchars($row[0]) ?>)</div>
         <div class="card-body">
-            <div class="form-group row mb-0">
+            <div class="form-group row">
                 <label for="charset" class="col-sm-3 col-form-label font-weight-bold">Default Language</label>
                 <div class="col-sm-6">
                     <select name="charset" class="custom-select" id="charset">
@@ -99,12 +155,28 @@ if (!defined('PHPWCMS_SETUP')) {
                         echo '>';
                         echo empty($value[3]) ? '' : $value[3] . ' - ';
                         echo ucfirst($_lang_en);
-                        echo "</option>";
+                        echo '</option>';
+                    }
+                    ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <label for="collation" class="col-sm-3 col-form-label font-weight-bold">Collation</label>
+                <div class="col-sm-6">
+                    <select name="collation" class="custom-select" id="collation">
+                    <?php
+                    foreach ($db_collations as $col) {
+                        echo '<option value="' . html_specialchars($col) . '"';
+                        if ($selected_collation === $col) {
+                            echo ' selected="selected"';
+                        }
+                        echo '>' . html_specialchars($col) . '</option>';
                     }
                     ?>
                     </select>
                     <small class="form-text text-muted mt-2">All new installations strictly use <strong>UTF-8</strong> (Unicode) with <strong>utf8mb4</strong> database character set.</small>
-                    <input type="hidden" name="collation" value="utf8mb4_general_ci" />
                 </div>
             </div>
         </div>
@@ -242,7 +314,7 @@ if (!defined('PHPWCMS_SETUP')) {
 
     <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
         <a href="setup.php?step=0" class="btn btn-secondary">&larr; Previous Step</a>
-        <button name="dbsavesubmit" type="submit" class="btn btn-primary btn-lg">Save &amp; Continue &rarr;</button>
+        <button name="dbsavesubmit" type="submit" class="btn btn-primary">Save &amp; Continue &rarr;</button>
     </div>
     <input name="do" type="hidden" value="1" />
 </form>

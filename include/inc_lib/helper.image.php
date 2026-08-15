@@ -20,7 +20,7 @@
  */
 class Phpwcms_Image_lib
 {
-    public $image_library = 'gd2';    // Can be: imagemagick, graphicsmagick, netpbm, gd, gd2
+    public $image_library = 'gd2';    // Can be: imagick, imagemagick, graphicsmagick, netpbm, gd, gd2
     public $library_path = '';
     public $dynamic_output = false;    // Whether to send to browser or write to disk
     public $source_image = '';
@@ -84,6 +84,7 @@ class Phpwcms_Image_lib
     public $lang = [
         'imglib_source_image_required' => 'You must specify a source image in your preferences.',
         'imglib_gd_required' => 'The GD image library is required for this feature.',
+        'imglib_imagick_not_installed' => 'The Imagick PHP extension is required for this feature.',
         'imglib_gd_required_for_props' => 'Your server must support the GD image library in order to determine the image properties.',
         'imglib_unsupported_imagecreate' => 'Your server does not support the GD function required to process this type of image.',
         'imglib_gif_not_supported' => 'GIF images are often not supported due to licensing restrictions. You may have to use JPG or PNG images instead.',
@@ -411,7 +412,7 @@ class Phpwcms_Image_lib
     public function crop_centered_resize()
     {
         $protocol = 'image_process_' . ($this->image_library === 'gd2' ? 'gd' : $this->image_library);
-        $action = $this->image_library === 'imagemagick' ? 'crop-resize-center' : 'crop';
+        $action = ($this->image_library === 'imagemagick' || $this->image_library === 'imagick') ? 'crop-resize-center' : 'crop';
         return $this->$protocol($action);
     }
 
@@ -460,7 +461,7 @@ class Phpwcms_Image_lib
             $this->height = $this->orig_height;
         }
         // Choose resizing function
-        if ($this->image_library === 'imagemagick' || $this->image_library === 'netpbm') {
+        if ($this->image_library === 'imagemagick' || $this->image_library === 'imagick' || $this->image_library === 'netpbm') {
             $protocol = 'image_process_' . $this->image_library;
             return $this->$protocol('rotate');
         }
@@ -719,12 +720,127 @@ class Phpwcms_Image_lib
         }
         // Did it work?
         if ($retval > 0) {
+            // Fallback to GD2 if WebP was targeted and CLI failed (e.g. missing WebP delegate)
+            if (function_exists('imagewebp') && ($this->target_ext === 'webp' || $this->source_ext === 'webp') && extension_loaded('gd')) {
+                return $this->image_process_gd($action);
+            }
             $this->set_error('imglib_image_process_failed');
             return false;
         }
         // Set the file to 666
         @chmod($this->full_dst_path, 0666);
         return true;
+    }
+
+    // --------------------------------------------------------------------
+
+    /**
+     * Image Process Using PHP Imagick Extension (PECL)
+     *
+     * This function will resize, crop, centered crop/resize or rotate
+     *
+     * @param string $action
+     * @return bool
+     */
+    public function image_process_imagick($action = 'resize')
+    {
+        if (!extension_loaded('imagick') || !class_exists('Imagick')) {
+            // Fallback to GD if Imagick is not loaded
+            if (extension_loaded('gd')) {
+                return $this->image_process_gd($action);
+            }
+            $this->set_error('imglib_imagick_not_installed');
+            return false;
+        }
+
+        try {
+            $imagick = new Imagick();
+
+            // Set density/resolution for vector/PDF before reading
+            if ($this->source_ext === 'pdf' || $this->source_ext === 'svg') {
+                $imagick->setResolution(150, 150);
+            }
+
+            if ($this->animated_gif) {
+                if (is_file($this->full_dst_path)) {
+                    return true;
+                }
+                if (!PHPWCMS_RESIZE_ANIMATED_GIF) {
+                    $copied = @copy($this->full_src_path, $this->full_dst_path);
+                    if ($copied) {
+                        @chmod($this->full_dst_path, 0666);
+                        return true;
+                    }
+                    return false;
+                }
+                $imagick->readImage($this->full_src_path);
+                $imagick = $imagick->coalesceImages();
+            } else {
+                $src_spec = ($this->source_ext === 'pdf') ? $this->full_src_path . '[0]' : $this->full_src_path;
+                $imagick->readImage($src_spec);
+            }
+
+            foreach ($imagick as $frame) {
+                if ($action === 'crop') {
+                    $frame->cropImage((int)$this->width, (int)$this->height, (int)$this->x_axis, (int)$this->y_axis);
+                    $frame->setImagePage((int)$this->width, (int)$this->height, 0, 0);
+                } elseif ($action === 'crop-resize-center') {
+                    $frame->cropThumbnailImage((int)$this->width, (int)$this->height);
+                } elseif ($action === 'rotate') {
+                    if ($this->rotation_angle === 'hor') {
+                        $frame->flopImage();
+                    } elseif ($this->rotation_angle === 'vrt') {
+                        $frame->flipImage();
+                    } else {
+                        $frame->rotateImage(new ImagickPixel('none'), (float)$this->rotation_angle);
+                    }
+                } else {
+                    // Resize
+                    $frame->resizeImage((int)$this->width, (int)$this->height, Imagick::FILTER_LANCZOS, 1, true);
+                }
+
+                // Sharpen
+                if ($this->sharpen) {
+                    $radius = (float)$this->sharpen * 0.5;
+                    $sigma = (float)$this->sharpen * 0.5;
+                    $frame->adaptiveSharpenImage($radius, $sigma);
+                }
+
+                // Colorspace & format
+                if ($this->colorspace === 'SRGB' && defined('Imagick::COLORSPACE_SRGB')) {
+                    $frame->setImageColorspace(Imagick::COLORSPACE_SRGB);
+                } elseif ($this->colorspace === 'RGB' && defined('Imagick::COLORSPACE_RGB')) {
+                    $frame->setImageColorspace(Imagick::COLORSPACE_RGB);
+                }
+
+                $frame->setImageFormat($this->target_ext);
+
+                if ($this->target_ext !== 'gif') {
+                    $frame->setImageCompressionQuality((int)$this->quality);
+                }
+                $frame->stripImage();
+            }
+
+            if ($this->animated_gif && PHPWCMS_RESIZE_ANIMATED_GIF) {
+                $imagick = $imagick->deconstructImages();
+                $imagick->writeImages($this->full_dst_path, true);
+            } else {
+                $imagick->writeImage($this->full_dst_path);
+            }
+
+            $imagick->clear();
+            $imagick->destroy();
+
+            @chmod($this->full_dst_path, 0666);
+            return true;
+        } catch (Exception $e) {
+            // Fallback to GD2 if WebP was targeted and Imagick failed (e.g. missing WebP delegate)
+            if (function_exists('imagewebp') && ($this->target_ext === 'webp' || $this->source_ext === 'webp') && extension_loaded('gd')) {
+                return $this->image_process_gd($action);
+            }
+            $this->set_error('imglib_image_process_failed');
+            return false;
+        }
     }
 
     // --------------------------------------------------------------------
@@ -742,6 +858,10 @@ class Phpwcms_Image_lib
      */
     public function image_process_netpbm($action = 'resize')
     {
+        // Fallback to GD2 for WebP when using NetPBM
+        if (($this->target_ext === 'webp' || $this->source_ext === 'webp') && function_exists('imagewebp') && extension_loaded('gd')) {
+            return $this->image_process_gd($action);
+        }
         if ($this->library_path == '') {
             $this->set_error('imglib_libpath_invalid');
             return false;

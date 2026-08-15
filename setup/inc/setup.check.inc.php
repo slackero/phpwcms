@@ -67,7 +67,11 @@ if(!empty($step)) {
         } elseif (empty($phpwcms['default_lang'])) {
             $phpwcms['default_lang'] = 'en';
         }
-        $phpwcms['db_collation'] = 'utf8mb4_general_ci';
+        if (!empty($_POST['collation']) && preg_match('/^utf8mb4[a-zA-Z0-9_]*$/i', $_POST['collation'])) {
+            $phpwcms['db_collation'] = clean_slweg($_POST['collation']);
+        } elseif (empty($phpwcms['db_collation'])) {
+            $phpwcms['db_collation'] = 'utf8mb4_unicode_ci';
+        }
         $db_sql = empty($_POST['db_sql']) ? 0 : 1;
 
         write_conf_file($phpwcms);
@@ -318,6 +322,22 @@ if(!empty($step)) {
         $phpwcms['img_prev_width']   = ($phpwcms['img_prev_width']) ?: 538;
         $phpwcms['img_prev_height']  = ($phpwcms['img_prev_height']) ?: 400;
         $phpwcms['max_time']         = ($phpwcms['max_time']) ?: 1800;
+
+        if (isset($_POST['image_library'])) {
+            $phpwcms['image_library'] = trim($_POST['image_library']);
+        }
+        if (isset($_POST['library_path'])) {
+            $phpwcms['library_path'] = trim($_POST['library_path']);
+        }
+        if (isset($_POST['sharpen_level'])) {
+            $phpwcms['sharpen_level'] = intval($_POST['sharpen_level']);
+        }
+        if (isset($_POST['jpg_quality'])) {
+            $phpwcms['jpg_quality'] = max(10, min(100, intval($_POST['jpg_quality'])));
+        }
+        if (isset($_POST['webp_quality'])) {
+            $phpwcms['webp_quality'] = max(10, min(100, intval($_POST['webp_quality'])));
+        }
 
         write_conf_file($phpwcms);
         header('Location: setup.php?step=5');

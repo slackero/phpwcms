@@ -19,7 +19,7 @@ $phpwcms['db_table']             = '';
 $phpwcms['db_prepend']           = '';
 $phpwcms['db_pers']              = 0;
 $phpwcms['db_charset']           = 'utf8mb4';
-$phpwcms['db_collation']         = 'utf8mb4_general_ci';
+$phpwcms['db_collation']         = 'utf8mb4_unicode_ci';
 $phpwcms['db_version']           = ''; // Version of MySQL Server at the time phpwcms was installed
 $phpwcms['db_timezone']          = ''; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html
 $phpwcms['db_sql_mode']          = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL sql_mode https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting
@@ -58,7 +58,7 @@ $phpwcms['responsive']           = 1; // 0 max. image width = $phpwcms['content_
 $phpwcms['preserve_image_name']  = 1; // keep file name for resized versions of the image
 
 // other stuff
-$phpwcms['image_library']        = 'GD2'; // GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM
+$phpwcms['image_library']        = 'GD2'; // GD, GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM
 $phpwcms['library_path']         = ''; // Path to ImageMagick or NetPBM
 $phpwcms['rewrite_url']          = 1; // whether URL should be rewritable
 $phpwcms['rewrite_ext']          = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/

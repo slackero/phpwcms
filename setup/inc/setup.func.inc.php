@@ -106,33 +106,37 @@ function clean_slweg($string_wo_slashes_weg, $string_laenge = 0) {
     return $string_wo_slashes_weg;
 }
 
-function escape_quote($text='') {
-    return str_replace(['\\', "'"], ['\\\\', "\\'"], $text);
+function escape_quote($text = '') {
+    if ($text === null) {
+        return '';
+    }
+    return str_replace(array('\\', "'"), array('\\\\', "\\'"), (string)$text);
 }
 
 function write_conf_file($val) {
     $conf_file = '<?' . "php\n\n";
     $conf_file .= "// database values\n";
-    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host']) . "';\n";
+    $conf_file .= "\$phpwcms['db_host'] = '" . escape_quote($val['db_host'] ?? 'localhost') . "';\n";
     $conf_file .= "\$phpwcms['db_port'] = " . (empty($val['db_port']) || !intval($val['db_port']) ? 3306 : (int)$val['db_port']) . ";\n";
-    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user']) . "';\n";
-    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass']) . "';\n";
-    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table']) . "';\n";
-    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend']) . "';\n";
-    $conf_file .= "\$phpwcms['db_pers'] = " . intval($val['db_pers']) . ";\n";
-    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset']) . "';\n";
-    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation']) . "';\n";
-    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version']) . "';\n";
-    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val['db_timezone'])) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html\n";
+    $conf_file .= "\$phpwcms['db_user'] = '" . escape_quote($val['db_user'] ?? '') . "';\n";
+    $conf_file .= "\$phpwcms['db_pass'] = '" . escape_quote($val['db_pass'] ?? '') . "';\n";
+    $conf_file .= "\$phpwcms['db_table'] = '" . escape_quote($val['db_table'] ?? '') . "';\n";
+    $conf_file .= "\$phpwcms['db_prepend'] = '" . escape_quote($val['db_prepend'] ?? '') . "';\n";
+    $conf_file .= "\$phpwcms['db_pers'] = " . intval($val['db_pers'] ?? 0) . ";\n";
+    $conf_file .= "\$phpwcms['db_charset'] = '" . escape_quote($val['db_charset'] ?? 'utf8mb4') . "';\n";
+    $conf_file .= "\$phpwcms['db_collation'] = '" . escape_quote($val['db_collation'] ?? 'utf8mb4_unicode_ci') . "';\n";
+    $conf_file .= "\$phpwcms['db_version'] = '" . escape_quote($val['db_version'] ?? '') . "';\n";
+    $conf_file .= "\$phpwcms['db_timezone'] = '" . escape_quote(trim($val['db_timezone'] ?? '')) . "'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html\n";
     $conf_file .= "\$phpwcms['db_sql_mode'] = 'NO_ENGINE_SUBSTITUTION'; // SET MySQL session time zone https://dev.mysql.com/doc/refman/5.7/en/sql-mode.html#sql-mode-setting\n";
     $conf_file .= "\$phpwcms['db_errorlog'] = false; // Log DB queries - false|true\n";
 
     $conf_file .= "\n// site values\n";
-    $check_url = rtrim($val['site'], '/');
-    if ($check_url === 'http://' . $_SERVER['SERVER_NAME'] || $check_url === 'https://' . $_SERVER['SERVER_NAME']) {
+    $site_url = $val['site'] ?? '';
+    $check_url = rtrim($site_url, '/');
+    if ($check_url === 'http://' . ($_SERVER['SERVER_NAME'] ?? '') || $check_url === 'https://' . ($_SERVER['SERVER_NAME'] ?? '')) {
         $conf_file .= "\$phpwcms['site'] = '';";
     } else {
-        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($val['site']) . "';";
+        $conf_file .= "\$phpwcms['site'] = '" . escape_quote($site_url) . "';";
     }
 
     $conf_file .= " // leave empty to auto configure or try 'http://'.\$_SERVER['SERVER_NAME'].'/'\n";
@@ -140,49 +144,51 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['site_ssl_url'] = ''; // URL assigned to the SSL Certificate. Recommend 'https://'.\$_SERVER['SERVER_NAME'].'/'\n";
     $conf_file .= "\$phpwcms['site_ssl_port'] = 443; // The Port on which you SSL Service serve the secure Sites, default SSL port is 443\n\n";
 
-    $conf_file .= "\$phpwcms['admin_name'] = '" . escape_quote($val['admin_name']) . "'; //default: Webmaster\n";
-    $conf_file .= "\$phpwcms['admin_user'] = '" . escape_quote($val['admin_user']) . "'; //default: admin\n";
-    $conf_file .= "\$phpwcms['admin_pass'] = '" . escape_quote($val['admin_pass']) . "'; //password_hash\n";
-    $conf_file .= "\$phpwcms['admin_email'] = '" . escape_quote($val['admin_email']) . "'; //default: noreplay@host\n";
+    $conf_file .= "\$phpwcms['admin_name'] = '" . escape_quote($val['admin_name'] ?? 'Webmaster') . "'; //default: Webmaster\n";
+    $conf_file .= "\$phpwcms['admin_user'] = '" . escape_quote($val['admin_user'] ?? 'admin') . "'; //default: admin\n";
+    $conf_file .= "\$phpwcms['admin_pass'] = '" . escape_quote($val['admin_pass'] ?? '') . "'; //password_hash\n";
+    $conf_file .= "\$phpwcms['admin_email'] = '" . escape_quote($val['admin_email'] ?? '') . "'; //default: noreplay@host\n";
 
     $conf_file .= "\n// paths\n";
-    if (!$val['DOC_ROOT'] || $val['DOC_ROOT'] == $_SERVER['DOCUMENT_ROOT']) {
+    $doc_root = $val['DOC_ROOT'] ?? '';
+    if (!$doc_root || $doc_root == ($_SERVER['DOCUMENT_ROOT'] ?? '')) {
         $conf_file .= "\$phpwcms['DOC_ROOT'] = \$_SERVER['DOCUMENT_ROOT'];";
     } else {
-        $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . escape_quote($val['DOC_ROOT']) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
+        $conf_file .= "\$phpwcms['DOC_ROOT'] = '" . escape_quote($doc_root) . "'; //default: \$_SERVER['DOCUMENT_ROOT']";
     }
 
     $real_doc = str_replace('\\', '/', dirname(dirname(dirname(__FILE__))));
-    if (isset($val['root']) && $val['root'] !== '') {
-        $real_doc = explode($val['root'], $real_doc);
-        $real_doc = rtrim($real_doc[0], '/');
+    $root_val = $val['root'] ?? '';
+    if ($root_val !== '') {
+        $real_doc_parts = explode($root_val, $real_doc);
+        $real_doc = rtrim($real_doc_parts[0], '/');
     }
     $conf_file .= "// current DOC_ROOT seems to be: '" . escape_quote($real_doc) . "' \n";
-    $conf_file .= "\$phpwcms['root'] = '" . escape_quote($val['root']) . "'; //default: ''\n";
-    $conf_file .= "\$phpwcms['file_path'] = '" . escape_quote($val['file_path']) . "'; //default: 'filearchive'\n";
-    $conf_file .= "\$phpwcms['templates'] = '" . escape_quote($val['templates']) . "'; //default: 'template'\n";
-    $conf_file .= "\$phpwcms['content_path'] = '" . escape_quote($val['content_path']) . "'; //default: 'content'\n";
+    $conf_file .= "\$phpwcms['root'] = '" . escape_quote($root_val) . "'; //default: ''\n";
+    $conf_file .= "\$phpwcms['file_path'] = '" . escape_quote($val['file_path'] ?? 'filearchive') . "'; //default: 'filearchive'\n";
+    $conf_file .= "\$phpwcms['templates'] = '" . escape_quote($val['templates'] ?? 'template') . "'; //default: 'template'\n";
+    $conf_file .= "\$phpwcms['content_path'] = '" . escape_quote($val['content_path'] ?? 'content') . "'; //default: 'content'\n";
     $conf_file .= "\$phpwcms['cimage_path'] = 'images';  //default: 'images'\n";
-    $conf_file .= "\$phpwcms['ftp_path'] = '" . escape_quote($val['ftp_path']) . "'; //default: 'upload'\n";
+    $conf_file .= "\$phpwcms['ftp_path'] = '" . escape_quote($val['ftp_path'] ?? 'upload') . "'; //default: 'upload'\n";
     $conf_file .= "\$phpwcms['ads_path'] = 'marketing'; // it's the former 'ads' dir in '/content'\n";
 
     $conf_file .= "\n// content values\n";
-    $conf_file .= "\$phpwcms['file_maxsize'] = " . intval($val['file_maxsize']) . "; //Bytes (50 x 1024 x 1024)\n";
-    $conf_file .= "\$phpwcms['content_width'] = " . intval($val['content_width']) . "; //max width of the article content column - important for rendering multi column images\n";
-    $conf_file .= "\$phpwcms['img_list_width'] = " . intval($val['img_list_width']) . "; //max with of the list thumbnail image\n";
-    $conf_file .= "\$phpwcms['img_list_height'] = " . intval($val['img_list_height']) . "; //max height of the list thumbnail image\n";
-    $conf_file .= "\$phpwcms['img_prev_width'] = " . intval($val['img_prev_width']) . "; //max width of the large preview image\n";
-    $conf_file .= "\$phpwcms['img_prev_height'] = " . intval($val['img_prev_height']) . "; //max height of the large preview image\n";
-    $conf_file .= "\$phpwcms['max_time'] = " . intval($val['max_time']) . "; //logout after max_time/60 seconds\n";
+    $conf_file .= "\$phpwcms['file_maxsize'] = " . intval($val['file_maxsize'] ?? 52428800) . "; //Bytes (50 x 1024 x 1024)\n";
+    $conf_file .= "\$phpwcms['content_width'] = " . intval($val['content_width'] ?? 538) . "; //max width of the article content column - important for rendering multi column images\n";
+    $conf_file .= "\$phpwcms['img_list_width'] = " . intval($val['img_list_width'] ?? 100) . "; //max with of the list thumbnail image\n";
+    $conf_file .= "\$phpwcms['img_list_height'] = " . intval($val['img_list_height'] ?? 75) . "; //max height of the list thumbnail image\n";
+    $conf_file .= "\$phpwcms['img_prev_width'] = " . intval($val['img_prev_width'] ?? 538) . "; //max width of the large preview image\n";
+    $conf_file .= "\$phpwcms['img_prev_height'] = " . intval($val['img_prev_height'] ?? 400) . "; //max height of the large preview image\n";
+    $conf_file .= "\$phpwcms['max_time'] = " . intval($val['max_time'] ?? 1800) . "; //logout after max_time/60 seconds\n";
     $conf_file .= "\$phpwcms['responsive'] = 1; // 0 max. image width = \$phpwcms['content_width'], 1 = as given\n";
     $conf_file .= "\$phpwcms['preserve_image_name'] = 0; // keep file name for resized versions of the image\n";
 
     $val['rewrite_url'] = check_htaccess($val);
 
     $conf_file .= "\n// other stuff\n";
-    $conf_file .= "\$phpwcms['image_library'] = 'GD2'; //GD, GD2, ImageMagick, GraphicsMagick or GM, NetPBM\n";
-    $conf_file .= "\$phpwcms['library_path'] = ''; //Path to ImageMagick or NetPBM\n";
-    $conf_file .= "\$phpwcms['rewrite_url'] = " . $val['rewrite_url'] . "; // whether URL should be rewritable\n";
+    $conf_file .= "\$phpwcms['image_library'] = '" . escape_quote($val['image_library'] ?? 'GD2') . "'; //GD, GD2, Imagick, ImageMagick, GraphicsMagick or GM, NetPBM\n";
+    $conf_file .= "\$phpwcms['library_path'] = '" . escape_quote($val['library_path'] ?? '') . "'; //Path to ImageMagick or NetPBM\n";
+    $conf_file .= "\$phpwcms['rewrite_url'] = " . ($val['rewrite_url'] ? 1 : 0) . "; // whether URL should be rewritable\n";
     $conf_file .= "\$phpwcms['rewrite_ext'] = '.html'; // The extension for URL ReWrite, '.html' -> /alias.html, '/' -> /alias/\n";
     $conf_file .= "\$phpwcms['alias_allow_slash'] = 1; // Allow slashes / in ALIAS\n";
     $conf_file .= "\$phpwcms['alias_allow_utf8'] = 1; // If charset is utf-8 special chars will survive alias checking\n";
@@ -193,15 +199,15 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['use_content_lang'] = false; // if true use content language based on article and/or structure level\n";
     $conf_file .= "\$phpwcms['be_lang_parse'] = false; // to disable backend language parsing use false, otherwise 'BBCode' or 'BraceCode'\n";
     $conf_file .= "\$phpwcms['DOCTYPE_LANG'] = ''; //by default same as \$phpwcms['default_lang'], but can be injected by whatever you like\n";
-    $conf_file .= "\$phpwcms['default_lang'] = '" . escape_quote($val['default_lang']) . "';  //default language\n";
-    $conf_file .= "\$phpwcms['charset'] = '" . escape_quote($val['charset']) . "';  //default charset 'utf-8'\n";
+    $conf_file .= "\$phpwcms['default_lang'] = '" . escape_quote($val['default_lang'] ?? 'en') . "';  //default language\n";
+    $conf_file .= "\$phpwcms['charset'] = '" . escape_quote($val['charset'] ?? 'utf-8') . "';  //default charset 'utf-8'\n";
     $conf_file .= "\$phpwcms['php_charset'] = false; // set PHP default charset to \$phpwcms['charset']\n";
     $conf_file .= "\$phpwcms['allow_remote_URL'] = 1;  //0 = no remote URL in {PHP:...} replacement tag allowed, 1 = allowed\n";
-    $conf_file .= "\$phpwcms['jpg_quality'] = 85; //JPG Quality Range 25-100\n";
+    $conf_file .= "\$phpwcms['jpg_quality'] = " . (isset($val['jpg_quality']) ? intval($val['jpg_quality']) : 85) . "; //JPG Quality Range 25-100\n";
     $conf_file .= "\$phpwcms['webp_enable'] = 1; // Render all images as WebP if the client browser supports it\n";
-    $conf_file .= "\$phpwcms['webp_quality'] = 85; // Set the WebP quality\n";
+    $conf_file .= "\$phpwcms['webp_quality'] = " . (isset($val['webp_quality']) ? intval($val['webp_quality']) : 85) . "; // Set the WebP quality\n";
     $conf_file .= "\$phpwcms['resize_animated_gif']  = true; // Try to resize animated GIF, this can lead to bigger file sizes\n";
-    $conf_file .= "\$phpwcms['sharpen_level'] = 1; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
+    $conf_file .= "\$phpwcms['sharpen_level'] = " . (isset($val['sharpen_level']) ? intval($val['sharpen_level']) : 1) . "; //Sharpen Level - only ImageMagick: 0, 1, 2, 3, 4, 5 -- 0 = no, 5 = extra sharp\n";
     $conf_file .= "\$phpwcms['allow_ext_init'] = 1; //allow including of custom external scripts at frontend initialization\n";
     $conf_file .= "\$phpwcms['allow_ext_render'] = 1; //allow including of custom external scripts at frontend rendering\n";
     $conf_file .= "\$phpwcms['cache_enabled'] = 0; //cache On/Off - 1 = caching On / 0 = caching Off (default)\n";
@@ -284,18 +290,22 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['remove_empty_get_vars'] = true; // If true all GET parameters without a value except the alias will be deleted\n";
 
     $conf_file .= "\n// Email specific settings (based on phpMailer)\n";
-    $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = '" . escape_quote($val['SMTP_FROM_EMAIL']) . "'; // reply/from email address\n";
-    $conf_file .= "\$phpwcms['SMTP_FROM_NAME'] = '" . escape_quote($val['SMTP_FROM_NAME']) . "'; // reply/from name\n";
-    $conf_file .= "\$phpwcms['SMTP_HOST'] = '" . escape_quote($val['SMTP_HOST']) . "'; // SMTP server (host/IP)\n";
-    $conf_file .= "\$phpwcms['SMTP_PORT'] = " . intval($val['SMTP_PORT']) . "; // SMTP server port (default 25)\n";
-    $conf_file .= "\$phpwcms['SMTP_MAILER'] = '" . escape_quote($val['SMTP_MAILER']) . "'; // mail method: mail (default), smtp, sendmail\n";
-    $conf_file .= "\$phpwcms['SMTP_USER'] = '" . escape_quote($val['SMTP_USER']) . "'; // default SMTP login (user) name\n";
-    $conf_file .= "\$phpwcms['SMTP_PASS'] = '" . escape_quote($val['SMTP_PASS']) . "'; // default SMTP password\n";
-    $conf_file .= "\$phpwcms['SMTP_SECURE'] = '" . escape_quote($val['SMTP_SECURE']) . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
-    $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . intval($val['SMTP_AUTH']) . "; // SMTP authentication, ON=1/OFF=0\n";
-    $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = '" . escape_quote($val['SMTP_AUTH_TYPE']) . "'; // sets SMTP auth type: LOGIN (default), PLAIN, NTLM, CRAM-MD5\n";
-    $conf_file .= "\$phpwcms['SMTP_REALM'] = '" . escape_quote($val['SMTP_REALM']) . "'; // SMTP realm, used for NTLM auth type\n";
-    $conf_file .= "\$phpwcms['SMTP_WORKSTATION'] = '" . escape_quote($val['SMTP_WORKSTATION']) . "'; // SMTP workstation, used for NTLM auth type\n";
+    $conf_file .= "\$phpwcms['SMTP_FROM_EMAIL'] = '" . escape_quote($val['SMTP_FROM_EMAIL'] ?? '') . "'; // reply/from email address\n";
+    $conf_file .= "\$phpwcms['SMTP_FROM_NAME'] = '" . escape_quote($val['SMTP_FROM_NAME'] ?? '') . "'; // reply/from name\n";
+    $conf_file .= "\$phpwcms['SMTP_HOST'] = '" . escape_quote($val['SMTP_HOST'] ?? 'localhost') . "'; // SMTP server (host/IP)\n";
+    $conf_file .= "\$phpwcms['SMTP_PORT'] = " . intval($val['SMTP_PORT'] ?? 25) . "; // SMTP server port (default 25)\n";
+    $conf_file .= "\$phpwcms['SMTP_MAILER'] = '" . escape_quote($val['SMTP_MAILER'] ?? 'mail') . "'; // mail method: mail (default), smtp, sendmail\n";
+    $conf_file .= "\$phpwcms['SMTP_USER'] = '" . escape_quote($val['SMTP_USER'] ?? '') . "'; // default SMTP login (user) name\n";
+    $conf_file .= "\$phpwcms['SMTP_PASS'] = '" . escape_quote($val['SMTP_PASS'] ?? '') . "'; // default SMTP password\n";
+    $conf_file .= "\$phpwcms['SMTP_SECURE'] = '" . escape_quote($val['SMTP_SECURE'] ?? '') . "'; // secure connection, phpMailer options: '', 'ssl' or 'tls'\n";
+    $conf_file .= "\$phpwcms['SMTP_AUTH'] = " . intval($val['SMTP_AUTH'] ?? 0) . "; // SMTP authentication, ON=1/OFF=0\n";
+    $conf_file .= "\$phpwcms['SMTP_AUTH_TYPE'] = '" . escape_quote($val['SMTP_AUTH_TYPE'] ?? '') . "'; // sets SMTP auth type: CRAM-MD5, LOGIN, PLAIN, XOAUTH2\n";
+    $conf_file .= "\$phpwcms['SMTP_XOAUTH_PROVIDER'] = '" . escape_quote($val['SMTP_XOAUTH_PROVIDER'] ?? '') . "'; // XOAUTH2 authentication provider: 'Google', 'Microsoft' or 'Azure'\n";
+    $conf_file .= "\$phpwcms['SMTP_CLIENT_ID'] = '" . escape_quote($val['SMTP_CLIENT_ID'] ?? '') . "'; // The client ID for OAuth2 authentication\n";
+    $conf_file .= "\$phpwcms['SMTP_CLIENT_SECRET'] = '" . escape_quote($val['SMTP_CLIENT_SECRET'] ?? '') . "'; // The client secret for OAuth2 authentication\n";
+    $conf_file .= "\$phpwcms['SMTP_TENANT_ID'] = '" . escape_quote($val['SMTP_TENANT_ID'] ?? '') . "'; // The tenant ID for Microsoft OAuth2 authentication\n";
+    $conf_file .= "\$phpwcms['SMTP_REFRESH_TOKEN'] = '" . escape_quote($val['SMTP_REFRESH_TOKEN'] ?? '') . "'; // The OAuth2 refresh token\n";
+    $conf_file .= "\$phpwcms['SMTP_DEBUG'] = " . intval($val['SMTP_DEBUG'] ?? 0) . "; // SMTP debug level, 0 = off, 1 = client messages, 2 = client and server messages\n";
 
     $conf_file .= "\n// Backend Dashboard Support/Contact settings\n";
     $conf_file .= "\$phpwcms['support'] = array(\n";
@@ -307,7 +317,7 @@ function write_conf_file($val) {
 
     $conf_file .= "\ndefine('PHPWCMS_INCLUDE_CHECK', true);\n";
 
-    write_textfile('setup.conf.inc.php', $conf_file);
+    write_textfile(__DIR__ . '/../setup.conf.inc.php', $conf_file);
 }
 
 function html_specialchars($h = '') {
@@ -561,4 +571,338 @@ function check_htaccess($val) {
     }
 
     return $val['rewrite_url'];
+}
+
+function get_setup_steps() {
+    return array(
+        'license' => array('title' => '1. License', 'url' => 'index.php'),
+        0         => array('title' => '2. System Check', 'url' => 'setup.php?step=0'),
+        1         => array('title' => '3. Database', 'url' => 'setup.php?step=1'),
+        2         => array('title' => '4. Site & Email', 'url' => 'setup.php?step=2'),
+        3         => array('title' => '5. Paths', 'url' => 'setup.php?step=3'),
+        4         => array('title' => '6. Media', 'url' => 'setup.php?step=4'),
+        5         => array('title' => '7. Finalize', 'url' => 'setup.php?step=5'),
+    );
+}
+
+function render_setup_steps($current_step = 'license') {
+    $steps = get_setup_steps();
+    $keys = array_keys($steps);
+    $current_index = array_search($current_step, $keys, true);
+    if ($current_index === false) {
+        $current_index = 0;
+    }
+
+    $html = '<div class="setup-steps-wrapper mb-4">' . "\n";
+    $html .= '    <nav class="setup-steps" aria-label="Setup steps">' . "\n";
+
+    $i = 0;
+    foreach ($steps as $key => $step_info) {
+        $title = html_specialchars($step_info['title']);
+        $url = html_specialchars($step_info['url']);
+
+        if ($i < $current_index) {
+            $class = 'setup-step completed';
+            $href = ' href="' . $url . '"';
+            $aria = '';
+        } elseif ($i === $current_index) {
+            $class = 'setup-step active';
+            $href = ' href="' . $url . '"';
+            $aria = ' aria-current="step"';
+        } else {
+            $class = 'setup-step disabled';
+            $href = ' href="#" tabindex="-1" aria-disabled="true"';
+            $aria = '';
+        }
+
+        $html .= '        <a class="' . $class . '"' . $href . $aria . '>' . $title . '</a>' . "\n";
+        $i++;
+    }
+
+    $html .= '    </nav>' . "\n";
+    $html .= '</div>';
+
+    return $html;
+}
+
+function detect_system_image_tools() {
+    $tools = array(
+        'gd' => array(
+            'name'      => 'GD Graphics Library',
+            'type'      => 'PHP Extension',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+        'imagick' => array(
+            'name'      => 'Imagick Extension',
+            'type'      => 'PHP Extension (PECL)',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+        'imagemagick' => array(
+            'name'      => 'ImageMagick CLI',
+            'type'      => 'System Binary (convert / magick)',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+        'graphicsmagick' => array(
+            'name'      => 'GraphicsMagick CLI',
+            'type'      => 'System Binary (gm)',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+        'netpbm' => array(
+            'name'      => 'NetPBM Tools',
+            'type'      => 'System Binary (pnmscale)',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+        'ghostscript' => array(
+            'name'      => 'Ghostscript',
+            'type'      => 'System Binary (gs) &ndash; PDF/EPS Engine',
+            'installed' => false,
+            'version'   => '',
+            'path'      => '',
+            'details'   => array(),
+        ),
+    );
+
+    // 1. GD
+    if (extension_loaded('gd') && function_exists('gd_info')) {
+        $gd_info = gd_info();
+        $tools['gd']['installed'] = true;
+        $tools['gd']['version'] = $gd_info['GD Version'] ?? 'Installed';
+        $formats = array();
+        if (!empty($gd_info['GIF Read Support']) || !empty($gd_info['GIF Create Support'])) {
+            $formats[] = 'GIF';
+        }
+        if (!empty($gd_info['JPEG Support'])) {
+            $formats[] = 'JPEG';
+        }
+        if (!empty($gd_info['PNG Support'])) {
+            $formats[] = 'PNG';
+        }
+        if (!empty($gd_info['WebP Support'])) {
+            $formats[] = 'WebP';
+        }
+        if (!empty($gd_info['AVIF Support'])) {
+            $formats[] = 'AVIF';
+        }
+        if (!empty($gd_info['BMP Support'])) {
+            $formats[] = 'BMP';
+        }
+        if (!empty($gd_info['FreeType Support'])) {
+            $formats[] = 'FreeType (TTF)';
+        }
+        $tools['gd']['details'] = $formats;
+    }
+
+    // 2. Imagick PHP extension
+    if (extension_loaded('imagick') && class_exists('Imagick')) {
+        $tools['imagick']['installed'] = true;
+        $tools['imagick']['version'] = phpversion('imagick') ?: 'Installed';
+        try {
+            $im_ver = Imagick::getVersion();
+            if (!empty($im_ver['versionString'])) {
+                $tools['imagick']['path'] = $im_ver['versionString'];
+            }
+            $sample_formats = array('JPEG', 'PNG', 'GIF', 'WEBP', 'AVIF', 'PDF', 'EPS', 'PS', 'AI', 'SVG', 'TIFF');
+            $supported = array();
+            foreach ($sample_formats as $fmt) {
+                if (count(Imagick::queryFormats($fmt)) > 0) {
+                    $supported[] = $fmt;
+                }
+            }
+            $tools['imagick']['details'] = $supported;
+        } catch (Exception $e) {
+            // Ignore exception during version query
+        }
+    }
+
+    // Standard CLI binary paths
+    $env_path = 'PATH="/usr/local/bin:/opt/local/bin:/opt/local/lib/ImageMagick7/bin:/opt/homebrew/bin:/usr/bin:/bin:/opt/bin"';
+    $search_paths = array(
+        '/opt/local/lib/ImageMagick7/bin',
+        '/opt/homebrew/bin',
+        '/usr/local/bin',
+        '/usr/bin',
+        '/opt/local/bin',
+        '/opt/bin',
+    );
+
+    // 3. ImageMagick CLI (convert / magick)
+    if (function_exists('shell_exec') && !in_array('shell_exec', explode(',', (string)ini_get('disable_functions')), true)) {
+        $im_path = @shell_exec($env_path . ' which convert 2>/dev/null || ' . $env_path . ' which magick 2>/dev/null');
+        if ($im_path && ($im_path = trim(explode("\n", $im_path)[0])) && @is_executable($im_path)) {
+            $tools['imagemagick']['installed'] = true;
+            $tools['imagemagick']['path'] = $im_path;
+            $ver_out = @shell_exec(escapeshellarg($im_path) . ' -version 2>/dev/null');
+            if ($ver_out && preg_match('/Version:\s*([^\n\r]+)/i', $ver_out, $m)) {
+                $tools['imagemagick']['version'] = trim($m[1]);
+            }
+        }
+    }
+    if (!$tools['imagemagick']['installed']) {
+        foreach ($search_paths as $p) {
+            foreach (array('convert', 'magick') as $bin) {
+                $candidate = $p . '/' . $bin;
+                if (@is_executable($candidate)) {
+                    $tools['imagemagick']['installed'] = true;
+                    $tools['imagemagick']['path'] = $candidate;
+                    if (function_exists('shell_exec')) {
+                        $ver_out = @shell_exec(escapeshellarg($candidate) . ' -version 2>/dev/null');
+                        if ($ver_out && preg_match('/Version:\s*([^\n\r]+)/i', $ver_out, $m)) {
+                            $tools['imagemagick']['version'] = trim($m[1]);
+                        }
+                    }
+                    break 2;
+                }
+            }
+        }
+    }
+    if ($tools['imagemagick']['installed'] && function_exists('shell_exec')) {
+        $im_fmts = @shell_exec($env_path . ' ' . escapeshellarg($tools['imagemagick']['path']) . ' -list format 2>/dev/null');
+        $cap = array();
+        if ($im_fmts) {
+            if (preg_match('/^\s*(JPEG|JPG)\*?\s+/mi', $im_fmts)) $cap[] = 'JPEG';
+            if (preg_match('/^\s*PNG\*?\s+/mi', $im_fmts)) $cap[] = 'PNG';
+            if (preg_match('/^\s*GIF\*?\s+/mi', $im_fmts)) $cap[] = 'GIF';
+            if (preg_match('/^\s*WEBP\*?\s+/mi', $im_fmts)) $cap[] = 'WebP';
+            if (preg_match('/^\s*AVIF\*?\s+/mi', $im_fmts)) $cap[] = 'AVIF';
+            if (preg_match('/^\s*PDF\*?\s+/mi', $im_fmts)) $cap[] = 'PDF';
+            if (preg_match('/^\s*EPS\*?\s+/mi', $im_fmts)) $cap[] = 'EPS';
+            if (preg_match('/^\s*PS\*?\s+/mi', $im_fmts)) $cap[] = 'PS';
+            if (preg_match('/^\s*SVG\*?\s+/mi', $im_fmts)) $cap[] = 'SVG';
+            if (preg_match('/^\s*AI\*?\s+/mi', $im_fmts)) $cap[] = 'AI';
+            if (preg_match('/^\s*TIFF\*?\s+/mi', $im_fmts)) $cap[] = 'TIFF';
+        }
+        $tools['imagemagick']['details'] = $cap;
+    }
+
+    // 4. GraphicsMagick CLI (gm)
+    if (function_exists('shell_exec') && !in_array('shell_exec', explode(',', (string)ini_get('disable_functions')), true)) {
+        $gm_path = @shell_exec($env_path . ' which gm 2>/dev/null');
+        if ($gm_path && ($gm_path = trim(explode("\n", $gm_path)[0])) && @is_executable($gm_path)) {
+            $tools['graphicsmagick']['installed'] = true;
+            $tools['graphicsmagick']['path'] = $gm_path;
+            $ver_out = @shell_exec($env_path . ' ' . escapeshellarg($gm_path) . ' -version 2>/dev/null');
+            if ($ver_out && preg_match('/GraphicsMagick\s+([0-9\.]+[^\n\r]*)/i', $ver_out, $m)) {
+                $tools['graphicsmagick']['version'] = 'GraphicsMagick ' . trim($m[1]);
+            }
+        }
+    }
+    if (!$tools['graphicsmagick']['installed']) {
+        foreach ($search_paths as $p) {
+            $candidate = $p . '/gm';
+            if (@is_executable($candidate)) {
+                $tools['graphicsmagick']['installed'] = true;
+                $tools['graphicsmagick']['path'] = $candidate;
+                if (function_exists('shell_exec')) {
+                    $ver_out = @shell_exec($env_path . ' ' . escapeshellarg($candidate) . ' -version 2>/dev/null');
+                    if ($ver_out && preg_match('/GraphicsMagick\s+([0-9\.]+[^\n\r]*)/i', $ver_out, $m)) {
+                        $tools['graphicsmagick']['version'] = 'GraphicsMagick ' . trim($m[1]);
+                    }
+                }
+                break;
+            }
+        }
+    }
+    if ($tools['graphicsmagick']['installed'] && function_exists('shell_exec')) {
+        $gm_fmts = @shell_exec($env_path . ' ' . escapeshellarg($tools['graphicsmagick']['path']) . ' convert -list format 2>/dev/null');
+        $cap = array();
+        if ($gm_fmts) {
+            if (preg_match('/^\s*(JPEG|JPG)\*?\s+/mi', $gm_fmts)) $cap[] = 'JPEG';
+            if (preg_match('/^\s*PNG\*?\s+/mi', $gm_fmts)) $cap[] = 'PNG';
+            if (preg_match('/^\s*GIF\*?\s+/mi', $gm_fmts)) $cap[] = 'GIF';
+            if (preg_match('/^\s*WEBP\*?\s+/mi', $gm_fmts)) $cap[] = 'WebP';
+            if (preg_match('/^\s*PDF\*?\s+/mi', $gm_fmts)) $cap[] = 'PDF';
+            if (preg_match('/^\s*EPS\*?\s+/mi', $gm_fmts)) $cap[] = 'EPS';
+            if (preg_match('/^\s*PS\*?\s+/mi', $gm_fmts)) $cap[] = 'PS';
+            if (preg_match('/^\s*SVG\*?\s+/mi', $gm_fmts)) $cap[] = 'SVG';
+            if (preg_match('/^\s*TIFF\*?\s+/mi', $gm_fmts)) $cap[] = 'TIFF';
+        }
+        $tools['graphicsmagick']['details'] = $cap;
+    }
+
+    // 5. NetPBM CLI (pnmscale)
+    if (function_exists('shell_exec') && !in_array('shell_exec', explode(',', (string)ini_get('disable_functions')), true)) {
+        $netpbm_path = @shell_exec($env_path . ' which pnmscale 2>/dev/null');
+        if ($netpbm_path && ($netpbm_path = trim(explode("\n", $netpbm_path)[0])) && @is_executable($netpbm_path)) {
+            $tools['netpbm']['installed'] = true;
+            $tools['netpbm']['path'] = dirname($netpbm_path);
+            $ver_out = @shell_exec(escapeshellarg($netpbm_path) . ' -version 2>/dev/null');
+            if ($ver_out && preg_match('/Netpbm\s+([0-9\.]+[^\n\r]*)/i', $ver_out, $m)) {
+                $tools['netpbm']['version'] = 'NetPBM ' . trim($m[1]);
+            }
+        }
+    }
+    if (!$tools['netpbm']['installed']) {
+        foreach ($search_paths as $p) {
+            $candidate = $p . '/pnmscale';
+            if (@is_executable($candidate)) {
+                $tools['netpbm']['installed'] = true;
+                $tools['netpbm']['path'] = $p;
+                break;
+            }
+        }
+    }
+
+    // 6. Ghostscript CLI (gs) - Used for PDF/EPS/PS conversion
+    if (function_exists('shell_exec') && !in_array('shell_exec', explode(',', (string)ini_get('disable_functions')), true)) {
+        $gs_path = @shell_exec($env_path . ' which gs 2>/dev/null');
+        if ($gs_path && ($gs_path = trim(explode("\n", $gs_path)[0])) && @is_executable($gs_path)) {
+            $tools['ghostscript']['installed'] = true;
+            $tools['ghostscript']['path'] = $gs_path;
+            $ver_out = @shell_exec(escapeshellarg($gs_path) . ' --version 2>/dev/null');
+            if ($ver_out) {
+                $tools['ghostscript']['version'] = 'Ghostscript ' . trim($ver_out);
+            }
+        }
+    }
+    if (!$tools['ghostscript']['installed']) {
+        foreach ($search_paths as $p) {
+            $candidate = $p . '/gs';
+            if (@is_executable($candidate)) {
+                $tools['ghostscript']['installed'] = true;
+                $tools['ghostscript']['path'] = $candidate;
+                if (function_exists('shell_exec')) {
+                    $ver_out = @shell_exec(escapeshellarg($candidate) . ' --version 2>/dev/null');
+                    if ($ver_out) {
+                        $tools['ghostscript']['version'] = 'Ghostscript ' . trim($ver_out);
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    return $tools;
+}
+
+function render_format_badges($supported_formats, $standard_formats = array()) {
+    if (empty($standard_formats)) {
+        $standard_formats = $supported_formats;
+    }
+    $html = '';
+    foreach ($standard_formats as $fmt) {
+        $is_supported = in_array($fmt, $supported_formats, true);
+        if ($is_supported) {
+            $is_doc = in_array($fmt, array('PDF', 'EPS', 'PS', 'AI', 'SVG'), true);
+            $badge_class = $is_doc ? 'badge badge-info text-white' : 'badge badge-secondary text-white';
+            $html .= '<span class="' . $badge_class . ' mr-1 mb-1 font-weight-normal">' . html_specialchars($fmt) . '</span> ';
+        } else {
+            $html .= '<span class="badge badge-light text-muted border mr-1 mb-1 font-weight-normal" style="opacity: 0.45; text-decoration: line-through;" title="' . html_specialchars($fmt) . ' is not supported">' . html_specialchars($fmt) . '</span> ';
+        }
+    }
+    return trim($html);
 }
