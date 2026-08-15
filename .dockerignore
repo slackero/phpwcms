@@ -1,0 +1,9 @@
+.git
+.github
+.agents
+.claude
+.idea
+.phpstan
+node_modules
+.DS_Store
+*.log
