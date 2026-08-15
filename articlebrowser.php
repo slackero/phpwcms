@@ -28,17 +28,7 @@ if (empty($_SESSION['wcs_user_lang'])) {
     $user_lang = strtolower(substr($_SESSION['wcs_user_lang'], 0, 2));
 
     require PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.inc.php';
-    require PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.ext.inc.php';
-    require PHPWCMS_ROOT . '/include/inc_lang/backend/en/lang.pp.inc.php';
     $cust_lang = PHPWCMS_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.inc.php';
-    if (is_file($cust_lang)) {
-        include $cust_lang;
-    }
-    $cust_lang = PHPWCMS_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.ext.inc.php';
-    if (is_file($cust_lang)) {
-        include $cust_lang;
-    }
-    $cust_lang = PHPWCMS_ROOT . '/include/inc_lang/backend/' . $user_lang . '/lang.pp.inc.php';
     if (is_file($cust_lang)) {
         include $cust_lang;
     }

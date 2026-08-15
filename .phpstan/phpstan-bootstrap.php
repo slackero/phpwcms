@@ -64,8 +64,6 @@ if (file_exists($projectRoot . '/include/inc_lib/default.inc.php')) {
     require_once $projectRoot . '/include/inc_lib/backend.functions.inc.php';
     require_once $projectRoot . '/include/inc_lang/code.lang.inc.php';
     require_once $projectRoot . '/include/inc_lang/backend/en/lang.inc.php';
-    require_once $projectRoot . '/include/inc_lang/backend/en/lang.ext.inc.php';
-    require_once $projectRoot . '/include/inc_lang/backend/en/lang.pp.inc.php';
     require_once $projectRoot . '/include/inc_lang/image/image.en.php';
     ob_end_clean();
 }

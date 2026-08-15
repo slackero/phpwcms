@@ -52,7 +52,6 @@ define('CSRF_GET_TOKEN', get_token_get_string());
 require_once PHPWCMS_ROOT.'/include/inc_lib/backend.functions.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lib/default.backend.inc.php';
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php'; //load default language EN
-require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.pp.inc.php';
 include_once PHPWCMS_ROOT. '/include/inc_lang/code.lang.inc.php';
 
 $BL['modules'] = [];
@@ -62,7 +61,6 @@ if(!empty($_SESSION['wcs_user_lang_custom'])) {
     $BL['merge_lang_array'][0]      = $BL['be_admin_optgroup_label'];
     $BL['merge_lang_array'][1]      = $BL['be_cnt_field'];
     include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.inc.php';
-    include PHPWCMS_ROOT.'/include/inc_lang/backend/'. $BE['LANG'] .'/lang.pp.inc.php';
     $BL['be_admin_optgroup_label']  = array_merge($BL['merge_lang_array'][0], $BL['be_admin_optgroup_label']);
     $BL['be_cnt_field']             = array_merge($BL['merge_lang_array'][1], $BL['be_cnt_field']);
     unset($BL['merge_lang_array']);
