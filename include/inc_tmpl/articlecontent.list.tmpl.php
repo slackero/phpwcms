@@ -16,13 +16,12 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 // Article List
-$buttonAction  = '<input class="btn btn-sm btn-blue mr-1" type="button" value="'.$BL['be_article_cnt_center'];
-$buttonAction .= '" title="'.$BL['be_article_cnt_center'].'" onclick="';
-$buttonAction .= "location.href='phpwcms.php?do=articles';return false;\">";
+$buttonAction  = '<a class="btn btn-sm btn-blue mr-2" href="phpwcms.php?do=articles" title="' . html($BL['be_article_cnt_center']) . '">';
+$buttonAction .= '<i class="fa fa-list mr-1"></i>' . $BL['be_article_cnt_center'] . '</a>';
 // Article Preview (new window)
-$buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($article["article_alias"]) ? 'aid='.$article["article_id"] : $article["article_alias"]);
-$buttonAction .= '<input class="btn btn-sm btn-blue" type="button" value="'.$BL['be_func_struct_preview'].'" data-toggle="tooltip" title="'.$BL['be_func_struct_preview'].'" onclick="';
-$buttonAction .= "window.open('".$buttonActionLink."', 'articlePreviewWindows');return false;\">";
+$buttonActionLink = rel_url(array('phpwcms-preview' => 1), array(), empty($article['article_alias']) ? 'aid=' . $article['article_id'] : $article['article_alias']);
+$buttonAction .= '<a class="btn btn-sm btn-blue" href="' . html($buttonActionLink) . '" target="articlePreviewWindows" data-toggle="tooltip" title="' . html($BL['be_func_struct_preview']) . '">';
+$buttonAction .= '<i class="fa fa-external-link-alt mr-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
 
 ?>
 <script>
@@ -61,248 +60,227 @@ $(function() {
 });
 </script>
 
-<div class="row">
-  <div class="col col-sm-auto text-center text-sm-left">
-    <h1><?php echo $BL['be_func_struct_edit'] ?></h1>
-  </div>
-  <div class="col-12 col-sm text-center text-sm-right mb-3">
-    <div class="form-group align-items-center">
-      <?php echo $buttonAction; ?>
-    </div>
+<div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+  <h1 class="mb-0"><?php echo $BL['be_func_struct_edit']; ?></h1>
+  <div class="my-1">
+    <?php echo $buttonAction; ?>
   </div>
 </div>
 
-<div class="card">
-  <div class="card-header"><h1><?php echo $BL['be_article_cnt_ltitle'] ?></h1></div>
+<div class="card mb-3">
+  <div class="card-header py-2 d-flex align-items-center justify-content-between flex-wrap">
+    <h1 class="mb-0"><?php echo $BL['be_article_cnt_ltitle']; ?></h1>
+  </div>
   <div class="card-body">
-    <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article["article_id"] ?>" method="post" name="addcontent" id="addcontent">
-      <div class="row">
+    <form action="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article['article_id']; ?>" method="post" name="addcontent" id="addcontent">
+      <div class="row align-items-center mb-3">
         <div class="col">
-          <a class="mr-3" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><strong><?php echo html($article["article_title"]) ?></strong></a>&nbsp;[AID:<?php echo $article["article_id"] ?>]
-          <?php if(count($phpwcms['allowed_lang']) == 0): ?>
-          <?php else: ?>
-              <span class="ml-3 flag-icon flag-icon-<?php echo ($lang = strtolower(empty($article["article_lang"]) ? $phpwcms['default_lang'] : $article["article_lang"])); ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang) ?>"></span>
+          <div class="d-flex align-items-center flex-wrap">
+            <h4 class="mb-0 font-weight-bold mr-2">
+              <a class="text-dark" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>" title="<?php echo $BL['be_article_cnt_ledit']; ?>"><?php echo html($article['article_title']); ?></a>
+            </h4>
+            <span class="badge badge-secondary font-weight-normal">AID: <?php echo $article['article_id']; ?></span>
+            <?php if(!empty($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 0): ?>
+              <span class="ml-2 flag-icon flag-icon-<?php echo ($lang = strtolower(empty($article['article_lang']) ? $phpwcms['default_lang'] : $article['article_lang'])); ?>" data-toggle="tooltip" title="<?php echo get_language_name($lang); ?>"></span>
+            <?php endif; ?>
+          </div>
+          <?php if(!empty($article['article_subtitle'])): ?>
+            <div class="text-muted small mt-1"><?php echo html($article['article_subtitle']); ?></div>
           <?php endif; ?>
         </div>
-        <div class="col text-right">
+        <div class="col-auto text-right">
           <div class="btn-group btn-group-sm" role="group" aria-label="article-hdr-actions">
-            <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil-alt"></i></a>
-            <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-warning" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
+            <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit']; ?>" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article['article_id']; ?>"><i class="fa fa-pencil-alt"></i></a>
+            <a id="abtnarticle<?php echo $article['article_id']; ?>" class="btn fa btn-sm visible <?php echo ($article['article_aktiv'] == 0 ? 'btn-warning' : 'btn-success'); ?>" data-id="<?php echo $article['article_id']; ?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible']; ?>"></a>
           </div>
-          <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs']."\n[".$article["article_title"]."]"); ?>"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '1,' . $article['article_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs'] . "\n[" . $article['article_title'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
-<!--top table start -->
+      <?php if(!empty($article['article_summary'])): ?>
+        <div class="alert alert-light border p-2 mb-3 text-muted small">
+          <strong><?php echo $BL['be_article_asummary']; ?>:</strong>
+          <?php echo html(getCleanSubString(strip_tags($article['article_summary']), 300, '&#8230;'), false); ?>
+        </div>
+      <?php endif; ?>
+
+<!-- Top Metadata Start -->
       <div class="row">
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace">
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_urlalias'] ?>:&nbsp;</td>
-              <td><strong><?php echo html($article["article_alias"]); ?></strong></td>
-            </tr>
-            <?php
-
-            $langstr = '';
-
-            //show connected language articles
-            if(count($phpwcms['allowed_lang']) > 0) {
-              if (intval($article['article_lang_id'])> 0 && $article['article_lang_type'] == 'article') {
-                $where = 'article_id = '.$article['article_lang_id'];
-                $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
-                if (is_array($adata)) {
-                  $langstr = '<span class="flag-icon flag-icon-de" data-toggle="tooltip" title="'. get_language_name('de').'"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" data-toggle="tooltip" title="' . $adata[0]['article_title'] . '">' . $adata[0]['article_alias'] . $phpwcms['rewrite_ext'] .'</a><br>';
-                } else {
-                  $langstr = $BL['be_admin_usr_err'];
-                }
-                foreach($phpwcms['allowed_lang'] as $key => $lang) {
-                  $lang = strtolower($lang);
-
-                  if($lang == $phpwcms['default_lang'] || $lang == $article['article_lang']) {
-                    continue;
-                  }
-                  $where = 'article_lang_id = '.$article['article_lang_id'].' AND article_lang LIKE '._dbEscape($lang);
+            <table class="table table-sm table-borderless mb-0">
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold" style="width: 140px;"><?php echo $BL['be_article_urlalias']; ?>:</td>
+                <td>
+                  <?php if(!empty($article['article_alias'])): ?>
+                    <code><?php echo html($article['article_alias']); ?></code>
+                  <?php else: ?>
+                    <span class="text-muted">–</span>
+                  <?php endif; ?>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cat']; ?>:</td>
+                <td><i class="fa fa-folder-open text-muted mr-1"></i><?php echo html($article['article_cat']); ?></td>
+              </tr>
+              <?php
+              // Show connected language articles
+              if(!empty($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 0) {
+                $langstr = '';
+                if (intval($article['article_lang_id']) > 0 && $article['article_lang_type'] === 'article') {
+                  $where = 'article_id = ' . intval($article['article_lang_id']);
                   $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
-                  if (isset($adata[0]['article_id'])) {
-                    $langstr .= '<span class="flag-icon flag-icon-'.$lang.'" data-toggle="tooltip" title="'. get_language_name($lang).'"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . $adata[0]['article_title'] . '">' . $adata[0]['article_alias'] . $phpwcms['rewrite_ext'] .'</a><br>';
-                    unset($adata);
+                  if (is_array($adata) && isset($adata[0]['article_id'])) {
+                    $langstr = '<span class="flag-icon flag-icon-de" data-toggle="tooltip" title="' . get_language_name('de') . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                  } else {
+                    $langstr = $BL['be_admin_usr_err'];
                   }
-                }
-
-              } else  {
-                foreach($phpwcms['allowed_lang'] as $key => $lang) {
-                  $lang = strtolower($lang);
-
-                  if($lang == $phpwcms['default_lang']) {
-                    continue;
-                  }
-
-                  $where = 'article_lang_id = '.$article['article_id'].' AND article_lang LIKE '._dbEscape($lang);
-                  $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
-                  if (isset($adata[0]['article_id'])) {
-                    $langstr .= '<span class="flag-icon flag-icon-'.$lang.'" data-toggle="tooltip" title="'. get_language_name($lang).'"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . $adata[0]['article_title'] . '">' . $adata[0]['article_alias'] . $phpwcms['rewrite_ext'] .'</a><br>';
-                    unset($adata);
-                  }
-                }
-
-              }
-            ?>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_opposite_lang'] ?>:&nbsp;</td>
-              <td><?php echo $langstr; ?></td>
-            </tr>
-
-          <?php
-            } ?>
-
-            <?php if($article["article_subtitle"]) { ?>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_asubtitle'] ?>:&nbsp;</td>
-              <td><strong><?php echo html($article["article_subtitle"]); ?></strong></td>
-            </tr>
-
-            <?php } ?>
-
-            <?php if(!empty($article["article_summary"])) { ?>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_asummary'] ?>:&nbsp;</td>
-              <td><?php echo html(getCleanSubString(strip_tags($article["article_summary"]), 250, '&#8230;'), false); ?></td>
-            </tr>
-
-            <?php   } ?>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_cat'] ?>:&nbsp;</td>
-              <td><?php echo html($article["article_cat"]) ?></td>
-            </tr>
-
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_akeywords'] ?>:&nbsp;</td>
-              <td><?php if($article["article_keyword"]) {echo html($article["article_keyword"]);}else{echo "not defined/completed";} ?></td>
-            </tr>
-            <?php
-            if($article["article_canonical"]) {
-            ?>
-
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_canonical'] ?>:&nbsp;</td>
-              <td><?php echo html($article["article_canonical"]); ?></td>
-            </tr>
-            <?php
-            }
-
-            if($article["article_redirect"]) {
-            ?>
-
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_cnt_redirect'] ?>:&nbsp;</td>
-              <td><?php echo html($article["article_redirect"]); ?></td>
-            </tr>
-            <?php
-            }
-
-                $thumb_image = false;
-                if(!empty($article["image"]["hash"])) {
-                    $thumb_image = get_cached_image(array(
-                        "target_ext"    =>  $article['image']['ext'],
-                        "image_name"    =>  $article['image']['hash'] . '.' . $article['image']['ext'],
-                        "thumb_name"    =>  md5($article['image']['hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-                    ));
-                }
-
-                $thumb_list_image = false;
-                if(!empty($article["image"]["list_hash"])) {
-                    $thumb_list_image = get_cached_image(array(
-                        "target_ext"    =>  $article['image']['list_ext'],
-                        "image_name"    =>  $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
-                        "thumb_name"    =>  md5($article['image']['list_hash'].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-                    ));
-                }
-
-                if($thumb_image || $thumb_list_image) {
-
-                ?>
-
-                <tr>
-                  <td class="text-secondary"><?php echo $BL['be_cnt_image'] ?>:&nbsp;</td>
-                  <td><?php
-
-                if($thumb_image) {
-                    echo '<img src="'. $thumb_image['src'] .'" '.$thumb_image[3].' alt="" style="margin-right:5px;" />';
-                }
-                if($thumb_list_image) {
-                    echo '<img src="'. $thumb_list_image['src'] .'" '.$thumb_list_image[3].' alt=""';
-                    if(!empty($article['image']['list_usesummary'])) {
-                        echo ' class="inactive"';
+                  foreach($phpwcms['allowed_lang'] as $key => $lang) {
+                    $lang = strtolower($lang);
+                    if($lang === $phpwcms['default_lang'] || $lang === $article['article_lang']) {
+                      continue;
                     }
-                    echo ' />';
+                    $where = 'article_lang_id = ' . intval($article['article_lang_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
+                    $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
+                    if (isset($adata[0]['article_id'])) {
+                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                      unset($adata);
+                    }
+                  }
+                } else {
+                  foreach($phpwcms['allowed_lang'] as $key => $lang) {
+                    $lang = strtolower($lang);
+                    if($lang === $phpwcms['default_lang']) {
+                      continue;
+                    }
+                    $where = 'article_lang_id = ' . intval($article['article_id']) . ' AND article_lang LIKE ' . _dbEscape($lang);
+                    $adata = _dbGet('phpwcms_article', 'article_id, article_alias, article_title', $where, '', '', 1);
+                    if (isset($adata[0]['article_id'])) {
+                      $langstr .= '<span class="flag-icon flag-icon-' . $lang . '" data-toggle="tooltip" title="' . get_language_name($lang) . '"></span> <a href="phpwcms.php?&do=articles&p=2&s=1&id=' . $adata[0]['article_id'] . '" target="_blank" data-toggle="tooltip" title="' . html($adata[0]['article_title']) . '">' . html($adata[0]['article_alias']) . $phpwcms['rewrite_ext'] . '</a><br>';
+                      unset($adata);
+                    }
+                  }
                 }
-
-                ?></td>
-                </tr>
-                <?php
-
+                if ($langstr !== '') {
+                  echo '<tr><td class="text-secondary text-nowrap font-weight-bold">' . $BL['be_article_opposite_lang'] . ':</td><td>' . $langstr . '</td></tr>';
                 }
-
-                ?>
-
+              }
+              ?>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_akeywords']; ?>:</td>
+                <td><?php echo !empty($article['article_keyword']) ? html($article['article_keyword']) : '<span class="text-muted">–</span>'; ?></td>
+              </tr>
+              <?php if(!empty($article['article_canonical'])): ?>
                 <tr>
-                  <td class="text-secondary"><?php echo $BL['be_article_username']; ?>:&nbsp;</td>
-                  <td><?php echo $article["article_username"] ?></td>
+                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_canonical']; ?>:</td>
+                  <td><code><?php echo html($article['article_canonical']); ?></code></td>
                 </tr>
-
+              <?php endif; ?>
+              <?php if(!empty($article['article_redirect'])): ?>
                 <tr>
-                  <td class="text-secondary text-nowrap"><?php echo $BL['be_ftptakeover_status'] ?>:&nbsp;</td>
+                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_redirect']; ?>:</td>
+                  <td><a href="<?php echo html($article['article_redirect']); ?>" target="_blank"><?php echo html($article['article_redirect']); ?></a></td>
+                </tr>
+              <?php endif; ?>
+              <?php
+              $thumb_image = false;
+              if(!empty($article['image']['hash'])) {
+                  $thumb_image = get_cached_image(array(
+                      'target_ext' => $article['image']['ext'],
+                      'image_name' => $article['image']['hash'] . '.' . $article['image']['ext'],
+                      'thumb_name' => md5($article['image']['hash'] . $phpwcms['img_list_width'] . $phpwcms['img_list_height'] . $phpwcms['sharpen_level'] . $phpwcms['colorspace'])
+                  ));
+              }
+
+              $thumb_list_image = false;
+              if(!empty($article['image']['list_hash'])) {
+                  $thumb_list_image = get_cached_image(array(
+                      'target_ext' => $article['image']['list_ext'],
+                      'image_name' => $article['image']['list_hash'] . '.' . $article['image']['list_ext'],
+                      'thumb_name' => md5($article['image']['list_hash'] . $phpwcms['img_list_width'] . $phpwcms['img_list_height'] . $phpwcms['sharpen_level'] . $phpwcms['colorspace'])
+                  ));
+              }
+
+              if($thumb_image || $thumb_list_image): ?>
+                <tr>
+                  <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_cnt_image']; ?>:</td>
                   <td>
-                      <span class="badge <?php echo ($article["article_nositemap"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_ctype_sitemap'] ?></span>
-                      <span class="badge <?php echo ($article["article_nosearch"] ? 'badge-secondary' : 'badge-success') ?> mt-1"><?php echo $BL['be_fsearch_searchlabel'] ?></span>
-                      <span class="badge <?php echo ($article["article_norss"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_no_rss'] ?></span>
-                      <span class="badge <?php echo ($article["article_opengraph"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_opengraph_support'] ?></span>
-                      <span class="badge <?php echo ($article["article_archive_status"] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_show_archived'] ?></span>
-                      <span class="badge <?php echo ($article["article_meta"]['noindex'] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_robots_noindex'] ?></span>
-                      <span class="badge <?php echo ($article["article_meta"]['nofollow'] ? 'badge-success' : 'badge-secondary') ?> mt-1"><?php echo $BL['be_robots_nofollow'] ?></span>
+                    <?php
+                    if($thumb_image) {
+                        echo '<img class="img-thumbnail mr-1" src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="" />';
+                    }
+                    if($thumb_list_image) {
+                        echo '<img class="img-thumbnail' . (!empty($article['image']['list_usesummary']) ? ' opacity-50' : '') . '" src="' . $thumb_list_image['src'] . '" ' . $thumb_list_image[3] . ' alt="" />';
+                    }
+                    ?>
                   </td>
                 </tr>
-          </table>
-        </div>
+              <?php endif; ?>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_ftptakeover_status']; ?>:</td>
+                <td>
+                  <div class="d-flex flex-wrap" style="gap: 4px;">
+                    <span class="badge <?php echo empty($article['article_nositemap']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_ctype_sitemap']; ?></span>
+                    <span class="badge <?php echo empty($article['article_nosearch']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_fsearch_searchlabel']; ?></span>
+                    <span class="badge <?php echo empty($article['article_norss']) ? 'badge-success' : 'badge-secondary'; ?>"><?php echo $BL['be_no_rss']; ?></span>
+                    <?php if(!empty($article['article_opengraph'])): ?>
+                      <span class="badge badge-info"><?php echo $BL['be_opengraph_support']; ?></span>
+                    <?php endif; ?>
+                    <?php if(!empty($article['article_archive_status'])): ?>
+                      <span class="badge badge-warning"><?php echo $BL['be_show_archived']; ?></span>
+                    <?php endif; ?>
+                    <?php if(!empty($article['article_meta']['noindex'])): ?>
+                      <span class="badge badge-danger"><?php echo $BL['be_robots_noindex']; ?></span>
+                    <?php endif; ?>
+                    <?php if(!empty($article['article_meta']['nofollow'])): ?>
+                      <span class="badge badge-danger"><?php echo $BL['be_robots_nofollow']; ?></span>
+                    <?php endif; ?>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
 
         <div class="col-lg-6">
           <div class="table-responsive">
-          <table class="table table-sm mt-3 tdMorepace">
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_updated_at'] ?>:&nbsp;</td>
-              <td><?php echo phpwcms_strtotime($article['article_date'], $BL['be_longdatetime'], '') ?></td>
-            </tr>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_created_at'] ?>:&nbsp;</td>
-              <td><?php echo date($BL['be_longdatetime'], $article['article_created']) ?></td>
-            </tr>
-            <tr>
-              <td class="text-secondary text-nowrap"><?php echo $BL['be_article_cnt_start'] ?>:&nbsp;</td>
-              <td><?php echo $set_begin ? phpwcms_strtotime($article["article_begin"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
-            </tr>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_article_cnt_end'] ?>:</td>
-              <td><?php echo $set_end ? phpwcms_strtotime($article["article_end"], $BL['be_longdatetime'], '') : $BL['be_not_set']; ?></td>
-            </tr>
-            <tr>
-              <td class="text-secondary text-nowrap"><?php echo $BL['be_cnt_sortvalue'] ?>:&nbsp;</td>
-              <td><?php echo $article["article_sort"] ?></td>
-            </tr>
-            <tr>
-              <td class="text-secondary"><?php echo $BL['be_priorize'] ?>:</td>
-              <td><?php echo $article["article_priorize"] ?></td>
-            </tr>
-          </table>
+            <table class="table table-sm table-borderless mb-0">
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold" style="width: 140px;"><?php echo $BL['be_article_username']; ?>:</td>
+                <td><i class="fa fa-user text-muted mr-1"></i><?php echo html($article['article_username']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_created_at']; ?>:</td>
+                <td><i class="fa fa-calendar-plus text-muted mr-1"></i><?php echo date($BL['be_longdatetime'], $article['article_created']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_updated_at']; ?>:</td>
+                <td><i class="fa fa-history text-muted mr-1"></i><?php echo phpwcms_strtotime($article['article_date'], $BL['be_longdatetime'], ''); ?></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_start']; ?>:</td>
+                <td><?php echo $set_begin ? '<i class="fa fa-clock text-muted mr-1"></i>' . phpwcms_strtotime($article['article_begin'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cnt_end']; ?>:</td>
+                <td><?php echo $set_end ? '<i class="fa fa-clock text-muted mr-1"></i>' . phpwcms_strtotime($article['article_end'], $BL['be_longdatetime'], '') : '<span class="text-muted">' . $BL['be_not_set'] . '</span>'; ?></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_cnt_sortvalue']; ?>:</td>
+                <td><span class="badge badge-light border"><?php echo (int) $article['article_sort']; ?></span></td>
+              </tr>
+              <tr>
+                <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_priorize']; ?>:</td>
+                <td><span class="badge badge-light border"><?php echo (int) $article['article_priorize']; ?></span></td>
+              </tr>
+            </table>
+          </div>
         </div>
-        </div>
-
       </div>
-<!-- Top Table End-->
+<!-- Top Metadata End -->
 
 <!-- New Content start-->
-      <div class="card-header border-0">
+      <div class="card-header border-0 mt-3 pt-3 border-top">
         <div class="form-row align-items-center">
           <div class="col-sm-auto">
             <select name="ctype" class="custom-select form-control form-control-sm" id="ctype" onchange="this.form.submit();">
@@ -680,10 +658,8 @@ $(function() {
    }
   ?>
 
-  <div class="row mt-3">
-    <div class="col text-right">
-      <div class="form-group align-items-center">
-        <?php echo $buttonAction; ?>
-      </div>
-     </div>
+  <div class="d-flex justify-content-end mt-3 mb-4">
+    <div>
+      <?php echo $buttonAction; ?>
+    </div>
   </div>
