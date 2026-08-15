@@ -1196,3 +1196,87 @@ function removeOptionLast(objectId) {
         elSel.remove(elSel.length - 1);
     }
 }
+
+// Theme Management (Light, Dark, Automatic)
+function initPhpwcmsTheme() {
+    function getStoredTheme() {
+        return localStorage.getItem('phpwcms_theme') || document.documentElement.getAttribute('data-theme') || 'auto';
+    }
+
+    function updateThemeUI(theme) {
+        // Update active class & checkmarks in dropdown
+        document.querySelectorAll('[data-set-theme]').forEach(el => {
+            const isMatch = el.getAttribute('data-set-theme') === theme;
+            el.classList.toggle('active', isMatch);
+            const check = el.querySelector('.theme-check');
+            if (check) {
+                check.classList.toggle('d-none', !isMatch);
+            }
+        });
+
+        // Update active icon on theme switcher button
+        const activeIcon = document.querySelector('.theme-switcher .theme-icon-active');
+        if (activeIcon) {
+            activeIcon.classList.remove('fa-adjust', 'fa-sun', 'fa-moon');
+            if (theme === 'dark') {
+                activeIcon.classList.add('fa-moon');
+            } else if (theme === 'light') {
+                activeIcon.classList.add('fa-sun');
+            } else {
+                activeIcon.classList.add('fa-adjust');
+            }
+        }
+
+        // Also sync theme select in profile form if present
+        const formThemeSelect = document.getElementById('form_theme');
+        if (formThemeSelect && formThemeSelect.value !== theme) {
+            formThemeSelect.value = theme;
+        }
+    }
+
+    function setTheme(theme, saveRemote = true) {
+        if (!['light', 'dark', 'auto'].includes(theme)) {
+            theme = 'auto';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        try {
+            localStorage.setItem('phpwcms_theme', theme);
+        } catch (e) {}
+        document.cookie = 'phpwcmsBETheme=' + encodeURIComponent(theme) + '; path=/; max-age=31536000; SameSite=Lax';
+        updateThemeUI(theme);
+
+        if (saveRemote && typeof $ !== 'undefined') {
+            $.post('include/inc_act/ajax_connector.php', {
+                action: 'set_theme',
+                value: theme
+            }).catch(() => {});
+        }
+    }
+
+    const currentTheme = getStoredTheme();
+    setTheme(currentTheme, false);
+
+    document.addEventListener('click', e => {
+        const themeBtn = e.target.closest('[data-set-theme]');
+        if (themeBtn) {
+            e.preventDefault();
+            const chosenTheme = themeBtn.getAttribute('data-set-theme');
+            setTheme(chosenTheme, true);
+        }
+    });
+
+    const formThemeSelect = document.getElementById('form_theme');
+    if (formThemeSelect) {
+        formThemeSelect.addEventListener('change', () => {
+            setTheme(formThemeSelect.value, false);
+        });
+    }
+}
+
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPhpwcmsTheme);
+    } else {
+        initPhpwcmsTheme();
+    }
+}

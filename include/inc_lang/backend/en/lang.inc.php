@@ -37,6 +37,11 @@ $BL['be_nav_discuss']                   = 'DISCUSS';
 
 $BL['be_page_title']                    = 'phpwcms backend (administration)';
 
+$BL['be_theme']                         = 'Theme';
+$BL['be_theme_auto']                    = 'Automatic';
+$BL['be_theme_light']                   = 'Bright';
+$BL['be_theme_dark']                    = 'Dark';
+
 $BL['be_subnav_article_center']         = 'article center';
 $BL['be_subnav_article_new']            = 'new article';
 $BL['be_subnav_file_center']            = 'file center';

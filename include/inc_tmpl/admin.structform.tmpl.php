@@ -139,7 +139,7 @@ switch($acat_hidden) {
 
 <div class="card">
   <div class="card-header"><h2>
-  <?php echo $BL['be_admin_struct_title'] ?> <span style="font-weight: normal;"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong style="color: #FF3300"><?php
+  <?php echo $BL['be_admin_struct_title'] ?> <span class="font-weight-normal"><?php echo $BL['be_admin_struct_child'] ?></span>: <strong class="text-danger"><?php
               //Anzeigen des Kategorienamens (Menuepunkt)
               if($acat_struct) {
                   $parentStructData = getParentStructArray($acat_struct);
@@ -454,7 +454,7 @@ switch($acat_hidden) {
                 if(in_array($key, $acat_permit)) {
                     echo '<option value="'.$key.'"';
                     if(empty($_temp_group[$key]['active'])) {
-                        echo ' style="color:#999999;"';
+                        echo ' class="text-muted"';
                     }
                     echo '>'.html($_temp_group[$key]['name'])."</option>";
                     unset($_temp_group[$key]);
@@ -482,7 +482,7 @@ switch($acat_hidden) {
                 foreach($_temp_group as $key => $value) {
                     echo '<option value="'.$key.'"';
                     if(empty($_temp_group[$key]['active'])) {
-                        echo ' style="color:#999999;"';
+                        echo ' class="text-muted"';
                     }
                     echo '>'.html($_temp_group[$key]['name'])."</option>\n";
                 }

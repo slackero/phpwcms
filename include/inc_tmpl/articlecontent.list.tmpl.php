@@ -89,7 +89,7 @@ $(function() {
             <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ledit'] ?>" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=1&amp;id=<?php echo $article["article_id"] ?>"><i class="fa fa-pencil-alt"></i></a>
             <a id="abtnarticle<?php echo $article["article_id"]?>" class="btn fa btn-sm visible <?php echo ($article["article_aktiv"]==0 ? "btn-warning" : "btn-success")?>" data-id="<?php echo $article["article_id"]?>" data-type="article" data-table="article" data-field="article_aktiv" data-fieldid="article_id" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_lvisible'] ?>"></a>
           </div>
-          <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" data-confirm-danger="<?php echo html_specialchars($BL['be_article_cnt_ldeljs']."\n[".$article["article_title"]."]"); ?>"><i class="far fa-trash-alt"></i></a>
+          <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "1,".$article["article_id"]; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_ldeljs']."\n[".$article["article_title"]."]"); ?>"><i class="far fa-trash-alt"></i></a>
         </div>
       </div>
 
@@ -442,47 +442,47 @@ $(function() {
                   $contentpart_block_old = $contentpart_block;
                   $contentpart_block = $row['acontent_block'];
                   $contentpart_block_name = html(' {'.$row['acontent_block'].'}');
-                  $contentpart_block_color = '#E0D6EB';
+                  $contentpart_block_class = 'cp-block-default';
 
                   switch($contentpart_block) {
                     case '':
                     case 'CONTENT':
                       $contentpart_block_name = $BL['be_main_content'].$contentpart_block_name;
                       if($article['article_paginate']) {
-                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted" style="margin-right:2px;"></i>';
+                        $contentpart_block_name .= ' / <i class="fas fa-indent text-muted mr-1"></i>';
                         $contentpart_block_name .= $BL['be_cnt_pagination'];
                       }
-                      $contentpart_block_color = '#F5CCCC';
+                      $contentpart_block_class = 'cp-block-content';
                       break;
 
                     case 'LEFT':
                       $contentpart_block_name = $BL['be_cnt_left'].$contentpart_block_name;
-                      $contentpart_block_color = '#E0EBD6';
+                      $contentpart_block_class = 'cp-block-left';
                       break;
 
                     case 'RIGHT':
                       $contentpart_block_name = $BL['be_cnt_right'].$contentpart_block_name;
-                      $contentpart_block_color = '#FFF5CC';
+                      $contentpart_block_class = 'cp-block-right';
                       break;
 
                     case 'HEADER':
                       $contentpart_block_name = $BL['be_admin_page_header'].$contentpart_block_name;
-                      $contentpart_block_color = '#EBEBD6';
+                      $contentpart_block_class = 'cp-block-header';
                       break;
 
                     case 'FOOTER':
                       $contentpart_block_name = $BL['be_admin_page_footer'].$contentpart_block_name;
-                      $contentpart_block_color = '#E1E8F7';
+                      $contentpart_block_class = 'cp-block-footer';
                       break;
 
                     case 'CPSET':
-                      $contentpart_block_name = $BL['be_settings'].' <span style="font-weight:normal">('.$BL['be_system_container_norender'].')</span>';
-                      $contentpart_block_color = '#cceaf5';
+                      $contentpart_block_name = $BL['be_settings'].' <span class="font-weight-normal">('.$BL['be_system_container_norender'].')</span>';
+                      $contentpart_block_class = 'cp-block-cpset';
                       break;
 
                     case 'SYSTEM':
-                      $contentpart_block_name = $BL['be_system_container'].' <span style="font-weight:normal">('.$BL['be_system_container_norender'].')</span>';
-                      $contentpart_block_color = '#ffdc9d';
+                      $contentpart_block_name = $BL['be_system_container'].' <span class="font-weight-normal">('.$BL['be_system_container_norender'].')</span>';
+                      $contentpart_block_class = 'cp-block-system';
                       break;
                   }
                   if ($listingflag > 0) {
@@ -490,8 +490,8 @@ $(function() {
                   }
           ?>
       <div class="card articlelist rounded-0 my-3">
-        <div class="card-header border-0 py-1" style="background-color:<?php echo $contentpart_block_color ?>;">
-          <span style="font-size:0.875em;font-weight:bold;"><i class="fa fa-<?php echo $contentpart_block === 'CPSET' ? 'list-ul ' : 'columns' ?>" aria-hidden="true"></i> <?php echo $contentpart_block_name ?></span>
+        <div class="card-header border-0 py-1 cp-block-hdr <?php echo $contentpart_block_class ?>">
+          <span class="font-weight-bold"><i class="fa fa-<?php echo $contentpart_block === 'CPSET' ? 'list-ul' : 'columns' ?>" aria-hidden="true"></i> <?php echo $contentpart_block_name ?></span>
         </div>
     <?php
     if ($listingflag == 0) {
@@ -518,7 +518,7 @@ $(function() {
       $contentpart_tab_number = intval($contentpart_tab_number[0]);
 
       ?>
-      <div style="background-color: <?php echo $contentpart_block_color ?>"><div class="pl-3 py-1"><small>{<?php
+      <div class="cp-block-subhdr <?php echo $contentpart_block_class ?>"><div class="pl-3 py-1"><small>{<?php
             if($contentpart_tab_type == 2) {
               echo $BL['be_ctype_accordion'];
             } elseif(isset($template_default['attributes']['cpgroup_custom'][$contentpart_tab_type])) {
@@ -620,12 +620,12 @@ $(function() {
               </a>
               <?php
               // duplicate content part
-              echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="'.html($BL['be_func_content_copy']).'" data-confirm="'.html_specialchars($BL['be_func_content_copy'].': ' . $cntpart_title . ' [ID:'.$row["acontent_id"].']').'"><i class="fa fa-copy"></i></a>';
+              echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="'.html($BL['be_func_content_copy']).'" data-confirm="'.html($BL['be_func_content_copy'].': ' . $cntpart_title . ' [ID:'.$row["acontent_id"].']').'"><i class="fa fa-copy"></i></a>';
 
               echo '<a id="abtnacontent'.$row["acontent_id"].'" class="btn fa btn-sm visible '.($row["acontent_visible"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["acontent_id"].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
               ?>
             </div>
-            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" data-confirm-danger="<?php echo html_specialchars($BL['be_article_cnt_delpartjs'] . " [ID: " . $row["acontent_id"] . "]"); ?>"><i class="far fa-trash-alt"></i></a>
+            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . " [ID: " . $row["acontent_id"] . "]"); ?>"><i class="far fa-trash-alt"></i></a>
           </div>
         </div>
         <?php

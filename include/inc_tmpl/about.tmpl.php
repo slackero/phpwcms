@@ -17,21 +17,21 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 ?>
-<div class="about-header" style="margin-bottom: 20px;">
-    <h1 class="title"><?php echo html_specialchars($BL['be_about_headline']); ?></h1>
+<div class="about-header mb-3">
+    <h1 class="title"><?php echo html($BL['be_about_headline']); ?></h1>
     <p>
-        <strong><?php echo html_specialchars($BL['be_about_version']); ?>:</strong> <?php echo html_specialchars(PHPWCMS_VERSION); ?> (<?php echo html_specialchars(PHPWCMS_RELEASE_DATE); ?>, r<?php echo html_specialchars(PHPWCMS_REVISION); ?>)<br>
-        <strong><?php echo html_specialchars($BL['be_about_maintainer']); ?>:</strong> <a href="mailto:og@phpwcms.org">Oliver Georgi</a><br>
-        <strong><?php echo html_specialchars($BL['be_about_website']); ?>:</strong> <a href="https://www.phpwcms.org" target="_blank">https://www.phpwcms.org</a><br>
-        <strong><?php echo html_specialchars($BL['be_about_copyright']); ?>:</strong> &copy; 2002&ndash;<?php echo date('Y'); ?> Oliver Georgi <?php echo $BL['be_about_contributors']; ?>
+        <strong><?php echo html($BL['be_about_version']); ?>:</strong> <?php echo html(PHPWCMS_VERSION); ?> (<?php echo html(PHPWCMS_RELEASE_DATE); ?>, r<?php echo html(PHPWCMS_REVISION); ?>)<br>
+        <strong><?php echo html($BL['be_about_maintainer']); ?>:</strong> <a href="mailto:og@phpwcms.org">Oliver Georgi</a><br>
+        <strong><?php echo html($BL['be_about_website']); ?>:</strong> <a href="https://www.phpwcms.org" target="_blank">https://www.phpwcms.org</a><br>
+        <strong><?php echo html($BL['be_about_copyright']); ?>:</strong> &copy; 2002&ndash;<?php echo date('Y'); ?> Oliver Georgi <?php echo $BL['be_about_contributors']; ?>
     </p>
 </div>
 
 <!--
     it is not allowed to remove or change any part of license information
 //-->
-<div class="copyrightInfo code" style="background: #fdfdfd; border: 1px solid #dee9ec; border-radius: 5px; padding: 15px 15px 5px 15px; margin-bottom: 20px;">
-    <p style="margin-top: 0;">
+<div class="copyrightInfo code mb-3 p-3">
+    <p class="mt-0">
         <strong>phpwcms</strong> is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published
         by the Free Software Foundation; either version 2 of the License,
@@ -48,7 +48,7 @@ if (!defined('PHPWCMS_ROOT')) {
         You should have received a copy of the GNU General Public License
         along with this program; if not, write to the:
     </p>
-    <p style="margin-left: 20px; font-style: italic;">
+    <p class="ml-4 font-italic">
         Free Software Foundation, Inc.<br/>
         59 Temple Place, Suite 330<br/>
         Boston, MA 02111-1307, USA

@@ -283,6 +283,8 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
             // Fallback to configured global editor
             $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? $phpwcms["wysiwyg_editor"] : intval($result[0]["usr_wysiwyg"]);
+            $_SESSION["wcs_user_theme"] = isset($result[0]["usr_vars"]['theme']) && in_array($result[0]["usr_vars"]['theme'], array('auto', 'light', 'dark'), true) ? $result[0]["usr_vars"]['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
+            set_theme_cookie($_SESSION["wcs_user_theme"]);
             $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
             $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
 
@@ -359,11 +361,18 @@ $reason_types = array(
 );
 
 ?><!DOCTYPE html>
-<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>">
+<html lang="<?php echo $_SESSION["wcs_user_lang"]; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
 <head>
 	<meta charset="<?php echo PHPWCMS_CHARSET ?>">
 	<title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
 	<meta name="robots" content="noindex, nofollow">
+	<script>
+	(function() {
+		var storedTheme = localStorage.getItem('phpwcms_theme');
+		var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
+		document.documentElement.setAttribute('data-theme', theme);
+	})();
+	</script>
 	<link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
 <?php if((isset($_SESSION["wcs_user_lang"]) && ($_SESSION["wcs_user_lang"] == 'ar' || $_SESSION["wcs_user_lang"] == 'he')) || ($phpwcms['default_lang'] == 'ar' || $phpwcms['default_lang'] == 'he')): ?>
     <style>* {direction: rtl;}</style>

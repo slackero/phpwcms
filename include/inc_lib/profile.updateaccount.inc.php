@@ -62,7 +62,9 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
     }
 
     $new_wysiwyg = empty($_POST['form_wysiwyg']) ? 0 : intval($_POST['form_wysiwyg']);
+    $new_theme = isset($_POST['form_theme']) && in_array($_POST['form_theme'], array('auto', 'light', 'dark'), true) ? $_POST['form_theme'] : 'auto';
     $user_var['template'] = empty($_POST['form_wysiwyg_template']) ? '' : clean_slweg($_POST['form_wysiwyg_template']);
+    $user_var['theme'] = $new_theme;
 
     $user_var['selected_cp'] = array();
     if(isset($_POST['profile_cp_total'])) {
@@ -103,9 +105,11 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
             $_SESSION["wcs_user_email"]     = $new_email;
             $_SESSION["wcs_user_lang"]      = $new_language;
             $_SESSION["WYSIWYG_EDITOR"]     = $new_wysiwyg;
+            $_SESSION["wcs_user_theme"]     = $new_theme;
             $_SESSION["wcs_user_cp"]        = $user_var['selected_cp'];
 
             set_language_cookie($new_language);
+            set_theme_cookie($new_theme);
 
             headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=profile');
         }

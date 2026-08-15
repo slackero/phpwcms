@@ -89,6 +89,17 @@ if (!defined('PHPWCMS_ROOT')) {
       </div>
     </div>
 
+    <div class="form-group row align-items-center">
+      <label for="form_theme" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_theme'] ?></label>
+      <div class="col-sm-3">
+        <select name="form_theme" id="form_theme" class="custom-select form-control form-control-sm">
+          <option value="auto"<?php if(empty($_SESSION["wcs_user_theme"]) || $_SESSION["wcs_user_theme"] === 'auto'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_auto']; ?></option>
+          <option value="light"<?php if(!empty($_SESSION["wcs_user_theme"]) && $_SESSION["wcs_user_theme"] === 'light'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_light']; ?></option>
+          <option value="dark"<?php if(!empty($_SESSION["wcs_user_theme"]) && $_SESSION["wcs_user_theme"] === 'dark'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_dark']; ?></option>
+        </select>
+      </div>
+    </div>
+
     <div class="row align-items-center">
       <label for="be_WYSIWYG" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_WYSIWYG'] ?></label>
       <div class="col-sm-4">

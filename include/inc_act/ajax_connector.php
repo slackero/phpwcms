@@ -119,6 +119,24 @@ switch($action) {
     }
     break;
   //end
+
+	case 'set_theme':
+		$theme = in_array($value, array('light', 'dark', 'auto'), true) ? $value : 'auto';
+		$_SESSION['wcs_user_theme'] = $theme;
+		set_theme_cookie($theme);
+		if (!empty($_SESSION['wcs_user_id'])) {
+			$user_data = _dbGet('phpwcms_user', 'usr_vars', 'usr_id=' . intval($_SESSION['wcs_user_id']) . ' LIMIT 1');
+			if (!empty($user_data[0])) {
+				$uv = @unserialize($user_data[0]['usr_vars'], array('allowed_classes' => false));
+				if (!is_array($uv)) {
+					$uv = array();
+				}
+				$uv['theme'] = $theme;
+				_dbUpdate('phpwcms_user', array('usr_vars' => serialize($uv)), 'WHERE usr_id=' . intval($_SESSION['wcs_user_id']));
+			}
+		}
+		$data = array('status' => 'ok', 'theme' => $theme);
+		break;
 }
 
 if($method === 'json') {

@@ -181,9 +181,9 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
                             if (in_array($key, $group["member"])) {
                                 echo '<option value="' . $key . '"';
                                 if (!$value['active']) {
-                                    echo ' style="color:#999999;"';
+                                    echo ' class="text-muted"';
                                 } elseif ($value['admin']) {
-                                    echo ' style="color:#3F61BF;"';
+                                    echo ' class="text-blue"';
                                 }
                                 echo '>' . trim($_temp_usr[$key]['name'] . ' (' . $_temp_usr[$key]['login'] . ')') . "</option>\n";
                                 unset($_temp_usr[$key]);
@@ -208,9 +208,9 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
                 foreach ($_temp_usr as $key => $value) {
                     echo '<option value="' . $key . '"';
                     if (!$value['active']) {
-                        echo ' style="color:#999999"';
+                        echo ' class="text-muted"';
                     } elseif ($value['admin']) {
-                        echo ' style="color:#3F61BF"';
+                        echo ' class="text-blue"';
                     }
                     echo '>' . trim($_temp_usr[$key]['name'] . ' (' . $_temp_usr[$key]['login'] . ')') . "</option>\n";
                 }
@@ -255,8 +255,6 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 	<table class="table table-sm table-hover mb-0">
 	<?php
 
-    $bg_color1 = "#FFFFFF";
-    $bg_color2 = "#F3F5F8";
     $zaehler = 0;
     if(empty($new_group_id)) {
         $new_group_id = 0;
@@ -281,7 +279,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
             $grouparray = convertStringToArray($grouplist["group_member"]);
             $total_member = empty($grouparray[0]) ? 0 : count($grouparray);
 
-            echo $grouplist["group_name"] ? html($grouplist["group_name"]).' <span style="color:#999999;">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
+            echo $grouplist["group_name"] ? html($grouplist["group_name"]).' <span class="text-muted">('.$total_member.' '.$BL['be_cnt_rssfeed_item'].')</span>' : 'n.a.';
 
           ?></a></td>
           <td class="text-right text-nowrap">

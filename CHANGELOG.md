@@ -5,17 +5,32 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Backend Color Theme (Auto / Light / Dark):** Added color theme switching with automatic system detection, light, and dark modes, persisted in user profile variables (`usr_vars`), cookie, and localStorage.
+- **Base Font Scaling:** Scaled backend root font size to `.875rem` for improved UI compactness across all interface components.
+- **Docker Development Environment:** Added root-level `Dockerfile`, `docker-compose.yml`, and `.dockerignore` providing a complete local PHP 8.2 Apache environment with MariaDB 10.11, phpMyAdmin, and the full graphics conversion toolchain (ImageMagick, GraphicsMagick, NetPBM, Ghostscript, Imagick, and GD).
+- **Mailpit Email Capture:** Integrated Mailpit service into `docker-compose.yml` (`:8026` Web UI, `:1026` SMTP) and configured `msmtp` in `Dockerfile` to automatically capture both standard PHP `mail()` and SMTP messages during local testing.
+- **Setup Database Auto-Creation:** Added automatic interactive database creation in setup step 2 when connecting to a server where the target database does not exist yet.
+- **MySQL Host & Port Detection:** Added socket-based auto-detection for database connection parameters in setup with safe container probing.
 - **Prism.js Highlighting Support:** Added modern code highlighting templates (`JavaScript-Prism.tmpl` and `PHP-Prism.tmpl`) under `template/inc_cntpart/code/example/` using Prism.js.
 - **CodeQL Configuration:** Added `.github/codeql/codeql-config.yml` to exclude third-party vendor directories (e.g. `tinymce`, `mootools`, `jquery`, etc.) from security scans.
 
 ### Changed
+- **Setup Navigation & Stepper Alignment:** Aligned all setup step headlines and card headers with the 1–7 numbered sequence of the stepped navigation wizard.
+- **Setup Table Creation Workflow:** Improved setup database initialization to execute table creation immediately upon form submission and pre-fill the creation checkbox on empty databases.
 - **CDN Loading for Highlighters:** Modified SyntaxHighlighter and Prism.js templates to load libraries via CDN by default.
   - Added comments inside templates explaining how to host libraries locally in `template/lib/` if desired.
 - **CDN Fallback for IE Polyfills:** Updated legacy IE polyfills (`html5shiv` and `respond`) to load from CDN.
   - The loader now checks for the existence of local files at `template/lib/html5shiv/html5shiv.min.js` and `template/lib/respond/respond.min.js`. If they are missing, it automatically falls back to secure public CDN hosting.
 - **CDN Fallback for SWFObject:** Updated `swfobject` loading in `js.inc.php` to fall back to CDN if local files at `template/lib/swfobject/swfobject.js` are missing.
 
+### Fixed
+- **PHP 8.2 Database Exceptions in Setup:** Guarded setup table creation and seed data inserts with `CREATE TABLE IF NOT EXISTS`, `INSERT IGNORE INTO`, and exception handling to prevent uncaught `mysqli_sql_exception` fatal errors on existing tables or duplicate entries.
+- **Input Group Element Heights:** Removed custom `.input-group-text` padding override in `phpwcms.css` that caused input group addons and buttons to render taller than standard text inputs.
+- **Revision r554 Migration on Missing Tables:** Added table existence check in `phpwcms_revision_r554_update_datetime()` so migrations safely skip deprecated or optional tables (such as `phpwcms_chat`) without throwing missing table errors.
+
 ### Removed
+- **GD 1.x Legacy Support:** Removed deprecated GD 1.x option from setup media configuration and core image library fallback lists in favor of GD2.
+- **Obsolete Language Fragments:** Removed redundant `lang.pp.inc.php` and `lang.ext.inc.php` includes in `login.php`, `phpwcms.php`, `articlebrowser.php`, and `fileinfo.php` (already merged into main `lang.inc.php` language packs).
 - **Unused Local Polyfills and Libraries:** Deleted local library directories to reduce repository bloat:
   - Removed local SyntaxHighlighter files (`template/lib/syntaxhighlighter/*`)
   - Removed local html5shiv files (`template/lib/html5shiv/*`)

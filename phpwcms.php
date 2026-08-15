@@ -235,10 +235,17 @@ ob_start(); //without Compression
 header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
 
 ?><!DOCTYPE HTML>
-<html lang="<?php echo $BE['LANG']; ?>">
+<html lang="<?php echo $BE['LANG']; ?>" data-theme="<?php echo html(get_backend_theme()); ?>">
 <head><?php printf(PHPWCMS_HEADER_COMMENT, ''); ?>
     <title><?php echo $BL['be_page_title'] . ' - ' . PHPWCMS_HOST ?></title>
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo PHPWCMS_CHARSET ?>">
+    <script>
+    (function() {
+        var storedTheme = localStorage.getItem('phpwcms_theme');
+        var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
+        document.documentElement.setAttribute('data-theme', theme);
+    })();
+    </script>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -282,7 +289,7 @@ if($BE['LANG'] === 'ar') {
                         $_SESSION['phpwcms_backend_search'] = clean_slweg($_POST['backend_search_input']);
                     }
                     if (!empty($_SESSION['phpwcms_backend_search'])) {
-                        echo html_specialchars($_SESSION['phpwcms_backend_search']);
+                        echo html($_SESSION['phpwcms_backend_search']);
                     }
                     ?>" class="form-control" aria-describedby="basic-search" />
                     <div class="input-group-append" id="basic-search">
@@ -298,6 +305,16 @@ if($BE['LANG'] === 'ar') {
           echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
         <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
+        <li class="nav-item dropdown theme-switcher">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
+                <i class="theme-icon-active fa fa-adjust fa-fw"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="themeDropdown">
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw mr-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw mr-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw mr-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+            </div>
+        </li>
       </ul>
     </div>
   </header>

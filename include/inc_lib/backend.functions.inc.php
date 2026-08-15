@@ -620,6 +620,21 @@ function set_language_cookie($lang='en') {
     setcookie('phpwcmsBELang', $lang, time()+(3600*24*365), '/', getCookieDomain(), PHPWCMS_SSL, true);
 }
 
+function set_theme_cookie($theme = 'auto') {
+    $theme = in_array($theme, array('light', 'dark', 'auto'), true) ? $theme : 'auto';
+    setcookie('phpwcmsBETheme', $theme, time()+(3600*24*365), '/', getCookieDomain(), PHPWCMS_SSL, false);
+}
+
+function get_backend_theme() {
+    if (!empty($_SESSION['wcs_user_theme']) && in_array($_SESSION['wcs_user_theme'], array('light', 'dark', 'auto'), true)) {
+        return $_SESSION['wcs_user_theme'];
+    }
+    if (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('light', 'dark', 'auto'), true)) {
+        return $_COOKIE['phpwcmsBETheme'];
+    }
+    return 'auto';
+}
+
 // checks for alias and sets unique value
 function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
