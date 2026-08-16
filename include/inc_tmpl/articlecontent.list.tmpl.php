@@ -121,7 +121,10 @@ $(function() {
               </tr>
               <tr>
                 <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_cat']; ?>:</td>
-                <td><i class="fa fa-folder-open text-muted mr-1"></i><?php echo html($article['article_cat']); ?></td>
+                <td>
+                    <i class="fa fa-folder-open text-muted mr-1"></i><?php echo html(!empty($article['article_cat_name']) ? $article['article_cat_name'] : $article['article_cat']); ?>
+                    <span class="badge badge-secondary font-weight-normal badge-align badge-align-t3 ml-1">ID: <?php echo $article['article_catid']; ?></span>
+                </td>
               </tr>
               <?php
               // Show connected language articles
@@ -207,10 +210,10 @@ $(function() {
                   <td>
                     <?php
                     if($thumb_image) {
-                        echo '<img class="img-thumbnail mr-1" src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="" />';
+                        echo '<img class="img-thumbnail article-thumb mr-1" src="' . $thumb_image['src'] . '" alt="" />';
                     }
                     if($thumb_list_image) {
-                        echo '<img class="img-thumbnail' . (!empty($article['image']['list_usesummary']) ? ' opacity-50' : '') . '" src="' . $thumb_list_image['src'] . '" ' . $thumb_list_image[3] . ' alt="" />';
+                        echo '<img class="img-thumbnail article-thumb' . (!empty($article['image']['list_usesummary']) ? ' opacity-50' : '') . '" src="' . $thumb_list_image['src'] . '" alt="" />';
                     }
                     ?>
                   </td>
@@ -574,19 +577,17 @@ $(function() {
             <?php echo $sbutton_string[$row["acontent_id"]]; ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end text-muted">
-            [ID:<?php echo $row["acontent_id"] ?>]
+          <div class="col-sm-auto align-self-center justify-content-end">
+            <span class="badge badge-secondary font-weight-normal badge-align">ID: <?php echo $row["acontent_id"] ?></span>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
               <?php
                   echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
-                  if($contentpart_block != 'CPSET') {
-                    //Display cp paginate page number
-                    if($article["article_paginate"]) {
+                  if($contentpart_block !== 'CPSET' && $article["article_paginate"]) {
+                      //Display cp paginate page number
                       echo '<i class="fas fa-indent text-muted" data-toggle="tooltip" title="subsection"></i>';
                       echo $row["acontent_paginate_page"] == 0 ? 1 : $row["acontent_paginate_page"];
-                    }
                   }
               ?>
           </div>

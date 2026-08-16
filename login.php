@@ -282,11 +282,19 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
             }
 
             // Fallback to configured global editor
-            $_SESSION["WYSIWYG_EDITOR"] = empty($result[0]["usr_wysiwyg"]) ? $phpwcms["wysiwyg_editor"] : intval($result[0]["usr_wysiwyg"]);
-            $_SESSION["wcs_user_theme"] = isset($result[0]["usr_vars"]['theme']) && in_array($result[0]["usr_vars"]['theme'], array('auto', 'light', 'dark'), true) ? $result[0]["usr_vars"]['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
-            set_theme_cookie($_SESSION["wcs_user_theme"]);
-            $_SESSION["wcs_user_cp"]    = isset($result[0]["usr_vars"]['selected_cp']) && is_array($result[0]["usr_vars"]['selected_cp']) ? $result[0]["usr_vars"]['selected_cp'] : array();
-            $_SESSION["wcs_allowed_cp"] = isset($result[0]["usr_vars"]['allowed_cp']) && is_array($result[0]["usr_vars"]['allowed_cp']) ? $result[0]["usr_vars"]['allowed_cp'] : array();
+            $_SESSION['WYSIWYG_EDITOR'] = empty($result[0]['usr_wysiwyg']) ? $phpwcms['wysiwyg_editor'] : intval($result[0]['usr_wysiwyg']);
+            if (isset($_POST['form_theme']) && in_array($_POST['form_theme'], array('auto', 'light', 'dark'), true)) {
+                $_SESSION['wcs_user_theme'] = $_POST['form_theme'];
+                if (!isset($result[0]['usr_vars']['theme']) || $result[0]['usr_vars']['theme'] !== $_POST['form_theme']) {
+                    $result[0]['usr_vars']['theme'] = $_POST['form_theme'];
+                    _dbUpdate('phpwcms_user', array('usr_vars' => serialize($result[0]['usr_vars'])), 'WHERE usr_id=' . intval($result[0]['usr_id']));
+                }
+            } else {
+                $_SESSION['wcs_user_theme'] = isset($result[0]['usr_vars']['theme']) && in_array($result[0]['usr_vars']['theme'], array('auto', 'light', 'dark'), true) ? $result[0]['usr_vars']['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
+            }
+            set_theme_cookie($_SESSION['wcs_user_theme']);
+            $_SESSION['wcs_user_cp']    = isset($result[0]['usr_vars']['selected_cp']) && is_array($result[0]['usr_vars']['selected_cp']) ? $result[0]['usr_vars']['selected_cp'] : array();
+            $_SESSION['wcs_allowed_cp'] = isset($result[0]['usr_vars']['allowed_cp']) && is_array($result[0]['usr_vars']['allowed_cp']) ? $result[0]['usr_vars']['allowed_cp'] : array();
 
             // Test if there are CPs that use had choosen but no longer available for
             if(count($_SESSION["wcs_allowed_cp"])) {
@@ -385,12 +393,24 @@ $reason_types = array(
 </head>
 <body id="login">
     <div id="container">
-        <header id="header" class="navbar navbar-static-top">
-            <div class="container-fluid">
-                <div id="header-logo" class="navbar-header">
+        <header id="header" class="navbar navbar-expand navbar-static-top">
+            <div class="container-fluid px-0 px-sm-3">
+                <div id="header-logo" class="navbar-header d-flex align-items-center">
                     <a href="index.php" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System" /></a>
                 </div>
-                <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a> </div>
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item dropdown theme-switcher">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
+                            <i class="theme-icon-active fa fa-adjust fa-fw mr-1"></i> <span><?php echo html($BL['be_theme']); ?></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="themeDropdown">
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="auto"><i class="fa fa-adjust fa-fw mr-2"></i> <?php echo html($BL['be_theme_auto']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="light"><i class="fa fa-sun fa-fw mr-2"></i> <?php echo html($BL['be_theme_light']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                            <a class="dropdown-item d-flex align-items-center" href="#" data-set-theme="dark"><i class="fa fa-moon fa-fw mr-2"></i> <?php echo html($BL['be_theme_dark']); ?> <i class="fa fa-check ml-auto theme-check d-none"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </header>
 
         <div id="content">
@@ -497,33 +517,45 @@ ob_start();
 	</div>
 </div>
 <hr class="mt-4 mb-3" />
-<div class="form-group">
-	<label for="form_lang"><?php echo $BL["login_lang"] ?></label>
-    <div class="input-group">
-        <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
-        <?php
-        // check available languages installed and build language selector menu
-        $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
-        $lang_options = array();
-        while($lang_code = readdir($lang_dirs)) {
-            if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code."/lang.inc.php")) {
-                $_lang_code = strtoupper($lang_code);
-                $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
-                $lang_options[$_lang_code] .= ($lang_code == $_SESSION["wcs_user_lang"]) ? ' selected="selected"' : '';
-                $lang_options[$_lang_code] .= '>';
-        $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
-                $lang_options[$_lang_code] .= '</option>';
+<div class="form-row">
+    <div class="form-group col-6 mb-0">
+        <label for="form_lang"><?php echo $BL['login_lang'] ?></label>
+        <div class="input-group">
+            <select class="custom-select form-control-sm m-0" name="form_lang" id="form_lang" onchange="document.getElementById('json').value='2';login(this.form);">
+            <?php
+            // check available languages installed and build language selector menu
+            $lang_dirs = opendir(PHPWCMS_ROOT.'/include/inc_lang/backend');
+            $lang_options = array();
+            while($lang_code = readdir($lang_dirs)) {
+                if( substr($lang_code, 0, 1) !== '.' && is_file(PHPWCMS_ROOT.'/include/inc_lang/backend/'.$lang_code.'/lang.inc.php')) {
+                    $_lang_code = strtoupper($lang_code);
+                    $lang_options[$_lang_code]  = '<option value="'.$lang_code.'"';
+                    $lang_options[$_lang_code] .= ($lang_code == $_SESSION['wcs_user_lang']) ? ' selected="selected"' : '';
+                    $lang_options[$_lang_code] .= '>';
+                    $lang_options[$_lang_code] .= (isset($BL[$_lang_code])) ? $BL[$_lang_code] : $_lang_code;
+                    $lang_options[$_lang_code] .= '</option>';
+                }
             }
-        }
-        closedir($lang_dirs);
-        ksort($lang_options);
-        echo implode('', $lang_options);
+            closedir($lang_dirs);
+            ksort($lang_options);
+            echo implode('', $lang_options);
 
-        ?>
-        </select>
+            ?>
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-6 mb-0">
+        <label for="form_theme"><?php echo $BL['be_theme'] ?></label>
+        <div class="input-group">
+            <select class="custom-select form-control-sm m-0" name="form_theme" id="form_theme">
+                <option value="auto"<?php if(get_backend_theme() === 'auto'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_auto']; ?></option>
+                <option value="light"<?php if(get_backend_theme() === 'light'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_light']; ?></option>
+                <option value="dark"<?php if(get_backend_theme() === 'dark'): ?> selected="selected"<?php endif; ?>><?php echo $BL['be_theme_dark']; ?></option>
+            </select>
+        </div>
     </div>
 </div>
-<button name="submit_form" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL["login_button"] ?> <i class="fa fa-arrow-right"></i></button></form>
+<button name="submit_form" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_button'] ?> <i class="fa fa-arrow-right"></i></button></form>
 <?php
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
@@ -532,6 +564,10 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
 <script>
     document.getElementById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     document.getElementById('form_loginname').focus();
+    if (typeof initPhpwcmsTheme === 'function') {
+        initPhpwcmsTheme();
+    }
+</script>
 <?php if(!empty($phpwcms['browser_check']['be'])):
     $buoop = array('insecure' => isset($phpwcms['browser_check']['insecure']) ? boolval($phpwcms['browser_check']['insecure']) : true);
     if(!empty($phpwcms['browser_check']['vs'])) {

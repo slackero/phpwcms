@@ -44,26 +44,20 @@ if(isset($image_list['images']) && is_array($image_list['images']) && count($ima
 
         if($thumb_image != false) {
             if($imgx == 4) {
-                $cinfo_img .= '<br><img src="img/leer.gif" alt="" width="1" height="2"><br>';
+                $cinfo_img .= '<br>';
                 $imgx = 0;
             }
-            if($imgx) {
-                $cinfo_img .= '<img src="img/leer.gif" alt="" width="2" height="1">';
-            }
-            $cinfo_img .= '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($image_list['images'][ $key ][1]) . '">';
+            $cinfo_img .= '<img src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($image_list['images'][ $key ][1]) . '" class="img-fluid mr-1 mb-1">';
             $imgx++;
         }
     }
     if($imgx) {
-        if($cinfo["result"]) {
-            $cinfo["result"] .= '<br>';
-        }
         $cinfo["result"] .= $cinfo_img;
     }
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+    echo '<div class="col-auto">';
     echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"] . "&amp;acid=" . $row["acontent_id"] . "\">";
-    echo $cinfo["result"] . "</a></td><td>&nbsp;</td></tr>";
+    echo $cinfo["result"] . '</a></div>';
 }

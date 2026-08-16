@@ -198,7 +198,7 @@ if(!isset($content['ecard'])) {
 			<span class="mr-2"><?php echo $BL['be_cnt_imagespace']; ?>:</span>
 			<input name="cecard_space" type="text" class="form-control form-control-sm mr-2" id="cecard_space" style="width: 50px;" size="2" maxlength="2" onkeyup="if(!parseInt(this.value,10)) this.value='';" value="<?php echo $content['ecard']['space']; ?>" />
 			<span class="mr-4">px</span>
-			
+
 			<div class="custom-control custom-checkbox custom-control-inline ml-2">
 				<input name="cecard_zoom" type="checkbox" id="cecard_zoom" value="1" class="custom-control-input" <?php is_checked(1, $content['ecard']['zoom']); ?> />
 				<label class="custom-control-label" for="cecard_zoom"><?php echo $BL['be_cnt_enlarge']; ?></label>

@@ -58,7 +58,7 @@ if(is_array($reference["list"]) && count($reference["list"])) {
 }
 
 if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
+    echo '<div class="col-auto">';
     echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-    echo $cinfo["result"]."</a></td><td>&nbsp;</td></tr>";
+    echo $cinfo["result"]. '</a></div>';
 }

@@ -67,12 +67,14 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
             $article["article_uid"]         = $row["article_uid"];
 
             if($row["acat_id"]) {
+                $article["article_cat_name"]   = $row["acat_name"];
                 $article["article_cat"]         = $row["acat_name"].' [ID:'.$row["acat_id"].']';
                 $article["article_catid"]       = $row["acat_id"];
                 $article["template_id"]         = $row['acat_template'];
                 $article["article_cntpart"]     = isset($row['acat_cntpart']) ? convertStringToArray($row['acat_cntpart']) : false;
                 $article['article_cpdefault']   = empty($row['acat_cpdefault']) ? 0 : intval($row['acat_cpdefault']);
             } else {
+                $article["article_cat_name"]   = $indexpage['acat_name'];
                 $article["article_cat"]         = $indexpage['acat_name'].' [ID:0]';
                 $article["article_catid"]       = 0;
                 $article["template_id"]         = $indexpage['acat_template'];

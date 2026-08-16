@@ -4,4 +4,3 @@
 - Always use single quotes for PHP strings unless variable interpolation is required.
 - NEVER use `--delete` with `rsync` when syncing to the web server. Existing files in `/filearchive/`, `content/images/`, and `content/tmp/` on the web server must NEVER be deleted. Copying and overwriting with new repository files is allowed.
 
-

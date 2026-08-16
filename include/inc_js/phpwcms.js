@@ -1198,6 +1198,8 @@ function removeOptionLast(objectId) {
 }
 
 // Theme Management (Light, Dark, Automatic)
+let phpwcmsThemeInitialized = false;
+
 function initPhpwcmsTheme() {
     function getStoredTheme() {
         return localStorage.getItem('phpwcms_theme') || document.documentElement.getAttribute('data-theme') || 'auto';
@@ -1227,11 +1229,13 @@ function initPhpwcmsTheme() {
             }
         }
 
-        // Also sync theme select in profile form if present
-        const formThemeSelect = document.getElementById('form_theme');
-        if (formThemeSelect && formThemeSelect.value !== theme) {
-            formThemeSelect.value = theme;
-        }
+        // Also sync theme select in form if present
+        const formThemeSelects = document.querySelectorAll('#form_theme, [data-theme-select]');
+        formThemeSelects.forEach(select => {
+            if (select.value !== theme) {
+                select.value = theme;
+            }
+        });
     }
 
     function setTheme(theme, saveRemote = true) {
@@ -1245,7 +1249,7 @@ function initPhpwcmsTheme() {
         document.cookie = 'phpwcmsBETheme=' + encodeURIComponent(theme) + '; path=/; max-age=31536000; SameSite=Lax';
         updateThemeUI(theme);
 
-        if (saveRemote && typeof $ !== 'undefined') {
+        if (saveRemote && typeof $ !== 'undefined' && (!document.body || document.body.id !== 'login')) {
             $.post('include/inc_act/ajax_connector.php', {
                 action: 'set_theme',
                 value: theme
@@ -1256,19 +1260,23 @@ function initPhpwcmsTheme() {
     const currentTheme = getStoredTheme();
     setTheme(currentTheme, false);
 
-    document.addEventListener('click', e => {
-        const themeBtn = e.target.closest('[data-set-theme]');
-        if (themeBtn) {
-            e.preventDefault();
-            const chosenTheme = themeBtn.getAttribute('data-set-theme');
-            setTheme(chosenTheme, true);
-        }
-    });
+    if (!phpwcmsThemeInitialized) {
+        phpwcmsThemeInitialized = true;
 
-    const formThemeSelect = document.getElementById('form_theme');
-    if (formThemeSelect) {
-        formThemeSelect.addEventListener('change', () => {
-            setTheme(formThemeSelect.value, false);
+        document.addEventListener('click', e => {
+            const themeBtn = e.target.closest('[data-set-theme]');
+            if (themeBtn) {
+                e.preventDefault();
+                const chosenTheme = themeBtn.getAttribute('data-set-theme');
+                setTheme(chosenTheme, true);
+            }
+        });
+
+        document.addEventListener('change', e => {
+            const themeSelect = e.target.closest('#form_theme, [data-theme-select]');
+            if (themeSelect) {
+                setTheme(themeSelect.value, true);
+            }
         });
     }
 }
@@ -1280,3 +1288,4 @@ if (typeof document !== 'undefined') {
         initPhpwcmsTheme();
     }
 }
+
