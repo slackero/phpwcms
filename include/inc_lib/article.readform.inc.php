@@ -91,14 +91,14 @@ if(empty($_POST['cca']) || $content["after"] > 9999 || $content["after"] < -9999
 
 if(isset($_POST["target_ctype"])) {
 
-    $content["target_type"] = explode(':', $_POST["target_ctype"]);
-    $content["module"]      = empty($content["target_type"][1]) ? '' : trim($content["target_type"][1]);
-    $content["target_type"] = intval($content["target_type"][0]);
+    $content["target_type"]   = explode(':', $_POST["target_ctype"]);
+    $content["target_module"] = empty($content["target_type"][1]) ? '' : trim($content["target_type"][1]);
+    $content["target_type"]   = intval($content["target_type"][0]);
 
 } else {
 
-    $content["target_type"] = 0;
-    $content["module"]  = '';
+    $content["target_type"]   = 0;
+    $content["target_module"] = '';
 
 }
 
@@ -123,16 +123,26 @@ if($content['tab_type']) {
     }
 }
 
-$content["module"] = empty($_POST["ctype_module"]) ? '' : clean_slweg($_POST["ctype_module"]);
+if (!empty($_POST["ctype_module"])) {
+    $content["module"] = clean_slweg($_POST["ctype_module"]);
+}
 
-// check if content type possibly changed
-$content["update_type"] = ($content["target_type"] != $content["type"]) ? 1 : 0;
+// check if content type or module possibly changed
+$content["update_type"] = ($content["target_type"] != $content["type"] || (($content["target_type"] == 30 || $content["target_type"] == 60) && $content["target_module"] != $content["module"])) ? 1 : 0;
+
+if ($content["update_type"]) {
+    $content["module"] = $content["target_module"];
+}
 
 // read form vars for special content parts
-if($content["type"] != 30 && file_exists(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php")) {
+if($content["type"] != 30 && $content["type"] != 60 && file_exists(PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php")) {
 
     $content["module"]  = '';
     include_once PHPWCMS_ROOT."/include/inc_lib/content/cnt".$content["type"].".readform.inc.php";
+
+} elseif($content["type"] == 60 && file_exists(PHPWCMS_ROOT."/include/inc_lib/content/cnt60.readform.inc.php")) {
+
+    include_once PHPWCMS_ROOT."/include/inc_lib/content/cnt60.readform.inc.php";
 
 } elseif($content["type"] == 30 && file_exists($phpwcms['modules'][$content['module']]['path'].'inc/cnt.post.php')) {
 

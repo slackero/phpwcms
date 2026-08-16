@@ -15,7 +15,15 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// Content Type Images Special
-$content["custom_template"]	= $row["acontent_template"];
-$content["custom_form"]	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
-$content["custom_html"]		= $row["acontent_html"];
+// Content Type Custom Content Part
+$content['custom_template'] = $row['acontent_template'] ?? '';
+$content['custom_html']     = $row['acontent_html'] ?? '';
+
+$decoded_form = json_decode($row['acontent_form'] ?? '', true);
+$content['custom_form'] = is_array($decoded_form) ? $decoded_form : @unserialize($row['acontent_form'] ?? '', ['allowed_classes' => false]);
+if (!is_array($content['custom_form'])) {
+    $content['custom_form'] = array();
+}
+if (!isset($content['custom_form']['custom_elements']) || !is_array($content['custom_form']['custom_elements'])) {
+    $content['custom_form']['custom_elements'] = array();
+}

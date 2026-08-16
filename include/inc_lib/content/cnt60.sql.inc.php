@@ -15,7 +15,7 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-// Content Type Images Special
-$SQL .= "acontent_html="._dbEscape($content["custom_html"]).", ";
-$SQL .= "acontent_template="._dbEscape($content["custom_template"]).", ";
-$SQL .= "acontent_form="._dbEscape(serialize($content['custom_form']))." ";
+// Content Type Custom Content Part
+$SQL .= 'acontent_html=' . _dbEscape($content['custom_html']) . ', ';
+$SQL .= 'acontent_template=' . _dbEscape($content['custom_template']) . ', ';
+$SQL .= 'acontent_form=' . _dbEscape(json_encode($content['custom_form'], JSON_UNESCAPED_UNICODE)) . ' ';

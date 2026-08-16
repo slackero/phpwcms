@@ -155,14 +155,16 @@ function _dbQuery($query='', $_queryMode='ASSOC') {
                 $_queryMode = 'mysqli_fetch_assoc';
         }
 
+        if (is_bool($result)) {
+            return $result;
+        }
+
         while($row = $_queryMode($result)) {
             $queryResult[$queryCount] = $row;
             $queryCount++;
         }
 
-        if (!is_bool($result)) {
-            mysqli_free_result($result);
-        }
+        mysqli_free_result($result);
 
         return $queryResult;
 

@@ -47,6 +47,7 @@ $groupnames = array(
     'admialias' => $BL['be_nav_admin'] . ' - ' . $BL['be_imagealias'],
     'admctptemp' => $BL['be_nav_admin'] . ' - ' . $BL['be_ctptemp'],
     'admlink' => $BL['be_nav_admin'] . ' - ' . $BL['be_link'],
+    'admcustomcpt' => $BL['be_nav_admin'] . ' - ' . ($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts'),
     'profile' => $BL['be_nav_profile'],
     'admfilecat' => $BL['be_nav_admin'] . ' - ' . $BL['be_subnav_admin_filecat'],
 );

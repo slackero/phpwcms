@@ -393,6 +393,22 @@ CREATE TABLE `phpwcms_crossreference` (
   KEY `cref_module` (`cref_module`)
 );
 
+CREATE TABLE `phpwcms_custom_cpt` (
+  `cpt_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cpt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cpt_changed` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `cpt_active` tinyint(1) NOT NULL DEFAULT '1',
+  `cpt_key` varchar(50) NOT NULL DEFAULT '',
+  `cpt_title` varchar(255) NOT NULL DEFAULT '',
+  `cpt_desc` text NOT NULL,
+  `cpt_mode` varchar(20) NOT NULL DEFAULT 'repeater',
+  `cpt_icon` varchar(50) NOT NULL DEFAULT 'fa-cube',
+  `cpt_template` varchar(255) NOT NULL DEFAULT '',
+  `cpt_schema` longtext NOT NULL,
+  PRIMARY KEY (`cpt_id`),
+  UNIQUE KEY `cpt_key` (`cpt_key`)
+);
+
 CREATE TABLE `phpwcms_file` (
   `f_id` int(11) NOT NULL AUTO_INCREMENT,
   `f_pid` int(11) NOT NULL DEFAULT '0',

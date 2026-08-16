@@ -676,7 +676,8 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
                     } else {
 
-                        $content["type"] = $content["target_type"];
+                        $content["type"]   = $content["target_type"];
+                        $content["module"] = $content["target_module"];
 
                     }
 
@@ -695,10 +696,13 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
 
                         if($content["update_type"]) { //If content part type was changed
                             $sql  = "UPDATE ".DB_PREPEND."phpwcms_articlecontent SET";
-                            $sql .= " acontent_type=".$content["target_type"];
+                            $sql .= " acontent_type=".$content["target_type"].",";
+                            $sql .= " acontent_module="._dbEscape($content["target_module"]);
                             $sql .= " WHERE acontent_id=".$content["id"];
                             $sql .= " AND acontent_aid=".$content["aid"];
                             $result = _dbQuery($sql, 'UPDATE');
+                            $content["type"]   = $content["target_type"];
+                            $content["module"] = $content["target_module"];
                         }
                         change_articledate($content["aid"]); //update article date too
                         update_cache(); // set cache timeout = 0

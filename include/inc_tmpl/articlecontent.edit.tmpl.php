@@ -144,11 +144,15 @@ if(empty($content['article']['acat_id'])) { // Root structure
     echo $BL['be_article_cnt_title'].' &#8212; <span style="text-transform: uppercase;">';
     echo $wcs_content_type[$content["type"]];
     if (!empty($content["module"])) {
-        echo ': '.$BL['modules'][$content["module"]]['listing_title'];
+        if ($content["type"] == 30 && isset($BL['modules'][$content["module"]]['listing_title'])) {
+            echo ': '.$BL['modules'][$content["module"]]['listing_title'];
 
-        // check if Module is in setting mode
-        if (!empty($phpwcms['modules'][$content["module"]]['setting'])) {
-            $content['cp_setting_mode'] = true;
+            // check if Module is in setting mode
+            if (!empty($phpwcms['modules'][$content["module"]]['setting'])) {
+                $content['cp_setting_mode'] = true;
+            }
+        } elseif ($content["type"] == 60 && function_exists('get_custom_contentpart_title')) {
+            echo ': '.get_custom_contentpart_title($content["module"]);
         }
     }
     echo '</span>';

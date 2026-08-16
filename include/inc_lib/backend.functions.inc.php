@@ -502,8 +502,7 @@ function getContentPartOptionTag($value='', $text='', $selected='', $module='') 
 
     $result = '';
 
-
-    // neccessary plugin check
+    // necessary plugin check
     if($value == 30) {
 
         if(!isset($GLOBALS['temp_count'])) {
@@ -524,6 +523,34 @@ function getContentPartOptionTag($value='', $text='', $selected='', $module='') 
                 $GLOBALS['temp_count']++;
             }
 
+        }
+
+    } elseif($value == 60 && function_exists('get_custom_contentparts')) {
+
+        if(!isset($GLOBALS['temp_count'])) {
+            $GLOBALS['temp_count'] = 0;
+        }
+
+        $custom_cpts = get_custom_contentparts(true);
+        if(is_array($custom_cpts) && count($custom_cpts)) {
+            foreach($custom_cpts as $cpt_key => $cpt_data) {
+                $result .= '<option value="'.$value.':'.$cpt_key.'"';
+                if($value == $selected && $cpt_key == $module) {
+                    $result .= ' selected="selected"';
+                    $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+                }
+                $result .= '>'.$text.': '.html($cpt_data['cpt_title']);
+                $result .= '</option>'.LF;
+                $GLOBALS['temp_count']++;
+            }
+        } else {
+            $result .= '<option value="'.$value.'"';
+            if($value == $selected) {
+                $result .= ' selected="selected"';
+                $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
+            }
+            $result .= '>'.$text.'</option>'.LF;
+            $GLOBALS['temp_count']++;
         }
 
     } else {

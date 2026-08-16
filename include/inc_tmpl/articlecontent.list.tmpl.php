@@ -531,7 +531,11 @@ $(function() {
           <div class="col small font-weight-bold text-uppercase"><?php
             $cntpart_title = $wcs_content_type[$row["acontent_type"]];
             if(!empty($row["acontent_module"])) {
-              $cntpart_title .= ': '.$BL['modules'][$row["acontent_module"]]['listing_title'];
+              if($row["acontent_type"] == 30 && isset($BL['modules'][$row["acontent_module"]]['listing_title'])) {
+                $cntpart_title .= ': '.$BL['modules'][$row["acontent_module"]]['listing_title'];
+              } elseif($row["acontent_type"] == 60 && function_exists('get_custom_contentpart_title')) {
+                $cntpart_title .= ': '.get_custom_contentpart_title($row["acontent_module"]);
+              }
             }
             echo $cntpart_title;
            ?>

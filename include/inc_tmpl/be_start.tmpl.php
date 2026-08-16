@@ -188,8 +188,10 @@ $_last10_article = _dbQuery($_asql_1);
           echo '<tr>'.LF;
 
           echo '  <td class="home-type text-nowrap">'.$wcs_content_type[$value["acontent_type"]];
-          if ($value["acontent_type"] == 30) {
+          if ($value["acontent_type"] == 30 && isset($BL['modules'][$value["acontent_module"]])) {
               echo ': '.$BL['modules'][$value["acontent_module"]]['listing_title'];
+          } elseif ($value["acontent_type"] == 60 && function_exists('get_custom_contentpart_title')) {
+              echo ': '.get_custom_contentpart_title($value["acontent_module"]);
           }
           echo '&nbsp;</td>'.LF;
 
