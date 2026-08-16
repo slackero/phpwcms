@@ -15,42 +15,58 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
-
 // Multimedia
 
-$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
-$cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
-
-$media["media"]         = unserialize($row["acontent_form"], ['allowed_classes' => false]);
-$media["media_type"]    = $media["media"]['media_type'];
-$media["media_player"]  = $media["media"]['media_player'];
-$media["media_id"]      = $media["media"]["media_id"];
-$media["media_cnt"]     = $media["media_id"] ? $media["media"]['media_name'] : $media["media"]['media_extern'];
-switch($media["media_type"]) {
-    case 0: $media["media_type"]="VIDEO"; break;
-    case 1: $media["media_type"]="AUDIO"; break;
-    case 2: $media["media_type"]="FLASH"; break;
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
 }
-switch($media["media_player"]) {
-    case 0: $media["media_player"] = 'fab fa-apple text-secondary'; break;
-    case 1: $media["media_player"] = 'fas fa-play-circle text-primary'; break;
-    case 2: $media["media_player"] = 'fab fa-windows text-info'; break;
-    case 3: $media["media_player"] = 'fab fa-adobe text-danger'; break;
-}
-$media["media_src"] =  $media["media_id"] ? "INTERNAL SOURCE" : "EXTERNAL SOURCE";
-if($media["media_cnt"]) {
-    $cinfo["media"]  = '<i class="' . $media["media_player"] . ' fa-2x mr-2 float-left" title="' . $media["media_type"] . '"></i>';
-    $cinfo["media"] .= ($cinfo[1] || $cinfo[2]) ? '<br />' : '';
-    $cinfo["media"] .= "<strong>".$media["media_src"]."<br />".$media["media_type"]."</strong>";
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
 }
 
-$cinfo["result"] = "";
-foreach($cinfo as $value) {
- if($value) $cinfo["result"] .= $value."\n";
+$media = [];
+$media['media']        = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$media['media_type']   = $media['media']['media_type'] ?? 0;
+$media['media_player'] = $media['media']['media_player'] ?? 0;
+$media['media_id']     = $media['media']['media_id'] ?? 0;
+$media['media_cnt']    = $media['media_id'] ? ($media['media']['media_name'] ?? '') : ($media['media']['media_extern'] ?? '');
+
+switch ($media['media_type']) {
+    case 0: $type_label = 'VIDEO'; break;
+    case 1: $type_label = 'AUDIO'; break;
+    case 2: $type_label = 'FLASH'; break;
+    default: $type_label = 'MEDIA';
 }
-$cinfo["result"] = str_replace("\n", " / ", chop($cinfo["result"]));
-if($cinfo["result"]) { //Zeige Inhaltinfo
- echo "<div class=\"col-sm-auto\">";
- echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
- echo $cinfo["result"]."</a></div>";
+
+switch ($media['media_player']) {
+    case 0: $player_icon = 'fab fa-apple text-secondary'; break;
+    case 1: $player_icon = 'fas fa-play-circle text-primary'; break;
+    case 2: $player_icon = 'fab fa-windows text-info'; break;
+    case 3: $player_icon = 'fab fa-adobe text-danger'; break;
+    default: $player_icon = 'fas fa-play-circle text-primary';
+}
+
+$media_src = $media['media_id'] ? 'INTERNAL SOURCE' : 'EXTERNAL SOURCE';
+$cinfo_media = '';
+if (!empty($media['media_cnt'])) {
+    $cinfo_media = '<i class="' . $player_icon . ' mr-1" title="' . $type_label . '"></i> ';
+    $cinfo_media .= '<strong>' . $media_src . ' [' . $type_label . ']</strong>';
+}
+
+$cinfo_result = implode(' / ', $cinfo);
+
+if ($cinfo_result !== '' || $cinfo_media !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    if ($cinfo_result !== '') {
+        echo $cinfo_result;
+        if ($cinfo_media !== '') {
+            echo '<br>';
+        }
+    }
+    if ($cinfo_media !== '') {
+        echo $cinfo_media;
+    }
+    echo '</a></div>';
 }

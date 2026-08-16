@@ -10,29 +10,31 @@
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
-if(!defined('PHPWCMS_ROOT')) {
+if (!defined('PHPWCMS_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 // Form Email
 
-$cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
-$cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$cinfo_formmail = explode("#:#", $row["acontent_form"]);
-$cinfo[3] = html($cinfo_formmail[1]) . " -> " . $cinfo_formmail[2];
-$cinfo[3] .= " [" . (($cinfo_formmail[4]) ? "HTML" : "TEXT") . "]";
-
-$cinfo["result"] = "";
-
-foreach($cinfo as $value) {
-    if($value) {
-        $cinfo["result"] .= $value . "\n";
-    }
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
 }
-$cinfo["result"] = str_replace("\n", " / ", chop($cinfo["result"]));
-if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<tr><td>&nbsp;</td><td class=\"v10\">";
-    echo "<a href=\"phpwcms.php?do=articles&p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"] . "&amp;acid=" . $row["acontent_id"] . "\">";
-    echo $cinfo["result"] . "</a></td><td>&nbsp;</td></tr>";
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
+}
+
+$cinfo_formmail = explode('#:#', $row['acontent_form']);
+if (!empty($cinfo_formmail[1]) || !empty($cinfo_formmail[2])) {
+    $formmail_info = html($cinfo_formmail[1] ?? '') . ' &rarr; ' . html($cinfo_formmail[2] ?? '');
+    $formmail_info .= ' [' . (!empty($cinfo_formmail[4]) ? 'HTML' : 'TEXT') . ']';
+    $cinfo[] = $formmail_info;
+}
+
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    echo $cinfo_result . '</a></div>';
 }

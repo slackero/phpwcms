@@ -11,31 +11,28 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
+// Form Generator
 
-// Plain Text
-
-$cinfo[1] = html(cut_string($row["acontent_title"],'&#8230;', 55));
-$cinfo[2] = html(cut_string($row["acontent_subtitle"],'&#8230;', 55));
-$cinfo["result"] = "";
-foreach($cinfo as $value) {
-	if($value) $cinfo["result"] .= $value."\n";
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
 }
-$cinfo["result"] = str_replace("\n", " / ", trim($cinfo["result"]));
-
-
-echo "<div class=\"col-sm-auto\">";
-if($cinfo["result"]) { //Zeige Inhaltinfo
-	echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=";
-	echo $row["acontent_id"]."\">".$cinfo["result"].'</a>';
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
 }
-$form = unserialize($row["acontent_form"], ['allowed_classes' => false]);
-if($form['subject']) {
-	if($cinfo["result"]) echo '<br>';
-	echo html($form['subject']);
+
+$form = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+if (!empty($form['subject'])) {
+    $cinfo[] = html($form['subject']);
 }
-unset($form);
-echo "</div>";
+
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    echo $cinfo_result . '</a></div>';
+}

@@ -15,57 +15,48 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+// Images Special
 
-// Images
-
-$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : ' ';
-$cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
-$cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
+}
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
+}
 
 // get image array
-$image_list = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
+$image_list = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$cinfo_img = '';
 
-if(isset($image_list['images']) && is_array($image_list['images']) && count($image_list['images'])) {
+if (isset($image_list['images']) && is_array($image_list['images']) && count($image_list['images'])) {
+    foreach ($image_list['images'] as $key => $value) {
+        if (!empty($image_list['images'][$key][2]) && !empty($image_list['images'][$key][3])) {
+            $thumb_image = get_cached_image([
+                'target_ext' => $image_list['images'][$key][3],
+                'image_name' => $image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
+                'thumb_name' => md5($image_list['images'][$key][2] . $phpwcms['img_list_width'] . $phpwcms['img_list_height'] . $phpwcms['sharpen_level'] . $phpwcms['colorspace']),
+            ]);
 
-    $imgx = 0;
-    $img_thumbs = '';
-    $cinfo_img = '';
-
-    // browse images and list available
-    // will be visible only when aceessible
-    foreach($image_list['images'] as $key => $value) {
-
-        $thumb_image = get_cached_image(array(
-            "target_ext"    =>  $image_list['images'][$key][3],
-            "image_name"    =>  $image_list['images'][$key][2] . '.' . $image_list['images'][$key][3],
-            "thumb_name"    =>  md5($image_list['images'][$key][2].$phpwcms["img_list_width"].$phpwcms["img_list_height"].$phpwcms["sharpen_level"].$phpwcms['colorspace'])
-        ));
-
-        if($thumb_image != false) {
-            if($imgx == 4) {
-                $cinfo_img .= '';
-                $imgx = 0;
+            if ($thumb_image !== false) {
+                $cinfo_img .= '<img class="img-thumbnail rounded mr-1 mb-1" src="' . $thumb_image['src'] . '" ' . $thumb_image[3] . ' alt="' . html($image_list['images'][$key][1] ?? '') . '" />';
             }
-            if($imgx) {
-                $cinfo_img .= '';
-            }
-            $cinfo_img .= '<div class="col-auto pr-0 pt-1 pb-1">';
-            $cinfo_img .= '<img class="img-fluid" src="' . $thumb_image['src'] .'" '.$thumb_image[3].' alt="'.html($image_list['images'][$key][1]).'" />';
-            $cinfo_img .= '</div>';
-            $imgx++;
         }
-    }
-    if($imgx) {
-        if($cinfo["result"]) $cinfo["result"] .= '</div>';
-        $cinfo["result"] .= $cinfo_img;
     }
 }
 
-if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<a class=\"w-100\" href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-    echo "<div class=\"row mx-0\">";
-    echo "<div class=\"col-12 pb-2\">";
-    echo $cinfo["result"];
-    echo "</div>";
-    echo "</a>";
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '' || $cinfo_img !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    if ($cinfo_result !== '') {
+        echo $cinfo_result;
+        if ($cinfo_img !== '') {
+            echo '<br>';
+        }
+    }
+    if ($cinfo_img !== '') {
+        echo $cinfo_img;
+    }
+    echo '</a></div>';
 }

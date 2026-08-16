@@ -11,33 +11,26 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-  die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
+// File List / Ext. Content
 
-// File List
-
-$cinfo["result"]  = '';
-if($row["acontent_title"]) {
-  $cinfo["result"] .= getCleanSubString($row["acontent_title"], 55, '&#8230;');
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
 }
-if($cinfo["result"] && $row["acontent_subtitle"]) {
-  $cinfo["result"] .= ' / ';
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
 }
-if($row["acontent_subtitle"]) {
-  $cinfo["result"] .= getCleanSubString($row["acontent_subtitle"], 55, '&#8230;');
-}
-$cinfo["result"]  = html($cinfo["result"]);
-if($row["acontent_template"]) {
-  if($cinfo["result"]) {
-    $cinfo["result"] .= ' / ';
-  }
-  $cinfo["result"] .= $BL['be_admin_struct_template'].': <strong>'.html($row["acontent_template"]).'</strong>';
+if (!empty($row['acontent_template'])) {
+    $cinfo[] = $BL['be_admin_struct_template'] . ': <strong>' . html($row['acontent_template']) . '</strong>';
 }
 
-if($cinfo["result"]) { //Zeige Inhaltinfo
-  echo '<div class="col-sm-auto">';
-  echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article["article_id"]."&amp;acid=".$row["acontent_id"].'">';
-  echo $cinfo["result"].'</a></div>';
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    echo $cinfo_result . '</a></div>';
 }

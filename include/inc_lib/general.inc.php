@@ -1084,7 +1084,10 @@ function getCleanSubString($cutString = '', $maxLength = 0, $moreChar = '', $cut
         } elseif ($sanitize === null && $maxLength >= mb_strlen($curString)) {
             return $curString;
         }
-        preg_match_all('/&[^;]+;|./', $curString, $match);
+        $match_res = @preg_match_all('/&[^;]+;|./u', $curString, $match);
+        if ($match_res === false || empty($match[0])) {
+            preg_match_all('/&[^;]+;|./', $curString, $match);
+        }
         if (is_array($match[0]) && count($match[0]) > $maxLength) {
             $match[0] = array_slice($match[0], 0, $maxLength);
             $cutString = trim(implode('', $match[0]));

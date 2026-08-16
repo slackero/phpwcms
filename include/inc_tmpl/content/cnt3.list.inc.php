@@ -10,36 +10,38 @@
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
-if(!defined('PHPWCMS_ROOT')) {
+if (!defined('PHPWCMS_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-// Redirect
+// Link & Ext Link
 
-$cinfo[1] = cut_string($row["acontent_title"], '&#8230;', 55);
-$cinfo[2] = cut_string($row["acontent_subtitle"], '&#8230;', 55);
-$cinfo["result"] = "";
-$content["link"] = explode(" ", $row["acontent_redirect"]);
-if(isset($content["link"][1])) {
-    $content["target"] = $content["link"][1];
-} else {
-    $content["target"] = '';
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
 }
-$content["link"] = $content["link"][0];
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
+}
 
-foreach($cinfo as $value) {
-    if($value) {
-        $cinfo["result"] .= $value . "\n";
-    }
+$cinfo_link = explode(' ', trim($row['acontent_text']));
+$content['target'] = isset($cinfo_link[1]) ? trim($cinfo_link[1]) : '';
+$content['link']   = trim($cinfo_link[0]);
+
+if ($content['link'] !== '') {
+    $cinfo[] = html($content['link'] . ($content['target'] !== '' ? ' ' . $content['target'] : ''));
 }
-$cinfo["result"] .= str_replace("\n", " / ", html(chop($cinfo["result"])));
-echo "<div class=\"col-sm-auto\">";
-echo "<a href=\"" . $content["link"] . "\" target=\"_blank\">";
-echo '<i class="fas fa-external-link-alt mr-1"></i>';
-echo "</a>";
-if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo " <a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"];
-    echo "&amp;acid=" . $row["acontent_id"] . "\">" . $cinfo["result"] . "</a>";
+
+$cinfo_result = implode(' / ', $cinfo);
+
+echo '<div class="col-12">';
+if ($content['link'] !== '') {
+    echo '<a class="mr-2" href="' . html($content['link']) . '" target="_blank" title="' . html($content['link']) . '">';
+    echo '<i class="fas fa-external-link-alt"></i>';
+    echo '</a>';
 }
-echo "</div>";
+if ($cinfo_result !== '') {
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">' . $cinfo_result . '</a>';
+}
+echo '</div>';

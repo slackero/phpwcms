@@ -11,33 +11,43 @@
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-	die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
-
 // Tabs
 
-$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : '';
-$cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
-$cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
+}
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
+}
 
-$row["acontent_form"] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
-unset($row['acontent_form']['tabwysiwygoff'], $row['acontent_form']['tab_fieldgroup']);
+$tabs_form = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+$tab_titles = [];
+if (is_array($tabs_form)) {
+    unset($tabs_form['tabwysiwygoff'], $tabs_form['tab_fieldgroup']);
+    foreach ($tabs_form as $value) {
+        if (is_array($value) && !empty($value['tabtitle'])) {
+            $tab_titles[] = '&raquo; ' . html($value['tabtitle'] . (!empty($value['tabheadline']) ? ' - ' . $value['tabheadline'] : ''));
+        }
+    }
+}
 
-if($cinfo["result"] || count($row["acontent_form"])) {
-	echo "<div class=\"col-sm-auto\">";
-	echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$article["article_id"].'&amp;acid='.$row["acontent_id"].'">';
-	echo $cinfo["result"];
-
-	$cinfo["result"] = trim($cinfo["result"]) ? '<br />' : '';
-
-	foreach($row["acontent_form"] as $value) {
-
-		echo $cinfo["result"] . '&raquo; '.html($value['tabtitle'].($value['tabheadline'] != '' ? ' - '.$value['tabheadline'] : ''));
-		$cinfo["result"] = '<br />';
-
-	}
-
-	echo "</a></div>";
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '' || count($tab_titles)) {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    if ($cinfo_result !== '') {
+        echo $cinfo_result;
+        if (count($tab_titles)) {
+            echo '<br>';
+        }
+    }
+    if (count($tab_titles)) {
+        echo implode('<br>', $tab_titles);
+    }
+    echo '</a></div>';
 }

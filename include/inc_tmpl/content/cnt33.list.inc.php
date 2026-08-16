@@ -10,30 +10,29 @@
 
 // ----------------------------------------------------------------
 // obligate check for phpwcms constants
-if(!defined('PHPWCMS_ROOT')) {
+if (!defined('PHPWCMS_ROOT')) {
     die("You Cannot Access This Script Directly, Have a Nice Day.");
 }
 // ----------------------------------------------------------------
 
 // News
 
-$cinfo["result"] = '';
-
-$cinfo[1] = html(cut_string($row["acontent_title"], '&#8230;', 55));
-$cinfo[2] = html(cut_string($row["acontent_subtitle"], '&#8230;', 55));
-$cinfo[3] = @unserialize($row["acontent_form"], ['allowed_classes' => false]);
-if(isset($cinfo[3]['news_category'])) {
-    $cinfo[3] = implode(', ', $cinfo[3]['news_category']);
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
+}
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
 }
 
-foreach($cinfo as $value) {
-    if($value) {
-        $cinfo["result"] .= $value . ' / ';
-    }
+$news_form = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+if (isset($news_form['news_category']) && is_array($news_form['news_category'])) {
+    $cinfo[] = html(implode(', ', $news_form['news_category']));
 }
-$cinfo["result"] = trim(trim($cinfo["result"]), '/');
-if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<div class=\"col-sm-auto\">";
-    echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=" . $article["article_id"] . "&amp;acid=" . $row["acontent_id"] . "\">";
-    echo $cinfo["result"] . "</a></div>";
+
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    echo $cinfo_result . '</a></div>';
 }

@@ -15,23 +15,27 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+// Custom Elements
 
-// custom elements
-
-$cinfo["result"]  = $row["acontent_title"] ? cut_string($row["acontent_title"],'&#8230;', 55) : '';
-$cinfo["result"] .= ($cinfo["result"] && $row["acontent_subtitle"]) ? " / " : "";
-$cinfo["result"] .= $row["acontent_subtitle"] ? cut_string($row["acontent_subtitle"],'&#8230;', 55) : '';
-$cinfo["result"] .= '<br />'.$BL['be_admin_struct_template'] . ':&nbsp;';
-$cinfo["result"] .= $row["acontent_template"] ? cut_string($row["acontent_template"],'&#8230;', 55) : '';
-
-// get custom array
-$custom_data	= @unserialize($row["acontent_form"], ['allowed_classes' => false]);
-if(count($custom_data['custom_elements'])) {
-    $cinfo["result"] .= '<br />'.$BL['be_cnt_custom_entries'] . ':&nbsp;'.count($custom_data['custom_elements']);
+$cinfo = [];
+if (!empty($row['acontent_title'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_title'], 55, '&#8230;'));
+}
+if (!empty($row['acontent_subtitle'])) {
+    $cinfo[] = html(getCleanSubString($row['acontent_subtitle'], 55, '&#8230;'));
+}
+if (!empty($row['acontent_template'])) {
+    $cinfo[] = $BL['be_admin_struct_template'] . ': <strong>' . html($row['acontent_template']) . '</strong>';
 }
 
-if($cinfo["result"]) { //Zeige Inhaltinfo
-    echo "<div class=\"col-sm-auto\">";
-    echo "<a href=\"phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=".$article["article_id"]."&amp;acid=".$row["acontent_id"]."\">";
-    echo $cinfo["result"]."</a></div>";
+$custom_data = @unserialize($row['acontent_form'], ['allowed_classes' => false]);
+if (is_array($custom_data) && !empty($custom_data['custom_elements']) && is_array($custom_data['custom_elements'])) {
+    $cinfo[] = $BL['be_cnt_custom_entries'] . ': <strong>' . count($custom_data['custom_elements']) . '</strong>';
+}
+
+$cinfo_result = implode(' / ', $cinfo);
+if ($cinfo_result !== '') {
+    echo '<div class="col-12">';
+    echo '<a href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=' . $article['article_id'] . '&amp;acid=' . $row['acontent_id'] . '">';
+    echo $cinfo_result . '</a></div>';
 }

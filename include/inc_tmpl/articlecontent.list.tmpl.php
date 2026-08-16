@@ -556,55 +556,55 @@ $(function() {
           <div class="col-sm-auto align-self-center justify-content-end">
           <?php
           //Anzeigen der Space Before/After Info
-          if(intval($row["acontent_before"])) {
-            echo '<small><span class="mx-2"><i class="fa fa-long-arrow-up" aria-hidden="true"></i> '.$row["acontent_before"];
+          if(intval($row['acontent_before'])) {
+            echo '<small><span class="mx-2"><i class="fa fa-arrow-up" aria-hidden="true"></i> ' . $row['acontent_before'];
             echo '</span></small>';
           }
-          if(intval($row["acontent_after"])) {
-            echo '<small><span class="mx-2"><i class="fa fa-long-arrow-down" aria-hidden="true"></i> '.$row["acontent_after"];
+          if(intval($row['acontent_after'])) {
+            echo '<small><span class="mx-2"><i class="fa fa-arrow-down" aria-hidden="true"></i> ' . $row['acontent_after'];
             echo '</span></small>';
           }
-          if($row["acontent_top"]) {
-            echo '<small><i class="fa fa-caret-square-o-up fa-fw mx-1" aria-hidden="true" data-toggle="tooltip" title="TOP"></i></small>';
+          if($row['acontent_top']) {
+            echo '<small><i class="far fa-caret-square-up fa-fw mx-1" aria-hidden="true" data-toggle="tooltip" title="TOP"></i></small>';
           }
-          if($row["acontent_anchor"]) {
+          if($row['acontent_anchor']) {
             echo '<small><i class="fa fa-anchor fa-fw mx-1" aria-hidden="true" data-toggle="tooltip" title="Anchor"></i></small>';
           }
           ?>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
-            <?php echo $sbutton_string[$row["acontent_id"]]; ?>
+            <?php echo $sbutton_string[$row['acontent_id']]; ?>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end">
-            <span class="badge badge-secondary font-weight-normal badge-align">ID: <?php echo $row["acontent_id"] ?></span>
+            <span class="badge badge-secondary font-weight-normal badge-align">ID: <?php echo $row['acontent_id']; ?></span>
           </div>
 
           <div class="col-sm-auto align-self-center justify-content-end text-nowrap">
               <?php
-                  echo date($BL['be_shortdatetime'], $row["acontent_date"]).'&nbsp;';
-                  if($contentpart_block !== 'CPSET' && $article["article_paginate"]) {
+                  echo date($BL['be_shortdatetime'], $row['acontent_date']) . '&nbsp;';
+                  if($contentpart_block !== 'CPSET' && $article['article_paginate']) {
                       //Display cp paginate page number
                       echo '<i class="fas fa-indent text-muted" data-toggle="tooltip" title="subsection"></i>';
-                      echo $row["acontent_paginate_page"] == 0 ? 1 : $row["acontent_paginate_page"];
+                      echo $row['acontent_paginate_page'] == 0 ? 1 : $row['acontent_paginate_page'];
                   }
               ?>
           </div>
 
-          <div class="col-sm-auto align-self-center justify-content-end" >
-            <div class="btn-group btn-group-sm" role="group" aria-label="cp-actions-<?php echo $row["acontent_id"] ?>">
-              <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_edit'] ?>" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article["article_id"]."&amp;acid=".$row["acontent_id"]; ?>">
+          <div class="col-sm-auto align-self-center justify-content-end">
+            <div class="btn-group btn-group-sm" role="group" aria-label="cp-actions-<?php echo $row['acontent_id']; ?>">
+              <a class="btn btn-sm btn-blue" role="button" aria-disabled="true" data-toggle="tooltip" title="<?php echo $BL['be_article_cnt_edit']; ?>" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id=<?php echo $article['article_id'] . '&amp;acid=' . $row['acontent_id']; ?>">
                 <i class="fa fa-pencil-alt"></i>
               </a>
               <?php
               // duplicate content part
-              echo '<a href="include/inc_act/act_structure.php?do=8%7C'.$row["acontent_id"].'%7C'.$article["article_id"].'%7C'.($row["acontent_sorting"]+5).'" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="'.$BL['be_func_content_copy'].' [ID:'.$row["acontent_id"].']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="'.html($BL['be_func_content_copy']).'" data-confirm="'.html($BL['be_func_content_copy'].': ' . $cntpart_title . ' [ID:'.$row["acontent_id"].']').'"><i class="fa fa-copy"></i></a>';
+              echo '<a href="include/inc_act/act_structure.php?do=8%7C' . $row['acontent_id'] . '%7C' . $article['article_id'] . '%7C' . ($row['acontent_sorting'] + 5) . '" class="btn btn-sm btn-blue" role="button" aria-disabled="true" title="' . $BL['be_func_content_copy'] . ' [ID:' . $row['acontent_id'] . ']" data-toggle="tooltip" data-confirm-type="info" data-confirm-action="' . html($BL['be_func_content_copy']) . '" data-confirm="' . html($BL['be_func_content_copy'] . ': ' . $cntpart_title . ' [ID:' . $row['acontent_id'] . ']') . '"><i class="fa fa-copy"></i></a>';
 
-              echo '<a id="abtnacontent'.$row["acontent_id"].'" class="btn fa btn-sm visible '.($row["acontent_visible"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$row["acontent_id"].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
+              echo '<a id="abtnacontent' . $row['acontent_id'] . '" class="btn fa btn-sm visible ' . ($row['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success') . '" data-id="' . $row['acontent_id'] . '" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="aktivieren/deaktivieren"></a>';
               ?>
             </div>
-            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel'] ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo "9,".$article["article_id"].",".$row["acontent_id"]?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . " [ID: " . $row["acontent_id"] . "]"); ?>"><i class="far fa-trash-alt"></i></a>
+            <a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="<?php echo $BL['be_article_cnt_ldel']; ?>" data-toggle="tooltip" href="include/inc_act/act_articlecontent.php?do=<?php echo '9,' . $article['article_id'] . ',' . $row['acontent_id']; ?>" data-confirm-danger="<?php echo html($BL['be_article_cnt_delpartjs'] . ' [ID: ' . $row['acontent_id'] . ']'); ?>"><i class="far fa-trash-alt"></i></a>
           </div>
         </div>
         <?php
@@ -615,25 +615,25 @@ $(function() {
         ?>
         <div class="row">
           <div class="col-sm-auto">
-            <small><?php echo $BL['be_article_cnt_start'] ?>: <?php echo $acontent_livedate ? $acontent_livedate : $BL['be_not_set']; ?></small>
+            <small><?php echo $BL['be_article_cnt_start']; ?>: <?php echo $acontent_livedate ? $acontent_livedate : $BL['be_not_set']; ?></small>
             &nbsp;&nbsp;
-            <small><?php echo $BL['be_article_cnt_end'] ?>: <?php echo $acontent_killdate ? $acontent_killdate : $BL['be_not_set']; ?></small>
+            <small><?php echo $BL['be_article_cnt_end']; ?>: <?php echo $acontent_killdate ? $acontent_killdate : $BL['be_not_set']; ?></small>
           </div>
         </div>
       <?php } ?>
-        <div class="row">
+        <div class="row mt-1">
           <?php
             // list content type overview
             $cinfo = NULL;
             // check default content parts (system internals
-            if($row['acontent_type'] != 30 && file_exists('include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php')) {
-              include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt'.$row['acontent_type'].'.list.inc.php';
-            } elseif($row['acontent_type'] == 30 && file_exists($phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php')) {
+            if($row['acontent_type'] != 30 && file_exists('include/inc_tmpl/content/cnt' . $row['acontent_type'] . '.list.inc.php')) {
+              include PHPWCMS_ROOT . '/include/inc_tmpl/content/cnt' . $row['acontent_type'] . '.list.inc.php';
+            } elseif($row['acontent_type'] == 30 && file_exists($phpwcms['modules'][$row['acontent_module']]['path'] . 'inc/cnt.list.php')) {
               // custom module
-              include $phpwcms['modules'][$row['acontent_module']]['path'].'inc/cnt.list.php';
+              include $phpwcms['modules'][$row['acontent_module']]['path'] . 'inc/cnt.list.php';
             } else {
               // default fallback
-              include PHPWCMS_ROOT.'/include/inc_tmpl/content/cnt0.list.inc.php';
+              include PHPWCMS_ROOT . '/include/inc_tmpl/content/cnt0.list.inc.php';
             }
             // end list
           ?>
