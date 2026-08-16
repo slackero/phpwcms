@@ -1716,3 +1716,5 @@ $BL['be_admin_optgroup_label']['custom'] = 'Tilpasset';
 // 100% sync fix
 $BL['be_ctype_felogin'] = 'frontend-innlogging';
 $BL['be_cnt_sortvalue'] = 'sorteringsverdi';
+$BL['be_editor_fullscreen'] = 'Fullskjerm';
+$BL['be_editor_wordwrap']   = 'Tekstbryting';

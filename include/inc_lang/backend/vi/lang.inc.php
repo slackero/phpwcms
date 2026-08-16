@@ -1804,4 +1804,5 @@ $BL['be_selection'] = 'lựa chọn';
 $BL['be_ctype_module'] = 'mô-đun / tiện ích';
 $BL['be_ctype_felogin'] = 'đăng nhập frontend';
 $BL['be_cnt_sortvalue'] = 'giá trị sắp xếp';
-
+$BL['be_editor_fullscreen'] = 'Toàn màn hình';
+$BL['be_editor_wordwrap']   = 'Tự động xuống dòng';

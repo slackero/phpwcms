@@ -1037,6 +1037,14 @@ function initJsAutocompleter() {
     $GLOBALS['BE']['HEADER']['tom-select.css'] = ' <link href="include/inc_css/tom-select.bootstrap4.css" rel="stylesheet" type="text/css" />';
 }
 
+function initAceEditor() {
+    $GLOBALS['BE']['HEADER']['ace.js'] = getJavaScriptSourceLink('include/inc_js/ace/ace.js');
+    if (isset($GLOBALS['BE']['CSP'])) {
+        $GLOBALS['BE']['CSP']['worker-src'] = array_unique(array_merge($GLOBALS['BE']['CSP']['worker-src'] ?? ["'self'"], ['blob:']));
+        $GLOBALS['BE']['CSP']['child-src'] = array_unique(array_merge($GLOBALS['BE']['CSP']['child-src'] ?? ["'self'"], ['blob:']));
+    }
+}
+
 function initJQuery() {
 
     // add jQuery at first position and keep the key

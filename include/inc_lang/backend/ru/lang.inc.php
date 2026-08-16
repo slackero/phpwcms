@@ -1686,3 +1686,5 @@ $BL['be_func_struct_nocopy'] = 'Невозможно скопировать эт
 $BL['be_func_struct_copy_level'] = 'копировать этот уровень структуры с подуровнями';
 $BL['be_func_struct_no_copy'] = 'Невозможно скопировать этот уровень структуры!';
 $BL['be_alias_articleID'] = 'ID псевдонима';
+$BL['be_editor_fullscreen'] = 'Полноэкранный режим';
+$BL['be_editor_wordwrap']   = 'Перенос строк';

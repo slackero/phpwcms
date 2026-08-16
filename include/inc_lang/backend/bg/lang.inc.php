@@ -1676,3 +1676,5 @@ $BL['be_cnt_pages_fromfile'] = 'от файл';
 $BL['be_cnt_pages_manually'] = 'ръчно';
 $BL['be_cnt_pages_cust'] = 'персонализирано';
 $BL['be_cnt_pages_from'] = 'от';
+$BL['be_editor_fullscreen'] = 'Цял екран';
+$BL['be_editor_wordwrap']   = 'Пренасяне на редове';

@@ -1248,6 +1248,7 @@ function initPhpwcmsTheme() {
         } catch (e) {}
         document.cookie = 'phpwcmsBETheme=' + encodeURIComponent(theme) + '; path=/; max-age=31536000; SameSite=Lax';
         updateThemeUI(theme);
+        updatePhpwcmsAceThemes();
 
         if (saveRemote && typeof $ !== 'undefined' && (!document.body || document.body.id !== 'login')) {
             $.post('include/inc_act/ajax_connector.php', {
@@ -1281,11 +1282,203 @@ function initPhpwcmsTheme() {
     }
 }
 
-if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPhpwcmsTheme);
-    } else {
-        initPhpwcmsTheme();
+// Ace Code Editor Integration for phpwcms
+window.phpwcmsAceEditors = window.phpwcmsAceEditors || [];
+
+function getPhpwcmsAceTheme() {
+    const rootTheme = document.documentElement.getAttribute('data-theme') || 'auto';
+    const isDark = rootTheme === 'dark' || (rootTheme === 'auto' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    return isDark ? 'ace/theme/one_dark' : 'ace/theme/chrome';
+}
+
+function updatePhpwcmsAceThemes() {
+    if (!window.phpwcmsAceEditors || !window.phpwcmsAceEditors.length) return;
+    const theme = getPhpwcmsAceTheme();
+    window.phpwcmsAceEditors.forEach(ed => {
+        if (ed && typeof ed.setTheme === 'function') {
+            ed.setTheme(theme);
+        }
+    });
+}
+
+function initAceForTextarea(textarea) {
+    if (!window.ace || !textarea || textarea.dataset.aceInitialized) return;
+
+    if (!ace.config.get('basePath')) {
+        ace.config.set('basePath', 'include/inc_js/ace/');
+    }
+
+    let mode = (textarea.dataset.mode || 'html').toLowerCase();
+    if (mode === 'js') mode = 'javascript';
+    if (mode === 'plain') mode = 'text';
+
+    const minLines = parseInt(textarea.dataset.minLines || textarea.rows || 8, 10);
+    const maxLines = parseInt(textarea.dataset.maxLines || 45, 10);
+
+    // Create wrapper & toolbar
+    const wrap = document.createElement('div');
+    wrap.className = 'phpwcms-ace-wrap';
+
+    const toolbar = document.createElement('div');
+    toolbar.className = 'phpwcms-ace-toolbar';
+
+    const modeBadge = document.createElement('span');
+    modeBadge.className = 'ace-mode-badge';
+    modeBadge.textContent = mode.toUpperCase();
+
+    const langWrap = (window.PHPWCMS_LANG && window.PHPWCMS_LANG.editorWordWrap) || 'Word wrap';
+    const langFull = (window.PHPWCMS_LANG && window.PHPWCMS_LANG.editorFullscreen) || 'Fullscreen';
+
+    const btnGroup = document.createElement('div');
+    btnGroup.className = 'ace-btn-group';
+
+    const btnWrap = document.createElement('button');
+    btnWrap.type = 'button';
+    btnWrap.className = 'btn-ace-tool active';
+    btnWrap.title = langWrap;
+    btnWrap.setAttribute('aria-label', langWrap);
+    btnWrap.innerHTML = '<i class="fas fa-align-left"></i>';
+
+    const btnFullscreen = document.createElement('button');
+    btnFullscreen.type = 'button';
+    btnFullscreen.className = 'btn-ace-tool';
+    btnFullscreen.title = langFull;
+    btnFullscreen.setAttribute('aria-label', langFull);
+    btnFullscreen.innerHTML = '<i class="fas fa-expand"></i>';
+
+    btnGroup.appendChild(btnWrap);
+    btnGroup.appendChild(btnFullscreen);
+
+    toolbar.appendChild(modeBadge);
+    toolbar.appendChild(btnGroup);
+
+    const editorDiv = document.createElement('div');
+    editorDiv.className = 'phpwcms-ace-editor';
+
+    wrap.appendChild(toolbar);
+    wrap.appendChild(editorDiv);
+
+    textarea.parentNode.insertBefore(wrap, textarea);
+    textarea.style.display = 'none';
+    textarea.dataset.aceInitialized = 'true';
+
+    const editor = ace.edit(editorDiv);
+    editor.setTheme(getPhpwcmsAceTheme());
+    editor.session.setMode('ace/mode/' + mode);
+    editor.setValue(textarea.value, -1);
+    editor.session.setUseWrapMode(true);
+    editor.setOptions({
+        showPrintMargin: false,
+        tabSize: 4,
+        useSoftTabs: true,
+        autoScrollEditorIntoView: true,
+        minLines: minLines,
+        maxLines: maxLines
+    });
+
+    // Two-way sync
+    editor.session.on('change', () => {
+        textarea.value = editor.getValue();
+    });
+
+    if (textarea.form) {
+        textarea.form.addEventListener('submit', () => {
+            textarea.value = editor.getValue();
+        });
+    }
+
+    // Fullscreen toggle
+    btnFullscreen.addEventListener('click', e => {
+        e.preventDefault();
+        const isFull = wrap.classList.toggle('ace-fullscreen');
+        btnFullscreen.classList.toggle('active', isFull);
+        btnFullscreen.innerHTML = isFull ? '<i class="fas fa-compress"></i>' : '<i class="fas fa-expand"></i>';
+        if (isFull) {
+            editor.setOption('maxLines', null);
+        } else {
+            editor.setOption('maxLines', maxLines);
+        }
+        editor.resize();
+    });
+
+    // Word wrap toggle
+    btnWrap.addEventListener('click', e => {
+        e.preventDefault();
+        const currentWrap = editor.session.getUseWrapMode();
+        editor.session.setUseWrapMode(!currentWrap);
+        btnWrap.classList.toggle('active', !currentWrap);
+    });
+
+    // Support radio-button format changes (e.g. Plain text / Markdown / Textile in cnt0)
+    if (textarea.form) {
+        const formatRadios = textarea.form.querySelectorAll('input[name="ctext_format"]');
+        if (formatRadios.length) {
+            formatRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (radio.checked) {
+                        let newMode = 'text';
+                        if (radio.value === 'markdown') newMode = 'markdown';
+                        else if (radio.value === 'textile') newMode = 'textile';
+                        editor.session.setMode('ace/mode/' + newMode);
+                        modeBadge.textContent = newMode.toUpperCase();
+                    }
+                });
+            });
+        }
+    }
+
+    window.phpwcmsAceEditors.push(editor);
+    textarea._aceEditor = editor;
+    textarea._aceWrap = wrap;
+
+    // Automatic resize when hidden tab/accordion/container becomes visible
+    if (window.ResizeObserver) {
+        let lastWidth = 0;
+        let lastHeight = 0;
+        const ro = new ResizeObserver(entries => {
+            for (const entry of entries) {
+                const { width, height } = entry.contentRect;
+                if (width > 0 && height > 0 && (width !== lastWidth || height !== lastHeight)) {
+                    lastWidth = width;
+                    lastHeight = height;
+                    editor.resize();
+                }
+            }
+        });
+        ro.observe(wrap);
+        wrap._aceResizeObserver = ro;
+    }
+
+    return editor;
+}
+
+function initPhpwcmsCodeEditors() {
+    if (typeof ace === 'undefined') return;
+    document.querySelectorAll('textarea.code-editor, textarea[data-ace]').forEach(el => {
+        initAceForTextarea(el);
+    });
+
+    // Resize editors when tabs, accordions, or modal dialogs are shown
+    if (!window._phpwcmsAceTabListenersBound) {
+        window._phpwcmsAceTabListenersBound = true;
+        ['shown.bs.tab', 'shown.bs.collapse', 'shown.bs.modal'].forEach(evtName => {
+            document.addEventListener(evtName, () => {
+                window.phpwcmsAceEditors?.forEach(ed => ed.resize());
+            });
+        });
     }
 }
+
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            initPhpwcmsTheme();
+            initPhpwcmsCodeEditors();
+        });
+    } else {
+        initPhpwcmsTheme();
+        initPhpwcmsCodeEditors();
+    }
+}
+
 

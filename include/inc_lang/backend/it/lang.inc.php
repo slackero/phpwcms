@@ -1648,3 +1648,5 @@ $BL['KEYWORDS'] = 'parole chiave';
 $BL['DOWNLOAD_ERR3'] = 'errore durante la lettura delle informazioni del file<br />chiudi la finestra e riprova&#8230;';
 $BL['ADD_ALL_FILES'] = 'Aggiungi tutti i file';
 $BL['ADD_ALL_CONFIRM'] = 'Tutti i file nella cartella &raquo;{VAL}&laquo; sono stati acquisiti!\n\nFai clic su [OK] per chiudere il file browser&#8230;';
+$BL['be_editor_fullscreen'] = 'Schermo intero';
+$BL['be_editor_wordwrap']   = 'A capo automatico';

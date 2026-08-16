@@ -1691,3 +1691,5 @@ $BL['be_func_content_no_cut'] = 'A tartalmi elem nem vágható ki!';
 $BL['be_func_content_copy'] = 'tartalmi elem másolása';
 $BL['be_func_content_no_copy'] = 'A tartalmi elem nem másolható!';
 $BL['be_func_content_paste_cancel'] = 'tartalmi elem áthelyezésének megszakítása';
+$BL['be_editor_fullscreen'] = 'Teljes képernyő';
+$BL['be_editor_wordwrap']   = 'Sortörés';

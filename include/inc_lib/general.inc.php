@@ -1148,7 +1148,9 @@ function getJavaScriptTranslations() {
         'delete' => $BL['modal_delete'] ?? 'Delete',
         'move' => $BL['modal_move'] ?? 'Move',
         'copy' => $BL['modal_copy'] ?? 'Copy',
-        'flush' => $BL['modal_flush'] ?? 'Flush'
+        'flush' => $BL['modal_flush'] ?? 'Flush',
+        'editorFullscreen' => $BL['be_editor_fullscreen'] ?? 'Fullscreen',
+        'editorWordWrap' => $BL['be_editor_wordwrap'] ?? 'Word wrap'
     ];
 
     return '<script' . SCRIPT_ATTRIBUTE_TYPE . '>window.PHPWCMS_LANG = ' . json_encode($translations, JSON_UNESCAPED_UNICODE) . ';</script>';

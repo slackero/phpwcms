@@ -16,6 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 //code
+initAceEditor();
 ?>
 
 <div class="form-group align-items-center form-row">
@@ -43,7 +44,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="ccode" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_code'] ?></label>
   <div class="col">
-    <textarea name="ccode" rows="15" class="form-control form-control-sm" id="ccode"><?php
+    <textarea name="ccode" rows="15" class="form-control form-control-sm code-editor" data-mode="php" id="ccode"><?php
 
 	if(!empty($content["code"])) {
 

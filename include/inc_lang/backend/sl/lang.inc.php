@@ -1723,3 +1723,5 @@ $BL['CSRF_GET_FAILED'] = 'Preverjanje parametrov GET <a href="https://sl.wikiped
 $BL['CSRF_BTN_BACK'] = 'Nazaj';
 $BL['CSRF_BTN_LOGIN'] = 'Prijava';
 $BL['CSRF_BTN_DASHBOARD'] = 'Nadzorna plošča';
+$BL['be_editor_fullscreen'] = 'Celozaslonski način';
+$BL['be_editor_wordwrap']   = 'Prelom vrstic';

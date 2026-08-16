@@ -1767,3 +1767,5 @@ $BL['KEYWORDS']          = 'Schl&uuml;ssel';
 $BL['DOWNLOAD_ERR3']     = 'Fehler beim Lesen der Dateiinfo<br />Fenster schliessen und erneut versuchen&#8230;';
 $BL['ADD_ALL_FILES']     = 'Alle Dateien hinzuf&uuml;gen';
 $BL['ADD_ALL_CONFIRM']   = 'Alle Dateien aus dem Verzeichnis &raquo;{VAL}&laquo; wurden &uuml;bernommen!\n\nMit [OK] wird der Dateibrowser geschlossen&#8230;';
+$BL['be_editor_fullscreen'] = 'Vollbild';
+$BL['be_editor_wordwrap']   = 'Zeilenumbruch';

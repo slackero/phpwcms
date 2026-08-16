@@ -1778,3 +1778,6 @@ $BL['KEYWORDS']          = 'keywords';
 $BL['DOWNLOAD_ERR3']     = 'error while reading file info<br />close window and try again&#8230;';
 $BL['ADD_ALL_FILES']     = 'Add all files';
 $BL['ADD_ALL_CONFIRM']   = 'All files inside directory &raquo;{VAL}&laquo; were taken!\n\nClick [OK] to close the file browser&#8230;';
+$BL['be_editor_fullscreen'] = 'Fullscreen';
+$BL['be_editor_wordwrap']   = 'Word wrap';
+

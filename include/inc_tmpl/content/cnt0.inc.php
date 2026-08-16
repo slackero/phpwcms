@@ -20,6 +20,9 @@ if(empty($content['ctext_format'])) {
   $content['ctext_format'] = 'plain';
 }
 
+initAceEditor();
+$ace_mode = ($content['ctext_format'] === 'markdown') ? 'markdown' : (($content['ctext_format'] === 'textile') ? 'textile' : 'text');
+
 ?>
 
 <div class="form-group align-items-center form-row">
@@ -64,7 +67,7 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="ctext" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plaintext']; ?></label>
   <div class="col">
-    <textarea name="ctext" rows="10" class="form-control form-control-sm field-sizing-content field-sizing-content-10" id="ctext"><?php
+    <textarea name="ctext" rows="12" class="form-control form-control-sm field-sizing-content field-sizing-content-10 code-editor" data-mode="<?php echo $ace_mode; ?>" id="ctext"><?php
     if(empty($content["text"])) {
 
       echo '';

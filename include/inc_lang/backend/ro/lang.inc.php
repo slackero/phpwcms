@@ -1702,3 +1702,5 @@ $BL['ADD_ALL_FILES'] = 'Adaugă toate fișierele';
 $BL['ADD_ALL_CONFIRM'] = 'Toate fișierele din folderul »{VAL}« au fost adăugate!
 
 Faceți clic pe [OK] pentru a închide browserul de fișiere…';
+$BL['be_editor_fullscreen'] = 'Ecran complet';
+$BL['be_editor_wordwrap']   = 'Încadrare text';

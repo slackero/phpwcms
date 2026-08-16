@@ -1713,3 +1713,5 @@ $BL['be_cnt_subsection_tite'] = 'titre de la sous-section';
 $BL['be_cnt_subsection_warning'] = 'La num&eacute;rotation des sous-sections est disponible pour\nla colonne principale (CONTENT) uniquement !';
 $BL['be_no_search'] = 'pas de recherche';
 $BL['be_priorize'] = 'priorisation';
+$BL['be_editor_fullscreen'] = 'Plein écran';
+$BL['be_editor_wordwrap']   = 'Retour à la ligne';

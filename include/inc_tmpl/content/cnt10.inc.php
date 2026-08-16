@@ -21,6 +21,8 @@ if (!isset($content['mailhtml'])) {
 	$content['mailhtml'] = 0;
 }
 
+initAceEditor();
+
 ?>
 
 <div class="form-group form-row">
@@ -61,7 +63,7 @@ if (!isset($content['mailhtml'])) {
 <div class="form-group form-row">
 	<label for="cmailform" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_formfields']; ?></label>
 	<div class="col-sm-10">
-		<textarea name="cmailform" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15" id="cmailform"><?php
+		<textarea name="cmailform" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15 code-editor" data-mode="text" id="cmailform"><?php
 		if (isset($content['mailform'])) {
 			if (is_array($content['mailform'])) {
 				foreach ($content['mailform'] as $formkey => $valform) {

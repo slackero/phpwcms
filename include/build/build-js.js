@@ -44,6 +44,77 @@ async function buildJs() {
         }
     }
 
+    // 3. Copy curated Ace editor files from ace-builds
+    const srcAce = path.join(__dirname, '../../node_modules/ace-builds/src-min-noconflict');
+    const destAce = path.join(rootDir, 'inc_js/ace');
+    if (fs.existsSync(srcAce)) {
+        if (fs.existsSync(destAce)) {
+            fs.rmSync(destAce, { recursive: true, force: true });
+        }
+        fs.mkdirSync(destAce, { recursive: true });
+
+        const aceFiles = [
+            'ace.js',
+            // Modes
+            'mode-html.js',
+            'mode-php.js',
+            'mode-javascript.js',
+            'mode-css.js',
+            'mode-scss.js',
+            'mode-less.js',
+            'mode-markdown.js',
+            'mode-textile.js',
+            'mode-text.js',
+            'mode-plain_text.js',
+            'mode-xml.js',
+            'mode-svg.js',
+            'mode-json.js',
+            'mode-yaml.js',
+            'mode-ini.js',
+            'mode-apache_conf.js',
+            'mode-sql.js',
+            'mode-mysql.js',
+            'mode-pgsql.js',
+            'mode-sh.js',
+            // Themes
+            'theme-chrome.js',
+            'theme-one_dark.js',
+            'theme-github.js',
+            'theme-github_dark.js',
+            'theme-monokai.js',
+            'theme-dracula.js',
+            'theme-tomorrow_night.js',
+            // Workers
+            'worker-base.js',
+            'worker-html.js',
+            'worker-php.js',
+            'worker-javascript.js',
+            'worker-css.js',
+            'worker-json.js',
+            'worker-xml.js',
+            'worker-yaml.js',
+            // Extensions
+            'ext-language_tools.js',
+            'ext-searchbox.js',
+            'ext-settings_menu.js',
+            'ext-beautify.js',
+            'ext-emmet.js'
+        ];
+
+        let copiedCount = 0;
+        for (const file of aceFiles) {
+            const sf = path.join(srcAce, file);
+            const df = path.join(destAce, file);
+            if (fs.existsSync(sf)) {
+                fs.copyFileSync(sf, df);
+                copiedCount++;
+            }
+        }
+        console.log(`[✓] Synced ${copiedCount} Ace editor files (inc_js/ace)`);
+    } else {
+        console.warn(`[!] Warning: ace-builds not found at ${srcAce}`);
+    }
+
     // 3. Minify and optimize cookieconsent2 (legacy v2)
     const srcCc2 = path.join(__dirname, '../../node_modules/cookieconsent2/cookieconsent.js');
     const destCc2 = path.join(rootDir, '../template/lib/cookieconsent2/cookieconsent.min.js');

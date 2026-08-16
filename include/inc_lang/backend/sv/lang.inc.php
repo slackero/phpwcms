@@ -1671,3 +1671,5 @@ $BL['be_func_struct_copy'] = 'kopiera denna strukturnivå';
 $BL['be_func_struct_nocopy'] = 'Det är inte möjligt att kopiera denna strukturnivå!';
 $BL['be_func_struct_copy_level'] = 'kopiera denna strukturnivå och undernivåer';
 $BL['be_func_struct_no_copy'] = 'Det är inte möjligt att kopiera denna strukturnivå!';
+$BL['be_editor_fullscreen'] = 'Helskärm';
+$BL['be_editor_wordwrap']   = 'Radbrytning';

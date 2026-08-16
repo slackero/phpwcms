@@ -1679,3 +1679,5 @@ $BL['be_cnt_field']['break'] = 'zalomenie riadku';
 $BL['be_cnt_field']['html'] = 'HTML kód';
 $BL['be_admin_optgroup_label']['templates'] = 'Šablóny';
 $BL['be_admin_optgroup_label']['custom'] = 'Vlastné';
+$BL['be_editor_fullscreen'] = 'Celá obrazovka';
+$BL['be_editor_wordwrap']   = 'Zalamovanie riadkov';

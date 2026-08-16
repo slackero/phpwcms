@@ -1660,4 +1660,5 @@ $BL['be_selection'] = 'الاختيار';
 $BL['be_ctype_module'] = 'وحدة / إضافة';
 $BL['be_ctype_felogin'] = 'تسجيل الدخول في الواجهة الأمامية';
 $BL['be_cnt_sortvalue'] = 'قيمة الترتيب';
-
+$BL['be_editor_fullscreen'] = 'ملء الشاشة';
+$BL['be_editor_wordwrap']   = 'التفاف النص';

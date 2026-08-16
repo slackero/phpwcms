@@ -1717,3 +1717,5 @@ $BL['KEYWORDS'] = 'trefwoorden';
 $BL['DOWNLOAD_ERR3'] = 'fout bij het lezen van bestandsinformatie<br />sluit het venster en probeer opnieuw&#8230;';
 $BL['ADD_ALL_FILES'] = 'Alle bestanden toevoegen';
 $BL['ADD_ALL_CONFIRM'] = 'Alle bestanden in map &raquo;{VAL}&laquo; zijn overgenomen!\n\nKlik op [OK] om de bestandsbrowser te sluiten&#8230;';
+$BL['be_editor_fullscreen'] = 'Volledig scherm';
+$BL['be_editor_wordwrap']   = 'Tekstomloop';

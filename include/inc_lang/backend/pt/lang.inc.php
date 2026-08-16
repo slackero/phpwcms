@@ -1691,3 +1691,5 @@ $BL['be_func_struct_nocopy'] = 'Não é possível copiar este nível de estrutur
 $BL['be_func_struct_copy_level'] = 'copiar este nível de estrutura e subníveis';
 $BL['be_func_struct_no_copy'] = 'Não é possível copiar este nível de estrutura!';
 $BL['be_alias_articleID'] = 'ID de alias';
+$BL['be_editor_fullscreen'] = 'Ecrã inteiro';
+$BL['be_editor_wordwrap']   = 'Quebra de linha';

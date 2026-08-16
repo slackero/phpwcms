@@ -30,7 +30,9 @@ $BE = [
         'style-src' => ["'self'", 'data:', "'unsafe-inline'"],
         'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'", '*.google.com', '*.googleapis.com', '*.gstatic.com'],
         'script-src-elem' => ["'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'],
-        'connect-src' => ["'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com']
+        'connect-src' => ["'self'", "'unsafe-inline'", '*.google.com', '*.googleapis.com', '*.gstatic.com'],
+        'worker-src' => ["'self'", 'blob:'],
+        'child-src' => ["'self'", 'blob:']
     ]
 ];
 

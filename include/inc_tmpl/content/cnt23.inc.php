@@ -17,6 +17,8 @@ if (!defined('PHPWCMS_ROOT')) {
 
 // CP Form
 
+initAceEditor();
+
 $field_counter = 0;
 $BE['BODY_CLOSE']['custom_js'] = '<script type="text/javascript">
 function initMathSpam() {
@@ -1193,7 +1195,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 				);
 				include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 		} else {
-				echo '<textarea name="cform_template" id="cform_template" rows="5" class="form-control form-control-sm">';
+				echo '<textarea name="cform_template" id="cform_template" rows="5" class="form-control form-control-sm code-editor" data-mode="html">';
 				echo html($content['form']["template"]).'</textarea>';
 		}
 		?>
@@ -1286,7 +1288,7 @@ if(!empty($field_counter) && $field_counter > 1) {
 			include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 	} else {
 
-			echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="form-control form-control-sm">';
+			echo '<textarea name="cform_template_copy" id="cform_template_copy" rows="5" class="form-control form-control-sm code-editor" data-mode="html">';
 			echo html($content['form']["template_copy"]).'</textarea>';
 	}
 	?>
@@ -1325,6 +1327,6 @@ if(!empty($field_counter) && $field_counter > 1) {
 <div class="form-group form-row">
   <label class="col-sm-2 col-form-label"></label>
   <div class="col">
-    <textarea name="cform_customform" id="cform_customform" rows="5" class="form-control form-control-sm"><?php echo html($content['form']["customform"]) ?></textarea>
+    <textarea name="cform_customform" id="cform_customform" rows="5" class="form-control form-control-sm code-editor" data-mode="html"><?php echo html($content['form']["customform"]) ?></textarea>
   </div>
 </div>

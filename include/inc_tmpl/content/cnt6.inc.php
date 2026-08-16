@@ -18,6 +18,8 @@ if (!defined('PHPWCMS_ROOT')) {
 //HTML
 if(!isset($content["html"])) $content["html"] = '';
 
+initAceEditor();
+
 ?>
 
 <div class="form-group align-items-center form-row">
@@ -46,6 +48,6 @@ if(is_array($tmpllist) && count($tmpllist)) {
 <div class="form-group form-row">
   <label for="chtml" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_plainhtml']; ?></label>
   <div class="col">
-    <textarea name="chtml" rows="20" class="form-control form-control-sm" id="chtml"><?php echo html($content["html"], true) ?></textarea>
+    <textarea name="chtml" rows="20" class="form-control form-control-sm code-editor" data-mode="html" id="chtml"><?php echo html($content["html"], true) ?></textarea>
   </div>
 </div>

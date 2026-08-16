@@ -1700,4 +1700,5 @@ $BL['be_func_content_no_cut'] = 'L\'element de contingut no es pot retallar!';
 $BL['be_func_content_copy'] = 'copia aquest element de contingut';
 $BL['be_func_content_no_copy'] = 'L\'element de contingut no es pot copiar!';
 $BL['be_func_content_paste_cancel'] = 'cancel·la el moviment de l\'element de contingut';
-
+$BL['be_editor_fullscreen'] = 'Pantalla completa';
+$BL['be_editor_wordwrap']   = 'Ajust de línia';

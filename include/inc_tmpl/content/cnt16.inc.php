@@ -17,6 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 
 //ecard
+initAceEditor();
 
 $imgx = 0;
 $img_thumbs = '';
@@ -267,7 +268,7 @@ if (!$content['ecard']['form']) {
 <div class="form-group form-row">
 	<label for="cecard_form" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardform']; ?></label>
 	<div class="col-sm-10">
-		<textarea name="cecard_form" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15 text-monospace" id="cecard_form"><?php echo html($content['ecard']['form']); ?></textarea>
+		<textarea name="cecard_form" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15 text-monospace code-editor" data-mode="html" id="cecard_form"><?php echo html($content['ecard']['form']); ?></textarea>
 		<small class="form-text text-muted">
 			HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###, ###SENDER_EMAIL###, ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, ###ECARD_CHOOSER###, &lt;!--FORM_ERROR_START--&gt; &lt;!--FORM_ERROR_END--&gt;
 		</small>
@@ -277,7 +278,7 @@ if (!$content['ecard']['form']) {
 <div class="form-group form-row">
 	<label for="cecard_send" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardsend']; ?></label>
 	<div class="col-sm-10">
-		<textarea name="cecard_send" rows="5" class="form-control form-control-sm field-sizing-content field-sizing-content-5 text-monospace" id="cecard_send"><?php echo html($content['ecard']['send']); ?></textarea>
+		<textarea name="cecard_send" rows="5" class="form-control form-control-sm field-sizing-content field-sizing-content-5 text-monospace code-editor" data-mode="html" id="cecard_send"><?php echo html($content['ecard']['send']); ?></textarea>
 		<small class="form-text text-muted">
 			HTML: ###ECARD_SUBJECT###, ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, ###ECARD_TITLE###, ###ECARD_IMAGE###
 		</small>
@@ -287,7 +288,7 @@ if (!$content['ecard']['form']) {
 <div class="form-group form-row">
 	<label for="cecard_mail" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_cnt_ecardtmpl']; ?></label>
 	<div class="col-sm-10">
-		<textarea name="cecard_mail" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15 text-monospace" id="cecard_mail"><?php echo html($content['ecard']['mail']); ?></textarea>
+		<textarea name="cecard_mail" rows="15" class="form-control form-control-sm field-sizing-content field-sizing-content-15 text-monospace code-editor" data-mode="html" id="cecard_mail"><?php echo html($content['ecard']['mail']); ?></textarea>
 		<small class="form-text text-muted">
 			HTML: ###ECARD_SUBJECT###, ###SENDER_NAME###, ###SENDER_EMAIL###, ###RECIPIENT_NAME###, ###RECIPIENT_EMAIL###, ###SENDER_MESSAGE###, ###ECARD_IMAGE###, ###ECARD_TITLE###
 		</small>

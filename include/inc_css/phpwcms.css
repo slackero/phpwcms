@@ -3036,3 +3036,101 @@ html[data-theme="dark"] .copyrightInfo {
     color: #d0d7de !important;
 }
 
+/* phpwcms Ace Code Editor */
+.phpwcms-ace-wrap {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+.phpwcms-ace-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 3px 8px;
+    font-size: 11px;
+    user-select: none;
+}
+.phpwcms-ace-toolbar .ace-mode-badge {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+.phpwcms-ace-toolbar .ace-btn-group {
+    display: flex;
+    gap: 4px;
+}
+.phpwcms-ace-toolbar .btn-ace-tool {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 11px;
+    color: #495057;
+    cursor: pointer;
+    line-height: 1.4;
+}
+.phpwcms-ace-toolbar .btn-ace-tool:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+    color: #212529;
+}
+.phpwcms-ace-toolbar .btn-ace-tool.active {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+.phpwcms-ace-editor {
+    width: 100%;
+    min-height: 180px;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12.5px;
+    line-height: 1.45;
+}
+.phpwcms-ace-wrap.ace-fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 99999 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+}
+.phpwcms-ace-wrap.ace-fullscreen .phpwcms-ace-editor {
+    flex: 1 1 auto !important;
+    height: calc(100vh - 28px) !important;
+    max-height: none !important;
+}
+
+/* Dark mode overrides for Ace wrap & toolbar */
+html[data-theme="dark"] .phpwcms-ace-wrap {
+    border-color: #373e47;
+    background-color: #1a1d20;
+}
+html[data-theme="dark"] .phpwcms-ace-toolbar {
+    background-color: #22272e;
+    border-bottom-color: #373e47;
+}
+html[data-theme="dark"] .phpwcms-ace-toolbar .ace-mode-badge {
+    color: #8b949e;
+}
+html[data-theme="dark"] .phpwcms-ace-toolbar .btn-ace-tool {
+    color: #adbac7;
+}
+html[data-theme="dark"] .phpwcms-ace-toolbar .btn-ace-tool:hover {
+    background-color: #2d333b;
+    border-color: #444c56;
+    color: #cdd9e5;
+}
+
+

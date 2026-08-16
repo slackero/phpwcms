@@ -1713,4 +1713,5 @@ $BL['be_selection'] = 'επιλογή';
 $BL['be_ctype_module'] = 'ενότητα / πρόσθετο';
 $BL['be_ctype_felogin'] = 'σύνδεση frontend';
 $BL['be_cnt_sortvalue'] = 'τιμή ταξινόμησης';
-
+$BL['be_editor_fullscreen'] = 'Πλήρης οθόνη';
+$BL['be_editor_wordwrap']   = 'Αναδίπλωση γραμμής';

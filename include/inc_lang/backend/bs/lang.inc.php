@@ -1732,3 +1732,5 @@ $BL['be_cnt_imagenocenter'] = 'ne centriraj';
 $BL['be_cnt_imagecenterh'] = 'centriraj horizontalno';
 $BL['be_cnt_imagecenterv'] = 'centriraj vertikalno';
 $BL['be_check_against_category_alias'] = 'poveži pojedinačni članak unutar nivoa strukture sa nivoom strukture';
+$BL['be_editor_fullscreen'] = 'Cijeli ekran';
+$BL['be_editor_wordwrap']   = 'Prelom teksta';

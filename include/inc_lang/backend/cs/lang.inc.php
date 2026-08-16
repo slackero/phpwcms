@@ -1683,3 +1683,5 @@ $BL['be_selection'] = 'výběr';
 $BL['be_ctype_module'] = 'modul / plugin';
 $BL['be_ctype_felogin'] = 'přihlášení z frontendu';
 $BL['be_cnt_sortvalue'] = 'hodnota řazení';
+$BL['be_editor_fullscreen'] = 'Celá obrazovka';
+$BL['be_editor_wordwrap']   = 'Zalamování řádků';

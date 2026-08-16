@@ -1710,4 +1710,5 @@ $BL['be_func_content_no_cut'] = 'Sisältöelementtiä ei voi leikata!';
 $BL['be_func_content_copy'] = 'kopioi tämä sisältöelementti';
 $BL['be_func_content_no_copy'] = 'Sisältöelementtiä ei voi kopioida!';
 $BL['be_func_content_paste_cancel'] = 'peruuta sisältöelementin siirto';
-
+$BL['be_editor_fullscreen'] = 'Koko näyttö';
+$BL['be_editor_wordwrap']   = 'Rivitys';

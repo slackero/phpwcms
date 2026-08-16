@@ -15,6 +15,8 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+initAceEditor();
+
 reset($phpwcms['js_lib']); // reset $phpwcms['js_lib'] to get first element as default
 
 $template = [
@@ -598,7 +600,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
                         ?>
-                        <textarea name="template_htmlhead" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
+                        <textarea name="template_htmlhead" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
                     </div>
                 </div>
 
@@ -679,7 +681,7 @@ if(isset($result[0]['pagelayout_id'])) {
 
                                 <div class="form-check col-sm-10 offset-sm-2 my-1">
                                     <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
-                                    <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                    <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
                                 </div>
 
                             </div>
@@ -1511,7 +1513,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
                         ?>
-                        <textarea name="template_block_header" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                        <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -1523,7 +1525,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
                         ?>
-                        <textarea name="template_block_main" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                        <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -1535,7 +1537,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
                         ?>
-                        <textarea name="template_block_footer" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                        <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -1547,7 +1549,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
                         ?>
-                        <textarea name="template_block_left" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                        <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group form-row">
@@ -1559,7 +1561,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
                         ?>
-                        <textarea name="template_block_right" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                        <textarea name="template_block_right" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
                     </div>
                 </div>
 
@@ -1579,7 +1581,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         echo '<div class="col">';
                         echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
                         echo '<textarea name="template_customblock_' . $custom_block . '" id="template_customblock_' . $custom_block . '" ';
-                        echo 'rows="3" class="form-control form-control-sm autosize text-monospace">';
+                        echo 'rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html">';
                         echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
                         echo "</textarea>";
                         echo '  </div>';
@@ -1597,7 +1599,7 @@ if(isset($result[0]['pagelayout_id'])) {
                         }
                         echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
                         ?>
-                        <textarea name="template_block_error" rows="3" class="form-control form-control-sm autosize text-monospace" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                        <textarea name="template_block_error" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
                     </div>
                 </div>
 

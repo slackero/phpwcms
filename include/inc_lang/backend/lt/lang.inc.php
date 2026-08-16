@@ -1672,4 +1672,5 @@ $BL['be_admin_struct_orderstartdate'] = 'pradžios data';
 $BL['be_admin_struct_orderdesc'] = 'mažėjančia tvarka';
 $BL['be_admin_struct_orderasc'] = 'didėjančia tvarka';
 $BL['be_admin_struct_ordermanual'] = 'rankiniu būdu (pagal rikiavimo reikšmę)';
-
+$BL['be_editor_fullscreen'] = 'Visas ekranas';
+$BL['be_editor_wordwrap']   = 'Eilučių laužymas';

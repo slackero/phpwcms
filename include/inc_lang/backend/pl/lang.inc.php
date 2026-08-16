@@ -1762,3 +1762,5 @@ $BL['KEYWORDS']          = 'S&#322;owa kluczowe';
 $BL['DOWNLOAD_ERR3']     = 'B&#322;&#261;d podczas odczytu pliku<br />zamknij okno i spr&oacute;buj ponownie&#8230;';
 $BL['ADD_ALL_FILES']     = 'Dodaj wszystkie pliki';
 $BL['ADD_ALL_CONFIRM']   = 'Wszystkie pliki wewn&#261;trz katalogu &raquo;{VAL}&laquo; zosta&#322;y dodane!\n\nKliknij [OK], aby zamkn&#261;&#263; przegl&#261;dark&#281; plik&oacute;w&hellip;';
+$BL['be_editor_fullscreen'] = 'Pełny ekran';
+$BL['be_editor_wordwrap']   = 'Zawijanie wierszy';

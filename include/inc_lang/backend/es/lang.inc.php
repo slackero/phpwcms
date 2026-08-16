@@ -1643,3 +1643,5 @@ $BL['KEYWORDS']          = 'Palabras clave';
 $BL['DOWNLOAD_ERR3']     = 'Error al leer la informaci&oacute;n del archivo<br />Cerrar la ventana e intentar nuevamente&#8230;';
 $BL['ADD_ALL_FILES']     = 'A&ntilde;adir todos los archivos';
 $BL['ADD_ALL_CONFIRM']   = '&iexcl;Todos los archivos del directorio &raquo;{VAL}&laquo; fueron a&ntilde;adidos!\n\nHaga clic en [Aceptar] para cerrar el navegador de archivos&#8230;';
+$BL['be_editor_fullscreen'] = 'Pantalla completa';
+$BL['be_editor_wordwrap']   = 'Ajuste de línea';

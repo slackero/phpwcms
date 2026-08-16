@@ -1702,4 +1702,5 @@ $BL['be_func_content_no_cut'] = 'Sisuelementi ei saa lõigata!';
 $BL['be_func_content_copy'] = 'kopeeri see sisuelement';
 $BL['be_func_content_no_copy'] = 'Sisuelementi ei saa kopeerida!';
 $BL['be_func_content_paste_cancel'] = 'tühista sisuelemendi teisaldamine';
-
+$BL['be_editor_fullscreen'] = 'Täisekraan';
+$BL['be_editor_wordwrap']   = 'Reamurdmine';

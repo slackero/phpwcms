@@ -1723,3 +1723,5 @@ $BL['CSRF_GET_FAILED'] = '<a href="https://tr.wikipedia.org/wiki/Cross-site_requ
 $BL['CSRF_BTN_BACK'] = 'Geri Dön';
 $BL['CSRF_BTN_LOGIN'] = 'Giriş Yap';
 $BL['CSRF_BTN_DASHBOARD'] = 'Kontrol Paneli';
+$BL['be_editor_fullscreen'] = 'Tam ekran';
+$BL['be_editor_wordwrap']   = 'Satır kaydırma';
