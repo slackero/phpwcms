@@ -3133,4 +3133,33 @@ html[data-theme="dark"] .phpwcms-ace-toolbar .btn-ace-tool:hover {
     color: #cdd9e5;
 }
 
+/* Dashboard Tables */
+.dashboard .table {
+    width: 100%;
+}
+.dashboard .table td.home-cp,
+.dashboard .table td.home-article,
+.dashboard .table th.home-title {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+.dashboard .table td.home-type,
+.dashboard .table th.home-type {
+    white-space: nowrap;
+    width: 1%;
+}
+.dashboard .table td.home-date,
+.dashboard .table th.home-date {
+    white-space: nowrap;
+    width: 1%;
+}
+.dashboard .table td.home-actions,
+.dashboard .table th.home-actions {
+    white-space: nowrap;
+    width: 1%;
+    text-align: right;
+}
+
+
 

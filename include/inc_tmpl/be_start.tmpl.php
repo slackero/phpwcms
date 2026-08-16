@@ -92,12 +92,12 @@ $_last10_article = _dbQuery($_asql_1);
 	</div>
 </div>
 <div class="card-body">
-<table class="table table-sm">
+<table class="table table-sm mb-0">
   <thead class="thead-default">
   <tr class="bg-grey">
-    <th class="text-left" width="90%"><?php echo $BL['be_article_atitle'] ?></th>
-    <th class="text-nowrap"><?php echo $BL['be_cnt_last_edited'] ?></th>
-    <th>&nbsp;</th>
+    <th class="text-left home-title"><?php echo $BL['be_article_atitle'] ?></th>
+    <th class="text-nowrap home-date"><?php echo $BL['be_cnt_last_edited'] ?></th>
+    <th class="home-actions">&nbsp;</th>
   </tr>
   </thead>
   <tbody>
@@ -106,13 +106,13 @@ $_last10_article = _dbQuery($_asql_1);
       $row_count = 0;
       foreach ($_last10_article as $value) {
           echo '<tr>';
-          echo '  <td class="overflow-ellipsis home-article">'.html($value['article_title']);
+          echo '  <td class="home-article">'.html($value['article_title']);
           if ($value['article_subtitle']) {
               echo ' / ' . html($value['article_subtitle']);
           }
           echo '</td>';
-          echo '  <td class="text-nowrap">&nbsp;'.$value['article_date'].'&nbsp;</td>';
-          echo '  <td class="text-right text-nowrap">';
+          echo '  <td class="text-nowrap home-date">&nbsp;'.$value['article_date'].'&nbsp;</td>';
+          echo '  <td class="text-right text-nowrap home-actions">';
           if(count($phpwcms['allowed_lang'])) {
               echo '<span class="mr-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
           }
@@ -168,10 +168,10 @@ $_last10_article = _dbQuery($_asql_1);
 <table class="table table-sm mb-0">
   <thead class="thead-default">
   <tr class="bg-grey">
-    <th style="text-align:left" class="text-nowrap"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>
-    <th style="text-align:left"><?php echo $BL['be_article_atitle'].'/'.$BL['be_profile_label_notes'] ?></th>
-    <th class="text-nowrap"><?php echo $BL['be_cnt_last_edited'] ?>&nbsp;</th>
-    <th>&nbsp;</th>
+    <th style="text-align:left" class="text-nowrap home-type"><?php echo $BL['be_cnt_type'] ?>&nbsp;</th>
+    <th style="text-align:left" class="home-title"><?php echo $BL['be_article_atitle'].'/'.$BL['be_profile_label_notes'] ?></th>
+    <th class="text-nowrap home-date"><?php echo $BL['be_cnt_last_edited'] ?>&nbsp;</th>
+    <th class="home-actions">&nbsp;</th>
   </tr>
   </thead>
   <tbody>
@@ -187,7 +187,7 @@ $_last10_article = _dbQuery($_asql_1);
 
           echo '<tr>'.LF;
 
-          echo '  <td class="overflow-ellipsis home-type text-nowrap">'.$wcs_content_type[$value["acontent_type"]];
+          echo '  <td class="home-type text-nowrap">'.$wcs_content_type[$value["acontent_type"]];
           if ($value["acontent_type"] == 30) {
               echo ': '.$BL['modules'][$value["acontent_module"]]['listing_title'];
           }
@@ -203,9 +203,9 @@ $_last10_article = _dbQuery($_asql_1);
 
           $value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice'], false));
 
-          echo '  <td class="overflow-ellipsis home-cp" style="font-weight:normal" width="90%">'.$value['notice'].'</td>'.LF;
-          echo '  <td class="text-nowrap">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
-          echo '  <td class="text-right text-nowrap">';
+          echo '  <td class="home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
+          echo '  <td class="text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
+          echo '  <td class="text-right text-nowrap home-actions">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-cp-'.$value['acontent_id'].'">';
           echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
           echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';
