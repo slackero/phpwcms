@@ -217,14 +217,14 @@ select.form-control-sm:not([size]):not([multiple]),
 }
 
 #column-left {
-    width: 220px;
+    width: 230px;
     height: 100%;
     overflow: auto;
     background-color: #dce3e9;
     border-right: 1px solid #b5c4d2;
     position: fixed;
     top: 25px;
-    left: -220px;
+    left: -230px;
     padding-top: 60px;
     z-index: 10;
 }
@@ -713,25 +713,29 @@ a.filein {
 #side-menu li li a {
     display: flex;
     align-items: flex-start;
-    padding: 5px 10px;
+    padding: 5px 10px 5px 36px;
     color: #2b4560 !important;
     border-bottom: 1px solid #b5c4d2;
 }
 
 #side-menu li li a::before {
-    content: "\f101";
-    font-size: 11px;
+    content: "\f105";
+    font-size: 10px;
     font-family: "Font Awesome 5 Free";
-    margin-left: 8px;
-    margin-right: 6px;
-    transition: margin ease 0.5s;
     font-weight: 900;
+    margin-right: 6px;
+    margin-top: 4px;
     flex-shrink: 0;
-    margin-top: 2px;
+    transition: transform ease 0.2s;
+}
+
+#side-menu li li:hover > a::before,
+#side-menu li li.subnavactive a::before {
+    transform: translateX(2px);
 }
 
 #side-menu .fa {
-    margin-right: 6px;
+    margin-right: 2px;
 }
 
 #side-menu li:hover > a {
@@ -799,7 +803,7 @@ a.filein {
 }
 
 .sidebar {
-    max-width: 220px;
+    max-width: 230px;
     border-top: 1px solid #b5c4d2;
 }
 
@@ -1058,7 +1062,7 @@ li.sortme {
 
     #column-left + #content, #column-left + #content + #footer {
         left: 0;
-        margin-left: 220px;
+        margin-left: 230px;
     }
 
     .bootstrap-vertical-nav .collapse {
