@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'XAT';
 $BL['be_nav_profile']                   = 'PERFIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'FÒRUM';
+$BL['be_nav_collapse_menu'] = 'Plega el men&uacute;';
 
 $BL['be_page_title']                    = 'phpwcms - Àrea d\'administració';
 

@@ -35,6 +35,7 @@ $BL['be_nav_chat']                      = 'CHAT';
 $BL['be_nav_profile']                   = 'PROFIILI';
 $BL['be_nav_admin']                     = 'YLLÄPITO';
 $BL['be_nav_discuss']                   = 'KESKUSTELU';
+$BL['be_nav_collapse_menu'] = 'Pienenn&auml; valikko';
 
 $BL['be_page_title']                    = 'Ylläpidon käyttöliittymä (hallinnan työtila)';
 

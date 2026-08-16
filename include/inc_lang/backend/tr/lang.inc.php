@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'SOHBET';
 $BL['be_nav_profile']                   = 'PROFİL';
 $BL['be_nav_admin']                     = 'YÖNETİCİ';
 $BL['be_nav_discuss']                   = 'TARTIŞMA';
+$BL['be_nav_collapse_menu'] = 'Men&uuml;y&uuml; daralt';
 
 $BL['be_page_title']                    = 'site arkası (yönetim)';
 

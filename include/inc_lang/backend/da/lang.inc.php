@@ -40,6 +40,7 @@ $BL['be_nav_chat']                      = 'CHAT';
 $BL['be_nav_profile']                   = 'PROFIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DEBAT';
+$BL['be_nav_collapse_menu'] = 'Skjul menu';
 
 $BL['be_page_title']                    = 'phpwcms administration';
 

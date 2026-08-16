@@ -62,6 +62,7 @@ $BL['be_nav_chat']                      = 'CHAT';
 $BL['be_nav_profile']                   = 'CÁ NHÂN';
 $BL['be_nav_admin']                     = 'QUẢN TRỊ';
 $BL['be_nav_discuss']                   = 'THẢO LUẬN';
+$BL['be_nav_collapse_menu'] = 'Thu gọn menu';
 
 $BL['be_page_title']                    = 'Quản trị hệ thống';
 

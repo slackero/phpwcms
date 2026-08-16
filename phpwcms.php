@@ -246,6 +246,9 @@ header('Content-Type: text/html; charset=' . PHPWCMS_CHARSET);
         var storedTheme = localStorage.getItem('phpwcms_theme');
         var theme = storedTheme || '<?php echo html(get_backend_theme()); ?>' || 'auto';
         document.documentElement.setAttribute('data-theme', theme);
+        if (localStorage.getItem('phpwcms_sidebar_collapsed') === 'true') {
+            document.documentElement.classList.add('sidebar-collapsed');
+        }
     })();
     </script>
     <link href="include/inc_css/backend.min.css" rel="stylesheet" type="text/css">
@@ -333,12 +336,12 @@ if($BE['LANG'] === 'ar') {
             if ($do === 'default') {
                 echo ' active';
             }
-            echo '"><a href="phpwcms.php?' . get_token_get_string() . '"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> Dashboard</a></li>';
+            echo '"><a href="phpwcms.php?' . get_token_get_string() . '" title="Dashboard"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> <span class="nav-label">Dashboard</span></a></li>';
 
             $active = ($do === 'articles' || ($do === 'admin' && $p == 6)) ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['artcent']) || in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-copy fa-fw"></i> '.$BL['be_nav_articles'].' <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_articles']) . '"><i class="menu-image fa fa-copy fa-fw"></i> <span class="nav-label">' . $BL['be_nav_articles'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['artcent'])) {
                     $subnav .= subnavtext($BL['be_subnav_article_center'], 'phpwcms.php?do=articles', ($p == 0 || $p == 2) ? 0 : $p, 0, 0);
@@ -347,13 +350,13 @@ if($BE['LANG'] === 'ar') {
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
                     $subnav .= subnavtext($BL['be_news'], 'phpwcms.php?do=articles&amp;p=3', $p, 3, 0);
                 }
-                echo '<ul class="submenu">'.$subnav. '</ul></li>';
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_articles']) . '</li>' . $subnav . '</ul></li>';
             }
 
             $active = $do === 'files' ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-folder-open fa-fw"></i> '.$BL['be_nav_files'].' <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_files']) . '"><i class="menu-image fa fa-folder-open fa-fw"></i> <span class="nav-label">' . $BL['be_nav_files'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
 
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
                     $subnav = subnavtext($BL['be_subnav_file_center'], 'phpwcms.php?do=files', $p, 0, 0);
@@ -364,25 +367,25 @@ if($BE['LANG'] === 'ar') {
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['fileupload'])) {
                     $subnav .= subnavtext($BL['be_file_multiple_upload'], 'phpwcms.php?do=files&amp;p=8', $p, 8, 0);
                 }
-                echo '<ul class="submenu">'.$subnav. '</ul></li>';
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_files']) . '</li>' . $subnav . '</ul></li>';
             }
 
             if (!empty($phpwcms['enable_backend_module']) && in_array($_SESSION['wcs_user_id'], $grouparray['module'])) {
                 $active = ($do === 'modules') ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> '.$BL['be_nav_modules'].'  <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_modules']) . '"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> <span class="nav-label">' . $BL['be_nav_modules'] . '</span>  <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 foreach ($phpwcms['modules'] as $value) {
                     if (isset($modulearray[$value['name']]) && in_array($_SESSION['wcs_user_id'], $modulearray[$value['name']])) {
                         $subnav .= subnavtext($BL['modules'][ $value['name'] ]['backend_menu'], 'phpwcms.php?do=modules&amp;module='.$value['name'], $module, $value['name'], 0);
                     }
                 }
-                echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_modules']) . '</li>' . LF . $subnav . "\n</ul></li>";
             }
 
             //newsletter
             if (!empty($phpwcms['enable_backend_newsletter']) && in_array($_SESSION['wcs_user_id'], $grouparray['nl'])) {
                 $active = $do === 'messages' ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-envelope fa-fw"></i> '.$BL['be_nav_messages'].' <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_messages']) . '"><i class="menu-image fa fa-envelope fa-fw"></i> <span class="nav-label">' . $BL['be_nav_messages'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
                     $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], 'phpwcms.php?do=messages&amp;p=2', $p, 2, 0);
@@ -393,13 +396,13 @@ if($BE['LANG'] === 'ar') {
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlrecip'])) {
                     $subnav .= subnavtext($BL['be_subnav_msg_subscribers'], 'phpwcms.php?do=messages&amp;p=4', $p, 4, 0);
                 }
-                echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_messages']) . '</li>' . LF . $subnav . "\n</ul></li>";
             }
 
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
 
                 $active = ($do === 'admin' && $p != 6) ? ' active' : '';
-                echo '<li class="nav-item'.$active.'"><a href="#"><i class="menu-image fa fa-cog fa-fw"></i> '.$BL['be_nav_admin'].' <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="menu-image fa fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'phpwcms.php?do=admin&amp;p=8', $p, 8, 0);
@@ -432,10 +435,16 @@ if($BE['LANG'] === 'ar') {
                 $subnav .= subnavtext($BL['be_cnt_move_deleted'], 'include/inc_act/act_file.php?' . get_token_get_string() . '&movedeletedfiles='. $_SESSION['wcs_user_id'], 1, 0, 0, 'class="confirm-link" data-confirm-type="primary" data-confirm-action="' . html($BL['modal_move']) . '" data-confirm="' . html($BL['be_cnt_move_deleted_msg']) . '" ');
 
                 $subnav .= subnavtext('phpinfo()', 'phpwcms.php?do=admin&amp;p=15', $p, 15, 0);
-                echo '<ul class="submenu">'.LF.$subnav."\n</ul></li>";
+                echo '<ul class="submenu"><li class="submenu-title">' . html($BL['be_nav_admin']) . '</li>' . LF . $subnav . "\n</ul></li>";
             }
           ?>
           </ul>
+
+          <div class="sidebar-toggle-wrap d-none d-md-block">
+            <button type="button" id="sidebar-toggle" class="btn-sidebar-toggle" title="<?php echo html($BL['be_nav_collapse_menu']); ?>" aria-label="<?php echo html($BL['be_nav_collapse_menu']); ?>">
+              <i class="fa fa-angle-double-left sidebar-toggle-icon"></i> <span class="sidebar-toggle-text"><?php echo html($BL['be_nav_collapse_menu']); ?></span>
+            </button>
+          </div>
 
           <div class="searchbar">
             <div id="jslib" class="text-center text-white small"></div>

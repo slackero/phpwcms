@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'POKALBIAI';
 $BL['be_nav_profile']                   = 'PROFILIS';
 $BL['be_nav_admin']                     = 'ADMINISTRAVIMAS';
 $BL['be_nav_discuss']                   = 'DISKUSIJOS';
+$BL['be_nav_collapse_menu'] = 'Suskleisti meniu';
 
 $BL['be_page_title']                    = 'phpwcms administravimas';
 

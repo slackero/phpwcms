@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'CHAT';
 $BL['be_nav_profile']                   = 'PROFILI';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'RASPRAVA';
+$BL['be_nav_collapse_menu'] = 'Skupi meni';
 
 $BL['be_page_title']                    = 'phpwcms (administracija)';
 

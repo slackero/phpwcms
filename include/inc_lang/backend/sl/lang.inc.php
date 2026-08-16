@@ -38,6 +38,7 @@ $BL['be_nav_chat']                      = 'KLEPET';
 $BL['be_nav_profile']                   = 'PROFIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'RAZPRAVE';
+$BL['be_nav_collapse_menu'] = 'Strni meni';
 
 $BL['be_page_title']                    = 'phpwcms administracija';
 

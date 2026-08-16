@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'VESTLUS';
 $BL['be_nav_profile']                   = 'PROFIIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'ARUTELU';
+$BL['be_nav_collapse_menu'] = 'Ahenda men&uuml;&uuml;';
 
 $BL['be_page_title']                    = 'phpwcms back-end kasutajaliides (administreerimine)';
 

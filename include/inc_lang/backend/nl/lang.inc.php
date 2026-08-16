@@ -37,6 +37,7 @@ $BL['be_nav_chat']                      = 'CHATTEN';
 $BL['be_nav_profile']                   = 'LOGIN GEGEVENS';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DISCUSSIE';
+$BL['be_nav_collapse_menu'] = 'Menu inklappen';
 
 $BL['be_page_title']                    = 'phpwcms backend (beheer)';
 

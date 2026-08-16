@@ -41,6 +41,7 @@ $BL['be_nav_chat']                      = 'PRAT';
 $BL['be_nav_profile']                   = 'PROFIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DISKUTER';
+$BL['be_nav_collapse_menu'] = 'Slå sammen meny';
 
 $BL['be_page_title']                    = 'phpwcms administrasjon';
 

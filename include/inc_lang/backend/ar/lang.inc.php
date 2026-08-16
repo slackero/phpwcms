@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'إدارة المحادثة';
 $BL['be_nav_profile']                   = 'البيانات الشخصية';
 $BL['be_nav_admin']                     = 'إدارة الموقع';
 $BL['be_nav_discuss']                   = 'مناقشات';
+$BL['be_nav_collapse_menu'] = 'طي القائمة';
 
 $BL['be_page_title']                    = 'إدارة المحتويات (إدارة الموقع)';
 

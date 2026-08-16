@@ -34,6 +34,7 @@ $BL['be_nav_chat']                      = 'ΣΥΝΟΜΙΛΙΑ';
 $BL['be_nav_profile']                   = 'ΠΡΟΦΙΛ';
 $BL['be_nav_admin']                     = 'ΔΙΑΧΕΙΡΙΣΤΗΣ';
 $BL['be_nav_discuss']                   = 'ΣΥΖΗΤΗΣΗ';
+$BL['be_nav_collapse_menu'] = 'Σύμπτυξη μενού';
 
 $BL['be_page_title']                    = 'phpwcms διαχείριση';
 

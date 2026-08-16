@@ -1469,15 +1469,34 @@ function initPhpwcmsCodeEditors() {
     }
 }
 
+function initSidebarToggle() {
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    if (!toggleBtn) return;
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const isCollapsed = document.documentElement.classList.toggle('sidebar-collapsed');
+        localStorage.setItem('phpwcms_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+
+        // Trigger resize event after transition so charts, Ace editors, tables re-render
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+            window.phpwcmsAceEditors?.forEach(ed => ed.resize());
+        }, 220);
+    });
+}
+
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initPhpwcmsTheme();
             initPhpwcmsCodeEditors();
+            initSidebarToggle();
         });
     } else {
         initPhpwcmsTheme();
         initPhpwcmsCodeEditors();
+        initSidebarToggle();
     }
 }
 

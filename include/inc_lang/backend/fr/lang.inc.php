@@ -35,6 +35,7 @@ $BL['be_nav_chat']                      = 'DISCUSSION';
 $BL['be_nav_profile']                   = 'PROFIL';
 $BL['be_nav_admin']                     = 'ADMIN';
 $BL['be_nav_discuss']                   = 'DISCUTER';
+$BL['be_nav_collapse_menu'] = 'R&eacute;duire le menu';
 
 $BL['be_page_title']                    = 'interface d&#39;administration';
 
