@@ -171,7 +171,7 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
         <div class="card-header p-2 bg-light border-bottom" role="tab" id="heading_<?php echo $key; ?>">
           <div class="row align-items-center">
             <div class="col-auto pr-0">
-              <span class="handle text-muted" style="cursor: move;"><i class="fa fa-bars"></i></span>
+              <span class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
             </div>
             <div class="col">
               <h5 class="mb-0 font-weight-bold">#<?php echo ($key + 1); ?></h5>
@@ -215,7 +215,7 @@ if ($cpt_mode === 'single' && empty($content['custom_form']['custom_elements']))
       <div class="card-header p-2 bg-light border-bottom" role="tab">
         <div class="row align-items-center">
           <div class="col-auto pr-0">
-            <span class="handle text-muted" style="cursor: move;"><i class="fa fa-bars"></i></span>
+            <span class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
           </div>
           <div class="col">
             <h5 class="mb-0 font-weight-bold">#__NUM__</h5>

@@ -306,8 +306,8 @@ if(isset($template_default['settings']['imagespecial_custom_fields']) && is_arra
     <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
         <div class="row align-items-center">
             <div class="col-sm-auto pr-0">
-                <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
-                    <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
+                <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
+                    <i class="fa fa-grip-vertical"></i>
                 </em>
             </div>
             <div class="col-auto">
@@ -786,7 +786,7 @@ function addNewImage(where) {
 
     new_entry += '<div class="card-header p-2 border-1" role="tab" id="heading_'+entry_number+'">';
     new_entry += '<div class="row align-items-center">';
-    new_entry += '<div class="col-sm-auto pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></div>';
+    new_entry += '<div class="col-sm-auto pr-0"><em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary"><i class="fa fa-grip-vertical"></i></em></div>';
     new_entry += '<div class="col"><h2><strong>#'+(entry_number+1)+'</strong></h2></div>';
     new_entry += '<div class="col-sm-auto text-right">';
     new_entry += '<a class="btn btn-sm btn-danger mr-1" role="button" href="#" onclick="return setImgActive(this, \'imgactive'+entry_number+'\')">'

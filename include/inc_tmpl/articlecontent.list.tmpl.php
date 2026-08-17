@@ -524,7 +524,7 @@ $(function() {
   <li class="rounded-0 list-group-item" id="<?php echo $row["acontent_id"]; ?>">
     <div class="row">
       <div class="col-sm-auto align-self-center">
-        <span data-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'] ?>" class="handle fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
+        <span data-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'] ?>" class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>
       </div>
       <div class="col">
         <div class="row">

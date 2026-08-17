@@ -141,11 +141,8 @@ if(is_array($tmpllist) && count($tmpllist)) {
         <div class="card-header p-2 border-1" role="tab" id="heading_<?php echo $key ?>">
           <div class="row align-items-center">
             <div class="col-sm-auto">
-              <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
-                  <span class="fa-stack">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
-                  </span>
+              <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
+                  <i class="fa fa-grip-vertical"></i>
               </em>
             </div>
             <div class="col">
@@ -397,8 +394,8 @@ function addNewTab(pos) {
         <div class="card-header p-2 border-1" role="tab" id="heading_${entries}">
             <div class="row align-items-center">
                 <div class="col-sm-auto">
-                    <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-success">
-                        <span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span>
+                    <em data-toggle="tooltip" title="<?php echo $sort_up_down; ?>" class="handle text-secondary">
+                        <i class="fa fa-grip-vertical"></i>
                     </em>
                 </div>
                 <div class="col">

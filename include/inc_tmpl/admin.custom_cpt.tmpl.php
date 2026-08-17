@@ -425,8 +425,8 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             }
 
             return `
-            <tr class="field-row" draggable="true">
-              <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-bars text-black-50"></i></td>
+            <tr class="field-row">
+              <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px; user-select: none;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-grip-vertical text-black-50"></i></td>
               <td>
                 <input type="text" name="field_key[]" class="form-control form-control-sm text-monospace font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
                 <div class="invalid-feedback field-key-feedback" style="display: none; font-size: 11px;"></div>
@@ -681,9 +681,29 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
 
             let draggedRow = null;
 
+            container.addEventListener('mousedown', function(e) {
+                const handle = e.target.closest('.drag-handle');
+                const row = e.target.closest('tr.field-row');
+                if (handle && row) {
+                    row.setAttribute('draggable', 'true');
+                } else if (row) {
+                    row.removeAttribute('draggable');
+                }
+            });
+
+            container.addEventListener('mouseup', function() {
+                if (!draggedRow) {
+                    const activeRows = container.querySelectorAll('tr.field-row[draggable="true"]');
+                    activeRows.forEach(function(r) { r.removeAttribute('draggable'); });
+                }
+            });
+
             container.addEventListener('dragstart', function(e) {
                 const row = e.target.closest('tr.field-row');
-                if (!row) return;
+                if (!row || !row.hasAttribute('draggable')) {
+                    e.preventDefault();
+                    return;
+                }
                 draggedRow = row;
                 draggedRow.classList.add('table-primary');
                 draggedRow.style.opacity = '0.4';
@@ -708,9 +728,12 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                 if (draggedRow) {
                     draggedRow.classList.remove('table-primary');
                     draggedRow.style.opacity = '';
+                    draggedRow.removeAttribute('draggable');
                     draggedRow = null;
                     generateTemplateScaffoldJS();
                 }
+                const activeRows = container.querySelectorAll('tr.field-row[draggable="true"]');
+                activeRows.forEach(function(r) { r.removeAttribute('draggable'); });
             });
         }
 

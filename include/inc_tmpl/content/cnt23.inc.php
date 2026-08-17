@@ -732,7 +732,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         $field_js['hideAll'][$key]  = ' showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 
         echo '<li class="sortme" id="sortRow_'.$field_counter.'"><table class="table-borderless w-100"><tr'.$field_bg.'>';
-        echo '<td width="30"><em data-toggle="tooltip" title="Sortieren: hoch / Sortieren: runter" class="handle text-secondary"><span class="fa-stack"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-sort fa-stack-1x fa-inverse"></i></span></em></td>';
+        echo '<td width="30" class="text-center"><em data-toggle="tooltip" title="Sortieren: hoch / Sortieren: runter" class="handle text-secondary"><i class="fa fa-grip-vertical"></i></em></td>';
         echo '<td width="30" class="text-center" id="formRow_'.$field_counter.'">';
         echo '<a href="#" onclick="return showHide_CntFormfieldRow(\'formRow_'.$field_counter.'\', \'none\'';
 

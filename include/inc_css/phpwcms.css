@@ -1032,7 +1032,12 @@ li.placeholder:before {
 
 .handle {
     color: #868e96;
-    cursor: move;
+    cursor: grab;
+    user-select: none;
+}
+
+.handle:active {
+    cursor: grabbing;
 }
 
 li.sortme {
