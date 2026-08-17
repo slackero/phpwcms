@@ -45,7 +45,7 @@ if(!isset($_GET["s"])) {
 
             echo '<a class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=1|'.$row["pagelayout_id"].'" ';
             echo 'title="'.$BL['be_tt_delete_pagelayout'].'" ';
-            echo ' onclick="return confirm(\''.$BL['be_cnt_delete'].': '.js_singlequote(html($row["pagelayout_name"])).'?  \')">';
+            echo 'data-confirm-danger="'.html($BL['be_cnt_delete'].":\n[".$row["pagelayout_name"].']').'">';
             echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
 
             echo "</td>\n</tr>\n";
@@ -56,7 +56,7 @@ if(!isset($_GET["s"])) {
 
 ?>
 </table>
-<form action="phpwcms.php?do=admin&p=8&s=0" method="post"><input type="submit" value="<?php echo $BL['be_admin_page_add'] ?>" class="btn btn-blue"></form>
+<a href="phpwcms.php?do=admin&amp;p=8&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_page_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_page_add'] ?></a>
 </div>
 </div>
 <?php
@@ -305,15 +305,15 @@ if(!isset($_GET["s"])) {
 <div class="col-12 col-sm text-center text-sm-right mb-3">
 	 <div class="form-group">
 		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
-		<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_page_button'] ?>">
-		<input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';">
+		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_page_button'] ?></button>
+		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
      </div>
 </div>
 </div>
 
 <div class="card">
 	<div class="card-header"><h2><?php echo $BL['be_admin_page_title'] ?></h2></div>
-	<div class="card-body">
+	<div class="card-body pb-2">
 
     <div class="form-group form-row align-items-center">
       <label for="layout_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_name'] ?></label>
@@ -676,10 +676,10 @@ if(!isset($_GET["s"])) {
     </div>
 </div>
 
-	<div class="form-group align-items-center text-center text-sm-right mt-4 mb-0">
+	<div class="form-group align-items-center mt-4 mb-0">
 		<input name="layout_id" type="hidden" value="<?php echo $pagelayout["id"] ?>">
-		<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_page_button'] ?>">
-		<input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&p=8';">
+		<button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_page_button'] ?></button>
+		<a href="phpwcms.php?do=admin&amp;p=8" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 	</div>
 
 </form>

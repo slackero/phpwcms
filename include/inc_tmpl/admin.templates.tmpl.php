@@ -181,7 +181,7 @@ if(!isset($_GET["s"])) {
 
                         echo '<a class="btn btn-danger btn-sm ml-1" role="button" data-toggle="tooltip" href="include/inc_act/act_frontendsetup.php?do=2|' . $row["template_id"] . '" ';
                         echo 'title="' . $BL['be_cnt_delete'] . ': ' . html($row["template_name"]) . '" ';
-                        echo 'onclick="return confirm(\'' . js_singlequote($BL['be_cnt_delete'] . ': ' . html($row["template_name"])) . '\');">';
+                        echo 'data-confirm-danger="' . html($BL['be_cnt_delete'] . ":\n[" . $row["template_name"] . ']') . '">';
                         echo '<i class="far fa-trash-alt" aria-hidden="true"></i></a>';
                         echo "</td>\n</tr>\n";
 
@@ -191,10 +191,7 @@ if(!isset($_GET["s"])) {
 
                 ?>
             </table>
-            <form action="phpwcms.php?do=admin&amp;p=11&amp;s=0" method="post">
-                <input type="submit" value="<?php echo $BL['be_admin_tmpl_add'] ?>" class="btn btn-blue btn-sm"
-                       title="<?php echo $BL['be_admin_tmpl_add'] ?>"/>
-            </form>
+            <a href="phpwcms.php?do=admin&amp;p=11&amp;s=0" class="btn btn-blue btn-sm" title="<?php echo $BL['be_admin_tmpl_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_tmpl_add'] ?></a>
         </div>
     </div>
     <?php
@@ -428,10 +425,8 @@ if(!isset($_GET["s"])) {
             <div class="col-12 col-sm text-center text-sm-right mb-3">
                 <div class="form-group">
                     <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-                    <input name="Submit" type="submit" class="btn btn-sm btn-blue"
-                           value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
-                    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>"
-                           onclick="location.href='phpwcms.php?do=admin&amp;p=11';"/>
+                    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
                 </div>
             </div>
         </div>
@@ -1590,7 +1585,7 @@ if(isset($result[0]['pagelayout_id'])) {
                 }
                 ?>
 
-                <div class="form-group form-row">
+                <div class="form-group form-row mb-0">
                     <label for="template_block_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
                     <div class="col">
                         <?php
@@ -1603,12 +1598,13 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
 
-                <div class="form-group align-items-center text-center text-sm-right mt-3 mb-2">
-                    <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
-                    <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_tmpl_button'] ?>"/>
-                    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=11';"/>
-                </div>
             </div>
+        </div>
+
+        <div class="form-group align-items-center mt-4 mb-0">
+            <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
+            <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_tmpl_button'] ?></button>
+            <a href="phpwcms.php?do=admin&amp;p=11" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
         </div>
     </form>
     <script type="text/javascript">

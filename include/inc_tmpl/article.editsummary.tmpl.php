@@ -37,9 +37,9 @@ $langstr = '';
   </div>
   <div class="col-12 col-sm text-center text-sm-right mb-3">
     <div class="form-group align-items-center">
-      <input name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" />
-      <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-      <input name="donotsubmit" type="submit" class="btn btn-sm btn-danger ml-3" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
+      <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+      <button name="Submit" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+      <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" onclick="return cancelEdit();"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
     </div>
   </div>
 </div>
@@ -873,10 +873,10 @@ $langstr = '';
 </div>
 </div>
 
-<div class="form-group align-items-center text-center text-sm-right mt-4">
-  <input name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?>" />
-  <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-  <input name="donotsubmit" type="submit" class="btn btn-sm btn-danger ml-3" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelEdit();" />
+<div class="form-group align-items-center mt-4">
+  <button name="updatesubmit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $article['article_id'] ? $BL['be_article_cnt_button1'] : $BL['be_article_cnt_button2'] ?></button>
+  <button name="Submit" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+  <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" onclick="return cancelEdit();"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></button>
 </div>
 
 </form>

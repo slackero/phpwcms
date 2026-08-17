@@ -552,7 +552,7 @@ endif;
 if (!empty($content["id"])) {
     $buttonActionLink = rel_url(array('phpwcms-preview'=>1), array(), empty($content['article']["article_alias"]) ? (empty($content["aid"]) ? 'id='.$content["id"] : 'aid='.$content["aid"]) : $content['article']["article_alias"]);
     $buttonAction  = '<button type="button" value="'.$BL['be_func_struct_preview'].'" class="btn btn-sm btn-info float-sm-right" title="'.$BL['be_func_struct_preview'].'" ';
-    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\">";
+    $buttonAction .= 'onclick="window.open(\''.$buttonActionLink."', 'articlePreviewWindows');return false;\"><i class=\"far fa-eye mr-1\"></i> ";
     $buttonAction .= $BL['be_func_struct_preview']."</button>" . LF;
 } else {
     $buttonAction  = '';
@@ -561,9 +561,9 @@ if (!empty($content["id"])) {
 ob_start();
 
 ?>
-    <input name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo $sendbutton ?>" />
-    <input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-    <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="return cancelContentEdit();" />
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" id="submit-button" value="<?php echo html($sendbutton); ?>"><i class="fa fa-save"></i> <?php echo html($sendbutton); ?></button>
+    <button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo html($BL['be_article_cnt_button3']); ?>"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3']); ?></button>
+    <button name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" onclick="return cancelContentEdit();"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel']); ?></button>
     <?php echo $buttonAction; ?>
 <?php
 

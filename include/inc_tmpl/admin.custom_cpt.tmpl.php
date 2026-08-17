@@ -325,9 +325,9 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
               </div>
             </div>
             <div class="card-footer">
-              <input name="save_only" type="submit" class="btn btn-sm btn-blue" value="<?php echo html($sendbutton); ?>" />
-              <input name="save_and_close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?>" />
-              <input name="donotsubmit" type="button" class="btn btn-sm btn-danger ml-3" value="<?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?>" onclick="location.href='phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16';" />
+              <button name="save_only" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo html($sendbutton); ?></button>
+              <button name="save_and_close" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo html($BL['be_article_cnt_button3'] ?? 'Save & close'); ?></button>
+              <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo html($BL['be_newsletter_button_cancel'] ?? 'Cancel'); ?></a>
             </div>
           </div>
 

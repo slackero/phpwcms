@@ -21,7 +21,7 @@ $buttonAction .= '<i class="fa fa-list mr-1"></i>' . $BL['be_article_cnt_center'
 // Article Preview (new window)
 $buttonActionLink = rel_url(array('phpwcms-preview' => 1), array(), empty($article['article_alias']) ? 'aid=' . $article['article_id'] : $article['article_alias']);
 $buttonAction .= '<a class="btn btn-sm btn-blue" href="' . html($buttonActionLink) . '" target="articlePreviewWindows" data-toggle="tooltip" title="' . html($BL['be_func_struct_preview']) . '">';
-$buttonAction .= '<i class="fa fa-external-link-alt mr-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
+$buttonAction .= '<i class="far fa-eye mr-1"></i>' . $BL['be_func_struct_preview'] . '</a>';
 
 ?>
 <script>

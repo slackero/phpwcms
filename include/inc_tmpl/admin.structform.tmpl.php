@@ -130,9 +130,9 @@ switch($acat_hidden) {
   </div>
   <div class="col text-center text-sm-right mb-3">
     <div class="form-group align-items-center">
-			<input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			<input name="donotsubmit" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=0';" />
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 </div>
@@ -699,11 +699,11 @@ switch($acat_hidden) {
 </div>
 </div>
 
-  <div class="text-center text-sm-right mt-4">
+  <div class="mt-4">
     <div class="form-group align-items-center">
-			<input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-			<input name="SubmitClose" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-			<input name="donotsubmit" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=articles&amp;p=0';" />
+			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ml-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+			<a href="phpwcms.php?do=articles&amp;p=0" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 

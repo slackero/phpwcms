@@ -128,8 +128,8 @@ $_last10_article = _dbQuery($_asql_1);
 ?>
   </tbody>
 </table>
-    <input type="button" value="<?php echo $BL['be_subnav_article_center'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='phpwcms.php?<?php echo get_token_get_string(); ?>&do=articles'" />
-    <input type="button" value="<?php echo $BL['be_subnav_article_new'] ?>" class="btn btn-sm btn-blue" onclick="document.location.href='phpwcms.php?<?php echo get_token_get_string(); ?>&do=articles&amp;p=1&amp;struct=0'" />
+    <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list mr-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
+    <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
   </div>
 </div>
 
