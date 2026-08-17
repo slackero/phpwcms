@@ -92,6 +92,7 @@ $_last10_article = _dbQuery($_asql_1);
 	</div>
 </div>
 <div class="card-body">
+<div class="table-responsive">
 <table class="table table-sm mb-0">
   <thead class="thead-default">
   <tr class="bg-grey">
@@ -106,13 +107,13 @@ $_last10_article = _dbQuery($_asql_1);
       $row_count = 0;
       foreach ($_last10_article as $value) {
           echo '<tr>';
-          echo '  <td class="home-article">'.html($value['article_title']);
+          echo '  <td class="align-middle home-article">'.html($value['article_title']);
           if ($value['article_subtitle']) {
               echo ' / ' . html($value['article_subtitle']);
           }
           echo '</td>';
-          echo '  <td class="text-nowrap home-date">&nbsp;'.$value['article_date'].'&nbsp;</td>';
-          echo '  <td class="text-right text-nowrap home-actions">';
+          echo '  <td class="align-middle text-nowrap home-date">&nbsp;'.$value['article_date'].'&nbsp;</td>';
+          echo '  <td class="align-middle text-right text-nowrap home-actions">';
           if(count($phpwcms['allowed_lang'])) {
               echo '<span class="mr-3 flag-icon flag-icon-' . ($lang = strtolower(empty($value["article_lang"]) ? $phpwcms['default_lang'] : $value["article_lang"])) . '" title="' . get_language_name($lang) . '"></span>';
           }
@@ -128,8 +129,11 @@ $_last10_article = _dbQuery($_asql_1);
 ?>
   </tbody>
 </table>
-    <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list mr-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
-    <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
+</div>
+    <div class="mt-3">
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles" class="btn btn-sm btn-blue"><i class="fa fa-list mr-1"></i> <?php echo $BL['be_subnav_article_center'] ?></a>
+      <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=articles&amp;p=1&amp;struct=0" class="btn btn-sm btn-blue ml-1"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_subnav_article_new'] ?></a>
+    </div>
   </div>
 </div>
 
@@ -187,7 +191,7 @@ $_last10_article = _dbQuery($_asql_1);
 
           echo '<tr>'.LF;
 
-          echo '  <td class="home-type text-nowrap">'.$wcs_content_type[$value["acontent_type"]];
+          echo '  <td class="align-middle home-type text-nowrap">'.$wcs_content_type[$value["acontent_type"]];
           if ($value["acontent_type"] == 30 && isset($BL['modules'][$value["acontent_module"]])) {
               echo ': '.$BL['modules'][$value["acontent_module"]]['listing_title'];
           } elseif ($value["acontent_type"] == 60 && function_exists('get_custom_contentpart_title')) {
@@ -205,9 +209,9 @@ $_last10_article = _dbQuery($_asql_1);
 
           $value['notice'] = html(preg_replace('/\s+/', ' ', $value['notice'], false));
 
-          echo '  <td class="home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
-          echo '  <td class="text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
-          echo '  <td class="text-right text-nowrap home-actions">';
+          echo '  <td class="align-middle home-cp" style="font-weight:normal">'.$value['notice'].'</td>'.LF;
+          echo '  <td class="align-middle text-nowrap home-date">&nbsp;'.$value['acontent_changed'].'&nbsp;</td>'.LF;
+          echo '  <td class="align-middle text-right text-nowrap home-actions">';
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="home-cp-'.$value['acontent_id'].'">';
           echo '<button id="abtnacontent'.$value['acontent_id'].'" class="btn fa btn-sm visible '.($value['acontent_visible'] == 0 ? 'btn-warning' : 'btn-success').'" data-id="'.$value['acontent_id'].'" data-type="acontent" data-table="articlecontent" data-field="acontent_visible" data-fieldid="acontent_id" aria-disabled="true" data-toggle="tooltip" title="'.html($BL['be_tooltip_visibility']).'"></button>';
           echo '<a class="btn btn-sm btn-blue" title="'.html($BL['be_func_content_edit']).'" data-toggle="tooltip" href="phpwcms.php?do=articles&amp;p=2&amp;s=1&amp;aktion=2&amp;id='.$value['acontent_aid'].'&amp;acid='.$value['acontent_id'].'"><i class="fa fa-pencil-alt"></i></a>';

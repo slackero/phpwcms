@@ -1684,7 +1684,7 @@ $BL['be_default'] = 'default';
 // Merged from lang.pp.inc.php
 $BL['be_cnt_openarticlebrowser'] = 'Open article browser';
 $BL['be_nav_toggle_navigation'] = 'Toggle navigation';
-$BL['be_ctype_custom'] = 'Custom Content Part';
+$BL['be_ctype_custom'] = 'Custom CP';
 $BL['be_cnt_custom_entry'] = 'Item';
 $BL['be_cnt_custom_entries'] = 'Items';
 $BL['be_cnt_title_overview'] = 'Overview';
