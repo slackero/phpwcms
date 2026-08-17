@@ -470,7 +470,7 @@ $langstr = '';
       <div class="form-group align-items-center form-row">
         <span class="col-sm-2 col-form-label text-sm-right"><?php echo $BL['be_article_akeywords'] ?> <i class="fas fa-info-circle text-blue" data-toggle="tooltip" title="<?php echo $BL['be_input_text_tab'] ?>"></i></span>
         <div class="col">
-          <input class="form-control form-control-sm border py-3 px-2" type="text" id="article_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_article_akeywords']) ?>" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article['article_keyword']) ?>" />
+          <input class="form-control form-control-sm" type="text" id="article_keyword_autosuggest" aria-label="<?php echo html_specialchars($BL['be_article_akeywords']) ?>" /><input type="hidden" name="article_keyword" id="article_keyword" value="<?php echo html($article['article_keyword']) ?>" />
         </div>
       </div>
 

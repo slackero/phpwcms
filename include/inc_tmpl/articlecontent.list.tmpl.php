@@ -171,7 +171,16 @@ $(function() {
               ?>
               <tr>
                 <td class="text-secondary text-nowrap font-weight-bold"><?php echo $BL['be_article_akeywords']; ?>:</td>
-                <td><?php echo !empty($article['article_keyword']) ? html($article['article_keyword']) : '<span class="text-muted">–</span>'; ?></td>
+                <td><?php
+                if (!empty($article['article_keyword'])) {
+                    $keywords = convertStringToArray($article['article_keyword'], ',');
+                    foreach ($keywords as $keyword) {
+                        echo '<span class="badge badge-light border font-weight-normal mr-1">' . html($keyword) . '</span>';
+                    }
+                } else {
+                    echo '<span class="text-muted">–</span>';
+                }
+                ?></td>
               </tr>
               <?php if(!empty($article['article_canonical'])): ?>
                 <tr>

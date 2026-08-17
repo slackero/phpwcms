@@ -44,8 +44,14 @@ if($action == 'form' && $article_id) {
     $content['current_article'] = _dbGet('phpwcms_article', '*', 'article_id='._dbEscape($article_id), '', '', 1);
 
     echo '<div class="p-2">'.LF;
-    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-3 col-form-label text-right font-weight-bold">'.$BL['be_article_atitle'] .':</span><div class="col-sm-9"> '. html_specialchars($content['current_article'][0]['article_title']).'</div></div>';
-    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-3 col-form-label text-right font-weight-bold">'.$BL['be_article_akeywords'] .':</span><div class="col-sm-9"> '. html_specialchars($content['current_article'][0]['article_keyword']).'</div></div>';
+    $kw_str = '<span class="text-muted">–</span>';
+    if (!empty($content['current_article'][0]['article_keyword'])) {
+        $kw_str = '';
+        foreach (convertStringToArray($content['current_article'][0]['article_keyword'], ',') as $kw) {
+            $kw_str .= '<span class="badge badge-light border font-weight-normal mr-1">' . html_specialchars($kw) . '</span>';
+        }
+    }
+    echo '<div class="form-group form-row align-items-center my-0"><span class="col-sm-3 col-form-label text-right font-weight-bold">'.$BL['be_article_akeywords'] .':</span><div class="col-sm-9"> '. $kw_str .'</div></div>';
     echo '<div class="form-group form-row align-items-center"><span class="col-sm-3 col-form-label text-right font-weight-bold">'.$BL['be_cnt_left'] .':</span><div class="col-sm-9">';
     echo '<a href="phpwcms.php?do=articles&p=2&s=1&id=' . $article_id . '" target="_blank">'.$BL['be_cnt_articles'] .'</a>'.LF;
     echo '| <a href="index.php?aid=' . $article_id . '" target="_blank">'.$BL['be_func_struct_preview'] .'</a></div></div>'.LF;

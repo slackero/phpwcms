@@ -56,13 +56,13 @@ switch($action) {
 
 	case 'category':
 		$where  = "cat_status=1 AND cat_type NOT IN('module_shop') AND ";
-		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/', '', $value), false ) . "%'";
+		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/u', '', $value), false ) . "%'";
 		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
 		if(isset($result[0])) {
-			foreach($result as $value) {
-				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
-				$data[] = $jquery ? array('cat_name' => $value) : $value;
+			foreach($result as $row) {
+				$val = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['cat_name'], 'UTF-8', PHPWCMS_CHARSET) : $row['cat_name'];
+				$data[] = $jquery ? array('cat_name' => $val) : $val;
 			}
 		}
 		break;
@@ -70,13 +70,13 @@ switch($action) {
 	case 'newstags':
 		$where  = "cat_status=1 AND cat_type='news' AND ";
 		$where .= "SUBSTRING(cat_name, 1, 5) != '*CSS-' AND ";
-		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/', '', $value), false ) . "%'";
+		$where .= "cat_name LIKE '%" . _dbEscape( preg_replace('/[^\w\-\/]/u', '', $value), false ) . "%'";
 		$result = _dbGet('phpwcms_categories', 'cat_name', $where, 'cat_name', 'cat_name', 20);
 
 		if(isset($result[0])) {
-			foreach($result as $value) {
-				$value = mb_convert_encoding($value['cat_name'], 'UTF-8');
-				$data[] = $jquery ? array('cat_name' => $value) : $value;
+			foreach($result as $row) {
+				$val = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['cat_name'], 'UTF-8', PHPWCMS_CHARSET) : $row['cat_name'];
+				$data[] = $jquery ? array('cat_name' => $val) : $val;
 			}
 		}
 		break;
@@ -113,8 +113,9 @@ switch($action) {
     $result = _dbGet('phpwcms_article', 'article_title', $where, 'article_title', 'article_title', 20);
 
     if(isset($result[0])) {
-      foreach($result as $key => $value) {
-        $data[] = array('article_title' => mb_convert_encoding($value['cat_name'], 'UTF-8'));
+      foreach($result as $key => $row) {
+        $title = (PHPWCMS_CHARSET !== 'utf-8') ? mb_convert_encoding($row['article_title'], 'UTF-8', PHPWCMS_CHARSET) : $row['article_title'];
+        $data[] = array('article_title' => $title);
       }
     }
     break;
