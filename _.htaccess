@@ -1,36 +1,24 @@
-# Avoid accessing typical project specific IDE settings and system files
-RedirectMatch 404 /\.git
-RedirectMatch 404 /\.idea
-RedirectMatch 404 /\.nova
-RedirectMatch 404 /\.vscode
-RedirectMatch 404 /\.vs
-RedirectMatch 404 /composer\.(json|lock)$
-RedirectMatch 404 /\.phpstan
-RedirectMatch 404 /phpstan\.neon
-
-# PHP: These settings are recommend - check phpinfo() before try these
-#   register_globals ON
-#   php_flag magic_quotes_gpc Off
-#   php_flag magic_quotes_runtime Off
-#   php_flag register_globals Off
+# Avoid accessing typical project specific IDE settings, system files, and configuration dependencies
+RedirectMatch 404 /(^|/)\.(?!well-known)
+RedirectMatch 404 /(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docker-compose\.ya?ml|Makefile|phpstan\.neon(\.default)?)$
 
 # Add charset UTF-8 for css and js files
 AddCharset UTF-8 .css .js
 
 # Add MIME types for fonts, svg and videos
-AddType application/x-javascript .js
+AddType text/javascript .js
 AddType text/css .css
 AddType video/ogg .ogv
-AddType video/ogg .ogg
+AddType audio/ogg .ogg
 AddType video/mp4 .mp4
 AddType video/x-m4v .m4v
 AddType video/webm .webm
 AddType image/svg+xml .svg
 AddType font/woff2 .woff2
-AddType application/font-woff .woff
+AddType font/woff .woff
 AddType application/vnd.ms-fontobject .eot
-AddType application/x-font-ttf .ttf
-AddType application/x-font-opentype .otf
+AddType font/ttf .ttf
+AddType font/otf .otf
 
 # Options:
 #   Options +FollowSymlinks
@@ -76,24 +64,25 @@ AddType application/x-font-opentype .otf
     RewriteRule ^im\/(.+?)$ ./img/cmsimage.php?$1 [L]
 
     # File download /dl/… -> /download.php?…
-    RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1&%{QUERY_STRING} [L]
+    RewriteRule ^dl\/([a-fA-Z0-9]+)\/(.*?)$ ./download.php?f=$1 [QSA,L]
 
     # Stop rewrite processing, if we are in any known directory
     # NOTE: Add your additional local storages here
-    RewriteRule ^(?:template/|content/|picture/|uploads/|include/|filearchive/|img/) - [L]
+    RewriteRule ^(?:template/|content/|picture/|uploads?/|include/|filearchive/|img/) - [L]
 
     # Ignore all files and folders that exists
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^(.+) - [PT,L]
 
+    # Specific 6-part numeric ID URLs MUST precede the generic .html rule
+    RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.p?html$ ./index.php?id=$1,$2,$3,$4,$5,$6 [QSA,L]
 
     # In case of config setting `$phpwcms['rewrite_ext']='.html'` -> /alias.html (Default)
-    RewriteRule ^(.+)\.[p]{0,1}html$ ./index.php?$1&%{QUERY_STRING} [L]
-    RewriteRule ^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\.[p]{0,1}html$ ./index.php?id=$1,$2,$3,$4,$5,$6&%{QUERY_STRING} [L]
+    RewriteRule ^(.+)\.p?html$ ./index.php?$1 [QSA,L]
 
     # Rewrite anything else and link it against phpwcms
     # Check redirect settings under admin in the backend
-    RewriteRule ^(.+)/?$ ./index.php?$1&%{QUERY_STRING}
+    RewriteRule ^(.+)/?$ ./index.php?$1 [QSA,L]
 
 </IfModule>
