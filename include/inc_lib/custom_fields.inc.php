@@ -261,6 +261,46 @@ function get_unique_custom_cpt_key($key, $exclude_id = 0) {
 }
 
 /**
+ * Return list of reserved field keys / standard content part tags
+ *
+ * @return array
+ */
+function get_custom_cpt_reserved_field_keys() {
+    return array(
+        'title',
+        'subtitle',
+        'attr_class',
+        'attr_id',
+        'anchor',
+        'id',
+        'before',
+        'after',
+        'html',
+        'text',
+        'cpt_key',
+        'module',
+        'cpt_title',
+        'cpt_desc',
+        'item_index',
+        'item_num',
+        'item_total'
+    );
+}
+
+/**
+ * Check if a custom content part field key is a reserved standard tag
+ *
+ * @param string $key
+ * @return bool
+ */
+function is_custom_cpt_reserved_field_key($key) {
+    if (empty($key)) {
+        return false;
+    }
+    return in_array(strtolower(trim($key)), get_custom_cpt_reserved_field_keys(), true);
+}
+
+/**
  * Count active content parts using a specific custom CPT key
  *
  * @param string $key
@@ -351,6 +391,13 @@ function save_custom_contentpart($data) {
     if (!is_array($fields)) {
         $fields = array();
     }
+    $clean_fields = array();
+    foreach ($fields as $fk => $fv) {
+        $fk = preg_replace('/[^-a-z0-9_]/i', '', strtolower(trim($fk)));
+        if (!empty($fk) && !is_custom_cpt_reserved_field_key($fk)) {
+            $clean_fields[$fk] = $fv;
+        }
+    }
 
     $db_data = array(
         'cpt_key'      => $key,
@@ -360,7 +407,7 @@ function save_custom_contentpart($data) {
         'cpt_icon'     => clean_slweg($data['cpt_icon'] ?? 'fa-cube'),
         'cpt_template' => clean_slweg($data['cpt_template'] ?? ''),
         'cpt_active'   => empty($data['cpt_active']) ? 0 : 1,
-        'cpt_schema'   => json_encode(custom_cpt_to_utf8($fields), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
+        'cpt_schema'   => json_encode(custom_cpt_to_utf8($clean_fields), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT)
     );
 
     if ($id > 0) {

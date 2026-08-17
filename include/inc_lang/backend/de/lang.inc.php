@@ -1828,6 +1828,8 @@ $BL['be_admin_custom_cpt_delete_field_confirm']        = 'Feld &bdquo;%s&ldquo; 
 $BL['be_admin_custom_cpt_delete_field_confirm_simple'] = 'Dieses Feld wirklich l&ouml;schen?';
 $BL['be_admin_custom_cpt_delete_entry_confirm']        = 'Eintrag %s wirklich entfernen?';
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Diesen Eintrag wirklich entfernen?';
+$BL['be_admin_custom_cpt_err_reserved_field_key']     = 'Der Feldschl&uuml;ssel &bdquo;%s&ldquo; ist ein reservierter Standard-Tag-Name und darf nicht verwendet werden.';
+$BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reservierter Standard-Tag-Name (z.B. TITLE, SUBTITLE, TEXT usw.).';
 
 
 

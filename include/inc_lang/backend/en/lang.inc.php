@@ -1834,5 +1834,7 @@ $BL['be_admin_custom_cpt_delete_field_confirm']        = 'Really delete field "%
 $BL['be_admin_custom_cpt_delete_field_confirm_simple'] = 'Really delete this field?';
 $BL['be_admin_custom_cpt_delete_entry_confirm']        = 'Really remove entry %s?';
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Really remove this entry?';
+$BL['be_admin_custom_cpt_err_reserved_field_key']     = 'The field key "%s" is a reserved standard tag name and cannot be used.';
+$BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserved standard tag name (e.g. TITLE, SUBTITLE, TEXT, etc.).';
 
 

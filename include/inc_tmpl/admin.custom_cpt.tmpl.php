@@ -65,11 +65,17 @@ if (!empty($_POST['save_custom_cpt'])) {
 
     // Process fields JSON or POST array
     $fields = [];
+    $reserved_key_found = '';
     if (!empty($_POST['field_key']) && is_array($_POST['field_key'])) {
         foreach ($_POST['field_key'] as $idx => $f_key) {
             $f_key = preg_replace('/[^-a-z0-9_]/i', '', strtolower(trim($f_key)));
             if (empty($f_key)) {
                 continue;
+            }
+
+            if (is_custom_cpt_reserved_field_key($f_key)) {
+                $reserved_key_found = $f_key;
+                break;
             }
 
             $f_type   = clean_slweg($_POST['field_type'][$idx] ?? 'str');
@@ -113,6 +119,8 @@ if (!empty($_POST['save_custom_cpt'])) {
 
     if (empty($cpt_title)) {
         $action_error = $BL['be_admin_custom_cpt_err_title'] ?? 'Please provide a title for the custom content part.';
+    } elseif (!empty($reserved_key_found)) {
+        $action_error = sprintf($BL['be_admin_custom_cpt_err_reserved_field_key'] ?? 'The field key "%s" is a reserved standard tag name and cannot be used.', html(strtoupper($reserved_key_found)));
     } elseif (!empty($cpt_key) && custom_cpt_key_exists($cpt_key, $cpt_id)) {
         $action_error = sprintf($BL['be_admin_custom_cpt_err_duplicate_key'] ?? 'The identifier key "%s" is already in use by another Custom Content Part.', html($cpt_key));
     } else {
@@ -420,7 +428,8 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             <tr class="field-row" draggable="true">
               <td class="align-middle text-muted text-center drag-handle" style="cursor: grab; width: 30px;" title="<?php echo html($BL['be_admin_custom_cpt_drag_reorder'] ?? 'Drag to reorder'); ?>"><i class="fa fa-bars text-black-50"></i></td>
               <td>
-                <input type="text" name="field_key[]" class="form-control form-control-sm text-monospace font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this);">
+                <input type="text" name="field_key[]" class="form-control form-control-sm text-monospace font-monospace" value="${key || ''}" placeholder="key_name" required pattern="[-a-zA-Z0-9_]+" oninput="updateFieldTagPreview(this); validateFieldRowKey(this);">
+                <div class="invalid-feedback field-key-feedback" style="display: none; font-size: 11px;"></div>
                 <code class="small text-muted text-monospace font-monospace mt-1 d-inline-block">{<span class="field-tag-preview">${(key ? key.toUpperCase().replace(/[^A-Z0-9_-]/g, '') : 'KEY')}</span>}</code>
               </td>
               <td>
@@ -501,15 +510,48 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
         function addFieldRow(key = '', def = {}) {
             const container = document.getElementById('fieldsContainer');
             container.insertAdjacentHTML('beforeend', renderFieldRow(key, def, fieldCounter++));
+            const lastRow = container.lastElementChild;
+            if (lastRow) {
+                const lastKeyInput = lastRow.querySelector('input[name="field_key[]"]');
+                if (lastKeyInput) {
+                    validateFieldRowKey(lastKeyInput);
+                }
+            }
             generateTemplateScaffoldJS();
         }
 
         const existingCptKeys = <?php echo json_encode($other_keys); ?>;
+        const reservedFieldKeys = <?php echo json_encode(get_custom_cpt_reserved_field_keys()); ?>;
+        const reservedFieldErrorMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_err_reserved_field_key_simple'] ?? 'Reserved standard tag name (e.g. TITLE, SUBTITLE, TEXT, etc.).'); ?>';
         const keyInput = document.getElementById('cpt_key');
         const titleInput = document.getElementById('cpt_title');
         const modeSelect = document.getElementById('cpt_mode');
         const keyFeedback = document.getElementById('cptKeyFeedback');
         const duplicateErrorMsg = '<?php echo js_singlequote($BL['be_admin_custom_cpt_err_duplicate_key_simple'] ?? 'This identifier key is already in use by another Custom Content Part.'); ?>';
+
+        function validateFieldRowKey(input) {
+            if (!input) return true;
+            const val = input.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+            const td = input.closest('td');
+            const feedback = td ? td.querySelector('.field-key-feedback') : null;
+
+            if (val && reservedFieldKeys.includes(val)) {
+                input.classList.add('is-invalid');
+                input.setCustomValidity(reservedFieldErrorMsg);
+                if (feedback) {
+                    feedback.textContent = reservedFieldErrorMsg;
+                    feedback.style.display = 'block';
+                }
+                return false;
+            } else {
+                input.classList.remove('is-invalid');
+                input.setCustomValidity('');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+                return true;
+            }
+        }
 
         function validateKeyUnique() {
             if (!keyInput) return true;
@@ -672,6 +714,23 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             });
         }
 
+        const cptForm = document.getElementById('cptForm');
+        if (cptForm) {
+            cptForm.addEventListener('submit', function(e) {
+                let valid = validateKeyUnique();
+                const fieldKeyInputs = document.querySelectorAll('#fieldsContainer input[name="field_key[]"]');
+                fieldKeyInputs.forEach(function(input) {
+                    if (!validateFieldRowKey(input)) {
+                        valid = false;
+                    }
+                });
+                if (!valid) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             updateKeyPreview();
             validateKeyUnique();
@@ -680,7 +739,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                     addFieldRow(k, initialFields[k]);
                 }
             } else {
-                addFieldRow('title', { legend: 'Title', type: 'str' });
+                addFieldRow('headline', { legend: 'Headline', type: 'str' });
                 addFieldRow('description', { legend: 'Description', type: 'textarea' });
             }
             initRowDragAndDrop();
