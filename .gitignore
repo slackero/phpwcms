@@ -55,6 +55,6 @@ include/config.codekit3
 /.claude
 /stacklit.html
 /.mcp.json
+/.codex
 /.phpstan/cache/
 node_modules/
-
