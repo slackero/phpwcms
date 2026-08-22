@@ -440,279 +440,436 @@ if(!isset($_GET["s"])) {
                 <input type="hidden" name="c" value="<?php echo $createcopy; ?>"/>
             </div>
             <div class="card-body">
-                <div class="form-group form-row align-items-center">
-                    <label for="template_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
-                    <div class="col-sm-7">
-                        <?php
-                        if (empty($createcopy)) {
-                            echo '<input name="template_name" type="text" class="form-control form-control-sm" id="template_name" value="' . html($template["name"]) . '" >';
-                        } else {
-                            echo '<input name="template_name" type="text" class="form-control form-control-sm is-invalid" id="template_name" value="' . html($template["name"]) . '_' . generic_string(2) . '" size="50" maxlength="150">';
-                        }
-                        ?>
-                    </div>
-                    <div class="col-sm-3 mt-2 mt-sm-0">
-                        <div class="form-check">
-                            <input class="form-check-input" name="template_setdefault" type="checkbox"
-                                   id="template_setdefault"
-                                   value="1" <?php is_checked(empty($createcopy) ? $template["default"] : 0, 1) ?> />
-                            <label class="form-check-label"
-                                   for="template_setdefault"><?php echo $BL['be_admin_tmpl_default'] ?></label>
-                        </div>
-                    </div>
-                </div>
-                <hr/>
-                <div class="form-group form-row align-items-center">
-                    <label for="template_layout"
-                           class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
-                    <div class="col-sm-5">
-                        <?php
-                        // get available page layout list
-                        $jsOnChange = '';
-                        $opt = "";
-$sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
-                        $result = _dbQuery($sql);
-if(isset($result[0]['pagelayout_id'])) {
-    foreach($result as $row) {
-        $opt .= '<option value="'.$row['pagelayout_id'].'"';
-        if($row['pagelayout_id'] == $template["layout"]) {
-                                    $opt .= ' selected="selected"';
-                                    // try to get additional custom blocks from selected page layout
-                                    $custom_blocks = unserialize($row['pagelayout_var'], ['allowed_classes' => false]);
-                                    $custom_blocks = explode(', ', trim($custom_blocks['layout_customblocks']));
+                <ul class="nav nav-tabs mb-3" id="templateTabs" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" id="tmpl-layout-tab" data-toggle="tab" href="#tmpl-layout-sect" role="tab" aria-controls="tmpl-layout-sect" aria-selected="true"><i class="fas fa-th-large mr-1"></i> <?php echo $BL['be_admin_tmpl_layout'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-blocks-tab" data-toggle="tab" href="#tmpl-blocks-sect" role="tab" aria-controls="tmpl-blocks-sect" aria-selected="false"><i class="fas fa-cubes mr-1"></i> <?php echo $BL['be_admin_page_blocks'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-head-tab" data-toggle="tab" href="#tmpl-head-sect" role="tab" aria-controls="tmpl-head-sect" aria-selected="false"><i class="fas fa-code mr-1"></i> <?php echo $BL['be_admin_tmpl_head'] ?></a></li>
+                    <li class="nav-item"><a class="nav-link" id="tmpl-consent-tab" data-toggle="tab" href="#tmpl-consent-sect" role="tab" aria-controls="tmpl-consent-sect" aria-selected="false"><i class="fas fa-shield-alt mr-1"></i> Tracking &amp; Cookie Consent</a></li>
+                </ul>
 
-            if(is_array($custom_blocks) && count($custom_blocks) && $custom_blocks[0] != '') {
-                                        $jsOnChange = ' onChange="doPageLayoutChange();"';
-                                    } else {
-                                        $jsOnChange = '';
+                <div class="tab-content" id="templateTabsContent">
+                    <!-- TAB 1: LAYOUT -->
+                    <div class="tab-pane fade show active" id="tmpl-layout-sect" role="tabpanel" aria-labelledby="tmpl-layout-tab">
+                        <div class="form-group form-row align-items-center">
+                            <label for="template_name" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_name'] ?></label>
+                            <div class="col-sm-7">
+                                <?php
+                                if (empty($createcopy)) {
+                                    echo '<input name="template_name" type="text" class="form-control form-control-sm" id="template_name" value="' . html($template["name"]) . '" >';
+                                } else {
+                                    echo '<input name="template_name" type="text" class="form-control form-control-sm is-invalid" id="template_name" value="' . html($template["name"]) . '_' . generic_string(2) . '" size="50" maxlength="150">';
+                                }
+                                ?>
+                            </div>
+                            <div class="col-sm-3 mt-2 mt-sm-0">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="template_setdefault" type="checkbox"
+                                           id="template_setdefault"
+                                           value="1" <?php is_checked(empty($createcopy) ? $template["default"] : 0, 1) ?> />
+                                    <label class="form-check-label"
+                                           for="template_setdefault"><?php echo $BL['be_admin_tmpl_default'] ?></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group form-row align-items-center">
+                            <label for="template_layout"
+                                   class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_layout'] ?></label>
+                            <div class="col-sm-5">
+                                <?php
+                                // get available page layout list
+                                $jsOnChange = '';
+                                $opt = "";
+                                $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_pagelayout WHERE pagelayout_trash=0 ORDER BY pagelayout_default DESC";
+                                $result = _dbQuery($sql);
+                                if(isset($result[0]['pagelayout_id'])) {
+                                    foreach($result as $row) {
+                                        $opt .= '<option value="'.$row['pagelayout_id'].'"';
+                                        if($row['pagelayout_id'] == $template["layout"]) {
+                                            $opt .= ' selected="selected"';
+                                            // try to get additional custom blocks from selected page layout
+                                            $custom_blocks = unserialize($row['pagelayout_var'], ['allowed_classes' => false]);
+                                            $custom_blocks = explode(', ', trim($custom_blocks['layout_customblocks']));
+
+                                            if(is_array($custom_blocks) && count($custom_blocks) && $custom_blocks[0] != '') {
+                                                $jsOnChange = ' onChange="doPageLayoutChange();"';
+                                            } else {
+                                                $jsOnChange = '';
+                                            }
+                                        }
+                                        $opt .= '>' . html($row['pagelayout_name']) . '</option>';
                                     }
                                 }
-                                $opt .= '>' . html($row['pagelayout_name']) . '</option>';
-                            }
-                        }
-                        if ($opt) {
-                            echo '<select name="template_layout" class="custom-select form-control form-control-sm" id="template_layout"' . $jsOnChange . '>';
-                            echo $opt;
-                            echo '</select>';
-                        } else {
-                            echo $BL['be_admin_tmpl_nolayout'] . ' (<a href="phpwcms.php?do=admin&p=8&s=0">' . $BL['be_admin_page_add'] . '</a>)';
-                        }
-                        ?>
-                    </div>
-                </div>
+                                if ($opt) {
+                                    echo '<select name="template_layout" class="custom-select form-control form-control-sm" id="template_layout"' . $jsOnChange . '>';
+                                    echo $opt;
+                                    echo '</select>';
+                                } else {
+                                    echo $BL['be_admin_tmpl_nolayout'] . ' (<a href="phpwcms.php?do=admin&p=8&s=0">' . $BL['be_admin_page_add'] . '</a>)';
+                                }
+                                ?>
+                            </div>
+                        </div>
 
-                <div class="form-group form-row align-items-center">
-                    <div class="col-sm-2"></div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input" name="template_onepage" type="checkbox"
-                                   id="template_onepage"
-                                   value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> />
-                            <label class="form-check-label"
-                                   for="template_onepage"><?php echo $BL['be_onepage_template'] ?></label>
+                        <div class="form-group form-row align-items-center">
+                            <div class="col-sm-2"></div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="template_onepage" type="checkbox"
+                                           id="template_onepage"
+                                           value="1" <?php is_checked((!empty($template["onepage"]) ? 1 : 0), 1) ?> />
+                                    <label class="form-check-label"
+                                           for="template_onepage"><?php echo $BL['be_onepage_template'] ?></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group form-row">
+                            <div class="col-sm-2"></div>
+                            <div class="col">
+                                <?php echo $BL['be_overwrite_default'] ?><br/>
+                                <strong><code>/include/config/conf.template_default.inc.php</code></strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row align-items-center">
+                            <label for="template_overwrite" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
+                            <div class="col-sm-5">
+                                <select name="template_overwrite" type="text" class="custom-select form-control form-control-sm" id="template_overwrite">
+                                    <option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
+                                    <?php
+                                    // templates for frontend login
+                                    $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE . 'inc_settings/template_default', 'php');
+                                    if (is_array($tmpllist) && count($tmpllist)) {
+                                        foreach ($tmpllist as $val) {
+                                            $selected_val = (isset($template["overwrite"]) && $val == $template["overwrite"]) ? ' selected="selected"' : '';
+                                            $val = html($val);
+                                            echo '  <option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group form-row">
+                            <label for="template_css" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
+                            <div class="col">
+                                <select name="template_css[]" multiple class="custom-select form-control form-control-sm" id="template_css">
+                                    <?php
+                                    $unselected_css = [];
+                                    // get css file list
+                                    if (is_dir(PHPWCMS_TEMPLATE . "inc_css")) {
+                                        $css_handle = opendir(PHPWCMS_TEMPLATE . "inc_css");
+                                        // browse template CSS diretory and list all available CSS files
+                                        while ($css_file = readdir($css_handle)) {
+                                            if (substr($css_file, 0, 1) !== '.' && is_file(PHPWCMS_TEMPLATE . "inc_css/" . $css_file) && preg_match('/^[a-z0-9\. \-_]+\.css$/i', $css_file)) {
+                                                $unselected_css[$css_file] = $css_file;
+                                            }
+                                        }
+                                        closedir($css_handle);
+                                    }
+                                    // now run the css information
+                                    foreach ($template["css"] as $value) {
+                                        if (isset($unselected_css[$value])) {
+                                            $css_file = html($value);
+                                            echo '      <option value="' . $css_file . '" selected="selected" style="font-weight: bold;">' . $css_file . '&nbsp;&nbsp;</option>' . LF;
+                                            unset($unselected_css[$value]);
+                                        }
+                                    }
+                                    foreach ($unselected_css as $value) {
+                                        $css_file = html($value);
+                                        echo '      <option value="' . $css_file . '">' . $css_file . '&nbsp;&nbsp;</option>' . LF;
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-sm-auto">
+                                <button type="button" class="btn btn-sm btn-blue" onclick="moveOptionUp(document.blocks.template_css);">
+                                    <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
+                                </button>
+                                <br/>
+                                <button type="button" class="btn btn-sm btn-blue mt-1" onclick="moveOptionDown(document.blocks.template_css);">
+                                    <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group form-row align-items-center mb-0">
+                            <label for="template_felogin_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm" name="template_felogin_url" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <hr/>
-
-                <div class="form-group form-row">
-                    <div class="col-sm-2"></div>
-                    <div class="col">
-                        <?php echo $BL['be_overwrite_default'] ?><br/>
-                        <strong><code>/include/config/conf.template_default.inc.php</code></strong>
-                    </div>
-                </div>
-
-                <div class="form-group form-row align-items-center">
-                    <label for="template_overwrite" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
-                    <div class="col-sm-5">
-                        <select name="template_overwrite" type="text" class="custom-select form-control form-control-sm" id="template_overwrite">
-                            <option value="" style="font-weight:normal;font-style:italic;"><?php echo $BL['be_admin_tmpl_default']; ?></option>
-                            <?php
-                            // templates for frontend login
-                            $tmpllist = get_tmpl_files(PHPWCMS_TEMPLATE . 'inc_settings/template_default', 'php');
-                            if (is_array($tmpllist) && count($tmpllist)) {
-                                foreach ($tmpllist as $val) {
-                                    $selected_val = (isset($template["overwrite"]) && $val == $template["overwrite"]) ? ' selected="selected"' : '';
-                                    $val = html($val);
-                                    echo '  <option value="' . $val . '"' . $selected_val . '>' . $val . '</option>' . LF;
+                    <!-- TAB 2: BLOCKS -->
+                    <div class="tab-pane fade" id="tmpl-blocks-sect" role="tabpanel" aria-labelledby="tmpl-blocks-tab">
+                        <div class="form-group form-row">
+                            <label for="template_block_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
+                            <div class="col">
+                                <?php
+                                if (!isset($template["headertext_file"])) {
+                                    $template["headertext_file"] = '';
                                 }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <label for="template_css" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_css'] ?></label>
-                    <div class="col">
-                        <select name="template_css[]" multiple class="custom-select form-control form-control-sm" id="template_css">
-                            <?php
-                            $unselected_css = [];
-                            // get css file list
-                            if (is_dir(PHPWCMS_TEMPLATE . "inc_css")) {
-                                $css_handle = opendir(PHPWCMS_TEMPLATE . "inc_css");
-                                // browse template CSS diretory and list all available CSS files
-                                while ($css_file = readdir($css_handle)) {
-                                    if (substr($css_file, 0, 1) !== '.' && is_file(PHPWCMS_TEMPLATE . "inc_css/" . $css_file) && preg_match('/^[a-z0-9\. \-_]+\.css$/i', $css_file)) {
-                                        $unselected_css[$css_file] = $css_file;
-                                    }
+                                echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
+                                ?>
+                                <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="template_block_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
+                            <div class="col">
+                                <?php
+                                if(!isset($template["maintext_file"])) {
+                                    $template["maintext_file"] = '';
                                 }
-                                closedir($css_handle);
-                            }
-                            // now run the css information
-                            foreach ($template["css"] as $value) {
-                                if (isset($unselected_css[$value])) {
-                                    $css_file = html($value);
-                                    echo '      <option value="' . $css_file . '" selected="selected" style="font-weight: bold;">' . $css_file . '&nbsp;&nbsp;</option>' . LF;
-                                    unset($unselected_css[$value]);
+                                echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
+                                ?>
+                                <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="template_block_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
+                            <div class="col">
+                                <?php
+                                if(!isset($template["footertext_file"])) {
+                                    $template["footertext_file"] = '';
                                 }
-                            }
-                            foreach ($unselected_css as $value) {
-                                $css_file = html($value);
-                                echo '      <option value="' . $css_file . '">' . $css_file . '&nbsp;&nbsp;</option>' . LF;
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-auto">
-                        <button type="button" class="btn btn-sm btn-blue" onclick="moveOptionUp(document.blocks.template_css);">
-                            <i class="fa fa-angle-up fa-fw" aria-hidden="true"></i>
-                        </button>
-                        <br/>
-                        <button type="button" class="btn btn-sm btn-blue mt-1" onclick="moveOptionDown(document.blocks.template_css);">
-                            <i class="fa fa-angle-down fa-fw" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
+                                echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
+                                ?>
+                                <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="template_block_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
+                            <div class="col">
+                                <?php
+                                if(!isset($template["lefttext_file"])) {
+                                    $template["lefttext_file"] = '';
+                                }
+                                echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
+                                ?>
+                                <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="template_block_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
+                            <div class="col">
+                                <?php
+                                if(!isset($template["righttext_file"])) {
+                                    $template["righttext_file"] = '';
+                                }
+                                echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
+                                ?>
+                                <textarea name="template_block_right" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
+                            </div>
+                        </div>
 
-                <div class="form-group form-row">
-                    <label for="template_htmlhead" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_head'] ?></label>
-                    <div class="col">
                         <?php
-                        if (!isset($template["htmlhead_file"])) {
-                            $template["htmlhead_file"] = '';
-                        }
-                        echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
-                        ?>
-                        <textarea name="template_htmlhead" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group form-row align-items-center">
-                    <label for="template_jslib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
-                    <div class="col-sm-5">
-                        <select class="custom-select form-control form-control-sm" name="template_jslib" id="template_jslib">
-                            <?php
-                            $jslib_optgroup = false;
-                            $jslib_current_optgroup = '';
-                            foreach ($phpwcms['js_lib'] as $key => $value) {
-                                if (substr($value, 0, 1) === '-' && $key !== $jslib_current_optgroup) {
-                                    if ($jslib_optgroup) {
-                                        echo '</optgroup>';
-                                    }
-                                    $jslib_optgroup = true;
-                                    $jslib_current_optgroup = $key;
-                                    echo '<optgroup label="' . html($jslib_current_optgroup) . '">';
-                                    continue;
+                        if (!empty($jsOnChange)) {
+                            echo '<input type="hidden" name="customblock" value="' . html(implode(',', $custom_blocks)) . '" />';
+                            // list custom blocks
+                            foreach ($custom_blocks as $value) {
+                                $custom_block = html($value);
+                                if(!isset($template['customblock_'.$value.'_file'])) {
+                                    $template['customblock_'.$value.'_file'] = '';
                                 }
-                                echo '<option value="' . $key . '"';
-                                is_selected($template['jslib'], $key);
-                                echo '>' . html($value) . '</option>';
+                                echo '<div class="form-group form-row">';
+                                echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right">';
+                                echo $custom_block . " <br />{" . $custom_block . "}";
+                                echo '</label>';
+                                echo '<div class="col">';
+                                echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
+                                echo '<textarea name="template_customblock_' . $custom_block . '" id="template_customblock_' . $custom_block . '" ';
+                                echo 'rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html">';
+                                echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
+                                echo "</textarea>";
+                                echo '  </div>';
+                                echo '</div>';
                             }
-                            if ($jslib_optgroup) {
-                                echo '</optgroup>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-5 mt-2 mt-sm-0">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
-                            <label for="template_jslibload" class="form-check-label"><?php echo $BL['js_lib_alwaysload'] ?></label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
-                            <label for="template_googleapi" class="form-check-label"><?php echo $BL['googleapi_load'] ?></label>
-                        </div>
-                    </div>
-                </div>
+                        }
+                        ?>
 
-                <div class="form-group form-row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-10">
+                        <div class="form-group form-row mb-0">
+                            <label for="template_block_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
+                            <div class="col">
+                                <?php
+                                if(!isset($template["errortext_file"])) {
+                                    $template["errortext_file"] = '';
+                                }
+                                echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
+                                ?>
+                                <textarea name="template_block_error" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: HEAD & SCRIPTS -->
+                    <div class="tab-pane fade" id="tmpl-head-sect" role="tabpanel" aria-labelledby="tmpl-head-tab">
+                        <div class="form-group form-row">
+                            <label for="template_htmlhead" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_head'] ?></label>
+                            <div class="col">
+                                <?php
+                                if (!isset($template["htmlhead_file"])) {
+                                    $template["htmlhead_file"] = '';
+                                }
+                                echo get_template_file_select('head', 'template_htmlhead_file', $template["htmlhead_file"]);
+                                ?>
+                                <textarea name="template_htmlhead" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_htmlhead"><?php echo html_entities($template["htmlhead"]); ?></textarea>
+                            </div>
+                        </div>
+
+                        <hr/>
+
+                        <div class="form-group form-row align-items-center">
+                            <label for="template_jslib" class="col-sm-2 col-form-label text-right"><?php echo $BL['js_lib'] ?></label>
+                            <div class="col">
+                                <div class="input-group input-group-sm">
+                                    <select class="custom-select form-control" name="template_jslib" id="template_jslib">
+                                        <?php
+                                        $jslib_optgroup = false;
+                                        $jslib_current_optgroup = '';
+                                        foreach ($phpwcms['js_lib'] as $key => $value) {
+                                            if (substr($value, 0, 1) === '-' && $key !== $jslib_current_optgroup) {
+                                                if ($jslib_optgroup) {
+                                                    echo '</optgroup>';
+                                                }
+                                                $jslib_optgroup = true;
+                                                $jslib_current_optgroup = $key;
+                                                echo '<optgroup label="' . html($jslib_current_optgroup) . '">';
+                                                continue;
+                                            }
+                                            echo '<option value="' . $key . '"';
+                                            is_selected($template['jslib'], $key);
+                                            echo '>' . html($value) . '</option>';
+                                        }
+                                        if ($jslib_optgroup) {
+                                            echo '</optgroup>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <input class="mr-1" type="checkbox" name="template_jslibload" id="template_jslibload" value="1" <?php is_checked($template['jslibload'], 1); ?> />
+                                            <label for="template_jslibload" class="form-check-label mb-0"><?php echo $BL['js_lib_alwaysload'] ?></label>
+                                        </div>
+                                        <div class="input-group-text">
+                                            <input class="mr-1" type="checkbox" name="template_googleapi" id="template_googleapi" value="1" <?php is_checked($template['googleapi'], 1); ?> />
+                                            <label for="template_googleapi" class="form-check-label mb-0"><?php echo $BL['googleapi_load'] ?></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row align-items-center">
+                            <label for="template_jsonload" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row align-items-center mb-0">
+                            <div class="col-sm-2"></div>
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
+                                    <label class="form-check-label" for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: TRACKING & COOKIE CONSENT -->
+                    <div class="tab-pane fade" id="tmpl-consent-sect" role="tabpanel" aria-labelledby="tmpl-consent-tab">
+                        <!-- Tracking -->
+                        <div class="form-group mb-4">
+                            <label class="col-form-label font-weight-bold">Tracking</label>
 <?php if (!empty($template['ie8ignore'])): ?>
-                        <div class="form-check">
-                            <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1" checked disabled readonly>
-                            <label class="form-check-label text-muted" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
-                        </div>
+                            <div class="form-check">
+                                <input class="form-check-input" name="template_ie8ignore" id="template_ie8ignore" type="checkbox" value="1" checked disabled readonly>
+                                <label class="form-check-label text-muted" for="template_ie8ignore"><?php echo $BL['be_ie8ignore'] ?></label>
+                            </div>
 <?php endif; ?>
-                        <div class="form-check">
-                            <label class="form-check-label" for="template_ga">
-                                <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>
-                                <?php echo $BL['be_google_analytics_enable']; ?>
-                            </label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="template_ga">
+                                    <input class="form-check-input" name="template_ga" id="template_ga" type="checkbox" value="1"<?php is_checked($template['tracking_ga']['enable'], 1); ?>>
+                                    <?php echo $BL['be_google_analytics_enable']; ?>
+                                </label>
 
-                            <div id="ga-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right" for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
-                                <div class="col-sm-4">
-                                    <input type="text" name="template_ga_id" id="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>"/>
+                                <div id="ga-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_ga']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-right" for="template_ga_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="template_ga_id" id="template_ga_id" class="form-control form-control-sm" placeholder="UA-XXXXX-Y" value="<?php echo html($template['tracking_ga']['id']) ?>"/>
+                                    </div>
+
+                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                        <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
+                                        <label for="template_ga_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                                    </div>
+
+                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                        <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> />
+                                        <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
+                                    </div>
+
+                                    <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
+                                        <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> />
+                                        <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
+                                    </div>
+
+                                    <div class="form-check col-sm-10 offset-sm-2 my-1">
+                                        <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
+                                        <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
+                                    </div>
+
                                 </div>
+                            </div>
 
-                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_anonymize" id="template_ga_anonymize" value="1"<?php is_checked($template['tracking_ga']['anonymize'], 1); ?> />
-                                    <label for="template_ga_anonymize" class="form-check-label"><?php echo $BL['be_tracking_anonymize']; ?></label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="template_gtm">
+                                    <input class="form-check-input" name="template_gtm" id="template_gtm" type="checkbox" value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?>>
+                                    <?php echo $BL['be_google_tag_manager_enable']; ?>
+                                </label>
+
+                                <div id="gtm-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-right" for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
+                                    <div class="col-sm-4">
+                                        <input type="text" name="template_gtm_id" id="template_gtm_id" class="form-control form-control-sm" placeholder="GTM-XXXXXXX" value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
+                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_optout" id="template_ga_optout" value="1"<?php is_checked($template['tracking_ga']['optout'] ?? 0, 1); ?> />
-                                    <label for="template_ga_optout" class="form-check-label"><?php echo $BL['be_tracking_optout']; ?></label>
+                            <div class="form-check">
+                                <label class="form-check-label" for="template_piwik">
+                                    <input class="form-check-input" name="template_piwik" id="template_piwik" type="checkbox" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?>>
+                                    <?php echo $BL['be_piwik_enable']; ?>
+                                </label>
+
+                                <div id="piwik-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
+                                    <label class="col-sm-2 col-form-label text-right" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
+                                    <input type="text" name="template_piwik_id" class="form-control form-control-sm col-sm-2" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
+                                    <label class="col-sm-2 col-form-label text-right" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
+                                    <input type="text" name="template_piwik_url" class="form-control form-control-sm col-sm-4" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
                                 </div>
-
-                                <div class="form-check col-sm-10 form-check-inline offset-sm-2 mt-1">
-                                    <input class="form-check-input" type="checkbox" name="template_ga_cookie_flags" id="template_ga_cookie_flags" value="1"<?php is_checked($template['tracking_ga']['cookie_flags'] ?? 0, 1); ?> />
-                                    <label for="template_ga_cookie_flags" class="form-check-label"><?php echo $BL['be_tracking_cookie_flags']; ?></label>
-                                </div>
-
-                                <div class="form-check col-sm-10 offset-sm-2 my-1">
-                                    <label class="col-form-label font-weight-normal pb-1" for="template_ga_custom_properties"><?php echo $BL['be_tracking_custom_properties']; ?></label>
-                                    <textarea name="template_ga_custom_properties" id="template_ga_custom_properties" class="form-control text-monospace autosize code-editor" data-mode="javascript" data-min-lines="4" placeholder="prop1: 'val1', prop2: true"><?php echo html($template['tracking_ga']['custom_properties']) ?></textarea>
-                                </div>
-
                             </div>
                         </div>
 
-                        <div class="form-check">
-                            <label class="form-check-label" for="template_gtm">
-                                <input class="form-check-input" name="template_gtm" id="template_gtm" type="checkbox" value="1"<?php is_checked($template['tracking_gtm']['enable'], 1); ?>>
-                                <?php echo $BL['be_google_tag_manager_enable']; ?>
-                            </label>
+                        <hr/>
 
-                            <div id="gtm-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_gtm']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right" for="template_gtm_id"><?php echo $BL['be_tracking_id']; ?></label>
-                                <div class="col-sm-4">
-                                    <input type="text" name="template_gtm_id" id="template_gtm_id" class="form-control form-control-sm" placeholder="GTM-XXXXXXX" value="<?php echo html($template['tracking_gtm']['id']) ?>"/>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Cookie Consent -->
+                        <div class="form-group mb-0">
+                            <label class="col-form-label font-weight-bold">Cookie Consent</label>
 
-                        <div class="form-check">
-                            <label class="form-check-label" for="template_piwik">
-                                <input class="form-check-input" name="template_piwik" id="template_piwik" type="checkbox" value="1"<?php is_checked($template['tracking_piwik']['enable'], 1); ?>>
-                                <?php echo $BL['be_piwik_enable']; ?>
-                            </label>
-
-                            <div id="piwik-tracking" class="form-group form-row align-items-center mt-1"<?php if (!$template['tracking_piwik']['enable']): ?> style="display:none;"<?php endif; ?>>
-                                <label class="col-sm-2 col-form-label text-right" for="template_piwik_id"><?php echo $BL['be_site_id']; ?></label>
-                                <input type="text" name="template_piwik_id" class="form-control form-control-sm col-sm-2" placeholder="1" id="template_piwik_id" value="<?php echo empty($template['tracking_piwik']['id']) ? '' : $template['tracking_piwik']['id']; ?>"/>
-                                <label class="col-sm-2 col-form-label text-right" for="template_piwik_url"><?php echo $BL['be_piwik_url']; ?></label>
-                                <input type="text" name="template_piwik_url" class="form-control form-control-sm col-sm-4" placeholder="piwik.example.com" id="template_piwik_url" value="<?php echo html($template['tracking_piwik']['url']) ?>"/>
-                            </div>
-                        </div>
-
-                        <!-- Cookie Consent v2 -->
-                        <div class="form-check">
+                            <!-- Cookie Consent v2 -->
+                            <div class="form-check">
                             <label class="form-check-label" for="template_cookie_consent">
                                 <input class="form-check-input" name="template_cookie_consent" id="template_cookie_consent" type="checkbox" value="1"<?php is_checked($template['cookie_consent']['enable'], 1); ?>>
                                 <?php echo $BL['be_cookie_consent_enable'] ?>
@@ -1477,130 +1634,11 @@ if(isset($result[0]['pagelayout_id'])) {
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" name="template_frontendjs" id="template_frontendjs" type="checkbox" value="1"<?php is_checked($template['frontendjs'], 1); ?>>
-                            <label class="form-check-label" for="template_frontendjs"><?php echo $BL['frontendjs_load'] ?></label>
-                        </div>
                     </div>
                 </div>
-
-                <div class="form-group form-row align-items-center">
-                    <label for="template_jsonload" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_js'] ?></label>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm" name="template_jsonload" id="template_jsonload" value="<?php echo html_entities($template["jsonload"]) ?>">
-                    </div>
-                </div>
-                <div class="form-group form-row align-items-center">
-                    <label for="template_felogin_url" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_fe_login_url'] ?></label>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm" name="template_felogin_url" id="template_felogin_url" value="<?php echo empty($template["feloginurl"]) ? '' : html_entities($template["feloginurl"]) ?>">
-                    </div>
-                </div>
-
-                <hr/>
-
-                <div class="form-group form-row">
-                    <label for="template_block_header" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_header'] ?></label>
-                    <div class="col">
-                        <?php
-                        if (!isset($template["headertext_file"])) {
-                            $template["headertext_file"] = '';
-                        }
-                        echo get_template_file_select('header', 'template_block_header_file', $template["headertext_file"]);
-                        ?>
-                        <textarea name="template_block_header" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_header"><?php echo html_entities($template["headertext"]); ?></textarea>
-                    </div>
-                </div>
-                <div class="form-group form-row">
-                    <label for="template_block_main" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_main'] ?></label>
-                    <div class="col">
-                        <?php
-                        if(!isset($template["maintext_file"])) {
-                            $template["maintext_file"] = '';
-                        }
-                        echo get_template_file_select('main', 'template_block_main_file', $template["maintext_file"]);
-                        ?>
-                        <textarea name="template_block_main" rows="10" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_main"><?php echo html_entities($template["maintext"]); ?></textarea>
-                    </div>
-                </div>
-                <div class="form-group form-row">
-                    <label for="template_block_footer" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_footer'] ?></label>
-                    <div class="col">
-                        <?php
-                        if(!isset($template["footertext_file"])) {
-                            $template["footertext_file"] = '';
-                        }
-                        echo get_template_file_select('footer', 'template_block_footer_file', $template["footertext_file"]);
-                        ?>
-                        <textarea name="template_block_footer" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_footer"><?php echo html_entities($template["footertext"]); ?></textarea>
-                    </div>
-                </div>
-                <div class="form-group form-row">
-                    <label for="template_block_left" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_left'] ?></label>
-                    <div class="col">
-                        <?php
-                        if(!isset($template["lefttext_file"])) {
-                            $template["lefttext_file"] = '';
-                        }
-                        echo get_template_file_select('left', 'template_block_left_file', $template["lefttext_file"]);
-                        ?>
-                        <textarea name="template_block_left" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_left"><?php echo html_entities($template["lefttext"]); ?></textarea>
-                    </div>
-                </div>
-                <div class="form-group form-row">
-                    <label for="template_block_right" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_page_right'] ?></label>
-                    <div class="col">
-                        <?php
-                        if(!isset($template["righttext_file"])) {
-                            $template["righttext_file"] = '';
-                        }
-                        echo get_template_file_select('right', 'template_block_right_file', $template["righttext_file"]);
-                        ?>
-                        <textarea name="template_block_right" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_right"><?php echo html_entities($template["righttext"]); ?></textarea>
-                    </div>
-                </div>
-
-                <?php
-                if (!empty($jsOnChange)) {
-                    echo '<input type="hidden" name="customblock" value="' . html(implode(',', $custom_blocks)) . '" />';
-                    // list custom blocks
-                    foreach ($custom_blocks as $value) {
-                        $custom_block = html($value);
-                        if(!isset($template['customblock_'.$value.'_file'])) {
-                            $template['customblock_'.$value.'_file'] = '';
-                        }
-                        echo '<div class="form-group form-row">';
-                        echo '  <label for="be_admin_tmpl_error" class="col-sm-2 col-form-label text-right">';
-                        echo $custom_block . " <br />{" . $custom_block . "}";
-                        echo '</label>';
-                        echo '<div class="col">';
-                        echo get_template_file_select(strtolower($value), 'template_customblock_'.$custom_block.'_file', $template['customblock_'.$value.'_file']);
-                        echo '<textarea name="template_customblock_' . $custom_block . '" id="template_customblock_' . $custom_block . '" ';
-                        echo 'rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html">';
-                        echo isset($template['customblock_' . $value]) ? html_entities($template['customblock_' . $value]) : '';
-                        echo "</textarea>";
-                        echo '  </div>';
-                        echo '</div>';
-                    }
-                }
-                ?>
-
-                <div class="form-group form-row mb-0">
-                    <label for="template_block_error" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_admin_tmpl_error'] ?></label>
-                    <div class="col">
-                        <?php
-                        if(!isset($template["errortext_file"])) {
-                            $template["errortext_file"] = '';
-                        }
-                        echo get_template_file_select('error', 'template_block_error_file', $template["errortext_file"]);
-                        ?>
-                        <textarea name="template_block_error" rows="6" class="form-control form-control-sm autosize text-monospace code-editor" data-mode="html" id="template_block_error"><?php echo html_entities($template["errortext"]); ?></textarea>
-                    </div>
-                </div>
-
             </div>
         </div>
+    </div>
 
         <div class="form-group align-items-center mt-4 mb-0">
             <input name="template_id" type="hidden" value="<?php echo $template["id"] ?>"/>
@@ -1610,6 +1648,16 @@ if(isset($result[0]['pagelayout_id'])) {
     </form>
     <script type="text/javascript">
     $(function(){
+        // Tab persistence via localStorage
+        const tmplTabKey = 'phpwcms_active_template_tab';
+        $('#templateTabs a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+            localStorage.setItem(tmplTabKey, $(e.target).attr('href'));
+        });
+        const activeTmplTab = localStorage.getItem(tmplTabKey);
+        if (activeTmplTab && $('#templateTabs a[href="' + activeTmplTab + '"]').length) {
+            $('#templateTabs a[href="' + activeTmplTab + '"]').tab('show');
+        }
+
         $('#template_cookie_consent').on('change', function(){
             if($(this).is(':checked')) {
                 $('#template-cc-form').show();
