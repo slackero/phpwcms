@@ -213,7 +213,7 @@ if($_SESSION['newsletter_page'] < 1) {
           echo '</div>';
 
           // delete
-          echo '<a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_profile_delete_entry'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
+          echo '<a class="btn btn-sm btn-danger ml-1" role="button" aria-disabled="true" title="'.$BL['be_tt_delete'].' '.html_specialchars($row["newsletter_subject"]).'" data-toggle="tooltip" href="phpwcms.php?do=messages&amp;p=3&amp;s='.$row["newsletter_id"].'&amp;del='.$row["newsletter_id"].'" onclick="return confirm(\''.$BL['be_delete_dataset'].' '.js_singlequote($row["newsletter_subject"]).'\');"><i class="far fa-trash-alt fa-fw"></i></a>';
 
           echo "</td>\n</tr>\n";
 

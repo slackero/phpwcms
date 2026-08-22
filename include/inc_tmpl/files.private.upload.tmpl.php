@@ -605,11 +605,11 @@ document.getElementById("file").onchange = function(e) {
 			echo min($post_max_size, $upload_max_filesize, $phpwcms['file_maxsize']);
     ?>" />
 
-    <div class="form-group form-row align-items-center mt-3">
+    <div class="form-group form-row align-items-center mt-4 mb-0">
     	<span class="col-sm-2 col-form-label"></span>
     	<div class="col text-center text-sm-left">
-				<input name="Submit" type="submit" class="btn btn-blue btn-sm mr-1" value="<?php echo $BL['be_fprivup_button'] ?>" />
-				<input type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+				<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-upload"></i> <?php echo $BL['be_fprivup_button'] ?></button>
+				<a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 			</div>
 		</div>
 </form>

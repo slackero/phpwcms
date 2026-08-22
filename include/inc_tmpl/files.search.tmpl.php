@@ -133,7 +133,7 @@ if(isset($_POST["file_search"])) {
           <option value="0" <?php is_selected("0", $s2) ?>><?php echo $BL['be_fsearch_personal'] ?></option>
           <option value="1" <?php is_selected("1", $s2) ?>><?php echo $BL['be_fsearch_public'] ?></option>
       </select>
-      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><?php echo $BL['be_fsearch_startsearch'] ?></button>
+      <button name="submit" type="submit" id="submit" class="btn btn-sm btn-blue"><i class="fa fa-search mr-1"></i> <?php echo $BL['be_fsearch_startsearch'] ?></button>
     </form>
 
 <?php

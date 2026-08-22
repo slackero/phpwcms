@@ -48,11 +48,11 @@ function showNewsletterTemplateData(tvar) {
 		<h1><?php echo $BL['be_subnav_msg_newslettersend'] ?></h1>
 	</div>
 	<div class="col-12 col-sm text-center text-sm-right mb-3">
-		 <div class="form-group">
+		 <div class="form-group mb-0">
 				<input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
-				<input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-				<input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-				<input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
+				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+				<button name="close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+				<a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
 		 </div>
 	</div>
 </div>
@@ -309,9 +309,9 @@ function showNewsletterTemplateData(tvar) {
 
      <div class="form-group align-items-center text-center text-sm-right mt-4 mb-0">
         <input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
-        <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?>" />
-        <input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-        <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
+        <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
+        <button name="close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
      </div>
 
 </form>

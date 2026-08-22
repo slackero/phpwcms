@@ -444,13 +444,13 @@ $BE['HEADER']['ads.js']				= getJavaScriptSourceLink($phpwcms['modules'][$module
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-9 offset-sm-3">
 					<?php if(empty($plugin['data']['adcampaign_id'])): ?>
-						<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
+						<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
 					<?php else: ?>
-						<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
-						<button name="save" type="submit" class="btn btn-sm btn-success mr-1"><i class="fas fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+						<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+						<button name="save" type="submit" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
 					<?php endif; ?>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;campaign=1&amp;edit=0" class="btn btn-sm btn-info mr-1"><i class="fas fa-plus-circle mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;listcampaign=1" class="btn btn-sm btn-secondary"><i class="fas fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;campaign=1&amp;edit=0" class="btn btn-sm btn-blue ml-3"><i class="fa fa-plus mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;listcampaign=1" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 				</div>
 			</div>
 		</form>

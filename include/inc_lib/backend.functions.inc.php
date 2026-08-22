@@ -1270,7 +1270,7 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
             return $indexpage['acat_alias'];
         } elseif(!empty($indexpage['acat_pagetitle']) && strlen($indexpage['acat_name']) > strlen($indexpage['acat_pagetitle'])) {
             return strtolower(uri_sanitize($indexpage['acat_pagetitle']));
-        } elseif(!empty($struct_array[$start_id]['acat_name'])) {
+        } elseif(!empty($indexpage['acat_name'])) {
             return strtolower(uri_sanitize($indexpage['acat_name']));
         }
 
@@ -1304,7 +1304,9 @@ function get_struct_alias($start_id=0, $parent_alias=false) {
     }
 
     $data = array();
-    while($start_id && isset($struct_array[$start_id])) {
+    $visited = array();
+    while($start_id && isset($struct_array[$start_id]) && !isset($visited[$start_id])) {
+        $visited[$start_id] = true;
         if(!empty($struct_array[$start_id]['acat_pagetitle']) && strlen($struct_array[$start_id]['acat_name']) > strlen($struct_array[$start_id]['acat_pagetitle'])) {
             $data[$start_id] = strtolower(uri_sanitize($struct_array[$start_id]['acat_pagetitle']));
         } else {

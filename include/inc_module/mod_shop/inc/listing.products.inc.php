@@ -106,7 +106,7 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 ?>
 
 <div class="form-group mb-3 text-center text-sm-left">
-  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fas fa-cart-plus"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
+  <a class="btn btn-sm btn-blue" href="<?php echo shop_url(array('controller=prod', 'edit=0')) ?>" title="<?php echo $BLM['create_new_prod'] ?>"><i class="fa fa-plus mr-1"></i> <span><?php echo $BLM['create_new_prod'] ?></span></a>
 </div>
 
 <form action="<?php echo shop_url('controller=prod') ?>" method="post" name="paginate" id="paginate">

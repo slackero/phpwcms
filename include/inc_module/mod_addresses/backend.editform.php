@@ -281,11 +281,11 @@ foreach($plugin['fields'] as $key => $value) {
 ?>
 			<div class="form-group row mt-4 mb-0">
 				<div class="col-sm-10 offset-sm-2">
-					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fas fa-save mr-1"></i> <?php echo empty($plugin['data']['detail_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
-					<button name="save" type="submit" class="btn btn-sm btn-success mr-1"><i class="fas fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-					<a href="<?php echo MODULE_HREF ?>&amp;edit=0" class="btn btn-sm btn-info mr-1"><i class="fas fa-address-card mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
-					<a href="<?php echo MODULE_HREF ?>" class="btn btn-sm btn-secondary mr-1"><i class="fas fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
-					<button type="reset" class="btn btn-sm btn-dark"><i class="fas fa-undo mr-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+					<button name="submit" type="submit" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save mr-1"></i> <?php echo empty($plugin['data']['detail_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+					<button name="save" type="submit" class="btn btn-sm btn-blue ml-1"><i class="fa fa-check mr-1"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+					<a href="<?php echo MODULE_HREF ?>&amp;edit=0" class="btn btn-sm btn-blue ml-3"><i class="fa fa-plus mr-1"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+					<a href="<?php echo MODULE_HREF ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+					<button type="reset" class="btn btn-sm btn-dark ml-1"><i class="fa fa-undo mr-1"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
 				</div>
 			</div>
 		</form>

@@ -91,7 +91,7 @@ $news = new phpwcmsNews();
             <div class="input-group">
                 <input name="filter" id="filter" size="15" data-toggle="tooltip" title="<?php echo $BL['be_tooltip_filter_for'] ?> <?php echo $BL['be_text_full'] ?>" class="form-control form-control-sm" value="<?php echo html($news->filter) ?>" type="search">
                 <span class="input-group-append">
-                    <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="submit">
+                    <button class="btn btn-sm btn-secondary" name="gofilter" type="submit"><i class="fa fa-filter mr-1"></i> <?php echo $BL['be_filter'] ?></button>
                 </span>
             </div>
         </div>
@@ -254,15 +254,15 @@ $(function(){
       <h1><?php echo $BL['be_news'] ?></h1>
     </div>
     <div class="col-sm text-center text-sm-right mb-3">
-      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
+      <button name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
       <?php if($news->data['cnt_id']) { ?>
-      <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
-      <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
     <?php } else { ?>
-      <input name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
-      <input name="save" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
      <?php } ?>
-      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <button name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
     </div>
   </div>
 
@@ -668,15 +668,15 @@ if($news->data['cnt_id']) {
 
   <div class="row mt-4 text-right">
     <div class="col">
-      <input name="new" type="button" class="btn btn-sm btn-blue mr-sm-3" value="<?php echo ($BL['be_news_create']) ?>" onclick="emptyNews();" />
+      <button name="new" type="button" class="btn btn-sm btn-blue mr-sm-3 mb-1 mb-sm-0" onclick="emptyNews();"><i class="fa fa-plus"></i> <?php echo ($BL['be_news_create']) ?></button>
       <?php if($news->data['cnt_id']) { ?>
-      <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button1'] ?>" />
-      <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_article_cnt_button1'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
     <?php } else { ?>
-      <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_fcat_button2'] ?>" />
-      <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
+      <button name="submit" type="submit" class="btn btn-sm btn-blue mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_admin_fcat_button2'] ?></button>
+      <button name="save" type="submit" class="btn btn-sm btn-blue ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
      <?php } ?>
-      <input name="close" type="button" class="btn btn-sm btn-danger ml-sm-3" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="closeForm();" />
+      <button name="close" type="button" class="btn btn-sm btn-danger ml-sm-3 mb-1 mb-sm-0" onclick="closeForm();"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></button>
     </div>
   </div>
 

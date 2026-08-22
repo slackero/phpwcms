@@ -147,14 +147,14 @@ if($map_selected) {
           <td>&nbsp;&nbsp;Y:&nbsp; </td>
           <td><input name="cmap_location_y" type="text" class="form-control" id="cmap_location_y"  maxlength="4" value="<?php echo  empty($content['location']["y"]) ? '' : intval($content['location']["y"]) ?>" onChange="doMapChange();"></td>
           <td>&nbsp;px&nbsp;&nbsp;&nbsp;</td>
-          <td><input name="open_map" type="button" value="open map" class="btn btn-blue btn-sm"
+          <td><button name="open_map" type="button" class="btn btn-blue btn-sm"
           onclick="flevPopupLink('include/inc_tmpl/content/cnt51.open.php?cid=<?php
           echo $content["id"] ?>&map=<?php
           echo rawurlencode($map_name);
           echo '&points='.rawurlencode(implode(':|:', $map_xy));
           ?>','map','<?php
           echo 'scrollbars=yes,resizable=yes,width='.($map_info[0]+12).',height='.($map_info[1]+15)
-          ?>',1);return document.MM_returnValue;"></td>
+          ?>',1);return document.MM_returnValue;"><i class="fa fa-map-marker-alt mr-1"></i> open map</button></td>
           <td></td>
         </tr>
       </table>
@@ -203,7 +203,7 @@ include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 <input type="hidden" name="cmap_location_id" value="<?php echo  empty($content['location']["id"]) ? 0 : intval($content['location']["id"]) ?>">
 <input type="hidden" id="cmap_location_edited" name="cmap_location_edited" value="1">
 
-<input name="Submit" type="submit" class="tn btn-blue btn-sm" value="<?php echo $BL['be_save_btn'] ?>">
+<button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_save_btn'] ?></button>
 
 <?php
     if($map_list) {

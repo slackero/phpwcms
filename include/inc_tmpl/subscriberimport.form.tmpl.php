@@ -119,9 +119,9 @@ if($_userInfo['select_subscr']) {
       </div>
     </div>
 
-    <div class="text-center text-sm-left mt-3">
-      <input type="submit" name="submitimport" id="submitimport" value="<?php echo $BL['be_newsletter_newimport'] ?>" class="btn btn-sm btn-blue" />
-      <input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=messages&p=4';return false;" />
+    <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-left">
+      <button type="submit" name="submitimport" id="submitimport" value="1" class="btn btn-sm btn-blue"><i class="fa fa-file-import mr-1"></i> <?php echo $BL['be_newsletter_newimport'] ?></button>
+      <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
     </div>
 
   </div>

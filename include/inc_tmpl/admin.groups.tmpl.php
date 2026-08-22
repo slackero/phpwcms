@@ -48,9 +48,7 @@ foreach($phpwcms['modules'] as $value) {
     <h1><?php echo $BL['be_subnav_admin_groups'] ;?></h1>
   </div>
   <div class="col-12 col-sm text-center text-sm-right mb-3">
-    <div class="form-group">
-      <form action="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" method="post"><input type="submit" value="<?php echo $BL['be_admin_group_add'] ?>" class="btn btn-sm btn-blue" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"></form>
-    </div>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
   </div>
 </div>
 
@@ -230,16 +228,14 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 				</div>
       </div>
 
-	<div class="form-group form-row align-items-center">
+	<div class="form-group form-row align-items-center mt-4 mb-4">
 		<div class="col-sm-2"></div>
 		<div class="col">
-      <div class="mb-4 text-center text-sm-left">
           <input name="group_id" type="hidden" id="group_id" value="<?php echo $group["id"] ?>" />
           <input name="group_aktion" type="hidden" id="group_aktion" value="1" />
-          <input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $sendbutton ?>" />
-          <input name="donotsubmit" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_fcat_exit'] ?>" onclick="location.href='phpwcms.php?do=admin&amp;p=1';" />
-          <input type="hidden" value="<?php echo $group["syskey"] ?>" name="group_syskey"  id="group_syskey" />
-      </div>
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $sendbutton ?></button>
+          <a href="phpwcms.php?do=admin&amp;p=1" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_fcat_exit'] ?></a>
+          <input type="hidden" value="<?php echo $group["syskey"] ?>" name="group_syskey" id="group_syskey" />
     </div>
   </div>
 
@@ -317,7 +313,5 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 </div>
 
 <div class="form-group text-center text-sm-right mt-3 mb-0">
-  <form action="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" method="post">
-      <input type="submit" value="<?php echo $BL['be_admin_group_add'] ?>" class="btn btn-sm btn-blue" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>">
-  </form>
+  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;p=1&amp;create_group=1" data-toggle="tooltip" title="<?php echo $BL['be_admin_group_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_group_add'] ?></a>
 </div>

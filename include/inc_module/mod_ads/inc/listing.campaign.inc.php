@@ -204,16 +204,16 @@ if($_SESSION['ads_page'] > $_entry['pages_total']) {
 						
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;edit=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BL['be_func_struct_edit'] . '"><i class="fa fa-pencil-alt fa-fw"></i></a>';
 						
-						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-secondary" title="' . $BLM['duplicate_title'] . '"';
+						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;duplicate=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-blue" title="' . $BLM['duplicate_title'] . '"';
 						echo ' onclick="return confirm(\'' . js_singlequote($BLM['duplicate_campaign']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
-						echo '<i class="fas fa-copy fa-fw"></i></a>';
+						echo '<i class="fa fa-copy fa-fw"></i></a>';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;editid=' . $row["adcampaign_id"] . '&amp;verify=' . (($row["adcampaign_status"]) ? '0' : '1') . '" class="btn btn-sm ' . (($row["adcampaign_status"]) ? 'btn-success' : 'btn-warning') . '" title="Toggle Status">';
 						echo '<i class="fas ' . (($row["adcampaign_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 						echo '</div>';
 						
 						echo '<a href="' . MODULE_HREF . '&amp;campaign=1&amp;delete=' . $row["adcampaign_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adcampaign_title"]) . '"';
-						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_campaign']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
+						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_entry']) . ' \n' . js_singlequote($BLM['campaign_title'] . ': ' . html('"' . $row["adcampaign_title"] . '"')) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 						echo '</td>';
 						echo '</tr>';

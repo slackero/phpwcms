@@ -49,7 +49,7 @@ if (isset($result[0]['forum_id'])) {
         echo '<td class="text-center"><i class="fa fa-folder text-warning"></i></td>';
         echo '<td><a href="phpwcms.php?' . $tempQuery . '" class="font-weight-bold">' . html($row["forum_title"]) . '</a></td>';
         echo '<td class="text-right">';
-        echo '<a href="phpwcms.php?' . $tempQuery . '" class="btn btn-sm btn-blue py-0 px-1 mr-1" title="' . $BL['be_cnt_guestbook_edit'] . '"><i class="fa fa-edit"></i></a>';
+        echo '<a href="phpwcms.php?' . $tempQuery . '" class="btn btn-sm btn-blue py-0 px-1 mr-1" title="' . $BL['be_cnt_guestbook_edit'] . '"><i class="fa fa-pencil-alt"></i></a>';
         echo '<a href="include/inc_act/act_forum.php?del=' . $row["forum_id"] . '" class="btn btn-sm btn-danger py-0 px-1 confirm-link" data-confirm="' . $BL['be_cnt_delete_confirm'] . '" title="' . $BL['be_ftabhelp_delete'] . '"><i class="far fa-trash-alt"></i></a>';
         echo '</td>';
         echo '</tr>';
@@ -64,11 +64,9 @@ if (isset($result[0]['forum_id'])) {
         </div>
     </div>
     <div class="card-footer">
-        <form action="phpwcms.php?do=messages&amp;p=6&amp;s=0" method="post" class="mb-0">
-            <button type="submit" name="addforum" class="btn btn-sm btn-blue font-weight-bold">
-                <i class="fa fa-plus mr-1"></i><?php echo $BL['be_forum_add']; ?>
-            </button>
-        </form>
+        <a href="phpwcms.php?do=messages&amp;p=6&amp;s=0" class="btn btn-sm btn-blue font-weight-bold">
+            <i class="fa fa-plus mr-1"></i><?php echo $BL['be_forum_add']; ?>
+        </a>
     </div>
 </div>
 <?php
@@ -155,12 +153,12 @@ if (isset($result[0]['forum_id'])) {
         <input name="forum_id" type="hidden" value="<?php echo $forum["id"]; ?>">
     </div>
     <div class="card-footer text-right">
-        <button type="submit" name="Submit" class="btn btn-sm btn-blue font-weight-bold mr-2">
-            <i class="fa fa-check mr-1"></i><?php echo $BL['be_save_btn']; ?>
+        <button type="submit" name="Submit" class="btn btn-sm btn-blue font-weight-bold mr-2" value="1">
+            <i class="fa fa-save mr-1"></i><?php echo $BL['be_save_btn']; ?>
         </button>
-        <button type="button" class="btn btn-sm btn-secondary" onclick="location.href='phpwcms.php?do=messages&amp;p=6';">
-            <?php echo $BL['be_newsletter_button_cancel']; ?>
-        </button>
+        <a href="phpwcms.php?do=messages&amp;p=6" class="btn btn-sm btn-danger ml-3">
+            <i class="fa fa-times mr-1"></i><?php echo $BL['be_newsletter_button_cancel']; ?>
+        </a>
     </div>
 </div>
 </form>

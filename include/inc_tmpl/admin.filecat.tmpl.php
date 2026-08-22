@@ -120,8 +120,8 @@ if(isset($_GET['open'])) {
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <input name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="<?php echo $sendbutton ?>" />
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='phpwcms.php?do=admin&amp;p=7';"><?php echo $BL['be_admin_fcat_exit'] ?></button>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="1"><i class="fa fa-save mr-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ml-3"><i class="fa fa-times mr-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -240,8 +240,8 @@ if(isset($_GET['open'])) {
 
             <div class="form-group row mb-0">
                 <div class="col-sm-9 offset-sm-3">
-                    <input name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="<?php echo $sendbutton ?>" />
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="location.href='phpwcms.php?do=admin&amp;p=7';"><?php echo $BL['be_admin_fcat_exit'] ?></button>
+                    <button name="Submit" type="submit" class="btn btn-blue btn-sm font-weight-bold" value="1"><i class="fa fa-save mr-1"></i><?php echo $sendbutton ?></button>
+                    <a href="phpwcms.php?do=admin&amp;p=7" class="btn btn-danger btn-sm ml-3"><i class="fa fa-times mr-1"></i><?php echo $BL['be_admin_fcat_exit'] ?></a>
                 </div>
             </div>
         </div>
@@ -315,10 +315,8 @@ if(isset($_GET['open'])) {
   }
 ?>
 
-    <form action="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" method="post">
-        <button type="submit" class="btn btn-blue btn-sm font-weight-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
-            <i class="fa fa-plus mr-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
-        </button>
-    </form>
+    <a href="phpwcms.php?do=admin&amp;p=7&amp;fcatid=0" class="btn btn-blue btn-sm font-weight-bold" title="<?php echo $BL['be_admin_fcat_addcat'] ?>">
+        <i class="fa fa-plus mr-1"></i><?php echo $BL['be_admin_fcat_addcat'] ?>
+    </a>
 </div>
 </div>

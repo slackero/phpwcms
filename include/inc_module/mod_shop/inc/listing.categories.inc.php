@@ -102,7 +102,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
 <div class="form-group mb-3 text-center text-sm-left">
     <a class="btn btn-sm btn-blue mr-2" href="<?php echo shop_url(array('controller=cat', 'edit=0')) ?>"
-        title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-folder-plus"></i>
+        title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus mr-1"></i>
         <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 

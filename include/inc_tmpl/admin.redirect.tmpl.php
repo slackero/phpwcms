@@ -126,7 +126,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
   </div>
   <div class="col-12 col-sm text-center text-sm-right mb-3">
   	<div class="form-group">
-      <a class="btn btn-sm btn-blue mr-3" href="phpwcms.php?do=admin&amp;p=14&amp;rid=0" title="<?php echo $BL['be_new_linkredirect'] ?>"><?php echo $BL['be_new_linkredirect'] ?></a>
+      <a class="btn btn-sm btn-blue mr-3" href="phpwcms.php?do=admin&amp;p=14&amp;rid=0" title="<?php echo $BL['be_new_linkredirect'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_new_linkredirect'] ?></a>
     </div>
   </div>
 </div>
@@ -181,7 +181,7 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
         <div class="input-group my-3 my-sm-0">
           <input name="filter" id="filter" size="15"  class="form-control form-control-sm" value="<?php if(isset($_POST['filter']) && is_array($_POST['filter']) ) echo html(implode(' ', $_POST['filter'])); ?>" type="search">
             <span class="input-group-append">
-                <input class="btn btn-sm btn-secondary" name="gofilter" value="Filter" type="button">
+                <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa fa-filter mr-1"></i> <?php echo $BL['be_filter'] ?></button>
             </span>
         </div>
       </div>
@@ -399,14 +399,12 @@ if(!isset($_GET['rid']) || isset($_GET['active'])) {
 </div>
 </div>
 
-    <div class="form-group form-row mt-3 mb-0">
-      <div class="col-12 col-sm text-center text-sm-right">
-        <input type="submit" class="btn btn-sm btn-blue mb-1" value="<?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?>" />
-        <input type="reset" class="btn btn-sm btn-blue mb-1" value="<?php echo $BL['be_cnt_field']['reset'] ?>" />
-        <input name="donotsubmit" type="button" class="btn btn-sm btn-blue mb-1" value="<?php echo  $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=admin&p=14'" />
-        <input type="hidden" name="rid" value="<?php echo $data['rid'] ?>" />
-        <?php if($rid): ?><input type="submit" class="btn btn-sm btn-danger mb-1" name="delete_<?php echo md5($rid) ?>" value="<?php echo $BL['be_cnt_delete'] ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');" /><?php endif; ?>
-      </div>
+    <div class="form-group align-items-center mt-4 mb-0">
+      <input type="hidden" name="rid" value="<?php echo $data['rid'] ?>" />
+      <button type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $rid ? $BL['be_article_cnt_button3'] : $BL['be_article_cnt_button2'] ?></button>
+      <button type="reset" class="btn btn-sm btn-secondary ml-1"><i class="fa fa-undo"></i> <?php echo $BL['be_cnt_field']['reset'] ?></button>
+      <a href="phpwcms.php?do=admin&amp;p=14" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+      <?php if($rid): ?><button type="submit" class="btn btn-sm btn-danger ml-1" name="delete_<?php echo md5($rid) ?>" onclick="return confirm('<?php echo $BL['be_delete_dataset'].' [ID:'.$rid.']' ?>');"><i class="far fa-trash-alt mr-1"></i> <?php echo $BL['be_cnt_delete'] ?></button><?php endif; ?>
     </div>
 </form>
 

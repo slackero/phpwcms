@@ -151,8 +151,8 @@ if (!defined('PHPWCMS_ROOT')) {
       </div>
     </div>
 
-    <div class="form-group mt-3 mb-0 text-right">
-       <input type="submit" name="Submit" value="<?php echo $BL['be_profile_account_button'] ?>" class="btn btn-sm btn-blue">
+    <div class="form-group mt-4 mb-0 text-right">
+       <button type="submit" name="Submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_profile_account_button'] ?></button>
     </div>
 
     <input name="form_aktion" type="hidden" id="form_aktion" value="update_account">

@@ -42,7 +42,7 @@ if(!empty($c1)) {
 }
 
 ?>
-  <form action="phpwcms.php?do=messages&amp;p=4" method="post" style="text-align:center;margin-top:12px;">
-    <input name="close" type="submit" class="btn btn-blue btn-sm" value="<?php echo $BL['be_admin_struct_close'] ?>" />
-  </form>
+  <div class="text-center mt-3">
+    <a href="phpwcms.php?do=messages&amp;p=4" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
+  </div>
 </div>

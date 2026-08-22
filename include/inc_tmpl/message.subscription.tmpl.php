@@ -34,9 +34,7 @@ if(!isset($_GET["edit"])) {
     <h1 class="text-center text-sm-left"><?php echo $BL['be_newsletter_title'] ?></h1>
   </div>
   <div class="col text-center text-sm-right mb-3">
-    <div class="form-group align-items-center">
-        <form action="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" method="post"><input type="submit" value="<?php echo $BL['be_mailinglist_new'] ?>" class="btn btn-sm btn-blue" title="<?php echo $BL['be_newsletter_add'] ?>"></form>
-    </div>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
   </div>
 </div>
 <?php } ?>
@@ -94,6 +92,6 @@ if(!isset($_GET["edit"])) {
 <?php if(!isset($_GET["edit"])) {
 ?>
 <div class="form-group text-center text-sm-right mt-4">
-  <form action="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" method="post"><input type="submit" value="<?php echo $BL['be_mailinglist_new'] ?>" class="btn btn-sm btn-blue" title="<?php echo $BL['be_newsletter_add'] ?>"></form>
+  <a class="btn btn-sm btn-blue" href="phpwcms.php?do=messages&amp;p=2&amp;s=0&amp;edit=1" title="<?php echo $BL['be_newsletter_add'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_mailinglist_new'] ?></a>
 </div>
 <?php } ?>

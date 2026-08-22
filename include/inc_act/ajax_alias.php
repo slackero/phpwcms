@@ -62,8 +62,8 @@ if($action == 'form' && $article_id) {
     echo '<div class="form-group form-row align-items-center">'.LF;
     echo '<div class="col-sm-3"></div>'.LF;
     echo '<div class="col">'.LF;
-    echo '<input name="save" type="button" onClick="AjaxSubmit('."'alias-".$article_id."', '".$article_id."', document.editartikel.article_alias".$article_id.".value, document.editartikel.article_description".$article_id.".value".')" value="'.$BL['be_article_cnt_button1'] .'"  class="btn btn-sm btn-blue mr-1" />';
-    echo '<input name="close" type="button" onClick="AjaxClose('."'alias-".$article_id."','','".$article_id."','')".'" value="'.$BL['be_newsletter_button_cancel'] .'" class="btn btn-sm btn-blue" />';
+    echo '<button name="save" type="button" onclick="AjaxSubmit('."'alias-".$article_id."', '".$article_id."', document.editartikel.article_alias".$article_id.".value, document.editartikel.article_description".$article_id.".value".')" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save"></i> '.$BL['be_article_cnt_button1'].'</button>';
+    echo '<button name="close" type="button" onclick="AjaxClose('."'alias-".$article_id."','','".$article_id."','')".'" class="btn btn-sm btn-danger ml-2"><i class="fa fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
     echo '</div>'.LF;
     echo '</div>'.LF;
     echo '</div>'.LF;
@@ -88,8 +88,8 @@ if($action == 'form' && $acat_id) {
     echo '<div class="row my-3">'.LF;
     echo '<div class="col-sm-3"></div>'.LF;
     echo '<div class="col">'.LF;
-    echo '<input name="save" type="button" onClick="AjaxSubmitCat('."'catalias-".$acat_id."', '".$acat_id."', document.editstructur.acat_alias".$acat_id.".value, document.editstructur.acat_pagetitle".$acat_id.".value,'" . $acattemplate . "')" . '" value="'.$BL['be_article_cnt_button1'] .'"  class="btn btn-sm btn-blue mr-1" />';
-    echo '<input name="close" type="button" onClick="AjaxClose('."'catalias-".$acat_id."', '".$acat_id."','','" . $acattemplate . "')".'" value="'.$BL['be_newsletter_button_cancel'] .'" class="btn btn-sm btn-blue" />';
+    echo '<button name="save" type="button" onclick="AjaxSubmitCat('."'catalias-".$acat_id."', '".$acat_id."', document.editstructur.acat_alias".$acat_id.".value, document.editstructur.acat_pagetitle".$acat_id.".value,'" . $acattemplate . "')" . '" class="btn btn-sm btn-blue mr-1"><i class="fa fa-save"></i> '.$BL['be_article_cnt_button1'].'</button>';
+    echo '<button name="close" type="button" onclick="AjaxClose('."'catalias-".$acat_id."', '".$acat_id."','','" . $acattemplate . "')".'" class="btn btn-sm btn-danger ml-2"><i class="fa fa-times"></i> '.$BL['be_newsletter_button_cancel'].'</button>';
     echo '</div>'.LF;
     echo '</div>'.LF;
     echo '</div>'.LF;

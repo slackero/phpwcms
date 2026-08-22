@@ -232,7 +232,7 @@ if($_SESSION['subscriber_page'] > $_userInfo['pages_total']) {
   }
   ?>" type="search">
           <span class="input-group-append">
-            <input class="btn btn-secondary" name="gofilter" value="Filter" type="button">
+            <button class="btn btn-secondary" name="gofilter" type="button"><i class="fa fa-filter mr-1"></i> <?php echo $BL['be_filter'] ?></button>
           </span>
         </div>
       </div>

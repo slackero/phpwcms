@@ -52,7 +52,7 @@ function backend_list_keywords() {
 			$list .= '						<td><span class="badge badge-light border">' . $value['keyword_id'] . '</span></td>' . LF;
 			$list .= '						<td><a href="#" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\'); return false;" class="font-weight-bold text-dark">' . html($value['keyword_name']) . '</a></td>' . LF;
 			$list .= '						<td class="text-right text-nowrap">' . LF;
-			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 mr-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa fa-edit"></i></button>' . LF;
+			$list .= '							<button type="button" class="btn btn-sm btn-blue py-0 px-1 mr-1" onclick="keyword_submit_action(this, ' . $value['keyword_id'] . ', \'edit\');" title="Edit"><i class="fa fa-pencil-alt"></i></button>' . LF;
 			$list .= '							<button type="button" class="btn btn-sm btn-danger py-0 px-1" onclick="if(confirm(\'' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete keyword?') . '\')) keyword_submit_action(this, ' . $value['keyword_id'] . ', \'delete_single\');" title="Delete"><i class="far fa-trash-alt"></i></button>' . LF;
 			$list .= '						</td>' . LF;
 			$list .= '					</tr>' . LF;
@@ -156,12 +156,12 @@ function backend_edit_keywords() {
 	$list .= '	<div class="card-footer text-right">' . LF;
 
 	if ($keyword_id > 0) {
-		$list .= '		<button type="submit" name="send_update" class="btn btn-sm btn-blue font-weight-bold mr-2"><i class="fa fa-check mr-1"></i>Update</button>' . LF;
+		$list .= '		<button type="submit" name="send_update" class="btn btn-sm btn-blue font-weight-bold mr-2"><i class="fa fa-save mr-1"></i>Update</button>' . LF;
 	} else {
 		$list .= '		<button type="submit" name="send_insert" class="btn btn-sm btn-blue font-weight-bold mr-2"><i class="fa fa-plus mr-1"></i>Create</button>' . LF;
 	}
 
-	$list .= '		<button type="button" class="btn btn-sm btn-secondary" onclick="location.href=\'phpwcms.php?do=admin&amp;p=8\';">' . ($GLOBALS['BL']['be_newsletter_button_cancel'] ?? 'Cancel') . '</button>' . LF;
+	$list .= '		<button type="button" class="btn btn-sm btn-danger ml-3" onclick="location.href=\'phpwcms.php?do=admin&amp;p=8\';"><i class="fa fa-times mr-1"></i>' . ($GLOBALS['BL']['be_newsletter_button_cancel'] ?? 'Cancel') . '</button>' . LF;
 	$list .= '	</div>' . LF;
 	$list .= '</div>' . LF;
 

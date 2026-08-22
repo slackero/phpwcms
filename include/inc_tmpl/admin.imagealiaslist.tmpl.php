@@ -94,7 +94,7 @@ if(isset($_POST['keyword'])) {
           <option value="99999"><?php echo $BL['be_ftptakeover_all'] ?></option>
        </select>
        <span class="input-group-append">
-          <input class="btn btn-secondary" name="gofilter" value="Verarbeiten" type="submit">
+          <button class="btn btn-secondary" name="gofilter" type="submit"><i class="fa fa-cogs mr-1"></i> Verarbeiten</button>
       </span>
     </div>
   </form>

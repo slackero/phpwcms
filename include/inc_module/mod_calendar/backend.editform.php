@@ -25,11 +25,11 @@ initJsAutocompleter();
       <h1><?php echo $BLM['listing_title'] ?></h1>
     </div>
     <div class="col-sm">
-      <div class="form-group text-right">
-        <input name="submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-        <input name="save" type="submit" class="btn btn-blue btn-sm mr-sm-3" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-        <input name="new" type="button" class="btn btn-blue btn-sm" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&edit=0';return false;" />
-        <input name="close" type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
+      <div class="form-group text-center text-sm-right mb-0">
+        <button name="submit" type="submit" class="btn btn-blue btn-sm mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+        <button name="save" type="submit" class="btn btn-blue btn-sm ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-blue btn-sm ml-sm-3 mb-1 mb-sm-0"><i class="fa fa-plus"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+        <a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-danger btn-sm ml-sm-3 mb-1 mb-sm-0"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
        </div>
      </div>
   </div>
@@ -298,11 +298,11 @@ initJsAutocompleter();
 	</div>
 </div>
 
-	<div class="form-group text-right mt-4">
-        <input name="submit" type="submit" class="bnt btn-blue btn-sm" value="<?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-        <input name="save" type="submit" class="bnt btn-blue btn-sm mr-sm-3" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-        <input name="new" type="button" class="bnt btn-blue btn-sm" value="<?php echo ucfirst($BL['be_msg_new']) ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>&edit=0';return false;" />
-        <input name="close" type="button" class="bnt btn-blue btn-sm" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='<?php echo decode_entities(MODULE_HREF) ?>';return false;" />
+	<div class="form-group align-items-center mt-4 mb-0 text-center text-sm-right">
+        <button name="submit" type="submit" class="btn btn-blue btn-sm mb-1 mb-sm-0" value="1"><i class="fa fa-save"></i> <?php echo empty($plugin['data']['calendar_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+        <button name="save" type="submit" class="btn btn-blue btn-sm ml-1 mb-1 mb-sm-0" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+        <a href="<?php echo decode_entities(MODULE_HREF) ?>&amp;edit=0" class="btn btn-blue btn-sm ml-sm-3 mb-1 mb-sm-0"><i class="fa fa-plus"></i> <?php echo ucfirst($BL['be_msg_new']) ?></a>
+        <a href="<?php echo decode_entities(MODULE_HREF) ?>" class="btn btn-danger btn-sm ml-sm-3 mb-1 mb-sm-0"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
      </div>
 
 </form>

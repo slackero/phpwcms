@@ -60,11 +60,12 @@ if (!defined('PHPWCMS_ROOT')) {
 					echo '<i class="fas ' . (($row["adplace_status"]) ? 'fa-eye' : 'fa-eye-slash') . ' fa-fw"></i></a>';
 					echo '</div>';
 					
-					if ($row['adcount'] > 0) {
+					$adcount = _dbCount($sql . intval($row['adplace_id']));
+					if ($adcount > 0) {
 						echo '<button class="btn btn-sm btn-danger ml-1" disabled title="Delete"><i class="far fa-trash-alt"></i></button>';
 					} else {
 						echo '<a href="' . MODULE_HREF . '&amp;adplace=1&amp;delete=' . $row["adplace_id"] . '" class="btn btn-sm btn-danger ml-1" title="' . $BL['be_cnt_delete'] . ': ' . html_specialchars($row["adplace_title"]) . '"';
-						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_place']) . ' \n' . js_singlequote($BLM['adplace_title'] . ': ' . html('"' . $row["adplace_title"] . '"')) . '\');">';
+						echo ' onclick="return confirm(\'' . js_singlequote($BLM['delete_adplace']) . ' \n' . js_singlequote($BLM['adplace_title'] . ': ' . html('"' . $row["adplace_title"] . '"')) . '\');">';
 						echo '<i class="far fa-trash-alt"></i></a>';
 					}
 					echo '</td>';

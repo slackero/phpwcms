@@ -606,11 +606,11 @@ if($ja) {
     </div>
 
 
-  <div class="form-group row">
+  <div class="form-group row mt-4 mb-0">
     <div class="col-sm-2"></div>
     <div class="col-sm-10">
-      <input name="Submit" type="submit" class="btn btn-blue btn-sm" value="<?php echo $BL['be_fprivedit_button'] ?>" />
-      <input type="button" class="btn btn-blue btn-sm" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='phpwcms.php?do=files&amp;f=0'" />
+      <button name="Submit" type="submit" class="btn btn-blue btn-sm" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_fprivedit_button'] ?></button>
+      <a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=files&amp;f=0"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
   </div>
 

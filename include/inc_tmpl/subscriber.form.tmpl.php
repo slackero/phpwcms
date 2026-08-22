@@ -94,10 +94,10 @@ if (!defined('PHPWCMS_ROOT')) {
         </div>
       </div>
 
-			<div class="text-left">
-				<input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-				<input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-				<input name="close" type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" onclick="location.href='phpwcms.php?do=messages&p=4';return false;" />
+			<div class="form-group align-items-center mt-4 mb-0">
+				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($_userInfo['subscriber_data']['address_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+				<button name="save" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+				<a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=4"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
 			</div>
 
     </div>

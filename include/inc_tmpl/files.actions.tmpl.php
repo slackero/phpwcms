@@ -275,7 +275,7 @@ function showAction() {
 						</select>
 					</div>
 					<div class="col-sm-auto">
-						<div id="div_button" style="display: none;"><input name="Submit" type="submit" class="btn btn-blue btn-sm ml-2" value="<?php echo $BL['file_actions_button'] ?>" /></div>
+						<div id="div_button" style="display: none;"><button name="Submit" type="submit" class="btn btn-blue btn-sm ml-2" value="1"><i class="fa fa-cogs mr-1"></i> <?php echo $BL['file_actions_button'] ?></button></div>
           </div>
         </div>
 

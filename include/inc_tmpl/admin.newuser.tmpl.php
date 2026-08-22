@@ -183,12 +183,13 @@ if(empty($user_ok)) {
 				</div>
 			</div>
 
-			<div class="text-right">
-				<input name="form_aktion" type="hidden" value="create_account" />
-				<input name="Submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_usr_button'] ?>" />
-			</div>
-
     </div>
+  </div>
+
+  <div class="form-group align-items-center mt-4 mb-0">
+    <input name="form_aktion" type="hidden" value="create_account" />
+    <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-plus"></i> <?php echo $BL['be_admin_usr_button'] ?></button>
+    <a href="phpwcms.php?do=admin&amp;p=6" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
   </div>
 </form>
 

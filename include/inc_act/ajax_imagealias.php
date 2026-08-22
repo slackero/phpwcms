@@ -93,7 +93,7 @@ if($file_id && !$file_alias) {
 		<div class="col col-sm-6 input-group my-2">
 			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value);" />
 			<div class="input-group-append">
-				<input name="senden" type="button" onClick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" value="<?php echo $BL['be_save_btn'] ?>" class="btn btn-blue btn-sm" /></div>
+				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-save"></i> <?php echo $BL['be_save_btn'] ?></button></div>
 			</div>
 		</div>
 

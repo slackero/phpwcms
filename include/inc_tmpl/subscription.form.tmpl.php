@@ -85,11 +85,11 @@ if($subscription["id"]) {
           </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row mt-4 mb-0">
         <div class="col-sm-2"></div>
         <div class="col-sm-10">
-          <input name="Submit" type="submit" class="btn btn-sm btn-blue mt-1" value="<?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?>" />
-          <input type="button" class="btn btn-sm btn-blue mt-1" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=2';" />
+          <button name="Submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo ($subscription["id"] == 0 ? $BL['be_newsletter_add'] : $BL['be_newsletter_button_save']) ?></button>
+          <a class="btn btn-sm btn-danger ml-3" href="phpwcms.php?do=messages&amp;p=2"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
         </div>
       </div>
 

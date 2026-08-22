@@ -34,10 +34,10 @@ if(!isset($plugin['data']['shopprod_overwrite_meta'])) {
       <h1 class="mb-2 mb-sm-0 text-center text-sm-left"><?php echo $BLM['prod_edit'] ?></h1>
     </div>
     <div class="col-sm">
-      <div class="form-group text-center text-sm-right mb-0">
-          <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-          <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-          <input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+      <div class="form-group align-items-center mb-0 text-center text-sm-right">
+          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+          <button name="save" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
        </div>
      </div>
   </div>
@@ -510,10 +510,10 @@ if (count($plugin['data']['shopprod_files'])) {
     </div>
   </div>
 
-      <div class="form-group text-center text-sm-right mb-0">
-          <input name="submit" type="submit" class="btn btn-sm btn-blue" value="<?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?>" />
-          <input name="save" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_article_cnt_button3'] ?>" />
-          <input name="close" type="submit" class="btn btn-sm btn-blue" value="<?php echo $BL['be_admin_struct_close'] ?>" />
+      <div class="form-group align-items-center mt-4 mb-0 text-center text-sm-right">
+          <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($plugin['data']['shopprod_id']) ? $BL['be_admin_fcat_button2'] : $BL['be_article_cnt_button1'] ?></button>
+          <button name="save" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
+          <a href="<?php echo shop_url(array('controller=prod')) ?>" class="btn btn-sm btn-danger ml-3"><i class="fa fa-times"></i> <?php echo $BL['be_admin_struct_close'] ?></a>
        </div>
 
 </form>

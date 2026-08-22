@@ -1067,7 +1067,7 @@ if(isset($content['form']["fields"]) && is_array($content['form']["fields"]) && 
         </tr>
     </table></td>
   </tr>
-  <tr><td colspan="3">&nbsp;</td><td colspan="6"><input type="submit" value="<?php echo $BL['be_article_cnt_button1'] ?>" class="btn btn-blue btn-sm my-3" /></td>
+  <tr><td colspan="3">&nbsp;</td><td colspan="6"><button type="submit" class="btn btn-blue btn-sm my-3" value="1"><i class="fa fa-save"></i> <?php echo $BL['be_article_cnt_button1'] ?></button></td>
   </tr>
 </table><?php
 

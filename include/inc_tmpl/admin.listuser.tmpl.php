@@ -102,11 +102,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
     <h1><?php echo $BL['be_subnav_admin_users_overview']; ?></h1>
   </div>
 	<div class="col-12 col-sm text-center text-sm-right mb-3">
-    <form action="phpwcms.php?do=admin&amp;s=1" method="post">
-    	<div class="form-group">
-      <input type="submit" value="<?php echo $BL['be_admin_usr_create'] ?>" class="btn btn-sm btn-blue" title="<?php echo $BL['be_admin_usr_create'] ?>">
-      </div>
-    </form>
+    <a class="btn btn-sm btn-blue" href="phpwcms.php?do=admin&amp;s=1" title="<?php echo $BL['be_admin_usr_create'] ?>"><i class="fa fa-plus mr-1"></i> <?php echo $BL['be_admin_usr_create'] ?></a>
   </div>
 </div>
 
@@ -144,7 +140,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
               }
               ?>">
               <div class="input-group-append">
-                  <input class="btn btn-sm btn-secondary" name="gofilter" type="button" value="<?php echo $BL['be_filter'] ?>">
+                  <button class="btn btn-sm btn-secondary" name="gofilter" type="button" onclick="this.form.submit();"><i class="fa fa-filter mr-1"></i> <?php echo $BL['be_filter'] ?></button>
               </div>
           </div>
   	  </div>

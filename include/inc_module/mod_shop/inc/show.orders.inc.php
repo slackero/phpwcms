@@ -23,7 +23,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="card-body">
 
     <div class="text-right">
-        <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />
+        <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
     </div>
 
   <div class="align-items-center form-row">
@@ -453,6 +453,6 @@ if (!defined('PHPWCMS_ROOT')) {
 <?php } ?>
 </div>
 
-<div class="text-right">
-    <input type="button" class="btn btn-sm btn-blue" value="<?php echo $BL['be_func_struct_close'] ?>" onclick="document.location.href='<?php echo shop_url('controller=order') ?>'" />
+<div class="text-right mt-3">
+    <a href="<?php echo shop_url('controller=order') ?>" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> <?php echo $BL['be_func_struct_close'] ?></a>
 </div>

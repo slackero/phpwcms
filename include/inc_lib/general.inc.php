@@ -611,7 +611,7 @@ function get_list_of_file_keywords() {
 
 function js_singlequote($t = '') {
     // make singe quotes js compatible
-    return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), $t);
+    return str_replace(array("\\", "&#92;", "'", '"'), array("\\\\", "\\\\", '&#39;', '&quot;'), (string)$t);
 }
 
 function get_tmpl_files($dir = '', $ext = '', $sort = true) {

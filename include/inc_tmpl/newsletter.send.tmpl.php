@@ -102,11 +102,10 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row mt-4 mb-0">
           <div class="offset-sm-2 col-sm-10">
-            <input name="sendit" type="submit" class="btn btn-blue btn-small bold" style="color:#CC3300;" value="<?php echo $BL['be_newsletter_sendnlbutton'] ?>" />
-              &nbsp;&nbsp;
-                <input type="button" class="btn btn-blue btn-small" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
+            <button name="sendit" type="submit" class="btn btn-danger btn-sm font-weight-bold" value="1"><i class="fa fa-paper-plane mr-1"></i> <?php echo $BL['be_newsletter_sendnlbutton'] ?></button>
+            <a class="btn btn-danger btn-sm ml-3" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
           </div>
         </div>
       </form>
@@ -129,7 +128,7 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
       </tr>
       <tr bgcolor="#E6EAED">
         <td align="center" colspan="2">
-          <input type="button" class="btn btn-blue btn-small" value="<?php echo $BL['be_newsletter_button_cancel'] ?>" onclick="location.href='phpwcms.php?do=messages&amp;p=3';" />
+          <a class="btn btn-danger btn-sm" href="phpwcms.php?do=messages&amp;p=3"><i class="fa fa-times mr-1"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
         </td>
       </tr>
     </table>

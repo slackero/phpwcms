@@ -106,7 +106,7 @@ if($_SESSION['glossary_page'] > $_entry['pages_total']) {
 <h1 class="title mb-3"><?php echo $BLM['listing_title'] ?></h1>
 
 <div class="form-group mb-3 text-center text-sm-left">
-	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fas fa-plus-circle fa-fw"></i> <span><?php echo $BLM['create_new'] ?></span></a>
+	<a class="btn btn-sm btn-blue" href="<?php echo GLOSSARY_HREF ?>&amp;edit=0" title="<?php echo $BLM['create_new'] ?>"><i class="fa fa-plus mr-1"></i> <span><?php echo $BLM['create_new'] ?></span></a>
 </div>
 
 <div class="card">
