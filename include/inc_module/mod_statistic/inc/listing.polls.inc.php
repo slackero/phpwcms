@@ -24,7 +24,7 @@ $result = _dbQuery($sql);
 <h2 class="mb-3"><?php echo $BLM['listing_polls'] ?></h2>
 
 <div class="table-responsive">
-  <table class="table table-sm table-striped table-hover mb-0">
+  <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
     <thead>
       <tr>
         <th><?php echo $BLM['pollname'] ?></th>

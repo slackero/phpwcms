@@ -31,7 +31,7 @@ $emptyalias = _dbCount($sql);
 $countstr = ($emptyalias > 0) ? $emptyalias.$BL['count'] : $BL['nocount'];
 
 if(isset($_POST['keyword'])) {
-    echo '<table class="table table-sm mb-2">';
+    echo '<table class="table table-sm table-valign-middle mb-2">';
     $i=0;
 
     // update f-alias if no entry

@@ -22,7 +22,7 @@ $count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file
 if($count_user_files) {
     //Beginn Tabelle für Dateilisting
     echo "<div class=\"table-responsive\">\n";
-    echo "<table class=\"table table-sm\">\n";
+    echo "<table class=\"table table-sm table-valign-middle\">\n";
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-delfilelist.inc.php";
     //echo "</table>\n";
 

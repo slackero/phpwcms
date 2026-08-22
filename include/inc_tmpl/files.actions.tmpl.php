@@ -155,7 +155,7 @@ function showAction() {
       <div class="card-body">
         <legend><?php echo $BL['file_actions_step2'] ?></legend>
         <div class="table-responsive">
-        <table class="table table-sm">
+        <table class="table table-sm table-valign-middle">
           <tr bgcolor="#e3e3e3">
               <th width="35"><?php echo $BL['be_ftptakeover_mark'] ?></th>
               <th><?php echo $BL['be_ftptakeover_available'] ?></th>

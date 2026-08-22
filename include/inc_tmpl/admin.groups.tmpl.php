@@ -252,7 +252,7 @@ if(isset($_GET["create_group"]) || isset($_GET["u"])) {
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_cnt_title_overview'] ;?></h2></div>
 	<div class="card-body">
 	<div class="table-responsive">
-	<table class="table table-sm table-hover mb-0">
+	<table class="table table-sm table-hover table-valign-middle mb-0">
 	<?php
 
     $zaehler = 0;

@@ -373,7 +373,7 @@ class phpwcmsNews {
 
         if(count($this->news)) {
             $list[] = '<div class="table-responsive">';
-            $list[] = '<table class="table table-sm">';
+            $list[] = '<table class="table table-sm table-valign-middle">';
             $list[] = '<tr class="bg-grey">';
 
             $sort_class = array(

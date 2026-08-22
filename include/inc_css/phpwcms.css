@@ -622,6 +622,15 @@ a.filein {
     border-bottom: 1px solid #dee2e6;
 }
 
+.table-valign-middle td,
+.table-valign-middle th,
+.table-align-middle td,
+.table-align-middle th,
+.table-v-align-middle td,
+.table-v-align-middle th {
+    vertical-align: middle;
+}
+
 .table thead th {
     vertical-align: bottom;
     border-top: 0;

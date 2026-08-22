@@ -185,7 +185,7 @@ if($_SESSION['userdetail_page'] > $_entry['pages_total']) {
 		</form>
 
 		<div class="table-responsive">
-			<table class="table table-sm table-striped table-hover mb-0">
+			<table class="table table-sm table-striped table-hover table-valign-middle mb-0">
 				<thead>
 					<tr>
 						<th style="width: 40px;" class="text-center">&nbsp;</th>

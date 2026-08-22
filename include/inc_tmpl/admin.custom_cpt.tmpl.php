@@ -299,7 +299,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
             </div>
             <div class="card-body p-0">
               <div class="table-responsive">
-                <table class="table table-striped table-hover mb-0" id="fieldsTable">
+                <table class="table table-striped table-hover table-valign-middle mb-0" id="fieldsTable">
                   <thead class="thead-light">
                     <tr>
                       <th style="width: 25px;"></th>
@@ -778,7 +778,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
           </div>
           <div class="card-body p-0">
             <div class="table-responsive">
-              <table class="table table-hover table-striped mb-0">
+              <table class="table table-hover table-striped table-valign-middle mb-0">
                 <thead class="thead-light">
                   <tr>
                     <th style="width: 40px;" class="text-center"><?php echo html($BL['be_admin_custom_cpt_status'] ?? 'Status'); ?></th>
@@ -793,7 +793,7 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                   <?php if (!empty($all_cpts) && is_array($all_cpts)): ?>
                     <?php foreach ($all_cpts as $cpt): ?>
                       <tr>
-                        <td class="text-center align-middle">
+                        <td class="text-center">
                           <?php if (strpos((string)$cpt['cpt_id'], 'preset_') === 0): ?>
                             <span class="badge badge-info" title="JSON File Preset"><?php echo html($BL['be_admin_custom_cpt_preset'] ?? 'Preset'); ?></span>
                           <?php elseif (strpos((string)$cpt['cpt_id'], 'legacy_') === 0): ?>
@@ -804,21 +804,21 @@ $usage_count = !empty($edit_cpt['cpt_key']) && function_exists('get_custom_cpt_u
                             </a>
                           <?php endif; ?>
                         </td>
-                        <td class="align-middle font-weight-bold">
+                        <td class="font-weight-bold">
                           <i class="fa <?php echo html($cpt['cpt_icon'] ?? 'fa-cube'); ?> text-primary mr-1"></i>
                           <?php echo html($cpt['cpt_title']); ?>
                           <?php if (!empty($cpt['cpt_desc'])): ?>
                             <div class="small text-muted font-weight-normal"><?php echo html($cpt['cpt_desc']); ?></div>
                           <?php endif; ?>
                         </td>
-                        <td class="align-middle font-monospace text-muted"><?php echo html($cpt['cpt_key']); ?></td>
-                        <td class="align-middle">
+                        <td class="font-monospace text-muted"><?php echo html($cpt['cpt_key']); ?></td>
+                        <td>
                           <span class="badge badge-light border"><?php echo html($cpt['cpt_mode'] ?? 'repeater'); ?></span>
                         </td>
-                        <td class="align-middle">
+                        <td>
                           <span class="badge badge-pill badge-secondary"><?php echo count($cpt['fields'] ?? []); ?></span>
                         </td>
-                        <td class="text-right align-middle text-nowrap">
+                        <td class="text-right text-nowrap">
                           <?php if (is_numeric($cpt['cpt_id'])): ?>
                             <div class="btn-group btn-group-sm" role="group" aria-label="cpt-actions-<?php echo $cpt['cpt_id']; ?>">
                               <a href="phpwcms.php?<?php echo get_token_get_string(); ?>&amp;do=admin&amp;p=16&amp;edit=<?php echo $cpt['cpt_id']; ?>" class="btn btn-blue btn-sm" role="button" data-toggle="tooltip" title="<?php echo html($BL['be_tt_edit'] ?? 'Edit'); ?>"><i class="fa fa-pencil-alt"></i></a>

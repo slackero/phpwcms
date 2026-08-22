@@ -35,7 +35,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_subscriptions'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <thead>
           <tr>
             <th><?php echo $BLM['subscriptionsname'] ?></th>
@@ -70,7 +70,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_activ'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <thead>
           <tr>
             <th><?php echo $BLM['subscriptionstatus'] ?></th>
@@ -111,7 +111,7 @@ $_controller_link =  statistic_url('controller=subscriptions');
     </div>
 
     <div class="table-responsive mb-3">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <thead>
           <tr>
             <th><?php echo $BLM['subscriptionslogdate'] ?></th>

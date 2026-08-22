@@ -213,7 +213,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="card-header"><h2><?php echo $BLM['shopprod_ordered'] ?></h2></div>
 <div class="card-body">
     <div class="table-responsive">
-<table class="table table-sm mb-0 w-100">
+<table class="table table-sm table-valign-middle mb-0 w-100">
     <tr>
         <th><?php echo $BLM['shopprod_quantity'] ?></th>
         <th><?php echo $BLM['th_ordnr'] ?></th>

@@ -45,7 +45,7 @@ if(!isset($_GET["edit"])) {
   <div class="card-header"><h2><i class="fa fa-list" aria-hidden="true"></i> <?php echo $BL['be_cnt_title_overview'] ?> <?php echo $BL['be_newsletter_title'] ?></h2></div>
     <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-sm mb-0">
+    <table class="table table-sm table-valign-middle mb-0">
     <?php
     // loop listing available subscriptions
     $sql = "SELECT * FROM ".DB_PREPEND."phpwcms_subscription ORDER BY subscription_name";

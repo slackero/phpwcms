@@ -193,7 +193,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 
 </form>
 
-    <table class="table table-sm">
+    <table class="table table-sm table-valign-middle">
     <?php
     $bg_color1 = "#FFFFFF";
     $bg_color2 = "#f5f5f5";
@@ -216,7 +216,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
 ?>
 
       <tr class="hover-light <?php echo $bg_class ?>">
-      <td width="30" class="align-middle"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
+      <td width="30"><span class="fa-stack fa"><i class="fa fa-square fa-stack-2x text-<?php
 
             if($userlist["usr_aktiv"] == 1) {
                 if(!$userlist["usr_admin"]) {
@@ -233,7 +233,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             }
 
           ?>"></i><i class="fa fa-user fa-stack-1x fa-inverse"></i></span></td>
-          <td class="align-middle" <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php
+          <td <?php if($userlist["usr_aktiv"]==1) {echo "class=\"dir\"";} else {echo "class=\"inaktiv\"";} ?>><a href="<?php echo $goto ?>"><?php
 
             if($userlist["usr_name"]) {
                 $userlist["usr_name"] = html($userlist["usr_name"]." (".$userlist["usr_login"].")");
@@ -243,7 +243,7 @@ if($_SESSION['list_user_page'] > $_userInfo['pages_total']) {
             echo $userlist["usr_name"];
 
           ?></a></td>
-          <td class="align-middle text-nowrap text-right">
+          <td class="text-nowrap text-right">
           <?php
           echo '<div class="btn-group btn-group-sm" role="group" aria-label="user-actions-'.$userlist['usr_id'].'">';
           echo '<button id="abtnuser'.$userlist['usr_id'].'" class="btn fa btn-sm visible '.($userlist["usr_aktiv"]==0 ? "btn-warning" : "btn-success").'" data-id="'.$userlist['usr_id'].'" data-type="user" data-table="user" data-field="usr_aktiv" data-fieldid="usr_id" aria-disabled="true" data-toggle="tooltip" title="'.$BL['be_tooltip_visibility'].'"></button>';

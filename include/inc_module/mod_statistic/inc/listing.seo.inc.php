@@ -147,7 +147,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 </form>
 
 <div class="table-responsive mb-4">
-	<table class="table table-sm table-striped table-hover mb-0">
+	<table class="table table-sm table-striped table-hover table-valign-middle mb-0">
 		<thead>
 			<tr>
 				<th style="width: 150px;">Datum</th>
@@ -165,10 +165,10 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
 		foreach($data as $row) {
 			echo '<tr>';
-			echo '<td class="align-middle text-nowrap">'.$row['create_date'].'</td>';
-			echo '<td class="align-middle"><a href="'.html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']).'</a></td>';
-			echo '<td class="align-middle text-center">'.$row['pos'].'</td>';
-			echo '<td class="align-middle">';
+			echo '<td class="text-nowrap">'.$row['create_date'].'</td>';
+			echo '<td><a href="'.html_specialchars($row['referrer']).'" target="_blank">'.html_specialchars($row['domain']).'</a></td>';
+			echo '<td class="text-center">'.$row['pos'].'</td>';
+			echo '<td>';
 			echo html_specialchars(PHPWCMS_CHARSET != 'utf-8' && phpwcms_seems_utf8($row['query']) ? makeCharsetConversion($row['query'], 'utf-8', PHPWCMS_CHARSET, false) : $row['query']);
 			echo '</td>';
 			echo "</tr>\n";
@@ -183,7 +183,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 	<div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_seo_top'] ?></h5></div>
 	<div class="card-body p-0">
 		<div class="table-responsive">
-			<table class="table table-sm table-striped table-hover mb-0">
+			<table class="table table-sm table-striped table-hover table-valign-middle mb-0">
 				<thead>
 					<tr>
 						<th style="width: 80px;"><?php echo $BLM['pollcounts'] ?></th>

@@ -32,7 +32,7 @@ $result = _dbQuery($sql);
 if(isset($result[0]['acat_id'])) {
   $x = 0;
   echo '<form action="" method="post" name="editstructur">';
-   echo '<table class="table table-sm table-hover mb-0">';
+   echo '<table class="table table-sm table-hover table-valign-middle mb-0">';
 
   foreach($result as $data) {
 
@@ -75,7 +75,7 @@ $result = _dbQuery($sql);
 if(isset($result[0]['article_id'])) {
   $x = 0;
   echo '<form action="" method="post" name="editartikel">';
-  echo '<table class="table table-sm table-hover mb-0">';
+  echo '<table class="table table-sm table-hover table-valign-middle mb-0">';
   foreach($result as $data) {
 
     // now add article URL

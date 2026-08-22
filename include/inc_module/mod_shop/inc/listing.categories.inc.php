@@ -144,7 +144,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
     </div>
 </form>
 <div class="table-responsive">
-    <table class="table table-sm mb-0 mt-2">
+    <table class="table table-sm table-valign-middle mb-0 mt-2">
         <?php
         // loop listing available newsletters
         $row_count = 0;

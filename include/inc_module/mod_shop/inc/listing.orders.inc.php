@@ -17,7 +17,7 @@ if (!defined('PHPWCMS_ROOT')) {
 
 ?>
 <div class="table-responsive">
-<table class="table table-sm mb-0">
+<table class="table table-sm table-valign-middle mb-0">
     <tr bgcolor="#f3f3f3">
         <th><?php echo $BLM['th_ordnr'] ?></th>
         <th><?php echo $BLM['th_date'] ?></th>

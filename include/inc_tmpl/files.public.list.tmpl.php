@@ -70,7 +70,7 @@ $count_user_files = _dbQuery("SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file
 
 if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
     //Beginn Tabelle für Public Dateilisting
-    echo "<table class=\"table table-sm\">\n";
+    echo "<table class=\"table table-sm table-valign-middle\">\n";
 
 
     //Prüfen, für welche User überhaupt Public Files vorhanden sind

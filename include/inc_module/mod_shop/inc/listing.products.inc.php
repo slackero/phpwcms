@@ -146,8 +146,8 @@ if($_SESSION['detail_page'] > $_entry['pages_total']) {
 		</div>
 	</div>
 </form>
-<div class ="table-responsive">
-<table class="table table-sm mb-0 mt-2">
+<div class="table-responsive">
+<table class="table table-sm table-valign-middle mb-0 mt-2">
 
   <tr bgcolor="#f3f3f3">
     <th>&nbsp;</th>

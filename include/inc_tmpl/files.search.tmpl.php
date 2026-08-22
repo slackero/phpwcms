@@ -141,7 +141,7 @@ if(isset($_POST["file_search"])) {
 if(isset($search["result"])) {
     //Beginn Tabelle für Dateilisting
     echo "<div class=\"table-responsive\">\n";
-    echo "<table class=\"table table-sm table-borderless border-top mb-0\">\n";
+    echo "<table class=\"table table-sm table-valign-middle table-borderless border-top mb-0\">\n";
 
     $sl=0;
     $search["filelist"] = " ";

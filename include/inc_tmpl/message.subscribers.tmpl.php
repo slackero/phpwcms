@@ -317,7 +317,7 @@ if($_userInfo['list_channel']) {
 </form>
 
 <div class="table-responsive">
-	<table class="table table-sm mt-3 mb-0">
+	<table class="table table-sm table-valign-middle mt-3 mb-0">
 		<tr bgcolor="#f3f3f3">
 			<th>&nbsp;</th>
 			<th><?php echo $BL['be_profile_label_email'] ?></th>

@@ -77,7 +77,7 @@ $count_user_files = _dbCount($sql);
 
 // Does the user have files to list
 if($count_user_files) {
-    echo '<table class="table table-sm">';
+    echo '<table class="table table-sm table-valign-middle">';
     list_private(0, 0, "phpwcms.php?do=files&amp;f=0", $_SESSION["wcs_user_id"], 0, $phpwcms);
     include_once PHPWCMS_ROOT."/include/inc_lib/files.private-filelist.inc.php";
     echo "</table>";

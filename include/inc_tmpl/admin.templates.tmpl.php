@@ -153,7 +153,7 @@ if(!isset($_GET["s"])) {
     <div class="card">
         <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_admin_tmpl_title'] ?></h2></div>
         <div class="card-body">
-            <table class="table table-striped table-sm mb-4">
+            <table class="table table-striped table-sm table-valign-middle mb-4">
                 <?php
                 // loop listing available templates
                 $sql = "SELECT * FROM " . DB_PREPEND . "phpwcms_template WHERE template_trash=0 ORDER BY template_default DESC, template_name";

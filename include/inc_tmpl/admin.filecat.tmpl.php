@@ -256,7 +256,7 @@ if(isset($_GET['open'])) {
   $result = _dbQuery($sql);
   if(isset($result[0]['fcat_id'])) {
       echo '<div class="table-responsive mb-4">';
-      echo '<table class="table table-sm table-hover mb-0">';
+      echo '<table class="table table-sm table-hover table-valign-middle mb-0">';
       echo '<thead class="thead-light"><tr><th>Category / Key</th><th class="text-right">Actions</th></tr></thead><tbody>';
 
       foreach($result as $row) {

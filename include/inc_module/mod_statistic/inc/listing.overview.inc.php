@@ -20,7 +20,7 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_overview'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <tr>
           <td align="right" style="width: 80px;"><?php
           echo _dbCount('SELECT COUNT(article_ID) FROM '.DB_PREPEND.'phpwcms_article WHERE article_public=1 AND article_aktiv=1 AND article_deleted=0');?></td>
@@ -62,7 +62,7 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_overview_img'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
          <tr>
           <td><?php echo $BLM['overview_zentrale'] ?></td>
           <td align="right" style="width: 80px;"><?php
@@ -82,7 +82,7 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_overview_cnt'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
      <?php
     $wcs_content_type = array(
        0 => $BL['be_ctype_plaintext'] ,
@@ -179,7 +179,7 @@ if (!defined('PHPWCMS_ROOT')) {
   <div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_overview_del'] ?></h5></div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-sm table-striped table-hover mb-0">
+      <table class="table table-sm table-striped table-hover table-valign-middle mb-0">
         <thead>
           <tr>
             <th style="text-align:left"><?php echo $BL['be_article_atitle'] ?></th>

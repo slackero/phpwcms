@@ -134,7 +134,7 @@ if($_SESSION['newsletter_page'] < 1) {
     </div>
 
 		<div class="table-responsive">
-    <table class="table table-sm mt-3 mb-0">
+    <table class="table table-sm table-valign-middle mt-3 mb-0">
     <thead>
       <tr>
         <th>&nbsp;</th>

@@ -152,7 +152,7 @@ $result = _dbQuery($sql);
 </form>
 
 <div class="table-responsive">
-	<table class="table table-sm table-striped table-hover mb-0">
+	<table class="table table-sm table-striped table-hover table-valign-middle mb-0">
 		<thead>
 			<tr>
 				<th><?php echo $BLM['filename'] ?></th>

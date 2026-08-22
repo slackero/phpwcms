@@ -24,7 +24,7 @@ if (!defined('PHPWCMS_ROOT')) {
 <div class="card">
 <div class="card-header"><h2><i class="fa fa-list"></i> <?php echo $BL['be_article_title'] ?></h2></div>
 <div class="table-responsive" style="overflow-x: inherit">
-<table class="table table-sm mb-0">
+<table class="table table-sm table-valign-middle mb-0">
 <?php
 
 $listmode = 0;
