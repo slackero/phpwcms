@@ -514,14 +514,15 @@ if(isset($result[0]['pagelayout_id'])) {
                     </div>
                 </div>
 
+                <hr/>
+
                 <div class="form-group form-row">
                     <div class="col-sm-2"></div>
                     <div class="col">
-                        <?php echo $BL['be_overwrite_default'] ?><br/><strong>include/config/conf.template_default.inc.php</strong>
+                        <?php echo $BL['be_overwrite_default'] ?><br/>
+                        <strong><code>/include/config/conf.template_default.inc.php</code></strong>
                     </div>
                 </div>
-
-                <hr/>
 
                 <div class="form-group form-row align-items-center">
                     <label for="template_overwrite" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_settings'] ?></label>
