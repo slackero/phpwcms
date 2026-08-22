@@ -213,7 +213,7 @@ select.form-control-sm:not([size]):not([multiple]),
 }
 
 #column-left, #content, #footer {
-    transition: all 0.3s;
+    transition: width 0.25s ease, margin-left 0.25s ease, left 0.25s ease;
 }
 
 #column-left {
@@ -704,28 +704,40 @@ a.filein {
 #side-menu a {
     color: #1f3347 !important;
     font-size: 1rem;
+    white-space: nowrap;
 }
 
 #side-menu > li > a {
     color: #1f3347 !important;
-    padding: 6px 10px;
+    padding: 8px 10px;
     border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 0.15s ease, color 0.15s ease, padding 0.25s ease;
 }
 
 #side-menu li a {
     text-decoration: none;
     display: block;
     border-bottom: 1px solid #b5c4d2;
-    padding: 6px 10px;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    padding: 8px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 0.15s ease, color 0.15s ease, padding 0.25s ease;
 }
 
 #side-menu li li a {
     display: flex;
-    align-items: flex-start;
-    padding: 5px 10px 5px 36px;
+    align-items: center;
+    padding: 6px 10px 6px 36px;
     color: #2b4560 !important;
     border-bottom: 1px solid #b5c4d2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.15s ease, color 0.15s ease, padding 0.25s ease;
 }
 
 #side-menu li li a::before {
@@ -734,7 +746,7 @@ a.filein {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     margin-right: 6px;
-    margin-top: 4px;
+    margin-top: 0;
     flex-shrink: 0;
     transition: transform ease 0.2s;
 }
@@ -746,6 +758,18 @@ a.filein {
 
 #side-menu .fa {
     margin-right: 2px;
+}
+
+#side-menu .nav-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1 1 auto;
+}
+
+#side-menu .arrow {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 #side-menu li:hover > a {
@@ -764,6 +788,16 @@ a.filein {
 
 #side-menu li.active ul {
     display: block;
+    animation: sidebarSubmenuFadeIn 0.25s ease forwards;
+}
+
+@keyframes sidebarSubmenuFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #side-menu .subnavinactive, #side-menu .subnavactive {
@@ -813,8 +847,10 @@ a.filein {
 }
 
 .sidebar {
+    width: 100%;
     max-width: 230px;
     border-top: 1px solid #b5c4d2;
+    transition: width 0.25s ease, max-width 0.25s ease;
 }
 
 #side-menu .submenu-title {
@@ -841,7 +877,9 @@ a.filein {
     font-size: 0.85rem;
     line-height: inherit;
     border-radius: 0;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 0.15s ease, color 0.15s ease, padding 0.25s ease;
 }
 
 .btn-sidebar-toggle:hover {
@@ -937,6 +975,7 @@ a.filein {
         padding: 0 0 4px 0;
         margin: 0;
         list-style: none !important;
+        animation: none;
     }
 
     html.sidebar-collapsed #side-menu > li:hover > ul.submenu li {
