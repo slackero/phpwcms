@@ -128,6 +128,7 @@ $news = new phpwcmsNews();
     // some JavaScripts wee need
     initJsCalendar();
     initJsAutocompleter();
+    initAceEditor();
 ?>
 <!-- NEWSDETAIL START -->
 <script>
@@ -318,7 +319,7 @@ if($news->data['cnt_id']) {
   <div class="form-group form-row">
       <label for="cnt_teasertext" class="col-form-label col-sm-2 text-right"><?php echo $BL['be_teasertext'] ?></label>
       <div class="col">
-      <textarea name="cnt_teasertext" id="cnt_teasertext" class="form-control form-control-sm" rows="5"><?php echo html($news->data['cnt_teasertext']) ?></textarea>
+      <textarea name="cnt_teasertext" id="cnt_teasertext" rows="5" class="form-control form-control-sm field-sizing-content field-sizing-content-5 code-editor" data-mode="<?php echo ($news->data['cnt_textformat'] === 'markdown') ? 'markdown' : (($news->data['cnt_textformat'] === 'textile') ? 'textile' : 'text'); ?>"><?php echo html($news->data['cnt_teasertext']); ?></textarea>
     </div>
   </div>
 

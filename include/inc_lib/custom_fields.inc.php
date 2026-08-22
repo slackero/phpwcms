@@ -523,7 +523,17 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
             $rows = !empty($field_def['rows']) ? (int)$field_def['rows'] : 3;
             $height = !empty($field_def['height']) ? ' style="height:' . html($field_def['height']) . ';"' : '';
             $wysiwyg_class = ($render === 'wysiwyg') ? ' wysiwyg-editor' : '';
-            $out .= '    <textarea name="' . html($input_name) . '" id="' . html($input_id) . '" rows="' . $rows . '" class="form-control form-control-sm' . $wysiwyg_class . ' ' . html($class) . '" placeholder="' . html($placeholder) . '"' . $height . '>' . html($value) . '</textarea>' . LF;
+            $code_class = '';
+            $mode_attr = '';
+            if (in_array($render, array('markdown', 'textile', 'html', 'code', 'css', 'javascript', 'js', 'json', 'sql', 'php'), true)) {
+                $code_class = ' code-editor';
+                $ace_mode = ($render === 'code') ? 'html' : (($render === 'js') ? 'javascript' : $render);
+                $mode_attr = ' data-mode="' . html($ace_mode) . '"';
+                if (function_exists('initAceEditor')) {
+                    initAceEditor();
+                }
+            }
+            $out .= '    <textarea name="' . html($input_name) . '" id="' . html($input_id) . '" rows="' . $rows . '" class="form-control form-control-sm' . $wysiwyg_class . $code_class . ' ' . html($class) . '"' . $mode_attr . ' placeholder="' . html($placeholder) . '"' . $height . '>' . html($value) . '</textarea>' . LF;
             break;
 
         case 'option':

@@ -1448,9 +1448,9 @@ function initAceForTextarea(textarea) {
         btnWrap.classList.toggle('active', !currentWrap);
     });
 
-    // Support radio-button format changes (e.g. Plain text / Markdown / Textile in cnt0)
+    // Support radio-button format changes (e.g. Plain text / Markdown / Textile in cnt0 and news)
     if (textarea.form) {
-        const formatRadios = textarea.form.querySelectorAll('input[name="ctext_format"]');
+        const formatRadios = textarea.form.querySelectorAll('input[name="ctext_format"], input[name="cnt_textformat"], input[name$="_format"], input[name$="_textformat"]');
         if (formatRadios.length) {
             formatRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
@@ -1458,6 +1458,8 @@ function initAceForTextarea(textarea) {
                         let newMode = 'text';
                         if (radio.value === 'markdown') newMode = 'markdown';
                         else if (radio.value === 'textile') newMode = 'textile';
+                        else if (radio.value === 'html') newMode = 'html';
+                        else if (radio.value === 'php') newMode = 'php';
                         editor.session.setMode('ace/mode/' + newMode);
                         modeBadge.textContent = newMode.toUpperCase();
                     }
