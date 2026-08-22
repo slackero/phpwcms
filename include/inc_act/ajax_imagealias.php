@@ -91,7 +91,7 @@ if($file_id && !$file_alias) {
     <div class="col-sm-9 mb-2 mb-sm-0"><b><?php echo $BL['be_fprivedit_filename'] ?>: <?php echo html_specialchars($file_name) ?></b></div>
 
 		<div class="col col-sm-6 input-group my-2">
-			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value);" />
+			<input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias<?php echo html_specialchars($file_id) ?>" value="<?php echo html_specialchars($f_alias) ?>"  maxlength="230" onfocus="set_file_alias(true, 'file_alias<?php echo html_specialchars($file_id) ?>');" onchange="this.value=create_alias(this.value, null, null, false);" />
 			<div class="input-group-append">
 				<button name="senden" type="button" onclick="AjaxSubmit(<?php echo "'#alias-".$file_id."', '".$file_id."', document.editfileinfo.file_alias".$file_id.".value"; ?>)" class="btn btn-blue btn-sm"><i class="fa fa-save"></i> <?php echo $BL['be_save_btn'] ?></button></div>
 			</div>
@@ -101,24 +101,12 @@ if($file_id && !$file_alias) {
 }
 
 if($file_id && $file_alias) {
-  $file_alias = clean_slweg(strtolower($file_alias), 150);
-  $file_alias = phpwcms_remove_accents($file_alias);
-  $file_alias = get_alnum_dashes($file_alias, true);
-  $file_alias = trim($file_alias);
-  if($file_alias != '') {
-    $file_alias = trim( preg_replace('/\-\-+/', '-', $file_alias), '-' );
-    $file_alias = trim( preg_replace('/__+/', '_', $file_alias), '_' );
-  }
+  $file_alias = proof_file_alias($file_id, $file_alias);
 
-  $f_count = _dbCount("SELECT COUNT(f_alias) FROM ".DB_PREPEND."phpwcms_file WHERE f_alias='".aporeplace($file_alias)."'");
-  if ($f_count > 0) {
-    $file_alias = $file_alias."-".$f_count;
-  }
+  $sql_alias =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_alias = "._dbEscape($file_alias)." WHERE f_id = ".$file_id;
+  _dbQuery($sql_alias, 'UPDATE');
 
-  $sql_alias =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_alias = '".$file_alias."' WHERE f_id = ".$file_id;
-   _dbQuery($sql_alias, 'UPDATE');
-
-  echo '<div class="col">'.$file_alias;
+  echo '<div class="col">'.html_specialchars($file_alias);
   echo '</div><div class="col-sm-auto"><a class="btn btn-sm btn-blue" href="#" onClick="'."AjaxLink('#alias-".$file_id."', '".$file_id."');".'"><i class="fa fa-pencil-alt" aria-hidden="true"></i></a></div>';
 }
 ?>

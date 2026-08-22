@@ -663,9 +663,16 @@ function get_backend_theme() {
 }
 
 // checks for alias and sets unique value
-function proof_alias($current_id, $alias='', $mode='CATEGORY') {
+function proof_alias($current_id, $alias='', $mode='CATEGORY', $fallback_name='') {
 
-    $alias      = strtolower( uri_sanitize( clean_slweg($alias) ) );
+    $allow_slash = ($mode === 'FILE') ? false : PHPWCMS_ALIAS_WSLASH;
+    $alias       = uri_sanitize(clean_slweg($alias), $allow_slash);
+    if (function_exists('mb_strtolower')) {
+        $alias = mb_strtolower($alias, 'UTF-8');
+    } else {
+        $alias = strtolower($alias);
+    }
+
     $reserved   = array(
         'print',
         'newsdetail',
@@ -685,12 +692,16 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         'r404',
         'phpwcms-preview',
         'dl',
-        'fmp'
+        'fmp',
+        'index',
+        'robots',
+        'sitemap',
+        'favicon'
     );
 
     if($alias === '') {
 
-        if(!empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
+        if($mode !== 'FILE' && !empty($GLOBALS['phpwcms']['allow_empty_alias'])) {
             return '';
         } elseif($mode == 'CATEGORY' && isset($_POST["acat_name"])) {
             $alias = $_POST["acat_name"];
@@ -698,17 +709,28 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
             $alias = $_POST["article_title"];
         } elseif($mode == 'CONTENT' && ( isset($_POST["cnt_title"]) || isset($_POST["cnt_name"]) )) {
             $alias = trim($_POST["cnt_title"]) == '' ? $_POST["cnt_name"] : $_POST["cnt_title"];
+        } elseif($mode == 'FILE') {
+            $alias = $fallback_name !== '' ? cut_ext($fallback_name) : (isset($_POST['file_name']) ? cut_ext($_POST['file_name']) : '');
         }
 
-        $alias = strtolower( uri_sanitize( clean_slweg($alias) ) );
+        $alias = uri_sanitize(clean_slweg($alias), $allow_slash);
+        if (function_exists('mb_strtolower')) {
+            $alias = mb_strtolower($alias, 'UTF-8');
+        } else {
+            $alias = strtolower($alias);
+        }
 
         if($alias === '') {
-            return '';
+            if ($mode === 'FILE') {
+                $alias = 'file' . ($current_id ? '-' . (int)$current_id : '');
+            } else {
+                return '';
+            }
         }
     }
 
     // Test against existing folders to avoid problems with rewrite
-    if(PHPWCMS_ALIAS_WSLASH && strpos($alias, '/') !== false) {
+    if($allow_slash && strpos($alias, '/') !== false) {
 
         $root_folders = returnSubdirListAsArray(PHPWCMS_ROOT);
 
@@ -716,12 +738,12 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
 
             // Only check first "path" section
             $alias_sections = explode('/', $alias);
-            $alias_proof = strtolower($alias_sections[0]);
+            $alias_proof = function_exists('mb_strtolower') ? mb_strtolower($alias_sections[0], 'UTF-8') : strtolower($alias_sections[0]);
             $alias_proof_suffix = '';
             $alias_proof_suffix_count = 0;
 
             foreach($root_folders as $key => $folder) {
-                $root_folders[$key] = strtolower($folder);
+                $root_folders[$key] = function_exists('mb_strtolower') ? mb_strtolower($folder, 'UTF-8') : strtolower($folder);
             }
 
             while(in_array($alias_proof.$alias_proof_suffix, $root_folders)) {
@@ -736,9 +758,13 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
         }
     }
 
-    $alias = substr($alias, 0, 230);
+    if (function_exists('mb_substr')) {
+        $alias = mb_substr($alias, 0, 230, 'UTF-8');
+    } else {
+        $alias = substr($alias, 0, 230);
+    }
 
-    if(PHPWCMS_ALIAS_WSLASH) {
+    if($allow_slash) {
         $alias = trim($alias, '/');
     }
 
@@ -746,13 +772,15 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $alias_proof_suffix_count = 0;
 
     // Now test against existing files to avoid problems with rewrite
-    while(is_file(PHPWCMS_ROOT.'/'.$alias.$alias_proof_suffix.PHPWCMS_REWRITE_EXT)) {
-        $alias_proof_suffix_count++;
-        $alias_proof_suffix = '-'.$alias_proof_suffix_count;
-    }
+    if ($mode !== 'FILE') {
+        while(is_file(PHPWCMS_ROOT.'/'.$alias.$alias_proof_suffix.PHPWCMS_REWRITE_EXT)) {
+            $alias_proof_suffix_count++;
+            $alias_proof_suffix = '-'.$alias_proof_suffix_count;
+        }
 
-    if($alias_proof_suffix_count) {
-        $alias .= $alias_proof_suffix;
+        if($alias_proof_suffix_count) {
+            $alias .= $alias_proof_suffix;
+        }
     }
 
     // new reserved alias can be defined in $phpwcms['reserved_alias']
@@ -761,7 +789,13 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     if($alias === '' || in_array($alias, $reserved) || ($alias === 'index' && $current_id !== 'index') ) {
-        $alias .= $mode === 'CONTENT' ? date('_Ymd') : '-view';
+        if ($mode === 'FILE') {
+            $alias .= '-' . ($current_id ? (int)$current_id : 'file');
+        } elseif ($mode === 'CONTENT') {
+            $alias .= date('_Ymd');
+        } else {
+            $alias .= '-view';
+        }
     }
 
     $alias = trim($alias, '-');
@@ -769,12 +803,50 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     $where_acat     = '';
     $where_article  = '';
     $where_content  = '';
+    $where_file     = '';
     $current_sql_id = $current_id === 'index' ? 0 : (int) $current_id;
 
     switch($mode) {
         case 'CATEGORY':    $where_acat     = 'acat_id != '.$current_sql_id.' AND ';    break;
         case 'ARTICLE':     $where_article  = 'article_id != '.$current_sql_id.' AND '; break;
         case 'CONTENT':     $where_content  = 'cnt_id != '.$current_sql_id.' AND ';     break;
+        case 'FILE':        $where_file     = 'f_id != '.$current_sql_id.' AND ';        break;
+    }
+
+    if ($mode === 'FILE') {
+        $sql = "SELECT COUNT(f_id) FROM ".DB_PREPEND."phpwcms_file WHERE ".$where_file."f_alias="._dbEscape($alias);
+        $file_count = _dbQuery($sql, 'COUNT');
+
+        if ($file_count > 0) {
+            if (preg_match('/^(.*?)-(\d+)$/', $alias, $match) && $match[1] !== '') {
+                $base_alias = $match[1];
+                $counter    = (int) $match[2] + 1;
+            } else {
+                $base_alias = $alias;
+                $counter    = 1;
+            }
+
+            $sql  = 'SELECT f_alias FROM ' . DB_PREPEND . 'phpwcms_file WHERE ';
+            $sql .= $where_file;
+            $sql .= '(f_alias = ' . _dbEscape($base_alias) . ' OR f_alias LIKE ' . _dbEscape($base_alias, true, '', '-%') . ')';
+            $all_file_alias = _dbQuery($sql);
+
+            $all_alias = array();
+            if (is_array($all_file_alias)) {
+                foreach ($all_file_alias as $item) {
+                    $all_alias[$item['f_alias']] = true;
+                }
+            }
+
+            do {
+                $candidate = $base_alias . '-' . $counter;
+                $counter++;
+            } while (isset($all_alias[$candidate]));
+
+            $alias = $candidate;
+        }
+
+        return $alias;
     }
 
     // check alias against all structure alias
@@ -851,6 +923,10 @@ function proof_alias($current_id, $alias='', $mode='CATEGORY') {
     }
 
     return $alias;
+}
+
+function proof_file_alias($file_id, $alias = '', $fallback_name = '') {
+    return proof_alias($file_id, $alias, 'FILE', $fallback_name);
 }
 
 function _getTime($time='', $delimeter=':', $default_time='H:i:s') {

@@ -48,31 +48,13 @@ if(isset($_POST['keyword'])) {
             if(isset($_POST['keyword']) AND trim($_POST['keyword']) <> "") {
                 $filename[0] = clean_slweg($_POST['keyword'])."-".trim($filename[0]);
             }
-            $filename[0] = clean_slweg(strtolower($filename[0]), 150);
-            $filename[0] = phpwcms_remove_accents($filename[0]);
-            $filename[0] = get_alnum_dashes($filename[0], true);
-            $filename[0] = trim($filename[0]);
-            if($filename[0] != '') {
-                $filename[0] = trim( preg_replace('/_+/', '-', $filename[0]), '-' );
-                $filename[0] = trim( preg_replace('/\-\-+/', '-', $filename[0]), '-' );
-                $filename[0] = trim( preg_replace('/__+/', '_', $filename[0]), '_' );
-            }
-
-            $sql_count  = "SELECT COUNT(f_alias) FROM ".DB_PREPEND."phpwcms_file WHERE ";
-            $sql_count .= "f_alias="._dbEscape(aporeplace($filename[0]));
-            $f_count = _dbCount($sql_count);
-            if ($f_count > 0) {
-                $filename[0] = $filename[0]."-".$f_count;
-            }
+            $filename[0] = proof_file_alias($files['f_id'], $filename[0], $files['f_name']);
 
             $sql_alias =  "UPDATE ".DB_PREPEND."phpwcms_file SET f_alias = "._dbEscape($filename[0])." WHERE f_id = ".intval($files['f_id']);
-
-						//anzeige Datenbanmeldung
-            //echo  $sql_alias;
             _dbQuery($sql_alias, 'UPDATE');
 
             echo '<tr><td>';
-            echo $filename[0];
+            echo html_specialchars($filename[0]);
             echo "</td></tr>";
         }
     }

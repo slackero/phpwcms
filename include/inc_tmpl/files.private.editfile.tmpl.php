@@ -143,18 +143,7 @@ if(isset($_POST["file_aktion"]) && intval($_POST["file_aktion"]) === 2) {
     }
 
     if ($file_alias != '') {
-      $file_alias = clean_slweg(strtolower($file_alias), 150);
-      $file_alias = uri_sanitize($file_alias);
-      if($file_alias != '') {
-          $file_alias = trim( preg_replace('/\-\-+/', '-', $file_alias), '-' );
-          $file_alias = trim( preg_replace('/__+/', '_', $file_alias), '_' );
-      }
-      $f_count  = "SELECT COUNT(f_alias) FROM ".DB_PREPEND."phpwcms_file WHERE ";
-      $f_count .= "f_alias='".aporeplace($file_alias)."' AND f_id<>".$file_id;
-      $f_count = @_dbQuery($f_count, 'COUNT');
-      if ($f_count > 0) {
-          $file_alias = $file_alias."-".$f_count;
-      }
+        $file_alias = proof_file_alias($file_id, $file_alias, $file_name);
     }
     //if alias has changed lets deleted existing content images
     if ($file_alias != $file_alias_old && $file_alias_old != '') {
@@ -351,7 +340,7 @@ if($ja) {
   <div class="form-group form-row align-items-center">
     <label for="file_alias" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_alias'] ?></label>
     <div class="col">
-      <input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias" value="<?php echo html($file_alias) ?>" maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" />
+      <input name="file_alias" type="text" class="form-control form-control-sm" id="file_alias" value="<?php echo html($file_alias) ?>" maxlength="230" onfocus="set_file_alias(true);" onchange="this.value=create_alias(this.value, null, null, false);document.getElementById('file_alias_changed').value='changed';"><input name="file_alias_changed" type="hidden" id="file_alias_changed" value="" /><input name="file_alias_old" type="hidden" id="file_alias_old" value="<?php echo $file_alias ?>" />
     </div>
   </div>
 

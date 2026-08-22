@@ -1969,7 +1969,11 @@ function saveUploadedFile($file, $target, $exttype = '', $imgtype = '', $rename 
 }
 
 function get_alnum_dashes($string, $remove_accents = false, $replace_space = '-', $allow_slashes = false) {
-    $string = str_replace(array(' ', '?', ':', '&', '\\', ';', '#', '=', '+'), $replace_space, $string);
+    $replace_chars = array(' ', '?', ':', '&', '\\', ';', '#', '=', '+');
+    if (!$allow_slashes) {
+        $replace_chars[] = '/';
+    }
+    $string = str_replace($replace_chars, $replace_space, $string);
     if ($remove_accents) {
         $string = phpwcms_remove_accents($string);
         $string = preg_replace('/[^a-z0-9\-_\.' . ($allow_slashes ? '\/' : '') . ']/i', '', $string);
@@ -1977,7 +1981,14 @@ function get_alnum_dashes($string, $remove_accents = false, $replace_space = '-'
         $string = preg_replace('/[^a-z0-9\x{00A0}-\x{D7FF}\x{F900}-\x{FDCF}\x{FDF0}-\x{FFEF}\-_\.' . ($allow_slashes ? '\/' : '') . ']/iu', '', $string);
     }
 
-    return trim(preg_replace('/\-+/', $replace_space, $string), '._/' . $replace_space);
+    if ($allow_slashes) {
+        $string = preg_replace('/\/+/', '/', $string);
+        $string = preg_replace('/[\-_]*\/+[\-_]*/', '/', $string);
+    }
+    $string = preg_replace('/\-\-+/', $replace_space, $string);
+    $string = preg_replace('/__+/', '_', $string);
+
+    return trim($string, '._/-' . $replace_space);
 }
 
 // Thanks to: http://quickwired.com/smallprojects/php_xss_filter_function.php
@@ -2471,17 +2482,28 @@ function phpwcms_boolval($BOOL, $STRICT = false) {
 }
 
 // sanitize a text for nice URL/alias or whatever
-function uri_sanitize($text) {
+function uri_sanitize($text, $allow_slash = PHPWCMS_ALIAS_WSLASH) {
+    $allow_slash = (bool)$allow_slash;
+    if (strpos($text, '%') !== false) {
+        $text = rawurldecode($text);
+    }
+    if (strpos($text, '&') !== false) {
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
     $text = str_replace(array('[br]', '__', '[b]', '[/b]', '[i]', '[/i]'), ' ', $text); // cleanup special bbcode and __
-    $text = get_alnum_dashes($text, !PHPWCMS_ALIAS_UTF8, '-', PHPWCMS_ALIAS_WSLASH);
+    if (!$allow_slash) {
+        $text = str_replace('/', '-', $text);
+    }
+    $text = get_alnum_dashes($text, !PHPWCMS_ALIAS_UTF8, '-', $allow_slash);
     $text = trim($text);
     if ($text !== '') {
-        $text = trim(preg_replace('/\-\-+/', '-', $text), '-');
-        $text = trim(preg_replace('/__+/', '_', $text), '_');
-        if (PHPWCMS_ALIAS_WSLASH) {
-            $text = trim(preg_replace('/\/+/', '/', $text), '/');
-            $text = preg_replace('/\-\/\-/', '/', $text);
+        if ($allow_slash) {
+            $text = preg_replace('/\/+/', '/', $text);
+            $text = preg_replace('/[\-_]*\/+[\-_]*/', '/', $text);
         }
+        $text = preg_replace('/\-\-+/', '-', $text);
+        $text = preg_replace('/__+/', '_', $text);
+        $text = trim($text, $allow_slash ? '-_./' : '-_.');
     }
 
     return $text;

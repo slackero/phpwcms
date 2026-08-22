@@ -420,18 +420,33 @@ function enableStatusMessage(fld, showHide, text) {
     return true;
 }
 
-function create_alias(str, encoding, ucfirst) {
+function create_alias(str, encoding, ucfirst, allowSlashes) {
+    if (typeof allowSlashes === 'undefined' || allowSlashes === null) {
+        allowSlashes = aliasAllowSlashes;
+    } else {
+        allowSlashes = Boolean(allowSlashes);
+    }
+    if (typeof str !== 'string') {
+        str = String(str || '');
+    }
+    try {
+        if (str.indexOf('%') !== -1) {
+            str = decodeURIComponent(str);
+        }
+    } catch (e) {}
     str = str.toLowerCase();
     str = str.replace(/\[br\]/g, ' ');
     str = str.replace(/__/g, ' ');
     str = str.replace(/\s+/g, '-');
     str = str.replace(/[\?\+#=]/g, '-');
+    if (!allowSlashes) {
+        str = str.replace(/\//g, '-');
+    }
     str = str.replace(/-+\/+-+/g, '/');
     if (aliasUtf8) {
-        if (aliasAllowSlashes) {
+        if (allowSlashes) {
             str = str.replace(/[^a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF0-9_\-\/\.]+/g, '');
         } else {
-            str = str.replace('/', '-');
             str = str.replace(/[^a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF0-9_\-\.]+/g, '');
         }
     } else {
@@ -447,19 +462,24 @@ function create_alias(str, encoding, ucfirst) {
         str = str.replace(/[\u00E6\u00E4]/g, 'ae');
         str = str.replace(/[\u00DF]/g, 'ss');
         str = str.replace(/[\u00FC]/g, 'ue');
-        if (aliasAllowSlashes) {
+        if (allowSlashes) {
             str = str.replace(/[^a-z0-9_\-\/\.]+/g, '');
         } else {
-            str = str.replace('/', '-');
             str = str.replace(/[^a-z0-9_\-\.]+/g, '');
         }
     }
+    if (allowSlashes) {
+        str = str.replace(/\/+/g, '/');
+        str = str.replace(/[\-_]*\/+[\-_]*/g, '/');
+    }
     str = str.replace(/\-+/g, '-');
-    str = str.replace(/\/+/g, '/');
     str = str.replace(/_+/g, '_');
-    str = str.replace(/^-+|-+$/g, '');
-    str = str.replace(/^\/+|\/+$/g, '');
-    str = str.replace(/^-+|-+$/g, '');
+    if (allowSlashes) {
+        str = str.replace(/\/+/g, '/');
+        str = str.replace(/^[\-_\/\.]+|[\-_\/\.]+$/g, '');
+    } else {
+        str = str.replace(/^[\-_\.]+|[\-_\.]+$/g, '');
+    }
     if (ucfirst == 1) {
         const c = str.charAt(0);
         str = c.toUpperCase() + str.slice(1);
@@ -499,6 +519,25 @@ function set_article_alias(onempty_only, alias_type, category) {
     }
     const atitle = document.getElementById(alias_basis);
     aalias.value = create_alias((category ? category + '/' : '') + atitle.value);
+    return false;
+}
+
+function set_file_alias(onempty_only, target_id, source_id) {
+    const alias_target = target_id ? target_id : 'file_alias';
+    const alias_basis = source_id ? source_id : 'file_name';
+    const falias = document.getElementById(alias_target);
+    if (!falias || (onempty_only && falias.value !== '')) {
+        return false;
+    }
+    const fname = document.getElementById(alias_basis);
+    if (fname) {
+        let name = fname.value;
+        const dotIndex = name.lastIndexOf('.');
+        if (dotIndex > 0) {
+            name = name.substring(0, dotIndex);
+        }
+        falias.value = create_alias(name, null, null, false);
+    }
     return false;
 }
 
