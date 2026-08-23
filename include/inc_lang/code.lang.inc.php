@@ -17,6 +17,7 @@ $BL['CS']    = 'Čeština';
 $BL['CZ']    = 'Česky (CZ)';
 $BL['DA']    = 'Dansk';
 $BL['DE']    = 'Deutsch';
+$BL['DE-AT'] = 'Deutsch (AT)';
 $BL['DE-CH'] = 'Deutsch (CH)';
 $BL['EL']    = 'Ελληνικά';
 $BL['EN']    = 'English';
@@ -62,7 +63,7 @@ $BL['ZH']    = '简体中文';
 
 if (defined('PHPWCMS_CHARSET') && PHPWCMS_CHARSET !== 'utf-8' && function_exists('mb_encode_numericentity')) {
     $_lang_keys = [
-        'AR', 'BG', 'BN', 'BS', 'CA', 'CS', 'CZ', 'DA', 'DE', 'DE-CH', 'EL', 'EN', 'ES',
+        'AR', 'BG', 'BN', 'BS', 'CA', 'CS', 'CZ', 'DA', 'DE', 'DE-AT', 'DE-CH', 'EL', 'EN', 'ES',
         'ET', 'EU', 'FI', 'FR', 'GL', 'GR', 'HI', 'HR', 'HU', 'ID', 'IS', 'IT', 'JA',
         'LT', 'LV', 'MK', 'NL', 'NO', 'PA', 'PL', 'PT', 'RO', 'RU', 'SE', 'SK', 'SL',
         'SQ', 'SR', 'SV', 'TA', 'TR', 'UA', 'UK', 'UR', 'VI', 'VN', 'ZH', 'ZH-CN'
