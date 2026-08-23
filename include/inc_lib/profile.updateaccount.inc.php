@@ -115,3 +115,108 @@ if($_SESSION["wcs_user"] != "guest") { //Prüfung für Gastzugang
         }
     }
 } //Ende Prüfung Gastzugang
+
+// -----------------------------------------------------------------------------
+// Two-Factor Authentication Enable Handler
+// -----------------------------------------------------------------------------
+if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST['form_aktion'] === 'enable_2fa') {
+
+    $verify_code = slweg($_POST['verify_2fa_code'] ?? '');
+    $pending_secret = $_SESSION['pending_2fa_secret'] ?? '';
+
+    if (!empty($pending_secret) && strlen($verify_code) === 6 && ctype_digit($verify_code)) {
+
+        if (PhpwcmsTwoFactor::verifyCode($pending_secret, $verify_code)) {
+
+            // Generate backup codes
+            $plain_backup_codes = PhpwcmsTwoFactor::generateBackupCodes(8);
+            $hashed_backup_codes = PhpwcmsTwoFactor::hashBackupCodes($plain_backup_codes);
+
+            // Fetch user vars to merge backup codes
+            $u_sql = 'SELECT usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+            $u_res = _dbQuery($u_sql);
+            $u_vars = isset($u_res[0]['usr_vars']) ? @unserialize($u_res[0]['usr_vars'], ['allowed_classes' => false]) : [];
+            if (!is_array($u_vars)) {
+                $u_vars = [];
+            }
+            $u_vars['2fa_backup_codes'] = $hashed_backup_codes;
+
+            // Save to database
+            $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_2fa_enabled = 1, usr_2fa_secret = ' . _dbEscape($pending_secret) . ', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
+            _dbQuery($update_sql, 'UPDATE');
+
+            unset($_SESSION['pending_2fa_secret']);
+            $_SESSION['new_2fa_backup_codes'] = $plain_backup_codes;
+
+            set_status_message($BL['be_profile_2fa_enabled_success'] ?? 'Two-Factor Authentication has been successfully enabled!');
+            headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=profile');
+
+        } else {
+            $tfa_err = $BL['be_profile_2fa_err_invalid_code'] ?? 'The 6-digit authentication code is invalid. Please try again.';
+        }
+
+    } else {
+        $tfa_err = $BL['be_profile_2fa_err_invalid_code'] ?? 'The 6-digit authentication code is invalid. Please try again.';
+    }
+
+}
+
+// -----------------------------------------------------------------------------
+// Two-Factor Authentication Disable Handler
+// -----------------------------------------------------------------------------
+if ($_SESSION['wcs_user'] !== 'guest' && !empty($_POST['form_aktion']) && $_POST['form_aktion'] === 'disable_2fa') {
+
+    $pass_check = slweg($_POST['disable_2fa_password'] ?? '');
+
+    if ($pass_check !== '') {
+
+        $u_sql = 'SELECT usr_pass, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+        $u_res = _dbQuery($u_sql);
+
+        if (isset($u_res[0]['usr_pass'])) {
+
+            $valid_pass = false;
+            $db_pass = $u_res[0]['usr_pass'];
+
+            if (str_starts_with($db_pass, '$')) {
+                if (password_verify($pass_check, $db_pass)) {
+                    $valid_pass = true;
+                } else {
+                    $md5_pass = md5(makeCharsetConversion($pass_check, PHPWCMS_CHARSET, 'utf-8'));
+                    if (password_verify($md5_pass, $db_pass)) {
+                        $valid_pass = true;
+                    }
+                }
+            } else {
+                $md5_pass = md5(makeCharsetConversion($pass_check, PHPWCMS_CHARSET, 'utf-8'));
+                if ($md5_pass === $db_pass) {
+                    $valid_pass = true;
+                }
+            }
+
+            if ($valid_pass) {
+
+                $u_vars = isset($u_res[0]['usr_vars']) ? @unserialize($u_res[0]['usr_vars'], ['allowed_classes' => false]) : [];
+                if (is_array($u_vars)) {
+                    unset($u_vars['2fa_backup_codes']);
+                } else {
+                    $u_vars = [];
+                }
+
+                $update_sql = 'UPDATE ' . DB_PREPEND . 'phpwcms_user SET usr_2fa_enabled = 0, usr_2fa_secret = \'\', usr_vars = ' . _dbEscape(serialize($u_vars)) . ' WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'];
+                _dbQuery($update_sql, 'UPDATE');
+
+                set_status_message($BL['be_profile_2fa_disabled_success'] ?? 'Two-Factor Authentication has been disabled.');
+                headerRedirect(PHPWCMS_URL . 'phpwcms.php?' . get_token_get_string() . '&do=profile');
+
+            } else {
+                $tfa_err = $BL['be_profile_2fa_err_password'] ?? 'Current password required to change 2FA settings.';
+            }
+
+        }
+
+    } else {
+        $tfa_err = $BL['be_profile_2fa_err_password'] ?? 'Current password required to change 2FA settings.';
+    }
+
+}

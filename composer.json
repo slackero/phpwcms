@@ -45,7 +45,9 @@
         "ext-ctype": "*",
         "ext-simplexml": "*",
         "ext-curl": "*",
-        "ext-bcmath": "*"
+        "ext-bcmath": "*",
+        "pragmarx/google2fa": "^9.1",
+        "bacon/bacon-qr-code": "^3.1"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

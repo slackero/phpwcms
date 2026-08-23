@@ -22,6 +22,7 @@ require_once PHPWCMS_ROOT . '/include/inc_lib/charset_helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_ext/htmlfilter.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/helper.inc.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsMailer.php';
+require_once PHPWCMS_ROOT . '/include/inc_lib/classes/PhpwcmsTwoFactor.php';
 require_once PHPWCMS_ROOT . '/include/inc_lib/custom_fields.inc.php';
 
 function str_empty($string) {

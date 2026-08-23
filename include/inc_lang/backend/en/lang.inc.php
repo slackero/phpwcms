@@ -159,6 +159,46 @@ $BL['be_profile_label_repeatpass']      = 'repeat new pwd';
 $BL['be_profile_label_email']           = 'email';
 $BL['be_profile_account_button']        = 'update';
 $BL['be_profile_label_lang']            = 'language';
+$BL['be_profile_2fa_title']             = 'Two-Factor Authentication (2FA)';
+$BL['be_profile_2fa_text']              = 'Protect your account by requiring an additional 6-digit code from an authenticator app (e.g. Google Authenticator, 1Password, Bitwarden) during login.';
+$BL['be_profile_2fa_status']            = '2FA status';
+$BL['be_profile_2fa_enabled']           = 'Enabled';
+$BL['be_profile_2fa_disabled']          = 'Disabled';
+$BL['be_profile_2fa_btn_enable']        = 'Setup Two-Factor Authentication';
+$BL['be_profile_2fa_btn_disable']       = 'Disable 2FA';
+$BL['be_profile_2fa_btn_confirm']       = 'Confirm & Enable 2FA';
+$BL['be_profile_2fa_btn_show_backup']   = 'Show Backup Codes';
+$BL['be_profile_2fa_step1']             = 'Scan QR Code with Authenticator App';
+$BL['be_profile_2fa_step1_text']        = 'Scan this QR code with your authenticator app, or enter the secret key manually:';
+$BL['be_profile_2fa_secret_key']        = 'Secret Key';
+$BL['be_profile_2fa_step2']             = 'Enter Verification Code';
+$BL['be_profile_2fa_step2_text']        = 'Enter the 6-digit verification code from your authenticator app to complete setup:';
+$BL['be_profile_2fa_verify_code']       = '6-digit code';
+$BL['be_profile_2fa_backup_title']      = 'Backup Recovery Codes';
+$BL['be_profile_2fa_backup_text']       = 'Save these single-use recovery codes in a safe place. If you lose access to your authenticator device, you can use any of these codes to log in:';
+$BL['be_profile_2fa_backup_count']      = '%d backup recovery codes available';
+$BL['be_profile_2fa_backup_none']       = 'No backup codes available';
+$BL['be_profile_label_currpass']        = 'current password';
+$BL['be_profile_2fa_currpass_placeholder'] = 'Enter current password to disable';
+$BL['be_profile_2fa_err_invalid_code']  = 'The 6-digit authentication code is invalid. Please try again.';
+$BL['be_profile_2fa_err_password']      = 'Current password required to change 2FA settings.';
+$BL['be_profile_2fa_disabled_success']  = 'Two-Factor Authentication has been disabled.';
+$BL['be_profile_2fa_enabled_success']   = 'Two-Factor Authentication has been successfully enabled!';
+
+// login 2fa
+$BL['login_2fa_title']                  = 'Two-Factor Authentication';
+$BL['login_2fa_desc']                   = 'Two-Factor Authentication is active for this account. Enter the 6-digit code from your authenticator app or use a backup recovery code to complete login.';
+$BL['login_2fa_code']                   = 'Authentication Code';
+$BL['login_2fa_placeholder']            = '6-digit code or backup code';
+$BL['login_2fa_button']                 = 'Verify &amp; Login';
+$BL['login_2fa_back']                   = 'Back to Login';
+$BL['login_2fa_invalid']                = 'Invalid 2FA code or backup code. Please try again.';
+$BL['login_2fa_backup_used']            = 'Backup code accepted. Please generate new backup codes in your profile.';
+
+// admin 2fa
+$BL['be_admin_usr_2fa_reset']           = 'Reset / Disable 2FA';
+$BL['be_admin_usr_2fa_reset_confirm']   = 'Are you sure you want to disable 2FA for this user?';
+$BL['be_admin_usr_2fa_active']          = '2FA is active for this account.';
 
 
 // files.ftptakeover.tmpl.php

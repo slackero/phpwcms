@@ -52,7 +52,9 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
+            'PragmaRX\\Google2FA\\' => 19,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'ParagonIE\\ConstantTime\\' => 23,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'N' =>
@@ -84,11 +86,16 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'D' =>
         array (
             'Dflydev\\DotAccessData\\' => 22,
+            'DASPRiD\\Enum\\' => 13,
         ),
         'C' =>
         array (
             'Composer\\Pcre\\' => 14,
             'Complex\\' => 8,
+        ),
+        'B' =>
+        array (
+            'BaconQrCode\\' => 12,
         ),
         'A' =>
         array (
@@ -158,9 +165,17 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
+        'PragmaRX\\Google2FA\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/pragmarx/google2fa/src',
+        ),
         'PhpOffice\\PhpSpreadsheet\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'ParagonIE\\ConstantTime\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
         'PHPMailer\\PHPMailer\\' =>
         array (
@@ -216,6 +231,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
+        'DASPRiD\\Enum\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
         'Composer\\Pcre\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
@@ -223,6 +242,10 @@ class ComposerStaticInit4def32311bac7f87a2f7ece3f7fae4df
         'Complex\\' =>
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+        ),
+        'BaconQrCode\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
         'Algo26\\IdnaConvert\\' =>
         array (

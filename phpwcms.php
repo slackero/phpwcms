@@ -212,7 +212,7 @@ switch ($do) {
         break;
 
     case 'profile':        //profile
-        if (!empty($_POST['form_aktion']) && $_POST['form_aktion'] === 'update_account') {
+        if (!empty($_POST['form_aktion']) && in_array($_POST['form_aktion'], ['update_account', 'enable_2fa', 'disable_2fa'], true)) {
             //Aktualisieren der wcs account & profile Daten
             include PHPWCMS_ROOT . '/include/inc_lib/profile.updateaccount.inc.php';
         }

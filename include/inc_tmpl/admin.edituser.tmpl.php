@@ -28,6 +28,7 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
             $set_user_aktiv = $result[0]["usr_aktiv"];
             $set_user_admin = $result[0]["usr_admin"];
             $set_user_fe    = $result[0]["usr_fe"];
+            $set_user_2fa   = !empty($result[0]["usr_2fa_enabled"]);
             $set_user_var   = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
             $send_verification = 0;
             $new_password = '';
@@ -91,11 +92,17 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
                 $bcrypt_pass = password_hash(makeCharsetConversion($new_password, PHPWCMS_CHARSET, 'utf-8'), PASSWORD_DEFAULT);
                 $sql .= "usr_pass='".aporeplace($bcrypt_pass)."', ";
             }
+            if(!empty($_POST['form_reset_2fa'])) {
+                $sql .= "usr_2fa_enabled=0, usr_2fa_secret='', ";
+                if(isset($set_user_var['2fa_backup_codes'])) {
+                    unset($set_user_var['2fa_backup_codes']);
+                }
+            }
             $sql .= "usr_email='".aporeplace($new_email)."', ".
                     "usr_admin='".$set_user_admin."', ".
                     "usr_aktiv='".$set_user_aktiv."', ".
                     "usr_name='".aporeplace($new_name)."', ";
-            if(isset($set_user_var['allowed_cp'])) {
+            if(isset($set_user_var['allowed_cp']) || !empty($_POST['form_reset_2fa'])) {
                 $sql .= "usr_vars="._dbEscape(serialize($set_user_var)).", ";
             }
             $sql .= "usr_fe='".$set_user_fe."' WHERE usr_id=".$new_user_id;
@@ -220,6 +227,21 @@ if(isset($_GET["u"]) && intval($_GET["u"])) {
     </div>
     </div>
   </div>
+
+  <?php if(!empty($set_user_2fa)): ?>
+  <div class="form-row align-items-center mt-2">
+    <label for="form_reset_2fa" class="col-sm-2 col-form-label text-right text-danger"><i class="fa fa-shield-alt"></i> 2FA</label>
+    <div class="col">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" name="form_reset_2fa" type="checkbox" id="form_reset_2fa" value="1" />
+        <label class="form-check-label text-danger font-weight-bold" for="form_reset_2fa">
+          <?php echo $BL['be_admin_usr_2fa_reset'] ?? 'Reset / Disable 2FA'; ?>
+        </label>
+      </div>
+      <small class="form-text text-muted d-inline-block ml-2">(<?php echo $BL['be_admin_usr_2fa_active'] ?? '2FA is active for this account.'; ?>)</small>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <hr />
 

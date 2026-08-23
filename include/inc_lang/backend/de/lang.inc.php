@@ -156,6 +156,46 @@ $BL['be_profile_label_repeatpass'] = 'Kennwort erneut';
 $BL['be_profile_label_email'] = 'E-Mail';
 $BL['be_profile_account_button'] = 'Aktualisieren';
 $BL['be_profile_label_lang'] = 'Sprache';
+$BL['be_profile_2fa_title']             = 'Zwei-Faktor-Authentifizierung (2FA)';
+$BL['be_profile_2fa_text']              = 'Sch&uuml;tzen Sie Ihr Konto durch Eingabe eines zus&auml;tzlichen 6-stelligen Codes aus einer Authentifikator-App (z.&nbsp;B. Google Authenticator, 1Password, Bitwarden) bei der Anmeldung.';
+$BL['be_profile_2fa_status']            = '2FA-Status';
+$BL['be_profile_2fa_enabled']           = 'Aktiviert';
+$BL['be_profile_2fa_disabled']          = 'Deaktiviert';
+$BL['be_profile_2fa_btn_enable']        = 'Zwei-Faktor-Authentifizierung einrichten';
+$BL['be_profile_2fa_btn_disable']       = '2FA deaktivieren';
+$BL['be_profile_2fa_btn_confirm']       = '2FA best&auml;tigen &amp; aktivieren';
+$BL['be_profile_2fa_btn_show_backup']   = 'Wiederherstellungscodes anzeigen';
+$BL['be_profile_2fa_step1']             = 'QR-Code mit Authentifikator-App scannen';
+$BL['be_profile_2fa_step1_text']        = 'Scannen Sie diesen QR-Code mit Ihrer Authentifikator-App oder geben Sie den geheimen Schl&uuml;ssel manuell ein:';
+$BL['be_profile_2fa_secret_key']        = 'Geheimer Schl&uuml;ssel';
+$BL['be_profile_2fa_step2']             = 'Best&auml;tigungscode eingeben';
+$BL['be_profile_2fa_step2_text']        = 'Geben Sie den 6-stelligen Best&auml;tigungscode aus Ihrer Authentifikator-App ein, um die Einrichtung abzuschlie&szlig;en:';
+$BL['be_profile_2fa_verify_code']       = '6-stelliger Code';
+$BL['be_profile_2fa_backup_title']      = 'Wiederherstellungscodes (Backup)';
+$BL['be_profile_2fa_backup_text']       = 'Speichern Sie diese Einmal-Codes an einem sicheren Ort. Sollten Sie den Zugriff auf Ihr Authentifikator-Ger&auml;t verlieren, k&ouml;nnen Sie sich mit jedem dieser Codes anmelden:';
+$BL['be_profile_2fa_backup_count']      = '%d Wiederherstellungscodes verf&uuml;gbar';
+$BL['be_profile_2fa_backup_none']       = 'Keine Wiederherstellungscodes verf&uuml;gbar';
+$BL['be_profile_label_currpass']        = 'Aktuelles Kennwort';
+$BL['be_profile_2fa_currpass_placeholder'] = 'Aktuelles Kennwort eingeben zum Deaktivieren';
+$BL['be_profile_2fa_err_invalid_code']  = 'Der 6-stellige Best&auml;tigungscode ist ung&uuml;ltig. Bitte versuchen Sie es erneut.';
+$BL['be_profile_2fa_err_password']      = 'Aktuelles Kennwort erforderlich, um 2FA-Einstellungen zu &auml;ndern.';
+$BL['be_profile_2fa_disabled_success']  = 'Zwei-Faktor-Authentifizierung wurde deaktiviert.';
+$BL['be_profile_2fa_enabled_success']   = 'Zwei-Faktor-Authentifizierung wurde erfolgreich aktiviert!';
+
+// login 2fa
+$BL['login_2fa_title']                  = 'Zwei-Faktor-Authentifizierung';
+$BL['login_2fa_desc']                   = 'F&uuml;r dieses Konto ist die Zwei-Faktor-Authentifizierung aktiv. Geben Sie den 6-stelligen Code aus Ihrer Authentifikator-App oder einen Wiederherstellungscode ein, um die Anmeldung abzuschlie&szlig;en.';
+$BL['login_2fa_code']                   = 'Best&auml;tigungscode';
+$BL['login_2fa_placeholder']            = '6-stelliger Code oder Backup-Code';
+$BL['login_2fa_button']                 = 'Best&auml;tigen &amp; Anmelden';
+$BL['login_2fa_back']                   = 'Zur&uuml;ck zur Anmeldung';
+$BL['login_2fa_invalid']                = 'Ung&uuml;ltiger 2FA- oder Backup-Code. Bitte versuchen Sie es erneut.';
+$BL['login_2fa_backup_used']            = 'Wiederherstellungscode akzeptiert. Bitte generieren Sie im Profil neue Backup-Codes.';
+
+// admin 2fa
+$BL['be_admin_usr_2fa_reset']           = '2FA zur&uuml;cksetzen / deaktivieren';
+$BL['be_admin_usr_2fa_reset_confirm']   = 'Sind Sie sicher, dass Sie 2FA f&uuml;r diesen Benutzer deaktivieren m&ouml;chten?';
+$BL['be_admin_usr_2fa_active']          = '2FA ist f&uuml;r dieses Konto aktiv.';
 
 // files.ftptakeover.tmpl.php
 $BL['be_ftptakeover_title'] = 'Dateien aus FTP Verzeichnis &uuml;bernehmen';

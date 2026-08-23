@@ -173,3 +173,117 @@ if (!empty($_SESSION['wcs_user_admin'])) {
   </form>
   </div>
 </div>
+
+<?php
+// Load current user 2FA state from DB
+$u_2fa_sql = 'SELECT usr_2fa_enabled, usr_2fa_secret, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . (int)$_SESSION['wcs_user_id'] . ' LIMIT 1';
+$u_2fa_res = _dbQuery($u_2fa_sql);
+$has_2fa_enabled = !empty($u_2fa_res[0]['usr_2fa_enabled']) && !empty($u_2fa_res[0]['usr_2fa_secret']);
+$u_2fa_vars = isset($u_2fa_res[0]['usr_vars']) ? @unserialize($u_2fa_res[0]['usr_vars'], ['allowed_classes' => false]) : [];
+if (!is_array($u_2fa_vars)) {
+    $u_2fa_vars = [];
+}
+$stored_backup_codes = isset($u_2fa_vars['2fa_backup_codes']) && is_array($u_2fa_vars['2fa_backup_codes']) ? count($u_2fa_vars['2fa_backup_codes']) : 0;
+?>
+
+<div class="card mt-4">
+  <div class="card-header">
+    <h2><i class="fa fa-shield-alt" aria-hidden="true"></i> <?php echo $BL['be_profile_2fa_title'] ?? 'Two-Factor Authentication (2FA)'; ?></h2>
+  </div>
+  <div class="card-body">
+    <p><?php echo $BL['be_profile_2fa_text'] ?? 'Protect your account by requiring an additional 6-digit code from an authenticator app during login.'; ?></p>
+
+    <?php if (!empty($tfa_msg)): ?>
+      <div class="alert alert-success"><i class="fa fa-check-circle mr-1"></i> <?php echo html($tfa_msg); ?></div>
+    <?php endif; ?>
+    <?php if (!empty($tfa_err)): ?>
+      <div class="alert alert-danger"><i class="fa fa-exclamation-triangle mr-1"></i> <?php echo html($tfa_err); ?></div>
+    <?php endif; ?>
+
+    <?php if ($has_2fa_enabled): ?>
+
+      <div class="d-flex align-items-center mb-4">
+        <span class="badge badge-success px-3 py-2 mr-3" style="font-size: 0.95rem;">
+          <i class="fa fa-check-circle mr-1"></i> <?php echo $BL['be_profile_2fa_enabled'] ?? 'Enabled'; ?>
+        </span>
+        <span class="text-muted small">
+          <?php echo $stored_backup_codes > 0 ? sprintf($BL['be_profile_2fa_backup_count'] ?? '%d backup recovery codes available', $stored_backup_codes) : ($BL['be_profile_2fa_backup_none'] ?? 'No backup codes available'); ?>
+        </span>
+      </div>
+
+      <?php if (!empty($_SESSION['new_2fa_backup_codes'])): ?>
+        <div class="alert alert-warning border p-3 mb-4">
+          <h5 class="alert-heading font-weight-bold mb-2"><i class="fa fa-key mr-1"></i> <?php echo $BL['be_profile_2fa_backup_title'] ?? 'Backup Recovery Codes'; ?></h5>
+          <p class="small mb-3"><?php echo $BL['be_profile_2fa_backup_text'] ?? 'Save these single-use recovery codes in a safe place:'; ?></p>
+          <div class="row bg-white p-3 border rounded text-monospace font-weight-bold mb-2">
+            <?php foreach ($_SESSION['new_2fa_backup_codes'] as $bcode): ?>
+              <div class="col-sm-6 col-md-3 py-1"><?php echo html($bcode); ?></div>
+            <?php endforeach; ?>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('<?php echo implode('\n', $_SESSION['new_2fa_backup_codes']); ?>'); alert('Backup codes copied to clipboard!');"><i class="fa fa-copy mr-1"></i> Copy Codes</button>
+        </div>
+        <?php unset($_SESSION['new_2fa_backup_codes']); ?>
+      <?php endif; ?>
+
+      <form action="phpwcms.php?do=profile" method="post" class="mt-3">
+        <input type="hidden" name="form_aktion" value="disable_2fa" />
+        <div class="form-group row align-items-center">
+          <label for="disable_2fa_pass" class="col-sm-2 col-form-label text-right"><?php echo $BL['be_profile_label_currpass'] ?? 'Current Password'; ?></label>
+          <div class="col-sm-4">
+            <input type="password" class="form-control form-control-sm" name="disable_2fa_password" id="disable_2fa_pass" placeholder="<?php echo $BL['be_profile_2fa_currpass_placeholder'] ?? 'Enter current password to disable'; ?>" required="required" autocomplete="current-password" />
+          </div>
+          <div class="col-sm-auto mt-2 mt-sm-0">
+            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-power-off mr-1"></i> <?php echo $BL['be_profile_2fa_btn_disable'] ?? 'Disable 2FA'; ?></button>
+          </div>
+        </div>
+      </form>
+
+    <?php else: ?>
+
+      <?php
+      if (empty($_SESSION['pending_2fa_secret'])) {
+          $_SESSION['pending_2fa_secret'] = PhpwcmsTwoFactor::generateSecret();
+      }
+      $setup_secret = $_SESSION['pending_2fa_secret'];
+      $otpauth_url = PhpwcmsTwoFactor::getOtpAuthUrl($_SESSION['wcs_user'], $setup_secret, 'phpwcms');
+      $qr_svg = PhpwcmsTwoFactor::getQrCodeSvg($otpauth_url, 180);
+      ?>
+
+      <div class="border rounded p-4 bg-light">
+        <div class="row">
+          <div class="col-md-auto text-center mb-3 mb-md-0">
+            <div class="p-2 bg-white border rounded d-inline-block shadow-sm">
+              <?php echo $qr_svg; ?>
+            </div>
+          </div>
+          <div class="col-md">
+            <h5 class="font-weight-bold mb-2">1. <?php echo $BL['be_profile_2fa_step1'] ?? 'Scan QR Code with Authenticator App'; ?></h5>
+            <p class="small text-muted mb-2"><?php echo $BL['be_profile_2fa_step1_text'] ?? 'Scan this QR code with your authenticator app, or enter the secret key manually:'; ?></p>
+            <p class="mb-3">
+              <span class="badge badge-secondary p-2 text-monospace" style="font-size: 1rem; letter-spacing: 0.1em;"><?php echo chunk_split($setup_secret, 4, ' '); ?></span>
+              <button type="button" class="btn btn-sm btn-light border ml-2" onclick="copyToClipboard('<?php echo $setup_secret; ?>'); alert('Secret key copied!');" title="Copy Secret"><i class="fa fa-copy"></i></button>
+            </p>
+
+            <hr />
+
+            <h5 class="font-weight-bold mb-2">2. <?php echo $BL['be_profile_2fa_step2'] ?? 'Enter Verification Code'; ?></h5>
+            <p class="small text-muted mb-3"><?php echo $BL['be_profile_2fa_step2_text'] ?? 'Enter the 6-digit verification code from your authenticator app to complete setup:'; ?></p>
+
+            <form action="phpwcms.php?do=profile" method="post" class="form-inline" autocomplete="off">
+              <input type="hidden" name="form_aktion" value="enable_2fa" />
+              <div class="input-group input-group-sm mr-2 mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-key"></i></span>
+                </div>
+                <input type="text" name="verify_2fa_code" class="form-control" style="max-width: 140px;" placeholder="123456" maxlength="6" pattern="[0-9]{6}" required="required" autocomplete="one-time-code" />
+              </div>
+              <button type="submit" class="btn btn-sm btn-success mb-2"><i class="fa fa-shield-alt mr-1"></i> <?php echo $BL['be_profile_2fa_btn_confirm'] ?? 'Confirm & Enable 2FA'; ?></button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    <?php endif; ?>
+
+  </div>
+</div>

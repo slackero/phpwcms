@@ -186,8 +186,133 @@ $_SESSION["WYSIWYG_EDITOR"] = $phpwcms["wysiwyg_editor"];
 destroyBackendSessionData();
 
 $json_check = isset($_POST['json']) ? intval($_POST['json']) : 0;
+$step_2fa   = false;
+$backup_code_used = false;
 
-if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_check === 1) {
+// Handle Step 2: 2FA Verification
+if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !empty($_SESSION['wcs_2fa_pending_uid'])) {
+
+    $pending_uid = (int)$_SESSION['wcs_2fa_pending_uid'];
+    $submitted_2fa_code = slweg($_POST['form_2fa_code'] ?? '');
+
+    if (!$csrf_error && $submitted_2fa_code !== '') {
+
+        $sql_query = 'SELECT * FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id=' . $pending_uid . ' AND usr_aktiv=1 AND (usr_fe=1 OR usr_fe=2) LIMIT 1';
+        $result = _dbQuery($sql_query);
+
+        if (isset($result[0]['usr_id'])) {
+            $user_vars = @unserialize($result[0]['usr_vars'], ['allowed_classes' => false]);
+            if (!is_array($user_vars)) {
+                $user_vars = [];
+            }
+
+            $tfa_valid = false;
+
+            // 1. Check standard 6-digit TOTP
+            if (!empty($result[0]['usr_2fa_secret']) && strlen($submitted_2fa_code) === 6 && ctype_digit($submitted_2fa_code)) {
+                $tfa_valid = PhpwcmsTwoFactor::verifyCode($result[0]['usr_2fa_secret'], $submitted_2fa_code);
+            }
+
+            // 2. Check backup recovery codes
+            if (!$tfa_valid && !empty($user_vars['2fa_backup_codes']) && is_array($user_vars['2fa_backup_codes'])) {
+                if (PhpwcmsTwoFactor::verifyAndConsumeBackupCode($user_vars['2fa_backup_codes'], $submitted_2fa_code)) {
+                    $tfa_valid = true;
+                    $backup_code_used = true;
+                    _dbUpdate('phpwcms_user', ['usr_vars' => serialize($user_vars)], 'WHERE usr_id=' . $pending_uid);
+                }
+            }
+
+            if ($tfa_valid) {
+                $wcs_user = $result[0]['usr_login'];
+                unset($_SESSION['wcs_2fa_pending_uid'], $_SESSION['wcs_2fa_user_row'], $_SESSION['wcs_2fa_ref_url'], $_SESSION['wcs_2fa_customlang']);
+
+                $_SESSION['wcs_user']           = $wcs_user;
+                $_SESSION['wcs_user_name']      = empty($result[0]['usr_name']) ? $wcs_user : $result[0]['usr_name'];
+                $_SESSION['wcs_user_id']        = $result[0]['usr_id'];
+                $_SESSION['wcs_user_aktiv']     = $result[0]['usr_aktiv'];
+                $_SESSION['wcs_user_rechte']    = $result[0]['usr_rechte'];
+                $_SESSION['wcs_user_email']     = $result[0]['usr_email'];
+                $_SESSION['wcs_user_avatar']    = $result[0]['usr_avatar'];
+                $_SESSION['wcs_user_logtime']   = time();
+                $_SESSION['wcs_user_admin']     = intval($result[0]['usr_admin']);
+                $_SESSION['wcs_user_thumb']     = 1;
+
+                if (empty($_POST['customlang']) && !empty($result[0]['usr_lang'])) {
+                    $usr_lang = strtolower($result[0]['usr_lang']);
+                    if (isset($lang_aliases[$usr_lang])) {
+                        $usr_lang = $lang_aliases[$usr_lang];
+                    }
+                    $_SESSION['wcs_user_lang'] = $usr_lang;
+                    set_language_cookie($usr_lang);
+                } elseif (!empty($_SESSION['wcs_user_lang'])) {
+                    set_language_cookie($_SESSION['wcs_user_lang']);
+                } else {
+                    set_language_cookie();
+                }
+
+                $_SESSION['structure'] = @unserialize($result[0]['usr_var_structure'], ['allowed_classes' => false]);
+                $_SESSION['klapp']     = @unserialize($result[0]['usr_var_privatefile'], ['allowed_classes' => false]);
+                $_SESSION['pklapp']    = @unserialize($result[0]['usr_var_publicfile'], ['allowed_classes' => false]);
+
+                if (!is_array($_SESSION['structure'])) {
+                    $_SESSION['structure'] = [];
+                }
+                if (!is_array($_SESSION['klapp'])) {
+                    $_SESSION['klapp'] = [];
+                }
+                if (!is_array($_SESSION['pklapp'])) {
+                    $_SESSION['pklapp'] = [];
+                }
+
+                $_SESSION['WYSIWYG_EDITOR'] = empty($result[0]['usr_wysiwyg']) ? $phpwcms['wysiwyg_editor'] : intval($result[0]['usr_wysiwyg']);
+                $_SESSION['wcs_user_theme'] = isset($user_vars['theme']) && in_array($user_vars['theme'], ['auto', 'light', 'dark'], true) ? $user_vars['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], ['auto', 'light', 'dark'], true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
+                set_theme_cookie($_SESSION['wcs_user_theme']);
+                $_SESSION['wcs_user_cp']    = isset($user_vars['selected_cp']) && is_array($user_vars['selected_cp']) ? $user_vars['selected_cp'] : [];
+                $_SESSION['wcs_allowed_cp'] = isset($user_vars['allowed_cp']) && is_array($user_vars['allowed_cp']) ? $user_vars['allowed_cp'] : [];
+
+                if (count($_SESSION['wcs_allowed_cp'])) {
+                    if (count($_SESSION['wcs_user_cp'])) {
+                        foreach ($_SESSION['wcs_user_cp'] as $key => $value) {
+                            if (!isset($_SESSION['wcs_allowed_cp'][$key])) {
+                                unset($_SESSION['wcs_user_cp'][$key]);
+                            }
+                        }
+                    } else {
+                        $_SESSION['wcs_user_cp'] = $_SESSION['wcs_allowed_cp'];
+                    }
+                }
+
+                // Store login information in DB
+                if (!($check = _dbQuery('SELECT COUNT(*) FROM ' . DB_PREPEND . 'phpwcms_userlog WHERE logged_user=' . _dbEscape($wcs_user) . ' AND logged_in=1', 'COUNT'))) {
+                    $sql  = 'INSERT INTO ' . DB_PREPEND . 'phpwcms_userlog (logged_user, logged_username, logged_start, logged_change, logged_in, logged_ip) VALUES (';
+                    $sql .= _dbEscape($wcs_user) . ', ' . _dbEscape($_SESSION['wcs_user_name']) . ', ' . time() . ', ' . time() . ', 1, ' . _dbEscape(PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()) . ')';
+                    _dbQuery($sql, 'INSERT');
+                }
+
+                $_SESSION['PHPWCMS_ROOT'] = PHPWCMS_ROOT;
+                set_status_message($BL['login_welcome'] . ', ' . $wcs_user . '!' . ($backup_code_used ? ' (' . ($BL['login_2fa_backup_used'] ?? 'Backup code used') . ')' : ''));
+
+                if ($ref_url) {
+                    if (($token_position = strpos($ref_url, 'csrftoken')) !== false) {
+                        $ref_url = substr_replace($ref_url, '', $token_position, 42);
+                        $ref_url = str_replace('?&', '?', $ref_url);
+                        $ref_url = str_replace('&&', '&', $ref_url);
+                    }
+                    $backend_redirect = $ref_url . '&';
+                } else {
+                    $backend_redirect = PHPWCMS_URL . 'phpwcms.php?';
+                }
+
+                $_SESSION['PHPWCMS_BROWSER_HASH'] = $phpwcms['USER_AGENT']['hash'];
+                headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name() . '=' . session_id());
+            }
+        }
+    }
+
+    $err = 1;
+    $step_2fa = true;
+
+} elseif (isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_check === 1) {
 
     $login_passed       = 0;
     $wysiwyg_template   = '';
@@ -240,81 +365,92 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
             if ($login_passed) {
 
-            $_SESSION["wcs_user"]           = $wcs_user;
-            $_SESSION["wcs_user_name"]      = empty($result[0]["usr_name"]) ? $wcs_user : $result[0]["usr_name"];
-            $_SESSION["wcs_user_id"]        = $result[0]["usr_id"];
-            $_SESSION["wcs_user_aktiv"]     = $result[0]["usr_aktiv"];
-            $_SESSION["wcs_user_rechte"]    = $result[0]["usr_rechte"];
-            $_SESSION["wcs_user_email"]     = $result[0]["usr_email"];
-            $_SESSION["wcs_user_avatar"]    = $result[0]["usr_avatar"];
-            $_SESSION["wcs_user_logtime"]   = time();
-            $_SESSION["wcs_user_admin"]     = intval($result[0]["usr_admin"]);
-            $_SESSION["wcs_user_thumb"]     = 1;
-            if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
-                $usr_lang = strtolower($result[0]["usr_lang"]);
-                if (isset($lang_aliases[$usr_lang])) {
-                    $usr_lang = $lang_aliases[$usr_lang];
-                }
-                $_SESSION["wcs_user_lang"]  = $usr_lang;
-                set_language_cookie($usr_lang);
-            } elseif (!empty($_SESSION["wcs_user_lang"])) {
-                set_language_cookie($_SESSION["wcs_user_lang"]);
-            } else {
-                set_language_cookie();
-            }
+                // Check if Two-Factor Authentication is enabled for this account
+                if (!empty($result[0]['usr_2fa_enabled']) && !empty($result[0]['usr_2fa_secret'])) {
+                    $_SESSION['wcs_2fa_pending_uid'] = (int)$result[0]['usr_id'];
+                    $_SESSION['wcs_2fa_user_row']    = $result[0];
+                    $_SESSION['wcs_2fa_ref_url']     = $ref_url;
+                    $_SESSION['wcs_2fa_customlang']  = !empty($_POST['customlang']) ? 1 : 0;
+                    $step_2fa = true;
+                } else {
 
-            $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"], ['allowed_classes' => false]);
-            $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"], ['allowed_classes' => false]);
-            $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"], ['allowed_classes' => false]);
-            $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
+                    $_SESSION["wcs_user"]           = $wcs_user;
+                    $_SESSION["wcs_user_name"]      = empty($result[0]["usr_name"]) ? $wcs_user : $result[0]["usr_name"];
+                    $_SESSION["wcs_user_id"]        = $result[0]["usr_id"];
+                    $_SESSION["wcs_user_aktiv"]     = $result[0]["usr_aktiv"];
+                    $_SESSION["wcs_user_rechte"]    = $result[0]["usr_rechte"];
+                    $_SESSION["wcs_user_email"]     = $result[0]["usr_email"];
+                    $_SESSION["wcs_user_avatar"]    = $result[0]["usr_avatar"];
+                    $_SESSION["wcs_user_logtime"]   = time();
+                    $_SESSION["wcs_user_admin"]     = intval($result[0]["usr_admin"]);
+                    $_SESSION["wcs_user_thumb"]     = 1;
+                    if(empty($_POST['customlang']) && !empty($result[0]["usr_lang"])) {
+                        $usr_lang = strtolower($result[0]["usr_lang"]);
+                        if (isset($lang_aliases[$usr_lang])) {
+                            $usr_lang = $lang_aliases[$usr_lang];
+                        }
+                        $_SESSION["wcs_user_lang"]  = $usr_lang;
+                        set_language_cookie($usr_lang);
+                    } elseif (!empty($_SESSION["wcs_user_lang"])) {
+                        set_language_cookie($_SESSION["wcs_user_lang"]);
+                    } else {
+                        set_language_cookie();
+                    }
 
-            if(!is_array($_SESSION["structure"])) {
-                $_SESSION["structure"] = array();
-            }
-            if(!is_array($_SESSION["klapp"])) {
-                $_SESSION["klapp"] = array();
-            }
-            if(!is_array($_SESSION["pklapp"])) {
-                $_SESSION["pklapp"] = array();
-            }
-            if(!is_array($result[0]["usr_vars"])) {
-                $result[0]["usr_vars"] = array();
-            }
+                    $_SESSION["structure"] = @unserialize($result[0]["usr_var_structure"], ['allowed_classes' => false]);
+                    $_SESSION["klapp"]     = @unserialize($result[0]["usr_var_privatefile"], ['allowed_classes' => false]);
+                    $_SESSION["pklapp"]    = @unserialize($result[0]["usr_var_publicfile"], ['allowed_classes' => false]);
+                    $result[0]["usr_vars"] = @unserialize($result[0]["usr_vars"], ['allowed_classes' => false]);
 
-            // Fallback to configured global editor
-            $_SESSION['WYSIWYG_EDITOR'] = empty($result[0]['usr_wysiwyg']) ? $phpwcms['wysiwyg_editor'] : intval($result[0]['usr_wysiwyg']);
-            if (isset($_POST['form_theme']) && in_array($_POST['form_theme'], array('auto', 'light', 'dark'), true)) {
-                $_SESSION['wcs_user_theme'] = $_POST['form_theme'];
-                if (!isset($result[0]['usr_vars']['theme']) || $result[0]['usr_vars']['theme'] !== $_POST['form_theme']) {
-                    $result[0]['usr_vars']['theme'] = $_POST['form_theme'];
-                    _dbUpdate('phpwcms_user', array('usr_vars' => serialize($result[0]['usr_vars'])), 'WHERE usr_id=' . intval($result[0]['usr_id']));
-                }
-            } else {
-                $_SESSION['wcs_user_theme'] = isset($result[0]['usr_vars']['theme']) && in_array($result[0]['usr_vars']['theme'], array('auto', 'light', 'dark'), true) ? $result[0]['usr_vars']['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
-            }
-            set_theme_cookie($_SESSION['wcs_user_theme']);
-            $_SESSION['wcs_user_cp']    = isset($result[0]['usr_vars']['selected_cp']) && is_array($result[0]['usr_vars']['selected_cp']) ? $result[0]['usr_vars']['selected_cp'] : array();
-            $_SESSION['wcs_allowed_cp'] = isset($result[0]['usr_vars']['allowed_cp']) && is_array($result[0]['usr_vars']['allowed_cp']) ? $result[0]['usr_vars']['allowed_cp'] : array();
+                    if(!is_array($_SESSION["structure"])) {
+                        $_SESSION["structure"] = array();
+                    }
+                    if(!is_array($_SESSION["klapp"])) {
+                        $_SESSION["klapp"] = array();
+                    }
+                    if(!is_array($_SESSION["pklapp"])) {
+                        $_SESSION["pklapp"] = array();
+                    }
+                    if(!is_array($result[0]["usr_vars"])) {
+                        $result[0]["usr_vars"] = array();
+                    }
 
-            // Test if there are CPs that use had choosen but no longer available for
-            if(count($_SESSION["wcs_allowed_cp"])) {
-                if(count($_SESSION["wcs_user_cp"])) {
-                    // Remove selected CP if not allowed CP
-                    foreach($_SESSION["wcs_user_cp"] as $key => $value) {
-                        if(!isset($_SESSION["wcs_allowed_cp"][$key])) {
-                            unset($_SESSION["wcs_user_cp"][$key]);
+                    // Fallback to configured global editor
+                    $_SESSION['WYSIWYG_EDITOR'] = empty($result[0]['usr_wysiwyg']) ? $phpwcms['wysiwyg_editor'] : intval($result[0]['usr_wysiwyg']);
+                    if (isset($_POST['form_theme']) && in_array($_POST['form_theme'], array('auto', 'light', 'dark'), true)) {
+                        $_SESSION['wcs_user_theme'] = $_POST['form_theme'];
+                        if (!isset($result[0]['usr_vars']['theme']) || $result[0]['usr_vars']['theme'] !== $_POST['form_theme']) {
+                            $result[0]['usr_vars']['theme'] = $_POST['form_theme'];
+                            _dbUpdate('phpwcms_user', array('usr_vars' => serialize($result[0]['usr_vars'])), 'WHERE usr_id=' . intval($result[0]['usr_id']));
+                        }
+                    } else {
+                        $_SESSION['wcs_user_theme'] = isset($result[0]['usr_vars']['theme']) && in_array($result[0]['usr_vars']['theme'], array('auto', 'light', 'dark'), true) ? $result[0]['usr_vars']['theme'] : (!empty($_COOKIE['phpwcmsBETheme']) && in_array($_COOKIE['phpwcmsBETheme'], array('auto', 'light', 'dark'), true) ? $_COOKIE['phpwcmsBETheme'] : 'auto');
+                    }
+                    set_theme_cookie($_SESSION['wcs_user_theme']);
+                    $_SESSION['wcs_user_cp']    = isset($result[0]['usr_vars']['selected_cp']) && is_array($result[0]['usr_vars']['selected_cp']) ? $result[0]['usr_vars']['selected_cp'] : array();
+                    $_SESSION['wcs_allowed_cp'] = isset($result[0]['usr_vars']['allowed_cp']) && is_array($result[0]['usr_vars']['allowed_cp']) ? $result[0]['usr_vars']['allowed_cp'] : array();
+
+                    // Test if there are CPs that use had choosen but no longer available for
+                    if(count($_SESSION["wcs_allowed_cp"])) {
+                        if(count($_SESSION["wcs_user_cp"])) {
+                            // Remove selected CP if not allowed CP
+                            foreach($_SESSION["wcs_user_cp"] as $key => $value) {
+                                if(!isset($_SESSION["wcs_allowed_cp"][$key])) {
+                                    unset($_SESSION["wcs_user_cp"][$key]);
+                                }
+                            }
+                        } else {
+                            $_SESSION["wcs_user_cp"] = $_SESSION["wcs_allowed_cp"];
                         }
                     }
-                } else {
-                    $_SESSION["wcs_user_cp"] = $_SESSION["wcs_allowed_cp"];
+
                 }
-            }
 
             }
         }
     }
 
-    if($login_passed) {
+    if($login_passed && !$step_2fa) {
 
         // Store login information in DB
         if(!($check = _dbQuery("SELECT COUNT(*) FROM ".DB_PREPEND."phpwcms_userlog WHERE logged_user="._dbEscape($wcs_user)." AND logged_in=1", 'COUNT'))) {
@@ -347,7 +483,7 @@ if(isset($_POST['form_aktion']) && $_POST['form_aktion'] == 'login' && $json_che
 
         headerRedirect($backend_redirect . get_token_get_string() . '&' . session_name().'='.session_id());
 
-    } else {
+    } elseif (!$step_2fa) {
 
         $err = 1;
 
@@ -458,6 +594,44 @@ $reason_types = array(
 // get whole login form and keep in buffer
 ob_start();
 
+if ($step_2fa):
+?>
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="login_2fa_form" autocomplete="off">
+<input type="hidden" name="ref_url" value="<?php echo html_specialchars($ref_url); ?>" />
+<input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
+<input type="hidden" name="customlang" value="<?php if(!empty($_SESSION['wcs_2fa_customlang']) || !empty($_POST['customlang'])): ?>1<?php endif; ?>" />
+<input name="form_aktion" type="hidden" id="form_aktion" value="verify_2fa" />
+
+<p class="small text-muted mb-3"><?php echo $BL['login_2fa_desc'] ?? 'Two-Factor Authentication is active for this account. Enter the 6-digit code from your authenticator app or use a backup recovery code to complete login.'; ?></p>
+
+<?php
+    echo '<div class="alert alert-danger" role="alert"';
+    if(!$err) {
+        echo ' style="display:none;"';
+    }
+    echo ' id="jserr">';
+    echo $BL["login_2fa_invalid"] ?? 'Invalid 2FA code or backup code. Please try again.';
+    echo '</div>';
+?>
+
+<div class="form-group">
+    <label class="sr-only" for="form_2fa_code"><?php echo $BL['login_2fa_code'] ?? 'Authentication Code'; ?></label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-shield-alt fa-fw"></i></span>
+        </div>
+        <input name="form_2fa_code" type="text" id="form_2fa_code" class="form-control" placeholder="<?php echo $BL['login_2fa_placeholder'] ?? '6-digit code or backup code'; ?>" autofocus="autofocus" required="required" maxlength="20" autocomplete="one-time-code" />
+    </div>
+</div>
+
+<button name="submit_2fa" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_2fa_button'] ?? 'Verify Code'; ?> <i class="fa fa-arrow-right"></i></button>
+
+<div class="text-center mt-3">
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_2fa_back'] ?? 'Back to Login'; ?></a>
+</div>
+</form>
+<?php
+else:
 ?>
 <form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="login_formular" onsubmit="return login(this);"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="off"<?php endif; ?>>
 <input type="hidden" name="json" id="json" value="0" />
@@ -557,13 +731,18 @@ ob_start();
 </div>
 <button name="submit_form" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_button'] ?> <i class="fa fa-arrow-right"></i></button></form>
 <?php
+endif;
 
 $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"), ob_get_clean() );
 
 ?>
 <script>
     document.getElementById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
-    document.getElementById('form_loginname').focus();
+    if (document.getElementById('form_2fa_code')) {
+        document.getElementById('form_2fa_code').focus();
+    } else if (document.getElementById('form_loginname')) {
+        document.getElementById('form_loginname').focus();
+    }
     if (typeof initPhpwcmsTheme === 'function') {
         initPhpwcmsTheme();
     }
