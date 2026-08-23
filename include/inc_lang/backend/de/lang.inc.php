@@ -40,15 +40,15 @@ $BL['login_reset_email_body'] = 'Hallo {NAME},&#13;&#13;f&uuml;r Ihr Backend-Ben
 
 
 // phpwcms.php
-$BL['be_nav_logout'] = 'Abmelden';
-$BL['be_nav_articles'] = 'Artikelverwaltung';
-$BL['be_nav_files'] = 'Dateiverwaltung';
-$BL['be_nav_modules'] = 'Module';
-$BL['be_nav_messages'] = 'Newsletter';
-$BL['be_nav_chat'] = 'Chat';
-$BL['be_nav_profile'] = 'mein Profil';
-$BL['be_nav_admin'] = 'Einstellungen';
-$BL['be_nav_discuss'] = 'Diskussion';
+$BL['be_nav_logout']           = 'Abmelden';
+$BL['be_nav_articles']         = 'Artikelverwaltung';
+$BL['be_nav_files']            = 'Dateiverwaltung';
+$BL['be_nav_modules']          = 'Module';
+$BL['be_nav_messages']         = 'Newsletter';
+$BL['be_nav_chat']             = 'Chat';
+$BL['be_nav_profile']          = 'Mein Profil';
+$BL['be_nav_admin']            = 'Einstellungen';
+$BL['be_nav_discuss']          = 'Diskussion';
 $BL['be_nav_collapse_menu'] = 'Men&uuml; einklappen';
 
 $BL['be_page_title'] = 'phpwcms Backend (Verwaltung)';
@@ -220,10 +220,10 @@ $BL['be_ftptakeover_mark'] = 'Wahl';
 $BL['be_ftptakeover_available'] = 'Verf&uuml;gbare Dateien';
 $BL['be_ftptakeover_size'] = 'Gr&ouml;sse';
 $BL['be_ftptakeover_nofile'] = 'Keine Dateien verf&uuml;gbar &#8211; Sie m&uuml;ssen diese per FTP oder Mehrfachupload hochladen.';
-$BL['be_ftptakeover_all'] = 'Alle';
+$BL['be_ftptakeover_all']          = 'Alle';
 $BL['be_ftptakeover_directory'] = 'Ordner';
 $BL['be_ftptakeover_rootdir'] = 'Wurzelverzeichnis';
-$BL['be_ftptakeover_needed'] = 'Ben&ouml;tigt!!! (unbedingt ausw&auml;hlen)';
+$BL['be_ftptakeover_needed']       = 'erforderlich (mindestens eine Datei ausw&auml;hlen)';
 $BL['be_ftptakeover_optional'] = 'Optional';
 $BL['be_ftptakeover_keywords'] = 'Keywords';
 $BL['be_ftptakeover_additional'] = 'Zus&auml;tzlich';
@@ -363,7 +363,7 @@ $BL['be_fsearch_fillin'] = 'Bitte geben Sie eine Suchanweisung im entsprechendem
 $BL['be_fsearch_searchlabel'] = 'Suche';
 $BL['be_fsearch_startsearch'] = 'Suchen';
 $BL['be_fsearch_and'] = 'UND';
-$BL['be_fsearch_or'] = 'ODER';
+$BL['be_fsearch_or']               = 'Oder';
 $BL['be_fsearch_all'] = 'Alle Dateien';
 $BL['be_fsearch_personal'] = 'Eigene';
 $BL['be_fsearch_public'] = '&Ouml;ffentliche';
@@ -441,7 +441,7 @@ $BL['be_admin_usr_button'] = 'Benutzerdaten speichern';
 $BL['be_admin_usr_etitle'] = 'Benutzerdaten bearbeiten';
 $BL['be_admin_usr_emailsubject'] = 'phpwcms - Anmeldedaten ge&auml;ndert';
 $BL['be_admin_usr_emailbody'] = "PHPWCMS! ANMELDEDATEN GE&Auml;NDERT\n\n    Benutzer: {LOGIN}\n    Kennwort: {PASSWORD}\n\n\nSie k&ouml;nnen sich hier anmelden: {LOGIN_PAGE}\n\nphpwcms Administrator\n";
-$BL['be_admin_usr_passnochange'] = '[KEINE &Auml;NDERUNG - DAS BEKANNTE KENNWORT NUTZEN]';
+$BL['be_admin_usr_passnochange']   = '[Keine &Auml;nderung - bekanntes Passwort nutzen]';
 $BL['be_admin_usr_ebutton'] = 'Benutzerdaten aktualisieren';
 
 // admin.listuser.tmpl.php
@@ -820,7 +820,7 @@ $BL['be_newsletter_sendnow'] = 'Newsletter versenden';
 $BL['be_newsletter_attention'] = '<strong style="color:#CC3300;">Achtung!</strong> Das Versenden eines Newsletters ist eine sehr sensible Angelegenheit. Empf&auml;nger sollten best&auml;tigt sein, anderenfalls versenden Sie potentielle Spam E-Mails. &Uuml;berlegen Sie zweimal, vor dem Versenden eines Newsletters. Testen Sie den Newsletter, bevor Sie diesen endg&uuml;ltig versenden.';
 $BL['be_newsletter_attention1'] = 'Sollten Sie soeben &Auml;nderungen an den Daten des Newsletter vorgenommen haben, so sichern Sie diese bitte zuerst, anderenfalls werden diese nicht &uuml;bernommen.';
 $BL['be_newsletter_testemail'] = 'Testempf&auml;nger';
-$BL['be_newsletter_sendnlbutton'] = 'VERSENDEN!!!';
+$BL['be_newsletter_sendnlbutton']  = 'Newsletter versenden';
 $BL['be_newsletter_sendprocess'] = 'Sendevorgang';
 $BL['be_newsletter_attention2'] = '<strong style="color:#CC3300;">Achtung!</strong> Stoppen Sie den Vorgang bitte nicht, anderenfalls ist es m&ouml;glich, dass der Newsletter mehrfach an Empf&auml;nger gesendet wird. Wenn der Sendevorgang aufgrund eines Fehlers stoppt, werden alle bisher nicht erreichten Empf&auml;nger in der aktuellen Session gespeichert und genutzt, wenn der Newsletterversand sofort wiederholt wird.';
 $BL['be_newsletter_testerror'] = '<p style="color:#CC3300;">Die Test E-Mail Adresse</p><blockquote>###TEST###</blockquote><p style="color:#CC3300;">ist NICHT g&uuml;ltig!<br />&nbsp;<br />Bitte versuchen Sie es erneut!</p>';
@@ -1098,7 +1098,7 @@ $BL['be_article_morelink'] = '[Weiter&#8230;] Link';
 $BL['be_ctype_filelist1'] = 'Dateiliste Pro';
 
 $BL['be_admin_keywords'] = 'Keywords';
-$BL['be_admin_keywords_key'] = 'KEYWORD';
+$BL['be_admin_keywords_key']       = 'Schl&uuml;sselwort';
 $BL['be_admin_keywords_err'] = 'Kein eindeutiger Namer f&uuml;r das KEYWORD eintragen';
 $BL['be_admin_keyword_edit'] = 'KEYWORD editieren';
 $BL['be_admin_keyword_del'] = 'KEYWORD l&ouml;schen';
@@ -1368,7 +1368,7 @@ $BL['be_archived_items'] = 'Archiveintr&auml;ge';
 $BL['be_include'] = 'einbeziehen';
 $BL['be_exclude'] = 'ausschliessen';
 $BL['be_solely'] = 'ausschliesslich';
-$BL['be_fsearch_not'] = 'NICHT';
+$BL['be_fsearch_not']              = 'Nicht';
 $BL['be_date_year'] = 'Jahr';
 $BL['be_archive_link'] = 'Archivlink';
 $BL['be_use_prio'] = 'Priorisierung anwenden';
@@ -1510,7 +1510,7 @@ $BL['CSRF_BTN_LOGIN'] = 'Anmelden';
 $BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'Eltern-Alias';
-$BL['be_fsearch_nor'] = 'KEINES';
+$BL['be_fsearch_nor']              = 'Keines';
 $BL['be_tab_toggle'] = 'Reiter aus- bzw. einklappen';
 $BL['be_custom_textfield'] = 'Freitext';
 $BL['be_tab_template_toggle_warning'] = 'Wenn Sie die Vorlage umstellen, kann passieren, dass sich die Freitextfelder &auml;ndern und Werte verloren gehen.\n\nM&ouml;chten Sie wirklich fortfahren?';

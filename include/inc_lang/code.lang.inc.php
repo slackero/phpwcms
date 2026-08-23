@@ -38,6 +38,8 @@ $BL['SK']    = 'Slovenčina';
 $BL['SL']    = 'Slovenščina';
 $BL['SV']    = 'Svenska';
 $BL['TR']    = 'Türkçe';
+$BL['UA']    = 'Українська';
+$BL['UK']    = 'Українська';
 $BL['VI']    = 'Tiếng Việt';
 $BL['VN']    = 'Tiếng Việt';
 
@@ -45,7 +47,7 @@ if (defined('PHPWCMS_CHARSET') && PHPWCMS_CHARSET !== 'utf-8' && function_exists
     $_lang_keys = [
         'AR', 'BG', 'BS', 'CA', 'CS', 'CZ', 'DA', 'DE', 'DE-CH', 'EL', 'EN', 'ES',
         'ET', 'FI', 'FR', 'GR', 'HU', 'IT', 'LT', 'NL', 'NO', 'PL', 'PT', 'RO',
-        'RU', 'SE', 'SK', 'SL', 'SV', 'TR', 'VI', 'VN'
+        'RU', 'SE', 'SK', 'SL', 'SV', 'TR', 'UA', 'UK', 'VI', 'VN'
     ];
     foreach ($_lang_keys as $_lang_key) {
         if (isset($BL[$_lang_key])) {

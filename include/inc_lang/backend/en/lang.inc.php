@@ -42,15 +42,15 @@ $BL['login_reset_email_body']           = 'Hello {NAME},&#13;&#13;A password res
 
 
 // phpwcms.php
-$BL['be_nav_logout']                    = 'LOGOUT';
-$BL['be_nav_articles']                  = 'ARTICLE';
-$BL['be_nav_files']                     = 'FILE';
-$BL['be_nav_modules']                   = 'MODULES';
-$BL['be_nav_messages']                  = 'COMMUNICATION';
-$BL['be_nav_chat']                      = 'CHAT';
-$BL['be_nav_profile']                   = 'PROFILE';
-$BL['be_nav_admin']                     = 'ADMIN';
-$BL['be_nav_discuss']                   = 'DISCUSS';
+$BL['be_nav_logout']           = 'Logout';
+$BL['be_nav_articles']         = 'Articles';
+$BL['be_nav_files']            = 'Files';
+$BL['be_nav_modules']          = 'Modules';
+$BL['be_nav_messages']         = 'Communication';
+$BL['be_nav_chat']             = 'Chat';
+$BL['be_nav_profile']          = 'Profile';
+$BL['be_nav_admin']            = 'Admin';
+$BL['be_nav_discuss']          = 'Discuss';
 $BL['be_nav_collapse_menu'] = 'Collapse menu';
 
 $BL['be_page_title']                    = 'phpwcms backend (administration)';
@@ -224,10 +224,10 @@ $BL['be_ftptakeover_mark']              = 'mark';
 $BL['be_ftptakeover_available']         = 'available files';
 $BL['be_ftptakeover_size']              = 'size';
 $BL['be_ftptakeover_nofile']            = 'There are no files available &#8211; you have to upload one by ftp or the the multiple file upload.';
-$BL['be_ftptakeover_all']               = 'ALL';
+$BL['be_ftptakeover_all']          = 'All';
 $BL['be_ftptakeover_directory']         = 'directory';
 $BL['be_ftptakeover_rootdir']           = 'root directory';
-$BL['be_ftptakeover_needed']            = 'needed!!! (you have to select one)';
+$BL['be_ftptakeover_needed']       = 'required (select at least one file)';
 $BL['be_ftptakeover_optional']          = 'optional';
 $BL['be_ftptakeover_keywords']          = 'keywords';
 $BL['be_ftptakeover_additional']        = 'additional';
@@ -367,7 +367,7 @@ $BL['be_fsearch_fillin']                = 'please fill in a search string in the
 $BL['be_fsearch_searchlabel']           = 'search for';
 $BL['be_fsearch_startsearch']           = 'start search';
 $BL['be_fsearch_and']                   = 'AND';
-$BL['be_fsearch_or']                    = 'OR';
+$BL['be_fsearch_or']               = 'Or';
 $BL['be_fsearch_all']                   = 'all files';
 $BL['be_fsearch_personal']              = 'private';
 $BL['be_fsearch_public']                = 'public';
@@ -445,7 +445,7 @@ $BL['be_admin_usr_button']              = 'send user data';
 $BL['be_admin_usr_etitle']              = 'edit user account';
 $BL['be_admin_usr_emailsubject']        = 'phpwcms - account data changed';
 $BL['be_admin_usr_emailbody']           = "PHPWCMS USER ACCOUNT INFORMATION CHANGED\n\n    username: {LOGIN}\n    password: {PASSWORD}\n\n\nYou can login here: {LOGIN_PAGE}\n\nphpwcms admin\n";
-$BL['be_admin_usr_passnochange']        = '[NO CHANGE - USE THE KNOWN PASSWORD]';
+$BL['be_admin_usr_passnochange']   = '[No change - use known password]';
 $BL['be_admin_usr_ebutton']             = 'update user data';
 
 // admin.listuser.tmpl.php
@@ -824,7 +824,7 @@ $BL['be_newsletter_sendnow']            = 'Send newsletter';
 $BL['be_newsletter_attention']          = '<strong style="color:#CC3300;">Attention!</strong> Sending a newsletter to multiple recipients is very hazardous. Recipients should have been verified otherwise you will send potential spam. Think twice before you send the newsletter. Check your newsletter by sending a test.';
 $BL['be_newsletter_attention1']         = 'If you have made changes in above newsletter datas please save it first otherwise these changes will not be used.';
 $BL['be_newsletter_testemail']          = 'test email';
-$BL['be_newsletter_sendnlbutton']       = 'send newsletter';
+$BL['be_newsletter_sendnlbutton']  = 'Send newsletter';
 $BL['be_newsletter_sendprocess']        = 'send process';
 $BL['be_newsletter_attention2']         = '<strong style="color:#CC3300;">Attention!</strong> Please do not stop the send process. Otherwise it is possible that you will send the newsletter more than twice to a recipient. When sending fails all non achieved recipient are stored in a session array and will be used if you send again immediately.';
 $BL['be_newsletter_testerror']          = '<p style="color:#CC3300;">the test email address</p><blockquote>###TEST###</blockquote><p style="color:#CC3300;">is NOT valid!<br />&nbsp;<br />Try again please!</p>';
@@ -1107,7 +1107,7 @@ $BL['be_ctype_filelist1']                = 'file list pro';
 $BL['be_cnt_fpro_usecaption']            = 'use file center &quot;'.$BL['be_ftptakeover_longinfo'].'&quot;';
 
 $BL['be_admin_keywords']                = 'Keywords';
-$BL['be_admin_keywords_key']            = 'KEYWORD';
+$BL['be_admin_keywords_key']       = 'Keyword';
 $BL['be_admin_keywords_err']            = 'Insert a unique KEYWORD name';
 $BL['be_admin_keyword_edit']            = 'edit KEYWORD';
 $BL['be_admin_keyword_del']             = 'delete KEYWORD';
@@ -1376,7 +1376,7 @@ $BL['be_archived_items']                = 'archived items';
 $BL['be_include']                       = 'include';
 $BL['be_exclude']                       = 'exclude';
 $BL['be_solely']                        = 'solely';
-$BL['be_fsearch_not']                   = 'NOT';
+$BL['be_fsearch_not']              = 'Not';
 $BL['be_date_year']                     = 'year';
 $BL['be_archive_link']                  = 'archive link';
 $BL['be_use_prio']                      = 'apply priorization';
@@ -1520,7 +1520,7 @@ $BL['CSRF_BTN_LOGIN'] = 'Login';
 $BL['CSRF_BTN_DASHBOARD'] = 'Dashboard';
 
 $BL['be_parental_alias'] = 'parental alias';
-$BL['be_fsearch_nor'] = 'NONE';
+$BL['be_fsearch_nor']              = 'None';
 $BL['be_tab_toggle'] = 'Toggle tab to expanded or closed';
 $BL['be_custom_textfield'] = 'custom text';
 $BL['be_tab_template_toggle_warning'] = 'Changing the template can have the effect that custom fields get changed too and existing values get lost.\n\nAre you really sure to continue?';

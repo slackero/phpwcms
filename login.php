@@ -96,7 +96,7 @@ _dbQuery($sql, 'UPDATE');
 //load default language EN
 require_once PHPWCMS_ROOT.'/include/inc_lang/backend/en/lang.inc.php';
 
-$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
+$lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr', 'uk' => 'ua'];
 
 //define language and check if language file is available
 if(isset($_COOKIE['phpwcmsBELang'])) {
