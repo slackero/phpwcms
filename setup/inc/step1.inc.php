@@ -300,10 +300,10 @@ $display_db_port = (!empty($phpwcms['db_port']) && (int)$phpwcms['db_port'] !== 
                     $update_user = _dbQuery($sql, 'UPDATE');
                 } elseif ($user_check !== false) {
                     $sql  = "INSERT INTO " . $_db_prepend . "phpwcms_user (";
-                    $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_vars";
+                    $sql .= "usr_login, usr_pass, usr_email, usr_admin, usr_aktiv, usr_name, usr_var_structure, usr_var_publicfile, usr_var_privatefile, usr_lang, usr_wysiwyg, usr_fe, usr_2fa_enabled, usr_2fa_secret, usr_vars";
                     $sql .= ") VALUES (";
                     $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_user']) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_pass"]) . "', '" . mysqli_real_escape_string($db, $phpwcms["admin_email"]) . "', 1, 1, ";
-                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, '')";
+                    $sql .= "'" . mysqli_real_escape_string($db, $phpwcms['admin_name']) . "', '', '', '', '" . mysqli_real_escape_string($db, $phpwcms['default_lang']) . "', 2, 2, 0, '', '')";
                     $create_user = _dbQuery($sql, 'INSERT');
                 } else {
                     $user_check = false;

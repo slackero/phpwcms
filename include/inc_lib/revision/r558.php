@@ -61,5 +61,13 @@ function phpwcms_revision_r558() {
         }
     }
 
+    // 3. Ensure 2FA columns exist in phpwcms_user
+    if (!_dbColumnExists('phpwcms_user', 'usr_2fa_enabled')) {
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0 AFTER `usr_fe`", 'ALTER');
+    }
+    if (!_dbColumnExists('phpwcms_user', 'usr_2fa_secret')) {
+        _dbQuery("ALTER TABLE `" . DB_PREPEND . "phpwcms_user` ADD `usr_2fa_secret` varchar(64) NOT NULL DEFAULT '' AFTER `usr_2fa_enabled`", 'ALTER');
+    }
+
     return $status;
 }
