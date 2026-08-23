@@ -7155,11 +7155,6 @@ parameters:
 			count: 4
 			path: ../include/inc_tmpl/files.search.tmpl.php
 
-		-
-			message: '#^Variable \$BL might not be defined\.$#'
-			identifier: variable.undefined
-			count: 8
-			path: ../include/inc_tmpl/forum.list.tmpl.php
 
 		-
 			message: '#^Parameter \#2 \$replace of function str_replace expects array\<string\>\|string, int given\.$#'
