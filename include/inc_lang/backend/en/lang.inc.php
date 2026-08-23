@@ -23,6 +23,23 @@ $BL["login_username"]                   = 'username';
 $BL["login_userpass"]                   = 'password';
 $BL["login_button"]                     = 'Login';
 $BL["login_lang"]                       = 'backend language';
+$BL['login_forgot_password']            = 'Forgot password?';
+$BL['login_reset_title']                = 'Reset Password';
+$BL['login_reset_desc']                 = 'Enter your username or email address. We will send you a secure link to reset your password.';
+$BL['login_reset_button']               = 'Send Reset Link';
+$BL['login_reset_back']                 = 'Back to Login';
+$BL['login_reset_sent']                 = 'If an active account with matching credentials exists, an email with instructions to reset your password has been sent.';
+$BL['login_reset_invalid_token']        = 'This password reset link is invalid or has expired. Please request a new one.';
+$BL['login_reset_set_new_title']        = 'Set New Password';
+$BL['login_reset_set_new_desc']         = 'Please enter and confirm your new password.';
+$BL['login_reset_new_password']         = 'New password';
+$BL['login_reset_repeat_password']      = 'Repeat password';
+$BL['login_reset_password_mismatch']    = 'Passwords do not match!';
+$BL['login_reset_password_empty']       = 'Password cannot be empty!';
+$BL['login_reset_success']              = 'Your password has been reset successfully. You can now log in.';
+$BL['login_reset_email_subject']        = 'Password reset request for {SITE}';
+$BL['login_reset_email_body']           = 'Hello {NAME},&#13;&#13;A password reset request has been received for your backend user account ({LOGIN}) on {SITE}.&#13;&#13;To reset your password, please click the link below or copy and paste it into your browser:&#13;{RESET_LINK}&#13;&#13;This link is valid for 1 hour. If you did not request this password reset, you can safely ignore this message.&#13;&#13;Regards,&#13;{SITE}';
+
 
 // phpwcms.php
 $BL['be_nav_logout']                    = 'LOGOUT';

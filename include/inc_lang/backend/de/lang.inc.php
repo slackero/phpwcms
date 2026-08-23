@@ -21,6 +21,23 @@ $BL["login_username"] = 'Benutzer';
 $BL["login_userpass"] = 'Passwort';
 $BL["login_button"] = 'Anmelden';
 $BL["login_lang"] = 'Backend-Sprache';
+$BL['login_forgot_password'] = 'Passwort vergessen?';
+$BL['login_reset_title'] = 'Passwort zur&uuml;cksetzen';
+$BL['login_reset_desc'] = 'Geben Sie Ihren Benutzernamen oder Ihre E-Mail-Adresse ein. Wir senden Ihnen einen sicheren Link zum Zur&uuml;cksetzen Ihres Passworts.';
+$BL['login_reset_button'] = 'Link anfordern';
+$BL['login_reset_back'] = 'Zur&uuml;ck zur Anmeldung';
+$BL['login_reset_sent'] = 'Falls ein aktives Konto mit den entsprechenden Angaben existiert, wurde eine E-Mail mit Anweisungen zum Zur&uuml;cksetzen Ihres Passworts versendet.';
+$BL['login_reset_invalid_token'] = 'Dieser Link zum Zur&uuml;cksetzen des Passworts ist ung&uuml;ltig oder abgelaufen. Bitte fordern Sie einen neuen an.';
+$BL['login_reset_set_new_title'] = 'Neues Passwort festlegen';
+$BL['login_reset_set_new_desc'] = 'Bitte geben Sie Ihr neues Passwort ein und best&auml;tigen Sie es.';
+$BL['login_reset_new_password'] = 'Neues Passwort';
+$BL['login_reset_repeat_password'] = 'Passwort wiederholen';
+$BL['login_reset_password_mismatch'] = 'Die Passw&ouml;rter stimmen nicht &uuml;berein!';
+$BL['login_reset_password_empty'] = 'Das Passwort darf nicht leer sein!';
+$BL['login_reset_success'] = 'Ihr Passwort wurde erfolgreich zur&uuml;ckgesetzt. Sie k&ouml;nnen sich jetzt anmelden.';
+$BL['login_reset_email_subject'] = 'Passwort-Zur&uuml;cksetzung f&uuml;r {SITE}';
+$BL['login_reset_email_body'] = 'Hallo {NAME},&#13;&#13;f&uuml;r Ihr Backend-Benutzerkonto ({LOGIN}) auf {SITE} wurde eine Anfrage zum Zur&uuml;cksetzen des Passworts gestellt.&#13;&#13;Um ein neues Passwort festzulegen, klicken Sie bitte auf den folgenden Link oder kopieren Sie ihn in Ihren Browser:&#13;{RESET_LINK}&#13;&#13;Dieser Link ist 1 Stunde lang g&uuml;ltig. Falls Sie dieses Zur&uuml;cksetzen nicht angefordert haben, k&ouml;nnen Sie diese Nachricht ignorieren.&#13;&#13;Viele Gr&uuml;&szlig;e,&#13;{SITE}';
+
 
 // phpwcms.php
 $BL['be_nav_logout'] = 'Abmelden';

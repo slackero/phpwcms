@@ -495,6 +495,148 @@ if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'verify_2fa' && !e
 
 }
 
+$step_reset_request = false;
+$step_reset_set     = false;
+$reset_sent_success = false;
+$reset_done_success = false;
+$reset_error_msg    = '';
+$reset_token_valid  = false;
+$reset_user_row     = null;
+
+// Handle Password Reset Request
+if (isset($_GET['reset']) && $_GET['reset'] === '1' && empty($_POST['form_aktion'])) {
+    $step_reset_request = true;
+}
+
+// Process Password Reset Request (send email with reset token)
+if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'send_reset_link') {
+    $step_reset_request = true;
+    $reset_account = slweg($_POST['form_reset_account'] ?? '');
+
+    if (!$csrf_error && $reset_account !== '') {
+        $sql = 'SELECT usr_id, usr_login, usr_email, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE (usr_login = ' . _dbEscape($reset_account) . ' OR LOWER(usr_email) = ' . _dbEscape(strtolower($reset_account)) . ') AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+        $user_res = _dbQuery($sql);
+
+        if (!empty($user_res[0]['usr_id']) && !empty($user_res[0]['usr_email']) && is_valid_email($user_res[0]['usr_email'])) {
+            $user = $user_res[0];
+            $u_vars = @unserialize($user['usr_vars'], ['allowed_classes' => false]);
+            if (!is_array($u_vars)) {
+                $u_vars = [];
+            }
+
+            $raw_token = bin2hex(random_bytes(32));
+            $token_hash = hash('sha256', $raw_token);
+            $token_expires = time() + 3600; // 1 hour validity
+
+            $u_vars['password_reset'] = [
+                'token_hash' => $token_hash,
+                'expires'    => $token_expires,
+                'ip'         => PHPWCMS_GDPR_MODE ? getAnonymizedIp() : getRemoteIP()
+            ];
+
+            _dbUpdate('phpwcms_user', ['usr_vars' => serialize($u_vars)], 'WHERE usr_id = ' . (int)$user['usr_id']);
+
+            $reset_link = PHPWCMS_URL . get_login_file() . '?reset_token=' . rawurlencode($raw_token) . '&u=' . (int)$user['usr_id'];
+            $email_body = str_replace(
+                ['{NAME}', '{LOGIN}', '{SITE}', '{RESET_LINK}'],
+                [empty($user['usr_name']) ? $user['usr_login'] : $user['usr_name'], $user['usr_login'], PHPWCMS_HOST, $reset_link],
+                $BL['login_reset_email_body'] ?? ''
+            );
+            $email_subject = str_replace('{SITE}', PHPWCMS_HOST, $BL['login_reset_email_subject'] ?? 'Password reset request for {SITE}');
+
+            sendEmail([
+                'recipient'  => $user['usr_email'],
+                'toName'     => $user['usr_name'],
+                'subject'    => $email_subject,
+                'isHTML'     => false,
+                'text'       => $email_body,
+                'from'       => $phpwcms['admin_email'] ?? $phpwcms['SMTP_FROM_EMAIL'] ?? '',
+                'fromName'   => 'phpwcms'
+            ]);
+        }
+
+        // Always show the same neutral success message to prevent user enumeration
+        $reset_sent_success = true;
+    } else {
+        $err = 1;
+    }
+}
+
+// Verify Reset Token and Load Reset Password View
+if (!empty($_GET['reset_token']) && !empty($_GET['u'])) {
+    $token_param = slweg($_GET['reset_token']);
+    $user_id_param = (int)$_GET['u'];
+
+    $sql = 'SELECT usr_id, usr_login, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+    $user_res = _dbQuery($sql);
+
+    if (!empty($user_res[0]['usr_id'])) {
+        $u_vars = @unserialize($user_res[0]['usr_vars'], ['allowed_classes' => false]);
+        if (is_array($u_vars) && !empty($u_vars['password_reset'])) {
+            $reset_info = $u_vars['password_reset'];
+            if (!empty($reset_info['expires']) && $reset_info['expires'] >= time()) {
+                if (hash_equals($reset_info['token_hash'], hash('sha256', $token_param))) {
+                    $reset_token_valid = true;
+                    $step_reset_set    = true;
+                    $reset_user_row    = $user_res[0];
+                }
+            }
+        }
+    }
+
+    if (!$reset_token_valid) {
+        $step_reset_set  = true;
+        $reset_error_msg = $BL['login_reset_invalid_token'] ?? 'This password reset link is invalid or has expired. Please request a new one.';
+    }
+}
+
+// Process Set New Password
+if (isset($_POST['form_aktion']) && $_POST['form_aktion'] === 'set_new_password') {
+    $token_param = slweg($_POST['form_reset_token'] ?? '');
+    $user_id_param = (int)($_POST['form_reset_uid'] ?? 0);
+    $new_pw = slweg($_POST['form_new_password'] ?? '');
+    $repeat_pw = slweg($_POST['form_repeat_password'] ?? '');
+
+    $step_reset_set = true;
+
+    if ($csrf_error) {
+        $reset_error_msg = $BL['CSRF_POST_INVALID'] ?? 'Security token mismatch. Please try again.';
+    } elseif ($new_pw === '') {
+        $reset_error_msg = $BL['login_reset_password_empty'] ?? 'Password cannot be empty!';
+    } elseif ($new_pw !== $repeat_pw) {
+        $reset_error_msg = $BL['login_reset_password_mismatch'] ?? 'Passwords do not match!';
+    } else {
+        $sql = 'SELECT usr_id, usr_login, usr_name, usr_vars FROM ' . DB_PREPEND . 'phpwcms_user WHERE usr_id = ' . $user_id_param . ' AND usr_aktiv = 1 AND (usr_fe = 1 OR usr_fe = 2) LIMIT 1';
+        $user_res = _dbQuery($sql);
+
+        if (!empty($user_res[0]['usr_id'])) {
+            $u_vars = @unserialize($user_res[0]['usr_vars'], ['allowed_classes' => false]);
+            if (is_array($u_vars) && !empty($u_vars['password_reset'])) {
+                $reset_info = $u_vars['password_reset'];
+                if (!empty($reset_info['expires']) && $reset_info['expires'] >= time()) {
+                    if (hash_equals($reset_info['token_hash'], hash('sha256', $token_param))) {
+                        // Reset valid -> update password
+                        unset($u_vars['password_reset']);
+                        $hashed_password = password_hash($new_pw, PASSWORD_DEFAULT);
+
+                        _dbUpdate('phpwcms_user', [
+                            'usr_pass' => $hashed_password,
+                            'usr_vars' => serialize($u_vars)
+                        ], 'WHERE usr_id = ' . (int)$user_res[0]['usr_id']);
+
+                        $reset_done_success = true;
+                        $step_reset_set     = false;
+                    }
+                }
+            }
+        }
+
+        if (!$reset_done_success) {
+            $reset_error_msg = $BL['login_reset_invalid_token'] ?? 'This password reset link is invalid or has expired. Please request a new one.';
+        }
+    }
+}
+
 $reason_types = array(
     'default' => 'alert-default',
     'info' => 'alert-info',
@@ -555,7 +697,17 @@ $reason_types = array(
                     <div class="col-12 col-sm-9 col-md-6 col-lg-5 col-xl-4">
                         <div class="card mt-5">
                             <div class="card-header">
-                                <h2 class="card-title"><strong><?php echo $BL["login_text"]; ?></strong></h2>
+                                <h2 class="card-title"><strong><?php
+                                    if ($step_2fa) {
+                                        echo $BL['login_2fa_title'] ?? 'Two-Factor Authentication';
+                                    } elseif ($step_reset_set) {
+                                        echo $BL['login_reset_set_new_title'] ?? 'Set New Password';
+                                    } elseif ($step_reset_request) {
+                                        echo $BL['login_reset_title'] ?? 'Reset Password';
+                                    } else {
+                                        echo $BL["login_text"];
+                                    }
+                                ?></strong></h2>
                             </div>
 <div class="card-body">
 <?php if(isset($_GET['reason'])): ?>
@@ -631,6 +783,78 @@ if ($step_2fa):
 </div>
 </form>
 <?php
+elseif ($step_reset_set):
+?>
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="reset_set_form" autocomplete="off">
+<input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
+<input type="hidden" name="form_reset_token" value="<?php echo html_specialchars($token_param ?? ''); ?>" />
+<input type="hidden" name="form_reset_uid" value="<?php echo (int)($user_id_param ?? 0); ?>" />
+<input name="form_aktion" type="hidden" id="form_aktion" value="set_new_password" />
+
+<p class="small text-muted mb-3"><?php echo $BL['login_reset_set_new_desc'] ?? 'Please enter and confirm your new password.'; ?></p>
+
+<?php if (!empty($reset_error_msg)): ?>
+    <div class="alert alert-danger" role="alert"><?php echo $reset_error_msg; ?></div>
+<?php endif; ?>
+
+<?php if ($reset_token_valid): ?>
+    <div class="form-group">
+        <label class="sr-only" for="form_new_password"><?php echo $BL['login_reset_new_password'] ?? 'New password'; ?></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+            </div>
+            <input name="form_new_password" type="password" id="form_new_password" class="form-control" placeholder="<?php echo $BL['login_reset_new_password'] ?? 'New password'; ?>" autofocus="autofocus" required="required" autocomplete="new-password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="sr-only" for="form_repeat_password"><?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+            </div>
+            <input name="form_repeat_password" type="password" id="form_repeat_password" class="form-control" placeholder="<?php echo $BL['login_reset_repeat_password'] ?? 'Repeat password'; ?>" required="required" autocomplete="new-password" />
+        </div>
+    </div>
+
+    <button name="submit_set_password" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_reset_set_new_title'] ?? 'Set New Password'; ?> <i class="fa fa-arrow-right"></i></button>
+<?php endif; ?>
+
+<div class="text-center mt-3">
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
+</div>
+</form>
+<?php
+elseif ($step_reset_request):
+?>
+<form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="reset_request_form" autocomplete="off">
+<input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
+<input name="form_aktion" type="hidden" id="form_aktion" value="send_reset_link" />
+
+<p class="small text-muted mb-3"><?php echo $BL['login_reset_desc'] ?? 'Enter your username or email address. We will send you a secure link to reset your password.'; ?></p>
+
+<?php if ($reset_sent_success): ?>
+    <div class="alert alert-success" role="alert"><i class="fa fa-check-circle mr-1"></i> <?php echo $BL['login_reset_sent'] ?? 'If an active account with matching credentials exists, an email with instructions to reset your password has been sent.'; ?></div>
+<?php else: ?>
+    <div class="form-group">
+        <label class="sr-only" for="form_reset_account"><?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-envelope fa-fw"></i></span>
+            </div>
+            <input name="form_reset_account" type="text" id="form_reset_account" class="form-control" placeholder="<?php echo $BL['login_username'] . ' / ' . ($BL['be_newsletter_email'] ?? 'Email'); ?>" autofocus="autofocus" required="required" />
+        </div>
+    </div>
+
+    <button name="submit_reset" type="submit" class="btn btn-blue btn-block mt-4"><?php echo $BL['login_reset_button'] ?? 'Send Reset Link'; ?> <i class="fa fa-arrow-right"></i></button>
+<?php endif; ?>
+
+<div class="text-center mt-3">
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>" class="small text-muted"><i class="fa fa-arrow-left mr-1"></i> <?php echo $BL['login_reset_back'] ?? 'Back to Login'; ?></a>
+</div>
+</form>
+<?php
 else:
 ?>
 <form action="<?php echo PHPWCMS_URL.get_login_file() ?>" method="post" id="login_formular" onsubmit="return login(this);"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="off"<?php endif; ?>>
@@ -641,6 +865,10 @@ else:
 <input type="hidden" name="logintoken" value="<?php echo LOGIN_TOKEN; ?>" />
 <input name="form_aktion" type="hidden" id="form_aktion" value="login" />
 <?php
+
+    if ($reset_done_success) {
+        echo '<div class="alert alert-success" role="alert"><i class="fa fa-check-circle mr-1"></i> ' . ($BL['login_reset_success'] ?? 'Your password has been reset successfully. You can now log in.') . '</div>';
+    }
 
     if(file_exists(PHPWCMS_ROOT.'/setup')) {
         echo '<div class="alert alert-danger">'.$BL["setup_dir_exists"].'</div>';
@@ -690,7 +918,12 @@ else:
         <input name="form_password" type="password" id="form_password" placeholder="<?php echo $BL["login_userpass"] ?>" class="form-control" required="required"<?php if(empty($phpwcms['login_autocomplete'])): ?> autocomplete="new-password"<?php endif; ?> />
 	</div>
 </div>
-<hr class="mt-4 mb-3" />
+
+<div class="d-flex justify-content-end mt-2 mb-3">
+    <a href="<?php echo PHPWCMS_URL.get_login_file() ?>?reset=1" class="small text-muted"><i class="fa fa-question-circle mr-1"></i> <?php echo $BL['login_forgot_password'] ?? 'Forgot password?'; ?></a>
+</div>
+
+<hr class="mt-2 mb-3" />
 <div class="form-row">
     <div class="form-group col-6 mb-0">
         <label for="form_lang"><?php echo $BL['login_lang'] ?></label>
@@ -740,6 +973,10 @@ $formAll = str_replace( array("'", "\r", "\n", '<'), array("\'", '', " ", "<'+'"
     document.getElementById('loginFormArea').innerHTML = '<?php echo $formAll ?>';
     if (document.getElementById('form_2fa_code')) {
         document.getElementById('form_2fa_code').focus();
+    } else if (document.getElementById('form_reset_account')) {
+        document.getElementById('form_reset_account').focus();
+    } else if (document.getElementById('form_new_password')) {
+        document.getElementById('form_new_password').focus();
     } else if (document.getElementById('form_loginname')) {
         document.getElementById('form_loginname').focus();
     }
