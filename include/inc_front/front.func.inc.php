@@ -1682,7 +1682,7 @@ function international_date_format($language='', $format="Y/m/d", $date_now=0) {
 
     }
 
-    $lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr'];
+    $lang_aliases = ['cz' => 'cs', 'se' => 'sv', 'vn' => 'vi', 'el' => 'gr', 'uk' => 'ua', 'zh' => 'zh-cn', 'in' => 'id'];
     $lang_req = strtolower(substr($language, 0, 5));
     $lang_code_2 = substr($lang_req, 0, 2);
     if(is_file(PHPWCMS_ROOT.'/include/inc_lang/date/'.$lang_req.'.date.lang.php')) {
