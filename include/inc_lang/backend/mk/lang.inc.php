@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Macedonian, Language Code: mk
+// Language: MK, Language Code: mk
 
 $BL['usr_online']                  = 'посетители';
 $BL['login_text']                  = 'Внесете корисничко име и лозинка';
@@ -879,7 +879,7 @@ $BL['be_cnt_error_text']           = 'текст за грешка';
 $BL['be_cnt_css_style']            = 'CSS стил';
 $BL['be_cnt_css_class']            = 'CSS клас';
 $BL['be_cnt_send_copy_to']         = 'копие до';
-$BL['be_cnt_field']                = array('text' => 'текст (един ред)', 'email' => 'имейл адрес', 'textarea' => 'текстово поле (множество редове)', 'hidden' => 'скрито поле', 'password' => 'парола', 'select' => 'падащо меню', 'checkbox' => 'квадратче за отметка', 'radio' => 'радио бутон', 'upload' => 'качване на файл', 'submit' => 'бутон за изпращане', 'reset' => 'бутон за изчистване', 'special' => 'специално поле', 'country' => 'избор на държава', 'newsletter' => 'абонамент за бюлетин', 'captchaimg' => 'captcha изображение', 'captchacode' => 'captcha код', 'break' => 'нов ред', 'html' => 'HTML код');
+$BL['be_cnt_field']                = array('text' => 'текст (един ред)', 'email' => 'имейл адрес', 'textarea' => 'текстово поле (множество редове)', 'hidden' => 'скрито поле', 'password' => 'парола', 'select' => 'падащо меню', 'checkbox' => 'квадратче за отметка', 'radio' => 'радио бутон', 'upload' => 'качване на файл', 'submit' => 'бутон за изпращане', 'reset' => 'бутон за изчистване', 'special' => 'специално поле', 'country' => 'избор на държава', 'newsletter' => 'абонамент за бюлетин', 'captchaimg' => 'captcha изображение', 'captchacode' => 'captcha код', 'break' => 'нов ред', 'html' => 'HTML код', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'активирай Double Opt-In съгласно <a href="https://bg.wikipedia.org/wiki/%D0%9E%D0%B1%D1%89_%D1%80%D0%B5%D0%B3%D0%BB%D0%B0%D0%BC%D0%B5%D0%BD%D1%82_%D0%BE%D1%82%D0%BD%D0%BE%D1%81%D0%BD%D0%BE_%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0%D1%82%D0%B0_%D0%BD%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D0%B8%D1%82%D0%B5" target="_blank">GDPR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1650,3 +1650,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Наистина ли пре�
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Наистина ли премахвате този запис?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Ключът на полето "%s" е запазено системно име и не може да се използва.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Запазено системно име (напр. TITLE, SUBTITLE, TEXT и др.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Текстови';

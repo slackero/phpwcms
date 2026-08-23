@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Japanese, Language Code: ja
+// Language: JA, Language Code: ja
 
 $BL['usr_online']                  = 'users online';
 $BL['login_text']                  = 'ユーザー名とパスワードを入力してください';
@@ -873,7 +873,7 @@ $BL['be_cnt_error_text']           = 'error text';
 $BL['be_cnt_css_style']            = 'CSS style';
 $BL['be_cnt_css_class']            = 'CSS class';
 $BL['be_cnt_send_copy_to']         = 'copy to';
-$BL['be_cnt_field']                = array('text' => 'text (single-line)', 'email' => 'email', 'textarea' => 'text (multi-line)', 'hidden' => 'hidden', 'password' => 'password', 'select' => 'select menu', 'list' => 'list menu', 'checkbox' => 'checkbox', 'checkboxcopy' => 'checkbox (email copy on/off)', 'radio' => 'radio button', 'upload' => 'file', 'submit' => 'send button', 'reset' => 'reset button', 'break' => 'break', 'breaktext' => 'break text', 'special' => 'text (spezial)', 'captchaimg' => 'captcha image', 'captcha' => 'captcha code', 'newsletter' => 'newsletter', 'selectemail' => 'select email menu', 'country' => 'select country menu', 'mathspam' => 'math spam protect', 'summing' => 'summing', 'subtract' => 'subtract', 'divide' => 'divide', 'multiply' => 'multiply', 'calculation' => 'calculation:', 'formtracking_off' => 'disable form tracking', 'checktofrom' => 'email of recipient must be different from sender', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key', 'recaptchainv' => 'Invisible reCAPTCHA');
+$BL['be_cnt_field']                = array('text' => 'text (single-line)', 'email' => 'email', 'textarea' => 'text (multi-line)', 'hidden' => 'hidden', 'password' => 'password', 'select' => 'select menu', 'list' => 'list menu', 'checkbox' => 'checkbox', 'checkboxcopy' => 'checkbox (email copy on/off)', 'radio' => 'radio button', 'upload' => 'file', 'submit' => 'send button', 'reset' => 'reset button', 'break' => 'break', 'breaktext' => 'break text', 'special' => 'text (spezial)', 'captchaimg' => 'captcha image', 'captcha' => 'captcha code', 'newsletter' => 'newsletter', 'selectemail' => 'select email menu', 'country' => 'select country menu', 'mathspam' => 'math spam protect', 'summing' => 'summing', 'subtract' => 'subtract', 'divide' => 'divide', 'multiply' => 'multiply', 'calculation' => 'calculation:', 'formtracking_off' => 'disable form tracking', 'checktofrom' => 'email of recipient must be different from sender', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Sign up for a reCAPTCHA API key', 'recaptchainv' => 'Invisible reCAPTCHA', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'activate Double Opt-In according to <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation" target="_blank">General Data Protection Regulation</a> (GDPR)';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1625,3 +1625,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Really remove entry %s?';
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Really remove this entry?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'The field key "%s" is a reserved standard tag name and cannot be used.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserved standard tag name (e.g. TITLE, SUBTITLE, TEXT, etc.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'テキスト';

@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Croatian, Language Code: hr
+// Language: HR, Language Code: hr
 
 $BL['usr_online']                  = 'korisnika online';
 $BL['login_text']                  = 'Unesite svoje korisničko ime i lozinku';
@@ -873,7 +873,7 @@ $BL['be_cnt_error_text']           = 'tekst greske';
 $BL['be_cnt_css_style']            = 'CSS stil';
 $BL['be_cnt_css_class']            = 'CSS klasa';
 $BL['be_cnt_send_copy_to']         = 'CC ka';
-$BL['be_cnt_field']                = array('text' => 'text (single-line)', 'email' => 'email', 'textarea' => 'text (multi-line)', 'hidden' => 'hidden', 'password' => 'password', 'select' => 'select menu', 'list' => 'list menu', 'checkbox' => 'checkbox', 'radio' => 'radio button', 'upload' => 'file', 'submit' => 'send button', 'reset' => 'reset button', 'break' => 'break', 'breaktext' => 'break text', 'special' => 'text (spezial)', 'captchaimg' => 'captcha image', 'captcha' => 'captcha code', 'newsletter' => 'newsletter');
+$BL['be_cnt_field']                = array('text' => 'text (single-line)', 'email' => 'email', 'textarea' => 'text (multi-line)', 'hidden' => 'hidden', 'password' => 'password', 'select' => 'select menu', 'list' => 'list menu', 'checkbox' => 'checkbox', 'radio' => 'radio button', 'upload' => 'file', 'submit' => 'send button', 'reset' => 'reset button', 'break' => 'break', 'breaktext' => 'break text', 'special' => 'text (spezial)', 'captchaimg' => 'captcha image', 'captcha' => 'captcha code', 'newsletter' => 'newsletter', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'omogući Double Opt-In u skladu sa <a href="https://bs.wikipedia.org/wiki/GDPR" target="_blank">GDPR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1631,3 +1631,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Zaista ukloniti stavku %s?';
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Zaista ukloniti ovu stavku?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Ključ polja "%s" je rezervisani standardni naziv oznake i ne može se koristiti.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Rezervisani standardni naziv oznake (npr. TITLE, SUBTITLE, TEXT itd.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Tekstovi';

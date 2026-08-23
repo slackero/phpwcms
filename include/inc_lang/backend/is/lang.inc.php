@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Icelandic, Language Code: is
+// Language: IS, Language Code: is
 
 $BL['usr_online']                  = 'Brugere online';
 $BL['login_text']                  = 'Sláðu inn notandanafn og lykilorð';
@@ -880,7 +880,7 @@ $BL['be_cnt_error_text']           = 'fejltekst';
 $BL['be_cnt_css_style']            = 'CSS-stil';
 $BL['be_cnt_css_class']            = 'CSS-klasse';
 $BL['be_cnt_send_copy_to']         = 'kopi til';
-$BL['be_cnt_field']                = array('text' => 'tekst (enkelt linje)', 'email' => 'e-mailadresse', 'textarea' => 'tekstområde (flere linjer)', 'hidden' => 'skjult felt', 'password' => 'adgangskode', 'select' => 'valgmenu (dropdown)', 'checkbox' => 'afkrydsningsfelt', 'radio' => 'radioknap', 'upload' => 'filupload', 'submit' => 'send-knap', 'reset' => 'nulstil-knap', 'special' => 'specielt felt', 'country' => 'landevalg', 'newsletter' => 'nyhedsbrevstilmelding', 'captchaimg' => 'captcha-billede', 'captchacode' => 'captcha-indtastning', 'break' => 'linjeskift', 'html' => 'HTML-kode');
+$BL['be_cnt_field']                = array('text' => 'tekst (enkelt linje)', 'email' => 'e-mailadresse', 'textarea' => 'tekstområde (flere linjer)', 'hidden' => 'skjult felt', 'password' => 'adgangskode', 'select' => 'valgmenu (dropdown)', 'checkbox' => 'afkrydsningsfelt', 'radio' => 'radioknap', 'upload' => 'filupload', 'submit' => 'send-knap', 'reset' => 'nulstil-knap', 'special' => 'specielt felt', 'country' => 'landevalg', 'newsletter' => 'nyhedsbrevstilmelding', 'captchaimg' => 'captcha-billede', 'captchacode' => 'captcha-indtastning', 'break' => 'linjeskift', 'html' => 'HTML-kode', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'aktiver Double Opt-In i henhold til <a href="https://da.wikipedia.org/wiki/Generel_forordning_om_databeskyttelse" target="_blank">GDPR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1651,3 +1651,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Vil du virkelig fjerne elemen
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Vil du virkelig fjerne dette element?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Feltnøglen "%s" er et reserveret standard-tagnavn og kan ikke bruges.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserveret standard-tagnavn (f.eks. TITLE, SUBTITLE, TEXT osv.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Textar';

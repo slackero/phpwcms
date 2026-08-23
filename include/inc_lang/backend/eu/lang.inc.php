@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Basque, Language Code: eu
+// Language: EU, Language Code: eu
 
 $BL['usr_online']                  = 'Usuarios online';
 $BL['login_text']                  = 'Sartu zure erabiltzaile izena eta pasahitza';
@@ -872,7 +872,7 @@ $BL['be_cnt_error_text']           = 'texto de error';
 $BL['be_cnt_css_style']            = 'estilo CSS';
 $BL['be_cnt_css_class']            = 'clase CSS';
 $BL['be_cnt_send_copy_to']         = 'copia para';
-$BL['be_cnt_field']                = array('text' => 'texto (una l&iacute;nea)', 'email' => 'correo electr&oacute;nico', 'textarea' => 'texto (multil&iacute;nea)', 'hidden' => 'oculto', 'password' => 'contrase&ntilde;a', 'select' => 'men&uacute; desplegable', 'list' => 'men&uacute; de lista', 'checkbox' => 'casilla de verificaci&oacute;n', 'checkboxcopy' => 'casilla de verificaci&oacute;n (copia de correo activada/desactivada)', 'radio' => 'bot&oacute;n de opci&oacute;n', 'upload' => 'archivo', 'submit' => 'bot&oacute;n de env&iacute;o', 'reset' => 'bot&oacute;n de restablecer', 'break' => 'separador', 'breaktext' => 'texto intermedio', 'special' => 'texto (especial)', 'captchaimg' => 'imagen de captcha', 'captcha' => 'c&oacute;digo de captcha', 'newsletter' => 'bolet&iacute;n informativo', 'selectemail' => 'men&uacute; desplegable de correo', 'country' => 'men&uacute; desplegable de pa&iacute;ses', 'mathspam' => 'protecci&oacute;n contra spam matem&aacute;tico', 'summing' => 'sumar', 'subtract' => 'restar', 'divide' => 'dividir', 'multiply' => 'multiplicar', 'calculation' => 'c&aacute;lculo:', 'formtracking_off' => 'desactivar seguimiento del formulario', 'checktofrom' => 'el correo del destinatario debe ser diferente al del remitente', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Reg&iacute;strese para obtener una clave de API de reCAPTCHA', 'recaptchainv' => 'reCAPTCHA invisible');
+$BL['be_cnt_field']                = array('text' => 'texto (una l&iacute;nea)', 'email' => 'correo electr&oacute;nico', 'textarea' => 'texto (multil&iacute;nea)', 'hidden' => 'oculto', 'password' => 'contrase&ntilde;a', 'select' => 'men&uacute; desplegable', 'list' => 'men&uacute; de lista', 'checkbox' => 'casilla de verificaci&oacute;n', 'checkboxcopy' => 'casilla de verificaci&oacute;n (copia de correo activada/desactivada)', 'radio' => 'bot&oacute;n de opci&oacute;n', 'upload' => 'archivo', 'submit' => 'bot&oacute;n de env&iacute;o', 'reset' => 'bot&oacute;n de restablecer', 'break' => 'separador', 'breaktext' => 'texto intermedio', 'special' => 'texto (especial)', 'captchaimg' => 'imagen de captcha', 'captcha' => 'c&oacute;digo de captcha', 'newsletter' => 'bolet&iacute;n informativo', 'selectemail' => 'men&uacute; desplegable de correo', 'country' => 'men&uacute; desplegable de pa&iacute;ses', 'mathspam' => 'protecci&oacute;n contra spam matem&aacute;tico', 'summing' => 'sumar', 'subtract' => 'restar', 'divide' => 'dividir', 'multiply' => 'multiplicar', 'calculation' => 'c&aacute;lculo:', 'formtracking_off' => 'desactivar seguimiento del formulario', 'checktofrom' => 'el correo del destinatario debe ser diferente al del remitente', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Reg&iacute;strese para obtener una clave de API de reCAPTCHA', 'recaptchainv' => 'reCAPTCHA invisible', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Doble Opt-In';
 $BL['be_cnt_doubleoptin']          = 'activar Doble Opt-In seg&uacute;n el <a href="https://es.wikipedia.org/wiki/Reglamento_General_de_Protecci%C3%B3n_de_Datos" target="_blank">Reglamento General de Protecci&oacute;n de Datos</a> (RGPD)';
 $BL['be_cnt_novalidate']           = 'Novalidate (no validar)';
@@ -1624,3 +1624,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = '¿Realmente desea eliminar la
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = '¿Realmente desea eliminar esta entrada?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'La clave de campo "%s" es una etiqueta estándar reservada y no se puede usar.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nombre de etiqueta estándar reservado (ej. TITLE, SUBTITLE, TEXT, etc.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Testuak';

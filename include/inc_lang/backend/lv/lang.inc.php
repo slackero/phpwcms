@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Latvian, Language Code: lv
+// Language: LV, Language Code: lv
 
 $BL['usr_online']                  = 'prisijungę vartotojai';
 $BL['login_text']                  = 'Ievadiet savu lietotājvārdu un paroli';
@@ -879,7 +879,7 @@ $BL['be_cnt_error_text']           = 'klaidos tekstas';
 $BL['be_cnt_css_style']            = 'CSS stilius';
 $BL['be_cnt_css_class']            = 'CSS klasė';
 $BL['be_cnt_send_copy_to']         = 'kopija gavėjui';
-$BL['be_cnt_field']                = array('text' => 'Teksto laukas', 'textarea' => 'Teksto sritis', 'hidden' => 'Paslėptas laukas', 'password' => 'Slaptažodžio laukas', 'select' => 'Išskleidžiamasis sąrašas', 'selectmulti' => 'Kelių pasirinkimų sąrašas', 'checkbox' => 'Žymimasis langelis', 'checkboxmulti' => 'Keli žymimieji langeliai', 'radio' => 'Akutė (radio)', 'radiomulti' => 'Kelios akutės', 'upload' => 'Failo įkėlimas', 'submit' => 'Pateikimo mygtukas', 'reset' => 'Atstatymo mygtukas', 'special' => 'Specialus', 'email' => 'El. pašto adresas (patikra)', 'copy' => 'El. laiško kopija vartotojui', 'country' => 'Šalis', 'state' => 'Valstija / Apskritis', 'newsletter' => 'Naujienlaiškio prenumerata', 'break' => 'Eilutės lūžis', 'button' => 'Mygtukas', 'html' => 'HTML / Fiksuotas tekstas');
+$BL['be_cnt_field']                = array('text' => 'Teksto laukas', 'textarea' => 'Teksto sritis', 'hidden' => 'Paslėptas laukas', 'password' => 'Slaptažodžio laukas', 'select' => 'Išskleidžiamasis sąrašas', 'selectmulti' => 'Kelių pasirinkimų sąrašas', 'checkbox' => 'Žymimasis langelis', 'checkboxmulti' => 'Keli žymimieji langeliai', 'radio' => 'Akutė (radio)', 'radiomulti' => 'Kelios akutės', 'upload' => 'Failo įkėlimas', 'submit' => 'Pateikimo mygtukas', 'reset' => 'Atstatymo mygtukas', 'special' => 'Specialus', 'email' => 'El. pašto adresas (patikra)', 'copy' => 'El. laiško kopija vartotojui', 'country' => 'Šalis', 'state' => 'Valstija / Apskritis', 'newsletter' => 'Naujienlaiškio prenumerata', 'break' => 'Eilutės lūžis', 'button' => 'Mygtukas', 'html' => 'HTML / Fiksuotas tekstas', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'įjungti Double Opt-In pagal <a href="https://lt.wikipedia.org/wiki/Bendrasis_duomen%C5%B3_apsaugos_reglamentas" target="_blank">BDAR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1650,3 +1650,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Tikrai pašalinti įrašą %s
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Tikrai pašalinti šį įrašą?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'Lauko raktas "%s" yra rezervuotas standartinis žymos pavadinimas.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Rezervuotas standartinis žymos pavadinimas (pvz., TITLE, SUBTITLE, TEXT ir t.t.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Teksti';

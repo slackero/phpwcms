@@ -391,6 +391,34 @@ function setCursorPos(textObj) {
 }
 
 function insertAtCursorPos(textObj, textFieldValue) {
+    if (!textObj) return;
+    if (typeof textFieldValue !== 'string' || textFieldValue === '') return;
+    
+    // Ace Editor support
+    if (textObj._aceEditor) {
+        textObj._aceEditor.insert(textFieldValue);
+        textObj._aceEditor.focus();
+        return;
+    }
+
+    const fieldId = textObj.id || (textObj.name || '');
+
+    // CKEditor support
+    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances && (CKEDITOR.instances[fieldId] || CKEDITOR.instances[textObj.name])) {
+        const inst = CKEDITOR.instances[fieldId] || CKEDITOR.instances[textObj.name];
+        inst.insertHtml(textFieldValue);
+        inst.focus();
+        return;
+    }
+
+    // TinyMCE support
+    if (typeof tinymce !== 'undefined' && (tinymce.get(fieldId) || tinymce.get(textObj.name))) {
+        const inst = tinymce.get(fieldId) || tinymce.get(textObj.name);
+        inst.insertContent(textFieldValue);
+        inst.focus();
+        return;
+    }
+
     textObj.focus();
     if (typeof textObj.selectionStart === 'number' && typeof textObj.selectionEnd === 'number') {
         const rangeStart = textObj.selectionStart;
@@ -1401,9 +1429,13 @@ function initAceForTextarea(textarea) {
     textarea.style.display = 'none';
     textarea.dataset.aceInitialized = 'true';
 
+    const isUrlInitial = (mode === 'url');
+    const effectiveInitialMode = isUrlInitial ? 'text' : mode;
+
     const editor = ace.edit(editorDiv);
     editor.setTheme(getPhpwcmsAceTheme());
-    editor.session.setMode('ace/mode/' + mode);
+    editor.session.setMode('ace/mode/' + effectiveInitialMode);
+    editor.session.setUseWorker(false); // Disable web worker linting for snippets (prevents DOCTYPE warning)
     editor.setValue(textarea.value, -1);
     editor.session.setUseWrapMode(true);
     editor.setOptions({
@@ -1411,13 +1443,41 @@ function initAceForTextarea(textarea) {
         tabSize: 4,
         useSoftTabs: true,
         autoScrollEditorIntoView: true,
-        minLines: minLines,
-        maxLines: maxLines
+        minLines: isUrlInitial ? 1 : minLines,
+        maxLines: isUrlInitial ? 1 : maxLines
+    });
+    if (isUrlInitial) {
+        modeBadge.textContent = 'URL';
+    }
+
+    // Intercept Enter key and multi-line paste when in URL mode
+    editor.commands.addCommand({
+        name: 'disableEnterInUrl',
+        bindKey: { win: 'Enter|Shift-Enter', mac: 'Enter|Shift-Enter' },
+        exec: function(ed) {
+            if (modeBadge.textContent === 'URL') {
+                return true; // Suppress Enter in URL mode
+            }
+            return false; // Allow default enter in normal modes
+        },
+        multiSelectAction: 'forEach',
+        readOnly: false
+    });
+
+    editor.on('paste', function(e) {
+        if (modeBadge.textContent === 'URL' && e.text) {
+            e.text = e.text.replace(/[\r\n]+/g, ' ').trim();
+        }
     });
 
     // Two-way sync
     editor.session.on('change', () => {
-        textarea.value = editor.getValue();
+        let val = editor.getValue();
+        if (modeBadge.textContent === 'URL' && /[\r\n]/.test(val)) {
+            val = val.replace(/[\r\n]+/g, '').trim();
+            editor.setValue(val, 1);
+        }
+        textarea.value = val;
     });
 
     if (textarea.form) {
@@ -1435,7 +1495,8 @@ function initAceForTextarea(textarea) {
         if (isFull) {
             editor.setOption('maxLines', null);
         } else {
-            editor.setOption('maxLines', maxLines);
+            const isUrl = (modeBadge.textContent === 'URL');
+            editor.setOption('maxLines', isUrl ? 1 : maxLines);
         }
         editor.resize();
     });
@@ -1448,23 +1509,86 @@ function initAceForTextarea(textarea) {
         btnWrap.classList.toggle('active', !currentWrap);
     });
 
-    // Support radio-button format changes (e.g. Plain text / Markdown / Textile in cnt0 and news)
-    if (textarea.form) {
-        const formatRadios = textarea.form.querySelectorAll('input[name="ctext_format"], input[name="cnt_textformat"], input[name$="_format"], input[name$="_textformat"]');
-        if (formatRadios.length) {
-            formatRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    if (radio.checked) {
-                        let newMode = 'text';
-                        if (radio.value === 'markdown') newMode = 'markdown';
-                        else if (radio.value === 'textile') newMode = 'textile';
-                        else if (radio.value === 'html') newMode = 'html';
-                        else if (radio.value === 'php') newMode = 'php';
-                        editor.session.setMode('ace/mode/' + newMode);
-                        modeBadge.textContent = newMode.toUpperCase();
+    // Support mode switching via data-ace-target / data-ace-mode attributes or form format radios
+    if (textarea.form || textarea.id) {
+        const form = textarea.form || document;
+        const selector = textarea.id ? `#${textarea.id}` : (textarea.name ? `textarea[name="${textarea.name}"]` : '');
+
+        // 1. Explicit data-ace-target elements
+        let explicitControls = [];
+        if (textarea.id) {
+            explicitControls = Array.from(form.querySelectorAll(`[data-ace-target="#${textarea.id}"]`));
+        }
+        if (textarea.name && !explicitControls.length) {
+            explicitControls = Array.from(form.querySelectorAll(`[data-ace-target="${textarea.name}"], [data-ace-target="[name='${textarea.name}']"]`));
+        }
+
+        const updateEditorMode = (modeStr) => {
+            let m = (modeStr || 'text').toLowerCase().trim();
+            const isUrl = (m === 'url' || m === 'redirect');
+
+            if (m === 'markdown') m = 'markdown';
+            else if (m === 'textile') m = 'textile';
+            else if (m === 'html' || m === '2' || m === 'wysiwyg') m = 'html';
+            else if (m === 'php') m = 'php';
+            else if (m === 'javascript' || m === 'js') m = 'javascript';
+            else if (m === 'css') m = 'css';
+            else if (m === 'json') m = 'json';
+            else if (m === 'url' || m === 'redirect') m = 'text';
+            else if (m === 'plain' || m === 'br' || m === '0' || m === '1') m = 'text';
+            else m = 'text';
+
+            editor.session.setMode('ace/mode/' + m);
+            editor.session.setUseWorker(false);
+
+            if (isUrl) {
+                modeBadge.textContent = 'URL';
+                // Strip existing newlines if switching to URL
+                let currentVal = editor.getValue();
+                if (/[\r\n]/.test(currentVal)) {
+                    editor.setValue(currentVal.replace(/[\r\n]+/g, ' ').trim(), -1);
+                }
+                editor.setOptions({
+                    minLines: 1,
+                    maxLines: 1
+                });
+            } else {
+                modeBadge.textContent = m.toUpperCase();
+                editor.setOptions({
+                    minLines: minLines,
+                    maxLines: maxLines
+                });
+            }
+            editor.resize();
+        };
+
+        if (explicitControls.length) {
+            explicitControls.forEach(ctrl => {
+                ctrl.addEventListener('change', () => {
+                    if (ctrl.type === 'radio' || ctrl.type === 'checkbox') {
+                        if (ctrl.checked) {
+                            const mode = ctrl.dataset.aceMode || ctrl.value;
+                            updateEditorMode(mode);
+                        }
+                    } else if (ctrl.tagName === 'SELECT') {
+                        const opt = ctrl.options[ctrl.selectedIndex];
+                        const mode = opt ? (opt.dataset.aceMode || ctrl.value) : ctrl.value;
+                        updateEditorMode(mode);
                     }
                 });
             });
+        } else if (textarea.form) {
+            // 2. Fallback: discover sibling/form format radios
+            const formatRadios = textarea.form.querySelectorAll('input[name="ctext_format"], input[name="cnt_textformat"], input[name$="_format"], input[name$="_textformat"]');
+            if (formatRadios.length) {
+                formatRadios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (radio.checked) {
+                            updateEditorMode(radio.value);
+                        }
+                    });
+                });
+            }
         }
     }
 

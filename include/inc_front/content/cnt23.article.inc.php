@@ -164,8 +164,15 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
         switch($cnt_form["fields"][$key]['type']) {
 
             case 'text':
+            case 'tel':
+            case 'url':
+            case 'number':
+            case 'date':
+            case 'time':
+            case 'color':
+            case 'range':
                 /*
-                 * Text
+                 * Text & HTML5 Input types
                  */
                 if($POST_DO && isset($_POST[$POST_name])) {
                     $POST_val[$POST_name] = remove_unsecure_rptags(clean_slweg($_POST[$POST_name]));
@@ -177,13 +184,22 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     }
                 }
                 //
-                $form_field .= '<input type="text" name="'.$form_name.'" id="'.$form_name.'" ';
+                $input_type = HTML5_MODE ? $cnt_form["fields"][$key]['type'] : 'text';
+                $form_field .= '<input type="'.$input_type.'" name="'.$form_name.'" id="'.$form_name.'" ';
                 $form_field .= 'value="'.html_specialchars($cnt_form["fields"][$key]['value']).'"';
                 if($cnt_form["fields"][$key]['size']) {
-                    $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
+                    if(in_array($cnt_form["fields"][$key]['type'], array('number', 'range', 'date', 'time'))) {
+                        $form_field .= ' min="'.$cnt_form["fields"][$key]['size'].'"';
+                    } else {
+                        $form_field .= ' size="'.$cnt_form["fields"][$key]['size'].'"';
+                    }
                 }
                 if($cnt_form["fields"][$key]['max']) {
-                    $form_field .= ' maxlength="'.$cnt_form["fields"][$key]['max'].'"';
+                    if(in_array($cnt_form["fields"][$key]['type'], array('number', 'range', 'date', 'time'))) {
+                        $form_field .= ' max="'.$cnt_form["fields"][$key]['max'].'"';
+                    } else {
+                        $form_field .= ' maxlength="'.$cnt_form["fields"][$key]['max'].'"';
+                    }
                 }
                 if($cnt_form["fields"][$key]['class']) {
                     $form_field .= ' class="'.$cnt_form["fields"][$key]['class'].'"';
@@ -195,7 +211,7 @@ if(isset($cnt_form["fields"]) && is_array($cnt_form["fields"]) && count($cnt_for
                     $form_field .= ' placeholder="'.html_specialchars($cnt_form["fields"][$key]['placeholder']).'"';
                 }
                 if($cnt_form["fields"][$key]['required']) {
-                    $form_field .= ' required="required"';
+                    $form_field .= ' required="required" aria-required="true"';
                 }
                 $form_field .= ' />';
                 break;

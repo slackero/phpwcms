@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Urdu, Language Code: ur
+// Language: UR, Language Code: ur
 
 $BL['usr_online']                  = 'المستخدمين المتصلين حالياً';
 $BL['login_text']                  = 'اپنا صارف نام اور پاس ورڈ درج کریں';
@@ -879,7 +879,7 @@ $BL['be_cnt_error_text']           = 'نص الخطأ';
 $BL['be_cnt_css_style']            = 'نمط CSS';
 $BL['be_cnt_css_class']            = 'فئة CSS';
 $BL['be_cnt_send_copy_to']         = 'نسخة إلى';
-$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت');
+$BL['be_cnt_field']                = array('text' => 'حقل نصي', 'textarea' => 'منطقة نص', 'hidden' => 'حقل مخفي', 'password' => 'حقل كلمة المرور', 'select' => 'قائمة منسدلة', 'selectmulti' => 'قائمة متعددة الخيارات', 'checkbox' => 'مربع اختيار', 'checkboxmulti' => 'مربعات اختيار متعددة', 'radio' => 'زر اختيار', 'radiomulti' => 'أزرار اختيار متعددة', 'upload' => 'رفع ملف', 'submit' => 'زر إرسال', 'reset' => 'زر إعادة تعيين', 'special' => 'خاص', 'email' => 'البريد الإلكتروني (فحص)', 'copy' => 'نسخة بريد إلكتروني للمستخدم', 'country' => 'الدولة', 'state' => 'المنطقة / الولاية', 'newsletter' => 'الاشتراك في النشرة البريدية', 'break' => 'فاصل أسطر', 'button' => 'زر', 'html' => 'HTML / نص ثابت', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'تفعيل Double Opt-In وفقاً لـ <a href="https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D9%84%D8%A7%D8%A6%D8%AD%D8%A9_%D8%A7%D9%84%D8%B9%D8%A7%D9%85%D8%A9_%D9%84%D8%AD%D9%85%D8%A7%D9%8A%D8%A9_%D8%A7%D9%84%D8%A8%D9%8A%D8%A7%D9%86%D8%A7%D8%AA" target="_blank">GDPR</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1650,3 +1650,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'هل تريد حقاً إزا
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'هل تريد حقاً إزالة هذا العنصر؟';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'مفتاح الحقل "%s" هو اسم وسم قياسي محجوز ولا يمكن استخدامه.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'اسم وسم قياسي محجوز (مثل TITLE, SUBTITLE, TEXT إلخ).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'متن';

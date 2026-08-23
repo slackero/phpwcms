@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Albanian, Language Code: sq
+// Language: SQ, Language Code: sq
 
 $BL['usr_online']                  = 'utenti online';
 $BL['login_text']                  = 'Vendosni emrin e përdoruesit dhe fjalëkalimin tuaj';
@@ -872,7 +872,7 @@ $BL['be_cnt_error_text']           = 'testo di errore';
 $BL['be_cnt_css_style']            = 'stile CSS';
 $BL['be_cnt_css_class']            = 'classe CSS';
 $BL['be_cnt_send_copy_to']         = 'copia a';
-$BL['be_cnt_field']                = array('text' => 'testo (singola riga)', 'email' => 'email', 'textarea' => 'testo (multi-riga)', 'hidden' => 'nascosto', 'password' => 'password', 'select' => 'menu a discesa', 'list' => 'menu elenco', 'checkbox' => 'casella di controllo', 'checkboxcopy' => 'casella di controllo (copia email attiva/disattiva)', 'radio' => 'pulsante di opzione', 'upload' => 'file', 'submit' => 'pulsante di invio', 'reset' => 'pulsante di ripristino', 'break' => 'interruzione', 'breaktext' => 'testo di interruzione', 'special' => 'testo (speciale)', 'captchaimg' => 'immagine captcha', 'captcha' => 'codice captcha', 'newsletter' => 'newsletter', 'selectemail' => 'menu email a discesa', 'country' => 'menu selezione paese', 'mathspam' => 'protezione spam matematico', 'summing' => 'somma', 'subtract' => 'sottrai', 'divide' => 'dividi', 'multiply' => 'moltiplica', 'calculation' => 'calcolo:', 'formtracking_off' => 'disabilita tracciamento modulo', 'checktofrom' => 'l\'email del destinatario deve essere diversa da quella del mittente', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Registrati per una chiave API reCAPTCHA', 'recaptchainv' => 'reCAPTCHA invisibile');
+$BL['be_cnt_field']                = array('text' => 'testo (singola riga)', 'email' => 'email', 'textarea' => 'testo (multi-riga)', 'hidden' => 'nascosto', 'password' => 'password', 'select' => 'menu a discesa', 'list' => 'menu elenco', 'checkbox' => 'casella di controllo', 'checkboxcopy' => 'casella di controllo (copia email attiva/disattiva)', 'radio' => 'pulsante di opzione', 'upload' => 'file', 'submit' => 'pulsante di invio', 'reset' => 'pulsante di ripristino', 'break' => 'interruzione', 'breaktext' => 'testo di interruzione', 'special' => 'testo (speciale)', 'captchaimg' => 'immagine captcha', 'captcha' => 'codice captcha', 'newsletter' => 'newsletter', 'selectemail' => 'menu email a discesa', 'country' => 'menu selezione paese', 'mathspam' => 'protezione spam matematico', 'summing' => 'somma', 'subtract' => 'sottrai', 'divide' => 'dividi', 'multiply' => 'moltiplica', 'calculation' => 'calcolo:', 'formtracking_off' => 'disabilita tracciamento modulo', 'checktofrom' => 'l\'email del destinatario deve essere diversa da quella del mittente', 'recaptcha' => 'reCAPTCHA', 'recaptcha_signapikey' => 'Registrati per una chiave API reCAPTCHA', 'recaptchainv' => 'reCAPTCHA invisibile', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'attiva il Double Opt-In secondo il <a href="https://it.wikipedia.org/wiki/Regolamento_generale_sulla_protezione_dei_dati" target="_blank">Regolamento generale sulla protezione dei dati</a> (GDPR)';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1624,3 +1624,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Rimuovere davvero la voce %s?
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Rimuovere davvero questa voce?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'La chiave del campo "%s" è un nome tag standard riservato e non può essere utilizzata.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nome tag standard riservato (es. TITLE, SUBTITLE, TEXT, ecc.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Tekste';

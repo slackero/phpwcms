@@ -8,7 +8,7 @@
  *
  **/
 
-// Language: Galician, Language Code: gl
+// Language: GL, Language Code: gl
 
 $BL['usr_online']                  = 'utilizadores online';
 $BL['login_text']                  = 'Introduza o seu usuario e contrasinal';
@@ -879,7 +879,7 @@ $BL['be_cnt_error_text']           = 'texto de erro';
 $BL['be_cnt_css_style']            = 'estilo CSS';
 $BL['be_cnt_css_class']            = 'classe CSS';
 $BL['be_cnt_send_copy_to']         = 'cópia para';
-$BL['be_cnt_field']                = array('text' => 'texto (linha única)', 'email' => 'endereço de e-mail', 'textarea' => 'área de texto (múltiplas linhas)', 'hidden' => 'campo oculto', 'password' => 'palavra-passe', 'select' => 'menu de seleção (dropdown)', 'checkbox' => 'caixa de verificação', 'radio' => 'botão de opção (radio)', 'upload' => 'carregamento de ficheiro', 'submit' => 'botão de envio', 'reset' => 'botão de reposição', 'special' => 'campo especial', 'country' => 'seleção de país', 'newsletter' => 'subscrição de boletim', 'captchaimg' => 'imagem captcha', 'captchacode' => 'entrada de captcha', 'break' => 'quebra de linha', 'html' => 'código HTML');
+$BL['be_cnt_field']                = array('text' => 'texto (linha única)', 'email' => 'endereço de e-mail', 'textarea' => 'área de texto (múltiplas linhas)', 'hidden' => 'campo oculto', 'password' => 'palavra-passe', 'select' => 'menu de seleção (dropdown)', 'checkbox' => 'caixa de verificação', 'radio' => 'botão de opção (radio)', 'upload' => 'carregamento de ficheiro', 'submit' => 'botão de envio', 'reset' => 'botão de reposição', 'special' => 'campo especial', 'country' => 'seleção de país', 'newsletter' => 'subscrição de boletim', 'captchaimg' => 'imagem captcha', 'captchacode' => 'entrada de captcha', 'break' => 'quebra de linha', 'html' => 'código HTML', 'tel' => 'telephone', 'url' => 'url (web address)', 'number' => 'number', 'date' => 'date', 'time' => 'time', 'color' => 'color picker', 'range' => 'range slider');
 $BL['be_cnt_optin']                = 'Double Opt-In';
 $BL['be_cnt_doubleoptin']          = 'ativar Double Opt-In de acordo com o <a href="https://pt.wikipedia.org/wiki/Regulamento_Geral_sobre_a_Prote%C3%A7%C3%A3o_de_Dados" target="_blank">RGPD</a>';
 $BL['be_cnt_novalidate']           = 'Novalidate';
@@ -1649,3 +1649,6 @@ $BL['be_admin_custom_cpt_delete_entry_confirm'] = 'Realmente remover a entrada %
 $BL['be_admin_custom_cpt_delete_entry_confirm_simple'] = 'Realmente remover esta entrada?';
 $BL['be_admin_custom_cpt_err_reserved_field_key'] = 'A chave de campo "%s" é um nome de tag padrão reservado e não pode ser usada.';
 $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nome de tag padrão reservado (ex. TITLE, SUBTITLE, TEXT, etc.).';
+$BL['be_cnt_expand_all']           = 'Expand all';
+$BL['be_cnt_collapse_all']         = 'Collapse all';
+$BL['be_cnt_texts']                = 'Textos';
