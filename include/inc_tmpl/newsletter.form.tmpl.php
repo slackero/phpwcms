@@ -16,6 +16,7 @@ if (!defined('PHPWCMS_ROOT')) {
 // ----------------------------------------------------------------
 
 initJsCalendar();
+initAceEditor();
 
 // show newsletter form
 ?>
@@ -40,14 +41,90 @@ function showNewsletterTemplateData(tvar) {
   $("#newsletterTemplateInfo").html(tdata);
   return true;
 }
+
+let lastFocusedEditor = 'text';
+
+$(function() {
+  function bindEditorFocus() {
+    const textarea = document.getElementById('newsletter_text');
+    if (textarea) {
+      textarea.addEventListener('focus', () => { lastFocusedEditor = 'text'; });
+      if (textarea._aceEditor) {
+        textarea._aceEditor.on('focus', () => { lastFocusedEditor = 'text'; });
+      }
+    }
+
+    if (typeof tinymce !== 'undefined') {
+      const tm = tinymce.get('newsletter_html');
+      if (tm) {
+        tm.on('focus', () => { lastFocusedEditor = 'html'; });
+        tm.on('click', () => { lastFocusedEditor = 'html'; });
+        tm.on('keyup', () => { lastFocusedEditor = 'html'; });
+      }
+    }
+
+    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['newsletter_html']) {
+      const ck = CKEDITOR.instances['newsletter_html'];
+      ck.on('focus', () => { lastFocusedEditor = 'html'; });
+    }
+  }
+
+  bindEditorFocus();
+  setTimeout(bindEditorFocus, 500);
+  setTimeout(bindEditorFocus, 1500);
+
+  if (typeof tinymce !== 'undefined') {
+    tinymce.on('AddEditor', function(e) {
+      if (e.editor.id === 'newsletter_html') {
+        e.editor.on('init', () => {
+          e.editor.on('focus', () => { lastFocusedEditor = 'html'; });
+          e.editor.on('click', () => { lastFocusedEditor = 'html'; });
+          e.editor.on('keyup', () => { lastFocusedEditor = 'html'; });
+        });
+      }
+    });
+  }
+
+  $(document).on('click', '.nl-placeholder-btn', function(e) {
+    e.preventDefault();
+    const tag = $(this).data('placeholder') || $(this).text().trim();
+    insertNewsletterPlaceholder(tag);
+  });
+});
+
+function insertNewsletterPlaceholder(tag) {
+  const textarea = document.getElementById('newsletter_text');
+  const aceEditor = textarea ? textarea._aceEditor : null;
+  const tmEditor = (typeof tinymce !== 'undefined') ? tinymce.get('newsletter_html') : null;
+  const ckEditor = (typeof CKEDITOR !== 'undefined') ? CKEDITOR.instances['newsletter_html'] : null;
+
+  if (lastFocusedEditor === 'html') {
+    if (tmEditor && !tmEditor.isHidden()) {
+      tmEditor.focus();
+      tmEditor.selection.setContent(tag);
+      return;
+    } else if (ckEditor) {
+      ckEditor.focus();
+      ckEditor.insertHtml(tag);
+      return;
+    }
+  }
+
+  if (aceEditor) {
+    aceEditor.focus();
+    aceEditor.insert(tag);
+  } else if (textarea) {
+    insertAtCursorPos(textarea, tag);
+  }
+}
 </script>
 
-<form action="phpwcms.php?do=messages&amp;p=3&amp;s=<?php echo $newsletter["newsletter_id"] ?>&amp;edit=1" method="post" name="newsletter" target="_self" id="newsletter" onsubmit="hideLayer('newsletterButtons');enableStatusMessage('statusMessage', true, false);">
+<form action="phpwcms.php?do=messages&amp;p=3&amp;s=<?php echo $newsletter["newsletter_id"] ?>&amp;edit=1" method="post" name="newsletter" target="_self" id="newsletter" onsubmit="hideLayer('newsletterButtonsTop');hideLayer('newsletterButtonsBottom');$('#statusMessage').removeClass('d-none').addClass('d-flex');">
 <div class="row align-items-center">
 	<div class="col col-sm-auto text-center text-sm-left">
 		<h1><?php echo $BL['be_subnav_msg_newslettersend'] ?></h1>
 	</div>
-	<div class="col-12 col-sm text-center text-sm-right mb-3">
+	<div class="col-12 col-sm text-center text-sm-right mb-3" id="newsletterButtonsTop">
 		 <div class="form-group mb-0">
 				<input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
 				<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
@@ -263,8 +340,8 @@ function showNewsletterTemplateData(tvar) {
       ?>
     </script>
 
-    <div>
-        <p><strong><?php echo $BL['be_newsletter_htmlpart'] ?>:</strong></p>
+    <div class="form-group mt-3">
+        <label for="newsletter_html" class="font-weight-bold"><?php echo $BL['be_newsletter_htmlpart'] ?>:</label>
         <?php
 
         $wysiwyg_editor = array(
@@ -279,17 +356,18 @@ function showNewsletterTemplateData(tvar) {
         include PHPWCMS_ROOT.'/include/inc_lib/wysiwyg.editor.inc.php';
 
         ?>
-        <p class="mt-4"><strong><?php echo $BL['be_newsletter_textpart'] ?>:</strong></p>
+    </div>
 
-        <textarea name="newsletter_text" rows="25" wrap="off" class="code form-control form-control-sm autosize"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea>
-
-        <p class="mt-2"><?php echo $BL['be_newsletter_placeholder'] ?>:
-                    ###RECIPIENT_NAME###,
-                    ###RECIPIENT_EMAIL###,
-                    ###VERIFY_LINK###,
-                    ###DELETE_LINK###,
-                    ###SITE_URL###,
-                    ###OPENER###
+    <div class="form-group mt-4">
+        <label for="newsletter_text" class="font-weight-bold"><?php echo $BL['be_newsletter_textpart'] ?>:</label>
+        <textarea name="newsletter_text" id="newsletter_text" rows="8" data-mode="plain" data-min-lines="8" data-max-lines="45" wrap="off" class="code-editor form-control form-control-sm"><?php echo html($newsletter["newsletter_vars"]['text']) ?></textarea>
+        <p class="mt-2 mb-0"><strong><?php echo $BL['be_newsletter_placeholder'] ?>:</strong>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###RECIPIENT_NAME###" title="Click to insert at cursor position">###RECIPIENT_NAME###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###RECIPIENT_EMAIL###" title="Click to insert at cursor position">###RECIPIENT_EMAIL###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###VERIFY_LINK###" title="Click to insert at cursor position">###VERIFY_LINK###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###DELETE_LINK###" title="Click to insert at cursor position">###DELETE_LINK###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###SITE_URL###" title="Click to insert at cursor position">###SITE_URL###</a>
+          <a href="#" class="badge badge-light border text-monospace badge-align nl-placeholder-btn p-1 mr-1 mb-1" data-placeholder="###OPENER###" title="Click to insert at cursor position">###OPENER###</a>
         </p>
     </div>
 
@@ -303,11 +381,14 @@ function showNewsletterTemplateData(tvar) {
       </div>
     </div>
 
-    <div id="statusMessage"><i class="fas fa-spinner fa-spin text-success mr-2"></i><p><?php echo $BL['be_cnt_newsletter_prepare2'] ?></p></div>
+    <div id="statusMessage" class="alert alert-info align-items-center mt-3 mb-0 d-none" role="status">
+      <div class="spinner-border spinner-border-sm text-primary mr-2" role="status" aria-hidden="true"></div>
+      <span class="font-weight-bold"><?php echo $BL['be_cnt_newsletter_prepare2'] ?></span>
+    </div>
   </div>
 </div>
 
-     <div class="form-group align-items-center text-center text-sm-right mt-4 mb-0">
+     <div class="form-group align-items-center text-center text-sm-right mt-4 mb-0" id="newsletterButtonsBottom">
         <input name="newsletter_id" type="hidden" value="<?php echo $newsletter["newsletter_id"] ?>" />
         <button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-save"></i> <?php echo empty($newsletter["newsletter_id"]) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
         <button name="close" type="submit" class="btn btn-sm btn-blue ml-1" value="<?php echo $BL['be_article_cnt_button3'] ?>"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>

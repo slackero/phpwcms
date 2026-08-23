@@ -20,12 +20,12 @@ $count_sent  = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqueue WHERE queue_status=0 AND queue_pid='.$newsletter['newsletter_id'], 'COUNT');
 
 ?>
-<div class="card" id="messagesend" style="display:block;">
+<div class="card" id="messagesendcard" style="display:block;">
   <div class="card-header"><h2><i class="fa fa-paper-plane" aria-hidden="true"></i> <?php echo $BL['be_newsletter_sendnow'] ?></h2></div>
   <div class="card-body">
 
-    <div id="messagesend" style="display:block;">
-      <form action="include/inc_act/act_sendnewsletter.php" method="get" target="sendframe" id="sendnewsletter" data-csrf="off">
+    <div id="messagesend">
+      <form action="include/inc_act/act_sendnewsletter.php" method="get" target="sendframe" id="sendnewsletter" data-csrf="off" onsubmit="hideLayer('messagesendcard');showLayer('sendjobnow');">
         <input type="hidden" name="csrftoken" value="<?php echo get_token_get_value('csrftoken'); ?>" />
         <input type="hidden" name="newsletter_id" value="<?php echo intval($newsletter['newsletter_id']) ?>" />
 
@@ -75,9 +75,9 @@ $count_queue = _dbQuery('SELECT COUNT(*) FROM '.DB_PREPEND.'phpwcms_newsletterqu
 
               </select>
             </div>
-            <div class="col">&nbsp;/loop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loop pause:&nbsp;</div>
+            <div class="col-auto text-muted small">&nbsp;/ loop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pause:&nbsp;</div>
             <div class="col">
-              <select name="pause" id="pause" class="custom-select form-control">';
+              <select name="pause" id="pause" class="custom-select form-control">
               <?php
               for($i = 1; $i < 10; $i++) {
 

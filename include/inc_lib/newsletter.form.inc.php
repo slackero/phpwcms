@@ -149,9 +149,9 @@ if(isset($_POST["newsletter_id"])) {
 
                     }
 
-                    unset($recipients);
-
                 }
+
+                unset($recipients);
 
                 // create entries in the sending queue
 
