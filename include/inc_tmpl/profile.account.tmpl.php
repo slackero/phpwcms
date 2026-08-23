@@ -16,11 +16,25 @@ if (!defined('PHPWCMS_ROOT')) {
 }
 // ----------------------------------------------------------------
 
+if (!empty($_SESSION['wcs_user_admin'])) {
+    $profile_icon = 'fa-user-shield text-info';
+} elseif (!empty($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 2) {
+    $profile_icon = 'fa-user-check text-success';
+} elseif (isset($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 0) {
+    $profile_icon = 'fa-user text-warning';
+} else {
+    $profile_icon = 'fa-user-cog text-primary';
+}
 ?>
 <h1><?php echo $BL['be_nav_profile'] ?></h1>
 
 <div class="card">
-  <div class="card-header"><h2><i class="fa fa-user" aria-hidden="true"></i> <?php echo $BL['be_profile_account_title'] ?></h2></div>
+  <div class="card-header">
+      <h2>
+          <i class="fa <?php echo $profile_icon; ?> mr-1" aria-hidden="true"></i>
+          <?php echo $BL['be_profile_account_title'] ?>
+      </h2>
+  </div>
   <div class="card-body">
     <p><?php echo $BL['be_profile_account_text'] ?></p>
 

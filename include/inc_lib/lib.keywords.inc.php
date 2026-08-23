@@ -29,7 +29,7 @@ function backend_list_keywords() {
 	$list .= '			<button type="button" class="btn btn-sm btn-danger confirm-link" data-confirm="' . ($GLOBALS['BL']['be_cnt_delete_confirm'] ?? 'Delete selected items?') . '" onclick="keyword_submit_action(this, 0, \'delete\');"><i class="far fa-trash-alt mr-1"></i>' . ($GLOBALS['BL']['be_cnt_delete'] ?? 'Delete Selected') . '</button>' . LF;
 	$list .= '		</div>' . LF;
 	$list .= '	</div>' . LF;
-	$list .= '	<div class="card-body p-0">' . LF;
+	$list .= '	<div class="card-body">' . LF;
 	$list .= '		<div class="table-responsive">' . LF;
 	$list .= '			<table class="table table-sm table-hover mb-0">' . LF;
 	$list .= '				<thead class="thead-light">' . LF;

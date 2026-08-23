@@ -181,7 +181,7 @@ if($_SESSION['seolog_page'] > $_entry['pages_total']) {
 
 <div class="card mt-4 mb-0">
 	<div class="card-header"><h5 class="mb-0"><?php echo $BLM['listing_seo_top'] ?></h5></div>
-	<div class="card-body p-0">
+	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table table-sm table-striped table-hover table-valign-middle mb-0">
 				<thead>

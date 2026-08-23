@@ -281,7 +281,7 @@ if($BE['LANG'] === 'ar') {
       <div id="header-logo" class="navbar-header d-none d-md-flex align-items-center"><a href="phpwcms.php?<?php echo get_token_get_string(); ?>" class="navbar-brand"><img class="border-0" src="img/phpwcms-logo.svg" alt="phpwcms Content Management System" title="phpwcms Content Management System"></a></div>
       <a href="#" id="button-menu" class="d-md-none d-lg-none d-xl-none"><span class="fa fa-bars"></span></a>
       <ul class="nav navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="menu-image far fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="<?php echo PHPWCMS_URL ?>" target="_blank"><i class="fa fa-eye fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_func_struct_preview'] ?></span></a></li>
         <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-search fa-fw"></i>
@@ -307,9 +307,18 @@ if($BE['LANG'] === 'ar') {
         </li>
         <?php if (in_array($_SESSION['wcs_user_id'], $grouparray['profile'])) {
           $active = ($do === 'profile') ? ' active' : '';
-          echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="menu-image far fa-user fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
+          if (!empty($_SESSION['wcs_user_admin'])) {
+              $user_menu_icon = 'fa fa-user-shield';
+          } elseif (!empty($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 2) {
+              $user_menu_icon = 'fa fa-user-check';
+          } elseif (isset($_SESSION['wcs_user_fe']) && (int)$_SESSION['wcs_user_fe'] === 0) {
+              $user_menu_icon = 'fa fa-user';
+          } else {
+              $user_menu_icon = 'fa fa-user-cog';
+          }
+          echo '<li class="nav-item' . $active . '"><a class="nav-link" href="phpwcms.php?do=profile"><i class="' . $user_menu_icon . ' fa-fw"></i> <span class="d-none d-sm-inline-block">  '.$BL['be_nav_profile'].'</span></a></li>';
       } ?>
-        <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="menu-image fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
+        <li class="nav-item"><a class="nav-link" href="phpwcms.php?do=logout" target="_top"><i class="fa fa-sign-out-alt fa-fw"></i> <span class="d-none d-sm-inline-block"><?php echo $BL['be_nav_logout'] ?></span></a></li>
         <li class="nav-item dropdown theme-switcher">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="themeDropdown" aria-expanded="false" title="<?php echo html($BL['be_theme']); ?>">
                 <i class="theme-icon-active fa fa-adjust fa-fw"></i>
@@ -336,12 +345,12 @@ if($BE['LANG'] === 'ar') {
             if ($do === 'default') {
                 echo ' active';
             }
-            echo '"><a href="phpwcms.php?' . get_token_get_string() . '" title="Dashboard"><i class="menu-image fa fa-tachometer-alt fa-fw"></i> <span class="nav-label">Dashboard</span></a></li>';
+            echo '"><a href="phpwcms.php?' . get_token_get_string() . '" title="Dashboard"><i class="fa fa-tachometer-alt fa-fw"></i> <span class="nav-label">Dashboard</span></a></li>';
 
             $active = ($do === 'articles' || ($do === 'admin' && $p == 6)) ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['artcent']) || in_array($_SESSION['wcs_user_id'], $grouparray['artnews'])) {
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_articles']) . '"><i class="menu-image fa fa-copy fa-fw"></i> <span class="nav-label">' . $BL['be_nav_articles'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_articles']) . '"><i class="fa fa-copy fa-fw"></i> <span class="nav-label">' . $BL['be_nav_articles'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['artcent'])) {
                     $subnav .= subnavtext($BL['be_subnav_article_center'], 'phpwcms.php?do=articles', ($p == 0 || $p == 2) ? 0 : $p, 0, 0);
@@ -356,7 +365,7 @@ if($BE['LANG'] === 'ar') {
             $active = $do === 'files' ? ' active' : '';
             //only access if admin or permission set
             if (!empty($_SESSION['wcs_user_admin']) || in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_files']) . '"><i class="menu-image fa fa-folder-open fa-fw"></i> <span class="nav-label">' . $BL['be_nav_files'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_files']) . '"><i class="fa fa-folder-open fa-fw"></i> <span class="nav-label">' . $BL['be_nav_files'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
 
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['filecent'])) {
                     $subnav = subnavtext($BL['be_subnav_file_center'], 'phpwcms.php?do=files', $p, 0, 0);
@@ -372,7 +381,7 @@ if($BE['LANG'] === 'ar') {
 
             if (!empty($phpwcms['enable_backend_module']) && in_array($_SESSION['wcs_user_id'], $grouparray['module'])) {
                 $active = ($do === 'modules') ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_modules']) . '"><i class="menu-image fa fa-puzzle-piece fa-fw"></i> <span class="nav-label">' . $BL['be_nav_modules'] . '</span>  <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_modules']) . '"><i class="fa fa-puzzle-piece fa-fw"></i> <span class="nav-label">' . $BL['be_nav_modules'] . '</span>  <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 foreach ($phpwcms['modules'] as $value) {
                     if (isset($modulearray[$value['name']]) && in_array($_SESSION['wcs_user_id'], $modulearray[$value['name']])) {
@@ -385,7 +394,7 @@ if($BE['LANG'] === 'ar') {
             //newsletter
             if (!empty($phpwcms['enable_backend_newsletter']) && in_array($_SESSION['wcs_user_id'], $grouparray['nl'])) {
                 $active = $do === 'messages' ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_messages']) . '"><i class="menu-image fa fa-envelope fa-fw"></i> <span class="nav-label">' . $BL['be_nav_messages'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_messages']) . '"><i class="fa fa-envelope fa-fw"></i> <span class="nav-label">' . $BL['be_nav_messages'] . '</span> <span class="arrow fa fa-angle-down"></span></a> ';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['nlabo'])) {
                     $subnav .= subnavtext($BL['be_subnav_msg_newsletter'], 'phpwcms.php?do=messages&amp;p=2', $p, 2, 0);
@@ -402,7 +411,7 @@ if($BE['LANG'] === 'ar') {
             if (in_array($_SESSION['wcs_user_id'], $grouparray['adm'])) {
 
                 $active = ($do === 'admin' && $p != 6) ? ' active' : '';
-                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="menu-image fa fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa fa-angle-down"></span></a>';
+                echo '<li class="nav-item' . $active . '"><a href="#" title="' . html($BL['be_nav_admin']) . '"><i class="fa fa-cog fa-fw"></i> <span class="nav-label">' . $BL['be_nav_admin'] . '</span> <span class="arrow fa fa-angle-down"></span></a>';
                 $subnav = '';
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admlayout'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_pagelayout'], 'phpwcms.php?do=admin&amp;p=8', $p, 8, 0);
