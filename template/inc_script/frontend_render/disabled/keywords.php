@@ -1,26 +1,32 @@
 <?php
+// ----------------------------------------------------------------
+// Obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
+}
+// ----------------------------------------------------------------
 
 /**
  * Overwrite or extend keywords
  */
-
-if(empty($content['all_keywords'])) {
+if (empty($content['all_keywords'])) {
     $content['all_keywords'] = 'set, my, default, keywords';
 } else {
     $content['all_keywords'] .= ', add, my, default, keywords';
 }
 
 /**
- * Whenever you like or need set custom page description
+ * Custom page description
  */
 set_meta('description', 'This is my description for just a test');
 
 /**
- * No problem to set more or different meta tags when needed
+ * Custom robots tag
  */
 set_meta('robots', 'index,follow');
 
 /**
- * It is also easy to set http-equiv meta tags
+ * HTTP-equiv meta tag
  */
-set_meta('Content-Language', 'en', TRUE);
+set_meta('Content-Language', 'en', true);
+

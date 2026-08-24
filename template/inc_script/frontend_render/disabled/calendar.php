@@ -1,14 +1,14 @@
 <?php
 // ----------------------------------------------------------------
-// obligate check for phpwcms constants
+// Obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
-// used to get a calendar
+// Used to render a dynamic calendar
 
-if (strpos($content["all"], '{CALENDAR') !== false) {
+if (strpos($content['all'], '{CALENDAR') !== false) {
 
     include_once PHPWCMS_ROOT . '/include/inc_ext/php_calendar.php';
     include_once PHPWCMS_ROOT . '/include/inc_front/calendar.func.inc.php';
@@ -17,17 +17,18 @@ if (strpos($content["all"], '{CALENDAR') !== false) {
 
     $content['all'] = str_replace(
         '{CALENDAR}',
-        generate_calendar(array(
-            'locale' => 'de_DE',
+        generate_calendar([
+            'locale'          => get_locale_canonical(),
             'day_name_length' => 2,
-            'weekNrTitle' => 'KW',
-            'days' => $_baseCalVal['days'],
-            'pn' => array(
+            'weekNrTitle'     => '@@KW@@',
+            'days'            => $_baseCalVal['days'],
+            'pn'              => [
                 '&laquo;' => $_baseCalVal['prev_link'],
                 '&raquo;' => $_baseCalVal['next_link'],
-            )
-        )),
+            ],
+        ]),
         $content['all']
     );
 
 }
+
