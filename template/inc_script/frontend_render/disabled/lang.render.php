@@ -8,6 +8,13 @@
  *
  **/
 
+// ----------------------------------------------------------------
+// Obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
+}
+// ----------------------------------------------------------------
+
 /**
  * Set i18n default language
  */
@@ -17,48 +24,46 @@ $phpwcms['i18_lang'] = $phpwcms['default_lang'];
  * By default we have no language switch,
  * because no multiple languages defined
  */
-$content_search = array(
-    // 'nav_main' => '{NAV_MAIN}',
-    'switch_lang' => '{SWITCH_LANG}',
-    'current_lang' => '{LANG}'
-);
-$content_replace = array(
-    // 'nav_main' => '',
-    'switch_lang' => '',
-    'current_lang' => $phpwcms['i18_lang']
-);
-$content_search_regexp = array();
-$content_replace_regexp = array();
+$content_search = [
+    'switch_lang'  => '{SWITCH_LANG}',
+    'current_lang' => '{LANG}',
+];
+$content_replace = [
+    'switch_lang'  => '',
+    'current_lang' => $phpwcms['i18_lang'],
+];
+$content_search_regexp  = [];
+$content_replace_regexp = [];
 
 /**
  * Try to catch current alias and match it against opposite language
- *
  */
 
-if(is_array($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 1) {
+if (is_array($phpwcms['allowed_lang']) && count($phpwcms['allowed_lang']) > 1) {
 
-    $content['auto_lang'] = array(
+    $content['auto_lang'] = [
         'current'       => $phpwcms['default_lang'],
-        'topcount'      => $content['struct'][ $content['cat_id'] ]['acat_topcount'],
-        'struct_alias'  => $content['struct'][ $content['cat_id'] ]['acat_alias'],
-        'struct_depth'  => $LEVEL_KEY[ $content['cat_id'] ],
+        'topcount'      => $content['struct'][$content['cat_id']]['acat_topcount'],
+        'struct_alias'  => $content['struct'][$content['cat_id']]['acat_alias'],
+        'struct_depth'  => $LEVEL_KEY[$content['cat_id']],
         'preg_or'       => implode('|', $phpwcms['allowed_lang']),
-        'match_left'    => array(),
-        'match_right'   => array(),
+        'match_left'    => [],
+        'match_right'   => [],
         'is_left'       => false,
         'is_right'      => false,
-        'opposite'      => array(),
+        'opposite'      => [],
         'root_id'       => $phpwcms['lang_id'], // array_flip($phpwcms['id_lang']), yet done in init
-        'lang_native'   => array(
-            'de' => array('DE', 'Deutsch'),
-            'en' => array('EN', 'English'),
-            'fr' => array('FR', 'Français'),
-            'it' => array('IT', 'Italiano'),
-            'es' => array('ES', 'Español'),
-            'ru' => array('RU', 'Ру́сский'),
-            'zh' => array('中文', '中文')
-        )
-    );
+        'lang_native'   => [
+            'de' => ['DE', 'Deutsch'],
+            'en' => ['EN', 'English'],
+            'fr' => ['FR', 'Français'],
+            'it' => ['IT', 'Italiano'],
+            'es' => ['ES', 'Español'],
+            'ru' => ['RU', 'Ру́сский'],
+            'zh' => ['中文', '中文'],
+        ],
+    ];
+
 
     // regexp against allowed languages and any alias combination
     // like "de_alias" or "alias_de" or "de/alias"

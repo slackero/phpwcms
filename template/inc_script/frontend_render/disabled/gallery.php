@@ -1,17 +1,29 @@
 <?php
+/**
+ * phpwcms
+ *
+ * Image Gallery frontend render script
+ *
+ * Custom file-folder based image gallery renderer using phpwcmsImageGallery()
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
+
 // ----------------------------------------------------------------
-// obligate check for phpwcms constants
+// Obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
-// load phpwcmsImageGallery class
-include_once PHPWCMS_ROOT.'/include/inc_lib/imagegallery.inc.php';
+// Load phpwcmsImageGallery class
+include_once PHPWCMS_ROOT . '/include/inc_lib/imagegallery.inc.php';
 
 $gallery = new phpwcmsImageGallery();
-//$gallery->setQuerySeparator('?');
-$gallery->setAlias( 'aid=116' );
+$gallery->setAlias('aid=116');
 $gallery->image_sort            = 'DESC';
 $gallery->image_limit           = 3;
 
@@ -20,7 +32,7 @@ $gallery->list_thumbnail_crop   = 1;
 $gallery->list_image_width      = 70;
 $gallery->list_image_height     = 70;
 $gallery->list_image_crop       = 1;
-$gallery->list_template         = ' <div class="gallery">
+$gallery->list_template         = '<div class="gallery">
     {TITLE}
     {THUMBNAIL}
     {DESCRIPTION}
@@ -32,46 +44,46 @@ $gallery->list_thumbnail_suffix = '[/LINK]</div>';
 $gallery->list_thumbnail        = 0;
 $gallery->list_thumbnail_width  = 50;
 $gallery->list_thumbnail_height = 50;
-$gallery->gallery_only = true;
+$gallery->gallery_only          = true;
 
-if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
+if (strpos($content['all'], '{GALLERY}') !== false) {
 
-    $galleries = array();
+    $galleries = [];
 
     // List the galleries in selected sub gallery
-    if( isset($_getVar['subgallery']) ) {
+    if (isset($_getVar['subgallery'])) {
 
-        $_getVar['subgallery'] = intval($_getVar['subgallery']);
+        $subgallery_id = (int)$_getVar['subgallery'];
 
         $sql  = 'SELECT pf.*, pj.f_id AS f_root_id, pj.f_name AS f_root_name ';
-        $sql .= 'FROM '.DB_PREPEND.'phpwcms_file pf ';
-        $sql .= 'LEFT JOIN '.DB_PREPEND.'phpwcms_file pj ';
+        $sql .= 'FROM ' . DB_PREPEND . 'phpwcms_file pf ';
+        $sql .= 'LEFT JOIN ' . DB_PREPEND . 'phpwcms_file pj ';
         $sql .= 'ON pf.f_pid=pj.f_id ';
-        $sql .= 'WHERE pf.f_id='.$_getVar['subgallery'];
+        $sql .= 'WHERE pf.f_id=' . $subgallery_id;
 
-        $subgallery  = _dbQuery($sql);
+        $subgallery = _dbQuery($sql);
 
-        $gallery_breadcrumb = array();
+        $gallery_breadcrumb = [];
 
-        if(isset($subgallery[0])) {
+        if (isset($subgallery[0])) {
 
             $subgallery             = $subgallery[0];
             $subgallery_get         = '';
             $subgallery_class       = 'root';
-            $gallery_breadcrumb_url = rel_url(array(), array('gallery', 'subgallery'), $gallery->alias);
+            $gallery_breadcrumb_url = rel_url([], ['gallery', 'subgallery'], $gallery->alias);
 
-            // check if parent directory exists
-            if(!empty($subgallery['f_root_id'])) {
-                $gallery_breadcrumb[]   = '<a href="'.$gallery_breadcrumb_url.'" class="root">'.html_specialchars($subgallery['f_root_name']).'</a>';
-                $subgallery_get         = '&amp;subgallery='.$_getVar['subgallery'];
-                $subgallery_class       = 'sub';
+            // Check if parent directory exists
+            if (!empty($subgallery['f_root_id'])) {
+                $gallery_breadcrumb[] = '<a href="' . $gallery_breadcrumb_url . '" class="root">' . html_specialchars($subgallery['f_root_name']) . '</a>';
+                $subgallery_get       = '&amp;subgallery=' . $subgallery_id;
+                $subgallery_class     = 'sub';
             }
-            $gallery_breadcrumb[] = '<a href="'.$gallery_breadcrumb_url.$subgallery_get.'" class="'.$subgallery_class.'">'.html_specialchars($subgallery['f_name']).'</a>';
+            $gallery_breadcrumb[] = '<a href="' . $gallery_breadcrumb_url . $subgallery_get . '" class="' . $subgallery_class . '">' . html_specialchars($subgallery['f_name']) . '</a>';
 
         }
 
-        // show gallery
-        if( isset($_getVar['gallery']) ) {
+        // Show gallery
+        if (isset($_getVar['gallery'])) {
 
             $gallery->thumb_width           = 160;
             $gallery->thumb_height          = 160;
@@ -79,57 +91,54 @@ if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
             $gallery->height                = 700;
             $gallery->detail_thumbnail_crop = 1;
             $gallery->detail_title_prefix   = '<h2><strong>{DATE:d.m.Y}</strong> &#8211; ';
-            $gallery->detail_gallery_back   = '<div class="backlink">[LINK]Go back[/LINK]</div>';
+            $gallery->detail_gallery_back   = '<div class="backlink">[LINK]@@Go back@@[/LINK]</div>';
             $gallery->image_limit           = 0;
 
-            $gallery->detail_thumbnail_prefix   = '<div class="thumbnail">';
-            $gallery->detail_thumbnail_suffix   = '<hr />{DOWNLOAD}</div>';
+            $gallery->detail_thumbnail_prefix = '<div class="thumbnail">';
+            $gallery->detail_thumbnail_suffix = '<hr />{DOWNLOAD}</div>';
 
-            $gallery->download              = true;
-            $gallery->download_direct       = false;
-            $galleries[] = $gallery->showGallery( $_getVar['gallery'] );
+            $gallery->download        = true;
+            $gallery->download_direct = false;
+            $galleries[]              = $gallery->showGallery((int)$_getVar['gallery']);
 
-            // show title of selected gallery
-            if(isset($gallery->gallery['f_name'])) {
-                $gallery_breadcrumb[] = '<span class="active">'.html_specialchars($gallery->gallery['f_name']).'</span>';
+            // Show title of selected gallery
+            if (isset($gallery->gallery['f_name'])) {
+                $gallery_breadcrumb[] = '<span class="active">' . html_specialchars($gallery->gallery['f_name']) . '</span>';
             }
 
         } else {
 
-            $galleries[] = $gallery->listGalleries( $_getVar['subgallery'] );
+            $galleries[] = $gallery->listGalleries($subgallery_id);
 
         }
 
-        // render current gallery path
-        if(count($gallery_breadcrumb)) {
+        // Render current gallery path
+        if (count($gallery_breadcrumb)) {
             array_unshift($galleries, '<div class="gallery_breadcrumb">' . LF . '   ' . implode(' / ', $gallery_breadcrumb) . LF . '</div>');
         }
 
-        $gallery = implode(LF, $galleries);
+        $gallery_output = implode(LF, $galleries);
 
-
-    // list sub galleries in root
+    // List sub galleries in root
     } else {
 
         $gallery_root = $gallery->getGalleryTree();
-
         $g = 0;
 
-        foreach($gallery_root as $row) {
+        foreach ($gallery_root as $row) {
 
-            $subgalleries   = $gallery->getGallerySub($row['f_id']);
+            $subgalleries = $gallery->getGallerySub($row['f_id']);
+            $subgallery   = '';
 
-            $subgallery     = '';
-            if(is_array($subgalleries) && count($subgalleries)) {
+            if (is_array($subgalleries) && count($subgalleries)) {
 
-                $subgallery  = '        <ul class="sub">' . LF;
+                $subgallery = '        <ul class="sub">' . LF;
 
-                foreach($subgalleries as $sub) {
-
+                foreach ($subgalleries as $sub) {
                     $subgallery .= '            <li class="sub">' . LF;
-                    $subgallery .= '                <h3><a href="'.$gallery->url.'&amp;subgallery='.$sub['f_id'].'">';
-                    $subgallery .=                  html_specialchars($sub['f_name']).'</a></h3>' . LF;
-                    if($row['f_longinfo'] != '') {
+                    $subgallery .= '                <h3><a href="' . $gallery->url . '&amp;subgallery=' . $sub['f_id'] . '">';
+                    $subgallery .=                  html_specialchars($sub['f_name']) . '</a></h3>' . LF;
+                    if ($row['f_longinfo'] !== '') {
                         $subgallery .= '        ' . plaintext_htmlencode($sub['f_longinfo']) . LF;
                     }
                     $subgallery .= '            </li>' . LF;
@@ -141,14 +150,14 @@ if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
             $galleries[$g]  = ' <li class="root">' . LF;
             $galleries[$g] .= '     <h2>';
 
-            if($subgallery != '') {
+            if ($subgallery !== '') {
                 $galleries[$g] .= html_specialchars($row['f_name']);
             } else {
-                $galleries[$g] .= '<a href="'.$gallery->url.'&amp;subgallery='.$row['f_id'].'">' . html_specialchars($row['f_name']) . '</a>';
+                $galleries[$g] .= '<a href="' . $gallery->url . '&amp;subgallery=' . $row['f_id'] . '">' . html_specialchars($row['f_name']) . '</a>';
             }
 
             $galleries[$g] .= '</h2>' . LF;
-            if($row['f_longinfo'] != '') {
+            if ($row['f_longinfo'] !== '') {
                 $galleries[$g] .= '     ' . plaintext_htmlencode($row['f_longinfo']) . LF;
             }
             $galleries[$g] .= $subgallery;
@@ -157,9 +166,10 @@ if( strpos($content['all'], '{GALLERY}') !== FALSE ) {
 
         }
 
-        $gallery = count($galleries) ? '<ul class="gallery">' . LF . implode(LF, $galleries) . LF . '</ul>' : '';
+        $gallery_output = count($galleries) ? '<ul class="gallery">' . LF . implode(LF, $galleries) . LF . '</ul>' : '';
 
     }
 
-    $content['all']     = str_replace('{GALLERY}',              '<hr /><h1>Gallery</h1>'.LF.$gallery.LF.'<hr />',           $content['all']);
+    $content['all'] = str_replace('{GALLERY}', '<hr /><h1>@@Gallery@@</h1>' . LF . $gallery_output . LF . '<hr />', $content['all']);
 }
+

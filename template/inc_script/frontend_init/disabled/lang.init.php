@@ -8,48 +8,57 @@
  *
  **/
 
+// ----------------------------------------------------------------
+// Obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
+}
+// ----------------------------------------------------------------
+
 // Define some general language specifics
 
 /**
- * language setting based on site tree
- * $phpwcms['allowed_lang'] = array('en', 'de', 'fr', 'es');
+ * Language setting based on site tree
+ * $phpwcms['allowed_lang'] = ['en', 'de', 'fr', 'es'];
  * - DE
  * - EN
  * - FR
  * - ES
  * ...
  */
-$phpwcms['id_lang'] = array(
- // ID    LANG
-     1 => 'de',
-     2 => 'en',
-     3 => 'fr',
-     4 => 'es'
-);
+$phpwcms['id_lang'] = [
+    // ID => LANG
+    1 => 'de',
+    2 => 'en',
+    3 => 'fr',
+    4 => 'es',
+];
 $phpwcms['lang_id'] = array_flip($phpwcms['id_lang']);
 
 // The default menu entry ID (0 = root)
 $phpwcms['nav_entry_id'] = 0;
 
 // Redirect to default language entry based on browser
-if(!isset($LEVEL_ID[1])) {
+if (!isset($LEVEL_ID[1])) {
 
-    // try to link user to correct language
+    // Try to link user to correct language
     $phpwcms['DOCTYPE_LANG'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2)) : $phpwcms['default_lang'];
-    if(!isset($phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']])) {
+    if (!isset($phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']])) {
         $phpwcms['DOCTYPE_LANG'] = $phpwcms['default_lang'];
     }
 
     // Get current alias
-    $pagelink = empty($content['struct'][ $phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']] ]['acat_alias']) ? 'id='.$phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']] : $content['struct'][ $phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']] ]['acat_alias'];
-    $pagelink = $phpwcms["rewrite_url"] ? $pagelink . PHPWCMS_REWRITE_EXT : 'index.php?' . $pagelink;
+    $pagelink = empty($content['struct'][$phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']]]['acat_alias'])
+        ? 'id=' . $phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']]
+        : $content['struct'][$phpwcms['lang_id'][$phpwcms['DOCTYPE_LANG']]]['acat_alias'];
+    $pagelink = !empty($phpwcms['rewrite_url']) ? $pagelink . PHPWCMS_REWRITE_EXT : 'index.php?' . $pagelink;
 
     // Redirect
     headerRedirect(PHPWCMS_URL . $pagelink, 301);
 
-} elseif(isset($phpwcms['id_lang'][ $LEVEL_ID[1] ])) {
+} elseif (isset($phpwcms['id_lang'][$LEVEL_ID[1]])) {
 
-    $phpwcms['DOCTYPE_LANG'] = $phpwcms['default_lang'] = $phpwcms['id_lang'][ $LEVEL_ID[1] ];
+    $phpwcms['DOCTYPE_LANG'] = $phpwcms['default_lang'] = $phpwcms['id_lang'][$LEVEL_ID[1]];
 
     // Take the current LEVEL 1 as nav entry
     $phpwcms['nav_entry_id'] = $LEVEL_ID[1];
@@ -59,6 +68,7 @@ if(!isset($LEVEL_ID[1])) {
     $phpwcms['DOCTYPE_LANG'] = $phpwcms['default_lang'];
 
 }
+
 
 // switch default date setting
 if($phpwcms['default_lang'] != 'de') {
@@ -143,19 +153,10 @@ function search_opposite_alias($alias='') {
 
     $result = _dbGet('phpwcms_article', 'article_alias', $where, '', '', 1);
 
-    if(isset($result[0]['article_alias'])) {
+    if (isset($result[0]['article_alias'])) {
         return $result[0]['article_alias'];
     }
 
     return '';
 }
 
-/**
- * Search the opposite language based on ID
- */
-function get_opposite_language() {
-
-
-
-
-}

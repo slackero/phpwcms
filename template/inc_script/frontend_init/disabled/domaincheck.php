@@ -1,14 +1,21 @@
 <?php
+// ----------------------------------------------------------------
+// Obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
+}
+// ----------------------------------------------------------------
 
-// compare against current domain and redirect to correct if neccessary
+// Compare against current domain and redirect to correct if necessary
 
-//check active Domain
-if(isset($LEVEL_ID[1]) && $LEVEL_ID[1] == 1 && strpos(PHPWCMS_URL, 'mydomain1.com') === false) {
+// Check active domain
+if (isset($LEVEL_ID[1]) && $LEVEL_ID[1] === 1 && strpos(PHPWCMS_URL, 'mydomain1.com') === false) {
 
-    headerRedirect('http://www.mydomain1.com/'.rel_url( array(), array(), '', 'urlencode'));
+    headerRedirect('https://www.mydomain1.com/' . rel_url([], [], '', 'urlencode'));
 
-} elseif(isset($LEVEL_ID[1]) && $LEVEL_ID[1] == 2 && strpos(PHPWCMS_URL, 'mydomain2.com') === false) {
+} elseif (isset($LEVEL_ID[1]) && $LEVEL_ID[1] === 2 && strpos(PHPWCMS_URL, 'mydomain2.com') === false) {
 
-    headerRedirect('http://www.mydomain2.com/'.rel_url( array(), array(), '', 'urlencode'));
+    headerRedirect('https://www.mydomain2.com/' . rel_url([], [], '', 'urlencode'));
 
 }
+
