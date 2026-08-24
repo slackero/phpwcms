@@ -276,6 +276,7 @@ function write_conf_file($val) {
     $conf_file .= "\$phpwcms['trash_delete_files'] = false; // set to true if files should be deleted if trash is emptied\n";
     $conf_file .= "\$phpwcms['cmsimage_settings'] = array(); // to prevent flooding dynamic image resizing set which sizes are allowed only array('500x500x0', '1280x800x1'[, …]), first is used as fallback or 'default' or use 'default'=>'empty' to return empty gif\n";
     $conf_file .= "\$phpwcms['opengraph_imagesize'] = '1200x630x0'; // customize the open graph image size (Width x Height [x 1 = Crop], use 500x500 as minimum\n";
+    $conf_file .= "\$phpwcms['twitter_site'] = ''; // Twitter / X @handle of the website (e.g. '@phpwcms')\n";
     $conf_file .= "\$phpwcms['unregister_getVar']   = array(); // array('myvar1', 'myvar2', …) - if there are custom GET vars that should not be registered for global use in rel_url(), abs_url()\n";
     $conf_file .= "\$phpwcms['preserve_getVar'] = array(); // phpwcms removes some internal GET vars by default, add the ones that should be preserved\n";
     $conf_file .= "\$phpwcms['enable_GDPR'] = true; // Try to handle GDPR inside of phpwcms by default (anonymize IP...)\n";

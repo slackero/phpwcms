@@ -4602,6 +4602,122 @@ function parse_markdown(string $text) {
 }
 
 /**
+ * Render Social Share Links/Buttons
+ *
+ * Syntax:
+ * {SOCIAL_SHARE}
+ * {SOCIAL_SHARE:x,bluesky,threads,mastodon,linkedin,facebook,whatsapp,email}
+ *
+ * @param array $matches
+ * @return string
+ */
+function render_social_share($matches) {
+
+    $channels = !empty($matches[1]) ? convertStringToArray(strtolower($matches[1])) : ['x', 'bluesky', 'threads', 'linkedin', 'facebook', 'whatsapp', 'email'];
+
+    if(!count($channels)) {
+        return '';
+    }
+
+    $url   = !empty($GLOBALS['content']['opengraph']['url'])
+        ? $GLOBALS['content']['opengraph']['url']
+        : abs_url([], ['phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe']);
+    $title = !empty($GLOBALS['content']['opengraph']['title'])
+        ? sanitize_replacement_tags($GLOBALS['content']['opengraph']['title'])
+        : $GLOBALS['content']['pagetitle'];
+
+    $enc_url   = rawurlencode($url);
+    $enc_title = rawurlencode($title);
+    $enc_text  = rawurlencode($title . ' ' . $url);
+
+    $services = [
+        'x' => [
+            'name'  => 'X',
+            'url'   => 'https://x.com/intent/tweet?text=' . $enc_title . '&url=' . $enc_url,
+            'title' => 'Share on X',
+        ],
+        'twitter' => [
+            'name'  => 'X',
+            'url'   => 'https://x.com/intent/tweet?text=' . $enc_title . '&url=' . $enc_url,
+            'title' => 'Share on X',
+        ],
+        'bluesky' => [
+            'name'  => 'Bluesky',
+            'url'   => 'https://bsky.app/intent/compose?text=' . $enc_text,
+            'title' => 'Share on Bluesky',
+        ],
+        'threads' => [
+            'name'  => 'Threads',
+            'url'   => 'https://www.threads.net/intent/post?text=' . $enc_text,
+            'title' => 'Share on Threads',
+        ],
+        'mastodon' => [
+            'name'  => 'Mastodon',
+            'url'   => 'https://mastodonshare.com/?text=' . $enc_title . '&url=' . $enc_url,
+            'title' => 'Share on Mastodon',
+        ],
+        'linkedin' => [
+            'name'  => 'LinkedIn',
+            'url'   => 'https://www.linkedin.com/sharing/share-offsite/?url=' . $enc_url,
+            'title' => 'Share on LinkedIn',
+        ],
+        'facebook' => [
+            'name'  => 'Facebook',
+            'url'   => 'https://www.facebook.com/sharer/sharer.php?u=' . $enc_url,
+            'title' => 'Share on Facebook',
+        ],
+        'whatsapp' => [
+            'name'  => 'WhatsApp',
+            'url'   => 'https://api.whatsapp.com/send?text=' . $enc_text,
+            'title' => 'Share on WhatsApp',
+        ],
+        'telegram' => [
+            'name'  => 'Telegram',
+            'url'   => 'https://t.me/share/url?url=' . $enc_url . '&text=' . $enc_title,
+            'title' => 'Share on Telegram',
+        ],
+        'pinterest' => [
+            'name'  => 'Pinterest',
+            'url'   => 'https://pinterest.com/pin/create/button/?url=' . $enc_url . '&description=' . $enc_title,
+            'title' => 'Share on Pinterest',
+        ],
+        'email' => [
+            'name'  => 'Email',
+            'url'   => 'mailto:?subject=' . $enc_title . '&body=' . $enc_url,
+            'title' => 'Share via Email',
+        ],
+        'mail' => [
+            'name'  => 'Email',
+            'url'   => 'mailto:?subject=' . $enc_title . '&body=' . $enc_url,
+            'title' => 'Share via Email',
+        ],
+    ];
+
+    $html = '<nav class="social-share" aria-label="@@Social Share@@">';
+    $html .= '<ul class="social-share-list">';
+
+    foreach($channels as $channel) {
+        $channel = trim($channel);
+        if(isset($services[$channel])) {
+            $service = $services[$channel];
+            $is_mail = (strpos($service['url'], 'mailto:') === 0);
+            $target  = $is_mail ? '' : ' target="_blank" rel="noopener noreferrer"';
+
+            $html .= '<li class="social-share-item social-share-' . html_specialchars($channel) . '">';
+            $html .= '<a href="' . $service['url'] . '"' . $target . ' class="social-share-link" title="@@' . html_specialchars($service['title']) . '@@">';
+            $html .= '<span class="social-share-text">' . html_specialchars($service['name']) . '</span>';
+            $html .= '</a>';
+            $html .= '</li>';
+        }
+    }
+
+    $html .= '</ul>';
+    $html .= '</nav>';
+
+    return $html;
+}
+
+/**
  * Parse content with Textile
  *
  * @param string $text
@@ -4617,3 +4733,5 @@ function parse_textile(string $text) {
     }
     return $html;
 }
+
+

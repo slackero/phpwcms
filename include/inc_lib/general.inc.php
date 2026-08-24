@@ -2581,3 +2581,98 @@ function rel_download($hash = '', $filename = '', $countonly = false, $htmlencod
 
     return $href;
 }
+
+/**
+ * Resolve ISO language code to standardized OpenGraph / BCP47 locale
+ *
+ * @param string $lang_iso ISO language tag (e.g. 'en', 'de', 'de-AT', 'zh-cn')
+ * @return string Standardized locale (e.g. 'en_US', 'de_AT', 'zh_CN')
+ */
+function get_locale_canonical($lang_iso = '') {
+
+    $lang_iso = trim(strtolower((string)$lang_iso));
+
+    if($lang_iso === '') {
+        $lang_iso = !empty($GLOBALS['phpwcms']['DOCTYPE_LANG'])
+            ? strtolower($GLOBALS['phpwcms']['DOCTYPE_LANG'])
+            : (!empty($GLOBALS['phpwcms']['default_lang']) ? strtolower($GLOBALS['phpwcms']['default_lang']) : 'en');
+    }
+
+    $locale_map = [
+        'ar'    => 'ar_AR',
+        'bg'    => 'bg_BG',
+        'bn'    => 'bn_IN',
+        'bs'    => 'bs_BA',
+        'ca'    => 'ca_ES',
+        'cs'    => 'cs_CZ',
+        'da'    => 'da_DK',
+        'de'    => 'de_DE',
+        'de-de' => 'de_DE',
+        'de-at' => 'de_AT',
+        'de-ch' => 'de_CH',
+        'el'    => 'el_GR',
+        'en'    => 'en_US',
+        'en-gb' => 'en_GB',
+        'en-us' => 'en_US',
+        'es'    => 'es_ES',
+        'et'    => 'et_EE',
+        'eu'    => 'eu_ES',
+        'fi'    => 'fi_FI',
+        'fr'    => 'fr_FR',
+        'fr-fr' => 'fr_FR',
+        'gl'    => 'gl_ES',
+        'gr'    => 'el_GR',
+        'he'    => 'he_IL',
+        'hi'    => 'hi_IN',
+        'hr'    => 'hr_HR',
+        'hu'    => 'hu_HU',
+        'id'    => 'id_ID',
+        'is'    => 'is_IS',
+        'it'    => 'it_IT',
+        'ja'    => 'ja_JP',
+        'ko'    => 'ko_KR',
+        'lt'    => 'lt_LT',
+        'lv'    => 'lv_LV',
+        'mk'    => 'mk_MK',
+        'nb'    => 'nb_NO',
+        'nl'    => 'nl_NL',
+        'nn'    => 'nn_NO',
+        'no'    => 'nb_NO',
+        'pa'    => 'pa_IN',
+        'pl'    => 'pl_PL',
+        'pt'    => 'pt_PT',
+        'pt-br' => 'pt_BR',
+        'ro'    => 'ro_RO',
+        'ru'    => 'ru_RU',
+        'sk'    => 'sk_SK',
+        'sl'    => 'sl_SI',
+        'sq'    => 'sq_AL',
+        'sr'    => 'sr_RS',
+        'sv'    => 'sv_SE',
+        'ta'    => 'ta_IN',
+        'th'    => 'th_TH',
+        'tr'    => 'tr_TR',
+        'ua'    => 'uk_UA',
+        'uk'    => 'uk_UA',
+        'ur'    => 'ur_PK',
+        'vi'    => 'vi_VN',
+        'zh'    => 'zh_CN',
+        'zh-cn' => 'zh_CN',
+        'zh-tw' => 'zh_TW',
+        'zh-hk' => 'zh_HK',
+    ];
+
+    if(isset($locale_map[$lang_iso])) {
+        return $locale_map[$lang_iso];
+    }
+
+    if(class_exists('\Locale', false) || class_exists('Locale')) {
+        $canonical = \Locale::canonicalize(str_replace('_', '-', $lang_iso));
+        if(!empty($canonical)) {
+            return $canonical;
+        }
+    }
+
+    return (strlen($lang_iso) === 2) ? $lang_iso . '_' . strtoupper($lang_iso) : str_replace('-', '_', $lang_iso);
+}
+

@@ -1198,43 +1198,107 @@ if(empty($block['custom_htmlhead']['meta.keywords']) && !empty($content['all_key
     }
 }
 
-// Built-in Open Graph rendering
-if($content['opengraph']['render']) {
+// Built-in Open Graph and Social Sharing (Twitter/X Cards) rendering
+if($content['opengraph']['render'] && !empty($content['opengraph']['support'])) {
 
     if(empty($phpwcms['opengraph_imagesize'])) {
         $phpwcms['opengraph_imagesize'] = '1200x630x1';
     }
 
-    set_meta('og:type', $content['opengraph']['type'], 'property');
-    set_meta('og:title', sanitize_replacement_tags($content['opengraph']['title']), 'property');
-    if(empty($content['opengraph']['url'])) {
-        set_meta('og:url', abs_url([], ['phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe']), 'property');
-    } else {
-        set_meta('og:url', $content['opengraph']['url'], 'property');
+    $og_type  = !empty($content['opengraph']['type']) ? $content['opengraph']['type'] : 'website';
+    $og_title = sanitize_replacement_tags($content['opengraph']['title']);
+    $og_url   = empty($content['opengraph']['url'])
+        ? abs_url([], ['phpwcms_output_action', 'print', 'phpwcms-preview', 'unsubscribe', 'subscribe'])
+        : $content['opengraph']['url'];
+
+    set_meta('og:type', $og_type, 'property');
+    set_meta('og:title', $og_title, 'property');
+    set_meta('og:url', $og_url, 'property');
+
+    if(!empty($pagelayout['layout_title'])) {
+        set_meta('og:site_name', sanitize_replacement_tags($pagelayout['layout_title']), 'property');
+    }
+
+    // Set og:locale (e.g., en_US, de_DE)
+    $og_locale = !empty($content['opengraph']['locale']) ? $content['opengraph']['locale'] : '';
+    if(empty($og_locale)) {
+        $og_locale = get_locale_canonical(!empty($phpwcms['DOCTYPE_LANG']) ? $phpwcms['DOCTYPE_LANG'] : (!empty($phpwcms['default_lang']) ? $phpwcms['default_lang'] : 'en'));
+    }
+    if(!empty($og_locale)) {
+        set_meta('og:locale', $og_locale, 'property');
     }
 
     if(!empty($content['opengraph']['description'])) {
         set_meta('og:description', sanitize_replacement_tags($content['opengraph']['description']), 'property');
     }
+
+    // Process Open Graph images
     $content['opengraph']['has_image'] = false;
+    $first_social_image = '';
+
     if(isset($content['images']['shop']) && count($content['images']['shop'])) {
         foreach($content['images']['shop'] as $og_img) {
             $content['opengraph']['has_image'] = true;
-            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $img_url = PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['hash'].'/'.rawurlencode($og_img['name']);
+            if(empty($first_social_image)) {
+                $first_social_image = $img_url;
+            }
+            set_meta('og:image', $img_url, 'property', false, true);
         }
     }
     if(isset($content['images']['news']) && count($content['images']['news'])) {
         foreach($content['images']['news'] as $og_img) {
             $content['opengraph']['has_image'] = true;
-            set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'/'.rawurlencode($og_img['name']), 'property', false, true);
+            $img_url = PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$og_img['id'].'/'.rawurlencode($og_img['name']);
+            if(empty($first_social_image)) {
+                $first_social_image = $img_url;
+            }
+            set_meta('og:image', $img_url, 'property', false, true);
         }
     }
     if(isset($content['images']['article']['image'])) {
         $content['opengraph']['has_image'] = true;
-        set_meta('og:image', PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'/'.rawurlencode($content['images']['article']['name']), 'property');
+        $img_url = PHPWCMS_URL . PHPWCMS_RESIZE_IMAGE . '/'.$phpwcms['opengraph_imagesize'].'/'.$content['images']['article']['hash'].'/'.rawurlencode($content['images']['article']['name']);
+        if(empty($first_social_image)) {
+            $first_social_image = $img_url;
+        }
+        set_meta('og:image', $img_url, 'property');
     }
     if(!$content['opengraph']['has_image'] && is_file(PHPWCMS_TEMPLATE.'img/opengraph-default.png')) {
-        set_meta('og:image', PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png', 'property');
+        $first_social_image = PHPWCMS_URL.TEMPLATE_PATH.'img/opengraph-default.png';
+        set_meta('og:image', $first_social_image, 'property');
+    }
+
+    // Twitter / X Cards support
+    $twitter_card = '';
+
+    if(preg_match('/<!--TWITTER:(.*?)-->/', $content['all'], $match_twitter_cards)) {
+        $allowed_twitter_cards = [
+            'summary'             => true,
+            'summary_large_image' => true,
+            'player'              => true,
+            'app'                 => true,
+        ];
+        $custom_card = trim(strtolower($match_twitter_cards[1]));
+        if(isset($allowed_twitter_cards[$custom_card])) {
+            $twitter_card = $custom_card;
+        }
+    }
+
+    if(empty($twitter_card)) {
+        $twitter_card = !empty($content['opengraph']['twitter:card'])
+            ? $content['opengraph']['twitter:card']
+            : ($content['opengraph']['has_image'] ? 'summary_large_image' : 'summary');
+    }
+
+    set_meta('twitter:card', $twitter_card);
+
+    if(!empty($phpwcms['twitter_site'])) {
+        set_meta('twitter:site', $phpwcms['twitter_site']);
+    }
+
+    if(!empty($content['article_username']) && substr($content['article_username'], 0, 1) === '@') {
+        set_meta('twitter:creator', $content['article_username']);
     }
 }
 
@@ -1265,6 +1329,11 @@ if(isset($content['article_livedate'])) {
     $content['all'] = render_cnt_date($content['all'], now(), now(), now());
     $content['all'] = render_cnt_template($content['all'], 'CATEGORY', html_specialchars($content['struct'][ $content['cat_id'] ]['acat_name']));
 
+}
+
+// Social share links replacement tag
+if(strpos($content['all'], '{SOCIAL_SHARE') !== false) {
+    $content['all'] = preg_replace_callback('/\{SOCIAL_SHARE(?::([^\}]+))?\}/i', 'render_social_share', $content['all']);
 }
 
 // render JavaScript Plugins and/or JavaScript scripts that should be loaded in <head>
