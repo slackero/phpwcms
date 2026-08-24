@@ -10,20 +10,27 @@
 
 
 // ----------------------------------------------------------------
-// obligate check for phpwcms constants
+// Obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
-
 
 $_user_CSS = 'default';
 if(!empty($_GET['switchCSS'])) {
 
     $_user_CSS = clean_slweg($_GET['switchCSS']);
 
-    // try to write FontSizeCookie
-    setcookie('switchCSS', $_user_CSS, time()+86400, '/', getCookieDomain(), PHPWCMS_SSL, true);
+    // Write CSS cookie with modern cookie attributes
+    $cookie_options = [
+        'expires'  => time() + 86400 * 30,
+        'path'     => '/',
+        'domain'   => getCookieDomain(),
+        'secure'   => PHPWCMS_SSL,
+        'httponly' => false,
+        'samesite' => !empty($phpwcms['session.cookie_samesite']) ? $phpwcms['session.cookie_samesite'] : 'Lax',
+    ];
+    setcookie('switchCSS', $_user_CSS, $cookie_options);
 
 } elseif(isset($_SESSION['switchCSS'])) {
 
@@ -31,25 +38,20 @@ if(!empty($_GET['switchCSS'])) {
 
 } elseif(!empty($_COOKIE['switchCSS'])) {
 
-    $_user_CSS = $_COOKIE['switchCSS'];
+    $_user_CSS = clean_slweg($_COOKIE['switchCSS']);
 
 }
 
 if(session_id()) {
-
     $_SESSION['switchCSS'] = $_user_CSS;
-
 }
 
 unset($GLOBALS['_getVar']['switchCSS']);
 
-if($_user_CSS != 'default') {
-
-    $block['css'][]  = 'alternate/'.$_user_CSS.'.css';
-    $content['all'] = str_replace('[ALTCSS_URL]', abs_url(array('switchCSS' => 'default')), $content['all']);
-
+if($_user_CSS !== 'default') {
+    $block['css'][] = 'alternate/' . $_user_CSS . '.css';
+    $content['all'] = str_replace('[ALTCSS_URL]', abs_url(['switchCSS' => 'default']), $content['all']);
 } else {
-
-    $content['all'] = str_replace('[ALTCSS_URL]', abs_url(array('switchCSS' => 'alt')), $content['all']);
-
+    $content['all'] = str_replace('[ALTCSS_URL]', abs_url(['switchCSS' => 'alt']), $content['all']);
 }
+

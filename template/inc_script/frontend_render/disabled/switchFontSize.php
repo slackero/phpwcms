@@ -10,9 +10,9 @@
 
 
 // ----------------------------------------------------------------
-// obligate check for phpwcms constants
+// Obligate check for phpwcms constants
 if (!defined('PHPWCMS_ROOT')) {
-    die("You Cannot Access This Script Directly, Have a Nice Day.");
+    die('You Cannot Access This Script Directly, Have a Nice Day.');
 }
 // ----------------------------------------------------------------
 
@@ -20,13 +20,22 @@ $userFontSize = 'default';
 if(!empty($_GET['switchFontSize'])) {
 
     $userFontSize = clean_slweg($_GET['switchFontSize']);
-    // try to write FontSizeCookie
-    setcookie('switchFontSize', $userFontSize, time()+86400, '/', getCookieDomain(), PHPWCMS_SSL, true);
+
+    // Write FontSize cookie with modern cookie attributes
+    $cookie_options = [
+        'expires'  => time() + 86400 * 30,
+        'path'     => '/',
+        'domain'   => getCookieDomain(),
+        'secure'   => PHPWCMS_SSL,
+        'httponly' => false,
+        'samesite' => !empty($phpwcms['session.cookie_samesite']) ? $phpwcms['session.cookie_samesite'] : 'Lax',
+    ];
+    setcookie('switchFontSize', $userFontSize, $cookie_options);
 
 } elseif(isset($_SESSION['FontSize'])) {
     $userFontSize = $_SESSION['FontSize'];
 } elseif(!empty($_COOKIE['switchFontSize'])) {
-    $userFontSize = $_COOKIE['switchFontSize'];
+    $userFontSize = clean_slweg($_COOKIE['switchFontSize']);
 }
 
 if(session_id()) {
@@ -66,12 +75,13 @@ switch($userFontSize) {
 
 }
 
-if($userFontSize != 'default') {
-    $block['css'][]  = 'fontSize/'.$newFontSizeCSS;
+if($userFontSize !== 'default') {
+    $block['css'][] = 'fontSize/' . $newFontSizeCSS;
 }
 
 unset($GLOBALS['_getVar']['switchFontSize']);
 
-$content['all'] = str_replace('[FontSize+]', abs_url(array('switchFontSize' => $newFontSizeBigger)), $content['all']);
-$content['all'] = str_replace('[FontSize=]', abs_url(array('switchFontSize' => 'default')), $content['all']);
-$content['all'] = str_replace('[FontSize-]', abs_url(array('switchFontSize' => $newFontSizeSmaller)), $content['all']);
+$content['all'] = str_replace('[FontSize+]', abs_url(['switchFontSize' => $newFontSizeBigger]), $content['all']);
+$content['all'] = str_replace('[FontSize=]', abs_url(['switchFontSize' => 'default']), $content['all']);
+$content['all'] = str_replace('[FontSize-]', abs_url(['switchFontSize' => $newFontSizeSmaller]), $content['all']);
+

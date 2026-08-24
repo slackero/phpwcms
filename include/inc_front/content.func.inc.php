@@ -1341,7 +1341,7 @@ $content['all'] = preg_replace_callback('/<!--\s+JS:(.*?)\s+-->/s', 'renderHeadJ
 $content['all'] = preg_replace_callback('/<!--\s+CSS:(.*?)\s+-->/s', 'renderHeadCSS', $content['all']);
 
 // test for frontend.js
-if(!isset($GLOBALS['block']['custom_htmlhead']['frontend.js']) && preg_match('/swapImage|MM_swapImage|BookMark_Page|clickZoom|mailtoLink/', $content['all'])) {
+if(!isset($GLOBALS['block']['custom_htmlhead']['frontend.js']) && preg_match('/swapImage|MM_swapImage|BookMark_Page|clickZoom/', $content['all'])) {
     initFrontendJS();
 }
 
