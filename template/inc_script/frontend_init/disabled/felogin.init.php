@@ -30,10 +30,10 @@ if(is_file(PHPWCMS_TEMPLATE.'inc_script/felogin/felogin.ini.php')) {
         define('FELOGIN_ERROR_PREFIX',       empty($FELOGIN['FELOGIN_ERROR_PREFIX']) ? '<p class="error">' : cleandblsquote($FELOGIN['FELOGIN_ERROR_PREFIX']) );
         define('FELOGIN_ERROR_SUFFIX',       empty($FELOGIN['FELOGIN_ERROR_SUFFIX']) ? '</p>' : cleandblsquote($FELOGIN['FELOGIN_ERROR_SUFFIX']) );
 
-        define('FELOGIN_ERROR_EMPTY_USER',   empty($FELOGIN['FELOGIN_ERROR_EMPTY_USER']) ? 'Insert your username' : $FELOGIN['FELOGIN_ERROR_EMPTY_USER']);
-        define('FELOGIN_ERROR_UNKNOWN_USER', empty($FELOGIN['FELOGIN_ERROR_UNKNOWN_USER']) ? 'Please proof, the user is unknow' : $FELOGIN['FELOGIN_ERROR_UNKNOWN_USER']);
-        define('FELOGIN_ERROR_EMPTY_PASS',   empty($FELOGIN['FELOGIN_ERROR_EMPTY_PASS']) ? 'Insert your password' : $FELOGIN['FELOGIN_ERROR_EMPTY_PASS']);
-        define('FELOGIN_ERROR_WRONG_PASS',   empty($FELOGIN['FELOGIN_ERROR_WRONG_PASS']) ? 'Wrong password' : $FELOGIN['FELOGIN_ERROR_WRONG_PASS']);
+        define('FELOGIN_ERROR_EMPTY_USER',   empty($FELOGIN['FELOGIN_ERROR_EMPTY_USER']) ? '@@Insert your username@@' : $FELOGIN['FELOGIN_ERROR_EMPTY_USER']);
+        define('FELOGIN_ERROR_UNKNOWN_USER', empty($FELOGIN['FELOGIN_ERROR_UNKNOWN_USER']) ? '@@Please check, the user is unknown@@' : $FELOGIN['FELOGIN_ERROR_UNKNOWN_USER']);
+        define('FELOGIN_ERROR_EMPTY_PASS',   empty($FELOGIN['FELOGIN_ERROR_EMPTY_PASS']) ? '@@Insert your password@@' : $FELOGIN['FELOGIN_ERROR_EMPTY_PASS']);
+        define('FELOGIN_ERROR_WRONG_PASS',   empty($FELOGIN['FELOGIN_ERROR_WRONG_PASS']) ? '@@Wrong password@@' : $FELOGIN['FELOGIN_ERROR_WRONG_PASS']);
 
     }
 
@@ -78,14 +78,23 @@ if( defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
                     $FELOGIN_ERROR[] = FELOGIN_ERROR_EMPTY_PASS;
                     unset($_SESSION['FELOGIN_IS_LOGGED']);
 
-                } elseif($FELOGIN[ $FELOGIN_USER_NAME ] !== $FELOGIN_USER_PASS) {
-
-                    $FELOGIN_ERROR[] = FELOGIN_ERROR_WRONG_PASS;
-                    unset($_SESSION['FELOGIN_IS_LOGGED']);
-
                 } else {
 
-                    $_SESSION['FELOGIN_IS_LOGGED'] = $LEVEL_ID[FELOGIN_CHILD_LEVEL];
+                    $stored_pass = (string)$FELOGIN[ $FELOGIN_USER_NAME ];
+                    $is_valid = false;
+
+                    if(password_verify($FELOGIN_USER_PASS, $stored_pass)) {
+                        $is_valid = true;
+                    } elseif($stored_pass === $FELOGIN_USER_PASS) {
+                        $is_valid = true;
+                    }
+
+                    if(!$is_valid) {
+                        $FELOGIN_ERROR[] = FELOGIN_ERROR_WRONG_PASS;
+                        unset($_SESSION['FELOGIN_IS_LOGGED']);
+                    } else {
+                        $_SESSION['FELOGIN_IS_LOGGED'] = $LEVEL_ID[FELOGIN_CHILD_LEVEL];
+                    }
 
                 }
 

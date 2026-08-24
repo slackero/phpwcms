@@ -2,10 +2,8 @@
 
 ; 1) Do not edit first line of this file!
 ;    It's important regarding security.
-; 2) Do not use Windows Notepad to edit this file!
-;    Recommendation: www.pspad.com
-; 3) Format this file like Windows INI files
-;    http://en.wikipedia.org/wiki/INI_file
+; 2) Format this file like standard INI files.
+;    Passwords can be either plain text or password_hash() hashes (e.g. $2y$, $argon2id$).
 
 
 ; A) General settings
@@ -23,9 +21,9 @@ FELOGIN_LEVEL_ID			= 0
 ; {FELOGOUT_LINK_PREFIX}	replacement tag for FELOGIN_LOGOUT_LINK_PREFIX
 ; {FELOGOUT_SUFFIX}			replacement tag for FELOGIN_LOGOUT_LINK_SUFFIX
 ; {FELOGIN_USER}			replacement tag for the username (logged in)
-FELOGIN_LOGOUT_LINK			= "Logout {FELOGOUT_PREFIX}{FELOGIN_USER}{FELOGOUT_SUFFIX}"
+FELOGIN_LOGOUT_LINK			= "@@Logout@@ {FELOGOUT_PREFIX}{FELOGIN_USER}{FELOGOUT_SUFFIX}"
 
-; please use double singe quotes "''" as quote in HTML text
+; please use double single quotes "''" as quote in HTML text
 ; otherwise parsing the INI file will fail
 
 ; HTML prefix mainly used for logout link
@@ -38,10 +36,10 @@ FELOGIN_LOGOUT_LINK_SUFFIX	= "</span>"
 FELOGIN_LOGOUT_GET_VALUE	= "yes"
 
 ; Error messages
-FELOGIN_ERROR_EMPTY_USER	= "Insert your username"
-FELOGIN_ERROR_UNKNOWN_USER	= "Please proof, the user is unknow"
-FELOGIN_ERROR_EMPTY_PASS	= "Insert your password"
-FELOGIN_ERROR_WRONG_PASS	= "Wrong password"
+FELOGIN_ERROR_EMPTY_USER	= "@@Insert your username@@"
+FELOGIN_ERROR_UNKNOWN_USER	= "@@Please check, the user is unknown@@"
+FELOGIN_ERROR_EMPTY_PASS	= "@@Insert your password@@"
+FELOGIN_ERROR_WRONG_PASS	= "@@Wrong password@@"
 
 ; Wrap error messages by HTML
 FELOGIN_ERROR_PREFIX		= "<p class='error'>"
@@ -56,13 +54,13 @@ FELOGIN_ERROR_SUFFIX		= "</p>"
 
 ; list allowed login/password combination for section
 ; define 1 .. n entries per section
-; login = password
+; login = "password" (plain text or password_hash() hash)
 
 ; Sample level 1
 [1]
-hansi		= hansi123
-klausi		= klausi123
+hansi		= "hansi123"
+klausi		= "klausi123"
 
 ; Sample level 2
 [2]
-wusi		= wusi123
+wusi		= "wusi123"
