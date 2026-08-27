@@ -783,30 +783,30 @@ function getAltTitle($string = '', $altAndTitle = 0, $echo = 0) {
     return $attribute;
 }
 
-function sendEmail($data = array(
+function sendEmail($data = [
     'recipient' => '',
     'toName' => '',
     'subject' => '',
     'isHTML' => false,
     'html' => '',
     'text' => '',
-    'attach' => array(),
+    'attach' => [],
     'from' => '',
     'fromName' => '',
     'sender' => '',
     'senderName' => '',
-    'stringAttach' => array(),
-)) {
+    'stringAttach' => [],
+]) {
     // used to send a standardized email message
     global $phpwcms;
-    $mailInfo = array(0 => false, 1 => '');
-    $sendTo = array();
+    $mailInfo = [0 => false, 1 => ''];
+    $sendTo = [];
     $from = empty($data['from']) || !is_valid_email($data['from']) ? $phpwcms['SMTP_FROM_EMAIL'] : $data['from'];
     $sender = empty($data['sender']) || !is_valid_email($data['sender']) ? $from : $data['sender'];
-    $fromName = empty($data['fromName']) ? '' : cleanUpForEmailHeader($data['fromName']);
-    $senderName = empty($data['senderName']) ? $fromName : cleanUpForEmailHeader($data['senderName']);
-    $toName = empty($data['toName']) ? '' : cleanUpForEmailHeader($data['toName']);
-    $subject = empty($data['subject']) ? 'Email sent by phpwcms' : cleanUpForEmailHeader($data['subject']);
+    $fromName = empty($data['fromName']) ? '' : cleanUpForEmailHeader(i18n_substitute_text($data['fromName']));
+    $senderName = empty($data['senderName']) ? $fromName : cleanUpForEmailHeader(i18n_substitute_text($data['senderName']));
+    $toName = empty($data['toName']) ? '' : cleanUpForEmailHeader(i18n_substitute_text($data['toName']));
+    $subject = empty($data['subject']) ? 'Email sent by phpwcms' : cleanUpForEmailHeader(i18n_substitute_text($data['subject']));
     if (empty($data['html'])) {
         $data['html'] = '';
         $data['isHTML'] = false;
@@ -817,6 +817,12 @@ function sendEmail($data = array(
     }
     if (empty($data['text'])) {
         $data['text'] = '';
+    }
+    if ($data['html'] !== '') {
+        $data['html'] = i18n_substitute_text($data['html']);
+    }
+    if ($data['text'] !== '') {
+        $data['text'] = i18n_substitute_text($data['text']);
     }
     if (!is_array($data['recipient'])) {
         $recipient = str_replace([' ', ',', ' '], ['', ';', ''], trim($data['recipient']));
@@ -834,7 +840,7 @@ function sendEmail($data = array(
     if (count($sendTo)) {
         $mail = new PhpwcmsMailer($phpwcms);
         $mail->isHTML($data['isHTML']);
-        $mail->Subject = $data['subject'];
+        $mail->Subject = $subject;
         if ($data['isHTML']) {
             if ($data['text'] !== '') {
                 $mail->AltBody = $data['text'];

@@ -141,6 +141,9 @@ function i18n_substitute_text_token($token) {
 }
 // all contents starting and ending with @@ are replaced
 function i18n_substitute_text($tpl_output) {
+	if(strpos($tpl_output, '@@') === false) {
+		return $tpl_output;
+	}
 	global $i18n_tokens;
 	$f = i18n_get_filename();
 	if(!isset($i18n_tokens)) {

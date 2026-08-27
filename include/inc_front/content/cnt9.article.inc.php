@@ -90,137 +90,35 @@ if($media["source"]) {
 
     switch($media["media_player"]) {
 
-        case 0: //Quicktime Player/Plugin
-                $block['custom_htmlhead']['AC_QuickTime.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_QuickTime.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
+        case 0: // QuickTime / HTML5 Video & Audio
+        case 1: // RealPlayer fallback to HTML5
+        case 2: // Windows Media Player fallback to HTML5
+                $is_audio = ($media["media_type"] == 1) || preg_match('/\.(mp3|m4a|aac|wav|oga|ogg|flac|wma|ra)$/i', $media["source"]);
+                $controls = ($media["media_control"] == "true") ? ' controls' : '';
+                $autoplay = ($media["media_auto"] == "true") ? ' autoplay' : '';
 
-                $media["media_height"] = $media["media_height"] + ( $media["media_control"] == "true" ? 16 : 0 );
-                $media["width"]  = $media["media_width"]  ? 'width="'.$media["media_width"].'" '   : '';
-                $media["height"] = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
-
-                $media["code"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-                $media['code'] .= XHTML_MODE ? '    QT_WriteOBJECT_XHTML' : '   QT_WriteOBJECT';
-                $media['code'] .= "('".$media["source"]."', '".$media["media_width"]."', '".$media["media_height"]."', '', ";
-                $media['code'] .= "'autoplay', '".$media["media_auto"]."', ";
-                $media['code'] .= "'bgcolor', 'black', 'align', 'middle', 'cache', 'true', ";
-                $media['code'] .= "'controller', '".$media["media_control"]."', 'type', 'video/quicktime')";
-                $media["code"] .= LF.SCRIPT_CDATA_END.LF.'</script>';
-
-                $media["code"] .= '<noscript><object '.$media["width"].$media["height"].' id="'.$randomID.'" ';
-                if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-                    $media["code"] .= 'classid="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"';
+                if ($is_audio) {
+                    $audio_mime = !empty($media["mime"]) ? $media["mime"] : 'audio/mpeg';
+                    $media["code"]  = '<audio id="'.$randomID.'"'.$controls.$autoplay.' preload="metadata">'.LF;
+                    $media["code"] .= '  <source src="'.html($media["source"]).'" type="'.html($audio_mime).'">'.LF;
+                    $media["code"] .= $media["alt"];
+                    $media["code"] .= '</audio>'.LF;
                 } else {
-                    $media["code"] .= 'data="'.$media["source"].'" type="video/quicktime"';
-                }
-                $media['code'] .= '>'.LF;
-                $media["code"] .= ' <param name="src" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="type" value="video/quicktime"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="align" value="middle"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="autoplay" value="'.$media["media_auto"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="controller" value="'.$media["media_control"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="bgcolor" value="black"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="cache" value="true"'.HTML_TAG_CLOSE.LF;
-
-                $media["code"] .= $media["alt"];
-
-                $media["code"] .= '</object></noscript>'.LF;
-                break;
-
-        case 1: //Real Player/Plugin
-                $console = 'real'.$randomID;
-
-                $block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
-
-                $media["width"]         = $media["media_width"]  ? 'width="'.$media["media_width"].  '" ' : '';
-                $media["height"]        = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
-                $media['console']       = 'real'.$randomID;
-
-                $media["code"]  = LF.'<object id="'.$randomID.'" name="'.$randomID.'" '.$media["width"].$media["height"];
-                $media["code"] .= 'classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA">'.LF;
-                $media["code"] .= ' <param name="src" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="autostart" value="'.$media["media_auto"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="controls" value="ImageWindow"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="console" value="'.$media['console'].'"'.HTML_TAG_CLOSE.LF;
-                if(BROWSER_NAME == 'Mozilla') {
-                    $media["code"] .= ' <embed src="'.$media["source"].'" autostart="'.$media["media_auto"].'" ';
-                    $media["code"] .= 'id="e'.$randomID.'" name="e'.$randomID.'" '.$media["width"].$media["height"];
-                    $media["code"] .= 'controls="ImageWindow" console="'.$media['console'].'" type="audio/x-pn-realaudio-plugin">';
-                    $media["code"] .= '</embed>';
-                }
-
-                $media["code"] .= $media["alt"];
-
-                $media["code"] .= '</object>'.LF;
-                if($media["media_control"] == "true") {
-                    $media["code"] .= '<br />'.LF.'<object id="'.$randomID.'_C" name="'.$randomID.'_C" height="32" '.$media["width"];
-                    $media["code"] .= 'classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA">'.LF;
-                    $media["code"] .= ' <param name="src" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-                    $media["code"] .= ' <param name="autostart" value="'.$media["media_auto"].'"'.HTML_TAG_CLOSE.LF;
-                    $media["code"] .= ' <param name="controls" value="ControlPanel"'.HTML_TAG_CLOSE.LF;
-                    $media["code"] .= ' <param name="console" value="'.$media['console'].'"'.HTML_TAG_CLOSE.LF;
-                    if(BROWSER_NAME == 'Mozilla') {
-                        $media["code"] .= ' <embed src="'.$media["source"].'" autostart="'.$media["media_auto"].'" ';
-                        $media["code"] .= 'id="e'.$randomID.'_C" name="e'.$randomID.'_C" height="32" '.$media["width"];
-                        $media["code"] .= 'controls="ControlPanel" console="'.$media['console'].'" type="audio/x-pn-realaudio-plugin">';
-                        $media["code"] .= '</embed>';
+                    $width_attr = $media["media_width"] ? ' width="'.intval($media["media_width"]).'"' : '';
+                    $height_attr = $media["media_height"] ? ' height="'.intval($media["media_height"]).'"' : '';
+                    $video_mime = !empty($media["mime"]) ? $media["mime"] : 'video/mp4';
+                    if ($video_mime === 'video/quicktime' || preg_match('/\.(mov|mp4|m4v)$/i', $media["source"])) {
+                        $video_mime = 'video/mp4';
+                    } elseif (preg_match('/\.webm$/i', $media["source"])) {
+                        $video_mime = 'video/webm';
+                    } elseif (preg_match('/\.(ogv|ogg)$/i', $media["source"])) {
+                        $video_mime = 'video/ogg';
                     }
-                    $media["code"] .= '</object>'.LF;
+                    $media["code"]  = '<video id="'.$randomID.'"'.$width_attr.$height_attr.$controls.$autoplay.' playsinline preload="metadata" style="max-width:100%;height:auto;">'.LF;
+                    $media["code"] .= '  <source src="'.html($media["source"]).'" type="'.html($video_mime).'">'.LF;
+                    $media["code"] .= $media["alt"];
+                    $media["code"] .= '</video>'.LF;
                 }
-
-                if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-                    $media["code"]    = trim($media["code"]);
-                    $media["iecode"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-                    $media["iecode"] .= "   _writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
-                    $media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
-                    $media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
-                    $media["code"]    = $media["iecode"];
-                }
-
-                break;
-
-
-        case 2: //Windows Media Player/Plugin
-                $block['custom_htmlhead']['AC_WriteActiveX.js'] = '  <script src="'.TEMPLATE_PATH.'inc_js/AC_WriteActiveX.js"'.SCRIPT_ATTRIBUTE_TYPE.'></script>';
-
-                $media["width"]         = $media["media_width"]  ? 'width="'.$media["media_width"].'" ' : '';
-                $media["media_height"]  = $media["media_height"] + ($media["media_control"] == "true" ? 45 : 0);
-                $media["height"]        = $media["media_height"] ? 'height="'.$media["media_height"].'" ' : '';
-
-                $media["code"]  = LF.'<object id="'.$randomID.'" name="'.$randomID.'" '.$media["width"].$media["height"];
-                if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-                    $media["code"] .= 'classid="clsid:22D6f312-B0F6-11D0-94AB-0080C74C7E95" ';
-                    $media["code"] .= 'type="application/x-oleobject"';
-                } else {
-                    $media["code"] .= 'data="'.$media["source"].'" type="'.((!$media["media_src"] && $media["media_type"]) ? $media["media_type"] : 'video/x-ms-wmv').'"';
-                }
-                $media["code"] .= '>'.LF;
-                $media["code"] .= ' <param name="filename" value="'.$media["source"].'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="autostart" value="'.($media["media_auto"]=='true'?1:0).'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="autosize" value="0"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="showstatusbar" value="0"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="showcontrols" value="'.($media["media_control"]=='true'?1:0).'"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="showdisplay" value="0"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="displaysize" value="0"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="showtracker" value="1"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="enabletracker" value="1"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="autorewind" value="0"'.HTML_TAG_CLOSE.LF;
-                $media["code"] .= ' <param name="animationatstart" value="1"'.HTML_TAG_CLOSE.LF;
-                if($media["width"] && $media["width"] <=240) {
-                    $media["code"] .= ' <param name="showpositioncontrols" value="0"'.HTML_TAG_CLOSE.LF;
-                }
-
-                $media["code"] .= $media["alt"];
-
-                $media["code"] .= '</object>'.LF;
-
-                if(BROWSER_NAME == 'IE' && BROWSER_OS == 'Win') {
-                    $media["code"]    = trim($media["code"]);
-                    $media["iecode"]  = LF.'<script'.SCRIPT_ATTRIBUTE_TYPE.'>'.LF.SCRIPT_CDATA_START.LF;
-                    $media["iecode"] .= "   _writeActiveXObject('".str_replace(LF, '', $media["code"])."');";
-                    $media["iecode"] .= LF.SCRIPT_CDATA_END.LF.'</script>'.LF;
-                    $media["iecode"] .= '<noscript>'.$media["code"].'</noscript>'.LF;
-                    $media["code"]    = $media["iecode"];
-                }
-
                 break;
 
 

@@ -1,31 +1,39 @@
 /**
+ * phpwcms frontend JavaScript helpers
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
+
+/**
  * Restore swapped images to their original source URLs.
- * Reverts the images manipulated by MM_swapImage.
+ * Reverts the images manipulated by swapImage / MM_swapImage.
  */
 function restoreSwappedImages() {
   const sr = document.MM_sr;
-  if (sr && Array.isArray(sr)) {
-    for (let i = 0; i < sr.length; i++) {
-      const el = sr[i];
+  if (Array.isArray(sr)) {
+    for (const el of sr) {
       if (el && el.dataset && el.dataset.oSrc) {
         el.src = el.dataset.oSrc;
       }
     }
   }
 }
+
 function MM_swapImgRestore() {
   restoreSwappedImages();
 }
 
-
-
 /**
  * Swap image source files dynamically.
  * Accepts arguments in groups of three: element ID, ignored dummy parameter, and target image URL.
+ *
+ * @param {...string} args - Triplet tuples of (elementId, dummy, targetSrc)
  */
 function swapImage(...args) {
   document.MM_sr = document.MM_sr || [];
-  for (let i = 0; i < (args.length - 2); i += 3) {
+  for (let i = 0; i < args.length - 2; i += 3) {
     const el = document.getElementById(args[i]);
     if (el) {
       document.MM_sr.push(el);
@@ -37,31 +45,39 @@ function swapImage(...args) {
   }
 }
 
+function MM_swapImage(...args) {
+  swapImage(...args);
+}
 
 /**
- * Alert fallback for bookmarking the current page.
- * Legacy window.sidebar and window.external bookmark methods are defunct in modern browsers.
+ * Fallback message for bookmarking the current page.
  *
- * @param {string} alerttext - Custom bookmark message (optional).
+ * @param {string} [alerttext] - Custom bookmark message.
+ * @returns {boolean} Always returns false to prevent link navigation.
  */
 function BookMark_Page(alerttext) {
-  const alertMsg = alerttext || "To bookmark this page use [Ctrl+D] or [Cmd+D]";
+  const alertMsg = alerttext || 'To bookmark this page use [Ctrl+D] or [Cmd+D]';
   alert(alertMsg);
   return false;
 }
 
 /**
- * Replace the HTML content of a specified container.
+ * Replace the HTML content of a specified container element.
  *
  * @param {string} id - The container element ID.
  * @param {string} text - The replacement HTML content.
  */
 function addText(id, text) {
-  $('#' + id).html(text);
+  const el = document.getElementById(id);
+  if (el) {
+    el.innerHTML = text;
+  }
 }
 
 /**
  * Legacy status bar message handler stub.
+ *
+ * @returns {boolean}
  */
 function MM_displayStatusMsg() {
   return true;
@@ -74,10 +90,10 @@ let clickZoomImage = null;
  * Open a zoom/preview window for images.
  *
  * @param {string} url - Target image/page URL.
- * @param {string} imgname - Target window name.
- * @param {string} windowstatus - Specs and features of the popup window.
+ * @param {string} [imgname] - Target window name.
+ * @param {string} [windowstatus] - Specs and features of the popup window.
  */
-function clickZoom(url, imgname, windowstatus) {
+function clickZoom(url, imgname = 'clickZoomWindow', windowstatus = '') {
   clickZoomImage = window.open(url, imgname, windowstatus);
   if (clickZoomImage && window.focus) {
     clickZoomImage.focus();
@@ -104,7 +120,10 @@ const layerDisplayStatus = {};
  */
 function toggleLayerDisplay(whichLayer, status) {
   layerDisplayStatus[whichLayer] = status;
-  $('#' + whichLayer).css('display', status);
+  const el = document.getElementById(whichLayer);
+  if (el) {
+    el.style.display = status;
+  }
 }
 
 /**
@@ -112,6 +131,7 @@ function toggleLayerDisplay(whichLayer, status) {
  *
  * @param {string} part1 - The mailbox name.
  * @param {string} part2 - The target domain name.
+ * @returns {boolean}
  */
 function mailtoLink(part1, part2) {
   if (part1 && part2) {
@@ -122,11 +142,18 @@ function mailtoLink(part1, part2) {
 }
 
 /**
- * Register a callback to fire when the page environment is fully loaded.
- * Uses jQuery document-ready shortcut internally.
+ * Register a callback to fire when the page DOM is fully loaded.
+ * Works natively in vanilla JavaScript without requiring jQuery.
  *
  * @param {function} func - The callback function.
  */
 function addLoadEvent(func) {
-  $(func);
+  if (typeof func !== 'function') {
+    return;
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', func);
+  } else {
+    func();
+  }
 }

@@ -1461,10 +1461,9 @@
     "template/inc_js": {
       "purpose": "Inc Js",
       "language": "javascript",
-      "files": 3,
-      "lines": 427,
+      "files": 2,
+      "lines": 161,
       "file_list": [
-        "AC_QuickTime.js",
         "frontend.js",
         "imagezoom.js"
       ],

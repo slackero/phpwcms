@@ -3,40 +3,40 @@
 <div style="margin:0;padding:0;height:15px;"> </div>
 <input type="hidden" name="rezepte" value="" />
 <fieldset>
-<legend> Rezept Volltextsuche </legend>
+<legend> @@Recipe Fulltext Search@@ </legend>
 <input name="recipetext" type="text" value="" size="30" maxlength="50" />
 </fieldset>
 <div style="margin:0;padding:0;height:15px;"> </div>
 <fieldset>
-<legend> <img src="content/gt/fecaf036f36944bae7dbb04c3d922a09.png" alt="Nach Rezeptkategorien sortiert" width="210" height="20"/> </legend>
+<legend> @@Sort by recipe categories@@ </legend>
 <select name="recipecat" class="custom-select size5">
-	<option value="" selected="selected"> Bitte auswählen </option>
-    <option value="Fleisch">Fleischgerichte</option>
-	<option value="Fisch">Fischgerichte</option>
-	<option value="Vegetarisch">Vegetarisch</option>
-	<option value="Suppe">Suppen</option>
-	<option value="Auflauf">Auflauf &amp; Gratin</option>
-	<option value="Pasta">Pasta</option>
+	<option value="" selected="selected"> @@Please choose@@ </option>
+    <option value="Fleisch">@@Meat dishes@@</option>
+	<option value="Fisch">@@Fish dishes@@</option>
+	<option value="Vegetarisch">@@Vegetarian@@</option>
+	<option value="Suppe">@@Soups@@</option>
+	<option value="Auflauf">@@Casserole &amp; Gratin@@</option>
+	<option value="Pasta">@@Pasta@@</option>
 </select>
 </fieldset>
 <div style="margin:0;padding:0;height:15px;"> </div>
 <fieldset>
-<legend> <img src="content/gt/0a252474d694216cae81a06dfa19826d.png" alt="Nach Kilokalorien (kcal) sortiert"  width="214" height="20"/> </legend>
+<legend> @@Sort by calories (kcal)@@ </legend>
 <select name="recipecal" class="custom-select size5">
-	<option value="" selected="selected"> Bitte auswählen </option>
-    <option value="1">bis 400 kcal</option>
-	<option value="2">400 bis 600 kcal</option>
-	<option value="3">über 600 kcal</option>
+	<option value="" selected="selected"> @@Please choose@@ </option>
+    <option value="1">@@up to 400 kcal@@</option>
+	<option value="2">@@400 to 600 kcal@@</option>
+	<option value="3">@@more than 600 kcal@@</option>
 </select>
 <div style="margin:0;padding:0;height:15px;"> </div>
-<b>Brennwertrechner</b>
+<b>@@Calorie Calculator@@</b>
 <table border="0" cellpadding="0" cellspacing="3" summary="">
 <tr>
 <td>&nbsp;</td>
-<td colspan="2"><input type="radio" name="calChecked" value="0" id="calChecked_kcal2kj" checked="checked" onchange="convertCal()"><label for="calChecked_kcal2kj">kcal zu kJ</label>  <input type="radio" name="calChecked" value="1" id="calChecked_kj2kcal" onchange="convertCal()"><label for="calChecked_kj2kcal">kJ zu kcal</label></td>
+<td colspan="2"><input type="radio" name="calChecked" value="0" id="calChecked_kcal2kj" checked="checked" onchange="convertCal()"><label for="calChecked_kcal2kj">@@kcal to kJ@@</label>  <input type="radio" name="calChecked" value="1" id="calChecked_kj2kcal" onchange="convertCal()"><label for="calChecked_kj2kcal">@@kJ to kcal@@</label></td>
 </tr>
 <tr>
-<td><label for="calWert">Wert</label></td>
+<td><label for="calWert">@@Value@@</label></td>
 <td><input type="number" name="calWert" id="calWert" onkeyup="convertCal()" /></td>
 <td><span id="einheit">kcal</span></td>
 </tr>
@@ -48,14 +48,14 @@
 </fieldset>
 <div style="margin:0;padding:0;height:15px;"> </div>
 <fieldset>
-<legend> <img src="content/gt/c9310f7cf1d121d5dc5a359efe40b44a.png" alt="Nach Zubereitungszeit sortiert"  width="203" height="20"/> </legend>
+<legend> @@Sort by preparation time@@ </legend>
 <select name="recipetime" class="custom-select size5">
-	<option value="" selected="selected"> Bitte auswählen </option>
-    <option value="1">bis 20 Min.</option>
-	<option value="2">20 bis 40 Min.</option>
-	<option value="3">über 40 Min.</option>
+	<option value="" selected="selected"> @@Please choose@@ </option>
+    <option value="1">@@up to 20 min.@@</option>
+	<option value="2">@@20 to 40 min.@@</option>
+	<option value="3">@@more than 40 min.@@</option>
 </select>
 </fieldset>
 <div style="margin:0;padding:0;height:15px;"> </div>
-<input type="submit" name="recipesearch" value="Rezeptsuche" />
+<input type="submit" name="recipesearch" value="@@Search recipes@@" />
 </form>

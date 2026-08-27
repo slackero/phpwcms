@@ -539,7 +539,8 @@ function getContentPartOptionTag($value='', $text='', $selected='', $module='') 
                     $result .= ' selected="selected"';
                     $GLOBALS['contentpart_temp_selected'] = $GLOBALS['temp_count'];
                 }
-                $result .= '>'.$text.': '.html($cpt_data['cpt_title']);
+                $cpt_title = function_exists('i18n_substitute_text') ? i18n_substitute_text($cpt_data['cpt_title']) : $cpt_data['cpt_title'];
+                $result .= '>'.$text.': '.html($cpt_title);
                 $result .= '</option>'.LF;
                 $GLOBALS['temp_count']++;
             }

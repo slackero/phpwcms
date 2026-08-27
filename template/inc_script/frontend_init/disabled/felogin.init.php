@@ -47,7 +47,7 @@ if( defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
         headerRedirect( PHPWCMS_URL . 'index.php' . (isset($LEVEL_ID[FELOGIN_CHILD_LEVEL]) ? '?id='.$LEVEL_ID[FELOGIN_CHILD_LEVEL] : ''), 401);
     }
 
-    $FELOGIN_ERROR = array();
+    $FELOGIN_ERROR = [];
 
     if(isset($LEVEL_ID[FELOGIN_CHILD_LEVEL]) && isset( $FELOGIN[ $LEVEL_ID[FELOGIN_CHILD_LEVEL] ] ) ) {
 
@@ -128,7 +128,7 @@ if( defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
             define('FELOGIN_IS_LOGGED', true);
 
             if(FELOGIN_LOGOUT_LINK) {
-                $content['struct'][100000] = array(
+                $content['struct'][100000] = [
 
                     'acat_id' => 100000,
                     'acat_name' => FELOGIN_LOGOUT_LINK,
@@ -147,11 +147,11 @@ if( defined('FELOGIN_LEVEL_DEPTH') && isset($LEVEL_ID[FELOGIN_LEVEL_DEPTH]) && $
                     'acat_timeout' => '',
                     'acat_nosearch' => '',
                     'acat_nositemap' => 1,
-                    'acat_permit' => array(),
+                    'acat_permit' => [],
                     'acat_pagetitle' => '',
                     'acat_paginate' => 0,
                     'acat_overwrite' => ''
-                );
+                ];
 
             }
 

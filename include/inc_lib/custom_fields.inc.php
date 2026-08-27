@@ -165,10 +165,14 @@ function get_custom_contentparts($only_active = false) {
     if (!empty($template_default['settings']['customctp_custom_fields']) && is_array($template_default['settings']['customctp_custom_fields'])) {
         foreach ($template_default['settings']['customctp_custom_fields'] as $key => $fg) {
             if (!isset($all_db_keys[$key]) && !isset($cpts[$key])) {
+                $cpt_title = $fg['legend'] ?? ucfirst($key);
+                if (function_exists('i18n_substitute_text')) {
+                    $cpt_title = i18n_substitute_text($cpt_title);
+                }
                 $cpts[$key] = array(
                     'cpt_id'       => 'legacy_' . $key,
                     'cpt_key'      => $key,
-                    'cpt_title'    => $fg['legend'] ?? ucfirst($key),
+                    'cpt_title'    => $cpt_title,
                     'cpt_desc'     => 'Legacy config custom fieldgroup',
                     'cpt_mode'     => 'repeater',
                     'cpt_icon'     => 'fa-cube',
@@ -491,8 +495,14 @@ function custom_field_sanitize_value($field_def, $raw_value) {
 function custom_field_render_input($field_key, $field_def, $value = null, $name_prefix = 'customfield', $index = null) {
     $type        = $field_def['type'] ?? 'str';
     $legend      = $field_def['legend'] ?? ($field_def['label'] ?? ucfirst($field_key));
+    if (function_exists('i18n_substitute_text')) {
+        $legend = i18n_substitute_text($legend);
+    }
     $render      = $field_def['render'] ?? '';
     $placeholder = $field_def['placeholder'] ?? '';
+    if ($placeholder !== '' && function_exists('i18n_substitute_text')) {
+        $placeholder = i18n_substitute_text($placeholder);
+    }
     $class       = $field_def['class'] ?? '';
     $hr          = !empty($field_def['hr']);
     $default     = $field_def['default'] ?? '';
@@ -542,6 +552,9 @@ function custom_field_render_input($field_key, $field_def, $value = null, $name_
             $out .= '    <select name="' . html($input_name) . '" id="' . html($input_id) . '" class="custom-select form-control form-control-sm ' . html($class) . '">' . LF;
             if (is_array($values)) {
                 foreach ($values as $val_k => $val_label) {
+                    if (function_exists('i18n_substitute_text')) {
+                        $val_label = i18n_substitute_text($val_label);
+                    }
                     $selected = ((string)$value === (string)$val_k) ? ' selected="selected"' : '';
                     $out .= '      <option value="' . html($val_k) . '"' . $selected . '>' . html($val_label) . '</option>' . LF;
                 }

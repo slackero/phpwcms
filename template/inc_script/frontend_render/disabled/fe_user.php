@@ -1,5 +1,12 @@
 <?php
 
+// ----------------------------------------------------------------
+// obligate check for phpwcms constants
+if (!defined('PHPWCMS_ROOT')) {
+    die("You Cannot Access This Script Directly, Have a Nice Day.");
+}
+// ----------------------------------------------------------------
+
 /**
  * FE User frontend render script
  * Use this to customize your frontend user registration form
@@ -9,22 +16,20 @@
  * setting $phpwcms['feuser_regkey'] in conf.inc.php
  */
 
-$fe_defaults = array(
+$fe_defaults = [
     'field-open'    => '<p>',
     'field-close'   => '</p>',
     'label-class'   => 'label',
-);
-
+];
 
 // first check what to do
 if(_getFeUserLoginStatus() && strpos($content['all'], '{FE_USER_MANAGE}')) {
 
     $fe_action = '{FE_USER_MANAGE}';
 
-    if( $_SESSION[ $_loginData['session_key'].'_userdata']['source'] == 'BACKEND' ) {
+    if( ($_SESSION[ $_loginData['session_key'].'_userdata']['source'] ?? '') === 'BACKEND' ) {
         $fe_action = false;
     }
-
 
 } elseif(strpos($content['all'], '{FE_USER_REGISTER}')) {
 
@@ -36,7 +41,6 @@ if(_getFeUserLoginStatus() && strpos($content['all'], '{FE_USER_MANAGE}')) {
 
 }
 
-
 // fe user register
 if($fe_action) {
 
@@ -44,11 +48,11 @@ if($fe_action) {
      * Define fields to be used - fields are named like in phpwcms_userdetail
      * 'fieldname' => 'TYPE' (can be STRING, TEXT, CHECKBOX, RADIO, INT, FLOAT, TEL, COUNTRY, EMAIL)
      * or
-     * 'fieldname' => array('type'=>'TYPE', 'value'=>default value, 'required'=>true|false)
+     * 'fieldname' => ['type'=>'TYPE', 'value'=>default value, 'required'=>true|false]
      * use array for multiple selections
      * Use 'FIELDSET-X' => 'label', '/FIELDSET-X' => '' to enable fieldsets
      */
-    $fe_fields = array(
+    $fe_fields = [
 
         'FIELDSET-1'        => 'label-fieldset-1',
 
@@ -59,7 +63,7 @@ if($fe_action) {
         'FIELDSET-2'        => 'label-fieldset-2',
 
         'detail_title'      => 'STRING',
-        'detail_salutation' => array( 'type'=>'RADIO', 'value'=>array('@@Mr@@', '@@Ms@@') ),
+        'detail_salutation' => [ 'type'=>'RADIO', 'value'=>['@@Mr@@', '@@Ms@@'] ],
         'detail_firstname'  => 'STRING',
         'detail_lastname'   => 'STRING',
         'detail_company'    => 'STRING',
@@ -113,18 +117,18 @@ if($fe_action) {
         'detail_float5'     => 'FLOAT',
 
         '/FIELDSET-4'       => ''
-                    );
+    ];
 
     // init error array and error status set to false
-    $fe_error = array('status' => false);
+    $fe_error = ['status' => false];
 
     // init fe data array
-    $fe_data = array();
+    $fe_data = [];
 
     foreach($fe_fields as $fe_field => $fe_field_value) {
 
         if( substr(ltrim($fe_field , '/'), 0, 8) === 'FIELDSET' ) {
-            $fe_fields[ $fe_field ] = array('type' => 'FIELDSET', 'label' => $fe_field_value, 'value'=>substr($fe_field, 0, 1));
+            $fe_fields[ $fe_field ] = ['type' => 'FIELDSET', 'label' => $fe_field_value, 'value' => substr($fe_field, 0, 1)];
             continue;
         }
 
@@ -135,10 +139,10 @@ if($fe_action) {
             if(!isset($fe_field_value['value'])) {
                 $fe_fields[ $fe_field ]['value'] = '';
             }
-            $fe_fields[ $fe_field ]['required'] = empty( $fe_field_value['required'] ) ? false : true;
+            $fe_fields[ $fe_field ]['required'] = !empty($fe_field_value['required']);
         } else {
             $fe_field_type = is_string($fe_field_value) ? $fe_field_value : 'STRING';
-            $fe_fields[ $fe_field ] = array('type' => $fe_field_type, 'value' => '', 'required' => false);
+            $fe_fields[ $fe_field ] = ['type' => $fe_field_type, 'value' => '', 'required' => false];
         }
 
         if( $fe_field_type == 'INT' || $fe_field_type == 'FLOAT' ) {
@@ -152,9 +156,9 @@ if($fe_action) {
     //dumpVar($fe_fields);
 
     if($content['cat_id'] == 0) {
-        if($aktion[1]) {
+        if(!empty($aktion[1])) {
             $_uri_alias = 'aid='.$aktion[1];
-        } elseif($content['struct'][0]['acat_alias']) {
+        } elseif(!empty($content['struct'][0]['acat_alias'])) {
             $_uri_alias = $content['struct'][0]['acat_alias'];
         } else {
             $_uri_alias = 'id='.$content['cat_id'];
@@ -165,7 +169,7 @@ if($fe_action) {
 
     switch($fe_action) {
 
-        case '{FE_USER_MANAGE}':    $_uri = rel_url( array('profile_manage'=>'edit'), array('profile_register', 'profile_reminder'), $_uri_alias );
+        case '{FE_USER_MANAGE}':    $_uri = rel_url( ['profile_manage' => 'edit'], ['profile_register', 'profile_reminder'], $_uri_alias );
 
                                     // at the moment it is only possible to edit user data of "real" FRONTEND users
                                     // all BACKEND users should login to backend and edit their data there
@@ -180,12 +184,11 @@ if($fe_action) {
 
                                     break;
 
-        case '{FE_USER_REGISTER}':  $_uri = rel_url( array('profile_register'=>'create'), array('profile_manage', 'profile_reminder'), $_uri_alias );
+        case '{FE_USER_REGISTER}':  $_uri = rel_url( ['profile_register' => 'create'], ['profile_manage', 'profile_reminder'], $_uri_alias );
 
                                     break;
 
     }
-
 
     if(isset($_POST['detail_login'])) {
 
@@ -203,9 +206,7 @@ if($fe_action) {
         $udata['user_tel']          = preg_replace('/[^0-9\+\-\(\) ]/', '', clean_slweg($_POST['user_tel']) );
         $udata['user_email']        = clean_slweg($_POST['user_email']);
 
-
         if($fe_action == '{FE_USER_REGISTER}') {
-
 
             $sql  = 'SELECT COUNT(*) FROM '.DB_PREPEND."phpwcms_userdetail WHERE ";
             $sql .= "detail_login LIKE '" . aporeplace($udata['user_login'])."'";
@@ -226,8 +227,6 @@ if($fe_action) {
                 $uerror['user_password'] = '@@Password and repeat password are not equal@@';
             }
 
-
-
         } else {
 
             $udata['user_login'] = $_SESSION[ $_loginData['session_key'].'_userdata']['login'];
@@ -245,11 +244,11 @@ if($fe_action) {
         $sql .= "detail_email = '" . aporeplace(strtolower($udata['user_email']))."'";
 
         if( empty($udata['user_email']) ) {
-            $uerror['user_email'] = 'E-Mail muss ausgef&uuml;llt werden';
+            $uerror['user_email'] = '@@E-mail is required@@';
         } elseif( !is_valid_email($udata['user_email']) ) {
-            $uerror['user_email'] = 'E-Mail muss valide sein';
+            $uerror['user_email'] = '@@E-mail must be valid@@';
         } elseif( _dbCount( $sql )  ) {
-            $uerror['user_email'] = 'E-Mail bereits registriert';
+            $uerror['user_email'] = '@@E-mail is already registered@@';
         }
 
         if( empty($udata['user_tel']) ) {
@@ -271,24 +270,24 @@ if($fe_action) {
             $uerror['user_zip'] = '@@Post code and city are required@@';
         }
 
-
     }
 
-    $fe_reg = array();
+    $fe_reg = [];
 
     if($fe_action == '{FE_USER_REGISTER}') {
 
-        $fe_reg[] = '<p>Register Text</p>';
+        $fe_reg[] = '<p>@@Register Text@@</p>';
 
     } else {
 
-        $fe_reg[] = '<p>Edit Text</p>';
+        $fe_reg[] = '<p>@@Edit Text@@</p>';
 
     }
 
     $fe_reg[] = '<form action="' .$_uri. '" method="post">';
 
     /*
+    // Example: Render input fields dynamically from $fe_fields
     foreach($fe_fields as $fe_field) {
 
         switch($fe_field['type']) {
@@ -323,6 +322,7 @@ if($fe_action) {
     */
 
     /*
+    // Example: Render custom markup for login data
     $fe_reg[] = '<fieldset>';
     $fe_reg[] = '<legend> @@Login Data@@ </legend>';
 
@@ -338,23 +338,19 @@ if($fe_action) {
     $fe_reg[] = '</p>';
     */
 
-
-
     // Submit Button Line
     $fe_reg[] = '<p>';
     $fe_reg[] = '   <input type="submit" value="@@Submit@@" class="button" />';
     $fe_reg[] = '</p>';
 
-
     $fe_reg[] = '</form>';
 
     $fe_reg = implode(LF, $fe_reg);
 
-
     if(isset($_POST['user_login']) && $fe_action == '{FE_USER_REGISTER}') {
-        if($uerror['status']) {
+        if(!empty($uerror['status'])) {
 
-            $fe_reg = '<p class="error">Es sind Fehler bei der Verarbeitung des Formulars aufgetreten. Bitte pr&uuml;fen Sie Ihre Angaben.</p>' . LF . $fe_reg;
+            $fe_reg = '<p class="error">@@Errors occurred while processing the form. Please check your entries.@@</p>' . LF . $fe_reg;
 
         } else {
 
@@ -378,97 +374,96 @@ if($fe_action) {
             $sql .= "'fereg', ";
             $sql .= "'" . aporeplace(strtolower($udata['user_email'])) . "', ";
             $sql .= "'" . aporeplace($udata['user_login']) . "', ";
-            $sql .= "'" . aporeplace(md5($udata['user_password'])) . "')";
+            $sql .= "'" . aporeplace(password_hash($udata['user_password'], PASSWORD_DEFAULT)) . "')";
 
             $queryResult = _dbQuery($sql, 'INSERT');
             if(!empty($queryResult['INSERT_ID'])) {
-                $fe_reg  = '<p class="success">Vielen Dank '.html_specialchars($udata['user_firstname'].' '.$udata['user_name']).'! Ihre Registrierungsanfrage wurden erfolgreich &uuml;bertragen.</p>';
-                $fe_reg .= '<p>Ihnen wird in wenigen Augenblicken eine Best�tigung an die E-Mail <b>'.html_specialchars($udata['user_email']).'</b> zugesendet.</p>';
+                $fe_reg  = '<p class="success">@@Thank you@@ '.html_specialchars($udata['user_firstname'].' '.$udata['user_name']).'! @@Your registration request was successfully submitted.@@</p>';
+                $fe_reg .= '<p>@@A confirmation email will be sent to@@ <b>'.html_specialchars($udata['user_email']).'</b> @@in a few moments.@@</p>';
 
-                $fe_text  = 'Hallo '.trim($udata['user_title'] . ' ' . trim( $udata['user_firstname'].' '.$udata['user_name']) ) . LF . LF;
-                $fe_text .= 'Ihre Registrierung haben wir erhalten.' . LF;
-                $fe_text .= 'Wir pr�fen Ihre Daten und melden uns umgehend bei Ihnen.' . LF . LF;
+                $fe_text  = '@@Hello@@ '.trim($udata['user_title'] . ' ' . trim( $udata['user_firstname'].' '.$udata['user_name']) ) . LF . LF;
+                $fe_text .= '@@We have received your registration.@@' . LF;
+                $fe_text .= '@@We will review your details and get back to you shortly.@@' . LF . LF;
 
                 if(empty($udata['user_profile_7'][4])) {
-                    $fe_text .= 'Sie m�chten keinen Zugriff auf unser Partnerbackend. ' .LF . 'Allerdings haben wir folgende Zugangsdaten f�r Sie hinterlegt:' . LF;
+                    $fe_text .= '@@You did not request access to our partner backend. However, the following login credentials have been created for you:@@' . LF;
                 } else {
-                    $fe_text .= 'Sie m�chten Zugriff auf unser Partnerbackend. ' .LF . 'Folgende Zugangsdaten sind von Ihnen gesendet worden:' . LF;
+                    $fe_text .= '@@You requested access to our partner backend. The following credentials were submitted:@@' . LF;
                 }
-                $fe_text .= '  Login:    ' . $udata['user_login'] . LF;
-                $fe_text .= '  Passwort: ' . $udata['user_password'] . LF . LF;
-                $fe_text .= 'Ihr Passwort ist nicht reproduizierbar verschl�sselt in unserem System abgelegt worden.' . LF . LF . LF;
-                $fe_text .= 'Mit besten Gr��en' . LF;
+                $fe_text .= '  @@Login:@@    ' . $udata['user_login'] . LF;
+                $fe_text .= '  @@Password:@@ ' . $udata['user_password'] . LF . LF;
+                $fe_text .= '@@Your password has been securely encrypted in our system.@@' . LF . LF . LF;
+                $fe_text .= '@@Best regards,@@' . LF;
                 $fe_text .= 'phpwcms, Oliver' . LF;
 
-                $fe_text1  = 'Neue Benutzerregistrierung' . LF;
-                $fe_text1 .= '--------------------------' . LF . LF;
+                $fe_text1  = 'New user registration' . LF;
+                $fe_text1 .= '-----------------------' . LF . LF;
 
-                $fe_text1 .= 'Die Benutzerdaten k�nnen im Backend eingesehen werden.' . LF;
+                $fe_text1 .= 'User details can be viewed in the backend.' . LF;
 
                 if(!empty($udata['user_profile_7'][4])) {
-                    $fe_text1 .= 'Der Benutzer w�nscht die Freischaltung f�r den Partnerbereich!' .LF;
-                    $fe_text1 .= '  Login:    ' . $udata['user_login'] . LF;
+                    $fe_text1 .= 'The user requested access to the partner area!' . LF;
+                    $fe_text1 .= '  Login: ' . $udata['user_login'] . LF;
                 }
 
                 $fe_text1 .= LF;
-                $fe_text1 .= 'Benutzerangaben:' . LF;
-                $fe_text1 .= '================' . LF . LF;
+                $fe_text1 .= 'User details:' . LF;
+                $fe_text1 .= '=============' . LF . LF;
 
-                $fe_text1 .= 'Firma:   ' . $udata['user_company'] . LF;
-                $fe_text1 .= 'Anrede:  ' . $udata['user_title'] . LF;
-                $fe_text1 .= 'Vorname: ' . $udata['user_firstname'] . LF;
-                $fe_text1 .= 'Name:    ' . $udata['user_name'] . LF;
-                $fe_text1 .= 'Stra�e:  ' . $udata['user_street'] . LF;
-                $fe_text1 .= 'PLZ:     ' . $udata['user_zip'] . LF;
-                $fe_text1 .= 'Ort:     ' . $udata['user_city'] . LF;
-                $fe_text1 .= 'Telefon: ' . $udata['user_tel'] . LF;
-                $fe_text1 .= 'E-Mail:  ' . $udata['user_email'] . LF;
+                $fe_text1 .= 'Company:     ' . $udata['user_company'] . LF;
+                $fe_text1 .= 'Salutation:  ' . $udata['user_title'] . LF;
+                $fe_text1 .= 'First name:  ' . $udata['user_firstname'] . LF;
+                $fe_text1 .= 'Last name:   ' . $udata['user_name'] . LF;
+                $fe_text1 .= 'Street:      ' . $udata['user_street'] . LF;
+                $fe_text1 .= 'Postal code: ' . $udata['user_zip'] . LF;
+                $fe_text1 .= 'City:        ' . $udata['user_city'] . LF;
+                $fe_text1 .= 'Phone:       ' . $udata['user_tel'] . LF;
+                $fe_text1 .= 'E-Mail:      ' . $udata['user_email'] . LF;
 
                 $fe_text1 .= LF . '-----------------------------------------------------------' . LF;
                 if(!PHPWCMS_GDPR_MODE) {
                     $fe_text1 .= 'IP: ' . getRemoteIP();
                 }
 
-                $fe_csv_attach  = implode(';', array_keys($fe_csv) );
-                $fe_csv_attach .= LF;
-                $fe_csv_attach .= implode(';', $fe_csv );
+                $fe_csv_attach  = implode(';', array_keys($profile_data)) . LF . implode(';', $profile_data);
 
-                $fe_csv = array();
+                $fe_csv = [
+                    'filename' => date('Y-m-d_H-i-s') . '_' . preg_replace('/[^a-zA-Z0-9\-_]/', '', $udata['user_login']) . '.csv',
+                    'mime'     => 'text/csv',
+                    'data'     => $fe_csv_attach,
+                ];
 
-                $fe_csv['filename'] = date('Y-m-d_H-i-s') . '_' . preg_replace('/[^a-zA-Z0-9\-_]/', '', $udata['user_login']).'.csv';
-                $fe_csv['mime']     = 'text/csv';
-                $fe_csv['data']     = $fe_csv_attach;
-
-                sendEmail(array(
+                sendEmail([
                     'recipient'     => strtolower($udata['user_email']),
                     'toName'        => trim($udata['user_firstname'].' '.$udata['user_name']),
                     'subject'       => 'phpwcms Registration',
                     'text'          => $fe_text,
                     'from'          => 'og@phpwcms.org',
                     'fromName'      => 'phpwcms',
-                    'sender'        => 'og@phpwcms.org' ));
+                    'sender'        => 'og@phpwcms.org',
+                ]);
 
-                sendEmail(array(
+                sendEmail([
                     'recipient'     => 'slackero+phpwcms-registration@gmail.com',
                     'subject'       => 'New registration',
                     'text'          => $fe_text1,
                     'from'          => strtolower($udata['user_email']),
                     'fromName'      => trim($udata['user_firstname'].' '.$udata['user_name']),
                     'sender'        => strtolower($udata['user_email']),
-                    'stringAttach'  => array($fe_csv) ));
-
+                    'stringAttach'  => [$fe_csv],
+                ]);
 
             } else {
-                $fe_reg = '<p class="error">Beim Speichern Ihrer Daten ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder wenden Sie sich an den Webmaster.</p>' . LF . $fe_reg;
+                $fe_reg = '<p class="error">@@An error occurred while saving your data. Please try again or contact the webmaster.@@</p>' . LF . $fe_reg;
             }
         }
     }
 
     if(isset($_POST['user_login']) && $fe_action == '{FE_USER_MANAGE}') {
 
-        if($uerror['status']) {
+        if(!empty($uerror['status'])) {
 
-            $fe_reg = '<p class="error">Es sind Fehler bei der Verarbeitung des Formulars aufgetreten. Bitte pr&uuml;fen Sie Ihre Angaben.</p>' . LF . $fe_reg;
+            $fe_reg = '<p class="error">@@Errors occurred while processing the form. Please check your entries.@@</p>' . LF . $fe_reg;
 
         } else {
 
@@ -487,7 +482,7 @@ if($fe_action) {
             $sql .= "detail_notes       = '".aporeplace(serialize($profile_data))."', ";
             $sql .= "detail_newsletter  = '".( empty($udata['user_profile_7'][3]) ? '' : 1 )."', ";
             if($udata['user_password']) {
-                $sql .= "detail_password    = '".aporeplace(md5($udata['user_password']))."', ";
+                $sql .= "detail_password    = '".aporeplace(password_hash($udata['user_password'], PASSWORD_DEFAULT))."', ";
             }
             $sql .= "detail_email       = '".aporeplace(strtolower($udata['user_email']))."' ";
             $sql .= 'WHERE detail_id=' . intval($_SESSION[ $_loginData['session_key'].'_userdata']['id']).' LIMIT 1';
@@ -495,11 +490,11 @@ if($fe_action) {
             $queryResult = _dbQuery($sql, 'UPDATE');
             if(isset($queryResult['AFFECTED_ROWS'])) {
 
-                $fe_reg = '<p>Ihre Profildaten wurden erfolgreich aktualisiert</p>' . LF . $fe_reg;
+                $fe_reg = '<p>@@Your profile data has been successfully updated@@</p>' . LF . $fe_reg;
 
             } else {
 
-                $fe_reg = '<p class="error">Leider konnten Ihre Anfgaben nicht in der Datenbank gesichert werden. Bitte pr&uuml;fen Sie Ihre Angaben oder wenden Sie sich an den Systemadministrator.</p>' . LF . $fe_reg;
+                $fe_reg = '<p class="error">@@Unfortunately, your entries could not be saved to the database. Please check your details or contact the system administrator.@@</p>' . LF . $fe_reg;
 
             }
 
@@ -511,10 +506,9 @@ if($fe_action) {
 
 } else {
 
-    $content['all'] = str_replace('{FE_USER_MANAGE}', '<p class="error">Diese Aktion ist leider nicht zul&auml;ssig</p>', $content['all']);
+    $content['all'] = str_replace('{FE_USER_MANAGE}', '<p class="error">@@This action is not allowed@@</p>', $content['all']);
 
 }
-
 
 function is_fe_error($field='') {
     global $fe_error;
