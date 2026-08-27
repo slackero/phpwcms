@@ -1,84 +1,87 @@
-/* 
-
-	Sample CSS for use in combination with {NAV_LIST_UL:HCSS}
-	
-	CSS for show/hide flyout menu is rendered dynamically in the style section
-	Basis of this CSS is taken from http://www.alistapart.com/articles/horizdropdowns/
-
-*/
+/**
+ * phpwcms sample stylesheet for {NAV_LIST_UL:HCSS}
+ *
+ * Horizontal CSS flyout dropdown navigation
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
 
 .hcss_menu {
-	font: normal normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
-	}
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+}
 
 .hcss_menu em {
-	font-style: normal;
-	}
-	
+    font-style: normal;
+}
+
 .hcss_menu ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	border-left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #495057;
+    border-radius: 4px;
 }
-	
+
 .hcss_menu ul li {
-	float: left;
-	position: relative;
-	width: 130px; /* Width of Menu Items */
-	height: 23px;
-	}
-	
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.hcss_menu ul li a {
+    display: block;
+    padding: 8px 14px;
+    color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.hcss_menu ul li a:hover,
+.hcss_menu ul li:hover > a,
+.hcss_menu ul li:focus-within > a {
+    background-color: #343a40;
+    color: #ffd43b;
+}
+
+/* Submenus */
 .hcss_menu li ul {
-	position: absolute;
-	left: 0; /* Set 1px less than menu width */
-	top: 23px;
-	display: none;
-	border: 0;
-	}
-	
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 160px;
+    background-color: #343a40;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 4px 4px;
+    z-index: 1000;
+}
+
 .hcss_menu li ul li ul {
-	left: 130px;
-	top: 0;
-	}
-	
-/* Styles for Menu Items */
-
-.hcss_menu ul li a, .hcss_menu ul li a:link, .hcss_menu ul li a:visited, .hcss_menu ul li a:active {
-	display: block;
-	text-decoration: none;
-	color: #FFFFFF;
-	background: #708090; /* IE6 Bug */
-	padding: 5px;
-	border: 0;
-	text-align: center;
-	}
-
-.hcss_menu ul li a:hover {
-	background: #475661;
-	color: Orange;
+    left: 100%;
+    top: 0;
+    border-radius: 4px;
 }
 
-.hcss_menu ul li:hover a {
-	background: #475661;
-	color: Orange;
+.hcss_menu li ul li a {
+    padding: 7px 12px;
+    background-color: transparent;
 }
 
-.hcss_menu ul li ul li a {
-	text-align: left;
-	background: #8B99A7;
-	padding-left: 7px;
+.hcss_menu li ul li a:hover,
+.hcss_menu li ul li:hover > a {
+    background-color: #212529;
+    color: #ffd43b;
 }
-.hcss_menu ul li ul li a:hover {
-	background: #708090;
+
+.hcss_menu li:hover > ul,
+.hcss_menu li:focus-within > ul {
+    display: flex;
 }
-.hcss_menu ul li:hover ul li a {
-	text-align: left;
-	background: #8B99A7;
-	color: #FFFFFF;
-}
-	
-/* Holly Hack. IE Requirement \*/
-* html .hcss_menu ul li { float: left; height: 1%; }
-* html .hcss_menu ul li a { height: 1%; }
-/* End */

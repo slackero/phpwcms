@@ -1,62 +1,96 @@
+/**
+ * phpwcms frontend edit controls stylesheet
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
+
 a.fe-link {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	font-size: 14px;
-	color: #6c757d;
-	text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 1;
+    color: #6c757d;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, transform 0.15s ease-in-out;
+    vertical-align: middle;
+    margin: 0 2px;
 }
+
 a.fe-link:hover {
-	text-decoration: none;
-	background-color: transparent;
-	color: #0d6efd;
+    text-decoration: none;
+    background-color: transparent;
+    color: #0d6efd;
+    transform: scale(1.15);
 }
-a.fe-link.fe-article::before { content: "\f15c"; }
-a.fe-link.fe-summary::before { content: "\f044"; }
-a.fe-link.fe-CP::before { content: "\f15b"; }
-a.fe-link.fe-module::before { content: "\f1e6"; }
-a.fe-link.fe-news::before { content: "\f304"; }
+
+a.fe-link.fe-article::before   { content: "\f15c"; }
+a.fe-link.fe-summary::before   { content: "\f044"; }
+a.fe-link.fe-CP::before        { content: "\f15b"; }
+a.fe-link.fe-module::before    { content: "\f1e6"; }
+a.fe-link.fe-news::before      { content: "\f304"; }
 a.fe-link.fe-structure::before { content: "\f07c"; }
 
 #fe-link {
-	position: fixed;
-	right: 5px;
-	top: 5px;
-	color: #333;
-	border: 1px solid #999;
+    position: fixed;
+    right: calc(6px + env(safe-area-inset-right, 0px));
+    top: calc(6px + env(safe-area-inset-top, 0px));
+    color: #333333;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0;
-	height: 22px;
-	width: 22px;
-	cursor: pointer;
-	z-index: 10000;
-	border-radius: 3px;
-	box-shadow: 1px 1px 3px rgba(23, 23, 23, 0.25);
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	font-size: 12px;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    z-index: 10000;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    line-height: 1;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, transform 0.15s ease-in-out;
 }
+
+#fe-link:hover {
+    transform: scale(1.08);
+}
+
 #fe-link.enabled {
-    background-color: #E1FFC4;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-color: #badbcc;
 }
+
 #fe-link.enabled::before {
     content: "\f056";
 }
+
 #fe-link.disabled {
-    background-color: #FFDDDD;
+    background-color: #f8d7da;
+    color: #842029;
+    border-color: #f5c2c7;
 }
+
 #fe-link.disabled::before {
     content: "\f055";
 }
+
 #fe-link.disabled:hover {
-    background-color: #95d757;
+    background-color: #198754;
+    color: #ffffff;
+    border-color: #198754;
 }
+
 #fe-link.enabled:hover {
-    background-color: #e94f4f;
-    color: #fff;
+    background-color: #dc3545;
+    color: #ffffff;
+    border-color: #dc3545;
 }

@@ -1,1 +1,89 @@
-/* CSS for newsletter verify page */
+/**
+ * phpwcms newsletter verification stylesheet
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+p {
+    margin: 0;
+    max-width: 520px;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+strong {
+    color: #0d6efd;
+    font-weight: 600;
+    word-break: break-all;
+}
+
+a {
+    display: inline-block;
+    margin-top: 0.75rem;
+    color: #0d6efd;
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+    color: #0a58ca;
+}
+
+@media (prefers-color-scheme: dark) {
+    html,
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    p {
+        background-color: #1e1e1e;
+        border-color: #333333;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    strong {
+        color: #6ea8fe;
+    }
+
+    a {
+        color: #6ea8fe;
+    }
+
+    a:hover {
+        color: #9ec5fe;
+    }
+}

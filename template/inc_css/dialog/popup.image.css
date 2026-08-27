@@ -1,21 +1,51 @@
-html, body {
+/**
+ * phpwcms image zoom popup stylesheet
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
     margin: 0;
     padding: 0;
-    height: 100%;
     width: 100%;
-    min-height: 100%;
-    min-width: 100%;
+    min-height: 100vh;
 }
 
 body {
-    color: #000000;
-    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    overflow: auto;
 }
 
 a {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    max-width: 100%;
+    max-height: 100%;
 }
+
 img {
-    display: inline-block;
+    display: block;
+    max-width: 100%;
+    max-height: 100vh;
+    height: auto;
     border: 0;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
 }

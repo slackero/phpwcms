@@ -1,174 +1,102 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 10pt;
+/**
+ * phpwcms print stylesheet
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
+
+@page {
     margin: 15mm;
+    size: auto;
 }
 
-input, select, textarea {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
 }
 
-code, pre, tt {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-td, tr, th, p {
-    font-size: 10pt
-}
-
-ul {
-    margin: 0 0 0 20px;
-}
-
-li {
-    font-size: 11pt;
-    list-style: disc;
-}
-
-a, a:link, a:visited, a:active {
-    color: #000000;
-    text-decoration: underline
-}
-
-a:hover {
-    color: #000000;
-    text-decoration: underline;
-}
-
-.articleText {
-    text-align: initial;
-}
-
-.articleHead, .articleList_tophead, h1, h2 {
-    font-weight: bold;
-    font-size: 21pt;
-    text-decoration: none;
-    line-height: 120%;
+html {
+    font-size: 10pt;
+    line-height: 1.4;
+    background: #ffffff;
     color: #000000;
 }
 
-.articleSubHead, .articleList_topsubhead, h3, h4 {
-
-    font-size: 15pt;
-    font-weight: bold;
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 10pt;
+    line-height: 1.4;
     color: #000000;
-    line-height: 110%;
-    margin-bottom: 0;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    orphans: 3;
+    widows: 3;
 }
 
-.articleSummary {
-    font-size: 12pt;
+/* Typography & Headings */
+h1, h2, h3, h4, h5, h6,
+.articleHead, .articleList_tophead,
+.contentHead, .articleSubHead,
+.articleList_topsubhead, .contentSubHead {
     color: #000000;
-    line-height: 125%;
-    text-align: initial;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+h1, h2, .articleHead, .articleList_tophead {
+    font-size: 18pt;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 8pt;
+}
+
+h3, h4, .articleSubHead, .articleList_topsubhead {
+    font-size: 14pt;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 0;
+    margin-bottom: 6pt;
 }
 
 .contentHead {
-    font-size: 18pt;
-    font-weight: bold;
-    color: #6D7983;
-    line-height: 110%;
+    font-size: 15pt;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 6pt;
 }
 
 .contentSubHead {
-    font-size: 13pt;
-    color: #000000;
-    line-height: 110%;
-}
-
-.tableHead {
-    font-size: 11pt;
-    font-weight: bold;
-    color: #6D7983;
-    line-height: 13px;
-}
-
-.tableSubHead {
-    font-size: 11pt;
-    color: #000000;
-}
-
-.v09 {
-    font-size: 9pt;
-}
-
-.v10 {
-    font-size: 10pt;
-}
-
-.v11 {
-    font-size: 11pt;
-}
-
-.v12 {
     font-size: 12pt;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 4pt;
 }
 
-.v13 {
-    font-size: 13pt;
-}
-
-.v14 {
-    font-size: 14pt;
-}
-
-.formButton {
+p, td, th, li {
     font-size: 10pt;
-    font-weight: bold;
-    color: #FFFFFF;
-    background-color: #92A1AF;
+    line-height: 1.4;
 }
 
-.formLabel {
-    font-size: 10pt;
+p {
+    margin-top: 0;
+    margin-bottom: 8pt;
 }
 
-.checkLabel {
-    font-size: 10pt;
-    font-weight: bold;
-}
-
-.radioLabel {
-    font-size: 10pt;
-    font-weight: bold;
-}
-
-.formTextArea {
+.articleSummary {
     font-size: 11pt;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-bottom: 10pt;
 }
 
-.inputText {
-    font-size: 11pt;
-    font-weight: bold;
-}
-
-.inputPass {
-    font-size: 11pt;
-    font-weight: bold;
-}
-
-.selectMenu {
-    font-size: 11pt;
-    font-weight: bold;
-}
-
-.selectList {
-    font-size: 11pt;
-    font-weight: bold;
-}
-
-.nav_table, .nav_table a, .nav_table a:link, .nav_table a:active, .nav_table a:visited, .nav_table a:hover {
-    font-size: 10pt;
-    color: #4A5966;
-    font-weight: normal;
-    text-decoration: none;
-}
-
-.nav_table_active, .nav_table_active a, .nav_table_active a:link, .nav_table_active a:active, .nav_table_active a:visited, .nav_table_active a:hover {
-    font-size: 10pt;
-    color: #4A5966;
-    font-weight: bold;
-    text-decoration: none;
+.articleText {
+    text-align: left;
 }
 
 .articleList_toptext {
@@ -177,5 +105,131 @@ a:hover {
 
 .articleList_listhead {
     font-size: 11pt;
-    font-weight: bold;
+    font-weight: 700;
+}
+
+/* Links */
+a, a:link, a:visited, a:active, a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+/* Code & Preformatted */
+code, pre, kbd, samp, tt {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 9pt;
+}
+
+pre {
+    padding: 6pt;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 2pt;
+    white-space: pre-wrap;
+    word-break: break-word;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Lists */
+ul, ol {
+    margin: 0 0 8pt 20pt;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 2pt;
+}
+
+/* Media & Images */
+img, figure, svg {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 10pt;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+thead {
+    display: table-header-group;
+}
+
+tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+th, td {
+    padding: 4pt 6pt;
+    vertical-align: top;
+    text-align: left;
+}
+
+th, .tableHead {
+    font-weight: 700;
+    font-size: 10pt;
+    border-bottom: 1.5pt solid #000000;
+}
+
+.tableSubHead {
+    font-size: 10pt;
+    font-weight: 600;
+}
+
+/* Font Size Utility Classes */
+.v09 { font-size: 9pt; }
+.v10 { font-size: 10pt; }
+.v11 { font-size: 11pt; }
+.v12 { font-size: 12pt; }
+.v13 { font-size: 13pt; }
+.v14 { font-size: 14pt; }
+
+/* Forms & Inputs */
+input, select, textarea, button {
+    font-family: inherit;
+    font-size: 10pt;
+}
+
+.formLabel, .checkLabel, .radioLabel {
+    font-size: 10pt;
+    font-weight: 600;
+}
+
+.formTextArea, .inputText, .inputPass, .selectMenu, .selectList {
+    font-size: 10pt;
+}
+
+/* Navigation & Interactive Elements */
+.nav_table, .nav_table a {
+    font-size: 10pt;
+    color: #000000;
+    text-decoration: none;
+}
+
+.nav_table_active, .nav_table_active a {
+    font-size: 10pt;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/* Hide Non-Printable Elements */
+.no-print,
+.btn,
+.pagination,
+.navbar,
+.nav,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+button {
+    display: none !important;
 }

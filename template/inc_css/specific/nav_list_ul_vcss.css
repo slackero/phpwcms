@@ -1,57 +1,69 @@
-/* 
-
-	Sample CSS for use in combination with {NAV_LIST_UL:VCSS}
-	
-	CSS for show/hide flyout menu is rendered dynamically in the style section
-	Basis of this CSS is taken from http://www.alistapart.com/articles/horizdropdowns/
-
-*/
+/**
+ * phpwcms sample stylesheet for {NAV_LIST_UL:VCSS}
+ *
+ * Vertical CSS flyout dropdown navigation
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ */
 
 .vcss_menu {
-	font: normal normal 11px Verdana, Geneva, Arial, Helvetica, sans-serif;
-	}
-	
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
 .vcss_menu em {
-	font-style: normal;
-	}
+    font-style: normal;
+}
 
 .vcss_menu ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	width: 150px; /* Width of Menu Items */
-	border-bottom: 1px solid #CCCCCC;
-	}
-	
-.vcss_menu ul li {
-	position: relative;
-	}
-	
-.vcss_menu li ul {
-	position: absolute;
-	left: 149px; /* Set 1px less than menu width */
-	top: 0;
-	display: none;
-	}
-
-/* Styles for Menu Items */
-
-.vcss_menu ul li a, .vcss_menu ul li a:link,  .vcss_menu ul li a:visited, .vcss_menu ul li a:active {
-	display: block;
-	text-decoration: none;
-	color: #777777;
-	background: #FFFFFF; /* IE6 Bug */
-	padding: 5px;
-	border: 1px solid #CCCCCC; /* IE6 Bug */
-	border-bottom: 0;
-	}
-
-.vcss_menu ul li a:hover {
-	background: #F0F8FF;
-	color: #191970;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
-	
-/* Holly Hack. IE Requirement \*/
-* html .vcss_menu ul li { float: left; height: 1%; }
-* html .vcss_menu ul li a { height: 1%; }
-/* End */
+
+.vcss_menu ul li {
+    position: relative;
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.vcss_menu ul li:last-child {
+    border-bottom: 0;
+}
+
+.vcss_menu ul li a {
+    display: block;
+    padding: 8px 14px;
+    color: #495057;
+    text-decoration: none;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.vcss_menu ul li a:hover,
+.vcss_menu ul li:hover > a,
+.vcss_menu ul li:focus-within > a {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+}
+
+/* Submenus */
+.vcss_menu li ul {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -1px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.vcss_menu li:hover > ul,
+.vcss_menu li:focus-within > ul {
+    display: block;
+}
