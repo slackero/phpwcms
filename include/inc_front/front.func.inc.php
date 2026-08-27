@@ -3828,10 +3828,8 @@ function getFrontendEditLink($type='', $id_1=0, $id_2=0, $uid=0) {
         return '';
     }
 
-    // init JSLib
-    initJSLib();
-
-    // set specific frontend editing link
+    // set specific frontend editing link and FontAwesome stylesheet
+    set_css_link('include/inc_css/fontawesome.solid.min.css', false);
     set_css_link('inc_css/specific/frontend_edit.css');
 
     $link  = '';

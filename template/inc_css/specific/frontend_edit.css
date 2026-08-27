@@ -10,7 +10,7 @@ a.fe-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 14px;
     line-height: 1;
@@ -52,7 +52,7 @@ a.fe-link.fe-structure::before { content: "\f07c"; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Font Awesome 6 Free", "Font Awesome 5 Free", "FontAwesome", sans-serif;
+    font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 12px;
     line-height: 1;

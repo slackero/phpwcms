@@ -54,8 +54,20 @@ function initSlimbox() {
  */
 function init_frontend_edit_js() {
 
-    initJSPlugin('switchClass');
-    $GLOBALS['block']['js_ondomready'][] = '$("a.fe-link").toggle();$("#fe-link").on("click", function(){$(this).switchClass("enabled","disabled");$("a.fe-link").toggle();});';
+    $GLOBALS['block']['custom_htmlhead']['frontend_edit.js'] = '  <script' . SCRIPT_ATTRIBUTE_TYPE . '>' . LF .
+        '  document.addEventListener("DOMContentLoaded", function() {' . LF .
+        '    var feToggle = document.getElementById("fe-link");' . LF .
+        '    var feLinks = document.querySelectorAll("a.fe-link");' . LF .
+        '    feLinks.forEach(function(el) { el.style.display = "none"; });' . LF .
+        '    if (feToggle) {' . LF .
+        '      feToggle.addEventListener("click", function() {' . LF .
+        '        var isEnabled = feToggle.classList.toggle("enabled");' . LF .
+        '        feToggle.classList.toggle("disabled", !isEnabled);' . LF .
+        '        feLinks.forEach(function(el) { el.style.display = isEnabled ? "inline-flex" : "none"; });' . LF .
+        '      });' . LF .
+        '    }' . LF .
+        '  });' . LF .
+        '  </script>';
 
 }
 

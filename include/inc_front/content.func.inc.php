@@ -1175,6 +1175,8 @@ $content['all'] = str_replace('{LAZY_LOADING}', PHPWCMS_LAZY_LOADING, $content['
 // render frontend edit related content and JavaScript
 if(FE_EDIT_LINK) {
     init_frontend_edit_js();
+    set_css_link('include/inc_css/fontawesome.solid.min.css', false);
+    set_css_link('inc_css/specific/frontend_edit.css');
     $content['all'] .= LF . '<div id="fe-link" class="disabled"></div>' . LF;
 }
 
