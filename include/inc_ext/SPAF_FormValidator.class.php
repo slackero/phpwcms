@@ -24,6 +24,8 @@ class SPAF_FormValidator {
         '10.png',
         '11.png',
         '12.png',
+        '100.png',
+        '101.png',
     ];
     public array $fonts = [
         'solmetra1.ttf',
