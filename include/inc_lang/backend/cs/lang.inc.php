@@ -1646,3 +1646,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Vyhrazený standardn
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Texty';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'P\u0159eklady \u0161ablon';
+$BL['be_admin_template_lang_desc']   = 'Spr&aacute;va automatick&yacute;ch <code>@@Text@@</code> p\u0159eklad\u016f ulo\u017een&yacute;ch v <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'P\u0159eklady byly &uacute;sp\u011b\u0161n\u011b ulo\u017eeny.';
+$BL['be_admin_template_lang_deleted'] = 'P\u0159ekladov&yacute; token byl &uacute;sp\u011b\u0161n\u011b smaz&aacute;n.';
+$BL['be_admin_template_lang_token_added'] = 'Nov&yacute; p\u0159ekladov&yacute; token byl &uacute;sp\u011b\u0161n\u011b p\u0159id&aacute;n.';
+$BL['be_admin_template_lang_empty']  = 'Nebyly nalezeny \u017e&aacute;dn&eacute; p\u0159ekladov&eacute; tokeny.';
+$BL['be_admin_template_lang_token']  = 'Token / V&yacute;choz&iacute; text';
+$BL['be_admin_template_lang_trans']  = 'P\u0159eklad';
+$BL['be_admin_template_lang_all']    = 'V\u0161e';
+$BL['be_admin_template_lang_missing'] = 'Chyb\u011bj&iacute;c&iacute; p\u0159eklad';
+$BL['be_admin_template_lang_translated'] = 'P\u0159elo\u017eeno';
+$BL['be_admin_template_lang_add']    = 'P\u0159idat token';
+$BL['be_admin_template_lang_filter'] = 'Filtr';
+$BL['be_admin_template_lang_search'] = 'Hledat tokeny nebo p\u0159eklady&#8230;';
+$BL['be_admin_template_lang_items']  = 'Polo\u017eky';
+

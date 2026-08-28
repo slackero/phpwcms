@@ -1658,3 +1658,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Varattu vakiotunnist
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Tekstit';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Sivupohjan k&auml;&auml;nn&ouml;kset';
+$BL['be_admin_template_lang_desc']   = 'Hallitse automaattisia <code>@@Teksti@@</code> julkisen puolen k&auml;&auml;nn&ouml;ksi&auml; kohteessa <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'K&auml;&auml;nn&ouml;kset tallennettu onnistuneesti.';
+$BL['be_admin_template_lang_deleted'] = 'K&auml;&auml;nn&ouml;stunniste poistettu onnistuneesti.';
+$BL['be_admin_template_lang_token_added'] = 'Uusi k&auml;&auml;nn&ouml;stunniste lis&auml;tty onnistuneesti.';
+$BL['be_admin_template_lang_empty']  = 'K&auml;&auml;nn&ouml;stunnisteita ei l&ouml;ytynyt.';
+$BL['be_admin_template_lang_token']  = 'Tunniste / Oletusteksti';
+$BL['be_admin_template_lang_trans']  = 'K&auml;&auml;nn&ouml;s';
+$BL['be_admin_template_lang_all']    = 'Kaikki';
+$BL['be_admin_template_lang_missing'] = 'Puuttuva k&auml;&auml;nn&ouml;s';
+$BL['be_admin_template_lang_translated'] = 'K&auml;&auml;nnetty';
+$BL['be_admin_template_lang_add']    = 'Lis&auml;&auml; tunniste';
+$BL['be_admin_template_lang_filter'] = 'Suodatin';
+$BL['be_admin_template_lang_search'] = 'Etsi tunnisteita tai k&auml;&auml;nn&ouml;ksi&auml;&#8230;';
+$BL['be_admin_template_lang_items']  = 'Kohteet';
+

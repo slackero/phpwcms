@@ -1655,3 +1655,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reservert standard t
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Tekster';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Maloversettelser';
+$BL['be_admin_template_lang_desc']   = 'Administrer automatiske <code>@@Tekst@@</code> frontend-oversettelser lagret under <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Oversettelser lagret.';
+$BL['be_admin_template_lang_deleted'] = 'Oversettelsestoken slettet.';
+$BL['be_admin_template_lang_token_added'] = 'Nytt oversettelsestoken lagt til.';
+$BL['be_admin_template_lang_empty']  = 'Ingen oversettelsestokens funnet.';
+$BL['be_admin_template_lang_token']  = 'Token / Standardtekst';
+$BL['be_admin_template_lang_trans']  = 'Oversettelse';
+$BL['be_admin_template_lang_all']    = 'Alle';
+$BL['be_admin_template_lang_missing'] = 'Manglende oversettelse';
+$BL['be_admin_template_lang_translated'] = 'Oversatt';
+$BL['be_admin_template_lang_add']    = 'Legg til token';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'S&oslash;k etter tokens eller oversettelser&#8230;';
+$BL['be_admin_template_lang_items']  = 'Elementer';
+

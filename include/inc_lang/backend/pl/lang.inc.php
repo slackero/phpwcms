@@ -1628,3 +1628,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Zastrzeżona nazwa t
 $BL['be_cnt_expand_all']           = 'Rozwiń wszystko';
 $BL['be_cnt_collapse_all']         = 'Zwiń wszystko';
 $BL['be_cnt_texts']                = 'Teksty';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'T\u0142umaczenia szablon&oacute;w';
+$BL['be_admin_template_lang_desc']   = 'Zarz\u0105dzaj automatycznymi t\u0142umaczeniami <code>@@Tekst@@</code> zapisanymi w <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'T\u0142umaczenia zosta\u0142y pomy\u015blnie zapisane.';
+$BL['be_admin_template_lang_deleted'] = 'Token t\u0142umaczenia zosta\u0142 usuni\u0119ty.';
+$BL['be_admin_template_lang_token_added'] = 'Nowy token t\u0142umaczenia zosta\u0142 dodany.';
+$BL['be_admin_template_lang_empty']  = 'Nie znaleziono token&oacute;w t\u0142umacze\u0144.';
+$BL['be_admin_template_lang_token']  = 'Token / Tekst domy\u015blny';
+$BL['be_admin_template_lang_trans']  = 'T\u0142umaczenie';
+$BL['be_admin_template_lang_all']    = 'Wszystkie';
+$BL['be_admin_template_lang_missing'] = 'Brakuj\u0105ce t\u0142umaczenie';
+$BL['be_admin_template_lang_translated'] = 'Przet\u0142umaczone';
+$BL['be_admin_template_lang_add']    = 'Dodaj token';
+$BL['be_admin_template_lang_filter'] = 'Filtr';
+$BL['be_admin_template_lang_search'] = 'Szukaj token&oacute;w lub t\u0142umacze\u0144&#8230;';
+$BL['be_admin_template_lang_items']  = 'Elementy';
+

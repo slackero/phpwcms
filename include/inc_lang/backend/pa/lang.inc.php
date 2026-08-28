@@ -1628,3 +1628,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserved standard ta
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'ਟੈਕਸਟ';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Template Translations';
+$BL['be_admin_template_lang_desc']   = 'Manage automatic <code>@@Text@@</code> frontend translations stored under <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Translations saved successfully.';
+$BL['be_admin_template_lang_deleted'] = 'Translation token deleted successfully.';
+$BL['be_admin_template_lang_token_added'] = 'New translation token added successfully.';
+$BL['be_admin_template_lang_empty']  = 'No translation tokens found.';
+$BL['be_admin_template_lang_token']  = 'Token / Default Text';
+$BL['be_admin_template_lang_trans']  = 'Translation';
+$BL['be_admin_template_lang_all']    = 'All';
+$BL['be_admin_template_lang_missing'] = 'Missing translation';
+$BL['be_admin_template_lang_translated'] = 'Translated';
+$BL['be_admin_template_lang_add']    = 'Add Token';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'Search tokens or translations&#8230;';
+$BL['be_admin_template_lang_items']  = 'Items';
+

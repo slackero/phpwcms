@@ -1663,3 +1663,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Vyhradený štandard
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Texty';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Preklady \u0161abl&oacute;n';
+$BL['be_admin_template_lang_desc']   = 'Spr&aacute;va automatick&yacute;ch <code>@@Text@@</code> prekladov ulo\u017een&yacute;ch v <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Preklady boli &uacute;spe\u0161ne ulo\u017een&eacute;.';
+$BL['be_admin_template_lang_deleted'] = 'Prekladov&yacute; token bol &uacute;spe\u0161ne zmazan&yacute;.';
+$BL['be_admin_template_lang_token_added'] = 'Nov&yacute; prekladov&yacute; token bol &uacute;spe\u0161ne pridan&yacute;.';
+$BL['be_admin_template_lang_empty']  = 'Neboli n&aacute;jden&eacute; \u017eiadne prekladov&eacute; tokeny.';
+$BL['be_admin_template_lang_token']  = 'Token / Predvolen&yacute; text';
+$BL['be_admin_template_lang_trans']  = 'Preklad';
+$BL['be_admin_template_lang_all']    = 'V\u0161etko';
+$BL['be_admin_template_lang_missing'] = 'Ch&yacute;baj&uacute;ci preklad';
+$BL['be_admin_template_lang_translated'] = 'Prelo\u017een&eacute;';
+$BL['be_admin_template_lang_add']    = 'Prida\u0165 token';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'H\u013eada\u0165 tokeny alebo preklady&#8230;';
+$BL['be_admin_template_lang_items']  = 'Polo\u017eky';
+

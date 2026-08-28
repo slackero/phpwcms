@@ -1629,3 +1629,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nom de balise standa
 $BL['be_cnt_expand_all']           = 'Tout déplier';
 $BL['be_cnt_collapse_all']         = 'Tout replier';
 $BL['be_cnt_texts']                = 'Textes';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Traductions de template';
+$BL['be_admin_template_lang_desc']   = 'G&eacute;rer les traductions automatiques <code>@@Texte@@</code> du frontend stock&eacute;es sous <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Traductions enregistr&eacute;es avec succ&egrave;s.';
+$BL['be_admin_template_lang_deleted'] = 'Cl&eacute; de traduction supprim&eacute;e avec succ&egrave;s.';
+$BL['be_admin_template_lang_token_added'] = 'Nouvelle cl&eacute; de traduction ajout&eacute;e avec succ&egrave;s.';
+$BL['be_admin_template_lang_empty']  = 'Aucune cl&eacute; de traduction trouv&eacute;e.';
+$BL['be_admin_template_lang_token']  = 'Cl&eacute; / Texte par d&eacute;faut';
+$BL['be_admin_template_lang_trans']  = 'Traduction';
+$BL['be_admin_template_lang_all']    = 'Tous';
+$BL['be_admin_template_lang_missing'] = 'Traduction manquante';
+$BL['be_admin_template_lang_translated'] = 'Traduit';
+$BL['be_admin_template_lang_add']    = 'Ajouter une cl&eacute;';
+$BL['be_admin_template_lang_filter'] = 'Filtrer';
+$BL['be_admin_template_lang_search'] = 'Rechercher des cl&eacute;s ou traductions&#8230;';
+$BL['be_admin_template_lang_items']  = '&Eacute;l&eacute;ments';
+

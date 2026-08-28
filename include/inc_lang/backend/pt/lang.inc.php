@@ -1662,3 +1662,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nome de tag padrão 
 $BL['be_cnt_expand_all']           = 'Expandir tudo';
 $BL['be_cnt_collapse_all']         = 'Recolher tudo';
 $BL['be_cnt_texts']                = 'Textos';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Tradu&ccedil;&otilde;es de templates';
+$BL['be_admin_template_lang_desc']   = 'Gerencie tradu&ccedil;&otilde;es autom&aacute;ticas <code>@@Texto@@</code> do frontend salvas em <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Tradu&ccedil;&otilde;es salvas com sucesso.';
+$BL['be_admin_template_lang_deleted'] = 'Token de tradu&ccedil;&atilde;o exclu&iacute;do com sucesso.';
+$BL['be_admin_template_lang_token_added'] = 'Novo token de tradu&ccedil;&atilde;o adicionado com sucesso.';
+$BL['be_admin_template_lang_empty']  = 'Nenhum token de tradu&ccedil;&atilde;o encontrado.';
+$BL['be_admin_template_lang_token']  = 'Token / Texto padr&atilde;o';
+$BL['be_admin_template_lang_trans']  = 'Tradu&ccedil;&atilde;o';
+$BL['be_admin_template_lang_all']    = 'Todos';
+$BL['be_admin_template_lang_missing'] = 'Tradu&ccedil;&atilde;o ausente';
+$BL['be_admin_template_lang_translated'] = 'Traduzido';
+$BL['be_admin_template_lang_add']    = 'Adicionar token';
+$BL['be_admin_template_lang_filter'] = 'Filtrar';
+$BL['be_admin_template_lang_search'] = 'Pesquisar tokens ou tradu&ccedil;&otilde;es&#8230;';
+$BL['be_admin_template_lang_items']  = 'Itens';
+

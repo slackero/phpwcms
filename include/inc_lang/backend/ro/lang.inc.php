@@ -1654,3 +1654,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Nume de etichetă st
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Texte';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Traduceri \u0219abloane';
+$BL['be_admin_template_lang_desc']   = 'Gestionarea traducerilor automate <code>@@Text@@</code> stocate &icirc;n <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Traducerile au fost salvate cu succes.';
+$BL['be_admin_template_lang_deleted'] = 'Tokenul de traducere a fost \u0219ters cu succes.';
+$BL['be_admin_template_lang_token_added'] = 'Token nou de traducere ad&abreve;ugat cu succes.';
+$BL['be_admin_template_lang_empty']  = 'Nu s-au g&abreve;sit tokenuri de traducere.';
+$BL['be_admin_template_lang_token']  = 'Token / Text implicit';
+$BL['be_admin_template_lang_trans']  = 'Traducere';
+$BL['be_admin_template_lang_all']    = 'Toate';
+$BL['be_admin_template_lang_missing'] = 'Traducere lips&abreve;';
+$BL['be_admin_template_lang_translated'] = 'Tradus';
+$BL['be_admin_template_lang_add']    = 'Adaug&abreve; token';
+$BL['be_admin_template_lang_filter'] = 'Filtru';
+$BL['be_admin_template_lang_search'] = 'C&abreve;utare tokenuri sau traduceri&#8230;';
+$BL['be_admin_template_lang_items']  = 'Elemente';
+

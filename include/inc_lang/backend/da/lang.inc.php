@@ -1664,3 +1664,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserveret standard-
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Tekster';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Skabelonovers&aelig;ttelser';
+$BL['be_admin_template_lang_desc']   = 'Administrer automatiske <code>@@Tekst@@</code> frontend-overs&aelig;ttelser gemt under <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Overs&aelig;ttelser gemt med succes.';
+$BL['be_admin_template_lang_deleted'] = 'Overs&aelig;ttelsestoken slettet med succes.';
+$BL['be_admin_template_lang_token_added'] = 'Nyt overs&aelig;ttelsestoken tilf&oslash;jet med succes.';
+$BL['be_admin_template_lang_empty']  = 'Ingen overs&aelig;ttelsestokens fundet.';
+$BL['be_admin_template_lang_token']  = 'Token / Standardtekst';
+$BL['be_admin_template_lang_trans']  = 'Overs&aelig;ttelse';
+$BL['be_admin_template_lang_all']    = 'Alle';
+$BL['be_admin_template_lang_missing'] = 'Manglende overs&aelig;ttelse';
+$BL['be_admin_template_lang_translated'] = 'Oversat';
+$BL['be_admin_template_lang_add']    = 'Tilf&oslash;j token';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'S&oslash;g efter tokens eller overs&aelig;ttelser&#8230;';
+$BL['be_admin_template_lang_items']  = 'Elementer';
+

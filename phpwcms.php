@@ -418,6 +418,7 @@ if($BE['LANG'] === 'ar') {
                 }
                 if (in_array($_SESSION['wcs_user_id'], $grouparray['admtempl'])) {
                     $subnav .= subnavtext($BL['be_subnav_admin_templates'], 'phpwcms.php?do=admin&amp;p=11', $p, 11, 0);
+                    $subnav .= subnavtext($BL['be_admin_template_lang'] ?? 'Template Translations', 'phpwcms.php?do=admin&amp;p=17', $p, 17, 0);
                 }
                 if (has_admin_permission('admcustomcpt') || !empty($_SESSION['wcs_user_admin'])) {
                     $subnav .= subnavtext($BL['be_admin_custom_cpt'] ?? 'Custom Content Parts', 'phpwcms.php?do=admin&amp;p=16', $p, 16, 0);
@@ -624,6 +625,12 @@ if($BE['LANG'] === 'ar') {
             case 16: //Manage custom content parts
               if (has_admin_permission('admcustomcpt') || !empty($_SESSION['wcs_user_admin'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.custom_cpt.tmpl.php';
+              }
+              break;
+
+            case 17: //Template language translations
+              if (has_admin_permission('admtempl') || !empty($_SESSION['wcs_user_admin'])) {
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/admin.templatelang.tmpl.php';
               }
               break;
 

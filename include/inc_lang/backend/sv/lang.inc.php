@@ -1664,3 +1664,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Reserverat standardt
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Texter';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Mall&ouml;vers&auml;ttningar';
+$BL['be_admin_template_lang_desc']   = 'Hantera automatiska <code>@@Text@@</code> frontend-&ouml;vers&auml;ttningar som sparas under <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = '&Ouml;vers&auml;ttningar har sparats.';
+$BL['be_admin_template_lang_deleted'] = '&Ouml;vers&auml;ttningstoken har tagits bort.';
+$BL['be_admin_template_lang_token_added'] = 'Nytt &ouml;vers&auml;ttningstoken har lagts till.';
+$BL['be_admin_template_lang_empty']  = 'Inga &ouml;vers&auml;ttningstokens hittades.';
+$BL['be_admin_template_lang_token']  = 'Token / Standardtext';
+$BL['be_admin_template_lang_trans']  = '&Ouml;vers&auml;ttning';
+$BL['be_admin_template_lang_all']    = 'Alla';
+$BL['be_admin_template_lang_missing'] = 'Saknad &ouml;vers&auml;ttning';
+$BL['be_admin_template_lang_translated'] = '&Ouml;versatt';
+$BL['be_admin_template_lang_add']    = 'L&auml;gg till token';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'S&ouml;k tokens eller &ouml;vers&auml;ttningar&#8230;';
+$BL['be_admin_template_lang_items']  = 'Poster';
+

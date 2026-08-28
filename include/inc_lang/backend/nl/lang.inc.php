@@ -1628,3 +1628,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Gereserveerde standa
 $BL['be_cnt_expand_all']           = 'Alles uitvouwen';
 $BL['be_cnt_collapse_all']         = 'Alles samenvouwen';
 $BL['be_cnt_texts']                = 'Teksten';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Template vertalingen';
+$BL['be_admin_template_lang_desc']   = 'Beheer automatische <code>@@Tekst@@</code> frontend-vertalingen opgeslagen onder <code>template/template_lang</code>.';
+$BL['be_admin_template_lang_saved']  = 'Vertalingen succesvol opgeslagen.';
+$BL['be_admin_template_lang_deleted'] = 'Vertaalsleutel succesvol verwijderd.';
+$BL['be_admin_template_lang_token_added'] = 'Nieuwe vertaalsleutel succesvol toegevoegd.';
+$BL['be_admin_template_lang_empty']  = 'Geen vertaalsleutels gevonden.';
+$BL['be_admin_template_lang_token']  = 'Sleutel / Standaardtekst';
+$BL['be_admin_template_lang_trans']  = 'Vertaling';
+$BL['be_admin_template_lang_all']    = 'Alles';
+$BL['be_admin_template_lang_missing'] = 'Ontbrekende vertaling';
+$BL['be_admin_template_lang_translated'] = 'Vertaald';
+$BL['be_admin_template_lang_add']    = 'Sleutel toevoegen';
+$BL['be_admin_template_lang_filter'] = 'Filter';
+$BL['be_admin_template_lang_search'] = 'Zoek sleutels of vertalingen&#8230;';
+$BL['be_admin_template_lang_items']  = 'Items';
+

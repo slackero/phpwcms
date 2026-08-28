@@ -1302,7 +1302,7 @@
         "admin.pagelayout.tmpl.php",
         "admin.phpinfo.tmpl.php",
         "admin.redirect.tmpl.php",
-        "admin.settings.tmpl.php",
+        "admin.templatelang.tmpl.php",
         "admin.structform.tmpl.php",
         "admin.structlist.tmpl.php",
         "admin.templates.tmpl.php",

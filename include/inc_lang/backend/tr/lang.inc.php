@@ -1637,3 +1637,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Ayrılmış standart
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Metinler';
+
+// Template translations
+$BL['be_admin_template_lang']        = '\u015eablon &Ccedil;evirileri';
+$BL['be_admin_template_lang_desc']   = '<code>template/template_lang</code> alt\u0131ndaki otomatik <code>@@Metin@@</code> &ouml;ny&uuml;z &ccedil;evirilerini y&ouml;netin.';
+$BL['be_admin_template_lang_saved']  = '&Ccedil;eviriler ba\u015far\u0131yla kaydedildi.';
+$BL['be_admin_template_lang_deleted'] = '&Ccedil;eviri anahtar\u0131 ba\u015far\u0131yla silindi.';
+$BL['be_admin_template_lang_token_added'] = 'Yeni &ccedil;eviri anahtar\u0131 ba\u015far\u0131yla eklendi.';
+$BL['be_admin_template_lang_empty']  = '&Ccedil;eviri anahtar\u0131 bulunamad\u0131.';
+$BL['be_admin_template_lang_token']  = 'Anahtar / Varsay\u0131lan Metin';
+$BL['be_admin_template_lang_trans']  = '&Ccedil;eviri';
+$BL['be_admin_template_lang_all']    = 'T&uuml;m&uuml;';
+$BL['be_admin_template_lang_missing'] = 'Eksik &ccedil;eviri';
+$BL['be_admin_template_lang_translated'] = '&Ccedil;evrildi';
+$BL['be_admin_template_lang_add']    = 'Anahtar Ekle';
+$BL['be_admin_template_lang_filter'] = 'Filtrele';
+$BL['be_admin_template_lang_search'] = 'Anahtar veya &ccedil;eviri ara&#8230;';
+$BL['be_admin_template_lang_items']  = '&Ouml;geler';
+

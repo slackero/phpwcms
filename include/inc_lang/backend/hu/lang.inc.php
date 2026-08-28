@@ -1665,3 +1665,21 @@ $BL['be_admin_custom_cpt_err_reserved_field_key_simple'] = 'Fenntartott szabván
 $BL['be_cnt_expand_all']           = 'Expand all';
 $BL['be_cnt_collapse_all']         = 'Collapse all';
 $BL['be_cnt_texts']                = 'Szövegek';
+
+// Template translations
+$BL['be_admin_template_lang']        = 'Sablonford&iacute;t&aacute;sok';
+$BL['be_admin_template_lang_desc']   = 'Automatikus <code>@@Sz&ouml;veg@@</code> frontend ford&iacute;t&aacute;sok kezel&eacute;se a <code>template/template_lang</code> k&ouml;nyvt&aacute;rban.';
+$BL['be_admin_template_lang_saved']  = 'Ford&iacute;t&aacute;sok sikeresen mentve.';
+$BL['be_admin_template_lang_deleted'] = 'Ford&iacute;t&aacute;si kulcs sikeresen t&ouml;r&ouml;lve.';
+$BL['be_admin_template_lang_token_added'] = '&Uacute;j ford&iacute;t&aacute;si kulcs sikeresen hozz&aacute;adva.';
+$BL['be_admin_template_lang_empty']  = 'Nem tal&aacute;lhat&oacute;k ford&iacute;t&aacute;si kulcsok.';
+$BL['be_admin_template_lang_token']  = 'Kulcs / Alap&eacute;rtelmezett sz&ouml;veg';
+$BL['be_admin_template_lang_trans']  = 'Ford&iacute;t&aacute;s';
+$BL['be_admin_template_lang_all']    = 'Mind';
+$BL['be_admin_template_lang_missing'] = 'Hi&aacute;nyz&oacute; ford&iacute;t&aacute;s';
+$BL['be_admin_template_lang_translated'] = 'Leford&iacute;tva';
+$BL['be_admin_template_lang_add']    = 'Kulcs hozz&aacute;ad&aacute;sa';
+$BL['be_admin_template_lang_filter'] = 'Sz\u0171r\u0151';
+$BL['be_admin_template_lang_search'] = 'Kulcsok vagy ford&iacute;t&aacute;sok keres&eacute;se&#8230;';
+$BL['be_admin_template_lang_items']  = 'Elemek';
+
