@@ -1,4 +1,12 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
 // Language: FR
 // Language Code: fr
@@ -18,9 +26,9 @@ $BLM['prod_cat'] = 'Cat&eacute;gorie de produit';
 $BLM['cat_edit'] = 'Modifier la cat&eacute;gorie de produit';
 $BLM['prod_edit'] = 'Modifier le produit';
 $BLM['pref_edit'] = 'Modifier les pr&eacute;f&eacute;rences';
-$BLM['delete_entry'] = 'Voulez-vous vraiment supprimer la cat&eacute;gorie s&eacute;lectionn&eacute;e ?';
-$BLM['delete_product'] = 'Voulez-vous vraiment supprimer ce produit ?';
-$BLM['delete_order'] = 'Voulez-vous vraiment supprimer cette commande ?';
+$BLM['delete_entry'] = 'Voulez-vous vraiment supprimer la cat&eacute;gorie s&eacute;lectionn&eacute;e ?\nToutes les sous-cat&eacute;gories seront &eacute;galement supprim&eacute;es !\nSupprimer la cat&eacute;gorie : ';
+$BLM['delete_product'] = 'Voulez-vous vraiment supprimer ce produit ?\n';
+$BLM['delete_order'] = 'Voulez-vous vraiment supprimer cette commande ?\n';
 $BLM['th_ordnr'] = 'N&deg; commande';
 $BLM['th_modnr'] = 'N&deg; mod&egrave;le';
 $BLM['th_product'] = 'Produit';
@@ -31,7 +39,7 @@ $BLM['th_gross'] = 'Brut';
 $BLM['th_payment'] = 'Mode de paiement';
 $BLM['th_date'] = 'Date';
 $BLM['dec_point'] = ',';
-$BLM['thousands_sep'] = '';
+$BLM['thousands_sep'] = ' ';
 $BLM['shopprod_description0'] = 'Description courte';
 $BLM['shopprod_description1'] = 'Info produit 1';
 $BLM['shopprod_description2'] = 'Info produit 2';
@@ -54,11 +62,11 @@ $BLM['shopprod_currency'] = 'Devise';
 $BLM['shopprod_cart'] = 'Panier';
 $BLM['shopprod_max_cartitem'] = 'Produits max./panier';
 $BLM['shopprod_vat_rates'] = 'Taux de TVA';
-$BLM['shopprod_size'] = 'E.g. size <br />title <br />descr|+/-price|#suffix';
+$BLM['shopprod_size'] = 'ex. taille <br />titre <br />descr|+/-prix|#suffixe';
 $BLM['shopprod_color'] = 'ex. Couleur';
 $BLM['shopprod_url'] = 'Lien du produit';
-$BLM['shopprod_email_to'] = 'E-mail de commande entrante';
-$BLM['shopprod_email_from'] = 'E-mail de l&#039;exp&eacute;diteur';
+$BLM['shopprod_email_to'] = 'E-mail de commande entrante (Pour)';
+$BLM['shopprod_email_from'] = 'E-mail de l&#039;exp&eacute;diteur (De)';
 $BLM['shopprod_shipping'] = 'Frais de port';
 $BLM['shopprod_payment_method'] = 'Modes de paiement';
 $BLM['shopprod_payby_paypal'] = 'PayPal';
@@ -74,7 +82,7 @@ $BLM['shop_order'] = 'Commande';
 $BLM['shopprod_order_subject'] = 'Votre commande';
 $BLM['shopprod_subcategory'] = 'Sous-cat&eacute;gorie de';
 $BLM['shopprod_is_main_cat'] = 'Cat&eacute;gorie principale';
-$BLM['shopprod_listall'] = 'Lister sous "Tous les produits"';
+$BLM['shopprod_listall'] = 'Lister sous &quot;Tous les produits&quot;';
 $BLM['shopprod_id_shop'] = 'Cible boutique';
 $BLM['shopprod_id_cart'] = 'Cible panier';
 $BLM['shopprod_order'] = 'D&eacute;tails de la commande';
@@ -82,7 +90,7 @@ $BLM['shopprod_order_date'] = 'Date de commande';
 $BLM['shopprod_order_address'] = 'Adresse';
 $BLM['shopprod_order_region'] = 'R&eacute;gion';
 $BLM['shopprod_custom_field'] = 'Champ personnalis&eacute;';
-$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s \U\h\r';
+$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s';
 $BLM['shopprod_total_net'] = 'Total net';
 $BLM['shopprod_total_vat'] = 'Total TVA';
 $BLM['shopprod_total_gross'] = 'Total brut';
@@ -115,7 +123,7 @@ $BLM['shopprod_api'] = 'Interface API';
 $BLM['shopprod_api_access'] = 'Autoriser l&#039;acc&egrave;s';
 $BLM['shopprod_api_key'] = 'Cl&eacute; API';
 $BLM['shopprod_inventory'] = 'Stock';
-$BLM['shopprod_autosubtract_off'] = 'Ne PAS diminuer el stock lors de la commande';
+$BLM['shopprod_autosubtract_off'] = 'Ne PAS diminuer le stock lors de la commande';
 $BLM['order_edit'] = 'Modifier la commande';
 $BLM['shopprod_on_request'] = 'Sur demande uniquement';
 $BLM['shopprod_on_request_button'] = 'URL de demande';

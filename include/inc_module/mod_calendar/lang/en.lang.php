@@ -68,3 +68,4 @@ $BLM['more_info'] = '(generates pursuing link in frontend)';
 $BLM['repeat_till'] = 'time period';
 $BLM['till'] = 'till';
 $BLM['be_tt_edit'] = 'Edit date/event';
+

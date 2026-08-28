@@ -1,4 +1,12 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
 // Language: PL
 // Language Code: pl
@@ -18,9 +26,9 @@ $BLM['prod_cat'] = 'Kategoria produktu';
 $BLM['cat_edit'] = 'Edytuj kategori&#289; produktu';
 $BLM['prod_edit'] = 'Edytuj produkt';
 $BLM['pref_edit'] = 'Zmie&#324; preferencje';
-$BLM['delete_entry'] = 'Czy na pewno chcesz usun&#261;&#263; wybran&#261; kategori&#289;?';
-$BLM['delete_product'] = 'Czy na pewno chcesz usun&#261;&#263; ten produkt?';
-$BLM['delete_order'] = 'Czy na pewno chcesz usun&#261;&#263; to zam&oacute;wienie?';
+$BLM['delete_entry'] = 'Czy na pewno chcesz usun&#261;&#263; wybran&#261; kategori&#289;?\nWszystkie podkategorie r&oacute;wnie&#380; zostan&#261; usuni&#289;te!\nUsu&#324; kategori&#289;: ';
+$BLM['delete_product'] = 'Czy na pewno chcesz usun&#261;&#263; ten produkt?\n';
+$BLM['delete_order'] = 'Czy na pewno chcesz usun&#261;&#263; to zam&oacute;wienie?\n';
 $BLM['th_ordnr'] = 'Nr zam.';
 $BLM['th_modnr'] = 'Nr mod.';
 $BLM['th_product'] = 'Produkt';
@@ -31,7 +39,7 @@ $BLM['th_gross'] = 'Brutto';
 $BLM['th_payment'] = 'Forma p&#322;atno&#345;ci';
 $BLM['th_date'] = 'Data';
 $BLM['dec_point'] = ',';
-$BLM['thousands_sep'] = '';
+$BLM['thousands_sep'] = ' ';
 $BLM['shopprod_description0'] = 'Kr&oacute;tki opis';
 $BLM['shopprod_description1'] = 'Info o produkcie 1';
 $BLM['shopprod_description2'] = 'Info o produkcie 2';
@@ -54,11 +62,11 @@ $BLM['shopprod_currency'] = 'Waluta';
 $BLM['shopprod_cart'] = 'Koszyk';
 $BLM['shopprod_max_cartitem'] = 'Maks. produkt&oacute;w/koszyk';
 $BLM['shopprod_vat_rates'] = 'Stawki VAT';
-$BLM['shopprod_size'] = 'E.g. size <br />title <br />descr|+/-price|#suffix';
+$BLM['shopprod_size'] = 'np. rozmiar <br />tytu&#322; <br />opis|+/-cena|#przyrostek';
 $BLM['shopprod_color'] = 'np. Kolor';
 $BLM['shopprod_url'] = 'Link do produktu';
-$BLM['shopprod_email_to'] = 'E-mail o nowym zam&oacute;wieniu';
-$BLM['shopprod_email_from'] = 'E-mail nadawcy';
+$BLM['shopprod_email_to'] = 'E-mail o nowym zam&oacute;wieniu (Do)';
+$BLM['shopprod_email_from'] = 'E-mail nadawcy (Od)';
 $BLM['shopprod_shipping'] = 'Koszty wysy&#322;ki';
 $BLM['shopprod_payment_method'] = 'Metody p&#322;atno&#345;ci';
 $BLM['shopprod_payby_paypal'] = 'PayPal';
@@ -72,9 +80,9 @@ $BLM['shopprod_supported_ccard'] = 'Obs&#322;ugiwane';
 $BLM['shopprod_terms'] = 'Regulamin';
 $BLM['shop_order'] = 'Zam&oacute;wienie';
 $BLM['shopprod_order_subject'] = 'Twoje zam&oacute;wienie';
-$BLM['shopprod_subcategory'] = 'Podkategoria';
+$BLM['shopprod_subcategory'] = 'Podkategoria dla';
 $BLM['shopprod_is_main_cat'] = 'Kategoria g&#322;&oacute;wna';
-$BLM['shopprod_listall'] = 'Listuj w "Wszystkie produkty"';
+$BLM['shopprod_listall'] = 'Listuj w &quot;Wszystkie produkty&quot;';
 $BLM['shopprod_id_shop'] = 'Cel sklepu';
 $BLM['shopprod_id_cart'] = 'Cel koszyka';
 $BLM['shopprod_order'] = 'Szczeg&oacute;&#322;y zam&oacute;wienia';
@@ -82,7 +90,7 @@ $BLM['shopprod_order_date'] = 'Data zam&oacute;wienia';
 $BLM['shopprod_order_address'] = 'Adres';
 $BLM['shopprod_order_region'] = 'Region';
 $BLM['shopprod_custom_field'] = 'Pole niestandardowe';
-$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s \U\h\r';
+$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s';
 $BLM['shopprod_total_net'] = 'Suma netto';
 $BLM['shopprod_total_vat'] = 'Suma VAT';
 $BLM['shopprod_total_gross'] = 'Suma brutto';

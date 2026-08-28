@@ -1,32 +1,30 @@
 <?php
 
-// Language: IT
-// Language Code: it
-
+// first define main language vars
 $BLM['backend_menu'] = 'Statistiche';
 $BLM['listing_title'] = 'Statistiche';
 $BLM['listing_overview'] = 'Panoramica';
-$BLM['listing_overview_cnt'] = 'Elementi di contenuto utilizzati';
+$BLM['listing_overview_cnt'] = 'Contenuti utilizzati';
 $BLM['listing_overview_del'] = 'Articoli scaduti';
 $BLM['listing_overview_img'] = 'Alias immagini';
 $BLM['listing_polls'] = 'Sondaggi';
 $BLM['listing_subscriptions'] = 'Newsletter';
 $BLM['listing_subscriptions2'] = 'Mutazioni iscritti';
 $BLM['listing_guestbook'] = 'Libro degli ospiti';
-$BLM['listing_user'] = 'Registro utenti';
+$BLM['listing_user'] = 'Log utenti';
 $BLM['listing_activ'] = 'Attivazioni';
-$BLM['listing_seo'] = 'Registro SEO';
+$BLM['listing_seo'] = 'Log SEO';
 $BLM['listing_seo_top'] = 'Top 20';
 $BLM['overview_end'] = 'Scaduto il';
 $BLM['overview_mit'] = 'Contenitore';
 $BLM['searcharticle'] = 'Articoli trovati con contenitore';
 $BLM['overview_alias'] = 'Immagini senza alias';
 $BLM['overview_zentrale'] = 'Immagini nel centro file';
-$BLM['overview_fehlende'] = 'Aggiungi alias o descrizioni mancanti';
+$BLM['overview_fehlende'] = 'Completa alias o descrizioni mancanti';
 $BLM['overview_beschr'] = 'Descrizione articolo non ancora inserita';
 $BLM['overview_aalias'] = 'Alias articolo non ancora inserito';
-$BLM['overview_endd'] = 'Data di fine raggiunta, non pi&ugrave; visualizzato';
-$BLM['overview_start'] = 'Data di inizio non ancora raggiunta, non ancora visualizzato';
+$BLM['overview_endd'] = 'Data di fine raggiunta, non più visualizzato';
+$BLM['overview_start'] = 'Data di inizio non raggiunta, non ancora visualizzato';
 $BLM['overview_status'] = 'Stato di questi articoli:';
 $BLM['overview_aktiv'] = 'Articoli attivi:';
 $BLM['filename'] = 'Nome file';
@@ -46,23 +44,24 @@ $BLM['subscriptionsall'] = 'Tutte le iscrizioni';
 $BLM['subscriptionstatus'] = 'Stato';
 $BLM['subscriptionactiv'] = 'Attivato';
 $BLM['subscriptioninactiv'] = 'Disattivato';
-$BLM['log_delete_entry'] = 'Elimina voce di registro';
-$BLM['log_insert_blacklist'] = 'Aggiungi alla lista nera';
-$BLM['log_blacklist'] = 'Lista nera';
-$BLM['subscriptionslegend'] = '1=Ri-iscritto<br />2=Iscritto per la prima volta<br />3=Iscrizione confermata<br />4=Disiscritto';
+$BLM['log_delete_entry'] = 'Elimina voce di log';
+$BLM['log_insert_blacklist'] = 'Aggiungi a blacklist';
+$BLM['log_blacklist'] = 'Blacklist';
+$BLM['subscriptionslegend'] = '1=Reiscritto<br />2=Iscritto prima volta<br />3=Iscrizione confermata<br />4=Disiscritto';
 $BLM['listing_Colum1'] = 'Data';
-$BLM['listing_Colum2'] = 'Ri-iscritto';
-$BLM['listing_Colum3'] = 'Iscritto per la prima volta';
+$BLM['listing_Colum2'] = 'Reiscritto';
+$BLM['listing_Colum3'] = 'Prima iscrizione';
 $BLM['listing_Colum4'] = 'Iscrizione confermata';
 $BLM['listing_Colum5'] = 'Disiscritto';
 $BLM['tab_overview'] = 'Panoramica';
 $BLM['tab_downloads'] = 'Download';
 $BLM['tab_polls'] = 'Sondaggi';
 $BLM['tab_subscriptions'] = 'Newsletter';
-$BLM['tab_guestbook'] = 'Libro degli ospiti';
-$BLM['tab_user'] = 'Utenti';
+$BLM['tab_guestbook'] = 'Libro ospiti';
+$BLM['tab_user'] = 'Utente';
 $BLM['tab_activ'] = 'Attivazioni';
-$BLM['tab_seo'] = 'Registro SEO';
-$BLM['seo_title'] = 'Top 20 pagine richieste';
+$BLM['tab_seo'] = 'Log SEO';
+$BLM['seo_title'] = 'Top 20 delle pagine più richieste';
 $BLM['username'] = 'Utente';
 $BLM['userdatum'] = 'Accesso';
+

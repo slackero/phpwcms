@@ -1,4 +1,12 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
 // Language: ES
 // Language Code: es
@@ -18,9 +26,9 @@ $BLM['prod_cat'] = 'Categor&iacute;a de producto';
 $BLM['cat_edit'] = 'Editar categor&iacute;a de producto';
 $BLM['prod_edit'] = 'Editar producto';
 $BLM['pref_edit'] = 'Cambiar preferencias';
-$BLM['delete_entry'] = '&iquest;Desea realmente eliminar la categor&iacute;a seleccionada?';
-$BLM['delete_product'] = '&iquest;Desea realmente eliminar este producto?';
-$BLM['delete_order'] = '&iquest;Desea realmente eliminar este pedido?';
+$BLM['delete_entry'] = '&iquest;Desea realmente eliminar la categor&iacute;a seleccionada?\n&iexcl;Todas las subcategor&iacute;as se eliminar&aacute;n tambi&eacute;n!\nEliminar categor&iacute;a: ';
+$BLM['delete_product'] = '&iquest;Desea realmente eliminar este producto?\n';
+$BLM['delete_order'] = '&iquest;Desea realmente eliminar este pedido?\n';
 $BLM['th_ordnr'] = 'N&deg; pedido';
 $BLM['th_modnr'] = 'N&deg; modelo';
 $BLM['th_product'] = 'Producto';
@@ -54,7 +62,7 @@ $BLM['shopprod_currency'] = 'Moneda';
 $BLM['shopprod_cart'] = 'Cesta';
 $BLM['shopprod_max_cartitem'] = 'Productos m&aacute;x./cesta';
 $BLM['shopprod_vat_rates'] = 'Tipos de IVA';
-$BLM['shopprod_size'] = 'E.g. size <br />title <br />descr|+/-price|#suffix';
+$BLM['shopprod_size'] = 'ej. tama&ntilde;o <br />t&iacute;tulo <br />descr|+/-precio|#sufijo';
 $BLM['shopprod_color'] = 'ej. Color';
 $BLM['shopprod_url'] = 'Enlace del producto';
 $BLM['shopprod_email_to'] = 'Correo de pedido entrante';
@@ -74,7 +82,7 @@ $BLM['shop_order'] = 'Pedido';
 $BLM['shopprod_order_subject'] = 'Su pedido';
 $BLM['shopprod_subcategory'] = 'Subcategor&iacute;a de';
 $BLM['shopprod_is_main_cat'] = 'Categor&iacute;a principal';
-$BLM['shopprod_listall'] = 'Listar en "Todos los productos"';
+$BLM['shopprod_listall'] = 'Listar en &quot;Todos los productos&quot;';
 $BLM['shopprod_id_shop'] = 'Destino tienda';
 $BLM['shopprod_id_cart'] = 'Destino cesta';
 $BLM['shopprod_order'] = 'Detalles del pedido';
@@ -82,7 +90,7 @@ $BLM['shopprod_order_date'] = 'Fecha de pedido';
 $BLM['shopprod_order_address'] = 'Direcci&oacute;n';
 $BLM['shopprod_order_region'] = 'Regi&oacute;n';
 $BLM['shopprod_custom_field'] = 'Campo personalizado';
-$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s \U\h\r';
+$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s';
 $BLM['shopprod_total_net'] = 'Total neto';
 $BLM['shopprod_total_vat'] = 'Total IVA';
 $BLM['shopprod_total_gross'] = 'Total bruto';

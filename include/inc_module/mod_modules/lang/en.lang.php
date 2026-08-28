@@ -10,3 +10,4 @@ $BLM['listing_calendar'] = 'phpwcms calendar module';
 $BLM['promotext_calendar'] = 'The phpwcms calendar module enables you to build a feature-rich calendar.';
 $BLM['listing_user'] = 'phpwcms user management module';
 $BLM['promotext_user'] = 'The phpwcms user management module allows managing user data such as customers or association members.';
+

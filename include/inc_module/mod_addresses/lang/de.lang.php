@@ -1,6 +1,8 @@
 <?php
 
-// first define main language vars
+// Language: DE
+// Language Code: de
+
 $BLM['backend_menu'] = 'phpwcms Adressen';
 $BLM['listing_title'] = 'phpwcms Adressverwaltung';
 $BLM['create_new'] = 'Neuer Eintrag';

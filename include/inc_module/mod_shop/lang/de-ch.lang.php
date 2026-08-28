@@ -1,4 +1,12 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
 // Language: DE-CH
 // Language Code: de-ch
@@ -74,7 +82,7 @@ $BLM['shop_order'] = 'Bestellung';
 $BLM['shopprod_order_subject'] = 'Ihre Bestellung';
 $BLM['shopprod_subcategory'] = 'Subkategorie von';
 $BLM['shopprod_is_main_cat'] = 'Hauptkategorie';
-$BLM['shopprod_listall'] = 'Unter "Alle Produkte" listen';
+$BLM['shopprod_listall'] = 'Unter &quot;Alle Produkte&quot; listen';
 $BLM['shopprod_id_shop'] = 'Shop Ziel';
 $BLM['shopprod_id_cart'] = 'Warenkorb Ziel';
 $BLM['shopprod_order'] = 'Bestelldetails';

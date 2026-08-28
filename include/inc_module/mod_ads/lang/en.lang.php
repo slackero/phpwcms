@@ -1,6 +1,8 @@
 <?php
 
-// first define main language vars
+// Language: EN
+// Language Code: en
+
 $BLM['backend_menu'] = 'Banner ads';
 $BLM['listing_title'] = 'Banner ads';
 $BLM['create_new'] = 'Create new campaign';

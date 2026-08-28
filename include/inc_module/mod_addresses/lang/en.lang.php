@@ -1,6 +1,8 @@
 <?php
 
-// first define main language vars
+// Language: EN
+// Language Code: en
+
 $BLM['backend_menu'] = 'phpwcms Addresses';
 $BLM['listing_title'] = 'phpwcms address management';
 $BLM['create_new'] = 'Add entry';

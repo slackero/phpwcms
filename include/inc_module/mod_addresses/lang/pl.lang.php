@@ -3,8 +3,8 @@
 // Language: PL
 // Language Code: pl
 
-$BLM['backend_menu'] = 'Adresy';
-$BLM['listing_title'] = 'Adresy';
+$BLM['backend_menu'] = 'phpwcms Adresy';
+$BLM['listing_title'] = 'phpwcms Zarz&#261;dzanie adresami';
 $BLM['create_new'] = 'Dodaj wpis';
 $BLM['dealer_entry'] = 'Wpis adresowy';
 $BLM['dealer_title'] = 'Tytu&#322;';
@@ -45,10 +45,8 @@ $BLM['detail_text3'] = 'Lista plik&oacute;w';
 $BLM['get_coordinates'] = 'Pobierz wsp&oacute;&#322;rz&#289;dne';
 $BLM['show_map'] = 'Poka&#261; map&#289;';
 $BLM['proof_address'] = 'Sprawd&#378; adres!';
-$BLM['proof_address_alert1'] = 'Nie mo&#261;na ustali&#263; wsp&oacute;&#322;rz&#289;dnych geograficznych dla adresu 
-[%s].';
-$BLM['proof_address_alert2'] = 'Dane adresowe s&#261; niepe&#322;ne!
-Wprowad&#378; co najmniej ulic&#289;, kod pocztowy i miasto.';
+$BLM['proof_address_alert1'] = 'Nie mo&#261;na ustali&#263; wsp&oacute;&#322;rz&#289;dnych geograficznych dla adresu\n[%s].';
+$BLM['proof_address_alert2'] = 'Dane adresowe s&#261; niepe&#322;ne!\nWprowad&#378; co najmniej ulic&#289;, kod pocztowy i miasto.';
 $BLM['geocoding_error'] = 'B&#322;&#261;d geokodowania: ';
 $BLM['forminfo'] = '<b>Wprowad&#378; dane jak najbardziej kompletne i zweryfikowane!</b>';
 $BLM['error_zip'] = 'Kod pocztowy jest wymagany';

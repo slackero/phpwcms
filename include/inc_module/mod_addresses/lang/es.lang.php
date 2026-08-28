@@ -3,8 +3,8 @@
 // Language: ES
 // Language Code: es
 
-$BLM['backend_menu'] = 'Direcciones';
-$BLM['listing_title'] = 'Direcciones';
+$BLM['backend_menu'] = 'phpwcms Direcciones';
+$BLM['listing_title'] = 'Gesti&oacute;n de direcciones phpwcms';
 $BLM['create_new'] = 'A&ntilde;adir entrada';
 $BLM['dealer_entry'] = 'Entrada de direcci&oacute;n';
 $BLM['dealer_title'] = 'T&iacute;tulo';
@@ -45,10 +45,8 @@ $BLM['detail_text3'] = 'Lista de archivos';
 $BLM['get_coordinates'] = 'Obtener coordenadas';
 $BLM['show_map'] = 'Mostrar mapa';
 $BLM['proof_address'] = '&iexcl;Compruebe la direcci&oacute;n!';
-$BLM['proof_address_alert1'] = 'No se pudieron obtener las coordenadas geogr&aacute;ficas para la direcci&oacute;n 
-[%s].';
-$BLM['proof_address_alert2'] = '&iexcl;Los datos de la direcci&oacute;n est&aacute;n incompletos!
-Ingrese al menos calle, c&oacute;digo postal y ciudad.';
+$BLM['proof_address_alert1'] = 'No se pudieron obtener las coordenadas geogr&aacute;ficas para la direcci&oacute;n\n[%s].';
+$BLM['proof_address_alert2'] = '&iexcl;Los datos de la direcci&oacute;n est&aacute;n incompletos!\nIngrese al menos calle, c&oacute;digo postal y ciudad.';
 $BLM['geocoding_error'] = 'Error de geocodificaci&oacute;n: ';
 $BLM['forminfo'] = '<b>&iexcl;Ingrese datos lo m&aacute;s completos y comprobados posible!</b>';
 $BLM['error_zip'] = 'El c&oacute;digo postal es obligatorio';

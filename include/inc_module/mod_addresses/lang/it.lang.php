@@ -3,8 +3,8 @@
 // Language: IT
 // Language Code: it
 
-$BLM['backend_menu'] = 'Indirizzi';
-$BLM['listing_title'] = 'Indirizzi';
+$BLM['backend_menu'] = 'phpwcms Indirizzi';
+$BLM['listing_title'] = 'phpwcms Gestione indirizzi';
 $BLM['create_new'] = 'Aggiungi voce';
 $BLM['dealer_entry'] = 'Voce indirizzo';
 $BLM['dealer_title'] = 'Titolo';
@@ -45,10 +45,8 @@ $BLM['detail_text3'] = 'Elenco file';
 $BLM['get_coordinates'] = 'Ottieni coordinate';
 $BLM['show_map'] = 'Mostra mappa';
 $BLM['proof_address'] = 'Verifica l&#039;indirizzo!';
-$BLM['proof_address_alert1'] = 'Impossibile determinare le coordinate geografiche per l&#039;indirizzo 
-[%s].';
-$BLM['proof_address_alert2'] = 'I dati dell&#039;indirizzo sono incompleti!
-Inserisci almeno via, CAP e citt&agrave;.';
+$BLM['proof_address_alert1'] = 'Impossibile determinare le coordinate geografiche per l&#039;indirizzo\n[%s].';
+$BLM['proof_address_alert2'] = 'I dati dell&#039;indirizzo sono incompleti!\nInserisci almeno via, CAP e citt&agrave;.';
 $BLM['geocoding_error'] = 'Errore di geocodifica: ';
 $BLM['forminfo'] = '<b>Inserisci dati il pi&ugrave; possibile completi e verificati!</b>';
 $BLM['error_zip'] = 'Il CAP &egrave; obbligatorio';

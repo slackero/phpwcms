@@ -1,38 +1,37 @@
 <?php
 
-// Language: FR
-// Language Code: fr
-
-$BLM['backend_menu'] = 'Flux vers article';
+// first define main language vars
+$BLM['backend_menu'] = 'Flux vers articles';
 $BLM['listing_title'] = 'Importateur de flux vers articles';
 $BLM['create_new'] = 'Ajouter une source de flux';
 $BLM['delete_entry'] = 'Supprimer la source de flux';
 $BLM['listview'] = 'Vue en liste';
-$BLM['no_entry'] = 'Aucune source de flux trouv&eacute;e';
-$BLM['save_success'] = 'Nouvelle source de flux enregistr&eacute;e %2';
+$BLM['no_entry'] = 'Aucune source de flux trouvée';
+$BLM['save_success'] = 'Nouvelle source de flux enregistrée %2';
 $BLM['cnt_name'] = 'Titre';
-$BLM['cnt_text'] = 'URL de la source du flux';
+$BLM['cnt_text'] = 'URL de la source de flux';
 $BLM['cnt_status'] = 'Activer';
 $BLM['decimals'] = 2;
 $BLM['dec_point'] = ',';
-$BLM['thousands_sep'] = '';
-$BLM['cnt_object-structure_level_id'] = 'Cat&eacute;gorie/Niveau';
-$BLM['cnt_object-structure_empty'] = 'S&eacute;lectionner le niveau de structure. Attention !';
+$BLM['thousands_sep'] = ' ';
+$BLM['cnt_object-structure_level_id'] = 'Catégorie';
+$BLM['cnt_object-structure_empty'] = 'Sélectionner le niveau de structure. Attention !';
 $BLM['cnt_object-article_template_detail'] = $BL['be_article_forfull'] ?? '';
 $BLM['cnt_object-article_template_list'] = $BL['be_article_forlist'] ?? '';
 $BLM['cnt_object-author_id'] = $BL['be_article_articleowner'] ?? '';
-$BLM['cnt_object-image_folder_id'] = 'Dossier d&#039;importation d&#039;images';
-$BLM['cnt_object-import_status_email'] = 'E-mail de statut d&#039;importation';
+$BLM['cnt_object-image_folder_id'] = 'Importer l\'image dans le dossier';
+$BLM['cnt_object-import_status_email'] = 'E-mail de statut d\'importation';
 $BLM['cnt_object-author_name'] = 'Fallback ' . ($BL['be_article_username'] ?? '');
-$BLM['cnt_object-feed_cache'] = 'D&eacute;finir un intervalle de mise &agrave; jour personnalis&eacute;';
-$BLM['cnt_object-feed_cache_timeout'] = 'Intervalle de mise &agrave; jour';
-$BLM['cnt_object-feed_import_trigger_url'] = 'URL de d&eacute;clenchement d&#039;importation';
-$BLM['cnt_object-source_link_add'] = 'Ajouter l&#039;URL d&#039;origine de l&#039;&eacute;l&eacute;ment du flux';
-$BLM['cnt_object-source_link_text'] = 'Libell&eacute; de l&#039;URL d&#039;origine';
-$BLM['cnt_object-activate_after_import'] = 'Activer les nouveaux articles par d&eacute;faut';
-$BLM['cnt_object-image_url_replace'] = 'Cha&icirc;ne de remplacement de l&#039;URL de l&#039;image';
-$BLM['error_name'] = 'D&eacute;finir le titre de cet &eacute;l&eacute;ment d&#039;importation de flux';
-$BLM['error_url'] = 'Aucune URL de source de flux fournie';
-$BLM['error_url_notvalid'] = 'L&#039;URL de la source de flux n&#039;est pas valide ou accessible';
-$BLM['error_structure_level_id'] = 'Veuillez choisir la cat&eacute;gorie dans laquelle importer l&#039;&eacute;l&eacute;ment';
-$BLM['error_false_id'] = 'La source de flux avec l&#039;ID %s ne peut pas &ecirc;tre ouverte pour &eacute;dition';
+$BLM['cnt_object-feed_cache'] = 'Activer des intervalles de mise à jour personnalisés';
+$BLM['cnt_object-feed_cache_timeout'] = 'Intervalle de mise à jour';
+$BLM['cnt_object-feed_import_trigger_url'] = 'URL de déclenchement d\'importation';
+$BLM['cnt_object-source_link_add'] = 'Ajouter le lien source de l\'élément de flux';
+$BLM['cnt_object-source_link_text'] = 'Texte du lien source';
+$BLM['cnt_object-activate_after_import'] = 'Rendre les nouveaux articles visibles par défaut';
+$BLM['cnt_object-image_url_replace'] = 'Chaîne de recherche pour remplacer l\'URL de l\'image';
+$BLM['error_name'] = 'Définir le titre de cet import de flux';
+$BLM['error_url'] = 'Aucune URL de source de flux spécifiée';
+$BLM['error_url_notvalid'] = 'L\'URL de la source de flux est invalide ou inaccessible';
+$BLM['error_structure_level_id'] = 'Choisir la catégorie dans laquelle importer les éléments de flux en tant qu\'articles';
+$BLM['error_false_id'] = 'La source de flux avec l\'ID %s ne peut pas être ouverte pour modification';
+

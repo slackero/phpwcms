@@ -64,3 +64,4 @@ $BLM['tab_seo'] = 'SEO Log';
 $BLM['seo_title'] = 'Top 20 Requested Pages';
 $BLM['username'] = 'User';
 $BLM['userdatum'] = 'Login';
+

@@ -1,10 +1,12 @@
 <?php
 
-// first define main language vars
+// Language: DE
+// Language Code: de
+
 $BLM['backend_menu'] = 'Bannerwerbung';
 $BLM['listing_title'] = 'Bannerwerbung';
-$BLM['form_title'] = 'Bannerwerbung: Kampagne editieren';
 $BLM['create_new'] = 'Neue Kampagne erstellen';
+$BLM['form_title'] = 'Bannerwerbung: Kampagne editieren';
 $BLM['delete_entry'] = 'Die Kampagne wirklich l&ouml;schen?\n';
 $BLM['campaign_entry'] = 'Kampagne';
 $BLM['ad_format'] = 'Bannerformat';
@@ -27,24 +29,24 @@ $BLM['max_view_user'] = 'Max. Views/Besucher';
 $BLM['target_url'] = 'Ziel URL';
 $BLM['open_in'] = 'Target';
 $BLM['new_adplace'] = 'Bannerplatz erstellen';
-$BLM['adplace_title'] = 'Bannerplatz Titel';
 $BLM['form_adplace_title'] = 'Bannerwerbung: Werbeplatz (Frontend) editieren';
 $BLM['adplace_prefix'] = 'HTML Prefix';
 $BLM['adplace_suffix'] = 'HTML Suffix';
+$BLM['adplace_title'] = 'Bannerplatz Titel';
 $BLM['adplace'] = 'Bannerplatz';
 $BLM['delete_adplace'] = 'Den Bannerplatz wirklich l&ouml;schen?\n';
 $BLM['ad_type'] = 'Bannertyp';
 $BLM['ad_type_0'] = 'Bild';
-$BLM['ad_upload_image'] = 'Bild *.gif, *.jpg, *.jpeg oder *.png ausw&auml;hlen';
-$BLM['ad_upload_flash'] = 'Flash-Film *.swf ausw&auml;hlen';
-$BLM['ad_upload_css'] = 'Custom CSS Datei *.css ausw&auml;hlen';
 $BLM['ad_type_1'] = 'Flash (veraltet)';
-$BLM['ad_info'] = 'Erst nach Anlegen des Datensatzes k&ouml;nnen passende Medien hochgeladen und der Kampagne zugeordnet werden!';
 $BLM['ad_type_2'] = 'HTML';
 $BLM['ad_type_3'] = 'Flash Layer (veraltet)';
 $BLM['ad_type_4'] = 'HTML Prefix';
 $BLM['ad_type_5'] = 'HTML Suffix';
 $BLM['ad_type_6'] = 'Remote HTML';
+$BLM['ad_upload_image'] = 'Bild *.gif, *.jpg, *.jpeg oder *.png ausw&auml;hlen';
+$BLM['ad_upload_flash'] = 'Flash-Film *.swf ausw&auml;hlen';
+$BLM['ad_upload_css'] = 'Custom CSS Datei *.css ausw&auml;hlen';
+$BLM['ad_info'] = 'Erst nach Anlegen des Datensatzes k&ouml;nnen passende Medien hochgeladen und der Kampagne zugeordnet werden!';
 $BLM['ad_alt_image'] = 'Alternatives Bild';
 $BLM['ad_alt_text'] = 'ALT Text';
 $BLM['ad_title_text'] = 'TITLE Text';

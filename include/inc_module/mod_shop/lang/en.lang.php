@@ -1,6 +1,16 @@
 <?php
+/**
+ * phpwcms
+ *
+ * @author Oliver Georgi <og@phpwcms.org>
+ * @copyright Copyright (c) 2002-2026, Oliver Georgi
+ * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2
+ *
+ **/
 
-// first define main language vars
+// Language: EN
+// Language Code: en
+
 $BLM['backend_menu'] = 'Shop/Products';
 $BLM['listing_title'] = 'Shop/Products';
 $BLM['tab_default'] = 'Shop Summary';
@@ -28,19 +38,19 @@ $BLM['th_net'] = 'net total';
 $BLM['th_gross'] = 'gross total';
 $BLM['th_payment'] = 'pay by';
 $BLM['th_date'] = 'date';
-$BLM['dec_point'] = ',';
-$BLM['thousands_sep'] = '.';
+$BLM['dec_point'] = '.';
+$BLM['thousands_sep'] = ',';
 $BLM['shopprod_description0'] = 'Short description';
 $BLM['shopprod_description1'] = 'Product info 1';
 $BLM['shopprod_description2'] = 'Product info 2';
 $BLM['shopprod_description3'] = 'Product info 3';
 $BLM['shopprod_price'] = 'Price';
 $BLM['shopprod_name1'] = 'Product';
-$BLM['shopprod_name2'] = 'Additioal';
+$BLM['shopprod_name2'] = 'Additional';
 $BLM['shopprod_model'] = 'Model/type';
 $BLM['shopprod_ordernumber'] = 'Order number';
 $BLM['shopprod_netgross'] = 'Gross';
-$BLM['shopprod_net'] = 'Netto';
+$BLM['shopprod_net'] = 'Net';
 $BLM['shopprod_netgross_info'] = 'Price based on: Net (unchecked) = excl. VAT, Gross (checked) = price incl. VAT';
 $BLM['shopprod_vat'] = 'VAT';
 $BLM['shopprod_tag'] = 'Tag (*,*)';
@@ -80,7 +90,7 @@ $BLM['shopprod_order_date'] = 'Order date';
 $BLM['shopprod_order_address'] = 'Address';
 $BLM['shopprod_order_region'] = 'Region';
 $BLM['shopprod_custom_field'] = 'Additional field';
-$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s \U\h\r';
+$BLM['shopprod_date_long'] = 'd.m.Y, H:i:s';
 $BLM['shopprod_total_net'] = 'Total net';
 $BLM['shopprod_total_vat'] = 'VAT';
 $BLM['shopprod_total_gross'] = 'Total gross';
@@ -115,6 +125,6 @@ $BLM['shopprod_api_key'] = 'API key';
 $BLM['shopprod_inventory'] = 'Inventory';
 $BLM['shopprod_autosubtract_off'] = 'do NOT reduce inventory on order';
 $BLM['order_edit'] = 'Edit order';
-$BLM['shopprod_on_request'] = 'Order on reqeuest';
-$BLM['shopprod_on_request_button'] = 'Request url';
+$BLM['shopprod_on_request'] = 'Order on request';
+$BLM['shopprod_on_request_button'] = 'Request URL';
 $BLM['shopprod_on_request_url'] = 'https://www.example.com?title={PRODUCT}&article={NUM}';

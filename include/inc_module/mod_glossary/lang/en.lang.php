@@ -17,3 +17,4 @@ $BLM['max_words'] = 'Max. number of words from description';
 $BLM['no_entry'] = 'No entry found text';
 $BLM['highlight'] = 'Highlight';
 $BLM['highlight_descr'] = 'Tag glossary keyword in frontend';
+
