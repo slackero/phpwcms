@@ -1,6 +1,6 @@
 {
   "name": "tinymce-i18n",
-  "version": "26.7.13",
+  "version": "26.8.2",
   "description": "Languages for TinyMCE 4, 5, 6, 7 and 8",
   "keywords": [
     "i18n",
@@ -22,6 +22,6 @@
     "update": "sh update.sh"
   },
   "devDependencies": {
-    "js-beautify": "^1.15.4"
+    "js-beautify": "^2.0.3"
   }
 }
