@@ -47,9 +47,18 @@ $phpwcms['parse_url'] = [
 $phpwcms['host_root'] = '/';
 
 
-// Load configuration
+// Load configuration — prefer the real config, fall back to the shipped
+// distribution config so analysis works before conf.inc.php has been created.
 if (file_exists($projectRoot . '/include/config/conf.inc.php')) {
     require_once $projectRoot . '/include/config/conf.inc.php';
+} elseif (file_exists($projectRoot . '/include/config/dist.conf.inc.php')) {
+    require_once $projectRoot . '/include/config/dist.conf.inc.php';
+}
+
+// Guarantee the direct-access guard constant is set so phpwcms library files
+// do not bail out with "You Cannot Access This Script Directly" during analysis.
+if (!defined('PHPWCMS_INCLUDE_CHECK')) {
+    define('PHPWCMS_INCLUDE_CHECK', true);
 }
 
 // Load default settings and constant definitions under output buffering to swallow headers
