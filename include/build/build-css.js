@@ -42,6 +42,7 @@ const copyMap = [
     { src: '../../node_modules/flatpickr/dist/flatpickr.min.css', dest: 'inc_css/flatpickr.min.css' },
     { src: '../../node_modules/flatpickr/dist/themes/material_blue.css', dest: 'inc_css/flatpickr-material.min.css' },
     { src: '../../node_modules/tom-select/dist/css/tom-select.bootstrap5.css', dest: 'inc_css/tom-select.bootstrap5.css' },
+    { src: '../../node_modules/@fortawesome/fontawesome-free/css/solid.min.css', dest: 'inc_css/fontawesome.solid.min.css' },
     { src: '../../node_modules/video.js/dist/video-js.min.css', dest: '../template/lib/video-js/video-js.min.css' },
     { src: '../../node_modules/glightbox/dist/css/glightbox.min.css', dest: '../template/lib/glightbox/glightbox.min.css' },
     { src: '../../node_modules/vanilla-cookieconsent/dist/cookieconsent.css', dest: '../template/lib/cookieconsent3/cookieconsent.css' },

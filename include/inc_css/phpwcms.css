@@ -2201,6 +2201,106 @@ body.filebrowser table img,
 [data-bs-theme="dark"] .cp-block-cpset { background-color: #1e3540; color: #e6edf3; }
 [data-bs-theme="dark"] .cp-block-system { background-color: #42321c; color: #e6edf3; }
 
+/* Flatpickr date/time picker (material_blue theme stays light) */
+[data-bs-theme="dark"] .flatpickr-calendar {
+    background: var(--pw-bg-surface);
+    box-shadow: 1px 0 0 var(--pw-border), -1px 0 0 var(--pw-border),
+                0 1px 0 var(--pw-border), 0 -1px 0 var(--pw-border),
+                0 3px 13px rgba(0, 0, 0, 0.35);
+}
+
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-month,
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-prev-month,
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-next-month,
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-month .flatpickr-weekdayscontainer {
+    color: var(--pw-text);
+    fill: var(--pw-text);
+}
+
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-prev-month:hover svg,
+[data-bs-theme="dark"] .flatpickr-months .flatpickr-next-month:hover svg {
+    fill: var(--pw-text-bright);
+}
+
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months,
+[data-bs-theme="dark"] .flatpickr-current-month input,
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-month {
+    color: var(--pw-text-bright);
+}
+
+[data-bs-theme="dark"] .flatpickr-current-month .flatpickr-monthDropdown-months span,
+[data-bs-theme="dark"] .flatpickr-weekday {
+    color: var(--pw-text-muted);
+}
+
+[data-bs-theme="dark"] .flatpickr-day {
+    color: var(--pw-text);
+    border-radius: 0;
+}
+
+[data-bs-theme="dark"] .flatpickr-day:hover,
+[data-bs-theme="dark"] .flatpickr-day:focus {
+    background: var(--pw-bg-hover);
+    border-color: var(--pw-bg-hover);
+    color: var(--pw-text-bright);
+}
+
+[data-bs-theme="dark"] .flatpickr-day.today {
+    border-color: var(--pw-accent);
+}
+
+[data-bs-theme="dark"] .flatpickr-day.today:hover,
+[data-bs-theme="dark"] .flatpickr-day.today:focus {
+    background: var(--pw-accent);
+    border-color: var(--pw-accent);
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .flatpickr-day.selected,
+[data-bs-theme="dark"] .flatpickr-day.startRange,
+[data-bs-theme="dark"] .flatpickr-day.endRange,
+[data-bs-theme="dark"] .flatpickr-day.selected:hover,
+[data-bs-theme="dark"] .flatpickr-day.startRange:hover,
+[data-bs-theme="dark"] .flatpickr-day.endRange:hover,
+[data-bs-theme="dark"] .flatpickr-day.selected:focus,
+[data-bs-theme="dark"] .flatpickr-day.startRange:focus,
+[data-bs-theme="dark"] .flatpickr-day.endRange:focus {
+    background: var(--pw-accent);
+    border-color: var(--pw-accent);
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .flatpickr-day.inRange,
+[data-bs-theme="dark"] .flatpickr-day.prevMonthDay.inRange,
+[data-bs-theme="dark"] .flatpickr-day.nextMonthDay.inRange,
+[data-bs-theme="dark"] .flatpickr-day.today.inRange,
+[data-bs-theme="dark"] .flatpickr-day.selected.inRange,
+[data-bs-theme="dark"] .flatpickr-day.today:hover.inRange,
+[data-bs-theme="dark"] .flatpickr-day.today:focus.inRange {
+    background: var(--pw-menu-active-bg);
+    border-color: var(--pw-menu-active-bg);
+    box-shadow: -5px 0 0 var(--pw-menu-active-bg), 5px 0 0 var(--pw-menu-active-bg);
+}
+
+[data-bs-theme="dark"] .flatpickr-day.flatpickr-disabled,
+[data-bs-theme="dark"] .flatpickr-day.prevMonthDay,
+[data-bs-theme="dark"] .flatpickr-day.nextMonthDay {
+    color: #545d68;
+}
+
+[data-bs-theme="dark"] .flatpickr-time input,
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-time-separator,
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-am-pm {
+    color: var(--pw-text-bright);
+}
+
+[data-bs-theme="dark"] .flatpickr-time input:hover,
+[data-bs-theme="dark"] .flatpickr-time input:focus,
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-am-pm:hover,
+[data-bs-theme="dark"] .flatpickr-time .flatpickr-am-pm:focus {
+    background: var(--pw-bg-hover);
+}
+
 /* Setup wizard steps */
 [data-bs-theme="dark"] .setup-steps .setup-step {
     background-color: var(--pw-bg-raised);

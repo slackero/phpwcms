@@ -1138,7 +1138,7 @@ function initJsCalendar() {
 function initJsAutocompleter() {
     initJQuery();
     $GLOBALS['BE']['HEADER']['tom-select.js'] = getJavaScriptSourceLink('include/inc_js/jquery/tom-select.complete.min.js');
-    $GLOBALS['BE']['HEADER']['tom-select.css'] = ' <link href="include/inc_css/tom-select.bootstrap4.css" rel="stylesheet" type="text/css" />';
+    $GLOBALS['BE']['HEADER']['tom-select.css'] = ' <link href="include/inc_css/tom-select.bootstrap5.css" rel="stylesheet" type="text/css" />';
 }
 
 function initAceEditor() {
