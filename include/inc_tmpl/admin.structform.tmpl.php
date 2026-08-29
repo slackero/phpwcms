@@ -116,6 +116,15 @@ switch($acat_hidden) {
 
 }
 
+$cancel_url = 'phpwcms.php?' . get_token_get_string() . '&amp;do=' . (($do === 'admin') ? 'admin&amp;p=6' : 'articles');
+if ($acat_id === 'index' || $acat_id === 0) {
+    $cancel_url .= '#struct_0';
+} elseif (!empty($acat_id)) {
+    $cancel_url .= '#struct_' . intval($acat_id);
+} elseif (!empty($acat_struct)) {
+    $cancel_url .= '#struct_' . intval($acat_struct);
+}
+
 ?>
 <form action="include/inc_act/act_structure.php" method="post" name="editsitestructure" id="editsitestructure" onsubmit="selectAllOptions(this.acat_access);selectAllOptions(this.acat_cp);var x = wordcount(this.acat_name.value);if(x&lt;1) {alert('Fill in a category title! \n\n('+x+' words total)');this.acat_name.focus();return false;}">
 
@@ -132,7 +141,7 @@ switch($acat_hidden) {
     <div class="form-group align-items-center">
 			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
 			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 </div>
@@ -703,7 +712,7 @@ switch($acat_hidden) {
     <div class="form-group align-items-center">
 			<button name="submit" type="submit" class="btn btn-sm btn-blue" value="1"><i class="fa fa-rotate"></i> <?php echo empty($acat_id) ? $BL['be_article_cnt_button2'] : $BL['be_article_cnt_button1'] ?></button>
 			<button name="SubmitClose" type="submit" class="btn btn-sm btn-blue ms-1" value="1"><i class="fa fa-check"></i> <?php echo $BL['be_article_cnt_button3'] ?></button>
-			<a href="phpwcms.php?do=articles&amp;p=6" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
+			<a href="<?php echo $cancel_url; ?>" class="btn btn-sm btn-danger ms-3"><i class="fa fa-times"></i> <?php echo $BL['be_newsletter_button_cancel'] ?></a>
     </div>
   </div>
 

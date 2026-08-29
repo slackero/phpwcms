@@ -87,7 +87,7 @@ function list_public($pid, $counter, $zieldatei, $userID, $wcs_user_thumb, $phpw
                     }
                     echo '<tr'.$row_class.'>'."\n";
                     echo '<td width="30">';
-                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'"></i>';
+                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'"></i>';
                     echo '</td>'."\n";
                     echo "<td>";
                     echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];

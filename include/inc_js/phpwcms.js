@@ -53,13 +53,13 @@ function bsConfirm(confirmType, message, callback, customConfirmText, customCanc
             '    <div class="modal-content border-0 bg-transparent">' +
             '      <div class="alert shadow-lg mb-0 p-4 alert-container" role="alert" style="border-radius: 8px;">' +
             '        <div class="d-flex align-items-start">' +
-            '          <div class="mr-3 icon-container" style="font-size: 2rem; line-height: 1;">' +
+            '          <div class="me-3 icon-container" style="font-size: 2rem; line-height: 1;">' +
             '            <i></i>' +
             '          </div>' +
             '          <div style="flex: 1; min-width: 0;">' +
             '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
             '            <div class="d-flex justify-content-end">' +
-            '              <button type="button" class="btn btn-secondary mr-2 cancel-btn" data-dismiss="modal"></button>' +
+            '              <button type="button" class="btn btn-secondary me-2 cancel-btn" data-bs-dismiss="modal" data-dismiss="modal"></button>' +
             '              <button type="button" class="btn confirm-btn font-weight-bold"></button>' +
             '            </div>' +
             '          </div>' +
@@ -263,13 +263,13 @@ function bsAlert(message, callback) {
             '    <div class="modal-content border-0 bg-transparent">' +
             '      <div class="alert alert-light shadow-lg mb-0 p-4" role="alert" style="border-radius: 8px; border: 1px solid #dee2e6;">' +
             '        <div class="d-flex align-items-start">' +
-            '          <div class="mr-3 text-primary" style="font-size: 2rem; line-height: 1;">' +
+            '          <div class="me-3 text-primary" style="font-size: 2rem; line-height: 1;">' +
             '            <i class="fas fa-info-circle"></i>' +
             '          </div>' +
             '          <div style="flex: 1; min-width: 0;">' +
             '            <p class="confirm-message mb-3 text-dark font-weight-bold" style="font-size: 1.1rem;"></p>' +
             '            <div class="d-flex justify-content-end">' +
-            '              <button type="button" class="btn btn-primary confirm-btn text-white font-weight-bold" data-dismiss="modal">OK</button>' +
+            '              <button type="button" class="btn btn-primary confirm-btn text-white font-weight-bold" data-bs-dismiss="modal" data-dismiss="modal">OK</button>' +
             '            </div>' +
             '          </div>' +
             '        </div>' +
@@ -754,7 +754,8 @@ $(function () {
 
     if (typeof $.fn.tooltip === 'function') {
         $body.tooltip({
-            selector: '[data-toggle="tooltip"]',
+            selector: '[data-bs-toggle="tooltip"], [data-toggle="tooltip"]',
+            html: true,
             delay: {
                 show: 200,
                 hide: 50
@@ -1669,18 +1670,48 @@ function initSidebarToggle() {
     });
 }
 
+function initScrollAnchor() {
+    if (window.location.hash) {
+        try {
+            const hash = window.location.hash.substring(1);
+            if (!hash) return;
+            const targetEl = document.getElementById(hash) || (window.location.hash ? document.querySelector(window.location.hash) : null);
+            if (targetEl) {
+                setTimeout(() => {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 80);
+            }
+        } catch (e) {
+            try {
+                const hash = window.location.hash.substring(1);
+                const targetEl = document.getElementById(hash);
+                if (targetEl) {
+                    setTimeout(() => {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 80);
+                }
+            } catch (err) {}
+        }
+    }
+}
+
 if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initPhpwcmsTheme();
             initPhpwcmsCodeEditors();
             initSidebarToggle();
+            initScrollAnchor();
         });
     } else {
         initPhpwcmsTheme();
         initPhpwcmsCodeEditors();
         initSidebarToggle();
+        initScrollAnchor();
     }
+    window.addEventListener('load', () => {
+        initScrollAnchor();
+    });
 }
 
 

@@ -166,6 +166,12 @@ label a:focus,
     color: var(--pw-link-hover-color);
 }
 
+.badge {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+}
+
 .badge-align {
     display: inline-flex;
     align-items: center;
@@ -803,8 +809,15 @@ a.filein {
     border-top: 0 !important;
     border-bottom: 0 !important;
     background-color: transparent !important;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.table-borderless td.dir,
+.table .table-borderless td.dir {
+    padding-left: 5px !important;
 }
 
 /*LOGIN FORM*/
@@ -1351,27 +1364,31 @@ li.sortme {
 }
 
 .aclist-0 {
-    margin-left: 4.6rem;
+    margin-left: 2.45rem;
 }
 
 .aclist-1 {
-    margin-left: 3.3rem;
+    margin-left: 2.45rem;
 }
 
 .aclist-2 {
-    margin-left: 5.8rem;
+    margin-left: 3.65rem;
 }
 
 .aclist-3 {
-    margin-left: 7.0rem;
+    margin-left: 4.85rem;
 }
 
 .aclist-4 {
-    margin-left: 8.2rem;
+    margin-left: 6.05rem;
 }
 
 .aclist-5 {
-    margin-left: 9.4rem;
+    margin-left: 7.25rem;
+}
+
+.aclist-6 {
+    margin-left: 8.45rem;
 }
 
 .admin-slist {
@@ -1607,10 +1624,6 @@ table.table-borderless tr > td {
 }
 .bg-row-pink {
     background-color: #FFC4CB;
-}
-
-.cell-actions {
-    padding: 3px 5px 3px 0 !important;
 }
 
 .option-admin {

@@ -457,7 +457,7 @@ if(!empty($count_user_files)) { //Listing in case of user files/folders
                     echo '<i class="fa fa-plus fa-fw" aria-hidden="true"></i></a></td></tr>';
                 }
 
-                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                echo '<tr'.$row_class.'><td><i class="fa fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }

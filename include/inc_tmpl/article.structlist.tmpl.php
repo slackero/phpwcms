@@ -65,11 +65,11 @@ $child_count = get_root_childcount(0);
 //$an = $BL['be_admin_struct_index'];
 $an = $indexpage['acat_name'];
 
-$a  = "<tr class=\"hover-success bg-row-grey-medium\">\n";
-$a .= '<td>';
+$a  = "<tr class=\"hover-success bg-row-grey-medium scroll-anchor\" id=\"struct_0\">\n";
+$a .= '<td class="w-80">';
 $a .= "<table class=\"table-borderless\">\n<tr>\n";
 $a .= '<td class="text-nowrap">';
-$a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'">' : '';
+$a .= ($child_count) ? '<a href="phpwcms.php?do=articles&amp;open=0:'.(empty($_SESSION["structure"][0]) ? 1 : 0).'#struct_0">' : '';
 
 $a .= '<i class="fa fa-caret-'.($child_count ? (empty($_SESSION["structure"][0]) ? "right" : "down") : "right");
 $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
@@ -77,10 +77,10 @@ $a .= ' fa-fw" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 $info  = '<table class="text-start"><tr><td>ID:</td><td><b>0</b></td></tr>';
 $info .= '<tr><td>ALIAS:</td><td>'.$indexpage["acat_alias"].'</td></tr></table>';
 
-$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-html="true" title="'.html($info).'"></i>';
+$a .= '<i class="fa fa-folder fa-fw" aria-hidden="true" data-bs-toggle="tooltip" data-bs-html="true" title="'.html($info).'"></i>';
 
 $a .= "</td>\n";
-$a .= '<td width="97%"><strong>'.$an."</strong></td>\n</tr>\n</table></td>\n";
+$a .= '<td width="97%"><strong class="ms-1">'.$an."</strong></td>\n</tr>\n</table></td>\n";
 
 echo $a;
 echo '<td class="text-nowrap text-end">';

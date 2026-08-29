@@ -670,7 +670,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                             change_articledate($content["aid"]); //update article date too
                             update_cache(); // set cache timeout = 0
                             if(!empty($_POST['SubmitClose'])) {
-                                headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"]);
+                                headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"].'#'.$content["id"]);
                             }
                         }
 
@@ -716,7 +716,7 @@ if((isset($_GET['s']) && intval($_GET['s']) == 1) || isset($_GET['struct'])) { /
                             }
                             headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&aktion=2&id='.$content["aid"]."&acid=".$content["id"]);
                         } else {
-                            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"]);
+                            headerRedirect(PHPWCMS_URL.'phpwcms.php?'.get_token_get_string().'&do=articles&p=2&s=1&id='.$content["aid"].'#'.$content["id"]);
                         }
                     }
 

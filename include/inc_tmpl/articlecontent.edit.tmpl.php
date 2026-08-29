@@ -37,12 +37,13 @@ if(empty($content['article']['acat_id'])) { // Root structure
     });
 
     function cancelContentEdit() {
+        var returnUrl = 'phpwcms.php?' + CSRF_GET_TOKEN + '&do=articles&p=2&s=1&id=<?php echo $content["aid"] ?><?php echo !empty($content["id"]) ? "#" . $content["id"] : "" ?>';
         if ($('#articlecontent').serialize() !== initialContentFormData) {
             bsConfirmWarning('<?php echo js_singlequote($BL["be_dialog_warn_nosave"]); ?>', function() {
-                location.href='phpwcms.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+                location.href = returnUrl;
             }, '<?php echo js_singlequote($BL["be_yes"]); ?>', '<?php echo js_singlequote($BL["be_no"]); ?>');
         } else {
-            location.href='phpwcms.php?do=articles&p=2&s=1&id=<?php echo $content["aid"] ?>';
+            location.href = returnUrl;
         }
         return false;
     }

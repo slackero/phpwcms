@@ -168,7 +168,7 @@ if ($_SESSION['detail_page'] > $_entry['pages_total']) {
 
                 echo '<tr';
                 if (!$row['cat_pid']) {
-                    echo ' data-bs-toggle="tooltip" data-html="true" title="' . $BL['be_admin_page_category'] . ' ID: <b>' . $row['cat_id'] . '</b><br />' . $BL['be_cnt_sorting'] . ': <b>' . $row['cat_sort'] . '</b>)"';
+                    echo ' data-bs-toggle="tooltip" data-bs-html="true" title="' . $BL['be_admin_page_category'] . ' ID: <b>' . $row['cat_id'] . '</b><br />' . $BL['be_cnt_sorting'] . ': <b>' . $row['cat_sort'] . '</b>)"';
                 }
                 echo '>' . LF;
 

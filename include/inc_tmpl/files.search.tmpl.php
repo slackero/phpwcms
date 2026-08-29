@@ -177,7 +177,7 @@ if(isset($search["result"])) {
 
             echo '<tr'.$row_class.'>';
             echo '<td width="30">';
-            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
+            echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]).'"></i>';
             echo "</td>";
             echo "<td>";
             if(empty($_SESSION["wcs_user_admin"]) && $file_row["f_uid"] != $_SESSION["wcs_user_id"]) {

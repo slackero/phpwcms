@@ -530,7 +530,7 @@ $(function() {
     }
 ?>
 
-  <li class="rounded-0 list-group-item" id="<?php echo $row["acontent_id"]; ?>">
+  <li class="rounded-0 list-group-item scroll-anchor" id="<?php echo $row["acontent_id"]; ?>">
     <div class="row">
       <div class="col-sm-auto align-self-center">
         <span data-bs-toggle="tooltip" title="<?php echo $BL['be_func_struct_sort_up'].' / '.$BL['be_func_struct_sort_down'] ?>" class="handle text-muted"><i class="fa fa-grip-vertical"></i></span>

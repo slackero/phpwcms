@@ -46,11 +46,11 @@ $child_count		= get_root_childcount(0);
 $child_sort			= ( $child_count + 1 ) * 10;
 $struct_template	= _dbQuery('SELECT template_default, template_name FROM '.DB_PREPEND.'phpwcms_template WHERE template_trash=0 AND template_id='.intval($indexpage['acat_template']));
 
-echo "<tr class=\"hover-warning\">";
+echo "<tr class=\"hover-warning scroll-anchor\" id=\"struct_0\">";
 echo "<td width=\"450\">";
 echo "<table class=\"table-borderless\"><tr>";
 echo '<td class="text-nowrap">';
-echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."\">" : "";
+echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&amp;p=6&amp;open=0:".(empty($_SESSION["structure"][0])?1:0)."#struct_0\">" : "";
 echo '<i class="far fa-'.(($child_count) ? (empty($_SESSION["structure"][0]) ? "plus-square" : "minus-square") : "square").' fa-fw text-muted" aria-hidden="true"></i>'.(($child_count) ? "</a>" : "");
 echo '<i class="far fa-file text-muted mx-1" title="ID:0" ';
 echo 'onmouseover="Tip(\'ID: <b>0</b><br>', $BL['be_alias'], ': ', html($indexpage["acat_alias"]);

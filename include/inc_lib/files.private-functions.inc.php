@@ -161,7 +161,7 @@ function list_private($pid, $counter, $zieldatei, $userID, $cutID, $phpwcms) {
 
                     echo '<tr'.$row_class.">\n";
                     echo "<td width=30>";
-                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
+                    echo '<i class="fa fa-fw fa-'.ext_icon($file_row["f_ext"]).' fslist-'.($counter+1).'" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].'&lt;br&gt;Sort: '.$file_row["f_sort"].'&lt;br&gt;Name: '.html($file_row["f_name"]);
                     if($file_row["f_copyright"]) {
                         echo '&lt;br&gt;&copy;: '.html($file_row["f_copyright"]);
                     }

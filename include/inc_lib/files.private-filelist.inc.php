@@ -43,7 +43,7 @@ if(isset($file_result[0]['f_id'])) {
         }
         echo '<tr'.$row_class.">\n";
         echo "<td width=30>";
-        echo "<span class=\"admin-slist \" data-bs-toggle=\"tooltip\" data-html=\"true\" ";
+        echo "<span class=\"admin-slist \" data-bs-toggle=\"tooltip\" data-bs-html=\"true\" ";
 
         echo 'title="ID: '.$file_row["f_id"].' <br>Sort: . '.$file_row["f_sort"];
         echo '<br>Name: '.html($file_row["f_name"]);

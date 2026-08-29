@@ -122,7 +122,7 @@ if($count_user_files) { //Wenn überhaupt Public-Dateien vorhanden, dann Listing
                         }
                         echo '<tr'.$row_class.'>'."\n";
                         echo '<td width="30">';
-                        echo '<span class="admin-slist" data-bs-toggle="tooltip" data-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa fa-'.extimg($file_row["f_ext"]).'"></i></span>';
+                        echo '<span class="admin-slist" data-bs-toggle="tooltip" data-bs-html="true" title="ID: '.$file_row["f_id"].' <br>Sort: '.$file_row["f_sort"].'"><i class="fa fa-'.extimg($file_row["f_ext"]).'"></i></span>';
                         echo "</td>\n";
                         echo "<td>";
                         echo "<a href=\"fileinfo.php?public&amp;fid=".$file_row["f_id"];

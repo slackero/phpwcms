@@ -263,9 +263,9 @@ if(isset($_GET['open'])) {
 
           $child_count = get_filecat_childcount($row["fcat_id"]);
 
-          echo "<tr class=\"table-secondary fw-bold\">\n";
+          echo "<tr class=\"table-secondary fw-bold scroll-anchor\" id=\"fcat_".$row["fcat_id"]."\">\n";
           echo "<td>";
-          echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."\">" : "";
+          echo ($child_count) ? "<a href=\"phpwcms.php?do=admin&p=7&open=".$row["fcat_id"].":".(empty($_SESSION["fcatlist"][$row["fcat_id"]])?1:0)."#fcat_".$row["fcat_id"]."\">" : "";
           echo "<i class=\"fa fa-fw fa-caret-".(($child_count) ? (empty($_SESSION["fcatlist"][$row["fcat_id"]]) ? "right" : "down") : "right")." text-muted me-1\"></i>".(($child_count) ? "</a>" : "");
           echo "<span".(($row["fcat_needed"])?" class=\"text-danger\"":"").">".html($row["fcat_name"])."</span> <span class=\"badge badge-light border ms-1\">".$row["fcat_sort"]."</span></td>\n";
 

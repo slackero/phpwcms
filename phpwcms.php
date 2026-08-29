@@ -664,6 +664,9 @@ $BE['HEADER']['phpwcms.js'] = getJavaScriptSourceLink('include/inc_js/phpwcms.js
               include PHPWCMS_ROOT.'/include/inc_lib/admin.structure.inc.php';
               if (isset($_GET['struct'])) {
                   include PHPWCMS_ROOT.'/include/inc_tmpl/admin.structform.tmpl.php';
+              } else {
+                  include PHPWCMS_ROOT.'/include/inc_tmpl/article.structlist.tmpl.php';
+                  $phpwcms['be_parse_lang_process'] = true;
               }
               break;
         }
